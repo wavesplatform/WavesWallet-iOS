@@ -70,58 +70,81 @@ class NetworkManager: NSObject
         return Environments.current.servers.matcherUrl.relativeString.appending("/")
     }
    
-    @discardableResult fileprivate class func baseRequestWithUrl(_ url: String, method: HTTPMethod, parameters: Dictionary <String, Any>?, headers: HTTPHeaders? = nil, encoding: ParameterEncoding = URLEncoding.default, complete: @escaping ( _ completeInfo: JSON?, _ error: ResponseTypeError?) -> Void) -> DataRequest {
+    @discardableResult fileprivate class func baseRequestWithUrl(_ url: String, method: HTTPMethod, parameters: Dictionary <String, Any>?, headers: HTTPHeaders? = nil, encoding: ParameterEncoding = URLEncoding.default, complete: @escaping ( _ completeInfo: JSON?, _ error: NetworkError?) -> Void) -> DataRequest {
         
         return Alamofire.request(url, method: method, parameters : parameters, encoding: encoding, headers: headers)
             
             .responseJSON { response in
                 
-                let responseCode = response.response?.statusCode ?? 0
-                
                 if response.error != nil {
                     
                     let error = response.error as NSError?
                     
-                    if error?.code != NSURLErrorCancelled {
-                        complete(nil, .init(message: response.error?.localizedDescription ?? "", code: responseCode))
+                    if let error = error, error.code != NSURLErrorCancelled {
+                        
+                        if let data = response.data {
+                            complete(nil, NetworkError.error(data: data))
+                        }
+                        else {
+                            complete(nil, NetworkError.error(by: error))
+                        }
                     }
                 }
                 else if response.response?.statusCode != 200 {
-                    complete(nil, .init(message: (response.result.value as? NSDictionary)?["message"] as? String ?? "", code: responseCode))
+                    
+                    if let data = response.data {
+                        complete(nil, NetworkError.error(data: data))
+                    }
+                    else {
+                        complete(nil, NetworkError.serverError)
+                    }
                 }
                 else {
                     
                     if let dict = response.result.value as? NSDictionary {
+                        
                         if dict["status"] as? String == "error" {
-                            complete (nil, .init(message:  dict["message"] as? String ?? "", code: responseCode))
+                            
+                            if let data = response.data {
+                                complete(nil, NetworkError.error(data: data))
+                            }
+                            else {
+                                complete(nil, NetworkError.serverError)
+                            }
                         }
                         else if dict["error"] as? String != nil {
-                            complete(nil, .init(message:  dict["error"] as? String ?? "", code: responseCode))
+                            
+                            if let data = response.data {
+                                complete(nil, NetworkError.error(data: data))
+                            }
+                            else {
+                                complete(nil, NetworkError.notFound)
+                            }
                         }
                         else if let value = parsedObjectFromResponse(response.result.value) {
                             complete (JSON(value), nil)
                         }
                         else {
-                            complete (nil, .init(message: response.result.error?.localizedDescription ?? "", code: responseCode))
+                            complete(nil, NetworkError.serverError)
                         }
                     }
                     else if let value = parsedObjectFromResponse(response.result.value) {
                         complete(JSON(value), nil)
                     }
                     else {
-                        complete (nil, .init(message: response.result.error?.localizedDescription ?? "", code: responseCode))
+                        complete(nil, NetworkError.serverError)
                     }
                 }
         }
 
     }
 
-    @discardableResult class func postRequestWithUrl(_ url: String, parameters: Dictionary <String, Any>?, complete: @escaping ( _ completeInfo: JSON?, _ error: ResponseTypeError?) -> Void) -> DataRequest {
+    @discardableResult class func postRequestWithUrl(_ url: String, parameters: Dictionary <String, Any>?, complete: @escaping ( _ completeInfo: JSON?, _ error: NetworkError?) -> Void) -> DataRequest {
     
         return baseRequestWithUrl(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, complete: complete)
     }
     
-    @discardableResult class func getRequestWithUrl(_ url: String, parameters: Dictionary <String, Any>?, headers: HTTPHeaders? = nil,  complete: @escaping ( _ completeInfo: JSON?, _ error: ResponseTypeError?) -> Void) -> DataRequest {
+    @discardableResult class func getRequestWithUrl(_ url: String, parameters: Dictionary <String, Any>?, headers: HTTPHeaders? = nil,  complete: @escaping ( _ completeInfo: JSON?, _ error: NetworkError?) -> Void) -> DataRequest {
 
         return baseRequestWithUrl(url, method: .get, parameters: parameters, headers:headers, complete: complete)
     }

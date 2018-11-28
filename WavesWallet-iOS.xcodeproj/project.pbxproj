@@ -555,7 +555,6 @@
 		E9310D1921792D01008BF3EE /* SendConfirmationRecipientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9310D1821792D01008BF3EE /* SendConfirmationRecipientView.swift */; };
 		E9310D1B21792D14008BF3EE /* SendConfirmationRecipientView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9310D1A21792D13008BF3EE /* SendConfirmationRecipientView.xib */; };
 		E9310D1D217942C8008BF3EE /* BlueBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9310D1C217942C8008BF3EE /* BlueBgView.swift */; };
-		E93827DF1F20E38900E37599 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93827DE1F20E38900E37599 /* DataManager.swift */; };
 		E938356F20A472B4001A2509 /* HistoryTransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */; };
 		E945F4C4208B88DD00545776 /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E945F4C3208B88DD00545776 /* WalletViewController.swift */; };
 		E94A6E9F215AD53E001814F7 /* ContactDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A6E9E215AD53E001814F7 /* ContactDomainDTO.swift */; };
@@ -1397,7 +1396,6 @@
 		E9310D1821792D01008BF3EE /* SendConfirmationRecipientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmationRecipientView.swift; sourceTree = "<group>"; };
 		E9310D1A21792D13008BF3EE /* SendConfirmationRecipientView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SendConfirmationRecipientView.xib; sourceTree = "<group>"; };
 		E9310D1C217942C8008BF3EE /* BlueBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueBgView.swift; sourceTree = "<group>"; };
-		E93827DE1F20E38900E37599 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionCell.swift; sourceTree = "<group>"; };
 		E945B19E20F75B420081F4D2 /* ConfirmBackupStackInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackInputView.swift; sourceTree = "<group>"; };
 		E945F4C3208B88DD00545776 /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
@@ -4302,7 +4300,6 @@
 				0A7E0CDC20F369E20010CA6C /* Environment */,
 				F74240B41EAB8D1600C3B84D /* NodeManager.swift */,
 				E963CF811F1CF970001494FD /* NetworkManager.swift */,
-				E93827DE1F20E38900E37599 /* DataManager.swift */,
 				F7A86B641EA9DE4A004DBE81 /* WalletManager.swift */,
 				E971DA5120FFF4B600616A03 /* BiometricManager.swift */,
 			);
@@ -5143,7 +5140,6 @@
 				0AFA0C7A2174A2300003FE3B /* LegalViewController.swift in Sources */,
 				0A762D8E21639FA60019D447 /* TransactionHistoryPopupCell.swift in Sources */,
 				0AD2B57D20F63F8A007EE076 /* WalletDisplayData.swift in Sources */,
-				E93827DF1F20E38900E37599 /* DataManager.swift in Sources */,
 				E9B087E12163886800937644 /* DexCreateOrderTypes.swift in Sources */,
 				0AF922D8212E1234003BA067 /* ViewConfiguration.swift in Sources */,
 				0A218B8E215534E000B989A1 /* WalletSeedRepositoryLocal.swift in Sources */,
