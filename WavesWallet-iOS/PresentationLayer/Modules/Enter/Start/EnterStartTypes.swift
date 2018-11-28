@@ -24,13 +24,13 @@ extension EnterStartTypes.Block {
     var image: UIImage {
         switch self {
         case .blockchain:
-            return Images.Enter.blockchain80.image
+            return Images.userimgBlockchain80.image
         case .wallet:
-            return Images.Enter.wallet80.image
+            return Images.userimgWallet80.image
         case .dex:
-            return Images.Enter.dex80.image
+            return Images.userimgDex80.image
         case .token:
-            return Images.Enter.token80.image
+            return Images.userimgToken80.image
         }
     }
     

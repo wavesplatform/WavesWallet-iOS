@@ -74,14 +74,16 @@ extension WalletTypes.ViewModel.Section {
                 }
 
                 if asset1.isFavorite == true && asset2.isFavorite == false {
-                    return true
+                    return asset1.sortLevel < asset2.sortLevel
                 } else if asset1.isFavorite == false && asset2.isFavorite == true {
-                    return false
+                    return asset1.sortLevel < asset2.sortLevel
                 }
 
                 return asset1.sortLevel < asset2.sortLevel
             })
             .map { WalletTypes.ViewModel.Row.asset($0) }
+
+
         let generalSection: WalletTypes.ViewModel.Section = .init(kind: .general,
                                                                   items: generalItems,
                                                                   isExpanded: true)

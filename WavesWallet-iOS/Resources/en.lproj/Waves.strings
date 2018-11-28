@@ -9,12 +9,11 @@
 
 "accountpassword.button.signIn.title" = "Sign In";
 
-"accountpassword.textfield.error.atleastcharacters" = "at least %d characters";
+"accountpassword.error.wrongpassword" = "Wrong password";
+
+"accountpassword.textfield.error.atleastcharacters" = "Minimum %d characters";
 
 "accountpassword.textfield.password.placeholder" = "Account password";
-
-"addAddressbook.error.charactersMaximum" = "%d characters maximum";
-"addAddressbook.error.charactersMinimum" = "Minimum %d characters";
 
 "addAddressbook.button.cancel" = "Cancel";
 
@@ -23,6 +22,10 @@
 "addAddressbook.button.deleteAddress" = "Delete address";
 
 "addAddressbook.button.save" = "Save";
+
+"addAddressbook.error.charactersMaximum" = "%d characters maximum";
+
+"addAddressbook.error.charactersMinimum" = "Minimum %d characters";
 
 "addAddressbook.label.add" = "Add";
 
@@ -128,7 +131,7 @@
 
 "assetlist.button.allList" = "All list";
 
-"assetlist.button.myList" = "My list";
+"assetlist.button.myList" = "With balance";
 
 "assetlist.button.withBalance" = "With balance";
 
@@ -170,9 +173,17 @@
 
 "backup.savebackup.next.label.title" = "You will confirm this phrase on the next screen";
 
-"biometric.readfromkeychain" = "Authenticate to decrypt wallet private key and confirm your transaction";
+"biometric.readfromkeychain" = "Access to your wallet";
 
-"biometric.saveinkeychain" = "Authenticate to store encrypted wallet private key";
+"biometric.saveinkeychain" = "Access to your wallet";
+
+"cameraAccess.alert.allow" = "Allow Camera";
+
+"cameraAccess.alert.cancel" = "Cancel";
+
+"cameraAccess.alert.message" = "Camera access is required to make full use of this app";
+
+"cameraAccess.alert.title" = "Need Camera Access";
 
 "changepassword.button.confirm.title" = "Confirm";
 
@@ -182,7 +193,7 @@
 
 "changepassword.textfield.createpassword.title" = "New password";
 
-"changepassword.textfield.error.atleastcharacters" = "at least %d characters";
+"changepassword.textfield.error.atleastcharacters" = "Minimum %d characters";
 
 "changepassword.textfield.error.incorrectpassword" = "incorrect password";
 
@@ -217,6 +228,10 @@
 "createalias.error.minimumcharacters" = "Minimum 4 characters";
 
 "createalias.navigation.title" = "New alias";
+
+"dex.general.error.nothingHere" = "Nothing Here…";
+
+"dex.general.error.somethingWentWrong" = "Something went wrong";
 
 "dexchart.button.cancel" = "Cancel";
 
@@ -276,13 +291,13 @@
 
 "dexcreateorder.label.days" = "days";
 
+"dexcreateorder.label.error.notFundsFee" = "You don't have enough funds to pay the required fees.";
+
 "dexcreateorder.label.fee" = "Fee";
 
 "dexcreateorder.label.limitPriceIn" = "Limit Price in";
 
 "dexcreateorder.label.notEnough" = "Not enough";
-
-"dexcreateorder.label.error.notFundsFee" = "You don't have enough funds to pay the required fees.";
 
 "dexcreateorder.label.smallValue" = "Value is too small";
 
@@ -320,9 +335,9 @@
 
 "dexlist.label.price" = "Price";
 
-"dexlist.label.today" = "today";
+"dexlist.label.today" = "Today";
 
-"dexlist.label.yesterday" = "yesterday";
+"dexlist.label.yesterday" = "Yesterday";
 
 "dexlist.navigationBar.title" = "DEX";
 
@@ -430,13 +445,15 @@
 
 "enter.language.navigation.title" = "Change language";
 
-"general.tost.saveBackup.title" = "Save your backup phrase (SEED)";
-
-"general.tost.saveBackup.subtitle" = "Store your SEED safely, it is the only way to restore your wallet";
-
 "general.biometric.faceID.title" = "Face ID";
 
 "general.biometric.touchID.title" = "Touch ID";
+
+"general.error.subtitle.notfound" = "Do not worry, we are already fixing this problem.\nSoon everything will work!";
+
+"general.error.title.noconnectiontotheinternet" = "No connection to the Internet";
+
+"general.error.title.notfound" = "Oh… It's all broken!";
 
 "general.label.title.myasset" = "/ My Asset";
 
@@ -456,13 +473,9 @@
 
 "general.ticker.title.wavestoken" = "Waves Token";
 
-"cameraAccess.alert.title" = "Need Camera Access";
+"general.tost.saveBackup.subtitle" = "Store your SEED safely, it is the only way to restore your wallet";
 
-"cameraAccess.alert.message" = "Camera access is required to make full use of this app";
-
-"cameraAccess.alert.cancel" = "Cancel";
-
-"cameraAccess.alert.allow" = "Allow Camera";
+"general.tost.saveBackup.title" = "Save your backup phrase (SEED)";
 
 "hello.button.continue" = "Continue";
 
@@ -480,7 +493,7 @@
 
 "hello.page.info.fifth.title" = "How To Protect Yourself from Phishers";
 
-"hello.page.info.first.detail" = "Please take some time to understand some important things for your own safety. \n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.";
+"hello.page.info.first.detail" = "Please take some time to understand some important things for your own safety.\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.";
 
 "hello.page.info.first.title" = "Welcome to the Waves Platform!";
 
@@ -488,7 +501,7 @@
 
 "hello.page.info.fourth.title" = "How To Protect Yourself from Phishers";
 
-"hello.page.info.second.detail" = "When registering your account, you will be asked to save your secret phrase (Seed) and to protect your account with a password. On normal centralized servers, special attention is paid to the password, which can be changed and reset via email, if the need arises. However, on decentralized platforms such as Waves, everything is arranged differently:";
+"hello.page.info.second.detail" = "When registering your account, you will be asked to save your secret phrase (Seed) and to protect your account with a password. On normal centralized servers, special attention is paid to the password, which can be changed and reset via email, if the need arises. However, on decentralized platforms such as Waves, everything is arranged differently.";
 
 "hello.page.info.second.title" = "What you need to know about your SEED";
 
@@ -520,6 +533,10 @@
 
 "history.segmentedControl.sent" = "Sent";
 
+"history.transaction.cell.exchange.buy" = "Buy: %@/%@";
+
+"history.transaction.cell.exchange.sell" = "Sell: %@/%@";
+
 "history.transaction.title.alias" = "Create Alias";
 
 "history.transaction.title.canceledLeasing" = "Canceled Leasing";
@@ -530,12 +547,15 @@
 
 "history.transaction.title.incomingLeasing" = "Incoming Leasing";
 
+"history.transaction.title.massreceived" = "Mass Received";
+
+"history.transaction.title.masssent" = "Mass Sent";
+
 "history.transaction.title.received" = "Received";
 
 "history.transaction.title.selfTransfer" = "Self-transfer";
 
 "history.transaction.title.sent" = "Sent";
-
 
 "history.transaction.title.startedLeasing" = "Started Leasing";
 
@@ -561,11 +581,11 @@
 
 "import.account.navigation.title" = "Import account";
 
+"import.general.error.alreadyinuse" = "Already in use";
+
 "import.general.navigation.title" = "Import account";
 
 "import.general.segmentedControl.manually" = "Manually";
-
-"import.general.error.alreadyinuse" = "Already in use";
 
 "import.general.segmentedControl.scan" = "Scan";
 
@@ -607,7 +627,7 @@
 
 "legal.checkbox.box.third" = "I have read, understood, and agree to the";
 
-"legal.checkbox.box.title" = "Done! Let’s review.";
+"legal.checkbox.box.title" = "Done!";
 
 "menu.button.supportwavesplatform" = "Support Wavesplatform";
 
@@ -643,11 +663,13 @@
 
 "networksettings.textfield.spamfilter.title" = "Spam filter";
 
-"newaccount.avatar.detail" = "This avatar is unique. You cannot change it later.";
+"newaccount.avatar.detail" = "You cannot change it later";
 
-"newaccount.avatar.title" = "Choose your address avatar";
+"newaccount.avatar.title" = "Choose your unique address avatar";
 
 "newaccount.backup.navigation.title" = "New Account";
+
+"newaccount.error.noavatarselected" = "No avatar selected";
 
 "newaccount.main.navigation.title" = "New Account";
 
@@ -659,19 +681,27 @@
 
 "newaccount.textfield.createpassword.title" = "Create a password";
 
-"newaccount.textfield.error.atleastcharacters" = "at least %d characters";
-
-"newaccount.textfield.error.passwordnotmatch" = "password not match";
-
-"newaccount.textfield.error.minimumcharacters" = "Minimum %d characters";
+"newaccount.textfield.error.atleastcharacters" = "Minimum %d characters";
 
 "newaccount.textfield.error.charactersmaximum" = "%d characters maximum";
 
 "newaccount.textfield.error.doesnotmatch" = "Does not match";
 
-"newaccount.error.noavatarselected" = "No avatar selected";
+"newaccount.textfield.error.minimumcharacters" = "Minimum %d characters";
+
+"newaccount.textfield.error.passwordnotmatch" = "password not match";
 
 "newaccount.textfield.error.wrongordertryagain" = "Wrong order, try again";
+
+"passcode.alert.attempsended.button.cancel" = "Cancel";
+
+"passcode.alert.attempsended.button.enterpassword" = "Enter Password";
+
+"passcode.alert.attempsended.button.ok" = "Ok";
+
+"passcode.alert.attempsended.subtitle" = "To unlock, sign in with your account password";
+
+"passcode.alert.attempsended.title" = "Too many attempts";
 
 "passcode.button.forgotPasscode.title" = "Use account password";
 
@@ -737,8 +767,6 @@
 
 "profile.navigation.title" = "Profile";
 
-"receive.error.serviceUnavailable" = "Service is temporarily unavailable";
-
 "receive.button.card" = "Card";
 
 "receive.button.continue" = "Continue";
@@ -748,6 +776,8 @@
 "receive.button.invoice" = "Invoice";
 
 "receive.button.useTotalBalance" = "Use total balance";
+
+"receive.error.serviceUnavailable" = "Service is temporarily unavailable";
 
 "receive.label.amount" = "Amount";
 
@@ -857,23 +887,31 @@
 
 "sendconfirmation.label.sentTo" = "Sent to";
 
-"sendloading.label.sending" = "Sending...";
+"sendloading.label.sending" = "Sending…";
 
-"startleasingconfirmation.label.leasingTX" = "Leasing TX";
-"startleasingconfirmation.label.TXID" = "TXID";
-"startleasingconfirmation.label.confirmation" = "Confirmation";
-"startleasingconfirmation.label.nodeAddress" = "Node address";
-"startleasingconfirmation.label.fee" = "Fee";
-"startleasingconfirmation.button.confirm" = "Confirm";
-"startleasingconfirmation.button.cancelLeasing" = "Cancel leasing";
+"serverDisconnect.label.subtitle" = "Check your connection to the mobile Internet or Wi-Fi network";
 
-"startleasingloading.label.startLeasing" = "Start leasing...";
-"startleasingloading.label.cancelLeasing" = "Cancel leasing...";
+"serverDisconnect.label.title" = "No connection to the Internet";
 
-"startleasingcomplete.label.yourTransactionIsOnWay" = "Your transaction is on way!";
-"startleasingcomplete.label.youHaveLeased" = "You have leased %@ %@";
-"startleasingcomplete.label.youHaveCanceledTransaction" = "You have canceled a leasing transaction";
-"startleasingcomplete.button.okey" = "Okay";
+"serverEngineering.label.subtitle" = "Hi, at the moment we are doing a very important job of improving the application";
+
+"serverEngineering.label.title" = "Engineering works";
+
+"serverError.button.retry" = "Retry";
+
+"serverError.button.sendReport" = "Send a report";
+
+"serverError.label.allBroken" = "Oh… It's all broken!";
+
+"serverError.label.allBrokenDescription" = "Do not worry, we are already fixing this problem.\nSoon everything will work!";
+
+"serverError.label.noInternetConnection" = "No connection to the Internet";
+
+"serverError.label.noInternetConnectionDescription" = "Check your connection to the mobile Internet or Wi-Fi network";
+
+"serverError.label.subtitle" = "Do not worry, we are already fixing this problem.\nSoon everything will work!";
+
+"serverError.label.title" = "Oh… It's all broken!";
 
 "startleasing.button.chooseFromAddressBook" = "Choose from Address book";
 
@@ -883,7 +921,7 @@
 
 "startleasing.button.useTotalBalance" = "Use total balance";
 
-"startleasing.label.addressIsNotValid" = "The address is not valid";
+"startleasing.label.addressIsNotValid" = "Address is not valid";
 
 "startleasing.label.amount" = "Amount";
 
@@ -891,9 +929,11 @@
 
 "startleasing.label.generator" = "Generator";
 
-"startleasing.label.nodeAddress" = "Node address...";
-
 "startleasing.label.insufficientFunds" = "Insufficient funds";
+
+"startleasing.label.nodeAddress" = "Node address…";
+
+"startleasing.label.notEnough" = "Not enough";
 
 "startleasing.label.startLeasing" = "Start leasing";
 
@@ -921,9 +961,9 @@
 
 "startleasingconfirmation.label.nodeAddress" = "Node address";
 
-"startleasingloading.label.cancelLeasing" = "Cancel leasing...";
+"startleasingloading.label.cancelLeasing" = "Cancel leasing…";
 
-"startleasingloading.label.startLeasing" = "Start leasing...";
+"startleasingloading.label.startLeasing" = "Start leasing…";
 
 "tokenBurn.button.burn" = "Burn";
 
@@ -943,7 +983,7 @@
 
 "tokenBurn.label.id" = "ID";
 
-"tokenBurn.label.loading" = "Burn...";
+"tokenBurn.label.loading" = "Burn…";
 
 "tokenBurn.label.notReissuable" = "Not reissuable";
 
@@ -973,10 +1013,9 @@
 
 "transactionhistory.cell.button.sendAgain" = "Send again";
 
+"transactionhistory.cell.buy" = "Buy: %@/%@";
+
 "transactionhistory.cell.confirmations" = "Confirmations";
-
-"transactionhistory.cell.type" = "Type";
-
 
 "transactionhistory.cell.dataTransaction" = "Data Transaction";
 
@@ -1000,6 +1039,8 @@
 
 "transactionhistory.cell.reissuable" = "Reissuable";
 
+"transactionhistory.cell.sell" = "Sell: %@/%@";
+
 "transactionhistory.cell.sentTo" = "Sent to";
 
 "transactionhistory.cell.status.at" = "at";
@@ -1011,6 +1052,8 @@
 "transactionhistory.cell.status.button.unconfirmed" = "Unconfirmed";
 
 "transactionhistory.cell.status.timestamp" = "Timestamp";
+
+"transactionhistory.cell.type" = "Type";
 
 "transactionhistory.copy.amount" = "Amount";
 
@@ -1042,6 +1085,8 @@
 
 "wallet.label.leasedIn" = "Leased in";
 
+"wallet.label.myAssets" = "My Asset";
+
 "wallet.label.quickNote.description.first" = "You can only transfer or trade WAVES that aren’t leased. The leased amount cannot be transferred or traded by you or anyone else.";
 
 "wallet.label.quickNote.description.second" = "You can cancel a leasing transaction as soon as it appears in the blockchain which usually occurs in a minute or less.";
@@ -1068,8 +1113,6 @@
 
 "wallet.segmentedControl.leasing" = "Leasing";
 
-"wallet.label.myAssets" = "My Asset";
-
 "walletsort.button.position" = "Position";
 
 "walletsort.button.visibility" = "Visibility";
@@ -1083,38 +1126,3 @@
 "wavespopup.button.send" = "Send";
 
 "wavespopup.label.comingsoon" = "Coming soon";
-
-"general.error.title.noconnectiontotheinternet" = "No connection to the Internet";
-
-"accountpassword.error.wrongpassword" = "Wrong password";
-
-"general.error.title.notfound" = "Oh ... It's all broken!";
-"general.error.subtitle.notfound" = "Do not worry, we are already fixing this problem.\nSoon everything will work!";
-
-"serverError.label.noInternetConnection" = "No connection to the Internet";
-"serverError.label.noInternetConnectionDescription" = "Check your connection to the mobile Internet\nor Wi-Fi network";
-"serverError.label.allBroken" = "Oh ... It's all broken!";
-"serverError.label.allBrokenDescription" = "Do not worry, we are already fixing this problem.\nSoon everything will work!";
-"serverError.button.retry" = "Retry";
-"serverError.button.sendReport" = "Send a report";
-
-"dex.general.error.nothingHere" = "Nothing Here...";
-"dex.general.error.somethingWentWrong" = "Something went wrong";
-
-"history.transaction.title.masssent" = "Mass Sent";
-"history.transaction.title.massreceived" = "Mass Received";
-
-"history.transaction.cell.exchange.sell" = "Sell";
-"history.transaction.cell.exchange.buy" = "Buy";
-
-"passcode.alert.attempsended.title" = "To many attempts";
-"passcode.alert.attempsended.subtitle" = "To unlock, sign in with your account passord";
-"passcode.alert.attempsended.button.cancel" = "Cancel";
-"passcode.alert.attempsended.button.ok" = "Ok";
-"passcode.alert.attempsended.button.enterpassword" = "Enter Password";
-
-"history.transaction.cell.exchange.sell" = "Sell: %@/%@";
-"history.transaction.cell.exchange.buy" = "Buy: %@/%@";
-"transactionhistory.cell.sell" = "Sell: %@/%@";
-"transactionhistory.cell.buy" = "Buy: %@/%@";
-

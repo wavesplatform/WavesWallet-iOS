@@ -65,7 +65,11 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     private func reduce(state: inout HistoryTypes.State, event: HistoryTypes.Event) {
         switch event {
         case .readyView:
-            state.refreshData = .refresh
+            if state.refreshData == .update {
+                state.refreshData = .refresh
+            } else {
+                state.refreshData = .update
+            }
             state.isAppeared = true
 
         case .viewDidDisappear:

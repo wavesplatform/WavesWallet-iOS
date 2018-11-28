@@ -9,7 +9,9 @@
 
 "accountpassword.button.signIn.title" = "Войти";
 
-"accountpassword.textfield.error.atleastcharacters" = "не менее %d символов";
+"accountpassword.error.wrongpassword" = "Неправильный пароль";
+
+"accountpassword.textfield.error.atleastcharacters" = "Минимум %d символов";
 
 "accountpassword.textfield.password.placeholder" = "Пароль от аккаунта";
 
@@ -20,6 +22,10 @@
 "addAddressbook.button.deleteAddress" = "Удалить адрес";
 
 "addAddressbook.button.save" = "Сохранить";
+
+"addAddressbook.error.charactersMaximum" = "Максимум %d";
+
+"addAddressbook.error.charactersMinimum" = "Минимум %d символов";
 
 "addAddressbook.label.add" = "Добавить";
 
@@ -37,7 +43,7 @@
 
 "addressbook.label.addressDeleted" = "Адрес удален";
 
-"addressbook.label.noInfo" = "Пока ничего нет… \nВы можете добавить адрес";
+"addressbook.label.noInfo" = "Пока ничего нет…\nВы можете добавить адрес";
 
 "addresseskeys.cell.address.title" = "Ваш адрес";
 
@@ -67,7 +73,7 @@
 
 "aliases.view.info.label.subtitle" = "Алиас — это короткое название вашего адреса. Вы можете использовать алиса так же, как адрес при совершении транзакции.";
 
-"aliases.view.info.label.title" = "О алиасах";
+"aliases.view.info.label.title" = "Об алиасах";
 
 "aliaseswithout.view.info.button.create" = "Создать алиас";
 
@@ -117,7 +123,7 @@
 
 "asset.cell.balance.totalBalance" = "Всего";
 
-"asset.cell.viewHistory" = "Смотреть историю";
+"asset.cell.viewHistory" = "История транзакций";
 
 "asset.header.lastTransactions" = "Последние транзакции";
 
@@ -125,13 +131,13 @@
 
 "assetlist.button.allList" = "Весь список";
 
-"assetlist.button.myList" = "Мой список";
+"assetlist.button.myList" = "С балансом";
 
 "assetlist.button.withBalance" = "С балансом";
 
 "assetlist.label.assets" = "Ассеты";
 
-"assetlist.label.loadingAssets" = "Загрузка ассетов ...";
+"assetlist.label.loadingAssets" = "Загрузка ассетов…";
 
 "backup.backup.navigation.title" = "Секретная фраза";
 
@@ -145,7 +151,7 @@
 
 "backup.infobackup.button.iunderstand" = "Я понимаю";
 
-"backup.infobackup.label.detail" = "Платформа Waves предупреждает вас об участившихся случаях мошенничества и фишинга за последний месяц. Мошенники скрывают своё вредоносное ПО в своих версиях клиента Waves и предлагают многообещающие бонусы и скидки для привлечения пользователей. \n\nБудьте осторожны и никогда не вводите свой СИД в таких «клиентах», потому что ваша учетная запись будет скомпрометирована, и вы потеряете все свои деньги. \n\nПользуйтесь ТОЛЬКО официальным клиентом Waves.";
+"backup.infobackup.label.detail" = "Платформа Waves предупреждает вас об участившихся случаях мошенничества и фишинга за последний месяц. Мошенники скрывают своё вредоносное ПО в своих версиях клиента Waves и предлагают многообещающие бонусы и скидки для привлечения пользователей.\n\nБудьте осторожны и никогда не вводите свой СИД в таких «клиентах», потому что ваша учетная запись будет скомпрометирована, и вы потеряете все свои деньги.\n\nПользуйтесь ТОЛЬКО официальным клиентом Waves.";
 
 "backup.infobackup.label.title" = "Осторожно используйте секретную фразу!";
 
@@ -167,9 +173,17 @@
 
 "backup.savebackup.next.label.title" = "Вам нужно будет восстановить эту фразу на следующем шаге";
 
-"biometric.readfromkeychain" = "Аутентификация для дешифрования секретной фразы и подтверждения транзакции";
+"biometric.readfromkeychain" = "Доступ к вашему кошельку";
 
-"biometric.saveinkeychain" = "Аутентификация для хранения секретной фразы в зашифрованном виде";
+"biometric.saveinkeychain" = "Доступ к вашему кошельку";
+
+"cameraAccess.alert.allow" = "Разрешить";
+
+"cameraAccess.alert.cancel" = "Отменить";
+
+"cameraAccess.alert.message" = "Для полноценного использования приложения, требуется доступ к камере";
+
+"cameraAccess.alert.title" = "Необходим доступ к камере";
 
 "changepassword.button.confirm.title" = "Подтвердить";
 
@@ -179,7 +193,7 @@
 
 "changepassword.textfield.createpassword.title" = "Новый пароль";
 
-"changepassword.textfield.error.atleastcharacters" = "не менее %d символов";
+"changepassword.textfield.error.atleastcharacters" = "Минимум %d символов";
 
 "changepassword.textfield.error.incorrectpassword" = "неверный пароль";
 
@@ -195,7 +209,7 @@
 
 "chooseaccount.alert.delete.title" = "Удалить аккаунт";
 
-"chooseaccount.label.nothingWallets" = "Пока ничего нет… \nВы не сохраняли аккаунты";
+"chooseaccount.label.nothingWallets" = "Пока ничего нет…\nВы не сохраняли аккаунты";
 
 "chooseaccount.navigation.title" = "Выберите аккаунт";
 
@@ -207,13 +221,17 @@
 
 "createalias.error.alreadyinuse" = "Уже в используется";
 
-"createalias.error.charactersmaximum" = "Максимум 30 символов";
+"createalias.error.charactersmaximum" = "Максимум 30";
 
 "createalias.error.invalidcharacter" = "Неправильный символ";
 
 "createalias.error.minimumcharacters" = "Минимум 4 символа";
 
 "createalias.navigation.title" = "Новый алиас";
+
+"dex.general.error.nothingHere" = "Пока ничего нет…";
+
+"dex.general.error.somethingWentWrong" = "Что-то пошло не так";
 
 "dexchart.button.cancel" = "Отменить";
 
@@ -223,7 +241,7 @@
 
 "dexchart.label.hours" = "часов";
 
-"dexchart.label.loadingChart" = "Загружаем график...";
+"dexchart.label.loadingChart" = "Загружаем график…";
 
 "dexchart.label.minutes" = "минут";
 
@@ -265,13 +283,15 @@
 
 "dexcreateorder.button.week" = "неделя";
 
-"dexcreateorder.label.Expiration" = "Expiration";
+"dexcreateorder.label.Expiration" = "Действителен";
 
 "dexcreateorder.label.amountIn" = "Количество в";
 
 "dexcreateorder.label.bigValue" = "Значение слишком велико";
 
 "dexcreateorder.label.days" = "дней";
+
+"dexcreateorder.label.error.notFundsFee" = "У вас недостаточно средств для оплаты необходимых сборов.";
 
 "dexcreateorder.label.fee" = "Комиссия";
 
@@ -295,9 +315,9 @@
 
 "dexlasttrades.label.amount" = "Количество";
 
-"dexlasttrades.label.emptyData" = "Пока ничего нет… \nИстория торговли пуста";
+"dexlasttrades.label.emptyData" = "Пока ничего нет…\nИстория торговли пуста";
 
-"dexlasttrades.label.loadingLastTrades" = "Загрузка последних сделок...";
+"dexlasttrades.label.loadingLastTrades" = "Загрузка последних сделок…";
 
 "dexlasttrades.label.price" = "Цена";
 
@@ -315,15 +335,15 @@
 
 "dexlist.label.price" = "Цена";
 
-"dexlist.label.today" = "сегодня";
+"dexlist.label.today" = "Сегодня";
 
-"dexlist.label.yesterday" = "вчера";
+"dexlist.label.yesterday" = "Вчера";
 
 "dexlist.navigationBar.title" = "DEX";
 
-"dexmarket.label.loadingMarkets" = "Загрузка рынков...";
+"dexmarket.label.loadingMarkets" = "Загрузка рынков…";
 
-"dexmarket.navigationBar.title" = "Рынок пар";
+"dexmarket.navigationBar.title" = "Рынки";
 
 "dexmarket.searchBar.placeholder" = "Поиск";
 
@@ -333,9 +353,9 @@
 
 "dexmyorders.label.date" = "Дата";
 
-"dexmyorders.label.emptyData" = "Пока ничего нет… \ nУ вас нет ордеров";
+"dexmyorders.label.emptyData" = "Пока ничего нет…\nУ вас нет ордеров";
 
-"dexmyorders.label.loadingLastTrades" = "Загрузка оредеров...";
+"dexmyorders.label.loadingLastTrades" = "Загрузка оредеров…";
 
 "dexmyorders.label.price" = "Цена";
 
@@ -363,11 +383,11 @@
 
 "dexorderbook.label.amount" = "Кол-во";
 
-"dexorderbook.label.emptyData" = "Пока ничего нет… \nСписок сделок пуст";
+"dexorderbook.label.emptyData" = "Пока ничего нет…\nСписок сделок пуст";
 
 "dexorderbook.label.lastPrice" = "LAST PRICE";
 
-"dexorderbook.label.loadingOrderbook" = "Загрузка ордербука...";
+"dexorderbook.label.loadingOrderbook" = "Загрузка ордербука…";
 
 "dexorderbook.label.price" = "Цена";
 
@@ -429,6 +449,12 @@
 
 "general.biometric.touchID.title" = "Touch ID";
 
+"general.error.subtitle.notfound" = "Не беспокойтесь, мы уже исправляем эту проблему.\nСкоро всё будет работать!";
+
+"general.error.title.noconnectiontotheinternet" = "Нет подключения к Интернету";
+
+"general.error.title.notfound" = "Ой… Всё сломалось!";
+
 "general.label.title.myasset" = "/ Мой ассет";
 
 "general.tabbar.title.dex" = "DEX";
@@ -441,11 +467,15 @@
 
 "general.ticker.title.cryptocurrency" = "Криптовалюта";
 
-"general.ticker.title.fiatmoney" = "Фиантые деньги";
+"general.ticker.title.fiatmoney" = "Фиатные деньги";
 
 "general.ticker.title.spam" = "СПАМ";
 
 "general.ticker.title.wavestoken" = "Waves токены";
+
+"general.tost.saveBackup.subtitle" = "Сохраните свою секретную фразу (SEED) в безопасном месте, это единственный способ восстановить ваш аккаунт";
+
+"general.tost.saveBackup.title" = "Сохраните секретную фразу (SEED)";
 
 "hello.button.continue" = "Продолжить";
 
@@ -463,7 +493,7 @@
 
 "hello.page.info.fifth.title" = "Как защититься от фишинга";
 
-"hello.page.info.first.detail" = "Пожалуйста, уделите немного времени для того, чтобы ознакомиться с важной информацией. \n\nМы не можем вернуть ваши средства или заморозить ваш аккаунт, если вы вошли в него на фишинговом сайте или потеряли секретную фразу (SEED). \n\nПродолжая использовать нашу платформу, вы соглашаетесь с тем, что в случае утраты вами секретной фразы (SEED), платформа Waves не сможет восстановить доступ к вашему аккаунту или вернуть вам ваши средства. Только вы контролируете свой аккаунт и ответственны за сохранность секретной фразы.";
+"hello.page.info.first.detail" = "Пожалуйста, уделите немного времени для того, чтобы ознакомиться с важной информацией.\n\nМы не можем вернуть ваши средства или заморозить ваш аккаунт, если вы вошли в него на фишинговом сайте или потеряли секретную фразу (SEED).\n\nПродолжая использовать нашу платформу, вы соглашаетесь с тем, что в случае утраты вами секретной фразы (SEED), платформа Waves не сможет восстановить доступ к вашему аккаунту или вернуть вам ваши средства. Только вы контролируете свой аккаунт и ответственны за сохранность секретной фразы.";
 
 "hello.page.info.first.title" = "Добро пожаловать на платформу Waves!";
 
@@ -471,7 +501,7 @@
 
 "hello.page.info.fourth.title" = "Как защититься от фишинга";
 
-"hello.page.info.second.detail" = "При регистрации аккаунта вам предлагается сохранить секретную фразу (Seed) и защитить аккаунт паролем. В обычных централизованных сервисах особое внимание уделяется именно паролю, который, в случае чего, можно изменить или восстановить через почту. У децентрализованной платформы Waves всё устроено иначе:";
+"hello.page.info.second.detail" = "При регистрации аккаунта вам предлагается сохранить секретную фразу (Seed) и защитить аккаунт паролем. В обычных централизованных сервисах особое внимание уделяется именно паролю, который, в случае чего, можно изменить или восстановить через почту. У децентрализованной платформы Waves всё устроено иначе.";
 
 "hello.page.info.second.title" = "Что вам нужно знать о секретной фразе";
 
@@ -489,41 +519,49 @@
 
 "history.segmentedControl.activeNow" = "Активен";
 
-"history.segmentedControl.all" = "Всё";
+"history.segmentedControl.all" = "Все";
 
 "history.segmentedControl.canceled" = "Отмена";
 
 "history.segmentedControl.exchanged" = "Обмен";
 
-"history.segmentedControl.issued" = "Выпущен";
+"history.segmentedControl.issued" = "Выпуск токенов";
 
-"history.segmentedControl.leased" = "В лизинге";
+"history.segmentedControl.leased" = "Лизинг";
 
 "history.segmentedControl.received" = "Полученные";
 
 "history.segmentedControl.sent" = "Отправленные";
 
-"history.transaction.title.alias" = "Создать алиас";
+"history.transaction.cell.exchange.buy" = "Покупка: %@/%@";
 
-"history.transaction.title.canceledLeasing" = "Отмененный лизинг";
+"history.transaction.cell.exchange.sell" = "Продажа: %@/%@";
+
+"history.transaction.title.alias" = "Создан алиас";
+
+"history.transaction.title.canceledLeasing" = "Отменен лизинг";
 
 "history.transaction.title.data" = "Дата транзакция";
 
 "history.transaction.title.exchange" = "Обмен";
 
-"history.transaction.title.incomingLeasing" = "Входящий лизинг";
+"history.transaction.title.incomingLeasing" = "Получено в лизинг";
+
+"history.transaction.title.massreceived" = "Массовое получение";
+
+"history.transaction.title.masssent" = "Массовая отправка";
 
 "history.transaction.title.received" = "Получено";
 
-"history.transaction.title.selfTransfer" = "Отправка себе";
+"history.transaction.title.selfTransfer" = "Отправлено себе";
 
 "history.transaction.title.sent" = "Отправлено";
 
-"history.transaction.title.startedLeasing" = "Передача в лизинг";
+"history.transaction.title.startedLeasing" = "Передано в лизинг";
 
-"history.transaction.title.tokenBurn" = "Сожжение токена";
+"history.transaction.title.tokenBurn" = "Сожжено";
 
-"history.transaction.title.tokenGeneration" = "Генерация токена";
+"history.transaction.title.tokenGeneration" = "Выпуск токена";
 
 "history.transaction.title.tokenReissue" = "Перевыпуск токена";
 
@@ -542,6 +580,8 @@
 "import.account.label.info.step.two.title" = "Нажмите «Показать QR-код» и сканируйте его с помощью камеры.";
 
 "import.account.navigation.title" = "Импорт аккаунта";
+
+"import.general.error.alreadyinuse" = "Уже используется";
 
 "import.general.navigation.title" = "Импорт аккаунта";
 
@@ -587,7 +627,7 @@
 
 "legal.checkbox.box.third" = "Я прочитал, понял и согласился с";
 
-"legal.checkbox.box.title" = "Готово! Давайте начнём.";
+"legal.checkbox.box.title" = "Готово!";
 
 "menu.button.supportwavesplatform" = "Поддержка Wavesplatform";
 
@@ -595,7 +635,7 @@
 
 "menu.button.whitepaper" = "Whitepaper";
 
-"menu.label.communities" = "Присоединиться к сообществу Waves";
+"menu.label.communities" = "Присоединяйтесь к сообществу Waves";
 
 "menu.label.description" = "Следите за последними новостями и статьями и узнавайте о событиях, происходящих на платформе Waves";
 
@@ -623,11 +663,13 @@
 
 "networksettings.textfield.spamfilter.title" = "Спам-фильтр";
 
-"newaccount.avatar.detail" = "Этот аватар уникален. Вы не сможете изменить его потом.";
+"newaccount.avatar.detail" = "Вы не сможете изменить его потом";
 
-"newaccount.avatar.title" = "Выберите свой аватар";
+"newaccount.avatar.title" = "Выберите свой уникальный аватар";
 
 "newaccount.backup.navigation.title" = "Новый аккаунт";
+
+"newaccount.error.noavatarselected" = "Аватар не выбран";
 
 "newaccount.main.navigation.title" = "Новый аккаунт";
 
@@ -639,9 +681,27 @@
 
 "newaccount.textfield.createpassword.title" = "Создайте пароль";
 
-"newaccount.textfield.error.atleastcharacters" = "не менее %d символов";
+"newaccount.textfield.error.atleastcharacters" = "Минимум %d символов";
+
+"newaccount.textfield.error.charactersmaximum" = "Максимум %d";
+
+"newaccount.textfield.error.doesnotmatch" = "Не совпадает";
+
+"newaccount.textfield.error.minimumcharacters" = "Минимум %d символов";
 
 "newaccount.textfield.error.passwordnotmatch" = "пароли не совпадают";
+
+"newaccount.textfield.error.wrongordertryagain" = "Неверный порядок, повторите попытку";
+
+"passcode.alert.attempsended.button.cancel" = "Закрыть";
+
+"passcode.alert.attempsended.button.enterpassword" = "Введите пароль";
+
+"passcode.alert.attempsended.button.ok" = "Хорошо";
+
+"passcode.alert.attempsended.subtitle" = "Чтобы разблокировать, войдите в аккаунт под своим паролем";
+
+"passcode.alert.attempsended.title" = "Слишком много попыток";
 
 "passcode.button.forgotPasscode.title" = "Использовать пароль аккаунта";
 
@@ -717,6 +777,8 @@
 
 "receive.button.useTotalBalance" = "Весь баланс";
 
+"receive.error.serviceUnavailable" = "Сервис временно недоступен";
+
 "receive.label.amount" = "Количество";
 
 "receive.label.amountIn" = "Количество в";
@@ -763,7 +825,7 @@
 
 "receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Отправка любой другой валюты на этот адрес может привести к потере ваших средств.";
 
-"receivegenerate.label.generate" = "Создание...";
+"receivegenerate.label.generate" = "Создание…";
 
 "receivegenerate.label.yourAddress" = "Ваш %@ адрес";
 
@@ -781,19 +843,19 @@
 
 "send.label.dollar" = "US Dollar";
 
-"send.label.error.insufficientFunds" = "недостаточно средств";
+"send.label.error.insufficientFunds" = "Недостаточно средств";
 
-"send.label.error.invalidId" = "неверный ID";
+"send.label.error.invalidId" = "Неверный ID";
 
 "send.label.error.notFundsFee" = "У вас недостаточно средств для отправки транзакции.";
 
-"send.label.gatewayFee" = "Комиссия шлюза -";
+"send.label.gatewayFee" = "Комиссия шлюза —";
 
 "send.label.moneroPaymentId" = "ID платежа Monero";
 
 "send.label.recipient" = "Получатель";
 
-"send.label.recipientAddress" = "Адрес получателя...";
+"send.label.recipientAddress" = "Адрес получателя…";
 
 "send.label.send" = "Отправить";
 
@@ -819,13 +881,37 @@
 
 "sendconfirmation.label.dollar" = "US Dollar";
 
-"sendconfirmation.label.fee" = "Комисия";
+"sendconfirmation.label.fee" = "Комиссия";
 
-"sendconfirmation.label.optionalMessage" = "Написать сообщение (не обязательно)";
+"sendconfirmation.label.optionalMessage" = "Не обязательно";
 
 "sendconfirmation.label.sentTo" = "Получатель";
 
-"sendloading.label.sending" = "Отправка...";
+"sendloading.label.sending" = "Отправка…";
+
+"serverDisconnect.label.subtitle" = "Проверьте соединение с мобильным Интернетом или Wi-Fi";
+
+"serverDisconnect.label.title" = "Нет подключения к Интернету";
+
+"serverEngineering.label.subtitle" = "Привет, на данный момент мы делаем очень важную работу по улучшению приложения";
+
+"serverEngineering.label.title" = "Технические работы";
+
+"serverError.button.retry" = "Повторить";
+
+"serverError.button.sendReport" = "Отправить отчет";
+
+"serverError.label.allBroken" = "Ой… Всё сломалось!";
+
+"serverError.label.allBrokenDescription" = "Не беспокойтесь, мы уже исправляем эту проблему.\nСкоро всё будет работать!";
+
+"serverError.label.noInternetConnection" = "Нет подключения к Интернету";
+
+"serverError.label.noInternetConnectionDescription" = "Проверьте соединение с мобильным Интернетом или Wi-Fi";
+
+"serverError.label.subtitle" = "Не беспокойтесь, мы уже исправляем эту проблему.\nСкоро всё будет работать!";
+
+"serverError.label.title" = "Ой… Всё сломалось!";
 
 "startleasing.button.chooseFromAddressBook" = "Адресная книга";
 
@@ -843,7 +929,9 @@
 
 "startleasing.label.generator" = "Генератор";
 
-"startleasing.label.nodeAddress" = "Адрес ноды...";
+"startleasing.label.insufficientFunds" = "Недостаточно средств";
+
+"startleasing.label.nodeAddress" = "Адрес ноды…";
 
 "startleasing.label.notEnough" = "Недостаточно";
 
@@ -855,7 +943,7 @@
 
 "startleasingcomplete.label.youHaveCanceledTransaction" = "Вы отменили транзакцию лизинга";
 
-"startleasingcomplete.label.youHaveLeased" = "Вы отдали в лизинг %@%@";
+"startleasingcomplete.label.youHaveLeased" = "Вы отдали в лизинг %@ %@";
 
 "startleasingcomplete.label.yourTransactionIsOnWay" = "Ваша транзакция отправлена!";
 
@@ -873,9 +961,9 @@
 
 "startleasingconfirmation.label.nodeAddress" = "Адрес ноды";
 
-"startleasingloading.label.cancelLeasing" = "Отмена лизинга...";
+"startleasingloading.label.cancelLeasing" = "Отмена лизинга…";
 
-"startleasingloading.label.startLeasing" = "Передача в лизинг...";
+"startleasingloading.label.startLeasing" = "Передача в лизинг…";
 
 "tokenBurn.button.burn" = "Сжечь токен";
 
@@ -895,7 +983,7 @@
 
 "tokenBurn.label.id" = "ID";
 
-"tokenBurn.label.loading" = "Сожжение...";
+"tokenBurn.label.loading" = "Сожжение…";
 
 "tokenBurn.label.notReissuable" = "Не перевыпускаемый";
 
@@ -923,7 +1011,9 @@
 
 "transactionhistory.cell.button.cancelLeasing" = "Отменить лизинг";
 
-"transactionhistory.cell.button.sendAgain" = "Отправь еще раз";
+"transactionhistory.cell.button.sendAgain" = "Отправить ещё раз";
+
+"transactionhistory.cell.buy" = "Покупка: %@/%@";
 
 "transactionhistory.cell.confirmations" = "Подтверждений";
 
@@ -949,6 +1039,8 @@
 
 "transactionhistory.cell.reissuable" = "Перевыпускаемый";
 
+"transactionhistory.cell.sell" = "Продажа: %@/%@";
+
 "transactionhistory.cell.sentTo" = "Получатель";
 
 "transactionhistory.cell.status.at" = "в";
@@ -960,6 +1052,8 @@
 "transactionhistory.cell.status.button.unconfirmed" = "Неподтверждено";
 
 "transactionhistory.cell.status.timestamp" = "Время";
+
+"transactionhistory.cell.type" = "Тип";
 
 "transactionhistory.copy.amount" = "Количество";
 
@@ -985,11 +1079,13 @@
 
 "wallet.button.startLease" = "Передать в лизинг";
 
-"wallet.label.available" = "Доступно";
+"wallet.label.available" = "Доступный баланс";
 
 "wallet.label.leased" = "В лизинге";
 
 "wallet.label.leasedIn" = "Входящий лизинг";
+
+"wallet.label.myAssets" = "Мои ассет";
 
 "wallet.label.quickNote.description.first" = "Вы можете отправлять и торговать тем объёмом WAVES, который не находится в лизинге. WAVES, которые находятся в лизинге, нельзя отправить или обменять.";
 
@@ -1001,17 +1097,17 @@
 
 "wallet.label.totalBalance" = "Общий баланс";
 
-"wallet.label.viewHistory" = "Смотреть историю";
+"wallet.label.viewHistory" = "История транзакций";
 
 "wallet.navigationBar.title" = "Кошелёк";
 
 "wallet.section.activeNow" = "Активных сейчас (%d)";
 
-"wallet.section.hiddenAssets" = "Скрытые (%d)";
+"wallet.section.hiddenAssets" = "Скрытые ассеты (%d)";
 
 "wallet.section.quickNote" = "О лизинге";
 
-"wallet.section.spamAssets" = "Спам (%d)";
+"wallet.section.spamAssets" = "Спам-ассеты (%d)";
 
 "wallet.segmentedControl.assets" = "Ассеты";
 

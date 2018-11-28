@@ -47,6 +47,31 @@ extension UIViewController {
 // MARK: - Internet
 extension UIViewController {
 
+    private enum AssociatedKeys {
+        static var sweetSnackbar = "sweetSnackbar"
+    }
+
+    private var _sweetSnackbar: SweetSnackbar? {
+        get {
+            return associatedObject(for: &AssociatedKeys.sweetSnackbar)
+        }
+
+        set {
+            setAssociatedObject(newValue, for: &AssociatedKeys.sweetSnackbar)
+        }
+    }
+
+    var sweetSnackbar: SweetSnackbar {
+
+        if let sweetSnackbar = _sweetSnackbar {
+            return sweetSnackbar
+        } else {
+            let bar = SweetSnackbar()
+            _sweetSnackbar = bar
+            return bar
+        }
+    }
+
     @discardableResult func showWithoutInternetSnack(didTap: @escaping (() -> Void)) -> String {
 
         let error = SweetSnack.init(title: Localizable.Waves.General.Error.Title.noconnectiontotheinternet,
@@ -57,7 +82,7 @@ extension UIViewController {
                                     icon: Images.refresh18White.image,
                                     isEnabledUserHidden: false,
                                     action: SweetSnackError(didTap: didTap))
-        return SweetSnackbar.shared.showSnack(error, on: self)
+        return sweetSnackbar.showSnack(error, on: self)
     }
 
     @discardableResult func showWithoutInternetSnackWithoutAction() -> String {
@@ -69,7 +94,7 @@ extension UIViewController {
                                     icon: Images.refresh18White.image,
                                     isEnabledUserHidden: true,
                                     action: nil)
-        return SweetSnackbar.shared.showSnack(error, on: self)
+        return sweetSnackbar.showSnack(error, on: self)
     }
 
     @discardableResult func showMessageSnack(title: String, didTap: (() -> Void)? = nil) -> String {
@@ -81,7 +106,7 @@ extension UIViewController {
                                     icon: nil,
                                     isEnabledUserHidden: true,
                                     action: SweetSnackCustonAction(didTap: didTap, didSwipe: nil))
-        return SweetSnackbar.shared.showSnack(error, on: self)
+        return sweetSnackbar.showSnack(error, on: self)
     }
 }
 
@@ -99,7 +124,7 @@ extension UIViewController {
                                     icon: nil,
                                     isEnabledUserHidden: false,
                                     action: nil)
-        return SweetSnackbar.shared.showSnack(error, on: self)
+        return sweetSnackbar.showSnack(error, on: self)
     }
 
     @discardableResult func showErrorSnack(tille: String, didTap: (() -> Void)? = nil) -> String {
@@ -112,7 +137,7 @@ extension UIViewController {
                                     icon: Images.refresh18White.image,
                                     isEnabledUserHidden: false,
                                     action: SweetSnackError(didTap: didTap))
-        return SweetSnackbar.shared.showSnack(error, on: self)
+        return sweetSnackbar.showSnack(error, on: self)
     }
 
     @discardableResult func showErrorSnackWithoutAction(title: String) -> String {
@@ -124,7 +149,7 @@ extension UIViewController {
                                     icon: nil,
                                     isEnabledUserHidden: true,
                                     action: nil)
-        return SweetSnackbar.shared.showSnack(error, on: self)
+        return sweetSnackbar.showSnack(error, on: self)
     }
 }
 
@@ -141,7 +166,7 @@ extension UIViewController {
                                     icon: nil,
                                     isEnabledUserHidden: true,
                                     action: nil)
-        return SweetSnackbar.shared.showSnack(error, on: self)
+        return sweetSnackbar.showSnack(error, on: self)
     }
 
     @discardableResult func showErrorNotFoundSnack(didTap: (() -> Void)? = nil) -> String {
@@ -153,7 +178,7 @@ extension UIViewController {
                                     icon: Images.refresh18White.image,
                                     isEnabledUserHidden: false,
                                     action: SweetSnackError(didTap: didTap))
-        return SweetSnackbar.shared.showSnack(error, on: self)
+        return sweetSnackbar.showSnack(error, on: self)
     }
 }
 
@@ -170,7 +195,7 @@ extension UIViewController {
                                     icon: icon,
                                     isEnabledUserHidden: true,
                                     action: SweetSnackCustonAction(didTap: didTap, didSwipe: didSwipe))
-        return SweetSnackbar.shared.showSnack(error, on: self)
+        return sweetSnackbar.showSnack(error, on: self)
     }
 }
 
@@ -188,11 +213,11 @@ extension UIViewController {
                                       icon: nil,
                                       isEnabledUserHidden: true,
                                       action: nil)
-        return SweetSnackbar.shared.showSnack(success, on: self)
+        return sweetSnackbar.showSnack(success, on: self)
     }
 
     func hideSnack(key: String) {
-         SweetSnackbar.shared.hideSnack(key: key)
+         sweetSnackbar.hideSnack(key: key)
     }
 }
 

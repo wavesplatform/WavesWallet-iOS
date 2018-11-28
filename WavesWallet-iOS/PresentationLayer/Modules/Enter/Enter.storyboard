@@ -19,10 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zWW-QO-W8Z">
-                                <rect key="frame" x="0.0" y="84" width="375" height="190"/>
+                                <rect key="frame" x="0.0" y="84" width="375" height="230"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="190" id="QY8-ZD-mz0"/>
+                                    <constraint firstAttribute="height" constant="230" id="QY8-ZD-mz0"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="FHh-b4-QLc">
                                     <size key="itemSize" width="50" height="50"/>
@@ -37,7 +37,7 @@
                                 </connections>
                             </collectionView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="wMZ-Ng-A1S">
-                                <rect key="frame" x="160" y="298" width="55" height="6"/>
+                                <rect key="frame" x="160" y="338" width="55" height="6"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="6" id="RGp-3k-QZR"/>
                                 </constraints>
@@ -45,7 +45,7 @@
                                 <color key="currentPageIndicatorTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </pageControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jze-fZ-8Wd">
-                                <rect key="frame" x="24" y="348" width="327" height="48"/>
+                                <rect key="frame" x="24" y="388" width="327" height="48"/>
                                 <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="P9M-4D-M7j"/>

@@ -3,13 +3,15 @@
 
 "Send.Label.Error.notFundsFeeGateway" = "U heeft onvoldoende funds om de transactiekosten te betalen. U dient %@ transactiekosten en %@ gateway kosten te betalen.";
 
-"Send.Label.Warning.description" = "Neem geen %@ op naarf een ICO. We crediteren uw account niet met tokens van deze verkoop.";
+"Send.Label.Warning.description" = "Neem geen %@ op naar een ICO. We crediteren uw account niet met tokens van deze verkoop.";
 
 "Send.Label.Warning.subtitle" = "We hebben een %@ adres gedecteerd en sturen uw geld via de Coinomat gateway naar dat adres. Minimale hoeveelheid is %@, maximale hoeveelheid is %@.";
 
 "accountpassword.button.signIn.title" = "Aanmelden";
 
-"accountpassword.textfield.error.atleastcharacters" = "ten minste %d tekens";
+"accountpassword.error.wrongpassword" = "Verkeerd wachtwoord";
+
+"accountpassword.textfield.error.atleastcharacters" = "Minimaal %d karakters";
 
 "accountpassword.textfield.password.placeholder" = "Account wachtwoord";
 
@@ -21,6 +23,10 @@
 
 "addAddressbook.button.save" = "Opslaan";
 
+"addAddressbook.error.charactersMaximum" = "%d karakters maximaal";
+
+"addAddressbook.error.charactersMinimum" = "Minimaal %d karakters";
+
 "addAddressbook.label.add" = "Toevoegen";
 
 "addAddressbook.label.address" = "Adres";
@@ -31,13 +37,13 @@
 
 "addAddressbook.label.name" = "Naam";
 
-"addAddressbook.textfield.address.error.addressexist" = "Bereits in Benutzung";
+"addAddressbook.textfield.address.error.addressexist" = "Al in gebruik";
 
 "addressbook.label.addressBook" = "Adresboek";
 
 "addressbook.label.addressDeleted" = "Adres verwijderd";
 
-"addressbook.label.noInfo" = "Hier is niets... \nU kunt een nieuw adres maken";
+"addressbook.label.noInfo" = "Hier is niets…\nU kunt een nieuw adres maken";
 
 "addresseskeys.cell.address.title" = "Uw adres";
 
@@ -79,9 +85,9 @@
 
 "aliaseswithout.view.info.label.title" = "U heeft geen Aliassen";
 
-"asset.cell.assetInfo.cantPerformTransactions" = "You can not perform transactions with this asset";
+"asset.cell.assetInfo.cantPerformTransactions" = "U kunt geen transacties met deze asset doen";
 
-"asset.cell.assetInfo.decimalPoints" = "Decimal points";
+"asset.cell.assetInfo.decimalPoints" = "Aantal decimalen";
 
 "asset.cell.assetInfo.description" = "Omschrijving";
 
@@ -101,7 +107,7 @@
 
 "asset.cell.assetInfo.title" = "Asset Info";
 
-"asset.cell.assetInfo.totalAmount" = "Total amount";
+"asset.cell.assetInfo.totalAmount" = "Totale hoeveelheid";
 
 "asset.cell.balance.avaliableBalance" = "Beschikbaar saldo";
 
@@ -125,13 +131,13 @@
 
 "assetlist.button.allList" = "Alle lijsten";
 
-"assetlist.button.myList" = "Mijn lijst";
+"assetlist.button.myList" = "Met saldo";
 
 "assetlist.button.withBalance" = "Met balans";
 
 "assetlist.label.assets" = "Assets";
 
-"assetlist.label.loadingAssets" = "Assets laden ...";
+"assetlist.label.loadingAssets" = "Assets laden…";
 
 "backup.backup.navigation.title" = "Backup regel";
 
@@ -145,7 +151,7 @@
 
 "backup.infobackup.button.iunderstand" = "Ik begrijp het";
 
-"backup.infobackup.label.detail" = "Waves Platform wil u graag waarschuwen voor de verhoogde frequentie van oplichtings- en phishing-aanvallen van de afgelopen maand. Fraudeurs verbergen hun malware in hun eigen versie van de Waves-client en beloven bonussen en kortingen om gebruikers te verleiden. \n\nWees voorzichtig en voer nooit uw SEED in deze 'clients' in, omdat uw account in gevaar komt en u verliest al uw geld. \n\nU dient ALLEEN de officiële Waves-client te gebruiken.";
+"backup.infobackup.label.detail" = "Waves Platform wil u graag waarschuwen voor de verhoogde frequentie van oplichtings- en phishing-aanvallen van de afgelopen maand. Fraudeurs verbergen hun malware in hun eigen versie van de Waves-client en beloven bonussen en kortingen om gebruikers te verleiden.\n\nWees voorzichtig en voer nooit uw SEED in deze 'clients' in, omdat uw account in gevaar komt en u verliest al uw geld. \n\nU dient ALLEEN de officiële Waves-client te gebruiken.";
 
 "backup.infobackup.label.title" = "Behandel je back-up regel met zorg!";
 
@@ -167,9 +173,17 @@
 
 "backup.savebackup.next.label.title" = "U bevestigt deze zin op het volgende scherm";
 
-"biometric.readfromkeychain" = "Authenthiceer om de private key van uw portemonnee te ontsleutelen en uw transactie te bevestigen";
+"biometric.readfromkeychain" = "Toegang tot uw Portemonnee";
 
-"biometric.saveinkeychain" = "Authenticeer om uw versleutelde private key van de portemonnee op te slaan";
+"biometric.saveinkeychain" = "Toegang tot uw Portemonnee";
+
+"cameraAccess.alert.allow" = "Camera toestaan";
+
+"cameraAccess.alert.cancel" = "Annuleer";
+
+"cameraAccess.alert.message" = "Cameratoegang is nodig om deze app volledig te kunnen gebruiken";
+
+"cameraAccess.alert.title" = "Cameratoeging bendodigd ";
 
 "changepassword.button.confirm.title" = "Bevestigen";
 
@@ -179,7 +193,7 @@
 
 "changepassword.textfield.createpassword.title" = "Nieuw wachtwoord";
 
-"changepassword.textfield.error.atleastcharacters" = "ten minste %d tekens";
+"changepassword.textfield.error.atleastcharacters" = "Minimaal %d karakters";
 
 "changepassword.textfield.error.incorrectpassword" = "Incorrect wachtwoord";
 
@@ -195,7 +209,7 @@
 
 "chooseaccount.alert.delete.title" = "Account verwijderen";
 
-"chooseaccount.label.nothingWallets" = "Niets hier... \nU heeft geen opgeslagen accounts";
+"chooseaccount.label.nothingWallets" = "Niets hier…\nU heeft geen opgeslagen accounts";
 
 "chooseaccount.navigation.title" = "Kies een account";
 
@@ -215,6 +229,10 @@
 
 "createalias.navigation.title" = "Nieuw alias";
 
+"dex.general.error.nothingHere" = "Hier is niks…";
+
+"dex.general.error.somethingWentWrong" = "Er ging iets mis";
+
 "dexchart.button.cancel" = "Annuleren";
 
 "dexchart.label.emptyData" = "Geen diagramgegevens beschikbaar";
@@ -223,7 +241,7 @@
 
 "dexchart.label.hours" = "uren";
 
-"dexchart.label.loadingChart" = "Grafiek laden ...";
+"dexchart.label.loadingChart" = "Grafiek laden…";
 
 "dexchart.label.minutes" = "minuten";
 
@@ -273,6 +291,8 @@
 
 "dexcreateorder.label.days" = "dagen";
 
+"dexcreateorder.label.error.notFundsFee" = "U heeft onvoldoende balans om de benodigde transactiekosten te betalen.";
+
 "dexcreateorder.label.fee" = "Transactiekosten";
 
 "dexcreateorder.label.limitPriceIn" = "Limietprijs in";
@@ -295,9 +315,9 @@
 
 "dexlasttrades.label.amount" = "Bedrag";
 
-"dexlasttrades.label.emptyData" = "Niets hier... \nDe handelshistorie is leeg";
+"dexlasttrades.label.emptyData" = "Hier is niks…\nDe handelshistorie is leeg";
 
-"dexlasttrades.label.loadingLastTrades" = "Laatste transacties laden ...";
+"dexlasttrades.label.loadingLastTrades" = "Laatste transacties laden…";
 
 "dexlasttrades.label.price" = "Prijs";
 
@@ -315,13 +335,13 @@
 
 "dexlist.label.price" = "Prijs";
 
-"dexlist.label.today" = "vandaag";
+"dexlist.label.today" = "Vandaag";
 
-"dexlist.label.yesterday" = "gisteren";
+"dexlist.label.yesterday" = "Gisteren";
 
 "dexlist.navigationBar.title" = "DEX";
 
-"dexmarket.label.loadingMarkets" = "Markten laden ...";
+"dexmarket.label.loadingMarkets" = "Markten laden…";
 
 "dexmarket.navigationBar.title" = "Markten";
 
@@ -333,15 +353,15 @@
 
 "dexmyorders.label.date" = "Datum";
 
-"dexmyorders.label.emptyData" = "Niets hier... \nU heeft geen orders";
+"dexmyorders.label.emptyData" = "Hier is niks…\nU heeft geen orders";
 
-"dexmyorders.label.loadingLastTrades" = "Orders laden ...";
+"dexmyorders.label.loadingLastTrades" = "Orders laden…";
 
 "dexmyorders.label.price" = "Prijs";
 
 "dexmyorders.label.sell" = "Verkoop";
 
-"dexmyorders.label.side" = "Side";
+"dexmyorders.label.side" = "Zijde";
 
 "dexmyorders.label.status" = "Status";
 
@@ -363,11 +383,11 @@
 
 "dexorderbook.label.amount" = "Bedrag";
 
-"dexorderbook.label.emptyData" = "Hier is niets... \nHet orderboek is leeg";
+"dexorderbook.label.emptyData" = "Hier is niks…\nHet orderboek is leeg";
 
 "dexorderbook.label.lastPrice" = "LAATSTE PRIJS";
 
-"dexorderbook.label.loadingOrderbook" = "Orderboek laden ...";
+"dexorderbook.label.loadingOrderbook" = "Orderboek laden…";
 
 "dexorderbook.label.price" = "Prijs";
 
@@ -389,7 +409,7 @@
 
 "editaccountname.label.newName" = "Nieuwe accountnaam";
 
-"editaccountname.navigation.title" = "Pas naam aan";
+"editaccountname.navigation.title" = "Naam aanpassen";
 
 "enter.block.blockchain.text" = "Word deel van een snelgroeiend deel van de crypto-wereld. U bent de enige persoon die toegang heeft tot uw crypto-assets.";
 
@@ -399,7 +419,7 @@
 
 "enter.block.exchange.title" = "Gedecentraliseerde exchange";
 
-"enter.block.token.text" = "Geef je eigen tokens uit. Deze kunnen in uw bedrijf worden geïntegreerd, niet alleen als een interne valuta, maar ook als een teken voor gedecentraliseerd stemmen, als een beoordelingssysteem of een loyaliteitsprogramma.";
+"enter.block.token.text" = "Geef uw eigen tokens uit. Deze kunnen in uw bedrijf worden geïntegreerd, niet alleen als een interne valuta, maar ook als een teken voor gedecentraliseerd stemmen, als een beoordelingssysteem of een loyaliteitsprogramma.";
 
 "enter.block.token.title" = "Token Launcher";
 
@@ -413,7 +433,7 @@
 
 "enter.button.importAccount.detail" = "via koppelingscode of handmatig";
 
-"enter.button.importAccount.error.insecureSeed" = "Insecure SEED";
+"enter.button.importAccount.error.insecureSeed" = "Onveilige SEED";
 
 "enter.button.importAccount.title" = "Account importeren";
 
@@ -421,11 +441,19 @@
 
 "enter.button.signIn.title" = "Aanmelden";
 
+"enter.label.or" = "of";
+
 "enter.language.navigation.title" = "Verander de taal";
 
 "general.biometric.faceID.title" = "Gezicht ID";
 
 "general.biometric.touchID.title" = "Tik op ID";
+
+"general.error.subtitle.notfound" = "Geen paniek, we zijn al bezig dit probleem op te lossen.\nBinnenkort werkt alles weer!";
+
+"general.error.title.noconnectiontotheinternet" = "Geen internetverbinding";
+
+"general.error.title.notfound" = "Oeps… alles is kapot!";
 
 "general.label.title.myasset" = "/ Mijn Asset";
 
@@ -445,6 +473,10 @@
 
 "general.ticker.title.wavestoken" = "Waves Token";
 
+"general.tost.saveBackup.subtitle" = "Bewaar uw SEED veilig, het is de enige manier om uw portemonnee te herstellen";
+
+"general.tost.saveBackup.title" = "Bewaar uw back-upzin (SEED)";
+
 "hello.button.continue" = "Doorgaan";
 
 "hello.button.next" = "Volgende";
@@ -461,7 +493,7 @@
 
 "hello.page.info.fifth.title" = "Hoe je jezelf kunt beschermen tegen Phishers";
 
-"hello.page.info.first.detail" = "Neem alstublieft de tijd om enkele belangrijke dingen voor uw eigen veiligheid te begrijpen. \n\nWe kunnen uw geld niet terugkrijgen of uw account niet bevriezen als u een phishing-site bezoekt of uw back-up zin kwijtraakt (ook wel SEED-zin). \n\nAls u ons platform blijft gebruiken, stemt u ermee in alle aan het verlies verbonden risico's te accepteren van uw SEED, inclusief maar niet beperkt tot het onvermogen om bij uw geld te kunnen. In het geval dat u uw SEED verliest, stemt u ermee in en erkent u dat het Waves Platform niet verantwoordelijk is voor de negatieve gevolgen hiervan.";
+"hello.page.info.first.detail" = "Neem alstublieft de tijd om enkele belangrijke dingen voor uw eigen veiligheid te begrijpen.\n\nWe kunnen uw geld niet terugkrijgen of uw account niet bevriezen als u een phishing-site bezoekt of uw back-up zin kwijtraakt (ook wel SEED-zin).\n\nAls u ons platform blijft gebruiken, stemt u ermee in alle aan het verlies verbonden risico's te accepteren van uw SEED, inclusief maar niet beperkt tot het onvermogen om bij uw geld te kunnen. In het geval dat u uw SEED verliest, stemt u ermee in en erkent u dat het Waves Platform niet verantwoordelijk is voor de negatieve gevolgen hiervan.";
 
 "hello.page.info.first.title" = "Welkom bij het Waves Platform!";
 
@@ -469,7 +501,7 @@
 
 "hello.page.info.fourth.title" = "Hoe je jezelf kunt beschermen tegen Phishers";
 
-"hello.page.info.second.detail" = "Wanneer u uw account registreert, wordt u gevraagd om uw geheime zin (Seed) op te slaan en om uw account te beveiligen met een wachtwoord. Op normale gecentraliseerde servers wordt speciale aandacht besteed aan het wachtwoord, dat kan worden gewijzigd en gereset via e-mail, als de noodzaak zich voordoet. Op gedecentraliseerde platforms zoals Waves is alles echter anders geregeld:";
+"hello.page.info.second.detail" = "Wanneer u uw account registreert, wordt u gevraagd om uw geheime zin (Seed) op te slaan en om uw account te beveiligen met een wachtwoord. Op normale gecentraliseerde servers wordt speciale aandacht besteed aan het wachtwoord, dat kan worden gewijzigd en gereset via e-mail, als de noodzaak zich voordoet. Op gedecentraliseerde platforms zoals Waves is alles echter anders geregeld.";
 
 "hello.page.info.second.title" = "Wat u moet weten over uw SEED";
 
@@ -501,6 +533,10 @@
 
 "history.segmentedControl.sent" = "Verzonden";
 
+"history.transaction.cell.exchange.buy" = "Kopen: %@/%@";
+
+"history.transaction.cell.exchange.sell" = "Verkopen: %@/%@";
+
 "history.transaction.title.alias" = "Maak alias";
 
 "history.transaction.title.canceledLeasing" = "Lease geannuleerd";
@@ -510,6 +546,10 @@
 "history.transaction.title.exchange" = "Exchange";
 
 "history.transaction.title.incomingLeasing" = "Inkomende lease";
+
+"history.transaction.title.massreceived" = "Massa ontvangen";
+
+"history.transaction.title.masssent" = "Massa verzonden";
 
 "history.transaction.title.received" = "Ontvangen";
 
@@ -540,6 +580,8 @@
 "import.account.label.info.step.two.title" = "Klik op 'Show Pairing Code' om een ​​QR-code te onthullen. Scan de code met uw camera.";
 
 "import.account.navigation.title" = "Account importeren";
+
+"import.general.error.alreadyinuse" = "Al in gebruik";
 
 "import.general.navigation.title" = "Importeer account";
 
@@ -585,7 +627,7 @@
 
 "legal.checkbox.box.third" = "Ik heb de website gelezen, begrepen en ermee ingestemd";
 
-"legal.checkbox.box.title" = "Klaar! Laten we eens kijken";
+"legal.checkbox.box.title" = "Klaar! ";
 
 "menu.button.supportwavesplatform" = "Ondersteuning Wavesplatform";
 
@@ -621,11 +663,13 @@
 
 "networksettings.textfield.spamfilter.title" = "Spamfilter";
 
-"newaccount.avatar.detail" = "Deze avatar is uniek. U kunt deze later niet veranderen.";
+"newaccount.avatar.detail" = "U kunt deze later niet veranderen";
 
-"newaccount.avatar.title" = "Kies uw adres avatar";
+"newaccount.avatar.title" = "Kies uw unieke adres avatar";
 
 "newaccount.backup.navigation.title" = "Nieuw account";
+
+"newaccount.error.noavatarselected" = "Geen avatar geselecteerd";
 
 "newaccount.main.navigation.title" = "Nieuw account";
 
@@ -637,9 +681,27 @@
 
 "newaccount.textfield.createpassword.title" = "Maak een wachtwoord";
 
-"newaccount.textfield.error.atleastcharacters" = "ten minste %d tekens";
+"newaccount.textfield.error.atleastcharacters" = "Minimaal %d karakters";
+
+"newaccount.textfield.error.charactersmaximum" = "%d karakters maximaal";
+
+"newaccount.textfield.error.doesnotmatch" = "Komt niet overeen";
+
+"newaccount.textfield.error.minimumcharacters" = "Minimaal %d karakters";
 
 "newaccount.textfield.error.passwordnotmatch" = "wachtwoord komt niet overeen";
+
+"newaccount.textfield.error.wrongordertryagain" = "Verkeerde volgorde, probeer opnieuw";
+
+"passcode.alert.attempsended.button.cancel" = "Annuleren";
+
+"passcode.alert.attempsended.button.enterpassword" = "Voer wachtwoord in";
+
+"passcode.alert.attempsended.button.ok" = "Oke";
+
+"passcode.alert.attempsended.subtitle" = "On te ontgrendelen log in met uw account wachtwoord";
+
+"passcode.alert.attempsended.title" = "Te veel pogingen";
 
 "passcode.button.forgotPasscode.title" = "Gebruik account wachtwoord";
 
@@ -715,6 +777,8 @@
 
 "receive.button.useTotalBalance" = "Gebruik de totale balans";
 
+"receive.error.serviceUnavailable" = "Service is tijdelijk niet beschikbaar";
+
 "receive.label.amount" = "Bedrag";
 
 "receive.label.amountIn" = "Bedrag in";
@@ -745,7 +809,7 @@
 
 "receivecard.label.changeCurrency" = "Verander valuta";
 
-"receivecard.label.warningInfo" = "Voor het doen van een betaling van uw kaart wordt u doorverwezen naar de website van de handelaar";
+"receivecard.label.warningInfo" = "Voor het uitvoeren van een betaling via uw kaart wordt u doorverwezen naar een bijbehorende website.";
 
 "receivecardcomplete.button.okay" = "Oke";
 
@@ -761,7 +825,7 @@
 
 "receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Het verzenden van een andere valuta naar dit adres kan resulteren in het verlies van uw storting.";
 
-"receivegenerate.label.generate" = "Genereer ...";
+"receivegenerate.label.generate" = "Genereer…";
 
 "receivegenerate.label.yourAddress" = "Uw %@ adres";
 
@@ -791,7 +855,7 @@
 
 "send.label.recipient" = "Ontvanger";
 
-"send.label.recipientAddress" = "Ontvanger adres ...";
+"send.label.recipientAddress" = "Ontvanger adres…";
 
 "send.label.send" = "Versturen";
 
@@ -823,7 +887,31 @@
 
 "sendconfirmation.label.sentTo" = "Verzonden naar";
 
-"sendloading.label.sending" = "Bezig met verzenden...";
+"sendloading.label.sending" = "Bezig met verzenden…";
+
+"serverDisconnect.label.subtitle" = "Controleer uw verbinding met het mobiele netwerk of Wi-Fi";
+
+"serverDisconnect.label.title" = "Geen internetverbinding";
+
+"serverEngineering.label.subtitle" = "Hi, momenteel zijn we bezig met de belangrijke taak van het verbeteren van deze applicatie";
+
+"serverEngineering.label.title" = "Engineering werkt";
+
+"serverError.button.retry" = "Probeer opnieuw";
+
+"serverError.button.sendReport" = "Verstuur een rapport";
+
+"serverError.label.allBroken" = "Oeps… alles is kapot!";
+
+"serverError.label.allBrokenDescription" = "Geen paniek, we zijn bezig dit probleem op te lossen.\nBinnenkort werkt alles weer!";
+
+"serverError.label.noInternetConnection" = "Geen internetverbinding";
+
+"serverError.label.noInternetConnectionDescription" = "Check uw verbinding met het mobiele internet of Wi-Fi netwerk";
+
+"serverError.label.subtitle" = "Geen paniek, we zijn al bezig dit probleem op te lossen.\nBinnenkort werkt alles weer!";
+
+"serverError.label.title" = "Oeps… alles is kapot!";
 
 "startleasing.button.chooseFromAddressBook" = "Kies uit adresboek";
 
@@ -841,7 +929,9 @@
 
 "startleasing.label.generator" = "Generator";
 
-"startleasing.label.nodeAddress" = "Node adres ...";
+"startleasing.label.insufficientFunds" = "Onvoldoende funds";
+
+"startleasing.label.nodeAddress" = "Node adres…";
 
 "startleasing.label.notEnough" = "Niet genoeg";
 
@@ -849,67 +939,67 @@
 
 "startleasing.label.transactionFee" = "Transactiekosten";
 
-"startleasingcomplete.button.okey" = "Okay";
+"startleasingcomplete.button.okey" = "Oke";
 
-"startleasingcomplete.label.youHaveCanceledTransaction" = "You have canceled a leasing transaction";
+"startleasingcomplete.label.youHaveCanceledTransaction" = "U heeft een lease transactie geannuleerd";
 
-"startleasingcomplete.label.youHaveLeased" = "You have leased %@ %@";
+"startleasingcomplete.label.youHaveLeased" = "U heeft %@ %@ geleased";
 
-"startleasingcomplete.label.yourTransactionIsOnWay" = "Your transaction is on way!";
+"startleasingcomplete.label.yourTransactionIsOnWay" = "Uw transactie is onderweg!";
 
-"startleasingconfirmation.button.cancelLeasing" = "Cancel leasing";
+"startleasingconfirmation.button.cancelLeasing" = "Annuleer lease";
 
-"startleasingconfirmation.button.confirm" = "Confirm";
+"startleasingconfirmation.button.confirm" = "Bevestig";
 
 "startleasingconfirmation.label.TXID" = "TXID";
 
-"startleasingconfirmation.label.confirmation" = "Confirmation";
+"startleasingconfirmation.label.confirmation" = "Bevestigen";
 
-"startleasingconfirmation.label.fee" = "Fee";
+"startleasingconfirmation.label.fee" = "Transactiekosten";
 
 "startleasingconfirmation.label.leasingTX" = "Leasing TX";
 
-"startleasingconfirmation.label.nodeAddress" = "Node address";
+"startleasingconfirmation.label.nodeAddress" = "Node adres";
 
-"startleasingloading.label.cancelLeasing" = "Cancel leasing...";
+"startleasingloading.label.cancelLeasing" = "Annuleer leasen…";
 
-"startleasingloading.label.startLeasing" = "Start leasing...";
+"startleasingloading.label.startLeasing" = "Start leasen…";
 
-"tokenBurn.button.burn" = "Burn";
+"tokenBurn.button.burn" = "Verbranden";
 
-"tokenBurn.button.continue" = "Continue";
+"tokenBurn.button.continue" = "Ga verder";
 
-"tokenBurn.button.okey" = "Okay";
+"tokenBurn.button.okey" = "Oke";
 
-"tokenBurn.button.useTotalBalanace" = "Use total balance";
+"tokenBurn.button.useTotalBalanace" = "Gebruik totale balans";
 
-"tokenBurn.label.confirmation" = "Confirmation";
+"tokenBurn.label.confirmation" = "Bevestigen";
 
-"tokenBurn.label.error.insufficientFunds" = "Insufficient funds";
+"tokenBurn.label.error.insufficientFunds" = "Onvoldoende funds";
 
-"tokenBurn.label.error.notFundsFee" = "You don't have enough funds to pay the required fees.";
+"tokenBurn.label.error.notFundsFee" = "U heeft onvoldoende balans om de transactiekosten te betalen";
 
-"tokenBurn.label.fee" = "Fee";
+"tokenBurn.label.fee" = "Transactiekosten";
 
 "tokenBurn.label.id" = "ID";
 
-"tokenBurn.label.loading" = "Burn...";
+"tokenBurn.label.loading" = "Verbranden…";
 
-"tokenBurn.label.notReissuable" = "Not reissuable";
+"tokenBurn.label.notReissuable" = "Niet heruitgeefbaar";
 
-"tokenBurn.label.quantityTokensBurned" = "Quantity of tokens to be burned";
+"tokenBurn.label.quantityTokensBurned" = "Hoeveel tokens die geburned worden";
 
-"tokenBurn.label.reissuable" = "Reissuable";
+"tokenBurn.label.reissuable" = "Heruitgeefbaar";
 
-"tokenBurn.label.tokenBurn" = "Token Burn";
+"tokenBurn.label.tokenBurn" = "Token Verbranden";
 
-"tokenBurn.label.transactionFee" = "Transaction Fee %@ %@";
+"tokenBurn.label.transactionFee" = "Transactiekosten %@ %@";
 
-"tokenBurn.label.transactionIsOnWay" = "Your transaction is on the way!";
+"tokenBurn.label.transactionIsOnWay" = "Uw transactie is onderweg!";
 
 "tokenBurn.label.type" = "Type";
 
-"tokenBurn.label.youHaveBurned" = "You have burned";
+"tokenBurn.label.youHaveBurned" = "U heeft verbrand";
 
 "transactionhistory.button.copied" = "Gekopieerd";
 
@@ -922,6 +1012,8 @@
 "transactionhistory.cell.button.cancelLeasing" = "Annuleer Lease";
 
 "transactionhistory.cell.button.sendAgain" = "Opnieuw versturen";
+
+"transactionhistory.cell.buy" = "Kopen: %@/%@";
 
 "transactionhistory.cell.confirmations" = "Bevestigingen";
 
@@ -943,9 +1035,11 @@
 
 "transactionhistory.cell.recipient" = "Ontvanger";
 
-"transactionhistory.cell.recipients" = "Recipients";
+"transactionhistory.cell.recipients" = "Ontvangers";
 
 "transactionhistory.cell.reissuable" = "Opnieuw uit te geven";
+
+"transactionhistory.cell.sell" = "Verkopen: %@/%@";
 
 "transactionhistory.cell.sentTo" = "Verzonden naar";
 
@@ -958,6 +1052,8 @@
 "transactionhistory.cell.status.button.unconfirmed" = "Niet bevestigd";
 
 "transactionhistory.cell.status.timestamp" = "Tijdstempel";
+
+"transactionhistory.cell.type" = "Type";
 
 "transactionhistory.copy.amount" = "Aantal";
 
@@ -989,6 +1085,8 @@
 
 "wallet.label.leasedIn" = "Geleased in";
 
+"wallet.label.myAssets" = "Mijn Asset";
+
 "wallet.label.quickNote.description.first" = "U kunt alleen WAVES die niet worden geleased, overdragen of verhandelen. Het geleasde bedrag kan niet door u of iemand anders worden overgedragen of verhandeld.";
 
 "wallet.label.quickNote.description.second" = "U kunt een leasing-transactie annuleren zodra deze in de blockchain verschijnt, dit is meestal binnen een minuut of minder.";
@@ -1005,11 +1103,11 @@
 
 "wallet.section.activeNow" = "Nu actief (%d)";
 
-"wallet.section.hiddenAssets" = "Verborgen Assets(%d)";
+"wallet.section.hiddenAssets" = "Verborgen Assets (%d)";
 
 "wallet.section.quickNote" = "Snelle notitie";
 
-"wallet.section.spamAssets" = "Spam assets(%d)";
+"wallet.section.spamAssets" = "Spam assets (%d)";
 
 "wallet.segmentedControl.assets" = "Assets";
 
