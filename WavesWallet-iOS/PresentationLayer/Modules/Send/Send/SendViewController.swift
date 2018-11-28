@@ -321,7 +321,7 @@ private extension SendViewController {
             
             values.append(availableBalance)
             
-            let n5 = Decimal(availableBalance.amount) * (Decimal(Constants.percent10) / 100.0)
+            let n5 = Decimal(availableBalance.amount) * (Decimal(Constants.percent5) / 100.0)
             let n10 = Decimal(availableBalance.amount) * (Decimal(Constants.percent10) / 100.0)
             let n50 = Decimal(availableBalance.amount) * (Decimal(Constants.percent50) / 100.0)
             
