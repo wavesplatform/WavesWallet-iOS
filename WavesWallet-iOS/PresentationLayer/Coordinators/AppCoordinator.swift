@@ -52,9 +52,9 @@ final class AppCoordinator: Coordinator {
         self.window = window
         let vc = UINavigationController()
         vc.navigationBar.isHidden = true
-//        let root = StoryboardScene.LaunchScreen.initialScene.instantiate()
-//        vc.pushViewController(root, animated: false)
-        window.rootViewController = UIViewController()
+        let root = StoryboardScene.LaunchScreen.initialScene.instantiate()
+        vc.pushViewController(root, animated: false)
+        window.rootViewController = vc
         window.makeKeyAndVisible()
     }
 
