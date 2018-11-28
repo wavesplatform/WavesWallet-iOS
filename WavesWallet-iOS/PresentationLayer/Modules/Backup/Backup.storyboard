@@ -18,66 +18,74 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Ft-qb-Zah">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qra-6C-xGo">
+                                <rect key="frame" x="16" y="599" width="343" height="48"/>
+                                <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="p9g-cz-ISY"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                <state key="normal" title="I understand">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="understandTapped:" destination="aMH-KP-qj8" eventType="touchUpInside" id="Qi2-Bs-2p2"/>
+                                </connections>
+                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Ft-qb-Zah">
+                                <rect key="frame" x="0.0" y="20" width="375" height="579"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d0d-X9-f0w">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="579"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgSeed80Submit400" translatesAutoresizingMaskIntoConstraints="NO" id="BYb-Vo-YTK">
-                                                <rect key="frame" x="147.5" y="100" width="80" height="80"/>
-                                            </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Treat your backup phrase with care!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnh-Nd-CfI">
-                                                <rect key="frame" x="24" y="204" width="327" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xqQ-dN-ozw">
-                                                <rect key="frame" x="24" y="238.5" width="327" height="171"/>
-                                                <string key="text">Waves Platform would like to warn you about the increased frequency of scam and phishing attacks over the last month. Fraudsters are hiding their malware in their own versions of the Waves client and promising bonuses and discounts to lure in users.
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oyY-fy-KFg">
+                                                <rect key="frame" x="24" y="115" width="327" height="309.5"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgSeed80Submit400" translatesAutoresizingMaskIntoConstraints="NO" id="BYb-Vo-YTK">
+                                                        <rect key="frame" x="123.5" y="0.0" width="80" height="80"/>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Treat your backup phrase with care!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnh-Nd-CfI">
+                                                        <rect key="frame" x="0.0" y="104" width="327" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xqQ-dN-ozw">
+                                                        <rect key="frame" x="0.0" y="138.5" width="327" height="171"/>
+                                                        <string key="text">Waves Platform would like to warn you about the increased frequency of scam and phishing attacks over the last month. Fraudsters are hiding their malware in their own versions of the Waves client and promising bonuses and discounts to lure in users.
 
 Please be careful and never input your SEED into these 'clients', because your account will be compromised and you will lose all of your funds.
 
 You should ONLY use the official Waves client.</string>
-                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qra-6C-xGo">
-                                                <rect key="frame" x="16" y="575" width="343" height="48"/>
-                                                <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="48" id="p9g-cz-ISY"/>
+                                                    <constraint firstItem="xqQ-dN-ozw" firstAttribute="leading" secondItem="oyY-fy-KFg" secondAttribute="leading" id="33n-ud-rcJ"/>
+                                                    <constraint firstItem="cnh-Nd-CfI" firstAttribute="top" secondItem="BYb-Vo-YTK" secondAttribute="bottom" constant="24" id="8LA-wg-BqK"/>
+                                                    <constraint firstAttribute="trailing" secondItem="xqQ-dN-ozw" secondAttribute="trailing" id="BNS-u8-Qdz"/>
+                                                    <constraint firstItem="BYb-Vo-YTK" firstAttribute="centerX" secondItem="oyY-fy-KFg" secondAttribute="centerX" id="C1U-62-ggR"/>
+                                                    <constraint firstItem="BYb-Vo-YTK" firstAttribute="top" secondItem="oyY-fy-KFg" secondAttribute="top" id="LOB-eb-GQU"/>
+                                                    <constraint firstAttribute="bottom" secondItem="xqQ-dN-ozw" secondAttribute="bottom" id="UhY-5a-ola"/>
+                                                    <constraint firstItem="xqQ-dN-ozw" firstAttribute="top" secondItem="cnh-Nd-CfI" secondAttribute="bottom" constant="14" id="m8F-Oq-ggu"/>
+                                                    <constraint firstItem="cnh-Nd-CfI" firstAttribute="leading" secondItem="oyY-fy-KFg" secondAttribute="leading" id="nkR-sr-5rx"/>
+                                                    <constraint firstAttribute="trailing" secondItem="cnh-Nd-CfI" secondAttribute="trailing" id="rcn-4f-y0O"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
-                                                <state key="normal" title="I understand">
-                                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="3"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="understandTapped:" destination="aMH-KP-qj8" eventType="touchUpInside" id="Qi2-Bs-2p2"/>
-                                                </connections>
-                                            </button>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="xqQ-dN-ozw" firstAttribute="leading" secondItem="d0d-X9-f0w" secondAttribute="leading" constant="24" id="1YU-Rt-nHr"/>
-                                            <constraint firstItem="qra-6C-xGo" firstAttribute="leading" secondItem="d0d-X9-f0w" secondAttribute="leading" constant="16" id="3Nn-2D-4bg"/>
-                                            <constraint firstItem="qra-6C-xGo" firstAttribute="top" relation="greaterThanOrEqual" secondItem="xqQ-dN-ozw" secondAttribute="bottom" constant="24" id="EmT-I8-xgJ"/>
-                                            <constraint firstItem="BYb-Vo-YTK" firstAttribute="centerX" secondItem="d0d-X9-f0w" secondAttribute="centerX" id="L85-5T-KL8"/>
-                                            <constraint firstItem="BYb-Vo-YTK" firstAttribute="top" secondItem="d0d-X9-f0w" secondAttribute="top" constant="100" id="O3u-IC-W6I"/>
-                                            <constraint firstAttribute="trailing" secondItem="cnh-Nd-CfI" secondAttribute="trailing" constant="24" id="SYl-cH-KZr"/>
-                                            <constraint firstAttribute="trailing" secondItem="xqQ-dN-ozw" secondAttribute="trailing" constant="24" id="Tzs-Xc-iiM"/>
-                                            <constraint firstAttribute="bottom" secondItem="qra-6C-xGo" secondAttribute="bottom" constant="24" id="ZSB-CY-I3G"/>
-                                            <constraint firstAttribute="trailing" secondItem="qra-6C-xGo" secondAttribute="trailing" constant="16" id="dKF-EF-2VO"/>
-                                            <constraint firstItem="cnh-Nd-CfI" firstAttribute="top" secondItem="BYb-Vo-YTK" secondAttribute="bottom" constant="24" id="eXj-Me-Lfg"/>
-                                            <constraint firstItem="cnh-Nd-CfI" firstAttribute="leading" secondItem="d0d-X9-f0w" secondAttribute="leading" constant="24" id="ghg-Lc-YEs"/>
-                                            <constraint firstItem="xqQ-dN-ozw" firstAttribute="top" secondItem="cnh-Nd-CfI" secondAttribute="bottom" constant="14" id="v1h-YM-2o2"/>
+                                            <constraint firstItem="oyY-fy-KFg" firstAttribute="centerY" secondItem="d0d-X9-f0w" secondAttribute="centerY" constant="-20" id="OzP-6D-fvy"/>
+                                            <constraint firstItem="oyY-fy-KFg" firstAttribute="leading" secondItem="d0d-X9-f0w" secondAttribute="leading" constant="24" id="UAY-RY-X9m"/>
+                                            <constraint firstAttribute="trailing" secondItem="oyY-fy-KFg" secondAttribute="trailing" constant="24" id="mkf-wA-5VT"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -90,13 +98,41 @@ You should ONLY use the official Waves client.</string>
                                     <constraint firstItem="d0d-X9-f0w" firstAttribute="top" secondItem="7Ft-qb-Zah" secondAttribute="top" id="mlz-Fb-PXB"/>
                                 </constraints>
                             </scrollView>
+                            <view opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TVa-en-dnc" customClass="CustomGradientView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="560" width="375" height="39"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="39" id="wCH-7Z-tfr"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                        <color key="value" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="diagonalMode" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="horizontalMode" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="startLocation">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="endLocation">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="qra-6C-xGo" firstAttribute="leading" secondItem="n3B-qW-Yjo" secondAttribute="leading" constant="16" id="EzR-Ng-jeG"/>
+                            <constraint firstItem="n3B-qW-Yjo" firstAttribute="trailing" secondItem="qra-6C-xGo" secondAttribute="trailing" constant="16" id="Gcm-yd-D2M"/>
+                            <constraint firstItem="n3B-qW-Yjo" firstAttribute="bottom" secondItem="qra-6C-xGo" secondAttribute="bottom" constant="20" id="MS2-8K-EoJ"/>
                             <constraint firstItem="n3B-qW-Yjo" firstAttribute="trailing" secondItem="7Ft-qb-Zah" secondAttribute="trailing" id="Mpx-Um-ueQ"/>
                             <constraint firstItem="7Ft-qb-Zah" firstAttribute="leading" secondItem="n3B-qW-Yjo" secondAttribute="leading" id="Ngs-Jz-JtK"/>
-                            <constraint firstItem="n3B-qW-Yjo" firstAttribute="bottom" secondItem="7Ft-qb-Zah" secondAttribute="bottom" id="mDu-6u-7X9"/>
+                            <constraint firstItem="n3B-qW-Yjo" firstAttribute="trailing" secondItem="TVa-en-dnc" secondAttribute="trailing" id="OnI-ca-eP0"/>
+                            <constraint firstItem="qra-6C-xGo" firstAttribute="top" secondItem="7Ft-qb-Zah" secondAttribute="bottom" id="kWc-Ml-F35"/>
                             <constraint firstItem="7Ft-qb-Zah" firstAttribute="top" secondItem="n3B-qW-Yjo" secondAttribute="top" id="mX0-f0-Qxx"/>
+                            <constraint firstItem="TVa-en-dnc" firstAttribute="leading" secondItem="n3B-qW-Yjo" secondAttribute="leading" id="ose-Oj-yJj"/>
+                            <constraint firstItem="qra-6C-xGo" firstAttribute="top" secondItem="TVa-en-dnc" secondAttribute="bottom" id="yKV-LI-aRD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="n3B-qW-Yjo"/>
                     </view>
@@ -104,12 +140,11 @@ You should ONLY use the official Waves client.</string>
                         <outlet property="detailLabel" destination="xqQ-dN-ozw" id="rE6-qk-fg8"/>
                         <outlet property="iUnderstandButton" destination="qra-6C-xGo" id="WbL-6a-arz"/>
                         <outlet property="titleLabel" destination="cnh-Nd-CfI" id="lLJ-Yp-sNo"/>
-                        <outlet property="topLogoOffset" destination="O3u-IC-W6I" id="hix-Qq-u5o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PEN-OC-hPi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1352" y="1445"/>
+            <point key="canvasLocation" x="1351.2" y="1444.2278860569716"/>
         </scene>
         <!--Need Backup View Controller-->
         <scene sceneID="Loq-YD-DFd">
@@ -123,8 +158,8 @@ You should ONLY use the official Waves client.</string>
                                 <rect key="frame" x="147.5" y="180" width="80" height="80"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Backup, No Money" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="neh-fX-cUY">
-                                <rect key="frame" x="102" y="284" width="171" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="100.5" y="284" width="174" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>

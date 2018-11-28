@@ -28,9 +28,9 @@ final class BackupInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if Platform.isIphone5 {
-            topLogoOffset.constant = Constants.topLogoOffset
-        }
+//        if Platform.isIphone5 {
+//            topLogoOffset.constant = Constants.topLogoOffset
+//        }
 
         iUnderstandButton.setBackgroundImage(UIColor.submit300.image, for: .highlighted)
         iUnderstandButton.setBackgroundImage(UIColor.submit400.image, for: .normal)
