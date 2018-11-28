@@ -22,13 +22,14 @@ final class DexListViewController: UIViewController {
     private var buttonSort = UIBarButtonItem(image: Images.topbarSort.image, style: .plain, target: nil, action: nil)
     private var buttonAdd = UIBarButtonItem(image: Images.topbarAddmarkets.image, style: .plain, target: nil, action: nil)
 
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var viewNoItems: UIView!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var viewNoItems: UIView!
     
-    @IBOutlet weak var labelNoItemsDescription: UILabel!
-    @IBOutlet weak var labelNoItemsTitle: UILabel!
-    @IBOutlet weak var buttonAddMarkets: UIButton!
-
+    @IBOutlet private weak var labelNoItemsDescription: UILabel!
+    @IBOutlet private weak var labelNoItemsTitle: UILabel!
+    @IBOutlet private weak var buttonAddMarkets: UIButton!
+    @IBOutlet private weak var globalErrorView: GlobalErrorView!
+    
     private var refreshControl: UIRefreshControl!
 
     var presenter : DexListPresenterProtocol!
