@@ -88,8 +88,8 @@ final class DexListPresenter: DexListPresenterProtocol {
             }
            
             
-        case .tapSortButton:
-            moduleOutput?.showDexSort()
+        case .tapSortButton(let delegate):
+            moduleOutput?.showDexSort(delegate: delegate)
             return state.changeAction(.none)
 
         case .tapAddButton(let delegate):

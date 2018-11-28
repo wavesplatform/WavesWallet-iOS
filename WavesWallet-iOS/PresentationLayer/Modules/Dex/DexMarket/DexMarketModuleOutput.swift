@@ -11,7 +11,3 @@ import Foundation
 protocol DexMarketModuleOutput: AnyObject {
     func showInfo(pair: DexInfoPair.DTO.Pair)
 }
-
-protocol DexMarketDelegate: AnyObject {
-    func dexMarketDidUpdatePairs()
-}

@@ -107,7 +107,7 @@ fileprivate extension DexListViewController {
         
         let refresh = refreshControl.rx.controlEvent(.valueChanged).map { DexList.Event.refresh }.asSignal(onErrorSignalWith: Signal.empty())
 
-        let sortTapEvent = buttonSort.rx.tap.map { DexList.Event.tapSortButton }
+        let sortTapEvent = buttonSort.rx.tap.map { DexList.Event.tapSortButton(self) }
             .asSignal(onErrorSignalWith: Signal.empty())
 
         let addTapEvent = buttonAdd.rx.tap.map { DexList.Event.tapAddButton(self) }
@@ -141,17 +141,9 @@ fileprivate extension DexListViewController {
                         strongSelf.setupViews(loadingDataState: state.isFirstLoadingData, isVisibleItems: state.isVisibleItems)
                     
                 case .didFailGetModels(let error):
-                    strongSelf.globalErrorView.isHidden = false
-                    strongSelf.refreshControl.endRefreshing()
-                    strongSelf.tableView.isHidden = true
                     
-                    switch error {
-                    case .internetNotWorking:
-                        strongSelf.globalErrorView.update(with: .init(kind: .internetNotWorking))
+                    strongSelf.setupErrorState(error: error, isFirstLoadingData: state.isFirstLoadingData)
                     
-                    default:
-                        strongSelf.globalErrorView.update(with: .init(kind: .serverError))
-                    }
                     
                 default:
                     break
@@ -162,10 +154,10 @@ fileprivate extension DexListViewController {
     }
 }
 
-//MARK: - DexMarketDelegate
-
-extension DexListViewController: DexMarketDelegate {
-    func dexMarketDidUpdatePairs() {
+//MARK: - DexListRefreshOutput
+extension DexListViewController: DexListRefreshOutput {
+    
+    func refreshPairs() {
         sendEvent.accept(.refresh)
     }
 }
@@ -174,6 +166,31 @@ extension DexListViewController: DexMarketDelegate {
 
 private extension DexListViewController {
 
+    func setupErrorState(error: NetworkError, isFirstLoadingData: Bool) {
+        
+        refreshControl.endRefreshing()
+        
+        if isFirstLoadingData {
+            globalErrorView.isHidden = false
+            tableView.isHidden = true
+            
+            switch error {
+            case .internetNotWorking:
+                globalErrorView.update(with: .init(kind: .internetNotWorking))
+                
+            default:
+                globalErrorView.update(with: .init(kind: .serverError))
+            }
+        }
+        else {
+            globalErrorView.isHidden = true
+            tableView.isHidden = false
+            showWithoutInternetSnack { [weak self] in
+                self?.sendEvent.accept(.refresh)
+            }
+        }
+    }
+    
     func setupViews(loadingDataState: Bool, isVisibleItems: Bool) {
         if (loadingDataState) {
             setupViewNoItems(isHidden: true)
