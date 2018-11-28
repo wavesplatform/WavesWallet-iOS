@@ -155,7 +155,7 @@ private extension ChangePasswordPresenter {
                 var confirmPasswordTextField = state.displayState.textFields[.confirmPassword]
 
                 if isInValidPassword(value) {
-                    textfield?.error = Localizable.Waves.Changepassword.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
+                    textfield?.error = Localizable.Waves.Changepassword.Textfield.Error.atleastcharacters(GlobalConstants.minLengthPassword)
                 } else {
                     textfield?.error = nil
                     state.isValidConfirmPassword = true
@@ -172,7 +172,7 @@ private extension ChangePasswordPresenter {
             case .confirmPassword:
 
                 if isInValidPassword(value) {
-                    textfield?.error = Localizable.Waves.Changepassword.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
+                    textfield?.error = Localizable.Waves.Changepassword.Textfield.Error.atleastcharacters(GlobalConstants.minLengthPassword)
                 } else if let newPassword = state.textFields[.newPassword],
                     let confirmPassword = value, confirmPassword != newPassword {
                     textfield?.error = Localizable.Waves.Changepassword.Textfield.Error.passwordnotmatch
