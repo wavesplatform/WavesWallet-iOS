@@ -16,6 +16,7 @@ import FirebaseCore
 import FirebaseDatabase
 import Fabric
 import Crashlytics
+import AppsFlyerLib
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -35,6 +36,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Database.database().isPersistenceEnabled = false
             Fabric.with([Crashlytics.self])
         }
+
+        if let path = Bundle.main.path(forResource: "Appsflyer-Info", ofType: "plist"),
+            let root = NSDictionary(contentsOfFile: path)?["Appsflyer"] as? NSDictionary {
+            if let devKey = root["AppsFlyerDevKey"] as? String,
+                let appId = root["AppleAppID"] as? String {
+                AppsFlyerTracker.shared().appsFlyerDevKey = devKey
+                AppsFlyerTracker.shared().appleAppID = appId
+            }
+        }
+
+        #if DEBUG
+            AppsFlyerTracker.shared().isDebug = true
+        #endif
 
         IQKeyboardManager.shared.enable = true
         UIBarButtonItem.appearance().tintColor = UIColor.black
@@ -81,6 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         appCoordinator.applicationDidBecomeActive()
+        AppsFlyerTracker.shared().trackAppLaunch()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {}
