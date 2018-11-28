@@ -107,7 +107,7 @@ fileprivate extension DexMyOrdersViewController {
                     
                 case .orderDidFailCancel(let error):
                     
-                    strongSelf.showMessageSnack(title: error.message)
+                    strongSelf.showMessageSnack(title: error.text)
                     strongSelf.tableView.reloadData()
                 
                 case .orderDidFinishCancel:

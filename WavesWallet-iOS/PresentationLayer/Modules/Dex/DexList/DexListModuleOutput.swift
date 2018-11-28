@@ -11,6 +11,6 @@ import Foundation
 protocol DexListModuleOutput: AnyObject {
  
     func showDexSort()
-    func showAddList()
+    func showAddList(delegate: DexMarketDelegate)
     func showTradePairInfo(pair: DexTraderContainer.DTO.Pair)
 }

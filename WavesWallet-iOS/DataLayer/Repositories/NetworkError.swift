@@ -34,6 +34,15 @@ enum NetworkError: Error {
             return false
         }
     }
+    
+    var text: String {
+        switch self {
+        case .message(let message):
+            return message
+        default:
+            return localizedDescription
+        }
+    }
 }
 
 extension MoyaError {
@@ -127,6 +136,10 @@ extension NetworkError {
 
         if let anyObject = anyObject as? [String: Any] {
             message = anyObject["message"] as? String
+            
+            if message == nil {
+                message = anyObject["error"] as? String
+            }
         }
 
         if let message = message {

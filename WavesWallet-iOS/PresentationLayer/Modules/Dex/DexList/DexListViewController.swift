@@ -22,13 +22,14 @@ final class DexListViewController: UIViewController {
     private var buttonSort = UIBarButtonItem(image: Images.topbarSort.image, style: .plain, target: nil, action: nil)
     private var buttonAdd = UIBarButtonItem(image: Images.topbarAddmarkets.image, style: .plain, target: nil, action: nil)
 
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var viewNoItems: UIView!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var viewNoItems: UIView!
     
-    @IBOutlet weak var labelNoItemsDescription: UILabel!
-    @IBOutlet weak var labelNoItemsTitle: UILabel!
-    @IBOutlet weak var buttonAddMarkets: UIButton!
-
+    @IBOutlet private weak var labelNoItemsDescription: UILabel!
+    @IBOutlet private weak var labelNoItemsTitle: UILabel!
+    @IBOutlet private weak var buttonAddMarkets: UIButton!
+    @IBOutlet private weak var globalErrorView: GlobalErrorView!
+    
     private var refreshControl: UIRefreshControl!
 
     var presenter : DexListPresenterProtocol!
@@ -57,6 +58,10 @@ final class DexListViewController: UIViewController {
         
         presenter.system(feedbacks: [feedback, readyViewFeedback])
         NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
+        
+        globalErrorView.retryDidTap = { [weak self] in
+            self?.sendEvent.accept(.refresh)
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -105,10 +110,10 @@ fileprivate extension DexListViewController {
         let sortTapEvent = buttonSort.rx.tap.map { DexList.Event.tapSortButton }
             .asSignal(onErrorSignalWith: Signal.empty())
 
-        let addTapEvent = buttonAdd.rx.tap.map { DexList.Event.tapAddButton }
+        let addTapEvent = buttonAdd.rx.tap.map { DexList.Event.tapAddButton(self) }
             .asSignal(onErrorSignalWith: Signal.empty())
 
-        let addTap2Event = buttonAddMarkets.rx.tap.map { DexList.Event.tapAddButton }
+        let addTap2Event = buttonAddMarkets.rx.tap.map { DexList.Event.tapAddButton(self) }
             .asSignal(onErrorSignalWith: Signal.empty())
 
         let changedSpamList = NotificationCenter.default.rx
@@ -124,13 +129,32 @@ fileprivate extension DexListViewController {
             .drive(onNext: { [weak self] state in
 
                 guard let strongSelf = self else { return }
-                guard state.action != .none else { return }
-
-                if state.action == .update {
-                    strongSelf.sections = state.sections
-                    strongSelf.tableView.reloadData()
+               
+                switch state.action {
+                    
+                case .update:
+                        strongSelf.tableView.isHidden = false
+                        strongSelf.globalErrorView.isHidden = true
+                        strongSelf.sections = state.sections
+                        strongSelf.tableView.reloadData()
+                        strongSelf.refreshControl.endRefreshing()
+                        strongSelf.setupViews(loadingDataState: state.isFirstLoadingData, isVisibleItems: state.isVisibleItems)
+                    
+                case .didFailGetModels(let error):
+                    strongSelf.globalErrorView.isHidden = false
                     strongSelf.refreshControl.endRefreshing()
-                    strongSelf.setupViews(loadingDataState: state.isFirstLoadingData, isVisibleItems: state.isVisibleItems)
+                    strongSelf.tableView.isHidden = true
+                    
+                    switch error {
+                    case .internetNotWorking:
+                        strongSelf.globalErrorView.update(with: .init(kind: .internetNotWorking))
+                    
+                    default:
+                        strongSelf.globalErrorView.update(with: .init(kind: .serverError))
+                    }
+                    
+                default:
+                    break
                 }
             })
 
@@ -138,6 +162,13 @@ fileprivate extension DexListViewController {
     }
 }
 
+//MARK: - DexMarketDelegate
+
+extension DexListViewController: DexMarketDelegate {
+    func dexMarketDidUpdatePairs() {
+        sendEvent.accept(.refresh)
+    }
+}
 
 //MARK: SetupUI
 
