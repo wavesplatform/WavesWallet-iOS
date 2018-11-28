@@ -1,0 +1,12 @@
+
+"NSCameraUsageDescription" = "QRコードをスキャンする為にカメラ機能が必要です";
+
+"NSFaceIDUsageDescription" = "あなたのウォレットにアクセスする";
+
+"cameraAccess.alert.allow" = "カメラを利用可能にする";
+
+"cameraAccess.alert.cancel" = "キャンセルする";
+
+"cameraAccess.alert.message" = "アプリ内の全ての機能にアクセスするためにカメラ機能へのアクセスを設定してください";
+
+"cameraAccess.alert.title" = "カメラ機能へのアクセス権が必要です";

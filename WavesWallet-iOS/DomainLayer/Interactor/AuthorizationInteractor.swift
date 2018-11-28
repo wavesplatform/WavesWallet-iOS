@@ -536,6 +536,13 @@ extension AuthorizationInteractor {
         return Observable.zip([localWalletRepository.removeWallet(wallet),
                                deleleteWalletSeed,
                                localWalletRepository.removeWalletEncryption(by: wallet.publicKey)])
+            .flatMap({ _ -> Observable<Bool> in
+                let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address)
+                try? realm?.write {
+                    realm?.deleteAll()
+                }
+                return Observable.just(true)
+            })
             .map { _ in true }
             .catchError({ [weak self] error -> Observable<Bool> in
                 guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }

@@ -2,3 +2,11 @@
 "NSCameraUsageDescription" = "De camera is nodig om QR-codes te scannen";
 
 "NSFaceIDUsageDescription" = "Toegang tot uw Portemonnee";
+
+"cameraAccess.alert.allow" = "Camera Toestaan";
+
+"cameraAccess.alert.cancel" = "Annuleren";
+
+"cameraAccess.alert.message" = "Cameratoegang is vereist om volledig gebruik te maken van deze app";
+
+"cameraAccess.alert.title" = "Cameratoegang benodigd";

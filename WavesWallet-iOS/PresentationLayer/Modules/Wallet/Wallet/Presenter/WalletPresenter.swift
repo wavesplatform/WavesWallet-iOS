@@ -103,7 +103,11 @@ final class WalletPresenter: WalletPresenterProtocol {
         switch event {
         case .viewWillAppear:
             state.displayState.isAppeared = true
-            state.displayState.refreshData = .refresh
+            if state.displayState.refreshData == .update {
+                state.displayState.refreshData = .refresh
+            } else {
+                state.displayState.refreshData = .update
+            }
 
             var hasData = false
 
@@ -124,8 +128,8 @@ final class WalletPresenter: WalletPresenterProtocol {
             state.displayState.isAppeared = false
             state.displayState.leasing.animateType = .none
             state.displayState.assets.animateType = .none
-            state.displayState.refreshData = .none
-        
+//            state.displayState.refreshData = .none
+
         case .handlerError(let error):
             state.displayState = state.displayState.setIsRefreshing(isRefreshing: false)
             state.displayState.refreshData = .none

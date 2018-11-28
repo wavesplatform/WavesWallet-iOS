@@ -195,7 +195,7 @@ extension SendViewController: SendResultDelegate {
     func sendResultDidFail(_ error: NetworkError) {
         
         navigationController?.popToViewController(self, animated: true)
-        showMessageSnack(title: error.text)
+        showNetworkErrorSnack(error: error)
     }
 }
 
@@ -240,7 +240,7 @@ private extension SendViewController {
                     
                 case .didFailInfo(let error):
                     
-                    strongSelf.showMessageSnack(title: error.text)
+                    strongSelf.showNetworkErrorSnack(error: error)
                     strongSelf.hideGatewayInfo(animation: true)
 
                 case .didGetInfo(let info):
@@ -258,7 +258,7 @@ private extension SendViewController {
                     
                 case .didFailGenerateMoneroAddress(let error):
                     
-                    strongSelf.showMessageSnack(title: error.text)
+                    strongSelf.showNetworkErrorSnack(error: error)
                     strongSelf.hideButtonLoadingButtonsState()
                     strongSelf.moneroPaymentIdView.showErrorFromServer()
                     strongSelf.setupButtonState()

@@ -12,7 +12,7 @@ import RealmSwift
 import RxRealm
 
 private enum Constants {
-    static let stepSize: Float = 0.1
+    static let stepSize: Float = 0.000001
 }
 
 private extension WalletSort.DTO.Asset {
@@ -140,6 +140,10 @@ final class WalletSortInteractor: WalletSortInteractorProtocol {
     private func move(asset: WalletSort.DTO.Asset,
                       toAsset: WalletSort.DTO.Asset,
                       shiftSortLevel: Float) {
+
+        if asset.id == toAsset.id {
+            return
+        }
 
         authorizationInteractor
             .authorizedWallet()

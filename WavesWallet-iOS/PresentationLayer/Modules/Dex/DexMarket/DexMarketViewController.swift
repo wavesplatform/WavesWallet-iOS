@@ -29,7 +29,7 @@ final class DexMarketViewController: UIViewController {
     private var modelSection = DexMarket.ViewModel.Section(items: [])
     private let sendEvent: PublishRelay<DexMarket.Event> = PublishRelay<DexMarket.Event>()
     
-    weak var delegate: DexMarketDelegate!
+    weak var delegate: DexListRefreshOutput!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,7 +140,7 @@ extension DexMarketViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         sendEvent.accept(.tapCheckMark(index: indexPath.row))
-        delegate.dexMarketDidUpdatePairs()
+        delegate.refreshPairs()
     }
 }
 

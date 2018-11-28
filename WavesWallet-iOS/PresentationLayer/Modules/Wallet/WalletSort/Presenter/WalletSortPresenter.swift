@@ -46,7 +46,7 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
     private func reduce(state: WalletSort.State, event: WalletSort.Event) -> WalletSort.State {
         switch event {
         case .dragAsset(let sourceIndexPath, let destinationIndexPath):
-
+            
             let movableAsset = state
                 .sections[sourceIndexPath.section]
                 .items[sourceIndexPath.row].asset

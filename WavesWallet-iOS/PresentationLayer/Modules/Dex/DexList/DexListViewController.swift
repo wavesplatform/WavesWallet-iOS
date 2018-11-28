@@ -36,6 +36,7 @@ final class DexListViewController: UIViewController {
     private var sections : [DexList.ViewModel.Section] = []
     private let sendEvent: PublishRelay<DexList.Event> = PublishRelay<DexList.Event>()
     private var disposeBag = DisposeBag()
+    private var errorSnackKey: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,7 +108,7 @@ fileprivate extension DexListViewController {
         
         let refresh = refreshControl.rx.controlEvent(.valueChanged).map { DexList.Event.refresh }.asSignal(onErrorSignalWith: Signal.empty())
 
-        let sortTapEvent = buttonSort.rx.tap.map { DexList.Event.tapSortButton }
+        let sortTapEvent = buttonSort.rx.tap.map { DexList.Event.tapSortButton(self) }
             .asSignal(onErrorSignalWith: Signal.empty())
 
         let addTapEvent = buttonAdd.rx.tap.map { DexList.Event.tapAddButton(self) }
@@ -133,6 +134,7 @@ fileprivate extension DexListViewController {
                 switch state.action {
                     
                 case .update:
+                        strongSelf.hideErrorIfExist()
                         strongSelf.tableView.isHidden = false
                         strongSelf.globalErrorView.isHidden = true
                         strongSelf.sections = state.sections
@@ -141,17 +143,9 @@ fileprivate extension DexListViewController {
                         strongSelf.setupViews(loadingDataState: state.isFirstLoadingData, isVisibleItems: state.isVisibleItems)
                     
                 case .didFailGetModels(let error):
-                    strongSelf.globalErrorView.isHidden = false
-                    strongSelf.refreshControl.endRefreshing()
-                    strongSelf.tableView.isHidden = true
+                    strongSelf.hideErrorIfExist()
+                    strongSelf.setupErrorState(error: error, isFirstLoadingData: state.isFirstLoadingData)
                     
-                    switch error {
-                    case .internetNotWorking:
-                        strongSelf.globalErrorView.update(with: .init(kind: .internetNotWorking))
-                    
-                    default:
-                        strongSelf.globalErrorView.update(with: .init(kind: .serverError))
-                    }
                     
                 default:
                     break
@@ -162,10 +156,10 @@ fileprivate extension DexListViewController {
     }
 }
 
-//MARK: - DexMarketDelegate
-
-extension DexListViewController: DexMarketDelegate {
-    func dexMarketDidUpdatePairs() {
+//MARK: - DexListRefreshOutput
+extension DexListViewController: DexListRefreshOutput {
+    
+    func refreshPairs() {
         sendEvent.accept(.refresh)
     }
 }
@@ -174,6 +168,45 @@ extension DexListViewController: DexMarketDelegate {
 
 private extension DexListViewController {
 
+    func hideErrorIfExist() {
+        if let key = errorSnackKey {
+            hideSnack(key: key)
+            errorSnackKey = nil
+        }
+    }
+    func setupErrorState(error: NetworkError, isFirstLoadingData: Bool) {
+        
+        refreshControl.endRefreshing()
+        
+        if isFirstLoadingData {
+            globalErrorView.isHidden = false
+            tableView.isHidden = true
+            
+            switch error {
+            case .internetNotWorking:
+                globalErrorView.update(with: .init(kind: .internetNotWorking))
+                
+            default:
+                globalErrorView.update(with: .init(kind: .serverError))
+            }
+        }
+        else {
+            globalErrorView.isHidden = true
+            tableView.isHidden = false
+            
+            switch error {
+            case .internetNotWorking:
+                errorSnackKey = showWithoutInternetSnack { [weak self] in
+                    self?.sendEvent.accept(.refresh)
+                }
+                
+            default:
+                errorSnackKey = showNetworkErrorSnack(error: error)
+            }
+            
+        }
+    }
+    
     func setupViews(loadingDataState: Bool, isVisibleItems: Bool) {
         if (loadingDataState) {
             setupViewNoItems(isHidden: true)

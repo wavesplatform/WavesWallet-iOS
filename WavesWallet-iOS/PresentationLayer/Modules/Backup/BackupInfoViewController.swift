@@ -8,9 +8,6 @@
 
 import UIKit
 
-private enum Constants {
-    static let topLogoOffset: CGFloat = 80
-}
 
 protocol BackupInfoViewModuleOutput: AnyObject {
     func userReadedBackupInfo()

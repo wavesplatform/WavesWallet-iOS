@@ -1,7 +1,7 @@
 
 "Receivecard.Label.minimunAmountInfo" = "最少 %@，最大 %@";
 
-"Send.Label.Error.notFundsFeeGateway" = "你没有足够的资金支付需要的费用。你需要支付%@的交易费用和%@网关费用。";
+"Send.Label.Error.notFundsFeeGateway" = "你没有足够的资金支付需要的费用。你需要支付 %@ 的交易费用和 %@ 网关费用。";
 
 "Send.Label.Warning.description" = "请不要将你资金的 %@ 投入一个ICO。我们不支持此项业务。";
 
@@ -9,7 +9,9 @@
 
 "accountpassword.button.signIn.title" = "登录";
 
-"accountpassword.textfield.error.atleastcharacters" = "至少%d个字符";
+"accountpassword.error.wrongpassword" = "密码错误";
+
+"accountpassword.textfield.error.atleastcharacters" = "至少 %d 个字符";
 
 "accountpassword.textfield.password.placeholder" = "账户密码";
 
@@ -21,6 +23,10 @@
 
 "addAddressbook.button.save" = "保存";
 
+"addAddressbook.error.charactersMaximum" = "最多 %d 个字符";
+
+"addAddressbook.error.charactersMinimum" = "至少 %d 个字符";
+
 "addAddressbook.label.add" = "增加";
 
 "addAddressbook.label.address" = "地址";
@@ -31,17 +37,17 @@
 
 "addAddressbook.label.name" = "名字";
 
-"addAddressbook.textfield.address.error.addressexist" = "Bereits in Benutzung";
+"addAddressbook.textfield.address.error.addressexist" = "已被使用";
 
 "addressbook.label.addressBook" = "地址簿";
 
 "addressbook.label.addressDeleted" = "删除的地址";
 
-"addressbook.label.noInfo" = "没有信息... \n你可以创建新地址。";
+"addressbook.label.noInfo" = "没有信息…\n你可以创建新地址。";
 
 "addresseskeys.cell.address.title" = "你的地址";
 
-"addresseskeys.cell.aliases.subtitle.withaliaces" = "你有%d";
+"addresseskeys.cell.aliases.subtitle.withaliaces" = "你有 %d";
 
 "addresseskeys.cell.aliases.subtitle.withoutaliaces" = "没有信息";
 
@@ -79,9 +85,9 @@
 
 "aliaseswithout.view.info.label.title" = "你没有别名";
 
-"asset.cell.assetInfo.cantPerformTransactions" = "You can not perform transactions with this asset";
+"asset.cell.assetInfo.cantPerformTransactions" = "您无法使用此资产执行交易";
 
-"asset.cell.assetInfo.decimalPoints" = "Decimal points";
+"asset.cell.assetInfo.decimalPoints" = "小数点";
 
 "asset.cell.assetInfo.description" = "描述";
 
@@ -101,7 +107,7 @@
 
 "asset.cell.assetInfo.title" = "资产信息";
 
-"asset.cell.assetInfo.totalAmount" = "Total amount";
+"asset.cell.assetInfo.totalAmount" = "总金额";
 
 "asset.cell.balance.avaliableBalance" = "可用余额";
 
@@ -125,7 +131,7 @@
 
 "assetlist.button.allList" = "所有清单";
 
-"assetlist.button.myList" = "我的清单";
+"assetlist.button.myList" = "使用全部余额";
 
 "assetlist.button.withBalance" = "余额";
 
@@ -145,7 +151,7 @@
 
 "backup.infobackup.button.iunderstand" = "我明白";
 
-"backup.infobackup.label.detail" = "WAVE平台想提醒您上个月诈骗和网络钓鱼攻击的频率增加了。欺诈者将他们的恶意软件隐藏在他们自己的Waves客户端版本中，并承诺提供奖金和折扣来吸引用户。 \n\n请小心，永远不要把您的SEED输入到这些“客户端”中，因为您的帐户将被破坏，您将失去所有的资金。\n\n请您只使用官方波浪客户端。";
+"backup.infobackup.label.detail" = "WAVE平台想提醒您上个月诈骗和网络钓鱼攻击的频率增加了。欺诈者将他们的恶意软件隐藏在他们自己的Waves客户端版本中，并承诺提供奖金和折扣来吸引用户。\n\n请小心，永远不要把您的SEED输入到这些“客户端”中，因为您的帐户将被破坏，您将失去所有的资金。\n\n请您只使用官方波浪客户端。";
 
 "backup.infobackup.label.title" = "请妥善保存你的备份短语";
 
@@ -167,9 +173,17 @@
 
 "backup.savebackup.next.label.title" = "你将在下一个界面确认这些短语";
 
-"biometric.readfromkeychain" = "进行身份验证以解密钱包私钥并确认您的交易";
+"biometric.readfromkeychain" = "进入钱包";
 
-"biometric.saveinkeychain" = "确认并存储加密的钱包私钥";
+"biometric.saveinkeychain" = "进入钱包";
+
+"cameraAccess.alert.allow" = "Allow Camera";
+
+"cameraAccess.alert.cancel" = "取消";
+
+"cameraAccess.alert.message" = "Camera access is required to make full use of this app";
+
+"cameraAccess.alert.title" = "Need Camera Access";
 
 "changepassword.button.confirm.title" = "确认";
 
@@ -179,7 +193,7 @@
 
 "changepassword.textfield.createpassword.title" = "新密码";
 
-"changepassword.textfield.error.atleastcharacters" = "至少%d字符";
+"changepassword.textfield.error.atleastcharacters" = "至少 %d 字符";
 
 "changepassword.textfield.error.incorrectpassword" = "密码错误";
 
@@ -195,7 +209,7 @@
 
 "chooseaccount.alert.delete.title" = "删除账户";
 
-"chooseaccount.label.nothingWallets" = "没有信息... \n你没有已保持的账户";
+"chooseaccount.label.nothingWallets" = "没有信息…\n你没有已保持的账户";
 
 "chooseaccount.navigation.title" = "选择账户";
 
@@ -214,6 +228,10 @@
 "createalias.error.minimumcharacters" = "最少4个字符";
 
 "createalias.navigation.title" = "新的别名";
+
+"dex.general.error.nothingHere" = "这里没有任何信息…";
+
+"dex.general.error.somethingWentWrong" = "错误";
 
 "dexchart.button.cancel" = "取消";
 
@@ -273,6 +291,8 @@
 
 "dexcreateorder.label.days" = "天";
 
+"dexcreateorder.label.error.notFundsFee" = "您没有足够的资金来支付所需的费用。";
+
 "dexcreateorder.label.fee" = "费用";
 
 "dexcreateorder.label.limitPriceIn" = "最高价格";
@@ -295,7 +315,7 @@
 
 "dexlasttrades.label.amount" = "总数";
 
-"dexlasttrades.label.emptyData" = "没有信息... \n无历史交易纪录";
+"dexlasttrades.label.emptyData" = "没有信息…\n无历史交易纪录";
 
 "dexlasttrades.label.loadingLastTrades" = "载入最近交易";
 
@@ -333,7 +353,7 @@
 
 "dexmyorders.label.date" = "日期";
 
-"dexmyorders.label.emptyData" = "没有信息... \n您没有任何交易";
+"dexmyorders.label.emptyData" = "没有信息…\n您没有任何交易";
 
 "dexmyorders.label.loadingLastTrades" = "载入交易信息";
 
@@ -363,7 +383,7 @@
 
 "dexorderbook.label.amount" = "总数";
 
-"dexorderbook.label.emptyData" = "没有信息... \n没有交易记录";
+"dexorderbook.label.emptyData" = "没有信息…\n没有交易记录";
 
 "dexorderbook.label.lastPrice" = "最新价格";
 
@@ -391,11 +411,11 @@
 
 "editaccountname.navigation.title" = "编辑名称";
 
-"enter.block.blockchain.text" = "成为告诉发展的数字货币世界的一员。你是唯一可以访问你的数字资产的人。";
+"enter.block.blockchain.text" = "成为高速发展的数字货币世界的一员。你是唯一可以访问你的数字资产的人。";
 
 "enter.block.blockchain.title" = "开始使用区块链";
 
-"enter.block.exchange.text" = "快速安全地交易。在我们的分散交易所交易时，您可以完全控制您的资金。";
+"enter.block.exchange.text" = "快速安全地交易。在我们的去中心化交易所交易时，您可以完全控制您的资金。";
 
 "enter.block.exchange.title" = "去中心化交易";
 
@@ -413,7 +433,7 @@
 
 "enter.button.importAccount.detail" = "代码配对或手工配对";
 
-"enter.button.importAccount.error.insecureSeed" = "Insecure SEED";
+"enter.button.importAccount.error.insecureSeed" = "不安全的SEED";
 
 "enter.button.importAccount.title" = "导入账户";
 
@@ -421,11 +441,19 @@
 
 "enter.button.signIn.title" = "登录";
 
+"enter.label.or" = "或者";
+
 "enter.language.navigation.title" = "切换语言";
 
 "general.biometric.faceID.title" = "脸部识别ID";
 
 "general.biometric.touchID.title" = "指纹识别ID";
+
+"general.error.subtitle.notfound" = "别担心，我们已经解决了这个问题。\n很快会恢复正常！";
+
+"general.error.title.noconnectiontotheinternet" = "没有连接到Internet";
+
+"general.error.title.notfound" = "哦…一切都坏了！";
 
 "general.label.title.myasset" = "/我的资产";
 
@@ -445,6 +473,10 @@
 
 "general.ticker.title.wavestoken" = "Waves币";
 
+"general.tost.saveBackup.subtitle" = "Store your SEED safely, it is the only way to restore your wallet";
+
+"general.tost.saveBackup.title" = "Save your backup phrase (SEED)";
+
 "hello.button.continue" = "继续";
 
 "hello.button.next" = "下一步";
@@ -461,7 +493,7 @@
 
 "hello.page.info.fifth.title" = "如何保护自己免受钓鱼网站的攻击";
 
-"hello.page.info.first.detail" = "为了您自己的安全，请花一些时间了解一些重要的事情。 \n\n如果您访问钓鱼网站或丢失备用短语（也称为SEED短语），我们将无法找回您的资金或冻结您的帐户。 \ n\n如果继续使用我们的平台，您同意接受丢失您的SEED而造成的后果，包括但不仅限于无法获得和处置您的资金。如果您丢失了SEED，您同意并知道Waves平台不会对此产生负面影响负责。";
+"hello.page.info.first.detail" = "为了您自己的安全，请花一些时间了解一些重要的事情。\n\n如果您访问钓鱼网站或丢失备用短语（也称为SEED短语），我们将无法找回您的资金或冻结您的帐户。\n\n如果继续使用我们的平台，您同意接受丢失您的SEED而造成的后果，包括但不仅限于无法获得和处置您的资金。如果您丢失了SEED，您同意并知道Waves平台不会对此产生负面影响负责。";
 
 "hello.page.info.first.title" = "欢迎来到waves平台！";
 
@@ -469,7 +501,7 @@
 
 "hello.page.info.fourth.title" = "如何保护自己免受钓鱼网络的攻击";
 
-"hello.page.info.second.detail" = "注册帐户时，系统会要求您保存密码短语（种子）并使用密码保护您的帐户。在普通的中心化服务器上，需要特别注意密码，因为密码可以通过电子邮件更改和重置。但是，在像Waves这样的去中心化平台上，一切都是不同的方式：";
+"hello.page.info.second.detail" = "注册帐户时，系统会要求您保存密码短语（种子）并使用密码保护您的帐户。在普通的中心化服务器上，需要特别注意密码，因为密码可以通过电子邮件更改和重置。但是，在像Waves这样的去中心化平台上，一切都是不同的方式.";
 
 "hello.page.info.second.title" = "您需要了解的有关SEED的信息";
 
@@ -501,6 +533,10 @@
 
 "history.segmentedControl.sent" = "已发送";
 
+"history.transaction.cell.exchange.buy" = "Buy: %@/%@";
+
+"history.transaction.cell.exchange.sell" = "Sell: %@/%@";
+
 "history.transaction.title.alias" = "创建别名";
 
 "history.transaction.title.canceledLeasing" = "取消租赁";
@@ -510,6 +546,10 @@
 "history.transaction.title.exchange" = "交换";
 
 "history.transaction.title.incomingLeasing" = "租赁收入";
+
+"history.transaction.title.massreceived" = "Mass Received";
+
+"history.transaction.title.masssent" = "Mass Sent";
 
 "history.transaction.title.received" = "收到";
 
@@ -540,6 +580,8 @@
 "import.account.label.info.step.two.title" = "单击“显示配对代码”以显示QR代码。用相机扫描代码。";
 
 "import.account.navigation.title" = "导入帐户";
+
+"import.general.error.alreadyinuse" = "已经被使用";
 
 "import.general.navigation.title" = "导入帐户";
 
@@ -579,13 +621,13 @@
 
 "legal.checkbox.box.second" = "我了解如果将此应用程序移动到其他设备或删除，我的Waves只能通过备份短语恢复";
 
-"legal.checkbox.box.subtitle" = "Waves是不同的 - 它不能由银行或网络服务安全地保存";
+"legal.checkbox.box.subtitle" = "waves币是不同的 - 银行和网络设备无法保存waves币";
 
 "legal.checkbox.box.termsOfUse" = "使用条款";
 
 "legal.checkbox.box.third" = "我已阅读，理解并同意";
 
-"legal.checkbox.box.title" = "完成！让我们来回顾一下。";
+"legal.checkbox.box.title" = "完成！";
 
 "menu.button.supportwavesplatform" = "支持waves平台";
 
@@ -601,7 +643,7 @@
 
 "myaddress.button.share.title" = "分享";
 
-"myaddress.cell.aliases.subtitle.withaliaces" = "你有%d";
+"myaddress.cell.aliases.subtitle.withaliaces" = "你有 %d";
 
 "myaddress.cell.aliases.subtitle.withoutaliaces" = "你没有";
 
@@ -621,11 +663,13 @@
 
 "networksettings.textfield.spamfilter.title" = "垃圾邮件过滤器";
 
-"newaccount.avatar.detail" = "这个头像是独一无二的。你以后不能改变它。";
+"newaccount.avatar.detail" = "该操作不能被更改";
 
-"newaccount.avatar.title" = "选择你的地址头像";
+"newaccount.avatar.title" = "选择您唯一的地址头像";
 
 "newaccount.backup.navigation.title" = "新账户";
+
+"newaccount.error.noavatarselected" = "没有选择头像";
 
 "newaccount.main.navigation.title" = "新账户";
 
@@ -637,9 +681,27 @@
 
 "newaccount.textfield.createpassword.title" = "创建一个密码";
 
-"newaccount.textfield.error.atleastcharacters" = "至少％d个字符";
+"newaccount.textfield.error.atleastcharacters" = "至少 %d 个字符";
+
+"newaccount.textfield.error.charactersmaximum" = "最多 %d 个字符";
+
+"newaccount.textfield.error.doesnotmatch" = "不匹配";
+
+"newaccount.textfield.error.minimumcharacters" = "最少 %d 个字符";
 
 "newaccount.textfield.error.passwordnotmatch" = "密码不匹配";
+
+"newaccount.textfield.error.wrongordertryagain" = "订单错误，请再试一次";
+
+"passcode.alert.attempsended.button.cancel" = "取消";
+
+"passcode.alert.attempsended.button.enterpassword" = "";
+
+"passcode.alert.attempsended.button.ok" = "OK";
+
+"passcode.alert.attempsended.subtitle" = "To unlock, sign in with your account password";
+
+"passcode.alert.attempsended.title" = "Too many attempts";
 
 "passcode.button.forgotPasscode.title" = "使用帐户密码";
 
@@ -677,11 +739,11 @@
 
 "profile.cell.changepassword.title" = "更改密码";
 
-"profile.cell.currentheight.title" = "当前高度";
+"profile.cell.currentheight.title" = "当前区块高度";
 
 "profile.cell.feedback.title" = "反馈";
 
-"profile.cell.info.currentheight.title" = "当前高度";
+"profile.cell.info.currentheight.title" = "当前区块高度";
 
 "profile.cell.info.version.title" = "版本";
 
@@ -714,6 +776,8 @@
 "receive.button.invoice" = "发票";
 
 "receive.button.useTotalBalance" = "使用总余额";
+
+"receive.error.serviceUnavailable" = "Service is temporarily unavailable";
 
 "receive.label.amount" = "总量";
 
@@ -753,15 +817,15 @@
 
 "receivecardcomplete.label.redirectToIndacoin" = "您已被重定向到《Indacoin》";
 
-"receivecryptocurrency.label.minumumAmountOfDeposit" = "最低存款金额为 ％@";
+"receivecryptocurrency.label.minumumAmountOfDeposit" = "最低存款金额为 %@";
 
-"receivecryptocurrency.label.sendOnlyOnThisDeposit" = "只能发送 ％@ 到此存款地址";
+"receivecryptocurrency.label.sendOnlyOnThisDeposit" = "只能发送 %@ 到此存款地址";
 
-"receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "如果您发送的数量少于 ％@，您将失去这笔钱。";
+"receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "如果您发送的数量少于 %@，您将失去这笔钱。";
 
 "receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "将任何其他货币发送到此地址可能会导致您的存款损失。";
 
-"receivegenerate.label.generate" = "生成...";
+"receivegenerate.label.generate" = "生成…";
 
 "receivegenerate.label.yourAddress" = "你的 %@ 地址";
 
@@ -823,7 +887,31 @@
 
 "sendconfirmation.label.sentTo" = "发送到";
 
-"sendloading.label.sending" = "发送中...";
+"sendloading.label.sending" = "发送中…";
+
+"serverDisconnect.label.subtitle" = "检查您与移动互联网或Wi-Fi网络的连接";
+
+"serverDisconnect.label.title" = "没有连接到Internet";
+
+"serverEngineering.label.subtitle" = "嗨，目前我们正在努力改进应用程序";
+
+"serverEngineering.label.title" = "工程工作";
+
+"serverError.button.retry" = "重试";
+
+"serverError.button.sendReport" = "发送报告";
+
+"serverError.label.allBroken" = "哦…一切都坏了！";
+
+"serverError.label.allBrokenDescription" = "别担心，我们已经解决了这个问题。\n很快会恢复正常！";
+
+"serverError.label.noInternetConnection" = "没有连接到Internet";
+
+"serverError.label.noInternetConnectionDescription" = "检查您与移动互联网或Wi-Fi网络的连接";
+
+"serverError.label.subtitle" = "别担心，我们已经解决了这个问题。\n很快会恢复正常！";
+
+"serverError.label.title" = "哦…一切都坏了！";
 
 "startleasing.button.chooseFromAddressBook" = "从地址簿中选择";
 
@@ -841,7 +929,9 @@
 
 "startleasing.label.generator" = "生产器";
 
-"startleasing.label.nodeAddress" = "节点地址......";
+"startleasing.label.insufficientFunds" = "余额不足";
+
+"startleasing.label.nodeAddress" = "节点地址…";
 
 "startleasing.label.notEnough" = "不足";
 
@@ -849,67 +939,67 @@
 
 "startleasing.label.transactionFee" = "手续费";
 
-"startleasingcomplete.button.okey" = "Okay";
+"startleasingcomplete.button.okey" = "OK";
 
-"startleasingcomplete.label.youHaveCanceledTransaction" = "You have canceled a leasing transaction";
+"startleasingcomplete.label.youHaveCanceledTransaction" = "您已取消一笔租赁交易";
 
-"startleasingcomplete.label.youHaveLeased" = "You have leased %@ %@";
+"startleasingcomplete.label.youHaveLeased" = "你已经租出了%@ %@";
 
-"startleasingcomplete.label.yourTransactionIsOnWay" = "Your transaction is on way!";
+"startleasingcomplete.label.yourTransactionIsOnWay" = "您的交易正在进行中！";
 
-"startleasingconfirmation.button.cancelLeasing" = "Cancel leasing";
+"startleasingconfirmation.button.cancelLeasing" = "取消租赁";
 
-"startleasingconfirmation.button.confirm" = "Confirm";
+"startleasingconfirmation.button.confirm" = "确认";
 
-"startleasingconfirmation.label.TXID" = "TXID";
+"startleasingconfirmation.label.TXID" = "TxID";
 
-"startleasingconfirmation.label.confirmation" = "Confirmation";
+"startleasingconfirmation.label.confirmation" = "确认";
 
-"startleasingconfirmation.label.fee" = "Fee";
+"startleasingconfirmation.label.fee" = "费用";
 
-"startleasingconfirmation.label.leasingTX" = "Leasing TX";
+"startleasingconfirmation.label.leasingTX" = "租赁TX";
 
-"startleasingconfirmation.label.nodeAddress" = "Node address";
+"startleasingconfirmation.label.nodeAddress" = "节点地址";
 
-"startleasingloading.label.cancelLeasing" = "Cancel leasing...";
+"startleasingloading.label.cancelLeasing" = "取消租赁…";
 
-"startleasingloading.label.startLeasing" = "Start leasing...";
+"startleasingloading.label.startLeasing" = "开始租赁…";
 
-"tokenBurn.button.burn" = "Burn";
+"tokenBurn.button.burn" = "焚毁";
 
-"tokenBurn.button.continue" = "Continue";
+"tokenBurn.button.continue" = "继续";
 
-"tokenBurn.button.okey" = "Okay";
+"tokenBurn.button.okey" = "OK";
 
-"tokenBurn.button.useTotalBalanace" = "Use total balance";
+"tokenBurn.button.useTotalBalanace" = "使用所有余额";
 
-"tokenBurn.label.confirmation" = "Confirmation";
+"tokenBurn.label.confirmation" = "确认";
 
-"tokenBurn.label.error.insufficientFunds" = "Insufficient funds";
+"tokenBurn.label.error.insufficientFunds" = "不充足的资金";
 
-"tokenBurn.label.error.notFundsFee" = "You don't have enough funds to pay the required fees.";
+"tokenBurn.label.error.notFundsFee" = "您没有足够的资金来支付所需的费用。";
 
-"tokenBurn.label.fee" = "Fee";
+"tokenBurn.label.fee" = "费用";
 
 "tokenBurn.label.id" = "ID";
 
-"tokenBurn.label.loading" = "Burn...";
+"tokenBurn.label.loading" = "焚毁…";
 
-"tokenBurn.label.notReissuable" = "Not reissuable";
+"tokenBurn.label.notReissuable" = "不可再发行";
 
-"tokenBurn.label.quantityTokensBurned" = "Quantity of tokens to be burned";
+"tokenBurn.label.quantityTokensBurned" = "要焚毁的代币数量";
 
-"tokenBurn.label.reissuable" = "Reissuable";
+"tokenBurn.label.reissuable" = "可再发行";
 
-"tokenBurn.label.tokenBurn" = "Token Burn";
+"tokenBurn.label.tokenBurn" = "代币焚毁";
 
-"tokenBurn.label.transactionFee" = "Transaction Fee %@ %@";
+"tokenBurn.label.transactionFee" = "手续费 %@ %@";
 
-"tokenBurn.label.transactionIsOnWay" = "Your transaction is on the way!";
+"tokenBurn.label.transactionIsOnWay" = "您的交易正在进行中！";
 
-"tokenBurn.label.type" = "Type";
+"tokenBurn.label.type" = "类型";
 
-"tokenBurn.label.youHaveBurned" = "You have burned";
+"tokenBurn.label.youHaveBurned" = "你的代币已焚毁";
 
 "transactionhistory.button.copied" = "已复制";
 
@@ -923,6 +1013,8 @@
 
 "transactionhistory.cell.button.sendAgain" = "重新发送";
 
+"transactionhistory.cell.buy" = "Buy: %@/%@";
+
 "transactionhistory.cell.confirmations" = "确认";
 
 "transactionhistory.cell.dataTransaction" = "数据传输";
@@ -935,17 +1027,19 @@
 
 "transactionhistory.cell.leasingTo" = "租赁给";
 
-"transactionhistory.cell.notReissuable" = "不可逆转";
+"transactionhistory.cell.notReissuable" = "不可再发行";
 
 "transactionhistory.cell.price" = "价钱";
 
-"transactionhistory.cell.receivedFrom" = "从......收到";
+"transactionhistory.cell.receivedFrom" = "从…收到";
 
 "transactionhistory.cell.recipient" = "接收者";
 
-"transactionhistory.cell.recipients" = "Recipients";
+"transactionhistory.cell.recipients" = "收件人";
 
-"transactionhistory.cell.reissuable" = "可逆的";
+"transactionhistory.cell.reissuable" = "可再发行";
+
+"transactionhistory.cell.sell" = "Sell: %@/%@";
 
 "transactionhistory.cell.sentTo" = "发送到";
 
@@ -958,6 +1052,8 @@
 "transactionhistory.cell.status.button.unconfirmed" = "未确认";
 
 "transactionhistory.cell.status.timestamp" = "时间戳";
+
+"transactionhistory.cell.type" = "Type";
 
 "transactionhistory.copy.amount" = "总量";
 
@@ -975,11 +1071,11 @@
 
 "usetouchid.button.notNow.text" = "现在不要";
 
-"usetouchid.button.useBiometric.text" = "使用 ％@";
+"usetouchid.button.useBiometric.text" = "使用 %@";
 
-"usetouchid.label.detail.text" = "使用您的 ％@ 可以更快，更轻松地访问您的帐户";
+"usetouchid.label.detail.text" = "使用您的 %@ 可以更快，更轻松地访问您的帐户";
 
-"usetouchid.label.title.text" = "使用 ％@ 登录？";
+"usetouchid.label.title.text" = "使用 %@ 登录？";
 
 "wallet.button.startLease" = "开始租赁";
 
@@ -988,6 +1084,8 @@
 "wallet.label.leased" = "已租赁";
 
 "wallet.label.leasedIn" = "租赁于";
+
+"wallet.label.myAssets" = "我的资产";
 
 "wallet.label.quickNote.description.first" = "您只能转让或交易没有被租赁的WAVES币。已租赁的waves币不能被转让或交易。";
 
@@ -1003,13 +1101,13 @@
 
 "wallet.navigationBar.title" = "钱包";
 
-"wallet.section.activeNow" = "现在激活（％d）";
+"wallet.section.activeNow" = "现在激活 (%d)";
 
 "wallet.section.hiddenAssets" = "隐藏资产（％d）";
 
 "wallet.section.quickNote" = "快速说明";
 
-"wallet.section.spamAssets" = "垃圾资产（％d）";
+"wallet.section.spamAssets" = "垃圾资产 (%d)";
 
 "wallet.segmentedControl.assets" = "资产";
 
