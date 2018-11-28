@@ -60,7 +60,9 @@ final class StartLeasingLoadingViewController: UIViewController {
                 owner.input.output?.startLeasingDidSuccess(transaction: transaction, kind: owner.input.kind)
 
             }, onError: { [weak self] (error) in
-                self?.popBackWithFail(error: NetworkError.error(by: error))
+                
+                guard let error = error as? NetworkError else { return }
+                self?.popBackWithFail(error: error)
             })
             .disposed(by: disposeBag)
     }
@@ -79,7 +81,8 @@ final class StartLeasingLoadingViewController: UIViewController {
                 owner.input.output?.startLeasingDidSuccess(transaction: transaction, kind: owner.input.kind)
 
             }, onError: { [weak self] (error) in
-                self?.popBackWithFail(error: NetworkError.error(by: error))
+                guard let error = error as? NetworkError else { return }
+                self?.popBackWithFail(error: error)
             })
             .disposed(by: disposeBag)
     }

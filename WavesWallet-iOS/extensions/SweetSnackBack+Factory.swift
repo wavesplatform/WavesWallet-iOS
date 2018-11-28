@@ -12,7 +12,7 @@ private enum Constants {
     static let withoutInternetSnackAlpha: CGFloat = 0.74
     static let snackAlpha: CGFloat = 0.94
     static let successDuration: TimeInterval = 1.3
-    static let messageDuration: TimeInterval = 1.5
+    static let messageDuration: TimeInterval = 2
 }
 
 // MARK: - Internet
