@@ -44,10 +44,7 @@ struct PasscodeModuleBuilder: ModuleBuilderOutput {
             presenter  = PasscodePresenter()
 
         case .setEnableBiometric:
-            presenter  = PasscodePresenter()
-
-        case .changePassword:
-            presenter  = PasscodePresenter()
+            presenter  = PasscodeEnableBiometricPresenter()
         }
 
         presenter.interactor = PasscodeInteractor()
