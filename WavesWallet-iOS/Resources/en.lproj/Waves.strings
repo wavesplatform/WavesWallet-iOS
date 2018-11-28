@@ -13,6 +13,9 @@
 
 "accountpassword.textfield.password.placeholder" = "Account password";
 
+"addAddressbook.error.charactersMaximum" = "%d characters maximum";
+"addAddressbook.error.charactersMinimum" = "Minimum %d characters";
+
 "addAddressbook.button.cancel" = "Cancel";
 
 "addAddressbook.button.delete" = "Delete";
