@@ -59,6 +59,17 @@ internal enum Localizable {
         internal static var save: String { return Localizable.tr("Waves", "addAddressbook.button.save") }
       }
 
+      internal enum Error {
+        /// %d characters maximum
+        internal static func charactersMaximum(_ p1: Int) -> String {
+          return Localizable.tr("Waves", "addAddressbook.error.charactersMaximum", p1)
+        }
+        /// Minimum %d characters
+        internal static func charactersMinimum(_ p1: Int) -> String {
+          return Localizable.tr("Waves", "addAddressbook.error.charactersMinimum", p1)
+        }
+      }
+
       internal enum Label {
         /// Add
         internal static var add: String { return Localizable.tr("Waves", "addAddressbook.label.add") }
