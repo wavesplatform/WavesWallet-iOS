@@ -23,7 +23,7 @@ enum ReceiveCard {
         enum Action {
             case none
             case didGetInfo
-            case didFailGetInfo(ResponseTypeError)
+            case didFailGetInfo(NetworkError)
             case changeUrl
         }
 

@@ -42,7 +42,15 @@ final class InputTextField: UIView, NibOwnerLoadable {
             return textFieldValue.text
         }
     }
-
+    
+    var text: String {
+        return textFieldValue.text ?? ""
+    }
+    
+    var trimmingText: String {
+        return text.trimmingCharacters(in: CharacterSet.whitespaces)
+    }
+  
     var isEnabled: Bool {
         set {
             tapGesture.isEnabled = isEnabled
@@ -163,7 +171,7 @@ final class InputTextField: UIView, NibOwnerLoadable {
     }
 
     private func ifNeedPlaceholder() {
-        let isShow = (textFieldValue.text?.count ?? 0) > 0
+        let isShow = text.count > 0
 
         let isHiddenTitleLabel = !isShow
         guard isHiddenTitleLabel != self.isHiddenTitleLabel else { return }
