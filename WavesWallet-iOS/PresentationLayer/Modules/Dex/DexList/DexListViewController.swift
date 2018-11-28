@@ -36,6 +36,7 @@ final class DexListViewController: UIViewController {
     private var sections : [DexList.ViewModel.Section] = []
     private let sendEvent: PublishRelay<DexList.Event> = PublishRelay<DexList.Event>()
     private var disposeBag = DisposeBag()
+    private var errorSnackKey: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -133,6 +134,7 @@ fileprivate extension DexListViewController {
                 switch state.action {
                     
                 case .update:
+                        strongSelf.hideErrorIfExist()
                         strongSelf.tableView.isHidden = false
                         strongSelf.globalErrorView.isHidden = true
                         strongSelf.sections = state.sections
@@ -141,7 +143,7 @@ fileprivate extension DexListViewController {
                         strongSelf.setupViews(loadingDataState: state.isFirstLoadingData, isVisibleItems: state.isVisibleItems)
                     
                 case .didFailGetModels(let error):
-                    
+                    strongSelf.hideErrorIfExist()
                     strongSelf.setupErrorState(error: error, isFirstLoadingData: state.isFirstLoadingData)
                     
                     
@@ -166,6 +168,12 @@ extension DexListViewController: DexListRefreshOutput {
 
 private extension DexListViewController {
 
+    func hideErrorIfExist() {
+        if let key = errorSnackKey {
+            hideSnack(key: key)
+            errorSnackKey = nil
+        }
+    }
     func setupErrorState(error: NetworkError, isFirstLoadingData: Bool) {
         
         refreshControl.endRefreshing()
@@ -185,9 +193,17 @@ private extension DexListViewController {
         else {
             globalErrorView.isHidden = true
             tableView.isHidden = false
-            showWithoutInternetSnack { [weak self] in
-                self?.sendEvent.accept(.refresh)
+            
+            switch error {
+            case .internetNotWorking:
+                errorSnackKey = showWithoutInternetSnack { [weak self] in
+                    self?.sendEvent.accept(.refresh)
+                }
+                
+            default:
+                errorSnackKey = showNetworkErrorSnack(error: error)
             }
+            
         }
     }
     

@@ -12,7 +12,36 @@ private enum Constants {
     static let withoutInternetSnackAlpha: CGFloat = 0.74
     static let snackAlpha: CGFloat = 0.94
     static let successDuration: TimeInterval = 1.3
-    static let messageDuration: TimeInterval = 2
+    static let snackTimeDuration: TimeInterval = 3
+}
+
+//MARK: - NetworkError
+
+extension UIViewController {
+    
+    @discardableResult func showNetworkErrorSnack(error: NetworkError, customTitle: String? = nil) -> String {
+        
+        if error.isInternetNotWorking {
+            return showWithoutInternetSnackWithoutAction()
+        }
+        else if let title = customTitle {
+            return showMessageSnack(title: title)
+        }
+        
+        switch error {
+        case .internetNotWorking:
+            return showWithoutInternetSnackWithoutAction()
+        
+        case .message(let message):
+            return showMessageSnack(title: message)
+        
+        case .serverError:
+            return showErrorSnackWithoutAction(title: Localizable.Waves.General.Error.Title.notfound)
+        
+        case .notFound:
+            return showErrorNotFoundSnackWithoutAction()
+        }
+    }
 }
 
 // MARK: - Internet
@@ -35,10 +64,10 @@ extension UIViewController {
 
         let error = SweetSnack.init(title: Localizable.Waves.General.Error.Title.noconnectiontotheinternet,
                                     backgroundColor: UIColor.disabled666.withAlphaComponent(Constants.withoutInternetSnackAlpha),
-                                    behaviorDismiss: .popToLast,
+                                    behaviorDismiss: .popToLastWihDuration(Constants.snackTimeDuration),
                                     subtitle: nil,
                                     icon: Images.refresh18White.image,
-                                    isEnabledUserHidden: false,
+                                    isEnabledUserHidden: true,
                                     action: nil)
         return SweetSnackbar.shared.showSnack(error, on: self)
     }
@@ -47,7 +76,7 @@ extension UIViewController {
 
         let error = SweetSnack.init(title: title,
                                     backgroundColor: UIColor.error400.withAlphaComponent(Constants.snackAlpha),
-                                    behaviorDismiss: .popToLastWihDuration(Constants.messageDuration),
+                                    behaviorDismiss: .popToLastWihDuration(Constants.snackTimeDuration),
                                     subtitle: nil,
                                     icon: nil,
                                     isEnabledUserHidden: true,
@@ -86,14 +115,14 @@ extension UIViewController {
         return SweetSnackbar.shared.showSnack(error, on: self)
     }
 
-    @discardableResult func showErrorSnackWithoutAction(tille: String) -> String {
+    @discardableResult func showErrorSnackWithoutAction(title: String) -> String {
 
-        let error = SweetSnack.init(title: tille,
+        let error = SweetSnack.init(title: title,
                                     backgroundColor: UIColor.error400.withAlphaComponent(Constants.snackAlpha),
-                                    behaviorDismiss: .popToLast,
+                                    behaviorDismiss: .popToLastWihDuration(Constants.snackTimeDuration),
                                     subtitle: nil,
                                     icon: nil,
-                                    isEnabledUserHidden: false,
+                                    isEnabledUserHidden: true,
                                     action: nil)
         return SweetSnackbar.shared.showSnack(error, on: self)
     }
@@ -110,7 +139,7 @@ extension UIViewController {
                                     behaviorDismiss: .popToLast,
                                     subtitle: Localizable.Waves.General.Error.Subtitle.notfound,
                                     icon: nil,
-                                    isEnabledUserHidden: false,
+                                    isEnabledUserHidden: true,
                                     action: nil)
         return SweetSnackbar.shared.showSnack(error, on: self)
     }
