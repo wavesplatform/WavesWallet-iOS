@@ -30,6 +30,7 @@ final class WalletPresenter: WalletPresenterProtocol {
         var newFeedbacks = feedbacks
         newFeedbacks.append(queryAssets())
         newFeedbacks.append(queryLeasing())
+        newFeedbacks.append(queryListenerAssets())
 
         Driver
             .system(initialState: WalletPresenter.initialState(),
@@ -42,11 +43,35 @@ final class WalletPresenter: WalletPresenterProtocol {
             .disposed(by: disposeBag)
     }
 
+    private func queryListenerAssets() -> Feedback {
+        return react(query: { (state) -> Bool? in
+
+            if state.displayState.kind == .assets {
+                return true
+            } else {
+                return nil
+            }
+
+        }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
+
+            return FactoryInteractors.instance.authorization.authorizedWallet().flatMap({ (wallet) -> Observable<[DomainLayer.DTO.AssetBalance]> in
+                return FactoryRepositories.instance.accountBalanceRepositoryLocal.listenerOfUpdatedBalances(by: wallet.address)
+            })
+            .map { .setAssets($0) }
+            .sweetDebugWithoutResponse("Born")
+            .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
+        })
+    }
+
     private func queryAssets() -> Feedback {
         return react(query: { (state) -> Types.DisplayState.RefreshData? in
 
             if state.displayState.kind == .assets {
-                return state.displayState.refreshData
+                if state.displayState.refreshData == .none {
+                    return nil
+                } else {
+                    return state.displayState.refreshData
+                }
             } else {
                 return nil
             }
@@ -58,6 +83,7 @@ final class WalletPresenter: WalletPresenterProtocol {
                 .interactor
                 .assets()
                 .map { .setAssets($0) }
+                .sweetDebugWithoutResponse("Test")
                 .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
         })
     }
@@ -128,7 +154,7 @@ final class WalletPresenter: WalletPresenterProtocol {
             state.displayState.isAppeared = false
             state.displayState.leasing.animateType = .none
             state.displayState.assets.animateType = .none
-//            state.displayState.refreshData = .none
+            state.displayState.refreshData = .none
 
         case .handlerError(let error):
             state.displayState = state.displayState.setIsRefreshing(isRefreshing: false)
@@ -196,15 +222,15 @@ final class WalletPresenter: WalletPresenterProtocol {
 
             case .hidden:
                 guard let asset = section.items[indexPath.row].asset else { return  }
-                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.isHidden == true } )
+                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.settings!.isHidden == true } )
 
             case .spam:
                 guard let asset = section.items[indexPath.row].asset else { return  }
-                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.isSpam == true } )
+                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.asset!.isSpam == true } )
 
             case .general:
                 guard let asset = section.items[indexPath.row].asset else { return  }
-                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.isSpam != true && $0.isHidden != true } )
+                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.asset!.isSpam != true && $0.settings!.isHidden != true } )
             case .transactions:
                 let leasingTransactions = section
                     .items

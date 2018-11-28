@@ -12,7 +12,7 @@ protocol WalletModuleOutput: AnyObject {
     func showWalletSort()
     func showMyAddress()
     func showHistoryForLeasing()
-    func showAsset(with currentAsset: WalletTypes.DTO.Asset, assets: [WalletTypes.DTO.Asset])
+    func showAsset(with currentAsset: DomainLayer.DTO.AssetBalance, assets: [DomainLayer.DTO.AssetBalance])
     func showStartLease(availableMoney: Money)
     func showLeasingTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int)
 }

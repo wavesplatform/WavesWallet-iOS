@@ -23,12 +23,12 @@ final class WalletInteractor: WalletInteractorProtocol {
 
     private let leasingInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
 
-    private let refreshAssetsSubject: PublishSubject<[WalletTypes.DTO.Asset]> = PublishSubject<[WalletTypes.DTO.Asset]>()
-    private let refreshLeasingSubject: PublishSubject<WalletTypes.DTO.Leasing> = PublishSubject<WalletTypes.DTO.Leasing>()
+//    private let refreshAssetsSubject: PublishSubject<[WalletTypes.DTO.Asset]> = PublishSubject<[WalletTypes.DTO.Asset]>()
+//    private let refreshLeasingSubject: PublishSubject<WalletTypes.DTO.Leasing> = PublishSubject<WalletTypes.DTO.Leasing>()
 
     private let disposeBag: DisposeBag = DisposeBag()
 
-    func assets() -> Observable<[WalletTypes.DTO.Asset]> {
+    func assets() -> Observable<[DomainLayer.DTO.AssetBalance]> {
 
         return assets(isNeedUpdate: true)
     }
@@ -53,13 +53,13 @@ fileprivate extension WalletInteractor {
             }
     }
 
-    func assets(isNeedUpdate: Bool) -> Observable<[WalletTypes.DTO.Asset]> {
+    func assets(isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.AssetBalance]> {
 
         return authorizationInteractor
             .authorizedWallet()
-            .flatMap({ [weak self] wallet -> Observable<[WalletTypes.DTO.Asset]> in
+            .flatMap({ [weak self] wallet -> Observable<[DomainLayer.DTO.AssetBalance]> in
                 guard let owner = self else { return Observable.never() }
-                return owner.mapAssets(owner.accountBalanceInteractor.balances(by: wallet, isNeedUpdate: isNeedUpdate))
+                return owner.accountBalanceInteractor.balances(by: wallet, isNeedUpdate: isNeedUpdate)
             })
     }
 

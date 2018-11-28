@@ -125,7 +125,7 @@ final class ChangePasswordPresenter: ChangePasswordPresenterProtocol {
 private extension ChangePasswordPresenter {
 
     static func isInValidPassword(_ password: String?) -> Bool {
-        return (password?.count ?? 0) < GlobalConstants.accountNameMinLimitSymbols
+        return (password?.count ?? 0) < GlobalConstants.minLengthPassword
     }
 
     static func reduce(state: Types.State, event: Types.Event) -> Types.State {
