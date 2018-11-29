@@ -148,7 +148,7 @@ private extension ChangePasswordPresenter {
             switch kind {
             case .oldPassword:
                 textfield?.error = nil
-                state.   = false
+                state.isValidOldPassword = false
 
             case .newPassword:
 
