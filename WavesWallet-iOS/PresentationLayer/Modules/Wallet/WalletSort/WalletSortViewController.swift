@@ -231,7 +231,10 @@ extension WalletSortViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
 
         let sectionModel = sections[proposedDestinationIndexPath.section]
-        guard sectionModel.kind == .all else { return IndexPath(row: 0, section: sourceIndexPath.section) }
+        guard sectionModel.kind == .all else {
+            return IndexPath(row: 0, section: sourceIndexPath.section)
+            
+        }
 
         return proposedDestinationIndexPath
     }

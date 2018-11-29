@@ -133,6 +133,8 @@ final class WalletSortInteractor: WalletSortInteractorProtocol {
                     .map { _ in () }
 
             })
+            .share()
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .background)))
             .subscribe()
             .disposed(by: disposeBag)
     }
@@ -182,6 +184,8 @@ final class WalletSortInteractor: WalletSortInteractorProtocol {
 
             }
             .sweetDebug("Move")
+            .share()
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .background)))
             .subscribe()
             .disposed(by: disposeBag)
     }

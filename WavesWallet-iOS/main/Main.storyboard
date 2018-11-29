@@ -253,12 +253,12 @@
                             <constraint firstItem="ilK-45-L4O" firstAttribute="leading" secondItem="8yB-ij-S84" secondAttribute="leading" id="S2Y-JB-Cjs"/>
                             <constraint firstAttribute="trailing" secondItem="OAc-aH-YeQ" secondAttribute="trailing" constant="52" id="UOg-Vw-F2Q"/>
                             <constraint firstItem="ilK-45-L4O" firstAttribute="top" secondItem="8yB-ij-S84" secondAttribute="bottom" id="Wan-Yi-Tyo"/>
+                            <constraint firstItem="nKR-pN-KW3" firstAttribute="top" secondItem="DjW-6w-HZF" secondAttribute="bottom" constant="52" id="fNW-nV-6jT"/>
                             <constraint firstItem="nKR-pN-KW3" firstAttribute="leading" secondItem="5sc-o9-ZTD" secondAttribute="leading" constant="24" id="ovz-aG-UUB"/>
                             <constraint firstItem="Sek-E8-ecM" firstAttribute="top" secondItem="XhJ-bg-rcB" secondAttribute="bottom" constant="44" id="p5c-p3-Fn6"/>
                             <constraint firstItem="RPq-3a-W9U" firstAttribute="top" secondItem="Sek-E8-ecM" secondAttribute="bottom" constant="12" id="q4k-FD-XuG"/>
                             <constraint firstItem="nPN-mA-v6F" firstAttribute="top" secondItem="OAc-aH-YeQ" secondAttribute="bottom" id="qpx-5f-GaJ"/>
                             <constraint firstItem="Sek-E8-ecM" firstAttribute="leading" secondItem="5sc-o9-ZTD" secondAttribute="leading" constant="24" id="s50-06-ceg"/>
-                            <constraint firstItem="nKR-pN-KW3" firstAttribute="top" secondItem="DjW-6w-HZF" secondAttribute="bottom" constant="52" id="tyM-5m-IwD"/>
                         </constraints>
                     </view>
                     <connections>
