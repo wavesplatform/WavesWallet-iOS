@@ -142,7 +142,7 @@ private extension ChangePasswordPresenter {
             state.isAppeared = true
 
         case .input(let kind, let value):
-
+            
             var textfield = state.displayState.textFields[kind]
 
             switch kind {

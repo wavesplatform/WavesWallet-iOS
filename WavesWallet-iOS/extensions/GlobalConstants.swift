@@ -42,7 +42,7 @@ extension GlobalConstants.Matcher {
     static var matcher: String {
         return url + "matcher"
     }
-    
+
     static var orderBook: String {
         return url + "matcher/orderbook"
     }
