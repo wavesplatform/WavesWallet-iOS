@@ -97,7 +97,7 @@ platform :ios do
       merge_commit_filtering: "exclude_merges" # Optional, lets you filter out merge commits
     )
     ENV['CHANGELOG']="Version: #{version} #{build_number}\n#{changelog}"
-    ENV['CHANGELOG_PATH']="#{ROOT}/Temp/changelog.txt"
+    ENV['CHANGELOG_PATH']="#{ROOT}/changelog.txt"
     sh("echo \"#{ENV['CHANGELOG']}\" >> #{ENV['CHANGELOG_PATH']}") 
   end
 
