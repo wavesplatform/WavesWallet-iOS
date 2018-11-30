@@ -1895,8 +1895,8 @@
 		0A1DAD6020F37BA2004DA625 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0A1DAD6120F3876C004DA625 /* AssetApi.swift */,
 				0A1DAD6820F39AE3004DA625 /* ResponseApi.swift */,
+				0A1DAD6120F3876C004DA625 /* AssetApi.swift */,
 				0A1DAD7920F3A9AE004DA625 /* TransactionApi.swift */,
 			);
 			path = Models;
