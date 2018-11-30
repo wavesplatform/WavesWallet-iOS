@@ -9,9 +9,9 @@
 import Foundation
 
 protocol AssetsBalanceSettingsProtocol {
-
+    func registerAssets()
 }
 
-final class AssetSettingsInteractor: AssetSettingsInteractorProtocol {
+final class AssetsBalanceSettings: AssetsBalanceSettingsProtocol {
 
 }
