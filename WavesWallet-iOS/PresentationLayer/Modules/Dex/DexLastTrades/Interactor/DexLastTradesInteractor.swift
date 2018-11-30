@@ -97,7 +97,6 @@ private extension DexLastTradesInteractor {
                                                 amountAsset: pair.amountAsset.id,
                                                 priceAsset: pair.priceAsset.id,
                                                 after: nil,
-                                                sort: "desc",
                                                 limit: 100)
         
         return apiProvider.rx.request(.init(kind: .getExchangeWithFilters(filters), environment: environment),

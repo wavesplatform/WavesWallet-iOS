@@ -9,12 +9,16 @@
 import Foundation
 import RxSwift
 import SwiftyJSON
+import Moya
 
 final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
  
     private let account = FactoryInteractors.instance.accountBalance
     private let disposeBag = DisposeBag()
-    
+    private let auth = FactoryInteractors.instance.authorization
+    private let accountEnvironment = FactoryRepositories.instance.environmentRepository
+    private let apiProvider: MoyaProvider<API.Service.Transactions> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
+
     var pair: DexTraderContainer.DTO.Pair!
     
     func displayInfo() -> Observable<(DexOrderBook.DTO.DisplayData)> {
@@ -33,30 +37,34 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
                                                                 availableAmountAssetBalance: Money(0, owner.pair.amountAsset.decimals),
                                                                 availableWavesBalance: Money(0, GlobalConstants.WavesDecimals))
 
-            //TODO: need change api to get only balances by ids
-            owner.account.balances(isNeedUpdate: false).subscribe(onNext: { [weak self] (balances) in
-                
-                guard let owner = self else { return }
-                
-                //TODO: need change to Observer network
-                let url = GlobalConstants.Matcher.orderBook(owner.pair.amountAsset.id, owner.pair.priceAsset.id)
-                
-                NetworkManager.getRequestWithUrl(url, parameters: nil, complete: { (info, error) in
+            Observable.zip(owner.account.balances(isNeedUpdate: false),
+                           owner.getLastTransactionInfo())
+                .subscribe(onNext: { [weak self] (balances, lastTransaction) in
                     
-                    if let info = info {
-                        owner.getLastPriceInfo({ (lastPriceInfo) in
-                            subscribe.onNext(owner.getDisplayData(info: info, lastPriceInfo: lastPriceInfo, header: header, balances: balances))
-                        })
-                    }
-                    else {
-                        subscribe.onNext(emptyDisplayData)
-                    }
-                })
-                
-            }, onError: { (error) in
-                subscribe.onNext(emptyDisplayData)
-            }).disposed(by: owner.disposeBag)
-           
+                    guard let owner = self else { return }
+
+                    //TODO: Need use Moya provider
+                    let url = GlobalConstants.Matcher.orderBook(owner.pair.amountAsset.id, owner.pair.priceAsset.id)
+                    
+                    NetworkManager.getRequestWithUrl(url, parameters: nil, complete: { (info, error) in
+                        
+                        if let info = info {
+                            let displayData = owner.getDisplayData(info: info,
+                                                                   lastTransactionInfo: lastTransaction,
+                                                                   header: header, balances: balances)
+                            subscribe.onNext(displayData)
+                        }
+                        else {
+                            subscribe.onNext(emptyDisplayData)
+                        }
+                        subscribe.onCompleted()
+                    })
+                    
+                }, onError: { (error) in
+                    subscribe.onNext(emptyDisplayData)
+                    subscribe.onCompleted()
+                }).disposed(by: owner.disposeBag)
+            
             return Disposables.create()
         })
     }
@@ -65,7 +73,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
 
 private extension DexOrderBookInteractor {
     
-    func getDisplayData(info: JSON, lastPriceInfo: JSON?, header: DexOrderBook.ViewModel.Header, balances: [DomainLayer.DTO.AssetBalance]) -> DexOrderBook.DTO.DisplayData {
+    func getDisplayData(info: JSON, lastTransactionInfo: API.DTO.ExchangeTransaction?, header: DexOrderBook.ViewModel.Header, balances: [DomainLayer.DTO.AssetBalance]) -> DexOrderBook.DTO.DisplayData {
        
         let itemsBids = info["bids"].arrayValue
         let itemsAsks = info["asks"].arrayValue
@@ -116,7 +124,7 @@ private extension DexOrderBookInteractor {
         
         var lastPrice = DexOrderBook.DTO.LastPrice.empty(decimals: pair.priceAsset.decimals)
 
-        if let priceInfo = lastPriceInfo {
+        if let tx = lastTransactionInfo {
             var percent: Float = 0
             if let ask = asks.first, let bid = bids.first {
                 let askValue = ask.price.decimalValue
@@ -125,8 +133,9 @@ private extension DexOrderBookInteractor {
                 percent = ((askValue - bidValue) * 100 / bidValue).floatValue
             }
             
-            let type = priceInfo["type"].stringValue == "buy" ? Dex.DTO.OrderType.buy :  Dex.DTO.OrderType.sell
-            let price = Money(value: Decimal(priceInfo["price"].doubleValue), pair.priceAsset.decimals)
+            let type: Dex.DTO.OrderType = tx.orderType == .sell ? .sell : .buy
+            
+            let price = Money(value: Decimal(tx.price), pair.priceAsset.decimals)
             
             lastPrice = DexOrderBook.DTO.LastPrice(price: price, percent: percent, orderType: type)
         }
@@ -153,13 +162,28 @@ private extension DexOrderBookInteractor {
                                             availableWavesBalance: wavesBalance)
     }
     
-    func getLastPriceInfo(_ complete:@escaping(_ lastPriceInfo: JSON?) -> Void) {
+    func getLastTransactionInfo() -> Observable<API.DTO.ExchangeTransaction?> {
         
-        let url = GlobalConstants.Market.trades(pair.amountAsset.id, pair.priceAsset.id, 1)
-            
-        //TODO: need change to Observer network
-        NetworkManager.getRequestWithUrl(url, parameters: nil) { (info, error) in
-            complete(info?.array?.first)
-        }
+        let filters = API.Query.ExchangeFilters(matcher: nil, sender: nil, timeStart: nil, timeEnd: nil,
+                                                amountAsset: pair.amountAsset.id,
+                                                priceAsset: pair.priceAsset.id,
+                                                after: nil,
+                                                limit: 1)
+        
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(DateFormatter.iso())
+
+        return apiProvider.rx.request(.init(kind: .getExchangeWithFilters(filters), environment: Environments.current),
+                                            callbackQueue: DispatchQueue.global(qos: .background))
+            .filterSuccessfulStatusAndRedirectCodes()
+            .asObservable()
+            .catchError({ (error) -> Observable<Response> in
+                return Observable.error(NetworkError.error(by: error))
+            })
+            .map(API.Response<[API.Response<API.DTO.ExchangeTransaction>]>.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
+            .map { $0.data.map { $0.data } }
+            .flatMap({ (transactions) -> Observable<API.DTO.ExchangeTransaction?> in
+                return Observable.just(transactions.first)
+            })
     }
 }
