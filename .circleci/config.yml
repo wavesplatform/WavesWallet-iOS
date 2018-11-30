@@ -99,4 +99,4 @@ workflows:
       - Arctrus:
           filters:
             branches:
-              only: /^feature/IOS-{1,}$/
+              only: /^feature/IOS-.{1,}$/
