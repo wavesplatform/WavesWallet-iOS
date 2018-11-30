@@ -64,17 +64,9 @@ extension GlobalConstants.Market {
     
     private static let url = "https://marketdata.wavesplatform.com/"
     private static let apiPath = "api/"
-    
-    static func trades(_ amountAsset: String, _ priceAsset: String, _ count: Int) -> String {
-        return url + apiPath + "trades/" + amountAsset + "/" + priceAsset + "/" + String(count)
-    }
-    
+
     static var candles: String {
         return url + apiPath + "candles/"
-    }
-    
-    static var ticker: String {
-        return url + apiPath + "ticker/"
     }
 }
 
