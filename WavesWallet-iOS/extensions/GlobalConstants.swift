@@ -31,7 +31,6 @@ enum GlobalConstants {
     static let moneyLocale = Locale(identifier: "en_US")
     
     enum Coinomat {}
-    enum Market {}
     enum Matcher {}
 }
 
@@ -57,16 +56,6 @@ extension GlobalConstants.Matcher {
     
     static func cancelOrder(_ amountAsset: String, _ priceAsset: String) -> String {
         return orderBook + "/" + amountAsset + "/" + priceAsset + "/" + "cancel"
-    }
-}
-
-extension GlobalConstants.Market {
-    
-    private static let url = "https://marketdata.wavesplatform.com/"
-    private static let apiPath = "api/"
-
-    static var candles: String {
-        return url + apiPath + "candles/"
     }
 }
 

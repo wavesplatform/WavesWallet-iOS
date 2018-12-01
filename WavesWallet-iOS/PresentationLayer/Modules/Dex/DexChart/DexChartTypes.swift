@@ -32,8 +32,8 @@ enum DexChart {
         var action: Action
         var candles: [DTO.Candle]
         var timeFrame: DTO.TimeFrameType
-        var dateFrom: Date
-        var dateTo: Date
+        var timeStart: Date
+        var timeEnd: Date
         var isPreloading: Bool
         var isChangedTimeFrame: Bool
         var isNeedLoadingData: Bool
@@ -53,14 +53,11 @@ extension DexChart.DTO {
     
     struct Candle {
         let close: Double
-        let confirmed: Bool
         let high: Double
         let low: Double
         let open: Double
-        let priceVolume: Double
         let timestamp: Double
         let volume: Double
-        let vwap: Double
     }
 }
 
@@ -163,7 +160,7 @@ extension DexChart.State {
         let dateTo = initialDateTo()
         let dateFrom = additionalDate(start: dateTo, timeFrame: timeFrame)
         
-        return DexChart.State(action: .none, candles: [], timeFrame: timeFrame, dateFrom: dateFrom, dateTo: dateTo,
+        return DexChart.State(action: .none, candles: [], timeFrame: timeFrame, timeStart: dateFrom, timeEnd: dateTo,
                               isPreloading: false, isChangedTimeFrame: false, isNeedLoadingData: false)
     }
     
@@ -175,14 +172,11 @@ extension DexChart.State {
 extension DexChart.DTO.Candle: Equatable {
     static func == (lhs: DexChart.DTO.Candle, rhs: DexChart.DTO.Candle) -> Bool {
         return lhs.close == rhs.close &&
-        lhs.confirmed == rhs.confirmed &&
         lhs.high == rhs.high &&
         lhs.low == rhs.low &&
         lhs.open == rhs.open &&
-        lhs.priceVolume == rhs.priceVolume &&
         lhs.timestamp == rhs.timestamp &&
-        lhs.volume == rhs.volume &&
-        lhs.vwap == rhs.vwap
+        lhs.volume == rhs.volume
         
     }
 }
@@ -191,8 +185,8 @@ extension DexChart.State: Equatable {
         return lhs.action == rhs.action &&
         lhs.candles == rhs.candles &&
         lhs.timeFrame == rhs.timeFrame &&
-        lhs.dateFrom == rhs.dateFrom &&
-        lhs.dateTo == rhs.dateTo &&
+        lhs.timeStart == rhs.timeStart &&
+        lhs.timeEnd == rhs.timeEnd &&
         lhs.isPreloading == rhs.isPreloading &&
         lhs.isNeedLoadingData == rhs.isNeedLoadingData
     }
