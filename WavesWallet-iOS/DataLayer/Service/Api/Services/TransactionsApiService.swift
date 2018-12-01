@@ -14,6 +14,10 @@ extension API.Service {
     struct Transactions {
         enum Kind {
 
+            /**
+             Response:
+             - API.Response<[API.Response<API.DTO.ExchangeTransaction]>.self
+             */
             case getExchange(id: String)
             case getExchangeWithFilters(API.Query.ExchangeFilters)
         }
@@ -25,7 +29,7 @@ extension API.Service {
 
 extension API.Service.Transactions: ApiTargetType {
 
-    fileprivate enum Constants {
+    private enum Constants {
         static let exchange = "transactions/exchange"
     }
 
