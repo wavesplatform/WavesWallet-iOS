@@ -236,7 +236,6 @@
 		0A762D7421639FA60019D447 /* TransactionHistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D4821639FA50019D447 /* TransactionHistoryCoordinator.swift */; };
 		0A762D7521639FA60019D447 /* TransactionHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D4921639FA50019D447 /* TransactionHistory.storyboard */; };
 		0A762D7721639FA60019D447 /* TransactionHistoryTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D4E21639FA50019D447 /* TransactionHistoryTypes.swift */; };
-		0A762D7821639FA60019D447 /* TransactionHistoryTypes+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D4F21639FA50019D447 /* TransactionHistoryTypes+DTO.swift */; };
 		0A762D7921639FA60019D447 /* TransactionHistoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D5121639FA50019D447 /* TransactionHistoryPresenter.swift */; };
 		0A762D7A21639FA60019D447 /* TransactionHistoryModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D5221639FA50019D447 /* TransactionHistoryModuleOutput.swift */; };
 		0A762D7B21639FA60019D447 /* TransactionHistoryModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D5321639FA50019D447 /* TransactionHistoryModuleInput.swift */; };
@@ -1061,7 +1060,6 @@
 		0A762D4821639FA50019D447 /* TransactionHistoryCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryCoordinator.swift; sourceTree = "<group>"; };
 		0A762D4921639FA50019D447 /* TransactionHistory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TransactionHistory.storyboard; sourceTree = "<group>"; };
 		0A762D4E21639FA50019D447 /* TransactionHistoryTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryTypes.swift; sourceTree = "<group>"; };
-		0A762D4F21639FA50019D447 /* TransactionHistoryTypes+DTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TransactionHistoryTypes+DTO.swift"; sourceTree = "<group>"; };
 		0A762D5121639FA50019D447 /* TransactionHistoryPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryPresenter.swift; sourceTree = "<group>"; };
 		0A762D5221639FA50019D447 /* TransactionHistoryModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryModuleOutput.swift; sourceTree = "<group>"; };
 		0A762D5321639FA50019D447 /* TransactionHistoryModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryModuleInput.swift; sourceTree = "<group>"; };
@@ -2335,7 +2333,6 @@
 				0A762D5921639FA50019D447 /* Views */,
 				0A762D6E21639FA50019D447 /* Interactor */,
 				0A762D4E21639FA50019D447 /* TransactionHistoryTypes.swift */,
-				0A762D4F21639FA50019D447 /* TransactionHistoryTypes+DTO.swift */,
 				0A762D5421639FA50019D447 /* TransactionHistoryTypes+ViewModels.swift */,
 				0A762D5621639FA50019D447 /* TransactionHistoryModuleBuilder.swift */,
 				0A762D5821639FA50019D447 /* TransactionHistoryViewController.swift */,
@@ -5343,7 +5340,6 @@
 				0AFF5C8B215BF54600B82940 /* Settings.swift in Sources */,
 				E9D36DE32175C755001E6DF0 /* ReceiveAddressTypes.swift in Sources */,
 				0AC33AF021A826B700B66747 /* NetworkError.swift in Sources */,
-				0A762D7821639FA60019D447 /* TransactionHistoryTypes+DTO.swift in Sources */,
 				0AEB35912115E44300EDD63C /* AssetsRepositoryLocal.swift in Sources */,
 				0AFA0C7D2174A2300003FE3B /* BrowserViewController.swift in Sources */,
 				0A6AC3E421848920005D2525 /* AliasesRepositoryProtocol.swift in Sources */,
