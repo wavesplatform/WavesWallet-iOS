@@ -13,7 +13,7 @@ import RxSwift
 
 final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
 
-    func balances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
+    func balances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]> {
         return Observable.create { (observer) -> Disposable in
 
             guard let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address) else {
@@ -23,7 +23,7 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
 
             let objects = realm.objects(AssetBalance.self)
                 .toArray()
-                .map { DomainLayer.DTO.SmartAssetBalance(balance: $0) }
+                .map { DomainLayer.DTO.AssetBalance(balance: $0) }
 
             observer.onNext(objects)
             observer.onCompleted()
@@ -33,7 +33,7 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
     }
 
     func balances(by accountAddress: String,
-                  specification: AccountBalanceSpecifications) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
+                  specification: AccountBalanceSpecifications) -> Observable<[DomainLayer.DTO.AssetBalance]> {
         return Observable.create { (observer) -> Disposable in
 
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
@@ -41,17 +41,17 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
                 return Disposables.create()
             }
 
-            var objects = realm
+            let objects = realm
                 .objects(AssetBalance.self)
                 .filter(specification.predicate)
 
-            if let sort = specification.sortParameters, case .sortLevel = sort.kind {
-                objects = objects.sorted(byKeyPath: "settings.sortLevel", ascending: sort.ascending)
-            }
+//            if let sort = specification.sortParameters, case .sortLevel = sort.kind {
+//                objects = objects.sorted(byKeyPath: "settings.sortLevel", ascending: sort.ascending)
+//            }
 
             let balances = objects
                 .toArray()
-                .map { DomainLayer.DTO.SmartAssetBalance(balance: $0) }
+                .map { DomainLayer.DTO.AssetBalance(balance: $0) }
 
             observer.onNext(balances)
             observer.onCompleted()
@@ -60,7 +60,7 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
         }
     }
 
-    func balance(by id: String, accountAddress: String) -> Observable<DomainLayer.DTO.SmartAssetBalance> {
+    func balance(by id: String, accountAddress: String) -> Observable<DomainLayer.DTO.AssetBalance> {
 
         return Observable.create { (observer) -> Disposable in
 
@@ -70,7 +70,7 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
             }
 
             if let object = realm.object(ofType: AssetBalance.self, forPrimaryKey: id) {
-                let balance = DomainLayer.DTO.SmartAssetBalance(balance: object)
+                let balance = DomainLayer.DTO.AssetBalance(balance: object)
                 observer.onNext(balance)
                 observer.onCompleted()
             } else {
@@ -81,7 +81,7 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
         }
     }
 
-    func saveBalances(_ balances: [DomainLayer.DTO.SmartAssetBalance], accountAddress: String) -> Observable<Bool> {
+    func saveBalances(_ balances: [DomainLayer.DTO.AssetBalance], accountAddress: String) -> Observable<Bool> {
         return Observable.create { (observer) -> Disposable in
 
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
@@ -106,7 +106,7 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
         }
     }
 
-    func deleteBalances(_ balances:[DomainLayer.DTO.SmartAssetBalance], accountAddress: String) -> Observable<Bool> {
+    func deleteBalances(_ balances:[DomainLayer.DTO.AssetBalance], accountAddress: String) -> Observable<Bool> {
         return Observable.create { (observer) -> Disposable in
 
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
@@ -134,13 +134,13 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
         }
     }
 
-    func saveBalance(_ balance: DomainLayer.DTO.SmartAssetBalance, accountAddress: String) -> Observable<Bool> {
+    func saveBalance(_ balance: DomainLayer.DTO.AssetBalance, accountAddress: String) -> Observable<Bool> {
         return self.saveBalances([balance], accountAddress: accountAddress)
     }
 
-    func listenerOfUpdatedBalances(by accountAddress: String) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
+    func listenerOfUpdatedBalances(by accountAddress: String) -> Observable<[DomainLayer.DTO.AssetBalance]> {
 
-        return Observable<[DomainLayer.DTO.SmartAssetBalance]>
+        return Observable<[DomainLayer.DTO.AssetBalance]>
             .create { (observer) -> Disposable in
 
             guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
@@ -152,7 +152,7 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
             let collection = Observable.collection(from: result)
                 .skip(1)
                 .map { $0.toArray() }
-                .map { $0.map { DomainLayer.DTO.SmartAssetBalance(balance: $0) } }
+                .map { $0.map { DomainLayer.DTO.AssetBalance(balance: $0) } }
                 .bind(to: observer)
 
             return Disposables.create {
@@ -163,28 +163,7 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
     }
 }
 
-fileprivate extension DomainLayer.DTO.SmartAssetBalance.Settings {
-
-    init(settings: AssetBalanceSettings) {
-        self.assetId = settings.assetId
-        self.sortLevel = settings.sortLevel
-        self.isHidden = settings.isHidden
-        self.isFavorite = settings.isFavorite
-    }
-}
-
-fileprivate extension AssetBalanceSettings {
-
-    convenience init(settings: DomainLayer.DTO.SmartAssetBalance.Settings) {
-        self.init()
-        self.assetId = settings.assetId
-        self.sortLevel = settings.sortLevel
-        self.isHidden = settings.isHidden
-        self.isFavorite = settings.isFavorite
-    }
-}
-
-fileprivate extension DomainLayer.DTO.SmartAssetBalance {
+fileprivate extension DomainLayer.DTO.AssetBalance {
 
     init(balance: AssetBalance) {
 
@@ -193,38 +172,18 @@ fileprivate extension DomainLayer.DTO.SmartAssetBalance {
         self.totalBalance = balance.balance
         self.leasedBalance = balance.leasedBalance
         self.inOrderBalance = balance.inOrderBalance
-
-        if let asset = balance.asset {
-            self.asset = DomainLayer.DTO.Asset(asset)
-        } else {
-            self.asset  = nil
-        }
-        
-        if let settings = balance.settings {
-            self.settings = .init(settings: settings)
-        } else {
-            self.settings  = nil
-        }
     }
 }
 
 fileprivate extension AssetBalance {
 
-    convenience init(balance: DomainLayer.DTO.SmartAssetBalance) {
+    convenience init(balance: DomainLayer.DTO.AssetBalance) {
         self.init()
         self.modified = balance.modified
         self.assetId = balance.assetId
         self.balance = balance.totalBalance
         self.leasedBalance = balance.leasedBalance
         self.inOrderBalance = balance.inOrderBalance
-
-        if let asset = balance.asset {
-            self.asset = Asset(asset: asset)
-        }
-
-        if let settings = balance.settings {
-            self.settings = AssetBalanceSettings(settings: settings)
-        }
     }
 }
 

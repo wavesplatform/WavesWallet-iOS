@@ -18,7 +18,6 @@ extension DomainLayer.DTO {
             var isFavorite: Bool
         }
         let assetId: String
-        //TODO: Rename totalBalance
         var totalBalance: Int64
         var leasedBalance: Int64
         var inOrderBalance: Int64
