@@ -54,9 +54,10 @@ final class WalletPresenter: WalletPresenterProtocol {
 
         }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
 
-            return FactoryInteractors.instance.authorization.authorizedWallet().flatMap({ (wallet) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
-                return FactoryRepositories.instance.accountBalanceRepositoryLocal.listenerOfUpdatedBalances(by: wallet.address)
-            })
+            return Observable.never()
+//            return FactoryInteractors.instance.authorization.authorizedWallet().flatMap({ (wallet) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
+//                return FactoryRepositories.instance.accountBalanceRepositoryLocal.listenerOfUpdatedBalances(by: wallet.address)
+//            })
             .map { .setAssets($0) }
             .sweetDebugWithoutResponse("Born")
             .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })

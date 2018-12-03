@@ -34,35 +34,37 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
     private let disposeBag: DisposeBag = DisposeBag()
 
     func balances(isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
-        
-        return authorizationInteractor
-            .authorizedWallet()
-            .flatMap({ [weak self] wallet -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
-                guard let owner = self else { return Observable.never() }
-                return owner.balances(by: wallet, isNeedUpdate: isNeedUpdate)
-            })
+
+        return Observable.never()
+//        return authorizationInteractor
+//            .authorizedWallet()
+//            .flatMap({ [weak self] wallet -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
+//                guard let owner = self else { return Observable.never() }
+//                return owner.balances(by: wallet, isNeedUpdate: isNeedUpdate)
+//            })
     }
     
     func balances(by wallet: DomainLayer.DTO.SignedWallet, isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
 
-        return self.balanceRepositoryLocal
-            .balances(by: wallet)
-            .flatMap(weak: self) { owner, balances -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
-
-                let now = Date()
-                let isNeedForceUpdate = balances.count == 0 || balances.first { (now.timeIntervalSinceNow - $0.modified.timeIntervalSinceNow) > Constants.durationInseconds } != nil || isNeedUpdate
-
-                if isNeedForceUpdate {
-                    info("From Remote", type: AssetsInteractor.self)
-                } else {
-                    info("From BD", type: AssetsInteractor.self)
-                }
-                guard isNeedForceUpdate == true else { return Observable.just(balances) }
-
-                return owner.remoteBalances(by: wallet, localBalance: balances, isNeedUpdate: isNeedForceUpdate)
-            }
-            .share()
-            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .background)))
+        return Observable.never()
+//        return self.balanceRepositoryLocal
+//            .balances(by: wallet)
+//            .flatMap(weak: self) { owner, balances -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
+//
+//                let now = Date()
+//                let isNeedForceUpdate = balances.count == 0 || balances.first { (now.timeIntervalSinceNow - $0.modified.timeIntervalSinceNow) > Constants.durationInseconds } != nil || isNeedUpdate
+//
+//                if isNeedForceUpdate {
+//                    info("From Remote", type: AssetsInteractor.self)
+//                } else {
+//                    info("From BD", type: AssetsInteractor.self)
+//                }
+//                guard isNeedForceUpdate == true else { return Observable.just(balances) }
+//
+//                return owner.remoteBalances(by: wallet, localBalance: balances, isNeedUpdate: isNeedForceUpdate)
+//            }
+//            .share()
+//            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .background)))
     }
 }
 
@@ -74,112 +76,113 @@ private extension AccountBalanceInteractor {
                                 localBalance: [DomainLayer.DTO.SmartAssetBalance],
                                 isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
 
-        let walletAddress = wallet.address
-        let balances = balanceRepositoryRemote.balances(by: wallet)
-        let activeTransactions = leasingInteractor.activeLeasingTransactionsSync(by: wallet.address)
-            .flatMap { (txs) -> Observable<[DomainLayer.DTO.SmartTransaction]> in
-
-                switch txs {
-                case .remote(let model):
-                    return Observable.just(model)
-
-                case .local(_, let error):
-                    return Observable.error(error)
-
-                case .error(let error):
-                    return Observable.error(error)
-
-                }
-            }
-
-        let environment = environmentRepository.accountEnvironment(accountAddress: wallet.address)
-
-        return Observable.zip(balances, activeTransactions, environment)
-            .map { balances, transactions, environment -> [DomainLayer.DTO.SmartAssetBalance] in
-
-                let generalBalances = environment.generalAssetIds.map { DomainLayer.DTO.SmartAssetBalance(info: $0) }
-                var newBalances = balances
-                for generalBalance in generalBalances {
-                    if balances.contains(where: { $0.assetId == generalBalance.assetId }) == false {
-                        newBalances.append(generalBalance)
-                    }
-                }
-
-                //Change waves balance
-                if let wavesAssetBalance = newBalances
-                    .enumerated()
-                    .first(where: { $0.element.assetId == GlobalConstants.wavesAssetId }) {
-
-                    let leasedBalance: Int64 = transactions
-                        .filter { $0.sender.address == walletAddress }
-                        .reduce(into: 0, { result, tx in
-                            if case .startedLeasing(let txLease) = tx.kind {
-                                result = result + txLease.balance.money.amount
-                            }
-                        })
-
-                    let newWavesAssetBalance = wavesAssetBalance
-                        .element
-                        .mutate { balance in
-                            balance.leasedBalance = leasedBalance
-                        }
-
-                    newBalances[wavesAssetBalance.offset] = newWavesAssetBalance
-                }
-
-                return newBalances
-            }
-            .flatMap(weak: self) { owner, balances -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
-
-                let ids = balances.map { $0.assetId }
-                return owner
-                    .assetsInteractor
-                    .assets(by: ids, accountAddress: walletAddress, isNeedUpdated: isNeedUpdate)
-                    .flatMap(weak: owner) { (owner, assets) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
-                        let mapAssets = assets.reduce([String: DomainLayer.DTO.Asset]()) {
-                            var map = $0
-                            map[$1.id] = $1
-                            return map
-                        }
-
-                        let oldSettings = localBalance.reduce([String: DomainLayer.DTO.SmartAssetBalance.Settings]()) {
-                            var map = $0
-                            if let settings = $1.settings {
-                                map[settings.assetId] = settings
-                            }
-                            return map
-                        }
-
-                        var newBalances = balances
-                        for (index, balance) in newBalances.enumerated() {
-                            newBalances[index].asset = mapAssets[balance.assetId]
-                            newBalances[index].settings = oldSettings[balance.assetId]
-                        }
-                        newBalances = owner.initialSettings(for: newBalances)
-                        return owner
-                            .balanceRepositoryLocal
-                            .saveBalances(newBalances, accountAddress: walletAddress)
-                            .map { _ in newBalances }
-                    }
-            }
-            .flatMap(weak: self) { owner, balances -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
-                let map = balances.reduce(into: [String: DomainLayer.DTO.SmartAssetBalance](), { (result, balance) in
-                    result[balance.assetId] = balance
-                })
-
-                var deleteBalances = localBalance
-                deleteBalances.removeAll(where: { (balance) -> Bool in
-                    return map[balance.assetId] != nil
-                })
-
-                return owner
-                    .balanceRepositoryLocal
-                    .deleteBalances(deleteBalances, accountAddress: walletAddress)
-                    .map { _ in balances }
-            }
-            .flatMap(weak: self) { owner, balances -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
-                return Observable.merge(Observable.just(balances), owner.balanceRepositoryLocal.listenerOfUpdatedBalances(by: walletAddress))
-            }
+        return Observable.never()
+//        let walletAddress = wallet.address
+//        let balances = balanceRepositoryRemote.balances(by: wallet)
+//        let activeTransactions = leasingInteractor.activeLeasingTransactionsSync(by: wallet.address)
+//            .flatMap { (txs) -> Observable<[DomainLayer.DTO.SmartTransaction]> in
+//
+//                switch txs {
+//                case .remote(let model):
+//                    return Observable.just(model)
+//
+//                case .local(_, let error):
+//                    return Observable.error(error)
+//
+//                case .error(let error):
+//                    return Observable.error(error)
+//
+//                }
+//            }
+//
+//        let environment = environmentRepository.accountEnvironment(accountAddress: wallet.address)
+//
+//        return Observable.zip(balances, activeTransactions, environment)
+//            .map { balances, transactions, environment -> [DomainLayer.DTO.SmartAssetBalance] in
+//
+//                let generalBalances = environment.generalAssetIds.map { DomainLayer.DTO.SmartAssetBalance(info: $0) }
+//                var newBalances = balances
+//                for generalBalance in generalBalances {
+//                    if balances.contains(where: { $0.assetId == generalBalance.assetId }) == false {
+//                        newBalances.append(generalBalance)
+//                    }
+//                }
+//
+//                //Change waves balance
+//                if let wavesAssetBalance = newBalances
+//                    .enumerated()
+//                    .first(where: { $0.element.assetId == GlobalConstants.wavesAssetId }) {
+//
+//                    let leasedBalance: Int64 = transactions
+//                        .filter { $0.sender.address == walletAddress }
+//                        .reduce(into: 0, { result, tx in
+//                            if case .startedLeasing(let txLease) = tx.kind {
+//                                result = result + txLease.balance.money.amount
+//                            }
+//                        })
+//
+//                    let newWavesAssetBalance = wavesAssetBalance
+//                        .element
+//                        .mutate { balance in
+//                            balance.leasedBalance = leasedBalance
+//                        }
+//
+//                    newBalances[wavesAssetBalance.offset] = newWavesAssetBalance
+//                }
+//
+//                return newBalances
+//            }
+//            .flatMap(weak: self) { owner, balances -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
+//
+//                let ids = balances.map { $0.assetId }
+//                return owner
+//                    .assetsInteractor
+//                    .assets(by: ids, accountAddress: walletAddress, isNeedUpdated: isNeedUpdate)
+//                    .flatMap(weak: owner) { (owner, assets) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
+//                        let mapAssets = assets.reduce([String: DomainLayer.DTO.Asset]()) {
+//                            var map = $0
+//                            map[$1.id] = $1
+//                            return map
+//                        }
+//
+//                        let oldSettings = localBalance.reduce([String: DomainLayer.DTO.SmartAssetBalance.Settings]()) {
+//                            var map = $0
+//                            if let settings = $1.settings {
+//                                map[settings.assetId] = settings
+//                            }
+//                            return map
+//                        }
+//
+//                        var newBalances = balances
+//                        for (index, balance) in newBalances.enumerated() {
+//                            newBalances[index].asset = mapAssets[balance.assetId]
+//                            newBalances[index].settings = oldSettings[balance.assetId]
+//                        }
+//                        newBalances = owner.initialSettings(for: newBalances)
+//                        return owner
+//                            .balanceRepositoryLocal
+//                            .saveBalances(newBalances, accountAddress: walletAddress)
+//                            .map { _ in newBalances }
+//                    }
+//            }
+//            .flatMap(weak: self) { owner, balances -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
+//                let map = balances.reduce(into: [String: DomainLayer.DTO.SmartAssetBalance](), { (result, balance) in
+//                    result[balance.assetId] = balance
+//                })
+//
+//                var deleteBalances = localBalance
+//                deleteBalances.removeAll(where: { (balance) -> Bool in
+//                    return map[balance.assetId] != nil
+//                })
+//
+//                return owner
+//                    .balanceRepositoryLocal
+//                    .deleteBalances(deleteBalances, accountAddress: walletAddress)
+//                    .map { _ in balances }
+//            }
+//            .flatMap(weak: self) { owner, balances -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
+//                return Observable.merge(Observable.just(balances), owner.balanceRepositoryLocal.listenerOfUpdatedBalances(by: walletAddress))
+//            }
     }
 
     func initialSettings(for balances: [DomainLayer.DTO.SmartAssetBalance]) -> [DomainLayer.DTO.SmartAssetBalance] {
