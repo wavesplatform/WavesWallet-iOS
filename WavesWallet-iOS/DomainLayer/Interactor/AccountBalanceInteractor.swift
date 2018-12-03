@@ -72,31 +72,64 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
 
 private extension AccountBalanceInteractor {
 
+    private func remoteBalances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]> {
+
+        let balances = balanceRepositoryRemote.balances(by: wallet)
+        let environment = environmentRepository.accountEnvironment(accountAddress: wallet.address)
+
+        return Observable.zip(balances, environment)
+            .map { (arg) -> [DomainLayer.DTO.AssetBalance] in
+                let (balances, environment) = arg
+
+                let generalBalances = environment
+                    .generalAssetIds
+                    .map { DomainLayer.DTO.AssetBalance(info: $0) }
+
+                    var newBalances = balances
+                    for generalBalance in generalBalances {
+                        if balances.contains(where: { $0.assetId == generalBalance.assetId }) == false {
+                            newBalances.append(generalBalance)
+                        }
+                    }
+                return generalBalances
+            }
+    }
+
+    private func modifyBalances(by wallet: DomainLayer.DTO.SignedWallet, balances: Observable<[DomainLayer.DTO.AssetBalance]>) {
+
+    }
+
     private func remoteBalances(by wallet: DomainLayer.DTO.SignedWallet,
                                 localBalance: [DomainLayer.DTO.SmartAssetBalance],
                                 isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
 
         return Observable.never()
-//        let walletAddress = wallet.address
-//        let balances = balanceRepositoryRemote.balances(by: wallet)
-//        let activeTransactions = leasingInteractor.activeLeasingTransactionsSync(by: wallet.address)
-//            .flatMap { (txs) -> Observable<[DomainLayer.DTO.SmartTransaction]> in
-//
-//                switch txs {
-//                case .remote(let model):
-//                    return Observable.just(model)
-//
-//                case .local(_, let error):
-//                    return Observable.error(error)
-//
-//                case .error(let error):
-//                    return Observable.error(error)
-//
-//                }
-//            }
-//
-//        let environment = environmentRepository.accountEnvironment(accountAddress: wallet.address)
-//
+        let walletAddress = wallet.address
+        let balances = self
+            .remoteBalances(by: wallet)
+            .flatMapLatest { (balances) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
+                return Observable.never()
+            }
+
+
+        let activeTransactions = leasingInteractor.activeLeasingTransactionsSync(by: wallet.address)
+            .flatMap { (txs) -> Observable<[DomainLayer.DTO.SmartTransaction]> in
+
+                switch txs {
+                case .remote(let model):
+                    return Observable.just(model)
+
+                case .local(_, let error):
+                    return Observable.error(error)
+
+                case .error(let error):
+                    return Observable.error(error)
+
+                }
+            }
+
+        let environment = environmentRepository.accountEnvironment(accountAddress: wallet.address)
+
 //        return Observable.zip(balances, activeTransactions, environment)
 //            .map { balances, transactions, environment -> [DomainLayer.DTO.SmartAssetBalance] in
 //
@@ -191,7 +224,7 @@ private extension AccountBalanceInteractor {
 //            .current
 //            .generalAssetIds
 //
-//        var newBalances = balances            
+//        var newBalances = balances
 //            .sorted { assetOne, assetTwo -> Bool in
 //
 //                let isGeneralOne = assetOne.asset.isGeneral
@@ -249,13 +282,13 @@ private extension AccountBalanceInteractor {
 
 // MARK: Mapper
 
-//private extension DomainLayer.DTO.SmartAssetBalance {
-//
-//    init(info: Environment.AssetInfo) {
-//        self.assetId = info.assetId
-//        self.totalBalance = 0
-//        self.leasedBalance = 0
-//        self.inOrderBalance = 0
-//        self.modified = Date()
-//    }
-//}
+private extension DomainLayer.DTO.AssetBalance {
+
+    init(info: Environment.AssetInfo) {
+        self.assetId = info.assetId
+        self.totalBalance = 0
+        self.leasedBalance = 0
+        self.inOrderBalance = 0
+        self.modified = Date()
+    }
+}
