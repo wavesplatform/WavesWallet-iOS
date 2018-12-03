@@ -127,7 +127,7 @@ private extension DomainLayer.DTO.SmartAssetBalance {
 
     func mapToBalance() -> AssetTypes.DTO.Asset.Balance {
 
-        let decimal = asset?.precision ?? 0
+        let decimal = asset.precision
 
         let totalMoney = Money(totalBalance, decimal)
         let avaliableMoney = Money(avaliableBalance, decimal)
@@ -138,26 +138,26 @@ private extension DomainLayer.DTO.SmartAssetBalance {
                                             avaliableMoney: avaliableMoney,
                                             leasedMoney: leasedMoney,
                                             inOrderMoney: inOrderMoney,
-                                            isFiat: asset?.isFiat ?? false)
+                                            isFiat: asset.isFiat)
     }
 
     func mapToInfo() -> AssetTypes.DTO.Asset.Info {
 
-        let id = asset?.id ?? ""
-        let issuer = asset?.sender ?? ""
-        let name = asset?.displayName ?? ""
-        let description = asset?.description ?? ""
-        let issueDate = asset?.timestamp ?? Date()
-        let isReusable = asset?.isReusable ?? false
-        let isMyWavesToken = asset?.isMyWavesToken ?? false
-        let isWavesToken = asset?.isWavesToken ?? false
-        let isWaves = asset?.isWaves ?? false
-        let isFavorite = settings?.isFavorite ?? false
-        let isFiat = asset?.isFiat ?? false
-        let isSpam = asset?.isSpam ?? false
-        let isGateway = asset?.isGateway ?? false
-        let sortLevel = settings?.sortLevel ?? 0
-        let icon = asset?.icon ?? ""
+        let id = asset.id
+        let issuer = asset.sender
+        let name = asset.displayName
+        let description = asset.description
+        let issueDate = asset.timestamp
+        let isReusable = asset.isReusable
+        let isMyWavesToken = asset.isMyWavesToken
+        let isWavesToken = asset.isWavesToken
+        let isWaves = asset.isWaves
+        let isFavorite = settings.isFavorite
+        let isFiat = asset.isFiat
+        let isSpam = asset.isSpam
+        let isGateway = asset.isGateway
+        let sortLevel = settings.sortLevel
+        let icon = asset.icon
 
         return .init(id: id,
                      issuer: issuer,

@@ -112,18 +112,17 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
 extension AssetSelectView: ViewConfiguration {
     
     func update(with model: DomainLayer.DTO.SmartAssetBalance) {
-        
-        guard let asset = model.asset else { return }
-        
+
+        let asset = model.asset
         viewAsset.isHidden = false
         labelAmount.isHidden = false
         labelSelectAsset.isHidden = true
 
         labelAssetName.text = asset.displayName
         iconGateway.isHidden = !asset.isGateway
-        iconFav.isHidden = !(model.settings?.isFavorite ?? false)
+        iconFav.isHidden = !model.settings.isFavorite
        
-        loadIcon(name: asset.ticker ?? asset.displayName)
+        loadIcon(name: asset.icon)
         let money = Money(model.avaliableBalance, asset.precision)
         labelAmount.text = money.displayText
     }

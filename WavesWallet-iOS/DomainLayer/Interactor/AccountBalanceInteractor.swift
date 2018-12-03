@@ -184,82 +184,78 @@ private extension AccountBalanceInteractor {
 //                return Observable.merge(Observable.just(balances), owner.balanceRepositoryLocal.listenerOfUpdatedBalances(by: walletAddress))
 //            }
     }
-
-    func initialSettings(for balances: [DomainLayer.DTO.SmartAssetBalance]) -> [DomainLayer.DTO.SmartAssetBalance] {
-
-        let generalBalances = Environments
-            .current
-            .generalAssetIds
-
-        var newBalances = balances
-            .filter { $0.settings == nil }
-            .sorted { assetOne, assetTwo -> Bool in
-
-                let isGeneralOne = assetOne.asset?.isGeneral ?? false
-                let isGeneralTwo = assetTwo.asset?.isGeneral ?? false
-
-                if isGeneralOne == true && isGeneralTwo == true {
-                    let indexOne = generalBalances
-                        .enumerated()
-                        .first(where: { $0.element.assetId == assetOne.assetId })
-                        .map { $0.offset }
-
-                    let indexTwo = generalBalances
-                        .enumerated()
-                        .first(where: { $0.element.assetId == assetTwo.assetId })
-                        .map { $0.offset }
-
-                    if let indexOne = indexOne, let indexTwo = indexTwo {
-                        return indexOne < indexTwo
-                    }
-                    return false
-                }
-
-                if isGeneralOne {
-                    return true
-                }
-                return false
-            }
-
-        let oldBalances = balances
-            .filter { $0.settings != nil }
-            .sorted { $0.settings!.sortLevel < $1.settings!.sortLevel }
-
-        let lastSortLevel = oldBalances.last?.settings?.sortLevel ?? 0
-
-        for (index, balance) in newBalances.enumerated() {
-
-            let assetId = balance.assetId
-            let sortLevel = lastSortLevel + Float(index)
-            let isFavorite: Bool = balance.asset?.isWaves ?? false
-
-            var newBalance = balance
-            newBalance.settings = DomainLayer.DTO.SmartAssetBalance.Settings(assetId: assetId,
-                                                                        sortLevel: sortLevel,
-                                                                        isHidden: false,
-                                                                        isFavorite: isFavorite)
-            newBalances[index] = newBalance
-        }
-
-        var newList = newBalances
-        newList.append(contentsOf: oldBalances)
-        newList = newList.sorted { $0.settings!.sortLevel < $1.settings!.sortLevel }
-
-        return newList
-    }
+//
+//    func initialSettings(for balances: [DomainLayer.DTO.SmartAssetBalance]) -> [DomainLayer.DTO.SmartAssetBalance] {
+//
+//        let generalBalances = Environments
+//            .current
+//            .generalAssetIds
+//
+//        var newBalances = balances            
+//            .sorted { assetOne, assetTwo -> Bool in
+//
+//                let isGeneralOne = assetOne.asset.isGeneral
+//                let isGeneralTwo = assetTwo.asset.isGeneral
+//
+//                if isGeneralOne == true && isGeneralTwo == true {
+//                    let indexOne = generalBalances
+//                        .enumerated()
+//                        .first(where: { $0.element.assetId == assetOne.assetId })
+//                        .map { $0.offset }
+//
+//                    let indexTwo = generalBalances
+//                        .enumerated()
+//                        .first(where: { $0.element.assetId == assetTwo.assetId })
+//                        .map { $0.offset }
+//
+//                    if let indexOne = indexOne, let indexTwo = indexTwo {
+//                        return indexOne < indexTwo
+//                    }
+//                    return false
+//                }
+//
+//                if isGeneralOne {
+//                    return true
+//                }
+//                return false
+//            }
+//
+//        let oldBalances = balances
+//            .sorted { $0.settings.sortLevel < $1.settings.sortLevel }
+//
+//        let lastSortLevel = oldBalances.last?.settings.sortLevel ?? 0
+//
+//        for (index, balance) in newBalances.enumerated() {
+//
+//            let assetId = balance.assetId
+//            let sortLevel = lastSortLevel + Float(index)
+//            let isFavorite: Bool = balance.asset.isWaves
+//
+//            var newBalance = balance
+//            newBalance.settings = DomainLayer.DTO.SmartAssetBalance.Settings(assetId: assetId,
+//                                                                        sortLevel: sortLevel,
+//                                                                        isHidden: false,
+//                                                                        isFavorite: isFavorite)
+//            newBalances[index] = newBalance
+//        }
+//
+//        var newList = newBalances
+//        newList.append(contentsOf: oldBalances)
+//        newList = newList.sorted { $0.settings.sortLevel < $1.settings.sortLevel }
+//
+//        return newList
+//    }
 }
 
 // MARK: Mapper
 
-private extension DomainLayer.DTO.SmartAssetBalance {
-
-    init(info: Environment.AssetInfo) {
-        self.assetId = info.assetId
-        self.totalBalance = 0
-        self.leasedBalance = 0
-        self.inOrderBalance = 0
-        self.settings = nil
-        self.asset = nil
-        self.modified = Date()
-    }
-}
+//private extension DomainLayer.DTO.SmartAssetBalance {
+//
+//    init(info: Environment.AssetInfo) {
+//        self.assetId = info.assetId
+//        self.totalBalance = 0
+//        self.leasedBalance = 0
+//        self.inOrderBalance = 0
+//        self.modified = Date()
+//    }
+//}

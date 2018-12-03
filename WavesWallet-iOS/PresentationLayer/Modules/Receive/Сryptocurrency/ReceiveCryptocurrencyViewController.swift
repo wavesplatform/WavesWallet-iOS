@@ -61,10 +61,9 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
         setupLoadingState()
         setupButtonState()
         
-        if let asset = asset.asset {
-            DispatchQueue.main.asyncAfter(deadline: .now()) {
-                self.sendEvent.accept(.generateAddress(asset: asset))
-            }
+        let asset = asset.asset
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            self.sendEvent.accept(.generateAddress(asset: asset))
         }
     }
 }

@@ -41,7 +41,7 @@ final class SendInteractor: SendInteractorProtocol {
         return accountBalance.balances(isNeedUpdate: false)
             .flatMap({ balances -> Observable<DomainLayer.DTO.SmartAssetBalance> in
                 
-                guard let wavesAsset = balances.first(where: {$0.asset?.wavesId == Environments.Constants.wavesAssetId}) else {
+                guard let wavesAsset = balances.first(where: {$0.asset.wavesId == Environments.Constants.wavesAssetId}) else {
                     return Observable.empty()
                 }
                 return Observable.just(wavesAsset)
@@ -52,7 +52,7 @@ final class SendInteractor: SendInteractorProtocol {
         
         return Observable.create({ [weak self] (subscribe) -> Disposable in
             
-            guard let asset = asset.asset else { return Disposables.create() }
+            let asset = asset.asset
 
             self?.getAssetTunnelInfo(asset: asset, address: address, moneroPaymentID: paymentID, complete: { (shortName, address, attachment, error) in
                 
@@ -72,7 +72,7 @@ final class SendInteractor: SendInteractorProtocol {
         
         return Observable.create({ [weak self] subscribe -> Disposable in
         
-            guard let asset = asset.asset else { return Disposables.create() }
+            let asset = asset.asset
             
             self?.getAssetRate(asset: asset, complete: { (fee, min, max, errorMessage) in
 

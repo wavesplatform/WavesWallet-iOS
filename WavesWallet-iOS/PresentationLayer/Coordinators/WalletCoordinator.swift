@@ -195,21 +195,21 @@ fileprivate extension AssetModuleBuilder.Input {
 fileprivate extension AssetTypes.DTO.Asset.Info {
 
     init(asset: DomainLayer.DTO.SmartAssetBalance) {
-        id = asset.asset!.id
-        issuer = asset.asset!.sender
-        name = asset.asset!.displayName
-        description = asset.asset!.description
-        issueDate = asset.asset!.timestamp
-        isReusable = asset.asset!.isReusable
-        isMyWavesToken = asset.asset!.isMyWavesToken
-        isWavesToken = asset.asset!.isWavesToken
-        isWaves = asset.asset!.isWaves
-        isFavorite = asset.settings!.isFavorite
-        isFiat = asset.asset!.isFiat
-        isSpam = asset.asset!.isSpam
-        isGateway = asset.asset!.isGateway
-        sortLevel = asset.settings!.sortLevel
-        icon = asset.asset!.icon
+        id = asset.asset.id
+        issuer = asset.asset.sender
+        name = asset.asset.displayName
+        description = asset.asset.description
+        issueDate = asset.asset.timestamp
+        isReusable = asset.asset.isReusable
+        isMyWavesToken = asset.asset.isMyWavesToken
+        isWavesToken = asset.asset.isWavesToken
+        isWaves = asset.asset.isWaves
+        isFavorite = asset.settings.isFavorite
+        isFiat = asset.asset.isFiat
+        isSpam = asset.asset.isSpam
+        isGateway = asset.asset.isGateway
+        sortLevel = asset.settings.sortLevel
+        icon = asset.asset.icon
         assetBalance = asset
     }
 }
