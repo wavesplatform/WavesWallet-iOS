@@ -21,8 +21,8 @@ extension DomainLayer.DTO {
         var totalBalance: Int64
         var leasedBalance: Int64
         var inOrderBalance: Int64
-        var settings: Settings?
-        var asset: DomainLayer.DTO.Asset?
+        var settings: Settings
+        var asset: DomainLayer.DTO.Asset
         var modified: Date
     }
 

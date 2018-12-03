@@ -109,10 +109,10 @@ extension AssetDetailCell: ViewConfiguration {
         issuerLabel.text = model.issuer
         descriptionLabel.text = model.description
         
-        let decimals = model.assetBalance.asset?.precision ?? 0
+        let decimals = model.assetBalance.asset.precision
         labelDecimalPoint.text = String(decimals)
         
-        let totalAmount = Money(model.assetBalance.asset?.quantity ?? 0, decimals)
+        let totalAmount = Money(model.assetBalance.asset.quantity, decimals)
         labelTotalAmount.text = totalAmount.displayText
 
         let dateFormatter = DateFormatter.sharedFormatter

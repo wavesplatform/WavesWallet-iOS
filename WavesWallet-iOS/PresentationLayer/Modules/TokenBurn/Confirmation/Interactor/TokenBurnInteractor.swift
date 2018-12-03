@@ -21,7 +21,7 @@ final class TokenBurnInteractor: TokenBurnInteractorProtocol {
         return account.balances(isNeedUpdate: false).flatMap({ (balances) -> Observable<Money> in
 
             if let wavesBalance = balances.first(where: {$0.assetId == GlobalConstants.wavesAssetId }) {
-                return Observable.just(Money(wavesBalance.avaliableBalance, wavesBalance.asset?.precision ?? 0))
+                return Observable.just(Money(wavesBalance.avaliableBalance, wavesBalance.asset.precision))
             }
             return Observable.empty()
         })
