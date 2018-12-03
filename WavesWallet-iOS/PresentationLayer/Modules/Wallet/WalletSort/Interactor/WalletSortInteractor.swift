@@ -17,7 +17,7 @@ private enum Constants {
 
 private extension WalletSort.DTO.Asset {
 
-    static func map(from balance: DomainLayer.DTO.AssetBalance) -> WalletSort.DTO.Asset {
+    static func map(from balance: DomainLayer.DTO.SmartAssetBalance) -> WalletSort.DTO.Asset {
 
         let isLock = balance.asset?.isWaves == true
         let isMyWavesToken = balance.asset?.isMyWavesToken ?? false
@@ -78,8 +78,8 @@ final class WalletSortInteractor: WalletSortInteractorProtocol {
         authorizationInteractor
             .authorizedWallet()
             .flatMap({ [weak self] wallet -> Observable<(wallet: DomainLayer.DTO.Wallet,
-                                                         assetBalance: DomainLayer.DTO.AssetBalance,
-                                                         otherBalances: [DomainLayer.DTO.AssetBalance])> in
+                                                         assetBalance: DomainLayer.DTO.SmartAssetBalance,
+                                                         otherBalances: [DomainLayer.DTO.SmartAssetBalance])> in
                 guard let owner = self else { return Observable.never() }
 
                 let accountAddress = wallet.address
@@ -150,8 +150,8 @@ final class WalletSortInteractor: WalletSortInteractorProtocol {
         authorizationInteractor
             .authorizedWallet()
             .flatMapLatest({ [weak self] wallet -> Observable<(wallet: DomainLayer.DTO.Wallet,
-                                                         assetBalance: DomainLayer.DTO.AssetBalance,
-                                                         toAssetBalance: DomainLayer.DTO.AssetBalance)> in
+                                                         assetBalance: DomainLayer.DTO.SmartAssetBalance,
+                                                         toAssetBalance: DomainLayer.DTO.SmartAssetBalance)> in
 
                 guard let owner = self else { return Observable.never() }
 

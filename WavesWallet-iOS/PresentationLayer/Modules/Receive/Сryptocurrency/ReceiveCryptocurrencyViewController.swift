@@ -25,7 +25,7 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
     @IBOutlet private weak var buttonCotinue: HighlightedButton!
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
   
-    private var selectedAsset: DomainLayer.DTO.AssetBalance?
+    private var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
     private var displayInfo: ReceiveCryptocurrency.DTO.DisplayInfo?
     
     private let sendEvent: PublishRelay<ReceiveCryptocurrency.Event> = PublishRelay<ReceiveCryptocurrency.Event>()
@@ -55,7 +55,7 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func setupAssetInfo(_ asset: DomainLayer.DTO.AssetBalance) {
+    private func setupAssetInfo(_ asset: DomainLayer.DTO.SmartAssetBalance) {
         selectedAsset = asset
         assetView.update(with: asset)
         setupLoadingState()
@@ -173,7 +173,7 @@ extension ReceiveCryptocurrencyViewController: AssetSelectViewDelegate {
 }
 
 extension ReceiveCryptocurrencyViewController: AssetListModuleOutput {
-    func assetListDidSelectAsset(_ asset: DomainLayer.DTO.AssetBalance) {
+    func assetListDidSelectAsset(_ asset: DomainLayer.DTO.SmartAssetBalance) {
         displayInfo = nil
         setupAssetInfo(asset)
     }

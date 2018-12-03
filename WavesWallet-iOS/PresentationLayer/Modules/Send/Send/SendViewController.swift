@@ -40,7 +40,7 @@ final class SendViewController: UIViewController {
     @IBOutlet private weak var labelAmountError: UILabel!
     @IBOutlet private weak var moneroPaymentIdView: SendMoneroPaymentIdView!
     
-    private var selectedAsset: DomainLayer.DTO.AssetBalance?
+    private var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
     private var amount: Money?
     private let wavesFee = GlobalConstants.WavesTransactionFee
     
@@ -50,7 +50,7 @@ final class SendViewController: UIViewController {
     var input: AssetList.DTO.Input!
     private var isValidAlias: Bool = false
     private var gateWayInfo: Send.DTO.GatewayInfo?
-    private var wavesAsset: DomainLayer.DTO.AssetBalance?
+    private var wavesAsset: DomainLayer.DTO.SmartAssetBalance?
     private var moneroAddress: String = ""
     private var isLoadingAssetBalanceAfterScan = false
     
@@ -114,7 +114,7 @@ final class SendViewController: UIViewController {
         setupBigNavigationBar()
     }
     
-    private func setupAssetInfo(_ assetBalance: DomainLayer.DTO.AssetBalance) {
+    private func setupAssetInfo(_ assetBalance: DomainLayer.DTO.SmartAssetBalance) {
         gateWayInfo = nil
         
         selectedAsset = assetBalance
@@ -292,7 +292,7 @@ extension SendViewController: AmountInputViewDelegate {
 
 //MARK: - AssetListModuleOutput
 extension SendViewController: AssetListModuleOutput {
-    func assetListDidSelectAsset(_ asset: DomainLayer.DTO.AssetBalance) {
+    func assetListDidSelectAsset(_ asset: DomainLayer.DTO.SmartAssetBalance) {
         setupAssetInfo(asset)
         amountView.setDecimals(asset.asset?.precision ?? 0, forceUpdateMoney: true)
         validateAddress()

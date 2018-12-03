@@ -88,7 +88,7 @@ final class AssetInteractor: AssetInteractorProtocol {
         authorizationInteractor
             .authorizedWallet()
             .flatMap { [weak self] wallet -> Observable<(wallet: DomainLayer.DTO.Wallet,
-                balance: DomainLayer.DTO.AssetBalance)> in
+                balance: DomainLayer.DTO.SmartAssetBalance)> in
 
                 guard let owner = self else { return Observable.never() }
                 return owner
@@ -118,7 +118,7 @@ final class AssetInteractor: AssetInteractorProtocol {
     }
 }
 
-private extension DomainLayer.DTO.AssetBalance {
+private extension DomainLayer.DTO.SmartAssetBalance {
 
     func mapToAsset() -> AssetTypes.DTO.Asset {
         return AssetTypes.DTO.Asset(info: mapToInfo(),

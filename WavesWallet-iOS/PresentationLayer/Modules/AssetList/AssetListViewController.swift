@@ -26,7 +26,7 @@ final class AssetListViewController: UIViewController {
     private var isSearchMode: Bool = false
     private let sendEvent: PublishRelay<AssetList.Event> = PublishRelay<AssetList.Event>()
 
-    var selectedAsset: DomainLayer.DTO.AssetBalance?
+    var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
     var presenter: AssetListPresenterProtocol!
     var showAllList = true
     

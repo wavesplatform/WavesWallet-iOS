@@ -56,13 +56,13 @@ extension WalletTypes {
 
     struct State: Mutating {
 
-        var assets: [DomainLayer.DTO.AssetBalance]
+        var assets: [DomainLayer.DTO.SmartAssetBalance]
         var leasing: DTO.Leasing?
         var displayState: DisplayState
     }
 
     enum Event {
-        case setAssets([DomainLayer.DTO.AssetBalance])
+        case setAssets([DomainLayer.DTO.SmartAssetBalance])
         case setLeasing(DTO.Leasing)
         case handlerError(Error)
         case refresh

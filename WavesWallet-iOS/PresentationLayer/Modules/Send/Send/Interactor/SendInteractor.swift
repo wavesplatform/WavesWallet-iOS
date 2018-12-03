@@ -21,8 +21,8 @@ final class SendInteractor: SendInteractorProtocol {
     private let disposeBag = DisposeBag()
     private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
 
-    func assetBalance(by assetID: String) -> Observable<DomainLayer.DTO.AssetBalance?> {
-        return accountBalanceInteractor.balances(isNeedUpdate: false).flatMap({ (balances) -> Observable<DomainLayer.DTO.AssetBalance?>  in
+    func assetBalance(by assetID: String) -> Observable<DomainLayer.DTO.SmartAssetBalance?> {
+        return accountBalanceInteractor.balances(isNeedUpdate: false).flatMap({ (balances) -> Observable<DomainLayer.DTO.SmartAssetBalance?>  in
             
             if let asset = balances.first(where: {$0.assetId == assetID}) {
                 return Observable.just(asset)
@@ -31,7 +31,7 @@ final class SendInteractor: SendInteractorProtocol {
         })
     }
     
-    func getWavesBalance() -> Observable<DomainLayer.DTO.AssetBalance> {
+    func getWavesBalance() -> Observable<DomainLayer.DTO.SmartAssetBalance> {
         
         //TODO: need to checkout if we need you use force update balance
         //because we can make transaction only if balance > 0, waves fee = 0.001
@@ -39,7 +39,7 @@ final class SendInteractor: SendInteractorProtocol {
         
         let accountBalance = FactoryInteractors.instance.accountBalance
         return accountBalance.balances(isNeedUpdate: false)
-            .flatMap({ balances -> Observable<DomainLayer.DTO.AssetBalance> in
+            .flatMap({ balances -> Observable<DomainLayer.DTO.SmartAssetBalance> in
                 
                 guard let wavesAsset = balances.first(where: {$0.asset?.wavesId == Environments.Constants.wavesAssetId}) else {
                     return Observable.empty()
@@ -48,7 +48,7 @@ final class SendInteractor: SendInteractorProtocol {
             })
     }
     
-    func generateMoneroAddress(asset: DomainLayer.DTO.AssetBalance, address: String, paymentID: String) -> Observable<ResponseType<String>> {
+    func generateMoneroAddress(asset: DomainLayer.DTO.SmartAssetBalance, address: String, paymentID: String) -> Observable<ResponseType<String>> {
         
         return Observable.create({ [weak self] (subscribe) -> Disposable in
             
@@ -68,7 +68,7 @@ final class SendInteractor: SendInteractorProtocol {
        
     }
     
-    func gateWayInfo(asset: DomainLayer.DTO.AssetBalance, address: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
+    func gateWayInfo(asset: DomainLayer.DTO.SmartAssetBalance, address: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
         
         return Observable.create({ [weak self] subscribe -> Disposable in
         

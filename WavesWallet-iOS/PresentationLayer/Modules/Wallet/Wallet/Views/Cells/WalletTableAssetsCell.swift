@@ -47,7 +47,7 @@ final class WalletTableAssetsCell: UITableViewCell, Reusable {
 }
 
 extension WalletTableAssetsCell: ViewConfiguration {
-    func update(with model: DomainLayer.DTO.AssetBalance) {
+    func update(with model: DomainLayer.DTO.SmartAssetBalance) {
         
         labelTitle.attributedText = NSAttributedString.styleForMyAssetName(assetName: model.asset!.displayName,
                                                                            isMyAsset: model.asset!.isMyWavesToken)

@@ -30,14 +30,14 @@ struct AccountBalanceSpecifications {
 
 protocol AccountBalanceRepositoryProtocol {
     
-    func balances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]>
-    func balance(by id: String, accountAddress: String) -> Observable<DomainLayer.DTO.AssetBalance>
+    func balances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.SmartAssetBalance]>
+    func balance(by id: String, accountAddress: String) -> Observable<DomainLayer.DTO.SmartAssetBalance>
 
-    func balances(by accountAddress: String, specification: AccountBalanceSpecifications) -> Observable<[DomainLayer.DTO.AssetBalance]>
+    func balances(by accountAddress: String, specification: AccountBalanceSpecifications) -> Observable<[DomainLayer.DTO.SmartAssetBalance]>
 
-    func deleteBalances(_ balances:[DomainLayer.DTO.AssetBalance], accountAddress: String) -> Observable<Bool>
-    func saveBalances(_ balances:[DomainLayer.DTO.AssetBalance], accountAddress: String) -> Observable<Bool>
-    func saveBalance(_ balance: DomainLayer.DTO.AssetBalance, accountAddress: String) -> Observable<Bool>
+    func deleteBalances(_ balances:[DomainLayer.DTO.SmartAssetBalance], accountAddress: String) -> Observable<Bool>
+    func saveBalances(_ balances:[DomainLayer.DTO.SmartAssetBalance], accountAddress: String) -> Observable<Bool>
+    func saveBalance(_ balance: DomainLayer.DTO.SmartAssetBalance, accountAddress: String) -> Observable<Bool>
     
-    func listenerOfUpdatedBalances(by accountAddress: String) -> Observable<[DomainLayer.DTO.AssetBalance]>
+    func listenerOfUpdatedBalances(by accountAddress: String) -> Observable<[DomainLayer.DTO.SmartAssetBalance]>
 }
