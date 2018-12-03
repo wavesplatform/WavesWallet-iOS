@@ -14,6 +14,7 @@ platform :ios do
     ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
     ENV['MATCH_TYPE'] = "appstore"
     ENV['CHANGELOG_BETWEEN_BRANCH']="develop"
+    ENV['MATCH_APP_IDENTIFIERS'] = ["com.wavesplatform.waveswallet.test"]
     build_projet
     upload_testflight
   end
@@ -26,6 +27,7 @@ platform :ios do
     ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_APPSFLYER']}/Appsflyer-Info-Prod.plist"
     ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
     ENV['MATCH_TYPE'] = "appstore"
+    ENV['MATCH_APP_IDENTIFIERS'] = ["com.wavesplatform.waveswallet"]
     ENV['CHANGELOG_BETWEEN_BRANCH']="master"
     build_projet
     upload_testflight
@@ -39,6 +41,7 @@ platform :ios do
       ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_APPSFLYER']}/Appsflyer-Info-Test.plist"
       ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AdHoc.plist"      
       ENV['MATCH_TYPE'] = "adhoc"
+      ENV['MATCH_APP_IDENTIFIERS'] = ["com.wavesplatform.waveswallet.test"]
       ENV['CHANGELOG_BETWEEN_BRANCH']="develop"
       build_projet
       upload_crashlytics
@@ -54,7 +57,7 @@ platform :ios do
     end
     sh("printenv")
 
-    match(app_identifier: ["com.wavesplatform.waveswallet.test", "com.wavesplatform.waveswallet", "com.wavesplatform.waveswallet.dev"],
+    match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'],
       git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
       username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
       type: "#{ENV['MATCH_TYPE']}",
