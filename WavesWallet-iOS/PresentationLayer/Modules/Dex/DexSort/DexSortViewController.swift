@@ -25,6 +25,8 @@ final class DexSortViewController: UIViewController {
     private var modelSection = DexSort.ViewModel.Section(items: [])
     private let sendEvent: PublishRelay<DexSort.Event> = PublishRelay<DexSort.Event>()
 
+    weak var delegate: DexListRefreshOutput!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -102,6 +104,7 @@ extension DexSortViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
 
         sendEvent.accept(.dragModels(sourceIndexPath: sourceIndexPath, destinationIndexPath: destinationIndexPath))
+        delegate.refreshPairs()
     }
     
     func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
@@ -153,6 +156,7 @@ private extension DexSortViewController {
     
     func buttonDeleteDidTap(_ indexPath: IndexPath) {
         sendEvent.accept(.tapDeleteButton(indexPath))
+        delegate.refreshPairs()
     }
 }
 

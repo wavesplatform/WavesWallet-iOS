@@ -8,19 +8,14 @@
 
 import Foundation
 
-struct ResponseTypeError {
-    let message: String
-    let code: Int
-}
-
 struct ResponseType <T> {
     
     let output: T?
-    let error: ResponseTypeError?
+    let error: NetworkError?
     
     enum Result {
         case success(T)
-        case error(ResponseTypeError)
+        case error(NetworkError)
     }
     
     var result: Result {
@@ -30,7 +25,7 @@ struct ResponseType <T> {
         else if let error = self.error {
             return Result.error(error)
         }
-        return Result.error(.init(message: "Try again", code:0))
+        return Result.error(.notFound)
     }
 }
 

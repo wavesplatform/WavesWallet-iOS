@@ -11,7 +11,6 @@ import AudioToolbox
 
 private enum Constants {
     static let maximumInputDigits = 10
-    static let locale = Locale(identifier: "en_US")
 }
 
 protocol MoneyTextFieldDelegate: AnyObject {
@@ -42,7 +41,7 @@ final class MoneyTextField: UITextField {
     private var hasSetDecimals = false
     
     var value: Money {
-        if let decimal = Decimal(string: textString, locale: Constants.locale) {
+        if let decimal = Decimal(string: textString, locale: GlobalConstants.moneyLocale) {
             return Money(value: decimal, decimals)
         } else {
             return Money(0, decimals)

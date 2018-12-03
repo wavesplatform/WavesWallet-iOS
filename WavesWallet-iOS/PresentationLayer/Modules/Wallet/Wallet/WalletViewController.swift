@@ -322,8 +322,7 @@ private extension WalletViewController {
 
         switch kind {
         case .assets:
-            navigationItem.rightBarButtonItems = [buttonAddress,
-                                                  buttonSort]
+            navigationItem.rightBarButtonItems = [buttonAddress]
 
         case .leasing:
             navigationItem.rightBarButtonItems = [buttonAddress]

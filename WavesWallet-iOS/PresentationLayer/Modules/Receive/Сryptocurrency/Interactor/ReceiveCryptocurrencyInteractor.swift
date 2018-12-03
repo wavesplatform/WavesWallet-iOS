@@ -49,7 +49,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
         })
     }
     
-    private func getMinAmount(asset: DomainLayer.DTO.Asset, complete:@escaping(_ minAmount: Money?, _ error: ResponseTypeError?) -> Void) {
+    private func getMinAmount(asset: DomainLayer.DTO.Asset, complete:@escaping(_ minAmount: Money?, _ error: NetworkError?) -> Void) {
         
         let params = ["f" : asset.wavesId ?? "",
                       "t" : asset.gatewayId ?? ""]
@@ -68,7 +68,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
     }
     
   
-    private func getAddress(asset: DomainLayer.DTO.Asset, complete:@escaping(_ address: String?, _ error: ResponseTypeError?) -> Void) {
+    private func getAddress(asset: DomainLayer.DTO.Asset, complete:@escaping(_ address: String?, _ error: NetworkError?) -> Void) {
     
         auth.authorizedWallet().subscribe(onNext: { signedWallet in
 

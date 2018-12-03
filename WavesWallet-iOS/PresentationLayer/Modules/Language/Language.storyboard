@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sti-4b-ynw">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sti-4b-ynw">
                                 <rect key="frame" x="0.0" y="20" width="375" height="575"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
@@ -50,7 +50,7 @@
                                     <action selector="confirmTapped:" destination="e8K-Kn-2yV" eventType="touchUpInside" id="pJa-ek-2H1"/>
                                 </connections>
                             </button>
-                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yls-eS-1UF" customClass="CustomGradientView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                            <view opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yls-eS-1UF" customClass="CustomGradientView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="556" width="375" height="39"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="39" id="3AW-S5-tCK"/>
@@ -90,6 +90,9 @@
                     </view>
                     <connections>
                         <outlet property="buttonConfirm" destination="yCy-Aw-0sV" id="MjK-qw-6Gl"/>
+                        <outlet property="buttonConfirmBottomConstraint" destination="8Qz-Xk-Sao" id="0DF-Ed-bNT"/>
+                        <outlet property="buttonConfirmLeadingConstraint" destination="Wxd-NN-Lia" id="RAB-vD-SO1"/>
+                        <outlet property="buttonConfirmTrailingConstraint" destination="dDP-p5-eO7" id="J2j-Iq-OEt"/>
                         <outlet property="gradientView" destination="Yls-eS-1UF" id="Mcb-1H-BGl"/>
                         <outlet property="tableView" destination="sti-4b-ynw" id="0LX-JU-Ggp"/>
                     </connections>

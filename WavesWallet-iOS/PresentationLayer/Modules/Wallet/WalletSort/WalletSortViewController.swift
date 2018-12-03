@@ -96,10 +96,11 @@ fileprivate extension WalletSortViewController {
             .drive(onNext: { [weak self] state in
 
                 guard let strongSelf = self else { return }
-                guard state.action != .none else { return }
 
                 strongSelf.changeStatus(state.status)
                 strongSelf.sections = state.sections
+
+                guard state.action != .none else { return }
                 strongSelf.tableView.reloadDataWithAnimationTheCrossDissolve()
             })
 
@@ -133,6 +134,7 @@ extension WalletSortViewController: UITableViewDataSource {
 // MARK: UITableViewDelegate
 
 extension WalletSortViewController: UITableViewDelegate {
+
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 
@@ -229,7 +231,10 @@ extension WalletSortViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
 
         let sectionModel = sections[proposedDestinationIndexPath.section]
-        guard sectionModel.kind == .all else { return IndexPath(row: 0, section: sourceIndexPath.section) }
+        guard sectionModel.kind == .all else {
+            return IndexPath(row: 0, section: sourceIndexPath.section)
+            
+        }
 
         return proposedDestinationIndexPath
     }

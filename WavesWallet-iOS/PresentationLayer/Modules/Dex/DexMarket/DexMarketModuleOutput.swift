@@ -9,6 +9,5 @@
 import Foundation
 
 protocol DexMarketModuleOutput: AnyObject {
-    
     func showInfo(pair: DexInfoPair.DTO.Pair)
 }

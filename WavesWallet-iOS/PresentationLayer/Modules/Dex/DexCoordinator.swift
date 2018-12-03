@@ -47,13 +47,13 @@ final class DexCoordinator: Coordinator {
 //MARK: - DexListModuleOutput, DexMarketModuleOutput, DexTraderContainerModuleOutput
 extension DexCoordinator: DexListModuleOutput, DexMarketModuleOutput, DexTraderContainerModuleOutput {
     
-    func showDexSort() {
-        let vc = DexSortModuleBuilder().build()
+    func showDexSort(delegate: DexListRefreshOutput) {
+        let vc = DexSortModuleBuilder(output: delegate).build()
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func showAddList() {
-        let vc = DexMarketModuleBuilder(output: self).build()
+    func showAddList(delegate: DexListRefreshOutput) {
+        let vc = DexMarketModuleBuilder(output: self).build(input: delegate)
         navigationController.pushViewController(vc, animated: true)
     }
     

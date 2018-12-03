@@ -9,7 +9,9 @@
 
 "accountpassword.button.signIn.title" = "साइन इन";
 
-"accountpassword.textfield.error.atleastcharacters" = "कम से कम %d अक्षर";
+"accountpassword.error.wrongpassword" = "गलत पासवर्ड";
+
+"accountpassword.textfield.error.atleastcharacters" = "न्यूनतम %d अक्षर";
 
 "accountpassword.textfield.password.placeholder" = "खाता पासवर्ड";
 
@@ -21,6 +23,10 @@
 
 "addAddressbook.button.save" = "सेव";
 
+"addAddressbook.error.charactersMaximum" = "अधिकतम %d अक्षर";
+
+"addAddressbook.error.charactersMinimum" = "न्यूनतम %d अक्षर";
+
 "addAddressbook.label.add" = "जोड़ना";
 
 "addAddressbook.label.address" = "पता";
@@ -31,13 +37,13 @@
 
 "addAddressbook.label.name" = "नाम";
 
-"addAddressbook.textfield.address.error.addressexist" = "Bereits in Benutzung";
+"addAddressbook.textfield.address.error.addressexist" = "पहले से ही उपयोग में";
 
 "addressbook.label.addressBook" = "पता पुस्तिक";
 
 "addressbook.label.addressDeleted" = "पता मिटा दिया";
 
-"addressbook.label.noInfo" = "यहां कुछ नहीं है... \n आप नया पता बना सकते हैं";
+"addressbook.label.noInfo" = "यहां कुछ नहीं है… \nआप नया पता बना सकते हैं";
 
 "addresseskeys.cell.address.title" = "आपका पता";
 
@@ -79,9 +85,9 @@
 
 "aliaseswithout.view.info.label.title" = "आपके पास उपनाम नहीं है";
 
-"asset.cell.assetInfo.cantPerformTransactions" = "You can not perform transactions with this asset";
+"asset.cell.assetInfo.cantPerformTransactions" = "आप इस संपत्ति के साथ लेनदेन नहीं कर सकते हैं";
 
-"asset.cell.assetInfo.decimalPoints" = "Decimal points";
+"asset.cell.assetInfo.decimalPoints" = "डेसीमल अंक";
 
 "asset.cell.assetInfo.description" = "विवरण";
 
@@ -101,7 +107,7 @@
 
 "asset.cell.assetInfo.title" = "संपत्ति की जानकारी";
 
-"asset.cell.assetInfo.totalAmount" = "Total amount";
+"asset.cell.assetInfo.totalAmount" = "कुल रकम";
 
 "asset.cell.balance.avaliableBalance" = "उपलब्ध शेष राशि";
 
@@ -125,13 +131,13 @@
 
 "assetlist.button.allList" = "सभी सूची";
 
-"assetlist.button.myList" = "मेरी सूची";
+"assetlist.button.myList" = "बैलेंस के साथ";
 
 "assetlist.button.withBalance" = "राशि के साथ";
 
 "assetlist.label.assets" = "संपत्ति";
 
-"assetlist.label.loadingAssets" = "संपत्ति लोड हो रहा है ...";
+"assetlist.label.loadingAssets" = "संपत्ति लोड हो रहा है…";
 
 "backup.backup.navigation.title" = "बैकप फ्रेज";
 
@@ -167,9 +173,17 @@
 
 "backup.savebackup.next.label.title" = "आप अगली स्क्रीन पर इस फ्रेज की पुष्टि करेंगे";
 
-"biometric.readfromkeychain" = "वॉलेट प्राइवेट की डिक्रिप्ट करने और अपने लेनदेन की पुष्टि करने के लिए ऑथेंटिकेट करें";
+"biometric.readfromkeychain" = "अपने वॉलेट तक पहुंच";
 
-"biometric.saveinkeychain" = "एन्क्रिप्टेड वॉलेट प्राइवेट की स्टोर करने के लिए ऑथेंटिकेट करें";
+"biometric.saveinkeychain" = "अपने वॉलेट तक पहुंच";
+
+"cameraAccess.alert.allow" = "कैमरा की अनुमति दें";
+
+"cameraAccess.alert.cancel" = "रोकना";
+
+"cameraAccess.alert.message" = "इस ऐप का पूर्ण उपयोग करने के लिए कैमरा एक्सेस की आवश्यकता है";
+
+"cameraAccess.alert.title" = "कैमरा एक्सेस की आवश्यकता है";
 
 "changepassword.button.confirm.title" = "कन्फर्म";
 
@@ -179,7 +193,7 @@
 
 "changepassword.textfield.createpassword.title" = "नया पासवर्ड";
 
-"changepassword.textfield.error.atleastcharacters" = "कम से कम %d अक्षर";
+"changepassword.textfield.error.atleastcharacters" = "न्यूनतम %d अक्षर";
 
 "changepassword.textfield.error.incorrectpassword" = "गलत पासवर्ड";
 
@@ -195,7 +209,7 @@
 
 "chooseaccount.alert.delete.title" = "खाता मिटा दो";
 
-"chooseaccount.label.nothingWallets" = "यहां कुछ नहीं ... \n आपके पास सेव्ड खाते नहीं हैं";
+"chooseaccount.label.nothingWallets" = "यहां कुछ नहीं… \nआपके पास सेव्ड खाते नहीं हैं";
 
 "chooseaccount.navigation.title" = "खाता चुनें";
 
@@ -215,6 +229,10 @@
 
 "createalias.navigation.title" = "नया उपनाम";
 
+"dex.general.error.nothingHere" = "यहाँ कुछ नहीं…";
+
+"dex.general.error.somethingWentWrong" = "कुछ गलत हो गया";
+
 "dexchart.button.cancel" = "कैंसिल";
 
 "dexchart.label.emptyData" = "कोई चार्ट डेटा उपलब्ध नहीं है";
@@ -223,7 +241,7 @@
 
 "dexchart.label.hours" = "घंटे";
 
-"dexchart.label.loadingChart" = "चार्ट लोड हो रहा है ...";
+"dexchart.label.loadingChart" = "चार्ट लोड हो रहा है…";
 
 "dexchart.label.minutes" = "मिनट";
 
@@ -273,6 +291,8 @@
 
 "dexcreateorder.label.days" = "दिन";
 
+"dexcreateorder.label.error.notFundsFee" = "आवश्यक फी का भुगतान करने के लिए आपके पास पर्याप्त धनराशि नहीं है।";
+
 "dexcreateorder.label.fee" = "फ़ीस";
 
 "dexcreateorder.label.limitPriceIn" = "लिमिट प्राइस इन";
@@ -295,9 +315,9 @@
 
 "dexlasttrades.label.amount" = "रकम";
 
-"dexlasttrades.label.emptyData" = "यहां कुछ भी नहीं ... \n व्यापार इतिहास खाली है";
+"dexlasttrades.label.emptyData" = "यहां कुछ भी नहीं… \nव्यापार इतिहास खाली है";
 
-"dexlasttrades.label.loadingLastTrades" = "अंतिम व्यापार लोड हो रहा है ...";
+"dexlasttrades.label.loadingLastTrades" = "अंतिम व्यापार लोड हो रहा है…";
 
 "dexlasttrades.label.price" = "मूल्य";
 
@@ -321,7 +341,7 @@
 
 "dexlist.navigationBar.title" = "डेक्स";
 
-"dexmarket.label.loadingMarkets" = "बाजार लोड हो रहा है ...";
+"dexmarket.label.loadingMarkets" = "बाजार लोड हो रहा है…";
 
 "dexmarket.navigationBar.title" = "बाजार";
 
@@ -333,9 +353,9 @@
 
 "dexmyorders.label.date" = "दिनांक";
 
-"dexmyorders.label.emptyData" = "यहां कुछ नहीं ... \n आपके पास कोई ऑर्डर नहीं है";
+"dexmyorders.label.emptyData" = "यहां कुछ नहीं… \nआपके पास कोई ऑर्डर नहीं है";
 
-"dexmyorders.label.loadingLastTrades" = "ऑर्डर लोड हो रहा है ...";
+"dexmyorders.label.loadingLastTrades" = "ऑर्डर लोड हो रहा है…";
 
 "dexmyorders.label.price" = "मूल्य";
 
@@ -363,11 +383,11 @@
 
 "dexorderbook.label.amount" = "रकम";
 
-"dexorderbook.label.emptyData" = "यहां कुछ नहीं ... \n ऑर्डर बुक खाली है";
+"dexorderbook.label.emptyData" = "यहां कुछ नहीं… \nऑर्डर बुक खाली है";
 
 "dexorderbook.label.lastPrice" = "अंतिम मूल्य";
 
-"dexorderbook.label.loadingOrderbook" = "ऑर्डरबुक लोड हो रहा है ...";
+"dexorderbook.label.loadingOrderbook" = "ऑर्डरबुक लोड हो रहा है…";
 
 "dexorderbook.label.price" = "मूल्य";
 
@@ -413,7 +433,7 @@
 
 "enter.button.importAccount.detail" = "पैरिंग कोड या मैन्युअल के माध्यम से";
 
-"enter.button.importAccount.error.insecureSeed" = "Insecure SEED";
+"enter.button.importAccount.error.insecureSeed" = "असुरक्षित सीड";
 
 "enter.button.importAccount.title" = "खाता आयात करें";
 
@@ -421,11 +441,19 @@
 
 "enter.button.signIn.title" = "साइन इन";
 
+"enter.label.or" = "या";
+
 "enter.language.navigation.title" = "भाषा बदलो";
 
 "general.biometric.faceID.title" = "फेस आईडी";
 
 "general.biometric.touchID.title" = "टच आईडी";
+
+"general.error.subtitle.notfound" = "चिंता न करें, हम पहले से ही इस समस्या को ठीक कर रहे हैं।\nसब कुछ काम करेगा!";
+
+"general.error.title.noconnectiontotheinternet" = "इंटरनेट से कोई कनेक्शन नहीं";
+
+"general.error.title.notfound" = "ओह… यह सब टूट गया है!";
 
 "general.label.title.myasset" = "/ मेरी संपत्ति";
 
@@ -445,6 +473,10 @@
 
 "general.ticker.title.wavestoken" = "वेव्स टोकन";
 
+"general.tost.saveBackup.subtitle" = "अपने सीड को सुरक्षित रूप से स्टोर करें, यह आपके वॉलेट को पुनर्स्थापित करने का एकमात्र तरीका है";
+
+"general.tost.saveBackup.title" = "अपना बैकअप वाक्यांश सहेजें (सीड)";
+
 "hello.button.continue" = "कंटिन्यू";
 
 "hello.button.next" = "अगला";
@@ -461,7 +493,7 @@
 
 "hello.page.info.fifth.title" = "फिशर्स से खुद को कैसे सुरक्षित रखें";
 
-"hello.page.info.first.detail" = "कृपया अपनी सुरक्षा के लिए कुछ महत्वपूर्ण चीजों को समझने के लिए कुछ समय दें।  \n\nयदि आप फ़िशिंग साइट पर जाते हैं या अपना बैकअप वाक्यांश (उर्फ सीड वाक्यांश) खो देते हैं, तो हम आपके फंड को पुनर्प्राप्त नहीं कर सकते हैं या अपने खाते को फ्रीज नहीं कर सकते हैं। \n\nहमारे प्लेटफॉर्म का उपयोग जारी रखते हुए, आप नुकसान से जुड़े सभी जोखिमों को स्वीकार करने के लिए सहमत हैं आपके सीड का, जिसमें आपके धन प्राप्त करने और उन्हें निपटाने में असमर्थता शामिल है, लेकिन इतनी ही सीमित नहीं है। यदि आप अपनी सीड खो देते हैं, तो आप सहमत हैं और स्वीकार करते हैं कि वेव्स प्लेटफ़ॉर्म इसके नकारात्मक परिणामों के लिए ज़िम्मेदार नहीं होगा।";
+"hello.page.info.first.detail" = "कृपया अपनी सुरक्षा के लिए कुछ महत्वपूर्ण चीजों को समझने के लिए कुछ समय दें।\n\nयदि आप फ़िशिंग साइट पर जाते हैं या अपना बैकअप वाक्यांश (उर्फ सीड वाक्यांश) खो देते हैं, तो हम आपके फंड को पुनर्प्राप्त नहीं कर सकते हैं या अपने खाते को फ्रीज नहीं कर सकते हैं।\n\nहमारे प्लेटफॉर्म का उपयोग जारी रखते हुए, आप नुकसान से जुड़े सभी जोखिमों को स्वीकार करने के लिए सहमत हैं आपके सीड का, जिसमें आपके धन प्राप्त करने और उन्हें निपटाने में असमर्थता शामिल है, लेकिन इतनी ही सीमित नहीं है। यदि आप अपनी सीड खो देते हैं, तो आप सहमत हैं और स्वीकार करते हैं कि वेव्स प्लेटफ़ॉर्म इसके नकारात्मक परिणामों के लिए ज़िम्मेदार नहीं होगा।";
 
 "hello.page.info.first.title" = "वेव्स प्लेटफ़ॉर्म में आपका स्वागत है!";
 
@@ -469,7 +501,7 @@
 
 "hello.page.info.fourth.title" = "फिशर्स से खुद को कैसे सुरक्षित रखें";
 
-"hello.page.info.second.detail" = "अपना खाता पंजीकृत करते समय, आपको अपने सीक्रेट फ्रेज (सीड) को सेव और पासवर्ड के साथ अपने खाते की सुरक्षा के लिए कहा जाएगा। सामान्य केंद्रीकृत सर्वरों पर, पासवर्ड पर विशेष ध्यान दिया जाता है, जिसे आवश्यकता होने पर ईमेल के माध्यम से बदला जा सकता है और रीसेट किया जा सकता है। हालांकि, वेव्स जैसे विकेन्द्रीकृत प्लेटफार्मों पर, सबकुछ अलग-अलग व्यवस्थित किया जाता है:";
+"hello.page.info.second.detail" = "अपना खाता पंजीकृत करते समय, आपको अपने सीक्रेट फ्रेज (सीड) को सेव और पासवर्ड के साथ अपने खाते की सुरक्षा के लिए कहा जाएगा। सामान्य केंद्रीकृत सर्वरों पर, पासवर्ड पर विशेष ध्यान दिया जाता है, जिसे आवश्यकता होने पर ईमेल के माध्यम से बदला जा सकता है और रीसेट किया जा सकता है। हालांकि, वेव्स जैसे विकेन्द्रीकृत प्लेटफार्मों पर, सबकुछ अलग-अलग व्यवस्थित किया जाता है.";
 
 "hello.page.info.second.title" = "आपको अपने सीड के बारे में क्या जानने की ज़रूरत है";
 
@@ -501,6 +533,10 @@
 
 "history.segmentedControl.sent" = "भेज दिया";
 
+"history.transaction.cell.exchange.buy" = "खरीदें: %@/%@";
+
+"history.transaction.cell.exchange.sell" = "बेचना: %@/%@";
+
 "history.transaction.title.alias" = "उपनाम बनाएँ";
 
 "history.transaction.title.canceledLeasing" = "कान्सेलड लीजिंग";
@@ -510,6 +546,10 @@
 "history.transaction.title.exchange" = "एक्सचेंज";
 
 "history.transaction.title.incomingLeasing" = "इनकमिंग लीजिंग";
+
+"history.transaction.title.massreceived" = "मास प्राप्त हुआ";
+
+"history.transaction.title.masssent" = "मास भेजा गया";
 
 "history.transaction.title.received" = "प्राप्त किया";
 
@@ -540,6 +580,8 @@
 "import.account.label.info.step.two.title" = "एक क्यूआर कोड प्रकट करने के लिए «पैरिंग कोड दिखाएं» पर क्लिक करें। अपने कैमरे के साथ कोड स्कैन करें।";
 
 "import.account.navigation.title" = "खाता इम्पोर्ट करें";
+
+"import.general.error.alreadyinuse" = "पहले से ही उपयोग में";
 
 "import.general.navigation.title" = "खाता इम्पोर्ट करें";
 
@@ -585,7 +627,7 @@
 
 "legal.checkbox.box.third" = "मैंने पढ़ा, समझ लिया है, और इससे सहमत हूं";
 
-"legal.checkbox.box.title" = "पूर्ण हुआ! चलो रिव्यु कर्ते हे।";
+"legal.checkbox.box.title" = "पूर्ण हुआ!";
 
 "menu.button.supportwavesplatform" = "सपोर्ट वेव्स प्लेटफोर्म";
 
@@ -621,11 +663,13 @@
 
 "networksettings.textfield.spamfilter.title" = "स्पैम फ़िल्टर";
 
-"newaccount.avatar.detail" = "यह अवतार अद्वितीय है। आप इसे बाद में नहीं बदल सकते हैं।";
+"newaccount.avatar.detail" = "आप इसे बाद में नहीं बदल सकते हैं";
 
-"newaccount.avatar.title" = "अपना पता अवतार चुनें";
+"newaccount.avatar.title" = "अपना अनोखा पता अवतार चुनें";
 
 "newaccount.backup.navigation.title" = "नया खाता";
+
+"newaccount.error.noavatarselected" = "कोई अवतार नहीं चुना गया";
 
 "newaccount.main.navigation.title" = "नया खाता";
 
@@ -637,9 +681,27 @@
 
 "newaccount.textfield.createpassword.title" = "एक पासवर्ड बनाएं";
 
-"newaccount.textfield.error.atleastcharacters" = "कम से कम %d अक्षर";
+"newaccount.textfield.error.atleastcharacters" = "न्यूनतम %d अक्षर";
+
+"newaccount.textfield.error.charactersmaximum" = "अधिकतम %d अक्षर";
+
+"newaccount.textfield.error.doesnotmatch" = "मिलता जुलता नहीं है";
+
+"newaccount.textfield.error.minimumcharacters" = "न्यूनतम %d अक्षर";
 
 "newaccount.textfield.error.passwordnotmatch" = "पासवर्ड मेल नहीं खाता";
+
+"newaccount.textfield.error.wrongordertryagain" = "गलत आदेश, पुनः प्रयास करें";
+
+"passcode.alert.attempsended.button.cancel" = "रोकना";
+
+"passcode.alert.attempsended.button.enterpassword" = "पास वर्ड दर्ज करें";
+
+"passcode.alert.attempsended.button.ok" = "ठीक है";
+
+"passcode.alert.attempsended.subtitle" = "अनलॉक करने के लिए, अपने खाता पासवर्ड से साइन इन करें";
+
+"passcode.alert.attempsended.title" = "भी कई प्रयास";
 
 "passcode.button.forgotPasscode.title" = "खाता पासवर्ड का प्रयोग करें";
 
@@ -715,6 +777,8 @@
 
 "receive.button.useTotalBalance" = "पूर्ण बैलेंस का प्रयोग करें";
 
+"receive.error.serviceUnavailable" = "सेवा अस्थायी रूप से अनुपलब्ध है";
+
 "receive.label.amount" = "रकम";
 
 "receive.label.amountIn" = "अमाउंट इन";
@@ -761,7 +825,7 @@
 
 "receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "इस पते पर किसी अन्य मुद्रा को भेजने से आपके जमा की हानि हो सकती है।";
 
-"receivegenerate.label.generate" = "उत्पन्न ...";
+"receivegenerate.label.generate" = "उत्पन्न…";
 
 "receivegenerate.label.yourAddress" = "आपका %@ पता";
 
@@ -823,7 +887,31 @@
 
 "sendconfirmation.label.sentTo" = "भेजा";
 
-"sendloading.label.sending" = "भेजा जा रहा है...";
+"sendloading.label.sending" = "भेजा जा रहा है…";
+
+"serverDisconnect.label.subtitle" = "मोबाइल इंटरनेट या वाई-फाई नेटवर्क से अपना कनेक्शन जांचें";
+
+"serverDisconnect.label.title" = "इंटरनेट से कोई कनेक्शन नहीं";
+
+"serverEngineering.label.subtitle" = "हाय, फिलहाल हम एप्लीकेशन में सुधार का एक बहुत ही महत्वपूर्ण काम कर रहे हैं";
+
+"serverEngineering.label.title" = "इंजीनियरिंग काम करता है";
+
+"serverError.button.retry" = "पुन: प्रयास करें";
+
+"serverError.button.sendReport" = "एक रिपोर्ट भेजें";
+
+"serverError.label.allBroken" = "ओह… यह सब टूट गया है!";
+
+"serverError.label.allBrokenDescription" = "चिंता न करें, हम पहले से ही इस समस्या को ठीक कर रहे हैं।\nसब कुछ काम करेगा!";
+
+"serverError.label.noInternetConnection" = "इंटरनेट से कोई कनेक्शन नहीं";
+
+"serverError.label.noInternetConnectionDescription" = "मोबाइल इंटरनेट या वाई-फाई नेटवर्क से अपना कनेक्शन जांचें";
+
+"serverError.label.subtitle" = "चिंता न करें, हम पहले से ही इस समस्या को ठीक कर रहे हैं।\nसब कुछ काम करेगा!";
+
+"serverError.label.title" = "ओह… यह सब टूट गया है!";
 
 "startleasing.button.chooseFromAddressBook" = "पता पुस्तिका से चुनें";
 
@@ -841,7 +929,9 @@
 
 "startleasing.label.generator" = "जनरेटर";
 
-"startleasing.label.nodeAddress" = "नोड पता ...";
+"startleasing.label.insufficientFunds" = "अपर्याप्त फंड्स";
+
+"startleasing.label.nodeAddress" = "नोड पता…";
 
 "startleasing.label.notEnough" = "पर्याप्त नहीं";
 
@@ -849,67 +939,67 @@
 
 "startleasing.label.transactionFee" = "लेनदेन फ़ीस";
 
-"startleasingcomplete.button.okey" = "Okay";
+"startleasingcomplete.button.okey" = "ठीक है";
 
-"startleasingcomplete.label.youHaveCanceledTransaction" = "You have canceled a leasing transaction";
+"startleasingcomplete.label.youHaveCanceledTransaction" = "आपने लीजिंग लेनदेन रद्द कर दिया है";
 
-"startleasingcomplete.label.youHaveLeased" = "You have leased %@ %@";
+"startleasingcomplete.label.youHaveLeased" = "आपने %@ %@ लीज्ड किया है";
 
-"startleasingcomplete.label.yourTransactionIsOnWay" = "Your transaction is on way!";
+"startleasingcomplete.label.yourTransactionIsOnWay" = "आपका लेनदेन चल रहा है!";
 
-"startleasingconfirmation.button.cancelLeasing" = "Cancel leasing";
+"startleasingconfirmation.button.cancelLeasing" = "लीजिंग रद्द करें";
 
-"startleasingconfirmation.button.confirm" = "Confirm";
+"startleasingconfirmation.button.confirm" = "की पुष्टि करें";
 
-"startleasingconfirmation.label.TXID" = "TXID";
+"startleasingconfirmation.label.TXID" = "टी क्स आई डी";
 
-"startleasingconfirmation.label.confirmation" = "Confirmation";
+"startleasingconfirmation.label.confirmation" = "पुष्टीकरण";
 
-"startleasingconfirmation.label.fee" = "Fee";
+"startleasingconfirmation.label.fee" = "फ़ीस";
 
-"startleasingconfirmation.label.leasingTX" = "Leasing TX";
+"startleasingconfirmation.label.leasingTX" = "लीजिंग TX";
 
-"startleasingconfirmation.label.nodeAddress" = "Node address";
+"startleasingconfirmation.label.nodeAddress" = "नोड पता";
 
-"startleasingloading.label.cancelLeasing" = "Cancel leasing...";
+"startleasingloading.label.cancelLeasing" = "लीजिंग रद्द करें…";
 
-"startleasingloading.label.startLeasing" = "Start leasing...";
+"startleasingloading.label.startLeasing" = "लीजिंग शुरू करें…";
 
-"tokenBurn.button.burn" = "Burn";
+"tokenBurn.button.burn" = "बर्न";
 
-"tokenBurn.button.continue" = "Continue";
+"tokenBurn.button.continue" = "जारी रहना";
 
-"tokenBurn.button.okey" = "Okay";
+"tokenBurn.button.okey" = "ठीक है";
 
-"tokenBurn.button.useTotalBalanace" = "Use total balance";
+"tokenBurn.button.useTotalBalanace" = "पूर्ण बैलेंस का प्रयोग करें";
 
-"tokenBurn.label.confirmation" = "Confirmation";
+"tokenBurn.label.confirmation" = "पुष्टीकरण";
 
-"tokenBurn.label.error.insufficientFunds" = "Insufficient funds";
+"tokenBurn.label.error.insufficientFunds" = "अपर्याप्त फंड्स";
 
-"tokenBurn.label.error.notFundsFee" = "You don't have enough funds to pay the required fees.";
+"tokenBurn.label.error.notFundsFee" = "आवश्यक शुल्क का भुगतान करने के लिए आपके पास पर्याप्त धनराशि नहीं है।";
 
-"tokenBurn.label.fee" = "Fee";
+"tokenBurn.label.fee" = "शुल्क";
 
-"tokenBurn.label.id" = "ID";
+"tokenBurn.label.id" = "आईडी";
 
-"tokenBurn.label.loading" = "Burn...";
+"tokenBurn.label.loading" = "बर्न…";
 
-"tokenBurn.label.notReissuable" = "Not reissuable";
+"tokenBurn.label.notReissuable" = "पुनर्निर्गमनीय नहीं कर सकते हैं";
 
-"tokenBurn.label.quantityTokensBurned" = "Quantity of tokens to be burned";
+"tokenBurn.label.quantityTokensBurned" = "टोकन की मात्रा जला दी जाएगी";
 
-"tokenBurn.label.reissuable" = "Reissuable";
+"tokenBurn.label.reissuable" = "रि-इशुएब्ल";
 
-"tokenBurn.label.tokenBurn" = "Token Burn";
+"tokenBurn.label.tokenBurn" = "टोकन बर्न";
 
-"tokenBurn.label.transactionFee" = "Transaction Fee %@ %@";
+"tokenBurn.label.transactionFee" = "लेनदेन शुल्क %@ %@";
 
-"tokenBurn.label.transactionIsOnWay" = "Your transaction is on the way!";
+"tokenBurn.label.transactionIsOnWay" = "आपका लेनदेन रास्ते पर है!";
 
-"tokenBurn.label.type" = "Type";
+"tokenBurn.label.type" = "प्रकार";
 
-"tokenBurn.label.youHaveBurned" = "You have burned";
+"tokenBurn.label.youHaveBurned" = "यू हाव बर्नड";
 
 "transactionhistory.button.copied" = "कॉपी किया गया";
 
@@ -922,6 +1012,8 @@
 "transactionhistory.cell.button.cancelLeasing" = "लीजिंग रद्द करें";
 
 "transactionhistory.cell.button.sendAgain" = "कन्फर्मेशन्स";
+
+"transactionhistory.cell.buy" = "खरीदें: %@/%@";
 
 "transactionhistory.cell.confirmations" = "पुष्टिकरण";
 
@@ -943,9 +1035,11 @@
 
 "transactionhistory.cell.recipient" = "प्राप्त करने वाला";
 
-"transactionhistory.cell.recipients" = "Recipients";
+"transactionhistory.cell.recipients" = "प्राप्तकर्ता";
 
 "transactionhistory.cell.reissuable" = "रि-इशुएब्ल";
+
+"transactionhistory.cell.sell" = "बेचना: %@/%@";
 
 "transactionhistory.cell.sentTo" = "भेजा";
 
@@ -958,6 +1052,8 @@
 "transactionhistory.cell.status.button.unconfirmed" = "अपुष्ट";
 
 "transactionhistory.cell.status.timestamp" = "समय-चिह्न";
+
+"transactionhistory.cell.type" = "प्रकार";
 
 "transactionhistory.copy.amount" = "रकम";
 
@@ -988,6 +1084,8 @@
 "wallet.label.leased" = "लीज्ड";
 
 "wallet.label.leasedIn" = "लीज्ड में";
+
+"wallet.label.myAssets" = "मेरी संपत्ति";
 
 "wallet.label.quickNote.description.first" = "आप केवल वेव्स को ट्रांसफर या व्यापार कर सकते हैं जो लीजिंग पर नहीं हैं। लीज्ड राशि को आपके या किसी और द्वारा स्थानांतरित या व्यापार नहीं किया जा सकता है।";
 

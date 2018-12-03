@@ -27,7 +27,10 @@ extension DexMarket.DTO.Pair {
         }
         
         //TODO: need remove when move on new Api
-        if let ticker = DexMarket.minersRewardToken[amountAssetName] {
+        if let ticker = DexMarket.MinersRewardToken[amountAssetId] {
+            amountAssetShortName = ticker
+        }
+        else if let ticker = DexMarket.WavesCommunityToken[amountAssetId] {
             amountAssetShortName = ticker
         }
         
@@ -43,7 +46,10 @@ extension DexMarket.DTO.Pair {
         }
         
         //TODO: need remove when move on new Api
-        if let ticker = DexMarket.minersRewardToken[priceAssetName] {
+        if let ticker = DexMarket.MinersRewardToken[priceAssetId] {
+            priceAssetShortName = ticker
+        }
+        else if let ticker = DexMarket.WavesCommunityToken[priceAssetId] {
             priceAssetShortName = ticker
         }
         

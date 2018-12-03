@@ -291,11 +291,19 @@
                                     <constraint firstItem="6hX-ta-SRX" firstAttribute="top" secondItem="u1b-wt-h74" secondAttribute="bottom" constant="44" id="pjU-bL-rKp"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oYV-je-6Nl" customClass="GlobalErrorView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="cMD-NK-h1O" firstAttribute="leading" secondItem="TOo-jp-aQ1" secondAttribute="leading" id="3F2-s2-hYb"/>
+                            <constraint firstItem="oYV-je-6Nl" firstAttribute="leading" secondItem="cMD-NK-h1O" secondAttribute="leading" id="HPT-Gj-IIm"/>
                             <constraint firstItem="Ofm-pE-uI4" firstAttribute="centerX" secondItem="TOo-jp-aQ1" secondAttribute="centerX" id="IhQ-tL-T7U"/>
+                            <constraint firstItem="oYV-je-6Nl" firstAttribute="top" secondItem="cMD-NK-h1O" secondAttribute="top" id="K3p-mC-YFu"/>
+                            <constraint firstItem="oYV-je-6Nl" firstAttribute="bottom" secondItem="cMD-NK-h1O" secondAttribute="bottom" id="blB-pf-CiI"/>
+                            <constraint firstItem="oYV-je-6Nl" firstAttribute="trailing" secondItem="cMD-NK-h1O" secondAttribute="trailing" id="c3T-aL-X5k"/>
                             <constraint firstItem="rF0-nN-oMR" firstAttribute="top" secondItem="cMD-NK-h1O" secondAttribute="bottom" id="fzW-Kh-oeU"/>
                             <constraint firstItem="cMD-NK-h1O" firstAttribute="top" secondItem="TOo-jp-aQ1" secondAttribute="top" id="hRt-Lu-0vO"/>
                             <constraint firstAttribute="trailing" secondItem="cMD-NK-h1O" secondAttribute="trailing" id="q7W-8P-0y2"/>
@@ -305,6 +313,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="buttonAddMarkets" destination="6hX-ta-SRX" id="gde-Kf-fVc"/>
+                        <outlet property="globalErrorView" destination="oYV-je-6Nl" id="FlD-Ol-lFW"/>
                         <outlet property="labelNoItemsDescription" destination="u1b-wt-h74" id="FVU-FX-vnd"/>
                         <outlet property="labelNoItemsTitle" destination="8Hy-ja-obc" id="GHP-2K-Oix"/>
                         <outlet property="tableView" destination="cMD-NK-h1O" id="Sg7-sM-ULD"/>

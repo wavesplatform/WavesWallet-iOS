@@ -157,17 +157,21 @@ extension Node.DTO {
                             transactions.append(.data(tx))
                         }
                     } catch let e {
-                        error(e)
+
                         if let tx = try? listArray.decode(Node.DTO.UnrecognisedTransaction.self) {
                             transactions.append(.unrecognised(tx))
+                            error("Unrecognised \(e)")
+                        } else {
+                            error("Not Found type \(e)")
                         }
                     }
                 }
 
             } catch let e {
-                error(e)
+                error("WTF \(e)")
             }
 
+            print("self.transactions \(transactions.count)")
             self.transactions = transactions
         }
     }

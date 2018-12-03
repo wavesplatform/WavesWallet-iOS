@@ -2,3 +2,11 @@
 "NSCameraUsageDescription" = "Zum Scannen des QR Codes ist Zugriff auf die Kamera erforderlich.";
 
 "NSFaceIDUsageDescription" = "Zugriff zu Deinem Wallet";
+
+"cameraAccess.alert.allow" = "Kamera zulassen";
+
+"cameraAccess.alert.cancel" = "Abbrechen";
+
+"cameraAccess.alert.message" = "Der Zugriff auf die Kamera ist erforderlich, um diese App voll nutzen zu können";
+
+"cameraAccess.alert.title" = "Kamerazugriff erforderlich";

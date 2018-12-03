@@ -17,7 +17,7 @@ private enum Constants {
     }
     
     enum ButtonTopOffset: CGFloat {
-        case small = 24
+        case small = 14
         case big = 44
     }
     
