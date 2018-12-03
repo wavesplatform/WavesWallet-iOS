@@ -14,7 +14,7 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
 
     private let assetsProvider: MoyaProvider<Node.Service.Assets> = .nodeMoyaProvider()
     private let addressesProvider: MoyaProvider<Node.Service.Addresses> = .nodeMoyaProvider()
-    private let matcherBalanceProvider: MoyaProvider<Matcher.Service.Balance> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
+    private let matcherBalanceProvider: MoyaProvider<Matcher.Service.Balance> = .nodeMoyaProvider()
 
     private let environmentRepository: EnvironmentRepositoryProtocol
 
@@ -70,6 +70,8 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
 }
 
 private extension AccountBalanceRepositoryRemote {
+
+
 
     func matcherBalances(by walletAddress: String, wallet: DomainLayer.DTO.SignedWallet) -> Observable<[String: Int64]> {
 
