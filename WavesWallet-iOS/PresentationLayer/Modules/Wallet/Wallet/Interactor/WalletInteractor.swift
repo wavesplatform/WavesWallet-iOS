@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 private struct Leasing {
-    let balance: DomainLayer.DTO.AssetBalance
+    let balance: DomainLayer.DTO.SmartAssetBalance
     let transaction: [DomainLayer.DTO.SmartTransaction]
     let walletAddress: String
 }
@@ -28,7 +28,7 @@ final class WalletInteractor: WalletInteractorProtocol {
 
     private let disposeBag: DisposeBag = DisposeBag()
 
-    func assets() -> Observable<[DomainLayer.DTO.AssetBalance]> {
+    func assets() -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
 
         return assets(isNeedUpdate: true)
     }
@@ -43,7 +43,7 @@ final class WalletInteractor: WalletInteractorProtocol {
 
 fileprivate extension WalletInteractor {
 
-    func mapAssets(_ observable: Observable<[DomainLayer.DTO.AssetBalance]>) -> Observable<[WalletTypes.DTO.Asset]> {
+    func mapAssets(_ observable: Observable<[DomainLayer.DTO.SmartAssetBalance]>) -> Observable<[WalletTypes.DTO.Asset]> {
         return observable
             .map { $0.filter { $0.asset != nil || $0.settings != nil } }
             .map {
@@ -53,11 +53,11 @@ fileprivate extension WalletInteractor {
             }
     }
 
-    func assets(isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.AssetBalance]> {
+    func assets(isNeedUpdate: Bool) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
 
         return authorizationInteractor
             .authorizedWallet()
-            .flatMap({ [weak self] wallet -> Observable<[DomainLayer.DTO.AssetBalance]> in
+            .flatMap({ [weak self] wallet -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
                 guard let owner = self else { return Observable.never() }
                 return owner.accountBalanceInteractor.balances(by: wallet, isNeedUpdate: isNeedUpdate)
             })
@@ -78,7 +78,7 @@ fileprivate extension WalletInteractor {
                     .balances(by: wallet,
                               isNeedUpdate: isNeedUpdate)
                     .map { $0.first { $0.asset?.isWaves == true } }
-                    .flatMap { balance -> Observable<DomainLayer.DTO.AssetBalance> in
+                    .flatMap { balance -> Observable<DomainLayer.DTO.SmartAssetBalance> in
                         guard let balance = balance else { return Observable.empty() }
                         return Observable.just(balance)
                     }
@@ -156,7 +156,7 @@ fileprivate extension WalletInteractor {
 
 fileprivate extension WalletTypes.DTO.Asset {
 
-    static func map(from balance: DomainLayer.DTO.AssetBalance) -> WalletTypes.DTO.Asset {
+    static func map(from balance: DomainLayer.DTO.SmartAssetBalance) -> WalletTypes.DTO.Asset {
 
         let asset = balance.asset!
         let settings = balance.settings!

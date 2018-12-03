@@ -111,7 +111,7 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
 //MARK: - ViewConfiguration
 extension AssetSelectView: ViewConfiguration {
     
-    func update(with model: DomainLayer.DTO.AssetBalance) {
+    func update(with model: DomainLayer.DTO.SmartAssetBalance) {
         
         guard let asset = model.asset else { return }
         

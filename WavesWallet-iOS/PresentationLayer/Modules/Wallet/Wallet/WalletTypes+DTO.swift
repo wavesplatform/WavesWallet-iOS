@@ -30,7 +30,7 @@ extension WalletTypes.DTO {
         let isGateway: Bool
         let sortLevel: Float
         let icon: String
-        let assetBalance: DomainLayer.DTO.AssetBalance
+        let assetBalance: DomainLayer.DTO.SmartAssetBalance
     }
 
     struct Leasing {

@@ -29,7 +29,7 @@ final class TokenBurnViewController: UIViewController {
     @IBOutlet private weak var labelFeeError: UILabel!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
-    var asset: DomainLayer.DTO.AssetBalance!
+    var asset: DomainLayer.DTO.SmartAssetBalance!
     weak var delegate: TokenBurnTransactionDelegate?
     
     private let disposeBag = DisposeBag()

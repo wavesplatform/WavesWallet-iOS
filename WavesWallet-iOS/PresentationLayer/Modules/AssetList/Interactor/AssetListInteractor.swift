@@ -16,12 +16,12 @@ final class AssetListInteractor: AssetListInteractorProtocol {
     private let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
 
     private let searchString: BehaviorSubject<String> = BehaviorSubject<String>(value: "")
-    private var _assets: [DomainLayer.DTO.AssetBalance] = []
+    private var _assets: [DomainLayer.DTO.SmartAssetBalance] = []
     private var _isMyList = false
     
-    func assets(filters: [AssetList.DTO.Filter], isMyList: Bool) -> Observable<[DomainLayer.DTO.AssetBalance]> {
+    func assets(filters: [AssetList.DTO.Filter], isMyList: Bool) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
         
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.AssetBalance]> in
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
             guard let owner = self else { return Observable.empty() }
             
             owner._isMyList = isMyList
@@ -29,7 +29,7 @@ final class AssetListInteractor: AssetListInteractorProtocol {
             let assets = owner.accountBalanceInteractor.balances(isNeedUpdate: false)
             let accountSettings = owner.accountSettings.accountSettings(accountAddress: wallet.address)
             
-            let merge = Observable.zip(assets, accountSettings).map({ [weak self] (assets, settings) -> [DomainLayer.DTO.AssetBalance] in
+            let merge = Observable.zip(assets, accountSettings).map({ [weak self] (assets, settings) -> [DomainLayer.DTO.SmartAssetBalance] in
                 
                 guard let strongSelf = self else { return [] }
 
@@ -53,7 +53,7 @@ final class AssetListInteractor: AssetListInteractorProtocol {
             
             let search = owner.searchString
                 .asObserver().skip(1)
-                .map { [weak self] searchString -> [DomainLayer.DTO.AssetBalance] in
+                .map { [weak self] searchString -> [DomainLayer.DTO.SmartAssetBalance] in
                     
                     guard let strongSelf = self else { return [] }
                     return strongSelf.filterIsMyAsset(strongSelf._assets)
@@ -61,7 +61,7 @@ final class AssetListInteractor: AssetListInteractorProtocol {
             
             return Observable
                 .merge([merge, search])
-                .map { [weak self] assets -> [DomainLayer.DTO.AssetBalance] in
+                .map { [weak self] assets -> [DomainLayer.DTO.SmartAssetBalance] in
                     
                     guard let strongSelf = self else { return [] }
                     
@@ -87,13 +87,13 @@ final class AssetListInteractor: AssetListInteractorProtocol {
 
 private extension AssetListInteractor {
     
-    func filterIsMyAsset(_ assets: [DomainLayer.DTO.AssetBalance]) -> [DomainLayer.DTO.AssetBalance] {
+    func filterIsMyAsset(_ assets: [DomainLayer.DTO.SmartAssetBalance]) -> [DomainLayer.DTO.SmartAssetBalance] {
         return _isMyList ? assets.filter({$0.avaliableBalance > 0 }) : assets
     }
     
-    func filterAssets(filters: [AssetList.DTO.Filter], assets: [DomainLayer.DTO.AssetBalance], isEnableSpam: Bool) {
+    func filterAssets(filters: [AssetList.DTO.Filter], assets: [DomainLayer.DTO.SmartAssetBalance], isEnableSpam: Bool) {
         
-        var filterAssets: [DomainLayer.DTO.AssetBalance] = []
+        var filterAssets: [DomainLayer.DTO.SmartAssetBalance] = []
                 
         if filters.contains(.waves) {
             

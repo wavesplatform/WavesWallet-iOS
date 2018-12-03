@@ -11,7 +11,7 @@ import RxSwift
 
 protocol AssetListInteractorProtocol {
     
-    func assets(filters: [AssetList.DTO.Filter], isMyList: Bool) -> Observable<[DomainLayer.DTO.AssetBalance]>
+    func assets(filters: [AssetList.DTO.Filter], isMyList: Bool) -> Observable<[DomainLayer.DTO.SmartAssetBalance]>
     func searchAssets(searchText: String)
 
 }

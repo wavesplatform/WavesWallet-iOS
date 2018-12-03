@@ -31,7 +31,7 @@ final class ReceiveCardViewController: UIViewController {
     private var selectedFiat = ReceiveCard.DTO.FiatType.usd
     private var amountUSDInfo: ReceiveCard.DTO.AmountInfo?
     private var amountEURInfo: ReceiveCard.DTO.AmountInfo?
-    private var asset: DomainLayer.DTO.AssetBalance?
+    private var asset: DomainLayer.DTO.SmartAssetBalance?
     private var amount: Money = Money(0, ReceiveCard.DTO.fiatDecimals)
     private var urlLink = ""
     

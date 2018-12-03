@@ -10,7 +10,7 @@ import UIKit
 
 struct ReceiveContainerModuleBuilder: ModuleBuilder {
     
-    func build(input: DomainLayer.DTO.AssetBalance?) -> UIViewController {
+    func build(input: DomainLayer.DTO.SmartAssetBalance?) -> UIViewController {
         
         let vc = StoryboardScene.Receive.receiveContainerViewController.instantiate()
         let showAllList = true
