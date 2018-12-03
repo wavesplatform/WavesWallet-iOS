@@ -13,5 +13,7 @@ protocol AssetsBalanceSettingsProtocol {
 }
 
 final class AssetsBalanceSettings: AssetsBalanceSettingsProtocol {
+    func registerAssets() {
 
+    }
 }
