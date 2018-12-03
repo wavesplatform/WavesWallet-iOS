@@ -105,6 +105,7 @@ private extension AccountBalanceInteractor {
                     }
                 }
 
+                //Change waves balance
                 if let wavesAssetBalance = newBalances
                     .enumerated()
                     .first(where: { $0.element.assetId == GlobalConstants.wavesAssetId }) {
@@ -125,6 +126,7 @@ private extension AccountBalanceInteractor {
 
                     newBalances[wavesAssetBalance.offset] = newWavesAssetBalance
                 }
+
                 return newBalances
             }
             .flatMap(weak: self) { owner, balances -> Observable<[DomainLayer.DTO.AssetBalance]> in
