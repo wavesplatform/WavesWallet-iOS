@@ -19,7 +19,7 @@ extension DomainLayer.DTO {
         }
         let assetId: String
         //TODO: Rename totalBalance
-        var balance: Int64
+        var totalBalance: Int64
         var leasedBalance: Int64
         var inOrderBalance: Int64
         var settings: Settings?
@@ -29,7 +29,7 @@ extension DomainLayer.DTO {
 
     struct AssetBalance: Mutating {
 
-        let assetId: String        
+        let assetId: String
         var totalBalance: Int64
         var leasedBalance: Int64
         var inOrderBalance: Int64
@@ -40,6 +40,6 @@ extension DomainLayer.DTO {
 extension DomainLayer.DTO.SmartAssetBalance {
 
     var avaliableBalance: Int64 {
-        return balance - leasedBalance - inOrderBalance
+        return totalBalance - leasedBalance - inOrderBalance
     }
 }

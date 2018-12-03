@@ -82,6 +82,6 @@ extension AssetList.State: Equatable {
 
 extension AssetList.ViewModel.Section {
     var isEmptyAssetsBalance: Bool {
-        return items.filter({$0.asset.balance > 0}).count == 0
+        return items.filter({$0.asset.totalBalance > 0}).count == 0
     }
 }

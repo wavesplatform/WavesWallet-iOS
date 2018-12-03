@@ -129,7 +129,7 @@ private extension DomainLayer.DTO.SmartAssetBalance {
 
         let decimal = asset?.precision ?? 0
 
-        let totalMoney = Money(balance, decimal)
+        let totalMoney = Money(totalBalance, decimal)
         let avaliableMoney = Money(avaliableBalance, decimal)
         let leasedMoney = Money(leasedBalance, decimal)
         let inOrderMoney = Money(inOrderBalance, decimal)
