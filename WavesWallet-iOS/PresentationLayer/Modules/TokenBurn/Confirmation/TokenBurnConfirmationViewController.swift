@@ -26,7 +26,7 @@ final class TokenBurnConfirmationViewController: UIViewController {
     @IBOutlet private weak var viewContainer: UIView!
     
     struct Input {
-        let asset: DomainLayer.DTO.AssetBalance
+        let asset: DomainLayer.DTO.SmartAssetBalance
         let amount: Money
         let fee: Money
         let delegate: TokenBurnTransactionDelegate?

@@ -12,11 +12,11 @@ import RxCocoa
 
 protocol AssetModuleOutput: AnyObject {
 
-    func showSend(asset: DomainLayer.DTO.AssetBalance)
-    func showReceive(asset: DomainLayer.DTO.AssetBalance)
+    func showSend(asset: DomainLayer.DTO.SmartAssetBalance)
+    func showReceive(asset: DomainLayer.DTO.SmartAssetBalance)
     func showHistory(by assetId: String)
     func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int)
-    func showBurn(asset: DomainLayer.DTO.AssetBalance, delegate: TokenBurnTransactionDelegate?)
+    func showBurn(asset: DomainLayer.DTO.SmartAssetBalance, delegate: TokenBurnTransactionDelegate?)
 }
 
 protocol AssetModuleInput {

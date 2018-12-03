@@ -14,7 +14,7 @@ import Foundation
 extension WalletTypes.ViewModel {
     enum Row {
         case hidden
-        case asset(DomainLayer.DTO.AssetBalance)
+        case asset(DomainLayer.DTO.SmartAssetBalance)
         case assetSkeleton
         case balanceSkeleton
         case historySkeleton
@@ -44,7 +44,7 @@ extension WalletTypes.ViewModel {
 
 extension WalletTypes.ViewModel.Row {
 
-        var asset: DomainLayer.DTO.AssetBalance? {
+        var asset: DomainLayer.DTO.SmartAssetBalance? {
             switch self {
             case .asset(let asset):
                 return asset
@@ -64,7 +64,7 @@ extension WalletTypes.ViewModel.Row {
 }
 extension WalletTypes.ViewModel.Section {
 
-    static func map(from assets: [DomainLayer.DTO.AssetBalance]) -> [WalletTypes.ViewModel.Section] {
+    static func map(from assets: [DomainLayer.DTO.SmartAssetBalance]) -> [WalletTypes.ViewModel.Section] {
         let generalItems = assets
             .filter { $0.asset!.isSpam != true && $0.settings!.isHidden != true }
             .sorted(by: { (asset1, asset2) -> Bool in
