@@ -144,7 +144,7 @@ private extension DomainLayer.DTO.SmartAssetBalance {
 
     init(accountBalance: Node.DTO.AccountBalance, inOrderBalance: Int64) {
         self.assetId = GlobalConstants.wavesAssetId
-        self.balance = accountBalance.balance
+        self.totalBalance = accountBalance.balance
         self.leasedBalance = 0
         self.inOrderBalance = inOrderBalance
         self.settings = nil
@@ -154,7 +154,7 @@ private extension DomainLayer.DTO.SmartAssetBalance {
 
     init(model: Node.DTO.AssetBalance, inOrderBalance: Int64) {
         self.assetId = model.assetId
-        self.balance = model.balance
+        self.totalBalance = model.balance
         self.leasedBalance = 0
         self.inOrderBalance = inOrderBalance
         self.settings = nil

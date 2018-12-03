@@ -190,7 +190,7 @@ fileprivate extension DomainLayer.DTO.SmartAssetBalance {
 
         self.modified = balance.modified
         self.assetId = balance.assetId
-        self.balance = balance.balance
+        self.totalBalance = balance.balance
         self.leasedBalance = balance.leasedBalance
         self.inOrderBalance = balance.inOrderBalance
 
@@ -214,7 +214,7 @@ fileprivate extension AssetBalance {
         self.init()
         self.modified = balance.modified
         self.assetId = balance.assetId
-        self.balance = balance.balance
+        self.balance = balance.totalBalance
         self.leasedBalance = balance.leasedBalance
         self.inOrderBalance = balance.inOrderBalance
 

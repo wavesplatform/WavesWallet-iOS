@@ -129,7 +129,7 @@ fileprivate extension WalletInteractor {
                     .reduce(0) { $0 + $1.balance.money.amount }
 
                 let balance = leasing.balance
-                let totalMoney: Money = .init(balance.balance,
+                let totalMoney: Money = .init(balance.totalBalance,
                                               precision)
                 let avaliableMoney: Money = .init(balance.avaliableBalance,
                                                   precision)

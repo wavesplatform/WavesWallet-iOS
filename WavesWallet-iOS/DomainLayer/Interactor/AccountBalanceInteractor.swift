@@ -252,7 +252,7 @@ private extension DomainLayer.DTO.SmartAssetBalance {
 
     init(info: Environment.AssetInfo) {
         self.assetId = info.assetId
-        self.balance = 0
+        self.totalBalance = 0
         self.leasedBalance = 0
         self.inOrderBalance = 0
         self.settings = nil
