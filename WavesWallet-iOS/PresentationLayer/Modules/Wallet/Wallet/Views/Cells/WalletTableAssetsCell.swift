@@ -47,21 +47,22 @@ final class WalletTableAssetsCell: UITableViewCell, Reusable {
 }
 
 extension WalletTableAssetsCell: ViewConfiguration {
-    func update(with model: WalletTypes.DTO.Asset) {
+    func update(with model: DomainLayer.DTO.AssetBalance) {
         
-        labelTitle.attributedText = NSAttributedString.styleForMyAssetName(assetName: model.name,
-                                                                           isMyAsset: model.isMyWavesToken)
+        labelTitle.attributedText = NSAttributedString.styleForMyAssetName(assetName: model.asset!.displayName,
+                                                                           isMyAsset: model.asset!.isMyWavesToken)
 
         viewSpam.isHidden = true
-        iconStar.isHidden = !model.isFavorite
+        iconStar.isHidden = !model.settings!.isFavorite
         viewFiatBalance.isHidden = true
-        iconArrow.isHidden = model.isFiat == false && model.isGateway == false
-        viewSpam.isHidden = model.isSpam == false
-        let text = model.balance.displayShortText
+        iconArrow.isHidden = model.asset!.isFiat == false && model.asset!.isGateway == false
+        viewSpam.isHidden = model.asset!.isSpam == false
+        let balance = Money.init(model.avaliableBalance, model.asset!.precision)
+        let text = balance.displayShortText
 
         labelSubtitle.attributedText = NSAttributedString.styleForBalance(text: text, font: labelSubtitle.font)
 
-        taskForAssetLogo = AssetLogo.logoFromCache(name: model.icon,
+        taskForAssetLogo = AssetLogo.logoFromCache(name: model.asset!.icon,
                                                    style: AssetLogo.Style(size: Constants.icon,
                                                                           font: UIFont.systemFont(ofSize: 22),
                                                                           border: nil)) { [weak self] image in

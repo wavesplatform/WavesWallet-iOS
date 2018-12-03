@@ -32,8 +32,6 @@
 		04831F7A216917B0006D1ED6 /* ApiServiceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C918420F3CD0500443CE6 /* ApiServiceTypes.swift */; };
 		04831F7B216917EF006D1ED6 /* SmartTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A14CFC62141DA9800C3A4D5 /* SmartTransactionDomainDTO.swift */; };
 		04831F7C2169210B006D1ED6 /* PasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96F1CD2151B699005E148F /* PasscodeViewController.swift */; };
-		04831F7F21692246006D1ED6 /* BaseInputTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04831F7D21692245006D1ED6 /* BaseInputTextField.xib */; };
-		04831F8021692246006D1ED6 /* BaseInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04831F7E21692246006D1ED6 /* BaseInputTextField.swift */; };
 		04831F8421697A4F006D1ED6 /* CustomGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04831F8321697A4F006D1ED6 /* CustomGradientView.swift */; };
 		04831F87216A363F006D1ED6 /* LanguageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04831F86216A363E006D1ED6 /* LanguageTableCell.swift */; };
 		04831F89216A3EBF006D1ED6 /* LanguageTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04831F88216A3EBF006D1ED6 /* LanguageTableCell.xib */; };
@@ -53,6 +51,8 @@
 		04EB742A2113415E004A065B /* HistoryTypes+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB74292113415E004A065B /* HistoryTypes+State.swift */; };
 		04EFAF4D2164F8D800277CCF /* EnterStartBlockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EFAF4C2164F8D800277CCF /* EnterStartBlockCell.xib */; };
 		04F2DD2E219F27AB0070AF9D /* MultilineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2DD2D219F27AB0070AF9D /* MultilineTextField.swift */; };
+		04F9979621AA197B0036768D /* CameraAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F9979521AA197B0036768D /* CameraAccess.swift */; };
+		0A02D20721AEA1B1005DF820 /* Appsflyer-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A02D20621AEA1B1005DF820 /* Appsflyer-Info.plist */; };
 		0A044418219D850100F837EB /* UIView+TouchInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A044417219D850100F837EB /* UIView+TouchInset.swift */; };
 		0A071E41215AEF61007D9750 /* AccountPassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A071E40215AEF61007D9750 /* AccountPassword.storyboard */; };
 		0A071E43215B0A1B007D9750 /* SigningWalletsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E42215B0A1B007D9750 /* SigningWalletsProtocol.swift */; };
@@ -386,6 +386,7 @@
 		0AF0C67B21AACA4F00602197 /* GlobalErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF0C67A21AACA4F00602197 /* GlobalErrorView.swift */; };
 		0AF0C67D21AACB3700602197 /* GlobalErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF0C67C21AACB3700602197 /* GlobalErrorView.xib */; };
 		0AF0C67F21AB1B4D00602197 /* Sync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF0C67E21AB1B4D00602197 /* Sync.swift */; };
+		0AF2536321B0351A00B8F7DF /* AssetsBalanceSettingsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2536221B0351A00B8F7DF /* AssetsBalanceSettingsProtocol.swift */; };
 		0AF58F8E219194E500C8A4B3 /* SlideCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F8D219194E500C8A4B3 /* SlideCoordinator.swift */; };
 		0AF58F902191BC9300C8A4B3 /* PasscodePresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F8F2191BC9300C8A4B3 /* PasscodePresenterProtocol.swift */; };
 		0AF58F942191C1D300C8A4B3 /* PasscodeRegistationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F932191C1D300C8A4B3 /* PasscodeRegistationPresenter.swift */; };
@@ -554,7 +555,6 @@
 		E9310D1921792D01008BF3EE /* SendConfirmationRecipientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9310D1821792D01008BF3EE /* SendConfirmationRecipientView.swift */; };
 		E9310D1B21792D14008BF3EE /* SendConfirmationRecipientView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9310D1A21792D13008BF3EE /* SendConfirmationRecipientView.xib */; };
 		E9310D1D217942C8008BF3EE /* BlueBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9310D1C217942C8008BF3EE /* BlueBgView.swift */; };
-		E93827DF1F20E38900E37599 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93827DE1F20E38900E37599 /* DataManager.swift */; };
 		E938356F20A472B4001A2509 /* HistoryTransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */; };
 		E945F4C4208B88DD00545776 /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E945F4C3208B88DD00545776 /* WalletViewController.swift */; };
 		E94A6E9F215AD53E001814F7 /* ContactDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A6E9E215AD53E001814F7 /* ContactDomainDTO.swift */; };
@@ -848,8 +848,6 @@
 		04831F5F21691428006D1ED6 /* HighlightedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightedView.swift; sourceTree = "<group>"; };
 		04831F6021691428006D1ED6 /* MoneyTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyTextField.swift; sourceTree = "<group>"; };
 		04831F6121691429006D1ED6 /* SuccessSystemMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessSystemMessageView.swift; sourceTree = "<group>"; };
-		04831F7D21692245006D1ED6 /* BaseInputTextField.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BaseInputTextField.xib; path = "WavesWallet-iOS/customviews/UIKit/BaseInputTextField/BaseInputTextField.xib"; sourceTree = SOURCE_ROOT; };
-		04831F7E21692246006D1ED6 /* BaseInputTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseInputTextField.swift; path = "WavesWallet-iOS/customviews/UIKit/BaseInputTextField/BaseInputTextField.swift"; sourceTree = SOURCE_ROOT; };
 		04831F8321697A4F006D1ED6 /* CustomGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGradientView.swift; sourceTree = "<group>"; };
 		04831F86216A363E006D1ED6 /* LanguageTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageTableCell.swift; sourceTree = "<group>"; };
 		04831F88216A3EBF006D1ED6 /* LanguageTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LanguageTableCell.xib; sourceTree = "<group>"; };
@@ -871,6 +869,10 @@
 		04EB74292113415E004A065B /* HistoryTypes+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryTypes+State.swift"; sourceTree = "<group>"; };
 		04EFAF4C2164F8D800277CCF /* EnterStartBlockCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterStartBlockCell.xib; sourceTree = "<group>"; };
 		04F2DD2D219F27AB0070AF9D /* MultilineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineTextField.swift; sourceTree = "<group>"; };
+		04F9979521AA197B0036768D /* CameraAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraAccess.swift; sourceTree = "<group>"; };
+		0A02D20621AEA1B1005DF820 /* Appsflyer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Appsflyer-Info.plist"; sourceTree = "<group>"; };
+		0A02D20821AEDD3C005DF820 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0A02D20921AEDD3C005DF820 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Waves.strings; sourceTree = "<group>"; };
 		0A044417219D850100F837EB /* UIView+TouchInset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+TouchInset.swift"; sourceTree = "<group>"; };
 		0A071E40215AEF61007D9750 /* AccountPassword.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AccountPassword.storyboard; sourceTree = "<group>"; };
 		0A071E42215B0A1B007D9750 /* SigningWalletsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningWalletsProtocol.swift; sourceTree = "<group>"; };
@@ -1218,6 +1220,7 @@
 		0AF0C67A21AACA4F00602197 /* GlobalErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalErrorView.swift; sourceTree = "<group>"; };
 		0AF0C67C21AACB3700602197 /* GlobalErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GlobalErrorView.xib; sourceTree = "<group>"; };
 		0AF0C67E21AB1B4D00602197 /* Sync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sync.swift; sourceTree = "<group>"; };
+		0AF2536221B0351A00B8F7DF /* AssetsBalanceSettingsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsBalanceSettingsProtocol.swift; sourceTree = "<group>"; };
 		0AF58F8D219194E500C8A4B3 /* SlideCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideCoordinator.swift; sourceTree = "<group>"; };
 		0AF58F8F2191BC9300C8A4B3 /* PasscodePresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodePresenterProtocol.swift; sourceTree = "<group>"; };
 		0AF58F932191C1D300C8A4B3 /* PasscodeRegistationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeRegistationPresenter.swift; sourceTree = "<group>"; };
@@ -1395,7 +1398,6 @@
 		E9310D1821792D01008BF3EE /* SendConfirmationRecipientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmationRecipientView.swift; sourceTree = "<group>"; };
 		E9310D1A21792D13008BF3EE /* SendConfirmationRecipientView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SendConfirmationRecipientView.xib; sourceTree = "<group>"; };
 		E9310D1C217942C8008BF3EE /* BlueBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueBgView.swift; sourceTree = "<group>"; };
-		E93827DE1F20E38900E37599 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionCell.swift; sourceTree = "<group>"; };
 		E945B19E20F75B420081F4D2 /* ConfirmBackupStackInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackInputView.swift; sourceTree = "<group>"; };
 		E945F4C3208B88DD00545776 /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
@@ -1708,16 +1710,6 @@
 			path = Edit;
 			sourceTree = "<group>";
 		};
-		04831F6B21691449006D1ED6 /* BaseInputTextField */ = {
-			isa = PBXGroup;
-			children = (
-				04831F7E21692246006D1ED6 /* BaseInputTextField.swift */,
-				04831F7D21692245006D1ED6 /* BaseInputTextField.xib */,
-			);
-			name = BaseInputTextField;
-			path = Base;
-			sourceTree = "<group>";
-		};
 		04831F85216A3627006D1ED6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1923,6 +1915,7 @@
 				0A2CD237216D0F0000162063 /* AuthorizationInteractorProtocol.swift */,
 				0A344E2E2194747E007809B1 /* MigrationInteractor.swift */,
 				0AF0C67121A97C4700602197 /* AliasesInteractor.swift */,
+				0AF2536221B0351A00B8F7DF /* AssetsBalanceSettingsProtocol.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -2323,6 +2316,7 @@
 				04016DFF219499DA00BA5235 /* ImportAccountScanViewController.swift */,
 				04016E0121949A8400BA5235 /* ImportAccountManuallyViewController.swift */,
 				0A5D32F8215461E90009CDF3 /* ImportTypes.swift */,
+				04F9979521AA197B0036768D /* CameraAccess.swift */,
 			);
 			path = Import;
 			sourceTree = "<group>";
@@ -2560,6 +2554,7 @@
 		0A979752210885B500407F67 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0A02D20621AEA1B1005DF820 /* Appsflyer-Info.plist */,
 				0A150821219B0D6B00516037 /* GoogleService-Info.plist */,
 				0A2060622181C2C10048CF83 /* environment_mainnet.json */,
 				0A2060632181C2C20048CF83 /* environment_testnet.json */,
@@ -3478,7 +3473,6 @@
 			isa = PBXGroup;
 			children = (
 				0AD83619217DE830004413E9 /* TextFields */,
-				04831F6B21691449006D1ED6 /* BaseInputTextField */,
 				04831F5F21691428006D1ED6 /* HighlightedView.swift */,
 				04831F6021691428006D1ED6 /* MoneyTextField.swift */,
 				04831F6121691429006D1ED6 /* SuccessSystemMessageView.swift */,
@@ -4299,7 +4293,6 @@
 				0A7E0CDC20F369E20010CA6C /* Environment */,
 				F74240B41EAB8D1600C3B84D /* NodeManager.swift */,
 				E963CF811F1CF970001494FD /* NetworkManager.swift */,
-				E93827DE1F20E38900E37599 /* DataManager.swift */,
 				F7A86B641EA9DE4A004DBE81 /* WalletManager.swift */,
 				E971DA5120FFF4B600616A03 /* BiometricManager.swift */,
 			);
@@ -4466,6 +4459,7 @@
 				hi,
 				de,
 				nl,
+				ja,
 			);
 			mainGroup = F7E954DB1EA8FE0600A804DE;
 			productRefGroup = F7E954E51EA8FE0700A804DE /* Products */;
@@ -4555,6 +4549,7 @@
 				E9B087B02163886800937644 /* DexOrderBookHeaderView.xib in Resources */,
 				E9B087E32163886800937644 /* DexCreateOrderInputView.xib in Resources */,
 				E9D36DE92175C755001E6DF0 /* AssetSelectView.xib in Resources */,
+				0A02D20721AEA1B1005DF820 /* Appsflyer-Info.plist in Resources */,
 				0AF92303212E1424003BA067 /* Waves.strings in Resources */,
 				0AF921F0212E07B3003BA067 /* Assets.json in Resources */,
 				0AF922E2212E1234003BA067 /* TickerView.xib in Resources */,
@@ -4576,7 +4571,6 @@
 				E9B086BE2163883000937644 /* AddressBook.storyboard in Resources */,
 				0AF92202212E07B3003BA067 /* AssetTransactionSkeletonCell.xib in Resources */,
 				E9A86E1420B6F20A002AC3F9 /* HistoryInfo.json in Resources */,
-				04831F7F21692246006D1ED6 /* BaseInputTextField.xib in Resources */,
 				0A071E7A215DB0A9007D9750 /* ChooseAccount.storyboard in Resources */,
 				0AF922EC212E1234003BA067 /* AssetsSegmentedControl.xib in Resources */,
 				E9F984A920E526DA00D2CB4D /* Enter.storyboard in Resources */,
@@ -5140,7 +5134,6 @@
 				0AFA0C7A2174A2300003FE3B /* LegalViewController.swift in Sources */,
 				0A762D8E21639FA60019D447 /* TransactionHistoryPopupCell.swift in Sources */,
 				0AD2B57D20F63F8A007EE076 /* WalletDisplayData.swift in Sources */,
-				E93827DF1F20E38900E37599 /* DataManager.swift in Sources */,
 				E9B087E12163886800937644 /* DexCreateOrderTypes.swift in Sources */,
 				0AF922D8212E1234003BA067 /* ViewConfiguration.swift in Sources */,
 				0A218B8E215534E000B989A1 /* WalletSeedRepositoryLocal.swift in Sources */,
@@ -5440,9 +5433,9 @@
 				E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */,
 				0AF9222D212E0F1F003BA067 /* WalletLeasingBalanceSkeletonCell.swift in Sources */,
 				E9B0879C2163886800937644 /* DexChartModuleBuilder.swift in Sources */,
-				04831F8021692246006D1ED6 /* BaseInputTextField.swift in Sources */,
 				0AF58F9D2191DEA300C8A4B3 /* PasscodeEnableBiometricPresenter.swift in Sources */,
 				0AF922E0212E1234003BA067 /* NibLoadable.swift in Sources */,
+				04F9979621AA197B0036768D /* CameraAccess.swift in Sources */,
 				0A14E3F521875B5100EA7E91 /* CreateAliasModuleBuilder.swift in Sources */,
 				0AAB15C521655BEC00F1F7BC /* ProfileBackupPhraseCell.swift in Sources */,
 				0A41410B217603F800B1310E /* ChangePasswordPresenter.swift in Sources */,
@@ -5477,6 +5470,7 @@
 				0AF9222E212E0F1F003BA067 /* WalletHistorySkeletonCell.swift in Sources */,
 				0A14CFDB214B227D00C3A4D5 /* TSUD.swift in Sources */,
 				E9B086B72163883000937644 /* AddressBookPresenterProtocol.swift in Sources */,
+				0AF2536321B0351A00B8F7DF /* AssetsBalanceSettingsProtocol.swift in Sources */,
 				0AAB15C721655C0600F1F7BC /* ProfilePushTableCell.swift in Sources */,
 				F7A86B651EA9DE4A004DBE81 /* WalletManager.swift in Sources */,
 				E9EC5C0F2175F35900E5C29A /* AddressInputView.swift in Sources */,
@@ -5517,6 +5511,7 @@
 				0AACD5A321A5C16B00B30815 /* hi */,
 				0AACD5A521A5C18300B30815 /* de */,
 				0AACD5A721A5C30B00B30815 /* nl */,
+				0A02D20921AEDD3C005DF820 /* ja */,
 			);
 			name = Waves.strings;
 			sourceTree = "<group>";
@@ -5533,6 +5528,7 @@
 				0AACD5A221A5C16B00B30815 /* hi */,
 				0AACD5A421A5C18300B30815 /* de */,
 				0AACD5A621A5C30A00B30815 /* nl */,
+				0A02D20821AEDD3C005DF820 /* ja */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -5601,7 +5597,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "WavesWallet-iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.test;
@@ -5677,7 +5673,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "WavesWallet-iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.test;
@@ -5806,7 +5802,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "WavesWallet-iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.dev;
@@ -5835,7 +5831,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "WavesWallet-iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet;

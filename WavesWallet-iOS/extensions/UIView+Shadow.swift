@@ -94,6 +94,8 @@ extension UIView {
     private func update() {
         if let shadowOptions = shadowOptions {
             layer.setupShadow(options: shadowOptions)
+        } else {
+            layer.removeShadow()
         }
 
         if self.cornerRadius != Constants.deffaultValue {
@@ -111,6 +113,8 @@ extension UIView {
             layer.borderWidth = CGFloat(self.borderWidth) / UIScreen.main.scale
             layer.borderColor = self.borderColor?.cgColor
         }
+
+        
     }
 
     @objc private func swizzled_shadow_layoutSubviews() {

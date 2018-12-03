@@ -25,9 +25,11 @@ final class WalletSortCell: UITableViewCell, Reusable {
     @IBOutlet var switchControl: UISwitch!
     @IBOutlet var viewContent: UIView!
 
+    private var isDragging: Bool = false
+
     private var taskForAssetLogo: RetrieveImageDiskTask?
     private(set) var disposeBag = DisposeBag()
-
+    private var isHiddenAsset: Bool = false
     var changedValueSwitchControl: ((Bool) -> Void)?
 
     override func prepareForReuse() {
@@ -53,6 +55,43 @@ final class WalletSortCell: UITableViewCell, Reusable {
 
      @objc private func changedValueSwitchAction() {
         changedValueSwitchControl?(switchControl.isOn)
+
+        isHiddenAsset = !switchControl.isOn
+        updateBackground()
+    }
+
+    
+    func beginMove() {
+        self.viewContent.removeShadow()
+    }
+
+    func endMove() {
+        updateBackground()
+    }
+
+    func updateBackground() {
+        if self.isHiddenAsset {
+            viewContent.backgroundColor = .clear
+            viewContent.removeShadow()
+        } else {
+            viewContent.backgroundColor = .white
+            viewContent.addTableCellShadowStyle()
+        }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        if self.alpha <= 0.9 && !isDragging {
+            isDragging = true
+            beginMove()
+        }
+
+        if self.alpha <= 0.9 && isDragging {
+            isDragging = false
+            endMove()
+        }
+
     }
 }
 
@@ -75,6 +114,15 @@ extension WalletSortCell: ViewConfiguration {
         switchControl.isHidden = model.isVisibility
         switchControl.isOn = !model.isHidden
         arrowGreen.isHidden = !model.isGateway
+
+        isHiddenAsset = model.isHidden
+        if model.isHidden {
+            viewContent.backgroundColor = .clear
+            viewContent.removeShadow()
+        } else {
+            viewContent.backgroundColor = .white
+            viewContent.addTableCellShadowStyle()
+        }
 
         taskForAssetLogo = AssetLogo.logoFromCache(name: model.icon,
                                                    style: AssetLogo.Style(size: Constants.icon,

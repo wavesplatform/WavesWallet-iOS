@@ -12,6 +12,7 @@ import RxSwift
 
 protocol SupportViewControllerDelegate: AnyObject {
     func closeSupportView(isTestNet: Bool)
+    func relaunchApp()
 }
 
 final class SupportViewController: UIViewController {

@@ -51,7 +51,6 @@ final class WalletDisplayData: NSObject {
             break
             
         case .refresh(let animated):
-            print("refresh")
 
             if animated {
                 UIView.transition(with: tableView, duration: Constants.animationDuration, options: [.transitionCrossDissolve], animations: {

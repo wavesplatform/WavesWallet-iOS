@@ -107,7 +107,8 @@ private extension ReceiveCryptocurrencyViewController {
 
                 case .addressDidFailGenerate(let error):
                     
-                    strongSelf.showMessageSnack(title: Localizable.Waves.Receive.Error.serviceUnavailable)
+                    strongSelf.showNetworkErrorSnack(error: error,
+                                                     customTitle: Localizable.Waves.Receive.Error.serviceUnavailable)
                     strongSelf.activityIndicatorView.stopAnimating()
                     
                 default:

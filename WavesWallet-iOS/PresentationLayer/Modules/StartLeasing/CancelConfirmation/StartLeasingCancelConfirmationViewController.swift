@@ -75,7 +75,7 @@ final class StartLeasingCancelConfirmationViewController: UIViewController {
 
 //MARK: - StartLeasingErrorDelegate
 extension StartLeasingCancelConfirmationViewController: StartLeasingErrorDelegate {
-    func startLeasingDidFail() {
-        //TODO: need to show error
+    func startLeasingDidFail(error: NetworkError) {
+        showNetworkErrorSnack(error: error)
     }
 }

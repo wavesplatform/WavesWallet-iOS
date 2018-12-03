@@ -60,7 +60,12 @@ extension PasscodeTypes {
                 } else {
                     return .attemptsEndedLogout
                 }
+            case .walletNotFound:
+                return .notFound
 
+            case .walletAlreadyExist:
+                return .notFound
+                
             case .biometricDisable:
                 return .notFound
 

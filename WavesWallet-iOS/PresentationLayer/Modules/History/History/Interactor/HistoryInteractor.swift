@@ -42,7 +42,7 @@ final class HistoryInteractor: HistoryInteractorProtocol {
                                                senders: [],
                                                types: [.lease, .leaseCancel])
         }
-
+        
         return loadingTransactions(specifications: specifications)
     }
 

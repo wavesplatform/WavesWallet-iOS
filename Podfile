@@ -52,6 +52,7 @@ target 'WavesWallet-iOS' do
     pod 'Firebase/Core'
     pod 'Firebase/Database'
     pod 'Firebase/Auth'
+    pod 'AppsFlyerFramework'
 
     pod 'Fabric'
     pod 'Crashlytics'

@@ -12,7 +12,7 @@ import RxFeedback
 import RxCocoa
 
 protocol SendResultDelegate: AnyObject {
-    func sendResultDidFail(_ error: ResponseTypeError)
+    func sendResultDidFail(_ error: NetworkError)
 }
 
 private enum Constants {
@@ -192,12 +192,10 @@ final class SendViewController: UIViewController {
 
 //MARK: - SendResultDelegate
 extension SendViewController: SendResultDelegate {
-    func sendResultDidFail(_ error: ResponseTypeError) {
+    func sendResultDidFail(_ error: NetworkError) {
         
-       navigationController?.popToViewController(self, animated: true)
-        
-        //TODO: need show view with error
-        debug(error.message)
+        navigationController?.popToViewController(self, animated: true)
+        showNetworkErrorSnack(error: error)
     }
 }
 
@@ -242,7 +240,7 @@ private extension SendViewController {
                     
                 case .didFailInfo(let error):
                     
-                    //TODO: need to show error when in come from server
+                    strongSelf.showNetworkErrorSnack(error: error)
                     strongSelf.hideGatewayInfo(animation: true)
 
                 case .didGetInfo(let info):
@@ -260,7 +258,7 @@ private extension SendViewController {
                     
                 case .didFailGenerateMoneroAddress(let error):
                     
-                    //TODO: need to show error when in come from server
+                    strongSelf.showNetworkErrorSnack(error: error)
                     strongSelf.hideButtonLoadingButtonsState()
                     strongSelf.moneroPaymentIdView.showErrorFromServer()
                     strongSelf.setupButtonState()
@@ -323,7 +321,7 @@ private extension SendViewController {
             
             values.append(availableBalance)
             
-            let n5 = Decimal(availableBalance.amount) * (Decimal(Constants.percent10) / 100.0)
+            let n5 = Decimal(availableBalance.amount) * (Decimal(Constants.percent5) / 100.0)
             let n10 = Decimal(availableBalance.amount) * (Decimal(Constants.percent10) / 100.0)
             let n50 = Decimal(availableBalance.amount) * (Decimal(Constants.percent50) / 100.0)
             
