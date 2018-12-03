@@ -20,13 +20,37 @@ final class SendInteractor: SendInteractorProtocol {
     
     private let disposeBag = DisposeBag()
     private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
-
+    private let assetInteractor = FactoryInteractors.instance.assetsInteractor
+    private let auth = FactoryInteractors.instance.authorization
+    
     func assetBalance(by assetID: String) -> Observable<DomainLayer.DTO.AssetBalance?> {
-        return accountBalanceInteractor.balances(isNeedUpdate: false).flatMap({ (balances) -> Observable<DomainLayer.DTO.AssetBalance?>  in
+        return accountBalanceInteractor.balances(isNeedUpdate: false).flatMap({ [weak self] (balances) -> Observable<DomainLayer.DTO.AssetBalance?>  in
             
             if let asset = balances.first(where: {$0.assetId == assetID}) {
                 return Observable.just(asset)
             }
+            
+            guard let owner = self else { return Observable.empty() }
+            return owner.auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DomainLayer.DTO.AssetBalance?> in
+                guard let owner = self else { return Observable.empty() }
+                return owner.assetInteractor.assets(by: [assetID], accountAddress: wallet.address, isNeedUpdated: false)
+                    .flatMap({ (assets) -> Observable<DomainLayer.DTO.AssetBalance?> in
+                        
+                        var assetBalance: DomainLayer.DTO.AssetBalance?
+                        if let asset = assets.first(where: {$0.id == assetID}) {
+                            assetBalance = .init(assetId: asset.id,
+                                                 balance: 0,
+                                                 leasedBalance: 0,
+                                                 inOrderBalance: 0,
+                                                 settings: nil,
+                                                 asset: asset,
+                                                 modified: asset.modified)
+                        }
+                        return Observable.just(assetBalance)
+                    })
+
+            })
+        }).catchError({ (error) -> Observable<DomainLayer.DTO.AssetBalance?> in
             return Observable.just(nil)
         })
     }
