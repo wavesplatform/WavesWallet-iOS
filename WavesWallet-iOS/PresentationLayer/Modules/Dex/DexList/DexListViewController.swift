@@ -22,19 +22,21 @@ final class DexListViewController: UIViewController {
     private var buttonSort = UIBarButtonItem(image: Images.topbarSort.image, style: .plain, target: nil, action: nil)
     private var buttonAdd = UIBarButtonItem(image: Images.topbarAddmarkets.image, style: .plain, target: nil, action: nil)
 
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var viewNoItems: UIView!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var viewNoItems: UIView!
     
-    @IBOutlet weak var labelNoItemsDescription: UILabel!
-    @IBOutlet weak var labelNoItemsTitle: UILabel!
-    @IBOutlet weak var buttonAddMarkets: UIButton!
-
+    @IBOutlet private weak var labelNoItemsDescription: UILabel!
+    @IBOutlet private weak var labelNoItemsTitle: UILabel!
+    @IBOutlet private weak var buttonAddMarkets: UIButton!
+    @IBOutlet private weak var globalErrorView: GlobalErrorView!
+    
     private var refreshControl: UIRefreshControl!
 
     var presenter : DexListPresenterProtocol!
     private var sections : [DexList.ViewModel.Section] = []
     private let sendEvent: PublishRelay<DexList.Event> = PublishRelay<DexList.Event>()
     private var disposeBag = DisposeBag()
+    private var errorSnackKey: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +59,10 @@ final class DexListViewController: UIViewController {
         
         presenter.system(feedbacks: [feedback, readyViewFeedback])
         NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
+        
+        globalErrorView.retryDidTap = { [weak self] in
+            self?.sendEvent.accept(.refresh)
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -102,13 +108,13 @@ fileprivate extension DexListViewController {
         
         let refresh = refreshControl.rx.controlEvent(.valueChanged).map { DexList.Event.refresh }.asSignal(onErrorSignalWith: Signal.empty())
 
-        let sortTapEvent = buttonSort.rx.tap.map { DexList.Event.tapSortButton }
+        let sortTapEvent = buttonSort.rx.tap.map { DexList.Event.tapSortButton(self) }
             .asSignal(onErrorSignalWith: Signal.empty())
 
-        let addTapEvent = buttonAdd.rx.tap.map { DexList.Event.tapAddButton }
+        let addTapEvent = buttonAdd.rx.tap.map { DexList.Event.tapAddButton(self) }
             .asSignal(onErrorSignalWith: Signal.empty())
 
-        let addTap2Event = buttonAddMarkets.rx.tap.map { DexList.Event.tapAddButton }
+        let addTap2Event = buttonAddMarkets.rx.tap.map { DexList.Event.tapAddButton(self) }
             .asSignal(onErrorSignalWith: Signal.empty())
 
         let changedSpamList = NotificationCenter.default.rx
@@ -124,13 +130,25 @@ fileprivate extension DexListViewController {
             .drive(onNext: { [weak self] state in
 
                 guard let strongSelf = self else { return }
-                guard state.action != .none else { return }
-
-                if state.action == .update {
-                    strongSelf.sections = state.sections
-                    strongSelf.tableView.reloadData()
-                    strongSelf.refreshControl.endRefreshing()
-                    strongSelf.setupViews(loadingDataState: state.isFirstLoadingData, isVisibleItems: state.isVisibleItems)
+               
+                switch state.action {
+                    
+                case .update:
+                        strongSelf.hideErrorIfExist()
+                        strongSelf.tableView.isHidden = false
+                        strongSelf.globalErrorView.isHidden = true
+                        strongSelf.sections = state.sections
+                        strongSelf.tableView.reloadData()
+                        strongSelf.refreshControl.endRefreshing()
+                        strongSelf.setupViews(loadingDataState: state.isFirstLoadingData, isVisibleItems: state.isVisibleItems)
+                    
+                case .didFailGetModels(let error):
+                    strongSelf.hideErrorIfExist()
+                    strongSelf.setupErrorState(error: error, isFirstLoadingData: state.isFirstLoadingData)
+                    
+                    
+                default:
+                    break
                 }
             })
 
@@ -138,11 +156,57 @@ fileprivate extension DexListViewController {
     }
 }
 
+//MARK: - DexListRefreshOutput
+extension DexListViewController: DexListRefreshOutput {
+    
+    func refreshPairs() {
+        sendEvent.accept(.refresh)
+    }
+}
 
 //MARK: SetupUI
 
 private extension DexListViewController {
 
+    func hideErrorIfExist() {
+        if let key = errorSnackKey {
+            hideSnack(key: key)
+            errorSnackKey = nil
+        }
+    }
+    func setupErrorState(error: NetworkError, isFirstLoadingData: Bool) {
+        
+        refreshControl.endRefreshing()
+        
+        if isFirstLoadingData {
+            globalErrorView.isHidden = false
+            tableView.isHidden = true
+            
+            switch error {
+            case .internetNotWorking:
+                globalErrorView.update(with: .init(kind: .internetNotWorking))
+                
+            default:
+                globalErrorView.update(with: .init(kind: .serverError))
+            }
+        }
+        else {
+            globalErrorView.isHidden = true
+            tableView.isHidden = false
+            
+            switch error {
+            case .internetNotWorking:
+                errorSnackKey = showWithoutInternetSnack { [weak self] in
+                    self?.sendEvent.accept(.refresh)
+                }
+                
+            default:
+                errorSnackKey = showNetworkErrorSnack(error: error)
+            }
+            
+        }
+    }
+    
     func setupViews(loadingDataState: Bool, isVisibleItems: Bool) {
         if (loadingDataState) {
             setupViewNoItems(isHidden: true)

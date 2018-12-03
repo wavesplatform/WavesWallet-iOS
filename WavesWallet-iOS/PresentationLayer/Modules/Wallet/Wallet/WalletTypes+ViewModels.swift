@@ -14,7 +14,7 @@ import Foundation
 extension WalletTypes.ViewModel {
     enum Row {
         case hidden
-        case asset(WalletTypes.DTO.Asset)
+        case asset(DomainLayer.DTO.AssetBalance)
         case assetSkeleton
         case balanceSkeleton
         case historySkeleton
@@ -44,7 +44,7 @@ extension WalletTypes.ViewModel {
 
 extension WalletTypes.ViewModel.Row {
 
-        var asset: WalletTypes.DTO.Asset? {
+        var asset: DomainLayer.DTO.AssetBalance? {
             switch self {
             case .asset(let asset):
                 return asset
@@ -64,38 +64,40 @@ extension WalletTypes.ViewModel.Row {
 }
 extension WalletTypes.ViewModel.Section {
 
-    static func map(from assets: [WalletTypes.DTO.Asset]) -> [WalletTypes.ViewModel.Section] {
+    static func map(from assets: [DomainLayer.DTO.AssetBalance]) -> [WalletTypes.ViewModel.Section] {
         let generalItems = assets
-            .filter { $0.isSpam != true && $0.isHidden != true }
+            .filter { $0.asset!.isSpam != true && $0.settings!.isHidden != true }
             .sorted(by: { (asset1, asset2) -> Bool in
 
-                if asset1.isWaves == true {
+                if asset1.asset!.isWaves == true {
                     return true
                 }
 
-                if asset1.isFavorite == true && asset2.isFavorite == false {
+                if asset1.settings!.isFavorite == true && asset2.settings!.isFavorite == false {
                     return true
-                } else if asset1.isFavorite == false && asset2.isFavorite == true {
+                } else if asset1.settings!.isFavorite == false && asset2.settings!.isFavorite == true {
                     return false
                 }
 
-                return asset1.sortLevel < asset2.sortLevel
+                return asset1.settings!.sortLevel < asset2.settings!.sortLevel
             })
             .map { WalletTypes.ViewModel.Row.asset($0) }
+
+
         let generalSection: WalletTypes.ViewModel.Section = .init(kind: .general,
                                                                   items: generalItems,
                                                                   isExpanded: true)
         let hiddenItems = assets
-            .filter { $0.isHidden == true }
+            .filter { $0.settings!.isHidden == true }
             .sorted(by: { (asset1, asset2) -> Bool in
-                asset1.sortLevel < asset2.sortLevel
+                asset1.settings!.sortLevel < asset2.settings!.sortLevel
             })
             .map { WalletTypes.ViewModel.Row.asset($0) }
 
         let spamItems = assets
-            .filter { $0.isSpam == true }
+            .filter { $0.asset!.isSpam == true }
             .sorted(by: { (asset1, asset2) -> Bool in
-                asset1.sortLevel < asset2.sortLevel
+                asset1.settings!.sortLevel < asset2.settings!.sortLevel
             })
             .map { WalletTypes.ViewModel.Row.asset($0) }
 

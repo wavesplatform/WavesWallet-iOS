@@ -28,6 +28,8 @@ enum GlobalConstants {
     static let WavesDecimals: Int = 8
     static let WavesTransactionFee = Money(GlobalConstants.WavesTransactionFeeAmount, GlobalConstants.WavesDecimals)
 
+    static let moneyLocale = Locale(identifier: "en_US")
+    
     enum Coinomat {}
     enum Market {}
     enum Matcher {}
@@ -40,7 +42,7 @@ extension GlobalConstants.Matcher {
     static var matcher: String {
         return url + "matcher"
     }
-    
+
     static var orderBook: String {
         return url + "matcher/orderbook"
     }

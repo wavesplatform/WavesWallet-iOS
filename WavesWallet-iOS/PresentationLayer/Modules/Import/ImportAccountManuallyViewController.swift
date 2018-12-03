@@ -9,6 +9,7 @@
 import UIKit
 import IdentityImg
 import IQKeyboardManagerSwift
+import RxSwift
 
 protocol ImportWelcomeBackViewControllerDelegate: AnyObject {
     func userCompletedInputSeed(_ keyAccount: PrivateKeyAccount)
@@ -26,7 +27,6 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
     @IBOutlet private weak var iconImages: UIImageView!
     @IBOutlet private weak var skeletonView: SkeletonView!
     
-    
     @IBOutlet weak var textFieldHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var containerViewLeftConstraint: NSLayoutConstraint!
@@ -34,7 +34,10 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
     
     @IBOutlet weak var skeletonViewRightConstraint: NSLayoutConstraint!
     @IBOutlet weak var skeletonViewLeftConstraint: NSLayoutConstraint!
-    
+
+    private let disposeBag: DisposeBag = DisposeBag()
+    private let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+
     private let identity: Identity = Identity(options: Identity.defaultOptions)
     
     private var currentKeyAccount: PrivateKeyAccount?
@@ -69,7 +72,7 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
         
         textFieldHeightConstraint.constant = textField.height
     }
-    
+
     private func setupTextField() {
         textField.delegate = self
         textField.textView.returnKeyType = .done
@@ -80,7 +83,7 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
     }
     
     private func setupContinueButton() {
-        buttonContinue.setTitle(Localizable.Waves.Import.Manually.Button.continue, for: .normal)
+    buttonContinue.setTitle(Localizable.Waves.Import.Manually.Button.continue, for: .normal)
         buttonContinue.setBackgroundImage(UIColor.submit200.image, for: .disabled)
         buttonContinue.setBackgroundImage(UIColor.submit400.image, for: .normal)
         buttonContinue.isEnabled = false
@@ -90,6 +93,12 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
         super.viewWillAppear(animated)
         
         skeletonView.startAnimation()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        textFieldHeightConstraint.constant = textField.height
     }
     
     // MARK: - Actions
@@ -112,10 +121,18 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
     
     private func completedInput() {
         view.endEditing(true)
-        
-        if let privateKey = currentKeyAccount {
-            delegate?.userCompletedInputSeed(privateKey)
-        }
+
+        guard let currentKeyAccount = currentKeyAccount else { return }
+
+        auth
+            .existWallet(by: currentKeyAccount.getPublicKeyStr())
+            .subscribe(onNext: { [weak self] wallet in
+                self?.textField.error = Localizable.Waves.Import.General.Error.alreadyinuse
+            }, onError: { [weak self] _ in
+                self?.delegate?.userCompletedInputSeed(currentKeyAccount)
+
+            })
+            .disposed(by: disposeBag)
     }
     
     func showKeyboard(animated: Bool = true) {
@@ -149,6 +166,7 @@ extension ImportAccountManuallyViewController: MultilineTextFieldDelegate {
     func multilineTextFieldDidChange(textField: MultilineTextField) {
         
         buttonContinue.isEnabled = textField.isValidValue
+        textField.error = nil
 
         if textField.isValidValue {
             addressBar.isHidden = false
@@ -163,6 +181,7 @@ extension ImportAccountManuallyViewController: MultilineTextFieldDelegate {
         
         if textFieldHeightConstraint.constant != textField.height {
             textFieldHeightConstraint.constant = textField.height
+
             view.setNeedsLayout()
             view.layoutIfNeeded()
         }

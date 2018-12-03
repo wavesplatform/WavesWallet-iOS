@@ -3,11 +3,13 @@
 
 "Send.Label.Error.notFundsFeeGateway" = "필요한 수수료를 지불하기 위한 충분한 자금이 없습니다. %@ 트랜잭션 수수료와 %@ 게이트웨이 수수료를 지불해야 합니다.";
 
-"Send.Label.Warning.description" = "ICO로  %@ 를 출금하지 마세요. 해당 판매의 토큰을 귀하의 계정에 크레딧 하지 않을 것입니다.";
+"Send.Label.Warning.description" = "ICO로 %@ 를 출금하지 마세요. 해당 판매의 토큰을 귀하의 계정에 크레딧 하지 않을 것입니다.";
 
 "Send.Label.Warning.subtitle" = "%@ 주소를 감지했으며 해당 주소로 Coinomat 게이트웨이를 통해 자산을 송금할 것입니다. 최소 수량은 %@ 이며, 최대 수량은 %@ 입니다.";
 
 "accountpassword.button.signIn.title" = "로그인";
+
+"accountpassword.error.wrongpassword" = "잘못된 비밀번호";
 
 "accountpassword.textfield.error.atleastcharacters" = "최소 %d 자";
 
@@ -21,6 +23,10 @@
 
 "addAddressbook.button.save" = "저장";
 
+"addAddressbook.error.charactersMaximum" = "최대 %d 글자";
+
+"addAddressbook.error.charactersMinimum" = "최소 %d 글자";
+
 "addAddressbook.label.add" = "추가";
 
 "addAddressbook.label.address" = "주소";
@@ -31,13 +37,13 @@
 
 "addAddressbook.label.name" = "이름";
 
-"addAddressbook.textfield.address.error.addressexist" = "Bereits in Benutzung";
+"addAddressbook.textfield.address.error.addressexist" = "이미 사용 중입니다";
 
 "addressbook.label.addressBook" = "주소록";
 
 "addressbook.label.addressDeleted" = "주소 삭제 완료";
 
-"addressbook.label.noInfo" = "아무것도 없습니다... \n신규 주소를 생성할 수 있습니다";
+"addressbook.label.noInfo" = "아무것도 없습니다…\n신규 주소를 생성할 수 있습니다";
 
 "addresseskeys.cell.address.title" = "귀하의 주소";
 
@@ -79,9 +85,9 @@
 
 "aliaseswithout.view.info.label.title" = "Alias를 가지고 있지 않습니다";
 
-"asset.cell.assetInfo.cantPerformTransactions" = "You can not perform transactions with this asset";
+"asset.cell.assetInfo.cantPerformTransactions" = "해당 자산으로 트랜잭션을 할 수 없습니다";
 
-"asset.cell.assetInfo.decimalPoints" = "Decimal points";
+"asset.cell.assetInfo.decimalPoints" = "소수점";
 
 "asset.cell.assetInfo.description" = "설명";
 
@@ -101,7 +107,7 @@
 
 "asset.cell.assetInfo.title" = "자산 정보";
 
-"asset.cell.assetInfo.totalAmount" = "Total amount";
+"asset.cell.assetInfo.totalAmount" = "총 수량";
 
 "asset.cell.balance.avaliableBalance" = "사용 가능 잔액";
 
@@ -125,13 +131,13 @@
 
 "assetlist.button.allList" = "모든 목록";
 
-"assetlist.button.myList" = "나의 목록";
+"assetlist.button.myList" = "잔액과 함께";
 
 "assetlist.button.withBalance" = "잔액과 함께";
 
 "assetlist.label.assets" = "자산";
 
-"assetlist.label.loadingAssets" = "자산 로딩 중...";
+"assetlist.label.loadingAssets" = "자산 로딩 중…";
 
 "backup.backup.navigation.title" = "백업 구절";
 
@@ -145,7 +151,7 @@
 
 "backup.infobackup.button.iunderstand" = "이해했습니다";
 
-"backup.infobackup.label.detail" = "Waves Platform은 지난 몇 달간 사기 및 피싱 공격의 빈도가 증가한 것에 대해 경고드리고 싶습니다. 사기범들은 악성코드를 가짜 Waves 클라이언트에 숨기고 보너스와 할인으로 조장하여 사용자들을 유인합니다. \n\n이를 실행하면 귀하의 계정이 해킹되어 모든 자금을 잃게 되므로 절대 SEED를 가짜 '클라이언트'에 입력하지 마십시오. \n\n공식 Waves 클라이언트만 사용하세요.";
+"backup.infobackup.label.detail" = "Waves Platform은 지난 몇 달간 사기 및 피싱 공격의 빈도가 증가한 것에 대해 경고드리고 싶습니다. 사기범들은 악성코드를 가짜 Waves 클라이언트에 숨기고 보너스와 할인으로 조장하여 사용자들을 유인합니다.\n\n이를 실행하면 귀하의 계정이 해킹되어 모든 자금을 잃게 되므로 절대 SEED를 가짜 '클라이언트'에 입력하지 마십시오.\n\n공식 Waves 클라이언트만 사용하세요.";
 
 "backup.infobackup.label.title" = "백업 구절을 매우 신중히 다루세요!";
 
@@ -167,9 +173,17 @@
 
 "backup.savebackup.next.label.title" = "다음 페이지에서 백업 구절을 승인해야 합니다";
 
-"biometric.readfromkeychain" = "귀하의 트랜잭션을 승인하고 지갑의 프라이빗키를 해독하기 위해 인증해야 합니다.";
+"biometric.readfromkeychain" = "귀하의 지갑에 액세스";
 
-"biometric.saveinkeychain" = "암호화된 프라빗키를 보관하기 위해 인증해야 합니다";
+"biometric.saveinkeychain" = "귀하의 지갑에 액세스";
+
+"cameraAccess.alert.allow" = "카메라 허용";
+
+"cameraAccess.alert.cancel" = "취소";
+
+"cameraAccess.alert.message" = "이 앱을 최대한 활용하려면 카메라에 액세스해야합니다";
+
+"cameraAccess.alert.title" = "카메라 액세스 필요";
 
 "changepassword.button.confirm.title" = "승인";
 
@@ -195,7 +209,7 @@
 
 "chooseaccount.alert.delete.title" = "계정 삭제";
 
-"chooseaccount.label.nothingWallets" = "아무것도 없습니다... \n저장된 계정이 없습니다";
+"chooseaccount.label.nothingWallets" = "아무것도 없습니다…\n저장된 계정이 없습니다";
 
 "chooseaccount.navigation.title" = "계정 선택";
 
@@ -215,6 +229,10 @@
 
 "createalias.navigation.title" = "신규 Alias";
 
+"dex.general.error.nothingHere" = "아무것도 없습니다…";
+
+"dex.general.error.somethingWentWrong" = "오류가 발생했습니다";
+
 "dexchart.button.cancel" = "취소";
 
 "dexchart.label.emptyData" = "사용할 수 있는 차트 데이터가 없습니다";
@@ -223,11 +241,11 @@
 
 "dexchart.label.hours" = "시간";
 
-"dexchart.label.loadingChart" = "차트 로딩 중...";
+"dexchart.label.loadingChart" = "차트 로딩 중…";
 
 "dexchart.label.minutes" = "분";
 
-"dexcompleteorder.button.okey" = "알겠습니다";
+"dexcompleteorder.button.okey" = "확인";
 
 "dexcompleteorder.label.amount" = "수량";
 
@@ -273,6 +291,8 @@
 
 "dexcreateorder.label.days" = "일";
 
+"dexcreateorder.label.error.notFundsFee" = "수수료를 지불하기 위한 충분한 자금이 없습니다.";
+
 "dexcreateorder.label.fee" = "수수료";
 
 "dexcreateorder.label.limitPriceIn" = "지정가";
@@ -295,9 +315,9 @@
 
 "dexlasttrades.label.amount" = "수량";
 
-"dexlasttrades.label.emptyData" = "아무것도 없습니다... \n거래 내역이 없습니다";
+"dexlasttrades.label.emptyData" = "아무것도 없습니다…\n거래 내역이 없습니다";
 
-"dexlasttrades.label.loadingLastTrades" = "최근 거래 로딩 중...";
+"dexlasttrades.label.loadingLastTrades" = "최근 거래 로딩 중…";
 
 "dexlasttrades.label.price" = "가격";
 
@@ -321,7 +341,7 @@
 
 "dexlist.navigationBar.title" = "DEX";
 
-"dexmarket.label.loadingMarkets" = "마켓 로딩 중...";
+"dexmarket.label.loadingMarkets" = "마켓 로딩 중…";
 
 "dexmarket.navigationBar.title" = "마켓";
 
@@ -333,7 +353,7 @@
 
 "dexmyorders.label.date" = "날짜";
 
-"dexmyorders.label.emptyData" = "아무것도 없습니다… \n주문 내역이 없습니다";
+"dexmyorders.label.emptyData" = "아무것도 없습니다…\n주문 내역이 없습니다";
 
 "dexmyorders.label.loadingLastTrades" = "주문 내역 로딩 중";
 
@@ -363,11 +383,11 @@
 
 "dexorderbook.label.amount" = "수량";
 
-"dexorderbook.label.emptyData" = "아무것도 없습니다... \n호가창이 비어있습니다";
+"dexorderbook.label.emptyData" = "아무것도 없습니다…\n호가창이 비어있습니다";
 
 "dexorderbook.label.lastPrice" = "지정가";
 
-"dexorderbook.label.loadingOrderbook" = "호가창 로딩 중...";
+"dexorderbook.label.loadingOrderbook" = "호가창 로딩 중…";
 
 "dexorderbook.label.price" = "가격";
 
@@ -413,7 +433,7 @@
 
 "enter.button.importAccount.detail" = "페어링 코드를 이용하거나 수동으로";
 
-"enter.button.importAccount.error.insecureSeed" = "Insecure SEED";
+"enter.button.importAccount.error.insecureSeed" = "SEED가 안전하지 않습니다";
 
 "enter.button.importAccount.title" = "계정 불러오기";
 
@@ -421,11 +441,19 @@
 
 "enter.button.signIn.title" = "로그인";
 
+"enter.label.or" = "또는";
+
 "enter.language.navigation.title" = "언어 변경";
 
 "general.biometric.faceID.title" = "Face ID";
 
 "general.biometric.touchID.title" = "터치 ID";
+
+"general.error.subtitle.notfound" = "걱정하지 마세요. 현재 이 문제를 해결하고 있습니다.\n곧 모든 것이 정상 작동할 것입니다!";
+
+"general.error.title.noconnectiontotheinternet" = "인터넷에 연결되어 있지 않습니다";
+
+"general.error.title.notfound" = "이런… 모두 다 깨졌습니다!";
 
 "general.label.title.myasset" = "/ 나의 자산";
 
@@ -445,6 +473,10 @@
 
 "general.ticker.title.wavestoken" = "Waves 토큰";
 
+"general.tost.saveBackup.subtitle" = "SEED를 안전하게 보관하세요. 귀하의 지갑을 복원시킬 수 있는 유일한 방법입니다";
+
+"general.tost.saveBackup.title" = "백업 구절 저장 (SEED)";
+
 "hello.button.continue" = "계속";
 
 "hello.button.next" = "다음";
@@ -461,7 +493,7 @@
 
 "hello.page.info.fifth.title" = "피싱공격 예방 방법";
 
-"hello.page.info.first.detail" = "자산을 안전하게 보관하기 위해 몇가지 중요한 사항을 이해해야 합니다. \n\n만약 피싱 사이트를 방문하거나 백업 구절(일명 SEED) 분실 시 당사는 귀하의 자금을 되찾거나 계정을 정지할 수 없습니다. \n\n당사의 플랫폼을 이용함에 따라 귀하는 백업 구절(SEED) 분실에 관련된 모든 위험을 감수하는 것에 동의하는 것이며 이는 귀하의 자금 확보 및 처분이 불가능한 경우를 포함하며 이에 국한되지 않습니다. 귀하가 SEED를 분실할 경우 Waves Platform은 이에 따른 부정적인 결과에 어떠한 책임도 없다는 것에 동의하고 승인합니다.";
+"hello.page.info.first.detail" = "자산을 안전하게 보관하기 위해 몇가지 중요한 사항을 이해해야 합니다.\n\n만약 피싱 사이트를 방문하거나 백업 구절(일명 SEED) 분실 시 당사는 귀하의 자금을 되찾거나 계정을 정지할 수 없습니다.\n\n당사의 플랫폼을 이용함에 따라 귀하는 백업 구절(SEED) 분실에 관련된 모든 위험을 감수하는 것에 동의하는 것이며 이는 귀하의 자금 확보 및 처분이 불가능한 경우를 포함하며 이에 국한되지 않습니다. 귀하가 SEED를 분실할 경우 Waves Platform은 이에 따른 부정적인 결과에 어떠한 책임도 없다는 것에 동의하고 승인합니다.";
 
 "hello.page.info.first.title" = "Waves Platform에 오신것을 환영합니다!";
 
@@ -501,6 +533,10 @@
 
 "history.segmentedControl.sent" = "발신 내역";
 
+"history.transaction.cell.exchange.buy" = "매수: %@/%@";
+
+"history.transaction.cell.exchange.sell" = "매도: %@/%@";
+
 "history.transaction.title.alias" = "Alias 생성";
 
 "history.transaction.title.canceledLeasing" = "취소된 Leasing";
@@ -510,6 +546,10 @@
 "history.transaction.title.exchange" = "거래 내역";
 
 "history.transaction.title.incomingLeasing" = "들어오는 Leasing";
+
+"history.transaction.title.massreceived" = "대량 수신";
+
+"history.transaction.title.masssent" = "대량 전송";
 
 "history.transaction.title.received" = "수신 내역";
 
@@ -535,11 +575,13 @@
 
 "import.account.label.info.step.one.detail" = "설정 — 보안 — 페어링 코드";
 
-"import.account.label.info.step.one.title" = "Mac 또는 PC를 통해 Waves 클라이언트에 로그인하세요 https://beta.wavesplatform.com";
+"import.account.label.info.step.one.title" = "Mac 또는 PC를 통해 Waves 클라이언트에 로그인하세요https://beta.wavesplatform.com";
 
 "import.account.label.info.step.two.title" = "QR 코드를 확인하기 위해 «페어링 코드 보기»를 클릭하세요. 카메라로 QR 코드를 스캔하세요.";
 
 "import.account.navigation.title" = "계정 가져오기";
+
+"import.general.error.alreadyinuse" = "이미 사용 중입니다";
 
 "import.general.navigation.title" = "계정 불러오기";
 
@@ -585,7 +627,7 @@
 
 "legal.checkbox.box.third" = "나는 본 이용 약관을 읽었으며 이해하고 동의합니다";
 
-"legal.checkbox.box.title" = "완료! 재검토하겠습니다.";
+"legal.checkbox.box.title" = "완료!";
 
 "menu.button.supportwavesplatform" = "Wavesplatform 지원센터";
 
@@ -621,11 +663,13 @@
 
 "networksettings.textfield.spamfilter.title" = "스팸 필터";
 
-"newaccount.avatar.detail" = "본 아바타는 고유합니다. 추후 변경할 수 없습니다";
+"newaccount.avatar.detail" = "향후 변경할 수 없습니다";
 
-"newaccount.avatar.title" = "귀하의 아바타 선택";
+"newaccount.avatar.title" = "귀하의 고유한 주소 아바타를 선택하세요";
 
 "newaccount.backup.navigation.title" = "신규 계정";
+
+"newaccount.error.noavatarselected" = "아바타가 선택되지 않았습니다";
 
 "newaccount.main.navigation.title" = "신규 계정";
 
@@ -639,7 +683,25 @@
 
 "newaccount.textfield.error.atleastcharacters" = "최소 %d 글자";
 
+"newaccount.textfield.error.charactersmaximum" = "최대 %d 글자";
+
+"newaccount.textfield.error.doesnotmatch" = "일치하지 않습니다";
+
+"newaccount.textfield.error.minimumcharacters" = "최소 %d 글자";
+
 "newaccount.textfield.error.passwordnotmatch" = "비밀번호가 일치하지 않습니다";
+
+"newaccount.textfield.error.wrongordertryagain" = "잘못된 주문입니다. 다시 시도하세요";
+
+"passcode.alert.attempsended.button.cancel" = "취소";
+
+"passcode.alert.attempsended.button.enterpassword" = "비밀번호 입력";
+
+"passcode.alert.attempsended.button.ok" = "확인";
+
+"passcode.alert.attempsended.subtitle" = "잠금을 해제하려면 계정 비밀번호로 로그인 하세요";
+
+"passcode.alert.attempsended.title" = "시도 횟수 초과";
 
 "passcode.button.forgotPasscode.title" = "계정 비밀번호 사용";
 
@@ -714,6 +776,8 @@
 "receive.button.invoice" = "인보이스";
 
 "receive.button.useTotalBalance" = "모든 잔액 사용";
+
+"receive.error.serviceUnavailable" = "서비스를 일시적으로 사용할 수 없습니다";
 
 "receive.label.amount" = "수량";
 
@@ -791,7 +855,7 @@
 
 "send.label.recipient" = "수신자";
 
-"send.label.recipientAddress" = "수신자 주소...";
+"send.label.recipientAddress" = "수신자 주소…";
 
 "send.label.send" = "전송";
 
@@ -823,7 +887,31 @@
 
 "sendconfirmation.label.sentTo" = "받는 주소";
 
-"sendloading.label.sending" = "전송 중...";
+"sendloading.label.sending" = "전송 중…";
+
+"serverDisconnect.label.subtitle" = "모바일 인터넷 또는 Wi-Fi 네트워크에 연결되어있는지 확인하세요";
+
+"serverDisconnect.label.title" = "인터넷에 연결되어있지 않습니다";
+
+"serverEngineering.label.subtitle" = "현재 어플리케이션을 개선하기 위해 매우 중요한 업무를 수행하고 있습니다";
+
+"serverEngineering.label.title" = "엔지니어링 작업";
+
+"serverError.button.retry" = "재시도";
+
+"serverError.button.sendReport" = "오류 보고서 보내기";
+
+"serverError.label.allBroken" = "이런… 모두 다 깨졌습니다!";
+
+"serverError.label.allBrokenDescription" = "걱정하지 마세요. 현재 이 문제를 해결하고 있습니다.\n곧 모든 것이 정상 작동할 것입니다!";
+
+"serverError.label.noInternetConnection" = "인터넷에 연결되어있지 않습니다";
+
+"serverError.label.noInternetConnectionDescription" = "모바일 인터넷 또는 Wi-Fi 네트워크에 연결되어있는지 확인하세요";
+
+"serverError.label.subtitle" = "걱정하지 마세요. 현재 이 문제를 해결하고 있습니다.\n곧 모든 것이 정상 작동할 것입니다!";
+
+"serverError.label.title" = "이런… 모두 다 깨졌습니다!";
 
 "startleasing.button.chooseFromAddressBook" = "주소록에서 선택";
 
@@ -841,7 +929,9 @@
 
 "startleasing.label.generator" = "Generator";
 
-"startleasing.label.nodeAddress" = "노드 주소...";
+"startleasing.label.insufficientFunds" = "잔액이 부족합니다";
+
+"startleasing.label.nodeAddress" = "노드 주소…";
 
 "startleasing.label.notEnough" = "충분하지 않습니다";
 
@@ -849,67 +939,67 @@
 
 "startleasing.label.transactionFee" = "트랜잭션 수수료";
 
-"startleasingcomplete.button.okey" = "Okay";
+"startleasingcomplete.button.okey" = "알겠습니다";
 
-"startleasingcomplete.label.youHaveCanceledTransaction" = "You have canceled a leasing transaction";
+"startleasingcomplete.label.youHaveCanceledTransaction" = "Leasing 트랜잭션을 취소했습니다";
 
-"startleasingcomplete.label.youHaveLeased" = "You have leased %@ %@";
+"startleasingcomplete.label.youHaveLeased" = "%@ %@ 를 Lease 했습니다";
 
-"startleasingcomplete.label.yourTransactionIsOnWay" = "Your transaction is on way!";
+"startleasingcomplete.label.yourTransactionIsOnWay" = "트랜잭션이 진행 중입니다!";
 
-"startleasingconfirmation.button.cancelLeasing" = "Cancel leasing";
+"startleasingconfirmation.button.cancelLeasing" = "Leasing 취소";
 
-"startleasingconfirmation.button.confirm" = "Confirm";
+"startleasingconfirmation.button.confirm" = "승인";
 
 "startleasingconfirmation.label.TXID" = "TXID";
 
-"startleasingconfirmation.label.confirmation" = "Confirmation";
+"startleasingconfirmation.label.confirmation" = "승인";
 
-"startleasingconfirmation.label.fee" = "Fee";
+"startleasingconfirmation.label.fee" = "수수료";
 
 "startleasingconfirmation.label.leasingTX" = "Leasing TX";
 
-"startleasingconfirmation.label.nodeAddress" = "Node address";
+"startleasingconfirmation.label.nodeAddress" = "노드 주소";
 
-"startleasingloading.label.cancelLeasing" = "Cancel leasing...";
+"startleasingloading.label.cancelLeasing" = "Leasing 취소…";
 
-"startleasingloading.label.startLeasing" = "Start leasing...";
+"startleasingloading.label.startLeasing" = "Leasing 시작…";
 
-"tokenBurn.button.burn" = "Burn";
+"tokenBurn.button.burn" = "소각";
 
-"tokenBurn.button.continue" = "Continue";
+"tokenBurn.button.continue" = "계속";
 
-"tokenBurn.button.okey" = "Okay";
+"tokenBurn.button.okey" = "알겠습니다";
 
-"tokenBurn.button.useTotalBalanace" = "Use total balance";
+"tokenBurn.button.useTotalBalanace" = "잔액 모두 사용";
 
-"tokenBurn.label.confirmation" = "Confirmation";
+"tokenBurn.label.confirmation" = "승인";
 
-"tokenBurn.label.error.insufficientFunds" = "Insufficient funds";
+"tokenBurn.label.error.insufficientFunds" = "자금이 충분하지 않습니다";
 
-"tokenBurn.label.error.notFundsFee" = "You don't have enough funds to pay the required fees.";
+"tokenBurn.label.error.notFundsFee" = "수수료를 지불할 수 있는 충분한 자금이 없습니다.";
 
-"tokenBurn.label.fee" = "Fee";
+"tokenBurn.label.fee" = "수수료";
 
 "tokenBurn.label.id" = "ID";
 
-"tokenBurn.label.loading" = "Burn...";
+"tokenBurn.label.loading" = "소각…";
 
-"tokenBurn.label.notReissuable" = "Not reissuable";
+"tokenBurn.label.notReissuable" = "재발행 불가";
 
-"tokenBurn.label.quantityTokensBurned" = "Quantity of tokens to be burned";
+"tokenBurn.label.quantityTokensBurned" = "소각될 토큰 수량";
 
-"tokenBurn.label.reissuable" = "Reissuable";
+"tokenBurn.label.reissuable" = "재발행 가능";
 
-"tokenBurn.label.tokenBurn" = "Token Burn";
+"tokenBurn.label.tokenBurn" = "토큰 소각";
 
-"tokenBurn.label.transactionFee" = "Transaction Fee %@ %@";
+"tokenBurn.label.transactionFee" = "트랜잭션 수수료 %@ %@";
 
-"tokenBurn.label.transactionIsOnWay" = "Your transaction is on the way!";
+"tokenBurn.label.transactionIsOnWay" = "트랜잭션이 진행 중입니다!";
 
-"tokenBurn.label.type" = "Type";
+"tokenBurn.label.type" = "유형";
 
-"tokenBurn.label.youHaveBurned" = "You have burned";
+"tokenBurn.label.youHaveBurned" = "소각을 완료했습니다";
 
 "transactionhistory.button.copied" = "복사 완료";
 
@@ -922,6 +1012,8 @@
 "transactionhistory.cell.button.cancelLeasing" = "Leasing 취소";
 
 "transactionhistory.cell.button.sendAgain" = "재전송";
+
+"transactionhistory.cell.buy" = "매수: %@/%@";
 
 "transactionhistory.cell.confirmations" = "승인";
 
@@ -943,9 +1035,11 @@
 
 "transactionhistory.cell.recipient" = "수신자";
 
-"transactionhistory.cell.recipients" = "Recipients";
+"transactionhistory.cell.recipients" = "수령인";
 
 "transactionhistory.cell.reissuable" = "재발행 가능";
+
+"transactionhistory.cell.sell" = "매도: %@/%@";
 
 "transactionhistory.cell.sentTo" = "받는 주소";
 
@@ -958,6 +1052,8 @@
 "transactionhistory.cell.status.button.unconfirmed" = "미승인";
 
 "transactionhistory.cell.status.timestamp" = "타임 스탬프";
+
+"transactionhistory.cell.type" = "유형";
 
 "transactionhistory.copy.amount" = "수량";
 
@@ -977,9 +1073,9 @@
 
 "usetouchid.button.useBiometric.text" = "%@ 사용";
 
-"usetouchid.label.detail.text" = "%@을 사용하여 귀하의 계정에 쉽게 액세스하세요";
+"usetouchid.label.detail.text" = "%@ 을 사용하여 귀하의 계정에 쉽게 액세스하세요";
 
-"usetouchid.label.title.text" = "%@을 사용하여 로그인하시겠습니까?";
+"usetouchid.label.title.text" = "%@ 을 사용하여 로그인하시겠습니까?";
 
 "wallet.button.startLease" = "Lease 시작";
 
@@ -988,6 +1084,8 @@
 "wallet.label.leased" = "Lease된 수량";
 
 "wallet.label.leasedIn" = "Lease 받은 수량";
+
+"wallet.label.myAssets" = "나의 자산";
 
 "wallet.label.quickNote.description.first" = "Lease 되지 않은 WAVES만 전송 및 거래가 가능합니다. Lease된 수량은 당신 또는 어떠한 사람이라도 전송하거나 거래할 수 없습니다.";
 
@@ -1005,7 +1103,7 @@
 
 "wallet.section.activeNow" = "지금 활성화 (%d)";
 
-"wallet.section.hiddenAssets" = "숨긴 자산 (%1$s)";
+"wallet.section.hiddenAssets" = "숨긴 자산 (%d)";
 
 "wallet.section.quickNote" = "퀵노트";
 

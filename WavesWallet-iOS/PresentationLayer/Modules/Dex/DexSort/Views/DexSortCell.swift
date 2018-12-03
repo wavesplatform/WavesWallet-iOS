@@ -12,10 +12,10 @@ final class DexSortCell: UITableViewCell, Reusable {
     
     @IBOutlet weak var viewContainer: UIView!
     @IBOutlet weak var labelTitle: UILabel!
-    
+    private var isDragging: Bool = false
+
     var buttonDeleteDidTap: (() -> Void)?
 
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContainer.addTableCellShadowStyle()
@@ -23,6 +23,28 @@ final class DexSortCell: UITableViewCell, Reusable {
 
     @IBAction func deleteTapped(_ sender: Any) {
         buttonDeleteDidTap?()
+    }
+
+    func beginMove() {
+        viewContainer.removeShadow()
+    }
+
+    func endMove() {
+        viewContainer.addTableCellShadowStyle()
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        if self.alpha <= 0.9 && !isDragging {
+            isDragging = true
+            beginMove()
+        }
+
+        if self.alpha <= 0.9 && isDragging {
+            isDragging = false
+            endMove()
+        }
     }
 }
 

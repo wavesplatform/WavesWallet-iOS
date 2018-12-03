@@ -21,6 +21,8 @@ final class AssetInteractor: AssetInteractorProtocol {
 
     private let transactionsInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
 
+    private let walletSortInteractor: WalletSortInteractor = WalletSortInteractor()
+
     private let refreshAssetsSubject: PublishSubject<[AssetTypes.DTO.Asset]> = PublishSubject<[AssetTypes.DTO.Asset]>()
     private let disposeBag: DisposeBag = DisposeBag()
 
@@ -81,6 +83,8 @@ final class AssetInteractor: AssetInteractorProtocol {
 
     func toggleFavoriteFlagForAsset(by id: String, isFavorite: Bool) {
 
+
+
         authorizationInteractor
             .authorizedWallet()
             .flatMap { [weak self] wallet -> Observable<(wallet: DomainLayer.DTO.Wallet,
@@ -95,14 +99,19 @@ final class AssetInteractor: AssetInteractorProtocol {
             .flatMap { [weak self] data -> Observable<Bool> in
 
                 guard let owner = self else { return Observable.never() }
-                let newBalance = data
-                    .balance
-                    .mutate { $0.settings?.isFavorite = isFavorite }
 
-                return owner
-                    .accountBalanceRepositoryLocal
-                    .saveBalance(newBalance, accountAddress: data.wallet.address)
-                    .map { _ in return true }
+                let a = WalletSort.DTO.Asset.init(id: data.balance.assetId,
+                                          name: data.balance.asset!.displayName,
+                                          isLock: data.balance.asset!.isWaves,
+                                          isMyWavesToken: data.balance.asset!.isMyWavesToken,
+                                          isFavorite: isFavorite,
+                                          isGateway: data.balance.asset!.isGateway,
+                                          isHidden: data.balance.settings!.isHidden,
+                                          sortLevel: data.balance.settings!.sortLevel,
+                                          icon: data.balance.asset!.icon)
+
+                owner.walletSortInteractor.update(asset: a)
+                return Observable.just(true)
             }
             .subscribe()
             .disposed(by: disposeBag)

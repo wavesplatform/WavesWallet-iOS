@@ -43,5 +43,10 @@
       "title": "Deutsch",
       "icon": "flag18Germany",
       "code": "de"
+  },
+  {
+      "title": "日本語",
+      "icon": "flag18Japan",
+      "code": "ja"
   }
 ]

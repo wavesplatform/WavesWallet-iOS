@@ -11,7 +11,7 @@ import RxSwift
 
 protocol TokenBurnLoadingViewControllerDelegate: AnyObject {
     
-    func tokenBurnLoadingViewControllerDidFail(error: ResponseTypeError)
+    func tokenBurnLoadingViewControllerDidFail(error: NetworkError)
 }
 
 final class TokenBurnLoadingViewController: UIViewController {

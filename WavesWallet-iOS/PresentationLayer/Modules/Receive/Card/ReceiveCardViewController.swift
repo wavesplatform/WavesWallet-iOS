@@ -201,10 +201,12 @@ private extension ReceiveCardViewController {
         }
     }
     
-    func showError(_ error: ResponseTypeError) {
+    func showError(_ error: NetworkError) {
         acitivityIndicatorAmount.stopAnimating()
         acitivityIndicatorWarning.stopAnimating()
-        showMessageSnack(title: Localizable.Waves.Receive.Error.serviceUnavailable)
+        
+        showNetworkErrorSnack(error: error,
+                              customTitle: Localizable.Waves.Receive.Error.serviceUnavailable)
     }
     
     func setupButtonState() {

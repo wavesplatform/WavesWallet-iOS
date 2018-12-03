@@ -22,7 +22,9 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
         newFeedbacks.append(assetsQuery())
 
         Driver.system(initialState: WalletSort.State.initialState,
-                      reduce: reduce,
+                      reduce: { [weak self] state, event in
+                        return self?.reduce(state: state, event: event) ?? state
+                     },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
@@ -46,7 +48,8 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
     private func reduce(state: WalletSort.State, event: WalletSort.Event) -> WalletSort.State {
         switch event {
         case .dragAsset(let sourceIndexPath, let destinationIndexPath):
-
+            print("source \(sourceIndexPath)")
+            print("destinationIndexPath \(destinationIndexPath)")
             let movableAsset = state
                 .sections[sourceIndexPath.section]
                 .items[sourceIndexPath.row].asset

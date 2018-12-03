@@ -65,6 +65,9 @@ fileprivate extension TransactionType {
 
         case .data:
             return DataTransaction.predicate(specifications)
+
+        default:
+            return UnrecognisedTransaction.predicate(specifications)
         }
     }
 
@@ -110,6 +113,10 @@ fileprivate extension TransactionType {
         case .data:
             guard let dataTransaction = transaction.dataTransaction else { return nil }
             return .data(.init(transaction: dataTransaction))
+
+        default:
+            guard let unrecognisedTransaction = transaction.unrecognisedTransaction else { return nil }
+            return .unrecognised(.init(transaction: unrecognisedTransaction))
         }
     }
 }
