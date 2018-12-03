@@ -94,7 +94,7 @@ private extension TokenBurnViewController {
     }
     
     var availableBalance: Money {
-        return Money(asset.avaliableBalance, asset.asset?.precision ?? 0)
+        return Money(asset.avaliableBalance, asset.asset.precision)
     }
     
     var isValidInputAmount: Bool {
@@ -173,7 +173,7 @@ private extension TokenBurnViewController {
         assetView.update(with: asset)
         
         amountView.delegate = self
-        amountView.setDecimals(asset.asset?.precision ?? 0, forceUpdateMoney: false)
+        amountView.setDecimals(asset.asset.precision, forceUpdateMoney: false)
         
         if !availableBalance.isZero {
             amountView.input = { [weak self] in
@@ -185,7 +185,7 @@ private extension TokenBurnViewController {
     
     func setupLocalization() {
         title = Localizable.Waves.Tokenburn.Label.tokenBurn
-        amountView.setupRightLabelText(asset.asset?.displayName ?? "")
+        amountView.setupRightLabelText(asset.asset.displayName)
         amountView.setupTitle(Localizable.Waves.Tokenburn.Label.quantityTokensBurned)
         buttonContinue.setTitle(Localizable.Waves.Tokenburn.Button.continue, for: .normal)
         labelTransactionFee.text = Localizable.Waves.Tokenburn.Label.transactionFee(fee.displayText, "WAVES")

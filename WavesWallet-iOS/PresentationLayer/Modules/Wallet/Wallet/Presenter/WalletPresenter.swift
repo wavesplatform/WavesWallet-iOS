@@ -223,15 +223,15 @@ final class WalletPresenter: WalletPresenterProtocol {
 
             case .hidden:
                 guard let asset = section.items[indexPath.row].asset else { return  }
-                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.settings!.isHidden == true } )
+                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.settings.isHidden == true } )
 
             case .spam:
                 guard let asset = section.items[indexPath.row].asset else { return  }
-                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.asset!.isSpam == true } )
+                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.asset.isSpam == true } )
 
             case .general:
                 guard let asset = section.items[indexPath.row].asset else { return  }
-                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.asset!.isSpam != true && $0.settings!.isHidden != true } )
+                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.asset.isSpam != true && $0.settings.isHidden != true } )
             case .transactions:
                 let leasingTransactions = section
                     .items

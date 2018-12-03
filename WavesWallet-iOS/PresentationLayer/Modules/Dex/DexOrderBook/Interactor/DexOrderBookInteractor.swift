@@ -136,15 +136,15 @@ private extension DexOrderBookInteractor {
         var wavesBalance = Money(0, GlobalConstants.WavesDecimals)
         
         if let amountAsset = balances.first(where: {$0.assetId == pair.amountAsset.id}) {
-            amountAssetBalance = Money(amountAsset.avaliableBalance, amountAsset.asset?.precision ?? 0)
+            amountAssetBalance = Money(amountAsset.avaliableBalance, amountAsset.asset.precision)
         }
         
         if let priceAsset = balances.first(where: {$0.assetId == pair.priceAsset.id}) {
-            priceAssetBalance = Money(priceAsset.avaliableBalance, priceAsset.asset?.precision ?? 0)
+            priceAssetBalance = Money(priceAsset.avaliableBalance, priceAsset.asset.precision)
         }
         
-        if let wavesAsset = balances.first(where: {$0.asset?.isWaves == true}) {
-            wavesBalance = Money(wavesAsset.avaliableBalance, wavesAsset.asset?.precision ?? 0)
+        if let wavesAsset = balances.first(where: {$0.asset.isWaves == true}) {
+            wavesBalance = Money(wavesAsset.avaliableBalance, wavesAsset.asset.precision)
         }
         
         return DexOrderBook.DTO.DisplayData(asks: asks.reversed(), lastPrice: lastPrice, bids: bids, header: header,

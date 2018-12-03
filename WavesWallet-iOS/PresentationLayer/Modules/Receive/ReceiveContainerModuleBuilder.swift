@@ -17,20 +17,20 @@ struct ReceiveContainerModuleBuilder: ModuleBuilder {
 
         if let asset = input {
             
-            if input?.asset?.isWaves == true {
+            if input?.asset.isWaves == true {
                 vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [],
                                                                         selectedAsset: asset,
                                                                         showAllList: showAllList)), state: .invoice)
                 vc.add(ReceiveCardModuleBuilder().build(), state: .card)
             }
-            else if input?.asset?.isFiat == true {
+            else if input?.asset.isFiat == true {
                 vc.add(ReceiveInvoiceModuleBuilder().build(input: .init(filters: [],
                                                                         selectedAsset: asset,
                                                                         showAllList: showAllList)), state: .invoice)
             }
             else {
                 
-                if input?.asset?.isGeneral == true {
+                if input?.asset.isGeneral == true {
                     vc.add(ReceiveCryptocurrencyModuleBuilder().build(input: .init(filters: [],
                                                                                    selectedAsset: asset,
                                                                                    showAllList: showAllList)), state: .cryptoCurrency)

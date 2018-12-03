@@ -38,7 +38,7 @@ final class AssetListInteractor: AssetListInteractorProtocol {
                 if filters.contains(.all) {
                     
                     if isEnableSpam {
-                        self?._assets = assets.filter({$0.asset?.isSpam == false})
+                        self?._assets = assets.filter({$0.asset.isSpam == false})
                     }
                     else {
                         self?._assets = assets
@@ -68,7 +68,7 @@ final class AssetListInteractor: AssetListInteractorProtocol {
                     let searchText = (try? self?.searchString.value() ?? "") ?? ""
                     
                     let newAssets = assets.filter {
-                        guard let asset = $0.asset else { return false }
+                        let asset = $0.asset
                         return strongSelf.isValidSearch(name: asset.displayName, searchText: searchText)
                     }
                     
@@ -98,7 +98,7 @@ private extension AssetListInteractor {
         if filters.contains(.waves) {
             
             filterAssets.append(contentsOf: assets.filter({
-                guard let asset = $0.asset else { return false }
+                let asset = $0.asset
                 
                 return asset.isFiat == false &&
                     asset.isWavesToken == false &&
@@ -109,7 +109,7 @@ private extension AssetListInteractor {
         if filters.contains(.cryptoCurrency) {
             
                 filterAssets.append(contentsOf: assets.filter({
-                    guard let asset = $0.asset else { return false }
+                    let asset = $0.asset
                     
                     return asset.isFiat == false &&
                         asset.isWavesToken == false &&
@@ -120,7 +120,7 @@ private extension AssetListInteractor {
         if filters.contains(.fiat) {
             
                 filterAssets.append(contentsOf: assets.filter({
-                    guard let asset = $0.asset else { return false }
+                    let asset = $0.asset
                     
                     return asset.isFiat == true &&
                         asset.isWavesToken == false &&
@@ -131,7 +131,7 @@ private extension AssetListInteractor {
         if filters.contains(.wavesToken) {
             
                 filterAssets.append(contentsOf: assets.filter({
-                    guard let asset = $0.asset else { return false }
+                    let asset = $0.asset
                     
                     return asset.isFiat == false &&
                         asset.isWavesToken == true &&
@@ -143,7 +143,7 @@ private extension AssetListInteractor {
         if filters.contains(.spam) && !isEnableSpam {
             
             filterAssets.append(contentsOf: assets.filter({
-                guard let asset = $0.asset else { return false }
+                let asset = $0.asset
                 
                 return asset.isSpam == true }))
         }

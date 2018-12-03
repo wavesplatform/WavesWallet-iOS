@@ -77,7 +77,7 @@ fileprivate extension WalletInteractor {
                 let balance = owner.accountBalanceInteractor
                     .balances(by: wallet,
                               isNeedUpdate: isNeedUpdate)
-                    .map { $0.first { $0.asset?.isWaves == true } }
+                    .map { $0.first { $0.asset.isWaves == true } }
                     .flatMap { balance -> Observable<DomainLayer.DTO.SmartAssetBalance> in
                         guard let balance = balance else { return Observable.empty() }
                         return Observable.just(balance)
@@ -94,7 +94,7 @@ fileprivate extension WalletInteractor {
         return collection
             .map { leasing -> WalletTypes.DTO.Leasing in
 
-                let precision = leasing.balance.asset!.precision
+                let precision = leasing.balance.asset.precision
 
                 let incomingLeasingTxs = leasing.transaction.map { tx -> DomainLayer.DTO.SmartTransaction.Leasing? in
                     if case .incomingLeasing(let leasing) = tx.kind {
@@ -158,8 +158,8 @@ fileprivate extension WalletTypes.DTO.Asset {
 
     static func map(from balance: DomainLayer.DTO.SmartAssetBalance) -> WalletTypes.DTO.Asset {
 
-        let asset = balance.asset!
-        let settings = balance.settings!
+        let asset = balance.asset
+        let settings = balance.settings
 
         let id = balance.assetId
         let name = asset.displayName
