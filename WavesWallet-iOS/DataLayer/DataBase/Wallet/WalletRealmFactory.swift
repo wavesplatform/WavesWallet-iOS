@@ -14,11 +14,12 @@ fileprivate enum SchemaVersions: UInt64 {
     case version_2 = 2 // Dev version
     case version_4 = 4 // BetaTest 2.0rc0
     case version_5 = 5 // BetaTest 2.0rc1
-    case version_6 = 6 // Dev Version
+    case version_6 = 6 // v2.0
+    case version_7 = 7 // Dev Version
 }
 
 fileprivate enum Constants {
-    static let currentVersion: SchemaVersions = .version_6
+    static let currentVersion: SchemaVersions = .version_7
     static let isHiddenKey: String = "isHidden"
     static let isSpamKey: String = "isSpam"
     static let assetIdKey: String = "assetId"

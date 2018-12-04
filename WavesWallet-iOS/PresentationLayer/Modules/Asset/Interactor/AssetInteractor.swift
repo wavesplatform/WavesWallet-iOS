@@ -40,8 +40,7 @@ final class AssetInteractor: AssetInteractorProtocol {
             .flatMap(weak: self) { owner, wallet -> Observable<[AssetTypes.DTO.Asset]> in
 
                 owner.accountBalanceInteractor
-                    .balances(by: wallet,
-                              isNeedUpdate: isNeedUpdate)
+                    .balances(by: wallet)
                     .map {
                         $0.filter { asset -> Bool in
                             ids.contains(asset.assetId)

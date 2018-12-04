@@ -26,7 +26,7 @@ final class AssetListInteractor: AssetListInteractorProtocol {
             
             owner._isMyList = isMyList
             
-            let assets = owner.accountBalanceInteractor.balances(isNeedUpdate: false)
+            let assets = owner.accountBalanceInteractor.balances()
             let accountSettings = owner.accountSettings.accountSettings(accountAddress: wallet.address)
             
             let merge = Observable.zip(assets, accountSettings).map({ [weak self] (assets, settings) -> [DomainLayer.DTO.SmartAssetBalance] in
