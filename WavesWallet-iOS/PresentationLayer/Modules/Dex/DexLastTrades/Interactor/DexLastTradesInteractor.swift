@@ -27,7 +27,7 @@ final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
                 owner.getLastSellBuy({ (lastSell, lastBuy) in
                     
                     //TODO: need change api to get only balances by ids
-                    owner.account.balances(isNeedUpdate: false).subscribe(onNext: { (balances) in
+                    owner.account.balances().subscribe(onNext: { (balances) in
                         
                         var amountAssetBalance =  Money(0, owner.pair.amountAsset.decimals)
                         var priceAssetBalance =  Money(0, owner.pair.priceAsset.decimals)

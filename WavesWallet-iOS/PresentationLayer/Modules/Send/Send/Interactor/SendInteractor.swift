@@ -22,7 +22,7 @@ final class SendInteractor: SendInteractorProtocol {
     private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
 
     func assetBalance(by assetID: String) -> Observable<DomainLayer.DTO.SmartAssetBalance?> {
-        return accountBalanceInteractor.balances(isNeedUpdate: false).flatMap({ (balances) -> Observable<DomainLayer.DTO.SmartAssetBalance?>  in
+        return accountBalanceInteractor.balances().flatMap({ (balances) -> Observable<DomainLayer.DTO.SmartAssetBalance?>  in
             
             if let asset = balances.first(where: {$0.assetId == assetID}) {
                 return Observable.just(asset)
@@ -38,7 +38,7 @@ final class SendInteractor: SendInteractorProtocol {
         //isNeedUpdate = false, because Send UI no need waiting animation state
         
         let accountBalance = FactoryInteractors.instance.accountBalance
-        return accountBalance.balances(isNeedUpdate: false)
+        return accountBalance.balances()
             .flatMap({ balances -> Observable<DomainLayer.DTO.SmartAssetBalance> in
                 
                 guard let wavesAsset = balances.first(where: {$0.asset.wavesId == Environments.Constants.wavesAssetId}) else {

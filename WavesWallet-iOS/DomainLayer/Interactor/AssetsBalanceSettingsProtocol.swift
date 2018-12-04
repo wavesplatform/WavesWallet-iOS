@@ -7,13 +7,27 @@
 //
 
 import Foundation
+import RxSwift
 
-protocol AssetsBalanceSettingsProtocol {
-    func registerAssets()
+protocol AssetsBalanceSettingsInteractorProtocol {
+
+    func settings(by ids: [String]) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]>
 }
 
-final class AssetsBalanceSettings: AssetsBalanceSettingsProtocol {
-    func registerAssets() {
+final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProtocol {
 
+    private let assetsBalanceSettingsRepository: AssetsBalanceSettingsRepositoryProtocol = FactoryRepositories.instance.assetsBalanceSettingsRepositoryLocal
+
+    func settings(by ids: [String]) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> {
+
+        let settings = ids.map { (id) -> DomainLayer.DTO.AssetBalanceSettings in
+            return DomainLayer.DTO.AssetBalanceSettings(assetId: id,
+                                                        sortLevel: 1,
+                                                        isHidden: false,
+                                                        isFavorite: false)
+        }
+
+
+        return Observable.just(settings)
     }
 }
