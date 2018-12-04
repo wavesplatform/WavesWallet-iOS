@@ -18,7 +18,7 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
     private func getWavesBalance() -> Observable<DomainLayer.DTO.SmartAssetBalance> {
     
         let accountBalance = FactoryInteractors.instance.accountBalance
-        return accountBalance.balances(isNeedUpdate: true)
+        return accountBalance.balances()
             .flatMap({ balances -> Observable<DomainLayer.DTO.SmartAssetBalance> in
                 
                 guard let wavesAsset = balances.first(where: {$0.asset.wavesId == GlobalConstants.wavesAssetId}) else {
