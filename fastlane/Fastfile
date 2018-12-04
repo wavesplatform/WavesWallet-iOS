@@ -87,6 +87,7 @@ platform :ios do
   end
 
   lane :create_changelog do 
+    sh("echo 'create changelog'")
     ROOT=File.expand_path("..", Dir.pwd)
     ENV['FL_BUILD_NUMBER_PROJECT'] = "#{ROOT}/WavesWallet-iOS.xcodeproj"
     build_number = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'")
@@ -120,6 +121,8 @@ platform :ios do
     ROOT=File.expand_path("..", Dir.pwd)
     ENV['SUMBIT_PAPTH']="#{ROOT}/Pods/Crashlytics/submit"
     ENV['IPA_PATH']="#{ROOT}/WavesWallet-iOS.ipa"        
+
+    sh("echo 'run_fabric'")
     sh("bash #{Dir.pwd}/run_fabric.sh")
 
     upload_symbols_to_crashlytics(gsp_path: "#{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
