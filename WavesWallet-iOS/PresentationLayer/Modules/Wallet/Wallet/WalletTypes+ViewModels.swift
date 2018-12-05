@@ -66,7 +66,7 @@ extension WalletTypes.ViewModel.Section {
 
     static func map(from assets: [DomainLayer.DTO.SmartAssetBalance]) -> [WalletTypes.ViewModel.Section] {
         let generalItems = assets
-//            .filter { $0.asset.isSpam != true && $0.settings.isHidden != true }
+            .filter { $0.asset.isSpam != true && $0.settings.isHidden != true }
 //            .sorted(by: { (asset1, asset2) -> Bool in
 //
 //                if asset1.asset.isWaves == true {
