@@ -13,6 +13,6 @@ protocol DexChartInteractorProtocol {
     
     var pair: DexTraderContainer.DTO.Pair! { get set }
     
-    func candles(timeFrame: DexChart.DTO.TimeFrameType, timeStart: Date, timeEnd: Date) -> Observable<[DexChart.DTO.Candle]>
+    func candles(timeFrame: DomainLayer.DTO.Candle.TimeFrameType, timeStart: Date, timeEnd: Date) -> Observable<[DomainLayer.DTO.Candle]>
     
 }

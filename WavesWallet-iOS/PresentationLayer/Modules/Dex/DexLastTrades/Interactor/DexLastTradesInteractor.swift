@@ -11,55 +11,44 @@ import RxSwift
 import SwiftyJSON
 import Moya
 
+private enum Constants {
+    static let limit = 100
+}
+
 final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
     
     private let account = FactoryInteractors.instance.accountBalance
-    private let disposeBag = DisposeBag()
-    private let apiProvider: MoyaProvider<API.Service.Transactions> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
-    private let accountEnvironment = FactoryRepositories.instance.environmentRepository
-    private let auth = FactoryInteractors.instance.authorization
+    private let lastTradesRepository = FactoryRepositories.instance.lastTradesRespository
     
     var pair: DexTraderContainer.DTO.Pair!
 
     func displayInfo() -> Observable<(DexLastTrades.DTO.DisplayData)> {
 
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<(DexLastTrades.DTO.DisplayData)>  in
-            guard let owner = self else { return Observable.empty() }
-            
-            return owner.accountEnvironment.accountEnvironment(accountAddress: wallet.address)
-                .flatMap({ [weak self] (environment) -> Observable<(DexLastTrades.DTO.DisplayData)> in
-                    guard let owner = self else { return Observable.empty() }
-                    
-                    return Observable.zip(
-                    owner.getLastTrades(wallet: wallet.address, environment: environment),
-                    owner.getLastSellBuy(),
-                    owner.account.balances(isNeedUpdate: false))
-                        .flatMap({ [weak self] (lastTrades, lastSellBuy, balances) -> Observable<(DexLastTrades.DTO.DisplayData)> in
-                            guard let owner = self else { return Observable.empty() }
-                            
-                            return owner.displayData(lastTrades: lastTrades,
-                                                     lastSellBuy: lastSellBuy,
-                                                     balances:  balances)
-                        })
-                })
-        })
-        .catchError({ [weak self] (error) -> Observable<(DexLastTrades.DTO.DisplayData)> in
-            guard let owner = self else { return Observable.empty() }
-            
-            let display = DexLastTrades.DTO.DisplayData(trades: [],
-                                                        lastSell: nil,
-                                                        lastBuy:  nil,
-                                                        availableAmountAssetBalance: Money(0, owner.pair.amountAsset.decimals),
-                                                        availablePriceAssetBalance: Money(0, owner.pair.priceAsset.decimals),
-                                                        availableWavesBalance: Money(0, GlobalConstants.WavesDecimals))
-            return Observable.just(display)
-        })
+        return Observable.zip(getLastTrades(), getLastSellBuy(), account.balances(isNeedUpdate: false))
+            .flatMap({ [weak self] (lastTrades, lastSellBuy, balances) -> Observable<(DexLastTrades.DTO.DisplayData)> in
+                guard let owner = self else { return Observable.empty() }
+                
+                return owner.displayData(lastTrades: lastTrades,
+                                         lastSellBuy: lastSellBuy,
+                                         balances:  balances)
+            })
+            .catchError({ [weak self] (error) -> Observable<(DexLastTrades.DTO.DisplayData)> in
+                guard let owner = self else { return Observable.empty() }
+                
+                let display = DexLastTrades.DTO.DisplayData(trades: [],
+                                                            lastSell: nil,
+                                                            lastBuy:  nil,
+                                                            availableAmountAssetBalance: Money(0, owner.pair.amountAsset.decimals),
+                                                            availablePriceAssetBalance: Money(0, owner.pair.priceAsset.decimals),
+                                                            availableWavesBalance: Money(0, GlobalConstants.WavesDecimals))
+                return Observable.just(display)
+            })
     }
 }
 
 private extension DexLastTradesInteractor {
     
-    func displayData(lastTrades: [DexLastTrades.DTO.Trade],
+    func displayData(lastTrades: [DomainLayer.DTO.DexLastTrade],
                      lastSellBuy: (sell: DexLastTrades.DTO.SellBuyTrade?, buy: DexLastTrades.DTO.SellBuyTrade?),
                      balances: [DomainLayer.DTO.AssetBalance]) -> Observable<DexLastTrades.DTO.DisplayData> {
         
@@ -88,46 +77,11 @@ private extension DexLastTradesInteractor {
         return Observable.just(display)
     }
     
-    func getLastTrades(wallet: String, environment: Environment) -> Observable<[DexLastTrades.DTO.Trade]> {
+    func getLastTrades() -> Observable<[DomainLayer.DTO.DexLastTrade]> {
 
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(DateFormatter.iso())
-
-        let filters = API.Query.ExchangeFilters(matcher: nil, sender: nil, timeStart: nil, timeEnd: nil,
-                                                amountAsset: pair.amountAsset.id,
-                                                priceAsset: pair.priceAsset.id,
-                                                after: nil,
-                                                limit: 100)
-        
-        return apiProvider.rx.request(.init(kind: .getExchangeWithFilters(filters), environment: environment),
-                                            callbackQueue: DispatchQueue.global(qos: .background))
-        .filterSuccessfulStatusAndRedirectCodes()
-        .asObservable()
-        .catchError({ (error) -> Observable<Response> in
-            return Observable.error(NetworkError.error(by: error))
-        })
-        .map(API.Response<[API.Response<API.DTO.ExchangeTransaction>]>.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
-        .map { $0.data.map { $0.data } }
-        .flatMap({ [weak self] (transactions) -> Observable<[DexLastTrades.DTO.Trade]> in
-            
-            guard let owner = self else { return Observable.empty() }
-            
-            var trades: [DexLastTrades.DTO.Trade] = []
-            for tx in transactions {
-                
-                let sum = Money(value: Decimal(tx.price * tx.amount), owner.pair.priceAsset.decimals)
-                let orderType: Dex.DTO.OrderType = tx.orderType == .sell ? .sell : .buy
-                
-                let model = DexLastTrades.DTO.Trade(time: tx.timestamp,
-                                                    price: Money(value: Decimal(tx.price), owner.pair.priceAsset.decimals),
-                                                    amount: Money(value: Decimal(tx.amount), owner.pair.amountAsset.decimals),
-                                                    sum: sum,
-                                                    type: orderType)
-                trades.append(model)
-            }
-            
-            return Observable.just(trades)
-        })
+        return lastTradesRepository.lastTrades(amountAsset: pair.amountAsset,
+                                               priceAsset: pair.priceAsset,
+                                               limit: Constants.limit)
     }
     
     func getLastSellBuy() -> Observable<(sell: DexLastTrades.DTO.SellBuyTrade?, buy: DexLastTrades.DTO.SellBuyTrade?)> {
@@ -136,6 +90,7 @@ private extension DexLastTradesInteractor {
         
             guard let owner = self else { return Disposables.create() }
             
+            //TODO: need move to repository
             let url = GlobalConstants.Matcher.orderBook(owner.pair.amountAsset.id, owner.pair.priceAsset.id)
             
             NetworkManager.getRequestWithUrl(url, parameters: nil) { (info, error) in
