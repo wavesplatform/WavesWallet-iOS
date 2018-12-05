@@ -11,6 +11,8 @@ import UIKit
 private enum Constants {
     static let animationFrameDuration: TimeInterval = 0.3
     static let animationErrorLabelDuration: TimeInterval = 0.3
+    static let borderRadius: CGFloat = 2
+    static let borderWidth: CGFloat = 0.5
 }
 
 protocol AmountInputViewDelegate: AnyObject {
@@ -33,6 +35,12 @@ final class AmountInputView: UIView, NibOwnerLoadable {
     weak var delegate: AmountInputViewDelegate?
     var input:(() -> [Money])?
 
+    var isBlockMode = false {
+        didSet {
+            updateViewStyle()
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNibContent()
@@ -92,8 +100,33 @@ final class AmountInputView: UIView, NibOwnerLoadable {
         }
         textFieldMoney.setValue(value: amount)
     }
+    
+    func clearMoney() {
+        textFieldMoney.clear()
+    }
 }
 
+//MARK: - UI
+private extension AmountInputView {
+    func updateViewStyle() {
+        if isBlockMode {
+            textFieldMoney.isUserInteractionEnabled = false
+            viewTextField.layer.removeShadow()
+            viewTextField.backgroundColor = .clear
+            viewTextField.layer.cornerRadius = Constants.borderRadius
+            viewTextField.layer.borderWidth = Constants.borderWidth
+            viewTextField.layer.borderColor = UIColor.overlayDark.cgColor
+        }
+        else {
+            textFieldMoney.isUserInteractionEnabled = true
+            viewTextField.backgroundColor = .white
+            viewTextField.layer.cornerRadius = 0
+            viewTextField.layer.borderWidth = 0
+            viewTextField.layer.borderColor = nil
+            viewTextField.addTableCellShadowStyle()
+        }
+    }
+}
 
 //MARK: - MoneyTextFieldDelegate
 extension AmountInputView: MoneyTextFieldDelegate {

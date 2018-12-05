@@ -75,8 +75,9 @@ final class AssetListInteractor: AssetListInteractorProtocol {
                     return strongSelf.filterIsMyAsset(newAssets)
             }
         })
-       
-        
+        .catchError({ (error) -> Observable<[DomainLayer.DTO.AssetBalance]> in
+            return Observable.just([])
+        })
     }
     
     func searchAssets(searchText: String) {

@@ -28,6 +28,7 @@ enum Send {
         case didGetWavesAsset(DomainLayer.DTO.AssetBalance)
         case moneroAddressDidGenerate(ResponseType<String>)
         case getAssetById(String)
+        case cancelGetingAsset
         case didGetAssetBalance(DomainLayer.DTO.AssetBalance?)
     }
     

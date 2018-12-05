@@ -14,6 +14,8 @@ import RxCocoa
 
 private enum Constants {
     static let animationDuration: TimeInterval = 0.3
+    static let borderRadius: CGFloat = 2
+    static let borderWidth: CGFloat = 0.5
 }
 
 protocol AddressInputViewDelegate: AnyObject {
@@ -24,6 +26,14 @@ protocol AddressInputViewDelegate: AnyObject {
     func addressInputViewDidScanAddress(_ address: String, amount: Money?, assetID: String?)
     func addressInputViewDidTapNext()
     func addressInputViewDidEndEditing()
+    func addressInputViewDidStartLoadingInfo()
+    func addressInputViewDidRemoveBlockMode()
+
+}
+
+extension AddressInputViewDelegate {
+    func addressInputViewDidStartLoadingInfo() {}
+    func addressInputViewDidRemoveBlockMode() {}
 }
 
 final class AddressInputView: UIView, NibOwnerLoadable {
@@ -57,6 +67,11 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     private var isHiddenDeleteButton = true
     private var isShowErrorLabel = false
     
+    var isBlockAddressMode: Bool = false {
+        didSet {
+            updateStyleView()
+        }
+    }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNibContent()
@@ -111,6 +126,10 @@ final class AddressInputView: UIView, NibOwnerLoadable {
         setupText("", animation: true)
         delegate?.addressInputViewDidDeleteAddress()
         showLabelError(isShow: false)
+        if isBlockAddressMode {
+            isBlockAddressMode = false
+            delegate?.addressInputViewDidRemoveBlockMode()
+        }
     }
     
     @IBAction private func scanTapped(_ sender: Any) {
@@ -212,6 +231,26 @@ extension AddressInputView: UITextFieldDelegate {
 
 private extension AddressInputView {
     
+    func updateStyleView() {
+        
+        if isBlockAddressMode {
+            textField.isUserInteractionEnabled = false
+            viewContentTextField.layer.removeShadow()
+            viewContentTextField.backgroundColor = .clear
+            viewContentTextField.layer.cornerRadius = Constants.borderRadius
+            viewContentTextField.layer.borderWidth = Constants.borderWidth
+            viewContentTextField.layer.borderColor = UIColor.overlayDark.cgColor
+        }
+        else {
+            textField.isUserInteractionEnabled = true
+            viewContentTextField.backgroundColor = .white
+            viewContentTextField.layer.cornerRadius = 0
+            viewContentTextField.layer.borderWidth = 0
+            viewContentTextField.layer.borderColor = nil
+            viewContentTextField.addTableCellShadowStyle()
+        }
+    }
+    
     func setupButtonsState() {
         if textField.text?.count ?? 0 > 0 {
             
@@ -305,24 +344,32 @@ private extension AddressInputView {
 
                 let address = QRCodeParser.parseAddress(value)
                 let assetID = QRCodeParser.parseAssetID(value)
-                self.getDecimals(assetID: assetID).asDriver { (error) -> SharedSequence<DriverSharingStrategy, Int> in
-                    return SharedSequence.just(0)
-                    }.drive(onNext: { (decimals) in
-                        
-                        self.setupText(address, animation: false)
-                        self.delegate?.addressInputViewDidScanAddress(address,
-                                                                      amount: QRCodeParser.parseAmount(value, decimals: decimals),
-                                                                      assetID: assetID)
+                let amount = QRCodeParser.parseAmount(value)
+                self.setupText(address, animation: false)
 
-                      
-                    }).disposed(by: self.disposeBag)
+                if amount > 0 {
+                    self.getDecimals(assetID: assetID).asDriver { (error) -> SharedSequence<DriverSharingStrategy, Int> in
+                        return SharedSequence.just(0)
+                        }.drive(onNext: { (decimals) in
+                            
+                            let amount = Money(value: Decimal(amount), decimals)
+                            self.delegate?.addressInputViewDidScanAddress(address,
+                                                                          amount: amount,
+                                                                          assetID: assetID)
+                            
+                            
+                        }).disposed(by: self.disposeBag)
+                }
+                else {
+                    self.delegate?.addressInputViewDidScanAddress(address,
+                                                                  amount: nil,
+                                                                  assetID: assetID)
+                }
                 
+                self.firstAvailableViewController().dismiss(animated: true, completion: nil)
             }
-            
-            self.firstAvailableViewController().dismiss(animated: true, completion: nil)
         }
         
-        // Presents the readerVC as modal form sheet
         readerVC.modalPresentationStyle = .formSheet
         
         firstAvailableViewController().present(readerVC, animated: true)
@@ -334,6 +381,9 @@ private extension AddressInputView {
         }
         
         guard let assetID = assetID else { return Observable.just(0) }
+        
+        delegate?.addressInputViewDidStartLoadingInfo()
+        
         return auth.authorizedWallet().flatMap({[weak self] (wallet) -> Observable<Int> in
             guard let owner = self else { return Observable.empty() }
             return owner.assetInteractor.assets(by: [assetID], accountAddress: wallet.address, isNeedUpdated: false)
