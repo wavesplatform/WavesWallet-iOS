@@ -24,6 +24,8 @@ extension Float {
 
 protocol AssetsBalanceSettingsRepositoryProtocol {
     func settings(by accountAddress: String, ids: [String]) -> Observable<[String: DomainLayer.DTO.AssetBalanceSettings]>
+    func settings(by accountAddress: String) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]>
+    func listenerSettings(by accountAddress: String, ids: [String]) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]>
     func saveSettings(by accountAddress: String, settings: [DomainLayer.DTO.AssetBalanceSettings]) -> Observable<Bool>
 }
 
@@ -52,6 +54,54 @@ final class AssetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositor
         })
     }
 
+    func settings(by accountAddress: String) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> {
+        return Observable.create({ (observer) -> Disposable in
+
+            guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
+                observer.onError(RepositoryError.fail)
+                return Disposables.create()
+            }
+
+            let objects = realm.objects(AssetBalanceSettings.self)
+                .toArray()
+
+            let settings = objects
+                .map { DomainLayer.DTO.AssetBalanceSettings($0) }
+
+            observer.onNext(settings)
+            observer.onCompleted()
+
+            return Disposables.create()
+        })
+    }
+
+    func listenerSettings(by accountAddress: String, ids: [String]) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> {
+        return Observable.create({ (observer) -> Disposable in
+
+            guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
+                observer.onError(RepositoryError.fail)
+                return Disposables.create()
+            }
+
+            let objects = realm.objects(AssetBalanceSettings.self)
+                .filter("assetId IN %@",ids)
+
+            let dispose = Observable
+                .collection(from: objects)
+                .map({ (results) -> [DomainLayer.DTO.AssetBalanceSettings] in
+                    return results
+                        .toArray()
+                        .map({ (settings) -> DomainLayer.DTO.AssetBalanceSettings in
+                            return  DomainLayer.DTO.AssetBalanceSettings(settings)
+                        })
+                })
+                .bind(to: observer)
+
+            return Disposables.create([dispose])
+        })
+        .subscribeOn(Schedulers.realmThreadScheduler)
+    }
+
     func saveSettings(by accountAddress: String,
                       settings: [DomainLayer.DTO.AssetBalanceSettings]) -> Observable<Bool> {
 
@@ -65,7 +115,7 @@ final class AssetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositor
             do {
                 try realm.write {
                     settings.forEach({ (settings) in
-                        realm.add(AssetBalanceSettings(settings))
+                        realm.add(AssetBalanceSettings(settings), update: true)
                     })
                 }
                 observer.onNext(true)
