@@ -11,6 +11,7 @@ import RxSwift
 
 private enum Constants {
     static let sortLevelNotFound: Float = -1
+    static let step: Float = 0.005
 }
 
 protocol AssetsBalanceSettingsInteractorProtocol {
@@ -108,7 +109,7 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
                 guard var asset = settingsMap[assetId] else { return Observable.never() }
                 guard let underAsset = settingsMap[underAssetId] else { return Observable.never() }
 
-                asset.sortLevel = underAsset.sortLevel + 0.005
+                asset.sortLevel = underAsset.sortLevel + Constants.step
 
                 return owner.assetsBalanceSettingsRepository.saveSettings(by: accountAddress,
                                                                           settings: [asset])
@@ -124,7 +125,7 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
                 guard var asset = settingsMap[assetId] else { return Observable.never() }
                 guard let overAssetId = settingsMap[overAssetId] else { return Observable.never() }
 
-                asset.sortLevel = overAssetId.sortLevel - 0.005
+                asset.sortLevel = overAssetId.sortLevel - Constants.step
 
                 return owner.assetsBalanceSettingsRepository.saveSettings(by: accountAddress,
                                                                           settings: [asset])
@@ -143,12 +144,20 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
 
                 guard var asset = settings.first(where: { $0.assetId == assetId }) else { return Observable.never() }
 
+                if asset.isFavorite == isFavorite {
+                    return Observable.just(true)
+                }
+
+                if asset.assetId == GlobalConstants.wavesAssetId {
+                    return Observable.just(true)
+                }
+
                 if isFavorite {
                     guard let topFavorite = sortedSettings.first(where: { $0.isFavorite == true }) else { return Observable.never() }
-                    asset.sortLevel = topFavorite.sortLevel - 0.005
+                    asset.sortLevel = topFavorite.sortLevel + Constants.step
                 } else {
-                    guard let topNotFavorite = sortedSettings.first(where: { $0.isFavorite == true }) else { return Observable.never() }
-                    asset.sortLevel = topNotFavorite.sortLevel + 0.005
+                    guard let topNotFavorite = sortedSettings.first(where: { $0.isFavorite == false }) else { return Observable.never() }
+                    asset.sortLevel = topNotFavorite.sortLevel - Constants.step
                 }
                 asset.isFavorite = isFavorite
 
