@@ -160,6 +160,7 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
                     asset.sortLevel = topNotFavorite.sortLevel - Constants.step
                 }
                 asset.isFavorite = isFavorite
+                asset.isHidden = false
 
                 return owner.assetsBalanceSettingsRepository.saveSettings(by: accountAddress,
                                                                           settings: [asset])
@@ -175,6 +176,7 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
                 guard var asset = settings[assetId] else { return Observable.never() }
 
                 asset.isHidden = isHidden
+                asset.isFavorite = false
 
                 return owner.assetsBalanceSettingsRepository.saveSettings(by: accountAddress,
                                                                           settings: [asset])

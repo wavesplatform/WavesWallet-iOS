@@ -21,7 +21,7 @@ final class AssetInteractor: AssetInteractorProtocol {
 
     private let transactionsInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
 
-    private let walletSortInteractor: WalletSortInteractor = WalletSortInteractor()
+    private let assetsBalanceSettings: AssetsBalanceSettingsInteractorProtocol = FactoryInteractors.instance.assetsBalanceSettings
 
     private let refreshAssetsSubject: PublishSubject<[AssetTypes.DTO.Asset]> = PublishSubject<[AssetTypes.DTO.Asset]>()
     private let disposeBag: DisposeBag = DisposeBag()
@@ -82,38 +82,15 @@ final class AssetInteractor: AssetInteractorProtocol {
 
     func toggleFavoriteFlagForAsset(by id: String, isFavorite: Bool) {
 
+        return authorizationInteractor
+            .authorizedWallet()
+            .flatMap { [weak self] wallet -> Observable<Bool> in
+                guard let owner = self else { return Observable.never() }
+                return owner.assetsBalanceSettings.setFavorite(by: wallet.address, assetId: id, isFavorite: isFavorite)
+            }
+            .subscribe()
+            .disposed(by: disposeBag)
 
-
-//        authorizationInteractor
-//            .authorizedWallet()
-//            .flatMap { [weak self] wallet -> Observable<(wallet: DomainLayer.DTO.Wallet,
-//                balance: DomainLayer.DTO.SmartAssetBalance)> in
-//
-//                guard let owner = self else { return Observable.never() }
-//                return owner
-//                    .accountBalanceRepositoryLocal
-//                    .balance(by: id, accountAddress: wallet.address)
-//                    .map { (wallet: wallet.wallet, balance: $0) }
-//            }
-//            .flatMap { [weak self] data -> Observable<Bool> in
-//
-//                guard let owner = self else { return Observable.never() }
-//
-//                let a = WalletSort.DTO.Asset.init(id: data.balance.assetId,
-//                                          name: data.balance.asset!.displayName,
-//                                          isLock: data.balance.asset!.isWaves,
-//                                          isMyWavesToken: data.balance.asset!.isMyWavesToken,
-//                                          isFavorite: isFavorite,
-//                                          isGateway: data.balance.asset!.isGateway,
-//                                          isHidden: data.balance.settings!.isHidden,
-//                                          sortLevel: data.balance.settings!.sortLevel,
-//                                          icon: data.balance.asset!.icon)
-//
-//                owner.walletSortInteractor.update(asset: a)
-//                return Observable.just(true)
-//            }
-//            .subscribe()
-//            .disposed(by: disposeBag)
     }
 }
 
