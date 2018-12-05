@@ -48,7 +48,7 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
 
         let assets = self.input.map { DomainLayer.DTO.SmartAssetBalance.map(from: $0) }
 
-        var newFeedbacks = feedbacks
+        let newFeedbacks = feedbacks
 
         Driver.system(initialState: WalletSort.State.initialState(assets: assets),
                       reduce: { [weak self] state, event in

@@ -30,7 +30,6 @@ final class WalletPresenter: WalletPresenterProtocol {
         var newFeedbacks = feedbacks
         newFeedbacks.append(queryAssets())
         newFeedbacks.append(queryLeasing())
-//        newFeedbacks.append(queryListenerAssets())
 
         Driver
             .system(initialState: WalletPresenter.initialState(),
@@ -41,27 +40,6 @@ final class WalletPresenter: WalletPresenterProtocol {
 
             .drive()
             .disposed(by: disposeBag)
-    }
-
-    private func queryListenerAssets() -> Feedback {
-        return react(query: { (state) -> Bool? in
-
-            if state.displayState.kind == .assets {
-                return true
-            } else {
-                return nil
-            }
-
-        }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
-
-            return Observable.never()
-//            return FactoryInteractors.instance.authorization.authorizedWallet().flatMap({ (wallet) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
-//                return FactoryRepositories.instance.accountBalanceRepositoryLocal.listenerOfUpdatedBalances(by: wallet.address)
-//            })
-            .map { .setAssets($0) }
-            .sweetDebugWithoutResponse("Born")
-            .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
-        })
     }
 
     private func queryAssets() -> Feedback {
