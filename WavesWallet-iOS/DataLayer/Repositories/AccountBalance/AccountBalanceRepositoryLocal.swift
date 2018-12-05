@@ -32,34 +32,6 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
         }
     }
 
-    func balances(by accountAddress: String,
-                  specification: AccountBalanceSpecifications) -> Observable<[DomainLayer.DTO.AssetBalance]> {
-        return Observable.create { (observer) -> Disposable in
-
-            guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
-                observer.onError(AccountBalanceRepositoryError.fail)
-                return Disposables.create()
-            }
-
-            let objects = realm
-                .objects(AssetBalance.self)
-                .filter(specification.predicate)
-
-//            if let sort = specification.sortParameters, case .sortLevel = sort.kind {
-//                objects = objects.sorted(byKeyPath: "settings.sortLevel", ascending: sort.ascending)
-//            }
-
-            let balances = objects
-                .toArray()
-                .map { DomainLayer.DTO.AssetBalance(balance: $0) }
-
-            observer.onNext(balances)
-            observer.onCompleted()
-
-            return Disposables.create()
-        }
-    }
-
     func balance(by id: String, accountAddress: String) -> Observable<DomainLayer.DTO.AssetBalance> {
 
         return Observable.create { (observer) -> Disposable in
@@ -184,23 +156,5 @@ fileprivate extension AssetBalance {
         self.balance = balance.totalBalance
         self.leasedBalance = balance.leasedBalance
         self.inOrderBalance = balance.inOrderBalance
-    }
-}
-
-fileprivate extension AccountBalanceSpecifications {
-
-    var predicate: NSPredicate {
-
-        var predicates: [NSPredicate] = .init()
-
-        if let isSpam = self.isSpam {
-            predicates.append(NSPredicate(format: "asset.isSpam == \(isSpam)"))
-        }
-
-        if let isFavorite = self.isFavorite {
-            predicates.append(NSPredicate(format: "settings.isFavorite == \(isFavorite)"))
-        }
-
-        return NSCompoundPredicate.init(andPredicateWithSubpredicates: predicates)
     }
 }

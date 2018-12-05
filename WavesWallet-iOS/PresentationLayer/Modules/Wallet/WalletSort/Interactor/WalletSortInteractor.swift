@@ -15,28 +15,6 @@ private enum Constants {
     static let stepSize: Float = 0.000001
 }
 
-private extension WalletSort.DTO.Asset {
-
-    static func map(from balance: DomainLayer.DTO.SmartAssetBalance) -> WalletSort.DTO.Asset {
-
-        let isLock = balance.asset.isWaves == true
-        let isMyWavesToken = balance.asset.isMyWavesToken
-        let isFavorite = balance.settings.isFavorite
-        let isGateway = balance.asset.isGateway
-        let isHidden = balance.settings.isHidden
-        let sortLevel = balance.settings.sortLevel
-        return WalletSort.DTO.Asset(id: balance.assetId,
-                                    name: balance.asset.displayName,
-                                    isLock: isLock,
-                                    isMyWavesToken: isMyWavesToken,
-                                    isFavorite: isFavorite,
-                                    isGateway: isGateway,
-                                    isHidden: isHidden,
-                                    sortLevel: sortLevel,
-                                    icon: balance.asset.icon)
-    }
-}
-
 final class WalletSortInteractor: WalletSortInteractorProtocol {
 
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
@@ -54,11 +32,6 @@ final class WalletSortInteractor: WalletSortInteractorProtocol {
 //
 //                return owner
 //                    .accountBalanceRepository
-//                    .balances(by: wallet.address,
-//                              specification: .init(isSpam: false,
-//                                                   isFavorite: nil,
-//                                                   sortParameters: .init(ascending: true,
-//                                                                         kind: .sortLevel)))
 //                    .map({ balances -> [WalletSort.DTO.Asset] in
 //                        return balances.map { WalletSort.DTO.Asset.map(from: $0) }
 //                    })

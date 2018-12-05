@@ -25,6 +25,8 @@ fileprivate enum Constants {
     static let assetIdKey: String = "assetId"
     static let settingsKey: String = "settings"
     static let nameKey: String = "name"
+    static let sortLevel: String = "sortLevel"
+    static let sortLevelNotFound: Float = -1
 }
 
 enum WalletRealmFactory {
@@ -110,6 +112,10 @@ enum WalletRealmFactory {
             if oldSchemaVersion < SchemaVersions.version_6.rawValue {
                 removeTransaction(migration: migration)
             }
+
+            if oldSchemaVersion < SchemaVersions.version_7.rawValue {
+               resetAssetSort(migration: migration)
+            }
         }
 
         return config
@@ -118,6 +124,12 @@ enum WalletRealmFactory {
     static func realm(accountAddress: String) throws -> Realm {
         let config = create(accountAddress: accountAddress)
         return try Realm(configuration: config)
+    }
+
+    static func resetAssetSort(migration: Migration) {
+        migration.enumerateObjects(ofType: AssetBalanceSettings.className()) { oldObject, newObject in
+            newObject?[Constants.sortLevel] = Constants.sortLevelNotFound
+        }
     }
 
     static func removeTransaction(migration: Migration) {
