@@ -383,6 +383,9 @@ extension HistoryViewController: UITableViewDelegate {
             return HistoryTransactionSkeletonCell.cellHeight()
             
         case .transaction:
+            if indexPath.row == sections[indexPath.section].items.count - 1 {
+                return HistoryTransactionCell.lastCellHeight()
+            }
             return HistoryTransactionCell.cellHeight()
         }
 
