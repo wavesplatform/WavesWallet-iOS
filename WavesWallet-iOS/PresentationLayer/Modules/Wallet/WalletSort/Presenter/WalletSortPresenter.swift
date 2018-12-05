@@ -49,7 +49,6 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
         let assets = self.input.map { DomainLayer.DTO.SmartAssetBalance.map(from: $0) }
 
         var newFeedbacks = feedbacks
-//        newFeedbacks.append(assetsQuery())
 
         Driver.system(initialState: WalletSort.State.initialState(assets: assets),
                       reduce: { [weak self] state, event in
@@ -58,21 +57,6 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
-    }
-
-    private func assetsQuery() -> Feedback {
-        return react(query: { state -> Bool? in
-            return state.isNeedRefreshing == true ? true : nil
-        }, effects: { [weak self] _ -> Signal<WalletSort.Event> in
-
-            // TODO: Error
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf
-                .interactor
-                .assets()
-                .map { .setAssets($0) }
-                .asSignal(onErrorSignalWith: Signal.empty())
-        })
     }
 
     private func reduce(state: WalletSort.State, event: WalletSort.Event) -> WalletSort.State {
@@ -86,8 +70,7 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
         switch event {
         case .dragAsset(let sourceIndexPath, let destinationIndexPath):
 
-            print("source \(sourceIndexPath)")
-            print("destinationIndexPath \(destinationIndexPath)")
+
 
             let movableAsset = state
                 .sections[sourceIndexPath.section]
@@ -98,8 +81,14 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
 
             if let movableAsset = movableAsset, let toAsset = toAsset {
                 if sourceIndexPath.row > destinationIndexPath.row {
+
+                    debug("asset \(movableAsset.name)")
+                    debug("overAsset \(toAsset.name)")
+
                     interactor.move(asset: movableAsset, overAsset: toAsset)
                 } else {
+                    debug("asset \(movableAsset.name)")
+                    debug("underAsset \(toAsset.name)")
                     interactor.move(asset: movableAsset, underAsset: toAsset)
                 }
             }
@@ -114,14 +103,12 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
 
         case .tapHidden(let indexPath):
 
-            if var asset = state
+            guard let asset = state
                 .sections[indexPath.section]
                 .items[indexPath.row]
-                .asset {
-                asset.isHidden = !asset.isHidden
-                interactor.update(asset: asset)
-            }
+                .asset else { return }
 
+            interactor.setHidden(assetId: asset.id, isHidden: !asset.isHidden)
 
             state.toogleHiddenAsset(state: &state,
                                     indexPath: indexPath)
@@ -129,14 +116,12 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
 
         case .tapFavoriteButton(let indexPath):
 
-            if var asset = state
+            guard let asset = state
                 .sections[indexPath.section]
                 .items[indexPath.row]
-                .asset
-            {
-                asset.isFavorite = !asset.isFavorite
-                interactor.update(asset: asset)
-            }
+                .asset else { return }
+
+            interactor.setFavorite(assetId: asset.id, isFavorite: !asset.isFavorite)
 
             state.toogleFavoriteAsset(state: &state,
                                       indexPath: indexPath)

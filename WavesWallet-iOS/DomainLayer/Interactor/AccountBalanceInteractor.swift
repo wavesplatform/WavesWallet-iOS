@@ -190,6 +190,7 @@ private extension AccountBalanceInteractor {
                                                     modified: balance.modified)
         }
         .compactMap { $0 }
+        .sorted(by: { $0.settings.sortLevel < $1.settings.sortLevel })
 
         return Observable.just(newBalances)
     }
