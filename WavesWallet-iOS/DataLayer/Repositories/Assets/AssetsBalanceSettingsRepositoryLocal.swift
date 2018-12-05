@@ -16,8 +16,15 @@ enum RepositoryError: Error {
     case notFound
 }
 
+extension Float {
+    var notFound: Float {
+        return -1
+    }
+}
+
 protocol AssetsBalanceSettingsRepositoryProtocol {
     func settings(by accountAddress: String, ids: [String]) -> Observable<[String: DomainLayer.DTO.AssetBalanceSettings]>
+    func saveSettings(by accountAddress: String, settings: [DomainLayer.DTO.AssetBalanceSettings]) -> Observable<Bool>
 }
 
 final class AssetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositoryProtocol {
@@ -32,7 +39,7 @@ final class AssetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositor
             }
 
             let objects = realm.objects(AssetBalanceSettings.self)
-                .filter("id in %@",ids)
+                .filter("assetId IN %@",ids)
                 .toArray()
 
             let settings = objects
@@ -46,7 +53,7 @@ final class AssetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositor
     }
 
     func saveSettings(by accountAddress: String,
-                      settings: DomainLayer.DTO.AssetBalanceSettings) -> Observable<Bool> {
+                      settings: [DomainLayer.DTO.AssetBalanceSettings]) -> Observable<Bool> {
 
         return Observable.create({ observer -> Disposable in
 
@@ -57,10 +64,12 @@ final class AssetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositor
 
             do {
                 try realm.write {
-                    realm.add(AssetBalanceSettings(settings))
-                    observer.onNext(true)
-                    observer.onCompleted()
+                    settings.forEach({ (settings) in
+                        realm.add(AssetBalanceSettings(settings))
+                    })
                 }
+                observer.onNext(true)
+                observer.onCompleted()
             } catch let error {
                 SweetLogger.error(error)
                 observer.onError(RepositoryError.fail)

@@ -148,18 +148,20 @@ private extension AccountBalanceInteractor {
 
                 }
         }
-        .map { (balances) -> [String: DomainLayer.DTO.Asset] in
-                return balances.reduce(into: [String: DomainLayer.DTO.Asset](), { $0[$1.id] = $1 })
-        }
-
-        let settings = assetsBalanceSettings
-            .settings(by: Array(assetsIDs))
-            .map { (balances) -> [String: DomainLayer.DTO.AssetBalanceSettings] in
-                return balances.reduce(into: [String: DomainLayer.DTO.AssetBalanceSettings](), { $0[$1.assetId] = $1 })
-            }
 
         return assets
-            .flatMapLatest({ (mapAssets) -> Observable<MappingQuery> in
+            .flatMapLatest({ [weak self] (assets) -> Observable<MappingQuery> in
+
+                guard let owner = self else { return Observable.never() }
+
+                let settings = owner.assetsBalanceSettings
+                    .settings(by: wallet.address, assets: assets)
+                    .map { (balances) -> [String: DomainLayer.DTO.AssetBalanceSettings] in
+                        return balances.reduce(into: [String: DomainLayer.DTO.AssetBalanceSettings](), { $0[$1.assetId] = $1 })
+                }
+
+                let mapAssets = assets.reduce(into: [String: DomainLayer.DTO.Asset](), { $0[$1.id] = $1 })
+
                 return settings.map { MappingQuery(balances: balances,
                                                    assets: mapAssets,
                                                    settings: $0) }

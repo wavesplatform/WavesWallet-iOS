@@ -43,11 +43,6 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
         return Observable.never()
     }
 
-    func balances(by accountAddress: String, specification: AccountBalanceSpecifications) -> Observable<[DomainLayer.DTO.AssetBalance]> {
-        assertMethodDontSupported()
-        return Observable.never()
-    }
-
     func deleteBalances(_ balances:[DomainLayer.DTO.AssetBalance], accountAddress: String) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
