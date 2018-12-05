@@ -87,8 +87,8 @@ final class WalletCoordinator: Coordinator {
 
 extension WalletCoordinator: WalletModuleOutput {
 
-    func showWalletSort() {
-        let vc = WalletSortModuleBuilder().build()
+    func showWalletSort(balances: [DomainLayer.DTO.SmartAssetBalance]) {
+        let vc = WalletSortModuleBuilder().build(input: balances)
         navigationController?.pushViewController(vc, animated: true)
     }
 

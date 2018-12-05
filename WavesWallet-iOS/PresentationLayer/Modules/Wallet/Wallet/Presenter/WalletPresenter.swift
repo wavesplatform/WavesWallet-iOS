@@ -178,7 +178,7 @@ final class WalletPresenter: WalletPresenterProtocol {
             state.displayState.currentDisplay = currentDisplay
 
         case .tapSortButton:
-            moduleOutput?.showWalletSort()
+            moduleOutput?.showWalletSort(balances: state.assets)
 
         case .tapAddressButton:
             moduleOutput?.showMyAddress()

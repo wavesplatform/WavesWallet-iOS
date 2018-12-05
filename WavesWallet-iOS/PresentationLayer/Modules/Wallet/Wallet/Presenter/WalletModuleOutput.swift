@@ -9,7 +9,7 @@
 import Foundation
 
 protocol WalletModuleOutput: AnyObject {
-    func showWalletSort()
+    func showWalletSort(balances: [DomainLayer.DTO.SmartAssetBalance])
     func showMyAddress()
     func showHistoryForLeasing()
     func showAsset(with currentAsset: DomainLayer.DTO.SmartAssetBalance, assets: [DomainLayer.DTO.SmartAssetBalance])
