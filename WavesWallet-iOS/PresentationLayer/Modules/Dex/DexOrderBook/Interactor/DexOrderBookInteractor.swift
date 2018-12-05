@@ -43,7 +43,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
                     
                     guard let owner = self else { return }
 
-                    //TODO: Need use Moya provider
+                    //TODO: need move to repository
                     let url = GlobalConstants.Matcher.orderBook(owner.pair.amountAsset.id, owner.pair.priceAsset.id)
                     
                     NetworkManager.getRequestWithUrl(url, parameters: nil, complete: { (info, error) in
@@ -164,6 +164,7 @@ private extension DexOrderBookInteractor {
     
     func getLastTransactionInfo() -> Observable<API.DTO.ExchangeTransaction?> {
         
+        //TODO: Need move to repository
         let filters = API.Query.ExchangeFilters(matcher: nil, sender: nil, timeStart: nil, timeEnd: nil,
                                                 amountAsset: pair.amountAsset.id,
                                                 priceAsset: pair.priceAsset.id,

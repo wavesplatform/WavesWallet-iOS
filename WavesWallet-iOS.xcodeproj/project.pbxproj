@@ -545,6 +545,12 @@
 		E9193B8320D7E28400F5D983 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9193B8220D7E28400F5D983 /* Profile.storyboard */; };
 		E91DC0E120E0054A00BAB519 /* NetworkSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91DC0E020E0054A00BAB519 /* NetworkSettingsViewController.swift */; };
 		E920372B21A5F4C10055E4D8 /* StartLeasingConfirmModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E920372A21A5F4C10055E4D8 /* StartLeasingConfirmModuleBuilder.swift */; };
+		E922D25F21B81BE800575955 /* CandleDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E922D25E21B81BE800575955 /* CandleDomainDTO.swift */; };
+		E922D26221B81E5700575955 /* CandlesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E922D26121B81E5700575955 /* CandlesRepository.swift */; };
+		E922D26421B82C2100575955 /* CandlesRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E922D26321B82C2100575955 /* CandlesRepositoryProtocol.swift */; };
+		E922D26621B82EF500575955 /* DexLastTradeDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E922D26521B82EF500575955 /* DexLastTradeDomainDTO.swift */; };
+		E922D26821B8311F00575955 /* LastTradesRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E922D26721B8311F00575955 /* LastTradesRepositoryProtocol.swift */; };
+		E922D26A21B831B600575955 /* LastTradesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E922D26921B831B600575955 /* LastTradesRepository.swift */; };
 		E923A765219D53EE000DD9F6 /* TokenBurnInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923A764219D53EE000DD9F6 /* TokenBurnInteractor.swift */; };
 		E923A768219D714E000DD9F6 /* TokenBurnLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923A767219D714E000DD9F6 /* TokenBurnLoadingViewController.swift */; };
 		E923A76D219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923A76C219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift */; };
@@ -1387,6 +1393,12 @@
 		E9193B8420D8A98500F5D983 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E91DC0E020E0054A00BAB519 /* NetworkSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSettingsViewController.swift; sourceTree = "<group>"; };
 		E920372A21A5F4C10055E4D8 /* StartLeasingConfirmModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingConfirmModuleBuilder.swift; sourceTree = "<group>"; };
+		E922D25E21B81BE800575955 /* CandleDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleDomainDTO.swift; sourceTree = "<group>"; };
+		E922D26121B81E5700575955 /* CandlesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandlesRepository.swift; sourceTree = "<group>"; };
+		E922D26321B82C2100575955 /* CandlesRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandlesRepositoryProtocol.swift; sourceTree = "<group>"; };
+		E922D26521B82EF500575955 /* DexLastTradeDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexLastTradeDomainDTO.swift; sourceTree = "<group>"; };
+		E922D26721B8311F00575955 /* LastTradesRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastTradesRepositoryProtocol.swift; sourceTree = "<group>"; };
+		E922D26921B831B600575955 /* LastTradesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastTradesRepository.swift; sourceTree = "<group>"; };
 		E923A764219D53EE000DD9F6 /* TokenBurnInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnInteractor.swift; sourceTree = "<group>"; };
 		E923A767219D714E000DD9F6 /* TokenBurnLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnLoadingViewController.swift; sourceTree = "<group>"; };
 		E923A76C219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnCompleteViewController.swift; sourceTree = "<group>"; };
@@ -2588,6 +2600,8 @@
 				0A88CC07217D281F0083874C /* AccountEnvironmentRepository.swift */,
 				E9F9A27D218540F700FD68D7 /* DexRepository.swift */,
 				0AC33AEF21A826B700B66747 /* NetworkError.swift */,
+				E922D26121B81E5700575955 /* CandlesRepository.swift */,
+				E922D26921B831B600575955 /* LastTradesRepository.swift */,
 				0AF0C67521A97D3900602197 /* Aliases */,
 			);
 			path = Repositories;
@@ -2713,6 +2727,8 @@
 				0A218B94215556F600B989A1 /* AuthenticationRepositoryProtocol.swift */,
 				0A88CC03217D27370083874C /* AccountSettingsRepositoryProtocol.swift */,
 				0A6AC3E321848920005D2525 /* AliasesRepositoryProtocol.swift */,
+				E922D26321B82C2100575955 /* CandlesRepositoryProtocol.swift */,
+				E922D26721B8311F00575955 /* LastTradesRepositoryProtocol.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -2729,6 +2745,8 @@
 				0A88CC05217D27DF0083874C /* AccountSettingsDomainDTO.swift */,
 				0A4D221D21809E3600155A8E /* AccountEnvironmentDomainDTO.swift */,
 				0A6AC3E7218489F5005D2525 /* AliasDomainDTO.swift */,
+				E922D25E21B81BE800575955 /* CandleDomainDTO.swift */,
+				E922D26521B82EF500575955 /* DexLastTradeDomainDTO.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4860,6 +4878,7 @@
 				E9B0879F2163886800937644 /* DexChartCandlePriceView.swift in Sources */,
 				0A3FE8BD2137007500DBF4E1 /* ExchangeTransactionNode.swift in Sources */,
 				0A5E4BCE213820C500E3C3C3 /* ExchangeTransactionDomainDTO.swift in Sources */,
+				E922D25F21B81BE800575955 /* CandleDomainDTO.swift in Sources */,
 				0A3FE8BC2137007500DBF4E1 /* BurnTransactionNode.swift in Sources */,
 				E9D36DCD2175C755001E6DF0 /* ReceiveCryptocurrencyInteractorProtocol.swift in Sources */,
 				0A762D9521639FBF0019D447 /* UIView+SafeArea.swift in Sources */,
@@ -4981,6 +5000,7 @@
 				E965703B219360770052F0FC /* WalletSortFavCell.swift in Sources */,
 				0AF58F9F2192056400C8A4B3 /* PasscodeChangePasswordPresenter.swift in Sources */,
 				0AF922ED212E1234003BA067 /* AssetsSegmentedControl.swift in Sources */,
+				E922D26421B82C2100575955 /* CandlesRepositoryProtocol.swift in Sources */,
 				E9CBE6C22094C0E7008C8F44 /* MenuViewController.swift in Sources */,
 				0AF922FE212E1234003BA067 /* GradientView.swift in Sources */,
 				0AF922F3212E1234003BA067 /* SeparatorView.swift in Sources */,
@@ -5121,6 +5141,7 @@
 				F7C6839A1EA93A4000C87DAF /* Hash.swift in Sources */,
 				0A14CFD4214854BF00C3A4D5 /* Results+Limit.swift in Sources */,
 				E9543902217FF9EC001A7860 /* SendCompleteViewController.swift in Sources */,
+				E922D26621B82EF500575955 /* DexLastTradeDomainDTO.swift in Sources */,
 				0A485E9A2100A8ED00079B49 /* TransferTransaction.swift in Sources */,
 				E9B087D52163886800937644 /* DexListInteractorProtocol.swift in Sources */,
 				E9B087D22163886800937644 /* DexListViewController.swift in Sources */,
@@ -5172,6 +5193,8 @@
 				0ACC0235217E3AED000E3EE0 /* String+URL.swift in Sources */,
 				0A762D8421639FA60019D447 /* TransactionHistoryKeysValuesCell.swift in Sources */,
 				0A96F1DE2152E14D005E148F /* PasscodeBuilder.swift in Sources */,
+				E922D26A21B831B600575955 /* LastTradesRepository.swift in Sources */,
+				E922D26221B81E5700575955 /* CandlesRepository.swift in Sources */,
 				0AFA0C792174A2300003FE3B /* LegalModuleInput.swift in Sources */,
 				0AF922C7212E1234003BA067 /* ObjectDestructor.swift in Sources */,
 				E9B086AE2163883000937644 /* AddAddressBookModuleBuilder.swift in Sources */,
@@ -5236,6 +5259,7 @@
 				0A1DAD7120F3A112004DA625 /* AddressesNodeService.swift in Sources */,
 				E971DA5220FFF4B600616A03 /* BiometricManager.swift in Sources */,
 				0A2CD238216D0F0000162063 /* AuthorizationInteractorProtocol.swift in Sources */,
+				E922D26821B8311F00575955 /* LastTradesRepositoryProtocol.swift in Sources */,
 				0A762D7A21639FA60019D447 /* TransactionHistoryModuleOutput.swift in Sources */,
 				0A5C3202213D916900420004 /* AnyTransaction.swift in Sources */,
 				E92D9BFF2148740B006D6D6B /* InputScrollButtonsView.swift in Sources */,
