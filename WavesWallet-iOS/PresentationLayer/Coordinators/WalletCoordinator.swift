@@ -68,8 +68,7 @@ final class WalletCoordinator: Coordinator {
         self.authorization
             .authorizedWallet()
             .take(1)
-            .subscribe(onNext: { [weak self] wallet in
-                print("authorizedWallet")
+            .subscribe(onNext: { [weak self] wallet in                
                 guard let owner = self else { return }
                 guard wallet.wallet.isAlreadyShowLegalDisplay == false else {
                     owner.showBackupTostIfNeed()
@@ -99,7 +98,7 @@ extension WalletCoordinator: WalletModuleOutput {
         navigationController?.pushViewController(vc, animated: true)
     }
 
-    func showAsset(with currentAsset: WalletTypes.DTO.Asset, assets: [WalletTypes.DTO.Asset]) {
+    func showAsset(with currentAsset: DomainLayer.DTO.AssetBalance, assets: [DomainLayer.DTO.AssetBalance]) {
 
         let vc = AssetModuleBuilder(output: self)
             .build(input: .init(assets: assets,
@@ -187,7 +186,7 @@ extension WalletCoordinator: StartLeasingModuleOutput {
 
 fileprivate extension AssetModuleBuilder.Input {
 
-    init(assets: [WalletTypes.DTO.Asset], currentAsset: WalletTypes.DTO.Asset) {
+    init(assets: [DomainLayer.DTO.AssetBalance], currentAsset: DomainLayer.DTO.AssetBalance) {
         self.assets = assets.map { .init(asset: $0) }
         self.currentAsset = .init(asset: currentAsset)
     }
@@ -195,23 +194,23 @@ fileprivate extension AssetModuleBuilder.Input {
 
 fileprivate extension AssetTypes.DTO.Asset.Info {
 
-    init(asset: WalletTypes.DTO.Asset) {
-        id = asset.id
-        issuer = asset.issuer
-        name = asset.name
-        description = asset.description
-        issueDate = asset.issueDate
-        isReusable = asset.isReusable
-        isMyWavesToken = asset.isMyWavesToken
-        isWavesToken = asset.isWavesToken
-        isWaves = asset.isWaves
-        isFavorite = asset.isFavorite
-        isFiat = asset.isFiat
-        isSpam = asset.isSpam
-        isGateway = asset.isGateway
-        sortLevel = asset.sortLevel
-        icon = asset.icon
-        assetBalance = asset.assetBalance
+    init(asset: DomainLayer.DTO.AssetBalance) {
+        id = asset.asset!.id
+        issuer = asset.asset!.sender
+        name = asset.asset!.displayName
+        description = asset.asset!.description
+        issueDate = asset.asset!.timestamp
+        isReusable = asset.asset!.isReusable
+        isMyWavesToken = asset.asset!.isMyWavesToken
+        isWavesToken = asset.asset!.isWavesToken
+        isWaves = asset.asset!.isWaves
+        isFavorite = asset.settings!.isFavorite
+        isFiat = asset.asset!.isFiat
+        isSpam = asset.asset!.isSpam
+        isGateway = asset.asset!.isGateway
+        sortLevel = asset.settings!.sortLevel
+        icon = asset.asset!.icon
+        assetBalance = asset
     }
 }
 
