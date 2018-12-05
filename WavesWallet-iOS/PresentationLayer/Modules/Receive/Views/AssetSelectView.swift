@@ -58,28 +58,9 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
     }
     
     @IBAction private func buttonTapped(_ sender: Any) {
-        if !isSelectedAssetMode {
-            return
-        }
         delegate?.assetViewDidTapChangeAsset()
     }
-    
-    func setupAssetWavesMode() {
-        viewAsset.isHidden = false
-        labelSelectAsset.isHidden = true
-        
-        labelAssetName.text = "Waves"
-        labelAmount.isHidden = true
-        iconGateway.isHidden = true
-        
-        loadIcon(name: Environments.Constants.wavesAssetId)
-
-    }
-    
-    func showAmount() {
-        labelAmount.isHidden = false
-    }
-    
+  
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNibContent()
@@ -95,16 +76,23 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
     }
     
     func hideLoadingState(isLoadAsset: Bool) {
-        buttonTap.isUserInteractionEnabled = true
-        iconArrows.isHidden = false
+
         activityIndicator.stopAnimating()
         
         if isLoadAsset {
             viewAsset.isHidden = false
         }
         else {
+            buttonTap.isUserInteractionEnabled = true
+            isSelectedAssetMode = true
             labelSelectAsset.isHidden = false
         }
+    }
+    
+    func removeSelectedAssetState() {
+        viewAsset.isHidden = true
+        labelSelectAsset.isHidden = false
+        activityIndicator.stopAnimating()
     }
 }
 
@@ -146,6 +134,8 @@ private extension AssetSelectView {
         iconArrows.isHidden = !isSelectedAssetMode
         
         if isSelectedAssetMode {
+            buttonTap.isUserInteractionEnabled = true
+            
             assetRightOffset.constant = Constants.assetRightOffsetSelectedMode
 
             viewContainer.backgroundColor = .white
@@ -157,6 +147,8 @@ private extension AssetSelectView {
             
         }
         else {
+            buttonTap.isUserInteractionEnabled = false
+            
             assetRightOffset.constant = Constants.assetRightOffsetNotSelectedMode
 
             viewContainer.layer.removeShadow()

@@ -351,10 +351,13 @@ private extension SendViewController {
 //MARK: - UI
 private extension SendViewController {
 
-    func showLoadingAssetState() {
+    func showLoadingAssetState(isLoadingAmount: Bool) {
         isLoadingAssetBalanceAfterScan = true
         setupButtonState()
         assetView.showLoadingState()
+        assetView.isSelectedAssetMode = false
+        recipientAddressView.isBlockAddressMode = true
+        amountView.isBlockMode = isLoadingAmount
     }
     
     func hideLoadingAssetState(isLoadAsset: Bool) {
@@ -529,6 +532,22 @@ private extension SendViewController {
 
 extension SendViewController: AddressInputViewDelegate {
   
+    func addressInputViewDidRemoveBlockMode() {
+        assetView.isSelectedAssetMode = true
+        assetView.removeSelectedAssetState()
+        
+        if amountView.isBlockMode {
+            amountView.isBlockMode = false
+            amountView.clearMoney()
+        }
+        
+        selectedAsset = nil
+        recipientAddressView.decimals = 0
+        setupButtonState()
+        
+        sendEvent.accept(.cancelGetingAsset)
+    }
+    
     func addressInputViewDidTapNext() {
         
         if moneroPaymentIdView.isVisible {
@@ -558,9 +577,9 @@ extension SendViewController: AddressInputViewDelegate {
     
     func addressInputViewDidScanAddress(_ address: String, amount: Money?, assetID: String?) {
         
-        if let asset = assetID, selectedAsset?.assetId != asset, assetView.isSelectedAssetMode {
+        if let asset = assetID, selectedAsset?.assetId != asset, input.selectedAsset == nil {
             sendEvent.accept(.getAssetById(asset))
-            showLoadingAssetState()
+            showLoadingAssetState(isLoadingAmount: amount != nil)
         }
         
         if let amount = amount {
@@ -606,6 +625,10 @@ extension SendViewController: AddressInputViewDelegate {
             updateAmountData()
             updateMoneraPaymentView(animation: true)
         }
+    }
+    
+    func addressInputViewDidStartLoadingInfo() {
+        showLoadingAssetState(isLoadingAmount: true)
     }
 }
 

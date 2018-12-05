@@ -44,7 +44,6 @@ final class ReceiveCardViewController: UIViewController {
         setupButtonState()
         setupFiatText()
         assetView.isSelectedAssetMode = false
-        assetView.setupAssetWavesMode()
         viewWarning.isHidden = true
         textFieldMoney.moneyDelegate = self
         textFieldMoney.setDecimals(amount.decimals, forceUpdateMoney: false)
