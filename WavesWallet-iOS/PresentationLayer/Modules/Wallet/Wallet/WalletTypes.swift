@@ -51,6 +51,7 @@ extension WalletTypes {
         var assets: DisplayState.Display
         var leasing: DisplayState.Display
         var isAppeared: Bool
+        var listenerRefreshData: RefreshData
         var refreshData: RefreshData
     }
 

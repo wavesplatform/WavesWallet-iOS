@@ -30,7 +30,7 @@ final class WalletPresenter: WalletPresenterProtocol {
         var newFeedbacks = feedbacks
         newFeedbacks.append(queryAssets())
         newFeedbacks.append(queryLeasing())
-        newFeedbacks.append(queryListenerAssets())
+//        newFeedbacks.append(queryListenerAssets())
 
         Driver
             .system(initialState: WalletPresenter.initialState(),
@@ -68,23 +68,26 @@ final class WalletPresenter: WalletPresenterProtocol {
         return react(query: { (state) -> Types.DisplayState.RefreshData? in
 
             if state.displayState.kind == .assets {
-                if state.displayState.refreshData == .none {
-                    return nil
-                } else {
+                if state.displayState.refreshData != .none {
                     return state.displayState.refreshData
+                } else if state.displayState.listenerRefreshData != .none {
+                    return state.displayState.listenerRefreshData
+                } else {
+                    return nil
                 }
             } else {
                 return nil
             }
 
         }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
-            
+
+            let arch = arc4random() % 1000
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf
                 .interactor
                 .assets()
                 .map { .setAssets($0) }
-                .sweetDebugWithoutResponse("Test")
+                .sweetDebugWithoutResponse("Balance id \(arch)")
                 .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
         })
     }
@@ -130,11 +133,7 @@ final class WalletPresenter: WalletPresenterProtocol {
         switch event {
         case .viewWillAppear:
             state.displayState.isAppeared = true
-            if state.displayState.refreshData == .update {
-                state.displayState.refreshData = .refresh
-            } else {
-                state.displayState.refreshData = .update
-            }
+            state.displayState.refreshData = .refresh
 
             var hasData = false
 
@@ -252,7 +251,7 @@ final class WalletPresenter: WalletPresenterProtocol {
             state.displayState.currentDisplay = currentDisplay
 
         case .setAssets(let response):
-            state.displayState.refreshData = .none
+
 
             let sections = WalletTypes.ViewModel.Section.map(from: response)
             state.displayState = state.displayState.updateDisplay(kind: .assets,
@@ -266,9 +265,14 @@ final class WalletPresenter: WalletPresenterProtocol {
 
             state.displayState.currentDisplay = currentDisplay
 
+            if state.displayState.refreshData != .none {
+                state.displayState.listenerRefreshData = state.displayState.refreshData
+            }
+//            state.displayState.refreshData = .none
+
         case .setLeasing(let response):
 
-            state.displayState.refreshData = .none
+//            state.displayState.refreshData = .none
             let sections = WalletTypes.ViewModel.Section.map(from: response)
             state.displayState = state.displayState.updateDisplay(kind: .leasing,
                                                                   sections: sections)
