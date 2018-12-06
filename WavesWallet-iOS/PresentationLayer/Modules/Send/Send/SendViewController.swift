@@ -518,7 +518,8 @@ private extension SendViewController {
         let input = AddressInputView.Input(title: Localizable.Waves.Send.Label.recipient,
                                            error: Localizable.Waves.Send.Label.addressNotValid,
                                            placeHolder: Localizable.Waves.Send.Label.recipientAddress,
-                                           contacts: [])
+                                           contacts: [],
+                                           canChangeAsset: self.input.selectedAsset == nil)
         recipientAddressView.update(with: input)
         recipientAddressView.delegate = self
         recipientAddressView.errorValidation = { [weak self] text in

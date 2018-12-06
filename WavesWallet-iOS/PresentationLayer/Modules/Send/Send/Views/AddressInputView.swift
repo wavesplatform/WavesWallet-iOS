@@ -43,6 +43,7 @@ final class AddressInputView: UIView, NibOwnerLoadable {
         let error: String
         let placeHolder: String
         let contacts: [String]
+        let canChangeAsset: Bool
     }
     
     var errorValidation:((String) -> Bool)?
@@ -67,6 +68,7 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     
     private var isHiddenDeleteButton = true
     private var isShowErrorLabel = false
+    private var canChangeAsset = false
     
     var isBlockAddressMode: Bool = false {
         didSet {
@@ -148,6 +150,7 @@ final class AddressInputView: UIView, NibOwnerLoadable {
 extension AddressInputView: ViewConfiguration {
 
     func update(with model: Input) {
+        canChangeAsset = model.canChangeAsset
         labelTitle.text = model.title
         labelError.text = model.error
         textField.placeholder = model.placeHolder
@@ -377,7 +380,7 @@ private extension AddressInputView {
     }
     
     func getDecimals(assetID: String?) -> Observable<Int> {
-        if decimals > 0 {
+        if decimals > 0 && !canChangeAsset {
             return Observable.just(decimals)
         }
         

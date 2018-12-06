@@ -96,9 +96,7 @@ final class AmountInputView: UIView, NibOwnerLoadable {
     
     func setAmount(_ amount: Money) {
         
-        if textFieldMoney.decimals == 0 {
-            textFieldMoney.setDecimals(amount.decimals, forceUpdateMoney: false)
-        }
+        textFieldMoney.setDecimals(amount.decimals, forceUpdateMoney: false)
         textFieldMoney.setValue(value: amount)
     }
     
