@@ -81,17 +81,7 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     }
     
     
-    private lazy var readerVC: QRCodeReaderViewController = {
-        let builder = QRCodeReaderViewControllerBuilder {
-            $0.showSwitchCameraButton = false
-            $0.showTorchButton = true
-            $0.reader = QRCodeReader()
-            $0.readerView = QRCodeReaderContainer(displayable: ScannerCustomView())
-            $0.preferredStatusBarStyle = .lightContent
-        }
-        
-        return QRCodeReaderViewController(builder: builder)
-    }()
+    private lazy var readerVC: QRCodeReaderViewController = QRCodeReaderFactory.deffaultCodeReader
     
     //MARK: - Actions
     @IBAction private func addressDidChange(_ sender: Any) {
@@ -119,9 +109,8 @@ final class AddressInputView: UIView, NibOwnerLoadable {
                 self?.showScanner()
             }, failure: { [weak self] in
                 let alert = CameraAccess.alertController
-                self?.firstAvailableViewController().present(alert, animated: true, completion: nil)
+            self?.firstAvailableViewController().present(alert, animated: true, completion: nil)
         })
-        
     }
 }
 
@@ -305,18 +294,19 @@ private extension AddressInputView {
 
                 let address = QRCodeParser.parseAddress(value)
                 let assetID = QRCodeParser.parseAssetID(value)
-                self.getDecimals(assetID: assetID).asDriver { (error) -> SharedSequence<DriverSharingStrategy, Int> in
-                    return SharedSequence.just(0)
-                    }.drive(onNext: { (decimals) in
+                self
+                    .getDecimals(assetID: assetID)
+                    .asDriver { (error) -> SharedSequence<DriverSharingStrategy, Int> in
+                        return SharedSequence.just(0)
+                    }
+                    .drive(onNext: { (decimals) in
                         
                         self.setupText(address, animation: false)
                         self.delegate?.addressInputViewDidScanAddress(address,
                                                                       amount: QRCodeParser.parseAmount(value, decimals: decimals),
                                                                       assetID: assetID)
-
-                      
-                    }).disposed(by: self.disposeBag)
-                
+                    })
+                    .disposed(by: self.disposeBag)
             }
             
             self.firstAvailableViewController().dismiss(animated: true, completion: nil)
