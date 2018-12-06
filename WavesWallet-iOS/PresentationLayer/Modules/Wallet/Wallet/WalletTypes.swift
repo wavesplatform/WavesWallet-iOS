@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import RxCocoa
 
 enum WalletTypes {}
 
@@ -53,6 +54,7 @@ extension WalletTypes {
         var isAppeared: Bool
         var listenerRefreshData: RefreshData
         var refreshData: RefreshData
+        var listnerSignal: Signal<WalletTypes.Event>?
     }
 
     struct State: Mutating {

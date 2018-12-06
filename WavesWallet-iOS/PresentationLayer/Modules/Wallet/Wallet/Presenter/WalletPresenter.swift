@@ -25,12 +25,16 @@ final class WalletPresenter: WalletPresenterProtocol {
 
     private let disposeBag: DisposeBag = DisposeBag()
 
+    private var assetListener: Signal<WalletTypes.Event>?
+    private var leasingListener: Signal<WalletTypes.Event>?
+
     func system(feedbacks: [Feedback]) {
 
         var newFeedbacks = feedbacks
         newFeedbacks.append(queryAssets())
         newFeedbacks.append(queryAssetsListener())
         newFeedbacks.append(queryLeasing())
+        newFeedbacks.append(queryLeasingListener())
 
         Driver
             .system(initialState: WalletPresenter.initialState(),
@@ -46,28 +50,24 @@ final class WalletPresenter: WalletPresenterProtocol {
     private func queryAssets() -> Feedback {
         return react(query: { (state) -> Types.DisplayState.RefreshData? in
 
-            if state.displayState.kind == .assets {
-                if state.displayState.refreshData != .none {
-                    return state.displayState.refreshData
-                } else if state.displayState.listenerRefreshData != .none {
-                    return state.displayState.listenerRefreshData
-                } else {
-                    return nil
-                }
+            if state.displayState.kind == .assets && state.displayState.refreshData != .none {
+                return state.displayState.refreshData
             } else {
                 return nil
             }
 
         }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
 
-            let arch = arc4random() % 1000
             guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf
+            let signal = strongSelf
                 .interactor
                 .assets()
                 .map { .setAssets($0) }
-                .sweetDebugWithoutResponse("Balance id \(arch)")
-                .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
+                .share()
+                .asSignal(onErrorRecover: { Signal<WalletTypes.Event>.just(.handlerError($0)) })
+
+            strongSelf.assetListener = signal
+            return signal
         })
     }
 
@@ -75,25 +75,33 @@ final class WalletPresenter: WalletPresenterProtocol {
         return react(query: { (state) -> Types.DisplayState.RefreshData? in
 
             if state.displayState.kind == .assets {
-                return .refresh
+                return state.displayState.listenerRefreshData
             } else {
                 return nil
             }
 
         }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
 
-            let arch = arc4random() % 1000
             guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf
-                .interactor
-                .assets()
-                .skip(1)
-                .map { .setAssets($0) }
-                .sweetDebugWithoutResponse("List Balance id \(arch)")
-                .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
+            return strongSelf.assetListener?.skip(1) ?? Signal.never()
         })
     }
 
+    private func queryLeasingListener() -> Feedback {
+        return react(query: { (state) -> Types.DisplayState.RefreshData? in
+
+            if state.displayState.kind == .leasing {
+                return state.displayState.listenerRefreshData
+            } else {
+                return nil
+            }
+
+        }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
+
+            guard let strongSelf = self else { return Signal.empty() }
+            return strongSelf.leasingListener?.skip(1) ?? Signal.never()
+        })
+    }
 
     private func queryLeasing() -> Feedback {
         return react(query: { (state) -> Types.DisplayState.RefreshData? in
@@ -107,11 +115,15 @@ final class WalletPresenter: WalletPresenterProtocol {
         }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
 
             guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf
+            let listener = strongSelf
                 .interactor
                 .leasing()
+                .share()
                 .map { .setLeasing($0) }
-                .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
+                .asSignal(onErrorRecover: { Signal<WalletTypes.Event>.just(.handlerError($0)) })
+
+            strongSelf.leasingListener = listener
+            return listener
         })
     }
 
@@ -192,6 +204,7 @@ final class WalletPresenter: WalletPresenterProtocol {
                 state.displayState.refreshData = .update
             }
 
+
             var hasData = false
 
             switch state.displayState.kind {
@@ -209,7 +222,7 @@ final class WalletPresenter: WalletPresenterProtocol {
                 currentDisplay.errorState = .none
                 currentDisplay.animateType = .refresh(animated: false)
             }
-
+            currentDisplay.isRefreshing = true
             state.displayState.currentDisplay = currentDisplay
 
         case .tapRow(let indexPath):
@@ -255,7 +268,6 @@ final class WalletPresenter: WalletPresenterProtocol {
 
         case .setAssets(let response):
 
-
             let sections = WalletTypes.ViewModel.Section.map(from: response)
             state.displayState = state.displayState.updateDisplay(kind: .assets,
                                                                   sections: sections)
@@ -271,11 +283,9 @@ final class WalletPresenter: WalletPresenterProtocol {
             if state.displayState.refreshData != .none {
                 state.displayState.listenerRefreshData = state.displayState.refreshData
             }
-//            state.displayState.refreshData = .none
 
         case .setLeasing(let response):
 
-//            state.displayState.refreshData = .none
             let sections = WalletTypes.ViewModel.Section.map(from: response)
             state.displayState = state.displayState.updateDisplay(kind: .leasing,
                                                                   sections: sections)
@@ -285,6 +295,10 @@ final class WalletPresenter: WalletPresenterProtocol {
             currentDisplay.errorState = .none
             currentDisplay.isRefreshing = false
             state.displayState.currentDisplay = currentDisplay
+
+            if state.displayState.refreshData != .none {
+                state.displayState.listenerRefreshData = state.displayState.refreshData
+            }
 
         case .showStartLease(let money):
             moduleOutput?.showStartLease(availableMoney: money)
