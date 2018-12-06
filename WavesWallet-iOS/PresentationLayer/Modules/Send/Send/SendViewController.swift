@@ -588,13 +588,15 @@ extension SendViewController: AddressInputViewDelegate {
         if assetID != nil {
             recipientAddressView.isBlockAddressMode = true
             assetView.isSelectedAssetMode = false
-            amountView.isBlockMode = amount != nil
+            amountView.isBlockMode = amount?.isZero == false
         }
         
         amountView.hideAnimation()
         if let amount = amount {
-            self.amount = amount
-            amountView.setAmount(amount)
+            if !amount.isZero {
+                self.amount = amount
+                amountView.setAmount(amount)
+            }
             updateAmountData()
             updateAmountError(animation: false)
         }

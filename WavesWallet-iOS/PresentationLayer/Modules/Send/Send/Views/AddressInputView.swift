@@ -392,19 +392,20 @@ private extension AddressInputView {
             guard let owner = self else { return Observable.empty() }
             
             return owner.assetsRepositoryLocal.assets(by: [assetID], accountAddress: wallet.address)
-                .flatMap({ [weak self] (assets) -> Observable<Int> in
+                .flatMap({ (assets) -> Observable<Int> in
                     
                     if let asset = assets.first(where: {$0.id == assetID}) {
                         return Observable.just(asset.precision)
                     }
+                    return Observable.just(0)
+                })
+                .catchError({ [weak self] (error) -> Observable<Int> in
                     
                     guard let owner = self else { return Observable.empty() }
                     return owner.assetInteractor.assets(by: [assetID], accountAddress: wallet.address, isNeedUpdated: false)
-                        .flatMap({[weak self] (assets) -> Observable<Int> in
+                        .flatMap({ (assets) -> Observable<Int> in
                             
-                            guard let owner = self else { return Observable.empty() }
                             if let asset = assets.first(where: {$0.id == assetID}) {
-                                owner.decimals = asset.precision
                                 return Observable.just(asset.precision)
                             }
                             return Observable.just(0)
