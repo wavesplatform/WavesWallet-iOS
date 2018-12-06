@@ -36,6 +36,10 @@ protocol FactoryRepositoriesProtocol {
 
     var aliasesRepository: AliasesRepositoryProtocol { get }
     var aliasesRepositoryLocal: AliasesRepositoryProtocol { get }
+
+    var candlesRepository: CandlesRepositoryProtocol { get }
+    
+    var lastTradesRespository: LastTradesRepositoryProtocol { get }
 }
 
 protocol RepositoryCache {
