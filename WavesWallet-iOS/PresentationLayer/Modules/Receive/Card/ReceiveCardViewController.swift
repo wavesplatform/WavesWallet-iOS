@@ -52,12 +52,10 @@ final class ReceiveCardViewController: UIViewController {
 
     @IBAction private func continueTapped(_ sender: Any) {
     
-        let browser = BrowserViewController(url: URL(string: urlLink)!)
-        let nav = UINavigationController(rootViewController: browser)
-        present(nav, animated: true, completion: {
-            let vc = StoryboardScene.Receive.receiveCardCompleteViewController.instantiate()
-            self.navigationController?.pushViewController(vc, animated: false)
-        })
+        guard let url = URL(string: urlLink) else { return }
+        UIApplication.shared.openURLAsync(url)
+        let vc = StoryboardScene.Receive.receiveCardCompleteViewController.instantiate()
+        navigationController?.pushViewController(vc, animated: false)
     }
     
     @IBAction private func changeCurrency(_ sender: Any) {
