@@ -127,6 +127,13 @@ final class WalletViewController: UIViewController {
     }
 }
 
+//MARK: - MainTabBarControllerProtocol
+extension WalletViewController: MainTabBarControllerProtocol {
+    func mainTabBarControllerDidTapTab() {
+        tableView.setContentOffset(tableViewTopOffsetForBigNavBar(tableView), animated: true)
+    }
+}
+
 // MARK: UIGestureRecognizerDelegate
 
 extension WalletViewController: UIGestureRecognizerDelegate {
