@@ -85,6 +85,8 @@ final class AssetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositor
 
             let objects = realm.objects(AssetBalanceSettings.self)
                 .filter("assetId IN %@",ids)
+            let t = objects.toArray()
+            debug("objects \(t.count)")
 
             let dispose = Observable
                 .collection(from: objects)

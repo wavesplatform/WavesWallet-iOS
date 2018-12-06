@@ -120,7 +120,8 @@ platform :ios do
     ENV['CRASHLYTICS_BUILD_SECRET']="#{ENV['CRASHLYTICS_BUILD_SECRET']}"
     ROOT=File.expand_path("..", Dir.pwd)
     ENV['SUMBIT_PAPTH']="#{ROOT}/Pods/Crashlytics/submit"
-    ENV['IPA_PATH']="#{ROOT}/WavesWallet-iOS.ipa"        
+    ENV['IPA_PATH']="#{GYM_OUTPUT_DIRECTORY}/#{GYM_OUTPUT_NAME}"
+    # "#{ROOT}/WavesWallet-iOS.ipa"        
 
     puts "upload_crashlytics"
     sh("bash #{Dir.pwd}/run_fabric.sh")
