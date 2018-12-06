@@ -59,6 +59,7 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     
     private let disposeBag = DisposeBag()
     private let assetInteractor = FactoryInteractors.instance.assetsInteractor
+    private let assetsRepositoryLocal = FactoryRepositories.instance.assetsRepositoryLocal
     private let auth = FactoryInteractors.instance.authorization
 
     weak var delegate: AddressInputViewDelegate?
@@ -386,16 +387,27 @@ private extension AddressInputView {
         
         return auth.authorizedWallet().flatMap({[weak self] (wallet) -> Observable<Int> in
             guard let owner = self else { return Observable.empty() }
-            return owner.assetInteractor.assets(by: [assetID], accountAddress: wallet.address, isNeedUpdated: false)
-                .flatMap({[weak self] (assets) -> Observable<Int> in
+            
+            return owner.assetsRepositoryLocal.assets(by: [assetID], accountAddress: wallet.address)
+                .flatMap({ [weak self] (assets) -> Observable<Int> in
                     
-                    guard let owner = self else { return Observable.empty() }
                     if let asset = assets.first(where: {$0.id == assetID}) {
-                        owner.decimals = asset.precision
                         return Observable.just(asset.precision)
                     }
-                    return Observable.just(0)
+                    
+                    guard let owner = self else { return Observable.empty() }
+                    return owner.assetInteractor.assets(by: [assetID], accountAddress: wallet.address, isNeedUpdated: false)
+                        .flatMap({[weak self] (assets) -> Observable<Int> in
+                            
+                            guard let owner = self else { return Observable.empty() }
+                            if let asset = assets.first(where: {$0.id == assetID}) {
+                                owner.decimals = asset.precision
+                                return Observable.just(asset.precision)
+                            }
+                            return Observable.just(0)
+                        })
                 })
+            
         })
     }
 }

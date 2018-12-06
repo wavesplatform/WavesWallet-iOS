@@ -167,7 +167,7 @@ extension AmountInputView: InputScrollButtonsViewDelegate {
         
         if let values = input {
             let value = values()[index]
-            textFieldMoney.setValue(value: value)
+            setAmount(value)
             delegate?.amountInputView(didChangeValue: value)
             updateViewHeight(inputValue: value, animation: true)
         }
