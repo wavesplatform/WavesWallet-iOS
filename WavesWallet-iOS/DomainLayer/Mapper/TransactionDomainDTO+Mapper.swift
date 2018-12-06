@@ -138,13 +138,15 @@ extension DomainLayer.DTO.TransferTransaction {
         }
 
         let balance = asset.balance(self.amount)
-        let transfer: DomainLayer.DTO.SmartTransaction.Transfer = .init(balance: balance,
-                                                                        asset: asset,
-                                                                        recipient: recipient,
-                                                                        attachment: decodedString(attachment))
-
+        
         let transactionDirection = TransactionDirection(sender: sender,
                                                         recipient: recipient)
+        
+        let transfer: DomainLayer.DTO.SmartTransaction.Transfer = .init(balance: balance,
+                                                                        asset: asset,
+                                                                        recipient: transactionDirection == .receive ? sender : recipient,
+                                                                        attachment: decodedString(attachment))
+
 
         var kind: DomainLayer.DTO.SmartTransaction.Kind!
 
@@ -492,12 +494,13 @@ extension DomainLayer.DTO.MassTransferTransaction {
                     return nil
                 }
                 let amount = asset.money(tx.amount)
-                return .init(amount: amount, recipient: recipient)
+                return .init(amount: amount, recipient: sender)
             }
             .compactMap { $0 }
 
             let myTotalAmount: Int64 = transfers.reduce(into: Int64(0), { (result, transfer) in
-                if transfer.recipient.isMyAccount {
+                
+                if !transfer.recipient.isMyAccount {
                     result += transfer.amount.amount
                 }
             })
