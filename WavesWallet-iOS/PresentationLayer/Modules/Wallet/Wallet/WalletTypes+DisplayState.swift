@@ -16,7 +16,8 @@ extension WalletTypes.DisplayState {
                                         leasing: .initialState(kind: .leasing),
                                         isAppeared: false,
                                         listenerRefreshData: .none,
-                                        refreshData: .refresh)
+                                        refreshData: .refresh,
+                                        listnerSignal: nil)
     }
 
     var currentDisplay: WalletTypes.DisplayState.Display {
