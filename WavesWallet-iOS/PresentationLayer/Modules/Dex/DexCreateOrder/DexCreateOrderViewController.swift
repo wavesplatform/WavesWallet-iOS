@@ -145,7 +145,24 @@ private extension DexCreateOrderViewController {
 private extension DexCreateOrderViewController {
     
     var isValidWavesFee: Bool {
-        return input.availableWavesBalance.amount >= order.fee
+        if input.availableWavesBalance.amount >= order.fee {
+            return true
+        }
+        
+        if order.amountAsset.id == GlobalConstants.wavesAssetId && order.type == .buy {
+            
+            if order.amount.isZero {
+                return isValidPriceAssetBalance
+            }
+            return order.amount.amount > order.fee
+        }
+        else if order.priceAsset.id == GlobalConstants.wavesAssetId && order.type == .sell {
+            if order.total.isZero {
+                return isValidAmountAssetBalance
+            }
+            return order.total.amount > order.fee
+        }
+        return false
     }
     
     var isValidOrder: Bool {
