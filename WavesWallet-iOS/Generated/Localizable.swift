@@ -1570,6 +1570,8 @@ internal enum Localizable {
         internal enum Deleteaccount {
           /// Are you sure you want to delete this account from device?
           internal static var message: String { return Localizable.tr("Waves", "profile.alert.deleteAccount.message") }
+          /// You did not save your SEED
+          internal static var notSaveSeed: String { return Localizable.tr("Waves", "profile.alert.deleteAccount.notSaveSeed") }
           /// Delete account
           internal static var title: String { return Localizable.tr("Waves", "profile.alert.deleteAccount.title") }
 
