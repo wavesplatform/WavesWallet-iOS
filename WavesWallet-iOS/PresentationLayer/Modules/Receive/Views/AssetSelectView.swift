@@ -48,6 +48,7 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
             updateViewStyle()
         }
     }
+    private(set) var isOnlyBlockMode: Bool = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -99,9 +100,15 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
 //MARK: - ViewConfiguration
 extension AssetSelectView: ViewConfiguration {
     
-    func update(with model: DomainLayer.DTO.AssetBalance) {
+    struct Model {
+        let assetBalance: DomainLayer.DTO.AssetBalance
+        let isOnlyBlockMode: Bool
+    }
+    
+    func update(with model: Model) {
         
-        guard let asset = model.asset else { return }
+        isOnlyBlockMode = model.isOnlyBlockMode
+        guard let asset = model.assetBalance.asset else { return }
         
         viewAsset.isHidden = false
         labelAmount.isHidden = false
@@ -109,10 +116,10 @@ extension AssetSelectView: ViewConfiguration {
 
         labelAssetName.text = asset.displayName
         iconGateway.isHidden = !asset.isGateway
-        iconFav.isHidden = !(model.settings?.isFavorite ?? false)
+        iconFav.isHidden = !(model.assetBalance.settings?.isFavorite ?? false)
        
         loadIcon(name: asset.ticker ?? asset.displayName)
-        let money = Money(model.avaliableBalance, asset.precision)
+        let money = Money(model.assetBalance.avaliableBalance, asset.precision)
         labelAmount.text = money.displayText
     }
     

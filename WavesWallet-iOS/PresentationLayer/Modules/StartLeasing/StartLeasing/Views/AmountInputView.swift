@@ -31,6 +31,7 @@ final class AmountInputView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var viewTextField: UIView!
     @IBOutlet private weak var scrollViewInputHeight: NSLayoutConstraint!
     @IBOutlet private weak var labelError: UILabel!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     weak var delegate: AmountInputViewDelegate?
     var input:(() -> [Money])?
@@ -103,6 +104,17 @@ final class AmountInputView: UIView, NibOwnerLoadable {
     
     func clearMoney() {
         textFieldMoney.clear()
+    }
+    
+    func hideAnimation() {
+        activityIndicator.stopAnimating()
+        textFieldMoney.isHidden = false
+    }
+    
+    func showAnimation() {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+        textFieldMoney.isHidden = true
     }
 }
 
