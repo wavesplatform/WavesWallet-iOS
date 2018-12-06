@@ -29,6 +29,7 @@ final class WalletPresenter: WalletPresenterProtocol {
 
         var newFeedbacks = feedbacks
         newFeedbacks.append(queryAssets())
+        newFeedbacks.append(queryAssetsListener())
         newFeedbacks.append(queryLeasing())
 
         Driver
@@ -69,6 +70,30 @@ final class WalletPresenter: WalletPresenterProtocol {
                 .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
         })
     }
+
+    private func queryAssetsListener() -> Feedback {
+        return react(query: { (state) -> Types.DisplayState.RefreshData? in
+
+            if state.displayState.kind == .assets {
+                return .refresh
+            } else {
+                return nil
+            }
+
+        }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
+
+            let arch = arc4random() % 1000
+            guard let strongSelf = self else { return Signal.empty() }
+            return strongSelf
+                .interactor
+                .assets()
+                .skip(1)
+                .map { .setAssets($0) }
+                .sweetDebugWithoutResponse("List Balance id \(arch)")
+                .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
+        })
+    }
+
 
     private func queryLeasing() -> Feedback {
         return react(query: { (state) -> Types.DisplayState.RefreshData? in
