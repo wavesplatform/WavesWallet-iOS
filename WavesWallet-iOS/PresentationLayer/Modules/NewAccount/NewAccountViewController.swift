@@ -110,12 +110,7 @@ final class NewAccountViewController: UIViewController {
         }
 
         confirmPasswordInput.valueValidator = { [weak self] value in
-            let count = value?.trimmingCharacters(in: .whitespaces).count ?? 0
-            if count < GlobalConstants.accountNameMinLimitSymbols {
-                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
-            } else if count > GlobalConstants.accountNameMaxLimitSymbols {
-                return Localizable.Waves.Newaccount.Textfield.Error.minimumcharacters(GlobalConstants.accountNameMaxLimitSymbols)
-            } else if self?.passwordInput.value != value {
+            if self?.passwordInput.value != value {
                 return Localizable.Waves.Newaccount.Textfield.Error.passwordnotmatch
             } else {
                 return nil

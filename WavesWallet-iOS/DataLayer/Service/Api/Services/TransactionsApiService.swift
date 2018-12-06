@@ -13,30 +13,33 @@ extension API.Service {
 
     struct Transactions {
         enum Kind {
-            // TODO: Need response
+
+            /**
+             Response:
+             - API.Response<[API.Response<API.DTO.ExchangeTransaction]>.self
+             */
             case getExchange(id: String)
-            // TODO: Need response
             case getExchangeWithFilters(API.Query.ExchangeFilters)
         }
 
-        let environment: Environment
         let kind: Kind
+        let environment: Environment
     }
 }
 
 extension API.Service.Transactions: ApiTargetType {
 
-    fileprivate enum Constants {
-        static let assets = "asset"
+    private enum Constants {
+        static let exchange = "transactions/exchange"
     }
 
     var path: String {
         switch kind {
         case .getExchange(let id):
-            return Constants.assets + "/\(id)".urlEscaped
+            return Constants.exchange + "/\(id)".urlEscaped
 
         case .getExchangeWithFilters:
-            return Constants.assets
+            return Constants.exchange
         }
     }
 
