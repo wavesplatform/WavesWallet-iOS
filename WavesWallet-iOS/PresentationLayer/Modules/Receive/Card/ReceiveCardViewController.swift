@@ -187,7 +187,7 @@ private extension ReceiveCardViewController {
 
         acitivityIndicatorAmount.stopAnimating()
         acitivityIndicatorWarning.stopAnimating()
-        assetView.update(with: asset)
+        assetView.update(with: .init(assetBalance: asset, isOnlyBlockMode: true))
         setupButtonState()
         
         if selectedFiat == .usd {

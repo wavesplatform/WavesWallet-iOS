@@ -118,7 +118,7 @@ final class SendViewController: UIViewController {
         gateWayInfo = nil
         
         selectedAsset = assetBalance
-        assetView.update(with: assetBalance)
+        assetView.update(with: .init(assetBalance: assetBalance, isOnlyBlockMode: input.selectedAsset != nil))
         setupButtonState()
 
         let loadGateway = self.isValidCryptocyrrencyAddress && !self.isValidLocalAddress
@@ -176,10 +176,7 @@ final class SendViewController: UIViewController {
     
     @IBAction private func continueTapped(_ sender: Any) {
     
-        if wavesAsset == nil {
-            showLoadingButtonState()
-        }
-        else if isNeedGenerateMoneroAddress {
+        if isNeedGenerateMoneroAddress {
             showLoadingButtonState()
             sendEvent.accept(.didChangeMoneroPaymentID(moneroPaymentIdView.paymentID))
         }
@@ -253,7 +250,6 @@ private extension SendViewController {
 
                 case .didGetWavesAsset(let asset):
                     strongSelf.wavesAsset = asset
-                    strongSelf.hideButtonLoadingButtonsState()
                     strongSelf.updateAmountError(animation: true)
                     
                 case .didFailGenerateMoneroAddress(let error):
@@ -353,11 +349,14 @@ private extension SendViewController {
 
     func showLoadingAssetState(isLoadingAmount: Bool) {
         isLoadingAssetBalanceAfterScan = true
+        assetView.isSelectedAssetMode = false
+        recipientAddressView.isBlockAddressMode = true        
         setupButtonState()
         assetView.showLoadingState()
-        assetView.isSelectedAssetMode = false
-        recipientAddressView.isBlockAddressMode = true
         amountView.isBlockMode = isLoadingAmount
+        if isLoadingAmount {
+            amountView.showAnimation()
+        }
     }
     
     func hideLoadingAssetState(isLoadAsset: Bool) {
@@ -533,18 +532,21 @@ private extension SendViewController {
 extension SendViewController: AddressInputViewDelegate {
   
     func addressInputViewDidRemoveBlockMode() {
-        assetView.isSelectedAssetMode = true
-        assetView.removeSelectedAssetState()
+        
+        if !assetView.isOnlyBlockMode {
+            selectedAsset = nil
+            assetView.isSelectedAssetMode = true
+            assetView.removeSelectedAssetState()
+            recipientAddressView.decimals = 0
+        }
         
         if amountView.isBlockMode {
             amountView.isBlockMode = false
             amountView.clearMoney()
+            updateAmountData()
         }
         
-        selectedAsset = nil
-        recipientAddressView.decimals = 0
         setupButtonState()
-        
         sendEvent.accept(.cancelGetingAsset)
     }
     
@@ -582,10 +584,18 @@ extension SendViewController: AddressInputViewDelegate {
             showLoadingAssetState(isLoadingAmount: amount != nil)
         }
         
+        if assetID != nil {
+            recipientAddressView.isBlockAddressMode = true
+            assetView.isSelectedAssetMode = false
+            amountView.isBlockMode = amount != nil
+        }
+        
+        amountView.hideAnimation()
         if let amount = amount {
             self.amount = amount
             amountView.setAmount(amount)
-            updateAmountError(animation: true)
+            updateAmountData()
+            updateAmountError(animation: false)
         }
         
         acceptAddress(address)

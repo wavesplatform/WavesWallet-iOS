@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AmountInputView" customModule="WavesWallet_iOS" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="B2L-1Y-dIB" id="anv-7N-swF"/>
                 <outlet property="labelAmount" destination="rp4-sv-dfK" id="EaZ-Jq-cH9"/>
                 <outlet property="labelAmountLocalizable" destination="Azq-mb-M9m" id="PWC-vt-b6h"/>
                 <outlet property="labelError" destination="ElF-2R-wVR" id="TkZ-7l-Byu"/>
@@ -71,11 +72,15 @@
                         <constraint firstAttribute="trailing" secondItem="rp4-sv-dfK" secondAttribute="trailing" constant="14" id="hii-0i-36w"/>
                     </constraints>
                 </view>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="B2L-1Y-dIB">
+                    <rect key="frame" x="177.5" y="36" width="20" height="20"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="HU5-Yi-oUL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="2Iq-gn-2Xo"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="9Lq-Sz-a5q" secondAttribute="trailing" id="7Z0-q2-Uli"/>
+                <constraint firstItem="B2L-1Y-dIB" firstAttribute="centerY" secondItem="HU5-Yi-oUL" secondAttribute="centerY" id="7sT-Re-2jy"/>
                 <constraint firstItem="9Lq-Sz-a5q" firstAttribute="top" secondItem="HU5-Yi-oUL" secondAttribute="bottom" constant="8" id="Jm7-oc-41m"/>
                 <constraint firstItem="ElF-2R-wVR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Azq-mb-M9m" secondAttribute="trailing" constant="2" id="L6P-A4-Rjz"/>
                 <constraint firstItem="Azq-mb-M9m" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="QKn-Jz-OV1"/>
@@ -84,6 +89,7 @@
                 <constraint firstItem="HU5-Yi-oUL" firstAttribute="top" secondItem="Azq-mb-M9m" secondAttribute="bottom" constant="8" id="Ujj-Jz-ZbD"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="HU5-Yi-oUL" secondAttribute="trailing" constant="16" id="aSG-fh-HWL"/>
                 <constraint firstItem="ElF-2R-wVR" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="g3a-3d-yaM"/>
+                <constraint firstItem="B2L-1Y-dIB" firstAttribute="centerX" secondItem="HU5-Yi-oUL" secondAttribute="centerX" id="haq-lZ-kgB"/>
                 <constraint firstItem="Azq-mb-M9m" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="sx7-zz-me4"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
