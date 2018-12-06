@@ -174,6 +174,7 @@ private extension AccountBalanceInteractor {
         let newBalances = query.balances.map { (balance) -> DomainLayer.DTO.SmartAssetBalance? in
 
             guard let settings = query.settings[balance.assetId] else {
+                SweetLogger.error("Balance settings not found \(balance.assetId)")
                 return nil
             }
 

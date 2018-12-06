@@ -243,7 +243,7 @@ extension WalletViewController {
 
         switch state.animateType {
         case .refreshOnlyError, .refresh:
-            updateErrorView(with: state.currentDisplay.errorState)
+                updateErrorView(with: state.currentDisplay.errorState)
 
         default:
             break
