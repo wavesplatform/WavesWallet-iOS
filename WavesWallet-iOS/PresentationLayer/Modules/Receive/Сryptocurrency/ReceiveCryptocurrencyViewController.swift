@@ -57,7 +57,7 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
     
     private func setupAssetInfo(_ asset: DomainLayer.DTO.SmartAssetBalance) {
         selectedAsset = asset
-        assetView.update(with: asset)
+        assetView.update(with: .init(assetBalance: asset, isOnlyBlockMode: input.selectedAsset != nil))
         setupLoadingState()
         setupButtonState()
         

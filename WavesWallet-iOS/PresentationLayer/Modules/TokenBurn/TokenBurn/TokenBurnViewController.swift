@@ -170,7 +170,7 @@ private extension TokenBurnViewController {
     func setupData() {
         viewFeeError.alpha = 0
         assetView.isSelectedAssetMode = false
-        assetView.update(with: asset)
+        assetView.update(with: .init(assetBalance: asset, isOnlyBlockMode: true))
         
         amountView.delegate = self
         amountView.setDecimals(asset.asset.precision, forceUpdateMoney: false)
