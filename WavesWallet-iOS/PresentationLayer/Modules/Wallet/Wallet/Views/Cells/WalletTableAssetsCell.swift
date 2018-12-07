@@ -47,22 +47,22 @@ final class WalletTableAssetsCell: UITableViewCell, Reusable {
 }
 
 extension WalletTableAssetsCell: ViewConfiguration {
-    func update(with model: DomainLayer.DTO.AssetBalance) {
+    func update(with model: DomainLayer.DTO.SmartAssetBalance) {
         
-        labelTitle.attributedText = NSAttributedString.styleForMyAssetName(assetName: model.asset!.displayName,
-                                                                           isMyAsset: model.asset!.isMyWavesToken)
+        labelTitle.attributedText = NSAttributedString.styleForMyAssetName(assetName: model.asset.displayName,
+                                                                           isMyAsset: model.asset.isMyWavesToken)
 
         viewSpam.isHidden = true
-        iconStar.isHidden = !model.settings!.isFavorite
+        iconStar.isHidden = !model.settings.isFavorite
         viewFiatBalance.isHidden = true
-        iconArrow.isHidden = model.asset!.isFiat == false && model.asset!.isGateway == false
-        viewSpam.isHidden = model.asset!.isSpam == false
-        let balance = Money.init(model.avaliableBalance, model.asset!.precision)
+        iconArrow.isHidden = model.asset.isFiat == false && model.asset.isGateway == false
+        viewSpam.isHidden = model.asset.isSpam == false
+        let balance = Money.init(model.avaliableBalance, model.asset.precision)
         let text = balance.displayShortText
 
         labelSubtitle.attributedText = NSAttributedString.styleForBalance(text: text, font: labelSubtitle.font)
 
-        taskForAssetLogo = AssetLogo.logoFromCache(name: model.asset!.icon,
+        taskForAssetLogo = AssetLogo.logoFromCache(name: model.asset.icon,
                                                    style: AssetLogo.Style(size: Constants.icon,
                                                                           font: UIFont.systemFont(ofSize: 22),
                                                                           border: nil)) { [weak self] image in

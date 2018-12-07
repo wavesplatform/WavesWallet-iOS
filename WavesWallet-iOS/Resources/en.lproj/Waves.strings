@@ -719,6 +719,8 @@
 
 "profile.alert.deleteAccount.button.delete" = "Delete";
 
+"profile.alert.deleteAccount.notSaveSeed" = "You did not save your SEED";
+
 "profile.alert.deleteAccount.message" = "Are you sure you want to delete this account from device?";
 
 "profile.alert.deleteAccount.title" = "Delete account";

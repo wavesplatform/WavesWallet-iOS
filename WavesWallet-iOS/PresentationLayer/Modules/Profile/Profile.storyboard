@@ -709,6 +709,7 @@
                     <connections>
                         <outlet property="cancelButton" destination="dRP-Fn-nF9" id="aHh-cL-pFl"/>
                         <outlet property="deleteButton" destination="bGi-5T-yV6" id="fl3-YC-YiF"/>
+                        <outlet property="labelNotSaveSeed" destination="Fb2-5W-vs0" id="NKY-c0-Wz6"/>
                         <outlet property="messageLabel" destination="8rg-Ni-2pI" id="30G-OK-7S5"/>
                         <outlet property="titleLabel" destination="jkg-P3-j5D" id="DDZ-AG-bQX"/>
                         <outlet property="viewContainer" destination="6FQ-WZ-oxU" id="sDr-FI-rYg"/>

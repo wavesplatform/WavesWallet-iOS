@@ -10,7 +10,7 @@ import Foundation
 import Charts
 
 private enum Constants {    
-    typealias ChartContants = DexChart.ChartContants
+    typealias ChartContants = DexChart.ChartConstants
     typealias Candle = ChartContants.Candle
     typealias Bar = ChartContants.Bar
     
@@ -32,7 +32,7 @@ final class DexChartHelper {
 extension DexChartHelper {
     
     
-    func setupChartData(candleChartView: CandleStickChartView, barChartView: BarChartView, timeFrame: DexChart.DTO.TimeFrameType, candles: [DexChart.DTO.Candle], pair: DexTraderContainer.DTO.Pair) {
+    func setupChartData(candleChartView: CandleStickChartView, barChartView: BarChartView, timeFrame: DomainLayer.DTO.Candle.TimeFrameType, candles: [DomainLayer.DTO.Candle], pair: DexTraderContainer.DTO.Pair) {
         
         if !hasInitRightAxisWidth && candles.count > 0 {
             hasInitRightAxisWidth = true
@@ -162,7 +162,7 @@ extension DexChartHelper {
 //MARK: - Zoom
 extension DexChartHelper {
     
-    func updateAfterTimeFrameChanged(candleChartView: CandleStickChartView, barChartView: BarChartView, candles: [DexChart.DTO.Candle]) {
+    func updateAfterTimeFrameChanged(candleChartView: CandleStickChartView, barChartView: BarChartView, candles: [DomainLayer.DTO.Candle]) {
         
         if candles.count > 1 {
 
@@ -184,7 +184,7 @@ extension DexChartHelper {
         prevCandlesCount = candles.count
     }
     
-    func zoom(candleChartView: CandleStickChartView, barChartView: BarChartView, candles: [DexChart.DTO.Candle], lowestVisibleX: Double) {
+    func zoom(candleChartView: CandleStickChartView, barChartView: BarChartView, candles: [DomainLayer.DTO.Candle], lowestVisibleX: Double) {
         
         if candles.count > prevCandlesCount {
             
@@ -203,7 +203,7 @@ extension DexChartHelper {
         prevCandlesCount = candles.count
     }
     
-    func setupInitialZoom(candleChartView: CandleStickChartView, barChartView: BarChartView, candles: [DexChart.DTO.Candle]) {
+    func setupInitialZoom(candleChartView: CandleStickChartView, barChartView: BarChartView, candles: [DomainLayer.DTO.Candle]) {
         
         if hasInitFirstTimeZoom {
             return
@@ -304,7 +304,7 @@ extension DexChartHelper {
         return (positionY, title, price)
     }
     
-    static func candleRightWidth(candles: [DexChart.DTO.Candle], pair: DexTraderContainer.DTO.Pair) -> CGFloat {
+    static func candleRightWidth(candles: [DomainLayer.DTO.Candle], pair: DexTraderContainer.DTO.Pair) -> CGFloat {
        
         if candles.count > 0 {
             let price = candles[0].close
@@ -312,7 +312,7 @@ extension DexChartHelper {
             let numberFormatter = DexChart.ViewModel.numberFormatter(pair: pair)
 
             if let string = numberFormatter.string(from: NSNumber(value: price)) {
-                return string.maxWidth(font: DexChart.ChartContants.Candle.RightAxis.labelFont)
+                return string.maxWidth(font: DexChart.ChartConstants.Candle.RightAxis.labelFont)
             }
         }
         

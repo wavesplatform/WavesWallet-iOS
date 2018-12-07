@@ -10,5 +10,5 @@ import Foundation
 
 protocol AssetListModuleOutput: AnyObject {
     
-    func assetListDidSelectAsset(_ asset: DomainLayer.DTO.AssetBalance)
+    func assetListDidSelectAsset(_ asset: DomainLayer.DTO.SmartAssetBalance)
 }
