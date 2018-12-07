@@ -72,7 +72,7 @@ final class CreateAliasViewController: UIViewController {
     }
 
     private func layoutFooterView() {
-        let size = footerView.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
+        let size = footerView.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize)
         let y = max(tableView.contentSize.height, tableView.frame.height) - size.height
         footerView.frame = CGRect.init(x: 0, y: y, width: tableView.frame.width, height: size.height)
     }

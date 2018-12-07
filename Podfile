@@ -109,13 +109,6 @@ post_install do |installer|
             if swift3_2pods.include? target.name
                 config.build_settings['SWIFT_VERSION'] = '3.2'
             end
-
-            if config.name == 'Debug'
-                # config.build_settings['OTHER_SWIFT_FLAGS'] = ['$(inherited)', '-Onone']
-                # config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-O'
-                # config.build_settings['SWIFT_COMPILATION_MODE'] = 'wholemodule'
-
-            end
         end
         
     end

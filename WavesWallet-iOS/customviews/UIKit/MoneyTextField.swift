@@ -180,7 +180,7 @@ extension MoneyTextField: UITextFieldDelegate {
     }
     
     @available(iOS 10.0, *)
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         externalDelegate?.textFieldDidEndEditing?(textField, reason: reason)
     }
     

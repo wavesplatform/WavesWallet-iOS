@@ -57,6 +57,6 @@ class ConfirmBackupStackBaseView: UIView {
     }
     
     var heightConstraint : NSLayoutConstraint {
-        return constraints.first(where: {$0.firstAttribute == NSLayoutAttribute.height})!
+        return constraints.first(where: {$0.firstAttribute == NSLayoutConstraint.Attribute.height})!
     }
 }

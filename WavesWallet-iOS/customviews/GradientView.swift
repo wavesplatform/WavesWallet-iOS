@@ -82,7 +82,9 @@ final class GradientView: UIView {
 
         layer.startPoint = direction.startPoint
         layer.endPoint = direction.endPoint
-        layer.locations = direction.locations.map { NSNumber(value: $0) }
+        layer.locations = direction.locations?.map({ (value) -> NSNumber in
+            return NSNumber.init(value: value)
+        })
         layer.colors = [startColor.cgColor, endColor.cgColor]
     }
 }

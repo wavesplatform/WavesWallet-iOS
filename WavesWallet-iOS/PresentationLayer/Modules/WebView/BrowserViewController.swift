@@ -50,7 +50,7 @@ final class BrowserViewController: UIViewController {
     
     private func setupLoader() {
         
-        loader = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        loader = UIActivityIndicatorView(style: .gray)
         loader.hidesWhenStopped = true
         loader.startAnimating()
         view.addSubview(loader)

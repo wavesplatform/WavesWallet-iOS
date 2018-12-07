@@ -58,6 +58,6 @@ extension TokenBurnConfirmationIDView: ViewConfiguration {
 //MARK: - NSLayoutConstraint
 private extension TokenBurnConfirmationIDView {
     var heightConstraint : NSLayoutConstraint {
-        return constraints.first(where: {$0.firstAttribute == NSLayoutAttribute.height})!
+        return constraints.first(where: {$0.firstAttribute == NSLayoutConstraint.Attribute.height})!
     }
 }
