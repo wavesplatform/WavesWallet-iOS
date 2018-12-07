@@ -385,6 +385,8 @@
 		0AF0C67B21AACA4F00602197 /* GlobalErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF0C67A21AACA4F00602197 /* GlobalErrorView.swift */; };
 		0AF0C67D21AACB3700602197 /* GlobalErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF0C67C21AACB3700602197 /* GlobalErrorView.xib */; };
 		0AF0C67F21AB1B4D00602197 /* Sync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF0C67E21AB1B4D00602197 /* Sync.swift */; };
+		0AF2536321B0351A00B8F7DF /* AssetsBalanceSettingsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2536221B0351A00B8F7DF /* AssetsBalanceSettingsProtocol.swift */; };
+		0AF2536521B6C2F900B8F7DF /* AssetsBalanceSettingsRepositoryLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2536421B6C2F900B8F7DF /* AssetsBalanceSettingsRepositoryLocal.swift */; };
 		0AF58F8E219194E500C8A4B3 /* SlideCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F8D219194E500C8A4B3 /* SlideCoordinator.swift */; };
 		0AF58F902191BC9300C8A4B3 /* PasscodePresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F8F2191BC9300C8A4B3 /* PasscodePresenterProtocol.swift */; };
 		0AF58F942191C1D300C8A4B3 /* PasscodeRegistationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF58F932191C1D300C8A4B3 /* PasscodeRegistationPresenter.swift */; };
@@ -1221,6 +1223,8 @@
 		0AF0C67A21AACA4F00602197 /* GlobalErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalErrorView.swift; sourceTree = "<group>"; };
 		0AF0C67C21AACB3700602197 /* GlobalErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GlobalErrorView.xib; sourceTree = "<group>"; };
 		0AF0C67E21AB1B4D00602197 /* Sync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sync.swift; sourceTree = "<group>"; };
+		0AF2536221B0351A00B8F7DF /* AssetsBalanceSettingsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsBalanceSettingsProtocol.swift; sourceTree = "<group>"; };
+		0AF2536421B6C2F900B8F7DF /* AssetsBalanceSettingsRepositoryLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AssetsBalanceSettingsRepositoryLocal.swift; path = Assets/AssetsBalanceSettingsRepositoryLocal.swift; sourceTree = "<group>"; };
 		0AF58F8D219194E500C8A4B3 /* SlideCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideCoordinator.swift; sourceTree = "<group>"; };
 		0AF58F8F2191BC9300C8A4B3 /* PasscodePresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodePresenterProtocol.swift; sourceTree = "<group>"; };
 		0AF58F932191C1D300C8A4B3 /* PasscodeRegistationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeRegistationPresenter.swift; sourceTree = "<group>"; };
@@ -1914,6 +1918,7 @@
 				0A2CD237216D0F0000162063 /* AuthorizationInteractorProtocol.swift */,
 				0A344E2E2194747E007809B1 /* MigrationInteractor.swift */,
 				0AF0C67121A97C4700602197 /* AliasesInteractor.swift */,
+				0AF2536221B0351A00B8F7DF /* AssetsBalanceSettingsProtocol.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -2591,6 +2596,7 @@
 				E922D26121B81E5700575955 /* CandlesRepository.swift */,
 				E922D26921B831B600575955 /* LastTradesRepository.swift */,
 				0AF0C67521A97D3900602197 /* Aliases */,
+				0AF2536421B6C2F900B8F7DF /* AssetsBalanceSettingsRepositoryLocal.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -4939,6 +4945,7 @@
 				0AF922EB212E1234003BA067 /* DottedLineView.swift in Sources */,
 				E9B087A82163886800937644 /* DexOrderBookViewController.swift in Sources */,
 				0AF922D3212E1234003BA067 /* ObservableType+Weak.swift in Sources */,
+				0AF2536521B6C2F900B8F7DF /* AssetsBalanceSettingsRepositoryLocal.swift in Sources */,
 				E9B088002163886800937644 /* DexMyOrdersInteractorProtocol.swift in Sources */,
 				0AF922AA212E1234003BA067 /* CGFloat+Min.swift in Sources */,
 				E9B088132163886800937644 /* DexMarketInteractor.swift in Sources */,
@@ -5453,6 +5460,7 @@
 				0AF9222E212E0F1F003BA067 /* WalletHistorySkeletonCell.swift in Sources */,
 				0A14CFDB214B227D00C3A4D5 /* TSUD.swift in Sources */,
 				E9B086B72163883000937644 /* AddressBookPresenterProtocol.swift in Sources */,
+				0AF2536321B0351A00B8F7DF /* AssetsBalanceSettingsProtocol.swift in Sources */,
 				0AAB15C721655C0600F1F7BC /* ProfilePushTableCell.swift in Sources */,
 				F7A86B651EA9DE4A004DBE81 /* WalletManager.swift in Sources */,
 				E9EC5C0F2175F35900E5C29A /* AddressInputView.swift in Sources */,
