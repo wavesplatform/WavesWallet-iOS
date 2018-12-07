@@ -430,8 +430,7 @@ extension DomainLayer.DTO.AliasTransaction {
 
         let kind: DomainLayer.DTO.SmartTransaction.Kind = .createdAlias(alias)
         let feeBalance = wavesAsset.balance(fee)
-
-        //TODO: confirmationHeight is nil?
+        
         return .init(id: id,
                      kind: kind,
                      timestamp: Date(milliseconds: timestamp),

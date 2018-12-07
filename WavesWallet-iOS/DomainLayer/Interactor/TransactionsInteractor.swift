@@ -458,7 +458,7 @@ fileprivate extension TransactionsInteractor {
                             return SmartTransactionsSyncObservable.just(.error(error))
                         }
                     }
-                    //TODO: it current line whith shit
+                    
                     return SmartTransactionsSyncObservable.just(.error(TransactionsInteractorError.invalid))
                 }
 

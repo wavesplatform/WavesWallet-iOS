@@ -59,12 +59,12 @@ final class PopupViewController: UIViewController {
         let topController = getTopController()
         topController.view.addSubview(bgView)
         
-        topController.addChildViewController(self)
-        didMove(toParentViewController: topController)
+        topController.addChild(self)
+        didMove(toParent: topController)
         topController.view.addSubview(view)
         
-        addChildViewController(contentViewController)
-        contentViewController.didMove(toParentViewController: self)
+        addChild(contentViewController)
+        contentViewController.didMove(toParent: self)
         contentViewController.view.frame = CGRect(x: 0, y: Constants.ContainerOffsetOfDragPoint,
                                                   width: contentView.frame.size.width,
                                                   height: contentView.frame.size.height - Constants.ContainerOffsetOfDragPoint)
@@ -95,8 +95,8 @@ final class PopupViewController: UIViewController {
             completed?()
             self.bgView.removeFromSuperview()
             self.view.removeFromSuperview()
-            self.willMove(toParentViewController: nil)
-            self.removeFromParentViewController()
+            self.willMove(toParent: nil)
+            self.removeFromParent()
         }
     }
     

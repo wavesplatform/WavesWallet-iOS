@@ -11,7 +11,12 @@ import UIKit
 extension UIApplication {
     func openURLAsync(_ url: URL) {
         DispatchQueue.main.async {
-            self.open(url, options: .init(), completionHandler: nil)
+            self.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary(.init()), completionHandler: nil)
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

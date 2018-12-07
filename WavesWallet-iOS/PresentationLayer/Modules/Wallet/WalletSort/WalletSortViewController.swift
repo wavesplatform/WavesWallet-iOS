@@ -13,7 +13,7 @@ import UIKit
 
 fileprivate enum Constants {
     static let heightForFooter: CGFloat = 23
-    static let contentInset = UIEdgeInsetsMake(0, 0, 15, 0)
+    static let contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 15, right: 0)
 }
 
 final class WalletSortViewController: UIViewController {
@@ -219,7 +219,7 @@ extension WalletSortViewController: UITableViewDelegate {
     // MARK: Draging cells
 
     func tableView(_ tableView: UITableView,
-                   editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+                   editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .none
     }
 
