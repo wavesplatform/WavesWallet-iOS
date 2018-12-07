@@ -37,7 +37,7 @@ final class SendPresenter: SendPresenterProtocol {
             
         }, effects: {[weak self] state -> Signal<Send.Event> in
             guard let strongSelf = self else { return Signal.empty() }
-            guard let assetID = state.scanningAssetID else { return Signal.empty() }
+            guard let assetID = state.scanningAssetID, assetID.count > 0 else { return Signal.empty() }
             
             return strongSelf.interactor.assetBalance(by: assetID).map { .didGetAssetBalance($0)}.asSignal(onErrorSignalWith: Signal.empty())
         })
@@ -172,6 +172,12 @@ final class SendPresenter: SendPresenterProtocol {
         case .getAssetById(let assetID):
             return state.mutate {
                 $0.scanningAssetID = assetID
+                $0.action = .none
+            }
+        
+        case .cancelGetingAsset:
+            return state.mutate {
+                $0.scanningAssetID = ""
                 $0.action = .none
             }
             

@@ -85,6 +85,13 @@ extension MoneyTextField {
     func addMinusValue() {
         setValue(value: value.minus(deltaValue))
     }
+    
+    func clear() {
+        decimals = 0
+        hasSetDecimals = false
+        text = nil
+        textDidChange()
+    }
 }
 
 
