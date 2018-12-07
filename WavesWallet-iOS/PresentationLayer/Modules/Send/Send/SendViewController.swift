@@ -46,8 +46,9 @@ final class SendViewController: UIViewController {
     
     private let sendEvent: PublishRelay<Send.Event> = PublishRelay<Send.Event>()
     var presenter: SendPresenterProtocol!
-
-    var input: AssetList.DTO.Input!
+    
+    var inputKind: Send.DTO.InputKind!
+    
     private var isValidAlias: Bool = false
     private var gateWayInfo: Send.DTO.GatewayInfo?
     private var wavesAsset: DomainLayer.DTO.SmartAssetBalance?
@@ -97,14 +98,15 @@ final class SendViewController: UIViewController {
             self?.moneroAddress = ""
         }
         
-        if let asset = input.selectedAsset {
+        switch inputKind! {
+        case .selectedAsset(let asset):
             assetView.isSelectedAssetMode = false
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 self.setupAssetInfo(asset)
                 self.amountView.setDecimals(asset.asset.precision, forceUpdateMoney: false)
             }
-        }
-        else {
+                
+        default:
             updateAmountData()
         }
     }
@@ -118,7 +120,7 @@ final class SendViewController: UIViewController {
         gateWayInfo = nil
         
         selectedAsset = assetBalance
-        assetView.update(with: .init(assetBalance: assetBalance, isOnlyBlockMode: input.selectedAsset != nil))
+        assetView.update(with: .init(assetBalance: assetBalance, isOnlyBlockMode: inputKind.selectedAsset != nil))
         setupButtonState()
 
         let loadGateway = self.isValidCryptocyrrencyAddress && !self.isValidLocalAddress
@@ -299,9 +301,9 @@ extension SendViewController: AssetListModuleOutput {
 extension SendViewController: AssetSelectViewDelegate {
    
     func assetViewDidTapChangeAsset() {
-        let assetInput = AssetList.DTO.Input(filters: input.filters,
+        let assetInput = AssetList.DTO.Input(filters: [.all],
                                              selectedAsset: selectedAsset,
-                                             showAllList: input.showAllList)
+                                             showAllList: false)
         
         let vc = AssetListModuleBuilder(output: self).build(input: assetInput)
         navigationController?.pushViewController(vc, animated: true)
@@ -519,7 +521,7 @@ private extension SendViewController {
                                            error: Localizable.Waves.Send.Label.addressNotValid,
                                            placeHolder: Localizable.Waves.Send.Label.recipientAddress,
                                            contacts: [],
-                                           canChangeAsset: self.input.selectedAsset == nil)
+                                           canChangeAsset: self.inputKind.selectedAsset == nil)
         recipientAddressView.update(with: input)
         recipientAddressView.delegate = self
         recipientAddressView.errorValidation = { [weak self] text in
@@ -580,7 +582,7 @@ extension SendViewController: AddressInputViewDelegate {
     
     func addressInputViewDidScanAddress(_ address: String, amount: Money?, assetID: String?) {
         
-        if let asset = assetID, selectedAsset?.assetId != asset, input.selectedAsset == nil {
+        if let asset = assetID, selectedAsset?.assetId != asset, inputKind.selectedAsset == nil {
             sendEvent.accept(.getAssetById(asset))
             showLoadingAssetState(isLoadingAmount: amount != nil)
         }

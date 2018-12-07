@@ -135,7 +135,7 @@ extension WalletCoordinator: WalletModuleOutput {
 extension WalletCoordinator: AssetModuleOutput {
 
     func showSend(asset: DomainLayer.DTO.SmartAssetBalance) {
-        let vc = SendModuleBuilder().build(input: asset)
+        let vc = SendModuleBuilder().build(input: .selectedAsset(asset))
         navigationController?.pushViewController(vc, animated: true)
     }
     
