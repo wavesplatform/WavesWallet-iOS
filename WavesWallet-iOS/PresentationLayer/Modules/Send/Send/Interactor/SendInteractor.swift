@@ -23,8 +23,8 @@ final class SendInteractor: SendInteractorProtocol {
     private let assetInteractor = FactoryInteractors.instance.assetsInteractor
     private let auth = FactoryInteractors.instance.authorization
     
-    func assetBalance(by assetID: String) -> Observable<DomainLayer.DTO.AssetBalance?> {
-        return accountBalanceInteractor.balances(isNeedUpdate: false).flatMap({ [weak self] (balances) -> Observable<DomainLayer.DTO.SmartAssetBalance?>  in
+    func assetBalance(by assetID: String) -> Observable<DomainLayer.DTO.SmartAssetBalance?> {
+        return accountBalanceInteractor.balances().flatMap({ [weak self] (balances) -> Observable<DomainLayer.DTO.SmartAssetBalance?>  in
             
             if let asset = balances.first(where: {$0.assetId == assetID}) {
                 return Observable.just(asset)
@@ -34,15 +34,15 @@ final class SendInteractor: SendInteractorProtocol {
             return owner.auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DomainLayer.DTO.SmartAssetBalance?> in
                 guard let owner = self else { return Observable.empty() }
                 return owner.assetInteractor.assets(by: [assetID], accountAddress: wallet.address, isNeedUpdated: false)
-                    .flatMap({ (assets) -> Observable<DomainLayer.DTO.AssetBalance?> in
+                    .flatMap({ (assets) -> Observable<DomainLayer.DTO.SmartAssetBalance?> in
                         
-                        var assetBalance: DomainLayer.DTO.AssetBalance?
+                        var assetBalance: DomainLayer.DTO.SmartAssetBalance?
                         if let asset = assets.first(where: {$0.id == assetID}) {
                             assetBalance = .init(assetId: asset.id,
-                                                 balance: 0,
+                                                 totalBalance: 0,
                                                  leasedBalance: 0,
                                                  inOrderBalance: 0,
-                                                 settings: nil,
+                                                 settings: .init(assetId: asset.id, sortLevel: 0, isHidden: false, isFavorite: false),
                                                  asset: asset,
                                                  modified: asset.modified)
                         }

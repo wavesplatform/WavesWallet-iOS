@@ -75,7 +75,7 @@ final class AssetListInteractor: AssetListInteractorProtocol {
                     return strongSelf.filterIsMyAsset(newAssets)
             }
         })
-        .catchError({ (error) -> Observable<[DomainLayer.DTO.AssetBalance]> in
+        .catchError({ (error) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
             return Observable.just([])
         })
     }
