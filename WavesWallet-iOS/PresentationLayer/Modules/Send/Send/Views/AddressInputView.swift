@@ -349,9 +349,7 @@ private extension AddressInputView {
                         let amount = Money(value: Decimal(amount), decimals)
                         self.delegate?.addressInputViewDidScanAddress(address,
                                                                       amount: amount,
-                                                                      assetID: assetID)
-                        
-                        
+                                                                      assetID: assetID)                        
                     })
                     .disposed(by: self.disposeBag)
                 }
