@@ -99,17 +99,7 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     }
     
     
-    private lazy var readerVC: QRCodeReaderViewController = {
-        let builder = QRCodeReaderViewControllerBuilder {
-            $0.showSwitchCameraButton = false
-            $0.showTorchButton = true
-            $0.reader = QRCodeReader()
-            $0.readerView = QRCodeReaderContainer(displayable: ScannerCustomView())
-            $0.preferredStatusBarStyle = .lightContent
-        }
-        
-        return QRCodeReaderViewController(builder: builder)
-    }()
+    private lazy var readerVC: QRCodeReaderViewController = QRCodeReaderFactory.deffaultCodeReader
     
     //MARK: - Actions
     @IBAction private func addressDidChange(_ sender: Any) {
@@ -141,9 +131,8 @@ final class AddressInputView: UIView, NibOwnerLoadable {
                 self?.showScanner()
             }, failure: { [weak self] in
                 let alert = CameraAccess.alertController
-                self?.firstAvailableViewController().present(alert, animated: true, completion: nil)
+            self?.firstAvailableViewController().present(alert, animated: true, completion: nil)
         })
-        
     }
 }
 

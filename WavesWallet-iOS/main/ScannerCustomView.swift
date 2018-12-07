@@ -10,7 +10,7 @@ import UIKit
 import QRCodeReader
 import AVFoundation
 
-class ScannerCustomView: UIView, QRCodeReaderDisplayable {
+final class ScannerCustomView: UIView, QRCodeReaderDisplayable {
 
     let cameraView: UIView            = UIView()
     let cancelButton: UIButton?       = UIButton()
@@ -83,7 +83,7 @@ class ScannerCustomView: UIView, QRCodeReaderDisplayable {
         labelTitle.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         labelTitle.textAlignment = .center
         labelTitle.textColor = UIColor.white
-        labelTitle.text = "Scan QR"
+        labelTitle.text = Localizable.Waves.Scannerqrcode.Label.scan
         addSubview(labelTitle)
     }
     
