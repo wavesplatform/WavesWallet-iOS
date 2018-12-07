@@ -28,10 +28,7 @@ jobs:
           command: ls -la ~/.ssh/
       - run:
           name: SSH Cat config
-          command: cat ~/.ssh/config
-      - run: 
-          name: Test ouput
-          command: mkdir -p $FL_OUTPUT_DIR && touch $FL_OUTPUT_DIR/test_4.txt
+          command: cat ~/.ssh/config      
       - run:
           name: Bundle
           command: bundle check || bundle install --path vendor/bundle
@@ -66,10 +63,7 @@ jobs:
           command: ls -la ~/.ssh/
       - run:
           name: SSH Cat config
-          command: cat ~/.ssh/config      
-      - run: 
-          name: Test ouput
-          command: mkdir -p $FL_OUTPUT_DIR && touch $FL_OUTPUT_DIR/test_4.txt
+          command: cat ~/.ssh/config            
       - run:
           name: Bundle
           command: bundle check || bundle install --path vendor/bundle
@@ -105,9 +99,6 @@ jobs:
       - run:
           name: SSH Cat config
           command: cat ~/.ssh/config      
-      - run: 
-          name: Test ouput
-          command: mkdir -p $FL_OUTPUT_DIR && touch $FL_OUTPUT_DIR/test_4.txt
       - run:
           name: Bundle
           command: bundle check || bundle install --path vendor/bundle
@@ -137,4 +128,6 @@ workflows:
       - Arctrus:
           filters:
             branches:
-              only: /^feature/IOS-.{1,}$/
+              only:
+                - /^feature/IOS-.{1,}$/
+                - /^bugfix/IOS-.{1,}$/

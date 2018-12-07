@@ -19,26 +19,19 @@ class QRCodeReaderControllerCoordinator {
     
     func start(completionBlock: @escaping ((QRCodeReaderResult?) -> Void)) {
         guard QRCodeReader.isAvailable() else { return }
-        
-        readerVC.completionBlock = completionBlock
-        readerVC.modalPresentationStyle = .formSheet
-        
-        rootViewController.present(readerVC, animated: true)
-        
+
+        CameraAccess.requestAccess(success: { [weak self] in
+            guard let owner = self else { return }
+            owner.readerVC.completionBlock = completionBlock
+            owner.readerVC.modalPresentationStyle = .formSheet
+            owner.rootViewController.present(owner.readerVC, animated: true)
+        }, failure: { [weak self] in
+            let alert = CameraAccess.alertController
+            self?.rootViewController.present(alert, animated: true, completion: nil)
+        })
     }
     
     // --
     
-    lazy var readerVC: QRCodeReaderViewController = {
-        let builder = QRCodeReaderViewControllerBuilder {
-            $0.showSwitchCameraButton = false
-            $0.showTorchButton = true
-            $0.reader = QRCodeReader()
-            $0.preferredStatusBarStyle = UIStatusBarStyle.lightContent
-            $0.readerView = QRCodeReaderContainer(displayable: ScannerCustomView())
-        }
-        
-        return QRCodeReaderViewController(builder: builder)
-    }()
-    
+    lazy var readerVC: QRCodeReaderViewController = QRCodeReaderFactory.deffaultCodeReader
 }
