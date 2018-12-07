@@ -87,8 +87,8 @@ final class WalletCoordinator: Coordinator {
 
 extension WalletCoordinator: WalletModuleOutput {
 
-    func showWalletSort() {
-        let vc = WalletSortModuleBuilder().build()
+    func showWalletSort(balances: [DomainLayer.DTO.SmartAssetBalance]) {
+        let vc = WalletSortModuleBuilder().build(input: balances)
         navigationController?.pushViewController(vc, animated: true)
     }
 
@@ -98,7 +98,7 @@ extension WalletCoordinator: WalletModuleOutput {
         navigationController?.pushViewController(vc, animated: true)
     }
 
-    func showAsset(with currentAsset: DomainLayer.DTO.AssetBalance, assets: [DomainLayer.DTO.AssetBalance]) {
+    func showAsset(with currentAsset: DomainLayer.DTO.SmartAssetBalance, assets: [DomainLayer.DTO.SmartAssetBalance]) {
 
         let vc = AssetModuleBuilder(output: self)
             .build(input: .init(assets: assets,
@@ -134,12 +134,12 @@ extension WalletCoordinator: WalletModuleOutput {
 
 extension WalletCoordinator: AssetModuleOutput {
 
-    func showSend(asset: DomainLayer.DTO.AssetBalance) {
+    func showSend(asset: DomainLayer.DTO.SmartAssetBalance) {
         let vc = SendModuleBuilder().build(input: asset)
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    func showReceive(asset: DomainLayer.DTO.AssetBalance) {
+    func showReceive(asset: DomainLayer.DTO.SmartAssetBalance) {
         let vc = ReceiveContainerModuleBuilder().build(input: asset)
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -158,7 +158,7 @@ extension WalletCoordinator: AssetModuleOutput {
         addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
     
-    func showBurn(asset: DomainLayer.DTO.AssetBalance, delegate: TokenBurnTransactionDelegate?) {
+    func showBurn(asset: DomainLayer.DTO.SmartAssetBalance, delegate: TokenBurnTransactionDelegate?) {
         
         let vc = StoryboardScene.Asset.tokenBurnViewController.instantiate()
         vc.asset = asset
@@ -186,7 +186,7 @@ extension WalletCoordinator: StartLeasingModuleOutput {
 
 fileprivate extension AssetModuleBuilder.Input {
 
-    init(assets: [DomainLayer.DTO.AssetBalance], currentAsset: DomainLayer.DTO.AssetBalance) {
+    init(assets: [DomainLayer.DTO.SmartAssetBalance], currentAsset: DomainLayer.DTO.SmartAssetBalance) {
         self.assets = assets.map { .init(asset: $0) }
         self.currentAsset = .init(asset: currentAsset)
     }
@@ -194,22 +194,22 @@ fileprivate extension AssetModuleBuilder.Input {
 
 fileprivate extension AssetTypes.DTO.Asset.Info {
 
-    init(asset: DomainLayer.DTO.AssetBalance) {
-        id = asset.asset!.id
-        issuer = asset.asset!.sender
-        name = asset.asset!.displayName
-        description = asset.asset!.description
-        issueDate = asset.asset!.timestamp
-        isReusable = asset.asset!.isReusable
-        isMyWavesToken = asset.asset!.isMyWavesToken
-        isWavesToken = asset.asset!.isWavesToken
-        isWaves = asset.asset!.isWaves
-        isFavorite = asset.settings!.isFavorite
-        isFiat = asset.asset!.isFiat
-        isSpam = asset.asset!.isSpam
-        isGateway = asset.asset!.isGateway
-        sortLevel = asset.settings!.sortLevel
-        icon = asset.asset!.icon
+    init(asset: DomainLayer.DTO.SmartAssetBalance) {
+        id = asset.asset.id
+        issuer = asset.asset.sender
+        name = asset.asset.displayName
+        description = asset.asset.description
+        issueDate = asset.asset.timestamp
+        isReusable = asset.asset.isReusable
+        isMyWavesToken = asset.asset.isMyWavesToken
+        isWavesToken = asset.asset.isWavesToken
+        isWaves = asset.asset.isWaves
+        isFavorite = asset.settings.isFavorite
+        isFiat = asset.asset.isFiat
+        isSpam = asset.asset.isSpam
+        isGateway = asset.asset.isGateway
+        sortLevel = asset.settings.sortLevel
+        icon = asset.asset.icon
         assetBalance = asset
     }
 }

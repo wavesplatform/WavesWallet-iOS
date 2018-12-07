@@ -41,14 +41,12 @@ final class QRCodeParser {
         return string
     }
     
-    static func parseAmount(_ string: String, decimals: Int) -> Money? {
+    static func parseAmount(_ string: String) -> Double {
         if let amount = urlValues(string)[Constants.amountKeyScan] {
             let value = (amount as NSString).doubleValue
-            if value > 0 {
-                return Money(value:Decimal(value), decimals)
-            }
+            return value
         }
-        return nil
+        return 0
     }
 }
 

@@ -31,7 +31,7 @@ final class ReceiveCardViewController: UIViewController {
     private var selectedFiat = ReceiveCard.DTO.FiatType.usd
     private var amountUSDInfo: ReceiveCard.DTO.AmountInfo?
     private var amountEURInfo: ReceiveCard.DTO.AmountInfo?
-    private var asset: DomainLayer.DTO.AssetBalance?
+    private var asset: DomainLayer.DTO.SmartAssetBalance?
     private var amount: Money = Money(0, ReceiveCard.DTO.fiatDecimals)
     private var urlLink = ""
     
@@ -44,7 +44,6 @@ final class ReceiveCardViewController: UIViewController {
         setupButtonState()
         setupFiatText()
         assetView.isSelectedAssetMode = false
-        assetView.setupAssetWavesMode()
         viewWarning.isHidden = true
         textFieldMoney.moneyDelegate = self
         textFieldMoney.setDecimals(amount.decimals, forceUpdateMoney: false)
@@ -186,7 +185,7 @@ private extension ReceiveCardViewController {
 
         acitivityIndicatorAmount.stopAnimating()
         acitivityIndicatorWarning.stopAnimating()
-        assetView.update(with: asset)
+        assetView.update(with: .init(assetBalance: asset, isOnlyBlockMode: true))
         setupButtonState()
         
         if selectedFiat == .usd {

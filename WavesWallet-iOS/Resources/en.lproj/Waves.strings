@@ -1128,3 +1128,5 @@
 "wavespopup.button.send" = "Send";
 
 "wavespopup.label.comingsoon" = "Coming soon";
+
+"scannerqrcode.label.scan" = "Scan QR";
