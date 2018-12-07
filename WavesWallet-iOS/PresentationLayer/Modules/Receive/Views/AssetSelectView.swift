@@ -48,6 +48,7 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
             updateViewStyle()
         }
     }
+    private(set) var isOnlyBlockMode: Bool = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -58,28 +59,9 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
     }
     
     @IBAction private func buttonTapped(_ sender: Any) {
-        if !isSelectedAssetMode {
-            return
-        }
         delegate?.assetViewDidTapChangeAsset()
     }
-    
-    func setupAssetWavesMode() {
-        viewAsset.isHidden = false
-        labelSelectAsset.isHidden = true
-        
-        labelAssetName.text = "Waves"
-        labelAmount.isHidden = true
-        iconGateway.isHidden = true
-        
-        loadIcon(name: Environments.Constants.wavesAssetId)
-
-    }
-    
-    func showAmount() {
-        labelAmount.isHidden = false
-    }
-    
+  
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNibContent()
@@ -95,35 +77,49 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
     }
     
     func hideLoadingState(isLoadAsset: Bool) {
-        buttonTap.isUserInteractionEnabled = true
-        iconArrows.isHidden = false
+
         activityIndicator.stopAnimating()
         
         if isLoadAsset {
             viewAsset.isHidden = false
         }
         else {
+            buttonTap.isUserInteractionEnabled = true
+            isSelectedAssetMode = true
             labelSelectAsset.isHidden = false
         }
+    }
+    
+    func removeSelectedAssetState() {
+        viewAsset.isHidden = true
+        labelSelectAsset.isHidden = false
+        activityIndicator.stopAnimating()
     }
 }
 
 //MARK: - ViewConfiguration
 extension AssetSelectView: ViewConfiguration {
     
-    func update(with model: DomainLayer.DTO.SmartAssetBalance) {
-
-        let asset = model.asset
+    struct Model {
+        let assetBalance: DomainLayer.DTO.SmartAssetBalance
+        let isOnlyBlockMode: Bool
+    }
+    
+    func update(with model: Model) {
+        
+        isOnlyBlockMode = model.isOnlyBlockMode
+        let asset = model.assetBalance.asset
+        
         viewAsset.isHidden = false
         labelAmount.isHidden = false
         labelSelectAsset.isHidden = true
 
         labelAssetName.text = asset.displayName
         iconGateway.isHidden = !asset.isGateway
-        iconFav.isHidden = !model.settings.isFavorite
+        iconFav.isHidden = !model.assetBalance.settings.isFavorite
        
         loadIcon(name: asset.icon)
-        let money = Money(model.avaliableBalance, asset.precision)
+        let money = Money(model.assetBalance.avaliableBalance, asset.precision)
         labelAmount.text = money.displayText
     }
     
@@ -145,6 +141,8 @@ private extension AssetSelectView {
         iconArrows.isHidden = !isSelectedAssetMode
         
         if isSelectedAssetMode {
+            buttonTap.isUserInteractionEnabled = true
+            
             assetRightOffset.constant = Constants.assetRightOffsetSelectedMode
 
             viewContainer.backgroundColor = .white
@@ -156,6 +154,8 @@ private extension AssetSelectView {
             
         }
         else {
+            buttonTap.isUserInteractionEnabled = false
+            
             assetRightOffset.constant = Constants.assetRightOffsetNotSelectedMode
 
             viewContainer.layer.removeShadow()
