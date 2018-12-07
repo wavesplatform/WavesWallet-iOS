@@ -32,11 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-<<<<<<< HEAD
-	<string>1585</string>
-=======
-	<string>1405</string>
->>>>>>> biometicFix
+	<string>1586</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
