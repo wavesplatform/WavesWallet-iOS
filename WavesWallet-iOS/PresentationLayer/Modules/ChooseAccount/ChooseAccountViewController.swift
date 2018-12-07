@@ -104,11 +104,7 @@ final class ChooseAccountViewController: UIViewController {
         
         tableView.beginUpdates()
         
-        if wallets.count == 0 {
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else {
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
+        tableView.deleteRows(at: [indexPath], with: .fade)
         
         tableView.endUpdates()
         CATransaction.commit()
