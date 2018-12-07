@@ -21,7 +21,7 @@ final class AssetInteractor: AssetInteractorProtocol {
 
     private let transactionsInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
 
-    private let walletSortInteractor: WalletSortInteractor = WalletSortInteractor()
+    private let assetsBalanceSettings: AssetsBalanceSettingsInteractorProtocol = FactoryInteractors.instance.assetsBalanceSettings
 
     private let refreshAssetsSubject: PublishSubject<[AssetTypes.DTO.Asset]> = PublishSubject<[AssetTypes.DTO.Asset]>()
     private let disposeBag: DisposeBag = DisposeBag()
@@ -40,8 +40,7 @@ final class AssetInteractor: AssetInteractorProtocol {
             .flatMap(weak: self) { owner, wallet -> Observable<[AssetTypes.DTO.Asset]> in
 
                 owner.accountBalanceInteractor
-                    .balances(by: wallet,
-                              isNeedUpdate: isNeedUpdate)
+                    .balances(by: wallet)
                     .map {
                         $0.filter { asset -> Bool in
                             ids.contains(asset.assetId)
@@ -83,42 +82,19 @@ final class AssetInteractor: AssetInteractorProtocol {
 
     func toggleFavoriteFlagForAsset(by id: String, isFavorite: Bool) {
 
-
-
-        authorizationInteractor
+        return authorizationInteractor
             .authorizedWallet()
-            .flatMap { [weak self] wallet -> Observable<(wallet: DomainLayer.DTO.Wallet,
-                balance: DomainLayer.DTO.AssetBalance)> in
-
+            .flatMap { [weak self] wallet -> Observable<Bool> in
                 guard let owner = self else { return Observable.never() }
-                return owner
-                    .accountBalanceRepositoryLocal
-                    .balance(by: id, accountAddress: wallet.address)
-                    .map { (wallet: wallet.wallet, balance: $0) }
-            }
-            .flatMap { [weak self] data -> Observable<Bool> in
-
-                guard let owner = self else { return Observable.never() }
-
-                let a = WalletSort.DTO.Asset.init(id: data.balance.assetId,
-                                          name: data.balance.asset!.displayName,
-                                          isLock: data.balance.asset!.isWaves,
-                                          isMyWavesToken: data.balance.asset!.isMyWavesToken,
-                                          isFavorite: isFavorite,
-                                          isGateway: data.balance.asset!.isGateway,
-                                          isHidden: data.balance.settings!.isHidden,
-                                          sortLevel: data.balance.settings!.sortLevel,
-                                          icon: data.balance.asset!.icon)
-
-                owner.walletSortInteractor.update(asset: a)
-                return Observable.just(true)
+                return owner.assetsBalanceSettings.setFavorite(by: wallet.address, assetId: id, isFavorite: isFavorite)
             }
             .subscribe()
             .disposed(by: disposeBag)
+
     }
 }
 
-private extension DomainLayer.DTO.AssetBalance {
+private extension DomainLayer.DTO.SmartAssetBalance {
 
     func mapToAsset() -> AssetTypes.DTO.Asset {
         return AssetTypes.DTO.Asset(info: mapToInfo(),
@@ -127,9 +103,9 @@ private extension DomainLayer.DTO.AssetBalance {
 
     func mapToBalance() -> AssetTypes.DTO.Asset.Balance {
 
-        let decimal = asset?.precision ?? 0
+        let decimal = asset.precision
 
-        let totalMoney = Money(balance, decimal)
+        let totalMoney = Money(totalBalance, decimal)
         let avaliableMoney = Money(avaliableBalance, decimal)
         let leasedMoney = Money(leasedBalance, decimal)
         let inOrderMoney = Money(inOrderBalance, decimal)
@@ -138,26 +114,26 @@ private extension DomainLayer.DTO.AssetBalance {
                                             avaliableMoney: avaliableMoney,
                                             leasedMoney: leasedMoney,
                                             inOrderMoney: inOrderMoney,
-                                            isFiat: asset?.isFiat ?? false)
+                                            isFiat: asset.isFiat)
     }
 
     func mapToInfo() -> AssetTypes.DTO.Asset.Info {
 
-        let id = asset?.id ?? ""
-        let issuer = asset?.sender ?? ""
-        let name = asset?.displayName ?? ""
-        let description = asset?.description ?? ""
-        let issueDate = asset?.timestamp ?? Date()
-        let isReusable = asset?.isReusable ?? false
-        let isMyWavesToken = asset?.isMyWavesToken ?? false
-        let isWavesToken = asset?.isWavesToken ?? false
-        let isWaves = asset?.isWaves ?? false
-        let isFavorite = settings?.isFavorite ?? false
-        let isFiat = asset?.isFiat ?? false
-        let isSpam = asset?.isSpam ?? false
-        let isGateway = asset?.isGateway ?? false
-        let sortLevel = settings?.sortLevel ?? 0
-        let icon = asset?.icon ?? ""
+        let id = asset.id
+        let issuer = asset.sender
+        let name = asset.displayName
+        let description = asset.description
+        let issueDate = asset.timestamp
+        let isReusable = asset.isReusable
+        let isMyWavesToken = asset.isMyWavesToken
+        let isWavesToken = asset.isWavesToken
+        let isWaves = asset.isWaves
+        let isFavorite = settings.isFavorite
+        let isFiat = asset.isFiat
+        let isSpam = asset.isSpam
+        let isGateway = asset.isGateway
+        let sortLevel = settings.sortLevel
+        let icon = asset.icon
 
         return .init(id: id,
                      issuer: issuer,

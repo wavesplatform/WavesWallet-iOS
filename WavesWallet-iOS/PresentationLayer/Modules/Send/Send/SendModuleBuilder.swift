@@ -10,7 +10,7 @@ import UIKit
 
 struct SendModuleBuilder: ModuleBuilder {
     
-    func build(input: DomainLayer.DTO.AssetBalance?) -> UIViewController {
+    func build(input: DomainLayer.DTO.SmartAssetBalance?) -> UIViewController {
         
         let interactor: SendInteractorProtocol = SendInteractor()
         

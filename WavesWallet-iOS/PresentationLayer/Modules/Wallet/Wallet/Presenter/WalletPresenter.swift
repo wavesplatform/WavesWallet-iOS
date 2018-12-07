@@ -25,12 +25,16 @@ final class WalletPresenter: WalletPresenterProtocol {
 
     private let disposeBag: DisposeBag = DisposeBag()
 
+    private var assetListener: Signal<WalletTypes.Event>?
+    private var leasingListener: Signal<WalletTypes.Event>?
+
     func system(feedbacks: [Feedback]) {
 
         var newFeedbacks = feedbacks
         newFeedbacks.append(queryAssets())
+        newFeedbacks.append(queryAssetsListener())
         newFeedbacks.append(queryLeasing())
-        newFeedbacks.append(queryListenerAssets())
+        newFeedbacks.append(queryLeasingListener())
 
         Driver
             .system(initialState: WalletPresenter.initialState(),
@@ -43,48 +47,59 @@ final class WalletPresenter: WalletPresenterProtocol {
             .disposed(by: disposeBag)
     }
 
-    private func queryListenerAssets() -> Feedback {
-        return react(query: { (state) -> Bool? in
-
-            if state.displayState.kind == .assets {
-                return true
-            } else {
-                return nil
-            }
-
-        }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
-
-            return FactoryInteractors.instance.authorization.authorizedWallet().flatMap({ (wallet) -> Observable<[DomainLayer.DTO.AssetBalance]> in
-                return FactoryRepositories.instance.accountBalanceRepositoryLocal.listenerOfUpdatedBalances(by: wallet.address)
-            })
-            .map { .setAssets($0) }
-            .sweetDebugWithoutResponse("Born")
-            .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
-        })
-    }
-
     private func queryAssets() -> Feedback {
         return react(query: { (state) -> Types.DisplayState.RefreshData? in
 
-            if state.displayState.kind == .assets {
-                if state.displayState.refreshData == .none {
-                    return nil
-                } else {
-                    return state.displayState.refreshData
-                }
+            if state.displayState.kind == .assets && state.displayState.refreshData != .none {
+                return state.displayState.refreshData
             } else {
                 return nil
             }
 
         }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
-            
+
             guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf
+            let signal = strongSelf
                 .interactor
                 .assets()
                 .map { .setAssets($0) }
-                .sweetDebugWithoutResponse("Test")
-                .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
+                .share()
+                .asSignal(onErrorRecover: { Signal<WalletTypes.Event>.just(.handlerError($0)) })
+
+            strongSelf.assetListener = signal
+            return signal
+        })
+    }
+
+    private func queryAssetsListener() -> Feedback {
+        return react(query: { (state) -> Types.DisplayState.RefreshData? in
+
+            if state.displayState.kind == .assets {
+                return state.displayState.listenerRefreshData
+            } else {
+                return nil
+            }
+
+        }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
+
+            guard let strongSelf = self else { return Signal.empty() }
+            return strongSelf.assetListener?.skip(1) ?? Signal.never()
+        })
+    }
+
+    private func queryLeasingListener() -> Feedback {
+        return react(query: { (state) -> Types.DisplayState.RefreshData? in
+
+            if state.displayState.kind == .leasing {
+                return state.displayState.listenerRefreshData
+            } else {
+                return nil
+            }
+
+        }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
+
+            guard let strongSelf = self else { return Signal.empty() }
+            return strongSelf.leasingListener?.skip(1) ?? Signal.never()
         })
     }
 
@@ -100,11 +115,15 @@ final class WalletPresenter: WalletPresenterProtocol {
         }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
 
             guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf
+            let listener = strongSelf
                 .interactor
                 .leasing()
+                .share()
                 .map { .setLeasing($0) }
-                .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
+                .asSignal(onErrorRecover: { Signal<WalletTypes.Event>.just(.handlerError($0)) })
+
+            strongSelf.leasingListener = listener
+            return listener
         })
     }
 
@@ -129,11 +148,7 @@ final class WalletPresenter: WalletPresenterProtocol {
         switch event {
         case .viewWillAppear:
             state.displayState.isAppeared = true
-            if state.displayState.refreshData == .update {
-                state.displayState.refreshData = .refresh
-            } else {
-                state.displayState.refreshData = .update
-            }
+            state.displayState.refreshData = .refresh
 
             var hasData = false
 
@@ -177,7 +192,7 @@ final class WalletPresenter: WalletPresenterProtocol {
             state.displayState.currentDisplay = currentDisplay
 
         case .tapSortButton:
-            moduleOutput?.showWalletSort()
+            moduleOutput?.showWalletSort(balances: state.assets)
 
         case .tapAddressButton:
             moduleOutput?.showMyAddress()
@@ -188,6 +203,7 @@ final class WalletPresenter: WalletPresenterProtocol {
             } else {
                 state.displayState.refreshData = .update
             }
+
 
             var hasData = false
 
@@ -206,7 +222,7 @@ final class WalletPresenter: WalletPresenterProtocol {
                 currentDisplay.errorState = .none
                 currentDisplay.animateType = .refresh(animated: false)
             }
-
+            currentDisplay.isRefreshing = true
             state.displayState.currentDisplay = currentDisplay
 
         case .tapRow(let indexPath):
@@ -222,15 +238,15 @@ final class WalletPresenter: WalletPresenterProtocol {
 
             case .hidden:
                 guard let asset = section.items[indexPath.row].asset else { return  }
-                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.settings!.isHidden == true } )
+                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.settings.isHidden == true } )
 
             case .spam:
                 guard let asset = section.items[indexPath.row].asset else { return  }
-                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.asset!.isSpam == true } )
+                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.asset.isSpam == true } )
 
             case .general:
                 guard let asset = section.items[indexPath.row].asset else { return  }
-                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.asset!.isSpam != true && $0.settings!.isHidden != true } )
+                moduleOutput?.showAsset(with: asset, assets: state.assets.filter { $0.asset.isSpam != true && $0.settings.isHidden != true } )
             case .transactions:
                 let leasingTransactions = section
                     .items
@@ -251,7 +267,6 @@ final class WalletPresenter: WalletPresenterProtocol {
             state.displayState.currentDisplay = currentDisplay
 
         case .setAssets(let response):
-            state.displayState.refreshData = .none
 
             let sections = WalletTypes.ViewModel.Section.map(from: response)
             state.displayState = state.displayState.updateDisplay(kind: .assets,
@@ -265,9 +280,12 @@ final class WalletPresenter: WalletPresenterProtocol {
 
             state.displayState.currentDisplay = currentDisplay
 
+            if state.displayState.refreshData != .none {
+                state.displayState.listenerRefreshData = state.displayState.refreshData
+            }
+
         case .setLeasing(let response):
 
-            state.displayState.refreshData = .none
             let sections = WalletTypes.ViewModel.Section.map(from: response)
             state.displayState = state.displayState.updateDisplay(kind: .leasing,
                                                                   sections: sections)
@@ -277,6 +295,10 @@ final class WalletPresenter: WalletPresenterProtocol {
             currentDisplay.errorState = .none
             currentDisplay.isRefreshing = false
             state.displayState.currentDisplay = currentDisplay
+
+            if state.displayState.refreshData != .none {
+                state.displayState.listenerRefreshData = state.displayState.refreshData
+            }
 
         case .showStartLease(let money):
             moduleOutput?.showStartLease(availableMoney: money)

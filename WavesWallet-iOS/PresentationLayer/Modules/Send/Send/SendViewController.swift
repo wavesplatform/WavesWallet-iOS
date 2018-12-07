@@ -40,7 +40,7 @@ final class SendViewController: UIViewController {
     @IBOutlet private weak var labelAmountError: UILabel!
     @IBOutlet private weak var moneroPaymentIdView: SendMoneroPaymentIdView!
     
-    private var selectedAsset: DomainLayer.DTO.AssetBalance?
+    private var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
     private var amount: Money?
     private let wavesFee = GlobalConstants.WavesTransactionFee
     
@@ -50,7 +50,7 @@ final class SendViewController: UIViewController {
     var input: AssetList.DTO.Input!
     private var isValidAlias: Bool = false
     private var gateWayInfo: Send.DTO.GatewayInfo?
-    private var wavesAsset: DomainLayer.DTO.AssetBalance?
+    private var wavesAsset: DomainLayer.DTO.SmartAssetBalance?
     private var moneroAddress: String = ""
     private var isLoadingAssetBalanceAfterScan = false
     
@@ -59,7 +59,7 @@ final class SendViewController: UIViewController {
         guard let asset = selectedAsset else { return Money(0, 0)}
         
         var balance: Int64 = 0
-        if asset.asset?.isWaves == true {
+        if asset.asset.isWaves == true {
             balance = asset.avaliableBalance - wavesFee.amount
         }
         else if isValidCryptocyrrencyAddress {
@@ -68,7 +68,7 @@ final class SendViewController: UIViewController {
         else {
             balance = asset.avaliableBalance
         }
-        return Money(balance, asset.asset?.precision ?? 0)
+        return Money(balance, asset.asset.precision)
     }
     
     override func viewDidLoad() {
@@ -101,7 +101,7 @@ final class SendViewController: UIViewController {
             assetView.isSelectedAssetMode = false
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 self.setupAssetInfo(asset)
-                self.amountView.setDecimals(asset.asset?.precision ?? 0, forceUpdateMoney: false)
+                self.amountView.setDecimals(asset.asset.precision, forceUpdateMoney: false)
             }
         }
         else {
@@ -114,7 +114,7 @@ final class SendViewController: UIViewController {
         setupBigNavigationBar()
     }
     
-    private func setupAssetInfo(_ assetBalance: DomainLayer.DTO.AssetBalance) {
+    private func setupAssetInfo(_ assetBalance: DomainLayer.DTO.SmartAssetBalance) {
         gateWayInfo = nil
         
         selectedAsset = assetBalance
@@ -132,7 +132,7 @@ final class SendViewController: UIViewController {
         
         updateAmountData()
         updateMoneraPaymentView(animation: false)
-        recipientAddressView.decimals = selectedAsset?.asset?.precision ?? 0
+        recipientAddressView.decimals = selectedAsset?.asset.precision ?? 0
     }
     
     private func showConfirmScreen() {
@@ -149,7 +149,7 @@ final class SendViewController: UIViewController {
             isGateway = true
             attachment = gateWay.attachment
             
-            if selectedAsset?.asset?.isMonero == true && moneroAddress.count > 0 {
+            if selectedAsset?.asset.isMonero == true && moneroAddress.count > 0 {
                 address = moneroAddress
             }
             
@@ -235,7 +235,7 @@ private extension SendViewController {
                 
                     if let asset = assetBalance {
                         strongSelf.setupAssetInfo(asset)
-                        strongSelf.amountView.setDecimals(asset.asset?.precision ?? 0, forceUpdateMoney: true)
+                        strongSelf.amountView.setDecimals(asset.asset.precision, forceUpdateMoney: true)
                     }
                     
                 case .didFailInfo(let error):
@@ -292,9 +292,9 @@ extension SendViewController: AmountInputViewDelegate {
 
 //MARK: - AssetListModuleOutput
 extension SendViewController: AssetListModuleOutput {
-    func assetListDidSelectAsset(_ asset: DomainLayer.DTO.AssetBalance) {
+    func assetListDidSelectAsset(_ asset: DomainLayer.DTO.SmartAssetBalance) {
         setupAssetInfo(asset)
-        amountView.setDecimals(asset.asset?.precision ?? 0, forceUpdateMoney: true)
+        amountView.setDecimals(asset.asset.precision, forceUpdateMoney: true)
         validateAddress()
     }
 }
@@ -497,7 +497,7 @@ private extension SendViewController {
     }
     
     func updateMoneraPaymentView(animation: Bool) {
-        if selectedAsset?.asset?.isMonero == true && isValidCryptocyrrencyAddress {
+        if selectedAsset?.asset.isMonero == true && isValidCryptocyrrencyAddress {
             moneroPaymentIdView.setupDefaultHeight(animation: animation)
         }
         else {
@@ -633,7 +633,7 @@ extension SendViewController: UIScrollViewDelegate {
 private extension SendViewController {
 
     var isNeedGenerateMoneroAddress: Bool {
-        if selectedAsset?.asset?.isMonero == true && isValidCryptocyrrencyAddress && moneroPaymentIdView.isValidPaymentID {
+        if selectedAsset?.asset.isMonero == true && isValidCryptocyrrencyAddress && moneroPaymentIdView.isValidPaymentID {
             return moneroAddress.count == 0
         }
         return false
@@ -641,7 +641,7 @@ private extension SendViewController {
     
     var isValidPaymentMoneroID: Bool {
     
-        if selectedAsset?.asset?.isMonero == true && isValidCryptocyrrencyAddress {
+        if selectedAsset?.asset.isMonero == true && isValidCryptocyrrencyAddress {
             return moneroPaymentIdView.isValidPaymentID
         }
         return true
@@ -662,7 +662,7 @@ private extension SendViewController {
     
     var isValidAmount: Bool {
         guard let amount = amount else { return false }
-        if selectedAsset?.asset?.isWaves == true {
+        if selectedAsset?.asset.isWaves == true {
             return availableBalance.amount >= amount.amount
         }
         
@@ -683,10 +683,10 @@ private extension SendViewController {
     var isValidCryptocyrrencyAddress: Bool {
         let address = recipientAddressView.text
 
-        if let regExp = selectedAsset?.asset?.addressRegEx, regExp.count > 0 {
+        if let regExp = selectedAsset?.asset.addressRegEx, regExp.count > 0 {
             return NSPredicate(format: "SELF MATCHES %@", regExp).evaluate(with: address) &&
-                selectedAsset?.asset?.isGateway == true &&
-                selectedAsset?.asset?.isFiat == false
+                selectedAsset?.asset.isGateway == true &&
+                selectedAsset?.asset.isFiat == false
         }
         return false
     }
