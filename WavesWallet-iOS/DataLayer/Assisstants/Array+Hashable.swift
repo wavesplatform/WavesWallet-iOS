@@ -10,11 +10,12 @@ import Foundation
 
 #if swift(>=4.2)
 #else
-extension Array: Hashable where Element: Hashable {
-    public var hashValue: Int {
-        return reduce(5381) {
-            ($0 << 5) &+ $0 &+ $1.hashValue
-        }
-    }
-}
+//TODO: Remove
+//extension Array: Hashable where Element: Hashable {
+//    public var hashValue: Int {
+//        return reduce(5381) {
+//            ($0 << 5) &+ $0 &+ $1.hashValue
+//        }
+//    }
+//}
 #endif

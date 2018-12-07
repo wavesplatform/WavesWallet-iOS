@@ -94,9 +94,9 @@ extension TransactionHistoryCoordinator: StartLeasingModuleOutput {
     func startLeasingDidSuccess(transaction: DomainLayer.DTO.SmartTransaction, kind: StartLeasingTypes.Kind) {
         
         switch kind {
-        case .cancel(let cancelOrder):
+        case .cancel:
+            break
         //TODO: need update state after cancelingOrder
-            print("need update state after cancelingOrder")
         default:
             break
         }
@@ -142,7 +142,7 @@ extension TransactionHistoryCoordinator {
 
     func finishedAddToAddressBook(contact: TransactionHistoryTypes.DTO.ContactState) {
 
-        self.navigationController.popViewController(animated: true, completed: { [weak self] in
+        _ = self.navigationController.popViewController(animated: true, completed: { [weak self] in
             self?.lastDisplay?.finishedAddressBook?(contact, true)
             self?.showDisplay(.showTransactionHistory)
         })

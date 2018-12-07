@@ -100,6 +100,8 @@ post_install do |installer|
         
         target.build_configurations.each do |config|
 
+            config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = "YES"
+
             swift3_2pods = [
             'InfiniteCollectionView'
             ]
@@ -109,11 +111,12 @@ post_install do |installer|
             end
 
             if config.name == 'Debug'
-                config.build_settings['OTHER_SWIFT_FLAGS'] = ['$(inherited)', '-Onone']
-                config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-O'
-                config.build_settings['SWIFT_COMPILATION_MODE'] = 'wholemodule'
+                # config.build_settings['OTHER_SWIFT_FLAGS'] = ['$(inherited)', '-Onone']
+                # config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-O'
+                # config.build_settings['SWIFT_COMPILATION_MODE'] = 'wholemodule'
 
             end
         end
+        
     end
 end

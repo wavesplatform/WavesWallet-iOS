@@ -100,7 +100,7 @@ private extension ReceiveCryptocurrencyViewController {
                 strongSelf.displayInfo = state.displayInfo
 
                 switch state.action {
-                case .addressDidGenerate(let info):
+                case .addressDidGenerate:
                     strongSelf.setupWarning()
                     strongSelf.setupButtonState()
 
