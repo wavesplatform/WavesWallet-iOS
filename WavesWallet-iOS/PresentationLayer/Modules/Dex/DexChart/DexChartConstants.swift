@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension DexChart.ChartContants {
+extension DexChart.ChartConstants {
 
     enum Candle {}
     enum Bar {}
@@ -17,7 +17,7 @@ extension DexChart.ChartContants {
 }
 
 
-extension DexChart.ChartContants.Candle {
+extension DexChart.ChartConstants.Candle {
     
     enum DataSet {
         static let decreasingColor = UIColor.error400
@@ -41,7 +41,7 @@ extension DexChart.ChartContants.Candle {
     }
 }
 
-extension DexChart.ChartContants.Bar {
+extension DexChart.ChartConstants.Bar {
     
     enum DataSet {
         static let color = UIColor.basic300

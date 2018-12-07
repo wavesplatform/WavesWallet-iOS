@@ -146,7 +146,7 @@ private extension DexChartViewController {
 //MARK: - DexChartHeaderViewDelegate
 extension DexChartViewController: DexChartHeaderViewDelegate {
     
-    func dexChartDidChangeTimeFrame(_ timeFrame: DexChart.DTO.TimeFrameType) {
+    func dexChartDidChangeTimeFrame(_ timeFrame: DomainLayer.DTO.Candle.TimeFrameType) {
         
         candleChartView.clear()
         barChartView.clear()

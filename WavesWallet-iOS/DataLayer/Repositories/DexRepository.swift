@@ -80,6 +80,6 @@ final class DexRepository: DexRepositoryProtocol {
                 .bind(to: observer)
 
             return Disposables.create([collection])
-        })
+        })         
     }
 }

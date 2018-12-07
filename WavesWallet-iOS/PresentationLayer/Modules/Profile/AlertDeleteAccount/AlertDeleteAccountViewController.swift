@@ -20,6 +20,7 @@ final class AlertDeleteAccountViewController: UIViewController {
     @IBOutlet private weak var cancelButton: UIButton!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var messageLabel: UILabel!
+    @IBOutlet private weak var labelNotSaveSeed: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,7 @@ final class AlertDeleteAccountViewController: UIViewController {
         cancelButton.setTitle(Localizable.Waves.Profile.Alert.Deleteaccount.Button.cancel, for: .normal)
         titleLabel.text = Localizable.Waves.Profile.Alert.Deleteaccount.title
         messageLabel.text = Localizable.Waves.Profile.Alert.Deleteaccount.message
+        labelNotSaveSeed.text = Localizable.Waves.Profile.Alert.Deleteaccount.notSaveSeed
     }
 
     func dismiss() {
