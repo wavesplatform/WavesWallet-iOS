@@ -169,6 +169,8 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
 
                 return Observable.just(.error(error))
             })
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .background)))
+            .share()
     }
 }
 

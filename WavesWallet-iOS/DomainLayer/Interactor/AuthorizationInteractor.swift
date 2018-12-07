@@ -187,12 +187,6 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
 
                 owner.seedRepositoryMemory.append(seed)
 
-                var oldWallet = Wallet(name: wallet.name,
-                                       publicKeyAccount: PublicKeyAccount(publicKey: Base58.decode(seed.publicKey)),
-                                       isBackedUp: wallet.isBackedUp)
-                oldWallet.privateKey = PrivateKeyAccount(seedStr: seed.seed)
-                WalletManager.currentWallet = oldWallet
-
                 return owner
                     .setIsLoggedIn(wallet: wallet)
                     .flatMap { [weak self] wallet -> Observable<AuthorizationVerifyAccessStatus> in
@@ -572,8 +566,7 @@ extension AuthorizationInteractor {
     func revokeAuth() -> Observable<Bool> {
 
         return Observable.create({ [weak self] observer -> Disposable in
-            self?.seedRepositoryMemory.removeAll()
-            WalletManager.clearPrivateMemoryKey()
+            self?.seedRepositoryMemory.removeAll()            
             observer.onNext(true)
             observer.onCompleted()
             return Disposables.create()
@@ -742,6 +735,9 @@ private extension AuthorizationInteractor {
     }
 
     private func biometricAccess() -> Observable<LAContext> {
+
+        print("biometricAccess")
+
         return Observable<LAContext>.create { observer -> Disposable in
 
             let context = LAContext()            
@@ -754,6 +750,7 @@ private extension AuthorizationInteractor {
                     { (result, error) in
 
                         if let error = error {
+                            context.invalidate()
                             observer.onError(error)
                         } else {
                             observer.onNext(context)
@@ -763,6 +760,7 @@ private extension AuthorizationInteractor {
 
 
             } else {
+                context.invalidate()
                 observer.onError(AuthorizationInteractorError.biometricDisable)
             }
 
@@ -809,7 +807,7 @@ private extension AuthorizationInteractor {
 
             return Disposables.create {
                 context.invalidate()
-                print("ALARM")
+                print("savePasscodeInKeychain invalidate")
             }
         }
     }
@@ -850,7 +848,7 @@ private extension AuthorizationInteractor {
 
             return Disposables.create {
                 context.invalidate()
-                print("ALARM")
+                print("passcodeFromKeychain invalidate")
             }
         }.sweetDebug("GEEETT key")
     }
@@ -912,7 +910,7 @@ private extension AuthorizationInteractor {
                 return Observable.error(owner.handlerError(error))
             })
 
-        return Observable.merge(Observable.just(AuthorizationVerifyAccessStatus.detectBiometric), auth)
+        return Observable.merge(Observable.just(AuthorizationVerifyAccessStatus.detectBiometric), auth).sweetDebugWithoutResponse("Biometric")
     }
 
     private func verifyAccessWalletUsingPasscode(_ passcode: String, wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.SignedWallet> {
