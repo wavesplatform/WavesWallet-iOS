@@ -727,25 +727,24 @@ private extension AuthorizationInteractor {
                 }
             })
 
-            return Disposables.create {
-                context.invalidate()
-                print("ALARM")
-            }
+            return Disposables.create {}
         }
     }
 
     private func biometricAccess() -> Observable<LAContext> {
 
-        print("biometricAccess")
-
         return Observable<LAContext>.create { observer -> Disposable in
 
-            let context = LAContext()            
+            let context = LAContext()
+
+            context.localizedFallbackTitle = Localizable.Waves.Biometric.localizedFallbackTitle
+            context.localizedCancelTitle = Localizable.Waves.Biometric.localizedCancelTitle
+
             var error: NSError?
             if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &error) {
 
                 context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics,
-                                       localizedReason: "Test",
+                                       localizedReason: Localizable.Waves.Biometric.readfromkeychain,
                                        reply:
                     { (result, error) in
 
@@ -765,7 +764,8 @@ private extension AuthorizationInteractor {
             }
 
             return Disposables.create {
-//                context.invalidate()
+                context.invalidate()
+                print("biometricAccess Disposables")
             }
         }
     }
@@ -806,7 +806,6 @@ private extension AuthorizationInteractor {
 
 
             return Disposables.create {
-                context.invalidate()
                 print("savePasscodeInKeychain invalidate")
             }
         }
@@ -830,7 +829,7 @@ private extension AuthorizationInteractor {
                     .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
 
                 do {
-                        guard let passcode = try keychain.get(wallet.publicKey) else
+                    guard let passcode = try keychain.get(wallet.publicKey) else
                     {
                         throw AuthorizationInteractorError.biometricDisable
                     }
@@ -847,7 +846,6 @@ private extension AuthorizationInteractor {
 
 
             return Disposables.create {
-                context.invalidate()
                 print("passcodeFromKeychain invalidate")
             }
         }.sweetDebug("GEEETT key")

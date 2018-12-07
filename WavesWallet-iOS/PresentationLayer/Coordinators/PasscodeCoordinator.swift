@@ -92,7 +92,7 @@ extension PasscodeCoordinator: PasscodeModuleOutput {
 
     func passcodeLogInCompleted(passcode: String, wallet: DomainLayer.DTO.Wallet, isNewWallet: Bool) {
 
-        if isNewWallet {
+        if isNewWallet, BiometricType.current != .none {
             let vc = UseTouchIDModuleBuilder(output: self).build(input: .init(passcode: passcode, wallet: wallet))
             navigationController.present(vc, animated: true, completion: nil)
         } else {
