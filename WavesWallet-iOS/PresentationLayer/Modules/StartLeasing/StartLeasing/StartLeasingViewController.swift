@@ -147,7 +147,8 @@ private extension StartLeasingViewController {
         let addressInput = AddressInputView.Input.init(title: Localizable.Waves.Startleasing.Label.generator,
                                                        error: Localizable.Waves.Startleasing.Label.addressIsNotValid,
                                                        placeHolder: Localizable.Waves.Startleasing.Label.nodeAddress,
-                                                       contacts: [])
+                                                       contacts: [],
+                                                       canChangeAsset: false)
         addressGeneratorView.update(with: addressInput)
         addressGeneratorView.errorValidation = { text in
             return Address.isValidAddress(address: text) || Address.isValidAlias(alias: text)

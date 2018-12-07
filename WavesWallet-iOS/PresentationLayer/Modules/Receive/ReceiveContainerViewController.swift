@@ -23,7 +23,7 @@ final class ReceiveContainerViewController: UIViewController {
     @IBOutlet private weak var scrollViewContainer: UIScrollView!
     @IBOutlet private weak var scrollView: UIScrollView!
     
-    var asset: DomainLayer.DTO.AssetBalance?
+    var asset: DomainLayer.DTO.SmartAssetBalance?
     
     override func viewDidLoad() {
         super.viewDidLoad()
