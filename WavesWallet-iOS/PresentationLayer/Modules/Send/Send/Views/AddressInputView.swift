@@ -343,15 +343,17 @@ private extension AddressInputView {
                 if amount > 0 {
                     self.getDecimals(assetID: assetID).asDriver { (error) -> SharedSequence<DriverSharingStrategy, Int> in
                         return SharedSequence.just(0)
-                        }.drive(onNext: { (decimals) in
+                    }
+                    .drive(onNext: { (decimals) in
                             
-                            let amount = Money(value: Decimal(amount), decimals)
-                            self.delegate?.addressInputViewDidScanAddress(address,
-                                                                          amount: amount,
-                                                                          assetID: assetID)
-                            
-                            
-                        }).disposed(by: self.disposeBag)
+                        let amount = Money(value: Decimal(amount), decimals)
+                        self.delegate?.addressInputViewDidScanAddress(address,
+                                                                      amount: amount,
+                                                                      assetID: assetID)
+                        
+                        
+                    })
+                    .disposed(by: self.disposeBag)
                 }
                 else {
                     self.delegate?.addressInputViewDidScanAddress(address,
