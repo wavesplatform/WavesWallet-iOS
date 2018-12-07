@@ -106,7 +106,16 @@ extension TransactionHistoryCoordinator: StartLeasingModuleOutput {
 extension TransactionHistoryCoordinator: AddAddressBookModuleOutput {
 
     func transactionHistoryResendTransaction(_ transaction: DomainLayer.DTO.SmartTransaction) {
-        //TODO: resend transaction
+        switch transaction.kind {
+        case .sent(let tx):
+            navigationController.dismiss(animated: false)
+            
+            let send = SendModuleBuilder().build(input: nil)
+            navigationController.pushViewController(send, animated: true)
+
+        default:
+            break
+        }
     }
 
     func transactionHistoryCancelLeasing(_ transaction: DomainLayer.DTO.SmartTransaction) {
