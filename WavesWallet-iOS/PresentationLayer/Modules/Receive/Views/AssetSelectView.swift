@@ -108,7 +108,7 @@ extension AssetSelectView: ViewConfiguration {
     func update(with model: Model) {
         
         isOnlyBlockMode = model.isOnlyBlockMode
-        guard let asset = model.assetBalance.asset else { return }
+        let asset = model.assetBalance.asset
         
         viewAsset.isHidden = false
         labelAmount.isHidden = false
@@ -116,10 +116,10 @@ extension AssetSelectView: ViewConfiguration {
 
         labelAssetName.text = asset.displayName
         iconGateway.isHidden = !asset.isGateway
-        iconFav.isHidden = !model.settings.isFavorite
+        iconFav.isHidden = !model.assetBalance.settings.isFavorite
        
         loadIcon(name: asset.icon)
-        let money = Money(model.avaliableBalance, asset.precision)
+        let money = Money(model.assetBalance.avaliableBalance, asset.precision)
         labelAmount.text = money.displayText
     }
     
