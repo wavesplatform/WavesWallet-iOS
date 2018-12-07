@@ -692,7 +692,7 @@ private extension PasscodePresenter {
             let oldPasscode = state.numbers[.oldPasscode]
             state.displayState.isLoading = true
             state.displayState.error = nil
-            state.passcode = oldPasscode.reduce(into: "") { $0 += "\($1)" }
+            state.passcode = oldPasscode?.reduce(into: "") { $0 += "\($1)" } ?? ""
             state.action = .verifyAccess
 
         case .newPasscode:

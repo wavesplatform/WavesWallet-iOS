@@ -13,7 +13,7 @@ import RxSwift
 
 
 fileprivate enum Constants {
-    static let contentInset = UIEdgeInsetsMake(8, 0, 0, 0)
+    static let contentInset = UIEdgeInsets.init(top: 8, left: 0, bottom: 0, right: 0)
     static let updateTime: RxTimeInterval = 30
 }
 

@@ -102,7 +102,7 @@ private final class SeparatorLineView: UIView {
 
         let layer: CAShapeLayer = self.layer as! CAShapeLayer
         layer.path = path
-        layer.lineJoin = kCALineJoinMiter;
+        layer.lineJoin = CAShapeLayerLineJoin.miter;
         layer.strokeStart = 0
     }
 

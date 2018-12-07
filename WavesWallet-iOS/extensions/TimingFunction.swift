@@ -42,13 +42,13 @@ enum TimingFunction {
     var caMediaTimingFuction: CAMediaTimingFunction {
         switch self {
         case .linear:
-            return CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+            return CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
         case .easeIn:
-            return CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+            return CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)
         case .easeOut:
-            return CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+            return CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
         case .easeInOut:
-            return CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            return CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         case .spring:
             return CAMediaTimingFunction(controlPoints: 0.5, 1.1 + Float(1 / 3), 1, 1)
         case .easeInSine:
