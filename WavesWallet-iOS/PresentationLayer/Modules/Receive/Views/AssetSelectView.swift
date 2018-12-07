@@ -101,7 +101,7 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
 extension AssetSelectView: ViewConfiguration {
     
     struct Model {
-        let assetBalance: DomainLayer.DTO.AssetBalance
+        let assetBalance: DomainLayer.DTO.SmartAssetBalance
         let isOnlyBlockMode: Bool
     }
     
@@ -116,10 +116,10 @@ extension AssetSelectView: ViewConfiguration {
 
         labelAssetName.text = asset.displayName
         iconGateway.isHidden = !asset.isGateway
-        iconFav.isHidden = !(model.assetBalance.settings?.isFavorite ?? false)
+        iconFav.isHidden = !model.settings.isFavorite
        
-        loadIcon(name: asset.ticker ?? asset.displayName)
-        let money = Money(model.assetBalance.avaliableBalance, asset.precision)
+        loadIcon(name: asset.icon)
+        let money = Money(model.avaliableBalance, asset.precision)
         labelAmount.text = money.displayText
     }
     

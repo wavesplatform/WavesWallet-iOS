@@ -24,14 +24,14 @@ final class SendInteractor: SendInteractorProtocol {
     private let auth = FactoryInteractors.instance.authorization
     
     func assetBalance(by assetID: String) -> Observable<DomainLayer.DTO.AssetBalance?> {
-        return accountBalanceInteractor.balances(isNeedUpdate: false).flatMap({ [weak self] (balances) -> Observable<DomainLayer.DTO.AssetBalance?>  in
+        return accountBalanceInteractor.balances(isNeedUpdate: false).flatMap({ [weak self] (balances) -> Observable<DomainLayer.DTO.SmartAssetBalance?>  in
             
             if let asset = balances.first(where: {$0.assetId == assetID}) {
                 return Observable.just(asset)
             }
             
             guard let owner = self else { return Observable.empty() }
-            return owner.auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DomainLayer.DTO.AssetBalance?> in
+            return owner.auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DomainLayer.DTO.SmartAssetBalance?> in
                 guard let owner = self else { return Observable.empty() }
                 return owner.assetInteractor.assets(by: [assetID], accountAddress: wallet.address, isNeedUpdated: false)
                     .flatMap({ (assets) -> Observable<DomainLayer.DTO.AssetBalance?> in
@@ -50,33 +50,33 @@ final class SendInteractor: SendInteractorProtocol {
                     })
 
             })
-        }).catchError({ (error) -> Observable<DomainLayer.DTO.AssetBalance?> in
+        }).catchError({ (error) -> Observable<DomainLayer.DTO.SmartAssetBalance?> in
             return Observable.just(nil)
         })
     }
     
-    func getWavesBalance() -> Observable<DomainLayer.DTO.AssetBalance> {
+    func getWavesBalance() -> Observable<DomainLayer.DTO.SmartAssetBalance> {
         
         //TODO: need to checkout if we need you use force update balance
         //because we can make transaction only if balance > 0, waves fee = 0.001
         //isNeedUpdate = false, because Send UI no need waiting animation state
         
         let accountBalance = FactoryInteractors.instance.accountBalance
-        return accountBalance.balances(isNeedUpdate: false)
-            .flatMap({ balances -> Observable<DomainLayer.DTO.AssetBalance> in
+        return accountBalance.balances()
+            .flatMap({ balances -> Observable<DomainLayer.DTO.SmartAssetBalance> in
                 
-                guard let wavesAsset = balances.first(where: {$0.asset?.wavesId == Environments.Constants.wavesAssetId}) else {
+                guard let wavesAsset = balances.first(where: {$0.asset.wavesId == Environments.Constants.wavesAssetId}) else {
                     return Observable.empty()
                 }
                 return Observable.just(wavesAsset)
             })
     }
     
-    func generateMoneroAddress(asset: DomainLayer.DTO.AssetBalance, address: String, paymentID: String) -> Observable<ResponseType<String>> {
+    func generateMoneroAddress(asset: DomainLayer.DTO.SmartAssetBalance, address: String, paymentID: String) -> Observable<ResponseType<String>> {
         
         return Observable.create({ [weak self] (subscribe) -> Disposable in
             
-            guard let asset = asset.asset else { return Disposables.create() }
+            let asset = asset.asset
 
             self?.getAssetTunnelInfo(asset: asset, address: address, moneroPaymentID: paymentID, complete: { (shortName, address, attachment, error) in
                 
@@ -92,11 +92,11 @@ final class SendInteractor: SendInteractorProtocol {
        
     }
     
-    func gateWayInfo(asset: DomainLayer.DTO.AssetBalance, address: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
+    func gateWayInfo(asset: DomainLayer.DTO.SmartAssetBalance, address: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
         
         return Observable.create({ [weak self] subscribe -> Disposable in
         
-            guard let asset = asset.asset else { return Disposables.create() }
+            let asset = asset.asset
             
             self?.getAssetRate(asset: asset, complete: { (fee, min, max, errorMessage) in
 
