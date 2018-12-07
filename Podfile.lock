@@ -96,7 +96,7 @@ PODS:
   - nanopb/encode (0.3.8)
   - pop (1.0.10)
   - QRCode (2.0)
-  - QRCodeReader.swift (8.2.0)
+  - QRCodeReader.swift (9.0.1)
   - ReachabilitySwift (4.3.0)
   - Realm (3.7.6):
     - Realm/Headers (= 3.7.6)
@@ -333,7 +333,7 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
   QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
-  QRCodeReader.swift: 003eb32f18a5a675b936ec82ba0ff368cddbff45
+  QRCodeReader.swift: 96292a5612fbc2fd9a0b26f93fa5164c8d02f59d
   ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
   Realm: 9eaecad54712d6246d08ba34c10f354e4715d7d3
   RealmSwift: 1fe08b4ebaeeaacf17f9ba0343f7b25c9fc31fa6

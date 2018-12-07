@@ -87,7 +87,7 @@ final class AssetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositor
                 .filter("assetId IN %@",ids)
 
             let dispose = Observable
-                .collection(from: objects)
+                .collection(from: objects)                
                 .map({ (results) -> [DomainLayer.DTO.AssetBalanceSettings] in
                     return results
                         .toArray()
@@ -98,7 +98,7 @@ final class AssetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositor
                 .bind(to: observer)
 
             return Disposables.create([dispose])
-        })
+        })        
         .subscribeOn(Schedulers.realmThreadScheduler)
     }
 
@@ -113,11 +113,11 @@ final class AssetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositor
             }
 
             do {
+                let settingsRealms = settings.map { AssetBalanceSettings($0) }
                 try realm.write {
-                    settings.forEach({ (settings) in
-                        realm.add(AssetBalanceSettings(settings), update: true)
-                    })
+                    realm.add(settingsRealms, update: true)
                 }
+
                 observer.onNext(true)
                 observer.onCompleted()
             } catch let error {
