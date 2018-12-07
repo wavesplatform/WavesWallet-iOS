@@ -51,7 +51,9 @@ final class RunLoopThreadScheduler: ImmediateSchedulerType {
 }
 
 enum Schedulers {
-    static var realmThreadScheduler = RunLoopThreadScheduler(threadName: "Realm")
+    static var realmThreadScheduler: RunLoopThreadScheduler  {
+        return RunLoopThreadScheduler(threadName: "Realm")
+    }
 }
 
 private final class ThreadTarget: NSObject {

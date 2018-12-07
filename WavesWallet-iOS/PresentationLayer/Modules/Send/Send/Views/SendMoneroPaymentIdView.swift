@@ -102,20 +102,17 @@ final class SendMoneroPaymentIdView: UIView, NibOwnerLoadable {
     }
     
     @IBAction private func scanTapped(_ sender: Any) {
+
+        CameraAccess.requestAccess(success: { [weak self] in
+            self?.showScanner()
+        }, failure: { [weak self] in
+                let alert = CameraAccess.alertController
+            self?.firstAvailableViewController().present(alert, animated: true, completion: nil)
+        })
         showScanner()
     }
     
-    private lazy var readerVC: QRCodeReaderViewController = {
-        let builder = QRCodeReaderViewControllerBuilder {
-            $0.showSwitchCameraButton = false
-            $0.showTorchButton = true
-            $0.reader = QRCodeReader()
-            $0.readerView = QRCodeReaderContainer(displayable: ScannerCustomView())
-            $0.preferredStatusBarStyle = .lightContent
-        }
-        
-        return QRCodeReaderViewController(builder: builder)
-    }()
+    private lazy var readerVC: QRCodeReaderViewController = QRCodeReaderFactory.deffaultCodeReader
 }
 
 //MARK: - UITextFieldDelegate
