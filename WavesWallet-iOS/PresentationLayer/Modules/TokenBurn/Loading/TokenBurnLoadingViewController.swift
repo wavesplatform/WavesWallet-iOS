@@ -53,7 +53,7 @@ final class TokenBurnLoadingViewController: UIViewController {
         let isFullBurned = input.amount.amount == input.asset.avaliableBalance
 
         let vc = StoryboardScene.Asset.tokenBurnCompleteViewController.instantiate()
-        vc.input = .init(assetName: input.asset.asset?.displayName ?? "",
+        vc.input = .init(assetName: input.asset.asset.displayName,
                          isFullBurned: isFullBurned,
                          delegate: input.delegate,
                          amount: input.amount)

@@ -37,10 +37,10 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
                                                                 availableAmountAssetBalance: Money(0, owner.pair.amountAsset.decimals),
                                                                 availableWavesBalance: Money(0, GlobalConstants.WavesDecimals))
 
-            Observable.zip(owner.account.balances(isNeedUpdate: false),
+            Observable.zip(owner.account.balances(),
                            owner.getLastTransactionInfo())
                 .subscribe(onNext: { [weak self] (balances, lastTransaction) in
-                    
+
                     guard let owner = self else { return }
 
                     //TODO: need move to repository
@@ -73,7 +73,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
 
 private extension DexOrderBookInteractor {
     
-    func getDisplayData(info: JSON, lastTransactionInfo: API.DTO.ExchangeTransaction?, header: DexOrderBook.ViewModel.Header, balances: [DomainLayer.DTO.AssetBalance]) -> DexOrderBook.DTO.DisplayData {
+    func getDisplayData(info: JSON, lastTransactionInfo: API.DTO.ExchangeTransaction?, header: DexOrderBook.ViewModel.Header, balances: [DomainLayer.DTO.SmartAssetBalance]) -> DexOrderBook.DTO.DisplayData {
        
         let itemsBids = info["bids"].arrayValue
         let itemsAsks = info["asks"].arrayValue
@@ -145,15 +145,15 @@ private extension DexOrderBookInteractor {
         var wavesBalance = Money(0, GlobalConstants.WavesDecimals)
         
         if let amountAsset = balances.first(where: {$0.assetId == pair.amountAsset.id}) {
-            amountAssetBalance = Money(amountAsset.avaliableBalance, amountAsset.asset?.precision ?? 0)
+            amountAssetBalance = Money(amountAsset.avaliableBalance, amountAsset.asset.precision)
         }
         
         if let priceAsset = balances.first(where: {$0.assetId == pair.priceAsset.id}) {
-            priceAssetBalance = Money(priceAsset.avaliableBalance, priceAsset.asset?.precision ?? 0)
+            priceAssetBalance = Money(priceAsset.avaliableBalance, priceAsset.asset.precision)
         }
         
-        if let wavesAsset = balances.first(where: {$0.asset?.isWaves == true}) {
-            wavesBalance = Money(wavesAsset.avaliableBalance, wavesAsset.asset?.precision ?? 0)
+        if let wavesAsset = balances.first(where: {$0.asset.isWaves == true}) {
+            wavesBalance = Money(wavesAsset.avaliableBalance, wavesAsset.asset.precision)
         }
         
         return DexOrderBook.DTO.DisplayData(asks: asks.reversed(), lastPrice: lastPrice, bids: bids, header: header,
