@@ -20,14 +20,14 @@ extension Optional: Sequence where Wrapped: Sequence {
     }
 }
 
-extension Optional: Hashable where Wrapped: Hashable {
-    public var hashValue: Int {
-        switch self {
-        case .none:
-            return 0
-        case .some(let v):
-            return v.hashValue
-        }
-    }
-}
+//extension Optional: Hashable where Wrapped: Hashable {
+//    public var hashValue: Int {
+//        switch self {
+//        case .none:
+//            return 0
+//        case .some(let v):
+//            return v.hashValue
+//        }
+//    }
+//}
 #endif

@@ -748,9 +748,9 @@ private extension AuthorizationInteractor {
                                        reply:
                     { (result, error) in
 
-                        if let error = error {
+                        if error != nil {
                             context.invalidate()
-                            observer.onError(error)
+                            observer.onError(AuthorizationInteractorError.biometricDisable)
                         } else {
                             observer.onNext(context)
                             observer.onCompleted()
@@ -765,7 +765,6 @@ private extension AuthorizationInteractor {
 
             return Disposables.create {
                 context.invalidate()
-                print("biometricAccess Disposables")
             }
         }
     }
@@ -777,8 +776,6 @@ private extension AuthorizationInteractor {
                 return owner.savePasscodeInKeychain(wallet: wallet, passcode: passcode, context: context)
             })
     }
-
-
 
     private func savePasscodeInKeychain(wallet: DomainLayer.DTO.Wallet, passcode: String, context: LAContext) -> Observable<Bool> {
         return Observable<Bool>.create { observer -> Disposable in
@@ -796,9 +793,7 @@ private extension AuthorizationInteractor {
                 } catch let error {
 
                     if error is AuthorizationInteractorError {
-                        observer.onError(error)
-                    } else if let errorKey = error as? KeychainAccess.Status {
-                        observer.onError(AuthorizationInteractorError.biometricDisable)
+                        observer.onError(error)                    
                     } else {
                         observer.onError(AuthorizationInteractorError.biometricDisable)
                     }
