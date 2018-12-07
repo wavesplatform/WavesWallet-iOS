@@ -12,6 +12,8 @@ internal enum Localizable {
     internal static var nsCameraUsageDescription: String { return Localizable.tr("InfoPlist", "NSCameraUsageDescription") }
     /// Access to your wallet
     internal static var nsFaceIDUsageDescription: String { return Localizable.tr("InfoPlist", "NSFaceIDUsageDescription") }
+    /// The camera is needed to scan QR codes
+    internal static var nsPhotoLibraryAddUsageDescription: String { return Localizable.tr("InfoPlist", "NSPhotoLibraryAddUsageDescription") }
 
     internal enum Cameraaccess {
 
@@ -1842,6 +1844,14 @@ internal enum Localizable {
       internal enum Label {
         /// US Dollar
         internal static var dollar: String { return Localizable.tr("Waves", "receiveinvoice.label.dollar") }
+      }
+    }
+
+    internal enum Scannerqrcode {
+
+      internal enum Label {
+        /// Scan QR
+        internal static var scan: String { return Localizable.tr("Waves", "scannerqrcode.label.scan") }
       }
     }
 

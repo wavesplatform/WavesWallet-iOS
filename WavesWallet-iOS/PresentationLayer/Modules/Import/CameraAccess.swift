@@ -57,7 +57,9 @@ enum CameraAccess {
     static func requestCameraPermission(completion: @escaping ((Bool) -> Void)) {
         
         AVCaptureDevice.requestAccess(for: .video, completionHandler: { accessGranted in
-            completion(accessGranted)
+            DispatchQueue.main.async {
+                completion(accessGranted)
+            }
         })
         
     }
