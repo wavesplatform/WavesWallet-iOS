@@ -10,27 +10,36 @@ import Foundation
 
 extension DomainLayer.DTO {
 
-    struct AssetBalance: Mutating {
-        struct Settings: Mutating {
-            let assetId: String
-            var sortLevel: Float
-            var isHidden: Bool
-            var isFavorite: Bool
-        }
+    struct SmartAssetBalance: Mutating {
         let assetId: String
-        //TODO: Rename totalBalance
-        var balance: Int64
+        var totalBalance: Int64
         var leasedBalance: Int64
         var inOrderBalance: Int64
-        var settings: Settings?
-        var asset: DomainLayer.DTO.Asset?
+        var settings: DomainLayer.DTO.AssetBalanceSettings
+        var asset: DomainLayer.DTO.Asset
         var modified: Date
+    }
+
+    struct AssetBalance: Mutating {
+
+        let assetId: String
+        var totalBalance: Int64
+        var leasedBalance: Int64
+        var inOrderBalance: Int64
+        var modified: Date
+    }
+
+    struct AssetBalanceSettings: Mutating {
+        let assetId: String
+        var sortLevel: Float
+        var isHidden: Bool
+        var isFavorite: Bool
     }
 }
 
-extension DomainLayer.DTO.AssetBalance {
+extension DomainLayer.DTO.SmartAssetBalance {
 
     var avaliableBalance: Int64 {
-        return balance - leasedBalance - inOrderBalance
+        return totalBalance - leasedBalance - inOrderBalance
     }
 }

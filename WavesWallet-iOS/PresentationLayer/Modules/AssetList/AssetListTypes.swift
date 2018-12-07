@@ -16,9 +16,9 @@ enum AssetList {
     
     enum Event {
         case readyView
-        case setAssets([DomainLayer.DTO.AssetBalance])
+        case setAssets([DomainLayer.DTO.SmartAssetBalance])
         case searchTextChange(text: String)
-        case didSelectAsset(DomainLayer.DTO.AssetBalance)
+        case didSelectAsset(DomainLayer.DTO.SmartAssetBalance)
         case changeMyList(Bool)
     }
     
@@ -43,9 +43,9 @@ extension AssetList.ViewModel {
     }
     
     enum Row {
-        case asset(DomainLayer.DTO.AssetBalance)
+        case asset(DomainLayer.DTO.SmartAssetBalance)
         
-        var asset: DomainLayer.DTO.AssetBalance {
+        var asset: DomainLayer.DTO.SmartAssetBalance {
             switch self {
             case .asset(let asset):
                 return asset
@@ -58,7 +58,7 @@ extension AssetList.DTO {
     
     struct Input {
         let filters: [AssetList.DTO.Filter]
-        let selectedAsset: DomainLayer.DTO.AssetBalance?
+        let selectedAsset: DomainLayer.DTO.SmartAssetBalance?
         let showAllList: Bool
     }
     
@@ -82,6 +82,6 @@ extension AssetList.State: Equatable {
 
 extension AssetList.ViewModel.Section {
     var isEmptyAssetsBalance: Bool {
-        return items.filter({$0.asset.balance > 0}).count == 0
+        return items.filter({$0.asset.totalBalance > 0}).count == 0
     }
 }

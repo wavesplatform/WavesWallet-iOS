@@ -473,12 +473,14 @@ private extension DexCreateOrderViewController {
         }
         
         let totalAmountMoney = Money(totalAmount, decimals)
-        
-        let valuePercent50 = Money(totalAmount * Int64(Constants.percent50) / 100, decimals)
-        
-        let valuePercent10 = Money(totalAmount * Int64(Constants.percent10) / 100, decimals)
-        
-        let valuePercent5 = Money(totalAmount * Int64(Constants.percent5) / 100, decimals)
+
+        let n5 = Decimal(totalAmountMoney.amount) * (Decimal(Constants.percent5) / 100.0)
+        let n10 = Decimal(totalAmountMoney.amount) * (Decimal(Constants.percent10) / 100.0)
+        let n50 = Decimal(totalAmountMoney.amount) * (Decimal(Constants.percent50) / 100.0)
+
+        let valuePercent50 = Money(n50.int64Value, decimals)
+        let valuePercent10 = Money(n10.int64Value, decimals)
+        let valuePercent5 = Money(n5.int64Value, decimals)
         
         values.append(totalAmountMoney)
         values.append(valuePercent50)
