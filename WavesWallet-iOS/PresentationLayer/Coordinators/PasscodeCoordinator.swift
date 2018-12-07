@@ -73,6 +73,10 @@ final class PasscodeCoordinator: Coordinator {
             }
         }
     }
+
+    deinit {
+        print("DEALLOC PASSCODE")
+    }
 }
 
 // MARK: PasscodeOutput

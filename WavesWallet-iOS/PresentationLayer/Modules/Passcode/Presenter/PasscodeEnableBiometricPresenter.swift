@@ -68,7 +68,7 @@ final class PasscodeEnableBiometricPresenter: PasscodePresenterProtocol {
 
         var newFeedbacks = feedbacks
         newFeedbacks.append(changeEnableBiometric())
-        newFeedbacks.append(disabledBiometricUsingBiometric())
+//        newFeedbacks.append(disabledBiometricUsingBiometric())
         newFeedbacks.append(logout())
 
         let initialState = self.initialState(input: input)
@@ -94,7 +94,7 @@ extension PasscodeEnableBiometricPresenter {
 
             if case .setEnableBiometric(_, let wallet) = state.kind,
                 let action = state.action,
-                case .disabledBiometricUsingBiometric = action {
+                case .disabledBiometricUsingBiometric = action, wallet.hasBiometricEntrance == true {
                 return wallet
             }
 
