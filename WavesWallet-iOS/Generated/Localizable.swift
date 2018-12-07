@@ -419,6 +419,10 @@ internal enum Localizable {
     }
 
     internal enum Biometric {
+      /// Cancel
+      internal static var localizedCancelTitle: String { return Localizable.tr("Waves", "biometric.localizedCancelTitle") }
+      /// Input passcode
+      internal static var localizedFallbackTitle: String { return Localizable.tr("Waves", "biometric.localizedFallbackTitle") }
       /// Access to your wallet
       internal static var readfromkeychain: String { return Localizable.tr("Waves", "biometric.readfromkeychain") }
       /// Access to your wallet

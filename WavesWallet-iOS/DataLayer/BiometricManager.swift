@@ -21,7 +21,9 @@ extension BiometricType {
         get {
             let context = LAContext()
 
-            let _ = context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
+            var error: NSError? = nil
+            let result = context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error)
+
             if #available(iOS 11.0, *) {
                 switch context.biometryType {
                 case .none:
@@ -32,7 +34,7 @@ extension BiometricType {
                     return .faceID
                 }
             } else {
-                return context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) ? .touchID : .none
+                return result ? .touchID : .none
             }
         }
     }
