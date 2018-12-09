@@ -25,7 +25,7 @@ private extension WalletTypes.DisplayState.Kind {
 }
 
 fileprivate enum Constants {
-    static let contentInset = UIEdgeInsetsMake(0, 0, 16, 0)
+    static let contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 16, right: 0)
 }
 
 final class WalletViewController: UIViewController {

@@ -61,7 +61,7 @@ extension UINavigationItem {
         static var largeTitleTextAttributes = "largeTitleTextAttributes"
     }
 
-    @objc var largeTitleTextAttributes: [NSAttributedStringKey : Any]? {
+    @objc var largeTitleTextAttributes: [NSAttributedString.Key : Any]? {
         get {
             return associatedObject(for: &AssociatedKeys.largeTitleTextAttributes)
         }
@@ -92,7 +92,7 @@ extension UINavigationItem {
     }
 
     // TODO: COME B
-    @objc var titleTextAttributes: [NSAttributedStringKey : Any]? {
+    @objc var titleTextAttributes: [NSAttributedString.Key : Any]? {
         get {
             return associatedObject(for: &AssociatedKeys.titleTextAttributes) ?? nil
         }
@@ -262,7 +262,7 @@ class CustomNavigationController: UINavigationController {
         setNavigationBarHidden(viewController.navigationItem.isNavigationBarHidden, animated: animated)
     }
 
-    override var childViewControllerForStatusBarStyle: UIViewController? {
+    override var childForStatusBarStyle: UIViewController? {
         return self.topViewController
     }
     

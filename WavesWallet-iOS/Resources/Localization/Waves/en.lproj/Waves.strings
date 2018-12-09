@@ -177,6 +177,9 @@
 
 "biometric.saveinkeychain" = "Access to your wallet";
 
+"biometric.localizedFallbackTitle" = "Input passcode";
+"biometric.localizedCancelTitle" = "Cancel";
+
 "cameraAccess.alert.allow" = "Allow Camera";
 
 "cameraAccess.alert.cancel" = "Cancel";

@@ -20,6 +20,7 @@ protocol HistoryInteractorProtocol {
 final class HistoryInteractor: HistoryInteractorProtocol {
 
     private let transactionsInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
+    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
 
     func transactions(input: HistoryModuleInput) -> Observable<Sync<[DomainLayer.DTO.SmartTransaction]>> {
 
@@ -46,14 +47,16 @@ final class HistoryInteractor: HistoryInteractorProtocol {
         return loadingTransactions(specifications: specifications)
     }
 
-    private func loadingTransactions(specifications: TransactionsSpecifications) -> Observable<Sync<[DomainLayer.DTO.SmartTransaction]>> {
+    private func loadingTransactions(specifications: TransactionsSpecifications) -> SyncObservable<[DomainLayer.DTO.SmartTransaction]> {
 
-        //TODO: Rmove
-        guard let accountAddress = WalletManager.currentWallet?.address else { return Observable.never() }
+        return authorizationInteractor
+            .authorizedWallet()
+            .flatMap({ [weak self] (wallet) -> SyncObservable<[DomainLayer.DTO.SmartTransaction]> in
+                guard let owner = self else { return Observable.never() }
 
-        return transactionsInteractor
-            .transactionsSync(by: accountAddress, specifications: specifications)
-            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
-            .share()
+                return owner
+                    .transactionsInteractor
+                    .transactionsSync(by: wallet.address, specifications: specifications)
+            })            
     }
 }
