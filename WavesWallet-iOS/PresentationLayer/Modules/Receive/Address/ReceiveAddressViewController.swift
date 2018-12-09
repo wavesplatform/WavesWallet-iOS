@@ -46,7 +46,7 @@ final class ReceiveAddressViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationItem.backgroundImage = UIImage()
         hideTopBarLine()
-        navigationItem.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        navigationItem.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
     }
     
     private func createCancelButton() {

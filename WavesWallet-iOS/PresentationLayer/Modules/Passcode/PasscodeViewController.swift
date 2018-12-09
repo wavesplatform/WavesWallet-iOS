@@ -82,7 +82,7 @@ private extension PasscodeViewController {
             let applicationWillEnterForeground =  NotificationCenter
                 .default
                 .rx
-                .notification(.UIApplicationWillEnterForeground, object: nil)
+                .notification(UIApplication.willEnterForegroundNotification, object: nil)
                 .flatMap({ [weak self] _ -> Observable<Bool> in
                     guard let strongSelf = self else { return Observable.empty() }
                     let isAppeared = (try? strongSelf.isAppeared.value()) ?? false
@@ -191,13 +191,13 @@ private extension PasscodeViewController {
                                       message: Localizable.Waves.Passcode.Alert.Attempsended.subtitle, preferredStyle: .alert)
 
         alert.addAction(UIAlertAction(title: Localizable.Waves.Passcode.Alert.Attempsended.Button.cancel,
-                                      style: UIAlertActionStyle.cancel,
+                                      style: UIAlertAction.Style.cancel,
                                       handler: { [weak self] (UIAlertAction) in
             self?.eventInput.onNext(.tapLogoutButton)
         }))
 
         alert.addAction(UIAlertAction(title: Localizable.Waves.Passcode.Alert.Attempsended.Button.enterpassword,
-                                      style: UIAlertActionStyle.default,
+                                      style: UIAlertAction.Style.default,
                                       handler: { [weak self] (UIAlertAction) in
             self?.eventInput.onNext(.tapLogInByPassword)
         }))
@@ -210,7 +210,7 @@ private extension PasscodeViewController {
                                       message: Localizable.Waves.Passcode.Alert.Attempsended.subtitle, preferredStyle: .alert)
 
         alert.addAction(UIAlertAction(title: Localizable.Waves.Passcode.Alert.Attempsended.Button.ok,
-                                      style: UIAlertActionStyle.cancel,
+                                      style: UIAlertAction.Style.cancel,
                                       handler: { [weak self] (UIAlertAction) in
             self?.eventInput.onNext(.tapLogoutButton)
         }))

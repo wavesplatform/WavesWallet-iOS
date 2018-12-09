@@ -223,7 +223,7 @@ private extension NetworkSettingsPresenter {
             state.displayState.isEnabledSetDeffaultButton = true
             state.query = nil
 
-        case .handlerError(let error):
+        case .handlerError:
             state.query = nil
             state.displayState.isLoading = false
             state.displayState.isEnabledSaveButton = true

@@ -88,7 +88,7 @@ final class SaveBackupPhraseViewController: UIViewController {
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineSpacing = Constants.lineSpacingForWords
         paragraph.alignment = .center
-        let params = [NSAttributedStringKey.paragraphStyle : paragraph]
+        let params = [NSAttributedString.Key.paragraphStyle : paragraph]
         let attributed = NSMutableAttributedString(string: text, attributes: params)
         
         labelWords.attributedText = attributed

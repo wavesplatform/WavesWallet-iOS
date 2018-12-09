@@ -174,7 +174,7 @@ extension WalletCoordinator: StartLeasingModuleOutput {
     func startLeasingDidSuccess(transaction: DomainLayer.DTO.SmartTransaction, kind: StartLeasingTypes.Kind) {
         
         switch kind {
-        case .send(let sendOrder):
+        case .send:
         //TODO: need update Money after creating order
         print("TODO: need update Money after creating order")
             

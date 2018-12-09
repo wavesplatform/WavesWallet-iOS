@@ -36,7 +36,7 @@ final class RunLoopThreadScheduler: ImmediateSchedulerType {
                         on: thread,
                         with: nil,
                         waitUntilDone: false,
-                        modes: [RunLoopMode.defaultRunLoopMode.rawValue])
+                        modes: [RunLoop.Mode.default.rawValue])
 
         let actionDisposable = Disposables.create {
             action = nil
@@ -59,7 +59,7 @@ enum Schedulers {
 private final class ThreadTarget: NSObject {
     @objc fileprivate func threadEntryPoint() {
         let runLoop = RunLoop.current
-        runLoop.add(NSMachPort(), forMode: RunLoopMode.defaultRunLoopMode)
+        runLoop.add(NSMachPort(), forMode: RunLoop.Mode.default)
         runLoop.run()
     }
 }

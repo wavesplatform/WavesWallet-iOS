@@ -42,7 +42,7 @@ extension CALayer {
                                     cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
             if inverse {
                 path.append(UIBezierPath(rect: bounds))
-                mask.fillRule = kCAFillRuleEvenOdd
+                mask.fillRule = CAShapeLayerFillRule.evenOdd
             }
 
             mask.frame = roundedRect

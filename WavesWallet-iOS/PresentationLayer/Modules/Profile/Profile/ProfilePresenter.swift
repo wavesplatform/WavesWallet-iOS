@@ -16,7 +16,7 @@ protocol ProfileModuleOutput: AnyObject {
     func showAddressesKeys(wallet: DomainLayer.DTO.Wallet)
     func showAddressBook()
     func showLanguage()
-    func showBackupPhrase(wallet: DomainLayer.DTO.Wallet, completed: @escaping ((_ isBackedUp: Bool) -> Void))
+    func showBackupPhrase(wallet: DomainLayer.DTO.Wallet, saveBackedUp: @escaping ((_ isBackedUp: Bool) -> Void))
     func showChangePassword(wallet: DomainLayer.DTO.Wallet)
     func showChangePasscode(wallet: DomainLayer.DTO.Wallet)
     func showNetwork(wallet: DomainLayer.DTO.Wallet)
@@ -350,11 +350,17 @@ private extension ProfilePresenter {
                                                                  .pushNotifications,
                                                                  .language(Language.currentLanguage)], kind: .general)
 
-            let security = Types.ViewModel.Section(rows: [.backupPhrase(isBackedUp: wallet.isBackedUp),
-                                                          .changePassword,
-                                                          .changePasscode,
-                                                          .biometric(isOn: wallet.hasBiometricEntrance),
-                                                          .network], kind: .security)
+
+            var securityRows: [Types.ViewModel.Row] = [.backupPhrase(isBackedUp: wallet.isBackedUp),
+                                                       .changePassword,
+                                                       .changePasscode]
+
+            if BiometricType.current != .none {
+                securityRows.append(.biometric(isOn: wallet.hasBiometricEntrance))
+            }
+            securityRows.append(.network)
+
+            let security = Types.ViewModel.Section(rows: securityRows, kind: .security)
 
             let other = Types.ViewModel.Section(rows: [.rateApp,
                                                        .feedback,
