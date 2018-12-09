@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 
 protocol AddressesKeysModuleOutput: AnyObject {
-    func addressesKeysNeedPrivateKey(wallet: DomainLayer.DTO.Wallet, callback: @escaping ((DomainLayer.DTO.SignedWallet) -> Void))
+    func addressesKeysNeedPrivateKey(wallet: DomainLayer.DTO.Wallet, callback: @escaping ((DomainLayer.DTO.SignedWallet?) -> Void))
     func addressesKeysShowAliases(_ aliases: [DomainLayer.DTO.Alias])
 }
 
@@ -107,8 +107,14 @@ fileprivate extension AddressesKeysPresenter {
                 strongSelf
                     .moduleOutput?
                     .addressesKeysNeedPrivateKey(wallet: wallet, callback: { signedWallet in
-                        observer.onNext(.setPrivateKey(signedWallet))
-                        observer.onCompleted()
+
+                        if let signedWallet = signedWallet {
+                            observer.onNext(.setPrivateKey(signedWallet))
+                            observer.onCompleted()
+                        } else {
+                            observer.onNext(.completedQuery)
+                            observer.onCompleted()
+                        }
                     })
                 return Disposables.create()
             })

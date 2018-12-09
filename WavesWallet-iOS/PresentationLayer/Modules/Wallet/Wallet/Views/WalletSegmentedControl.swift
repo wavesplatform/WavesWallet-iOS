@@ -21,7 +21,7 @@ final class WalletSegmentedControl: UIView {
     }
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: segmentedControl.intrinsicContentSize.height + 18 * 2)
+        return CGSize(width: UIView.noIntrinsicMetric, height: segmentedControl.intrinsicContentSize.height + 18 * 2)
     }
 
     func changedValue() -> Signal<Int> {

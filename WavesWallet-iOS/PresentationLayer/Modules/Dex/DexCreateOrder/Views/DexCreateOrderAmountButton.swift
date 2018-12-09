@@ -30,7 +30,7 @@ final class DexCreateOrderAmountButton: UIButton {
         background.layer.cornerRadius = background.frame.size.width / 2
         background.clipsToBounds = true
         superview?.addSubview(background)
-        superview?.bringSubview(toFront: self)
+        superview?.bringSubviewToFront(self)
     }
     
     override var isHighlighted: Bool {

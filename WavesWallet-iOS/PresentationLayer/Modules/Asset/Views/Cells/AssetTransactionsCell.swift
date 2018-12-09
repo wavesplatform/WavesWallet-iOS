@@ -10,7 +10,7 @@ import UIKit
 
 fileprivate enum Constants {
     static let collectionViewSpacing: CGFloat = 16
-    static let contentInset = UIEdgeInsetsMake(0, 16, 0, 16)
+    static let contentInset = UIEdgeInsets.init(top: 0, left: 16, bottom: 0, right: 16)
     static let height: CGFloat = 76
 }
 
@@ -56,7 +56,7 @@ extension AssetTransactionsCell: UICollectionViewDelegate {
         guard let tx = transactions?[indexPath.row] else { return }
         transactionDidSelect?(tx)
         
-        collectionView.scrollToItem(at:indexPath, at: UICollectionViewScrollPosition.left, animated: true)
+        collectionView.scrollToItem(at:indexPath, at: UICollectionView.ScrollPosition.left, animated: true)
     }
     
 }
@@ -98,7 +98,7 @@ extension AssetTransactionsCell: UIScrollViewDelegate {
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
-        if fabs(velocity.x) < fabs(velocity.y) { return }
+        if abs(velocity.x) < abs(velocity.y) { return }
         
         targetContentOffset.pointee = scrollView.contentOffset
         let pageWidth: CGFloat = bounds.width - 32
@@ -132,7 +132,7 @@ extension AssetTransactionsCell: UIScrollViewDelegate {
         
         currentIndex = Int(cellToSwipe)
         let indexPath:IndexPath = IndexPath(row: currentIndex, section:0)
-        collectionView.scrollToItem(at:indexPath, at: UICollectionViewScrollPosition.left, animated: true)
+        collectionView.scrollToItem(at:indexPath, at: UICollectionView.ScrollPosition.left, animated: true)
         
     }
     

@@ -39,6 +39,7 @@ jobs:
       - run:
           name: Fastlane Build
           command: bundle exec fastlane $FASTLANE_LANE --verbose
+          no_output_timeout: 60m
       - store_artifacts:
           path: output
       - store_test_results:
@@ -74,6 +75,7 @@ jobs:
       - run:
           name: Fastlane Build
           command: bundle exec fastlane $FASTLANE_LANE --verbose
+          no_output_timeout: 60m
       - store_artifacts:
           path: output
       - store_test_results:
@@ -109,6 +111,7 @@ jobs:
       - run:
           name: Fastlane Build
           command: bundle exec fastlane $FASTLANE_LANE --verbose
+          no_output_timeout: 60m
       - store_artifacts:
           path: output
       - store_test_results:
