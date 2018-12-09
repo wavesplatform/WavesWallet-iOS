@@ -72,7 +72,6 @@ final class PasscodePresenter: PasscodePresenterProtocol {
         newFeedbacks.append(logout())
         newFeedbacks.append(logInBiometric())
         newFeedbacks.append(changeEnableBiometric())
-//        newFeedbacks.append(disabledBiometricUsingBiometric())
         newFeedbacks.append(changePasscode())
         newFeedbacks.append(changePasscodeByPassword())
         newFeedbacks.append(verifyAccessBiometric())
