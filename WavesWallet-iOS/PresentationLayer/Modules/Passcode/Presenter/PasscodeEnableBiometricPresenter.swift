@@ -35,25 +35,6 @@ private struct SetEnableBiometricQuery: Hashable {
     let isOn: Bool
 }
 
-//private struct ChangePasscodeQuery: Hashable {
-//    let wallet: DomainLayer.DTO.Wallet
-//    let passcode: String
-//    let oldPasscode: String
-//}
-//
-//private struct ChangePasscodeByPasswordQuery: Hashable {
-//    let wallet: DomainLayer.DTO.Wallet
-//    let passcode: String
-//    let password: String
-//}
-//
-//private struct ChangePasswordQuery: Hashable {
-//    let wallet: DomainLayer.DTO.Wallet
-//    let passcode: String
-//    let oldPassword: String
-//    let newPassword: String
-//}
-
 final class PasscodeEnableBiometricPresenter: PasscodePresenterProtocol {
 
     fileprivate typealias Types = PasscodeTypes
@@ -68,7 +49,6 @@ final class PasscodeEnableBiometricPresenter: PasscodePresenterProtocol {
 
         var newFeedbacks = feedbacks
         newFeedbacks.append(changeEnableBiometric())
-//        newFeedbacks.append(disabledBiometricUsingBiometric())
         newFeedbacks.append(logout())
 
         let initialState = self.initialState(input: input)
@@ -88,32 +68,6 @@ final class PasscodeEnableBiometricPresenter: PasscodePresenterProtocol {
 // MARK: Feedbacks
 
 extension PasscodeEnableBiometricPresenter {
-
-    private func disabledBiometricUsingBiometric() -> Feedback {
-        return react(query: { state -> DomainLayer.DTO.Wallet? in
-
-            if case .setEnableBiometric(_, let wallet) = state.kind,
-                let action = state.action,
-                case .disabledBiometricUsingBiometric = action, wallet.hasBiometricEntrance == true {
-                return wallet
-            }
-
-            return nil
-
-        }, effects: { [weak self] wallet -> Signal<Types.Event> in
-
-            guard let strongSelf = self else { return Signal.empty() }
-
-            return strongSelf
-                .interactor
-                .disabledBiometricUsingBiometric(wallet: wallet)
-                .sweetDebug("Biometric")
-                .map { Types.Event.completedLogIn($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    return Signal.just(.handlerError(error))
-            }
-        })
-    }
 
     private func changeEnableBiometric() -> Feedback {
         return react(query: { state -> SetEnableBiometricQuery? in

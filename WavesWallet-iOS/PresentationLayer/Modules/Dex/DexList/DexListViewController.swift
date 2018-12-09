@@ -74,7 +74,7 @@ final class DexListViewController: UIViewController {
         super.viewWillAppear(animated)
         setupBigNavigationBar()
         
-        Observable<Int>.interval(Constants.updateTime, scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] (value) in
+        Observable<Int>.interval(Constants.updateTime, scheduler: MainScheduler.asyncInstance).subscribe(onNext: { [weak self] (value) in
             self?.sendEvent.accept(.refresh)
         }).disposed(by: disposeBag)
     }
