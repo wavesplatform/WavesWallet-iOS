@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 private enum Constants {
     static let cornerRadius: CGFloat = 2
@@ -150,7 +151,7 @@ private extension SendConfirmationViewController {
         let addressBook: AddressBookInteractorProtocol = AddressBookInteractor()
         addressBook
             .users()
-            .observeOn(MainSheduler)
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] contacts in
 
             guard let strongSelf = self else { return }
