@@ -46,6 +46,7 @@ extension ProfileCoordinator: ProfileModuleOutput {
 
         authorization
             .authorizedWallet()
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (signedWallet) in
 
                 guard let owner = self else { return }

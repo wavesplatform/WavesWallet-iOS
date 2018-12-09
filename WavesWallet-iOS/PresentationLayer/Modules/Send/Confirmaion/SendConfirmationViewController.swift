@@ -148,7 +148,10 @@ private extension SendConfirmationViewController {
     func setupData() {
         
         let addressBook: AddressBookInteractorProtocol = AddressBookInteractor()
-        addressBook.users().subscribe(onNext: { [weak self] contacts in
+        addressBook
+            .users()
+            .observeOn(MainSheduler)
+            .subscribe(onNext: { [weak self] contacts in
 
             guard let strongSelf = self else { return }
             

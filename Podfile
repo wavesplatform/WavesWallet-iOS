@@ -32,7 +32,7 @@ target 'WavesWallet-iOS' do
     pod 'RESideMenu', :git => 'https://github.com/wavesplatform/RESideMenu.git'
 
     pod 'Skeleton'
-    pod 'Charts', '~> 3.1.1'
+    pod 'Charts'
     pod 'Koloda'
 
     pod 'IQKeyboardManagerSwift'
@@ -89,7 +89,7 @@ target 'WavesWallet-iOS' do
     pod 'CSV.swift'
 
     # Gen
-    pod 'SwiftGen'
+    pod 'SwiftGen', '~> 5.3.0'
 
     # Debug
     pod 'Reveal-SDK', :configurations => ['Debug']

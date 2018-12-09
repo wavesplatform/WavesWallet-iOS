@@ -800,9 +800,7 @@ private extension AuthorizationInteractor {
                 }
 
 
-            return Disposables.create {
-                print("savePasscodeInKeychain invalidate")
-            }
+            return Disposables.create {}
         }
     }
 
@@ -840,9 +838,7 @@ private extension AuthorizationInteractor {
                 }
 
 
-            return Disposables.create {
-                print("passcodeFromKeychain invalidate")
-            }
+            return Disposables.create {}
         }.sweetDebug("GEEETT key")
     }
 }
