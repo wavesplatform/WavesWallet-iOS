@@ -640,8 +640,7 @@ extension AuthorizationInteractor {
             }
             .flatMap({ [weak self] signedWallet -> Observable<AuthorizationAuthStatus> in
                 guard let owner = self else { return Observable.never() }
-                return owner
-                    .removePasscodeInKeychain(wallet: signedWallet.wallet)
+                return owner.removePasscodeInKeychainWithoutContext(wallet: signedWallet.wallet)                    
                     .flatMap({ [weak self] _ -> Observable<AuthorizationAuthStatus> in
                         guard let owner = self else { return Observable.never() }
 
@@ -731,6 +730,29 @@ private extension AuthorizationInteractor {
         }
     }
 
+    private func removePasscodeInKeychainWithoutContext(wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
+        return Observable<Bool>.create { observer -> Disposable in
+
+            DispatchQueue.main.async(execute: {
+                do {
+
+                    let keychain = Keychain(service: Constants.service)
+                        .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
+
+                    try keychain.remove(wallet.publicKey)
+
+                    observer.onNext(true)
+                    observer.onCompleted()
+                } catch _ {
+                    observer.onError(AuthorizationInteractorError.biometricDisable)
+                }
+            })
+
+            return Disposables.create {}
+        }
+    }
+
+
     private func biometricAccess() -> Observable<LAContext> {
 
         return Observable<LAContext>.create { observer -> Disposable in
@@ -757,11 +779,11 @@ private extension AuthorizationInteractor {
                                 case LAError.userCancel,
                                      LAError.systemCancel,
                                      LAError.appCancel,
-                                     LAError.userFallback:
+                                     LAError.userFallback,
+                                     LAError.biometryLockout:
                                     observer.onError(AuthorizationInteractorError.biometricUserCancel)
 
-                                case LAError.biometryLockout,
-                                     LAError.biometryNotEnrolled,
+                                case LAError.biometryNotEnrolled,
                                      LAError.biometryNotAvailable,
                                      LAError.passcodeNotSet:
                                     observer.onError(AuthorizationInteractorError.biometricDisable)

@@ -11,24 +11,6 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 
-//private struct LogInByBiometricQuery: Hashable {
-//    let wallet: DomainLayer.DTO.Wallet
-//}
-//
-//private struct RegistationQuery: Hashable {
-//    let account: PasscodeTypes.DTO.Account
-//    let passcode: String
-//}
-//
-//private struct LogInQuery: Hashable {
-//    let wallet: DomainLayer.DTO.Wallet
-//    let passcode: String
-//}
-//
-//private struct LogoutQuery: Hashable {
-//    let wallet: DomainLayer.DTO.Wallet
-//}
-
 private struct SetEnableBiometricQuery: Hashable {
     let wallet: DomainLayer.DTO.Wallet
     let passcode: String
@@ -292,7 +274,7 @@ private extension PasscodeEnableBiometricPresenter {
                          isHiddenBackButton: !input.hasBackButton,
                          isHiddenLogInByPassword: true,
                          isHiddenLogoutButton: input.hasBackButton,
-                         isHiddenBiometricButton: !wallet.hasBiometricEntrance,
+                         isHiddenBiometricButton: true,
                          error: nil,
                          titleLabel: Types.PasscodeKind.enterPasscode.title(),
                          detailLabel: nil)
