@@ -98,7 +98,12 @@ final class UseTouchIDViewController: UIViewController {
                 self?.moduleOutput?.userRegisteredBiometric(wallet: wallet)
             }
         }, onError: { [weak self] error in
-            self?.stopIndicator()
+            if let error = error as? AuthorizationInteractorError, error == .biometricUserFallback {
+                guard let wallet = self?.input?.wallet else { return }
+                self?.moduleOutput?.userSkipRegisterBiometric(wallet: wallet)
+            } else {
+                self?.stopIndicator()
+            }
         })
         .disposed(by: disposeBag)
     }
