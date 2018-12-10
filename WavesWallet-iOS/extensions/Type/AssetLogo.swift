@@ -64,6 +64,16 @@ extension AssetLogo {
         let size: CGSize
         let font: UIFont
         let border: Border?
+
+        var key: String {
+            var key = "\(size.width)_\(size.height)"
+            key += "\(font.familyName)_\(font.lineHeight)"
+
+            if let border = border {
+                key += "\(border.width)_\(border.color.toHexString())"
+            }
+            return key
+        }
     }
 
     static func logoFromCache(name: String,
@@ -71,7 +81,7 @@ extension AssetLogo {
                               completionHandler: @escaping ((UIImage) -> Void)) -> RetrieveImageDiskTask?
     {
         let cache = ImageCache.default
-        let key = "com.wavesplatform.asset.logo.\(name).\(style.hashValue)"
+        let key = "com.wavesplatform.asset.logo.\(name).\(style.key)"
 
         return cache.retrieveImage(forKey: key,
                                    options: nil,
