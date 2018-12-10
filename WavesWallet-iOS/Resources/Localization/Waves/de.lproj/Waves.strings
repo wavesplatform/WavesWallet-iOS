@@ -419,8 +419,6 @@
 
 "enter.block.exchange.title" = "Dezentrale Börse";
 
-"enter.block.token.text" = "Erstellen Sie Ihren eigenen Token. Diese können nicht nur als interne Währung in Ihr Unternehmen integriert werden, sondern auch als Zeichen für dezentrales Voting, als Ratingsystem oder als Treueprogramm.";
-
 "enter.block.token.title" = "Token Launcher";
 
 "enter.block.wallet.text" = "Speichern, verwalten und erhalten Sie Zinsen für Ihr digitales Guthaben, einfach und sicher.";
