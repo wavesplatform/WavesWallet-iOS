@@ -65,17 +65,17 @@ class ImportAccountViewController: UIViewController {
     }
     
     private func setupViewControllers() {
-        addChildViewController(scanViewController)
+        addChild(scanViewController)
         scanViewController.view.frame = containerView.bounds
         containerView.addSubview(scanViewController.view)
         
-        scanViewController.didMove(toParentViewController: self)
+        scanViewController.didMove(toParent: self)
 
-        addChildViewController(manuallyViewController)
+        addChild(manuallyViewController)
         manuallyViewController.view.frame = containerView.bounds
         containerView.addSubview(manuallyViewController.view)
         
-        manuallyViewController.didMove(toParentViewController: self)
+        manuallyViewController.didMove(toParent: self)
 
         scanViewController.view.isHidden = true
         manuallyViewController.view.isHidden = true        

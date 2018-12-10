@@ -22,7 +22,10 @@ extension DataTransaction {
         height = transaction.height
         modified = transaction.modified
 
-        proofs.append(objectsIn: transaction.proofs)
+        if let proofs = transaction.proofs {
+            self.proofs.append(objectsIn: proofs)
+        }
+
 
         let dataList = transaction.data.map { data -> DataTransactionData in
             let txData = DataTransactionData()

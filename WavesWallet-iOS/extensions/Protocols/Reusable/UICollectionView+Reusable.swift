@@ -16,9 +16,9 @@ extension UICollectionView {
         fileprivate var string: String {
             switch self {
             case .header:
-                return UICollectionElementKindSectionHeader
+                return UICollectionView.elementKindSectionHeader
             case .footer:
-                return UICollectionElementKindSectionFooter
+                return UICollectionView.elementKindSectionFooter
             }
         }
     }
