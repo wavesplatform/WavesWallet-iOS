@@ -419,6 +419,10 @@ internal enum Localizable {
     }
 
     internal enum Biometric {
+      /// Cancel
+      internal static var localizedCancelTitle: String { return Localizable.tr("Waves", "biometric.localizedCancelTitle") }
+      /// Input passcode
+      internal static var localizedFallbackTitle: String { return Localizable.tr("Waves", "biometric.localizedFallbackTitle") }
       /// Access to your wallet
       internal static var readfromkeychain: String { return Localizable.tr("Waves", "biometric.readfromkeychain") }
       /// Access to your wallet
@@ -878,8 +882,6 @@ internal enum Localizable {
         }
 
         internal enum Token {
-          /// Issue your own tokens. These can be integrated into your business not only as an internal currency but also as a token for decentralised voting, as a rating system, or loyalty program.
-          internal static var text: String { return Localizable.tr("Waves", "enter.block.token.text") }
           /// Token Launcher
           internal static var title: String { return Localizable.tr("Waves", "enter.block.token.title") }
         }
@@ -2391,17 +2393,14 @@ extension Localizable {
 
     private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
         let format = NSLocalizedString(key, tableName: table, bundle: current.bundle, comment: "")
-        do {
-            let value = String(format: format, locale: current.locale, arguments: args)
 
-            if value.localizedLowercase == key.localizedLowercase {
-                let format = NSLocalizedString(key, tableName: table, bundle: english.bundle, comment: "")
-                return String(format: format, locale: english.locale, arguments: args)
-            } else {
-                return value
-            }
-        } catch _ {
-            return "NOT_FOUND"
+        let value = String(format: format, locale: current.locale, arguments: args)
+
+        if value.localizedLowercase == key.localizedLowercase {
+            let format = NSLocalizedString(key, tableName: table, bundle: english.bundle, comment: "")
+            return String(format: format, locale: english.locale, arguments: args)
+        } else {
+            return value
         }
     }
 }

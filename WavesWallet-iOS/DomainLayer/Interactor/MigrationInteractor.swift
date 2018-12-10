@@ -127,11 +127,6 @@ final class MigrationInteractor {
             let address = wallet.address
             if let fileURL = Realm.Configuration.defaultConfiguration.fileURL {
 
-                let a = try? FileManager.default.contentsOfDirectory(at: fileURL
-                    .deletingLastPathComponent(), includingPropertiesForKeys: [], options: [])
-
-                debug(a)
-
                 let oldUrl = fileURL
                     .deletingLastPathComponent()
                     .appendingPathComponent("\(address)_seed.realm")

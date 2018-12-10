@@ -11,7 +11,7 @@ import RESideMenu
 
 final class SlideMenu: RESideMenu {
 
-    override var childViewControllerForStatusBarStyle: UIViewController? {
+    override var childForStatusBarStyle: UIViewController? {
         return self.contentViewController
     }
 

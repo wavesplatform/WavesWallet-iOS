@@ -1,148 +1,158 @@
 PODS:
   - 25519 (2.0.2)
-  - Alamofire (4.7.3)
+  - Alamofire (4.8.0)
   - AppsFlyerFramework (4.8.10)
   - base58 (0.1)
   - blake2 (0.1)
-  - Charts (3.1.1):
-    - Charts/Core (= 3.1.1)
-  - Charts/Core (3.1.1)
-  - Crashlytics (3.10.7):
-    - Fabric (~> 1.7.11)
-  - CryptoSwift (0.11.0)
-  - CSV.swift (2.2.1)
+  - Charts (3.2.1):
+    - Charts/Core (= 3.2.1)
+  - Charts/Core (3.2.1)
+  - Crashlytics (3.12.0):
+    - Fabric (~> 1.9.0)
+  - CryptoSwift (0.13.1)
+  - CSV.swift (2.3.1)
   - Device.swift (1.1.2)
-  - Differentiator (3.0.2)
-  - Fabric (1.7.11)
-  - Firebase/Auth (5.7.0):
+  - Differentiator (3.1.0)
+  - Fabric (1.9.0)
+  - Firebase/Auth (5.14.0):
     - Firebase/CoreOnly
-    - FirebaseAuth (= 5.0.3)
-  - Firebase/Core (5.7.0):
+    - FirebaseAuth (= 5.1.0)
+  - Firebase/Core (5.14.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 5.1.1)
-  - Firebase/CoreOnly (5.7.0):
-    - FirebaseCore (= 5.1.2)
-  - Firebase/Database (5.7.0):
+    - FirebaseAnalytics (= 5.4.0)
+  - Firebase/CoreOnly (5.14.0):
+    - FirebaseCore (= 5.1.9)
+  - Firebase/Database (5.14.0):
     - Firebase/CoreOnly
-    - FirebaseDatabase (= 5.0.2)
-  - FirebaseAnalytics (5.1.1):
+    - FirebaseDatabase (= 5.0.4)
+  - FirebaseAnalytics (5.4.0):
     - FirebaseCore (~> 5.1)
-    - FirebaseInstanceID (~> 3.2)
-    - GoogleAppMeasurement (~> 5.1)
-    - GoogleUtilities/AppDelegateSwizzler (~> 5.2.0)
-    - GoogleUtilities/MethodSwizzler (~> 5.2.0)
+    - FirebaseInstanceID (~> 3.3)
+    - GoogleAppMeasurement (= 5.4.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
+    - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
-  - FirebaseAuth (5.0.3):
+  - FirebaseAuth (5.1.0):
     - FirebaseAuthInterop (~> 1.0)
-    - FirebaseCore (~> 5.0)
+    - FirebaseCore (~> 5.1)
     - GoogleUtilities/Environment (~> 5.2)
     - GTMSessionFetcher/Core (~> 1.1)
   - FirebaseAuthInterop (1.0.0)
-  - FirebaseCore (5.1.2):
+  - FirebaseCore (5.1.9):
     - GoogleUtilities/Logger (~> 5.2)
-  - FirebaseDatabase (5.0.2):
-    - FirebaseCore (~> 5.0)
-    - leveldb-library (~> 1.18)
-  - FirebaseInstanceID (3.2.1):
+  - FirebaseDatabase (5.0.4):
+    - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 5.1)
-    - GoogleUtilities/Environment (~> 5.2)
+    - leveldb-library (~> 1.18)
+  - FirebaseInstanceID (3.3.0):
+    - FirebaseCore (~> 5.1)
+    - GoogleUtilities/Environment (~> 5.3)
+    - GoogleUtilities/UserDefaults (~> 5.3)
   - Gloss (2.0.0-beta.1)
-  - GoogleAppMeasurement (5.1.1):
-    - GoogleUtilities/AppDelegateSwizzler (~> 5.2.0)
-    - GoogleUtilities/MethodSwizzler (~> 5.2.0)
+  - GoogleAppMeasurement (5.4.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
+    - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
-  - GoogleUtilities/AppDelegateSwizzler (5.2.2):
+  - GoogleUtilities/AppDelegateSwizzler (5.3.6):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (5.2.2)
-  - GoogleUtilities/Logger (5.2.2):
+  - GoogleUtilities/Environment (5.3.6)
+  - GoogleUtilities/Logger (5.3.6):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (5.2.2):
+  - GoogleUtilities/MethodSwizzler (5.3.6):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (5.2.2):
+  - GoogleUtilities/Network (5.3.6):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (5.2.2)"
-  - GoogleUtilities/Reachability (5.2.2):
+  - "GoogleUtilities/NSData+zlib (5.3.6)"
+  - GoogleUtilities/Reachability (5.3.6):
     - GoogleUtilities/Logger
-  - GTMSessionFetcher/Core (1.2.0)
+  - GoogleUtilities/UserDefaults (5.3.6):
+    - GoogleUtilities/Logger
+  - GTMSessionFetcher/Core (1.2.1)
   - IdentityImg (0.1)
   - InfiniteCollectionView (1.3.2)
-  - IQKeyboardManagerSwift (6.1.1)
+  - IQKeyboardManagerSwift (6.2.0)
   - keccak (0.1)
-  - KeychainAccess (3.1.1)
-  - Kingfisher (4.8.1)
-  - Koloda (4.4):
+  - KeychainAccess (3.1.2)
+  - Kingfisher (4.10.1)
+  - Koloda (4.5.1):
     - pop (~> 1.0)
   - leveldb-library (1.20)
   - MBProgressHUD (1.0.0)
-  - MGSwipeTableCell (1.6.7)
-  - Moya/Core (11.0.2):
+  - MGSwipeTableCell (1.6.8)
+  - Moya/Core (12.0.1):
     - Alamofire (~> 4.1)
-    - Result (~> 3.0)
-  - Moya/RxSwift (11.0.2):
+    - Result (~> 4.0)
+  - Moya/RxSwift (12.0.1):
     - Moya/Core
     - RxSwift (~> 4.0)
-  - nanopb (0.3.8):
-    - nanopb/decode (= 0.3.8)
-    - nanopb/encode (= 0.3.8)
-  - nanopb/decode (0.3.8)
-  - nanopb/encode (0.3.8)
-  - pop (1.0.10)
+  - nanopb (0.3.901):
+    - nanopb/decode (= 0.3.901)
+    - nanopb/encode (= 0.3.901)
+  - nanopb/decode (0.3.901)
+  - nanopb/encode (0.3.901)
+  - pop (1.0.12)
   - QRCode (2.0)
   - QRCodeReader.swift (9.0.1)
   - ReachabilitySwift (4.3.0)
-  - Realm (3.7.6):
-    - Realm/Headers (= 3.7.6)
-  - Realm/Headers (3.7.6)
-  - RealmSwift (3.7.6):
-    - Realm (= 3.7.6)
+  - Realm (3.12.0):
+    - Realm/Headers (= 3.12.0)
+  - Realm/Headers (3.12.0)
+  - RealmSwift (3.12.0):
+    - Realm (= 3.12.0)
   - RESideMenu (4.0.7)
-  - Result (3.2.4)
-  - Reveal-SDK (19)
-  - RxAlamofire (4.2.0):
-    - RxAlamofire/Core (= 4.2.0)
-  - RxAlamofire/Core (4.2.0):
+  - Result (4.0.0)
+  - Reveal-SDK (20)
+  - RxAlamofire (4.3.0):
+    - RxAlamofire/Core (= 4.3.0)
+  - RxAlamofire/Core (4.3.0):
     - Alamofire (~> 4.5)
     - RxSwift (~> 4)
-  - RxCocoa (4.2.0):
+  - RxAtomic (4.4.0)
+  - RxCocoa (4.4.0):
     - RxSwift (~> 4.0)
-  - RxDataSources (3.0.2):
+  - RxDataSources (3.1.0):
     - Differentiator (~> 3.0)
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
-  - RxFeedback (1.0.3):
+  - RxFeedback (1.1.1):
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
-  - RxGesture (1.2.1):
+  - RxGesture (2.1.0):
+    - RxCocoa (~> 4.4.0)
+    - RxSwift (~> 4.4.0)
+  - RxOptional (3.6.2):
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
-  - RxOptional (3.5.0):
-    - RxCocoa (~> 4.0)
-    - RxSwift (~> 4.0)
-  - RxReachability (0.1.5):
-    - ReachabilitySwift (~> 4)
+  - RxReachability (0.1.7):
+    - ReachabilitySwift (~> 4.3.0)
     - RxCocoa (~> 4)
     - RxSwift (~> 4)
-  - RxRealm (0.7.5):
+  - RxRealm (0.7.6):
     - RealmSwift (~> 3.0)
     - RxSwift (~> 4.0)
-  - RxSwift (4.2.0)
-  - RxSwiftExt (3.3.0):
-    - RxSwiftExt/Core (= 3.3.0)
-  - RxSwiftExt/Core (3.3.0):
+  - RxSwift (4.4.0):
+    - RxAtomic (~> 4.4)
+  - RxSwiftExt (3.4.0):
+    - RxSwiftExt/Core (= 3.4.0)
+    - RxSwiftExt/RxCocoa (= 3.4.0)
+  - RxSwiftExt/Core (3.4.0):
     - RxSwift (~> 4.0)
-  - Skeleton (0.2.2)
+  - RxSwiftExt/RxCocoa (3.4.0):
+    - RxCocoa (~> 4.0)
+    - RxSwiftExt/Core
+  - Skeleton (0.3.1)
   - SVProgressHUD (2.2.5)
-  - SwiftDate (5.0.7)
+  - SwiftDate (5.0.13)
   - SwiftGen (5.3.0)
-  - SwiftyJSON (4.1.0)
+  - SwiftyJSON (4.2.0)
   - SwipeView (1.3.2)
   - TPKeyboardAvoiding (1.3.2)
   - TTTAttributedLabel (2.0.0)
@@ -154,7 +164,7 @@ DEPENDENCIES:
   - AppsFlyerFramework
   - base58 (from `Vendors/Base58`)
   - blake2 (from `Vendors/Blake2`)
-  - Charts (~> 3.1.1)
+  - Charts
   - Crashlytics
   - CryptoSwift
   - CSV.swift
@@ -192,7 +202,7 @@ DEPENDENCIES:
   - Skeleton
   - SVProgressHUD
   - SwiftDate
-  - SwiftGen
+  - SwiftGen (~> 5.3.0)
   - SwiftyJSON
   - SwipeView
   - TPKeyboardAvoiding
@@ -239,6 +249,7 @@ SPEC REPOS:
     - Result
     - Reveal-SDK
     - RxAlamofire
+    - RxAtomic
     - RxCocoa
     - RxDataSources
     - RxFeedback
@@ -297,70 +308,71 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   '25519': 2c284bd04dc489ee6c3ad5f04339480a5bcae042
-  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   AppsFlyerFramework: 481eafa4f92e3274fa8d04f10108cdad83fd532b
   base58: b3862511216d07dbb10ec85f08902f51b674462f
   blake2: b767add912ed9f7ded789bf257d3c6081ed10ec0
-  Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
-  Crashlytics: ccaac42660eb9351b9960c0d66106b0bcf99f4fa
-  CryptoSwift: ad5208dd2aae0a764ea4ce2c2d34bd067cae67f0
-  CSV.swift: 5bf3338aff82371cb51cc6dc559d7b45a74bab14
+  Charts: f122fb70b19847fa5817d018b77d6c5a2296ab25
+  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
+  CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
+  CSV.swift: d16f671b3090a2c0525d5f2165b18319074aae2b
   Device.swift: a8c9f6ee3b0a9ee85764bf07461c163b9e95c94c
-  Differentiator: a87be69eba49ec4ab460c7671143ee3a9eececfd
-  Fabric: f233c9492b3bbc1f04e3882986740f7988a58edb
-  Firebase: 734a4f92957aa6c40e7ae3fda3d9359e1890aa87
-  FirebaseAnalytics: 993577e91157feb40945abedd6ab346d8a4b6ac8
-  FirebaseAuth: 657a25e4be044d2d333663ebf515a861c5a59cd7
+  Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
+  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
+  Firebase: 963d5685fae888a56d6d4d9cfce6b9c976958798
+  FirebaseAnalytics: c06f9d70577d79074214700a71fd5d39de5550fb
+  FirebaseAuth: 4a5cc5fc2d1721e509e24699b93ebc3d94b1e195
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
-  FirebaseCore: 3a97432acb324b439fbed338e642f9cbb516a63d
-  FirebaseDatabase: 27be5ac5bc75e0b17537b2bbfada8258addcc8cd
-  FirebaseInstanceID: ea5af6920d0a4a29b40459d055bebe4a6c1333c4
+  FirebaseCore: 8f49b70f57ab5cbb032ef41d64992ded21606459
+  FirebaseDatabase: 0621689f77528d62b47e1c06ca737c4c19275d1a
+  FirebaseInstanceID: e2fa4cb35ef5558c200f7f0ad8a53e212215f93e
   Gloss: 3224f4d6e345138475216855a32e880d9e03e6d2
-  GoogleAppMeasurement: f7507b39b70ad0bd80b3d81518b2f43868974307
-  GoogleUtilities: 06b66f9567769a7958db20a92f0128b2843e49d5
-  GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
+  GoogleAppMeasurement: 98b71f5e04142793729a5ef23e5b96651ff4b70f
+  GoogleUtilities: 95996bea7c7d9b8fb811b7507669a4a8762f80c7
+  GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   IdentityImg: ada114256228c58b82b9eadfe30863aa5908e74f
   InfiniteCollectionView: 49a7639a04c7cb21164de3840245f084fda257d0
-  IQKeyboardManagerSwift: 977affaeb4d6e971975c7790a6850f31d38f1207
+  IQKeyboardManagerSwift: b07ccf9d8cafe993dcd6cb794eb4ba34611a0c4e
   keccak: a73c028b7a5ec094d1c827398ae33618aa8cb19d
-  KeychainAccess: 7bd430028059754a3debab3cfc0bd1fc7fb85df3
-  Kingfisher: 868c1149679a7ab6869be118faa9b5aed154aaf0
-  Koloda: 0f3c51580d9d547c66a5cd9e4771611afc3e259e
+  KeychainAccess: b3816fddcf28aa29d94b10ec305cd52be14c472b
+  Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
+  Koloda: fc08984dc013b4d5aff3bd7265a8874e6784b5ef
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
-  MGSwipeTableCell: fb20e983988bde2b8d0df29c2d9e1d8ffd10b74a
-  Moya: a725035953bc1c0eb1be505ab903984501d82440
-  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
+  MGSwipeTableCell: dc4eca3212ed38a563b27d6aa7b3c01ce656c1e2
+  Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
+  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
   QRCodeReader.swift: 96292a5612fbc2fd9a0b26f93fa5164c8d02f59d
   ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
-  Realm: 9eaecad54712d6246d08ba34c10f354e4715d7d3
-  RealmSwift: 1fe08b4ebaeeaacf17f9ba0343f7b25c9fc31fa6
+  Realm: cdaef23c4ddb36ab1ddffed23f5a7f3332fc5585
+  RealmSwift: 5576324033f0aa5ef1e0a839a3da2281dff47a7f
   RESideMenu: 4003aa053ff48d4152d464e512f1844aa82e807c
-  Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
-  Reveal-SDK: 9f0d2c6c12eb7507921e5454ac165b7aa21140a4
-  RxAlamofire: 87a9c588541210cc3e4a1f843ccc3ecf3eb98b31
-  RxCocoa: 0b54909c902e1e581212a03e690bbd94032d8baa
-  RxDataSources: cb7c31e652a87ebb919da45f716bbb87b3765f6b
-  RxFeedback: 0b032eb82a4cf858b3b97fb8eb30a895f837fbda
-  RxGesture: c278eb05b187abd47e11e65464ae4de53ab71d95
-  RxOptional: bd32ff8ca9df4177683d56ffeb618a9d4d5d5cad
-  RxReachability: 2895f43994a5201f426967a50ea4259b637952f9
-  RxRealm: a6c6c0a07cb61f34209969ca6657734edfdfff30
-  RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
-  RxSwiftExt: 81afb48ab0602f503147417baeb3989d64c7687d
-  Skeleton: ad6bff17deb4c8a1e037140a37a817bd6dcade4c
+  Result: 7645bb3f50c2ce726dd0ff2fa7b6f42bbe6c3713
+  Reveal-SDK: 43206a57f575632fd304e85385cc259b5d359e32
+  RxAlamofire: 09624d0f2d48ed8b686e4eb4cf68e28cbd2df556
+  RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
+  RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
+  RxDataSources: a843bad90c29817f5923ec8163f4af2de084ceb3
+  RxFeedback: 640e317bc7f6c4914c39a2063c6d5c0e6c1aa65d
+  RxGesture: 7f6dfb45dbde06e618c24442d38493e3144f2c95
+  RxOptional: 80426a0ddbd092573e4c482d8cc13302078c4d5e
+  RxReachability: 899637fce53e076465126e58d71ad835fce17924
+  RxRealm: 5379eddd74f8d617ca7681d1f8d144af25b432b0
+  RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
+  RxSwiftExt: 01f8ecbeeb355698e9c75365ebe908b00dacf45d
+  Skeleton: 4b11a4aa6fb289626aa7e486f0b16b9b394d0ba4
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
-  SwiftDate: f053fb89250c59af5eff777f3b832d2b9dd57403
+  SwiftDate: f4aea5fa9dee812485f34041121a4cbde01b0dee
   SwiftGen: 4379bd3640b0a212a0f6ea3c494adba385513d10
-  SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
+  SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   SwipeView: bd67cfaf7760c036438446b3ccb28a3b84fce009
   TPKeyboardAvoiding: cb69d5ddbe90ce0170e4bc2db1e5e41d4a3ad9a4
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: 192660ba21cb0703a26aa8a739d47e65be86735c
+PODFILE CHECKSUM: 7edf7d8f8835daef5faf5c996470160e5a405e2a
 
 COCOAPODS: 1.5.3

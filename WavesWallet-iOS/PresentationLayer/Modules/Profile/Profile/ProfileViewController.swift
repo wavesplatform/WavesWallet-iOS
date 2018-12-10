@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 
 private enum Constants {
-    static let contentInset = UIEdgeInsetsMake(0, 0, 24, 0)
+    static let contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 24, right: 0)
 }
 
 final class ProfileViewController: UIViewController {
@@ -328,13 +328,13 @@ private extension ProfileViewController{
                                       preferredStyle: .alert)
 
         let delete = UIAlertAction(title: Localizable.Waves.Profile.Alert.Deleteaccount.Button.delete,
-                                   style: UIAlertActionStyle.default,
+                                   style: UIAlertAction.Style.default,
                                    handler: { [weak self] _ in
                                     self?.eventInput.onNext(.tapDelete)
         })
 
         let cancel = UIAlertAction(title: Localizable.Waves.Profile.Alert.Deleteaccount.Button.cancel,
-                                   style: UIAlertActionStyle.cancel,
+                                   style: UIAlertAction.Style.cancel,
                                    handler: { [weak alert] _ in
                                     alert?.dismiss(animated: true, completion: nil)
         })

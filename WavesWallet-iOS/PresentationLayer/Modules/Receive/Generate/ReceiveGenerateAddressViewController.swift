@@ -40,7 +40,7 @@ final class ReceiveGenerateAddressViewController: UIViewController {
 
         navigationItem.backgroundImage = UIImage()
         hideTopBarLine()
-        navigationItem.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        navigationItem.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
     }
     
     override func viewWillDisappear(_ animated: Bool) {

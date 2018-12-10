@@ -377,7 +377,7 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
         let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
 
-        var optionalLease = self.lease
+        let optionalLease = self.lease
 
         guard let lease = optionalLease else {
             return nil
@@ -430,8 +430,7 @@ extension DomainLayer.DTO.AliasTransaction {
 
         let kind: DomainLayer.DTO.SmartTransaction.Kind = .createdAlias(alias)
         let feeBalance = wavesAsset.balance(fee)
-
-        //TODO: confirmationHeight is nil?
+        
         return .init(id: id,
                      kind: kind,
                      timestamp: Date(milliseconds: timestamp),
@@ -489,7 +488,7 @@ extension DomainLayer.DTO.MassTransferTransaction {
         } else {
 
             let transfers = self.transfers.map { tx -> DomainLayer.DTO.SmartTransaction.MassReceive.Transfer? in
-                guard let recipient = accounts[tx.recipient] else {
+                guard accounts[tx.recipient] != nil else {
                     error("MassTransferTransaction Not found recipient")
                     return nil
                 }
