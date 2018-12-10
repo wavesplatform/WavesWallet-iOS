@@ -8,10 +8,15 @@
 
 import UIKit
 
+private enum Constants {
+    static let height: CGFloat = 48
+    static let bottomOffset: CGFloat = 15
+}
+
 final class WalletHeaderView: UITableViewHeaderFooterView, NibReusable {
-    @IBOutlet var buttonTap: UIButton!
-    @IBOutlet var labelTitle: UILabel!
-    @IBOutlet var iconArrow: UIImageView!
+    @IBOutlet private var buttonTap: UIButton!
+    @IBOutlet private var labelTitle: UILabel!
+    @IBOutlet private var iconArrow: UIImageView!
 
     var arrowDidTap: (() -> Void)?
 
@@ -36,8 +41,15 @@ final class WalletHeaderView: UITableViewHeaderFooterView, NibReusable {
         arrowDidTap?()
     }
 
+    class func viewHeightBottom(isExpanded: Bool) -> CGFloat {
+        if isExpanded {
+            return viewHeight()
+        }
+        return viewHeight() + Constants.bottomOffset
+    }
+    
     class func viewHeight() -> CGFloat {
-        return 48
+        return Constants.height
     }
 }
 

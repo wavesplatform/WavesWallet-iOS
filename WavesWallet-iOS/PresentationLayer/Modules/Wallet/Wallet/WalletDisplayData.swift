@@ -13,6 +13,7 @@ import UIKit
 
 private enum Constants {
     static let animationDuration: TimeInterval = 0.34
+    static let spamSection = 1
 }
 
 protocol WalletDisplayDataDelegate: AnyObject {
@@ -184,6 +185,9 @@ extension WalletDisplayData: UITableViewDelegate {
         if model.header == nil {
             return CGFloat.minValue
         } else {
+            if section == sections.count - 1 {
+                return WalletHeaderView.viewHeightBottom(isExpanded: model.isExpanded)
+            }
             return WalletHeaderView.viewHeight()
         }
     }
@@ -205,7 +209,9 @@ extension WalletDisplayData: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let row = sections[indexPath.section].items[indexPath.row]
+        
+        let items = sections[indexPath.section].items
+        let row = items[indexPath.row]
 
         switch row {
         case .historySkeleton:
@@ -215,6 +221,16 @@ extension WalletDisplayData: UITableViewDelegate {
             return WalletLeasingBalanceSkeletonCell.cellHeight()
 
         case .asset:
+            let hasSpamSection = sections.count > 1
+            let lastRow = indexPath.row == items.count - 1
+            
+            if hasSpamSection && lastRow &&
+                indexPath.section == Constants.spamSection {
+                return WalletTableAssetsCell.cellHeightBottom()
+            }
+            else if !hasSpamSection && lastRow {
+                return WalletTableAssetsCell.cellHeightBottom()
+            }
             return WalletTableAssetsCell.cellHeight()
 
         case .assetSkeleton:
