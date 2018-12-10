@@ -148,7 +148,7 @@ private extension PasscodeViewController {
                                                                 target: self,
                                                                 action: #selector(logoutButtonDidTap))
         }
-
+        
         passcodeView.hiddenButton(by: .biometric, isHidden: state.isHiddenBiometricButton)
 
         self.logInByPasswordTitle.isHidden = state.isHiddenLogInByPassword
