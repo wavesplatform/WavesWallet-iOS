@@ -419,8 +419,6 @@
 
 "enter.block.exchange.title" = "去中心化交易";
 
-"enter.block.token.text" = "创建你自己的代币。不仅能作为内部货币整合到你的生意中，还可以进行去中心化投票，成为一个诚信系统。";
-
 "enter.block.token.title" = "发布代币";
 
 "enter.block.wallet.text" = "储存，管理和接收你的数字资产余额的利息，简单而安全。";
