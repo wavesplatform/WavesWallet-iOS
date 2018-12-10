@@ -111,7 +111,7 @@ final class EditAccountNameViewController: UIViewController {
     private func setupKeyboard() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillChangeFrame(notification:)),
-                                               name: NSNotification.Name.UIKeyboardWillChangeFrame,
+                                               name: UIResponder.keyboardWillChangeFrameNotification,
                                                object: nil)
     }
     
@@ -160,10 +160,10 @@ extension EditAccountNameViewController {
     @objc func keyboardWillChangeFrame(notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }
         
-        let frameEnd = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let animationDuration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! Double
-        let curve = userInfo[UIKeyboardAnimationCurveUserInfoKey] as! UInt
-        let animationOptions = UIViewAnimationOptions(rawValue: curve << 16)
+        let frameEnd = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
+        let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as! UInt
+        let animationOptions = UIView.AnimationOptions(rawValue: curve << 16)
         
         let insets = layoutInsets
         let keyboardRect = view.convert(frameEnd, from: nil)

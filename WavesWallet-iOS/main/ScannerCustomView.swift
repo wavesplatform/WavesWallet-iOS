@@ -39,7 +39,7 @@ final class ScannerCustomView: UIView, QRCodeReaderDisplayable {
             maskLayer.fillColor = UIColor.black.cgColor
 
             let path = UIBezierPath(rect: overlayView!.bounds)
-            maskLayer.fillRule = kCAFillRuleEvenOdd
+            maskLayer.fillRule = CAShapeLayerFillRule.evenOdd
             
             let width : CGFloat = 250
             let cornerRadius: CGFloat = 5

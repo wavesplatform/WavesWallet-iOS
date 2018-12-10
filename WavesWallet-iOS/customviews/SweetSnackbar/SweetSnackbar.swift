@@ -115,7 +115,7 @@ final class SweetSnackbar: NSObject {
         viewController.view.addSubview(view)
         // TODO: Need check iOS 10 version
         if let tabBarVC = viewController as? UITabBarController {
-            tabBarVC.view.bringSubview(toFront: tabBarVC.tabBar)
+            tabBarVC.view.bringSubviewToFront(tabBarVC.tabBar)
         }
 
         view.update(model: snack)
@@ -142,7 +142,7 @@ final class SweetSnackbar: NSObject {
         view.setNeedsLayout()
 
         
-        let size = view.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
+        let size = view.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize)
         view.frame = CGRect(x: 0, y: bounds.height, width: bounds.width, height: size.height)
 
         snackMap[key] = package
@@ -267,7 +267,7 @@ final class SweetSnackbar: NSObject {
         view.setNeedsLayout()
 
 
-        let size = view.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
+        let size = view.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize)
         UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
             view.frame = CGRect(x: 0, y: bounds.height - size.height, width: bounds.width, height: size.height)
         }) { animated in

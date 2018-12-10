@@ -53,7 +53,7 @@ final class TickerView: UIView, NibOwnerLoadable {
     }
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: Constants.height)
+        return CGSize(width: UIView.noIntrinsicMetric, height: Constants.height)
     }
 }
 

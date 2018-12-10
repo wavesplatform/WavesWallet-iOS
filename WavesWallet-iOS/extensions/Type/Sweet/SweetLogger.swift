@@ -128,7 +128,7 @@ final class SweetLogger: SweetLoggerProtocol {
             if self.isShortLog {
                 return
             }
-            let fileLast = String(file.split(separator: "/").last)
+            let fileLast = String(file.split(separator: "/").last ?? "")
             print(fileLast)
             print(line)
             print(function)

@@ -87,16 +87,16 @@ final class SweetSnackView: UIView, NibLoadable {
         animation.timingFunction = TimingFunction.easeOut.caMediaTimingFuction
 
         self.iconImageView.layer.removeAllAnimations()
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(handlerDidBecomeActive), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handlerDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         self.iconImageView.layer.add(animation, forKey: "rotate")
     }
 
     func stopAnimationIcon() {
         self.isStartedAnimation = false
         self.iconImageView.layer.removeAllAnimations()
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 
     @objc private func handlerDidBecomeActive() {
