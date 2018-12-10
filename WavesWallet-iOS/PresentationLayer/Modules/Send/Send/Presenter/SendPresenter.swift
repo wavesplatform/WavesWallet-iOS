@@ -62,6 +62,11 @@ final class SendPresenter: SendPresenterProtocol {
         }, effects: { [weak self] state -> Signal<Send.Event> in
             
             guard let strongSelf = self else { return Signal.empty() }
+           
+            if state.isNeedValidateAliase {
+                return strongSelf.interactor.validateAlis(alias: state.recipient).map {.validationAliasDidComplete($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            }
+            
             guard let asset = state.selectedAsset else { return Signal.empty() }
     
             if state.isNeedLoadInfo {
@@ -72,9 +77,7 @@ final class SendPresenter: SendPresenterProtocol {
                 return strongSelf.interactor.generateMoneroAddress(asset: asset, address: state.recipient, paymentID: state.moneroPaymentID)
                     .map {.moneroAddressDidGenerate($0)}.asSignal(onErrorSignalWith: Signal.empty())
             }
-            else if state.isNeedValidateAliase {
-                return strongSelf.interactor.validateAlis(alias: state.recipient).map {.validationAliasDidComplete($0)}.asSignal(onErrorSignalWith: Signal.empty())
-            }
+           
             return Signal.empty()
         })
     }

@@ -76,7 +76,6 @@ extension Send.DTO {
         case selectedAsset(DomainLayer.DTO.SmartAssetBalance)
         case resendTransaction(ResendTransaction)
   
-  
         var selectedAsset: DomainLayer.DTO.SmartAssetBalance? {
             switch self {
             case .selectedAsset(let asset):
