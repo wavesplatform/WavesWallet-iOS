@@ -46,6 +46,7 @@ final class WalletDisplayData: NSObject {
         CATransaction.setCompletionBlock {
             completed()
         }
+        
         switch animateType {
         case .none:
             break
@@ -66,9 +67,12 @@ final class WalletDisplayData: NSObject {
             tableView.endUpdates()
 
         case .expanded(let index):
+         
             tableView.beginUpdates()
             tableView.reloadSections([index], animationStyle: .fade)
-            tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .middle, animated: true)
+            DispatchQueue.main.async {
+                self.tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .middle, animated: true)
+            }
             tableView.endUpdates()
 
         default:
