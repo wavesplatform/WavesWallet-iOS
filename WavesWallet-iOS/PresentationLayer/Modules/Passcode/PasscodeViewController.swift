@@ -159,6 +159,10 @@ private extension PasscodeViewController {
             case .incorrectPasscode:
                 passcodeView.showInvalidateState()
 
+            case .biometricLockout:
+                self.showErrorSnackWithoutAction(title: Localizable.Waves.Biometric.Manyattempts.title,
+                                                 subtitle: Localizable.Waves.Biometric.Manyattempts.subtitle)
+
             case .message(let message):
                 self.showErrorSnackWithoutAction(title: message)
 

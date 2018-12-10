@@ -180,6 +180,9 @@
 "biometric.localizedFallbackTitle" = "Input passcode";
 "biometric.localizedCancelTitle" = "Cancel";
 
+"biometric.manyattempts.title" = "Too many attempts";
+"biometric.manyattempts.subtitle" = "To unlock Touch/Face ID, sign in with your account passcode";
+
 "cameraAccess.alert.allow" = "Allow Camera";
 
 "cameraAccess.alert.cancel" = "Cancel";

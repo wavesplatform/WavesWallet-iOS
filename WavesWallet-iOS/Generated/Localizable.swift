@@ -427,6 +427,13 @@ internal enum Localizable {
       internal static var readfromkeychain: String { return Localizable.tr("Waves", "biometric.readfromkeychain") }
       /// Access to your wallet
       internal static var saveinkeychain: String { return Localizable.tr("Waves", "biometric.saveinkeychain") }
+
+      internal enum Manyattempts {
+        /// To unlock Touch/Face ID, sign in with your account passcode
+        internal static var subtitle: String { return Localizable.tr("Waves", "biometric.manyattempts.subtitle") }
+        /// Too many attempts
+        internal static var title: String { return Localizable.tr("Waves", "biometric.manyattempts.title") }
+      }
     }
 
     internal enum Cameraaccess {

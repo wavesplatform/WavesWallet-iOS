@@ -156,6 +156,9 @@ private extension PasscodeLogInPresenter {
 
             state.displayState.isHiddenBackButton = !state.hasBackButton
             state.displayState.error = Types.displayError(by: error, kind: state.kind)
+            if  case .biometricLockout? = state.displayState.error {
+                state.displayState.isHiddenBiometricButton = true
+            }
 
         case .viewWillAppear:
             break
@@ -164,7 +167,13 @@ private extension PasscodeLogInPresenter {
 
             switch state.kind {
             case .logIn(let wallet) where wallet.hasBiometricEntrance == true:
-                state.action = .logInBiometric
+                if BiometricType.current != .none {
+                    state.action = .logInBiometric
+                    state.displayState.isHiddenBiometricButton = false
+                } else {
+                    state.action = nil
+                    state.displayState.isHiddenBiometricButton = true
+                }
                 state.displayState.error = nil
             default:
                 break
