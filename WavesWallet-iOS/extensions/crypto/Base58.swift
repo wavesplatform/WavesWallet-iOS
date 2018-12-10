@@ -17,7 +17,7 @@ class Base58 {
             b58enc(bytes, &size, input, input.count)
         }
         let r = data.subdata(in: 0..<(size - 1))
-        //TODO: isoLatin1 ? WTF?
+        
         return String(data: r, encoding: .utf8) ?? ""
     }
 

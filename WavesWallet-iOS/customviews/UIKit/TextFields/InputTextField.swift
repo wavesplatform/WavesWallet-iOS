@@ -68,7 +68,7 @@ final class InputTextField: UIView, NibOwnerLoadable {
         didSet {
             textFieldValue.isSecureTextEntry = isSecureTextEntry
             if #available(iOS 10.0, *) {
-                textFieldValue.textContentType = UITextContentType("")
+                textFieldValue.textContentType = UITextContentType(rawValue: "")
             }
             if isSecureTextEntry {
                 eyeButton.setImage(Images.eyeopen24Basic500.image, for: .normal)
@@ -137,7 +137,7 @@ final class InputTextField: UIView, NibOwnerLoadable {
         eyeButton.addTarget(self, action: #selector(tapEyeButton), for: .touchUpInside)
         textFieldValue.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     @discardableResult override func becomeFirstResponder() -> Bool {
@@ -253,7 +253,7 @@ extension InputTextField: ViewConfiguration {
 
         case .password, .newPassword:
             if #available(iOS 10.0, *) {
-                textFieldValue.textContentType = UITextContentType("")
+                textFieldValue.textContentType = UITextContentType(rawValue: "")
             }
             self.rightView = eyeButton
             isSecureTextEntry = true

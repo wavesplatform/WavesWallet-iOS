@@ -104,9 +104,9 @@ platform :ios do
       date_format: "short",# Optional, lets you provide an additional date format to dates within the pretty-formatted string
       match_lightweight_tag: false,  # Optional, lets you ignore lightweight (non-annotated) tags when searching for the last tag
       merge_commit_filtering: "exclude_merges" # Optional, lets you filter out merge commits
-    )
+    )    
     ENV['CHANGELOG']="Version: #{version} #{build_number}\n#{changelog}"
-    ENV['CHANGELOG_PATH']="#{FL_OUTPUT_DIR}/changelog.txt"
+    ENV['CHANGELOG_PATH']="#{ENV['FL_OUTPUT_DIR']}/changelog.txt"
     sh("echo \"#{ENV['CHANGELOG']}\" >> #{ENV['CHANGELOG_PATH']}") 
   end
 

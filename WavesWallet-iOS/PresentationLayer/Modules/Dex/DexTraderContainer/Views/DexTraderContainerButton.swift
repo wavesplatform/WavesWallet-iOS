@@ -22,13 +22,13 @@ final class DexTraderContainerButton: HighlightedButton {
         paragraph.lineSpacing = Constants.lineSpacing
         paragraph.alignment = .center
         
-        let attributes =  [NSAttributedStringKey.font : UIFont.systemFont(ofSize: Constants.subTitleFontSize, weight: .semibold),
-                           NSAttributedStringKey.foregroundColor : UIColor.white,
-                           NSAttributedStringKey.paragraphStyle : paragraph]
+        let attributes =  [NSAttributedString.Key.font : UIFont.systemFont(ofSize: Constants.subTitleFontSize, weight: .semibold),
+                           NSAttributedString.Key.foregroundColor : UIColor.white,
+                           NSAttributedString.Key.paragraphStyle : paragraph]
         
         let text = title + "\n" + subTitle
         let attrString = NSMutableAttributedString(string: text, attributes: attributes)
-        attrString.addAttribute(NSAttributedStringKey.font, value: UIFont.systemFont(ofSize: Constants.titleFontSize), range: (text as NSString).range(of: title))
+        attrString.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: Constants.titleFontSize), range: (text as NSString).range(of: title))
         
         titleLabel?.numberOfLines = 0
         titleLabel?.attributedText = attrString
