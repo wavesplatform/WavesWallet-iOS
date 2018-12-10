@@ -10,8 +10,10 @@ import UIKit
 import Kingfisher
 
 fileprivate enum Constants {
-    static let icon: CGSize = CGSize(width: 48,
-                                     height: 48)
+    static let height: CGFloat = 76
+    static let bottomOffset: CGFloat = 18
+    
+    static let icon: CGSize = CGSize(width: 48, height: 48)
 }
 
 final class WalletTableAssetsCell: UITableViewCell, Reusable {
@@ -41,8 +43,11 @@ final class WalletTableAssetsCell: UITableViewCell, Reusable {
         taskForAssetLogo?.cancel()
     }
 
+    class func cellHeightBottom() -> CGFloat {
+        return cellHeight() + Constants.bottomOffset
+    }
     class func cellHeight() -> CGFloat {
-        return 76
+        return Constants.height
     }
 }
 

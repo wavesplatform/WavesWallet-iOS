@@ -8,14 +8,8 @@
 
 import Foundation
 
-private enum Constants {
-    static let quickNoteSection = 2
-}
-
 extension WalletTypes.DisplayState {
 
-    static let quickNoteSection = Constants.quickNoteSection
-    
     static func initialState(kind: WalletTypes.DisplayState.Kind) -> WalletTypes.DisplayState {
         return WalletTypes.DisplayState(kind: kind,
                                         assets: .initialState(kind: .assets),
@@ -158,7 +152,7 @@ extension WalletTypes.DisplayState.Display {
         let sections = skeletonSections(kind: kind)
 
         return .init(sections: sections,
-                     collapsedSections: [WalletTypes.DisplayState.quickNoteSection: true],
+                     collapsedSections: [:],
                      isRefreshing: false,                     
                      animateType: .refresh(animated: false),
                      errorState: .none)
