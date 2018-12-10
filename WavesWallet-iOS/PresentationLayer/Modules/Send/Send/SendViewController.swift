@@ -79,7 +79,6 @@ final class SendViewController: UIViewController {
         createBackButton()
         setupRecipientAddress()
         setupLocalization()
-        setupButtonState()
         setupFeedBack()
         hideGatewayInfo(animation: false)
         updateAmountError(animation: false)
@@ -105,10 +104,27 @@ final class SendViewController: UIViewController {
                 self.setupAssetInfo(asset)
                 self.amountView.setDecimals(asset.asset.precision, forceUpdateMoney: false)
             }
-                
-        default:
+            
+        case .resendTransaction(let tx):
+            updateAmountData()
+            recipientAddressView.setupText(tx.address, animation: false)
+            amount = tx.amount
+            amountView.setAmount(tx.amount)
+            assetView.showLoadingState()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                self.sendEvent.accept(.getAssetById(tx.asset.id))
+                self.acceptAddress(tx.address)
+                if !self.isValidAddress(self.recipientAddressView.text) {
+                    self.validateAddress()
+                }
+            }
+
+        case .empty:
             updateAmountData()
         }
+        
+        setupButtonState()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -218,7 +234,7 @@ private extension SendViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
                 
-                guard let strongSelf = self else { return }
+                guard let owner = self else { return }
                 switch state.action {
                 case .none:
                     return
@@ -230,42 +246,43 @@ private extension SendViewController {
                 
                 case .didGetAssetBalance(let assetBalance):
                     
-                    strongSelf.hideLoadingAssetState(isLoadAsset: assetBalance != nil)
+                    owner.hideLoadingAssetState(isLoadAsset: assetBalance != nil)
                     
                     if let asset = assetBalance {
-                        strongSelf.setupAssetInfo(asset)
-                        strongSelf.amountView.setDecimals(asset.asset.precision, forceUpdateMoney: true)
+                        owner.setupAssetInfo(asset)
+                        owner.amountView.setDecimals(asset.asset.precision, forceUpdateMoney: true)
                     }
+                    
                     
                 case .didFailInfo(let error):
                     
-                    strongSelf.showNetworkErrorSnack(error: error)
-                    strongSelf.hideGatewayInfo(animation: true)
+                    owner.showNetworkErrorSnack(error: error)
+                    owner.hideGatewayInfo(animation: true)
 
                 case .didGetInfo(let info):
-                    strongSelf.showGatewayInfo(info: info)
-                    strongSelf.updateAmountData()
+                    owner.showGatewayInfo(info: info)
+                    owner.updateAmountData()
                     
                 case .aliasDidFinishCheckValidation(let isValidAlias):
-                    strongSelf.hideCheckingAliasState(isValidAlias: isValidAlias)
-                    strongSelf.setupButtonState()
+                    owner.hideCheckingAliasState(isValidAlias: isValidAlias)
+                    owner.setupButtonState()
 
                 case .didGetWavesAsset(let asset):
-                    strongSelf.wavesAsset = asset
-                    strongSelf.updateAmountError(animation: true)
+                    owner.wavesAsset = asset
+                    owner.updateAmountError(animation: true)
                     
                 case .didFailGenerateMoneroAddress(let error):
                     
-                    strongSelf.showNetworkErrorSnack(error: error)
-                    strongSelf.hideButtonLoadingButtonsState()
-                    strongSelf.moneroPaymentIdView.showErrorFromServer()
-                    strongSelf.setupButtonState()
+                    owner.showNetworkErrorSnack(error: error)
+                    owner.hideButtonLoadingButtonsState()
+                    owner.moneroPaymentIdView.showErrorFromServer()
+                    owner.setupButtonState()
 
                 case .didGenerateMoneroAddress(let address):
-                    strongSelf.moneroAddress = address
-                    strongSelf.hideButtonLoadingButtonsState()
-                    strongSelf.setupButtonState()
-                    strongSelf.showConfirmScreen()
+                    owner.moneroAddress = address
+                    owner.hideButtonLoadingButtonsState()
+                    owner.setupButtonState()
+                    owner.showConfirmScreen()
 
                 default:
                     break
@@ -729,8 +746,22 @@ private extension SendViewController {
         return false
     }
 
+    var validationAddressAsset: DomainLayer.DTO.Asset? {
+        if selectedAsset == nil {
+            switch inputKind! {
+            case .resendTransaction(let tx):
+                return tx.asset
+            
+            default:
+                break
+            }
+        }
+        
+        return selectedAsset?.asset
+    }
+
     func isValidAddress(_ address: String) -> Bool {
-        guard let asset = selectedAsset?.asset else { return true }
+        guard let asset = validationAddressAsset else { return true }
 
         if asset.isWaves || asset.isWavesToken || asset.isFiat {
             return isValidLocalAddress || isValidAlias
@@ -754,7 +785,7 @@ private extension SendViewController {
     
     func validateAddress() {
         let address = recipientAddressView.text
-        guard let asset = selectedAsset?.asset else { return }
+        guard let asset = validationAddressAsset else { return }
 
         if addressNotRequireMinimumLength(address) {
             recipientAddressView.checkIfValidAddress()
