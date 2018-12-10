@@ -105,7 +105,7 @@ private extension ChangePasswordViewController {
     func setupSystem() {
 
         let uiFeedback: ChangePasswordPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<Types.Event>) in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
 
         let readyViewFeedback: ChangePasswordPresenterProtocol.Feedback = { [weak self] _ in
