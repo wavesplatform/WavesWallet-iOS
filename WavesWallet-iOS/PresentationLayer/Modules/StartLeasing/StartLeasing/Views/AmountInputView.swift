@@ -105,15 +105,13 @@ final class AmountInputView: UIView, NibOwnerLoadable {
     }
     
     func hideAnimation() {
-        print(classForCoder,#function)
         skeletonView.stop()
         textFieldMoney.isHidden = false
         updateViewStyle()
     }
     
     func showAnimation() {
-        print(classForCoder,#function)
-        self.skeletonView.start()
+        skeletonView.start()
         textFieldMoney.isHidden = true
         addBorderShadow()
     }

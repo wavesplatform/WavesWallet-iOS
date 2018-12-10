@@ -16,13 +16,11 @@ final class AmountSkeletonView: SkeletonView, NibOwnerLoadable {
     }
 
     func start() {
-        print(classForCoder, #function)
         isHidden = false
         startAnimation()
     }
     
     func stop() {
-        print(classForCoder, #function)
         isHidden = true
         stopAnimation()
     }
