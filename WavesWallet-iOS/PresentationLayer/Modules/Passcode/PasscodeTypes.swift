@@ -86,9 +86,12 @@ extension PasscodeTypes {
 
             case .fail:
                 return .notFound
-                
+
             case .biometricUserFallback:
                 return .none
+
+            case .biometricLockout:
+                return .biometricLockout
             }
 
         default:
@@ -154,6 +157,7 @@ extension PasscodeTypes {
         enum Error {
             case none
             case incorrectPasscode
+            case biometricLockout
             case notFound
             case attemptsEnded
             case attemptsEndedLogout
