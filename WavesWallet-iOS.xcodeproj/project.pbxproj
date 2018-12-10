@@ -543,7 +543,11 @@
 		E902ADCF212E1EB8000C289A /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902ADCE212E1EB8000C289A /* Money.swift */; };
 		E902F61520E5829B00A46335 /* ChooseAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902F61420E5829B00A46335 /* ChooseAccountViewController.swift */; };
 		E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904525920B4EF4200A490E5 /* PopupViewController.swift */; };
+		E911300C21BC028400588430 /* AssetSelectSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911300B21BC028400588430 /* AssetSelectSkeletonView.swift */; };
+		E911300E21BC029300588430 /* AssetSelectSkeletonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E911300D21BC029300588430 /* AssetSelectSkeletonView.xib */; };
 		E9157BEE21A4C081009F99B6 /* StartLeasingCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9157BED21A4C081009F99B6 /* StartLeasingCompleteViewController.swift */; };
+		E917B3AD21BD685800CC849A /* AmountSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E917B3AC21BD685800CC849A /* AmountSkeletonView.swift */; };
+		E917B3AF21BD688500CC849A /* AmountSkeletonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E917B3AE21BD688500CC849A /* AmountSkeletonView.xib */; };
 		E9193B8320D7E28400F5D983 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9193B8220D7E28400F5D983 /* Profile.storyboard */; };
 		E91DC0E120E0054A00BAB519 /* NetworkSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91DC0E020E0054A00BAB519 /* NetworkSettingsViewController.swift */; };
 		E920372B21A5F4C10055E4D8 /* StartLeasingConfirmModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E920372A21A5F4C10055E4D8 /* StartLeasingConfirmModuleBuilder.swift */; };
@@ -1390,7 +1394,11 @@
 		E902ADCE212E1EB8000C289A /* Money.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Money.swift; sourceTree = "<group>"; };
 		E902F61420E5829B00A46335 /* ChooseAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAccountViewController.swift; sourceTree = "<group>"; };
 		E904525920B4EF4200A490E5 /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
+		E911300B21BC028400588430 /* AssetSelectSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetSelectSkeletonView.swift; sourceTree = "<group>"; };
+		E911300D21BC029300588430 /* AssetSelectSkeletonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetSelectSkeletonView.xib; sourceTree = "<group>"; };
 		E9157BED21A4C081009F99B6 /* StartLeasingCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingCompleteViewController.swift; sourceTree = "<group>"; };
+		E917B3AC21BD685800CC849A /* AmountSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountSkeletonView.swift; sourceTree = "<group>"; };
+		E917B3AE21BD688500CC849A /* AmountSkeletonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmountSkeletonView.xib; sourceTree = "<group>"; };
 		E9193B8220D7E28400F5D983 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		E9193B8420D8A98500F5D983 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E91DC0E020E0054A00BAB519 /* NetworkSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSettingsViewController.swift; sourceTree = "<group>"; };
@@ -3365,6 +3373,8 @@
 		E95B47E121638B11004D4E39 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E917B3AC21BD685800CC849A /* AmountSkeletonView.swift */,
+				E917B3AE21BD688500CC849A /* AmountSkeletonView.xib */,
 				E95B47E521638B11004D4E39 /* AmountInputView.xib */,
 				E95B47E221638B11004D4E39 /* AmountInputView.swift */,
 			);
@@ -4107,6 +4117,8 @@
 			children = (
 				E9D36DA92175C754001E6DF0 /* AssetSelectView.swift */,
 				E9D36DAA2175C754001E6DF0 /* AssetSelectView.xib */,
+				E911300B21BC028400588430 /* AssetSelectSkeletonView.swift */,
+				E911300D21BC029300588430 /* AssetSelectSkeletonView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4505,6 +4517,7 @@
 				E9D36DFA2175C755001E6DF0 /* AssetList.storyboard in Resources */,
 				0AFA0C762174A2300003FE3B /* Legal.storyboard in Resources */,
 				0AFBCA80211306F600285BCB /* LaunchScreen.storyboard in Resources */,
+				E917B3AF21BD688500CC849A /* AmountSkeletonView.xib in Resources */,
 				E9B087F12163886800937644 /* DexLastTradesHeaderView.xib in Resources */,
 				E9B086B02163883000937644 /* AddAddressTextField.xib in Resources */,
 				E9310D1B21792D14008BF3EE /* SendConfirmationRecipientView.xib in Resources */,
@@ -4529,6 +4542,7 @@
 				F74240C91EAB8EC800C3B84D /* Main.storyboard in Resources */,
 				E95B47F521638B11004D4E39 /* AmountInputView.xib in Resources */,
 				0A61B59A214ACFD500EC60FC /* Languages.json in Resources */,
+				E911300E21BC029300588430 /* AssetSelectSkeletonView.xib in Resources */,
 				0A762D9021639FA60019D447 /* NewTransactionHistoryContentView.xib in Resources */,
 				0A580E702137449100C62549 /* AllTransactionExample.json in Resources */,
 				E9B087B92163886800937644 /* Dex.storyboard in Resources */,
@@ -5228,6 +5242,7 @@
 				E9D36DCB2175C755001E6DF0 /* ReceiveCryptocurrencyPresenter.swift in Sources */,
 				E9B0880F2163886800937644 /* DexMarketModuleOutput.swift in Sources */,
 				0AAC2A462146C65900F6EB27 /* BlockRepositoryProtocol.swift in Sources */,
+				E911300C21BC028400588430 /* AssetSelectSkeletonView.swift in Sources */,
 				0AF922DC212E1234003BA067 /* SkeletonAnimatable.swift in Sources */,
 				E9B088192163886800937644 /* DexSortPresenter.swift in Sources */,
 				0A1DAD7120F3A112004DA625 /* AddressesNodeService.swift in Sources */,
@@ -5463,6 +5478,7 @@
 				E95B47D121638A9F004D4E39 /* InfoPagesViewController.swift in Sources */,
 				0AF9222E212E0F1F003BA067 /* WalletHistorySkeletonCell.swift in Sources */,
 				0A14CFDB214B227D00C3A4D5 /* TSUD.swift in Sources */,
+				E917B3AD21BD685800CC849A /* AmountSkeletonView.swift in Sources */,
 				E9B086B72163883000937644 /* AddressBookPresenterProtocol.swift in Sources */,
 				0AF2536321B0351A00B8F7DF /* AssetsBalanceSettingsProtocol.swift in Sources */,
 				0AAB15C721655C0600F1F7BC /* ProfilePushTableCell.swift in Sources */,
