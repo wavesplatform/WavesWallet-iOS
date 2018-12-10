@@ -106,11 +106,11 @@ platform :ios do
       merge_commit_filtering: "exclude_merges" # Optional, lets you filter out merge commits
     )    
 
-    root_ouput = Pathname.new(ENV["FL_OUTPUT_DIR"])
-    puts "#{root_ouput}"
+    # root_ouput = Pathname.new(ENV["FL_OUTPUT_DIR"])
+    # puts "#{root_ouput}"
 
     ENV['CHANGELOG']="Version: #{version} #{build_number}\n#{changelog}"
-    ENV['CHANGELOG_PATH']="#{root_ouput}/changelog.txt"
+    ENV['CHANGELOG_PATH']="#{ROOT}/ENV["FL_OUTPUT_DIR"]/changelog.txt"
     sh("echo \"#{ENV['CHANGELOG']}\" >> #{ENV['CHANGELOG_PATH']}") 
   end
 

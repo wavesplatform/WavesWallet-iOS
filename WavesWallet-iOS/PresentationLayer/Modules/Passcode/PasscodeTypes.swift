@@ -86,6 +86,9 @@ extension PasscodeTypes {
 
             case .fail:
                 return .notFound
+                
+            case .biometricUserFallback:
+                return .none
             }
 
         default:
