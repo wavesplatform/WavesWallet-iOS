@@ -136,7 +136,7 @@ extension NetworkError {
     static func error(data: Data) -> NetworkError {
 
         var message: String? = nil
-        var anyObject = try? JSONSerialization.jsonObject(with: data, options: [])
+        let anyObject = try? JSONSerialization.jsonObject(with: data, options: [])
 
         if let anyObject = anyObject as? [String: Any] {
             message = anyObject["message"] as? String

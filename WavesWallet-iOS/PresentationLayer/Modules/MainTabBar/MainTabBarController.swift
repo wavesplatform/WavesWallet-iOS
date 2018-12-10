@@ -3,7 +3,7 @@ import RxSwift
 import RxCocoa
 
 private enum Constants {
-    static let tabBarItemImageInset = UIEdgeInsetsMake(0, 0, -8, 0)
+    static let tabBarItemImageInset = UIEdgeInsets.init(top: 0, left: 0, bottom: -8, right: 0)
 }
 private class DUMPVC: UIViewController {}
 
@@ -73,7 +73,7 @@ final class MainTabBarController: UITabBarController {
     private func addTabBarBadge() {
         if #available(iOS 10.0, *) {
             navProfile.tabBarItem.badgeColor = UIColor.clear
-            navProfile.tabBarItem.setBadgeTextAttributes([NSAttributedStringKey.foregroundColor.rawValue: UIColor.error400], for: .normal)
+            navProfile.tabBarItem.setBadgeTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([NSAttributedString.Key.foregroundColor.rawValue: UIColor.error400]), for: .normal)
             navProfile.tabBarItem.badgeValue = "●"
         } else {
             navProfile.tabBarItem.badgeValue = "●"
@@ -159,4 +159,10 @@ extension MainTabBarController: WavesPopupModuleOutput {
     func showExchange() {
         
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }

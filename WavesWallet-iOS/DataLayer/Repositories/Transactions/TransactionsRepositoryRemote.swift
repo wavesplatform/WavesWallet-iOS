@@ -246,10 +246,7 @@ fileprivate extension TransactionSenderSpecifications {
                                                                      timestamp: timestamp,
                                                                      type: self.type.rawValue,
                                                                      senderPublicKey: publicKey,
-                                                                     proofs: proofs))
-
-        default:
-            break
+                                                                     proofs: proofs))        
         }
 
     }
@@ -324,10 +321,7 @@ fileprivate extension TransactionSenderSpecifications {
             signature += toByteArray(model.amount)
             signature += toByteArray(model.fee)
             signature += toByteArray(timestamp)
-            return signature
-
-        default:
-            break
+            return signature        
         }
 
     }
