@@ -102,7 +102,7 @@ private extension ReceiveCardViewController {
     func setupFeedBack() {
         
         let feedback = bind(self) { owner, state -> Bindings<ReceiveCard.Event> in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
         
         presenter.system(feedbacks: [feedback])

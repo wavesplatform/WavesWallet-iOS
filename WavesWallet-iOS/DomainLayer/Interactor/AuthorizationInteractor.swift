@@ -748,9 +748,29 @@ private extension AuthorizationInteractor {
                                        reply:
                     { (result, error) in
 
-                        if error != nil {
+                        if  let error = error {
+
                             context.invalidate()
-                            observer.onError(AuthorizationInteractorError.biometricDisable)
+
+                            if let error = error as? LAError {
+                                switch error {
+                                case LAError.userCancel,
+                                     LAError.systemCancel,
+                                     LAError.appCancel,
+                                     LAError.userFallback:
+                                    observer.onError(AuthorizationInteractorError.biometricUserCancel)
+
+                                case LAError.biometryLockout,
+                                     LAError.biometryNotEnrolled,
+                                     LAError.biometryNotAvailable,
+                                     LAError.passcodeNotSet:
+                                    observer.onError(AuthorizationInteractorError.biometricDisable)
+
+                                default:
+                                    observer.onError(AuthorizationInteractorError.biometricDisable)
+                                }
+                            }
+
                         } else {
                             observer.onNext(context)
                             observer.onCompleted()

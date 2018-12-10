@@ -49,7 +49,7 @@ final class ReceiveInvoiceViewController: UIViewController {
     private func setupInfo(asset: DomainLayer.DTO.SmartAssetBalance) {
         selectedAsset = asset
         viewAsset.update(with: .init(assetBalance: asset, isOnlyBlockMode: input.selectedAsset != nil))
-        textFieldMoney.setDecimals(asset.asset.precision ?? 0, forceUpdateMoney: true)
+        textFieldMoney.setDecimals(asset.asset.precision, forceUpdateMoney: true)
     }
     
     private func updateDisplayInfo() {
