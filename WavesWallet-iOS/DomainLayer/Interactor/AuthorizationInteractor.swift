@@ -753,13 +753,13 @@ private extension AuthorizationInteractor {
     }
 
 
-    private func biometricAccess() -> Observable<LAContext> {
+    private func biometricAccess(localizedFallbackTitle: String? = Localizable.Waves.Biometric.localizedFallbackTitle) -> Observable<LAContext> {
 
         return Observable<LAContext>.create { observer -> Disposable in
 
             let context = LAContext()
 
-            context.localizedFallbackTitle = Localizable.Waves.Biometric.localizedFallbackTitle
+            context.localizedFallbackTitle = localizedFallbackTitle
             context.localizedCancelTitle = Localizable.Waves.Biometric.localizedCancelTitle
 
             var error: NSError?
@@ -779,9 +779,11 @@ private extension AuthorizationInteractor {
                                 case LAError.userCancel,
                                      LAError.systemCancel,
                                      LAError.appCancel,
-                                     LAError.userFallback,
                                      LAError.biometryLockout:
                                     observer.onError(AuthorizationInteractorError.biometricUserCancel)
+
+                                case LAError.userFallback:
+                                    observer.onError(AuthorizationInteractorError.biometricUserFallback)
 
                                 case LAError.biometryNotEnrolled,
                                      LAError.biometryNotAvailable,
@@ -811,8 +813,8 @@ private extension AuthorizationInteractor {
         }
     }
 
-    private func savePasscodeInKeychain(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<Bool> {
-        return biometricAccess()
+    private func savePasscodeInKeychain(wallet: DomainLayer.DTO.Wallet, passcode: String, localizedFallbackTitle: String?) -> Observable<Bool> {
+        return biometricAccess(localizedFallbackTitle: localizedFallbackTitle)
             .flatMap({ [weak self] (context) -> Observable<Bool> in
                 guard let owner = self else { return Observable<Bool>.never() }
                 return owner.savePasscodeInKeychain(wallet: wallet, passcode: passcode, context: context)
@@ -881,7 +883,7 @@ private extension AuthorizationInteractor {
 
 
             return Disposables.create {}
-        }.sweetDebug("GEEETT key")
+        }
     }
 }
 
