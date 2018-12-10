@@ -10,7 +10,7 @@ jobs:
         xcode: "10.0.0"
     working_directory: ~/Waves/iOS
     environment:
-      FL_OUTPUT_DIR: /output
+      FL_OUTPUT_DIR: output
       FASTLANE_LANE: waves_test
     shell: /bin/bash --login -eo pipefail
     steps:
@@ -41,15 +41,15 @@ jobs:
           command: bundle exec fastlane $FASTLANE_LANE --verbose
           no_output_timeout: 60m
       - store_artifacts:
-          path: /output
+          path: output
       - store_test_results:
-          path: /output/scan
+          path: output/scan
   X61:
     macos:
         xcode: "10.0.0"
     working_directory: ~/Waves/iOS
     environment:
-      FL_OUTPUT_DIR: /output
+      FL_OUTPUT_DIR: output
       FASTLANE_LANE: waves
     shell: /bin/bash --login -eo pipefail
     steps:
@@ -77,15 +77,15 @@ jobs:
           command: bundle exec fastlane $FASTLANE_LANE --verbose
           no_output_timeout: 60m
       - store_artifacts:
-          path: /output
+          path: output
       - store_test_results:
-          path: /output/scan
+          path: output/scan
   Arctrus:
     macos:
         xcode: "10.0.0"
     working_directory: ~/Waves/iOS
     environment:
-      FL_OUTPUT_DIR: /output
+      FL_OUTPUT_DIR: output
       FASTLANE_LANE: waves_test_adhoc
     shell: /bin/bash --login -eo pipefail
     steps:
@@ -113,9 +113,9 @@ jobs:
           command: bundle exec fastlane $FASTLANE_LANE --verbose
           no_output_timeout: 60m
       - store_artifacts:
-          path: /output
+          path: output
       - store_test_results:
-          path: /output/scan
+          path: output/scan
 workflows:
   version: 2
   Spaceship:
