@@ -122,6 +122,8 @@ extension MainTabBarController: UITabBarControllerDelegate {
 
             return false
         }
+        
+        //TODO: need to implement more clearly logic
         if let nav = tabBarController.selectedViewController as? CustomNavigationController,
             let currentVC = nav.viewControllers.first,
             let nextNav = viewController as? CustomNavigationController,
