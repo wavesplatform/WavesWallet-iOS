@@ -124,7 +124,9 @@ extension WalletDisplayData: UITableViewDataSource {
             return cell
 
         case .quickNote:
-            return tableView.dequeueCell() as WalletQuickNoteCell
+            let cell = tableView.dequeueCell() as WalletQuickNoteCell
+            cell.setupLocalization()
+            return cell
         }
     }
 
