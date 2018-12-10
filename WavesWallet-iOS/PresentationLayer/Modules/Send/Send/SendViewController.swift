@@ -231,7 +231,7 @@ private extension SendViewController {
                 case .didGetAssetBalance(let assetBalance):
                     
                     strongSelf.hideLoadingAssetState(isLoadAsset: assetBalance != nil)
-                
+                    
                     if let asset = assetBalance {
                         strongSelf.setupAssetInfo(asset)
                         strongSelf.amountView.setDecimals(asset.asset.precision, forceUpdateMoney: true)
@@ -582,15 +582,15 @@ extension SendViewController: AddressInputViewDelegate {
     
     func addressInputViewDidScanAddress(_ address: String, amount: Money?, assetID: String?) {
         
-        if let asset = assetID, selectedAsset?.assetId != asset, inputKind.selectedAsset == nil {
-            sendEvent.accept(.getAssetById(asset))
-            showLoadingAssetState(isLoadingAmount: amount != nil)
-        }
-        
         if assetID != nil {
             recipientAddressView.isBlockAddressMode = true
             assetView.isSelectedAssetMode = false
             amountView.isBlockMode = amount?.isZero == false
+        }
+        
+        if let asset = assetID, selectedAsset?.assetId != asset, inputKind.selectedAsset == nil {
+            sendEvent.accept(.getAssetById(asset))
+            showLoadingAssetState(isLoadingAmount: amount != nil)
         }
         
         amountView.hideAnimation()
