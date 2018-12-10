@@ -100,6 +100,8 @@ final class SendViewController: UIViewController {
         switch inputModel! {
         case .selectedAsset(let asset):
             assetView.isSelectedAssetMode = false
+            
+            //TODO: need refactor code to correct initial state
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 self.setupAssetInfo(asset)
                 self.amountView.setDecimals(asset.asset.precision, forceUpdateMoney: false)
@@ -112,6 +114,7 @@ final class SendViewController: UIViewController {
             amountView.setAmount(tx.amount)
             assetView.showLoadingState()
             
+            //TODO: need refactor code to correct initial state
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 self.sendEvent.accept(.getAssetById(tx.asset.id))
                 self.acceptAddress(tx.address)
