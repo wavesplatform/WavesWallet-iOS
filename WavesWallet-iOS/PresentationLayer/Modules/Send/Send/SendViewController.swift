@@ -47,7 +47,7 @@ final class SendViewController: UIViewController {
     private let sendEvent: PublishRelay<Send.Event> = PublishRelay<Send.Event>()
     var presenter: SendPresenterProtocol!
     
-    var inputKind: Send.DTO.InputKind!
+    var inputModel: Send.DTO.InputModel!
     
     private var isValidAlias: Bool = false
     private var gateWayInfo: Send.DTO.GatewayInfo?
@@ -97,7 +97,7 @@ final class SendViewController: UIViewController {
             self?.moneroAddress = ""
         }
         
-        switch inputKind! {
+        switch inputModel! {
         case .selectedAsset(let asset):
             assetView.isSelectedAssetMode = false
             DispatchQueue.main.asyncAfter(deadline: .now()) {
@@ -136,7 +136,7 @@ final class SendViewController: UIViewController {
         gateWayInfo = nil
         
         selectedAsset = assetBalance
-        assetView.update(with: .init(assetBalance: assetBalance, isOnlyBlockMode: inputKind.selectedAsset != nil))
+        assetView.update(with: .init(assetBalance: assetBalance, isOnlyBlockMode: inputModel.selectedAsset != nil))
         setupButtonState()
 
         let loadGateway = self.isValidCryptocyrrencyAddress && !self.isValidLocalAddress
@@ -538,7 +538,7 @@ private extension SendViewController {
                                            error: Localizable.Waves.Send.Label.addressNotValid,
                                            placeHolder: Localizable.Waves.Send.Label.recipientAddress,
                                            contacts: [],
-                                           canChangeAsset: self.inputKind.selectedAsset == nil)
+                                           canChangeAsset: self.inputModel.selectedAsset == nil)
         recipientAddressView.update(with: input)
         recipientAddressView.delegate = self
         recipientAddressView.errorValidation = { [weak self] text in
@@ -605,7 +605,7 @@ extension SendViewController: AddressInputViewDelegate {
             amountView.isBlockMode = amount?.isZero == false
         }
         
-        if let asset = assetID, selectedAsset?.assetId != asset, inputKind.selectedAsset == nil {
+        if let asset = assetID, selectedAsset?.assetId != asset, inputModel.selectedAsset == nil {
             sendEvent.accept(.getAssetById(asset))
             showLoadingAssetState(isLoadingAmount: amount != nil)
         }
@@ -748,7 +748,7 @@ private extension SendViewController {
 
     var validationAddressAsset: DomainLayer.DTO.Asset? {
         if selectedAsset == nil {
-            switch inputKind! {
+            switch inputModel! {
             case .resendTransaction(let tx):
                 return tx.asset
             

@@ -10,7 +10,7 @@ import UIKit
 
 struct SendModuleBuilder: ModuleBuilder {
 
-    func build(input: Send.DTO.InputKind) -> UIViewController {
+    func build(input: Send.DTO.InputModel) -> UIViewController {
         
         let interactor: SendInteractorProtocol = SendInteractor()
         
@@ -19,7 +19,7 @@ struct SendModuleBuilder: ModuleBuilder {
         
         let vc = StoryboardScene.Send.sendViewController.instantiate()
         
-        vc.inputKind = input
+        vc.inputModel = input
         vc.presenter = presenter
         
         return vc

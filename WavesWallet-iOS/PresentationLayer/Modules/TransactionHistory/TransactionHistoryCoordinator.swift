@@ -110,7 +110,7 @@ extension TransactionHistoryCoordinator: AddAddressBookModuleOutput {
         case .sent(let tx):
             navigationController.dismiss(animated: false)
             
-            let model = Send.DTO.InputKind.ResendTransaction(address: tx.recipient.address,
+            let model = Send.DTO.InputModel.ResendTransaction(address: tx.recipient.address,
                                                              asset: tx.asset,
                                                              amount: tx.balance.money)
             let send = SendModuleBuilder().build(input: .resendTransaction(model))

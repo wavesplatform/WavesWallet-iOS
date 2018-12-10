@@ -64,7 +64,7 @@ extension Send.ViewModel {
 
 extension Send.DTO {
     
-    enum InputKind {
+    enum InputModel {
         
         struct ResendTransaction {
             let address: String
