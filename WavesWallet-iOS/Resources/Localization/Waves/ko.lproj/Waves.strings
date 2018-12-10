@@ -419,8 +419,6 @@
 
 "enter.block.exchange.title" = "탈중앙화 거래소";
 
-"enter.block.token.text" = "당신의 토큰을 발행해보세요. 이는 당신의 비즈니스에 내부적인 화폐로 통합될 뿐만 아니라 등급 시스템 또는 로열티 프로그램의 탈중앙화 방식 투표로 활용될 수 있습니다.";
-
 "enter.block.token.title" = "토큰 런처";
 
 "enter.block.wallet.text" = "디지털 자산을 매우 쉽고 안전하게 전송하고 관리하고 보관하세요.";

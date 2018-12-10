@@ -63,8 +63,7 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
     private var currentPage: Int  = 0
     private let blocks: [Block] = [.blockchain,
                                    .wallet,
-                                   .dex,
-                                   .token]
+                                   .dex]
 
     weak var delegate: EnterStartViewControllerDelegate?
 
