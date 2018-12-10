@@ -13,7 +13,7 @@ import RESideMenu
 import RxOptional
 
 private enum Contants {
-    static let delay: TimeInterval = 10
+    static let delay: TimeInterval = 0
 }
 
 struct Application: TSUD {
