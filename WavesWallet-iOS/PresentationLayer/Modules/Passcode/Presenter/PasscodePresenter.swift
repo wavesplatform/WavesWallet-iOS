@@ -426,9 +426,11 @@ private extension PasscodePresenter {
             state.displayState.isLoading = false
             state.displayState.numbers = []
             state.action = nil
-            state.displayState.error = .incorrectPasscode
             state.displayState.isHiddenBackButton = !state.hasBackButton
             state.displayState.error = Types.displayError(by: error, kind: state.kind)
+            if  case .biometricLockout? = state.displayState.error {
+                state.displayState.isHiddenBiometricButton = true
+            }
 
         case .viewWillAppear:
             break
@@ -440,11 +442,24 @@ private extension PasscodePresenter {
                 state.displayState.error = nil
 
             case .setEnableBiometric(_, let wallet) where wallet.hasBiometricEntrance == true:
-                state.action = .disabledBiometricUsingBiometric
+
+                if BiometricType.current != .none {
+                    state.action = .disabledBiometricUsingBiometric
+                    state.displayState.isHiddenBiometricButton = false
+                } else {
+                    state.action = nil
+                    state.displayState.isHiddenBiometricButton = true
+                }
                 state.displayState.error = nil
 
             case .verifyAccess(let wallet) where wallet.hasBiometricEntrance == true:
-                state.action = .verifyAccessBiometric
+                if BiometricType.current != .none {
+                    state.action = .verifyAccessBiometric
+                    state.displayState.isHiddenBiometricButton = false
+                } else {
+                    state.action = nil
+                    state.displayState.isHiddenBiometricButton = true
+                }
                 state.displayState.error = nil
                 
             default:

@@ -618,7 +618,7 @@ extension AuthorizationInteractor {
                 guard let owner = self else { return Observable.never() }
 
                 let savePasscode = owner
-                    .savePasscodeInKeychain(wallet: signedWallet.wallet, passcode: passcode)
+                    .savePasscodeInKeychain(wallet: signedWallet.wallet, passcode: passcode, localizedFallbackTitle: nil)
                     .flatMap({ [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
                         guard let owner = self else { return Observable.never() }
                         return owner.setHasBiometricEntrance(wallet: signedWallet.wallet, hasBiometricEntrance: true)
@@ -752,7 +752,6 @@ private extension AuthorizationInteractor {
         }
     }
 
-
     private func biometricAccess(localizedFallbackTitle: String? = Localizable.Waves.Biometric.localizedFallbackTitle) -> Observable<LAContext> {
 
         return Observable<LAContext>.create { observer -> Disposable in
@@ -771,28 +770,11 @@ private extension AuthorizationInteractor {
                     { (result, error) in
 
                         if  let error = error {
-
                             context.invalidate()
-
                             if let error = error as? LAError {
-                                switch error {
-                                case LAError.userCancel,
-                                     LAError.systemCancel,
-                                     LAError.appCancel,
-                                     LAError.biometryLockout:
-                                    observer.onError(AuthorizationInteractorError.biometricUserCancel)
-
-                                case LAError.userFallback:
-                                    observer.onError(AuthorizationInteractorError.biometricUserFallback)
-
-                                case LAError.biometryNotEnrolled,
-                                     LAError.biometryNotAvailable,
-                                     LAError.passcodeNotSet:
-                                    observer.onError(AuthorizationInteractorError.biometricDisable)
-
-                                default:
-                                    observer.onError(AuthorizationInteractorError.biometricDisable)
-                                }
+                                observer.onError(error.authorizationInteractorError)
+                            } else {
+                                observer.onError(AuthorizationInteractorError.biometricDisable)
                             }
 
                         } else {
@@ -804,7 +786,11 @@ private extension AuthorizationInteractor {
 
             } else {
                 context.invalidate()
-                observer.onError(AuthorizationInteractorError.biometricDisable)
+                if let error = error as? LAError {
+                    observer.onError(error.authorizationInteractorError)
+                } else {
+                    observer.onError(AuthorizationInteractorError.biometricDisable)
+                }
             }
 
             return Disposables.create {
@@ -1136,5 +1122,36 @@ extension AuthorizationInteractor: SigningWalletsProtocol {
         guard let seed = seedRepositoryMemory.seed(publicKey) else { throw SigningWalletsError.notSigned }
         let privateKey = PrivateKeyAccount(seedStr: seed.seed)
         return Hash.sign(input, privateKey.privateKey)
+    }
+}
+
+extension LAError {
+
+    var authorizationInteractorError: AuthorizationInteractorError {
+
+        switch self {
+        case LAError.userCancel,
+             LAError.systemCancel,
+             LAError.appCancel,
+             LAError.authenticationFailed:
+            return AuthorizationInteractorError.biometricUserCancel
+
+        case LAError.biometryLockout:
+            return AuthorizationInteractorError.biometricLockout
+
+        case LAError.userFallback:
+            return AuthorizationInteractorError.biometricUserFallback
+
+        case LAError.touchIDLockout,
+             LAError.touchIDNotEnrolled,
+             LAError.touchIDNotAvailable,
+             LAError.biometryNotEnrolled,
+             LAError.biometryNotAvailable,
+             LAError.passcodeNotSet:
+            return AuthorizationInteractorError.biometricDisable
+
+        default:
+            return AuthorizationInteractorError.biometricDisable
+        }
     }
 }
