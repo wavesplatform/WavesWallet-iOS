@@ -422,8 +422,6 @@
 
 "enter.block.exchange.title" = "Decentralised Exchange";
 
-"enter.block.token.text" = "Issue your own tokens. These can be integrated into your business not only as an internal currency but also as a token for decentralised voting, as a rating system, or loyalty program.";
-
 "enter.block.token.title" = "Token Launcher";
 
 "enter.block.wallet.text" = "Store, manage and receive interest on your digital assets balance, easily and securely.";
