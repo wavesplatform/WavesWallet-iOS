@@ -16,8 +16,7 @@ fileprivate enum Constants {
     static let paddingSeparatorTop: CGFloat = 14
     static let paddingSecondTitleTop: CGFloat = 13
     static let paddingThirdTitleTop: CGFloat = 13
-    static let paddingThirdTitleBottom: CGFloat = 8
-    static let bottomPadding: CGFloat = 24
+    static let paddingThirdTitleBottom: CGFloat = 24
 }
 
 final class WalletQuickNoteCell: UITableViewCell, Reusable {
@@ -48,7 +47,7 @@ final class WalletQuickNoteCell: UITableViewCell, Reusable {
         height += text2.maxHeightMultiline(font: font, forWidth: width - Constants.padding * 2 - Constants.pictureSize - Constants.paddingPictureRight)
         height += Constants.paddingSeparatorTop + Constants.separatorHeight + Constants.paddingThirdTitleTop
         height += text3.maxHeightMultiline(font: font, forWidth: width - Constants.padding * 2)
-        return height + Constants.paddingThirdTitleBottom + Constants.bottomPadding
+        return height + Constants.paddingThirdTitleBottom
     }
 }
 
