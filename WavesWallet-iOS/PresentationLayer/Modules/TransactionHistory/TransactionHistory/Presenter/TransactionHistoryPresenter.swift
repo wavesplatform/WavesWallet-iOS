@@ -180,9 +180,7 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
 
         case .completedAction:
             state.action = .none
-            state.actionDisplay = .none
-        case .setContacts(_):
-            break
+            state.actionDisplay = .none        
         }
     }
     

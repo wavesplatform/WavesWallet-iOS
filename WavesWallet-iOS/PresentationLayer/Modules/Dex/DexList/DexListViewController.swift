@@ -13,7 +13,7 @@ import RxSwift
 
 
 fileprivate enum Constants {
-    static let contentInset = UIEdgeInsetsMake(8, 0, 0, 0)
+    static let contentInset = UIEdgeInsets.init(top: 8, left: 0, bottom: 0, right: 0)
     static let updateTime: RxTimeInterval = 30
 }
 
@@ -74,7 +74,7 @@ final class DexListViewController: UIViewController {
         super.viewWillAppear(animated)
         setupBigNavigationBar()
         
-        Observable<Int>.interval(Constants.updateTime, scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] (value) in
+        Observable<Int>.interval(Constants.updateTime, scheduler: MainScheduler.asyncInstance).subscribe(onNext: { [weak self] (value) in
             self?.sendEvent.accept(.refresh)
         }).disposed(by: disposeBag)
     }

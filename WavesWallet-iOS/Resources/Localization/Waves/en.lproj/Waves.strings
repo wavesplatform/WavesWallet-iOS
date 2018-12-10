@@ -177,6 +177,9 @@
 
 "biometric.saveinkeychain" = "Access to your wallet";
 
+"biometric.localizedFallbackTitle" = "Input passcode";
+"biometric.localizedCancelTitle" = "Cancel";
+
 "cameraAccess.alert.allow" = "Allow Camera";
 
 "cameraAccess.alert.cancel" = "Cancel";
@@ -418,8 +421,6 @@
 "enter.block.exchange.text" = "Trade quickly and securely. You retain complete control over your funds when trading them on our decentralised exchange.";
 
 "enter.block.exchange.title" = "Decentralised Exchange";
-
-"enter.block.token.text" = "Issue your own tokens. These can be integrated into your business not only as an internal currency but also as a token for decentralised voting, as a rating system, or loyalty program.";
 
 "enter.block.token.title" = "Token Launcher";
 

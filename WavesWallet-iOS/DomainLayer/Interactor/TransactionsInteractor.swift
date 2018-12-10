@@ -169,6 +169,8 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
 
                 return Observable.just(.error(error))
             })
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .background)))
+            .share()
     }
 }
 
@@ -456,7 +458,7 @@ fileprivate extension TransactionsInteractor {
                             return SmartTransactionsSyncObservable.just(.error(error))
                         }
                     }
-                    //TODO: it current line whith shit
+                    
                     return SmartTransactionsSyncObservable.just(.error(TransactionsInteractorError.invalid))
                 }
 

@@ -26,8 +26,7 @@ extension DomainLayer.DTO {
         let height: Int64
 
         let proofs: [String]?
-        var assetId: String
-        //TODO: Need optional attachment?
+        var assetId: String        
         let attachment: String
         let transferCount: Int
         let totalAmount: Int64

@@ -72,7 +72,6 @@ final class PasscodePresenter: PasscodePresenterProtocol {
         newFeedbacks.append(logout())
         newFeedbacks.append(logInBiometric())
         newFeedbacks.append(changeEnableBiometric())
-        newFeedbacks.append(disabledBiometricUsingBiometric())
         newFeedbacks.append(changePasscode())
         newFeedbacks.append(changePasscodeByPassword())
         newFeedbacks.append(verifyAccessBiometric())
@@ -692,7 +691,7 @@ private extension PasscodePresenter {
             let oldPasscode = state.numbers[.oldPasscode]
             state.displayState.isLoading = true
             state.displayState.error = nil
-            state.passcode = oldPasscode.reduce(into: "") { $0 += "\($1)" }
+            state.passcode = oldPasscode?.reduce(into: "") { $0 += "\($1)" } ?? ""
             state.action = .verifyAccess
 
         case .newPasscode:
