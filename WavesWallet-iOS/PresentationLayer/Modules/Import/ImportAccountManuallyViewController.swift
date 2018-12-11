@@ -201,7 +201,7 @@ extension ImportAccountManuallyViewController: MultilineTextFieldDelegate {
     }
     
     func multilineTextField(textField: MultilineTextField, errorTextForValue value: String) -> String? {
-        if value.count > ImportTypes.minimumSeedLength {
+        if value.count >= ImportTypes.minimumSeedLength {
             return nil
         } else {
             return ""
