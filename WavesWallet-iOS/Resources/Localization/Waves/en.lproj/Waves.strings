@@ -721,6 +721,16 @@
 
 "passcode.label.passcode.verify" = "Verify your passcode";
 
+
+"profile.alert.setupbiometric.button.cancel" = "Cancel";
+
+"profile.alert.setupbiometric.button.settings" = "Settings";
+
+"profile.alert.setupbiometric.message" = "Open settings";
+
+"profile.alert.setupbiometric.title" = "Setup biometric";
+
+
 "profile.alert.deleteAccount.button.cancel" = "Cancel";
 
 "profile.alert.deleteAccount.button.delete" = "Delete";

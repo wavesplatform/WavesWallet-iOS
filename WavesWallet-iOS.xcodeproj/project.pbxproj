@@ -321,7 +321,7 @@
 		0AAB15C12165534500F1F7BC /* DomainLayerTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E942100A0D400079B49 /* DomainLayerTypes.swift */; };
 		0AAB15C321655BDB00F1F7BC /* ProfileInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB15C221655BDB00F1F7BC /* ProfileInfoCell.swift */; };
 		0AAB15C521655BEC00F1F7BC /* ProfileBackupPhraseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB15C421655BEC00F1F7BC /* ProfileBackupPhraseCell.swift */; };
-		0AAB15C721655C0600F1F7BC /* ProfilePushTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB15C621655C0600F1F7BC /* ProfilePushTableCell.swift */; };
+		0AAB15C721655C0600F1F7BC /* ProfileDisabledButtomTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB15C621655C0600F1F7BC /* ProfileDisabledButtomTableCell.swift */; };
 		0AAB15C921655C1800F1F7BC /* ProfileValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB15C821655C1800F1F7BC /* ProfileValueCell.swift */; };
 		0AAB15CA21655EB000F1F7BC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9193B8420D8A98500F5D983 /* ProfileViewController.swift */; };
 		0AAC2A442146C40A00F6EB27 /* TransactionsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5EC393213ED90F00659350 /* TransactionsInteractor.swift */; };
@@ -1148,7 +1148,7 @@
 		0AA8CAD321527672000D09E6 /* PasscodeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PasscodeView.xib; sourceTree = "<group>"; };
 		0AAB15C221655BDB00F1F7BC /* ProfileInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoCell.swift; sourceTree = "<group>"; };
 		0AAB15C421655BEC00F1F7BC /* ProfileBackupPhraseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBackupPhraseCell.swift; sourceTree = "<group>"; };
-		0AAB15C621655C0600F1F7BC /* ProfilePushTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePushTableCell.swift; sourceTree = "<group>"; };
+		0AAB15C621655C0600F1F7BC /* ProfileDisabledButtomTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDisabledButtomTableCell.swift; sourceTree = "<group>"; };
 		0AAB15C821655C1800F1F7BC /* ProfileValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileValueCell.swift; sourceTree = "<group>"; };
 		0AAC2A452146C65900F6EB27 /* BlockRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0AAC2A472146C69600F6EB27 /* BlockRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRepositoryRemote.swift; sourceTree = "<group>"; };
@@ -2438,7 +2438,7 @@
 				0ADD6C802167948400B06917 /* ProfileHeaderView.xib */,
 				0AAB15C221655BDB00F1F7BC /* ProfileInfoCell.swift */,
 				0AAB15C421655BEC00F1F7BC /* ProfileBackupPhraseCell.swift */,
-				0AAB15C621655C0600F1F7BC /* ProfilePushTableCell.swift */,
+				0AAB15C621655C0600F1F7BC /* ProfileDisabledButtomTableCell.swift */,
 				0AAB15C821655C1800F1F7BC /* ProfileValueCell.swift */,
 				0ADD6C882167980E00B06917 /* ProfileBiometricCell.swift */,
 				0ADD6C86216796DB00B06917 /* ProfileLanguageCell.swift */,
@@ -5484,7 +5484,7 @@
 				0A14CFDB214B227D00C3A4D5 /* TSUD.swift in Sources */,
 				E9B086B72163883000937644 /* AddressBookPresenterProtocol.swift in Sources */,
 				0AF2536321B0351A00B8F7DF /* AssetsBalanceSettingsProtocol.swift in Sources */,
-				0AAB15C721655C0600F1F7BC /* ProfilePushTableCell.swift in Sources */,
+				0AAB15C721655C0600F1F7BC /* ProfileDisabledButtomTableCell.swift in Sources */,
 				E9EC5C0F2175F35900E5C29A /* AddressInputView.swift in Sources */,
 				0AF921EF212E07B3003BA067 /* AssetPresenter.swift in Sources */,
 				E9B0879A2163886800937644 /* DexChartHelper.swift in Sources */,

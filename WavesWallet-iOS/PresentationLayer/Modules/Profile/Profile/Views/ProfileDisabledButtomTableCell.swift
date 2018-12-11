@@ -13,7 +13,7 @@ private enum Constants {
 }
 
 final class ProfileDisabledButtomTableCell: UITableViewCell, Reusable, ViewConfiguration {
-    typealias Model = Void
+    typealias Model = String
 
     @IBOutlet private weak var titleLabel: UILabel!
 

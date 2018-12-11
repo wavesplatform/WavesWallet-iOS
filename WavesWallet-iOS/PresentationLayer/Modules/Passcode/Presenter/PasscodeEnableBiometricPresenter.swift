@@ -164,8 +164,22 @@ private extension PasscodeEnableBiometricPresenter {
             
         case .viewDidAppear:
 
-            state.action = .disabledBiometricUsingBiometric
             state.displayState.error = nil
+
+            switch state.kind {
+            case .setEnableBiometric(_, let wallet) where wallet.hasBiometricEntrance == true:
+                if BiometricType.enabledBiometric != .none {
+                    state.action = .disabledBiometricUsingBiometric
+                    state.displayState.isHiddenBiometricButton = false
+                } else {
+                    state.action = nil
+                    state.displayState.isHiddenBiometricButton = true
+                }
+
+            default:
+                state.action = nil
+                state.displayState.isHiddenBiometricButton = true
+            }
 
         case .tapBiometricButton:
 
