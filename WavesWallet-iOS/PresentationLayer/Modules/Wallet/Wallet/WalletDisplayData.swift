@@ -185,9 +185,6 @@ extension WalletDisplayData: UITableViewDelegate {
         if model.header == nil {
             return CGFloat.minValue
         } else {
-            if section == sections.count - 1 {
-                return WalletHeaderView.viewHeightBottom(isExpanded: model.isExpanded)
-            }
             return WalletHeaderView.viewHeight()
         }
     }
@@ -221,16 +218,6 @@ extension WalletDisplayData: UITableViewDelegate {
             return WalletLeasingBalanceSkeletonCell.cellHeight()
 
         case .asset:
-            let hasSpamSection = sections.count > 1
-            let lastRow = indexPath.row == items.count - 1
-            
-            if hasSpamSection && lastRow &&
-                indexPath.section == Constants.spamSection {
-                return WalletTableAssetsCell.cellHeightBottom()
-            }
-            else if !hasSpamSection && lastRow {
-                return WalletTableAssetsCell.cellHeightBottom()
-            }
             return WalletTableAssetsCell.cellHeight()
 
         case .assetSkeleton:
