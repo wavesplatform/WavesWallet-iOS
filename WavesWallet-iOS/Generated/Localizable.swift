@@ -427,6 +427,13 @@ internal enum Localizable {
       internal static var readfromkeychain: String { return Localizable.tr("Waves", "biometric.readfromkeychain") }
       /// Access to your wallet
       internal static var saveinkeychain: String { return Localizable.tr("Waves", "biometric.saveinkeychain") }
+
+      internal enum Manyattempts {
+        /// To unlock Touch/Face ID, sign in with your account passcode
+        internal static var subtitle: String { return Localizable.tr("Waves", "biometric.manyattempts.subtitle") }
+        /// Too many attempts
+        internal static var title: String { return Localizable.tr("Waves", "biometric.manyattempts.title") }
+      }
     }
 
     internal enum Cameraaccess {
@@ -1589,6 +1596,20 @@ internal enum Localizable {
           internal enum Withoutbackup {
             /// Deleting an account will lead to its irretrievable loss!
             internal static var message: String { return Localizable.tr("Waves", "profile.alert.deleteAccount.withoutbackup.message") }
+          }
+        }
+
+        internal enum Setupbiometric {
+          /// Open settings
+          internal static var message: String { return Localizable.tr("Waves", "profile.alert.setupbiometric.message") }
+          /// Setup biometric
+          internal static var title: String { return Localizable.tr("Waves", "profile.alert.setupbiometric.title") }
+
+          internal enum Button {
+            /// Cancel
+            internal static var cancel: String { return Localizable.tr("Waves", "profile.alert.setupbiometric.button.cancel") }
+            /// Settings
+            internal static var settings: String { return Localizable.tr("Waves", "profile.alert.setupbiometric.button.settings") }
           }
         }
       }

@@ -45,7 +45,7 @@ final class WalletSortViewController: UIViewController {
 
         let feedback = bind(self) { owner, state -> Bindings<WalletSort.Event> in
             return Bindings(subscriptions: owner.subscriptions(state: state),
-                            events: owner.events())
+                            mutations: owner.events())
         }
 
         let readyViewFeedback: WalletSortPresenterProtocol.Feedback = { [weak self] _ in

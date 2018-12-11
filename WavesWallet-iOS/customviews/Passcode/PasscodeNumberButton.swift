@@ -46,6 +46,10 @@ final class PasscodeNumberButton: UIButton {
         cornerRadius = Float(frame.height * 0.5)
     }
 
+    func update() {
+        update(by: kind)
+    }
+
     private func update(by kind: Int) {
         guard let kind = Kind(rawValue: kind) else { return }
         update(by: kind)
@@ -58,15 +62,14 @@ final class PasscodeNumberButton: UIButton {
             setTitle(nil, for: .normal)
             
         case .biometric:
-            let current = BiometricType.current
-            isHidden = false
+            let current = BiometricType.biometricByDevice
 
             switch current {
             case .touchID, .faceID:
                 setImage(current.icon, for: .normal)
                 
             case .none:
-                isHidden = true
+                setImage(nil, for: .normal)
             }
             setTitle(nil, for: .normal)
 

@@ -11,24 +11,6 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 
-//private struct LogInByBiometricQuery: Hashable {
-//    let wallet: DomainLayer.DTO.Wallet
-//}
-//
-//private struct RegistationQuery: Hashable {
-//    let account: PasscodeTypes.DTO.Account
-//    let passcode: String
-//}
-//
-//private struct LogInQuery: Hashable {
-//    let wallet: DomainLayer.DTO.Wallet
-//    let passcode: String
-//}
-//
-//private struct LogoutQuery: Hashable {
-//    let wallet: DomainLayer.DTO.Wallet
-//}
-
 private struct SetEnableBiometricQuery: Hashable {
     let wallet: DomainLayer.DTO.Wallet
     let passcode: String
@@ -49,6 +31,7 @@ final class PasscodeEnableBiometricPresenter: PasscodePresenterProtocol {
 
         var newFeedbacks = feedbacks
         newFeedbacks.append(changeEnableBiometric())
+        newFeedbacks.append(disabledBiometricUsingBiometric())
         newFeedbacks.append(logout())
 
         let initialState = self.initialState(input: input)
@@ -68,6 +51,32 @@ final class PasscodeEnableBiometricPresenter: PasscodePresenterProtocol {
 // MARK: Feedbacks
 
 extension PasscodeEnableBiometricPresenter {
+
+    private func disabledBiometricUsingBiometric() -> Feedback {
+        return react(query: { state -> DomainLayer.DTO.Wallet? in
+
+            if case .setEnableBiometric(_, let wallet) = state.kind,
+                let action = state.action,
+                case .disabledBiometricUsingBiometric = action {
+                return wallet
+            }
+
+            return nil
+
+        }, effects: { [weak self] wallet -> Signal<Types.Event> in
+
+            guard let strongSelf = self else { return Signal.empty() }
+
+            return strongSelf
+                .interactor
+                .disabledBiometricUsingBiometric(wallet: wallet)
+                .sweetDebug("Biometric")
+                .map { Types.Event.completedLogIn($0) }
+                .asSignal { (error) -> Signal<Types.Event> in
+                    return Signal.just(.handlerError(error))
+            }
+        })
+    }
 
     private func changeEnableBiometric() -> Feedback {
         return react(query: { state -> SetEnableBiometricQuery? in
@@ -144,17 +153,33 @@ private extension PasscodeEnableBiometricPresenter {
             state.displayState.isLoading = false
             state.displayState.numbers = []
             state.action = nil
-            state.displayState.error = .incorrectPasscode
             state.displayState.isHiddenBackButton = !state.hasBackButton
             state.displayState.error = Types.displayError(by: error, kind: state.kind)
+            if  case .biometricLockout? = state.displayState.error {
+                state.displayState.isHiddenBiometricButton = true
+            }
 
         case .viewWillAppear:
             break
             
         case .viewDidAppear:
 
-            state.action = .disabledBiometricUsingBiometric
             state.displayState.error = nil
+
+            switch state.kind {
+            case .setEnableBiometric(_, let wallet) where wallet.hasBiometricEntrance == true:
+                if BiometricType.enabledBiometric != .none {
+                    state.action = .disabledBiometricUsingBiometric
+                    state.displayState.isHiddenBiometricButton = false
+                } else {
+                    state.action = nil
+                    state.displayState.isHiddenBiometricButton = true
+                }
+
+            default:
+                state.action = nil
+                state.displayState.isHiddenBiometricButton = true
+            }
 
         case .tapBiometricButton:
 

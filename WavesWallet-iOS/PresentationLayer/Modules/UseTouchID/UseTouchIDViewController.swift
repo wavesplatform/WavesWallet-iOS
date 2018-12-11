@@ -50,7 +50,7 @@ final class UseTouchIDViewController: UIViewController {
 
     private func setupUI() {
 
-        let biometricType = BiometricType.current
+        let biometricType = BiometricType.biometricByDevice
         let biometricTitle = biometricType.title ?? ""
         iconTouch.image = biometricType.icon
         labelTouchId.text = Localizable.Waves.Usetouchid.Label.Title.text(biometricTitle)
@@ -64,7 +64,7 @@ final class UseTouchIDViewController: UIViewController {
     }
 
     private func setupButtonUseTouchId() {
-        let biometricType = BiometricType.current
+        let biometricType = BiometricType.biometricByDevice
         let biometricTitle = biometricType.title ?? ""
         buttonUseTouchId.setTitle(Localizable.Waves.Usetouchid.Button.Usebiometric.text(biometricTitle), for: .normal)
     }
@@ -98,7 +98,12 @@ final class UseTouchIDViewController: UIViewController {
                 self?.moduleOutput?.userRegisteredBiometric(wallet: wallet)
             }
         }, onError: { [weak self] error in
-            self?.stopIndicator()
+            if let error = error as? AuthorizationInteractorError, error == .biometricUserFallback {
+                guard let wallet = self?.input?.wallet else { return }
+                self?.moduleOutput?.userSkipRegisterBiometric(wallet: wallet)
+            } else {
+                self?.stopIndicator()
+            }
         })
         .disposed(by: disposeBag)
     }
