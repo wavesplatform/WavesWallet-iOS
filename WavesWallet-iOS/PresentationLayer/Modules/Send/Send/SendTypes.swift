@@ -64,6 +64,28 @@ extension Send.ViewModel {
 
 extension Send.DTO {
     
+    enum InputModel {
+        
+        struct ResendTransaction {
+            let address: String
+            let asset: DomainLayer.DTO.Asset
+            let amount: Money
+        }
+        
+        case empty
+        case selectedAsset(DomainLayer.DTO.SmartAssetBalance)
+        case resendTransaction(ResendTransaction)
+  
+        var selectedAsset: DomainLayer.DTO.SmartAssetBalance? {
+            switch self {
+            case .selectedAsset(let asset):
+                return asset
+            default:
+                return nil
+            }
+        }
+    }
+    
     struct Transaction {
         private let senderPrivateKey: PrivateKeyAccount
         private let isAlias: Bool
