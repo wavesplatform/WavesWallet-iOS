@@ -12,7 +12,7 @@ import Skeleton
 class SkeletonView: UIView, SkeletonAnimatable {
 
     @IBOutlet var views: [GradientContainerView]!
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
 

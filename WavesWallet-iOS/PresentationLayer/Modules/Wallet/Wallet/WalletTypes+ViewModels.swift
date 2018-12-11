@@ -29,7 +29,7 @@ extension WalletTypes.ViewModel {
         enum Kind {
             case skeleton
             case balance
-            case transactions
+            case transactions(count: Int)
             case info
             case general
             case spam(count: Int)
@@ -117,7 +117,7 @@ extension WalletTypes.ViewModel.Section {
 
             let activeTransactionSection: WalletTypes
                 .ViewModel
-                .Section = .init(kind: .transactions,                                 
+                .Section = .init(kind: .transactions(count: leasing.transactions.count),
                                  items: rows,
                                  isExpanded: true)
             sections.append(activeTransactionSection)
