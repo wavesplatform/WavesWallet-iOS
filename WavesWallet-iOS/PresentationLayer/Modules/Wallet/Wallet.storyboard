@@ -169,9 +169,6 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet_arrow_green" translatesAutoresizingMaskIntoConstraints="NO" id="30C-GB-dJL">
-                                                            <rect key="frame" x="14" y="44" width="14" height="14"/>
-                                                        </imageView>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet_icon_fav" translatesAutoresizingMaskIntoConstraints="NO" id="X4B-9r-zK3">
                                                             <rect key="frame" x="106" y="14" width="14" height="14"/>
                                                         </imageView>
@@ -238,12 +235,10 @@
                                                         <constraint firstItem="X4B-9r-zK3" firstAttribute="centerY" secondItem="r81-tr-JyR" secondAttribute="centerY" constant="-1" id="BSo-be-lED"/>
                                                         <constraint firstItem="wD2-di-h1U" firstAttribute="centerY" secondItem="Hb5-de-rI4" secondAttribute="centerY" id="CV8-dn-YKa"/>
                                                         <constraint firstItem="13A-1j-MxJ" firstAttribute="leading" secondItem="Bre-o8-ieU" secondAttribute="leading" constant="14" id="EJ6-5Z-mJf"/>
-                                                        <constraint firstItem="30C-GB-dJL" firstAttribute="bottom" secondItem="13A-1j-MxJ" secondAttribute="bottom" id="EfN-Fr-fpw"/>
                                                         <constraint firstItem="13A-1j-MxJ" firstAttribute="centerY" secondItem="Bre-o8-ieU" secondAttribute="centerY" id="GIl-02-hIC"/>
                                                         <constraint firstItem="Hb5-de-rI4" firstAttribute="top" secondItem="r81-tr-JyR" secondAttribute="bottom" constant="4" id="Ghx-4A-Y8o"/>
                                                         <constraint firstItem="lpf-8A-XFP" firstAttribute="leading" secondItem="X4B-9r-zK3" secondAttribute="trailing" priority="750" constant="3" id="RSU-j4-my6"/>
                                                         <constraint firstItem="Hb5-de-rI4" firstAttribute="leading" secondItem="r81-tr-JyR" secondAttribute="leading" id="YIY-g4-rq9"/>
-                                                        <constraint firstItem="30C-GB-dJL" firstAttribute="leading" secondItem="13A-1j-MxJ" secondAttribute="leading" id="YgA-0T-m1O"/>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wD2-di-h1U" secondAttribute="trailing" constant="5" id="a20-vU-IIb"/>
                                                         <constraint firstItem="r81-tr-JyR" firstAttribute="top" secondItem="Bre-o8-ieU" secondAttribute="top" constant="14" id="lia-KL-8H0"/>
                                                         <constraint firstItem="r81-tr-JyR" firstAttribute="leading" secondItem="13A-1j-MxJ" secondAttribute="trailing" constant="8" id="vhR-5j-RXZ"/>
@@ -258,7 +253,6 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <outlet property="iconArrow" destination="30C-GB-dJL" id="bar-en-aiy"/>
                                             <outlet property="iconStar" destination="X4B-9r-zK3" id="xQE-nQ-6do"/>
                                             <outlet property="imageIcon" destination="13A-1j-MxJ" id="as8-Im-XXj"/>
                                             <outlet property="labelSpam" destination="DRV-2D-YZP" id="FEq-ds-jKZ"/>
@@ -990,21 +984,16 @@
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_lock" translatesAutoresizingMaskIntoConstraints="NO" id="cw0-cE-pE7">
                                                             <rect key="frame" x="307" y="13" width="22" height="22"/>
                                                         </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet_arrow_green" translatesAutoresizingMaskIntoConstraints="NO" id="nRV-1G-MmI">
-                                                            <rect key="frame" x="37" y="27" width="14" height="14"/>
-                                                        </imageView>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="1f5-ZL-KWJ" firstAttribute="centerY" secondItem="m6W-Pe-j0q" secondAttribute="centerY" id="2Sa-S2-k6v"/>
                                                         <constraint firstItem="cw0-cE-pE7" firstAttribute="centerY" secondItem="m6W-Pe-j0q" secondAttribute="centerY" id="4c1-VO-RV1"/>
                                                         <constraint firstAttribute="height" constant="48" id="CIL-dm-g0p"/>
-                                                        <constraint firstItem="nRV-1G-MmI" firstAttribute="bottom" secondItem="eSb-dq-41o" secondAttribute="bottom" constant="3" id="JXR-lB-H42"/>
                                                         <constraint firstItem="1f5-ZL-KWJ" firstAttribute="leading" secondItem="m6W-Pe-j0q" secondAttribute="leading" id="OcH-gG-B8U"/>
                                                         <constraint firstItem="eSb-dq-41o" firstAttribute="centerY" secondItem="m6W-Pe-j0q" secondAttribute="centerY" id="Sw8-Kk-nbf"/>
                                                         <constraint firstAttribute="trailing" secondItem="cw0-cE-pE7" secondAttribute="trailing" constant="14" id="XTP-x2-DUc"/>
                                                         <constraint firstItem="eSb-dq-41o" firstAttribute="leading" secondItem="1f5-ZL-KWJ" secondAttribute="trailing" id="aK9-fc-bMP"/>
                                                         <constraint firstItem="1TU-gA-bnh" firstAttribute="leading" secondItem="eSb-dq-41o" secondAttribute="trailing" constant="8" id="k3N-9A-LMV"/>
-                                                        <constraint firstItem="nRV-1G-MmI" firstAttribute="leading" secondItem="eSb-dq-41o" secondAttribute="leading" constant="-3" id="s2w-L1-ZHV"/>
                                                         <constraint firstItem="1TU-gA-bnh" firstAttribute="centerY" secondItem="m6W-Pe-j0q" secondAttribute="centerY" id="xNT-TE-I9l"/>
                                                     </constraints>
                                                 </view>
@@ -1016,7 +1005,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="arrowGreen" destination="nRV-1G-MmI" id="8hH-tc-Wkh"/>
                                             <outlet property="buttonFav" destination="1f5-ZL-KWJ" id="a0f-4h-ACY"/>
                                             <outlet property="iconLock" destination="cw0-cE-pE7" id="vVv-sX-YTl"/>
                                             <outlet property="imageIcon" destination="eSb-dq-41o" id="nDQ-VY-FHn"/>
@@ -1049,9 +1037,6 @@
                                                                 <constraint firstAttribute="height" constant="28" id="uNZ-VZ-OhC"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet_arrow_green" translatesAutoresizingMaskIntoConstraints="NO" id="YuA-dI-N9F">
-                                                            <rect key="frame" x="37" y="27" width="14" height="14"/>
-                                                        </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BXr-CX-yoj">
                                                             <rect key="frame" x="76" y="16" width="33" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -1076,8 +1061,6 @@
                                                         <constraint firstItem="BXr-CX-yoj" firstAttribute="leading" secondItem="NwQ-Wi-YlN" secondAttribute="trailing" constant="8" id="Kqw-hf-EWs"/>
                                                         <constraint firstItem="dI8-Gx-jbV" firstAttribute="centerY" secondItem="sOG-r7-BYD" secondAttribute="centerY" id="MU1-kL-D6F"/>
                                                         <constraint firstItem="e5T-2M-SpC" firstAttribute="centerY" secondItem="sOG-r7-BYD" secondAttribute="centerY" id="RKk-nV-rDn"/>
-                                                        <constraint firstItem="YuA-dI-N9F" firstAttribute="bottom" secondItem="NwQ-Wi-YlN" secondAttribute="bottom" constant="3" id="Xgg-fe-fhP"/>
-                                                        <constraint firstItem="YuA-dI-N9F" firstAttribute="leading" secondItem="NwQ-Wi-YlN" secondAttribute="leading" constant="-3" id="gs2-26-mlq"/>
                                                         <constraint firstItem="NwQ-Wi-YlN" firstAttribute="centerY" secondItem="sOG-r7-BYD" secondAttribute="centerY" id="iZS-yy-ea3"/>
                                                         <constraint firstItem="BXr-CX-yoj" firstAttribute="centerY" secondItem="sOG-r7-BYD" secondAttribute="centerY" id="jun-eR-XLq"/>
                                                         <constraint firstItem="NwQ-Wi-YlN" firstAttribute="leading" secondItem="e5T-2M-SpC" secondAttribute="trailing" id="kab-mX-dbq"/>
@@ -1099,7 +1082,6 @@
                                             <constraint firstAttribute="trailing" secondItem="sOG-r7-BYD" secondAttribute="trailing" constant="1" id="tFT-6D-OXS"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="arrowGreen" destination="YuA-dI-N9F" id="Dff-kf-smg"/>
                                             <outlet property="buttonFav" destination="e5T-2M-SpC" id="95U-LS-fpn"/>
                                             <outlet property="iconMenu" destination="dI8-Gx-jbV" id="RXp-1d-5VI"/>
                                             <outlet property="imageIcon" destination="NwQ-Wi-YlN" id="6rc-yf-wWl"/>
@@ -1162,7 +1144,6 @@
         <image name="icon_fav_empty" width="14" height="14"/>
         <image name="icon_lock" width="22" height="22"/>
         <image name="icon_menu_sort" width="22" height="22"/>
-        <image name="wallet_arrow_green" width="14" height="14"/>
         <image name="wallet_icon_fav" width="14" height="14"/>
         <image name="wallet_quick_note" width="28" height="28"/>
     </resources>
