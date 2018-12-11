@@ -159,8 +159,8 @@ final class LegalViewController: UIViewController {
 
         thirdLabel.text = thirdString
         
-        thirdLabel.linkAttributes = [NSAttributedStringKey.underlineColor.rawValue: UIColor.black.cgColor,
-            NSAttributedStringKey.underlineStyle.rawValue: true]
+        thirdLabel.linkAttributes = [NSAttributedString.Key.underlineColor.rawValue: UIColor.black.cgColor,
+            NSAttributedString.Key.underlineStyle.rawValue: true]
         
         let range = (thirdString as NSString).range(of: termsString)
         thirdLabel.addLink(to: URL(string: Constants.termsAndConditionsUrl), with: range)
@@ -258,9 +258,9 @@ extension LegalViewController: UIViewControllerAnimatedTransitioning {
     private func linkAttributes() -> [AnyHashable: Any]{
         return
             [
-            NSAttributedStringKey.underlineColor.rawValue: UIColor.black.cgColor,
-            NSAttributedStringKey.foregroundColor.rawValue: UIColor.black.cgColor,
-            NSAttributedStringKey.underlineStyle.rawValue: false
+            NSAttributedString.Key.underlineColor.rawValue: UIColor.black.cgColor,
+            NSAttributedString.Key.foregroundColor.rawValue: UIColor.black.cgColor,
+            NSAttributedString.Key.underlineStyle.rawValue: false
             ]
     }
     

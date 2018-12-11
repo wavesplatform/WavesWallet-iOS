@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 
+//TODO: Rename to Local
 final class DexRepository: DexRepositoryProtocol {
 
     func save(pair: DexMarket.DTO.Pair, accountAddress: String) -> Observable<Bool> {
@@ -79,6 +80,6 @@ final class DexRepository: DexRepositoryProtocol {
                 .bind(to: observer)
 
             return Disposables.create([collection])
-        })
+        })         
     }
 }

@@ -14,14 +14,17 @@ final class AssetTransactionCell: UICollectionViewCell, NibReusable, ViewConfigu
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         backgroundView = {
             let view = UIView()
             view.backgroundColor = .basic50
             return view
         }()
+        
     }
 
     func update(with model: DomainLayer.DTO.SmartTransaction) {
         transactionView.update(with: model)
     }
 }
+

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 import StoreKit
 import MessageUI
 
@@ -15,19 +16,15 @@ private enum Constants {
     static let supportEmail = "mobileapp@wavesplatform.com"
 }
 
-private enum State {
-    case backupPhrase(completed: ((_ isBackedUp: Bool) -> Void))
-    case showPhrase
-}
-
 final class ProfileCoordinator: Coordinator {
 
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
     private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
 
+    private let authorization = FactoryInteractors.instance.authorization
     private let navigationController: UINavigationController
-    private var state: State?
+    private let disposeBag: DisposeBag = DisposeBag()
 
     init(navigationController: UINavigationController, applicationCoordinator: ApplicationCoordinatorProtocol?) {
         self.applicationCoordinator = applicationCoordinator
@@ -37,6 +34,7 @@ final class ProfileCoordinator: Coordinator {
     func start() {
         let vc = ProfileModuleBuilder(output: self).build()
         self.navigationController.pushViewController(vc, animated: true)
+        setupBackupTost(target: vc, navigationController: navigationController, disposeBag: disposeBag)
     }
 }
 
@@ -44,23 +42,38 @@ final class ProfileCoordinator: Coordinator {
 
 extension ProfileCoordinator: ProfileModuleOutput {
 
-    func showBackupPhrase(wallet: DomainLayer.DTO.Wallet, completed: @escaping ((_ isBackedUp: Bool) -> Void)) {
+    func showBackupPhrase(wallet: DomainLayer.DTO.Wallet, saveBackedUp: @escaping ((_ isBackedUp: Bool) -> Void)) {
 
-        if wallet.isBackedUp == true {
-            self.state = .showPhrase
-        } else {
-            self.state = .backupPhrase(completed: completed)
-        }
+        authorization
+            .authorizedWallet()
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (signedWallet) in
 
-        let passcode = PasscodeCoordinator(navigationController: navigationController, kind: .verifyAccess(wallet))
-        passcode.delegate = self
-        addChildCoordinator(childCoordinator: passcode)
-        passcode.start()
+                guard let owner = self else { return }
+
+                let seed = signedWallet.seedWords
+
+                if wallet.isBackedUp == false {
+
+                    let backup = BackupCoordinator(navigationController: owner.navigationController,
+                                                   seed: seed,
+                                                   completed: { [weak self] needBackup in
+                        saveBackedUp(!needBackup)
+                        self?.navigationController.popToRootViewController(animated: true)
+                    })
+                    owner.addChildCoordinatorAndStart(childCoordinator: backup)
+                } else {
+                    let vc = StoryboardScene.Backup.saveBackupPhraseViewController.instantiate()
+                    vc.input = .init(seed: seed, isReadOnly: true)
+                    owner.navigationController.pushViewController(vc, animated: true)
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     func showAddressesKeys(wallet: DomainLayer.DTO.Wallet) {
-
-        let coordinator = AddressesKeysCoordinator(navigationController: navigationController, wallet: wallet)
+        guard let applicationCoordinator = self.applicationCoordinator else { return }
+        let coordinator = AddressesKeysCoordinator(navigationController: navigationController, wallet: wallet, applicationCoordinator: applicationCoordinator)
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
     }
@@ -98,12 +111,14 @@ extension ProfileCoordinator: ProfileModuleOutput {
 
     func accountSetEnabledBiometric(isOn: Bool, wallet: DomainLayer.DTO.Wallet) {
         let passcode = PasscodeCoordinator(navigationController: navigationController, kind: .setEnableBiometric(isOn, wallet: wallet))
+        passcode.delegate = self
         addChildCoordinator(childCoordinator: passcode)
         passcode.start()
     }
 
     func showChangePasscode(wallet: DomainLayer.DTO.Wallet) {
         let passcode = PasscodeCoordinator(navigationController: navigationController, kind: .changePasscode(wallet))
+        passcode.delegate = self
         addChildCoordinator(childCoordinator: passcode)
         passcode.start()
     }
@@ -128,33 +143,11 @@ extension ProfileCoordinator: PasscodeCoordinatorDelegate {
 
     func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {}
 
-    func passcodeCoordinatorWalletLogouted() {}
+    func passcodeCoordinatorWalletLogouted() {
+        applicationCoordinator?.showEnterDisplay()
+    }
 
     func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {
-
-        let seed = signedWallet.seed.seed.split(separator: " ").map { "\($0)" }
-
-        guard let state = state else { return }
-        switch state {
-        case .backupPhrase(let completed):
-
-            let backup = BackupCoordinator(navigationController: navigationController, seed: seed, completed: { [weak self] needBackup in
-                completed(!needBackup)
-                self?.navigationController.popToRootViewController(animated: true)
-            })
-            addChildCoordinator(childCoordinator: backup)
-            backup.start()
-        case .showPhrase:
-
-            let viewControllers = navigationController.viewControllers.filter({ ($0 is PasscodeViewController) == false })
-            navigationController.viewControllers = viewControllers
-            let vc = StoryboardScene.Backup.saveBackupPhraseViewController.instantiate()
-            vc.input = .init(seed: seed, isReadOnly: true)
-            navigationController.pushViewController(vc, animated: true)
-        }
-
-
-        self.state = nil
     }
 }
 
@@ -174,6 +167,7 @@ extension ProfileCoordinator: ChangePasswordModuleOutput {
                                            kind: .changePassword(wallet: wallet,
                                                                  newPassword: newPassword,
                                                                  oldPassword: oldPassword))
+        passcode.delegate = self
         addChildCoordinator(childCoordinator: passcode)
         passcode.start()
     }

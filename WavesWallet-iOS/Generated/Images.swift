@@ -179,7 +179,6 @@ internal enum Images {
   internal static let info18Warning600 = ImageAsset(name: "info18Warning600")
   internal static let information22Multy = ImageAsset(name: "information22Multy")
   internal static let launcher34 = ImageAsset(name: "launcher34")
-  internal static let logo3x = ImageAsset(name: "logo3x")
   internal static let logoBitcoin48 = ImageAsset(name: "logoBitcoin48")
   internal static let logoBitcoincash48 = ImageAsset(name: "logoBitcoincash48")
   internal static let logoDash48 = ImageAsset(name: "logoDash48")
@@ -273,14 +272,18 @@ internal enum Images {
   internal static let unhide = ImageAsset(name: "unhide")
   internal static let upChevron = ImageAsset(name: "up-chevron@")
   internal static let userimgBackupmoney80Submit400 = ImageAsset(name: "userimgBackupmoney80Submit400")
+  internal static let userimgBlockchain80 = ImageAsset(name: "userimgBlockchain80")
   internal static let userimgBlockchain80White = ImageAsset(name: "userimgBlockchain80White")
+  internal static let userimgDex80 = ImageAsset(name: "userimgDex80")
   internal static let userimgDex80Multy = ImageAsset(name: "userimgDex80Multy")
   internal static let userimgDex80White = ImageAsset(name: "userimgDex80White")
+  internal static let userimgDisconnect80Multy = ImageAsset(name: "userimgDisconnect80Multy")
   internal static let userimgDone80Success400 = ImageAsset(name: "userimgDone80Success400")
   internal static let userimgEmpty80Multi = ImageAsset(name: "userimgEmpty80Multi")
   internal static let userimgPairing80 = ImageAsset(name: "userimgPairing80")
   internal static let userimgSeed80Submit400 = ImageAsset(name: "userimgSeed80Submit400")
-  internal static let userimgToken80White = ImageAsset(name: "userimgToken80White")
+  internal static let userimgServerdown80Multy = ImageAsset(name: "userimgServerdown80Multy")
+  internal static let userimgWallet80 = ImageAsset(name: "userimgWallet80")
   internal static let userimgWallet80White = ImageAsset(name: "userimgWallet80White")
   internal static let verification28Error500 = ImageAsset(name: "verification28Error500")
   internal static let verification28Success400 = ImageAsset(name: "verification28Success400")
@@ -294,6 +297,7 @@ internal enum Images {
   internal static let warning18Disabled500 = ImageAsset(name: "warning18Disabled500")
   internal static let warning18White = ImageAsset(name: "warning18White")
   internal static let warningAddress = ImageAsset(name: "warning_address")
+  internal static let wavesLogo = ImageAsset(name: "waves_logo")
 
   // swiftlint:disable trailing_comma
   internal static let allColors: [ColorAsset] = [
@@ -426,7 +430,6 @@ internal enum Images {
     info18Warning600,
     information22Multy,
     launcher34,
-    logo3x,
     logoBitcoin48,
     logoBitcoincash48,
     logoDash48,
@@ -520,14 +523,18 @@ internal enum Images {
     unhide,
     upChevron,
     userimgBackupmoney80Submit400,
+    userimgBlockchain80,
     userimgBlockchain80White,
+    userimgDex80,
     userimgDex80Multy,
     userimgDex80White,
+    userimgDisconnect80Multy,
     userimgDone80Success400,
     userimgEmpty80Multi,
     userimgPairing80,
     userimgSeed80Submit400,
-    userimgToken80White,
+    userimgServerdown80Multy,
+    userimgWallet80,
     userimgWallet80White,
     verification28Error500,
     verification28Success400,
@@ -541,6 +548,7 @@ internal enum Images {
     warning18Disabled500,
     warning18White,
     warningAddress,
+    wavesLogo,
   ]
   // swiftlint:enable trailing_comma
   @available(*, deprecated, renamed: "allImages")

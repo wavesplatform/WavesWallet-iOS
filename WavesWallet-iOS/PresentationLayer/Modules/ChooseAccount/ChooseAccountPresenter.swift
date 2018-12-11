@@ -132,6 +132,7 @@ private extension ChooseAccountPresenter {
         switch event {
         case .readyView:
             state.isAppeared = true
+            state.displayState.action = .none
 
         case .viewDidDisappear:
             state.displayState.action = .none
@@ -151,6 +152,7 @@ private extension ChooseAccountPresenter {
 
         case .openWallet(let wallet, let passcodeNotCreated):
             state.action = nil
+            state.displayState.action = .none
             moduleOutput?.userChooseAccount(wallet: wallet, passcodeNotCreated: passcodeNotCreated)
             
         case .completedDeleteWallet(let indexPath):

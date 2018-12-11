@@ -18,6 +18,8 @@ enum AuthorizationType {
 
 enum AuthorizationInteractorError: Error {
     case fail
+    case walletAlreadyExist
+    case walletNotFound
     case passcodeNotCreated
     case passcodeIncorrect
     case passwordIncorrect
@@ -40,6 +42,7 @@ enum AuthorizationVerifyAccessStatus {
 
 protocol AuthorizationInteractorProtocol {
 
+    func existWallet(by publicKey: String) -> Observable<DomainLayer.DTO.Wallet>
     func wallets() -> Observable<[DomainLayer.DTO.Wallet]>
     func registerWallet(_ wallet: DomainLayer.DTO.WalletRegistation) -> Observable<DomainLayer.DTO.Wallet>
     func deleteWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>

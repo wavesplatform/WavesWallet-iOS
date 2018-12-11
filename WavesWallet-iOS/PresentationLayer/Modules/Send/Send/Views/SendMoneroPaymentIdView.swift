@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QRCodeReader
 
 private enum Constants {
     static let paymentIdLength = 64
@@ -21,10 +22,13 @@ final class SendMoneroPaymentIdView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var labelError: UILabel!
     @IBOutlet private weak var viewContainer: UIView!
     @IBOutlet private weak var textField: UITextField!
+    @IBOutlet private weak var buttonDelete: UIButton!
+    @IBOutlet private weak var buttonScan: UIButton!
     
     private var isShowError = false
     private var hasErrorFromServer = false
-    
+    private var isHiddenDeleteButton = true
+
     var didTapNext:(() -> Void)?
     var paymentIdDidChange:((String) -> Void)?
     
@@ -39,6 +43,7 @@ final class SendMoneroPaymentIdView: UIView, NibOwnerLoadable {
         setupLocalization()
         viewContainer.addTableCellShadowStyle()
         setupDefaultHeight(animation: false)
+        buttonDelete.alpha = 0
     }
   
     var isVisible: Bool {
@@ -88,12 +93,26 @@ final class SendMoneroPaymentIdView: UIView, NibOwnerLoadable {
     }
     
     @IBAction private func textFieldDidChange(_ sender: Any) {
-        
-        hasErrorFromServer = false
-        paymentIdDidChange?(paymentID)
-        hideError(animation: true)
+        updateUI(animation: true)
     }
     
+    @IBAction private func deleteTapped(_ sender: Any) {
+        textField.text = ""
+        updateUI(animation: true)
+    }
+    
+    @IBAction private func scanTapped(_ sender: Any) {
+
+        CameraAccess.requestAccess(success: { [weak self] in
+            self?.showScanner()
+        }, failure: { [weak self] in
+                let alert = CameraAccess.alertController
+            self?.firstAvailableViewController().present(alert, animated: true, completion: nil)
+        })
+        showScanner()
+    }
+    
+    private lazy var readerVC: QRCodeReaderViewController = QRCodeReaderFactory.deffaultCodeReader
 }
 
 //MARK: - UITextFieldDelegate
@@ -105,19 +124,70 @@ extension SendMoneroPaymentIdView: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        validateError(animation: true)
+    }
+    
+    private func validateError(animation: Bool) {
         let isShow = (paymentID.count != Constants.paymentIdLength && paymentID.count > 0) || hasErrorFromServer
         
         if isShow {
-            showError(animation: true)
+            showError(animation: animation)
         }
         else {
-            hideError(animation: true)
+            hideError(animation: animation)
         }
     }
 }
 
 //MARK: - UI
 private extension SendMoneroPaymentIdView {
+    
+    func updateUI(animation: Bool) {
+        hasErrorFromServer = false
+        paymentIdDidChange?(paymentID)
+        
+        if !textField.isFirstResponder {
+            validateError(animation: animation)
+        }
+        else {
+            hideError(animation: animation)
+        }
+        
+        let text = textField.text ?? ""
+        
+        if text.count > 0 {
+            if isHiddenDeleteButton {
+                isHiddenDeleteButton = false
+                
+                if animation {
+                    UIView.animate(withDuration: Constants.animationDuration) {
+                        self.buttonDelete.alpha = 1
+                        self.buttonScan.alpha = 0
+                    }
+                }
+                else {
+                    self.buttonDelete.alpha = 1
+                    self.buttonScan.alpha = 0
+                }
+            }
+        }
+        else {
+            if !isHiddenDeleteButton {
+                isHiddenDeleteButton = true
+                
+                if animation {
+                    UIView.animate(withDuration: Constants.animationDuration) {
+                        self.buttonDelete.alpha = 0
+                        self.buttonScan.alpha = 1
+                    }
+                }
+                else {
+                    self.buttonDelete.alpha = 0
+                    self.buttonScan.alpha = 1
+                }
+            }
+        }
+    }
     
     func showError(animation: Bool) {
         if !isShowError {
@@ -165,5 +235,28 @@ private extension SendMoneroPaymentIdView {
             return constraint
         }
         return NSLayoutConstraint()
+    }
+}
+
+private extension SendMoneroPaymentIdView {
+    
+    func showScanner() {
+        
+        guard QRCodeReader.isAvailable() else { return }
+        readerVC.completionBlock = { (result: QRCodeReaderResult?) in
+            
+            if let value = result?.value {
+                
+                self.textField.text = value
+                self.updateUI(animation: false)
+            }
+            
+            self.firstAvailableViewController().dismiss(animated: true, completion: nil)
+        }
+        
+        // Presents the readerVC as modal form sheet
+        readerVC.modalPresentationStyle = .formSheet
+        
+        firstAvailableViewController().present(readerVC, animated: true)
     }
 }

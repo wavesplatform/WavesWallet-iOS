@@ -11,9 +11,9 @@ import RxSwift
 
 protocol WalletSortInteractorProtocol {
 
-    func assets() -> Observable<[WalletSort.DTO.Asset]>
-
     func move(asset: WalletSort.DTO.Asset, underAsset: WalletSort.DTO.Asset)
     func move(asset: WalletSort.DTO.Asset, overAsset: WalletSort.DTO.Asset)
-    func update(asset: WalletSort.DTO.Asset)
+
+    func setFavorite(assetId: String, isFavorite: Bool)
+    func setHidden(assetId: String, isHidden: Bool)
 }

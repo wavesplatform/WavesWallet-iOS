@@ -8,7 +8,9 @@
 
 import UIKit
 
-struct DexSortModuleBuilder: ModuleBuilder {
+struct DexSortModuleBuilder: ModuleBuilderOutput {
+    
+    var output: DexListRefreshOutput
     
     func build(input: Void) -> UIViewController {
         
@@ -16,6 +18,7 @@ struct DexSortModuleBuilder: ModuleBuilder {
         var presenter: DexSortPresenterProtocol = DexSortPresenter()
         presenter.interactor = DexSortInteractor()
         vc.presenter = presenter
+        vc.delegate = output
         
         return vc
     }

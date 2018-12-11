@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 private enum Constants {
     static let cornerRadius: CGFloat = 2
@@ -66,8 +67,8 @@ final class SendConfirmationViewController: UIViewController {
         hideTopBarLine()
         setupBigNavigationBar()
         navigationItem.backgroundImage = UIImage()
-        navigationItem.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
-        navigationItem.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        navigationItem.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
+        navigationItem.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -148,7 +149,10 @@ private extension SendConfirmationViewController {
     func setupData() {
         
         let addressBook: AddressBookInteractorProtocol = AddressBookInteractor()
-        addressBook.users().subscribe(onNext: { [weak self] contacts in
+        addressBook
+            .users()
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] contacts in
 
             guard let strongSelf = self else { return }
             
@@ -171,6 +175,6 @@ private extension SendConfirmationViewController {
             labelAssetName.text = input.asset.displayName
         }
         labelFeeAmount.text = input.fee.displayText + " WAVES"
-        labelBalance.attributedText = NSAttributedString.styleForBalance(text: input.amountWithoutFee.displayTextFull, font: labelBalance.font)
+        labelBalance.attributedText = NSAttributedString.styleForBalance(text: input.amountWithoutFee.displayText, font: labelBalance.font)
     }
 }

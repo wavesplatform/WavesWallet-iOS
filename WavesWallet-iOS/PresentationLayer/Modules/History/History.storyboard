@@ -26,7 +26,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="cCf-zR-JqQ" customClass="WalletSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="66"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="62"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DN4-Nk-Cjo" customClass="SegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
@@ -37,7 +37,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="DN4-Nk-Cjo" firstAttribute="top" secondItem="cCf-zR-JqQ" secondAttribute="top" constant="18" id="F5E-QY-1ij"/>
-                                        <constraint firstAttribute="bottom" secondItem="DN4-Nk-Cjo" secondAttribute="bottom" constant="18" id="Sp8-O7-rgX"/>
+                                        <constraint firstAttribute="bottom" secondItem="DN4-Nk-Cjo" secondAttribute="bottom" constant="14" id="Sp8-O7-rgX"/>
                                         <constraint firstAttribute="trailing" secondItem="DN4-Nk-Cjo" secondAttribute="trailing" constant="16" id="kG1-cx-cNL"/>
                                         <constraint firstItem="DN4-Nk-Cjo" firstAttribute="leading" secondItem="cCf-zR-JqQ" secondAttribute="leading" constant="16" id="zhL-8J-jkW"/>
                                     </constraints>
@@ -46,23 +46,25 @@
                                     </connections>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HistoryTransactionCell" id="nD8-nk-nrf" customClass="HistoryTransactionCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="94" width="375" height="44"/>
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HistoryTransactionCell" rowHeight="76" id="nD8-nk-nrf" customClass="HistoryTransactionCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="90" width="375" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nD8-nk-nrf" id="1QZ-Fi-DTe">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nD8-nk-nrf" id="1QZ-Fi-DTe">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="38x-YD-aqN" customClass="HistoryTransactionView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="36"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="68"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="68" id="our-TF-7dH"/>
+                                                    </constraints>
                                                 </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="38x-YD-aqN" secondAttribute="trailing" constant="16" id="6aR-Sg-FP3"/>
                                                 <constraint firstItem="38x-YD-aqN" firstAttribute="top" secondItem="1QZ-Fi-DTe" secondAttribute="top" id="EPW-Nd-sHS"/>
-                                                <constraint firstAttribute="bottom" secondItem="38x-YD-aqN" secondAttribute="bottom" constant="8" id="g3T-Hm-hNB"/>
                                                 <constraint firstItem="38x-YD-aqN" firstAttribute="leading" secondItem="1QZ-Fi-DTe" secondAttribute="leading" constant="16" id="zv9-Tr-ZEN"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -72,7 +74,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HistoryTransactionSkeletonCell" rowHeight="70" id="k5f-Pl-IbC" customClass="HistoryTransactionSkeletonCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="138" width="375" height="70"/>
+                                        <rect key="frame" x="0.0" y="166" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="k5f-Pl-IbC" id="4Rw-6C-c5J">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
@@ -202,17 +204,25 @@ You do not have any transactions</string>
                                     <constraint firstItem="QZP-5T-ayU" firstAttribute="centerX" secondItem="RyW-2X-hys" secondAttribute="centerX" id="rE6-fZ-g4j"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AZa-tA-2VS" customClass="GlobalErrorView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="RyW-2X-hys" firstAttribute="leading" secondItem="amR-rI-EIQ" secondAttribute="leading" id="5B7-ne-mkE"/>
+                            <constraint firstItem="AZa-tA-2VS" firstAttribute="bottom" secondItem="E7J-O1-vd3" secondAttribute="bottom" id="5ac-74-Nfu"/>
                             <constraint firstAttribute="trailing" secondItem="RyW-2X-hys" secondAttribute="trailing" id="6HF-D6-bYX"/>
                             <constraint firstAttribute="bottom" secondItem="E7J-O1-vd3" secondAttribute="bottom" id="9L4-Cb-uEn"/>
                             <constraint firstAttribute="trailing" secondItem="E7J-O1-vd3" secondAttribute="trailing" id="MdR-qc-vnr"/>
-                            <constraint firstItem="RyW-2X-hys" firstAttribute="top" secondItem="amR-rI-EIQ" secondAttribute="top" id="eHA-gU-Mjs"/>
-                            <constraint firstAttribute="bottom" secondItem="RyW-2X-hys" secondAttribute="bottom" id="fk1-MJ-zop"/>
+                            <constraint firstItem="AZa-tA-2VS" firstAttribute="leading" secondItem="E7J-O1-vd3" secondAttribute="leading" id="NTX-bG-KLw"/>
+                            <constraint firstItem="AZa-tA-2VS" firstAttribute="top" secondItem="E7J-O1-vd3" secondAttribute="top" id="QZ3-EY-iVT"/>
+                            <constraint firstItem="AZa-tA-2VS" firstAttribute="trailing" secondItem="E7J-O1-vd3" secondAttribute="trailing" id="Yd0-dt-3RS"/>
+                            <constraint firstItem="RyW-2X-hys" firstAttribute="bottom" secondItem="E7J-O1-vd3" secondAttribute="bottom" id="hjw-Bx-uyF"/>
                             <constraint firstItem="E7J-O1-vd3" firstAttribute="leading" secondItem="amR-rI-EIQ" secondAttribute="leading" id="ia4-ch-YuZ"/>
                             <constraint firstItem="E7J-O1-vd3" firstAttribute="top" secondItem="amR-rI-EIQ" secondAttribute="top" id="mNh-dq-ApX"/>
+                            <constraint firstItem="RyW-2X-hys" firstAttribute="top" secondItem="E7J-O1-vd3" secondAttribute="top" id="u51-qu-fb1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3EH-0m-1dM"/>
                     </view>
@@ -220,6 +230,7 @@ You do not have any transactions</string>
                     <connections>
                         <outlet property="emptyTextLabel" destination="QZP-5T-ayU" id="geF-6V-UwO"/>
                         <outlet property="emptyView" destination="RyW-2X-hys" id="65D-9W-ouA"/>
+                        <outlet property="globalErrorView" destination="AZa-tA-2VS" id="Src-77-WAH"/>
                         <outlet property="segmentedControl" destination="cCf-zR-JqQ" id="jtJ-4r-klm"/>
                         <outlet property="tableView" destination="E7J-O1-vd3" id="fK6-Xy-0oz"/>
                     </connections>

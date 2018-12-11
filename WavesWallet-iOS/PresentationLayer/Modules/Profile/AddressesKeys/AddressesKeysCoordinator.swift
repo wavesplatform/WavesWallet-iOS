@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 private enum Constants {
     static let popoverHeight: CGFloat = 378
@@ -18,15 +19,18 @@ final class AddressesKeysCoordinator: Coordinator {
     weak var parent: Coordinator?
 
     private let navigationController: UINavigationController
-    private let wallet: DomainLayer.DTO.Wallet
-    private var needPrivateKeyCallback: ((DomainLayer.DTO.SignedWallet) -> Void)?
+    private let wallet: DomainLayer.DTO.Wallet    
     private var rootViewController: UIViewController?
 
+    private let authorization = FactoryInteractors.instance.authorization
+    private let disposeBag: DisposeBag = DisposeBag()
+    private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
     private var currentPopup: PopupViewController?
 
-    init(navigationController: UINavigationController, wallet: DomainLayer.DTO.Wallet) {
+    init(navigationController: UINavigationController, wallet: DomainLayer.DTO.Wallet, applicationCoordinator: ApplicationCoordinatorProtocol) {
         self.navigationController = navigationController
         self.wallet = wallet
+        self.applicationCoordinator = applicationCoordinator
     }
 
     func start() {
@@ -34,38 +38,6 @@ final class AddressesKeysCoordinator: Coordinator {
         self.rootViewController = vc
         self.navigationController.pushViewController(vc, animated: true)
     }
-
-    private func showPasscode(wallet: DomainLayer.DTO.Wallet) {
-
-        let passcodeCoordinator = PasscodeCoordinator(navigationController: navigationController,
-                                                      kind: .verifyAccess(wallet))
-        passcodeCoordinator.animated = true
-        passcodeCoordinator.delegate = self
-        passcodeCoordinator.isDontToRoot = true
-
-        addChildCoordinator(childCoordinator: passcodeCoordinator)
-        passcodeCoordinator.start()
-    }
-}
-
-// MARK: PasscodeCoordinatorDelegate
-
-extension AddressesKeysCoordinator: PasscodeCoordinatorDelegate {
-
-    func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {}
-
-    func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {
-        if let callback = self.needPrivateKeyCallback {
-            callback(signedWallet)
-            self.needPrivateKeyCallback = nil
-            if let rootViewController = self.rootViewController {
-                navigationController.popToViewController(rootViewController, animated: true)
-            }
-            childCoordinators.last(where: { $0 is PasscodeCoordinator })?.removeFromParentCoordinator()
-        }
-    }
-
-    func passcodeCoordinatorWalletLogouted() {}
 }
 
 // MARK: AddressesKeysModuleOutput
@@ -89,9 +61,14 @@ extension AddressesKeysCoordinator: AddressesKeysModuleOutput {
         }
     }
 
-    func addressesKeysNeedPrivateKey(wallet: DomainLayer.DTO.Wallet, callback: @escaping ((DomainLayer.DTO.SignedWallet) -> Void)) {
-        self.needPrivateKeyCallback = callback
-        showPasscode(wallet: wallet)
+    func addressesKeysNeedPrivateKey(wallet: DomainLayer.DTO.Wallet, callback: @escaping ((DomainLayer.DTO.SignedWallet?) -> Void)) {
+
+        authorization
+            .authorizedWallet()
+            .subscribe(onNext: { (signedWallet) in
+                callback(signedWallet)
+            })
+            .disposed(by: disposeBag)
     }
 }
 

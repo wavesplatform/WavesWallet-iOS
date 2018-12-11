@@ -20,7 +20,7 @@ enum ReceiveCryptocurrency {
         enum Action {
             case none
             case addressDidGenerate(DTO.DisplayInfo)
-            case addressDidFailGenerate(ResponseTypeError)
+            case addressDidFailGenerate(NetworkError)
         }
         
         var isNeedGenerateAddress: Bool

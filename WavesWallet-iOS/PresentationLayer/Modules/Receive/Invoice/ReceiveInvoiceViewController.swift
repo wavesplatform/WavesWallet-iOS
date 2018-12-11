@@ -18,7 +18,7 @@ final class ReceiveInvoiceViewController: UIViewController {
     
     private let interator: ReceiveInvoiceInteractorProtocol = ReceiveInvoiceInteractor()
 
-    private var selectedAsset: DomainLayer.DTO.AssetBalance?
+    private var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
     private var amount: Money?
     private var displayInfo: ReceiveInvoice.DTO.DisplayInfo?
     
@@ -46,10 +46,10 @@ final class ReceiveInvoiceViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func setupInfo(asset: DomainLayer.DTO.AssetBalance) {
+    private func setupInfo(asset: DomainLayer.DTO.SmartAssetBalance) {
         selectedAsset = asset
-        viewAsset.update(with: asset)
-        textFieldMoney.setDecimals(asset.asset?.precision ?? 0, forceUpdateMoney: true)
+        viewAsset.update(with: .init(assetBalance: asset, isOnlyBlockMode: input.selectedAsset != nil))
+        textFieldMoney.setDecimals(asset.asset.precision ?? 0, forceUpdateMoney: true)
     }
     
     private func updateDisplayInfo() {
@@ -84,7 +84,7 @@ extension ReceiveInvoiceViewController: AssetSelectViewDelegate {
 
 extension ReceiveInvoiceViewController: AssetListModuleOutput {
     
-    func assetListDidSelectAsset(_ asset: DomainLayer.DTO.AssetBalance) {
+    func assetListDidSelectAsset(_ asset: DomainLayer.DTO.SmartAssetBalance) {
         setupInfo(asset: asset)
     }
 }

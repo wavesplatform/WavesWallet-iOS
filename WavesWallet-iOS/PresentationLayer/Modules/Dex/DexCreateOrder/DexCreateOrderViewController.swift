@@ -50,6 +50,8 @@ final class DexCreateOrderViewController: UIViewController {
     @IBOutlet private weak var viewFeeTopOffset: NSLayoutConstraint!
     @IBOutlet private weak var buttonSellBuyBottomOffset: NSLayoutConstraint!
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private weak var viewErrorFee: UIView!
+    @IBOutlet private weak var labelErrorFee: UILabel!
     
     private var order: DexCreateOrder.DTO.Order!
     private var isCreatingOrderState: Bool = false
@@ -60,6 +62,7 @@ final class DexCreateOrderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewErrorFee.isHidden = true
         setupFeedBack()
         setupData()
         setupLocalization()
@@ -121,6 +124,9 @@ private extension DexCreateOrderViewController {
                     strongSelf.setupCreatingOrderState()
                     
                 case .orderDidFailCreate(let error):
+                    
+                    strongSelf.showNetworkErrorSnack(error: error,
+                                                     customTitle: Localizable.Waves.Dex.General.Error.somethingWentWrong)
                     strongSelf.setupDefaultState()
                     
                 case .orderDidCreate:
@@ -139,7 +145,24 @@ private extension DexCreateOrderViewController {
 private extension DexCreateOrderViewController {
     
     var isValidWavesFee: Bool {
-        return input.availableWavesBalance.amount >= order.fee
+        if input.availableWavesBalance.amount >= order.fee {
+            return true
+        }
+        
+        if order.amountAsset.id == GlobalConstants.wavesAssetId && order.type == .buy {
+            
+            if order.amount.isZero {
+                return isValidPriceAssetBalance
+            }
+            return order.amount.amount > order.fee
+        }
+        else if order.priceAsset.id == GlobalConstants.wavesAssetId && order.type == .sell {
+            if order.total.isZero {
+                return isValidAmountAssetBalance
+            }
+            return order.total.amount > order.fee
+        }
+        return false
     }
     
     var isValidOrder: Bool {
@@ -331,6 +354,8 @@ private extension DexCreateOrderViewController {
             inputTotal.showErrorMessage(message: totalError,
                                         isShow: !isValidPriceAssetBalance || order.total.isBigAmount || order.total.isSmallAmount)
         }
+        
+        viewErrorFee.isHidden = isValidWavesFee
     }
     
     func setupButtonSellBuy() {
@@ -432,6 +457,7 @@ private extension DexCreateOrderViewController {
             if input.inputMaxAmount && amountValues.count > 0 {
                 inputAmount.inputScrollButtonsViewDidTapAt(index: 0)
             }
+            setupValidationErrors()
         }
     }
     
@@ -464,12 +490,14 @@ private extension DexCreateOrderViewController {
         }
         
         let totalAmountMoney = Money(totalAmount, decimals)
-        
-        let valuePercent50 = Money(totalAmount * Int64(Constants.percent50) / 100, decimals)
-        
-        let valuePercent10 = Money(totalAmount * Int64(Constants.percent10) / 100, decimals)
-        
-        let valuePercent5 = Money(totalAmount * Int64(Constants.percent5) / 100, decimals)
+
+        let n5 = Decimal(totalAmountMoney.amount) * (Decimal(Constants.percent5) / 100.0)
+        let n10 = Decimal(totalAmountMoney.amount) * (Decimal(Constants.percent10) / 100.0)
+        let n50 = Decimal(totalAmountMoney.amount) * (Decimal(Constants.percent50) / 100.0)
+
+        let valuePercent50 = Money(n50.int64Value, decimals)
+        let valuePercent10 = Money(n10.int64Value, decimals)
+        let valuePercent5 = Money(n5.int64Value, decimals)
         
         values.append(totalAmountMoney)
         values.append(valuePercent50)
@@ -507,6 +535,7 @@ private extension DexCreateOrderViewController {
         inputAmount.setupTitle(title: Localizable.Waves.Dexcreateorder.Label.amountIn + " " + input.amountAsset.shortName)
         inputPrice.setupTitle(title: Localizable.Waves.Dexcreateorder.Label.limitPriceIn + " " + input.priceAsset.shortName)
         inputTotal.setupTitle(title: Localizable.Waves.Dexcreateorder.Label.totalIn + " " + input.priceAsset.shortName)
+        labelErrorFee.text = Localizable.Waves.Dexcreateorder.Label.Error.notFundsFee
     }
 }
 

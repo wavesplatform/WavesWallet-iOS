@@ -112,7 +112,7 @@ private extension StartLeasingViewController {
     
     func setupData() {
         
-        labelAssetAmount.text = totalBalance.displayTextFull
+        labelAssetAmount.text = totalBalance.displayText
         
         var fields: [String] = []
         
@@ -147,7 +147,8 @@ private extension StartLeasingViewController {
         let addressInput = AddressInputView.Input.init(title: Localizable.Waves.Startleasing.Label.generator,
                                                        error: Localizable.Waves.Startleasing.Label.addressIsNotValid,
                                                        placeHolder: Localizable.Waves.Startleasing.Label.nodeAddress,
-                                                       contacts: [])
+                                                       contacts: [],
+                                                       canChangeAsset: false)
         addressGeneratorView.update(with: addressInput)
         addressGeneratorView.errorValidation = { text in
             return Address.isValidAddress(address: text) || Address.isValidAlias(alias: text)
@@ -171,7 +172,7 @@ extension StartLeasingViewController: AmountInputViewDelegate {
     func amountInputView(didChangeValue value: Money) {
         order.amount = value
         setupButtonState()
-        amountView.showErrorMessage(message: Localizable.Waves.Startleasing.Label.notEnough + " " + "Waves", isShow: isNotEnoughAmount)
+        amountView.showErrorMessage(message: Localizable.Waves.Startleasing.Label.insufficientFunds, isShow: isNotEnoughAmount)
     }
 }
 
@@ -213,7 +214,7 @@ extension StartLeasingViewController: AddressInputViewDelegate {
         if let amount = amount {
             order.amount = amount
             amountView.setAmount(amount)
-            amountView.showErrorMessage(message: Localizable.Waves.Startleasing.Label.notEnough + " " + "Waves", isShow: isNotEnoughAmount)
+            amountView.showErrorMessage(message: Localizable.Waves.Startleasing.Label.insufficientFunds, isShow: isNotEnoughAmount)
         }
         
         setupButtonState()

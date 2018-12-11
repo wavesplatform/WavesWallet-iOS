@@ -26,7 +26,7 @@ final class TokenBurnConfirmationViewController: UIViewController {
     @IBOutlet private weak var viewContainer: UIView!
     
     struct Input {
-        let asset: DomainLayer.DTO.AssetBalance
+        let asset: DomainLayer.DTO.SmartAssetBalance
         let amount: Money
         let fee: Money
         let delegate: TokenBurnTransactionDelegate?
@@ -52,8 +52,8 @@ final class TokenBurnConfirmationViewController: UIViewController {
         setupBigNavigationBar()
         hideTopBarLine()
         navigationItem.backgroundImage = UIImage()
-        navigationItem.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
-        navigationItem.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        navigationItem.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
+        navigationItem.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -72,8 +72,8 @@ final class TokenBurnConfirmationViewController: UIViewController {
 //MARK: - TokenBurnLoadingViewControllerDelegate
 extension TokenBurnConfirmationViewController: TokenBurnLoadingViewControllerDelegate {
 
-    func tokenBurnLoadingViewControllerDidFail(error: ResponseTypeError) {
-        //TODO: need to show error
+    func tokenBurnLoadingViewControllerDidFail(error: NetworkError) {
+        showNetworkErrorSnack(error: error)
     }
 }
 
@@ -83,24 +83,24 @@ private extension TokenBurnConfirmationViewController {
     func setupData() {
         labelFeeAmount.text = input.fee.displayText + " WAVES"
         
-        if input.asset.asset?.isReusable == true {
+        if input.asset.asset.isReusable == true {
             labelType.text = Localizable.Waves.Tokenburn.Label.reissuable
         } else {
             labelType.text = Localizable.Waves.Tokenburn.Label.notReissuable
         }
         
-        if let ticker = input.asset.asset?.ticker {
+        if let ticker = input.asset.asset.ticker {
             labelAssetName.isHidden = true
             tickerView.update(with: .init(text: ticker, style: .soft))
         }
         else {
             tickerView.isHidden = true
-            labelAssetName.text = input.asset.asset?.displayName
+            labelAssetName.text = input.asset.asset.displayName
         }
         
-        labelAmount.attributedText = NSAttributedString.styleForBalance(text: input.amount.displayTextFull, font: labelAmount.font)
+        labelAmount.attributedText = NSAttributedString.styleForBalance(text: input.amount.displayText, font: labelAmount.font)
 
-        viewId.update(with: .init(id: input.asset.assetId, description: input.asset.asset?.description ?? ""))
+        viewId.update(with: .init(id: input.asset.assetId, description: input.asset.asset.description))
     }
     
     func setupLocalization() {

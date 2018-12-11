@@ -11,6 +11,8 @@ import UIKit
 private enum Constants {
     static let animationFrameDuration: TimeInterval = 0.3
     static let animationErrorLabelDuration: TimeInterval = 0.3
+    static let borderRadius: CGFloat = 2
+    static let borderWidth: CGFloat = 0.5
 }
 
 protocol AmountInputViewDelegate: AnyObject {
@@ -29,10 +31,17 @@ final class AmountInputView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var viewTextField: UIView!
     @IBOutlet private weak var scrollViewInputHeight: NSLayoutConstraint!
     @IBOutlet private weak var labelError: UILabel!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     weak var delegate: AmountInputViewDelegate?
     var input:(() -> [Money])?
 
+    var isBlockMode = false {
+        didSet {
+            updateViewStyle()
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNibContent()
@@ -87,13 +96,47 @@ final class AmountInputView: UIView, NibOwnerLoadable {
     
     func setAmount(_ amount: Money) {
         
-        if textFieldMoney.decimals == 0 {
-            textFieldMoney.setDecimals(amount.decimals, forceUpdateMoney: false)
-        }
+        textFieldMoney.setDecimals(amount.decimals, forceUpdateMoney: false)
         textFieldMoney.setValue(value: amount)
+    }
+    
+    func clearMoney() {
+        textFieldMoney.clear()
+    }
+    
+    func hideAnimation() {
+        activityIndicator.stopAnimating()
+        textFieldMoney.isHidden = false
+    }
+    
+    func showAnimation() {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+        textFieldMoney.isHidden = true
     }
 }
 
+//MARK: - UI
+private extension AmountInputView {
+    func updateViewStyle() {
+        if isBlockMode {
+            textFieldMoney.isUserInteractionEnabled = false
+            viewTextField.layer.removeShadow()
+            viewTextField.backgroundColor = .clear
+            viewTextField.layer.cornerRadius = Constants.borderRadius
+            viewTextField.layer.borderWidth = Constants.borderWidth
+            viewTextField.layer.borderColor = UIColor.overlayDark.cgColor
+        }
+        else {
+            textFieldMoney.isUserInteractionEnabled = true
+            viewTextField.backgroundColor = .white
+            viewTextField.layer.cornerRadius = 0
+            viewTextField.layer.borderWidth = 0
+            viewTextField.layer.borderColor = nil
+            viewTextField.addTableCellShadowStyle()
+        }
+    }
+}
 
 //MARK: - MoneyTextFieldDelegate
 extension AmountInputView: MoneyTextFieldDelegate {
@@ -122,7 +165,7 @@ extension AmountInputView: InputScrollButtonsViewDelegate {
         
         if let values = input {
             let value = values()[index]
-            textFieldMoney.setValue(value: value)
+            setAmount(value)
             delegate?.amountInputView(didChangeValue: value)
             updateViewHeight(inputValue: value, animation: true)
         }

@@ -8,18 +8,21 @@
 
 import UIKit
 
+private enum Constansts {
+    static let height: CGFloat = 76
+    static let lastCellOffset: CGFloat = 5
+}
+
 final class HistoryTransactionCell: UITableViewCell, Reusable {
 
     @IBOutlet private(set) var transactionView: HistoryTransactionView!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        transactionView.addTableCellShadowStyle()
-        transactionView.cornerRadius = 4
-    }
-
     class func cellHeight() -> CGFloat {
-        return 76
+        return Constansts.height
+    }
+    
+    class func lastCellHeight() -> CGFloat {
+        return Constansts.height + Constansts.lastCellOffset
     }
 }
 
@@ -30,4 +33,3 @@ extension HistoryTransactionCell: ViewConfiguration {
         transactionView.update(with: model)
     }
 }
-

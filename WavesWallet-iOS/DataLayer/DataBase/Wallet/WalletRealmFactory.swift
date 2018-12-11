@@ -12,17 +12,21 @@ import RealmSwift
 fileprivate enum SchemaVersions: UInt64 {
     case version_1 = 1 // Release old version
     case version_2 = 2 // Dev version
-    case version_4 = 4 // BetaTest 2.0
-    case version_5 = 5 // Dev Version
+    case version_4 = 4 // BetaTest 2.0rc0
+    case version_5 = 5 // BetaTest 2.0rc1
+    case version_6 = 6 // v2.0
+    case version_7 = 7 // Dev Version
 }
 
 fileprivate enum Constants {
-    static let currentVersion: SchemaVersions = .version_5
+    static let currentVersion: SchemaVersions = .version_7
     static let isHiddenKey: String = "isHidden"
     static let isSpamKey: String = "isSpam"
     static let assetIdKey: String = "assetId"
     static let settingsKey: String = "settings"
     static let nameKey: String = "name"
+    static let sortLevel: String = "sortLevel"
+    static let sortLevelNotFound: Float = -1
 }
 
 enum WalletRealmFactory {
@@ -56,7 +60,8 @@ enum WalletRealmFactory {
                               AccountEnvironment.self,
                               AccountSettings.self,
                               DexAsset.self,
-                              DexAssetPair.self]
+                              DexAssetPair.self,
+                              Alias.self]
 
         config.migrationBlock = { migration, oldSchemaVersion in
 
@@ -103,6 +108,14 @@ enum WalletRealmFactory {
             if oldSchemaVersion < SchemaVersions.version_5.rawValue {
                 removeTransaction(migration: migration)
             }
+
+            if oldSchemaVersion < SchemaVersions.version_6.rawValue {
+                removeTransaction(migration: migration)
+            }
+
+            if oldSchemaVersion < SchemaVersions.version_7.rawValue {
+               resetAssetSort(migration: migration)
+            }
         }
 
         return config
@@ -111,6 +124,12 @@ enum WalletRealmFactory {
     static func realm(accountAddress: String) throws -> Realm {
         let config = create(accountAddress: accountAddress)
         return try Realm(configuration: config)
+    }
+
+    static func resetAssetSort(migration: Migration) {
+        migration.enumerateObjects(ofType: AssetBalanceSettings.className()) { oldObject, newObject in
+            newObject?[Constants.sortLevel] = Constants.sortLevelNotFound
+        }
     }
 
     static func removeTransaction(migration: Migration) {

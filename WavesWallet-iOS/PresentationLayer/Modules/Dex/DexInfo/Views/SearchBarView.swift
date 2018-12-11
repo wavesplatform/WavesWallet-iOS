@@ -39,7 +39,7 @@ final class SearchBarView: UIView, NibOwnerLoadable {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        textField.attributedPlaceholder = NSAttributedString(string: Localizable.Waves.Dexmarket.Searchbar.placeholder, attributes: [NSAttributedStringKey.foregroundColor : UIColor.basic500])
+        textField.attributedPlaceholder = NSAttributedString(string: Localizable.Waves.Dexmarket.Searchbar.placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.basic500])
     }
     
 }

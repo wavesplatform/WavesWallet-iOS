@@ -26,8 +26,10 @@ extension MassTransferTransaction {
         attachment = transaction.attachment
         transferCount = transaction.transferCount
         totalAmount = transaction.totalAmount
-        proofs.append(objectsIn: transaction.proofs)
 
+        if let proofs = transaction.proofs {
+            self.proofs.append(objectsIn: proofs)
+        }
         let transfers = transaction
             .transfers
             .map { model -> MassTransferTransactionTransfer in

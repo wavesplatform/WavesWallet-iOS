@@ -26,7 +26,7 @@ enum DexCreateOrder {
         enum Action {
             case none
             case showCreatingOrderState
-            case orderDidFailCreate(ResponseTypeError)
+            case orderDidFailCreate(NetworkError)
             case orderDidCreate
         }
         

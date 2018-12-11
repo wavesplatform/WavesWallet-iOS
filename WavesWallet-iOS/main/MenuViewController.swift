@@ -30,39 +30,39 @@ class MenuViewController: UIViewController {
     }
     
     @IBAction func wavesTapped(_ sender: Any) {
-        UIApplication.shared.openURL(URL(string: "https://forum.wavesplatform.com/")!)
+        UIApplication.shared.openURLAsync(URL(string: "https://forum.wavesplatform.com/")!)
     }
     
     @IBAction func gitTapped(_ sender: Any) {
-        UIApplication.shared.openURL(URL(string: "https://github.com/wavesplatform/")!)
+        UIApplication.shared.openURLAsync(URL(string: "https://github.com/wavesplatform/")!)
     }
     
     @IBAction func telegramTapped(_ sender: Any) {
-        UIApplication.shared.openURL(URL(string: "https://telegram.me/wavesnews")!)
+        UIApplication.shared.openURLAsync(URL(string: "https://telegram.me/wavesnews")!)
     }
     
     @IBAction func discordTapped(_ sender: Any) {
-        UIApplication.shared.openURL(URL(string: "https://discordapp.com/invite/cnFmDyA")!)
+        UIApplication.shared.openURLAsync(URL(string: "https://discordapp.com/invite/cnFmDyA")!)
     }
     
     @IBAction func twitterTapped(_ sender: Any) {
-        UIApplication.shared.openURL(URL(string: "https://twitter.com/wavesplatform")!)
+        UIApplication.shared.openURLAsync(URL(string: "https://twitter.com/wavesplatform")!)
     }
     
     @IBAction func fbTapped(_ sender: Any) {
-        UIApplication.shared.openURL(URL(string: "https://www.facebook.com/wavesplatform")!)
+        UIApplication.shared.openURLAsync(URL(string: "https://www.facebook.com/wavesplatform")!)
     }
 
     @IBAction func whitepaperTapped(_ sender: Any) {
-        UIApplication.shared.openURL(URL(string: "https://wavesplatform.com/files/whitepaper_v0.pdf")!)
+        UIApplication.shared.openURLAsync(URL(string: "https://wavesplatform.com/files/whitepaper_v0.pdf")!)
     }
 
     @IBAction func termAndConditionsTapped(_ sender: Any) {
-        UIApplication.shared.openURL(URL(string: "https://wavesplatform.com/files/docs/Waves_terms_and_conditions.pdf")!)
+        UIApplication.shared.openURLAsync(URL(string: "https://wavesplatform.com/files/docs/Waves_terms_and_conditions.pdf")!)
     }
 
     @IBAction func supportWavesplatformTapped(_ sender: Any) {
-        UIApplication.shared.openURL(URL(string: "https://support.wavesplatform.com/")!)
+        UIApplication.shared.openURLAsync(URL(string: "https://support.wavesplatform.com/")!)
     }
 }
 

@@ -8,13 +8,14 @@
 
 import UIKit
 import RxSwift
+import AppsFlyerLib
+import FirebaseAnalytics
 
 private enum Constants {
     static let popoverHeight: CGFloat = 378
 }
 
 final class WalletCoordinator: Coordinator {
-
 
     var childCoordinators: [Coordinator] = []
 
@@ -32,33 +33,53 @@ final class WalletCoordinator: Coordinator {
 
     private let disposeBag: DisposeBag = DisposeBag()
     private let authorization: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let walletsRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
+
 
     init(navigationController: UINavigationController){
         self.navigationController = navigationController
     }
 
     func start() {
-
-        CATransaction.begin()
-        CATransaction.setCompletionBlock {
-
-            self.authorization
-                .authorizedWallet()
-                .subscribe(onNext: { [weak self] wallet in
-
-                    guard let owner = self else { return }
-                    guard wallet.wallet.isAlreadyShowLegalDisplay == false else { return }
-
-                    let legal = LegalCoordinator(viewController: owner.walletViewContoller)
-                    legal.delegate = owner
-                    owner.addChildCoordinatorAndStart(childCoordinator: legal)
-                })
-                .disposed(by: self.disposeBag)            
-        }
+        setupLifeCycleTost()
         navigationController?.pushViewController(walletViewContoller, animated: false)
-        CATransaction.commit()
+    }
 
+    private func setupLifeCycleTost() {
+        walletViewContoller.rx.viewDidAppear.asObservable().subscribe(onNext: { [weak self] _ in
+            self?.showLegalOrBackupIfNeed()
+        }).disposed(by: disposeBag)
 
+        walletViewContoller.rx.viewDidDisappear.asObservable().subscribe(onNext: { [weak self] _ in
+            self?.childCoordinators.first(where: { (coordinator) -> Bool in
+                return coordinator is BackupTostCoordinator
+            })?.removeFromParentCoordinator()
+        }).disposed(by: disposeBag)
+    }
+
+    private func showBackupTostIfNeed() {
+        guard let navigationController = self.navigationController else { return }
+        let coordinator = BackupTostCoordinator(navigationController: navigationController)
+        addChildCoordinatorAndStart(childCoordinator: coordinator)
+    }
+
+    private func showLegalOrBackupIfNeed() {
+
+        self.authorization
+            .authorizedWallet()
+            .take(1)
+            .subscribe(onNext: { [weak self] wallet in                
+                guard let owner = self else { return }
+                guard wallet.wallet.isAlreadyShowLegalDisplay == false else {
+                    owner.showBackupTostIfNeed()
+                    return
+                }
+
+                let legal = LegalCoordinator(viewController: owner.walletViewContoller)
+                legal.delegate = owner
+                owner.addChildCoordinatorAndStart(childCoordinator: legal)
+            })
+            .disposed(by: self.disposeBag)
     }
 }
 
@@ -66,8 +87,8 @@ final class WalletCoordinator: Coordinator {
 
 extension WalletCoordinator: WalletModuleOutput {
 
-    func showWalletSort() {
-        let vc = WalletSortModuleBuilder().build()
+    func showWalletSort(balances: [DomainLayer.DTO.SmartAssetBalance]) {
+        let vc = WalletSortModuleBuilder().build(input: balances)
         navigationController?.pushViewController(vc, animated: true)
     }
 
@@ -77,7 +98,7 @@ extension WalletCoordinator: WalletModuleOutput {
         navigationController?.pushViewController(vc, animated: true)
     }
 
-    func showAsset(with currentAsset: WalletTypes.DTO.Asset, assets: [WalletTypes.DTO.Asset]) {
+    func showAsset(with currentAsset: DomainLayer.DTO.SmartAssetBalance, assets: [DomainLayer.DTO.SmartAssetBalance]) {
 
         let vc = AssetModuleBuilder(output: self)
             .build(input: .init(assets: assets,
@@ -113,12 +134,12 @@ extension WalletCoordinator: WalletModuleOutput {
 
 extension WalletCoordinator: AssetModuleOutput {
 
-    func showSend(asset: DomainLayer.DTO.AssetBalance) {
+    func showSend(asset: DomainLayer.DTO.SmartAssetBalance) {
         let vc = SendModuleBuilder().build(input: asset)
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    func showReceive(asset: DomainLayer.DTO.AssetBalance) {
+    func showReceive(asset: DomainLayer.DTO.SmartAssetBalance) {
         let vc = ReceiveContainerModuleBuilder().build(input: asset)
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -126,7 +147,7 @@ extension WalletCoordinator: AssetModuleOutput {
     func showHistory(by assetId: String) {
         guard let navigationController = navigationController else { return }
         let historyCoordinator = HistoryCoordinator(navigationController: navigationController, historyType: .asset(assetId))
-        historyCoordinator.start()
+        addChildCoordinatorAndStart(childCoordinator: historyCoordinator)
     }
 
     func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
@@ -137,7 +158,7 @@ extension WalletCoordinator: AssetModuleOutput {
         addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
     
-    func showBurn(asset: DomainLayer.DTO.AssetBalance, delegate: TokenBurnTransactionDelegate?) {
+    func showBurn(asset: DomainLayer.DTO.SmartAssetBalance, delegate: TokenBurnTransactionDelegate?) {
         
         let vc = StoryboardScene.Asset.tokenBurnViewController.instantiate()
         vc.asset = asset
@@ -153,7 +174,7 @@ extension WalletCoordinator: StartLeasingModuleOutput {
     func startLeasingDidSuccess(transaction: DomainLayer.DTO.SmartTransaction, kind: StartLeasingTypes.Kind) {
         
         switch kind {
-        case .send(let sendOrder):
+        case .send:
         //TODO: need update Money after creating order
         print("TODO: need update Money after creating order")
             
@@ -165,7 +186,7 @@ extension WalletCoordinator: StartLeasingModuleOutput {
 
 fileprivate extension AssetModuleBuilder.Input {
 
-    init(assets: [WalletTypes.DTO.Asset], currentAsset: WalletTypes.DTO.Asset) {
+    init(assets: [DomainLayer.DTO.SmartAssetBalance], currentAsset: DomainLayer.DTO.SmartAssetBalance) {
         self.assets = assets.map { .init(asset: $0) }
         self.currentAsset = .init(asset: currentAsset)
     }
@@ -173,23 +194,23 @@ fileprivate extension AssetModuleBuilder.Input {
 
 fileprivate extension AssetTypes.DTO.Asset.Info {
 
-    init(asset: WalletTypes.DTO.Asset) {
-        id = asset.id
-        issuer = asset.issuer
-        name = asset.name
-        description = asset.description
-        issueDate = asset.issueDate
-        isReusable = asset.isReusable
-        isMyWavesToken = asset.isMyWavesToken
-        isWavesToken = asset.isWavesToken
-        isWaves = asset.isWaves
-        isFavorite = asset.isFavorite
-        isFiat = asset.isFiat
-        isSpam = asset.isSpam
-        isGateway = asset.isGateway
-        sortLevel = asset.sortLevel
-        icon = asset.icon
-        assetBalance = asset.assetBalance
+    init(asset: DomainLayer.DTO.SmartAssetBalance) {
+        id = asset.asset.id
+        issuer = asset.asset.sender
+        name = asset.asset.displayName
+        description = asset.asset.description
+        issueDate = asset.asset.timestamp
+        isReusable = asset.asset.isReusable
+        isMyWavesToken = asset.asset.isMyWavesToken
+        isWavesToken = asset.asset.isWavesToken
+        isWaves = asset.asset.isWaves
+        isFavorite = asset.settings.isFavorite
+        isFiat = asset.asset.isFiat
+        isSpam = asset.asset.isSpam
+        isGateway = asset.asset.isGateway
+        sortLevel = asset.settings.sortLevel
+        icon = asset.asset.icon
+        assetBalance = asset
     }
 }
 
@@ -253,18 +274,31 @@ extension WalletCoordinator: CreateAliasModuleOutput {
 extension WalletCoordinator: LegalCoordinatorDelegate {
 
     func legalConfirm() {
-
+        
         authorization
             .authorizedWallet()
             .flatMap({ [weak self] (wallet) -> Observable<Void> in
                 guard let owner = self else { return Observable.never() }
 
+                owner.showBackupTostIfNeed()
+
                 var newWallet = wallet.wallet
                 newWallet.isAlreadyShowLegalDisplay = true
-
+                owner.sendAnalytics()
                 return owner.authorization.changeWallet(newWallet).map { _ in }
             })
             .subscribe()
             .disposed(by: disposeBag)
+    }
+
+    private func sendAnalytics() {
+
+        walletsRepository
+            .wallets()
+            .subscribe(onNext: { (wallets) in
+                AppsFlyerTracker.shared().trackEvent("new_wallet", withValues: ["wallets_count": wallets.count]);
+                Analytics.logEvent("new_wallet", parameters: ["wallets_count": wallets.count])
+        })
+        .disposed(by: disposeBag)
     }
 }

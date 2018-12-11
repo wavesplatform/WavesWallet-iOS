@@ -32,11 +32,11 @@ extension UIView {
     }
 
     @objc func swizzledPoint(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        return contains(point, with: UIEdgeInsetsMake(-touchInsets, -touchInsets, -touchInsets, -touchInsets)) ? true : swizzledPoint(inside: point, with: event)
+        return contains(point, with: UIEdgeInsets.init(top: -touchInsets, left: -touchInsets, bottom: -touchInsets, right: -touchInsets)) ? true : swizzledPoint(inside: point, with: event)
     }
 
     private func contains(_ point: CGPoint, with insets: UIEdgeInsets) -> Bool {
-        return UIEdgeInsetsInsetRect(bounds, insets).contains(point)
+        return bounds.inset(by: insets).contains(point)
     }
 }
 
