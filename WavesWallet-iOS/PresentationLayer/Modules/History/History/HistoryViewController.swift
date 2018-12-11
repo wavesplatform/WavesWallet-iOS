@@ -118,6 +118,13 @@ final class HistoryViewController: UIViewController {
     }
 }
 
+//MARK: - MainTabBarControllerProtocol
+extension HistoryViewController: MainTabBarControllerProtocol {
+    func mainTabBarControllerDidTapTab() {
+        tableView.setContentOffset(tableViewTopOffsetForBigNavBar(tableView), animated: true)
+    }
+}
+
 // MARK: UIGestureRecognizerDelegate
 
 extension HistoryViewController: UIGestureRecognizerDelegate {
