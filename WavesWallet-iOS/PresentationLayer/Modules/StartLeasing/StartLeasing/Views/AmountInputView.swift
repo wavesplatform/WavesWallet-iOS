@@ -31,7 +31,7 @@ final class AmountInputView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var viewTextField: UIView!
     @IBOutlet private weak var scrollViewInputHeight: NSLayoutConstraint!
     @IBOutlet private weak var labelError: UILabel!
-    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var skeletonView: AmountSkeletonView!
     
     weak var delegate: AmountInputViewDelegate?
     var input:(() -> [Money])?
@@ -105,35 +105,46 @@ final class AmountInputView: UIView, NibOwnerLoadable {
     }
     
     func hideAnimation() {
-        activityIndicator.stopAnimating()
+        skeletonView.stop()
         textFieldMoney.isHidden = false
+        updateViewStyle()
     }
     
     func showAnimation() {
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
+        skeletonView.start()
         textFieldMoney.isHidden = true
+        addBorderShadow()
     }
 }
 
 //MARK: - UI
 private extension AmountInputView {
+    
+    func addBorderShadow() {
+        viewTextField.backgroundColor = .white
+        viewTextField.layer.cornerRadius = 0
+        viewTextField.layer.borderWidth = 0
+        viewTextField.layer.borderColor = nil
+        viewTextField.addTableCellShadowStyle()
+    }
+    
+    func removeBorderShadow() {
+        viewTextField.layer.removeShadow()
+        viewTextField.backgroundColor = .clear
+        viewTextField.layer.cornerRadius = Constants.borderRadius
+        viewTextField.layer.borderWidth = Constants.borderWidth
+        viewTextField.layer.borderColor = UIColor.overlayDark.cgColor
+    }
+    
     func updateViewStyle() {
+        
         if isBlockMode {
             textFieldMoney.isUserInteractionEnabled = false
-            viewTextField.layer.removeShadow()
-            viewTextField.backgroundColor = .clear
-            viewTextField.layer.cornerRadius = Constants.borderRadius
-            viewTextField.layer.borderWidth = Constants.borderWidth
-            viewTextField.layer.borderColor = UIColor.overlayDark.cgColor
+            removeBorderShadow()
         }
         else {
             textFieldMoney.isUserInteractionEnabled = true
-            viewTextField.backgroundColor = .white
-            viewTextField.layer.cornerRadius = 0
-            viewTextField.layer.borderWidth = 0
-            viewTextField.layer.borderColor = nil
-            viewTextField.addTableCellShadowStyle()
+            addBorderShadow()
         }
     }
 }
