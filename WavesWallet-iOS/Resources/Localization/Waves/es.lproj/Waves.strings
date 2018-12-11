@@ -419,8 +419,6 @@
 
 "enter.block.exchange.title" = "Intercambio Descentralizado";
 
-"enter.block.token.text" = "Emita sus propios tokens. Estos pueden integrarse en su negocio no solo como moneda interna, sino también como un token para la votación descentralizada, como sistema de calificación o programa de lealtad.";
-
 "enter.block.token.title" = "Token Launcher";
 
 "enter.block.wallet.text" = "Almacene, administre y reciba intereses sobre el saldo de sus activos digitales de forma fácil y segura.";
