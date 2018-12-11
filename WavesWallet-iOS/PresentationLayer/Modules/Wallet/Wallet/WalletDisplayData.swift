@@ -13,6 +13,7 @@ import UIKit
 
 private enum Constants {
     static let animationDuration: TimeInterval = 0.34
+    static let spamSection = 1
 }
 
 protocol WalletDisplayDataDelegate: AnyObject {
@@ -46,6 +47,7 @@ final class WalletDisplayData: NSObject {
         CATransaction.setCompletionBlock {
             completed()
         }
+        
         switch animateType {
         case .none:
             break
@@ -66,9 +68,12 @@ final class WalletDisplayData: NSObject {
             tableView.endUpdates()
 
         case .expanded(let index):
+         
             tableView.beginUpdates()
             tableView.reloadSections([index], animationStyle: .fade)
-            tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .middle, animated: true)
+            DispatchQueue.main.async {
+                self.tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .middle, animated: true)
+            }
             tableView.endUpdates()
 
         default:
@@ -201,7 +206,9 @@ extension WalletDisplayData: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let row = sections[indexPath.section].items[indexPath.row]
+        
+        let items = sections[indexPath.section].items
+        let row = items[indexPath.row]
 
         switch row {
         case .historySkeleton:
