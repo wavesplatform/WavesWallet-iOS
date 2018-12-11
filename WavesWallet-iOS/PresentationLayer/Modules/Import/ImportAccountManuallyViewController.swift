@@ -15,6 +15,10 @@ protocol ImportWelcomeBackViewControllerDelegate: AnyObject {
     func userCompletedInputSeed(_ keyAccount: PrivateKeyAccount)
 }
 
+private enum Constants {
+    static let skeletonDelay: TimeInterval = 0.75
+}
+
 final class ImportAccountManuallyViewController: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet private weak var textField: MultilineTextField!
@@ -26,6 +30,7 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
     @IBOutlet private weak var labelAddress: UILabel!
     @IBOutlet private weak var iconImages: UIImageView!
     @IBOutlet private weak var skeletonView: SkeletonView!
+    @IBOutlet private weak var skeletonEmpty: UIView!
     
     @IBOutlet weak var textFieldHeightConstraint: NSLayoutConstraint!
     
@@ -55,6 +60,7 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
         setupTextField()
         setupContinueButton()
         setupConstraints()
+        hideSkeletonAnimation()
     }
     
     private func setupConstraints() {
@@ -87,12 +93,6 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
         buttonContinue.setBackgroundImage(UIColor.submit200.image, for: .disabled)
         buttonContinue.setBackgroundImage(UIColor.submit400.image, for: .normal)
         buttonContinue.isEnabled = false
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        skeletonView.startAnimation()
     }
     
     override func viewDidLayoutSubviews() {
@@ -155,6 +155,19 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
         }
     }
     
+    private func showSkeletonAnimation() {
+        if skeletonView.isHidden {
+            skeletonView.isHidden = false
+            skeletonView.startAnimation()
+        }
+        skeletonEmpty.isHidden = true
+    }
+    
+    @objc private func hideSkeletonAnimation() {
+        skeletonView.isHidden = true
+        skeletonView.stopAnimation()
+        skeletonEmpty.isHidden = textField.isValidValue
+    }
 }
 
 extension ImportAccountManuallyViewController: MultilineTextFieldDelegate {
@@ -170,12 +183,12 @@ extension ImportAccountManuallyViewController: MultilineTextFieldDelegate {
 
         if textField.isValidValue {
             addressBar.isHidden = false
-            skeletonView.isHidden = true
-            skeletonView.stopAnimation()
             createAccount(seed: textField.value)
+            hideSkeletonAnimation()
         } else {
-            skeletonView.isHidden = false
-            skeletonView.startAnimation()
+            showSkeletonAnimation()
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideSkeletonAnimation), object: nil)
+            perform(#selector(hideSkeletonAnimation), with: nil, afterDelay: Constants.skeletonDelay)
             addressBar.isHidden = true
         }
         
