@@ -19,7 +19,6 @@ final class AssetListTableViewCell: UITableViewCell, NibReusable {
     @IBOutlet private weak var iconAsset: UIImageView!
     @IBOutlet private weak var labelAssetName: UILabel!
     @IBOutlet private weak var labelAmount: UILabel!
-    @IBOutlet private weak var iconGateway: UIImageView!
     @IBOutlet private weak var iconCheckmark: UIImageView!
     @IBOutlet private weak var iconFav: UIImageView!
     @IBOutlet private weak var topTitleOffset: NSLayoutConstraint!
@@ -49,7 +48,6 @@ extension AssetListTableViewCell: ViewConfiguration {
         labelAmount.isHidden = model.balance.isZero
         
         labelAssetName.text = model.asset.displayName
-        iconGateway.isHidden = !model.asset.isGateway
         iconFav.isHidden = !model.isFavourite
         
         labelAmount.text = model.balance.displayText
