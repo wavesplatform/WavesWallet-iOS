@@ -125,7 +125,7 @@ extension WalletTypes.ViewModel.Section {
 
         let noteSection: WalletTypes.ViewModel.Section = .init(kind: .info,
                                                                items: [.quickNote],
-                                                               isExpanded: true)
+                                                               isExpanded: false)
         sections.append(noteSection)
         return sections
     }
