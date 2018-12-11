@@ -9,6 +9,7 @@
 import UIKit
 
 private enum Constants {
+    static let lineWidth: CGFloat = 0.75
     static let unselectedIconAlpha: CGFloat = 0.3
 }
 
@@ -33,7 +34,6 @@ final class NewAccountAvatarView: DottedRoundView, NibOwnerLoadable  {
 
     var state: State = .none {
         didSet {
-            lineWidth = 1.0 / UIScreen.main.scale
             switch state {
             case .none:
                 isHiddenDottedLine = false
@@ -60,6 +60,8 @@ final class NewAccountAvatarView: DottedRoundView, NibOwnerLoadable  {
         tapGesture.delegate = self
         addGestureRecognizer(tapGesture)
         loadNibContent()
+        lineWidth = Constants.lineWidth
+
     }
 
     override func layoutSubviews() {

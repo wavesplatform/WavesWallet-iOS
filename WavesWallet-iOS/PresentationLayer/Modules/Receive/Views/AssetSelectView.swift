@@ -38,7 +38,7 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var iconArrows: UIImageView!
     @IBOutlet private weak var assetRightOffset: NSLayoutConstraint!
     @IBOutlet private weak var buttonTap: UIButton!
-    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var skeletonView: AssetSelectSkeletonView!
     
     private var taskForAssetLogo: RetrieveImageDiskTask?
 
@@ -67,33 +67,42 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
         loadNibContent()
     }
     
+    func setupReveiceWavesLoadingState() {
+        viewAsset.isHidden = false
+        labelSelectAsset.isHidden = true
+        
+        labelAssetName.text = "Waves"
+        labelAmount.isHidden = true
+        iconGateway.isHidden = true
+        
+        loadIcon(name: Environments.Constants.wavesAssetId)
+    }
+    
     func showLoadingState() {
-        buttonTap.isUserInteractionEnabled = false
         viewAsset.isHidden = true
         labelSelectAsset.isHidden = true
-        iconArrows.isHidden = true
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
+        skeletonView.startAnimation(showArrows: !self.isOnlyBlockMode)
+        addBorderShadow()
     }
     
     func hideLoadingState(isLoadAsset: Bool) {
 
-        activityIndicator.stopAnimating()
+        skeletonView.hide()
         
         if isLoadAsset {
             viewAsset.isHidden = false
         }
         else {
-            buttonTap.isUserInteractionEnabled = true
             isSelectedAssetMode = true
             labelSelectAsset.isHidden = false
         }
+        updateViewStyle()
     }
     
     func removeSelectedAssetState() {
         viewAsset.isHidden = true
         labelSelectAsset.isHidden = false
-        activityIndicator.stopAnimating()
+        skeletonView.hide()
     }
 }
 
@@ -136,34 +145,35 @@ extension AssetSelectView: ViewConfiguration {
 //MARK: - Setup UI
 private extension AssetSelectView {
     
+    func addBorderShadow() {
+        viewContainer.backgroundColor = .white
+        viewContainer.layer.cornerRadius = 0
+        viewContainer.layer.borderWidth = 0
+        viewContainer.layer.borderColor = nil
+        viewContainer.addTableCellShadowStyle()
+    }
+    
+    func removeBorderShadow() {
+        viewContainer.layer.removeShadow()
+        viewContainer.backgroundColor = .clear
+        viewContainer.layer.cornerRadius = Constants.borderRadius
+        viewContainer.layer.borderWidth = Constants.borderWidth
+        viewContainer.layer.borderColor = UIColor.overlayDark.cgColor
+    }
+    
     func updateViewStyle() {
         
         iconArrows.isHidden = !isSelectedAssetMode
         
         if isSelectedAssetMode {
             buttonTap.isUserInteractionEnabled = true
-            
             assetRightOffset.constant = Constants.assetRightOffsetSelectedMode
-
-            viewContainer.backgroundColor = .white
-            viewContainer.layer.cornerRadius = 0
-            viewContainer.layer.borderWidth = 0
-            viewContainer.layer.borderColor = nil
-            
-            viewContainer.addTableCellShadowStyle()
-            
+            addBorderShadow()
         }
         else {
             buttonTap.isUserInteractionEnabled = false
-            
             assetRightOffset.constant = Constants.assetRightOffsetNotSelectedMode
-
-            viewContainer.layer.removeShadow()
-            
-            viewContainer.backgroundColor = .clear
-            viewContainer.layer.cornerRadius = Constants.borderRadius
-            viewContainer.layer.borderWidth = Constants.borderWidth
-            viewContainer.layer.borderColor = UIColor.overlayDark.cgColor
+            removeBorderShadow()
         }
     }
 }

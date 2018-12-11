@@ -28,6 +28,7 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var inputScrollView: InputScrollButtonsView!
     @IBOutlet private weak var viewTextField: UIView!
     @IBOutlet private weak var labelError: UILabel!
+    @IBOutlet private weak var separatorView: UIView!
     
     weak var delegate: DexCreateOrderInputViewDelegate?
     var input:(() -> [Money])?
@@ -50,6 +51,7 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
         labelError.alpha = 0
         inputScrollView.inputDelegate = self
         textField.moneyDelegate = self
+        textField.delegate = self
         hideInputScrollView(animation: false)
     }
     
@@ -106,6 +108,18 @@ extension DexCreateOrderInputView: MoneyTextFieldDelegate {
   
     func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
         textFieldDidChangeNewValue()
+    }
+}
+
+//MARK: - UITextFieldDelegate
+extension DexCreateOrderInputView: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        separatorView.backgroundColor = .submit400
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        separatorView.backgroundColor = .accent100
     }
 }
 
