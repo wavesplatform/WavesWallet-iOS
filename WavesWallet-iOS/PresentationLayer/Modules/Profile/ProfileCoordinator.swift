@@ -13,7 +13,7 @@ import MessageUI
 
 private enum Constants {
     static let supporURL = URL(string: "https://support.wavesplatform.com/")!
-    static let supportEmail = "mobileapp@wavesplatform.com"
+    static let supportEmail = "support@wavesplatform.com"
 }
 
 final class ProfileCoordinator: Coordinator {
