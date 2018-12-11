@@ -66,9 +66,13 @@ extension AssetLogo {
         let border: Border?
 
         var key: String {
-            let w = border?.width ?? 0
-            let color = border?.color.toHexString() ?? ""
-            return "\(size.width)_\(size.height)_\(font.fontName)_\(font.xHeight)_\(w)_\(color)"
+            var key = "\(size.width)_\(size.height)"
+            key += "\(font.familyName)_\(font.lineHeight)"
+
+            if let border = border {
+                key += "\(border.width)_\(border.color.toHexString())"
+            }
+            return key
         }
     }
 
