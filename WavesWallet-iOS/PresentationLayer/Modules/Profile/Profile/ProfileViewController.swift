@@ -47,6 +47,13 @@ final class ProfileViewController: UIViewController {
     }
 }
 
+//MARK: - MainTabBarControllerProtocol
+extension ProfileViewController: MainTabBarControllerProtocol {
+    func mainTabBarControllerDidTapTab() {
+        tableView.setContentOffset(tableViewTopOffsetForBigNavBar(tableView), animated: true)
+    }
+}
+
 // MARK: Setup Methods
 
 private extension ProfileViewController {
