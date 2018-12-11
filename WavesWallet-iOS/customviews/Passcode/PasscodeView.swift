@@ -117,6 +117,7 @@ final class PasscodeView: UIView, NibOwnerLoadable {
     func hiddenButton(by kind: PasscodeNumberButton.Kind, isHidden: Bool) {
         let button = buttons.first(where: { $0.kind == kind.rawValue })
         button?.isHidden = isHidden
+        button?.update()
     }
 
     func showInvalidateState() {

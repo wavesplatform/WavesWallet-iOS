@@ -1600,6 +1600,20 @@ internal enum Localizable {
             internal static var message: String { return Localizable.tr("Waves", "profile.alert.deleteAccount.withoutbackup.message") }
           }
         }
+
+        internal enum Setupbiometric {
+          /// Open settings
+          internal static var message: String { return Localizable.tr("Waves", "profile.alert.setupbiometric.message") }
+          /// Setup biometric
+          internal static var title: String { return Localizable.tr("Waves", "profile.alert.setupbiometric.title") }
+
+          internal enum Button {
+            /// Cancel
+            internal static var cancel: String { return Localizable.tr("Waves", "profile.alert.setupbiometric.button.cancel") }
+            /// Settings
+            internal static var settings: String { return Localizable.tr("Waves", "profile.alert.setupbiometric.button.settings") }
+          }
+        }
       }
 
       internal enum Button {

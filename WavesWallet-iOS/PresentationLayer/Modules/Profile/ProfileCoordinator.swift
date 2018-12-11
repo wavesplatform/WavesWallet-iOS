@@ -109,6 +109,33 @@ extension ProfileCoordinator: ProfileModuleOutput {
         UIApplication.shared.openURLAsync(Constants.supporURL)
     }
 
+    func showAlertForEnabledBiometric() {
+
+        let alertController = UIAlertController (title: Localizable.Waves.Profile.Alert.Setupbiometric.title,
+                                                 message: Localizable.Waves.Profile.Alert.Setupbiometric.message,
+                                                 preferredStyle: .alert)
+
+        let settingsAction = UIAlertAction(title: Localizable.Waves.Profile.Alert.Setupbiometric.Button.settings, style: .default) { (_) -> Void in
+            
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                return
+            }
+
+            guard UIApplication.shared.canOpenURL(settingsUrl) else { return }
+
+            UIApplication.shared.open(settingsUrl, completionHandler: { (success) in })
+        }
+
+        let cancelAction = UIAlertAction(title: Localizable.Waves.Profile.Alert.Setupbiometric.Button.cancel, style: .cancel, handler: nil)
+
+        alertController.addAction(cancelAction)
+        alertController.addAction(settingsAction)
+
+
+
+        navigationController.present(alertController, animated: true, completion: nil)
+    }
+
     func accountSetEnabledBiometric(isOn: Bool, wallet: DomainLayer.DTO.Wallet) {
         let passcode = PasscodeCoordinator(navigationController: navigationController, kind: .setEnableBiometric(isOn, wallet: wallet))
         passcode.delegate = self
