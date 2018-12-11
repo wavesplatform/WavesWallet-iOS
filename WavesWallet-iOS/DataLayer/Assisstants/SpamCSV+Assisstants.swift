@@ -41,7 +41,7 @@ enum SpamCVC {
 
     static func addresses(from data: Data) throws -> [String] {
         guard let text = String(data: data, encoding: .utf8) else { throw SpamError.invalid }
-        guard let csv: CSV = try? CSV(string: text, hasHeaderRow: true) else { throw SpamError.invalid }
+        guard let csv: CSV = try? CSV(string: text, hasHeaderRow: false) else { throw SpamError.invalid }
 
         var addresses = [String]()
         while let row = csv.next() {
