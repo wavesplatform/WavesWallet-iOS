@@ -7,6 +7,10 @@ private enum Constants {
 }
 private class DUMPVC: UIViewController {}
 
+protocol MainTabBarControllerProtocol {
+    func mainTabBarControllerDidTapTab()
+}
+
 final class MainTabBarController: UITabBarController {
 
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
@@ -118,7 +122,17 @@ extension MainTabBarController: UITabBarControllerDelegate {
 
             return false
         }
+        
+        //TODO: need to implement more clearly logic
+        if let nav = tabBarController.selectedViewController as? CustomNavigationController,
+            let currentVC = nav.viewControllers.first,
+            let nextNav = viewController as? CustomNavigationController,
+            let nextVC = nextNav.viewControllers.first,
+            currentVC == nextVC,
+            let tabBarProtocol = currentVC as? MainTabBarControllerProtocol {
 
+            tabBarProtocol.mainTabBarControllerDidTapTab()
+        }
         return true
     }
 }
