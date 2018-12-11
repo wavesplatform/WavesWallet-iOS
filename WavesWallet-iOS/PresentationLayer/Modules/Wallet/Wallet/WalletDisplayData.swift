@@ -223,8 +223,8 @@ extension WalletDisplayData: UITableViewDelegate {
         case .assetSkeleton:
             return WalletAssetSkeletonCell.cellHeight()
 
-        case .balance:
-            return WalletLeasingBalanceCell.cellHeight()
+        case .balance(let balance):
+            return WalletLeasingBalanceCell.viewHeight(model: balance, width: tableView.frame.size.width)
 
         case .leasingTransaction:
             return WalletLeasingCell.cellHeight()
