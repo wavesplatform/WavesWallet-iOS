@@ -180,6 +180,9 @@
 "biometric.localizedFallbackTitle" = "Input passcode";
 "biometric.localizedCancelTitle" = "Cancel";
 
+"biometric.manyattempts.title" = "Too many attempts";
+"biometric.manyattempts.subtitle" = "To unlock Touch/Face ID, sign in with your account passcode";
+
 "cameraAccess.alert.allow" = "Allow Camera";
 
 "cameraAccess.alert.cancel" = "Cancel";
@@ -715,6 +718,16 @@
 "passcode.label.passcode.old" = "Enter old Passcode";
 
 "passcode.label.passcode.verify" = "Verify your passcode";
+
+
+"profile.alert.setupbiometric.button.cancel" = "Cancel";
+
+"profile.alert.setupbiometric.button.settings" = "Settings";
+
+"profile.alert.setupbiometric.message" = "Open settings";
+
+"profile.alert.setupbiometric.title" = "Setup biometric";
+
 
 "profile.alert.deleteAccount.button.cancel" = "Cancel";
 
