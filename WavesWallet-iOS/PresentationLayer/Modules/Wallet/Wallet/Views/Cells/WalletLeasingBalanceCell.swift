@@ -13,6 +13,7 @@ fileprivate enum Constants {
     static let statusBarMinMediumPercent: CGFloat = 3.5
     static let statusBarMinSmallPercent: CGFloat = 2
     static let height: CGFloat = 290
+    static let blockLeasedTotalBalanceHeight: CGFloat = 90
 }
 
 protocol WalletLeasingBalanceCellDelegate: AnyObject {
@@ -21,21 +22,23 @@ protocol WalletLeasingBalanceCellDelegate: AnyObject {
 }
 
 final class WalletLeasingBalanceCell: UITableViewCell, Reusable {
-    @IBOutlet var viewContainer: UIView!
+    
+    @IBOutlet private weak var viewContainer: UIView!
 
-    @IBOutlet var avaliableTitleLabel: UILabel!
-    @IBOutlet var leasedTitleLabel: UILabel!
-    @IBOutlet var totalBalanceTitleLabel: UILabel!
+    @IBOutlet private weak var avaliableTitleLabel: UILabel!
+    @IBOutlet private weak var leasedTitleLabel: UILabel!
+    @IBOutlet private weak var totalBalanceTitleLabel: UILabel!
 
-    @IBOutlet var labelAvaliableBalance: UILabel!
-    @IBOutlet var leasedBalanceLabel: UILabel!
-    @IBOutlet var labelTotalBalance: UILabel!
+    @IBOutlet private weak var labelAvaliableBalance: UILabel!
+    @IBOutlet private weak var leasedBalanceLabel: UILabel!
+    @IBOutlet private weak var labelTotalBalance: UILabel!
 
-    @IBOutlet var buttonStartLease: UIButton!
-    @IBOutlet var leasedWidth: NSLayoutConstraint!
+    @IBOutlet private weak var buttonStartLease: UIButton!
+    @IBOutlet private weak var leasedWidth: NSLayoutConstraint!
 
+    @IBOutlet private weak var viewContainerLeasedTotalBalance: UIView!
+    
     private var leasedPercent: CGFloat = 0
-
     private var availableMoney: Money!
     
     weak var delegate: WalletLeasingBalanceCellDelegate?
@@ -53,10 +56,6 @@ final class WalletLeasingBalanceCell: UITableViewCell, Reusable {
         leasedWidth.constant = leasedPercent * viewWidth / 100
 
         super.updateConstraints()
-    }
-
-    class func cellHeight() -> CGFloat {
-        return Constants.height
     }
 
     @objc func startLease() {
@@ -94,6 +93,13 @@ extension WalletLeasingBalanceCell: ViewConfiguration {
 
         leasedPercent = CGFloat(model.leasedMoney.amount) / CGFloat(model.avaliableMoney.amount) * 100
 
+        if model.avaliableMoney.isZero && model.leasedMoney.isZero && model.totalMoney.isZero {
+            viewContainerLeasedTotalBalance.isHidden = true
+        }
+        else {
+            viewContainerLeasedTotalBalance.isHidden = false
+        }
+        
         if leasedPercent < Constants.statusBarMinSmallPercent {
             leasedPercent = Constants.statusBarMinSmallPercent
         }
@@ -105,5 +111,17 @@ extension WalletLeasingBalanceCell: ViewConfiguration {
         leasedPercent = min(leasedPercent, 100)
 
         setNeedsUpdateConstraints()
+    }
+}
+
+extension WalletLeasingBalanceCell: ViewCalculateHeight {
+    
+    static func viewHeight(model: WalletTypes.DTO.Leasing.Balance, width: CGFloat) -> CGFloat {
+        
+        if model.avaliableMoney.isZero && model.leasedMoney.isZero && model.totalMoney.isZero {
+            return Constants.height - Constants.blockLeasedTotalBalanceHeight
+        }
+       
+        return Constants.height
     }
 }
