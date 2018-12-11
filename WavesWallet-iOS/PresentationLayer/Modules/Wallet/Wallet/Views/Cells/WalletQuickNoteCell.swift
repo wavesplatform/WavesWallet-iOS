@@ -16,7 +16,7 @@ fileprivate enum Constants {
     static let paddingSeparatorTop: CGFloat = 14
     static let paddingSecondTitleTop: CGFloat = 13
     static let paddingThirdTitleTop: CGFloat = 13
-    static let paddingThirdTitleBottom: CGFloat = 24
+    static let paddingThirdTitleBottom: CGFloat = 8
 }
 
 final class WalletQuickNoteCell: UITableViewCell, Reusable {

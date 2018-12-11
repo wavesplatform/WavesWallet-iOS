@@ -24,7 +24,7 @@ private extension WalletTypes.DisplayState.Kind {
     }
 }
 
-fileprivate enum Constants {
+private enum Constants {
     static let contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 16, right: 0)
 }
 
@@ -70,7 +70,8 @@ final class WalletViewController: UIViewController {
 
         tableView.addGestureRecognizer(leftRightGesture)
         tableView.addGestureRecognizer(rightSwipeGesture)
-
+        tableView.contentInset = Constants.contentInset
+        
         displayData = WalletDisplayData(tableView: tableView)
         setupLanguages()
         setupBigNavigationBar()
