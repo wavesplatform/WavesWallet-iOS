@@ -498,7 +498,6 @@
 		0AF922E6212E1234003BA067 /* HalfModalTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF92287212E1234003BA067 /* HalfModalTransitioningDelegate.swift */; };
 		0AF922E7212E1234003BA067 /* EmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF92288212E1234003BA067 /* EmptyCell.swift */; };
 		0AF922E9212E1234003BA067 /* EmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF9228A212E1234003BA067 /* EmptyCell.xib */; };
-		0AF922EA212E1234003BA067 /* CustomUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF9228B212E1234003BA067 /* CustomUITextField.swift */; };
 		0AF922EB212E1234003BA067 /* DottedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF9228C212E1234003BA067 /* DottedLineView.swift */; };
 		0AF922EC212E1234003BA067 /* AssetsSegmentedControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF9228E212E1234003BA067 /* AssetsSegmentedControl.xib */; };
 		0AF922ED212E1234003BA067 /* AssetsSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF9228F212E1234003BA067 /* AssetsSegmentedControl.swift */; };
@@ -515,7 +514,6 @@
 		0AF922FC212E1234003BA067 /* CenteringContentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF922A1212E1234003BA067 /* CenteringContentButton.swift */; };
 		0AF922FD212E1234003BA067 /* BorderButtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF922A2212E1234003BA067 /* BorderButtView.swift */; };
 		0AF922FE212E1234003BA067 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF922A3212E1234003BA067 /* GradientView.swift */; };
-		0AF922FF212E1234003BA067 /* ScrollButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF922A4212E1234003BA067 /* ScrollButton.swift */; };
 		0AF92300212E1234003BA067 /* NavigationAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF922A5212E1234003BA067 /* NavigationAccessoryView.swift */; };
 		0AF92303212E1424003BA067 /* Waves.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AF92301212E1424003BA067 /* Waves.strings */; };
 		0AFA0C762174A2300003FE3B /* Legal.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AFA0C682174A2300003FE3B /* Legal.storyboard */; };
@@ -1339,7 +1337,6 @@
 		0AF92287212E1234003BA067 /* HalfModalTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfModalTransitioningDelegate.swift; sourceTree = "<group>"; };
 		0AF92288212E1234003BA067 /* EmptyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyCell.swift; sourceTree = "<group>"; };
 		0AF9228A212E1234003BA067 /* EmptyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyCell.xib; sourceTree = "<group>"; };
-		0AF9228B212E1234003BA067 /* CustomUITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUITextField.swift; sourceTree = "<group>"; };
 		0AF9228C212E1234003BA067 /* DottedLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DottedLineView.swift; sourceTree = "<group>"; };
 		0AF9228E212E1234003BA067 /* AssetsSegmentedControl.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetsSegmentedControl.xib; sourceTree = "<group>"; };
 		0AF9228F212E1234003BA067 /* AssetsSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsSegmentedControl.swift; sourceTree = "<group>"; };
@@ -1356,7 +1353,6 @@
 		0AF922A1212E1234003BA067 /* CenteringContentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenteringContentButton.swift; sourceTree = "<group>"; };
 		0AF922A2212E1234003BA067 /* BorderButtView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderButtView.swift; sourceTree = "<group>"; };
 		0AF922A3212E1234003BA067 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		0AF922A4212E1234003BA067 /* ScrollButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollButton.swift; sourceTree = "<group>"; };
 		0AF922A5212E1234003BA067 /* NavigationAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationAccessoryView.swift; sourceTree = "<group>"; };
 		0AF92302212E1424003BA067 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Waves.strings; sourceTree = "<group>"; };
 		0AF92304212E142A003BA067 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Waves.strings; sourceTree = "<group>"; };
@@ -3130,7 +3126,6 @@
 				0AF922A1212E1234003BA067 /* CenteringContentButton.swift */,
 				0AF92295212E1234003BA067 /* CopyableLabel.swift */,
 				04831F8321697A4F006D1ED6 /* CustomGradientView.swift */,
-				0AF9228B212E1234003BA067 /* CustomUITextField.swift */,
 				0AF9228C212E1234003BA067 /* DottedLineView.swift */,
 				E9C4134B20E826E300AA044F /* DottedRoundView.swift */,
 				0AF92288212E1234003BA067 /* EmptyCell.swift */,
@@ -3138,7 +3133,6 @@
 				0AF922A3212E1234003BA067 /* GradientView.swift */,
 				E92D9BFE2148740B006D6D6B /* InputScrollButtonsView.swift */,
 				0AF922A5212E1234003BA067 /* NavigationAccessoryView.swift */,
-				0AF922A4212E1234003BA067 /* ScrollButton.swift */,
 				0AF92296212E1234003BA067 /* SeparatorView.swift */,
 				0AF92297212E1234003BA067 /* TickerView.swift */,
 				0AF92282212E1234003BA067 /* TickerView.xib */,
@@ -4964,7 +4958,6 @@
 				0AFF5C7D215BD08500B82940 /* AccountPasswordTypes.swift in Sources */,
 				0A20606821822C3A0048CF83 /* AddressesKeysViewController.swift in Sources */,
 				E9B0881B2163886800937644 /* DexSortModuleBuilder.swift in Sources */,
-				0AF922EA212E1234003BA067 /* CustomUITextField.swift in Sources */,
 				E9B087FE2163886800937644 /* DexMyOrdersCell.swift in Sources */,
 				0A7E0CD920F2BCFF0010CA6C /* TransactionsApiService.swift in Sources */,
 				0A59331B21870B130059A77A /* AliasesTypes.swift in Sources */,
@@ -5404,7 +5397,6 @@
 				E9B087F52163886800937644 /* DexLastTradesInteractor.swift in Sources */,
 				0A580E6A2135FBF000C62549 /* UIScrollView+Pagination.swift in Sources */,
 				E9B12DB9219E2D3900128EFE /* AssetBurnCell.swift in Sources */,
-				0AF922FF212E1234003BA067 /* ScrollButton.swift in Sources */,
 				0AF0C67F21AB1B4D00602197 /* Sync.swift in Sources */,
 				0AFF5C8B215BF54600B82940 /* Settings.swift in Sources */,
 				E9D36DE32175C755001E6DF0 /* ReceiveAddressTypes.swift in Sources */,
