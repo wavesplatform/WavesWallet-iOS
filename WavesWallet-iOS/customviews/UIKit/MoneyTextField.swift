@@ -186,12 +186,7 @@ extension MoneyTextField: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         externalDelegate?.textFieldDidEndEditing?(textField)
     }
-    
-    @available(iOS 10.0, *)
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-        externalDelegate?.textFieldDidEndEditing?(textField, reason: reason)
-    }
-    
+        
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
      
         if string == "" {
