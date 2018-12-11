@@ -889,8 +889,6 @@ internal enum Localizable {
         }
 
         internal enum Token {
-          /// Issue your own tokens. These can be integrated into your business not only as an internal currency but also as a token for decentralised voting, as a rating system, or loyalty program.
-          internal static var text: String { return Localizable.tr("Waves", "enter.block.token.text") }
           /// Token Launcher
           internal static var title: String { return Localizable.tr("Waves", "enter.block.token.title") }
         }
