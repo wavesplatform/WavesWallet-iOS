@@ -26,7 +26,8 @@ final class InputTextField: UIView, NibOwnerLoadable {
     @IBOutlet private var errorLabel: UILabel!
     @IBOutlet private var textFieldValue: UITextField!
     @IBOutlet private var eyeButton: UIButton!
-
+    @IBOutlet private var separatorView: SeparatorView!
+    
     private lazy var tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
                                                                                  action: #selector(handlerTapGesture(recognizer:)))
     private var secureText: String?
@@ -136,7 +137,7 @@ final class InputTextField: UIView, NibOwnerLoadable {
         textFieldValue.delegate = self
         eyeButton.addTarget(self, action: #selector(tapEyeButton), for: .touchUpInside)
         textFieldValue.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
@@ -273,8 +274,13 @@ extension InputTextField: UITextFieldDelegate {
             self.textFieldValue.selectedTextRange = self.textFieldValue.textRange(from: self.textFieldValue.endOfDocument,
                                                                                   to: self.textFieldValue.endOfDocument)
         })
+        separatorView.backgroundColor = .submit400
     }
 
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        separatorView.backgroundColor = .accent100
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 
         checkValidValue()

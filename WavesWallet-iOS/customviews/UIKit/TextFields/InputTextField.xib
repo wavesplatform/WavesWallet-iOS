@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="errorLabel" destination="t3C-1G-4ml" id="zsz-Kr-txl"/>
                 <outlet property="eyeButton" destination="TCk-LK-jwe" id="jLH-30-9Ns"/>
+                <outlet property="separatorView" destination="WmH-eB-M8D" id="ngC-M1-Hlm"/>
                 <outlet property="textFieldValue" destination="jaS-7N-Twt" id="hGL-tM-i1k"/>
                 <outlet property="titleLabel" destination="hZ8-N8-83b" id="TZg-HD-CPI"/>
             </connections>
