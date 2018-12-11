@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,6 +15,7 @@
                 <outlet property="inputScrollView" destination="zCw-2D-0ha" id="eKN-DP-LPk"/>
                 <outlet property="labelError" destination="Ln6-k5-cx0" id="hPH-9H-6pH"/>
                 <outlet property="labelTitle" destination="GxR-Wf-tkp" id="ZlY-FH-bwX"/>
+                <outlet property="separatorView" destination="uqY-TO-lcl" id="0WD-zc-vrv"/>
                 <outlet property="textField" destination="P6c-tW-oCz" id="nsk-ng-6eQ"/>
                 <outlet property="viewTextField" destination="JRl-dB-8bk" id="WnK-hQ-ezT"/>
             </connections>
@@ -84,7 +85,7 @@
                         <constraint firstItem="bZN-Xr-DbC" firstAttribute="leading" secondItem="P6c-tW-oCz" secondAttribute="trailing" id="lnX-AF-Fi4"/>
                     </constraints>
                 </view>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zCw-2D-0ha" customClass="InputScrollButtonsView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zCw-2D-0ha" customClass="InputScrollButtonsView" customModule="WavesWallet_iOS" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="76" width="375" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="aCO-QS-hkc"/>
