@@ -37,7 +37,11 @@ class DottedRoundView: UIView {
         }
 
         let cornerRadius = self.dottedCornerRadius == -1 ? frame.size.width / 2 : self.dottedCornerRadius
-        let path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
+        let drawPath = CGRect(x: lineWidth / 2,
+                              y: lineWidth / 2,
+                              width: bounds.size.width - lineWidth,
+                              height: bounds.size.height - lineWidth)
+        let path = UIBezierPath(roundedRect: drawPath, cornerRadius: cornerRadius)
         let dashes: [CGFloat] = [4, 4]
         path.setLineDash(dashes, count: dashes.count, phase: 0)
         path.lineCapStyle = CGLineCap.butt
