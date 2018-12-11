@@ -347,16 +347,20 @@ private extension AddressInputView {
                     .drive(onNext: { (decimals) in
                             
                         let amount = Money(value: Decimal(amount), decimals)
-                        self.delegate?.addressInputViewDidScanAddress(address,
-                                                                      amount: amount,
-                                                                      assetID: assetID)                        
+                        DispatchQueue.main.async {
+                            self.delegate?.addressInputViewDidScanAddress(address,
+                                                                          amount: amount,
+                                                                          assetID: assetID)
+                        }
                     })
                     .disposed(by: self.disposeBag)
                 }
                 else {
-                    self.delegate?.addressInputViewDidScanAddress(address,
-                                                                  amount: nil,
-                                                                  assetID: assetID)
+                    DispatchQueue.main.async {
+                        self.delegate?.addressInputViewDidScanAddress(address,
+                                                                      amount: nil,
+                                                                      assetID: assetID)
+                    }
                 }
                 
                 self.firstAvailableViewController().dismiss(animated: true, completion: nil)
@@ -374,8 +378,9 @@ private extension AddressInputView {
         }
         
         guard let assetID = assetID else { return Observable.just(0) }
-        
-        delegate?.addressInputViewDidStartLoadingInfo()
+        DispatchQueue.main.async {
+            self.delegate?.addressInputViewDidStartLoadingInfo()
+        }
         
         return auth.authorizedWallet().flatMap({[weak self] (wallet) -> Observable<Int> in
             guard let owner = self else { return Observable.empty() }
