@@ -48,7 +48,7 @@ private extension ProfileBiometricCell {
 extension ProfileBiometricCell: ViewConfiguration {
 
     func update(with model: ProfileBiometricCell.Model) {
-        labelTitle.text = BiometricType.current.title
+        labelTitle.text = BiometricType.biometricByDevice.title
         switchControl.isOn = model.isOnBiometric
     }
 }

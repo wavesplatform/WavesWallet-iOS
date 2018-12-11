@@ -159,23 +159,33 @@ private extension PasscodeVerifyAccessPresenter {
             state.displayState.isLoading = false
             state.displayState.numbers = []
             state.action = nil
-            state.displayState.error = .incorrectPasscode
             state.displayState.isHiddenBackButton = !state.hasBackButton
             state.displayState.error = Types.displayError(by: error, kind: state.kind)
+            if  case .biometricLockout? = state.displayState.error {
+                state.displayState.isHiddenBiometricButton = true
+            }
 
         case .viewWillAppear:
             break
             
         case .viewDidAppear:
 
+            state.displayState.error = nil
+            
             switch state.kind {
-
             case .verifyAccess(let wallet) where wallet.hasBiometricEntrance == true:
-                state.action = .verifyAccessBiometric
-                state.displayState.error = nil
+
+                if BiometricType.enabledBiometric != .none {
+                    state.action = .verifyAccessBiometric
+                    state.displayState.isHiddenBiometricButton = false
+                } else {
+                    state.action = nil
+                    state.displayState.isHiddenBiometricButton = true
+                }
 
             default:
-                break
+                state.action = nil
+                state.displayState.isHiddenBiometricButton = true
             }
 
         case .tapBiometricButton:

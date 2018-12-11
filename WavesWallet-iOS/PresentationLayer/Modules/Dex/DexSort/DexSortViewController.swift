@@ -36,7 +36,7 @@ final class DexSortViewController: UIViewController {
         tableView.contentInset = Constants.contentInset
 
         let feedback = bind(self) { owner, state -> Bindings<DexSort.Event> in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
 
         let readyViewFeedback: DexSortPresenter.Feedback = { [weak self] _ in

@@ -223,7 +223,7 @@ private extension SendViewController {
     func setupFeedBack() {
         
         let feedback = bind(self) { owner, state -> Bindings<Send.Event> in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
         
         presenter.system(feedbacks: [feedback])

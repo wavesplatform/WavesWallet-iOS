@@ -618,7 +618,7 @@ extension AuthorizationInteractor {
                 guard let owner = self else { return Observable.never() }
 
                 let savePasscode = owner
-                    .savePasscodeInKeychain(wallet: signedWallet.wallet, passcode: passcode)
+                    .savePasscodeInKeychain(wallet: signedWallet.wallet, passcode: passcode, localizedFallbackTitle: nil)
                     .flatMap({ [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
                         guard let owner = self else { return Observable.never() }
                         return owner.setHasBiometricEntrance(wallet: signedWallet.wallet, hasBiometricEntrance: true)
@@ -640,8 +640,7 @@ extension AuthorizationInteractor {
             }
             .flatMap({ [weak self] signedWallet -> Observable<AuthorizationAuthStatus> in
                 guard let owner = self else { return Observable.never() }
-                return owner
-                    .removePasscodeInKeychain(wallet: signedWallet.wallet)
+                return owner.removePasscodeInKeychainWithoutContext(wallet: signedWallet.wallet)                    
                     .flatMap({ [weak self] _ -> Observable<AuthorizationAuthStatus> in
                         guard let owner = self else { return Observable.never() }
 
@@ -711,33 +710,52 @@ private extension AuthorizationInteractor {
     private func removePasscodeInKeychain(wallet: DomainLayer.DTO.Wallet, context: LAContext) -> Observable<Bool> {
         return Observable<Bool>.create { observer -> Disposable in
 
-            DispatchQueue.main.async(execute: {
-                do {
+            do {
 
-                    let keychain = Keychain(service: Constants.service)
-                        .authenticationContext(context)
-                        .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
+                let keychain = Keychain(service: Constants.service)
+                    .authenticationContext(context)
+                    .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
 
-                    try keychain.remove(wallet.publicKey)
+                try keychain.remove(wallet.publicKey)
 
-                    observer.onNext(true)
-                    observer.onCompleted()
-                } catch _ {
-                    observer.onError(AuthorizationInteractorError.biometricDisable)
-                }
-            })
+                observer.onNext(true)
+                observer.onCompleted()
+            } catch _ {
+                observer.onError(AuthorizationInteractorError.biometricDisable)
+            }
+
 
             return Disposables.create {}
         }
     }
 
-    private func biometricAccess() -> Observable<LAContext> {
+    private func removePasscodeInKeychainWithoutContext(wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
+        return Observable<Bool>.create { observer -> Disposable in
+
+            do {
+
+                let keychain = Keychain(service: Constants.service)
+                    .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
+
+                try keychain.remove(wallet.publicKey)
+
+                observer.onNext(true)
+                observer.onCompleted()
+            } catch _ {
+                observer.onError(AuthorizationInteractorError.biometricDisable)
+            }            
+
+            return Disposables.create {}
+        }
+    }
+
+    private func biometricAccess(localizedFallbackTitle: String? = Localizable.Waves.Biometric.localizedFallbackTitle) -> Observable<LAContext> {
 
         return Observable<LAContext>.create { observer -> Disposable in
 
             let context = LAContext()
 
-            context.localizedFallbackTitle = Localizable.Waves.Biometric.localizedFallbackTitle
+            context.localizedFallbackTitle = localizedFallbackTitle
             context.localizedCancelTitle = Localizable.Waves.Biometric.localizedCancelTitle
 
             var error: NSError?
@@ -748,9 +766,14 @@ private extension AuthorizationInteractor {
                                        reply:
                     { (result, error) in
 
-                        if error != nil {
+                        if  let error = error {
                             context.invalidate()
-                            observer.onError(AuthorizationInteractorError.biometricDisable)
+                            if let error = error as? LAError {
+                                observer.onError(error.authorizationInteractorError)
+                            } else {
+                                observer.onError(AuthorizationInteractorError.biometricDisable)
+                            }
+
                         } else {
                             observer.onNext(context)
                             observer.onCompleted()
@@ -760,7 +783,11 @@ private extension AuthorizationInteractor {
 
             } else {
                 context.invalidate()
-                observer.onError(AuthorizationInteractorError.biometricDisable)
+                if let error = error as? LAError {
+                    observer.onError(error.authorizationInteractorError)
+                } else {
+                    observer.onError(AuthorizationInteractorError.biometricDisable)
+                }
             }
 
             return Disposables.create {
@@ -769,8 +796,8 @@ private extension AuthorizationInteractor {
         }
     }
 
-    private func savePasscodeInKeychain(wallet: DomainLayer.DTO.Wallet, passcode: String) -> Observable<Bool> {
-        return biometricAccess()
+    private func savePasscodeInKeychain(wallet: DomainLayer.DTO.Wallet, passcode: String, localizedFallbackTitle: String?) -> Observable<Bool> {
+        return biometricAccess(localizedFallbackTitle: localizedFallbackTitle)
             .flatMap({ [weak self] (context) -> Observable<Bool> in
                 guard let owner = self else { return Observable<Bool>.never() }
                 return owner.savePasscodeInKeychain(wallet: wallet, passcode: passcode, context: context)
@@ -839,7 +866,7 @@ private extension AuthorizationInteractor {
 
 
             return Disposables.create {}
-        }.sweetDebug("GEEETT key")
+        }
     }
 }
 
@@ -1092,5 +1119,36 @@ extension AuthorizationInteractor: SigningWalletsProtocol {
         guard let seed = seedRepositoryMemory.seed(publicKey) else { throw SigningWalletsError.notSigned }
         let privateKey = PrivateKeyAccount(seedStr: seed.seed)
         return Hash.sign(input, privateKey.privateKey)
+    }
+}
+
+extension LAError {
+
+    var authorizationInteractorError: AuthorizationInteractorError {
+
+        switch self {
+        case LAError.userCancel,
+             LAError.systemCancel,
+             LAError.appCancel,
+             LAError.authenticationFailed:
+            return AuthorizationInteractorError.biometricUserCancel
+
+        case LAError.biometryLockout:
+            return AuthorizationInteractorError.biometricLockout
+
+        case LAError.userFallback:
+            return AuthorizationInteractorError.biometricUserFallback
+
+        case LAError.touchIDLockout,
+             LAError.touchIDNotEnrolled,
+             LAError.touchIDNotAvailable,
+             LAError.biometryNotEnrolled,
+             LAError.biometryNotAvailable,
+             LAError.passcodeNotSet:
+            return AuthorizationInteractorError.biometricDisable
+
+        default:
+            return AuthorizationInteractorError.biometricDisable
+        }
     }
 }

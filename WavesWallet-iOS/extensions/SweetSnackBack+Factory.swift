@@ -140,12 +140,12 @@ extension UIViewController {
         return sweetSnackbar.showSnack(error, on: self)
     }
 
-    @discardableResult func showErrorSnackWithoutAction(title: String) -> String {
+    @discardableResult func showErrorSnackWithoutAction(title: String, subtitle: String? = nil) -> String {
 
         let error = SweetSnack.init(title: title,
                                     backgroundColor: UIColor.error400.withAlphaComponent(Constants.snackAlpha),
                                     behaviorDismiss: .popToLastWihDuration(Constants.snackTimeDuration),
-                                    subtitle: nil,
+                                    subtitle: subtitle,
                                     icon: nil,
                                     isEnabledUserHidden: true,
                                     action: nil)
