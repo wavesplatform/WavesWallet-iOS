@@ -467,16 +467,60 @@ or Mac/PC</string>
                                             <outletCollection property="views" destination="CZD-7x-Dz4" collectionClass="NSMutableArray" id="uYi-6u-79F"/>
                                         </connections>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Ju-01-TyW">
+                                        <rect key="frame" x="12" y="24" width="319" height="28"/>
+                                        <subviews>
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xSQ-CZ-bm2">
+                                                <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
+                                                <color key="backgroundColor" red="0.92941176470588238" green="0.94117647058823528" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="28" id="GC2-HK-pBt"/>
+                                                    <constraint firstAttribute="width" constant="28" id="jMJ-L6-e0T"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="14"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UZE-lh-RUm">
+                                                <rect key="frame" x="42" y="10" width="277" height="8"/>
+                                                <color key="backgroundColor" red="0.92941176470588238" green="0.94117647058823528" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="8" id="xGY-5a-SG0"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="4"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="UZE-lh-RUm" secondAttribute="trailing" id="D4g-sZ-nKD"/>
+                                            <constraint firstItem="xSQ-CZ-bm2" firstAttribute="top" secondItem="7Ju-01-TyW" secondAttribute="top" id="Fqi-Dp-TQL"/>
+                                            <constraint firstItem="xSQ-CZ-bm2" firstAttribute="leading" secondItem="7Ju-01-TyW" secondAttribute="leading" id="Jh9-np-fde"/>
+                                            <constraint firstAttribute="bottom" secondItem="xSQ-CZ-bm2" secondAttribute="bottom" id="S7m-Dg-kh6"/>
+                                            <constraint firstAttribute="height" constant="28" id="jgL-Xt-HYy"/>
+                                            <constraint firstItem="UZE-lh-RUm" firstAttribute="centerY" secondItem="xSQ-CZ-bm2" secondAttribute="centerY" id="kuL-aE-eD2"/>
+                                            <constraint firstItem="UZE-lh-RUm" firstAttribute="leading" secondItem="xSQ-CZ-bm2" secondAttribute="trailing" constant="14" id="vCU-mt-0SH"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="F0w-pD-6Ms" firstAttribute="top" secondItem="H58-Qa-VfM" secondAttribute="top" constant="24" id="0r3-Wf-Qnr"/>
+                                    <constraint firstItem="7Ju-01-TyW" firstAttribute="top" secondItem="F0w-pD-6Ms" secondAttribute="top" id="1wc-9V-EdY"/>
                                     <constraint firstItem="ffH-55-n96" firstAttribute="trailing" secondItem="F0w-pD-6Ms" secondAttribute="trailing" id="5Ls-mn-uJz"/>
                                     <constraint firstItem="ATx-9a-f9l" firstAttribute="trailing" secondItem="F0w-pD-6Ms" secondAttribute="trailing" id="8s8-3F-Nf8"/>
                                     <constraint firstItem="F0w-pD-6Ms" firstAttribute="leading" secondItem="H58-Qa-VfM" secondAttribute="leading" constant="12" id="8uP-Px-Rch"/>
+                                    <constraint firstItem="7Ju-01-TyW" firstAttribute="bottom" secondItem="F0w-pD-6Ms" secondAttribute="bottom" id="EoE-FH-rhd"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="FlG-rt-Idm"/>
                                     <constraint firstItem="ffH-55-n96" firstAttribute="leading" secondItem="F0w-pD-6Ms" secondAttribute="leading" id="Jbv-6m-03p"/>
+                                    <constraint firstItem="7Ju-01-TyW" firstAttribute="leading" secondItem="F0w-pD-6Ms" secondAttribute="leading" id="L5J-pT-kGp"/>
                                     <constraint firstItem="121-uO-CG7" firstAttribute="top" secondItem="F0w-pD-6Ms" secondAttribute="bottom" constant="24" id="O4C-QS-qew"/>
+                                    <constraint firstItem="7Ju-01-TyW" firstAttribute="trailing" secondItem="F0w-pD-6Ms" secondAttribute="trailing" id="V66-Gb-KaV"/>
                                     <constraint firstAttribute="bottom" secondItem="ATx-9a-f9l" secondAttribute="bottom" constant="24" id="ZKa-Z1-Zw0"/>
                                     <constraint firstItem="121-uO-CG7" firstAttribute="leading" secondItem="F0w-pD-6Ms" secondAttribute="leading" id="cgq-og-088"/>
                                     <constraint firstAttribute="trailing" secondItem="F0w-pD-6Ms" secondAttribute="trailing" constant="12" id="fnz-ui-Xzl"/>
@@ -503,6 +547,7 @@ or Mac/PC</string>
                         <outlet property="containerViewRightConstraint" destination="Ij5-Bf-aa6" id="mHS-ze-0gb"/>
                         <outlet property="iconImages" destination="wT2-e8-xV2" id="iNz-bg-xdA"/>
                         <outlet property="labelAddress" destination="WI2-dC-Kmd" id="Ru7-Qe-0WU"/>
+                        <outlet property="skeletonEmpty" destination="7Ju-01-TyW" id="Zv7-vs-pMb"/>
                         <outlet property="skeletonView" destination="F0w-pD-6Ms" id="ch6-wb-fvC"/>
                         <outlet property="skeletonViewLeftConstraint" destination="8uP-Px-Rch" id="LFc-2R-XNq"/>
                         <outlet property="skeletonViewRightConstraint" destination="fnz-ui-Xzl" id="tAw-ZS-SGk"/>
