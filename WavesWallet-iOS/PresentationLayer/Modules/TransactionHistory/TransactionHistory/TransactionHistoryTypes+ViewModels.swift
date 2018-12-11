@@ -61,10 +61,12 @@ extension TransactionHistoryTypes.ViewModel {
     struct ResendButton: Hashable {
         enum ButtonType {
             case resend
+            case massResend
             case cancelLeasing
         }
         
         let type: ButtonType
+        let isGatewayAddress: Bool
     }
     
     enum Row {
@@ -455,15 +457,16 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
     func buttonRow() -> TransactionHistoryTypes.ViewModel.Row? {
         
         switch kind {
-        case .sent(_):
-            return .resendButton(.init(type: .resend))
+        case .sent(let model):
+            let isGatewayAddress = GlobalConstants.Coinomat.addresses.contains(model.recipient.address)
+            return .resendButton(.init(type: .resend, isGatewayAddress: isGatewayAddress))
 
         case .massSent(_):
-            return .resendButton(.init(type: .resend))
+            return .resendButton(.init(type: .massResend, isGatewayAddress: false))
 
         case .startedLeasing(_):
             if case .activeNow = self.status {
-                return .resendButton(.init(type: .cancelLeasing))
+                return .resendButton(.init(type: .cancelLeasing, isGatewayAddress: false))
             }
             return nil
 
