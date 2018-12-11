@@ -63,6 +63,12 @@ extension GlobalConstants.Coinomat {
     
     private static let url = "https://coinomat.com/"
 
+    static var addresses: [String] {
+        return ["3PAs2qSeUAfgqSKS8LpZPKGYEjJKcud9Djr", // cryptocurrency
+                "3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us", // fiat
+                "3P2oLgTxQxNcLSEcSfqRvarpzcGVLCggftC"] // card
+    }
+    
     static var createTunnel: String {
         return url + apiVersion(.v1) + "create_tunnel.php"
     }
