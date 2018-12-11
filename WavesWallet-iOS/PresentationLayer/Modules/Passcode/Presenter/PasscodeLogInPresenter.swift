@@ -165,18 +165,20 @@ private extension PasscodeLogInPresenter {
             
         case .viewDidAppear:
 
+            state.displayState.error = nil
+
             switch state.kind {
             case .logIn(let wallet) where wallet.hasBiometricEntrance == true:
-                if BiometricType.current != .none {
+                if BiometricType.enabledBiometric != .none {
                     state.action = .logInBiometric
                     state.displayState.isHiddenBiometricButton = false
                 } else {
                     state.action = nil
                     state.displayState.isHiddenBiometricButton = true
                 }
-                state.displayState.error = nil
             default:
-                break
+                state.action = nil
+                state.displayState.isHiddenBiometricButton = true
             }
 
         case .tapBiometricButton:

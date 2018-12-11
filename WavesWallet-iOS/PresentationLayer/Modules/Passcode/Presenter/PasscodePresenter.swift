@@ -436,34 +436,34 @@ private extension PasscodePresenter {
             break
         case .viewDidAppear:
 
+            state.displayState.error = nil
+
             switch state.kind {
             case .logIn(let wallet) where wallet.hasBiometricEntrance == true:
                 state.action = .logInBiometric
-                state.displayState.error = nil
 
             case .setEnableBiometric(_, let wallet) where wallet.hasBiometricEntrance == true:
 
-                if BiometricType.current != .none {
+                if BiometricType.enabledBiometric != .none {
                     state.action = .disabledBiometricUsingBiometric
                     state.displayState.isHiddenBiometricButton = false
                 } else {
                     state.action = nil
                     state.displayState.isHiddenBiometricButton = true
                 }
-                state.displayState.error = nil
 
             case .verifyAccess(let wallet) where wallet.hasBiometricEntrance == true:
-                if BiometricType.current != .none {
+                if BiometricType.enabledBiometric != .none {
                     state.action = .verifyAccessBiometric
                     state.displayState.isHiddenBiometricButton = false
                 } else {
                     state.action = nil
                     state.displayState.isHiddenBiometricButton = true
                 }
-                state.displayState.error = nil
-                
+
             default:
-                break
+                state.action = nil
+                state.displayState.isHiddenBiometricButton = true                
             }
 
         case .tapBiometricButton:

@@ -710,21 +710,20 @@ private extension AuthorizationInteractor {
     private func removePasscodeInKeychain(wallet: DomainLayer.DTO.Wallet, context: LAContext) -> Observable<Bool> {
         return Observable<Bool>.create { observer -> Disposable in
 
-            DispatchQueue.main.async(execute: {
-                do {
+            do {
 
-                    let keychain = Keychain(service: Constants.service)
-                        .authenticationContext(context)
-                        .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
+                let keychain = Keychain(service: Constants.service)
+                    .authenticationContext(context)
+                    .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
 
-                    try keychain.remove(wallet.publicKey)
+                try keychain.remove(wallet.publicKey)
 
-                    observer.onNext(true)
-                    observer.onCompleted()
-                } catch _ {
-                    observer.onError(AuthorizationInteractorError.biometricDisable)
-                }
-            })
+                observer.onNext(true)
+                observer.onCompleted()
+            } catch _ {
+                observer.onError(AuthorizationInteractorError.biometricDisable)
+            }
+
 
             return Disposables.create {}
         }
@@ -733,20 +732,18 @@ private extension AuthorizationInteractor {
     private func removePasscodeInKeychainWithoutContext(wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
         return Observable<Bool>.create { observer -> Disposable in
 
-            DispatchQueue.main.async(execute: {
-                do {
+            do {
 
-                    let keychain = Keychain(service: Constants.service)
-                        .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
+                let keychain = Keychain(service: Constants.service)
+                    .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
 
-                    try keychain.remove(wallet.publicKey)
+                try keychain.remove(wallet.publicKey)
 
-                    observer.onNext(true)
-                    observer.onCompleted()
-                } catch _ {
-                    observer.onError(AuthorizationInteractorError.biometricDisable)
-                }
-            })
+                observer.onNext(true)
+                observer.onCompleted()
+            } catch _ {
+                observer.onError(AuthorizationInteractorError.biometricDisable)
+            }            
 
             return Disposables.create {}
         }
