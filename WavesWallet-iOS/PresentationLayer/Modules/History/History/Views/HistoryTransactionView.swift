@@ -142,7 +142,7 @@ extension HistoryTransactionView: ViewConfiguration {
             labelValue.text = name
 
         case .incomingLeasing(let tx):
-            update(with: tx.asset, balance: tx.balance, sign: .minus)
+            update(with: tx.asset, balance: tx.balance)
 
         case .unrecognisedTransaction:
             labelValue.text = "¯\\_(ツ)_/¯"
