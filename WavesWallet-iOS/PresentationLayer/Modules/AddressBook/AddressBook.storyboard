@@ -161,8 +161,8 @@ You can create new address</string>
                                                     <constraint firstAttribute="height" constant="62" id="p0e-gb-gVa"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i7J-R4-htP" customClass="BaseInputTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="110" width="375" height="62"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i7J-R4-htP" customClass="InputTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="110" width="343" height="62"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="62" id="u7D-0X-vdy"/>
@@ -210,14 +210,14 @@ You can create new address</string>
                                             <constraint firstAttribute="bottom" secondItem="1cV-e8-3vs" secondAttribute="bottom" constant="24" id="0mC-jg-nkK"/>
                                             <constraint firstAttribute="trailing" secondItem="U87-Qb-lNK" secondAttribute="trailing" constant="16" id="1fL-5a-4js"/>
                                             <constraint firstAttribute="trailing" secondItem="1cV-e8-3vs" secondAttribute="trailing" constant="16" id="2jz-kZ-KZx"/>
+                                            <constraint firstItem="i7J-R4-htP" firstAttribute="leading" secondItem="U87-Qb-lNK" secondAttribute="leading" id="9AV-3A-TFU"/>
                                             <constraint firstItem="U87-Qb-lNK" firstAttribute="leading" secondItem="QkZ-wE-ccF" secondAttribute="leading" constant="16" id="GT8-9s-ahe"/>
+                                            <constraint firstItem="i7J-R4-htP" firstAttribute="trailing" secondItem="U87-Qb-lNK" secondAttribute="trailing" id="Naw-zX-yp3"/>
                                             <constraint firstItem="U87-Qb-lNK" firstAttribute="top" secondItem="QkZ-wE-ccF" secondAttribute="top" constant="24" id="Sgq-Hd-oqb"/>
                                             <constraint firstItem="1cV-e8-3vs" firstAttribute="leading" secondItem="QkZ-wE-ccF" secondAttribute="leading" constant="16" id="TgT-9h-LKa"/>
                                             <constraint firstAttribute="trailing" secondItem="ceQ-LA-iGi" secondAttribute="trailing" constant="16" id="fff-Pa-OME"/>
                                             <constraint firstItem="ceQ-LA-iGi" firstAttribute="leading" secondItem="QkZ-wE-ccF" secondAttribute="leading" constant="16" id="ify-G1-17K"/>
                                             <constraint firstAttribute="bottom" secondItem="ceQ-LA-iGi" secondAttribute="bottom" constant="24" id="kUP-gQ-FYp"/>
-                                            <constraint firstItem="i7J-R4-htP" firstAttribute="leading" secondItem="QkZ-wE-ccF" secondAttribute="leading" id="l0V-xR-jmm"/>
-                                            <constraint firstAttribute="trailing" secondItem="i7J-R4-htP" secondAttribute="trailing" id="mdl-Qd-yG1"/>
                                             <constraint firstItem="i7J-R4-htP" firstAttribute="top" secondItem="U87-Qb-lNK" secondAttribute="bottom" constant="24" id="stu-9D-A7e"/>
                                         </constraints>
                                     </view>

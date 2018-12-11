@@ -16,6 +16,7 @@ import FirebaseCore
 import FirebaseDatabase
 import Fabric
 import Crashlytics
+import AppsFlyerLib
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var appCoordinator: AppCoordinator!
     var migrationInteractor: MigrationInteractor = MigrationInteractor()
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
             let options = FirebaseOptions(contentsOfFile: path) {
@@ -36,6 +37,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Fabric.with([Crashlytics.self])
         }
 
+        if let path = Bundle.main.path(forResource: "Appsflyer-Info", ofType: "plist"),
+            let root = NSDictionary(contentsOfFile: path)?["Appsflyer"] as? NSDictionary {
+            if let devKey = root["AppsFlyerDevKey"] as? String,
+                let appId = root["AppleAppID"] as? String {
+                AppsFlyerTracker.shared().appsFlyerDevKey = devKey
+                AppsFlyerTracker.shared().appleAppID = appId
+            }
+        }
+
+        #if DEBUG
+            AppsFlyerTracker.shared().isDebug = true
+        #endif
+
         IQKeyboardManager.shared.enable = true
         UIBarButtonItem.appearance().tintColor = UIColor.black
 
@@ -44,11 +58,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Swizzle(initializers: [UIView.passtroughInit, UIView.insetsInit, UIView.shadowInit]).start()
 
         #if DEBUG
-            SweetLogger.current.visibleLevels = [.debug]
+            SweetLogger.current.visibleLevels = [.debug, .error]
         #else
             SweetLogger.current.visibleLevels = []
         #endif
-
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = .basic50
@@ -82,6 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         appCoordinator.applicationDidBecomeActive()
+        AppsFlyerTracker.shared().trackAppLaunch()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {}

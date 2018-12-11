@@ -34,7 +34,6 @@ final class NewAccountViewController: UIViewController {
     @IBOutlet private weak var avatarDetailLabel: UILabel!
 
     private let identity: Identity = Identity(options: Identity.defaultOptions)
-    private var isFirstChoiceAvatar: Bool = false
     private var currentAvatar: Avatar? = nil
 
     weak var output: NewAccountModuleOutput?
@@ -56,7 +55,7 @@ final class NewAccountViewController: UIViewController {
         setupAvatarsView()
         createBackButton()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -67,7 +66,7 @@ final class NewAccountViewController: UIViewController {
 
     override var canBecomeFirstResponder: Bool { return true }
 
-    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else {
             return
         }
@@ -111,12 +110,7 @@ final class NewAccountViewController: UIViewController {
         }
 
         confirmPasswordInput.valueValidator = { [weak self] value in
-            let count = value?.trimmingCharacters(in: .whitespaces).count ?? 0
-            if count < GlobalConstants.accountNameMinLimitSymbols {
-                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
-            } else if count > GlobalConstants.accountNameMaxLimitSymbols {
-                return Localizable.Waves.Newaccount.Textfield.Error.minimumcharacters(GlobalConstants.accountNameMaxLimitSymbols)
-            } else if self?.passwordInput.value != value {
+            if self?.passwordInput.value != value {
                 return Localizable.Waves.Newaccount.Textfield.Error.passwordnotmatch
             } else {
                 return nil
@@ -157,11 +151,6 @@ final class NewAccountViewController: UIViewController {
 
                 self?.currentAvatar = Avatar(address: address, privateKey: privateKey, index: index)
                 self?.avatars.enumerated().filter { $0.offset != index }.forEach { $0.element.state = .unselected }
-
-                if self?.isFirstChoiceAvatar == false {
-                    self?.isFirstChoiceAvatar = true
-                    self?.accountNameInput.becomeFirstResponder()
-                }
             }
 
             let image = identity.createImage(by: privateKey.address, size: view.iconSize) ?? UIImage()
@@ -193,7 +182,7 @@ final class NewAccountViewController: UIViewController {
         } else if currentAvatar == nil {
             self.view.endEditing(true)
             self.avatars.forEach { $0.shake() }
-            showMessageSnack(tille: Localizable.Waves.Newaccount.Error.noavatarselected)
+            showMessageSnack(title: Localizable.Waves.Newaccount.Error.noavatarselected)
         } else {
             continueCreateAccount()
         }

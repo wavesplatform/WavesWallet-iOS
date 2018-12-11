@@ -138,13 +138,15 @@ extension DomainLayer.DTO.TransferTransaction {
         }
 
         let balance = asset.balance(self.amount)
-        let transfer: DomainLayer.DTO.SmartTransaction.Transfer = .init(balance: balance,
-                                                                        asset: asset,
-                                                                        recipient: recipient,
-                                                                        attachment: decodedString(attachment))
-
+        
         let transactionDirection = TransactionDirection(sender: sender,
                                                         recipient: recipient)
+        
+        let transfer: DomainLayer.DTO.SmartTransaction.Transfer = .init(balance: balance,
+                                                                        asset: asset,
+                                                                        recipient: transactionDirection == .receive ? sender : recipient,
+                                                                        attachment: decodedString(attachment))
+
 
         var kind: DomainLayer.DTO.SmartTransaction.Kind!
 
@@ -375,11 +377,7 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
         let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
 
-        var optionalLease = self.lease
-
-        if optionalLease == nil {
-            optionalLease = metaData.mapTxs[self.leaseId]?.leaseTransaction
-        }
+        let optionalLease = self.lease
 
         guard let lease = optionalLease else {
             return nil
@@ -432,8 +430,7 @@ extension DomainLayer.DTO.AliasTransaction {
 
         let kind: DomainLayer.DTO.SmartTransaction.Kind = .createdAlias(alias)
         let feeBalance = wavesAsset.balance(fee)
-
-        //TODO: confirmationHeight is nil?
+        
         return .init(id: id,
                      kind: kind,
                      timestamp: Date(milliseconds: timestamp),
@@ -491,17 +488,18 @@ extension DomainLayer.DTO.MassTransferTransaction {
         } else {
 
             let transfers = self.transfers.map { tx -> DomainLayer.DTO.SmartTransaction.MassReceive.Transfer? in
-                guard let recipient = accounts[tx.recipient] else {
+                guard accounts[tx.recipient] != nil else {
                     error("MassTransferTransaction Not found recipient")
                     return nil
                 }
                 let amount = asset.money(tx.amount)
-                return .init(amount: amount, recipient: recipient)
+                return .init(amount: amount, recipient: sender)
             }
             .compactMap { $0 }
 
             let myTotalAmount: Int64 = transfers.reduce(into: Int64(0), { (result, transfer) in
-                if transfer.recipient.isMyAccount {
+                
+                if !transfer.recipient.isMyAccount {
                     result += transfer.amount.amount
                 }
             })

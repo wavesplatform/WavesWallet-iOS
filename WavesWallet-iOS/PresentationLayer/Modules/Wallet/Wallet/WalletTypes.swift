@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import RxCocoa
 
 enum WalletTypes {}
 
@@ -20,14 +21,20 @@ extension WalletTypes {
 
     struct DisplayState: Mutating {
 
+        enum RefreshData: Equatable {
+            case none
+            case update
+            case refresh
+        }
+
         enum Kind {
             case assets
             case leasing
         }
 
-        //TODO: Rename to Action
-        enum AnimateType  {
+        enum ContentAction  {
             case refresh(animated: Bool)
+            case refreshOnlyError
             case collapsed(Int)
             case expanded(Int)
             case none
@@ -37,23 +44,28 @@ extension WalletTypes {
             var sections: [ViewModel.Section]
             var collapsedSections: [Int: Bool]
             var isRefreshing: Bool
-            var animateType: AnimateType = .refresh(animated: false)
+            var animateType: ContentAction = .refresh(animated: false)
+            var errorState: DisplayErrorState
         }
 
         var kind: Kind
         var assets: DisplayState.Display
         var leasing: DisplayState.Display
         var isAppeared: Bool
+        var listenerRefreshData: RefreshData
+        var refreshData: RefreshData
+        var listnerSignal: Signal<WalletTypes.Event>?
     }
 
     struct State: Mutating {
 
-        var assets: [WalletTypes.DTO.Asset]
+        var assets: [DomainLayer.DTO.SmartAssetBalance]
+        var leasing: DTO.Leasing?
         var displayState: DisplayState
     }
 
     enum Event {
-        case setAssets([DTO.Asset])
+        case setAssets([DomainLayer.DTO.SmartAssetBalance])
         case setLeasing(DTO.Leasing)
         case handlerError(Error)
         case refresh

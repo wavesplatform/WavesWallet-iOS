@@ -11,6 +11,7 @@ import RxSwift
 
 enum AssetsRepositoryError: Error {
     case fail
+    case notFound
 }
 
 protocol AssetsRepositoryProtocol  {

@@ -23,7 +23,7 @@ enum ReceiveCard {
         enum Action {
             case none
             case didGetInfo
-            case didFailGetInfo(ResponseTypeError)
+            case didFailGetInfo(NetworkError)
             case changeUrl
         }
 
@@ -33,7 +33,7 @@ enum ReceiveCard {
         var link: String = ""
         var amountUSDInfo: DTO.AmountInfo?
         var amountEURInfo: DTO.AmountInfo?
-        var assetBalance: DomainLayer.DTO.AssetBalance?
+        var assetBalance: DomainLayer.DTO.SmartAssetBalance?
         var amount: Money?
         var address: String = ""
     }
@@ -51,7 +51,7 @@ extension ReceiveCard.DTO {
     }
     
     struct Order {
-        let asset: DomainLayer.DTO.AssetBalance
+        let asset: DomainLayer.DTO.SmartAssetBalance
         let amount: Money
         let fiatType: FiatType
     }
@@ -65,7 +65,7 @@ extension ReceiveCard.DTO {
     }
     
     struct Info {
-        let asset: DomainLayer.DTO.AssetBalance
+        let asset: DomainLayer.DTO.SmartAssetBalance
         let amountInfo : AmountInfo
         let address: String
     }

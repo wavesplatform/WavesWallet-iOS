@@ -20,7 +20,7 @@
                     <rect key="frame" x="0.0" y="20" width="343" height="525"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Ds-gX-cVD">
-                            <rect key="frame" x="0.0" y="0.0" width="343" height="548.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="343" height="528.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMJ-rW-y8g">
                                     <rect key="frame" x="24" y="58" width="295" height="81.5"/>
@@ -111,7 +111,7 @@ We cannot recover your funds or freeze your account if you visit a phishing site
                                 <constraint firstItem="ScY-GJ-gVg" firstAttribute="leading" secondItem="YHC-ca-tEP" secondAttribute="trailing" constant="24" id="g0s-rx-vhj"/>
                                 <constraint firstAttribute="trailing" secondItem="TMJ-rW-y8g" secondAttribute="trailing" constant="24" id="gYa-zH-1IC"/>
                                 <constraint firstItem="YHC-ca-tEP" firstAttribute="top" secondItem="uIn-jw-J1Q" secondAttribute="top" id="s6b-rw-3Zi"/>
-                                <constraint firstAttribute="bottom" secondItem="uIn-jw-J1Q" secondAttribute="bottom" constant="100" id="xwy-rB-0wI"/>
+                                <constraint firstAttribute="bottom" secondItem="uIn-jw-J1Q" secondAttribute="bottom" constant="80" id="xwy-rB-0wI"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -140,9 +140,12 @@ We cannot recover your funds or freeze your account if you visit a phishing site
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="contentView" destination="1Ds-gX-cVD" id="T2h-dG-xVS"/>
                 <outlet property="detailLabel" destination="act-ti-Wcz" id="kT6-1C-eJe"/>
                 <outlet property="firstImageView" destination="uIn-jw-J1Q" id="u0M-XV-gwg"/>
                 <outlet property="fourthImageView" destination="0tp-7a-WSa" id="skK-23-Vh7"/>
+                <outlet property="imageViewBottomConstraint" destination="xwy-rB-0wI" id="BIh-Wa-RnC"/>
+                <outlet property="scrollView" destination="mOd-Am-NK4" id="BoV-y1-nx2"/>
                 <outlet property="secondImageView" destination="YHC-ca-tEP" id="ta6-OT-Ke0"/>
                 <outlet property="thirdImageView" destination="ScY-GJ-gVg" id="m64-eE-YCk"/>
                 <outlet property="titleLabel" destination="TMJ-rW-y8g" id="KD9-je-IeJ"/>

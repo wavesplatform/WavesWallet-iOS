@@ -77,6 +77,10 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                                                limit: limit),
                                    environment: environment),
                              callbackQueue: DispatchQueue.global(qos: .background))
+                    .filterSuccessfulStatusAndRedirectCodes()
+                    .catchError({ (error) -> Single<Response> in
+                        return Single.error(NetworkError.error(by: error))
+                    })
                     .map(Node.DTO.TransactionContainers.self)
                     .map { $0.anyTransactions(status: .completed, environment: environment) }
                     .asObservable()
@@ -96,6 +100,10 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                     .request(.init(kind: .getActive(accountAddress: accountAddress),
                                    environment: environment),
                                    callbackQueue: DispatchQueue.global(qos: .background))
+                    .filterSuccessfulStatusAndRedirectCodes()
+                    .catchError({ (error) -> Single<Response> in
+                        return Single.error(NetworkError.error(by: error))
+                    })
                     .map([Node.DTO.LeaseTransaction].self)
                     .map { $0.map { tx in
                         return DomainLayer.DTO.LeaseTransaction(transaction: tx, status: .activeNow, environment: environment)
@@ -120,7 +128,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                     signature = try wallet.sign(input: signature, kind: [.none])
                 } catch let e {
                     error(e)
-                    return Observable.error(LeasingTransactionRepositoryError.fail)
+                    return Observable.error(TransactionsInteractorError.invalid)
                 }
 
                 let proofs = [Base58.encode(signature)]
@@ -137,13 +145,17 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                     .request(.init(kind: .broadcast(broadcastSpecification),
                                    environment: environment),
                              callbackQueue: DispatchQueue.global(qos: .background))
+                    .filterSuccessfulStatusAndRedirectCodes()
+                    .catchError({ (error) -> Single<Response> in
+                        return Single.error(NetworkError.error(by: error))
+                    })
                     .map(Node.DTO.Transaction.self)
                     .map({ $0.anyTransaction(status: .unconfirmed, environment: environment) })
                     .asObservable()
             }
     }
 
-
+// MARK - -  Dont support
     func newTransactions(by accountAddress: String,
                          specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
         assertMethodDontSupported()
@@ -160,6 +172,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
         assertMethodDontSupported()
         return Observable.never()
     }
+
 
     func isHasTransactions(by accountAddress: String, ignoreUnconfirmed: Bool) -> Observable<Bool> {
         assertMethodDontSupported()
@@ -233,10 +246,7 @@ fileprivate extension TransactionSenderSpecifications {
                                                                      timestamp: timestamp,
                                                                      type: self.type.rawValue,
                                                                      senderPublicKey: publicKey,
-                                                                     proofs: proofs))
-
-        default:
-            break
+                                                                     proofs: proofs))        
         }
 
     }
@@ -311,10 +321,7 @@ fileprivate extension TransactionSenderSpecifications {
             signature += toByteArray(model.amount)
             signature += toByteArray(model.fee)
             signature += toByteArray(timestamp)
-            return signature
-
-        default:
-            break
+            return signature        
         }
 
     }

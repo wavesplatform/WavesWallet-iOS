@@ -31,7 +31,10 @@ class Address {
     
     class func isValidAlias(alias: String?) -> Bool {
         guard let alias = alias else { return false }
-        return RegEx.alias(alias)
+        
+        return RegEx.alias(alias) &&
+            alias.count >= GlobalConstants.aliasNameMinLimitSymbols &&
+            alias.count <= GlobalConstants.aliasNameMaxLimitSymbols
     }
     
     class func isValidAddress(address: String?) -> Bool {

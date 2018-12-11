@@ -23,7 +23,7 @@ final class ReceiveContainerViewController: UIViewController {
     @IBOutlet private weak var scrollViewContainer: UIScrollView!
     @IBOutlet private weak var scrollView: UIScrollView!
     
-    var asset: DomainLayer.DTO.AssetBalance?
+    var asset: DomainLayer.DTO.SmartAssetBalance?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,7 @@ final class ReceiveContainerViewController: UIViewController {
         setupControllers()
         setupSegmentedControl()
         setupSwipeGestures()
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
   
     @objc private func keyboardWillHide() {
@@ -110,8 +110,8 @@ private extension ReceiveContainerViewController {
         for (index, viewController) in viewControllers.enumerated() {
             scrollViewContainer.addSubview(viewController.view)
             viewController.view.frame.origin.x = CGFloat(index) * scrollWidth
-            addChildViewController(viewController)
-            viewController.didMove(toParentViewController: self)
+            addChild(viewController)
+            viewController.didMove(toParent: self)
         }
         
         scrollViewContainer.contentSize = CGSize(width: CGFloat(viewControllers.count) * scrollWidth,

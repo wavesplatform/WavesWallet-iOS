@@ -8,7 +8,7 @@
 
 import UIKit
 import TTTAttributedLabel
-import QRCodeReader
+import AVFoundation
 
 protocol ImportAccountViewControllerDelegate: AnyObject {
     func scanTapped()
@@ -58,7 +58,14 @@ final class ImportAccountScanViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func scanTapped(_ sender: Any) {
-        delegate?.scanTapped()
+
+        CameraAccess.requestAccess(success: { [weak self] in
+                self?.delegate?.scanTapped()
+            }, failure: { [weak self] in
+                let alert = CameraAccess.alertController
+                self?.present(alert, animated: true, completion: nil)
+        })
+    
     }
     
 }

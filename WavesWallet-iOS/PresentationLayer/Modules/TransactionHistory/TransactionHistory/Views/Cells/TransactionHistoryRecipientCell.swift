@@ -107,7 +107,7 @@ extension TransactionHistoryRecipientCell: ViewCalculateHeight {
         }
 
         if let amount = model.amount {
-            key = amount.displayTextFull
+            key = amount.displayText
         } else if name != nil {
             key = address
         } else {
@@ -157,7 +157,7 @@ extension TransactionHistoryRecipientCell: ViewConfiguration {
         }
 
         if let amount = model.amount {
-            key = amount.displayTextFull
+            key = amount.displayText
         } else if name != nil {
             key = address
         } else {

@@ -10,7 +10,7 @@ import UIKit
 
 protocol DexChartHeaderViewDelegate: AnyObject {
 
-    func dexChartDidChangeTimeFrame(_ timeFrame: DexChart.DTO.TimeFrameType)
+    func dexChartDidChangeTimeFrame(_ timeFrame: DomainLayer.DTO.Candle.TimeFrameType)
 }
 
 final class DexChartHeaderView: UIView, NibOwnerLoadable {
@@ -18,7 +18,7 @@ final class DexChartHeaderView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var labelFull: UILabel!
     @IBOutlet private weak var labelTime: UILabel!
    
-    private var timeFrame: DexChart.DTO.TimeFrameType!
+    private var timeFrame: DomainLayer.DTO.Candle.TimeFrameType!
     
     weak var delegate: DexChartHeaderViewDelegate?
     
@@ -27,7 +27,7 @@ final class DexChartHeaderView: UIView, NibOwnerLoadable {
         loadNibContent()
     }
     
-    func setupTimeFrame(timeFrame:  DexChart.DTO.TimeFrameType) {
+    func setupTimeFrame(timeFrame:  DomainLayer.DTO.Candle.TimeFrameType) {
         self.timeFrame = timeFrame
         setuptTimeFrameTitle()
     }
@@ -47,7 +47,7 @@ private extension DexChartHeaderView {
         let cancel = UIAlertAction(title: Localizable.Waves.Dexchart.Button.cancel, style: .cancel, handler: nil)
         controller.addAction(cancel)
 
-        let types: [DexChart.DTO.TimeFrameType] = [.m5, .m15, .m30, .h1, .h4, .h24]
+        let types: [DomainLayer.DTO.Candle.TimeFrameType] = [.m5, .m15, .m30, .h1, .h4, .h24]
         
         for type in types {
             let action = UIAlertAction(title: type.text, style: .default) { (action) in

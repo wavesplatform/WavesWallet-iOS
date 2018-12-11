@@ -56,11 +56,12 @@ extension UINavigationItem {
         static var titleTextAttributes = "titleTextAttributes"
         static var isTranslucent = "isTranslucent"
         static var backIndicatorImage = "backIndicatorImage"
+        static var isDisabledGestureBack = "isDisabledGestureBack"
         static var backIndicatorTransitionMaskImage = "backIndicatorTransitionMaskImage"
         static var largeTitleTextAttributes = "largeTitleTextAttributes"
     }
 
-    @objc var largeTitleTextAttributes: [NSAttributedStringKey : Any]? {
+    @objc var largeTitleTextAttributes: [NSAttributedString.Key : Any]? {
         get {
             return associatedObject(for: &AssociatedKeys.largeTitleTextAttributes)
         }
@@ -91,7 +92,7 @@ extension UINavigationItem {
     }
 
     // TODO: COME B
-    @objc var titleTextAttributes: [NSAttributedStringKey : Any]? {
+    @objc var titleTextAttributes: [NSAttributedString.Key : Any]? {
         get {
             return associatedObject(for: &AssociatedKeys.titleTextAttributes) ?? nil
         }
@@ -168,6 +169,16 @@ extension UINavigationItem {
 
         set {
             setAssociatedObject(newValue, for: &AssociatedKeys.shadowImage)
+        }
+    }
+
+    @objc var isDisabledGestureBack: Bool {
+        get {
+            return associatedObject(for: &AssociatedKeys.isDisabledGestureBack) ?? false
+        }
+
+        set {
+            setAssociatedObject(newValue, for: &AssociatedKeys.isDisabledGestureBack)
         }
     }
 }
@@ -251,7 +262,7 @@ class CustomNavigationController: UINavigationController {
         setNavigationBarHidden(viewController.navigationItem.isNavigationBarHidden, animated: animated)
     }
 
-    override var childViewControllerForStatusBarStyle: UIViewController? {
+    override var childForStatusBarStyle: UIViewController? {
         return self.topViewController
     }
     
@@ -284,7 +295,13 @@ class CustomNavigationController: UINavigationController {
 extension CustomNavigationController: UIGestureRecognizerDelegate {
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+
         if viewControllers.count > 1 {
+
+            if let top = viewControllers.last, top.navigationItem.isDisabledGestureBack == true {
+                return false
+            }
+
             return true
         }
         return false

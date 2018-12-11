@@ -22,11 +22,11 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
     typealias Types = TransactionHistoryTypes
     typealias Event = Types.Event
 
-    var interactor: TransactionHistoryInteractorProtocol!
     weak var moduleOutput: TransactionHistoryModuleOutput?
     let moduleInput: TransactionHistoryModuleInput
     
     private let disposeBag: DisposeBag = DisposeBag()
+    private let addressBook: AddressBookRepositoryProtocol = FactoryRepositories.instance.addressBookRepository
     
     init(input: TransactionHistoryModuleInput) {
         moduleInput = input
@@ -37,14 +37,13 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
         var newFeedbacks = feedbacks
         newFeedbacks.append(showAddressBookFeedback())
         newFeedbacks.append(cancelLeasingFeedback())
-        
+
         Driver.system(initialState: TransactionHistoryPresenter.initialState(transactions: moduleInput.transactions, currentIndex: moduleInput.currentIndex),
                       reduce: { [weak self] state, event in self?.reduce(state: state, event: event) ?? state },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
     }
-
 
     func showAddressBookFeedback() -> TransactionHistoryPresenterProtocol.Feedback {
 
@@ -110,6 +109,10 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
     private func reduce(state: inout TransactionHistoryTypes.State, event: TransactionHistoryTypes.Event) {
 
         switch event {
+
+        case .setContacts(_):
+            break
+
         case .readyView:
             break
 
@@ -177,7 +180,7 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
 
         case .completedAction:
             state.action = .none
-            state.actionDisplay = .none
+            state.actionDisplay = .none        
         }
     }
     

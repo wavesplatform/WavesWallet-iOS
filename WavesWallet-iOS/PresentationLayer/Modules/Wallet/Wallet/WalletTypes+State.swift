@@ -13,27 +13,24 @@ extension WalletTypes.State {
 
     static func initialState() -> WalletTypes.State {
         return WalletTypes.State(assets: [],
+                                 leasing: nil,
                                  displayState: .initialState(kind: .assets))
     }
 
-    func changeDisplay(kind: WalletTypes.DisplayState.Kind) -> WalletTypes.State {
-        
-        var newState = self
+    func changeDisplay(state: inout WalletTypes.State, kind: WalletTypes.DisplayState.Kind) {
 
         var display: WalletTypes.DisplayState.Display!
 
         switch kind {
         case .assets:
-            display = newState.displayState.assets
+            display = state.displayState.assets
         case .leasing:
-            display = newState.displayState.leasing
+            display = state.displayState.leasing
         }
 
         display.animateType = .refresh(animated: false)
 
-        newState.displayState.kind = kind
-        newState.displayState = newState.displayState.updateCurrentDisplay(display)
-
-        return newState
+        state.displayState.kind = kind
+        state.displayState = state.displayState.updateCurrentDisplay(display)
     }
 }

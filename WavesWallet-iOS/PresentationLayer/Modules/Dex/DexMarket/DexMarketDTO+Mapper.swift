@@ -10,7 +10,6 @@ import Foundation
 import SwiftyJSON
 import RealmSwift
 
-
 extension DexMarket.DTO.Pair {
     
     init(_ json: JSON, realm: Realm) {
@@ -19,7 +18,7 @@ extension DexMarket.DTO.Pair {
         var amountAssetName = json["amountAssetName"].stringValue
         var amountAssetShortName = json["amountAssetName"].stringValue
         
-        if let asset = realm.object(ofType: AssetBalance.self, forPrimaryKey: amountAssetId)?.asset {
+        if let asset = realm.object(ofType: Asset.self, forPrimaryKey: amountAssetId) {
             amountAssetName = asset.displayName
             if let ticker = asset.ticker {
                 amountAssetShortName = ticker
@@ -27,7 +26,10 @@ extension DexMarket.DTO.Pair {
         }
         
         //TODO: need remove when move on new Api
-        if let ticker = DexMarket.minersRewardToken[amountAssetName] {
+        if let ticker = DexMarket.MinersRewardToken[amountAssetId] {
+            amountAssetShortName = ticker
+        }
+        else if let ticker = DexMarket.WavesCommunityToken[amountAssetId] {
             amountAssetShortName = ticker
         }
         
@@ -35,7 +37,7 @@ extension DexMarket.DTO.Pair {
         var priceAssetName = json["priceAssetName"].stringValue
         var priceAssetShortName = json["priceAssetName"].stringValue
         
-        if let asset = realm.object(ofType: AssetBalance.self, forPrimaryKey: priceAssetId)?.asset {
+        if let asset = realm.object(ofType: Asset.self, forPrimaryKey: priceAssetId) {
             priceAssetName = asset.displayName
             if let ticker = asset.ticker {
                 priceAssetShortName = ticker
@@ -43,7 +45,10 @@ extension DexMarket.DTO.Pair {
         }
         
         //TODO: need remove when move on new Api
-        if let ticker = DexMarket.minersRewardToken[priceAssetName] {
+        if let ticker = DexMarket.MinersRewardToken[priceAssetId] {
+            priceAssetShortName = ticker
+        }
+        else if let ticker = DexMarket.WavesCommunityToken[priceAssetId] {
             priceAssetShortName = ticker
         }
         
@@ -58,10 +63,10 @@ extension DexMarket.DTO.Pair {
                                     decimals: json["priceAssetInfo"]["decimals"].intValue)
         
         
-        let isGeneralAmount = realm.objects(AssetBalance.self)
-            .filter(NSPredicate(format: "assetId == %@ AND asset.isGeneral == true", amountAsset.id)).count > 0
-        let isGeneralPrice = realm.objects(AssetBalance.self)
-            .filter(NSPredicate(format: "assetId == %@ AND asset.isGeneral == true", priceAsset.id)).count > 0
+        let isGeneralAmount = realm.objects(Asset.self)
+            .filter(NSPredicate(format: "id == %@ AND isGeneral == true", amountAsset.id)).count > 0
+        let isGeneralPrice = realm.objects(Asset.self)
+            .filter(NSPredicate(format: "id == %@ AND isGeneral == true", priceAsset.id)).count > 0
         
         isGeneral = isGeneralAmount && isGeneralPrice
         id = amountAssetId + priceAssetId

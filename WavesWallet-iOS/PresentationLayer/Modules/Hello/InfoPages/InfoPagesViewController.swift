@@ -72,9 +72,14 @@ final class InfoPagesViewController: UIViewController {
         setupConstraints()
         
         gradientView.endColor = .basic50
-        toolbarView.layer.setupShadow(options: InfoPagesViewControllerConstants.toolbarShadowOptions)
-        toolbarView.cornerRadius = 2
+        toolbarView.addTableCellShadowStyle()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        changedPage()
     }
     
     // MARK: - Setup
@@ -104,7 +109,7 @@ final class InfoPagesViewController: UIViewController {
         collectionView.delegate = self
         
         view.addSubview(collectionView)
-        view.sendSubview(toBack: collectionView)
+        view.sendSubviewToBack(collectionView)
     }
     
     // MARK: - Layout
@@ -160,9 +165,9 @@ final class InfoPagesViewController: UIViewController {
         if let currentModel = pageModels[currentPage] as? LongInfoPageView.Model {
             nextControl.isEnabled = currentModel.scrolledToBottom
             toolbarLabel.alpha = currentModel.scrolledToBottom ? 1 : 0.5
-        } else {
-            nextControl.isEnabled = true
-            toolbarLabel.alpha = 1
+        } else if let currentModel = pageModels[currentPage] as? ShortInfoPageView.Model {
+            nextControl.isEnabled = currentModel.scrolledToBottom
+            toolbarLabel.alpha = currentModel.scrolledToBottom ? 1 : 0.5
         }
         
     }
@@ -197,6 +202,7 @@ extension InfoPagesViewController: UICollectionViewDataSource {
         
         if let pageView = pageView as? ShortInfoPageView {
             
+            pageView.delegate = self
             pageView.update(with: pageModel as! ShortInfoPageView.Model)
             
         } else if let pageView = pageView as? LongInfoPageView {
@@ -225,6 +231,10 @@ extension InfoPagesViewController: UICollectionViewDelegateFlowLayout, UICollect
             pageView.updateOnScroll()
         }
         
+        if let pageView = pageView as? ShortInfoPageView {
+            pageView.updateOnScroll()
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -248,9 +258,8 @@ extension InfoPagesViewController: UIScrollViewDelegate {
             
             var page = Int((offsetX + size / 2) / size)
             let maxOffset = size * CGFloat(page)
-//            print(offsetX, maxOffset)
+
             if offsetX > maxOffset && !nextControl.isEnabled && offsetX > prevOffsetX {
-                print(offsetX, maxOffset)
                 scrollView.contentOffset.x = maxOffset
             }
             
@@ -262,10 +271,6 @@ extension InfoPagesViewController: UIScrollViewDelegate {
  
         } 
         
-    }
-    
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-//        scrollToRight = scro
     }
     
 }
@@ -280,6 +285,23 @@ extension InfoPagesViewController: LongInfoPageViewDelegate {
         
         if let model = pageModels[index] as? LongInfoPageView.Model {
              model.scrolledToBottom = true
+        }
+        
+        changedPage()
+    }
+    
+}
+
+extension InfoPagesViewController: ShortInfoPageViewDelegate {
+    
+    func shortInfoPageViewDidScrollToBottom(view: ShortInfoPageView) {
+        
+        guard let index = pageViews.firstIndex(where: { (pageView) -> Bool in
+            return pageView == view
+        }) else { return }
+        
+        if let model = pageModels[index] as? ShortInfoPageView.Model {
+            model.scrolledToBottom = true
         }
         
         changedPage()
@@ -304,43 +326,41 @@ enum InfoPagesViewControllerConstants {
         case big = 24
     }
     
-    static let toolbarShadowOptions = ShadowOptions(offset: .init(width: 0, height: 4), color: .black, opacity: 0.1, shadowRadius: 4, shouldRasterize: false)
-    
-    static let titleAttributes: [NSAttributedStringKey: Any] = {
+    static let titleAttributes: [NSAttributedString.Key: Any] = {
         
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 0
         
-        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 34, weight: .bold), NSAttributedStringKey.kern: 0.4,
-                          NSAttributedStringKey.foregroundColor: UIColor.black,
-                          NSAttributedStringKey.paragraphStyle: style] as [NSAttributedStringKey : Any]
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 34, weight: .bold), NSAttributedString.Key.kern: 0.4,
+                          NSAttributedString.Key.foregroundColor: UIColor.black,
+                          NSAttributedString.Key.paragraphStyle: style] as [NSAttributedString.Key : Any]
         
         return attributes
         
     }()
     
-    static let subtitleAttributes: [NSAttributedStringKey: Any] = {
+    static let subtitleAttributes: [NSAttributedString.Key: Any] = {
         
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 0
         
-        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13, weight: .semibold), NSAttributedStringKey.kern: 0.4,
-                          NSAttributedStringKey.foregroundColor: UIColor.black,
-                          NSAttributedStringKey.paragraphStyle: style] as [NSAttributedStringKey : Any]
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13, weight: .semibold), NSAttributedString.Key.kern: 0.4,
+                          NSAttributedString.Key.foregroundColor: UIColor.black,
+                          NSAttributedString.Key.paragraphStyle: style] as [NSAttributedString.Key : Any]
         
         return attributes
         
     }()
     
     
-    static let textAttributes: [NSAttributedStringKey: Any] = {
+    static let textAttributes: [NSAttributedString.Key: Any] = {
         
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 3
         
-        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.kern: -0.1,
-                          NSAttributedStringKey.foregroundColor: UIColor.black,
-                          NSAttributedStringKey.paragraphStyle: style] as [NSAttributedStringKey : Any]
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.kern: -0.1,
+                          NSAttributedString.Key.foregroundColor: UIColor.black,
+                          NSAttributedString.Key.paragraphStyle: style] as [NSAttributedString.Key : Any]
         
         return attributes
         

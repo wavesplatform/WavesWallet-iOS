@@ -9,10 +9,10 @@
 import UIKit
 
 final class HistoryHeaderView: UITableViewHeaderFooterView, NibReusable {
-    @IBOutlet var labelTitle: UILabel!
+    @IBOutlet private var labelTitle: UILabel!
     
     class func viewHeight() -> CGFloat {
-        return 48
+        return 36
     }
 }
 

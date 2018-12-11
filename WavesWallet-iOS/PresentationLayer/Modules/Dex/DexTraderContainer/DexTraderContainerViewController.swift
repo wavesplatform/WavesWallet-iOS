@@ -45,7 +45,7 @@ final class DexTraderContainerViewController: UIViewController {
         setupSmallNavigationBar()
         hideTopBarLine()
         navigationItem.backgroundImage = UIImage()
-        navigationItem.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        navigationItem.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
     }
     
     override func viewWillLayoutSubviews() {
@@ -147,8 +147,8 @@ private extension DexTraderContainerViewController {
         scrollView.addSubview(viewController.view)
         setupViewControllerSize(view: viewController.view)
         viewController.view.frame.origin.x = CGFloat(atIndex) * Platform.ScreenWidth
-        addChildViewController(viewController)
-        viewController.didMove(toParentViewController: self)
+        addChild(viewController)
+        viewController.didMove(toParent: self)
     }
     
     func setupViewControllerSize(view: UIView) {

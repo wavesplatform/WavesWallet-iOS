@@ -11,7 +11,7 @@ import RxSwift
 
 protocol TokenBurnLoadingViewControllerDelegate: AnyObject {
     
-    func tokenBurnLoadingViewControllerDidFail(error: ResponseTypeError)
+    func tokenBurnLoadingViewControllerDidFail(error: NetworkError)
 }
 
 final class TokenBurnLoadingViewController: UIViewController {
@@ -30,7 +30,9 @@ final class TokenBurnLoadingViewController: UIViewController {
         labelLoading.text = Localizable.Waves.Tokenburn.Label.loading
         navigationItem.hidesBackButton = true
         
-        interactor.burnAsset(asset: input.asset, fee: input.fee, quiantity: input.amount)
+        interactor
+            .burnAsset(asset: input.asset, fee: input.fee, quiantity: input.amount)
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (status) in
                 
                 switch status {
@@ -42,7 +44,8 @@ final class TokenBurnLoadingViewController: UIViewController {
                     self?.navigationController?.popViewController(animated: true)
                 }
                 
-            }).disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func showCompleteScreen() {
@@ -50,7 +53,7 @@ final class TokenBurnLoadingViewController: UIViewController {
         let isFullBurned = input.amount.amount == input.asset.avaliableBalance
 
         let vc = StoryboardScene.Asset.tokenBurnCompleteViewController.instantiate()
-        vc.input = .init(assetName: input.asset.asset?.displayName ?? "",
+        vc.input = .init(assetName: input.asset.asset.displayName,
                          isFullBurned: isFullBurned,
                          delegate: input.delegate,
                          amount: input.amount)

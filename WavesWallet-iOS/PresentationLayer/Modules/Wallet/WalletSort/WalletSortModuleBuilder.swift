@@ -10,10 +10,10 @@ import UIKit
 
 struct WalletSortModuleBuilder: ModuleBuilder {
 
-    func build(input: Void) -> UIViewController {
+    func build(input: [DomainLayer.DTO.SmartAssetBalance]) -> UIViewController {
 
         let vc = StoryboardScene.Wallet.walletSortViewController.instantiate()
-        var presenter: WalletSortPresenterProtocol = WalletSortPresenter()
+        var presenter: WalletSortPresenterProtocol = WalletSortPresenter(input: input)
         presenter.interactor = WalletSortInteractor()
         vc.presenter = presenter
         

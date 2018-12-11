@@ -28,7 +28,6 @@ final class LanguageTableCell: UITableViewCell, NibReusable {
     class func cellHeight() -> CGFloat {
         return 60
     }
-    
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,8 +37,26 @@ final class LanguageTableCell: UITableViewCell, NibReusable {
         if Platform.isIphone5 {
             leftConstraint.constant = 16
             rightConstraint.constant = 16
-        }    
+        } else {
+            leftConstraint.constant = 24
+            rightConstraint.constant = 24
+        }
+        
+        selectedBackgroundView = UIView()
+        selectedBackgroundView?.backgroundColor = .white
     }
+
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        
+        if highlighted {
+            selectedBackgroundView?.backgroundColor = .basic50
+        } else {
+            selectedBackgroundView?.backgroundColor = .white
+        }
+        
+    }
+    
 }
 
 extension LanguageTableCell: ViewConfiguration {

@@ -14,33 +14,34 @@ enum Send {
 
     enum TransactionStatus {
         case success
-        case error(ResponseTypeError)
+        case error(NetworkError)
     }
     
     enum Event {
         case didChangeRecipient(String)
         case didChangeMoneroPaymentID(String)
-        case didSelectAsset(DomainLayer.DTO.AssetBalance, loadGatewayInfo: Bool)
+        case didSelectAsset(DomainLayer.DTO.SmartAssetBalance, loadGatewayInfo: Bool)
         case getGatewayInfo
         case didGetGatewayInfo(ResponseType<DTO.GatewayInfo>)
         case checkValidationAlias
         case validationAliasDidComplete(Bool)
-        case didGetWavesAsset(DomainLayer.DTO.AssetBalance)
+        case didGetWavesAsset(DomainLayer.DTO.SmartAssetBalance)
         case moneroAddressDidGenerate(ResponseType<String>)
         case getAssetById(String)
-        case didGetAssetBalance(DomainLayer.DTO.AssetBalance?)
+        case cancelGetingAsset
+        case didGetAssetBalance(DomainLayer.DTO.SmartAssetBalance?)
     }
     
     struct State: Mutating {
         enum Action {
             case none
             case didGetInfo(DTO.GatewayInfo)
-            case didFailInfo(ResponseTypeError)
+            case didFailInfo(NetworkError)
             case aliasDidFinishCheckValidation(Bool)
-            case didGetWavesAsset(DomainLayer.DTO.AssetBalance)
+            case didGetWavesAsset(DomainLayer.DTO.SmartAssetBalance)
             case didGenerateMoneroAddress(String)
-            case didFailGenerateMoneroAddress(ResponseTypeError)
-            case didGetAssetBalance(DomainLayer.DTO.AssetBalance?)
+            case didFailGenerateMoneroAddress(NetworkError)
+            case didGetAssetBalance(DomainLayer.DTO.SmartAssetBalance?)
         }
         
         var isNeedLoadInfo: Bool
@@ -50,7 +51,7 @@ enum Send {
         var action: Action
         var recipient: String = ""
         var moneroPaymentID: String = ""
-        var selectedAsset: DomainLayer.DTO.AssetBalance?
+        var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
         var scanningAssetID: String?
     }
 }

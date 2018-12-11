@@ -14,7 +14,7 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
 
     private let assetsProvider: MoyaProvider<Node.Service.Assets> = .nodeMoyaProvider()
     private let addressesProvider: MoyaProvider<Node.Service.Addresses> = .nodeMoyaProvider()
-    private let matcherBalanceProvider: MoyaProvider<Matcher.Service.Balance> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
+    private let matcherBalanceProvider: MoyaProvider<Matcher.Service.Balance> = .nodeMoyaProvider()
 
     private let environmentRepository: EnvironmentRepositoryProtocol
 
@@ -39,11 +39,6 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
     }
 
     func balance(by id: String, accountAddress: String) -> Observable<DomainLayer.DTO.AssetBalance> {
-        assertMethodDontSupported()
-        return Observable.never()
-    }
-
-    func balances(by accountAddress: String, specification: AccountBalanceSpecifications) -> Observable<[DomainLayer.DTO.AssetBalance]> {
         assertMethodDontSupported()
         return Observable.never()
     }
@@ -88,9 +83,11 @@ private extension AccountBalanceRepositoryRemote {
                                    environment: environment),
                              callbackQueue: DispatchQueue.global(qos: .background))
             }
+            .filterSuccessfulStatusAndRedirectCodes()
+            .catchError({ (error) -> Observable<Response> in
+                return Observable.error(NetworkError.error(by: error))
+            })
             .map([String: Int64].self)
-            .asObservable()
-            .catchErrorJustReturn([String: Int64]())
     }
 
     func assetsBalance(by walletAddress: String) -> Observable<Node.DTO.AccountAssetsBalance> {
@@ -107,6 +104,10 @@ private extension AccountBalanceRepositoryRemote {
                                    environment: environment),
                              callbackQueue: DispatchQueue.global(qos: .background))
             }
+            .filterSuccessfulStatusAndRedirectCodes()
+            .catchError({ (error) -> Observable<Response> in
+                return Observable.error(NetworkError.error(by: error))
+            })
             .map(Node.DTO.AccountAssetsBalance.self)
             .asObservable()
     }
@@ -124,8 +125,11 @@ private extension AccountBalanceRepositoryRemote {
                                    environment: environment),
                              callbackQueue: DispatchQueue.global(qos: .background))
             }
+            .filterSuccessfulStatusAndRedirectCodes()
+            .catchError({ (error) -> Observable<Response> in
+                return Observable.error(NetworkError.error(by: error))
+            })
             .map(Node.DTO.AccountBalance.self)
-            .asObservable()
     }
 }
 
@@ -133,21 +137,18 @@ private extension DomainLayer.DTO.AssetBalance {
 
     init(accountBalance: Node.DTO.AccountBalance, inOrderBalance: Int64) {
         self.assetId = GlobalConstants.wavesAssetId
-        self.balance = accountBalance.balance
+        self.totalBalance = accountBalance.balance
         self.leasedBalance = 0
         self.inOrderBalance = inOrderBalance
-        self.settings = nil
-        self.asset = nil
         self.modified = Date()
     }
 
     init(model: Node.DTO.AssetBalance, inOrderBalance: Int64) {
         self.assetId = model.assetId
-        self.balance = model.balance
+        self.totalBalance = model.balance
         self.leasedBalance = 0
         self.inOrderBalance = inOrderBalance
-        self.settings = nil
-        self.asset = nil
+
         self.modified = Date()
     }
 

@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import RxSwift
+private enum Constants {
+    static let duration: TimeInterval = 3
+}
 
 final class ImportCoordinator: Coordinator {
 
@@ -16,7 +20,10 @@ final class ImportCoordinator: Coordinator {
     private let navigationController: UINavigationController
     private let completed: ((ImportTypes.DTO.Account) -> Void)
 
+    private let disposeBag: DisposeBag = DisposeBag()
+    private let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private var currentPrivateKeyAccount: PrivateKeyAccount?
+    
 
     init(navigationController: UINavigationController, completed: @escaping ((ImportTypes.DTO.Account) -> Void)) {
         self.navigationController = navigationController
@@ -36,11 +43,23 @@ final class ImportCoordinator: Coordinator {
     
     func scannedSeed(_ seed: String) {
         if seed.utf8.count >= ImportTypes.minimumSeedLength {
-            currentPrivateKeyAccount = PrivateKeyAccount(seedStr: seed)
-            showAccountPassword(currentPrivateKeyAccount!)
-        }
-        else {
-            //TODO: need to show error Localizable.Waves.Enter.Button.Importaccount.Error.insecureSeed
+            let privateKeyAccount = PrivateKeyAccount(seedStr: seed)
+            currentPrivateKeyAccount = privateKeyAccount
+
+
+            auth.existWallet(by: privateKeyAccount.getPublicKeyStr()).subscribe(onNext: { [weak self] wallet in
+
+                self?.navigationController.topViewController?.showErrorSnackWithoutAction(tille: Localizable.Waves.Import.General.Error.alreadyinuse, duration: Constants.duration)
+
+                }, onError: { [weak self] _ in
+
+                    self?.showAccountPassword(privateKeyAccount)
+                })
+                .disposed(by: disposeBag)
+        } else {
+            if let vc = navigationController.viewControllers.first(where: {$0.isKind(of: ImportAccountViewController.classForCoder())}) {
+                vc.showMessageSnack(title: Localizable.Waves.Enter.Button.Importaccount.Error.insecureSeed)
+            }
         }
     }
     
@@ -57,10 +76,11 @@ final class ImportCoordinator: Coordinator {
     }
     
     func showAccountPassword(_ keyAccount: PrivateKeyAccount) {
+
         let vc = StoryboardScene.Import.importAccountPasswordViewController.instantiate()
         vc.delegate = self
         vc.address = keyAccount.address
-        navigationController.pushViewController(vc, animated: true)
+        self.navigationController.pushViewController(vc, animated: true)
     }
     
 }

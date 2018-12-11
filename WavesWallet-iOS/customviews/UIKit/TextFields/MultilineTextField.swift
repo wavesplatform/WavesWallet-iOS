@@ -26,6 +26,12 @@ final class MultilineTextField: UIView {
     fileprivate var placeholderLabel: UILabel!
     fileprivate var errorLabel: UILabel!
     fileprivate var separator: UIView!
+
+    var error: String? {
+        didSet {
+            checkValid()
+        }
+    }
     
     weak var delegate: MultilineTextFieldDelegate?
     
@@ -186,6 +192,11 @@ final class MultilineTextField: UIView {
             errorString = delegate?.multilineTextField(textField: self, errorTextForValue: text)
             isValidValue = errorString == nil
         }
+
+        if let error = self.error, error.count > 0 {
+            errorString = error
+            isValidValue = errorString == nil
+        }
         
         errorLabel.text = errorString
         errorLabel.isHidden = isValidValue
@@ -196,6 +207,10 @@ final class MultilineTextField: UIView {
     
     @discardableResult override func becomeFirstResponder() -> Bool {
         return textView.becomeFirstResponder()
+    }
+    
+    @discardableResult override func resignFirstResponder() -> Bool {
+        return textView.resignFirstResponder()
     }
     
 }

@@ -9,7 +9,8 @@
 import Foundation
 
 private enum Constants {
-    static let MinersRewardToken = ["MinersReward" : "MRT"]
+    static let MinersRewardToken = ["4uK8i4ThRGbehENwa6MxyLtxAjAo1Rj9fduborGExarC" : "MRT"]
+    static let WavesCommunityToken = ["DHgwrRvVyqJsepd32YbBqUeDH4GJ1N984X8QoekjgH8J" : "WCT"]
 }
 
 enum DexMarket {
@@ -48,8 +49,12 @@ extension DexMarket.ViewModel {
 }
 
 extension DexMarket {
-    static var minersRewardToken: [String : String] {
+    static var MinersRewardToken: [String : String] {
         return Constants.MinersRewardToken
+    }
+    
+    static var WavesCommunityToken: [String : String] {
+        return Constants.WavesCommunityToken
     }
 }
 

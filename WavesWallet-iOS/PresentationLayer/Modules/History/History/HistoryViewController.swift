@@ -15,6 +15,7 @@ import SwiftDate
 
 fileprivate enum Constants {
     static let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0 )
+    static let animationDurationReloadTabel: TimeInterval = 0.24
 }
 
 final class HistoryViewController: UIViewController {
@@ -23,13 +24,15 @@ final class HistoryViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: WalletSegmentedControl!
-    private var refreshControl: UIRefreshControl!
-    
-    private let disposeBag: DisposeBag = DisposeBag()
-    private var isRefreshing: Bool = false
-    
     @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var emptyTextLabel: UILabel!
+    @IBOutlet weak var globalErrorView: GlobalErrorView!
+
+    private var refreshControl: UIRefreshControl!
+
+    private let disposeBag: DisposeBag = DisposeBag()
+    private var isRefreshing: Bool = false
+    private var snackError: String? = nil
     
     var presenter: HistoryPresenterProtocol!
 
@@ -53,6 +56,9 @@ final class HistoryViewController: UIViewController {
         tableView.addGestureRecognizer(leftRightGesture)
         tableView.addGestureRecognizer(rightSwipeGesture)
 
+        globalErrorView.retryDidTap = { [weak self] in
+            self?.sendEvent.accept(.refresh)
+        }
 
         emptyView.isHidden = true
         setupLocalization()
@@ -206,36 +212,94 @@ private extension HistoryViewController {
             .drive(onNext: { [weak self] (state) in
             
                 guard let strongSelf = self else { return }
-            
-                strongSelf.emptyView.isHidden = state.sections.count > 0
-                
-                if (!strongSelf.filters.elementsEqual(state.filters)) {
-                    strongSelf.filters = state.filters
-                    strongSelf.setupSegmentedControl()
-                    strongSelf.changeFilter(state.currentFilter)
-                }
-                
-                strongSelf.sections = state.sections
-                strongSelf.isRefreshing = state.isRefreshing
-                strongSelf.segmentedControl.segmentedControl.selectedIndex = strongSelf.filters.firstIndex(of: state.currentFilter) ?? 0
-
-                UIView.transition(with: strongSelf.tableView,
-                                  duration: 0.24,
-                                  options: [.transitionCrossDissolve, .curveEaseInOut],
-                                  animations: {
-                                    
-                                    strongSelf.tableView.reloadData()
-                                    
-                                    
-                }, completion: { _ in            
-                    strongSelf.refreshControl.endRefreshing()
-                })
-                
-        })
+                strongSelf.updateView(state: state)
+            })
         
         return [subscriptionSections]
     }
-    
+
+    func updateView(state: Types.State) {
+
+        if (!filters.elementsEqual(state.filters)) {
+            filters = state.filters
+            setupSegmentedControl()
+            changeFilter(state.currentFilter)
+        }
+
+        sections = state.sections
+        isRefreshing = state.isRefreshing
+        changeFilter(state.currentFilter)
+
+        updateErrorView(state: state)
+
+        UIView.transition(with: tableView,
+                          duration: Constants.animationDurationReloadTabel,
+                          options: [.transitionCrossDissolve, .curveEaseInOut],
+                          animations: {
+                self.tableView.reloadData()
+        }, completion: { _ in
+            if state.isRefreshing == false {
+                self.refreshControl.endRefreshing()
+            }
+        })
+    }
+
+    func updateErrorView(state: Types.State) {
+
+        switch state.errorState {
+        case .none:
+            if let snackError = snackError {
+                hideSnack(key: snackError)
+            }
+            snackError = nil
+            self.globalErrorView.isHidden = true
+            emptyView.isHidden = state.sections.count > 0
+
+        case .error(let error):
+            emptyView.isHidden = true
+            switch error {
+            case .globalError(let isInternetNotWorking):
+                self.globalErrorView.isHidden = false
+                if isInternetNotWorking {
+                    globalErrorView.update(with: .init(kind: .internetNotWorking))
+                } else {
+                    globalErrorView.update(with: .init(kind: .serverError))
+                }
+
+            case .internetNotWorking:
+                globalErrorView.isHidden = true
+                snackError = showWithoutInternetSnack()
+
+            case .notFound:
+                snackError = showErrorNotFoundSnack()
+
+            case .message(let message):
+                globalErrorView.isHidden = true
+                snackError = showErrorSnack(message)
+            }
+
+        case .waiting:
+            break
+        }
+    }
+
+    private func showWithoutInternetSnack() -> String {
+        return showWithoutInternetSnack { [weak self] in
+            self?.sendEvent.accept(.refresh)
+        }
+    }
+
+    private func showErrorSnack(_ message: (String)) -> String {
+        return showErrorSnack(tille: message, didTap: { [weak self] in
+            self?.sendEvent.accept(.refresh)
+        })
+    }
+
+    private func showErrorNotFoundSnack() -> String {
+        return showErrorNotFoundSnack() { [weak self] in
+            self?.sendEvent.accept(.refresh)
+        }
+    }
 }
 
 // MARK: - Setup
@@ -262,8 +326,6 @@ extension HistoryViewController {
             tableView.addSubview(refreshControl)
         }
     }
-
-    
 }
 
 extension HistoryViewController: UITableViewDelegate {
@@ -321,6 +383,9 @@ extension HistoryViewController: UITableViewDelegate {
             return HistoryTransactionSkeletonCell.cellHeight()
             
         case .transaction:
+            if indexPath.row == sections[indexPath.section].items.count - 1 {
+                return HistoryTransactionCell.lastCellHeight()
+            }
             return HistoryTransactionCell.cellHeight()
         }
 
