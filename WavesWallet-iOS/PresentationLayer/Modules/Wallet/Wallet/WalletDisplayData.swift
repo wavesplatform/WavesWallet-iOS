@@ -120,7 +120,9 @@ extension WalletDisplayData: UITableViewDataSource {
             return cell
 
         case .quickNote:
-            return tableView.dequeueCell() as WalletQuickNoteCell
+            let cell = tableView.dequeueCell() as WalletQuickNoteCell
+            cell.setupLocalization()
+            return cell
         }
     }
 
@@ -254,8 +256,8 @@ fileprivate extension WalletTypes.ViewModel.Section {
         case .info:
             return Localizable.Waves.Wallet.Section.quickNote
 
-        case .transactions:
-            return Localizable.Waves.Wallet.Section.activeNow(items.count)
+        case .transactions(let count):
+            return Localizable.Waves.Wallet.Section.activeNow(count)
 
         case .spam(let count):
             return Localizable.Waves.Wallet.Section.spamAssets(count)
