@@ -10,11 +10,11 @@ import Foundation
 
 enum GlobalConstants {
     #if DEBUG
-    static let accountNameMinLimitSymbols: Int = 1
+    static let accountNameMinLimitSymbols: Int = 2
     static let accountNameMaxLimitSymbols: Int = 24
     static let minLengthPassword: Int = 2
     #else
-    static let accountNameMinLimitSymbols: Int = 1
+    static let accountNameMinLimitSymbols: Int = 2
     static let accountNameMaxLimitSymbols: Int = 24
     static let minLengthPassword: Int = 6
     #endif
@@ -28,8 +28,9 @@ enum GlobalConstants {
     static let WavesDecimals: Int = 8
     static let WavesTransactionFee = Money(GlobalConstants.WavesTransactionFeeAmount, GlobalConstants.WavesDecimals)
 
+    static let moneyLocale = Locale(identifier: "en_US")
+    
     enum Coinomat {}
-    enum Market {}
     enum Matcher {}
 }
 
@@ -40,7 +41,7 @@ extension GlobalConstants.Matcher {
     static var matcher: String {
         return url + "matcher"
     }
-    
+
     static var orderBook: String {
         return url + "matcher/orderbook"
     }
@@ -55,24 +56,6 @@ extension GlobalConstants.Matcher {
     
     static func cancelOrder(_ amountAsset: String, _ priceAsset: String) -> String {
         return orderBook + "/" + amountAsset + "/" + priceAsset + "/" + "cancel"
-    }
-}
-
-extension GlobalConstants.Market {
-    
-    private static let url = "https://marketdata.wavesplatform.com/"
-    private static let apiPath = "api/"
-    
-    static func trades(_ amountAsset: String, _ priceAsset: String, _ count: Int) -> String {
-        return url + apiPath + "trades/" + amountAsset + "/" + priceAsset + "/" + String(count)
-    }
-    
-    static var candles: String {
-        return url + apiPath + "candles/"
-    }
-    
-    static var ticker: String {
-        return url + apiPath + "ticker/"
     }
 }
 

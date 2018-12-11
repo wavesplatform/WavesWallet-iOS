@@ -50,7 +50,7 @@ final class DexChartCandlePriceView: UIView, NibOwnerLoadable {
         loadNibContent()
     }
     
-    func setupWidth(candles: [DexChart.DTO.Candle], pair: DexTraderContainer.DTO.Pair) {
+    func setupWidth(candles: [DomainLayer.DTO.Candle], pair: DexTraderContainer.DTO.Pair) {
         if width == 0 {
             width = DexChartHelper.candleRightWidth(candles: candles, pair: pair) + Constants.additionalDeltaWidth
             isNeedUpdateConstraints = true
@@ -68,13 +68,13 @@ final class DexChartCandlePriceView: UIView, NibOwnerLoadable {
         
         if highlightedMode && shapeLayer == nil {
             
-            let lineDashPattern = DexChart.ChartContants.Candle.DataSet.highlightLineDashLengths.map { NSNumber(value: Float($0)) }
+            let lineDashPattern = DexChart.ChartConstants.Candle.DataSet.highlightLineDashLengths.map { NSNumber(value: Float($0)) }
             
             shapeLayer = CAShapeLayer()
             guard let shapeLayer = shapeLayer else { return }
             
-            shapeLayer.strokeColor = DexChart.ChartContants.Candle.DataSet.highlightColor.cgColor
-            shapeLayer.lineWidth = DexChart.ChartContants.Candle.DataSet.highlightLineWidth
+            shapeLayer.strokeColor = DexChart.ChartConstants.Candle.DataSet.highlightColor.cgColor
+            shapeLayer.lineWidth = DexChart.ChartConstants.Candle.DataSet.highlightLineWidth
             shapeLayer.lineDashPattern = lineDashPattern
             
             let y = frame.size.height / 2

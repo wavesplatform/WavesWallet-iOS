@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 
 fileprivate enum Constants {
-    static let imageEdgeInsetsForButtonWithIcon = UIEdgeInsetsMake(0, -8, 0, 8)
-    static let contentEdgeInsetsForButtonWithIcon = UIEdgeInsetsMake(0, 16, 0, 8)
-    static let contentEdgeInsetsForButtonOnlyText = UIEdgeInsetsMake(0, 24, 0, 24)
+    static let imageEdgeInsetsForButtonWithIcon = UIEdgeInsets.init(top: 0, left: -8, bottom: 0, right: 8)
+    static let contentEdgeInsetsForButtonWithIcon = UIEdgeInsets.init(top: 0, left: 16, bottom: 0, right: 8)
+    static let contentEdgeInsetsForButtonOnlyText = UIEdgeInsets.init(top: 0, left: 24, bottom: 0, right: 24)
     static let cornerRadius: CGFloat = 2
     static let height: CGFloat = 30
 }
@@ -63,7 +63,7 @@ final class SegmentedControl: UIControl, NibOwnerLoadable {
     }
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: Constants.height)
+        return CGSize(width: UIView.noIntrinsicMetric, height: Constants.height)
     }
     
     func setSelectedIndex(_ index: Int, animation: Bool) {
@@ -115,7 +115,7 @@ fileprivate final class SegmentedControlButton: UIButton, ViewConfiguration {
         } else {
             setImage(nil, for: .normal)
             setImage(nil, for: .selected)
-            imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+            imageEdgeInsets = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
             contentEdgeInsets = Constants.contentEdgeInsetsForButtonOnlyText
         }
 

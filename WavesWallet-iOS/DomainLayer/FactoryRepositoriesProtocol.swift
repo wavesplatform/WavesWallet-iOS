@@ -13,9 +13,6 @@ protocol FactoryRepositoriesProtocol {
     var assetsRepositoryLocal: AssetsRepositoryProtocol { get }
     var assetsRepositoryRemote: AssetsRepositoryProtocol { get }
 
-    var leasingRepositoryLocal: LeasingTransactionRepositoryProtocol { get }
-    var leasingRepositoryRemote: LeasingTransactionRepositoryProtocol { get }
-
     var accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol { get }
     var accountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol { get }
 
@@ -38,6 +35,13 @@ protocol FactoryRepositoriesProtocol {
     var dexRepository: DexRepositoryProtocol { get }
 
     var aliasesRepository: AliasesRepositoryProtocol { get }
+    var aliasesRepositoryLocal: AliasesRepositoryProtocol { get }
+
+    var assetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositoryProtocol { get }
+    
+    var candlesRepository: CandlesRepositoryProtocol { get }
+    
+    var lastTradesRespository: LastTradesRepositoryProtocol { get }
 }
 
 protocol RepositoryCache {

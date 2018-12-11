@@ -12,11 +12,12 @@ final class FactoryInteractors: FactoryInteractorsProtocol {
 
     static let instance: FactoryInteractors = FactoryInteractors()
 
-    private(set) lazy var assetsInteractor: AssetsInteractorProtocol = AssetsInteractor()    
+    private(set) lazy var assetsInteractor: AssetsInteractorProtocol = AssetsInteractor()  
     private(set) lazy var accountBalance: AccountBalanceInteractorProtocol = AccountBalanceInteractor()
     private(set) lazy var transactions: TransactionsInteractorProtocol = TransactionsInteractor()
-    private(set) lazy var accounts: AccountsInteractorProtocol = AccountsInteractorMock()
+    private(set) lazy var accounts: AccountsInteractorProtocol = AccountsInteractor()
     private(set) lazy var authorization: AuthorizationInteractorProtocol = AuthorizationInteractor()
-
+    private(set) lazy var aliases: AliasesInteractorProtocol = AliasesInteractor()
+    private(set) lazy var assetsBalanceSettings: AssetsBalanceSettingsInteractorProtocol = AssetsBalanceSettingsInteractor()
     fileprivate init() {}
 }

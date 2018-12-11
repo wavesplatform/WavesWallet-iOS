@@ -12,6 +12,22 @@ internal enum Localizable {
     internal static var nsCameraUsageDescription: String { return Localizable.tr("InfoPlist", "NSCameraUsageDescription") }
     /// Access to your wallet
     internal static var nsFaceIDUsageDescription: String { return Localizable.tr("InfoPlist", "NSFaceIDUsageDescription") }
+    /// The camera is needed to scan QR codes
+    internal static var nsPhotoLibraryAddUsageDescription: String { return Localizable.tr("InfoPlist", "NSPhotoLibraryAddUsageDescription") }
+
+    internal enum Cameraaccess {
+
+      internal enum Alert {
+        /// Allow Camera
+        internal static var allow: String { return Localizable.tr("InfoPlist", "cameraAccess.alert.allow") }
+        /// Cancel
+        internal static var cancel: String { return Localizable.tr("InfoPlist", "cameraAccess.alert.cancel") }
+        /// Camera access is required to make full use of this app
+        internal static var message: String { return Localizable.tr("InfoPlist", "cameraAccess.alert.message") }
+        /// Need Camera Access
+        internal static var title: String { return Localizable.tr("InfoPlist", "cameraAccess.alert.title") }
+      }
+    }
   }
           internal enum Waves {
 
@@ -33,7 +49,7 @@ internal enum Localizable {
       internal enum Textfield {
 
         internal enum Error {
-          /// at least %d characters
+          /// Minimum %d characters
           internal static func atleastcharacters(_ p1: Int) -> String {
             return Localizable.tr("Waves", "accountpassword.textfield.error.atleastcharacters", p1)
           }
@@ -57,6 +73,17 @@ internal enum Localizable {
         internal static var deleteAddress: String { return Localizable.tr("Waves", "addAddressbook.button.deleteAddress") }
         /// Save
         internal static var save: String { return Localizable.tr("Waves", "addAddressbook.button.save") }
+      }
+
+      internal enum Error {
+        /// %d characters maximum
+        internal static func charactersMaximum(_ p1: Int) -> String {
+          return Localizable.tr("Waves", "addAddressbook.error.charactersMaximum", p1)
+        }
+        /// Minimum %d characters
+        internal static func charactersMinimum(_ p1: Int) -> String {
+          return Localizable.tr("Waves", "addAddressbook.error.charactersMinimum", p1)
+        }
       }
 
       internal enum Label {
@@ -277,7 +304,7 @@ internal enum Localizable {
       internal enum Button {
         /// All list
         internal static var allList: String { return Localizable.tr("Waves", "assetlist.button.allList") }
-        /// My list
+        /// With balance
         internal static var myList: String { return Localizable.tr("Waves", "assetlist.button.myList") }
         /// With balance
         internal static var withBalance: String { return Localizable.tr("Waves", "assetlist.button.withBalance") }
@@ -392,10 +419,28 @@ internal enum Localizable {
     }
 
     internal enum Biometric {
-      /// Authenticate to decrypt wallet private key and confirm your transaction
+      /// Cancel
+      internal static var localizedCancelTitle: String { return Localizable.tr("Waves", "biometric.localizedCancelTitle") }
+      /// Input passcode
+      internal static var localizedFallbackTitle: String { return Localizable.tr("Waves", "biometric.localizedFallbackTitle") }
+      /// Access to your wallet
       internal static var readfromkeychain: String { return Localizable.tr("Waves", "biometric.readfromkeychain") }
-      /// Authenticate to store encrypted wallet private key
+      /// Access to your wallet
       internal static var saveinkeychain: String { return Localizable.tr("Waves", "biometric.saveinkeychain") }
+    }
+
+    internal enum Cameraaccess {
+
+      internal enum Alert {
+        /// Allow Camera
+        internal static var allow: String { return Localizable.tr("Waves", "cameraAccess.alert.allow") }
+        /// Cancel
+        internal static var cancel: String { return Localizable.tr("Waves", "cameraAccess.alert.cancel") }
+        /// Camera access is required to make full use of this app
+        internal static var message: String { return Localizable.tr("Waves", "cameraAccess.alert.message") }
+        /// Need Camera Access
+        internal static var title: String { return Localizable.tr("Waves", "cameraAccess.alert.title") }
+      }
     }
 
     internal enum Changepassword {
@@ -426,7 +471,7 @@ internal enum Localizable {
         }
 
         internal enum Error {
-          /// at least %d characters
+          /// Minimum %d characters
           internal static func atleastcharacters(_ p1: Int) -> String {
             return Localizable.tr("Waves", "changepassword.textfield.error.atleastcharacters", p1)
           }
@@ -521,27 +566,10 @@ internal enum Localizable {
       internal enum General {
 
         internal enum Error {
-          /// Nothing Here...
+          /// Nothing Here…
           internal static var nothingHere: String { return Localizable.tr("Waves", "dex.general.error.nothingHere") }
           /// Something went wrong
           internal static var somethingWentWrong: String { return Localizable.tr("Waves", "dex.general.error.somethingWentWrong") }
-        }
-      }
-
-      internal enum Servererror {
-
-        internal enum Button {
-          /// Retry
-          internal static var retry: String { return Localizable.tr("Waves", "dex.serverError.button.retry") }
-          /// Send a report
-          internal static var sendReport: String { return Localizable.tr("Waves", "dex.serverError.button.sendReport") }
-        }
-
-        internal enum Label {
-          /// Do not worry, we are already fixing this problem.\nSoon everything will work!
-          internal static var subtitle: String { return Localizable.tr("Waves", "dex.serverError.label.subtitle") }
-          /// Oh ... It's all broken!
-          internal static var title: String { return Localizable.tr("Waves", "dex.serverError.label.title") }
         }
       }
     }
@@ -699,9 +727,9 @@ internal enum Localizable {
         internal static var lastUpdate: String { return Localizable.tr("Waves", "dexlist.label.lastUpdate") }
         /// Price
         internal static var price: String { return Localizable.tr("Waves", "dexlist.label.price") }
-        /// today
+        /// Today
         internal static var today: String { return Localizable.tr("Waves", "dexlist.label.today") }
-        /// yesterday
+        /// Yesterday
         internal static var yesterday: String { return Localizable.tr("Waves", "dexlist.label.yesterday") }
       }
 
@@ -854,8 +882,6 @@ internal enum Localizable {
         }
 
         internal enum Token {
-          /// Issue your own tokens. These can be integrated into your business not only as an internal currency but also as a token for decentralised voting, as a rating system, or loyalty program.
-          internal static var text: String { return Localizable.tr("Waves", "enter.block.token.text") }
           /// Token Launcher
           internal static var title: String { return Localizable.tr("Waves", "enter.block.token.title") }
         }
@@ -931,9 +957,16 @@ internal enum Localizable {
 
       internal enum Error {
 
+        internal enum Subtitle {
+          /// Do not worry, we are already fixing this problem.\nSoon everything will work!
+          internal static var notfound: String { return Localizable.tr("Waves", "general.error.subtitle.notfound") }
+        }
+
         internal enum Title {
           /// No connection to the Internet
           internal static var noconnectiontotheinternet: String { return Localizable.tr("Waves", "general.error.title.noconnectiontotheinternet") }
+          /// Oh… It's all broken!
+          internal static var notfound: String { return Localizable.tr("Waves", "general.error.title.notfound") }
         }
       }
 
@@ -972,6 +1005,16 @@ internal enum Localizable {
           internal static var wavestoken: String { return Localizable.tr("Waves", "general.ticker.title.wavestoken") }
         }
       }
+
+      internal enum Tost {
+
+        internal enum Savebackup {
+          /// Store your SEED safely, it is the only way to restore your wallet
+          internal static var subtitle: String { return Localizable.tr("Waves", "general.tost.saveBackup.subtitle") }
+          /// Save your backup phrase (SEED)
+          internal static var title: String { return Localizable.tr("Waves", "general.tost.saveBackup.title") }
+        }
+      }
     }
 
     internal enum Hello {
@@ -1006,7 +1049,7 @@ internal enum Localizable {
           }
 
           internal enum First {
-            /// Please take some time to understand some important things for your own safety. \n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.
+            /// Please take some time to understand some important things for your own safety.\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.
             internal static var detail: String { return Localizable.tr("Waves", "hello.page.info.first.detail") }
             /// Welcome to the Waves Platform!
             internal static var title: String { return Localizable.tr("Waves", "hello.page.info.first.title") }
@@ -1020,7 +1063,7 @@ internal enum Localizable {
           }
 
           internal enum Second {
-            /// When registering your account, you will be asked to save your secret phrase (Seed) and to protect your account with a password. On normal centralized servers, special attention is paid to the password, which can be changed and reset via email, if the need arises. However, on decentralized platforms such as Waves, everything is arranged differently:
+            /// When registering your account, you will be asked to save your secret phrase (Seed) and to protect your account with a password. On normal centralized servers, special attention is paid to the password, which can be changed and reset via email, if the need arises. However, on decentralized platforms such as Waves, everything is arranged differently.
             internal static var detail: String { return Localizable.tr("Waves", "hello.page.info.second.detail") }
             /// What you need to know about your SEED
             internal static var title: String { return Localizable.tr("Waves", "hello.page.info.second.title") }
@@ -1073,6 +1116,20 @@ internal enum Localizable {
 
       internal enum Transaction {
 
+        internal enum Cell {
+
+          internal enum Exchange {
+            /// Buy: %@/%@
+            internal static func buy(_ p1: String, _ p2: String) -> String {
+              return Localizable.tr("Waves", "history.transaction.cell.exchange.buy", p1, p2)
+            }
+            /// Sell: %@/%@
+            internal static func sell(_ p1: String, _ p2: String) -> String {
+              return Localizable.tr("Waves", "history.transaction.cell.exchange.sell", p1, p2)
+            }
+          }
+        }
+
         internal enum Title {
           /// Create Alias
           internal static var alias: String { return Localizable.tr("Waves", "history.transaction.title.alias") }
@@ -1084,6 +1141,10 @@ internal enum Localizable {
           internal static var exchange: String { return Localizable.tr("Waves", "history.transaction.title.exchange") }
           /// Incoming Leasing
           internal static var incomingLeasing: String { return Localizable.tr("Waves", "history.transaction.title.incomingLeasing") }
+          /// Mass Received
+          internal static var massreceived: String { return Localizable.tr("Waves", "history.transaction.title.massreceived") }
+          /// Mass Sent
+          internal static var masssent: String { return Localizable.tr("Waves", "history.transaction.title.masssent") }
           /// Received
           internal static var received: String { return Localizable.tr("Waves", "history.transaction.title.received") }
           /// Self-transfer
@@ -1154,6 +1215,11 @@ internal enum Localizable {
       }
 
       internal enum General {
+
+        internal enum Error {
+          /// Already in use
+          internal static var alreadyinuse: String { return Localizable.tr("Waves", "import.general.error.alreadyinuse") }
+        }
 
         internal enum Navigation {
           /// Import account
@@ -1264,7 +1330,7 @@ internal enum Localizable {
           internal static var termsOfUse: String { return Localizable.tr("Waves", "legal.checkbox.box.termsOfUse") }
           /// I have read, understood, and agree to the
           internal static var third: String { return Localizable.tr("Waves", "legal.checkbox.box.third") }
-          /// Done! Let’s review.
+          /// Done!
           internal static var title: String { return Localizable.tr("Waves", "legal.checkbox.box.title") }
 
           internal enum Button {
@@ -1377,9 +1443,9 @@ internal enum Localizable {
     internal enum Newaccount {
 
       internal enum Avatar {
-        /// This avatar is unique. You cannot change it later.
+        /// You cannot change it later
         internal static var detail: String { return Localizable.tr("Waves", "newaccount.avatar.detail") }
-        /// Choose your address avatar
+        /// Choose your unique address avatar
         internal static var title: String { return Localizable.tr("Waves", "newaccount.avatar.title") }
       }
 
@@ -1430,7 +1496,7 @@ internal enum Localizable {
         }
 
         internal enum Error {
-          /// at least %d characters
+          /// Minimum %d characters
           internal static func atleastcharacters(_ p1: Int) -> String {
             return Localizable.tr("Waves", "newaccount.textfield.error.atleastcharacters", p1)
           }
@@ -1453,6 +1519,25 @@ internal enum Localizable {
     }
 
     internal enum Passcode {
+
+      internal enum Alert {
+
+        internal enum Attempsended {
+          /// To unlock, sign in with your account password
+          internal static var subtitle: String { return Localizable.tr("Waves", "passcode.alert.attempsended.subtitle") }
+          /// Too many attempts
+          internal static var title: String { return Localizable.tr("Waves", "passcode.alert.attempsended.title") }
+
+          internal enum Button {
+            /// Cancel
+            internal static var cancel: String { return Localizable.tr("Waves", "passcode.alert.attempsended.button.cancel") }
+            /// Enter Password
+            internal static var enterpassword: String { return Localizable.tr("Waves", "passcode.alert.attempsended.button.enterpassword") }
+            /// Ok
+            internal static var ok: String { return Localizable.tr("Waves", "passcode.alert.attempsended.button.ok") }
+          }
+        }
+      }
 
       internal enum Button {
 
@@ -1489,6 +1574,8 @@ internal enum Localizable {
         internal enum Deleteaccount {
           /// Are you sure you want to delete this account from device?
           internal static var message: String { return Localizable.tr("Waves", "profile.alert.deleteAccount.message") }
+          /// You did not save your SEED
+          internal static var notSaveSeed: String { return Localizable.tr("Waves", "profile.alert.deleteAccount.notSaveSeed") }
           /// Delete account
           internal static var title: String { return Localizable.tr("Waves", "profile.alert.deleteAccount.title") }
 
@@ -1642,6 +1729,11 @@ internal enum Localizable {
         internal static var useTotalBalance: String { return Localizable.tr("Waves", "receive.button.useTotalBalance") }
       }
 
+      internal enum Error {
+        /// Service is temporarily unavailable
+        internal static var serviceUnavailable: String { return Localizable.tr("Waves", "receive.error.serviceUnavailable") }
+      }
+
       internal enum Label {
         /// Amount
         internal static var amount: String { return Localizable.tr("Waves", "receive.label.amount") }
@@ -1757,6 +1849,14 @@ internal enum Localizable {
       }
     }
 
+    internal enum Scannerqrcode {
+
+      internal enum Label {
+        /// Scan QR
+        internal static var scan: String { return Localizable.tr("Waves", "scannerqrcode.label.scan") }
+      }
+    }
+
     internal enum Send {
 
       internal enum Button {
@@ -1864,8 +1964,53 @@ internal enum Localizable {
     internal enum Sendloading {
 
       internal enum Label {
-        /// Sending...
+        /// Sending…
         internal static var sending: String { return Localizable.tr("Waves", "sendloading.label.sending") }
+      }
+    }
+
+    internal enum Serverdisconnect {
+
+      internal enum Label {
+        /// Check your connection to the mobile Internet or Wi-Fi network
+        internal static var subtitle: String { return Localizable.tr("Waves", "serverDisconnect.label.subtitle") }
+        /// No connection to the Internet
+        internal static var title: String { return Localizable.tr("Waves", "serverDisconnect.label.title") }
+      }
+    }
+
+    internal enum Serverengineering {
+
+      internal enum Label {
+        /// Hi, at the moment we are doing a very important job of improving the application
+        internal static var subtitle: String { return Localizable.tr("Waves", "serverEngineering.label.subtitle") }
+        /// Engineering works
+        internal static var title: String { return Localizable.tr("Waves", "serverEngineering.label.title") }
+      }
+    }
+
+    internal enum Servererror {
+
+      internal enum Button {
+        /// Retry
+        internal static var retry: String { return Localizable.tr("Waves", "serverError.button.retry") }
+        /// Send a report
+        internal static var sendReport: String { return Localizable.tr("Waves", "serverError.button.sendReport") }
+      }
+
+      internal enum Label {
+        /// Oh… It's all broken!
+        internal static var allBroken: String { return Localizable.tr("Waves", "serverError.label.allBroken") }
+        /// Do not worry, we are already fixing this problem.\nSoon everything will work!
+        internal static var allBrokenDescription: String { return Localizable.tr("Waves", "serverError.label.allBrokenDescription") }
+        /// No connection to the Internet
+        internal static var noInternetConnection: String { return Localizable.tr("Waves", "serverError.label.noInternetConnection") }
+        /// Check your connection to the mobile Internet or Wi-Fi network
+        internal static var noInternetConnectionDescription: String { return Localizable.tr("Waves", "serverError.label.noInternetConnectionDescription") }
+        /// Do not worry, we are already fixing this problem.\nSoon everything will work!
+        internal static var subtitle: String { return Localizable.tr("Waves", "serverError.label.subtitle") }
+        /// Oh… It's all broken!
+        internal static var title: String { return Localizable.tr("Waves", "serverError.label.title") }
       }
     }
 
@@ -1891,7 +2036,9 @@ internal enum Localizable {
         internal static var balance: String { return Localizable.tr("Waves", "startleasing.label.balance") }
         /// Generator
         internal static var generator: String { return Localizable.tr("Waves", "startleasing.label.generator") }
-        /// Node address...
+        /// Insufficient funds
+        internal static var insufficientFunds: String { return Localizable.tr("Waves", "startleasing.label.insufficientFunds") }
+        /// Node address…
         internal static var nodeAddress: String { return Localizable.tr("Waves", "startleasing.label.nodeAddress") }
         /// Not enough
         internal static var notEnough: String { return Localizable.tr("Waves", "startleasing.label.notEnough") }
@@ -1947,9 +2094,9 @@ internal enum Localizable {
     internal enum Startleasingloading {
 
       internal enum Label {
-        /// Cancel leasing...
+        /// Cancel leasing…
         internal static var cancelLeasing: String { return Localizable.tr("Waves", "startleasingloading.label.cancelLeasing") }
-        /// Start leasing...
+        /// Start leasing…
         internal static var startLeasing: String { return Localizable.tr("Waves", "startleasingloading.label.startLeasing") }
       }
     }
@@ -1974,7 +2121,7 @@ internal enum Localizable {
         internal static var fee: String { return Localizable.tr("Waves", "tokenBurn.label.fee") }
         /// ID
         internal static var id: String { return Localizable.tr("Waves", "tokenBurn.label.id") }
-        /// Burn...
+        /// Burn…
         internal static var loading: String { return Localizable.tr("Waves", "tokenBurn.label.loading") }
         /// Not reissuable
         internal static var notReissuable: String { return Localizable.tr("Waves", "tokenBurn.label.notReissuable") }
@@ -2018,8 +2165,10 @@ internal enum Localizable {
       internal enum Cell {
         /// Block
         internal static var block: String { return Localizable.tr("Waves", "transactionhistory.cell.block") }
-        /// Buy
-        internal static var buy: String { return Localizable.tr("Waves", "transactionhistory.cell.buy") }
+        /// Buy: %@/%@
+        internal static func buy(_ p1: String, _ p2: String) -> String {
+          return Localizable.tr("Waves", "transactionhistory.cell.buy", p1, p2)
+        }
         /// Confirmations
         internal static var confirmations: String { return Localizable.tr("Waves", "transactionhistory.cell.confirmations") }
         /// Data Transaction
@@ -2044,8 +2193,10 @@ internal enum Localizable {
         internal static var recipients: String { return Localizable.tr("Waves", "transactionhistory.cell.recipients") }
         /// Reissuable
         internal static var reissuable: String { return Localizable.tr("Waves", "transactionhistory.cell.reissuable") }
-        /// Sell
-        internal static var sell: String { return Localizable.tr("Waves", "transactionhistory.cell.sell") }
+        /// Sell: %@/%@
+        internal static func sell(_ p1: String, _ p2: String) -> String {
+          return Localizable.tr("Waves", "transactionhistory.cell.sell", p1, p2)
+        }
         /// Sent to
         internal static var sentTo: String { return Localizable.tr("Waves", "transactionhistory.cell.sentTo") }
         /// Type
@@ -2242,6 +2393,7 @@ extension Localizable {
 
     private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
         let format = NSLocalizedString(key, tableName: table, bundle: current.bundle, comment: "")
+
         let value = String(format: format, locale: current.locale, arguments: args)
 
         if value.localizedLowercase == key.localizedLowercase {

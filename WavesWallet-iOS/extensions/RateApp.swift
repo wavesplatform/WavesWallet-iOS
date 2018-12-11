@@ -17,21 +17,7 @@ private enum Constants {
 enum RateApp {
 
     static func show() {
-
-        if #available(iOS 10.3, *) {
-            let count = UIApplication.shared.windows.count
-            SKStoreReviewController.requestReview()
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
-                if count < UIApplication.shared.windows.count  {
-                    debug("Thank you reviewing my application")
-                } else {
-                    //TODO
-//                    showItunes()
-                }
-            }
-        } else {
-            showItunes()
-        }
+        showItunes()
     }
 
     private static func showItunes() {

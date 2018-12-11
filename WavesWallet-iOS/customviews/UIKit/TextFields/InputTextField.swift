@@ -42,7 +42,15 @@ final class InputTextField: UIView, NibOwnerLoadable {
             return textFieldValue.text
         }
     }
-
+    
+    var text: String {
+        return textFieldValue.text ?? ""
+    }
+    
+    var trimmingText: String {
+        return text.trimmingCharacters(in: CharacterSet.whitespaces)
+    }
+  
     var isEnabled: Bool {
         set {
             tapGesture.isEnabled = isEnabled
@@ -60,7 +68,7 @@ final class InputTextField: UIView, NibOwnerLoadable {
         didSet {
             textFieldValue.isSecureTextEntry = isSecureTextEntry
             if #available(iOS 10.0, *) {
-                textFieldValue.textContentType = UITextContentType("")
+                textFieldValue.textContentType = UITextContentType(rawValue: "")
             }
             if isSecureTextEntry {
                 eyeButton.setImage(Images.eyeopen24Basic500.image, for: .normal)
@@ -129,7 +137,7 @@ final class InputTextField: UIView, NibOwnerLoadable {
         eyeButton.addTarget(self, action: #selector(tapEyeButton), for: .touchUpInside)
         textFieldValue.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     @discardableResult override func becomeFirstResponder() -> Bool {
@@ -163,7 +171,7 @@ final class InputTextField: UIView, NibOwnerLoadable {
     }
 
     private func ifNeedPlaceholder() {
-        let isShow = (textFieldValue.text?.count ?? 0) > 0
+        let isShow = text.count > 0
 
         let isHiddenTitleLabel = !isShow
         guard isHiddenTitleLabel != self.isHiddenTitleLabel else { return }
@@ -245,7 +253,7 @@ extension InputTextField: ViewConfiguration {
 
         case .password, .newPassword:
             if #available(iOS 10.0, *) {
-                textFieldValue.textContentType = UITextContentType("")
+                textFieldValue.textContentType = UITextContentType(rawValue: "")
             }
             self.rightView = eyeButton
             isSecureTextEntry = true

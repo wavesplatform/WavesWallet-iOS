@@ -9,11 +9,6 @@
 import UIKit
 
 private enum Constants {
-    static let cornerRadius: Float = 2
-    static let shadowOpacity: Float = 0.1
-    static let shadowOffset = CGSize(width: 0, height: 4)
-    static let shadowRadius: Float = 4
-    static let shadowColor: UIColor = .black
     
     enum CollectionTopOffset: CGFloat {
         case small = 0
@@ -22,7 +17,7 @@ private enum Constants {
     }
     
     enum ButtonTopOffset: CGFloat {
-        case small = 24
+        case small = 14
         case big = 44
     }
     
@@ -68,8 +63,7 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
     private var currentPage: Int  = 0
     private let blocks: [Block] = [.blockchain,
                                    .wallet,
-                                   .dex,
-                                   .token]
+                                   .dex]
 
     weak var delegate: EnterStartViewControllerDelegate?
 
@@ -144,17 +138,9 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
             
             collectionViewHeightConstraint.constant = maxHeight
             
-            let shadowOptions =
-                ShadowOptions(offset: Constants.shadowOffset,
-                              color: Constants.shadowColor,
-                              opacity: Constants.shadowOpacity,
-                              shadowRadius: Constants.shadowRadius,
-                              shouldRasterize: true)
-            
-            signInView.setupShadow(options: shadowOptions)
-            importAccountView.setupShadow(options: shadowOptions)
-            importAccountView.cornerRadius = Constants.cornerRadius
-            signInView.cornerRadius = Constants.cornerRadius
+            signInView.addTableCellShadowStyle()
+            importAccountView.addTableCellShadowStyle()
+
         }
         
     }

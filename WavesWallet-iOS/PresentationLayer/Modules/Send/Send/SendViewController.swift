@@ -12,7 +12,7 @@ import RxFeedback
 import RxCocoa
 
 protocol SendResultDelegate: AnyObject {
-    func sendResultDidFail(_ error: ResponseTypeError)
+    func sendResultDidFail(_ error: NetworkError)
 }
 
 private enum Constants {
@@ -40,7 +40,7 @@ final class SendViewController: UIViewController {
     @IBOutlet private weak var labelAmountError: UILabel!
     @IBOutlet private weak var moneroPaymentIdView: SendMoneroPaymentIdView!
     
-    private var selectedAsset: DomainLayer.DTO.AssetBalance?
+    private var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
     private var amount: Money?
     private let wavesFee = GlobalConstants.WavesTransactionFee
     
@@ -50,7 +50,7 @@ final class SendViewController: UIViewController {
     var input: AssetList.DTO.Input!
     private var isValidAlias: Bool = false
     private var gateWayInfo: Send.DTO.GatewayInfo?
-    private var wavesAsset: DomainLayer.DTO.AssetBalance?
+    private var wavesAsset: DomainLayer.DTO.SmartAssetBalance?
     private var moneroAddress: String = ""
     private var isLoadingAssetBalanceAfterScan = false
     
@@ -59,7 +59,7 @@ final class SendViewController: UIViewController {
         guard let asset = selectedAsset else { return Money(0, 0)}
         
         var balance: Int64 = 0
-        if asset.asset?.isWaves == true {
+        if asset.asset.isWaves == true {
             balance = asset.avaliableBalance - wavesFee.amount
         }
         else if isValidCryptocyrrencyAddress {
@@ -68,7 +68,7 @@ final class SendViewController: UIViewController {
         else {
             balance = asset.avaliableBalance
         }
-        return Money(balance, asset.asset?.precision ?? 0)
+        return Money(balance, asset.asset.precision)
     }
     
     override func viewDidLoad() {
@@ -101,7 +101,7 @@ final class SendViewController: UIViewController {
             assetView.isSelectedAssetMode = false
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 self.setupAssetInfo(asset)
-                self.amountView.setDecimals(asset.asset?.precision ?? 0, forceUpdateMoney: false)
+                self.amountView.setDecimals(asset.asset.precision, forceUpdateMoney: false)
             }
         }
         else {
@@ -114,11 +114,11 @@ final class SendViewController: UIViewController {
         setupBigNavigationBar()
     }
     
-    private func setupAssetInfo(_ assetBalance: DomainLayer.DTO.AssetBalance) {
+    private func setupAssetInfo(_ assetBalance: DomainLayer.DTO.SmartAssetBalance) {
         gateWayInfo = nil
         
         selectedAsset = assetBalance
-        assetView.update(with: assetBalance)
+        assetView.update(with: .init(assetBalance: assetBalance, isOnlyBlockMode: input.selectedAsset != nil))
         setupButtonState()
 
         let loadGateway = self.isValidCryptocyrrencyAddress && !self.isValidLocalAddress
@@ -132,7 +132,7 @@ final class SendViewController: UIViewController {
         
         updateAmountData()
         updateMoneraPaymentView(animation: false)
-        recipientAddressView.decimals = selectedAsset?.asset?.precision ?? 0
+        recipientAddressView.decimals = selectedAsset?.asset.precision ?? 0
     }
     
     private func showConfirmScreen() {
@@ -149,7 +149,7 @@ final class SendViewController: UIViewController {
             isGateway = true
             attachment = gateWay.attachment
             
-            if selectedAsset?.asset?.isMonero == true && moneroAddress.count > 0 {
+            if selectedAsset?.asset.isMonero == true && moneroAddress.count > 0 {
                 address = moneroAddress
             }
             
@@ -176,10 +176,7 @@ final class SendViewController: UIViewController {
     
     @IBAction private func continueTapped(_ sender: Any) {
     
-        if wavesAsset == nil {
-            showLoadingButtonState()
-        }
-        else if isNeedGenerateMoneroAddress {
+        if isNeedGenerateMoneroAddress {
             showLoadingButtonState()
             sendEvent.accept(.didChangeMoneroPaymentID(moneroPaymentIdView.paymentID))
         }
@@ -192,12 +189,10 @@ final class SendViewController: UIViewController {
 
 //MARK: - SendResultDelegate
 extension SendViewController: SendResultDelegate {
-    func sendResultDidFail(_ error: ResponseTypeError) {
+    func sendResultDidFail(_ error: NetworkError) {
         
-       navigationController?.popToViewController(self, animated: true)
-        
-        //TODO: need show view with error
-        debug(error.message)
+        navigationController?.popToViewController(self, animated: true)
+        showNetworkErrorSnack(error: error)
     }
 }
 
@@ -237,12 +232,12 @@ private extension SendViewController {
                 
                     if let asset = assetBalance {
                         strongSelf.setupAssetInfo(asset)
-                        strongSelf.amountView.setDecimals(asset.asset?.precision ?? 0, forceUpdateMoney: true)
+                        strongSelf.amountView.setDecimals(asset.asset.precision, forceUpdateMoney: true)
                     }
                     
                 case .didFailInfo(let error):
                     
-                    //TODO: need to show error when in come from server
+                    strongSelf.showNetworkErrorSnack(error: error)
                     strongSelf.hideGatewayInfo(animation: true)
 
                 case .didGetInfo(let info):
@@ -255,12 +250,11 @@ private extension SendViewController {
 
                 case .didGetWavesAsset(let asset):
                     strongSelf.wavesAsset = asset
-                    strongSelf.hideButtonLoadingButtonsState()
                     strongSelf.updateAmountError(animation: true)
                     
                 case .didFailGenerateMoneroAddress(let error):
                     
-                    //TODO: need to show error when in come from server
+                    strongSelf.showNetworkErrorSnack(error: error)
                     strongSelf.hideButtonLoadingButtonsState()
                     strongSelf.moneroPaymentIdView.showErrorFromServer()
                     strongSelf.setupButtonState()
@@ -294,9 +288,9 @@ extension SendViewController: AmountInputViewDelegate {
 
 //MARK: - AssetListModuleOutput
 extension SendViewController: AssetListModuleOutput {
-    func assetListDidSelectAsset(_ asset: DomainLayer.DTO.AssetBalance) {
+    func assetListDidSelectAsset(_ asset: DomainLayer.DTO.SmartAssetBalance) {
         setupAssetInfo(asset)
-        amountView.setDecimals(asset.asset?.precision ?? 0, forceUpdateMoney: true)
+        amountView.setDecimals(asset.asset.precision, forceUpdateMoney: true)
         validateAddress()
     }
 }
@@ -323,7 +317,7 @@ private extension SendViewController {
             
             values.append(availableBalance)
             
-            let n5 = Decimal(availableBalance.amount) * (Decimal(Constants.percent10) / 100.0)
+            let n5 = Decimal(availableBalance.amount) * (Decimal(Constants.percent5) / 100.0)
             let n10 = Decimal(availableBalance.amount) * (Decimal(Constants.percent10) / 100.0)
             let n50 = Decimal(availableBalance.amount) * (Decimal(Constants.percent50) / 100.0)
             
@@ -353,10 +347,16 @@ private extension SendViewController {
 //MARK: - UI
 private extension SendViewController {
 
-    func showLoadingAssetState() {
+    func showLoadingAssetState(isLoadingAmount: Bool) {
         isLoadingAssetBalanceAfterScan = true
+        assetView.isSelectedAssetMode = false
+        recipientAddressView.isBlockAddressMode = true        
         setupButtonState()
         assetView.showLoadingState()
+        amountView.isBlockMode = isLoadingAmount
+        if isLoadingAmount {
+            amountView.showAnimation()
+        }
     }
     
     func hideLoadingAssetState(isLoadAsset: Bool) {
@@ -499,7 +499,7 @@ private extension SendViewController {
     }
     
     func updateMoneraPaymentView(animation: Bool) {
-        if selectedAsset?.asset?.isMonero == true && isValidCryptocyrrencyAddress {
+        if selectedAsset?.asset.isMonero == true && isValidCryptocyrrencyAddress {
             moneroPaymentIdView.setupDefaultHeight(animation: animation)
         }
         else {
@@ -518,7 +518,8 @@ private extension SendViewController {
         let input = AddressInputView.Input(title: Localizable.Waves.Send.Label.recipient,
                                            error: Localizable.Waves.Send.Label.addressNotValid,
                                            placeHolder: Localizable.Waves.Send.Label.recipientAddress,
-                                           contacts: [])
+                                           contacts: [],
+                                           canChangeAsset: self.input.selectedAsset == nil)
         recipientAddressView.update(with: input)
         recipientAddressView.delegate = self
         recipientAddressView.errorValidation = { [weak self] text in
@@ -531,6 +532,25 @@ private extension SendViewController {
 
 extension SendViewController: AddressInputViewDelegate {
   
+    func addressInputViewDidRemoveBlockMode() {
+        
+        if !assetView.isOnlyBlockMode {
+            selectedAsset = nil
+            assetView.isSelectedAssetMode = true
+            assetView.removeSelectedAssetState()
+            recipientAddressView.decimals = 0
+        }
+        
+        if amountView.isBlockMode {
+            amountView.isBlockMode = false
+            amountView.clearMoney()
+            updateAmountData()
+        }
+        
+        setupButtonState()
+        sendEvent.accept(.cancelGetingAsset)
+    }
+    
     func addressInputViewDidTapNext() {
         
         if moneroPaymentIdView.isVisible {
@@ -560,15 +580,25 @@ extension SendViewController: AddressInputViewDelegate {
     
     func addressInputViewDidScanAddress(_ address: String, amount: Money?, assetID: String?) {
         
-        if let asset = assetID, selectedAsset?.assetId != asset, assetView.isSelectedAssetMode {
+        if let asset = assetID, selectedAsset?.assetId != asset, input.selectedAsset == nil {
             sendEvent.accept(.getAssetById(asset))
-            showLoadingAssetState()
+            showLoadingAssetState(isLoadingAmount: amount != nil)
         }
         
+        if assetID != nil {
+            recipientAddressView.isBlockAddressMode = true
+            assetView.isSelectedAssetMode = false
+            amountView.isBlockMode = amount?.isZero == false
+        }
+        
+        amountView.hideAnimation()
         if let amount = amount {
-            self.amount = amount
-            amountView.setAmount(amount)
-            updateAmountError(animation: true)
+            if !amount.isZero {
+                self.amount = amount
+                amountView.setAmount(amount)
+            }
+            updateAmountData()
+            updateAmountError(animation: false)
         }
         
         acceptAddress(address)
@@ -609,6 +639,10 @@ extension SendViewController: AddressInputViewDelegate {
             updateMoneraPaymentView(animation: true)
         }
     }
+    
+    func addressInputViewDidStartLoadingInfo() {
+        showLoadingAssetState(isLoadingAmount: true)
+    }
 }
 
 
@@ -635,7 +669,7 @@ extension SendViewController: UIScrollViewDelegate {
 private extension SendViewController {
 
     var isNeedGenerateMoneroAddress: Bool {
-        if selectedAsset?.asset?.isMonero == true && isValidCryptocyrrencyAddress && moneroPaymentIdView.isValidPaymentID {
+        if selectedAsset?.asset.isMonero == true && isValidCryptocyrrencyAddress && moneroPaymentIdView.isValidPaymentID {
             return moneroAddress.count == 0
         }
         return false
@@ -643,7 +677,7 @@ private extension SendViewController {
     
     var isValidPaymentMoneroID: Bool {
     
-        if selectedAsset?.asset?.isMonero == true && isValidCryptocyrrencyAddress {
+        if selectedAsset?.asset.isMonero == true && isValidCryptocyrrencyAddress {
             return moneroPaymentIdView.isValidPaymentID
         }
         return true
@@ -664,7 +698,7 @@ private extension SendViewController {
     
     var isValidAmount: Bool {
         guard let amount = amount else { return false }
-        if selectedAsset?.asset?.isWaves == true {
+        if selectedAsset?.asset.isWaves == true {
             return availableBalance.amount >= amount.amount
         }
         
@@ -685,10 +719,10 @@ private extension SendViewController {
     var isValidCryptocyrrencyAddress: Bool {
         let address = recipientAddressView.text
 
-        if let regExp = selectedAsset?.asset?.addressRegEx, regExp.count > 0 {
+        if let regExp = selectedAsset?.asset.addressRegEx, regExp.count > 0 {
             return NSPredicate(format: "SELF MATCHES %@", regExp).evaluate(with: address) &&
-                selectedAsset?.asset?.isGateway == true &&
-                selectedAsset?.asset?.isFiat == false
+                selectedAsset?.asset.isGateway == true &&
+                selectedAsset?.asset.isFiat == false
         }
         return false
     }

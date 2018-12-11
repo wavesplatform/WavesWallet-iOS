@@ -22,7 +22,10 @@ extension DataTransaction {
         height = transaction.height
         modified = transaction.modified
 
-        proofs.append(objectsIn: transaction.proofs)
+        if let proofs = transaction.proofs {
+            self.proofs.append(objectsIn: proofs)
+        }
+
 
         let dataList = transaction.data.map { data -> DataTransactionData in
             let txData = DataTransactionData()
@@ -74,8 +77,8 @@ extension DomainLayer.DTO.DataTransaction {
                 dataValue = .binary(value)
             }
             return DomainLayer.DTO.DataTransaction.Data(key: data.key,
-                                                                                            value: dataValue,
-                                                                                            type: data.type)
+                                                        value: dataValue,
+                                                        type: data.type)
         }
 
         proofs = transaction.proofs

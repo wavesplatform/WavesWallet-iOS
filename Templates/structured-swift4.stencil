@@ -66,6 +66,7 @@ extension {{enumName}} {
 
     private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
         let format = NSLocalizedString(key, tableName: table, bundle: current.bundle, comment: "")
+
         let value = String(format: format, locale: current.locale, arguments: args)
 
         if value.localizedLowercase == key.localizedLowercase {

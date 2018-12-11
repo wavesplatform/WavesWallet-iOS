@@ -36,10 +36,13 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                     .request(.getSpamList(url: environment.servers.spamUrl),
                              callbackQueue: DispatchQueue.global(qos: .background))
             }
+            .filterSuccessfulStatusAndRedirectCodes()
+            .catchError({ (error) -> Observable<Response> in
+                return Observable.error(NetworkError.error(by: error))
+            })
             .map { response -> [String] in
                 return (try? SpamCVC.addresses(from: response.data)) ?? []
             }
-            .asObservable()
 
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(DateFormatter.iso())
@@ -54,10 +57,12 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                     .request(.init(kind: .getAssets(ids: ids), environment: environment),
                              callbackQueue: DispatchQueue.global(qos: .background))
             }
+            .filterSuccessfulStatusAndRedirectCodes()
+            .catchError({ (error) -> Observable<Response> in
+                return Observable.error(NetworkError.error(by: error))
+            })
             .map(API.Response<[API.Response<API.DTO.Asset>]>.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
             .map { $0.data.map { $0.data } }
-            .asObservable()
-
 
         return Observable.zip(assetsList, spamAssets, environment)
             .map { assets, spamAssets, environment in

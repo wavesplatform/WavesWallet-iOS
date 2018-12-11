@@ -74,7 +74,7 @@ extension SlideCoordinator: PresentationCoordinator {
             addChildCoordinatorAndStart(childCoordinator: mainTabBarController)
 
         case .enter:
-            let enter = EnterCoordinator(slideMenuViewController: slideMenuViewController)
+            let enter = EnterCoordinator(slideMenuViewController: slideMenuViewController, applicationCoordinator: self)
             enter.delegate = self
             addChildCoordinatorAndStart(childCoordinator: enter)
         }

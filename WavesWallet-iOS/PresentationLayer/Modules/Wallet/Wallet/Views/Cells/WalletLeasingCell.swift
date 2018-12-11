@@ -30,7 +30,7 @@ extension WalletLeasingCell: ViewConfiguration {
         labelTitle.text = Localizable.Waves.Wallet.Label.startedLeasing
 
         if case .startedLeasing(let lease) = model.kind {
-            labelMoney.attributedText = .styleForBalance(text: lease.balance.money.displayTextFull,
+            labelMoney.attributedText = .styleForBalance(text: lease.balance.money.displayText,
                                                          font: labelMoney.font)
         }
     }

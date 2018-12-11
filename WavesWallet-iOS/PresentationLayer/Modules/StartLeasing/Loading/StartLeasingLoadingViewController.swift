@@ -47,48 +47,62 @@ final class StartLeasingLoadingViewController: UIViewController {
     }
     
     private func startLeasing(order: StartLeasingTypes.DTO.Order) {
-        startLeasingInteractor.createOrder(order: order).subscribe(onNext: { [weak self] (transaction) in
+        startLeasingInteractor
+            .createOrder(order: order)
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (transaction) in
             
-            guard let owner = self else { return }
-            
-            let vc = StoryboardScene.StartLeasing.startLeasingCompleteViewController.instantiate()
-            vc.kind = owner.input.kind
-            owner.navigationController?.pushViewController(vc, animated: true)
-            owner.input.output?.startLeasingDidSuccess(transaction: transaction, kind: owner.input.kind)
+                guard let owner = self else { return }
 
-        }, onError: { [weak self] (error) in
-            self?.popBackWithFail()
-        }).disposed(by: disposeBag)
+                let vc = StoryboardScene.StartLeasing.startLeasingCompleteViewController.instantiate()
+                vc.kind = owner.input.kind
+                owner.navigationController?.pushViewController(vc, animated: true)
+                owner.input.output?.startLeasingDidSuccess(transaction: transaction, kind: owner.input.kind)
+
+            }, onError: { [weak self] (error) in
+                
+                guard let error = error as? NetworkError else { return }
+                self?.popBackWithFail(error: error)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func cancelLeasing(cancelOrder: StartLeasingTypes.DTO.CancelOrder) {
         
-        cancelOrderRequest(cancelOrder: cancelOrder).subscribe(onNext: { [weak self] (transaction) in
+        cancelOrderRequest(cancelOrder: cancelOrder)
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (transaction) in
             
-            guard let owner = self else { return }
-            
-            let vc = StoryboardScene.StartLeasing.startLeasingCompleteViewController.instantiate()
-            vc.kind = owner.input.kind
-            owner.navigationController?.pushViewController(vc, animated: true)
-            owner.input.output?.startLeasingDidSuccess(transaction: transaction, kind: owner.input.kind)
-            
-        }, onError: { [weak self] (error) in
-            self?.popBackWithFail()
-        }).disposed(by: disposeBag)
+                guard let owner = self else { return }
+
+                let vc = StoryboardScene.StartLeasing.startLeasingCompleteViewController.instantiate()
+                vc.kind = owner.input.kind
+                owner.navigationController?.pushViewController(vc, animated: true)
+                owner.input.output?.startLeasingDidSuccess(transaction: transaction, kind: owner.input.kind)
+
+            }, onError: { [weak self] (error) in
+                guard let error = error as? NetworkError else { return }
+                self?.popBackWithFail(error: error)
+            })
+            .disposed(by: disposeBag)
     }
     
-    private func popBackWithFail() {
-        input.errorDelegate?.startLeasingDidFail()
+    private func popBackWithFail(error: NetworkError) {
+        input.errorDelegate?.startLeasingDidFail(error: error)
         navigationController?.popViewController(animated: true)
     }
     
     private func cancelOrderRequest(cancelOrder: StartLeasingTypes.DTO.CancelOrder) -> Observable<DomainLayer.DTO.SmartTransaction> {
         
-        return authorization.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DomainLayer.DTO.SmartTransaction> in
+        return authorization
+            .authorizedWallet()
+            .flatMap({ [weak self] (wallet) -> Observable<DomainLayer.DTO.SmartTransaction> in
 
-            guard let owner = self else { return Observable.empty() }
-            let specific = CancelLeaseTransactionSender(leaseId: cancelOrder.leasingTX, fee: cancelOrder.fee.amount)
-            return owner.transactions.send(by: .cancelLease(specific), wallet: wallet)
-        })
+                guard let owner = self else { return Observable.empty() }
+                let specific = CancelLeaseTransactionSender(leaseId: cancelOrder.leasingTX, fee: cancelOrder.fee.amount)
+                return owner
+                    .transactions
+                    .send(by: .cancelLease(specific), wallet: wallet)
+            })
     }
 }

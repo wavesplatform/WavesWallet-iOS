@@ -13,7 +13,7 @@ import RxSwift
 
 
 fileprivate enum Constants {
-    static let contentInset = UIEdgeInsetsMake(4, 0, 4, 0)
+    static let contentInset = UIEdgeInsets.init(top: 4, left: 0, bottom: 4, right: 0)
 }
 
 final class DexSortViewController: UIViewController {
@@ -25,6 +25,8 @@ final class DexSortViewController: UIViewController {
     private var modelSection = DexSort.ViewModel.Section(items: [])
     private let sendEvent: PublishRelay<DexSort.Event> = PublishRelay<DexSort.Event>()
 
+    weak var delegate: DexListRefreshOutput!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -102,13 +104,14 @@ extension DexSortViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
 
         sendEvent.accept(.dragModels(sourceIndexPath: sourceIndexPath, destinationIndexPath: destinationIndexPath))
+        delegate.refreshPairs()
     }
     
     func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
         return proposedDestinationIndexPath
     }
     
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .none
     }
     
@@ -153,6 +156,7 @@ private extension DexSortViewController {
     
     func buttonDeleteDidTap(_ indexPath: IndexPath) {
         sendEvent.accept(.tapDeleteButton(indexPath))
+        delegate.refreshPairs()
     }
 }
 

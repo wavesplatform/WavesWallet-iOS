@@ -46,9 +46,9 @@ extension HistoryTypes.ViewModel.Section {
         let sortedKeys = Array(sections.keys).sorted(by: { $0 > $1 })
 
         let formatter = DateFormatter.sharedFormatter
-        //TODO: Constants
-        formatter.dateFormat = "MMM dd, yyyy"
-
+        formatter.dateStyle = .long
+        formatter.timeStyle = .none
+        
         return sortedKeys.map { key -> HistoryTypes.ViewModel.Section? in
             guard let section = sections[key] else { return nil }
             let rows = section.map { HistoryTypes.ViewModel.Row.transaction($0) }

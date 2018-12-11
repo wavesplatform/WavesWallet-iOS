@@ -10,9 +10,6 @@ import Foundation
 import RxSwift
 
 protocol WalletInteractorProtocol {
-    func assets() -> Observable<[WalletTypes.DTO.Asset]>
+    func assets() -> Observable<[DomainLayer.DTO.SmartAssetBalance]>
     func leasing() -> Observable<WalletTypes.DTO.Leasing>
-
-    func refreshAssets()
-    func refreshLeasing()
 }

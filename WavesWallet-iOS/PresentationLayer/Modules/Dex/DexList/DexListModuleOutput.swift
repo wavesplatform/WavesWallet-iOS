@@ -10,7 +10,11 @@ import Foundation
 
 protocol DexListModuleOutput: AnyObject {
  
-    func showDexSort()
-    func showAddList()
+    func showDexSort(delegate: DexListRefreshOutput)
+    func showAddList(delegate: DexListRefreshOutput)
     func showTradePairInfo(pair: DexTraderContainer.DTO.Pair)
+}
+
+protocol DexListRefreshOutput: AnyObject {
+    func refreshPairs()
 }

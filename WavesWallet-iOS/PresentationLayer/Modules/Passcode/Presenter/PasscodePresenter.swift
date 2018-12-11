@@ -72,7 +72,6 @@ final class PasscodePresenter: PasscodePresenterProtocol {
         newFeedbacks.append(logout())
         newFeedbacks.append(logInBiometric())
         newFeedbacks.append(changeEnableBiometric())
-        newFeedbacks.append(disabledBiometricUsingBiometric())
         newFeedbacks.append(changePasscode())
         newFeedbacks.append(changePasscodeByPassword())
         newFeedbacks.append(verifyAccessBiometric())
@@ -117,7 +116,6 @@ extension PasscodePresenter {
                 .changePassword(wallet: query.wallet, passcode: query.passcode, oldPassword: query.oldPassword, newPassword: query.newPassword)
                 .map { .completedChangePassword($0) }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
             }
         })
@@ -144,7 +142,6 @@ extension PasscodePresenter {
                                           password: query.password)
                 .map { .completedChangePasscode($0) }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
                 }
         })
@@ -170,7 +167,6 @@ extension PasscodePresenter {
                                 passcode: query.passcode)
                 .map { .completedChangePasscode($0) }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
                 }
         })
@@ -195,7 +191,6 @@ extension PasscodePresenter {
                                      passcode: query.passcode)
                 .map { .completedRegistration($0) }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
                 }
         })
@@ -222,7 +217,6 @@ extension PasscodePresenter {
                 .sweetDebug("Biometric")
                 .map { Types.Event.completedLogIn($0) }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
                 }
         })
@@ -248,7 +242,6 @@ extension PasscodePresenter {
                 .sweetDebug("Biometric")
                 .map { Types.Event.completedLogIn($0) }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
                 }
         })
@@ -273,7 +266,6 @@ extension PasscodePresenter {
                 .sweetDebug("Biometric")
                 .map { Types.Event.completedLogIn($0) }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
                 }
         })
@@ -302,7 +294,6 @@ extension PasscodePresenter {
                 .verifyAccess(wallet: query.wallet, passcode: query.passcode)
                 .map { Types.Event.completedVerifyAccess($0) }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
             }
         })
@@ -328,7 +319,6 @@ extension PasscodePresenter {
                 .verifyAccessUsingBiometric(wallet: query.wallet)
                 .map { Types.Event.completedVerifyAccess($0) }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
             }
         })
@@ -354,8 +344,7 @@ extension PasscodePresenter {
                 .logIn(wallet: query.wallet, passcode: query.passcode)
                 .sweetDebug("Passcode")
                 .map { Types.Event.completedLogIn($0) }
-                .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
+                .asSignal { (error) -> Signal<Types.Event> in                  
                     return Signal.just(.handlerError(error))
                 }
         })
@@ -365,6 +354,9 @@ extension PasscodePresenter {
         return react(query: { state -> LogoutQuery? in
 
             if case .logIn(let wallet) = state.kind,
+                let action = state.action, case .logout = action {
+                return LogoutQuery(wallet: wallet)
+            } else if case .changePasscode(let wallet) = state.kind,
                 let action = state.action, case .logout = action {
                 return LogoutQuery(wallet: wallet)
             }
@@ -379,7 +371,6 @@ extension PasscodePresenter {
                 .interactor.logout(wallet: query.wallet)
                 .map { _ in .completedLogout }
                 .asSignal { (error) -> Signal<Types.Event> in
-                    guard let error = error as? PasscodeInteractorError else { return Signal.just(.handlerError(.fail)) }
                     return Signal.just(.handlerError(error))
                 }
         })
@@ -437,15 +428,7 @@ private extension PasscodePresenter {
             state.action = nil
             state.displayState.error = .incorrectPasscode
             state.displayState.isHiddenBackButton = !state.hasBackButton
-
-        //   TODO: Error
-        //            switch error {
-        //            case .attemptsEnded:
-        //            case .passcodeIncorrect:
-        //            case .passwordIncorrect:
-        //            case .permissionDenied:
-        //            case .fail:
-        //            }
+            state.displayState.error = Types.displayError(by: error, kind: state.kind)
 
         case .viewWillAppear:
             break
@@ -708,7 +691,7 @@ private extension PasscodePresenter {
             let oldPasscode = state.numbers[.oldPasscode]
             state.displayState.isLoading = true
             state.displayState.error = nil
-            state.passcode = oldPasscode.reduce(into: "") { $0 += "\($1)" }
+            state.passcode = oldPasscode?.reduce(into: "") { $0 += "\($1)" } ?? ""
             state.action = .verifyAccess
 
         case .newPasscode:

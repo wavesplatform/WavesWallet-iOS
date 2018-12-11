@@ -39,7 +39,7 @@ final class WalletDisplayData: NSObject {
         tableView.dataSource = self
     }
 
-    func apply(sections: [WalletTypes.ViewModel.Section], animateType: WalletTypes.DisplayState.AnimateType, completed: @escaping (() -> Void)) {
+    func apply(sections: [WalletTypes.ViewModel.Section], animateType: WalletTypes.DisplayState.ContentAction, completed: @escaping (() -> Void)) {
         self.sections = sections
 
         CATransaction.begin()
@@ -70,6 +70,9 @@ final class WalletDisplayData: NSObject {
             tableView.reloadSections([index], animationStyle: .fade)
             tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .middle, animated: true)
             tableView.endUpdates()
+
+        default:
+            break
         }
         CATransaction.commit()
     }
@@ -117,7 +120,9 @@ extension WalletDisplayData: UITableViewDataSource {
             return cell
 
         case .quickNote:
-            return tableView.dequeueCell() as WalletQuickNoteCell
+            let cell = tableView.dequeueCell() as WalletQuickNoteCell
+            cell.setupLocalization()
+            return cell
         }
     }
 
@@ -251,8 +256,8 @@ fileprivate extension WalletTypes.ViewModel.Section {
         case .info:
             return Localizable.Waves.Wallet.Section.quickNote
 
-        case .transactions:
-            return Localizable.Waves.Wallet.Section.activeNow(items.count)
+        case .transactions(let count):
+            return Localizable.Waves.Wallet.Section.activeNow(count)
 
         case .spam(let count):
             return Localizable.Waves.Wallet.Section.spamAssets(count)

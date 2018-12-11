@@ -25,20 +25,25 @@ private extension WalletTypes.DisplayState.Kind {
 }
 
 fileprivate enum Constants {
-    static let contentInset = UIEdgeInsetsMake(0, 0, 16, 0)
+    static let contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 16, right: 0)
 }
 
 final class WalletViewController: UIViewController {
+
+    typealias Types = WalletTypes
+
     @IBOutlet var tableView: UITableView!
     @IBOutlet var segmentedControl: WalletSegmentedControl!
+    @IBOutlet var globalErrorView: GlobalErrorView!
+
     private var refreshControl: UIRefreshControl!
     private var displayData: WalletDisplayData!
 
     private let disposeBag: DisposeBag = DisposeBag()
     private let displays: [WalletTypes.DisplayState.Kind] = [.assets, .leasing]
 
-    //It flag need for fix bug "jump" UITableView when activate "refresh control'
     private var isRefreshing: Bool = false
+    private var snackError: String? = nil
 
     private let buttonAddress = UIBarButtonItem(image: Images.Wallet.walletScanner.image,
                                                 style: .plain,
@@ -74,6 +79,10 @@ final class WalletViewController: UIViewController {
         setupTableView()
         setupRefreshControl()
         setupSystem()
+
+        globalErrorView.retryDidTap = { [weak self] in
+            self?.sendEvent.accept(.refresh)
+        }
 
         NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
     }
@@ -226,16 +235,77 @@ extension WalletViewController {
     func updateView(with state: WalletTypes.DisplayState) {
 
         displayData.apply(sections: state.visibleSections, animateType: state.animateType, completed: { [weak self] in
-            if state.isRefreshing {
-                self?.refreshControl.beginRefreshing()
-            } else {
+            if state.isRefreshing == false {            
                 self?.refreshControl.endRefreshing()
             }
         })
 
+        switch state.animateType {
+        case .refreshOnlyError, .refresh:
+                updateErrorView(with: state.currentDisplay.errorState)
+
+        default:
+            break
+        }
 
         self.segmentedControl.segmentedControl.selectedIndex = displays.firstIndex(of: state.kind) ?? 0
         setupRightButons(kind: state.kind)
+    }
+
+    func updateErrorView(with state: DisplayErrorState) {
+
+        switch state {
+        case .none:
+            if let snackError = snackError {
+                hideSnack(key: snackError)
+            }
+            snackError = nil
+            self.globalErrorView.isHidden = true
+
+        case .error(let error):
+
+            switch error {
+            case .globalError(let isInternetNotWorking):
+                self.globalErrorView.isHidden = false
+                if isInternetNotWorking {
+                    globalErrorView.update(with: .init(kind: .internetNotWorking))
+                } else {
+                    globalErrorView.update(with: .init(kind: .serverError))
+                }
+
+            case .internetNotWorking:
+                globalErrorView.isHidden = true
+                snackError = showWithoutInternetSnack()
+
+            case .notFound:
+                snackError = showErrorNotFoundSnack()
+
+            case .message(let message):
+                globalErrorView.isHidden = true
+                snackError = showErrorSnack(message)
+            }
+
+        case .waiting:
+            break
+        }
+    }
+
+    private func showWithoutInternetSnack() -> String {
+        return showWithoutInternetSnack { [weak self] in
+            self?.sendEvent.accept(.refresh)
+        }
+    }
+
+    private func showErrorSnack(_ message: (String)) -> String {
+        return showErrorSnack(tille: message, didTap: { [weak self] in
+            self?.sendEvent.accept(.refresh)
+        })
+    }
+
+    private func showErrorNotFoundSnack() -> String {
+        return showErrorNotFoundSnack() { [weak self] in
+            self?.sendEvent.accept(.refresh)
+        }
     }
 }
 
@@ -251,8 +321,7 @@ private extension WalletViewController {
 
         switch kind {
         case .assets:
-            navigationItem.rightBarButtonItems = [buttonAddress,
-                                                  buttonSort]
+            navigationItem.rightBarButtonItems = [buttonAddress, buttonSort]
 
         case .leasing:
             navigationItem.rightBarButtonItems = [buttonAddress]

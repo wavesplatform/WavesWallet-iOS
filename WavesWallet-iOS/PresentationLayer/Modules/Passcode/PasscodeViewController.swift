@@ -82,7 +82,7 @@ private extension PasscodeViewController {
             let applicationWillEnterForeground =  NotificationCenter
                 .default
                 .rx
-                .notification(.UIApplicationWillEnterForeground, object: nil)
+                .notification(UIApplication.willEnterForegroundNotification, object: nil)
                 .flatMap({ [weak self] _ -> Observable<Bool> in
                     guard let strongSelf = self else { return Observable.empty() }
                     let isAppeared = (try? strongSelf.isAppeared.value()) ?? false
@@ -158,6 +158,22 @@ private extension PasscodeViewController {
             switch error {
             case .incorrectPasscode:
                 passcodeView.showInvalidateState()
+
+            case .message(let message):
+                self.showErrorSnackWithoutAction(title: message)
+
+            case .attemptsEndedLogout:
+                showAlertAttemptsEndedAndLogout()
+
+            case .attemptsEnded:
+                showAlertAttemptsEnded()
+
+            case .internetNotWorking:
+                self.showWithoutInternetSnackWithoutAction()
+
+            case .notFound:
+                self.showErrorNotFoundSnackWithoutAction()
+
             }
         }
 
@@ -167,6 +183,40 @@ private extension PasscodeViewController {
         } else {
             passcodeView.stopLoadingIndicator()
         }
+    }
+
+    private func showAlertAttemptsEnded() {
+
+        let alert = UIAlertController(title: Localizable.Waves.Passcode.Alert.Attempsended.title,
+                                      message: Localizable.Waves.Passcode.Alert.Attempsended.subtitle, preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: Localizable.Waves.Passcode.Alert.Attempsended.Button.cancel,
+                                      style: UIAlertAction.Style.cancel,
+                                      handler: { [weak self] (UIAlertAction) in
+            self?.eventInput.onNext(.tapLogoutButton)
+        }))
+
+        alert.addAction(UIAlertAction(title: Localizable.Waves.Passcode.Alert.Attempsended.Button.enterpassword,
+                                      style: UIAlertAction.Style.default,
+                                      handler: { [weak self] (UIAlertAction) in
+            self?.eventInput.onNext(.tapLogInByPassword)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    private func showAlertAttemptsEndedAndLogout() {
+
+        let alert = UIAlertController(title: Localizable.Waves.Passcode.Alert.Attempsended.title,
+                                      message: Localizable.Waves.Passcode.Alert.Attempsended.subtitle, preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: Localizable.Waves.Passcode.Alert.Attempsended.Button.ok,
+                                      style: UIAlertAction.Style.cancel,
+                                      handler: { [weak self] (UIAlertAction) in
+            self?.eventInput.onNext(.tapLogoutButton)
+        }))
+
+        self.present(alert, animated: true, completion: nil)
+
     }
 }
 

@@ -14,8 +14,8 @@ import RxSwift
 
 private enum Constants {
     static let collectionViewSpacing: CGFloat = 10
-    static let transitionDurationPresenting: TimeInterval = 0.4
-    static let transitionDurationDisappearing: TimeInterval = 0.3
+    static let transitionDurationPresenting: TimeInterval = 0.26
+    static let transitionDurationDisappearing: TimeInterval = 0.44
 
     // fallthrough tap
     static let collectionViewTapY0: CGFloat = TransactionHistoryPopupCell.Constants.popupInsets.top
@@ -339,7 +339,7 @@ extension TransactionHistoryViewController: UICollectionViewDelegate {
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
-        if fabs(velocity.x) < fabs(velocity.y) { return }
+        if abs(velocity.x) < abs(velocity.y) { return }
         
         targetContentOffset.pointee = scrollView.contentOffset
         let pageWidth: CGFloat = CGFloat(view.bounds.width)
@@ -373,7 +373,7 @@ extension TransactionHistoryViewController: UICollectionViewDelegate {
         
         currentSwipePage = Int(cellToSwipe)
         let indexPath:IndexPath = IndexPath(row: Int(cellToSwipe), section:0)
-        collectionView.scrollToItem(at:indexPath, at: UICollectionViewScrollPosition.left, animated: true)
+        collectionView.scrollToItem(at:indexPath, at: UICollectionView.ScrollPosition.left, animated: true)
         
     }
     
@@ -432,7 +432,7 @@ extension TransactionHistoryViewController: UIViewControllerTransitioningDelegat
 extension TransactionHistoryViewController: UIViewControllerAnimatedTransitioning {
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return presenting ? Constants.transitionDurationPresenting : Constants.transitionDurationPresenting
+        return presenting ? Constants.transitionDurationPresenting : Constants.transitionDurationDisappearing
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -452,7 +452,7 @@ extension TransactionHistoryViewController: UIViewControllerAnimatedTransitionin
             navigationBarHeight = fromVC?.navigationController?.navigationBar.frame.height ?? 44
             backgroundView.alpha = 0
             collectionView.alpha = 0
-            collectionView.center = CGPoint(x: view.bounds.width / 2, y: view.bounds.height * 1.5)
+            collectionView.center = CGPoint(x: self.view.center.x, y: view.bounds.height * 1.5)
         }
         
         

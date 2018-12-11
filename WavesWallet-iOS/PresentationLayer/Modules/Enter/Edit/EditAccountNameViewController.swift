@@ -10,16 +10,6 @@ import UIKit
 import RxSwift
 import IdentityImg
 
-private enum Constants {
-    
-    static let shadowOptions = ShadowOptions(offset: CGSize(width: 0, height: 4),
-                                             color: .black,
-                                             opacity: 0.1,
-                                             shadowRadius: 4,
-                                             shouldRasterize: true)
-    
-}
-
 final class EditAccountNameViewController: UIViewController {
     
     @IBOutlet private weak var containerView: UIView!
@@ -59,8 +49,7 @@ final class EditAccountNameViewController: UIViewController {
         setupSaveButton()
         fillLabels()
         
-        containerView.setupShadow(options: Constants.shadowOptions)
-        containerView.cornerRadius = 2
+        containerView.addTableCellShadowStyle()
         
         setupTextField()
         setupKeyboard()
@@ -98,8 +87,11 @@ final class EditAccountNameViewController: UIViewController {
                                                            placeholder: Localizable.Waves.Editaccountname.Label.newName))
         
         accountNameInput.valueValidator = { value in
-            if (value?.count ?? 0) < GlobalConstants.accountNameMinLimitSymbols {
+            let trimmedValue = value?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
+            if trimmedValue.count < GlobalConstants.accountNameMinLimitSymbols {
                 return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
+            } else if trimmedValue.count > GlobalConstants.accountNameMaxLimitSymbols {
+                return Localizable.Waves.Newaccount.Textfield.Error.charactersmaximum(GlobalConstants.accountNameMaxLimitSymbols)
             } else {
                 return nil
             }
@@ -119,14 +111,13 @@ final class EditAccountNameViewController: UIViewController {
     private func setupKeyboard() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillChangeFrame(notification:)),
-                                               name: NSNotification.Name.UIKeyboardWillChangeFrame,
+                                               name: UIResponder.keyboardWillChangeFrameNotification,
                                                object: nil)
     }
     
     // MARK: - Layout
     
     fileprivate func layoutSaveButton() {
-        
         saveButtonBottomConstraint.constant = keyboardHeight
         
         view.setNeedsLayout()
@@ -169,13 +160,14 @@ extension EditAccountNameViewController {
     @objc func keyboardWillChangeFrame(notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }
         
-        let frameEnd = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let animationDuration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! Double
-        let curve = userInfo[UIKeyboardAnimationCurveUserInfoKey] as! UInt
-        let animationOptions = UIViewAnimationOptions(rawValue: curve << 16)
+        let frameEnd = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
+        let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as! UInt
+        let animationOptions = UIView.AnimationOptions(rawValue: curve << 16)
         
+        let insets = layoutInsets
         let keyboardRect = view.convert(frameEnd, from: nil)
-        let h = max(view.bounds.height - keyboardRect.origin.y, 0)
+        let h = max(view.bounds.height - keyboardRect.origin.y - insets.bottom, 0)
         
         keyboardHeight = h
         

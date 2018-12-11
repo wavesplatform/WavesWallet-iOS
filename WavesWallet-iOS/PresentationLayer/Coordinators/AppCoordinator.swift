@@ -12,6 +12,10 @@ import RxSwift
 import RESideMenu
 import RxOptional
 
+private enum Contants {
+    static let delay: TimeInterval = 10
+}
+
 struct Application: TSUD {
 
     struct Settings: Codable, Mutating {
@@ -47,6 +51,9 @@ final class AppCoordinator: Coordinator {
     init(_ window: UIWindow) {
         self.window = window
         let vc = UINavigationController()
+        vc.navigationBar.isHidden = true
+        let root = UIViewController()
+        vc.pushViewController(root, animated: false)
         window.rootViewController = vc
         window.makeKeyAndVisible()
     }
@@ -107,9 +114,9 @@ final class AppCoordinator: Coordinator {
 
     private func revokeAuthAndOpenPasscode() {
 
-        authoAuthorizationInteractor
-            .revokeAuth()
-            .delay(10, scheduler: MainScheduler.asyncInstance)
+        Observable
+            .just(1)
+            .delay(Contants.delay, scheduler: MainScheduler.asyncInstance)
             .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet?> in
                 
                 guard let owner = self else { return Observable.never() }
@@ -118,9 +125,17 @@ final class AppCoordinator: Coordinator {
                     return Observable.never()
                 }
 
-                return owner.authoAuthorizationInteractor
-                    .lastWalletLoggedIn()
-                    .take(1)
+                return
+                    owner
+                        .authoAuthorizationInteractor
+                        .revokeAuth()
+                        .flatMap({ [weak self] (_) -> Observable<DomainLayer.DTO.Wallet?> in
+                            guard let owner = self else { return Observable.never() }
+
+                            return owner.authoAuthorizationInteractor
+                                    .lastWalletLoggedIn()
+                                    .take(1)
+                        })
             }
             .share()
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
@@ -260,6 +275,11 @@ extension AppCoordinator {
 
 // MARK: SupportViewControllerDelegate
 extension AppCoordinator: SupportViewControllerDelegate  {
+
+    func relaunchApp() {
+        showDisplay(.enter)
+    }
+    
     func closeSupportView(isTestNet: Bool) {
 
         self.window.rootViewController?.dismiss(animated: true, completion: {

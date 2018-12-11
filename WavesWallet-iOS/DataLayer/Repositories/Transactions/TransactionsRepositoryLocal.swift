@@ -27,7 +27,6 @@ fileprivate extension TransactionType {
     static var waves: [TransactionType] {
         return [.issue,
                 .reissue,
-                .burn,
                 .lease,
                 .leaseCancel,
                 .alias,
@@ -66,6 +65,9 @@ fileprivate extension TransactionType {
 
         case .data:
             return DataTransaction.predicate(specifications)
+
+        default:
+            return UnrecognisedTransaction.predicate(specifications)
         }
     }
 
@@ -111,6 +113,10 @@ fileprivate extension TransactionType {
         case .data:
             guard let dataTransaction = transaction.dataTransaction else { return nil }
             return .data(.init(transaction: dataTransaction))
+
+        default:
+            guard let unrecognisedTransaction = transaction.unrecognisedTransaction else { return nil }
+            return .unrecognised(.init(transaction: unrecognisedTransaction))
         }
     }
 }
@@ -139,8 +145,8 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
 
             let result = owner.transactionsResultFromRealm(by: accountAddress,
-                                                        specifications: specifications,
-                                                        realm: realm)
+                                                           specifications: specifications,
+                                                           realm: realm)
 
             let transactions = owner.mapping(result: result, by: specifications)
 

@@ -10,12 +10,12 @@ import UIKit
 
 
 private enum Constants {
-    static let imageSize = CGSize(width: 80, height: 80)
+    static let imageSize = CGSize(width: 120, height: 100)
     static let imageToTitle: CGFloat = 24
     static let titleToText: CGFloat = 8
     static let contentInset: UIEdgeInsets = .init(top: 0, left: 24, bottom: 0, right: 24)
     
-    static let titleAttributes: [NSAttributedStringKey: Any] = {
+    static let titleAttributes: [NSAttributedString.Key: Any] = {
         let style = NSMutableParagraphStyle()
         style.alignment = .center
         style.lineSpacing = 5
@@ -25,7 +25,7 @@ private enum Constants {
         return [.font: font, .paragraphStyle: style]
     }()
     
-    static let textAttributes: [NSAttributedStringKey: Any] = {
+    static let textAttributes: [NSAttributedString.Key: Any] = {
         let style = NSMutableParagraphStyle()
         style.alignment = .center
         style.lineSpacing = 1

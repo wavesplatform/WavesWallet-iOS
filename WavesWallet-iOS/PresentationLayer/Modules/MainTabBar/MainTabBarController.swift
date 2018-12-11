@@ -3,7 +3,7 @@ import RxSwift
 import RxCocoa
 
 private enum Constants {
-    static let tabBarItemImageInset = UIEdgeInsetsMake(0, 0, -8, 0)
+    static let tabBarItemImageInset = UIEdgeInsets.init(top: 0, left: 0, bottom: -8, right: 0)
 }
 private class DUMPVC: UIViewController {}
 
@@ -14,7 +14,7 @@ final class MainTabBarController: UITabBarController {
 
     private var walletCoordinator: WalletCoordinator!
     private var historyCoordinator: HistoryCoordinator!
-    private let dexListCoordinator: DexCoordinator = DexCoordinator()
+    private var dexListCoordinator: DexCoordinator!
     private var profileCoordinator: ProfileCoordinator!
 
     private let navWallet = CustomNavigationController()
@@ -34,8 +34,6 @@ final class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         self.delegate = self
         
-        listenerWallet()
-
         walletCoordinator = WalletCoordinator(navigationController: navWallet)
         walletCoordinator.start()
         navWallet.tabBarItem.image = Images.TabBar.tabBarWallet.image.withRenderingMode(.alwaysOriginal)
@@ -48,7 +46,8 @@ final class MainTabBarController: UITabBarController {
         navHistory.tabBarItem.selectedImage = Images.TabBar.tabBarHistoryActive.image.withRenderingMode(.alwaysOriginal)
         navHistory.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
-        dexListCoordinator.start(navigationController: navDex)
+        dexListCoordinator = DexCoordinator(navigationController: navDex)
+        dexListCoordinator.start()
         navDex.tabBarItem.image = Images.TabBar.tabBarDex.image.withRenderingMode(.alwaysOriginal)
         navDex.tabBarItem.selectedImage = Images.TabBar.tabBarDexActive.image.withRenderingMode(.alwaysOriginal)
         navDex.tabBarItem.imageInsets = Constants.tabBarItemImageInset
@@ -63,12 +62,14 @@ final class MainTabBarController: UITabBarController {
         fake.tabBarItem.image = Images.tabbarWavesDefault.image.withRenderingMode(.alwaysOriginal)
         fake.tabBarItem.imageInsets = Constants.tabBarItemImageInset
         viewControllers = [navWallet, navDex, fake, navHistory, navProfile]
+        
+        listenerWallet()
     }
 
     private func addTabBarBadge() {
         if #available(iOS 10.0, *) {
             navProfile.tabBarItem.badgeColor = UIColor.clear
-            navProfile.tabBarItem.setBadgeTextAttributes([NSAttributedStringKey.foregroundColor.rawValue: UIColor.error400], for: .normal)
+            navProfile.tabBarItem.setBadgeTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([NSAttributedString.Key.foregroundColor.rawValue: UIColor.error400]), for: .normal)
             navProfile.tabBarItem.badgeValue = "●"
         } else {
             navProfile.tabBarItem.badgeValue = "●"
@@ -144,4 +145,10 @@ extension MainTabBarController: WavesPopupModuleOutput {
     func showExchange() {
         
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }
