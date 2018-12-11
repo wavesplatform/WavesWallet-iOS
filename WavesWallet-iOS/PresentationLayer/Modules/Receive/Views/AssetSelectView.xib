@@ -12,7 +12,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AssetSelectView" customModule="WavesWallet_iOS" customModuleProvider="target">
             <connections>
-                <outlet property="activityIndicator" destination="dQT-dU-NVN" id="2bi-w9-KWO"/>
                 <outlet property="assetRightOffset" destination="3gI-rv-rKM" id="HN0-z7-Nk7"/>
                 <outlet property="buttonTap" destination="eUL-2y-7ZO" id="Mt0-Ho-Psg"/>
                 <outlet property="iconArrows" destination="swX-PX-8qH" id="U1n-Op-Pc4"/>
@@ -23,6 +22,7 @@
                 <outlet property="labelAssetLocalization" destination="9dU-Pm-lms" id="gpO-r5-h1t"/>
                 <outlet property="labelAssetName" destination="yUu-fr-JTB" id="iav-Sq-oR5"/>
                 <outlet property="labelSelectAsset" destination="ZyM-hx-YX5" id="9FI-8q-B62"/>
+                <outlet property="skeletonView" destination="fov-fy-fCT" id="SRc-JJ-ac8"/>
                 <outlet property="viewAsset" destination="DZc-Tc-VFP" id="9uP-Dv-bV4"/>
                 <outlet property="viewContainer" destination="R6M-IK-Z8L" id="bhG-8h-5Ks"/>
             </connections>
@@ -50,9 +50,6 @@
                             <color key="textColor" red="0.80784313725490198" green="0.81568627450980391" blue="0.85490196078431369" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dQT-dU-NVN">
-                            <rect key="frame" x="161.5" y="14" width="20" height="20"/>
-                        </activityIndicatorView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZc-Tc-VFP">
                             <rect key="frame" x="14" y="0.0" width="293" height="48"/>
                             <subviews>
@@ -102,6 +99,10 @@
                                 <action selector="buttonTapped:" destination="-1" eventType="touchUpInside" id="qON-sa-3kU"/>
                             </connections>
                         </button>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fov-fy-fCT" customClass="AssetSelectSkeletonView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="343" height="48"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -109,13 +110,15 @@
                         <constraint firstItem="DZc-Tc-VFP" firstAttribute="top" secondItem="R6M-IK-Z8L" secondAttribute="top" id="6wg-Bz-5Mn"/>
                         <constraint firstAttribute="bottom" secondItem="DZc-Tc-VFP" secondAttribute="bottom" id="85C-fe-M15"/>
                         <constraint firstAttribute="trailing" secondItem="swX-PX-8qH" secondAttribute="trailing" constant="14" id="EUc-Ba-6qU"/>
+                        <constraint firstAttribute="trailing" secondItem="fov-fy-fCT" secondAttribute="trailing" id="G4S-Ma-3Hc"/>
                         <constraint firstAttribute="bottom" secondItem="eUL-2y-7ZO" secondAttribute="bottom" id="HGU-OA-3bX"/>
+                        <constraint firstAttribute="bottom" secondItem="fov-fy-fCT" secondAttribute="bottom" id="IcI-6v-StQ"/>
                         <constraint firstItem="eUL-2y-7ZO" firstAttribute="top" secondItem="R6M-IK-Z8L" secondAttribute="top" id="TGG-ex-6Cb"/>
                         <constraint firstItem="DZc-Tc-VFP" firstAttribute="leading" secondItem="R6M-IK-Z8L" secondAttribute="leading" constant="14" id="TMF-yO-fVr"/>
-                        <constraint firstItem="dQT-dU-NVN" firstAttribute="centerX" secondItem="R6M-IK-Z8L" secondAttribute="centerX" id="c2o-mR-IPo"/>
+                        <constraint firstItem="fov-fy-fCT" firstAttribute="leading" secondItem="R6M-IK-Z8L" secondAttribute="leading" id="aaX-fc-G1c"/>
                         <constraint firstAttribute="height" constant="48" id="dKG-hg-Jc0"/>
                         <constraint firstAttribute="trailing" secondItem="eUL-2y-7ZO" secondAttribute="trailing" id="j8e-mT-ryd"/>
-                        <constraint firstItem="dQT-dU-NVN" firstAttribute="centerY" secondItem="R6M-IK-Z8L" secondAttribute="centerY" id="kFT-6y-0L6"/>
+                        <constraint firstItem="fov-fy-fCT" firstAttribute="top" secondItem="R6M-IK-Z8L" secondAttribute="top" id="jMm-1a-wsm"/>
                         <constraint firstItem="ZyM-hx-YX5" firstAttribute="centerY" secondItem="R6M-IK-Z8L" secondAttribute="centerY" id="lyW-lL-K8e"/>
                         <constraint firstItem="eUL-2y-7ZO" firstAttribute="leading" secondItem="R6M-IK-Z8L" secondAttribute="leading" id="qSg-d2-7xb"/>
                         <constraint firstItem="swX-PX-8qH" firstAttribute="centerY" secondItem="R6M-IK-Z8L" secondAttribute="centerY" id="r8F-5q-7ra"/>

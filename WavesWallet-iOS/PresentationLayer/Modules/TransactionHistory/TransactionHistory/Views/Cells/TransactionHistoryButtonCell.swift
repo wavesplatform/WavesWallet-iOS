@@ -50,8 +50,7 @@ extension TransactionHistoryButtonCell: ViewConfiguration {
         switch model.type {
         case .resend:
 
-            //TODO: Need implementation resend
-            button.isHidden = true
+            button.isHidden = model.isGatewayAddress
             title = Localizable.Waves.Transactionhistory.Cell.Button.sendAgain
             buttonBackground = UIColor.warning600
             buttonHighlightedBackground = UIColor.warning400
@@ -63,7 +62,10 @@ extension TransactionHistoryButtonCell: ViewConfiguration {
             buttonBackground = UIColor.error400
             buttonHighlightedBackground = UIColor.error700
             icon = Images.closeLeaseIcon.image
-            
+        
+        case .massResend:
+            button.isHidden = true
+            icon = Images.resendIcon.image
         }
         
         button.setTitle(title, for: .normal)
