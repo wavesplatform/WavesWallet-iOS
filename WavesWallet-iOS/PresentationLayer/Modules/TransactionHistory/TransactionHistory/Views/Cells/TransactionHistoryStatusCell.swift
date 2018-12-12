@@ -36,8 +36,7 @@ extension TransactionHistoryStatusCell: ViewConfiguration {
         titleLabel.text = Localizable.Waves.Transactionhistory.Cell.Status.timestamp
         
         // timestamp
-        let formatter = DateFormatter.sharedFormatter
-        formatter.locale = Language.currentLocale
+        let formatter = DateFormatter.sharedFormatter        
         formatter.dateFormat = Constants.timestampDateFormatBegin + Localizable.Waves.Transactionhistory.Cell.Status.at + Constants.timestampDateFormatEnd
         valueLabel.text = formatter.string(from: model.timestamp)
         
