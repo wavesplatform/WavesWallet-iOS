@@ -142,8 +142,7 @@ final class NewTransactionHistoryContentView: UIView {
         let kind = transaction.title
         let sender = transaction.sender.address
         
-        let formatter = DateFormatter.sharedFormatter
-        formatter.locale = Language.currentLocale
+        let formatter = DateFormatter.sharedFormatter        
         formatter.dateFormat = Constants.timestampDateFormat
         let date = formatter.string(from: transaction.timestamp)
         

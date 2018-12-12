@@ -461,8 +461,7 @@ extension HistoryViewController: UITableViewDataSource {
             if let date = model.date {
                 let formatter = DateFormatter.sharedFormatter
                 formatter.dateStyle = .long
-                formatter.timeStyle = .none
-                formatter.locale = Language.currentLocale
+                formatter.timeStyle = .none                
                 view.update(with: formatter.string(from: date))
             }
             return view
