@@ -72,62 +72,13 @@ final class SendInteractor: SendInteractorProtocol {
             })
     }
     
-    func generateMoneroAddress(asset: DomainLayer.DTO.SmartAssetBalance, address: String, paymentID: String) -> Observable<ResponseType<String>> {
-        
-        return Observable.create({ [weak self] (subscribe) -> Disposable in
-            
-            let asset = asset.asset
-
-            self?.getAssetTunnelInfo(asset: asset, address: address, moneroPaymentID: paymentID, complete: { (shortName, address, attachment, error) in
-                
-                if let address = address {
-                    subscribe.onNext(ResponseType(output: address, error: nil))
-                }
-                else {
-                    subscribe.onNext(ResponseType(output: nil, error: error))
-                }
-            })
-            return Disposables.create()
-        })
+    func generateMoneroAddress(asset: DomainLayer.DTO.SmartAssetBalance, address: String, paymentID: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
+        return gateWayInfo(asset: asset, address: address, moneroPaymentID: paymentID)
        
     }
     
     func gateWayInfo(asset: DomainLayer.DTO.SmartAssetBalance, address: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
-        
-        return Observable.create({ [weak self] subscribe -> Disposable in
-        
-            let asset = asset.asset
-            
-            self?.getAssetRate(asset: asset, complete: { (fee, min, max, errorMessage) in
-
-                if let fee = fee, let min = min, let max = max {
-
-                    self?.getAssetTunnelInfo(asset: asset, address: address, moneroPaymentID: "", complete: { (shortName, address, attachment, error) in
-                        
-                        if let shortName = shortName, let address = address, let attachment = attachment {
-                            
-                            let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,
-                                                                   assetShortName: shortName,
-                                                                   minAmount: min,
-                                                                   maxAmount: max,
-                                                                   fee: fee,
-                                                                   address: address,
-                                                                   attachment: attachment)
-                            
-                            subscribe.onNext(ResponseType(output: gatewayInfo, error: nil))
-                        }
-                        else {
-                            subscribe.onNext(ResponseType(output: nil, error: errorMessage))
-                        }
-                    })
-                }
-                else {
-                    subscribe.onNext(ResponseType(output: nil, error: errorMessage))
-                }
-            })
-            
-            return Disposables.create()
-        })
+        return gateWayInfo(asset: asset, address: address, moneroPaymentID: nil)
     }
     
     func validateAlis(alias: String) -> Observable<Bool> {
@@ -201,13 +152,51 @@ final class SendInteractor: SendInteractorProtocol {
 
 private extension SendInteractor {
     
-    func getAssetTunnelInfo(asset: DomainLayer.DTO.Asset, address: String, moneroPaymentID: String, complete:@escaping(_ shortName: String?, _ address: String?, _ attachment: String?, _ error: NetworkError?) -> Void) {
+    func gateWayInfo(asset: DomainLayer.DTO.SmartAssetBalance, address: String, moneroPaymentID: String?) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
+
+        return Observable.create({ [weak self] subscribe -> Disposable in
+            
+            let asset = asset.asset
+            
+            self?.getAssetRate(asset: asset, complete: { (fee, min, max, errorMessage) in
+                
+                if let fee = fee, let min = min, let max = max {
+                    
+                    self?.getAssetTunnelInfo(asset: asset, address: address, moneroPaymentID: moneroPaymentID, complete: { (shortName, address, attachment, error) in
+                        
+                        if let shortName = shortName, let address = address, let attachment = attachment {
+                            
+                            let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,
+                                                                   assetShortName: shortName,
+                                                                   minAmount: min,
+                                                                   maxAmount: max,
+                                                                   fee: fee,
+                                                                   address: address,
+                                                                   attachment: attachment)
+                            
+                            subscribe.onNext(ResponseType(output: gatewayInfo, error: nil))
+                        }
+                        else {
+                            subscribe.onNext(ResponseType(output: nil, error: errorMessage))
+                        }
+                    })
+                }
+                else {
+                    subscribe.onNext(ResponseType(output: nil, error: errorMessage))
+                }
+            })
+            
+            return Disposables.create()
+        })
+    }
+    
+    func getAssetTunnelInfo(asset: DomainLayer.DTO.Asset, address: String, moneroPaymentID: String?, complete:@escaping(_ shortName: String?, _ address: String?, _ attachment: String?, _ error: NetworkError?) -> Void) {
         
         var params = ["currency_from" : asset.wavesId ?? "",
                       "currency_to" : asset.gatewayId ?? "",
                       "wallet_to" : address]
         
-        if moneroPaymentID.count > 0 {
+        if let moneroPaymentID = moneroPaymentID, moneroPaymentID.count > 0 {
             params["monero_payment_id"] = moneroPaymentID
         }
         

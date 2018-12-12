@@ -26,7 +26,7 @@ enum Send {
         case checkValidationAlias
         case validationAliasDidComplete(Bool)
         case didGetWavesAsset(DomainLayer.DTO.SmartAssetBalance)
-        case moneroAddressDidGenerate(ResponseType<String>)
+        case moneroAddressDidGenerate(ResponseType<DTO.GatewayInfo>)
         case getAssetById(String)
         case cancelGetingAsset
         case didGetAssetBalance(DomainLayer.DTO.SmartAssetBalance?)
@@ -39,12 +39,12 @@ enum Send {
             case didFailInfo(NetworkError)
             case aliasDidFinishCheckValidation(Bool)
             case didGetWavesAsset(DomainLayer.DTO.SmartAssetBalance)
-            case didGenerateMoneroAddress(String)
+            case didGenerateMoneroAddress(DTO.GatewayInfo)
             case didFailGenerateMoneroAddress(NetworkError)
             case didGetAssetBalance(DomainLayer.DTO.SmartAssetBalance?)
         }
         
-        var isNeedLoadInfo: Bool
+        var isNeedLoadGateWayInfo: Bool
         var isNeedValidateAliase: Bool
         var isNeedLoadWaves: Bool
         var isNeedGenerateMoneroAddress: Bool
@@ -158,7 +158,7 @@ extension Send.DTO.Transaction {
 extension Send.State: Equatable {
     
     static func == (lhs: Send.State, rhs: Send.State) -> Bool {
-        return lhs.isNeedLoadInfo == rhs.isNeedLoadInfo &&
+        return lhs.isNeedLoadGateWayInfo == rhs.isNeedLoadGateWayInfo &&
                 lhs.isNeedValidateAliase == rhs.isNeedValidateAliase &&
                 lhs.isNeedGenerateMoneroAddress == rhs.isNeedGenerateMoneroAddress &&
                 lhs.recipient == rhs.recipient &&
