@@ -48,5 +48,16 @@
       "title": "日本語",
       "icon": "flag18Japan",
       "code": "ja"
+  },
+    {
+      "title": "Português do Brasil",
+      "icon": "flag18Brazil",
+      "code": "pt-BR"
+  },
+    {
+      "title": "Türkçe",
+      "icon": "flag18Turkey",
+      "code": "tr"
   }
+  
 ]

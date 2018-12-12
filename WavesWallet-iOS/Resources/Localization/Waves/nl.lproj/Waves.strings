@@ -59,7 +59,7 @@
 
 "addresseskeys.cell.publickey.title" = "Publieke sleutel";
 
-"addresseskeys.cell.seed.title" = "Seed";
+"addresseskeys.cell.seed.title" = "SEED";
 
 "addresseskeys.navigation.title" = "Adressen, sleutels";
 
@@ -123,7 +123,7 @@
 
 "asset.cell.balance.totalBalance" = "Totaal";
 
-"asset.cell.viewHistory" = "Bekijk geschiedenis";
+"asset.cell.viewHistory" = "Transactie Geschiedenis";
 
 "asset.header.lastTransactions" = "Laatste transacties";
 
@@ -133,7 +133,7 @@
 
 "assetlist.button.myList" = "Met saldo";
 
-"assetlist.button.withBalance" = "Met balans";
+"assetlist.button.withBalance" = "Met saldo";
 
 "assetlist.label.assets" = "Assets";
 
@@ -151,7 +151,7 @@
 
 "backup.infobackup.button.iunderstand" = "Ik begrijp het";
 
-"backup.infobackup.label.detail" = "Waves Platform wil u graag waarschuwen voor de verhoogde frequentie van oplichtings- en phishing-aanvallen van de afgelopen maand. Fraudeurs verbergen hun malware in hun eigen versie van de Waves-client en beloven bonussen en kortingen om gebruikers te verleiden.\n\nWees voorzichtig en voer nooit uw SEED in deze 'clients' in, omdat uw account in gevaar komt en u verliest al uw geld. \n\nU dient ALLEEN de officiële Waves-client te gebruiken.";
+"backup.infobackup.label.detail" = "Waves Platform wil u graag waarschuwen voor de verhoogde frequentie van oplichtings- en phishing-aanvallen van de afgelopen maand. Fraudeurs verbergen hun malware in hun eigen versie van de Waves-client en beloven bonussen en kortingen om gebruikers te verleiden.\n\nWees voorzichtig en voer nooit uw SEED in deze 'clients' in, omdat uw account in gevaar komt en u verliest al uw geld.\n\nU dient ALLEEN de officiële Waves-client te gebruiken.";
 
 "backup.infobackup.label.title" = "Behandel je back-up regel met zorg!";
 
@@ -172,6 +172,14 @@
 "backup.savebackup.next.button.title" = "Ik heb het opgeschreven";
 
 "backup.savebackup.next.label.title" = "U bevestigt deze zin op het volgende scherm";
+
+"biometric.localizedCancelTitle" = "Annuleren";
+
+"biometric.localizedFallbackTitle" = "Voer uw toegangscode in";
+
+"biometric.manyattempts.subtitle" = "Om biometrische gegevens te ontgrendelen, logt u in met uw accountwachtwoord";
+
+"biometric.manyattempts.title" = "Te veel pogingen";
 
 "biometric.readfromkeychain" = "Toegang tot uw Portemonnee";
 
@@ -419,6 +427,8 @@
 
 "enter.block.exchange.title" = "Gedecentraliseerde exchange";
 
+"enter.block.token.text" = "Geef uw eigen tokens uit. Deze kunnen in uw bedrijf worden geïntegreerd, niet alleen als een interne valuta, maar ook als een teken voor gedecentraliseerd stemmen, als een beoordelingssysteem of een loyaliteitsprogramma.";
+
 "enter.block.token.title" = "Token Launcher";
 
 "enter.block.wallet.text" = "Bewaar, beheer en ontvang rente op uw digitale assets balans, gemakkelijk en veilig.";
@@ -499,7 +509,7 @@
 
 "hello.page.info.fourth.title" = "Hoe je jezelf kunt beschermen tegen Phishers";
 
-"hello.page.info.second.detail" = "Wanneer u uw account registreert, wordt u gevraagd om uw geheime zin (Seed) op te slaan en om uw account te beveiligen met een wachtwoord. Op normale gecentraliseerde servers wordt speciale aandacht besteed aan het wachtwoord, dat kan worden gewijzigd en gereset via e-mail, als de noodzaak zich voordoet. Op gedecentraliseerde platforms zoals Waves is alles echter anders geregeld.";
+"hello.page.info.second.detail" = "Wanneer u uw account registreert, wordt u gevraagd om uw geheime zin (SEED) op te slaan en om uw account te beveiligen met een wachtwoord. Op normale gecentraliseerde servers wordt speciale aandacht besteed aan het wachtwoord, dat kan worden gewijzigd en gereset via e-mail, als de noodzaak zich voordoet. Op gedecentraliseerde platforms zoals Waves is alles echter anders geregeld.";
 
 "hello.page.info.second.title" = "Wat u moet weten over uw SEED";
 
@@ -567,11 +577,11 @@
 
 "history.transaction.value.data" = "Ingang in blockchain";
 
-"import.account.button.enter.title" = "Voer Seed handmatig in";
+"import.account.button.enter.title" = "Voer SEED handmatig in";
 
 "import.account.button.scan.title" = "Koppelingscode scannen";
 
-"import.account.label.info.step.one.detail" = "Instellingen — Beveiliging — Koppelingscode";
+"import.account.label.info.step.one.detail" = "Instellingen — Algemeen — Apparaat Pairing";
 
 "import.account.label.info.step.one.title" = "Meld u aan bij uw Waves-client via uw pc of Mac op https://client.wavesplatform.com";
 
@@ -589,9 +599,9 @@
 
 "import.manually.button.continue" = "Ga door";
 
-"import.manually.label.address.placeholder" = "Uw seed is de 15 woorden welke u heeft opgeslagen toen u uw account aanmaakte";
+"import.manually.label.address.placeholder" = "Uw SEED is de 15 woorden welke u heeft opgeslagen toen u uw account aanmaakte";
 
-"import.manually.label.address.title" = "Uw account seed";
+"import.manually.label.address.title" = "Uw account SEED";
 
 "import.password.button.continue" = "Ga door";
 
@@ -601,15 +611,15 @@
 
 "import.scan.label.step.three.title" = "Scan de pairing met uw camera";
 
-"import.scan.label.step.two.detail" = "Instellingen — Beveiliging — Pairing code";
+"import.scan.label.step.two.detail" = "Instellingen — Algemeen — Apparaat Pairing";
 
 "import.scan.label.step.two.title" = "Klik «Toon Pairing Code» om een QR Code te tonen";
 
 "import.welcome.button.continue" = "Doorgaan";
 
-"import.welcome.label.address.placeholder" = "Uw Seed zijn de 15 woorden die uw heeft opgeslagen bij het maken van uw account";
+"import.welcome.label.address.placeholder" = "Uw SEED zijn de 15 woorden die uw heeft opgeslagen bij het maken van uw account";
 
-"import.welcome.label.address.title" = "Uw account Seed";
+"import.welcome.label.address.title" = "Uw account SEED";
 
 "import.welcome.navigation.title" = "Welkom terug";
 
@@ -693,7 +703,7 @@
 
 "passcode.alert.attempsended.button.cancel" = "Annuleren";
 
-"passcode.alert.attempsended.button.enterpassword" = "Voer wachtwoord in";
+"passcode.alert.attempsended.button.enterpassword" = "Gebruik wachtwoord";
 
 "passcode.alert.attempsended.button.ok" = "Oke";
 
@@ -719,9 +729,19 @@
 
 "profile.alert.deleteAccount.message" = "Weet je zeker dat je dit account van je apparaat wilt verwijderen?";
 
+"profile.alert.deleteAccount.notSaveSeed" = "Je hebt je SEED niet opgeslagen";
+
 "profile.alert.deleteAccount.title" = "Account verwijderen";
 
 "profile.alert.deleteAccount.withoutbackup.message" = "Het verwijderen van een account zal leiden tot zijn onherstelbaar verlies!";
+
+"profile.alert.setupbiometric.button.cancel" = "Annuleren";
+
+"profile.alert.setupbiometric.button.settings" = "Instellingen";
+
+"profile.alert.setupbiometric.message" = "Om snel en veilig inloggen te gebruiken, gaat u naar instellingen om biometrie in te schakelen";
+
+"profile.alert.setupbiometric.title" = "Biometrie is uitgeschakeld";
 
 "profile.button.delete.title" = "Account verwijderen van apparaat";
 
@@ -828,6 +848,8 @@
 "receivegenerate.label.yourAddress" = "Uw %@ adres";
 
 "receiveinvoice.label.dollar" = "US dollar";
+
+"scannerqrcode.label.scan" = "Scan QR";
 
 "send.button.chooseFromAddressBook" = "Kies uit adresboek";
 
@@ -1095,7 +1117,7 @@
 
 "wallet.label.totalBalance" = "Totale balans";
 
-"wallet.label.viewHistory" = "Bekijk geschiedenis";
+"wallet.label.viewHistory" = "Transactie Geschiedenis";
 
 "wallet.navigationBar.title" = "Portemonnee";
 
