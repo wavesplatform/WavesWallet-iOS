@@ -41,11 +41,6 @@
                                                         <constraint firstAttribute="height" constant="24" id="0cl-oI-cDj"/>
                                                         <constraint firstAttribute="width" constant="24" id="ynG-ck-AP7"/>
                                                     </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="12"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ugF-xP-p8v">
                                                     <rect key="frame" x="48" y="10" width="42" height="21"/>
