@@ -1,4 +1,6 @@
 
+"newaccount.textfield.error.maximumcharacters" = "Maksimum %d karakter";
+
 "Receivecard.Label.minimunAmountInfo" = "Minimum %@, Maksimum %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "Komisyonları ödemek için yeterli bakiyeniz bulunmamaktadır. İşlem için %@ komisyon ödemeniz ve geçit için %@ komisyon ödemeniz gerekmektedir.";
