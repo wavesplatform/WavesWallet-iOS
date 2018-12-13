@@ -46,6 +46,8 @@ final class SendConfirmationViewController: UIViewController {
     var input: Input!
     weak var resultDelegate: SendResultDelegate?
 
+    private let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -156,15 +158,15 @@ private extension SendConfirmationViewController {
 
             guard let strongSelf = self else { return }
             
-            if let contact = contacts.first(where: {$0.address == strongSelf.input.address}) {
+            if let contact = contacts.first(where: {$0.address == strongSelf.input.displayAddress}) {
                 strongSelf.viewRecipient.update(with: .init(name: contact.name, address: strongSelf.input.displayAddress))
 
             }
             else {
-                strongSelf.viewRecipient.update(with: .init(name: nil, address: strongSelf.input.address))
+                strongSelf.viewRecipient.update(with: .init(name: nil, address: strongSelf.input.displayAddress))
             }
 
-        }).dispose()
+        }).disposed(by: disposeBag)
         
         if let ticker = input.asset.ticker {
             labelAssetName.isHidden = true
