@@ -55,7 +55,7 @@ final class SendPresenter: SendPresenterProtocol {
     
     private func modelsQuery() -> Feedback {
         return react(query: { state -> Send.State? in
-            return  state.isNeedLoadInfo ||
+            return  state.isNeedLoadGateWayInfo ||
                     state.isNeedValidateAliase ||
                     state.isNeedGenerateMoneroAddress ? state : nil
             
@@ -69,7 +69,7 @@ final class SendPresenter: SendPresenterProtocol {
             
             guard let asset = state.selectedAsset else { return Signal.empty() }
     
-            if state.isNeedLoadInfo {
+            if state.isNeedLoadGateWayInfo {
                 return strongSelf.interactor.gateWayInfo(asset: asset, address: state.recipient)
                     .map {.didGetGatewayInfo($0)}.asSignal(onErrorSignalWith: Signal.empty())
             }
@@ -95,7 +95,7 @@ final class SendPresenter: SendPresenterProtocol {
         case .getGatewayInfo:
             return state.mutate {
                 $0.action = .none
-                $0.isNeedLoadInfo = true
+                $0.isNeedLoadGateWayInfo = true
                 $0.isNeedValidateAliase = false
                 $0.isNeedGenerateMoneroAddress = false
             }
@@ -103,7 +103,7 @@ final class SendPresenter: SendPresenterProtocol {
         case .didSelectAsset(let asset, let loadGatewayInfo):
             return state.mutate {
                 $0.action = .none
-                $0.isNeedLoadInfo = loadGatewayInfo
+                $0.isNeedLoadGateWayInfo = loadGatewayInfo
                 $0.isNeedValidateAliase = false
                 $0.isNeedGenerateMoneroAddress = false
                 $0.selectedAsset = asset
@@ -111,7 +111,7 @@ final class SendPresenter: SendPresenterProtocol {
     
         case .didChangeRecipient(let recipient):
             return state.mutate {
-                $0.isNeedLoadInfo = false
+                $0.isNeedLoadGateWayInfo = false
                 $0.isNeedValidateAliase = false
                 $0.isNeedGenerateMoneroAddress = false
                 $0.recipient = recipient
@@ -120,7 +120,7 @@ final class SendPresenter: SendPresenterProtocol {
             
         case .didChangeMoneroPaymentID(let paymentID):
             return state.mutate {
-                $0.isNeedLoadInfo = false
+                $0.isNeedLoadGateWayInfo = false
                 $0.isNeedValidateAliase = false
                 $0.isNeedGenerateMoneroAddress = true
                 $0.moneroPaymentID = paymentID
@@ -130,12 +130,12 @@ final class SendPresenter: SendPresenterProtocol {
         case .moneroAddressDidGenerate(let response):
             return state.mutate {
                 $0.isNeedGenerateMoneroAddress = false
-                $0.isNeedLoadInfo = false
+                $0.isNeedLoadGateWayInfo = false
                 $0.isNeedValidateAliase = false
 
                 switch response.result {
-                case .success(let address):
-                    $0.action = .didGenerateMoneroAddress(address)
+                case .success(let info):
+                    $0.action = .didGenerateMoneroAddress(info)
                     
                 case .error(let error):
                     $0.action = .didFailGenerateMoneroAddress(error)
@@ -145,7 +145,7 @@ final class SendPresenter: SendPresenterProtocol {
         case .didGetGatewayInfo(let response):
             return state.mutate {
                 
-                $0.isNeedLoadInfo = false
+                $0.isNeedLoadGateWayInfo = false
                 $0.isNeedValidateAliase = false
                 $0.isNeedGenerateMoneroAddress = false
                 
@@ -160,14 +160,14 @@ final class SendPresenter: SendPresenterProtocol {
 
         case .checkValidationAlias:
             return state.mutate {
-                $0.isNeedLoadInfo = false
+                $0.isNeedLoadGateWayInfo = false
                 $0.isNeedValidateAliase = true
                 $0.action = .none
             }
             
         case .validationAliasDidComplete(let isValiadAlias):
             return state.mutate {
-                $0.isNeedLoadInfo = false
+                $0.isNeedLoadGateWayInfo = false
                 $0.isNeedValidateAliase = false
                 $0.action = .aliasDidFinishCheckValidation(isValiadAlias)
             }
@@ -196,7 +196,7 @@ final class SendPresenter: SendPresenterProtocol {
 fileprivate extension Send.State {
     
     static var initialState: Send.State {
-        return Send.State(isNeedLoadInfo: false,
+        return Send.State(isNeedLoadGateWayInfo: false,
                           isNeedValidateAliase: false,
                           isNeedLoadWaves: true,
                           isNeedGenerateMoneroAddress: false,

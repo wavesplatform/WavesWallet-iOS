@@ -105,8 +105,12 @@ platform :ios do
       match_lightweight_tag: false,  # Optional, lets you ignore lightweight (non-annotated) tags when searching for the last tag
       merge_commit_filtering: "exclude_merges" # Optional, lets you filter out merge commits
     )    
+
+    # root_ouput = Pathname.new(ENV["FL_OUTPUT_DIR"])
+    # puts "#{root_ouput}"
+
     ENV['CHANGELOG']="Version: #{version} #{build_number}\n#{changelog}"
-    ENV['CHANGELOG_PATH']="#{ENV['FL_OUTPUT_DIR']}/changelog.txt"
+    ENV['CHANGELOG_PATH']="#{ROOT}/changelog.txt"
     sh("echo \"#{ENV['CHANGELOG']}\" >> #{ENV['CHANGELOG_PATH']}") 
   end
 

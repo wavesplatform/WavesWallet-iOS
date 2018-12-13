@@ -66,7 +66,7 @@ fileprivate extension DexChartViewController {
     func setupFeedBack() {
     
         let feedback = bind(self) { owner, state -> Bindings<DexChart.Event> in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
         
         let readyViewFeedback: DexChartPresenter.Feedback = { [weak self] _ in

@@ -23,6 +23,7 @@ extension ProfileTypes {
         case showChangePasscode(wallet: DomainLayer.DTO.Wallet)
         case showNetwork(wallet: DomainLayer.DTO.Wallet)
         case showRateApp
+        case showAlertForEnabledBiometric
         case showFeedback
         case showSupport
         case setEnabledBiometric(Bool, wallet: DomainLayer.DTO.Wallet)
@@ -75,6 +76,7 @@ extension ProfileTypes.ViewModel {
         case backupPhrase(isBackedUp: Bool)
         case changePassword
         case changePasscode
+        case biometricDisabled
         case biometric(isOn: Bool)
         case network
         case rateApp

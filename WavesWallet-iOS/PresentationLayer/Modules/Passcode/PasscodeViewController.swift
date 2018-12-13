@@ -73,7 +73,7 @@ private extension PasscodeViewController {
     func setupSystem() {
 
         let uiFeedback: PasscodePresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<Types.Event>) in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
 
         let readyViewFeedback: PasscodePresenterProtocol.Feedback = { [weak self] _ in
@@ -148,7 +148,7 @@ private extension PasscodeViewController {
                                                                 target: self,
                                                                 action: #selector(logoutButtonDidTap))
         }
-
+        
         passcodeView.hiddenButton(by: .biometric, isHidden: state.isHiddenBiometricButton)
 
         self.logInByPasswordTitle.isHidden = state.isHiddenLogInByPassword
@@ -158,6 +158,10 @@ private extension PasscodeViewController {
             switch error {
             case .incorrectPasscode:
                 passcodeView.showInvalidateState()
+
+            case .biometricLockout:
+                self.showErrorSnackWithoutAction(title: Localizable.Waves.Biometric.Manyattempts.title,
+                                                 subtitle: Localizable.Waves.Biometric.Manyattempts.subtitle)
 
             case .message(let message):
                 self.showErrorSnackWithoutAction(title: message)
@@ -174,6 +178,8 @@ private extension PasscodeViewController {
             case .notFound:
                 self.showErrorNotFoundSnackWithoutAction()
 
+            case .none:
+                break
             }
         }
 
