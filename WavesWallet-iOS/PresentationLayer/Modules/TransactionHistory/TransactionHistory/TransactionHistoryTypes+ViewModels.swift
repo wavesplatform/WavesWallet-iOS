@@ -236,7 +236,6 @@ extension TransactionHistoryTypes.ViewModel.Section {
         case .incomingLeasing(let model):
             balance = model.balance
             asset = model.asset
-            sign = .minus
             
             kindRows.append(
                 .recipient(
