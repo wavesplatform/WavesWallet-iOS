@@ -61,7 +61,7 @@
 
 "addresseskeys.cell.seed.title" = "SEED";
 
-"addresseskeys.navigation.title" = "Alamat, kunci";
+"addresseskeys.navigation.title" = "Alamat dan kunci";
 
 "aliases.cell.head.title" = "Alias ​​Anda";
 
@@ -123,7 +123,7 @@
 
 "asset.cell.balance.totalBalance" = "Total";
 
-"asset.cell.viewHistory" = "Lihat sejarah";
+"asset.cell.viewHistory" = "Histori transaksi";
 
 "asset.header.lastTransactions" = "Transaksi terakhir";
 
@@ -133,9 +133,9 @@
 
 "assetlist.button.myList" = "Dengan Saldo";
 
-"assetlist.button.withBalance" = "Dengan keseimbangan";
+"assetlist.button.withBalance" = "Dengan Saldo";
 
-"assetlist.label.assets" = "Aktiva";
+"assetlist.label.assets" = "Aset";
 
 "assetlist.label.loadingAssets" = "Memuat aset…";
 
@@ -172,6 +172,14 @@
 "backup.savebackup.next.button.title" = "Saya telah menuliskannya";
 
 "backup.savebackup.next.label.title" = "Anda akan mengkonfirmasi frasa ini di layar berikutnya";
+
+"biometric.localizedCancelTitle" = "Batalkan";
+
+"biometric.localizedFallbackTitle" = "Masukkan Passcode";
+
+"biometric.manyattempts.subtitle" = "Untuk membuka kunci biometrik, masuk dengan kata sandi akun Anda";
+
+"biometric.manyattempts.title" = "Terlalu banyak upaya";
 
 "biometric.readfromkeychain" = "Akses ke dompet Anda";
 
@@ -303,7 +311,7 @@
 
 "dexcreateorder.label.totalIn" = "Total dalam";
 
-"dexinfo.label.amountAsset" = "Jumlah Aset";
+"dexinfo.label.amountAsset" = "Pasar Aset";
 
 "dexinfo.label.popular" = "Populer";
 
@@ -317,7 +325,7 @@
 
 "dexlasttrades.label.emptyData" = "Tidak ada di Sini…\nDirektori perdagangan kosong";
 
-"dexlasttrades.label.loadingLastTrades" = "Memuat perdagangan terakhir..";
+"dexlasttrades.label.loadingLastTrades" = "Memuat perdagangan terakhir…";
 
 "dexlasttrades.label.price" = "Harga";
 
@@ -399,7 +407,7 @@
 
 "dextradercontainer.button.chart" = "Grafik";
 
-"dextradercontainer.button.lastTrades" = "Perdagangan terakhir";
+"dextradercontainer.button.lastTrades" = "Aktivitas market";
 
 "dextradercontainer.button.myOrders" = "Pesananku";
 
@@ -418,6 +426,8 @@
 "enter.block.exchange.text" = "Berdagang dengan cepat dan aman. Anda tetap memegang kendali penuh atas dana Anda saat menukarkannya di bursa kami yang terdesentralisasi.";
 
 "enter.block.exchange.title" = "Desentralisasi Exchange";
+
+"enter.block.token.text" = "Terbitkan token Anda sendiri. Ini dapat diintegrasikan ke dalam bisnis Anda tidak hanya sebagai mata uang internal tetapi juga sebagai token untuk pemilihan yang terdesentralisasi, sebagai sistem rating, atau program loyalitas.";
 
 "enter.block.token.title" = "Token Launcher";
 
@@ -457,7 +467,7 @@
 
 "general.tabbar.title.dex" = "DEX";
 
-"general.tabbar.title.history" = "Sejarah";
+"general.tabbar.title.history" = "Histori";
 
 "general.tabbar.title.profile" = "Profil";
 
@@ -471,9 +481,9 @@
 
 "general.ticker.title.wavestoken" = "Token Waves";
 
-"general.tost.saveBackup.subtitle" = "Store your SEED safely, it is the only way to restore your wallet";
+"general.tost.saveBackup.subtitle" = "Simpan SEED Anda dengan aman, itulah satu-satunya cara mengembalikan dompet Anda";
 
-"general.tost.saveBackup.title" = "Save your backup phrase (SEED)";
+"general.tost.saveBackup.title" = "Simpan frasa cadangan Anda (SEED)";
 
 "hello.button.continue" = "Lanjutkan";
 
@@ -513,9 +523,9 @@
 
 "hello.page.info.third.title" = "Apa yang perlu Anda ketahui tentang SEED Anda";
 
-"history.navigationBar.title" = "Sejarah";
+"history.navigationBar.title" = "Histori";
 
-"history.segmentedControl.activeNow" = "Aktif sekarang";
+"history.segmentedControl.activeNow" = "Aktif Sekarang";
 
 "history.segmentedControl.all" = "Semua";
 
@@ -531,9 +541,9 @@
 
 "history.segmentedControl.sent" = "Dikirim";
 
-"history.transaction.cell.exchange.buy" = "Buy: %@/%@";
+"history.transaction.cell.exchange.buy" = "Beli: %@/%@";
 
-"history.transaction.cell.exchange.sell" = "Sell: %@/%@";
+"history.transaction.cell.exchange.sell" = "Jual: %@/%@";
 
 "history.transaction.title.alias" = "Buat Alias";
 
@@ -545,9 +555,9 @@
 
 "history.transaction.title.incomingLeasing" = "Sewa Masuk";
 
-"history.transaction.title.massreceived" = "Mass Received";
+"history.transaction.title.massreceived" = "Transaksi Massal Diterima";
 
-"history.transaction.title.masssent" = "Mass Sent";
+"history.transaction.title.masssent" = "Transaksi Massal Dikirim";
 
 "history.transaction.title.received" = "Diterima";
 
@@ -571,7 +581,7 @@
 
 "import.account.button.scan.title" = "Pindai kode pasangan";
 
-"import.account.label.info.step.one.detail" = "Pengaturan — Keamanan — Kode pasangan";
+"import.account.label.info.step.one.detail" = "Pengaturan — Umum — Ekspor akun";
 
 "import.account.label.info.step.one.title" = "Masuk ke Klien Waves Anda melalui PC atau Mac Anda di https://client.wavesplatform.com";
 
@@ -601,7 +611,7 @@
 
 "import.scan.label.step.three.title" = "Pindai kode dengan kamera Anda";
 
-"import.scan.label.step.two.detail" = "Pengaturan — Keamanan — Kode pasangan";
+"import.scan.label.step.two.detail" = "Pengaturan — Umum — Ekspor akun";
 
 "import.scan.label.step.two.title" = "Klik «Tunjukkan Kode Pasangan» untuk mengungkapkan Kode QR";
 
@@ -627,7 +637,7 @@
 
 "legal.checkbox.box.title" = "Selesai!";
 
-"menu.button.supportwavesplatform" = "Mendukung Wavesplatform";
+"menu.button.supportwavesplatform" = "Pusat Bantuan";
 
 "menu.button.termsandconditions" = "Syarat dan ketentuan";
 
@@ -703,15 +713,15 @@
 
 "passcode.button.forgotPasscode.title" = "Gunakan kata sandi akun";
 
-"passcode.label.forgotPasscode.title" = "Lupa kode sandi?";
+"passcode.label.forgotPasscode.title" = "Lupa Passcode?";
 
-"passcode.label.passcode.create" = "Buat kode sandi";
+"passcode.label.passcode.create" = "Buat Passcode";
 
 "passcode.label.passcode.enter" = "Masukkan Passcode";
 
 "passcode.label.passcode.old" = "Masukkan Passcode lama";
 
-"passcode.label.passcode.verify" = "Verifikasi kode sandi Anda";
+"passcode.label.passcode.verify" = "Verifikasi Passcode Anda";
 
 "profile.alert.deleteAccount.button.cancel" = "Batalkan";
 
@@ -719,9 +729,19 @@
 
 "profile.alert.deleteAccount.message" = "Anda yakin ingin menghapus akun ini dari perangkat?";
 
+"profile.alert.deleteAccount.notSaveSeed" = "Anda tidak menyimpan SEED Anda";
+
 "profile.alert.deleteAccount.title" = "Hapus akun";
 
 "profile.alert.deleteAccount.withoutbackup.message" = "Menghapus akun akan menyebabkan kerugian yang tidak dapat dipulihkan!";
+
+"profile.alert.setupbiometric.button.cancel" = "Batalkan";
+
+"profile.alert.setupbiometric.button.settings" = "Pengaturan";
+
+"profile.alert.setupbiometric.message" = "Untuk menggunakan login cepat dan aman, masuk ke pengaturan untuk mengaktifkan biometrik";
+
+"profile.alert.setupbiometric.title" = "Biometrik dinonaktifkan";
 
 "profile.button.delete.title" = "Hapus akun dari perangkat";
 
@@ -729,17 +749,17 @@
 
 "profile.cell.addressbook.title" = "Buku alamat";
 
-"profile.cell.addresses.title" = "Alamat, kunci";
+"profile.cell.addresses.title" = "Alamat dan kunci";
 
 "profile.cell.backupphrase.title" = "Frasa cadangan";
 
-"profile.cell.changepasscode.title" = "Ubah kode sandi";
+"profile.cell.changepasscode.title" = "Ubah Passcode";
 
 "profile.cell.changepassword.title" = "Ganti kata sandi";
 
 "profile.cell.currentheight.title" = "Tinggi saat ini";
 
-"profile.cell.feedback.title" = "Umpan balik";
+"profile.cell.feedback.title" = "Berikan Umpan balik";
 
 "profile.cell.info.currentheight.title" = "Tinggi saat ini";
 
@@ -753,7 +773,7 @@
 
 "profile.cell.rateApp.title" = "Beri nilai aplikasi";
 
-"profile.cell.supportwavesplatform.title" = "Mendukung Wavesplatform";
+"profile.cell.supportwavesplatform.title" = "Pusat Bantuan";
 
 "profile.header.general.title" = "Pengaturan Umum";
 
@@ -828,6 +848,8 @@
 "receivegenerate.label.yourAddress" = "Alamat %@ anda";
 
 "receiveinvoice.label.dollar" = "Dolar Amerika";
+
+"scannerqrcode.label.scan" = "Pindai QR";
 
 "send.button.chooseFromAddressBook" = "Pilih dari buku Alamat";
 
@@ -937,7 +959,7 @@
 
 "startleasing.label.transactionFee" = "Biaya transaksi";
 
-"startleasingcomplete.button.okey" = "Baik";
+"startleasingcomplete.button.okey" = "Ok";
 
 "startleasingcomplete.label.youHaveCanceledTransaction" = "Anda telah membatalkan transaksi leasing";
 
@@ -1007,11 +1029,11 @@
 
 "transactionhistory.cell.block" = "Blok";
 
-"transactionhistory.cell.button.cancelLeasing" = "Batalkan Leasing";
+"transactionhistory.cell.button.cancelLeasing" = "Batalkan Sewa";
 
 "transactionhistory.cell.button.sendAgain" = "Kirim lagi";
 
-"transactionhistory.cell.buy" = "Buy: %@/%@";
+"transactionhistory.cell.buy" = "Beli: %@/%@";
 
 "transactionhistory.cell.confirmations" = "Konfirmasi";
 
@@ -1023,7 +1045,7 @@
 
 "transactionhistory.cell.id" = "ID";
 
-"transactionhistory.cell.leasingTo" = "Leasing ke";
+"transactionhistory.cell.leasingTo" = "Sewakan ke";
 
 "transactionhistory.cell.notReissuable" = "Tidak dapat diterbitkan kembali";
 
@@ -1037,7 +1059,7 @@
 
 "transactionhistory.cell.reissuable" = "Dapat diterbitkan kembali";
 
-"transactionhistory.cell.sell" = "Sell: %@/%@";
+"transactionhistory.cell.sell" = "Jual: %@/%@";
 
 "transactionhistory.cell.sentTo" = "Dikirim ke";
 
@@ -1095,7 +1117,7 @@
 
 "wallet.label.totalBalance" = "Total saldo";
 
-"wallet.label.viewHistory" = "Lihat sejarah";
+"wallet.label.viewHistory" = "Histori transaksi";
 
 "wallet.navigationBar.title" = "Dompet";
 
@@ -1107,9 +1129,9 @@
 
 "wallet.section.spamAssets" = "Aset spam (%d)";
 
-"wallet.segmentedControl.assets" = "Aktiva";
+"wallet.segmentedControl.assets" = "Aset";
 
-"wallet.segmentedControl.leasing" = "Disewa";
+"wallet.segmentedControl.leasing" = "Sewa";
 
 "walletsort.button.position" = "Posisi";
 

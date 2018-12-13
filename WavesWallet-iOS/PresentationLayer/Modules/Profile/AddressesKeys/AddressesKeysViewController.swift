@@ -44,7 +44,7 @@ private extension AddressesKeysViewController {
     func setupSystem() {
 
         let uiFeedback: AddressesKeysPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<Types.Event>) in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
 
         let readyViewFeedback: AddressesKeysPresenterProtocol.Feedback = { [weak self] _ in

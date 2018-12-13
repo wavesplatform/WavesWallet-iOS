@@ -75,7 +75,7 @@ private extension ProfileViewController {
     func setupSystem() {
 
         let uiFeedback: ProfilePresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<Types.Event>) in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
 
         let readyViewFeedback: ProfilePresenterProtocol.Feedback = { [weak self] _ in
@@ -150,8 +150,8 @@ extension ProfileViewController: UITableViewDataSource {
             return cell
 
         case .pushNotifications:
-            let cell: ProfilePushTableCell = tableView.dequeueCell()
-            cell.update(with: ())
+            let cell: ProfileDisabledButtomTableCell = tableView.dequeueCell()
+            cell.update(with: Localizable.Waves.Profile.Cell.Pushnotifications.title)
             return cell
 
         case .language(let language):
@@ -172,6 +172,11 @@ extension ProfileViewController: UITableViewDataSource {
         case .changePasscode:
             let cell: ProfileValueCell = tableView.dequeueCell()
             cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Changepasscode.title))
+            return cell
+
+        case .biometricDisabled:
+            let cell: ProfileDisabledButtomTableCell = tableView.dequeueCell()
+            cell.update(with: BiometricType.biometricByDevice.title ?? "")
             return cell
 
         case .biometric(let isOn):
@@ -287,8 +292,9 @@ extension ProfileViewController: UITableViewDelegate {
         case .backupPhrase:
             return ProfileBackupPhraseCell.cellHeight()
 
-        case .pushNotifications:
-            return ProfilePushTableCell.cellHeight()
+        case .pushNotifications,
+             .biometricDisabled:
+            return ProfileDisabledButtomTableCell.cellHeight()
 
         case .language:
             return ProfileLanguageCell.cellHeight()
