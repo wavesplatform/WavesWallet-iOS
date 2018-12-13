@@ -170,10 +170,6 @@ final class SendViewController: UIViewController {
             isGateway = true
             attachment = gateWay.attachment
             
-            if selectedAsset?.asset.isMonero == true && moneroAddress.count > 0 {
-                address = moneroAddress
-            }
-            
             //Coinomate take fee from transaction
             //in 'availableBalance' I substract fee from coinomate that user can input valid amount with fee.
             amount = Money(amount.amount + gateWay.fee.amount, amount.decimals)
@@ -223,7 +219,7 @@ private extension SendViewController {
     func setupFeedBack() {
         
         let feedback = bind(self) { owner, state -> Bindings<Send.Event> in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
         
         presenter.system(feedbacks: [feedback])
@@ -281,8 +277,9 @@ private extension SendViewController {
                     owner.moneroPaymentIdView.showErrorFromServer()
                     owner.setupButtonState()
 
-                case .didGenerateMoneroAddress(let address):
-                    owner.moneroAddress = address
+                case .didGenerateMoneroAddress(let info):
+                    owner.moneroAddress = info.address
+                    owner.gateWayInfo = info
                     owner.hideButtonLoadingButtonsState()
                     owner.setupButtonState()
                     owner.showConfirmScreen()

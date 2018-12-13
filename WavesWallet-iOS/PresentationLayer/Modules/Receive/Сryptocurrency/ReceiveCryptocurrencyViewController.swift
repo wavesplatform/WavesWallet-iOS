@@ -75,7 +75,7 @@ private extension ReceiveCryptocurrencyViewController {
     func setupFeedBack() {
         
         let feedback = bind(self) { owner, state -> Bindings<ReceiveCryptocurrency.Event> in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
         
         presenter.system(feedbacks: [feedback])
