@@ -1,4 +1,6 @@
 
+"newaccount.textfield.error.maximumcharacters" = "अधिकतम %d अक्षर";
+
 "Receivecard.Label.minimunAmountInfo" = "न्यूनतम %@ है, अधिकतम %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "आवश्यक फ़ीस का भुगतान करने के लिए आपके पास पर्याप्त धनराशि नहीं है। आपको %@ लेनदेन फ़ीस और %@ गेटवे फ़ीस का भुगतान करना होगा।";

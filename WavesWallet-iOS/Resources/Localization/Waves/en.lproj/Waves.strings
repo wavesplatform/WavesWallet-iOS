@@ -705,6 +705,8 @@
 
 "newaccount.textfield.error.minimumcharacters" = "Minimum %d characters";
 
+"newaccount.textfield.error.maximumcharacters" = "Maximum %d characters";
+
 "newaccount.textfield.error.passwordnotmatch" = "password not match";
 
 "newaccount.textfield.error.wrongordertryagain" = "Wrong order, try again";
