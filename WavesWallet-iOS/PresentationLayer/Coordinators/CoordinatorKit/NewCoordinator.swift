@@ -23,32 +23,41 @@ open class PresentableCoordinator<DeepLinkType>: NSObject, PresentableCoordinato
 }
 
 public protocol CoordinatorType: PresentableCoordinatorType {
+
+    associatedtype RouterType
+
 	var router: RouterType { get }
 }
 
-open class NewCoordinator<DeepLinkType>: PresentableCoordinator<DeepLinkType>, CoordinatorType  {
-	
-	public var childCoordinators: [NewCoordinator<DeepLinkType>] = []
-	
-	open var router: RouterType
-	
-	public init(router: RouterType) {
-		self.router = router
-		super.init()
-	}
-	
-	public func addChild(_ coordinator: NewCoordinator<DeepLinkType>) {
-		childCoordinators.append(coordinator)
-	}
-	
-	public func removeChild(_ coordinator: NewCoordinator<DeepLinkType>?) {
-		
-		if let coordinator = coordinator, let index = childCoordinators.index(of: coordinator) {
-			childCoordinators.remove(at: index)
-		}
-	}
-    
-    open override func toPresentable() -> UIViewController {
-        return router.toPresentable()
-    }
-}
+/*
+    Window add Navigation
+
+ */
+
+
+//open class NewCoordinator<DeepLinkType, RouterType: Presentable>: PresentableCoordinator<DeepLinkType>, CoordinatorType  {
+//    
+//    public var childCoordinators: [NewCoordinator<DeepLinkType, RouterType>] = []
+//    
+//    open var router: RouterType
+//    
+//    public init(router: RouterType) {
+//        self.router = router
+//        super.init()
+//    }
+//    
+//    public func addChild(_ coordinator: NewCoordinator<DeepLinkType, RouterType>) {
+//        childCoordinators.append(coordinator)
+//    }
+//    
+//    public func removeChild(_ coordinator: NewCoordinator<DeepLinkType, RouterType>?) {
+//        
+//        if let coordinator = coordinator, let index = childCoordinators.index(of: coordinator) {
+//            childCoordinators.remove(at: index)
+//        }
+//    }
+//    
+//    open override func toPresentable() -> UIViewController {
+//        return router.toPresentable()
+//    }
+//}

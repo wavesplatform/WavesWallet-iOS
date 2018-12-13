@@ -309,6 +309,7 @@
 		0A9797602108A11A00407F67 /* Wallet.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A97975F2108A11A00407F67 /* Wallet.storyboard */; };
 		0A9797612108A60000407F67 /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A979757210886EA00407F67 /* Storyboards.swift */; };
 		0A9797652108B18C00407F67 /* WalletModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9797642108B18C00407F67 /* WalletModuleOutput.swift */; };
+		0A98C23E21C3051E002AA386 /* NewAppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98C23D21C3051E002AA386 /* NewAppCoordinator.swift */; };
 		0A98D14A2138910600550FE0 /* DataTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98D1492138910600550FE0 /* DataTransaction+Mapper.swift */; };
 		0A98D14C2138A30700550FE0 /* AnyTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98D14B2138A30700550FE0 /* AnyTransaction+Mapper.swift */; };
 		0A9CA15821C2A4E0003C0A1B /* WindowRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9CA15321C2A4E0003C0A1B /* WindowRouter.swift */; };
@@ -1145,6 +1146,7 @@
 		0A97975B210888B600407F67 /* Localizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		0A97975F2108A11A00407F67 /* Wallet.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Wallet.storyboard; sourceTree = "<group>"; };
 		0A9797642108B18C00407F67 /* WalletModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletModuleOutput.swift; sourceTree = "<group>"; };
+		0A98C23D21C3051E002AA386 /* NewAppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewAppCoordinator.swift; path = "../New Group/NewAppCoordinator.swift"; sourceTree = "<group>"; };
 		0A98D1492138910600550FE0 /* DataTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataTransaction+Mapper.swift"; sourceTree = "<group>"; };
 		0A98D14B2138A30700550FE0 /* AnyTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyTransaction+Mapper.swift"; sourceTree = "<group>"; };
 		0A9CA14C21C16B4A003C0A1B /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -2605,6 +2607,14 @@
 			path = Repositories;
 			sourceTree = "<group>";
 		};
+		0A98C23F21C30525002AA386 /* New */ = {
+			isa = PBXGroup;
+			children = (
+				0A98C23D21C3051E002AA386 /* NewAppCoordinator.swift */,
+			);
+			path = New;
+			sourceTree = "<group>";
+		};
 		0A9CA15221C2A4E0003C0A1B /* CoordinatorKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -2849,6 +2859,7 @@
 		0AF58F8C219190C400C8A4B3 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				0A98C23F21C30525002AA386 /* New */,
 				0A9CA15221C2A4E0003C0A1B /* CoordinatorKit */,
 				0A6AC3E121847FDC005D2525 /* AddressesKeysCoordinator.swift */,
 				0A61B592214AB4E700EC60FC /* AppCoordinator.swift */,
@@ -5423,6 +5434,7 @@
 				E9B087C22163886800937644 /* DexTraderContainerViewController.swift in Sources */,
 				0A762D7C21639FA60019D447 /* TransactionHistoryTypes+ViewModels.swift in Sources */,
 				0A96F1DC2152E05A005E148F /* PasscodeInteractor.swift in Sources */,
+				0A98C23E21C3051E002AA386 /* NewAppCoordinator.swift in Sources */,
 				0AF922BE212E1234003BA067 /* RxTableViewAnimatedDataSource.swift in Sources */,
 				E923A765219D53EE000DD9F6 /* TokenBurnInteractor.swift in Sources */,
 				E9B087F52163886800937644 /* DexLastTradesInteractor.swift in Sources */,
