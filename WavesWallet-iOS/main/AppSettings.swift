@@ -46,6 +46,13 @@ struct Platform {
         return device.isOneOf([.iPhoneXr, .simulator(.iPhoneXr)])
     }()
     
+    static let isIphoneXSeries: Bool = {
+        return device.isOneOf([.iPhoneX, .simulator(.iPhoneX),
+                               .iPhoneXr, .simulator(.iPhoneXr),
+                               .iPhoneXs, .simulator(.iPhoneXs),
+                               .iPhoneXsMax, .simulator(.iPhoneXsMax)])
+    }()
+    
     static let isSupportFaceID: Bool = {
         
         let realDevices = Device.allFaceIDCapableDevices
