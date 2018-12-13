@@ -3,6 +3,8 @@
 
 "NSFaceIDUsageDescription" = "अपने वॉलेट तक पहुंच";
 
+"NSPhotoLibraryAddUsageDescription" = "क्यू आर कोड स्कैन करने के लिए कैमरे की आवश्यकता है";
+
 "cameraAccess.alert.allow" = "कैमरा की अनुमति दें";
 
 "cameraAccess.alert.cancel" = "रद्द करना";
