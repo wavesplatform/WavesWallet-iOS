@@ -101,9 +101,8 @@ final class UseTouchIDViewController: UIViewController {
             if let error = error as? AuthorizationInteractorError, error == .biometricLockout {
                 self?.showErrorSnackWithoutAction(title: Localizable.Waves.Biometric.Manyattempts.title,
                                                   subtitle: Localizable.Waves.Biometric.Manyattempts.subtitle)
-            } else {
-                self?.stopIndicator()
             }
+            self?.stopIndicator()
         })
         .disposed(by: disposeBag)
     }
