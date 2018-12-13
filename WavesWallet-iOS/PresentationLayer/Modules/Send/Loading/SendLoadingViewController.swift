@@ -41,7 +41,7 @@ final class SendLoadingViewController: UIViewController {
         let vc = StoryboardScene.Send.sendCompleteViewController.instantiate()
         vc.input = .init(assetName: input.asset.displayName,
                          amount: input.amount,
-                         address: input.address,
+                         address: input.displayAddress,
                          amountWithoutFee: input.amountWithoutFee)
         
         navigationController?.pushViewController(vc, animated: true)
