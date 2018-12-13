@@ -218,6 +218,7 @@ private extension NetworkSettingsPresenter {
         case .setDeffaultEnvironmet(let environment):
             state.environment = environment
             state.displayState.spamUrl = environment.servers.spamUrl.absoluteString
+            state.displayState.isSpam = true
             state.displayState.isLoading = false
             state.displayState.isEnabledSaveButton = true
             state.displayState.isEnabledSetDeffaultButton = true
