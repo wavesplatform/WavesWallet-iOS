@@ -1712,7 +1712,6 @@
 			isa = PBXGroup;
 			children = (
 				044D6C8721978C9C003861A2 /* EditAccountName.storyboard */,
-				044D6C8521978C9B003861A2 /* EditAccountNameCoordinator.swift */,
 				044D6C8621978C9B003861A2 /* EditAccountNameModuleBuilder.swift */,
 				044D6C8821978C9C003861A2 /* EditAccountNameViewController.swift */,
 			);
@@ -1779,7 +1778,6 @@
 		04A2CFA12112100B00784FEC /* History */ = {
 			isa = PBXGroup;
 			children = (
-				04A2CFA22112103800784FEC /* HistoryCoordinator.swift */,
 				04A2CFA4211213BE00784FEC /* History.storyboard */,
 				048684F22124B1E400D12189 /* History */,
 			);
@@ -1845,7 +1843,6 @@
 				E902F61420E5829B00A46335 /* ChooseAccountViewController.swift */,
 				0A071E7D215DB158007D9750 /* ChooseAccountPresenter.swift */,
 				0A071E81215DB182007D9750 /* ChooseAccountModuleBuilder.swift */,
-				0A071E7F215DB172007D9750 /* ChooseAccountCoordinator.swift */,
 				0A071E76215DB07C007D9750 /* ChooseAccountTypes.swift */,
 				0A071E79215DB0A9007D9750 /* ChooseAccount.storyboard */,
 			);
@@ -1875,7 +1872,6 @@
 				0A762D0F214FDF8800BE9204 /* Views */,
 				E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */,
 				0A4399652150465E0032E608 /* NewAccount.storyboard */,
-				0A439963215045C40032E608 /* NewAccountCoordinator.swift */,
 				0A96F1D72152CC09005E148F /* NewAccountTypes.swift */,
 			);
 			path = NewAccount;
@@ -1962,7 +1958,6 @@
 		0A20606621822C1A0048CF83 /* AddressesKeys */ = {
 			isa = PBXGroup;
 			children = (
-				0A6AC3E121847FDC005D2525 /* AddressesKeysCoordinator.swift */,
 				0A20606721822C3A0048CF83 /* AddressesKeysViewController.swift */,
 				0A6AC3DA2183A17E005D2525 /* Views */,
 				0A59331321835C9C0059A77A /* AddressesKeysTypes.swift */,
@@ -2039,7 +2034,6 @@
 				E9FE4D7920EA7F8500208F29 /* ConfirmBackupViewController.swift */,
 				0A96F1C921519965005E148F /* View */,
 				0AA8CAC821516077000D09E6 /* Backup.storyboard */,
-				0A96F1C721518CE5005E148F /* BackupCoordinator.swift */,
 			);
 			path = Backup;
 			sourceTree = "<group>";
@@ -2316,8 +2310,6 @@
 		0A762D09214FB60400BE9204 /* Import */ = {
 			isa = PBXGroup;
 			children = (
-				04016DFD2194996D00BA5235 /* QRCodeReaderControllerCoordinator.swift */,
-				0A110CBA2153CE5A002A8FD7 /* ImportCoordinator.swift */,
 				0A110CB72153CE31002A8FD7 /* Import.storyboard */,
 				E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */,
 				04016DFB219420C900BA5235 /* ImportAccountViewController.swift */,
@@ -2341,7 +2333,6 @@
 		0A762D4721639FA50019D447 /* TransactionHistory */ = {
 			isa = PBXGroup;
 			children = (
-				0A762D4821639FA50019D447 /* TransactionHistoryCoordinator.swift */,
 				0A762D4921639FA50019D447 /* TransactionHistory.storyboard */,
 				0A762D4B21639FA50019D447 /* TransactionHistory */,
 			);
@@ -2434,7 +2425,6 @@
 				0AD8360F217DD77F004413E9 /* Network */,
 				0A4140E62174DFCD00B1310E /* AlertDeleteAccount */,
 				E9193B8220D7E28400F5D983 /* Profile.storyboard */,
-				0A762DA721661AB30019D447 /* ProfileCoordinator.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -2838,12 +2828,27 @@
 		0AF58F8C219190C400C8A4B3 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
-				E92E0E5421988435004EF2C5 /* WalletCoordinator.swift */,
-				E9CD0D31218137FE001A99B3 /* MainTabBarCoordinator.swift */,
+				0A6AC3E121847FDC005D2525 /* AddressesKeysCoordinator.swift */,
 				0A61B592214AB4E700EC60FC /* AppCoordinator.swift */,
-				0AF58F8D219194E500C8A4B3 /* SlideCoordinator.swift */,
-				0AFF5C76215A790F00B82940 /* PasscodeCoordinator.swift */,
+				0A96F1C721518CE5005E148F /* BackupCoordinator.swift */,
 				0AC33B5821AC697900B66747 /* BackupTostCoordinator.swift */,
+				0A071E7F215DB172007D9750 /* ChooseAccountCoordinator.swift */,
+				E9B086D82163886800937644 /* DexCoordinator.swift */,
+				044D6C8521978C9B003861A2 /* EditAccountNameCoordinator.swift */,
+				0A5D32FA21546A090009CDF3 /* EnterCoordinator.swift */,
+				0AC1250F21A7588D00357C93 /* EnterLanguageCoordinator.swift */,
+				E95B47A921638A9F004D4E39 /* HelloCoordinator.swift */,
+				04A2CFA22112103800784FEC /* HistoryCoordinator.swift */,
+				0A110CBA2153CE5A002A8FD7 /* ImportCoordinator.swift */,
+				0AFA0C692174A2300003FE3B /* LegalCoordinator.swift */,
+				E9CD0D31218137FE001A99B3 /* MainTabBarCoordinator.swift */,
+				0A439963215045C40032E608 /* NewAccountCoordinator.swift */,
+				0AFF5C76215A790F00B82940 /* PasscodeCoordinator.swift */,
+				0A762DA721661AB30019D447 /* ProfileCoordinator.swift */,
+				04016DFD2194996D00BA5235 /* QRCodeReaderControllerCoordinator.swift */,
+				0AF58F8D219194E500C8A4B3 /* SlideCoordinator.swift */,
+				0A762D4821639FA50019D447 /* TransactionHistoryCoordinator.swift */,
+				E92E0E5421988435004EF2C5 /* WalletCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -3202,7 +3207,6 @@
 			isa = PBXGroup;
 			children = (
 				0AFA0C682174A2300003FE3B /* Legal.storyboard */,
-				0AFA0C692174A2300003FE3B /* LegalCoordinator.swift */,
 				0AFA0C6A2174A2300003FE3B /* Presenter */,
 				0AFA0C6D2174A2300003FE3B /* LegalViewController.swift */,
 				0AFA0C702174A2300003FE3B /* Views */,
@@ -3338,7 +3342,6 @@
 			isa = PBXGroup;
 			children = (
 				E95B47A821638A9F004D4E39 /* Hello.storyboard */,
-				E95B47A921638A9F004D4E39 /* HelloCoordinator.swift */,
 				E95B47AA21638A9F004D4E39 /* Languages */,
 				E95B47AD21638A9F004D4E39 /* InfoPages */,
 			);
@@ -3584,7 +3587,6 @@
 		E9B086BF2163886800937644 /* Dex */ = {
 			isa = PBXGroup;
 			children = (
-				E9B086D82163886800937644 /* DexCoordinator.swift */,
 				E9B086EE2163886800937644 /* DexTypes.swift */,
 				E9B086F32163886800937644 /* Dex.storyboard */,
 				E9B086C02163886800937644 /* DexChart */,
@@ -4304,9 +4306,7 @@
 		E9F984A720E5266800D2CB4D /* Enter */ = {
 			isa = PBXGroup;
 			children = (
-				0AC1250F21A7588D00357C93 /* EnterLanguageCoordinator.swift */,
 				044D6C8421978C8C003861A2 /* Edit */,
-				0A5D32FA21546A090009CDF3 /* EnterCoordinator.swift */,
 				E9F984A820E526DA00D2CB4D /* Enter.storyboard */,
 				04A4031F2164B8CD00652F21 /* Start */,
 			);
