@@ -362,9 +362,9 @@ private extension AddressInputView {
                                                                       assetID: assetID)
                     }
                 }
-                
-                self.firstAvailableViewController().dismiss(animated: true, completion: nil)
             }
+            
+            self.firstAvailableViewController().dismiss(animated: true, completion: nil)
         }
         
         readerVC.modalPresentationStyle = .formSheet

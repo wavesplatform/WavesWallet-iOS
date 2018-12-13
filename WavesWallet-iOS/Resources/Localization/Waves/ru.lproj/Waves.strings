@@ -71,7 +71,7 @@
 
 "aliases.view.info.label.secondsubtitle" = "Алиас должен содержать не менее 4 и не более 30 символов. Используйте только строчные латинские буквы, цифры и символы (@, -, _ и т.д.)";
 
-"aliases.view.info.label.subtitle" = "Алиас — это короткое название вашего адреса. Вы можете использовать алиса так же, как адрес при совершении транзакции.";
+"aliases.view.info.label.subtitle" = "Алиас — это короткое название вашего адреса. Вы можете использовать алиас так же, как адрес при совершении транзакции.";
 
 "aliases.view.info.label.title" = "Об алиасах";
 
@@ -172,6 +172,14 @@
 "backup.savebackup.next.button.title" = "Я всё записал";
 
 "backup.savebackup.next.label.title" = "Вам нужно будет восстановить эту фразу на следующем шаге";
+
+"biometric.localizedCancelTitle" = "Отменить";
+
+"biometric.localizedFallbackTitle" = "Ввести код-пароль";
+
+"biometric.manyattempts.subtitle" = "Чтобы разблокировать биометрию, войдите в аккаунт используя пароль";
+
+"biometric.manyattempts.title" = "Слишком много попыток";
 
 "biometric.readfromkeychain" = "Доступ к вашему кошельку";
 
@@ -291,7 +299,7 @@
 
 "dexcreateorder.label.days" = "дней";
 
-"dexcreateorder.label.error.notFundsFee" = "У вас недостаточно средств для оплаты необходимых сборов.";
+"dexcreateorder.label.error.notFundsFee" = "У вас недостаточно средств для оплаты комиссии";
 
 "dexcreateorder.label.fee" = "Комиссия";
 
@@ -369,7 +377,7 @@
 
 "dexmyorders.label.status.cancelled" = "Отменен";
 
-"dexmyorders.label.status.filled" = "Заполнен";
+"dexmyorders.label.status.filled" = "Заполнено";
 
 "dexmyorders.label.status.partiallyFilled" = "Частично";
 
@@ -418,6 +426,8 @@
 "enter.block.exchange.text" = "Торгуйте быстро и безопасно. Вы всегда держите свои средства под контролем, даже в момент обмена.";
 
 "enter.block.exchange.title" = "Децентрализованная биржа";
+
+"enter.block.token.text" = "Выпускайте свои собственные токены. Они могут быть использованы в вашем бизнесе не только как внутренняя валюта, но и в голосованиях, рейтинге и программах лояльности.";
 
 "enter.block.token.title" = "Создание токенов";
 
@@ -515,11 +525,11 @@
 
 "history.navigationBar.title" = "История";
 
-"history.segmentedControl.activeNow" = "Активен";
+"history.segmentedControl.activeNow" = "Активные";
 
 "history.segmentedControl.all" = "Все";
 
-"history.segmentedControl.canceled" = "Отмена";
+"history.segmentedControl.canceled" = "Отмененные";
 
 "history.segmentedControl.exchanged" = "Обмен";
 
@@ -571,7 +581,7 @@
 
 "import.account.button.scan.title" = "Сканировать QR-код";
 
-"import.account.label.info.step.one.detail" = "Настройки — Безопасность — Экспорт аккаунта";
+"import.account.label.info.step.one.detail" = "Настройки — Основные — Экспортировать аккаунт";
 
 "import.account.label.info.step.one.title" = "Войдите в Waves клиент через свой ПК, Mac или https://client.wavesplatform.com";
 
@@ -601,7 +611,7 @@
 
 "import.scan.label.step.three.title" = "Сканируйте QR-код с помощью камеры";
 
-"import.scan.label.step.two.detail" = "Настройки — Безопасность — Экспорт аккаунта";
+"import.scan.label.step.two.detail" = "Настройки — Основные — Экспортировать аккаунт";
 
 "import.scan.label.step.two.title" = "Нажмите «Показать QR-код», чтобы экспортировать аккаунт";
 
@@ -693,7 +703,7 @@
 
 "passcode.alert.attempsended.button.cancel" = "Закрыть";
 
-"passcode.alert.attempsended.button.enterpassword" = "Введите пароль";
+"passcode.alert.attempsended.button.enterpassword" = "Использовать пароль";
 
 "passcode.alert.attempsended.button.ok" = "Хорошо";
 
@@ -719,9 +729,19 @@
 
 "profile.alert.deleteAccount.message" = "Вы действительно хотите удалить этот аккаунт с устройства?";
 
+"profile.alert.deleteAccount.notSaveSeed" = "Вы не сохранили свой SEED";
+
 "profile.alert.deleteAccount.title" = "Удалить аккаунт";
 
 "profile.alert.deleteAccount.withoutbackup.message" = "Удаление аккаунта приведет к его безвозвратной утрате!";
+
+"profile.alert.setupbiometric.button.cancel" = "Отменить";
+
+"profile.alert.setupbiometric.button.settings" = "Настройки";
+
+"profile.alert.setupbiometric.message" = "Чтобы использовать быстрый и безопасный вход в приложение, перейдите в настройки и включите биометрию";
+
+"profile.alert.setupbiometric.title" = "Биометрия отключена";
 
 "profile.button.delete.title" = "Удалить аккаунт с устройства";
 
@@ -829,6 +849,8 @@
 
 "receiveinvoice.label.dollar" = "US Dollar";
 
+"scannerqrcode.label.scan" = "Сканирование QR-кода";
+
 "send.button.chooseFromAddressBook" = "Адресная книга";
 
 "send.button.continue" = "Продолжить";
@@ -845,7 +867,7 @@
 
 "send.label.error.invalidId" = "Неверный ID";
 
-"send.label.error.notFundsFee" = "У вас недостаточно средств для отправки транзакции.";
+"send.label.error.notFundsFee" = "У вас недостаточно средств для оплаты комиссии";
 
 "send.label.gatewayFee" = "Комиссия шлюза —";
 
@@ -975,7 +997,7 @@
 
 "tokenBurn.label.error.insufficientFunds" = "Недостаточно средств";
 
-"tokenBurn.label.error.notFundsFee" = "У вас недостаточно средств для отправки транзакции.";
+"tokenBurn.label.error.notFundsFee" = "У вас недостаточно средств для оплаты комиссии";
 
 "tokenBurn.label.fee" = "Комиссия";
 
@@ -1093,7 +1115,7 @@
 
 "wallet.label.startedLeasing" = "Передача в лизинг";
 
-"wallet.label.totalBalance" = "Общий баланс";
+"wallet.label.totalBalance" = "Всего";
 
 "wallet.label.viewHistory" = "История транзакций";
 
