@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class SendCompleteViewController: UIViewController {
 
@@ -26,6 +27,8 @@ final class SendCompleteViewController: UIViewController {
     
     var input: Input!
 
+    private let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -60,7 +63,6 @@ final class SendCompleteViewController: UIViewController {
     
     private func setupData() {
         
-        //TODO: here can be address from coinomat and it's different that user input in recipient
         labelAddress.text = input.address
         let amountText = input.amountWithoutFee.displayText + " " + input.assetName
         
@@ -73,7 +75,7 @@ final class SendCompleteViewController: UIViewController {
             let isExistContact = contacts.filter({$0.address == strongSelf.input.address }).count > 0
             strongSelf.viewSaveAddress.isHidden = isExistContact
             
-        }).dispose()
+        }).disposed(by: disposeBag)
     }
     
     private func setupLocalization() {
