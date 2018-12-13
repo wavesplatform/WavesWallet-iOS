@@ -48,6 +48,10 @@ extension Language {
         return LanguageCode.get()
     }
 
+    static var currentLocale: Locale {
+        return Locale(identifier: currentLanguage.code)
+    }
+
     static func change(_ language: Language, withoutNotification: Bool = false) {
         guard let path = Bundle.main.path(forResource: language.code, ofType: "lproj"), let bundle = Bundle(path: path) else {
             return

@@ -46,7 +46,7 @@ final class SaveBackupPhraseViewController: UIViewController {
         titleLabel.text = Localizable.Waves.Backup.Savebackup.Label.title
         titleForCopyLabel.text = Localizable.Waves.Backup.Savebackup.Copy.Label.title
         infoLabel.text = Localizable.Waves.Backup.Savebackup.Next.Label.title
-        buttonCopy.setTitle(Localizable.Waves.Backup.Savebackup.Next.Button.title, for: .normal)
+        nextButton.setTitle(Localizable.Waves.Backup.Savebackup.Next.Button.title, for: .normal)
 
         createBackButton()
         setupBigNavigationBar()
