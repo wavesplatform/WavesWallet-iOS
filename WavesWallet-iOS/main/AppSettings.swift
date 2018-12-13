@@ -22,14 +22,6 @@ struct Platform {
                                .iPhone8, .simulator(.iPhone8)])
     }()
     
-    static let isIphonePlus: Bool = {
-        
-        return device.isOneOf([.iPhone6Plus, .simulator(.iPhone6Plus),
-                               .iPhone6sPlus, .simulator(.iPhone6sPlus),
-                               .iPhone7Plus, .simulator(.iPhone7Plus),
-                               .iPhone8Plus, .simulator(.iPhone8Plus)])
-    }()
-    
     static let isIphoneXSeries: Bool = {
         return device.isOneOf([.iPhoneX, .simulator(.iPhoneX),
                                .iPhoneXr, .simulator(.iPhoneXr),
