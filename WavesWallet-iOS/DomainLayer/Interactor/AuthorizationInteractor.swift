@@ -618,7 +618,7 @@ extension AuthorizationInteractor {
                 guard let owner = self else { return Observable.never() }
 
                 let savePasscode = owner
-                    .savePasscodeInKeychain(wallet: signedWallet.wallet, passcode: passcode, localizedFallbackTitle: nil)
+                    .savePasscodeInKeychain(wallet: signedWallet.wallet, passcode: passcode, localizedFallbackTitle: "")
                     .flatMap({ [weak self] _ -> Observable<DomainLayer.DTO.Wallet> in
                         guard let owner = self else { return Observable.never() }
                         return owner.setHasBiometricEntrance(wallet: signedWallet.wallet, hasBiometricEntrance: true)
