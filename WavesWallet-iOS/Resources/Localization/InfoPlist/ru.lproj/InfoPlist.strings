@@ -3,6 +3,8 @@
 
 "NSFaceIDUsageDescription" = "Доступ к вашему кошельку";
 
+"NSPhotoLibraryAddUsageDescription" = "Камера необходима для сканирования QR-кодов";
+
 "cameraAccess.alert.allow" = "Разрешить";
 
 "cameraAccess.alert.cancel" = "Закрыть";
