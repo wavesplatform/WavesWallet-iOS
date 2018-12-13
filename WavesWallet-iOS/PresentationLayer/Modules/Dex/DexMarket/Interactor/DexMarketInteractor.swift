@@ -13,7 +13,7 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
     private let searchPairsSubject: PublishSubject<[DexMarket.DTO.Pair]> = PublishSubject<[DexMarket.DTO.Pair]>()
     private let disposeBag: DisposeBag = DisposeBag()
 
-    private let repository: DexRepositoryProtocol = DexRepository()
+    private let repository: DexRepositoryProtocol = FactoryRepositories.instance.dexRepository
     private let authorizationInteractor = FactoryInteractors.instance.authorization
     private let account: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
     private let accountSettings: AccountSettingsRepositoryProtocol = FactoryRepositories.instance.accountSettingsRepository

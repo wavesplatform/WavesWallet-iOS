@@ -811,7 +811,7 @@
 		E9F984B220E53FE000D2CB4D /* LanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F984B120E53FE000D2CB4D /* LanguageViewController.swift */; };
 		E9F9A279218535A200FD68D7 /* DexAssetPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F9A278218535A200FD68D7 /* DexAssetPair.swift */; };
 		E9F9A27C21853E7D00FD68D7 /* DexRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F9A27B21853E7D00FD68D7 /* DexRepositoryProtocol.swift */; };
-		E9F9A27E218540F700FD68D7 /* DexRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F9A27D218540F700FD68D7 /* DexRepository.swift */; };
+		E9F9A27E218540F700FD68D7 /* DexRepositoryLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F9A27D218540F700FD68D7 /* DexRepositoryLocal.swift */; };
 		E9FB6E382178265100FA13C1 /* SendInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B4A12176C4A800669D1D /* SendInteractor.swift */; };
 		E9FE4D7820EA767B00208F29 /* SaveBackupPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE4D7720EA767B00208F29 /* SaveBackupPhraseViewController.swift */; };
 		E9FE4D7A20EA7F8500208F29 /* ConfirmBackupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE4D7920EA7F8500208F29 /* ConfirmBackupViewController.swift */; };
@@ -1662,7 +1662,7 @@
 		E9F984B120E53FE000D2CB4D /* LanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageViewController.swift; sourceTree = "<group>"; };
 		E9F9A278218535A200FD68D7 /* DexAssetPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexAssetPair.swift; sourceTree = "<group>"; };
 		E9F9A27B21853E7D00FD68D7 /* DexRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexRepositoryProtocol.swift; sourceTree = "<group>"; };
-		E9F9A27D218540F700FD68D7 /* DexRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexRepository.swift; sourceTree = "<group>"; };
+		E9F9A27D218540F700FD68D7 /* DexRepositoryLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexRepositoryLocal.swift; sourceTree = "<group>"; };
 		E9FE4D7720EA767B00208F29 /* SaveBackupPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveBackupPhraseViewController.swift; sourceTree = "<group>"; };
 		E9FE4D7920EA7F8500208F29 /* ConfirmBackupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupViewController.swift; sourceTree = "<group>"; };
 		F74240B11EAB8D1600C3B84D /* AddressBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBook.swift; sourceTree = "<group>"; };
@@ -2592,7 +2592,7 @@
 				0A218B9621555A4B00B989A1 /* AuthenticationRepositoryRemote.swift */,
 				0A4508FB2178E72B00EBF669 /* EnvironmentRepositoryRemote.swift */,
 				0A88CC07217D281F0083874C /* AccountEnvironmentRepository.swift */,
-				E9F9A27D218540F700FD68D7 /* DexRepository.swift */,
+				E9F9A27D218540F700FD68D7 /* DexRepositoryLocal.swift */,
 				0AC33AEF21A826B700B66747 /* NetworkError.swift */,
 				E922D26121B81E5700575955 /* CandlesRepository.swift */,
 				E922D26921B831B600575955 /* LastTradesRepository.swift */,
@@ -5477,7 +5477,7 @@
 				0A8AFF2A2101F47F00D0582B /* OrderBookMatcherService.swift in Sources */,
 				0AE657312106368F003D2DB8 /* BalanceMatcherService.swift in Sources */,
 				F7C683BE1EA93C5800C87DAF /* CustomNavigationController.swift in Sources */,
-				E9F9A27E218540F700FD68D7 /* DexRepository.swift in Sources */,
+				E9F9A27E218540F700FD68D7 /* DexRepositoryLocal.swift in Sources */,
 				E9B087ED2163886800937644 /* DexLastTradesPresenterProtocol.swift in Sources */,
 				0AF922F5212E1234003BA067 /* SegmentedControlScrollView.swift in Sources */,
 				0AF922D5212E1234003BA067 /* DateExtension.swift in Sources */,
