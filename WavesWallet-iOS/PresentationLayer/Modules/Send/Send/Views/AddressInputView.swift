@@ -331,6 +331,7 @@ private extension AddressInputView {
     func showScanner() {
         
         guard QRCodeReader.isAvailable() else { return }
+        firstAvailableViewController().view.endEditing(true)
         readerVC.completionBlock = { (result: QRCodeReaderResult?) in
             
             if let value = result?.value {
