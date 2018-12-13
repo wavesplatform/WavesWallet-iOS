@@ -40,6 +40,14 @@ fileprivate extension Platform {
     
     private static let device = Device()
     
+    static let isIphonePlus: Bool = {
+        
+        return device.isOneOf([.iPhone6Plus, .simulator(.iPhone6Plus),
+                               .iPhone6sPlus, .simulator(.iPhone6sPlus),
+                               .iPhone7Plus, .simulator(.iPhone7Plus),
+                               .iPhone8Plus, .simulator(.iPhone8Plus)])
+    }()
+    
     static let isIphoneX: Bool = {
         
         return device.isOneOf([.iPhoneX, .simulator(.iPhoneX),
