@@ -47,9 +47,9 @@
 
 "addresseskeys.cell.address.title" = "귀하의 주소";
 
-"addresseskeys.cell.aliases.subtitle.withaliaces" = "%d 개를 가지고 있습니다";
+"addresseskeys.cell.aliases.subtitle.withaliaces" = "%d 개를 보유하고 있습니다";
 
-"addresseskeys.cell.aliases.subtitle.withoutaliaces" = "가지고 있지 않습니다";
+"addresseskeys.cell.aliases.subtitle.withoutaliaces" = "보유하고 있지 않습니다";
 
 "addresseskeys.cell.aliases.title" = "Alias";
 
@@ -83,7 +83,7 @@
 
 "aliaseswithout.view.info.label.subtitle" = "Alias는 귀하의 주소 명칭입니다. 트랜잭션을 하기위해 주소 대신 Alias를 사용할 수 있습니다.";
 
-"aliaseswithout.view.info.label.title" = "Alias를 가지고 있지 않습니다";
+"aliaseswithout.view.info.label.title" = "Alias를 보유하고 있지 않습니다";
 
 "asset.cell.assetInfo.cantPerformTransactions" = "해당 자산으로 트랜잭션을 할 수 없습니다";
 
@@ -123,7 +123,7 @@
 
 "asset.cell.balance.totalBalance" = "총 수량";
 
-"asset.cell.viewHistory" = "내역 보기";
+"asset.cell.viewHistory" = "거래 내역";
 
 "asset.header.lastTransactions" = "최근 트랜잭션";
 
@@ -172,6 +172,14 @@
 "backup.savebackup.next.button.title" = "메모했습니다";
 
 "backup.savebackup.next.label.title" = "다음 페이지에서 백업 구절을 승인해야 합니다";
+
+"biometric.localizedCancelTitle" = "취소";
+
+"biometric.localizedFallbackTitle" = "Passcode 입력";
+
+"biometric.manyattempts.subtitle" = "생체 인식 잠금을 해제하려면 계정 비밀번호로 로그인하십시오";
+
+"biometric.manyattempts.title" = "시도 횟수 초과";
 
 "biometric.readfromkeychain" = "귀하의 지갑에 액세스";
 
@@ -249,9 +257,9 @@
 
 "dexcompleteorder.label.amount" = "수량";
 
-"dexcompleteorder.label.open" = "열기";
+"dexcompleteorder.label.open" = "대기 주문";
 
-"dexcompleteorder.label.orderIsCreated" = "주만이 생성되었습니다";
+"dexcompleteorder.label.orderIsCreated" = "주문이 생성되었습니다";
 
 "dexcompleteorder.label.price" = "가격";
 
@@ -419,6 +427,8 @@
 
 "enter.block.exchange.title" = "탈중앙화 거래소";
 
+"enter.block.token.text" = "당신의 토큰을 발행해보세요. 이는 당신의 비즈니스에 내부적인 화폐로 통합될 뿐만 아니라 등급 시스템 또는 로열티 프로그램의 탈중앙화 방식 투표로 활용될 수 있습니다.";
+
 "enter.block.token.title" = "토큰 런처";
 
 "enter.block.wallet.text" = "디지털 자산을 매우 쉽고 안전하게 전송하고 관리하고 보관하세요.";
@@ -571,7 +581,7 @@
 
 "import.account.button.scan.title" = "페어링 코드 스캔";
 
-"import.account.label.info.step.one.detail" = "설정 — 보안 — 페어링 코드";
+"import.account.label.info.step.one.detail" = "환경설정 — 일반 — 계정 추출";
 
 "import.account.label.info.step.one.title" = "Mac 또는 PC를 통해 Waves 클라이언트에 로그인하세요https://beta.wavesplatform.com";
 
@@ -601,7 +611,7 @@
 
 "import.scan.label.step.three.title" = "카메라로 코드를 스캔하세요";
 
-"import.scan.label.step.two.detail" = "설정 — 보안 — 페어링 코드";
+"import.scan.label.step.two.detail" = "환경설정 — 일반 — 계정 추출";
 
 "import.scan.label.step.two.title" = "QR 코드를 확인하기 위해 «페어링 코드 보기»를 클릭하세요";
 
@@ -641,7 +651,7 @@
 
 "myaddress.button.share.title" = "공유";
 
-"myaddress.cell.aliases.subtitle.withaliaces" = "%d 를 가지고 있습니다";
+"myaddress.cell.aliases.subtitle.withaliaces" = "%d개를 보유하고 있습니다";
 
 "myaddress.cell.aliases.subtitle.withoutaliaces" = "보유하고있지 않습니다.";
 
@@ -693,7 +703,7 @@
 
 "passcode.alert.attempsended.button.cancel" = "취소";
 
-"passcode.alert.attempsended.button.enterpassword" = "비밀번호 입력";
+"passcode.alert.attempsended.button.enterpassword" = "암호 사용";
 
 "passcode.alert.attempsended.button.ok" = "확인";
 
@@ -719,9 +729,19 @@
 
 "profile.alert.deleteAccount.message" = "본 기기에서 이 계정을 삭제하시겠습니까?";
 
+"profile.alert.deleteAccount.notSaveSeed" = "너 SEED는 구하지 않았어";
+
 "profile.alert.deleteAccount.title" = "계정 삭제";
 
 "profile.alert.deleteAccount.withoutbackup.message" = "계정을 삭제하면 복구할 수 없는 손실로 이어질 수 있습니다!";
+
+"profile.alert.setupbiometric.button.cancel" = "취소";
+
+"profile.alert.setupbiometric.button.settings" = "환경설정";
+
+"profile.alert.setupbiometric.message" = "빠르고 안전한 로그인을 사용하려면 생체 인식을 사용하도록 설정으로 이동하십시오";
+
+"profile.alert.setupbiometric.title" = "생체 인식 기능이 비활성화되었습니다";
 
 "profile.button.delete.title" = "장치에서 계정 삭제";
 
@@ -828,6 +848,8 @@
 "receivegenerate.label.yourAddress" = "귀하의 %@ 주소";
 
 "receiveinvoice.label.dollar" = "US 달러";
+
+"scannerqrcode.label.scan" = "스캔 QR";
 
 "send.button.chooseFromAddressBook" = "주소록에서 선택";
 
@@ -1095,7 +1117,7 @@
 
 "wallet.label.totalBalance" = "총 잔액";
 
-"wallet.label.viewHistory" = "내역 보기";
+"wallet.label.viewHistory" = "거래 내역";
 
 "wallet.navigationBar.title" = "지갑";
 
