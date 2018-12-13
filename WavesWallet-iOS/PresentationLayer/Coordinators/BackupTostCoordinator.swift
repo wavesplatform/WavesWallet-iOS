@@ -116,7 +116,8 @@ final class BackupTostCoordinator: Coordinator {
                 })
                 .disposed(by: owner.disposeBag)
         }
-        addChildCoordinatorAndStart(childCoordinator: backup)
+
+        parent?.addChildCoordinatorAndStart(childCoordinator: backup)
     }
 
     deinit {
