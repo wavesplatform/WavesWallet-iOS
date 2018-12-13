@@ -1,4 +1,6 @@
 
+"newaccount.textfield.error.maximumcharacters" = "%d karakters maximaal";
+
 "Receivecard.Label.minimunAmountInfo" = "Het minimum is %@, het maximum is %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "U heeft onvoldoende funds om de transactiekosten te betalen. U dient %@ transactiekosten en %@ gateway kosten te betalen.";
