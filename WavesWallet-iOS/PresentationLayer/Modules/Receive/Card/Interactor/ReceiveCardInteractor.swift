@@ -41,6 +41,7 @@ private extension ReceiveCardInteractor {
     
     func getWavesBalance() -> Observable<DomainLayer.DTO.SmartAssetBalance> {
         
+        //TODO: need optimize 
         return accountBalance.balances().flatMap({ balances -> Observable<DomainLayer.DTO.SmartAssetBalance> in
             guard let wavesAsset = balances.first(where: {$0.asset.wavesId == GlobalConstants.wavesAssetId}) else {
                 return Observable.empty()

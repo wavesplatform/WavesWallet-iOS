@@ -12,7 +12,6 @@ import SwiftyJSON
 import Alamofire
 
 private enum Constasts {
-    static let aliasApi = "/v0/aliases/"
     static let transactionApi = "/transactions/broadcast"
 }
 
@@ -23,6 +22,7 @@ final class SendInteractor: SendInteractorProtocol {
     private let assetInteractor = FactoryInteractors.instance.assetsInteractor
     private let auth = FactoryInteractors.instance.authorization
     private let coinomatRepository = FactoryRepositories.instance.coinomatRepository
+    private let aliasRepository = FactoryRepositories.instance.aliasesRepository
     
     func assetBalance(by assetID: String) -> Observable<DomainLayer.DTO.SmartAssetBalance?> {
         return accountBalanceInteractor.balances().flatMap({ [weak self] (balances) -> Observable<DomainLayer.DTO.SmartAssetBalance?>  in
@@ -84,19 +84,17 @@ final class SendInteractor: SendInteractorProtocol {
     }
     
     func validateAlis(alias: String) -> Observable<Bool> {
-        
-        return Observable.create({ (subscribe) -> Disposable in
-        
-            //TODO: need use EnviromentsRepositoryProtocol            
-            let url = Environments.current.servers.dataUrl.relativeString + Constasts.aliasApi + alias
 
-            let req = NetworkManager.getRequestWithUrl(url, parameters: nil, complete: { (info, errorMessage) in
-                subscribe.onNext(errorMessage == nil)
-            })
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<Bool> in
+            guard let owner = self else { return Observable.empty() }
             
-            return Disposables.create {
-                req.cancel()
-            }
+            return owner.aliasRepository.alias(by: alias, accountAddress: wallet.address)
+                .flatMap({ (alias) -> Observable<Bool>  in
+                    return Observable.just(true)
+            })
+        })
+        .catchError({ (error) -> Observable<Bool> in
+            return Observable.just(false)
         })
     }
     
@@ -107,8 +105,7 @@ final class SendInteractor: SendInteractorProtocol {
             
             guard let strongSelf = self else { return Disposables.create() }
             
-            let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-            auth.authorizedWallet().subscribe(onNext: { signedWallet in
+            strongSelf.auth.authorizedWallet().subscribe(onNext: { signedWallet in
                 
                 let transaction = Send.DTO.Transaction(senderPublicKey: signedWallet.publicKey,
                                                        senderPrivateKey: signedWallet.privateKey,
