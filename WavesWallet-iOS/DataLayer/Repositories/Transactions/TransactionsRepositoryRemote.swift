@@ -29,6 +29,9 @@ extension TransactionSenderSpecifications {
 
         case .cancelLease:
             return 2
+        
+        case .send:
+            return 2
         }
     }
 
@@ -45,6 +48,9 @@ extension TransactionSenderSpecifications {
 
         case .cancelLease:
             return TransactionType.leaseCancel
+        
+        case .send:
+            return TransactionType.transfer
         }
     }
 }
@@ -246,7 +252,10 @@ fileprivate extension TransactionSenderSpecifications {
                                                                      timestamp: timestamp,
                                                                      type: self.type.rawValue,
                                                                      senderPublicKey: publicKey,
-                                                                     proofs: proofs))        
+                                                                     proofs: proofs))
+            
+        case .send(let model):
+            return .send
         }
 
     }
@@ -321,7 +330,10 @@ fileprivate extension TransactionSenderSpecifications {
             signature += toByteArray(model.amount)
             signature += toByteArray(model.fee)
             signature += toByteArray(timestamp)
-            return signature        
+            return signature
+            
+        case .send(let model):
+            return []
         }
 
     }

@@ -23,7 +23,8 @@ final class SendInteractor: SendInteractorProtocol {
     private let auth = FactoryInteractors.instance.authorization
     private let coinomatRepository = FactoryRepositories.instance.coinomatRepository
     private let aliasRepository = FactoryRepositories.instance.aliasesRepository
-    
+    private let transactionInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
+
     func assetBalance(by assetID: String) -> Observable<DomainLayer.DTO.SmartAssetBalance?> {
         return accountBalanceInteractor.balances().flatMap({ [weak self] (balances) -> Observable<DomainLayer.DTO.SmartAssetBalance?>  in
             
@@ -99,6 +100,13 @@ final class SendInteractor: SendInteractorProtocol {
     
     func send(fee: Money, recipient: String, assetId: String, amount: Money, attachment: String, isAlias: Bool) -> Observable<Send.TransactionStatus> {
        
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<Send.TransactionStatus> in
+            guard let owner = self else { return Observable.empty() }
+            
+            let spec = TransactionSenderSpecifications.send()
+            return owner.transactionInteractor.send(by: <#T##TransactionSenderSpecifications#>, wallet: wallet)
+        })
+        
         return Observable.create({ [weak self] subscribe -> Disposable in
             
             guard let strongSelf = self else { return Disposables.create() }

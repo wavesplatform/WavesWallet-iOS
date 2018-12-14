@@ -99,11 +99,16 @@ struct CancelLeaseTransactionSender {
     let fee: Int64
 }
 
+struct SendTransactionSender {
+    
+}
+
 enum TransactionSenderSpecifications {
     case createAlias(AliasTransactionSender)
     case lease(LeaseTransactionSender)
     case burn(BurnTransactionSender)
     case cancelLease(CancelLeaseTransactionSender)
+    case send(SendTransactionSender)
 }
 
 protocol TransactionsRepositoryProtocol {
