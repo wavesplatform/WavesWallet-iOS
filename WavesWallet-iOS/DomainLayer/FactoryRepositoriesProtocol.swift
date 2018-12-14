@@ -42,6 +42,8 @@ protocol FactoryRepositoriesProtocol {
     var candlesRepository: CandlesRepositoryProtocol { get }
     
     var lastTradesRespository: LastTradesRepositoryProtocol { get }
+    
+    var coinomatRepository: CoinomatRepositoryProtocol { get }
 }
 
 protocol RepositoryCache {

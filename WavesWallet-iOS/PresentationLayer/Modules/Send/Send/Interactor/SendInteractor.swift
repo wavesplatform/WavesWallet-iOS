@@ -22,6 +22,7 @@ final class SendInteractor: SendInteractorProtocol {
     private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
     private let assetInteractor = FactoryInteractors.instance.assetsInteractor
     private let auth = FactoryInteractors.instance.authorization
+    private let coinomatRepository = FactoryRepositories.instance.coinomatRepository
     
     func assetBalance(by assetID: String) -> Observable<DomainLayer.DTO.SmartAssetBalance?> {
         return accountBalanceInteractor.balances().flatMap({ [weak self] (balances) -> Observable<DomainLayer.DTO.SmartAssetBalance?>  in
@@ -73,12 +74,13 @@ final class SendInteractor: SendInteractorProtocol {
     }
     
     func generateMoneroAddress(asset: DomainLayer.DTO.SmartAssetBalance, address: String, paymentID: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
-        return gateWayInfo(asset: asset, address: address, moneroPaymentID: paymentID)
+        
+        return gateWayInfo(asset: asset.asset, address: address, moneroPaymentID: paymentID)
        
     }
     
     func gateWayInfo(asset: DomainLayer.DTO.SmartAssetBalance, address: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
-        return gateWayInfo(asset: asset, address: address, moneroPaymentID: nil)
+        return gateWayInfo(asset: asset.asset, address: address, moneroPaymentID: nil)
     }
     
     func validateAlis(alias: String) -> Observable<Bool> {
@@ -152,104 +154,35 @@ final class SendInteractor: SendInteractorProtocol {
 
 private extension SendInteractor {
     
-    func gateWayInfo(asset: DomainLayer.DTO.SmartAssetBalance, address: String, moneroPaymentID: String?) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
+    func gateWayInfo(asset: DomainLayer.DTO.Asset, address: String, moneroPaymentID: String?) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
+        
+        guard let currencyFrom = asset.wavesId,
+            let currencyTo = asset.gatewayId else { return Observable.empty() }
+        
+        let tunnel = coinomatRepository.tunnelInfo(currencyFrom: currencyFrom,
+                                                   currencyTo: currencyTo,
+                                                   walletTo: address,
+                                                   moneroPaymentID: moneroPaymentID)
+        
+        let rate = coinomatRepository.getRate(asset: asset)
+        
+        return Observable.zip(tunnel, rate).flatMap({ (tunnel, rate) -> Observable<ResponseType<Send.DTO.GatewayInfo>> in
+            
+            let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,
+                                                   assetShortName: currencyTo,
+                                                   minAmount: rate.min,
+                                                   maxAmount: rate.max,
+                                                   fee: rate.fee,
+                                                   address: tunnel.address,
+                                                   attachment: tunnel.attachment)
+            return Observable.just(ResponseType(output: gatewayInfo, error: nil))
+        })
+        .catchError({ (error) -> Observable<ResponseType<Send.DTO.GatewayInfo>> in
+            if let networkError = error as? NetworkError {
+                return Observable.just(ResponseType(output: nil, error: networkError))
+            }
 
-        return Observable.create({ [weak self] subscribe -> Disposable in
-            
-            let asset = asset.asset
-            
-            self?.getAssetRate(asset: asset, complete: { (fee, min, max, errorMessage) in
-                
-                if let fee = fee, let min = min, let max = max {
-                    
-                    self?.getAssetTunnelInfo(asset: asset, address: address, moneroPaymentID: moneroPaymentID, complete: { (shortName, address, attachment, error) in
-                        
-                        if let shortName = shortName, let address = address, let attachment = attachment {
-                            
-                            let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,
-                                                                   assetShortName: shortName,
-                                                                   minAmount: min,
-                                                                   maxAmount: max,
-                                                                   fee: fee,
-                                                                   address: address,
-                                                                   attachment: attachment)
-                            
-                            subscribe.onNext(ResponseType(output: gatewayInfo, error: nil))
-                        }
-                        else {
-                            subscribe.onNext(ResponseType(output: nil, error: errorMessage))
-                        }
-                    })
-                }
-                else {
-                    subscribe.onNext(ResponseType(output: nil, error: errorMessage))
-                }
-            })
-            
-            return Disposables.create()
+            return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
         })
     }
-    
-    func getAssetTunnelInfo(asset: DomainLayer.DTO.Asset, address: String, moneroPaymentID: String?, complete:@escaping(_ shortName: String?, _ address: String?, _ attachment: String?, _ error: NetworkError?) -> Void) {
-        
-        var params = ["currency_from" : asset.wavesId ?? "",
-                      "currency_to" : asset.gatewayId ?? "",
-                      "wallet_to" : address]
-        
-        if let moneroPaymentID = moneroPaymentID, moneroPaymentID.count > 0 {
-            params["monero_payment_id"] = moneroPaymentID
-        }
-        
-        //TODO: need change to Observer network
-        NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.createTunnel, parameters: params) { (info, error) in
-            if let tunnel = info {
-                
-                let params = ["xt_id" : tunnel["tunnel_id"].stringValue,
-                              "k1" : tunnel["k1"].stringValue,
-                              "k2": tunnel["k2"].stringValue,
-                              "history" : 0] as [String: Any]
-                
-                NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.getTunnel, parameters: params, complete: { (info, error) in
-                    
-                    if let info = info {
-                        let json = info["tunnel"]
-                        let shortName = asset.gatewayId ?? json["currency_from_txt"].stringValue
-                        let address = json["wallet_from"].stringValue
-                        let attachment = json["attachment"].stringValue
-                        
-                        complete(shortName, address, attachment, nil)
-                    }
-                    else {
-                        complete(nil, nil, nil, error)
-                    }
-                })
-            }
-            else {
-                complete(nil, nil, nil, error)
-            }
-        }
-    }
-    
-    func getAssetRate(asset: DomainLayer.DTO.Asset, complete:@escaping(_ fee: Money?, _ min: Money?, _ max: Money?, _ error: NetworkError?) -> Void) {
-        
-        let params = ["f" : asset.wavesId ?? "",
-                      "t" : asset.gatewayId ?? ""]
-        
-        //TODO: need change to Observer network
-        NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.getRate, parameters: params) { (info, error) in
-            
-            var fee: Money?
-            var min: Money?
-            var max: Money?
-
-            if let json = info {
-                fee = Money(value: Decimal(json["fee_in"].doubleValue + json["fee_out"].doubleValue), asset.precision)
-                min = Money(value: Decimal(json["in_min"].doubleValue), asset.precision)
-                max = Money(value: Decimal(json["in_max"].doubleValue), asset.precision)
-            }
-
-            complete(fee, min, max, error)
-        }
-    }
-    
 }
