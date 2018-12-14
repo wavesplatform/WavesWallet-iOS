@@ -220,12 +220,12 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Test" rowHeight="155" id="ldJ-ER-QiF">
                                         <rect key="frame" x="0.0" y="28" width="375" height="155"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ldJ-ER-QiF" id="yCx-7F-KMh">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ldJ-ER-QiF" id="yCx-7F-KMh">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="154.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view tag="666" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wvF-aN-jK3" customClass="SVGView" customModule="SwiftSVG">
-                                                    <rect key="frame" x="4" y="4" width="100" height="100"/>
+                                                    <rect key="frame" x="137.5" y="4" width="100" height="100"/>
                                                     <color key="backgroundColor" red="0.93725490199999995" green="0.28235294119999998" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="100" id="985-0a-CBG"/>
@@ -235,8 +235,9 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="wvF-aN-jK3" firstAttribute="top" secondItem="yCx-7F-KMh" secondAttribute="top" constant="4" id="4gV-kT-wGP"/>
+                                                <constraint firstItem="wvF-aN-jK3" firstAttribute="centerY" secondItem="yCx-7F-KMh" secondAttribute="centerY" id="Lyh-Vx-gJ2"/>
+                                                <constraint firstItem="wvF-aN-jK3" firstAttribute="centerX" secondItem="yCx-7F-KMh" secondAttribute="centerX" id="UeB-6l-XU7"/>
                                                 <constraint firstAttribute="bottom" secondItem="wvF-aN-jK3" secondAttribute="bottom" constant="4" id="XI1-sN-wCf"/>
-                                                <constraint firstItem="wvF-aN-jK3" firstAttribute="leading" secondItem="yCx-7F-KMh" secondAttribute="leading" constant="4" id="xmV-cR-Gv7"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
