@@ -2604,6 +2604,7 @@
 		0A9CA15221C2A4E0003C0A1B /* CoordinatorKit */ = {
 			isa = PBXGroup;
 			children = (
+				0A61B595214AC90C00EC60FC /* Coordinator.swift */,
 				0A9CA15321C2A4E0003C0A1B /* WindowRouter.swift */,
 				0A9CA15421C2A4E0003C0A1B /* Presentable.swift */,
 				0A9CA15521C2A4E0003C0A1B /* WindowCoordinator.swift */,
@@ -3120,7 +3121,6 @@
 		0AF92272212E1233003BA067 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				0A61B595214AC90C00EC60FC /* Coordinator.swift */,
 				0AF9227B212E1233003BA067 /* Reusable */,
 				0AF92273212E1233003BA067 /* Module */,
 				0AF92276212E1233003BA067 /* ViewConfiguration.swift */,
