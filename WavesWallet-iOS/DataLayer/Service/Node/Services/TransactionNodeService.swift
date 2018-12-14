@@ -81,11 +81,27 @@ extension Node.Service {
             let proofs: [String]
         }
 
+        struct Send {
+            let type: Int
+            let version: Int
+            let recipient: String
+            let assetId: String
+            let amount: Int64
+            let fee: Int64
+            let attachment: String
+            let feeAssetId: String = ""
+            let feeAsset: String = ""
+            let timestamp: Int64
+            let senderPublicKey: String
+            let proofs: [String]
+        }
+        
         enum BroadcastSpecification {
             case createAlias(Alias)
             case startLease(Lease)
             case cancelLease(LeaseCancel)
             case burn(Burn)
+            case send(Send)
             
             var params: [String: Any] {
                 switch self {
@@ -130,7 +146,10 @@ extension Node.Service {
                              Constants.timestamp: lease.timestamp,
                              Constants.proofs: lease.proofs,
                              Constants.type: lease.type,
-                             Constants.leaseId: lease.leaseId]                
+                             Constants.leaseId: lease.leaseId]
+                    
+                case .send(let model):
+                    
                 }
             }
         }
