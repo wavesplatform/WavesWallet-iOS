@@ -67,7 +67,7 @@ extension PasscodeTypes {
                 return .notFound
                 
             case .biometricDisable:
-                return .incorrectPasscode
+                return .biometricDisable
 
             case .passcodeIncorrect:
                 return .incorrectPasscode
@@ -162,6 +162,7 @@ extension PasscodeTypes {
             case attemptsEnded
             case attemptsEndedLogout
             case internetNotWorking
+            case biometricDisable
             case message(String)
         }
 
