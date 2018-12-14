@@ -58,15 +58,13 @@ final class SendInteractor: SendInteractorProtocol {
     
     func getWavesBalance() -> Observable<DomainLayer.DTO.SmartAssetBalance> {
         
-        //TODO: need to checkout if we need you use force update balance
-        //because we can make transaction only if balance > 0, waves fee = 0.001
-        //isNeedUpdate = false, because Send UI no need waiting animation state
+        //TODO: need optimize
         
         let accountBalance = FactoryInteractors.instance.accountBalance
         return accountBalance.balances()
             .flatMap({ balances -> Observable<DomainLayer.DTO.SmartAssetBalance> in
                 
-                guard let wavesAsset = balances.first(where: {$0.asset.wavesId == Environments.Constants.wavesAssetId}) else {
+                guard let wavesAsset = balances.first(where: {$0.asset.wavesId == GlobalConstants.wavesAssetId}) else {
                     return Observable.empty()
                 }
                 return Observable.just(wavesAsset)
