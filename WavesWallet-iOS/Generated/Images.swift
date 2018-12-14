@@ -217,6 +217,7 @@ internal enum Images {
   internal static let rInwaves14White = ImageAsset(name: "rInwaves14White")
   internal static let receive = ImageAsset(name: "receive")
   internal static let receiveBtn = ImageAsset(name: "receive_btn")
+  internal static let refresh18Basic500 = ImageAsset(name: "refresh18Basic500")
   internal static let refresh18White = ImageAsset(name: "refresh18White")
   internal static let repeatBtn = ImageAsset(name: "repeat_btn")
   internal static let resendIcon = ImageAsset(name: "resend_icon")
@@ -468,6 +469,7 @@ internal enum Images {
     rInwaves14White,
     receive,
     receiveBtn,
+    refresh18Basic500,
     refresh18White,
     repeatBtn,
     resendIcon,
