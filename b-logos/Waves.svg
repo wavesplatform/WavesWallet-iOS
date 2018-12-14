@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>Waves</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Waves" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon/Asset-Logo/waves-60">
+            <g>
+                <rect id="ico-zone" fill-opacity="0" fill="#D8D8D8" x="0" y="0" width="100" height="100"></rect>
+                <polygon id="brand-elem" fill="#1F5AF6" transform="translate(50.000000, 50.000000) rotate(45.000000) translate(-50.000000, -50.000000) " points="15.5555556 15.5555556 84.4444444 15.5555556 84.4444444 84.4444444 15.5555556 84.4444444"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
