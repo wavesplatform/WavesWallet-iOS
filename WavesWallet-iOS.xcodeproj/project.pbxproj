@@ -541,6 +541,8 @@
 		E902ADCF212E1EB8000C289A /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902ADCE212E1EB8000C289A /* Money.swift */; };
 		E902F61520E5829B00A46335 /* ChooseAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902F61420E5829B00A46335 /* ChooseAccountViewController.swift */; };
 		E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904525920B4EF4200A490E5 /* PopupViewController.swift */; };
+		E910B7E921C3261B00E402AB /* CoinomatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E910B7E821C3261B00E402AB /* CoinomatRepository.swift */; };
+		E910B7EC21C3266F00E402AB /* CoinomatDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E910B7EB21C3266F00E402AB /* CoinomatDomainDTO.swift */; };
 		E911300C21BC028400588430 /* AssetSelectSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911300B21BC028400588430 /* AssetSelectSkeletonView.swift */; };
 		E911300E21BC029300588430 /* AssetSelectSkeletonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E911300D21BC029300588430 /* AssetSelectSkeletonView.xib */; };
 		E9157BEE21A4C081009F99B6 /* StartLeasingCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9157BED21A4C081009F99B6 /* StartLeasingCompleteViewController.swift */; };
@@ -1392,6 +1394,8 @@
 		E902ADCE212E1EB8000C289A /* Money.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Money.swift; sourceTree = "<group>"; };
 		E902F61420E5829B00A46335 /* ChooseAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAccountViewController.swift; sourceTree = "<group>"; };
 		E904525920B4EF4200A490E5 /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
+		E910B7E821C3261B00E402AB /* CoinomatRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinomatRepository.swift; sourceTree = "<group>"; };
+		E910B7EB21C3266F00E402AB /* CoinomatDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinomatDomainDTO.swift; sourceTree = "<group>"; };
 		E911300B21BC028400588430 /* AssetSelectSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetSelectSkeletonView.swift; sourceTree = "<group>"; };
 		E911300D21BC029300588430 /* AssetSelectSkeletonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetSelectSkeletonView.xib; sourceTree = "<group>"; };
 		E9157BED21A4C081009F99B6 /* StartLeasingCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingCompleteViewController.swift; sourceTree = "<group>"; };
@@ -2604,7 +2608,7 @@
 				E922D26921B831B600575955 /* LastTradesRepository.swift */,
 				0AF0C67521A97D3900602197 /* Aliases */,
 				0AF2536421B6C2F900B8F7DF /* AssetsBalanceSettingsRepositoryLocal.swift */,
-				E9BB724721C2A94000B2AF7E /* CoinomatRepositoryProtocol.swift */,
+				E910B7E821C3261B00E402AB /* CoinomatRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -2731,6 +2735,7 @@
 				0A6AC3E321848920005D2525 /* AliasesRepositoryProtocol.swift */,
 				E922D26321B82C2100575955 /* CandlesRepositoryProtocol.swift */,
 				E922D26721B8311F00575955 /* LastTradesRepositoryProtocol.swift */,
+				E9BB724721C2A94000B2AF7E /* CoinomatRepositoryProtocol.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -2749,6 +2754,7 @@
 				0A6AC3E7218489F5005D2525 /* AliasDomainDTO.swift */,
 				E922D25E21B81BE800575955 /* CandleDomainDTO.swift */,
 				E922D26521B82EF500575955 /* DexLastTradeDomainDTO.swift */,
+				E910B7EB21C3266F00E402AB /* CoinomatDomainDTO.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4847,6 +4853,7 @@
 				0A218B812155180C00B989A1 /* WalletDomainDTO.swift in Sources */,
 				E9B087E62163886800937644 /* DexCreateOrderAmountButton.swift in Sources */,
 				E901CE592149D27000942783 /* ExchangeTransaction.swift in Sources */,
+				E910B7E921C3261B00E402AB /* CoinomatRepository.swift in Sources */,
 				0A7874A721B9530B00EB829D /* QRCodeReader+Factory.swift in Sources */,
 				0A3AD40721492E9400F8A929 /* ExchangeFilters.swift in Sources */,
 				E9B086BB2163883000937644 /* AddressBookViewController.swift in Sources */,
@@ -5067,6 +5074,7 @@
 				0A344E2F2194747E007809B1 /* MigrationInteractor.swift in Sources */,
 				F755C1031EAA8319008A938F /* MoneyUtil.swift in Sources */,
 				E938356F20A472B4001A2509 /* HistoryTransactionCell.swift in Sources */,
+				E910B7EC21C3266F00E402AB /* CoinomatDomainDTO.swift in Sources */,
 				04016E0221949A8400BA5235 /* ImportAccountManuallyViewController.swift in Sources */,
 				E920372B21A5F4C10055E4D8 /* StartLeasingConfirmModuleBuilder.swift in Sources */,
 				0AF922A8212E1234003BA067 /* ControlEvent+ScrollView.swift in Sources */,
