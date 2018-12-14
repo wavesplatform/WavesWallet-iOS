@@ -315,6 +315,7 @@
 		0A9CA15921C2A4E0003C0A1B /* Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9CA15421C2A4E0003C0A1B /* Presentable.swift */; };
 		0A9CA15B21C2A4E0003C0A1B /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9CA15621C2A4E0003C0A1B /* Router.swift */; };
 		0A9CA15C21C2A4E0003C0A1B /* NewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9CA15721C2A4E0003C0A1B /* NewCoordinator.swift */; };
+		0A9CA15F21C3BC0C003C0A1B /* TestSVGViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9CA15E21C3BC0C003C0A1B /* TestSVGViewController.swift */; };
 		0A9D6B62216E059F006822C5 /* WalletTypes+DisplayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A16784720FD3E4F00AA5980 /* WalletTypes+DisplayState.swift */; };
 		0A9D6B68216E070E006822C5 /* WalletTypes+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE491F12107A51A009223DB /* WalletTypes+State.swift */; };
 		0A9D6B6A216E1C39006822C5 /* RxSwift+Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9D6B69216E1C39006822C5 /* RxSwift+Scheduler.swift */; };
@@ -1156,6 +1157,7 @@
 		0A9CA15521C2A4E0003C0A1B /* WindowCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowCoordinator.swift; sourceTree = "<group>"; };
 		0A9CA15621C2A4E0003C0A1B /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		0A9CA15721C2A4E0003C0A1B /* NewCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewCoordinator.swift; sourceTree = "<group>"; };
+		0A9CA15E21C3BC0C003C0A1B /* TestSVGViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSVGViewController.swift; sourceTree = "<group>"; };
 		0A9D6B69216E1C39006822C5 /* RxSwift+Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RxSwift+Scheduler.swift"; sourceTree = "<group>"; };
 		0AA8CAA32151133D000D09E6 /* UIView+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animation.swift"; sourceTree = "<group>"; };
 		0AA8CAC821516077000D09E6 /* Backup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Backup.storyboard; sourceTree = "<group>"; };
@@ -2417,6 +2419,7 @@
 		0A762D9E2163ACE80019D447 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				0A9CA15E21C3BC0C003C0A1B /* TestSVGViewController.swift */,
 				0A762D9F2163AD0F0019D447 /* Support.storyboard */,
 				0A762DA12163AD1A0019D447 /* SupportViewController.swift */,
 			);
@@ -5247,6 +5250,7 @@
 				0A439964215045C40032E608 /* NewAccountCoordinator.swift in Sources */,
 				0AF58FA121931AD400C8A4B3 /* WalletEncryption.swift in Sources */,
 				0AF922E1212E1234003BA067 /* NibOwnerLoadable.swift in Sources */,
+				0A9CA15F21C3BC0C003C0A1B /* TestSVGViewController.swift in Sources */,
 				0AE657342106375D003D2DB8 /* TimestampSignature.swift in Sources */,
 				0A43996921504CF60032E608 /* SideMenu.swift in Sources */,
 				0AF922B8212E1234003BA067 /* UIViewController+Additionals.swift in Sources */,
