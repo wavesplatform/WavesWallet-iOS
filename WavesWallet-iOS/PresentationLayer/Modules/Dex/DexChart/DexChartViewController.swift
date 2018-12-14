@@ -39,6 +39,7 @@ final class DexChartViewController: UIViewController {
     private var state = DexChart.State.initialState
     private let sendEvent: PublishRelay<DexChart.Event> = PublishRelay<DexChart.Event>()
     private var lowestVisibleX: Double = 0
+    private var candles: [DomainLayer.DTO.Candle] = []
     
     var pair: DexTraderContainer.DTO.Pair!
     var presenter: DexChartPresenterProtocol!
@@ -88,7 +89,9 @@ fileprivate extension DexChartViewController {
                 strongSelf.state = state
                 guard state.action != .none else { return }
                 
+                strongSelf.candles = state.candles
                 strongSelf.headerView.setupTimeFrame(timeFrame: state.timeFrame)
+                strongSelf.headerView.stopAnimation()
                 strongSelf.setupCandleChartInfo()
                 strongSelf.setupChartData(state: state)
                 
@@ -145,6 +148,10 @@ private extension DexChartViewController {
 
 //MARK: - DexChartHeaderViewDelegate
 extension DexChartViewController: DexChartHeaderViewDelegate {
+    
+    func dexChartDidTapRefresh() {
+        sendEvent.accept(.refresh)
+    }
     
     func dexChartDidChangeTimeFrame(_ timeFrame: DomainLayer.DTO.Candle.TimeFrameType) {
         
@@ -211,10 +218,10 @@ extension DexChartViewController: ChartViewDelegate {
         
         lowestVisibleX = candleChartView.lowestVisibleX
         
-        if state.candles.count > DexChartHelper.minCountCandlesToZoom {
+        if candles.count > DexChartHelper.minCountCandlesToZoom {
 
             let value = round(candleChartView.lowestVisibleX)
-            let candle = state.candles[0]
+            let candle = candles[0]
             if value == candle.timestamp && !state.isPreloading {
                 sendEvent.accept(.preloading)
             }
@@ -279,22 +286,22 @@ private extension DexChartViewController {
         
         chartHelper.setupChartData(candleChartView: candleChartView, barChartView: barChartView,
                                    timeFrame: state.timeFrame,
-                                   candles: state.candles,
+                                   candles: candles,
                                    pair: pair)
 
         if state.action == .zoomAfterPreloading {
             chartHelper.zoom(candleChartView: candleChartView, barChartView: barChartView,
-                             candles: state.candles,
+                             candles: candles,
                              lowestVisibleX: lowestVisibleX)
         }
         else if state.action == .zoomAfterTimeFrameChanged {
-            chartHelper.updateAfterTimeFrameChanged(candleChartView: candleChartView, barChartView: barChartView, candles: state.candles)
+            chartHelper.updateAfterTimeFrameChanged(candleChartView: candleChartView, barChartView: barChartView, candles: candles)
         }
         else {
-            chartHelper.setupInitialZoom(candleChartView: candleChartView, barChartView: barChartView, candles: state.candles)
+            chartHelper.setupInitialZoom(candleChartView: candleChartView, barChartView: barChartView, candles: candles)
         }
-        viewLastVisibleCandle.setupWidth(candles: state.candles, pair: pair)
-        viewHighlightedCandle.setupWidth(candles: state.candles, pair: pair)
+        viewLastVisibleCandle.setupWidth(candles: candles, pair: pair)
+        viewHighlightedCandle.setupWidth(candles: candles, pair: pair)
         
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             self.setupLastVisibleCandle()
