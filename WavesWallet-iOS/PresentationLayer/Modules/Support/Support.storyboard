@@ -205,18 +205,10 @@
             </objects>
             <point key="canvasLocation" x="-1006" y="60"/>
         </scene>
-        <!--Table View Controller-->
-        <scene sceneID="h7Z-3T-HdK">
-            <objects>
-                <tableViewController id="p5t-6P-5Nn" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fwI-gW-UfD" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-288.80000000000001" y="-34.632683658170919"/>
-        </scene>
         <!--TestSVG View Controller-->
         <scene sceneID="SYr-Ph-CET">
             <objects>
-                <viewController id="TTB-Hb-joI" customClass="TestSVGViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TestSVGViewController" id="TTB-Hb-joI" customClass="TestSVGViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IoH-eL-GHA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -234,7 +226,7 @@
                                             <subviews>
                                                 <view tag="666" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wvF-aN-jK3" customClass="SVGView" customModule="SwiftSVG">
                                                     <rect key="frame" x="4" y="4" width="100" height="100"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" red="0.93725490199999995" green="0.28235294119999998" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="100" id="985-0a-CBG"/>
                                                         <constraint firstAttribute="width" constant="100" id="GAU-gR-s0e"/>

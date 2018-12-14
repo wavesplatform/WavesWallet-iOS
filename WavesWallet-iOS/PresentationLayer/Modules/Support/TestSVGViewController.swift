@@ -13,7 +13,8 @@ import SwiftSVG
 final class TestSVGViewController: UIViewController {
 
     @IBOutlet var tableView: UITableView!
-    var models: [String] = [String]()
+    var models: [String] = ["https://raw.githubusercontent.com/wavesplatform/WavesWallet-iOS/feature/IOS-418/b-logos/Bettertokens.svg",
+                            "https://openclipart.org/download/181651/manhammock.svg"]
 }
 
 extension TestSVGViewController: UITableViewDataSource, UITableViewDelegate {
@@ -21,17 +22,22 @@ extension TestSVGViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "Test", for: indexPath)
-//        let imageView
 
         let view: SVGView = cell.viewWithTag(666) as! SVGView
-        view.SVGName = 
-        
+
+        let svgURL = URL(string: models[indexPath.row])!
+        let hammock = UIView(SVGURL: svgURL) { (svgLayer) in
+            svgLayer.resizeToFit(view.bounds)
+        }
+        hammock.frame = view.bounds
+
+        view.addSubview(hammock)
 
         return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 109
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {

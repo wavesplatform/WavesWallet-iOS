@@ -263,8 +263,10 @@ extension AppCoordinator {
     }
 
     @objc func tapGesture(tap: UITapGestureRecognizer) {
-        let vc = StoryboardScene.Support.supportViewController.instantiate()
-        vc.delegate = self
+//        let vc = StoryboardScene.Support.supportViewController.instantiate()
+//        vc.delegate = self
+        let vc = StoryboardScene.Support.testSVGViewController.instantiate()
+
         self.window.rootViewController!.present(vc, animated: true, completion: nil)
     }
 
