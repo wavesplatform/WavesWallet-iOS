@@ -14,7 +14,8 @@ final class TestSVGViewController: UIViewController {
 
     @IBOutlet var tableView: UITableView!
     var models: [String] = ["https://raw.githubusercontent.com/wavesplatform/WavesWallet-iOS/feature/IOS-418/b-logos/Bettertokens.svg",
-                            "https://openclipart.org/download/181651/manhammock.svg"]
+                            "https://raw.githubusercontent.com/wavesplatform/WavesWallet-iOS/feature/IOS-418/b-logos/manhammock.svg",
+                            "https://raw.githubusercontent.com/wavesplatform/WavesWallet-iOS/feature/IOS-418/b-logos/Waves.svg"]
 }
 
 extension TestSVGViewController: UITableViewDataSource, UITableViewDelegate {
