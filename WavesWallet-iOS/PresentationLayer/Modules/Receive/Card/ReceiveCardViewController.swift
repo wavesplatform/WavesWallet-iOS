@@ -32,7 +32,7 @@ final class ReceiveCardViewController: UIViewController {
     private var amountUSDInfo: ReceiveCard.DTO.AmountInfo?
     private var amountEURInfo: ReceiveCard.DTO.AmountInfo?
     private var asset: DomainLayer.DTO.SmartAssetBalance?
-    private var amount: Money = Money(0, ReceiveCard.DTO.fiatDecimals)
+    private var amount: Money = Money(0, GlobalConstants.FiatDecimals)
     private var urlLink = ""
     
     override func viewDidLoad() {

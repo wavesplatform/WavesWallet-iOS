@@ -47,5 +47,7 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
     
     private(set) lazy var lastTradesRespository: LastTradesRepositoryProtocol = LastTradesRepository()
     
+    private(set) lazy var coinomatRepository: CoinomatRepositoryProtocol = CoinomatRepository()
+    
     fileprivate init() {}
 }
