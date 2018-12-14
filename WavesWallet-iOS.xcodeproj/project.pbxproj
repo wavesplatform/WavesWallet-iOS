@@ -26,7 +26,7 @@
 		04831F6421691429006D1ED6 /* SuccessSystemMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04831F6121691429006D1ED6 /* SuccessSystemMessageView.swift */; };
 		04831F712169161C006D1ED6 /* Assert+Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C53E22139502F00667E34 /* Assert+Message.swift */; };
 		04831F7421691659006D1ED6 /* HistoryTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0444E7B3212C81E1004C7DF2 /* HistoryTransactionView.swift */; };
-		04831F75216916EE006D1ED6 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF92257212E1233003BA067 /* ActivityIndicator.swift */; };
+		04831F75216916EE006D1ED6 /* ActivityIndicator+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF92257212E1233003BA067 /* ActivityIndicator+Rx.swift */; };
 		04831F76216916EE006D1ED6 /* WalletInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE491F92107A531009223DB /* WalletInteractor.swift */; };
 		04831F78216916EE006D1ED6 /* TransactionApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD7920F3A9AE004DA625 /* TransactionApi.swift */; };
 		04831F7A216917B0006D1ED6 /* ApiServiceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C918420F3CD0500443CE6 /* ApiServiceTypes.swift */; };
@@ -1310,7 +1310,7 @@
 		0AF92254212E1233003BA067 /* ObservableType+SweetLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ObservableType+SweetLogger.swift"; sourceTree = "<group>"; };
 		0AF92255212E1233003BA067 /* SweetNetworkLoggerPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweetNetworkLoggerPlugin.swift; sourceTree = "<group>"; };
 		0AF92256212E1233003BA067 /* SweetLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweetLogger.swift; sourceTree = "<group>"; };
-		0AF92257212E1233003BA067 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		0AF92257212E1233003BA067 /* ActivityIndicator+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ActivityIndicator+Rx.swift"; sourceTree = "<group>"; };
 		0AF92258212E1233003BA067 /* UIResponder+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIResponder+Rx.swift"; sourceTree = "<group>"; };
 		0AF92259212E1233003BA067 /* RxTableViewAnimatedDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxTableViewAnimatedDataSource.swift; sourceTree = "<group>"; };
 		0AF9225A212E1233003BA067 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
@@ -2617,6 +2617,52 @@
 			path = CoordinatorKit;
 			sourceTree = "<group>";
 		};
+		0A9CA15D21C3B54C003C0A1B /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				0A25B46B216F763D00638C93 /* MailCompose+Support.swift */,
+				0A4D221F2180DC5A00155A8E /* Notifications.swift */,
+				0AACD5A821A6B4C300B30815 /* TimingFunction.swift */,
+				0AB63C1F2170AC880056B17E /* RateApp.swift */,
+				0AF9226E212E1233003BA067 /* CALayer+RoundingCorners.swift */,
+				0AF92240212E1233003BA067 /* CALayer+Shadow.swift */,
+				0AF92242212E1233003BA067 /* ControlEvent+ScrollView.swift */,
+				0AF9225F212E1233003BA067 /* ControlEvent+Signal.swift */,
+				0A6AC3DB2183C396005D2525 /* PasteboardButton.swift */,
+				0AF92246212E1233003BA067 /* RxDataSource+TableView.swift */,
+				0AACD5AA21A6CAC800B30815 /* SweetSnackBack+Factory.swift */,
+				0A7874A621B9530B00EB829D /* QRCodeReader+Factory.swift */,
+				0AF92259212E1233003BA067 /* RxTableViewAnimatedDataSource.swift */,
+				0A43996821504CF60032E608 /* SideMenu.swift */,
+				0AB63C212170ADD20056B17E /* UIApplication+OpenURL.swift */,
+				0AFF5C88215BF39200B82940 /* UIButton+WithoutAnimation.swift */,
+				0AF92249212E1233003BA067 /* UIColor+Asset.swift */,
+				0AF9225D212E1233003BA067 /* UIColor+Colors.swift */,
+				0AF9224B212E1233003BA067 /* UIColor+Hex.swift */,
+				0AF92247212E1233003BA067 /* UIFeedbackGenerator.swift */,
+				0AF9224F212E1233003BA067 /* UIFont+Additions.swift */,
+				0AF92265212E1233003BA067 /* UIImage+Color.swift */,
+				0AF92260212E1233003BA067 /* UINavigationController+Additionals.swift */,
+				0AF92268212E1233003BA067 /* UInt8+Assisstants.swift */,
+				0AF92258212E1233003BA067 /* UIResponder+Rx.swift */,
+				0A580E612135F17700C62549 /* UIScrollView+ContentInset.swift */,
+				0A580E692135FBF000C62549 /* UIScrollView+Pagination.swift */,
+				0AF9224E212E1233003BA067 /* UITableView+Animation.swift */,
+				0AF9224D212E1233003BA067 /* UITableView+HeaderView.swift */,
+				0AF9224C212E1233003BA067 /* UIView+Additionals.swift */,
+				0AA8CAA32151133D000D09E6 /* UIView+Animation.swift */,
+				0AF9226B212E1233003BA067 /* UIView+Passtrough.swift */,
+				0A762D9421639FBF0019D447 /* UIView+SafeArea.swift */,
+				0AF9226D212E1233003BA067 /* UIView+Shadow.swift */,
+				0A044417219D850100F837EB /* UIView+TouchInset.swift */,
+				0AF92252212E1233003BA067 /* UIViewController+Additionals.swift */,
+				0AF9225A212E1233003BA067 /* UIViewController+Alert.swift */,
+				0AF9226A212E1233003BA067 /* UIViewController+Rx.swift */,
+				0AF92266212E1233003BA067 /* UIViewController+SafeArea.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		0AACD59721A59E6300B30815 /* SweetSnackbar */ = {
 			isa = PBXGroup;
 			children = (
@@ -3010,22 +3056,18 @@
 			path = Skeletons;
 			sourceTree = "<group>";
 		};
-		0AF9223F212E1233003BA067 /* extensions */ = {
+		0AF9223F212E1233003BA067 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				0AF92257212E1233003BA067 /* ActivityIndicator.swift */,
+				0AF92257212E1233003BA067 /* ActivityIndicator+Rx.swift */,
 				0AF92270212E1233003BA067 /* Any+Name.swift */,
 				0AF92245212E1233003BA067 /* Array+Sort.swift */,
 				0AF92250212E1233003BA067 /* ArrayExtension.swift */,
 				0A5C53E22139502F00667E34 /* Assert+Message.swift */,
 				0A071E70215C6B95007D9750 /* BiometricType.swift */,
 				0A25B469216F69EC00638C93 /* Bundle+Version.swift */,
-				0AF9226E212E1233003BA067 /* CALayer+RoundingCorners.swift */,
-				0AF92240212E1233003BA067 /* CALayer+Shadow.swift */,
 				0AF92244212E1233003BA067 /* CGFloat+Min.swift */,
 				0AF92267212E1233003BA067 /* CGSize+Hashable.swift */,
-				0AF92242212E1233003BA067 /* ControlEvent+ScrollView.swift */,
-				0AF9225F212E1233003BA067 /* ControlEvent+Signal.swift */,
 				F7C683971EA93A4000C87DAF /* crypto */,
 				0A5D32FF2157D5EF0009CDF3 /* Data+AES.swift */,
 				0A071E74215DAD87007D9750 /* DatabaseReference+Rx.swift */,
@@ -3039,59 +3081,25 @@
 				0AD6323821761F350047D467 /* GlobalConstants.swift */,
 				0A61B59B214AD51700EC60FC /* JSONDecoder+JSON.swift */,
 				0AF92251212E1233003BA067 /* JSONDecoder+Rx.swift */,
-				0A25B46B216F763D00638C93 /* MailCompose+Support.swift */,
-				0A4D221F2180DC5A00155A8E /* Notifications.swift */,
 				0AF92248212E1233003BA067 /* NSAttributedString+Styles.swift */,
 				0AF92269212E1233003BA067 /* NSObject+AssociatedObject.swift */,
 				0AF9226F212E1233003BA067 /* ObservableType+Weak.swift */,
-				0A6AC3DB2183C396005D2525 /* PasteboardButton.swift */,
 				0AF92272212E1233003BA067 /* Protocols */,
 				E9DB666D21A1DDDF00962639 /* QRCodeParser.swift */,
-				0AB63C1F2170AC880056B17E /* RateApp.swift */,
 				0AC33B5621AC170900B66747 /* Reachability+Shared.swift */,
 				0A14CFD3214854BF00C3A4D5 /* Results+Limit.swift */,
 				0A071E72215D9B30007D9750 /* RunLoopThreadScheduler.swift */,
 				0AF9224A212E1233003BA067 /* Runtime.swift */,
 				0AFF5C86215BEEBF00B82940 /* RXCrypto+SHA.swift */,
-				0AF92246212E1233003BA067 /* RxDataSource+TableView.swift */,
 				0A9D6B69216E1C39006822C5 /* RxSwift+Scheduler.swift */,
-				0AF92259212E1233003BA067 /* RxTableViewAnimatedDataSource.swift */,
-				0A43996821504CF60032E608 /* SideMenu.swift */,
 				0A14CFCB2144156400C3A4D5 /* String+NormalizeAssetId.swift */,
 				0ACC0234217E3AED000E3EE0 /* String+URL.swift */,
 				0AF9226C212E1233003BA067 /* StringExtension.swift */,
-				0AACD5AA21A6CAC800B30815 /* SweetSnackBack+Factory.swift */,
 				0A580E652135F7B800C62549 /* Thread+Assisstants.swift */,
-				0AACD5A821A6B4C300B30815 /* TimingFunction.swift */,
 				0AF92261212E1233003BA067 /* Type */,
-				0AB63C212170ADD20056B17E /* UIApplication+OpenURL.swift */,
-				0AFF5C88215BF39200B82940 /* UIButton+WithoutAnimation.swift */,
-				0AF92249212E1233003BA067 /* UIColor+Asset.swift */,
-				0AF9225D212E1233003BA067 /* UIColor+Colors.swift */,
-				0AF9224B212E1233003BA067 /* UIColor+Hex.swift */,
-				0AF92247212E1233003BA067 /* UIFeedbackGenerator.swift */,
-				0AF9224F212E1233003BA067 /* UIFont+Additions.swift */,
-				0AF92265212E1233003BA067 /* UIImage+Color.swift */,
-				0AF92260212E1233003BA067 /* UINavigationController+Additionals.swift */,
-				0AF92268212E1233003BA067 /* UInt8+Assisstants.swift */,
-				0AF92258212E1233003BA067 /* UIResponder+Rx.swift */,
-				0A580E612135F17700C62549 /* UIScrollView+ContentInset.swift */,
-				0A580E692135FBF000C62549 /* UIScrollView+Pagination.swift */,
-				0AF9224E212E1233003BA067 /* UITableView+Animation.swift */,
-				0AF9224D212E1233003BA067 /* UITableView+HeaderView.swift */,
-				0AF9224C212E1233003BA067 /* UIView+Additionals.swift */,
-				0AA8CAA32151133D000D09E6 /* UIView+Animation.swift */,
-				0AF9226B212E1233003BA067 /* UIView+Passtrough.swift */,
-				0A762D9421639FBF0019D447 /* UIView+SafeArea.swift */,
-				0AF9226D212E1233003BA067 /* UIView+Shadow.swift */,
-				0A044417219D850100F837EB /* UIView+TouchInset.swift */,
-				0AF92252212E1233003BA067 /* UIViewController+Additionals.swift */,
-				0AF9225A212E1233003BA067 /* UIViewController+Alert.swift */,
-				0AF9226A212E1233003BA067 /* UIViewController+Rx.swift */,
-				0AF92266212E1233003BA067 /* UIViewController+SafeArea.swift */,
-				0A7874A621B9530B00EB829D /* QRCodeReader+Factory.swift */,
+				0A9CA15D21C3B54C003C0A1B /* UI */,
 			);
-			path = extensions;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		0AF92261212E1233003BA067 /* Type */ = {
@@ -3149,7 +3157,7 @@
 			path = Reusable;
 			sourceTree = "<group>";
 		};
-		0AF92281212E1234003BA067 /* customviews */ = {
+		0AF92281212E1234003BA067 /* Customviews */ = {
 			isa = PBXGroup;
 			children = (
 				0AACD59721A59E6300B30815 /* SweetSnackbar */,
@@ -3180,7 +3188,7 @@
 				0AF0C67A21AACA4F00602197 /* GlobalErrorView.swift */,
 				0AF0C67C21AACB3700602197 /* GlobalErrorView.xib */,
 			);
-			path = customviews;
+			path = Customviews;
 			sourceTree = "<group>";
 		};
 		0AF92283212E1234003BA067 /* HalfModalPresentationController */ = {
@@ -4422,8 +4430,8 @@
 			children = (
 				F74240AF1EAB8D1600C3B84D /* DataLayer */,
 				0A5C919520F3D7D700443CE6 /* DomainLayer */,
-				0AF92281212E1234003BA067 /* customviews */,
-				0AF9223F212E1233003BA067 /* extensions */,
+				0AF92281212E1234003BA067 /* Customviews */,
+				0AF9223F212E1233003BA067 /* Extensions */,
 				0A97974F2108805100407F67 /* Generated */,
 				0A93FED120FCAAA30058179E /* PresentationLayer */,
 				F7C683B81EA93C5800C87DAF /* main */,
@@ -4718,6 +4726,7 @@
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Skeleton/Skeleton.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftSVG/SwiftSVG.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeView/SwipeView.framework",
 				"${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework",
@@ -4774,6 +4783,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Skeleton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSVG.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TPKeyboardAvoiding.framework",
@@ -4851,7 +4861,7 @@
 				04831F7C2169210B006D1ED6 /* PasscodeViewController.swift in Sources */,
 				E95B47D321638AF2004D4E39 /* AccountPasswordViewController.swift in Sources */,
 				0A7CCDB1218A138D005D372B /* MyAddressModuleBuilder.swift in Sources */,
-				04831F75216916EE006D1ED6 /* ActivityIndicator.swift in Sources */,
+				04831F75216916EE006D1ED6 /* ActivityIndicator+Rx.swift in Sources */,
 				04831F76216916EE006D1ED6 /* WalletInteractor.swift in Sources */,
 				04831F78216916EE006D1ED6 /* TransactionApi.swift in Sources */,
 				E9B12DAD219DCD1800128EFE /* TokenBurnSendInteractorMock.swift in Sources */,
