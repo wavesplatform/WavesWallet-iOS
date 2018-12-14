@@ -50,7 +50,6 @@ extension Environment {
 
 final class Environments {
     enum Constants {
-        static let wavesAssetId = "WAVES"
         fileprivate static let main = "environment_mainnet"
         fileprivate static let test = "environment_testnet"
     }
