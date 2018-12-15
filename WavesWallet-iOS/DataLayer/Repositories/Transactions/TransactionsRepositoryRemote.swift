@@ -29,6 +29,9 @@ extension TransactionSenderSpecifications {
 
         case .cancelLease:
             return 2
+
+        case .data:
+            return 1
         }
     }
 
@@ -45,6 +48,9 @@ extension TransactionSenderSpecifications {
 
         case .cancelLease:
             return TransactionType.leaseCancel
+
+        case .data:
+            return TransactionType.data
         }
     }
 }
@@ -246,7 +252,17 @@ fileprivate extension TransactionSenderSpecifications {
                                                                      timestamp: timestamp,
                                                                      type: self.type.rawValue,
                                                                      senderPublicKey: publicKey,
-                                                                     proofs: proofs))        
+                                                                     proofs: proofs))
+
+        case .data(let model):
+
+            return .data(Node.Service.Transaction.Data.init(type: self.type.rawValue,
+                                                            version: self.version,
+                                                            fee: model.fee,
+                                                            timestamp: timestamp,
+                                                            senderPublicKey: publicKey,
+                                                            proofs: proofs,
+                                                            data: model.dataForNode))
         }
 
     }
@@ -254,7 +270,18 @@ fileprivate extension TransactionSenderSpecifications {
     func signature(timestamp: Int64, scheme: String, publicKey: [UInt8]) -> [UInt8] {
 
         switch self {
-        
+
+        case .data(let model):
+            var signature: [UInt8] = []
+            signature += toByteArray(Int8(self.type.rawValue))
+            signature += toByteArray(Int8(self.version))
+            signature += publicKey
+            signature += model.bytesForSignature
+            signature += toByteArray(timestamp)
+            signature += toByteArray(model.fee)
+            return signature
+
+
         case .burn(let model):
 
             let assetId: [UInt8] = Base58.decode(model.assetID)
@@ -328,3 +355,57 @@ fileprivate extension TransactionSenderSpecifications {
 }
 
 
+private extension DataTransactionSender {
+
+    var bytesForSignature: [UInt8] {
+
+        var signature: [UInt8] = []
+        signature += toByteArray(Int16(self.data.count))
+
+        for value in self.data {
+            signature += value.key.arrayWithSize()
+
+            switch value.value {
+            case .binary(let data):
+                signature += toByteArray(Int8(2))
+                signature += Base58.encode(data).arrayWithSize()
+
+            case .integer(let number):
+                signature += toByteArray(Int8(0))
+                signature += toByteArray(number)
+
+            case .boolean(let flag):
+                signature += toByteArray(Int8(1))
+                signature += toByteArray(flag)
+
+            case .string(let str):
+                signature += toByteArray(Int8(3))
+                signature += str.arrayWithSize()
+            }
+        }
+        return signature
+    }
+
+    var dataForNode: [Node.Service.Transaction.Data.Value] {
+        return self.data.map { (value) -> Node.Service.Transaction.Data.Value in
+
+            var kind: Node.Service.Transaction.Data.Value.Kind!
+
+            switch value.value {
+            case .binary(let data):
+                kind = .binary(Base58.encode(data))
+
+            case .integer(let number):
+                kind = .integer(number)
+
+            case .boolean(let flag):
+                kind = .boolean(flag)
+
+            case .string(let str):
+                kind = .string(str)
+            }
+
+            return Node.Service.Transaction.Data.Value.init(key: value.key, value: kind)
+        }
+    }
+}

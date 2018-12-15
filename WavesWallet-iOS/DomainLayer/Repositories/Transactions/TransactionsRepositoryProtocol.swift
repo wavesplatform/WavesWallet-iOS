@@ -99,11 +99,31 @@ struct CancelLeaseTransactionSender {
     let fee: Int64
 }
 
+typealias StringBase64 = String
+
+struct DataTransactionSender {
+    struct Value {
+        enum Kind {
+            case integer(Int64)
+            case boolean(Bool)
+            case string(String)
+            case binary([UInt8])
+        }
+
+        let key: String
+        let value: Kind
+    }
+
+    let fee: Int64
+    let data: [Value]
+}
+
 enum TransactionSenderSpecifications {
     case createAlias(AliasTransactionSender)
     case lease(LeaseTransactionSender)
     case burn(BurnTransactionSender)
     case cancelLease(CancelLeaseTransactionSender)
+    case data(DataTransactionSender)
 }
 
 protocol TransactionsRepositoryProtocol {
