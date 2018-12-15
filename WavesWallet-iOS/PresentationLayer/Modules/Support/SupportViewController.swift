@@ -20,6 +20,8 @@ final class SupportViewController: UIViewController {
     @IBOutlet private var buildVersionLabel: UILabel!
     @IBOutlet private var testNetSwitch: UISwitch!
     weak var delegate: SupportViewControllerDelegate?
+    private let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let transactions: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,8 +40,20 @@ final class SupportViewController: UIViewController {
         
     }
 
+    static let image = "test"
+
     @IBAction func actionCrash(_ sender: Any) {
-        Crashlytics.sharedInstance().crash()
+
+        auth
+            .authorizedWallet()
+            .flatMap { (wallet) -> Observable<DomainLayer.DTO.SmartTransaction> in
+                return self
+                    .transactions
+                    .send(by: .data(.init(fee: GlobalConstants.WavesTransactionFeeAmount,
+                                          data: [.init(key: "image", value: .binary(Array(SupportViewController.image.utf8)))])),
+                          wallet: wallet)
+            }
+            .subscribe()
     }
 
     @IBAction func actionClean(_ sender: Any) {
