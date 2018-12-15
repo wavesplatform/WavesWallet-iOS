@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import Moya
+import CryptoSwift
 
 fileprivate enum Constants {
     static let maxLimit: Int = 10000
@@ -272,6 +273,7 @@ fileprivate extension TransactionSenderSpecifications {
         switch self {
 
         case .data(let model):
+            // todo check size
             var signature: [UInt8] = []
             signature += toByteArray(Int8(self.type.rawValue))
             signature += toByteArray(Int8(self.version))
@@ -368,7 +370,7 @@ private extension DataTransactionSender {
             switch value.value {
             case .binary(let data):
                 signature += toByteArray(Int8(2))
-                signature += Base58.encode(data).arrayWithSize()
+                signature += data.arrayWithSize()
 
             case .integer(let number):
                 signature += toByteArray(Int8(0))
@@ -393,7 +395,7 @@ private extension DataTransactionSender {
 
             switch value.value {
             case .binary(let data):
-                kind = .binary(Base58.encode(data))
+                kind = .binary(data.toBase64() ?? "")
 
             case .integer(let number):
                 kind = .integer(number)
