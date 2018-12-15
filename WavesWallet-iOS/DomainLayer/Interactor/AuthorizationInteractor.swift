@@ -1133,14 +1133,14 @@ extension LAError {
              LAError.authenticationFailed:
             return AuthorizationInteractorError.biometricUserCancel
 
-        case LAError.biometryLockout:
+        case LAError.biometryLockout,
+             LAError.touchIDLockout:
             return AuthorizationInteractorError.biometricLockout
 
         case LAError.userFallback:
             return AuthorizationInteractorError.biometricUserFallback
 
-        case LAError.touchIDLockout,
-             LAError.touchIDNotEnrolled,
+        case LAError.touchIDNotEnrolled,
              LAError.touchIDNotAvailable,
              LAError.biometryNotEnrolled,
              LAError.biometryNotAvailable,
