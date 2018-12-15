@@ -30,7 +30,9 @@ fileprivate enum TransactionDirection {
 
 extension Int64 {
 
-    func confirmationHeight(txHeight: Int64) -> Int64 {
+    func confirmationHeight(txHeight: Int64?) -> Int64 {
+        //NotFound
+        guard let txHeight = txHeight else { return -1 }
         return self - txHeight
     }
 }
@@ -436,7 +438,7 @@ extension DomainLayer.DTO.AliasTransaction {
                      timestamp: Date(milliseconds: timestamp),
                      totalFee: feeBalance,
                      height: height,
-                     confirmationHeight: totalHeight.confirmationHeight(txHeight: height ?? -1),
+                     confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
                      sender: sender,
                      status: metaData.status)
     }
