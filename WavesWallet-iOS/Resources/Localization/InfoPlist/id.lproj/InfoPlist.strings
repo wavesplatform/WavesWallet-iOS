@@ -3,6 +3,8 @@
 
 "NSFaceIDUsageDescription" = "Akses ke dompet Anda";
 
+"NSPhotoLibraryAddUsageDescription" = "Kamera diperlukan untuk memindai kode QR";
+
 "cameraAccess.alert.allow" = "Izinkan Kamera";
 
 "cameraAccess.alert.cancel" = "Membatalkan";

@@ -1,17 +1,19 @@
 
-"Receivecard.Label.minimunAmountInfo" = "最小値は %@ です、最大値は %@ です。";
+"newaccount.textfield.error.maximumcharacters" = "最大 %d 文字";
 
-"Send.Label.Error.notFundsFeeGateway" = "あなたは必要な手数料を支払う為に必要な資金を持っていません。あなたは %@ のトランザクション手数料と %@ のゲートウェイ手数料を支払う必要があります。";
+"Receivecard.Label.minimunAmountInfo" = "最小額は %@です。最大額は %@ です。";
+
+"Send.Label.Error.notFundsFeeGateway" = "必要な手数料を支払うための資金が足りません。取引手数料%@とゲートウェイ手数料 %@ を支払う必要があります。";
 
 "Send.Label.Warning.description" = "%@ をICOの為に引き出さないで下さい。そのセールに関するトークンを私達は入金しません。";
 
-"Send.Label.Warning.subtitle" = "私たちは、%@ のアドレスを検出し、そのアドレスにCoinomatゲートウェイを経由してあなたのお金を送信します。最少値は %@、最大値は%@です。";
+"Send.Label.Warning.subtitle" = "私たちは、%@ のアドレスを検出し、そのアドレスにCoinomatゲートウェイを経由してあなたのお金を送信します。最少額は %@、最大額は%@です。";
 
 "accountpassword.button.signIn.title" = "サインイン";
 
 "accountpassword.error.wrongpassword" = "パスワードが間違っています。";
 
-"accountpassword.textfield.error.atleastcharacters" = "少なくとも %d 文字";
+"accountpassword.textfield.error.atleastcharacters" = "最低 %d 文字です";
 
 "accountpassword.textfield.password.placeholder" = "アカウントのパスワード";
 
@@ -25,7 +27,7 @@
 
 "addAddressbook.error.charactersMaximum" = "最大 %d 文字";
 
-"addAddressbook.error.charactersMinimum" = "少なくとも %d 文字";
+"addAddressbook.error.charactersMinimum" = "最低 %d 文字以上です";
 
 "addAddressbook.label.add" = "追加する";
 
@@ -33,17 +35,17 @@
 
 "addAddressbook.label.deleteAlertMessage" = "本当にアドレス帳からアドレスを削除してもよろしいですか？";
 
-"addAddressbook.label.edit" = "編集";
+"addAddressbook.label.edit" = "編集する";
 
 "addAddressbook.label.name" = "名前";
 
-"addAddressbook.textfield.address.error.addressexist" = "既に利用されています";
+"addAddressbook.textfield.address.error.addressexist" = "既に利用されているアドレスです";
 
 "addressbook.label.addressBook" = "アドレス帳";
 
 "addressbook.label.addressDeleted" = "アドレスが削除されました";
 
-"addressbook.label.noInfo" = "何もありません…\n新しいアドレスを作成できます";
+"addressbook.label.noInfo" = "まだ何もありません…\n新しいアドレスを作成できます";
 
 "addresseskeys.cell.address.title" = "あなたのアドレス";
 
@@ -61,7 +63,7 @@
 
 "addresseskeys.cell.seed.title" = "シード";
 
-"addresseskeys.navigation.title" = "アドレス、鍵";
+"addresseskeys.navigation.title" = "アドレスと鍵";
 
 "aliases.cell.head.title" = "あなたのエイリアス";
 
@@ -69,7 +71,7 @@
 
 "aliases.view.info.label.fee" = "取引手数料：0.001 Waves";
 
-"aliases.view.info.label.secondsubtitle" = "あなたのエイリアスは、4〜30文字で、半角英数字、記号（@、 - 、_など）が含まれている必要があります";
+"aliases.view.info.label.secondsubtitle" = "あなたのエイリアスは、4〜30文字で、半角英数字、記号（@、 - 、_など）が含まれている必要があります。";
 
 "aliases.view.info.label.subtitle" = "エイリアスはあなたのアドレスのニックネームです。このアドレスはトランザクションの作成時にアドレスの代わりに利用することが可能です。";
 
@@ -79,7 +81,7 @@
 
 "aliaseswithout.view.info.label.fee" = "取引手数料：0.001 Waves";
 
-"aliaseswithout.view.info.label.secondsubtitle" = "あなたのエイリアスは、4〜30文字で、半角英数字、記号（@、 - 、_など）が含まれている必要があります";
+"aliaseswithout.view.info.label.secondsubtitle" = "あなたのエイリアスは、4〜30文字で、半角英数字、記号（@、 - 、_など）が含まれている必要があります。";
 
 "aliaseswithout.view.info.label.subtitle" = "エイリアスはあなたのアドレスのニックネームです。このアドレスはトランザクションの作成時にアドレスの代わりに利用することが可能です。";
 
@@ -103,27 +105,27 @@
 
 "asset.cell.assetInfo.kind.title" = "タイプ";
 
-"asset.cell.assetInfo.name" = "名前";
+"asset.cell.assetInfo.name" = "通貨名";
 
-"asset.cell.assetInfo.title" = "資産情報";
+"asset.cell.assetInfo.title" = "通貨情報";
 
-"asset.cell.assetInfo.totalAmount" = "合計量";
+"asset.cell.assetInfo.totalAmount" = "合計金額";
 
 "asset.cell.balance.avaliableBalance" = "利用可能残高";
 
-"asset.cell.balance.button.exchange" = "交換";
+"asset.cell.balance.button.exchange" = "トレード";
 
-"asset.cell.balance.button.receive" = "受取する";
+"asset.cell.balance.button.receive" = "受取る";
 
 "asset.cell.balance.button.send" = "送信する";
 
 "asset.cell.balance.inOrderBalance" = "順番に";
 
-"asset.cell.balance.leased" = "順番に";
+"asset.cell.balance.leased" = "リース済";
 
 "asset.cell.balance.totalBalance" = "合計";
 
-"asset.cell.viewHistory" = "履歴を見る";
+"asset.cell.viewHistory" = "取引履歴";
 
 "asset.header.lastTransactions" = "最終トランザクション";
 
@@ -131,37 +133,37 @@
 
 "assetlist.button.allList" = "全てのリスト";
 
-"assetlist.button.myList" = "残高と";
+"assetlist.button.myList" = "リスト";
 
 "assetlist.button.withBalance" = "残高と";
 
-"assetlist.label.assets" = "資産";
+"assetlist.label.assets" = "通貨";
 
-"assetlist.label.loadingAssets" = "資産を読み込んでいます";
+"assetlist.label.loadingAssets" = "通貨を読み込んでいます";
 
 "backup.backup.navigation.title" = "バックアップフレーズ";
 
 "backup.confirmbackup.button.confirm" = "確定する";
 
-"backup.confirmbackup.error.label" = "注文が間違っています。やり直してください。";
+"backup.confirmbackup.error.label" = "順番が間違っています。やり直してください。";
 
 "backup.confirmbackup.info.label" = "正しい順序で単語をタップしてください";
 
-"backup.confirmbackup.navigation.title" = "バックアップを確定する";
+"backup.confirmbackup.navigation.title" = "バックアップを確認";
 
 "backup.infobackup.button.iunderstand" = "了解しました";
 
-"backup.infobackup.label.detail" = "Wavesプラットフォームは、この1ヶ月で増発しているスキャムとフィッシング攻撃の警告をいたします。詐欺師は独自バージョンのWavesクライアントにマルウェアを隠し、ユーザを誘い込むために配当や割引を約束しています。\n \n 決してこれらの'クライアント'にあなたのシードを入力しないよう注意してください。あなたのアカウントに対して詐欺師がアクセスすることを許すとすべての資産を失ってしまいます。\n\n公式なWavesクライアントのみを利用して下さい。";
+"backup.infobackup.label.detail" = "Wavesプラットフォームはこの1ヶ月で増加している詐欺行為とフィッシング攻撃の警告をいたします。詐欺師は独自のWavesクライアントにマルウェアを隠し、ユーザを誘い込むために配当や割引することを約束しています。\n\n決してこれらの'クライアント'にあなたのシードを入力しないよう注意してください。あなたのアカウントに対して詐欺師がアクセスすることを許すとあなたの資産を全て失ってしまいます。\n\n公式なWavesクライアントのみを利用して下さい。";
 
-"backup.infobackup.label.title" = "バックアップフレーズは注意して扱ってください！";
+"backup.infobackup.label.title" = "バックアップフレーズは安全な方法で管理してください！";
 
 "backup.needbackup.button.backupnow" = "今すぐバックアップする";
 
 "backup.needbackup.button.doitlater" = "あとで";
 
-"backup.needbackup.label.detail" = "秘密のフレーズを必ず保存してください。それはあなたのアカウントにアクセスするために重要です。";
+"backup.needbackup.label.detail" = "バックアップフレーズを必ず保存してください。あなたのアカウントを保護するためにとても重要です。";
 
-"backup.needbackup.label.title" = "ノーバックアップ, ノーマニー";
+"backup.needbackup.label.title" = "あなたの資産を守るために必ずバックアップを！";
 
 "backup.savebackup.copy.label.title" = "これらの15単語を慎重に書き留めるかコピーしてください";
 
@@ -171,35 +173,43 @@
 
 "backup.savebackup.next.button.title" = "書き留めました";
 
-"backup.savebackup.next.label.title" = "次の画面でこのフレーズを確認してください";
+"backup.savebackup.next.label.title" = "次の画面でこのフレーズを確認します";
 
-"biometric.readfromkeychain" = "あなたのウォレットにアクセスする";
+"biometric.localizedCancelTitle" = "キャンセルする";
 
-"biometric.saveinkeychain" = "あなたのウォレットにアクセスする";
+"biometric.localizedFallbackTitle" = "パスコードを入力";
+
+"biometric.manyattempts.subtitle" = "生体認証のロックを解除するには、アカウントのパスワードでログインします";
+
+"biometric.manyattempts.title" = "規定回数を超えました";
+
+"biometric.readfromkeychain" = "ウォレットの秘密鍵を復号し、トランザクションを承認する為に認証する";
+
+"biometric.saveinkeychain" = "ウォレットに暗号化された秘密鍵を保存する為に認証する";
 
 "cameraAccess.alert.allow" = "カメラを許可する";
 
 "cameraAccess.alert.cancel" = "キャンセルする";
 
-"cameraAccess.alert.message" = "このアプリをフルに活用するには、カメラへのアクセスが必要です";
+"cameraAccess.alert.message" = "このアプリのすべて機能を活用するには、カメラへのアクセスが必要です";
 
-"cameraAccess.alert.title" = "カメラへのアクセスが必要";
+"cameraAccess.alert.title" = "カメラへのアクセスが必要です";
 
 "changepassword.button.confirm.title" = "確定する";
 
 "changepassword.navigation.title" = "パスワードを変更する";
 
-"changepassword.textfield.confirmpassword.title" = "パスワードを確定する";
+"changepassword.textfield.confirmpassword.title" = "新しいパスワードを再入力する";
 
 "changepassword.textfield.createpassword.title" = "新しいパスワード";
 
-"changepassword.textfield.error.atleastcharacters" = "少なくとも %d 文字";
+"changepassword.textfield.error.atleastcharacters" = "最低 %d 文字です";
 
 "changepassword.textfield.error.incorrectpassword" = "不正なパスワード";
 
 "changepassword.textfield.error.passwordnotmatch" = "パスワードが一致しません";
 
-"changepassword.textfield.oldpassword.title" = "以前のパスワード";
+"changepassword.textfield.oldpassword.title" = "現在のパスワード";
 
 "chooseaccount.alert.button.no" = "キャンセルする";
 
@@ -209,13 +219,13 @@
 
 "chooseaccount.alert.delete.title" = "アドレスを削除する";
 
-"chooseaccount.label.nothingWallets" = "何もありません…\n保存されたアカウントがありません";
+"chooseaccount.label.nothingWallets" = "まだ何もありません…\n保存されたアカウントがありません";
 
 "chooseaccount.navigation.title" = "アカウントを選択";
 
 "createalias.button.create.title" = "作成";
 
-"createalias.cell.input.textfiled.input.placeholder" = "シンボル";
+"createalias.cell.input.textfiled.input.placeholder" = "エイリアスのシンボル";
 
 "createalias.cell.input.textfiled.input.title" = "シンボル";
 
@@ -229,7 +239,7 @@
 
 "createalias.navigation.title" = "新しいエイリアス";
 
-"dex.general.error.nothingHere" = "ここには何もありません…";
+"dex.general.error.nothingHere" = "何もありません…";
 
 "dex.general.error.somethingWentWrong" = "エラーが発生しました";
 
@@ -251,7 +261,7 @@
 
 "dexcompleteorder.label.open" = "開く";
 
-"dexcompleteorder.label.orderIsCreated" = "注文が作成されます";
+"dexcompleteorder.label.orderIsCreated" = "注文しました";
 
 "dexcompleteorder.label.price" = "価格";
 
@@ -275,7 +285,7 @@
 
 "dexcreateorder.button.last" = "最終";
 
-"dexcreateorder.button.minutes" = "最終";
+"dexcreateorder.button.minutes" = "分";
 
 "dexcreateorder.button.sell" = "売却する";
 
@@ -283,35 +293,35 @@
 
 "dexcreateorder.button.week" = "週";
 
-"dexcreateorder.label.Expiration" = "期限";
+"dexcreateorder.label.Expiration" = "有効期限";
 
-"dexcreateorder.label.amountIn" = "内の金額";
+"dexcreateorder.label.amountIn" = "数量 / 単位：";
 
 "dexcreateorder.label.bigValue" = "値が大きすぎます";
 
 "dexcreateorder.label.days" = "日";
 
-"dexcreateorder.label.error.notFundsFee" = "あなたは必要な手数料を支払う為に十分な資金を持っていません。";
+"dexcreateorder.label.error.notFundsFee" = "あなたは必要な手数料を支払う為に十分な資金を保有していません。";
 
 "dexcreateorder.label.fee" = "手数料";
 
-"dexcreateorder.label.limitPriceIn" = "上限価格：";
+"dexcreateorder.label.limitPriceIn" = "上限価格 単位：";
 
 "dexcreateorder.label.notEnough" = "不足しています";
 
 "dexcreateorder.label.smallValue" = "値が小さすぎます";
 
-"dexcreateorder.label.totalIn" = "の合計";
+"dexcreateorder.label.totalIn" = "合計";
 
-"dexinfo.label.amountAsset" = "資産合計";
+"dexinfo.label.amountAsset" = "価格表示通貨";
 
-"dexinfo.label.popular" = "人気の";
+"dexinfo.label.popular" = "人気";
 
-"dexinfo.label.priceAsset" = "資産価格を設定する";
+"dexinfo.label.priceAsset" = "量表示通貨";
 
-"dexlasttrades.button.buy" = "購入する";
+"dexlasttrades.button.buy" = "購入する：";
 
-"dexlasttrades.button.sell" = "売却する";
+"dexlasttrades.button.sell" = "売却する：";
 
 "dexlasttrades.label.amount" = "取引量";
 
@@ -327,9 +337,9 @@
 
 "dexlist.button.addMarkets" = "マーケットを追加";
 
-"dexlist.label.decentralisedExchange" = "分散型取引所";
+"dexlist.label.decentralisedExchange" = "DEX";
 
-"dexlist.label.description" = "取引は安全・高速。Wavesの分散型取引所ではあなたの資金はあなただけの管理下にあります。";
+"dexlist.label.description" = "安全で高速な取引。WavesのDEXではあなたの資産はあなただけの管理下にあります。";
 
 "dexlist.label.lastUpdate" = "最終更新";
 
@@ -339,7 +349,7 @@
 
 "dexlist.label.yesterday" = "昨日";
 
-"dexlist.navigationBar.title" = "分散型取引所";
+"dexlist.navigationBar.title" = "DEX";
 
 "dexmarket.label.loadingMarkets" = "マーケットを読み込んでいます";
 
@@ -349,7 +359,7 @@
 
 "dexmyorders.label.amount" = "取引量";
 
-"dexmyorders.label.buy" = "購入する";
+"dexmyorders.label.buy" = "購入";
 
 "dexmyorders.label.date" = "日付";
 
@@ -359,17 +369,17 @@
 
 "dexmyorders.label.price" = "価格";
 
-"dexmyorders.label.sell" = "売却する";
+"dexmyorders.label.sell" = "売却";
 
-"dexmyorders.label.side" = "サイド";
+"dexmyorders.label.side" = "執行サイド";
 
 "dexmyorders.label.status" = "ステータス";
 
-"dexmyorders.label.status.accepted" = "開く";
+"dexmyorders.label.status.accepted" = "注文済";
 
-"dexmyorders.label.status.cancelled" = "キャンセル済み";
+"dexmyorders.label.status.cancelled" = "キャンセル済";
 
-"dexmyorders.label.status.filled" = "約定した";
+"dexmyorders.label.status.filled" = "約定";
 
 "dexmyorders.label.status.partiallyFilled" = "部分的";
 
@@ -411,17 +421,19 @@
 
 "editaccountname.navigation.title" = "名前を編集する";
 
-"enter.block.blockchain.text" = "暗号通貨の世界で急成長​​を遂げている領域の一員となりましょう。あなたの暗号資産にアクセスできるのはあなただけです。";
+"enter.block.blockchain.text" = "世界で急成長​​を遂げている暗号通貨の世界の一員となりましょう！ブロックチェーン上ではあなたの資産にアクセスできるのはあなただけです。";
 
-"enter.block.blockchain.title" = "ブロックチェーンで開始する";
+"enter.block.blockchain.title" = "暗号通貨の利用をブロックチェーン上で開始する";
 
-"enter.block.exchange.text" = "取引は安全・高速。Wavesの分散型取引所ではあなたの資金はあなただけの管理下にあります。";
+"enter.block.exchange.text" = "安全で高速な取引。WavesのDEXではあなたの資産はあなただけの管理下にあります。";
 
-"enter.block.exchange.title" = "分散型取引所";
+"enter.block.exchange.title" = "分散型取引所（DEX）";
+
+"enter.block.token.text" = "あなたの独自トークンを発行できます。これらは通貨としてだけでなく、分散型投票のためのトークンや、評価システム、ロイヤリティプログラムなど、様々な形でビジネスに統合することができます";
 
 "enter.block.token.title" = "トークンランチャー";
 
-"enter.block.wallet.text" = "デジタル資産の利息の受取り、保管、管理を簡単かつ安全に行います。";
+"enter.block.wallet.text" = "ウォレットを利用することで暗号通貨やトークンの受取りや保管を簡単かつ安全に実行できます";
 
 "enter.block.wallet.title" = "ウォレット";
 
@@ -429,13 +441,13 @@
 
 "enter.button.createNewAccount.title" = "新しいアカウントを作成する";
 
-"enter.button.importAccount.detail" = "ペアコードで、あるいは手動で";
+"enter.button.importAccount.detail" = "ペアコードを利用、またはマニュアルで入力";
 
 "enter.button.importAccount.error.insecureSeed" = "安全なシードではありません";
 
 "enter.button.importAccount.title" = "アカウントをインポートする";
 
-"enter.button.signIn.detail" = "保存したアカウントへ";
+"enter.button.signIn.detail" = "保存済みのアカウントを利用する";
 
 "enter.button.signIn.title" = "サインイン";
 
@@ -447,15 +459,15 @@
 
 "general.biometric.touchID.title" = "タッチID";
 
-"general.error.subtitle.notfound" = "心配しないでください。私達は既にこの問題の解決に向けて取り組んでいます。\n間もなく全てが機能します！";
+"general.error.subtitle.notfound" = "心配しないでください。私達は既にこの問題の解決に向けて取り組んでいます。\n解決までしばらくお待ち下さい。";
 
 "general.error.title.noconnectiontotheinternet" = "インターネット接続がありません";
 
-"general.error.title.notfound" = "壊れています";
+"general.error.title.notfound" = "エラーが発生しました";
 
 "general.label.title.myasset" = "/ 私の資産";
 
-"general.tabbar.title.dex" = "分散型取引所";
+"general.tabbar.title.dex" = "DEX";
 
 "general.tabbar.title.history" = "履歴";
 
@@ -491,91 +503,91 @@
 
 "hello.page.info.fifth.title" = "フィッシングからあなた自身を守るには";
 
-"hello.page.info.first.detail" = "ご自身の安全のため、重要事項を把握する時間をとってください。\n\nフィッシングサイトを訪問した場合や、バックアップフレーズ（またはシードフレーズ）を紛失した場合、私たちは資金を取り戻したり、アカウントを凍結したりすることはできません。\n\n私たちのプラットフォームを使い続けることで、シードの損失に関わるすべてのリスク（資金を入手し入金することができなくなることを含むが、これに限定されない）を受け入れることに同意するものとします。シードを損失した場合、Wavesプラットフォームはこの負の結果の責任を負わないことに同意し承認するものとします。";
+"hello.page.info.first.detail" = "ご自身の安全のため、重要事項を把握する時間をとってください。 \n\nフィッシングサイトを訪問したり、バックアップフレーズ（またはシードフレーズ）を紛失した場合、Wavesは資金を取り戻したり、アカウントを凍結したりすることはできません。\n\n私たちのプラットフォームを使い続ける限り、シードの損失に関わるすべてのリスク（資金を入手し入金することができなくなることを含むが、これに限定されません）を、あなたは受け入れることに同意するものとします。シードを紛失した場合、Wavesプラットフォームはその結果生じる如何なる責任も負わないことに、あなたは同意し、承認するものとします。";
 
-"hello.page.info.first.title" = "Wavesプラットフォームへようこそ！";
+"hello.page.info.first.title" = "Wavesプラットフォームにようこそ！";
 
 "hello.page.info.fourth.detail" = "詐欺行為の最も一般的な手口の1つは、スキャマーがFacebookなどのウェブサイト上で、本物そっくりの偽コミュニティを作成して行うフィッシングです。";
 
-"hello.page.info.fourth.title" = "フィッシングからあなた自身を守るには";
+"hello.page.info.fourth.title" = "フィッシングからあなたを守るには";
 
-"hello.page.info.second.detail" = "アカウント登録時、あなたは秘密のフレーズ（シード）を保存し、パスワードでアカウントを保護することを求められます。通常の集中管理サーバーでは、パスワードに対して特別な注意が払われ、必要であれば電子メールを介してパスワードを変更およびリセットできますが、Wavesのような分散型プラットフォームでは、仕組みが全く異なります。";
+"hello.page.info.second.detail" = "アカウント登録時、あなたはバックアップフレーズ（シード）を保存し、パスワードでアカウントを保護することを求められます。通常の集中管理サーバーでは、パスワードに対して特別な注意が払われ、必要であれば電子メールを介してパスワードを変更およびリセットできますが、Wavesのような分散型プラットフォームでは、仕組みが全く異なります。";
 
 "hello.page.info.second.title" = "あなたがシードについて知る必要があること";
 
 "hello.page.info.third.detail.first" = "あなたのウォレットは匿名性があり、これはあなたのアカウントがメールアドレスなど個人を特定するデータと紐付いていないことを意味します";
 
-"hello.page.info.third.detail.fourth" = "秘密のフレーズを変更することはできません。誤って他人に送信した場合や、スキャマーに奪われた疑いのある場合は、直ちに新しいWavesウォレットを作成して資金を移してください。";
+"hello.page.info.third.detail.fourth" = "バックアップフレーズを変更することはできません。誤って他人に送信した場合や、スキャマーに奪われた疑いのある場合は、直ちに新しいWavesウォレットを作成して資金を移してください。";
 
 "hello.page.info.third.detail.second" = "特定のデバイスまたはブラウザ上での操作において、あなたのアカウントはパスワードによって保護されます。これは、あなたの秘密フレーズがストレージに保存されないようにするために必要です。";
 
-"hello.page.info.third.detail.third" = "パスワードを忘れた場合は、秘密のフレーズを介してアカウントの復旧フォームを利用することで、新しいパスワードを簡単に作成することができます。ただし秘密のフレーズを紛失した場合は、アカウントにアクセスする方法はありません。";
+"hello.page.info.third.detail.third" = "パスワードを忘れた場合は、バックアップフレーズを介してアカウントの復旧フォームを利用することで、新しいパスワードを簡単に作成することができます。ただし秘密のフレーズを紛失した場合は、アカウントにアクセスする方法はありません。";
 
 "hello.page.info.third.title" = "あなたがシードについて知る必要があること";
 
 "history.navigationBar.title" = "履歴";
 
-"history.segmentedControl.activeNow" = "有効にする";
+"history.segmentedControl.activeNow" = "リース中";
 
 "history.segmentedControl.all" = "すべて";
 
-"history.segmentedControl.canceled" = "キャンセル済み";
+"history.segmentedControl.canceled" = "キャンセル済";
 
-"history.segmentedControl.exchanged" = "交換済み";
+"history.segmentedControl.exchanged" = "トレード済";
 
-"history.segmentedControl.issued" = "発行済み";
+"history.segmentedControl.issued" = "発行済";
 
 "history.segmentedControl.leased" = "リース済";
 
-"history.segmentedControl.received" = "受領しました";
+"history.segmentedControl.received" = "受取";
 
-"history.segmentedControl.sent" = "送信されました";
+"history.segmentedControl.sent" = "送信";
 
 "history.transaction.cell.exchange.buy" = "購入： %@/%@";
 
 "history.transaction.cell.exchange.sell" = "売却： %@/%@";
 
-"history.transaction.title.alias" = "エイリアスを作成する";
+"history.transaction.title.alias" = "エイリアスの作成";
 
-"history.transaction.title.canceledLeasing" = "キャンセルしたリース";
+"history.transaction.title.canceledLeasing" = "キャンセル済のリース";
 
-"history.transaction.title.data" = "トランザクションデータ";
+"history.transaction.title.data" = "データ";
 
-"history.transaction.title.exchange" = "交換";
+"history.transaction.title.exchange" = "トレード";
 
-"history.transaction.title.incomingLeasing" = "受信中のリース";
+"history.transaction.title.incomingLeasing" = "受取リース";
 
 "history.transaction.title.massreceived" = "マストランスファー受信";
 
 "history.transaction.title.masssent" = "マストランスファー送信";
 
-"history.transaction.title.received" = "受領しました";
+"history.transaction.title.received" = "受取";
 
 "history.transaction.title.selfTransfer" = "セルフ転送";
 
-"history.transaction.title.sent" = "送信されました";
+"history.transaction.title.sent" = "送信";
 
-"history.transaction.title.startedLeasing" = "開始されたリース";
+"history.transaction.title.startedLeasing" = "リース中";
 
-"history.transaction.title.tokenBurn" = "トークンバーン";
+"history.transaction.title.tokenBurn" = "トークンのバーン";
 
-"history.transaction.title.tokenGeneration" = "トークンを生成";
+"history.transaction.title.tokenGeneration" = "トークンの生成";
 
 "history.transaction.title.tokenReissue" = "トークンを再発行";
 
-"history.transaction.title.unrecognisedTransaction" = "認識されていないトランザクション";
+"history.transaction.title.unrecognisedTransaction" = "未認識のトランザクション";
 
 "history.transaction.value.data" = "ブロックチェーンへの登録";
 
-"import.account.button.enter.title" = "手動でシードを入力する";
+"import.account.button.enter.title" = "マニュアルでシードを入力する";
 
 "import.account.button.scan.title" = "ペアリングコードをスキャン";
 
-"import.account.label.info.step.one.detail" = "設定 > セキュリティ > ペアリングコード";
+"import.account.label.info.step.one.detail" = "設定 一 般 — 輸出口座";
 
-"import.account.label.info.step.one.title" = "PCまたはMacで、https://client.wavesplatform.comからあなたのWavesクライアントにログインしてください.";
+"import.account.label.info.step.one.title" = "PCまたはMacで、https://client.wavesplatform.comから、あなたのWavesクライアントにログインしてください.";
 
-"import.account.label.info.step.two.title" = "\"<<ペアリングコードを表示する>>をクリックし、QRコードを表示して下さい。カメラを用いてコードをスキャンして下さい。\"";
+"import.account.label.info.step.two.title" = "<<ペアリングコードを表示する>>をクリックし、QRコードを表示して下さい。カメラを用いてコードをスキャンして下さい。";
 
 "import.account.navigation.title" = "アカウントをインポートする";
 
@@ -583,13 +595,13 @@
 
 "import.general.navigation.title" = "アカウントをインポートする";
 
-"import.general.segmentedControl.manually" = "手動で";
+"import.general.segmentedControl.manually" = "マニュアル入力";
 
 "import.general.segmentedControl.scan" = "スキャン";
 
 "import.manually.button.continue" = "続ける";
 
-"import.manually.label.address.placeholder" = "あなたのシードは、アカウントを作成時に保存した15個の言葉です";
+"import.manually.label.address.placeholder" = "あなたのシードはアカウントを作成時に保存した15個の言葉です";
 
 "import.manually.label.address.title" = "あなたのアカウントのシード";
 
@@ -601,49 +613,49 @@
 
 "import.scan.label.step.three.title" = "カメラでコードをスキャンしてください";
 
-"import.scan.label.step.two.detail" = "（[設定]> [セキュリティ]> [ペアリングコード）";
+"import.scan.label.step.two.detail" = "設定 一 般 — 輸出口座";
 
 "import.scan.label.step.two.title" = "«ペアコードを表示»をクリックしてQRコードを公開してください";
 
 "import.welcome.button.continue" = "続ける";
 
-"import.welcome.label.address.placeholder" = "あなたのシードは、アカウントを作成時に保存した15個の言葉です";
+"import.welcome.label.address.placeholder" = "あなたのシードはアカウントを作成時に保存した15個の言葉です";
 
 "import.welcome.label.address.title" = "あなたのアカウントのシード";
 
 "import.welcome.navigation.title" = "おかえりなさい";
 
-"legal.checkbox.box.button.confirm" = "確定して開始";
+"legal.checkbox.box.button.confirm" = "同意して利用する";
 
-"legal.checkbox.box.first" = "会社ではなくこのデバイス上で資産が確実に保管されることを理解しています";
+"legal.checkbox.box.first" = "Wavesや企業ではなく、このデバイス上であなたの資産が保管されることを理解しています";
 
-"legal.checkbox.box.second" = "このアプリが別のデバイスに移動または削除された場合、バックアップフレーズでのみWavesを復元できることを理解しています";
+"legal.checkbox.box.second" = "このアプリが別のデバイスに移動または削除された場合、バックアップフレーズからのみ、アカウントを復元できることを理解しています";
 
-"legal.checkbox.box.subtitle" = "Wavesの違い：銀行やWebサービスによって保管することはできません";
+"legal.checkbox.box.subtitle" = "銀行やWebサービスとは異なり、Wavesはあなたの資産を保管しません";
 
 "legal.checkbox.box.termsOfUse" = "利用規約";
 
-"legal.checkbox.box.third" = "規約を読み、内容を理解し、同意いたします";
+"legal.checkbox.box.third" = "規約を読み、内容を理解し、同意します";
 
-"legal.checkbox.box.title" = "完了しました！";
+"legal.checkbox.box.title" = "アカウントの作成が完了しました！ご利用の前に以下の内容を確認してください。";
 
-"menu.button.supportwavesplatform" = "Wavesplatformサポート";
+"menu.button.supportwavesplatform" = "Wavesプラットフォームサポートページ";
 
-"menu.button.termsandconditions" = "規約と条件";
+"menu.button.termsandconditions" = "利用規約";
 
 "menu.button.whitepaper" = "ホワイトペーパー";
 
 "menu.label.communities" = "Wavesコミュニティに参加する";
 
-"menu.label.description" = "最新のニュースや記事をチェックし、Wavesプラットフォームで起こっている出来事のすべてを知ってください";
+"menu.label.description" = "最新のニュースや記事をご覧ください。Wavesプラットフォームの最新情報を発信しています。";
 
 "myaddress.button.copy.title" = "コピーする";
 
 "myaddress.button.share.title" = "シェア";
 
-"myaddress.cell.aliases.subtitle.withaliaces" = "あなたは、%d を持っています";
+"myaddress.cell.aliases.subtitle.withaliaces" = "あなたは %d つ持っています";
 
-"myaddress.cell.aliases.subtitle.withoutaliaces" = "持っていない";
+"myaddress.cell.aliases.subtitle.withoutaliaces" = "あなたはエイリアスを持っていません";
 
 "myaddress.cell.aliases.title" = "エイリアス";
 
@@ -653,7 +665,7 @@
 
 "networksettings.button.save.title" = "保存する";
 
-"networksettings.button.setdefault.title" = "デフォルトに設定";
+"networksettings.button.setdefault.title" = "デフォルトに設定する";
 
 "networksettings.label.switchspam.title" = "スパムフィルタ";
 
@@ -661,7 +673,7 @@
 
 "networksettings.textfield.spamfilter.title" = "スパムフィルタ";
 
-"newaccount.avatar.detail" = "後で変更することはできません。";
+"newaccount.avatar.detail" = "このアバターは固有です。後で変更することはできません。";
 
 "newaccount.avatar.title" = "アドレスのアバターを選択してください";
 
@@ -675,29 +687,29 @@
 
 "newaccount.textfield.accountName.title" = "アカウント名";
 
-"newaccount.textfield.confirmpassword.title" = "パスワードを確定する";
+"newaccount.textfield.confirmpassword.title" = "パスワードを再入力する";
 
 "newaccount.textfield.createpassword.title" = "パスワードを作成する";
 
-"newaccount.textfield.error.atleastcharacters" = "少なくとも %d 文字";
+"newaccount.textfield.error.atleastcharacters" = "最低 %d 文字です";
 
 "newaccount.textfield.error.charactersmaximum" = "最大 %d 文字";
 
 "newaccount.textfield.error.doesnotmatch" = "マッチしません";
 
-"newaccount.textfield.error.minimumcharacters" = "少なくとも %d 文字";
+"newaccount.textfield.error.minimumcharacters" = "最低 %d 文字以上";
 
-"newaccount.textfield.error.passwordnotmatch" = "パスワードが一致しません";
+"newaccount.textfield.error.passwordnotmatch" = "入力されたパスワードが一致しません";
 
 "newaccount.textfield.error.wrongordertryagain" = "不正な注文です。再度お試し下さい";
 
 "passcode.alert.attempsended.button.cancel" = "キャンセル";
 
-"passcode.alert.attempsended.button.enterpassword" = "パスワードを入力して下さい";
+"passcode.alert.attempsended.button.enterpassword" = "パスワードを入力する";
 
 "passcode.alert.attempsended.button.ok" = "OK";
 
-"passcode.alert.attempsended.subtitle" = "アンロックするために、パスコードを用いてサインインして下さい";
+"passcode.alert.attempsended.subtitle" = "ロックを解除するために、パスコードを用いてサインインして下さい";
 
 "passcode.alert.attempsended.title" = "規定回数を超えました";
 
@@ -707,11 +719,11 @@
 
 "passcode.label.passcode.create" = "パスコードを作成する";
 
-"passcode.label.passcode.enter" = "パスコードを入力する";
+"passcode.label.passcode.enter" = "パスコードを入力";
 
-"passcode.label.passcode.old" = "古いパスコードを入力して下さい";
+"passcode.label.passcode.old" = "現在のパスコードを入力";
 
-"passcode.label.passcode.verify" = "パスコードを認証する";
+"passcode.label.passcode.verify" = "パスコードを確定する";
 
 "profile.alert.deleteAccount.button.cancel" = "キャンセルする";
 
@@ -719,41 +731,51 @@
 
 "profile.alert.deleteAccount.message" = "本当にこのアカウントをデバイスから削除しますか？";
 
-"profile.alert.deleteAccount.title" = "アドレスを削除する";
+"profile.alert.deleteAccount.notSaveSeed" = "あなたはSEEDを救わなかった";
 
-"profile.alert.deleteAccount.withoutbackup.message" = "アカウントを削除すると、取り返しのつかない損失につながります！";
+"profile.alert.deleteAccount.title" = "アドレスを削除しますか？";
+
+"profile.alert.deleteAccount.withoutbackup.message" = "アカウントの削除により資産を失う可能性があります。十分にご注意ください。";
+
+"profile.alert.setupbiometric.button.cancel" = "キャンセルする";
+
+"profile.alert.setupbiometric.button.settings" = "設定";
+
+"profile.alert.setupbiometric.message" = "高速かつ安全なログインを使用するには、設定でバイオメトリクスを有効にします";
+
+"profile.alert.setupbiometric.title" = "バイオメトリクスは無効です";
 
 "profile.button.delete.title" = "デバイスからアカウントを削除する";
 
-"profile.button.logout.title" = "アカウントのログアウト";
+"profile.button.logout.title" = "アカウントからログアウトする";
 
 "profile.cell.addressbook.title" = "アドレス帳";
 
-"profile.cell.addresses.title" = "アドレス、鍵";
+"profile.cell.addresses.title" = "アドレスと鍵";
 
 "profile.cell.backupphrase.title" = "バックアップフレーズ";
 
-"profile.cell.changepasscode.title" = "パスコードを変更";
+"profile.cell.changepasscode.title" = "パスコードを変更する";
 
 "profile.cell.changepassword.title" = "パスワードを変更する";
 
-"profile.cell.currentheight.title" = "現在のブロック高";
+"profile.cell.currentheight.title" = "最新のブロック";
 
-"profile.cell.feedback.title" = "フィードバック";
+"profile.cell.feedback.title" = "フィードバックする";
 
-"profile.cell.info.currentheight.title" = "現在のブロック高";
+"profile.cell.info.currentheight.title" = "最新のブロック";
 
 "profile.cell.info.version.title" = "バージョン";
 
-"profile.cell.language.title" = "言語";
+"profile.cell.language.title" = "言語設定";
 
-"profile.cell.network.title" = "ネットワーク";
+"profile.cell.network.title" = "ネットワーク設定";
 
 "profile.cell.pushnotifications.title" = "プッシュ通知";
 
-"profile.cell.rateApp.title" = "アプリを評価";
+"profile.cell.rateApp.title" = "アプリを評価する";
 
-"profile.cell.supportwavesplatform.title" = "Wavesplatformサポート";
+"profile.cell.supportwavesplatform.title" = "Wavesプラットフォームのサポートページへ";
 
 "profile.header.general.title" = "一般設定";
 
@@ -761,7 +783,7 @@
 
 "profile.header.security.title" = "セキュリティ";
 
-"profile.language.navigation.title" = "言語";
+"profile.language.navigation.title" = "言語設定";
 
 "profile.navigation.title" = "プロフィール";
 
@@ -771,23 +793,23 @@
 
 "receive.button.cryptocurrency" = "暗号通貨";
 
-"receive.button.invoice" = "請求書";
+"receive.button.invoice" = "請求";
 
 "receive.button.useTotalBalance" = "残高をすべて使用する";
 
 "receive.error.serviceUnavailable" = "このサービスは現在利用することができません";
 
-"receive.label.amount" = "取引量";
+"receive.label.amount" = "数量";
 
-"receive.label.amountIn" = "内の金額";
+"receive.label.amountIn" = "数量 / 単位：";
 
-"receive.label.asset" = "資産";
+"receive.label.asset" = "通貨";
 
-"receive.label.receive" = "受取する";
+"receive.label.receive" = "受取る";
 
-"receive.label.selectYourAsset" = "資産を選択する";
+"receive.label.selectYourAsset" = "通貨を選択する";
 
-"receiveaddress.button.cancel" = "キャンセルする";
+"receiveaddress.button.cancel" = "キャンセル";
 
 "receiveaddress.button.close" = "閉じる";
 
@@ -797,7 +819,7 @@
 
 "receiveaddress.button.share" = "シェア";
 
-"receiveaddress.label.linkToInvoice" = "請求書へのリンク";
+"receiveaddress.label.linkToInvoice" = "請求リンク";
 
 "receiveaddress.label.yourAddress" = "あなたの %@ アドレス";
 
@@ -807,7 +829,7 @@
 
 "receivecard.label.changeCurrency" = "通貨を変更する";
 
-"receivecard.label.warningInfo" = "カード決済を行うため、あなたはマーチャントのウェブサイトにリダイレクトされます。";
+"receivecard.label.warningInfo" = "カード決済を行うため、あなたはサービス事業者のウェブサイトにリダイレクトされます。";
 
 "receivecardcomplete.button.okay" = "OK";
 
@@ -815,27 +837,29 @@
 
 "receivecardcomplete.label.redirectToIndacoin" = "あなたは«Indacoin»にリダイレクトされました";
 
-"receivecryptocurrency.label.minumumAmountOfDeposit" = "このデポジットアドレスに %@ を送金する";
+"receivecryptocurrency.label.minumumAmountOfDeposit" = "このデポジットアドレスに %@ を送信する";
 
-"receivecryptocurrency.label.sendOnlyOnThisDeposit" = "%@ 以下の量を送信すると、そのお金は失われます。";
+"receivecryptocurrency.label.sendOnlyOnThisDeposit" = "このデポジットアドレスに %@ を送信する";
 
-"receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "%@ 以下の量を送信すると、そのお金は失われます。";
+"receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "%@ 以下の数量を送信すると、その通貨を失います。";
 
-"receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "このアドレスに他の通貨を送信すると、あなたのデポジットに損失が発生することがあります。";
+"receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "このアドレスに他の通貨を送信すると、あなたのデポジットを失うことがあります。";
 
-"receivegenerate.label.generate" = "生成する…";
+"receivegenerate.label.generate" = "生成中…";
 
 "receivegenerate.label.yourAddress" = "あなたの %@ アドレス";
 
 "receiveinvoice.label.dollar" = "米ドル";
 
-"send.button.chooseFromAddressBook" = "アドレスから選択する";
+"scannerqrcode.label.scan" = "スキャンQR";
+
+"send.button.chooseFromAddressBook" = "アドレス帳から選択する";
 
 "send.button.continue" = "続ける";
 
 "send.button.useTotalBalanace" = "残高をすべて使用する";
 
-"send.label.addressNotValid" = "アドレスが有効ではありません";
+"send.label.addressNotValid" = "有効なアドレスではありません";
 
 "send.label.amount" = "取引量";
 
@@ -851,13 +875,13 @@
 
 "send.label.moneroPaymentId" = "Monero支払ID";
 
-"send.label.recipient" = "受信者";
+"send.label.recipient" = "送信先";
 
-"send.label.recipientAddress" = "受信アドレス…";
+"send.label.recipientAddress" = "送信先のアドレス…";
 
 "send.label.send" = "送信する";
 
-"send.label.transactionFee" = "取引手数料";
+"send.label.transactionFee" = "トランザクション手数料";
 
 "send.textField.placeholderPaymentId" = "支払IDを貼り付けまたは入力してください";
 
@@ -865,13 +889,13 @@
 
 "sendcomplete.label.saveThisAddress" = "このアドレスを保存しますか？";
 
-"sendcomplete.label.transactionIsOnWay" = "トランザクションは進行中です！";
+"sendcomplete.label.transactionIsOnWay" = "トランザクションは処理中です！";
 
 "sendcomplete.label.youHaveSent" = "送信済み";
 
-"sendconfirmation.button.confim" = "確定する";
+"sendconfirmation.button.confim" = "確定";
 
-"sendconfirmation.label.confirmation" = "確認";
+"sendconfirmation.label.confirmation" = "確認画面";
 
 "sendconfirmation.label.description" = "説明";
 
@@ -883,45 +907,45 @@
 
 "sendconfirmation.label.optionalMessage" = "任意のメッセージを書き込んでください";
 
-"sendconfirmation.label.sentTo" = "送金先";
+"sendconfirmation.label.sentTo" = "送信先";
 
 "sendloading.label.sending" = "送信中…";
 
-"serverDisconnect.label.subtitle" = "モバイル通信かWifiネットワークへの接続を確認して下さい";
+"serverDisconnect.label.subtitle" = "モバイル通信/Wifiネットワークへの接続を確認して下さい";
 
 "serverDisconnect.label.title" = "インターネット接続がありません";
 
-"serverEngineering.label.subtitle" = "現在、アプリケーションの改善を行うために重要な仕事を行っています。";
+"serverEngineering.label.subtitle" = "現在、アプリケーションの改善を行うために重要な作業を行っています。";
 
-"serverEngineering.label.title" = "エンジニアによる仕事";
+"serverEngineering.label.title" = "エンジニアによる作業";
 
-"serverError.button.retry" = "再試行";
+"serverError.button.retry" = "再試行する";
 
 "serverError.button.sendReport" = "レポートを送信する";
 
-"serverError.label.allBroken" = "壊れています";
+"serverError.label.allBroken" = "エラーが発生しています";
 
-"serverError.label.allBrokenDescription" = "心配しないでください。私達は既にこの問題の解決に向けて取り組んでいます。\n間もなく全てが機能します！";
+"serverError.label.allBrokenDescription" = "心配しないでください。私達は既にこの問題の解決に向けて取り組んでいます。\n解決までしばらくお待ち下さい。";
 
 "serverError.label.noInternetConnection" = "インターネット接続がありません";
 
 "serverError.label.noInternetConnectionDescription" = "モバイル通信かWifiネットワークへの接続を確認して下さい";
 
-"serverError.label.subtitle" = "心配しないでください。私達は既にこの問題の解決に向けて取り組んでいます。\n間もなく全てが機能します！";
+"serverError.label.subtitle" = "心配しないでください。私達は既にこの問題の解決に向けて取り組んでいます。\n解決までしばらくお待ち下さい。";
 
-"serverError.label.title" = "壊れています";
+"serverError.label.title" = "エラーが発生しました";
 
-"startleasing.button.chooseFromAddressBook" = "アドレスから選択する";
+"startleasing.button.chooseFromAddressBook" = "アドレス帳から選択する";
 
-"startleasing.button.startLease" = "リースを開始する";
+"startleasing.button.startLease" = "リースする";
 
 "startleasing.button.useTotalBalanace" = "残高をすべて使用する";
 
 "startleasing.button.useTotalBalance" = "残高をすべて使用する";
 
-"startleasing.label.addressIsNotValid" = "アドレスが有効ではありません";
+"startleasing.label.addressIsNotValid" = "有効なアドレスではありません";
 
-"startleasing.label.amount" = "取引量";
+"startleasing.label.amount" = "リース量";
 
 "startleasing.label.balance" = "残高";
 
@@ -929,21 +953,21 @@
 
 "startleasing.label.insufficientFunds" = "残高不足です";
 
-"startleasing.label.nodeAddress" = "ノードアドレス…";
+"startleasing.label.nodeAddress" = "リース先のノードアドレス…";
 
 "startleasing.label.notEnough" = "不足しています";
 
-"startleasing.label.startLeasing" = "リースを開始する";
+"startleasing.label.startLeasing" = "リースする";
 
-"startleasing.label.transactionFee" = "取引手数料";
+"startleasing.label.transactionFee" = "トランザクション手数料";
 
 "startleasingcomplete.button.okey" = "OK";
 
-"startleasingcomplete.label.youHaveCanceledTransaction" = "あなたはリーストランザクションをキャンセルしました";
+"startleasingcomplete.label.youHaveCanceledTransaction" = "リーストランザクションをキャンセルしました";
 
-"startleasingcomplete.label.youHaveLeased" = "あなたは %@ %@をリースしました";
+"startleasingcomplete.label.youHaveLeased" = "%@ %@をリースしました";
 
-"startleasingcomplete.label.yourTransactionIsOnWay" = "あなたのトランザクションは進行中です！";
+"startleasingcomplete.label.yourTransactionIsOnWay" = "あなたのトランザクションは現在処理中です！";
 
 "startleasingconfirmation.button.cancelLeasing" = "リースをキャンセルする";
 
@@ -957,7 +981,7 @@
 
 "startleasingconfirmation.label.leasingTX" = "リーストランザクション";
 
-"startleasingconfirmation.label.nodeAddress" = "ノードアドレス";
+"startleasingconfirmation.label.nodeAddress" = "リース先のノードアドレス";
 
 "startleasingloading.label.cancelLeasing" = "リースをキャンセルしています…";
 
@@ -971,7 +995,7 @@
 
 "tokenBurn.button.useTotalBalanace" = "残高をすべて使用する";
 
-"tokenBurn.label.confirmation" = "確認";
+"tokenBurn.label.confirmation" = "確認画面";
 
 "tokenBurn.label.error.insufficientFunds" = "残高不足です";
 
@@ -981,7 +1005,7 @@
 
 "tokenBurn.label.id" = "ID";
 
-"tokenBurn.label.loading" = "バーン…";
+"tokenBurn.label.loading" = "バーンする…";
 
 "tokenBurn.label.notReissuable" = "再発行不可";
 
@@ -989,15 +1013,15 @@
 
 "tokenBurn.label.reissuable" = "再発行可";
 
-"tokenBurn.label.tokenBurn" = "トークンバーン";
+"tokenBurn.label.tokenBurn" = "トークンをバーンする";
 
 "tokenBurn.label.transactionFee" = "トランザクション手数料：%@ %@";
 
-"tokenBurn.label.transactionIsOnWay" = "トランザクションは進行中です！";
+"tokenBurn.label.transactionIsOnWay" = "トランザクションは処理中です！";
 
 "tokenBurn.label.type" = "タイプ";
 
-"tokenBurn.label.youHaveBurned" = "あなたはバーンしました";
+"tokenBurn.label.youHaveBurned" = "バーンしました";
 
 "transactionhistory.button.copied" = "コピーされました";
 
@@ -1005,21 +1029,21 @@
 
 "transactionhistory.button.copyTXId" = "TX IDをコピー";
 
-"transactionhistory.cell.block" = "ブロックする";
+"transactionhistory.cell.block" = "ブロック";
 
-"transactionhistory.cell.button.cancelLeasing" = "リースをキャンセルする";
+"transactionhistory.cell.button.cancelLeasing" = "リースをキャンセル";
 
 "transactionhistory.cell.button.sendAgain" = "再送信する";
 
 "transactionhistory.cell.buy" = "購入：%@/%@";
 
-"transactionhistory.cell.confirmations" = "承認";
+"transactionhistory.cell.confirmations" = "承認数";
 
 "transactionhistory.cell.dataTransaction" = "トランザクションデータ";
 
 "transactionhistory.cell.fee" = "手数料";
 
-"transactionhistory.cell.from" = "から";
+"transactionhistory.cell.from" = "送信元";
 
 "transactionhistory.cell.id" = "ID";
 
@@ -1027,7 +1051,7 @@
 
 "transactionhistory.cell.notReissuable" = "再発行不可";
 
-"transactionhistory.cell.price" = "価格";
+"transactionhistory.cell.price" = "取引価格";
 
 "transactionhistory.cell.receivedFrom" = "送信元";
 
@@ -1039,15 +1063,15 @@
 
 "transactionhistory.cell.sell" = "売却：%@/%@";
 
-"transactionhistory.cell.sentTo" = "送金先";
+"transactionhistory.cell.sentTo" = "送信先";
 
-"transactionhistory.cell.status.at" = "に";
+"transactionhistory.cell.status.at" = ":";
 
-"transactionhistory.cell.status.button.activeNow" = "有効にする";
+"transactionhistory.cell.status.button.activeNow" = "リース中";
 
 "transactionhistory.cell.status.button.completed" = "完了";
 
-"transactionhistory.cell.status.button.unconfirmed" = "未確定";
+"transactionhistory.cell.status.button.unconfirmed" = "未完了";
 
 "transactionhistory.cell.status.timestamp" = "タイムスタンプ";
 
@@ -1071,55 +1095,55 @@
 
 "usetouchid.button.useBiometric.text" = "%@ を使用する";
 
-"usetouchid.label.detail.text" = "アカウントに素早く %@、簡単にアクセスするために、指紋認証を使用してください";
+"usetouchid.label.detail.text" = "アカウントに簡単にアクセスするために%@を利用してください";
 
 "usetouchid.label.title.text" = "%@ でサインインしますか？";
 
-"wallet.button.startLease" = "リースを開始する";
+"wallet.button.startLease" = "リースする";
 
-"wallet.label.available" = "利用可能";
+"wallet.label.available" = "利用可能な残高";
 
 "wallet.label.leased" = "リース済";
 
 "wallet.label.leasedIn" = "リース日：";
 
-"wallet.label.myAssets" = "私の資産";
+"wallet.label.myAssets" = "自分の資産";
 
-"wallet.label.quickNote.description.first" = "送信や取引ができるのはリースされていないWAVESのみです。リースされたら、あなたも他の誰も送信および取引できません。";
+"wallet.label.quickNote.description.first" = "リースされていないWAVESのみ送信や取引が可能です。リース中のWavesはあなたも、他者も送信および取引することはできません。";
 
-"wallet.label.quickNote.description.second" = "リースしているトランザクションは、通常１分以内にブロックチェーンに出現し,すぐにキャンセルできます。";
+"wallet.label.quickNote.description.second" = "リースしたトランザクションは、通常１分以内にブロックチェーンに出現し、その後キャンセル可能です。";
 
-"wallet.label.quickNote.description.third" = "生成される残高は1000ブロック後に更新されます";
+"wallet.label.quickNote.description.third" = "生成中の残高は1000ブロック後に更新されます";
 
-"wallet.label.startedLeasing" = "開始されたリース";
+"wallet.label.startedLeasing" = "リース中";
 
 "wallet.label.totalBalance" = "合計残高";
 
-"wallet.label.viewHistory" = "履歴を見る";
+"wallet.label.viewHistory" = "取引履歴";
 
 "wallet.navigationBar.title" = "ウォレット";
 
-"wallet.section.activeNow" = "アクティブにする (%d)";
+"wallet.section.activeNow" = "有効なリース (%d)";
 
 "wallet.section.hiddenAssets" = "隠された資産 (%d)";
 
-"wallet.section.quickNote" = "クイックノート";
+"wallet.section.quickNote" = "注意事項";
 
 "wallet.section.spamAssets" = "スパムアセット (%d)";
 
-"wallet.segmentedControl.assets" = "資産";
+"wallet.segmentedControl.assets" = "通貨";
 
 "wallet.segmentedControl.leasing" = "リース";
 
-"walletsort.button.position" = "ポジション";
+"walletsort.button.position" = "位置";
 
-"walletsort.button.visibility" = "可視性";
+"walletsort.button.visibility" = "表示";
 
 "walletsort.navigationBar.title" = "並び替え";
 
-"wavespopup.button.exchange" = "交換";
+"wavespopup.button.exchange" = "トレード";
 
-"wavespopup.button.receive" = "受取する";
+"wavespopup.button.receive" = "受取る";
 
 "wavespopup.button.send" = "送信する";
 

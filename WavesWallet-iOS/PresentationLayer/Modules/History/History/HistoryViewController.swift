@@ -458,8 +458,11 @@ extension HistoryViewController: UITableViewDataSource {
             
             let view: HistoryHeaderView = tableView.dequeueAndRegisterHeaderFooter()
             
-            if let header = model.header {
-                view.update(with: header)
+            if let date = model.date {
+                let formatter = DateFormatter.sharedFormatter
+                formatter.dateStyle = .long
+                formatter.timeStyle = .none                
+                view.update(with: formatter.string(from: date))
             }
             return view
 
