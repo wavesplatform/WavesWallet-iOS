@@ -13,7 +13,7 @@ fileprivate enum Constants {
     static var height: CGFloat = 76
 }
 
-final class AssetTransactionSkeletonCell: SkeletonCell, NibReusable {
+final class AssetTransactionSkeletonCell: SkeletonTableCell, NibReusable {
     @IBOutlet var viewContent: UIView!
 
     override func awakeFromNib() {

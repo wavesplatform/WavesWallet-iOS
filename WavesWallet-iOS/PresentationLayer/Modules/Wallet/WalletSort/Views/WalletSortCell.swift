@@ -107,7 +107,6 @@ extension WalletSortCell: ViewConfiguration {
     }
 
     func update(with model: Model) {
-        // TODO: My asset
 
         labelTitle.attributedText = NSAttributedString.styleForMyAssetName(assetName: model.name,
                                                                            isMyAsset: model.isMyWavesToken)
