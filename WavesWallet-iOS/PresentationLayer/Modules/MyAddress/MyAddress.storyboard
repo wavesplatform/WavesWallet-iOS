@@ -244,14 +244,17 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Your address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alj-Ak-pXg">
-                                                            <rect key="frame" x="16" y="72" width="311" height="25"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alj-Ak-pXg">
+                                                            <rect key="frame" x="16" y="62" width="311" height="17"/>
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" ambiguous="YES" text="3PCjZftzzhtY4ZLLBfsyvNxw8RwAgXZVZJW" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YsD-0Z-ulU" customClass="CopyableLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                            <rect key="frame" x="16" y="105" width="311" height="16"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="3PCjZftzzhtY4ZLLBfsyvNxw8RwAgXZVZJW" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YsD-0Z-ulU" customClass="CopyableLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="87" width="343" height="16"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="16" id="ob4-9A-0Hu"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -306,7 +309,7 @@
                                                         <constraint firstAttribute="bottom" secondItem="EUf-6J-x2s" secondAttribute="bottom" id="3Jz-05-Yar"/>
                                                         <constraint firstAttribute="trailing" secondItem="ED6-hZ-fk5" secondAttribute="trailing" constant="16" id="C1b-iP-eTg"/>
                                                         <constraint firstItem="EUf-6J-x2s" firstAttribute="leading" secondItem="6fM-gx-WOY" secondAttribute="leading" id="FVw-aW-MoQ"/>
-                                                        <constraint firstAttribute="trailing" secondItem="YsD-0Z-ulU" secondAttribute="trailing" constant="16" id="Jdl-Mz-dbZ"/>
+                                                        <constraint firstAttribute="trailing" secondItem="YsD-0Z-ulU" secondAttribute="trailing" id="Jdl-Mz-dbZ"/>
                                                         <constraint firstItem="ED6-hZ-fk5" firstAttribute="top" secondItem="YsD-0Z-ulU" secondAttribute="bottom" constant="18" id="LNK-Gk-ZMo"/>
                                                         <constraint firstItem="EUf-6J-x2s" firstAttribute="top" secondItem="ED6-hZ-fk5" secondAttribute="bottom" constant="18" id="O8u-hh-5uj"/>
                                                         <constraint firstItem="alj-Ak-pXg" firstAttribute="leading" secondItem="6fM-gx-WOY" secondAttribute="leading" constant="16" id="UAW-8G-8b8"/>
@@ -315,7 +318,7 @@
                                                         <constraint firstAttribute="trailing" secondItem="EUf-6J-x2s" secondAttribute="trailing" id="YpA-Ru-U3f"/>
                                                         <constraint firstItem="B4T-yi-j01" firstAttribute="centerX" secondItem="6fM-gx-WOY" secondAttribute="centerX" id="ejK-6W-HoO"/>
                                                         <constraint firstItem="alj-Ak-pXg" firstAttribute="top" secondItem="B4T-yi-j01" secondAttribute="bottom" constant="14" id="f24-xu-TXC"/>
-                                                        <constraint firstItem="YsD-0Z-ulU" firstAttribute="leading" secondItem="6fM-gx-WOY" secondAttribute="leading" constant="16" id="keu-7L-ImL"/>
+                                                        <constraint firstItem="YsD-0Z-ulU" firstAttribute="leading" secondItem="6fM-gx-WOY" secondAttribute="leading" id="keu-7L-ImL"/>
                                                         <constraint firstItem="YsD-0Z-ulU" firstAttribute="top" secondItem="alj-Ak-pXg" secondAttribute="bottom" constant="8" id="mcm-Eb-m4a"/>
                                                         <constraint firstItem="ED6-hZ-fk5" firstAttribute="leading" secondItem="6fM-gx-WOY" secondAttribute="leading" constant="16" id="wJ9-0v-MeM"/>
                                                     </constraints>

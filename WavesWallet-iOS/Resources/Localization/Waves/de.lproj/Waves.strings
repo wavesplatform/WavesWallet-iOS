@@ -1,4 +1,6 @@
 
+"newaccount.textfield.error.maximumcharacters" = "%d zeichen maximal";
+
 "Receivecard.Label.minimunAmountInfo" = "Das minimum ist %@, das maximum ist %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "Sie haben nicht genug Geld, um die erforderlichen Gebühren zu zahlen. Sie müssen %@ Transaktionsgebühr und %@ Gateway-Gebühr bezahlen.";
