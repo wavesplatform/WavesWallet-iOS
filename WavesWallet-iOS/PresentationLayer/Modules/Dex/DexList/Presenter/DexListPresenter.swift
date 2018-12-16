@@ -37,7 +37,6 @@ final class DexListPresenter: DexListPresenterProtocol {
             return (state.isAppear || state.isNeedRefreshing) ? state : nil
         }, effects: { [weak self] _ -> Signal<DexList.Event> in
             
-            // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf.interactor.pairs().map { .setModels($0) }.asSignal(onErrorSignalWith: Signal.empty())
         })

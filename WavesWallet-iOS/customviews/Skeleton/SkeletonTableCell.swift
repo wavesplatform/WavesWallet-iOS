@@ -10,8 +10,7 @@ import Foundation
 import UIKit
 import Skeleton
 
-//TODO: Rename SkeletonTableCell
-class SkeletonCell: UITableViewCell, SkeletonAnimatable {
+class SkeletonTableCell: UITableViewCell, SkeletonAnimatable {
 
     @IBOutlet var views: [GradientContainerView]!
 
@@ -37,14 +36,14 @@ extension UITableView {
 
     func startSkeletonCells() {
         self.visibleCells
-            .map { $0 as? SkeletonCell }
+            .map { $0 as? SkeletonTableCell }
             .compactMap { $0 }
             .forEach { $0.startAnimation() }
     }
 
     func stopSkeletonCells() {
         self.visibleCells
-            .map { $0 as? SkeletonCell }
+            .map { $0 as? SkeletonTableCell }
             .compactMap { $0 }
             .forEach { $0.stopAnimation() }
     }
