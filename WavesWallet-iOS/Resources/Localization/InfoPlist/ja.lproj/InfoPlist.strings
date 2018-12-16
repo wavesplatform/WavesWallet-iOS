@@ -3,6 +3,8 @@
 
 "NSFaceIDUsageDescription" = "あなたのウォレットにアクセスする";
 
+"NSPhotoLibraryAddUsageDescription" = "QRコードをスキャンする為にカメラ機能が必要です";
+
 "cameraAccess.alert.allow" = "カメラを利用可能にする";
 
 "cameraAccess.alert.cancel" = "キャンセルする";

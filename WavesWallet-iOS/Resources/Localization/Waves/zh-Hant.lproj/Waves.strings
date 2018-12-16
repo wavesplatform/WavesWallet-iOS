@@ -1,4 +1,6 @@
 
+"newaccount.textfield.error.maximumcharacters" = "最多 %d 个字符";
+
 "Receivecard.Label.minimunAmountInfo" = "最少 %@，最大 %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "你没有足够的资金支付需要的费用。你需要支付 %@ 的交易费用和 %@ 网关费用。";
@@ -123,7 +125,7 @@
 
 "asset.cell.balance.totalBalance" = "总数";
 
-"asset.cell.viewHistory" = "查看历史记录";
+"asset.cell.viewHistory" = "交易記錄";
 
 "asset.header.lastTransactions" = "最近交易";
 
@@ -131,7 +133,7 @@
 
 "assetlist.button.allList" = "所有清单";
 
-"assetlist.button.myList" = "使用全部余额";
+"assetlist.button.myList" = "余额";
 
 "assetlist.button.withBalance" = "余额";
 
@@ -173,17 +175,25 @@
 
 "backup.savebackup.next.label.title" = "你将在下一个界面确认这些短语";
 
+"biometric.localizedCancelTitle" = "取消";
+
+"biometric.localizedFallbackTitle" = "输入密码";
+
+"biometric.manyattempts.subtitle" = "要解鎖生物識別，請使用您的帳戶密碼登錄";
+
+"biometric.manyattempts.title" = "尝试次数太多";
+
 "biometric.readfromkeychain" = "进入钱包";
 
 "biometric.saveinkeychain" = "进入钱包";
 
-"cameraAccess.alert.allow" = "Allow Camera";
+"cameraAccess.alert.allow" = "允许相机访问";
 
 "cameraAccess.alert.cancel" = "取消";
 
-"cameraAccess.alert.message" = "Camera access is required to make full use of this app";
+"cameraAccess.alert.message" = "需要允许相机访问才能充分利用此应用程序";
 
-"cameraAccess.alert.title" = "Need Camera Access";
+"cameraAccess.alert.title" = "需要相机访问";
 
 "changepassword.button.confirm.title" = "确认";
 
@@ -419,6 +429,8 @@
 
 "enter.block.exchange.title" = "去中心化交易";
 
+"enter.block.token.text" = "创建你自己的代币。不仅能作为内部货币整合到你的生意中，还可以进行去中心化投票，成为一个诚信系统。";
+
 "enter.block.token.title" = "发布代币";
 
 "enter.block.wallet.text" = "储存，管理和接收你的数字资产余额的利息，简单而安全。";
@@ -471,9 +483,9 @@
 
 "general.ticker.title.wavestoken" = "Waves币";
 
-"general.tost.saveBackup.subtitle" = "Store your SEED safely, it is the only way to restore your wallet";
+"general.tost.saveBackup.subtitle" = "安全存放您的SEED，这是恢复钱包的唯一方法";
 
-"general.tost.saveBackup.title" = "Save your backup phrase (SEED)";
+"general.tost.saveBackup.title" = "保存你的备用短语（SEED）";
 
 "hello.button.continue" = "继续";
 
@@ -531,9 +543,9 @@
 
 "history.segmentedControl.sent" = "已发送";
 
-"history.transaction.cell.exchange.buy" = "Buy: %@/%@";
+"history.transaction.cell.exchange.buy" = "购买：%@/%@";
 
-"history.transaction.cell.exchange.sell" = "Sell: %@/%@";
+"history.transaction.cell.exchange.sell" = "卖出：%@/%@";
 
 "history.transaction.title.alias" = "创建别名";
 
@@ -545,9 +557,9 @@
 
 "history.transaction.title.incomingLeasing" = "租赁收入";
 
-"history.transaction.title.massreceived" = "Mass Received";
+"history.transaction.title.massreceived" = "大额收入";
 
-"history.transaction.title.masssent" = "Mass Sent";
+"history.transaction.title.masssent" = "大额发送";
 
 "history.transaction.title.received" = "收到";
 
@@ -571,7 +583,7 @@
 
 "import.account.button.scan.title" = "扫描配对码";
 
-"import.account.label.info.step.one.detail" = "设置 — 安全性 — 配对代码";
+"import.account.label.info.step.one.detail" = "设置 — 常规设置 — 出口帳戶";
 
 "import.account.label.info.step.one.title" = "通过PC或Mac登录Waves客户端，网址为https://client.wavesplatform.com";
 
@@ -591,7 +603,7 @@
 
 "import.manually.label.address.placeholder" = "您的种子是您在创建帐户时保存的15个单词";
 
-"import.manually.label.address.title" = "你的账户Seed";
+"import.manually.label.address.title" = "你的账户SEED";
 
 "import.password.button.continue" = "继续";
 
@@ -601,7 +613,7 @@
 
 "import.scan.label.step.three.title" = "用相机扫描代码";
 
-"import.scan.label.step.two.detail" = "设置 — 安全性 — 配对代码";
+"import.scan.label.step.two.detail" = "设置 — 常规设置 — 出口帳戶";
 
 "import.scan.label.step.two.title" = "单击“显示配对代码”以显示QR代码";
 
@@ -609,7 +621,7 @@
 
 "import.welcome.label.address.placeholder" = "您的种子是您在创建帐户时保存的15个单词";
 
-"import.welcome.label.address.title" = "您的帐户Seed";
+"import.welcome.label.address.title" = "您的帐户SEED";
 
 "import.welcome.navigation.title" = "欢迎回来";
 
@@ -693,13 +705,13 @@
 
 "passcode.alert.attempsended.button.cancel" = "取消";
 
-"passcode.alert.attempsended.button.enterpassword" = "";
+"passcode.alert.attempsended.button.enterpassword" = "使用密碼";
 
 "passcode.alert.attempsended.button.ok" = "OK";
 
-"passcode.alert.attempsended.subtitle" = "To unlock, sign in with your account password";
+"passcode.alert.attempsended.subtitle" = "要解锁，请使用您的帐户密码登录";
 
-"passcode.alert.attempsended.title" = "Too many attempts";
+"passcode.alert.attempsended.title" = "尝试次数太多";
 
 "passcode.button.forgotPasscode.title" = "使用帐户密码";
 
@@ -719,9 +731,19 @@
 
 "profile.alert.deleteAccount.message" = "您确定要从设备中删除此帐户吗？";
 
+"profile.alert.deleteAccount.notSaveSeed" = "你沒有保存你的SEED";
+
 "profile.alert.deleteAccount.title" = "删除帐户";
 
 "profile.alert.deleteAccount.withoutbackup.message" = "删除帐户将导致其无法挽回的损失！";
+
+"profile.alert.setupbiometric.button.cancel" = "取消";
+
+"profile.alert.setupbiometric.button.settings" = "设置";
+
+"profile.alert.setupbiometric.message" = "要使用快速安全的登錄，請轉到設置以啟用生物識別";
+
+"profile.alert.setupbiometric.title" = "生物識別技術已被禁用";
 
 "profile.button.delete.title" = "从设备删除帐户";
 
@@ -775,7 +797,7 @@
 
 "receive.button.useTotalBalance" = "使用总余额";
 
-"receive.error.serviceUnavailable" = "Service is temporarily unavailable";
+"receive.error.serviceUnavailable" = "服务暂时无法使用";
 
 "receive.label.amount" = "总量";
 
@@ -828,6 +850,8 @@
 "receivegenerate.label.yourAddress" = "你的 %@ 地址";
 
 "receiveinvoice.label.dollar" = "美元";
+
+"scannerqrcode.label.scan" = "掃描QR";
 
 "send.button.chooseFromAddressBook" = "从地址簿中选择";
 
@@ -1011,7 +1035,7 @@
 
 "transactionhistory.cell.button.sendAgain" = "重新发送";
 
-"transactionhistory.cell.buy" = "Buy: %@/%@";
+"transactionhistory.cell.buy" = "购买：%@/%@";
 
 "transactionhistory.cell.confirmations" = "确认";
 
@@ -1037,7 +1061,7 @@
 
 "transactionhistory.cell.reissuable" = "可再发行";
 
-"transactionhistory.cell.sell" = "Sell: %@/%@";
+"transactionhistory.cell.sell" = "卖：%@/%@";
 
 "transactionhistory.cell.sentTo" = "发送到";
 
@@ -1051,7 +1075,7 @@
 
 "transactionhistory.cell.status.timestamp" = "时间戳";
 
-"transactionhistory.cell.type" = "Type";
+"transactionhistory.cell.type" = "类型";
 
 "transactionhistory.copy.amount" = "总量";
 
@@ -1095,13 +1119,13 @@
 
 "wallet.label.totalBalance" = "总余额";
 
-"wallet.label.viewHistory" = "查看历史记录";
+"wallet.label.viewHistory" = "交易記錄";
 
 "wallet.navigationBar.title" = "钱包";
 
 "wallet.section.activeNow" = "现在激活 (%d)";
 
-"wallet.section.hiddenAssets" = "隐藏资产（％d）";
+"wallet.section.hiddenAssets" = "隐藏资产 (%d)";
 
 "wallet.section.quickNote" = "快速说明";
 
