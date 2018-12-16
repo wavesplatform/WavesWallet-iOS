@@ -11,15 +11,22 @@ import UIKit
 protocol DexChartHeaderViewDelegate: AnyObject {
 
     func dexChartDidChangeTimeFrame(_ timeFrame: DomainLayer.DTO.Candle.TimeFrameType)
+    func dexChartDidTapRefresh()
+}
+
+private enum Constants {
+    static let animationKey = "rotation"
+    static let animationDuration: TimeInterval = 1
 }
 
 final class DexChartHeaderView: UIView, NibOwnerLoadable {
-
-    @IBOutlet private weak var labelFull: UILabel!
-    @IBOutlet private weak var labelTime: UILabel!
-   
-    private var timeFrame: DomainLayer.DTO.Candle.TimeFrameType!
     
+    @IBOutlet private weak var labelTime: UILabel!
+    @IBOutlet private weak var buttonRefresh: UIButton!
+    
+    private var timeFrame: DomainLayer.DTO.Candle.TimeFrameType!
+    private var isRefreshing = false
+
     weak var delegate: DexChartHeaderViewDelegate?
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,6 +37,20 @@ final class DexChartHeaderView: UIView, NibOwnerLoadable {
     func setupTimeFrame(timeFrame:  DomainLayer.DTO.Candle.TimeFrameType) {
         self.timeFrame = timeFrame
         setuptTimeFrameTitle()
+    }
+    
+    @IBAction private func refreshTapped(_ sender: Any) {
+        if isRefreshing {
+            return
+        }
+        isRefreshing = true
+        showAnimation()
+        delegate?.dexChartDidTapRefresh()
+    }
+    
+    func stopAnimation() {
+        isRefreshing = false
+        buttonRefresh.layer.removeAnimation(forKey: Constants.animationKey)
     }
 }
 
@@ -63,5 +84,18 @@ private extension DexChartHeaderView {
             controller.addAction(action)
         }
         firstAvailableViewController().present(controller, animated: true, completion: nil)
+    }
+    
+    func showAnimation() {
+        if buttonRefresh.layer.animation(forKey: Constants.animationKey) == nil {
+            let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+            
+            rotationAnimation.fromValue = 0.0
+            rotationAnimation.toValue =  Float.pi * 2.0
+            rotationAnimation.duration = Constants.animationDuration
+            rotationAnimation.repeatCount = Float.infinity
+            
+            buttonRefresh.layer.add(rotationAnimation, forKey: Constants.animationKey)
+        }
     }
 }
