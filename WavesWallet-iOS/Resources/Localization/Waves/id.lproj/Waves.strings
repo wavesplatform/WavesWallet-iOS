@@ -1,4 +1,6 @@
 
+"newaccount.textfield.error.maximumcharacters" = "%d karakter maksimum";
+
 "Receivecard.Label.minimunAmountInfo" = "Minimumnya %@, maksimumnya %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "Anda tidak memiliki cukup dana untuk membayar biaya yang diperlukan. Anda harus membayar %@ biaya transaksi dan %@ biaya gateway.";
