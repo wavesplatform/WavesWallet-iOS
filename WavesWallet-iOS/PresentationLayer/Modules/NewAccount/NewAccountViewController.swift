@@ -95,7 +95,7 @@ final class NewAccountViewController: UIViewController {
             if count < GlobalConstants.accountNameMinLimitSymbols {
                 return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
             } else if count > GlobalConstants.accountNameMaxLimitSymbols {
-                return Localizable.Waves.Newaccount.Textfield.Error.minimumcharacters(GlobalConstants.accountNameMaxLimitSymbols)
+                return Localizable.Waves.Newaccount.Textfield.Error.maximumcharacters(GlobalConstants.accountNameMaxLimitSymbols)
             } else {
                 return nil
             }
