@@ -1,4 +1,20 @@
 
+"profile.alert.setupbiometric.title" = "Biometrics is disabled";
+
+"profile.alert.setupbiometric.message" = "To use fast and secure login, go to settings to enable biometrics";
+
+"profile.alert.setupbiometric.button.settings" = "Settings";
+
+"profile.alert.setupbiometric.button.cancel" = "Cancel";
+
+"biometric.manyattempts.subtitle" = "To unlock biometric, sign in with your account password";
+
+"biometric.manyattempts.title" = "Too many attempts";
+
+"biometric.localizedCancelTitle" = "Cancel";
+
+"biometric.localizedFallbackTitle" = "Enter Password";
+
 "Receivecard.Label.minimunAmountInfo" = "The minimum is %@, the maximum is %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "You don't have enough funds to pay the required fees. You must pay %@ transaction fee and %@ gateway fee.";
@@ -59,13 +75,13 @@
 
 "addresseskeys.cell.publickey.title" = "Public Key";
 
-"addresseskeys.cell.seed.title" = "Seed";
+"addresseskeys.cell.seed.title" = "SEED";
 
 "addresseskeys.navigation.title" = "Addresses, keys";
 
 "aliases.cell.head.title" = "Your Aliases";
 
-"aliases.view.info.button.create" = "Create new alias";
+"aliases.view.info.button.create" = "Create a new alias";
 
 "aliases.view.info.label.fee" = "Transaction Fee 0.001 Waves";
 
@@ -75,7 +91,7 @@
 
 "aliases.view.info.label.title" = "About Alias";
 
-"aliaseswithout.view.info.button.create" = "Create new alias";
+"aliaseswithout.view.info.button.create" = "Create a new alias";
 
 "aliaseswithout.view.info.label.fee" = "Transaction Fee 0.001 Waves";
 
@@ -123,7 +139,7 @@
 
 "asset.cell.balance.totalBalance" = "Total";
 
-"asset.cell.viewHistory" = "View history";
+"asset.cell.viewHistory" = "Transaction history";
 
 "asset.header.lastTransactions" = "Last transactions";
 
@@ -151,7 +167,7 @@
 
 "backup.infobackup.button.iunderstand" = "I understand";
 
-"backup.infobackup.label.detail" = "Waves Platform would like to warn you about the increased frequency of scam and phishing attacks over the last month. Fraudsters are hiding their malware in their own versions of the Waves client and promising bonuses and discounts to lure in users.\n\n Please be careful and never input your SEED into these 'clients', because your account will be compromised and you will lose all of your funds.\n\nYou should ONLY use the official Waves client.";
+"backup.infobackup.label.detail" = "Waves Platform would like to warn you about the increased frequency of scam and phishing attacks over the last month. Fraudsters are hiding their malware in their own versions of the Waves client and promising bonuses and discounts to lure in users.\n\nPlease be careful and never input your SEED into these 'clients', because your account will be compromised and you will lose all of your funds.\n\nYou should ONLY use the official Waves client.";
 
 "backup.infobackup.label.title" = "Treat your backup phrase with care!";
 
@@ -176,12 +192,6 @@
 "biometric.readfromkeychain" = "Access to your wallet";
 
 "biometric.saveinkeychain" = "Access to your wallet";
-
-"biometric.localizedFallbackTitle" = "Input passcode";
-"biometric.localizedCancelTitle" = "Cancel";
-
-"biometric.manyattempts.title" = "Too many attempts";
-"biometric.manyattempts.subtitle" = "To unlock Touch/Face ID, sign in with your account passcode";
 
 "cameraAccess.alert.allow" = "Allow Camera";
 
@@ -425,6 +435,8 @@
 
 "enter.block.exchange.title" = "Decentralised Exchange";
 
+"enter.block.token.text" = "Issue your own tokens. These can be integrated into your business not only as an internal currency but also as a token for decentralised voting, as a rating system, or loyalty program.";
+
 "enter.block.token.title" = "Token Launcher";
 
 "enter.block.wallet.text" = "Store, manage and receive interest on your digital assets balance, easily and securely.";
@@ -497,7 +509,7 @@
 
 "hello.page.info.fifth.title" = "How To Protect Yourself from Phishers";
 
-"hello.page.info.first.detail" = "Please take some time to understand some important things for your own safety.\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.";
+"hello.page.info.first.detail" = "Please take some time to understand some important things for your own safety.\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka  phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your , including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.";
 
 "hello.page.info.first.title" = "Welcome to the Waves Platform!";
 
@@ -505,7 +517,7 @@
 
 "hello.page.info.fourth.title" = "How To Protect Yourself from Phishers";
 
-"hello.page.info.second.detail" = "When registering your account, you will be asked to save your secret phrase (Seed) and to protect your account with a password. On normal centralized servers, special attention is paid to the password, which can be changed and reset via email, if the need arises. However, on decentralized platforms such as Waves, everything is arranged differently.";
+"hello.page.info.second.detail" = "When registering your account, you will be asked to save your secret phrase (SEED) and to protect your account with a password. On normal centralized servers, special attention is paid to the password, which can be changed and reset via email, if the need arises. However, on decentralized platforms such as Waves, everything is arranged differently.";
 
 "hello.page.info.second.title" = "What you need to know about your SEED";
 
@@ -573,11 +585,11 @@
 
 "history.transaction.value.data" = "Entry in blockchain";
 
-"import.account.button.enter.title" = "Enter seed manually";
+"import.account.button.enter.title" = "Enter SEED manually";
 
 "import.account.button.scan.title" = "Scan pairing code";
 
-"import.account.label.info.step.one.detail" = "Settings — Security — Pairing code";
+"import.account.label.info.step.one.detail" = "Settings — General — Export account";
 
 "import.account.label.info.step.one.title" = "Log in to your Waves Client via your PC or Mac at https://client.wavesplatform.com";
 
@@ -595,9 +607,9 @@
 
 "import.manually.button.continue" = "Continue";
 
-"import.manually.label.address.placeholder" = "Your seed is the 15 words you saved when creating your account";
+"import.manually.label.address.placeholder" = "Your SEED is the 15 words you saved when creating your account";
 
-"import.manually.label.address.title" = "Your account seed";
+"import.manually.label.address.title" = "Your account SEED";
 
 "import.password.button.continue" = "Continue";
 
@@ -607,15 +619,15 @@
 
 "import.scan.label.step.three.title" = "Scan the code with your camera";
 
-"import.scan.label.step.two.detail" = "Settings — Security — Pairing code";
+"import.scan.label.step.two.detail" = "Settings — General — Export account";
 
 "import.scan.label.step.two.title" = "Click «Show Pairing Code» to reveal a QR Code";
 
 "import.welcome.button.continue" = "Continue";
 
-"import.welcome.label.address.placeholder" = "Your seed is the 15 words you saved when creating your account";
+"import.welcome.label.address.placeholder" = "Your SEED is the 15 words you saved when creating your account";
 
-"import.welcome.label.address.title" = "Your account seed";
+"import.welcome.label.address.title" = "Your account SEED";
 
 "import.welcome.navigation.title" = "Welcome back";
 
@@ -693,13 +705,15 @@
 
 "newaccount.textfield.error.minimumcharacters" = "Minimum %d characters";
 
+"newaccount.textfield.error.maximumcharacters" = "Maximum %d characters";
+
 "newaccount.textfield.error.passwordnotmatch" = "password not match";
 
 "newaccount.textfield.error.wrongordertryagain" = "Wrong order, try again";
 
 "passcode.alert.attempsended.button.cancel" = "Cancel";
 
-"passcode.alert.attempsended.button.enterpassword" = "Enter Password";
+"passcode.alert.attempsended.button.enterpassword" = "Use Password";
 
 "passcode.alert.attempsended.button.ok" = "Ok";
 
@@ -719,23 +733,13 @@
 
 "passcode.label.passcode.verify" = "Verify your passcode";
 
-
-"profile.alert.setupbiometric.button.cancel" = "Cancel";
-
-"profile.alert.setupbiometric.button.settings" = "Settings";
-
-"profile.alert.setupbiometric.message" = "Open settings";
-
-"profile.alert.setupbiometric.title" = "Setup biometric";
-
-
 "profile.alert.deleteAccount.button.cancel" = "Cancel";
 
 "profile.alert.deleteAccount.button.delete" = "Delete";
 
-"profile.alert.deleteAccount.notSaveSeed" = "You did not save your SEED";
-
 "profile.alert.deleteAccount.message" = "Are you sure you want to delete this account from device?";
+
+"profile.alert.deleteAccount.notSaveSeed" = "You did not save your SEED";
 
 "profile.alert.deleteAccount.title" = "Delete account";
 
@@ -846,6 +850,8 @@
 "receivegenerate.label.yourAddress" = "Your %@ address";
 
 "receiveinvoice.label.dollar" = "US Dollar";
+
+"scannerqrcode.label.scan" = "Scan QR";
 
 "send.button.chooseFromAddressBook" = "Choose from Address book";
 
@@ -1113,7 +1119,7 @@
 
 "wallet.label.totalBalance" = "Total balance";
 
-"wallet.label.viewHistory" = "View history";
+"wallet.label.viewHistory" = "Transaction history";
 
 "wallet.navigationBar.title" = "Wallet";
 
@@ -1142,5 +1148,3 @@
 "wavespopup.button.send" = "Send";
 
 "wavespopup.label.comingsoon" = "Coming soon";
-
-"scannerqrcode.label.scan" = "Scan QR";

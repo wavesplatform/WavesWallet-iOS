@@ -1,4 +1,6 @@
 
+"newaccount.textfield.error.maximumcharacters" = "%d zeichen maximal";
+
 "Receivecard.Label.minimunAmountInfo" = "Das minimum ist %@, das maximum ist %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "Sie haben nicht genug Geld, um die erforderlichen Gebühren zu zahlen. Sie müssen %@ Transaktionsgebühr und %@ Gateway-Gebühr bezahlen.";
@@ -123,7 +125,7 @@
 
 "asset.cell.balance.totalBalance" = "Gesamt";
 
-"asset.cell.viewHistory" = "Verlauf ansehen";
+"asset.cell.viewHistory" = "Verlauf der Transaktionen";
 
 "asset.header.lastTransactions" = "Letzte Transaktionen";
 
@@ -172,6 +174,14 @@
 "backup.savebackup.next.button.title" = "Ich habe es notiert";
 
 "backup.savebackup.next.label.title" = "Sie müssen diese Phrase auf dem nächsten Bildschirm bestätigen";
+
+"biometric.localizedCancelTitle" = "Abbrechen";
+
+"biometric.localizedFallbackTitle" = "Passwort eingeben";
+
+"biometric.manyattempts.subtitle" = "Melden Sie sich zum Entsperren von Biometrie mit Ihrem Kontopasswort an";
+
+"biometric.manyattempts.title" = "Zu viele Versuche";
 
 "biometric.readfromkeychain" = "Authentifizieren Sie sich um Zugriff auf Ihre Wallet zu erhalten und die Transaktion zu signieren";
 
@@ -419,6 +429,8 @@
 
 "enter.block.exchange.title" = "Dezentrale Börse";
 
+"enter.block.token.text" = "Erstellen Sie Ihren eigenen Token. Diese können nicht nur als interne Währung in Ihr Unternehmen integriert werden, sondern auch als Zeichen für dezentrales Voting, als Ratingsystem oder als Treueprogramm.";
+
 "enter.block.token.title" = "Token Launcher";
 
 "enter.block.wallet.text" = "Speichern, verwalten und erhalten Sie Zinsen für Ihr digitales Guthaben, einfach und sicher.";
@@ -531,9 +543,9 @@
 
 "history.segmentedControl.sent" = "Geschickt";
 
-"history.transaction.cell.exchange.buy" = "Kaufen";
+"history.transaction.cell.exchange.buy" = "Kaufen: %@/%@";
 
-"history.transaction.cell.exchange.sell" = "Verkaufen";
+"history.transaction.cell.exchange.sell" = "Verkaufen: %@/%@";
 
 "history.transaction.title.alias" = "Erstellen Sie einen Alias";
 
@@ -571,7 +583,7 @@
 
 "import.account.button.scan.title" = "Scannen Sie den Pairingcode";
 
-"import.account.label.info.step.one.detail" = "Einstellungen — Sicherheit — Kopplungscode";
+"import.account.label.info.step.one.detail" = "Einstellungen — Allgemein — Konto exportieren";
 
 "import.account.label.info.step.one.title" = "Melden Sie sich über Ihren PC oder Mac unter https://beta.wavesplatform.com bei Ihrem Beta-Client an";
 
@@ -601,7 +613,7 @@
 
 "import.scan.label.step.three.title" = "Scannen Sie den Code mit Ihrer Kamera";
 
-"import.scan.label.step.two.detail" = "Einstellungen — Sicherheit — Pairing-Code";
+"import.scan.label.step.two.detail" = "Einstellungen — Allgemein — Konto exportieren";
 
 "import.scan.label.step.two.title" = "Klicken Sie auf Pairing-Code anzeigen, um einen QR-Code anzuzeigen";
 
@@ -719,9 +731,19 @@
 
 "profile.alert.deleteAccount.message" = "Möchten Sie dieses Konto wirklich vom Gerät löschen?";
 
+"profile.alert.deleteAccount.notSaveSeed" = "Sie haben Ihr SEED nicht gespeichert";
+
 "profile.alert.deleteAccount.title" = "Konto löschen";
 
 "profile.alert.deleteAccount.withoutbackup.message" = "Das Löschen eines Kontos führt zu einem unwiederbringlichen Verlust!";
+
+"profile.alert.setupbiometric.button.cancel" = "Abbrechen";
+
+"profile.alert.setupbiometric.button.settings" = "Einstellungen";
+
+"profile.alert.setupbiometric.message" = "Um die schnelle und sichere Anmeldung zu verwenden, gehen Sie zu den Einstellungen, um die Biometrie zu aktivieren";
+
+"profile.alert.setupbiometric.title" = "Biometrie ist deaktiviert";
 
 "profile.button.delete.title" = "Konto vom Gerät löschen";
 
@@ -799,7 +821,7 @@
 
 "receiveaddress.label.linkToInvoice" = "Link zu einer Rechnung";
 
-"receiveaddress.label.yourAddress" = "Ihre Adresse";
+"receiveaddress.label.yourAddress" = "Ihre %@ Adresse";
 
 "receiveaddress.label.yourQRCode" = "Ihr QR Code";
 
@@ -825,9 +847,11 @@
 
 "receivegenerate.label.generate" = "Generiere…";
 
-"receivegenerate.label.yourAddress" = "Ihre Adresse";
+"receivegenerate.label.yourAddress" = "Ihre %@ Adresse";
 
 "receiveinvoice.label.dollar" = "US Dollar";
+
+"scannerqrcode.label.scan" = "QR scannen";
 
 "send.button.chooseFromAddressBook" = "Wählen Sie aus dem Adressbuch";
 
@@ -1011,7 +1035,7 @@
 
 "transactionhistory.cell.button.sendAgain" = "Erneut senden";
 
-"transactionhistory.cell.buy" = "Kaufen";
+"transactionhistory.cell.buy" = "Kaufen: %@/%@";
 
 "transactionhistory.cell.confirmations" = "Bestätigungen";
 
@@ -1037,7 +1061,7 @@
 
 "transactionhistory.cell.reissuable" = "Wieder auflegbar";
 
-"transactionhistory.cell.sell" = "Verkaufen";
+"transactionhistory.cell.sell" = "Verkaufen: %@/%@";
 
 "transactionhistory.cell.sentTo" = "Gesendet an";
 
@@ -1073,7 +1097,7 @@
 
 "usetouchid.label.detail.text" = "Verwenden Sie Ihr %@ für einen schnelleren und einfacheren Zugriff auf Ihr Konto";
 
-"usetouchid.label.title.text" = "Verwenden Sie %@, um sich anzumelden.";
+"usetouchid.label.title.text" = "Verwenden Sie %@, um sich anzumelden?";
 
 "wallet.button.startLease" = "Lease starten";
 
@@ -1095,7 +1119,7 @@
 
 "wallet.label.totalBalance" = "Gesamtes Guthaben";
 
-"wallet.label.viewHistory" = "Historie";
+"wallet.label.viewHistory" = "Verlauf der Transaktionen";
 
 "wallet.navigationBar.title" = "Wallet";
 

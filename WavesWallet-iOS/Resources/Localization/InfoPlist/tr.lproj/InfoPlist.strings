@@ -3,6 +3,8 @@
 
 "NSFaceIDUsageDescription" = "Hesabınıza erişin";
 
+"NSPhotoLibraryAddUsageDescription" = "QR kodları taramak için kamera gerekmektedir";
+
 "cameraAccess.alert.allow" = "Kameraya izin ver";
 
 "cameraAccess.alert.cancel" = "İptal";
