@@ -1,4 +1,6 @@
 
+"newaccount.textfield.error.maximumcharacters" = "최대 %d 글자";
+
 "Receivecard.Label.minimunAmountInfo" = "최소 수량 %@, 최대 수량 %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "필요한 수수료를 지불하기 위한 충분한 자금이 없습니다. %@ 트랜잭션 수수료와 %@ 게이트웨이 수수료를 지불해야 합니다.";

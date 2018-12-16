@@ -37,7 +37,6 @@ final class DexChartPresenter: DexChartPresenterProtocol {
             
         }, effects: { [weak self] state -> Signal<DexChart.Event> in
             
-            // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
             
             return strongSelf.interactor.candles(timeFrame: state.timeFrame,
@@ -55,15 +54,25 @@ final class DexChartPresenter: DexChartPresenterProtocol {
                 $0.isNeedLoadingData = true
             }.changeAction(.none)
             
+        case .refresh:
+            return state.mutate {
+                $0.isNeedLoadingData = true
+                $0.isPreloading = false
+                $0.isChangedTimeFrame = false
+                $0.candles.removeAll()
+                $0.timeEnd = DexChart.State.initialDateTo()
+                
+            }.changeAction(.none)
+            
         case .didChangeTimeFrame(let timeFrame):
             return state.mutate {
                 $0.isNeedLoadingData = true
                 $0.isPreloading = false
+                $0.isChangedTimeFrame = true
                 $0.timeFrame = timeFrame
                 $0.candles.removeAll()
                 $0.timeEnd = DexChart.State.initialDateTo()
                 $0.timeStart = DexChart.State.additionalDate(start:$0.timeEnd, timeFrame: timeFrame)
-                $0.isChangedTimeFrame = true
                 
             }.changeAction(.changeTimeFrame)
         
