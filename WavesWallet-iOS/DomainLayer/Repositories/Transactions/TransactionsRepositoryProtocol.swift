@@ -100,7 +100,11 @@ struct CancelLeaseTransactionSender {
 }
 
 struct SendTransactionSender {
-    
+    let recipient: String
+    let assetId: String
+    let amount: Int64
+    let fee: Int64
+    let attachment: String
 }
 
 enum TransactionSenderSpecifications {

@@ -29,7 +29,9 @@ fileprivate enum Constants {
     static let quantity: String = "quantity"
     static let assetId: String = "assetId"
     static let leaseId: String = "leaseId"
-
+    static let feeAssetId: String = "feeAssetId"
+    static let feeAsset: String = "feeAsset"
+    static let attachment: String = "attachment"
 }
 
 extension Node.Service {
@@ -150,6 +152,18 @@ extension Node.Service {
                     
                 case .send(let model):
                     
+                    return [Constants.type: model.type,
+                            Constants.senderPublicKey : model.senderPublicKey,
+                            Constants.fee: model.fee,
+                            Constants.timestamp: model.timestamp,
+                            Constants.proofs: model.proofs,
+                            Constants.version: model.version,
+                            Constants.recipient: model.recipient,
+                            Constants.assetId: model.assetId,
+                            Constants.feeAssetId: model.feeAssetId,
+                            Constants.feeAsset: model.feeAsset,
+                            Constants.amount: model.amount,
+                            Constants.attachment: model.attachment]
                 }
             }
         }

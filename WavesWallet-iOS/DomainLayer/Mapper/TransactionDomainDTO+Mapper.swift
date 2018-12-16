@@ -174,7 +174,7 @@ extension DomainLayer.DTO.TransferTransaction {
                      timestamp: Date(milliseconds: timestamp),
                      totalFee: feeBalance,
                      height: height,
-                     confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
+                     confirmationHeight: totalHeight.confirmationHeight(txHeight: height ?? 0),
                      sender: sender,
                      status: metaData.status)
     }

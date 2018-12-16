@@ -255,7 +255,24 @@ fileprivate extension TransactionSenderSpecifications {
                                                                      proofs: proofs))
             
         case .send(let model):
-            return .send
+            
+            var recipient = ""
+            if model.recipient.count <= GlobalConstants.aliasNameMaxLimitSymbols {
+                recipient = environment.aliasScheme + model.recipient
+            } else {
+                recipient = model.recipient
+            }
+            
+            return .send(Node.Service.Transaction.Send(type: self.type.rawValue,
+                                                       version: self.version,
+                                                       recipient: recipient,
+                                                       assetId: model.assetId,
+                                                       amount: model.amount,
+                                                       fee: model.fee,
+                                                       attachment: Base58.encode(Array(model.attachment.utf8)),
+                                                       timestamp: timestamp,
+                                                       senderPublicKey: publicKey,
+                                                       proofs: proofs))
         }
 
     }
@@ -333,9 +350,30 @@ fileprivate extension TransactionSenderSpecifications {
             return signature
             
         case .send(let model):
-            return []
+           
+            var recipient: [UInt8] = []
+            if model.recipient.count <= GlobalConstants.aliasNameMaxLimitSymbols {
+                recipient += toByteArray(Int8(self.version))
+                recipient += scheme.utf8
+                recipient += model.recipient.arrayWithSize()
+            } else {
+                recipient += Base58.decode(model.recipient)
+            }
+            
+            var signature: [UInt8] = []
+            signature += toByteArray(Int8(self.type.rawValue))
+            signature +=  toByteArray(Int8(self.version))
+            signature += publicKey
+            signature += model.assetId.isEmpty ? [UInt8(0)] : ([UInt8(1)] + Base58.decode(model.assetId))
+            signature += [UInt8(0)]
+            signature += toByteArray(timestamp)
+            signature += toByteArray(model.amount)
+            signature += toByteArray(model.fee)
+            signature += recipient
+            signature += model.attachment.arrayWithSize()
+            
+            return signature
         }
-
     }
 }
 
