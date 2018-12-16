@@ -10,6 +10,40 @@ import Foundation
 import RxSwift
 import SwiftyJSON
 
+private enum Constants {
+    
+    enum Tunnel {
+        static let tunnel = "tunnel"
+        static let currencyFrom = "currency_from"
+        static let currencyTo = "currency_to"
+        static let walletTo = "wallet_to"
+        static let moneroPaymentID = "monero_payment_id"
+        static let tunnelID = "tunnel_id"
+        static let xtID = "xt_id"
+        static let k1 = "k1"
+        static let k2 = "k2"
+        static let history = "history"
+        static let attachment = "attachment"
+    }
+    
+    enum Rate {
+        static let from = "f"
+        static let to = "t"
+        static let feeIn = "fee_in"
+        static let feeOut = "fee_out"
+        static let inMax = "in_max"
+        static let inMin = "in_min"
+    }
+    
+    enum Limit {
+        static let crypto = "crypto"
+        static let address = "address"
+        static let fiat = "fiat"
+        static let min = "min"
+        static let max = "max"
+    }
+}
+
 final class CoinomatRepository: CoinomatRepositoryProtocol {
     
     private let auth = FactoryInteractors.instance.authorization
@@ -18,12 +52,12 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
     
         return Observable.create({ (subscribe) -> Disposable in
             
-            var params = ["currency_from" : currencyFrom,
-                          "currency_to" : currencyTo,
-                          "wallet_to" : walletTo]
+            var params = [Constants.Tunnel.currencyFrom : currencyFrom,
+                         Constants.Tunnel.currencyTo : currencyTo,
+                          Constants.Tunnel.walletTo : walletTo]
             
             if let moneroPaymentID = moneroPaymentID, moneroPaymentID.count > 0 {
-                params["monero_payment_id"] = moneroPaymentID
+                params[Constants.Tunnel.moneroPaymentID] = moneroPaymentID
             }
             
             NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.createTunnel, parameters: params) { (info, error) in
@@ -33,10 +67,10 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
                 }
                 else if let tunnel = info {
                     
-                    let params = ["xt_id" : tunnel["tunnel_id"].stringValue,
-                                  "k1" : tunnel["k1"].stringValue,
-                                  "k2": tunnel["k2"].stringValue,
-                                  "history" : 0] as [String: Any]
+                    let params = [Constants.Tunnel.xtID : tunnel[Constants.Tunnel.tunnelID].stringValue,
+                                  Constants.Tunnel.k1 : tunnel[Constants.Tunnel.k1].stringValue,
+                                  Constants.Tunnel.k2: tunnel[Constants.Tunnel.k2].stringValue,
+                                  Constants.Tunnel.history   : 0] as [String: Any]
                     
                     NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.getTunnel, parameters: params, complete: { (info, error) in
                         
@@ -44,10 +78,10 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
                             subscribe.onError(error)
                         }
                         else if let info = info {
-                            let json = info["tunnel"]
+                            let json = info[Constants.Tunnel.tunnel]
                             
-                            let model = DomainLayer.DTO.Coinomat.TunnelInfo(address: json["wallet_from"].stringValue,
-                                                                            attachment: json["attachment"].stringValue)
+                            let model = DomainLayer.DTO.Coinomat.TunnelInfo(address: json[Constants.Tunnel.currencyFrom].stringValue,
+                                                                            attachment: json[Constants.Tunnel.attachment].stringValue)
                             subscribe.onNext(model)
                             subscribe.onCompleted()
                             
@@ -64,8 +98,8 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
         
         return Observable.create({ (subscribe) -> Disposable in
             
-            let params = ["f" : asset.wavesId ?? "",
-                          "t" : asset.gatewayId ?? ""]
+            let params = [Constants.Rate.from : asset.wavesId ?? "",
+                          Constants.Rate.to : asset.gatewayId ?? ""]
             
             NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.getRate, parameters: params) { (info, error) in
                 
@@ -73,9 +107,11 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
                     subscribe.onError(error)
                 }
                 else if let json = info {
-                    let fee = Money(value: Decimal(json["fee_in"].doubleValue + json["fee_out"].doubleValue), asset.precision)
-                    let min = Money(value: Decimal(json["in_min"].doubleValue), asset.precision)
-                    let max = Money(value: Decimal(json["in_max"].doubleValue), asset.precision)
+                    
+                    let feeValue = Decimal(json[Constants.Rate.feeIn].doubleValue + json[Constants.Rate.feeOut].doubleValue)
+                    let fee = Money(value: feeValue, asset.precision)
+                    let min = Money(value: Decimal(json[Constants.Rate.inMin].doubleValue), asset.precision)
+                    let max = Money(value: Decimal(json[Constants.Rate.inMax].doubleValue), asset.precision)
 
                     subscribe.onNext(DomainLayer.DTO.Coinomat.Rate(fee: fee, min: min, max: max))
                     subscribe.onCompleted()
@@ -90,9 +126,9 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
         
         return Observable.create({ (subscribe) -> Disposable in
             
-            let params = ["crypto" : GlobalConstants.wavesAssetId,
-                          "address" : address,
-                          "fiat" : fiat]
+            let params = [Constants.Limit.crypto : GlobalConstants.wavesAssetId,
+                          Constants.Limit.address : address,
+                          Constants.Limit.fiat : fiat]
             
             NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.getLimits, parameters: params, complete: { (info, error) in
                 
@@ -101,8 +137,8 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
                 }
                 else if let json = info {
                     
-                    let min = Money(value: Decimal(json["min"].intValue), GlobalConstants.FiatDecimals)
-                    let max = Money(value: Decimal(json["max"].intValue), GlobalConstants.FiatDecimals)
+                    let min = Money(value: Decimal(json[Constants.Limit.min].intValue), GlobalConstants.FiatDecimals)
+                    let max = Money(value: Decimal(json[Constants.Limit.max].intValue), GlobalConstants.FiatDecimals)
                     
                     let model = DomainLayer.DTO.Coinomat.CardLimit(min: min, max: max)
                     subscribe.onNext(model)
