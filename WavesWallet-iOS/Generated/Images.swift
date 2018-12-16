@@ -191,7 +191,6 @@ internal enum Images {
   internal static let logoWaves48 = ImageAsset(name: "logoWaves48")
   internal static let logoZec48 = ImageAsset(name: "logoZec48")
   internal static let menuDiscord = ImageAsset(name: "menu_discord")
-  internal static let menuFacebook = ImageAsset(name: "menu_facebook")
   internal static let menuGit = ImageAsset(name: "menu_git")
   internal static let menuTel = ImageAsset(name: "menu_tel")
   internal static let menuTitleLogo = ImageAsset(name: "menu_title_logo")
@@ -218,9 +217,11 @@ internal enum Images {
   internal static let rInwaves14White = ImageAsset(name: "rInwaves14White")
   internal static let receive = ImageAsset(name: "receive")
   internal static let receiveBtn = ImageAsset(name: "receive_btn")
+  internal static let refresh18Basic500 = ImageAsset(name: "refresh18Basic500")
   internal static let refresh18White = ImageAsset(name: "refresh18White")
   internal static let repeatBtn = ImageAsset(name: "repeat_btn")
   internal static let resendIcon = ImageAsset(name: "resend_icon")
+  internal static let sReddit28 = ImageAsset(name: "sReddit28")
   internal static let search = ImageAsset(name: "search")
   internal static let search24Basic500 = ImageAsset(name: "search24Basic500")
   internal static let send = ImageAsset(name: "send")
@@ -442,7 +443,6 @@ internal enum Images {
     logoWaves48,
     logoZec48,
     menuDiscord,
-    menuFacebook,
     menuGit,
     menuTel,
     menuTitleLogo,
@@ -469,9 +469,11 @@ internal enum Images {
     rInwaves14White,
     receive,
     receiveBtn,
+    refresh18Basic500,
     refresh18White,
     repeatBtn,
     resendIcon,
+    sReddit28,
     search,
     search24Basic500,
     send,
