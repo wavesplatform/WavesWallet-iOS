@@ -42,7 +42,6 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             
         }, effects: { [weak self] ss -> Signal<DexOrderBook.Event> in
 
-            // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
 
             return strongSelf.interactor.displayInfo().map {.setDisplayData($0)}.asSignal(onErrorSignalWith: Signal.empty())

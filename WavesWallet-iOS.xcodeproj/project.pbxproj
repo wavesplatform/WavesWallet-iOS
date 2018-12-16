@@ -505,7 +505,7 @@
 		0AF922EE212E1234003BA067 /* AssetsSegmentedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF92290212E1234003BA067 /* AssetsSegmentedCell.swift */; };
 		0AF922EF212E1234003BA067 /* AssetsSegmentedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF92291212E1234003BA067 /* AssetsSegmentedCell.xib */; };
 		0AF922F0212E1234003BA067 /* SkeletonTableHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF92293212E1234003BA067 /* SkeletonTableHeaderFooterView.swift */; };
-		0AF922F1212E1234003BA067 /* SkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF92294212E1234003BA067 /* SkeletonCell.swift */; };
+		0AF922F1212E1234003BA067 /* SkeletonTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF92294212E1234003BA067 /* SkeletonTableCell.swift */; };
 		0AF922F2212E1234003BA067 /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF92295212E1234003BA067 /* CopyableLabel.swift */; };
 		0AF922F3212E1234003BA067 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF92296212E1234003BA067 /* SeparatorView.swift */; };
 		0AF922F4212E1234003BA067 /* TickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF92297212E1234003BA067 /* TickerView.swift */; };
@@ -1349,7 +1349,7 @@
 		0AF92290212E1234003BA067 /* AssetsSegmentedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsSegmentedCell.swift; sourceTree = "<group>"; };
 		0AF92291212E1234003BA067 /* AssetsSegmentedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetsSegmentedCell.xib; sourceTree = "<group>"; };
 		0AF92293212E1234003BA067 /* SkeletonTableHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkeletonTableHeaderFooterView.swift; sourceTree = "<group>"; };
-		0AF92294212E1234003BA067 /* SkeletonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkeletonCell.swift; sourceTree = "<group>"; };
+		0AF92294212E1234003BA067 /* SkeletonTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkeletonTableCell.swift; sourceTree = "<group>"; };
 		0AF92295212E1234003BA067 /* CopyableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
 		0AF92296212E1234003BA067 /* SeparatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		0AF92297212E1234003BA067 /* TickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickerView.swift; sourceTree = "<group>"; };
@@ -3185,7 +3185,7 @@
 			isa = PBXGroup;
 			children = (
 				0AF92293212E1234003BA067 /* SkeletonTableHeaderFooterView.swift */,
-				0AF92294212E1234003BA067 /* SkeletonCell.swift */,
+				0AF92294212E1234003BA067 /* SkeletonTableCell.swift */,
 				0A110CC52153F36F002A8FD7 /* SkeletonView.swift */,
 			);
 			path = Skeleton;
@@ -5169,7 +5169,7 @@
 				0A6AC3E221847FDC005D2525 /* AddressesKeysCoordinator.swift in Sources */,
 				E9B08822216388B100937644 /* HighlightedButton.swift in Sources */,
 				E9B087C52163886800937644 /* DexTraderContainerInputProtocol.swift in Sources */,
-				0AF922F1212E1234003BA067 /* SkeletonCell.swift in Sources */,
+				0AF922F1212E1234003BA067 /* SkeletonTableCell.swift in Sources */,
 				04D882BF21706FEF00EAAB90 /* InfoPagesCell.swift in Sources */,
 				E9F984AB20E52D8E00D2CB4D /* EnterStartViewController.swift in Sources */,
 				E9B087AF2163886800937644 /* DexOrderBookHeaderView.swift in Sources */,

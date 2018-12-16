@@ -62,12 +62,6 @@ class NetworkManager: NSObject
         
         return responseObject;
     }
-
-
-    private static var matcherURL: String {
-        //TODO: incorrect environment
-        return Environments.current.servers.matcherUrl.relativeString.appending("/")
-    }
    
     @discardableResult fileprivate class func baseRequestWithUrl(_ url: String, method: HTTPMethod, parameters: Dictionary <String, Any>?, headers: HTTPHeaders? = nil, encoding: ParameterEncoding = URLEncoding.default, complete: @escaping ( _ completeInfo: JSON?, _ error: NetworkError?) -> Void) -> DataRequest {
         
