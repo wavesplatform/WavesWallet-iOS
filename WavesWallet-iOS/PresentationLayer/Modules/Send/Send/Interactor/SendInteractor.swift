@@ -8,12 +8,6 @@
 
 import Foundation
 import RxSwift
-import SwiftyJSON
-import Alamofire
-
-private enum Constasts {
-    static let transactionApi = "/transactions/broadcast"
-}
 
 final class SendInteractor: SendInteractorProtocol {
     
@@ -97,7 +91,7 @@ final class SendInteractor: SendInteractorProtocol {
     }
     
     
-    func send(fee: Money, recipient: String, assetId: String, amount: Money, attachment: String, isAlias: Bool) -> Observable<Send.TransactionStatus> {
+    func send(fee: Money, recipient: String, assetId: String, amount: Money, attachment: String) -> Observable<Send.TransactionStatus> {
        
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<Send.TransactionStatus> in
             guard let owner = self else { return Observable.empty() }
