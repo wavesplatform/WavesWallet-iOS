@@ -1,4 +1,6 @@
 
+"newaccount.textfield.error.maximumcharacters" = "最大 %d 文字";
+
 "Receivecard.Label.minimunAmountInfo" = "最小額は %@です。最大額は %@ です。";
 
 "Send.Label.Error.notFundsFeeGateway" = "必要な手数料を支払うための資金が足りません。取引手数料%@とゲートウェイ手数料 %@ を支払う必要があります。";
@@ -23,7 +25,7 @@
 
 "addAddressbook.button.save" = "保存する";
 
-"addAddressbook.error.charactersMaximum" = "最大 %d 文字です";
+"addAddressbook.error.charactersMaximum" = "最大 %d 文字";
 
 "addAddressbook.error.charactersMinimum" = "最低 %d 文字以上です";
 
