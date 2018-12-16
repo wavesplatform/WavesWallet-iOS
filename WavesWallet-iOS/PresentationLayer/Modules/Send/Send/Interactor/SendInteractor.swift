@@ -17,7 +17,6 @@ private enum Constasts {
 
 final class SendInteractor: SendInteractorProtocol {
     
-    private let disposeBag = DisposeBag()
     private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
     private let assetInteractor = FactoryInteractors.instance.assetsInteractor
     private let auth = FactoryInteractors.instance.authorization
@@ -102,55 +101,22 @@ final class SendInteractor: SendInteractorProtocol {
        
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<Send.TransactionStatus> in
             guard let owner = self else { return Observable.empty() }
-            
-            let spec = TransactionSenderSpecifications.send()
-            return owner.transactionInteractor.send(by: <#T##TransactionSenderSpecifications#>, wallet: wallet)
-        })
-        
-        return Observable.create({ [weak self] subscribe -> Disposable in
-            
-            guard let strongSelf = self else { return Disposables.create() }
-            
-            strongSelf.auth.authorizedWallet().subscribe(onNext: { signedWallet in
-                
-                let transaction = Send.DTO.Transaction(senderPublicKey: signedWallet.publicKey,
-                                                       senderPrivateKey: signedWallet.privateKey,
-                                                       fee: fee,
-                                                       recipient: recipient,
-                                                       assetId: assetId,
-                                                       amount: amount,
-                                                       attachment: attachment,
-                                                       isAlias: isAlias)
-                
-                let params = ["type" : transaction.type,
-                              "senderPublicKey" : Base58.encode(transaction.senderPublicKey.publicKey),
-                              "fee" : transaction.fee.amount,
-                              "timestamp" : transaction.timestamp,
-                              "proofs" : transaction.proofs,
-                              "version" : transaction.version,
-                              "recipient" : transaction.recipient,
-                              "assetId" : transaction.assetId,
-                              "feeAssetId" : transaction.feeAssetId,
-                              "feeAsset" : transaction.feeAsset,
-                              "amount" : transaction.amount.amount,
-                              "attachment" : Base58.encode(Array(transaction.attachment.utf8))] as [String : Any]
-                
-                //TODO: need to use EnvironmentsRepositoryProtocol
-                
-                let url = Environments.current.servers.nodeUrl.appendingPathComponent(Constasts.transactionApi).relativeString
-                
-                NetworkManager.postRequestWithUrl(url, parameters: params, complete: { (info, error) in
-                    
-                    if let error = error {
-                        subscribe.onNext(.error(error))
-                    }
-                    else {
-                        subscribe.onNext(.success)
-                    }
+
+            let sender = SendTransactionSender(recipient: recipient,
+                                               assetId: assetId,
+                                               amount: amount.amount,
+                                               fee: fee.amount,
+                                               attachment: attachment)
+            return owner.transactionInteractor.send(by: TransactionSenderSpecifications.send(sender), wallet: wallet)
+                .flatMap({ (transaction) -> Observable<Send.TransactionStatus>  in
+                    return Observable.just(.success)
                 })
-            }).disposed(by: strongSelf.disposeBag)
-            
-            return Disposables.create()
+        })
+        .catchError({ (error) -> Observable<Send.TransactionStatus> in
+            if let error = error as? NetworkError {
+                return Observable.just(.error(error))
+            }
+            return Observable.just(.error(NetworkError.error(by: error)))
         })
     }
 }
