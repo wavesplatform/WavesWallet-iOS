@@ -1,9 +1,11 @@
 
+"newaccount.textfield.error.maximumcharacters" = "Maksimum %d karakter";
+
 "Receivecard.Label.minimunAmountInfo" = "Minimum %@, Maksimum %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "Komisyonları ödemek için yeterli bakiyeniz bulunmamaktadır. İşlem için %@ komisyon ödemeniz ve geçit için %@ komisyon ödemeniz gerekmektedir.";
 
-"Send.Label.Warning.description" = "Herhangi bir ICO'ya katılmak için  %@ çekmeyin. ICO'dan elde edeceğiniz kripto paraları hesabınıza tanımlayamayız.";
+"Send.Label.Warning.description" = "Herhangi bir ICO'ya katılmak için %@ çekmeyin. ICO'dan elde edeceğiniz kripto paraları hesabınıza tanımlayamayız.";
 
 "Send.Label.Warning.subtitle" = "%@ Adresini tespit ettik. Bu adrese gönderimler Coinomat geçidi tarafından yapılacaktır. Minimum %@, Maksimum %@.";
 
@@ -123,7 +125,7 @@
 
 "asset.cell.balance.totalBalance" = "Toplam";
 
-"asset.cell.viewHistory" = "Geçmişi görüntüle";
+"asset.cell.viewHistory" = "İşlem geçmişi";
 
 "asset.header.lastTransactions" = "Son işlemler";
 
@@ -139,7 +141,7 @@
 
 "assetlist.label.loadingAssets" = "Kripto paralar yükleniyor…";
 
-"backup.backup.navigation.title" = "Anahtar (yedek) kelimeler";
+"backup.backup.navigation.title" = "Anahtar kelimeler";
 
 "backup.confirmbackup.button.confirm" = "Onayla";
 
@@ -172,6 +174,14 @@
 "backup.savebackup.next.button.title" = "Not aldım";
 
 "backup.savebackup.next.label.title" = "Bu kelimeleri bir sonraki ekranda doğrulayacaksınız.";
+
+"biometric.localizedCancelTitle" = "İptal";
+
+"biometric.localizedFallbackTitle" = "Pin'inizi girin";
+
+"biometric.manyattempts.subtitle" = "Biyometrik kilidini açmak için hesap şifrenizle giriş yapın";
+
+"biometric.manyattempts.title" = "Çok fazla deneme";
 
 "biometric.readfromkeychain" = "Cüzdanınıza erişin";
 
@@ -241,7 +251,7 @@
 
 "dexchart.label.hours" = "saatler";
 
-"dexchart.label.loadingChart" = "Grafikler yükleniyor..";
+"dexchart.label.loadingChart" = "Grafikler yükleniyor…";
 
 "dexchart.label.minutes" = "dakikalar";
 
@@ -341,7 +351,7 @@
 
 "dexlist.navigationBar.title" = "DEX";
 
-"dexmarket.label.loadingMarkets" = "Pazarlar yükleniyor..";
+"dexmarket.label.loadingMarkets" = "Pazarlar yükleniyor…";
 
 "dexmarket.navigationBar.title" = "Pazarlar";
 
@@ -573,7 +583,7 @@
 
 "import.account.button.scan.title" = "Eşleşme kodunu tara";
 
-"import.account.label.info.step.one.detail" = "Ayarlar — Güvenlik — Eşleme kodu";
+"import.account.label.info.step.one.detail" = "Ayarlar — Genel — Export account";
 
 "import.account.label.info.step.one.title" = "Waves uygulamasına PC'nizden veya Mac'inizden giriş yapın https://client.wavesplatform.com";
 
@@ -603,7 +613,7 @@
 
 "import.scan.label.step.three.title" = "Kodu kameranız ile tarayın";
 
-"import.scan.label.step.two.detail" = "Ayarlar — Güvenlik — Eşleme kodu";
+"import.scan.label.step.two.detail" = "Ayarlar — Genel — Export account";
 
 "import.scan.label.step.two.title" = "«Eşleme kodunu Göster» 'e tıklayarak QR koda ulaşın";
 
@@ -695,7 +705,7 @@
 
 "passcode.alert.attempsended.button.cancel" = "İptal";
 
-"passcode.alert.attempsended.button.enterpassword" = "Şifre girin";
+"passcode.alert.attempsended.button.enterpassword" = "Şifre kullan";
 
 "passcode.alert.attempsended.button.ok" = "Tamam";
 
@@ -721,9 +731,19 @@
 
 "profile.alert.deleteAccount.message" = "Hesabınızı bu cihazdan silmek istiyor musunuz?";
 
+"profile.alert.deleteAccount.notSaveSeed" = "SEED'inizi kaydetmediniz";
+
 "profile.alert.deleteAccount.title" = "Hesabı sil";
 
 "profile.alert.deleteAccount.withoutbackup.message" = "Hesabı silmek tekrar döndürülemeyen kayıplara yol açabilir!";
+
+"profile.alert.setupbiometric.button.cancel" = "İptal";
+
+"profile.alert.setupbiometric.button.settings" = "Ayarlar";
+
+"profile.alert.setupbiometric.message" = "Hızlı ve güvenli giriş yapmak için biyometriyi etkinleştirmek üzere ayarlara gidin";
+
+"profile.alert.setupbiometric.title" = "Biyometri devre dışı";
 
 "profile.button.delete.title" = "Bu cihazdan hesabı sil";
 
@@ -830,6 +850,8 @@
 "receivegenerate.label.yourAddress" = "%@ adresin";
 
 "receiveinvoice.label.dollar" = "US Dollar";
+
+"scannerqrcode.label.scan" = "QR'yi Tara";
 
 "send.button.chooseFromAddressBook" = "Adres defterinden seç";
 
@@ -1097,7 +1119,7 @@
 
 "wallet.label.totalBalance" = "Toplam bakiye";
 
-"wallet.label.viewHistory" = "Geçmişi görüntüle";
+"wallet.label.viewHistory" = "İşlem geçmişi";
 
 "wallet.navigationBar.title" = "Cüzdan";
 

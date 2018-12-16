@@ -5,7 +5,7 @@
 ---
 version: 2
 jobs:
-  Moon:
+  Test:
     macos:
         xcode: "10.0.0"
     working_directory: ~/Waves/iOS
@@ -44,7 +44,7 @@ jobs:
           path: output
       - store_test_results:
           path: output/scan
-  X61:
+  Release:
     macos:
         xcode: "10.0.0"
     working_directory: ~/Waves/iOS
@@ -80,7 +80,7 @@ jobs:
           path: output
       - store_test_results:
           path: output/scan
-  Arctrus:
+  Test_fabric:
     macos:
         xcode: "10.0.0"
     working_directory: ~/Waves/iOS
@@ -120,17 +120,11 @@ workflows:
   version: 2
   Spaceship:
     jobs:
-      - Moon:
+      - Test:
           filters:
             branches:
               only: develop
-      - X61:
+      - Release:
           filters:
             branches:
-              only: /^release/v.{3,}$/
-      - Arctrus:
-          filters:
-            branches:
-              only:
-                - /^feature/IOS-.{1,}$/
-                - /^bugfix/IOS-.{1,}$/
+              only: /^release/v.{2,}$/      
