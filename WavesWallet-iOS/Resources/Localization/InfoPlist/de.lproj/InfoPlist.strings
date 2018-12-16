@@ -3,6 +3,8 @@
 
 "NSFaceIDUsageDescription" = "Zugriff zu Deinem Wallet";
 
+"NSPhotoLibraryAddUsageDescription" = "Die Kamera wird zum Scannen von QR-Codes benötigt";
+
 "cameraAccess.alert.allow" = "Kamera zulassen";
 
 "cameraAccess.alert.cancel" = "Abbrechen";

@@ -77,14 +77,14 @@ fileprivate extension WalletSortViewController {
                 .rx
                 .tap
                 .asSignal()
-                .map { WalletSort.Event.setStatus(.visibility)}
+                .map { WalletSort.Event.setStatus(.position)}
 
         let tapPositionButtonEvent =
             positionButton
                 .rx
                 .tap
                 .asSignal()
-                .map { WalletSort.Event.setStatus(.position)}
+                .map { WalletSort.Event.setStatus(.visibility)}
 
         return [sendEvent.asSignal(),
                 tapPositionButtonEvent,
@@ -115,7 +115,7 @@ private extension WalletSortViewController {
 
         self.status = status
         tableView.isEditing = status == .visibility
-        navigationItem.rightBarButtonItem = status == .visibility ? positionButton : visibilityButton
+        navigationItem.rightBarButtonItem = status == .visibility ? visibilityButton : positionButton
     }
 }
 
