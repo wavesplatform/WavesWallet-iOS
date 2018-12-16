@@ -10,9 +10,11 @@
 import UIKit
 
 private enum Constants {
-    static let timestampDateFormat = "dd.MM.yyyy '" + Localizable.Waves.Transactionhistory.Cell.Status.at + "' hh:mm"
+    static let timestampDateFormatBegin = "dd.MM.yyyy '"
+    static let timestampDateFormatEnd = "' hh:mm"
     static let okBackgroundColor = UIColor(red: 74 / 255, green: 173 / 255, blue: 2 / 255, alpha: 0.1)
-    static let warningBackgroundColor = UIColor(red: 248 / 255, green: 183 / 255, blue: 0 / 255, alpha: 0.1)    
+    static let warningBackgroundColor = UIColor(red: 248 / 255, green: 183 / 255, blue: 0 / 255, alpha: 0.1)
+    
 }
 
 final class TransactionHistoryStatusCell: UITableViewCell, NibReusable {
@@ -34,8 +36,8 @@ extension TransactionHistoryStatusCell: ViewConfiguration {
         titleLabel.text = Localizable.Waves.Transactionhistory.Cell.Status.timestamp
         
         // timestamp
-        let formatter = DateFormatter.sharedFormatter
-        formatter.dateFormat = Constants.timestampDateFormat
+        let formatter = DateFormatter.sharedFormatter        
+        formatter.dateFormat = Constants.timestampDateFormatBegin + Localizable.Waves.Transactionhistory.Cell.Status.at + Constants.timestampDateFormatEnd
         valueLabel.text = formatter.string(from: model.timestamp)
         
         // status

@@ -311,6 +311,7 @@
 		0A9797652108B18C00407F67 /* WalletModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9797642108B18C00407F67 /* WalletModuleOutput.swift */; };
 		0A98D14A2138910600550FE0 /* DataTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98D1492138910600550FE0 /* DataTransaction+Mapper.swift */; };
 		0A98D14C2138A30700550FE0 /* AnyTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98D14B2138A30700550FE0 /* AnyTransaction+Mapper.swift */; };
+		0A9CA16121C3EF20003C0A1B /* UIAlertController+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9CA16021C3EF1F003C0A1B /* UIAlertController+Factory.swift */; };
 		0A9D6B62216E059F006822C5 /* WalletTypes+DisplayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A16784720FD3E4F00AA5980 /* WalletTypes+DisplayState.swift */; };
 		0A9D6B68216E070E006822C5 /* WalletTypes+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE491F12107A51A009223DB /* WalletTypes+State.swift */; };
 		0A9D6B6A216E1C39006822C5 /* RxSwift+Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9D6B69216E1C39006822C5 /* RxSwift+Scheduler.swift */; };
@@ -1143,6 +1144,11 @@
 		0A9797642108B18C00407F67 /* WalletModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletModuleOutput.swift; sourceTree = "<group>"; };
 		0A98D1492138910600550FE0 /* DataTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataTransaction+Mapper.swift"; sourceTree = "<group>"; };
 		0A98D14B2138A30700550FE0 /* AnyTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyTransaction+Mapper.swift"; sourceTree = "<group>"; };
+		0A9CA14C21C16B4A003C0A1B /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0A9CA14D21C16B4A003C0A1B /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Waves.strings; sourceTree = "<group>"; };
+		0A9CA15021C16E6F003C0A1B /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		0A9CA15121C16E70003C0A1B /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Waves.strings"; sourceTree = "<group>"; };
+		0A9CA16021C3EF1F003C0A1B /* UIAlertController+Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Factory.swift"; sourceTree = "<group>"; };
 		0A9D6B69216E1C39006822C5 /* RxSwift+Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RxSwift+Scheduler.swift"; sourceTree = "<group>"; };
 		0AA8CAA32151133D000D09E6 /* UIView+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animation.swift"; sourceTree = "<group>"; };
 		0AA8CAC821516077000D09E6 /* Backup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Backup.storyboard; sourceTree = "<group>"; };
@@ -3059,6 +3065,7 @@
 				0AF9226A212E1233003BA067 /* UIViewController+Rx.swift */,
 				0AF92266212E1233003BA067 /* UIViewController+SafeArea.swift */,
 				0A7874A621B9530B00EB829D /* QRCodeReader+Factory.swift */,
+				0A9CA16021C3EF1F003C0A1B /* UIAlertController+Factory.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -4474,6 +4481,8 @@
 				de,
 				nl,
 				ja,
+				tr,
+				"pt-BR",
 			);
 			mainGroup = F7E954DB1EA8FE0600A804DE;
 			productRefGroup = F7E954E51EA8FE0700A804DE /* Products */;
@@ -5248,6 +5257,7 @@
 				E9C0B4A02176C49B00669D1D /* SendInteractorProtocol.swift in Sources */,
 				0A2B7D35216037FD0098438D /* AssetViewHistoryCell.swift in Sources */,
 				0AF92228212E0F1F003BA067 /* WalletLeasingBalanceCell.swift in Sources */,
+				0A9CA16121C3EF20003C0A1B /* UIAlertController+Factory.swift in Sources */,
 				0AF92225212E0F1F003BA067 /* WalletHeaderView.swift in Sources */,
 				E9DB666E21A1DDDF00962639 /* QRCodeParser.swift in Sources */,
 				0A485EA22100C4FA00079B49 /* LeaseTransaction+Mapper.swift in Sources */,
@@ -5532,6 +5542,8 @@
 				0AACD5A521A5C18300B30815 /* de */,
 				0AACD5A721A5C30B00B30815 /* nl */,
 				0A02D20921AEDD3C005DF820 /* ja */,
+				0A9CA14D21C16B4A003C0A1B /* tr */,
+				0A9CA15121C16E70003C0A1B /* pt-BR */,
 			);
 			name = Waves.strings;
 			sourceTree = "<group>";
@@ -5549,6 +5561,8 @@
 				0AACD5A421A5C18300B30815 /* de */,
 				0AACD5A621A5C30A00B30815 /* nl */,
 				0A02D20821AEDD3C005DF820 /* ja */,
+				0A9CA14C21C16B4A003C0A1B /* tr */,
+				0A9CA15021C16E6F003C0A1B /* pt-BR */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

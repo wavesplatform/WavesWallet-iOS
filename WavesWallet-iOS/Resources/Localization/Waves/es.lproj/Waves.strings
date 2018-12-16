@@ -1,9 +1,11 @@
 
+"newaccount.textfield.error.maximumcharacters" = "Máximo de %d caracteres";
+
 "Receivecard.Label.minimunAmountInfo" = "El mínimo es %@, el máximo es %@";
 
-"Send.Label.Error.notFundsFeeGateway" = "No tienes fondos suficientes para pagar las comisiones requeridas. Debe pagar %@ por comisión de transacción y %@ por comisión de salida.";
+"Send.Label.Error.notFundsFeeGateway" = "No tiene fondos suficientes para pagar las comisiones requeridas. Debe pagar %@ una comisión de transacción y %@ una cuota de acceso.";
 
-"Send.Label.Warning.description" = "No retire %@ a una ICO. No acreditaremos a su cuenta con tokens de esa venta.";
+"Send.Label.Warning.description" = "No retire %@ a una ICO. No vamos a acreditar  a su cuenta con tokens de esa venta. ";
 
 "Send.Label.Warning.subtitle" = "Detectamos %@ direcciones y le enviaremos su dinero a través de Coinomat Gateway a esa dirección. La cantidad mínima es %@, la cantidad máxima es %@.";
 
@@ -31,7 +33,7 @@
 
 "addAddressbook.label.address" = "Dirección";
 
-"addAddressbook.label.deleteAlertMessage" = "¿Estás seguro de que deseas eliminar la dirección del directorio?";
+"addAddressbook.label.deleteAlertMessage" = "¿Está seguro de que desea eliminar la dirección del directorio? ";
 
 "addAddressbook.label.edit" = "Editar";
 
@@ -41,15 +43,15 @@
 
 "addressbook.label.addressBook" = "Directorio";
 
-"addressbook.label.addressDeleted" = "Dirección elimidana";
+"addressbook.label.addressDeleted" = "Dirección borrado";
 
-"addressbook.label.noInfo" = "Nada por aquí…\nPuedes crear una nueva dirección";
+"addressbook.label.noInfo" = "No hay nada por aquí…\nPuede crear una nueva dirección";
 
 "addresseskeys.cell.address.title" = "Su dirección";
 
-"addresseskeys.cell.aliases.subtitle.withaliaces" = "Tienes %d";
+"addresseskeys.cell.aliases.subtitle.withaliaces" = "Tiene %d";
 
-"addresseskeys.cell.aliases.subtitle.withoutaliaces" = "Usted no tiene";
+"addresseskeys.cell.aliases.subtitle.withoutaliaces" = "No dispone ";
 
 "addresseskeys.cell.aliases.title" = "Alias";
 
@@ -59,33 +61,33 @@
 
 "addresseskeys.cell.publickey.title" = "Llave pública";
 
-"addresseskeys.cell.seed.title" = "Semilla";
+"addresseskeys.cell.seed.title" = "SEED";
 
 "addresseskeys.navigation.title" = "Direcciones, llaves";
 
-"aliases.cell.head.title" = "Tus alias";
+"aliases.cell.head.title" = "Sus alias";
 
 "aliases.view.info.button.create" = "Crear un nuevo alias";
 
-"aliases.view.info.label.fee" = "Tarifa de Transacción 0.001 Waves";
+"aliases.view.info.label.fee" = "Cuota de Transacción es 0.001 Waves";
 
-"aliases.view.info.label.secondsubtitle" = "Su alias debe contener entre 4 y 30 caracteres, y debe contener solo letras minúscula, dígitos y símbolos (@, -, _, etc.)";
+"aliases.view.info.label.secondsubtitle" = "Su alias debe contener entre 4 y 30 caracteres, y debe contener sólo letras minúscula, dígitos y símbolos (@, -, _, etc.)";
 
-"aliases.view.info.label.subtitle" = "Un Alias es un apodo para su dirección. Puede utilizar un alias en lugar de una dirección para realizar transacciones.";
+"aliases.view.info.label.subtitle" = "Un Alias es un apodo para su dirección. Puede utilizar un alias en lugar de una dirección para realizar sus transacciones.";
 
-"aliases.view.info.label.title" = "Acerca de los alias";
+"aliases.view.info.label.title" = "Sobre los alias";
 
 "aliaseswithout.view.info.button.create" = "Crear nuevo alias";
 
-"aliaseswithout.view.info.label.fee" = "Comisión por Transacción 0.001 Waves";
+"aliaseswithout.view.info.label.fee" = "Comisión por cada transacción es 0.001 Waves";
 
-"aliaseswithout.view.info.label.secondsubtitle" = "Su alias debe contener entre 4 y 30 caracteres, y debe contener solo letras minúscula, dígitos y símbolos (@, -, _, etc.)";
+"aliaseswithout.view.info.label.secondsubtitle" = "Su alias debe contener entre 4 y 30 caracteres, y debe contener sólo letras minúscula, dígitos y símbolos (@, -, _, etc.)";
 
-"aliaseswithout.view.info.label.subtitle" = "Un Alias es un apodo para su dirección. Puede utilizar un alias en lugar de una dirección para realizar transacciones.";
+"aliaseswithout.view.info.label.subtitle" = "Un Alias es un apodo para su dirección. Puede utilizar un alias en lugar de una dirección para realizar sus transacciones.";
 
-"aliaseswithout.view.info.label.title" = "No tienes alias";
+"aliaseswithout.view.info.label.title" = "No tiene alias";
 
-"asset.cell.assetInfo.cantPerformTransactions" = "No puede realizar transacciones con este activo.";
+"asset.cell.assetInfo.cantPerformTransactions" = "No puede realizar transacciones con este activo";
 
 "asset.cell.assetInfo.decimalPoints" = "Puntos decimales";
 
@@ -119,71 +121,79 @@
 
 "asset.cell.balance.inOrderBalance" = "En orden ";
 
-"asset.cell.balance.leased" = "Arrendado";
+"asset.cell.balance.leased" = "Leased";
 
 "asset.cell.balance.totalBalance" = "Total";
 
-"asset.cell.viewHistory" = "Ver historial";
+"asset.cell.viewHistory" = "Historial de transacciones";
 
 "asset.header.lastTransactions" = "Ultimas transacciones";
 
-"asset.header.notHaveTransactions" = "No tienes ninguna transacción.";
+"asset.header.notHaveTransactions" = "No tiene ninguna transacción.";
 
 "assetlist.button.allList" = "Toda la lista";
 
-"assetlist.button.myList" = "Con balance";
+"assetlist.button.myList" = "Con saldo";
 
-"assetlist.button.withBalance" = "Con balance";
+"assetlist.button.withBalance" = "Con saldo";
 
-"assetlist.label.assets" = "Bienes";
+"assetlist.label.assets" = "Activos";
 
 "assetlist.label.loadingAssets" = "Cargando activos…";
 
-"backup.backup.navigation.title" = "Frase de respaldo";
+"backup.backup.navigation.title" = "Frase de seguridad";
 
 "backup.confirmbackup.button.confirm" = "Confirmar";
 
-"backup.confirmbackup.error.label" = "Orden equivocada, inténtalo de nuevo";
+"backup.confirmbackup.error.label" = "Orden equivocada, vuelva a intentarlo. ";
 
-"backup.confirmbackup.info.label" = "Por favor, toque cada palabra en el orden correcto";
+"backup.confirmbackup.info.label" = "Por favor, deberá escoger cada palabra en el orden correcto";
 
 "backup.confirmbackup.navigation.title" = "Confirmar la copia de seguridad";
 
 "backup.infobackup.button.iunderstand" = "Entiendo";
 
-"backup.infobackup.label.detail" = "Waves Platform quiere advertirte sobre el incremento de ataques de estafa y suplantación de identidad durante el último mes. Los estafadores ocultan su malware en sus propias versiones del cliente Waves y prometen bonificaciones y descuentos para atraer a los usuarios.\n\nPor favor, ten cuidado y nunca introduzcas tu frase de respaldo (SEED) en estos 'clientes', porque tu cuenta puede ser comprometida y perder todos tus fondos. \n\nDeberías confiar SOLO en el cliente oficial de Waves.";
+"backup.infobackup.label.detail" = "Waves Platform quiere advertirle sobre el incremento de ataques de estafa y suplantación de identidad durante los últimos meses. Los estafadores ocultan su malware en sus propias versiones del cliente Waves y prometen bonificaciones y descuentos para atraer a los usuarios.\n\nPor favor, tenga cuidado y nunca introduzca su frase de respaldo (SEED) en estos 'clientes', porque su cuenta puede ser comprometida y perder todos sus fondos. \n\nDebería confiar SÓLO en el cliente oficial de Waves.";
 
-"backup.infobackup.label.title" = "¡Trata tu frase de recuperación con cuidado!";
+"backup.infobackup.label.title" = "¡Trate su frase de seguridad con cuidado!";
 
-"backup.needbackup.button.backupnow" = "Hacer el respaldo ahora";
+"backup.needbackup.button.backupnow" = "Hacer el backup ahora";
 
-"backup.needbackup.button.doitlater" = "Hazlo después";
+"backup.needbackup.button.doitlater" = "Hacerlo más tarde";
 
-"backup.needbackup.label.detail" = "Debes guardar la frase secreta. Esta es crucial para acceder a tu cuenta.";
+"backup.needbackup.label.detail" = "Debe guardar su frase de seguridad. Es crucial para acceder a su cuenta.";
 
-"backup.needbackup.label.title" = "Sin respaldo de seguridad, no hay dinero";
+"backup.needbackup.label.title" = "No dinero sin su frase de seguridad, ";
 
-"backup.savebackup.copy.label.title" = "Por favor escriba cuidadosamente estas 15 palabras o cópielas";
+"backup.savebackup.copy.label.title" = "Por favor, escriba cuidadosamente estas 15 palabras o cópielas";
 
-"backup.savebackup.label.title" = "Ya que solo usted controla su dinero, deberá guardar su frase de respaldo en caso de que esta aplicación se elimine";
+"backup.savebackup.label.title" = "Sólo controla su dinero, deberá guardar su frase de seguridad en caso de que esta aplicación se haya eliminado";
 
-"backup.savebackup.navigation.title" = "Guardar frase de respaldo";
+"backup.savebackup.navigation.title" = "Guardar la frase de seguridad";
 
-"backup.savebackup.next.button.title" = "Las he escrito";
+"backup.savebackup.next.button.title" = "Les he escrito";
 
-"backup.savebackup.next.label.title" = "Confirmarás esta frase en la siguiente pantalla";
+"backup.savebackup.next.label.title" = "Confirmará esta frase en la siguiente pantalla";
 
-"biometric.readfromkeychain" = "Acceso a tu cartera";
+"biometric.localizedCancelTitle" = "Cancelar";
 
-"biometric.saveinkeychain" = "Acceso a tu cartera";
+"biometric.localizedFallbackTitle" = "Introducir la contraseña";
+
+"biometric.manyattempts.subtitle" = "Para desbloquear biométrico, inicie sesión con la contraseña de su cuenta";
+
+"biometric.manyattempts.title" = "Demasiados intentos";
+
+"biometric.readfromkeychain" = "Acceso a su cartera";
+
+"biometric.saveinkeychain" = "Acceso a su cartera";
 
 "cameraAccess.alert.allow" = "Permitir cámara";
 
 "cameraAccess.alert.cancel" = "Cancelar";
 
-"cameraAccess.alert.message" = "Se requiere acceso a la cámara para hacer un uso completo de esta aplicación";
+"cameraAccess.alert.message" = "Se requiere acceso a la cámara para usar esta aplicación";
 
-"cameraAccess.alert.title" = "Necesita acceso a la cámara";
+"cameraAccess.alert.title" = "Se requiere acceso a la cámara";
 
 "changepassword.button.confirm.title" = "Confirmar";
 
@@ -205,11 +215,11 @@
 
 "chooseaccount.alert.button.ok" = "Si";
 
-"chooseaccount.alert.delete.message" = "¿Estás seguro de que quieres eliminar esta cuenta?";
+"chooseaccount.alert.delete.message" = "¿Seguro que quiere eliminar esta cuenta?";
 
 "chooseaccount.alert.delete.title" = "Borrar cuenta";
 
-"chooseaccount.label.nothingWallets" = "Nada por aquí…\nNo tienes cuentas guardadas";
+"chooseaccount.label.nothingWallets" = "No hay nada  aquí…\nNo tiene cuentas guardadas";
 
 "chooseaccount.navigation.title" = "Elegir cuenta";
 
@@ -229,7 +239,7 @@
 
 "createalias.navigation.title" = "Nuevo alias";
 
-"dex.general.error.nothingHere" = "Nada aquí…";
+"dex.general.error.nothingHere" = "No hay nada aquí…";
 
 "dex.general.error.somethingWentWrong" = "Algo salió mal";
 
@@ -251,11 +261,11 @@
 
 "dexcompleteorder.label.open" = "Abrir";
 
-"dexcompleteorder.label.orderIsCreated" = "La orden fue creada";
+"dexcompleteorder.label.orderIsCreated" = " Se crea la orden";
 
 "dexcompleteorder.label.price" = "Precio";
 
-"dexcompleteorder.label.status" = "Estatus";
+"dexcompleteorder.label.status" = "Estado";
 
 "dexcompleteorder.label.time" = "Tiempo";
 
@@ -269,7 +279,7 @@
 
 "dexcreateorder.button.day" = "día";
 
-"dexcreateorder.button.days" = "dias";
+"dexcreateorder.button.days" = "días";
 
 "dexcreateorder.button.hour" = "hora";
 
@@ -289,9 +299,9 @@
 
 "dexcreateorder.label.bigValue" = "El valor es demasiado grande";
 
-"dexcreateorder.label.days" = "dias";
+"dexcreateorder.label.days" = "días";
 
-"dexcreateorder.label.error.notFundsFee" = "No tienes fondos suficientes para pagar las tarifas requeridas.";
+"dexcreateorder.label.error.notFundsFee" = "No tiene fondos suficientes para pagar las cuotas requeridas.";
 
 "dexcreateorder.label.fee" = "Comisión ";
 
@@ -315,7 +325,7 @@
 
 "dexlasttrades.label.amount" = "Cantidad";
 
-"dexlasttrades.label.emptyData" = "Nada por aquí…\nEl historial comercial está vacío";
+"dexlasttrades.label.emptyData" = "No hay nada  aquí…\nEl historial de trading está vacía";
 
 "dexlasttrades.label.loadingLastTrades" = "Cargando las últimas operaciones…";
 
@@ -323,13 +333,13 @@
 
 "dexlasttrades.label.sum" = "Suma";
 
-"dexlasttrades.label.time" = "Tiempo";
+"dexlasttrades.label.time" = "Hora";
 
 "dexlist.button.addMarkets" = "Añadir Mercados";
 
 "dexlist.label.decentralisedExchange" = "Exchange descentralizado";
 
-"dexlist.label.description" = "Intercambie de forma rápida y segura. Usted conserva el control completo sobre sus fondos cuando los negocia en nuestra bolsa descentralizada.";
+"dexlist.label.description" = "Trading de forma rápida y segura. Conserve el control total sobre sus fondos en nuestro exchange descentralizado. ";
 
 "dexlist.label.lastUpdate" = "Última actualización";
 
@@ -353,7 +363,7 @@
 
 "dexmyorders.label.date" = "Fecha";
 
-"dexmyorders.label.emptyData" = "Nada aquí…\nNo tienes ninguna orden.";
+"dexmyorders.label.emptyData" = "No hay nada aquí…\nNo tiene ninguna orden.";
 
 "dexmyorders.label.loadingLastTrades" = "Cargando órdenes…";
 
@@ -369,7 +379,7 @@
 
 "dexmyorders.label.status.cancelled" = "Cancelado";
 
-"dexmyorders.label.status.filled" = "Lleno";
+"dexmyorders.label.status.filled" = "Completo";
 
 "dexmyorders.label.status.partiallyFilled" = "Parcial";
 
@@ -383,11 +393,11 @@
 
 "dexorderbook.label.amount" = "Cantidad";
 
-"dexorderbook.label.emptyData" = "Nada por aquí…\nEl libro de pedidos está vacío";
+"dexorderbook.label.emptyData" = "No hay nada  aquí…\nLa cartera de pedidos está vacía";
 
 "dexorderbook.label.lastPrice" = "ULTIMO PRECIO";
 
-"dexorderbook.label.loadingOrderbook" = "Cargando libro de pedidos…";
+"dexorderbook.label.loadingOrderbook" = "Cargando cartera de pedidos…";
 
 "dexorderbook.label.price" = "Precio";
 
@@ -399,11 +409,11 @@
 
 "dextradercontainer.button.chart" = "Gráfico";
 
-"dextradercontainer.button.lastTrades" = "Últimos intercambios";
+"dextradercontainer.button.lastTrades" = "Últimos transacciones ";
 
-"dextradercontainer.button.myOrders" = "Mis ordenes";
+"dextradercontainer.button.myOrders" = "Mis órdenes ";
 
-"dextradercontainer.button.orderbook" = "Libro de Órdenes";
+"dextradercontainer.button.orderbook" = "Cartera de pedidos ";
 
 "editaccountname.button.save" = "Guardar";
 
@@ -411,17 +421,19 @@
 
 "editaccountname.navigation.title" = "Editar nombre";
 
-"enter.block.blockchain.text" = "Conviértete en parte de un área de rápido crecimiento del mundo criptográfico. Usted es la única persona que puede acceder a sus criptoactivos.";
+"enter.block.blockchain.text" = "Conviértase en parte de un área de rápido crecimiento del mundo criptográfico. Es la única persona que puede acceder a sus criptomonedas.";
 
-"enter.block.blockchain.title" = "Empieza con Blockchain";
+"enter.block.blockchain.title" = "Comenzar con Blockchain";
 
-"enter.block.exchange.text" = "Intercambie de forma rápida y segura. Usted conserva el control completo sobre sus fondos cuando los negocia en nuestro exchange descentralizado.";
+"enter.block.exchange.text" = "Trading de forma rápida y segura. Conserve el control total sobre sus fondos en nuestro exchange descentralizado. ";
 
-"enter.block.exchange.title" = "Intercambio Descentralizado";
+"enter.block.exchange.title" = "Exchange Descentralizado";
+
+"enter.block.token.text" = "Emita sus propios tokens. Pueden integrarse en su negocio no sólo como moneda interna, sino también como un token para la votación descentralizada, un sistema de calificación o programa de lealtad.";
 
 "enter.block.token.title" = "Token Launcher";
 
-"enter.block.wallet.text" = "Almacene, administre y reciba intereses sobre el saldo de sus activos digitales de forma fácil y segura.";
+"enter.block.wallet.text" = "Almacenar, manejar y recibir intereses sobre el saldo de activos digitales, fácil y segura.";
 
 "enter.block.wallet.title" = "Cartera";
 
@@ -431,7 +443,7 @@
 
 "enter.button.importAccount.detail" = "A través del código de emparejamiento o manualmente";
 
-"enter.button.importAccount.error.insecureSeed" = "SEED insegura";
+"enter.button.importAccount.error.insecureSeed" = "SEED no es segura";
 
 "enter.button.importAccount.title" = "Importar cuenta";
 
@@ -443,15 +455,15 @@
 
 "enter.language.navigation.title" = "Cambiar idioma";
 
-"general.biometric.faceID.title" = "ID de rostro";
+"general.biometric.faceID.title" = "Face ID";
 
-"general.biometric.touchID.title" = "ID de tacto ";
+"general.biometric.touchID.title" = "ID táctil";
 
-"general.error.subtitle.notfound" = "No te preocupes, ya estamos solucionando este problema.\nPor lo pronto todo funcionará!";
+"general.error.subtitle.notfound" = "No se preocupe, ya estamos solucionando este problema.\nTodo funcionará bien!";
 
 "general.error.title.noconnectiontotheinternet" = "No hay conexión a internet";
 
-"general.error.title.notfound" = "Oh… ¡Está todo roto!";
+"general.error.title.notfound" = "Oh… ¡Todo está roto!";
 
 "general.label.title.myasset" = "/ Mi activo";
 
@@ -473,7 +485,7 @@
 
 "general.tost.saveBackup.subtitle" = "Guarde su SEED de forma segura, es la única forma de restaurar su cartera.";
 
-"general.tost.saveBackup.title" = "Guarda tu frase de respaldo (SEED)";
+"general.tost.saveBackup.title" = "Guarde su frase de seguridad(SEED)";
 
 "hello.button.continue" = "Continuar";
 
@@ -481,37 +493,37 @@
 
 "hello.button.understand" = "Entiendo";
 
-"hello.page.info.fifth.detail.first" = "No abra correos electrónicos o enlaces de remitentes desconocidos.";
+"hello.page.info.fifth.detail.first" = "No abra correos o enlaces de remitentes desconocidos. ";
 
-"hello.page.info.fifth.detail.fourth" = "No acceda a su cartera cuando utilice una red Wi-Fi pública o con un dispositivo que no le pertenece.";
+"hello.page.info.fifth.detail.fourth" = "No acceder a su cartera cuando utilice una red Wi-Fi pública o cualquier otro dispositivo.";
 
-"hello.page.info.fifth.detail.second" = "Actualiza regularmente tu sistema operativo.";
+"hello.page.info.fifth.detail.second" = "Actualice regularmente su sistema operativo.";
 
-"hello.page.info.fifth.detail.third" = "Utiliza softwares de seguridad oficiales. No instale softwares desconocidos que puedan ser objeto de hackeo.";
+"hello.page.info.fifth.detail.third" = "Utilice softwares de seguridad oficiales. No instale softwares desconocidos que puedan ser objeto de hackeo.";
 
 "hello.page.info.fifth.title" = "Cómo protegerse de los ladrones de identidad";
 
-"hello.page.info.first.detail" = "Tómese un tiempo para comprender algunas cosas importantes acerca de su propia seguridad.\n\nNo podemos recuperar sus fondos ni congelar su cuenta si visita un sitio de suplantación de identidad o si pierde su frase de respaldo (SEED).\n\nSi continúa usando nuestra plataforma, acepta todos los riesgos asociados con la pérdida de su SEED, que incluye pero no se limita a la incapacidad de obtener sus fondos y disponer de ellos. En caso de que pierda su SEED, acepta y reconoce que la Plataforma Waves no será responsable de las consecuencias negativas de esto.";
+"hello.page.info.first.detail" = "Por favor tome tiempo para entender algunas cosas importantes para su propia seguridad.\n\nNo puede recuperar sus fondos ni congelar su cuenta si visita un sitio de phishing o perder su frase backup (aka SEED phrase).\n\nSi continúa usando nuestra plataforma, acepta todos los riesgos asociados con la pérdida de su SEED, que incluye pero no se limita a la incapacidad de obtener sus fondos y disponer de ellos. En caso de que  pierda su SEED, acepta y reconoce que la plataforma de Waves no sería responsable de las consecuencias negativas de ésto.";
 
-"hello.page.info.first.title" = "¡Bienvenido a la plataforma Waves!";
+"hello.page.info.first.title" = "¡Bienvenido a la plataforma de Waves!";
 
-"hello.page.info.fourth.detail" = "Una de las formas más comunes de estafa es la suplantación de identidad, cosa que ocurre cuando los estafadores crean comunidades falsas en Facebook u otros sitios web que se parecen a los auténticos.";
+"hello.page.info.fourth.detail" = "Una de las formas más comunes de estafa es phishing, es cuando los estafadores crean comunidades falsas en Facebook u otros sitios web que parecen similares a los auténticos.";
 
 "hello.page.info.fourth.title" = "Cómo protegerse de los ladrones de identidad";
 
-"hello.page.info.second.detail" = "Al registrar su cuenta, se le pedirá que guarde su frase secreta (SEED) y que proteja su cuenta con una contraseña. En los servidores centralizados, se presta especial atención a la contraseña, que se puede cambiar y restablecer por correo electrónico, si es necesario. Sin embargo, en plataformas descentralizadas como Waves, todo está organizado de manera diferente.";
+"hello.page.info.second.detail" = "Al registrar su cuenta, se le pedirá que guarde su frase secreta (SEED) para proteger su cuenta con una contraseña. En los servidores centralizados, se presta especial atención a la contraseña, que se puede cambiar y restablecer por correo electrónico, si es necesario. Sin embargo, en plataformas descentralizadas como Waves, todo está organizado de manera diferente.";
 
-"hello.page.info.second.title" = "Lo que necesitas saber sobre tu semilla (SEED)";
+"hello.page.info.second.title" = "Lo que necesita saber sobre su semilla (SEED)";
 
-"hello.page.info.third.detail.first" = "Usted usa su cartera de forma anónima, lo que significa que su cuenta no está conectada a una cuenta de correo electrónico ni a ningún otro dato de identificación.";
+"hello.page.info.third.detail.first" = "Utilice su cartera de forma anónima, lo que significa que su cuenta no está conectada con una cuenta de correo electrónico ni a ningún otro dato de identificación.";
 
-"hello.page.info.third.detail.fourth" = "No puedes cambiar tu frase secreta. Si accidentalmente lo envió a alguien o sospecha que los estafadores lo han tomado, cree una nueva cartera de Waves de inmediato y transfiera sus fondos.";
+"hello.page.info.third.detail.fourth" = "No se puede cambiar la frase secreta. Si accidentalmente la envió a alguien o sospecha que los estafadores han tomado ésta, crear una nueva cartera Waves inmediatamente y transferir sus fondos a la misma.";
 
-"hello.page.info.third.detail.second" = "Su contraseña protege su cuenta cuando trabaja en un determinado dispositivo o navegador. Es necesario para garantizar que su frase secreta no se guarde en el almacenamiento.";
+"hello.page.info.third.detail.second" = "La contraseña protege su cuenta cuando se trabaja sobre un determinado dispositivo o navegador. Es necesario para asegurarse que su frase secreta no se guarde en el almacenamiento.";
 
-"hello.page.info.third.detail.third" = "Si olvida su contraseña, puede crear fácilmente una nueva utilizando el formulario de recuperación de cuenta a través de su frase secreta. Sin embargo, si pierde su frase secreta, no tendrá forma de acceder a su cuenta.";
+"hello.page.info.third.detail.third" = "Si olvida su contraseña, puede crear fácilmente una nueva utilizando el formulario de la recuperación de cuenta a través de su frase secreta. Sin embargo, si pierde su frase secreta, no tendrá ninguna manera de tener acceso a su cuenta.";
 
-"hello.page.info.third.title" = "Lo que necesitas saber sobre tu semilla (SEED)";
+"hello.page.info.third.title" = "Lo que necesita saber sobre su semilla (SEED)";
 
 "history.navigationBar.title" = "Historial";
 
@@ -521,11 +533,11 @@
 
 "history.segmentedControl.canceled" = "Cancelado";
 
-"history.segmentedControl.exchanged" = "Intercambiado";
+"history.segmentedControl.exchanged" = "intercambiado";
 
 "history.segmentedControl.issued" = "Emitido";
 
-"history.segmentedControl.leased" = "Arrendado";
+"history.segmentedControl.leased" = "Leased";
 
 "history.segmentedControl.received" = "Recibido";
 
@@ -537,17 +549,17 @@
 
 "history.transaction.title.alias" = "Crear alias";
 
-"history.transaction.title.canceledLeasing" = "Arrendamiento cancelado";
+"history.transaction.title.canceledLeasing" = "Leasing cancelado";
 
 "history.transaction.title.data" = "Transacción de datos";
 
-"history.transaction.title.exchange" = "Intercambiar";
+"history.transaction.title.exchange" = "Exchange";
 
-"history.transaction.title.incomingLeasing" = "Arrendamiento entrante";
+"history.transaction.title.incomingLeasing" = "Leasing recibida";
 
-"history.transaction.title.massreceived" = "Mass recibido";
+"history.transaction.title.massreceived" = "Recibido agrupado";
 
-"history.transaction.title.masssent" = "Mass enviado";
+"history.transaction.title.masssent" = "Enviado agrupado";
 
 "history.transaction.title.received" = "Recibido";
 
@@ -555,7 +567,7 @@
 
 "history.transaction.title.sent" = "Enviado";
 
-"history.transaction.title.startedLeasing" = "Arrendamiento comenzado";
+"history.transaction.title.startedLeasing" = "Leasing empezado";
 
 "history.transaction.title.tokenBurn" = "Quemar Token";
 
@@ -567,17 +579,17 @@
 
 "history.transaction.value.data" = "Entrada en el blockchain";
 
-"import.account.button.enter.title" = "Introduce la semilla manualmente";
+"import.account.button.enter.title" = "Introduzca la semilla manualmente";
 
 "import.account.button.scan.title" = "Escanear código de emparejamiento";
 
-"import.account.label.info.step.one.detail" = "Ajustes — Seguridad — Código de emparejamiento";
+"import.account.label.info.step.one.detail" = "Configuración — General — Exportar la cuenta";
 
-"import.account.label.info.step.one.title" = "Inicie sesión en su Waves Cliente a través de su PC o Mac en https://client.wavesplatform.com";
+"import.account.label.info.step.one.title" = "Inicie su sesión Waves Cliente a través de su PC o Mac en https://client.wavesplatform.com";
 
-"import.account.label.info.step.two.title" = "Haga clic en «Mostrar código de emparejamiento» para revelar un código QR. Escanea el código con tu cámara.";
+"import.account.label.info.step.two.title" = "Haga clic en «Mostrar código de emparejamiento» para revelar un código QR. Escanear el código con su cámara.";
 
-"import.account.navigation.title" = "Importar Cuenta";
+"import.account.navigation.title" = "Importar cuenta";
 
 "import.general.error.alreadyinuse" = "Ya está en uso";
 
@@ -589,61 +601,61 @@
 
 "import.manually.button.continue" = "Continuar";
 
-"import.manually.label.address.placeholder" = "Tu semilla son las 15 palabras que guardaste al crear tu cuenta";
+"import.manually.label.address.placeholder" = "Su semilla es las 15 palabras que ha guardado durante la creación de su cuenta";
 
-"import.manually.label.address.title" = "La semilla de tu cuenta";
+"import.manually.label.address.title" = "La semilla de su cuenta";
 
 "import.password.button.continue" = "Continuar";
 
 "import.scan.button.title" = "Escanear código de emparejamiento";
 
-"import.scan.label.step.one.title" = "Inicie sesión en su cliente Waves a través de la web o Mac, PC";
+"import.scan.label.step.one.title" = "Conectarse a su cuenta de cliente Waves a través de la web o Mac, PC ";
 
-"import.scan.label.step.three.title" = "Escanea el código con tu cámara";
+"import.scan.label.step.three.title" = "Escanear el código con su cámara";
 
-"import.scan.label.step.two.detail" = "Ajustes — Seguridad — Código de emparejamiento";
+"import.scan.label.step.two.detail" = "Configuración — General — Exportar la cuenta";
 
 "import.scan.label.step.two.title" = "Haga clic en «Mostrar código de emparejamiento» para revelar un código QR";
 
 "import.welcome.button.continue" = "Continuar";
 
-"import.welcome.label.address.placeholder" = "Tu semilla son las 15 palabras que guardaste al crear tu cuenta";
+"import.welcome.label.address.placeholder" = "Su semilla es las 15 palabras que ha guardado durante la creación de su cuenta";
 
-"import.welcome.label.address.title" = "La semilla de tu cuenta";
+"import.welcome.label.address.title" = "La semilla de su cuenta";
 
-"import.welcome.navigation.title" = "Bienvenido de regreso";
+"import.welcome.navigation.title" = "Bienvenido";
 
 "legal.checkbox.box.button.confirm" = "Confirmar y comenzar";
 
-"legal.checkbox.box.first" = "Entiendo que mis fondos se mantienen de forma segura en este dispositivo, no por una empresa";
+"legal.checkbox.box.first" = "Entiendo que mis fondos será mantenidos de forma segura en este dispositivo, no por una empresa";
 
-"legal.checkbox.box.second" = "Entiendo que si esta aplicación se mueve a otro dispositivo o se elimina, mis Waves solo se pueden recuperar con la frase de respaldo";
+"legal.checkbox.box.second" = "Entiendo que si esta aplicación se mueve a otro dispositivo o se elimina, mis Waves sólo se pueden recuperar con la frase de seguridad";
 
-"legal.checkbox.box.subtitle" = "Waves es diferente — no puede ser mantenido de forma segura por un banco o servicio web";
+"legal.checkbox.box.subtitle" = "Waves es diferente — no se puede mantener de forma segura por un banco o un servicio web (not sure about this phrase)";
 
-"legal.checkbox.box.termsOfUse" = "Términos de Uso";
+"legal.checkbox.box.termsOfUse" = "Condiciones de uso";
 
-"legal.checkbox.box.third" = "He leído, entiendo y acepto el";
+"legal.checkbox.box.third" = "He leído, entendido y acepto ";
 
 "legal.checkbox.box.title" = "¡Hecho!";
 
-"menu.button.supportwavesplatform" = "Soporte Wavesplatform";
+"menu.button.supportwavesplatform" = "Soporte de Wavesplatform";
 
 "menu.button.termsandconditions" = "Términos y Condiciones";
 
 "menu.button.whitepaper" = "Whitepaper";
 
-"menu.label.communities" = "Únete a la comunidad de Waves";
+"menu.label.communities" = "Únase a la comunidad de Waves";
 
-"menu.label.description" = "Manténgase al día con las últimas noticias y artículos, y descubra todo lo que sucede en la plataforma Waves";
+"menu.label.description" = "Mantenerse al día con las últimas noticias y artículos, y descubra todos los eventos relacionados con la plataforma de Waves";
 
 "myaddress.button.copy.title" = "Copiar";
 
 "myaddress.button.share.title" = "Compartir";
 
-"myaddress.cell.aliases.subtitle.withaliaces" = "Tienes %d";
+"myaddress.cell.aliases.subtitle.withaliaces" = "Tiene %d";
 
-"myaddress.cell.aliases.subtitle.withoutaliaces" = "Usted no tiene";
+"myaddress.cell.aliases.subtitle.withoutaliaces" = "Ud no tiene";
 
 "myaddress.cell.aliases.title" = "Alias";
 
@@ -659,23 +671,23 @@
 
 "networksettings.navigation.title" = "Red";
 
-"networksettings.textfield.spamfilter.title" = "Filtro de spam";
+"networksettings.textfield.spamfilter.title" = "Filtro contra spam";
 
-"newaccount.avatar.detail" = "No puedes cambiarlo más tarde";
+"newaccount.avatar.detail" = "No podrá volver a cambiarla más tarde";
 
-"newaccount.avatar.title" = "Elige tu dirección única de avatar";
+"newaccount.avatar.title" = "Elija su dirección única de su avatar";
 
-"newaccount.backup.navigation.title" = "Nueva Cuenta";
+"newaccount.backup.navigation.title" = "Cuenta nueva";
 
 "newaccount.error.noavatarselected" = "Ningún avatar seleccionado";
 
-"newaccount.main.navigation.title" = "Nueva Cuenta";
+"newaccount.main.navigation.title" = "Cuenta nueva";
 
-"newaccount.secret.navigation.title" = "Nueva Cuenta";
+"newaccount.secret.navigation.title" = "Cuenta nueva";
 
-"newaccount.textfield.accountName.title" = "Nombre de la cuenta";
+"newaccount.textfield.accountName.title" = "Nombre de cuenta";
 
-"newaccount.textfield.confirmpassword.title" = "Confirmar contraseña";
+"newaccount.textfield.confirmpassword.title" = "Confirme la contraseña";
 
 "newaccount.textfield.createpassword.title" = "Crea una contraseña";
 
@@ -687,9 +699,9 @@
 
 "newaccount.textfield.error.minimumcharacters" = "Mínimo %d caracteres";
 
-"newaccount.textfield.error.passwordnotmatch" = "La contraseña no coincide";
+"newaccount.textfield.error.passwordnotmatch" = "La contraseña no coincide. ";
 
-"newaccount.textfield.error.wrongordertryagain" = "Orden equivocada, inténtalo de nuevo";
+"newaccount.textfield.error.wrongordertryagain" = "Orden equivocada, vuelva a intentarlo. ";
 
 "passcode.alert.attempsended.button.cancel" = "Cancelar";
 
@@ -697,31 +709,41 @@
 
 "passcode.alert.attempsended.button.ok" = "Ok";
 
-"passcode.alert.attempsended.subtitle" = "Para desbloquear, inicia sesión con la contraseña de tu cuenta";
+"passcode.alert.attempsended.subtitle" = "Para desbloquear, inicie sesión con la contraseña de su cuenta";
 
 "passcode.alert.attempsended.title" = "Demasiados intentos";
 
 "passcode.button.forgotPasscode.title" = "Usar contraseña de la cuenta";
 
-"passcode.label.forgotPasscode.title" = "¿Olvidó la contraseña?";
+"passcode.label.forgotPasscode.title" = "¿Olvidó su contraseña? ";
 
 "passcode.label.passcode.create" = "Crear una contraseña";
 
-"passcode.label.passcode.enter" = "Introduce un código de acceso";
+"passcode.label.passcode.enter" = "Introduzca su código de acceso";
 
-"passcode.label.passcode.old" = "Ingrese el código de acceso anterior";
+"passcode.label.passcode.old" = "Introduzca su contraseña anterior";
 
-"passcode.label.passcode.verify" = "Verifica tu contraseña";
+"passcode.label.passcode.verify" = "Verifique su contraseña";
 
 "profile.alert.deleteAccount.button.cancel" = "Cancelar";
 
 "profile.alert.deleteAccount.button.delete" = "Borrar";
 
-"profile.alert.deleteAccount.message" = "¿Estás seguro de que deseas eliminar esta cuenta del dispositivo?";
+"profile.alert.deleteAccount.message" = "¿Está seguro que desea eliminar su cuenta en este dispositivo?";
+
+"profile.alert.deleteAccount.notSaveSeed" = "No has guardado de su cuenta (SEED)";
 
 "profile.alert.deleteAccount.title" = "Borrar cuenta";
 
-"profile.alert.deleteAccount.withoutbackup.message" = "¡Eliminar una cuenta conducirá a su irreparable pérdida!";
+"profile.alert.deleteAccount.withoutbackup.message" = "¡Eliminar una cuenta dará lugar a la pérdida irremediable!";
+
+"profile.alert.setupbiometric.button.cancel" = "Cancelar";
+
+"profile.alert.setupbiometric.button.settings" = "Configuración";
+
+"profile.alert.setupbiometric.message" = "Para usar un inicio de sesión rápido y seguro, vaya a la configuración para habilitar la biométrica";
+
+"profile.alert.setupbiometric.title" = "La biometria esta deshabilitada";
 
 "profile.button.delete.title" = "Eliminar cuenta del dispositivo";
 
@@ -731,15 +753,15 @@
 
 "profile.cell.addresses.title" = "Direcciones, llaves";
 
-"profile.cell.backupphrase.title" = "Frase de recuperación ";
+"profile.cell.backupphrase.title" = "Frase de seguridad";
 
-"profile.cell.changepasscode.title" = "Cambiar contraseña";
+"profile.cell.changepasscode.title" = "Cambiar la contraseña";
 
-"profile.cell.changepassword.title" = "Cambia la contraseña";
+"profile.cell.changepassword.title" = "Cambiar la contraseña";
 
 "profile.cell.currentheight.title" = "Altura actual";
 
-"profile.cell.feedback.title" = "Realimentación";
+"profile.cell.feedback.title" = "Comentario";
 
 "profile.cell.info.currentheight.title" = "Altura actual";
 
@@ -749,11 +771,11 @@
 
 "profile.cell.network.title" = "Red";
 
-"profile.cell.pushnotifications.title" = "Notificar ";
+"profile.cell.pushnotifications.title" = "Notificaciones automáticas";
 
-"profile.cell.rateApp.title" = "Calificar aplicacion";
+"profile.cell.rateApp.title" = "Calificar esta aplicación";
 
-"profile.cell.supportwavesplatform.title" = "Soporta a Wavesplatform";
+"profile.cell.supportwavesplatform.title" = "Soporte de Wavesplatform";
 
 "profile.header.general.title" = "Configuración general";
 
@@ -769,13 +791,13 @@
 
 "receive.button.continue" = "Continuar";
 
-"receive.button.cryptocurrency" = "% u0421ryptocurrency";
+"receive.button.cryptocurrency" = "% u0421criptomoneda";
 
 "receive.button.invoice" = "Factura";
 
-"receive.button.useTotalBalance" = "Usar el balance total";
+"receive.button.useTotalBalance" = "Usar el saldo total";
 
-"receive.error.serviceUnavailable" = "El servicio está temporalmente no disponible";
+"receive.error.serviceUnavailable" = "El servicio no está disponible temporalmente. ";
 
 "receive.label.amount" = "Cantidad";
 
@@ -811,17 +833,17 @@
 
 "receivecardcomplete.button.okay" = "Ok";
 
-"receivecardcomplete.label.afterPaymentUpdateBalance" = "Una vez realizado el pago se actualizará su saldo";
+"receivecardcomplete.label.afterPaymentUpdateBalance" = "Después de realizado el pago se actualizará su saldo";
 
-"receivecardcomplete.label.redirectToIndacoin" = "Has sido redirigido a «Indacoin»";
+"receivecardcomplete.label.redirectToIndacoin" = "Ha sido redirigido a «Indacoin»";
 
 "receivecryptocurrency.label.minumumAmountOfDeposit" = "La cantidad mínima de depósito es %@";
 
-"receivecryptocurrency.label.sendOnlyOnThisDeposit" = "Envía solo %@ a esta dirección ";
+"receivecryptocurrency.label.sendOnlyOnThisDeposit" = "Envíe sólo %@ a esta dirección ";
 
-"receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "Si envía menos de %@, perderá ese dinero.";
+"receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "Si envíe menos de %@, perderá este dinero.  ";
 
-"receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "El envío de cualquier otra moneda a esta dirección puede ocasionar la pérdida de su depósito.";
+"receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Enviar cualquier otra criptomoneda a esta dirección puede resultar en la pérdida de su depósito.";
 
 "receivegenerate.label.generate" = "Generar…";
 
@@ -829,13 +851,15 @@
 
 "receiveinvoice.label.dollar" = "Dólar estadounidense";
 
-"send.button.chooseFromAddressBook" = "Elija del Directorio";
+"scannerqrcode.label.scan" = "Escanear QR";
+
+"send.button.chooseFromAddressBook" = "Elija la libreta de direcciones ";
 
 "send.button.continue" = "Continuar";
 
-"send.button.useTotalBalanace" = "Usar el balance total";
+"send.button.useTotalBalanace" = "Usar el saldo total";
 
-"send.label.addressNotValid" = "La direccion no es válida";
+"send.label.addressNotValid" = "La dirección no es válida";
 
 "send.label.amount" = "Cantidad";
 
@@ -845,9 +869,9 @@
 
 "send.label.error.invalidId" = "ID inválido";
 
-"send.label.error.notFundsFee" = "No tienes fondos suficientes para pagar las tarifas requeridas.";
+"send.label.error.notFundsFee" = "No tiene fondos suficientes para pagar las cuotas requeridas.";
 
-"send.label.gatewayFee" = "La tarifa de la entrada es";
+"send.label.gatewayFee" = "La cuota de la entrada es";
 
 "send.label.moneroPaymentId" = "ID de pago para Monero";
 
@@ -857,17 +881,17 @@
 
 "send.label.send" = "Enviar";
 
-"send.label.transactionFee" = "Tarifa de transacción";
+"send.label.transactionFee" = "Comisión por operación";
 
 "send.textField.placeholderPaymentId" = "Pegue o escriba su ID de pago";
 
 "sendcomplete.button.okey" = "Ok";
 
-"sendcomplete.label.saveThisAddress" = "¿Quieres guardar esta dirección?";
+"sendcomplete.label.saveThisAddress" = "¿Quiere guardar esta dirección?";
 
 "sendcomplete.label.transactionIsOnWay" = "¡Su transacción está en camino!";
 
-"sendcomplete.label.youHaveSent" = "Has enviado";
+"sendcomplete.label.youHaveSent" = "Ha enviado";
 
 "sendconfirmation.button.confim" = "Confirmar";
 
@@ -881,39 +905,39 @@
 
 "sendconfirmation.label.fee" = "Comisión ";
 
-"sendconfirmation.label.optionalMessage" = "Escribe un mensaje opcional";
+"sendconfirmation.label.optionalMessage" = "Escriba un mensaje opcional";
 
 "sendconfirmation.label.sentTo" = "Enviado a";
 
 "sendloading.label.sending" = "Enviando…";
 
-"serverDisconnect.label.subtitle" = "Comprueba tu conexión a la red móvil de internet o wifi.";
+"serverDisconnect.label.subtitle" = "Compruebe su conexión a la red de internet o wifi desde su móvil ";
 
 "serverDisconnect.label.title" = "No hay conexión a internet";
 
 "serverEngineering.label.subtitle" = "Hola, en este momento estamos haciendo un trabajo muy importante para mejorar la aplicación.";
 
-"serverEngineering.label.title" = "Trabajos de ingeniería";
+"serverEngineering.label.title" = "Obras de ingeniería";
 
 "serverError.button.retry" = "Intentar de nuevo";
 
 "serverError.button.sendReport" = "Enviar un reporte";
 
-"serverError.label.allBroken" = "Oh… ¡Está todo roto!";
+"serverError.label.allBroken" = "Oh… ¡Todo está roto!";
 
-"serverError.label.allBrokenDescription" = "No te preocupes, ya estamos solucionando este problema.\nPor lo pronto todo funcionará!";
+"serverError.label.allBrokenDescription" = "No se preocupe, ya estamos solucionando este problema.\nTodo funcionará bien! ";
 
 "serverError.label.noInternetConnection" = "No hay conexión a internet";
 
-"serverError.label.noInternetConnectionDescription" = "Comprueba tu conexión a la red móvil de internet o wifi.";
+"serverError.label.noInternetConnectionDescription" = "Compruebe su conexión a la red móvil de internet o wifi.";
 
-"serverError.label.subtitle" = "No te preocupes, ya estamos solucionando este problema.\nPor lo pronto todo funcionará!";
+"serverError.label.subtitle" = "No se preocupe, ya estamos solucionando este problema.\nTodo funcionará bien! ";
 
-"serverError.label.title" = "Oh… ¡Está todo roto!";
+"serverError.label.title" = "Oh… ¡Todo está roto!";
 
-"startleasing.button.chooseFromAddressBook" = "Elija desde el Directorio";
+"startleasing.button.chooseFromAddressBook" = "Seleccione desde su libreta de contactos ";
 
-"startleasing.button.startLease" = "Iniciar arrendamiento";
+"startleasing.button.startLease" = "Iniciar Leasing";
 
 "startleasing.button.useTotalBalanace" = "Usar el saldo total";
 
@@ -923,7 +947,7 @@
 
 "startleasing.label.amount" = "Cantidad";
 
-"startleasing.label.balance" = "Balance";
+"startleasing.label.balance" = "Saldo";
 
 "startleasing.label.generator" = "Generador";
 
@@ -931,21 +955,21 @@
 
 "startleasing.label.nodeAddress" = "Dirección del nodo…";
 
-"startleasing.label.notEnough" = "No es suficiente";
+"startleasing.label.notEnough" = "Insuficiente";
 
-"startleasing.label.startLeasing" = "Comenzar a arrendar";
+"startleasing.label.startLeasing" = "Empezar Leasing";
 
 "startleasing.label.transactionFee" = "Comisión de transacción";
 
 "startleasingcomplete.button.okey" = "Ok";
 
-"startleasingcomplete.label.youHaveCanceledTransaction" = "Usted ha cancelado una transacción de arrendamiento.";
+"startleasingcomplete.label.youHaveCanceledTransaction" = "Ha cancelado una transacción de Leasing.";
 
 "startleasingcomplete.label.youHaveLeased" = "Has alquilado %@ %@";
 
 "startleasingcomplete.label.yourTransactionIsOnWay" = "Su transacción está en camino!";
 
-"startleasingconfirmation.button.cancelLeasing" = "Cancelar arrendamiento";
+"startleasingconfirmation.button.cancelLeasing" = "Cancelar Leasing";
 
 "startleasingconfirmation.button.confirm" = "Confirmar";
 
@@ -955,13 +979,13 @@
 
 "startleasingconfirmation.label.fee" = "Comisión";
 
-"startleasingconfirmation.label.leasingTX" = "TX de arrendamiento ";
+"startleasingconfirmation.label.leasingTX" = "TX de Leasing ";
 
 "startleasingconfirmation.label.nodeAddress" = "Dirección de nodo";
 
-"startleasingloading.label.cancelLeasing" = "Cancelar arrendamiento…";
+"startleasingloading.label.cancelLeasing" = "Cancelar Leasing…";
 
-"startleasingloading.label.startLeasing" = "Empezar a arrendar…";
+"startleasingloading.label.startLeasing" = "Empezar Leasing…";
 
 "tokenBurn.button.burn" = "Quemar";
 
@@ -969,13 +993,13 @@
 
 "tokenBurn.button.okey" = "Ok";
 
-"tokenBurn.button.useTotalBalanace" = "Usar el balance total";
+"tokenBurn.button.useTotalBalanace" = "Utilice el saldo total";
 
 "tokenBurn.label.confirmation" = "Confirmación";
 
 "tokenBurn.label.error.insufficientFunds" = "Fondos insuficientes";
 
-"tokenBurn.label.error.notFundsFee" = "No tienes fondos suficientes para pagar las tarifas requeridas.";
+"tokenBurn.label.error.notFundsFee" = "No tiene fondos suficientes para pagar los gastos requeridos.";
 
 "tokenBurn.label.fee" = "Comisión";
 
@@ -985,31 +1009,31 @@
 
 "tokenBurn.label.notReissuable" = "No re-emitible";
 
-"tokenBurn.label.quantityTokensBurned" = "Cantidad de tokens a quemar";
+"tokenBurn.label.quantityTokensBurned" = "La cantidad de tokens será quemado";
 
 "tokenBurn.label.reissuable" = "Re-emitible";
 
-"tokenBurn.label.tokenBurn" = "Quemar token";
+"tokenBurn.label.tokenBurn" = "Quemar un token";
 
 "tokenBurn.label.transactionFee" = "Comisión de transacción %@ %@";
 
-"tokenBurn.label.transactionIsOnWay" = "¡Su transacción está en camino!";
+"tokenBurn.label.transactionIsOnWay" = "¡Su transacción está en camino! ";
 
 "tokenBurn.label.type" = "Tipo";
 
-"tokenBurn.label.youHaveBurned" = "Has quemado";
+"tokenBurn.label.youHaveBurned" = "Ha quemado";
 
 "transactionhistory.button.copied" = "Copiado";
 
-"transactionhistory.button.copyAllData" = "Copiar todos los datos";
+"transactionhistory.button.copyAllData" = "Copie todos los datos ";
 
-"transactionhistory.button.copyTXId" = "Copiar ID de TX";
+"transactionhistory.button.copyTXId" = "Copia ID de TX";
 
 "transactionhistory.cell.block" = "Bloque";
 
-"transactionhistory.cell.button.cancelLeasing" = "Cancelar Arrendamiento";
+"transactionhistory.cell.button.cancelLeasing" = "Anular Leasing";
 
-"transactionhistory.cell.button.sendAgain" = "Enviar de nuevo";
+"transactionhistory.cell.button.sendAgain" = "Volver a enviar";
 
 "transactionhistory.cell.buy" = "Comprar: %@/%@";
 
@@ -1023,7 +1047,7 @@
 
 "transactionhistory.cell.id" = "ID";
 
-"transactionhistory.cell.leasingTo" = "Arrendar a";
+"transactionhistory.cell.leasingTo" = "Leasing a";
 
 "transactionhistory.cell.notReissuable" = "No re-emitible";
 
@@ -1047,9 +1071,9 @@
 
 "transactionhistory.cell.status.button.completed" = "Completado";
 
-"transactionhistory.cell.status.button.unconfirmed" = "Sin confirmar";
+"transactionhistory.cell.status.button.unconfirmed" = "No confirmado";
 
-"transactionhistory.cell.status.timestamp" = "Marca de tiempo";
+"transactionhistory.cell.status.timestamp" = "Sello de tiempo ";
 
 "transactionhistory.cell.type" = "Tipo";
 
@@ -1063,39 +1087,39 @@
 
 "transactionhistory.copy.sender" = "Remitente";
 
-"transactionhistory.copy.transactionId" = "ID de transacción";
+"transactionhistory.copy.transactionId" = "un ID de transacción";
 
-"transactionhistory.copy.type" = "Tipo";
+"transactionhistory.copy.type" = "Escribir";
 
 "usetouchid.button.notNow.text" = "Ahora no";
 
 "usetouchid.button.useBiometric.text" = "Utilizar %@";
 
-"usetouchid.label.detail.text" = "Use su %@ para un acceso más rápido y fácil a su cuenta";
+"usetouchid.label.detail.text" = "Utilice su %@ para un acceso más rápido y fácil a su cuenta";
 
-"usetouchid.label.title.text" = "Utilice %@ para iniciar sesión?";
+"usetouchid.label.title.text" = "Utilice %@ para registrarse?";
 
-"wallet.button.startLease" = "Iniciar Arrendamiento";
+"wallet.button.startLease" = "Iniciar Lease";
 
 "wallet.label.available" = "Disponible";
 
-"wallet.label.leased" = "Arrendado";
+"wallet.label.leased" = "Leased";
 
-"wallet.label.leasedIn" = "Arrendado en";
+"wallet.label.leasedIn" = "Leased en";
 
 "wallet.label.myAssets" = "Mi activo";
 
-"wallet.label.quickNote.description.first" = "Solo puede transferir o intercambiar WAVES que no estén arrendadas. El monto arrendado no puede ser transferido ni comercializado por usted ni por cualquier otra persona.";
+"wallet.label.quickNote.description.first" = "Sólo puede transferir o intercambiar WAVES que no estén arrendado 'leasing'. El importe arrendados no puede ser transferido ni intercambiado por usted o cualquier otra persona.";
 
-"wallet.label.quickNote.description.second" = "Puede cancelar una transacción de arrendamiento tan pronto como aparezca en la cadena de bloques, que generalmente ocurre en un minuto o menos.";
+"wallet.label.quickNote.description.second" = "Puede cancelar una transacción de 'leasing' tan pronto como aparezca en el blockchain que ocurre en un minuto o menos.";
 
-"wallet.label.quickNote.description.third" = "El balance de generación se actualizará después de 1000 bloques.";
+"wallet.label.quickNote.description.third" = "El saldo generado se actualizará después de 1000 bloques.";
 
-"wallet.label.startedLeasing" = "Comenzó el arrendamiento";
+"wallet.label.startedLeasing" = "Inicio de arrendamiento";
 
-"wallet.label.totalBalance" = "Balance total";
+"wallet.label.totalBalance" = "Saldo total";
 
-"wallet.label.viewHistory" = "Ver historial";
+"wallet.label.viewHistory" = "Historial de transacciones";
 
 "wallet.navigationBar.title" = "Cartera";
 
@@ -1109,7 +1133,7 @@
 
 "wallet.segmentedControl.assets" = "Activos";
 
-"wallet.segmentedControl.leasing" = "Arrendamiento";
+"wallet.segmentedControl.leasing" = "Leasing";
 
 "walletsort.button.position" = "Posición";
 
