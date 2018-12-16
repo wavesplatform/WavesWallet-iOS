@@ -109,7 +109,6 @@ final class SendMoneroPaymentIdView: UIView, NibOwnerLoadable {
                 let alert = CameraAccess.alertController
             self?.firstAvailableViewController().present(alert, animated: true, completion: nil)
         })
-        showScanner()
     }
     
     private lazy var readerVC: QRCodeReaderViewController = QRCodeReaderFactory.deffaultCodeReader

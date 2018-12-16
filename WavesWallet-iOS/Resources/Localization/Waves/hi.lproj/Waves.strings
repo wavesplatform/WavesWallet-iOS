@@ -1,4 +1,6 @@
 
+"newaccount.textfield.error.maximumcharacters" = "अधिकतम %d अक्षर";
+
 "Receivecard.Label.minimunAmountInfo" = "न्यूनतम %@ है, अधिकतम %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "आवश्यक फ़ीस का भुगतान करने के लिए आपके पास पर्याप्त धनराशि नहीं है। आपको %@ लेनदेन फ़ीस और %@ गेटवे फ़ीस का भुगतान करना होगा।";
@@ -43,7 +45,7 @@
 
 "addressbook.label.addressDeleted" = "पता मिटा दिया";
 
-"addressbook.label.noInfo" = "यहां कुछ नहीं है… \nआप नया पता बना सकते हैं";
+"addressbook.label.noInfo" = "यहां कुछ नहीं है…\nआप नया पता बना सकते हैं";
 
 "addresseskeys.cell.address.title" = "आपका पता";
 
@@ -123,7 +125,7 @@
 
 "asset.cell.balance.totalBalance" = "संपूर्ण";
 
-"asset.cell.viewHistory" = "इतिहास देखे";
+"asset.cell.viewHistory" = "लेनदेन का इतिहास";
 
 "asset.header.lastTransactions" = "अंतिम लेनदेन";
 
@@ -151,7 +153,7 @@
 
 "backup.infobackup.button.iunderstand" = "मै समझता हुँ";
 
-"backup.infobackup.label.detail" = "वेव्स प्लेटफार्म आपको पिछले महीने में घोटाले और फ़िशिंग हमलों की बढ़ी हुई आवृत्ति के बारे में चेतावनी देना चाहता है। धोखाधड़ी अपने संस्करणों में अपने मैलवेयर छुपा रहे हैं और उपयोगकर्ताओं को लुभाने के लिए बोनस और छूट का वादा कर रहे हैं। \n\nकृपया सावधान रहें और कभी भी इन क्लाइंट में अपने सीडों को इनपुट न करें, क्योंकि आपके खाते से समझौता किया जाएगा और आप अपने सभी फंड खो सकते हैं। \n\nआपको केवल आधिकारिक वेव्स क्लाइंट का उपयोग करना चाहिए।";
+"backup.infobackup.label.detail" = "वेव्स प्लेटफार्म आपको पिछले महीने में घोटाले और फ़िशिंग हमलों की बढ़ी हुई आवृत्ति के बारे में चेतावनी देना चाहता है। धोखाधड़ी अपने संस्करणों में अपने मैलवेयर छुपा रहे हैं और उपयोगकर्ताओं को लुभाने के लिए बोनस और छूट का वादा कर रहे हैं।\n\nकृपया सावधान रहें और कभी भी इन क्लाइंट में अपने सीडों को इनपुट न करें, क्योंकि आपके खाते से समझौता किया जाएगा और आप अपने सभी फंड खो सकते हैं।\n\nआपको केवल आधिकारिक वेव्स क्लाइंट का उपयोग करना चाहिए।";
 
 "backup.infobackup.label.title" = "देखभाल के साथ अपने बैकअप वाक्यांश का रखना!";
 
@@ -172,6 +174,14 @@
 "backup.savebackup.next.button.title" = "मैंने इसे लिखा है";
 
 "backup.savebackup.next.label.title" = "आप अगली स्क्रीन पर इस फ्रेज की पुष्टि करेंगे";
+
+"biometric.localizedCancelTitle" = "रद्द करना";
+
+"biometric.localizedFallbackTitle" = "पास वर्ड दर्ज करें";
+
+"biometric.manyattempts.subtitle" = "बॉयोमीट्रिक अनलॉक करने के लिए, अपने खाता पासवर्ड से साइन इन करेंें";
+
+"biometric.manyattempts.title" = "भी कई प्रयास";
 
 "biometric.readfromkeychain" = "अपने वॉलेट तक पहुंच";
 
@@ -209,7 +219,7 @@
 
 "chooseaccount.alert.delete.title" = "खाता मिटा दो";
 
-"chooseaccount.label.nothingWallets" = "यहां कुछ नहीं… \nआपके पास सेव्ड खाते नहीं हैं";
+"chooseaccount.label.nothingWallets" = "यहां कुछ नहीं…\nआपके पास सेव्ड खाते नहीं हैं";
 
 "chooseaccount.navigation.title" = "खाता चुनें";
 
@@ -315,7 +325,7 @@
 
 "dexlasttrades.label.amount" = "रकम";
 
-"dexlasttrades.label.emptyData" = "यहां कुछ भी नहीं… \nव्यापार इतिहास खाली है";
+"dexlasttrades.label.emptyData" = "यहां कुछ भी नहीं…\nव्यापार इतिहास खाली है";
 
 "dexlasttrades.label.loadingLastTrades" = "अंतिम व्यापार लोड हो रहा है…";
 
@@ -353,7 +363,7 @@
 
 "dexmyorders.label.date" = "दिनांक";
 
-"dexmyorders.label.emptyData" = "यहां कुछ नहीं… \nआपके पास कोई ऑर्डर नहीं है";
+"dexmyorders.label.emptyData" = "यहां कुछ नहीं…\nआपके पास कोई ऑर्डर नहीं है";
 
 "dexmyorders.label.loadingLastTrades" = "ऑर्डर लोड हो रहा है…";
 
@@ -383,7 +393,7 @@
 
 "dexorderbook.label.amount" = "रकम";
 
-"dexorderbook.label.emptyData" = "यहां कुछ नहीं… \nऑर्डर बुक खाली है";
+"dexorderbook.label.emptyData" = "यहां कुछ नहीं…\nऑर्डर बुक खाली है";
 
 "dexorderbook.label.lastPrice" = "अंतिम मूल्य";
 
@@ -418,6 +428,8 @@
 "enter.block.exchange.text" = "जल्दी और सुरक्षित व्यापार करें। जब आप हमारे डेसेंट्रलीसेड एक्सचेंज पर व्यापार करते हैं तो आप अपने धन पर पूर्ण नियंत्रण बनाए रखते हैं।";
 
 "enter.block.exchange.title" = "डेसेंट्रलीसेड एक्सचेंज";
+
+"enter.block.token.text" = "अपने खुद के टोकन जारी करें। इन्हें न केवल एक इंटरनल करेंसी के रूप में बल्कि डेसेंट्रलीसेड वोटिंग के रूप में, एक रेटिंग सिस्टम, या लॉयल्टी प्रोग्राम के रूप में आपके व्यापार में एकीकृत किया जा सकता है।";
 
 "enter.block.token.title" = "टोकन लॉन्चर";
 
@@ -571,7 +583,7 @@
 
 "import.account.button.scan.title" = "पैरिंग जोड़ी कोड स्कैन करें";
 
-"import.account.label.info.step.one.detail" = "सेटिंग्स — सिक्योरिटी — पैरिंग कोड";
+"import.account.label.info.step.one.detail" = "सेटिंग्स — सामान्य — Export account";
 
 "import.account.label.info.step.one.title" = "https://client.wavesplatform.com पर अपने पीसी या मैक के माध्यम से अपने वेव्स क्लाइंट में लॉग इन करें";
 
@@ -601,7 +613,7 @@
 
 "import.scan.label.step.three.title" = "अपने कैमरे के साथ कोड स्कैन करें";
 
-"import.scan.label.step.two.detail" = "सेटिंग्स — सिक्योरिटी — पैरिंग कोड";
+"import.scan.label.step.two.detail" = "सेटिंग्स — सामान्य — Export account";
 
 "import.scan.label.step.two.title" = "एक क्यूआर कोड प्रकट करने के लिए «शो पैरिंग कोड» पर क्लिक करें";
 
@@ -719,9 +731,19 @@
 
 "profile.alert.deleteAccount.message" = "क्या आप वाकई इस खाते को डिवाइस से हटाना चाहते हैं?";
 
+"profile.alert.deleteAccount.notSaveSeed" = "आपने अपनी सीड नहीं बचाई";
+
 "profile.alert.deleteAccount.title" = "खाता हटा दो";
 
 "profile.alert.deleteAccount.withoutbackup.message" = "एक खाता हटाना इसके अप्रत्याशित नुकसान का कारण बन सकता है !";
+
+"profile.alert.setupbiometric.button.cancel" = "रद्द करना";
+
+"profile.alert.setupbiometric.button.settings" = "सेटिंग्स";
+
+"profile.alert.setupbiometric.message" = "तेज़ और सुरक्षित लॉगिन का उपयोग करने के लिए, बॉयोमीट्रिक्स को सक्षम करने के लिए सेटिंग्स पर जाएं";
+
+"profile.alert.setupbiometric.title" = "बॉयोमीट्रिक्स अक्षम है";
 
 "profile.button.delete.title" = "डिवाइस से खाता हटाएं";
 
@@ -828,6 +850,8 @@
 "receivegenerate.label.yourAddress" = "आपका %@ पता";
 
 "receiveinvoice.label.dollar" = "अमेरिकी डॉलर";
+
+"scannerqrcode.label.scan" = "स्कैन क्यूआर";
 
 "send.button.chooseFromAddressBook" = "पता पुस्तिका से चुनें";
 
@@ -1095,7 +1119,7 @@
 
 "wallet.label.totalBalance" = "कुल शेष";
 
-"wallet.label.viewHistory" = "इतिहास देखे";
+"wallet.label.viewHistory" = "लेनदेन का इतिहास";
 
 "wallet.navigationBar.title" = "वॉलेट";
 
