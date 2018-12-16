@@ -1,4 +1,6 @@
 
+"newaccount.textfield.error.maximumcharacters" = "最多 %d 个字符";
+
 "Receivecard.Label.minimunAmountInfo" = "最少 %@，最大 %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "你没有足够的资金支付需要的费用。你需要支付 %@ 的交易费用和 %@ 网关费用。";
