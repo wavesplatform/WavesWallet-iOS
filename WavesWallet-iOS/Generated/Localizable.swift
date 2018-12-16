@@ -1515,6 +1515,10 @@ internal enum Localizable {
           }
           /// Does not match
           internal static var doesnotmatch: String { return Localizable.tr("Waves", "newaccount.textfield.error.doesnotmatch") }
+          /// Maximum %d characters
+          internal static func maximumcharacters(_ p1: Int) -> String {
+            return Localizable.tr("Waves", "newaccount.textfield.error.maximumcharacters", p1)
+          }
           /// Minimum %d characters
           internal static func minimumcharacters(_ p1: Int) -> String {
             return Localizable.tr("Waves", "newaccount.textfield.error.minimumcharacters", p1)
