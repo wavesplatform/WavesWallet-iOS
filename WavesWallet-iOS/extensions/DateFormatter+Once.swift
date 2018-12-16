@@ -15,8 +15,12 @@ extension DateFormatter {
     }
 
     static var sharedFormatter: DateFormatter {
-        return Thread
+        let formatter = Thread
             .threadSharedObject(key: Constants.DateFormatterKey,
                                 create: { return DateFormatter() })
+
+        formatter.locale = Language.currentLocale
+
+        return formatter
     }
 }

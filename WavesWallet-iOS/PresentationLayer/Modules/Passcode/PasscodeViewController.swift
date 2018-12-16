@@ -166,6 +166,10 @@ private extension PasscodeViewController {
             case .message(let message):
                 self.showErrorSnackWithoutAction(title: message)
 
+            case .biometricDisable:
+                let alertController = UIAlertController.showAlertForEnabledBiometric()
+                present(alertController, animated: true, completion: nil)
+
             case .attemptsEndedLogout:
                 showAlertAttemptsEndedAndLogout()
 
