@@ -75,7 +75,7 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
         labelAmount.isHidden = true
         iconGateway.isHidden = true
         
-        loadIcon(name: Environments.Constants.wavesAssetId)
+        loadIcon(name: GlobalConstants.wavesAssetId)
     }
     
     func showLoadingState() {

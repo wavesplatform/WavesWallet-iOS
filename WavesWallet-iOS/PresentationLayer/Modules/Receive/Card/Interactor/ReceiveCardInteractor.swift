@@ -13,82 +13,68 @@ import SwiftyJSON
 
 final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
  
-    private let disposeBag = DisposeBag()
-    
-    private func getWavesBalance() -> Observable<DomainLayer.DTO.SmartAssetBalance> {
-    
-        let accountBalance = FactoryInteractors.instance.accountBalance
-        return accountBalance.balances()
-            .flatMap({ balances -> Observable<DomainLayer.DTO.SmartAssetBalance> in
-                
-                guard let wavesAsset = balances.first(where: {$0.asset.wavesId == GlobalConstants.wavesAssetId}) else {
-                    return Observable.empty()
-                }
-                return Observable.just(wavesAsset)
-        })
-    }
-    
-    private func getAddress() -> Observable<String> {
-        let authAccount = FactoryInteractors.instance.authorization
-        return authAccount.authorizedWallet().flatMap { signedWallet -> Observable<String> in
-            return Observable.just(signedWallet.address)
-        }
-    }
-    
-    private func getAmountInfo(fiat: ReceiveCard.DTO.FiatType) -> Observable<ResponseType<ReceiveCard.DTO.AmountInfo>> {
-       
-        
-        return Observable.create({ [weak self] subscribe -> Disposable in
-            
-            guard let strongSelf = self else { return Disposables.create() }
+    private let auth = FactoryInteractors.instance.authorization
+    private let coinomatRepository = FactoryRepositories.instance.coinomatRepository
+    private let accountBalance = FactoryInteractors.instance.accountBalance
 
-            let authAccount = FactoryInteractors.instance.authorization
-            authAccount.authorizedWallet().subscribe(onNext: { signedWallet in
- 
-                let params = ["crypto" : GlobalConstants.wavesAssetId,
-                              "address" : signedWallet.address,
-                              "fiat" : fiat.id]
-                
-                //TODO: need change to Observer network
-                NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.getLimits, parameters: params, complete: { (info, error) in
-
-                    if let json = info {
-                        
-                        let minMoney = Money(value: Decimal(json["min"].intValue), ReceiveCard.DTO.fiatDecimals)
-                        let maxMoney = Money(value: Decimal(json["max"].intValue), ReceiveCard.DTO.fiatDecimals)
-                        let minString = json["min"].stringValue
-                        let maxString = json["max"].stringValue
-                        
-                        let amountInfo = ReceiveCard.DTO.AmountInfo(type: fiat, minAmount: minMoney, maxAmount: maxMoney, minAmountString: minString, maxAmountString: maxString)
-                        subscribe.onNext(ResponseType(output: amountInfo, error: nil))
-                        subscribe.onCompleted()
-                    }
-                    else if let error = error {
-                        subscribe.onNext(ResponseType(output: nil, error: error))
-                        subscribe.onCompleted()
-                    }
-                })
-            }).disposed(by: strongSelf.disposeBag)
-            
-            return Disposables.create()
-        })
-    }
-    
     func getInfo(fiatType: ReceiveCard.DTO.FiatType) -> Observable<ResponseType<ReceiveCard.DTO.Info>> {
     
         let amount = getAmountInfo(fiat: fiatType)
         
-        return Observable.zip(getWavesBalance().take(1), amount, getAddress()).flatMap({ (assetBalance, amountInfo, address) ->  Observable<ResponseType<ReceiveCard.DTO.Info>> in
-
-            switch amountInfo.result {
-            case .success(let info):
-                let info = ReceiveCard.DTO.Info(asset: assetBalance, amountInfo: info, address: address)
+        return Observable.zip(getWavesBalance(), amount, getMyAddress())
+            .flatMap({ (assetBalance, amountInfo, address) -> Observable<ResponseType<ReceiveCard.DTO.Info>> in
+                
+                let info = ReceiveCard.DTO.Info(asset: assetBalance, amountInfo: amountInfo, address: address)
                 return Observable.just(ResponseType(output: info, error: nil))
-            
-            case .error(let error):
-                return Observable.just(ResponseType(output: nil, error: error))
-            }
-        })
-        
+            })
+            .catchError({ (error) -> Observable<ResponseType<ReceiveCard.DTO.Info>> in
+                if let networkError = error as? NetworkError {
+                    return Observable.just(ResponseType(output: nil, error: networkError))
+                }
+                
+                return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
+            })
     }
+}
+
+private extension ReceiveCardInteractor {
+    
+    func getWavesBalance() -> Observable<DomainLayer.DTO.SmartAssetBalance> {
+        
+        //TODO: need optimize 
+        return accountBalance.balances().flatMap({ balances -> Observable<DomainLayer.DTO.SmartAssetBalance> in
+            guard let wavesAsset = balances.first(where: {$0.asset.wavesId == GlobalConstants.wavesAssetId}) else {
+                return Observable.empty()
+            }
+            return Observable.just(wavesAsset)
+        })
+    }
+    
+    func getMyAddress() -> Observable<String> {
+        return auth.authorizedWallet().flatMap { signedWallet -> Observable<String> in
+            return Observable.just(signedWallet.address)
+        }
+    }
+    
+    func getAmountInfo(fiat: ReceiveCard.DTO.FiatType) -> Observable<ReceiveCard.DTO.AmountInfo> {
+        
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ReceiveCard.DTO.AmountInfo> in
+            
+            guard let owner = self else { return Observable.empty() }
+            return owner.coinomatRepository.cardLimits(address: wallet.address, fiat: fiat.id)
+                .flatMap({ (limit) ->  Observable<ReceiveCard.DTO.AmountInfo> in
+                    
+                    let minString = limit.min.displayText.replacingOccurrences(of: " ", with: "")
+                    let maxString = limit.max.displayText.replacingOccurrences(of: " ", with: "")
+
+                    let amountInfo = ReceiveCard.DTO.AmountInfo(type: fiat,
+                                                                minAmount: limit.min,
+                                                                maxAmount: limit.max,
+                                                                minAmountString: minString,
+                                                                maxAmountString: maxString)
+                    return Observable.just(amountInfo)
+                })
+        })
+    }
+    
 }
