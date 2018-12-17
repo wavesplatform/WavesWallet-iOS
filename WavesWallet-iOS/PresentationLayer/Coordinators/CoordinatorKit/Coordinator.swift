@@ -17,17 +17,19 @@ protocol Coordinator: AnyObject {
      */
     var parent: Coordinator? { get set }
 
-    //    var finished: (() -> Void) { get }
-
     func start()
-
-//    func dismiss()
 }
 
 protocol PresentationCoordinator: Coordinator {
     associatedtype Display
 
     func showDisplay(_ display: Display)
+}
+
+protocol RoutingCoordinator: Coordinator {
+    associatedtype Router
+
+    init(router: Router)
 }
 
 extension Coordinator {

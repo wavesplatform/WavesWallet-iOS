@@ -42,21 +42,25 @@ final class AppCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private let window: UIWindow
+    private let windowRouter: WindowRouter
 
     private let authoAuthorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let disposeBag: DisposeBag = DisposeBag()
     private var isActiveApp: Bool = false
 
-    init(_ window: UIWindow) {
-        self.window = window
-        let vc = UINavigationController()
-        vc.navigationBar.isHidden = true
-        let root = UIViewController()
-        vc.pushViewController(root, animated: false)
-        window.rootViewController = vc
-        window.makeKeyAndVisible()
+    init(_ windowRouter: WindowRouter) {
+        self.windowRouter = windowRouter
     }
+
+//    init(_ window: UIWindow) {
+//        self.window = window
+//        let vc = UINavigationController()
+//        vc.navigationBar.isHidden = true
+//        let root = UIViewController()
+//        vc.pushViewController(root, animated: false)
+//        window.rootViewController = vc
+//        window.makeKeyAndVisible()
+//    }
 
     func start() {
         self.isActiveApp = true
@@ -195,28 +199,29 @@ extension AppCoordinator: PresentationCoordinator {
         switch display {
         case .hello:
 
-            let helloCoordinator = HelloCoordinator(navigationController: window.rootViewController as! UINavigationController)
-            helloCoordinator.delegate = self
-            addChildCoordinatorAndStart(childCoordinator: helloCoordinator)
+            break
+//            let helloCoordinator = HelloCoordinator(navigationController: window.rootViewController as! UINavigationController)
+//            helloCoordinator.delegate = self
+//            addChildCoordinatorAndStart(childCoordinator: helloCoordinator)
 
         case .passcode(let wallet):
 
             guard isHasCoordinator(type: PasscodeCoordinator.self) != true else { return }
 
-            let passcodeCoordinator = PasscodeCoordinator(viewController: window.rootViewController!,
-                                                          kind: .logIn(wallet))
-            passcodeCoordinator.animated = false
-            passcodeCoordinator.delegate = self
-
-            addChildCoordinator(childCoordinator: passcodeCoordinator)
-            passcodeCoordinator.start()
+//            let passcodeCoordinator = PasscodeCoordinator(viewController: window.rootViewController!,
+//                                                          kind: .logIn(wallet))
+//            passcodeCoordinator.animated = false
+//            passcodeCoordinator.delegate = self
+//
+//            addChildCoordinator(childCoordinator: passcodeCoordinator)
+//            passcodeCoordinator.start()
 
         case .slide(let wallet):
 
             guard isHasCoordinator(type: SlideCoordinator.self) != true else { return }
 
-            let slideCoordinator = SlideCoordinator(window: window, wallet: wallet)
-            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
+//            let slideCoordinator = SlideCoordinator(window: window, wallet: wallet)
+//            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
 
         case .enter:
 
@@ -226,8 +231,8 @@ extension AppCoordinator: PresentationCoordinator {
 
             guard prevSlideCoordinator?.isHasCoordinator(type: EnterCoordinator.self) != true else { return }
 
-            let slideCoordinator = SlideCoordinator(window: window, wallet: nil)
-            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
+//            let slideCoordinator = SlideCoordinator(window: window, wallet: nil)
+//            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
         }
     }
 }
