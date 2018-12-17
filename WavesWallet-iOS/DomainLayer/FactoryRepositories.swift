@@ -35,7 +35,9 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
 
     private(set) lazy var addressBookRepository: AddressBookRepositoryProtocol = AddressBookRepository()
 
-    private(set) lazy var dexRepository: DexRepositoryProtocol = DexRepositoryLocal()
+    private(set) lazy var dexRealmRepository: DexRealmRepositoryProtocol = DexRealmRepositoryLocal()
+    
+    private(set) lazy var dexListRepository: DexListRepositoryProtocol = DexListRepositoryRemote()
     
     private(set) lazy var aliasesRepository: AliasesRepositoryProtocol = AliasesRepository(environmentRepository: self.environmentRepository)
 
