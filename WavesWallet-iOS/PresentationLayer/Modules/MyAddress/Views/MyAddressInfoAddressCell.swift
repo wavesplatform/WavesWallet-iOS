@@ -14,6 +14,10 @@ private enum Constants {
     static let iconSize: CGFloat = 48
 }
 
+protocol MyAddressInfoAddressCellDelegate: AnyObject {
+    func myAddressInfoAddressCellDidTapShareAddress(_ address: String)
+}
+
 final class MyAddressInfoAddressCell: UITableViewCell, Reusable {
 
     @IBOutlet private var viewContainer: UIView!
@@ -23,7 +27,8 @@ final class MyAddressInfoAddressCell: UITableViewCell, Reusable {
     @IBOutlet private var shareButton: UIButton!
     @IBOutlet private var iconImageView: UIImageView!
     
-
+    weak var delegate: MyAddressInfoAddressCellDelegate?
+    
     private let identity: Identity = Identity(options: Identity.defaultOptions)
 
     override func awakeFromNib() {
@@ -37,11 +42,7 @@ final class MyAddressInfoAddressCell: UITableViewCell, Reusable {
     }
 
     @IBAction func actionTouchUpCopyButton(sender: Any) {
-        ImpactFeedbackGenerator.impactOccurred()
-
-        // TODO: Move code to coordinator
-        let activityVC = UIActivityViewController(activityItems: [self.subTitleLabel.text ?? ""], applicationActivities: [])
-        AppDelegate.shared().window?.rootViewController?.present(activityVC, animated: true, completion: nil)
+        delegate?.myAddressInfoAddressCellDidTapShareAddress(self.subTitleLabel.text ?? "")
     }
 }
 
