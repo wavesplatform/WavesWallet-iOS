@@ -612,6 +612,9 @@
 		E971DA5220FFF4B600616A03 /* BiometricManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E971DA5120FFF4B600616A03 /* BiometricManager.swift */; };
 		E97D450921C80233000E3C48 /* DexListRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D450821C80233000E3C48 /* DexListRepositoryProtocol.swift */; };
 		E97D450B21C802AB000E3C48 /* DexListRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D450A21C802AB000E3C48 /* DexListRepositoryRemote.swift */; };
+		E97D450D21C8127F000E3C48 /* DexOrderBookRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D450C21C8127F000E3C48 /* DexOrderBookRepositoryProtocol.swift */; };
+		E97D451021C814C0000E3C48 /* OrderBookApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D450F21C814C0000E3C48 /* OrderBookApi.swift */; };
+		E97D451221C817CC000E3C48 /* DexOrderBookRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D451121C817CC000E3C48 /* DexOrderBookRepositoryRemote.swift */; };
 		E97EC83F20E67BE900AB006B /* NewAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */; };
 		E97EC84320E689A800AB006B /* ImportAccountPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */; };
 		E980EACE20A9F5BF001834DB /* ScannerCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */; };
@@ -1471,6 +1474,9 @@
 		E971DA5120FFF4B600616A03 /* BiometricManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricManager.swift; sourceTree = "<group>"; };
 		E97D450821C80233000E3C48 /* DexListRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexListRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E97D450A21C802AB000E3C48 /* DexListRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexListRepositoryRemote.swift; sourceTree = "<group>"; };
+		E97D450C21C8127F000E3C48 /* DexOrderBookRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexOrderBookRepositoryProtocol.swift; sourceTree = "<group>"; };
+		E97D450F21C814C0000E3C48 /* OrderBookApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookApi.swift; sourceTree = "<group>"; };
+		E97D451121C817CC000E3C48 /* DexOrderBookRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexOrderBookRepositoryRemote.swift; sourceTree = "<group>"; };
 		E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountViewController.swift; sourceTree = "<group>"; };
 		E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountPasswordViewController.swift; sourceTree = "<group>"; };
 		E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerCustomView.swift; sourceTree = "<group>"; };
@@ -2504,6 +2510,7 @@
 				0A8AFF272101F37200D0582B /* MatcherServiceTypes.swift */,
 				0A8AFF292101F47F00D0582B /* OrderBookMatcherService.swift */,
 				0AE657302106368F003D2DB8 /* BalanceMatcherService.swift */,
+				E97D450E21C814A0000E3C48 /* Models */,
 			);
 			path = Matcher;
 			sourceTree = "<group>";
@@ -3517,6 +3524,7 @@
 				E922D26121B81E5700575955 /* CandlesRepository.swift */,
 				E922D26921B831B600575955 /* LastTradesRepository.swift */,
 				E97D450A21C802AB000E3C48 /* DexListRepositoryRemote.swift */,
+				E97D451121C817CC000E3C48 /* DexOrderBookRepositoryRemote.swift */,
 			);
 			path = Dex;
 			sourceTree = "<group>";
@@ -3528,8 +3536,17 @@
 				E922D26321B82C2100575955 /* CandlesRepositoryProtocol.swift */,
 				E922D26721B8311F00575955 /* LastTradesRepositoryProtocol.swift */,
 				E97D450821C80233000E3C48 /* DexListRepositoryProtocol.swift */,
+				E97D450C21C8127F000E3C48 /* DexOrderBookRepositoryProtocol.swift */,
 			);
 			path = Dex;
+			sourceTree = "<group>";
+		};
+		E97D450E21C814A0000E3C48 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E97D450F21C814C0000E3C48 /* OrderBookApi.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		E9A2268B2159666E006E0CE1 /* UIKit */ = {
@@ -4843,6 +4860,7 @@
 				044D6C8F21978CED003861A2 /* EditAccountNameViewController.swift in Sources */,
 				E9657039219360770052F0FC /* WalletSortTypes.swift in Sources */,
 				E9FB6E382178265100FA13C1 /* SendInteractor.swift in Sources */,
+				E97D451021C814C0000E3C48 /* OrderBookApi.swift in Sources */,
 				0A88CC06217D27DF0083874C /* AccountSettingsDomainDTO.swift in Sources */,
 				0A6F60EA216F893600A5C615 /* WalletTypes.swift in Sources */,
 				04016DFE2194996D00BA5235 /* QRCodeReaderControllerCoordinator.swift in Sources */,
@@ -4958,6 +4976,7 @@
 				0A3FE8BA2137007500DBF4E1 /* LeaseTransactionNode.swift in Sources */,
 				0A5E4BC9213820C500E3C3C3 /* LeaseCancelTransactionDomainDTO.swift in Sources */,
 				E94A6E9F215AD53E001814F7 /* ContactDomainDTO.swift in Sources */,
+				E97D451221C817CC000E3C48 /* DexOrderBookRepositoryRemote.swift in Sources */,
 				0A3FE8B92137007500DBF4E1 /* ReissueTransactionNode.swift in Sources */,
 				0AF0C67221A97C4700602197 /* AliasesInteractor.swift in Sources */,
 				0A5E4BE12138378500E3C3C3 /* LeaseCancelTransaction+Mapper.swift in Sources */,
@@ -5007,6 +5026,7 @@
 				F78E33151EB329DF00132A8B /* Environment.swift in Sources */,
 				0A14CFC92144130500C3A4D5 /* Dictionary+Json.swift in Sources */,
 				0AF922CD212E1234003BA067 /* NSObject+AssociatedObject.swift in Sources */,
+				E97D450D21C8127F000E3C48 /* DexOrderBookRepositoryProtocol.swift in Sources */,
 				0AD8360E217DD34B004413E9 /* AccountSettings+Mapper.swift in Sources */,
 				E9B0881C2163886800937644 /* DexSortTypes.swift in Sources */,
 				E95B47C221638A9F004D4E39 /* HelloLanguagesViewController.swift in Sources */,
