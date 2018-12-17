@@ -40,11 +40,7 @@ enum ReceiveCard {
 }
 
 extension ReceiveCard.DTO {
-    
-    static var fiatDecimals: Int {
-        return 2
-    }
-    
+
     enum FiatType {
         case usd
         case eur
