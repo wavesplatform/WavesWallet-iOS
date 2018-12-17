@@ -17,7 +17,6 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
     private let orderBookRepository = FactoryRepositories.instance.dexOrderBookRepository
     private let lastTradesRepository = FactoryRepositories.instance.lastTradesRespository
     
-    
     var pair: DexTraderContainer.DTO.Pair!
     
     func displayInfo() -> Observable<DexOrderBook.DTO.DisplayData> {
