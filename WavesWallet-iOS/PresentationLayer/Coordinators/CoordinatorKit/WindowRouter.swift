@@ -1,12 +1,11 @@
 //
-//  WindowRouter.swift
-//  CoordinatorKit
+//  WavesWallet-iOS
 //
-//  Created by Ian MacCallum on 10/11/17.
+//  Created by Prokofev Ruslan on 27/10/2018.
+//  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
 import UIKit
-import SafariServices
 
 public protocol WindowRouterType: class {
 	var window: UIWindow { get }
@@ -15,7 +14,7 @@ public protocol WindowRouterType: class {
 }
 
 
-final public class WindowRouter: NSObject, WindowRouterType {
+final class WindowRouter: NSObject {
 	
 	public unowned let window: UIWindow
 	
@@ -24,8 +23,7 @@ final public class WindowRouter: NSObject, WindowRouterType {
 		super.init()
 	}
 	
-	public func setRootModule(_ module: Presentable) {
-		let viewController = module.toPresentable()
+    public func setRootViewController(_ viewController: UIViewController) {
 		window.rootViewController = viewController
 	}
 }
