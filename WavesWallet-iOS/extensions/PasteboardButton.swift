@@ -40,15 +40,17 @@ final class PasteboardButton: UIButton {
 
         ImpactFeedbackGenerator.impactOccurred()
         UIPasteboard.general.string = copiedText?()
-
+        setTitleColor(.success400, for: .normal)
         setImage(Images.checkSuccess.image, for: .normal)
         isUserInteractionEnabled = false
 
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.duration) {
 
             if self.isBlack {
+                self.setTitleColor(.black, for: .normal)
                 self.setImage(Images.copy18Black.image, for: .normal)
             } else {
+                self.setTitleColor(.submit400, for: .normal)
                 self.setImage(Images.copy18Submit400.image, for: .normal)
             }
             
