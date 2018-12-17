@@ -36,6 +36,8 @@ protocol FactoryRepositoriesProtocol {
 
     var dexListRepository: DexListRepositoryProtocol { get }
     
+    var dexOrderBookRepository: DexOrderBookRepositoryProtocol { get }
+    
     var aliasesRepository: AliasesRepositoryProtocol { get }
     var aliasesRepositoryLocal: AliasesRepositoryProtocol { get }
 
