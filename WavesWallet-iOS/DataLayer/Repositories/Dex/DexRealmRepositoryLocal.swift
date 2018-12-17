@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-final class DexRepositoryLocal: DexRepositoryProtocol {
+final class DexRealmRepositoryLocal: DexRealmRepositoryProtocol {
 
     func save(pair: DexMarket.DTO.Pair, accountAddress: String) -> Observable<Bool> {
        
