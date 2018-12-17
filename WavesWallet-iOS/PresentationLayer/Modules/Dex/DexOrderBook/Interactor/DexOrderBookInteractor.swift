@@ -14,9 +14,9 @@ import Moya
 final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
  
     private let account = FactoryInteractors.instance.accountBalance
-    private let accountEnvironment = FactoryRepositories.instance.environmentRepository
-    private let apiProvider: MoyaProvider<API.Service.Transactions> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
     private let orderBookRepository = FactoryRepositories.instance.dexOrderBookRepository
+    private let lastTradesRepository = FactoryRepositories.instance.lastTradesRespository
+    
     
     var pair: DexTraderContainer.DTO.Pair!
     
@@ -54,7 +54,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
 
 private extension DexOrderBookInteractor {
     
-    func getDisplayData(info: API.DTO.OrderBook, lastTransactionInfo: API.DTO.ExchangeTransaction?, header: DexOrderBook.ViewModel.Header, balances: [DomainLayer.DTO.SmartAssetBalance]) -> DexOrderBook.DTO.DisplayData {
+    func getDisplayData(info: API.DTO.OrderBook, lastTransactionInfo: DomainLayer.DTO.DexLastTrade?, header: DexOrderBook.ViewModel.Header, balances: [DomainLayer.DTO.SmartAssetBalance]) -> DexOrderBook.DTO.DisplayData {
        
         let itemsBids = info.bids
         let itemsAsks = info.asks
@@ -114,11 +114,9 @@ private extension DexOrderBookInteractor {
                 percent = ((askValue - bidValue) * 100 / bidValue).floatValue
             }
             
-            let type: Dex.DTO.OrderType = tx.orderType == .sell ? .sell : .buy
+            let type: Dex.DTO.OrderType = tx.type == .sell ? .sell : .buy
             
-            let price = Money(value: Decimal(tx.price), pair.priceAsset.decimals)
-            
-            lastPrice = DexOrderBook.DTO.LastPrice(price: price, percent: percent, orderType: type)
+            lastPrice = DexOrderBook.DTO.LastPrice(price: tx.price, percent: percent, orderType: type)
         }
         
         var amountAssetBalance =  Money(0, pair.amountAsset.decimals)
@@ -143,29 +141,11 @@ private extension DexOrderBookInteractor {
                                             availableWavesBalance: wavesBalance)
     }
     
-    func getLastTransactionInfo() -> Observable<API.DTO.ExchangeTransaction?> {
+    func getLastTransactionInfo() -> Observable<DomainLayer.DTO.DexLastTrade?> {
         
-        //TODO: Need move to repository
-        let filters = API.Query.ExchangeFilters(matcher: nil, sender: nil, timeStart: nil, timeEnd: nil,
-                                                amountAsset: pair.amountAsset.id,
-                                                priceAsset: pair.priceAsset.id,
-                                                after: nil,
-                                                limit: 1)
-        
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(DateFormatter.iso())
-
-        return apiProvider.rx.request(.init(kind: .getExchangeWithFilters(filters), environment: Environments.current),
-                                            callbackQueue: DispatchQueue.global(qos: .background))
-            .filterSuccessfulStatusAndRedirectCodes()
-            .asObservable()
-            .catchError({ (error) -> Observable<Response> in
-                return Observable.error(NetworkError.error(by: error))
-            })
-            .map(API.Response<[API.Response<API.DTO.ExchangeTransaction>]>.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
-            .map { $0.data.map { $0.data } }
-            .flatMap({ (transactions) -> Observable<API.DTO.ExchangeTransaction?> in
-                return Observable.just(transactions.first)
+        return lastTradesRepository.lastTrades(amountAsset: pair.amountAsset, priceAsset: pair.priceAsset, limit: 1)
+            .flatMap({ (lastTrades) ->  Observable<DomainLayer.DTO.DexLastTrade?> in
+                return Observable.just(lastTrades.first)
             })
     }
 }
