@@ -184,7 +184,6 @@ final class SendViewController: UIViewController {
                          fee: wavesFee,
                          amount: amount,
                          amountWithoutFee: amountWithoutFee,
-                         isAlias: isValidAlias,
                          attachment: attachment,
                          isGateway: isGateway)
         
@@ -287,7 +286,6 @@ private extension SendViewController {
                 default:
                     break
                 }
-                
                 
             })
         
