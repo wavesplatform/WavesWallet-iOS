@@ -264,13 +264,13 @@ extension AppCoordinator {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGesture(tap:)))
         tapGesture.numberOfTouchesRequired = 2
         tapGesture.numberOfTapsRequired = 2
-        self.window.addGestureRecognizer(tapGesture)
+//        self.window.addGestureRecognizer(tapGesture)
     }
 
     @objc func tapGesture(tap: UITapGestureRecognizer) {
         let vc = StoryboardScene.Support.supportViewController.instantiate()
         vc.delegate = self
-        self.window.rootViewController!.present(vc, animated: true, completion: nil)
+//        self.window.rootViewController!.present(vc, animated: true, completion: nil)
     }
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -287,18 +287,18 @@ extension AppCoordinator: SupportViewControllerDelegate  {
     
     func closeSupportView(isTestNet: Bool) {
 
-        self.window.rootViewController?.dismiss(animated: true, completion: {
-            if Environments.isTestNet != isTestNet {
-
-                self.authoAuthorizationInteractor
-                    .logout()
-                    .subscribe(onCompleted: { [weak self] in
-                        Environments.isTestNet = isTestNet
-                        self?.showDisplay(.enter)
-                    })
-                    .disposed(by: self.disposeBag)
-            }
-        })
+//        self.window.rootViewController?.dismiss(animated: true, completion: {
+//            if Environments.isTestNet != isTestNet {
+//
+//                self.authoAuthorizationInteractor
+//                    .logout()
+//                    .subscribe(onCompleted: { [weak self] in
+//                        Environments.isTestNet = isTestNet
+//                        self?.showDisplay(.enter)
+//                    })
+//                    .disposed(by: self.disposeBag)
+//            }
+//        })
     }
 }
 
