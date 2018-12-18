@@ -13,7 +13,6 @@ public protocol WindowRouterType: class {
 	func setRootModule(_ module: Presentable)
 }
 
-
 final class WindowRouter: NSObject {
 	
 	public unowned let window: UIWindow
@@ -25,106 +24,68 @@ final class WindowRouter: NSObject {
 	
     public func setRootViewController(_ viewController: UIViewController) {
 		window.rootViewController = viewController
+        window.makeKeyAndVisible()
 	}
 }
 
 final class NavigationRouter: NSObject {
 
-    public unowned let navigationController: UINavigationController
+    private var completions: [UIViewController : () -> Void] = .init()
+
+    public var navigationController: UINavigationController
 
     public init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         super.init()
+        self.navigationController.delegate = self
     }
 
-//    private var completions: [UIViewController : () -> Void]
-
-//    public var rootViewController: UIViewController? {
-//        return navigationController.viewControllers.first
-//    }
-//
-//    public var hasRootController: Bool {
-//        return rootViewController != nil
-//    }
-//
-//    public let navigationController: UINavigationController
-//
-//    public init(navigationController: UINavigationController = UINavigationController()) {
-//        self.navigationController = navigationController
-//        self.completions = [:]
-//        super.init()
-//        self.navigationController.delegate = self
-//    }
-
-    func present(_ module: Presentable, animated: Bool = true) {
-        navigationController.present(module.toPresentable(), animated: animated, completion: nil)
+    func present(_ viewController: UIViewController, animated: Bool = true) {
+        navigationController.present(viewController, animated: animated, completion: nil)
     }
 
     func dismiss(animated: Bool = true, completion: (() -> Void)? = nil) {
         navigationController.dismiss(animated: animated, completion: completion)
     }
 
-    public func push(_ module: Presentable, animated: Bool = true, completion: (() -> Void)? = nil) {
-
-        let controller = module.toPresentable()
-
-        // Avoid pushing UINavigationController onto stack
-        guard controller is UINavigationController == false else {
-            return
-        }
+    func pushViewController(_ viewController: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
 
         if let completion = completion {
-            completions[controller] = completion
+            completions[viewController] = completion
         }
 
-        navigationController.pushViewController(controller, animated: animated)
+        navigationController.pushViewController(viewController, animated: animated)
     }
-//
-//    public func popModule(animated: Bool = true)  {
-//        if let controller = navigationController.popViewController(animated: animated) {
-//            runCompletion(for: controller)
-//        }
-//    }
-//
-//    public func setRootModule(_ module: Presentable, hideBar: Bool = false) {
-//        // Call all completions so all coordinators can be deallocated
-//        completions.forEach { $0.value() }
-//        navigationController.setViewControllers([module.toPresentable()], animated: false)
-//        navigationController.isNavigationBarHidden = hideBar
-//    }
-//
-//    public func popToRootModule(animated: Bool) {
-//        if let controllers = navigationController.popToRootViewController(animated: animated) {
-//            controllers.forEach { runCompletion(for: $0) }
-//        }
-//    }
-//
-//    fileprivate func runCompletion(for controller: UIViewController) {
-//        guard let completion = completions[controller] else { return }
-//        completion()
-//        completions.removeValue(forKey: controller)
-//    }
-//
-//
-//    // MARK: Presentable
-//
-//    public func toPresentable() -> UIViewController {
-//        return navigationController
-//    }
 
+    func popViewController(animated: Bool = true)  {
+        if let controller = navigationController.popViewController(animated: animated) {
+            runCompletion(for: controller)
+        }
+    }
 
-    // MARK: UINavigationControllerDelegate
+    public func popToRootViewController(animated: Bool) {
+        if let controllers = navigationController.popToRootViewController(animated: animated) {
+            controllers.forEach { runCompletion(for: $0) }
+        }
+    }
 
-    public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+    fileprivate func runCompletion(for controller: UIViewController) {
+        guard let completion = completions[controller] else { return }
+        completion()
+        completions.removeValue(forKey: controller)
+    }
+}
 
-        // Ensure the view controller is popping
+// MARK: UINavigationControllerDelegate
+extension NavigationRouter: UINavigationControllerDelegate {
+
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+
         guard let poppedViewController = navigationController.transitionCoordinator?.viewController(forKey: .from),
             !navigationController.viewControllers.contains(poppedViewController) else {
-                return
+            return
         }
 
         runCompletion(for: poppedViewController)
     }
-
 }
-

@@ -64,7 +64,8 @@ final class InfoPagesViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .basic50
-        navigationController?.setNavigationBarHidden(true, animated: false)
+
+        navigationItem.isNavigationBarHidden = true
 
         setupCollectionView()
         setupPageControl()
