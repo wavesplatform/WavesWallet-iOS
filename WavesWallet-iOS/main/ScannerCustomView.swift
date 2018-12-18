@@ -66,7 +66,7 @@ final class ScannerCustomView: UIView, QRCodeReaderDisplayable {
         if showCancelButton {
             let buttonWidth : CGFloat = 100
             let buttonHeight : CGFloat = 48
-            let offset : CGFloat = Platform.isIphoneX ? 36 : 16
+            let offset : CGFloat = Platform.isIphoneXSeries ? 36 : 16
             cancelButton?.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
             cancelButton?.frame = CGRect(x: (Platform.ScreenWidth - buttonWidth) / 2, y: UIScreen.main.bounds.size.height - buttonHeight - offset, width: buttonWidth, height: buttonHeight)
             addSubview(cancelButton!)
@@ -75,11 +75,11 @@ final class ScannerCustomView: UIView, QRCodeReaderDisplayable {
         if showTorchButton {
             toggleTorchButton?.setImage(UIImage(named: "topbarFlashOff"), for: .normal)
             toggleTorchButton?.addTarget(self, action: #selector(changeStateToogle), for: .touchUpInside)
-            toggleTorchButton?.frame = CGRect(x: Platform.ScreenWidth - 50, y: Platform.isIphoneX ? 41 : 21, width: 40, height: 40)
+            toggleTorchButton?.frame = CGRect(x: Platform.ScreenWidth - 50, y: Platform.isIphoneXSeries ? 41 : 21, width: 40, height: 40)
             addSubview(toggleTorchButton!)
         }
         
-        let labelTitle = UILabel(frame: CGRect(x: 0, y: Platform.isIphoneX ? 50 : 30, width: Platform.ScreenWidth, height: 20))
+        let labelTitle = UILabel(frame: CGRect(x: 0, y: Platform.isIphoneXSeries ? 50 : 30, width: Platform.ScreenWidth, height: 20))
         labelTitle.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         labelTitle.textAlignment = .center
         labelTitle.textColor = UIColor.white

@@ -16,39 +16,41 @@ final class AssetListInteractor: AssetListInteractorProtocol {
     private let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
 
     private let searchString: BehaviorSubject<String> = BehaviorSubject<String>(value: "")
-    private var _assets: [DomainLayer.DTO.SmartAssetBalance] = []
-    private var _isMyList = false
+    private var filteredAssets: [DomainLayer.DTO.SmartAssetBalance] = []
+    private var cachedAssets: [DomainLayer.DTO.SmartAssetBalance] = []
+    private var isMyList = false
     
     func assets(filters: [AssetList.DTO.Filter], isMyList: Bool) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
         
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
             guard let owner = self else { return Observable.empty() }
             
-            owner._isMyList = isMyList
+            owner.isMyList = isMyList
             
-            let assets = owner.accountBalanceInteractor.balances()
+            let assets = owner.getCachedAssets()
             let accountSettings = owner.accountSettings.accountSettings(accountAddress: wallet.address)
             
             let merge = Observable.zip(assets, accountSettings).map({ [weak self] (assets, settings) -> [DomainLayer.DTO.SmartAssetBalance] in
                 
                 guard let strongSelf = self else { return [] }
-
+                strongSelf.cachedAssets = assets
+                
                 let isEnableSpam = settings?.isEnabledSpam ?? false
                 
                 if filters.contains(.all) {
                     
                     if isEnableSpam {
-                        self?._assets = assets.filter({$0.asset.isSpam == false})
+                        self?.filteredAssets = assets.filter({$0.asset.isSpam == false})
                     }
                     else {
-                        self?._assets = assets
+                        self?.filteredAssets = assets
                     }
                 }
                 else {
                     self?.filterAssets(filters: filters, assets: assets, isEnableSpam: isEnableSpam)
                 }
                 
-                return strongSelf.filterIsMyAsset(strongSelf._assets)
+                return strongSelf.filterIsMyAsset(strongSelf.filteredAssets)
             })
             
             let search = owner.searchString
@@ -56,7 +58,7 @@ final class AssetListInteractor: AssetListInteractorProtocol {
                 .map { [weak self] searchString -> [DomainLayer.DTO.SmartAssetBalance] in
                     
                     guard let strongSelf = self else { return [] }
-                    return strongSelf.filterIsMyAsset(strongSelf._assets)
+                    return strongSelf.filterIsMyAsset(strongSelf.filteredAssets)
             }
             
             return Observable
@@ -88,8 +90,15 @@ final class AssetListInteractor: AssetListInteractorProtocol {
 
 private extension AssetListInteractor {
     
+    func getCachedAssets() -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
+        if cachedAssets.count > 0 {
+            return Observable.just(cachedAssets)
+        }
+        return accountBalanceInteractor.balances()
+    }
+    
     func filterIsMyAsset(_ assets: [DomainLayer.DTO.SmartAssetBalance]) -> [DomainLayer.DTO.SmartAssetBalance] {
-        return _isMyList ? assets.filter({$0.avaliableBalance > 0 }) : assets
+        return isMyList ? assets.filter({$0.avaliableBalance > 0 }) : assets
     }
     
     func filterAssets(filters: [AssetList.DTO.Filter], assets: [DomainLayer.DTO.SmartAssetBalance], isEnableSpam: Bool) {
@@ -149,8 +158,8 @@ private extension AssetListInteractor {
                 return asset.isSpam == true }))
         }
         
-        _assets.removeAll()
-        _assets.append(contentsOf: filterAssets)
+        filteredAssets.removeAll()
+        filteredAssets.append(contentsOf: filterAssets)
     }
     
     func isValidSearch(name: String, searchText: String) -> Bool {
