@@ -72,7 +72,7 @@ final class CreateAliasViewController: UIViewController {
     }
 
     private func layoutFooterView() {
-        let size = footerView.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
+        let size = footerView.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize)
         let y = max(tableView.contentSize.height, tableView.frame.height) - size.height
         footerView.frame = CGRect.init(x: 0, y: y, width: tableView.frame.width, height: size.height)
     }
@@ -93,7 +93,7 @@ private extension CreateAliasViewController {
     func setupSystem() {
 
         let uiFeedback: CreateAliasPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<Types.Event>) in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
 
         let readyViewFeedback: CreateAliasPresenterProtocol.Feedback = { [weak self] _ in

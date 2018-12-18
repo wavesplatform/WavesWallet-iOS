@@ -25,7 +25,7 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
     @IBOutlet private weak var buttonCotinue: HighlightedButton!
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
   
-    private var selectedAsset: DomainLayer.DTO.AssetBalance?
+    private var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
     private var displayInfo: ReceiveCryptocurrency.DTO.DisplayInfo?
     
     private let sendEvent: PublishRelay<ReceiveCryptocurrency.Event> = PublishRelay<ReceiveCryptocurrency.Event>()
@@ -55,16 +55,15 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func setupAssetInfo(_ asset: DomainLayer.DTO.AssetBalance) {
+    private func setupAssetInfo(_ asset: DomainLayer.DTO.SmartAssetBalance) {
         selectedAsset = asset
-        assetView.update(with: asset)
+        assetView.update(with: .init(assetBalance: asset, isOnlyBlockMode: input.selectedAsset != nil))
         setupLoadingState()
         setupButtonState()
         
-        if let asset = asset.asset {
-            DispatchQueue.main.asyncAfter(deadline: .now()) {
-                self.sendEvent.accept(.generateAddress(asset: asset))
-            }
+        let asset = asset.asset
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            self.sendEvent.accept(.generateAddress(asset: asset))
         }
     }
 }
@@ -76,7 +75,7 @@ private extension ReceiveCryptocurrencyViewController {
     func setupFeedBack() {
         
         let feedback = bind(self) { owner, state -> Bindings<ReceiveCryptocurrency.Event> in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
         
         presenter.system(feedbacks: [feedback])
@@ -101,7 +100,7 @@ private extension ReceiveCryptocurrencyViewController {
                 strongSelf.displayInfo = state.displayInfo
 
                 switch state.action {
-                case .addressDidGenerate(let info):
+                case .addressDidGenerate:
                     strongSelf.setupWarning()
                     strongSelf.setupButtonState()
 
@@ -173,7 +172,7 @@ extension ReceiveCryptocurrencyViewController: AssetSelectViewDelegate {
 }
 
 extension ReceiveCryptocurrencyViewController: AssetListModuleOutput {
-    func assetListDidSelectAsset(_ asset: DomainLayer.DTO.AssetBalance) {
+    func assetListDidSelectAsset(_ asset: DomainLayer.DTO.SmartAssetBalance) {
         displayInfo = nil
         setupAssetInfo(asset)
     }

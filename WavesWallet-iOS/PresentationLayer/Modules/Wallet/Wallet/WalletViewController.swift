@@ -24,8 +24,8 @@ private extension WalletTypes.DisplayState.Kind {
     }
 }
 
-fileprivate enum Constants {
-    static let contentInset = UIEdgeInsetsMake(0, 0, 16, 0)
+private enum Constants {
+    static let contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 16, right: 0)
 }
 
 final class WalletViewController: UIViewController {
@@ -70,7 +70,8 @@ final class WalletViewController: UIViewController {
 
         tableView.addGestureRecognizer(leftRightGesture)
         tableView.addGestureRecognizer(rightSwipeGesture)
-
+        tableView.contentInset = Constants.contentInset
+        
         displayData = WalletDisplayData(tableView: tableView)
         setupLanguages()
         setupBigNavigationBar()
@@ -83,7 +84,6 @@ final class WalletViewController: UIViewController {
         globalErrorView.retryDidTap = { [weak self] in
             self?.sendEvent.accept(.refresh)
         }
-        
 
         NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
     }
@@ -127,6 +127,13 @@ final class WalletViewController: UIViewController {
     }
 }
 
+//MARK: - MainTabBarControllerProtocol
+extension WalletViewController: MainTabBarControllerProtocol {
+    func mainTabBarControllerDidTapTab() {
+        tableView.setContentOffset(tableViewTopOffsetForBigNavBar(tableView), animated: true)
+    }
+}
+
 // MARK: UIGestureRecognizerDelegate
 
 extension WalletViewController: UIGestureRecognizerDelegate {
@@ -146,7 +153,7 @@ extension WalletViewController {
             let events = owner.events()
 
             return Bindings(subscriptions: subscriptions,
-                            events: events)
+                            mutations: events)
         }
 
         let readyViewFeedback: WalletPresenterProtocol.Feedback = { [weak self] _ in
@@ -243,7 +250,7 @@ extension WalletViewController {
 
         switch state.animateType {
         case .refreshOnlyError, .refresh:
-            updateErrorView(with: state.currentDisplay.errorState)
+                updateErrorView(with: state.currentDisplay.errorState)
 
         default:
             break
@@ -322,7 +329,7 @@ private extension WalletViewController {
 
         switch kind {
         case .assets:
-            navigationItem.rightBarButtonItems = [buttonAddress]
+            navigationItem.rightBarButtonItems = [buttonAddress, buttonSort]
 
         case .leasing:
             navigationItem.rightBarButtonItems = [buttonAddress]

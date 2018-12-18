@@ -29,7 +29,7 @@ final class TokenBurnViewController: UIViewController {
     @IBOutlet private weak var labelFeeError: UILabel!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
-    var asset: DomainLayer.DTO.AssetBalance!
+    var asset: DomainLayer.DTO.SmartAssetBalance!
     weak var delegate: TokenBurnTransactionDelegate?
     
     private let disposeBag = DisposeBag()
@@ -94,7 +94,7 @@ private extension TokenBurnViewController {
     }
     
     var availableBalance: Money {
-        return Money(asset.avaliableBalance, asset.asset?.precision ?? 0)
+        return Money(asset.avaliableBalance, asset.asset.precision)
     }
     
     var isValidInputAmount: Bool {
@@ -170,10 +170,10 @@ private extension TokenBurnViewController {
     func setupData() {
         viewFeeError.alpha = 0
         assetView.isSelectedAssetMode = false
-        assetView.update(with: asset)
+        assetView.update(with: .init(assetBalance: asset, isOnlyBlockMode: true))
         
         amountView.delegate = self
-        amountView.setDecimals(asset.asset?.precision ?? 0, forceUpdateMoney: false)
+        amountView.setDecimals(asset.asset.precision, forceUpdateMoney: false)
         
         if !availableBalance.isZero {
             amountView.input = { [weak self] in
@@ -185,7 +185,7 @@ private extension TokenBurnViewController {
     
     func setupLocalization() {
         title = Localizable.Waves.Tokenburn.Label.tokenBurn
-        amountView.setupRightLabelText(asset.asset?.displayName ?? "")
+        amountView.setupRightLabelText(asset.asset.displayName)
         amountView.setupTitle(Localizable.Waves.Tokenburn.Label.quantityTokensBurned)
         buttonContinue.setTitle(Localizable.Waves.Tokenburn.Button.continue, for: .normal)
         labelTransactionFee.text = Localizable.Waves.Tokenburn.Label.transactionFee(fee.displayText, "WAVES")

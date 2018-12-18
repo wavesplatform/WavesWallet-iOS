@@ -13,7 +13,7 @@ import UIKit
 
 fileprivate enum Constants {
     static let heightForFooter: CGFloat = 23
-    static let contentInset = UIEdgeInsetsMake(0, 0, 15, 0)
+    static let contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 15, right: 0)
 }
 
 final class WalletSortViewController: UIViewController {
@@ -45,7 +45,7 @@ final class WalletSortViewController: UIViewController {
 
         let feedback = bind(self) { owner, state -> Bindings<WalletSort.Event> in
             return Bindings(subscriptions: owner.subscriptions(state: state),
-                            events: owner.events())
+                            mutations: owner.events())
         }
 
         let readyViewFeedback: WalletSortPresenterProtocol.Feedback = { [weak self] _ in
@@ -77,14 +77,14 @@ fileprivate extension WalletSortViewController {
                 .rx
                 .tap
                 .asSignal()
-                .map { WalletSort.Event.setStatus(.visibility)}
+                .map { WalletSort.Event.setStatus(.position)}
 
         let tapPositionButtonEvent =
             positionButton
                 .rx
                 .tap
                 .asSignal()
-                .map { WalletSort.Event.setStatus(.position)}
+                .map { WalletSort.Event.setStatus(.visibility)}
 
         return [sendEvent.asSignal(),
                 tapPositionButtonEvent,
@@ -115,7 +115,7 @@ private extension WalletSortViewController {
 
         self.status = status
         tableView.isEditing = status == .visibility
-        navigationItem.rightBarButtonItem = status == .visibility ? positionButton : visibilityButton
+        navigationItem.rightBarButtonItem = status == .visibility ? visibilityButton : positionButton
     }
 }
 
@@ -219,7 +219,7 @@ extension WalletSortViewController: UITableViewDelegate {
     // MARK: Draging cells
 
     func tableView(_ tableView: UITableView,
-                   editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+                   editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .none
     }
 

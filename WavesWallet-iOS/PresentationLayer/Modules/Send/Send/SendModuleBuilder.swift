@@ -9,8 +9,8 @@
 import UIKit
 
 struct SendModuleBuilder: ModuleBuilder {
-    
-    func build(input: DomainLayer.DTO.AssetBalance?) -> UIViewController {
+
+    func build(input: Send.DTO.InputModel) -> UIViewController {
         
         let interactor: SendInteractorProtocol = SendInteractor()
         
@@ -18,8 +18,8 @@ struct SendModuleBuilder: ModuleBuilder {
         presenter.interactor = interactor
         
         let vc = StoryboardScene.Send.sendViewController.instantiate()
-        vc.input = .init(filters: [.all], selectedAsset: input, showAllList: false)
-
+        
+        vc.inputModel = input
         vc.presenter = presenter
         
         return vc

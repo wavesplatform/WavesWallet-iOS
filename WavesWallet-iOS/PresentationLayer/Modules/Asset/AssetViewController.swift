@@ -97,7 +97,7 @@ private extension AssetViewController {
     func setupSystem() {
 
         let uiFeedback: AssetPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<AssetTypes.Event>) in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
 
         let readyViewFeedback: AssetPresenterProtocol.Feedback = { [weak self] _ in
@@ -260,8 +260,8 @@ extension AssetViewController {
     private func updateContentInsetForTableView() {
 
         let top = heightDifferenceSegmentedControlBetweenNavigationBar + Constants.segmentedControlBottomPading + Constants.segmentedControlTopPading
-        tableView.contentInset = UIEdgeInsetsMake(top, 0, Constants.contentBottomInset, 0)
-        tableView.scrollIndicatorInsets = UIEdgeInsetsMake(top, 0, Constants.contentBottomInset, 0)
+        tableView.contentInset = UIEdgeInsets.init(top: top, left: 0, bottom: Constants.contentBottomInset, right: 0)
+        tableView.scrollIndicatorInsets = UIEdgeInsets.init(top: top, left: 0, bottom: Constants.contentBottomInset, right: 0)
     }
 }
 

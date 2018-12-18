@@ -40,7 +40,7 @@ final class MyAddressInfoAddressCell: UITableViewCell, Reusable {
         ImpactFeedbackGenerator.impactOccurred()
 
         // TODO: Move code to coordinator
-        let activityVC = UIActivityViewController(activityItems: [self.subTitleLabel.text], applicationActivities: [])
+        let activityVC = UIActivityViewController(activityItems: [self.subTitleLabel.text ?? ""], applicationActivities: [])
         AppDelegate.shared().window?.rootViewController?.present(activityVC, animated: true, completion: nil)
     }
 }

@@ -72,13 +72,9 @@ final class AccountPasswordViewController: UIViewController {
                                              kind: .password,
                                              placeholder: Localizable.Waves.Accountpassword.Textfield.Password.placeholder))
 
-        passwordTextField.valueValidator = { value in
-            return (value?.count ?? 0) < GlobalConstants.minLengthPassword ? Localizable.Waves.Accountpassword.Textfield.Error.atleastcharacters(GlobalConstants.minLengthPassword) : nil
-        }
-
         let changedValue: ((Bool,String?) -> Void) = { [weak self] isValidValue, value in
             self?.passwordTextField.error = nil
-            self?.buttonSignIn.isEnabled = isValidValue
+            self?.buttonSignIn.isEnabled = (value?.trimmingCharacters(in: CharacterSet.whitespaces).count ?? 0) >= GlobalConstants.minLengthPassword
         }
 
         passwordTextField.changedValue = changedValue
@@ -96,7 +92,7 @@ private extension AccountPasswordViewController {
     func setupSystem() {
 
         let uiFeedback: AccountPasswordPresenter.Feedback = bind(self) { (owner, state) -> (Bindings<Types.Event>) in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())            
         }
 
         presenter.system(feedbacks: [uiFeedback])

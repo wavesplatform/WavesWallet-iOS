@@ -1,0 +1,14 @@
+
+"NSCameraUsageDescription" = "QR kodları taramak için kamera gerekmektedir";
+
+"NSFaceIDUsageDescription" = "Hesabınıza erişin";
+
+"NSPhotoLibraryAddUsageDescription" = "QR kodları taramak için kamera gerekmektedir";
+
+"cameraAccess.alert.allow" = "Kameraya izin ver";
+
+"cameraAccess.alert.cancel" = "İptal";
+
+"cameraAccess.alert.message" = "Bu uygulamanın bütün özelliklerini kullanabilmeniz için kameraya erişim izni vermeniz gerekmektedir.";
+
+"cameraAccess.alert.title" = "Kamera erişim izni gerekmektedir.";

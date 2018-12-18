@@ -20,15 +20,16 @@ enum Send {
     enum Event {
         case didChangeRecipient(String)
         case didChangeMoneroPaymentID(String)
-        case didSelectAsset(DomainLayer.DTO.AssetBalance, loadGatewayInfo: Bool)
+        case didSelectAsset(DomainLayer.DTO.SmartAssetBalance, loadGatewayInfo: Bool)
         case getGatewayInfo
         case didGetGatewayInfo(ResponseType<DTO.GatewayInfo>)
         case checkValidationAlias
         case validationAliasDidComplete(Bool)
-        case didGetWavesAsset(DomainLayer.DTO.AssetBalance)
-        case moneroAddressDidGenerate(ResponseType<String>)
+        case didGetWavesAsset(DomainLayer.DTO.SmartAssetBalance)
+        case moneroAddressDidGenerate(ResponseType<DTO.GatewayInfo>)
         case getAssetById(String)
-        case didGetAssetBalance(DomainLayer.DTO.AssetBalance?)
+        case cancelGetingAsset
+        case didGetAssetBalance(DomainLayer.DTO.SmartAssetBalance?)
     }
     
     struct State: Mutating {
@@ -37,20 +38,20 @@ enum Send {
             case didGetInfo(DTO.GatewayInfo)
             case didFailInfo(NetworkError)
             case aliasDidFinishCheckValidation(Bool)
-            case didGetWavesAsset(DomainLayer.DTO.AssetBalance)
-            case didGenerateMoneroAddress(String)
+            case didGetWavesAsset(DomainLayer.DTO.SmartAssetBalance)
+            case didGenerateMoneroAddress(DTO.GatewayInfo)
             case didFailGenerateMoneroAddress(NetworkError)
-            case didGetAssetBalance(DomainLayer.DTO.AssetBalance?)
+            case didGetAssetBalance(DomainLayer.DTO.SmartAssetBalance?)
         }
         
-        var isNeedLoadInfo: Bool
+        var isNeedLoadGateWayInfo: Bool
         var isNeedValidateAliase: Bool
         var isNeedLoadWaves: Bool
         var isNeedGenerateMoneroAddress: Bool
         var action: Action
         var recipient: String = ""
         var moneroPaymentID: String = ""
-        var selectedAsset: DomainLayer.DTO.AssetBalance?
+        var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
         var scanningAssetID: String?
     }
 }
@@ -62,6 +63,28 @@ extension Send.ViewModel {
 }
 
 extension Send.DTO {
+    
+    enum InputModel {
+        
+        struct ResendTransaction {
+            let address: String
+            let asset: DomainLayer.DTO.Asset
+            let amount: Money
+        }
+        
+        case empty
+        case selectedAsset(DomainLayer.DTO.SmartAssetBalance)
+        case resendTransaction(ResendTransaction)
+  
+        var selectedAsset: DomainLayer.DTO.SmartAssetBalance? {
+            switch self {
+            case .selectedAsset(let asset):
+                return asset
+            default:
+                return nil
+            }
+        }
+    }
     
     struct Transaction {
         private let senderPrivateKey: PrivateKeyAccount
@@ -135,7 +158,7 @@ extension Send.DTO.Transaction {
 extension Send.State: Equatable {
     
     static func == (lhs: Send.State, rhs: Send.State) -> Bool {
-        return lhs.isNeedLoadInfo == rhs.isNeedLoadInfo &&
+        return lhs.isNeedLoadGateWayInfo == rhs.isNeedLoadGateWayInfo &&
                 lhs.isNeedValidateAliase == rhs.isNeedValidateAliase &&
                 lhs.isNeedGenerateMoneroAddress == rhs.isNeedGenerateMoneroAddress &&
                 lhs.recipient == rhs.recipient &&

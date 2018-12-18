@@ -11,11 +11,11 @@ import Foundation
 extension HistoryTypes.ViewModel {
     struct Section {
         var items: [Row]
-        var header: String?
+        var date: Date?
         
-        init(items: [Row], header: String? = nil) {
+        init(items: [Row], date: Date? = nil) {
             self.items = items
-            self.header = header
+            self.date = date
         }
     }
     
@@ -45,15 +45,11 @@ extension HistoryTypes.ViewModel.Section {
 
         let sortedKeys = Array(sections.keys).sorted(by: { $0 > $1 })
 
-        let formatter = DateFormatter.sharedFormatter
-        //TODO: Constants
-        formatter.dateFormat = "MMM dd, yyyy"
-
         return sortedKeys.map { key -> HistoryTypes.ViewModel.Section? in
             guard let section = sections[key] else { return nil }
             let rows = section.map { HistoryTypes.ViewModel.Row.transaction($0) }
             return HistoryTypes.ViewModel.Section.init(items: rows,
-                                                       header: formatter.string(from: key))
+                                                       date: key)
         }
         .compactMap { $0 }
     }

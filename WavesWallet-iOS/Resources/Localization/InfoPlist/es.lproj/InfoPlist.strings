@@ -1,0 +1,14 @@
+
+"NSCameraUsageDescription" = "La cámara es necesaria para escanear códigos QR";
+
+"NSFaceIDUsageDescription" = "Acceso a su cartera";
+
+"NSPhotoLibraryAddUsageDescription" = "La cámara es necesaria para escanear códigos QR";
+
+"cameraAccess.alert.allow" = "Permitir cámara";
+
+"cameraAccess.alert.cancel" = "Cancelar";
+
+"cameraAccess.alert.message" = "Acceso a la cámara es necesaria para el uso de esta app";
+
+"cameraAccess.alert.title" = "Necesita acceso a la cámara";

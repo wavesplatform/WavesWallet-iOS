@@ -1,0 +1,1150 @@
+
+"profile.alert.setupbiometric.title" = "Biometrics is disabled";
+
+"profile.alert.setupbiometric.message" = "To use fast and secure login, go to settings to enable biometrics";
+
+"profile.alert.setupbiometric.button.settings" = "Settings";
+
+"profile.alert.setupbiometric.button.cancel" = "Cancel";
+
+"biometric.manyattempts.subtitle" = "To unlock biometric, sign in with your account password";
+
+"biometric.manyattempts.title" = "Too many attempts";
+
+"biometric.localizedCancelTitle" = "Cancel";
+
+"biometric.localizedFallbackTitle" = "Enter Password";
+
+"Receivecard.Label.minimunAmountInfo" = "The minimum is %@, the maximum is %@";
+
+"Send.Label.Error.notFundsFeeGateway" = "You don't have enough funds to pay the required fees. You must pay %@ transaction fee and %@ gateway fee.";
+
+"Send.Label.Warning.description" = "Do not withdraw %@ to an ICO. We will not credit your account with tokens from that sale.";
+
+"Send.Label.Warning.subtitle" = "We detected %@ address and will send your money through Coinomat gateway to that address. Minimum amount is %@, maximum amount is %@.";
+
+"accountpassword.button.signIn.title" = "Sign In";
+
+"accountpassword.error.wrongpassword" = "Wrong password";
+
+"accountpassword.textfield.error.atleastcharacters" = "Minimum %d characters";
+
+"accountpassword.textfield.password.placeholder" = "Account password";
+
+"addAddressbook.button.cancel" = "Cancel";
+
+"addAddressbook.button.delete" = "Delete";
+
+"addAddressbook.button.deleteAddress" = "Delete address";
+
+"addAddressbook.button.save" = "Save";
+
+"addAddressbook.error.charactersMaximum" = "%d characters maximum";
+
+"addAddressbook.error.charactersMinimum" = "Minimum %d characters";
+
+"addAddressbook.label.add" = "Add";
+
+"addAddressbook.label.address" = "Address";
+
+"addAddressbook.label.deleteAlertMessage" = "Are you sure you want to delete address from address book?";
+
+"addAddressbook.label.edit" = "Edit";
+
+"addAddressbook.label.name" = "Name";
+
+"addAddressbook.textfield.address.error.addressexist" = "Already in use";
+
+"addressbook.label.addressBook" = "Address book";
+
+"addressbook.label.addressDeleted" = "Address deleted";
+
+"addressbook.label.noInfo" = "Nothing Here…\nYou can create new address";
+
+"addresseskeys.cell.address.title" = "Your address";
+
+"addresseskeys.cell.aliases.subtitle.withaliaces" = "You have %d";
+
+"addresseskeys.cell.aliases.subtitle.withoutaliaces" = "You do not have";
+
+"addresseskeys.cell.aliases.title" = "Aliases";
+
+"addresseskeys.cell.privatekey.title" = "Private Key";
+
+"addresseskeys.cell.privatekeyhidde.button.title" = "Show";
+
+"addresseskeys.cell.publickey.title" = "Public Key";
+
+"addresseskeys.cell.seed.title" = "SEED";
+
+"addresseskeys.navigation.title" = "Addresses, keys";
+
+"aliases.cell.head.title" = "Your Aliases";
+
+"aliases.view.info.button.create" = "Create a new alias";
+
+"aliases.view.info.label.fee" = "Transaction Fee 0.001 Waves";
+
+"aliases.view.info.label.secondsubtitle" = "Your Alias must be between 4 and 30 characters long, and must contain only lowercase Latin letters, digits and symbols (@, -, _ etc)";
+
+"aliases.view.info.label.subtitle" = "An Alias is a nickname for your address. You can use an Alias instead of an address to make transactions.";
+
+"aliases.view.info.label.title" = "About Alias";
+
+"aliaseswithout.view.info.button.create" = "Create a new alias";
+
+"aliaseswithout.view.info.label.fee" = "Transaction Fee 0.001 Waves";
+
+"aliaseswithout.view.info.label.secondsubtitle" = "Your Alias must be between 4 and 30 characters long, and must contain only lowercase Latin letters, digits and symbols (@, -, _ etc)";
+
+"aliaseswithout.view.info.label.subtitle" = "An Alias is a nickname for your address. You can use an Alias instead of an address to make transactions.";
+
+"aliaseswithout.view.info.label.title" = "You do not have Aliases";
+
+"asset.cell.assetInfo.cantPerformTransactions" = "You can not perform transactions with this asset";
+
+"asset.cell.assetInfo.decimalPoints" = "Decimal points";
+
+"asset.cell.assetInfo.description" = "Description";
+
+"asset.cell.assetInfo.id" = "ID";
+
+"asset.cell.assetInfo.issueDate" = "Issue date";
+
+"asset.cell.assetInfo.issuer" = "Issuer";
+
+"asset.cell.assetInfo.kind.notReissuable" = "Not reissuable";
+
+"asset.cell.assetInfo.kind.reissuable" = "Reissuable";
+
+"asset.cell.assetInfo.kind.title" = "Type";
+
+"asset.cell.assetInfo.name" = "Name";
+
+"asset.cell.assetInfo.title" = "Asset Info";
+
+"asset.cell.assetInfo.totalAmount" = "Total amount";
+
+"asset.cell.balance.avaliableBalance" = "Available balance";
+
+"asset.cell.balance.button.exchange" = "Exchange";
+
+"asset.cell.balance.button.receive" = "Receive";
+
+"asset.cell.balance.button.send" = "Send";
+
+"asset.cell.balance.inOrderBalance" = "In order";
+
+"asset.cell.balance.leased" = "Leased";
+
+"asset.cell.balance.totalBalance" = "Total";
+
+"asset.cell.viewHistory" = "Transaction history";
+
+"asset.header.lastTransactions" = "Last transactions";
+
+"asset.header.notHaveTransactions" = "You do not have any transactions";
+
+"assetlist.button.allList" = "All list";
+
+"assetlist.button.myList" = "With balance";
+
+"assetlist.button.withBalance" = "With balance";
+
+"assetlist.label.assets" = "Assets";
+
+"assetlist.label.loadingAssets" = "Loading assets…";
+
+"backup.backup.navigation.title" = "Backup phrase";
+
+"backup.confirmbackup.button.confirm" = "Confirm";
+
+"backup.confirmbackup.error.label" = "Wrong order, try again";
+
+"backup.confirmbackup.info.label" = "Please, tap each word in the correct order";
+
+"backup.confirmbackup.navigation.title" = "Confirm backup";
+
+"backup.infobackup.button.iunderstand" = "I understand";
+
+"backup.infobackup.label.detail" = "Waves Platform would like to warn you about the increased frequency of scam and phishing attacks over the last month. Fraudsters are hiding their malware in their own versions of the Waves client and promising bonuses and discounts to lure in users.\n\nPlease be careful and never input your SEED into these 'clients', because your account will be compromised and you will lose all of your funds.\n\nYou should ONLY use the official Waves client.";
+
+"backup.infobackup.label.title" = "Treat your backup phrase with care!";
+
+"backup.needbackup.button.backupnow" = "Back Up Now";
+
+"backup.needbackup.button.doitlater" = "Do it later";
+
+"backup.needbackup.label.detail" = "You must save the secret phrase. It is crucial for accessing your account.";
+
+"backup.needbackup.label.title" = "No Backup, No Money";
+
+"backup.savebackup.copy.label.title" = "Please carefully write down these 15 words or copy them";
+
+"backup.savebackup.label.title" = "Since only you control your money, you’ll need to save your backup phrase in case this app is deleted";
+
+"backup.savebackup.navigation.title" = "Save backup phrase";
+
+"backup.savebackup.next.button.title" = "I've written it down";
+
+"backup.savebackup.next.label.title" = "You will confirm this phrase on the next screen";
+
+"biometric.readfromkeychain" = "Access to your wallet";
+
+"biometric.saveinkeychain" = "Access to your wallet";
+
+"cameraAccess.alert.allow" = "Allow Camera";
+
+"cameraAccess.alert.cancel" = "Cancel";
+
+"cameraAccess.alert.message" = "Camera access is required to make full use of this app";
+
+"cameraAccess.alert.title" = "Need Camera Access";
+
+"changepassword.button.confirm.title" = "Confirm";
+
+"changepassword.navigation.title" = "Changed password";
+
+"changepassword.textfield.confirmpassword.title" = "Confirm password";
+
+"changepassword.textfield.createpassword.title" = "New password";
+
+"changepassword.textfield.error.atleastcharacters" = "Minimum %d characters";
+
+"changepassword.textfield.error.incorrectpassword" = "incorrect password";
+
+"changepassword.textfield.error.passwordnotmatch" = "password not match";
+
+"changepassword.textfield.oldpassword.title" = "Old password";
+
+"chooseaccount.alert.button.no" = "Cancel";
+
+"chooseaccount.alert.button.ok" = "Yes";
+
+"chooseaccount.alert.delete.message" = "Are you sure you want to delete this account?";
+
+"chooseaccount.alert.delete.title" = "Delete account";
+
+"chooseaccount.label.nothingWallets" = "Nothing Here…\nYou do not have saved accounts";
+
+"chooseaccount.navigation.title" = "Choose account";
+
+"createalias.button.create.title" = "Create";
+
+"createalias.cell.input.textfiled.input.placeholder" = "Symbolic name";
+
+"createalias.cell.input.textfiled.input.title" = "Symbolic name";
+
+"createalias.error.alreadyinuse" = "Already in use";
+
+"createalias.error.charactersmaximum" = "30 characters maximum";
+
+"createalias.error.invalidcharacter" = "Invalid character";
+
+"createalias.error.minimumcharacters" = "Minimum 4 characters";
+
+"createalias.navigation.title" = "New alias";
+
+"dex.general.error.nothingHere" = "Nothing Here…";
+
+"dex.general.error.somethingWentWrong" = "Something went wrong";
+
+"dexchart.button.cancel" = "Cancel";
+
+"dexchart.label.emptyData" = "No chart data available";
+
+"dexchart.label.hour" = "hour";
+
+"dexchart.label.hours" = "hours";
+
+"dexchart.label.loadingChart" = "Loading chart…";
+
+"dexchart.label.minutes" = "minutes";
+
+"dexcompleteorder.button.okey" = "Okay";
+
+"dexcompleteorder.label.amount" = "Amount";
+
+"dexcompleteorder.label.open" = "Open";
+
+"dexcompleteorder.label.orderIsCreated" = "The order is created";
+
+"dexcompleteorder.label.price" = "Price";
+
+"dexcompleteorder.label.status" = "Status";
+
+"dexcompleteorder.label.time" = "Time";
+
+"dexcreateorder.button.ask" = "Ask";
+
+"dexcreateorder.button.bid" = "Bid";
+
+"dexcreateorder.button.buy" = "Buy";
+
+"dexcreateorder.button.cancel" = "Cancel";
+
+"dexcreateorder.button.day" = "day";
+
+"dexcreateorder.button.days" = "days";
+
+"dexcreateorder.button.hour" = "hour";
+
+"dexcreateorder.button.last" = "Last";
+
+"dexcreateorder.button.minutes" = "minutes";
+
+"dexcreateorder.button.sell" = "Sell";
+
+"dexcreateorder.button.useTotalBalanace" = "Use total balance";
+
+"dexcreateorder.button.week" = "week";
+
+"dexcreateorder.label.Expiration" = "Expiration";
+
+"dexcreateorder.label.amountIn" = "Amount in";
+
+"dexcreateorder.label.bigValue" = "Value is too big";
+
+"dexcreateorder.label.days" = "days";
+
+"dexcreateorder.label.error.notFundsFee" = "You don't have enough funds to pay the required fees.";
+
+"dexcreateorder.label.fee" = "Fee";
+
+"dexcreateorder.label.limitPriceIn" = "Limit Price in";
+
+"dexcreateorder.label.notEnough" = "Not enough";
+
+"dexcreateorder.label.smallValue" = "Value is too small";
+
+"dexcreateorder.label.totalIn" = "Total in";
+
+"dexinfo.label.amountAsset" = "Amount Asset";
+
+"dexinfo.label.popular" = "Popular";
+
+"dexinfo.label.priceAsset" = "Price Asset";
+
+"dexlasttrades.button.buy" = "BUY";
+
+"dexlasttrades.button.sell" = "SELL";
+
+"dexlasttrades.label.amount" = "Amount";
+
+"dexlasttrades.label.emptyData" = "Nothing Here…\nThe trading history is empty";
+
+"dexlasttrades.label.loadingLastTrades" = "Loading last trades…";
+
+"dexlasttrades.label.price" = "Price";
+
+"dexlasttrades.label.sum" = "Sum";
+
+"dexlasttrades.label.time" = "Time";
+
+"dexlist.button.addMarkets" = "Add Markets";
+
+"dexlist.label.decentralisedExchange" = "Decentralised Exchange";
+
+"dexlist.label.description" = "Trade quickly and securely. You retain complete control over your funds when trading them on our decentralised exchange.";
+
+"dexlist.label.lastUpdate" = "Last update";
+
+"dexlist.label.price" = "Price";
+
+"dexlist.label.today" = "Today";
+
+"dexlist.label.yesterday" = "Yesterday";
+
+"dexlist.navigationBar.title" = "DEX";
+
+"dexmarket.label.loadingMarkets" = "Loading markets…";
+
+"dexmarket.navigationBar.title" = "Markets";
+
+"dexmarket.searchBar.placeholder" = "Search";
+
+"dexmyorders.label.amount" = "Amount";
+
+"dexmyorders.label.buy" = "Buy";
+
+"dexmyorders.label.date" = "Date";
+
+"dexmyorders.label.emptyData" = "Nothing Here…\nYou do not have any orders";
+
+"dexmyorders.label.loadingLastTrades" = "Loading orders…";
+
+"dexmyorders.label.price" = "Price";
+
+"dexmyorders.label.sell" = "Sell";
+
+"dexmyorders.label.side" = "Side";
+
+"dexmyorders.label.status" = "Status";
+
+"dexmyorders.label.status.accepted" = "Open";
+
+"dexmyorders.label.status.cancelled" = "Cancelled";
+
+"dexmyorders.label.status.filled" = "Filled";
+
+"dexmyorders.label.status.partiallyFilled" = "Partial";
+
+"dexmyorders.label.sum" = "Sum";
+
+"dexmyorders.label.time" = "Time";
+
+"dexorderbook.button.buy" = "BUY";
+
+"dexorderbook.button.sell" = "SELL";
+
+"dexorderbook.label.amount" = "Amount";
+
+"dexorderbook.label.emptyData" = "Nothing Here…\nThe order book is empty";
+
+"dexorderbook.label.lastPrice" = "LAST PRICE";
+
+"dexorderbook.label.loadingOrderbook" = "Loading orderbook…";
+
+"dexorderbook.label.price" = "Price";
+
+"dexorderbook.label.spread" = "SPREAD";
+
+"dexorderbook.label.sum" = "Sum";
+
+"dexsort.navigationBar.title" = "Sorting";
+
+"dextradercontainer.button.chart" = "Chart";
+
+"dextradercontainer.button.lastTrades" = "Last trades";
+
+"dextradercontainer.button.myOrders" = "My orders";
+
+"dextradercontainer.button.orderbook" = "Orderbook";
+
+"editaccountname.button.save" = "Save";
+
+"editaccountname.label.newName" = "New account name";
+
+"editaccountname.navigation.title" = "Edit name";
+
+"enter.block.blockchain.text" = "Become part of a fast-growing area of the crypto world. You are the only person who can access your crypto assets.";
+
+"enter.block.blockchain.title" = "Get Started with Blockchain";
+
+"enter.block.exchange.text" = "Trade quickly and securely. You retain complete control over your funds when trading them on our decentralised exchange.";
+
+"enter.block.exchange.title" = "Decentralised Exchange";
+
+"enter.block.token.text" = "Issue your own tokens. These can be integrated into your business not only as an internal currency but also as a token for decentralised voting, as a rating system, or loyalty program.";
+
+"enter.block.token.title" = "Token Launcher";
+
+"enter.block.wallet.text" = "Store, manage and receive interest on your digital assets balance, easily and securely.";
+
+"enter.block.wallet.title" = "Wallet";
+
+"enter.button.confirm.title" = "Confirm";
+
+"enter.button.createNewAccount.title" = "Create a new account";
+
+"enter.button.importAccount.detail" = "via pairing code or manually";
+
+"enter.button.importAccount.error.insecureSeed" = "Insecure SEED";
+
+"enter.button.importAccount.title" = "Import account";
+
+"enter.button.signIn.detail" = "to a saved account";
+
+"enter.button.signIn.title" = "Sign in";
+
+"enter.label.or" = "or";
+
+"enter.language.navigation.title" = "Change language";
+
+"general.biometric.faceID.title" = "Face ID";
+
+"general.biometric.touchID.title" = "Touch ID";
+
+"general.error.subtitle.notfound" = "Do not worry, we are already fixing this problem.\nSoon everything will work!";
+
+"general.error.title.noconnectiontotheinternet" = "No connection to the Internet";
+
+"general.error.title.notfound" = "Oh… It's all broken!";
+
+"general.label.title.myasset" = "/ My Asset";
+
+"general.tabbar.title.dex" = "DEX";
+
+"general.tabbar.title.history" = "History";
+
+"general.tabbar.title.profile" = "Profile";
+
+"general.tabbar.title.wallet" = "Wallet";
+
+"general.ticker.title.cryptocurrency" = "Cryptocurrency";
+
+"general.ticker.title.fiatmoney" = "Fiat Money";
+
+"general.ticker.title.spam" = "SPAM";
+
+"general.ticker.title.wavestoken" = "Waves Token";
+
+"general.tost.saveBackup.subtitle" = "Store your SEED safely, it is the only way to restore your wallet";
+
+"general.tost.saveBackup.title" = "Save your backup phrase (SEED)";
+
+"hello.button.continue" = "Continue";
+
+"hello.button.next" = "Next";
+
+"hello.button.understand" = "I Understand";
+
+"hello.page.info.fifth.detail.first" = "Do not open emails or links from unknown senders.";
+
+"hello.page.info.fifth.detail.fourth" = "Do not access your wallet when using public Wi-Fi or someone else’s device.";
+
+"hello.page.info.fifth.detail.second" = "Regularly update your operating system.";
+
+"hello.page.info.fifth.detail.third" = "Use official security software. Do not install unknown software which could be hacked.";
+
+"hello.page.info.fifth.title" = "How To Protect Yourself from Phishers";
+
+"hello.page.info.first.detail" = "Please take some time to understand some important things for your own safety.\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka  phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your , including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.";
+
+"hello.page.info.first.title" = "Welcome to the Waves Platform!";
+
+"hello.page.info.fourth.detail" = "One of the most common forms of scamming is phishing, which is when scammers create fake communities on Facebook or other websites that look similar to the authentic ones.";
+
+"hello.page.info.fourth.title" = "How To Protect Yourself from Phishers";
+
+"hello.page.info.second.detail" = "When registering your account, you will be asked to save your secret phrase (SEED) and to protect your account with a password. On normal centralized servers, special attention is paid to the password, which can be changed and reset via email, if the need arises. However, on decentralized platforms such as Waves, everything is arranged differently.";
+
+"hello.page.info.second.title" = "What you need to know about your SEED";
+
+"hello.page.info.third.detail.first" = "You use your wallet anonymously, meaning your account is not connected to an email account or any other identifying data.";
+
+"hello.page.info.third.detail.fourth" = "You cannot change your secret phrase. If you accidentally sent it to someone or suspect that scammers have taken it over, then create a new Waves wallet immediately and transfer your funds to it.";
+
+"hello.page.info.third.detail.second" = "Your password protects your account when working on a certain device or browser. It is needed in order to ensure that your secret phrase is not saved in storage.";
+
+"hello.page.info.third.detail.third" = "If you forget your password, you can easily create a new one by using the account recovery form via your secret phrase. If you lose your secret phrase, however, you will have no way to access your account.";
+
+"hello.page.info.third.title" = "What you need to know about your SEED";
+
+"history.navigationBar.title" = "History";
+
+"history.segmentedControl.activeNow" = "Active Now";
+
+"history.segmentedControl.all" = "All";
+
+"history.segmentedControl.canceled" = "Canceled";
+
+"history.segmentedControl.exchanged" = "Exchanged";
+
+"history.segmentedControl.issued" = "Issued";
+
+"history.segmentedControl.leased" = "Leased";
+
+"history.segmentedControl.received" = "Received";
+
+"history.segmentedControl.sent" = "Sent";
+
+"history.transaction.cell.exchange.buy" = "Buy: %@/%@";
+
+"history.transaction.cell.exchange.sell" = "Sell: %@/%@";
+
+"history.transaction.title.alias" = "Create Alias";
+
+"history.transaction.title.canceledLeasing" = "Canceled Leasing";
+
+"history.transaction.title.data" = "Data transaction";
+
+"history.transaction.title.exchange" = "Exchange";
+
+"history.transaction.title.incomingLeasing" = "Incoming Leasing";
+
+"history.transaction.title.massreceived" = "Mass Received";
+
+"history.transaction.title.masssent" = "Mass Sent";
+
+"history.transaction.title.received" = "Received";
+
+"history.transaction.title.selfTransfer" = "Self-transfer";
+
+"history.transaction.title.sent" = "Sent";
+
+"history.transaction.title.startedLeasing" = "Started Leasing";
+
+"history.transaction.title.tokenBurn" = "Token Burn";
+
+"history.transaction.title.tokenGeneration" = "Token Generation";
+
+"history.transaction.title.tokenReissue" = "Token Reissue";
+
+"history.transaction.title.unrecognisedTransaction" = "Unrecognised Transaction";
+
+"history.transaction.value.data" = "Entry in blockchain";
+
+"import.account.button.enter.title" = "Enter SEED manually";
+
+"import.account.button.scan.title" = "Scan pairing code";
+
+"import.account.label.info.step.one.detail" = "Settings — General — Export account";
+
+"import.account.label.info.step.one.title" = "Log in to your Waves Client via your PC or Mac at https://client.wavesplatform.com";
+
+"import.account.label.info.step.two.title" = "Click «Show Pairing Code» to reveal a QR Code. Scan the code with your camera.";
+
+"import.account.navigation.title" = "Import account";
+
+"import.general.error.alreadyinuse" = "Already in use";
+
+"import.general.navigation.title" = "Import account";
+
+"import.general.segmentedControl.manually" = "Manually";
+
+"import.general.segmentedControl.scan" = "Scan";
+
+"import.manually.button.continue" = "Continue";
+
+"import.manually.label.address.placeholder" = "Your SEED is the 15 words you saved when creating your account";
+
+"import.manually.label.address.title" = "Your account SEED";
+
+"import.password.button.continue" = "Continue";
+
+"import.scan.button.title" = "Scan pairing code";
+
+"import.scan.label.step.one.title" = "Log in to your Waves Client via web or Mac, PC";
+
+"import.scan.label.step.three.title" = "Scan the code with your camera";
+
+"import.scan.label.step.two.detail" = "Settings — General — Export account";
+
+"import.scan.label.step.two.title" = "Click «Show Pairing Code» to reveal a QR Code";
+
+"import.welcome.button.continue" = "Continue";
+
+"import.welcome.label.address.placeholder" = "Your SEED is the 15 words you saved when creating your account";
+
+"import.welcome.label.address.title" = "Your account SEED";
+
+"import.welcome.navigation.title" = "Welcome back";
+
+"legal.checkbox.box.button.confirm" = "Confirm and begin";
+
+"legal.checkbox.box.first" = "I understand that my funds are held securely on this device, not by a company";
+
+"legal.checkbox.box.second" = "I understand that if this app is moved to another device or deleted, my Waves can only be recovered with the backup phrase";
+
+"legal.checkbox.box.subtitle" = "Waves is different — it cannot be held safely by a bank or web service";
+
+"legal.checkbox.box.termsOfUse" = "Terms of Use";
+
+"legal.checkbox.box.third" = "I have read, understood, and agree to the";
+
+"legal.checkbox.box.title" = "Done!";
+
+"menu.button.supportwavesplatform" = "Support Wavesplatform";
+
+"menu.button.termsandconditions" = "Terms and conditions";
+
+"menu.button.whitepaper" = "Whitepaper";
+
+"menu.label.communities" = "Join the Waves Community";
+
+"menu.label.description" = "Keep up with the latest news and articles, and find out all about events happening on the Waves Platform";
+
+"myaddress.button.copy.title" = "Copy";
+
+"myaddress.button.share.title" = "Share";
+
+"myaddress.cell.aliases.subtitle.withaliaces" = "You have %d";
+
+"myaddress.cell.aliases.subtitle.withoutaliaces" = "You do not have";
+
+"myaddress.cell.aliases.title" = "Aliases";
+
+"myaddress.cell.info.title" = "Your address";
+
+"myaddress.cell.qrcode.title" = "Your QR Code";
+
+"networksettings.button.save.title" = "Save";
+
+"networksettings.button.setdefault.title" = "Set default";
+
+"networksettings.label.switchspam.title" = "Spam filtering";
+
+"networksettings.navigation.title" = "Network";
+
+"networksettings.textfield.spamfilter.title" = "Spam filter";
+
+"newaccount.avatar.detail" = "You cannot change it later";
+
+"newaccount.avatar.title" = "Choose your unique address avatar";
+
+"newaccount.backup.navigation.title" = "New Account";
+
+"newaccount.error.noavatarselected" = "No avatar selected";
+
+"newaccount.main.navigation.title" = "New Account";
+
+"newaccount.secret.navigation.title" = "New Account";
+
+"newaccount.textfield.accountName.title" = "Account name";
+
+"newaccount.textfield.confirmpassword.title" = "Confirm password";
+
+"newaccount.textfield.createpassword.title" = "Create a password";
+
+"newaccount.textfield.error.atleastcharacters" = "Minimum %d characters";
+
+"newaccount.textfield.error.charactersmaximum" = "%d characters maximum";
+
+"newaccount.textfield.error.doesnotmatch" = "Does not match";
+
+"newaccount.textfield.error.minimumcharacters" = "Minimum %d characters";
+
+"newaccount.textfield.error.maximumcharacters" = "Maximum %d characters";
+
+"newaccount.textfield.error.passwordnotmatch" = "password not match";
+
+"newaccount.textfield.error.wrongordertryagain" = "Wrong order, try again";
+
+"passcode.alert.attempsended.button.cancel" = "Cancel";
+
+"passcode.alert.attempsended.button.enterpassword" = "Use Password";
+
+"passcode.alert.attempsended.button.ok" = "Ok";
+
+"passcode.alert.attempsended.subtitle" = "To unlock, sign in with your account password";
+
+"passcode.alert.attempsended.title" = "Too many attempts";
+
+"passcode.button.forgotPasscode.title" = "Use account password";
+
+"passcode.label.forgotPasscode.title" = "Forgot passcode?";
+
+"passcode.label.passcode.create" = "Create a passcode";
+
+"passcode.label.passcode.enter" = "Enter Passcode";
+
+"passcode.label.passcode.old" = "Enter old Passcode";
+
+"passcode.label.passcode.verify" = "Verify your passcode";
+
+"profile.alert.deleteAccount.button.cancel" = "Cancel";
+
+"profile.alert.deleteAccount.button.delete" = "Delete";
+
+"profile.alert.deleteAccount.message" = "Are you sure you want to delete this account from device?";
+
+"profile.alert.deleteAccount.notSaveSeed" = "You did not save your SEED";
+
+"profile.alert.deleteAccount.title" = "Delete account";
+
+"profile.alert.deleteAccount.withoutbackup.message" = "Deleting an account will lead to its irretrievable loss!";
+
+"profile.button.delete.title" = "Delete account from device";
+
+"profile.button.logout.title" = "Logout of account";
+
+"profile.cell.addressbook.title" = "Address book";
+
+"profile.cell.addresses.title" = "Addresses, keys";
+
+"profile.cell.backupphrase.title" = "Backup phrase";
+
+"profile.cell.changepasscode.title" = "Change passcode";
+
+"profile.cell.changepassword.title" = "Change password";
+
+"profile.cell.currentheight.title" = "Current height";
+
+"profile.cell.feedback.title" = "Feedback";
+
+"profile.cell.info.currentheight.title" = "Current height";
+
+"profile.cell.info.version.title" = "Version";
+
+"profile.cell.language.title" = "Language";
+
+"profile.cell.network.title" = "Network";
+
+"profile.cell.pushnotifications.title" = "Push Notifications";
+
+"profile.cell.rateApp.title" = "Rate app";
+
+"profile.cell.supportwavesplatform.title" = "Support Wavesplatform";
+
+"profile.header.general.title" = "General settings";
+
+"profile.header.other.title" = "Other";
+
+"profile.header.security.title" = "Security";
+
+"profile.language.navigation.title" = "Language";
+
+"profile.navigation.title" = "Profile";
+
+"receive.button.card" = "Card";
+
+"receive.button.continue" = "Continue";
+
+"receive.button.cryptocurrency" = "Сryptocurrency";
+
+"receive.button.invoice" = "Invoice";
+
+"receive.button.useTotalBalance" = "Use total balance";
+
+"receive.error.serviceUnavailable" = "Service is temporarily unavailable";
+
+"receive.label.amount" = "Amount";
+
+"receive.label.amountIn" = "Amount in";
+
+"receive.label.asset" = "Asset";
+
+"receive.label.receive" = "Receive";
+
+"receive.label.selectYourAsset" = "Select your asset";
+
+"receiveaddress.button.cancel" = "Cancel";
+
+"receiveaddress.button.close" = "Close";
+
+"receiveaddress.button.copied" = "Сopied!";
+
+"receiveaddress.button.copy" = "Copy";
+
+"receiveaddress.button.share" = "Share";
+
+"receiveaddress.label.linkToInvoice" = "Link to an Invoice";
+
+"receiveaddress.label.yourAddress" = "Your %@ address";
+
+"receiveaddress.label.yourQRCode" = "Your QR Code";
+
+"receivecard.button.cancel" = "Cancel";
+
+"receivecard.label.changeCurrency" = "Change currency";
+
+"receivecard.label.warningInfo" = "For making a payment from your card you will be redirected to the merchant's website";
+
+"receivecardcomplete.button.okay" = "Okay";
+
+"receivecardcomplete.label.afterPaymentUpdateBalance" = "After payment has been made your balance will be updated";
+
+"receivecardcomplete.label.redirectToIndacoin" = "You have been redirected to «Indacoin»";
+
+"receivecryptocurrency.label.minumumAmountOfDeposit" = "The minimum amount of deposit is %@";
+
+"receivecryptocurrency.label.sendOnlyOnThisDeposit" = "Send only %@ to this deposit address";
+
+"receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "If you will send less than %@, you will lose that money.";
+
+"receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Sending any other currency to this address may result in the loss of your deposit.";
+
+"receivegenerate.label.generate" = "Generate…";
+
+"receivegenerate.label.yourAddress" = "Your %@ address";
+
+"receiveinvoice.label.dollar" = "US Dollar";
+
+"scannerqrcode.label.scan" = "Scan QR";
+
+"send.button.chooseFromAddressBook" = "Choose from Address book";
+
+"send.button.continue" = "Continue";
+
+"send.button.useTotalBalanace" = "Use total balance";
+
+"send.label.addressNotValid" = "The address is not valid";
+
+"send.label.amount" = "Amount";
+
+"send.label.dollar" = "US Dollar";
+
+"send.label.error.insufficientFunds" = "Insufficient funds";
+
+"send.label.error.invalidId" = "invalid ID";
+
+"send.label.error.notFundsFee" = "You don't have enough funds to pay the required fees.";
+
+"send.label.gatewayFee" = "Gateway fee is";
+
+"send.label.moneroPaymentId" = "Monero Payment ID";
+
+"send.label.recipient" = "Recipient";
+
+"send.label.recipientAddress" = "Recipient address…";
+
+"send.label.send" = "Send";
+
+"send.label.transactionFee" = "Transaction Fee";
+
+"send.textField.placeholderPaymentId" = "Paste or type your Payment ID";
+
+"sendcomplete.button.okey" = "Okay";
+
+"sendcomplete.label.saveThisAddress" = "Do you want to save this address?";
+
+"sendcomplete.label.transactionIsOnWay" = "Your transaction is on the way!";
+
+"sendcomplete.label.youHaveSent" = "You have sent";
+
+"sendconfirmation.button.confim" = "Confirm";
+
+"sendconfirmation.label.confirmation" = "Confirmation";
+
+"sendconfirmation.label.description" = "Description";
+
+"sendconfirmation.label.descriptionIsTooLong" = "The description is too long";
+
+"sendconfirmation.label.dollar" = "US Dollar";
+
+"sendconfirmation.label.fee" = "Fee";
+
+"sendconfirmation.label.optionalMessage" = "Write an optional message";
+
+"sendconfirmation.label.sentTo" = "Sent to";
+
+"sendloading.label.sending" = "Sending…";
+
+"serverDisconnect.label.subtitle" = "Check your connection to the mobile Internet or Wi-Fi network";
+
+"serverDisconnect.label.title" = "No connection to the Internet";
+
+"serverEngineering.label.subtitle" = "Hi, at the moment we are doing a very important job of improving the application";
+
+"serverEngineering.label.title" = "Engineering works";
+
+"serverError.button.retry" = "Retry";
+
+"serverError.button.sendReport" = "Send a report";
+
+"serverError.label.allBroken" = "Oh… It's all broken!";
+
+"serverError.label.allBrokenDescription" = "Do not worry, we are already fixing this problem.\nSoon everything will work!";
+
+"serverError.label.noInternetConnection" = "No connection to the Internet";
+
+"serverError.label.noInternetConnectionDescription" = "Check your connection to the mobile Internet or Wi-Fi network";
+
+"serverError.label.subtitle" = "Do not worry, we are already fixing this problem.\nSoon everything will work!";
+
+"serverError.label.title" = "Oh… It's all broken!";
+
+"startleasing.button.chooseFromAddressBook" = "Choose from Address book";
+
+"startleasing.button.startLease" = "Start Lease";
+
+"startleasing.button.useTotalBalanace" = "Use total balance";
+
+"startleasing.button.useTotalBalance" = "Use total balance";
+
+"startleasing.label.addressIsNotValid" = "Address is not valid";
+
+"startleasing.label.amount" = "Amount";
+
+"startleasing.label.balance" = "Balance";
+
+"startleasing.label.generator" = "Generator";
+
+"startleasing.label.insufficientFunds" = "Insufficient funds";
+
+"startleasing.label.nodeAddress" = "Node address…";
+
+"startleasing.label.notEnough" = "Not enough";
+
+"startleasing.label.startLeasing" = "Start leasing";
+
+"startleasing.label.transactionFee" = "Transaction Fee";
+
+"startleasingcomplete.button.okey" = "Okay";
+
+"startleasingcomplete.label.youHaveCanceledTransaction" = "You have canceled a leasing transaction";
+
+"startleasingcomplete.label.youHaveLeased" = "You have leased %@ %@";
+
+"startleasingcomplete.label.yourTransactionIsOnWay" = "Your transaction is on way!";
+
+"startleasingconfirmation.button.cancelLeasing" = "Cancel leasing";
+
+"startleasingconfirmation.button.confirm" = "Confirm";
+
+"startleasingconfirmation.label.TXID" = "TXID";
+
+"startleasingconfirmation.label.confirmation" = "Confirmation";
+
+"startleasingconfirmation.label.fee" = "Fee";
+
+"startleasingconfirmation.label.leasingTX" = "Leasing TX";
+
+"startleasingconfirmation.label.nodeAddress" = "Node address";
+
+"startleasingloading.label.cancelLeasing" = "Cancel leasing…";
+
+"startleasingloading.label.startLeasing" = "Start leasing…";
+
+"tokenBurn.button.burn" = "Burn";
+
+"tokenBurn.button.continue" = "Continue";
+
+"tokenBurn.button.okey" = "Okay";
+
+"tokenBurn.button.useTotalBalanace" = "Use total balance";
+
+"tokenBurn.label.confirmation" = "Confirmation";
+
+"tokenBurn.label.error.insufficientFunds" = "Insufficient funds";
+
+"tokenBurn.label.error.notFundsFee" = "You don't have enough funds to pay the required fees.";
+
+"tokenBurn.label.fee" = "Fee";
+
+"tokenBurn.label.id" = "ID";
+
+"tokenBurn.label.loading" = "Burn…";
+
+"tokenBurn.label.notReissuable" = "Not reissuable";
+
+"tokenBurn.label.quantityTokensBurned" = "Quantity of tokens to be burned";
+
+"tokenBurn.label.reissuable" = "Reissuable";
+
+"tokenBurn.label.tokenBurn" = "Token Burn";
+
+"tokenBurn.label.transactionFee" = "Transaction Fee %@ %@";
+
+"tokenBurn.label.transactionIsOnWay" = "Your transaction is on the way!";
+
+"tokenBurn.label.type" = "Type";
+
+"tokenBurn.label.youHaveBurned" = "You have burned";
+
+"transactionhistory.button.copied" = "Copied";
+
+"transactionhistory.button.copyAllData" = "Copy all data";
+
+"transactionhistory.button.copyTXId" = "Copy TX ID";
+
+"transactionhistory.cell.block" = "Block";
+
+"transactionhistory.cell.button.cancelLeasing" = "Cancel Leasing";
+
+"transactionhistory.cell.button.sendAgain" = "Send again";
+
+"transactionhistory.cell.buy" = "Buy: %@/%@";
+
+"transactionhistory.cell.confirmations" = "Confirmations";
+
+"transactionhistory.cell.dataTransaction" = "Data Transaction";
+
+"transactionhistory.cell.fee" = "Fee";
+
+"transactionhistory.cell.from" = "From";
+
+"transactionhistory.cell.id" = "ID";
+
+"transactionhistory.cell.leasingTo" = "Leasing to";
+
+"transactionhistory.cell.notReissuable" = "Not Reissuable";
+
+"transactionhistory.cell.price" = "Price";
+
+"transactionhistory.cell.receivedFrom" = "Received from";
+
+"transactionhistory.cell.recipient" = "Recipient";
+
+"transactionhistory.cell.recipients" = "Recipients";
+
+"transactionhistory.cell.reissuable" = "Reissuable";
+
+"transactionhistory.cell.sell" = "Sell: %@/%@";
+
+"transactionhistory.cell.sentTo" = "Sent to";
+
+"transactionhistory.cell.status.at" = "at";
+
+"transactionhistory.cell.status.button.activeNow" = "Active Now";
+
+"transactionhistory.cell.status.button.completed" = "Completed";
+
+"transactionhistory.cell.status.button.unconfirmed" = "Unconfirmed";
+
+"transactionhistory.cell.status.timestamp" = "Timestamp";
+
+"transactionhistory.cell.type" = "Type";
+
+"transactionhistory.copy.amount" = "Amount";
+
+"transactionhistory.copy.date" = "Date";
+
+"transactionhistory.copy.fee" = "Fee";
+
+"transactionhistory.copy.recipient" = "Recipient";
+
+"transactionhistory.copy.sender" = "Sender";
+
+"transactionhistory.copy.transactionId" = "Transaction ID";
+
+"transactionhistory.copy.type" = "Type";
+
+"usetouchid.button.notNow.text" = "Not now";
+
+"usetouchid.button.useBiometric.text" = "Use %@";
+
+"usetouchid.label.detail.text" = "Use your %@ for faster, easier access to your account";
+
+"usetouchid.label.title.text" = "Use %@ to sign in?";
+
+"wallet.button.startLease" = "Start Lease";
+
+"wallet.label.available" = "Available";
+
+"wallet.label.leased" = "Leased";
+
+"wallet.label.leasedIn" = "Leased in";
+
+"wallet.label.myAssets" = "My Asset";
+
+"wallet.label.quickNote.description.first" = "You can only transfer or trade WAVES that aren’t leased. The leased amount cannot be transferred or traded by you or anyone else.";
+
+"wallet.label.quickNote.description.second" = "You can cancel a leasing transaction as soon as it appears in the blockchain which usually occurs in a minute or less.";
+
+"wallet.label.quickNote.description.third" = "The generating balance will be updated after 1000 blocks.";
+
+"wallet.label.startedLeasing" = "Started Leasing";
+
+"wallet.label.totalBalance" = "Total balance";
+
+"wallet.label.viewHistory" = "Transaction history";
+
+"wallet.navigationBar.title" = "Wallet";
+
+"wallet.section.activeNow" = "Active now (%d)";
+
+"wallet.section.hiddenAssets" = "Hidden assets (%d)";
+
+"wallet.section.quickNote" = "Quick note";
+
+"wallet.section.spamAssets" = "Spam assets (%d)";
+
+"wallet.segmentedControl.assets" = "Assets";
+
+"wallet.segmentedControl.leasing" = "Leasing";
+
+"walletsort.button.position" = "Position";
+
+"walletsort.button.visibility" = "Visibility";
+
+"walletsort.navigationBar.title" = "Sorting";
+
+"wavespopup.button.exchange" = "Exchange";
+
+"wavespopup.button.receive" = "Receive";
+
+"wavespopup.button.send" = "Send";
+
+"wavespopup.label.comingsoon" = "Coming soon";

@@ -130,9 +130,7 @@ extension Node.Service {
                              Constants.timestamp: lease.timestamp,
                              Constants.proofs: lease.proofs,
                              Constants.type: lease.type,
-                             Constants.leaseId: lease.leaseId]
-                default:
-                    break
+                             Constants.leaseId: lease.leaseId]                
                 }
             }
         }

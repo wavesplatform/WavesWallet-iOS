@@ -131,16 +131,18 @@ private extension PasscodeChangePasscodeByPasswordPresenter {
             state.displayState.isLoading = false
             state.displayState.numbers = []
             state.action = nil
-            state.displayState.error = .incorrectPasscode
             state.displayState.isHiddenBackButton = !state.hasBackButton
             state.displayState.error = Types.displayError(by: error, kind: state.kind)
+
+            if  case .biometricLockout? = state.displayState.error {
+                state.displayState.isHiddenBiometricButton = true
+            }
 
         case .viewWillAppear:
             break
             
         case .viewDidAppear:
             break
-
 
         case .tapBiometricButton:
 

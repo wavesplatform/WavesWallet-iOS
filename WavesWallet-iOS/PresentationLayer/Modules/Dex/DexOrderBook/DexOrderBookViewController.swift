@@ -78,7 +78,7 @@ fileprivate extension DexOrderBookViewController {
     func setupFeedBack() {
         
         let feedback = bind(self) { owner, state -> Bindings<DexOrderBook.Event> in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
         
         let readyViewFeedback: DexOrderBookPresenter.Feedback = { [weak self] _ in
