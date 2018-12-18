@@ -19,20 +19,22 @@ final class HelloCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
+    private var windowRouter: WindowRouter
+    private var navigationRouter: NavigationRouter
+
     weak var delegate: HelloCoordinatorDelegate?
 
-    private weak var navigationController: UINavigationController?
-    private weak var viewController: UIViewController?
-
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
+    init(windowRouter: WindowRouter) {
+        self.windowRouter = windowRouter
+        self.navigationRouter = NavigationRouter(navigationController: CustomNavigationController())
     }
 
     func start() {
+
         let vc = StoryboardScene.Hello.helloLanguagesViewController.instantiate()
         vc.output = self
-        viewController = vc
-        navigationController?.pushViewController(vc, animated: true)
+//        viewController = vc
+//        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -46,15 +48,16 @@ extension HelloCoordinator: HelloLanguagesModuleOutput {
     func userFinishedChangeLanguage() {
         let vc = StoryboardScene.Hello.infoPagesViewController.instantiate()
         vc.output = self
-        navigationController?.pushViewController(vc, animated: true)
+//        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
 // MARK: InfoPagesViewControllerDelegate
 extension HelloCoordinator: InfoPagesViewModuleOutput {
     func userFinishedReadPages() {
-        navigationController?.popViewController(animated: true)
+//        navigationController?.popViewController(animated: true)
         self.delegate?.userFinishedGreet()
         self.removeFromParentCoordinator()
     }
 }
+
