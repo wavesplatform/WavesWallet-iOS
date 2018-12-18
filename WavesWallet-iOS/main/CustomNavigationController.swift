@@ -197,9 +197,23 @@ fileprivate enum Constants {
     static var largeTitleTextAttributes = "largeTitleTextAttributes"
 }
 
-class CustomNavigationController: UINavigationController {
+final class CustomNavigationController: UINavigationController {
+
+    private let proxyDelegate: ProxyNavigationControllerDelegate = ProxyNavigationControllerDelegate()
 
     private weak var prevViewContoller: UIViewController?
+
+    override var delegate: UINavigationControllerDelegate? {
+        get {
+            return proxyDelegate
+        }
+
+        set {
+            if let newValue = newValue {
+                proxyDelegate.delegates.append(Weak(value: newValue))
+            }            
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -362,9 +376,35 @@ extension CustomNavigationController: UINavigationControllerDelegate {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + animationCompletion, execute: {
                 self?.navigationController(navigationController, didShow: fromViewController, animated: animated)
             })
-
         })
     }
 
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {}
 }
+
+private final class Weak<T> where T: AnyObject {
+
+    private(set) weak var value: T?
+
+    init(value: T?) {
+        self.value = value
+    }
+}
+
+private class ProxyNavigationControllerDelegate: NSObject, UINavigationControllerDelegate {
+
+    var delegates: [Weak<UINavigationControllerDelegate>] = .init()
+
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        delegates.forEach { (weak) in
+            weak.value?.navigationController?(navigationController, willShow: viewController, animated: animated)
+        }
+    }
+
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        delegates.forEach { (weak) in
+            weak.value?.navigationController?(navigationController, didShow: viewController, animated: animated)
+        }
+    }
+}
+

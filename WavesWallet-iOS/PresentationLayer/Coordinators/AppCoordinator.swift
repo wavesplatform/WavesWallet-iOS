@@ -199,9 +199,9 @@ extension AppCoordinator: PresentationCoordinator {
         switch display {
         case .hello:
 
-//            let helloCoordinator = HelloCoordinator(navigationController: window.rootViewController as! UINavigationController)
-//            helloCoordinator.delegate = self
-//            addChildCoordinatorAndStart(childCoordinator: helloCoordinator)
+            let helloCoordinator = HelloCoordinator(windowRouter: windowRouter)
+            helloCoordinator.delegate = self
+            addChildCoordinatorAndStart(childCoordinator: helloCoordinator)
 
         case .passcode(let wallet):
 
@@ -217,9 +217,9 @@ extension AppCoordinator: PresentationCoordinator {
 
         case .slide(let wallet):
 
-            guard isHasCoordinator(type: SlideCoordinator.self) != true else { return }
+//            guard isHasCoordinator(type: SlideCoordinator.self) != true else { return }
 
-//            let slideCoordinator = SlideCoordinator(window: window, wallet: wallet)
+            let slideCoordinator = SlideCoordinator(window: window, wallet: wallet)
 //            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
 
         case .enter:

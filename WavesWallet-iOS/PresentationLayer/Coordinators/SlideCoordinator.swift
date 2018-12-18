@@ -15,7 +15,7 @@ final class SlideCoordinator: Coordinator {
 
     private var wallet: DomainLayer.DTO.Wallet?
 
-    private weak var window: UIWindow?
+    private var windowRouter: WindowRouter
 
     private var slideMenuViewController: SlideMenu = {
 
@@ -26,21 +26,22 @@ final class SlideCoordinator: Coordinator {
         return slideMenuViewController
     }()
 
-    init(window: UIWindow, wallet: DomainLayer.DTO.Wallet?) {
-        self.window = window
+    init(windowRouter: WindowRouter, wallet: DomainLayer.DTO.Wallet?) {
+        self.windowRouter = windowRouter
         self.wallet = wallet
     }
 
     func start() {
 
-        if let view = self.window?.rootViewController?.view {
-            UIView.transition(from: view, to: slideMenuViewController.view, duration: 0.24, options: [.transitionCrossDissolve], completion: { _ in
-                self.window?.rootViewController = self.slideMenuViewController
-            })
-        } else {
-            self.window?.rootViewController = self.slideMenuViewController
-        }
-        self.window?.makeKeyAndVisible()
+//        windowRouter.setRootViewController(vi)
+//        if let view = self.window?.rootViewController?.view {
+//            UIView.transition(from: view, to: slideMenuViewController.view, duration: 0.24, options: [.transitionCrossDissolve], completion: { _ in
+//                self.window?.rootViewController = self.slideMenuViewController
+//            })
+//        } else {
+//            self.window?.rootViewController = self.slideMenuViewController
+//        }
+//        self.window?.makeKeyAndVisible()
 
         if let wallet = wallet {
             showDisplay(.wallet(wallet))
@@ -60,24 +61,24 @@ extension SlideCoordinator: PresentationCoordinator {
     }
 
     func showDisplay(_ display: Display) {
-        switch display {
-        case .passcode(let wallet):
-            let passcodeCoordinator = PasscodeCoordinator(viewController: window!.rootViewController!,
-                                                          kind: .logIn(wallet))
-            passcodeCoordinator.animated = true
-            passcodeCoordinator.delegate = self
-            addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
-
-        case .wallet:
-            let mainTabBarController = MainTabBarCoordinator(slideMenuViewController: slideMenuViewController,
-                                                             applicationCoordinator: self)
-            addChildCoordinatorAndStart(childCoordinator: mainTabBarController)
-
-        case .enter:
-            let enter = EnterCoordinator(slideMenuViewController: slideMenuViewController, applicationCoordinator: self)
-            enter.delegate = self
-            addChildCoordinatorAndStart(childCoordinator: enter)
-        }
+//        switch display {
+//        case .passcode(let wallet):
+//            let passcodeCoordinator = PasscodeCoordinator(viewController: window!.rootViewController!,
+//                                                          kind: .logIn(wallet))
+//            passcodeCoordinator.animated = true
+//            passcodeCoordinator.delegate = self
+//            addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
+//
+//        case .wallet:
+//            let mainTabBarController = MainTabBarCoordinator(slideMenuViewController: slideMenuViewController,
+//                                                             applicationCoordinator: self)
+//            addChildCoordinatorAndStart(childCoordinator: mainTabBarController)
+//
+//        case .enter:
+//            let enter = EnterCoordinator(slideMenuViewController: slideMenuViewController, applicationCoordinator: self)
+//            enter.delegate = self
+//            addChildCoordinatorAndStart(childCoordinator: enter)
+//        }
     }
 }
 
