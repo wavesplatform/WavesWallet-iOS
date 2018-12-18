@@ -20,6 +20,7 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
     func system(feedbacks: [ReceiveCardPresenter.Feedback]) {
         var newFeedbacks = feedbacks
         newFeedbacks.append(modelsQuery())
+        newFeedbacks.append(wavesAmountQuery())
         
         Driver.system(initialState: ReceiveCard.State.initialState,
                       reduce: { state, event -> ReceiveCard.State in
@@ -28,6 +29,25 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
             .drive()
             .disposed(by: disposeBag)
         
+    }
+    
+    private func wavesAmountQuery() -> Feedback {
+        return react(query: { state -> ReceiveCard.State? in
+            return state.isNeedLoadPriceInfo ? state : nil
+        }, effects: { [weak self] state -> Signal<ReceiveCard.Event> in
+            
+            guard let strongSelf = self else { return Signal.empty() }
+            
+            let emptyAmount: Signal<ReceiveCard.Event> = Signal.just(.didGetPriceInfo(ResponseType(output: Money(0, GlobalConstants.WavesDecimals), error: nil))).asSignal(onErrorSignalWith: Signal.empty())
+            
+            guard let amount = state.amount else { return emptyAmount }
+
+            if amount.amount > 0 {
+                return strongSelf.interactor.getWavesAmount(fiatAmount: amount, fiatType: state.fiatType)
+                    .map {.didGetPriceInfo($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            }
+            return emptyAmount
+        })
     }
     
     private func modelsQuery() -> Feedback {
@@ -45,11 +65,29 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
         
         switch event {
 
+        case .updateAmountWithUSDFiat:
+            return state.mutate {
+                $0.isNeedLoadInfo = false
+                $0.isNeedLoadPriceInfo = true
+                $0.fiatType = .usd
+                $0.action = .none
+            }
+            
+        case .updateAmountWithEURFiat:
+            return state.mutate {
+                $0.isNeedLoadInfo = false
+                $0.isNeedLoadPriceInfo = true
+                $0.fiatType = .eur
+                $0.action = .none
+            }
+            
         case .updateAmount(let money):
             
             return state.mutate {
                 $0.action = .changeUrl
                 $0.isNeedLoadInfo = false
+                $0.isNeedLoadPriceInfo = true
+                $0.amount = money
                 
                 if let asset = state.assetBalance?.asset {
                     
@@ -65,21 +103,24 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
         case .getUSDAmountInfo:
             return state.mutate {
                 $0.isNeedLoadInfo = true
-                $0.fiatType = ReceiveCard.DTO.FiatType.usd
+                $0.isNeedLoadPriceInfo = true
+                $0.fiatType = .usd
                 $0.action = .none
             }
 
         case .getEURAmountInfo:
             return state.mutate {
                 $0.isNeedLoadInfo = true
-                $0.fiatType = ReceiveCard.DTO.FiatType.eur
+                $0.isNeedLoadPriceInfo = true
+                $0.fiatType = .eur
                 $0.action = .none
             }
         
         case .didGetInfo(let responce):
             return state.mutate {
                 $0.isNeedLoadInfo = false
-                                
+                $0.isNeedLoadPriceInfo = false
+
                 switch responce.result {
                 case .success(let info):
                     
@@ -100,6 +141,21 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
                     $0.action = .didFailGetInfo(error)
                 }
             }
+            
+        case .didGetPriceInfo(let priceInfo):
+            
+            return state.mutate {
+                $0.isNeedLoadPriceInfo = false
+                
+                switch priceInfo.result {
+                case .success(let money):
+                    $0.action = .didGetWavesAmount(money)
+                
+                case .error(let error):
+                    $0.action = .didFailGetWavesAmount(error)
+                }
+            }
+           
         }
     }
 
@@ -108,6 +164,15 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
 fileprivate extension ReceiveCard.State {
     
     static var initialState: ReceiveCard.State {
-        return ReceiveCard.State(isNeedLoadInfo: true, fiatType: .usd, action: .none, link: "", amountUSDInfo: nil, amountEURInfo: nil, assetBalance: nil, amount: nil, address: "")
+        return ReceiveCard.State(isNeedLoadInfo: true,
+                                 isNeedLoadPriceInfo: false,
+                                 fiatType: .usd,
+                                 action: .none,
+                                 link: "",
+                                 amountUSDInfo: nil,
+                                 amountEURInfo: nil,
+                                 assetBalance: nil,
+                                 amount: nil,
+                                 address: "")
     }
 }
