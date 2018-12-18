@@ -199,7 +199,6 @@ extension AppCoordinator: PresentationCoordinator {
         switch display {
         case .hello:
 
-            break
 //            let helloCoordinator = HelloCoordinator(navigationController: window.rootViewController as! UINavigationController)
 //            helloCoordinator.delegate = self
 //            addChildCoordinatorAndStart(childCoordinator: helloCoordinator)
