@@ -17,7 +17,6 @@ fileprivate enum Constants {
 final class WalletTableAssetsCell: UITableViewCell, Reusable {
     @IBOutlet private var imageIcon: UIImageView!
     @IBOutlet private var viewContent: UIView!
-    @IBOutlet private var iconArrow: UIImageView!
     @IBOutlet private var iconStar: UIImageView!
     @IBOutlet private var labelTitle: UILabel!
     @IBOutlet private var labelSubtitle: UILabel!
@@ -55,7 +54,6 @@ extension WalletTableAssetsCell: ViewConfiguration {
         viewSpam.isHidden = true
         iconStar.isHidden = !model.settings.isFavorite
         viewFiatBalance.isHidden = true
-        iconArrow.isHidden = model.asset.isFiat == false && model.asset.isGateway == false
         viewSpam.isHidden = model.asset.isSpam == false
         let balance = Money.init(model.avaliableBalance, model.asset.precision)
         let text = balance.displayShortText

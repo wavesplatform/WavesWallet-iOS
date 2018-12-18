@@ -17,7 +17,6 @@
                 <outlet property="iconArrows" destination="swX-PX-8qH" id="U1n-Op-Pc4"/>
                 <outlet property="iconAssetLogo" destination="jnZ-lD-bCR" id="bC9-dq-Dez"/>
                 <outlet property="iconFav" destination="wji-xq-3oT" id="VPs-oy-rTx"/>
-                <outlet property="iconGateway" destination="o55-w5-cd8" id="abh-mw-R5E"/>
                 <outlet property="labelAmount" destination="YUD-VD-wL1" id="hNh-4s-vbo"/>
                 <outlet property="labelAssetLocalization" destination="9dU-Pm-lms" id="gpO-r5-h1t"/>
                 <outlet property="labelAssetName" destination="yUu-fr-JTB" id="iav-Sq-oR5"/>
@@ -60,9 +59,6 @@
                                         <constraint firstAttribute="width" constant="24" id="fMT-4g-a38"/>
                                     </constraints>
                                 </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="identifiergateway14Ocean" translatesAutoresizingMaskIntoConstraints="NO" id="o55-w5-cd8">
-                                    <rect key="frame" x="-3" y="25" width="14" height="14"/>
-                                </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bitcoin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yUu-fr-JTB">
                                     <rect key="frame" x="32" y="13.5" width="53" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -87,9 +83,7 @@
                                 <constraint firstItem="YUD-VD-wL1" firstAttribute="centerY" secondItem="DZc-Tc-VFP" secondAttribute="centerY" id="UW1-qL-TlX"/>
                                 <constraint firstItem="jnZ-lD-bCR" firstAttribute="centerY" secondItem="DZc-Tc-VFP" secondAttribute="centerY" id="Yho-gg-7Iz"/>
                                 <constraint firstItem="wji-xq-3oT" firstAttribute="leading" secondItem="yUu-fr-JTB" secondAttribute="trailing" constant="4" id="e3e-Uk-dQV"/>
-                                <constraint firstItem="o55-w5-cd8" firstAttribute="leading" secondItem="jnZ-lD-bCR" secondAttribute="leading" constant="-3" id="eyE-pD-AKs"/>
                                 <constraint firstAttribute="trailing" secondItem="YUD-VD-wL1" secondAttribute="trailing" id="grb-PS-SvS"/>
-                                <constraint firstItem="o55-w5-cd8" firstAttribute="bottom" secondItem="jnZ-lD-bCR" secondAttribute="bottom" constant="3" id="pLP-5C-8j3"/>
                                 <constraint firstItem="wji-xq-3oT" firstAttribute="centerY" secondItem="DZc-Tc-VFP" secondAttribute="centerY" id="yWg-NY-3Oo"/>
                             </constraints>
                         </view>
@@ -142,7 +136,6 @@
     <resources>
         <image name="changearrows14Basic500" width="14" height="14"/>
         <image name="favoriteMini14Submit300" width="14" height="14"/>
-        <image name="identifiergateway14Ocean" width="14" height="14"/>
         <image name="logoBitcoin48" width="48" height="48"/>
     </resources>
 </document>
