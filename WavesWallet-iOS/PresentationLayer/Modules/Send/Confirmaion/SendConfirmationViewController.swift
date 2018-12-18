@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 private enum Constants {
     static let cornerRadius: CGFloat = 2
@@ -45,6 +46,8 @@ final class SendConfirmationViewController: UIViewController {
     var input: Input!
     weak var resultDelegate: SendResultDelegate?
 
+    private let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -66,8 +69,8 @@ final class SendConfirmationViewController: UIViewController {
         hideTopBarLine()
         setupBigNavigationBar()
         navigationItem.backgroundImage = UIImage()
-        navigationItem.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
-        navigationItem.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        navigationItem.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
+        navigationItem.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -148,19 +151,22 @@ private extension SendConfirmationViewController {
     func setupData() {
         
         let addressBook: AddressBookInteractorProtocol = AddressBookInteractor()
-        addressBook.users().subscribe(onNext: { [weak self] contacts in
+        addressBook
+            .users()
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] contacts in
 
             guard let strongSelf = self else { return }
             
-            if let contact = contacts.first(where: {$0.address == strongSelf.input.address}) {
+            if let contact = contacts.first(where: {$0.address == strongSelf.input.displayAddress}) {
                 strongSelf.viewRecipient.update(with: .init(name: contact.name, address: strongSelf.input.displayAddress))
 
             }
             else {
-                strongSelf.viewRecipient.update(with: .init(name: nil, address: strongSelf.input.address))
+                strongSelf.viewRecipient.update(with: .init(name: nil, address: strongSelf.input.displayAddress))
             }
 
-        }).dispose()
+        }).disposed(by: disposeBag)
         
         if let ticker = input.asset.ticker {
             labelAssetName.isHidden = true

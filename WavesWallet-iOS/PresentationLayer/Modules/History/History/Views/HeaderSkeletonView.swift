@@ -31,6 +31,6 @@ final class HeaderSkeletonView: UITableViewHeaderFooterView, SkeletonAnimatable,
     }
     
     class func cellHeight() -> CGFloat {
-        return 48
+        return 36
     }
 }

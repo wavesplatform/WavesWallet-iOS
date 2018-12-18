@@ -10,29 +10,6 @@ import Foundation
 
 extension WalletTypes.DTO {
 
-    struct Asset {
-   
-        let id: String
-        let name: String
-        let issuer: String
-        let description: String
-        let issueDate: Date
-        let balance: Money
-        let fiatBalance: Money
-        let isReusable: Bool
-        let isMyWavesToken: Bool
-        let isWavesToken: Bool
-        let isWaves: Bool
-        let isHidden: Bool
-        let isFavorite: Bool
-        let isSpam: Bool
-        let isFiat: Bool
-        let isGateway: Bool
-        let sortLevel: Float
-        let icon: String
-        let assetBalance: DomainLayer.DTO.AssetBalance
-    }
-
     struct Leasing {
 
         struct Balance: Hashable {

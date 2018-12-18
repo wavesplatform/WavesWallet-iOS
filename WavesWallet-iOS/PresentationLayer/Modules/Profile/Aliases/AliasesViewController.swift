@@ -41,7 +41,7 @@ final class AliasesViewController: UIViewController {
 
         tableView.tableFooterView = UIView()
         tableView.tableHeaderView = UIView()
-        tableView.contentInset = UIEdgeInsetsMake(0, 0, Constants.bottomPadding + Constants.topBarHeight, 0)
+        tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: Constants.bottomPadding + Constants.topBarHeight, right: 0)
 
         aliasesInfoView.infoButtonDidTap = {
             if self.isHiddenInfoView {
@@ -61,10 +61,10 @@ final class AliasesViewController: UIViewController {
     private func showInfoView() {
 
         isHiddenInfoView = false
-        let size = aliasesInfoView.systemLayoutSizeFitting(UILayoutFittingExpandedSize)
+        let size = aliasesInfoView.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize)
         aliasesInfoViewTopLayot.constant = size.height
         aliasesInfoView.arrayButton.setImage(Images.arrowdown14Basic300.image, for: .normal)
-        tableView.contentInset = UIEdgeInsetsMake(0, 0, Constants.bottomPadding + size.height, 0)
+        tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: Constants.bottomPadding + size.height, right: 0)
 
         UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut], animations: {
             self.view.layoutIfNeeded()
@@ -76,7 +76,7 @@ final class AliasesViewController: UIViewController {
         isHiddenInfoView = true
         aliasesInfoViewTopLayot.constant = Constants.topBarHeight
         aliasesInfoView.arrayButton.setImage(Images.arrowup14Basic300.image, for: .normal)
-        tableView.contentInset = UIEdgeInsetsMake(0, 0, Constants.bottomPadding + Constants.topBarHeight, 0)
+        tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: Constants.bottomPadding + Constants.topBarHeight, right: 0)
 
         UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [.curveEaseInOut], animations: {
             self.view.layoutIfNeeded()
@@ -108,7 +108,7 @@ private extension AliasesViewController {
     func setupSystem() {
 
         let uiFeedback: AliasesPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<Types.Event>) in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
 
         let readyViewFeedback: AliasesPresenterProtocol.Feedback = { [weak self] _ in

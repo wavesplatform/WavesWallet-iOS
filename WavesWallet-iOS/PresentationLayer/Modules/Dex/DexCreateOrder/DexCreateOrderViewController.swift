@@ -97,7 +97,7 @@ private extension DexCreateOrderViewController {
     func setupFeedBack() {
         
         let feedback = bind(self) { owner, state -> Bindings<DexCreateOrder.Event> in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
         
         presenter.system(feedbacks: [feedback])
@@ -145,7 +145,24 @@ private extension DexCreateOrderViewController {
 private extension DexCreateOrderViewController {
     
     var isValidWavesFee: Bool {
-        return input.availableWavesBalance.amount >= order.fee
+        if input.availableWavesBalance.amount >= order.fee {
+            return true
+        }
+        
+        if order.amountAsset.id == GlobalConstants.wavesAssetId && order.type == .buy {
+            
+            if order.amount.isZero {
+                return isValidPriceAssetBalance
+            }
+            return order.amount.amount > order.fee
+        }
+        else if order.priceAsset.id == GlobalConstants.wavesAssetId && order.type == .sell {
+            if order.total.isZero {
+                return isValidAmountAssetBalance
+            }
+            return order.total.amount > order.fee
+        }
+        return false
     }
     
     var isValidOrder: Bool {
@@ -473,12 +490,14 @@ private extension DexCreateOrderViewController {
         }
         
         let totalAmountMoney = Money(totalAmount, decimals)
-        
-        let valuePercent50 = Money(totalAmount * Int64(Constants.percent50) / 100, decimals)
-        
-        let valuePercent10 = Money(totalAmount * Int64(Constants.percent10) / 100, decimals)
-        
-        let valuePercent5 = Money(totalAmount * Int64(Constants.percent5) / 100, decimals)
+
+        let n5 = Decimal(totalAmountMoney.amount) * (Decimal(Constants.percent5) / 100.0)
+        let n10 = Decimal(totalAmountMoney.amount) * (Decimal(Constants.percent10) / 100.0)
+        let n50 = Decimal(totalAmountMoney.amount) * (Decimal(Constants.percent50) / 100.0)
+
+        let valuePercent50 = Money(n50.int64Value, decimals)
+        let valuePercent10 = Money(n10.int64Value, decimals)
+        let valuePercent5 = Money(n5.int64Value, decimals)
         
         values.append(totalAmountMoney)
         values.append(valuePercent50)

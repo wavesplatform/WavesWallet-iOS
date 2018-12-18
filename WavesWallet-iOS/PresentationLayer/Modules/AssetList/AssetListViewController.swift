@@ -26,7 +26,7 @@ final class AssetListViewController: UIViewController {
     private var isSearchMode: Bool = false
     private let sendEvent: PublishRelay<AssetList.Event> = PublishRelay<AssetList.Event>()
 
-    var selectedAsset: DomainLayer.DTO.AssetBalance?
+    var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
     var presenter: AssetListPresenterProtocol!
     var showAllList = true
     
@@ -71,7 +71,7 @@ private extension AssetListViewController {
     func setupFeedBack() {
         
         let feedback = bind(self) { owner, state -> Bindings<AssetList.Event> in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
         
         let readyViewFeedback: AssetListPresenter.Feedback = { [weak self] _ in
@@ -140,13 +140,13 @@ extension AssetListViewController: UITableViewDataSource {
        
         let assetBalance = modelSection.items[indexPath.row].asset
         
-        if let asset = assetBalance.asset {
-            let isChecked = assetBalance.assetId == selectedAsset?.assetId
-            let money = Money(assetBalance.avaliableBalance, asset.precision)
-            let isFavourite = assetBalance.settings?.isFavorite ?? false
-            
-            cell.update(with: .init(asset: asset, balance: money, isChecked: isChecked, isFavourite: isFavourite))
-        }
+        let asset = assetBalance.asset
+        let isChecked = assetBalance.assetId == selectedAsset?.assetId
+        let money = Money(assetBalance.avaliableBalance, asset.precision)
+        let isFavourite = assetBalance.settings.isFavorite
+
+        cell.update(with: .init(asset: asset, balance: money, isChecked: isChecked, isFavourite: isFavourite))
+
         return cell
     }
 }

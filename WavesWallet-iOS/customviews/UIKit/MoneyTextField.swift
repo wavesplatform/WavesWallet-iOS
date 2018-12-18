@@ -85,6 +85,13 @@ extension MoneyTextField {
     func addMinusValue() {
         setValue(value: value.minus(deltaValue))
     }
+    
+    func clear() {
+        decimals = 0
+        hasSetDecimals = false
+        text = nil
+        textDidChange()
+    }
 }
 
 
@@ -178,12 +185,7 @@ extension MoneyTextField: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         externalDelegate?.textFieldDidEndEditing?(textField)
     }
-    
-    @available(iOS 10.0, *)
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
-        externalDelegate?.textFieldDidEndEditing?(textField, reason: reason)
-    }
-    
+        
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
      
         if string == "" {

@@ -12,7 +12,7 @@ private enum Constants {
     static let height: CGFloat = 56
 }
 
-final class ProfilePushTableCell: UITableViewCell, Reusable, ViewConfiguration {
+final class ProfileDisabledButtomTableCell: UITableViewCell, Reusable, ViewConfiguration {
     typealias Model = Void
 
     @IBOutlet private weak var titleLabel: UILabel!
@@ -21,7 +21,7 @@ final class ProfilePushTableCell: UITableViewCell, Reusable, ViewConfiguration {
         return Constants.height
     }
 
-    func update(with model: Void) {
-        titleLabel.text = Localizable.Waves.Profile.Cell.Pushnotifications.title
+    func update(with model: String) {
+        titleLabel.text = model
     }
 }

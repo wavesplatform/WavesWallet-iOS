@@ -1,0 +1,1150 @@
+
+"newaccount.textfield.error.maximumcharacters" = "अधिकतम %d अक्षर";
+
+"Receivecard.Label.minimunAmountInfo" = "न्यूनतम %@ है, अधिकतम %@";
+
+"Send.Label.Error.notFundsFeeGateway" = "आवश्यक फ़ीस का भुगतान करने के लिए आपके पास पर्याप्त धनराशि नहीं है। आपको %@ लेनदेन फ़ीस और %@ गेटवे फ़ीस का भुगतान करना होगा।";
+
+"Send.Label.Warning.description" = "आईसीओ में %@ न निकालना । हम उस खाते से टोकन आपके खाते को क्रेडिट नहीं करेंगे।";
+
+"Send.Label.Warning.subtitle" = "हमने %@ पता पता लगाया है और उस पते पर कोइनोमाट गेटवे के माध्यम से आपका पैसा भेज देगा। न्यूनतम राशि %@ है, अधिकतम राशि %@ है।";
+
+"accountpassword.button.signIn.title" = "साइन इन";
+
+"accountpassword.error.wrongpassword" = "गलत पासवर्ड";
+
+"accountpassword.textfield.error.atleastcharacters" = "न्यूनतम %d अक्षर";
+
+"accountpassword.textfield.password.placeholder" = "खाता पासवर्ड";
+
+"addAddressbook.button.cancel" = "रोकना";
+
+"addAddressbook.button.delete" = "मिटाना";
+
+"addAddressbook.button.deleteAddress" = "पता मिटाना";
+
+"addAddressbook.button.save" = "सेव";
+
+"addAddressbook.error.charactersMaximum" = "अधिकतम %d अक्षर";
+
+"addAddressbook.error.charactersMinimum" = "न्यूनतम %d अक्षर";
+
+"addAddressbook.label.add" = "जोड़ना";
+
+"addAddressbook.label.address" = "पता";
+
+"addAddressbook.label.deleteAlertMessage" = "क्या आप वाकई पता पुस्तिक से पता हटाना चाहते हैं?";
+
+"addAddressbook.label.edit" = "बदलना";
+
+"addAddressbook.label.name" = "नाम";
+
+"addAddressbook.textfield.address.error.addressexist" = "पहले से ही उपयोग में";
+
+"addressbook.label.addressBook" = "पता पुस्तिक";
+
+"addressbook.label.addressDeleted" = "पता मिटा दिया";
+
+"addressbook.label.noInfo" = "यहां कुछ नहीं है…\nआप नया पता बना सकते हैं";
+
+"addresseskeys.cell.address.title" = "आपका पता";
+
+"addresseskeys.cell.aliases.subtitle.withaliaces" = "आपके पास %d है";
+
+"addresseskeys.cell.aliases.subtitle.withoutaliaces" = "तुम्हारे पास नहीं है";
+
+"addresseskeys.cell.aliases.title" = "उपनाम";
+
+"addresseskeys.cell.privatekey.title" = "प्राइवेट की";
+
+"addresseskeys.cell.privatekeyhidde.button.title" = "दिखाना";
+
+"addresseskeys.cell.publickey.title" = "पब्लिक की";
+
+"addresseskeys.cell.seed.title" = "सीड";
+
+"addresseskeys.navigation.title" = "पते, की";
+
+"aliases.cell.head.title" = "आपके उपनाम";
+
+"aliases.view.info.button.create" = "नया उपनाम बनाएं";
+
+"aliases.view.info.label.fee" = "लेनदेन फ़ीस 0.001 वेव";
+
+"aliases.view.info.label.secondsubtitle" = "आपका उपनाम 4 से 30 अक्षरों के बीच होना चाहिए, और इसमें केवल लोअरकेस लैटिन अक्षरों, अंक और प्रतीकों (@, -, _ आदि) होना चाहिए";
+
+"aliases.view.info.label.subtitle" = "एक उपनाम आपके पते के लिए उपनाम है। लेनदेन करने के लिए आप पते के बजाय एलियास का उपयोग कर सकते हैं।";
+
+"aliases.view.info.label.title" = "उपनाम के बारे में";
+
+"aliaseswithout.view.info.button.create" = "नया उपनाम बनाएं";
+
+"aliaseswithout.view.info.label.fee" = "लेनदेन फ़ीस 0.001 वेव";
+
+"aliaseswithout.view.info.label.secondsubtitle" = "आपका उपनाम 4 से 30 अक्षरों के बीच होना चाहिए, और इसमें केवल लोअरकेस लैटिन अक्षरों, अंक और प्रतीकों (@, -, _ आदि) होना चाहिए";
+
+"aliaseswithout.view.info.label.subtitle" = "एक उपनाम आपके पते के लिए उपनाम है। लेनदेन करने के लिए आप पते के बजाय एलियास का उपयोग कर सकते हैं।";
+
+"aliaseswithout.view.info.label.title" = "आपके पास उपनाम नहीं है";
+
+"asset.cell.assetInfo.cantPerformTransactions" = "आप इस संपत्ति के साथ लेनदेन नहीं कर सकते हैं";
+
+"asset.cell.assetInfo.decimalPoints" = "डेसीमल अंक";
+
+"asset.cell.assetInfo.description" = "विवरण";
+
+"asset.cell.assetInfo.id" = "आई डी";
+
+"asset.cell.assetInfo.issueDate" = "जारी करने की तिथि";
+
+"asset.cell.assetInfo.issuer" = "जारीकर्ता";
+
+"asset.cell.assetInfo.kind.notReissuable" = "पुनर्निर्गमनीय नहीं कर सकते हैं";
+
+"asset.cell.assetInfo.kind.reissuable" = "पुनर्निर्गमनीय";
+
+"asset.cell.assetInfo.kind.title" = "प्रकार";
+
+"asset.cell.assetInfo.name" = "नाम";
+
+"asset.cell.assetInfo.title" = "संपत्ति की जानकारी";
+
+"asset.cell.assetInfo.totalAmount" = "कुल रकम";
+
+"asset.cell.balance.avaliableBalance" = "उपलब्ध शेष राशि";
+
+"asset.cell.balance.button.exchange" = "अदला बदली";
+
+"asset.cell.balance.button.receive" = "प्राप्त करना";
+
+"asset.cell.balance.button.send" = "भेजना";
+
+"asset.cell.balance.inOrderBalance" = "क्रम में";
+
+"asset.cell.balance.leased" = "लीज्ड";
+
+"asset.cell.balance.totalBalance" = "संपूर्ण";
+
+"asset.cell.viewHistory" = "लेनदेन का इतिहास";
+
+"asset.header.lastTransactions" = "अंतिम लेनदेन";
+
+"asset.header.notHaveTransactions" = "आपके पास कोई लेनदेन इतिहास नहीं है";
+
+"assetlist.button.allList" = "सभी सूची";
+
+"assetlist.button.myList" = "बैलेंस के साथ";
+
+"assetlist.button.withBalance" = "राशि के साथ";
+
+"assetlist.label.assets" = "संपत्ति";
+
+"assetlist.label.loadingAssets" = "संपत्ति लोड हो रहा है…";
+
+"backup.backup.navigation.title" = "बैकप फ्रेज";
+
+"backup.confirmbackup.button.confirm" = "पक्का";
+
+"backup.confirmbackup.error.label" = "गलत आदेश, फिर प्रयास करें";
+
+"backup.confirmbackup.info.label" = "कृपया, शब्द को सही क्रम में टैप करें";
+
+"backup.confirmbackup.navigation.title" = "बैकअप की पुष्टि करें";
+
+"backup.infobackup.button.iunderstand" = "मै समझता हुँ";
+
+"backup.infobackup.label.detail" = "वेव्स प्लेटफार्म आपको पिछले महीने में घोटाले और फ़िशिंग हमलों की बढ़ी हुई आवृत्ति के बारे में चेतावनी देना चाहता है। धोखाधड़ी अपने संस्करणों में अपने मैलवेयर छुपा रहे हैं और उपयोगकर्ताओं को लुभाने के लिए बोनस और छूट का वादा कर रहे हैं।\n\nकृपया सावधान रहें और कभी भी इन क्लाइंट में अपने सीडों को इनपुट न करें, क्योंकि आपके खाते से समझौता किया जाएगा और आप अपने सभी फंड खो सकते हैं।\n\nआपको केवल आधिकारिक वेव्स क्लाइंट का उपयोग करना चाहिए।";
+
+"backup.infobackup.label.title" = "देखभाल के साथ अपने बैकअप वाक्यांश का रखना!";
+
+"backup.needbackup.button.backupnow" = "बैकअप बना देना इस वक़्त";
+
+"backup.needbackup.button.doitlater" = "इसे बाद में करें";
+
+"backup.needbackup.label.detail" = "आपके सीक्रेट फ्रेज को ध्यान से रखना होगा। अपने खाते तक पहुंचने के लिए यह महत्वपूर्ण है।";
+
+"backup.needbackup.label.title" = "कोई बैकअप नहीं, पैसा नहीं";
+
+"backup.savebackup.copy.label.title" = "कृपया इन 15 शब्दों को ध्यान से लिखें या उन्हें कॉपी करें";
+
+"backup.savebackup.label.title" = "क्योंकि केवल आप अपने पैसे को नियंत्रित करते हैं, इसलिए आपको अपना बैकअप फ्रेज की आवश्यकता होगी अगर इस ऐप को मिटा दिए";
+
+"backup.savebackup.navigation.title" = "सेव बैकअप फ्रेज";
+
+"backup.savebackup.next.button.title" = "मैंने इसे लिखा है";
+
+"backup.savebackup.next.label.title" = "आप अगली स्क्रीन पर इस फ्रेज की पुष्टि करेंगे";
+
+"biometric.localizedCancelTitle" = "रद्द करना";
+
+"biometric.localizedFallbackTitle" = "पास वर्ड दर्ज करें";
+
+"biometric.manyattempts.subtitle" = "बॉयोमीट्रिक अनलॉक करने के लिए, अपने खाता पासवर्ड से साइन इन करेंें";
+
+"biometric.manyattempts.title" = "भी कई प्रयास";
+
+"biometric.readfromkeychain" = "अपने वॉलेट तक पहुंच";
+
+"biometric.saveinkeychain" = "अपने वॉलेट तक पहुंच";
+
+"cameraAccess.alert.allow" = "कैमरा की अनुमति दें";
+
+"cameraAccess.alert.cancel" = "रोकना";
+
+"cameraAccess.alert.message" = "इस ऐप का पूर्ण उपयोग करने के लिए कैमरा एक्सेस की आवश्यकता है";
+
+"cameraAccess.alert.title" = "कैमरा एक्सेस की आवश्यकता है";
+
+"changepassword.button.confirm.title" = "कन्फर्म";
+
+"changepassword.navigation.title" = "बदला हुआ पासवर्ड";
+
+"changepassword.textfield.confirmpassword.title" = "पासवर्ड की पुष्टि कीजिये";
+
+"changepassword.textfield.createpassword.title" = "नया पासवर्ड";
+
+"changepassword.textfield.error.atleastcharacters" = "न्यूनतम %d अक्षर";
+
+"changepassword.textfield.error.incorrectpassword" = "गलत पासवर्ड";
+
+"changepassword.textfield.error.passwordnotmatch" = "पासवर्ड मेल नहीं खाता";
+
+"changepassword.textfield.oldpassword.title" = "पुराना पासवर्ड";
+
+"chooseaccount.alert.button.no" = "कैंसिल";
+
+"chooseaccount.alert.button.ok" = "हाँ";
+
+"chooseaccount.alert.delete.message" = "क्या आप वाकई इस खाते को मिटाना चाहते हैं?";
+
+"chooseaccount.alert.delete.title" = "खाता मिटा दो";
+
+"chooseaccount.label.nothingWallets" = "यहां कुछ नहीं…\nआपके पास सेव्ड खाते नहीं हैं";
+
+"chooseaccount.navigation.title" = "खाता चुनें";
+
+"createalias.button.create.title" = "निर्माण करना";
+
+"createalias.cell.input.textfiled.input.placeholder" = "प्रतीकात्मक नाम";
+
+"createalias.cell.input.textfiled.input.title" = "प्रतीकात्मक नाम";
+
+"createalias.error.alreadyinuse" = "पहले से ही उपयोग में";
+
+"createalias.error.charactersmaximum" = "अधिकतम 30 अक्षर";
+
+"createalias.error.invalidcharacter" = "अमान्य अक्षर";
+
+"createalias.error.minimumcharacters" = "न्यूनतम 4 अक्षर";
+
+"createalias.navigation.title" = "नया उपनाम";
+
+"dex.general.error.nothingHere" = "यहाँ कुछ नहीं…";
+
+"dex.general.error.somethingWentWrong" = "कुछ गलत हो गया";
+
+"dexchart.button.cancel" = "कैंसिल";
+
+"dexchart.label.emptyData" = "कोई चार्ट डेटा उपलब्ध नहीं है";
+
+"dexchart.label.hour" = "घंटा";
+
+"dexchart.label.hours" = "घंटे";
+
+"dexchart.label.loadingChart" = "चार्ट लोड हो रहा है…";
+
+"dexchart.label.minutes" = "मिनट";
+
+"dexcompleteorder.button.okey" = "ठीक है";
+
+"dexcompleteorder.label.amount" = "रकम";
+
+"dexcompleteorder.label.open" = "खोलना";
+
+"dexcompleteorder.label.orderIsCreated" = "आर्डर बनाया गया है";
+
+"dexcompleteorder.label.price" = "मूल्य";
+
+"dexcompleteorder.label.status" = "स्थिति";
+
+"dexcompleteorder.label.time" = "समय";
+
+"dexcreateorder.button.ask" = "पूछो";
+
+"dexcreateorder.button.bid" = "बोली";
+
+"dexcreateorder.button.buy" = "खरीदें";
+
+"dexcreateorder.button.cancel" = "कैंसिल";
+
+"dexcreateorder.button.day" = "दिन";
+
+"dexcreateorder.button.days" = "दिन";
+
+"dexcreateorder.button.hour" = "घंटा";
+
+"dexcreateorder.button.last" = "अंतिम";
+
+"dexcreateorder.button.minutes" = "मिनट";
+
+"dexcreateorder.button.sell" = "बेचना";
+
+"dexcreateorder.button.useTotalBalanace" = "संपूर्ण बैलेंस का प्रयोग करें";
+
+"dexcreateorder.button.week" = "सप्ताह";
+
+"dexcreateorder.label.Expiration" = "समाप्ति";
+
+"dexcreateorder.label.amountIn" = "अमाउंट इन";
+
+"dexcreateorder.label.bigValue" = "मूल्य बहुत बड़ा है";
+
+"dexcreateorder.label.days" = "दिन";
+
+"dexcreateorder.label.error.notFundsFee" = "आवश्यक फी का भुगतान करने के लिए आपके पास पर्याप्त धनराशि नहीं है।";
+
+"dexcreateorder.label.fee" = "फ़ीस";
+
+"dexcreateorder.label.limitPriceIn" = "लिमिट प्राइस इन";
+
+"dexcreateorder.label.notEnough" = "पर्याप्त नहीं";
+
+"dexcreateorder.label.smallValue" = "मूल्य बहुत छोटा है";
+
+"dexcreateorder.label.totalIn" = "कुल मिलाकर";
+
+"dexinfo.label.amountAsset" = "राशि संपत्ति";
+
+"dexinfo.label.popular" = "लोकप्रिय";
+
+"dexinfo.label.priceAsset" = "मूल्य संपत्ति";
+
+"dexlasttrades.button.buy" = "खरीदें";
+
+"dexlasttrades.button.sell" = "बेचना";
+
+"dexlasttrades.label.amount" = "रकम";
+
+"dexlasttrades.label.emptyData" = "यहां कुछ भी नहीं…\nव्यापार इतिहास खाली है";
+
+"dexlasttrades.label.loadingLastTrades" = "अंतिम व्यापार लोड हो रहा है…";
+
+"dexlasttrades.label.price" = "मूल्य";
+
+"dexlasttrades.label.sum" = "राशि";
+
+"dexlasttrades.label.time" = "समय";
+
+"dexlist.button.addMarkets" = "बाजार जोड़ें";
+
+"dexlist.label.decentralisedExchange" = "डेसेंट्रलीसेड एक्सचेंज";
+
+"dexlist.label.description" = "जल्दी और सुरक्षित व्यापार करें। जब आप हमारे डेसेंट्रलीसेड एक्सचेंज पर व्यापार करते हैं तो आप अपने धन पर पूर्ण नियंत्रण बनाए रखते हैं।";
+
+"dexlist.label.lastUpdate" = "आखिरी अपडेट";
+
+"dexlist.label.price" = "मूल्य";
+
+"dexlist.label.today" = "आज";
+
+"dexlist.label.yesterday" = "कल";
+
+"dexlist.navigationBar.title" = "डेक्स";
+
+"dexmarket.label.loadingMarkets" = "बाजार लोड हो रहा है…";
+
+"dexmarket.navigationBar.title" = "बाजार";
+
+"dexmarket.searchBar.placeholder" = "खोज";
+
+"dexmyorders.label.amount" = "रकम";
+
+"dexmyorders.label.buy" = "खरीदें";
+
+"dexmyorders.label.date" = "दिनांक";
+
+"dexmyorders.label.emptyData" = "यहां कुछ नहीं…\nआपके पास कोई ऑर्डर नहीं है";
+
+"dexmyorders.label.loadingLastTrades" = "ऑर्डर लोड हो रहा है…";
+
+"dexmyorders.label.price" = "मूल्य";
+
+"dexmyorders.label.sell" = "बेचना";
+
+"dexmyorders.label.side" = "पक्ष";
+
+"dexmyorders.label.status" = "स्थिति";
+
+"dexmyorders.label.status.accepted" = "खुला";
+
+"dexmyorders.label.status.cancelled" = "रद्द";
+
+"dexmyorders.label.status.filled" = "भर ग्या";
+
+"dexmyorders.label.status.partiallyFilled" = "अपूर्ण";
+
+"dexmyorders.label.sum" = "राशि";
+
+"dexmyorders.label.time" = "समय";
+
+"dexorderbook.button.buy" = "खरीदें";
+
+"dexorderbook.button.sell" = "बेचना";
+
+"dexorderbook.label.amount" = "रकम";
+
+"dexorderbook.label.emptyData" = "यहां कुछ नहीं…\nऑर्डर बुक खाली है";
+
+"dexorderbook.label.lastPrice" = "अंतिम मूल्य";
+
+"dexorderbook.label.loadingOrderbook" = "ऑर्डरबुक लोड हो रहा है…";
+
+"dexorderbook.label.price" = "मूल्य";
+
+"dexorderbook.label.spread" = "स्प्रेड";
+
+"dexorderbook.label.sum" = "राशि";
+
+"dexsort.navigationBar.title" = "सॉर्टिंग";
+
+"dextradercontainer.button.chart" = "चार्ट";
+
+"dextradercontainer.button.lastTrades" = "अंतिम व्यापार";
+
+"dextradercontainer.button.myOrders" = "मेरे आर्डर";
+
+"dextradercontainer.button.orderbook" = "ऑर्डरबुक";
+
+"editaccountname.button.save" = "सेव";
+
+"editaccountname.label.newName" = "नया खाता नाम";
+
+"editaccountname.navigation.title" = "नाम संपादित करें";
+
+"enter.block.blockchain.text" = "क्रिप्टो दुनिया के तेजी से बढ़ते क्षेत्र का हिस्सा बनें। आप एकमात्र ऐसे व्यक्ति हैं जो आपकी क्रिप्टो संपत्तियों तक पहुंच सकते हैं।";
+
+"enter.block.blockchain.title" = "गेट स्टार्टेड विथ ब्लॉकचैन";
+
+"enter.block.exchange.text" = "जल्दी और सुरक्षित व्यापार करें। जब आप हमारे डेसेंट्रलीसेड एक्सचेंज पर व्यापार करते हैं तो आप अपने धन पर पूर्ण नियंत्रण बनाए रखते हैं।";
+
+"enter.block.exchange.title" = "डेसेंट्रलीसेड एक्सचेंज";
+
+"enter.block.token.text" = "अपने खुद के टोकन जारी करें। इन्हें न केवल एक इंटरनल करेंसी के रूप में बल्कि डेसेंट्रलीसेड वोटिंग के रूप में, एक रेटिंग सिस्टम, या लॉयल्टी प्रोग्राम के रूप में आपके व्यापार में एकीकृत किया जा सकता है।";
+
+"enter.block.token.title" = "टोकन लॉन्चर";
+
+"enter.block.wallet.text" = "आसानी से और सुरक्षित रूप से अपनी डिजिटल एसेट्स बैलेंस पर ब्याज, प्रबंधन और स्टोर करें।";
+
+"enter.block.wallet.title" = "वॉलेट";
+
+"enter.button.confirm.title" = "कन्फर्म";
+
+"enter.button.createNewAccount.title" = "एक नया खाता बनाएं";
+
+"enter.button.importAccount.detail" = "पैरिंग कोड या मैन्युअल के माध्यम से";
+
+"enter.button.importAccount.error.insecureSeed" = "असुरक्षित सीड";
+
+"enter.button.importAccount.title" = "खाता आयात करें";
+
+"enter.button.signIn.detail" = "एक सेव्ड खाते में";
+
+"enter.button.signIn.title" = "साइन इन";
+
+"enter.label.or" = "या";
+
+"enter.language.navigation.title" = "भाषा बदलो";
+
+"general.biometric.faceID.title" = "फेस आईडी";
+
+"general.biometric.touchID.title" = "टच आईडी";
+
+"general.error.subtitle.notfound" = "चिंता न करें, हम पहले से ही इस समस्या को ठीक कर रहे हैं।\nसब कुछ काम करेगा!";
+
+"general.error.title.noconnectiontotheinternet" = "इंटरनेट से कोई कनेक्शन नहीं";
+
+"general.error.title.notfound" = "ओह… यह सब टूट गया है!";
+
+"general.label.title.myasset" = "/ मेरी संपत्ति";
+
+"general.tabbar.title.dex" = "डेक्स";
+
+"general.tabbar.title.history" = "इतिहास";
+
+"general.tabbar.title.profile" = "प्रोफाइल";
+
+"general.tabbar.title.wallet" = "वॉलेट";
+
+"general.ticker.title.cryptocurrency" = "क्रिप्टोकरेन्सी";
+
+"general.ticker.title.fiatmoney" = "फिएट पैसे";
+
+"general.ticker.title.spam" = "स्पैम";
+
+"general.ticker.title.wavestoken" = "वेव्स टोकन";
+
+"general.tost.saveBackup.subtitle" = "अपने सीड को सुरक्षित रूप से स्टोर करें, यह आपके वॉलेट को पुनर्स्थापित करने का एकमात्र तरीका है";
+
+"general.tost.saveBackup.title" = "अपना बैकअप वाक्यांश सहेजें (सीड)";
+
+"hello.button.continue" = "कंटिन्यू";
+
+"hello.button.next" = "अगला";
+
+"hello.button.understand" = "मै समझता हुँ";
+
+"hello.page.info.fifth.detail.first" = "अज्ञात प्रेषकों से ईमेल या लिंक न खोलें।";
+
+"hello.page.info.fifth.detail.fourth" = "सार्वजनिक वाई-फाई या किसी और के डिवाइस का उपयोग करते समय अपने वॉलेट उपयोग न करें";
+
+"hello.page.info.fifth.detail.second" = "नियमित रूप से अपने ऑपरेटिंग सिस्टम को अद्यतन करें।";
+
+"hello.page.info.fifth.detail.third" = "आधिकारिक सुरक्षा सॉफ्टवेयर का प्रयोग करें। अज्ञात सॉफ़्टवेयर इंस्टॉल न करें जिसे हैक किया जा सकता है।";
+
+"hello.page.info.fifth.title" = "फिशर्स से खुद को कैसे सुरक्षित रखें";
+
+"hello.page.info.first.detail" = "कृपया अपनी सुरक्षा के लिए कुछ महत्वपूर्ण चीजों को समझने के लिए कुछ समय दें।\n\nयदि आप फ़िशिंग साइट पर जाते हैं या अपना बैकअप वाक्यांश (उर्फ सीड वाक्यांश) खो देते हैं, तो हम आपके फंड को पुनर्प्राप्त नहीं कर सकते हैं या अपने खाते को फ्रीज नहीं कर सकते हैं।\n\nहमारे प्लेटफॉर्म का उपयोग जारी रखते हुए, आप नुकसान से जुड़े सभी जोखिमों को स्वीकार करने के लिए सहमत हैं आपके सीड का, जिसमें आपके धन प्राप्त करने और उन्हें निपटाने में असमर्थता शामिल है, लेकिन इतनी ही सीमित नहीं है। यदि आप अपनी सीड खो देते हैं, तो आप सहमत हैं और स्वीकार करते हैं कि वेव्स प्लेटफ़ॉर्म इसके नकारात्मक परिणामों के लिए ज़िम्मेदार नहीं होगा।";
+
+"hello.page.info.first.title" = "वेव्स प्लेटफ़ॉर्म में आपका स्वागत है!";
+
+"hello.page.info.fourth.detail" = "स्कैमिंग के सबसे आम रूपों में से एक फिशिंग है, जो तब होता है जब स्कैमर फेसबुक या अन्य वेबसाइटों पर नकली समुदायों को बनाते हैं जो प्रामाणिक लोगों के समान दिखते हैं।";
+
+"hello.page.info.fourth.title" = "फिशर्स से खुद को कैसे सुरक्षित रखें";
+
+"hello.page.info.second.detail" = "अपना खाता पंजीकृत करते समय, आपको अपने सीक्रेट फ्रेज (सीड) को सेव और पासवर्ड के साथ अपने खाते की सुरक्षा के लिए कहा जाएगा। सामान्य केंद्रीकृत सर्वरों पर, पासवर्ड पर विशेष ध्यान दिया जाता है, जिसे आवश्यकता होने पर ईमेल के माध्यम से बदला जा सकता है और रीसेट किया जा सकता है। हालांकि, वेव्स जैसे विकेन्द्रीकृत प्लेटफार्मों पर, सबकुछ अलग-अलग व्यवस्थित किया जाता है.";
+
+"hello.page.info.second.title" = "आपको अपने सीड के बारे में क्या जानने की ज़रूरत है";
+
+"hello.page.info.third.detail.first" = "आप अपने वॉलेट को गुमनाम रूप से उपयोग करते हैं, जिसका अर्थ है कि आपका खाता किसी ईमेल खाते या किसी अन्य पहचान डेटा से कनेक्ट नहीं है।";
+
+"hello.page.info.third.detail.fourth" = "आप अपना सीक्रेट फ्रेज नहीं बदल सकते हैं। यदि आपने गलती से इसे किसी को भेजा है या संदेह है कि स्कैमर इसे ले गए हैं, तो तुरंत एक नया वेव्स वॉलेट बनाएं और अपने धन को ट्रान्सफर करें।";
+
+"hello.page.info.third.detail.second" = "किसी निश्चित डिवाइस या ब्राउज़र पर काम करते समय आपका पासवर्ड आपके खाते की सुरक्षा करता है। इसकी आवश्यकता यह सुनिश्चित करने के लिए है कि आपका सीक्रेट फ्रेज सेव नहीं किया गया है।";
+
+"hello.page.info.third.detail.third" = "यदि आप अपना पासवर्ड भूल जाते हैं, तो आप अपने सीक्रेट फ्रेज के माध्यम से खाता पुनर्प्राप्ति फ़ॉर्म का उपयोग कर आसानी से एक नया बना सकते हैं। यदि आप अपना सीक्रेट फ्रेज खो देते हैं, तो आपके पास अपने खाते तक पहुंचने का कोई तरीका नहीं होगा।";
+
+"hello.page.info.third.title" = "आपको अपने सीड के बारे में क्या जानने की ज़रूरत है";
+
+"history.navigationBar.title" = "इतिहास";
+
+"history.segmentedControl.activeNow" = "एक्टिव नाउ";
+
+"history.segmentedControl.all" = "सब";
+
+"history.segmentedControl.canceled" = "रद्द";
+
+"history.segmentedControl.exchanged" = "एक्सचेंजड";
+
+"history.segmentedControl.issued" = "जारी किए गए";
+
+"history.segmentedControl.leased" = "लीज्ड";
+
+"history.segmentedControl.received" = "प्राप्त किया";
+
+"history.segmentedControl.sent" = "भेज दिया";
+
+"history.transaction.cell.exchange.buy" = "खरीदें: %@/%@";
+
+"history.transaction.cell.exchange.sell" = "बेचना: %@/%@";
+
+"history.transaction.title.alias" = "उपनाम बनाएँ";
+
+"history.transaction.title.canceledLeasing" = "कान्सेलड लीजिंग";
+
+"history.transaction.title.data" = "डेटा ट्रांसक्शन";
+
+"history.transaction.title.exchange" = "एक्सचेंज";
+
+"history.transaction.title.incomingLeasing" = "इनकमिंग लीजिंग";
+
+"history.transaction.title.massreceived" = "मास प्राप्त हुआ";
+
+"history.transaction.title.masssent" = "मास भेजा गया";
+
+"history.transaction.title.received" = "प्राप्त किया";
+
+"history.transaction.title.selfTransfer" = "सेल्फ-ट्रांसफर";
+
+"history.transaction.title.sent" = "भेज दिया";
+
+"history.transaction.title.startedLeasing" = "लीजिंग शुरू हुई";
+
+"history.transaction.title.tokenBurn" = "टोकन बर्न";
+
+"history.transaction.title.tokenGeneration" = "टोकन जनरेशन";
+
+"history.transaction.title.tokenReissue" = "टोकन रि-इशू";
+
+"history.transaction.title.unrecognisedTransaction" = "अपरिचित ट्रांसक्शन";
+
+"history.transaction.value.data" = "ब्लॉकचेन में प्रवेश";
+
+"import.account.button.enter.title" = "मैन्युअल रूप से सीड दर्ज करें";
+
+"import.account.button.scan.title" = "पैरिंग जोड़ी कोड स्कैन करें";
+
+"import.account.label.info.step.one.detail" = "सेटिंग्स — सामान्य — Export account";
+
+"import.account.label.info.step.one.title" = "https://client.wavesplatform.com पर अपने पीसी या मैक के माध्यम से अपने वेव्स क्लाइंट में लॉग इन करें";
+
+"import.account.label.info.step.two.title" = "एक क्यूआर कोड प्रकट करने के लिए «पैरिंग कोड दिखाएं» पर क्लिक करें। अपने कैमरे के साथ कोड स्कैन करें।";
+
+"import.account.navigation.title" = "खाता इम्पोर्ट करें";
+
+"import.general.error.alreadyinuse" = "पहले से ही उपयोग में";
+
+"import.general.navigation.title" = "खाता इम्पोर्ट करें";
+
+"import.general.segmentedControl.manually" = "मैन्युअल";
+
+"import.general.segmentedControl.scan" = "स्कैन";
+
+"import.manually.button.continue" = "जारी रहना";
+
+"import.manually.label.address.placeholder" = "आपका सीड 15 शब्द है जिसे आपने अपना खाता बनाते समय सेव किया था";
+
+"import.manually.label.address.title" = "आपका खाता सीड";
+
+"import.password.button.continue" = "जारी रहना";
+
+"import.scan.button.title" = "पैरिंग कोड स्कैन करें";
+
+"import.scan.label.step.one.title" = "वेब या मैक/पीसी के माध्यम से अपने वेव्स क्लाइंट में लॉग इन करें";
+
+"import.scan.label.step.three.title" = "अपने कैमरे के साथ कोड स्कैन करें";
+
+"import.scan.label.step.two.detail" = "सेटिंग्स — सामान्य — Export account";
+
+"import.scan.label.step.two.title" = "एक क्यूआर कोड प्रकट करने के लिए «शो पैरिंग कोड» पर क्लिक करें";
+
+"import.welcome.button.continue" = "जारी रहना";
+
+"import.welcome.label.address.placeholder" = "आपका सीड 15 शब्द है जिसे आपने अपना खाता बनाते समय सेव किया था";
+
+"import.welcome.label.address.title" = "आपका खाता सीड";
+
+"import.welcome.navigation.title" = "वापसी पर स्वागत है";
+
+"legal.checkbox.box.button.confirm" = "पुष्टि करें और शुरू करें";
+
+"legal.checkbox.box.first" = "मैं समझता हूं कि मेरे फंड इस डिवाइस पर सुरक्षित रूप से आयोजित किए जाते हैं, न कि किसी कंपनी द्वारा";
+
+"legal.checkbox.box.second" = "मैं समझता हूं कि यदि यह ऐप किसी अन्य डिवाइस पर ले जाया गया है या हटा दिया गया है, तो मेरी वेव्स केवल बैकअप फ्रेज से पुनर्प्राप्त की जा सकती हैं";
+
+"legal.checkbox.box.subtitle" = "वेव्स अलग हैं - इसे किसी बैंक या वेब सेवा द्वारा सुरक्षित रूप से नहीं रखा जा सकता है";
+
+"legal.checkbox.box.termsOfUse" = "उपयोग की शर्तें";
+
+"legal.checkbox.box.third" = "मैंने पढ़ा, समझ लिया है, और इससे सहमत हूं";
+
+"legal.checkbox.box.title" = "पूर्ण हुआ!";
+
+"menu.button.supportwavesplatform" = "सपोर्ट वेव्स प्लेटफोर्म";
+
+"menu.button.termsandconditions" = "नियम और शर्तें";
+
+"menu.button.whitepaper" = "वाइट पेपर";
+
+"menu.label.communities" = "वेव्स समुदाय में शामिल हों";
+
+"menu.label.description" = "नवीनतम समाचार और लेखों के साथ बने रहें, और वेव्स प्लेटफ़ॉर्म पर होने वाली घटनाओं के बारे में सभी जानें";
+
+"myaddress.button.copy.title" = "प्रतिलिपि";
+
+"myaddress.button.share.title" = "शेयर";
+
+"myaddress.cell.aliases.subtitle.withaliaces" = "आपके पास %d है";
+
+"myaddress.cell.aliases.subtitle.withoutaliaces" = "तुम्हारे पास नहीं है";
+
+"myaddress.cell.aliases.title" = "उपनाम";
+
+"myaddress.cell.info.title" = "आपका पता";
+
+"myaddress.cell.qrcode.title" = "आपका क्यूआर कोड";
+
+"networksettings.button.save.title" = "सेव";
+
+"networksettings.button.setdefault.title" = "डिफॉल्ट सेट करें";
+
+"networksettings.label.switchspam.title" = "स्पैम फ़िल्टरिंग";
+
+"networksettings.navigation.title" = "नेटवर्क";
+
+"networksettings.textfield.spamfilter.title" = "स्पैम फ़िल्टर";
+
+"newaccount.avatar.detail" = "आप इसे बाद में नहीं बदल सकते हैं";
+
+"newaccount.avatar.title" = "अपना अनोखा पता अवतार चुनें";
+
+"newaccount.backup.navigation.title" = "नया खाता";
+
+"newaccount.error.noavatarselected" = "कोई अवतार नहीं चुना गया";
+
+"newaccount.main.navigation.title" = "नया खाता";
+
+"newaccount.secret.navigation.title" = "नया खाता";
+
+"newaccount.textfield.accountName.title" = "खाते का नाम";
+
+"newaccount.textfield.confirmpassword.title" = "पासवर्ड की पुष्टि कीजिये";
+
+"newaccount.textfield.createpassword.title" = "एक पासवर्ड बनाएं";
+
+"newaccount.textfield.error.atleastcharacters" = "न्यूनतम %d अक्षर";
+
+"newaccount.textfield.error.charactersmaximum" = "अधिकतम %d अक्षर";
+
+"newaccount.textfield.error.doesnotmatch" = "मिलता जुलता नहीं है";
+
+"newaccount.textfield.error.minimumcharacters" = "न्यूनतम %d अक्षर";
+
+"newaccount.textfield.error.passwordnotmatch" = "पासवर्ड मेल नहीं खाता";
+
+"newaccount.textfield.error.wrongordertryagain" = "गलत आदेश, पुनः प्रयास करें";
+
+"passcode.alert.attempsended.button.cancel" = "रोकना";
+
+"passcode.alert.attempsended.button.enterpassword" = "पास वर्ड दर्ज करें";
+
+"passcode.alert.attempsended.button.ok" = "ठीक है";
+
+"passcode.alert.attempsended.subtitle" = "अनलॉक करने के लिए, अपने खाता पासवर्ड से साइन इन करें";
+
+"passcode.alert.attempsended.title" = "भी कई प्रयास";
+
+"passcode.button.forgotPasscode.title" = "खाता पासवर्ड का प्रयोग करें";
+
+"passcode.label.forgotPasscode.title" = "पासकोड भूल गए?";
+
+"passcode.label.passcode.create" = "पासकोड बनाएं";
+
+"passcode.label.passcode.enter" = "पासकोड दर्ज करें";
+
+"passcode.label.passcode.old" = "पुराना पासकोड दर्ज करें";
+
+"passcode.label.passcode.verify" = "अपना पासकोड सत्यापित करें";
+
+"profile.alert.deleteAccount.button.cancel" = "रद्द करना";
+
+"profile.alert.deleteAccount.button.delete" = "हटाना";
+
+"profile.alert.deleteAccount.message" = "क्या आप वाकई इस खाते को डिवाइस से हटाना चाहते हैं?";
+
+"profile.alert.deleteAccount.notSaveSeed" = "आपने अपनी सीड नहीं बचाई";
+
+"profile.alert.deleteAccount.title" = "खाता हटा दो";
+
+"profile.alert.deleteAccount.withoutbackup.message" = "एक खाता हटाना इसके अप्रत्याशित नुकसान का कारण बन सकता है !";
+
+"profile.alert.setupbiometric.button.cancel" = "रद्द करना";
+
+"profile.alert.setupbiometric.button.settings" = "सेटिंग्स";
+
+"profile.alert.setupbiometric.message" = "तेज़ और सुरक्षित लॉगिन का उपयोग करने के लिए, बॉयोमीट्रिक्स को सक्षम करने के लिए सेटिंग्स पर जाएं";
+
+"profile.alert.setupbiometric.title" = "बॉयोमीट्रिक्स अक्षम है";
+
+"profile.button.delete.title" = "डिवाइस से खाता हटाएं";
+
+"profile.button.logout.title" = "खाते से लॉगआउट";
+
+"profile.cell.addressbook.title" = "पता पुस्तिक";
+
+"profile.cell.addresses.title" = "पते, कीस";
+
+"profile.cell.backupphrase.title" = "बैकअप फ्रेज";
+
+"profile.cell.changepasscode.title" = "पासकोड बदलें";
+
+"profile.cell.changepassword.title" = "पासवर्ड बदलें";
+
+"profile.cell.currentheight.title" = "वर्तमान ऊंचाई";
+
+"profile.cell.feedback.title" = "प्रतिक्रिया";
+
+"profile.cell.info.currentheight.title" = "वर्तमान ऊंचाई";
+
+"profile.cell.info.version.title" = "संस्करण";
+
+"profile.cell.language.title" = "भाषा";
+
+"profile.cell.network.title" = "नेटवर्क";
+
+"profile.cell.pushnotifications.title" = "सूचनाएं भेजना";
+
+"profile.cell.rateApp.title" = "एप्लिकेशन को रेट करें";
+
+"profile.cell.supportwavesplatform.title" = "सपोर्ट वेव्स प्लेटफोर्म";
+
+"profile.header.general.title" = "सामान्य सेटिंग्स";
+
+"profile.header.other.title" = "अन्य";
+
+"profile.header.security.title" = "सेक्युरिटी";
+
+"profile.language.navigation.title" = "भाषा";
+
+"profile.navigation.title" = "प्रोफाइल";
+
+"receive.button.card" = "कार्ड";
+
+"receive.button.continue" = "जारी रहना";
+
+"receive.button.cryptocurrency" = "क्रिप्टोकरेन्सी";
+
+"receive.button.invoice" = "इनवॉइस";
+
+"receive.button.useTotalBalance" = "पूर्ण बैलेंस का प्रयोग करें";
+
+"receive.error.serviceUnavailable" = "सेवा अस्थायी रूप से अनुपलब्ध है";
+
+"receive.label.amount" = "रकम";
+
+"receive.label.amountIn" = "अमाउंट इन";
+
+"receive.label.asset" = "एसेट";
+
+"receive.label.receive" = "प्राप्त करना";
+
+"receive.label.selectYourAsset" = "अपनी संपत्ति का चुनाव करें";
+
+"receiveaddress.button.cancel" = "रद्द करना";
+
+"receiveaddress.button.close" = "बंद करे";
+
+"receiveaddress.button.copied" = "कोपिएड!";
+
+"receiveaddress.button.copy" = "कॉपी";
+
+"receiveaddress.button.share" = "शेयर";
+
+"receiveaddress.label.linkToInvoice" = "इनवॉइस से लिंक करें";
+
+"receiveaddress.label.yourAddress" = "आपका %@ पता";
+
+"receiveaddress.label.yourQRCode" = "आपका क्यूआर कोड";
+
+"receivecard.button.cancel" = "रद्द करना";
+
+"receivecard.label.changeCurrency" = "मुद्रा परिवर्तन करें";
+
+"receivecard.label.warningInfo" = "अपने कार्ड से भुगतान करने के लिए आपको व्यापारी की वेबसाइट पर रीडायरेक्ट कर दिया जाएगा";
+
+"receivecardcomplete.button.okay" = "ठीक है";
+
+"receivecardcomplete.label.afterPaymentUpdateBalance" = "भुगतान करने के बाद आपकी शेष राशि अपडेट की जाएगी";
+
+"receivecardcomplete.label.redirectToIndacoin" = "आपको «इनडाकोइन» पर रीडायरेक्ट कर दिया गया है";
+
+"receivecryptocurrency.label.minumumAmountOfDeposit" = "जमा की न्यूनतम राशि %@ है";
+
+"receivecryptocurrency.label.sendOnlyOnThisDeposit" = "इस जमा पते पर केवल %@ भेजें";
+
+"receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "यदि आप %@ से कम भेजेंगे, तो आप वह पैसा खो देंगे।";
+
+"receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "इस पते पर किसी अन्य मुद्रा को भेजने से आपके जमा की हानि हो सकती है।";
+
+"receivegenerate.label.generate" = "उत्पन्न…";
+
+"receivegenerate.label.yourAddress" = "आपका %@ पता";
+
+"receiveinvoice.label.dollar" = "अमेरिकी डॉलर";
+
+"scannerqrcode.label.scan" = "स्कैन क्यूआर";
+
+"send.button.chooseFromAddressBook" = "पता पुस्तिका से चुनें";
+
+"send.button.continue" = "जारी रहना";
+
+"send.button.useTotalBalanace" = "पूर्ण बैलेंस का प्रयोग करें";
+
+"send.label.addressNotValid" = "पता मान्य नहीं है";
+
+"send.label.amount" = "रकम";
+
+"send.label.dollar" = "अमेरिकी डॉलर";
+
+"send.label.error.insufficientFunds" = "अपर्याप्त फंड्स";
+
+"send.label.error.invalidId" = "इनवैलिड आई डी";
+
+"send.label.error.notFundsFee" = "आवश्यक फ़ीस का भुगतान करने के लिए आपके पास पर्याप्त धनराशि नहीं है।";
+
+"send.label.gatewayFee" = "गेटवे फ़ीस है";
+
+"send.label.moneroPaymentId" = "मोनरो पेमेंट आईडी";
+
+"send.label.recipient" = "प्राप्त करने वाला";
+
+"send.label.recipientAddress" = "प्राप्तकर्ता का पता…";
+
+"send.label.send" = "भेजना";
+
+"send.label.transactionFee" = "लेनदेन फ़ीस";
+
+"send.textField.placeholderPaymentId" = "पेस्ट करें या अपनी पेमेंट आईडी टाइप करें";
+
+"sendcomplete.button.okey" = "ठीक है";
+
+"sendcomplete.label.saveThisAddress" = "क्या आप इस पते को सेव करना चाहते हैं?";
+
+"sendcomplete.label.transactionIsOnWay" = "आपका लेनदेन किया जा रहा है!";
+
+"sendcomplete.label.youHaveSent" = "तुमने भेज दिया";
+
+"sendconfirmation.button.confim" = "की पुष्टि करें";
+
+"sendconfirmation.label.confirmation" = "पुष्टीकरण";
+
+"sendconfirmation.label.description" = "विवरण";
+
+"sendconfirmation.label.descriptionIsTooLong" = "विवरण बहुत लंबा है";
+
+"sendconfirmation.label.dollar" = "अमेरिकी डॉलर";
+
+"sendconfirmation.label.fee" = "फ़ीस";
+
+"sendconfirmation.label.optionalMessage" = "एक वैकल्पिक संदेश लिखें";
+
+"sendconfirmation.label.sentTo" = "भेजा";
+
+"sendloading.label.sending" = "भेजा जा रहा है…";
+
+"serverDisconnect.label.subtitle" = "मोबाइल इंटरनेट या वाई-फाई नेटवर्क से अपना कनेक्शन जांचें";
+
+"serverDisconnect.label.title" = "इंटरनेट से कोई कनेक्शन नहीं";
+
+"serverEngineering.label.subtitle" = "हाय, फिलहाल हम एप्लीकेशन में सुधार का एक बहुत ही महत्वपूर्ण काम कर रहे हैं";
+
+"serverEngineering.label.title" = "इंजीनियरिंग काम करता है";
+
+"serverError.button.retry" = "पुन: प्रयास करें";
+
+"serverError.button.sendReport" = "एक रिपोर्ट भेजें";
+
+"serverError.label.allBroken" = "ओह… यह सब टूट गया है!";
+
+"serverError.label.allBrokenDescription" = "चिंता न करें, हम पहले से ही इस समस्या को ठीक कर रहे हैं।\nसब कुछ काम करेगा!";
+
+"serverError.label.noInternetConnection" = "इंटरनेट से कोई कनेक्शन नहीं";
+
+"serverError.label.noInternetConnectionDescription" = "मोबाइल इंटरनेट या वाई-फाई नेटवर्क से अपना कनेक्शन जांचें";
+
+"serverError.label.subtitle" = "चिंता न करें, हम पहले से ही इस समस्या को ठीक कर रहे हैं।\nसब कुछ काम करेगा!";
+
+"serverError.label.title" = "ओह… यह सब टूट गया है!";
+
+"startleasing.button.chooseFromAddressBook" = "पता पुस्तिका से चुनें";
+
+"startleasing.button.startLease" = "लीज शुरू करें";
+
+"startleasing.button.useTotalBalanace" = "पूर्ण बैलेंस का प्रयोग करें";
+
+"startleasing.button.useTotalBalance" = "पूर्ण बैलेंस का प्रयोग करें";
+
+"startleasing.label.addressIsNotValid" = "पता मान्य नहीं है";
+
+"startleasing.label.amount" = "रकम";
+
+"startleasing.label.balance" = "बैलेंस";
+
+"startleasing.label.generator" = "जनरेटर";
+
+"startleasing.label.insufficientFunds" = "अपर्याप्त फंड्स";
+
+"startleasing.label.nodeAddress" = "नोड पता…";
+
+"startleasing.label.notEnough" = "पर्याप्त नहीं";
+
+"startleasing.label.startLeasing" = "लीजिंग शुरू करें";
+
+"startleasing.label.transactionFee" = "लेनदेन फ़ीस";
+
+"startleasingcomplete.button.okey" = "ठीक है";
+
+"startleasingcomplete.label.youHaveCanceledTransaction" = "आपने लीजिंग लेनदेन रद्द कर दिया है";
+
+"startleasingcomplete.label.youHaveLeased" = "आपने %@ %@ लीज्ड किया है";
+
+"startleasingcomplete.label.yourTransactionIsOnWay" = "आपका लेनदेन चल रहा है!";
+
+"startleasingconfirmation.button.cancelLeasing" = "लीजिंग रद्द करें";
+
+"startleasingconfirmation.button.confirm" = "की पुष्टि करें";
+
+"startleasingconfirmation.label.TXID" = "टी क्स आई डी";
+
+"startleasingconfirmation.label.confirmation" = "पुष्टीकरण";
+
+"startleasingconfirmation.label.fee" = "फ़ीस";
+
+"startleasingconfirmation.label.leasingTX" = "लीजिंग TX";
+
+"startleasingconfirmation.label.nodeAddress" = "नोड पता";
+
+"startleasingloading.label.cancelLeasing" = "लीजिंग रद्द करें…";
+
+"startleasingloading.label.startLeasing" = "लीजिंग शुरू करें…";
+
+"tokenBurn.button.burn" = "बर्न";
+
+"tokenBurn.button.continue" = "जारी रहना";
+
+"tokenBurn.button.okey" = "ठीक है";
+
+"tokenBurn.button.useTotalBalanace" = "पूर्ण बैलेंस का प्रयोग करें";
+
+"tokenBurn.label.confirmation" = "पुष्टीकरण";
+
+"tokenBurn.label.error.insufficientFunds" = "अपर्याप्त फंड्स";
+
+"tokenBurn.label.error.notFundsFee" = "आवश्यक शुल्क का भुगतान करने के लिए आपके पास पर्याप्त धनराशि नहीं है।";
+
+"tokenBurn.label.fee" = "शुल्क";
+
+"tokenBurn.label.id" = "आईडी";
+
+"tokenBurn.label.loading" = "बर्न…";
+
+"tokenBurn.label.notReissuable" = "पुनर्निर्गमनीय नहीं कर सकते हैं";
+
+"tokenBurn.label.quantityTokensBurned" = "टोकन की मात्रा जला दी जाएगी";
+
+"tokenBurn.label.reissuable" = "रि-इशुएब्ल";
+
+"tokenBurn.label.tokenBurn" = "टोकन बर्न";
+
+"tokenBurn.label.transactionFee" = "लेनदेन शुल्क %@ %@";
+
+"tokenBurn.label.transactionIsOnWay" = "आपका लेनदेन रास्ते पर है!";
+
+"tokenBurn.label.type" = "प्रकार";
+
+"tokenBurn.label.youHaveBurned" = "यू हाव बर्नड";
+
+"transactionhistory.button.copied" = "कॉपी किया गया";
+
+"transactionhistory.button.copyAllData" = "सभी डेटा कॉपी करें";
+
+"transactionhistory.button.copyTXId" = "TX आईडी कॉपी करें";
+
+"transactionhistory.cell.block" = "ब्लॉक";
+
+"transactionhistory.cell.button.cancelLeasing" = "लीजिंग रद्द करें";
+
+"transactionhistory.cell.button.sendAgain" = "कन्फर्मेशन्स";
+
+"transactionhistory.cell.buy" = "खरीदें: %@/%@";
+
+"transactionhistory.cell.confirmations" = "पुष्टिकरण";
+
+"transactionhistory.cell.dataTransaction" = "डेटा ट्रांसक्शन";
+
+"transactionhistory.cell.fee" = "फ़ीस";
+
+"transactionhistory.cell.from" = "से";
+
+"transactionhistory.cell.id" = "आईडी";
+
+"transactionhistory.cell.leasingTo" = "लीजिंग टु";
+
+"transactionhistory.cell.notReissuable" = "पुनर्निर्गमनीय नहीं कर सकते हैं";
+
+"transactionhistory.cell.price" = "मूल्य";
+
+"transactionhistory.cell.receivedFrom" = "रेसिवड फ्रेम";
+
+"transactionhistory.cell.recipient" = "प्राप्त करने वाला";
+
+"transactionhistory.cell.recipients" = "प्राप्तकर्ता";
+
+"transactionhistory.cell.reissuable" = "रि-इशुएब्ल";
+
+"transactionhistory.cell.sell" = "बेचना: %@/%@";
+
+"transactionhistory.cell.sentTo" = "भेजा";
+
+"transactionhistory.cell.status.at" = "पर";
+
+"transactionhistory.cell.status.button.activeNow" = "एक्टिव नाउ";
+
+"transactionhistory.cell.status.button.completed" = "पूरा कर लिया है";
+
+"transactionhistory.cell.status.button.unconfirmed" = "अपुष्ट";
+
+"transactionhistory.cell.status.timestamp" = "समय-चिह्न";
+
+"transactionhistory.cell.type" = "प्रकार";
+
+"transactionhistory.copy.amount" = "रकम";
+
+"transactionhistory.copy.date" = "दिनांक";
+
+"transactionhistory.copy.fee" = "फी";
+
+"transactionhistory.copy.recipient" = "प्राप्त करने वाला";
+
+"transactionhistory.copy.sender" = "प्रेषक";
+
+"transactionhistory.copy.transactionId" = "ट्रांसक्शन आईडी";
+
+"transactionhistory.copy.type" = "प्रकार";
+
+"usetouchid.button.notNow.text" = "अभी नहीं";
+
+"usetouchid.button.useBiometric.text" = "%@ उपयोग करे";
+
+"usetouchid.label.detail.text" = "अपने खाते में तेज़ी और आसानी से पहुंचने के लिए अपने %@ का उपयोग करें";
+
+"usetouchid.label.title.text" = "साइन इन करने के लिए %@ का उपयोग करें?";
+
+"wallet.button.startLease" = "लीज शुरू करें";
+
+"wallet.label.available" = "उपलब्ध";
+
+"wallet.label.leased" = "लीज्ड";
+
+"wallet.label.leasedIn" = "लीज्ड में";
+
+"wallet.label.myAssets" = "मेरी संपत्ति";
+
+"wallet.label.quickNote.description.first" = "आप केवल वेव्स को ट्रांसफर या व्यापार कर सकते हैं जो लीजिंग पर नहीं हैं। लीज्ड राशि को आपके या किसी और द्वारा स्थानांतरित या व्यापार नहीं किया जा सकता है।";
+
+"wallet.label.quickNote.description.second" = "जैसे ही लीजिंग ब्लॉकचेन में दिखाई देता है, आप रद्द कर सकते हैं जो आमतौर पर एक मिनट या उससे कम समय में कर सकते हैं।";
+
+"wallet.label.quickNote.description.third" = "जनरेटिंग बैलेंस 1000 ब्लॉक के बाद अपडेट किया जाएगा।";
+
+"wallet.label.startedLeasing" = "लीजिंग शुरू हुई";
+
+"wallet.label.totalBalance" = "कुल शेष";
+
+"wallet.label.viewHistory" = "लेनदेन का इतिहास";
+
+"wallet.navigationBar.title" = "वॉलेट";
+
+"wallet.section.activeNow" = "एक्टिव नाउ (%d)";
+
+"wallet.section.hiddenAssets" = "छिपी संपत्तियां (%d)";
+
+"wallet.section.quickNote" = "क्विक नोट";
+
+"wallet.section.spamAssets" = "स्पैम संपत्तियां (%d)";
+
+"wallet.segmentedControl.assets" = "संपत्ति";
+
+"wallet.segmentedControl.leasing" = "लीजिंग";
+
+"walletsort.button.position" = "पद";
+
+"walletsort.button.visibility" = "विसिबिलिटी";
+
+"walletsort.navigationBar.title" = "सॉर्टिंग";
+
+"wavespopup.button.exchange" = "एक्सचेंज";
+
+"wavespopup.button.receive" = "प्राप्त करना";
+
+"wavespopup.button.send" = "भेजना";
+
+"wavespopup.label.comingsoon" = "जल्द आ रहा है";

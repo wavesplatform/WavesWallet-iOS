@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import RxCocoa
 
 enum WalletTypes {}
 
@@ -51,18 +52,20 @@ extension WalletTypes {
         var assets: DisplayState.Display
         var leasing: DisplayState.Display
         var isAppeared: Bool
+        var listenerRefreshData: RefreshData
         var refreshData: RefreshData
+        var listnerSignal: Signal<WalletTypes.Event>?
     }
 
     struct State: Mutating {
 
-        var assets: [DomainLayer.DTO.AssetBalance]
+        var assets: [DomainLayer.DTO.SmartAssetBalance]
         var leasing: DTO.Leasing?
         var displayState: DisplayState
     }
 
     enum Event {
-        case setAssets([DomainLayer.DTO.AssetBalance])
+        case setAssets([DomainLayer.DTO.SmartAssetBalance])
         case setLeasing(DTO.Leasing)
         case handlerError(Error)
         case refresh

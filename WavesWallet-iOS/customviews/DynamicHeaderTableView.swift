@@ -29,7 +29,7 @@ class DynamicHeaderTableView: UITableView {
 
         if let headerView = tableHeaderView {
 
-            let height = headerView.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
+            let height = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
             var headerFrame = headerView.frame
 
             let newHeight = max(height, frame.height - (initialLayoutInsets?.top ?? 0) - (initialLayoutInsets?.bottom ?? 0) - 0.5)

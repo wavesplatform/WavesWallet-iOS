@@ -37,12 +37,11 @@ final class DexChartPresenter: DexChartPresenterProtocol {
             
         }, effects: { [weak self] state -> Signal<DexChart.Event> in
             
-            // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
             
             return strongSelf.interactor.candles(timeFrame: state.timeFrame,
-                                                 dateFrom: state.dateFrom,
-                                                 dateTo: state.dateTo)
+                                                 timeStart: state.timeStart,
+                                                 timeEnd: state.timeEnd)
                 .map {.setCandles($0)}.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
@@ -55,15 +54,25 @@ final class DexChartPresenter: DexChartPresenterProtocol {
                 $0.isNeedLoadingData = true
             }.changeAction(.none)
             
+        case .refresh:
+            return state.mutate {
+                $0.isNeedLoadingData = true
+                $0.isPreloading = false
+                $0.isChangedTimeFrame = false
+                $0.candles.removeAll()
+                $0.timeEnd = DexChart.State.initialDateTo()
+                
+            }.changeAction(.none)
+            
         case .didChangeTimeFrame(let timeFrame):
             return state.mutate {
                 $0.isNeedLoadingData = true
                 $0.isPreloading = false
+                $0.isChangedTimeFrame = true
                 $0.timeFrame = timeFrame
                 $0.candles.removeAll()
-                $0.dateTo = DexChart.State.initialDateTo()
-                $0.dateFrom = DexChart.State.additionalDate(start:$0.dateTo, timeFrame: timeFrame)
-                $0.isChangedTimeFrame = true
+                $0.timeEnd = DexChart.State.initialDateTo()
+                $0.timeStart = DexChart.State.additionalDate(start:$0.timeEnd, timeFrame: timeFrame)
                 
             }.changeAction(.changeTimeFrame)
         
@@ -72,8 +81,8 @@ final class DexChartPresenter: DexChartPresenterProtocol {
                 $0.isNeedLoadingData = true
                 $0.isPreloading = true
                 $0.isChangedTimeFrame = false
-                $0.dateTo = $0.dateFrom
-                $0.dateFrom = DexChart.State.additionalDate(start: $0.dateFrom, timeFrame: state.timeFrame)
+                $0.timeEnd = $0.timeStart
+                $0.timeStart = DexChart.State.additionalDate(start: $0.timeStart, timeFrame: state.timeFrame)
                 
                 }.changeAction(.none)
             

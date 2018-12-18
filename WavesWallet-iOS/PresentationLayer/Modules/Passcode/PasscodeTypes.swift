@@ -67,10 +67,13 @@ extension PasscodeTypes {
                 return .notFound
                 
             case .biometricDisable:
-                return .notFound
+                return .biometricDisable
 
             case .passcodeIncorrect:
                 return .incorrectPasscode
+
+            case .biometricUserCancel:
+                return .none
 
             case .passcodeNotCreated:
                 return .notFound
@@ -83,6 +86,12 @@ extension PasscodeTypes {
 
             case .fail:
                 return .notFound
+
+            case .biometricUserFallback:
+                return .none
+
+            case .biometricLockout:
+                return .biometricLockout
             }
 
         default:
@@ -146,11 +155,14 @@ extension PasscodeTypes {
     struct DisplayState: Mutating {
 
         enum Error {
+            case none
             case incorrectPasscode
+            case biometricLockout
             case notFound
             case attemptsEnded
             case attemptsEndedLogout
             case internetNotWorking
+            case biometricDisable
             case message(String)
         }
 

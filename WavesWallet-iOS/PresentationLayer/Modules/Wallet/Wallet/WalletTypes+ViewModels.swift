@@ -14,7 +14,7 @@ import Foundation
 extension WalletTypes.ViewModel {
     enum Row {
         case hidden
-        case asset(DomainLayer.DTO.AssetBalance)
+        case asset(DomainLayer.DTO.SmartAssetBalance)
         case assetSkeleton
         case balanceSkeleton
         case historySkeleton
@@ -29,7 +29,7 @@ extension WalletTypes.ViewModel {
         enum Kind {
             case skeleton
             case balance
-            case transactions
+            case transactions(count: Int)
             case info
             case general
             case spam(count: Int)
@@ -44,7 +44,7 @@ extension WalletTypes.ViewModel {
 
 extension WalletTypes.ViewModel.Row {
 
-        var asset: DomainLayer.DTO.AssetBalance? {
+        var asset: DomainLayer.DTO.SmartAssetBalance? {
             switch self {
             case .asset(let asset):
                 return asset
@@ -64,23 +64,9 @@ extension WalletTypes.ViewModel.Row {
 }
 extension WalletTypes.ViewModel.Section {
 
-    static func map(from assets: [DomainLayer.DTO.AssetBalance]) -> [WalletTypes.ViewModel.Section] {
+    static func map(from assets: [DomainLayer.DTO.SmartAssetBalance]) -> [WalletTypes.ViewModel.Section] {
         let generalItems = assets
-            .filter { $0.asset!.isSpam != true && $0.settings!.isHidden != true }
-            .sorted(by: { (asset1, asset2) -> Bool in
-
-                if asset1.asset!.isWaves == true {
-                    return true
-                }
-
-                if asset1.settings!.isFavorite == true && asset2.settings!.isFavorite == false {
-                    return true
-                } else if asset1.settings!.isFavorite == false && asset2.settings!.isFavorite == true {
-                    return false
-                }
-
-                return asset1.settings!.sortLevel < asset2.settings!.sortLevel
-            })
+            .filter { $0.asset.isSpam != true && $0.settings.isHidden != true }
             .map { WalletTypes.ViewModel.Row.asset($0) }
 
 
@@ -88,17 +74,11 @@ extension WalletTypes.ViewModel.Section {
                                                                   items: generalItems,
                                                                   isExpanded: true)
         let hiddenItems = assets
-            .filter { $0.settings!.isHidden == true }
-            .sorted(by: { (asset1, asset2) -> Bool in
-                asset1.settings!.sortLevel < asset2.settings!.sortLevel
-            })
+            .filter { $0.settings.isHidden == true }
             .map { WalletTypes.ViewModel.Row.asset($0) }
 
         let spamItems = assets
-            .filter { $0.asset!.isSpam == true }
-            .sorted(by: { (asset1, asset2) -> Bool in
-                asset1.settings!.sortLevel < asset2.settings!.sortLevel
-            })
+            .filter { $0.asset.isSpam == true }
             .map { WalletTypes.ViewModel.Row.asset($0) }
 
         var sections: [WalletTypes.ViewModel.Section] = [WalletTypes.ViewModel.Section]()
@@ -137,7 +117,7 @@ extension WalletTypes.ViewModel.Section {
 
             let activeTransactionSection: WalletTypes
                 .ViewModel
-                .Section = .init(kind: .transactions,                                 
+                .Section = .init(kind: .transactions(count: leasing.transactions.count),
                                  items: rows,
                                  isExpanded: true)
             sections.append(activeTransactionSection)
@@ -145,7 +125,7 @@ extension WalletTypes.ViewModel.Section {
 
         let noteSection: WalletTypes.ViewModel.Section = .init(kind: .info,
                                                                items: [.quickNote],
-                                                               isExpanded: true)
+                                                               isExpanded: false)
         sections.append(noteSection)
         return sections
     }

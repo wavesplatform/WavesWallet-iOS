@@ -26,6 +26,9 @@ enum AuthorizationInteractorError: Error {
     case permissionDenied
     case attemptsEnded
     case biometricDisable
+    case biometricUserCancel
+    case biometricLockout
+    case biometricUserFallback
 }
 
 enum AuthorizationAuthStatus {

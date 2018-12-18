@@ -14,7 +14,7 @@ final class TokenBurnSendInteractorMock: TokenBurnSendInteractorProtocol {
     private let transactions = FactoryInteractors.instance.transactions
     private let authorization = FactoryInteractors.instance.authorization
 
-    func burnAsset(asset: DomainLayer.DTO.AssetBalance, fee: Money, quiantity: Money) -> Observable<TokenBurnTypes.TransactionStatus> {
+    func burnAsset(asset: DomainLayer.DTO.SmartAssetBalance, fee: Money, quiantity: Money) -> Observable<TokenBurnTypes.TransactionStatus> {
 
         return authorization
             .authorizedWallet()

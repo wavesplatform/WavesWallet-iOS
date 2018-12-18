@@ -150,20 +150,6 @@ private extension DexTraderContainerSegmentedControl {
     var buttonWidth: CGFloat {
         //FIXME: Need to update code
         return UIScreen.main.bounds.size.width / CGFloat(Constants.countButtons)
-        
-        switch selectedState {
-        case .orderBook:
-            return buttonOrderBook.frame.size.width
-            
-        case .chart:
-            return buttonChart.frame.size.width
-            
-        case .lastTraders:
-            return buttonLastTrades.frame.size.width
-            
-        case .myOrders:
-            return buttonMyOrders.frame.size.width
-        }
     }
     
     var activeButtonPosition: CGFloat {

@@ -37,6 +37,7 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
         var newFeedbacks = feedbacks
         newFeedbacks.append(showAddressBookFeedback())
         newFeedbacks.append(cancelLeasingFeedback())
+        newFeedbacks.append(resendTransactionFeedback())
 
         Driver.system(initialState: TransactionHistoryPresenter.initialState(transactions: moduleInput.transactions, currentIndex: moduleInput.currentIndex),
                       reduce: { [weak self] state, event in self?.reduce(state: state, event: event) ?? state },
@@ -78,6 +79,24 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
                 }
                 return Disposables.create()
             }).asSignal(onErrorJustReturn: .completedAction)
+        })
+    }
+
+    func resendTransactionFeedback() -> TransactionHistoryPresenterProtocol.Feedback {
+        
+        return react(query: { state -> (DomainLayer.DTO.SmartTransaction)? in
+            
+            switch state.action {
+            case .resendTransaction(let tx):
+                return tx
+            default:
+                return nil
+            }
+            
+        }, effects: { [weak self] data -> Signal<Event> in
+            
+            self?.moduleOutput?.transactionHistoryResendTransaction(data)
+            return Signal.just(.completedAction)
         })
     }
 
@@ -171,7 +190,7 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
 
             case .selfTransfer, .sent:
                 state.action = .resendTransaction(display.transaction)
-
+            
             default:
                 state.action = .none
             }
@@ -180,9 +199,7 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
 
         case .completedAction:
             state.action = .none
-            state.actionDisplay = .none
-        case .setContacts(_):
-            break
+            state.actionDisplay = .none        
         }
     }
     
