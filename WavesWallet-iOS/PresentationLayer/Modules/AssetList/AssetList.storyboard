@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -41,11 +41,6 @@
                                                         <constraint firstAttribute="height" constant="24" id="0cl-oI-cDj"/>
                                                         <constraint firstAttribute="width" constant="24" id="ynG-ck-AP7"/>
                                                     </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="12"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ugF-xP-p8v">
                                                     <rect key="frame" x="48" y="10" width="42" height="21"/>
@@ -59,9 +54,6 @@
                                                     <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wallet_arrow_green" translatesAutoresizingMaskIntoConstraints="NO" id="Qbs-JR-kOd">
-                                                    <rect key="frame" x="13" y="29" width="14" height="14"/>
-                                                </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="on" translatesAutoresizingMaskIntoConstraints="NO" id="CCh-YZ-PlA">
                                                     <rect key="frame" x="335" y="16" width="24" height="24"/>
                                                 </imageView>
@@ -70,7 +62,6 @@
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Qbs-JR-kOd" firstAttribute="bottom" secondItem="pcE-qb-yrR" secondAttribute="bottom" constant="3" id="1Yj-6h-Kc8"/>
                                                 <constraint firstItem="cEq-tm-Zqy" firstAttribute="leading" secondItem="ugF-xP-p8v" secondAttribute="trailing" constant="4" id="Et9-L2-OcK"/>
                                                 <constraint firstItem="cEq-tm-Zqy" firstAttribute="centerY" secondItem="ugF-xP-p8v" secondAttribute="centerY" id="PqN-FE-eZm"/>
                                                 <constraint firstItem="ugF-xP-p8v" firstAttribute="leading" secondItem="pcE-qb-yrR" secondAttribute="trailing" constant="8" id="ZBl-MT-X3j"/>
@@ -81,14 +72,12 @@
                                                 <constraint firstAttribute="trailing" secondItem="CCh-YZ-PlA" secondAttribute="trailing" constant="16" id="oDp-Vg-dig"/>
                                                 <constraint firstItem="pcE-qb-yrR" firstAttribute="leading" secondItem="wUf-Bi-dYa" secondAttribute="leading" constant="16" id="qTM-Gp-7Xr"/>
                                                 <constraint firstItem="CCh-YZ-PlA" firstAttribute="centerY" secondItem="wUf-Bi-dYa" secondAttribute="centerY" id="vjX-zM-tKX"/>
-                                                <constraint firstItem="Qbs-JR-kOd" firstAttribute="leading" secondItem="pcE-qb-yrR" secondAttribute="leading" constant="-3" id="x0x-TN-gMf"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="iconAsset" destination="pcE-qb-yrR" id="BVW-OC-42l"/>
                                             <outlet property="iconCheckmark" destination="CCh-YZ-PlA" id="1QQ-x3-iZP"/>
                                             <outlet property="iconFav" destination="cEq-tm-Zqy" id="QJL-YM-jQG"/>
-                                            <outlet property="iconGateway" destination="Qbs-JR-kOd" id="gCK-uf-Rtg"/>
                                             <outlet property="labelAmount" destination="4JE-kF-jGT" id="eY7-ty-LXT"/>
                                             <outlet property="labelAssetName" destination="ugF-xP-p8v" id="K58-qM-0gJ"/>
                                             <outlet property="topTitleOffset" destination="eHD-hi-644" id="3OJ-ih-XOP"/>
@@ -153,6 +142,5 @@
     <resources>
         <image name="favoriteMini14Submit300" width="14" height="14"/>
         <image name="on" width="24" height="24"/>
-        <image name="wallet_arrow_green" width="14" height="14"/>
     </resources>
 </document>
