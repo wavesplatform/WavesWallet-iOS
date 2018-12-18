@@ -262,7 +262,7 @@ private extension TransactionHistoryViewController {
             let subscriptions = owner.uiSubscriptions(state: state)
             let events = owner.events()
             
-            return Bindings(subscriptions: subscriptions, events: events)
+            return Bindings(subscriptions: subscriptions, mutations: events)
             
         }
         
@@ -339,7 +339,7 @@ extension TransactionHistoryViewController: UICollectionViewDelegate {
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
-        if fabs(velocity.x) < fabs(velocity.y) { return }
+        if abs(velocity.x) < abs(velocity.y) { return }
         
         targetContentOffset.pointee = scrollView.contentOffset
         let pageWidth: CGFloat = CGFloat(view.bounds.width)
@@ -373,7 +373,7 @@ extension TransactionHistoryViewController: UICollectionViewDelegate {
         
         currentSwipePage = Int(cellToSwipe)
         let indexPath:IndexPath = IndexPath(row: Int(cellToSwipe), section:0)
-        collectionView.scrollToItem(at:indexPath, at: UICollectionViewScrollPosition.left, animated: true)
+        collectionView.scrollToItem(at:indexPath, at: UICollectionView.ScrollPosition.left, animated: true)
         
     }
     

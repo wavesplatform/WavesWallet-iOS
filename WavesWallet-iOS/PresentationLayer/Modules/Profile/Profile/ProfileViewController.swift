@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 
 private enum Constants {
-    static let contentInset = UIEdgeInsetsMake(0, 0, 24, 0)
+    static let contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 24, right: 0)
 }
 
 final class ProfileViewController: UIViewController {
@@ -47,6 +47,13 @@ final class ProfileViewController: UIViewController {
     }
 }
 
+//MARK: - MainTabBarControllerProtocol
+extension ProfileViewController: MainTabBarControllerProtocol {
+    func mainTabBarControllerDidTapTab() {
+        tableView.setContentOffset(tableViewTopOffsetForBigNavBar(tableView), animated: true)
+    }
+}
+
 // MARK: Setup Methods
 
 private extension ProfileViewController {
@@ -68,7 +75,7 @@ private extension ProfileViewController {
     func setupSystem() {
 
         let uiFeedback: ProfilePresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<Types.Event>) in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
 
         let readyViewFeedback: ProfilePresenterProtocol.Feedback = { [weak self] _ in
@@ -143,8 +150,8 @@ extension ProfileViewController: UITableViewDataSource {
             return cell
 
         case .pushNotifications:
-            let cell: ProfilePushTableCell = tableView.dequeueCell()
-            cell.update(with: ())
+            let cell: ProfileDisabledButtomTableCell = tableView.dequeueCell()
+            cell.update(with: Localizable.Waves.Profile.Cell.Pushnotifications.title)
             return cell
 
         case .language(let language):
@@ -165,6 +172,11 @@ extension ProfileViewController: UITableViewDataSource {
         case .changePasscode:
             let cell: ProfileValueCell = tableView.dequeueCell()
             cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Changepasscode.title))
+            return cell
+
+        case .biometricDisabled:
+            let cell: ProfileDisabledButtomTableCell = tableView.dequeueCell()
+            cell.update(with: BiometricType.biometricByDevice.title ?? "")
             return cell
 
         case .biometric(let isOn):
@@ -280,8 +292,9 @@ extension ProfileViewController: UITableViewDelegate {
         case .backupPhrase:
             return ProfileBackupPhraseCell.cellHeight()
 
-        case .pushNotifications:
-            return ProfilePushTableCell.cellHeight()
+        case .pushNotifications,
+             .biometricDisabled:
+            return ProfileDisabledButtomTableCell.cellHeight()
 
         case .language:
             return ProfileLanguageCell.cellHeight()
@@ -321,13 +334,13 @@ private extension ProfileViewController{
                                       preferredStyle: .alert)
 
         let delete = UIAlertAction(title: Localizable.Waves.Profile.Alert.Deleteaccount.Button.delete,
-                                   style: UIAlertActionStyle.default,
+                                   style: UIAlertAction.Style.default,
                                    handler: { [weak self] _ in
                                     self?.eventInput.onNext(.tapDelete)
         })
 
         let cancel = UIAlertAction(title: Localizable.Waves.Profile.Alert.Deleteaccount.Button.cancel,
-                                   style: UIAlertActionStyle.cancel,
+                                   style: UIAlertAction.Style.cancel,
                                    handler: { [weak alert] _ in
                                     alert?.dismiss(animated: true, completion: nil)
         })

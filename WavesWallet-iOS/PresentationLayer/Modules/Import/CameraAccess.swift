@@ -15,7 +15,7 @@ enum CameraAccess {
         let alert = UIAlertController(
             title: Localizable.Waves.Cameraaccess.Alert.title,
             message: Localizable.Waves.Cameraaccess.Alert.message,
-            preferredStyle: UIAlertControllerStyle.alert
+            preferredStyle: UIAlertController.Style.alert
         )
         
         alert.addAction(UIAlertAction(title: Localizable.Waves.Cameraaccess.Alert.cancel, style: .cancel, handler: nil))
@@ -24,10 +24,10 @@ enum CameraAccess {
             
             if #available(iOS 10.0, *) {
                 
-                if let url = URL(string:UIApplicationOpenSettingsURLString) {
+                if let url = URL(string:UIApplication.openSettingsURLString) {
                     DispatchQueue.main.async {
                         if UIApplication.shared.canOpenURL(url) {
-                            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                            UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
                         }
                     }
                 }
@@ -57,9 +57,16 @@ enum CameraAccess {
     static func requestCameraPermission(completion: @escaping ((Bool) -> Void)) {
         
         AVCaptureDevice.requestAccess(for: .video, completionHandler: { accessGranted in
-            completion(accessGranted)
+            DispatchQueue.main.async {
+                completion(accessGranted)
+            }
         })
         
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

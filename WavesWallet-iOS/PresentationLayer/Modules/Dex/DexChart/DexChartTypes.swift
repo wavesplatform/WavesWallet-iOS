@@ -9,15 +9,15 @@
 import Foundation
 
 enum DexChart {
-    enum DTO {}
     enum ViewModel {}
-    enum ChartContants {}
+    enum ChartConstants {}
     
     enum Event {
         case readyView
-        case didChangeTimeFrame(DTO.TimeFrameType)
-        case setCandles([DTO.Candle])
+        case didChangeTimeFrame(DomainLayer.DTO.Candle.TimeFrameType)
+        case setCandles([DomainLayer.DTO.Candle])
         case preloading
+        case refresh
     }
     
     struct State: Mutating {
@@ -30,37 +30,13 @@ enum DexChart {
         }
         
         var action: Action
-        var candles: [DTO.Candle]
-        var timeFrame: DTO.TimeFrameType
-        var dateFrom: Date
-        var dateTo: Date
+        var candles: [DomainLayer.DTO.Candle]
+        var timeFrame: DomainLayer.DTO.Candle.TimeFrameType
+        var timeStart: Date
+        var timeEnd: Date
         var isPreloading: Bool
         var isChangedTimeFrame: Bool
         var isNeedLoadingData: Bool
-    }
-}
-
-extension DexChart.DTO {
-    
-    enum TimeFrameType: Int {
-        case m5 = 5
-        case m15 = 15
-        case m30 = 30
-        case h1 = 60
-        case h4 = 240
-        case h24 = 1440
-    }
-    
-    struct Candle {
-        let close: Double
-        let confirmed: Bool
-        let high: Double
-        let low: Double
-        let open: Double
-        let priceVolume: Double
-        let timestamp: Double
-        let volume: Double
-        let vwap: Double
     }
 }
 
@@ -82,12 +58,12 @@ extension DexChart.ViewModel {
     }
 }
 
-extension DexChart.DTO.Candle {
+extension DomainLayer.DTO.Candle {
     
-    func formatterTime(timeFrame: DexChart.DTO.TimeFrameType) -> String{
+    func formatterTime(timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> String{
         let time = timestamp * 60 * Double(timeFrame.rawValue)
         let date = Date(timeIntervalSince1970: time)
-        return DexChart.DTO.Candle.dateFormatter.string(from: date)
+        return DomainLayer.DTO.Candle.dateFormatter.string(from: date)
     }
     
     private static let dateFormatter: DateFormatter = {
@@ -98,7 +74,7 @@ extension DexChart.DTO.Candle {
 }
 
 
-extension DexChart.DTO.TimeFrameType {
+extension DomainLayer.DTO.Candle.TimeFrameType {
     
     var text: String {
         switch self {
@@ -148,7 +124,7 @@ extension DexChart.DTO.TimeFrameType {
 
 extension DexChart.State {
     
-    static func additionalDate(start: Date, timeFrame: DexChart.DTO.TimeFrameType) -> Date {
+    static func additionalDate(start: Date, timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> Date {
         let additionalTime : Double = Double(3600 * ((timeFrame.rawValue * 100) / 60))
         return start.addingTimeInterval(-additionalTime)
     }
@@ -159,12 +135,18 @@ extension DexChart.State {
     
     static var initialState: DexChart.State {
         
-        let timeFrame = DexChart.DTO.TimeFrameType.m15
+        let timeFrame = DomainLayer.DTO.Candle.TimeFrameType.m15
         let dateTo = initialDateTo()
         let dateFrom = additionalDate(start: dateTo, timeFrame: timeFrame)
         
-        return DexChart.State(action: .none, candles: [], timeFrame: timeFrame, dateFrom: dateFrom, dateTo: dateTo,
-                              isPreloading: false, isChangedTimeFrame: false, isNeedLoadingData: false)
+        return DexChart.State(action: .none,
+                              candles: [],
+                              timeFrame: timeFrame,
+                              timeStart: dateFrom,
+                              timeEnd: dateTo,
+                              isPreloading: false,
+                              isChangedTimeFrame: false,
+                              isNeedLoadingData: false)
     }
     
     var isNotEmpty: Bool {
@@ -172,27 +154,13 @@ extension DexChart.State {
     }
 }
 
-extension DexChart.DTO.Candle: Equatable {
-    static func == (lhs: DexChart.DTO.Candle, rhs: DexChart.DTO.Candle) -> Bool {
-        return lhs.close == rhs.close &&
-        lhs.confirmed == rhs.confirmed &&
-        lhs.high == rhs.high &&
-        lhs.low == rhs.low &&
-        lhs.open == rhs.open &&
-        lhs.priceVolume == rhs.priceVolume &&
-        lhs.timestamp == rhs.timestamp &&
-        lhs.volume == rhs.volume &&
-        lhs.vwap == rhs.vwap
-        
-    }
-}
 extension DexChart.State: Equatable {
     static func == (lhs: DexChart.State, rhs: DexChart.State) -> Bool {
         return lhs.action == rhs.action &&
         lhs.candles == rhs.candles &&
         lhs.timeFrame == rhs.timeFrame &&
-        lhs.dateFrom == rhs.dateFrom &&
-        lhs.dateTo == rhs.dateTo &&
+        lhs.timeStart == rhs.timeStart &&
+        lhs.timeEnd == rhs.timeEnd &&
         lhs.isPreloading == rhs.isPreloading &&
         lhs.isNeedLoadingData == rhs.isNeedLoadingData
     }

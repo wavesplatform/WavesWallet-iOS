@@ -13,7 +13,7 @@ import RxSwift
 
 
 fileprivate enum Constants {
-    static let contentInset = UIEdgeInsetsMake(8, 0, 0, 0)
+    static let contentInset = UIEdgeInsets.init(top: 8, left: 0, bottom: 0, right: 0)
     static let updateTime: RxTimeInterval = 30
 }
 
@@ -49,7 +49,7 @@ final class DexListViewController: UIViewController {
         setupViewNoItems(isHidden: true)
                 
         let feedback = bind(self) { owner, state -> Bindings<DexList.Event> in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
         
         let readyViewFeedback: DexListPresenter.Feedback = { [weak self] _ in
@@ -74,7 +74,7 @@ final class DexListViewController: UIViewController {
         super.viewWillAppear(animated)
         setupBigNavigationBar()
         
-        Observable<Int>.interval(Constants.updateTime, scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] (value) in
+        Observable<Int>.interval(Constants.updateTime, scheduler: MainScheduler.asyncInstance).subscribe(onNext: { [weak self] (value) in
             self?.sendEvent.accept(.refresh)
         }).disposed(by: disposeBag)
     }
@@ -87,6 +87,13 @@ final class DexListViewController: UIViewController {
     @objc func changedLanguage() {
         setupLocalization()        
         tableView.reloadData()
+    }
+}
+
+//MARK: - MainTabBarControllerProtocol
+extension DexListViewController: MainTabBarControllerProtocol {
+    func mainTabBarControllerDidTapTab() {
+        tableView.setContentOffset(tableViewTopOffsetForBigNavBar(tableView), animated: true)
     }
 }
 

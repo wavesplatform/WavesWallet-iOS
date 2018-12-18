@@ -11,48 +11,11 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 
-//private struct LogInByBiometricQuery: Hashable {
-//    let wallet: DomainLayer.DTO.Wallet
-//}
-//
-//private struct RegistationQuery: Hashable {
-//    let account: PasscodeTypes.DTO.Account
-//    let passcode: String
-//}
-//
-//private struct LogInQuery: Hashable {
-//    let wallet: DomainLayer.DTO.Wallet
-//    let passcode: String
-//}
-//
-//private struct LogoutQuery: Hashable {
-//    let wallet: DomainLayer.DTO.Wallet
-//}
-
 private struct SetEnableBiometricQuery: Hashable {
     let wallet: DomainLayer.DTO.Wallet
     let passcode: String
     let isOn: Bool
 }
-
-//private struct ChangePasscodeQuery: Hashable {
-//    let wallet: DomainLayer.DTO.Wallet
-//    let passcode: String
-//    let oldPasscode: String
-//}
-//
-//private struct ChangePasscodeByPasswordQuery: Hashable {
-//    let wallet: DomainLayer.DTO.Wallet
-//    let passcode: String
-//    let password: String
-//}
-//
-//private struct ChangePasswordQuery: Hashable {
-//    let wallet: DomainLayer.DTO.Wallet
-//    let passcode: String
-//    let oldPassword: String
-//    let newPassword: String
-//}
 
 final class PasscodeEnableBiometricPresenter: PasscodePresenterProtocol {
 
@@ -190,17 +153,33 @@ private extension PasscodeEnableBiometricPresenter {
             state.displayState.isLoading = false
             state.displayState.numbers = []
             state.action = nil
-            state.displayState.error = .incorrectPasscode
             state.displayState.isHiddenBackButton = !state.hasBackButton
             state.displayState.error = Types.displayError(by: error, kind: state.kind)
+            if  case .biometricLockout? = state.displayState.error {
+                state.displayState.isHiddenBiometricButton = true
+            }
 
         case .viewWillAppear:
             break
             
         case .viewDidAppear:
 
-            state.action = .disabledBiometricUsingBiometric
             state.displayState.error = nil
+
+            switch state.kind {
+            case .setEnableBiometric(_, let wallet) where wallet.hasBiometricEntrance == true:
+                if BiometricType.enabledBiometric != .none {
+                    state.action = .disabledBiometricUsingBiometric
+                    state.displayState.isHiddenBiometricButton = false
+                } else {
+                    state.action = nil
+                    state.displayState.isHiddenBiometricButton = true
+                }
+
+            default:
+                state.action = nil
+                state.displayState.isHiddenBiometricButton = true
+            }
 
         case .tapBiometricButton:
 

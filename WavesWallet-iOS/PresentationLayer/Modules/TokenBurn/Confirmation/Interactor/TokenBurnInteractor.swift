@@ -18,10 +18,10 @@ final class TokenBurnInteractor: TokenBurnInteractorProtocol {
     private let account = FactoryInteractors.instance.accountBalance
     
     func getWavesBalance() -> Observable<Money> {
-        return account.balances(isNeedUpdate: false).flatMap({ (balances) -> Observable<Money> in
+        return account.balances().flatMap({ (balances) -> Observable<Money> in
 
             if let wavesBalance = balances.first(where: {$0.assetId == GlobalConstants.wavesAssetId }) {
-                return Observable.just(Money(wavesBalance.avaliableBalance, wavesBalance.asset?.precision ?? 0))
+                return Observable.just(Money(wavesBalance.avaliableBalance, wavesBalance.asset.precision))
             }
             return Observable.empty()
         })

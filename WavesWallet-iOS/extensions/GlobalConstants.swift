@@ -31,7 +31,6 @@ enum GlobalConstants {
     static let moneyLocale = Locale(identifier: "en_US")
     
     enum Coinomat {}
-    enum Market {}
     enum Matcher {}
 }
 
@@ -42,7 +41,7 @@ extension GlobalConstants.Matcher {
     static var matcher: String {
         return url + "matcher"
     }
-    
+
     static var orderBook: String {
         return url + "matcher/orderbook"
     }
@@ -60,28 +59,16 @@ extension GlobalConstants.Matcher {
     }
 }
 
-extension GlobalConstants.Market {
-    
-    private static let url = "https://marketdata.wavesplatform.com/"
-    private static let apiPath = "api/"
-    
-    static func trades(_ amountAsset: String, _ priceAsset: String, _ count: Int) -> String {
-        return url + apiPath + "trades/" + amountAsset + "/" + priceAsset + "/" + String(count)
-    }
-    
-    static var candles: String {
-        return url + apiPath + "candles/"
-    }
-    
-    static var ticker: String {
-        return url + apiPath + "ticker/"
-    }
-}
-
 extension GlobalConstants.Coinomat {
     
     private static let url = "https://coinomat.com/"
 
+    static var addresses: [String] {
+        return ["3PAs2qSeUAfgqSKS8LpZPKGYEjJKcud9Djr", // cryptocurrency
+                "3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us", // fiat
+                "3P2oLgTxQxNcLSEcSfqRvarpzcGVLCggftC"] // card
+    }
+    
     static var createTunnel: String {
         return url + apiVersion(.v1) + "create_tunnel.php"
     }

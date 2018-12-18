@@ -109,7 +109,7 @@ final class InfoPagesViewController: UIViewController {
         collectionView.delegate = self
         
         view.addSubview(collectionView)
-        view.sendSubview(toBack: collectionView)
+        view.sendSubviewToBack(collectionView)
     }
     
     // MARK: - Layout
@@ -326,41 +326,41 @@ enum InfoPagesViewControllerConstants {
         case big = 24
     }
     
-    static let titleAttributes: [NSAttributedStringKey: Any] = {
+    static let titleAttributes: [NSAttributedString.Key: Any] = {
         
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 0
         
-        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 34, weight: .bold), NSAttributedStringKey.kern: 0.4,
-                          NSAttributedStringKey.foregroundColor: UIColor.black,
-                          NSAttributedStringKey.paragraphStyle: style] as [NSAttributedStringKey : Any]
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 34, weight: .bold), NSAttributedString.Key.kern: 0.4,
+                          NSAttributedString.Key.foregroundColor: UIColor.black,
+                          NSAttributedString.Key.paragraphStyle: style] as [NSAttributedString.Key : Any]
         
         return attributes
         
     }()
     
-    static let subtitleAttributes: [NSAttributedStringKey: Any] = {
+    static let subtitleAttributes: [NSAttributedString.Key: Any] = {
         
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 0
         
-        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13, weight: .semibold), NSAttributedStringKey.kern: 0.4,
-                          NSAttributedStringKey.foregroundColor: UIColor.black,
-                          NSAttributedStringKey.paragraphStyle: style] as [NSAttributedStringKey : Any]
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13, weight: .semibold), NSAttributedString.Key.kern: 0.4,
+                          NSAttributedString.Key.foregroundColor: UIColor.black,
+                          NSAttributedString.Key.paragraphStyle: style] as [NSAttributedString.Key : Any]
         
         return attributes
         
     }()
     
     
-    static let textAttributes: [NSAttributedStringKey: Any] = {
+    static let textAttributes: [NSAttributedString.Key: Any] = {
         
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 3
         
-        let attributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.kern: -0.1,
-                          NSAttributedStringKey.foregroundColor: UIColor.black,
-                          NSAttributedStringKey.paragraphStyle: style] as [NSAttributedStringKey : Any]
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.kern: -0.1,
+                          NSAttributedString.Key.foregroundColor: UIColor.black,
+                          NSAttributedString.Key.paragraphStyle: style] as [NSAttributedString.Key : Any]
         
         return attributes
         

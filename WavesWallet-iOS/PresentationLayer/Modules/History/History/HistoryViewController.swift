@@ -118,6 +118,13 @@ final class HistoryViewController: UIViewController {
     }
 }
 
+//MARK: - MainTabBarControllerProtocol
+extension HistoryViewController: MainTabBarControllerProtocol {
+    func mainTabBarControllerDidTapTab() {
+        tableView.setContentOffset(tableViewTopOffsetForBigNavBar(tableView), animated: true)
+    }
+}
+
 // MARK: UIGestureRecognizerDelegate
 
 extension HistoryViewController: UIGestureRecognizerDelegate {
@@ -147,7 +154,7 @@ private extension HistoryViewController {
             let events = owner.events()
             
             return Bindings(subscriptions: subscriptions,
-                            events: events)
+                            mutations: events)
         }
         
         let readyViewFeedback: HistoryPresenter.Feedback = { [weak self] _ in
@@ -383,6 +390,9 @@ extension HistoryViewController: UITableViewDelegate {
             return HistoryTransactionSkeletonCell.cellHeight()
             
         case .transaction:
+            if indexPath.row == sections[indexPath.section].items.count - 1 {
+                return HistoryTransactionCell.lastCellHeight()
+            }
             return HistoryTransactionCell.cellHeight()
         }
 
@@ -448,8 +458,11 @@ extension HistoryViewController: UITableViewDataSource {
             
             let view: HistoryHeaderView = tableView.dequeueAndRegisterHeaderFooter()
             
-            if let header = model.header {
-                view.update(with: header)
+            if let date = model.date {
+                let formatter = DateFormatter.sharedFormatter
+                formatter.dateStyle = .long
+                formatter.timeStyle = .none                
+                view.update(with: formatter.string(from: date))
             }
             return view
 

@@ -234,14 +234,27 @@ private extension DexMarketInteractor {
 private extension DexMarketInteractor {
     
     func sort(pairs: [DexMarket.DTO.Pair], realm: Realm) -> [DexMarket.DTO.Pair] {
-        
+
         var sortedPairs: [DexMarket.DTO.Pair] = []
-        let generalBalances = realm.objects(AssetBalance.self).filter(NSPredicate(format: "asset.isGeneral == true"))
-        
-        for balance in generalBalances {
-            sortedPairs.append(contentsOf: pairs.filter({$0.amountAsset.id == balance.assetId && $0.isGeneral == true }))
+
+        let generalBalances = realm
+            .objects(Asset.self)
+            .filter(NSPredicate(format: "isGeneral == true"))
+            .toArray()
+            .reduce(into: [String: Asset](), { $0[$1.id] = $1 })
+
+        let settingsList = realm
+            .objects(AssetBalanceSettings.self)
+            .toArray()
+            .filter { (asset) -> Bool in
+                return generalBalances[asset.assetId]?.isGeneral == true
+            }
+            .sorted(by: { $0.sortLevel < $1.sortLevel })
+
+        for settings in settingsList {
+            sortedPairs.append(contentsOf: pairs.filter({$0.amountAsset.id == settings.assetId && $0.isGeneral == true }))
         }
-        
+
         var sortedIds = sortedPairs.map {$0.id}
         sortedPairs.append(contentsOf: pairs.filter { $0.isGeneral == true && !sortedIds.contains($0.id) } )
 

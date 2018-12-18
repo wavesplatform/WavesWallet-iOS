@@ -12,6 +12,8 @@ internal enum Localizable {
     internal static var nsCameraUsageDescription: String { return Localizable.tr("InfoPlist", "NSCameraUsageDescription") }
     /// Access to your wallet
     internal static var nsFaceIDUsageDescription: String { return Localizable.tr("InfoPlist", "NSFaceIDUsageDescription") }
+    /// The camera is needed to scan QR codes
+    internal static var nsPhotoLibraryAddUsageDescription: String { return Localizable.tr("InfoPlist", "NSPhotoLibraryAddUsageDescription") }
 
     internal enum Cameraaccess {
 
@@ -163,7 +165,7 @@ internal enum Localizable {
         }
 
         internal enum Seed {
-          /// Seed
+          /// SEED
           internal static var title: String { return Localizable.tr("Waves", "addresseskeys.cell.seed.title") }
         }
       }
@@ -189,7 +191,7 @@ internal enum Localizable {
         internal enum Info {
 
           internal enum Button {
-            /// Create new alias
+            /// Create a new alias
             internal static var create: String { return Localizable.tr("Waves", "aliases.view.info.button.create") }
           }
 
@@ -214,7 +216,7 @@ internal enum Localizable {
         internal enum Info {
 
           internal enum Button {
-            /// Create new alias
+            /// Create a new alias
             internal static var create: String { return Localizable.tr("Waves", "aliaseswithout.view.info.button.create") }
           }
 
@@ -235,7 +237,7 @@ internal enum Localizable {
     internal enum Asset {
 
       internal enum Cell {
-        /// View history
+        /// Transaction history
         internal static var viewHistory: String { return Localizable.tr("Waves", "asset.cell.viewHistory") }
 
         internal enum Assetinfo {
@@ -357,7 +359,7 @@ internal enum Localizable {
         }
 
         internal enum Label {
-          /// Waves Platform would like to warn you about the increased frequency of scam and phishing attacks over the last month. Fraudsters are hiding their malware in their own versions of the Waves client and promising bonuses and discounts to lure in users.\n\n Please be careful and never input your SEED into these 'clients', because your account will be compromised and you will lose all of your funds.\n\nYou should ONLY use the official Waves client.
+          /// Waves Platform would like to warn you about the increased frequency of scam and phishing attacks over the last month. Fraudsters are hiding their malware in their own versions of the Waves client and promising bonuses and discounts to lure in users.\n\nPlease be careful and never input your SEED into these 'clients', because your account will be compromised and you will lose all of your funds.\n\nYou should ONLY use the official Waves client.
           internal static var detail: String { return Localizable.tr("Waves", "backup.infobackup.label.detail") }
           /// Treat your backup phrase with care!
           internal static var title: String { return Localizable.tr("Waves", "backup.infobackup.label.title") }
@@ -417,10 +419,21 @@ internal enum Localizable {
     }
 
     internal enum Biometric {
+      /// Cancel
+      internal static var localizedCancelTitle: String { return Localizable.tr("Waves", "biometric.localizedCancelTitle") }
+      /// Enter Password
+      internal static var localizedFallbackTitle: String { return Localizable.tr("Waves", "biometric.localizedFallbackTitle") }
       /// Access to your wallet
       internal static var readfromkeychain: String { return Localizable.tr("Waves", "biometric.readfromkeychain") }
       /// Access to your wallet
       internal static var saveinkeychain: String { return Localizable.tr("Waves", "biometric.saveinkeychain") }
+
+      internal enum Manyattempts {
+        /// To unlock biometric, sign in with your account password
+        internal static var subtitle: String { return Localizable.tr("Waves", "biometric.manyattempts.subtitle") }
+        /// Too many attempts
+        internal static var title: String { return Localizable.tr("Waves", "biometric.manyattempts.title") }
+      }
     }
 
     internal enum Cameraaccess {
@@ -1045,7 +1058,7 @@ internal enum Localizable {
           }
 
           internal enum First {
-            /// Please take some time to understand some important things for your own safety.\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.
+            /// Please take some time to understand some important things for your own safety.\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka  phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your , including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.
             internal static var detail: String { return Localizable.tr("Waves", "hello.page.info.first.detail") }
             /// Welcome to the Waves Platform!
             internal static var title: String { return Localizable.tr("Waves", "hello.page.info.first.title") }
@@ -1059,7 +1072,7 @@ internal enum Localizable {
           }
 
           internal enum Second {
-            /// When registering your account, you will be asked to save your secret phrase (Seed) and to protect your account with a password. On normal centralized servers, special attention is paid to the password, which can be changed and reset via email, if the need arises. However, on decentralized platforms such as Waves, everything is arranged differently.
+            /// When registering your account, you will be asked to save your secret phrase (SEED) and to protect your account with a password. On normal centralized servers, special attention is paid to the password, which can be changed and reset via email, if the need arises. However, on decentralized platforms such as Waves, everything is arranged differently.
             internal static var detail: String { return Localizable.tr("Waves", "hello.page.info.second.detail") }
             /// What you need to know about your SEED
             internal static var title: String { return Localizable.tr("Waves", "hello.page.info.second.title") }
@@ -1173,7 +1186,7 @@ internal enum Localizable {
         internal enum Button {
 
           internal enum Enter {
-            /// Enter seed manually
+            /// Enter SEED manually
             internal static var title: String { return Localizable.tr("Waves", "import.account.button.enter.title") }
           }
 
@@ -1190,7 +1203,7 @@ internal enum Localizable {
             internal enum Step {
 
               internal enum One {
-                /// Settings — Security — Pairing code
+                /// Settings — General — Export account
                 internal static var detail: String { return Localizable.tr("Waves", "import.account.label.info.step.one.detail") }
                 /// Log in to your Waves Client via your PC or Mac at https://client.wavesplatform.com
                 internal static var title: String { return Localizable.tr("Waves", "import.account.label.info.step.one.title") }
@@ -1240,9 +1253,9 @@ internal enum Localizable {
         internal enum Label {
 
           internal enum Address {
-            /// Your seed is the 15 words you saved when creating your account
+            /// Your SEED is the 15 words you saved when creating your account
             internal static var placeholder: String { return Localizable.tr("Waves", "import.manually.label.address.placeholder") }
-            /// Your account seed
+            /// Your account SEED
             internal static var title: String { return Localizable.tr("Waves", "import.manually.label.address.title") }
           }
         }
@@ -1278,7 +1291,7 @@ internal enum Localizable {
             }
 
             internal enum Two {
-              /// Settings — Security — Pairing code
+              /// Settings — General — Export account
               internal static var detail: String { return Localizable.tr("Waves", "import.scan.label.step.two.detail") }
               /// Click «Show Pairing Code» to reveal a QR Code
               internal static var title: String { return Localizable.tr("Waves", "import.scan.label.step.two.title") }
@@ -1297,9 +1310,9 @@ internal enum Localizable {
         internal enum Label {
 
           internal enum Address {
-            /// Your seed is the 15 words you saved when creating your account
+            /// Your SEED is the 15 words you saved when creating your account
             internal static var placeholder: String { return Localizable.tr("Waves", "import.welcome.label.address.placeholder") }
-            /// Your account seed
+            /// Your account SEED
             internal static var title: String { return Localizable.tr("Waves", "import.welcome.label.address.title") }
           }
         }
@@ -1502,6 +1515,10 @@ internal enum Localizable {
           }
           /// Does not match
           internal static var doesnotmatch: String { return Localizable.tr("Waves", "newaccount.textfield.error.doesnotmatch") }
+          /// Maximum %d characters
+          internal static func maximumcharacters(_ p1: Int) -> String {
+            return Localizable.tr("Waves", "newaccount.textfield.error.maximumcharacters", p1)
+          }
           /// Minimum %d characters
           internal static func minimumcharacters(_ p1: Int) -> String {
             return Localizable.tr("Waves", "newaccount.textfield.error.minimumcharacters", p1)
@@ -1527,7 +1544,7 @@ internal enum Localizable {
           internal enum Button {
             /// Cancel
             internal static var cancel: String { return Localizable.tr("Waves", "passcode.alert.attempsended.button.cancel") }
-            /// Enter Password
+            /// Use Password
             internal static var enterpassword: String { return Localizable.tr("Waves", "passcode.alert.attempsended.button.enterpassword") }
             /// Ok
             internal static var ok: String { return Localizable.tr("Waves", "passcode.alert.attempsended.button.ok") }
@@ -1570,6 +1587,8 @@ internal enum Localizable {
         internal enum Deleteaccount {
           /// Are you sure you want to delete this account from device?
           internal static var message: String { return Localizable.tr("Waves", "profile.alert.deleteAccount.message") }
+          /// You did not save your SEED
+          internal static var notSaveSeed: String { return Localizable.tr("Waves", "profile.alert.deleteAccount.notSaveSeed") }
           /// Delete account
           internal static var title: String { return Localizable.tr("Waves", "profile.alert.deleteAccount.title") }
 
@@ -1583,6 +1602,20 @@ internal enum Localizable {
           internal enum Withoutbackup {
             /// Deleting an account will lead to its irretrievable loss!
             internal static var message: String { return Localizable.tr("Waves", "profile.alert.deleteAccount.withoutbackup.message") }
+          }
+        }
+
+        internal enum Setupbiometric {
+          /// To use fast and secure login, go to settings to enable biometrics
+          internal static var message: String { return Localizable.tr("Waves", "profile.alert.setupbiometric.message") }
+          /// Biometrics is disabled
+          internal static var title: String { return Localizable.tr("Waves", "profile.alert.setupbiometric.title") }
+
+          internal enum Button {
+            /// Cancel
+            internal static var cancel: String { return Localizable.tr("Waves", "profile.alert.setupbiometric.button.cancel") }
+            /// Settings
+            internal static var settings: String { return Localizable.tr("Waves", "profile.alert.setupbiometric.button.settings") }
           }
         }
       }
@@ -1840,6 +1873,14 @@ internal enum Localizable {
       internal enum Label {
         /// US Dollar
         internal static var dollar: String { return Localizable.tr("Waves", "receiveinvoice.label.dollar") }
+      }
+    }
+
+    internal enum Scannerqrcode {
+
+      internal enum Label {
+        /// Scan QR
+        internal static var scan: String { return Localizable.tr("Waves", "scannerqrcode.label.scan") }
       }
     }
 
@@ -2285,7 +2326,7 @@ internal enum Localizable {
         internal static var startedLeasing: String { return Localizable.tr("Waves", "wallet.label.startedLeasing") }
         /// Total balance
         internal static var totalBalance: String { return Localizable.tr("Waves", "wallet.label.totalBalance") }
-        /// View history
+        /// Transaction history
         internal static var viewHistory: String { return Localizable.tr("Waves", "wallet.label.viewHistory") }
 
         internal enum Quicknote {
@@ -2379,17 +2420,14 @@ extension Localizable {
 
     private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
         let format = NSLocalizedString(key, tableName: table, bundle: current.bundle, comment: "")
-        do {
-            let value = String(format: format, locale: current.locale, arguments: args)
 
-            if value.localizedLowercase == key.localizedLowercase {
-                let format = NSLocalizedString(key, tableName: table, bundle: english.bundle, comment: "")
-                return String(format: format, locale: english.locale, arguments: args)
-            } else {
-                return value
-            }
-        } catch _ {
-            return "NOT_FOUND"
+        let value = String(format: format, locale: current.locale, arguments: args)
+
+        if value.localizedLowercase == key.localizedLowercase {
+            let format = NSLocalizedString(key, tableName: table, bundle: english.bundle, comment: "")
+            return String(format: format, locale: english.locale, arguments: args)
+        } else {
+            return value
         }
     }
 }

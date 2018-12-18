@@ -72,7 +72,6 @@ final class PasscodePresenter: PasscodePresenterProtocol {
         newFeedbacks.append(logout())
         newFeedbacks.append(logInBiometric())
         newFeedbacks.append(changeEnableBiometric())
-        newFeedbacks.append(disabledBiometricUsingBiometric())
         newFeedbacks.append(changePasscode())
         newFeedbacks.append(changePasscodeByPassword())
         newFeedbacks.append(verifyAccessBiometric())
@@ -427,29 +426,44 @@ private extension PasscodePresenter {
             state.displayState.isLoading = false
             state.displayState.numbers = []
             state.action = nil
-            state.displayState.error = .incorrectPasscode
             state.displayState.isHiddenBackButton = !state.hasBackButton
             state.displayState.error = Types.displayError(by: error, kind: state.kind)
+            if  case .biometricLockout? = state.displayState.error {
+                state.displayState.isHiddenBiometricButton = true
+            }
 
         case .viewWillAppear:
             break
         case .viewDidAppear:
 
+            state.displayState.error = nil
+
             switch state.kind {
             case .logIn(let wallet) where wallet.hasBiometricEntrance == true:
                 state.action = .logInBiometric
-                state.displayState.error = nil
 
             case .setEnableBiometric(_, let wallet) where wallet.hasBiometricEntrance == true:
-                state.action = .disabledBiometricUsingBiometric
-                state.displayState.error = nil
+
+                if BiometricType.enabledBiometric != .none {
+                    state.action = .disabledBiometricUsingBiometric
+                    state.displayState.isHiddenBiometricButton = false
+                } else {
+                    state.action = nil
+                    state.displayState.isHiddenBiometricButton = true
+                }
 
             case .verifyAccess(let wallet) where wallet.hasBiometricEntrance == true:
-                state.action = .verifyAccessBiometric
-                state.displayState.error = nil
-                
+                if BiometricType.enabledBiometric != .none {
+                    state.action = .verifyAccessBiometric
+                    state.displayState.isHiddenBiometricButton = false
+                } else {
+                    state.action = nil
+                    state.displayState.isHiddenBiometricButton = true
+                }
+
             default:
-                break
+                state.action = nil
+                state.displayState.isHiddenBiometricButton = true                
             }
 
         case .tapBiometricButton:
@@ -692,7 +706,7 @@ private extension PasscodePresenter {
             let oldPasscode = state.numbers[.oldPasscode]
             state.displayState.isLoading = true
             state.displayState.error = nil
-            state.passcode = oldPasscode.reduce(into: "") { $0 += "\($1)" }
+            state.passcode = oldPasscode?.reduce(into: "") { $0 += "\($1)" } ?? ""
             state.action = .verifyAccess
 
         case .newPasscode:

@@ -16,7 +16,7 @@ protocol ProfileModuleOutput: AnyObject {
     func showAddressesKeys(wallet: DomainLayer.DTO.Wallet)
     func showAddressBook()
     func showLanguage()
-    func showBackupPhrase(wallet: DomainLayer.DTO.Wallet, completed: @escaping ((_ isBackedUp: Bool) -> Void))
+    func showBackupPhrase(wallet: DomainLayer.DTO.Wallet, saveBackedUp: @escaping ((_ isBackedUp: Bool) -> Void))
     func showChangePassword(wallet: DomainLayer.DTO.Wallet)
     func showChangePasscode(wallet: DomainLayer.DTO.Wallet)
     func showNetwork(wallet: DomainLayer.DTO.Wallet)
@@ -26,6 +26,7 @@ protocol ProfileModuleOutput: AnyObject {
     func accountSetEnabledBiometric(isOn: Bool, wallet: DomainLayer.DTO.Wallet)
     func accountLogouted()
     func accountDeleted()
+    func showAlertForEnabledBiometric()
 }
 
 protocol ProfilePresenterProtocol {
@@ -100,7 +101,8 @@ fileprivate extension ProfilePresenter {
              .showRateApp,
              .showFeedback,
              .showSupport,
-             .setEnabledBiometric:
+             .setEnabledBiometric,
+             .showAlertForEnabledBiometric:
 
             return query
         default:
@@ -138,6 +140,9 @@ fileprivate extension ProfilePresenter {
 
         case .showRateApp:
             owner.moduleOutput?.showRateApp()
+
+        case .showAlertForEnabledBiometric:
+            owner.moduleOutput?.showAlertForEnabledBiometric()
 
         case .showFeedback:
             owner.moduleOutput?.showFeedback()
@@ -350,11 +355,20 @@ private extension ProfilePresenter {
                                                                  .pushNotifications,
                                                                  .language(Language.currentLanguage)], kind: .general)
 
-            let security = Types.ViewModel.Section(rows: [.backupPhrase(isBackedUp: wallet.isBackedUp),
-                                                          .changePassword,
-                                                          .changePasscode,
-                                                          .biometric(isOn: wallet.hasBiometricEntrance),
-                                                          .network], kind: .security)
+
+            var securityRows: [Types.ViewModel.Row] = [.backupPhrase(isBackedUp: wallet.isBackedUp),
+                                                       .changePassword,
+                                                       .changePasscode]
+
+            if BiometricType.enabledBiometric != .none {
+                securityRows.append(.biometric(isOn: wallet.hasBiometricEntrance))
+            } else {
+                securityRows.append(.biometricDisabled)
+            }
+
+            securityRows.append(.network)
+
+            let security = Types.ViewModel.Section(rows: securityRows, kind: .security)
 
             let other = Types.ViewModel.Section(rows: [.rateApp,
                                                        .feedback,
@@ -379,28 +393,31 @@ private extension ProfilePresenter {
                 state.query = .showAddressesKeys(wallet: wallet)
 
             case .language:
-                state.query = Types.Query.showLanguage
+                state.query = .showLanguage
 
             case .backupPhrase:
-                state.query = Types.Query.showBackupPhrase(wallet: wallet)
+                state.query = .showBackupPhrase(wallet: wallet)
 
             case .changePassword:
-                state.query = Types.Query.showChangePassword(wallet: wallet)
+                state.query = .showChangePassword(wallet: wallet)
 
             case .changePasscode:
-                state.query = Types.Query.showChangePasscode(wallet: wallet)
+                state.query = .showChangePasscode(wallet: wallet)
 
             case .network:
-                state.query = Types.Query.showNetwork(wallet: wallet)
+                state.query = .showNetwork(wallet: wallet)
 
             case .rateApp:
-                state.query = Types.Query.showRateApp
+                state.query = .showRateApp
 
             case .feedback:
-                state.query = Types.Query.showFeedback
+                state.query = .showFeedback
 
             case .supportWavesplatform:
-                state.query = Types.Query.showSupport
+                state.query = .showSupport
+
+            case .biometricDisabled:
+                state.query = .showAlertForEnabledBiometric
                 
             default:
                 break

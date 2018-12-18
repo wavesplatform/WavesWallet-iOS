@@ -55,7 +55,7 @@ final class NewAccountViewController: UIViewController {
         setupAvatarsView()
         createBackButton()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -66,7 +66,7 @@ final class NewAccountViewController: UIViewController {
 
     override var canBecomeFirstResponder: Bool { return true }
 
-    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else {
             return
         }
@@ -95,7 +95,7 @@ final class NewAccountViewController: UIViewController {
             if count < GlobalConstants.accountNameMinLimitSymbols {
                 return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
             } else if count > GlobalConstants.accountNameMaxLimitSymbols {
-                return Localizable.Waves.Newaccount.Textfield.Error.minimumcharacters(GlobalConstants.accountNameMaxLimitSymbols)
+                return Localizable.Waves.Newaccount.Textfield.Error.maximumcharacters(GlobalConstants.accountNameMaxLimitSymbols)
             } else {
                 return nil
             }
@@ -110,12 +110,7 @@ final class NewAccountViewController: UIViewController {
         }
 
         confirmPasswordInput.valueValidator = { [weak self] value in
-            let count = value?.trimmingCharacters(in: .whitespaces).count ?? 0
-            if count < GlobalConstants.accountNameMinLimitSymbols {
-                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
-            } else if count > GlobalConstants.accountNameMaxLimitSymbols {
-                return Localizable.Waves.Newaccount.Textfield.Error.minimumcharacters(GlobalConstants.accountNameMaxLimitSymbols)
-            } else if self?.passwordInput.value != value {
+            if self?.passwordInput.value != value {
                 return Localizable.Waves.Newaccount.Textfield.Error.passwordnotmatch
             } else {
                 return nil

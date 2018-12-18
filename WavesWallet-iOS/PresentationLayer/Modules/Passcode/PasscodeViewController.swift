@@ -73,7 +73,7 @@ private extension PasscodeViewController {
     func setupSystem() {
 
         let uiFeedback: PasscodePresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<Types.Event>) in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
 
         let readyViewFeedback: PasscodePresenterProtocol.Feedback = { [weak self] _ in
@@ -82,7 +82,7 @@ private extension PasscodeViewController {
             let applicationWillEnterForeground =  NotificationCenter
                 .default
                 .rx
-                .notification(.UIApplicationWillEnterForeground, object: nil)
+                .notification(UIApplication.willEnterForegroundNotification, object: nil)
                 .flatMap({ [weak self] _ -> Observable<Bool> in
                     guard let strongSelf = self else { return Observable.empty() }
                     let isAppeared = (try? strongSelf.isAppeared.value()) ?? false
@@ -148,7 +148,7 @@ private extension PasscodeViewController {
                                                                 target: self,
                                                                 action: #selector(logoutButtonDidTap))
         }
-
+        
         passcodeView.hiddenButton(by: .biometric, isHidden: state.isHiddenBiometricButton)
 
         self.logInByPasswordTitle.isHidden = state.isHiddenLogInByPassword
@@ -159,8 +159,16 @@ private extension PasscodeViewController {
             case .incorrectPasscode:
                 passcodeView.showInvalidateState()
 
+            case .biometricLockout:
+                self.showErrorSnackWithoutAction(title: Localizable.Waves.Biometric.Manyattempts.title,
+                                                 subtitle: Localizable.Waves.Biometric.Manyattempts.subtitle)
+
             case .message(let message):
                 self.showErrorSnackWithoutAction(title: message)
+
+            case .biometricDisable:
+                let alertController = UIAlertController.showAlertForEnabledBiometric()
+                present(alertController, animated: true, completion: nil)
 
             case .attemptsEndedLogout:
                 showAlertAttemptsEndedAndLogout()
@@ -174,6 +182,8 @@ private extension PasscodeViewController {
             case .notFound:
                 self.showErrorNotFoundSnackWithoutAction()
 
+            case .none:
+                break
             }
         }
 
@@ -191,13 +201,13 @@ private extension PasscodeViewController {
                                       message: Localizable.Waves.Passcode.Alert.Attempsended.subtitle, preferredStyle: .alert)
 
         alert.addAction(UIAlertAction(title: Localizable.Waves.Passcode.Alert.Attempsended.Button.cancel,
-                                      style: UIAlertActionStyle.cancel,
+                                      style: UIAlertAction.Style.cancel,
                                       handler: { [weak self] (UIAlertAction) in
             self?.eventInput.onNext(.tapLogoutButton)
         }))
 
         alert.addAction(UIAlertAction(title: Localizable.Waves.Passcode.Alert.Attempsended.Button.enterpassword,
-                                      style: UIAlertActionStyle.default,
+                                      style: UIAlertAction.Style.default,
                                       handler: { [weak self] (UIAlertAction) in
             self?.eventInput.onNext(.tapLogInByPassword)
         }))
@@ -210,7 +220,7 @@ private extension PasscodeViewController {
                                       message: Localizable.Waves.Passcode.Alert.Attempsended.subtitle, preferredStyle: .alert)
 
         alert.addAction(UIAlertAction(title: Localizable.Waves.Passcode.Alert.Attempsended.Button.ok,
-                                      style: UIAlertActionStyle.cancel,
+                                      style: UIAlertAction.Style.cancel,
                                       handler: { [weak self] (UIAlertAction) in
             self?.eventInput.onNext(.tapLogoutButton)
         }))

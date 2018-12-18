@@ -25,7 +25,7 @@ extension API.Query {
         // Cursor in base64 encoding. Holds information about timestamp, id, sort.
         let after: String?
         // Sort order. Gonna be rewritten by cursor's sort if present.
-        let sort: String?
+        let sort: String = "desc"
         // How many transactions to await in response.
         let limit: Int
     }

@@ -17,6 +17,7 @@
                 <outlet property="labelError" destination="ElF-2R-wVR" id="TkZ-7l-Byu"/>
                 <outlet property="scrollViewInput" destination="9Lq-Sz-a5q" id="sJs-vF-87i"/>
                 <outlet property="scrollViewInputHeight" destination="ljw-cl-0kb" id="7oj-mW-3GB"/>
+                <outlet property="skeletonView" destination="EDk-oM-UW5" id="3fa-mS-3Cq"/>
                 <outlet property="textFieldMoney" destination="Val-9J-OWT" id="JTd-tL-PXX"/>
                 <outlet property="viewTextField" destination="HU5-Yi-oUL" id="bHx-hM-Dfz"/>
             </connections>
@@ -60,15 +61,23 @@
                             <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EDk-oM-UW5" customClass="AmountSkeletonView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstItem="EDk-oM-UW5" firstAttribute="top" secondItem="HU5-Yi-oUL" secondAttribute="top" id="5tB-ER-z6d"/>
                         <constraint firstItem="Val-9J-OWT" firstAttribute="top" secondItem="HU5-Yi-oUL" secondAttribute="top" id="6tC-H0-d9z"/>
                         <constraint firstAttribute="bottom" secondItem="Val-9J-OWT" secondAttribute="bottom" id="AEW-cg-3ow"/>
                         <constraint firstItem="Val-9J-OWT" firstAttribute="leading" secondItem="HU5-Yi-oUL" secondAttribute="leading" constant="16" id="I5B-OQ-qOh"/>
                         <constraint firstItem="rp4-sv-dfK" firstAttribute="centerY" secondItem="HU5-Yi-oUL" secondAttribute="centerY" id="IFj-He-ngh"/>
+                        <constraint firstAttribute="trailing" secondItem="EDk-oM-UW5" secondAttribute="trailing" id="chO-Mc-1tk"/>
                         <constraint firstItem="rp4-sv-dfK" firstAttribute="leading" secondItem="Val-9J-OWT" secondAttribute="trailing" id="fOK-36-v7b"/>
                         <constraint firstAttribute="trailing" secondItem="rp4-sv-dfK" secondAttribute="trailing" constant="14" id="hii-0i-36w"/>
+                        <constraint firstItem="EDk-oM-UW5" firstAttribute="leading" secondItem="HU5-Yi-oUL" secondAttribute="leading" id="iud-8M-SHj"/>
+                        <constraint firstAttribute="bottom" secondItem="EDk-oM-UW5" secondAttribute="bottom" id="uUp-J7-4EG"/>
                     </constraints>
                 </view>
             </subviews>

@@ -31,7 +31,7 @@ final class ReceiveCardViewController: UIViewController {
     private var selectedFiat = ReceiveCard.DTO.FiatType.usd
     private var amountUSDInfo: ReceiveCard.DTO.AmountInfo?
     private var amountEURInfo: ReceiveCard.DTO.AmountInfo?
-    private var asset: DomainLayer.DTO.AssetBalance?
+    private var asset: DomainLayer.DTO.SmartAssetBalance?
     private var amount: Money = Money(0, ReceiveCard.DTO.fiatDecimals)
     private var urlLink = ""
     
@@ -44,7 +44,7 @@ final class ReceiveCardViewController: UIViewController {
         setupButtonState()
         setupFiatText()
         assetView.isSelectedAssetMode = false
-        assetView.setupAssetWavesMode()
+        assetView.setupReveiceWavesLoadingState()
         viewWarning.isHidden = true
         textFieldMoney.moneyDelegate = self
         textFieldMoney.setDecimals(amount.decimals, forceUpdateMoney: false)
@@ -52,12 +52,10 @@ final class ReceiveCardViewController: UIViewController {
 
     @IBAction private func continueTapped(_ sender: Any) {
     
-        let browser = BrowserViewController(url: URL(string: urlLink)!)
-        let nav = UINavigationController(rootViewController: browser)
-        present(nav, animated: true, completion: {
-            let vc = StoryboardScene.Receive.receiveCardCompleteViewController.instantiate()
-            self.navigationController?.pushViewController(vc, animated: false)
-        })
+        guard let url = URL(string: urlLink) else { return }
+        UIApplication.shared.openURLAsync(url)
+        let vc = StoryboardScene.Receive.receiveCardCompleteViewController.instantiate()
+        navigationController?.pushViewController(vc, animated: false)
     }
     
     @IBAction private func changeCurrency(_ sender: Any) {
@@ -105,7 +103,7 @@ private extension ReceiveCardViewController {
     func setupFeedBack() {
         
         let feedback = bind(self) { owner, state -> Bindings<ReceiveCard.Event> in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
         
         presenter.system(feedbacks: [feedback])
@@ -188,7 +186,7 @@ private extension ReceiveCardViewController {
 
         acitivityIndicatorAmount.stopAnimating()
         acitivityIndicatorWarning.stopAnimating()
-        assetView.update(with: asset)
+        assetView.update(with: .init(assetBalance: asset, isOnlyBlockMode: true))
         setupButtonState()
         
         if selectedFiat == .usd {

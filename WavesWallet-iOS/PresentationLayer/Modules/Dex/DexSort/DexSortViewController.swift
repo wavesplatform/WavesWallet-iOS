@@ -13,7 +13,7 @@ import RxSwift
 
 
 fileprivate enum Constants {
-    static let contentInset = UIEdgeInsetsMake(4, 0, 4, 0)
+    static let contentInset = UIEdgeInsets.init(top: 4, left: 0, bottom: 4, right: 0)
 }
 
 final class DexSortViewController: UIViewController {
@@ -36,7 +36,7 @@ final class DexSortViewController: UIViewController {
         tableView.contentInset = Constants.contentInset
 
         let feedback = bind(self) { owner, state -> Bindings<DexSort.Event> in
-            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
 
         let readyViewFeedback: DexSortPresenter.Feedback = { [weak self] _ in
@@ -111,7 +111,7 @@ extension DexSortViewController: UITableViewDelegate {
         return proposedDestinationIndexPath
     }
     
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .none
     }
     

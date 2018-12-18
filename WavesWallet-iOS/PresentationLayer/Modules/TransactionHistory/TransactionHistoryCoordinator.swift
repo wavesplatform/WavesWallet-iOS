@@ -94,9 +94,9 @@ extension TransactionHistoryCoordinator: StartLeasingModuleOutput {
     func startLeasingDidSuccess(transaction: DomainLayer.DTO.SmartTransaction, kind: StartLeasingTypes.Kind) {
         
         switch kind {
-        case .cancel(let cancelOrder):
+        case .cancel:
+            break
         //TODO: need update state after cancelingOrder
-            print("need update state after cancelingOrder")
         default:
             break
         }
@@ -106,7 +106,19 @@ extension TransactionHistoryCoordinator: StartLeasingModuleOutput {
 extension TransactionHistoryCoordinator: AddAddressBookModuleOutput {
 
     func transactionHistoryResendTransaction(_ transaction: DomainLayer.DTO.SmartTransaction) {
-        //TODO: resend transaction
+        switch transaction.kind {
+        case .sent(let tx):
+            navigationController.dismiss(animated: false)
+            
+            let model = Send.DTO.InputModel.ResendTransaction(address: tx.recipient.address,
+                                                             asset: tx.asset,
+                                                             amount: tx.balance.money)
+            let send = SendModuleBuilder().build(input: .resendTransaction(model))
+            navigationController.pushViewController(send, animated: true)
+
+        default:
+            break
+        }
     }
 
     func transactionHistoryCancelLeasing(_ transaction: DomainLayer.DTO.SmartTransaction) {
@@ -142,7 +154,7 @@ extension TransactionHistoryCoordinator {
 
     func finishedAddToAddressBook(contact: TransactionHistoryTypes.DTO.ContactState) {
 
-        self.navigationController.popViewController(animated: true, completed: { [weak self] in
+        _ = self.navigationController.popViewController(animated: true, completed: { [weak self] in
             self?.lastDisplay?.finishedAddressBook?(contact, true)
             self?.showDisplay(.showTransactionHistory)
         })
