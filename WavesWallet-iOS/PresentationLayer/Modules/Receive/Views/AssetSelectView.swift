@@ -31,7 +31,6 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var labelSelectAsset: UILabel!
     @IBOutlet private weak var viewAsset: UIView!
     @IBOutlet private weak var iconAssetLogo: UIImageView!
-    @IBOutlet private weak var iconGateway: UIImageView!
     @IBOutlet private weak var labelAssetName: UILabel!
     @IBOutlet private weak var iconFav: UIImageView!
     @IBOutlet private weak var labelAmount: UILabel!
@@ -73,7 +72,6 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
         
         labelAssetName.text = "Waves"
         labelAmount.isHidden = true
-        iconGateway.isHidden = true
         
         loadIcon(name: GlobalConstants.wavesAssetId)
     }
@@ -124,7 +122,6 @@ extension AssetSelectView: ViewConfiguration {
         labelSelectAsset.isHidden = true
 
         labelAssetName.text = asset.displayName
-        iconGateway.isHidden = !asset.isGateway
         iconFav.isHidden = !model.assetBalance.settings.isFavorite
        
         loadIcon(name: asset.icon)

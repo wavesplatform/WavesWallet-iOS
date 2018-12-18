@@ -11,6 +11,10 @@ import RxSwift
 import SwiftyJSON
 import Moya
 
+private enum Constants {
+    static let maxPercent: Float = 99.99
+}
+
 final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
  
     private let account = FactoryInteractors.instance.accountBalance
@@ -130,7 +134,7 @@ private extension DexOrderBookInteractor {
                 let askValue = ask.price.decimalValue
                 let bidValue = bid.price.decimalValue
                 
-                percent = ((askValue - bidValue) * 100 / bidValue).floatValue
+                percent = min(((askValue - bidValue) * 100 / bidValue).floatValue, Constants.maxPercent) 
             }
             
             let type: Dex.DTO.OrderType = tx.orderType == .sell ? .sell : .buy
