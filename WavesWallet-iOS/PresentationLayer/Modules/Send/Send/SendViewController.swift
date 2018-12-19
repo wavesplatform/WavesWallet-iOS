@@ -385,34 +385,37 @@ private extension SendViewController {
         setupButtonState()
     }
     
-    func updateAmountError(animation: Bool) {
-        
-        let isShow = selectedAsset != nil && !isValidAmount && (amount?.amount ?? 0) > 0
-        
-        if isShow {
-            if viewAmountError.isHidden {
-                viewAmountError.isHidden = false
-                viewAmountError.alpha = animation ? 0 : 1
-
-                if animation {
-                    UIView.animate(withDuration: Constants.animationDuration) {
-                        self.viewAmountError.alpha = 1
-                    }
+    func showFeeError(_ error: String, animation: Bool) {
+        if viewAmountError.isHidden {
+            viewAmountError.isHidden = false
+            viewAmountError.alpha = animation ? 0 : 1
+            
+            if animation {
+                UIView.animate(withDuration: Constants.animationDuration) {
+                    self.viewAmountError.alpha = 1
                 }
             }
-            
-            if let gateWayInfo = gateWayInfo, isValidCryptocyrrencyAddress {
-                let wavesFeeText = wavesFee.displayText + " WAVES"
-                let gateWayFee = gateWayInfo.fee.displayText + " " + gateWayInfo.assetShortName
-                labelAmountError.text = Localizable.Waves.Send.Label.Error.notFundsFeeGateway(wavesFeeText, gateWayFee)
-            }
-            else {
-                labelAmountError.text = Localizable.Waves.Send.Label.Error.notFundsFee
-            }
+        }
+        
+        labelAmountError.text = error
+    }
+    
+    func updateAmountError(animation: Bool) {
+        
+        let amountInput = amount?.amount ?? 0
+        
+        let isShowAmountError = selectedAsset != nil && !isValidAmount && amountInput > 0
+        
+        if let gateWayInfo = gateWayInfo, isValidCryptocyrrencyAddress, isShowAmountError {
+            let wavesFeeText = wavesFee.displayText + " WAVES"
+            let gateWayFee = gateWayInfo.fee.displayText + " " + gateWayInfo.assetShortName
+            let error = Localizable.Waves.Send.Label.Error.notFundsFeeGateway(wavesFeeText, gateWayFee)
+            showFeeError(error, animation: animation)
+        }
+        else if amountInput > 0 && !isValidFee && wavesAsset != nil {
+            showFeeError(Localizable.Waves.Send.Label.Error.notFundsFee, animation: animation)
         }
         else {
-            //TODO: can be bug. Multiple times call UIView.animationWithDuration...
-            
             if !viewAmountError.isHidden {
                 if animation {
                     UIView.animate(withDuration: Constants.animationDuration, animations: {
@@ -428,7 +431,7 @@ private extension SendViewController {
                
             }
         }
-        amountView.showErrorMessage(message: Localizable.Waves.Send.Label.Error.insufficientFunds, isShow: isShow)
+        amountView.showErrorMessage(message: Localizable.Waves.Send.Label.Error.insufficientFunds, isShow: isShowAmountError)
     }
     
     func showLoadingButtonState() {
@@ -456,6 +459,7 @@ private extension SendViewController {
             isValidAddress(recipientAddressView.text) &&
             selectedAsset != nil &&
             isValidAmount &&
+            isValidFee &&
             (amount?.amount ?? 0) > 0 &&
             isValidMinMaxGatewayAmount &&
             isValidPaymentMoneroID &&
@@ -715,14 +719,13 @@ private extension SendViewController {
         return true
     }
     
+    var isValidFee: Bool {
+        return (wavesAsset?.avaliableBalance ?? 0) >= wavesFee.amount
+    }
+    
     var isValidAmount: Bool {
         guard let amount = amount else { return false }
-        if selectedAsset?.asset.isWaves == true {
-            return availableBalance.amount >= amount.amount
-        }
-        
-        return availableBalance.amount >= amount.amount &&
-            (wavesAsset?.avaliableBalance ?? 0) >= wavesFee.amount
+        return availableBalance.amount >= amount.amount
     }
     
     var canValidateAliasOnServer: Bool {
