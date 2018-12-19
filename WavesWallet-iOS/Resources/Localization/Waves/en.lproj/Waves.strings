@@ -845,6 +845,10 @@
 
 "receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Sending any other currency to this address may result in the loss of your deposit.";
 
+"receivecryptocurrency.label.warningSmartContracts.title" = "Please do not deposit %@ form smart contracts! Do not deposit ERC20 tokens! Only %@ is allowed.";
+
+"receivecryptocurrency.label.warningSmartContracts.subtitle" = "Check if you wallet or exchange users smart-contracts to withdraw %@. We do not accept such transactions and can’t refund them. You will lose that money.";
+
 "receivegenerate.label.generate" = "Generate…";
 
 "receivegenerate.label.yourAddress" = "Your %@ address";
