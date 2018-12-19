@@ -89,6 +89,10 @@ extension GlobalConstants.Coinomat {
         return url + apiVersion(.v2) + "indacoin/buy.php"
     }
    
+    static var getPrice: String {
+        return url + apiVersion(.v2) + "indacoin/rate.php"
+    }
+    
     private enum Version {
         case v1
         case v2

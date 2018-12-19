@@ -91,4 +91,41 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
         })
         
     }
+    
+    func getWavesAmount(fiatAmount: Money, fiatType: ReceiveCard.DTO.FiatType) -> Observable<ResponseType<Money>> {
+        
+        let authAccount = FactoryInteractors.instance.authorization
+        return authAccount.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<Money>> in
+            guard let owner = self else { return Observable.empty() }
+            return owner.getWavesAmount(address: wallet.address, fiatAmount: fiatAmount, fiat: fiatType)
+        })
+    }
+}
+
+private extension ReceiveCardInteractor {
+    func getWavesAmount(address: String, fiatAmount: Money, fiat: ReceiveCard.DTO.FiatType) -> Observable<ResponseType<Money>> {
+        return Observable.create({ (subscribe) -> Disposable in
+            
+            let params = ["crypto": GlobalConstants.wavesAssetId,
+                          "fiat": fiat.id,
+                          "address": address,
+                          "amount": fiatAmount.doubleValue] as [String : Any]
+            
+            let req = NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.getPrice, parameters: params, complete: { (info, error) in
+                
+                if let error = error {
+                    subscribe.onNext(ResponseType(output: nil, error: error))
+                    subscribe.onCompleted()
+                }
+                else if let info = info {
+                    let amount = Money(value: Decimal(info.doubleValue), GlobalConstants.WavesDecimals)
+                    subscribe.onNext(ResponseType(output: amount, error: error))
+                    subscribe.onCompleted()
+                }
+            })
+            return Disposables.create {
+                req.cancel()
+            }
+        })
+    }
 }
