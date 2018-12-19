@@ -149,8 +149,15 @@ private extension ReceiveCryptocurrencyViewController {
         let displayMin = info.minAmount.displayText + " " + info.assetShort
         labelTitleMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label.minumumAmountOfDeposit(displayMin)
         labelWarningMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label.warningMinimumAmountOfDeposit(displayMin)
-        labelTitleSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label.sendOnlyOnThisDeposit(info.assetShort)
-        labelWarningSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label.warningSendOnlyOnThisDeposit
+        
+        if selectedAsset?.asset.isEthereum == true {
+            labelTitleSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label.Warningsmartcontracts.title(info.assetShort, info.assetName)
+            labelWarningSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label.Warningsmartcontracts.subtitle(info.assetShort)
+        }
+        else {
+            labelTitleSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label.sendOnlyOnThisDeposit(info.assetShort)
+            labelWarningSendOnlyDeposit.text = Localizable.Waves.Receivecryptocurrency.Label.warningSendOnlyOnThisDeposit
+        }
     }
     
     func setupLocalization() {

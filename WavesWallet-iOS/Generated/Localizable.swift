@@ -1853,6 +1853,17 @@ internal enum Localizable {
         }
         /// Sending any other currency to this address may result in the loss of your deposit.
         internal static var warningSendOnlyOnThisDeposit: String { return Localizable.tr("Waves", "receivecryptocurrency.label.warningSendOnlyOnThisDeposit") }
+
+        internal enum Warningsmartcontracts {
+          /// Check if you wallet or exchange users smart-contracts to withdraw %@. We do not accept such transactions and can’t refund them. You will lose that money.
+          internal static func subtitle(_ p1: String) -> String {
+            return Localizable.tr("Waves", "receivecryptocurrency.label.warningSmartContracts.subtitle", p1)
+          }
+          /// Please do not deposit %@ form smart contracts! Do not deposit ERC20 tokens! Only %@ is allowed.
+          internal static func title(_ p1: String, _ p2: String) -> String {
+            return Localizable.tr("Waves", "receivecryptocurrency.label.warningSmartContracts.title", p1, p2)
+          }
+        }
       }
     }
 
