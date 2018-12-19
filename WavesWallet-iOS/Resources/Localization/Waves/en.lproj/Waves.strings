@@ -19,9 +19,7 @@
 
 "Send.Label.Error.notFundsFeeGateway" = "You don't have enough funds to pay the required fees. You must pay %@ transaction fee and %@ gateway fee.";
 
-"Send.Label.Warning.description" = "Please do not deposit %@ form smart contracts! Do not deposit ERC20 tokens! Only %@ is allowed.";
-
-"Send.Label.Warning.description2" = "Check if you wallet or exchange users smart-contracts to withdraw %@. We do not accept such transactions and can’t refund them. You will lose that money.";
+"Send.Label.Warning.description" = "Do not withdraw %@ to an ICO. We will not credit your account with tokens from that sale.";
 
 "Send.Label.Warning.subtitle" = "We detected %@ address and will send your money through Coinomat gateway to that address. Minimum amount is %@, maximum amount is %@.";
 
