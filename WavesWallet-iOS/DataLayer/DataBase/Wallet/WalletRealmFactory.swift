@@ -84,7 +84,12 @@ enum WalletRealmFactory {
                         let assetBalanceSettings = migration.create(AssetBalanceSettings.className())
                         assetBalanceSettings[Constants.assetIdKey] = assetId
                         assetBalanceSettings[Constants.isHiddenKey] = isHidden && !isSpam
-                        newObject?[Constants.settingsKey] = assetBalanceSettings
+
+                        //It current code for 2 Schema Version
+                        if migration.hadProperty(onType: AssetBalance.className(), property: Constants.settingsKey) {
+                            newObject?[Constants.settingsKey] = assetBalanceSettings
+                        }
+
                         newObject?[Constants.assetIdKey] = assetId
                     }
                 }
