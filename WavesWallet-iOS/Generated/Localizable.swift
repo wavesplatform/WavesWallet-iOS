@@ -1937,6 +1937,17 @@ internal enum Localizable {
           internal static func subtitle(_ p1: String, _ p2: String, _ p3: String) -> String {
             return Localizable.tr("Waves", "Send.Label.Warning.subtitle", p1, p2, p3)
           }
+
+          internal enum Descriptionsmartcontracts {
+            /// Check if you wallet or exchange users smart-contracts to withdraw %@. We do not accept such transactions and can’t refund them. You will lose that money.
+            internal static func subtitle(_ p1: String) -> String {
+              return Localizable.tr("Waves", "Send.Label.Warning.descriptionSmartContracts.subtitle", p1)
+            }
+            /// Please do not deposit %@ form smart contracts! Do not deposit ERC20 tokens! Only %@ is allowed.
+            internal static func title(_ p1: String, _ p2: String) -> String {
+              return Localizable.tr("Waves", "Send.Label.Warning.descriptionSmartContracts.title", p1, p2)
+            }
+          }
         }
       }
 
