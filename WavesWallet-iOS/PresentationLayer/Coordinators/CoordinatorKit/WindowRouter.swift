@@ -14,6 +14,10 @@ public protocol WindowRouterType: class {
 }
 
 final class WindowRouter: NSObject {
+
+    enum AnimateKind {
+        case crossDissolve
+    }
 	
 	public unowned let window: UIWindow
 	
@@ -22,10 +26,42 @@ final class WindowRouter: NSObject {
 		super.init()
 	}
 	
-    public func setRootViewController(_ viewController: UIViewController) {
-		window.rootViewController = viewController
+    public func setRootViewController(_ viewController: UIViewController, animated: AnimateKind? = nil) {
+
+        if let animated = animated {
+            switch animated {
+            case .crossDissolve:
+                if let view = window.rootViewController?.view {
+                    UIView.transition(from: view, to: viewController.view, duration: 0.24, options: [.transitionCrossDissolve], completion: { _ in
+                        self.window.rootViewController = viewController
+                    })
+                } else {
+                    self.window.rootViewController = viewController
+                }
+            }
+        } else {
+            self.window.rootViewController = viewController
+        }
         window.makeKeyAndVisible()
 	}
+}
+
+final class SlideMenuRouter: NSObject {
+
+    public let slideMenu: SlideMenu
+
+    public init(slideMenu: SlideMenu) {
+        self.slideMenu = slideMenu
+        super.init()
+    }
+
+    public func setLeftMenuViewController(_ viewController: UIViewController) {
+        slideMenu.leftMenuViewController = viewController
+    }
+
+    public func setContentViewController(_ viewController: UIViewController) {
+        slideMenu.contentViewController = viewController
+    }
 }
 
 final class NavigationRouter: NSObject {
@@ -55,6 +91,15 @@ final class NavigationRouter: NSObject {
         }
 
         navigationController.pushViewController(viewController, animated: animated)
+    }
+
+    func popAllAndSetRootViewController(_ viewController: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
+
+        if let completion = completion {
+            completions[viewController] = completion
+        }
+
+        navigationController.setViewControllers([viewController], animated: animated)
     }
 
     func popViewController(animated: Bool = true)  {

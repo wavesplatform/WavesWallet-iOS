@@ -13,35 +13,24 @@ final class SlideCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private var wallet: DomainLayer.DTO.Wallet?
+    private let wallet: DomainLayer.DTO.Wallet?
 
-    private var windowRouter: WindowRouter
-
-    private var slideMenuViewController: SlideMenu = {
-
-        let menuController = StoryboardScene.Main.menuViewController.instantiate()
-        let slideMenuViewController = SlideMenu(contentViewController: UIViewController(),
-                                                leftMenuViewController: menuController,
-                                                rightMenuViewController: nil)!
-        return slideMenuViewController
-    }()
+    private let windowRouter: WindowRouter
+    private let slideMenuRouter: SlideMenuRouter
 
     init(windowRouter: WindowRouter, wallet: DomainLayer.DTO.Wallet?) {
         self.windowRouter = windowRouter
         self.wallet = wallet
+        self.slideMenuRouter = SlideMenuRouter(slideMenu: SlideMenu(contentViewController: UIViewController(),
+                                                                    leftMenuViewController: UIViewController(),
+                                                                    rightMenuViewController: nil))
     }
 
     func start() {
 
-//        windowRouter.setRootViewController(vi)
-//        if let view = self.window?.rootViewController?.view {
-//            UIView.transition(from: view, to: slideMenuViewController.view, duration: 0.24, options: [.transitionCrossDissolve], completion: { _ in
-//                self.window?.rootViewController = self.slideMenuViewController
-//            })
-//        } else {
-//            self.window?.rootViewController = self.slideMenuViewController
-//        }
-//        self.window?.makeKeyAndVisible()
+        let menuController = StoryboardScene.Main.menuViewController.instantiate()
+        slideMenuRouter.setLeftMenuViewController(menuController)
+        self.windowRouter.setRootViewController(slideMenuRouter.slideMenu, animated: .crossDissolve)
 
         if let wallet = wallet {
             showDisplay(.wallet(wallet))
@@ -61,31 +50,33 @@ extension SlideCoordinator: PresentationCoordinator {
     }
 
     func showDisplay(_ display: Display) {
-//        switch display {
-//        case .passcode(let wallet):
+        switch display {
+        case .passcode(let wallet):
+            break
 //            let passcodeCoordinator = PasscodeCoordinator(viewController: window!.rootViewController!,
 //                                                          kind: .logIn(wallet))
 //            passcodeCoordinator.animated = true
 //            passcodeCoordinator.delegate = self
 //            addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
-//
-//        case .wallet:
+
+        case .wallet:
+            break
 //            let mainTabBarController = MainTabBarCoordinator(slideMenuViewController: slideMenuViewController,
 //                                                             applicationCoordinator: self)
 //            addChildCoordinatorAndStart(childCoordinator: mainTabBarController)
-//
-//        case .enter:
-//            let enter = EnterCoordinator(slideMenuViewController: slideMenuViewController, applicationCoordinator: self)
-//            enter.delegate = self
-//            addChildCoordinatorAndStart(childCoordinator: enter)
-//        }
+
+        case .enter:
+            let enter = EnterCoordinator(slideMenuRouter: slideMenuRouter, applicationCoordinator: self)
+            enter.delegate = self
+            addChildCoordinatorAndStart(childCoordinator: enter)
+        }
     }
 }
 
 // MARK: PasscodeCoordinatorDelegate
 extension SlideCoordinator: PasscodeCoordinatorDelegate {
 
-    func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {}
+    func passcodeCoordin    atorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {}
 
     func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {
         showDisplay(.wallet(wallet))

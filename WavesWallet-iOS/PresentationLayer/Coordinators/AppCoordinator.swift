@@ -75,6 +75,10 @@ final class AppCoordinator: Coordinator {
     private var isMainTabDisplayed: Bool {
         return childCoordinators.first(where: { $0 is MainTabBarCoordinator }) != nil
     }
+}
+
+// MARK: Main Logic
+extension AppCoordinator  {
 
     private func display(by wallet: DomainLayer.DTO.Wallet?) -> Observable<Display> {
 
@@ -219,8 +223,9 @@ extension AppCoordinator: PresentationCoordinator {
 
 //            guard isHasCoordinator(type: SlideCoordinator.self) != true else { return }
 
-            let slideCoordinator = SlideCoordinator(window: window, wallet: wallet)
+//            let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: wallet)
 //            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
+            break
 
         case .enter:
 
@@ -230,8 +235,8 @@ extension AppCoordinator: PresentationCoordinator {
 
             guard prevSlideCoordinator?.isHasCoordinator(type: EnterCoordinator.self) != true else { return }
 
-//            let slideCoordinator = SlideCoordinator(window: window, wallet: nil)
-//            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
+            let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: nil)
+            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
         }
     }
 }
