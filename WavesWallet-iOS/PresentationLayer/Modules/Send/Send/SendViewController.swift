@@ -30,7 +30,6 @@ final class SendViewController: UIViewController {
     @IBOutlet private weak var labelWarningTitle: UILabel!
     @IBOutlet private weak var labelWarningSubtitle: UILabel!
     @IBOutlet private weak var labelWarningDescription: UILabel!
-    @IBOutlet private weak var labelWarningDescription2: UILabel!    
     @IBOutlet private weak var amountView: AmountInputView!
     @IBOutlet private weak var recipientAddressView: AddressInputView!
     @IBOutlet private weak var buttonContinue: HighlightedButton!
@@ -507,8 +506,7 @@ private extension SendViewController {
         let max = info.maxAmount.displayText + " " + info.assetShortName
 
         labelWarningSubtitle.text = Localizable.Waves.Send.Label.Warning.subtitle(info.assetName, min, max)
-        labelWarningDescription.text = Localizable.Waves.Send.Label.Warning.description(info.assetShortName, info.assetName)
-        labelWarningDescription2.text = Localizable.Waves.Send.Label.Warning.description2(info.assetShortName)
+        labelWarningDescription.text = Localizable.Waves.Send.Label.Warning.description(info.assetName)
         
         viewWarning.isHidden = false
         viewWarning.alpha = 0

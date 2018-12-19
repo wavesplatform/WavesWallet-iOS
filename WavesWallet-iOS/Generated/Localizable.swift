@@ -1929,13 +1929,9 @@ internal enum Localizable {
         }
 
         internal enum Warning {
-          /// Please do not deposit %@ form smart contracts! Do not deposit ERC20 tokens! Only %@ is allowed.
-          internal static func description(_ p1: String, _ p2: String) -> String {
-            return Localizable.tr("Waves", "Send.Label.Warning.description", p1, p2)
-          }
-          /// Check if you wallet or exchange users smart-contracts to withdraw %@. We do not accept such transactions and can’t refund them. You will lose that money.
-          internal static func description2(_ p1: String) -> String {
-            return Localizable.tr("Waves", "Send.Label.Warning.description2", p1)
+          /// Do not withdraw %@ to an ICO. We will not credit your account with tokens from that sale.
+          internal static func description(_ p1: String) -> String {
+            return Localizable.tr("Waves", "Send.Label.Warning.description", p1)
           }
           /// We detected %@ address and will send your money through Coinomat gateway to that address. Minimum amount is %@, maximum amount is %@.
           internal static func subtitle(_ p1: String, _ p2: String, _ p3: String) -> String {
