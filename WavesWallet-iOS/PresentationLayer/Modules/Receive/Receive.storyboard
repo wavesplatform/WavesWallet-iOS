@@ -796,19 +796,33 @@ will be updated</string>
                                         <rect key="frame" x="16" y="38" width="343" height="44"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EHZ-gd-e39" customClass="MoneyTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="0.0" width="327" height="44"/>
+                                                <rect key="frame" x="16" y="0.0" width="273" height="44"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="Sln-PT-bHe"/>
                                                 </constraints>
                                             </view>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Jnn-uu-YNR">
+                                                <rect key="frame" x="309" y="12" width="20" height="20"/>
+                                            </activityIndicatorView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waves" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rgj-oh-Vsk">
+                                                <rect key="frame" x="289" y="14" width="40" height="16"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="EHZ-gd-e39" secondAttribute="trailing" id="OU7-19-mJY"/>
+                                            <constraint firstItem="Rgj-oh-Vsk" firstAttribute="centerY" secondItem="hWi-NR-AOY" secondAttribute="centerY" id="6Vz-U7-eZA"/>
+                                            <constraint firstAttribute="trailing" secondItem="Jnn-uu-YNR" secondAttribute="trailing" constant="14" id="CDW-Rf-VIe"/>
+                                            <constraint firstItem="Rgj-oh-Vsk" firstAttribute="leading" secondItem="EHZ-gd-e39" secondAttribute="trailing" id="JmO-Rh-XUZ"/>
                                             <constraint firstItem="EHZ-gd-e39" firstAttribute="top" secondItem="hWi-NR-AOY" secondAttribute="top" id="OrF-KQ-s9U"/>
                                             <constraint firstItem="EHZ-gd-e39" firstAttribute="leading" secondItem="hWi-NR-AOY" secondAttribute="leading" constant="16" id="PCl-MK-xDU"/>
+                                            <constraint firstItem="Jnn-uu-YNR" firstAttribute="centerY" secondItem="hWi-NR-AOY" secondAttribute="centerY" id="VO0-JZ-S5X"/>
+                                            <constraint firstItem="Jnn-uu-YNR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="EHZ-gd-e39" secondAttribute="trailing" id="YqH-19-CIg"/>
                                             <constraint firstAttribute="bottom" secondItem="EHZ-gd-e39" secondAttribute="bottom" id="rkX-4L-Lsn"/>
+                                            <constraint firstAttribute="trailing" secondItem="Rgj-oh-Vsk" secondAttribute="trailing" constant="14" id="wzK-kJ-dlw"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TtF-Wf-fMd">
@@ -935,11 +949,13 @@ will be updated</string>
                         <viewLayoutGuide key="safeArea" id="W4d-WK-4f0"/>
                     </view>
                     <connections>
-                        <outlet property="acitivityIndicatorAmount" destination="dA8-6b-XEy" id="ic5-HA-llV"/>
+                        <outlet property="acitivityIndicatorAmount" destination="dA8-6b-XEy" id="dd2-bA-k9b"/>
                         <outlet property="acitivityIndicatorWarning" destination="4Mq-eg-U13" id="fSk-QP-nGQ"/>
+                        <outlet property="activityIndicatorWavesAmount" destination="Jnn-uu-YNR" id="eU9-28-m0e"/>
                         <outlet property="assetView" destination="ypY-VO-Olm" id="It6-uX-PDS"/>
                         <outlet property="buttonContinue" destination="zrZ-xV-OTi" id="StO-pE-gHW"/>
                         <outlet property="labelAmountIn" destination="kIE-pO-zgW" id="mDW-YG-e6m"/>
+                        <outlet property="labelAmountWaves" destination="Rgj-oh-Vsk" id="Pvp-Nb-2ll"/>
                         <outlet property="labelChangeCurrency" destination="hO4-j8-2jN" id="85p-hW-zET"/>
                         <outlet property="labelWarningInfo" destination="45G-CV-gNf" id="Eqn-B8-dDR"/>
                         <outlet property="labelWarningMinimumAmount" destination="jdk-AP-RQy" id="2h9-cD-HlW"/>
