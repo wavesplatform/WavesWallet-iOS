@@ -33,9 +33,12 @@ final class EnterCoordinator: Coordinator {
     }
 
     func start() {
+
         let enter = StoryboardScene.Enter.enterStartViewController.instantiate()
         enter.delegate = self
         navigationRouter.popAllAndSetRootViewController(enter)
+
+        slideMenuRouter.setContentViewController(navigationRouter.navigationController)
     }
 }
 
