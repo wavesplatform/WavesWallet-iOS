@@ -30,6 +30,7 @@ final class SendViewController: UIViewController {
     @IBOutlet private weak var labelWarningTitle: UILabel!
     @IBOutlet private weak var labelWarningSubtitle: UILabel!
     @IBOutlet private weak var labelWarningDescription: UILabel!
+    @IBOutlet private weak var labelWarningDescription2: UILabel!    
     @IBOutlet private weak var amountView: AmountInputView!
     @IBOutlet private weak var recipientAddressView: AddressInputView!
     @IBOutlet private weak var buttonContinue: HighlightedButton!
@@ -506,32 +507,8 @@ private extension SendViewController {
         let max = info.maxAmount.displayText + " " + info.assetShortName
 
         labelWarningSubtitle.text = Localizable.Waves.Send.Label.Warning.subtitle(info.assetName, min, max)
-        
-        if selectedAsset?.asset.isEthereum == true {
-            let smartcontractsTitle = Localizable.Waves.Send.Label.Warning.Descriptionsmartcontracts.title(info.assetShortName, info.assetName)
-            let smartcontractsSubtitle = Localizable.Waves.Send.Label.Warning.Descriptionsmartcontracts.subtitle(info.assetShortName)
-            let spaces = "\n\n"
-            let text = smartcontractsTitle + spaces + smartcontractsSubtitle
-            let attrParams = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: labelWarningDescription.font.pointSize, weight: .semibold)]
-
-            let attr = NSMutableAttributedString(string: text, attributes: attrParams)
-            
-            attr.addAttribute(NSAttributedString.Key.font,
-                              value: UIFont.systemFont(ofSize: labelWarningDescription.font.pointSize),
-                              range: (text as NSString).range(of: smartcontractsSubtitle))
-            
-            attr.addAttribute(NSAttributedString.Key.font,
-                              value: UIFont.systemFont(ofSize: 5),
-                              range: (text as NSString).range(of: spaces))
-            
-            labelWarningDescription.attributedText = attr
-        }
-        else {
-            let attrParams = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: labelWarningDescription.font.pointSize)]
-            let attr = NSAttributedString(string: Localizable.Waves.Send.Label.Warning.description(info.assetName),
-                                          attributes: attrParams)
-            labelWarningDescription.attributedText = attr
-        }
+        labelWarningDescription.text = Localizable.Waves.Send.Label.Warning.description(info.assetShortName, info.assetName)
+        labelWarningDescription2.text = Localizable.Waves.Send.Label.Warning.description2(info.assetShortName)
         
         viewWarning.isHidden = false
         viewWarning.alpha = 0
