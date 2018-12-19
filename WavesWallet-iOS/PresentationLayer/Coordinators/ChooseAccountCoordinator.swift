@@ -18,17 +18,20 @@ final class ChooseAccountCoordinator: Coordinator {
     weak var parent: Coordinator?
 
     weak var delegate: ChooseAccountCoordinatorDelegate?
-    private let navigationController: UINavigationController
+    private let navigationRouter: NavigationRouter
     private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
 
-    init(navigationController: UINavigationController, applicationCoordinator: ApplicationCoordinatorProtocol) {
-        self.navigationController = navigationController
+    init(navigationRouter: NavigationRouter, applicationCoordinator: ApplicationCoordinatorProtocol) {
+        self.navigationRouter = navigationRouter
         self.applicationCoordinator = applicationCoordinator
     }
 
     func start() {
-        let vc = ChooseAccountModuleBuilder(output: self).build(input: .init())
-        navigationController.pushViewController(vc, animated: true)
+        let vc = ChooseAccountModuleBuilder(output: self)
+            .build(input: .init())
+        navigationRouter.pushViewController(vc, animated: true, completion: { [weak self] in
+            self?.removeFromParentCoordinator()
+        })
     }
 
     private func showPasscode(kind: PasscodeTypes.DTO.Kind, animated: Bool = true) {
@@ -38,41 +41,72 @@ final class ChooseAccountCoordinator: Coordinator {
             return
         }
 
-        let passcodeCoordinator = PasscodeCoordinator(navigationController: navigationController,
-                                                      kind: kind)
-        passcodeCoordinator.animated = animated
-        passcodeCoordinator.delegate = self
-
-        addChildCoordinator(childCoordinator: passcodeCoordinator)
-        passcodeCoordinator.start()
+//        let passcodeCoordinator = PasscodeCoordinator(navigationController: navigationController,
+//                                                      kind: kind)
+//        passcodeCoordinator.animated = animated
+//        passcodeCoordinator.delegate = self
+//
+//        addChildCoordinator(childCoordinator: passcodeCoordinator)
+//        passcodeCoordinator.start()
     }
     
     private func showEdit(wallet: DomainLayer.DTO.Wallet, animated: Bool = true) {
-        let editCoordinator = EditAccountNameCoordinator(navigationController: navigationController, wallet: wallet)
-        addChildCoordinator(childCoordinator: editCoordinator)
-        editCoordinator.start()
+//        let editCoordinator = EditAccountNameCoordinator(navigationController: navigationController, wallet: wallet)
+//        addChildCoordinator(childCoordinator: editCoordinator)
+//        editCoordinator.start()
     }
 
     func showAccountPassword(kind: AccountPasswordTypes.DTO.Kind) {
 
-        let vc = AccountPasswordModuleBuilder(output: self)
-            .build(input: .init(kind: kind))
-        navigationController.pushViewController(vc, animated: true)
+//        let vc = AccountPasswordModuleBuilder(output: self)
+//            .build(input: .init(kind: kind))
+//        navigationController.pushViewController(vc, animated: true)
     }
 }
 
+// MARK: PresentationCoordinator
+
+extension ChooseAccountCoordinator: PresentationCoordinator {
+
+    enum Display {
+        case passcodeLogIn(DomainLayer.DTO.Wallet)
+        case passcodeChangePasscode(DomainLayer.DTO.Wallet, password: String)
+        case editAccountName(DomainLayer.DTO.Wallet)
+        case accountPasswordLogIn(DomainLayer.DTO.Wallet)
+    }
+
+    func showDisplay(_ display: Display) {
+        switch display {
+
+        case .passcodeLogIn(let wallet):
+            showPasscode(kind: .logIn(wallet))
+
+        case .passcodeChangePasscode(let wallet, let password):
+            showPasscode(kind: .changePasscodeByPassword(wallet, password: password))
+
+        case .editAccountName(let wallet):
+            showEdit(wallet: wallet)
+
+        case .accountPasswordLogIn(let wallet):
+            showAccountPassword(kind: .logIn(wallet))
+        }
+    }
+
+}
+
+// MARK: ChooseAccountModuleOutput
 extension ChooseAccountCoordinator: ChooseAccountModuleOutput {
     
     func userChooseAccount(wallet: DomainLayer.DTO.Wallet, passcodeNotCreated: Bool) -> Void {
         if passcodeNotCreated {
-            showAccountPassword(kind: .logIn(wallet))
+            showDisplay(.accountPasswordLogIn(wallet))
         } else {
-            showPasscode(kind: .logIn(wallet))
+            showDisplay(.passcodeLogIn(wallet))
         }
     }
     
     func userEditAccount(wallet: DomainLayer.DTO.Wallet) {
-        showEdit(wallet: wallet)
+        showDisplay(.editAccountName(wallet))
     }
 }
 
@@ -81,7 +115,7 @@ extension ChooseAccountCoordinator: ChooseAccountModuleOutput {
 extension ChooseAccountCoordinator: AccountPasswordModuleOutput {
 
     func accountPasswordAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet, password: String) {
-        showPasscode(kind: .changePasscodeByPassword(wallet, password: password))
+        showDisplay(.passcodeChangePasscode(wallet, password: password))
     }
 
     func accountPasswordVerifyAccess(signedWallet: DomainLayer.DTO.SignedWallet, password: String) {}
@@ -94,9 +128,11 @@ extension ChooseAccountCoordinator: PasscodeCoordinatorDelegate {
 
     func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {
         delegate?.userChooseCompleted(wallet: wallet)
+        removeFromParentCoordinator()
     }
 
     func passcodeCoordinatorWalletLogouted() {
+        removeFromParentCoordinator()
         self.applicationCoordinator?.showEnterDisplay()
     }
 }
