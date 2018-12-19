@@ -17,26 +17,53 @@ final class EnterCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private weak var slideMenuViewController: SlideMenu?
-    private let navigationController: UINavigationController
+    private let slideMenuRouter: SlideMenuRouter
+    private let navigationRouter: NavigationRouter
+
     private var account: NewAccountTypes.DTO.Account?
 
     private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
 
     weak var delegate: EnterCoordinatorDelegate?
 
-    init(slideMenuViewController: SlideMenu, applicationCoordinator: ApplicationCoordinatorProtocol) {
-        self.slideMenuViewController = slideMenuViewController
-        self.navigationController = CustomNavigationController()
+    init(slideMenuRouter: SlideMenuRouter, applicationCoordinator: ApplicationCoordinatorProtocol) {
+        self.slideMenuRouter = slideMenuRouter
+        self.navigationRouter = NavigationRouter(navigationController: CustomNavigationController())
         self.applicationCoordinator = applicationCoordinator
     }
 
     func start() {
         let enter = StoryboardScene.Enter.enterStartViewController.instantiate()
         enter.delegate = self
-        self.navigationController.pushViewController(enter, animated: false)
-        self.slideMenuViewController?.contentViewController = self.navigationController
+        navigationRouter.popAllAndSetRootViewController(enter)
     }
+}
+
+
+// MARK: PresentationCoordinator
+
+extension EnterCoordinator: PresentationCoordinator {
+
+    enum Display {
+        case chooseAccount
+        case importAccount
+        case newAccount
+    }
+
+    func showDisplay(_ display: Display) {
+        switch display {
+
+        case .chooseAccount:
+            showSignInAccount()
+
+        case .importAccount:
+            break
+
+        case .newAccount:
+            break
+        }
+    }
+
 }
 
 // MARK: EnterStartViewControllerDelegate
@@ -47,49 +74,49 @@ extension EnterCoordinator: EnterStartViewControllerDelegate {
 
         guard let applicationCoordinator = self.applicationCoordinator else { return }
 
-        let chooseAccountCoordinator = ChooseAccountCoordinator(navigationController: navigationController, applicationCoordinator: applicationCoordinator)
+        let chooseAccountCoordinator = ChooseAccountCoordinator(navigationRouter: navigationRouter,
+                                                                applicationCoordinator: applicationCoordinator)
         chooseAccountCoordinator.delegate = self
-        addChildCoordinator(childCoordinator: chooseAccountCoordinator)
-        chooseAccountCoordinator.start()
+        addChildCoordinatorAndStart(childCoordinator: chooseAccountCoordinator)
     }
 
     func showImportCoordinator() {
-        let coordinator = ImportCoordinator(navigationController: navigationController) { [weak self] account in
-            self?.showPasscode(with: .init(privateKey: account.privateKey,
-                                           password: account.password,
-                                           name: account.name,
-                                           needBackup: false))
-        }
-        addChildCoordinator(childCoordinator: coordinator)
-        coordinator.start()
+//        let coordinator = ImportCoordinator(navigationController: navigationController) { [weak self] account in
+//            self?.showPasscode(with: .init(privateKey: account.privateKey,
+//                                           password: account.password,
+//                                           name: account.name,
+//                                           needBackup: false))
+//        }
+//        addChildCoordinator(childCoordinator: coordinator)
+//        coordinator.start()
     }
 
     func showNewAccount() {
 
-        let coordinator = NewAccountCoordinator(navigationController: navigationController) { [weak self] account, needBackup  in
-            self?.showPasscode(with: .init(privateKey: account.privateKey,
-                                           password: account.password,
-                                           name: account.name,
-                                           needBackup: needBackup))
-        }
-        addChildCoordinator(childCoordinator: coordinator)
-        coordinator.start()
+//        let coordinator = NewAccountCoordinator(navigationController: navigationController) { [weak self] account, needBackup  in
+//            self?.showPasscode(with: .init(privateKey: account.privateKey,
+//                                           password: account.password,
+//                                           name: account.name,
+//                                           needBackup: needBackup))
+//        }
+//        addChildCoordinator(childCoordinator: coordinator)
+//        coordinator.start()
     }
 
     func showPasscode(with account: PasscodeTypes.DTO.Account) {
 
-        let passcodeCoordinator = PasscodeCoordinator(viewController: navigationController,
-                                                      kind: .registration(account))
-        passcodeCoordinator.delegate = self
-
-        addChildCoordinator(childCoordinator: passcodeCoordinator)
-        passcodeCoordinator.start()
+//        let passcodeCoordinator = PasscodeCoordinator(viewController: navigationController,
+//                                                      kind: .registration(account))
+//        passcodeCoordinator.delegate = self
+//
+//        addChildCoordinator(childCoordinator: passcodeCoordinator)
+//        passcodeCoordinator.start()
     }
     
     func showLanguageCoordinator() {
-        let languageCoordinator = EnterLanguageCoordinator(parentController: navigationController)
-        addChildCoordinator(childCoordinator: languageCoordinator)
-        languageCoordinator.start()
+//        let languageCoordinator = EnterLanguageCoordinator(parentController: navigationController)
+//        addChildCoordinator(childCoordinator: languageCoordinator)
+//        languageCoordinator.start()
     }
 }
 
