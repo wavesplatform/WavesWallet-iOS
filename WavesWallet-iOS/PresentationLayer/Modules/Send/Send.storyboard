@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="780"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6P1-zy-nqY">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="884.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="780"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KUx-Kq-mM9" customClass="AssetSelectView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
@@ -39,14 +39,14 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mHV-Q6-oxV" customClass="AmountInputView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="594.5" width="375" height="100"/>
+                                                <rect key="frame" x="0.0" y="479" width="375" height="100"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="cN5-2N-yju"/>
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hb8-5S-GBV" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="782.5" width="343" height="48"/>
+                                                <rect key="frame" x="16" y="678" width="343" height="48"/>
                                                 <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="48" id="sTz-hv-sJi"/>
@@ -63,19 +63,19 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction Fee 0.001 WAVES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oif-AZ-b0k">
-                                                <rect key="frame" x="0.0" y="844.5" width="375" height="16"/>
+                                                <rect key="frame" x="0.0" y="740" width="375" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Bio-ZP-ebk">
-                                                <rect key="frame" x="0.0" y="200" width="375" height="294.5"/>
+                                                <rect key="frame" x="0.0" y="200" width="375" height="179"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="03w-Yq-wk1">
-                                                        <rect key="frame" x="16" y="0.0" width="343" height="294.5"/>
+                                                        <rect key="frame" x="16" y="0.0" width="343" height="179"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gateway fee is 0.001" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y13-4e-ZF3">
-                                                                <rect key="frame" x="32" y="0.0" width="311" height="47.5"/>
+                                                                <rect key="frame" x="32" y="0.0" width="311" height="16"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -84,44 +84,37 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4c-uB-bkF">
-                                                                <rect key="frame" x="32" y="53.5" width="311" height="62.5"/>
+                                                                <rect key="frame" x="32" y="22" width="311" height="62.5"/>
                                                                 <string key="text">We detected Bitcoin address and will send your money through Coinomat gateway to that address. Minimum amount is 0.001 BTC, maximum amount is 20 BTC.</string>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please do not deposit ETH form smart contracts! Do not deposit ERC20 tokens! Only Ethereum is allowed." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpG-yx-vFO">
-                                                                <rect key="frame" x="32" y="130" width="311" height="47"/>
-                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do not withdraw Bitcoin to an ICO. We will not credit your account with tokens from that sale." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpG-yx-vFO">
+                                                                <rect key="frame" x="32" y="98.5" width="311" height="31.5"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warning_address" translatesAutoresizingMaskIntoConstraints="NO" id="M8Q-E8-KQz">
-                                                                <rect key="frame" x="0.0" y="130" width="18" height="18"/>
+                                                                <rect key="frame" x="0.0" y="98.5" width="18" height="18"/>
                                                             </imageView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EtF-dr-KBt" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="269.5" width="343" height="1"/>
+                                                                <rect key="frame" x="0.0" y="154" width="343" height="1"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="S2B-Ax-J7Y"/>
                                                                 </constraints>
                                                             </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Avt-Kn-e3E">
-                                                                <rect key="frame" x="32" y="183" width="311" height="62.5"/>
-                                                                <string key="text">Check if you wallet or exchange users smart-contracts to withdraw ETH. We do not accept such transactions and can’t refund them. You will lose that money.</string>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
                                                         </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstItem="Avt-Kn-e3E" firstAttribute="top" secondItem="gpG-yx-vFO" secondAttribute="bottom" constant="6" id="5NU-o2-ygK"/>
+                                                            <constraint firstItem="EtF-dr-KBt" firstAttribute="top" secondItem="gpG-yx-vFO" secondAttribute="bottom" priority="750" constant="24" id="2J0-1C-dsF"/>
                                                             <constraint firstItem="Y13-4e-ZF3" firstAttribute="leading" secondItem="03w-Yq-wk1" secondAttribute="leading" constant="32" id="7Nn-2l-7If"/>
                                                             <constraint firstItem="EtF-dr-KBt" firstAttribute="leading" secondItem="03w-Yq-wk1" secondAttribute="leading" id="BSw-lH-yPq"/>
                                                             <constraint firstAttribute="bottom" secondItem="EtF-dr-KBt" secondAttribute="bottom" constant="24" id="BmT-A2-Eyt"/>
                                                             <constraint firstItem="P4c-uB-bkF" firstAttribute="leading" secondItem="Y13-4e-ZF3" secondAttribute="leading" id="E94-vW-zte"/>
                                                             <constraint firstItem="Ke8-2q-wQV" firstAttribute="leading" secondItem="03w-Yq-wk1" secondAttribute="leading" id="Iqk-4w-hhk"/>
-                                                            <constraint firstItem="Avt-Kn-e3E" firstAttribute="leading" secondItem="gpG-yx-vFO" secondAttribute="leading" id="JfS-ke-aMD"/>
                                                             <constraint firstAttribute="trailing" secondItem="EtF-dr-KBt" secondAttribute="trailing" id="Onp-iF-Mf6"/>
                                                             <constraint firstAttribute="trailing" secondItem="Y13-4e-ZF3" secondAttribute="trailing" id="Qae-Rq-pQo"/>
                                                             <constraint firstItem="gpG-yx-vFO" firstAttribute="trailing" secondItem="P4c-uB-bkF" secondAttribute="trailing" id="T7L-qG-EC9"/>
@@ -132,9 +125,7 @@
                                                             <constraint firstItem="gpG-yx-vFO" firstAttribute="leading" secondItem="P4c-uB-bkF" secondAttribute="leading" id="h4J-49-5wa"/>
                                                             <constraint firstItem="P4c-uB-bkF" firstAttribute="trailing" secondItem="Y13-4e-ZF3" secondAttribute="trailing" id="kt1-Lf-GrY"/>
                                                             <constraint firstItem="M8Q-E8-KQz" firstAttribute="leading" secondItem="03w-Yq-wk1" secondAttribute="leading" id="mOD-p8-j20"/>
-                                                            <constraint firstItem="EtF-dr-KBt" firstAttribute="top" secondItem="Avt-Kn-e3E" secondAttribute="bottom" priority="750" constant="24" id="tyW-S6-QvN"/>
                                                             <constraint firstItem="Ke8-2q-wQV" firstAttribute="top" secondItem="Y13-4e-ZF3" secondAttribute="top" id="wmQ-wc-PYk"/>
-                                                            <constraint firstItem="Avt-Kn-e3E" firstAttribute="trailing" secondItem="gpG-yx-vFO" secondAttribute="trailing" id="zb8-dQ-DoE"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -146,13 +137,13 @@
                                                 </constraints>
                                             </stackView>
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="42Y-VU-iOX">
-                                                <rect key="frame" x="177.5" y="337.5" width="20" height="20"/>
+                                                <rect key="frame" x="177.5" y="279.5" width="20" height="20"/>
                                             </activityIndicatorView>
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="1Yy-qL-dYq">
-                                                <rect key="frame" x="177.5" y="796.5" width="20" height="20"/>
+                                                <rect key="frame" x="177.5" y="692" width="20" height="20"/>
                                             </activityIndicatorView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JYP-ot-PPW">
-                                                <rect key="frame" x="16" y="708.5" width="343" height="50"/>
+                                                <rect key="frame" x="16" y="593" width="343" height="50"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GII-kX-4Ke">
                                                         <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
@@ -189,7 +180,7 @@
                                                 </constraints>
                                             </stackView>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y9H-VA-qyq" customClass="SendMoneroPaymentIdView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="494.5" width="375" height="100"/>
+                                                <rect key="frame" x="0.0" y="379" width="375" height="100"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="MVi-RB-Ovs"/>
@@ -262,7 +253,6 @@
                         <outlet property="labelAmountError" destination="gx9-b4-62P" id="sYy-Zx-0m3"/>
                         <outlet property="labelTransactionFee" destination="Oif-AZ-b0k" id="y5o-cE-k1b"/>
                         <outlet property="labelWarningDescription" destination="gpG-yx-vFO" id="VOc-mz-UF4"/>
-                        <outlet property="labelWarningDescription2" destination="Avt-Kn-e3E" id="X0d-QL-4QR"/>
                         <outlet property="labelWarningSubtitle" destination="P4c-uB-bkF" id="iac-QY-drY"/>
                         <outlet property="labelWarningTitle" destination="Y13-4e-ZF3" id="UZt-qc-Ahm"/>
                         <outlet property="moneroPaymentIdView" destination="Y9H-VA-qyq" id="vFb-g0-Hk8"/>
