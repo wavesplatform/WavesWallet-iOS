@@ -76,7 +76,7 @@ extension SlideCoordinator: PresentationCoordinator {
 // MARK: PasscodeCoordinatorDelegate
 extension SlideCoordinator: PasscodeCoordinatorDelegate {
 
-    func passcodeCoordin    atorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {}
+    func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {}
 
     func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {
         showDisplay(.wallet(wallet))
