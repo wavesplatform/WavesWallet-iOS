@@ -38,7 +38,9 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
             
             guard let strongSelf = self else { return Signal.empty() }
             
-            let emptyAmount: Signal<ReceiveCard.Event> = Signal.just(.didGetPriceInfo(ResponseType(output: Money(0, GlobalConstants.WavesDecimals), error: nil))).asSignal(onErrorSignalWith: Signal.empty())
+            let emptyAmount: Signal<ReceiveCard.Event> = Signal.just(.didGetPriceInfo(
+                ResponseType(output: Money(0, GlobalConstants.WavesDecimals), error: nil)))
+                .asSignal(onErrorSignalWith: Signal.empty())
             
             guard let amount = state.amount else { return emptyAmount }
 
