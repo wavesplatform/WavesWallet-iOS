@@ -1152,3 +1152,9 @@
 "wavespopup.button.send" = "Send";
 
 "wavespopup.label.comingsoon" = "Coming soon";
+
+"coinomat.temporarilyUnavailable" = "Service Coinomat temporarily unavailable";
+
+"coinomat.tryAgain" = "Try again later";
+
+
