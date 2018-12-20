@@ -15,6 +15,7 @@ final class BackupCoordinator: Coordinator {
 
 //    private let viewController: UIViewController
     private let navigationRouter: NavigationRouter
+    private let modalNavigationRouter: NavigationRouter
     private let completed: ((Bool) -> Void)
     private let seed: [String]
 //    private let hasExternalNavigationController: Bool
@@ -31,7 +32,7 @@ final class BackupCoordinator: Coordinator {
         self.seed = seed
         self.navigationRouter = navigationRouter
         self.completed = completed
-        self.hasExternalNavigationController = true
+        self.modalNavigationRouter = NavigationRouter(navigationController: CustomNavigationController())
     }
 
     func start()  {
@@ -39,20 +40,52 @@ final class BackupCoordinator: Coordinator {
 //        if hasExternalNavigationController {
 //            userReadedBackupInfo()
 //        } else {
+
         let vc = StoryboardScene.Backup.needBackupViewController.instantiate()
         vc.output = self
-//            navigationController.viewControllers = [vc]
-//            viewController.present(navigationController, animated: true, completion: nil)
-        navigationRouter.pushViewController(vc, animated: true) { [weak self] in
-            self?.removeFromParentCoordinator()
+        self.modalNavigationRouter.pushViewController(vc, animated: true)
+        navigationRouter.present(self.modalNavigationRouter.navigationController)
+    }
+
+    private func completedBackup(skipBackup: Bool) {
+        removeFromParentCoordinator()
+        navigationRouter.dismiss(animated: true)
+        completed(!skipBackup)
+    }
+}
+
+// MARK: PresentationCoordinator
+
+extension BackupCoordinator: PresentationCoordinator {
+
+    enum Display {
+        case confirmBackup
+        case saveBackupPhrase
+        case startBackup
+    }
+
+    func showDisplay(_ display: Display) {
+        switch display {
+
+        case .confirmBackup:
+            let vc = StoryboardScene.Backup.confirmBackupViewController.instantiate()
+            vc.input = .init(seed: seed)
+            vc.output = self
+            modalNavigationRouter.pushViewController(vc)
+
+        case .saveBackupPhrase:
+            let vc = StoryboardScene.Backup.saveBackupPhraseViewController.instantiate()
+            vc.input = .init(seed: seed, isReadOnly: false)
+            vc.output = self
+            modalNavigationRouter.pushViewController(vc)
+
+        case .startBackup:
+            let vc = StoryboardScene.Backup.backupInfoViewController.instantiate()
+            vc.output = self
+            modalNavigationRouter.pushViewController(vc)
         }
     }
 
-    private func startBackup() {
-        let vc = StoryboardScene.Backup.backupInfoViewController.instantiate()
-        vc.output = self
-//        navigationController.pushViewController(vc, animated: true)
-    }
 }
 
 // MARK: NeedBackupModuleOutput
@@ -62,10 +95,9 @@ extension BackupCoordinator: NeedBackupModuleOutput {
     func userCompletedInteract(skipBackup: Bool) {
 
         if skipBackup {
-            completed(true)
-            removeFromParentCoordinator()
+            completedBackup(skipBackup: true)
         } else {
-            startBackup()
+            showDisplay(.startBackup)
         }
     }
 }
@@ -74,10 +106,7 @@ extension BackupCoordinator: NeedBackupModuleOutput {
 
 extension BackupCoordinator: BackupInfoViewModuleOutput {
     func userReadedBackupInfo() {
-        let vc = StoryboardScene.Backup.saveBackupPhraseViewController.instantiate()
-        vc.input = .init(seed: seed, isReadOnly: false)
-        vc.output = self
-//        navigationController.pushViewController(vc, animated: true)
+        showDisplay(.saveBackupPhrase)
     }
 }
 
@@ -85,10 +114,7 @@ extension BackupCoordinator: BackupInfoViewModuleOutput {
 
 extension BackupCoordinator: SaveBackupPhraseOutput {
     func userSavedBackupPhrase() {
-        let vc = StoryboardScene.Backup.confirmBackupViewController.instantiate()
-            vc.input = .init(seed: seed)
-            vc.output = self
-//            navigationController.pushViewController(vc, animated: true)
+        showDisplay(.confirmBackup)
     }
 }
 
@@ -97,7 +123,6 @@ extension BackupCoordinator: SaveBackupPhraseOutput {
 extension BackupCoordinator: ConfirmBackupOutput {
 
     func userConfirmBackup() {
-        completed(false)
-        removeFromParentCoordinator()
+        completedBackup(skipBackup: false)
     }
 }
