@@ -66,9 +66,7 @@ private enum Constants {
 }
 
 final class CoinomatRepository: CoinomatRepositoryProtocol {
-    
-    private let auth = FactoryInteractors.instance.authorization
-    
+        
     func tunnelInfo(currencyFrom: String, currencyTo: String, walletTo: String, moneroPaymentID: String?) -> Observable<DomainLayer.DTO.Coinomat.TunnelInfo> {
     
         return Observable.create({ (subscribe) -> Disposable in
