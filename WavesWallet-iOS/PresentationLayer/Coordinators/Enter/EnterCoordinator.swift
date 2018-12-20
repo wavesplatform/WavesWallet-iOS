@@ -42,7 +42,6 @@ final class EnterCoordinator: Coordinator {
     }
 }
 
-
 // MARK: PresentationCoordinator
 
 extension EnterCoordinator: PresentationCoordinator {
@@ -51,6 +50,7 @@ extension EnterCoordinator: PresentationCoordinator {
         case chooseAccount
         case importAccount
         case newAccount
+        case passcodeRegistration(PasscodeTypes.DTO.Account)
     }
 
     func showDisplay(_ display: Display) {
@@ -63,6 +63,9 @@ extension EnterCoordinator: PresentationCoordinator {
             break
 
         case .newAccount:
+            showNewAccount()
+
+        case .passcodeRegistration:
             break
         }
     }
@@ -96,14 +99,14 @@ extension EnterCoordinator: EnterStartViewControllerDelegate {
 
     func showNewAccount() {
 
-//        let coordinator = NewAccountCoordinator(navigationController: navigationController) { [weak self] account, needBackup  in
-//            self?.showPasscode(with: .init(privateKey: account.privateKey,
-//                                           password: account.password,
-//                                           name: account.name,
-//                                           needBackup: needBackup))
-//        }
-//        addChildCoordinator(childCoordinator: coordinator)
-//        coordinator.start()
+        let coordinator = NewAccountCoordinator(navigationRouter: navigationRouter) { [weak self] account, needBackup  in
+            self?.showPasscode(with: .init(privateKey: account.privateKey,
+                                           password: account.password,
+                                           name: account.name,
+                                           needBackup: needBackup))
+        }
+        addChildCoordinator(childCoordinator: coordinator)
+        coordinator.start()
     }
 
     func showPasscode(with account: PasscodeTypes.DTO.Account) {

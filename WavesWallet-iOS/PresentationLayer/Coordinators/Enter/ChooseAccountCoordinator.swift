@@ -54,13 +54,14 @@ final class ChooseAccountCoordinator: Coordinator {
 //        let editCoordinator = EditAccountNameCoordinator(navigationController: navigationController, wallet: wallet)
 //        addChildCoordinator(childCoordinator: editCoordinator)
 //        editCoordinator.start()
+        navigationRouter.navigationController.popToRootViewController(animated: true)
     }
 
     func showAccountPassword(kind: AccountPasswordTypes.DTO.Kind) {
 
-//        let vc = AccountPasswordModuleBuilder(output: self)
-//            .build(input: .init(kind: kind))
-//        navigationController.pushViewController(vc, animated: true)
+        let vc = AccountPasswordModuleBuilder(output: self)
+            .build(input: .init(kind: kind))
+        navigationRouter.pushViewController(vc)
     }
 }
 

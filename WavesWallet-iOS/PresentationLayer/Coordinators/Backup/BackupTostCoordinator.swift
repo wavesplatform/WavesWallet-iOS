@@ -94,29 +94,29 @@ final class BackupTostCoordinator: Coordinator {
         guard let navigationController = self.navigationController else { return }
 
         let seed = signedWallet.seedWords
-        let backup = BackupCoordinator(navigationController: navigationController, seed: seed) { [weak self] isBackedUp in
-
-            guard let owner = self else { return }
-
-            if isBackedUp == false {
-                self?.navigationController?.popViewController(animated: true)
-                return
-            }
-
-            let wallet = signedWallet.wallet.mutate {
-                $0.isBackedUp = isBackedUp
-            }
-
-            owner
-                .authorization
-                .changeWallet(wallet)
-                .subscribe(onNext: { [weak self] (wallet) in
-                    self?.navigationController?.popViewController(animated: true)
-                    self?.hideBackupTost()
-                })
-                .disposed(by: owner.disposeBag)
-        }
-        addChildCoordinatorAndStart(childCoordinator: backup)
+//        let backup = BackupCoordinator(navigationController: navigationController, seed: seed) { [weak self] isBackedUp in
+//
+//            guard let owner = self else { return }
+//
+//            if isBackedUp == false {
+//                self?.navigationController?.popViewController(animated: true)
+//                return
+//            }
+//
+//            let wallet = signedWallet.wallet.mutate {
+//                $0.isBackedUp = isBackedUp
+//            }
+//
+//            owner
+//                .authorization
+//                .changeWallet(wallet)
+//                .subscribe(onNext: { [weak self] (wallet) in
+//                    self?.navigationController?.popViewController(animated: true)
+//                    self?.hideBackupTost()
+//                })
+//                .disposed(by: owner.disposeBag)
+//        }
+//        addChildCoordinatorAndStart(childCoordinator: backup)
     }
 
     deinit {
