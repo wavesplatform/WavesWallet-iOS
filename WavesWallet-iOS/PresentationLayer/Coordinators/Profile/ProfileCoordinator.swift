@@ -54,14 +54,14 @@ extension ProfileCoordinator: ProfileModuleOutput {
                 let seed = signedWallet.seedWords
 
                 if wallet.isBackedUp == false {
-
-                    let backup = BackupCoordinator(navigationController: owner.navigationController,
-                                                   seed: seed,
-                                                   completed: { [weak self] needBackup in
-                        saveBackedUp(!needBackup)
-                        self?.navigationController.popToRootViewController(animated: true)
-                    })
-                    owner.addChildCoordinatorAndStart(childCoordinator: backup)
+                    
+//                    let backup = BackupCoordinator(navigationController: owner.navigationController,
+//                                                   seed: seed,
+//                                                   completed: { [weak self] needBackup in
+//                        saveBackedUp(!needBackup)
+//                        self?.navigationController.popToRootViewController(animated: true)
+//                    })
+//                    owner.addChildCoordinatorAndStart(childCoordinator: backup)
                 } else {
                     let vc = StoryboardScene.Backup.saveBackupPhraseViewController.instantiate()
                     vc.input = .init(seed: seed, isReadOnly: true)

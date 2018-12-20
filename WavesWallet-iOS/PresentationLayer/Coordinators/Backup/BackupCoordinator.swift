@@ -13,24 +13,23 @@ final class BackupCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private let viewController: UIViewController
-    private let navigationController: UINavigationController
+//    private let viewController: UIViewController
+    private let navigationRouter: NavigationRouter
     private let completed: ((Bool) -> Void)
     private let seed: [String]
     private let hasExternalNavigationController: Bool
     
-    init(viewController: UIViewController, seed: [String], completed: @escaping ((Bool) -> Void)) {
-        self.seed = seed
-        self.viewController = viewController
-        self.completed = completed
-        self.navigationController = CustomNavigationController()
-        self.hasExternalNavigationController = false
-    }
+//    init(viewController: UIViewController, seed: [String], completed: @escaping ((Bool) -> Void)) {
+//        self.seed = seed
+//        self.viewController = viewController
+//        self.completed = completed
+//        self.navigationController = CustomNavigationController()
+//        self.hasExternalNavigationController = false
+//    }
 
-    init(navigationController: UINavigationController, seed: [String], completed: @escaping ((Bool) -> Void)) {
+    init(navigationRouter: NavigationRouter, seed: [String], completed: @escaping ((Bool) -> Void)) {
         self.seed = seed
-        self.viewController = navigationController
-        self.navigationController = navigationController
+        self.navigationRouter = navigationRouter
         self.completed = completed
         self.hasExternalNavigationController = true
     }
@@ -42,15 +41,15 @@ final class BackupCoordinator: Coordinator {
         } else {
             let vc = StoryboardScene.Backup.needBackupViewController.instantiate()
             vc.output = self
-            navigationController.viewControllers = [vc]
-            viewController.present(navigationController, animated: true, completion: nil)
+//            navigationController.viewControllers = [vc]
+//            viewController.present(navigationController, animated: true, completion: nil)
         }
     }
 
     private func startBackup() {
         let vc = StoryboardScene.Backup.backupInfoViewController.instantiate()
         vc.output = self
-        navigationController.pushViewController(vc, animated: true)
+//        navigationController.pushViewController(vc, animated: true)
     }
 }
 
@@ -76,7 +75,7 @@ extension BackupCoordinator: BackupInfoViewModuleOutput {
         let vc = StoryboardScene.Backup.saveBackupPhraseViewController.instantiate()
         vc.input = .init(seed: seed, isReadOnly: false)
         vc.output = self
-        navigationController.pushViewController(vc, animated: true)
+//        navigationController.pushViewController(vc, animated: true)
     }
 }
 
@@ -87,7 +86,7 @@ extension BackupCoordinator: SaveBackupPhraseOutput {
         let vc = StoryboardScene.Backup.confirmBackupViewController.instantiate()
             vc.input = .init(seed: seed)
             vc.output = self
-            navigationController.pushViewController(vc, animated: true)
+//            navigationController.pushViewController(vc, animated: true)
     }
 }
 
