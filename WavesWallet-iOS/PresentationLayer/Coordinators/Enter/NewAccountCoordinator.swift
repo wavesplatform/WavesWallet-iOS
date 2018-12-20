@@ -12,20 +12,39 @@ final class NewAccountCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private let navigationController: UINavigationController
+    private let navigationRouter: NavigationRouter
     private var account: NewAccountTypes.DTO.Account?
 
     private let completed: ((NewAccountTypes.DTO.Account,Bool) -> Void)
 
-    init(navigationController: UINavigationController, completed: @escaping ((NewAccountTypes.DTO.Account,Bool) -> Void)) {
+    init(navigationRouter: NavigationRouter, completed: @escaping ((NewAccountTypes.DTO.Account,Bool) -> Void)) {
         self.completed = completed
-        self.navigationController = navigationController
+        self.navigationRouter = navigationRouter
     }
 
     func start() {
         let vc = StoryboardScene.NewAccount.newAccountViewController.instantiate()
         vc.output = self
-        self.navigationController.pushViewController(vc, animated: true)
+        self.navigationRouter.pushViewController(vc, animated: true) { [weak self] in
+            self?.removeFromParentCoordinator()
+        }
+    }
+}
+
+
+// MARK: PresentationCoordinator
+
+extension NewAccountCoordinator: PresentationCoordinator {
+
+    enum Display {
+        case backup
+    }
+
+    func showDisplay(_ display: Display) {
+        switch display {
+        case .backup:
+            showBackupCoordinator()
+        }
     }
 }
 
@@ -34,7 +53,7 @@ extension NewAccountCoordinator: NewAccountModuleOutput {
     func userCompletedCreateAccount(_ account: NewAccountTypes.DTO.Account) {
 
         self.account = account
-        showBackupCoordinator()
+        showDisplay(.backup)
     }
 }
 
@@ -50,12 +69,12 @@ extension NewAccountCoordinator: NeedBackupModuleOutput {
     }
 }
 
-// MARK: Logic
-extension NewAccountCoordinator {
+
+private extension NewAccountCoordinator {
 
     private func showBackupCoordinator() {
         guard let account = account else { return }
-        let backup = BackupCoordinator(viewController: navigationController, seed: account.privateKey.words, completed: { [weak self] needBackup in
+        let backup = BackupCoordinator(navigationRouter: navigationRouter, seed: account.privateKey.words, completed: { [weak self] needBackup in
             self?.beginRegistration(needBackup: needBackup)
         })
         addChildCoordinator(childCoordinator: backup)
