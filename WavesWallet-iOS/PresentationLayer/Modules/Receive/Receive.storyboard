@@ -620,14 +620,24 @@ will be updated</string>
                                                     <action selector="continueTapped:" destination="2OW-ud-MVI" eventType="touchUpInside" id="mdw-Ky-8BM"/>
                                                 </connections>
                                             </button>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WC2-u9-HCT" customClass="CoinomatServiceErrorView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="96" width="343" height="50"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="HNK-md-e5q"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="NNf-XO-nk5" firstAttribute="leading" secondItem="jHS-EJ-1oT" secondAttribute="leading" constant="16" id="0iP-Xu-pNx"/>
                                             <constraint firstItem="S1q-JM-4pv" firstAttribute="top" secondItem="Zl8-wN-mmJ" secondAttribute="bottom" constant="24" id="0yX-fX-aHd"/>
+                                            <constraint firstAttribute="trailing" secondItem="WC2-u9-HCT" secondAttribute="trailing" constant="16" id="2cg-sJ-zc0"/>
+                                            <constraint firstItem="WC2-u9-HCT" firstAttribute="top" secondItem="S1q-JM-4pv" secondAttribute="top" id="6gO-N3-LGv"/>
                                             <constraint firstItem="Zl8-wN-mmJ" firstAttribute="top" secondItem="jHS-EJ-1oT" secondAttribute="top" id="6rg-1J-AHJ"/>
                                             <constraint firstItem="yrz-qJ-RoC" firstAttribute="centerX" secondItem="S1q-JM-4pv" secondAttribute="centerX" id="9bx-ce-XDM"/>
                                             <constraint firstAttribute="trailing" secondItem="Zl8-wN-mmJ" secondAttribute="trailing" id="HeK-OU-YOk"/>
+                                            <constraint firstItem="WC2-u9-HCT" firstAttribute="leading" secondItem="jHS-EJ-1oT" secondAttribute="leading" constant="16" id="NIh-T8-gQm"/>
                                             <constraint firstAttribute="trailing" secondItem="NNf-XO-nk5" secondAttribute="trailing" constant="16" id="OHg-wS-Vxw"/>
                                             <constraint firstAttribute="bottom" secondItem="NNf-XO-nk5" secondAttribute="bottom" constant="24" id="Rkg-zB-HkT"/>
                                             <constraint firstItem="Zl8-wN-mmJ" firstAttribute="leading" secondItem="jHS-EJ-1oT" secondAttribute="leading" id="dB4-Mn-UK4"/>
@@ -661,6 +671,7 @@ will be updated</string>
                         <outlet property="activityIndicatorView" destination="yrz-qJ-RoC" id="uOk-e3-EV0"/>
                         <outlet property="assetView" destination="Zl8-wN-mmJ" id="r6Q-Ar-m2B"/>
                         <outlet property="buttonCotinue" destination="NNf-XO-nk5" id="Grp-SC-5ES"/>
+                        <outlet property="coinomatErrorView" destination="WC2-u9-HCT" id="bUP-mv-pqg"/>
                         <outlet property="labelTitleMinimumAmount" destination="iZz-wN-tfl" id="mXT-dC-DuE"/>
                         <outlet property="labelTitleSendOnlyDeposit" destination="I5g-FS-0FS" id="Dxe-r8-jow"/>
                         <outlet property="labelWarningMinimumAmount" destination="nKn-1Z-ZcV" id="kTt-SM-UTQ"/>
