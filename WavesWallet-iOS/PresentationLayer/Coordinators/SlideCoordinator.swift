@@ -60,10 +60,10 @@ extension SlideCoordinator: PresentationCoordinator {
 //            addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
 
         case .wallet:
-            break
-//            let mainTabBarController = MainTabBarCoordinator(slideMenuViewController: slideMenuViewController,
-//                                                             applicationCoordinator: self)
-//            addChildCoordinatorAndStart(childCoordinator: mainTabBarController)
+
+            let mainTabBarController = MainTabBarCoordinator(slideMenuRouter: slideMenuRouter,
+                                                             applicationCoordinator: self)
+            addChildCoordinatorAndStart(childCoordinator: mainTabBarController)
 
         case .enter:
             let enter = EnterCoordinator(slideMenuRouter: slideMenuRouter, applicationCoordinator: self)

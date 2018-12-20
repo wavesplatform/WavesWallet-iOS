@@ -1662,7 +1662,7 @@
 		E9DB667421A3848900962639 /* StartLeasingCancelConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingCancelConfirmationViewController.swift; sourceTree = "<group>"; };
 		E9DB667A21A3938200962639 /* StartLeasingLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingLoadingViewController.swift; sourceTree = "<group>"; };
 		E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesPopupViewController.swift; sourceTree = "<group>"; };
-		E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Waves.storyboard; path = "../New Group/Waves.storyboard"; sourceTree = "<group>"; };
+		E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Waves.storyboard; sourceTree = "<group>"; };
 		E9EC5B362175F35800E5C29A /* Send.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Send.storyboard; sourceTree = "<group>"; };
 		E9EC5B3A2175F35800E5C29A /* SendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendViewController.swift; sourceTree = "<group>"; };
 		E9EC5B3B2175F35800E5C29A /* SendModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendModuleBuilder.swift; sourceTree = "<group>"; };
@@ -1680,7 +1680,7 @@
 		F74240B21EAB8D1600C3B84D /* AssetBalance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetBalance.swift; sourceTree = "<group>"; };
 		F74240B31EAB8D1600C3B84D /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		F74240B41EAB8D1600C3B84D /* NodeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeManager.swift; sourceTree = "<group>"; };
-		F74240C81EAB8EC800C3B84D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = "../New Group/Main.storyboard"; sourceTree = "<group>"; };
+		F74240C81EAB8EC800C3B84D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		F755C0FE1EAA8319008A938F /* DateUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
 		F755C1001EAA8319008A938F /* MoneyUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyUtil.swift; sourceTree = "<group>"; };
 		F76AF1E81EBB43E00081A8BD /* SwiftBase58.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftBase58.framework; path = Carthage/Build/iOS/SwiftBase58.framework; sourceTree = "<group>"; };
@@ -2923,35 +2923,35 @@
 		0AF58F8B2191909200C8A4B3 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				0A6E2C8621CBBCFD006F4073 /* Menu */,
-				0A6E2C8521CBBCBE006F4073 /* WavesPopup */,
-				E95B6B08219B3ADF00A85B5D /* TokenBurn */,
-				0A7CCDA0218A138D005D372B /* MyAddress */,
-				E9CD0D2F218137FE001A99B3 /* MainTabBar */,
-				E9EC5B352175F35800E5C29A /* Send */,
-				0A4140E72174F08600B1310E /* ChangePassword */,
 				0A071E3D215AEF03007D9750 /* AccountPassword */,
 				E9B086902163882F00937644 /* AddressBook */,
 				0AF921BE212E07B2003BA067 /* Asset */,
+				E9D36DB52175C754001E6DF0 /* AssetList */,
 				0A4399672150470E0032E608 /* Backup */,
+				0A4140E72174F08600B1310E /* ChangePassword */,
 				0A071E78215DB084007D9750 /* ChooseAccount */,
 				E9B086BF2163886800937644 /* Dex */,
 				E9F984A720E5266800D2CB4D /* Enter */,
 				E95B47A521638A9F004D4E39 /* Hello */,
 				04A2CFA12112100B00784FEC /* History */,
 				0A762D09214FB60400BE9204 /* Import */,
-				E9D36DB52175C754001E6DF0 /* AssetList */,
-				E9D36D6B2175C754001E6DF0 /* Receive */,
 				04A403202164B8E000652F21 /* Language */,
 				0AFA0C652174A2300003FE3B /* Legal */,
+				E9CD0D2F218137FE001A99B3 /* MainTabBar */,
+				0A6E2C8621CBBCFD006F4073 /* Menu */,
+				0A7CCDA0218A138D005D372B /* MyAddress */,
 				0A14CFDC214B3EBE00C3A4D5 /* NewAccount */,
 				0A96F1CA2151B388005E148F /* Passcode */,
 				0A762DA321650DA80019D447 /* Profile */,
+				E9D36D6B2175C754001E6DF0 /* Receive */,
+				E9EC5B352175F35800E5C29A /* Send */,
 				E95B47D421638B11004D4E39 /* StartLeasing */,
 				0A762D9E2163ACE80019D447 /* Support */,
+				E95B6B08219B3ADF00A85B5D /* TokenBurn */,
 				0A762D4721639FA50019D447 /* TransactionHistory */,
 				0A071E62215C65BC007D9750 /* UseTouchID */,
 				0A97975E2108A10400407F67 /* Wallet */,
+				0A6E2C8521CBBCBE006F4073 /* WavesPopup */,
 				0AFA0C732174A2300003FE3B /* WebView */,
 			);
 			path = Modules;

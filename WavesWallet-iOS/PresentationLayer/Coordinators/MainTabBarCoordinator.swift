@@ -13,11 +13,11 @@ final class MainTabBarCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private let slideMenuViewController: SlideMenu
+    private let slideMenuRouter: SlideMenuRouter
     private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
 
-    init(slideMenuViewController: SlideMenu, applicationCoordinator: ApplicationCoordinatorProtocol?) {
-        self.slideMenuViewController = slideMenuViewController
+    init(slideMenuRouter: SlideMenuRouter, applicationCoordinator: ApplicationCoordinatorProtocol?) {
+        self.slideMenuRouter = slideMenuRouter
         self.applicationCoordinator = applicationCoordinator
     }
 
@@ -28,8 +28,7 @@ final class MainTabBarCoordinator: Coordinator {
         mainTabBar.tabBar.barTintColor = .white
         mainTabBar.tabBar.backgroundImage = UIImage()
         mainTabBar.tabBar.shadowImage = UIImage.shadowImage(color: .accent100)
-        
-        mainTabBar.applicationCoordinator = applicationCoordinator
-        self.slideMenuViewController.contentViewController = mainTabBar
+        mainTabBar.applicationCoordinator = applicationCoordinator        
+        slideMenuRouter.setContentViewController(mainTabBar)
     }
 }
