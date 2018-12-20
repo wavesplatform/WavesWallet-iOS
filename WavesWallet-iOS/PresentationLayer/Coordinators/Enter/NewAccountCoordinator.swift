@@ -77,8 +77,7 @@ private extension NewAccountCoordinator {
         let backup = BackupCoordinator(navigationRouter: navigationRouter, seed: account.privateKey.words, completed: { [weak self] needBackup in
             self?.beginRegistration(needBackup: needBackup)
         })
-        addChildCoordinator(childCoordinator: backup)
-        backup.start()
+        addChildCoordinatorAndStart(childCoordinator: backup)        
     }
 
     private func beginRegistration(needBackup: Bool) {
