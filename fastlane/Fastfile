@@ -110,8 +110,10 @@ platform :ios do
     # puts "#{root_ouput}"
 
     ENV['CHANGELOG']="Version: #{version} #{build_number}\n#{changelog}"
-    ENV['CHANGELOG_PATH']="#{ROOT}/changelog.txt"
-    sh("echo \"#{ENV['CHANGELOG']}\" >> #{ENV['CHANGELOG_PATH']}") 
+    puts "_changelog_"
+    puts ENV['CHANGELOG']
+    # ENV['CHANGELOG_PATH']="#{ROOT}/changelog.txt"
+    # sh("echo \"#{ENV['CHANGELOG']}\" >> #{ENV['CHANGELOG_PATH']}") 
   end
 
   lane :upload_crashlytics do 
@@ -156,6 +158,10 @@ platform :ios do
   lane :upload_testflight do
 
     create_changelog
+
+    if ENV['CHANGELOG'].to_s.empty?
+      ENV['CHANGELOG'] = "Not Found"
+    end
 
     testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
                itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",      
