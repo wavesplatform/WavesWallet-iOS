@@ -89,7 +89,12 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
                 return Observable.just(ResponseType(output: nil, error: error))
             }
         })
-        
+        .catchError({ (error) -> Observable<ResponseType<ReceiveCard.DTO.Info>> in
+            if let error = error as? NetworkError {
+                return Observable.just(ResponseType(output: nil, error: error))
+            }
+            return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
+        })
     }
     
     func getWavesAmount(fiatAmount: Money, fiatType: ReceiveCard.DTO.FiatType) -> Observable<ResponseType<Money>> {

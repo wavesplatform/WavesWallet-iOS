@@ -24,7 +24,8 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
     @IBOutlet private weak var labelWarningSendOnlyDeposit: UILabel!
     @IBOutlet private weak var buttonCotinue: HighlightedButton!
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
-  
+    @IBOutlet private weak var coinomatErrorView: CoinomatServiceErrorView!
+    
     private var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
     private var displayInfo: ReceiveCryptocurrency.DTO.DisplayInfo?
     
@@ -106,8 +107,16 @@ private extension ReceiveCryptocurrencyViewController {
 
                 case .addressDidFailGenerate(let error):
                     
-                    strongSelf.showNetworkErrorSnack(error: error,
-                                                     customTitle: Localizable.Waves.Receive.Error.serviceUnavailable)
+                    switch error {
+                    case .internetNotWorking:
+                        strongSelf.coinomatErrorView.isHidden = true
+                        strongSelf.showNetworkErrorSnack(error: error,
+                                                         customTitle: Localizable.Waves.Receive.Error.serviceUnavailable)
+                        
+                    default:
+                        strongSelf.coinomatErrorView.isHidden = false
+                    }
+                    
                     strongSelf.activityIndicatorView.stopAnimating()
                     
                 default:
@@ -137,6 +146,7 @@ private extension ReceiveCryptocurrencyViewController {
         activityIndicatorView.isHidden = false
         activityIndicatorView.startAnimating()
         viewWarning.isHidden = true
+        coinomatErrorView.isHidden = true
     }
     
     func setupWarning() {
@@ -145,7 +155,8 @@ private extension ReceiveCryptocurrencyViewController {
         
         activityIndicatorView.stopAnimating()
         viewWarning.isHidden = false
-        
+        coinomatErrorView.isHidden = true
+
         let displayMin = info.minAmount.displayText + " " + info.assetShort
         labelTitleMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label.minumumAmountOfDeposit(displayMin)
         labelWarningMinimumAmount.text = Localizable.Waves.Receivecryptocurrency.Label.warningMinimumAmountOfDeposit(displayMin)

@@ -525,6 +525,13 @@ internal enum Localizable {
       }
     }
 
+    internal enum Coinomat {
+      /// Service Coinomat temporarily unavailable
+      internal static var temporarilyUnavailable: String { return Localizable.tr("Waves", "coinomat.temporarilyUnavailable") }
+      /// Try again later
+      internal static var tryAgain: String { return Localizable.tr("Waves", "coinomat.tryAgain") }
+    }
+
     internal enum Createalias {
 
       internal enum Button {
