@@ -39,6 +39,7 @@ final class SendViewController: UIViewController {
     @IBOutlet private weak var viewAmountError: UIView!
     @IBOutlet private weak var labelAmountError: UILabel!
     @IBOutlet private weak var moneroPaymentIdView: SendMoneroPaymentIdView!
+    @IBOutlet private weak var coinomatErrorView: UIView!
     
     private var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
     private var amount: Money?
@@ -81,6 +82,7 @@ final class SendViewController: UIViewController {
         setupLocalization()
         setupFeedBack()
         hideGatewayInfo(animation: false)
+        hideCoinomatError(animation: false)
         updateAmountError(animation: false)
         amountView.input = { [weak self] in
             return self?.inputAmountValues ?? []
@@ -148,6 +150,7 @@ final class SendViewController: UIViewController {
             showLoadingGatewayInfo()
         }
         else {
+            hideCoinomatError(animation: false)
             hideGatewayInfo(animation: false)
         }
         
@@ -255,9 +258,16 @@ private extension SendViewController {
                     
                 case .didFailInfo(let error):
                     
-                    owner.showNetworkErrorSnack(error: error)
-                    owner.hideGatewayInfo(animation: true)
+                    switch error {
+                    case .internetNotWorking:
+                        owner.hideCoinomatError(animation: true)
+                        owner.showNetworkErrorSnack(error: error)
 
+                    default:
+                        owner.showCoinomatError()
+                    }
+                    owner.hideGatewayInfo(animation: true)
+                    
                 case .didGetInfo(let info):
                     owner.showGatewayInfo(info: info)
                     owner.updateAmountData()
@@ -470,9 +480,34 @@ private extension SendViewController {
     }
     
     func showLoadingGatewayInfo() {
+        hideCoinomatError(animation: false)
         viewWarning.isHidden = true
         activityIndicatorView.isHidden = false
         activityIndicatorView.startAnimating()
+    }
+    
+    func showCoinomatError() {
+        
+        coinomatErrorView.isHidden = false
+        coinomatErrorView.alpha = 0
+        activityIndicatorView.stopAnimating()
+        
+        UIView.animate(withDuration: Constants.animationDuration, animations: {
+            self.coinomatErrorView.alpha = 1
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    func hideCoinomatError(animation: Bool) {
+        if coinomatErrorView.isHidden {
+            return
+        }
+        coinomatErrorView.isHidden = true
+        if animation {
+            UIView.animate(withDuration: Constants.animationDuration) {
+                self.view.layoutIfNeeded()
+            }
+        }
     }
     
     func hideGatewayInfo(animation: Bool) {
@@ -498,6 +533,7 @@ private extension SendViewController {
     
     func showGatewayInfo(info: Send.DTO.GatewayInfo) {
         
+        hideCoinomatError(animation: false)
         gateWayInfo = info
         
         labelWarningTitle.text = Localizable.Waves.Send.Label.gatewayFee + " " + info.fee.displayText + " " + info.assetShortName
@@ -593,6 +629,7 @@ extension SendViewController: AddressInputViewDelegate {
         }
         else {
             hideGatewayInfo(animation: true)
+            hideCoinomatError(animation: true)
         }
     }
     
@@ -634,15 +671,16 @@ extension SendViewController: AddressInputViewDelegate {
     func addressInputViewDidDeleteAddress() {
         acceptAddress("")
         
-        if !recipientAddressView.isKeyboardShow {
-            hideGatewayInfo(animation: true)
-        }
+        hideGatewayInfo(animation: true)
+        hideCoinomatError(animation: true)
         clearGatewayAndUpdateInputAmount()
     }
     
     func addressInputViewDidChangeAddress(_ address: String) {
         acceptAddress(address)
         clearGatewayAndUpdateInputAmount()
+        hideGatewayInfo(animation: true)
+        hideCoinomatError(animation: true)
     }
     
     func addressInputViewDidSelectContactAtIndex(_ index: Int) {
