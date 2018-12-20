@@ -65,8 +65,8 @@ extension EnterCoordinator: PresentationCoordinator {
         case .newAccount:
             showNewAccount()
 
-        case .passcodeRegistration:
-            break
+        case .passcodeRegistration(let account):
+            showPasscode(with: account)
         }
     }
 
@@ -100,10 +100,12 @@ extension EnterCoordinator: EnterStartViewControllerDelegate {
     func showNewAccount() {
 
         let coordinator = NewAccountCoordinator(navigationRouter: navigationRouter) { [weak self] account, needBackup  in
-            self?.showPasscode(with: .init(privateKey: account.privateKey,
-                                           password: account.password,
-                                           name: account.name,
-                                           needBackup: needBackup))
+            let account: PasscodeTypes.DTO.Account = .init(privateKey: account.privateKey,
+                                                           password: account.password,
+                                                           name: account.name,
+                                                           needBackup: needBackup)
+
+            self?.showDisplay(.passcodeRegistration(account))
         }
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
@@ -111,12 +113,10 @@ extension EnterCoordinator: EnterStartViewControllerDelegate {
 
     func showPasscode(with account: PasscodeTypes.DTO.Account) {
 
-//        let passcodeCoordinator = PasscodeCoordinator(viewController: navigationController,
-//                                                      kind: .registration(account))
-//        passcodeCoordinator.delegate = self
-//
-//        addChildCoordinator(childCoordinator: passcodeCoordinator)
-//        passcodeCoordinator.start()
+        let passcodeCoordinator = PasscodeNewAccountCoordinator(navigationRouter: navigationRouter, account: account)
+        passcodeCoordinator.delegate = self
+
+        addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)        
     }
     
     func showLanguageCoordinator() {
@@ -126,18 +126,12 @@ extension EnterCoordinator: EnterStartViewControllerDelegate {
     }
 }
 
-// MARK: PasscodeCoordinatorDelegate
-extension EnterCoordinator: PasscodeCoordinatorDelegate {
+// MARK: PasscodeNewAccountCoordinatorDelegate
+extension EnterCoordinator: PasscodeNewAccountCoordinatorDelegate {
     
-    func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {}
-
-    func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {
-        removeFromParentCoordinator()
+    func passcodeCoordinatorCreatedWallet(wallet: DomainLayer.DTO.Wallet) {
         delegate?.userCompletedLogIn(wallet: wallet)
-    }
-
-    func passcodeCoordinatorWalletLogouted() {
-        self.applicationCoordinator?.showEnterDisplay()
+        removeFromParentCoordinator()
     }
 }
 
@@ -145,8 +139,9 @@ extension EnterCoordinator: PasscodeCoordinatorDelegate {
 extension EnterCoordinator: ChooseAccountCoordinatorDelegate {
 
     func userChooseCompleted(wallet: DomainLayer.DTO.Wallet) {
-        removeFromParentCoordinator()
+
         delegate?.userCompletedLogIn(wallet: wallet)
+        removeFromParentCoordinator()
     }    
 
 }

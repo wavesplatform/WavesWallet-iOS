@@ -221,11 +221,10 @@ extension AppCoordinator: PresentationCoordinator {
 
         case .slide(let wallet):
 
-//            guard isHasCoordinator(type: SlideCoordinator.self) != true else { return }
+            guard isHasCoordinator(type: SlideCoordinator.self) != true else { return }
 
-//            let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: wallet)
-//            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
-            break
+            let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: wallet)
+            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)            
 
         case .enter:
 
