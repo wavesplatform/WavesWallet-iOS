@@ -17,8 +17,8 @@ final class BackupCoordinator: Coordinator {
     private let navigationRouter: NavigationRouter
     private let completed: ((Bool) -> Void)
     private let seed: [String]
-    private let hasExternalNavigationController: Bool
-    
+//    private let hasExternalNavigationController: Bool
+
 //    init(viewController: UIViewController, seed: [String], completed: @escaping ((Bool) -> Void)) {
 //        self.seed = seed
 //        self.viewController = viewController
@@ -36,13 +36,15 @@ final class BackupCoordinator: Coordinator {
 
     func start()  {
 
-        if hasExternalNavigationController {
-            userReadedBackupInfo()
-        } else {
-            let vc = StoryboardScene.Backup.needBackupViewController.instantiate()
-            vc.output = self
+//        if hasExternalNavigationController {
+//            userReadedBackupInfo()
+//        } else {
+        let vc = StoryboardScene.Backup.needBackupViewController.instantiate()
+        vc.output = self
 //            navigationController.viewControllers = [vc]
 //            viewController.present(navigationController, animated: true, completion: nil)
+        navigationRouter.pushViewController(vc, animated: true) { [weak self] in
+            self?.removeFromParentCoordinator()
         }
     }
 
