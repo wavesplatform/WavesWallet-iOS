@@ -40,6 +40,9 @@ final class SendViewController: UIViewController {
     @IBOutlet private weak var labelAmountError: UILabel!
     @IBOutlet private weak var moneroPaymentIdView: SendMoneroPaymentIdView!
     @IBOutlet private weak var coinomatErrorView: UIView!
+    @IBOutlet private weak var viewBottomContent: UIView!
+    @IBOutlet private weak var viewBottomContentHeightConstraint: NSLayoutConstraint!
+    
     
     private var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
     private var amount: Money?
@@ -487,26 +490,39 @@ private extension SendViewController {
     }
     
     func showCoinomatError() {
-        
+
+        view.endEditing(true)
+        viewBottomContentHeightConstraint.isActive = true
+
         coinomatErrorView.isHidden = false
         coinomatErrorView.alpha = 0
         activityIndicatorView.stopAnimating()
         
         UIView.animate(withDuration: Constants.animationDuration, animations: {
             self.coinomatErrorView.alpha = 1
+            self.viewBottomContent.alpha = 0
             self.view.layoutIfNeeded()
-        })
+        }) { (complete) in
+            self.viewBottomContent.isHidden = true
+        }
     }
     
     func hideCoinomatError(animation: Bool) {
+        
         if coinomatErrorView.isHidden {
             return
         }
+        
+        viewBottomContent.isHidden = false
+        viewBottomContentHeightConstraint.isActive = false
         coinomatErrorView.isHidden = true
         if animation {
             UIView.animate(withDuration: Constants.animationDuration) {
-                self.view.layoutIfNeeded()
+                self.viewBottomContent.alpha = 1
             }
+        }
+        else {
+            viewBottomContent.alpha = 1
         }
     }
     
@@ -611,6 +627,11 @@ extension SendViewController: AddressInputViewDelegate {
     }
     
     func addressInputViewDidTapNext() {
+        
+        if coinomatErrorView.isHidden == false {
+            view.endEditing(true)
+            return
+        }
         
         if moneroPaymentIdView.isVisible {
             moneroPaymentIdView.activateTextField()
