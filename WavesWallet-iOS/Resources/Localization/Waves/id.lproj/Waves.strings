@@ -1,5 +1,7 @@
 
-"newaccount.textfield.error.maximumcharacters" = "%d karakter maksimum";
+"coinomat.tryAgain" = "Try again later";
+
+"coinomat.temporarilyUnavailable" = "Service Coinomat temporarily unavailable";
 
 "Receivecard.Label.minimunAmountInfo" = "Minimumnya %@, maksimumnya %@";
 
@@ -697,6 +699,8 @@
 
 "newaccount.textfield.error.doesnotmatch" = "Tidak cocok";
 
+"newaccount.textfield.error.maximumcharacters" = "%d karakter maksimum";
+
 "newaccount.textfield.error.minimumcharacters" = "Minimum %d karakter";
 
 "newaccount.textfield.error.passwordnotmatch" = "kata sandi tidak cocok";
@@ -844,6 +848,10 @@
 "receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "Jika Anda akan mengirim kurang dari %@, Anda akan kehilangan uang itu.";
 
 "receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Mengirimkan mata uang lain ke alamat ini dapat menyebabkan hilangnya deposit Anda.";
+
+"receivecryptocurrency.label.warningSmartContracts.subtitle" = "Check if you wallet or exchange users smart-contracts to withdraw %@. We do not accept such transactions and can’t refund them. You will lose that money.";
+
+"receivecryptocurrency.label.warningSmartContracts.title" = "Please do not deposit %@ form smart contracts! Do not deposit ERC20 tokens! Only %@ is allowed.";
 
 "receivegenerate.label.generate" = "Hasilkan…";
 
