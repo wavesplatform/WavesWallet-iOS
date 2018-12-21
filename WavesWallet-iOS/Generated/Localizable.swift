@@ -421,7 +421,7 @@ internal enum Localizable {
     internal enum Biometric {
       /// Cancel
       internal static var localizedCancelTitle: String { return Localizable.tr("Waves", "biometric.localizedCancelTitle") }
-      /// Enter Password
+      /// Enter Passcode
       internal static var localizedFallbackTitle: String { return Localizable.tr("Waves", "biometric.localizedFallbackTitle") }
       /// Access to your wallet
       internal static var readfromkeychain: String { return Localizable.tr("Waves", "biometric.readfromkeychain") }
@@ -1065,7 +1065,7 @@ internal enum Localizable {
           }
 
           internal enum First {
-            /// Please take some time to understand some important things for your own safety.\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka  phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your , including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.
+            /// Please take some time to understand some important things for your own safety.\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.
             internal static var detail: String { return Localizable.tr("Waves", "hello.page.info.first.detail") }
             /// Welcome to the Waves Platform!
             internal static var title: String { return Localizable.tr("Waves", "hello.page.info.first.title") }
@@ -1079,7 +1079,7 @@ internal enum Localizable {
           }
 
           internal enum Second {
-            /// When registering your account, you will be asked to save your secret phrase (SEED) and to protect your account with a password. On normal centralized servers, special attention is paid to the password, which can be changed and reset via email, if the need arises. However, on decentralized platforms such as Waves, everything is arranged differently.
+            /// When registering your account, you will be asked to save your secret phrase (Seed) and to protect your account with a password. On normal centralized servers, special attention is paid to the password, which can be changed and reset via email, if the need arises. However, on decentralized platforms such as Waves, everything is arranged differently.
             internal static var detail: String { return Localizable.tr("Waves", "hello.page.info.second.detail") }
             /// What you need to know about your SEED
             internal static var title: String { return Localizable.tr("Waves", "hello.page.info.second.title") }
@@ -1522,7 +1522,7 @@ internal enum Localizable {
           }
           /// Does not match
           internal static var doesnotmatch: String { return Localizable.tr("Waves", "newaccount.textfield.error.doesnotmatch") }
-          /// Maximum %d characters
+          /// %d characters maximum
           internal static func maximumcharacters(_ p1: Int) -> String {
             return Localizable.tr("Waves", "newaccount.textfield.error.maximumcharacters", p1)
           }
