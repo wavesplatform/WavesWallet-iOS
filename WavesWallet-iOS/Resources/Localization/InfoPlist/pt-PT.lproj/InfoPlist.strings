@@ -1,0 +1,14 @@
+
+"NSCameraUsageDescription" = "Ativa a câmera para ler códigos QR";
+
+"NSFaceIDUsageDescription" = "Aceder à carteira";
+
+"NSPhotoLibraryAddUsageDescription" = "Ativa a câmera para ler códigos QR";
+
+"cameraAccess.alert.allow" = "Permitir o uso da câmera";
+
+"cameraAccess.alert.cancel" = "Cancelar";
+
+"cameraAccess.alert.message" = "Precisas de autorizar o acesso à câmera para usar esta aplicação";
+
+"cameraAccess.alert.title" = "Precisas de autorizar o acesso à câmera";

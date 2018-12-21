@@ -165,8 +165,7 @@ platform :ios do
 
     testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
                itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",      
-               wait_for_uploaded_build: "false",
-               changelog: ENV['CHANGELOG'])
+               wait_for_uploaded_build: "false")
     upload_symbols_to_crashlytics(gsp_path: "#{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
   end
 
