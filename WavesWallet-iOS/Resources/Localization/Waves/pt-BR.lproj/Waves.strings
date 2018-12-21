@@ -443,7 +443,7 @@
 
 "enter.button.createNewAccount.title" = "Criar uma nova conta";
 
-"enter.button.importAccount.detail" = "via código de emparelhamento ou manualmente";
+"enter.button.importAccount.detail" = "via QR-code ou manualmente";
 
 "enter.button.importAccount.error.insecureSeed" = "SEED incorreto";
 

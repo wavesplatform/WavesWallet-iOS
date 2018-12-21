@@ -443,7 +443,7 @@
 
 "enter.button.createNewAccount.title" = "Criar uma conta nova";
 
-"enter.button.importAccount.detail" = "código de emparelhamento ou introdução manual";
+"enter.button.importAccount.detail" = "via QR-code ou manualmente";
 
 "enter.button.importAccount.error.insecureSeed" = "A tua SEED não é segura";
 
@@ -757,7 +757,7 @@
 
 "profile.cell.addresses.title" = "Endereços, chaves";
 
-"profile.cell.backupphrase.title" = "Cópia de segurança das palavras de recuperação";
+"profile.cell.backupphrase.title" = "Backup SEED";
 
 "profile.cell.changepasscode.title" = "Mudar o código do acesso";
 
