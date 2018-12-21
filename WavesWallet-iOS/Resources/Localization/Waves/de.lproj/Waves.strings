@@ -633,7 +633,7 @@
 
 "legal.checkbox.box.second" = "Ich verstehe, dass meine Waves nur mit dem Sicherungssatz (SEED) wiederhergestellt werden können, wenn diese App auf ein anderes Gerät verschoben oder gelöscht wird";
 
-"legal.checkbox.box.subtitle" = "Waves ist anders %u2014 es kann nicht sicher von einer Bank oder einem Webservice gehalten werden";
+"legal.checkbox.box.subtitle" = "Waves ist anders — es kann nicht sicher von einer Bank oder einem Webservice gehalten werden";
 
 "legal.checkbox.box.termsOfUse" = "Nutzungsbedingungen";
 
