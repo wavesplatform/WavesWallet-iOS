@@ -245,7 +245,7 @@ extension DexChartHelper {
                 if let trans = candleChartView.rightYAxisRenderer.transformer?.valueToPixelMatrix {
                     var position = CGPoint(x: 0.0, y: CGFloat(entry.close))
                     position = position.applying(trans)
-                    positionY = position.y
+                    positionY = position.y.isFinite ? position.y : -100
                 }
                 
                 if entry.open > entry.close {
