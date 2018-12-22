@@ -28,5 +28,8 @@ final class DexChartInteractor: DexChartInteractorProtocol {
                                          timeStart: timeStart,
                                          timeEnd: timeEnd,
                                          timeFrame: timeFrame)
+        .catchError({ (error) -> Observable<[DomainLayer.DTO.Candle]> in
+            return Observable.just([])
+        })
     }
 }

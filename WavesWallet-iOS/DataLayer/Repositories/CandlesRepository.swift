@@ -9,53 +9,58 @@
 import Foundation
 import RxSwift
 import SwiftyJSON
-
-private enum Constants {
-    static let timeStart = "timeStart"
-    static let timeEnd = "timeEnd"
-    static let interval = "interval"
-}
+import Moya
 
 final class CandlesRepository: CandlesRepositoryProtocol {
     
+    private let apiProvider: MoyaProvider<API.Service.Candles> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
+    private let auth = FactoryInteractors.instance.authorization
+    private let environment = FactoryRepositories.instance.environmentRepository
+    
     func candles(amountAsset: String, priceAsset: String, timeStart: Date, timeEnd: Date, timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> Observable<[DomainLayer.DTO.Candle]> {
-
-        return Observable.create({ (subscribe) -> Disposable in
-            
-            let path = Environments.current.servers.dataUrl.relativeString + "/candles/\(amountAsset)/\(priceAsset)"
-            
-            let params = [Constants.timeStart : Int64(timeStart.timeIntervalSince1970 * 1000),
-                          Constants.timeEnd : Int64(timeEnd.timeIntervalSince1970 * 1000),
-                          Constants.interval : String(timeFrame.rawValue) + "m"] as [String : Any]
-            
-            NetworkManager.getRequestWithUrl(path, parameters: params, complete: { (info, error) in
-                
-                var models: [DomainLayer.DTO.Candle] = []
-                
-                if let items = info?["candles"].arrayValue {
+ 
+        return auth.authorizedWallet().flatMap({ (wallet) -> Observable<[DomainLayer.DTO.Candle]> in
+            return self.environment.accountEnvironment(accountAddress: wallet.address)
+                .flatMap({ (environment) -> Observable<[DomainLayer.DTO.Candle]> in
                     
-                    for item in items {
+                    let filters = API.Query.CandleFilters(timeStart: Int64(timeStart.timeIntervalSince1970 * 1000),
+                                                          timeEnd: Int64(timeEnd.timeIntervalSince1970 * 1000),
+                                                          interval: String(timeFrame.rawValue) + "m")
+                    
+                    let candles = API.Service.Candles(amountAsset: amountAsset,
+                                                     priceAsset: priceAsset,
+                                                     params: filters,
+                                                     environment: environment)
+                    
+                    return self.apiProvider.rx
+                    .request(candles, callbackQueue: DispatchQueue.global(qos: .background))
+                    .filterSuccessfulStatusAndRedirectCodes()
+                    .map(API.DTO.Chart.self)
+                    .asObservable()
+                    .map({ [weak self] (chart) -> [DomainLayer.DTO.Candle] in
                         
-                        let volume = item["volume"].doubleValue
-                        if volume > 0 {
+                        guard let owner = self else { return [] }
                             
-                            let timestamp = self.convertTimestamp(item["time"].int64Value, timeFrame: timeFrame)
+                        var models: [DomainLayer.DTO.Candle] = []
+                        
+                        for model in chart.candles {
                             
-                            let model = DomainLayer.DTO.Candle(close: item["close"].doubleValue,
-                                                               high: item["high"].doubleValue,
-                                                               low: item["low"].doubleValue,
-                                                               open: item["open"].doubleValue,
-                                                               timestamp: timestamp,
-                                                               volume: volume)
-                            models.append(model)
+                            if model.volume > 0 {
+                                let timestamp = owner.convertTimestamp(model.time, timeFrame: timeFrame)
+                                
+                                let model = DomainLayer.DTO.Candle(close: model.close,
+                                                                   high: model.high,
+                                                                   low: model.low,
+                                                                   open: model.open,
+                                                                   timestamp: timestamp,
+                                                                   volume: model.volume)
+                                models.append(model)
+                            }
                         }
-                    }
-                }
-                subscribe.onNext(models)
-            })
-            
-            
-            return Disposables.create()
+                        
+                        return models
+                    })
+                })
         })
     }
 }
