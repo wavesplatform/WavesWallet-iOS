@@ -457,7 +457,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         
         switch kind {
         case .sent(let model):
-            let isGatewayAddress = GlobalConstants.Coinomat.addresses.contains(model.recipient.address)
+            let isGatewayAddress = Coinomat.addresses.contains(model.recipient.address)
             return .resendButton(.init(type: .resend, isGatewayAddress: isGatewayAddress))
 
         case .massSent(_):

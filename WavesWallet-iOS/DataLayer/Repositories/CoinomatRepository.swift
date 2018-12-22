@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import Moya
 
 private enum Response {
     
@@ -17,10 +18,10 @@ private enum Response {
         let tunnel_id: Int
     }
     
-    struct TunnelInfo: Decodable {
+    struct GetTunnel: Decodable {
         
         struct Tunnel: Decodable {
-            let currency_from: String
+            let wallet_from: String
             let attachment: String
         }
         
@@ -34,163 +35,79 @@ private enum Response {
         let in_min: Double
     }
     
-    struct Limit: Decodable {
+    struct CardLimit: Decodable {
         let min: Double
         let max: Double
     }
 }
 
-private enum Constants {
-  
-    enum Tunnel {
-        static let currencyFrom = "currency_from"
-        static let currencyTo = "currency_to"
-        static let walletTo = "wallet_to"
-        static let moneroPaymentID = "monero_payment_id"
-        static let xtID = "xt_id"
-        static let k1 = "k1"
-        static let k2 = "k2"
-        static let history = "history"
-    }
-    
-    enum Rate {
-        static let from = "f"
-        static let to = "t"
-    }
-    
-    enum Limit {
-        static let crypto = "crypto"
-        static let address = "address"
-        static let fiat = "fiat"
-    }
-}
-
 final class CoinomatRepository: CoinomatRepositoryProtocol {
-        
-    func tunnelInfo(currencyFrom: String, currencyTo: String, walletTo: String, moneroPaymentID: String?) -> Observable<DomainLayer.DTO.Coinomat.TunnelInfo> {
     
-        return Observable.create({ (subscribe) -> Disposable in
-            
-            var params = [Constants.Tunnel.currencyFrom : currencyFrom,
-                          Constants.Tunnel.currencyTo : currencyTo,
-                          Constants.Tunnel.walletTo : walletTo]
-            
-            if let moneroPaymentID = moneroPaymentID, moneroPaymentID.count > 0 {
-                params[Constants.Tunnel.moneroPaymentID] = moneroPaymentID
-            }
-            
-            NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.createTunnel, parameters: params) { (info, error) in
-                
-                if let error = error {
-                    subscribe.onError(error)
-                }
-                else if let data = info.data {
-                    
-                    do {
-                        let model = try JSONDecoder().decode(Response.CreateTunnel.self, from: data)
-                        
-                        let params = [Constants.Tunnel.xtID : model.tunnel_id,
-                                      Constants.Tunnel.k1 : model.k1,
-                                      Constants.Tunnel.k2: model.k2,
-                                      Constants.Tunnel.history : 0] as [String: Any]
+    private let coinomatProvider: MoyaProvider<Coinomat.Service> = .coinomatMoyaProvider()
 
-                        NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.getTunnel, parameters: params, complete: { (info, error) in
-                            
-                            if let error = error {
-                                subscribe.onError(error)
-                            }
-                            else if let data = info.data {
-                                do {
-                                    let model = try JSONDecoder().decode(Response.TunnelInfo.self, from: data)
-                                    
-                                    let tunnel = DomainLayer.DTO.Coinomat.TunnelInfo(address: model.tunnel.currency_from,
-                                                                                     attachment: model.tunnel.attachment)
+    func tunnelInfo(currencyFrom: String, currencyTo: String, walletTo: String, moneroPaymentID: String?) -> Observable<DomainLayer.DTO.Coinomat.TunnelInfo> {
+        
+        let tunnel = Coinomat.Service.CreateTunnel(currency_from: currencyFrom,
+                                                   currency_to: currencyTo,
+                                                   wallet_to: walletTo,
+                                                   monero_payment_id: moneroPaymentID)
 
-                                    subscribe.onNext(tunnel)
-                                    subscribe.onCompleted()
-                                }
-                                catch let error {
-                                    subscribe.onError(error)
-                                }
-                            }
-                        })
-                    }
-                    catch let error {
-                        subscribe.onError(error)
-                    }
-                }
-            }
-            
-            return Disposables.create()
+        return coinomatProvider.rx
+        .request(.createTunnel(tunnel), callbackQueue:  DispatchQueue.global(qos: .background))
+        .filterSuccessfulStatusAndRedirectCodes()
+        .map(Response.CreateTunnel.self)
+        .asObservable()
+        .flatMap({ [weak self] (model) -> Observable<DomainLayer.DTO.Coinomat.TunnelInfo> in
+            guard let owner = self else { return Observable.empty() }
+
+            let tunnel = Coinomat.Service.GetTunnel(xt_id: model.tunnel_id,
+                                                    k1: model.k1,
+                                                    k2: model.k2)
+            return owner.coinomatProvider.rx
+            .request(.getTunnel(tunnel), callbackQueue:  DispatchQueue.global(qos: .background))
+            .filterSuccessfulStatusAndRedirectCodes()
+            .map(Response.GetTunnel.self)
+            .asObservable()
+            .map({ (model) -> DomainLayer.DTO.Coinomat.TunnelInfo in
+                return DomainLayer.DTO.Coinomat.TunnelInfo(address: model.tunnel.wallet_from,
+                                                           attachment: model.tunnel.attachment)
+            })
         })
     }
     
     func getRate(asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.Coinomat.Rate> {
-        
-        return Observable.create({ (subscribe) -> Disposable in
-            
-            let params = [Constants.Rate.from : asset.wavesId ?? "",
-                          Constants.Rate.to : asset.gatewayId ?? ""]
-            
-            NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.getRate, parameters: params) { (info, error) in
                 
-                if let error = error {
-                    subscribe.onError(error)
-                }
-                else if let data = info.data {
-                    
-                    do {
-                        let model = try JSONDecoder().decode(Response.Rate.self, from: data)
-                        
-                        let fee = Money(value: Decimal(model.fee_in + model.fee_out), asset.precision)
-                        let min = Money(value: Decimal(model.in_min), asset.precision)
-                        let max = Money(value: Decimal(model.in_max), asset.precision)
-                        
-                        subscribe.onNext(DomainLayer.DTO.Coinomat.Rate(fee: fee, min: min, max: max))
-                        subscribe.onCompleted()
-
-                    }
-                    catch let error {
-                        subscribe.onError(error)
-                    }
-                }
-            }
-            
-            return Disposables.create()
-        })
+        let rate = Coinomat.Service.Rate(from: asset.wavesId ?? "",
+                                         to: asset.gatewayId ?? "")
+        
+        return coinomatProvider.rx
+            .request(.getRate(rate), callbackQueue: DispatchQueue.global(qos: .background))
+            .filterSuccessfulStatusAndRedirectCodes()
+            .map(Response.Rate.self)
+            .asObservable()
+            .map({ (model) -> DomainLayer.DTO.Coinomat.Rate in
+                
+                let fee = Money(value: Decimal(model.fee_in + model.fee_out), asset.precision)
+                let min = Money(value: Decimal(model.in_min), asset.precision)
+                let max = Money(value: Decimal(model.in_max), asset.precision)
+                return DomainLayer.DTO.Coinomat.Rate(fee: fee, min: min, max: max)
+            })
     }
     
     func cardLimits(address: String, fiat: String) -> Observable<DomainLayer.DTO.Coinomat.CardLimit> {
         
-        return Observable.create({ (subscribe) -> Disposable in
-            
-            let params = [Constants.Limit.crypto : GlobalConstants.wavesAssetId,
-                          Constants.Limit.address : address,
-                          Constants.Limit.fiat : fiat]
-            
-            NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.getLimits, parameters: params, complete: { (info, error) in
-                
-                if let error = error {
-                    subscribe.onError(error)
-                }
-                else if let data = info.data {
-                    
-                    do {
-                        let model = try JSONDecoder().decode(Response.Limit.self, from: data)
-                        
-                        let min = Money(value: Decimal(model.min), GlobalConstants.FiatDecimals)
-                        let max = Money(value: Decimal(model.max), GlobalConstants.FiatDecimals)
-
-                        subscribe.onNext(DomainLayer.DTO.Coinomat.CardLimit(min: min, max: max))
-                        subscribe.onCompleted()
-                    }
-                    catch let error {
-                        subscribe.onError(error)
-                    }
-                }
+        let cardLimit = Coinomat.Service.CardLimit(crypto: GlobalConstants.wavesAssetId,
+                                                   address: address,
+                                                   fiat: fiat)
+        return coinomatProvider.rx
+            .request(.cardLimit(cardLimit), callbackQueue: DispatchQueue.global(qos: .background))
+            .filterSuccessfulStatusAndRedirectCodes()
+            .map(Response.CardLimit.self)
+            .asObservable()
+            .map({ (limit) -> DomainLayer.DTO.Coinomat.CardLimit in
+                let min = Money(value: Decimal(limit.min), GlobalConstants.FiatDecimals)
+                let max = Money(value: Decimal(limit.max), GlobalConstants.FiatDecimals)
+                return DomainLayer.DTO.Coinomat.CardLimit(min: min, max: max)
             })
-            
-            return Disposables.create()
-        })
     }
 }
