@@ -613,6 +613,7 @@
 		E97EC83F20E67BE900AB006B /* NewAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */; };
 		E97EC84320E689A800AB006B /* ImportAccountPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */; };
 		E980EACE20A9F5BF001834DB /* ScannerCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */; };
+		E99DD81621CD67570091AFEC /* CoinomatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81521CD67570091AFEC /* CoinomatService.swift */; };
 		E9A05C5820E9264300B0E0FA /* UseTouchIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */; };
 		E9A4812F20D8DDBB00272C6D /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */; };
 		E9A86E1420B6F20A002AC3F9 /* HistoryInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = E9A86E1320B6F20A002AC3F9 /* HistoryInfo.json */; };
@@ -1470,6 +1471,7 @@
 		E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountViewController.swift; sourceTree = "<group>"; };
 		E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountPasswordViewController.swift; sourceTree = "<group>"; };
 		E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerCustomView.swift; sourceTree = "<group>"; };
+		E99DD81521CD67570091AFEC /* CoinomatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinomatService.swift; sourceTree = "<group>"; };
 		E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseTouchIDViewController.swift; sourceTree = "<group>"; };
 		E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		E9A86E1320B6F20A002AC3F9 /* HistoryInfo.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = HistoryInfo.json; sourceTree = "<group>"; };
@@ -1940,6 +1942,7 @@
 		0A1DAD6620F396F4004DA625 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				E99DD81421CD673B0091AFEC /* Coinomat */,
 				0AD835FF217A0D10004413E9 /* GitHub */,
 				0A8AFF262101EEEB00D0582B /* Matcher */,
 				0A4C9AA920EF6B270095A417 /* Node */,
@@ -3508,6 +3511,14 @@
 				E9657035219360770052F0FC /* WalletSortInteractorProtocol.swift */,
 			);
 			path = Interactor;
+			sourceTree = "<group>";
+		};
+		E99DD81421CD673B0091AFEC /* Coinomat */ = {
+			isa = PBXGroup;
+			children = (
+				E99DD81521CD67570091AFEC /* CoinomatService.swift */,
+			);
+			path = Coinomat;
 			sourceTree = "<group>";
 		};
 		E9A2268B2159666E006E0CE1 /* UIKit */ = {
@@ -5415,6 +5426,7 @@
 				0A96F1DC2152E05A005E148F /* PasscodeInteractor.swift in Sources */,
 				0AF922BE212E1234003BA067 /* RxTableViewAnimatedDataSource.swift in Sources */,
 				E923A765219D53EE000DD9F6 /* TokenBurnInteractor.swift in Sources */,
+				E99DD81621CD67570091AFEC /* CoinomatService.swift in Sources */,
 				E9B087F52163886800937644 /* DexLastTradesInteractor.swift in Sources */,
 				0A580E6A2135FBF000C62549 /* UIScrollView+Pagination.swift in Sources */,
 				E9B12DB9219E2D3900128EFE /* AssetBurnCell.swift in Sources */,
