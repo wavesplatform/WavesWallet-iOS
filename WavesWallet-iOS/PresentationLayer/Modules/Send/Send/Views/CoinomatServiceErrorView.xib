@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CoinomatServiceErrorView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="labelSubtitle" destination="6gK-bX-28U" id="AtF-SS-1VX"/>
+                <outlet property="labelTitle" destination="jb3-ky-Lrw" id="DXy-LO-HbZ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="146"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info18Warning600" translatesAutoresizingMaskIntoConstraints="NO" id="yLS-Fo-OTp">
+                    <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="18" id="Gf1-t0-PQb"/>
+                        <constraint firstAttribute="height" constant="18" id="htU-ix-HIt"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Service Coinomat temporarily unavailable" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jb3-ky-Lrw">
+                    <rect key="frame" x="32" y="0.0" width="343" height="16"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Try again later" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6gK-bX-28U">
+                    <rect key="frame" x="32" y="22" width="343" height="124"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="6gK-bX-28U" firstAttribute="trailing" secondItem="jb3-ky-Lrw" secondAttribute="trailing" id="6Rc-9n-cuw"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="6gK-bX-28U" secondAttribute="bottom" id="8kB-hm-nj7"/>
+                <constraint firstItem="jb3-ky-Lrw" firstAttribute="leading" secondItem="yLS-Fo-OTp" secondAttribute="trailing" constant="14" id="SwL-Ln-oSh"/>
+                <constraint firstItem="yLS-Fo-OTp" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Zp4-hJ-ZMB"/>
+                <constraint firstItem="yLS-Fo-OTp" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="g8V-LW-XXj"/>
+                <constraint firstItem="6gK-bX-28U" firstAttribute="top" secondItem="jb3-ky-Lrw" secondAttribute="bottom" constant="6" id="glk-jp-UVQ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="jb3-ky-Lrw" secondAttribute="trailing" id="hCS-KC-qqq"/>
+                <constraint firstItem="jb3-ky-Lrw" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="lg5-Ya-cen"/>
+                <constraint firstItem="6gK-bX-28U" firstAttribute="leading" secondItem="jb3-ky-Lrw" secondAttribute="leading" id="udl-Ww-4m8"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="-162" y="193"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="info18Warning600" width="18" height="18"/>
+    </resources>
+</document>

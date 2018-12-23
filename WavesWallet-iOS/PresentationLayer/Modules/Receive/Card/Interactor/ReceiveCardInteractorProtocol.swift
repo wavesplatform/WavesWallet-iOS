@@ -12,4 +12,5 @@ import RxSwift
 protocol ReceiveCardInteractorProtocol {
     
     func getInfo(fiatType: ReceiveCard.DTO.FiatType) -> Observable<ResponseType<ReceiveCard.DTO.Info>>
+    func getWavesAmount(fiatAmount: Money, fiatType: ReceiveCard.DTO.FiatType) -> Observable<ResponseType<Money>>
 }

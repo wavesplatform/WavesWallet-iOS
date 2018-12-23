@@ -1,5 +1,7 @@
 
-"newaccount.textfield.error.maximumcharacters" = "Максимум %d";
+"coinomat.tryAgain" = "Попробуйте, пожалуйста, позже";
+
+"coinomat.temporarilyUnavailable" = "Сервис Coinomat временно недоступен";
 
 "Receivecard.Label.minimunAmountInfo" = "Минимум %@, максимум %@";
 
@@ -301,7 +303,7 @@
 
 "dexcreateorder.label.days" = "дней";
 
-"dexcreateorder.label.error.notFundsFee" = "У вас недостаточно средств для оплаты комиссии";
+"dexcreateorder.label.error.notFundsFee" = "У вас недостаточно средств для оплаты комиссии.";
 
 "dexcreateorder.label.fee" = "Комиссия";
 
@@ -697,6 +699,8 @@
 
 "newaccount.textfield.error.doesnotmatch" = "Не совпадает";
 
+"newaccount.textfield.error.maximumcharacters" = "Максимум %d";
+
 "newaccount.textfield.error.minimumcharacters" = "Минимум %d символов";
 
 "newaccount.textfield.error.passwordnotmatch" = "пароли не совпадают";
@@ -845,6 +849,10 @@
 
 "receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Отправка любой другой валюты на этот адрес может привести к потере ваших средств.";
 
+"receivecryptocurrency.label.warningSmartContracts.subtitle" = "Проверьте, не использует ли ваш кошелёк или биржа смарт-контракты для отправки %@. Мы не принимаем такие переводы и не можем возместить их. Вы потеряете эти деньги.";
+
+"receivecryptocurrency.label.warningSmartContracts.title" = "Не отправляйте %@ со смарт-контрактов! Не отправляйте ERC20-токены! Только %@.";
+
 "receivegenerate.label.generate" = "Создание…";
 
 "receivegenerate.label.yourAddress" = "Ваш %@ адрес";
@@ -869,7 +877,7 @@
 
 "send.label.error.invalidId" = "Неверный ID";
 
-"send.label.error.notFundsFee" = "У вас недостаточно средств для оплаты комиссии";
+"send.label.error.notFundsFee" = "У вас недостаточно средств для оплаты комиссии.";
 
 "send.label.gatewayFee" = "Комиссия шлюза —";
 
@@ -999,7 +1007,7 @@
 
 "tokenBurn.label.error.insufficientFunds" = "Недостаточно средств";
 
-"tokenBurn.label.error.notFundsFee" = "У вас недостаточно средств для оплаты комиссии";
+"tokenBurn.label.error.notFundsFee" = "У вас недостаточно средств для оплаты комиссии.";
 
 "tokenBurn.label.fee" = "Комиссия";
 
