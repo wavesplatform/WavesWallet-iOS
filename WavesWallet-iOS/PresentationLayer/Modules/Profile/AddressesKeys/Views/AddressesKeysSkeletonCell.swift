@@ -12,7 +12,7 @@ private enum Constants {
     static let height: CGFloat = 60
 }
 
-final class AddressesKeysSkeletonCell: SkeletonCell, Reusable {
+final class AddressesKeysSkeletonCell: SkeletonTableCell, Reusable {
 
     @IBOutlet var viewContent: UIView!
 

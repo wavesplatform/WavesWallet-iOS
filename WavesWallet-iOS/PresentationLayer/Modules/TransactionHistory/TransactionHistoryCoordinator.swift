@@ -96,7 +96,7 @@ extension TransactionHistoryCoordinator: StartLeasingModuleOutput {
         switch kind {
         case .cancel:
             break
-        //TODO: need update state after cancelingOrder
+        //TODO: here can be logic
         default:
             break
         }

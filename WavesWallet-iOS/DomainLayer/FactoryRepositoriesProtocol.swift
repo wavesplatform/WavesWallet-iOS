@@ -32,8 +32,12 @@ protocol FactoryRepositoriesProtocol {
 
     var addressBookRepository: AddressBookRepositoryProtocol { get }
     
-    var dexRepository: DexRepositoryProtocol { get }
+    var dexRealmRepository: DexRealmRepositoryProtocol { get }
 
+    var dexListRepository: DexListRepositoryProtocol { get }
+    
+    var dexOrderBookRepository: DexOrderBookRepositoryProtocol { get }
+    
     var aliasesRepository: AliasesRepositoryProtocol { get }
     var aliasesRepositoryLocal: AliasesRepositoryProtocol { get }
 

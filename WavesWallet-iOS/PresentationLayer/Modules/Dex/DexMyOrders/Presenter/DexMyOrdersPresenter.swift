@@ -37,7 +37,6 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
             return state.isNeedLoadOrders || state.isNeedCancelOrder ? state : nil
         }, effects: { [weak self] state -> Signal<DexMyOrders.Event> in
             
-            // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
 
             if let order = state.canceledOrder, state.isNeedCancelOrder {
