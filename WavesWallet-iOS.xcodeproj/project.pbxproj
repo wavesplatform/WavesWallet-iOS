@@ -619,7 +619,6 @@
 		E97EC83F20E67BE900AB006B /* NewAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */; };
 		E97EC84320E689A800AB006B /* ImportAccountPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */; };
 		E980EACE20A9F5BF001834DB /* ScannerCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */; };
-		E99DD81621CD67570091AFEC /* CoinomatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81521CD67570091AFEC /* CoinomatService.swift */; };
 		E99DD81B21CEE7690091AFEC /* CandlesApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81A21CEE7690091AFEC /* CandlesApiService.swift */; };
 		E99DD81D21CEF09C0091AFEC /* CandleFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81C21CEF09C0091AFEC /* CandleFilters.swift */; };
 		E99DD81F21CEF7AC0091AFEC /* CandleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81E21CEF7AC0091AFEC /* CandleApi.swift */; };
@@ -1486,7 +1485,6 @@
 		E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountViewController.swift; sourceTree = "<group>"; };
 		E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountPasswordViewController.swift; sourceTree = "<group>"; };
 		E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerCustomView.swift; sourceTree = "<group>"; };
-		E99DD81521CD67570091AFEC /* CoinomatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinomatService.swift; sourceTree = "<group>"; };
 		E99DD81A21CEE7690091AFEC /* CandlesApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandlesApiService.swift; sourceTree = "<group>"; };
 		E99DD81C21CEF09C0091AFEC /* CandleFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleFilters.swift; sourceTree = "<group>"; };
 		E99DD81E21CEF7AC0091AFEC /* CandleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleApi.swift; sourceTree = "<group>"; };
@@ -5485,7 +5483,6 @@
 				0A96F1DC2152E05A005E148F /* PasscodeInteractor.swift in Sources */,
 				0AF922BE212E1234003BA067 /* RxTableViewAnimatedDataSource.swift in Sources */,
 				E923A765219D53EE000DD9F6 /* TokenBurnInteractor.swift in Sources */,
-				E99DD81621CD67570091AFEC /* CoinomatService.swift in Sources */,
 				E9B087F52163886800937644 /* DexLastTradesInteractor.swift in Sources */,
 				0A580E6A2135FBF000C62549 /* UIScrollView+Pagination.swift in Sources */,
 				E9B12DB9219E2D3900128EFE /* AssetBurnCell.swift in Sources */,
