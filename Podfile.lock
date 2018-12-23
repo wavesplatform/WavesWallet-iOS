@@ -11,7 +11,7 @@ PODS:
     - Fabric (~> 1.9.0)
   - CryptoSwift (0.13.1)
   - CSV.swift (2.3.1)
-  - Device.swift (1.1.2)
+  - DeviceKit (1.11.0)
   - Differentiator (3.1.0)
   - Fabric (1.9.0)
   - Firebase/Auth (5.14.0):
@@ -168,7 +168,7 @@ DEPENDENCIES:
   - Crashlytics
   - CryptoSwift
   - CSV.swift
-  - Device.swift (from `https://github.com/schickling/Device.swift.git`, branch `swift-4.2`)
+  - DeviceKit (~> 1.3)
   - Fabric
   - Firebase/Auth
   - Firebase/Core
@@ -218,6 +218,7 @@ SPEC REPOS:
     - Crashlytics
     - CryptoSwift
     - CSV.swift
+    - DeviceKit
     - Differentiator
     - Fabric
     - Firebase
@@ -277,9 +278,6 @@ EXTERNAL SOURCES:
     :path: Vendors/Base58
   blake2:
     :path: Vendors/Blake2
-  Device.swift:
-    :branch: swift-4.2
-    :git: https://github.com/schickling/Device.swift.git
   IdentityImg:
     :git: "git@github.com:wavesplatform/identity-img-swift.git"
   InfiniteCollectionView:
@@ -293,9 +291,6 @@ CHECKOUT OPTIONS:
   '25519':
     :commit: b7eb7b9b951d0503669c991af371a27fdefa28ee
     :git: "git@github.com:wavesplatform/25519.git"
-  Device.swift:
-    :commit: fa70c4a09b3f41a58ca82140a0aca168faccb628
-    :git: https://github.com/schickling/Device.swift.git
   IdentityImg:
     :commit: d44a40a2334c9cb7c0a76d6dde36fd8cc9266e28
     :git: "git@github.com:wavesplatform/identity-img-swift.git"
@@ -316,7 +311,7 @@ SPEC CHECKSUMS:
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
   CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
   CSV.swift: d16f671b3090a2c0525d5f2165b18319074aae2b
-  Device.swift: a8c9f6ee3b0a9ee85764bf07461c163b9e95c94c
+  DeviceKit: a3a86f8dddbe1317a9a243cdf9646858bf135dce
   Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   Firebase: 963d5685fae888a56d6d4d9cfce6b9c976958798
@@ -373,6 +368,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: 7edf7d8f8835daef5faf5c996470160e5a405e2a
+PODFILE CHECKSUM: 0cfbbcc6f50bdbe7a72a026525b7cc1357b130bd
 
 COCOAPODS: 1.5.3
