@@ -17,12 +17,11 @@ fileprivate enum Constants {
 }
 
 final class WalletSortFavCell: UITableViewCell, Reusable {
-    @IBOutlet var imageIcon: UIImageView!
+    @IBOutlet private var imageIcon: UIImageView!
     @IBOutlet var buttonFav: UIButton!
-    @IBOutlet var labelTitle: UILabel!
-    @IBOutlet var iconLock: UIImageView!
-    @IBOutlet var arrowGreen: UIImageView!
-    @IBOutlet var viewContent: UIView!
+    @IBOutlet private var labelTitle: UILabel!
+    @IBOutlet private var iconLock: UIImageView!
+    @IBOutlet private var viewContent: UIView!
 
     private var taskForAssetLogo: RetrieveImageDiskTask?
     private(set) var disposeBag = DisposeBag()
@@ -58,7 +57,6 @@ extension WalletSortFavCell: ViewConfiguration {
         let cryptoName = model.name
         labelTitle.text = cryptoName
         iconLock.isHidden = !model.isLock
-        arrowGreen.isHidden = !model.isGateway
 
         taskForAssetLogo = AssetLogo.logoFromCache(name: model.icon,
                                                    style: AssetLogo.Style(size: Constants.icon,
