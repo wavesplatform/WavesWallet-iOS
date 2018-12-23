@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class DexListSkeletonCell: SkeletonCell, Reusable {
+final class DexListSkeletonCell: SkeletonTableCell, Reusable {
 
     @IBOutlet weak var viewContainer: UIView!
     

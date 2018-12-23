@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-protocol DexRepositoryProtocol {
+protocol DexRealmRepositoryProtocol {
     
     func save(pair: DexMarket.DTO.Pair, accountAddress: String) -> Observable<Bool>
     func delete(by id: String, accountAddress: String) -> Observable<Bool> 

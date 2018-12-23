@@ -13,6 +13,6 @@ protocol DexLastTradesInteractorProtocol {
     
     var pair: DexTraderContainer.DTO.Pair! { get set }
 
-    func displayInfo() -> Observable<(DexLastTrades.DTO.DisplayData)>
+    func displayInfo() -> Observable<DexLastTrades.DTO.DisplayData>
     
 }

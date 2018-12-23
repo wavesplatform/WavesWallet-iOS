@@ -9,8 +9,7 @@
 import Foundation
 import RxSwift
 
-//TODO: Rename to Local
-final class DexRepository: DexRepositoryProtocol {
+final class DexRealmRepositoryLocal: DexRealmRepositoryProtocol {
 
     func save(pair: DexMarket.DTO.Pair, accountAddress: String) -> Observable<Bool> {
        

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-final class WalletHistorySkeletonCell: SkeletonCell, Reusable {
+final class WalletHistorySkeletonCell: SkeletonTableCell, Reusable {
     @IBOutlet var viewContent: UIView!
 
     override func awakeFromNib() {
