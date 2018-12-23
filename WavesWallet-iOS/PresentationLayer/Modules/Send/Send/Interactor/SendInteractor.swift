@@ -51,8 +51,8 @@ final class SendInteractor: SendInteractorProtocol {
     }
     
     func getWavesBalance() -> Observable<DomainLayer.DTO.SmartAssetBalance> {
-        
-        //TODO: need optimize
+
+        //TODO: need optimization
         
         let accountBalance = FactoryInteractors.instance.accountBalance
         return accountBalance.balances()

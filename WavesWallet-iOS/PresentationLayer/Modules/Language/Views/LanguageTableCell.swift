@@ -8,6 +8,12 @@
 
 import UIKit
 
+private enum Constants {
+    static let smallPading: CGFloat = 16
+    static let bigPadding: CGFloat = 24
+    static let height: CGFloat = 60
+}
+
 final class LanguageTableCell: UITableViewCell, NibReusable {
     
     struct Model {
@@ -23,23 +29,19 @@ final class LanguageTableCell: UITableViewCell, NibReusable {
     @IBOutlet fileprivate weak var leftConstraint: NSLayoutConstraint!
     @IBOutlet fileprivate weak var rightConstraint: NSLayoutConstraint!
 
-    // TODO: Add constant
-
     class func cellHeight() -> CGFloat {
-        return 60
+        return Constants.height
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        // TODO: Add constant and remove Platform
-
         if Platform.isIphone5 {
-            leftConstraint.constant = 16
-            rightConstraint.constant = 16
+            leftConstraint.constant = Constants.smallPading
+            rightConstraint.constant = Constants.smallPading
         } else {
-            leftConstraint.constant = 24
-            rightConstraint.constant = 24
+            leftConstraint.constant = Constants.bigPadding
+            rightConstraint.constant = Constants.bigPadding
         }
         
         selectedBackgroundView = UIView()

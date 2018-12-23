@@ -35,7 +35,6 @@ final class AddressBookPresenter: AddressBookPresenterProtocol {
             return state.isAppeared ? true : nil
         }, effects: { [weak self] _ -> Signal<AddressBookTypes.Event> in
             
-            // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf.interactor.users().map {.setContacts($0)}.asSignal(onErrorSignalWith: Signal.empty())
         })

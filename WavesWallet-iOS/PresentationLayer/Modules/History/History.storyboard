@@ -13,7 +13,7 @@
         <!--History View Controller-->
         <scene sceneID="BQn-RD-7yk">
             <objects>
-                <viewController storyboardIdentifier="NewHistoryViewController" id="115-aT-Brl" customClass="HistoryViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HistoryViewController" id="115-aT-Brl" customClass="HistoryViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hDU-FW-cdo"/>
                         <viewControllerLayoutGuide type="bottom" id="4Pb-Vz-k88"/>
