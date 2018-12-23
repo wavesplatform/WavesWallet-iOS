@@ -58,7 +58,7 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
                                  "amount" : String(money.doubleValue),
                                  "fiat" : state.fiatType.id]
                     
-                    $0.link = Receive.DTO.urlFromPath(GlobalConstants.Coinomat.buy, params: params)
+                    $0.link = Receive.DTO.urlFromPath(Coinomat.buyURL, params: params)
                 }
             }
             
