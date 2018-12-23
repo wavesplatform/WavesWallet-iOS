@@ -57,6 +57,7 @@ extension GlobalConstants.Matcher {
     }
 }
 
+
 enum RegEx {
     static let alias = "^[a-z0-9\\.@_-]*$"
 
