@@ -9,15 +9,20 @@
 import Foundation
 import Moya
 
+extension MoyaProvider {
+    final class func matcherMoyaProvider<Target: TargetType>() -> MoyaProvider<Target> {
+        return MoyaProvider<Target>(callbackQueue: nil,
+                                    plugins: [SweetNetworkLoggerPlugin(verbose: true)])
+    }
+}
+
 extension Matcher.Service {
 
     struct OrderBook {
         enum Kind {
-            /**
-             Response:
-             - Not implementation
-             */
+           
             case getOrderHistory(TimestampSignature, isActiveOnly: Bool)
+            case getOrderBook(amountAsset: String, priceAsset: String)
         }
 
         var kind: Kind
@@ -40,12 +45,18 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
                 + Constants.orderbook
                 + "/"
                 + "\(signature.publicKey.getPublicKeyStr())".urlEscaped
+        
+        case .getOrderBook(let amountAsset, let priceAsset):
+            return Constants.matcher + "/" + Constants.orderbook + "/" + amountAsset + "/" + priceAsset
         }
     }
 
     var method: Moya.Method {
         switch kind {
         case .getOrderHistory:
+            return .get
+        
+        case .getOrderBook:
             return .get
         }
     }
@@ -57,6 +68,9 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
             return .requestCompositeParameters(bodyParameters: [:],
                                                bodyEncoding: URLEncoding.httpBody,
                                                urlParameters: [Constants.activeOnly: isActiveOnly])
+        
+        case .getOrderBook:
+            return .requestPlain
         }
     }
 
@@ -66,6 +80,9 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
         switch kind {
         case .getOrderHistory(let signature, _):            
             headers.merge(signature.parameters) { a, _ in a }
+            
+        default:
+            break
         }
 
         return headers

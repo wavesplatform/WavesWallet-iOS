@@ -8,36 +8,30 @@
 
 import Foundation
 import RxSwift
+import Moya
 
 final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
 
+    private let matcherProvider: MoyaProvider<Matcher.Service.OrderBook> = .matcherMoyaProvider()
+    private let environment = FactoryRepositories.instance.environmentRepository
+    private let auth = FactoryInteractors.instance.authorization
+    
     func orderBook(amountAsset: String, priceAsset: String) -> Observable<API.DTO.OrderBook> {
 
-        return Observable.create({ (subscribe) -> Disposable in
-          
-            let url = GlobalConstants.Matcher.orderBook(amountAsset, priceAsset)
-
-            NetworkManager.getRequestWithUrl(url, parameters: nil, complete: { (info, error) in
-                
-                if let error = error {
-                    subscribe.onError(error)
-                }
-                else if let data = info?.data {
+        return auth.authorizedWallet().flatMap({ (wallet) -> Observable<API.DTO.OrderBook> in
+            return self.environment.accountEnvironment(accountAddress: wallet.address)
+                .flatMap({ (environment) -> Observable<API.DTO.OrderBook> in
                     
-                    do {
-                        let decoder = JSONDecoder()
-                        decoder.dateDecodingStrategy = .millisecondsSince1970
-                        let orderBookModel = try decoder.decode(API.DTO.OrderBook.self, from: data)
-                        subscribe.onNext(orderBookModel)
-                        subscribe.onCompleted()
-                    }
-                    catch let error {
-                        subscribe.onError(error)
-                    }
-                }
-            })
-            
-            return Disposables.create()
+                    let decoder = JSONDecoder()
+                    decoder.dateDecodingStrategy = .millisecondsSince1970
+
+                    return self.matcherProvider.rx
+                    .request(.init(kind: .getOrderBook(amountAsset: amountAsset, priceAsset: priceAsset),
+                            environment: environment), callbackQueue: DispatchQueue.global(qos: .background))
+                    .filterSuccessfulStatusAndRedirectCodes()
+                    .map(API.DTO.OrderBook.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
+                    .asObservable()
+                })
         })
     }
 }
