@@ -30,6 +30,7 @@ final class DexSortCell: UITableViewCell, Reusable {
     }
 
     func endMove() {
+        viewContainer.backgroundColor = .white
         viewContainer.addTableCellShadowStyle()
     }
 
