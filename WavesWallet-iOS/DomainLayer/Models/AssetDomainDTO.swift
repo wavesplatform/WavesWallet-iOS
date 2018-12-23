@@ -42,4 +42,8 @@ extension DomainLayer.DTO.Asset {
     var isMonero: Bool {
         return gatewayId == "XMR"
     }
+    
+    var isEthereum: Bool {
+        return gatewayId == "ETH"
+    }
 }
