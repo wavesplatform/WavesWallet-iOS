@@ -35,6 +35,25 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
                 return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
             })
     }
+    
+    
+    func getWavesAmount(fiatAmount: Money, fiatType: ReceiveCard.DTO.FiatType) -> Observable<ResponseType<Money>> {
+        
+        let authAccount = FactoryInteractors.instance.authorization
+        return authAccount.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<Money>> in
+            guard let owner = self else { return Observable.empty() }
+            return owner.coinomatRepository.getPrice(address: wallet.address, amount: fiatAmount, type: fiatType)
+                .map({ (money) -> ResponseType<Money> in
+                    return ResponseType(output: money, error: nil)
+                })
+                .catchError({ (error) -> Observable<ResponseType<Money>> in
+                    if let error = error as? NetworkError {
+                        return Observable.just(ResponseType(output: nil, error: error))
+                    }
+                    return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
+                })
+        })
+    }
 }
 
 private extension ReceiveCardInteractor {
@@ -74,66 +93,6 @@ private extension ReceiveCardInteractor {
                                                                 maxAmountString: maxString)
                     return Observable.just(amountInfo)
                 })
-        })
-    }
-    
-    func getInfo(fiatType: ReceiveCard.DTO.FiatType) -> Observable<ResponseType<ReceiveCard.DTO.Info>> {
-    
-        let amount = getAmountInfo(fiat: fiatType)
-        
-        return Observable.zip(getWavesBalance().take(1), amount, getAddress()).flatMap({ (assetBalance, amountInfo, address) ->  Observable<ResponseType<ReceiveCard.DTO.Info>> in
-
-            switch amountInfo.result {
-            case .success(let info):
-                let info = ReceiveCard.DTO.Info(asset: assetBalance, amountInfo: info, address: address)
-                return Observable.just(ResponseType(output: info, error: nil))
-            
-            case .error(let error):
-                return Observable.just(ResponseType(output: nil, error: error))
-            }
-        })
-        .catchError({ (error) -> Observable<ResponseType<ReceiveCard.DTO.Info>> in
-            if let error = error as? NetworkError {
-                return Observable.just(ResponseType(output: nil, error: error))
-            }
-            return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
-        })
-    }
-    
-    func getWavesAmount(fiatAmount: Money, fiatType: ReceiveCard.DTO.FiatType) -> Observable<ResponseType<Money>> {
-        
-        let authAccount = FactoryInteractors.instance.authorization
-        return authAccount.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<Money>> in
-            guard let owner = self else { return Observable.empty() }
-            return owner.getWavesAmount(address: wallet.address, fiatAmount: fiatAmount, fiat: fiatType)
-        })
-    }
-}
-
-private extension ReceiveCardInteractor {
-    func getWavesAmount(address: String, fiatAmount: Money, fiat: ReceiveCard.DTO.FiatType) -> Observable<ResponseType<Money>> {
-        return Observable.create({ (subscribe) -> Disposable in
-            
-            let params = ["crypto": GlobalConstants.wavesAssetId,
-                          "fiat": fiat.id,
-                          "address": address,
-                          "amount": fiatAmount.doubleValue] as [String : Any]
-            
-            let req = NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.getPrice, parameters: params, complete: { (info, error) in
-                
-                if let error = error {
-                    subscribe.onNext(ResponseType(output: nil, error: error))
-                    subscribe.onCompleted()
-                }
-                else if let info = info {
-                    let amount = Money(value: Decimal(info.doubleValue), GlobalConstants.WavesDecimals)
-                    subscribe.onNext(ResponseType(output: amount, error: error))
-                    subscribe.onCompleted()
-                }
-            })
-            return Disposables.create {
-                req.cancel()
-            }
         })
     }
 }
