@@ -110,4 +110,21 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
                 return DomainLayer.DTO.Coinomat.CardLimit(min: min, max: max)
             })
     }
+    
+    func getPrice(address: String, amount: Money, type: ReceiveCard.DTO.FiatType) -> Observable<Money> {
+        
+        let price = Coinomat.Service.Price(fiat: type.id,
+                                           address: address,
+                                           amount: amount.doubleValue)
+        return coinomatProvider.rx
+        .request(.getPrice(price), callbackQueue: DispatchQueue.global(qos: .background))
+        .filterSuccessfulStatusAndRedirectCodes()
+        .asObservable()
+        .map({ (response) -> Money in
+            
+            let string = String(data: response.data, encoding: .utf8) ?? ""
+            return Money(value: Decimal((string as NSString).doubleValue), GlobalConstants.WavesDecimals)
+        })
+        
+    }
 }
