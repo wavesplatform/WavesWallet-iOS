@@ -45,7 +45,6 @@ final class PasscodeLogInCoordinator: Coordinator {
     }
 
     private func dissmiss() {
-
         windowRouter.dissmissWindow(animated: nil, completed: { [weak self] in
             self?.removeFromParentCoordinator()
         })
