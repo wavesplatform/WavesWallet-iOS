@@ -19,7 +19,7 @@ final class WindowRouter: NSObject {
         case crossDissolve
     }
 	
-	public unowned let window: UIWindow
+	public let window: UIWindow
 	
 	public init(window: UIWindow) {
 		self.window = window
@@ -44,6 +44,21 @@ final class WindowRouter: NSObject {
         }
         window.makeKeyAndVisible()
 	}
+
+    public func dissmissWindow(animated: AnimateKind? = nil, completed: (() -> Void)? = nil) {
+
+        if let view = window.rootViewController?.view {
+            UIView.animate(withDuration: 0.24, delay: 0, options: [.curveEaseInOut], animations: {
+                var newFrame = view.frame
+                newFrame.origin.y = view.frame.height
+                view.frame = newFrame
+            }) { _ in
+                completed?()
+            }
+        } else {
+            completed?()
+        }
+    }
 }
 
 final class SlideMenuRouter: NSObject {
