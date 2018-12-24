@@ -46,10 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
-        #if DEBUG
-            AppsFlyerTracker.shared().isDebug = true
-        #endif
-
         IQKeyboardManager.shared.enable = true
         UIBarButtonItem.appearance().tintColor = UIColor.black
 
@@ -59,8 +55,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         #if DEBUG
             SweetLogger.current.visibleLevels = [.debug, .error]
+            AppsFlyerTracker.shared()?.isDebug = false
         #else
             SweetLogger.current.visibleLevels = []
+            AppsFlyerTracker.shared()?.isDebug = false
         #endif
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
