@@ -128,7 +128,7 @@ extension MainTabBarController: UITabBarControllerDelegate {
             let currentVC = nav.viewControllers.first,
             let nextNav = viewController as? CustomNavigationController,
             let nextVC = nextNav.viewControllers.first,
-            currentVC == nextVC,
+            currentVC === nextVC,
             let tabBarProtocol = currentVC as? MainTabBarControllerProtocol {
 
             tabBarProtocol.mainTabBarControllerDidTapTab()

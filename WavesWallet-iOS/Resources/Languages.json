@@ -58,6 +58,11 @@
       "title": "Türkçe",
       "icon": "flag18Turkey",
       "code": "tr"
-  }
+  },
+    {
+        "title": "Português",
+        "icon": "flag18Portugal",
+        "code": "pt-PT"
+    }
   
 ]
