@@ -47,17 +47,15 @@ final class WindowRouter: NSObject {
 
     public func dissmissWindow(animated: AnimateKind? = nil, completed: (() -> Void)? = nil) {
 
-        if let view = window.rootViewController?.view {
-            UIView.animate(withDuration: 0.24, delay: 0, options: [.curveEaseInOut], animations: {
-                var newFrame = view.frame
-                newFrame.origin.y = view.frame.height
-                view.frame = newFrame
-            }) { _ in
-                completed?()
-            }
-        } else {
+        UIView.animate(withDuration: 0.24, delay: 0, options: [.curveEaseInOut], animations: {
+            var newFrame = self.window.frame
+            newFrame.origin.y = newFrame.height
+            self.window.frame = newFrame
+            self.window.alpha = 0
+        }) { _ in
             completed?()
         }
+
     }
 }
 
