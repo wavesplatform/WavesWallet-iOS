@@ -111,9 +111,9 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
             })
     }
     
-    func getPrice(address: String, amount: Money, type: ReceiveCard.DTO.FiatType) -> Observable<Money> {
+    func getPrice(address: String, amount: Money, typeId: String) -> Observable<Money> {
         
-        let price = Coinomat.Service.Price(fiat: type.id,
+        let price = Coinomat.Service.Price(fiat: typeId,
                                            address: address,
                                            amount: amount.doubleValue)
         return coinomatProvider.rx
