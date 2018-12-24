@@ -16,12 +16,14 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
     var interactor: ReceiveCardInteractorProtocol!
     private let disposeBag = DisposeBag()
     
+    private let coinomateRepository = FactoryRepositories.instance.coinomatRepository
     
     func system(feedbacks: [ReceiveCardPresenter.Feedback]) {
         var newFeedbacks = feedbacks
         newFeedbacks.append(modelsQuery())
+        newFeedbacks.append(generateLinkQuery())
         newFeedbacks.append(wavesAmountQuery())
-        
+
         Driver.system(initialState: ReceiveCard.State.initialState,
                       reduce: { state, event -> ReceiveCard.State in
                         return ReceiveCardPresenter.reduce(state: state, event: event) },
@@ -62,11 +64,34 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
             return strongSelf.interactor.getInfo(fiatType: state.fiatType).map {.didGetInfo($0)}.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
+
+    private func generateLinkQuery() -> Feedback {
+        
+        return react(query: { state -> ReceiveCard.State? in
+            return state.isNeedLoadPriceInfo ? state : nil
+        }, effects: { [weak self] state -> Signal<ReceiveCard.Event> in
+            
+            guard let strongSelf = self else { return Signal.empty() }
+            guard let amount = state.amount else { return Signal.empty() }
+            
+            return strongSelf.coinomateRepository.generateBuyLink(address: state.address,
+                                                                  amount: amount.doubleValue,
+                                                                  fiat: state.fiatType.id)
+            .map({.linkDidGenerate($0)}).asSignal(onErrorSignalWith: Signal.empty())
+        })
+    }
+    
     
     static private func reduce(state: ReceiveCard.State, event: ReceiveCard.Event) -> ReceiveCard.State {
         
-        switch event {
-
+        switch event {            
+            
+        case .linkDidGenerate(let link):
+            return state.mutate {
+                $0.action = .changeUrl
+                $0.link = link
+            }
+            
         case .updateAmountWithUSDFiat:
             return state.mutate {
                 $0.isNeedLoadInfo = false
@@ -86,20 +111,10 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
         case .updateAmount(let money):
             
             return state.mutate {
-                $0.action = .changeUrl
                 $0.isNeedLoadInfo = false
                 $0.isNeedLoadPriceInfo = true
                 $0.amount = money
-                
-                if let asset = state.assetBalance?.asset {
-                    
-                    let params = ["crypto" : asset.wavesId ?? "",
-                                 "address" : state.address,
-                                 "amount" : String(money.doubleValue),
-                                 "fiat" : state.fiatType.id]
-                    
-                    $0.link = Receive.DTO.urlFromPath(Coinomat.buyURL, params: params)
-                }
+                $0.action = .none
             }
             
         case .getUSDAmountInfo:
@@ -145,7 +160,7 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
             }
             
         case .didGetPriceInfo(let priceInfo):
-            
+
             return state.mutate {
                 $0.isNeedLoadPriceInfo = false
                 

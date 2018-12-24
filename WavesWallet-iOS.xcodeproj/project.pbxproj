@@ -4828,6 +4828,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E99DD81621CD67570091AFEC /* CoinomatService.swift in Sources */,
 				04831F7A216917B0006D1ED6 /* ApiServiceTypes.swift in Sources */,
 				E9DC959621A3A5BD0020249F /* StartLeasingTypes.swift in Sources */,
 				E9DB667B21A3938200962639 /* StartLeasingLoadingViewController.swift in Sources */,
@@ -5437,7 +5438,6 @@
 				0A96F1DC2152E05A005E148F /* PasscodeInteractor.swift in Sources */,
 				0AF922BE212E1234003BA067 /* RxTableViewAnimatedDataSource.swift in Sources */,
 				E923A765219D53EE000DD9F6 /* TokenBurnInteractor.swift in Sources */,
-				E99DD81621CD67570091AFEC /* CoinomatService.swift in Sources */,
 				E9B087F52163886800937644 /* DexLastTradesInteractor.swift in Sources */,
 				0A580E6A2135FBF000C62549 /* UIScrollView+Pagination.swift in Sources */,
 				E9B12DB9219E2D3900128EFE /* AssetBurnCell.swift in Sources */,

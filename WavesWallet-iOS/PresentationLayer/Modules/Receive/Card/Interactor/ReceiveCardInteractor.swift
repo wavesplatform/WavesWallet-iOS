@@ -42,7 +42,7 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
         let authAccount = FactoryInteractors.instance.authorization
         return authAccount.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<Money>> in
             guard let owner = self else { return Observable.empty() }
-            return owner.coinomatRepository.getPrice(address: wallet.address, amount: fiatAmount, typeId: fiatType.id)
+            return owner.coinomatRepository.getPrice(address: wallet.address, amount: fiatAmount, type: fiatType.id)
                 .map({ (money) -> ResponseType<Money> in
                     return ResponseType(output: money, error: nil)
                 })

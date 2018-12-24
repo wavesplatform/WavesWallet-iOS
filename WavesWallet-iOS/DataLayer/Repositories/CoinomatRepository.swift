@@ -111,9 +111,9 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
             })
     }
     
-    func getPrice(address: String, amount: Money, typeId: String) -> Observable<Money> {
+    func getPrice(address: String, amount: Money, type: String) -> Observable<Money> {
         
-        let price = Coinomat.Service.Price(fiat: typeId,
+        let price = Coinomat.Service.Price(fiat: type,
                                            address: address,
                                            amount: amount.doubleValue)
         return coinomatProvider.rx
@@ -125,6 +125,15 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
             let string = String(data: response.data, encoding: .utf8) ?? ""
             return Money(value: Decimal((string as NSString).doubleValue), GlobalConstants.WavesDecimals)
         })
+    }
+    
+    func generateBuyLink(address: String, amount: Double, fiat: String) -> Observable<String> {
+
+        let params = ["crypto" : GlobalConstants.wavesAssetId,
+                      "address" : address,
+                      "amount" : String(amount),
+                      "fiat" : fiat]
         
+        return Observable.just(Coinomat.buyURL.urlByAdding(params: params))
     }
 }
