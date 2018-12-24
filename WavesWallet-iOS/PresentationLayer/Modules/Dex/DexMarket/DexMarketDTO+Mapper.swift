@@ -12,13 +12,12 @@ import RealmSwift
 
 extension DexMarket.DTO.Pair {
     
-    init(_ json: JSON, realm: Realm) {
+    init(_ market: API.DTO.Market, realm: Realm) {
         
-        let amountAssetId = json["amountAsset"].stringValue
-        var amountAssetName = json["amountAssetName"].stringValue
-        var amountAssetShortName = json["amountAssetName"].stringValue
+        var amountAssetName = market.amountAssetName
+        var amountAssetShortName = market.amountAssetName
         
-        if let asset = realm.object(ofType: Asset.self, forPrimaryKey: amountAssetId) {
+        if let asset = realm.object(ofType: Asset.self, forPrimaryKey: market.amountAsset) {
             amountAssetName = asset.displayName
             if let ticker = asset.ticker {
                 amountAssetShortName = ticker
@@ -26,18 +25,17 @@ extension DexMarket.DTO.Pair {
         }
         
         //TODO: need remove when move on new Api
-        if let ticker = DexMarket.MinersRewardToken[amountAssetId] {
+        if let ticker = DexMarket.MinersRewardToken[market.amountAsset] {
             amountAssetShortName = ticker
         }
-        else if let ticker = DexMarket.WavesCommunityToken[amountAssetId] {
+        else if let ticker = DexMarket.WavesCommunityToken[market.amountAsset] {
             amountAssetShortName = ticker
         }
         
-        let priceAssetId = json["priceAsset"].stringValue
-        var priceAssetName = json["priceAssetName"].stringValue
-        var priceAssetShortName = json["priceAssetName"].stringValue
+        var priceAssetName = market.priceAssetName
+        var priceAssetShortName = market.priceAssetName
         
-        if let asset = realm.object(ofType: Asset.self, forPrimaryKey: priceAssetId) {
+        if let asset = realm.object(ofType: Asset.self, forPrimaryKey: market.priceAsset) {
             priceAssetName = asset.displayName
             if let ticker = asset.ticker {
                 priceAssetShortName = ticker
@@ -45,22 +43,22 @@ extension DexMarket.DTO.Pair {
         }
         
         //TODO: need remove when move on new Api
-        if let ticker = DexMarket.MinersRewardToken[priceAssetId] {
+        if let ticker = DexMarket.MinersRewardToken[market.priceAsset] {
             priceAssetShortName = ticker
         }
-        else if let ticker = DexMarket.WavesCommunityToken[priceAssetId] {
+        else if let ticker = DexMarket.WavesCommunityToken[market.priceAsset] {
             priceAssetShortName = ticker
         }
         
-        amountAsset = Dex.DTO.Asset(id: amountAssetId,
+        amountAsset = Dex.DTO.Asset(id: market.amountAsset,
                                     name: amountAssetName,
                                     shortName: amountAssetShortName,
-                                    decimals: json["amountAssetInfo"]["decimals"].intValue)
+                                    decimals: market.amountAssetInfo.decimals)
         
-        priceAsset = Dex.DTO.Asset(id: priceAssetId,
+        priceAsset = Dex.DTO.Asset(id: market.priceAsset,
                                     name: priceAssetName,
                                     shortName: priceAssetShortName,
-                                    decimals: json["priceAssetInfo"]["decimals"].intValue)
+                                    decimals: market.priceAssetInfo.decimals)
         
         
         let isGeneralAmount = realm.objects(Asset.self)
@@ -69,7 +67,7 @@ extension DexMarket.DTO.Pair {
             .filter(NSPredicate(format: "id == %@ AND isGeneral == true", priceAsset.id)).count > 0
         
         isGeneral = isGeneralAmount && isGeneralPrice
-        id = amountAssetId + priceAssetId
+        id = market.amountAsset + market.priceAsset
         isChecked = realm.object(ofType: DexAssetPair.self, forPrimaryKey: id) != nil
         sortLevel = realm.object(ofType: DexAssetPair.self, forPrimaryKey: id)?.sortLevel ?? 0
     }
