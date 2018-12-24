@@ -20,6 +20,7 @@ enum ReceiveCard {
         case didGetPriceInfo(ResponseType<Money>)
         case updateAmountWithUSDFiat
         case updateAmountWithEURFiat
+        case linkDidGenerate(String)
     }
     
     struct State: Mutating {
