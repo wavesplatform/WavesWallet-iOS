@@ -27,8 +27,6 @@ enum GlobalConstants {
     static let WavesTransactionFeeAmount: Int64 = 100000
     static let WavesDecimals: Int = 8
     static let WavesTransactionFee = Money(GlobalConstants.WavesTransactionFeeAmount, GlobalConstants.WavesDecimals)
-
-    static let moneyLocale = Locale(identifier: "en_US")
     
     enum Coinomat {}
     enum Matcher {}
@@ -89,6 +87,10 @@ extension GlobalConstants.Coinomat {
         return url + apiVersion(.v2) + "indacoin/buy.php"
     }
    
+    static var getPrice: String {
+        return url + apiVersion(.v2) + "indacoin/rate.php"
+    }
+    
     private enum Version {
         case v1
         case v2

@@ -1,5 +1,7 @@
 
-"newaccount.textfield.error.maximumcharacters" = "%d karakters maximaal";
+"coinomat.tryAgain" = "Try again later";
+
+"coinomat.temporarilyUnavailable" = "Service Coinomat temporarily unavailable";
 
 "Receivecard.Label.minimunAmountInfo" = "Het minimum is %@, het maximum is %@";
 
@@ -511,7 +513,7 @@
 
 "hello.page.info.fourth.title" = "Hoe je jezelf kunt beschermen tegen Phishers";
 
-"hello.page.info.second.detail" = "Wanneer u uw account registreert, wordt u gevraagd om uw geheime zin (SEED) op te slaan en om uw account te beveiligen met een wachtwoord. Op normale gecentraliseerde servers wordt speciale aandacht besteed aan het wachtwoord, dat kan worden gewijzigd en gereset via e-mail, als de noodzaak zich voordoet. Op gedecentraliseerde platforms zoals Waves is alles echter anders geregeld.";
+"hello.page.info.second.detail" = "Wanneer u uw account registreert, wordt u gevraagd om uw geheime zin (Seed) op te slaan en om uw account te beveiligen met een wachtwoord. Op normale gecentraliseerde servers wordt speciale aandacht besteed aan het wachtwoord, dat kan worden gewijzigd en gereset via e-mail, als de noodzaak zich voordoet. Op gedecentraliseerde platforms zoals Waves is alles echter anders geregeld.";
 
 "hello.page.info.second.title" = "Wat u moet weten over uw SEED";
 
@@ -697,6 +699,8 @@
 
 "newaccount.textfield.error.doesnotmatch" = "Komt niet overeen";
 
+"newaccount.textfield.error.maximumcharacters" = "%d karakters maximaal";
+
 "newaccount.textfield.error.minimumcharacters" = "Minimaal %d karakters";
 
 "newaccount.textfield.error.passwordnotmatch" = "wachtwoord komt niet overeen";
@@ -844,6 +848,10 @@
 "receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "Als u minder dan %@ verzendt, verliest u dat geld.";
 
 "receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Het verzenden van een andere valuta naar dit adres kan resulteren in het verlies van uw storting.";
+
+"receivecryptocurrency.label.warningSmartContracts.subtitle" = "Controleer of uw wallet of exchange smart-contracts gebruikt om %@ the withdrawen. Wij accepteren zulke transacties niet en kunnen dit niet terug betalen. U raakt op deze manier uw geld kwijt.";
+
+"receivecryptocurrency.label.warningSmartContracts.title" = "Verstuur geen %@ vanuit smart contracts naar dit adres. Stort geen ERC20 tokens! Alleen %@ is toegestaan.";
 
 "receivegenerate.label.generate" = "Genereer…";
 

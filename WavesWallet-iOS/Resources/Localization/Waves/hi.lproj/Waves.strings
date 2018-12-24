@@ -1,5 +1,7 @@
 
-"newaccount.textfield.error.maximumcharacters" = "अधिकतम %d अक्षर";
+"coinomat.tryAgain" = "나중에 다시 시도하세요";
+
+"coinomat.temporarilyUnavailable" = "Coinomat 서비스를 일시적으로 사용할 수 없습니다";
 
 "Receivecard.Label.minimunAmountInfo" = "न्यूनतम %@ है, अधिकतम %@";
 
@@ -179,7 +181,7 @@
 
 "biometric.localizedFallbackTitle" = "पास वर्ड दर्ज करें";
 
-"biometric.manyattempts.subtitle" = "बॉयोमीट्रिक अनलॉक करने के लिए, अपने खाता पासवर्ड से साइन इन करेंें";
+"biometric.manyattempts.subtitle" = "बॉयोमीट्रिक अनलॉक करने के लिए, अपने खाता पासवर्ड से साइन इन करें";
 
 "biometric.manyattempts.title" = "भी कई प्रयास";
 
@@ -697,6 +699,8 @@
 
 "newaccount.textfield.error.doesnotmatch" = "मिलता जुलता नहीं है";
 
+"newaccount.textfield.error.maximumcharacters" = "अधिकतम %d अक्षर";
+
 "newaccount.textfield.error.minimumcharacters" = "न्यूनतम %d अक्षर";
 
 "newaccount.textfield.error.passwordnotmatch" = "पासवर्ड मेल नहीं खाता";
@@ -844,6 +848,10 @@
 "receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "यदि आप %@ से कम भेजेंगे, तो आप वह पैसा खो देंगे।";
 
 "receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "इस पते पर किसी अन्य मुद्रा को भेजने से आपके जमा की हानि हो सकती है।";
+
+"receivecryptocurrency.label.warningSmartContracts.subtitle" = "क करें किया क्या आपका वॉलेट या एक्सचेंज, %@ निकासी के लिए स्मार्ट-कॉन्ट्रैक्ट का उपयोग करता है। हम ऐसे लेनेदेन स्वीकार नहीं करते हैं और उनको रिफंड नहीं कर सकते हैं। आपको उस धन की हानि हो जाएगी।";
+
+"receivecryptocurrency.label.warningSmartContracts.title" = "कृपया स्मार्ट-कॉन्ट्रैक्ट से %@ जमा ना करें! ERC20 टोकन जमा ना करें! केवल %@ अनुमत है।";
 
 "receivegenerate.label.generate" = "उत्पन्न…";
 
