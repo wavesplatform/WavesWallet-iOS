@@ -42,7 +42,7 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
         let authAccount = FactoryInteractors.instance.authorization
         return authAccount.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<Money>> in
             guard let owner = self else { return Observable.empty() }
-            return owner.coinomatRepository.getPrice(address: wallet.address, amount: fiatAmount, type: fiatType)
+            return owner.coinomatRepository.getPrice(address: wallet.address, amount: fiatAmount, typeId: fiatType.id)
                 .map({ (money) -> ResponseType<Money> in
                     return ResponseType(output: money, error: nil)
                 })
@@ -83,14 +83,9 @@ private extension ReceiveCardInteractor {
             return owner.coinomatRepository.cardLimits(address: wallet.address, fiat: fiat.id)
                 .flatMap({ (limit) ->  Observable<ReceiveCard.DTO.AmountInfo> in
                     
-                    let minString = limit.min.displayText.replacingOccurrences(of: " ", with: "")
-                    let maxString = limit.max.displayText.replacingOccurrences(of: " ", with: "")
-
                     let amountInfo = ReceiveCard.DTO.AmountInfo(type: fiat,
                                                                 minAmount: limit.min,
-                                                                maxAmount: limit.max,
-                                                                minAmountString: minString,
-                                                                maxAmountString: maxString)
+                                                                maxAmount: limit.max)
                     return Observable.just(amountInfo)
                 })
         })

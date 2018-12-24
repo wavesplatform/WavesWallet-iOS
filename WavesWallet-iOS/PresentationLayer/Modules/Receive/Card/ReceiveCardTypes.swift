@@ -62,8 +62,6 @@ extension ReceiveCard.DTO {
         let type: FiatType
         let minAmount: Money
         let maxAmount: Money
-        let minAmountString: String
-        let maxAmountString: String
     }
     
     struct Info {

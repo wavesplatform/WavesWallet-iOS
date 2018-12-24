@@ -209,8 +209,8 @@ private extension ReceiveCardViewController {
     
     func setupAmountInfo(_ amountInfo: ReceiveCard.DTO.AmountInfo) {
         
-        let minimum = amountInfo.minAmountString + " " + selectedFiat.text
-        let maximum = amountInfo.maxAmountString + " " + selectedFiat.text
+        let minimum = amountInfo.minAmount.displayTextWithoutSpaces + " " + selectedFiat.text
+        let maximum = amountInfo.maxAmount.displayTextWithoutSpaces + " " + selectedFiat.text
         
         labelWarningMinimumAmount.text = Localizable.Waves.Receivecard.Label.minimunAmountInfo(minimum, maximum)
         viewWarning.isHidden = false
