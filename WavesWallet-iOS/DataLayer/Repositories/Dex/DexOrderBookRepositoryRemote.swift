@@ -26,7 +26,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
             
             return self.matcherProvider.rx
                 .request(.init(kind: .getOrderBook(amountAsset: amountAsset, priceAsset: priceAsset),
-                               environment: environment), callbackQueue: DispatchQueue.global(qos: .background))
+                               environment: environment))
                 .filterSuccessfulStatusAndRedirectCodes()
                 .map(API.DTO.OrderBook.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
                 .asObservable()
