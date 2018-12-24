@@ -57,16 +57,6 @@ final class AppCoordinator: Coordinator {
         self.windowRouter = windowRouter
     }
 
-//    init(_ window: UIWindow) {
-//        self.window = window
-//        let vc = UINavigationController()
-//        vc.navigationBar.isHidden = true
-//        let root = UIViewController()
-//        vc.pushViewController(root, animated: false)
-//        window.rootViewController = vc
-//        window.makeKeyAndVisible()
-//    }
-
     func start() {
         self.isActiveApp = true
 
