@@ -225,6 +225,7 @@
 		0A6CCD3B20F4CE250023E36E /* Asset+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6CCD3A20F4CE250023E36E /* Asset+Mapper.swift */; };
 		0A6CCD3D20F4CF490023E36E /* AccountBalanceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6CCD3C20F4CF490023E36E /* AccountBalanceInteractor.swift */; };
 		0A6E2C8821CBBEA0006F4073 /* PasscodeNewAccountCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6E2C8721CBBEA0006F4073 /* PasscodeNewAccountCoordinator.swift */; };
+		0A6E2C8B21D11B82006F4073 /* PasscodeLogInCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6E2C8A21D11B82006F4073 /* PasscodeLogInCoordinator.swift */; };
 		0A6F60E8216F888B00A5C615 /* DexMyOrdersTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087632163886800937644 /* DexMyOrdersTypes.swift */; };
 		0A6F60E9216F88B200A5C615 /* WalletTypes+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE491F22107A51A009223DB /* WalletTypes+ViewModels.swift */; };
 		0A6F60EA216F893600A5C615 /* WalletTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9A9E20EE425B0095A417 /* WalletTypes.swift */; };
@@ -1065,6 +1066,7 @@
 		0A6CCD3A20F4CE250023E36E /* Asset+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Asset+Mapper.swift"; sourceTree = "<group>"; };
 		0A6CCD3C20F4CF490023E36E /* AccountBalanceInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceInteractor.swift; sourceTree = "<group>"; };
 		0A6E2C8721CBBEA0006F4073 /* PasscodeNewAccountCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeNewAccountCoordinator.swift; sourceTree = "<group>"; };
+		0A6E2C8A21D11B82006F4073 /* PasscodeLogInCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeLogInCoordinator.swift; sourceTree = "<group>"; };
 		0A762D10214FDFA100BE9204 /* NewAccountAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountAvatarView.swift; sourceTree = "<group>"; };
 		0A762D12214FE23E00BE9204 /* NewAccountAvatarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewAccountAvatarView.xib; sourceTree = "<group>"; };
 		0A762D14214FE3F300BE9204 /* InputTextField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InputTextField.xib; sourceTree = "<group>"; };
@@ -2314,6 +2316,7 @@
 			children = (
 				0AFF5C76215A790F00B82940 /* PasscodeCoordinator.swift */,
 				0A6E2C8721CBBEA0006F4073 /* PasscodeNewAccountCoordinator.swift */,
+				0A6E2C8A21D11B82006F4073 /* PasscodeLogInCoordinator.swift */,
 			);
 			path = Passcode;
 			sourceTree = "<group>";
@@ -5275,6 +5278,7 @@
 				0AE657342106375D003D2DB8 /* TimestampSignature.swift in Sources */,
 				0A43996921504CF60032E608 /* SideMenu.swift in Sources */,
 				0AF922B8212E1234003BA067 /* UIViewController+Additionals.swift in Sources */,
+				0A6E2C8B21D11B82006F4073 /* PasscodeLogInCoordinator.swift in Sources */,
 				04A403242164D89700652F21 /* EnterStartBlockCell.swift in Sources */,
 				0A762D8D21639FA60019D447 /* TransactionHistoryPopupView.swift in Sources */,
 				0AF922BD212E1234003BA067 /* UIResponder+Rx.swift in Sources */,

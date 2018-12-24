@@ -13,7 +13,12 @@ import RESideMenu
 import RxOptional
 
 private enum Contants {
+
+    #if DEBUG || TEST
+    static let delay: TimeInterval = 0
+    #else
     static let delay: TimeInterval = 10
+    #endif
 }
 
 struct Application: TSUD {
@@ -174,12 +179,10 @@ extension AppCoordinator: HelloCoordinatorDelegate  {
     }
 }
 
-// MARK: PasscodeCoordinatorDelegate
-extension AppCoordinator: PasscodeCoordinatorDelegate {
+// MARK: PasscodeLogInCoordinatorDelegate
+extension AppCoordinator: PasscodeLogInCoordinatorDelegate {
 
-    func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {}
-
-    func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {
+    func passcodeCoordinatorLogInCompleted(wallet: DomainLayer.DTO.Wallet) {
         showDisplay(.slide(wallet))
     }
 
@@ -209,15 +212,12 @@ extension AppCoordinator: PresentationCoordinator {
 
         case .passcode(let wallet):
 
-            guard isHasCoordinator(type: PasscodeCoordinator.self) != true else { return }
+            guard isHasCoordinator(type: PasscodeLogInCoordinator.self) != true else { return }
 
-//            let passcodeCoordinator = PasscodeCoordinator(viewController: window.rootViewController!,
-//                                                          kind: .logIn(wallet))
-//            passcodeCoordinator.animated = false
-//            passcodeCoordinator.delegate = self
-//
-//            addChildCoordinator(childCoordinator: passcodeCoordinator)
-//            passcodeCoordinator.start()
+            let passcodeCoordinator = PasscodeLogInCoordinator(wallet: wallet)
+            passcodeCoordinator.delegate = self
+
+            addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
 
         case .slide(let wallet):
 
