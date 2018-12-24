@@ -55,7 +55,7 @@ final class ShortInfoPageView: UIView {
     func setupConstraints() {
         if Platform.isIphone5 {
             setupAllConstraints(titleTop: 58, titleLeading: 16, titleTrailing: 16)
-        } else if Platform.isIphoneX {
+        } else if Platform.isIphoneXSeries {
             setupAllConstraints(titleTop: 92, titleLeading: 24, titleTrailing: 24)
         } else {
             setupAllConstraints(titleTop: 68, titleLeading: 24, titleTrailing: 24)

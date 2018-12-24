@@ -69,7 +69,7 @@ final class LongInfoPageView: UIView {
     func setupConstraints() {
         if Platform.isIphone5 {
             setupAllConstraints(titleTop: 58, titleLeading: 16, textTrailing: 16, secondTop: 24)
-        } else if Platform.isIphoneX {
+        } else if Platform.isIphoneXSeries {
             setupAllConstraints(titleTop: 92, titleLeading: 24, textTrailing: 24, secondTop: 44)
         } else {
             setupAllConstraints(titleTop: 68, titleLeading: 24, textTrailing: 24, secondTop: 24)
