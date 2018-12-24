@@ -23,6 +23,7 @@ extension Matcher.Service {
            
             case getOrderHistory(TimestampSignature, isActiveOnly: Bool)
             case getOrderBook(amountAsset: String, priceAsset: String)
+            case getMarket
         }
 
         var kind: Kind
@@ -48,17 +49,14 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
         
         case .getOrderBook(let amountAsset, let priceAsset):
             return Constants.matcher + "/" + Constants.orderbook + "/" + amountAsset + "/" + priceAsset
+        
+        case .getMarket:
+            return Constants.matcher + "/" + Constants.orderbook
         }
     }
 
     var method: Moya.Method {
-        switch kind {
-        case .getOrderHistory:
-            return .get
-        
-        case .getOrderBook:
-            return .get
-        }
+       return .get
     }
 
     var task: Task {
@@ -69,7 +67,7 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
                                                bodyEncoding: URLEncoding.httpBody,
                                                urlParameters: [Constants.activeOnly: isActiveOnly])
         
-        case .getOrderBook:
+        default:
             return .requestPlain
         }
     }
