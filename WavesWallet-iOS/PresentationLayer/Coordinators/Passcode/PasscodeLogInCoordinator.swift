@@ -16,38 +16,87 @@ protocol PasscodeLogInCoordinatorDelegate: AnyObject {
 
 final class PasscodeLogInCoordinator: Coordinator {
 
+    enum RouterKind {
+        case alertWindow
+        case window(WindowRouter)
+        case navigation(NavigationRouter)
+    }
+
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private let windowRouter: WindowRouter
+    private let windowRouter: WindowRouter?
     private let passcodeNavigationRouter: NavigationRouter
+    private let routerKind: RouterKind
+
     private let wallet: DomainLayer.DTO.Wallet
 
     weak var delegate: PasscodeLogInCoordinatorDelegate?
 
-    init(wallet: DomainLayer.DTO.Wallet) {
-        let window = UIWindow()
-        window.windowLevel = UIWindow.Level(rawValue: CGFloat.greatestFiniteMagnitude)
-        self.windowRouter = WindowRouter(window: window)
+    init(wallet: DomainLayer.DTO.Wallet, routerKind: RouterKind) {
+
+        self.routerKind = routerKind
+
+        switch routerKind {
+        case .alertWindow:
+
+            let window = UIWindow()
+            window.windowLevel = UIWindow.Level(rawValue: CGFloat.greatestFiniteMagnitude)
+            self.windowRouter = WindowRouter(window: window)
+            self.passcodeNavigationRouter = NavigationRouter(navigationController: CustomNavigationController())
+
+        case .navigation(let navRouter):
+            self.passcodeNavigationRouter = navRouter
+            self.windowRouter = nil
+
+        case .window(let window):
+            self.windowRouter = window
+            self.passcodeNavigationRouter = NavigationRouter(navigationController: CustomNavigationController())
+        }
+
         self.wallet = wallet
-        self.passcodeNavigationRouter = NavigationRouter(navigationController: CustomNavigationController())
     }
 
     func start() {
 
-        let vc = PasscodeModuleBuilder(output: self)
-            .build(input: .init(kind: .logIn(wallet),
-                                hasBackButton: false))
 
-        passcodeNavigationRouter.pushViewController(vc)
 
-        windowRouter.setRootViewController(passcodeNavigationRouter.navigationController)
+        switch routerKind {
+        case .alertWindow, .window:
+
+            let vc = PasscodeModuleBuilder(output: self)
+                .build(input: .init(kind: .logIn(wallet),
+                                    hasBackButton: false))
+
+            guard let windowRouter = self.windowRouter else { break }
+            passcodeNavigationRouter.pushViewController(vc)
+            windowRouter.setRootViewController(passcodeNavigationRouter.navigationController)
+
+        case .navigation:
+            let vc = PasscodeModuleBuilder(output: self)
+                .build(input: .init(kind: .logIn(wallet),
+                                    hasBackButton: true))
+
+            passcodeNavigationRouter.pushViewController(vc, animated: true) { [weak self] in
+                self?.removeFromParentCoordinator()
+            }
+        }
     }
 
     private func dissmiss() {
-        windowRouter.dissmissWindow(animated: nil, completed: { [weak self] in
-            self?.removeFromParentCoordinator()
-        })
+
+        switch routerKind {
+        case .alertWindow, .window:
+
+            guard let windowRouter = self.windowRouter else { break }
+
+            windowRouter.dissmissWindow(animated: nil, completed: { [weak self] in
+                self?.removeFromParentCoordinator()
+            })
+
+        case .navigation:
+            passcodeNavigationRouter.popViewController()
+        }
     }
 
     deinit {

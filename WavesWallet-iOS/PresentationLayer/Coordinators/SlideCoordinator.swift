@@ -44,28 +44,22 @@ final class SlideCoordinator: Coordinator {
 extension SlideCoordinator: PresentationCoordinator {
 
     enum Display {
-        case passcode(DomainLayer.DTO.Wallet)
         case wallet(DomainLayer.DTO.Wallet)
         case enter
     }
 
     func showDisplay(_ display: Display) {
+        
         switch display {
-        case .passcode(let wallet):
-            break
-//            let passcodeCoordinator = PasscodeCoordinator(viewController: window!.rootViewController!,
-//                                                          kind: .logIn(wallet))
-//            passcodeCoordinator.animated = true
-//            passcodeCoordinator.delegate = self
-//            addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
-
         case .wallet:
-
+            self.removeCoordinators()
             let mainTabBarController = MainTabBarCoordinator(slideMenuRouter: slideMenuRouter,
                                                              applicationCoordinator: self)
             addChildCoordinatorAndStart(childCoordinator: mainTabBarController)
 
         case .enter:
+            self.removeCoordinators()
+
             let enter = EnterCoordinator(slideMenuRouter: slideMenuRouter, applicationCoordinator: self)
             enter.delegate = self
             addChildCoordinatorAndStart(childCoordinator: enter)
@@ -73,24 +67,9 @@ extension SlideCoordinator: PresentationCoordinator {
     }
 }
 
-// MARK: PasscodeCoordinatorDelegate
-extension SlideCoordinator: PasscodeCoordinatorDelegate {
-
-    func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {}
-
-    func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {
-        showDisplay(.wallet(wallet))
-    }
-
-    func passcodeCoordinatorWalletLogouted() {
-        showDisplay(.enter)
-    }
-}
-
 // MARK: ApplicationCoordinatorProtocol
 extension SlideCoordinator: ApplicationCoordinatorProtocol {
     func showEnterDisplay() {
-        self.removeCoordinators()
         showDisplay(.enter)
     }
 }

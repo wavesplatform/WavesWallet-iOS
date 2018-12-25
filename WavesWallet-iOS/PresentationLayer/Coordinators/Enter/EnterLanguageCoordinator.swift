@@ -17,24 +17,16 @@ final class EnterLanguageCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
     
-    var popup: PopupViewController!
- 
-    private let parentController: UIViewController
-    
+    private let popup: PopupViewController = PopupViewController()
+
     weak var delegate: EnterLanguageCoordinatorDelegate?
-    
-    init(parentController: UIViewController) {
-        self.parentController = parentController
-    }
-    
+
     func start() {
-        popup = PopupViewController()
+
         let enterLanguage = StoryboardScene.Language.languageViewController.instantiate()
         enterLanguage.delegate = self
-        
         popup.present(contentViewController: enterLanguage)
     }
-    
 }
 
 // MARK: LanguageViewControllerDelegate
