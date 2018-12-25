@@ -10,11 +10,6 @@ import Foundation
 
 extension API.DTO {
 
-    struct Pair: Decodable {
-        let amountAsset: String
-        let priceAsset: String
-    }
-
     enum OrderType: String, Decodable {
         case sell
         case buy
