@@ -8,11 +8,7 @@
 
 import Foundation
 import RxSwift
-import Alamofire
 
-private enum Constants {
-    static let pair = "/v0" + "/pairs"
-}
 
 final class DexListInteractor: DexListInteractorProtocol {
    
@@ -33,9 +29,33 @@ final class DexListInteractor: DexListInteractorProtocol {
                         return Observable.just(ResponseType(output: [], error: nil))
                     }
                     else {
-                        return owner.dexListRepository.list(by: pairs).flatMap({ (pairs) -> Observable<ResponseType<[DexList.DTO.Pair]>> in
-                            return Observable.just(ResponseType(output: pairs, error: nil))
-                        })
+                        
+                        let listPairs = pairs.map { API.DTO.Pair(amountAsset: $0.amountAsset.id,
+                                                                priceAsset: $0.priceAsset.id)}
+                        
+                        return owner.dexListRepository.list(by: listPairs)
+                            .flatMap({ (list) -> Observable<ResponseType<[DexList.DTO.Pair]>> in
+                                
+                                var listPairs: [DexList.DTO.Pair] = []
+                                
+                                for (index, pair) in list.enumerated() {
+                                    let localPair = pairs[index]
+                                    
+                                    let priceAsset = localPair.priceAsset
+                                    let firstPrice = Money(value: Decimal(pair.firstPrice), priceAsset.decimals)
+                                    let lastPrice = Money(value: Decimal(pair.lastPrice), priceAsset.decimals)
+                                    
+                                    let pair = DexList.DTO.Pair(firstPrice: firstPrice,
+                                                                lastPrice: lastPrice,
+                                                                amountAsset: localPair.amountAsset,
+                                                                priceAsset: priceAsset,
+                                                                isGeneral: localPair.isGeneral,
+                                                                sortLevel: localPair.sortLevel)
+                                    listPairs.append(pair)
+                                    
+                                }
+                                return Observable.just(ResponseType(output: listPairs, error: nil))
+                            })
                         .catchError({ (error) -> Observable<ResponseType<[DexList.DTO.Pair]>> in
                             if let error = error as? NetworkError {
                                 return Observable.just(ResponseType(output: nil, error: error))

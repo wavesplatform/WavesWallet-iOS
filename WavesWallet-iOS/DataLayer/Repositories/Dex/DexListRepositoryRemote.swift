@@ -8,74 +8,28 @@
 
 import Foundation
 import RxSwift
-
-private enum Constants {
-    static let pairsPath = "/v0" + "/pairs"
-}
+import Moya
 
 final class DexListRepositoryRemote: DexListRepositoryProtocol {
     
-    func list(by pairs: [DexMarket.DTO.Pair]) -> Observable<[DexList.DTO.Pair]> {
-     
-        return Observable.create({ (subscribe) -> Disposable in
-            
-            var url = Environments.current.servers.dataUrl.relativeString + Constants.pairsPath
+    private let environment = FactoryRepositories.instance.environmentRepository
+    private let auth = FactoryInteractors.instance.authorization
+    private let apiProvider: MoyaProvider<API.Service.ListPairs> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
+    
+    func list(by pairs: [API.DTO.Pair]) -> Observable<[API.DTO.ListPair]> {
 
-            for pair in pairs {
-                if (url as NSString).range(of: "?").location == NSNotFound {
-                    url.append("?")
-                }
-                if url.last != "?" {
-                    url.append("&")
-                }
-                url.append("pairs=" + pair.amountAsset.id + "/" + pair.priceAsset.id)
-            }
-            
-            let req = NetworkManager.getRequestWithUrl(url, parameters: nil) { (info, error) in
-                
-                if let error = error {
-                    subscribe.onError(error)
-                }
-                else if let info = info {
-            
-                    var listPairs: [DexList.DTO.Pair] = []
+        return auth.authorizedWallet().flatMap({ (wallet) -> Observable<[API.DTO.ListPair]> in
+            return self.environment.accountEnvironment(accountAddress: wallet.address)
+                .flatMap({ (environment) -> Observable<[API.DTO.ListPair]> in
                     
-                    for (index, item) in info["data"].arrayValue.enumerated() {
-                        
-                        let localPair = pairs[index]
-                        
-                        let amountAsset = Dex.DTO.Asset(id: localPair.amountAsset.id,
-                                                        name: localPair.amountAsset.name,
-                                                        shortName: localPair.amountAsset.shortName,
-                                                        decimals: localPair.amountAsset.decimals)
-                        
-                        let priceAsset = Dex.DTO.Asset(id: localPair.priceAsset.id,
-                                                       name: localPair.priceAsset.name,
-                                                       shortName: localPair.priceAsset.shortName,
-                                                       decimals: localPair.priceAsset.decimals)
-                        
-                        let info = item["data"]
-                        let firstPrice = Money(value: Decimal(info["firstPrice"].doubleValue), priceAsset.decimals)
-                        let lastPrice = Money(value: Decimal(info["lastPrice"].doubleValue), priceAsset.decimals)
-                        
-                        let pair = DexList.DTO.Pair(firstPrice: firstPrice,
-                                                    lastPrice: lastPrice,
-                                                    amountAsset: amountAsset,
-                                                    priceAsset: priceAsset,
-                                                    isGeneral: localPair.isGeneral,
-                                                    sortLevel: localPair.sortLevel)
-                        listPairs.append(pair)
-                    }
-                    
-                    subscribe.onNext(listPairs)
-                    subscribe.onCompleted()
-                }
-            }
-            
-            return Disposables.create {
-                req.cancel()
-            }
+                    return self.apiProvider.rx
+                        .request(.init(pairs: pairs, environment: environment),
+                                 callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                        .filterSuccessfulStatusAndRedirectCodes()
+                        .map(API.Response<[API.OptionalResponse<API.DTO.ListPair>]>.self)
+                        .map { $0.data.map {$0.data ?? .empty}}
+                        .asObservable()
+                })
         })
-        
     }
 }
