@@ -17,6 +17,10 @@ enum ReceiveCard {
         case getUSDAmountInfo
         case getEURAmountInfo
         case updateAmount(Money)
+        case didGetPriceInfo(ResponseType<Money>)
+        case updateAmountWithUSDFiat
+        case updateAmountWithEURFiat
+        case linkDidGenerate(String)
     }
     
     struct State: Mutating {
@@ -25,9 +29,12 @@ enum ReceiveCard {
             case didGetInfo
             case didFailGetInfo(NetworkError)
             case changeUrl
+            case didGetWavesAmount(Money)
+            case didFailGetWavesAmount(NetworkError)
         }
 
         var isNeedLoadInfo: Bool
+        var isNeedLoadPriceInfo: Bool
         var fiatType: DTO.FiatType
         var action: Action
         var link: String = ""
@@ -56,8 +63,6 @@ extension ReceiveCard.DTO {
         let type: FiatType
         let minAmount: Money
         let maxAmount: Money
-        let minAmountString: String
-        let maxAmountString: String
     }
     
     struct Info {
@@ -89,3 +94,15 @@ extension ReceiveCard.DTO.FiatType {
         }
     }
 }
+
+
+extension ReceiveCard.State: Equatable {
+    
+    static func == (lhs: ReceiveCard.State, rhs: ReceiveCard.State) -> Bool {
+        return lhs.isNeedLoadInfo == rhs.isNeedLoadInfo &&
+            lhs.isNeedLoadPriceInfo == rhs.isNeedLoadPriceInfo &&
+            lhs.fiatType == rhs.fiatType &&
+            lhs.amount == rhs.amount
+    }
+}
+
