@@ -59,8 +59,6 @@ final class PasscodeLogInCoordinator: Coordinator {
 
     func start() {
 
-
-
         switch routerKind {
         case .alertWindow, .window:
 
