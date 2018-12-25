@@ -35,6 +35,25 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
                 return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
             })
     }
+    
+    
+    func getWavesAmount(fiatAmount: Money, fiatType: ReceiveCard.DTO.FiatType) -> Observable<ResponseType<Money>> {
+        
+        let authAccount = FactoryInteractors.instance.authorization
+        return authAccount.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<Money>> in
+            guard let owner = self else { return Observable.empty() }
+            return owner.coinomatRepository.getPrice(address: wallet.address, amount: fiatAmount, type: fiatType.id)
+                .map({ (money) -> ResponseType<Money> in
+                    return ResponseType(output: money, error: nil)
+                })
+                .catchError({ (error) -> Observable<ResponseType<Money>> in
+                    if let error = error as? NetworkError {
+                        return Observable.just(ResponseType(output: nil, error: error))
+                    }
+                    return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
+                })
+        })
+    }
 }
 
 private extension ReceiveCardInteractor {
@@ -64,17 +83,11 @@ private extension ReceiveCardInteractor {
             return owner.coinomatRepository.cardLimits(address: wallet.address, fiat: fiat.id)
                 .flatMap({ (limit) ->  Observable<ReceiveCard.DTO.AmountInfo> in
                     
-                    let minString = limit.min.displayText.replacingOccurrences(of: " ", with: "")
-                    let maxString = limit.max.displayText.replacingOccurrences(of: " ", with: "")
-
                     let amountInfo = ReceiveCard.DTO.AmountInfo(type: fiat,
                                                                 minAmount: limit.min,
-                                                                maxAmount: limit.max,
-                                                                minAmountString: minString,
-                                                                maxAmountString: maxString)
+                                                                maxAmount: limit.max)
                     return Observable.just(amountInfo)
                 })
         })
     }
-    
 }

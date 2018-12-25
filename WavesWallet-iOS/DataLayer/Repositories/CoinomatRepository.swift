@@ -53,7 +53,7 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
                                                    monero_payment_id: moneroPaymentID)
 
         return coinomatProvider.rx
-        .request(.createTunnel(tunnel))
+        .request(.createTunnel(tunnel), callbackQueue:  DispatchQueue.global(qos: .userInteractive))
         .filterSuccessfulStatusAndRedirectCodes()
         .map(Response.CreateTunnel.self)
         .asObservable()
@@ -64,7 +64,7 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
                                                     k1: model.k1,
                                                     k2: model.k2)
             return owner.coinomatProvider.rx
-            .request(.getTunnel(tunnel))
+            .request(.getTunnel(tunnel), callbackQueue:  DispatchQueue.global(qos: .userInteractive))
             .filterSuccessfulStatusAndRedirectCodes()
             .map(Response.GetTunnel.self)
             .asObservable()
@@ -81,7 +81,7 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
                                          to: asset.gatewayId ?? "")
         
         return coinomatProvider.rx
-            .request(.getRate(rate))
+            .request(.getRate(rate), callbackQueue: DispatchQueue.global(qos: .userInteractive))
             .filterSuccessfulStatusAndRedirectCodes()
             .map(Response.Rate.self)
             .asObservable()
@@ -100,7 +100,7 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
                                                    address: address,
                                                    fiat: fiat)
         return coinomatProvider.rx
-            .request(.cardLimit(cardLimit))
+            .request(.cardLimit(cardLimit), callbackQueue: DispatchQueue.global(qos: .userInteractive))
             .filterSuccessfulStatusAndRedirectCodes()
             .map(Response.CardLimit.self)
             .asObservable()
@@ -109,5 +109,31 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
                 let max = Money(value: Decimal(limit.max), GlobalConstants.FiatDecimals)
                 return DomainLayer.DTO.Coinomat.CardLimit(min: min, max: max)
             })
+    }
+    
+    func getPrice(address: String, amount: Money, type: String) -> Observable<Money> {
+        
+        let price = Coinomat.Service.Price(fiat: type,
+                                           address: address,
+                                           amount: amount.doubleValue)
+        return coinomatProvider.rx
+        .request(.getPrice(price), callbackQueue: DispatchQueue.global(qos: .userInteractive))
+        .filterSuccessfulStatusAndRedirectCodes()
+        .asObservable()
+        .map({ (response) -> Money in
+            
+            let string = String(data: response.data, encoding: .utf8) ?? ""
+            return Money(value: Decimal((string as NSString).doubleValue), GlobalConstants.WavesDecimals)
+        })
+    }
+    
+    func generateBuyLink(address: String, amount: Double, fiat: String) -> Observable<String> {
+
+        let params = ["crypto" : GlobalConstants.wavesAssetId,
+                      "address" : address,
+                      "amount" : String(amount),
+                      "fiat" : fiat]
+        
+        return Observable.just(Coinomat.buyURL.urlByAdding(params: params))
     }
 }
