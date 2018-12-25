@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+
 private enum Constants {
     static let duration: TimeInterval = 3
 }
@@ -17,7 +18,7 @@ final class ImportCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private let navigationController: UINavigationController
+    private let navigationRouter: NavigationRouter
     private let completed: ((ImportTypes.DTO.Account) -> Void)
 
     private let disposeBag: DisposeBag = DisposeBag()
@@ -25,8 +26,8 @@ final class ImportCoordinator: Coordinator {
     private var currentPrivateKeyAccount: PrivateKeyAccount?
     
 
-    init(navigationController: UINavigationController, completed: @escaping ((ImportTypes.DTO.Account) -> Void)) {
-        self.navigationController = navigationController
+    init(navigationRouter: NavigationRouter, completed: @escaping ((ImportTypes.DTO.Account) -> Void)) {
+        self.navigationRouter = navigationRouter
         self.completed = completed
     }
 
@@ -35,8 +36,8 @@ final class ImportCoordinator: Coordinator {
         
         vc.scanViewController.delegate = self
         vc.manuallyViewController.delegate = self
-        
-        self.navigationController.pushViewController(vc, animated: true)
+
+        navigationRouter.pushViewController(vc)
     }
     
     // MARK: - Child Controllers
@@ -47,40 +48,40 @@ final class ImportCoordinator: Coordinator {
             currentPrivateKeyAccount = privateKeyAccount
 
 
-            auth.existWallet(by: privateKeyAccount.getPublicKeyStr()).subscribe(onNext: { [weak self] wallet in
-
-                self?.navigationController.topViewController?.showErrorSnackWithoutAction(tille: Localizable.Waves.Import.General.Error.alreadyinuse, duration: Constants.duration)
-
-                }, onError: { [weak self] _ in
-
-                    self?.showAccountPassword(privateKeyAccount)
-                })
-                .disposed(by: disposeBag)
+//            auth
+//                .existWallet(by: privateKeyAccount.getPublicKeyStr())
+//                .subscribe(onNext: { [weak self] wallet in
+//
+//                    self?.navigationController.topViewController?.showErrorSnackWithoutAction(tille: Localizable.Waves.Import.General.Error.alreadyinuse, duration: Constants.duration)
+//
+//                }, onError: { [weak self] _ in
+//                    self?.showAccountPassword(privateKeyAccount)
+//                })
+//                .disposed(by: disposeBag)
         } else {
-            if let vc = navigationController.viewControllers.first(where: {$0.isKind(of: ImportAccountViewController.classForCoder())}) {
-                vc.showMessageSnack(title: Localizable.Waves.Enter.Button.Importaccount.Error.insecureSeed)
-            }
+//            if let vc = navigationController.viewControllers.first(where: {$0.isKind(of: ImportAccountViewController.classForCoder())}) {
+//                vc.showMessageSnack(title: Localizable.Waves.Enter.Button.Importaccount.Error.insecureSeed)
+//            }
         }
     }
     
     func showQRCodeReader() {
         
-        QRCodeReaderControllerCoordinator(rootViewController: navigationController).start { [weak self] (result) in
-            if let seed = result?.value {
-                self?.scannedSeed(seed)
-            }
-            
-            self?.navigationController.dismiss(animated: true)
-        }
-        
+//        QRCodeReaderControllerCoordinator(rootViewController: navigationController).start { [weak self] (result) in
+//            if let seed = result?.value {
+//                self?.scannedSeed(seed)
+//            }
+//
+//            self?.navigationController.dismiss(animated: true)
+//        }
     }
     
     func showAccountPassword(_ keyAccount: PrivateKeyAccount) {
 
-        let vc = StoryboardScene.Import.importAccountPasswordViewController.instantiate()
-        vc.delegate = self
-        vc.address = keyAccount.address
-        self.navigationController.pushViewController(vc, animated: true)
+//        let vc = StoryboardScene.Import.importAccountPasswordViewController.instantiate()
+//        vc.delegate = self
+//        vc.address = keyAccount.address
+//        self.navigationController.pushViewController(vc, animated: true)
     }
     
 }
@@ -91,8 +92,6 @@ extension ImportCoordinator: ImportAccountViewControllerDelegate {
     func scanTapped() {
         showQRCodeReader()
     }
-
-    
 }
 
 // MARK: ImportWelcomeBackViewControllerDelegate
@@ -102,7 +101,6 @@ extension ImportCoordinator: ImportWelcomeBackViewControllerDelegate {
         currentPrivateKeyAccount = keyAccount
         showAccountPassword(keyAccount)
     }
-    
 }
 
 
@@ -116,7 +114,5 @@ extension ImportCoordinator: ImportAccountPasswordViewControllerDelegate {
         completed(.init(privateKey: privateKeyAccount,
                         password: password,
                         name: name))
-        
     }
-    
 }

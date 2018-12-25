@@ -51,10 +51,8 @@ final class ChooseAccountCoordinator: Coordinator {
     }
     
     private func showEdit(wallet: DomainLayer.DTO.Wallet, animated: Bool = true) {
-//        let editCoordinator = EditAccountNameCoordinator(navigationController: navigationController, wallet: wallet)
-//        addChildCoordinator(childCoordinator: editCoordinator)
-//        editCoordinator.start()
-        navigationRouter.navigationController.popToRootViewController(animated: true)
+        let editCoordinator = EditAccountNameCoordinator(navigationRouter: navigationRouter, wallet: wallet)
+        addChildCoordinatorAndStart(childCoordinator: editCoordinator)
     }
 
     func showAccountPassword(kind: AccountPasswordTypes.DTO.Kind) {
@@ -80,7 +78,12 @@ extension ChooseAccountCoordinator: PresentationCoordinator {
         switch display {
 
         case .passcodeLogIn(let wallet):
-            showPasscode(kind: .logIn(wallet))
+            guard isHasCoordinator(type: PasscodeLogInCoordinator.self) != true else { return }
+
+            let passcodeCoordinator = PasscodeLogInCoordinator(wallet: wallet, routerKind: .navigation(navigationRouter))
+            passcodeCoordinator.delegate = self
+
+            addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
 
         case .passcodeChangePasscode(let wallet, let password):
             showPasscode(kind: .changePasscodeByPassword(wallet, password: password))
@@ -122,6 +125,15 @@ extension ChooseAccountCoordinator: AccountPasswordModuleOutput {
     func accountPasswordVerifyAccess(signedWallet: DomainLayer.DTO.SignedWallet, password: String) {}
 }
 
+// MARK: PasscodeLogInCoordinatorDelegate
+extension ChooseAccountCoordinator: PasscodeLogInCoordinatorDelegate {
+
+    func passcodeCoordinatorLogInCompleted(wallet: DomainLayer.DTO.Wallet) {
+        delegate?.userChooseCompleted(wallet: wallet)
+        removeFromParentCoordinator()
+    }
+}
+
 // MARK: PasscodeCoordinatorDelegate
 extension ChooseAccountCoordinator: PasscodeCoordinatorDelegate {
 
@@ -133,7 +145,7 @@ extension ChooseAccountCoordinator: PasscodeCoordinatorDelegate {
     }
 
     func passcodeCoordinatorWalletLogouted() {
-        removeFromParentCoordinator()
         self.applicationCoordinator?.showEnterDisplay()
+        removeFromParentCoordinator()
     }
 }

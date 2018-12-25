@@ -51,6 +51,7 @@ extension EnterCoordinator: PresentationCoordinator {
         case importAccount
         case newAccount
         case passcodeRegistration(PasscodeTypes.DTO.Account)
+        case changeLanguage
     }
 
     func showDisplay(_ display: Display) {
@@ -60,13 +61,31 @@ extension EnterCoordinator: PresentationCoordinator {
             showSignInAccount()
 
         case .importAccount:
-            break
+            let coordinator = ImportCoordinator(navigationRouter: navigationRouter) { [weak self] account in
+                self?.showPasscode(with: .init(privateKey: account.privateKey,
+                                               password: account.password,
+                                               name: account.name,
+                                               needBackup: false))
+            }
+            addChildCoordinatorAndStart(childCoordinator: coordinator)
 
         case .newAccount:
-            showNewAccount()
+            let coordinator = NewAccountCoordinator(navigationRouter: navigationRouter) { [weak self] account, needBackup  in
+                let account: PasscodeTypes.DTO.Account = .init(privateKey: account.privateKey,
+                                                               password: account.password,
+                                                               name: account.name,
+                                                               needBackup: needBackup)
+
+                self?.showDisplay(.passcodeRegistration(account))
+            }
+            addChildCoordinatorAndStart(childCoordinator: coordinator)            
 
         case .passcodeRegistration(let account):
             showPasscode(with: account)
+
+        case .changeLanguage:
+            let languageCoordinator = EnterLanguageCoordinator()
+            addChildCoordinatorAndStart(childCoordinator: languageCoordinator)
         }
     }
 
@@ -95,20 +114,12 @@ extension EnterCoordinator: EnterStartViewControllerDelegate {
 //        }
 //        addChildCoordinator(childCoordinator: coordinator)
 //        coordinator.start()
+
+        showDisplay(.importAccount)
     }
 
     func showNewAccount() {
-
-        let coordinator = NewAccountCoordinator(navigationRouter: navigationRouter) { [weak self] account, needBackup  in
-            let account: PasscodeTypes.DTO.Account = .init(privateKey: account.privateKey,
-                                                           password: account.password,
-                                                           name: account.name,
-                                                           needBackup: needBackup)
-
-            self?.showDisplay(.passcodeRegistration(account))
-        }
-        addChildCoordinator(childCoordinator: coordinator)
-        coordinator.start()
+        showDisplay(.newAccount)
     }
 
     func showPasscode(with account: PasscodeTypes.DTO.Account) {
@@ -120,9 +131,7 @@ extension EnterCoordinator: EnterStartViewControllerDelegate {
     }
     
     func showLanguageCoordinator() {
-//        let languageCoordinator = EnterLanguageCoordinator(parentController: navigationController)
-//        addChildCoordinator(childCoordinator: languageCoordinator)
-//        languageCoordinator.start()
+        showDisplay(.changeLanguage)
     }
 }
 

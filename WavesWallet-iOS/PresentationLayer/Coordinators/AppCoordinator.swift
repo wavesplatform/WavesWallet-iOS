@@ -72,6 +72,57 @@ final class AppCoordinator: Coordinator {
     }
 }
 
+// MARK: Methods for showing differnt displays
+extension AppCoordinator: PresentationCoordinator {
+
+    enum Display: Equatable {
+        case hello
+        case slide(DomainLayer.DTO.Wallet)
+        case enter
+        case passcode(DomainLayer.DTO.Wallet)
+    }
+
+    func showDisplay(_ display: AppCoordinator.Display) {
+
+        switch display {
+        case .hello:
+
+            let helloCoordinator = HelloCoordinator(windowRouter: windowRouter)
+            helloCoordinator.delegate = self
+            addChildCoordinatorAndStart(childCoordinator: helloCoordinator)
+
+        case .passcode(let wallet):
+
+            guard isHasCoordinator(type: PasscodeLogInCoordinator.self) != true else { return }
+
+            let passcodeCoordinator = PasscodeLogInCoordinator(wallet: wallet, routerKind: .alertWindow)
+            passcodeCoordinator.delegate = self
+
+            addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
+
+        case .slide(let wallet):
+
+            guard isHasCoordinator(type: SlideCoordinator.self) != true else { return }
+
+            let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: wallet)
+            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)            
+
+        case .enter:
+
+            let prevSlideCoordinator = self.childCoordinators.first { (coordinator) -> Bool in
+                return coordinator is SlideCoordinator
+            }
+
+            guard prevSlideCoordinator?.isHasCoordinator(type: EnterCoordinator.self) != true else { return }
+
+            let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: nil)
+            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
+        }
+    }
+}
+
+
+
 // MARK: Main Logic
 extension AppCoordinator  {
 
@@ -98,7 +149,7 @@ extension AppCoordinator  {
                 } else {
                     return Display.passcode(wallet)
                 }
-            }
+        }
     }
 
     private func logInApplication() {
@@ -121,7 +172,7 @@ extension AppCoordinator  {
             .just(1)
             .delay(Contants.delay, scheduler: MainScheduler.asyncInstance)
             .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet?> in
-                
+
                 guard let owner = self else { return Observable.never() }
 
                 if owner.isActiveApp == true {
@@ -136,8 +187,8 @@ extension AppCoordinator  {
                             guard let owner = self else { return Observable.never() }
 
                             return owner.authoAuthorizationInteractor
-                                    .lastWalletLoggedIn()
-                                    .take(1)
+                                .lastWalletLoggedIn()
+                                .take(1)
                         })
             }
             .share()
@@ -181,54 +232,6 @@ extension AppCoordinator: PasscodeLogInCoordinatorDelegate {
     }
 }
 
-// MARK: Methods for showing differnt displays
-extension AppCoordinator: PresentationCoordinator {
-
-    enum Display: Equatable {
-        case hello
-        case slide(DomainLayer.DTO.Wallet)
-        case enter
-        case passcode(DomainLayer.DTO.Wallet)
-    }
-
-    func showDisplay(_ display: AppCoordinator.Display) {
-
-        switch display {
-        case .hello:
-
-            let helloCoordinator = HelloCoordinator(windowRouter: windowRouter)
-            helloCoordinator.delegate = self
-            addChildCoordinatorAndStart(childCoordinator: helloCoordinator)
-
-        case .passcode(let wallet):
-
-            guard isHasCoordinator(type: PasscodeLogInCoordinator.self) != true else { return }
-
-            let passcodeCoordinator = PasscodeLogInCoordinator(wallet: wallet)
-            passcodeCoordinator.delegate = self
-
-            addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
-
-        case .slide(let wallet):
-
-            guard isHasCoordinator(type: SlideCoordinator.self) != true else { return }
-
-            let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: wallet)
-            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)            
-
-        case .enter:
-
-            let prevSlideCoordinator = self.childCoordinators.first { (coordinator) -> Bool in
-                return coordinator is SlideCoordinator
-            }
-
-            guard prevSlideCoordinator?.isHasCoordinator(type: EnterCoordinator.self) != true else { return }
-
-            let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: nil)
-            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
-        }
-    }
-}
 
 // MARK: Lifecycle application
 extension AppCoordinator {
