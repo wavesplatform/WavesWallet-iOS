@@ -37,7 +37,7 @@ final class LastTradesRepository: LastTradesRepositoryProtocol {
                                                             limit: limit)
                     
                     return owner.apiProvider.rx.request(.init(kind: .getExchangeWithFilters(filters), environment: environment),
-                                                        callbackQueue: DispatchQueue.global(qos: .background))
+                                                        callbackQueue: DispatchQueue.global(qos: .userInteractive))
                         .filterSuccessfulStatusAndRedirectCodes()
                         .asObservable()
                         .map(API.Response<[API.Response<API.DTO.ExchangeTransaction>]>.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)

@@ -53,7 +53,7 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
                                                    monero_payment_id: moneroPaymentID)
 
         return coinomatProvider.rx
-        .request(.createTunnel(tunnel), callbackQueue:  DispatchQueue.global(qos: .background))
+        .request(.createTunnel(tunnel), callbackQueue:  DispatchQueue.global(qos: .userInteractive))
         .filterSuccessfulStatusAndRedirectCodes()
         .map(Response.CreateTunnel.self)
         .asObservable()
@@ -64,7 +64,7 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
                                                     k1: model.k1,
                                                     k2: model.k2)
             return owner.coinomatProvider.rx
-            .request(.getTunnel(tunnel), callbackQueue:  DispatchQueue.global(qos: .background))
+            .request(.getTunnel(tunnel), callbackQueue:  DispatchQueue.global(qos: .userInteractive))
             .filterSuccessfulStatusAndRedirectCodes()
             .map(Response.GetTunnel.self)
             .asObservable()
@@ -81,7 +81,7 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
                                          to: asset.gatewayId ?? "")
         
         return coinomatProvider.rx
-            .request(.getRate(rate), callbackQueue: DispatchQueue.global(qos: .background))
+            .request(.getRate(rate), callbackQueue: DispatchQueue.global(qos: .userInteractive))
             .filterSuccessfulStatusAndRedirectCodes()
             .map(Response.Rate.self)
             .asObservable()
@@ -100,7 +100,7 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
                                                    address: address,
                                                    fiat: fiat)
         return coinomatProvider.rx
-            .request(.cardLimit(cardLimit), callbackQueue: DispatchQueue.global(qos: .background))
+            .request(.cardLimit(cardLimit), callbackQueue: DispatchQueue.global(qos: .userInteractive))
             .filterSuccessfulStatusAndRedirectCodes()
             .map(Response.CardLimit.self)
             .asObservable()
@@ -117,7 +117,7 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
                                            address: address,
                                            amount: amount.doubleValue)
         return coinomatProvider.rx
-        .request(.getPrice(price), callbackQueue: DispatchQueue.global(qos: .background))
+        .request(.getPrice(price), callbackQueue: DispatchQueue.global(qos: .userInteractive))
         .filterSuccessfulStatusAndRedirectCodes()
         .asObservable()
         .map({ (response) -> Money in
