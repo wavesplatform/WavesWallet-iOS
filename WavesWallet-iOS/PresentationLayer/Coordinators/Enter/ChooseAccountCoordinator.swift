@@ -86,7 +86,14 @@ extension ChooseAccountCoordinator: PresentationCoordinator {
             addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
 
         case .passcodeChangePasscode(let wallet, let password):
-            showPasscode(kind: .changePasscodeByPassword(wallet, password: password))
+            guard isHasCoordinator(type: PasscodeChangePasscodeCoordinator.self) != true else { return }
+
+            let passcodeCoordinator = PasscodeChangePasscodeCoordinator(navigationRouter: navigationRouter,
+                                                                        wallet: wallet,
+                                                                        password: password)
+            passcodeCoordinator.delegate = self
+
+            addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
 
         case .editAccountName(let wallet):
             showEdit(wallet: wallet)
@@ -113,7 +120,6 @@ extension ChooseAccountCoordinator: ChooseAccountModuleOutput {
         showDisplay(.editAccountName(wallet))
     }
 }
-
 
 // MARK: AccountPasswordModuleOutput
 extension ChooseAccountCoordinator: AccountPasswordModuleOutput {
