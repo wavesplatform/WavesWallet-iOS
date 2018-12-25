@@ -25,8 +25,8 @@ final class ReceiveInvoiceInteractor: ReceiveInvoiceInteractorProtocol {
             let params = ["recipient" : signedWallet.address,
                           "amount" : String(amount.doubleValue)]
             
-            let url = Receive.DTO.urlFromPath(Constancts.baseUrl + Constancts.apiPath + asset.id, params: params)
-            
+            let url = (Constancts.baseUrl + Constancts.apiPath + asset.id).urlByAdding(params: params)
+                        
             let info = ReceiveInvoice.DTO.DisplayInfo(address: signedWallet.address,
                                                       invoiceLink: url,
                                                       assetName: asset.displayName,

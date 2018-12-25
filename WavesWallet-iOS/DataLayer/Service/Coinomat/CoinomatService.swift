@@ -37,6 +37,7 @@ enum Coinomat {
         case cardLimit(CardLimit)
         case createTunnel(CreateTunnel)
         case getTunnel(GetTunnel)
+        case getPrice(Price)
     }
     
     static var addresses: [String] {
@@ -100,6 +101,17 @@ extension Coinomat.Service {
         }
     }
     
+    struct Price: Codable, ApiServicePath {
+        
+        let crypto: String = GlobalConstants.wavesAssetId
+        let fiat: String
+        let address: String
+        let amount: Double
+
+        var path: String {
+            return Version.v2.rawValue + "indacoin/rate.php"
+        }
+    }
 }
 
 extension Coinomat.Service: TargetType {
@@ -126,6 +138,9 @@ extension Coinomat.Service: TargetType {
 
         case .getTunnel(let tunnel):
             return tunnel.path
+        
+        case .getPrice(let price):
+            return price.path
         }
     }
     
@@ -150,6 +165,9 @@ extension Coinomat.Service: TargetType {
             
         case .getTunnel(let tunnel):
             return .requestParameters(parameters: tunnel.dictionary, encoding: URLEncoding.default)
+        
+        case .getPrice(let price):
+            return .requestParameters(parameters: price.dictionary, encoding: URLEncoding.default)
         }
     }
 }
