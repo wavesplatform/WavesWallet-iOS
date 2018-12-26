@@ -80,26 +80,6 @@ extension DexMyOrders.DTO {
         let priceAsset: Dex.DTO.Asset
     }
     
-    struct MyOrdersRequest {
-        private let senderPrivateKey: PrivateKeyAccount
-        let timestamp: Int64
-        
-        init(senderPrivateKey: PrivateKeyAccount) {
-            self.senderPrivateKey = senderPrivateKey
-            self.timestamp = Int64(Date().millisecondsSince1970)
-        }
-        
-        private var toSign: [UInt8] {
-            let s1 = senderPrivateKey.publicKey
-            let s2 = toByteArray(timestamp)
-            return s1 + s2
-        }
-        
-        var signature: [UInt8] {
-            return Hash.sign(toSign, senderPrivateKey.privateKey)
-        }
-    }
-    
     struct CancelRequest {
         private let senderPublicKey: PublicKeyAccount
         private let senderPrivateKey: PrivateKeyAccount

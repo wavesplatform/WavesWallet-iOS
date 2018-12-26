@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SwiftyJSON
 import RealmSwift
 
 extension DexMarket.DTO.Pair {

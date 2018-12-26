@@ -8,7 +8,6 @@
 
 import Foundation
 import RxSwift
-import SwiftyJSON
 
 private enum Constants {
     static let timeStart = "timeStart"

@@ -8,7 +8,6 @@
 
 import Foundation
 import RealmSwift
-import SwiftyJSON
 
 final class DexAsset: Object {
     @objc dynamic var id: String = ""

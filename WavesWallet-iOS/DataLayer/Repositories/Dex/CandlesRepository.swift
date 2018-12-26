@@ -8,7 +8,6 @@
 
 import Foundation
 import RxSwift
-import SwiftyJSON
 import Moya
 
 final class CandlesRepository: CandlesRepositoryProtocol {
