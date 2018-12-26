@@ -57,7 +57,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
 
 private extension DexOrderBookInteractor {
     
-    func getDisplayData(info: API.DTO.OrderBook, lastTransactionInfo: DomainLayer.DTO.DexLastTrade?, header: DexOrderBook.ViewModel.Header, balances: [DomainLayer.DTO.SmartAssetBalance]) -> DexOrderBook.DTO.DisplayData {
+    func getDisplayData(info: Matcher.DTO.OrderBook, lastTransactionInfo: DomainLayer.DTO.DexLastTrade?, header: DexOrderBook.ViewModel.Header, balances: [DomainLayer.DTO.SmartAssetBalance]) -> DexOrderBook.DTO.DisplayData {
        
         let itemsBids = info.bids
         let itemsAsks = info.asks

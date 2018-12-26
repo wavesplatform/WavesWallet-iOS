@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension API.DTO {
+extension Matcher.DTO {
     
     struct OrderBook: Decodable {
         
