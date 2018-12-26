@@ -23,7 +23,6 @@ final class SendConfirmationViewController: UIViewController {
         let fee: Money
         let amount: Money
         let amountWithoutFee: Money
-        let isAlias: Bool
         var attachment: String
         let isGateway: Bool
     }

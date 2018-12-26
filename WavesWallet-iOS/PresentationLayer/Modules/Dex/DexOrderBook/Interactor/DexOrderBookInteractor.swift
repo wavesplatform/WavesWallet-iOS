@@ -179,7 +179,7 @@ private extension DexOrderBookInteractor {
         decoder.dateDecodingStrategy = .formatted(DateFormatter.iso())
 
         return apiProvider.rx.request(.init(kind: .getExchangeWithFilters(filters), environment: Environments.current),
-                                            callbackQueue: DispatchQueue.global(qos: .background))
+                                            callbackQueue: DispatchQueue.global(qos: .userInteractive))
             .filterSuccessfulStatusAndRedirectCodes()
             .asObservable()
             .catchError({ (error) -> Observable<Response> in
