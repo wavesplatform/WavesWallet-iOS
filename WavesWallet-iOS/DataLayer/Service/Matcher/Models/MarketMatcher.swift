@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension API.DTO {
+extension Matcher.DTO {
     
     struct Market: Decodable {
         struct AssetInfo: Decodable {
