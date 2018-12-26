@@ -1,6 +1,5 @@
 import Foundation
 import RxSwift
-import SwiftyJSON
 import RealmSwift
 import Alamofire
 import Moya

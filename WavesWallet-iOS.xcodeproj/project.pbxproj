@@ -229,7 +229,7 @@
 		0A6F60EA216F893600A5C615 /* WalletTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9A9E20EE425B0095A417 /* WalletTypes.swift */; };
 		0A6F60EB216F895A00A5C615 /* WalletTypes+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93FED220FCAADC0058179E /* WalletTypes+DTO.swift */; };
 		0A6F60EC216F89B300A5C615 /* SmartTransactionDomain+Assistants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E80A11214EF20C00D00AA4 /* SmartTransactionDomain+Assistants.swift */; };
-		0A6F60ED216F89EA00A5C615 /* DexTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B086EE2163886800937644 /* DexTypes.swift */; };
+		0A6F60ED216F89EA00A5C615 /* DexTypesDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B086EE2163886800937644 /* DexTypesDTO.swift */; };
 		0A762D11214FDFA100BE9204 /* NewAccountAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D10214FDFA100BE9204 /* NewAccountAvatarView.swift */; };
 		0A762D13214FE23E00BE9204 /* NewAccountAvatarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D12214FE23E00BE9204 /* NewAccountAvatarView.xib */; };
 		0A762D15214FE3F300BE9204 /* InputTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D14214FE3F300BE9204 /* InputTextField.xib */; };
@@ -1549,7 +1549,7 @@
 		E9B086E92163886800937644 /* DexOrderBookHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DexOrderBookHeaderView.xib; sourceTree = "<group>"; };
 		E9B086EC2163886800937644 /* DexOrderBookInteractorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexOrderBookInteractorProtocol.swift; sourceTree = "<group>"; };
 		E9B086ED2163886800937644 /* DexOrderBookInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexOrderBookInteractor.swift; sourceTree = "<group>"; };
-		E9B086EE2163886800937644 /* DexTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexTypes.swift; sourceTree = "<group>"; };
+		E9B086EE2163886800937644 /* DexTypesDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexTypesDTO.swift; sourceTree = "<group>"; };
 		E9B086F32163886800937644 /* Dex.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Dex.storyboard; sourceTree = "<group>"; };
 		E9B086F72163886800937644 /* DexInfoModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexInfoModuleBuilder.swift; sourceTree = "<group>"; };
 		E9B086F82163886800937644 /* DexInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexInfoViewController.swift; sourceTree = "<group>"; };
@@ -2795,6 +2795,7 @@
 				E922D25E21B81BE800575955 /* CandleDomainDTO.swift */,
 				E922D26521B82EF500575955 /* DexLastTradeDomainDTO.swift */,
 				E910B7EB21C3266F00E402AB /* CoinomatDomainDTO.swift */,
+				E9B086EE2163886800937644 /* DexTypesDTO.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3677,7 +3678,6 @@
 			isa = PBXGroup;
 			children = (
 				E9B086D82163886800937644 /* DexCoordinator.swift */,
-				E9B086EE2163886800937644 /* DexTypes.swift */,
 				E9B086F32163886800937644 /* Dex.storyboard */,
 				E9B086C02163886800937644 /* DexChart */,
 				E9B086D92163886800937644 /* DexOrderBook */,
@@ -4917,7 +4917,7 @@
 				E9B12DB5219DD6E000128EFE /* AssetBalanceSpamCell.swift in Sources */,
 				0A9D6B68216E070E006822C5 /* WalletTypes+State.swift in Sources */,
 				04831F7B216917EF006D1ED6 /* SmartTransactionDomainDTO.swift in Sources */,
-				0A6F60ED216F89EA00A5C615 /* DexTypes.swift in Sources */,
+				0A6F60ED216F89EA00A5C615 /* DexTypesDTO.swift in Sources */,
 				0A6F60EC216F89B300A5C615 /* SmartTransactionDomain+Assistants.swift in Sources */,
 				0A6F60E9216F88B200A5C615 /* WalletTypes+ViewModels.swift in Sources */,
 				0A6F60EB216F895A00A5C615 /* WalletTypes+DTO.swift in Sources */,
