@@ -34,7 +34,7 @@ final class ReceiveCardViewController: UIViewController {
     private var amountUSDInfo: ReceiveCard.DTO.AmountInfo?
     private var amountEURInfo: ReceiveCard.DTO.AmountInfo?
     private var asset: DomainLayer.DTO.SmartAssetBalance?
-    private var amount: Money = Money(0, ReceiveCard.DTO.fiatDecimals)
+    private var amount: Money = Money(0, GlobalConstants.FiatDecimals)
     private var urlLink = ""
     
     override func viewDidLoad() {
@@ -209,8 +209,8 @@ private extension ReceiveCardViewController {
     
     func setupAmountInfo(_ amountInfo: ReceiveCard.DTO.AmountInfo) {
         
-        let minimum = amountInfo.minAmountString + " " + selectedFiat.text
-        let maximum = amountInfo.maxAmountString + " " + selectedFiat.text
+        let minimum = amountInfo.minAmount.displayTextWithoutSpaces + " " + selectedFiat.text
+        let maximum = amountInfo.maxAmount.displayTextWithoutSpaces + " " + selectedFiat.text
         
         labelWarningMinimumAmount.text = Localizable.Waves.Receivecard.Label.minimunAmountInfo(minimum, maximum)
         viewWarning.isHidden = false

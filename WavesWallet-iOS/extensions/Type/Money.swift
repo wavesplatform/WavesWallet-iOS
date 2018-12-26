@@ -39,6 +39,10 @@ extension Money {
     var displayText: String {
         return MoneyUtil.getScaledText(amount, decimals: decimals)
     }
+
+    var displayTextWithoutSpaces: String {
+        return displayText.replacingOccurrences(of: " ", with: "")
+    }
     
     func displayTextFull(isFiat: Bool) -> String {
         return MoneyUtil.getScaledFullText(amount, decimals: decimals, isFiat: isFiat)
