@@ -23,7 +23,8 @@ final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
             .flatMap({ (environment) -> Observable<PublicKeyAccount> in
 
                 return self.matcherProvider.rx
-                .request(.init(environment: environment))
+                .request(.init(environment: environment),
+                         callbackQueue: DispatchQueue.global(qos: .userInteractive))
                 .filterSuccessfulStatusAndRedirectCodes()
                 .asObservable()
                 .flatMap({ (response) -> Observable<PublicKeyAccount>  in
