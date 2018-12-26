@@ -27,8 +27,8 @@ enum GlobalConstants {
     static let WavesTransactionFeeAmount: Int64 = 100000
     static let WavesDecimals: Int = 8
     static let WavesTransactionFee = Money(GlobalConstants.WavesTransactionFeeAmount, GlobalConstants.WavesDecimals)
-    
-    enum Coinomat {}
+    static let FiatDecimals: Int = 2
+        
     enum Matcher {}
 }
 
@@ -57,55 +57,6 @@ extension GlobalConstants.Matcher {
     }
 }
 
-extension GlobalConstants.Coinomat {
-    
-    private static let url = "https://coinomat.com/"
-
-    static var addresses: [String] {
-        return ["3PAs2qSeUAfgqSKS8LpZPKGYEjJKcud9Djr", // cryptocurrency
-                "3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us", // fiat
-                "3P2oLgTxQxNcLSEcSfqRvarpzcGVLCggftC"] // card
-    }
-    
-    static var createTunnel: String {
-        return url + apiVersion(.v1) + "create_tunnel.php"
-    }
-    
-    static var getTunnel: String {
-        return url + apiVersion(.v1) + "get_tunnel.php"
-    }
-    
-    static var getRate: String {
-        return url + apiVersion(.v1) + "get_xrate.php"
-    }
-    
-    static var getLimits: String {
-        return url + apiVersion(.v2) + "indacoin/limits.php"
-    }
-
-    static var buy: String {
-        return url + apiVersion(.v2) + "indacoin/buy.php"
-    }
-   
-    static var getPrice: String {
-        return url + apiVersion(.v2) + "indacoin/rate.php"
-    }
-    
-    private enum Version {
-        case v1
-        case v2
-    }
-    
-    private static func apiVersion(_ version: Version) -> String {
-        switch version {
-        case .v1:
-            return "api/v1/"
-        
-        case .v2:
-            return "api/v2/"
-        }
-    }
-}
 
 enum RegEx {
     static let alias = "^[a-z0-9\\.@_-]*$"
