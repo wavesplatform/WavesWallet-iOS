@@ -613,6 +613,9 @@
 		E9657040219360770052F0FC /* WalletSortInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9657034219360770052F0FC /* WalletSortInteractor.swift */; };
 		E9657041219360770052F0FC /* WalletSortInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9657035219360770052F0FC /* WalletSortInteractorProtocol.swift */; };
 		E96570432193E8570052F0FC /* DexMyOrdersModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96570422193E8570052F0FC /* DexMyOrdersModuleOutput.swift */; };
+		E96E29FE21D3492F00AC2FA9 /* MatcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96E29FD21D3492F00AC2FA9 /* MatcherService.swift */; };
+		E96E2A0021D34A2100AC2FA9 /* MatcherRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96E29FF21D34A2100AC2FA9 /* MatcherRepositoryProtocol.swift */; };
+		E96E2A0221D34AA200AC2FA9 /* MatcherRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96E2A0121D34AA200AC2FA9 /* MatcherRepositoryRemote.swift */; };
 		E971DA5220FFF4B600616A03 /* BiometricManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E971DA5120FFF4B600616A03 /* BiometricManager.swift */; };
 		E9740E5E21D1C90F00EAD3ED /* ListPairsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9740E5D21D1C90F00EAD3ED /* ListPairsApiService.swift */; };
 		E97D450921C80233000E3C48 /* DexListRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D450821C80233000E3C48 /* DexListRepositoryProtocol.swift */; };
@@ -1488,6 +1491,9 @@
 		E9657034219360770052F0FC /* WalletSortInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletSortInteractor.swift; sourceTree = "<group>"; };
 		E9657035219360770052F0FC /* WalletSortInteractorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletSortInteractorProtocol.swift; sourceTree = "<group>"; };
 		E96570422193E8570052F0FC /* DexMyOrdersModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexMyOrdersModuleOutput.swift; sourceTree = "<group>"; };
+		E96E29FD21D3492F00AC2FA9 /* MatcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherService.swift; sourceTree = "<group>"; };
+		E96E29FF21D34A2100AC2FA9 /* MatcherRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherRepositoryProtocol.swift; sourceTree = "<group>"; };
+		E96E2A0121D34AA200AC2FA9 /* MatcherRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherRepositoryRemote.swift; sourceTree = "<group>"; };
 		E971DA5120FFF4B600616A03 /* BiometricManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricManager.swift; sourceTree = "<group>"; };
 		E9740E5D21D1C90F00EAD3ED /* ListPairsApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPairsApiService.swift; sourceTree = "<group>"; };
 		E97D450821C80233000E3C48 /* DexListRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexListRepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -2541,6 +2547,7 @@
 				0A8AFF272101F37200D0582B /* MatcherServiceTypes.swift */,
 				0A8AFF292101F47F00D0582B /* OrderBookMatcherService.swift */,
 				0AE657302106368F003D2DB8 /* BalanceMatcherService.swift */,
+				E96E29FD21D3492F00AC2FA9 /* MatcherService.swift */,
 				E97D450E21C814A0000E3C48 /* Models */,
 			);
 			path = Matcher;
@@ -3565,6 +3572,7 @@
 				E922D26921B831B600575955 /* LastTradesRepository.swift */,
 				E97D450A21C802AB000E3C48 /* DexListRepositoryRemote.swift */,
 				E97D451121C817CC000E3C48 /* DexOrderBookRepositoryRemote.swift */,
+				E96E2A0121D34AA200AC2FA9 /* MatcherRepositoryRemote.swift */,
 			);
 			path = Dex;
 			sourceTree = "<group>";
@@ -3577,6 +3585,7 @@
 				E922D26721B8311F00575955 /* LastTradesRepositoryProtocol.swift */,
 				E97D450821C80233000E3C48 /* DexListRepositoryProtocol.swift */,
 				E97D450C21C8127F000E3C48 /* DexOrderBookRepositoryProtocol.swift */,
+				E96E29FF21D34A2100AC2FA9 /* MatcherRepositoryProtocol.swift */,
 			);
 			path = Dex;
 			sourceTree = "<group>";
@@ -5015,6 +5024,7 @@
 				0A5E4BD1213820C500E3C3C3 /* LeaseTransactionDomainDTO.swift in Sources */,
 				0A88CC08217D281F0083874C /* AccountEnvironmentRepository.swift in Sources */,
 				0A218B8B2155335F00B989A1 /* WalletSeedRepositoryProtocol.swift in Sources */,
+				E96E29FE21D3492F00AC2FA9 /* MatcherService.swift in Sources */,
 				E9B087BE2163886800937644 /* SearchBarView.swift in Sources */,
 				04831F87216A363F006D1ED6 /* LanguageTableCell.swift in Sources */,
 				E9B087CD2163886800937644 /* DexListPresenter.swift in Sources */,
@@ -5064,6 +5074,7 @@
 				E9B0881E2163886800937644 /* DexSortInteractor.swift in Sources */,
 				E94A7004215AEA4A001814F7 /* AddressBookRepositoryProtocol.swift in Sources */,
 				0AFF5C7D215BD08500B82940 /* AccountPasswordTypes.swift in Sources */,
+				E96E2A0221D34AA200AC2FA9 /* MatcherRepositoryRemote.swift in Sources */,
 				0A20606821822C3A0048CF83 /* AddressesKeysViewController.swift in Sources */,
 				E9B0881B2163886800937644 /* DexSortModuleBuilder.swift in Sources */,
 				E9B087FE2163886800937644 /* DexMyOrdersCell.swift in Sources */,
@@ -5551,6 +5562,7 @@
 				0AD83606217A1C14004413E9 /* AccountEnvironment.swift in Sources */,
 				0AF922F2212E1234003BA067 /* CopyableLabel.swift in Sources */,
 				0A071E75215DAD87007D9750 /* DatabaseReference+Rx.swift in Sources */,
+				E96E2A0021D34A2100AC2FA9 /* MatcherRepositoryProtocol.swift in Sources */,
 				0A9797652108B18C00407F67 /* WalletModuleOutput.swift in Sources */,
 				E9D36DCF2175C755001E6DF0 /* ReceiveCryptocurrencyViewController.swift in Sources */,
 				0A4C9AAB20EF6BFF0095A417 /* AssetsApiService.swift in Sources */,
