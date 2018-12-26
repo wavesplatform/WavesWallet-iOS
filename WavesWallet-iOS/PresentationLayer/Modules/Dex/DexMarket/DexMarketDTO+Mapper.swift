@@ -12,7 +12,7 @@ import RealmSwift
 
 extension DexMarket.DTO.Pair {
     
-    init(_ market: API.DTO.Market, realm: Realm) {
+    init(_ market: Matcher.DTO.Market, realm: Realm) {
         
         var amountAssetName = market.amountAssetName
         var amountAssetShortName = market.amountAssetName

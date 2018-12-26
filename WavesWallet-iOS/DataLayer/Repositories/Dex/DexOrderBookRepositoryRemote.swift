@@ -17,39 +17,41 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
     private let auth = FactoryInteractors.instance.authorization
     private let spamProvider: MoyaProvider<Spam.Service.Assets> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
 
-    func orderBook(amountAsset: String, priceAsset: String) -> Observable<API.DTO.OrderBook> {
+    func orderBook(amountAsset: String, priceAsset: String) -> Observable<Matcher.DTO.OrderBook> {
 
-        return currentEnvironment().flatMap({ (environment) -> Observable<API.DTO.OrderBook> in
+        return currentEnvironment().flatMap({ (environment) -> Observable<Matcher.DTO.OrderBook> in
             
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .millisecondsSince1970
             
             return self.matcherProvider.rx
                 .request(.init(kind: .getOrderBook(amountAsset: amountAsset, priceAsset: priceAsset),
-                               environment: environment))
+                               environment: environment),
+                         callbackQueue: DispatchQueue.global(qos: .userInteractive))
                 .filterSuccessfulStatusAndRedirectCodes()
-                .map(API.DTO.OrderBook.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
+                .map(Matcher.DTO.OrderBook.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
                 .asObservable()
             
         })
     }
     
-    func markets(isEnableSpam: Bool) -> Observable<[API.DTO.Market]> {
+    func markets(isEnableSpam: Bool) -> Observable<[Matcher.DTO.Market]> {
 
-        return currentEnvironment().flatMap({ (environment) -> Observable<[API.DTO.Market]> in
+        return currentEnvironment().flatMap({ (environment) -> Observable<[Matcher.DTO.Market]> in
             
             let markets = self.matcherProvider.rx
-                        .request(.init(kind: .getMarket, environment: environment))
+                        .request(.init(kind: .getMarket, environment: environment),
+                                 callbackQueue: DispatchQueue.global(qos: .userInteractive))
                         .filterSuccessfulStatusAndRedirectCodes()
-                        .map(API.DTO.MarketResponse.self)
+                        .map(Matcher.DTO.MarketResponse.self)
                         .asObservable()
                         .map { $0.markets }
             
             if isEnableSpam {
                 return Observable.zip(markets, self.spamList())
-                .map({ (markets, spamList) -> [API.DTO.Market] in
+                .map({ (markets, spamList) -> [Matcher.DTO.Market] in
 
-                    var filterMarkets: [API.DTO.Market] = []
+                    var filterMarkets: [Matcher.DTO.Market] = []
                     let spamListKeys = spamList.reduce(into:  [String : String](), { $0[$1] = $1})
 
                     for market in markets {
@@ -66,6 +68,34 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
             return markets
         })
     }
+    
+    
+    func myOrders(amountAsset: String, priceAsset: String) -> Observable<[Matcher.DTO.Order]> {
+
+        return self.auth.authorizedWallet().flatMap({ (wallet) -> Observable<[Matcher.DTO.Order]> in
+            return self.environment.accountEnvironment(accountAddress: wallet.address)
+                .flatMap({ (environment) -> Observable<[Matcher.DTO.Order]> in
+                    
+                    
+                    let decoder = JSONDecoder()
+                    decoder.dateDecodingStrategy = .millisecondsSince1970
+
+                    return self.matcherProvider.rx
+                    .request(.init(kind: .getMyOrders(amountAsset: amountAsset,
+                                                      priceAsset: priceAsset,
+                                                      signature: TimestampSignature(signedWallet: wallet)),
+                                   environment: environment),
+                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                    .filterSuccessfulStatusAndRedirectCodes()
+                    .map([Matcher.DTO.Order].self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
+                    .asObservable()
+                })
+        })
+    }
+    
+    func cancelOrder(amountAsset: String, priceAsset: String) -> Observable<Bool> {
+        return Observable.just(true)
+    }
 }
 
 private extension DexOrderBookRepositoryRemote {
@@ -75,7 +105,8 @@ private extension DexOrderBookRepositoryRemote {
         return currentEnvironment().flatMap({ (environment) -> Observable<[String]> in
             
             return self.spamProvider.rx
-            .request(.getSpamList(url: environment.servers.spamUrl))
+            .request(.getSpamList(url: environment.servers.spamUrl),
+                     callbackQueue: DispatchQueue.global(qos: .userInteractive))
             .filterSuccessfulStatusAndRedirectCodes()
             .asObservable()
             .map({ (response) -> [String] in

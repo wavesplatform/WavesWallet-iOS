@@ -33,7 +33,7 @@ final class CandlesRepository: CandlesRepositoryProtocol {
                                                      environment: environment)
                     
                     return self.apiProvider.rx
-                    .request(candles)
+                    .request(candles, callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()
                     .map(API.DTO.Chart.self)
                     .asObservable()

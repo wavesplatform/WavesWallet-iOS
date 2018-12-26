@@ -14,29 +14,30 @@ import SwiftyJSON
 
 fileprivate extension DexMyOrders.DTO.Order {
     
-    init(_ json: JSON, priceAsset: Dex.DTO.Asset, amountAsset: Dex.DTO.Asset) {
+    init(_ model: Matcher.DTO.Order, priceAsset: Dex.DTO.Asset, amountAsset: Dex.DTO.Asset) {
         
-        id = json["id"].stringValue
+        id = model.id
         
-        price = DexList.DTO.price(amount: json["price"].int64Value, amountDecimals: amountAsset.decimals, priceDecimals: priceAsset.decimals)
-        amount = Money(json["amount"].int64Value, amountAsset.decimals)
-        time = Date(milliseconds: json["timestamp"].int64Value)
+        price = DexList.DTO.price(amount: model.price, amountDecimals: amountAsset.decimals, priceDecimals: priceAsset.decimals)
         
-        if json["status"].stringValue == "Accepted" {
-            status = DexMyOrders.DTO.Status.accepted
+        amount = Money(model.amount, amountAsset.decimals)
+        time = model.timestamp
+        filled = Money(model.filled, amountAsset.decimals)
+
+        if model.status == .Accepted {
+            status = .accepted
         }
-        else if json["status"].stringValue == "PartiallyFilled" {
-            status = DexMyOrders.DTO.Status.partiallyFilled
+        else if model.status == .PartiallyFilled {
+            status = .partiallyFilled
         }
-        else if json["status"].stringValue == "Filled" {
-            status = DexMyOrders.DTO.Status.filled
+        else if model.status == .Filled {
+            status = .filled
         }
         else {
-            status = DexMyOrders.DTO.Status.cancelled
+            status = .cancelled
         }
         
-        filled = Money(json["filled"].int64Value, amountAsset.decimals)
-        if json["type"].stringValue == "sell" {
+        if model.type == .sell {
             type = Dex.DTO.OrderType.sell
         }
         else {
@@ -52,44 +53,33 @@ fileprivate extension DexMyOrders.DTO.Order {
 final class DexMyOrdersInteractor: DexMyOrdersInteractorProtocol {
     
     private let auth = FactoryInteractors.instance.authorization
+    private let repository = FactoryRepositories.instance.dexOrderBookRepository
     
     var pair: DexTraderContainer.DTO.Pair!
     
     private let sendSubject: PublishSubject<[DexMarket.DTO.Pair]> = PublishSubject<[DexMarket.DTO.Pair]>()
 
-    func myOrders() -> Observable<([DexMyOrders.DTO.Order])> {
+    func myOrders() -> Observable<[DexMyOrders.DTO.Order]> {
         
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<([DexMyOrders.DTO.Order])> in
-            
-            guard let owner = self else { return Observable.empty() }
-            
-            let myOrdersReq = DexMyOrders.DTO.MyOrdersRequest(senderPrivateKey: wallet.privateKey)
-            
-            let headers: HTTPHeaders = ["timestamp" : String(myOrdersReq.timestamp),
-                                        "signature" : Base58.encode(myOrdersReq.signature)]
-            
-            let url = GlobalConstants.Matcher.myOrderBook(owner.pair.amountAsset.id, owner.pair.priceAsset.id, publicKey: wallet.publicKey)
-            
-            return Observable.create({ (subscribe) -> Disposable in
+        return self.repository.myOrders(amountAsset: self.pair.amountAsset.id,
+                                        priceAsset: self.pair.priceAsset.id)
+            .flatMap({ [weak self] (orders) -> Observable<[DexMyOrders.DTO.Order]> in
                 
-                NetworkManager.getRequestWithUrl(url, parameters: nil, headers: headers, complete: { (info, error) in
-
-                    var orders: [DexMyOrders.DTO.Order] = []
-
-                    if let info = info {
-                        
-                        for item in info.arrayValue {
-                            orders.append(DexMyOrders.DTO.Order(item,
-                                                                priceAsset: owner.pair.priceAsset,
-                                                                amountAsset: owner.pair.amountAsset))
-                        }
-                    }
+                guard let owner = self else { return Observable.empty() }
+                
+                var myOrders: [DexMyOrders.DTO.Order] = []
+                
+                for order in orders {
+                    myOrders.append(DexMyOrders.DTO.Order(order,
+                                                          priceAsset: owner.pair.priceAsset,
+                                                          amountAsset: owner.pair.amountAsset))
                     
-                    subscribe.onNext(orders)
-                })
-                return Disposables.create()
+                }
+                return Observable.just(myOrders)
             })
-        })
+            .catchError({ (error) -> Observable<[DexMyOrders.DTO.Order]> in
+                return Observable.just([])
+            })
     }
     
  

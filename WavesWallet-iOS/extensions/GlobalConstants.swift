@@ -44,10 +44,6 @@ extension GlobalConstants.Matcher {
         return url + "matcher/orderbook"
     }
     
-    static func orderBook(_ amountAsset: String, _ priceAsset: String) -> String {
-        return orderBook + "/" + amountAsset + "/" + priceAsset
-    }
-    
     static func myOrderBook(_ amountAsset: String, _ priceAsset: String, publicKey: PublicKeyAccount) -> String {
         return orderBook + "/" + amountAsset + "/" + priceAsset + "/" + "publicKey" + "/" + publicKey.getPublicKeyStr()
     }

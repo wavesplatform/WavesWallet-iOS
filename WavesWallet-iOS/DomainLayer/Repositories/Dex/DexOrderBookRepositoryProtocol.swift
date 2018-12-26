@@ -11,7 +11,11 @@ import RxSwift
 
 protocol DexOrderBookRepositoryProtocol {
     
-    func orderBook(amountAsset: String, priceAsset: String) -> Observable<API.DTO.OrderBook>
+    func orderBook(amountAsset: String, priceAsset: String) -> Observable<Matcher.DTO.OrderBook>
     
-    func markets(isEnableSpam: Bool) -> Observable<[API.DTO.Market]>
+    func markets(isEnableSpam: Bool) -> Observable<[Matcher.DTO.Market]>
+
+    func myOrders(amountAsset: String, priceAsset: String) -> Observable<[Matcher.DTO.Order]>
+
+    func cancelOrder(amountAsset: String, priceAsset: String) -> Observable<Bool>
 }

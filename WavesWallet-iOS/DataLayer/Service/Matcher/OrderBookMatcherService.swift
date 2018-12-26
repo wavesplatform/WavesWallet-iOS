@@ -20,10 +20,10 @@ extension Matcher.Service {
 
     struct OrderBook {
         enum Kind {
-           
-            case getOrderHistory(TimestampSignature, isActiveOnly: Bool)
+            
             case getOrderBook(amountAsset: String, priceAsset: String)
             case getMarket
+            case getMyOrders(amountAsset: String, priceAsset: String, signature: TimestampSignature)
         }
 
         var kind: Kind
@@ -35,23 +35,25 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
     fileprivate enum Constants {
         static let matcher = "matcher"
         static let orderbook = "orderbook"
-        static let activeOnly = "activeOnly"
+        static let publicKey = "publicKey"
     }
 
+    private var orderBookPath: String {
+        return Constants.matcher + "/" + Constants.orderbook
+    }
+    
     var path: String {
         switch kind {
-        case .getOrderHistory(let signature, _):
-            return Constants.matcher
-                + "/"
-                + Constants.orderbook
-                + "/"
-                + "\(signature.publicKey.getPublicKeyStr())".urlEscaped
-        
+         
         case .getOrderBook(let amountAsset, let priceAsset):
-            return Constants.matcher + "/" + Constants.orderbook + "/" + amountAsset + "/" + priceAsset
+            return orderBookPath + "/" + amountAsset + "/" + priceAsset
         
         case .getMarket:
-            return Constants.matcher + "/" + Constants.orderbook
+            return orderBookPath
+            
+        case .getMyOrders(let amountAsset, let priceAsset, let signature):
+            return orderBookPath + "/" + amountAsset + "/" + priceAsset + "/"
+                + Constants.publicKey + "/" + signature.publicKey.getPublicKeyStr()
         }
     }
 
@@ -60,25 +62,16 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
     }
 
     var task: Task {
-        switch kind {
-        case .getOrderHistory(_, let isActiveOnly):
-
-            return .requestCompositeParameters(bodyParameters: [:],
-                                               bodyEncoding: URLEncoding.httpBody,
-                                               urlParameters: [Constants.activeOnly: isActiveOnly])
-        
-        default:
-            return .requestPlain
-        }
+        return .requestPlain
     }
 
     var headers: [String: String]? {
         var headers = ContentType.applicationJson.headers
 
         switch kind {
-        case .getOrderHistory(let signature, _):            
+        case .getMyOrders(_, _, let signature):
             headers.merge(signature.parameters) { a, _ in a }
-            
+
         default:
             break
         }

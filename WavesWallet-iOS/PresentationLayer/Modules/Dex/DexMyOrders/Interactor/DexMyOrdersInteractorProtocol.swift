@@ -13,6 +13,6 @@ protocol DexMyOrdersInteractorProtocol {
     
     var pair: DexTraderContainer.DTO.Pair! { get set }
 
-    func myOrders() -> Observable<([DexMyOrders.DTO.Order])>
+    func myOrders() -> Observable<[DexMyOrders.DTO.Order]>
     func cancelOrder(order: DexMyOrders.DTO.Order) -> Observable<ResponseType<Bool>>
 }
