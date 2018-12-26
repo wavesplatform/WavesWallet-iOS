@@ -53,5 +53,7 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
     
     private(set) lazy var coinomatRepository: CoinomatRepositoryProtocol = CoinomatRepository()
     
+    private(set) lazy var matcherRepository: MatcherRepositoryProtocol = MatcherRepositoryRemote()
+    
     fileprivate init() {}
 }

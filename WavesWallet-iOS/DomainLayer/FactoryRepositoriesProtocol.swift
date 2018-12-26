@@ -48,6 +48,8 @@ protocol FactoryRepositoriesProtocol {
     var lastTradesRespository: LastTradesRepositoryProtocol { get }
     
     var coinomatRepository: CoinomatRepositoryProtocol { get }
+    
+    var matcherRepository: MatcherRepositoryProtocol { get }
 }
 
 protocol RepositoryCache {
