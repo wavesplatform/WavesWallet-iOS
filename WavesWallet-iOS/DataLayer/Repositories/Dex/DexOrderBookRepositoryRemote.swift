@@ -93,8 +93,24 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
         })
     }
     
-    func cancelOrder(amountAsset: String, priceAsset: String) -> Observable<Bool> {
-        return Observable.just(true)
+    func cancelOrder(orderId: String, amountAsset: String, priceAsset: String) -> Observable<Bool> {
+        
+        return self.auth.authorizedWallet().flatMap({ (wallet) -> Observable<Bool> in
+            return self.environment.accountEnvironment(accountAddress: wallet.address)
+                .flatMap({ (environment) -> Observable<Bool> in
+                    
+                    return self.matcherProvider.rx
+                        .request(.init(kind: .cancelOrder(.init(wallet: wallet,
+                                                                orderId: orderId,
+                                                                amountAsset: amountAsset,
+                                                                priceAsset: priceAsset)),
+                                       environment: environment),
+                                 callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                    .filterSuccessfulStatusAndRedirectCodes()
+                    .asObservable()
+                    .map { _ in true }
+                })
+        })
     }
 }
 

@@ -17,5 +17,5 @@ protocol DexOrderBookRepositoryProtocol {
 
     func myOrders(amountAsset: String, priceAsset: String) -> Observable<[Matcher.DTO.Order]>
 
-    func cancelOrder(amountAsset: String, priceAsset: String) -> Observable<Bool>
+    func cancelOrder(orderId: String, amountAsset: String, priceAsset: String) -> Observable<Bool>
 }

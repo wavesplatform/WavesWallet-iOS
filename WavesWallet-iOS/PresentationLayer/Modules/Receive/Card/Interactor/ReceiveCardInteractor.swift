@@ -8,7 +8,6 @@
 
 import Foundation
 import RxSwift
-import SwiftyJSON
 
 
 final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {

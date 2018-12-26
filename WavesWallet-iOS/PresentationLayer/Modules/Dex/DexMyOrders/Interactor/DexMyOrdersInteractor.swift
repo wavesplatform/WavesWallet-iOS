@@ -8,9 +8,6 @@
 
 import Foundation
 import RxSwift
-import Alamofire
-import SwiftyJSON
-
 
 fileprivate extension DexMyOrders.DTO.Order {
     
@@ -61,8 +58,7 @@ final class DexMyOrdersInteractor: DexMyOrdersInteractorProtocol {
 
     func myOrders() -> Observable<[DexMyOrders.DTO.Order]> {
         
-        return self.repository.myOrders(amountAsset: self.pair.amountAsset.id,
-                                        priceAsset: self.pair.priceAsset.id)
+        return repository.myOrders(amountAsset: pair.amountAsset.id, priceAsset: pair.priceAsset.id)
             .flatMap({ [weak self] (orders) -> Observable<[DexMyOrders.DTO.Order]> in
                 
                 guard let owner = self else { return Observable.empty() }
@@ -85,26 +81,12 @@ final class DexMyOrdersInteractor: DexMyOrdersInteractorProtocol {
  
     func cancelOrder(order: DexMyOrders.DTO.Order) -> Observable<ResponseType<Bool>> {
         
-        return auth.authorizedWallet().flatMap({ (wallet) -> Observable<ResponseType<Bool>> in
-            
-            return Observable.create({ (subscribe) -> Disposable in
-                
-                let url = GlobalConstants.Matcher.cancelOrder(order.amountAsset.id, order.priceAsset.id)
-                
-                let cancelRequest = DexMyOrders.DTO.CancelRequest(senderPublicKey: wallet.publicKey, senderPrivateKey: wallet.privateKey, orderId: order.id)
-                
-                NetworkManager.postRequestWithUrl(url, parameters: cancelRequest.params, complete: { (info, error) in
-                    if info != nil {
-                        subscribe.onNext(ResponseType(output: true, error: nil))
-                    }
-                    else {
-                        subscribe.onNext(ResponseType(output: nil, error: error))
-                    }
-                    subscribe.onCompleted()
-                })
-                
-                return Disposables.create()
+        return repository.cancelOrder(orderId: order.id, amountAsset: order.amountAsset.id, priceAsset: order.priceAsset.id)
+            .flatMap({ (status) -> Observable<ResponseType<Bool>> in
+                return Observable.just(ResponseType(output: true, error: nil))
             })
-        })
+            .catchError({ (error) -> Observable<ResponseType<Bool>> in
+                return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
+            })
     }
 }
