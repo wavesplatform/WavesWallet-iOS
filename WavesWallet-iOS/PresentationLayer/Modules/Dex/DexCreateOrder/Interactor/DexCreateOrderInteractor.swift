@@ -12,16 +12,17 @@ import RxSwift
 final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     
     private let auth = FactoryInteractors.instance.authorization
+    private let matcherRepository = FactoryRepositories.instance.matcherRepository
     
-    func createOrder(order: DexCreateOrder.DTO.Order) -> Observable<(ResponseType<DexCreateOrder.DTO.Output>)> {
+    func createOrder(order: DexCreateOrder.DTO.Order) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
        
-        return Observable.zip(auth.authorizedWallet(), getMatcherPublicKey()).flatMap({(wallet, matcherResponse) -> Observable<(ResponseType<DexCreateOrder.DTO.Output>)> in
-            
-            if let matcher = matcherResponse.output {
+        return Observable.zip(auth.authorizedWallet(), matcherRepository.matcherPublicKey())
+            .flatMap({ (wallet, matcherKey) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
+
                 var newOrder = order
                 newOrder.senderPrivateKey = wallet.privateKey
                 newOrder.senderPublicKey = wallet.publicKey
-                newOrder.matcherPublicKey = matcher
+                newOrder.matcherPublicKey = matcherKey
                 newOrder.timestamp = Int64(Date().millisecondsSince1970)
                 
                 return Observable.create({ (subscribe) -> Disposable in
@@ -39,7 +40,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                                   "expiration" : newOrder.expirationTimestamp,
                                   "matcherFee" : newOrder.fee,
                                   "signature" : Base58.encode(newOrder.signature)] as [String : Any]
-                        
+                    
                     NetworkManager.postRequestWithUrl(GlobalConstants.Matcher.orderBook, parameters: params, complete: { (info, error) in
                         
                         if info != nil {
@@ -52,33 +53,15 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                         else {
                             subscribe.onNext(ResponseType(output: nil, error: error))
                         }
+                        subscribe.onCompleted()
                     })
                     
                     return Disposables.create()
                 })
-            }
-            else {
-                return Observable.just(ResponseType(output: nil, error: matcherResponse.error))
-            }
-        })
-    }
-    
-    private func getMatcherPublicKey() -> Observable<ResponseType<PublicKeyAccount>> {
-        
-        return Observable.create({ (subscribe) -> Disposable in
-        
-            NetworkManager.getRequestWithUrl(GlobalConstants.Matcher.matcher, parameters: nil) { (info, error) in
-                if let info = info {
-                    let matcherPublicKey = PublicKeyAccount(publicKey: Base58.decode(info.stringValue))
-                    subscribe.onNext(ResponseType(output: matcherPublicKey, error: nil))
-                }
-                else {
-                    subscribe.onNext(ResponseType(output: nil, error: error))
-                }
-                subscribe.onCompleted()
-            }
-            
-            return Disposables.create()
-        })
+                    
+            })
+            .catchError({ (error) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
+                return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
+            })
     }
 }
