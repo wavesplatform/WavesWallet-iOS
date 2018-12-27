@@ -65,8 +65,8 @@ extension DexList.DTO {
     struct Pair: Mutating {
         var firstPrice: Money
         var lastPrice: Money
-        let amountAsset: Dex.DTO.Asset
-        let priceAsset: Dex.DTO.Asset
+        let amountAsset: DomainLayer.DTO.Dex.Asset
+        let priceAsset: DomainLayer.DTO.Dex.Asset
         let isGeneral: Bool
         let sortLevel: Int
     }

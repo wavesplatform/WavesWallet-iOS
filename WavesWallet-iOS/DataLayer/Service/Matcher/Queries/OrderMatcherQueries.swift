@@ -17,7 +17,7 @@ extension Matcher.Query {
         let priceAsset: String
         let amount: Int64
         let price: Int64
-        let orderType: Dex.DTO.OrderType
+        let orderType: DomainLayer.DTO.Dex.OrderType
         let matcherFee: Int
         let timestamp: Int64 = Date().millisecondsSince1970
         let expiration: Int

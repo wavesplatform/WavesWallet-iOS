@@ -8,11 +8,11 @@
 
 import Foundation
 
-enum Dex {
-    enum DTO {}
+extension DomainLayer.DTO {
+    enum Dex {}
 }
 
-extension Dex.DTO {
+extension DomainLayer.DTO.Dex {
     
     struct Asset {
         let id: String
@@ -20,7 +20,7 @@ extension Dex.DTO {
         let shortName: String
         let decimals: Int
     }
-
+    
     enum OrderType: String {
         case sell
         case buy
