@@ -554,7 +554,6 @@
 		E922D25F21B81BE800575955 /* CandleDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E922D25E21B81BE800575955 /* CandleDomainDTO.swift */; };
 		E922D26221B81E5700575955 /* CandlesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E922D26121B81E5700575955 /* CandlesRepository.swift */; };
 		E922D26421B82C2100575955 /* CandlesRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E922D26321B82C2100575955 /* CandlesRepositoryProtocol.swift */; };
-		E922D26621B82EF500575955 /* DexLastTradeDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E922D26521B82EF500575955 /* DexLastTradeDomainDTO.swift */; };
 		E922D26821B8311F00575955 /* LastTradesRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E922D26721B8311F00575955 /* LastTradesRepositoryProtocol.swift */; };
 		E922D26A21B831B600575955 /* LastTradesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E922D26921B831B600575955 /* LastTradesRepository.swift */; };
 		E923A765219D53EE000DD9F6 /* TokenBurnInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923A764219D53EE000DD9F6 /* TokenBurnInteractor.swift */; };
@@ -1431,7 +1430,6 @@
 		E922D25E21B81BE800575955 /* CandleDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleDomainDTO.swift; sourceTree = "<group>"; };
 		E922D26121B81E5700575955 /* CandlesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandlesRepository.swift; sourceTree = "<group>"; };
 		E922D26321B82C2100575955 /* CandlesRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandlesRepositoryProtocol.swift; sourceTree = "<group>"; };
-		E922D26521B82EF500575955 /* DexLastTradeDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexLastTradeDomainDTO.swift; sourceTree = "<group>"; };
 		E922D26721B8311F00575955 /* LastTradesRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastTradesRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E922D26921B831B600575955 /* LastTradesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastTradesRepository.swift; sourceTree = "<group>"; };
 		E923A764219D53EE000DD9F6 /* TokenBurnInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnInteractor.swift; sourceTree = "<group>"; };
@@ -2801,7 +2799,6 @@
 				0A4D221D21809E3600155A8E /* AccountEnvironmentDomainDTO.swift */,
 				0A6AC3E7218489F5005D2525 /* AliasDomainDTO.swift */,
 				E922D25E21B81BE800575955 /* CandleDomainDTO.swift */,
-				E922D26521B82EF500575955 /* DexLastTradeDomainDTO.swift */,
 				E910B7EB21C3266F00E402AB /* CoinomatDomainDTO.swift */,
 				E964067D21D5299D00569963 /* DexDomainDTO.swift */,
 			);
@@ -5277,7 +5274,6 @@
 				F7C6839A1EA93A4000C87DAF /* Hash.swift in Sources */,
 				0A14CFD4214854BF00C3A4D5 /* Results+Limit.swift in Sources */,
 				E9543902217FF9EC001A7860 /* SendCompleteViewController.swift in Sources */,
-				E922D26621B82EF500575955 /* DexLastTradeDomainDTO.swift in Sources */,
 				0A485E9A2100A8ED00079B49 /* TransferTransaction.swift in Sources */,
 				E9B087D52163886800937644 /* DexListInteractorProtocol.swift in Sources */,
 				E9B087D22163886800937644 /* DexListViewController.swift in Sources */,
