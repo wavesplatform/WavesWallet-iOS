@@ -171,7 +171,6 @@ private extension AccountPasswordPresenter {
             state.displayState.error = nil
 
         case .handlerError:
-            //TODO: Error
             state.query = nil
             state.displayState.error = .incorrectPassword
             state.displayState.isLoading = false

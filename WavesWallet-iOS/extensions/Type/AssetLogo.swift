@@ -112,7 +112,7 @@ extension AssetLogo {
         context.clip()
 
         if let logo = AssetLogo(rawValue: name.lowercased()) {
-            //TODO: Need image without corner radius
+
             context.setFillColor(UIColor.white.cgColor)
             context.fill(rect)
             logo.image48.draw(in: CGRect(x: 0,

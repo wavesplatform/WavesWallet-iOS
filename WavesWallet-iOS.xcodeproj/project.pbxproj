@@ -118,7 +118,7 @@
 		0A344E2F2194747E007809B1 /* MigrationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A344E2E2194747E007809B1 /* MigrationInteractor.swift */; };
 		0A36A37D215E493D0060F49E /* NeedBackupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A36A37B215E493D0060F49E /* NeedBackupViewController.swift */; };
 		0A36A37E215E493D0060F49E /* BackupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A36A37C215E493D0060F49E /* BackupInfoViewController.swift */; };
-		0A3AD40721492E9400F8A929 /* ExchangeFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD7520F3A6A6004DA625 /* ExchangeFilters.swift */; };
+		0A3AD40721492E9400F8A929 /* ExchangeApiFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD7520F3A6A6004DA625 /* ExchangeApiFilters.swift */; };
 		0A3FE8A62135AC2B00DBF4E1 /* AssetTransactionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FE8A52135AC2A00DBF4E1 /* AssetTransactionsCell.swift */; };
 		0A3FE8A82135AE3600DBF4E1 /* AssetTransactionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A3FE8A72135AE3600DBF4E1 /* AssetTransactionCell.xib */; };
 		0A3FE8AA2135AE4000DBF4E1 /* AssetTransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FE8A92135AE4000DBF4E1 /* AssetTransactionCell.swift */; };
@@ -616,6 +616,7 @@
 		E96E29FE21D3492F00AC2FA9 /* MatcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96E29FD21D3492F00AC2FA9 /* MatcherService.swift */; };
 		E96E2A0021D34A2100AC2FA9 /* MatcherRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96E29FF21D34A2100AC2FA9 /* MatcherRepositoryProtocol.swift */; };
 		E96E2A0221D34AA200AC2FA9 /* MatcherRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96E2A0121D34AA200AC2FA9 /* MatcherRepositoryRemote.swift */; };
+		E96E2A0521D3D9AA00AC2FA9 /* OrderMatcherQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96E2A0421D3D9AA00AC2FA9 /* OrderMatcherQueries.swift */; };
 		E971DA5220FFF4B600616A03 /* BiometricManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E971DA5120FFF4B600616A03 /* BiometricManager.swift */; };
 		E9740E5E21D1C90F00EAD3ED /* ListPairsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9740E5D21D1C90F00EAD3ED /* ListPairsApiService.swift */; };
 		E97D450921C80233000E3C48 /* DexListRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D450821C80233000E3C48 /* DexListRepositoryProtocol.swift */; };
@@ -627,7 +628,7 @@
 		E97EC84320E689A800AB006B /* ImportAccountPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */; };
 		E980EACE20A9F5BF001834DB /* ScannerCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */; };
 		E99DD81B21CEE7690091AFEC /* CandlesApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81A21CEE7690091AFEC /* CandlesApiService.swift */; };
-		E99DD81D21CEF09C0091AFEC /* CandleFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81C21CEF09C0091AFEC /* CandleFilters.swift */; };
+		E99DD81D21CEF09C0091AFEC /* CandleApiFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81C21CEF09C0091AFEC /* CandleApiFilters.swift */; };
 		E99DD81F21CEF7AC0091AFEC /* CandleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81E21CEF7AC0091AFEC /* CandleApi.swift */; };
 		E9A05C5820E9264300B0E0FA /* UseTouchIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */; };
 		E9A380A721D2E1C5004377A6 /* ListPairApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A380A621D2E1C5004377A6 /* ListPairApi.swift */; };
@@ -949,7 +950,7 @@
 		0A1DAD6C20F39F94004DA625 /* NodeServiceTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeServiceTypes.swift; sourceTree = "<group>"; };
 		0A1DAD7020F3A112004DA625 /* AddressesNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesNodeService.swift; sourceTree = "<group>"; };
 		0A1DAD7220F3A12B004DA625 /* AssetsNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsNodeService.swift; sourceTree = "<group>"; };
-		0A1DAD7520F3A6A6004DA625 /* ExchangeFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeFilters.swift; sourceTree = "<group>"; };
+		0A1DAD7520F3A6A6004DA625 /* ExchangeApiFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeApiFilters.swift; sourceTree = "<group>"; };
 		0A1DAD7720F3A85A004DA625 /* Encodable+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Dictionary.swift"; sourceTree = "<group>"; };
 		0A1DAD7920F3A9AE004DA625 /* TransactionApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionApi.swift; sourceTree = "<group>"; };
 		0A20145E212EDD720004BDE8 /* DateFormatter+ISO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+ISO.swift"; sourceTree = "<group>"; };
@@ -1494,6 +1495,7 @@
 		E96E29FD21D3492F00AC2FA9 /* MatcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherService.swift; sourceTree = "<group>"; };
 		E96E29FF21D34A2100AC2FA9 /* MatcherRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E96E2A0121D34AA200AC2FA9 /* MatcherRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherRepositoryRemote.swift; sourceTree = "<group>"; };
+		E96E2A0421D3D9AA00AC2FA9 /* OrderMatcherQueries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderMatcherQueries.swift; sourceTree = "<group>"; };
 		E971DA5120FFF4B600616A03 /* BiometricManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricManager.swift; sourceTree = "<group>"; };
 		E9740E5D21D1C90F00EAD3ED /* ListPairsApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPairsApiService.swift; sourceTree = "<group>"; };
 		E97D450821C80233000E3C48 /* DexListRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexListRepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -1505,7 +1507,7 @@
 		E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountPasswordViewController.swift; sourceTree = "<group>"; };
 		E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerCustomView.swift; sourceTree = "<group>"; };
 		E99DD81A21CEE7690091AFEC /* CandlesApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandlesApiService.swift; sourceTree = "<group>"; };
-		E99DD81C21CEF09C0091AFEC /* CandleFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleFilters.swift; sourceTree = "<group>"; };
+		E99DD81C21CEF09C0091AFEC /* CandleApiFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleApiFilters.swift; sourceTree = "<group>"; };
 		E99DD81E21CEF7AC0091AFEC /* CandleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleApi.swift; sourceTree = "<group>"; };
 		E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseTouchIDViewController.swift; sourceTree = "<group>"; };
 		E9A380A621D2E1C5004377A6 /* ListPairApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPairApi.swift; sourceTree = "<group>"; };
@@ -2006,8 +2008,8 @@
 		0A1DAD7420F3A696004DA625 /* Queries */ = {
 			isa = PBXGroup;
 			children = (
-				0A1DAD7520F3A6A6004DA625 /* ExchangeFilters.swift */,
-				E99DD81C21CEF09C0091AFEC /* CandleFilters.swift */,
+				0A1DAD7520F3A6A6004DA625 /* ExchangeApiFilters.swift */,
+				E99DD81C21CEF09C0091AFEC /* CandleApiFilters.swift */,
 			);
 			path = Queries;
 			sourceTree = "<group>";
@@ -2548,6 +2550,7 @@
 				0A8AFF292101F47F00D0582B /* OrderBookMatcherService.swift */,
 				0AE657302106368F003D2DB8 /* BalanceMatcherService.swift */,
 				E96E29FD21D3492F00AC2FA9 /* MatcherService.swift */,
+				E96E2A0321D3D98C00AC2FA9 /* Queries */,
 				E97D450E21C814A0000E3C48 /* Models */,
 			);
 			path = Matcher;
@@ -3562,6 +3565,14 @@
 				E9657035219360770052F0FC /* WalletSortInteractorProtocol.swift */,
 			);
 			path = Interactor;
+			sourceTree = "<group>";
+		};
+		E96E2A0321D3D98C00AC2FA9 /* Queries */ = {
+			isa = PBXGroup;
+			children = (
+				E96E2A0421D3D9AA00AC2FA9 /* OrderMatcherQueries.swift */,
+			);
+			path = Queries;
 			sourceTree = "<group>";
 		};
 		E97D450621C801C4000E3C48 /* Dex */ = {
@@ -4901,6 +4912,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A8AFF282101F37200D0582B /* MatcherServiceTypes.swift in Sources */,
+				E96E2A0521D3D9AA00AC2FA9 /* OrderMatcherQueries.swift in Sources */,
 				04831F7A216917B0006D1ED6 /* ApiServiceTypes.swift in Sources */,
 				E9DC959621A3A5BD0020249F /* StartLeasingTypes.swift in Sources */,
 				E9DB667B21A3938200962639 /* StartLeasingLoadingViewController.swift in Sources */,
@@ -4953,7 +4965,7 @@
 				E901CE592149D27000942783 /* ExchangeTransaction.swift in Sources */,
 				E910B7E921C3261B00E402AB /* CoinomatRepository.swift in Sources */,
 				0A7874A721B9530B00EB829D /* QRCodeReader+Factory.swift in Sources */,
-				0A3AD40721492E9400F8A929 /* ExchangeFilters.swift in Sources */,
+				0A3AD40721492E9400F8A929 /* ExchangeApiFilters.swift in Sources */,
 				E9B086BB2163883000937644 /* AddressBookViewController.swift in Sources */,
 				0A1DAD6D20F39F94004DA625 /* NodeServiceTypes.swift in Sources */,
 				0AACD5AB21A6CAC800B30815 /* SweetSnackBack+Factory.swift in Sources */,
@@ -5001,7 +5013,7 @@
 				0A762D9521639FBF0019D447 /* UIView+SafeArea.swift in Sources */,
 				0A5E4BD0213820C500E3C3C3 /* BurnTransactionDomainDTO.swift in Sources */,
 				0A5E4BCD213820C500E3C3C3 /* TransferTransactionDomainDTO.swift in Sources */,
-				E99DD81D21CEF09C0091AFEC /* CandleFilters.swift in Sources */,
+				E99DD81D21CEF09C0091AFEC /* CandleApiFilters.swift in Sources */,
 				0A5E4BC8213820C500E3C3C3 /* DataTransactionDomainDTO.swift in Sources */,
 				E9D36DE02175C755001E6DF0 /* ReceiveAddressViewController.swift in Sources */,
 				0A96F1DA2152CDB7005E148F /* PasscodeTypes.swift in Sources */,

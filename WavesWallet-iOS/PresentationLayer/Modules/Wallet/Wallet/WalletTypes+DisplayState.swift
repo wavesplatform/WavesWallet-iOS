@@ -55,7 +55,7 @@ extension WalletTypes.DisplayState {
 }
 
 
-// TODO: Get Methods
+// MARK: Get Methods
 
 extension WalletTypes.DisplayState {
 
@@ -72,7 +72,7 @@ extension WalletTypes.DisplayState {
     }
 }
 
-// TODO: Set Methods
+// MARK: Set Methods
 
 extension WalletTypes.DisplayState {
 
