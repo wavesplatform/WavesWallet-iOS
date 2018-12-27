@@ -39,3 +39,16 @@ extension DomainLayer.DTO.Dex {
         let type: OrderType
     }
 }
+
+//MARK: - AssetPair
+extension DomainLayer.DTO.Dex {
+    
+    struct AssetPair: Mutating {
+        let id: String
+        let amountAsset: Asset
+        let priceAsset: Asset
+        var isChecked: Bool
+        let isGeneral: Bool
+        var sortLevel: Int
+    }
+}

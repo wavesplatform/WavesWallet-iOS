@@ -1,15 +1,41 @@
 //
-//  DexMarketDTO+Mapper.swift
+//  DexMarketDomainDTO+Mapper.swift
 //  WavesWallet-iOS
 //
-//  Created by Pavel Gubin on 10/30/18.
+//  Created by Pavel Gubin on 12/27/18.
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
 import Foundation
 import RealmSwift
 
-extension DexMarket.DTO.Pair {
+extension DomainLayer.DTO.Dex.AssetPair {
+    
+    init(_ pair: DexAssetPair, isChecked: Bool) {
+        
+        let amountAsset = DomainLayer.DTO.Dex.Asset(id: pair.amountAsset.id,
+                                                    name: pair.amountAsset.name,
+                                                    shortName: pair.amountAsset.shortName,
+                                                    decimals: pair.amountAsset.decimals)
+        
+        let priceAsset = DomainLayer.DTO.Dex.Asset(id: pair.priceAsset.id,
+                                                   name: pair.priceAsset.name,
+                                                   shortName: pair.priceAsset.shortName,
+                                                   decimals: pair.priceAsset.decimals)
+        
+        
+        self.amountAsset = amountAsset
+        self.priceAsset = priceAsset
+        self.isChecked = isChecked
+        self.isGeneral = pair.isGeneral
+        self.sortLevel = pair.sortLevel
+        self.id = pair.id
+        
+    }
+}
+
+
+extension DomainLayer.DTO.Dex.AssetPair {
     
     init(_ market: Matcher.DTO.Market, realm: Realm) {
         
@@ -55,9 +81,9 @@ extension DexMarket.DTO.Pair {
                             decimals: market.amountAssetInfo.decimals)
         
         priceAsset = .init(id: market.priceAsset,
-                            name: priceAssetName,
-                            shortName: priceAssetShortName,
-                            decimals: market.priceAssetInfo.decimals)
+                           name: priceAssetName,
+                           shortName: priceAssetShortName,
+                           decimals: market.priceAssetInfo.decimals)
         
         
         let isGeneralAmount = realm.objects(Asset.self)
