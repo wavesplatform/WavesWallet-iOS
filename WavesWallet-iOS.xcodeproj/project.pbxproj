@@ -4903,6 +4903,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E964067E21D5299D00569963 /* DexDomainDTO.swift in Sources */,
 				0A8AFF282101F37200D0582B /* MatcherServiceTypes.swift in Sources */,
 				E96E2A0521D3D9AA00AC2FA9 /* OrderMatcherQueries.swift in Sources */,
 				04831F7A216917B0006D1ED6 /* ApiServiceTypes.swift in Sources */,
@@ -4998,7 +4999,6 @@
 				E9B0879F2163886800937644 /* DexChartCandlePriceView.swift in Sources */,
 				0A3FE8BD2137007500DBF4E1 /* ExchangeTransactionNode.swift in Sources */,
 				0A5E4BCE213820C500E3C3C3 /* ExchangeTransactionDomainDTO.swift in Sources */,
-				E964067E21D5299D00569963 /* DexDomainDTO.swift in Sources */,
 				E922D25F21B81BE800575955 /* CandleDomainDTO.swift in Sources */,
 				0A3FE8BC2137007500DBF4E1 /* BurnTransactionNode.swift in Sources */,
 				E9D36DCD2175C755001E6DF0 /* ReceiveCryptocurrencyInteractorProtocol.swift in Sources */,

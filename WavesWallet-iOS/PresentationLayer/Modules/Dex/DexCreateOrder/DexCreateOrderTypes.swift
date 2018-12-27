@@ -116,12 +116,3 @@ extension DexCreateOrder.DTO.Expiration {
         }
     }
 }
-
-extension DomainLayer.DTO.Dex.OrderType {
-    var bytes: [UInt8] {
-        switch self {
-        case .sell: return [UInt8(1)]
-        case .buy: return [UInt8(0)]
-        }
-    }
-}
