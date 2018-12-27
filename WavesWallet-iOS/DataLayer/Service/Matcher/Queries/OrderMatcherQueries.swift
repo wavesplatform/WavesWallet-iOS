@@ -114,3 +114,13 @@ extension Matcher.Query.CreateOrder {
                 "signature" : Base58.encode(signature)]
     }
 }
+
+
+fileprivate extension DomainLayer.DTO.Dex.OrderType {
+    var bytes: [UInt8] {
+        switch self {
+        case .sell: return [UInt8(1)]
+        case .buy: return [UInt8(0)]
+        }
+    }
+}
