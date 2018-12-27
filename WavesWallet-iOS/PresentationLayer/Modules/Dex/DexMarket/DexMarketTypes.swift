@@ -14,12 +14,11 @@ private enum Constants {
 }
 
 enum DexMarket {
-    enum DTO {}
     enum ViewModel {}
 
     enum Event {
         case readyView
-        case setPairs([DTO.Pair])
+        case setPairs([DomainLayer.DTO.Dex.AssetPair])
         case tapCheckMark(index: Int)
         case tapInfoButton(index: Int)
         case searchTextChange(text: String)
@@ -43,7 +42,7 @@ extension DexMarket.ViewModel {
     }
     
     enum Row {
-        case pair(DexMarket.DTO.Pair)
+        case pair(DomainLayer.DTO.Dex.AssetPair)
     }
     
 }
@@ -55,42 +54,5 @@ extension DexMarket {
     
     static var WavesCommunityToken: [String : String] {
         return Constants.WavesCommunityToken
-    }
-}
-
-extension DexMarket.DTO {
-    
-    struct Pair: Mutating {
-        let id: String
-        let amountAsset: DomainLayer.DTO.Dex.Asset
-        let priceAsset: DomainLayer.DTO.Dex.Asset
-        var isChecked: Bool
-        let isGeneral: Bool
-        var sortLevel: Int
-    }
-}
-
-extension DexMarket.DTO.Pair {
-    
-    init(_ pair: DexAssetPair, isChecked: Bool) {
-        
-        let amountAsset = DomainLayer.DTO.Dex.Asset(id: pair.amountAsset.id,
-                                                    name: pair.amountAsset.name,
-                                                    shortName: pair.amountAsset.shortName,
-                                                    decimals: pair.amountAsset.decimals)
-        
-        let priceAsset = DomainLayer.DTO.Dex.Asset(id: pair.priceAsset.id,
-                                                   name: pair.priceAsset.name,
-                                                   shortName: pair.priceAsset.shortName,
-                                                   decimals: pair.priceAsset.decimals)
-        
-        
-        self.amountAsset = amountAsset
-        self.priceAsset = priceAsset
-        self.isChecked = isChecked
-        self.isGeneral = pair.isGeneral
-        self.sortLevel = pair.sortLevel
-        self.id = pair.id
-        
     }
 }

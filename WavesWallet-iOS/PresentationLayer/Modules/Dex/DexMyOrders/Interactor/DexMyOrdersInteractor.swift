@@ -54,8 +54,6 @@ final class DexMyOrdersInteractor: DexMyOrdersInteractorProtocol {
     
     var pair: DexTraderContainer.DTO.Pair!
     
-    private let sendSubject: PublishSubject<[DexMarket.DTO.Pair]> = PublishSubject<[DexMarket.DTO.Pair]>()
-
     func myOrders() -> Observable<[DexMyOrders.DTO.Order]> {
         
         return repository.myOrders(amountAsset: pair.amountAsset.id, priceAsset: pair.priceAsset.id)
