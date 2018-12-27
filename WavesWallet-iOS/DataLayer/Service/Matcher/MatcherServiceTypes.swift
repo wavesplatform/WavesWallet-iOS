@@ -14,6 +14,7 @@ enum Matcher {}
 extension Matcher {
     enum DTO {}
     enum Service {}
+    enum Query {}
 }
 
 protocol MatcherTargetType: BaseTargetType {}

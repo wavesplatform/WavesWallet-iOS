@@ -112,6 +112,19 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                 })
         })
     }
+    
+    func createOrder(order: Matcher.Query.CreateOrder) -> Observable<Bool> {
+        
+        return currentEnvironment().flatMap({ (environment) -> Observable<Bool> in
+            return self.matcherProvider.rx
+                    .request(.init(kind: .createOrder(order),
+                                   environment: environment),
+                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                    .filterSuccessfulStatusAndRedirectCodes()
+                    .asObservable()
+                    .map { _ in true }
+        })
+    }
 }
 
 private extension DexOrderBookRepositoryRemote {

@@ -9,7 +9,9 @@
 import Foundation
 import Moya
 
+
 extension MoyaProvider {
+
     final class func matcherMoyaProvider<Target: TargetType>() -> MoyaProvider<Target> {
         return MoyaProvider<Target>(callbackQueue: nil,
                                     plugins: [SweetNetworkLoggerPlugin(verbose: true)])
@@ -17,22 +19,15 @@ extension MoyaProvider {
 }
 
 extension Matcher.Service {
-
+    
     struct OrderBook {
         
-        struct CancelOrder {
-            let wallet: DomainLayer.DTO.SignedWallet
-            let orderId: String
-            let amountAsset: String
-            let priceAsset: String
-        }
-        
         enum Kind {
-            
             case getOrderBook(amountAsset: String, priceAsset: String)
             case getMarket
             case getMyOrders(amountAsset: String, priceAsset: String, signature: TimestampSignature)
-            case cancelOrder(CancelOrder)
+            case cancelOrder(Matcher.Query.CancelOrder)
+            case createOrder(Matcher.Query.CreateOrder)
         }
 
         var kind: Kind
@@ -66,14 +61,18 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
             
         case .cancelOrder(let order):
             return orderBookPath + "/" + order.amountAsset + "/" + order.priceAsset + "/" + "cancel"
+            
+        case .createOrder:
+            return orderBookPath
         }
     }
 
     var method: Moya.Method {
         
         switch kind {
-        case .cancelOrder:
+        case .cancelOrder, .createOrder:
             return .post
+            
         default:
             return .get
         }
@@ -85,6 +84,9 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
         case .cancelOrder(let order):
             return .requestParameters(parameters: order.params, encoding: JSONEncoding.default)
             
+        case .createOrder(let order):
+            return .requestParameters(parameters: order.params, encoding: JSONEncoding.default)
+
         default:
             return .requestPlain
         }
@@ -102,25 +104,5 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
         }
 
         return headers
-    }
-}
-
-private extension Matcher.Service.OrderBook.CancelOrder {
-    
-    var toSign: [UInt8] {
-        let s1 = wallet.publicKey.publicKey
-        let s2 = Base58.decode(orderId)
-        return s1 + s2
-    }
-    
-    
-    var signature: [UInt8] {
-        return Hash.sign(toSign, wallet.privateKey.privateKey)
-    }
-    
-    var params: [String : String] {
-        return ["sender" : Base58.encode(wallet.publicKey.publicKey),
-                "orderId" : orderId,
-                "signature" : Base58.encode(signature)]
     }
 }

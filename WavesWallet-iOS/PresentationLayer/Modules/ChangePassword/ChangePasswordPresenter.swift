@@ -199,7 +199,6 @@ private extension ChangePasswordPresenter {
             state.displayState.isEnabledConfirmButton = state.isValidOldPassword && state.isValidConfirmPassword
             
         case .handlerError:
-            //TODO: Error
             state.displayState.textFields[.oldPassword]?.error = Localizable.Waves.Changepassword.Textfield.Error.incorrectpassword
 
         case .tapContinue:
