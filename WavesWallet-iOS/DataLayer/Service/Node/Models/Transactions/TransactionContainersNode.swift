@@ -171,7 +171,6 @@ extension Node.DTO {
                 error("WTF \(e)")
             }
 
-            print("self.transactions \(transactions.count)")
             self.transactions = transactions
         }
     }

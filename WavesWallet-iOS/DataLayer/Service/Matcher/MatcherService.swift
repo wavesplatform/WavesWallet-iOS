@@ -11,12 +11,12 @@ import Moya
 
 extension Matcher.Service {
     
-    struct Matcher {
+    struct MatcherPublicKey {
         var environment: Environment
     }
 }
 
-extension Matcher.Service.Matcher: MatcherTargetType {
+extension Matcher.Service.MatcherPublicKey: MatcherTargetType {
     var path: String {
         return "matcher"
     }

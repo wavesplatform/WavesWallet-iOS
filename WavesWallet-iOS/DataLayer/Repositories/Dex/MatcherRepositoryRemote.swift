@@ -12,7 +12,7 @@ import Moya
 
 final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
 
-    private let matcherProvider: MoyaProvider<Matcher.Service.Matcher> = .matcherMoyaProvider()
+    private let matcherProvider: MoyaProvider<Matcher.Service.MatcherPublicKey> = .matcherMoyaProvider()
     private let auth = FactoryInteractors.instance.authorization
     private let environment = FactoryRepositories.instance.environmentRepository
     
