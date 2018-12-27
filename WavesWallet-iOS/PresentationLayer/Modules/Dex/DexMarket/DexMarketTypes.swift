@@ -62,8 +62,8 @@ extension DexMarket.DTO {
     
     struct Pair: Mutating {
         let id: String
-        let amountAsset: Dex.DTO.Asset
-        let priceAsset: Dex.DTO.Asset
+        let amountAsset: DomainLayer.DTO.Dex.Asset
+        let priceAsset: DomainLayer.DTO.Dex.Asset
         var isChecked: Bool
         let isGeneral: Bool
         var sortLevel: Int
@@ -74,15 +74,15 @@ extension DexMarket.DTO.Pair {
     
     init(_ pair: DexAssetPair, isChecked: Bool) {
         
-        let amountAsset = Dex.DTO.Asset(id: pair.amountAsset.id,
-                                        name: pair.amountAsset.name,
-                                        shortName: pair.amountAsset.shortName,
-                                        decimals: pair.amountAsset.decimals)
+        let amountAsset = DomainLayer.DTO.Dex.Asset(id: pair.amountAsset.id,
+                                                    name: pair.amountAsset.name,
+                                                    shortName: pair.amountAsset.shortName,
+                                                    decimals: pair.amountAsset.decimals)
         
-        let priceAsset = Dex.DTO.Asset(id: pair.priceAsset.id,
-                                       name: pair.priceAsset.name,
-                                       shortName: pair.priceAsset.shortName,
-                                       decimals: pair.priceAsset.decimals)
+        let priceAsset = DomainLayer.DTO.Dex.Asset(id: pair.priceAsset.id,
+                                                   name: pair.priceAsset.name,
+                                                   shortName: pair.priceAsset.shortName,
+                                                   decimals: pair.priceAsset.decimals)
         
         
         self.amountAsset = amountAsset

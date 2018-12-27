@@ -18,8 +18,8 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
 
     weak var moduleOutput: DexLastTradesModuleOutput?
     
-    var priceAsset: Dex.DTO.Asset!
-    var amountAsset: Dex.DTO.Asset!
+    var priceAsset: DomainLayer.DTO.Dex.Asset!
+    var amountAsset: DomainLayer.DTO.Dex.Asset!
     
     func system(feedbacks: [DexLastTradesPresenterProtocol.Feedback]) {
         

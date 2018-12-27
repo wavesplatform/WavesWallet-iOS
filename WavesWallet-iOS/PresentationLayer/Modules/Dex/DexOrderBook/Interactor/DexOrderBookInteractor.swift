@@ -116,7 +116,7 @@ private extension DexOrderBookInteractor {
                 percent = min(((askValue - bidValue) * 100 / bidValue).floatValue, Constants.maxPercent) 
             }
             
-            let type: Dex.DTO.OrderType = tx.type == .sell ? .sell : .buy
+            let type: DomainLayer.DTO.Dex.OrderType = tx.type == .sell ? .sell : .buy
             
             lastPrice = DexOrderBook.DTO.LastPrice(price: tx.price, percent: percent, orderType: type)
         }

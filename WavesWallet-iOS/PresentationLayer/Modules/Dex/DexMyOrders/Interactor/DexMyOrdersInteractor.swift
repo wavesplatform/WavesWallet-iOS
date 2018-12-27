@@ -11,7 +11,7 @@ import RxSwift
 
 fileprivate extension DexMyOrders.DTO.Order {
     
-    init(_ model: Matcher.DTO.Order, priceAsset: Dex.DTO.Asset, amountAsset: Dex.DTO.Asset) {
+    init(_ model: Matcher.DTO.Order, priceAsset: DomainLayer.DTO.Dex.Asset, amountAsset: DomainLayer.DTO.Dex.Asset) {
         
         id = model.id
         
@@ -35,10 +35,10 @@ fileprivate extension DexMyOrders.DTO.Order {
         }
         
         if model.type == .sell {
-            type = Dex.DTO.OrderType.sell
+            type = .sell
         }
         else {
-            type = Dex.DTO.OrderType.buy
+            type = .buy
         }
         
         self.amountAsset = amountAsset

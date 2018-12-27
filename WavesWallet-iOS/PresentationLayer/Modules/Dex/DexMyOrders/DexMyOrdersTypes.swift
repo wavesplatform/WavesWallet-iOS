@@ -75,9 +75,9 @@ extension DexMyOrders.DTO {
         let price: Money
         let amount: Money
         let filled: Money
-        let type: Dex.DTO.OrderType
-        let amountAsset: Dex.DTO.Asset
-        let priceAsset: Dex.DTO.Asset
+        let type: DomainLayer.DTO.Dex.OrderType
+        let amountAsset: DomainLayer.DTO.Dex.Asset
+        let priceAsset: DomainLayer.DTO.Dex.Asset
     }
     
     struct CancelRequest {
