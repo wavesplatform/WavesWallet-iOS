@@ -48,9 +48,9 @@ extension DexCreateOrder.DTO {
     }
     
     struct Input {
-        let amountAsset: Dex.DTO.Asset
-        let priceAsset: Dex.DTO.Asset
-        let type: Dex.DTO.OrderType
+        let amountAsset: DomainLayer.DTO.Dex.Asset
+        let priceAsset: DomainLayer.DTO.Dex.Asset
+        let type: DomainLayer.DTO.Dex.OrderType
         let price: Money?
         let ask: Money?
         let bid: Money?
@@ -62,16 +62,16 @@ extension DexCreateOrder.DTO {
     }
     
     struct Order {
-        let amountAsset: Dex.DTO.Asset
-        let priceAsset: Dex.DTO.Asset
-        var type: Dex.DTO.OrderType
+        let amountAsset: DomainLayer.DTO.Dex.Asset
+        let priceAsset: DomainLayer.DTO.Dex.Asset
+        var type: DomainLayer.DTO.Dex.OrderType
         var amount: Money
         var price: Money
         var total: Money
         var expiration: Expiration
         let fee: Int = Constansts.orderFee
         
-        init(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, type: Dex.DTO.OrderType, amount: Money, price: Money, total: Money, expiration: Expiration) {
+        init(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, type: DomainLayer.DTO.Dex.OrderType, amount: Money, price: Money, total: Money, expiration: Expiration) {
             
             self.amountAsset = amountAsset
             self.priceAsset = priceAsset
@@ -85,7 +85,7 @@ extension DexCreateOrder.DTO {
     
     struct Output {
         let time: Date
-        let orderType: Dex.DTO.OrderType
+        let orderType: DomainLayer.DTO.Dex.OrderType
         let price: Money
         let amount: Money
     }
@@ -117,7 +117,7 @@ extension DexCreateOrder.DTO.Expiration {
     }
 }
 
-extension Dex.DTO.OrderType {
+extension DomainLayer.DTO.Dex.OrderType {
     var bytes: [UInt8] {
         switch self {
         case .sell: return [UInt8(1)]

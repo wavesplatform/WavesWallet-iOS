@@ -49,15 +49,15 @@ extension DexMarket.DTO.Pair {
             priceAssetShortName = ticker
         }
         
-        amountAsset = Dex.DTO.Asset(id: market.amountAsset,
-                                    name: amountAssetName,
-                                    shortName: amountAssetShortName,
-                                    decimals: market.amountAssetInfo.decimals)
+        amountAsset = .init(id: market.amountAsset,
+                            name: amountAssetName,
+                            shortName: amountAssetShortName,
+                            decimals: market.amountAssetInfo.decimals)
         
-        priceAsset = Dex.DTO.Asset(id: market.priceAsset,
-                                    name: priceAssetName,
-                                    shortName: priceAssetShortName,
-                                    decimals: market.priceAssetInfo.decimals)
+        priceAsset = .init(id: market.priceAsset,
+                            name: priceAssetName,
+                            shortName: priceAssetShortName,
+                            decimals: market.priceAssetInfo.decimals)
         
         
         let isGeneralAmount = realm.objects(Asset.self)

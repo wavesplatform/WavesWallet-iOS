@@ -15,6 +15,6 @@ extension DomainLayer.DTO {
         let price: Money
         let amount: Money
         let sum: Money
-        let type: Dex.DTO.OrderType
+        let type: DomainLayer.DTO.Dex.OrderType
     }
 }

@@ -64,7 +64,7 @@ extension DexLastTrades.DTO {
   
     struct SellBuyTrade {
         let price: Money
-        let type: Dex.DTO.OrderType
+        let type: DomainLayer.DTO.Dex.OrderType
     }
     
     struct DisplayData {

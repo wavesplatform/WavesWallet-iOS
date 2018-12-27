@@ -16,7 +16,7 @@ final class LastTradesRepository: LastTradesRepositoryProtocol {
     private let accountEnvironment = FactoryRepositories.instance.environmentRepository
     private let auth = FactoryInteractors.instance.authorization
 
-    func lastTrades(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, limit: Int) -> Observable<[DomainLayer.DTO.DexLastTrade]> {
+    func lastTrades(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, limit: Int) -> Observable<[DomainLayer.DTO.DexLastTrade]> {
 
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.DexLastTrade]> in
             guard let owner = self else { return Observable.empty() }
@@ -48,7 +48,7 @@ final class LastTradesRepository: LastTradesRepositoryProtocol {
                             for tx in transactions {
                                 
                                 let sum = Money(value: Decimal(tx.price * tx.amount), priceAsset.decimals)
-                                let orderType: Dex.DTO.OrderType = tx.orderType == .sell ? .sell : .buy
+                                let orderType: DomainLayer.DTO.Dex.OrderType = tx.orderType == .sell ? .sell : .buy
                                 
                                 let model = DomainLayer.DTO.DexLastTrade(time: tx.timestamp,
                                                                          price: Money(value: Decimal(tx.price), priceAsset.decimals),
