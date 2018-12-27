@@ -54,7 +54,7 @@ final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
 
 extension DexLastTradesInteractor {
     
-    private func displayData(lastTrades: [DomainLayer.DTO.DexLastTrade],
+    private func displayData(lastTrades: [DomainLayer.DTO.Dex.LastTrade],
                              lastSellBuy: LastSellBuy,
                              balances: [DomainLayer.DTO.SmartAssetBalance]) -> Observable<DexLastTrades.DTO.DisplayData> {
         
@@ -83,7 +83,7 @@ extension DexLastTradesInteractor {
         return Observable.just(display)
     }
     
-    private func getLastTrades() -> Observable<[DomainLayer.DTO.DexLastTrade]> {
+    private func getLastTrades() -> Observable<[DomainLayer.DTO.Dex.LastTrade]> {
 
         return lastTradesRepository.lastTrades(amountAsset: pair.amountAsset,
                                                priceAsset: pair.priceAsset,

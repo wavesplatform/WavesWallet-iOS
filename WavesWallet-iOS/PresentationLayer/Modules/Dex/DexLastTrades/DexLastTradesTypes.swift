@@ -49,7 +49,7 @@ extension DexLastTrades.ViewModel {
     }
     
     enum Row {
-        case trade(DomainLayer.DTO.DexLastTrade)
+        case trade(DomainLayer.DTO.Dex.LastTrade)
     }
     
     static let dateFormatter: DateFormatter = {
@@ -68,7 +68,7 @@ extension DexLastTrades.DTO {
     }
     
     struct DisplayData {
-        let trades: [DomainLayer.DTO.DexLastTrade]
+        let trades: [DomainLayer.DTO.Dex.LastTrade]
         let lastSell: SellBuyTrade?
         let lastBuy: SellBuyTrade?
         let availableAmountAssetBalance: Money

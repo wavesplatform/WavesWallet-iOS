@@ -12,6 +12,7 @@ extension DomainLayer.DTO {
     enum Dex {}
 }
 
+//MARK: Asset
 extension DomainLayer.DTO.Dex {
     
     struct Asset {
@@ -27,3 +28,14 @@ extension DomainLayer.DTO.Dex {
     }
 }
 
+//MARK: LastTrade
+extension DomainLayer.DTO.Dex {
+    
+    struct LastTrade {
+        let time: Date
+        let price: Money
+        let amount: Money
+        let sum: Money
+        let type: OrderType
+    }
+}

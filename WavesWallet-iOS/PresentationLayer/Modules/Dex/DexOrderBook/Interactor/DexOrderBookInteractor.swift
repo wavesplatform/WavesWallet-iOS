@@ -56,7 +56,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
 
 private extension DexOrderBookInteractor {
     
-    func getDisplayData(info: Matcher.DTO.OrderBook, lastTransactionInfo: DomainLayer.DTO.DexLastTrade?, header: DexOrderBook.ViewModel.Header, balances: [DomainLayer.DTO.SmartAssetBalance]) -> DexOrderBook.DTO.DisplayData {
+    func getDisplayData(info: Matcher.DTO.OrderBook, lastTransactionInfo: DomainLayer.DTO.Dex.LastTrade?, header: DexOrderBook.ViewModel.Header, balances: [DomainLayer.DTO.SmartAssetBalance]) -> DexOrderBook.DTO.DisplayData {
        
         let itemsBids = info.bids
         let itemsAsks = info.asks
@@ -143,10 +143,10 @@ private extension DexOrderBookInteractor {
                                             availableWavesBalance: wavesBalance)
     }
     
-    func getLastTransactionInfo() -> Observable<DomainLayer.DTO.DexLastTrade?> {
+    func getLastTransactionInfo() -> Observable<DomainLayer.DTO.Dex.LastTrade?> {
         
         return lastTradesRepository.lastTrades(amountAsset: pair.amountAsset, priceAsset: pair.priceAsset, limit: 1)
-            .flatMap({ (lastTrades) ->  Observable<DomainLayer.DTO.DexLastTrade?> in
+            .flatMap({ (lastTrades) ->  Observable<DomainLayer.DTO.Dex.LastTrade?> in
                 return Observable.just(lastTrades.first)
             })
     }
