@@ -46,7 +46,7 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
 
     func system(feedbacks: [Feedback]) {
 
-        let assets = self.input.map { DomainLayer.DTO.SmartAssetBalance.map(from: $0) }
+        let assets = self.input.filter{ $0.asset.isSpam == false }.map { DomainLayer.DTO.SmartAssetBalance.map(from: $0) }
 
         let newFeedbacks = feedbacks
 
