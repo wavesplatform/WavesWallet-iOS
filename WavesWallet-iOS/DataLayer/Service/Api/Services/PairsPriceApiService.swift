@@ -11,14 +11,14 @@ import Moya
 
 extension API.Service {
     
-    struct ListPairs {
-        let pairs: [API.DTO.Pair]
+    struct PairsPrice {
+        let pairs: [DomainLayer.DTO.Dex.Pair]
         let environment: Environment
     }
 }
 
 
-extension API.Service.ListPairs: BaseTargetType {
+extension API.Service.PairsPrice: BaseTargetType {
 
     private enum Constants {
         static let pairsPath = "/v0/pairs"
@@ -41,7 +41,7 @@ extension API.Service.ListPairs: BaseTargetType {
     }
 }
 
-private extension API.Service.ListPairs {
+private extension API.Service.PairsPrice {
     
     var baseUrlString: String {
         return environment.servers.dataUrl.relativeString + Constants.pairsPath
@@ -58,7 +58,7 @@ private extension API.Service.ListPairs {
             if url.last != "?" {
                 url.append("&")
             }
-            url.append("pairs=" + pair.amountAsset + "/" + pair.priceAsset)
+            url.append("pairs=" + pair.amountAsset.id + "/" + pair.priceAsset.id)
         }
 
         return url

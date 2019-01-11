@@ -15,6 +15,11 @@ extension API.DTO {
         case buy
     }
     
+    struct Pair: Decodable {
+        let amountAsset: String
+        let priceAsset: String
+    }
+    
     struct Order: Decodable {
         let id: String
         let senderPublicKey: String

@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-extension DomainLayer.DTO.Dex.AssetPair {
+extension DomainLayer.DTO.Dex.SmartPair {
     
     init(_ pair: DexAssetPair, isChecked: Bool) {
         
@@ -35,7 +35,7 @@ extension DomainLayer.DTO.Dex.AssetPair {
 }
 
 
-extension DomainLayer.DTO.Dex.AssetPair {
+extension DomainLayer.DTO.Dex.SmartPair {
     
     init(_ market: Matcher.DTO.Market, realm: Realm) {
         

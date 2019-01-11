@@ -34,7 +34,7 @@ protocol FactoryRepositoriesProtocol {
     
     var dexRealmRepository: DexRealmRepositoryProtocol { get }
 
-    var dexListRepository: DexListRepositoryProtocol { get }
+    var dexPairsPriceRepository: DexPairsPriceRepositoryProtocol { get }
     
     var dexOrderBookRepository: DexOrderBookRepositoryProtocol { get }
     

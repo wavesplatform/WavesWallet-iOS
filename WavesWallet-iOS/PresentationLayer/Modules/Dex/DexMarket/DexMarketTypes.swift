@@ -18,7 +18,7 @@ enum DexMarket {
 
     enum Event {
         case readyView
-        case setPairs([DomainLayer.DTO.Dex.AssetPair])
+        case setPairs([DomainLayer.DTO.Dex.SmartPair])
         case tapCheckMark(index: Int)
         case tapInfoButton(index: Int)
         case searchTextChange(text: String)
@@ -42,7 +42,7 @@ extension DexMarket.ViewModel {
     }
     
     enum Row {
-        case pair(DomainLayer.DTO.Dex.AssetPair)
+        case pair(DomainLayer.DTO.Dex.SmartPair)
     }
     
 }

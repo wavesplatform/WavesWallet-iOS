@@ -62,7 +62,7 @@ extension DexList.ViewModel {
 
 extension DexList.DTO {
     
-    struct Pair: Mutating {
+    struct Pair: Mutating {        
         var firstPrice: Money
         var lastPrice: Money
         let amountAsset: DomainLayer.DTO.Dex.Asset

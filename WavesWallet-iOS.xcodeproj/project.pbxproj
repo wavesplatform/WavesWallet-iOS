@@ -616,9 +616,9 @@
 		E96E2A0221D34AA200AC2FA9 /* MatcherRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96E2A0121D34AA200AC2FA9 /* MatcherRepositoryRemote.swift */; };
 		E96E2A0521D3D9AA00AC2FA9 /* OrderMatcherQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96E2A0421D3D9AA00AC2FA9 /* OrderMatcherQueries.swift */; };
 		E971DA5220FFF4B600616A03 /* BiometricManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E971DA5120FFF4B600616A03 /* BiometricManager.swift */; };
-		E9740E5E21D1C90F00EAD3ED /* ListPairsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9740E5D21D1C90F00EAD3ED /* ListPairsApiService.swift */; };
-		E97D450921C80233000E3C48 /* DexListRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D450821C80233000E3C48 /* DexListRepositoryProtocol.swift */; };
-		E97D450B21C802AB000E3C48 /* DexListRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D450A21C802AB000E3C48 /* DexListRepositoryRemote.swift */; };
+		E9740E5E21D1C90F00EAD3ED /* PairsPriceApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9740E5D21D1C90F00EAD3ED /* PairsPriceApiService.swift */; };
+		E97D450921C80233000E3C48 /* DexPairsPriceRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D450821C80233000E3C48 /* DexPairsPriceRepositoryProtocol.swift */; };
+		E97D450B21C802AB000E3C48 /* DexPairsPriceRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D450A21C802AB000E3C48 /* DexPairsPriceRepositoryRemote.swift */; };
 		E97D450D21C8127F000E3C48 /* DexOrderBookRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D450C21C8127F000E3C48 /* DexOrderBookRepositoryProtocol.swift */; };
 		E97D451021C814C0000E3C48 /* OrderBookMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D450F21C814C0000E3C48 /* OrderBookMatcher.swift */; };
 		E97D451221C817CC000E3C48 /* DexOrderBookRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D451121C817CC000E3C48 /* DexOrderBookRepositoryRemote.swift */; };
@@ -629,8 +629,7 @@
 		E99DD81D21CEF09C0091AFEC /* CandleApiFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81C21CEF09C0091AFEC /* CandleApiFilters.swift */; };
 		E99DD81F21CEF7AC0091AFEC /* CandleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81E21CEF7AC0091AFEC /* CandleApi.swift */; };
 		E9A05C5820E9264300B0E0FA /* UseTouchIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */; };
-		E9A380A721D2E1C5004377A6 /* ListPairApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A380A621D2E1C5004377A6 /* ListPairApi.swift */; };
-		E9A380AB21D2EEA5004377A6 /* PairApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A380AA21D2EEA5004377A6 /* PairApi.swift */; };
+		E9A380A721D2E1C5004377A6 /* PairPriceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A380A621D2E1C5004377A6 /* PairPriceApi.swift */; };
 		E9A380AD21D3035B004377A6 /* OrderMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A380AC21D3035B004377A6 /* OrderMatcher.swift */; };
 		E9A4812F20D8DDBB00272C6D /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */; };
 		E9A86E1420B6F20A002AC3F9 /* HistoryInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = E9A86E1320B6F20A002AC3F9 /* HistoryInfo.json */; };
@@ -1494,9 +1493,9 @@
 		E96E2A0121D34AA200AC2FA9 /* MatcherRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherRepositoryRemote.swift; sourceTree = "<group>"; };
 		E96E2A0421D3D9AA00AC2FA9 /* OrderMatcherQueries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderMatcherQueries.swift; sourceTree = "<group>"; };
 		E971DA5120FFF4B600616A03 /* BiometricManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricManager.swift; sourceTree = "<group>"; };
-		E9740E5D21D1C90F00EAD3ED /* ListPairsApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPairsApiService.swift; sourceTree = "<group>"; };
-		E97D450821C80233000E3C48 /* DexListRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexListRepositoryProtocol.swift; sourceTree = "<group>"; };
-		E97D450A21C802AB000E3C48 /* DexListRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexListRepositoryRemote.swift; sourceTree = "<group>"; };
+		E9740E5D21D1C90F00EAD3ED /* PairsPriceApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairsPriceApiService.swift; sourceTree = "<group>"; };
+		E97D450821C80233000E3C48 /* DexPairsPriceRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexPairsPriceRepositoryProtocol.swift; sourceTree = "<group>"; };
+		E97D450A21C802AB000E3C48 /* DexPairsPriceRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexPairsPriceRepositoryRemote.swift; sourceTree = "<group>"; };
 		E97D450C21C8127F000E3C48 /* DexOrderBookRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexOrderBookRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E97D450F21C814C0000E3C48 /* OrderBookMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookMatcher.swift; sourceTree = "<group>"; };
 		E97D451121C817CC000E3C48 /* DexOrderBookRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexOrderBookRepositoryRemote.swift; sourceTree = "<group>"; };
@@ -1507,8 +1506,7 @@
 		E99DD81C21CEF09C0091AFEC /* CandleApiFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleApiFilters.swift; sourceTree = "<group>"; };
 		E99DD81E21CEF7AC0091AFEC /* CandleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleApi.swift; sourceTree = "<group>"; };
 		E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseTouchIDViewController.swift; sourceTree = "<group>"; };
-		E9A380A621D2E1C5004377A6 /* ListPairApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPairApi.swift; sourceTree = "<group>"; };
-		E9A380AA21D2EEA5004377A6 /* PairApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairApi.swift; sourceTree = "<group>"; };
+		E9A380A621D2E1C5004377A6 /* PairPriceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairPriceApi.swift; sourceTree = "<group>"; };
 		E9A380AC21D3035B004377A6 /* OrderMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderMatcher.swift; sourceTree = "<group>"; };
 		E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		E9A86E1320B6F20A002AC3F9 /* HistoryInfo.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = HistoryInfo.json; sourceTree = "<group>"; };
@@ -1957,8 +1955,7 @@
 				0A1DAD6120F3876C004DA625 /* AssetApi.swift */,
 				0A1DAD7920F3A9AE004DA625 /* TransactionApi.swift */,
 				E99DD81E21CEF7AC0091AFEC /* CandleApi.swift */,
-				E9A380A621D2E1C5004377A6 /* ListPairApi.swift */,
-				E9A380AA21D2EEA5004377A6 /* PairApi.swift */,
+				E9A380A621D2E1C5004377A6 /* PairPriceApi.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2260,7 +2257,7 @@
 				0A7E0CD820F2BCFF0010CA6C /* TransactionsApiService.swift */,
 				0A4C9AAA20EF6BFF0095A417 /* AssetsApiService.swift */,
 				E99DD81A21CEE7690091AFEC /* CandlesApiService.swift */,
-				E9740E5D21D1C90F00EAD3ED /* ListPairsApiService.swift */,
+				E9740E5D21D1C90F00EAD3ED /* PairsPriceApiService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -3577,7 +3574,7 @@
 				E9F9A27D218540F700FD68D7 /* DexRealmRepositoryLocal.swift */,
 				E922D26121B81E5700575955 /* CandlesRepository.swift */,
 				E922D26921B831B600575955 /* LastTradesRepository.swift */,
-				E97D450A21C802AB000E3C48 /* DexListRepositoryRemote.swift */,
+				E97D450A21C802AB000E3C48 /* DexPairsPriceRepositoryRemote.swift */,
 				E97D451121C817CC000E3C48 /* DexOrderBookRepositoryRemote.swift */,
 				E96E2A0121D34AA200AC2FA9 /* MatcherRepositoryRemote.swift */,
 			);
@@ -3590,7 +3587,7 @@
 				E9F9A27B21853E7D00FD68D7 /* DexRealmRepositoryProtocol.swift */,
 				E922D26321B82C2100575955 /* CandlesRepositoryProtocol.swift */,
 				E922D26721B8311F00575955 /* LastTradesRepositoryProtocol.swift */,
-				E97D450821C80233000E3C48 /* DexListRepositoryProtocol.swift */,
+				E97D450821C80233000E3C48 /* DexPairsPriceRepositoryProtocol.swift */,
 				E97D450C21C8127F000E3C48 /* DexOrderBookRepositoryProtocol.swift */,
 				E96E29FF21D34A2100AC2FA9 /* MatcherRepositoryProtocol.swift */,
 			);
@@ -5068,7 +5065,7 @@
 				0A7E0CD120F2AF6C0010CA6C /* BaseTargetType.swift in Sources */,
 				0AF92300212E1234003BA067 /* NavigationAccessoryView.swift in Sources */,
 				E9657038219360770052F0FC /* WalletSortModuleBuilder.swift in Sources */,
-				E97D450B21C802AB000E3C48 /* DexListRepositoryRemote.swift in Sources */,
+				E97D450B21C802AB000E3C48 /* DexPairsPriceRepositoryRemote.swift in Sources */,
 				E9B087CA2163886800937644 /* DexListModuleOutput.swift in Sources */,
 				0AF922B9212E1234003BA067 /* ObservableType+SweetLogger.swift in Sources */,
 				E9B086B12163883000937644 /* AddAddressTextField.swift in Sources */,
@@ -5119,7 +5116,7 @@
 				0A4D221E21809E3600155A8E /* AccountEnvironmentDomainDTO.swift in Sources */,
 				E9F9A27C21853E7D00FD68D7 /* DexRealmRepositoryProtocol.swift in Sources */,
 				E9B088062163886800937644 /* DexCompleteOrderViewController.swift in Sources */,
-				E9740E5E21D1C90F00EAD3ED /* ListPairsApiService.swift in Sources */,
+				E9740E5E21D1C90F00EAD3ED /* PairsPriceApiService.swift in Sources */,
 				048684F521258B0B00D12189 /* HistoryHeaderView.swift in Sources */,
 				E9B086BA2163883000937644 /* AddressBookCell.swift in Sources */,
 				0A6AC3E021847F8D005D2525 /* AddressesKeysModuleBuilder.swift in Sources */,
@@ -5219,7 +5216,7 @@
 				E9B087F02163886800937644 /* DexLastTradesViewController.swift in Sources */,
 				0A25B46A216F69EC00638C93 /* Bundle+Version.swift in Sources */,
 				E9B087C72163886800937644 /* DexTraderContainerBaseHeaderView.swift in Sources */,
-				E97D450921C80233000E3C48 /* DexListRepositoryProtocol.swift in Sources */,
+				E97D450921C80233000E3C48 /* DexPairsPriceRepositoryProtocol.swift in Sources */,
 				0ABD1BE821469D2F0027A7A2 /* AccountDomainDTO.swift in Sources */,
 				E9B087FB2163886800937644 /* DexMyOrdersModuleBuilder.swift in Sources */,
 				0AE491F82107A52E009223DB /* WalletPresenterProtocol.swift in Sources */,
@@ -5421,7 +5418,6 @@
 				E923A768219D714E000DD9F6 /* TokenBurnLoadingViewController.swift in Sources */,
 				0AF922D9212E1234003BA067 /* Mutating.swift in Sources */,
 				04831F6321691429006D1ED6 /* MoneyTextField.swift in Sources */,
-				E9A380AB21D2EEA5004377A6 /* PairApi.swift in Sources */,
 				0AF922F4212E1234003BA067 /* TickerView.swift in Sources */,
 				0AF92226212E0F1F003BA067 /* WalletHistoryCell.swift in Sources */,
 				0AF921FD212E07B3003BA067 /* AssetHistorySkeletonCell.swift in Sources */,
@@ -5553,7 +5549,7 @@
 				E9B086B82163883000937644 /* AddressBookModuleBuilder.swift in Sources */,
 				E9D36DEB2175C755001E6DF0 /* ReceiveInvoiceViewController.swift in Sources */,
 				E9B087AD2163886800937644 /* DexOrderBookLastPriceCell.swift in Sources */,
-				E9A380A721D2E1C5004377A6 /* ListPairApi.swift in Sources */,
+				E9A380A721D2E1C5004377A6 /* PairPriceApi.swift in Sources */,
 				0AF922DA212E1234003BA067 /* ViewCalculate.swift in Sources */,
 				0AF92208212E07B3003BA067 /* AssetHeaderView.swift in Sources */,
 				0AF922B2212E1234003BA067 /* UIView+Additionals.swift in Sources */,
