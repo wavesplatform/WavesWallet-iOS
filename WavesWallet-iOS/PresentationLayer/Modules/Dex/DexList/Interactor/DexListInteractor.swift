@@ -13,7 +13,7 @@ import RxSwift
 final class DexListInteractor: DexListInteractorProtocol {
    
     private let dexRealmRepository = FactoryRepositories.instance.dexRealmRepository
-    private let dexListRepository = FactoryRepositories.instance.dexListRepository
+    private let dexListRepository = FactoryRepositories.instance.dexPairsPriceRepository
     private let auth = FactoryInteractors.instance.authorization
     
     func pairs() -> Observable<ResponseType<[DexList.DTO.Pair]>> {
@@ -30,8 +30,8 @@ final class DexListInteractor: DexListInteractorProtocol {
                     }
                     else {
                         
-                        let listPairs = pairs.map { API.DTO.Pair(amountAsset: $0.amountAsset.id,
-                                                                priceAsset: $0.priceAsset.id)}
+                        let listPairs = pairs.map { DomainLayer.DTO.Dex.Pair(amountAsset: $0.amountAsset,
+                                                                             priceAsset: $0.priceAsset)}
                         
                         return owner.dexListRepository.list(by: listPairs)
                             .flatMap({ (list) -> Observable<ResponseType<[DexList.DTO.Pair]>> in
@@ -41,14 +41,10 @@ final class DexListInteractor: DexListInteractorProtocol {
                                 for (index, pair) in list.enumerated() {
                                     let localPair = pairs[index]
                                     
-                                    let priceAsset = localPair.priceAsset
-                                    let firstPrice = Money(value: Decimal(pair.firstPrice), priceAsset.decimals)
-                                    let lastPrice = Money(value: Decimal(pair.lastPrice), priceAsset.decimals)
-                                    
-                                    let pair = DexList.DTO.Pair(firstPrice: firstPrice,
-                                                                lastPrice: lastPrice,
-                                                                amountAsset: localPair.amountAsset,
-                                                                priceAsset: priceAsset,
+                                    let pair = DexList.DTO.Pair(firstPrice: pair.firstPrice,
+                                                                lastPrice: pair.lastPrice,
+                                                                amountAsset: pair.amountAsset,
+                                                                priceAsset: pair.priceAsset,
                                                                 isGeneral: localPair.isGeneral,
                                                                 sortLevel: localPair.sortLevel)
                                     listPairs.append(pair)

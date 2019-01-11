@@ -6,11 +6,11 @@ import Moya
 
 final class DexMarketInteractor: DexMarketInteractorProtocol {
     
-    private static var allPairs: [DomainLayer.DTO.Dex.AssetPair] = []
+    private static var allPairs: [DomainLayer.DTO.Dex.SmartPair] = []
     private static var isEnableSpam = false
     private static var spamURL = ""
 
-    private let searchPairsSubject: PublishSubject<[DomainLayer.DTO.Dex.AssetPair]> = PublishSubject<[DomainLayer.DTO.Dex.AssetPair]>()
+    private let searchPairsSubject: PublishSubject<[DomainLayer.DTO.Dex.SmartPair]> = PublishSubject<[DomainLayer.DTO.Dex.SmartPair]>()
     private let disposeBag: DisposeBag = DisposeBag()
 
     private let dexRealmRepository: DexRealmRepositoryProtocol = FactoryRepositories.instance.dexRealmRepository
@@ -19,17 +19,17 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
     private let environment = FactoryRepositories.instance.environmentRepository
     private let orderBookRepository = FactoryRepositories.instance.dexOrderBookRepository
 
-    func pairs() -> Observable<[DomainLayer.DTO.Dex.AssetPair]> {
+    func pairs() -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
 
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.Dex.AssetPair]> in
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
             
             guard let owner = self else { return Observable.empty() }
-            return owner.accountSettings.accountSettings(accountAddress: wallet.address).flatMap({ [weak self] (accountSettings) -> Observable<[DomainLayer.DTO.Dex.AssetPair]> in
+            return owner.accountSettings.accountSettings(accountAddress: wallet.address).flatMap({ [weak self] (accountSettings) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                 
                 guard let owner = self else { return Observable.empty() }
                 let isEnableSpam = accountSettings?.isEnabledSpam ?? DexMarketInteractor.isEnableSpam
 
-                return owner.environment.accountEnvironment(accountAddress: wallet.address).flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.AssetPair]> in
+                return owner.environment.accountEnvironment(accountAddress: wallet.address).flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                     
                     guard let owner = self else { return Observable.empty() }
                     return owner.pairs(accountAddress: wallet.address, isEnableSpam: isEnableSpam, spamURL: environment.servers.spamUrl.relativeString)
@@ -38,11 +38,11 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
         })
     }
     
-    func searchPairs() -> Observable<[DomainLayer.DTO.Dex.AssetPair]> {
+    func searchPairs() -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
         return searchPairsSubject.asObserver()
     }
     
-    func checkMark(pair: DomainLayer.DTO.Dex.AssetPair) {
+    func checkMark(pair: DomainLayer.DTO.Dex.SmartPair) {
         
         if let index = DexMarketInteractor.allPairs.index(where: {$0.id == pair.id}) {
            
@@ -137,7 +137,7 @@ private extension DexMarketInteractor {
 //MARK: - Load data
 private extension DexMarketInteractor {
     
-    func pairs(accountAddress: String, isEnableSpam: Bool, spamURL: String) -> Observable<[DomainLayer.DTO.Dex.AssetPair]> {
+    func pairs(accountAddress: String, isEnableSpam: Bool, spamURL: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
         
         if DexMarketInteractor.allPairs.count > 0 &&
             isEnableSpam == DexMarketInteractor.isEnableSpam &&
@@ -160,7 +160,7 @@ private extension DexMarketInteractor {
         }
         
         return getPairsFromRepository(accountAddress: accountAddress, isEnableSpam: isEnableSpam)
-            .map({ (pairs) -> [DomainLayer.DTO.Dex.AssetPair] in
+            .map({ (pairs) -> [DomainLayer.DTO.Dex.SmartPair] in
                 
                 DexMarketInteractor.allPairs = pairs
                 DexMarketInteractor.isEnableSpam = isEnableSpam
@@ -168,23 +168,23 @@ private extension DexMarketInteractor {
                 
                 return pairs
             })
-            .catchError({ (error) -> Observable<[DomainLayer.DTO.Dex.AssetPair]> in
+            .catchError({ (error) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                 return Observable.just([])
             })
     }
     
-    func getPairsFromRepository(accountAddress: String, isEnableSpam: Bool) -> Observable<[DomainLayer.DTO.Dex.AssetPair]> {
+    func getPairsFromRepository(accountAddress: String, isEnableSpam: Bool) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
       
         return orderBookRepository.markets(isEnableSpam: isEnableSpam)
-            .map({ [weak self] (markets) -> [DomainLayer.DTO.Dex.AssetPair] in
+            .map({ [weak self] (markets) -> [DomainLayer.DTO.Dex.SmartPair] in
                 
                 guard let owner = self else { return [] }
                 
                 let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
                 
-                var pairs: [DomainLayer.DTO.Dex.AssetPair] = []
+                var pairs: [DomainLayer.DTO.Dex.SmartPair] = []
                 for market in markets {
-                    pairs.append(DomainLayer.DTO.Dex.AssetPair(market, realm: realm))
+                    pairs.append(DomainLayer.DTO.Dex.SmartPair(market, realm: realm))
                 }
                 pairs = owner.sort(pairs: pairs, realm: realm)
 
@@ -197,9 +197,9 @@ private extension DexMarketInteractor {
 //MARK: - Sort
 private extension DexMarketInteractor {
     
-    func sort(pairs: [DomainLayer.DTO.Dex.AssetPair], realm: Realm) -> [DomainLayer.DTO.Dex.AssetPair] {
+    func sort(pairs: [DomainLayer.DTO.Dex.SmartPair], realm: Realm) -> [DomainLayer.DTO.Dex.SmartPair] {
 
-        var sortedPairs: [DomainLayer.DTO.Dex.AssetPair] = []
+        var sortedPairs: [DomainLayer.DTO.Dex.SmartPair] = []
 
         let generalBalances = realm
             .objects(Asset.self)
