@@ -11,7 +11,7 @@ import RxSwift
 
 final class DexRealmRepositoryLocal: DexRealmRepositoryProtocol {
 
-    func save(pair: DomainLayer.DTO.Dex.AssetPair, accountAddress: String) -> Observable<Bool> {
+    func save(pair: DomainLayer.DTO.Dex.SmartPair, accountAddress: String) -> Observable<Bool> {
        
         return Observable.create({ (subscribe) -> Disposable in
             
@@ -52,12 +52,12 @@ final class DexRealmRepositoryLocal: DexRealmRepositoryProtocol {
         })
     }
     
-    func list(by accountAddress: String) -> Observable<[DomainLayer.DTO.Dex.AssetPair]> {
+    func list(by accountAddress: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
         
         return Observable.create({ (subscribe) -> Disposable in
 
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
-            let objects = realm.objects(DexAssetPair.self).sorted(by: {$0.sortLevel < $1.sortLevel}).map { return DomainLayer.DTO.Dex.AssetPair($0, isChecked: true)}
+            let objects = realm.objects(DexAssetPair.self).sorted(by: {$0.sortLevel < $1.sortLevel}).map { return DomainLayer.DTO.Dex.SmartPair($0, isChecked: true)}
 
             subscribe.onNext(objects)
             subscribe.onCompleted()
@@ -65,7 +65,7 @@ final class DexRealmRepositoryLocal: DexRealmRepositoryProtocol {
         })
     }
     
-    func listListener(by accountAddress: String) -> Observable<[DomainLayer.DTO.Dex.AssetPair]> {
+    func listListener(by accountAddress: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
 
         return Observable.create({ observer -> Disposable in
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
@@ -74,8 +74,8 @@ final class DexRealmRepositoryLocal: DexRealmRepositoryProtocol {
             let collection = Observable.collection(from: result)
                 .skip(1)
                 .map { $0.toArray() }
-                .map({ list -> [DomainLayer.DTO.Dex.AssetPair] in
-                    return list.sorted(by: {$0.sortLevel < $1.sortLevel}) .map { return DomainLayer.DTO.Dex.AssetPair($0, isChecked: true) }})
+                .map({ list -> [DomainLayer.DTO.Dex.SmartPair] in
+                    return list.sorted(by: {$0.sortLevel < $1.sortLevel}) .map { return DomainLayer.DTO.Dex.SmartPair($0, isChecked: true) }})
                 .bind(to: observer)
 
             return Disposables.create([collection])

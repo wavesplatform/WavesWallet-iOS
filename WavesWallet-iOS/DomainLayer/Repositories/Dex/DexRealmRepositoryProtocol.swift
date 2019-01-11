@@ -11,9 +11,9 @@ import RxSwift
 
 protocol DexRealmRepositoryProtocol {
     
-    func save(pair: DomainLayer.DTO.Dex.AssetPair, accountAddress: String) -> Observable<Bool>
+    func save(pair: DomainLayer.DTO.Dex.SmartPair, accountAddress: String) -> Observable<Bool>
     func delete(by id: String, accountAddress: String) -> Observable<Bool> 
-    func list(by accountAddress: String) -> Observable<[DomainLayer.DTO.Dex.AssetPair]>
-    func listListener(by accountAddress: String) -> Observable<[DomainLayer.DTO.Dex.AssetPair]>
+    func list(by accountAddress: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]>
+    func listListener(by accountAddress: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]>
 
 }

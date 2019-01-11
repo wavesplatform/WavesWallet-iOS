@@ -40,15 +40,34 @@ extension DomainLayer.DTO.Dex {
     }
 }
 
-//MARK: - AssetPair
+//MARK: - SmartPair
 extension DomainLayer.DTO.Dex {
     
-    struct AssetPair: Mutating {
+    struct SmartPair: Mutating {
         let id: String
         let amountAsset: Asset
         let priceAsset: Asset
         var isChecked: Bool
         let isGeneral: Bool
         var sortLevel: Int
+    }
+}
+
+//MARK: - Pair
+extension DomainLayer.DTO.Dex {
+    
+    struct Pair {
+        let amountAsset: Asset
+        let priceAsset: Asset
+    }
+}
+
+//MARK: - PairPrice
+extension DomainLayer.DTO.Dex {
+    struct PairPrice {
+        let firstPrice: Money
+        let lastPrice: Money
+        let amountAsset: Asset
+        let priceAsset: Asset
     }
 }

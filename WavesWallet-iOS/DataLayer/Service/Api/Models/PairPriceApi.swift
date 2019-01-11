@@ -10,14 +10,14 @@ import Foundation
 
 extension API.DTO {
     
-    struct ListPair: Decodable {
+    struct PairPrice: Decodable {
         let firstPrice: Double
         let lastPrice: Double
         let volume: Double
         let volumeWaves: Double
     
-        static var empty: ListPair {
-            return ListPair(firstPrice: 0,
+        static var empty: PairPrice {
+            return PairPrice(firstPrice: 0,
                             lastPrice: 0,
                             volume: 0,
                             volumeWaves: 0)

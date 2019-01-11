@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-protocol DexListRepositoryProtocol {
-
-    func list(by pairs: [API.DTO.Pair]) -> Observable<[API.DTO.ListPair]>
+protocol DexPairsPriceRepositoryProtocol {
+    
+    func list(by pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]>
 }

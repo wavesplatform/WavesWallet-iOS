@@ -99,7 +99,7 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
 
 fileprivate extension DexMarket.ViewModel.Row {
     
-    var pair: DomainLayer.DTO.Dex.AssetPair? {
+    var pair: DomainLayer.DTO.Dex.SmartPair? {
         switch self {
         case .pair(let pair):
             return pair
