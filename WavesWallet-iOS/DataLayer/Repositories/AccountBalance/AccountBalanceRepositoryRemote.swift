@@ -81,7 +81,7 @@ private extension AccountBalanceRepositoryRemote {
                     .rx
                     .request(.init(kind: .getReservedBalances(signature),
                                    environment: environment),
-                             callbackQueue: DispatchQueue.global(qos: .background))
+                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
             }
             .filterSuccessfulStatusAndRedirectCodes()
             .catchError({ (error) -> Observable<Response> in
@@ -102,7 +102,7 @@ private extension AccountBalanceRepositoryRemote {
                     .rx
                     .request(.init(kind: .getAssetsBalance(walletAddress: walletAddress),
                                    environment: environment),
-                             callbackQueue: DispatchQueue.global(qos: .background))
+                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
             }
             .filterSuccessfulStatusAndRedirectCodes()
             .catchError({ (error) -> Observable<Response> in
@@ -123,7 +123,7 @@ private extension AccountBalanceRepositoryRemote {
                     .rx
                     .request(.init(kind: .getAccountBalance(id: walletAddress),
                                    environment: environment),
-                             callbackQueue: DispatchQueue.global(qos: .background))
+                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
             }
             .filterSuccessfulStatusAndRedirectCodes()
             .catchError({ (error) -> Observable<Response> in
