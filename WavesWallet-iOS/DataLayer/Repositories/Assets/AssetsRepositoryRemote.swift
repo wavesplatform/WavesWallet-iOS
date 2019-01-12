@@ -34,7 +34,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                     .spamProvider
                     .rx
                     .request(.getSpamList(url: environment.servers.spamUrl),
-                             callbackQueue: DispatchQueue.global(qos: .background))
+                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
             }
             .filterSuccessfulStatusAndRedirectCodes()
             .catchError({ (error) -> Observable<Response> in
@@ -55,7 +55,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                     .apiProvider
                     .rx
                     .request(.init(kind: .getAssets(ids: ids), environment: environment),
-                             callbackQueue: DispatchQueue.global(qos: .background))
+                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
             }
             .filterSuccessfulStatusAndRedirectCodes()
             .catchError({ (error) -> Observable<Response> in
