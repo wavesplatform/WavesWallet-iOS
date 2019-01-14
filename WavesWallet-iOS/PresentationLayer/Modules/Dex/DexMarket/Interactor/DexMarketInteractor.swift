@@ -32,7 +32,9 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
                 return owner.environment.accountEnvironment(accountAddress: wallet.address).flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                     
                     guard let owner = self else { return Observable.empty() }
-                    return owner.pairs(accountAddress: wallet.address, isEnableSpam: isEnableSpam, spamURL: environment.servers.spamUrl.relativeString)
+                    return owner.pairs(wallet: wallet,
+                                       isEnableSpam: isEnableSpam,
+                                       spamURL: environment.servers.spamUrl.relativeString)
                 })
             })
         })
@@ -137,7 +139,7 @@ private extension DexMarketInteractor {
 //MARK: - Load data
 private extension DexMarketInteractor {
     
-    func pairs(accountAddress: String, isEnableSpam: Bool, spamURL: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
+    func pairs(wallet: DomainLayer.DTO.SignedWallet, isEnableSpam: Bool, spamURL: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
         
         if DexMarketInteractor.allPairs.count > 0 &&
             isEnableSpam == DexMarketInteractor.isEnableSpam &&
@@ -145,7 +147,7 @@ private extension DexMarketInteractor {
             
             return Observable.create({ (subscribe) -> Disposable in
                 
-                let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
+                let realm = try! WalletRealmFactory.realm(accountAddress: wallet.address)
                 
                 for (index, pair) in DexMarketInteractor.allPairs.enumerated() {
                     DexMarketInteractor.allPairs[index] = pair.mutate {
@@ -159,7 +161,7 @@ private extension DexMarketInteractor {
             })
         }
         
-        return getPairsFromRepository(accountAddress: accountAddress, isEnableSpam: isEnableSpam)
+        return getPairsFromRepository(wallet: wallet, isEnableSpam: isEnableSpam)
             .map({ (pairs) -> [DomainLayer.DTO.Dex.SmartPair] in
                 
                 DexMarketInteractor.allPairs = pairs
@@ -173,14 +175,14 @@ private extension DexMarketInteractor {
             })
     }
     
-    func getPairsFromRepository(accountAddress: String, isEnableSpam: Bool) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
+    func getPairsFromRepository(wallet: DomainLayer.DTO.SignedWallet, isEnableSpam: Bool) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
       
-        return orderBookRepository.markets(isEnableSpam: isEnableSpam)
+        return orderBookRepository.markets(wallet: wallet, isEnableSpam: isEnableSpam)
             .map({ [weak self] (markets) -> [DomainLayer.DTO.Dex.SmartPair] in
                 
                 guard let owner = self else { return [] }
                 
-                let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
+                let realm = try! WalletRealmFactory.realm(accountAddress: wallet.address)
                 
                 var pairs: [DomainLayer.DTO.Dex.SmartPair] = []
                 for market in markets {
