@@ -10,5 +10,5 @@ import Foundation
 import RxSwift
 
 protocol LastTradesRepositoryProtocol {
-    func lastTrades(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, limit: Int) -> Observable<[DomainLayer.DTO.Dex.LastTrade]>
+    func lastTrades(accountAddress: String, amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, limit: Int) -> Observable<[DomainLayer.DTO.Dex.LastTrade]>
 }
