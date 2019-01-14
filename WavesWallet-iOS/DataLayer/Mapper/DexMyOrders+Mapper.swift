@@ -15,7 +15,7 @@ extension DomainLayer.DTO.Dex.MyOrder {
         
         id = model.id
         
-        price = DexList.DTO.price(amount: model.price, amountDecimals: amountAsset.decimals, priceDecimals: priceAsset.decimals)
+        price = Money.price(amount: model.price, amountDecimals: amountAsset.decimals, priceDecimals: priceAsset.decimals)
         
         amount = Money(model.amount, amountAsset.decimals)
         time = model.timestamp
