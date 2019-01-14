@@ -10,30 +10,32 @@ import Foundation
 import RxSwift
 import Moya
 
-final class CandlesRepository: CandlesRepositoryProtocol {
+final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
     
     private let apiProvider: MoyaProvider<API.Service.Candles> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
-    private let auth = FactoryInteractors.instance.authorization
-    private let environment = FactoryRepositories.instance.environmentRepository
+    private let environmentRepository: EnvironmentRepositoryProtocol
     
-    func candles(amountAsset: String, priceAsset: String, timeStart: Date, timeEnd: Date, timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> Observable<[DomainLayer.DTO.Candle]> {
+    init(environmentRepository: EnvironmentRepositoryProtocol) {
+        self.environmentRepository = environmentRepository
+    }
+    
+    func candles(accountAddress: String, amountAsset: String, priceAsset: String, timeStart: Date, timeEnd: Date, timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> Observable<[DomainLayer.DTO.Candle]> {
  
-        return auth.authorizedWallet().flatMap({ (wallet) -> Observable<[DomainLayer.DTO.Candle]> in
-            return self.environment.accountEnvironment(accountAddress: wallet.address)
-                .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Candle]> in
-                    
-                    guard let owner = self else { return Observable.empty() }
-                    
-                    let filters = API.Query.CandleFilters(timeStart: Int64(timeStart.timeIntervalSince1970 * 1000),
-                                                          timeEnd: Int64(timeEnd.timeIntervalSince1970 * 1000),
-                                                          interval: String(timeFrame.rawValue) + "m")
-                    
-                    let candles = API.Service.Candles(amountAsset: amountAsset,
-                                                     priceAsset: priceAsset,
-                                                     params: filters,
-                                                     environment: environment)
-                    
-                    return owner.apiProvider.rx
+        return environmentRepository.accountEnvironment(accountAddress: accountAddress)
+            .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Candle]> in
+                
+                guard let owner = self else { return Observable.empty() }
+                
+                let filters = API.Query.CandleFilters(timeStart: Int64(timeStart.timeIntervalSince1970 * 1000),
+                                                      timeEnd: Int64(timeEnd.timeIntervalSince1970 * 1000),
+                                                      interval: String(timeFrame.rawValue) + "m")
+                
+                let candles = API.Service.Candles(amountAsset: amountAsset,
+                                                  priceAsset: priceAsset,
+                                                  params: filters,
+                                                  environment: environment)
+                
+                return owner.apiProvider.rx
                     .request(candles, callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()
                     .map(API.DTO.Chart.self)
@@ -41,7 +43,7 @@ final class CandlesRepository: CandlesRepositoryProtocol {
                     .map({ [weak self] (chart) -> [DomainLayer.DTO.Candle] in
                         
                         guard let owner = self else { return [] }
-                            
+                        
                         var models: [DomainLayer.DTO.Candle] = []
                         
                         for model in chart.candles {
@@ -61,12 +63,11 @@ final class CandlesRepository: CandlesRepositoryProtocol {
                         
                         return models
                     })
-                })
-        })
+            })
     }
 }
 
-private extension CandlesRepository {
+private extension CandlesRepositoryRemote {
     
     func convertTimestamp(_ timestamp: Int64, timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> Double {
         return Double(timestamp / Int64(1000 * 60 * timeFrame.rawValue))
