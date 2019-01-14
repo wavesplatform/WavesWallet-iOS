@@ -25,7 +25,8 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
             return self.environment.accountEnvironment(accountAddress: wallet.address)
                 .flatMap({ (environment) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
                   
-                    return self.matcherRepository.matcherPublicKey().flatMap({ (matcherPublicKey) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
+                    return self.matcherRepository.matcherPublicKey(accountAddress: wallet.address)
+                        .flatMap({ (matcherPublicKey) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
                         
                         let orderQuery = Matcher.Query.CreateOrder(wallet: wallet,
                                                                    matcherPublicKey: matcherPublicKey,

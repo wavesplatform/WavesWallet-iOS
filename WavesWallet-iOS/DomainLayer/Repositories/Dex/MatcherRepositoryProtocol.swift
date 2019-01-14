@@ -11,5 +11,5 @@ import RxSwift
 
 protocol MatcherRepositoryProtocol {
     
-    func matcherPublicKey() -> Observable<PublicKeyAccount>
+    func matcherPublicKey(accountAddress: String) -> Observable<PublicKeyAccount>
 }
