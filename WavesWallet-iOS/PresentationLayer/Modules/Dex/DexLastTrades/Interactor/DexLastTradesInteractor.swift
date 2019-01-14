@@ -24,6 +24,7 @@ final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
     private let account = FactoryInteractors.instance.accountBalance
     private let lastTradesRepository = FactoryRepositories.instance.lastTradesRespository
     private let orderBookRepository = FactoryRepositories.instance.dexOrderBookRepository
+    private let auth = FactoryInteractors.instance.authorization
     
     var pair: DexTraderContainer.DTO.Pair!
 
@@ -85,9 +86,14 @@ extension DexLastTradesInteractor {
     
     private func getLastTrades() -> Observable<[DomainLayer.DTO.Dex.LastTrade]> {
 
-        return lastTradesRepository.lastTrades(amountAsset: pair.amountAsset,
-                                               priceAsset: pair.priceAsset,
-                                               limit: Constants.limit)
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> in
+            guard let owner = self else { return Observable.empty() }
+            return owner.lastTradesRepository.lastTrades(accountAddress: wallet.address,
+                                                         amountAsset: owner.pair.amountAsset,
+                                                         priceAsset: owner.pair.priceAsset,
+                                                         limit: Constants.limit)
+        })
+      
     }
     
     private func getLastSellBuy() -> Observable<LastSellBuy> {

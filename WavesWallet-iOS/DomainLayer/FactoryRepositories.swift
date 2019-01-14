@@ -49,7 +49,7 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
 
     private(set) lazy var candlesRepository: CandlesRepositoryProtocol = CandlesRepositoryRemote(environmentRepository: self.environmentRepository)
     
-    private(set) lazy var lastTradesRespository: LastTradesRepositoryProtocol = LastTradesRepository()
+    private(set) lazy var lastTradesRespository: LastTradesRepositoryProtocol = LastTradesRepositoryRemote(environmentRepository: self.environmentRepository)
     
     private(set) lazy var coinomatRepository: CoinomatRepositoryProtocol = CoinomatRepository()
     
