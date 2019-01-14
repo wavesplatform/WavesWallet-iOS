@@ -20,7 +20,9 @@ final class CandlesRepository: CandlesRepositoryProtocol {
  
         return auth.authorizedWallet().flatMap({ (wallet) -> Observable<[DomainLayer.DTO.Candle]> in
             return self.environment.accountEnvironment(accountAddress: wallet.address)
-                .flatMap({ (environment) -> Observable<[DomainLayer.DTO.Candle]> in
+                .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Candle]> in
+                    
+                    guard let owner = self else { return Observable.empty() }
                     
                     let filters = API.Query.CandleFilters(timeStart: Int64(timeStart.timeIntervalSince1970 * 1000),
                                                           timeEnd: Int64(timeEnd.timeIntervalSince1970 * 1000),
@@ -31,7 +33,7 @@ final class CandlesRepository: CandlesRepositoryProtocol {
                                                      params: filters,
                                                      environment: environment)
                     
-                    return self.apiProvider.rx
+                    return owner.apiProvider.rx
                     .request(candles, callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()
                     .map(API.DTO.Chart.self)
