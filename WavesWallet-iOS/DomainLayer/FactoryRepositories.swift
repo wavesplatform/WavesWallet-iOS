@@ -47,7 +47,7 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
 
     private(set) lazy var assetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositoryProtocol = AssetsBalanceSettingsRepositoryLocal()
 
-    private(set) lazy var candlesRepository: CandlesRepositoryProtocol = CandlesRepository()
+    private(set) lazy var candlesRepository: CandlesRepositoryProtocol = CandlesRepositoryRemote(environmentRepository: self.environmentRepository)
     
     private(set) lazy var lastTradesRespository: LastTradesRepositoryProtocol = LastTradesRepository()
     
