@@ -615,7 +615,7 @@
 		E96E29FE21D3492F00AC2FA9 /* MatcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96E29FD21D3492F00AC2FA9 /* MatcherService.swift */; };
 		E96E2A0021D34A2100AC2FA9 /* MatcherRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96E29FF21D34A2100AC2FA9 /* MatcherRepositoryProtocol.swift */; };
 		E96E2A0221D34AA200AC2FA9 /* MatcherRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96E2A0121D34AA200AC2FA9 /* MatcherRepositoryRemote.swift */; };
-		E96E2A0521D3D9AA00AC2FA9 /* OrderMatcherQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96E2A0421D3D9AA00AC2FA9 /* OrderMatcherQueries.swift */; };
+		E96E2A0521D3D9AA00AC2FA9 /* DomainDexQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96E2A0421D3D9AA00AC2FA9 /* DomainDexQueries.swift */; };
 		E971DA5220FFF4B600616A03 /* BiometricManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E971DA5120FFF4B600616A03 /* BiometricManager.swift */; };
 		E9740E5E21D1C90F00EAD3ED /* PairsPriceApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9740E5D21D1C90F00EAD3ED /* PairsPriceApiService.swift */; };
 		E97D450921C80233000E3C48 /* DexPairsPriceRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D450821C80233000E3C48 /* DexPairsPriceRepositoryProtocol.swift */; };
@@ -1493,7 +1493,7 @@
 		E96E29FD21D3492F00AC2FA9 /* MatcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherService.swift; sourceTree = "<group>"; };
 		E96E29FF21D34A2100AC2FA9 /* MatcherRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E96E2A0121D34AA200AC2FA9 /* MatcherRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherRepositoryRemote.swift; sourceTree = "<group>"; };
-		E96E2A0421D3D9AA00AC2FA9 /* OrderMatcherQueries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderMatcherQueries.swift; sourceTree = "<group>"; };
+		E96E2A0421D3D9AA00AC2FA9 /* DomainDexQueries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainDexQueries.swift; sourceTree = "<group>"; };
 		E971DA5120FFF4B600616A03 /* BiometricManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricManager.swift; sourceTree = "<group>"; };
 		E9740E5D21D1C90F00EAD3ED /* PairsPriceApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairsPriceApiService.swift; sourceTree = "<group>"; };
 		E97D450821C80233000E3C48 /* DexPairsPriceRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexPairsPriceRepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -2229,6 +2229,7 @@
 			isa = PBXGroup;
 			children = (
 				0A485E942100A0D400079B49 /* DomainLayerTypes.swift */,
+				E967786C21ECE12D00CE56D6 /* Queries */,
 				0A14CFCD2144157A00C3A4D5 /* Mapper */,
 				0AEB358D2115DF8300EDD63C /* Models */,
 				0AEB358A2115DB1D00EDD63C /* Repositories */,
@@ -2547,7 +2548,6 @@
 				0A8AFF292101F47F00D0582B /* OrderBookMatcherService.swift */,
 				0AE657302106368F003D2DB8 /* BalanceMatcherService.swift */,
 				E96E29FD21D3492F00AC2FA9 /* MatcherService.swift */,
-				E96E2A0321D3D98C00AC2FA9 /* Queries */,
 				E97D450E21C814A0000E3C48 /* Models */,
 			);
 			path = Matcher;
@@ -3563,10 +3563,10 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
-		E96E2A0321D3D98C00AC2FA9 /* Queries */ = {
+		E967786C21ECE12D00CE56D6 /* Queries */ = {
 			isa = PBXGroup;
 			children = (
-				E96E2A0421D3D9AA00AC2FA9 /* OrderMatcherQueries.swift */,
+				E96E2A0421D3D9AA00AC2FA9 /* DomainDexQueries.swift */,
 			);
 			path = Queries;
 			sourceTree = "<group>";
@@ -4905,7 +4905,7 @@
 			files = (
 				E964067E21D5299D00569963 /* DexDomainDTO.swift in Sources */,
 				0A8AFF282101F37200D0582B /* MatcherServiceTypes.swift in Sources */,
-				E96E2A0521D3D9AA00AC2FA9 /* OrderMatcherQueries.swift in Sources */,
+				E96E2A0521D3D9AA00AC2FA9 /* DomainDexQueries.swift in Sources */,
 				04831F7A216917B0006D1ED6 /* ApiServiceTypes.swift in Sources */,
 				E9DC959621A3A5BD0020249F /* StartLeasingTypes.swift in Sources */,
 				E9DB667B21A3938200962639 /* StartLeasingLoadingViewController.swift in Sources */,
