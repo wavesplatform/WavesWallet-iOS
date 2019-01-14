@@ -65,7 +65,7 @@ private extension DexOrderBookInteractor {
         return DexOrderBook.DTO.LastPrice.empty(decimals: pair.priceAsset.decimals)
     }
     
-    func getDisplayData(info: Matcher.DTO.OrderBook, lastTransactionInfo: DomainLayer.DTO.Dex.LastTrade?, header: DexOrderBook.ViewModel.Header, balances: [DomainLayer.DTO.SmartAssetBalance]) -> DexOrderBook.DTO.DisplayData {
+    func getDisplayData(info: DomainLayer.DTO.Dex.OrderBook, lastTransactionInfo: DomainLayer.DTO.Dex.LastTrade?, header: DexOrderBook.ViewModel.Header, balances: [DomainLayer.DTO.SmartAssetBalance]) -> DexOrderBook.DTO.DisplayData {
        
         let itemsBids = info.bids
         let itemsAsks = info.asks
