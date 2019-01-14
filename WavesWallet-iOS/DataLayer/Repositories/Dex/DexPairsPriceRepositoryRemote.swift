@@ -18,11 +18,12 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
     
     func list(by pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
 
-        return auth.authorizedWallet().flatMap({ (wallet) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
-            return self.environment.accountEnvironment(accountAddress: wallet.address)
-                .flatMap({ (environment) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
-                    
-                    return self.apiProvider.rx
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
+            guard let owner = self else { return Observable.empty() }
+            return owner.environment.accountEnvironment(accountAddress: wallet.address)
+                .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
+                    guard let owner = self else { return Observable.empty() }
+                    return owner.apiProvider.rx
                         .request(.init(pairs: pairs, environment: environment),
                                  callbackQueue: DispatchQueue.global(qos: .userInteractive))
                         .filterSuccessfulStatusAndRedirectCodes()
