@@ -71,3 +71,28 @@ extension DomainLayer.DTO.Dex {
         let priceAsset: Asset
     }
 }
+
+//MARK: - MyOrder
+
+extension DomainLayer.DTO.Dex {
+    
+    struct MyOrder {
+        
+        enum Status {
+            case accepted
+            case partiallyFilled
+            case cancelled
+            case filled
+        }
+        
+        let id: String
+        let time: Date
+        var status: Status
+        let price: Money
+        let amount: Money
+        let filled: Money
+        let type: OrderType
+        let amountAsset: Asset
+        let priceAsset: Asset
+    }
+}

@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import Moya
+import RealmSwift
 
 final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
 
@@ -40,7 +41,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
         })
     }
     
-    func markets(wallet: DomainLayer.DTO.SignedWallet, isEnableSpam: Bool) -> Observable<[Matcher.DTO.Market]> {
+    func markets(wallet: DomainLayer.DTO.SignedWallet, isEnableSpam: Bool) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
 
         return environmentRepository.accountEnvironment(accountAddress: wallet.address)
             .flatMap({ [weak self] (environment) -> Observable<[Matcher.DTO.Market]> in
@@ -74,27 +75,52 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
 
                 return markets
             })
+            .map({ [weak self] (markets) -> [DomainLayer.DTO.Dex.SmartPair] in
+                guard let owner = self else { return [] }
+                
+                let realm = try! WalletRealmFactory.realm(accountAddress: wallet.address)
+                
+                var pairs: [DomainLayer.DTO.Dex.SmartPair] = []
+                for market in markets {
+                    pairs.append(DomainLayer.DTO.Dex.SmartPair(market, realm: realm))
+                }
+                pairs = owner.sort(pairs: pairs, realm: realm)
+                
+                return pairs
+            })
     }
     
     
-    func myOrders(wallet: DomainLayer.DTO.SignedWallet, amountAsset: String, priceAsset: String) -> Observable<[Matcher.DTO.Order]> {
+    func myOrders(wallet: DomainLayer.DTO.SignedWallet, amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset) -> Observable<[DomainLayer.DTO.Dex.MyOrder]> {
 
         return environmentRepository.accountEnvironment(accountAddress: wallet.address)
-            .flatMap({ [weak self] (environment) -> Observable<[Matcher.DTO.Order]> in
+            .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.MyOrder]> in
                 guard let owner = self else { return Observable.empty() }
                 
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .millisecondsSince1970
 
                 return owner.matcherProvider.rx
-                .request(.init(kind: .getMyOrders(amountAsset: amountAsset,
-                                                  priceAsset: priceAsset,
+                .request(.init(kind: .getMyOrders(amountAsset: amountAsset.id,
+                                                  priceAsset: priceAsset.id,
                                                   signature: TimestampSignature(signedWallet: wallet)),
                                environment: environment),
                          callbackQueue: DispatchQueue.global(qos: .userInteractive))
                 .filterSuccessfulStatusAndRedirectCodes()
                 .map([Matcher.DTO.Order].self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
                 .asObservable()
+                .map({ (orders) -> [DomainLayer.DTO.Dex.MyOrder] in
+                    
+                    var myOrders: [DomainLayer.DTO.Dex.MyOrder] = []
+                    
+                    for order in orders {
+                        myOrders.append(DomainLayer.DTO.Dex.MyOrder(order,
+                                                                    priceAsset: priceAsset,
+                                                                    amountAsset: amountAsset))
+                        
+                    }
+                    return myOrders
+                })
         })
     }
     
@@ -136,6 +162,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
     }
 }
 
+//MARK: - SpamList
 private extension DexOrderBookRepositoryRemote {
     
     func spamList(accountAddress: String) -> Observable<[String]> {
@@ -158,3 +185,41 @@ private extension DexOrderBookRepositoryRemote {
             })
     }
 }
+
+
+//MARK: - Markets Sort
+private extension DexOrderBookRepositoryRemote {
+    
+    func sort(pairs: [DomainLayer.DTO.Dex.SmartPair], realm: Realm) -> [DomainLayer.DTO.Dex.SmartPair] {
+        
+        var sortedPairs: [DomainLayer.DTO.Dex.SmartPair] = []
+        
+        let generalBalances = realm
+            .objects(Asset.self)
+            .filter(NSPredicate(format: "isGeneral == true"))
+            .toArray()
+            .reduce(into: [String: Asset](), { $0[$1.id] = $1 })
+        
+        let settingsList = realm
+            .objects(AssetBalanceSettings.self)
+            .toArray()
+            .filter { (asset) -> Bool in
+                return generalBalances[asset.assetId]?.isGeneral == true
+            }
+            .sorted(by: { $0.sortLevel < $1.sortLevel })
+        
+        for settings in settingsList {
+            sortedPairs.append(contentsOf: pairs.filter({$0.amountAsset.id == settings.assetId && $0.isGeneral == true }))
+        }
+        
+        var sortedIds = sortedPairs.map {$0.id}
+        sortedPairs.append(contentsOf: pairs.filter { $0.isGeneral == true && !sortedIds.contains($0.id) } )
+        
+        sortedIds = sortedPairs.map {$0.id}
+        sortedPairs.append(contentsOf: pairs.filter { !sortedIds.contains($0.id) } )
+        
+        return sortedPairs
+    }
+}
+
+
