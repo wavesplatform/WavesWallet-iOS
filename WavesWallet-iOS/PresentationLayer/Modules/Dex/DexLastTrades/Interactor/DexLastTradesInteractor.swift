@@ -98,33 +98,41 @@ extension DexLastTradesInteractor {
     
     private func getLastSellBuy() -> Observable<LastSellBuy> {
         
-        return orderBookRepository.orderBook(amountAsset: pair.amountAsset.id, priceAsset: pair.priceAsset.id)
-            .flatMap({ [weak self] (orderbook) -> Observable<LastSellBuy> in
-                
-                guard let owner = self else { return Observable.empty() }
-                
-                var sell: DexLastTrades.DTO.SellBuyTrade?
-                var buy: DexLastTrades.DTO.SellBuyTrade?
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<LastSellBuy> in
+            guard let owner = self else { return Observable.empty() }
 
-                if let bid = orderbook.bids.first {
+
+            return owner.orderBookRepository.orderBook(wallet: wallet,
+                                                       amountAsset: owner.pair.amountAsset.id,
+                                                       priceAsset: owner.pair.priceAsset.id)
+                .flatMap({ [weak self] (orderbook) -> Observable<LastSellBuy> in
                     
-                    let price = DexList.DTO.price(amount: bid.price,
-                                                  amountDecimals: owner.pair.amountAsset.decimals,
-                                                  priceDecimals: owner.pair.priceAsset.decimals)
+                    guard let owner = self else { return Observable.empty() }
                     
-                    sell = DexLastTrades.DTO.SellBuyTrade(price: price, type: .sell)
-                }
-                
-                if let ask = orderbook.asks.first {
+                    var sell: DexLastTrades.DTO.SellBuyTrade?
+                    var buy: DexLastTrades.DTO.SellBuyTrade?
                     
-                    let price = DexList.DTO.price(amount: ask.price,
-                                                  amountDecimals: owner.pair.amountAsset.decimals,
-                                                  priceDecimals: owner.pair.priceAsset.decimals)
+                    if let bid = orderbook.bids.first {
+                        
+                        let price = DexList.DTO.price(amount: bid.price,
+                                                      amountDecimals: owner.pair.amountAsset.decimals,
+                                                      priceDecimals: owner.pair.priceAsset.decimals)
+                        
+                        sell = DexLastTrades.DTO.SellBuyTrade(price: price, type: .sell)
+                    }
                     
-                    buy = DexLastTrades.DTO.SellBuyTrade(price: price, type: .buy)
-                }
-                
-                return Observable.just(LastSellBuy(sell: sell, buy: buy))
-            })
+                    if let ask = orderbook.asks.first {
+                        
+                        let price = DexList.DTO.price(amount: ask.price,
+                                                      amountDecimals: owner.pair.amountAsset.decimals,
+                                                      priceDecimals: owner.pair.priceAsset.decimals)
+                        
+                        buy = DexLastTrades.DTO.SellBuyTrade(price: price, type: .buy)
+                    }
+                    
+                    return Observable.just(LastSellBuy(sell: sell, buy: buy))
+                })
+        })
+        
     }
 }
