@@ -81,7 +81,7 @@ private extension DexOrderBookInteractor {
         
         for item in itemsBids {
 
-            let price = DexList.DTO.price(amount: item.price, amountDecimals: pair.amountAsset.decimals, priceDecimals: pair.priceAsset.decimals)
+            let price = Money.price(amount: item.price, amountDecimals: pair.amountAsset.decimals, priceDecimals: pair.priceAsset.decimals)
             let amount = Money(item.amount, pair.amountAsset.decimals)
             
             totalSumBid += price.decimalValue * amount.decimalValue
@@ -98,7 +98,7 @@ private extension DexOrderBookInteractor {
         
         for item in itemsAsks {
             
-            let price = DexList.DTO.price(amount: item.price, amountDecimals: pair.amountAsset.decimals, priceDecimals: pair.priceAsset.decimals)
+            let price = Money.price(amount: item.price, amountDecimals: pair.amountAsset.decimals, priceDecimals: pair.priceAsset.decimals)
             let amount = Money(item.amount, pair.amountAsset.decimals)
             
             totalSumAsk += price.decimalValue * amount.decimalValue

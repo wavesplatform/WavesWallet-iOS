@@ -114,7 +114,7 @@ extension DexLastTradesInteractor {
                     
                     if let bid = orderbook.bids.first {
                         
-                        let price = DexList.DTO.price(amount: bid.price,
+                        let price = Money.price(amount: bid.price,
                                                       amountDecimals: owner.pair.amountAsset.decimals,
                                                       priceDecimals: owner.pair.priceAsset.decimals)
                         
@@ -123,7 +123,7 @@ extension DexLastTradesInteractor {
                     
                     if let ask = orderbook.asks.first {
                         
-                        let price = DexList.DTO.price(amount: ask.price,
+                        let price = Money.price(amount: ask.price,
                                                       amountDecimals: owner.pair.amountAsset.decimals,
                                                       priceDecimals: owner.pair.priceAsset.decimals)
                         
