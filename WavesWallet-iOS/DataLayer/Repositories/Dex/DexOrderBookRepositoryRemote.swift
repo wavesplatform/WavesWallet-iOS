@@ -152,7 +152,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
             })
     }
     
-    func createOrder(wallet: DomainLayer.DTO.SignedWallet, order: Matcher.Query.CreateOrder) -> Observable<Bool> {
+    func createOrder(wallet: DomainLayer.DTO.SignedWallet, order: DomainLayer.Query.Dex.CreateOrder) -> Observable<Bool> {
         
         return environmentRepository.accountEnvironment(accountAddress: wallet.address)
             .flatMap({ [weak self] (environment) -> Observable<Bool> in
