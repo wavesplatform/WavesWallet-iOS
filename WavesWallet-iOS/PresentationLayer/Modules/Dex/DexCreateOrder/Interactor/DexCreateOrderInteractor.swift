@@ -27,15 +27,15 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                 .flatMap({ [weak self] (matcherPublicKey) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
                     guard let owner = self else { return Observable.empty() }
                     
-                    let orderQuery = Matcher.Query.CreateOrder(wallet: wallet,
-                                                               matcherPublicKey: matcherPublicKey,
-                                                               amountAsset: order.amountAsset.id,
-                                                               priceAsset: order.priceAsset.id,
-                                                               amount: order.amount.amount,
-                                                               price: order.price.amount,
-                                                               orderType: order.type,
-                                                               matcherFee: order.fee,
-                                                               expiration: order.expiration.rawValue)
+                    let orderQuery = DomainLayer.Query.Dex.CreateOrder(wallet: wallet,
+                                                                       matcherPublicKey: matcherPublicKey,
+                                                                       amountAsset: order.amountAsset.id,
+                                                                       priceAsset: order.priceAsset.id,
+                                                                       amount: order.amount.amount,
+                                                                       price: order.price.amount,
+                                                                       orderType: order.type,
+                                                                       matcherFee: order.fee,
+                                                                       expiration: order.expiration.rawValue)
 
                     
                     return owner.orderBookRepository.createOrder(wallet: wallet, order: orderQuery)
