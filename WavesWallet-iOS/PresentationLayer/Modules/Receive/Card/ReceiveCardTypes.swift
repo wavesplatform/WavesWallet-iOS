@@ -20,6 +20,7 @@ enum ReceiveCard {
         case didGetPriceInfo(ResponseType<Money>)
         case updateAmountWithUSDFiat
         case updateAmountWithEURFiat
+        case linkDidGenerate(String)
     }
     
     struct State: Mutating {
@@ -46,11 +47,7 @@ enum ReceiveCard {
 }
 
 extension ReceiveCard.DTO {
-    
-    static var fiatDecimals: Int {
-        return 2
-    }
-    
+
     enum FiatType {
         case usd
         case eur
@@ -66,8 +63,6 @@ extension ReceiveCard.DTO {
         let type: FiatType
         let minAmount: Money
         let maxAmount: Money
-        let minAmountString: String
-        let maxAmountString: String
     }
     
     struct Info {
