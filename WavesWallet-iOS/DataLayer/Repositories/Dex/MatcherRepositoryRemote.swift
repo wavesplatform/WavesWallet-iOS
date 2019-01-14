@@ -22,9 +22,10 @@ final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
     func matcherPublicKey(accountAddress: String) -> Observable<PublicKeyAccount> {
         
         return environmentRepository.accountEnvironment(accountAddress: accountAddress)
-            .flatMap({ (environment) -> Observable<PublicKeyAccount> in
+            .flatMap({ [weak self] (environment) -> Observable<PublicKeyAccount> in
+                guard let owner = self else { return Observable.empty() }
                 
-                return self.matcherProvider.rx
+                return owner.matcherProvider.rx
                     .request(.init(environment: environment),
                              callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()

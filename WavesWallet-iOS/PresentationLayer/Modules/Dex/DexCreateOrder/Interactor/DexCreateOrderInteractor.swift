@@ -19,10 +19,13 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     
     func createOrder(order: DexCreateOrder.DTO.Order) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
         
-        return auth.authorizedWallet().flatMap({ (wallet) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
             
-                return self.matcherRepository.matcherPublicKey(accountAddress: wallet.address)
-                    .flatMap({ (matcherPublicKey) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
+            guard let owner = self else { return Observable.empty() }
+            
+            return owner.matcherRepository.matcherPublicKey(accountAddress: wallet.address)
+                .flatMap({ [weak self] (matcherPublicKey) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
+                    guard let owner = self else { return Observable.empty() }
                     
                     let orderQuery = Matcher.Query.CreateOrder(wallet: wallet,
                                                                matcherPublicKey: matcherPublicKey,
@@ -35,7 +38,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                                                                expiration: order.expiration.rawValue)
 
                     
-                    return self.orderBookRepository.createOrder(wallet: wallet, order: orderQuery)
+                    return owner.orderBookRepository.createOrder(wallet: wallet, order: orderQuery)
                     .flatMap({ (success) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
                         let output = DexCreateOrder.DTO.Output(time: Date(milliseconds: orderQuery.timestamp),
                                                                orderType: order.type,
@@ -43,7 +46,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                                                                amount: order.amount)
                         return Observable.just(ResponseType(output: output, error: nil))
                     })
-                })
+            })
         })
         .catchError({ (error) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
             return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
