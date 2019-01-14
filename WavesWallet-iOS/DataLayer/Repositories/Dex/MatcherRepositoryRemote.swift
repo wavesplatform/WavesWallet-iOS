@@ -13,31 +13,32 @@ import Moya
 final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
 
     private let matcherProvider: MoyaProvider<Matcher.Service.MatcherPublicKey> = .matcherMoyaProvider()
-    private let auth = FactoryInteractors.instance.authorization
-    private let environment = FactoryRepositories.instance.environmentRepository
+    private let environmentRepository: EnvironmentRepositoryProtocol
     
-    func matcherPublicKey() -> Observable<PublicKeyAccount> {
+    init(environmentRepository: EnvironmentRepositoryProtocol) {
+        self.environmentRepository = environmentRepository
+    }
+    
+    func matcherPublicKey(accountAddress: String) -> Observable<PublicKeyAccount> {
         
-        return self.auth.authorizedWallet().flatMap({ (wallet) -> Observable<PublicKeyAccount> in
-            return self.environment.accountEnvironment(accountAddress: wallet.address)
+        return environmentRepository.accountEnvironment(accountAddress: accountAddress)
             .flatMap({ (environment) -> Observable<PublicKeyAccount> in
-
+                
                 return self.matcherProvider.rx
-                .request(.init(environment: environment),
-                         callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                .filterSuccessfulStatusAndRedirectCodes()
-                .asObservable()
-                .flatMap({ (response) -> Observable<PublicKeyAccount>  in
-                    
-                    do {
-                        let key = try JSONSerialization.jsonObject(with: response.data, options: .allowFragments) as? String ?? ""
-                        return Observable.just(PublicKeyAccount(publicKey: Base58.decode(key)))
-                    }
-                    catch let error {
-                        return Observable.error(error)
-                    }
-                })
+                    .request(.init(environment: environment),
+                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                    .filterSuccessfulStatusAndRedirectCodes()
+                    .asObservable()
+                    .flatMap({ (response) -> Observable<PublicKeyAccount>  in
+                        
+                        do {
+                            let key = try JSONSerialization.jsonObject(with: response.data, options: .allowFragments) as? String ?? ""
+                            return Observable.just(PublicKeyAccount(publicKey: Base58.decode(key)))
+                        }
+                        catch let error {
+                            return Observable.error(error)
+                        }
+                    })
             })
-        })
     }
 }
