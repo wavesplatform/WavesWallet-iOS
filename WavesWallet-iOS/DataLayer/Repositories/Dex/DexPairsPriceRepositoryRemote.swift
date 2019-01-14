@@ -12,45 +12,45 @@ import Moya
 
 final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
     
-    private let environment = FactoryRepositories.instance.environmentRepository
-    private let auth = FactoryInteractors.instance.authorization
     private let apiProvider: MoyaProvider<API.Service.PairsPrice> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
+    private let environmentRepository: EnvironmentRepositoryProtocol
     
-    func list(by pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
+    init(environmentRepository: EnvironmentRepositoryProtocol) {
+        self.environmentRepository = environmentRepository
+    }
+    
+    func list(by accountAddress: String, pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
 
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
-            guard let owner = self else { return Observable.empty() }
-            return owner.environment.accountEnvironment(accountAddress: wallet.address)
-                .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
-                    guard let owner = self else { return Observable.empty() }
-                    return owner.apiProvider.rx
-                        .request(.init(pairs: pairs, environment: environment),
-                                 callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                        .filterSuccessfulStatusAndRedirectCodes()
-                        .map(API.Response<[API.OptionalResponse<API.DTO.PairPrice>]>.self)
-                        .map { $0.data.map {$0.data ?? .empty}}
-                        .map({ (list) -> [DomainLayer.DTO.Dex.PairPrice] in
+        return environmentRepository.accountEnvironment(accountAddress: accountAddress)
+            .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
+                guard let owner = self else { return Observable.empty() }
+                return owner.apiProvider.rx
+                    .request(.init(pairs: pairs, environment: environment),
+                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                    .filterSuccessfulStatusAndRedirectCodes()
+                    .map(API.Response<[API.OptionalResponse<API.DTO.PairPrice>]>.self)
+                    .map { $0.data.map {$0.data ?? .empty}}
+                    .map({ (list) -> [DomainLayer.DTO.Dex.PairPrice] in
+                        
+                        var listPairs: [DomainLayer.DTO.Dex.PairPrice] = []
+                        
+                        for (index, pair) in list.enumerated() {
+                            let localPair = pairs[index]
                             
-                            var listPairs: [DomainLayer.DTO.Dex.PairPrice] = []
+                            let priceAsset = localPair.priceAsset
+                            let firstPrice = Money(value: Decimal(pair.firstPrice), priceAsset.decimals)
+                            let lastPrice = Money(value: Decimal(pair.lastPrice), priceAsset.decimals)
                             
-                            for (index, pair) in list.enumerated() {
-                                let localPair = pairs[index]
-                                
-                                let priceAsset = localPair.priceAsset
-                                let firstPrice = Money(value: Decimal(pair.firstPrice), priceAsset.decimals)
-                                let lastPrice = Money(value: Decimal(pair.lastPrice), priceAsset.decimals)
-                                
-                                let pair = DomainLayer.DTO.Dex.PairPrice(firstPrice: firstPrice,
-                                                                         lastPrice: lastPrice,
-                                                                         amountAsset: localPair.amountAsset,
-                                                                         priceAsset: priceAsset)
-                                listPairs.append(pair)
-                            }
-                            
-                            return listPairs
-                        })
-                        .asObservable()
-                })
-        })
+                            let pair = DomainLayer.DTO.Dex.PairPrice(firstPrice: firstPrice,
+                                                                     lastPrice: lastPrice,
+                                                                     amountAsset: localPair.amountAsset,
+                                                                     priceAsset: priceAsset)
+                            listPairs.append(pair)
+                        }
+                        
+                        return listPairs
+                    })
+                    .asObservable()
+            })
     }
 }
