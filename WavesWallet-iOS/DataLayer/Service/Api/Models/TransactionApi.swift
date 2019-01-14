@@ -40,7 +40,6 @@ extension API.DTO {
         let timestamp: Date
         let height: Int64
         let type: Int
-        let signature: String
         let fee: Double
         let sender: String
         let senderPublicKey: String
