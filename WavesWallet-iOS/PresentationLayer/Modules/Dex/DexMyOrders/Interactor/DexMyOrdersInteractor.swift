@@ -56,35 +56,46 @@ final class DexMyOrdersInteractor: DexMyOrdersInteractorProtocol {
     
     func myOrders() -> Observable<[DexMyOrders.DTO.Order]> {
         
-        return repository.myOrders(amountAsset: pair.amountAsset.id, priceAsset: pair.priceAsset.id)
-            .flatMap({ [weak self] (orders) -> Observable<[DexMyOrders.DTO.Order]> in
-                
-                guard let owner = self else { return Observable.empty() }
-                
-                var myOrders: [DexMyOrders.DTO.Order] = []
-                
-                for order in orders {
-                    myOrders.append(DexMyOrders.DTO.Order(order,
-                                                          priceAsset: owner.pair.priceAsset,
-                                                          amountAsset: owner.pair.amountAsset))
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DexMyOrders.DTO.Order]>  in
+            guard let owner = self else { return Observable.empty() }
+            return owner.repository.myOrders(wallet: wallet,
+                                             amountAsset: owner.pair.amountAsset.id,
+                                             priceAsset: owner.pair.priceAsset.id)
+                .flatMap({ [weak self] (orders) -> Observable<[DexMyOrders.DTO.Order]> in
                     
-                }
-                return Observable.just(myOrders)
-            })
-            .catchError({ (error) -> Observable<[DexMyOrders.DTO.Order]> in
-                return Observable.just([])
-            })
+                    guard let owner = self else { return Observable.empty() }
+                    
+                    var myOrders: [DexMyOrders.DTO.Order] = []
+                    
+                    for order in orders {
+                        myOrders.append(DexMyOrders.DTO.Order(order,
+                                                              priceAsset: owner.pair.priceAsset,
+                                                              amountAsset: owner.pair.amountAsset))
+                        
+                    }
+                    return Observable.just(myOrders)
+                })
+                .catchError({ (error) -> Observable<[DexMyOrders.DTO.Order]> in
+                    return Observable.just([])
+                })
+        })
     }
     
  
     func cancelOrder(order: DexMyOrders.DTO.Order) -> Observable<ResponseType<Bool>> {
         
-        return repository.cancelOrder(orderId: order.id, amountAsset: order.amountAsset.id, priceAsset: order.priceAsset.id)
-            .flatMap({ (status) -> Observable<ResponseType<Bool>> in
-                return Observable.just(ResponseType(output: true, error: nil))
-            })
-            .catchError({ (error) -> Observable<ResponseType<Bool>> in
-                return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
-            })
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) ->  Observable<ResponseType<Bool>> in
+            guard let owner = self else { return Observable.empty() }
+            return owner.repository.cancelOrder(wallet: wallet,
+                                          orderId: order.id,
+                                          amountAsset: order.amountAsset.id,
+                                          priceAsset: order.priceAsset.id)
+                .flatMap({ (status) -> Observable<ResponseType<Bool>> in
+                    return Observable.just(ResponseType(output: true, error: nil))
+                })
+                .catchError({ (error) -> Observable<ResponseType<Bool>> in
+                    return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
+                })
+        })
     }
 }

@@ -11,13 +11,13 @@ import RxSwift
 
 protocol DexOrderBookRepositoryProtocol {
     
-    func orderBook(amountAsset: String, priceAsset: String) -> Observable<Matcher.DTO.OrderBook>
+    func orderBook(wallet: DomainLayer.DTO.SignedWallet, amountAsset: String, priceAsset: String) -> Observable<Matcher.DTO.OrderBook>
     
-    func markets(isEnableSpam: Bool) -> Observable<[Matcher.DTO.Market]>
+    func markets(wallet: DomainLayer.DTO.SignedWallet, isEnableSpam: Bool) -> Observable<[Matcher.DTO.Market]>
 
-    func myOrders(amountAsset: String, priceAsset: String) -> Observable<[Matcher.DTO.Order]>
+    func myOrders(wallet: DomainLayer.DTO.SignedWallet, amountAsset: String, priceAsset: String) -> Observable<[Matcher.DTO.Order]>
 
-    func cancelOrder(orderId: String, amountAsset: String, priceAsset: String) -> Observable<Bool>
+    func cancelOrder(wallet: DomainLayer.DTO.SignedWallet, orderId: String, amountAsset: String, priceAsset: String) -> Observable<Bool>
 
-    func createOrder(order: Matcher.Query.CreateOrder) -> Observable<Bool>
+    func createOrder(wallet: DomainLayer.DTO.SignedWallet, order: Matcher.Query.CreateOrder) -> Observable<Bool>
 }
