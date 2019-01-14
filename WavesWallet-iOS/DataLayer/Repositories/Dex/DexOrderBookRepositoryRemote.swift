@@ -21,10 +21,10 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
         self.environmentRepository = environmentRepository
     }
     
-    func orderBook(wallet: DomainLayer.DTO.SignedWallet, amountAsset: String, priceAsset: String) -> Observable<Matcher.DTO.OrderBook> {
+    func orderBook(wallet: DomainLayer.DTO.SignedWallet, amountAsset: String, priceAsset: String) -> Observable<DomainLayer.DTO.Dex.OrderBook> {
 
         return environmentRepository.accountEnvironment(accountAddress: wallet.address)
-            .flatMap({ [weak self] (environment) -> Observable<Matcher.DTO.OrderBook> in
+            .flatMap({ [weak self] (environment) -> Observable<DomainLayer.DTO.Dex.OrderBook> in
                 guard let owner = self else { return Observable.empty() }
                 
                 let decoder = JSONDecoder()
@@ -37,7 +37,16 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                     .filterSuccessfulStatusAndRedirectCodes()
                     .map(Matcher.DTO.OrderBook.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
                     .asObservable()
-            
+                    .flatMap({ (orderBook) -> Observable<DomainLayer.DTO.Dex.OrderBook> in
+                        
+                        let bids = orderBook.bids.map { DomainLayer.DTO.Dex.OrderBook.Value(amount: $0.amount,
+                                                                                            price: $0.price)}
+                        
+                        let asks = orderBook.asks.map { DomainLayer.DTO.Dex.OrderBook.Value(amount: $0.amount,
+                                                                                            price: $0.price)}
+                        
+                        return Observable.just(DomainLayer.DTO.Dex.OrderBook(bids: bids, asks: asks))
+                    })
         })
     }
     
