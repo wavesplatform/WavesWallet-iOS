@@ -40,9 +40,7 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                     .filterSuccessfulStatusAndRedirectCodes()
                     .map(API.DTO.Chart.self)
                     .asObservable()
-                    .map({ [weak self] (chart) -> [DomainLayer.DTO.Candle] in
-                        
-                        guard let owner = self else { return [] }
+                    .map({ (chart) -> [DomainLayer.DTO.Candle] in
                         
                         var models: [DomainLayer.DTO.Candle] = []
                         
