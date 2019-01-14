@@ -33,7 +33,7 @@ final class DexListInteractor: DexListInteractorProtocol {
                         let listPairs = pairs.map { DomainLayer.DTO.Dex.Pair(amountAsset: $0.amountAsset,
                                                                              priceAsset: $0.priceAsset)}
                         
-                        return owner.dexListRepository.list(by: listPairs)
+                        return owner.dexListRepository.list(by: wallet.address, pairs: listPairs)
                             .flatMap({ (list) -> Observable<ResponseType<[DexList.DTO.Pair]>> in
                                 
                                 var listPairs: [DexList.DTO.Pair] = []
