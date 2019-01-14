@@ -9,44 +9,6 @@
 import Foundation
 import RxSwift
 
-fileprivate extension DexMyOrders.DTO.Order {
-    
-    init(_ model: Matcher.DTO.Order, priceAsset: DomainLayer.DTO.Dex.Asset, amountAsset: DomainLayer.DTO.Dex.Asset) {
-        
-        id = model.id
-        
-        price = DexList.DTO.price(amount: model.price, amountDecimals: amountAsset.decimals, priceDecimals: priceAsset.decimals)
-        
-        amount = Money(model.amount, amountAsset.decimals)
-        time = model.timestamp
-        filled = Money(model.filled, amountAsset.decimals)
-
-        if model.status == .Accepted {
-            status = .accepted
-        }
-        else if model.status == .PartiallyFilled {
-            status = .partiallyFilled
-        }
-        else if model.status == .Filled {
-            status = .filled
-        }
-        else {
-            status = .cancelled
-        }
-        
-        if model.type == .sell {
-            type = .sell
-        }
-        else {
-            type = .buy
-        }
-        
-        self.amountAsset = amountAsset
-        self.priceAsset = priceAsset
-    }
-}
-
-
 final class DexMyOrdersInteractor: DexMyOrdersInteractorProtocol {
     
     private let auth = FactoryInteractors.instance.authorization
@@ -54,35 +16,21 @@ final class DexMyOrdersInteractor: DexMyOrdersInteractorProtocol {
     
     var pair: DexTraderContainer.DTO.Pair!
     
-    func myOrders() -> Observable<[DexMyOrders.DTO.Order]> {
+    func myOrders() -> Observable<[DomainLayer.DTO.Dex.MyOrder]> {
         
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DexMyOrders.DTO.Order]>  in
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.Dex.MyOrder]>  in
             guard let owner = self else { return Observable.empty() }
             return owner.repository.myOrders(wallet: wallet,
-                                             amountAsset: owner.pair.amountAsset.id,
-                                             priceAsset: owner.pair.priceAsset.id)
-                .flatMap({ [weak self] (orders) -> Observable<[DexMyOrders.DTO.Order]> in
-                    
-                    guard let owner = self else { return Observable.empty() }
-                    
-                    var myOrders: [DexMyOrders.DTO.Order] = []
-                    
-                    for order in orders {
-                        myOrders.append(DexMyOrders.DTO.Order(order,
-                                                              priceAsset: owner.pair.priceAsset,
-                                                              amountAsset: owner.pair.amountAsset))
-                        
-                    }
-                    return Observable.just(myOrders)
-                })
-                .catchError({ (error) -> Observable<[DexMyOrders.DTO.Order]> in
+                                             amountAsset: owner.pair.amountAsset,
+                                             priceAsset: owner.pair.priceAsset)
+                .catchError({ (error) -> Observable<[DomainLayer.DTO.Dex.MyOrder]> in
                     return Observable.just([])
                 })
         })
     }
     
  
-    func cancelOrder(order: DexMyOrders.DTO.Order) -> Observable<ResponseType<Bool>> {
+    func cancelOrder(order: DomainLayer.DTO.Dex.MyOrder) -> Observable<ResponseType<Bool>> {
         
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) ->  Observable<ResponseType<Bool>> in
             guard let owner = self else { return Observable.empty() }
