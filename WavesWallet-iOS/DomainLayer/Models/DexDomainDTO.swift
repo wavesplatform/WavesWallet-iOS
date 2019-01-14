@@ -96,3 +96,18 @@ extension DomainLayer.DTO.Dex {
         let priceAsset: Asset
     }
 }
+
+//MARK: - OrderBook
+extension DomainLayer.DTO.Dex {
+    
+    struct OrderBook {
+        
+        struct Value {
+            let amount: Int64
+            let price: Int64
+        }
+        
+        let bids: [Value]
+        let asks: [Value]
+    }
+}
