@@ -106,15 +106,6 @@ extension EnterCoordinator: EnterStartViewControllerDelegate {
     }
 
     func showImportCoordinator() {
-//        let coordinator = ImportCoordinator(navigationController: navigationController) { [weak self] account in
-//            self?.showPasscode(with: .init(privateKey: account.privateKey,
-//                                           password: account.password,
-//                                           name: account.name,
-//                                           needBackup: false))
-//        }
-//        addChildCoordinator(childCoordinator: coordinator)
-//        coordinator.start()
-
         showDisplay(.importAccount)
     }
 

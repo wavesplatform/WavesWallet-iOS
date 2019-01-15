@@ -34,28 +34,12 @@ final class ChooseAccountCoordinator: Coordinator {
         })
     }
 
-    private func showPasscode(kind: PasscodeTypes.DTO.Kind, animated: Bool = true) {
-
-        //TODO: Нужно придумать другой способ
-        if childCoordinators.first(where: { $0 is PasscodeCoordinator }) != nil {
-            return
-        }
-
-//        let passcodeCoordinator = PasscodeCoordinator(navigationController: navigationController,
-//                                                      kind: kind)
-//        passcodeCoordinator.animated = animated
-//        passcodeCoordinator.delegate = self
-//
-//        addChildCoordinator(childCoordinator: passcodeCoordinator)
-//        passcodeCoordinator.start()
-    }
-    
     private func showEdit(wallet: DomainLayer.DTO.Wallet, animated: Bool = true) {
         let editCoordinator = EditAccountNameCoordinator(navigationRouter: navigationRouter, wallet: wallet)
         addChildCoordinatorAndStart(childCoordinator: editCoordinator)
     }
 
-    func showAccountPassword(kind: AccountPasswordTypes.DTO.Kind) {
+    private func showAccountPassword(kind: AccountPasswordTypes.DTO.Kind) {
 
         let vc = AccountPasswordModuleBuilder(output: self)
             .build(input: .init(kind: kind))

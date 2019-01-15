@@ -1,81 +1,13 @@
 //
+//  NavigationRouter.swift
 //  WavesWallet-iOS
 //
-//  Created by Prokofev Ruslan on 27/10/2018.
-//  Copyright © 2018 Waves Platform. All rights reserved.
+//  Created by mefilt on 15/01/2019.
+//  Copyright © 2019 Waves Platform. All rights reserved.
 //
 
+import Foundation
 import UIKit
-
-public protocol WindowRouterType: class {
-	var window: UIWindow { get }
-	init(window: UIWindow)
-	func setRootModule(_ module: Presentable)
-}
-
-final class WindowRouter: NSObject {
-
-    enum AnimateKind {
-        case crossDissolve
-    }
-	
-	public let window: UIWindow
-	
-	public init(window: UIWindow) {
-		self.window = window
-		super.init()
-	}
-	
-    public func setRootViewController(_ viewController: UIViewController, animated: AnimateKind? = nil) {
-
-        if let animated = animated {
-            switch animated {
-            case .crossDissolve:
-                if let view = window.rootViewController?.view {
-                    UIView.transition(from: view, to: viewController.view, duration: 0.24, options: [.transitionCrossDissolve], completion: { _ in
-                        self.window.rootViewController = viewController
-                    })
-                } else {
-                    self.window.rootViewController = viewController
-                }
-            }
-        } else {
-            self.window.rootViewController = viewController
-        }
-        window.makeKeyAndVisible()
-	}
-
-    public func dissmissWindow(animated: AnimateKind? = nil, completed: (() -> Void)? = nil) {
-
-        UIView.animate(withDuration: 0.24, delay: 0, options: [.curveEaseInOut], animations: {
-            var newFrame = self.window.frame
-            newFrame.origin.y = newFrame.height
-            self.window.frame = newFrame
-            self.window.alpha = 0
-        }) { _ in
-            completed?()
-        }
-
-    }
-}
-
-final class SlideMenuRouter: NSObject {
-
-    public let slideMenu: SlideMenu
-
-    public init(slideMenu: SlideMenu) {
-        self.slideMenu = slideMenu
-        super.init()
-    }
-
-    public func setLeftMenuViewController(_ viewController: UIViewController) {
-        slideMenu.leftMenuViewController = viewController
-    }
-
-    public func setContentViewController(_ viewController: UIViewController) {
-        slideMenu.contentViewController = viewController
-    }
-}
 
 final class NavigationRouter: NSObject {
 
@@ -141,7 +73,7 @@ extension NavigationRouter: UINavigationControllerDelegate {
 
         guard let poppedViewController = navigationController.transitionCoordinator?.viewController(forKey: .from),
             !navigationController.viewControllers.contains(poppedViewController) else {
-            return
+                return
         }
 
         runCompletion(for: poppedViewController)
