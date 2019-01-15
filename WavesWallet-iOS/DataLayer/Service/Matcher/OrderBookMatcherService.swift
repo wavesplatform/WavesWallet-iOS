@@ -113,6 +113,8 @@ fileprivate extension DomainLayer.Query.Dex.CancelOrder {
         return Hash.sign(toSign, wallet.privateKey.privateKey)
     }
     
+    //TODO: Need we use proofs instead of signature?
+    
     var params: [String : String] {
         return ["sender" : Base58.encode(wallet.publicKey.publicKey),
                 "orderId" : orderId,
