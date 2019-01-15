@@ -63,4 +63,3 @@ extension HelloCoordinator: InfoPagesViewModuleOutput {
         self.removeFromParentCoordinator()
     }
 }
-

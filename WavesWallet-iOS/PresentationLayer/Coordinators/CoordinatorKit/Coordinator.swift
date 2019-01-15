@@ -20,18 +20,6 @@ protocol Coordinator: AnyObject {
     func start()
 }
 
-protocol PresentationCoordinator: Coordinator {
-    associatedtype Display
-
-    func showDisplay(_ display: Display)
-}
-
-protocol RoutingCoordinator: Coordinator {
-    associatedtype Router
-
-    init(router: Router)
-}
-
 extension Coordinator {
 
     func isHasCoordinator<C: Coordinator>(type: C.Type) -> Bool {
