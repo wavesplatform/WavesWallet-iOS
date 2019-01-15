@@ -12,7 +12,7 @@ import Moya
 
 final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
 
-    private let matcherProvider: MoyaProvider<Matcher.Service.MatcherPublicKey> = .matcherMoyaProvider()
+    private let matcherProvider: MoyaProvider<Matcher.Service.MatcherPublicKey> = .nodeMoyaProvider()
     private let environmentRepository: EnvironmentRepositoryProtocol
     
     init(environmentRepository: EnvironmentRepositoryProtocol) {

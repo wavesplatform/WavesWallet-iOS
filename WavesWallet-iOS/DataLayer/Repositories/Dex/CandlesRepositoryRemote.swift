@@ -12,7 +12,7 @@ import Moya
 
 final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
     
-    private let apiProvider: MoyaProvider<API.Service.Candles> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
+    private let apiProvider: MoyaProvider<API.Service.Candles> = .nodeMoyaProvider()
     private let environmentRepository: EnvironmentRepositoryProtocol
     
     init(environmentRepository: EnvironmentRepositoryProtocol) {

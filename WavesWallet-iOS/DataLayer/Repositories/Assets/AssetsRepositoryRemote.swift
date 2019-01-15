@@ -13,8 +13,8 @@ import CSV
 
 final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     
-    private let apiProvider: MoyaProvider<API.Service.Assets> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
-    private let spamProvider: MoyaProvider<Spam.Service.Assets> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
+    private let apiProvider: MoyaProvider<API.Service.Assets> = .nodeMoyaProvider()
+    private let spamProvider: MoyaProvider<Spam.Service.Assets> = .nodeMoyaProvider()
 
     private let environmentRepository: EnvironmentRepositoryProtocol
 

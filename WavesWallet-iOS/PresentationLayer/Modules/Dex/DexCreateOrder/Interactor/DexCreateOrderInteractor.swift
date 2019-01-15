@@ -14,7 +14,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     
     private let auth = FactoryInteractors.instance.authorization
     private let matcherRepository = FactoryRepositories.instance.matcherRepository
-    private let matcherProvider: MoyaProvider<Matcher.Service.OrderBook> = .matcherMoyaProvider()
+    private let matcherProvider: MoyaProvider<Matcher.Service.OrderBook> = .nodeMoyaProvider()
     private let orderBookRepository = FactoryRepositories.instance.dexOrderBookRepository
     
     func createOrder(order: DexCreateOrder.DTO.Order) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
