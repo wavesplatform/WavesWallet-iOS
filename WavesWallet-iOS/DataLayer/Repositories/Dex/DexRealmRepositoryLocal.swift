@@ -15,6 +15,7 @@ final class DexRealmRepositoryLocal: DexRealmRepositoryProtocol {
        
         return Observable.create({ (subscribe) -> Disposable in
             
+            //TODO: Error
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
             
             try! realm.write {
@@ -38,6 +39,7 @@ final class DexRealmRepositoryLocal: DexRealmRepositoryProtocol {
 
         return Observable.create({ (subscribe) -> Disposable in
             
+            //TODO: Error
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
             
             if let pair = realm.object(ofType: DexAssetPair.self, forPrimaryKey: id)  {
@@ -56,6 +58,7 @@ final class DexRealmRepositoryLocal: DexRealmRepositoryProtocol {
         
         return Observable.create({ (subscribe) -> Disposable in
 
+            //TODO: Error
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
             let objects = realm.objects(DexAssetPair.self).sorted(by: {$0.sortLevel < $1.sortLevel}).map { return DomainLayer.DTO.Dex.SmartPair($0, isChecked: true)}
 
@@ -68,6 +71,8 @@ final class DexRealmRepositoryLocal: DexRealmRepositoryProtocol {
     func listListener(by accountAddress: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
 
         return Observable.create({ observer -> Disposable in
+            
+            //TODO: Error
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
         
             let result = realm.objects(DexAssetPair.self)

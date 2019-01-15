@@ -143,6 +143,8 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
 
     private func localAccountEnvironment(accountAddress: String) -> Observable<DomainLayer.DTO.AccountEnvironment?> {
         return Observable.create { observer -> Disposable in
+            
+            //TODO: Error
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
 
             let result = realm.objects(AccountEnvironment.self)
@@ -165,6 +167,8 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
 
     private func saveAccountEnvironment(_ accountEnvironment: DomainLayer.DTO.AccountEnvironment, accountAddress: String) -> Observable<Bool> {
         return Observable.create { observer -> Disposable in
+            
+            //TODO: Error
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
 
             try? realm.write {
