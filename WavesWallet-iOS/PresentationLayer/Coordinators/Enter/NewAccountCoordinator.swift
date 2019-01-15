@@ -31,7 +31,6 @@ final class NewAccountCoordinator: Coordinator {
     }
 }
 
-
 // MARK: PresentationCoordinator
 
 extension NewAccountCoordinator: PresentationCoordinator {
@@ -68,7 +67,6 @@ extension NewAccountCoordinator: NeedBackupModuleOutput {
         }
     }
 }
-
 
 private extension NewAccountCoordinator {
 
