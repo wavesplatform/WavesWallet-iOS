@@ -9,15 +9,6 @@
 import Foundation
 import Moya
 
-
-extension MoyaProvider {
-
-    final class func matcherMoyaProvider<Target: TargetType>() -> MoyaProvider<Target> {
-        return MoyaProvider<Target>(callbackQueue: nil,
-                                    plugins: [SweetNetworkLoggerPlugin(verbose: true)])
-    }
-}
-
 extension Matcher.Service {
     
     struct OrderBook {
