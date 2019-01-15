@@ -16,7 +16,7 @@ final class AccountSettingsRepository: AccountSettingsRepositoryProtocol {
     func accountSettings(accountAddress: String) -> Observable<DomainLayer.DTO.AccountSettings?> {
         return Observable.create({ observer -> Disposable in
 
-            //TODO Error
+            //TODO: Error
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
             let result = realm.objects(AccountSettings.self)
 

@@ -147,6 +147,7 @@ private extension DexMarketInteractor {
             
             return Observable.create({ (subscribe) -> Disposable in
                 
+                //TODO: Error
                 let realm = try! WalletRealmFactory.realm(accountAddress: wallet.address)
                 
                 for (index, pair) in DexMarketInteractor.allPairs.enumerated() {

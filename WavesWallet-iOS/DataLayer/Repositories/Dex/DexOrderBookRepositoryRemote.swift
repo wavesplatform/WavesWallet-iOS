@@ -87,6 +87,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
             .map({ [weak self] (markets) -> [DomainLayer.DTO.Dex.SmartPair] in
                 guard let owner = self else { return [] }
                 
+                //TODO: Error
                 let realm = try! WalletRealmFactory.realm(accountAddress: wallet.address)
                 
                 var pairs: [DomainLayer.DTO.Dex.SmartPair] = []
