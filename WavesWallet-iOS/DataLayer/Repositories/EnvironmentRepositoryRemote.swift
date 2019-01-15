@@ -19,8 +19,8 @@ private struct EnvironmentKey: Hashable {
 
 final class EnvironmentRepository: EnvironmentRepositoryProtocol {
 
-    private let environmentRepository: MoyaProvider<GitHub.Service.Environment> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
-    private let spamProvider: MoyaProvider<Spam.Service.Assets> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
+    private let environmentRepository: MoyaProvider<GitHub.Service.Environment> = .nodeMoyaProvider()
+    private let spamProvider: MoyaProvider<Spam.Service.Assets> = .nodeMoyaProvider()
 
     private var localEnvironments: BehaviorSubject<[EnvironmentKey: Environment]> = BehaviorSubject<[EnvironmentKey: Environment]>(value: [:])
 

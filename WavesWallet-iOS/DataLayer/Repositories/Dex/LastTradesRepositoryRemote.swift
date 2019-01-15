@@ -12,7 +12,7 @@ import Moya
 
 final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
 
-    private let apiProvider: MoyaProvider<API.Service.Transactions> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
+    private let apiProvider: MoyaProvider<API.Service.Transactions> = .nodeMoyaProvider()
     private let environmentRepository: EnvironmentRepositoryProtocol
     
     init(environmentRepository: EnvironmentRepositoryProtocol) {

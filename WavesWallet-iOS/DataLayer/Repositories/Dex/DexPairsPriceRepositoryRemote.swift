@@ -12,7 +12,7 @@ import Moya
 
 final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
     
-    private let apiProvider: MoyaProvider<API.Service.PairsPrice> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
+    private let apiProvider: MoyaProvider<API.Service.PairsPrice> = .nodeMoyaProvider()
     private let environmentRepository: EnvironmentRepositoryProtocol
     
     init(environmentRepository: EnvironmentRepositoryProtocol) {
