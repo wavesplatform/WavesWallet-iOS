@@ -60,7 +60,6 @@ extension UIViewController {
         return navigationController?.navigationBar.frame.size.height.rounded(.down) ?? 0 <= Constants.smallNavBarHeight
     }
 
-    // TODO: Меня смущает проверка (<= 44) в showImage.
     func setupTopBarLine() {
         
         if let nav = navigationController {

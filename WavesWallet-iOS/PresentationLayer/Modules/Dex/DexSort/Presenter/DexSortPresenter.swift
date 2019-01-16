@@ -36,7 +36,6 @@ final class DexSortPresenter: DexSortPresenterProtocol {
             return state.isNeedRefreshing == true ? true : nil
         }, effects: { [weak self] _ -> Signal<DexSort.Event> in
 
-            // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf.interactor.models().map { .setModels($0) }.asSignal(onErrorSignalWith: Signal.empty())
         })

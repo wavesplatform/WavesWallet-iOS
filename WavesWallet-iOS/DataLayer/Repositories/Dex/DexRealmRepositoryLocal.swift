@@ -9,13 +9,13 @@
 import Foundation
 import RxSwift
 
-//TODO: Rename to Local
-final class DexRepository: DexRepositoryProtocol {
+final class DexRealmRepositoryLocal: DexRealmRepositoryProtocol {
 
-    func save(pair: DexMarket.DTO.Pair, accountAddress: String) -> Observable<Bool> {
+    func save(pair: DomainLayer.DTO.Dex.SmartPair, accountAddress: String) -> Observable<Bool> {
        
         return Observable.create({ (subscribe) -> Disposable in
             
+            //TODO: Error
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
             
             try! realm.write {
@@ -39,6 +39,7 @@ final class DexRepository: DexRepositoryProtocol {
 
         return Observable.create({ (subscribe) -> Disposable in
             
+            //TODO: Error
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
             
             if let pair = realm.object(ofType: DexAssetPair.self, forPrimaryKey: id)  {
@@ -53,12 +54,13 @@ final class DexRepository: DexRepositoryProtocol {
         })
     }
     
-    func list(by accountAddress: String) -> Observable<[DexMarket.DTO.Pair]> {
+    func list(by accountAddress: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
         
         return Observable.create({ (subscribe) -> Disposable in
 
+            //TODO: Error
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
-            let objects = realm.objects(DexAssetPair.self).sorted(by: {$0.sortLevel < $1.sortLevel}).map { return DexMarket.DTO.Pair($0, isChecked: true)}
+            let objects = realm.objects(DexAssetPair.self).sorted(by: {$0.sortLevel < $1.sortLevel}).map { return DomainLayer.DTO.Dex.SmartPair($0, isChecked: true)}
 
             subscribe.onNext(objects)
             subscribe.onCompleted()
@@ -66,17 +68,19 @@ final class DexRepository: DexRepositoryProtocol {
         })
     }
     
-    func listListener(by accountAddress: String) -> Observable<[DexMarket.DTO.Pair]> {
+    func listListener(by accountAddress: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
 
         return Observable.create({ observer -> Disposable in
+            
+            //TODO: Error
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
         
             let result = realm.objects(DexAssetPair.self)
             let collection = Observable.collection(from: result)
                 .skip(1)
                 .map { $0.toArray() }
-                .map({ list -> [DexMarket.DTO.Pair] in
-                    return list.sorted(by: {$0.sortLevel < $1.sortLevel}) .map { return DexMarket.DTO.Pair($0, isChecked: true) }})
+                .map({ list -> [DomainLayer.DTO.Dex.SmartPair] in
+                    return list.sorted(by: {$0.sortLevel < $1.sortLevel}) .map { return DomainLayer.DTO.Dex.SmartPair($0, isChecked: true) }})
                 .bind(to: observer)
 
             return Disposables.create([collection])

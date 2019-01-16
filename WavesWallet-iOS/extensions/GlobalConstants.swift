@@ -33,7 +33,7 @@ enum GlobalConstants {
 }
 
 extension GlobalConstants.Matcher {
-    //TODO: need use EnviromentsRepositoryProtocol    
+
     private static let url = Environments.current.servers.matcherUrl.relativeString + "/"
     
     static var matcher: String {
@@ -42,10 +42,6 @@ extension GlobalConstants.Matcher {
 
     static var orderBook: String {
         return url + "matcher/orderbook"
-    }
-    
-    static func orderBook(_ amountAsset: String, _ priceAsset: String) -> String {
-        return orderBook + "/" + amountAsset + "/" + priceAsset
     }
     
     static func myOrderBook(_ amountAsset: String, _ priceAsset: String, publicKey: PublicKeyAccount) -> String {

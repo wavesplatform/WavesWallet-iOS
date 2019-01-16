@@ -11,8 +11,8 @@ import RxSwift
 
 protocol DexMarketInteractorProtocol {
     
-    func pairs() -> Observable<[DexMarket.DTO.Pair]>
-    func searchPairs() -> Observable<[DexMarket.DTO.Pair]>
-    func checkMark(pair: DexMarket.DTO.Pair)
+    func pairs() -> Observable<[DomainLayer.DTO.Dex.SmartPair]>
+    func searchPairs() -> Observable<[DomainLayer.DTO.Dex.SmartPair]>
+    func checkMark(pair: DomainLayer.DTO.Dex.SmartPair)
     func searchPair(searchText: String)
 }

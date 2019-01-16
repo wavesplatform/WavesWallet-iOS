@@ -84,7 +84,6 @@ target 'WavesWallet-iOS' do
     pod 'Moya/RxSwift'
 
     # Parser
-    pod 'SwiftyJSON'
     pod 'Gloss', '2.0.0-beta.1'
     pod 'CSV.swift'
 

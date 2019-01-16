@@ -1,48 +1,50 @@
 import Foundation
 import RxSwift
-import SwiftyJSON
 import RealmSwift
 import Alamofire
+import Moya
 
 final class DexMarketInteractor: DexMarketInteractorProtocol {
     
-    private static var allPairs: [DexMarket.DTO.Pair] = []
+    private static var allPairs: [DomainLayer.DTO.Dex.SmartPair] = []
     private static var isEnableSpam = false
     private static var spamURL = ""
 
-    private let searchPairsSubject: PublishSubject<[DexMarket.DTO.Pair]> = PublishSubject<[DexMarket.DTO.Pair]>()
+    private let searchPairsSubject: PublishSubject<[DomainLayer.DTO.Dex.SmartPair]> = PublishSubject<[DomainLayer.DTO.Dex.SmartPair]>()
     private let disposeBag: DisposeBag = DisposeBag()
 
-    private let repository: DexRepositoryProtocol = DexRepository()
-    private let authorizationInteractor = FactoryInteractors.instance.authorization
-    private let account: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
+    private let dexRealmRepository: DexRealmRepositoryProtocol = FactoryRepositories.instance.dexRealmRepository
+    private let auth = FactoryInteractors.instance.authorization
     private let accountSettings: AccountSettingsRepositoryProtocol = FactoryRepositories.instance.accountSettingsRepository
     private let environment = FactoryRepositories.instance.environmentRepository
-    
-    func pairs() -> Observable<[DexMarket.DTO.Pair]> {
+    private let orderBookRepository = FactoryRepositories.instance.dexOrderBookRepository
 
-        return authorizationInteractor.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DexMarket.DTO.Pair]> in
+    func pairs() -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
+
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
             
             guard let owner = self else { return Observable.empty() }
-            return owner.accountSettings.accountSettings(accountAddress: wallet.address).flatMap({ [weak self] (accountSettings) -> Observable<[DexMarket.DTO.Pair]> in
+            return owner.accountSettings.accountSettings(accountAddress: wallet.address).flatMap({ [weak self] (accountSettings) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                 
                 guard let owner = self else { return Observable.empty() }
                 let isEnableSpam = accountSettings?.isEnabledSpam ?? DexMarketInteractor.isEnableSpam
 
-                return owner.environment.accountEnvironment(accountAddress: wallet.address).flatMap({ [weak self] (environment) -> Observable<[DexMarket.DTO.Pair]> in
+                return owner.environment.accountEnvironment(accountAddress: wallet.address).flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                     
                     guard let owner = self else { return Observable.empty() }
-                    return owner.allPairs(accountAddress: wallet.address, isEnableSpam: isEnableSpam, spamURL: environment.servers.spamUrl.relativeString)
+                    return owner.pairs(wallet: wallet,
+                                       isEnableSpam: isEnableSpam,
+                                       spamURL: environment.servers.spamUrl.relativeString)
                 })
             })
         })
     }
     
-    func searchPairs() -> Observable<[DexMarket.DTO.Pair]> {
+    func searchPairs() -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
         return searchPairsSubject.asObserver()
     }
     
-    func checkMark(pair: DexMarket.DTO.Pair) {
+    func checkMark(pair: DomainLayer.DTO.Dex.SmartPair) {
         
         if let index = DexMarketInteractor.allPairs.index(where: {$0.id == pair.id}) {
            
@@ -53,14 +55,14 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
                 
                 $0.isChecked = !$0.isChecked
                 
-                authorizationInteractor.authorizedWallet().flatMap { [weak self] wallet -> Observable<Bool> in
+                auth.authorizedWallet().flatMap { [weak self] wallet -> Observable<Bool> in
                         
                     guard let owner = self else { return Observable.never() }
 
                     if needSaveAssetPair {
-                        return owner.repository.save(pair: pair, accountAddress: wallet.address)
+                        return owner.dexRealmRepository.save(pair: pair, accountAddress: wallet.address)
                     }
-                    return owner.repository.delete(by: pair.id, accountAddress: wallet.address)
+                    return owner.dexRealmRepository.delete(by: pair.id, accountAddress: wallet.address)
                     
                 }.subscribe().disposed(by: disposeBag)
             }
@@ -137,15 +139,16 @@ private extension DexMarketInteractor {
 //MARK: - Load data
 private extension DexMarketInteractor {
     
-    func allPairs(accountAddress: String, isEnableSpam: Bool, spamURL: String) -> Observable<[DexMarket.DTO.Pair]> {
+    func pairs(wallet: DomainLayer.DTO.SignedWallet, isEnableSpam: Bool, spamURL: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
         
-        return Observable.create({ [weak self] (subscribe) -> Disposable in
-
-            if DexMarketInteractor.allPairs.count > 0 &&
-                isEnableSpam == DexMarketInteractor.isEnableSpam &&
-                spamURL == DexMarketInteractor.spamURL {
+        if DexMarketInteractor.allPairs.count > 0 &&
+            isEnableSpam == DexMarketInteractor.isEnableSpam &&
+            spamURL == DexMarketInteractor.spamURL {
+            
+            return Observable.create({ (subscribe) -> Disposable in
                 
-                let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
+                //TODO: Error
+                let realm = try! WalletRealmFactory.realm(accountAddress: wallet.address)
                 
                 for (index, pair) in DexMarketInteractor.allPairs.enumerated() {
                     DexMarketInteractor.allPairs[index] = pair.mutate {
@@ -155,112 +158,23 @@ private extension DexMarketInteractor {
                 
                 subscribe.onNext(DexMarketInteractor.allPairs)
                 subscribe.onCompleted()
-            }
-            else {
-                guard let owner = self else { return Disposables.create() }
-                
-                if isEnableSpam {
-                    owner.getSpamList(spamURL, complete: { (spamList) in
-                        owner.getAllPairs(accountAddress: accountAddress, spamList: spamList, complete: { (pairs) in
-                            DexMarketInteractor.allPairs = pairs
-                            DexMarketInteractor.isEnableSpam = isEnableSpam
-                            DexMarketInteractor.spamURL = spamURL
-                            
-                            subscribe.onNext(pairs)
-                            subscribe.onCompleted()
-                        })
-                    })
-                }
-                else {
-                    owner.getAllPairs(accountAddress: accountAddress, spamList: [], complete: { (pairs) in
-                        DexMarketInteractor.allPairs = pairs
-                        DexMarketInteractor.isEnableSpam = isEnableSpam
-                        DexMarketInteractor.spamURL = spamURL
-                        
-                        subscribe.onNext(pairs)
-                        subscribe.onCompleted()
-                    })
-                }
-            }
-
-            return Disposables.create()
-        })
-    }
-    
-    func getSpamList(_ spamURL: String, complete:@escaping(_ spamList: [String]) -> Void) {
+                return Disposables.create()
+            })
+        }
         
-        Alamofire.request(spamURL, method: .get, parameters: nil, headers: ["Content-type": "application/csv"])
-            .responseData { (response) in
-
-                var spamList: [String] = []
-                if let data = response.data {
-                    spamList = (try? SpamCVC.addresses(from: data)) ?? []
-                }
-                complete(spamList)
-        }
-    }
-    
-    func getAllPairs(accountAddress: String, spamList:[String], complete:@escaping(_ pairs: [DexMarket.DTO.Pair]) -> Void) {
-      
-        NetworkManager.getRequestWithUrl(GlobalConstants.Matcher.orderBook, parameters: nil, complete: { (info, error) in
-            
-            var pairs: [DexMarket.DTO.Pair] = []
-            
-            if let info = info {
+        return orderBookRepository.markets(wallet: wallet, isEnableSpam: isEnableSpam)
+            .map({ (pairs) -> [DomainLayer.DTO.Dex.SmartPair] in
                 
-                let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
+                DexMarketInteractor.allPairs = pairs
+                DexMarketInteractor.isEnableSpam = isEnableSpam
+                DexMarketInteractor.spamURL = spamURL
                 
-                let spamListKeys = spamList.reduce(into:  [String:String](), { $0[$1] = $1})
-                for item in info["markets"].arrayValue {
-                    
-                    let pair = DexMarket.DTO.Pair(item, realm: realm)
-                    
-                    if spamListKeys[pair.amountAsset.id] == nil &&
-                        spamListKeys[pair.priceAsset.id] == nil {
-                        pairs.append(pair)
-                    }
-                }
-                
-                pairs = self.sort(pairs: pairs, realm: realm)
-            }
-            
-            complete(pairs)
-        })
+                return pairs
+            })
+            .catchError({ (error) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
+                return Observable.just([])
+            })
     }
 }
 
 
-//MARK: - Sort
-private extension DexMarketInteractor {
-    
-    func sort(pairs: [DexMarket.DTO.Pair], realm: Realm) -> [DexMarket.DTO.Pair] {
-
-        var sortedPairs: [DexMarket.DTO.Pair] = []
-
-        let generalBalances = realm
-            .objects(Asset.self)
-            .filter(NSPredicate(format: "isGeneral == true"))
-            .toArray()
-            .reduce(into: [String: Asset](), { $0[$1.id] = $1 })
-
-        let settingsList = realm
-            .objects(AssetBalanceSettings.self)
-            .toArray()
-            .filter { (asset) -> Bool in
-                return generalBalances[asset.assetId]?.isGeneral == true
-            }
-            .sorted(by: { $0.sortLevel < $1.sortLevel })
-
-        for settings in settingsList {
-            sortedPairs.append(contentsOf: pairs.filter({$0.amountAsset.id == settings.assetId && $0.isGeneral == true }))
-        }
-
-        var sortedIds = sortedPairs.map {$0.id}
-        sortedPairs.append(contentsOf: pairs.filter { $0.isGeneral == true && !sortedIds.contains($0.id) } )
-
-        sortedIds = sortedPairs.map {$0.id}
-        sortedPairs.append(contentsOf: pairs.filter { !sortedIds.contains($0.id) } )
-
-        return sortedPairs
-    }
-}

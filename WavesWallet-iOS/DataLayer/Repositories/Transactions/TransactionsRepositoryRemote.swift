@@ -82,7 +82,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                     .request(.init(kind: .list(accountAddress: accountAddress,
                                                limit: limit),
                                    environment: environment),
-                             callbackQueue: DispatchQueue.global(qos: .background))
+                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()
                     .catchError({ (error) -> Single<Response> in
                         return Single.error(NetworkError.error(by: error))
@@ -105,7 +105,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                     .rx
                     .request(.init(kind: .getActive(accountAddress: accountAddress),
                                    environment: environment),
-                                   callbackQueue: DispatchQueue.global(qos: .background))
+                                   callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()
                     .catchError({ (error) -> Single<Response> in
                         return Single.error(NetworkError.error(by: error))
@@ -150,7 +150,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                     .rx
                     .request(.init(kind: .broadcast(broadcastSpecification),
                                    environment: environment),
-                             callbackQueue: DispatchQueue.global(qos: .background))
+                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()
                     .catchError({ (error) -> Single<Response> in
                         return Single.error(NetworkError.error(by: error))

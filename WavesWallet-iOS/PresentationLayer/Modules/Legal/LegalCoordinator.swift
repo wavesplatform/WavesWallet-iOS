@@ -39,8 +39,7 @@ final class LegalCoordinator: Coordinator {
 
 extension LegalCoordinator: LegalModuleOutput {
 
-    //TODO Change name method
-    func showViewController(viewController: UIViewController) {
+    func legalDidShowTermsController(viewController: UIViewController) {
         let navigationController = UINavigationController(rootViewController: viewController)
         legalViewController.present(navigationController, animated: true)
     }

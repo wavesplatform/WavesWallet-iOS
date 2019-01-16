@@ -8,78 +8,48 @@
 
 import Foundation
 import RxSwift
+import Moya
 
 final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     
     private let auth = FactoryInteractors.instance.authorization
-    private let disposeBag = DisposeBag()
+    private let matcherRepository = FactoryRepositories.instance.matcherRepository
+    private let matcherProvider: MoyaProvider<Matcher.Service.OrderBook> = .nodeMoyaProvider()
+    private let orderBookRepository = FactoryRepositories.instance.dexOrderBookRepository
     
-    func createOrder(order: DexCreateOrder.DTO.Order) -> Observable<(ResponseType<DexCreateOrder.DTO.Output>)> {
-       
-        return Observable.zip(auth.authorizedWallet(), getMatcherPublicKey()).flatMap({(wallet, matcherResponse) -> Observable<(ResponseType<DexCreateOrder.DTO.Output>)> in
+    func createOrder(order: DexCreateOrder.DTO.Order) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
+        
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
             
-            if let matcher = matcherResponse.output {
-                var newOrder = order
-                newOrder.senderPrivateKey = wallet.privateKey
-                newOrder.senderPublicKey = wallet.publicKey
-                newOrder.matcherPublicKey = matcher
-                newOrder.timestamp = Int64(Date().millisecondsSince1970)
-                
-                return Observable.create({ (subscribe) -> Disposable in
+            guard let owner = self else { return Observable.empty() }
+            
+            return owner.matcherRepository.matcherPublicKey(accountAddress: wallet.address)
+                .flatMap({ [weak self] (matcherPublicKey) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
+                    guard let owner = self else { return Observable.empty() }
                     
-                    let params = ["id" : Base58.encode(newOrder.id),
-                                  "senderPublicKey" :  Base58.encode(newOrder.senderPublicKey.publicKey),
-                                  "matcherPublicKey" : Base58.encode(newOrder.matcherPublicKey.publicKey),
-                                  "assetPair" : newOrder.assetPair.json,
-                                  "orderType" : newOrder.type.rawValue,
-                                  "price" : DexList.DTO.priceAmount(price: newOrder.price,
-                                                                    amountDecimals: newOrder.amountAsset.decimals,
-                                                                    priceDecimals: newOrder.priceAsset.decimals),
-                                  "amount" : newOrder.amount.amount,
-                                  "timestamp" : newOrder.timestamp,
-                                  "expiration" : newOrder.expirationTimestamp,
-                                  "matcherFee" : newOrder.fee,
-                                  "signature" : Base58.encode(newOrder.signature)] as [String : Any]
-                        
-                    NetworkManager.postRequestWithUrl(GlobalConstants.Matcher.orderBook, parameters: params, complete: { (info, error) in
-                        
-                        if info != nil {
-                            let output = DexCreateOrder.DTO.Output(time: Date(milliseconds: newOrder.timestamp),
-                                                                   orderType: newOrder.type,
-                                                                   price: newOrder.price,
-                                                                   amount: newOrder.amount)
-                            subscribe.onNext(ResponseType(output: output, error: nil))
-                        }
-                        else {
-                            subscribe.onNext(ResponseType(output: nil, error: error))
-                        }
+                    let orderQuery = DomainLayer.Query.Dex.CreateOrder(wallet: wallet,
+                                                                       matcherPublicKey: matcherPublicKey,
+                                                                       amountAsset: order.amountAsset.id,
+                                                                       priceAsset: order.priceAsset.id,
+                                                                       amount: order.amount.amount,
+                                                                       price: order.price.amount,
+                                                                       orderType: order.type,
+                                                                       matcherFee: order.fee,
+                                                                       expiration: order.expiration.rawValue)
+
+                    
+                    return owner.orderBookRepository.createOrder(wallet: wallet, order: orderQuery)
+                    .flatMap({ (success) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
+                        let output = DexCreateOrder.DTO.Output(time: Date(milliseconds: orderQuery.timestamp),
+                                                               orderType: order.type,
+                                                               price: order.price,
+                                                               amount: order.amount)
+                        return Observable.just(ResponseType(output: output, error: nil))
                     })
-                    
-                    return Disposables.create()
-                })
-            }
-            else {
-                return Observable.just(ResponseType(output: nil, error: matcherResponse.error))
-            }
+            })
         })
-    }
-    
-    private func getMatcherPublicKey() -> Observable<ResponseType<PublicKeyAccount>> {
-        
-        return Observable.create({ (subscribe) -> Disposable in
-        
-            NetworkManager.getRequestWithUrl(GlobalConstants.Matcher.matcher, parameters: nil) { (info, error) in
-                if let info = info {
-                    let matcherPublicKey = PublicKeyAccount(publicKey: Base58.decode(info.stringValue))
-                    subscribe.onNext(ResponseType(output: matcherPublicKey, error: nil))
-                }
-                else {
-                    subscribe.onNext(ResponseType(output: nil, error: error))
-                }
-                subscribe.onCompleted()
-            }
-            
-            return Disposables.create()
+        .catchError({ (error) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
+            return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
         })
     }
 }

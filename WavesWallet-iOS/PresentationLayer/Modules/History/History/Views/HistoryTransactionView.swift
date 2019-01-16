@@ -96,8 +96,6 @@ fileprivate extension HistoryTransactionView {
 }
 
 
-// TODO: ViewConfiguration
-
 extension HistoryTransactionView: ViewConfiguration {
 
     typealias Model = DomainLayer.DTO.SmartTransaction

@@ -47,6 +47,16 @@ final class MyAddressViewController: UIViewController {
     }
 }
 
+//MARK: - MyAddressInfoAddressCellDelegate
+extension MyAddressViewController: MyAddressInfoAddressCellDelegate {
+  
+    func myAddressInfoAddressCellDidTapShareAddress(_ address: String) {
+        ImpactFeedbackGenerator.impactOccurred()
+        let activityVC = UIActivityViewController(activityItems: [address], applicationActivities: [])
+        present(activityVC, animated: true, completion: nil)
+    }
+}
+
 // MARK: RxFeedback
 
 private extension MyAddressViewController {
@@ -128,7 +138,7 @@ extension MyAddressViewController: UITableViewDataSource {
         switch row {
         case .address(let address):
             let cell: MyAddressInfoAddressCell = tableView.dequeueCell()
-
+            cell.delegate = self
             cell.update(with: .init(address: address))
             return cell
 

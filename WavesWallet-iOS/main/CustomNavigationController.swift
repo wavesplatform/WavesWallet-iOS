@@ -91,7 +91,6 @@ extension UINavigationItem {
         }
     }
 
-    // TODO: COME B
     @objc var titleTextAttributes: [NSAttributedString.Key : Any]? {
         get {
             return associatedObject(for: &AssociatedKeys.titleTextAttributes) ?? nil
