@@ -8,18 +8,12 @@
 
 import UIKit
 
-protocol EnterLanguageCoordinatorDelegate: class {
-    
-}
-
 final class EnterLanguageCoordinator: Coordinator {
  
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
     
     private let popup: PopupViewController = PopupViewController()
-
-    weak var delegate: EnterLanguageCoordinatorDelegate?
 
     func start() {
 

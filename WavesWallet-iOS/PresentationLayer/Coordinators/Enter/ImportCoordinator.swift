@@ -37,53 +37,50 @@ final class ImportCoordinator: Coordinator {
         vc.scanViewController.delegate = self
         vc.manuallyViewController.delegate = self
 
-        navigationRouter.pushViewController(vc)
+        navigationRouter.pushViewController(vc, animated: true) { [weak self] in
+            self?.removeFromParentCoordinator()
+        }        
     }
     
     // MARK: - Child Controllers
     
     func scannedSeed(_ seed: String) {
-        if seed.utf8.count >= ImportTypes.minimumSeedLength {
-            let privateKeyAccount = PrivateKeyAccount(seedStr: seed)
-            currentPrivateKeyAccount = privateKeyAccount
-
-
-//            auth
-//                .existWallet(by: privateKeyAccount.getPublicKeyStr())
-//                .subscribe(onNext: { [weak self] wallet in
-//
-//                    self?.navigationController.topViewController?.showErrorSnackWithoutAction(tille: Localizable.Waves.Import.General.Error.alreadyinuse, duration: Constants.duration)
-//
-//                }, onError: { [weak self] _ in
-//                    self?.showAccountPassword(privateKeyAccount)
-//                })
-//                .disposed(by: disposeBag)
-        } else {
-//            if let vc = navigationController.viewControllers.first(where: {$0.isKind(of: ImportAccountViewController.classForCoder())}) {
-//                vc.showMessageSnack(title: Localizable.Waves.Enter.Button.Importaccount.Error.insecureSeed)
-//            }
+        guard seed.utf8.count >= ImportTypes.minimumSeedLength else {
+            navigationRouter.navigationController.topViewController?.showMessageSnack(title: Localizable.Waves.Enter.Button.Importaccount.Error.insecureSeed)
+            return
         }
+
+        let privateKeyAccount = PrivateKeyAccount(seedStr: seed)
+
+        auth
+            .existWallet(by: privateKeyAccount.getPublicKeyStr())
+            .subscribe(onNext: { [weak self] wallet in
+                self?.navigationRouter.navigationController.topViewController?.showErrorSnackWithoutAction(tille: Localizable.Waves.Import.General.Error.alreadyinuse, duration: Constants.duration)
+            }, onError: { [weak self] _ in
+                self?.showAccountPassword(privateKeyAccount)
+            })
+            .disposed(by: disposeBag)
     }
     
     func showQRCodeReader() {
         
-//        QRCodeReaderControllerCoordinator(rootViewController: navigationController).start { [weak self] (result) in
-//            if let seed = result?.value {
-//                self?.scannedSeed(seed)
-//            }
-//
-//            self?.navigationController.dismiss(animated: true)
-//        }
+        let qrcode = QRCodeReaderControllerCoordinator(navigationRouter: navigationRouter,
+                                                       completionBlock:
+            { [weak self] (result) in
+                self?.scannedSeed(result)
+            })
+
+        addChildCoordinatorAndStart(childCoordinator: qrcode)
     }
     
     func showAccountPassword(_ keyAccount: PrivateKeyAccount) {
 
-//        let vc = StoryboardScene.Import.importAccountPasswordViewController.instantiate()
-//        vc.delegate = self
-//        vc.address = keyAccount.address
-//        self.navigationController.pushViewController(vc, animated: true)
+        currentPrivateKeyAccount = keyAccount
+        let vc = StoryboardScene.Import.importAccountPasswordViewController.instantiate()
+        vc.delegate = self
+        vc.address = keyAccount.address
+        navigationRouter.pushViewController(vc)
     }
-    
 }
 
 // MARK: ImportAccountViewControllerDelegate
@@ -102,7 +99,6 @@ extension ImportCoordinator: ImportWelcomeBackViewControllerDelegate {
         showAccountPassword(keyAccount)
     }
 }
-
 
 // MARK: ImportAccountPasswordViewControllerDelegate
 extension ImportCoordinator: ImportAccountPasswordViewControllerDelegate {

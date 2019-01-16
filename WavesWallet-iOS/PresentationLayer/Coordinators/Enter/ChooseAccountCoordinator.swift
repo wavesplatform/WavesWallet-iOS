@@ -139,3 +139,14 @@ extension ChooseAccountCoordinator: PasscodeCoordinatorDelegate {
         removeFromParentCoordinator()
     }
 }
+
+// MARK: PasscodeChangePasscodeCoordinator
+extension ChooseAccountCoordinator: PasscodeChangePasscodeCoordinatorDelegate {
+
+    func passcodeCoordinatorPasswordChanged(wallet: DomainLayer.DTO.Wallet) {
+        delegate?.userChooseCompleted(wallet: wallet)
+        removeFromParentCoordinator()
+    }
+}
+
+

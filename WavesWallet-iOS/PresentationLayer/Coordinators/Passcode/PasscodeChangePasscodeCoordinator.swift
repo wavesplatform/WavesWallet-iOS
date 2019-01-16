@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol PasscodeChangePasscodeCoordinatorDelegate: AnyObject {
-    func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet)
+    func passcodeCoordinatorPasswordChanged(wallet: DomainLayer.DTO.Wallet)
 }
 
 final class PasscodeChangePasscodeCoordinator: Coordinator {
@@ -22,7 +22,7 @@ final class PasscodeChangePasscodeCoordinator: Coordinator {
     private let password: String
     private let wallet: DomainLayer.DTO.Wallet
 
-    weak var delegate: PasscodeCoordinatorDelegate?
+    weak var delegate: PasscodeChangePasscodeCoordinatorDelegate?
 
     init(navigationRouter: NavigationRouter, wallet: DomainLayer.DTO.Wallet, password: String) {
 
@@ -51,15 +51,15 @@ final class PasscodeChangePasscodeCoordinator: Coordinator {
 // MARK: PasscodeOutput
 extension PasscodeChangePasscodeCoordinator: PasscodeModuleOutput {
 
-    func passcodeVerifyAccessCompleted(_ wallet: DomainLayer.DTO.SignedWallet) {
-        delegate?.passcodeCoordinatorVerifyAcccesCompleted(signedWallet: wallet)
-    }
+    func passcodeVerifyAccessCompleted(_ wallet: DomainLayer.DTO.SignedWallet) {}
 
     func passcodeTapBackButton() {
         dissmiss()
     }
 
-    func passcodeLogInCompleted(passcode: String, wallet: DomainLayer.DTO.Wallet, isNewWallet: Bool) {}
+    func passcodeLogInCompleted(passcode: String, wallet: DomainLayer.DTO.Wallet, isNewWallet: Bool) {
+        delegate?.passcodeCoordinatorPasswordChanged(wallet: wallet)
+    }
 
     func passcodeUserLogouted() {}
 
