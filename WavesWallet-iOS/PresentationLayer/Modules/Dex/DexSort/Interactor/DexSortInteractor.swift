@@ -12,7 +12,7 @@ import RealmSwift
 
 final class DexSortInteractor: DexSortInteractorProtocol {
     
-    private let reposity = FactoryRepositories.instance.dexRepository
+    private let reposity = FactoryRepositories.instance.dexRealmRepository
     private let auth = FactoryInteractors.instance.authorization
     private let disposeBag = DisposeBag()
     

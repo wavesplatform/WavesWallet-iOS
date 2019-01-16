@@ -32,8 +32,12 @@ protocol FactoryRepositoriesProtocol {
 
     var addressBookRepository: AddressBookRepositoryProtocol { get }
     
-    var dexRepository: DexRepositoryProtocol { get }
+    var dexRealmRepository: DexRealmRepositoryProtocol { get }
 
+    var dexPairsPriceRepository: DexPairsPriceRepositoryProtocol { get }
+    
+    var dexOrderBookRepository: DexOrderBookRepositoryProtocol { get }
+    
     var aliasesRepository: AliasesRepositoryProtocol { get }
     var aliasesRepositoryLocal: AliasesRepositoryProtocol { get }
 
@@ -44,6 +48,8 @@ protocol FactoryRepositoriesProtocol {
     var lastTradesRespository: LastTradesRepositoryProtocol { get }
     
     var coinomatRepository: CoinomatRepositoryProtocol { get }
+    
+    var matcherRepository: MatcherRepositoryProtocol { get }
 }
 
 protocol RepositoryCache {

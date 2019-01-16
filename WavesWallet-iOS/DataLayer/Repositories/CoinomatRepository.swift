@@ -43,7 +43,7 @@ private enum Response {
 
 final class CoinomatRepository: CoinomatRepositoryProtocol {
     
-    private let coinomatProvider: MoyaProvider<Coinomat.Service> = .coinomatMoyaProvider()
+    private let coinomatProvider: MoyaProvider<Coinomat.Service> = .nodeMoyaProvider()
 
     func tunnelInfo(currencyFrom: String, currencyTo: String, walletTo: String, moneroPaymentID: String?) -> Observable<DomainLayer.DTO.Coinomat.TunnelInfo> {
         

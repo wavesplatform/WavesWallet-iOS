@@ -8,7 +8,6 @@
 
 import Foundation
 import RxSwift
-import SwiftyJSON
 import Moya
 
 private enum Constants {
@@ -16,13 +15,20 @@ private enum Constants {
 }
 
 final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
+
+    private struct LastSellBuy {
+        let sell: DexLastTrades.DTO.SellBuyTrade?
+        let buy: DexLastTrades.DTO.SellBuyTrade?
+    }
     
     private let account = FactoryInteractors.instance.accountBalance
     private let lastTradesRepository = FactoryRepositories.instance.lastTradesRespository
+    private let orderBookRepository = FactoryRepositories.instance.dexOrderBookRepository
+    private let auth = FactoryInteractors.instance.authorization
     
     var pair: DexTraderContainer.DTO.Pair!
 
-    func displayInfo() -> Observable<(DexLastTrades.DTO.DisplayData)> {
+    func displayInfo() -> Observable<DexLastTrades.DTO.DisplayData> {
 
         return Observable.zip(getLastTrades(), getLastSellBuy(), account.balances())
             .flatMap({ [weak self] (lastTrades, lastSellBuy, balances) -> Observable<(DexLastTrades.DTO.DisplayData)> in
@@ -46,11 +52,12 @@ final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
     }
 }
 
-private extension DexLastTradesInteractor {
+
+extension DexLastTradesInteractor {
     
-    func displayData(lastTrades: [DomainLayer.DTO.DexLastTrade],
-                     lastSellBuy: (sell: DexLastTrades.DTO.SellBuyTrade?, buy: DexLastTrades.DTO.SellBuyTrade?),
-                     balances: [DomainLayer.DTO.SmartAssetBalance]) -> Observable<DexLastTrades.DTO.DisplayData> {
+    private func displayData(lastTrades: [DomainLayer.DTO.Dex.LastTrade],
+                             lastSellBuy: LastSellBuy,
+                             balances: [DomainLayer.DTO.SmartAssetBalance]) -> Observable<DexLastTrades.DTO.DisplayData> {
         
         var amountAssetBalance =  Money(0, pair.amountAsset.decimals)
         var priceAssetBalance =  Money(0, pair.priceAsset.decimals)
@@ -77,54 +84,55 @@ private extension DexLastTradesInteractor {
         return Observable.just(display)
     }
     
-    func getLastTrades() -> Observable<[DomainLayer.DTO.DexLastTrade]> {
+    private func getLastTrades() -> Observable<[DomainLayer.DTO.Dex.LastTrade]> {
 
-        return lastTradesRepository.lastTrades(amountAsset: pair.amountAsset,
-                                               priceAsset: pair.priceAsset,
-                                               limit: Constants.limit)
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> in
+            guard let owner = self else { return Observable.empty() }
+            return owner.lastTradesRepository.lastTrades(accountAddress: wallet.address,
+                                                         amountAsset: owner.pair.amountAsset,
+                                                         priceAsset: owner.pair.priceAsset,
+                                                         limit: Constants.limit)
+        })
+      
     }
     
-    func getLastSellBuy() -> Observable<(sell: DexLastTrades.DTO.SellBuyTrade?, buy: DexLastTrades.DTO.SellBuyTrade?)> {
+    private func getLastSellBuy() -> Observable<LastSellBuy> {
         
-        return Observable.create({ [weak self] (subscribe) -> Disposable in
-        
-            guard let owner = self else { return Disposables.create() }
-            
-            //TODO: need move to repository
-            let url = GlobalConstants.Matcher.orderBook(owner.pair.amountAsset.id, owner.pair.priceAsset.id)
-            
-            NetworkManager.getRequestWithUrl(url, parameters: nil) { (info, error) in
-                
-                var sell: DexLastTrades.DTO.SellBuyTrade?
-                var buy: DexLastTrades.DTO.SellBuyTrade?
-                
-                if let info = info {
-                    if let bid = info["bids"].arrayValue.first {
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<LastSellBuy> in
+            guard let owner = self else { return Observable.empty() }
+
+
+            return owner.orderBookRepository.orderBook(wallet: wallet,
+                                                       amountAsset: owner.pair.amountAsset.id,
+                                                       priceAsset: owner.pair.priceAsset.id)
+                .flatMap({ [weak self] (orderbook) -> Observable<LastSellBuy> in
+                    
+                    guard let owner = self else { return Observable.empty() }
+                    
+                    var sell: DexLastTrades.DTO.SellBuyTrade?
+                    var buy: DexLastTrades.DTO.SellBuyTrade?
+                    
+                    if let bid = orderbook.bids.first {
                         
-                        let price = DexList.DTO.price(amount: bid["price"].int64Value,
+                        let price = Money.price(amount: bid.price,
                                                       amountDecimals: owner.pair.amountAsset.decimals,
                                                       priceDecimals: owner.pair.priceAsset.decimals)
                         
-                        sell = DexLastTrades.DTO.SellBuyTrade(price: price,
-                                                              type: .sell)
+                        sell = DexLastTrades.DTO.SellBuyTrade(price: price, type: .sell)
                     }
                     
-                    if let ask = info["asks"].arrayValue.first {
+                    if let ask = orderbook.asks.first {
                         
-                        let price = DexList.DTO.price(amount: ask["price"].int64Value,
+                        let price = Money.price(amount: ask.price,
                                                       amountDecimals: owner.pair.amountAsset.decimals,
                                                       priceDecimals: owner.pair.priceAsset.decimals)
                         
-                        buy = DexLastTrades.DTO.SellBuyTrade(price: price,
-                                                             type: .buy)
+                        buy = DexLastTrades.DTO.SellBuyTrade(price: price, type: .buy)
                     }
-                }
-
-                subscribe.onNext((sell: sell, buy: buy))
-                subscribe.onCompleted()
-            }
-            
-            return Disposables.create()
+                    
+                    return Observable.just(LastSellBuy(sell: sell, buy: buy))
+                })
         })
+        
     }
 }

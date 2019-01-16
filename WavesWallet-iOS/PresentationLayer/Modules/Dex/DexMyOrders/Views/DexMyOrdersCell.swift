@@ -26,7 +26,7 @@ final class DexMyOrdersCell: UITableViewCell, Reusable {
 
 extension DexMyOrdersCell: ViewConfiguration {
     
-    func update(with model: DexMyOrders.DTO.Order) {
+    func update(with model: DomainLayer.DTO.Dex.MyOrder) {
         
         labelDate.text = DexMyOrders.ViewModel.dateFormatterDate.string(from: model.time)
         labelTime.text = DexMyOrders.ViewModel.dateFormatterTime.string(from: model.time)
@@ -55,8 +55,8 @@ private extension DexMyOrdersCell {
     }
 }
 
-//MARK: - DexMyOrders.DTO.Order
-fileprivate extension DexMyOrders.DTO.Order {
+//MARK: - DomainLayer.DTO.Dex.MyOrder
+fileprivate extension DomainLayer.DTO.Dex.MyOrder {
     
     var statusText: String {
         switch status {
