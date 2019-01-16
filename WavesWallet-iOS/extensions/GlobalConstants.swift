@@ -28,31 +28,7 @@ enum GlobalConstants {
     static let WavesDecimals: Int = 8
     static let WavesTransactionFee = Money(GlobalConstants.WavesTransactionFeeAmount, GlobalConstants.WavesDecimals)
     static let FiatDecimals: Int = 2
-        
-    enum Matcher {}
 }
-
-extension GlobalConstants.Matcher {
-
-    private static let url = Environments.current.servers.matcherUrl.relativeString + "/"
-    
-    static var matcher: String {
-        return url + "matcher"
-    }
-
-    static var orderBook: String {
-        return url + "matcher/orderbook"
-    }
-    
-    static func myOrderBook(_ amountAsset: String, _ priceAsset: String, publicKey: PublicKeyAccount) -> String {
-        return orderBook + "/" + amountAsset + "/" + priceAsset + "/" + "publicKey" + "/" + publicKey.getPublicKeyStr()
-    }
-    
-    static func cancelOrder(_ amountAsset: String, _ priceAsset: String) -> String {
-        return orderBook + "/" + amountAsset + "/" + priceAsset + "/" + "cancel"
-    }
-}
-
 
 enum RegEx {
     static let alias = "^[a-z0-9\\.@_-]*$"
