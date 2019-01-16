@@ -62,8 +62,6 @@ final class NewAccountViewController: UIViewController {
         return .default
     }
 
-    // TODO: Shake
-
     override var canBecomeFirstResponder: Bool { return true }
 
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {

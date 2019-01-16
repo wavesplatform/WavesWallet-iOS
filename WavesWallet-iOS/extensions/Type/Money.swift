@@ -91,3 +91,15 @@ extension Money {
         return Money(newAmount, decimals)
     }
 }
+
+//MARK: - Calculation
+extension Money {
+    
+    static func price(amount: Int64, amountDecimals: Int, priceDecimals: Int) -> Money {
+        
+        let precisionDiff = priceDecimals - amountDecimals + 8
+        let decimalValue = Decimal(amount) / pow(10, precisionDiff)
+        
+        return Money((decimalValue * pow(10, priceDecimals)).int64Value, priceDecimals)
+    }
+}

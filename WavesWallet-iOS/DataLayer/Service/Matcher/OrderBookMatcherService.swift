@@ -10,14 +10,15 @@ import Foundation
 import Moya
 
 extension Matcher.Service {
-
+    
     struct OrderBook {
+        
         enum Kind {
-            /**
-             Response:
-             - Not implementation
-             */
-            case getOrderHistory(TimestampSignature, isActiveOnly: Bool)
+            case getOrderBook(amountAsset: String, priceAsset: String)
+            case getMarket
+            case getMyOrders(amountAsset: String, priceAsset: String, signature: TimestampSignature)
+            case cancelOrder(DomainLayer.Query.Dex.CancelOrder)
+            case createOrder(DomainLayer.Query.Dex.CreateOrder)
         }
 
         var kind: Kind
@@ -29,34 +30,56 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
     fileprivate enum Constants {
         static let matcher = "matcher"
         static let orderbook = "orderbook"
-        static let activeOnly = "activeOnly"
+        static let publicKey = "publicKey"
     }
 
+    private var orderBookPath: String {
+        return Constants.matcher + "/" + Constants.orderbook
+    }
+    
     var path: String {
         switch kind {
-        case .getOrderHistory(let signature, _):
-            return Constants.matcher
-                + "/"
-                + Constants.orderbook
-                + "/"
-                + "\(signature.publicKey.getPublicKeyStr())".urlEscaped
+         
+        case .getOrderBook(let amountAsset, let priceAsset):
+            return orderBookPath + "/" + amountAsset + "/" + priceAsset
+        
+        case .getMarket:
+            return orderBookPath
+            
+        case .getMyOrders(let amountAsset, let priceAsset, let signature):
+            return orderBookPath + "/" + amountAsset + "/" + priceAsset + "/"
+                + Constants.publicKey + "/" + signature.publicKey.getPublicKeyStr()
+            
+        case .cancelOrder(let order):
+            return orderBookPath + "/" + order.amountAsset + "/" + order.priceAsset + "/" + "cancel"
+            
+        case .createOrder:
+            return orderBookPath
         }
     }
 
     var method: Moya.Method {
+        
         switch kind {
-        case .getOrderHistory:
+        case .cancelOrder, .createOrder:
+            return .post
+            
+        default:
             return .get
         }
     }
 
     var task: Task {
+        
         switch kind {
-        case .getOrderHistory(_, let isActiveOnly):
+        case .cancelOrder(let order):
+            return .requestParameters(parameters: order.params, encoding: JSONEncoding.default)
+            
+        case .createOrder(let order):
+            return .requestParameters(parameters: order.params, encoding: JSONEncoding.default)
 
-            return .requestCompositeParameters(bodyParameters: [:],
-                                               bodyEncoding: URLEncoding.httpBody,
-                                               urlParameters: [Constants.activeOnly: isActiveOnly])
+        default:
+            return .requestPlain
         }
     }
 
@@ -64,10 +87,111 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
         var headers = ContentType.applicationJson.headers
 
         switch kind {
-        case .getOrderHistory(let signature, _):            
+        case .getMyOrders(_, _, let signature):
             headers.merge(signature.parameters) { a, _ in a }
+
+        default:
+            break
         }
 
         return headers
+    }
+}
+
+
+
+//MARK: - CancelOrder
+fileprivate extension DomainLayer.Query.Dex.CancelOrder {
+    
+    private var toSign: [UInt8] {
+        let s1 = wallet.publicKey.publicKey
+        let s2 = Base58.decode(orderId)
+        return s1 + s2
+    }
+    
+    private var signature: [UInt8] {
+        return Hash.sign(toSign, wallet.privateKey.privateKey)
+    }
+    
+    //TODO: Need we use proofs instead of signature?
+    
+    var params: [String : String] {
+        return ["sender" : Base58.encode(wallet.publicKey.publicKey),
+                "orderId" : orderId,
+                "signature" : Base58.encode(signature)]
+    }
+}
+
+
+
+//MARK: - CreateOrder
+fileprivate extension DomainLayer.Query.Dex.CreateOrder {
+    
+    private struct AssetPair {
+        let amountAssetId: String?
+        let priceAssetId: String?
+        
+        var json: [String : String] {
+            return ["amountAsset" : amountAssetId ?? "",
+                    "priceAsset" : priceAssetId ?? ""]
+        }
+        
+        func assetIdBytes(_ id: String?) -> [UInt8] {
+            return id == nil ? [UInt8(0)] : ([UInt8(1)] + Base58.decode(id!))
+        }
+        
+        var bytes: [UInt8] {
+            return assetIdBytes(amountAssetId) + assetIdBytes(priceAssetId)
+        }
+    }
+    
+    private var assetPair: AssetPair {
+        return .init(amountAssetId: amountAsset == GlobalConstants.wavesAssetId ? nil : amountAsset,
+                     priceAssetId: priceAsset == GlobalConstants.wavesAssetId ? nil : priceAsset)
+    }
+    
+    private var id: [UInt8] {
+        return Hash.fastHash(toSign)
+    }
+    
+    private var signature: [UInt8] {
+        return Hash.sign(toSign, wallet.privateKey.privateKey)
+    }
+    
+    private var toSign: [UInt8] {
+        let s1 = wallet.publicKey.publicKey + matcherPublicKey.publicKey
+        let s2 = assetPair.bytes + orderType.bytes
+        let s3 = toByteArray(price) + toByteArray(amount)
+        let s4 = toByteArray(timestamp) + toByteArray(expirationTimestamp) + toByteArray(matcherFee)
+        return s1 + s2 + s3 + s4
+    }
+    
+    private var expirationTimestamp: Int64 {
+        return timestamp + Int64(expiration) * 60 * 1000
+    }
+    
+    var params: [String : Any] {
+        
+        return ["id" : Base58.encode(id),
+                "senderPublicKey" :  Base58.encode(wallet.publicKey.publicKey),
+                "matcherPublicKey" : Base58.encode(matcherPublicKey.publicKey),
+                "assetPair" : assetPair.json,
+                "orderType" : orderType.rawValue,
+                "price" : price,
+                "amount" : amount,
+                "timestamp" : timestamp,
+                "expiration" : expirationTimestamp,
+                "matcherFee" : matcherFee,
+                "signature" : Base58.encode(signature)]
+    }
+}
+
+
+fileprivate extension DomainLayer.DTO.Dex.OrderType {
+    var bytes: [UInt8] {
+        switch self {
+        case .sell: return [UInt8(1)]
+        case .buy: return [UInt8(0)]
+        }
     }
 }

@@ -11,7 +11,6 @@ import Charts
 import RxSwift
 import RxCocoa
 import RxFeedback
-import SwiftyJSON
 
 private enum Constants {
     static let cornerRadius: CGFloat = 3

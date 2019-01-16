@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 extension UIViewController {
-    //TODO Languages
+    //TODO remove
     public func presentBasicAlertWithTitle(title: String, message: String? = nil,
                                            completion: (() -> Void)? = nil) {
         if presentedViewController == nil {

@@ -145,7 +145,6 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
         
     }
 
-    // TODO: Remove Platform and add constants
     private func setupTopOffsetConstraint() {
         if Platform.isIphone5 {
             collectionTopOffsetConstraint.constant = Constants.CollectionTopOffset.small.rawValue

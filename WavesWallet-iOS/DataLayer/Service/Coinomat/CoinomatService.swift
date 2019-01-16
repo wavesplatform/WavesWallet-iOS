@@ -9,14 +9,6 @@
 import Foundation
 import Moya
 
-extension MoyaProvider {
-    final class func coinomatMoyaProvider<Target: TargetType>() -> MoyaProvider<Target> {
-        return MoyaProvider<Target>(callbackQueue: nil,
-                                    plugins: [SweetNetworkLoggerPlugin(verbose: true)])
-    }
-}
-
-
 private enum Constants {
     static let url = "https://coinomat.com/"
 }
