@@ -23,18 +23,22 @@ final class ProfileCoordinator: Coordinator {
     private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
 
     private let authorization = FactoryInteractors.instance.authorization
-    private let navigationController: UINavigationController
+
+    private let navigationRouter: NavigationRouter
     private let disposeBag: DisposeBag = DisposeBag()
 
-    init(navigationController: UINavigationController, applicationCoordinator: ApplicationCoordinatorProtocol?) {
+    init(navigationRouter: NavigationRouter, applicationCoordinator: ApplicationCoordinatorProtocol?) {
         self.applicationCoordinator = applicationCoordinator
-        self.navigationController = navigationController
+        self.navigationRouter = navigationRouter
     }
 
     func start() {
         let vc = ProfileModuleBuilder(output: self).build()
-        self.navigationController.pushViewController(vc, animated: true)
-        setupBackupTost(target: vc, navigationController: navigationController, disposeBag: disposeBag)
+
+        self.navigationRouter.pushViewController(vc, animated: true) { [weak self] in
+            self?.removeFromParentCoordinator()
+        }
+        setupBackupTost(target: vc, navigationController: navigationRouter.navigationController, disposeBag: disposeBag)
     }
 }
 
@@ -65,7 +69,7 @@ extension ProfileCoordinator: ProfileModuleOutput {
                 } else {
                     let vc = StoryboardScene.Backup.saveBackupPhraseViewController.instantiate()
                     vc.input = .init(seed: seed, isReadOnly: true)
-                    owner.navigationController.pushViewController(vc, animated: true)
+                    owner.navigationRouter.pushViewController(vc)
                 }
             })
             .disposed(by: disposeBag)
@@ -73,25 +77,29 @@ extension ProfileCoordinator: ProfileModuleOutput {
 
     func showAddressesKeys(wallet: DomainLayer.DTO.Wallet) {
         guard let applicationCoordinator = self.applicationCoordinator else { return }
-        let coordinator = AddressesKeysCoordinator(navigationController: navigationController, wallet: wallet, applicationCoordinator: applicationCoordinator)
-        addChildCoordinator(childCoordinator: coordinator)
-        coordinator.start()
+
+        let coordinator = AddressesKeysCoordinator(navigationRouter: navigationRouter,
+                                                   wallet: wallet,
+                                                   applicationCoordinator: applicationCoordinator)
+        addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
 
     func showAddressBook() {
-        let vc = AddressBookModuleBuilder.init(output: nil).build(input: .init(isEditMode: true))
-        self.navigationController.pushViewController(vc, animated: true)
+        let vc = AddressBookModuleBuilder(output: nil)
+            .build(input: .init(isEditMode: true))
+        navigationRouter.pushViewController(vc)
     }
 
     func showLanguage() {
         let language = StoryboardScene.Language.languageViewController.instantiate()
         language.delegate = self
-        navigationController.pushViewController(language, animated: true)
+        navigationRouter.pushViewController(language)
     }
 
     func showNetwork(wallet: DomainLayer.DTO.Wallet) {
-        let vc = NetworkSettingsModuleBuilder(output: self).build(input: .init(wallet: wallet))
-        navigationController.pushViewController(vc, animated: true)
+        let vc = NetworkSettingsModuleBuilder(output: self)
+            .build(input: .init(wallet: wallet))
+        navigationRouter.pushViewController(vc)
     }
 
     func showRateApp() {
@@ -99,8 +107,7 @@ extension ProfileCoordinator: ProfileModuleOutput {
     }
 
     func showFeedback() {
-
-        let coordinator = MailComposeCoordinator(viewController: navigationController, email: Constants.supportEmail)
+        let coordinator = MailComposeCoordinator(viewController: navigationRouter.navigationController, email: Constants.supportEmail)
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
     }
@@ -131,28 +138,27 @@ extension ProfileCoordinator: ProfileModuleOutput {
         alertController.addAction(cancelAction)
         alertController.addAction(settingsAction)
 
-
-
-        navigationController.present(alertController, animated: true, completion: nil)
+        navigationRouter.present(alertController)
     }
 
     func accountSetEnabledBiometric(isOn: Bool, wallet: DomainLayer.DTO.Wallet) {
-        let passcode = PasscodeCoordinator(navigationController: navigationController, kind: .setEnableBiometric(isOn, wallet: wallet))
+        let passcode = PasscodeCoordinator(navigationController: navigationRouter.navigationController,
+                                           kind: .setEnableBiometric(isOn, wallet: wallet))
         passcode.delegate = self
-        addChildCoordinator(childCoordinator: passcode)
-        passcode.start()
+        addChildCoordinatorAndStart(childCoordinator: passcode)
     }
 
     func showChangePasscode(wallet: DomainLayer.DTO.Wallet) {
-        let passcode = PasscodeCoordinator(navigationController: navigationController, kind: .changePasscode(wallet))
+        let passcode = PasscodeChangePasscodeCoordinator(navigationController: navigationRouter.navigationController,
+                                                         kind: .changePasscode(wallet))
         passcode.delegate = self
-        addChildCoordinator(childCoordinator: passcode)
-        passcode.start()
+        addChildCoordinatorAndStart(childCoordinator: passcode)
     }
 
     func showChangePassword(wallet: DomainLayer.DTO.Wallet) {
-        let vc = ChangePasswordModuleBuilder(output: self).build(input: .init(wallet: wallet))
-        self.navigationController.pushViewController(vc, animated: true)
+        let vc = ChangePasswordModuleBuilder(output: self)
+            .build(input: .init(wallet: wallet))
+        navigationRouter.pushViewController(vc)
     }
 
     func accountLogouted() {
@@ -174,15 +180,14 @@ extension ProfileCoordinator: PasscodeCoordinatorDelegate {
         applicationCoordinator?.showEnterDisplay()
     }
 
-    func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {
-    }
+    func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {}
 }
 
 // MARK: LanguageViewControllerDelegate
 
 extension ProfileCoordinator: LanguageViewControllerDelegate {
     func languageViewChangedLanguage() {
-        navigationController.popViewController(animated: true)
+        navigationRouter.popViewController()
     }
 }
 
@@ -190,13 +195,13 @@ extension ProfileCoordinator: LanguageViewControllerDelegate {
 
 extension ProfileCoordinator: ChangePasswordModuleOutput {
     func changePasswordCompleted(wallet: DomainLayer.DTO.Wallet, newPassword: String, oldPassword: String) {
-        let passcode = PasscodeCoordinator(navigationController: navigationController,
-                                           kind: .changePassword(wallet: wallet,
-                                                                 newPassword: newPassword,
-                                                                 oldPassword: oldPassword))
-        passcode.delegate = self
-        addChildCoordinator(childCoordinator: passcode)
-        passcode.start()
+//        let passcode = PasscodeCoordinator(navigationController: navigationController,
+//                                           kind: .changePassword(wallet: wallet,
+//                                                                 newPassword: newPassword,
+//                                                                 oldPassword: oldPassword))
+//        passcode.delegate = self
+//        addChildCoordinator(childCoordinator: passcode)
+//        passcode.start()
     }
 }
 
@@ -206,7 +211,7 @@ extension ProfileCoordinator: NetworkSettingsModuleOutput {
 
     func networkSettingSavedSetting() {
         NotificationCenter.default.post(name: .changedSpamList, object: nil)
-        navigationController.popViewController(animated: true)
+        navigationRouter.popViewController()
     }
 }
 

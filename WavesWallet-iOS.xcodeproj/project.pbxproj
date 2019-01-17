@@ -153,6 +153,7 @@
 		0A4C58BE21EE334000394D11 /* RoutingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C58BD21EE334000394D11 /* RoutingCoordinator.swift */; };
 		0A4C58C021EE337B00394D11 /* SlideMenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C58BF21EE337B00394D11 /* SlideMenuRouter.swift */; };
 		0A4C58C321EE33C800394D11 /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C58C221EE33C800394D11 /* NavigationRouter.swift */; };
+		0A4C58C521F0799300394D11 /* TabBarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C58C421F0799200394D11 /* TabBarRouter.swift */; };
 		0A4C9A2820ED443C0095A417 /* WalletPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9A2720ED443C0095A417 /* WalletPresenter.swift */; };
 		0A4C9AA120EE65800095A417 /* WalletItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9AA020EE65800095A417 /* WalletItem.swift */; };
 		0A4C9AA320EE65910095A417 /* SeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9AA220EE65910095A417 /* SeedItem.swift */; };
@@ -984,6 +985,7 @@
 		0A4C58BD21EE334000394D11 /* RoutingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingCoordinator.swift; sourceTree = "<group>"; };
 		0A4C58BF21EE337B00394D11 /* SlideMenuRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideMenuRouter.swift; sourceTree = "<group>"; };
 		0A4C58C221EE33C800394D11 /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
+		0A4C58C421F0799200394D11 /* TabBarRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarRouter.swift; sourceTree = "<group>"; };
 		0A4C9A2720ED443C0095A417 /* WalletPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletPresenter.swift; sourceTree = "<group>"; usesTabs = 0; };
 		0A4C9A9E20EE425B0095A417 /* WalletTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletTypes.swift; sourceTree = "<group>"; };
 		0A4C9AA020EE65800095A417 /* WalletItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WalletItem.swift; path = ../WalletItem.swift; sourceTree = "<group>"; };
@@ -1160,7 +1162,6 @@
 		0A9CA15021C16E6F003C0A1B /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		0A9CA15121C16E70003C0A1B /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Waves.strings"; sourceTree = "<group>"; };
 		0A9CA15321C2A4E0003C0A1B /* WindowRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowRouter.swift; sourceTree = "<group>"; };
-		0A9CA15621C2A4E0003C0A1B /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		0A9D6B69216E1C39006822C5 /* RxSwift+Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RxSwift+Scheduler.swift"; sourceTree = "<group>"; };
 		0AA8CAA32151133D000D09E6 /* UIView+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animation.swift"; sourceTree = "<group>"; };
 		0AA8CAC821516077000D09E6 /* Backup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Backup.storyboard; sourceTree = "<group>"; };
@@ -2093,8 +2094,8 @@
 			children = (
 				0A4C58BF21EE337B00394D11 /* SlideMenuRouter.swift */,
 				0A9CA15321C2A4E0003C0A1B /* WindowRouter.swift */,
-				0A9CA15621C2A4E0003C0A1B /* Router.swift */,
 				0A4C58C221EE33C800394D11 /* NavigationRouter.swift */,
+				0A4C58C421F0799200394D11 /* TabBarRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -2977,6 +2978,7 @@
 		0AF58F8C219190C400C8A4B3 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				0A9CA15221C2A4E0003C0A1B /* CoordinatorKit */,
 				0A61B592214AB4E700EC60FC /* AppCoordinator.swift */,
 				E9B086D82163886800937644 /* DexCoordinator.swift */,
 				0AFA0C692174A2300003FE3B /* LegalCoordinator.swift */,
@@ -2985,7 +2987,6 @@
 				0AF58F8D219194E500C8A4B3 /* SlideCoordinator.swift */,
 				E92E0E5421988435004EF2C5 /* WalletCoordinator.swift */,
 				0A6E2C8421CBBC1F006F4073 /* Backup */,
-				0A9CA15221C2A4E0003C0A1B /* CoordinatorKit */,
 				0A6E2C8121CBBB69006F4073 /* Enter */,
 				0A6E2C8321CBBC07006F4073 /* History */,
 				0A6E2C8021CBB688006F4073 /* Passcode */,
@@ -5204,6 +5205,7 @@
 				04016E00219499DA00BA5235 /* ImportAccountScanViewController.swift in Sources */,
 				0A3FE8BB2137007500DBF4E1 /* MassTransferTransactionNode.swift in Sources */,
 				0AF922E3212E1234003BA067 /* HalfModalPresentationController.swift in Sources */,
+				0A4C58C521F0799300394D11 /* TabBarRouter.swift in Sources */,
 				0A485E8720FF570000079B49 /* AssetBalanceSettings.swift in Sources */,
 				E9D36DD32175C755001E6DF0 /* ReceiveCardPresenter.swift in Sources */,
 				0A1DAD7320F3A12B004DA625 /* AssetsNodeService.swift in Sources */,
