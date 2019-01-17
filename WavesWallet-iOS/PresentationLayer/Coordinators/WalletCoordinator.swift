@@ -35,7 +35,6 @@ final class WalletCoordinator: Coordinator {
     private let authorization: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let walletsRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
 
-
     init(navigationController: UINavigationController){
         self.navigationController = navigationController
     }

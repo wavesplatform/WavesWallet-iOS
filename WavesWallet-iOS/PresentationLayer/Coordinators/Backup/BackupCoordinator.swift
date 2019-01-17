@@ -10,40 +10,37 @@ import UIKit
 
 final class BackupCoordinator: Coordinator {
 
+    enum PresentationKind {
+        case push
+        case present
+    }
+
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-//    private let viewController: UIViewController
     private let navigationRouter: NavigationRouter
     private let modalNavigationRouter: NavigationRouter
     private let completed: ((Bool) -> Void)
     private let seed: [String]
-//    private let hasExternalNavigationController: Bool
+    private let presentationKind: PresentationKind
 
-//    init(viewController: UIViewController, seed: [String], completed: @escaping ((Bool) -> Void)) {
-//        self.seed = seed
-//        self.viewController = viewController
-//        self.completed = completed
-//        self.navigationController = CustomNavigationController()
-//        self.hasExternalNavigationController = false
-//    }
-
-    init(navigationRouter: NavigationRouter, seed: [String], completed: @escaping ((Bool) -> Void)) {
+    init(navigationRouter: NavigationRouter, seed: [String], presentationKind: PresentationKind = .push, completed: @escaping ((Bool) -> Void)) {
         self.seed = seed
         self.navigationRouter = navigationRouter
         self.completed = completed
+
         self.modalNavigationRouter = NavigationRouter(navigationController: CustomNavigationController())
+        self.presentationKind = presentationKind
     }
 
     func start()  {
 
-//        if hasExternalNavigationController {
-//            userReadedBackupInfo()
-//        } else {
-
         let vc = StoryboardScene.Backup.needBackupViewController.instantiate()
         vc.output = self
         self.modalNavigationRouter.pushViewController(vc, animated: true)
+
+//        presentationKind
+        //TODO
         navigationRouter.present(self.modalNavigationRouter.navigationController)
     }
 

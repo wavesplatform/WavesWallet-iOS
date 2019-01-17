@@ -59,6 +59,10 @@ final class NavigationRouter: NSObject {
         }
     }
 
+    func popToViewController(_ viewController: UIViewController, animated: Bool) {
+        _ = navigationController.popToViewController(viewController, animated: true)
+    }
+
     fileprivate func runCompletion(for controller: UIViewController) {
         guard let completion = completions[controller] else { return }
         completion()

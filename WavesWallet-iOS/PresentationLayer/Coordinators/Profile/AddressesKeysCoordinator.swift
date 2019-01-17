@@ -18,7 +18,7 @@ final class AddressesKeysCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private let navigationController: UINavigationController
+    private let navigationRouter: NavigationRouter
     private let wallet: DomainLayer.DTO.Wallet    
     private var rootViewController: UIViewController?
 
@@ -27,8 +27,8 @@ final class AddressesKeysCoordinator: Coordinator {
     private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
     private var currentPopup: PopupViewController?
 
-    init(navigationController: UINavigationController, wallet: DomainLayer.DTO.Wallet, applicationCoordinator: ApplicationCoordinatorProtocol) {
-        self.navigationController = navigationController
+    init(navigationRouter: NavigationRouter, wallet: DomainLayer.DTO.Wallet, applicationCoordinator: ApplicationCoordinatorProtocol) {
+        self.navigationRouter = navigationRouter
         self.wallet = wallet
         self.applicationCoordinator = applicationCoordinator
     }
@@ -36,7 +36,9 @@ final class AddressesKeysCoordinator: Coordinator {
     func start() {
         let vc = AddressesKeysModuleBuilder(output: self).build(input: .init(wallet: wallet))
         self.rootViewController = vc
-        self.navigationController.pushViewController(vc, animated: true)
+        self.navigationRouter.pushViewController(vc, animated: true) { [weak self] in
+            self?.removeFromParentCoordinator()
+        }
     }
 }
 
@@ -54,7 +56,7 @@ extension AddressesKeysCoordinator: AddressesKeysModuleOutput {
             popup.present(contentViewController: controller)
             self.currentPopup = popup
         } else {
-            let controller = AliasesModuleBuilder.init(output: self).build(input: .init(aliases: aliases))
+            let controller = AliasesModuleBuilder(output: self).build(input: .init(aliases: aliases))
             let popup = PopupViewController()            
             popup.present(contentViewController: controller)
             self.currentPopup = popup
@@ -79,7 +81,7 @@ extension AddressesKeysCoordinator: AliasesModuleOutput {
 
         self.currentPopup?.dismissPopup {
             let vc = CreateAliasModuleBuilder(output: self).build()
-            self.navigationController.pushViewController(vc, animated: true)
+            self.navigationRouter.pushViewController(vc)
         }
     }
 }
@@ -90,7 +92,7 @@ extension AddressesKeysCoordinator: AliasWithoutViewControllerDelegate {
     func aliasWithoutUserTapCreateNewAlias() {
         self.currentPopup?.dismissPopup {
             let vc = CreateAliasModuleBuilder(output: self).build()
-            self.navigationController.pushViewController(vc, animated: true)
+            self.navigationRouter.pushViewController(vc, animated: true)
         }
     }
 }
@@ -100,7 +102,7 @@ extension AddressesKeysCoordinator: AliasWithoutViewControllerDelegate {
 extension AddressesKeysCoordinator: CreateAliasModuleOutput {
     func createAliasCompletedCreateAlias(_ alias: String) {
         if let rootViewController = self.rootViewController {
-            navigationController.popToViewController(rootViewController, animated: true)
+            navigationRouter.popToViewController(rootViewController, animated: true)
         }
     }
 }
