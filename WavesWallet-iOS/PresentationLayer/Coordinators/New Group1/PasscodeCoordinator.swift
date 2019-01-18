@@ -16,46 +16,59 @@ protocol PasscodeCoordinatorDelegate: AnyObject {
 
 final class PasscodeCoordinator: Coordinator {
 
+    enum BehaviorPresentation {
+        case push(NavigationRouter, dissmissToRoot: Bool)
+        case modal(Router)
+
+        var isPush: Bool {
+            switch self {
+            case .push:
+                return true
+
+            default:
+                return false
+            }
+        }
+    }
+
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private let viewController: UIViewController
-    private let navigationController: UINavigationController
+    private let mainNavigationRouter: NavigationRouter
 
-    private let hasExternalNavigationController: Bool
     private let kind: PasscodeTypes.DTO.Kind
-    
+    private let behaviorPresentation: BehaviorPresentation
+
+
     weak var delegate: PasscodeCoordinatorDelegate?
-    var animated: Bool = true
-    var isDontToRoot: Bool = false
 
-    init(viewController: UIViewController, kind: PasscodeTypes.DTO.Kind) {
-
-        self.viewController = viewController
-        self.navigationController = CustomNavigationController()
+    init(kind: PasscodeTypes.DTO.Kind, behaviorPresentation: BehaviorPresentation)  {
         self.kind = kind
-        self.hasExternalNavigationController = false
-    }
+        self.behaviorPresentation = behaviorPresentation
 
-    init(navigationController: UINavigationController, kind: PasscodeTypes.DTO.Kind) {
-        self.viewController = navigationController
-        self.navigationController = navigationController
-        self.kind = kind
-        self.hasExternalNavigationController = true
+        switch behaviorPresentation {
+        case .modal:
+            mainNavigationRouter = NavigationRouter(navigationController: CustomNavigationController())
+
+        case .push(let router, _):
+            mainNavigationRouter = router
+        }
     }
 
     func start() {
 
         let vc = PasscodeModuleBuilder(output: self)
-            .build(input: .init(kind: kind, hasBackButton: hasExternalNavigationController))
-        
-        navigationController.pushViewController(vc, animated: true)
+            .build(input: .init(kind: kind, hasBackButton: behaviorPresentation.isPush))
 
-        if hasExternalNavigationController == false {
-            if let presentedViewController = viewController.presentedViewController {
-                presentedViewController.present(navigationController, animated: true, completion: nil)
-            } else {
-                viewController.present(navigationController, animated: animated, completion: nil)
+        switch behaviorPresentation {
+        case .modal(let router):
+
+            mainNavigationRouter.pushViewController(vc)
+            router.present(mainNavigationRouter.navigationController, animated: true, completion: nil)
+
+        case .push:
+            mainNavigationRouter.pushViewController(vc, animated: true) { [weak self] in
+                self?.removeFromParentCoordinator()
             }
         }
     }
@@ -63,19 +76,17 @@ final class PasscodeCoordinator: Coordinator {
     private func dissmiss() {
         removeFromParentCoordinator()
 
-        if hasExternalNavigationController == false {
-            self.viewController.dismiss(animated: true, completion: nil)
-        } else {
-            if isDontToRoot == true {
-                self.navigationController.popViewController(animated: true)
+        switch behaviorPresentation {
+        case .modal(let router):
+            router.dismiss(animated: true, completion: nil)
+
+        case .push(_, let dissmissToRoot):
+            if dissmissToRoot {
+                self.mainNavigationRouter.popToRootViewController(animated: true)
             } else {
-                self.navigationController.popToRootViewController(animated: true)
+                self.mainNavigationRouter.popViewController()
             }
         }
-    }
-
-    deinit {
-        print("DEALLOC PASSCODE")
     }
 }
 
@@ -93,8 +104,9 @@ extension PasscodeCoordinator: PasscodeModuleOutput {
     func passcodeLogInCompleted(passcode: String, wallet: DomainLayer.DTO.Wallet, isNewWallet: Bool) {
 
         if isNewWallet, BiometricType.enabledBiometric != .none {
-            let vc = UseTouchIDModuleBuilder(output: self).build(input: .init(passcode: passcode, wallet: wallet))
-            navigationController.present(vc, animated: true, completion: nil)
+            let vc = UseTouchIDModuleBuilder(output: self)
+                .build(input: .init(passcode: passcode, wallet: wallet))
+            mainNavigationRouter.present(vc, animated: true, completion: nil)
         } else {
             dissmiss()
             delegate?.passcodeCoordinatorAuthorizationCompleted(wallet: wallet)
@@ -133,7 +145,7 @@ extension PasscodeCoordinator: PasscodeModuleOutput {
 
         let vc = AccountPasswordModuleBuilder(output: self)
             .build(input: .init(kind: kind))
-        navigationController.pushViewController(vc, animated: true)
+        mainNavigationRouter.pushViewController(vc)
     }
 }
 
@@ -146,8 +158,7 @@ extension PasscodeCoordinator: AccountPasswordModuleOutput {
             .build(input: .init(kind: .changePasscodeByPassword(signedWallet.wallet,
                                                                 password: password),
                                 hasBackButton: true))
-
-        navigationController.pushViewController(vc, animated: true)
+        mainNavigationRouter.pushViewController(vc)
     }
 
     func accountPasswordAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet, password: String) {
@@ -157,7 +168,7 @@ extension PasscodeCoordinator: AccountPasswordModuleOutput {
                                                                 password: password),
                                 hasBackButton: true))
 
-        navigationController.pushViewController(vc, animated: true)
+        mainNavigationRouter.pushViewController(vc)
     }
 }
 
@@ -166,12 +177,14 @@ extension PasscodeCoordinator: UseTouchIDModuleOutput {
 
     func userSkipRegisterBiometric(wallet: DomainLayer.DTO.Wallet) {
 
+        mainNavigationRouter.dismiss(animated: true, completion: nil)
         dissmiss()
         delegate?.passcodeCoordinatorAuthorizationCompleted(wallet: wallet)
     }
 
     func userRegisteredBiometric(wallet: DomainLayer.DTO.Wallet) {
 
+        mainNavigationRouter.dismiss(animated: true, completion: nil)
         dissmiss()
         delegate?.passcodeCoordinatorAuthorizationCompleted(wallet: wallet)
     }

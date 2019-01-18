@@ -22,15 +22,15 @@ final class TransactionHistoryCoordinator: Coordinator {
 
     private let transactions: [DomainLayer.DTO.SmartTransaction]
     private let currentIndex: Int
-    private let navigationController: UINavigationController
+    private let router: NavigationRouter
 
     private var lastDisplay: Display?
     
     init(transactions: [DomainLayer.DTO.SmartTransaction],
          currentIndex: Int,
-         navigationController: UINavigationController) {
+         router: NavigationRouter) {
         
-        self.navigationController = navigationController
+        self.router = router
         self.transactions = transactions
         self.currentIndex = currentIndex
     }
@@ -54,21 +54,21 @@ extension TransactionHistoryCoordinator: PresentationCoordinator {
         case .showTransactionHistory:        
             transactionHistoryViewController.transitioningDelegate = transactionHistoryViewController
             transactionHistoryViewController.modalPresentationStyle = .custom
-            navigationController.present(transactionHistoryViewController, animated: true, completion: nil)
+            router.present(transactionHistoryViewController, animated: true, completion: nil)
 
         case .addAddress(let address, _):
 
             let vc = AddAddressBookModuleBuilder(output: self).build(input: AddAddressBook.DTO.Input(kind: .add(address, isMutable: false)))
-            navigationController.dismiss(animated: true) {
-                self.navigationController.pushViewController(vc, animated: true)
+            router.dismiss(animated: true) { [weak self] in
+                self?.router.pushViewController(vc)
             }
 
         case .editContact(let contact, _):
 
             let vc = AddAddressBookModuleBuilder(output: self).build(input: AddAddressBook.DTO.Input(kind: .edit(contact: contact,
                                                                                                                  isMutable: false)))
-            navigationController.dismiss(animated: true) {
-                self.navigationController.pushViewController(vc, animated: true)
+            router.dismiss(animated: true) { [weak self] in
+                self?.router.pushViewController(vc)
             }
         }
     }
@@ -108,13 +108,13 @@ extension TransactionHistoryCoordinator: AddAddressBookModuleOutput {
     func transactionHistoryResendTransaction(_ transaction: DomainLayer.DTO.SmartTransaction) {
         switch transaction.kind {
         case .sent(let tx):
-            navigationController.dismiss(animated: false)
+            router.dismiss(animated: false)
             
             let model = Send.DTO.InputModel.ResendTransaction(address: tx.recipient.address,
                                                              asset: tx.asset,
                                                              amount: tx.balance.money)
             let send = SendModuleBuilder().build(input: .resendTransaction(model))
-            navigationController.pushViewController(send, animated: true)
+            router.pushViewController(send)
 
         default:
             break
@@ -125,12 +125,12 @@ extension TransactionHistoryCoordinator: AddAddressBookModuleOutput {
         
         switch transaction.kind {
         case .startedLeasing(let leasing):
-            navigationController.dismiss(animated: false)
+            router.dismiss(animated: false)
             
             let cancelOrder = StartLeasingTypes.DTO.CancelOrder(leasingTX: transaction.id,
                                                                amount: leasing.balance.money)
             let vc = StartLeasingConfirmModuleBuilder(output: self).build(input: .cancel(cancelOrder))
-            navigationController.pushViewController(vc, animated: true)
+            router.pushViewController(vc, animated: true)
 
         default:
             break
@@ -154,7 +154,7 @@ extension TransactionHistoryCoordinator {
 
     func finishedAddToAddressBook(contact: TransactionHistoryTypes.DTO.ContactState) {
 
-        _ = self.navigationController.popViewController(animated: true, completed: { [weak self] in
+        _ = self.router.popViewController(animated: true, completed: { [weak self] in
             self?.lastDisplay?.finishedAddressBook?(contact, true)
             self?.showDisplay(.showTransactionHistory)
         })

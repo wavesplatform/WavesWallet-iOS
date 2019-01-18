@@ -21,20 +21,20 @@ final class DexCoordinator: Coordinator {
         return DexListModuleBuilder(output: self).build()
     }()
 
-    private var navigationController: UINavigationController!
+    private var navigationRouter: NavigationRouter
 
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
+    init(navigationRouter: NavigationRouter) {
+        self.navigationRouter = navigationRouter
     }
 
     func start() {
 
-        navigationController.pushViewController(dexListViewContoller, animated: false)
-        setupBackupTost(target: dexListViewContoller, navigationController: navigationController, disposeBag: disposeBag)
+        navigationRouter.pushViewController(dexListViewContoller)
+        setupBackupTost(target: dexListViewContoller, navigationRouter: navigationRouter, disposeBag: disposeBag)
     }
     
     private var containerControllers: [UIViewController] {
-        for controller in navigationController.viewControllers {
+        for controller in navigationRouter.navigationController.viewControllers {
             if let vc = controller as? DexTraderContainerViewController {
                 return vc.controllers
             }
@@ -49,18 +49,18 @@ extension DexCoordinator: DexListModuleOutput, DexMarketModuleOutput, DexTraderC
     
     func showDexSort(delegate: DexListRefreshOutput) {
         let vc = DexSortModuleBuilder(output: delegate).build()
-        navigationController.pushViewController(vc, animated: true)
+        navigationRouter.pushViewController(vc)
     }
     
     func showAddList(delegate: DexListRefreshOutput) {
         let vc = DexMarketModuleBuilder(output: self).build(input: delegate)
-        navigationController.pushViewController(vc, animated: true)
+        navigationRouter.pushViewController(vc)
     }
     
     func showTradePairInfo(pair: DexTraderContainer.DTO.Pair) {
 
         let vc = DexTraderContainerModuleBuilder(output: self, orderBookOutput: self, lastTradesOutput: self, myOrdersOutpout: self).build(input: pair)
-        navigationController.pushViewController(vc, animated: true)
+        navigationRouter.pushViewController(vc)
     }
     
     func showInfo(pair: DexInfoPair.DTO.Pair) {
@@ -155,7 +155,7 @@ extension DexCoordinator: DexCreateOrderModuleOutput {
     func dexCreateOrderDidCreate(output: DexCreateOrder.DTO.Output) {
 
         let controller = DexCompleteOrderModuleBuilder().build(input: output)
-        navigationController.pushViewController(controller, animated: true)
+        navigationRouter.pushViewController(controller)
    
         for controller in containerControllers {
             if let vc = controller as? DexCreateOrderProtocol {

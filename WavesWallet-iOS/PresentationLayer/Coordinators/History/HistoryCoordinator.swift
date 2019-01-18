@@ -16,21 +16,21 @@ final class HistoryCoordinator: Coordinator {
     weak var parent: Coordinator?
 
     private let historyType: HistoryType
-    private var navigationController: UINavigationController!
+    private var navigationRouter: NavigationRouter!
     private let disposeBag: DisposeBag = DisposeBag()
 
     func start() {
 
-        let historyViewController = HistoryModuleBuilder(output: self).build(input: HistoryInput(inputType: historyType))
+        let historyViewController = HistoryModuleBuilder(output: self)
+            .build(input: HistoryInput(inputType: historyType))
 
-        navigationController.pushViewController(historyViewController, animated: true)
-
-        setupBackupTost(target: historyViewController, navigationController: navigationController, disposeBag: disposeBag)
+        navigationRouter.pushViewController(historyViewController)
+        setupBackupTost(target: historyViewController, navigationRouter: navigationRouter, disposeBag: disposeBag)
     }
 
-    init(navigationController: UINavigationController, historyType: HistoryType) {
+    init(navigationRouter: NavigationRouter, historyType: HistoryType) {
 
-        self.navigationController = navigationController
+        self.navigationRouter = navigationRouter
         self.historyType = historyType
     }
 }
@@ -40,7 +40,7 @@ extension HistoryCoordinator: HistoryModuleOutput {
     func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
         let coordinator = TransactionHistoryCoordinator(transactions: transactions,
                                                         currentIndex: index,
-                                                        navigationController: navigationController)
+                                                        router: navigationRouter)
 
         addChildCoordinatorAndStart(childCoordinator: coordinator)
     }

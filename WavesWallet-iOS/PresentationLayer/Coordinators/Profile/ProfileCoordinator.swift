@@ -38,7 +38,7 @@ final class ProfileCoordinator: Coordinator {
         self.navigationRouter.pushViewController(vc, animated: true) { [weak self] in
             self?.removeFromParentCoordinator()
         }
-        setupBackupTost(target: vc, navigationController: navigationRouter.navigationController, disposeBag: disposeBag)
+        setupBackupTost(target: vc, navigationRouter: navigationRouter, disposeBag: disposeBag)
     }
 }
 
@@ -59,13 +59,13 @@ extension ProfileCoordinator: ProfileModuleOutput {
 
                 if wallet.isBackedUp == false {
                     
-//                    let backup = BackupCoordinator(navigationController: owner.navigationController,
-//                                                   seed: seed,
-//                                                   completed: { [weak self] needBackup in
-//                        saveBackedUp(!needBackup)
-//                        self?.navigationController.popToRootViewController(animated: true)
-//                    })
-//                    owner.addChildCoordinatorAndStart(childCoordinator: backup)
+                    let backup = BackupCoordinator(seed: seed,
+                                                   behaviorPresentation: .push(owner.navigationRouter),
+                                                   hasShowNeedBackupView: false,
+                                                   completed: { isSkipBackup in
+                        saveBackedUp(!isSkipBackup)
+                    })
+                    owner.addChildCoordinatorAndStart(childCoordinator: backup)
                 } else {
                     let vc = StoryboardScene.Backup.saveBackupPhraseViewController.instantiate()
                     vc.input = .init(seed: seed, isReadOnly: true)
@@ -142,15 +142,16 @@ extension ProfileCoordinator: ProfileModuleOutput {
     }
 
     func accountSetEnabledBiometric(isOn: Bool, wallet: DomainLayer.DTO.Wallet) {
-        let passcode = PasscodeCoordinator(navigationController: navigationRouter.navigationController,
-                                           kind: .setEnableBiometric(isOn, wallet: wallet))
+        let passcode = PasscodeCoordinator(kind: .setEnableBiometric(isOn, wallet: wallet),
+                                           behaviorPresentation: .push(navigationRouter, dissmissToRoot: true))
         passcode.delegate = self
         addChildCoordinatorAndStart(childCoordinator: passcode)
     }
 
     func showChangePasscode(wallet: DomainLayer.DTO.Wallet) {
-        let passcode = PasscodeChangePasscodeCoordinator(navigationController: navigationRouter.navigationController,
-                                                         kind: .changePasscode(wallet))
+        let passcode = PasscodeCoordinator(kind: .changePasscode(wallet),
+                                           behaviorPresentation: .push(navigationRouter, dissmissToRoot: true))
+
         passcode.delegate = self
         addChildCoordinatorAndStart(childCoordinator: passcode)
     }
@@ -195,13 +196,14 @@ extension ProfileCoordinator: LanguageViewControllerDelegate {
 
 extension ProfileCoordinator: ChangePasswordModuleOutput {
     func changePasswordCompleted(wallet: DomainLayer.DTO.Wallet, newPassword: String, oldPassword: String) {
-//        let passcode = PasscodeCoordinator(navigationController: navigationController,
-//                                           kind: .changePassword(wallet: wallet,
-//                                                                 newPassword: newPassword,
-//                                                                 oldPassword: oldPassword))
-//        passcode.delegate = self
-//        addChildCoordinator(childCoordinator: passcode)
-//        passcode.start()
+
+        let passcode = PasscodeCoordinator(kind: .changePassword(wallet: wallet,
+                                                                 newPassword: newPassword,
+                                                                 oldPassword: oldPassword),
+                                           behaviorPresentation: .push(navigationRouter, dissmissToRoot: true))
+
+        passcode.delegate = self
+        addChildCoordinatorAndStart(childCoordinator: passcode)        
     }
 }
 

@@ -26,3 +26,9 @@ final class SlideMenuRouter: NSObject {
         slideMenu.contentViewController = viewController
     }
 }
+
+extension SlideMenuRouter: Router {
+    var viewController: UIViewController {
+        return slideMenu
+    }
+}
