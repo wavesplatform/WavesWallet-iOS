@@ -15,13 +15,12 @@ struct HistoryModuleBuilder: ModuleBuilderOutput {
     func build(input: HistoryModuleInput) -> UIViewController {
         
         let presenter = HistoryPresenter(input: input)
-        let vc = StoryboardScene.History.newHistoryViewController.instantiate()
+        let vc = StoryboardScene.History.historyViewController.instantiate()
         
         presenter.interactor = HistoryInteractor()
         presenter.moduleOutput = output
         vc.presenter = presenter
 
-        //TODO: Нужно подумать как лучше это сделать
         switch input.type {
         case .all:
             vc.createMenuButton()

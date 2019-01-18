@@ -38,7 +38,6 @@ final class AssetListPresenter: AssetListPresenterProtocol {
             return state.isAppeared ? state : nil
         }, effects: { [weak self] state -> Signal<AssetList.Event> in
             
-            // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf.interactor.assets(filters: strongSelf.filters, isMyList: state.isMyList).map {.setAssets($0)}.asSignal(onErrorSignalWith: Signal.empty())
         })

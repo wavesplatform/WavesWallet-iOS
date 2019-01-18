@@ -448,7 +448,6 @@ extension TransactionHistoryViewController: UIViewControllerAnimatedTransitionin
         }
         
         if (presenting) {
-            // TODO: fromVC: <RESideMenu: 0x106099600>, navigationController будет nil у него, убрать константу
             navigationBarHeight = fromVC?.navigationController?.navigationBar.frame.height ?? 44
             backgroundView.alpha = 0
             collectionView.alpha = 0

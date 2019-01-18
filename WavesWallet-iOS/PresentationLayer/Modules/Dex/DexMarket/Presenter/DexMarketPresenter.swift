@@ -37,7 +37,6 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
             return true
         }, effects: { [weak self] _ -> Signal<DexMarket.Event> in
             
-            // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf.interactor.pairs().map { .setPairs($0) }.asSignal(onErrorSignalWith: Signal.empty())
         })
@@ -48,7 +47,6 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
             return true
         }, effects: { [weak self] _ -> Signal<DexMarket.Event> in
             
-            // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf.interactor.searchPairs().map { .setPairs($0) }.asSignal(onErrorSignalWith: Signal.empty())
         })
@@ -101,7 +99,7 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
 
 fileprivate extension DexMarket.ViewModel.Row {
     
-    var pair: DexMarket.DTO.Pair? {
+    var pair: DomainLayer.DTO.Dex.SmartPair? {
         switch self {
         case .pair(let pair):
             return pair

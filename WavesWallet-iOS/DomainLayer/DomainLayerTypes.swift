@@ -10,4 +10,5 @@ import Foundation
 
 enum DomainLayer {
     enum DTO { }
+    enum Query {}
 }

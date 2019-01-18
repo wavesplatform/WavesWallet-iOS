@@ -39,6 +39,10 @@ final class SendViewController: UIViewController {
     @IBOutlet private weak var viewAmountError: UIView!
     @IBOutlet private weak var labelAmountError: UILabel!
     @IBOutlet private weak var moneroPaymentIdView: SendMoneroPaymentIdView!
+    @IBOutlet private weak var coinomatErrorView: UIView!
+    @IBOutlet private weak var viewBottomContent: UIView!
+    @IBOutlet private weak var viewBottomContentHeightConstraint: NSLayoutConstraint!
+    
     
     private var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
     private var amount: Money?
@@ -81,6 +85,7 @@ final class SendViewController: UIViewController {
         setupLocalization()
         setupFeedBack()
         hideGatewayInfo(animation: false)
+        hideCoinomatError(animation: false)
         updateAmountError(animation: false)
         amountView.input = { [weak self] in
             return self?.inputAmountValues ?? []
@@ -148,6 +153,7 @@ final class SendViewController: UIViewController {
             showLoadingGatewayInfo()
         }
         else {
+            hideCoinomatError(animation: false)
             hideGatewayInfo(animation: false)
         }
         
@@ -184,7 +190,6 @@ final class SendViewController: UIViewController {
                          fee: wavesFee,
                          amount: amount,
                          amountWithoutFee: amountWithoutFee,
-                         isAlias: isValidAlias,
                          attachment: attachment,
                          isGateway: isGateway)
         
@@ -255,9 +260,16 @@ private extension SendViewController {
                     
                 case .didFailInfo(let error):
                     
-                    owner.showNetworkErrorSnack(error: error)
-                    owner.hideGatewayInfo(animation: true)
+                    switch error {
+                    case .internetNotWorking:
+                        owner.hideCoinomatError(animation: true)
+                        owner.showNetworkErrorSnack(error: error)
 
+                    default:
+                        owner.showCoinomatError()
+                    }
+                    owner.hideGatewayInfo(animation: true)
+                    
                 case .didGetInfo(let info):
                     owner.showGatewayInfo(info: info)
                     owner.updateAmountData()
@@ -287,7 +299,6 @@ private extension SendViewController {
                 default:
                     break
                 }
-                
                 
             })
         
@@ -385,34 +396,37 @@ private extension SendViewController {
         setupButtonState()
     }
     
-    func updateAmountError(animation: Bool) {
-        
-        let isShow = selectedAsset != nil && !isValidAmount && (amount?.amount ?? 0) > 0
-        
-        if isShow {
-            if viewAmountError.isHidden {
-                viewAmountError.isHidden = false
-                viewAmountError.alpha = animation ? 0 : 1
-
-                if animation {
-                    UIView.animate(withDuration: Constants.animationDuration) {
-                        self.viewAmountError.alpha = 1
-                    }
+    func showFeeError(_ error: String, animation: Bool) {
+        if viewAmountError.isHidden {
+            viewAmountError.isHidden = false
+            viewAmountError.alpha = animation ? 0 : 1
+            
+            if animation {
+                UIView.animate(withDuration: Constants.animationDuration) {
+                    self.viewAmountError.alpha = 1
                 }
             }
-            
-            if let gateWayInfo = gateWayInfo, isValidCryptocyrrencyAddress {
-                let wavesFeeText = wavesFee.displayText + " WAVES"
-                let gateWayFee = gateWayInfo.fee.displayText + " " + gateWayInfo.assetShortName
-                labelAmountError.text = Localizable.Waves.Send.Label.Error.notFundsFeeGateway(wavesFeeText, gateWayFee)
-            }
-            else {
-                labelAmountError.text = Localizable.Waves.Send.Label.Error.notFundsFee
-            }
+        }
+        
+        labelAmountError.text = error
+    }
+    
+    func updateAmountError(animation: Bool) {
+        
+        let amountInput = amount?.amount ?? 0
+        
+        let isShowAmountError = selectedAsset != nil && !isValidAmount && amountInput > 0
+        
+        if let gateWayInfo = gateWayInfo, isValidCryptocyrrencyAddress, isShowAmountError {
+            let wavesFeeText = wavesFee.displayText + " WAVES"
+            let gateWayFee = gateWayInfo.fee.displayText + " " + gateWayInfo.assetShortName
+            let error = Localizable.Waves.Send.Label.Error.notFundsFeeGateway(wavesFeeText, gateWayFee)
+            showFeeError(error, animation: animation)
+        }
+        else if amountInput > 0 && !isValidFee && wavesAsset != nil {
+            showFeeError(Localizable.Waves.Send.Label.Error.notFundsFee, animation: animation)
         }
         else {
-            //TODO: can be bug. Multiple times call UIView.animationWithDuration...
-            
             if !viewAmountError.isHidden {
                 if animation {
                     UIView.animate(withDuration: Constants.animationDuration, animations: {
@@ -428,7 +442,7 @@ private extension SendViewController {
                
             }
         }
-        amountView.showErrorMessage(message: Localizable.Waves.Send.Label.Error.insufficientFunds, isShow: isShow)
+        amountView.showErrorMessage(message: Localizable.Waves.Send.Label.Error.insufficientFunds, isShow: isShowAmountError)
     }
     
     func showLoadingButtonState() {
@@ -456,6 +470,7 @@ private extension SendViewController {
             isValidAddress(recipientAddressView.text) &&
             selectedAsset != nil &&
             isValidAmount &&
+            isValidFee &&
             (amount?.amount ?? 0) > 0 &&
             isValidMinMaxGatewayAmount &&
             isValidPaymentMoneroID &&
@@ -466,9 +481,47 @@ private extension SendViewController {
     }
     
     func showLoadingGatewayInfo() {
+        hideCoinomatError(animation: false)
         viewWarning.isHidden = true
         activityIndicatorView.isHidden = false
         activityIndicatorView.startAnimating()
+    }
+    
+    func showCoinomatError() {
+
+        view.endEditing(true)
+        viewBottomContentHeightConstraint.isActive = true
+
+        coinomatErrorView.isHidden = false
+        coinomatErrorView.alpha = 0
+        activityIndicatorView.stopAnimating()
+        
+        UIView.animate(withDuration: Constants.animationDuration, animations: {
+            self.coinomatErrorView.alpha = 1
+            self.viewBottomContent.alpha = 0
+            self.view.layoutIfNeeded()
+        }) { (complete) in
+            self.viewBottomContent.isHidden = true
+        }
+    }
+    
+    func hideCoinomatError(animation: Bool) {
+        
+        if coinomatErrorView.isHidden {
+            return
+        }
+        
+        viewBottomContent.isHidden = false
+        viewBottomContentHeightConstraint.isActive = false
+        coinomatErrorView.isHidden = true
+        if animation {
+            UIView.animate(withDuration: Constants.animationDuration) {
+                self.viewBottomContent.alpha = 1
+            }
+        }
+        else {
+            viewBottomContent.alpha = 1
+        }
     }
     
     func hideGatewayInfo(animation: Bool) {
@@ -494,6 +547,7 @@ private extension SendViewController {
     
     func showGatewayInfo(info: Send.DTO.GatewayInfo) {
         
+        hideCoinomatError(animation: false)
         gateWayInfo = info
         
         labelWarningTitle.text = Localizable.Waves.Send.Label.gatewayFee + " " + info.fee.displayText + " " + info.assetShortName
@@ -572,6 +626,11 @@ extension SendViewController: AddressInputViewDelegate {
     
     func addressInputViewDidTapNext() {
         
+        if coinomatErrorView.isHidden == false {
+            view.endEditing(true)
+            return
+        }
+        
         if moneroPaymentIdView.isVisible {
             moneroPaymentIdView.activateTextField()
         }
@@ -589,6 +648,7 @@ extension SendViewController: AddressInputViewDelegate {
         }
         else {
             hideGatewayInfo(animation: true)
+            hideCoinomatError(animation: true)
         }
     }
     
@@ -630,15 +690,16 @@ extension SendViewController: AddressInputViewDelegate {
     func addressInputViewDidDeleteAddress() {
         acceptAddress("")
         
-        if !recipientAddressView.isKeyboardShow {
-            hideGatewayInfo(animation: true)
-        }
+        hideGatewayInfo(animation: true)
+        hideCoinomatError(animation: true)
         clearGatewayAndUpdateInputAmount()
     }
     
     func addressInputViewDidChangeAddress(_ address: String) {
         acceptAddress(address)
         clearGatewayAndUpdateInputAmount()
+        hideGatewayInfo(animation: true)
+        hideCoinomatError(animation: true)
     }
     
     func addressInputViewDidSelectContactAtIndex(_ index: Int) {
@@ -715,14 +776,13 @@ private extension SendViewController {
         return true
     }
     
+    var isValidFee: Bool {
+        return (wavesAsset?.avaliableBalance ?? 0) >= wavesFee.amount
+    }
+    
     var isValidAmount: Bool {
         guard let amount = amount else { return false }
-        if selectedAsset?.asset.isWaves == true {
-            return availableBalance.amount >= amount.amount
-        }
-        
-        return availableBalance.amount >= amount.amount &&
-            (wavesAsset?.avaliableBalance ?? 0) >= wavesFee.amount
+        return availableBalance.amount >= amount.amount
     }
     
     var canValidateAliasOnServer: Bool {

@@ -170,7 +170,7 @@ extension Node.DTO {
             } catch let e {
                 error("WTF \(e)")
             }
-            
+
             self.transactions = transactions
         }
     }

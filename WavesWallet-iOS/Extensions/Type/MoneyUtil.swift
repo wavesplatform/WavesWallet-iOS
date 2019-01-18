@@ -1,11 +1,17 @@
 import Foundation
 import UIKit
 
+private enum Constants {
+    static let groupingSeparator = " "
+    static let decimalSeparator = "."
+}
+
 class MoneyUtil {
     
     class func getScaledFullText(_ amount: Int64, decimals: Int, isFiat: Bool) -> String {
         let f = NumberFormatter()
-        f.locale = GlobalConstants.moneyLocale
+        f.decimalSeparator = Constants.decimalSeparator
+        f.groupingSeparator = Constants.groupingSeparator
         f.numberStyle = .decimal
         f.maximumFractionDigits = decimals
         f.minimumFractionDigits = isFiat ? decimals : 0
@@ -15,7 +21,8 @@ class MoneyUtil {
 
     class func getScaledText(_ amount: Int64, decimals: Int) -> String {
         let f = NumberFormatter()
-        f.locale = GlobalConstants.moneyLocale
+        f.decimalSeparator = Constants.decimalSeparator
+        f.groupingSeparator = Constants.groupingSeparator
         f.numberStyle = .decimal
         f.maximumFractionDigits = decimals
         f.minimumFractionDigits = 0

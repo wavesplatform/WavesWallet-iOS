@@ -62,8 +62,6 @@ final class NewAccountViewController: UIViewController {
         return .default
     }
 
-    // TODO: Shake
-
     override var canBecomeFirstResponder: Bool { return true }
 
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
@@ -95,7 +93,7 @@ final class NewAccountViewController: UIViewController {
             if count < GlobalConstants.accountNameMinLimitSymbols {
                 return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
             } else if count > GlobalConstants.accountNameMaxLimitSymbols {
-                return Localizable.Waves.Newaccount.Textfield.Error.minimumcharacters(GlobalConstants.accountNameMaxLimitSymbols)
+                return Localizable.Waves.Newaccount.Textfield.Error.maximumcharacters(GlobalConstants.accountNameMaxLimitSymbols)
             } else {
                 return nil
             }

@@ -1,0 +1,1158 @@
+
+"coinomat.tryAgain" = "Tente mais tarde";
+
+"coinomat.temporarilyUnavailable" = "O serviço da Coinomat está temporariamente indisponível";
+
+"Receivecard.Label.minimunAmountInfo" = "O valor mínimo é de %@ e máximo de %@";
+
+"Send.Label.Error.notFundsFeeGateway" = "Não tens fundos suficientes para pagar as taxas de transação. Precisas de %@ para a taxa em blockchain e %@ para taxa do Gateway.";
+
+"Send.Label.Warning.description" = "Não transfiras os %@ para uma ICO. Não teremos forma de creditar a tua conta com os tokens resultantes dessa compra.";
+
+"Send.Label.Warning.subtitle" = "Estás a enviar fundos para um endereço de %@, que vamos processar através do gateway da Coinomat. O valor mínimo é de %@ e o máximo é de %@.";
+
+"accountpassword.button.signIn.title" = "Iniciar a sessão";
+
+"accountpassword.error.wrongpassword" = "A password está errada";
+
+"accountpassword.textfield.error.atleastcharacters" = "Mínimo de %d caracteres";
+
+"accountpassword.textfield.password.placeholder" = "Password da conta";
+
+"addAddressbook.button.cancel" = "Cancelar";
+
+"addAddressbook.button.delete" = "Apagar";
+
+"addAddressbook.button.deleteAddress" = "Apagar endereço";
+
+"addAddressbook.button.save" = "Gravar";
+
+"addAddressbook.error.charactersMaximum" = "Máximo de %d caracteres";
+
+"addAddressbook.error.charactersMinimum" = "Mínimo de %d caracteres";
+
+"addAddressbook.label.add" = "Adicionar";
+
+"addAddressbook.label.address" = "Endereço";
+
+"addAddressbook.label.deleteAlertMessage" = "Tens a certeza que queres apagar este endereço?";
+
+"addAddressbook.label.edit" = "Editar";
+
+"addAddressbook.label.name" = "Nome";
+
+"addAddressbook.textfield.address.error.addressexist" = "Já se encontra em uso";
+
+"addressbook.label.addressBook" = "Livro de endereços";
+
+"addressbook.label.addressDeleted" = "Endereço apagado";
+
+"addressbook.label.noInfo" = "Ainda não há nada aqui…\nCria o teu novo endereço";
+
+"addresseskeys.cell.address.title" = "O teu Endereço";
+
+"addresseskeys.cell.aliases.subtitle.withaliaces" = "Tens %d";
+
+"addresseskeys.cell.aliases.subtitle.withoutaliaces" = "Não tens";
+
+"addresseskeys.cell.aliases.title" = "Pseudónimos";
+
+"addresseskeys.cell.privatekey.title" = "Chave Privada";
+
+"addresseskeys.cell.privatekeyhidde.button.title" = "Mostrar";
+
+"addresseskeys.cell.publickey.title" = "Chave Pública";
+
+"addresseskeys.cell.seed.title" = "PALAVRAS DE RECUPERAÇÃO";
+
+"addresseskeys.navigation.title" = "Endereços, chaves";
+
+"aliases.cell.head.title" = "Os teus pseudónimos";
+
+"aliases.view.info.button.create" = "Criar novo pseudónimo";
+
+"aliases.view.info.label.fee" = "Taxa de transação de 0.001 WAVES";
+
+"aliases.view.info.label.secondsubtitle" = "O pseudónimo deve ter entre 4 e 30 caracteres e ser composto apenas por letras minúsculas, números e símbolos (@, -, _ etc)";
+
+"aliases.view.info.label.subtitle" = "Um pseudónimo é um nome curto que pode ser usado como uma alternativa mais simples ao teu endereço. Deste modo podes enviar e receber transações mais facilmente. ";
+
+"aliases.view.info.label.title" = "Sobre os pseudónumos";
+
+"aliaseswithout.view.info.button.create" = "Criar novo pseudónimo";
+
+"aliaseswithout.view.info.label.fee" = "Taxa de transação de 0.001 WAVES";
+
+"aliaseswithout.view.info.label.secondsubtitle" = "O pseudónimo deve ter entre 4 e 30 caracteres e ser composto apenas por letras minúsculas, números e símbolos (@, -, _ etc)";
+
+"aliaseswithout.view.info.label.subtitle" = "Um pseudónimo é um nome curto que pode ser usado como uma alternativa mais simples ao teu endereço. Deste modo podes enviar e receber transações mais facilmente. ";
+
+"aliaseswithout.view.info.label.title" = "Ainda não criaste um pseudónimo";
+
+"asset.cell.assetInfo.cantPerformTransactions" = "Não podes realizar transações com este ativo";
+
+"asset.cell.assetInfo.decimalPoints" = "Casas decimais";
+
+"asset.cell.assetInfo.description" = "Descrição";
+
+"asset.cell.assetInfo.id" = "ID";
+
+"asset.cell.assetInfo.issueDate" = "Data de emissão";
+
+"asset.cell.assetInfo.issuer" = "Emitente";
+
+"asset.cell.assetInfo.kind.notReissuable" = "Não reutilizável";
+
+"asset.cell.assetInfo.kind.reissuable" = "Reutilizável";
+
+"asset.cell.assetInfo.kind.title" = "Tipo";
+
+"asset.cell.assetInfo.name" = "Nome";
+
+"asset.cell.assetInfo.title" = "Informação do Ativo";
+
+"asset.cell.assetInfo.totalAmount" = "Quantidade total";
+
+"asset.cell.balance.avaliableBalance" = "Saldo disponível";
+
+"asset.cell.balance.button.exchange" = "Trocar";
+
+"asset.cell.balance.button.receive" = "Receber";
+
+"asset.cell.balance.button.send" = "Enviar";
+
+"asset.cell.balance.inOrderBalance" = "Em ordem";
+
+"asset.cell.balance.leased" = "Concessionado";
+
+"asset.cell.balance.totalBalance" = "Total";
+
+"asset.cell.viewHistory" = "Histórico de transações";
+
+"asset.header.lastTransactions" = "Últimas transações";
+
+"asset.header.notHaveTransactions" = "Não tens transações";
+
+"assetlist.button.allList" = "Listar todos";
+
+"assetlist.button.myList" = "Com saldo";
+
+"assetlist.button.withBalance" = "Com saldo";
+
+"assetlist.label.assets" = "Ativos";
+
+"assetlist.label.loadingAssets" = "A carregar ativos…";
+
+"backup.backup.navigation.title" = "Backup SEED";
+
+"backup.confirmbackup.button.confirm" = "Confirmar";
+
+"backup.confirmbackup.error.label" = "Ordem com erros, tenta novamente";
+
+"backup.confirmbackup.info.label" = "Por favor, introduz as palavras pela sua ordem correta";
+
+"backup.confirmbackup.navigation.title" = "Confirma o backup";
+
+"backup.infobackup.button.iunderstand" = "Compreendi";
+
+"backup.infobackup.label.detail" = "Gostávamos de alertar para o aumento de casos de fraude e ataques de phishing na rede Waves. Os atacantes geralmente prometem ganhos para aliciar os utilizadores. Tem cuidado!\n\nPor favor, tem em consideração que nunca deverás colocar a tua SEED (conjunto de 15 palavras de recuperação) noutro site ou aplicação para além daquelas que são suportadas pela Waves, ou poderás perder todos os teus fundos.\n\nUsa apenas o Cliente oficial da Waves.";
+
+"backup.infobackup.label.title" = "Trata a tuas palavras de recuperação com cuidado!";
+
+"backup.needbackup.button.backupnow" = "Faz um Backup";
+
+"backup.needbackup.button.doitlater" = "Fazer mais tarde";
+
+"backup.needbackup.label.detail" = "Deves fazer a cópia de segurança das palavras de recuperação. É fundamental para continuares a aceder à conta.";
+
+"backup.needbackup.label.title" = "Dizer Não ao Backup pode significar dizer Não ao teu dinheiro";
+
+"backup.savebackup.copy.label.title" = "Por favor, anota corretamente estas 15 palavras";
+
+"backup.savebackup.label.title" = "Tu é que controlas os teus fundos, mais ninguém! Guarda o conjunto das tuas palavras de recuperação para que possas recuperar esta carteira mais tarde";
+
+"backup.savebackup.navigation.title" = "Guarda uma cópia de segurança das palavras de recuperação";
+
+"backup.savebackup.next.button.title" = "Escrevi as palavras corretamente";
+
+"backup.savebackup.next.label.title" = "Verifica agora se anotaste corretamente todas as palavras";
+
+"biometric.localizedCancelTitle" = "Cancelar";
+
+"biometric.localizedFallbackTitle" = "Introduz o código de acesso";
+
+"biometric.manyattempts.subtitle" = "Inicia a sessão com a tua password para desbloqueares os recursos biométricos";
+
+"biometric.manyattempts.title" = "Foi atingido o número máximo de tentativas";
+
+"biometric.readfromkeychain" = "Aceder à carteira";
+
+"biometric.saveinkeychain" = "Aceder à carteira";
+
+"cameraAccess.alert.allow" = "Autorizar a câmera";
+
+"cameraAccess.alert.cancel" = "Cancelar";
+
+"cameraAccess.alert.message" = "Necessitas de autorizar o acesso à câmera para tirares partido total do uso desta app";
+
+"cameraAccess.alert.title" = "É necessário aceder à câmera";
+
+"changepassword.button.confirm.title" = "Confirmar";
+
+"changepassword.navigation.title" = "Mudaste a password";
+
+"changepassword.textfield.confirmpassword.title" = "Confirma a password";
+
+"changepassword.textfield.createpassword.title" = "Nova password";
+
+"changepassword.textfield.error.atleastcharacters" = "Mínimo de %d caracteres";
+
+"changepassword.textfield.error.incorrectpassword" = "A password não está correta";
+
+"changepassword.textfield.error.passwordnotmatch" = "As palavras chave não coincidem";
+
+"changepassword.textfield.oldpassword.title" = "Password antiga";
+
+"chooseaccount.alert.button.no" = "Cancelar";
+
+"chooseaccount.alert.button.ok" = "Sim";
+
+"chooseaccount.alert.delete.message" = "Tens a certeza de queres apagar esta conta?";
+
+"chooseaccount.alert.delete.title" = "Apagar a conta";
+
+"chooseaccount.label.nothingWallets" = "Ainda não há nada aqui…\nNão existem contas criadas";
+
+"chooseaccount.navigation.title" = "Escolhe uma conta";
+
+"createalias.button.create.title" = "Criar um pseudónimo";
+
+"createalias.cell.input.textfiled.input.placeholder" = "Pseudónimo";
+
+"createalias.cell.input.textfiled.input.title" = "Pseudónimo";
+
+"createalias.error.alreadyinuse" = "O nome escolhido já se encontra em uso";
+
+"createalias.error.charactersmaximum" = "30 caracteres no máximo";
+
+"createalias.error.invalidcharacter" = "O valor introduzido não é válido";
+
+"createalias.error.minimumcharacters" = "Mínimo de 4 caracteres";
+
+"createalias.navigation.title" = "Novo pseudónimo";
+
+"dex.general.error.nothingHere" = "Não há nada aqui…";
+
+"dex.general.error.somethingWentWrong" = "Algo não correu bem";
+
+"dexchart.button.cancel" = "Cancelar";
+
+"dexchart.label.emptyData" = "O gráfico não está disponível";
+
+"dexchart.label.hour" = "hora";
+
+"dexchart.label.hours" = "horas";
+
+"dexchart.label.loadingChart" = "A carregar o gráfico…";
+
+"dexchart.label.minutes" = "minutos";
+
+"dexcompleteorder.button.okey" = "OK";
+
+"dexcompleteorder.label.amount" = "Quantidade";
+
+"dexcompleteorder.label.open" = "Em aberto";
+
+"dexcompleteorder.label.orderIsCreated" = "Ordem criada";
+
+"dexcompleteorder.label.price" = "Cotação";
+
+"dexcompleteorder.label.status" = "Estado";
+
+"dexcompleteorder.label.time" = "Hora";
+
+"dexcreateorder.button.ask" = "Compra";
+
+"dexcreateorder.button.bid" = "Venda";
+
+"dexcreateorder.button.buy" = "Comprar";
+
+"dexcreateorder.button.cancel" = "Cancelar";
+
+"dexcreateorder.button.day" = "dia";
+
+"dexcreateorder.button.days" = "dias";
+
+"dexcreateorder.button.hour" = "hora";
+
+"dexcreateorder.button.last" = "Última";
+
+"dexcreateorder.button.minutes" = "minutos";
+
+"dexcreateorder.button.sell" = "Vender";
+
+"dexcreateorder.button.useTotalBalanace" = "Máximo disponível";
+
+"dexcreateorder.button.week" = "semana";
+
+"dexcreateorder.label.Expiration" = "Validade";
+
+"dexcreateorder.label.amountIn" = "Quantidade em";
+
+"dexcreateorder.label.bigValue" = "O valor é superior ao permitido";
+
+"dexcreateorder.label.days" = "dias";
+
+"dexcreateorder.label.error.notFundsFee" = "Não tens fundos suficientes para pagar a taxa de transação.";
+
+"dexcreateorder.label.fee" = "Taxa";
+
+"dexcreateorder.label.limitPriceIn" = "Valor máximo em";
+
+"dexcreateorder.label.notEnough" = "Valor insuficiente";
+
+"dexcreateorder.label.smallValue" = "O valor é inferior ao permitido";
+
+"dexcreateorder.label.totalIn" = "Total em";
+
+"dexinfo.label.amountAsset" = "Ativo";
+
+"dexinfo.label.popular" = "Popular";
+
+"dexinfo.label.priceAsset" = "Cotação";
+
+"dexlasttrades.button.buy" = "COMPRAR";
+
+"dexlasttrades.button.sell" = "VENDER";
+
+"dexlasttrades.label.amount" = "Quantidade";
+
+"dexlasttrades.label.emptyData" = "Ainda não há nada aqui…\nO histórico de transações está vazio";
+
+"dexlasttrades.label.loadingLastTrades" = "A carregar a lista das últimas trocas…";
+
+"dexlasttrades.label.price" = "Cotação";
+
+"dexlasttrades.label.sum" = "Total";
+
+"dexlasttrades.label.time" = "Hora";
+
+"dexlist.button.addMarkets" = "Adicionar mercados";
+
+"dexlist.label.decentralisedExchange" = "Exchange Descentralizada";
+
+"dexlist.label.description" = "Faz trocas de uma forma rápida e segura. Ao utilizares a Exchange (Bolsa) descentralizada da Waves os teus fundos são controlados apenas por ti.";
+
+"dexlist.label.lastUpdate" = "Última atualização";
+
+"dexlist.label.price" = "Cotação";
+
+"dexlist.label.today" = "Hoje";
+
+"dexlist.label.yesterday" = "Ontem";
+
+"dexlist.navigationBar.title" = "DEX";
+
+"dexmarket.label.loadingMarkets" = "A carregar a lista de mercados…";
+
+"dexmarket.navigationBar.title" = "Mercados";
+
+"dexmarket.searchBar.placeholder" = "Pesquisar";
+
+"dexmyorders.label.amount" = "Quantidade";
+
+"dexmyorders.label.buy" = "Comprar";
+
+"dexmyorders.label.date" = "Data";
+
+"dexmyorders.label.emptyData" = "Não há nada aqui…\nAinda não criaste Ordens no DEX";
+
+"dexmyorders.label.loadingLastTrades" = "A carregar a lista de ordens…";
+
+"dexmyorders.label.price" = "Cotação";
+
+"dexmyorders.label.sell" = "Vender";
+
+"dexmyorders.label.side" = "Tipo de operação";
+
+"dexmyorders.label.status" = "Estado";
+
+"dexmyorders.label.status.accepted" = "Em aberto";
+
+"dexmyorders.label.status.cancelled" = "Cancelada";
+
+"dexmyorders.label.status.filled" = "Concluída";
+
+"dexmyorders.label.status.partiallyFilled" = "Parcialmente concluída";
+
+"dexmyorders.label.sum" = "Total";
+
+"dexmyorders.label.time" = "Hora";
+
+"dexorderbook.button.buy" = "COMPRAR";
+
+"dexorderbook.button.sell" = "VENDER";
+
+"dexorderbook.label.amount" = "Quantidade";
+
+"dexorderbook.label.emptyData" = "Não há nada aqui…\nAinda não existem ordens registadas";
+
+"dexorderbook.label.lastPrice" = "ÚLTIMA COTAÇÃO";
+
+"dexorderbook.label.loadingOrderbook" = "A carregar o livro de ordens…";
+
+"dexorderbook.label.price" = "Cotação";
+
+"dexorderbook.label.spread" = "SPREAD";
+
+"dexorderbook.label.sum" = "Total";
+
+"dexsort.navigationBar.title" = "Ordenar";
+
+"dextradercontainer.button.chart" = "Gráfico";
+
+"dextradercontainer.button.lastTrades" = "Últimas trocas";
+
+"dextradercontainer.button.myOrders" = "As minhas Ordens";
+
+"dextradercontainer.button.orderbook" = "Livro de Ordens";
+
+"editaccountname.button.save" = "Gravar";
+
+"editaccountname.label.newName" = "Adicionar um novo nome para a conta";
+
+"editaccountname.navigation.title" = "Editar o nome da conta";
+
+"enter.block.blockchain.text" = "Faz parte deste maravilhoso mundo criptográfico. Só tu é que controlas os teus ativos.";
+
+"enter.block.blockchain.title" = "Começa a usar Blockchain";
+
+"enter.block.exchange.text" = "Faz trocas de uma forma rápida e segura. Ao utilizares a Exchange (Bolsa) descentralizada da Waves os teus fundos são controlados apenas por ti.";
+
+"enter.block.exchange.title" = "Exchange Descentralizada";
+
+"enter.block.token.text" = "Emite os teus próprios Tokens. Podes iniciar o teu próprio negócio e usar o teu tokens como meio de pagamento, como um sistema de votação ou como quiseres. Não há limites para a imaginação!";
+
+"enter.block.token.title" = "Criar Token";
+
+"enter.block.wallet.text" = "Guarda, Gere e obtém retornos dos teus ativos digitais. Fácil e seguro.";
+
+"enter.block.wallet.title" = "Carteira";
+
+"enter.button.confirm.title" = "Confirmar";
+
+"enter.button.createNewAccount.title" = "Criar uma conta nova";
+
+"enter.button.importAccount.detail" = "via QR-code ou manualmente";
+
+"enter.button.importAccount.error.insecureSeed" = "A tua SEED não é segura";
+
+"enter.button.importAccount.title" = "Importar conta";
+
+"enter.button.signIn.detail" = "para a uma conta guardada";
+
+"enter.button.signIn.title" = "Iniciar a sessão";
+
+"enter.label.or" = "ou";
+
+"enter.language.navigation.title" = "Mudar idioma";
+
+"general.biometric.faceID.title" = "Face ID";
+
+"general.biometric.touchID.title" = "Touch ID";
+
+"general.error.subtitle.notfound" = "Não te preocupes, já estamos a resolver o problema.\nEm breve já poderás usar esta funcionalidade!";
+
+"general.error.title.noconnectiontotheinternet" = "Não existe ligação à Internet";
+
+"general.error.title.notfound" = "Oh… Algo não está bem!";
+
+"general.label.title.myasset" = "/ Meu Ativo";
+
+"general.tabbar.title.dex" = "DEX";
+
+"general.tabbar.title.history" = "Histórico";
+
+"general.tabbar.title.profile" = "Perfil";
+
+"general.tabbar.title.wallet" = "Carteira";
+
+"general.ticker.title.cryptocurrency" = "Criptomoeda";
+
+"general.ticker.title.fiatmoney" = "Moeda Fiduciária (FIAT)";
+
+"general.ticker.title.spam" = "SPAM";
+
+"general.ticker.title.wavestoken" = "Token Waves";
+
+"general.tost.saveBackup.subtitle" = "A única forma de recuperares a carteira é guardares as palavras de recuperação de forma segura";
+
+"general.tost.saveBackup.title" = "Faz um backup da tua SEED";
+
+"hello.button.continue" = "Continuar";
+
+"hello.button.next" = "Seguinte";
+
+"hello.button.understand" = "Compreendi";
+
+"hello.page.info.fifth.detail.first" = "Não abras emails ou links de pessoas que não conheces.";
+
+"hello.page.info.fifth.detail.fourth" = "Não acedas à tua carteira através de redes de Wi-Fi públicas ou através de dispositivos de outras pessoas.";
+
+"hello.page.info.fifth.detail.second" = "Mantém o sistema operativo do teu computador sempre atualizado.";
+
+"hello.page.info.fifth.detail.third" = "Faz atualizações software usando apenas fontes seguras. Não instales aplicações de software de fontes desconhecidas.";
+
+"hello.page.info.fifth.title" = "Vê como te podes proteger deste tipo de ataques";
+
+"hello.page.info.first.detail" = "Por favor, toma nota dos seguintes aspetos, que consideramos importantes para a tua segurança.\n\nNo caso de usares as palavras de recuperação num site de phishing, não temos forma de recuperar os teus fundos ou bloquear as transações na conta.\n\nO único responsável pela conta é o seu titular, ou seja, tu.\n\nAo continuares-a usar o cliente Waves estás a aceitar os riscos associados à perda das PALAVRAS DE RECUPERAÇÃO, incluindo que podes perder todos os fundos caso estas venham a ser usadas num ataque.\n\nCaso percas as PALAVRAS DE RECUPERAÇÃO reconheces que a Waves Platform não é responsável pelas consequências negativas que daí possam advir.";
+
+"hello.page.info.first.title" = "Bem vindo à Waves Platform!";
+
+"hello.page.info.fourth.detail" = "Uma das formas mais frequentes de fraude na Internet é o phishing. Por exemplo, quando alguém cria canais fraudulentos no Facebook similares aos originais.";
+
+"hello.page.info.fourth.title" = "Vê como te podes proteger deste tipo de ataques";
+
+"hello.page.info.second.detail" = "Após concluíres o registo vamos pedir-te para fazeres uma cópia de segurança das PALAVRAS DE RECUPERAÇÃO e ainda para protegeres a conta com uma password local. Habitualmente nos sistemas centralizados podes recuperar facilmente a password, caso te esqueças dela. No entanto, nos sistemas de blockchain e plataformas descentralizadas essa informação não fica guardada em nenhum local.";
+
+"hello.page.info.second.title" = "O que precisas de saber sobre as PALAVRAS DE RECUPERAÇÃO";
+
+"hello.page.info.third.detail.first" = "A tua conta não está ligada a nenhum endereço de email ou a qualquer outro elemento que possa ser usado na tua identificação. A utilização da Carteira Waves é totalmente anónima.";
+
+"hello.page.info.third.detail.fourth" = "Não podes alterar as palavras de recuperação. Caso as tenhas enviado para alguém por acidente ou suspeites que a tua conta está comprometida por terceiros, por favor, criar uma nova e transfere todos os teus fundos para a nova conta.";
+
+"hello.page.info.third.detail.second" = "A password vai ajudar a proteger a tua carteira neste dispositivo apenas. É necessária apenas para assegurar que as tuas palavras de recuperação são encriptadas neste dispositivo.";
+
+"hello.page.info.third.detail.third" = "Caso te esqueças da password, podes facilmente recuperar a conta através das palavras de recuperação. Caso não tenhas guardado estas palavras não tens como aceder novamente à conta.";
+
+"hello.page.info.third.title" = "O que precisas de saber sobre as PALAVRAS DE RECUPERAÇÃO";
+
+"history.navigationBar.title" = "Histórico";
+
+"history.segmentedControl.activeNow" = "Ativas";
+
+"history.segmentedControl.all" = "Tudo";
+
+"history.segmentedControl.canceled" = "Cancelado";
+
+"history.segmentedControl.exchanged" = "Trocado";
+
+"history.segmentedControl.issued" = "Emitido";
+
+"history.segmentedControl.leased" = "Concessionado";
+
+"history.segmentedControl.received" = "Recebido";
+
+"history.segmentedControl.sent" = "Enviado";
+
+"history.transaction.cell.exchange.buy" = "Compra: %@/%@";
+
+"history.transaction.cell.exchange.sell" = "Venda: %@/%@";
+
+"history.transaction.title.alias" = "Criar novo pseudónimo";
+
+"history.transaction.title.canceledLeasing" = "Concessão cancelada";
+
+"history.transaction.title.data" = "Transação de Dados";
+
+"history.transaction.title.exchange" = "Trocar";
+
+"history.transaction.title.incomingLeasing" = "Concessão Recebida";
+
+"history.transaction.title.massreceived" = "Recebido";
+
+"history.transaction.title.masssent" = "Enviado";
+
+"history.transaction.title.received" = "Recebido";
+
+"history.transaction.title.selfTransfer" = "Auto-Transferência";
+
+"history.transaction.title.sent" = "Enviado";
+
+"history.transaction.title.startedLeasing" = "Concessão Iniciada";
+
+"history.transaction.title.tokenBurn" = "Destruir Token";
+
+"history.transaction.title.tokenGeneration" = "Geração de Token";
+
+"history.transaction.title.tokenReissue" = "Reutilização de Token";
+
+"history.transaction.title.unrecognisedTransaction" = "Transação desconhecida";
+
+"history.transaction.value.data" = "Dados em blockchain";
+
+"import.account.button.enter.title" = "Introduz o conjunto das palavras de recuperação";
+
+"import.account.button.scan.title" = "Ler o código de emparelhamento";
+
+"import.account.label.info.step.one.detail" = "Configurações — Geral — Exportar conta";
+
+"import.account.label.info.step.one.title" = "Inicia a Sessão na aplicação através do teu PC ou MAC";
+
+"import.account.label.info.step.two.title" = "Clica em «Mostrar código de emparelhamento» para ver o Código QR";
+
+"import.account.navigation.title" = "Importar conta";
+
+"import.general.error.alreadyinuse" = "Em uso";
+
+"import.general.navigation.title" = "Importar conta";
+
+"import.general.segmentedControl.manually" = "Manual";
+
+"import.general.segmentedControl.scan" = "Scan";
+
+"import.manually.button.continue" = "Continuar";
+
+"import.manually.label.address.placeholder" = "A tua SEED é composta pelas 15 palavras geradas quando criaste a conta";
+
+"import.manually.label.address.title" = "A SEED da tua conta";
+
+"import.password.button.continue" = "Continuar";
+
+"import.scan.button.title" = "Ler o código de emparelhamento";
+
+"import.scan.label.step.one.title" = "Inicia a sessão na aplicação através do teu PC ou MAC";
+
+"import.scan.label.step.three.title" = "Lê o código através da câmera.";
+
+"import.scan.label.step.two.detail" = "Configurações — Geral — Exportar conta";
+
+"import.scan.label.step.two.title" = "Clica em «Show Paring Code» para obter o código QR";
+
+"import.welcome.button.continue" = "Continuar";
+
+"import.welcome.label.address.placeholder" = "O conjunto das PALAVRAS DE RECUPERAÇÃO é composto por 15 palavras que foram geradas quando criaste a conta";
+
+"import.welcome.label.address.title" = "A SEED da tua conta";
+
+"import.welcome.navigation.title" = "Olá novamente";
+
+"legal.checkbox.box.button.confirm" = "Confirmar e começar a usar";
+
+"legal.checkbox.box.first" = "Percebi que os meus fundos se encontram guardados de forma segura neste dispositivo e que não estão sob custódia de nenhuma empresa.";
+
+"legal.checkbox.box.second" = "Percebi que no caso de mover esta App para outro dispositivo ou a apagar, só poderei recuperar os ativos presentes na minha Carteira usando as palavras as respetivas palavras de recuperação.";
+
+"legal.checkbox.box.subtitle" = "Waves não é um banco — Os fundos são controlados apenas por ti e não por um banco ou por um serviço de custódia financeira";
+
+"legal.checkbox.box.termsOfUse" = "Termos de Utilização";
+
+"legal.checkbox.box.third" = "Li, entendi e aceitei com os";
+
+"legal.checkbox.box.title" = "Concluído!";
+
+"menu.button.supportwavesplatform" = "Suporte Wavesplatform";
+
+"menu.button.termsandconditions" = "Termos e condições";
+
+"menu.button.whitepaper" = "Whitepaper";
+
+"menu.label.communities" = "Junta-te à Comunidade Waves";
+
+"menu.label.description" = "Mantem-te informado das últimas novidades e sabe tudo sobre os eventos que estão a acontecer no ecossistema Waves Platform";
+
+"myaddress.button.copy.title" = "Copiar";
+
+"myaddress.button.share.title" = "Partilhar";
+
+"myaddress.cell.aliases.subtitle.withaliaces" = "Tens %d";
+
+"myaddress.cell.aliases.subtitle.withoutaliaces" = "Não tens";
+
+"myaddress.cell.aliases.title" = "Pseudónimos";
+
+"myaddress.cell.info.title" = "O teu endereço";
+
+"myaddress.cell.qrcode.title" = "O teu código QR";
+
+"networksettings.button.save.title" = "Gravar";
+
+"networksettings.button.setdefault.title" = "Definir como predefinição";
+
+"networksettings.label.switchspam.title" = "Filtro de Spam";
+
+"networksettings.navigation.title" = "Rede";
+
+"networksettings.textfield.spamfilter.title" = "Filtro de Spam";
+
+"newaccount.avatar.detail" = "Não vais poder mudar mais tarde";
+
+"newaccount.avatar.title" = "Escolhe um Avatar para associar à tua conta";
+
+"newaccount.backup.navigation.title" = "Nova Conta";
+
+"newaccount.error.noavatarselected" = "Não escolheste um Avatar";
+
+"newaccount.main.navigation.title" = "Nova Conta";
+
+"newaccount.secret.navigation.title" = "Nova Conta";
+
+"newaccount.textfield.accountName.title" = "Nome da conta";
+
+"newaccount.textfield.confirmpassword.title" = "Confirma a password";
+
+"newaccount.textfield.createpassword.title" = "Cria uma password para a tua conta";
+
+"newaccount.textfield.error.atleastcharacters" = "Mínimo de %d caracteres";
+
+"newaccount.textfield.error.charactersmaximum" = "Máximo de %d caracteres";
+
+"newaccount.textfield.error.doesnotmatch" = "O valor não coincide";
+
+"newaccount.textfield.error.maximumcharacters" = "Máximo de %d caracteres";
+
+"newaccount.textfield.error.minimumcharacters" = "Mínimo de %d caracteres";
+
+"newaccount.textfield.error.passwordnotmatch" = "A password não coincide";
+
+"newaccount.textfield.error.wrongordertryagain" = "Erro! Tenta mais tarde";
+
+"passcode.alert.attempsended.button.cancel" = "Cancelar";
+
+"passcode.alert.attempsended.button.enterpassword" = "Usa a password para entrar";
+
+"passcode.alert.attempsended.button.ok" = "Ok";
+
+"passcode.alert.attempsended.subtitle" = "Usa a password para desbloquear";
+
+"passcode.alert.attempsended.title" = "Foi atingido o número máximo de tentativas";
+
+"passcode.button.forgotPasscode.title" = "Usa a tua password para entrar";
+
+"passcode.label.forgotPasscode.title" = "Esqueceste-te do código de acesso?";
+
+"passcode.label.passcode.create" = "Cria um código de acesso ";
+
+"passcode.label.passcode.enter" = "Introduz o código de acesso";
+
+"passcode.label.passcode.old" = "Introduz o código de acesso antigo";
+
+"passcode.label.passcode.verify" = "Verifica o teu código de acesso";
+
+"profile.alert.deleteAccount.button.cancel" = "Cancelar";
+
+"profile.alert.deleteAccount.button.delete" = "Apagar";
+
+"profile.alert.deleteAccount.message" = "Tens a certeza de queres apagar esta conta?";
+
+"profile.alert.deleteAccount.notSaveSeed" = "Não guardaste uma cópia de segurança da tua SEED";
+
+"profile.alert.deleteAccount.title" = "Apagar a conta";
+
+"profile.alert.deleteAccount.withoutbackup.message" = "Apagar esta conta torna impossível a sua recuperação!";
+
+"profile.alert.setupbiometric.button.cancel" = "Cancelar";
+
+"profile.alert.setupbiometric.button.settings" = "Configurações";
+
+"profile.alert.setupbiometric.message" = "Para iniciares a sessão mais rapidamente vai a configurações e ativa as funções biométricas";
+
+"profile.alert.setupbiometric.title" = "As funções biométricas estão desativadas";
+
+"profile.button.delete.title" = "Apagar esta a conta do dispositivo";
+
+"profile.button.logout.title" = "Fechar a sessão";
+
+"profile.cell.addressbook.title" = "Livro de endereços";
+
+"profile.cell.addresses.title" = "Endereços, chaves";
+
+"profile.cell.backupphrase.title" = "Backup SEED";
+
+"profile.cell.changepasscode.title" = "Mudar o código do acesso";
+
+"profile.cell.changepassword.title" = "Mudar a password";
+
+"profile.cell.currentheight.title" = "Número do bloco atual";
+
+"profile.cell.feedback.title" = "Comentários e Sugestões";
+
+"profile.cell.info.currentheight.title" = "Número do bloco atual";
+
+"profile.cell.info.version.title" = "Versão";
+
+"profile.cell.language.title" = "Idioma";
+
+"profile.cell.network.title" = "Rede";
+
+"profile.cell.pushnotifications.title" = "Notificações de Push";
+
+"profile.cell.rateApp.title" = "Avaliar a aplicação";
+
+"profile.cell.supportwavesplatform.title" = "Suporte";
+
+"profile.header.general.title" = "Configurações gerais";
+
+"profile.header.other.title" = "Outro";
+
+"profile.header.security.title" = "Segurança";
+
+"profile.language.navigation.title" = "Idioma";
+
+"profile.navigation.title" = "Perfil";
+
+"receive.button.card" = "Cartão";
+
+"receive.button.continue" = "Continuar";
+
+"receive.button.cryptocurrency" = "Criptomoeda";
+
+"receive.button.invoice" = "Fatura";
+
+"receive.button.useTotalBalance" = "Máximo disponível";
+
+"receive.error.serviceUnavailable" = "O serviço está temporariamente indisponível";
+
+"receive.label.amount" = "Quantidade";
+
+"receive.label.amountIn" = "Quantidade em";
+
+"receive.label.asset" = "Ativo";
+
+"receive.label.receive" = "Recebido";
+
+"receive.label.selectYourAsset" = "Seleciona o Ativo";
+
+"receiveaddress.button.cancel" = "Cancelar";
+
+"receiveaddress.button.close" = "Fechar";
+
+"receiveaddress.button.copied" = "Copiado!";
+
+"receiveaddress.button.copy" = "Copiar";
+
+"receiveaddress.button.share" = "Partilhar";
+
+"receiveaddress.label.linkToInvoice" = "Liga a uma Fatura";
+
+"receiveaddress.label.yourAddress" = "O teu %@ endereço";
+
+"receiveaddress.label.yourQRCode" = "O teu código QR";
+
+"receivecard.button.cancel" = "Cancelar";
+
+"receivecard.label.changeCurrency" = "Escolher outra moeda";
+
+"receivecard.label.warningInfo" = "Para usares o teu cartão de débito ou crédito vamos redirecionar-te para o site do fornecedor";
+
+"receivecardcomplete.button.okay" = "Ok";
+
+"receivecardcomplete.label.afterPaymentUpdateBalance" = "O teu saldo é atualizado depois de efetuado o pagamento";
+
+"receivecardcomplete.label.redirectToIndacoin" = "Vamos redirecionar-te para a «Indacoin»";
+
+"receivecryptocurrency.label.minumumAmountOfDeposit" = "O valor mínimo de depósito é de %@";
+
+"receivecryptocurrency.label.sendOnlyOnThisDeposit" = "Envia apenas %@ para este endereço";
+
+"receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "O envio de menos que %@ resultará na perda dos fundos.";
+
+"receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Enviar dinheiro noutra divisa que não a autorizada para este endereço resultará na perda dos fundos.";
+
+"receivecryptocurrency.label.warningSmartContracts.subtitle" = "Verifique se a sua carteira ou exchange usa smart contracts para transferir %@. Nós não aceitamos essas transações e você perderá esse dinheiro, pois não podemos reembolsar.";
+
+"receivecryptocurrency.label.warningSmartContracts.title" = "Por favor, não deposite %@ através de smart contracts! Não deposite tokens ERC20! Apenas %@ é permitido.";
+
+"receivegenerate.label.generate" = "Gerar…";
+
+"receivegenerate.label.yourAddress" = "O teu %@ endereço";
+
+"receiveinvoice.label.dollar" = "USD";
+
+"scannerqrcode.label.scan" = "Ler o código QR";
+
+"send.button.chooseFromAddressBook" = "Escolhe a partir do Livro de endereços";
+
+"send.button.continue" = "Continuar";
+
+"send.button.useTotalBalanace" = "Máximo disponível";
+
+"send.label.addressNotValid" = "O endereço não é válido";
+
+"send.label.amount" = "Quantidade";
+
+"send.label.dollar" = "USD";
+
+"send.label.error.insufficientFunds" = "Não tens fundos que chegem";
+
+"send.label.error.invalidId" = "O ID não é válido";
+
+"send.label.error.notFundsFee" = "Não tens fundos suficientes para pagar a taxa de transação.";
+
+"send.label.gatewayFee" = "A taxa do Gateway é de";
+
+"send.label.moneroPaymentId" = "ID de Pagamento Monero";
+
+"send.label.recipient" = "Destinatário";
+
+"send.label.recipientAddress" = "Endereço do Destinatário…";
+
+"send.label.send" = "Enviar";
+
+"send.label.transactionFee" = "Taxa de Transação";
+
+"send.textField.placeholderPaymentId" = "Cola ou copia o teu ID de Pagamento";
+
+"sendcomplete.button.okey" = "Ok";
+
+"sendcomplete.label.saveThisAddress" = "Queres guardar este endereço?";
+
+"sendcomplete.label.transactionIsOnWay" = "A tua transação está a caminho!";
+
+"sendcomplete.label.youHaveSent" = "Enviaste";
+
+"sendconfirmation.button.confim" = "Confirmar";
+
+"sendconfirmation.label.confirmation" = "Confirmar";
+
+"sendconfirmation.label.description" = "Descrição";
+
+"sendconfirmation.label.descriptionIsTooLong" = "A descrição é demasiado longa";
+
+"sendconfirmation.label.dollar" = "USD";
+
+"sendconfirmation.label.fee" = "Taxa";
+
+"sendconfirmation.label.optionalMessage" = "Opcionalmente podes escrever uma mensagem";
+
+"sendconfirmation.label.sentTo" = "Enviar para";
+
+"sendloading.label.sending" = "A enviar…";
+
+"serverDisconnect.label.subtitle" = "Verifica a tua ligação à Internet ou o estado da ligação Wi-Fi";
+
+"serverDisconnect.label.title" = "Não existe ligação à Internet";
+
+"serverEngineering.label.subtitle" = "Olá! Estamos a trabalhar arduamente para melhorar esta aplicação";
+
+"serverEngineering.label.title" = "A nossa equipa de engenheiros está a trabalhar no problema";
+
+"serverError.button.retry" = "Tentar novamente";
+
+"serverError.button.sendReport" = "Enviar relatório";
+
+"serverError.label.allBroken" = "Oh… Algo não está bem!";
+
+"serverError.label.allBrokenDescription" = "Não te preocupes, já estamos a resolver o problema.\nEm breve já poderás usar esta funcionalidade!";
+
+"serverError.label.noInternetConnection" = "Não existe ligação à Internet";
+
+"serverError.label.noInternetConnectionDescription" = "Verifica a tua ligação à Internet";
+
+"serverError.label.subtitle" = "Não te preocupes, já estamos a resolver o problema.\nEm breve já poderás usar esta funcionalidade!";
+
+"serverError.label.title" = "Oh… Algo não está bem!";
+
+"startleasing.button.chooseFromAddressBook" = "Escolhe a partir do Livro de endereços";
+
+"startleasing.button.startLease" = "Iniciar Concessão";
+
+"startleasing.button.useTotalBalanace" = "Máximo disponível";
+
+"startleasing.button.useTotalBalance" = "Máximo disponível";
+
+"startleasing.label.addressIsNotValid" = "O endereço não é válido";
+
+"startleasing.label.amount" = "Quantidade";
+
+"startleasing.label.balance" = "Saldo";
+
+"startleasing.label.generator" = "Gerador";
+
+"startleasing.label.insufficientFunds" = "Não tens fundos que cheguem";
+
+"startleasing.label.nodeAddress" = "Endereço do Nó…";
+
+"startleasing.label.notEnough" = "Valor insuficiente";
+
+"startleasing.label.startLeasing" = "Iniciar concessão";
+
+"startleasing.label.transactionFee" = "Taxa de Transação";
+
+"startleasingcomplete.button.okey" = "Ok";
+
+"startleasingcomplete.label.youHaveCanceledTransaction" = "Cancelaste a concessão";
+
+"startleasingcomplete.label.youHaveLeased" = "Fizeste uma concessão de %@ %@";
+
+"startleasingcomplete.label.yourTransactionIsOnWay" = "A tua transação está a caminho!";
+
+"startleasingconfirmation.button.cancelLeasing" = "Cancelar Concessão";
+
+"startleasingconfirmation.button.confirm" = "Confirmar";
+
+"startleasingconfirmation.label.TXID" = "ID da transação";
+
+"startleasingconfirmation.label.confirmation" = "Confirmar";
+
+"startleasingconfirmation.label.fee" = "Taxa";
+
+"startleasingconfirmation.label.leasingTX" = "Transação";
+
+"startleasingconfirmation.label.nodeAddress" = "Endereço do Nó";
+
+"startleasingloading.label.cancelLeasing" = "Cancelar a concessão…";
+
+"startleasingloading.label.startLeasing" = "Iniciar a concessão…";
+
+"tokenBurn.button.burn" = "Destruir";
+
+"tokenBurn.button.continue" = "Continuar";
+
+"tokenBurn.button.okey" = "Ok";
+
+"tokenBurn.button.useTotalBalanace" = "Máximo disponível";
+
+"tokenBurn.label.confirmation" = "Confirmar";
+
+"tokenBurn.label.error.insufficientFunds" = "Não tens fundos que cheguem";
+
+"tokenBurn.label.error.notFundsFee" = "Não tens fundos suficientes para pagar a taxa de transação.";
+
+"tokenBurn.label.fee" = "Taxa";
+
+"tokenBurn.label.id" = "ID";
+
+"tokenBurn.label.loading" = "Destruir…";
+
+"tokenBurn.label.notReissuable" = "Não reutilizável";
+
+"tokenBurn.label.quantityTokensBurned" = "Quantidade de tokens que queres destruir";
+
+"tokenBurn.label.reissuable" = "Reutilizável";
+
+"tokenBurn.label.tokenBurn" = "Destruir Token";
+
+"tokenBurn.label.transactionFee" = "Taxa de Transação de %@ %@";
+
+"tokenBurn.label.transactionIsOnWay" = "A tua transação está a caminho!";
+
+"tokenBurn.label.type" = "Tipo";
+
+"tokenBurn.label.youHaveBurned" = "Destruíste";
+
+"transactionhistory.button.copied" = "Copiado";
+
+"transactionhistory.button.copyAllData" = "Copiar todos os dados";
+
+"transactionhistory.button.copyTXId" = "Copiar ID da transação";
+
+"transactionhistory.cell.block" = "Bloco";
+
+"transactionhistory.cell.button.cancelLeasing" = "Cancelar Concessão";
+
+"transactionhistory.cell.button.sendAgain" = "Enviar novamente";
+
+"transactionhistory.cell.buy" = "Compra: %@/%@";
+
+"transactionhistory.cell.confirmations" = "Confirmações";
+
+"transactionhistory.cell.dataTransaction" = "Transação de Dados";
+
+"transactionhistory.cell.fee" = "Taxa";
+
+"transactionhistory.cell.from" = "De";
+
+"transactionhistory.cell.id" = "ID";
+
+"transactionhistory.cell.leasingTo" = "Concessionado a";
+
+"transactionhistory.cell.notReissuable" = "Não reutilizável";
+
+"transactionhistory.cell.price" = "Cotação";
+
+"transactionhistory.cell.receivedFrom" = "Recebido de";
+
+"transactionhistory.cell.recipient" = "Destinatário";
+
+"transactionhistory.cell.recipients" = "Destinatários";
+
+"transactionhistory.cell.reissuable" = "Reutilizável";
+
+"transactionhistory.cell.sell" = "Venda: %@/%@";
+
+"transactionhistory.cell.sentTo" = "Enviado para";
+
+"transactionhistory.cell.status.at" = "em";
+
+"transactionhistory.cell.status.button.activeNow" = "Ativas";
+
+"transactionhistory.cell.status.button.completed" = "Concluído";
+
+"transactionhistory.cell.status.button.unconfirmed" = "Por confirmar";
+
+"transactionhistory.cell.status.timestamp" = "Selo temporal";
+
+"transactionhistory.cell.type" = "Tipo";
+
+"transactionhistory.copy.amount" = "Quantidade";
+
+"transactionhistory.copy.date" = "Data";
+
+"transactionhistory.copy.fee" = "Taxa";
+
+"transactionhistory.copy.recipient" = "Destinatário";
+
+"transactionhistory.copy.sender" = "Remetente";
+
+"transactionhistory.copy.transactionId" = "ID da transação";
+
+"transactionhistory.copy.type" = "Tipo";
+
+"usetouchid.button.notNow.text" = "Agora não";
+
+"usetouchid.button.useBiometric.text" = "Usar %@";
+
+"usetouchid.label.detail.text" = "Usa o teu %@ para acederes mais rapidamente à tua conta";
+
+"usetouchid.label.title.text" = "Usar o %@ para iniciar a sessão?";
+
+"wallet.button.startLease" = "Iniciar Concessão";
+
+"wallet.label.available" = "Disponível";
+
+"wallet.label.leased" = "Em concessão";
+
+"wallet.label.leasedIn" = "Concessionado a";
+
+"wallet.label.myAssets" = "Meu Ativo";
+
+"wallet.label.quickNote.description.first" = "Só podes transferir ou trocar WAVES que não se encontrem concessionadas. O valor concessionado não pode ser usado por ninguém.";
+
+"wallet.label.quickNote.description.second" = "Não tens fundos que cheguem";
+
+"wallet.label.quickNote.description.third" = "O saldo de geração é atualizado após 1000 blocos.";
+
+"wallet.label.startedLeasing" = "Concessão Iniciada";
+
+"wallet.label.totalBalance" = "Saldo disponível";
+
+"wallet.label.viewHistory" = "Histórico de transações";
+
+"wallet.navigationBar.title" = "Carteira";
+
+"wallet.section.activeNow" = "Ativo agora (%d)";
+
+"wallet.section.hiddenAssets" = "Ativos escondidos (%d)";
+
+"wallet.section.quickNote" = "Nota rápida";
+
+"wallet.section.spamAssets" = "Ativos classificados como Spam (%d)";
+
+"wallet.segmentedControl.assets" = "Ativos";
+
+"wallet.segmentedControl.leasing" = "Concessões";
+
+"walletsort.button.position" = "Posição";
+
+"walletsort.button.visibility" = "Visibilidade";
+
+"walletsort.navigationBar.title" = "Ordenar";
+
+"wavespopup.button.exchange" = "Trocar";
+
+"wavespopup.button.receive" = "Receber";
+
+"wavespopup.button.send" = "Enviar";
+
+"wavespopup.label.comingsoon" = "Em breve";

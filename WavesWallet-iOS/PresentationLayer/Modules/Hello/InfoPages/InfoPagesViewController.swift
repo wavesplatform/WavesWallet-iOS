@@ -119,6 +119,7 @@ final class InfoPagesViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         collectionView.frame = view.bounds
+        
     }
 
     private func setupConstraints() {
@@ -126,11 +127,8 @@ final class InfoPagesViewController: UIViewController {
             toolbarBottomConstraint.constant = InfoPagesViewControllerConstants.ToolbarBottomOffset.small.rawValue
             toolbarLeadingConstraint.constant = InfoPagesViewControllerConstants.ToolbarLeadingOffset.small.rawValue
             toolbarTrailingConstraint.constant = InfoPagesViewControllerConstants.ToolbarTrailingOffset.small.rawValue
-        } else if Platform.isIphoneX || Platform.isIphonePlus {
-            toolbarBottomConstraint.constant = InfoPagesViewControllerConstants.ToolbarBottomOffset.big.rawValue
-            toolbarLeadingConstraint.constant = InfoPagesViewControllerConstants.ToolbarLeadingOffset.big.rawValue
-            toolbarTrailingConstraint.constant = InfoPagesViewControllerConstants.ToolbarTrailingOffset.big.rawValue
-        } else {
+        }
+        else {
             toolbarBottomConstraint.constant = InfoPagesViewControllerConstants.ToolbarBottomOffset.big.rawValue
             toolbarLeadingConstraint.constant = InfoPagesViewControllerConstants.ToolbarLeadingOffset.big.rawValue
             toolbarTrailingConstraint.constant = InfoPagesViewControllerConstants.ToolbarTrailingOffset.big.rawValue

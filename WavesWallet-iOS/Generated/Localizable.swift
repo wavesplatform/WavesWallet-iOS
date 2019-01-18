@@ -421,7 +421,7 @@ internal enum Localizable {
     internal enum Biometric {
       /// Cancel
       internal static var localizedCancelTitle: String { return Localizable.tr("Waves", "biometric.localizedCancelTitle") }
-      /// Enter Password
+      /// Enter Passcode
       internal static var localizedFallbackTitle: String { return Localizable.tr("Waves", "biometric.localizedFallbackTitle") }
       /// Access to your wallet
       internal static var readfromkeychain: String { return Localizable.tr("Waves", "biometric.readfromkeychain") }
@@ -523,6 +523,13 @@ internal enum Localizable {
         /// Choose account
         internal static var title: String { return Localizable.tr("Waves", "chooseaccount.navigation.title") }
       }
+    }
+
+    internal enum Coinomat {
+      /// Service Coinomat temporarily unavailable
+      internal static var temporarilyUnavailable: String { return Localizable.tr("Waves", "coinomat.temporarilyUnavailable") }
+      /// Try again later
+      internal static var tryAgain: String { return Localizable.tr("Waves", "coinomat.tryAgain") }
     }
 
     internal enum Createalias {
@@ -1058,7 +1065,7 @@ internal enum Localizable {
           }
 
           internal enum First {
-            /// Please take some time to understand some important things for your own safety.\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka  phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your , including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.
+            /// Please take some time to understand some important things for your own safety.\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.
             internal static var detail: String { return Localizable.tr("Waves", "hello.page.info.first.detail") }
             /// Welcome to the Waves Platform!
             internal static var title: String { return Localizable.tr("Waves", "hello.page.info.first.title") }
@@ -1072,7 +1079,7 @@ internal enum Localizable {
           }
 
           internal enum Second {
-            /// When registering your account, you will be asked to save your secret phrase (SEED) and to protect your account with a password. On normal centralized servers, special attention is paid to the password, which can be changed and reset via email, if the need arises. However, on decentralized platforms such as Waves, everything is arranged differently.
+            /// When registering your account, you will be asked to save your secret phrase (Seed) and to protect your account with a password. On normal centralized servers, special attention is paid to the password, which can be changed and reset via email, if the need arises. However, on decentralized platforms such as Waves, everything is arranged differently.
             internal static var detail: String { return Localizable.tr("Waves", "hello.page.info.second.detail") }
             /// What you need to know about your SEED
             internal static var title: String { return Localizable.tr("Waves", "hello.page.info.second.title") }
@@ -1515,6 +1522,10 @@ internal enum Localizable {
           }
           /// Does not match
           internal static var doesnotmatch: String { return Localizable.tr("Waves", "newaccount.textfield.error.doesnotmatch") }
+          /// %d characters maximum
+          internal static func maximumcharacters(_ p1: Int) -> String {
+            return Localizable.tr("Waves", "newaccount.textfield.error.maximumcharacters", p1)
+          }
           /// Minimum %d characters
           internal static func minimumcharacters(_ p1: Int) -> String {
             return Localizable.tr("Waves", "newaccount.textfield.error.minimumcharacters", p1)
@@ -1849,6 +1860,17 @@ internal enum Localizable {
         }
         /// Sending any other currency to this address may result in the loss of your deposit.
         internal static var warningSendOnlyOnThisDeposit: String { return Localizable.tr("Waves", "receivecryptocurrency.label.warningSendOnlyOnThisDeposit") }
+
+        internal enum Warningsmartcontracts {
+          /// Check if you wallet or exchange users smart-contracts to withdraw %@. We do not accept such transactions and can’t refund them. You will lose that money.
+          internal static func subtitle(_ p1: String) -> String {
+            return Localizable.tr("Waves", "receivecryptocurrency.label.warningSmartContracts.subtitle", p1)
+          }
+          /// Please do not deposit %@ form smart contracts! Do not deposit ERC20 tokens! Only %@ is allowed.
+          internal static func title(_ p1: String, _ p2: String) -> String {
+            return Localizable.tr("Waves", "receivecryptocurrency.label.warningSmartContracts.title", p1, p2)
+          }
+        }
       }
     }
 
