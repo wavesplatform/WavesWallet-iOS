@@ -42,7 +42,7 @@ final class SupportViewController: UIViewController {
 
     static let image = "test"
 
-    @IBAction func actionCrash(_ sender: Any) {
+    @IBAction private func actionCrash(_ sender: Any) {
 
         auth
             .authorizedWallet()
