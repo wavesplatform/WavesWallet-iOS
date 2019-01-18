@@ -15,7 +15,7 @@ final class NewAccountCoordinator: Coordinator {
     private let navigationRouter: NavigationRouter
     private var account: NewAccountTypes.DTO.Account?
 
-    private let completed: ((NewAccountTypes.DTO.Account,Bool) -> Void)
+    private let completed: ((NewAccountTypes.DTO.Account, _ isSkipBackup: Bool) -> Void)
 
     init(navigationRouter: NavigationRouter, completed: @escaping ((NewAccountTypes.DTO.Account,Bool) -> Void)) {
         self.completed = completed
@@ -59,12 +59,7 @@ extension NewAccountCoordinator: NewAccountModuleOutput {
 // MARK: NewAccountModuleOutput
 extension NewAccountCoordinator: NeedBackupModuleOutput {
     func userCompletedInteract(skipBackup: Bool) {
-
-        if skipBackup {
-            beginRegistration(needBackup: false)
-        } else {
-            beginRegistration(needBackup: true)
-        }
+        beginRegistration(isSkipBackup: skipBackup)
     }
 }
 
@@ -72,14 +67,17 @@ private extension NewAccountCoordinator {
 
     private func showBackupCoordinator() {
         guard let account = account else { return }
-        let backup = BackupCoordinator(navigationRouter: navigationRouter, seed: account.privateKey.words, completed: { [weak self] needBackup in
-            self?.beginRegistration(needBackup: needBackup)
+        let backup = BackupCoordinator(seed: account.privateKey.words,
+                                       behaviorPresentation: .modal(navigationRouter),
+                                       hasShowNeedBackupView: true,
+                                       completed: { [weak self] isSkipBackup in
+            self?.beginRegistration(isSkipBackup: isSkipBackup)
         })
-        addChildCoordinatorAndStart(childCoordinator: backup)        
+        addChildCoordinatorAndStart(childCoordinator: backup)
     }
 
-    private func beginRegistration(needBackup: Bool) {
+    private func beginRegistration(isSkipBackup: Bool) {
         guard let account = account else { return }
-        completed(account, needBackup)
+        completed(account, isSkipBackup)
     }
 }

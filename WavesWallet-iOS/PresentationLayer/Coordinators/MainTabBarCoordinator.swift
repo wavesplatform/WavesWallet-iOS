@@ -44,7 +44,7 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let walletsRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
 
-    private let navWallet: CustomNavigationController = {
+    private let navigationRouterWallet: NavigationRouter = {
 
         let navigation = CustomNavigationController()
 
@@ -52,10 +52,10 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
         navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
         navigation.tabBarItem.selectedImage = Images.TabBar.tabBarWalletActive.image.withRenderingMode(.alwaysOriginal)
 
-        return navigation
+        return NavigationRouter(navigationController: navigation)
     }()
 
-    private let navHistory: CustomNavigationController = {
+    private let navigationRouterHistory: NavigationRouter = {
 
         let navigation = CustomNavigationController()
 
@@ -63,10 +63,10 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
         navigation.tabBarItem.selectedImage = Images.TabBar.tabBarHistoryActive.image.withRenderingMode(.alwaysOriginal)
         navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
-        return navigation
+        return NavigationRouter(navigationController: navigation)
     }()
 
-    private let navDex: CustomNavigationController = {
+    private let navigationRouterDex: NavigationRouter = {
 
         let navigation = CustomNavigationController()
 
@@ -74,7 +74,7 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
         navigation.tabBarItem.selectedImage = Images.TabBar.tabBarDexActive.image.withRenderingMode(.alwaysOriginal)
         navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
-        return navigation
+        return NavigationRouter(navigationController: navigation)
     }()
 
     private let navigationRouterProfile: NavigationRouter = {
@@ -102,15 +102,19 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
         self.applicationCoordinator = applicationCoordinator
         super.init()
 
-        tabBarRouter.setViewControllers([navWallet, navHistory, popoperButton, navDex, navigationRouterProfile.navigationController])
+        tabBarRouter.setViewControllers([navigationRouterWallet.navigationController,
+                                         navigationRouterHistory.navigationController,
+                                         popoperButton,
+                                         navigationRouterDex.navigationController,
+                                         navigationRouterProfile.navigationController])
 
-        let walletCoordinator = WalletCoordinator(navigationController: navWallet)
+        let walletCoordinator = WalletCoordinator(navigationRouter: navigationRouterWallet)
         addChildCoordinatorAndStart(childCoordinator: walletCoordinator)
 
-        let historyCoordinator = HistoryCoordinator(navigationController: navHistory, historyType: .all)
+        let historyCoordinator = HistoryCoordinator(navigationRouter: navigationRouterHistory, historyType: .all)
         addChildCoordinatorAndStart(childCoordinator: historyCoordinator)
 
-        let dexListCoordinator = DexCoordinator(navigationController: navDex)
+        let dexListCoordinator = DexCoordinator(navigationRouter: navigationRouterDex)
         addChildCoordinatorAndStart(childCoordinator: dexListCoordinator)
 
         let profileCoordinator = ProfileCoordinator(navigationRouter: navigationRouterProfile, applicationCoordinator: applicationCoordinator)

@@ -21,14 +21,6 @@ final class NavigationRouter: NSObject {
         self.navigationController.delegate = self
     }
 
-    func present(_ viewController: UIViewController, animated: Bool = true) {
-        navigationController.present(viewController, animated: animated, completion: nil)
-    }
-
-    func dismiss(animated: Bool = true, completion: (() -> Void)? = nil) {
-        navigationController.dismiss(animated: animated, completion: completion)
-    }
-
     func pushViewController(_ viewController: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
 
         if let completion = completion {
@@ -53,13 +45,20 @@ final class NavigationRouter: NSObject {
         }
     }
 
-    public func popToRootViewController(animated: Bool) {
+    func popViewController(animated: Bool = true, completed: (() -> Void)? = nil)  {
+        if let controller = navigationController.popViewController(animated: animated) {
+            runCompletion(for: controller)
+            completed?()
+        }
+    }
+
+    public func popToRootViewController(animated: Bool = true) {
         if let controllers = navigationController.popToRootViewController(animated: animated) {
             controllers.forEach { runCompletion(for: $0) }
         }
     }
 
-    func popToViewController(_ viewController: UIViewController, animated: Bool) {
+    func popToViewController(_ viewController: UIViewController, animated: Bool = true) {
         _ = navigationController.popToViewController(viewController, animated: true)
     }
 
@@ -81,5 +80,12 @@ extension NavigationRouter: UINavigationControllerDelegate {
         }
 
         runCompletion(for: poppedViewController)
+    }
+}
+
+extension NavigationRouter: Router {
+
+    var viewController: UIViewController {
+        return navigationController
     }
 }
