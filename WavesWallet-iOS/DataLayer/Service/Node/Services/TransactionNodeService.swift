@@ -29,6 +29,7 @@ fileprivate enum Constants {
     static let quantity: String = "quantity"
     static let assetId: String = "assetId"
     static let leaseId: String = "leaseId"
+    static let data: String = "data"
 
 }
 
@@ -162,7 +163,7 @@ extension Node.Service {
                              Constants.timestamp: data.timestamp,
                              Constants.proofs: data.proofs,
                              Constants.type: data.type,
-                             "data": data.data.dataByParams]
+                             Constants.data: data.data.dataByParams]
                 }
             }
         }

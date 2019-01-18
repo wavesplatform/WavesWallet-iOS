@@ -7,6 +7,10 @@
 
 import UIKit
 
+private enum Constants {
+    static let animationDuration: TimeInterval = 0.24
+}
+
 final class WindowRouter: NSObject {
 
     enum AnimateKind {
@@ -26,7 +30,7 @@ final class WindowRouter: NSObject {
             switch animated {
             case .crossDissolve:
                 if let view = window.rootViewController?.view {
-                    UIView.transition(from: view, to: viewController.view, duration: 0.24, options: [.transitionCrossDissolve], completion: { _ in
+                    UIView.transition(from: view, to: viewController.view, duration: Constants.animationDuration, options: [.transitionCrossDissolve], completion: { _ in
                         self.window.rootViewController = viewController
                     })
                 } else {
