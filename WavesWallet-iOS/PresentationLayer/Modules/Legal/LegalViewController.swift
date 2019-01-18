@@ -272,7 +272,7 @@ extension LegalViewController: TTTAttributedLabelDelegate {
     func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
         
         if url.absoluteString == Constants.termsAndConditionsUrl {
-            output?.showViewController(viewController: BrowserViewController(url: url))
+            output?.legalDidShowTermsController(viewController: BrowserViewController(url: url))
             return
         }
         

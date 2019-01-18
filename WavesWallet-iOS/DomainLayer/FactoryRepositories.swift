@@ -35,7 +35,11 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
 
     private(set) lazy var addressBookRepository: AddressBookRepositoryProtocol = AddressBookRepository()
 
-    private(set) lazy var dexRepository: DexRepositoryProtocol = DexRepository()
+    private(set) lazy var dexRealmRepository: DexRealmRepositoryProtocol = DexRealmRepositoryLocal()
+    
+    private(set) lazy var dexPairsPriceRepository: DexPairsPriceRepositoryProtocol = DexPairsPriceRepositoryRemote(environmentRepository: self.environmentRepository)
+    
+    private(set) lazy var dexOrderBookRepository: DexOrderBookRepositoryProtocol = DexOrderBookRepositoryRemote(environmentRepository: self.environmentRepository)
     
     private(set) lazy var aliasesRepository: AliasesRepositoryProtocol = AliasesRepository(environmentRepository: self.environmentRepository)
 
@@ -43,9 +47,13 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
 
     private(set) lazy var assetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositoryProtocol = AssetsBalanceSettingsRepositoryLocal()
 
-    private(set) lazy var candlesRepository: CandlesRepositoryProtocol = CandlesRepository()
+    private(set) lazy var candlesRepository: CandlesRepositoryProtocol = CandlesRepositoryRemote(environmentRepository: self.environmentRepository)
     
-    private(set) lazy var lastTradesRespository: LastTradesRepositoryProtocol = LastTradesRepository()
+    private(set) lazy var lastTradesRespository: LastTradesRepositoryProtocol = LastTradesRepositoryRemote(environmentRepository: self.environmentRepository)
+    
+    private(set) lazy var coinomatRepository: CoinomatRepositoryProtocol = CoinomatRepository()
+    
+    private(set) lazy var matcherRepository: MatcherRepositoryProtocol = MatcherRepositoryRemote(environmentRepository: self.environmentRepository)
     
     fileprivate init() {}
 }

@@ -149,6 +149,7 @@ final private class BackupContainer: Coordinator {
                                             .subscribe()
                                             .disposed(by: owner.disposeBag)
         }
-        addChildCoordinatorAndStart(childCoordinator: backup)
+
+        parent?.addChildCoordinatorAndStart(childCoordinator: backup)
     }
 }

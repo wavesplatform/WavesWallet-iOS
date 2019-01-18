@@ -18,8 +18,8 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
 
     weak var moduleOutput: DexLastTradesModuleOutput?
     
-    var priceAsset: Dex.DTO.Asset!
-    var amountAsset: Dex.DTO.Asset!
+    var priceAsset: DomainLayer.DTO.Dex.Asset!
+    var amountAsset: DomainLayer.DTO.Dex.Asset!
     
     func system(feedbacks: [DexLastTradesPresenterProtocol.Feedback]) {
         
@@ -42,7 +42,6 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
             
         }, effects: { [weak self] ss -> Signal<DexLastTrades.Event> in
             
-            // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
             return strongSelf.interactor.displayInfo().map {.setDisplayData($0)}.asSignal(onErrorSignalWith: Signal.empty())
         })

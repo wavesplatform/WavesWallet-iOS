@@ -19,8 +19,8 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
     
     private let disposeBag = DisposeBag()
 
-    var priceAsset: Dex.DTO.Asset!
-    var amountAsset: Dex.DTO.Asset!
+    var priceAsset: DomainLayer.DTO.Dex.Asset!
+    var amountAsset: DomainLayer.DTO.Dex.Asset!
     
     func system(feedbacks: [DexOrderBookPresenterProtocol.Feedback]) {
         var newFeedbacks = feedbacks
@@ -42,7 +42,6 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             
         }, effects: { [weak self] ss -> Signal<DexOrderBook.Event> in
 
-            // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
 
             return strongSelf.interactor.displayInfo().map {.setDisplayData($0)}.asSignal(onErrorSignalWith: Signal.empty())

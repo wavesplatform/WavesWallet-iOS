@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class HistoryTransactionSkeletonCell: SkeletonCell, Reusable {
+final class HistoryTransactionSkeletonCell: SkeletonTableCell, Reusable {
     @IBOutlet var viewContent: UIView!
     
     override func awakeFromNib() {

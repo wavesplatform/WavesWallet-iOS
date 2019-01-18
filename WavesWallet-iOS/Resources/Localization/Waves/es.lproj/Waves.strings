@@ -1,4 +1,8 @@
 
+"coinomat.tryAgain" = "Inténte de nuevo más tarde";
+
+"coinomat.temporarilyUnavailable" = "Servicio Coinomat no disponible temporalmente";
+
 "Receivecard.Label.minimunAmountInfo" = "El mínimo es %@, el máximo es %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "No tiene fondos suficientes para pagar las comisiones requeridas. Debe pagar %@ una comisión de transacción y %@ una cuota de acceso.";
@@ -695,6 +699,8 @@
 
 "newaccount.textfield.error.doesnotmatch" = "No coincide";
 
+"newaccount.textfield.error.maximumcharacters" = "Máximo de %d caracteres";
+
 "newaccount.textfield.error.minimumcharacters" = "Mínimo %d caracteres";
 
 "newaccount.textfield.error.passwordnotmatch" = "La contraseña no coincide. ";
@@ -842,6 +848,10 @@
 "receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "Si envíe menos de %@, perderá este dinero.  ";
 
 "receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Enviar cualquier otra criptomoneda a esta dirección puede resultar en la pérdida de su depósito.";
+
+"receivecryptocurrency.label.warningSmartContracts.subtitle" = "Comprueba si tu monedero o tu exchange utiliza Smart-contracts para retirar %@. No aceptamos ese tipo de transacción y no podemos devolverlo. Perderás ese dinero.";
+
+"receivecryptocurrency.label.warningSmartContracts.title" = "!Por favor no deposites %@ desde Smart-Contract! No deposites tokens ERC20, solo se acepta %@.";
 
 "receivegenerate.label.generate" = "Generar…";
 
@@ -1109,7 +1119,7 @@
 
 "wallet.label.quickNote.description.first" = "Sólo puede transferir o intercambiar WAVES que no estén arrendado 'leasing'. El importe arrendados no puede ser transferido ni intercambiado por usted o cualquier otra persona.";
 
-"wallet.label.quickNote.description.second" = "Puede cancelar una transacción de 'leasing' tan pronto como aparezca en el blockchain que ocurre en un minuto o menos.";
+"wallet.label.quickNote.description.second" = "Puede cancelar una transacción de \"leasing\" tan pronto como aparezca en el blockchain que ocurre en un minuto o menos.";
 
 "wallet.label.quickNote.description.third" = "El saldo generado se actualizará después de 1000 bloques.";
 
