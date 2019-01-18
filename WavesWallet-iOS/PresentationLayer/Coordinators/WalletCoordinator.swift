@@ -172,8 +172,7 @@ extension WalletCoordinator: StartLeasingModuleOutput {
         
         switch kind {
         case .send:
-        //TODO: need update Money after creating order
-        print("TODO: need update Money after creating order")
+        //TODO: need update Money after creating order        
             
         default:
             break

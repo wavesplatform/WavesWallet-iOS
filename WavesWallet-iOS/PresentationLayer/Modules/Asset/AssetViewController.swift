@@ -430,8 +430,7 @@ extension AssetViewController: UITableViewDataSource {
 extension AssetViewController: TokenBurnTransactionDelegate {
     func tokenBurnDidSuccessBurn(amount: Money) {
         
-        //TODO: need update balance after token burned
-        print(amount)
+        //TODO: need update balance after token burned        
     }
 }
 
