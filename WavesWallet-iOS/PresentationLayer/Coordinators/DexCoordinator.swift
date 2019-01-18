@@ -75,7 +75,7 @@ extension DexCoordinator: DexListModuleOutput, DexMarketModuleOutput, DexTraderC
 //MARK: - DexLastTradesModuleOutput
 extension DexCoordinator: DexLastTradesModuleOutput {
     
-    func didCreateOrder(_ trade: DexLastTrades.DTO.SellBuyTrade, amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money) {
+    func didCreateOrder(_ trade: DexLastTrades.DTO.SellBuyTrade, amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money) {
         
         showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: trade.type,
                                   price: trade.price, ask: nil, bid: nil, last: nil,
@@ -85,7 +85,7 @@ extension DexCoordinator: DexLastTradesModuleOutput {
                                   inputMaxAmount: false)
     }
     
-    func didCreateEmptyOrder(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, orderType: Dex.DTO.OrderType, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money) {
+    func didCreateEmptyOrder(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, orderType: DomainLayer.DTO.Dex.OrderType, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money) {
         
         showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: orderType,
                                   price: nil, ask: nil, bid: nil, last: nil,
@@ -100,7 +100,7 @@ extension DexCoordinator: DexLastTradesModuleOutput {
 //MARK: - DexOrderBookModuleOutput
 extension DexCoordinator:  DexOrderBookModuleOutput {
     
-    func didCreateOrder(_ bidAsk: DexOrderBook.DTO.BidAsk, amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, ask: Money?, bid: Money?, last: Money?, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money, inputMaxAmount: Bool) {
+    func didCreateOrder(_ bidAsk: DexOrderBook.DTO.BidAsk, amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, ask: Money?, bid: Money?, last: Money?, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money, inputMaxAmount: Bool) {
         
         showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: bidAsk.orderType,
                                   price: bidAsk.price, ask: ask, bid: bid, last: last,
@@ -112,7 +112,7 @@ extension DexCoordinator:  DexOrderBookModuleOutput {
     }
     
     
-    func didCreateEmptyOrder(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, orderType: Dex.DTO.OrderType, ask: Money?, bid: Money?, last: Money?, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money) {
+    func didCreateEmptyOrder(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, orderType: DomainLayer.DTO.Dex.OrderType, ask: Money?, bid: Money?, last: Money?, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money) {
         
         showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: orderType,
                                   price: nil, ask: ask, bid: bid, last: last,
@@ -127,7 +127,7 @@ extension DexCoordinator:  DexOrderBookModuleOutput {
 //MARK: - CreateOrderController
 private extension DexCoordinator {
     
-    func showCreateOrderController(amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, type: Dex.DTO.OrderType,
+    func showCreateOrderController(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, type: DomainLayer.DTO.Dex.OrderType,
                                    price: Money?, ask: Money?, bid: Money?, last: Money?,
                                    availableAmountAssetBalance: Money, availablePriceAssetBalance: Money,
                                    availableWavesBalance: Money,

@@ -1,4 +1,8 @@
 
+"coinomat.tryAgain" = "나중에 다시 시도하세요";
+
+"coinomat.temporarilyUnavailable" = "Coinomat 서비스를 일시적으로 사용할 수 없습니다";
+
 "Receivecard.Label.minimunAmountInfo" = "최소 수량 %@, 최대 수량 %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "필요한 수수료를 지불하기 위한 충분한 자금이 없습니다. %@ 트랜잭션 수수료와 %@ 게이트웨이 수수료를 지불해야 합니다.";
@@ -59,7 +63,7 @@
 
 "addresseskeys.cell.publickey.title" = "퍼블릭 키";
 
-"addresseskeys.cell.seed.title" = "Seed";
+"addresseskeys.cell.seed.title" = "SEED";
 
 "addresseskeys.navigation.title" = "주소, 키";
 
@@ -695,6 +699,8 @@
 
 "newaccount.textfield.error.doesnotmatch" = "일치하지 않습니다";
 
+"newaccount.textfield.error.maximumcharacters" = "최대 %d 글자";
+
 "newaccount.textfield.error.minimumcharacters" = "최소 %d 글자";
 
 "newaccount.textfield.error.passwordnotmatch" = "비밀번호가 일치하지 않습니다";
@@ -842,6 +848,10 @@
 "receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "%@ 미만의 자산을 보내면 귀하는 해당 자산을 잃게 됩니다.";
 
 "receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "해당 주소로 다른 화폐 및 코인을 보내면 귀하의 자산을 잃을 수 있습니다.";
+
+"receivecryptocurrency.label.warningSmartContracts.subtitle" = "%@를 출금하려고 하는 지갑 또는 거래소가 Smart-Contracts를 사용하는지 확인하세요. 당사는 해당 트랜잭션을 수신하지 않으며 환불 또한 불가능합니다. 귀하의 자산을 잃게 됩니다.";
+
+"receivecryptocurrency.label.warningSmartContracts.title" = "Smart Contracts에서 %@를 입금하지 마세요! ERC20 토큰을 입금하지 마세요! %@ 입금만 가능합니다.";
 
 "receivegenerate.label.generate" = "생성 중…";
 

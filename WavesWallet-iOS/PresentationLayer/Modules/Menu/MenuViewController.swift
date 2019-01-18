@@ -49,8 +49,8 @@ class MenuViewController: UIViewController {
         UIApplication.shared.openURLAsync(URL(string: "https://twitter.com/wavesplatform")!)
     }
     
-    @IBAction func fbTapped(_ sender: Any) {
-        UIApplication.shared.openURLAsync(URL(string: "https://www.facebook.com/wavesplatform")!)
+    @IBAction func redditTapped(_ sender: Any) {
+        UIApplication.shared.openURLAsync(URL(string: "https://www.reddit.com/r/Wavesplatform")!)
     }
 
     @IBAction func whitepaperTapped(_ sender: Any) {

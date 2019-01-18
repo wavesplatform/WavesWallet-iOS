@@ -40,8 +40,6 @@ target 'WavesWallet-iOS' do
     pod 'IQKeyboardManagerSwift'
     pod 'TPKeyboardAvoiding'
     
-    pod 'Device.swift', :git => 'https://github.com/schickling/Device.swift.git', :branch => 'swift-4.2'
-
     # Assisstant
     pod 'RxSwift'
     pod 'RxSwiftExt'
@@ -74,6 +72,8 @@ target 'WavesWallet-iOS' do
 
     pod 'SwiftDate'
 
+    pod 'DeviceKit', '~> 1.3'
+    
     # Cache
     pod 'Kingfisher'
 
@@ -86,7 +86,6 @@ target 'WavesWallet-iOS' do
     pod 'Moya/RxSwift'
 
     # Parser
-    pod 'SwiftyJSON'
     pod 'Gloss', '2.0.0-beta.1'
     pod 'CSV.swift'
 

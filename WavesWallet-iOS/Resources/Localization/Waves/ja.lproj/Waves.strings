@@ -1,4 +1,8 @@
 
+"coinomat.tryAgain" = "Try again later";
+
+"coinomat.temporarilyUnavailable" = "Service Coinomat temporarily unavailable";
+
 "Receivecard.Label.minimunAmountInfo" = "最小額は %@です。最大額は %@ です。";
 
 "Send.Label.Error.notFundsFeeGateway" = "必要な手数料を支払うための資金が足りません。取引手数料%@とゲートウェイ手数料 %@ を支払う必要があります。";
@@ -23,7 +27,7 @@
 
 "addAddressbook.button.save" = "保存する";
 
-"addAddressbook.error.charactersMaximum" = "最大 %d 文字です";
+"addAddressbook.error.charactersMaximum" = "最大 %d 文字";
 
 "addAddressbook.error.charactersMinimum" = "最低 %d 文字以上です";
 
@@ -695,6 +699,8 @@
 
 "newaccount.textfield.error.doesnotmatch" = "マッチしません";
 
+"newaccount.textfield.error.maximumcharacters" = "最大 %d 文字";
+
 "newaccount.textfield.error.minimumcharacters" = "最低 %d 文字以上";
 
 "newaccount.textfield.error.passwordnotmatch" = "入力されたパスワードが一致しません";
@@ -842,6 +848,10 @@
 "receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "%@ 以下の数量を送信すると、その通貨を失います。";
 
 "receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "このアドレスに他の通貨を送信すると、あなたのデポジットを失うことがあります。";
+
+"receivecryptocurrency.label.warningSmartContracts.subtitle" = "Check if you wallet or exchange users smart-contracts to withdraw %@. We do not accept such transactions and can’t refund them. You will lose that money.";
+
+"receivecryptocurrency.label.warningSmartContracts.title" = "Please do not deposit %@ form smart contracts! Do not deposit ERC20 tokens! Only %@ is allowed.";
 
 "receivegenerate.label.generate" = "生成中…";
 

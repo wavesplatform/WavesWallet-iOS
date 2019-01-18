@@ -216,7 +216,7 @@ private extension CreateAliasPresenter {
         case .handlerError:
             state.query = nil
             state.displayState.isLoading = false
-            // TODO:
+            // TODO: error
 
         case .aliasCreated:
             guard let text = state.displayState.input else { return }

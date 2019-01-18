@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DeviceKit
 
 final class BlueBgView: UIView {
 
@@ -33,6 +34,33 @@ final class BlueBgView: UIView {
         }
         image?.draw(in: UIScreen.main.bounds)
     }
-  
+}
 
+fileprivate extension Platform {
+    
+    private static let device = Device()
+    
+    static let isIphonePlus: Bool = {
+        
+        return device.isOneOf([.iPhone6Plus, .simulator(.iPhone6Plus),
+                               .iPhone6sPlus, .simulator(.iPhone6sPlus),
+                               .iPhone7Plus, .simulator(.iPhone7Plus),
+                               .iPhone8Plus, .simulator(.iPhone8Plus)])
+    }()
+    
+    static let isIphoneX: Bool = {
+        
+        return device.isOneOf([.iPhoneX, .simulator(.iPhoneX),
+                               .iPhoneXs, .simulator(.iPhoneXs)])
+    }()
+    
+    static let isIphoneXMax: Bool = {
+        
+        return device.isOneOf([.iPhoneXsMax, .simulator(.iPhoneXsMax)])
+    }()
+    
+    static let isIphoneXR: Bool = {
+        
+        return device.isOneOf([.iPhoneXr, .simulator(.iPhoneXr)])
+    }()
 }

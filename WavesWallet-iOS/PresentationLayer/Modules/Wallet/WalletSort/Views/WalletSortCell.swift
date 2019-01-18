@@ -18,12 +18,11 @@ fileprivate enum Constants {
 
 final class WalletSortCell: UITableViewCell, Reusable {
     @IBOutlet var buttonFav: UIButton!
-    @IBOutlet var imageIcon: UIImageView!
-    @IBOutlet var arrowGreen: UIImageView!
-    @IBOutlet var labelTitle: UILabel!
-    @IBOutlet var iconMenu: UIImageView!
-    @IBOutlet var switchControl: UISwitch!
-    @IBOutlet var viewContent: UIView!
+    @IBOutlet private var imageIcon: UIImageView!
+    @IBOutlet private var labelTitle: UILabel!
+    @IBOutlet private var iconMenu: UIImageView!
+    @IBOutlet private var switchControl: UISwitch!
+    @IBOutlet private var viewContent: UIView!
 
     private var isDragging: Bool = false
 
@@ -107,13 +106,11 @@ extension WalletSortCell: ViewConfiguration {
     }
 
     func update(with model: Model) {
-        // TODO: My asset
 
         labelTitle.attributedText = NSAttributedString.styleForMyAssetName(assetName: model.name,
                                                                            isMyAsset: model.isMyWavesToken)
         switchControl.isHidden = model.isVisibility
         switchControl.isOn = !model.isHidden
-        arrowGreen.isHidden = !model.isGateway
 
         isHiddenAsset = model.isHidden
         if model.isHidden {

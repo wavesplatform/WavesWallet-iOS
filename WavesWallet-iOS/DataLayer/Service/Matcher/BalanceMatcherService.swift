@@ -63,7 +63,7 @@ extension Matcher.Service.Balance: MatcherTargetType {
         var headers = ContentType.applicationJson.headers
 
         switch kind {
-        case .getReservedBalances(let signature):            
+        case .getReservedBalances(let signature):
             headers.merge(signature.parameters) { a, _ in a }
         }
 

@@ -7,6 +7,9 @@
 //
 
 import Foundation
+
+private typealias CoinomatService = Coinomat
+
 extension DomainLayer.DTO {
 
     struct AssetPair {
@@ -30,6 +33,10 @@ extension DomainLayer.DTO {
             let asset: Asset
             let recipient: Account
             let attachment: String?
+            
+            var isGatewayAddress: Bool {
+                return CoinomatService.addresses.contains(recipient.address)
+            }
         }
 
         struct Exchange {

@@ -13,7 +13,7 @@ private enum Constants {
     static let height: CGFloat = 290
 }
 
-final class WalletLeasingBalanceSkeletonCell: SkeletonCell, Reusable {
+final class WalletLeasingBalanceSkeletonCell: SkeletonTableCell, Reusable {
     @IBOutlet var viewContent: UIView!    
     @IBOutlet var separatorViews: [SeparatorView]!
 

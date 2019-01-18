@@ -1,4 +1,8 @@
 
+"coinomat.tryAgain" = "Try again later";
+
+"coinomat.temporarilyUnavailable" = "Service Coinomat temporarily unavailable";
+
 "Receivecard.Label.minimunAmountInfo" = "Das minimum ist %@, das maximum ist %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "Sie haben nicht genug Geld, um die erforderlichen Gebühren zu zahlen. Sie müssen %@ Transaktionsgebühr und %@ Gateway-Gebühr bezahlen.";
@@ -59,7 +63,7 @@
 
 "addresseskeys.cell.publickey.title" = "Öffentlicher Schlüssel";
 
-"addresseskeys.cell.seed.title" = "Seed";
+"addresseskeys.cell.seed.title" = "SEED";
 
 "addresseskeys.navigation.title" = "Adressen, Schlüssel";
 
@@ -175,7 +179,7 @@
 
 "biometric.localizedCancelTitle" = "Abbrechen";
 
-"biometric.localizedFallbackTitle" = "Passwort eingeben";
+"biometric.localizedFallbackTitle" = "Passcode eingeben";
 
 "biometric.manyattempts.subtitle" = "Melden Sie sich zum Entsperren von Biometrie mit Ihrem Kontopasswort an";
 
@@ -629,7 +633,7 @@
 
 "legal.checkbox.box.second" = "Ich verstehe, dass meine Waves nur mit dem Sicherungssatz (SEED) wiederhergestellt werden können, wenn diese App auf ein anderes Gerät verschoben oder gelöscht wird";
 
-"legal.checkbox.box.subtitle" = "Waves ist anders %u2014 es kann nicht sicher von einer Bank oder einem Webservice gehalten werden";
+"legal.checkbox.box.subtitle" = "Waves ist anders — es kann nicht sicher von einer Bank oder einem Webservice gehalten werden";
 
 "legal.checkbox.box.termsOfUse" = "Nutzungsbedingungen";
 
@@ -695,6 +699,8 @@
 
 "newaccount.textfield.error.doesnotmatch" = "Stimmt nicht überein";
 
+"newaccount.textfield.error.maximumcharacters" = "%d zeichen maximal";
+
 "newaccount.textfield.error.minimumcharacters" = "Mindestens %d zeichen";
 
 "newaccount.textfield.error.passwordnotmatch" = "Passwort stimmt nicht überein";
@@ -713,7 +719,7 @@
 
 "passcode.button.forgotPasscode.title" = "Accountpasswort verwenden";
 
-"passcode.label.forgotPasscode.title" = "Passwort vergessen?";
+"passcode.label.forgotPasscode.title" = "Passcode vergessen?";
 
 "passcode.label.passcode.create" = "Erstellen Sie einen Passcode";
 
@@ -842,6 +848,10 @@
 "receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "Wenn Sie weniger als %@ senden, verlieren Sie dieses Geld.";
 
 "receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Das Senden einer anderen Währung an diese Adresse kann zum Verlust Ihrer Einzahlung führen.";
+
+"receivecryptocurrency.label.warningSmartContracts.subtitle" = "Check if you wallet or exchange users smart-contracts to withdraw %@. We do not accept such transactions and can’t refund them. You will lose that money.";
+
+"receivecryptocurrency.label.warningSmartContracts.title" = "Please do not deposit %@ form smart contracts! Do not deposit ERC20 tokens! Only %@ is allowed.";
 
 "receivegenerate.label.generate" = "Generiere…";
 

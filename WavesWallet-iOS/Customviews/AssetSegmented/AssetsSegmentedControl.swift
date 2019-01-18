@@ -185,7 +185,7 @@ extension AssetsSegmentedControl: InfiniteCollectionViewDelegate {
 
     func infiniteCollectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath, dequeueForItemAt: IndexPath) {
 
-        //TODO: i don't how detect completed animation. 
+        //TODO: need doing with animation and detect completed animation. 
         self.collectionView.scrollToItem(at: dequeueForItemAt, at: .centeredHorizontally, animated: false)
         self.sendActions(for: .valueChanged)
     }

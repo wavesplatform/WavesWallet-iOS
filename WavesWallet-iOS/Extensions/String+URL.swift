@@ -16,4 +16,22 @@ extension String {
         let result = urlTest.evaluate(with: self)
         return result
     }
+    
+    func urlByAdding(params: [String : String]) -> String {
+    
+        var url = self
+        for key in params.keys {
+            if let value = params[key] {
+                if (url as NSString).range(of: "?").location == NSNotFound {
+                    url.append("?")
+                }
+                
+                if url.last != "?" {
+                    url.append("&")
+                }
+                url.append(key + "=" + value)
+            }
+        }
+        return url
+    }
 }

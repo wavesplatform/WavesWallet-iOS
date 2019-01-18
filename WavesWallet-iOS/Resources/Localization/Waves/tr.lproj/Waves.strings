@@ -1,4 +1,8 @@
 
+"coinomat.tryAgain" = "Lütfen tekrar deneyin";
+
+"coinomat.temporarilyUnavailable" = "Coinomat hizmeti geçici olarak durdurulmuştur";
+
 "Receivecard.Label.minimunAmountInfo" = "Minimum %@, Maksimum %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "Komisyonları ödemek için yeterli bakiyeniz bulunmamaktadır. İşlem için %@ komisyon ödemeniz ve geçit için %@ komisyon ödemeniz gerekmektedir.";
@@ -57,7 +61,7 @@
 
 "addresseskeys.cell.privatekeyhidde.button.title" = "Göster";
 
-"addresseskeys.cell.publickey.title" = "Public anahtar";
+"addresseskeys.cell.publickey.title" = "Genel anahtar";
 
 "addresseskeys.cell.seed.title" = "Anahtar kelimeler";
 
@@ -499,7 +503,7 @@
 
 "hello.page.info.fifth.detail.third" = "Resmi yazılımları kullanın. Hacklenme ihtimali olan yazılımları kullanmayın.";
 
-"hello.page.info.fifth.title" = "Hesabınızı nasıl korursunuz.";
+"hello.page.info.fifth.title" = "Hesabınızı nasıl korursunuz?";
 
 "hello.page.info.first.detail" = "Lütfen kendi güvenliğiniz için önemli bilgileri içeren bu bilgilendirmeyi okuyunuz.\n\nEğer anahtar kelimelerinizi kaybederseniz veya çaldırırsanız hesabınızı donduramayız ve varlıklarınızı tekrar alamayız.\n\nWaves Platform'u kullanmaya devam ederek, anahtar kelimelerinizi kaybettiğinizde veya çaldırdığınızda Waves Platform'un sorumlu olmadığını kabul etmiş olursunuz.";
 
@@ -581,7 +585,7 @@
 
 "import.account.button.scan.title" = "Eşleşme kodunu tara";
 
-"import.account.label.info.step.one.detail" = "Ayarlar — Genel — Export account";
+"import.account.label.info.step.one.detail" = "Ayarlar — Genel — Hesabı dışa aktar";
 
 "import.account.label.info.step.one.title" = "Waves uygulamasına PC'nizden veya Mac'inizden giriş yapın https://client.wavesplatform.com";
 
@@ -695,6 +699,8 @@
 
 "newaccount.textfield.error.doesnotmatch" = "Eşleşmiyor";
 
+"newaccount.textfield.error.maximumcharacters" = "Maksimum %d karakter";
+
 "newaccount.textfield.error.minimumcharacters" = "Minimum %d karakter";
 
 "newaccount.textfield.error.passwordnotmatch" = "Parolalar eşleşmiyor";
@@ -707,7 +713,7 @@
 
 "passcode.alert.attempsended.button.ok" = "Tamam";
 
-"passcode.alert.attempsended.subtitle" = "Açmak için hesap şifrenizle giriş yapın";
+"passcode.alert.attempsended.subtitle" = "Açmak için hesap parolanız ile giriş yapın";
 
 "passcode.alert.attempsended.title" = "Çok fazla deneme";
 
@@ -842,6 +848,10 @@
 "receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "Eğer %@'nin altında gönderim yaparsanız paranızı kaybedersiniz.";
 
 "receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Bu adrese başka bir kripto para gönderilmesi kayıplara yol açabilir.";
+
+"receivecryptocurrency.label.warningSmartContracts.subtitle" = "Cüzdanınızın veya Kripto para borsasının %@ çekimlerinde akıllı kontrat kullanıp kullanmadığını kontrol edin. Akıllı kontratlar tarafından gelen transferleri kabul edemiyoruz. Paranızı kaybedersiniz.";
+
+"receivecryptocurrency.label.warningSmartContracts.title" = "%@ akıllı kontratlarından yatırma işlemi yapmayınız. ERC20 tokenleri yatırmayınız! Sadece %@ transferleri kabul edilir.";
 
 "receivegenerate.label.generate" = "Oluştur…";
 

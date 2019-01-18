@@ -8,7 +8,6 @@
 
 import UIKit
 
-//TODO: Rrmove?
 final class TransactionHistoryPopupView: UIView  {
     
     var contentView: NewTransactionHistoryContentView!

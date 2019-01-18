@@ -120,7 +120,6 @@ extension WalletCoordinator: WalletModuleOutput {
 
     func showLeasingTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
 
-        let navigationController = navigationRouter.navigationController
         let coordinator = TransactionHistoryCoordinator(transactions: transactions,
                                                         currentIndex: index,
                                                         router: navigationRouter)
@@ -172,7 +171,8 @@ extension WalletCoordinator: StartLeasingModuleOutput {
         
         switch kind {
         case .send:
-        //TODO: need update Money after creating order        
+            //TODO: Here can be some logic
+            break
             
         default:
             break
@@ -182,7 +182,8 @@ extension WalletCoordinator: StartLeasingModuleOutput {
 
 fileprivate extension AssetModuleBuilder.Input {
 
-    init(assets: [DomainLayer.DTO.SmartAssetBalance], currentAsset: DomainLayer.DTO.SmartAssetBalance) {
+    init(assets: [DomainLayer.DTO.SmartAssetBalance],
+         currentAsset: DomainLayer.DTO.SmartAssetBalance) {
         self.assets = assets.map { .init(asset: $0) }
         self.currentAsset = .init(asset: currentAsset)
     }
