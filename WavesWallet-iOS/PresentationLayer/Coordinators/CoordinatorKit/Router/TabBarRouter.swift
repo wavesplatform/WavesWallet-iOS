@@ -22,3 +22,9 @@ final class TabBarRouter: NSObject {
         tabBarController.viewControllers = viewControllers
     }
 }
+
+extension TabBarRouter: Router {
+    var viewController: UIViewController {
+        return tabBarController
+    }
+}

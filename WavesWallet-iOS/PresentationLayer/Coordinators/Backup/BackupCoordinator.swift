@@ -10,44 +10,89 @@ import UIKit
 
 final class BackupCoordinator: Coordinator {
 
-    enum PresentationKind {
-        case push
-        case present
+    enum BehaviorPresentation {
+        case push(NavigationRouter)
+        case modal(Router)
+
+        var isPush: Bool {
+            switch self {
+            case .push:
+                return true
+
+            default:
+                return false
+            }
+        }
     }
 
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private let navigationRouter: NavigationRouter
-    private let modalNavigationRouter: NavigationRouter
-    private let completed: ((Bool) -> Void)
+    private let mainNavigationRouter: NavigationRouter
+    private let hasShowNeedBackupView: Bool
+    private let completed: ((_ isSkipBackup: Bool) -> Void)
     private let seed: [String]
-    private let presentationKind: PresentationKind
+    private let behaviorPresentation: BehaviorPresentation
 
-    init(navigationRouter: NavigationRouter, seed: [String], presentationKind: PresentationKind = .push, completed: @escaping ((Bool) -> Void)) {
+    init(seed: [String],
+         behaviorPresentation: BehaviorPresentation,
+         hasShowNeedBackupView: Bool,
+         completed: @escaping ((Bool) -> Void)) {
+
         self.seed = seed
-        self.navigationRouter = navigationRouter
         self.completed = completed
+        self.hasShowNeedBackupView = hasShowNeedBackupView
+        self.behaviorPresentation = behaviorPresentation
 
-        self.modalNavigationRouter = NavigationRouter(navigationController: CustomNavigationController())
-        self.presentationKind = presentationKind
+        switch behaviorPresentation {
+        case .modal:
+            mainNavigationRouter = NavigationRouter(navigationController: CustomNavigationController())
+
+        case .push(let router):
+            mainNavigationRouter = router
+        }
     }
 
     func start()  {
 
-        let vc = StoryboardScene.Backup.needBackupViewController.instantiate()
-        vc.output = self
-        self.modalNavigationRouter.pushViewController(vc, animated: true)
+        let firstViewController: UIViewController!
 
-//        presentationKind
-        //TODO
-        navigationRouter.present(self.modalNavigationRouter.navigationController)
+        if hasShowNeedBackupView {
+            let needBackupViewController = StoryboardScene.Backup.needBackupViewController.instantiate()
+            needBackupViewController.output = self
+            firstViewController = needBackupViewController
+        } else {
+            let saveBackupPhraseViewController = StoryboardScene.Backup.saveBackupPhraseViewController.instantiate()
+            saveBackupPhraseViewController.input = .init(seed: seed, isReadOnly: false)
+            saveBackupPhraseViewController.output = self
+            firstViewController = saveBackupPhraseViewController
+        }
+
+        switch behaviorPresentation {
+        case .modal(let router):
+
+            self.mainNavigationRouter.pushViewController(firstViewController)
+            router.present(self.mainNavigationRouter.navigationController)
+
+        case .push:
+            mainNavigationRouter.pushViewController(firstViewController, animated: true) { [weak self] in
+                self?.removeFromParentCoordinator()
+            }
+        }
     }
 
-    private func completedBackup(skipBackup: Bool) {
+    private func completedBackup(isSkipBackup: Bool) {
+
+        switch behaviorPresentation {
+        case .modal:
+            mainNavigationRouter.dismiss(animated: true)
+
+        case .push:
+            mainNavigationRouter.navigationController.popToRootViewController(animated: true)
+        }
+        completed(isSkipBackup)
+
         removeFromParentCoordinator()
-        navigationRouter.dismiss(animated: true)
-        completed(!skipBackup)
     }
 }
 
@@ -68,18 +113,18 @@ extension BackupCoordinator: PresentationCoordinator {
             let vc = StoryboardScene.Backup.confirmBackupViewController.instantiate()
             vc.input = .init(seed: seed)
             vc.output = self
-            modalNavigationRouter.pushViewController(vc)
+            mainNavigationRouter.pushViewController(vc)
 
         case .saveBackupPhrase:
             let vc = StoryboardScene.Backup.saveBackupPhraseViewController.instantiate()
             vc.input = .init(seed: seed, isReadOnly: false)
             vc.output = self
-            modalNavigationRouter.pushViewController(vc)
+            mainNavigationRouter.pushViewController(vc)
 
         case .startBackup:
             let vc = StoryboardScene.Backup.backupInfoViewController.instantiate()
             vc.output = self
-            modalNavigationRouter.pushViewController(vc)
+            mainNavigationRouter.pushViewController(vc)
         }
     }
 
@@ -92,7 +137,7 @@ extension BackupCoordinator: NeedBackupModuleOutput {
     func userCompletedInteract(skipBackup: Bool) {
 
         if skipBackup {
-            completedBackup(skipBackup: true)
+            completedBackup(isSkipBackup: true)
         } else {
             showDisplay(.startBackup)
         }
@@ -120,6 +165,6 @@ extension BackupCoordinator: SaveBackupPhraseOutput {
 extension BackupCoordinator: ConfirmBackupOutput {
 
     func userConfirmBackup() {
-        completedBackup(skipBackup: false)
+        completedBackup(isSkipBackup: false)
     }
 }

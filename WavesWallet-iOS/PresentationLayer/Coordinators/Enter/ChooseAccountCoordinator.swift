@@ -70,11 +70,9 @@ extension ChooseAccountCoordinator: PresentationCoordinator {
             addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
 
         case .passcodeChangePasscode(let wallet, let password):
-            guard isHasCoordinator(type: PasscodeChangePasscodeCoordinator.self) != true else { return }
+            guard isHasCoordinator(type: PasscodeCoordinator.self) != true else { return }
 
-            let passcodeCoordinator = PasscodeChangePasscodeCoordinator(navigationRouter: navigationRouter,
-                                                                        wallet: wallet,
-                                                                        password: password)
+            let passcodeCoordinator = PasscodeCoordinator(kind: .changePasscodeByPassword(wallet, password: password), behaviorPresentation: .push(navigationRouter, dissmissToRoot: true))
             passcodeCoordinator.delegate = self
 
             addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
@@ -139,14 +137,3 @@ extension ChooseAccountCoordinator: PasscodeCoordinatorDelegate {
         removeFromParentCoordinator()
     }
 }
-
-// MARK: PasscodeChangePasscodeCoordinator
-extension ChooseAccountCoordinator: PasscodeChangePasscodeCoordinatorDelegate {
-
-    func passcodeCoordinatorPasswordChanged(wallet: DomainLayer.DTO.Wallet) {
-        delegate?.userChooseCompleted(wallet: wallet)
-        removeFromParentCoordinator()
-    }
-}
-
-

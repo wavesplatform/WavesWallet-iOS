@@ -96,10 +96,6 @@ final class PasscodeLogInCoordinator: Coordinator {
             passcodeNavigationRouter.popViewController()
         }
     }
-
-    deinit {
-        print("DEALLOC PASSCODE")
-    }
 }
 
 // MARK: PasscodeOutput

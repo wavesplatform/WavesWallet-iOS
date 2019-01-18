@@ -115,7 +115,7 @@ extension EnterCoordinator: EnterStartViewControllerDelegate {
 
     func showPasscode(with account: PasscodeTypes.DTO.Account) {
 
-        let passcodeCoordinator = PasscodeNewAccountCoordinator(navigationRouter: navigationRouter, account: account)
+        let passcodeCoordinator = PasscodeCoordinator(kind: .registration(account), behaviorPresentation: .push(navigationRouter, dissmissToRoot: false))
         passcodeCoordinator.delegate = self
 
         addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)        
@@ -127,12 +127,18 @@ extension EnterCoordinator: EnterStartViewControllerDelegate {
 }
 
 // MARK: PasscodeNewAccountCoordinatorDelegate
-extension EnterCoordinator: PasscodeNewAccountCoordinatorDelegate {
+extension EnterCoordinator: PasscodeCoordinatorDelegate {
     
-    func passcodeCoordinatorCreatedWallet(wallet: DomainLayer.DTO.Wallet) {
+    func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {
         delegate?.userCompletedLogIn(wallet: wallet)
         removeFromParentCoordinator()
     }
+
+    func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {
+
+    }
+
+    func passcodeCoordinatorWalletLogouted() {}
 }
 
 // MARK: PasscodeCoordinatorDelegate
