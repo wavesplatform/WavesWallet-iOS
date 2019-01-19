@@ -27,7 +27,6 @@ protocol TransactionsInteractorProtocol {
     func transactionsSync(by accountAddress: String, specifications: TransactionsSpecifications) -> SyncObservable<[DomainLayer.DTO.SmartTransaction]>
     func activeLeasingTransactionsSync(by accountAddress: String) -> SyncObservable<[DomainLayer.DTO.SmartTransaction]>
     func calculateFee(by transactionSpecs: DomainLayer.Query.TransactionSpecificationType, accountAddress: String) -> Observable<Money>
-    func isAvailableCreateOrder(amountAsset: String, priceAsset: String, accountAddress: String) -> Observable<Bool>
 }
 
 fileprivate enum Constants {
@@ -104,11 +103,6 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
     private var blockRepositoryRemote: BlockRepositoryProtocol = FactoryRepositories.instance.blockRemote
 
     func calculateFee(by transactionSpecs: DomainLayer.Query.TransactionSpecificationType, accountAddress: String) -> Observable<Money> {
-        print("not implemented")
-        return Observable.empty()
-    }
-    
-    func isAvailableCreateOrder(amountAsset: String, priceAsset: String, accountAddress: String) -> Observable<Bool> {
         print("not implemented")
         return Observable.empty()
     }
