@@ -35,7 +35,7 @@ final class AliasesRepositoryLocal: AliasesRepositoryProtocol {
     }
 
     func alias(by name: String, accountAddress: String) -> Observable<String> {
-        assert(true, "Method don't supported")
+        assertMethodDontSupported()
         return Observable.never()
     }
 
