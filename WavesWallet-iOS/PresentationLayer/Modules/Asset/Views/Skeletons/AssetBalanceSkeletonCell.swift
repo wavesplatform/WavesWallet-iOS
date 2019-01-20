@@ -13,7 +13,7 @@ fileprivate enum Constants {
     static var height: CGFloat = 258
 }
 
-final class AssetBalanceSkeletonCell: SkeletonCell, NibReusable {
+final class AssetBalanceSkeletonCell: SkeletonTableCell, NibReusable {
     
     @IBOutlet var viewContent: UIView!
     @IBOutlet var separatorViews: [SeparatorView]!

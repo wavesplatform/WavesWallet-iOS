@@ -17,6 +17,7 @@ enum DexChart {
         case didChangeTimeFrame(DomainLayer.DTO.Candle.TimeFrameType)
         case setCandles([DomainLayer.DTO.Candle])
         case preloading
+        case refresh
     }
     
     struct State: Mutating {

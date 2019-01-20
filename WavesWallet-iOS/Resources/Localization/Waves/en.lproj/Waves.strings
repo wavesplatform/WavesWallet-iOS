@@ -1,19 +1,7 @@
 
-"profile.alert.setupbiometric.title" = "Biometrics is disabled";
+"coinomat.tryAgain" = "Try again later";
 
-"profile.alert.setupbiometric.message" = "To use fast and secure login, go to settings to enable biometrics";
-
-"profile.alert.setupbiometric.button.settings" = "Settings";
-
-"profile.alert.setupbiometric.button.cancel" = "Cancel";
-
-"biometric.manyattempts.subtitle" = "To unlock biometric, sign in with your account password";
-
-"biometric.manyattempts.title" = "Too many attempts";
-
-"biometric.localizedCancelTitle" = "Cancel";
-
-"biometric.localizedFallbackTitle" = "Enter Password";
+"coinomat.temporarilyUnavailable" = "Service Coinomat temporarily unavailable";
 
 "Receivecard.Label.minimunAmountInfo" = "The minimum is %@, the maximum is %@";
 
@@ -188,6 +176,14 @@
 "backup.savebackup.next.button.title" = "I've written it down";
 
 "backup.savebackup.next.label.title" = "You will confirm this phrase on the next screen";
+
+"biometric.localizedCancelTitle" = "Cancel";
+
+"biometric.localizedFallbackTitle" = "Enter Passcode";
+
+"biometric.manyattempts.subtitle" = "To unlock biometric, sign in with your account password";
+
+"biometric.manyattempts.title" = "Too many attempts";
 
 "biometric.readfromkeychain" = "Access to your wallet";
 
@@ -509,7 +505,7 @@
 
 "hello.page.info.fifth.title" = "How To Protect Yourself from Phishers";
 
-"hello.page.info.first.detail" = "Please take some time to understand some important things for your own safety.\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka  phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your , including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.";
+"hello.page.info.first.detail" = "Please take some time to understand some important things for your own safety.\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.";
 
 "hello.page.info.first.title" = "Welcome to the Waves Platform!";
 
@@ -517,7 +513,7 @@
 
 "hello.page.info.fourth.title" = "How To Protect Yourself from Phishers";
 
-"hello.page.info.second.detail" = "When registering your account, you will be asked to save your secret phrase (SEED) and to protect your account with a password. On normal centralized servers, special attention is paid to the password, which can be changed and reset via email, if the need arises. However, on decentralized platforms such as Waves, everything is arranged differently.";
+"hello.page.info.second.detail" = "When registering your account, you will be asked to save your secret phrase (Seed) and to protect your account with a password. On normal centralized servers, special attention is paid to the password, which can be changed and reset via email, if the need arises. However, on decentralized platforms such as Waves, everything is arranged differently.";
 
 "hello.page.info.second.title" = "What you need to know about your SEED";
 
@@ -703,6 +699,8 @@
 
 "newaccount.textfield.error.doesnotmatch" = "Does not match";
 
+"newaccount.textfield.error.maximumcharacters" = "%d characters maximum";
+
 "newaccount.textfield.error.minimumcharacters" = "Minimum %d characters";
 
 "newaccount.textfield.error.passwordnotmatch" = "password not match";
@@ -742,6 +740,14 @@
 "profile.alert.deleteAccount.title" = "Delete account";
 
 "profile.alert.deleteAccount.withoutbackup.message" = "Deleting an account will lead to its irretrievable loss!";
+
+"profile.alert.setupbiometric.button.cancel" = "Cancel";
+
+"profile.alert.setupbiometric.button.settings" = "Settings";
+
+"profile.alert.setupbiometric.message" = "To use fast and secure login, go to settings to enable biometrics";
+
+"profile.alert.setupbiometric.title" = "Biometrics is disabled";
 
 "profile.button.delete.title" = "Delete account from device";
 
@@ -842,6 +848,10 @@
 "receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "If you will send less than %@, you will lose that money.";
 
 "receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Sending any other currency to this address may result in the loss of your deposit.";
+
+"receivecryptocurrency.label.warningSmartContracts.subtitle" = "Check if you wallet or exchange users smart-contracts to withdraw %@. We do not accept such transactions and can’t refund them. You will lose that money.";
+
+"receivecryptocurrency.label.warningSmartContracts.title" = "Please do not deposit %@ form smart contracts! Do not deposit ERC20 tokens! Only %@ is allowed.";
 
 "receivegenerate.label.generate" = "Generate…";
 

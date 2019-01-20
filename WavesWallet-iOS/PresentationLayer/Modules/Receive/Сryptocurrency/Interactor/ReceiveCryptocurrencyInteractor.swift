@@ -8,100 +8,43 @@
 
 import Foundation
 import RxSwift
-import SwiftyJSON
 
 final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProtocol {
     
-    private var disposeBag = DisposeBag()
     private let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-
+    private let coinomatRepository = FactoryRepositories.instance.coinomatRepository
+    
     func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> {
         
-        return Observable.create({ [weak self] subscribe -> Disposable in
-            
-            guard let strongSelf = self else { return Disposables.create() }
-            
-            strongSelf.getAddress(asset: asset, complete: { (address, error) in
+        guard let currencyFrom = asset.gatewayId,
+            let currencyTo = asset.wavesId else { return Observable.empty() }
 
-                if let address = address {
-                    
-                    strongSelf.getMinAmount(asset: asset, complete: { (minAmount, error) in
-
-                        if let min = minAmount {
-                            let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(address: address,
-                                                                                    assetName: asset.displayName,
-                                                                                    assetShort: asset.gatewayId ?? asset.displayName,
-                                                                                    minAmount: min,
-                                                                                    icon: asset.icon)
-                            subscribe.onNext(ResponseType(output: displayInfo, error: nil))
-                        }
-                        else {
-                            subscribe.onNext(ResponseType(output: nil, error: error))
-                        }
-                    })
-                }
-                else {
-                    subscribe.onNext(ResponseType(output: nil, error: error))
-                }
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
+          
+            guard let owner = self else { return Observable.empty() }
+            
+            let tunnel = owner.coinomatRepository.tunnelInfo(currencyFrom: currencyFrom,
+                                                             currencyTo: currencyTo,
+                                                             walletTo: wallet.address,
+                                                             moneroPaymentID: nil)
+            let rate = owner.coinomatRepository.getRate(asset: asset)
+            return Observable.zip(tunnel, rate)
+                .flatMap({ (tunnel, rate) ->  Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
+                
+                    let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(address: tunnel.address,
+                                                                            assetName: asset.displayName,
+                                                                            assetShort: currencyFrom,
+                                                                            minAmount: rate.min,
+                                                                            icon: asset.icon)
+                    return Observable.just(ResponseType(output: displayInfo, error: nil))
             })
-            
-            return Disposables.create()
         })
-    }
-    
-    private func getMinAmount(asset: DomainLayer.DTO.Asset, complete:@escaping(_ minAmount: Money?, _ error: NetworkError?) -> Void) {
-        
-        let params = ["f" : asset.wavesId ?? "",
-                      "t" : asset.gatewayId ?? ""]
-        
-        //TODO: need change to Observer network
-        NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.getRate, parameters: params) { (info, error) in
-            
-            var min: Money?
-            
-            if let json = info {
-                min = Money(value: Decimal(json["in_min"].doubleValue), asset.precision)
+        .catchError({ (error) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
+            if let networkError = error as? NetworkError {
+                return Observable.just(ResponseType(output: nil, error: networkError))
             }
             
-            complete(min, error)
-        }
+            return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
+        })
     }
-    
-  
-    private func getAddress(asset: DomainLayer.DTO.Asset, complete:@escaping(_ address: String?, _ error: NetworkError?) -> Void) {
-    
-        auth.authorizedWallet().subscribe(onNext: { signedWallet in
-
-            let params = ["currency_from" : asset.gatewayId ?? "",
-                          "currency_to" : asset.wavesId ?? "",
-                          "wallet_to" : signedWallet.address]
-            
-            //TODO: need change to Observer network
-            NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.createTunnel, parameters: params, complete: { (info, error) in
-                
-                guard let tunnel = info else {
-                    complete(nil, error)
-                    return
-                }
-                
-                let params = ["xt_id" : tunnel["tunnel_id"].stringValue,
-                              "k1" : tunnel["k1"].stringValue,
-                              "k2": tunnel["k2"].stringValue,
-                              "history" : 0] as [String: Any]
-                
-                NetworkManager.getRequestWithUrl(GlobalConstants.Coinomat.getTunnel, parameters: params, complete: { (info, error) in
-                    
-                    guard let info = info else {
-                        complete(nil, error)
-                        return
-                    }
-                    
-                    let json = info["tunnel"]
-                    complete(json["wallet_from"].stringValue, nil)
-                })
-            })
-            
-        }).disposed(by: disposeBag)
-    }
-    
 }

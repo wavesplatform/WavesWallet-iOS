@@ -8,75 +8,67 @@
 
 import Foundation
 import RxSwift
-import SwiftyJSON
 import Moya
+
+private enum Constants {
+    static let maxPercent: Float = 99.99
+}
 
 final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
  
     private let account = FactoryInteractors.instance.accountBalance
-    private let disposeBag = DisposeBag()
+    private let orderBookRepository = FactoryRepositories.instance.dexOrderBookRepository
+    private let lastTradesRepository = FactoryRepositories.instance.lastTradesRespository
     private let auth = FactoryInteractors.instance.authorization
-    private let accountEnvironment = FactoryRepositories.instance.environmentRepository
-    private let apiProvider: MoyaProvider<API.Service.Transactions> = .init(plugins: [SweetNetworkLoggerPlugin(verbose: true)])
-
+    
     var pair: DexTraderContainer.DTO.Pair!
     
-    func displayInfo() -> Observable<(DexOrderBook.DTO.DisplayData)> {
+    func displayInfo() -> Observable<DexOrderBook.DTO.DisplayData> {
 
-        return Observable.create({ [weak self] (subscribe) -> Disposable in
+        
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DexOrderBook.DTO.DisplayData> in
+            guard let owner = self else { return Observable.empty() }
             
-            guard let owner = self else { return Disposables.create() }
+            let header = DexOrderBook.ViewModel.Header(amountName: owner.pair.amountAsset.name,
+                                                       priceName: owner.pair.priceAsset.name,
+                                                       sumName: owner.pair.priceAsset.name)
             
-            let header = DexOrderBook.ViewModel.Header(amountName: owner.pair.amountAsset.name, priceName: owner.pair.priceAsset.name, sumName: owner.pair.priceAsset.name)
-
             let emptyDisplayData = DexOrderBook.DTO.DisplayData(asks: [],
-                                                                lastPrice: DexOrderBook.DTO.LastPrice.empty(decimals: owner.pair.priceAsset.decimals),
+                                                                lastPrice: owner.lastPrice,
                                                                 bids: [],
                                                                 header: header,
-                                                                availablePriceAssetBalance: Money(0 ,owner.pair.priceAsset.decimals),
+                                                                availablePriceAssetBalance: Money(0, owner.pair.priceAsset.decimals),
                                                                 availableAmountAssetBalance: Money(0, owner.pair.amountAsset.decimals),
                                                                 availableWavesBalance: Money(0, GlobalConstants.WavesDecimals))
-
-            Observable.zip(owner.account.balances(),
-                           owner.getLastTransactionInfo())
-                .subscribe(onNext: { [weak self] (balances, lastTransaction) in
-
-                    guard let owner = self else { return }
-
-                    //TODO: need move to repository
-                    let url = GlobalConstants.Matcher.orderBook(owner.pair.amountAsset.id, owner.pair.priceAsset.id)
-                    
-                    NetworkManager.getRequestWithUrl(url, parameters: nil, complete: { (info, error) in
-                        
-                        if let info = info {
-                            let displayData = owner.getDisplayData(info: info,
-                                                                   lastTransactionInfo: lastTransaction,
-                                                                   header: header, balances: balances)
-                            subscribe.onNext(displayData)
-                        }
-                        else {
-                            subscribe.onNext(emptyDisplayData)
-                        }
-                        subscribe.onCompleted()
-                    })
-                    
-                }, onError: { (error) in
-                    subscribe.onNext(emptyDisplayData)
-                    subscribe.onCompleted()
-                }).disposed(by: owner.disposeBag)
-            
-            return Disposables.create()
+            return Observable.zip(owner.account.balances(),
+                                  owner.getLastTransactionInfo(),
+                                  owner.orderBookRepository.orderBook(wallet: wallet,
+                                                                      amountAsset: owner.pair.amountAsset.id,
+                                                                      priceAsset: owner.pair.priceAsset.id))
+                .flatMap({ [weak self] (balances, lastTransaction, orderBook) -> Observable<DexOrderBook.DTO.DisplayData> in
+                    guard let owner = self else { return Observable.empty() }
+                    return Observable.just(owner.getDisplayData(info: orderBook,
+                                                                lastTransactionInfo: lastTransaction,
+                                                                header: header,
+                                                                balances: balances))
+                })
+                .catchError({ (error) -> Observable<DexOrderBook.DTO.DisplayData> in
+                    return Observable.just(emptyDisplayData)
+                })
         })
     }
-    
 }
 
 private extension DexOrderBookInteractor {
     
-    func getDisplayData(info: JSON, lastTransactionInfo: API.DTO.ExchangeTransaction?, header: DexOrderBook.ViewModel.Header, balances: [DomainLayer.DTO.SmartAssetBalance]) -> DexOrderBook.DTO.DisplayData {
+    var lastPrice: DexOrderBook.DTO.LastPrice {
+        return DexOrderBook.DTO.LastPrice.empty(decimals: pair.priceAsset.decimals)
+    }
+    
+    func getDisplayData(info: DomainLayer.DTO.Dex.OrderBook, lastTransactionInfo: DomainLayer.DTO.Dex.LastTrade?, header: DexOrderBook.ViewModel.Header, balances: [DomainLayer.DTO.SmartAssetBalance]) -> DexOrderBook.DTO.DisplayData {
        
-        let itemsBids = info["bids"].arrayValue
-        let itemsAsks = info["asks"].arrayValue
+        let itemsBids = info.bids
+        let itemsAsks = info.asks
         
         var bids: [DexOrderBook.DTO.BidAsk] = []
         var asks: [DexOrderBook.DTO.BidAsk] = []
@@ -84,13 +76,13 @@ private extension DexOrderBookInteractor {
         var totalSumBid: Decimal = 0
         var totalSumAsk: Decimal = 0
         
-        let maxAmount = (itemsAsks + itemsBids).map({$0["amount"].int64Value}).max() ?? 0
+        let maxAmount = (itemsAsks + itemsBids).map({$0.amount}).max() ?? 0
         let maxAmountValue = Money(maxAmount, pair.amountAsset.decimals).floatValue
         
         for item in itemsBids {
 
-            let price = DexList.DTO.price(amount: item["price"].int64Value, amountDecimals: pair.amountAsset.decimals, priceDecimals: pair.priceAsset.decimals)
-            let amount = Money(item["amount"].int64Value, pair.amountAsset.decimals)
+            let price = Money.price(amount: item.price, amountDecimals: pair.amountAsset.decimals, priceDecimals: pair.priceAsset.decimals)
+            let amount = Money(item.amount, pair.amountAsset.decimals)
             
             totalSumBid += price.decimalValue * amount.decimalValue
             
@@ -106,8 +98,8 @@ private extension DexOrderBookInteractor {
         
         for item in itemsAsks {
             
-            let price = DexList.DTO.price(amount: item["price"].int64Value, amountDecimals: pair.amountAsset.decimals, priceDecimals: pair.priceAsset.decimals)
-            let amount = Money(item["amount"].int64Value, pair.amountAsset.decimals)
+            let price = Money.price(amount: item.price, amountDecimals: pair.amountAsset.decimals, priceDecimals: pair.priceAsset.decimals)
+            let amount = Money(item.amount, pair.amountAsset.decimals)
             
             totalSumAsk += price.decimalValue * amount.decimalValue
 
@@ -130,14 +122,12 @@ private extension DexOrderBookInteractor {
                 let askValue = ask.price.decimalValue
                 let bidValue = bid.price.decimalValue
                 
-                percent = ((askValue - bidValue) * 100 / bidValue).floatValue
+                percent = min(((askValue - bidValue) * 100 / bidValue).floatValue, Constants.maxPercent) 
             }
             
-            let type: Dex.DTO.OrderType = tx.orderType == .sell ? .sell : .buy
+            let type: DomainLayer.DTO.Dex.OrderType = tx.type == .sell ? .sell : .buy
             
-            let price = Money(value: Decimal(tx.price), pair.priceAsset.decimals)
-            
-            lastPrice = DexOrderBook.DTO.LastPrice(price: price, percent: percent, orderType: type)
+            lastPrice = DexOrderBook.DTO.LastPrice(price: tx.price, percent: percent, orderType: type)
         }
         
         var amountAssetBalance =  Money(0, pair.amountAsset.decimals)
@@ -162,29 +152,18 @@ private extension DexOrderBookInteractor {
                                             availableWavesBalance: wavesBalance)
     }
     
-    func getLastTransactionInfo() -> Observable<API.DTO.ExchangeTransaction?> {
+    func getLastTransactionInfo() -> Observable<DomainLayer.DTO.Dex.LastTrade?> {
         
-        //TODO: Need move to repository
-        let filters = API.Query.ExchangeFilters(matcher: nil, sender: nil, timeStart: nil, timeEnd: nil,
-                                                amountAsset: pair.amountAsset.id,
-                                                priceAsset: pair.priceAsset.id,
-                                                after: nil,
-                                                limit: 1)
-        
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(DateFormatter.iso())
-
-        return apiProvider.rx.request(.init(kind: .getExchangeWithFilters(filters), environment: Environments.current),
-                                            callbackQueue: DispatchQueue.global(qos: .background))
-            .filterSuccessfulStatusAndRedirectCodes()
-            .asObservable()
-            .catchError({ (error) -> Observable<Response> in
-                return Observable.error(NetworkError.error(by: error))
-            })
-            .map(API.Response<[API.Response<API.DTO.ExchangeTransaction>]>.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
-            .map { $0.data.map { $0.data } }
-            .flatMap({ (transactions) -> Observable<API.DTO.ExchangeTransaction?> in
-                return Observable.just(transactions.first)
-            })
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DomainLayer.DTO.Dex.LastTrade?> in
+            guard let owner = self else { return Observable.empty() }
+            return owner.lastTradesRepository.lastTrades(accountAddress: wallet.address,
+                                                         amountAsset: owner.pair.amountAsset,
+                                                         priceAsset: owner.pair.priceAsset,
+                                                         limit: 1)
+                .flatMap({ (lastTrades) ->  Observable<DomainLayer.DTO.Dex.LastTrade?> in
+                    return Observable.just(lastTrades.first)
+                })
+        })
+      
     }
 }
