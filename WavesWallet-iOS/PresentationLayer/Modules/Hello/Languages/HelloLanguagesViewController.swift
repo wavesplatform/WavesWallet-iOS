@@ -46,8 +46,8 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        
+        navigationItem.isNavigationBarHidden = true
+
         tableView.showsVerticalScrollIndicator = false
         continueBtn.alpha = 0
         gradientView.alpha = 0

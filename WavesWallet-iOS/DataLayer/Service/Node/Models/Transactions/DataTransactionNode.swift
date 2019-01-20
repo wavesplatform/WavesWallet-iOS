@@ -32,7 +32,7 @@ extension Node.DTO {
         let senderPublicKey: String
         let fee: Int64
         let timestamp: Int64
-        let height: Int64
+        let height: Int64?
         let version: Int
 
         let proofs: [String]?

@@ -129,8 +129,8 @@ final class AddressInputView: UIView, NibOwnerLoadable {
         
         CameraAccess.requestAccess(success: { [weak self] in
                 self?.showScanner()
-            }, failure: { [weak self] in
-                let alert = CameraAccess.alertController
+        }, failure: { [weak self] in
+            let alert = CameraAccess.alertController
             self?.firstAvailableViewController().present(alert, animated: true, completion: nil)
         })
     }
