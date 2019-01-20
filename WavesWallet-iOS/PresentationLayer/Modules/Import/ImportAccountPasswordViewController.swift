@@ -43,6 +43,16 @@ final class ImportAccountPasswordViewController: UIViewController {
 
         setupTextField()
         setupButtonContinue()
+        
+        accountTextField.changedValue = { [weak self] (_, _) in
+            self?.setupButtonContinue()
+        }
+        passwordTextField.changedValue = { [weak self] (_, _) in
+            self?.setupButtonContinue()
+        }
+        confirmPasswordTextField.changedValue = { [weak self] (_, _) in
+            self?.setupButtonContinue()
+        }
     }
 
     override func viewDidLayoutSubviews() {
@@ -58,6 +68,7 @@ final class ImportAccountPasswordViewController: UIViewController {
     }
 
     private func setupButtonContinue() {
+        buttonContinue.isEnabled = isValidData
         buttonContinue.setTitle(Localizable.Waves.Import.Password.Button.continue, for: .normal)
         buttonContinue.setBackgroundImage(UIColor.submit200.image, for: .disabled)
         buttonContinue.setBackgroundImage(UIColor.submit400.image, for: .normal)
@@ -88,9 +99,15 @@ extension ImportAccountPasswordViewController {
                                                                placeholder: Localizable.Waves.Newaccount.Textfield.Confirmpassword.title))
 
         accountTextField.valueValidator = { value in
-            if (value?.count ?? 0) < GlobalConstants.accountNameMinLimitSymbols {
+            let count = value?.trimmingCharacters(in: .whitespaces).count ?? 0
+
+            if count < GlobalConstants.accountNameMinLimitSymbols {
                 return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
-            } else {
+            }
+            else if count > GlobalConstants.accountNameMaxLimitSymbols {
+                return Localizable.Waves.Newaccount.Textfield.Error.maximumcharacters(GlobalConstants.accountNameMaxLimitSymbols)
+            }
+            else {
                 return nil
             }
         }

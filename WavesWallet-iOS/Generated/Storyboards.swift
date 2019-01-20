@@ -153,7 +153,7 @@ internal enum StoryboardScene {
   internal enum History: StoryboardType {
     internal static let storyboardName = "History"
 
-    internal static let newHistoryViewController = SceneType<WavesWallet_iOS.HistoryViewController>(storyboard: History.self, identifier: "NewHistoryViewController")
+    internal static let historyViewController = SceneType<WavesWallet_iOS.HistoryViewController>(storyboard: History.self, identifier: "HistoryViewController")
   }
   internal enum Import: StoryboardType {
     internal static let storyboardName = "Import"

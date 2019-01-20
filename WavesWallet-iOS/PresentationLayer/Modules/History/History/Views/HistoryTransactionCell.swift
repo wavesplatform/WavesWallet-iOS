@@ -26,7 +26,6 @@ final class HistoryTransactionCell: UITableViewCell, Reusable {
     }
 }
 
-//TODO Model
 extension HistoryTransactionCell: ViewConfiguration {
     
     func update(with model: DomainLayer.DTO.SmartTransaction) {

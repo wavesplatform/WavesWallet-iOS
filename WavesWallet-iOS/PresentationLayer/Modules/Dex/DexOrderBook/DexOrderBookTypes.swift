@@ -65,14 +65,14 @@ extension DexOrderBook.DTO {
     struct LastPrice {
         let price: Money
         let percent: Float
-        let orderType: Dex.DTO.OrderType?
+        let orderType: DomainLayer.DTO.Dex.OrderType?
     }
     
     struct BidAsk {
         let price: Money
         let amount: Money
         let sum: Money
-        let orderType: Dex.DTO.OrderType
+        let orderType: DomainLayer.DTO.Dex.OrderType
         let percentAmount: Float
     }
     

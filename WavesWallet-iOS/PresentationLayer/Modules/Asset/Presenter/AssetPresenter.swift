@@ -69,10 +69,11 @@ final class AssetPresenter: AssetPresenterProtocol {
 
             guard state.displayState.isAppeared == true else { return nil }
             guard state.transactionStatus.isLoading == true else { return nil }
-            
+
             return TransactionsQuery(id: state.displayState.currentAsset.id)
 
         }, effects: { [weak self] query -> Signal<AssetTypes.Event> in
+
             // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
 

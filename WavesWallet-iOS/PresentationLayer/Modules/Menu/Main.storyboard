@@ -119,6 +119,40 @@
                                     <constraint firstItem="LCQ-Rf-qFo" firstAttribute="top" secondItem="ilK-45-L4O" secondAttribute="top" id="u9E-6p-jw5"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XhJ-bg-rcB">
+                                <rect key="frame" x="0.0" y="355" width="268" height="52"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ND-pJ-l0K">
+                                        <rect key="frame" x="14" y="0.0" width="254" height="52"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <inset key="titleEdgeInsets" minX="10" minY="5" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Support Wavesplatform">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="supportWavesplatformTapped:" destination="rNg-bT-bnC" eventType="touchUpInside" id="sc4-Y8-WeY"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FkY-zN-LxJ">
+                                        <rect key="frame" x="24" y="51.5" width="244" height="0.5"/>
+                                        <color key="backgroundColor" red="0.80784313730000001" green="0.81568627449999997" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="lKj-fw-DD0"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="4ND-pJ-l0K" secondAttribute="trailing" id="Gzn-q5-Mab"/>
+                                    <constraint firstAttribute="height" constant="52" id="H9n-qJ-5yF"/>
+                                    <constraint firstAttribute="bottom" secondItem="4ND-pJ-l0K" secondAttribute="bottom" id="Idu-zp-SxA"/>
+                                    <constraint firstItem="FkY-zN-LxJ" firstAttribute="leading" secondItem="XhJ-bg-rcB" secondAttribute="leading" constant="24" id="KyJ-ho-9qE"/>
+                                    <constraint firstItem="4ND-pJ-l0K" firstAttribute="leading" secondItem="XhJ-bg-rcB" secondAttribute="leading" constant="14" id="OH9-iB-P9M"/>
+                                    <constraint firstItem="4ND-pJ-l0K" firstAttribute="top" secondItem="XhJ-bg-rcB" secondAttribute="top" id="XoW-0f-MDg"/>
+                                    <constraint firstAttribute="bottom" secondItem="FkY-zN-LxJ" secondAttribute="bottom" id="pbm-W7-Aoi"/>
+                                    <constraint firstAttribute="trailing" secondItem="FkY-zN-LxJ" secondAttribute="trailing" id="tcp-dX-frZ"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Join the Waves Community" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sek-E8-ecM">
                                 <rect key="frame" x="24" y="451" width="164.5" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -168,14 +202,14 @@
                                             <action selector="twitterTapped:" destination="rNg-bT-bnC" eventType="touchUpInside" id="qLt-Mb-eKk"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZrC-Ln-6jZ" userLabel="fb">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZrC-Ln-6jZ" userLabel="reddit">
                                         <rect key="frame" x="168" y="0.0" width="35" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="35" id="3F2-av-FV8"/>
                                         </constraints>
-                                        <state key="normal" image="menu_facebook"/>
+                                        <state key="normal" image="sReddit28"/>
                                         <connections>
-                                            <action selector="fbTapped:" destination="rNg-bT-bnC" eventType="touchUpInside" id="vVG-U9-HPF"/>
+                                            <action selector="redditTapped:" destination="rNg-bT-bnC" eventType="touchUpInside" id="CJh-dA-76x"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -199,40 +233,6 @@
                                     <constraint firstItem="9mN-Fz-lYw" firstAttribute="bottom" secondItem="8FS-kY-727" secondAttribute="bottom" id="yfK-IL-qev"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XhJ-bg-rcB">
-                                <rect key="frame" x="0.0" y="355" width="320" height="52"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ND-pJ-l0K">
-                                        <rect key="frame" x="14" y="0.0" width="306" height="52"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <inset key="titleEdgeInsets" minX="10" minY="5" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Support Wavesplatform">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="supportWavesplatformTapped:" destination="rNg-bT-bnC" eventType="touchUpInside" id="sc4-Y8-WeY"/>
-                                        </connections>
-                                    </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FkY-zN-LxJ">
-                                        <rect key="frame" x="24" y="51.5" width="296" height="0.5"/>
-                                        <color key="backgroundColor" red="0.80784313730000001" green="0.81568627449999997" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="0.5" id="lKj-fw-DD0"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="4ND-pJ-l0K" secondAttribute="trailing" id="Gzn-q5-Mab"/>
-                                    <constraint firstAttribute="height" constant="52" id="H9n-qJ-5yF"/>
-                                    <constraint firstAttribute="bottom" secondItem="4ND-pJ-l0K" secondAttribute="bottom" id="Idu-zp-SxA"/>
-                                    <constraint firstItem="FkY-zN-LxJ" firstAttribute="leading" secondItem="XhJ-bg-rcB" secondAttribute="leading" constant="24" id="KyJ-ho-9qE"/>
-                                    <constraint firstItem="4ND-pJ-l0K" firstAttribute="leading" secondItem="XhJ-bg-rcB" secondAttribute="leading" constant="14" id="OH9-iB-P9M"/>
-                                    <constraint firstItem="4ND-pJ-l0K" firstAttribute="top" secondItem="XhJ-bg-rcB" secondAttribute="top" id="XoW-0f-MDg"/>
-                                    <constraint firstAttribute="bottom" secondItem="FkY-zN-LxJ" secondAttribute="bottom" id="pbm-W7-Aoi"/>
-                                    <constraint firstAttribute="trailing" secondItem="FkY-zN-LxJ" secondAttribute="trailing" id="tcp-dX-frZ"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -245,7 +245,6 @@
                                 <variation key="heightClass=regular-widthClass=compact" constant="44"/>
                             </constraint>
                             <constraint firstAttribute="trailing" secondItem="RPq-3a-W9U" secondAttribute="trailing" id="BoP-lw-jHt"/>
-                            <constraint firstAttribute="trailing" secondItem="XhJ-bg-rcB" secondAttribute="trailing" id="Bva-Bo-zhR"/>
                             <constraint firstItem="OAc-aH-YeQ" firstAttribute="top" secondItem="nKR-pN-KW3" secondAttribute="bottom" constant="14" id="M0j-qa-H3q"/>
                             <constraint firstItem="XhJ-bg-rcB" firstAttribute="top" secondItem="ilK-45-L4O" secondAttribute="bottom" id="Mzd-gX-v4n"/>
                             <constraint firstItem="RPq-3a-W9U" firstAttribute="leading" secondItem="5sc-o9-ZTD" secondAttribute="leading" constant="21" id="Nx8-J9-jAK"/>
@@ -259,6 +258,7 @@
                             <constraint firstItem="RPq-3a-W9U" firstAttribute="top" secondItem="Sek-E8-ecM" secondAttribute="bottom" constant="12" id="q4k-FD-XuG"/>
                             <constraint firstItem="nPN-mA-v6F" firstAttribute="top" secondItem="OAc-aH-YeQ" secondAttribute="bottom" id="qpx-5f-GaJ"/>
                             <constraint firstItem="Sek-E8-ecM" firstAttribute="leading" secondItem="5sc-o9-ZTD" secondAttribute="leading" constant="24" id="s50-06-ceg"/>
+                            <constraint firstItem="XhJ-bg-rcB" firstAttribute="trailing" secondItem="ilK-45-L4O" secondAttribute="trailing" id="vUX-6W-NWQ"/>
                         </constraints>
                     </view>
                     <connections>
@@ -290,10 +290,10 @@
     </scenes>
     <resources>
         <image name="menu_discord" width="28" height="28"/>
-        <image name="menu_facebook" width="28" height="28"/>
         <image name="menu_git" width="28" height="28"/>
         <image name="menu_tel" width="28" height="28"/>
         <image name="menu_title_logo" width="150" height="34"/>
         <image name="menu_twitter" width="28" height="28"/>
+        <image name="sReddit28" width="28" height="28"/>
     </resources>
 </document>

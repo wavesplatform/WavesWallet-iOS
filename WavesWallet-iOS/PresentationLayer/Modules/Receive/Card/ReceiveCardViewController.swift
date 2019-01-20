@@ -24,6 +24,8 @@ final class ReceiveCardViewController: UIViewController {
     @IBOutlet private weak var labelWarningMinimumAmount: UILabel!
     @IBOutlet private weak var labelWarningInfo: UILabel!
     @IBOutlet private weak var buttonContinue: HighlightedButton!
+    @IBOutlet private weak var activityIndicatorWavesAmount: UIActivityIndicatorView!
+    @IBOutlet private weak var labelAmountWaves: UILabel!
     
     private let sendEvent: PublishRelay<ReceiveCard.Event> = PublishRelay<ReceiveCard.Event>()
     var presenter: ReceiveCardPresenterProtocol!
@@ -32,7 +34,7 @@ final class ReceiveCardViewController: UIViewController {
     private var amountUSDInfo: ReceiveCard.DTO.AmountInfo?
     private var amountEURInfo: ReceiveCard.DTO.AmountInfo?
     private var asset: DomainLayer.DTO.SmartAssetBalance?
-    private var amount: Money = Money(0, ReceiveCard.DTO.fiatDecimals)
+    private var amount: Money = Money(0, GlobalConstants.FiatDecimals)
     private var urlLink = ""
     
     override func viewDidLoad() {
@@ -48,6 +50,7 @@ final class ReceiveCardViewController: UIViewController {
         viewWarning.isHidden = true
         textFieldMoney.moneyDelegate = self
         textFieldMoney.setDecimals(amount.decimals, forceUpdateMoney: false)
+        hideLoadingmountWaves(amount: nil)
     }
 
     @IBAction private func continueTapped(_ sender: Any) {
@@ -66,30 +69,43 @@ final class ReceiveCardViewController: UIViewController {
         
         let actionUSD = UIAlertAction(title: ReceiveCard.DTO.FiatType.usd.text, style: .default) { (action) in
            
-            self.selectedFiat = ReceiveCard.DTO.FiatType.usd
+            if self.selectedFiat == .usd {
+                return
+            }
+           
+            self.selectedFiat = .usd
             self.setupFiatText()
             self.setupButtonState()
             if let amountInfo = self.amountUSDInfo {
+                self.sendEvent.accept(.updateAmountWithUSDFiat)
                 self.setupAmountInfo(amountInfo)
             }
             else {
                 self.sendEvent.accept(.getUSDAmountInfo)
                 self.setupLoadingAmountInfo()
             }
+            self.showLoadingAmountWaves()
         }
         controller.addAction(actionUSD)
         
         let actionEUR = UIAlertAction(title: ReceiveCard.DTO.FiatType.eur.text, style: .default) { (action) in
-            self.selectedFiat = ReceiveCard.DTO.FiatType.eur
+           
+            if self.selectedFiat == .eur {
+                return
+            }
+            
+            self.selectedFiat = .eur
             self.setupFiatText()
             self.setupButtonState()
             if let amountInfo = self.amountEURInfo {
+                self.sendEvent.accept(.updateAmountWithEURFiat)
                 self.setupAmountInfo(amountInfo)
             }
             else {
                 self.sendEvent.accept(.getEURAmountInfo)
                 self.setupLoadingAmountInfo()
             }
+            self.showLoadingAmountWaves()
         }
         controller.addAction(actionEUR)
         present(controller, animated: true, completion: nil)
@@ -136,9 +152,14 @@ private extension ReceiveCardViewController {
                     strongSelf.setupInfo()
 
                 case .didFailGetInfo(let error):
-                  
                     strongSelf.showError(error)
 
+                case .didGetWavesAmount(let amount):
+                    strongSelf.hideLoadingmountWaves(amount: amount)
+                
+                case .didFailGetWavesAmount(let error):
+                    strongSelf.hideLoadingmountWaves(amount: nil)
+                    
                 default:
                     break
                 }
@@ -151,6 +172,11 @@ private extension ReceiveCardViewController {
 //MARK: - MoneyTextFieldDelegate
 extension ReceiveCardViewController: MoneyTextFieldDelegate {
     func moneyTextField(_ textField: MoneyTextField, didChangeValue value: Money) {
+        
+        if amount != value {
+            showLoadingAmountWaves()
+        }
+        
         amount = value
         setupButtonState()
         sendEvent.accept(.updateAmount(value))
@@ -159,6 +185,17 @@ extension ReceiveCardViewController: MoneyTextFieldDelegate {
 
 //MARK: - UI
 private extension ReceiveCardViewController {
+    
+    func hideLoadingmountWaves(amount: Money?) {
+        activityIndicatorWavesAmount.stopAnimating()
+        labelAmountWaves.text = "≈ " + (amount?.displayText ?? "0") + " " + "WAVES"
+    }
+    
+    func showLoadingAmountWaves() {
+        activityIndicatorWavesAmount.isHidden = false
+        activityIndicatorWavesAmount.startAnimating()
+        labelAmountWaves.text = nil
+    }
     
     func setupLoadingAmountInfo() {
         acitivityIndicatorWarning.isHidden = false
@@ -172,8 +209,8 @@ private extension ReceiveCardViewController {
     
     func setupAmountInfo(_ amountInfo: ReceiveCard.DTO.AmountInfo) {
         
-        let minimum = amountInfo.minAmountString + " " + selectedFiat.text
-        let maximum = amountInfo.maxAmountString + " " + selectedFiat.text
+        let minimum = amountInfo.minAmount.displayTextWithoutSpaces + " " + selectedFiat.text
+        let maximum = amountInfo.maxAmount.displayTextWithoutSpaces + " " + selectedFiat.text
         
         labelWarningMinimumAmount.text = Localizable.Waves.Receivecard.Label.minimunAmountInfo(minimum, maximum)
         viewWarning.isHidden = false

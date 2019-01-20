@@ -16,6 +16,7 @@ private enum Constants {
     
     static let defaultZoomScale: CGFloat = 8
     static let deltaRightAxisWidth: CGFloat = 15
+    static let minimumVisibleCandlePosition: CGFloat = -100
 }
 
 final class DexChartHelper {
@@ -245,7 +246,7 @@ extension DexChartHelper {
                 if let trans = candleChartView.rightYAxisRenderer.transformer?.valueToPixelMatrix {
                     var position = CGPoint(x: 0.0, y: CGFloat(entry.close))
                     position = position.applying(trans)
-                    positionY = position.y
+                    positionY = position.y.isFinite ? position.y : Constants.minimumVisibleCandlePosition
                 }
                 
                 if entry.open > entry.close {

@@ -80,15 +80,6 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
         
     }
     
-    // MARK: - Layout
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        
-//        tableView.contentOffset = CGPoint(x: 0, y: 0)
-    }
-    
     // MARK: - Actions
     
     @IBAction func continueWasPressed(_ sender: Any) {

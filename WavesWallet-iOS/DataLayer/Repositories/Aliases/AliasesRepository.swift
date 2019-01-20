@@ -35,7 +35,7 @@ final class AliasesRepository: AliasesRepositoryProtocol {
                     .rx
                     .request(Node.Service.Alias(environment: environment,
                                                 kind: .list(accountAddress: accountAddress)),
-                            callbackQueue: DispatchQueue.global(qos: .background))
+                            callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()
                     .asObservable()
                     .catchError({ (error) -> Observable<Response> in
@@ -73,7 +73,7 @@ final class AliasesRepository: AliasesRepositoryProtocol {
                     .rx
                     .request(Node.Service.Alias(environment: environment,
                                                 kind: .alias(name: name)),
-                            callbackQueue: DispatchQueue.global(qos: .background))
+                            callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()
                     .map([String:String].self)
                     .map({ $0[Constants.addressKey] ?? "" })

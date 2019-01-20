@@ -19,7 +19,7 @@ extension TransferTransaction {
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
-        height = transaction.height
+        height = transaction.height ?? 0
         signature = transaction.signature
         assetId = transaction.assetId
         modified = transaction.modified

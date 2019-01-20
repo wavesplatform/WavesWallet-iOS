@@ -22,7 +22,7 @@ final class DexLastTradesCell: UITableViewCell, Reusable {
 
 extension DexLastTradesCell: ViewConfiguration {
     
-    func update(with model: DomainLayer.DTO.DexLastTrade) {
+    func update(with model: DomainLayer.DTO.Dex.LastTrade) {
 
         labelTime.text = DexLastTrades.ViewModel.dateFormatter.string(from: model.time)
         labelPrice.text = model.price.displayText
