@@ -90,7 +90,7 @@ extension Node.Service {
                     case integer(Int64)
                     case boolean(Bool)
                     case string(String)
-                    case binary(StringBase64)
+                    case binary(String)
                 }
 
                 let key: String

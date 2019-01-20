@@ -25,7 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     var appCoordinator: AppCoordinator!
-    var migrationInteractor: MigrationInteractor = MigrationInteractor()
+    let migrationInteractor: MigrationInteractor = MigrationInteractor()
+
+    let testRe: TransactionsRepositoryProtocol = FactoryRepositories.instance.transactionsRepositoryRemote
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
@@ -66,6 +68,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         appCoordinator = AppCoordinator(WindowRouter(window: self.window!))
 
+
+        testRe
+            .feeRules()
+            .subscribe(onNext: { (rules) in
+                print(rules)
+        })
 
         migrationInteractor
             .migration()

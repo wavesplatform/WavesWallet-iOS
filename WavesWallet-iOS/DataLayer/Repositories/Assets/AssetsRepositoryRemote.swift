@@ -75,13 +75,18 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
             }
     }
 
+    func isSmartAsset(_ assetId: String, by accountAddress: String) -> Observable<Bool> {
+        assertMethodDontSupported()
+        return Observable.never()
+    }
+
     func saveAssets(_ assets:[DomainLayer.DTO.Asset], by accountAddress: String) -> Observable<Bool> {
-        assert(true, "Method don't supported")
+        assertMethodDontSupported()
         return Observable.never()
     }
 
     func saveAsset(_ asset: DomainLayer.DTO.Asset, by accountAddress: String) -> Observable<Bool> {
-        assert(true, "Method don't supported")
+        assertMethodDontSupported()
         return Observable.never()
     }
 }
