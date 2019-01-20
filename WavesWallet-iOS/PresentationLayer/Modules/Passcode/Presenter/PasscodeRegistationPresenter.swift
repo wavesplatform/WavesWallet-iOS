@@ -164,11 +164,16 @@ private extension PasscodeRegistationPresenter {
              handlerInputNumbersForRegistration(numbers, state: &state)
 
         case .tapBack:
-            state.displayState.kind = .newPasscode
-            state.displayState.numbers = []
-            state.displayState.isHiddenBackButton = !state.hasBackButton
-            state.displayState.error = nil
-            state.displayState.titleLabel = state.displayState.kind.title()
+
+            if state.displayState.kind == .newPasscode {
+                moduleOutput?.passcodeTapBackButton()
+            } else {
+                state.displayState.kind = .newPasscode
+                state.displayState.numbers = []
+                state.displayState.isHiddenBackButton = !state.hasBackButton
+                state.displayState.error = nil
+                state.displayState.titleLabel = state.displayState.kind.title()
+            }
 
         default:
             break

@@ -25,7 +25,7 @@ final class WalletCoordinator: Coordinator {
         return WalletModuleBuilder(output: self).build()
     }()
 
-    private weak var navigationController: UINavigationController?
+    private var navigationRouter: NavigationRouter
 
     private weak var myAddressVC: UIViewController?
 
@@ -35,14 +35,13 @@ final class WalletCoordinator: Coordinator {
     private let authorization: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let walletsRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
 
-
-    init(navigationController: UINavigationController){
-        self.navigationController = navigationController
+    init(navigationRouter: NavigationRouter){
+        self.navigationRouter = navigationRouter
     }
 
     func start() {
         setupLifeCycleTost()
-        navigationController?.pushViewController(walletViewContoller, animated: false)
+        navigationRouter.pushViewController(walletViewContoller, animated: true, completion: nil)
     }
 
     private func setupLifeCycleTost() {
@@ -58,8 +57,8 @@ final class WalletCoordinator: Coordinator {
     }
 
     private func showBackupTostIfNeed() {
-        guard let navigationController = self.navigationController else { return }
-        let coordinator = BackupTostCoordinator(navigationController: navigationController)
+        let navigationController = self.navigationRouter.navigationController
+        let coordinator = BackupTostCoordinator(navigationRouter: navigationRouter)
         addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
 
@@ -89,13 +88,13 @@ extension WalletCoordinator: WalletModuleOutput {
 
     func showWalletSort(balances: [DomainLayer.DTO.SmartAssetBalance]) {
         let vc = WalletSortModuleBuilder().build(input: balances)
-        navigationController?.pushViewController(vc, animated: true)
+        navigationRouter.pushViewController(vc)
     }
 
     func showMyAddress() {
         let vc = MyAddressModuleBuilder(output: self).build()
         self.myAddressVC = vc
-        navigationController?.pushViewController(vc, animated: true)
+        navigationRouter.pushViewController(vc)
     }
 
     func showAsset(with currentAsset: DomainLayer.DTO.SmartAssetBalance, assets: [DomainLayer.DTO.SmartAssetBalance]) {
@@ -104,28 +103,26 @@ extension WalletCoordinator: WalletModuleOutput {
             .build(input: .init(assets: assets,
                                 currentAsset: currentAsset))
         
-        navigationController?.pushViewController(vc, animated: true)
+        navigationRouter.pushViewController(vc)
     }
 
     func showHistoryForLeasing() {
-        guard let navigationController = navigationController else { return }
 
-        let historyCoordinator = HistoryCoordinator(navigationController: navigationController, historyType: .leasing)
+        let historyCoordinator = HistoryCoordinator(navigationRouter: navigationRouter, historyType: .leasing)
         addChildCoordinatorAndStart(childCoordinator: historyCoordinator)
     }
     
     func showStartLease(availableMoney: Money) {
         
         let controller = StartLeasingModuleBuilder(output: self).build(input: availableMoney)
-        navigationController?.pushViewController(controller, animated: true)
+        navigationRouter.pushViewController(controller)
     }
 
     func showLeasingTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
 
-        guard let navigationController = navigationController else { return }
         let coordinator = TransactionHistoryCoordinator(transactions: transactions,
                                                         currentIndex: index,
-                                                        navigationController: navigationController)
+                                                        router: navigationRouter)
         addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
 }
@@ -136,25 +133,24 @@ extension WalletCoordinator: AssetModuleOutput {
 
     func showSend(asset: DomainLayer.DTO.SmartAssetBalance) {
         let vc = SendModuleBuilder().build(input: .selectedAsset(asset))
-        navigationController?.pushViewController(vc, animated: true)
+        navigationRouter.pushViewController(vc)
     }
     
     func showReceive(asset: DomainLayer.DTO.SmartAssetBalance) {
         let vc = ReceiveContainerModuleBuilder().build(input: asset)
-        navigationController?.pushViewController(vc, animated: true)
+        navigationRouter.pushViewController(vc)
     }
     
     func showHistory(by assetId: String) {
-        guard let navigationController = navigationController else { return }
-        let historyCoordinator = HistoryCoordinator(navigationController: navigationController, historyType: .asset(assetId))
+        let historyCoordinator = HistoryCoordinator(navigationRouter: navigationRouter, historyType: .asset(assetId))
         addChildCoordinatorAndStart(childCoordinator: historyCoordinator)
     }
 
     func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
-        guard let navigationController = navigationController else { return }
+
         let coordinator = TransactionHistoryCoordinator(transactions: transactions,
                                                         currentIndex: index,
-                                                        navigationController: navigationController)
+                                                        router: navigationRouter)
         addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
     
@@ -163,7 +159,7 @@ extension WalletCoordinator: AssetModuleOutput {
         let vc = StoryboardScene.Asset.tokenBurnViewController.instantiate()
         vc.asset = asset
         vc.delegate = delegate
-        navigationController?.pushViewController(vc, animated: true)
+        navigationRouter.pushViewController(vc)
     }
 }
 
@@ -186,7 +182,8 @@ extension WalletCoordinator: StartLeasingModuleOutput {
 
 fileprivate extension AssetModuleBuilder.Input {
 
-    init(assets: [DomainLayer.DTO.SmartAssetBalance], currentAsset: DomainLayer.DTO.SmartAssetBalance) {
+    init(assets: [DomainLayer.DTO.SmartAssetBalance],
+         currentAsset: DomainLayer.DTO.SmartAssetBalance) {
         self.assets = assets.map { .init(asset: $0) }
         self.currentAsset = .init(asset: currentAsset)
     }
@@ -241,9 +238,11 @@ extension WalletCoordinator: MyAddressModuleOutput {
 extension WalletCoordinator: AliasesModuleOutput {
     func aliasesCreateAlias() {
 
-        self.currentPopup?.dismissPopup {
-            let vc = CreateAliasModuleBuilder(output: self).build()
-            self.navigationController?.pushViewController(vc, animated: true)
+        self.currentPopup?.dismissPopup { [weak self] in
+            guard let owner = self else { return }
+
+            let vc = CreateAliasModuleBuilder(output: owner).build()
+            self?.navigationRouter.pushViewController(vc)
         }
     }
 }
@@ -252,9 +251,11 @@ extension WalletCoordinator: AliasesModuleOutput {
 
 extension WalletCoordinator: AliasWithoutViewControllerDelegate {
     func aliasWithoutUserTapCreateNewAlias() {
-        self.currentPopup?.dismissPopup {
-            let vc = CreateAliasModuleBuilder(output: self).build()
-            self.navigationController?.pushViewController(vc, animated: true)
+        self.currentPopup?.dismissPopup { [weak self] in
+            guard let owner = self else { return }
+
+            let vc = CreateAliasModuleBuilder(output: owner).build()
+            self?.navigationRouter.pushViewController(vc)
         }
     }
 }
@@ -264,7 +265,7 @@ extension WalletCoordinator: AliasWithoutViewControllerDelegate {
 extension WalletCoordinator: CreateAliasModuleOutput {
     func createAliasCompletedCreateAlias(_ alias: String) {
         if let myAddressVC = self.myAddressVC {
-            navigationController?.popToViewController(myAddressVC, animated: true)
+            navigationRouter.popToViewController(myAddressVC)
         }
     }
 }
