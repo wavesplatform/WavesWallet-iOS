@@ -13,6 +13,7 @@ import CryptoSwift
 
 fileprivate enum Constants {
     static let maxLimit: Int = 10000
+    static let defaultRules: String = "default"
 }
 
 extension TransactionSenderSpecifications {
@@ -66,6 +67,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
 
     private let transactions: MoyaProvider<Node.Service.Transaction> = .nodeMoyaProvider()
     private let leasingProvider: MoyaProvider<Node.Service.Leasing> = .nodeMoyaProvider()
+    private let transactionRules: MoyaProvider<GitHub.Service.TransactionRules> = .nodeMoyaProvider()
 
     private let environmentRepository: EnvironmentRepositoryProtocol
 
@@ -201,7 +203,50 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
         assertMethodDontSupported()
         return Observable.never()
     }
+
+    func feeRules() -> Observable<DomainLayer.DTO.TransactionFeeRules> {
+        return transactionRules
+            .rx
+            .request(.get)
+            .map(GitHub.DTO.TransactionFeeRules.self)
+            .asObservable()
+            .flatMap({ (txRules) -> Observable<DomainLayer.DTO.TransactionFeeRules> in
+
+                let deffault = txRules.calculate_fee_rules[Constants.defaultRules]
+
+                let rules = TransactionType
+                    .all
+                    .reduce(into: [TransactionType: DomainLayer.DTO.TransactionFeeRules.Rule](), { (result, type) in
+
+                    let rule = txRules.calculate_fee_rules["\(type.rawValue)"]
+
+                    let addSmartAssetFee = (rule?.add_smart_asset_fee ?? deffault?.add_smart_asset_fee) ?? false
+                    let addSmartAccountFee = (rule?.add_smart_account_fee ?? deffault?.add_smart_account_fee) ?? false
+                    let minPriceStep = (rule?.min_price_step ?? deffault?.min_price_step) ?? 0
+                    let fee = (rule?.fee ?? deffault?.fee) ?? 0
+                    let pricePerTransfer = (rule?.price_per_transfer ?? deffault?.price_per_transfer) ?? 0
+                    let pricePerKb = (rule?.price_per_kb ?? deffault?.price_per_kb) ?? 0
+
+                    let newRule = DomainLayer.DTO.TransactionFeeRules.Rule(addSmartAssetFee: addSmartAssetFee,
+                                                                           addSmartAccountFee: addSmartAccountFee,
+                                                                           minPriceStep: minPriceStep,
+                                                                           fee: fee,
+                                                                           pricePerTransfer: pricePerTransfer,
+                                                                           pricePerKb: pricePerKb)
+
+                    result[type] = newRule
+                })
+
+                let newRules = DomainLayer.DTO.TransactionFeeRules(smartAssetExtraFee: txRules.smart_asset_extra_fee,
+                                                                   smartAccountExtraFee: txRules.smart_account_extra_fee,
+                                                                   rules: rules)
+
+                return Observable.just(newRules)
+            })
+    }
 }
+
+
 
 fileprivate extension TransactionSenderSpecifications {
 

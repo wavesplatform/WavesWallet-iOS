@@ -246,6 +246,8 @@
 		0A7CCDB7218A17A9005D372B /* MyAddress.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A7CCDB6218A17A9005D372B /* MyAddress.storyboard */; };
 		0A7E0CD120F2AF6C0010CA6C /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E0CD020F2AF6C0010CA6C /* BaseTargetType.swift */; };
 		0A7E0CD920F2BCFF0010CA6C /* TransactionsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E0CD820F2BCFF0010CA6C /* TransactionsApiService.swift */; };
+		0A84F00121F4BBA000C0B7DB /* AddressRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A84F00021F4BBA000C0B7DB /* AddressRepositoryProtocol.swift */; };
+		0A84F00321F4C68000C0B7DB /* TransactionFeeRulesGitHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A84F00221F4C68000C0B7DB /* TransactionFeeRulesGitHub.swift */; };
 		0A88CBFE2177FE130083874C /* ChangePasswordTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CBFD2177FE130083874C /* ChangePasswordTypes.swift */; };
 		0A88CC02217D217D0083874C /* SpamCSV+Assisstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CC01217D217D0083874C /* SpamCSV+Assisstants.swift */; };
 		0A88CC04217D27370083874C /* AccountSettingsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CC03217D27370083874C /* AccountSettingsRepositoryProtocol.swift */; };
@@ -1109,6 +1111,8 @@
 		0A7CCDB6218A17A9005D372B /* MyAddress.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyAddress.storyboard; sourceTree = "<group>"; };
 		0A7E0CD020F2AF6C0010CA6C /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
 		0A7E0CD820F2BCFF0010CA6C /* TransactionsApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsApiService.swift; sourceTree = "<group>"; };
+		0A84F00021F4BBA000C0B7DB /* AddressRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressRepositoryProtocol.swift; sourceTree = "<group>"; };
+		0A84F00221F4C68000C0B7DB /* TransactionFeeRulesGitHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFeeRulesGitHub.swift; sourceTree = "<group>"; };
 		0A88CBFD2177FE130083874C /* ChangePasswordTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordTypes.swift; sourceTree = "<group>"; };
 		0A88CC01217D217D0083874C /* SpamCSV+Assisstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpamCSV+Assisstants.swift"; sourceTree = "<group>"; };
 		0A88CC03217D27370083874C /* AccountSettingsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsRepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -2698,6 +2702,7 @@
 			isa = PBXGroup;
 			children = (
 				0AD83600217A0D25004413E9 /* GitHubService.swift */,
+				0A84F00221F4C68000C0B7DB /* TransactionFeeRulesGitHub.swift */,
 			);
 			path = GitHub;
 			sourceTree = "<group>";
@@ -3053,6 +3058,7 @@
 				0A88CC03217D27370083874C /* AccountSettingsRepositoryProtocol.swift */,
 				0A6AC3E321848920005D2525 /* AliasesRepositoryProtocol.swift */,
 				E9BB724721C2A94000B2AF7E /* CoinomatRepositoryProtocol.swift */,
+				0A84F00021F4BBA000C0B7DB /* AddressRepositoryProtocol.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -5125,6 +5131,7 @@
 				0A3FE8BE2137007500DBF4E1 /* LeaseCancelTransactionNode.swift in Sources */,
 				0A5E4BB12138034500E3C3C3 /* LeaseCancelTransaction.swift in Sources */,
 				0A485EA02100B0BD00079B49 /* LeaseTransaction.swift in Sources */,
+				0A84F00121F4BBA000C0B7DB /* AddressRepositoryProtocol.swift in Sources */,
 				0ADD7FD621F22FB60075FC59 /* DateUtil.swift in Sources */,
 				0A5E4BD1213820C500E3C3C3 /* LeaseTransactionDomainDTO.swift in Sources */,
 				0A88CC08217D281F0083874C /* AccountEnvironmentRepository.swift in Sources */,
@@ -5352,6 +5359,7 @@
 				0A96F1D12151B6B5005E148F /* PasscodeNumberButton.swift in Sources */,
 				E9F9A279218535A200FD68D7 /* DexAssetPair.swift in Sources */,
 				E9B087EB2163886800937644 /* DexLastTradesModuleOutput.swift in Sources */,
+				0A84F00321F4C68000C0B7DB /* TransactionFeeRulesGitHub.swift in Sources */,
 				E9B0879B2163886800937644 /* DexChartAxisFormatters.swift in Sources */,
 				E9B087C42163886800937644 /* DexTraderContainerModuleBuilder.swift in Sources */,
 				0A762D9721639FCC0019D447 /* WavesButton.swift in Sources */,

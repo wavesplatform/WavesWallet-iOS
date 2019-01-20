@@ -129,7 +129,7 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
                             guard let tx = txs.first else { return Observable.error(TransactionsInteractorError.invalid) }
                             return Observable.just(tx)
                         })
-                }).sweetDebug("Send tx")
+                })
     }
 
     func activeLeasingTransactionsSync(by accountAddress: String) -> SmartTransactionsSyncObservable {
@@ -550,8 +550,7 @@ fileprivate extension TransactionsInteractor {
 
         var newTxs = transactionsRepositoryLocal
             .newTransactions(by: query.accountAddress, specifications: query.specifications)
-            .skip(1)
-            .sweetDebugWithoutResponse("Local")
+            .skip(1)            
 
         newTxs = Observable.merge(Observable.just([]), newTxs)
 
