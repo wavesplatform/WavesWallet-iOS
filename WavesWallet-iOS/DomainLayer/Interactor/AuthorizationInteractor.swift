@@ -318,7 +318,7 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
         return self.verifyAccessWalletUsingPasscode(passcode, wallet: wallet)
             .sweetDebug("Verify acccess")
 
-            .flatMap({ [weak self] keyForPassword -> Observable<DomainLayer.DTO.WalletEncryption> in
+            .flatMap({ [weak self] _ -> Observable<DomainLayer.DTO.WalletEncryption> in
                 guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
                 return owner.localWalletRepository.walletEncryption(by: wallet.publicKey)
             })
@@ -337,10 +337,12 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
             .sweetDebug("Create ChangePasswordData")
 
             .flatMap { [weak self] (seed, passwordData) -> Observable<ChangePasswordData> in
-
+                //I dont use model seed. After migration first version, seed dont have address :(
                 guard let owner = self else { return Observable.never() }
                 return owner.localWalletSeedRepository
-                    .saveSeed(for: seed,
+                    .saveSeed(for: DomainLayer.DTO.WalletSeed(publicKey: passwordData.wallet.publicKey,
+                                                              seed: seed.seed,
+                                                              address: passwordData.wallet.address),
                               seedId: passwordData.seedId,
                               password: passwordData.password)
                     .map { _ in passwordData }
@@ -1133,14 +1135,14 @@ extension LAError {
              LAError.authenticationFailed:
             return AuthorizationInteractorError.biometricUserCancel
 
-        case LAError.biometryLockout:
+        case LAError.biometryLockout,
+             LAError.touchIDLockout:
             return AuthorizationInteractorError.biometricLockout
 
         case LAError.userFallback:
             return AuthorizationInteractorError.biometricUserFallback
 
-        case LAError.touchIDLockout,
-             LAError.touchIDNotEnrolled,
+        case LAError.touchIDNotEnrolled,
              LAError.touchIDNotAvailable,
              LAError.biometryNotEnrolled,
              LAError.biometryNotAvailable,

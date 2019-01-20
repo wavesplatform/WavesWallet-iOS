@@ -8,7 +8,6 @@
 
 import Foundation
 import RealmSwift
-import SwiftyJSON
 
 final class DexAsset: Object {
     @objc dynamic var id: String = ""
@@ -33,7 +32,7 @@ final class DexAssetPair: Object {
     @objc dynamic var isGeneral: Bool = false
     @objc dynamic var sortLevel: Int = 0
 
-    convenience init(id: String, amountAsset: Dex.DTO.Asset, priceAsset: Dex.DTO.Asset, isGeneral: Bool, sortLevel: Int) {
+    convenience init(id: String, amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, isGeneral: Bool, sortLevel: Int) {
         self.init()
         self.id = id
         self.amountAsset = DexAsset(id: amountAsset.id, name: amountAsset.name, shortName: amountAsset.shortName, decimals: amountAsset.decimals)

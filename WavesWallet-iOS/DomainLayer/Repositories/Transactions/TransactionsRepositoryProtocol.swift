@@ -118,12 +118,21 @@ struct DataTransactionSender {
     let data: [Value]
 }
 
+struct SendTransactionSender {
+    let recipient: String
+    let assetId: String
+    let amount: Int64
+    let fee: Int64
+    let attachment: String
+}
+
 enum TransactionSenderSpecifications {
     case createAlias(AliasTransactionSender)
     case lease(LeaseTransactionSender)
     case burn(BurnTransactionSender)
     case cancelLease(CancelLeaseTransactionSender)
     case data(DataTransactionSender)
+    case send(SendTransactionSender)
 }
 
 protocol TransactionsRepositoryProtocol {

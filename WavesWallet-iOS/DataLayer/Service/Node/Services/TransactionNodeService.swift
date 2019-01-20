@@ -30,7 +30,9 @@ fileprivate enum Constants {
     static let assetId: String = "assetId"
     static let leaseId: String = "leaseId"
     static let data: String = "data"
-
+    static let feeAssetId: String = "feeAssetId"
+    static let feeAsset: String = "feeAsset"
+    static let attachment: String = "attachment"
 }
 
 extension Node.Service {
@@ -104,12 +106,28 @@ extension Node.Service {
             let data: [Value]
         }
 
+        struct Send {
+            let type: Int
+            let version: Int
+            let recipient: String
+            let assetId: String
+            let amount: Int64
+            let fee: Int64
+            let attachment: String
+            let feeAssetId: String = ""
+            let feeAsset: String = ""
+            let timestamp: Int64
+            let senderPublicKey: String
+            let proofs: [String]
+        }
+
         enum BroadcastSpecification {
             case createAlias(Alias)
             case startLease(Lease)
             case cancelLease(LeaseCancel)
             case burn(Burn)
             case data(Data)
+            case send(Send)
             
             var params: [String: Any] {
                 switch self {
@@ -155,6 +173,7 @@ extension Node.Service {
                              Constants.proofs: lease.proofs,
                              Constants.type: lease.type,
                              Constants.leaseId: lease.leaseId]
+
                 case .data(let data):
 
                     return  [Constants.version: data.version,
@@ -164,6 +183,21 @@ extension Node.Service {
                              Constants.proofs: data.proofs,
                              Constants.type: data.type,
                              Constants.data: data.data.dataByParams]
+                    
+                case .send(let model):
+                    
+                    return [Constants.type: model.type,
+                            Constants.senderPublicKey : model.senderPublicKey,
+                            Constants.fee: model.fee,
+                            Constants.timestamp: model.timestamp,
+                            Constants.proofs: model.proofs,
+                            Constants.version: model.version,
+                            Constants.recipient: model.recipient,
+                            Constants.assetId: model.assetId,
+                            Constants.feeAssetId: model.feeAssetId,
+                            Constants.feeAsset: model.feeAsset,
+                            Constants.amount: model.amount,
+                            Constants.attachment: model.attachment]
                 }
             }
         }

@@ -10,7 +10,7 @@ import UIKit
 
 protocol LegalModuleOutput: AnyObject {
     
-    func showViewController(viewController: UIViewController)
+    func legalDidShowTermsController(viewController: UIViewController)
 
     func legalConfirm()
 }

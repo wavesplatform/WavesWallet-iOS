@@ -39,7 +39,6 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
             return state.isNeedCreateOrder ? state : nil
         }, effects: { [weak self] ss -> Signal<DexCreateOrder.Event> in
             
-            // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
             guard let order = ss.order else { return Signal.empty() }
 

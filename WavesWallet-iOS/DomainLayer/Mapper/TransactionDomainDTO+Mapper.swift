@@ -26,6 +26,12 @@ fileprivate enum TransactionDirection {
     }
 }
 
+private enum Constants {
+    static let key = "key"
+    static let type = "type"
+    static let value = "value"
+}
+
 // MARK: UnrecognisedTransaction
 
 extension Int64 {
@@ -176,7 +182,7 @@ extension DomainLayer.DTO.TransferTransaction {
                      timestamp: Date(milliseconds: timestamp),
                      totalFee: feeBalance,
                      height: height,
-                     confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
+                     confirmationHeight: totalHeight.confirmationHeight(txHeight: height ?? 0),
                      sender: sender,
                      status: metaData.status)
     }
@@ -547,12 +553,11 @@ extension DomainLayer.DTO.DataTransaction {
         let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
 
-        //TODO: Constants
         let list = data.map { data -> [String: String] in
             var map = [String: String]()
-            map["key"] = data.key
-            map["type"] = data.type
-            map["value"] = data.value.toString
+            map[Constants.key] = data.key
+            map[Constants.type] = data.type
+            map[Constants.value] = data.value.toString
             return map
         }
 
