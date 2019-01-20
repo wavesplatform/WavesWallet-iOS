@@ -19,7 +19,7 @@ extension DataTransaction {
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
-        height = transaction.height
+        height = transaction.height ?? -1
         modified = transaction.modified
 
         if let proofs = transaction.proofs {
