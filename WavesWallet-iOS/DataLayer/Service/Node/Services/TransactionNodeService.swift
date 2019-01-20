@@ -29,6 +29,7 @@ fileprivate enum Constants {
     static let quantity: String = "quantity"
     static let assetId: String = "assetId"
     static let leaseId: String = "leaseId"
+    static let data: String = "data"
     static let feeAssetId: String = "feeAssetId"
     static let feeAsset: String = "feeAsset"
     static let attachment: String = "attachment"
@@ -83,6 +84,28 @@ extension Node.Service {
             let proofs: [String]
         }
 
+        struct Data {
+            struct Value {
+                enum Kind {
+                    case integer(Int64)
+                    case boolean(Bool)
+                    case string(String)
+                    case binary(StringBase64)
+                }
+
+                let key: String
+                let value: Kind
+            }
+
+            let type: Int
+            let version: Int
+            let fee: Int64
+            let timestamp: Int64
+            let senderPublicKey: String
+            let proofs: [String]
+            let data: [Value]
+        }
+
         struct Send {
             let type: Int
             let version: Int
@@ -97,12 +120,13 @@ extension Node.Service {
             let senderPublicKey: String
             let proofs: [String]
         }
-        
+
         enum BroadcastSpecification {
             case createAlias(Alias)
             case startLease(Lease)
             case cancelLease(LeaseCancel)
             case burn(Burn)
+            case data(Data)
             case send(Send)
             
             var params: [String: Any] {
@@ -149,6 +173,16 @@ extension Node.Service {
                              Constants.proofs: lease.proofs,
                              Constants.type: lease.type,
                              Constants.leaseId: lease.leaseId]
+
+                case .data(let data):
+
+                    return  [Constants.version: data.version,
+                             Constants.senderPublicKey: data.senderPublicKey,
+                             Constants.fee: data.fee,
+                             Constants.timestamp: data.timestamp,
+                             Constants.proofs: data.proofs,
+                             Constants.type: data.type,
+                             Constants.data: data.data.dataByParams]
                     
                 case .send(let model):
                     
@@ -223,5 +257,50 @@ extension Node.Service.Transaction: NodeTargetType {
         case .broadcast(let specification):
             return .requestParameters(parameters: specification.params, encoding: JSONEncoding.default)
         }
+    }
+}
+
+fileprivate extension Array where Element == Node.Service.Transaction.Data.Value {
+
+    var dataByParams: [[String: Any]] {
+
+        var list: [[String: Any]] = .init()
+
+        for value in self {
+            list.append(value.params())
+        }
+
+        return list
+    }
+}
+
+fileprivate extension Node.Service.Transaction.Data.Value {
+
+
+    func params() -> [String: Any] {
+
+        var params: [String: Any] = .init()
+
+        params["key"] = self.key
+
+        switch self.value {
+            case .integer(let number):
+                params["type"] = "integer"
+                params["value"] = number
+
+            case .boolean(let flag):
+                params["type"] = "boolean"
+                params["value"] = flag
+
+            case .string(let txt):
+                params["type"] = "string"
+                params["value"] = txt
+
+            case .binary(let binary):
+                params["type"] = "binary"
+                params["value"] = binary
+        }
+
+        return params
     }
 }

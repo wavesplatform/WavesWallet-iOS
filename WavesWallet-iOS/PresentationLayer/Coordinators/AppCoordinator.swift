@@ -13,7 +13,12 @@ import RESideMenu
 import RxOptional
 
 private enum Contants {
+
+    #if DEBUG
+    static let delay: TimeInterval = 0
+    #else
     static let delay: TimeInterval = 10
+    #endif
 }
 
 struct Application: TSUD {
@@ -42,20 +47,14 @@ final class AppCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private let window: UIWindow
+    private let windowRouter: WindowRouter
 
     private let authoAuthorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let disposeBag: DisposeBag = DisposeBag()
     private var isActiveApp: Bool = false
 
-    init(_ window: UIWindow) {
-        self.window = window
-        let vc = UINavigationController()
-        vc.navigationBar.isHidden = true
-        let root = UIViewController()
-        vc.pushViewController(root, animated: false)
-        window.rootViewController = vc
-        window.makeKeyAndVisible()
+    init(_ windowRouter: WindowRouter) {
+        self.windowRouter = windowRouter
     }
 
     func start() {
@@ -71,6 +70,61 @@ final class AppCoordinator: Coordinator {
     private var isMainTabDisplayed: Bool {
         return childCoordinators.first(where: { $0 is MainTabBarCoordinator }) != nil
     }
+}
+
+// MARK: Methods for showing differnt displays
+extension AppCoordinator: PresentationCoordinator {
+
+    enum Display: Equatable {
+        case hello
+        case slide(DomainLayer.DTO.Wallet)
+        case enter
+        case passcode(DomainLayer.DTO.Wallet)
+    }
+
+    func showDisplay(_ display: AppCoordinator.Display) {
+
+        switch display {
+        case .hello:
+
+            let helloCoordinator = HelloCoordinator(windowRouter: windowRouter)
+            helloCoordinator.delegate = self
+            addChildCoordinatorAndStart(childCoordinator: helloCoordinator)
+
+        case .passcode(let wallet):
+
+            guard isHasCoordinator(type: PasscodeLogInCoordinator.self) != true else { return }
+
+            let passcodeCoordinator = PasscodeLogInCoordinator(wallet: wallet, routerKind: .alertWindow)
+            passcodeCoordinator.delegate = self
+
+            addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
+
+        case .slide(let wallet):
+
+            guard isHasCoordinator(type: SlideCoordinator.self) != true else { return }
+
+            let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: wallet)
+            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)            
+
+        case .enter:
+
+            let prevSlideCoordinator = self.childCoordinators.first { (coordinator) -> Bool in
+                return coordinator is SlideCoordinator
+            }
+
+            guard prevSlideCoordinator?.isHasCoordinator(type: EnterCoordinator.self) != true else { return }
+
+            let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: nil)
+            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
+        }
+    }
+}
+
+
+
+// MARK: Main Logic
+extension AppCoordinator  {
 
     private func display(by wallet: DomainLayer.DTO.Wallet?) -> Observable<Display> {
 
@@ -95,7 +149,7 @@ final class AppCoordinator: Coordinator {
                 } else {
                     return Display.passcode(wallet)
                 }
-            }
+        }
     }
 
     private func logInApplication() {
@@ -118,7 +172,7 @@ final class AppCoordinator: Coordinator {
             .just(1)
             .delay(Contants.delay, scheduler: MainScheduler.asyncInstance)
             .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet?> in
-                
+
                 guard let owner = self else { return Observable.never() }
 
                 if owner.isActiveApp == true {
@@ -133,8 +187,8 @@ final class AppCoordinator: Coordinator {
                             guard let owner = self else { return Observable.never() }
 
                             return owner.authoAuthorizationInteractor
-                                    .lastWalletLoggedIn()
-                                    .take(1)
+                                .lastWalletLoggedIn()
+                                .take(1)
                         })
             }
             .share()
@@ -166,12 +220,10 @@ extension AppCoordinator: HelloCoordinatorDelegate  {
     }
 }
 
-// MARK: PasscodeCoordinatorDelegate
-extension AppCoordinator: PasscodeCoordinatorDelegate {
+// MARK: PasscodeLogInCoordinatorDelegate
+extension AppCoordinator: PasscodeLogInCoordinatorDelegate {
 
-    func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {}
-
-    func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {
+    func passcodeCoordinatorLogInCompleted(wallet: DomainLayer.DTO.Wallet) {
         showDisplay(.slide(wallet))
     }
 
@@ -180,57 +232,6 @@ extension AppCoordinator: PasscodeCoordinatorDelegate {
     }
 }
 
-// MARK: Methods for showing differnt displays
-extension AppCoordinator: PresentationCoordinator {
-
-    enum Display: Equatable {
-        case hello
-        case slide(DomainLayer.DTO.Wallet)
-        case enter
-        case passcode(DomainLayer.DTO.Wallet)
-    }
-
-    func showDisplay(_ display: AppCoordinator.Display) {
-
-        switch display {
-        case .hello:
-
-            let helloCoordinator = HelloCoordinator(navigationController: window.rootViewController as! UINavigationController)
-            helloCoordinator.delegate = self
-            addChildCoordinatorAndStart(childCoordinator: helloCoordinator)
-
-        case .passcode(let wallet):
-
-            guard isHasCoordinator(type: PasscodeCoordinator.self) != true else { return }
-
-            let passcodeCoordinator = PasscodeCoordinator(viewController: window.rootViewController!,
-                                                          kind: .logIn(wallet))
-            passcodeCoordinator.animated = false
-            passcodeCoordinator.delegate = self
-
-            addChildCoordinator(childCoordinator: passcodeCoordinator)
-            passcodeCoordinator.start()
-
-        case .slide(let wallet):
-
-            guard isHasCoordinator(type: SlideCoordinator.self) != true else { return }
-
-            let slideCoordinator = SlideCoordinator(window: window, wallet: wallet)
-            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
-
-        case .enter:
-
-            let prevSlideCoordinator = self.childCoordinators.first { (coordinator) -> Bool in
-                return coordinator is SlideCoordinator
-            }
-
-            guard prevSlideCoordinator?.isHasCoordinator(type: EnterCoordinator.self) != true else { return }
-
-            let slideCoordinator = SlideCoordinator(window: window, wallet: nil)
-            addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
-        }
-    }
-}
 
 // MARK: Lifecycle application
 extension AppCoordinator {
@@ -259,13 +260,13 @@ extension AppCoordinator {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGesture(tap:)))
         tapGesture.numberOfTouchesRequired = 2
         tapGesture.numberOfTapsRequired = 2
-        self.window.addGestureRecognizer(tapGesture)
+        self.windowRouter.window.addGestureRecognizer(tapGesture)
     }
 
     @objc func tapGesture(tap: UITapGestureRecognizer) {
         let vc = StoryboardScene.Support.supportViewController.instantiate()
         vc.delegate = self
-        self.window.rootViewController!.present(vc, animated: true, completion: nil)
+        self.windowRouter.window.rootViewController?.present(vc, animated: true, completion: nil)
     }
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -282,7 +283,7 @@ extension AppCoordinator: SupportViewControllerDelegate  {
     
     func closeSupportView(isTestNet: Bool) {
 
-        self.window.rootViewController?.dismiss(animated: true, completion: {
+        self.windowRouter.window.rootViewController?.dismiss(animated: true, completion: {
             if Environments.isTestNet != isTestNet {
 
                 self.authoAuthorizationInteractor
