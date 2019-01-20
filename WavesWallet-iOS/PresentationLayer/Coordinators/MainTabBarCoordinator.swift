@@ -7,29 +7,230 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-final class MainTabBarCoordinator: Coordinator {
+private enum Constants {
+    static let tabBarItemImageInset = UIEdgeInsets.init(top: 0, left: 0, bottom: -8, right: 0)
+}
+
+private class PopoperButtonViewController: UIViewController {}
+
+protocol MainTabBarControllerProtocol {
+    func mainTabBarControllerDidTapTab()
+}
+
+final class MainTabBarCoordinator: NSObject, Coordinator {
 
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private let slideMenuViewController: SlideMenu
-    private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
+    private let slideMenuRouter: SlideMenuRouter
+    private let tabBarRouter: TabBarRouter = {
 
-    init(slideMenuViewController: SlideMenu, applicationCoordinator: ApplicationCoordinatorProtocol?) {
-        self.slideMenuViewController = slideMenuViewController
-        self.applicationCoordinator = applicationCoordinator
-    }
-
-    func start() {
         let mainTabBar = StoryboardScene.Main.mainTabBarController.instantiate()
-        
+
         mainTabBar.tabBar.isTranslucent = false
         mainTabBar.tabBar.barTintColor = .white
         mainTabBar.tabBar.backgroundImage = UIImage()
         mainTabBar.tabBar.shadowImage = UIImage.shadowImage(color: .accent100)
-        
-        mainTabBar.applicationCoordinator = applicationCoordinator
-        self.slideMenuViewController.contentViewController = mainTabBar
+
+        return TabBarRouter(tabBarController: mainTabBar)
+    }()
+
+    private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
+    private let disposeBag = DisposeBag()
+
+    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let walletsRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
+
+    private let navigationRouterWallet: NavigationRouter = {
+
+        let navigation = CustomNavigationController()
+
+        navigation.tabBarItem.image = Images.TabBar.tabBarWallet.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
+        navigation.tabBarItem.selectedImage = Images.TabBar.tabBarWalletActive.image.withRenderingMode(.alwaysOriginal)
+
+        return NavigationRouter(navigationController: navigation)
+    }()
+
+    private let navigationRouterHistory: NavigationRouter = {
+
+        let navigation = CustomNavigationController()
+
+        navigation.tabBarItem.image = Images.TabBar.tabBarHistory.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.selectedImage = Images.TabBar.tabBarHistoryActive.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
+
+        return NavigationRouter(navigationController: navigation)
+    }()
+
+    private let navigationRouterDex: NavigationRouter = {
+
+        let navigation = CustomNavigationController()
+
+        navigation.tabBarItem.image = Images.TabBar.tabBarDex.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.selectedImage = Images.TabBar.tabBarDexActive.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
+
+        return NavigationRouter(navigationController: navigation)
+    }()
+
+    private let navigationRouterProfile: NavigationRouter = {
+
+        let navigation = CustomNavigationController()
+
+        navigation.tabBarItem.image = Images.TabBar.tabBarProfile.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.selectedImage = Images.TabBar.tabBarProfileActive.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
+
+        return NavigationRouter(navigationController: navigation)
+    }()
+
+    private let popoperButton: PopoperButtonViewController = {
+
+        let popoperButton = PopoperButtonViewController()
+        popoperButton.tabBarItem.image = Images.tabbarWavesDefault.image.withRenderingMode(.alwaysOriginal)
+        popoperButton.tabBarItem.imageInsets = Constants.tabBarItemImageInset
+
+        return popoperButton
+    }()
+
+    init(slideMenuRouter: SlideMenuRouter, applicationCoordinator: ApplicationCoordinatorProtocol?) {
+        self.slideMenuRouter = slideMenuRouter
+        self.applicationCoordinator = applicationCoordinator
+        super.init()
+
+        tabBarRouter.setViewControllers([navigationRouterWallet.navigationController,
+                                         navigationRouterHistory.navigationController,
+                                         popoperButton,
+                                         navigationRouterDex.navigationController,
+                                         navigationRouterProfile.navigationController])
+
+        let walletCoordinator = WalletCoordinator(navigationRouter: navigationRouterWallet)
+        addChildCoordinatorAndStart(childCoordinator: walletCoordinator)
+
+        let historyCoordinator = HistoryCoordinator(navigationRouter: navigationRouterHistory, historyType: .all)
+        addChildCoordinatorAndStart(childCoordinator: historyCoordinator)
+
+        let dexListCoordinator = DexCoordinator(navigationRouter: navigationRouterDex)
+        addChildCoordinatorAndStart(childCoordinator: dexListCoordinator)
+
+        let profileCoordinator = ProfileCoordinator(navigationRouter: navigationRouterProfile, applicationCoordinator: applicationCoordinator)
+        addChildCoordinatorAndStart(childCoordinator: profileCoordinator)
     }
+
+    func start() {
+        slideMenuRouter.setContentViewController(tabBarRouter.tabBarController)
+        listenerWallet()
+    }
+}
+
+// MARK: Logic
+
+private extension MainTabBarCoordinator {
+
+    var navProfile: UINavigationController {
+        return navigationRouterProfile.navigationController
+    }
+
+    private func addTabBarBadge() {
+
+        if #available(iOS 10.0, *) {
+            navProfile.tabBarItem.badgeColor = UIColor.clear
+            navProfile.tabBarItem.setBadgeTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([NSAttributedString.Key.foregroundColor.rawValue: UIColor.error400]), for: .normal)
+            navProfile.tabBarItem.badgeValue = "●"
+        } else {
+            navProfile.tabBarItem.badgeValue = "●"
+        }
+    }
+
+    private func removeTabBarBadge() {
+        navProfile.tabBarItem.badgeValue = nil
+    }
+
+    private func listenerWallet() {
+
+        authorizationInteractor
+            .authorizedWallet()
+            .flatMap({ [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
+                guard let strongSelf = self else { return Observable.empty() }
+                return strongSelf.walletsRepository.listenerWallet(by: wallet.wallet.publicKey)
+            })
+            .asDriver(onErrorRecover: { _ in Driver.empty() })
+            .drive(onNext: { [weak self] wallet in
+
+                guard let strongSelf = self else { return }
+
+                if wallet.isBackedUp {
+                    strongSelf.removeTabBarBadge()
+                } else {
+                    strongSelf.addTabBarBadge()
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+}
+
+// MARK: UITabBarControllerDelegate
+
+extension MainTabBarCoordinator: UITabBarControllerDelegate {
+
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+
+        if viewController is PopoperButtonViewController {
+            let vc = StoryboardScene.Waves.wavesPopupViewController.instantiate()
+            vc.moduleOutput = self
+            let popup = PopupViewController()
+            popup.contentHeight = 300
+            popup.present(contentViewController: vc)
+
+            return false
+        }
+
+        //TODO: need to implement more clearly logic
+        if let nav = tabBarController.selectedViewController as? CustomNavigationController,
+            let currentVC = nav.viewControllers.first,
+            let nextNav = viewController as? CustomNavigationController,
+            let nextVC = nextNav.viewControllers.first,
+            currentVC == nextVC,
+            let tabBarProtocol = currentVC as? MainTabBarControllerProtocol {
+
+            tabBarProtocol.mainTabBarControllerDidTapTab()
+        }
+        return true
+    }
+}
+
+// MARK: - WavesPopupModuleOutput
+
+extension MainTabBarCoordinator: WavesPopupModuleOutput {
+
+    private var selectedViewController: UIViewController? {
+        return tabBarRouter.tabBarController.selectedViewController
+    }
+
+    func showSend() {
+        if let nav = selectedViewController as? CustomNavigationController {
+            let vc = SendModuleBuilder().build(input: .empty)
+            nav.pushViewController(vc, animated: true)
+        }
+    }
+
+    func showReceive() {
+
+        if let nav = selectedViewController as? CustomNavigationController {
+            let vc = ReceiveContainerModuleBuilder().build(input: nil)
+            nav.pushViewController(vc, animated: true)
+        }
+    }
+
+    func showExchange() {}
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+    guard let input = input else { return nil }
+    return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }
