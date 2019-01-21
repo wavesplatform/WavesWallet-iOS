@@ -42,8 +42,9 @@ extension Node.Service.Addresses: NodeTargetType {
         switch kind {
         case .getAccountBalance(let id):
             return Constants.addresses + "/" + Constants.balance + "/" + "\(id)".urlEscaped
+
         case .scriptInfo(let id):
-            return Constants.addresses + "/" + Constants.scriptInfo + "\(id)".urlEscaped
+            return Constants.addresses + "/" + Constants.scriptInfo + "/" + "\(id)".urlEscaped
         }
     }
 

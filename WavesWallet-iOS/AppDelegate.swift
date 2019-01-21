@@ -70,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         testRe.calculateFee(by: .lease, accountAddress: "3N3Wk5uWgYSfsWPPyuzyp36jNUxAfNBcxMW").subscribe(onNext: { (money) in
 
-        })
+        }).sweetDebug("Test111")
 
         migrationInteractor
             .migration()

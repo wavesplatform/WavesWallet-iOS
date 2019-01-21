@@ -113,7 +113,7 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
 
     func calculateFee(by transactionSpecs: DomainLayer.Query.TransactionSpecificationType, accountAddress: String) -> Observable<Money> {
 
-        let isSmartAccount = addressRepository.isSmartAddress(accountAddress: accountAddress)
+        let isSmartAccount = addressRepository.isSmartAddress(accountAddress: accountAddress).sweetDebug("isSmartAddress")
         let wavesAsset = assetsInteractors.assetsSync(by: [GlobalConstants.wavesAssetId], accountAddress: accountAddress)
             .flatMap { (asset) -> Observable<DomainLayer.DTO.Asset> in
 
@@ -128,7 +128,7 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
                 } else {
                     return Observable.error(TransactionsInteractorError.invalid)
                 }
-            }
+            }.sweetDebug("assetsSync")
 
         let isSmartAssets = transactionSpecs.assetIds.reduce(into: [Observable<(String,Bool)>]()) { (result, assetId) in
 
@@ -141,7 +141,7 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
             result.append(isSmartAsset)
         }
 
-        let rules = transactionsRepositoryRemote.feeRules()
+        let rules = transactionsRepositoryRemote.feeRules().sweetDebug("feeRules")
 
         return Observable.zip(isSmartAccount, wavesAsset, rules, Observable.zip(isSmartAssets))
             .flatMap { [weak self] (isSmartAccount, wavesAsset, rules, isSmartAssets) -> Observable<Money> in
