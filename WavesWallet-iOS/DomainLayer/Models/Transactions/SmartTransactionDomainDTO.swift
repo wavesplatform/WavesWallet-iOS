@@ -76,6 +76,7 @@ extension DomainLayer.DTO {
             let asset: Asset
             let balance: Balance
             let description: String?
+            let isSmart: Bool
         }
 
         struct MassTransfer {
