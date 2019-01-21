@@ -168,7 +168,8 @@ extension DomainLayer.DTO {
         let smartAssetExtraFee: Int64
         let smartAccountExtraFee: Int64
 
-        let rules: [TransactionType: Rule]
+        let defaultRule: TransactionFeeRules.Rule
+        let rules: [TransactionType: TransactionFeeRules.Rule]
     }
 }
 
