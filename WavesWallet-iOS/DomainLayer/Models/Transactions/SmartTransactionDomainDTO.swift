@@ -129,6 +129,10 @@ extension DomainLayer.DTO {
             case unrecognisedTransaction
 
             case data(Data)
+
+            case setScript(isHasScript: Bool)
+            case setAssetScript(Asset)
+
         }
 
         let id: String
