@@ -21,7 +21,7 @@ extension Node.Service {
 
             /**
              Response:
-             - DomainLayer.DTO
+             - Node.DTO.AssetDetail
              */
             case details(assetId: String)
         }

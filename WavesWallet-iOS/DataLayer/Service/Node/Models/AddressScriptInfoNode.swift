@@ -8,11 +8,11 @@
 
 import Foundation
 
-extension DomainLayer.DTO {
+extension Node.DTO {
 
-    struct AddressScriptInfo {
+    struct AddressScriptInfo: Decodable {
         let address: String
         let complexity: Int64
-        let extraFee: Int64
+        let extraFee: Int64?
     }
 }
