@@ -13,10 +13,12 @@ enum GlobalConstants {
     static let accountNameMinLimitSymbols: Int = 2
     static let accountNameMaxLimitSymbols: Int = 24
     static let minLengthPassword: Int = 2
+    static let minimumSeedLength = 0
     #else
     static let accountNameMinLimitSymbols: Int = 2
     static let accountNameMaxLimitSymbols: Int = 24
     static let minLengthPassword: Int = 6
+    static let minimumSeedLength = 25
     #endif
 
     static let aliasNameMinLimitSymbols: Int = 4
