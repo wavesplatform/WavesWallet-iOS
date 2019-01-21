@@ -13,7 +13,6 @@ import CryptoSwift
 
 fileprivate enum Constants {
     static let maxLimit: Int = 10000
-    static let defaultRules: String = "default"
 }
 
 extension TransactionSenderSpecifications {
@@ -210,9 +209,9 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
             .request(.get)
             .map(GitHub.DTO.TransactionFeeRules.self)
             .asObservable()
-            .flatMap({ (txRules) -> Observable<DomainLayer.DTO.TransactionFeeRules> in
+            .map({ (txRules) -> DomainLayer.DTO.TransactionFeeRules in
 
-                let deffault = txRules.calculate_fee_rules[Constants.defaultRules]
+                let deffault = txRules.calculate_fee_rules[TransactionFeeDefaultRule]
 
                 let rules = TransactionType
                     .all
@@ -237,11 +236,21 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                     result[type] = newRule
                 })
 
+
+                let newDefaultRule = DomainLayer.DTO.TransactionFeeRules.Rule(addSmartAssetFee: deffault?.add_smart_asset_fee ?? false,
+                                                                              addSmartAccountFee: deffault?.add_smart_account_fee ?? false,
+                                                                              minPriceStep: deffault?.min_price_step ?? 0,
+                                                                              fee: deffault?.fee ?? 0,
+                                                                              pricePerTransfer: deffault?.price_per_transfer ?? 0,
+                                                                              pricePerKb: deffault?.price_per_kb ?? 0)
+
+
                 let newRules = DomainLayer.DTO.TransactionFeeRules(smartAssetExtraFee: txRules.smart_asset_extra_fee,
                                                                    smartAccountExtraFee: txRules.smart_account_extra_fee,
+                                                                   defaultRule: newDefaultRule,
                                                                    rules: rules)
 
-                return Observable.just(newRules)
+                return newRules
             })
     }
 }
@@ -353,7 +362,6 @@ fileprivate extension TransactionSenderSpecifications {
             signature += toByteArray(timestamp)
             signature += toByteArray(model.fee)
             return signature
-
 
         case .burn(let model):
 

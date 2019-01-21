@@ -9,9 +9,7 @@
 import Foundation
 import RxSwift
 
-//https://raw.githubusercontent.com/wavesplatform/waves-client-config/master/fee.json
-
 protocol AddressRepositoryProtocol {
 
-    func isSmartAddress(address: String) -> Observable<Bool>
+    func isSmartAddress(accountAddress: String) -> Observable<Bool>
 }

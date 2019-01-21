@@ -16,10 +16,16 @@ enum TransactionsInteractorError: Error {
 
 extension DomainLayer.Query {
     enum TransactionSpecificationType {
+        case createAlias
+        case lease
+        case burn(assetID: String)
+        case cancelLease
         case sendTransaction(assetID: String)
         case createOrder(amountAsset: String, priceAsset: String)
     }
 }
+
+let TransactionFeeDefaultRule: String = "default"
 
 protocol TransactionsInteractorProtocol {
 
@@ -99,12 +105,61 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
 
     private var assetsInteractors: AssetsInteractorProtocol = FactoryInteractors.instance.assetsInteractor
     private var accountsInteractors: AccountsInteractorProtocol = FactoryInteractors.instance.accounts
-    
+
+    private var addressRepository: AddressRepositoryProtocol  = FactoryRepositories.instance.addressRepository
+    private var assetsRepository: AssetsRepositoryProtocol = FactoryRepositories.instance.assetsRepositoryRemote
+
     private var blockRepositoryRemote: BlockRepositoryProtocol = FactoryRepositories.instance.blockRemote
 
     func calculateFee(by transactionSpecs: DomainLayer.Query.TransactionSpecificationType, accountAddress: String) -> Observable<Money> {
-        print("not implemented")
-        return Observable.empty()
+
+        let isSmartAccount = addressRepository.isSmartAddress(accountAddress: accountAddress)
+        let wavesAsset = assetsInteractors.assetsSync(by: [GlobalConstants.wavesAssetId], accountAddress: accountAddress)
+            .flatMap { (asset) -> Observable<DomainLayer.DTO.Asset> in
+
+                if let result = asset.remote?.first {
+                    return Observable.just(result)
+
+                } else if let result = asset.local?.result.first {
+                    return Observable.just(result)
+
+                } else if let error =  asset.error {
+                    return Observable.error(error)
+                } else {
+                    return Observable.error(TransactionsInteractorError.invalid)
+                }
+            }
+
+        let isSmartAssets = transactionSpecs.assetIds.reduce(into: [Observable<(String,Bool)>]()) { (result, assetId) in
+
+            let isSmartAsset = assetsRepository
+                .isSmartAsset(assetId, by: accountAddress)
+                .map({ isSmartAsset -> (String, Bool) in
+                    return (assetId, isSmartAsset)
+                })
+
+            result.append(isSmartAsset)
+        }
+
+        let rules = transactionsRepositoryRemote.feeRules()
+
+        return Observable.zip(isSmartAccount, wavesAsset, rules, Observable.zip(isSmartAssets))
+            .flatMap { [weak self] (isSmartAccount, wavesAsset, rules, isSmartAssets) -> Observable<Money> in
+
+                guard let owner = self else { return Observable.never() }
+
+                let mapSmartAssets = isSmartAssets.reduce(into: [String:Bool](), { (result, isSmartAsset) in
+                    result[isSmartAsset.0] = isSmartAsset.1
+                })
+
+                let money = owner.calculateFee(isSmartAddress: isSmartAccount,
+                                                wavesAsset: wavesAsset,
+                                                rules: rules,
+                                                isSmartAssets: mapSmartAssets,
+                                                type: transactionSpecs)
+
+                return Observable.just(money)
+            }
     }
     
     func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.SmartTransaction> {
@@ -584,10 +639,60 @@ fileprivate extension TransactionsInteractor {
         }
         return accounts
     }
+
+    private func calculateFee(isSmartAddress: Bool,
+                              wavesAsset: DomainLayer.DTO.Asset,
+                              rules: DomainLayer.DTO.TransactionFeeRules,
+                              isSmartAssets: [String: Bool],
+                              type: DomainLayer.Query.TransactionSpecificationType) -> Money {
+
+
+
+        var rule: DomainLayer.DTO.TransactionFeeRules.Rule!
+
+        if let txType = type.transactionType {
+            rule = rules.rules[txType] ?? rules.defaultRule
+        } else {
+            rule = rules.defaultRule
+        }
+
+        var fee: Int64 = rule.fee
+
+        if rule.addSmartAccountFee {
+            fee += rules.smartAccountExtraFee
+        }
+
+        switch type {
+        case .createAlias, .lease, .cancelLease:
+            break
+
+        case .burn(let assetId):
+            if rule.addSmartAssetFee && isSmartAssets[assetId] == true {
+                fee += rules.smartAssetExtraFee
+            }
+
+        case .sendTransaction(let assetId):
+            if rule.addSmartAssetFee && isSmartAssets[assetId] == true {
+                fee += rules.smartAssetExtraFee
+            }
+
+        case .createOrder(let amountAssetId, let priceAssetId):
+            if rule.addSmartAssetFee && isSmartAssets[amountAssetId] == true {
+                fee += rules.smartAssetExtraFee
+            }
+
+            if rule.addSmartAssetFee && isSmartAssets[priceAssetId] == true {
+                fee += rules.smartAssetExtraFee
+            }
+        }
+
+        return Money(fee, wavesAsset.precision)
+    }
+
 }
 
 // MARK: - -
-extension Array where Element == DomainLayer.DTO.AnyTransaction {
+private extension Array where Element == DomainLayer.DTO.AnyTransaction {
 
     var assetsIds: [String] {
 
@@ -616,7 +721,7 @@ extension Array where Element == DomainLayer.DTO.AnyTransaction {
 }
 
 // MARK: - -  Assisstants Mapper
-fileprivate extension DomainLayer.DTO.AnyTransaction {
+private extension DomainLayer.DTO.AnyTransaction {
 
     var assetsIds: [String] {
 
@@ -717,4 +822,49 @@ private extension TransactionSenderSpecifications {
             return false
         }
     }
+}
+
+private extension DomainLayer.Query.TransactionSpecificationType {
+
+    var assetIds: [String] {
+        switch self {
+        case .createAlias, .lease, .cancelLease:
+            return []
+
+        case .burn(let assetId):
+            return [assetId]
+
+        case .sendTransaction(let assetId):
+            return [assetId]
+
+        case .createOrder(let amountAssetId, let priceAssetId):
+            return [amountAssetId, priceAssetId]
+        }
+    }
+
+    var transactionType: TransactionType? {
+        switch self {
+        case .createAlias:
+            return TransactionType.alias
+
+        case .lease:
+            return TransactionType.lease
+
+        case .cancelLease:
+            return TransactionType.leaseCancel
+
+        case .burn:
+            return TransactionType.burn
+
+        case .sendTransaction:
+            return TransactionType.transfer
+
+        case .createOrder:
+            return nil
+
+        default:
+            return nil
+        }
+    }
+
 }

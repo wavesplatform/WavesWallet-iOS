@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var appCoordinator: AppCoordinator!
     let migrationInteractor: MigrationInteractor = MigrationInteractor()
 
-    let testRe: TransactionsRepositoryProtocol = FactoryRepositories.instance.transactionsRepositoryRemote
+    let testRe: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
@@ -68,11 +68,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         appCoordinator = AppCoordinator(WindowRouter(window: self.window!))
 
+        testRe.calculateFee(by: .lease, accountAddress: "3N3Wk5uWgYSfsWPPyuzyp36jNUxAfNBcxMW").subscribe(onNext: { (money) in
 
-        testRe
-            .feeRules()
-            .subscribe(onNext: { (rules) in
-                print(rules)
         })
 
         migrationInteractor

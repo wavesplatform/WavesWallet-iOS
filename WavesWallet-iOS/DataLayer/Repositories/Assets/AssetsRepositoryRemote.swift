@@ -14,6 +14,7 @@ import CSV
 final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     
     private let apiProvider: MoyaProvider<API.Service.Assets> = .nodeMoyaProvider()
+    private let assetNodeProvider: MoyaProvider<Node.Service.Assets> = .nodeMoyaProvider()
     private let spamProvider: MoyaProvider<Spam.Service.Assets> = .nodeMoyaProvider()
 
     private let environmentRepository: EnvironmentRepositoryProtocol
@@ -75,11 +76,6 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
             }
     }
 
-    func isSmartAsset(_ assetId: String, by accountAddress: String) -> Observable<Bool> {
-        assertMethodDontSupported()
-        return Observable.never()
-    }
-
     func saveAssets(_ assets:[DomainLayer.DTO.Asset], by accountAddress: String) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
@@ -88,6 +84,28 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     func saveAsset(_ asset: DomainLayer.DTO.Asset, by accountAddress: String) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
+    }
+
+    func isSmartAsset(_ assetId: String, by accountAddress: String) -> Observable<Bool> {
+
+        let environment = environmentRepository.accountEnvironment(accountAddress: accountAddress)
+
+        return environment
+            .flatMap { [weak self] environment -> Single<Response> in
+
+                guard let owner = self else { return Single.never() }
+                return owner
+                    .assetNodeProvider
+                    .rx
+                    .request(.init(kind: .details(assetId: assetId), environment: environment),
+                            callbackQueue: DispatchQueue.global(qos: .userInteractive))
+            }
+            .filterSuccessfulStatusAndRedirectCodes()
+            .catchError({ (error) -> Observable<Response> in
+                return Observable.error(NetworkError.error(by: error))
+            })
+            .map(Node.DTO.AssetDetail.self)
+            .map { $0.scripted != nil }
     }
 }
 

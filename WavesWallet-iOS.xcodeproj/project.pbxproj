@@ -448,6 +448,7 @@
 		0ADD803A21F22FFB0075FC59 /* MainTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD801C21F22FFA0075FC59 /* MainTabBarCoordinator.swift */; };
 		0ADD803C21F5B60D0075FC59 /* AddressScriptInfoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD803B21F5B60D0075FC59 /* AddressScriptInfoNode.swift */; };
 		0ADD803E21F5B7090075FC59 /* AssetDetailNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD803D21F5B7090075FC59 /* AssetDetailNode.swift */; };
+		0ADD804021F5D2DD0075FC59 /* AddressRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD803F21F5D2DD0075FC59 /* AddressRepositoryRemote.swift */; };
 		0AE491E1210786BC009223DB /* ConfirmBackupStackInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E945B19E20F75B420081F4D2 /* ConfirmBackupStackInputView.swift */; };
 		0AE491F62107A529009223DB /* WalletInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE491F52107A529009223DB /* WalletInteractorProtocol.swift */; };
 		0AE491F82107A52E009223DB /* WalletPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE491F72107A52D009223DB /* WalletPresenterProtocol.swift */; };
@@ -615,7 +616,6 @@
 		E95B6B0F219C22E400A85B5D /* TokenBurnConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B6B0E219C22E400A85B5D /* TokenBurnConfirmationViewController.swift */; };
 		E95B6B13219C345B00A85B5D /* TokenBurnConfirmationIDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B6B12219C345B00A85B5D /* TokenBurnConfirmationIDView.swift */; };
 		E95B6B15219C347200A85B5D /* TokenBurnConfirmationIDView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B6B14219C347200A85B5D /* TokenBurnConfirmationIDView.xib */; };
-		E95F158A21F057C100403802 /* TransactionsInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95F158921F057C100403802 /* TransactionsInteractorMock.swift */; };
 		E964067E21D5299D00569963 /* DexDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E964067D21D5299D00569963 /* DexDomainDTO.swift */; };
 		E9642C8F21CB32570065A1BD /* CoinomatServiceErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9642C8E21CB32570065A1BD /* CoinomatServiceErrorView.swift */; };
 		E9642C9121CB326A0065A1BD /* CoinomatServiceErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9642C9021CB326A0065A1BD /* CoinomatServiceErrorView.xib */; };
@@ -1324,6 +1324,7 @@
 		0ADD801C21F22FFA0075FC59 /* MainTabBarCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarCoordinator.swift; sourceTree = "<group>"; };
 		0ADD803B21F5B60D0075FC59 /* AddressScriptInfoNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressScriptInfoNode.swift; sourceTree = "<group>"; };
 		0ADD803D21F5B7090075FC59 /* AssetDetailNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetDetailNode.swift; sourceTree = "<group>"; };
+		0ADD803F21F5D2DD0075FC59 /* AddressRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressRepositoryRemote.swift; sourceTree = "<group>"; };
 		0AE491F12107A51A009223DB /* WalletTypes+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WalletTypes+State.swift"; sourceTree = "<group>"; };
 		0AE491F22107A51A009223DB /* WalletTypes+ViewModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WalletTypes+ViewModels.swift"; sourceTree = "<group>"; };
 		0AE491F52107A529009223DB /* WalletInteractorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletInteractorProtocol.swift; sourceTree = "<group>"; };
@@ -2677,6 +2678,7 @@
 				0AC33AEF21A826B700B66747 /* NetworkError.swift */,
 				0AF2536421B6C2F900B8F7DF /* AssetsBalanceSettingsRepositoryLocal.swift */,
 				E910B7E821C3261B00E402AB /* CoinomatRepository.swift */,
+				0ADD803F21F5D2DD0075FC59 /* AddressRepositoryRemote.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -5041,6 +5043,7 @@
 				E9B12DAD219DCD1800128EFE /* TokenBurnSendInteractorMock.swift in Sources */,
 				E96570432193E8570052F0FC /* DexMyOrdersModuleOutput.swift in Sources */,
 				0ADD802721F22FFA0075FC59 /* WalletCoordinator.swift in Sources */,
+				0ADD804021F5D2DD0075FC59 /* AddressRepositoryRemote.swift in Sources */,
 				0ADD802021F22FFA0075FC59 /* Coordinator.swift in Sources */,
 				04831F7421691659006D1ED6 /* HistoryTransactionView.swift in Sources */,
 				0A762D9221639FA60019D447 /* TransactionHistoryInteractor.swift in Sources */,
@@ -5660,7 +5663,6 @@
 				F74240B91EAB8D1600C3B84D /* NodeManager.swift in Sources */,
 				04EB742621133318004A065B /* HistoryViewController.swift in Sources */,
 				0ADD7F9321F22FB60075FC59 /* RxDataSource+TableView.swift in Sources */,
-				E95F158A21F057C100403802 /* TransactionsInteractorMock.swift in Sources */,
 				0AD83606217A1C14004413E9 /* AccountEnvironment.swift in Sources */,
 				0AF922F2212E1234003BA067 /* CopyableLabel.swift in Sources */,
 				E96E2A0021D34A2100AC2FA9 /* MatcherRepositoryProtocol.swift in Sources */,
