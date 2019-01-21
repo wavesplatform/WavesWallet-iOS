@@ -45,6 +45,12 @@ extension Node.DTO.Transaction {
 
         case .data(let transaction):
             return .data(.init(transaction: transaction, status: status, environment: environment))
+
+        case .setScript(let transaction):
+            return .setScript(.init(transaction: transaction, status: status, environment: environment))
+
+        case .setAssetScript(let transaction):
+            return .setAssetScript(.init(transaction: transaction, status: status, environment: environment))
         }
     }
 }
@@ -110,6 +116,12 @@ extension DomainLayer.DTO.AnyTransaction {
 
         case .data(let tx):
             return DataTransaction(transaction: tx)
+
+        case .setScript(let tx):
+            return SetScriptTransaction(transaction: tx)
+
+        case .setAssetScript(let tx):
+            return SetAssetScriptTransaction(transaction: tx)
         }
     }
 
@@ -160,6 +172,12 @@ extension DomainLayer.DTO.AnyTransaction {
 
         case .data:
             any.dataTransaction = from as? DataTransaction
+
+        case .setScript:
+            any.setScriptTransaction = from as? SetScriptTransaction
+
+        case .setAssetScript:
+            any.setAssetScriptTransaction = from as? SetAssetScriptTransaction
         }
 
         return any

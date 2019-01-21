@@ -14,8 +14,7 @@ final class MassTransferTransaction: Transaction {
     @objc dynamic var assetId: String? = ""
     @objc dynamic var attachment: String = ""
     @objc dynamic var transferCount: Int = 0
-    @objc dynamic var totalAmount: Int64 = 0
-    let proofs: List<String> = .init()
+    @objc dynamic var totalAmount: Int64 = 0    
     let transfers: List<MassTransferTransactionTransfer> = .init()
 }
 

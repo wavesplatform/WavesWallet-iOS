@@ -450,6 +450,61 @@ extension DomainLayer.DTO.AliasTransaction {
     }
 }
 
+// MARK: SetScriptTransaction
+
+extension DomainLayer.DTO.SetScriptTransaction {
+
+    func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
+
+        let assets: [String: DomainLayer.DTO.Asset] = metaData.assets
+        let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
+        let totalHeight: Int64 = metaData.totalHeight
+
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
+        guard let sender = accounts[self.sender] else { return nil }
+
+        let kind: DomainLayer.DTO.SmartTransaction.Kind = .setScript(isHasScript: script != nil)
+        let feeBalance = wavesAsset.balance(fee)
+
+        return .init(id: id,
+                     kind: kind,
+                     timestamp: Date(milliseconds: timestamp),
+                     totalFee: feeBalance,
+                     height: height,
+                     confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
+                     sender: sender,
+                     status: metaData.status)
+    }
+}
+
+// MARK: SetAssetScriptTransaction
+
+extension DomainLayer.DTO.SetAssetScriptTransaction {
+
+    func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
+
+        let assets: [String: DomainLayer.DTO.Asset] = metaData.assets
+        let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
+        let totalHeight: Int64 = metaData.totalHeight
+
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
+        guard let assetId = assets[assetId] else { return nil }
+        guard let sender = accounts[self.sender] else { return nil }
+
+        let kind: DomainLayer.DTO.SmartTransaction.Kind = .setAssetScript(assetId)
+        let feeBalance = wavesAsset.balance(fee)
+
+        return .init(id: id,
+                     kind: kind,
+                     timestamp: Date(milliseconds: timestamp),
+                     totalFee: feeBalance,
+                     height: height,
+                     confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
+                     sender: sender,
+                     status: metaData.status)
+    }
+}
+
 // MARK: MassTransferTransaction
 
 extension DomainLayer.DTO.MassTransferTransaction {
@@ -579,6 +634,8 @@ extension DomainLayer.DTO.DataTransaction {
     }
 }
 
+// MARK: AnyTransaction
+
 extension DomainLayer.DTO.AnyTransaction {
 
     func transaction(by accountAddress: String,
@@ -646,6 +703,12 @@ extension DomainLayer.DTO.AnyTransaction {
             smartTransaction = tx.transaction(by: smartData)
 
         case .data(let tx):
+            smartTransaction = tx.transaction(by: smartData)
+
+        case .setScript(let tx):
+            smartTransaction = tx.transaction(by: smartData)
+
+        case .setAssetScript(let tx):
             smartTransaction = tx.transaction(by: smartData)
         }
 

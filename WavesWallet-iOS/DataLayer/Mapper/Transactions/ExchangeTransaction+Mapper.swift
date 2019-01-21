@@ -22,6 +22,9 @@ extension ExchangeTransaction {
         height = transaction.height
         modified = transaction.modified
 
+        if let proofs = transaction.proofs {
+            self.proofs.append(objectsIn: proofs)
+        }
         signature = transaction.signature
         amount = transaction.amount
         price = transaction.price
@@ -55,6 +58,7 @@ extension DomainLayer.DTO.ExchangeTransaction {
         sellMatcherFee = transaction.sellMatcherFee
         order1 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order1, environment: environment)
         order2 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order2, environment: environment)
+        proofs = []
         self.status = status
     }
 
@@ -71,6 +75,7 @@ extension DomainLayer.DTO.ExchangeTransaction {
         amount = transaction.amount
         price = transaction.price
         signature = transaction.signature
+        proofs = transaction.proofs.toArray()
         buyMatcherFee = transaction.buyMatcherFee
         sellMatcherFee = transaction.sellMatcherFee
         order1 = DomainLayer.DTO.ExchangeTransaction.Order(order: transaction.order1!)

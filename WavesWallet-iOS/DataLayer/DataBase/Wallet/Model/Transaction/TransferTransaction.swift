@@ -11,8 +11,7 @@ import RealmSwift
 import Realm
 
 public class TransferTransaction: Transaction {
-
-    @objc dynamic var signature: String? = nil
+    
     @objc dynamic var recipient: String = ""
     @objc dynamic var assetId: String? = nil
     @objc dynamic var feeAssetId: String? = nil
