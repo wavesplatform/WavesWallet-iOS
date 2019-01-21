@@ -141,9 +141,11 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
             result.append(isSmartAsset)
         }
 
+        let isSmartAssetsObservable = Observable.combineLatest(isSmartAssets).ifEmpty(default: [])
+
         let rules = transactionsRepositoryRemote.feeRules().sweetDebug("feeRules")
 
-        return Observable.zip(isSmartAccount, wavesAsset, rules, Observable.zip(isSmartAssets).sweetDebug("isSmartAssets"))
+        return Observable.zip(isSmartAccount, wavesAsset, rules, isSmartAssetsObservable.sweetDebug("isSmartAssets"))
             .flatMap { [weak self] (isSmartAccount, wavesAsset, rules, isSmartAssets) -> Observable<Money> in
 
                 guard let owner = self else { return Observable.never() }
