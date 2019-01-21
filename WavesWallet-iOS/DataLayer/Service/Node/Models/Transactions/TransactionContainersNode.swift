@@ -21,6 +21,9 @@ extension Node.DTO {
         case alias = 10
         case massTransfer = 11
         case data = 12
+        case setScript = 13
+        case setSponsorship = 14
+        case setAssetScript = 15
     }
 
     enum TransactionError: Error {
