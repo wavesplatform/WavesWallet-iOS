@@ -446,6 +446,8 @@
 		0ADD803821F22FFB0075FC59 /* BackupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD801A21F22FFA0075FC59 /* BackupCoordinator.swift */; };
 		0ADD803921F22FFB0075FC59 /* BackupTostCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD801B21F22FFA0075FC59 /* BackupTostCoordinator.swift */; };
 		0ADD803A21F22FFB0075FC59 /* MainTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD801C21F22FFA0075FC59 /* MainTabBarCoordinator.swift */; };
+		0ADD803C21F5B60D0075FC59 /* AddressScriptInfoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD803B21F5B60D0075FC59 /* AddressScriptInfoNode.swift */; };
+		0ADD803E21F5B7090075FC59 /* AssetDetailNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD803D21F5B7090075FC59 /* AssetDetailNode.swift */; };
 		0AE491E1210786BC009223DB /* ConfirmBackupStackInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E945B19E20F75B420081F4D2 /* ConfirmBackupStackInputView.swift */; };
 		0AE491F62107A529009223DB /* WalletInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE491F52107A529009223DB /* WalletInteractorProtocol.swift */; };
 		0AE491F82107A52E009223DB /* WalletPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE491F72107A52D009223DB /* WalletPresenterProtocol.swift */; };
@@ -1320,6 +1322,8 @@
 		0ADD801A21F22FFA0075FC59 /* BackupCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupCoordinator.swift; sourceTree = "<group>"; };
 		0ADD801B21F22FFA0075FC59 /* BackupTostCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupTostCoordinator.swift; sourceTree = "<group>"; };
 		0ADD801C21F22FFA0075FC59 /* MainTabBarCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarCoordinator.swift; sourceTree = "<group>"; };
+		0ADD803B21F5B60D0075FC59 /* AddressScriptInfoNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressScriptInfoNode.swift; sourceTree = "<group>"; };
+		0ADD803D21F5B7090075FC59 /* AssetDetailNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetDetailNode.swift; sourceTree = "<group>"; };
 		0AE491F12107A51A009223DB /* WalletTypes+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WalletTypes+State.swift"; sourceTree = "<group>"; };
 		0AE491F22107A51A009223DB /* WalletTypes+ViewModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WalletTypes+ViewModels.swift"; sourceTree = "<group>"; };
 		0AE491F52107A529009223DB /* WalletInteractorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletInteractorProtocol.swift; sourceTree = "<group>"; };
@@ -2258,6 +2262,8 @@
 				0A5C919920F3DB4C00443CE6 /* AccountAssetsBalanceNode.swift */,
 				0A3FE8AF2136FE9B00DBF4E1 /* Transactions */,
 				0ABD1BEB2146BFEE0027A7A2 /* BlockNode.swift */,
+				0ADD803B21F5B60D0075FC59 /* AddressScriptInfoNode.swift */,
+				0ADD803D21F5B7090075FC59 /* AssetDetailNode.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -5286,6 +5292,7 @@
 				0A14CFD221441FDB00C3A4D5 /* TransactionDomainDTO+Mapper.swift in Sources */,
 				0AD83612217DDD94004413E9 /* NetworkSettingsTypes.swift in Sources */,
 				0AF922EE212E1234003BA067 /* AssetsSegmentedCell.swift in Sources */,
+				0ADD803E21F5B7090075FC59 /* AssetDetailNode.swift in Sources */,
 				0A344E2F2194747E007809B1 /* MigrationInteractor.swift in Sources */,
 				E938356F20A472B4001A2509 /* HistoryTransactionCell.swift in Sources */,
 				E910B7EC21C3266F00E402AB /* CoinomatDomainDTO.swift in Sources */,
@@ -5728,6 +5735,7 @@
 				E9D36DF22175C755001E6DF0 /* AssetListPresenterProtocol.swift in Sources */,
 				0A96F1D52152C80E005E148F /* PasscodePresenter.swift in Sources */,
 				0A4C9A2820ED443C0095A417 /* WalletPresenter.swift in Sources */,
+				0ADD803C21F5B60D0075FC59 /* AddressScriptInfoNode.swift in Sources */,
 				0A762D7721639FA60019D447 /* TransactionHistoryTypes.swift in Sources */,
 				0A5C919820F3DB1100443CE6 /* AccountBalanceNode.swift in Sources */,
 				0AF0C67721A97E1400602197 /* Alias.swift in Sources */,
