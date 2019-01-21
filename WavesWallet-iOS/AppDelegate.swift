@@ -27,8 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var appCoordinator: AppCoordinator!
     let migrationInteractor: MigrationInteractor = MigrationInteractor()
 
-    let testRe: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
@@ -67,13 +65,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.backgroundColor = .basic50
         
         appCoordinator = AppCoordinator(WindowRouter(window: self.window!))
-
-        testRe
-            .calculateFee(by: .lease, accountAddress: "3N3Wk5uWgYSfsWPPyuzyp36jNUxAfNBcxMW")
-            .sweetDebug("Test111")
-            .subscribe(onNext: { (money) in
-
-            })
 
         migrationInteractor
             .migration()
