@@ -68,9 +68,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         appCoordinator = AppCoordinator(WindowRouter(window: self.window!))
 
-        testRe.calculateFee(by: .lease, accountAddress: "3N3Wk5uWgYSfsWPPyuzyp36jNUxAfNBcxMW").subscribe(onNext: { (money) in
+        testRe
+            .calculateFee(by: .lease, accountAddress: "3N3Wk5uWgYSfsWPPyuzyp36jNUxAfNBcxMW")
+            .sweetDebug("Test111")
+            .subscribe(onNext: { (money) in
 
-        }).sweetDebug("Test111")
+            })
 
         migrationInteractor
             .migration()
