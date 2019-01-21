@@ -15,7 +15,8 @@ fileprivate enum SchemaVersions: UInt64 {
     case version_4 = 4 // BetaTest 2.0rc0
     case version_5 = 5 // BetaTest 2.0rc1
     case version_6 = 6 // v2.0
-    case version_7 = 7 // Dev Version
+    case version_7 = 7 // v2.0.2
+    case version_8 = 8 // Dev version
 }
 
 fileprivate enum Constants {
@@ -49,6 +50,8 @@ enum WalletRealmFactory {
                               ExchangeTransaction.self,
                               ExchangeTransactionOrder.self,
                               ExchangeTransactionAssetPair.self,
+                              SetScriptTransaction.self,
+                              SetAssetScriptTransaction.self,
                               DataTransaction.self,
                               DataTransactionData.self,
                               AnyTransaction.self,
@@ -121,6 +124,10 @@ enum WalletRealmFactory {
             if oldSchemaVersion < SchemaVersions.version_7.rawValue {
                resetAssetSort(migration: migration)
             }
+
+            if oldSchemaVersion < SchemaVersions.version_8.rawValue {
+                removeTransaction(migration: migration)
+            }
         }
 
         return config
@@ -155,6 +162,8 @@ enum WalletRealmFactory {
         migration.deleteData(forType: DataTransactionData.className())
         migration.deleteData(forType: AnyTransaction.className())
         migration.deleteData(forType: UnrecognisedTransaction.className())
+        migration.deleteData(forType: SetScriptTransaction.className())
+        migration.deleteData(forType: SetAssetScriptTransaction.className())
     }
 }
 
