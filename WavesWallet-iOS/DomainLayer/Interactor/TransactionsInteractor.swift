@@ -143,7 +143,7 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
 
         let rules = transactionsRepositoryRemote.feeRules().sweetDebug("feeRules")
 
-        return Observable.zip(isSmartAccount, wavesAsset, rules, Observable.zip(isSmartAssets))
+        return Observable.zip(isSmartAccount, wavesAsset, rules, Observable.zip(isSmartAssets).sweetDebug("isSmartAssets"))
             .flatMap { [weak self] (isSmartAccount, wavesAsset, rules, isSmartAssets) -> Observable<Money> in
 
                 guard let owner = self else { return Observable.never() }
