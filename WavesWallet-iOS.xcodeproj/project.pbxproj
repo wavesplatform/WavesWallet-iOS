@@ -656,6 +656,8 @@
 		E97EC83F20E67BE900AB006B /* NewAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */; };
 		E97EC84320E689A800AB006B /* ImportAccountPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */; };
 		E980EACE20A9F5BF001834DB /* ScannerCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */; };
+		E983665E21F5972300178A8A /* SendTransactionScriptErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983665D21F5972300178A8A /* SendTransactionScriptErrorView.swift */; };
+		E983666121F5973900178A8A /* SendTransactionScriptErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E983666021F5973900178A8A /* SendTransactionScriptErrorView.xib */; };
 		E99DD81B21CEE7690091AFEC /* CandlesApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81A21CEE7690091AFEC /* CandlesApiService.swift */; };
 		E99DD81D21CEF09C0091AFEC /* CandleApiFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81C21CEF09C0091AFEC /* CandleApiFilters.swift */; };
 		E99DD81F21CEF7AC0091AFEC /* CandleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81E21CEF7AC0091AFEC /* CandleApi.swift */; };
@@ -663,7 +665,8 @@
 		E9A380A721D2E1C5004377A6 /* PairPriceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A380A621D2E1C5004377A6 /* PairPriceApi.swift */; };
 		E9A380AD21D3035B004377A6 /* OrderMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A380AC21D3035B004377A6 /* OrderMatcher.swift */; };
 		E9A4812F20D8DDBB00272C6D /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */; };
-		E9A86E1420B6F20A002AC3F9 /* HistoryInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = E9A86E1320B6F20A002AC3F9 /* HistoryInfo.json */; };
+		E9AFDBE421F32E88003130A8 /* SendTransactionFeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AFDBE321F32E88003130A8 /* SendTransactionFeeView.swift */; };
+		E9AFDBE621F32E96003130A8 /* SendTransactionFeeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9AFDBE521F32E96003130A8 /* SendTransactionFeeView.xib */; };
 		E9B086AE2163883000937644 /* AddAddressBookModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B086922163882F00937644 /* AddAddressBookModuleBuilder.swift */; };
 		E9B086B02163883000937644 /* AddAddressTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B086982163883000937644 /* AddAddressTextField.xib */; };
 		E9B086B12163883000937644 /* AddAddressTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B086992163883000937644 /* AddAddressTextField.swift */; };
@@ -782,7 +785,7 @@
 		E9B0881F2163886800937644 /* DexSortInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087932163886800937644 /* DexSortInteractorProtocol.swift */; };
 		E9B08822216388B100937644 /* HighlightedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B08821216388B100937644 /* HighlightedButton.swift */; };
 		E9B12DAB219DCCDB00128EFE /* TokenBurnSendInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B12DAA219DCCDB00128EFE /* TokenBurnSendInteractorProtocol.swift */; };
-		E9B12DAD219DCD1800128EFE /* TokenBurnSendInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B12DAC219DCD1800128EFE /* TokenBurnSendInteractorMock.swift */; };
+		E9B12DAD219DCD1800128EFE /* TokenBurnSendInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B12DAC219DCD1800128EFE /* TokenBurnSendInteractor.swift */; };
 		E9B12DAF219DCDD300128EFE /* TokenBurnTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B12DAE219DCDD300128EFE /* TokenBurnTypes.swift */; };
 		E9B12DB5219DD6E000128EFE /* AssetBalanceSpamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B12DB3219DD6E000128EFE /* AssetBalanceSpamCell.swift */; };
 		E9B12DB6219DD6E000128EFE /* AssetBalanceSpamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B12DB4219DD6E000128EFE /* AssetBalanceSpamCell.xib */; };
@@ -1520,7 +1523,6 @@
 		E95B6B0E219C22E400A85B5D /* TokenBurnConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnConfirmationViewController.swift; sourceTree = "<group>"; };
 		E95B6B12219C345B00A85B5D /* TokenBurnConfirmationIDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnConfirmationIDView.swift; sourceTree = "<group>"; };
 		E95B6B14219C347200A85B5D /* TokenBurnConfirmationIDView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenBurnConfirmationIDView.xib; sourceTree = "<group>"; };
-		E95F158921F057C100403802 /* TransactionsInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsInteractorMock.swift; sourceTree = "<group>"; };
 		E964067D21D5299D00569963 /* DexDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexDomainDTO.swift; sourceTree = "<group>"; };
 		E9642C8E21CB32570065A1BD /* CoinomatServiceErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinomatServiceErrorView.swift; sourceTree = "<group>"; };
 		E9642C9021CB326A0065A1BD /* CoinomatServiceErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CoinomatServiceErrorView.xib; sourceTree = "<group>"; };
@@ -1553,6 +1555,8 @@
 		E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountViewController.swift; sourceTree = "<group>"; };
 		E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountPasswordViewController.swift; sourceTree = "<group>"; };
 		E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerCustomView.swift; sourceTree = "<group>"; };
+		E983665D21F5972300178A8A /* SendTransactionScriptErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendTransactionScriptErrorView.swift; sourceTree = "<group>"; };
+		E983666021F5973900178A8A /* SendTransactionScriptErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SendTransactionScriptErrorView.xib; sourceTree = "<group>"; };
 		E99DD81A21CEE7690091AFEC /* CandlesApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandlesApiService.swift; sourceTree = "<group>"; };
 		E99DD81C21CEF09C0091AFEC /* CandleApiFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleApiFilters.swift; sourceTree = "<group>"; };
 		E99DD81E21CEF7AC0091AFEC /* CandleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleApi.swift; sourceTree = "<group>"; };
@@ -1560,7 +1564,8 @@
 		E9A380A621D2E1C5004377A6 /* PairPriceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairPriceApi.swift; sourceTree = "<group>"; };
 		E9A380AC21D3035B004377A6 /* OrderMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderMatcher.swift; sourceTree = "<group>"; };
 		E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
-		E9A86E1320B6F20A002AC3F9 /* HistoryInfo.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = HistoryInfo.json; sourceTree = "<group>"; };
+		E9AFDBE321F32E88003130A8 /* SendTransactionFeeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendTransactionFeeView.swift; sourceTree = "<group>"; };
+		E9AFDBE521F32E96003130A8 /* SendTransactionFeeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SendTransactionFeeView.xib; sourceTree = "<group>"; };
 		E9B086922163882F00937644 /* AddAddressBookModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAddressBookModuleBuilder.swift; sourceTree = "<group>"; };
 		E9B086982163883000937644 /* AddAddressTextField.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddAddressTextField.xib; sourceTree = "<group>"; };
 		E9B086992163883000937644 /* AddAddressTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAddressTextField.swift; sourceTree = "<group>"; };
@@ -1680,7 +1685,7 @@
 		E9B087932163886800937644 /* DexSortInteractorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexSortInteractorProtocol.swift; sourceTree = "<group>"; };
 		E9B08821216388B100937644 /* HighlightedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightedButton.swift; sourceTree = "<group>"; };
 		E9B12DAA219DCCDB00128EFE /* TokenBurnSendInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnSendInteractorProtocol.swift; sourceTree = "<group>"; };
-		E9B12DAC219DCD1800128EFE /* TokenBurnSendInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnSendInteractorMock.swift; sourceTree = "<group>"; };
+		E9B12DAC219DCD1800128EFE /* TokenBurnSendInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnSendInteractor.swift; sourceTree = "<group>"; };
 		E9B12DAE219DCDD300128EFE /* TokenBurnTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnTypes.swift; sourceTree = "<group>"; };
 		E9B12DB3219DD6E000128EFE /* AssetBalanceSpamCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceSpamCell.swift; sourceTree = "<group>"; };
 		E9B12DB4219DD6E000128EFE /* AssetBalanceSpamCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetBalanceSpamCell.xib; sourceTree = "<group>"; };
@@ -2654,7 +2659,6 @@
 				0A2060622181C2C10048CF83 /* environment_mainnet.json */,
 				0A2060632181C2C20048CF83 /* environment_testnet.json */,
 				04D4431A21885F4F009CEB22 /* Fabric-Info.plist */,
-				E9A86E1320B6F20A002AC3F9 /* HistoryInfo.json */,
 				0AEFC74F21BAA4380085D6D1 /* Localization */,
 				F7E954F01EA8FE0700A804DE /* Assets.xcassets */,
 				0A61B599214ACFD500EC60FC /* Languages.json */,
@@ -4284,7 +4288,7 @@
 			isa = PBXGroup;
 			children = (
 				E9B12DAA219DCCDB00128EFE /* TokenBurnSendInteractorProtocol.swift */,
-				E9B12DAC219DCD1800128EFE /* TokenBurnSendInteractorMock.swift */,
+				E9B12DAC219DCD1800128EFE /* TokenBurnSendInteractor.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -4545,6 +4549,10 @@
 				E9EC5BA92175F35800E5C29A /* AddressInputView.xib */,
 				E9CD0D2B218099FB001A99B3 /* SendMoneroPaymentIdView.swift */,
 				E9CD0D2D21809A5D001A99B3 /* SendMoneroPaymentIdView.xib */,
+				E9AFDBE321F32E88003130A8 /* SendTransactionFeeView.swift */,
+				E9AFDBE521F32E96003130A8 /* SendTransactionFeeView.xib */,
+				E983665D21F5972300178A8A /* SendTransactionScriptErrorView.swift */,
+				E983666021F5973900178A8A /* SendTransactionScriptErrorView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4737,6 +4745,7 @@
 				0AF9222A212E0F1F003BA067 /* WalletLeasingCell.xib in Resources */,
 				0A762DA02163AD0F0019D447 /* Support.storyboard in Resources */,
 				0AF92231212E0F1F003BA067 /* WalletHeaderView.xib in Resources */,
+				E9AFDBE621F32E96003130A8 /* SendTransactionFeeView.xib in Resources */,
 				0A762D15214FE3F300BE9204 /* InputTextField.xib in Resources */,
 				04D4431C21885F50009CEB22 /* Fabric-Info.plist in Resources */,
 				0A7CCDB7218A17A9005D372B /* MyAddress.storyboard in Resources */,
@@ -4786,6 +4795,7 @@
 				0A4140EB2174F09C00B1310E /* ChangePassword.storyboard in Resources */,
 				0A2B7D34216037FD0098438D /* AssetViewHistoryCell.xib in Resources */,
 				044D6C8B21978C9C003861A2 /* EditAccountName.storyboard in Resources */,
+				E983666121F5973900178A8A /* SendTransactionScriptErrorView.xib in Resources */,
 				E95B6B15219C347200A85B5D /* TokenBurnConfirmationIDView.xib in Resources */,
 				E9DEECEB20BEF97E00F28C67 /* Waves.storyboard in Resources */,
 				F74240C91EAB8EC800C3B84D /* Main.storyboard in Resources */,
@@ -4821,7 +4831,6 @@
 				0AACD59D21A59E7100B30815 /* SweetSnackView.xib in Resources */,
 				E9B086BE2163883000937644 /* AddressBook.storyboard in Resources */,
 				0AF92202212E07B3003BA067 /* AssetTransactionSkeletonCell.xib in Resources */,
-				E9A86E1420B6F20A002AC3F9 /* HistoryInfo.json in Resources */,
 				0A071E7A215DB0A9007D9750 /* ChooseAccount.storyboard in Resources */,
 				0AF922EC212E1234003BA067 /* AssetsSegmentedControl.xib in Resources */,
 				E9F984A920E526DA00D2CB4D /* Enter.storyboard in Resources */,
@@ -5087,7 +5096,7 @@
 				0A7CCDB1218A138D005D372B /* MyAddressModuleBuilder.swift in Sources */,
 				04831F76216916EE006D1ED6 /* WalletInteractor.swift in Sources */,
 				04831F78216916EE006D1ED6 /* TransactionApi.swift in Sources */,
-				E9B12DAD219DCD1800128EFE /* TokenBurnSendInteractorMock.swift in Sources */,
+				E9B12DAD219DCD1800128EFE /* TokenBurnSendInteractor.swift in Sources */,
 				E96570432193E8570052F0FC /* DexMyOrdersModuleOutput.swift in Sources */,
 				0ADD802721F22FFA0075FC59 /* WalletCoordinator.swift in Sources */,
 				0ADD804021F5D2DD0075FC59 /* AddressRepositoryRemote.swift in Sources */,
@@ -5325,6 +5334,7 @@
 				E95B6B13219C345B00A85B5D /* TokenBurnConfirmationIDView.swift in Sources */,
 				0A7CCDAC218A138D005D372B /* MyAddressPresenter.swift in Sources */,
 				0AEB358C2115DB3C00EDD63C /* AssetsRepositoryProtocol.swift in Sources */,
+				E983665E21F5972300178A8A /* SendTransactionScriptErrorView.swift in Sources */,
 				E90223C421D53A8F0057AA45 /* DexAssetPairDomainDTO+Mapper.swift in Sources */,
 				E9B087962163886800937644 /* DexChartTypes.swift in Sources */,
 				04E1C35A2126B21A00C702BA /* HistoryTransactionSkeletonCell.swift in Sources */,
@@ -5576,6 +5586,7 @@
 				0ADD7FBA21F22FB60075FC59 /* CGFloat+Min.swift in Sources */,
 				0AEB35A621165E1D00EDD63C /* AccountBalanceRepositoryLocal.swift in Sources */,
 				F74240B61EAB8D1600C3B84D /* AddressBook.swift in Sources */,
+				E9AFDBE421F32E88003130A8 /* SendTransactionFeeView.swift in Sources */,
 				0ADD7FC321F22FB60075FC59 /* Dictionary+Json.swift in Sources */,
 				0A1DAD6220F3876C004DA625 /* AssetApi.swift in Sources */,
 				E9CD0D2C218099FB001A99B3 /* SendMoneroPaymentIdView.swift in Sources */,

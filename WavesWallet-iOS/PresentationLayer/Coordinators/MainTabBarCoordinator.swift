@@ -26,10 +26,11 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
     weak var parent: Coordinator?
 
     private let slideMenuRouter: SlideMenuRouter
-    private let tabBarRouter: TabBarRouter = {
+    private lazy var tabBarRouter: TabBarRouter = {
 
         let mainTabBar = StoryboardScene.Main.mainTabBarController.instantiate()
 
+        mainTabBar.delegate = self
         mainTabBar.tabBar.isTranslucent = false
         mainTabBar.tabBar.barTintColor = .white
         mainTabBar.tabBar.backgroundImage = UIImage()
@@ -103,9 +104,9 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
         super.init()
 
         tabBarRouter.setViewControllers([navigationRouterWallet.navigationController,
-                                         navigationRouterHistory.navigationController,
-                                         popoperButton,
                                          navigationRouterDex.navigationController,
+                                         popoperButton,
+                                         navigationRouterHistory.navigationController,
                                          navigationRouterProfile.navigationController])
 
         let walletCoordinator = WalletCoordinator(navigationRouter: navigationRouterWallet)
