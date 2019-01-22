@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SendTransactionScriptErrorView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mVY-ap-8PM">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" red="0.0" green="0.10196078431372549" blue="0.22352941176470587" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v69-yQ-u9m">
+                    <rect key="frame" x="16" y="354.5" width="343" height="288.5"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tSetscript48" translatesAutoresizingMaskIntoConstraints="NO" id="mQL-EO-cmQ">
+                            <rect key="frame" x="147.5" y="24" width="48" height="48"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A script is installed on your account or asset" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hdl-vU-9Jh">
+                            <rect key="frame" x="5" y="96" width="333" height="41"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To work with a scripted account/asset, use the Waves Client" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ovp-MH-tTi">
+                            <rect key="frame" x="5" y="145" width="333" height="31.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sSj-nu-C0I" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                            <rect key="frame" x="24" y="216.5" width="295" height="48"/>
+                            <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="VJJ-oy-3Ip"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                            <state key="normal" title="Okay"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="highlightedBackground">
+                                    <color key="value" red="0.35294117650000001" green="0.50588235290000005" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="okeyTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="YPv-Ap-qa9"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="sSj-nu-C0I" secondAttribute="trailing" constant="24" id="9j5-5d-8OY"/>
+                        <constraint firstItem="sSj-nu-C0I" firstAttribute="leading" secondItem="v69-yQ-u9m" secondAttribute="leading" constant="24" id="DP1-hZ-hUl"/>
+                        <constraint firstItem="Ovp-MH-tTi" firstAttribute="trailing" secondItem="Hdl-vU-9Jh" secondAttribute="trailing" id="HyW-wp-oc8"/>
+                        <constraint firstItem="Hdl-vU-9Jh" firstAttribute="leading" secondItem="v69-yQ-u9m" secondAttribute="leading" constant="5" id="IQp-yg-p1E"/>
+                        <constraint firstAttribute="trailing" secondItem="Hdl-vU-9Jh" secondAttribute="trailing" constant="5" id="NjG-R0-GdI"/>
+                        <constraint firstItem="mQL-EO-cmQ" firstAttribute="centerX" secondItem="v69-yQ-u9m" secondAttribute="centerX" id="OF8-Gc-tpa"/>
+                        <constraint firstItem="Ovp-MH-tTi" firstAttribute="top" secondItem="Hdl-vU-9Jh" secondAttribute="bottom" constant="8" id="RSA-o1-4wF"/>
+                        <constraint firstItem="Hdl-vU-9Jh" firstAttribute="top" secondItem="mQL-EO-cmQ" secondAttribute="bottom" constant="24" id="TU4-CS-Skm"/>
+                        <constraint firstAttribute="bottom" secondItem="sSj-nu-C0I" secondAttribute="bottom" constant="24" id="aIi-im-EHw"/>
+                        <constraint firstItem="mQL-EO-cmQ" firstAttribute="top" secondItem="v69-yQ-u9m" secondAttribute="top" constant="24" id="cUE-xr-rjY"/>
+                        <constraint firstItem="Ovp-MH-tTi" firstAttribute="leading" secondItem="Hdl-vU-9Jh" secondAttribute="leading" id="lp3-LD-0Gx"/>
+                        <constraint firstItem="sSj-nu-C0I" firstAttribute="top" secondItem="Ovp-MH-tTi" secondAttribute="bottom" constant="40" id="wmy-DC-cXv"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="mVY-ap-8PM" secondAttribute="trailing" id="2kH-L2-wFs"/>
+                <constraint firstItem="v69-yQ-u9m" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="AVe-to-4bm"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="v69-yQ-u9m" secondAttribute="bottom" constant="24" id="Amz-7T-bR4"/>
+                <constraint firstAttribute="bottom" secondItem="mVY-ap-8PM" secondAttribute="bottom" id="CaW-bj-7P4"/>
+                <constraint firstItem="mVY-ap-8PM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="bye-fJ-XLo"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="v69-yQ-u9m" secondAttribute="trailing" constant="16" id="dJA-xw-t45"/>
+                <constraint firstItem="mVY-ap-8PM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="vC3-iQ-xF6"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="bottomOffset" destination="Amz-7T-bR4" id="GFX-Fb-EaK"/>
+                <outlet property="buttonOkey" destination="sSj-nu-C0I" id="lVI-5C-xql"/>
+                <outlet property="labelSubtitle" destination="Ovp-MH-tTi" id="nWp-BF-AYM"/>
+                <outlet property="labelTitle" destination="Hdl-vU-9Jh" id="x2r-ZS-LSu"/>
+                <outlet property="viewBackground" destination="mVY-ap-8PM" id="8ic-sk-VJC"/>
+                <outlet property="viewContainer" destination="v69-yQ-u9m" id="rrG-Sp-BS9"/>
+            </connections>
+            <point key="canvasLocation" x="23.199999999999999" y="299.55022488755623"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="tSetscript48" width="48" height="48"/>
+    </resources>
+</document>

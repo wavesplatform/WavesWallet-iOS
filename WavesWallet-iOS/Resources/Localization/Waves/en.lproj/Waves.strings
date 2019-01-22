@@ -1,4 +1,8 @@
 
+"send.script.title" = "A script is installed on your account or asset";
+"send.script.subtitle" = "To work with a scripted account/asset,\nuse the Waves Client";
+"send.button.okey" = "Okay";
+
 "coinomat.tryAgain" = "Try again later";
 
 "coinomat.temporarilyUnavailable" = "Service Coinomat temporarily unavailable";
