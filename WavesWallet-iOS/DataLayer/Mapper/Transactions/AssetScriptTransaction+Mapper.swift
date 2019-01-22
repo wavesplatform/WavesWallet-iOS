@@ -1,5 +1,5 @@
 //
-//  SetScriptTransaction+Mapper.swift
+//  AssetScriptTransaction+Mapper.swift
 //  WavesWallet-iOS
 //
 //  Created by mefilt on 22/01/2019.
@@ -8,9 +8,9 @@
 
 import Foundation
 
-extension SetScriptTransaction {
+extension AssetScriptTransaction {
 
-    convenience init(transaction: DomainLayer.DTO.SetScriptTransaction) {
+    convenience init(transaction: DomainLayer.DTO.AssetScriptTransaction) {
         self.init()
         type = transaction.type
         id = transaction.id
@@ -18,22 +18,20 @@ extension SetScriptTransaction {
         senderPublicKey = transaction.sender
         fee = transaction.fee
         timestamp = transaction.timestamp
-        version = 1
-        height = transaction.height ?? -1
-        chainId.value = transaction.chainId
+        height = transaction.height
         signature = transaction.signature
-        if let proofs = transaction.proofs {
-            self.proofs.append(objectsIn: proofs)
-        }
+        version = transaction.version
         script = transaction.script
+        assetId = transaction.assetId
+
         modified = transaction.modified
         status = transaction.status.rawValue
     }
 }
 
-extension DomainLayer.DTO.SetScriptTransaction {
+extension DomainLayer.DTO.AssetScriptTransaction {
 
-    init(transaction: Node.DTO.SetScriptTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
+    init(transaction: Node.DTO.AssetScriptTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id
@@ -41,30 +39,34 @@ extension DomainLayer.DTO.SetScriptTransaction {
         senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
-        version = transaction.version
-        height = transaction.height
-        chainId = transaction.chainId
+        height = transaction.height ?? -1
         signature = transaction.signature
         proofs = transaction.proofs
+        chainId = transaction.chainId
+        version = transaction.version
         script = transaction.script
+        assetId = transaction.assetId
         modified = Date()
         self.status = status
     }
 
-    init(transaction: SetScriptTransaction) {
+    init(transaction: AssetScriptTransaction) {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
         senderPublicKey = transaction.sender
         fee = transaction.fee
         timestamp = transaction.timestamp
-        modified = transaction.modified
         height = transaction.height
-        chainId = transaction.chainId.value
         signature = transaction.signature
         proofs = transaction.proofs.toArray()
-        script = transaction.script
+        chainId = transaction.chainId.value
         version = transaction.version
+        script = transaction.script
+        assetId = transaction.assetId
+        
+        modified = transaction.modified
         status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }
+

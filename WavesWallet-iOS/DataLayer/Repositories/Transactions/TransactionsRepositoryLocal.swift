@@ -31,7 +31,7 @@ fileprivate extension TransactionType {
                 .leaseCancel,
                 .alias,
                 .data,
-                .setScript]
+                .script]
     }
 
     func predicate(from specifications: TransactionsSpecifications) -> NSPredicate {
@@ -67,11 +67,11 @@ fileprivate extension TransactionType {
         case .data:
             return DataTransaction.predicate(specifications)
 
-        case .setAssetScript:
-            return SetAssetScriptTransaction.predicate(specifications)
+        case .assetScript:
+            return AssetScriptTransaction.predicate(specifications)
 
-        case .setScript:
-            return SetScriptTransaction.predicate(specifications)
+        case .script:
+            return ScriptTransaction.predicate(specifications)
 
         default:
             return UnrecognisedTransaction.predicate(specifications)
@@ -121,13 +121,13 @@ fileprivate extension TransactionType {
             guard let dataTransaction = transaction.dataTransaction else { return nil }
             return .data(.init(transaction: dataTransaction))
 
-        case .setScript:
-            guard let setScriptTransaction = transaction.setScriptTransaction else { return nil }
-            return .setScript(.init(transaction: setScriptTransaction))
+        case .script:
+            guard let scriptTransaction = transaction.scriptTransaction else { return nil }
+            return .script(.init(transaction: scriptTransaction))
 
-        case .setAssetScript:
-            guard let setAssetScriptTransaction = transaction.setAssetScriptTransaction else { return nil }
-            return .setAssetScript(.init(transaction: setAssetScriptTransaction))
+        case .assetScript:
+            guard let assetScriptTransaction = transaction.assetScriptTransaction else { return nil }
+            return .assetScript(.init(transaction: assetScriptTransaction))
 
         default:
             guard let unrecognisedTransaction = transaction.unrecognisedTransaction else { return nil }
@@ -527,22 +527,22 @@ extension DataTransaction: TransactionsSpecificationsConverter {
     }
 }
 
-extension SetAssetScriptTransaction: TransactionsSpecificationsConverter {
+extension AssetScriptTransaction: TransactionsSpecificationsConverter {
     static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
 
         var predicates: [NSPredicate] = .init()
-        predicates.append(NSPredicate(format: "setAssetScriptTransaction != NULL"))
+        predicates.append(NSPredicate(format: "assetScriptTransaction != NULL"))
 
         if from.assets.count > 0 {
-            predicates.append(NSPredicate(format: "setAssetScriptTransaction.assetId IN %@", from.assets))
+            predicates.append(NSPredicate(format: "assetScriptTransaction.assetId IN %@", from.assets))
         }
 
         return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
     }
 }
 
-extension SetScriptTransaction: TransactionsSpecificationsConverter {
+extension ScriptTransaction: TransactionsSpecificationsConverter {
     static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
-        return NSPredicate(format: "setScriptTransaction != NULL")
+        return NSPredicate(format: "scriptTransaction != NULL")
     }
 }

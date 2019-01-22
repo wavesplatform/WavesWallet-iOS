@@ -450,9 +450,9 @@ extension DomainLayer.DTO.AliasTransaction {
     }
 }
 
-// MARK: SetScriptTransaction
+// MARK: ScriptTransaction
 
-extension DomainLayer.DTO.SetScriptTransaction {
+extension DomainLayer.DTO.ScriptTransaction {
 
     func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
 
@@ -463,7 +463,7 @@ extension DomainLayer.DTO.SetScriptTransaction {
         guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
         guard let sender = accounts[self.sender] else { return nil }
 
-        let kind: DomainLayer.DTO.SmartTransaction.Kind = .setScript(isHasScript: script != nil)
+        let kind: DomainLayer.DTO.SmartTransaction.Kind = .script(isHasScript: script != nil)
         let feeBalance = wavesAsset.balance(fee)
 
         return .init(id: id,
@@ -477,9 +477,9 @@ extension DomainLayer.DTO.SetScriptTransaction {
     }
 }
 
-// MARK: SetAssetScriptTransaction
+// MARK: AssetScriptTransaction
 
-extension DomainLayer.DTO.SetAssetScriptTransaction {
+extension DomainLayer.DTO.AssetScriptTransaction {
 
     func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
 
@@ -491,7 +491,7 @@ extension DomainLayer.DTO.SetAssetScriptTransaction {
         guard let assetId = assets[assetId] else { return nil }
         guard let sender = accounts[self.sender] else { return nil }
 
-        let kind: DomainLayer.DTO.SmartTransaction.Kind = .setAssetScript(assetId)
+        let kind: DomainLayer.DTO.SmartTransaction.Kind = .assetScript(assetId)
         let feeBalance = wavesAsset.balance(fee)
 
         return .init(id: id,
@@ -705,10 +705,10 @@ extension DomainLayer.DTO.AnyTransaction {
         case .data(let tx):
             smartTransaction = tx.transaction(by: smartData)
 
-        case .setScript(let tx):
+        case .script(let tx):
             smartTransaction = tx.transaction(by: smartData)
 
-        case .setAssetScript(let tx):
+        case .assetScript(let tx):
             smartTransaction = tx.transaction(by: smartData)
         }
 

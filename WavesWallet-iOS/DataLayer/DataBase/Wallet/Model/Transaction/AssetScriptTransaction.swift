@@ -1,5 +1,5 @@
 //
-//  SetAssetScriptTransaction.swift
+//  AssetScriptTransaction.swift
 //  WavesWallet-iOS
 //
 //  Created by mefilt on 22/01/2019.
@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-final class SetAssetScriptTransaction: Transaction {
+final class AssetScriptTransaction: Transaction {
 
     @objc dynamic var script: String? = nil
     @objc dynamic var assetId: String = ""

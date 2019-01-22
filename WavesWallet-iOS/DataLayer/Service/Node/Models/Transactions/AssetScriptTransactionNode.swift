@@ -1,5 +1,5 @@
 //
-//  SetAssetScriptTransactionDomainDTO.swift
+//  AssetScriptTransactionNode.swift
 //  WavesWallet-iOS
 //
 //  Created by mefilt on 22/01/2019.
@@ -8,9 +8,9 @@
 
 import Foundation
 
-extension DomainLayer.DTO {
+extension Node.DTO {
 
-    struct SetAssetScriptTransaction {
+    struct AssetScriptTransaction: Decodable {
 
         let type: Int
         let id: String
@@ -18,15 +18,12 @@ extension DomainLayer.DTO {
         let senderPublicKey: String
         let fee: Int64
         let timestamp: Int64
-        let height: Int64
+        let height: Int64?
         let signature: String?
         let proofs: [String]?
         let chainId: Int?
+        let assetId: String
         let version: Int
         let script: String?
-        let assetId: String
-
-        let modified: Date
-        var status: TransactionStatus
     }
 }

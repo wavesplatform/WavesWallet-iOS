@@ -130,8 +130,8 @@ extension DomainLayer.DTO {
 
             case data(Data)
 
-            case setScript(isHasScript: Bool)
-            case setAssetScript(Asset)
+            case script(isHasScript: Bool)
+            case assetScript(Asset)
 
         }
 

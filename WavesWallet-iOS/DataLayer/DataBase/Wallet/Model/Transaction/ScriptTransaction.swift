@@ -1,5 +1,5 @@
 //
-//  SetScriptTransaction.swift
+//  ScriptTransaction.swift
 //  WavesWallet-iOS
 //
 //  Created by mefilt on 22/01/2019.
