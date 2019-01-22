@@ -762,6 +762,12 @@ private extension DomainLayer.DTO.AnyTransaction {
 
         case .data:
             return [GlobalConstants.wavesAssetId]
+
+        case .setScript:
+            return [GlobalConstants.wavesAssetId]
+
+        case .setAssetScript(let tx):
+            return [tx.assetId]
         }
     }
 
@@ -808,6 +814,12 @@ private extension DomainLayer.DTO.AnyTransaction {
             return list
 
         case .data(let tx):
+            return [tx.sender]
+
+        case .setScript(let tx):
+            return [tx.sender]
+
+        case .setAssetScript(let tx):
             return [tx.sender]
         }
     }
