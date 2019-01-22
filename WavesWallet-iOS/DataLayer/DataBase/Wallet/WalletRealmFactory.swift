@@ -50,8 +50,8 @@ enum WalletRealmFactory {
                               ExchangeTransaction.self,
                               ExchangeTransactionOrder.self,
                               ExchangeTransactionAssetPair.self,
-                              SetScriptTransaction.self,
-                              SetAssetScriptTransaction.self,
+                              ScriptTransaction.self,
+                              AssetScriptTransaction.self,
                               DataTransaction.self,
                               DataTransactionData.self,
                               AnyTransaction.self,
@@ -162,8 +162,8 @@ enum WalletRealmFactory {
         migration.deleteData(forType: DataTransactionData.className())
         migration.deleteData(forType: AnyTransaction.className())
         migration.deleteData(forType: UnrecognisedTransaction.className())
-        migration.deleteData(forType: SetScriptTransaction.className())
-        migration.deleteData(forType: SetAssetScriptTransaction.className())
+        migration.deleteData(forType: ScriptTransaction.className())
+        migration.deleteData(forType: AssetScriptTransaction.className())
     }
 }
 

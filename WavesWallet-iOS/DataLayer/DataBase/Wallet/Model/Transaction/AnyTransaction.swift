@@ -22,6 +22,6 @@ final class AnyTransaction: Transaction {
     @objc dynamic var burnTransaction: BurnTransaction?
     @objc dynamic var exchangeTransaction: ExchangeTransaction?
     @objc dynamic var dataTransaction: DataTransaction?
-    @objc dynamic var setScriptTransaction: SetScriptTransaction?
-    @objc dynamic var setAssetScriptTransaction: SetAssetScriptTransaction?
+    @objc dynamic var scriptTransaction: ScriptTransaction?
+    @objc dynamic var assetScriptTransaction: AssetScriptTransaction?
 }
