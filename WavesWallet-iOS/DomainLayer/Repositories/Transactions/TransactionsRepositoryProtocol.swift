@@ -30,9 +30,9 @@ enum TransactionType: Int {
     case alias = 10
     case massTransfer = 11
     case data = 12
-    case any_13 = 13
-    case any_14 = 14
-    case any_15 = 15
+    case script = 13
+    case sponsorship = 14
+    case assetScript = 15
     case any_16 = 16
     case any_17 = 17
     case any_18 = 18
@@ -51,9 +51,9 @@ enum TransactionType: Int {
                 .alias,
                 .massTransfer,
                 .data,
-                .any_13,
-                .any_14,
-                .any_15,
+                .script,
+                .sponsorship,
+                .assetScript,
                 .any_16,
                 .any_17,
                 .any_18,

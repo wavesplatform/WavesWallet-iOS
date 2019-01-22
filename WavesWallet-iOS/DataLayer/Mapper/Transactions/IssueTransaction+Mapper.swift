@@ -1,5 +1,5 @@
 //
-//  BurnTransaction+Mapper.swift
+//  TransactionContainers.swift
 //  WavesWallet-iOS
 //
 //  Created by mefilt on 30.08.2018.
@@ -8,9 +8,9 @@
 
 import Foundation
 
-extension BurnTransaction {
+extension IssueTransaction {
 
-    convenience init(transaction: DomainLayer.DTO.BurnTransaction) {
+    convenience init(transaction: DomainLayer.DTO.IssueTransaction) {
         self.init()
         type = transaction.type
         id = transaction.id
@@ -20,19 +20,26 @@ extension BurnTransaction {
         timestamp = transaction.timestamp
         version = transaction.version
         height = transaction.height
-        modified = transaction.modified
-
-        assetId = transaction.assetId
         signature = transaction.signature
         chainId.value = transaction.chainId
-        amount = transaction.amount
+        if let proofs = transaction.proofs {
+            self.proofs.append(objectsIn: proofs)
+        }
+        assetId = transaction.assetId
+        name = transaction.name
+        quantity = transaction.quantity
+        reissuable = transaction.reissuable
+        decimals = transaction.decimals
+        assetDescription = transaction.description
+        script = transaction.script
+        modified = transaction.modified
         status = transaction.status.rawValue
     }
 }
 
-extension DomainLayer.DTO.BurnTransaction {
+extension DomainLayer.DTO.IssueTransaction {
 
-    init(transaction: Node.DTO.BurnTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
+    init(transaction: Node.DTO.IssueTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id
@@ -41,18 +48,23 @@ extension DomainLayer.DTO.BurnTransaction {
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
-        height = transaction.height ?? -1
-        modified = Date()
-
-        assetId = transaction.assetId
+        height = transaction.height
         signature = transaction.signature
-        chainId = transaction.chainId
-        amount = transaction.amount
+        assetId = transaction.assetId
+        name = transaction.name
+        chainId = nil
+
+        quantity = transaction.quantity
+        reissuable = transaction.reissuable
+        decimals = transaction.decimals
+        description = transaction.description
+        script = transaction.script
+        modified = Date()
         proofs = transaction.proofs
         self.status = status
     }
 
-    init(transaction: BurnTransaction) {
+    init(transaction: IssueTransaction) {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
@@ -61,13 +73,17 @@ extension DomainLayer.DTO.BurnTransaction {
         timestamp = transaction.timestamp
         version = transaction.version
         height = transaction.height
-        modified = transaction.modified
-
-        assetId = transaction.assetId        
         signature = transaction.signature
+        assetId = transaction.assetId
+        name = transaction.name
+        quantity = transaction.quantity
+        reissuable = transaction.reissuable
+        decimals = transaction.decimals
+        description = transaction.assetDescription
+        script = transaction.script
+        modified = transaction.modified
+        proofs = transaction.proofs.toArray()
         chainId = transaction.chainId.value
-        amount = transaction.amount
-        proofs = []
         status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }

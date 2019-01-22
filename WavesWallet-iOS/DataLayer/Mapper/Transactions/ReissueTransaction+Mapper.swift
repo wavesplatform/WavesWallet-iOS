@@ -21,7 +21,9 @@ extension ReissueTransaction {
         version = transaction.version
         height = transaction.height
         modified = transaction.modified
-
+        if let proofs = transaction.proofs {
+            self.proofs.append(objectsIn: proofs)
+        }
         signature = transaction.signature
         assetId = transaction.assetId
         chainId.value = transaction.chainId
@@ -70,7 +72,7 @@ extension DomainLayer.DTO.ReissueTransaction {
         chainId = transaction.chainId.value
         quantity = transaction.quantity
         reissuable = transaction.reissuable
-        proofs = []
+        proofs = transaction.proofs.toArray()
         status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }

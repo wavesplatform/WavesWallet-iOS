@@ -660,7 +660,7 @@ fileprivate extension TransactionsInteractor {
 
         var fee: Int64 = rule.fee
 
-        if rule.addSmartAccountFee {
+        if rule.addSmartAccountFee && isSmartAddress {
             fee += rules.smartAccountExtraFee
         }
 
@@ -762,6 +762,12 @@ private extension DomainLayer.DTO.AnyTransaction {
 
         case .data:
             return [GlobalConstants.wavesAssetId]
+
+        case .script:
+            return [GlobalConstants.wavesAssetId]
+
+        case .assetScript(let tx):
+            return [tx.assetId]
         }
     }
 
@@ -808,6 +814,12 @@ private extension DomainLayer.DTO.AnyTransaction {
             return list
 
         case .data(let tx):
+            return [tx.sender]
+
+        case .script(let tx):
+            return [tx.sender]
+
+        case .assetScript(let tx):
             return [tx.sender]
         }
     }
