@@ -18,7 +18,7 @@ private enum Constants {
 //MARK: - NetworkError
 
 extension UIViewController {
-    
+  
     @discardableResult func showNetworkErrorSnack(error: NetworkError, customTitle: String? = nil) -> String {
         
         if error.isInternetNotWorking {
@@ -39,6 +39,9 @@ extension UIViewController {
             return showErrorSnackWithoutAction(title: Localizable.Waves.General.Error.Title.notfound)
         
         case .notFound:
+            return showErrorNotFoundSnackWithoutAction()
+        
+        case .scriptError:
             return showErrorNotFoundSnackWithoutAction()
         }
     }

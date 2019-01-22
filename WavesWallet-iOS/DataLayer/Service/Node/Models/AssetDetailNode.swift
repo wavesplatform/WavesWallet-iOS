@@ -20,7 +20,7 @@ extension Node.DTO {
         let decimals: Int64
         let reissuable: Bool
         let quantity: Int64
-        let scripted: String?
+        let scripted: Bool?
         let minSponsoredAssetFee: Int64?
     }
 }

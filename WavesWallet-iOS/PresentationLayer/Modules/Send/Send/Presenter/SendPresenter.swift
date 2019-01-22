@@ -22,6 +22,7 @@ final class SendPresenter: SendPresenterProtocol {
         newFeedbacks.append(modelsQuery())
         newFeedbacks.append(modelsWavesQuery())
         newFeedbacks.append(assetQuery())
+        newFeedbacks.append(feeQuery())
         
         Driver.system(initialState: Send.State.initialState,
                       reduce: { [weak self] state, event -> Send.State in
@@ -31,6 +32,20 @@ final class SendPresenter: SendPresenterProtocol {
             .disposed(by: disposeBag)
     }
     
+    private func feeQuery() -> Feedback {
+        return react(query: { state -> Send.State? in
+            return state.isNeedLoadFee ? state : nil
+            
+        }, effects: {[weak self] state -> Signal<Send.Event> in
+            guard let strongSelf = self else { return Signal.empty() }
+            guard let assetID = state.selectedAsset?.assetId else { return Signal.empty() }
+            
+            return strongSelf.interactor.calculateFee(assetID: assetID)
+                .map{ .didCalculateFee($0)}.asSignal(onErrorSignalWith: Signal.empty())        
+        })
+
+    }
+    
     private func assetQuery() -> Feedback {
         return react(query: { state -> Send.State? in
             return state.scanningAssetID != nil ? state : nil
@@ -38,7 +53,6 @@ final class SendPresenter: SendPresenterProtocol {
         }, effects: {[weak self] state -> Signal<Send.Event> in
             guard let strongSelf = self else { return Signal.empty() }
             guard let assetID = state.scanningAssetID, assetID.count > 0 else { return Signal.empty() }
-            
             return strongSelf.interactor.assetBalance(by: assetID).map { .didGetAssetBalance($0)}.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
@@ -86,6 +100,12 @@ final class SendPresenter: SendPresenterProtocol {
 
         switch event {
         
+        case .didCalculateFee(let fee):
+            return state.mutate {
+                $0.isNeedLoadFee = false
+                $0.action = .didCalculateFee(fee)
+            }
+        
         case .didGetWavesAsset(let asset):
             return state.mutate {
                 $0.isNeedLoadWaves = false
@@ -106,6 +126,7 @@ final class SendPresenter: SendPresenterProtocol {
                 $0.isNeedLoadGateWayInfo = loadGatewayInfo
                 $0.isNeedValidateAliase = false
                 $0.isNeedGenerateMoneroAddress = false
+                $0.isNeedLoadFee = true
                 $0.selectedAsset = asset
             }
     
@@ -200,6 +221,7 @@ fileprivate extension Send.State {
                           isNeedValidateAliase: false,
                           isNeedLoadWaves: true,
                           isNeedGenerateMoneroAddress: false,
+                          isNeedLoadFee: false,
                           action: .none,
                           recipient: "",
                           moneroPaymentID: "",

@@ -1922,6 +1922,8 @@ internal enum Localizable {
         internal static var chooseFromAddressBook: String { return Localizable.tr("Waves", "send.button.chooseFromAddressBook") }
         /// Continue
         internal static var `continue`: String { return Localizable.tr("Waves", "send.button.continue") }
+        /// Okay
+        internal static var okey: String { return Localizable.tr("Waves", "send.button.okey") }
         /// Use total balance
         internal static var useTotalBalanace: String { return Localizable.tr("Waves", "send.button.useTotalBalanace") }
       }
@@ -1969,6 +1971,13 @@ internal enum Localizable {
             return Localizable.tr("Waves", "Send.Label.Warning.subtitle", p1, p2, p3)
           }
         }
+      }
+
+      internal enum Script {
+        /// To work with a scripted account/asset,\nuse the Waves Client
+        internal static var subtitle: String { return Localizable.tr("Waves", "send.script.subtitle") }
+        /// A script is installed on your account or asset
+        internal static var title: String { return Localizable.tr("Waves", "send.script.title") }
       }
 
       internal enum Textfield {
