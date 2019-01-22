@@ -1167,6 +1167,10 @@ internal enum Localizable {
           internal static var selfTransfer: String { return Localizable.tr("Waves", "history.transaction.title.selfTransfer") }
           /// Sent
           internal static var sent: String { return Localizable.tr("Waves", "history.transaction.title.sent") }
+          /// Entry in blockchain
+          internal static var setAssetScript: String { return Localizable.tr("Waves", "history.transaction.title.setAssetScript") }
+          /// Entry in blockchain
+          internal static var setScript: String { return Localizable.tr("Waves", "history.transaction.title.setScript") }
           /// Started Leasing
           internal static var startedLeasing: String { return Localizable.tr("Waves", "history.transaction.title.startedLeasing") }
           /// Token Burn
@@ -1182,6 +1186,15 @@ internal enum Localizable {
         internal enum Value {
           /// Entry in blockchain
           internal static var data: String { return Localizable.tr("Waves", "history.transaction.value.data") }
+          /// Set Asset Script
+          internal static var setAssetScript: String { return Localizable.tr("Waves", "history.transaction.value.setAssetScript") }
+
+          internal enum Setscript {
+            /// Cancel Script Transaction
+            internal static var cancel: String { return Localizable.tr("Waves", "history.transaction.value.setScript.cancel") }
+            /// Set Script Transaction
+            internal static var `set`: String { return Localizable.tr("Waves", "history.transaction.value.setScript.set") }
+          }
         }
       }
     }

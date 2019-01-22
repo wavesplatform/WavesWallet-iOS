@@ -159,6 +159,17 @@ extension HistoryTransactionView: ViewConfiguration {
 
         case .data:
             labelValue.text = Localizable.Waves.History.Transaction.Value.data
+
+        case .script(let isHasScript):
+
+            if isHasScript {
+                labelValue.text = Localizable.Waves.History.Transaction.Value.Setscript.set
+            } else {
+                labelValue.text = Localizable.Waves.History.Transaction.Value.Setscript.cancel
+            }
+
+        case .assetScript:
+            labelValue.text = Localizable.Waves.History.Transaction.Value.setAssetScript
         }
     }
 }
@@ -224,6 +235,12 @@ extension DomainLayer.DTO.SmartTransaction {
 
         case .data:
             return Localizable.Waves.History.Transaction.Title.data
+
+        case .script:
+            return Localizable.Waves.History.Transaction.Title.setScript
+
+        case .assetScript:
+            return Localizable.Waves.History.Transaction.Title.setAssetScript
         }
     }
 
@@ -279,6 +296,16 @@ extension DomainLayer.DTO.SmartTransaction {
 
         case .data:
             return Images.tData48.image
+
+        case .script(let isHasScript):
+            if isHasScript {
+                return Images.tSetscript48.image
+            } else {
+                return Images.tSetscriptCancel48.image
+            }
+
+        case .assetScript:
+            return Images.tSetassetscript48.image
         }
     }
 }
