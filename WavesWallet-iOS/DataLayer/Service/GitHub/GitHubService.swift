@@ -13,22 +13,32 @@ enum GitHub {}
 
 extension GitHub {
     enum Service {}
+    enum DTO {}
 }
 
 private enum Constants {
-    static let urlEnvironmentMainNet: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/master/environment_mainnet.json")!
-    static let urlEnvironmentTestNet: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/master/environment_testnet.json")!
+    static let urlEnvironmentMainNet: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/master/environment_mainnet.json")!
+    static let urlEnvironmentTestNet: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/master/environment_testnet.json")!
+    static let urlTransactionFee: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/master/fee.json")!
 }
 
 extension GitHub.Service {
 
-        enum Environment {
-            /**
-             Response:
-             - Environment
-             */
-            case get(isTestNet: Bool)
-        }
+    enum Environment {
+        /**
+         Response:
+         - Environment
+         */
+        case get(isTestNet: Bool)
+    }
+
+    enum TransactionRules {
+        /**
+         Response:
+         - ?
+         */
+        case get
+    }
 }
 
 extension GitHub.Service.Environment: TargetType {
@@ -44,6 +54,41 @@ extension GitHub.Service.Environment: TargetType {
             } else {
                 return Constants.urlEnvironmentMainNet
             }
+        }
+    }
+
+    var path: String {
+        return ""
+    }
+
+    var headers: [String: String]? {
+        return ContentType.applicationJson.headers
+    }
+
+    var method: Moya.Method {
+        switch self {
+        case .get:
+            return .get
+        }
+    }
+
+    var task: Task {
+        switch self {
+        case .get:
+            return .requestPlain
+        }
+    }
+}
+
+extension GitHub.Service.TransactionRules: TargetType {
+    var sampleData: Data {
+        return Data()
+    }
+
+    var baseURL: URL {
+        switch self {
+        case .get:
+            return Constants.urlTransactionFee
         }
     }
 

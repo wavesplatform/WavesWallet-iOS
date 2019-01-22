@@ -99,8 +99,6 @@ struct CancelLeaseTransactionSender {
     let fee: Int64
 }
 
-typealias StringBase64 = String
-
 struct DataTransactionSender {
     struct Value {
         enum Kind {
@@ -151,4 +149,27 @@ protocol TransactionsRepositoryProtocol {
     func isHasTransactions(by accountAddress: String, ignoreUnconfirmed: Bool) -> Observable<Bool>
 
     func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AnyTransaction>
+
+    func feeRules() -> Observable<DomainLayer.DTO.TransactionFeeRules>
 }
+
+extension DomainLayer.DTO {
+
+    struct TransactionFeeRules {
+        struct Rule  {
+            let addSmartAssetFee: Bool
+            let addSmartAccountFee: Bool
+            let minPriceStep: Int64
+            let fee: Int64
+            let pricePerTransfer: Int64
+            let pricePerKb: Int64
+        }
+
+        let smartAssetExtraFee: Int64
+        let smartAccountExtraFee: Int64
+
+        let defaultRule: TransactionFeeRules.Rule
+        let rules: [TransactionType: TransactionFeeRules.Rule]
+    }
+}
+
