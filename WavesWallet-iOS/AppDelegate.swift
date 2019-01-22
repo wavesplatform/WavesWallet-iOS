@@ -77,17 +77,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
             .disposed(by: disposeBag)
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-            FactoryInteractors.instance.authorization.authorizedWallet()
-                .flatMap({ (wallet) -> Observable<Money> in
-                    return TransactionsInteractor().calculateFee(by: .createOrder(amountAsset: "WAVES", priceAsset: "DWgwcZTMhSvnyYCoWLRUXXSH1RSkzThXLJhww9gwkqdn"), accountAddress: wallet.address)
-                })
-                .subscribe(onNext: { (fee) in
-                    print(fee)
-                }, onError: { (error) in
-                    print(error)
-                }, onCompleted: nil, onDisposed: nil)
-        }
         return true
     }
 
