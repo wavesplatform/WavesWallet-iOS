@@ -45,7 +45,7 @@ final class ImportCoordinator: Coordinator {
     // MARK: - Child Controllers
     
     func scannedSeed(_ seed: String) {
-        guard seed.utf8.count >= ImportTypes.minimumSeedLength else {
+        guard seed.utf8.count >= GlobalConstants.minimumSeedLength else {
             navigationRouter.navigationController.topViewController?.showMessageSnack(title: Localizable.Waves.Enter.Button.Importaccount.Error.insecureSeed)
             return
         }
