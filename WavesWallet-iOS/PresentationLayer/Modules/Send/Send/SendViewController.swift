@@ -605,7 +605,6 @@ private extension SendViewController {
     
     func setupLocalization() {
         buttonContinue.setTitle(Localizable.Waves.Send.Button.continue, for: .normal)
-        viewFee.update(with: Money(0,0))
     }
     
     func setupRecipientAddress() {

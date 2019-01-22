@@ -78,12 +78,12 @@ extension DomainLayer.DTO.Dex.SmartPair {
         amountAsset = .init(id: market.amountAsset,
                             name: amountAssetName,
                             shortName: amountAssetShortName,
-                            decimals: market.amountAssetInfo.decimals)
+                            decimals: market.amountAssetInfo?.decimals ?? 0)
         
         priceAsset = .init(id: market.priceAsset,
                            name: priceAssetName,
                            shortName: priceAssetShortName,
-                           decimals: market.priceAssetInfo.decimals)
+                           decimals: market.priceAssetInfo?.decimals ?? 0)
         
         
         let isGeneralAmount = realm.objects(Asset.self)
