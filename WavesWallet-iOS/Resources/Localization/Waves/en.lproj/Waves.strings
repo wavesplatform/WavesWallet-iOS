@@ -571,6 +571,15 @@
 
 "history.transaction.title.selfTransfer" = "Self-transfer";
 
+
+"history.transaction.title.setScript" = "Entry in blockchain";
+"history.transaction.title.setAssetScript" = "Entry in blockchain";
+
+"history.transaction.value.setScript.set" = "Set Script Transaction";
+"history.transaction.value.setScript.cancel" = "Cancel Script Transaction";
+"history.transaction.value.setAssetScript" = "Set Asset Script";
+
+
 "history.transaction.title.sent" = "Sent";
 
 "history.transaction.title.startedLeasing" = "Started Leasing";

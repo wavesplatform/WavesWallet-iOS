@@ -11,8 +11,7 @@ import RealmSwift
 import Realm
 
 final class IssueTransaction: Transaction {
-
-    @objc dynamic var signature: String? = nil
+    
     @objc dynamic var assetId: String = ""
     @objc dynamic var name: String = ""
     @objc dynamic var quantity: Int64 = 0

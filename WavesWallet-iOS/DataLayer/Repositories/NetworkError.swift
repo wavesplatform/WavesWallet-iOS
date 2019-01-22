@@ -11,6 +11,7 @@ import Moya
 
 private enum Constants {
     static let scriptErrorCode = 307
+    static let assetScriptErrorCode = 308
 }
 
 enum NetworkError: Error {
