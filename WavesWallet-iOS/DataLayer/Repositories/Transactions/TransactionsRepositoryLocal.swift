@@ -30,7 +30,8 @@ fileprivate extension TransactionType {
                 .lease,
                 .leaseCancel,
                 .alias,
-                .data]
+                .data,
+                .setScript]
     }
 
     func predicate(from specifications: TransactionsSpecifications) -> NSPredicate {
@@ -65,6 +66,12 @@ fileprivate extension TransactionType {
 
         case .data:
             return DataTransaction.predicate(specifications)
+
+        case .setAssetScript:
+            return SetAssetScriptTransaction.predicate(specifications)
+
+        case .setScript:
+            return SetScriptTransaction.predicate(specifications)
 
         default:
             return UnrecognisedTransaction.predicate(specifications)
@@ -113,6 +120,14 @@ fileprivate extension TransactionType {
         case .data:
             guard let dataTransaction = transaction.dataTransaction else { return nil }
             return .data(.init(transaction: dataTransaction))
+
+        case .setScript:
+            guard let setScriptTransaction = transaction.setScriptTransaction else { return nil }
+            return .setScript(.init(transaction: setScriptTransaction))
+
+        case .setAssetScript:
+            guard let setAssetScriptTransaction = transaction.setAssetScriptTransaction else { return nil }
+            return .setAssetScript(.init(transaction: setAssetScriptTransaction))
 
         default:
             guard let unrecognisedTransaction = transaction.unrecognisedTransaction else { return nil }
@@ -509,5 +524,25 @@ extension ExchangeTransaction: TransactionsSpecificationsConverter {
 extension DataTransaction: TransactionsSpecificationsConverter {
     static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
         return NSPredicate(format: "dataTransaction != NULL")
+    }
+}
+
+extension SetAssetScriptTransaction: TransactionsSpecificationsConverter {
+    static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
+
+        var predicates: [NSPredicate] = .init()
+        predicates.append(NSPredicate(format: "setAssetScriptTransaction != NULL"))
+
+        if from.assets.count > 0 {
+            predicates.append(NSPredicate(format: "setAssetScriptTransaction.assetId IN %@", from.assets))
+        }
+
+        return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+    }
+}
+
+extension SetScriptTransaction: TransactionsSpecificationsConverter {
+    static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
+        return NSPredicate(format: "setScriptTransaction != NULL")
     }
 }

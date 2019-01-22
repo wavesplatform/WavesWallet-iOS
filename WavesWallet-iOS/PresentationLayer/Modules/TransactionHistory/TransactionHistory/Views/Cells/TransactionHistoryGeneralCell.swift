@@ -89,11 +89,15 @@ final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
         case .unrecognisedTransaction:
             image = Images.tUndefined48
 
-        case .setScript:
-            return Images.tSetscript48.image
+        case .setScript(let isHasScript):
+            if isHasScript {
+                image = Images.tSetscript48
+            } else {
+                image = Images.tSetscriptCancel48
+            }
 
         case .setAssetScript:
-            return Images.tSetassetscript48.image
+            image = Images.tSetassetscript48
         }
         
         return UIImage(asset: image)
