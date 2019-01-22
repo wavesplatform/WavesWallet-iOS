@@ -9,8 +9,7 @@
 import Foundation
 import RealmSwift
 
-final class LeaseTransaction: Transaction {
-    @objc dynamic var signature: String? = nil
+final class LeaseTransaction: Transaction {    
     @objc dynamic var amount: Int64 = 0
     @objc dynamic var recipient: String = ""
 }
