@@ -88,6 +88,10 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
 
     func isSmartAsset(_ assetId: String, by accountAddress: String) -> Observable<Bool> {
 
+        if assetId == GlobalConstants.wavesAssetId {
+            return Observable.just(false)
+        }
+
         let environment = environmentRepository.accountEnvironment(accountAddress: accountAddress)
 
         return environment
@@ -105,7 +109,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                 return Observable.error(NetworkError.error(by: error))
             })
             .map(Node.DTO.AssetDetail.self)
-            .map { $0.scripted != nil }
+            .map { $0.scripted == true }
     }
 }
 

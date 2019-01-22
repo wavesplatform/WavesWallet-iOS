@@ -21,7 +21,7 @@ final class TokenBurnLoadingViewController: UIViewController {
     var input: TokenBurnConfirmationViewController.Input!
     weak var delegate: TokenBurnLoadingViewControllerDelegate?
     
-    private let interactor: TokenBurnSendInteractorProtocol = TokenBurnSendInteractorMock()
+    private let interactor: TokenBurnSendInteractorProtocol = TokenBurnSendInteractor()
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {

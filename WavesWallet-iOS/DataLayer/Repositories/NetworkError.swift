@@ -9,12 +9,19 @@
 import Foundation
 import Moya
 
+private enum Constants {
+    static let scriptErrorCode = 307
+    static let assetScriptErrorCode = 308
+}
+
 enum NetworkError: Error {
+  
     case message(String)
     case notFound
     case internetNotWorking
     case serverError
-
+    case scriptError
+    
     var isInternetNotWorking: Bool {
         switch self {
         case .internetNotWorking:
@@ -139,6 +146,10 @@ extension NetworkError {
         let anyObject = try? JSONSerialization.jsonObject(with: data, options: [])
 
         if let anyObject = anyObject as? [String: Any] {
+            
+            if anyObject["error"] as? Int == Constants.scriptErrorCode {
+                return NetworkError.scriptError
+            }
             message = anyObject["message"] as? String
             
             if message == nil {

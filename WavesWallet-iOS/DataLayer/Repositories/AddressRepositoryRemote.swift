@@ -39,6 +39,6 @@ final class AddressRepositoryRemote: AddressRepositoryProtocol {
                 return Observable.error(NetworkError.error(by: error))
             })
             .map(Node.DTO.AddressScriptInfo.self)
-            .map { $0.extraFee != nil }
+            .map { ($0.extraFee ?? 0) > 0 }
     }
 }

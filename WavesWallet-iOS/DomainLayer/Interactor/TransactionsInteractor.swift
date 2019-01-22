@@ -660,7 +660,7 @@ fileprivate extension TransactionsInteractor {
 
         var fee: Int64 = rule.fee
 
-        if rule.addSmartAccountFee {
+        if rule.addSmartAccountFee && isSmartAddress {
             fee += rules.smartAccountExtraFee
         }
 
