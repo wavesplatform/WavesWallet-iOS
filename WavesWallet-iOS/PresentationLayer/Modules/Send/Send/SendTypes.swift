@@ -30,6 +30,7 @@ enum Send {
         case getAssetById(String)
         case cancelGetingAsset
         case didGetAssetBalance(DomainLayer.DTO.SmartAssetBalance?)
+        case didCalculateFee(Money)
     }
     
     struct State: Mutating {
@@ -42,12 +43,14 @@ enum Send {
             case didGenerateMoneroAddress(DTO.GatewayInfo)
             case didFailGenerateMoneroAddress(NetworkError)
             case didGetAssetBalance(DomainLayer.DTO.SmartAssetBalance?)
+            case didCalculateFee(Money)
         }
         
         var isNeedLoadGateWayInfo: Bool
         var isNeedValidateAliase: Bool
         var isNeedLoadWaves: Bool
         var isNeedGenerateMoneroAddress: Bool
+        var isNeedLoadFee: Bool
         var action: Action
         var recipient: String = ""
         var moneroPaymentID: String = ""

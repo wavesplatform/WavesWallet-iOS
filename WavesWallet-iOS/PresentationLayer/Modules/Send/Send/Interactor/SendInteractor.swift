@@ -17,6 +17,7 @@ final class SendInteractor: SendInteractorProtocol {
     private let coinomatRepository = FactoryRepositories.instance.coinomatRepository
     private let aliasRepository = FactoryRepositories.instance.aliasesRepository
     private let transactionInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
+    private let accountBalance = FactoryInteractors.instance.accountBalance
 
     func assetBalance(by assetID: String) -> Observable<DomainLayer.DTO.SmartAssetBalance?> {
         return accountBalanceInteractor.balances().flatMap({ [weak self] (balances) -> Observable<DomainLayer.DTO.SmartAssetBalance?>  in
@@ -50,11 +51,17 @@ final class SendInteractor: SendInteractorProtocol {
         })
     }
     
+    func calculateFee(assetID: String) -> Observable<Money> {
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<Money> in
+            guard let owner = self else { return Observable.empty() }
+            return owner.transactionInteractor.calculateFee(by: .sendTransaction(assetID: assetID), accountAddress: wallet.address)
+        })
+    }
+    
     func getWavesBalance() -> Observable<DomainLayer.DTO.SmartAssetBalance> {
 
         //TODO: need optimization
         
-        let accountBalance = FactoryInteractors.instance.accountBalance
         return accountBalance.balances()
             .flatMap({ balances -> Observable<DomainLayer.DTO.SmartAssetBalance> in
                 

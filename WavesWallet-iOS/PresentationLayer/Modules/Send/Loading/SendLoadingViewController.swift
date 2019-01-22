@@ -48,7 +48,7 @@ final class SendLoadingViewController: UIViewController {
     }
     
     private func send() {
-        
+      
         let assetId = input.asset.isWaves ? "" : input.asset.id
         interactor.send(fee: input.fee, recipient: input.address, assetId: assetId, amount: input.amount, attachment: input.attachment)
             .observeOn(MainScheduler.instance)

@@ -285,12 +285,13 @@ extension WalletViewController {
                 globalErrorView.isHidden = true
                 snackError = showWithoutInternetSnack()
 
-            case .notFound:
-                snackError = showErrorNotFoundSnack()
-
             case .message(let message):
                 globalErrorView.isHidden = true
                 snackError = showErrorSnack(message)
+                
+            default:
+                snackError = showErrorNotFoundSnack()
+
             }
 
         case .waiting:

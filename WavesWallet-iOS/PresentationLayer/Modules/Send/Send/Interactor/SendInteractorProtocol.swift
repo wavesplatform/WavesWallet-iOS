@@ -17,4 +17,5 @@ protocol SendInteractorProtocol {
     func gateWayInfo(asset: DomainLayer.DTO.SmartAssetBalance, address: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>>
     func validateAlis(alias: String) -> Observable<Bool>
     func send(fee: Money, recipient: String, assetId: String, amount: Money, attachment: String) -> Observable<Send.TransactionStatus>
+    func calculateFee(assetID: String) -> Observable<Money>
 }

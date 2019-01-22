@@ -13,6 +13,7 @@ enum DisplayError: Equatable {
     case internetNotWorking
     case notFound
     case message(String)
+    case scriptError
 }
 
 enum DisplayErrorState {
@@ -46,6 +47,9 @@ extension DisplayErrorState {
 
                 case .message(let message):
                     displayError = .message(message)
+                    
+                case .scriptError:
+                    displayError = .scriptError
                 }
 
             default:
