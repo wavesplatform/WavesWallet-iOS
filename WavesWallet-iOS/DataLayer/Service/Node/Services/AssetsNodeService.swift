@@ -15,9 +15,15 @@ extension Node.Service {
         enum Kind {
             /**
              Response:
-             - [Node.Model.AccountAssetsBalance].self
+             - [Node.Model.AccountAssetsBalance]
              */
             case getAssetsBalance(walletAddress: String)
+
+            /**
+             Response:
+             - Node.DTO.AssetDetail
+             */
+            case details(assetId: String)
         }
 
         var kind: Kind
@@ -33,25 +39,29 @@ extension Node.Service.Assets: NodeTargetType {
     fileprivate enum Constants {
         static let assets = "assets"
         static let balance = "balance"
+        static let details = "details"
     }
 
     var path: String {
         switch kind {
         case .getAssetsBalance(let id):
             return Constants.assets + "/" + Constants.balance + "/" + "\(id)".urlEscaped
+
+        case .details(let id):
+            return Constants.assets + "/" + Constants.details + "/" + "\(id)".urlEscaped
         }
     }
 
     var method: Moya.Method {
         switch kind {
-        case .getAssetsBalance:
+        case .getAssetsBalance, .details:
             return .get
         }
     }
 
     var task: Task {
         switch kind {
-        case .getAssetsBalance:
+        case .getAssetsBalance, .details:
             return .requestPlain
         }
     }

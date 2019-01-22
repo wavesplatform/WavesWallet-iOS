@@ -99,6 +99,23 @@ struct CancelLeaseTransactionSender {
     let fee: Int64
 }
 
+struct DataTransactionSender {
+    struct Value {
+        enum Kind {
+            case integer(Int64)
+            case boolean(Bool)
+            case string(String)
+            case binary([UInt8])
+        }
+
+        let key: String
+        let value: Kind
+    }
+
+    let fee: Int64
+    let data: [Value]
+}
+
 struct SendTransactionSender {
     let recipient: String
     let assetId: String
@@ -112,6 +129,7 @@ enum TransactionSenderSpecifications {
     case lease(LeaseTransactionSender)
     case burn(BurnTransactionSender)
     case cancelLease(CancelLeaseTransactionSender)
+    case data(DataTransactionSender)
     case send(SendTransactionSender)
 }
 
@@ -131,4 +149,27 @@ protocol TransactionsRepositoryProtocol {
     func isHasTransactions(by accountAddress: String, ignoreUnconfirmed: Bool) -> Observable<Bool>
 
     func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AnyTransaction>
+
+    func feeRules() -> Observable<DomainLayer.DTO.TransactionFeeRules>
 }
+
+extension DomainLayer.DTO {
+
+    struct TransactionFeeRules {
+        struct Rule  {
+            let addSmartAssetFee: Bool
+            let addSmartAccountFee: Bool
+            let minPriceStep: Int64
+            let fee: Int64
+            let pricePerTransfer: Int64
+            let pricePerKb: Int64
+        }
+
+        let smartAssetExtraFee: Int64
+        let smartAccountExtraFee: Int64
+
+        let defaultRule: TransactionFeeRules.Rule
+        let rules: [TransactionType: TransactionFeeRules.Rule]
+    }
+}
+
