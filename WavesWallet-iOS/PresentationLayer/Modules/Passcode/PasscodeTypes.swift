@@ -50,6 +50,9 @@ extension PasscodeTypes {
 
             case .message(let message):
                 return .message(message)
+                
+            case .scriptError:
+                return .notFound
             }
 
         case let authError as AuthorizationInteractorError:

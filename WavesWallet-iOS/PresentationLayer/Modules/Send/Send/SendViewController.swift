@@ -33,7 +33,7 @@ final class SendViewController: UIViewController {
     @IBOutlet private weak var amountView: AmountInputView!
     @IBOutlet private weak var recipientAddressView: AddressInputView!
     @IBOutlet private weak var buttonContinue: HighlightedButton!
-    @IBOutlet private weak var labelTransactionFee: UILabel!
+    @IBOutlet private weak var viewFee: SendTransactionFeeView!
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var activityIndicatorButton: UIActivityIndicatorView!
     @IBOutlet private weak var viewAmountError: UIView!
@@ -46,7 +46,7 @@ final class SendViewController: UIViewController {
     
     private var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
     private var amount: Money?
-    private let wavesFee = GlobalConstants.WavesTransactionFee
+    private var wavesFee: Money?
     
     private let sendEvent: PublishRelay<Send.Event> = PublishRelay<Send.Event>()
     var presenter: SendPresenterProtocol!
@@ -65,7 +65,7 @@ final class SendViewController: UIViewController {
         
         var balance: Int64 = 0
         if asset.asset.isWaves == true {
-            balance = asset.avaliableBalance - wavesFee.amount
+            balance = asset.avaliableBalance - (wavesFee?.amount ?? GlobalConstants.WavesTransactionFeeAmount)
         }
         else if isValidCryptocyrrencyAddress {
             balance = asset.avaliableBalance - (gateWayInfo?.fee.amount ?? 0)
@@ -129,6 +129,7 @@ final class SendViewController: UIViewController {
             }
 
         case .empty:
+            viewFee.isHidden = true
             updateAmountData()
         }
         
@@ -143,6 +144,7 @@ final class SendViewController: UIViewController {
     private func setupAssetInfo(_ assetBalance: DomainLayer.DTO.SmartAssetBalance) {
         gateWayInfo = nil
         
+        viewFee.showLoadingState()
         selectedAsset = assetBalance
         assetView.update(with: .init(assetBalance: assetBalance, isOnlyBlockMode: inputModel.selectedAsset != nil))
         setupButtonState()
@@ -165,6 +167,7 @@ final class SendViewController: UIViewController {
     private func showConfirmScreen() {
         guard let amountWithoutFee = self.amount else { return }
         guard let asset = selectedAsset?.asset else { return }
+        guard let fee = wavesFee else { return }
         
         var address = recipientAddressView.text
         var amount = amountWithoutFee
@@ -187,7 +190,7 @@ final class SendViewController: UIViewController {
         vc.input = .init(asset: asset,
                          address: address,
                          displayAddress: recipientAddressView.text,
-                         fee: wavesFee,
+                         fee: fee,
                          amount: amount,
                          amountWithoutFee: amountWithoutFee,
                          attachment: attachment,
@@ -214,7 +217,14 @@ extension SendViewController: SendResultDelegate {
     func sendResultDidFail(_ error: NetworkError) {
         
         navigationController?.popToViewController(self, animated: true)
-        showNetworkErrorSnack(error: error)
+        
+        switch error {
+        case .scriptError:
+            SendTransactionScriptErrorView.show()
+
+        default:
+            showNetworkErrorSnack(error: error)
+        }
     }
 }
 
@@ -296,6 +306,9 @@ private extension SendViewController {
                     owner.setupButtonState()
                     owner.showConfirmScreen()
 
+                case .didCalculateFee(let fee):
+                    owner.updateFee(fee: fee)
+                    
                 default:
                     break
                 }
@@ -319,6 +332,7 @@ extension SendViewController: AmountInputViewDelegate {
 //MARK: - AssetListModuleOutput
 extension SendViewController: AssetListModuleOutput {
     func assetListDidSelectAsset(_ asset: DomainLayer.DTO.SmartAssetBalance) {
+        
         setupAssetInfo(asset)
         amountView.setDecimals(asset.asset.precision, forceUpdateMoney: true)
         validateAddress()
@@ -377,6 +391,13 @@ private extension SendViewController {
 //MARK: - UI
 private extension SendViewController {
 
+    func updateFee(fee: Money) {
+        wavesFee = fee
+        viewFee.update(with: fee)
+        viewFee.isHidden = false
+        viewFee.hideLoadingState()
+    }
+    
     func showLoadingAssetState(isLoadingAmount: Bool) {
         isLoadingAssetBalanceAfterScan = true
         assetView.isSelectedAssetMode = false
@@ -418,7 +439,7 @@ private extension SendViewController {
         let isShowAmountError = selectedAsset != nil && !isValidAmount && amountInput > 0
         
         if let gateWayInfo = gateWayInfo, isValidCryptocyrrencyAddress, isShowAmountError {
-            let wavesFeeText = wavesFee.displayText + " WAVES"
+            let wavesFeeText = wavesFee?.displayText ?? GlobalConstants.WavesTransactionFee.displayText + " WAVES"
             let gateWayFee = gateWayInfo.fee.displayText + " " + gateWayInfo.assetShortName
             let error = Localizable.Waves.Send.Label.Error.notFundsFeeGateway(wavesFeeText, gateWayFee)
             showFeeError(error, animation: animation)
@@ -474,7 +495,8 @@ private extension SendViewController {
             (amount?.amount ?? 0) > 0 &&
             isValidMinMaxGatewayAmount &&
             isValidPaymentMoneroID &&
-            !isLoadingAssetBalanceAfterScan
+            !isLoadingAssetBalanceAfterScan &&
+            wavesFee != nil
         
         buttonContinue.isUserInteractionEnabled = canContinueAction
         buttonContinue.backgroundColor = canContinueAction ? .submit400 : .submit200
@@ -583,7 +605,7 @@ private extension SendViewController {
     
     func setupLocalization() {
         buttonContinue.setTitle(Localizable.Waves.Send.Button.continue, for: .normal)
-        labelTransactionFee.text = Localizable.Waves.Send.Label.transactionFee + " " + wavesFee.displayText + " WAVES"
+        viewFee.update(with: Money(0,0))
     }
     
     func setupRecipientAddress() {
@@ -612,6 +634,7 @@ extension SendViewController: AddressInputViewDelegate {
             assetView.isSelectedAssetMode = true
             assetView.removeSelectedAssetState()
             recipientAddressView.decimals = 0
+            viewFee.isHidden = true
         }
         
         if amountView.isBlockMode {
@@ -668,6 +691,7 @@ extension SendViewController: AddressInputViewDelegate {
         if let asset = assetID, selectedAsset?.assetId != asset, inputModel.selectedAsset == nil {
             sendEvent.accept(.getAssetById(asset))
             showLoadingAssetState(isLoadingAmount: amount != nil)
+            viewFee.showLoadingState()
         }
         
         amountView.hideAnimation()
@@ -777,7 +801,7 @@ private extension SendViewController {
     }
     
     var isValidFee: Bool {
-        return (wavesAsset?.avaliableBalance ?? 0) >= wavesFee.amount
+        return (wavesAsset?.avaliableBalance ?? 0) >= wavesFee?.amount ?? 0
     }
     
     var isValidAmount: Bool {

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 //
 //  TransactionsInteractor.swift
@@ -93,15 +94,69 @@ final class TransactionsInteractorMock: TransactionsInteractorProtocol {
     
     private var blockRepositoryRemote: BlockRepositoryProtocol = FactoryRepositories.instance.blockRemote
     
+    private let disposeBag = DisposeBag()
+    
   
     func calculateFee(by transactionSpecs: DomainLayer.Query.TransactionSpecificationType, accountAddress: String) -> Observable<Money> {
-        print("not implemented")
-        return Observable.empty()
-    }
-    
-    func isAvailableCreateOrder(amountAsset: String, priceAsset: String, accountAddress: String) -> Observable<Bool> {
-        print("not implemented")
-        return Observable.empty()
+
+        return Observable.create({ (subscribe) -> Disposable in
+          
+            let auth = FactoryInteractors.instance.authorization
+            auth.authorizedWallet().subscribe(onNext: { (wallet) in
+                
+                let environement = FactoryRepositories.instance.environmentRepository
+                environement.accountEnvironment(accountAddress: wallet.address)
+                    .subscribe(onNext: { (environment) in
+                        
+                        switch transactionSpecs {
+                        case .sendTransaction(let assetID):
+                            
+                            let url = environment.servers.nodeUrl.relativeString + "/assets/details/\(assetID)"
+                            Alamofire.request(url).responseJSON(completionHandler: { (response) in
+                                
+                                if let info = response.result.value as? NSDictionary {
+                                    
+                                    if info["scripted"] as? Bool == true {
+                                        
+                                        let amount = GlobalConstants.WavesTransactionFeeAmount + GlobalConstants.WavesTransactionFeeAmount * 4
+                                        subscribe.onNext(Money(amount , GlobalConstants.WavesDecimals))
+                                    }
+                                    else {
+                                        subscribe.onNext(GlobalConstants.WavesTransactionFee)
+                                    }
+                                }
+                                else {
+                                    subscribe.onNext(GlobalConstants.WavesTransactionFee)
+                                }
+                                
+                                subscribe.onCompleted()
+                            })
+                            
+                        case .createOrder(let amountAsset, let priceAsset):
+                            break
+                        }
+                            
+                            
+                        
+                    }).disposed(by: self.disposeBag)
+            }).disposed(by: self.disposeBag)
+           
+//            "assetId": "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS",
+//            "issueHeight": 257457,
+//            "issueTimestamp": 1480690876160,
+//            "issuer": "3PC4roN512iugc6xGVTTM2XkoWKEdSiiscd",
+//            "name": "WBTC",
+//            "description": "Bitcoin Token",
+//            "decimals": 8,
+//            "reissuable": false,
+//            "quantity": 2099999999662710,
+//            "scripted": false,
+//            "minSponsoredAssetFee": null
+            
+            
+            
+            return Disposables.create()
+        })
     }
     
     func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.SmartTransaction> {

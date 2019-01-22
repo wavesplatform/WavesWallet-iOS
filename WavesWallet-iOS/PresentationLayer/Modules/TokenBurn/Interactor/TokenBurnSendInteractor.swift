@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-final class TokenBurnSendInteractorMock: TokenBurnSendInteractorProtocol {
+final class TokenBurnSendInteractor: TokenBurnSendInteractorProtocol {
 
     private let transactions = FactoryInteractors.instance.transactions
     private let authorization = FactoryInteractors.instance.authorization
