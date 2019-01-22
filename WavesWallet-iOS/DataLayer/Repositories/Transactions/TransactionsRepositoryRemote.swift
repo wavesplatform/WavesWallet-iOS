@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import Moya
+import CryptoSwift
 
 fileprivate enum Constants {
     static let maxLimit: Int = 10000
@@ -29,7 +30,10 @@ extension TransactionSenderSpecifications {
 
         case .cancelLease:
             return 2
-        
+
+        case .data:
+            return 1
+
         case .send:
             return 2
         }
@@ -48,7 +52,10 @@ extension TransactionSenderSpecifications {
 
         case .cancelLease:
             return TransactionType.leaseCancel
-        
+
+        case .data:
+            return TransactionType.data
+
         case .send:
             return TransactionType.transfer
         }
@@ -59,6 +66,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
 
     private let transactions: MoyaProvider<Node.Service.Transaction> = .nodeMoyaProvider()
     private let leasingProvider: MoyaProvider<Node.Service.Leasing> = .nodeMoyaProvider()
+    private let transactionRules: MoyaProvider<GitHub.Service.TransactionRules> = .nodeMoyaProvider()
 
     private let environmentRepository: EnvironmentRepositoryProtocol
 
@@ -194,7 +202,60 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
         assertMethodDontSupported()
         return Observable.never()
     }
+
+    func feeRules() -> Observable<DomainLayer.DTO.TransactionFeeRules> {
+        return transactionRules
+            .rx
+            .request(.get)
+            .map(GitHub.DTO.TransactionFeeRules.self)
+            .asObservable()
+            .map({ (txRules) -> DomainLayer.DTO.TransactionFeeRules in
+
+                let deffault = txRules.calculate_fee_rules[TransactionFeeDefaultRule]
+
+                let rules = TransactionType
+                    .all
+                    .reduce(into: [TransactionType: DomainLayer.DTO.TransactionFeeRules.Rule](), { (result, type) in
+
+                    let rule = txRules.calculate_fee_rules["\(type.rawValue)"]
+
+                    let addSmartAssetFee = (rule?.add_smart_asset_fee ?? deffault?.add_smart_asset_fee) ?? false
+                    let addSmartAccountFee = (rule?.add_smart_account_fee ?? deffault?.add_smart_account_fee) ?? false
+                    let minPriceStep = (rule?.min_price_step ?? deffault?.min_price_step) ?? 0
+                    let fee = (rule?.fee ?? deffault?.fee) ?? 0
+                    let pricePerTransfer = (rule?.price_per_transfer ?? deffault?.price_per_transfer) ?? 0
+                    let pricePerKb = (rule?.price_per_kb ?? deffault?.price_per_kb) ?? 0
+
+                    let newRule = DomainLayer.DTO.TransactionFeeRules.Rule(addSmartAssetFee: addSmartAssetFee,
+                                                                           addSmartAccountFee: addSmartAccountFee,
+                                                                           minPriceStep: minPriceStep,
+                                                                           fee: fee,
+                                                                           pricePerTransfer: pricePerTransfer,
+                                                                           pricePerKb: pricePerKb)
+
+                    result[type] = newRule
+                })
+
+
+                let newDefaultRule = DomainLayer.DTO.TransactionFeeRules.Rule(addSmartAssetFee: deffault?.add_smart_asset_fee ?? false,
+                                                                              addSmartAccountFee: deffault?.add_smart_account_fee ?? false,
+                                                                              minPriceStep: deffault?.min_price_step ?? 0,
+                                                                              fee: deffault?.fee ?? 0,
+                                                                              pricePerTransfer: deffault?.price_per_transfer ?? 0,
+                                                                              pricePerKb: deffault?.price_per_kb ?? 0)
+
+
+                let newRules = DomainLayer.DTO.TransactionFeeRules(smartAssetExtraFee: txRules.smart_asset_extra_fee,
+                                                                   smartAccountExtraFee: txRules.smart_account_extra_fee,
+                                                                   defaultRule: newDefaultRule,
+                                                                   rules: rules)
+
+                return newRules
+            })
+    }
 }
+
+
 
 fileprivate extension TransactionSenderSpecifications {
 
@@ -253,6 +314,16 @@ fileprivate extension TransactionSenderSpecifications {
                                                                      type: self.type.rawValue,
                                                                      senderPublicKey: publicKey,
                                                                      proofs: proofs))
+
+        case .data(let model):
+
+            return .data(Node.Service.Transaction.Data.init(type: self.type.rawValue,
+                                                            version: self.version,
+                                                            fee: model.fee,
+                                                            timestamp: timestamp,
+                                                            senderPublicKey: publicKey,
+                                                            proofs: proofs,
+                                                            data: model.dataForNode))
             
         case .send(let model):
             
@@ -280,7 +351,18 @@ fileprivate extension TransactionSenderSpecifications {
     func signature(timestamp: Int64, scheme: String, publicKey: [UInt8]) -> [UInt8] {
 
         switch self {
-        
+
+        case .data(let model):
+            // todo check size
+            var signature: [UInt8] = []
+            signature += toByteArray(Int8(self.type.rawValue))
+            signature += toByteArray(Int8(self.version))
+            signature += publicKey
+            signature += model.bytesForSignature
+            signature += toByteArray(timestamp)
+            signature += toByteArray(model.fee)
+            return signature
+
         case .burn(let model):
 
             let assetId: [UInt8] = Base58.decode(model.assetID)
@@ -378,3 +460,57 @@ fileprivate extension TransactionSenderSpecifications {
 }
 
 
+private extension DataTransactionSender {
+
+    var bytesForSignature: [UInt8] {
+
+        var signature: [UInt8] = []
+        signature += toByteArray(Int16(self.data.count))
+
+        for value in self.data {
+            signature += value.key.arrayWithSize()
+
+            switch value.value {
+            case .binary(let data):
+                signature += toByteArray(Int8(2))
+                signature += data.arrayWithSize()
+
+            case .integer(let number):
+                signature += toByteArray(Int8(0))
+                signature += toByteArray(number)
+
+            case .boolean(let flag):
+                signature += toByteArray(Int8(1))
+                signature += toByteArray(flag)
+
+            case .string(let str):
+                signature += toByteArray(Int8(3))
+                signature += str.arrayWithSize()
+            }
+        }
+        return signature
+    }
+
+    var dataForNode: [Node.Service.Transaction.Data.Value] {
+        return self.data.map { (value) -> Node.Service.Transaction.Data.Value in
+
+            var kind: Node.Service.Transaction.Data.Value.Kind!
+
+            switch value.value {
+            case .binary(let data):
+                kind = .binary(data.toBase64() ?? "")
+
+            case .integer(let number):
+                kind = .integer(number)
+
+            case .boolean(let flag):
+                kind = .boolean(flag)
+
+            case .string(let str):
+                kind = .string(str)
+            }
+
+            return Node.Service.Transaction.Data.Value.init(key: value.key, value: kind)
+        }
+    }
+}

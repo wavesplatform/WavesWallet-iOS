@@ -271,15 +271,6 @@ internal enum StoryboardScene {
 
     internal static let transactionHistoryViewController = SceneType<WavesWallet_iOS.TransactionHistoryViewController>(storyboard: TransactionHistory.self, identifier: "TransactionHistoryViewController")
   }
-  internal enum Transfer: StoryboardType {
-    internal static let storyboardName = "Transfer"
-
-    internal static let initialScene = InitialSceneType<WavesWallet_iOS.CustomNavigationController>(storyboard: Transfer.self)
-
-    internal static let receiveNavViewController = SceneType<WavesWallet_iOS.CustomNavigationController>(storyboard: Transfer.self, identifier: "ReceiveNavViewController")
-
-    internal static let sendViewController = SceneType<WavesWallet_iOS.SendViewController>(storyboard: Transfer.self, identifier: "SendViewController")
-  }
   internal enum UseTouchID: StoryboardType {
     internal static let storyboardName = "UseTouchID"
 
@@ -300,9 +291,6 @@ internal enum StoryboardScene {
 }
 
 internal enum StoryboardSegue {
-  internal enum Transfer: String, SegueType {
-    case transactionSuccess = "TransactionSuccess"
-  }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length type_body_length type_name
 
