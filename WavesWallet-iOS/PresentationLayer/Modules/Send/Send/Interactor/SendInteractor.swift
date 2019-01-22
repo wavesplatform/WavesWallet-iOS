@@ -57,7 +57,7 @@ final class SendInteractor: SendInteractorProtocol {
             return owner.transactionInteractor.calculateFee(by: .sendTransaction(assetID: assetID), accountAddress: wallet.address)
         })
         .catchError({ (error) -> Observable<Money> in
-            return Observable.just(GlobalConstants.WavesDefaultTransactionFee)
+            return Observable.just(GlobalConstants.WavesTransactionFee)
         })
     }
     
