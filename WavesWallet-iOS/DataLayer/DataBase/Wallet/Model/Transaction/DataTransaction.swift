@@ -14,8 +14,7 @@ import RealmSwift
 final class DataTransaction: Transaction {
 
     @objc dynamic var amount: Int64 = 0
-    @objc dynamic var price: Int64 = 0    
-    let proofs: List<String> = .init()
+    @objc dynamic var price: Int64 = 0        
     let data: List<DataTransactionData> = .init()
 }
 

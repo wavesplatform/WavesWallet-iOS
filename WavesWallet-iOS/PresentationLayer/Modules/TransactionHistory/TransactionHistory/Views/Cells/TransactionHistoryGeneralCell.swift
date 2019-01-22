@@ -40,38 +40,64 @@ final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
         switch kind {
         case .sent:
             image = Images.tSend48
+
         case .receive:
             image = Images.assetReceive
+
         case .startedLeasing:
             image = Images.walletStartLease
+
         case .exchange:
             image = Images.tExchange48
+
         case .selfTransfer:
             image = Images.tSelftrans48
+
         case .tokenGeneration:
             image = Images.tTokengen48
+
         case .tokenReissue:
             image = Images.tTokenreis48
+
         case .tokenBurn:
             image = Images.tTokenburn48
+
         case .createdAlias:
             image = Images.tAlias48
+
         case .canceledLeasing:
             image = Images.tCloselease48
+
         case .incomingLeasing:
             image = Images.tIncominglease48
+
         case .massSent:
             image = Images.tMasstransfer48
+
         case .massReceived:
             image = Images.tMassreceived48
+
         case .spamReceive:
             image = Images.tSpamReceive48
+
         case .spamMassReceived:
             image = Images.tSpamMassreceived48
+
         case .data:
             image = Images.tData48
+
         case .unrecognisedTransaction:
             image = Images.tUndefined48
+
+        case .script(let isHasScript):
+            if isHasScript {
+                image = Images.tSetscript48
+            } else {
+                image = Images.tSetscriptCancel48
+            }
+
+        case .assetScript:
+            image = Images.tSetassetscript48
         }
         
         return UIImage(asset: image)

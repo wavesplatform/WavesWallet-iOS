@@ -16,6 +16,10 @@ public class Transaction: Object {
     @objc dynamic var status: Int = 0
     @objc dynamic var modified: Date = Date()
 
+    @objc dynamic var signature: String? = nil
+    let proofs: List<String> = .init()
+    var chainId: RealmOptional<Int> = RealmOptional<Int>()
+
     @objc dynamic var isPending: Bool = false
 
     public override class func primaryKey() -> String? {

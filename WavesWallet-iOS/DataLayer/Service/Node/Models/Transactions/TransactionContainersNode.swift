@@ -21,6 +21,10 @@ extension Node.DTO {
         case alias = 10
         case massTransfer = 11
         case data = 12
+        case script = 13
+        //TODO: Next release
+//        case setSponsorship = 14
+        case assetScript = 15
     }
 
     enum TransactionError: Error {
@@ -39,6 +43,8 @@ extension Node.DTO {
         case alias(Node.DTO.AliasTransaction)
         case massTransfer(Node.DTO.MassTransferTransaction)
         case data(Node.DTO.DataTransaction)
+        case script(Node.DTO.ScriptTransaction)
+        case assetScript(Node.DTO.AssetScriptTransaction)
 
         init(from decoder: Decoder) throws {
 
@@ -86,6 +92,12 @@ extension Node.DTO {
 
             case .data:
                 return .data(try Node.DTO.DataTransaction(from: decode))
+
+            case .script:
+                return .script(try Node.DTO.ScriptTransaction(from: decode))
+
+            case .assetScript:
+                return .assetScript(try Node.DTO.AssetScriptTransaction(from: decode))
             }
         }
     }
@@ -155,6 +167,14 @@ extension Node.DTO {
                         case .data:
                             let tx = try listArray.decode(Node.DTO.DataTransaction.self)
                             transactions.append(.data(tx))
+
+                        case .script:
+                            let tx = try listArray.decode(Node.DTO.ScriptTransaction.self)
+                            transactions.append(.script(tx))
+
+                        case .assetScript:
+                            let tx = try listArray.decode(Node.DTO.AssetScriptTransaction.self)
+                            transactions.append(.assetScript(tx))
                         }
                     } catch let e {
 
