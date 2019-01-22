@@ -21,7 +21,9 @@ extension AliasTransaction {
         version = transaction.version
         height = transaction.height ?? -1
         modified = transaction.modified
-
+        if let proofs = transaction.proofs {
+            self.proofs.append(objectsIn: proofs)
+        }
         signature = transaction.signature
         alias = transaction.alias
         status = transaction.status.rawValue
@@ -61,7 +63,7 @@ extension DomainLayer.DTO.AliasTransaction {
 
         signature = transaction.signature
         alias = transaction.alias
-        proofs = []
+        proofs = transaction.proofs.toArray()
         status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }

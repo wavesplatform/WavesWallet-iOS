@@ -1,15 +1,16 @@
 //
-//  TransactionLeaseNode.swift
+//  SetScriptTransactionDomainDTO.swift
 //  WavesWallet-iOS
 //
-//  Created by mefilt on 18.07.2018.
-//  Copyright © 2018 Waves Platform. All rights reserved.
+//  Created by mefilt on 22/01/2019.
+//  Copyright © 2019 Waves Platform. All rights reserved.
 //
 
 import Foundation
 
 extension DomainLayer.DTO {
-    struct LeaseTransaction {
+    struct ScriptTransaction {
+
         let type: Int
         let id: String
         let sender: String
@@ -17,13 +18,12 @@ extension DomainLayer.DTO {
         let fee: Int64
         let timestamp: Int64
         let version: Int
-        let height: Int64
-
+        let height: Int64?
         let chainId: Int?
+
         let signature: String?
-        let proofs: [String]?
-        let amount: Int64
-        let recipient: String
+        let proofs: [String]?        
+        var script: String?
         var modified: Date
         var status: TransactionStatus
     }
