@@ -17,11 +17,11 @@ extension Matcher.DTO {
         
         let amountAsset: String
         let amountAssetName: String
-        let amountAssetInfo: AssetInfo
+        let amountAssetInfo: AssetInfo?
         
         let priceAsset: String
         let priceAssetName: String
-        let priceAssetInfo: AssetInfo
+        let priceAssetInfo: AssetInfo?
     }
     
     struct MarketResponse: Decodable {        
