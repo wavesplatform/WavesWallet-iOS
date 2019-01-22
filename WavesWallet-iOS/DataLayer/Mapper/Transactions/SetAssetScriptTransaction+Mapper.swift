@@ -22,6 +22,7 @@ extension SetAssetScriptTransaction {
         signature = transaction.signature
         version = transaction.version
         script = transaction.script
+        assetId = transaction.assetId
 
         modified = transaction.modified
         status = transaction.status.rawValue
