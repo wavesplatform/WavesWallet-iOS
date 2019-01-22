@@ -11,7 +11,6 @@ import RealmSwift
 
 final class SetAssetScriptTransaction: Transaction {
 
-    
     @objc dynamic var script: String? = nil
     @objc dynamic var assetId: String = ""
 }
