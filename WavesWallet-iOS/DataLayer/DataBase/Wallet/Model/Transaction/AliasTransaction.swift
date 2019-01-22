@@ -9,7 +9,6 @@
 import Foundation
 import RealmSwift
 
-final class AliasTransaction: Transaction {
-    @objc dynamic var signature: String? = nil
+final class AliasTransaction: Transaction {    
     @objc dynamic var alias: String = ""
 }

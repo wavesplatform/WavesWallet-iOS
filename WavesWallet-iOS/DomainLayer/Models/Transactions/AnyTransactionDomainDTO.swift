@@ -28,9 +28,12 @@ extension DomainLayer.DTO {
         case alias(DomainLayer.DTO.AliasTransaction)
         case massTransfer(DomainLayer.DTO.MassTransferTransaction)
         case data(DomainLayer.DTO.DataTransaction)
+        case script(DomainLayer.DTO.ScriptTransaction)
+        case assetScript(DomainLayer.DTO.AssetScriptTransaction)
     }
 }
 
+// TODO: Protocol
 extension DomainLayer.DTO.AnyTransaction {
 
     var status: DomainLayer.DTO.TransactionStatus {
@@ -66,6 +69,12 @@ extension DomainLayer.DTO.AnyTransaction {
             return tx.status
 
         case .data(let tx):
+            return tx.status
+
+        case .script(let tx):
+            return tx.status
+
+        case .assetScript(let tx):
             return tx.status
         }
     }
@@ -124,6 +133,12 @@ extension DomainLayer.DTO.AnyTransaction {
 
         case .data(let tx):
             return tx.id
+
+        case .script(let tx):
+            return tx.id
+
+        case .assetScript(let tx):
+            return tx.id
         }
     }
 
@@ -161,6 +176,12 @@ extension DomainLayer.DTO.AnyTransaction {
 
         case .data(let tx):
             return tx.timestamp
+
+        case .script(let tx):
+            return tx.timestamp
+
+        case .assetScript(let tx):
+            return tx.timestamp
         }
     }
 
@@ -197,6 +218,12 @@ extension DomainLayer.DTO.AnyTransaction {
             return tx.modified
 
         case .data(let tx):
+            return tx.modified
+
+        case .script(let tx):
+            return tx.modified
+
+        case .assetScript(let tx):
             return tx.modified
         }
     }

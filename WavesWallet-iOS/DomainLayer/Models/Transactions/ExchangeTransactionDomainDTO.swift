@@ -47,6 +47,7 @@ extension DomainLayer.DTO {
         let height: Int64
 
         let signature: String?
+        let proofs: [String]?
         var order1: Order
         var order2: Order
         let price: Int64

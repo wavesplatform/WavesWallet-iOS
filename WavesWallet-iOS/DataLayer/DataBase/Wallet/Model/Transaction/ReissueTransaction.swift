@@ -11,9 +11,8 @@ import RealmSwift
 import Realm
 
 final class ReissueTransaction: Transaction {
-    @objc dynamic var signature: String? = nil
+
     @objc dynamic var assetId: String = ""
-    var chainId: RealmOptional<Int> = RealmOptional<Int>()
     @objc dynamic var quantity: Int64 = 0
     @objc dynamic var reissuable: Bool = false
 }
