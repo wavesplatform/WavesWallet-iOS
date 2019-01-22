@@ -159,6 +159,12 @@ extension HistoryTransactionView: ViewConfiguration {
 
         case .data:
             labelValue.text = Localizable.Waves.History.Transaction.Value.data
+
+        case .setScript(let isHasScript):
+            labelValue.text = "¯\\_(ツ)_/¯"
+
+        case .setAssetScript(let asset):
+            labelValue.text = "¯\\_(ツ)_/¯"
         }
     }
 }
@@ -224,6 +230,12 @@ extension DomainLayer.DTO.SmartTransaction {
 
         case .data:
             return Localizable.Waves.History.Transaction.Title.data
+
+        case .setScript:
+            return "Maks setScript"
+
+        case .setAssetScript:
+            return "Maks setAssetScript"
         }
     }
 
@@ -279,6 +291,12 @@ extension DomainLayer.DTO.SmartTransaction {
 
         case .data:
             return Images.tData48.image
+
+        case .setScript:
+            return Images.tSetscript48.image
+
+        case .setAssetScript:
+            return Images.tSetassetscript48.image
         }
     }
 }

@@ -22,7 +22,8 @@ extension Node.DTO {
         case massTransfer = 11
         case data = 12
         case setScript = 13
-        case setSponsorship = 14
+        //TODO: Next release
+//        case setSponsorship = 14
         case setAssetScript = 15
     }
 
@@ -42,6 +43,8 @@ extension Node.DTO {
         case alias(Node.DTO.AliasTransaction)
         case massTransfer(Node.DTO.MassTransferTransaction)
         case data(Node.DTO.DataTransaction)
+        case setScript(Node.DTO.SetScriptTransaction)
+        case setAssetScript(Node.DTO.SetAssetScriptTransaction)
 
         init(from decoder: Decoder) throws {
 
@@ -89,6 +92,12 @@ extension Node.DTO {
 
             case .data:
                 return .data(try Node.DTO.DataTransaction(from: decode))
+
+            case .setScript:
+                return .setScript(try Node.DTO.SetScriptTransaction(from: decode))
+
+            case .setAssetScript:
+                return .setAssetScript(try Node.DTO.SetAssetScriptTransaction(from: decode))
             }
         }
     }
@@ -158,6 +167,14 @@ extension Node.DTO {
                         case .data:
                             let tx = try listArray.decode(Node.DTO.DataTransaction.self)
                             transactions.append(.data(tx))
+
+                        case .setScript:
+                            let tx = try listArray.decode(Node.DTO.SetScriptTransaction.self)
+                            transactions.append(.setScript(tx))
+
+                        case .setAssetScript:
+                            let tx = try listArray.decode(Node.DTO.SetAssetScriptTransaction.self)
+                            transactions.append(.setAssetScript(tx))
                         }
                     } catch let e {
 

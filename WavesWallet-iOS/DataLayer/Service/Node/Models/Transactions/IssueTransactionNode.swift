@@ -18,7 +18,7 @@ extension Node.DTO {
         let timestamp: Int64
         let version: Int
         let height: Int64
-
+        
         let signature: String?
         let proofs: [String]?
         let assetId: String

@@ -1,69 +1,71 @@
 //
-//  LeasingTransaction+Mapper.swift
+//  SetAssetScriptTransaction+Mapper.swift
 //  WavesWallet-iOS
 //
-//  Created by mefilt on 19.07.2018.
-//  Copyright © 2018 Waves Platform. All rights reserved.
+//  Created by mefilt on 22/01/2019.
+//  Copyright © 2019 Waves Platform. All rights reserved.
 //
 
 import Foundation
 
-extension LeaseTransaction {
+extension SetAssetScriptTransaction {
 
-    convenience init(transaction: DomainLayer.DTO.LeaseTransaction) {
+    convenience init(transaction: DomainLayer.DTO.SetAssetScriptTransaction) {
         self.init()
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
-        senderPublicKey = transaction.senderPublicKey
+        senderPublicKey = transaction.sender
         fee = transaction.fee
         timestamp = transaction.timestamp
+        height = transaction.height
         signature = transaction.signature
         version = transaction.version
-        amount = transaction.amount
-        recipient = transaction.recipient
-        height = transaction.height
+        script = transaction.script
+
         modified = transaction.modified
         status = transaction.status.rawValue
-
     }
 }
 
-extension DomainLayer.DTO.LeaseTransaction {
+extension DomainLayer.DTO.SetAssetScriptTransaction {
 
-    init(transaction: Node.DTO.LeaseTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
+    init(transaction: Node.DTO.SetAssetScriptTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
+
         type = transaction.type
         id = transaction.id
         sender = transaction.sender.normalizeAddress(environment: environment)
         senderPublicKey = transaction.senderPublicKey
         fee = transaction.fee
         timestamp = transaction.timestamp
-        signature = transaction.signature
-        version = transaction.version
-        amount = transaction.amount
-        recipient = transaction.recipient.normalizeAddress(environment: environment)
-
         height = transaction.height ?? -1
-        modified = Date()
+        signature = transaction.signature
         proofs = transaction.proofs
+        chainId = transaction.chainId
+        version = transaction.version
+        script = transaction.script
+        assetId = transaction.assetId
+        modified = Date()
         self.status = status
     }
 
-    init(transaction: LeaseTransaction) {
-
+    init(transaction: SetAssetScriptTransaction) {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
-        senderPublicKey = transaction.senderPublicKey
+        senderPublicKey = transaction.sender
         fee = transaction.fee
         timestamp = transaction.timestamp
-        signature = transaction.signature
-        version = transaction.version
-        amount = transaction.amount
-        recipient = transaction.recipient
         height = transaction.height
+        signature = transaction.signature
+        proofs = transaction.proofs.toArray()
+        chainId = transaction.chainId.value
+        version = transaction.version
+        script = transaction.script
+        assetId = transaction.assetId
+        
         modified = transaction.modified
-        proofs = []
         status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
     }
 }
+
