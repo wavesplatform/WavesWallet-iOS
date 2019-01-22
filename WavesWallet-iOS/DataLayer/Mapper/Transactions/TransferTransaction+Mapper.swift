@@ -1,5 +1,5 @@
 //
-//  TransactionContainers.swift
+//  TransferTransaction+Mapper.swift
 //  WavesWallet-iOS
 //
 //  Created by mefilt on 30.08.2018.
@@ -8,9 +8,9 @@
 
 import Foundation
 
-extension IssueTransaction {
+extension TransferTransaction {
 
-    convenience init(transaction: DomainLayer.DTO.IssueTransaction) {
+    convenience init(transaction: DomainLayer.DTO.TransferTransaction) {
         self.init()
         type = transaction.type
         id = transaction.id
@@ -21,21 +21,24 @@ extension IssueTransaction {
         version = transaction.version
         height = transaction.height
         signature = transaction.signature
+        if let proofs = transaction.proofs {
+            self.proofs.append(objectsIn: proofs)
+        }
         assetId = transaction.assetId
-        name = transaction.name
-        quantity = transaction.quantity
-        reissuable = transaction.reissuable
-        decimals = transaction.decimals
-        assetDescription = transaction.description
-        script = transaction.script
         modified = transaction.modified
+
+        recipient = transaction.recipient
+        feeAssetId = transaction.feeAssetId
+        feeAsset = transaction.feeAsset
+        amount = transaction.amount
+        attachment = transaction.attachment
         status = transaction.status.rawValue
     }
 }
 
-extension DomainLayer.DTO.IssueTransaction {
+extension DomainLayer.DTO.TransferTransaction {
 
-    init(transaction: Node.DTO.IssueTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
+    init(transaction: Node.DTO.TransferTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id
@@ -44,21 +47,21 @@ extension DomainLayer.DTO.IssueTransaction {
         fee = transaction.fee
         timestamp = transaction.timestamp
         version = transaction.version
-        height = transaction.height
+        height = transaction.height ?? -1
         signature = transaction.signature
-        assetId = transaction.assetId
-        name = transaction.name
-        quantity = transaction.quantity
-        reissuable = transaction.reissuable
-        decimals = transaction.decimals
-        description = transaction.description
-        script = transaction.script
+        assetId = transaction.assetId.normalizeAssetId
         modified = Date()
+
+        recipient = transaction.recipient.normalizeAddress(environment: environment)
+        feeAssetId = transaction.feeAssetId.normalizeAssetId
+        feeAsset = transaction.feeAsset
+        amount = transaction.amount
+        attachment = transaction.attachment
         proofs = transaction.proofs
         self.status = status
     }
 
-    init(transaction: IssueTransaction) {
+    init(transaction: TransferTransaction) {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender
@@ -67,16 +70,16 @@ extension DomainLayer.DTO.IssueTransaction {
         timestamp = transaction.timestamp
         version = transaction.version
         height = transaction.height
-        signature = transaction.signature
-        assetId = transaction.assetId
-        name = transaction.name
-        quantity = transaction.quantity
-        reissuable = transaction.reissuable
-        decimals = transaction.decimals
-        description = transaction.assetDescription
-        script = transaction.script
+        assetId = transaction.assetId.normalizeAssetId
         modified = transaction.modified
-        proofs = []
+
+        recipient = transaction.recipient
+        feeAssetId = transaction.feeAssetId.normalizeAssetId
+        feeAsset = transaction.feeAsset
+        amount = transaction.amount
+        attachment = transaction.attachment
+        proofs = transaction.proofs.toArray()
         status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
+        signature = transaction.signature
     }
 }

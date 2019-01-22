@@ -182,7 +182,7 @@ extension DomainLayer.DTO.TransferTransaction {
                      timestamp: Date(milliseconds: timestamp),
                      totalFee: feeBalance,
                      height: height,
-                     confirmationHeight: totalHeight.confirmationHeight(txHeight: height ?? 0),
+                     confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
                      sender: sender,
                      status: metaData.status)
     }
@@ -450,6 +450,61 @@ extension DomainLayer.DTO.AliasTransaction {
     }
 }
 
+// MARK: ScriptTransaction
+
+extension DomainLayer.DTO.ScriptTransaction {
+
+    func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
+
+        let assets: [String: DomainLayer.DTO.Asset] = metaData.assets
+        let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
+        let totalHeight: Int64 = metaData.totalHeight
+
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
+        guard let sender = accounts[self.sender] else { return nil }
+
+        let kind: DomainLayer.DTO.SmartTransaction.Kind = .script(isHasScript: script != nil)
+        let feeBalance = wavesAsset.balance(fee)
+
+        return .init(id: id,
+                     kind: kind,
+                     timestamp: Date(milliseconds: timestamp),
+                     totalFee: feeBalance,
+                     height: height,
+                     confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
+                     sender: sender,
+                     status: metaData.status)
+    }
+}
+
+// MARK: AssetScriptTransaction
+
+extension DomainLayer.DTO.AssetScriptTransaction {
+
+    func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
+
+        let assets: [String: DomainLayer.DTO.Asset] = metaData.assets
+        let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
+        let totalHeight: Int64 = metaData.totalHeight
+
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
+        guard let assetId = assets[assetId] else { return nil }
+        guard let sender = accounts[self.sender] else { return nil }
+
+        let kind: DomainLayer.DTO.SmartTransaction.Kind = .assetScript(assetId)
+        let feeBalance = wavesAsset.balance(fee)
+
+        return .init(id: id,
+                     kind: kind,
+                     timestamp: Date(milliseconds: timestamp),
+                     totalFee: feeBalance,
+                     height: height,
+                     confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
+                     sender: sender,
+                     status: metaData.status)
+    }
+}
+
 // MARK: MassTransferTransaction
 
 extension DomainLayer.DTO.MassTransferTransaction {
@@ -579,6 +634,8 @@ extension DomainLayer.DTO.DataTransaction {
     }
 }
 
+// MARK: AnyTransaction
+
 extension DomainLayer.DTO.AnyTransaction {
 
     func transaction(by accountAddress: String,
@@ -646,6 +703,12 @@ extension DomainLayer.DTO.AnyTransaction {
             smartTransaction = tx.transaction(by: smartData)
 
         case .data(let tx):
+            smartTransaction = tx.transaction(by: smartData)
+
+        case .script(let tx):
+            smartTransaction = tx.transaction(by: smartData)
+
+        case .assetScript(let tx):
             smartTransaction = tx.transaction(by: smartData)
         }
 

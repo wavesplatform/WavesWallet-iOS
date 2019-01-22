@@ -75,7 +75,7 @@ extension DomainLayer.DTO {
         struct Issue {
             let asset: Asset
             let balance: Balance
-            let description: String?
+            let description: String?            
         }
 
         struct MassTransfer {
@@ -129,6 +129,10 @@ extension DomainLayer.DTO {
             case unrecognisedTransaction
 
             case data(Data)
+
+            case script(isHasScript: Bool)
+            case assetScript(Asset)
+
         }
 
         let id: String
