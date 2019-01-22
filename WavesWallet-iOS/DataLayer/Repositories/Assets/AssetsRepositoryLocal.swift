@@ -69,4 +69,9 @@ final class AssetsRepositoryLocal: AssetsRepositoryProtocol {
     func saveAsset(_ asset: DomainLayer.DTO.Asset, by accountAddress: String) -> Observable<Bool> {
         return saveAssets([asset], by: accountAddress)
     }
+
+    func isSmartAsset(_ assetId: String, by accountAddress: String) -> Observable<Bool> {
+        assertMethodDontSupported()
+        return Observable.never()
+    }
 }

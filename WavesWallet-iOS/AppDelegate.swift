@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     var appCoordinator: AppCoordinator!
-    var migrationInteractor: MigrationInteractor = MigrationInteractor()
+    let migrationInteractor: MigrationInteractor = MigrationInteractor()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
@@ -65,7 +65,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.backgroundColor = .basic50
         
         appCoordinator = AppCoordinator(WindowRouter(window: self.window!))
-
 
         migrationInteractor
             .migration()

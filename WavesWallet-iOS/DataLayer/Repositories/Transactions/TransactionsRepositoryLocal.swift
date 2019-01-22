@@ -377,6 +377,11 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
             return Disposables.create()
         }
     }
+
+    func feeRules() -> Observable<DomainLayer.DTO.TransactionFeeRules> {
+        assertMethodDontSupported()
+        return Observable.never()
+    }
 }
 
 fileprivate protocol TransactionsSpecificationsConverter {
