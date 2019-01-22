@@ -25,6 +25,6 @@ extension DomainLayer.DTO {
         let assetId: String
         let amount: Int64
         var modified: Date
-        var status: TransactionStatus        
+        var status: TransactionStatus
     }
 }
