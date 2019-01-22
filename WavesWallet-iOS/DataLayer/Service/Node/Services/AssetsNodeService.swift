@@ -48,7 +48,9 @@ extension Node.Service.Assets: NodeTargetType {
             return Constants.assets + "/" + Constants.balance + "/" + "\(id)".urlEscaped
 
         case .details(let id):
-            return Constants.assets + "/" + Constants.details + "/" + "\(id)".urlEscaped
+
+            let normId = id == GlobalConstants.wavesAssetId ? "" : id
+            return Constants.assets + "/" + Constants.details + "/" + "\(normId)".urlEscaped
         }
     }
 
