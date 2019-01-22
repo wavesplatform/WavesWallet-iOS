@@ -28,8 +28,8 @@ extension DomainLayer.DTO {
         case alias(DomainLayer.DTO.AliasTransaction)
         case massTransfer(DomainLayer.DTO.MassTransferTransaction)
         case data(DomainLayer.DTO.DataTransaction)
-        case setScript(DomainLayer.DTO.SetScriptTransaction)
-        case setAssetScript(DomainLayer.DTO.SetAssetScriptTransaction)
+        case script(DomainLayer.DTO.ScriptTransaction)
+        case assetScript(DomainLayer.DTO.AssetScriptTransaction)
     }
 }
 
@@ -71,10 +71,10 @@ extension DomainLayer.DTO.AnyTransaction {
         case .data(let tx):
             return tx.status
 
-        case .setScript(let tx):
+        case .script(let tx):
             return tx.status
 
-        case .setAssetScript(let tx):
+        case .assetScript(let tx):
             return tx.status
         }
     }
@@ -134,10 +134,10 @@ extension DomainLayer.DTO.AnyTransaction {
         case .data(let tx):
             return tx.id
 
-        case .setScript(let tx):
+        case .script(let tx):
             return tx.id
 
-        case .setAssetScript(let tx):
+        case .assetScript(let tx):
             return tx.id
         }
     }
@@ -177,10 +177,10 @@ extension DomainLayer.DTO.AnyTransaction {
         case .data(let tx):
             return tx.timestamp
 
-        case .setScript(let tx):
+        case .script(let tx):
             return tx.timestamp
 
-        case .setAssetScript(let tx):
+        case .assetScript(let tx):
             return tx.timestamp
         }
     }
@@ -220,10 +220,10 @@ extension DomainLayer.DTO.AnyTransaction {
         case .data(let tx):
             return tx.modified
 
-        case .setScript(let tx):
+        case .script(let tx):
             return tx.modified
 
-        case .setAssetScript(let tx):
+        case .assetScript(let tx):
             return tx.modified
         }
     }
