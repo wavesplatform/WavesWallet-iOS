@@ -137,8 +137,10 @@ private extension PasscodeViewController {
 
         if state.isHiddenBackButton {
             navigationItem.leftBarButtonItem = UIBarButtonItem()
+            navigationItem.isDisabledGestureBack = true
         } else {
             navigationItem.leftBarButtonItem = backButtonItem
+            navigationItem.isDisabledGestureBack = false
         }
 
         if state.isHiddenLogoutButton {

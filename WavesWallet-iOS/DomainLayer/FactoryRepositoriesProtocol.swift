@@ -50,6 +50,8 @@ protocol FactoryRepositoriesProtocol {
     var coinomatRepository: CoinomatRepositoryProtocol { get }
     
     var matcherRepository: MatcherRepositoryProtocol { get }
+
+    var addressRepository: AddressRepositoryProtocol { get }
 }
 
 protocol RepositoryCache {

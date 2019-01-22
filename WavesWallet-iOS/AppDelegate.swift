@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     var appCoordinator: AppCoordinator!
-    var migrationInteractor: MigrationInteractor = MigrationInteractor()
+    let migrationInteractor: MigrationInteractor = MigrationInteractor()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
@@ -46,10 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
-        #if DEBUG
-            AppsFlyerTracker.shared().isDebug = true
-        #endif
-
         IQKeyboardManager.shared.enable = true
         UIBarButtonItem.appearance().tintColor = UIColor.black
 
@@ -59,15 +55,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         #if DEBUG
             SweetLogger.current.visibleLevels = [.debug, .error]
+            AppsFlyerTracker.shared()?.isDebug = false
         #else
             SweetLogger.current.visibleLevels = []
+            AppsFlyerTracker.shared()?.isDebug = false
         #endif
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = .basic50
         
-        appCoordinator = AppCoordinator(window!)
-
+        appCoordinator = AppCoordinator(WindowRouter(window: self.window!))
 
         migrationInteractor
             .migration()
