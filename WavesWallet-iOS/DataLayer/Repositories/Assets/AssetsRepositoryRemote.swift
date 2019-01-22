@@ -105,7 +105,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                 return Observable.error(NetworkError.error(by: error))
             })
             .map(Node.DTO.AssetDetail.self)
-            .map { $0.scripted != nil }
+            .map { $0.scripted == true }
     }
 }
 
