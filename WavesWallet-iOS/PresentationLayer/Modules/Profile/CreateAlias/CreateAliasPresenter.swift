@@ -217,18 +217,21 @@ private extension CreateAliasPresenter {
         case .errorAliasExist:
             state.query = nil
             state.displayState.action = .update
-            state.displayState.isLoading = false            
+            state.displayState.isLoading = false
+            state.displayState.isEnabledSaveButton = false
             let section = Types.ViewModel.Section(rows: [.input(state.displayState.input, error: Localizable.Waves.Createalias.Error.alreadyinuse)])
             state.displayState.sections = [section]
 
         case .handlerError(let error):
             state.query = nil
             state.displayState.isLoading = false
+            state.displayState.isEnabledSaveButton = true
             state.displayState.errorState = DisplayErrorState.error(DisplayError(error: error))
 
         case .aliasCreated:
             guard let text = state.displayState.input else { return }
             state.displayState.isLoading = false
+            state.displayState.isEnabledSaveButton = true
             state.query = .completedCreateAlias(text)
             state.displayState.errorState = .none
 
@@ -236,6 +239,7 @@ private extension CreateAliasPresenter {
             guard let text = state.displayState.input else { return }
             state.query = .createAlias(text)
             state.displayState.isLoading = true
+            state.displayState.isEnabledSaveButton = false
             state.displayState.errorState = .none
 
         case .completedQuery:
