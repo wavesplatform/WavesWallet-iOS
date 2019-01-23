@@ -874,10 +874,7 @@ private extension DomainLayer.Query.TransactionSpecificationType {
             return TransactionType.transfer
 
         case .createOrder:
-            return nil
-
-        default:
-            return nil
+            return TransactionType.exchange
         }
     }
 

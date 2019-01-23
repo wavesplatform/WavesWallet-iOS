@@ -889,8 +889,6 @@
 
 "send.label.send" = "भेजना";
 
-"send.label.transactionFee" = "लेनदेन फ़ीस";
-
 "send.textField.placeholderPaymentId" = "पेस्ट करें या अपनी पेमेंट आईडी टाइप करें";
 
 "sendcomplete.button.okey" = "ठीक है";
@@ -967,8 +965,6 @@
 
 "startleasing.label.startLeasing" = "लीजिंग शुरू करें";
 
-"startleasing.label.transactionFee" = "लेनदेन फ़ीस";
-
 "startleasingcomplete.button.okey" = "ठीक है";
 
 "startleasingcomplete.label.youHaveCanceledTransaction" = "आपने लीजिंग लेनदेन रद्द कर दिया है";
@@ -1022,8 +1018,6 @@
 "tokenBurn.label.reissuable" = "रि-इशुएब्ल";
 
 "tokenBurn.label.tokenBurn" = "टोकन बर्न";
-
-"tokenBurn.label.transactionFee" = "लेनदेन शुल्क %@ %@";
 
 "tokenBurn.label.transactionIsOnWay" = "आपका लेनदेन रास्ते पर है!";
 

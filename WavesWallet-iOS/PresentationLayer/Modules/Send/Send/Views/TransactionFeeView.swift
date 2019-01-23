@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class SendTransactionFeeView: UIView, NibOwnerLoadable {
+final class TransactionFeeView: UIView, NibOwnerLoadable {
 
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var labelLocalization: UILabel!
@@ -18,7 +18,7 @@ final class SendTransactionFeeView: UIView, NibOwnerLoadable {
     override func awakeFromNib() {
         super.awakeFromNib()
         loadNibContent()
-        labelLocalization.text = Localizable.Waves.Send.Label.transactionFee
+        labelLocalization.text = Localizable.Waves.Transactionfee.Label.transactionFee
     }
     
     func showLoadingState() {
@@ -36,7 +36,7 @@ final class SendTransactionFeeView: UIView, NibOwnerLoadable {
     }
 }
 
-extension SendTransactionFeeView: ViewConfiguration {
+extension TransactionFeeView: ViewConfiguration {
     
     func update(with model: Money) {
         labelFee.text = model.displayText
