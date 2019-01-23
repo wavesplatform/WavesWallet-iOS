@@ -1,5 +1,5 @@
 //
-//  SendTransactionFeeView.swift
+//  TransactionFeeView.swift
 //  WavesWallet-iOS
 //
 //  Created by Pavel Gubin on 1/19/19.
