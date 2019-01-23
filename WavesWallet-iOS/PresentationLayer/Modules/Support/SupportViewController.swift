@@ -69,7 +69,7 @@ final class SupportViewController: UIViewController {
 
     @IBAction func actionShowErrorSnack(_ sender: Any) {
 
-        showErrorSnack(tille: "Какая-нибудь лайтовая ошибка") {
+        showErrorSnack(title: "Какая-нибудь лайтовая ошибка") {
             self.showSuccesSnack(title: "Тебе показалось.")
         }
     }

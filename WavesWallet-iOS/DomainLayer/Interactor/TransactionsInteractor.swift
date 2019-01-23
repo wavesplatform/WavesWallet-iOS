@@ -12,6 +12,7 @@ import RxSwift
 
 enum TransactionsInteractorError: Error {
     case invalid
+    case commissionReceiving
 }
 
 extension DomainLayer.Query {
@@ -162,6 +163,20 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
 
                 return Observable.just(money)
             }
+            .catchError({ (error) -> Observable<Money> in
+
+                switch error {
+                case let error as NetworkError:
+                    switch error {
+                    case .notFound:
+                        return Observable.error(TransactionsInteractorError.commissionReceiving)
+                    default:
+                        return Observable.error(error)
+                    }
+                default:
+                    return Observable.error(TransactionsInteractorError.commissionReceiving)
+                }
+            })
     }
     
     func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.SmartTransaction> {

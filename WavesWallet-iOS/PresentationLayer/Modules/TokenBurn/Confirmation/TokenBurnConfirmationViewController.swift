@@ -72,13 +72,18 @@ final class TokenBurnConfirmationViewController: UIViewController {
 //MARK: - TokenBurnLoadingViewControllerDelegate
 extension TokenBurnConfirmationViewController: TokenBurnLoadingViewControllerDelegate {
 
-    func tokenBurnLoadingViewControllerDidFail(error: NetworkError) {
-        
+    func tokenBurnLoadingViewControllerDidFail(error: Error) {
+
         switch error {
-        case .scriptError:
-            TransactionScriptErrorView.show()
+        case let error as NetworkError:
+            switch error {
+            case .scriptError:
+                TransactionScriptErrorView.show()
+            default:
+                showNetworkErrorSnack(error: error)
+            }
         default:
-            showNetworkErrorSnack(error: error)
+            showErrorNotFoundSnack()
         }
     }
 }

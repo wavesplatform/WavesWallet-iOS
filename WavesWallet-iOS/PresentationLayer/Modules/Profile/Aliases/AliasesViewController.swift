@@ -45,12 +45,7 @@ final class AliasesViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: Constants.bottomPadding + Constants.topBarHeight, right: 0)
 
         aliasesInfoView.infoButtonDidTap = {
-            if self.isHiddenInfoView {
-                self.eventInput.onNext(.refresh)
-                self.showInfoView()
-            } else {
-                self.hideInfoView()
-            }
+            self.needShowView()
         }
 
         aliasesInfoView.createButtonDidTap = {
@@ -58,6 +53,16 @@ final class AliasesViewController: UIViewController {
         }
 
         setupSystem()
+    }
+
+    private func needShowView() {
+        if self.isHiddenInfoView {
+            self.eventInput.onNext(.showCreateAlias)
+            self.showInfoView()
+        } else {
+            self.eventInput.onNext(.hideCreateAlias)
+            self.hideInfoView()
+        }
     }
 
     private func showInfoView() {
@@ -86,11 +91,7 @@ final class AliasesViewController: UIViewController {
     }
 
     @objc func handlerTapGesture(tap: UITapGestureRecognizer) {
-        if self.isHiddenInfoView {
-            self.showInfoView()
-        } else {
-            self.hideInfoView()
-        }
+        needShowView()
     }
 }
 
@@ -174,7 +175,7 @@ private extension AliasesViewController {
                 }
 
             case .message(let text):
-                errorSnackKey = showMessageSnack(title: text, didTap: { [weak self] in
+                errorSnackKey = showErrorSnack(title: text, didTap: { [weak self] in
                     self?.eventInput.onNext(.refresh)
                 })
 

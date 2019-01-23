@@ -225,7 +225,7 @@ private extension CreateAliasPresenter {
         case .handlerError(let error):
             state.query = nil
             state.displayState.isLoading = false
-            state.displayState.isEnabledSaveButton = true
+            state.displayState.isEnabledSaveButton = true            
             state.displayState.errorState = DisplayErrorState.error(DisplayError(error: error))
 
         case .aliasCreated:
