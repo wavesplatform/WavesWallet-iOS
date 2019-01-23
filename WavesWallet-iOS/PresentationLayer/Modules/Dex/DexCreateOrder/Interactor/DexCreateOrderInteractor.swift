@@ -39,8 +39,8 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                                                                        amount: order.amount.amount,
                                                                        price: order.price.amount,
                                                                        orderType: order.type,
-                                                                       matcherFee: order.fee,
-                                                                       expiration: order.expiration.rawValue)
+                                                                       matcherFee: Int64(order.fee),
+                                                                       expiration: Int64(order.expiration.rawValue))
 
                     
                     return owner.orderBookRepository.createOrder(wallet: wallet, order: orderQuery)
