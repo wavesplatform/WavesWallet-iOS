@@ -889,8 +889,6 @@
 
 "send.label.send" = "전송";
 
-"send.label.transactionFee" = "트랜잭션 수수료";
-
 "send.textField.placeholderPaymentId" = "귀하의 Payment ID를 붙여넣거나 입력하세요";
 
 "sendcomplete.button.okey" = "확인";
@@ -967,8 +965,6 @@
 
 "startleasing.label.startLeasing" = "Leasing 시작";
 
-"startleasing.label.transactionFee" = "트랜잭션 수수료";
-
 "startleasingcomplete.button.okey" = "알겠습니다";
 
 "startleasingcomplete.label.youHaveCanceledTransaction" = "Leasing 트랜잭션을 취소했습니다";
@@ -1022,8 +1018,6 @@
 "tokenBurn.label.reissuable" = "재발행 가능";
 
 "tokenBurn.label.tokenBurn" = "토큰 소각";
-
-"tokenBurn.label.transactionFee" = "트랜잭션 수수료 %@ %@";
 
 "tokenBurn.label.transactionIsOnWay" = "트랜잭션이 진행 중입니다!";
 

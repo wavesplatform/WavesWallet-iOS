@@ -1,7 +1,8 @@
 
-"send.script.title" = "A script is installed on your account or asset";
-"send.script.subtitle" = "To work with a scripted account/asset,\nuse the Waves Client";
-"send.button.okey" = "Okay";
+"transactionScript.label.title" = "A script is installed on your account or asset";
+"transactionScript.label.subtitle" = "To work with a scripted account/asset,\nuse the Waves Client";
+"transactionScript.button.okey" = "Okay";
+"transactionFee.label.transactionFee" = "Transaction Fee";
 
 "coinomat.tryAgain" = "Try again later";
 
@@ -902,8 +903,6 @@
 
 "send.label.send" = "Send";
 
-"send.label.transactionFee" = "Transaction Fee";
-
 "send.textField.placeholderPaymentId" = "Paste or type your Payment ID";
 
 "sendcomplete.button.okey" = "Okay";
@@ -980,8 +979,6 @@
 
 "startleasing.label.startLeasing" = "Start leasing";
 
-"startleasing.label.transactionFee" = "Transaction Fee";
-
 "startleasingcomplete.button.okey" = "Okay";
 
 "startleasingcomplete.label.youHaveCanceledTransaction" = "You have canceled a leasing transaction";
@@ -1035,8 +1032,6 @@
 "tokenBurn.label.reissuable" = "Reissuable";
 
 "tokenBurn.label.tokenBurn" = "Token Burn";
-
-"tokenBurn.label.transactionFee" = "Transaction Fee %@ %@";
 
 "tokenBurn.label.transactionIsOnWay" = "Your transaction is on the way!";
 
