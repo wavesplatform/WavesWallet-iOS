@@ -889,8 +889,6 @@
 
 "send.label.send" = "Versturen";
 
-"send.label.transactionFee" = "Transactiekosten";
-
 "send.textField.placeholderPaymentId" = "Plak of typ uw betalings-ID";
 
 "sendcomplete.button.okey" = "Oke";
@@ -967,8 +965,6 @@
 
 "startleasing.label.startLeasing" = "Begin met leasen";
 
-"startleasing.label.transactionFee" = "Transactiekosten";
-
 "startleasingcomplete.button.okey" = "Oke";
 
 "startleasingcomplete.label.youHaveCanceledTransaction" = "U heeft een lease transactie geannuleerd";
@@ -1022,8 +1018,6 @@
 "tokenBurn.label.reissuable" = "Heruitgeefbaar";
 
 "tokenBurn.label.tokenBurn" = "Token Verbranden";
-
-"tokenBurn.label.transactionFee" = "Transactiekosten %@ %@";
 
 "tokenBurn.label.transactionIsOnWay" = "Uw transactie is onderweg!";
 

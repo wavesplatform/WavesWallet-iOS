@@ -76,7 +76,7 @@ extension TokenBurnConfirmationViewController: TokenBurnLoadingViewControllerDel
         
         switch error {
         case .scriptError:
-            SendTransactionScriptErrorView.show()
+            TransactionScriptErrorView.show()
         default:
             showNetworkErrorSnack(error: error)
         }

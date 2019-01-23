@@ -889,8 +889,6 @@
 
 "send.label.send" = "Enviar";
 
-"send.label.transactionFee" = "Taxa de Transação";
-
 "send.textField.placeholderPaymentId" = "Cole ou digite seu ID de pagamento";
 
 "sendcomplete.button.okey" = "Ok";
@@ -967,8 +965,6 @@
 
 "startleasing.label.startLeasing" = "Iniciar o aluguel";
 
-"startleasing.label.transactionFee" = "Taxa de Transação";
-
 "startleasingcomplete.button.okey" = "Ok";
 
 "startleasingcomplete.label.youHaveCanceledTransaction" = "Você cancelou um aluguel";
@@ -1022,8 +1018,6 @@
 "tokenBurn.label.reissuable" = "Reemissível";
 
 "tokenBurn.label.tokenBurn" = "Queimar Token";
-
-"tokenBurn.label.transactionFee" = "Taxa de Transação %@ %@";
 
 "tokenBurn.label.transactionIsOnWay" = "Sua transação está a caminho!";
 
