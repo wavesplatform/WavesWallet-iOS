@@ -70,7 +70,13 @@ final class AliasWithoutViewController: UIViewController, Localization {
 
     private func handlerError(_ error: Error) {
 
-        let displayError = DisplayError(error: error)
+        var displayError: DisplayError = .notFound
+
+        if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
+            displayError = DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving)
+        } else {
+            displayError = DisplayError(error: error)
+        }
 
         switch displayError {
         case .globalError(let isInternetNotWorking):
@@ -90,7 +96,7 @@ final class AliasWithoutViewController: UIViewController, Localization {
             }
 
         case .message(let text):
-            errorSnackKey = showMessageSnack(title: text, didTap: { [weak self] in
+            errorSnackKey = showErrorSnack(title: text, didTap: { [weak self] in
                 self?.loadingFee()
             })
 

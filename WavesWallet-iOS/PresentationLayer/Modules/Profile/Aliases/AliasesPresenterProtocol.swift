@@ -125,7 +125,11 @@ private extension AliasesPresenter {
         case .handlerFeeError(let error):
             state.query = nil
 
-            state.displayState.error = .error(DisplayError(error: error))
+            if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
+                state.displayState.error = .error(DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving))
+            } else {
+                state.displayState.error = .error(DisplayError(error: error))
+            }
             state.displayState.isEnabledCreateAliasButton = false
             state.displayState.transactionFee = .progress
 
@@ -138,8 +142,14 @@ private extension AliasesPresenter {
         case .completedQuery:
             state.query = nil
 
-        case .refresh:
+        case .refresh, .showCreateAlias:
             state.query = .calculateFee
+            state.displayState.transactionFee = .progress
+            state.displayState.isEnabledCreateAliasButton = false
+            state.displayState.error = .none
+
+        case .hideCreateAlias:
+            state.query = nil
             state.displayState.transactionFee = .progress
             state.displayState.isEnabledCreateAliasButton = false
             state.displayState.error = .none

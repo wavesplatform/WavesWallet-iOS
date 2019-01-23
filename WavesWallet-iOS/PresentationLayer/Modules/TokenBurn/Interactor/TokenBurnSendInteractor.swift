@@ -28,5 +28,6 @@ final class TokenBurnSendInteractor: TokenBurnSendInteractorProtocol {
                           wallet: wallet)
                     .map { _ in TokenBurnTypes.TransactionStatus.success }
             }
+            .catchError( { Observable.just(TokenBurnTypes.TransactionStatus.error($0)) })
     }
 }
