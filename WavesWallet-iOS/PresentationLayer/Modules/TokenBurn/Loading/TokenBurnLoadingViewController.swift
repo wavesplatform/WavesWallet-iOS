@@ -11,7 +11,7 @@ import RxSwift
 
 protocol TokenBurnLoadingViewControllerDelegate: AnyObject {
     
-    func tokenBurnLoadingViewControllerDidFail(error: NetworkError)
+    func tokenBurnLoadingViewControllerDidFail(error: Error)
 }
 
 final class TokenBurnLoadingViewController: UIViewController {
@@ -41,7 +41,14 @@ final class TokenBurnLoadingViewController: UIViewController {
                     
                 case .error(let error):
                     self?.delegate?.tokenBurnLoadingViewControllerDidFail(error: error)
-                    self?.navigationController?.popViewController(animated: true)
+                    //TODO: Coordinator
+                    if let vc = self?.navigationController?.viewControllers.first(where: { (vc) -> Bool in
+                        return vc is TokenBurnViewController
+                    }) {
+                        self?.navigationController?.popToViewController(vc, animated: true)
+                    } else {
+                        self?.navigationController?.popToRootViewController(animated: true)
+                    }
                 }
                 
             })
