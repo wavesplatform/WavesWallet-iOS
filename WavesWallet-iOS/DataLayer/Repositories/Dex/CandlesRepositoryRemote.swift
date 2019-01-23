@@ -46,15 +46,23 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                         
                         for model in chart.candles {
                             
-                            if model.volume > 0 {
+                            guard let volume = model.volume,
+                            let high = model.high,
+                            let low = model.low,
+                            let open = model.open,
+                            let close = model.close else {
+                                continue
+                            }
+                            
+                            if volume > 0 {
                                 let timestamp = owner.convertTimestamp(model.time, timeFrame: timeFrame)
                                 
-                                let model = DomainLayer.DTO.Candle(close: model.close,
-                                                                   high: model.high,
-                                                                   low: model.low,
-                                                                   open: model.open,
+                                let model = DomainLayer.DTO.Candle(close: close,
+                                                                   high: high,
+                                                                   low: low,
+                                                                   open: open,
                                                                    timestamp: timestamp,
-                                                                   volume: model.volume)
+                                                                   volume: volume)
                                 models.append(model)
                             }
                         }
