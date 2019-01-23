@@ -14,7 +14,8 @@ enum AliasesTypes {
 
 extension AliasesTypes {
 
-    enum Query: Hashable {        
+    enum Query: Hashable {
+        case calculateFee
         case createAlias
     }
 
@@ -28,6 +29,9 @@ extension AliasesTypes {
         case viewWillAppear
         case tapCreateAlias
         case completedQuery
+        case handlerFeeError(Error)
+        case setFee(Money)
+        case refresh
     }
 
     struct DisplayState: Mutating, DataSourceProtocol {
@@ -37,9 +41,17 @@ extension AliasesTypes {
             case update
         }
 
+        enum TransactionFee {
+            case progress
+            case fee(Money)
+        }
+
         var sections: [ViewModel.Section]
         var isAppeared: Bool
         var action: Action?
+        var error: DisplayErrorState
+        var transactionFee: TransactionFee
+        var isEnabledCreateAliasButton: Bool
     }
 }
 

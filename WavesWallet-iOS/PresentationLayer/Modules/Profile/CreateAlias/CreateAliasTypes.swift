@@ -47,7 +47,7 @@ extension CreateAliasTypes {
 
         var sections: [ViewModel.Section]
         var input: String?
-        var error: String?
+        var errorState: DisplayErrorState
         var isEnabledSaveButton: Bool
         var isLoading: Bool
         var isAppeared: Bool

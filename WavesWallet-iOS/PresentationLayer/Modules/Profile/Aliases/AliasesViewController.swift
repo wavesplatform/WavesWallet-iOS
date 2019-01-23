@@ -30,6 +30,7 @@ final class AliasesViewController: UIViewController {
     private var sections: [Types.ViewModel.Section] = []
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
     private var isHiddenInfoView: Bool = true
+    private var errorSnackKey: String?
 
     var presenter: AliasesPresenterProtocol!
 
@@ -45,6 +46,7 @@ final class AliasesViewController: UIViewController {
 
         aliasesInfoView.infoButtonDidTap = {
             if self.isHiddenInfoView {
+                self.eventInput.onNext(.refresh)
                 self.showInfoView()
             } else {
                 self.hideInfoView()
@@ -142,10 +144,59 @@ private extension AliasesViewController {
     func updateView(with state: Types.DisplayState) {
 
         self.sections = state.sections
+
+        switch state.transactionFee {
+        case .fee(let money):
+            aliasesInfoView.update(with: .init(status: .fee(money), isEnabledCreateButton: state.isEnabledCreateAliasButton))
+
+        case .progress:
+            aliasesInfoView.update(with: .init(status: .progress, isEnabledCreateButton: state.isEnabledCreateAliasButton))
+        }
+
+        switch state.error {
+        case .error(let error):
+
+            switch error {
+            case .globalError(let isInternetNotWorking):
+
+                if isInternetNotWorking {
+                    errorSnackKey = showWithoutInternetSnack { [weak self] in
+                        self?.eventInput.onNext(.refresh)
+                    }
+                } else {
+                    errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
+                        self?.eventInput.onNext(.refresh)
+                    })
+                }
+            case .internetNotWorking:
+                errorSnackKey = showWithoutInternetSnack { [weak self] in
+                    self?.eventInput.onNext(.refresh)
+                }
+
+            case .message(let text):
+                errorSnackKey = showMessageSnack(title: text, didTap: { [weak self] in
+                    self?.eventInput.onNext(.refresh)
+                })
+
+            case .notFound, .scriptError:
+                errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
+                    self?.eventInput.onNext(.refresh)
+                })
+            }
+
+        case .none:
+            if let errorSnackKey = errorSnackKey {
+                hideSnack(key: errorSnackKey)
+            }
+
+        case .waiting:
+            break
+        }
+
+
         if let action = state.action {
             switch action {
             case .update:
-
                 tableView.reloadData()
             case .none:
                 break
