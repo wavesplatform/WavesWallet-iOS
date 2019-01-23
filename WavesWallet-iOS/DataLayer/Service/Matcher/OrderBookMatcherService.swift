@@ -159,21 +159,20 @@ fileprivate extension DomainLayer.Query.Dex.CreateOrder {
     }
     
     private var toSign: [UInt8] {
-        let s1 = wallet.publicKey.publicKey + matcherPublicKey.publicKey
+        let s1 = toByteArray(UInt8(2)) + wallet.publicKey.publicKey + matcherPublicKey.publicKey
         let s2 = assetPair.bytes + orderType.bytes
         let s3 = toByteArray(price) + toByteArray(amount)
-        let s4 = toByteArray(timestamp) + toByteArray(expirationTimestamp) + toByteArray(matcherFee)
+        let s4 = toByteArray(timestamp) + toByteArray(expirationTimestamp) + toByteArray(Int64(matcherFee))
         return s1 + s2 + s3 + s4
     }
     
     private var expirationTimestamp: Int64 {
         return timestamp + Int64(expiration) * 60 * 1000
     }
-    
+//    message    String    GenericError(Script doesn't exist and proof doesn't validate as signature for OrderV1(3PCAB4sHXgvtu5NPoen6EXR5yaNbvsEA8Fj,3PJaDyprvekvPXPuAtxrapacuDJopgJRaU3,WAVES-Gtb1WRznfchDnTh37ezoDTJ4wcoKaRsKqKjJjy7nm2zU,sell,100000000,100000000,1548258429304,1550764029304,300000,Proofs(List(2QnTnJ1sTQEJYb5DbgJSsTXpyLLmbTMKzxab4GufPUtD9fXTWKwzYJzvkh4FmcnJmAY7rBYm1Lw6NzvCLUmzBZxk))))
     var params: [String : Any] {
         
-        return ["id" : Base58.encode(id),
-                "senderPublicKey" :  Base58.encode(wallet.publicKey.publicKey),
+        return ["senderPublicKey" :  Base58.encode(wallet.publicKey.publicKey),
                 "matcherPublicKey" : Base58.encode(matcherPublicKey.publicKey),
                 "assetPair" : assetPair.json,
                 "orderType" : orderType.rawValue,
@@ -182,7 +181,8 @@ fileprivate extension DomainLayer.Query.Dex.CreateOrder {
                 "timestamp" : timestamp,
                 "expiration" : expirationTimestamp,
                 "matcherFee" : matcherFee,
-                "signature" : Base58.encode(signature)]
+                "proofs" : [Base58.encode(signature)],
+                "version:": 2]
     }
 }
 
