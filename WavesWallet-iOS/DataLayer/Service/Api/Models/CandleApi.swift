@@ -12,12 +12,12 @@ extension API.DTO {
     struct Chart: Decodable {
         
         struct Candle: Decodable {
-            let volume: Double
             let time: Int64
-            let close: Double
-            let high: Double
-            let low: Double
-            let open: Double
+            let volume: Double?
+            let close: Double?
+            let high: Double?
+            let low: Double?
+            let open: Double?            
         }
         
         let candles: [Candle]

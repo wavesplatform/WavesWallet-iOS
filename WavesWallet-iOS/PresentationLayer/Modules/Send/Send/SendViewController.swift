@@ -33,7 +33,7 @@ final class SendViewController: UIViewController {
     @IBOutlet private weak var amountView: AmountInputView!
     @IBOutlet private weak var recipientAddressView: AddressInputView!
     @IBOutlet private weak var buttonContinue: HighlightedButton!
-    @IBOutlet private weak var viewFee: SendTransactionFeeView!
+    @IBOutlet private weak var viewFee: TransactionFeeView!
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var activityIndicatorButton: UIActivityIndicatorView!
     @IBOutlet private weak var viewAmountError: UIView!
@@ -221,7 +221,7 @@ extension SendViewController: SendResultDelegate {
         
         switch error {
         case .scriptError:
-            SendTransactionScriptErrorView.show()
+            TransactionScriptErrorView.show()
 
         default:
             showNetworkErrorSnack(error: error)

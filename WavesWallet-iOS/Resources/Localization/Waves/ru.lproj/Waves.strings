@@ -889,8 +889,6 @@
 
 "send.label.send" = "Отправить";
 
-"send.label.transactionFee" = "Комиссия на перевод";
-
 "send.textField.placeholderPaymentId" = "Вставьте или введите ID платежа";
 
 "sendcomplete.button.okey" = "Хорошо";
@@ -967,8 +965,6 @@
 
 "startleasing.label.startLeasing" = "Передать в лизинг";
 
-"startleasing.label.transactionFee" = "Комиссия на перевод";
-
 "startleasingcomplete.button.okey" = "Хорошо";
 
 "startleasingcomplete.label.youHaveCanceledTransaction" = "Вы отменили транзакцию лизинга";
@@ -1022,8 +1018,6 @@
 "tokenBurn.label.reissuable" = "Перевыпускаемый";
 
 "tokenBurn.label.tokenBurn" = "Сжечь токен";
-
-"tokenBurn.label.transactionFee" = "Комиссия %@ %@";
 
 "tokenBurn.label.transactionIsOnWay" = "Ваша транзакция отправлена!";
 

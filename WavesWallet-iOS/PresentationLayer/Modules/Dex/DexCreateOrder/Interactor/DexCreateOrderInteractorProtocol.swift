@@ -11,4 +11,5 @@ import RxSwift
 
 protocol DexCreateOrderInteractorProtocol {
     func createOrder(order: DexCreateOrder.DTO.Order) -> Observable<ResponseType<DexCreateOrder.DTO.Output>>
+    func getFee(amountAsset: String, priceAsset: String) -> Observable<Money>
 }
