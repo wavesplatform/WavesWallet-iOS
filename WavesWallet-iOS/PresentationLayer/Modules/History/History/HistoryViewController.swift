@@ -297,7 +297,7 @@ private extension HistoryViewController {
     }
 
     private func showErrorSnack(_ message: (String)) -> String {
-        return showErrorSnack(tille: message, didTap: { [weak self] in
+        return showErrorSnack(title: message, didTap: { [weak self] in
             self?.sendEvent.accept(.refresh)
         })
     }

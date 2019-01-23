@@ -20,9 +20,9 @@ extension DomainLayer.Query {
             let amount: Int64
             let price: Int64
             let orderType: DomainLayer.DTO.Dex.OrderType
-            let matcherFee: Int
+            let matcherFee: Int64
             let timestamp: Int64 = Date().millisecondsSince1970
-            let expiration: Int
+            let expiration: Int64
         }
         
         struct CancelOrder {

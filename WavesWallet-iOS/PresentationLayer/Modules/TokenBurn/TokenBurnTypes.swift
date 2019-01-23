@@ -12,6 +12,6 @@ enum TokenBurnTypes {
     
     enum TransactionStatus {
         case success
-        case error(NetworkError)
+        case error(Error)
     }
 }
