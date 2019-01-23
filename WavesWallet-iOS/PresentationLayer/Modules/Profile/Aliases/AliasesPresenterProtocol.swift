@@ -33,6 +33,9 @@ final class AliasesPresenter: AliasesPresenterProtocol {
 
     private let disposeBag: DisposeBag = DisposeBag()
 
+    private let transactionsInteractor = FactoryInteractors.instance.transactions
+    private let authorizationInteractor = FactoryInteractors.instance.authorization
+
     var moduleInput: AliasesModuleInput!
     weak var moduleOutput: AliasesModuleOutput?
 
@@ -40,6 +43,7 @@ final class AliasesPresenter: AliasesPresenterProtocol {
 
         var newFeedbacks = feedbacks
         newFeedbacks.append(createAliasQuery())
+        newFeedbacks.append(initialAliasQuery())
 
         let initialState = self.initialState(moduleInput: moduleInput)
 
@@ -71,6 +75,32 @@ fileprivate extension AliasesPresenter {
             return Signal.just(.completedQuery)
         })
     }
+
+    func initialAliasQuery() -> Feedback {
+
+        return react(query: { state -> Types.Query? in
+
+            if case .calculateFee? = state.query {
+                return state.query
+            } else {
+                return nil
+            }
+
+        }, effects: { [weak self] _ -> Signal<Types.Event> in
+
+            guard let owner = self else { return Signal.never() }
+
+            return owner
+                .authorizationInteractor
+                .authorizedWallet()
+                .flatMap({ [weak self] (wallet) -> Observable<Money> in
+                    guard let owner = self else { return Observable.never() }
+                    return owner.transactionsInteractor.calculateFee(by: .createAlias, accountAddress: wallet.address)
+                })
+                .map { .setFee($0) }
+                .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
+        })
+    }
 }
 
 // MARK: Core State
@@ -88,9 +118,24 @@ private extension AliasesPresenter {
         switch event {
         case .viewWillAppear:
             state.displayState.isAppeared = true
+            state.query = .calculateFee
+            state.displayState.transactionFee = .progress
+            state.displayState.isEnabledCreateAliasButton = false
 
         case .tapCreateAlias:
             state.query = .createAlias
+
+        case .handlerError(let error):
+            state.query = nil
+            state.displayState.error = DisplayError(error: error)
+            state.displayState.isEnabledCreateAliasButton = false
+            state.displayState.transactionFee = .progress
+
+        case .setFee(let money):
+            state.query = nil
+            state.displayState.isEnabledCreateAliasButton = true
+            state.displayState.transactionFee = .fee(money)
+            state.displayState.error = nil
 
         case .completedQuery:
             state.query = nil
@@ -120,6 +165,9 @@ private extension AliasesPresenter {
 
         return Types.DisplayState(sections: [section],
                                   isAppeared: false,
-                                  action: .update)
+                                  action: .update,
+                                  error: nil,
+                                  transactionFee: .progress,
+                                  isEnabledCreateAliasButton: false)
     }
 }
