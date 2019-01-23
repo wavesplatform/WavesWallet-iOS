@@ -27,7 +27,7 @@ final class TokenBurnViewController: UIViewController {
     @IBOutlet private weak var viewFeeError: UIView!
     @IBOutlet private weak var labelFeeError: UILabel!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet private weak var viewFee: SendTransactionFeeView!
+    @IBOutlet private weak var viewFee: TransactionFeeView!
 
     var asset: DomainLayer.DTO.SmartAssetBalance!
     weak var delegate: TokenBurnTransactionDelegate?

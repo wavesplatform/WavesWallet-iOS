@@ -33,7 +33,7 @@ final class StartLeasingViewController: UIViewController {
     @IBOutlet private weak var amountView: AmountInputView!
     @IBOutlet private weak var buttonStartLease: HighlightedButton!
     @IBOutlet private weak var scrollView: UIScrollView!
-    @IBOutlet private weak var viewFee: SendTransactionFeeView!
+    @IBOutlet private weak var viewFee: TransactionFeeView!
     
     private var order: StartLeasingTypes.DTO.Order!
     weak var output: StartLeasingModuleOutput?

@@ -889,8 +889,6 @@
 
 "send.label.send" = "Senden";
 
-"send.label.transactionFee" = "Transaktionsgebühr";
-
 "send.textField.placeholderPaymentId" = "Fügen Sie Ihre Zahlungs-ID ein oder geben Sie sie ein";
 
 "sendcomplete.button.okey" = "Okay";
@@ -967,8 +965,6 @@
 
 "startleasing.label.startLeasing" = "Leasing beginnen";
 
-"startleasing.label.transactionFee" = "Transaktionsgebühr";
-
 "startleasingcomplete.button.okey" = "Okay";
 
 "startleasingcomplete.label.youHaveCanceledTransaction" = "Sie haben einen Leasingvorgang storniert";
@@ -1022,8 +1018,6 @@
 "tokenBurn.label.reissuable" = "Wiederauflegbar";
 
 "tokenBurn.label.tokenBurn" = "Token Burn";
-
-"tokenBurn.label.transactionFee" = "Transaktionsgebühr %@ %@";
 
 "tokenBurn.label.transactionIsOnWay" = "Ihre Transaktion ist unterwegs!";
 

@@ -1922,8 +1922,6 @@ internal enum Localizable {
         internal static var chooseFromAddressBook: String { return Localizable.tr("Waves", "send.button.chooseFromAddressBook") }
         /// Continue
         internal static var `continue`: String { return Localizable.tr("Waves", "send.button.continue") }
-        /// Okay
-        internal static var okey: String { return Localizable.tr("Waves", "send.button.okey") }
         /// Use total balance
         internal static var useTotalBalanace: String { return Localizable.tr("Waves", "send.button.useTotalBalanace") }
       }
@@ -1945,8 +1943,6 @@ internal enum Localizable {
         internal static var recipientAddress: String { return Localizable.tr("Waves", "send.label.recipientAddress") }
         /// Send
         internal static var send: String { return Localizable.tr("Waves", "send.label.send") }
-        /// Transaction Fee
-        internal static var transactionFee: String { return Localizable.tr("Waves", "send.label.transactionFee") }
 
         internal enum Error {
           /// Insufficient funds
@@ -1971,13 +1967,6 @@ internal enum Localizable {
             return Localizable.tr("Waves", "Send.Label.Warning.subtitle", p1, p2, p3)
           }
         }
-      }
-
-      internal enum Script {
-        /// To work with a scripted account/asset,\nuse the Waves Client
-        internal static var subtitle: String { return Localizable.tr("Waves", "send.script.subtitle") }
-        /// A script is installed on your account or asset
-        internal static var title: String { return Localizable.tr("Waves", "send.script.title") }
       }
 
       internal enum Textfield {
@@ -2111,8 +2100,6 @@ internal enum Localizable {
         internal static var notEnough: String { return Localizable.tr("Waves", "startleasing.label.notEnough") }
         /// Start leasing
         internal static var startLeasing: String { return Localizable.tr("Waves", "startleasing.label.startLeasing") }
-        /// Transaction Fee
-        internal static var transactionFee: String { return Localizable.tr("Waves", "startleasing.label.transactionFee") }
       }
     }
 
@@ -2198,10 +2185,6 @@ internal enum Localizable {
         internal static var reissuable: String { return Localizable.tr("Waves", "tokenBurn.label.reissuable") }
         /// Token Burn
         internal static var tokenBurn: String { return Localizable.tr("Waves", "tokenBurn.label.tokenBurn") }
-        /// Transaction Fee %@ %@
-        internal static func transactionFee(_ p1: String, _ p2: String) -> String {
-          return Localizable.tr("Waves", "tokenBurn.label.transactionFee", p1, p2)
-        }
         /// Your transaction is on the way!
         internal static var transactionIsOnWay: String { return Localizable.tr("Waves", "tokenBurn.label.transactionIsOnWay") }
         /// Type
@@ -2215,6 +2198,14 @@ internal enum Localizable {
           /// You don't have enough funds to pay the required fees.
           internal static var notFundsFee: String { return Localizable.tr("Waves", "tokenBurn.label.error.notFundsFee") }
         }
+      }
+    }
+
+    internal enum Transactionfee {
+
+      internal enum Label {
+        /// Transaction Fee
+        internal static var transactionFee: String { return Localizable.tr("Waves", "transactionFee.label.transactionFee") }
       }
     }
 
@@ -2308,6 +2299,21 @@ internal enum Localizable {
         internal static var transactionId: String { return Localizable.tr("Waves", "transactionhistory.copy.transactionId") }
         /// Type
         internal static var type: String { return Localizable.tr("Waves", "transactionhistory.copy.type") }
+      }
+    }
+
+    internal enum Transactionscript {
+
+      internal enum Button {
+        /// Okay
+        internal static var okey: String { return Localizable.tr("Waves", "transactionScript.button.okey") }
+      }
+
+      internal enum Label {
+        /// To work with a scripted account/asset,\nuse the Waves Client
+        internal static var subtitle: String { return Localizable.tr("Waves", "transactionScript.label.subtitle") }
+        /// A script is installed on your account or asset
+        internal static var title: String { return Localizable.tr("Waves", "transactionScript.label.title") }
       }
     }
 

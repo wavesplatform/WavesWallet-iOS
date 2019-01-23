@@ -19,7 +19,7 @@ private enum Constants {
     }
 }
 
-final class SendTransactionScriptErrorView: UIView, NibLoadable {
+final class TransactionScriptErrorView: UIView, NibLoadable {
 
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var labelSubtitle: UILabel!
@@ -68,17 +68,17 @@ final class SendTransactionScriptErrorView: UIView, NibLoadable {
     
     private func setupLocalization() {
         
-        labelTitle.text = Localizable.Waves.Send.Script.title
-        labelSubtitle.text = Localizable.Waves.Send.Script.subtitle
-        buttonOkey.setTitle(Localizable.Waves.Send.Button.okey, for: .normal)
+        labelTitle.text = Localizable.Waves.Transactionscript.Label.title
+        labelSubtitle.text = Localizable.Waves.Transactionscript.Label.subtitle
+        buttonOkey.setTitle(Localizable.Waves.Transactionscript.Button.okey, for: .normal)
     }
 }
 
-extension SendTransactionScriptErrorView {
+extension TransactionScriptErrorView {
     
     class func show() {
         
-        let view = SendTransactionScriptErrorView.loadFromNib()        
+        let view = TransactionScriptErrorView.loadFromNib()        
         view.frame = UIScreen.main.bounds
         AppDelegate.shared().window?.addSubview(view)
     }

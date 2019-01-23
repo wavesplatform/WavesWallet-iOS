@@ -889,8 +889,6 @@
 
 "send.label.send" = "发送";
 
-"send.label.transactionFee" = "手续费";
-
 "send.textField.placeholderPaymentId" = "粘贴或输入您的付款ID";
 
 "sendcomplete.button.okey" = "OK";
@@ -967,8 +965,6 @@
 
 "startleasing.label.startLeasing" = "开始租赁";
 
-"startleasing.label.transactionFee" = "手续费";
-
 "startleasingcomplete.button.okey" = "OK";
 
 "startleasingcomplete.label.youHaveCanceledTransaction" = "您已取消一笔租赁交易";
@@ -1022,8 +1018,6 @@
 "tokenBurn.label.reissuable" = "可再发行";
 
 "tokenBurn.label.tokenBurn" = "代币焚毁";
-
-"tokenBurn.label.transactionFee" = "手续费 %@ %@";
 
 "tokenBurn.label.transactionIsOnWay" = "您的交易正在进行中！";
 

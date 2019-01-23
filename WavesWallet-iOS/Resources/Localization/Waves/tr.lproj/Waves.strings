@@ -889,8 +889,6 @@
 
 "send.label.send" = "Gönder";
 
-"send.label.transactionFee" = "İşlem komisyonu";
-
 "send.textField.placeholderPaymentId" = "Ödeme ID'nizi girin";
 
 "sendcomplete.button.okey" = "Tamam";
@@ -967,8 +965,6 @@
 
 "startleasing.label.startLeasing" = "Kiralamayı başlat";
 
-"startleasing.label.transactionFee" = "İşlem komisyonu";
-
 "startleasingcomplete.button.okey" = "Tamam";
 
 "startleasingcomplete.label.youHaveCanceledTransaction" = "Kiralamayı iptal ettiniz";
@@ -1022,8 +1018,6 @@
 "tokenBurn.label.reissuable" = "Tekrar oluşturulabilir";
 
 "tokenBurn.label.tokenBurn" = "Kripto para yak";
-
-"tokenBurn.label.transactionFee" = "İşlem komisyonu %@ %@'dir";
 
 "tokenBurn.label.transactionIsOnWay" = "Transfer yolda!";
 

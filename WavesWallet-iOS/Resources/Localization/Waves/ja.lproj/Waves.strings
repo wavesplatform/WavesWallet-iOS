@@ -889,8 +889,6 @@
 
 "send.label.send" = "送信する";
 
-"send.label.transactionFee" = "トランザクション手数料";
-
 "send.textField.placeholderPaymentId" = "支払IDを貼り付けまたは入力してください";
 
 "sendcomplete.button.okey" = "OK";
@@ -967,8 +965,6 @@
 
 "startleasing.label.startLeasing" = "リースする";
 
-"startleasing.label.transactionFee" = "トランザクション手数料";
-
 "startleasingcomplete.button.okey" = "OK";
 
 "startleasingcomplete.label.youHaveCanceledTransaction" = "リーストランザクションをキャンセルしました";
@@ -1022,8 +1018,6 @@
 "tokenBurn.label.reissuable" = "再発行可";
 
 "tokenBurn.label.tokenBurn" = "トークンをバーンする";
-
-"tokenBurn.label.transactionFee" = "トランザクション手数料：%@ %@";
 
 "tokenBurn.label.transactionIsOnWay" = "トランザクションは処理中です！";
 
