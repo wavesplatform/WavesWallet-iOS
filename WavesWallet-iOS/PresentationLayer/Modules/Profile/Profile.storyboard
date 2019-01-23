@@ -1160,9 +1160,9 @@
                     <connections>
                         <outlet property="createButton" destination="2su-Jh-1lC" id="23c-g4-Brc"/>
                         <outlet property="secondSubtitleLabel" destination="Ppq-2Y-NpV" id="7TC-6g-eFu"/>
-                        <outlet property="sendTransactionFeeView" destination="ZgX-Jf-Swe" id="wc8-ht-3gW"/>
                         <outlet property="subtitleLabel" destination="VOY-jz-v3q" id="2cW-QX-nIA"/>
                         <outlet property="titleLabel" destination="DGo-HK-3gm" id="rny-RP-YpZ"/>
+                        <outlet property="transactionFeeView" destination="ZgX-Jf-Swe" id="wc8-ht-3gW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SDs-21-UBM" userLabel="First Responder" sceneMemberID="firstResponder"/>
