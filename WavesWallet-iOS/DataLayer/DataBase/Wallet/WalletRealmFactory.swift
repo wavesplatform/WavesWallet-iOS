@@ -20,7 +20,7 @@ fileprivate enum SchemaVersions: UInt64 {
 }
 
 fileprivate enum Constants {
-    static let currentVersion: SchemaVersions = .version_7
+    static let currentVersion: SchemaVersions = .version_8
     static let isHiddenKey: String = "isHidden"
     static let isSpamKey: String = "isSpam"
     static let assetIdKey: String = "assetId"
