@@ -76,6 +76,12 @@ final class StartLeasingConfirmationViewController: UIViewController {
 //MARK: - StartLeasingErrorDelegate
 extension StartLeasingConfirmationViewController: StartLeasingErrorDelegate {
     func startLeasingDidFail(error: NetworkError) {
-        showNetworkErrorSnack(error: error)
+        
+        switch error {
+        case .scriptError:
+            SendTransactionScriptErrorView.show()
+        default:
+            showNetworkErrorSnack(error: error)
+        }
     }
 }

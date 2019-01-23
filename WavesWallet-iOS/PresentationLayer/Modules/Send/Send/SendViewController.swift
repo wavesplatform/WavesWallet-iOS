@@ -114,6 +114,7 @@ final class SendViewController: UIViewController {
             
         case .resendTransaction(let tx):
             updateAmountData()
+            viewFee.showLoadingState()
             recipientAddressView.setupText(tx.address, animation: false)
             amount = tx.amount
             amountView.setAmount(tx.amount)
@@ -143,7 +144,7 @@ final class SendViewController: UIViewController {
     
     private func setupAssetInfo(_ assetBalance: DomainLayer.DTO.SmartAssetBalance) {
         gateWayInfo = nil
-        
+        wavesFee = nil
         viewFee.showLoadingState()
         selectedAsset = assetBalance
         assetView.update(with: .init(assetBalance: assetBalance, isOnlyBlockMode: inputModel.selectedAsset != nil))
@@ -690,6 +691,7 @@ extension SendViewController: AddressInputViewDelegate {
         if let asset = assetID, selectedAsset?.assetId != asset, inputModel.selectedAsset == nil {
             sendEvent.accept(.getAssetById(asset))
             showLoadingAssetState(isLoadingAmount: amount != nil)
+            wavesFee = nil
             viewFee.showLoadingState()
         }
         
