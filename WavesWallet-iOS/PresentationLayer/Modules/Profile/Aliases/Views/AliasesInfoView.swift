@@ -15,11 +15,21 @@ private enum Constants {
 
 final class AliasesInfoView: UIView {
 
+    struct Model {
+        enum Status {
+            case progress
+            case fee(Money)
+        }
+
+        let status: Status
+        let isEnabledCreateButton: Bool
+    }
+
     @IBOutlet private var viewContainer: UIView!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var subTitleLabel: UILabel!
-    @IBOutlet private var secondSubTitleLabel: UILabel!
-    @IBOutlet private var feeTitleLabel: UILabel!
+    @IBOutlet private var secondSubTitleLabel: UILabel!    
+    @IBOutlet private var transactionFeeView: TransactionFeeView!
     @IBOutlet private var createButton: UIButton!
     @IBOutlet var arrayButton: UIButton!
 
@@ -43,6 +53,24 @@ final class AliasesInfoView: UIView {
     }
 }
 
+// MARK: ViewConfiguration
+
+extension AliasesInfoView: ViewConfiguration {
+    func update(with model: Model) {
+
+        switch model.status {
+        case .fee(let money):
+            transactionFeeView.hideLoadingState()
+            transactionFeeView.update(with: money)
+
+        case .progress:
+            transactionFeeView.showLoadingState()
+        }
+
+        createButton.isEnabled = model.isEnabledCreateButton
+    }
+}
+
 // MARK: Localization
 
 extension AliasesInfoView: Localization {
@@ -51,7 +79,6 @@ extension AliasesInfoView: Localization {
         self.titleLabel.text = Localizable.Waves.Aliases.View.Info.Label.title
         self.subTitleLabel.text = Localizable.Waves.Aliases.View.Info.Label.subtitle
         self.secondSubTitleLabel.text = Localizable.Waves.Aliases.View.Info.Label.secondsubtitle
-        self.feeTitleLabel.text = Localizable.Waves.Aliases.View.Info.Label.fee
         createButton.setTitle(Localizable.Waves.Aliases.View.Info.Button.create, for: .normal)
     }
 }
