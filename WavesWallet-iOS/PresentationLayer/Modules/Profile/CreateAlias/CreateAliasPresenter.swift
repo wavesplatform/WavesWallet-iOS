@@ -98,10 +98,20 @@ fileprivate extension CreateAliasPresenter {
             return strongSelf
                 .authorizationInteractor
                 .authorizedWallet()
-                .flatMap({ wallet -> Observable<Bool> in
+                .flatMap({ [weak self] wallet -> Observable<(Money, DomainLayer.DTO.SignedWallet)> in
+                    guard let strongSelf = self else { return Observable.empty() }
+
                     return strongSelf
                         .transactionsInteractor
-                        .send(by: .createAlias(.init(alias: name, fee: GlobalConstants.WavesTransactionFeeAmount)), wallet: wallet)
+                        .calculateFee(by: .createAlias, accountAddress: wallet.address)
+                        .map { ($0, wallet) }
+                })
+                .flatMap({ [weak self] data -> Observable<Bool> in
+                    guard let strongSelf = self else { return Observable.empty() }
+
+                    return strongSelf
+                        .transactionsInteractor
+                        .send(by: .createAlias(.init(alias: name, fee: data.0.amount)), wallet: data.1)
                         .map { _ in true }
                 })
                 .map { _ in .aliasCreated }

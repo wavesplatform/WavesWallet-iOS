@@ -1116,7 +1116,7 @@
                                             <action selector="handlerTapCreateButtonWithSender:" destination="nLK-VF-1vR" eventType="touchUpInside" id="LGp-O4-kFV"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZgX-Jf-Swe" customClass="SendTransactionFeeView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZgX-Jf-Swe" customClass="TransactionFeeView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="16" y="475" width="343" height="42"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -1359,7 +1359,7 @@
                                                             <action selector="handlerTapCreateButtonWithSender:" destination="0BU-8O-nhY" eventType="touchUpInside" id="IbY-MW-7w2"/>
                                                         </connections>
                                                     </button>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ffy-Pj-L35" customClass="SendTransactionFeeView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ffy-Pj-L35" customClass="TransactionFeeView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="178.5" width="343" height="42"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
