@@ -22,6 +22,7 @@ final class CreateAliasViewController: UIViewController {
 
     private var sections: [Types.ViewModel.Section] = []
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
+    private var errorSnackKey: String?
 
     var presenter: CreateAliasPresenterProtocol!
 
@@ -144,6 +145,36 @@ private extension CreateAliasViewController {
         }
 
         saveButton.isEnabled = state.isEnabledSaveButton
+
+        switch state.errorState {
+        case .error(let error):
+
+            switch error {
+            case .globalError(let isInternetNotWorking):
+
+                if isInternetNotWorking {
+                    errorSnackKey = showWithoutInternetSnackWithoutAction()
+                } else {
+                    errorSnackKey = showErrorNotFoundSnackWithoutAction()
+                }
+            case .internetNotWorking:
+                errorSnackKey = showWithoutInternetSnackWithoutAction()
+
+            case .message(let text):
+                errorSnackKey = showMessageSnack(title: text)
+
+            case .notFound, .scriptError:
+                errorSnackKey = showErrorNotFoundSnackWithoutAction()
+            }
+
+        case .none:
+            if let errorSnackKey = errorSnackKey {
+                hideSnack(key: errorSnackKey)
+            }
+
+        case .waiting:
+            break
+        }
 
         if let action = state.action {
             switch action {
