@@ -22,6 +22,35 @@ enum DisplayErrorState {
     case none
 }
 
+extension DisplayError {
+
+    init(error: Error) {
+
+        switch error {
+        case let appError as NetworkError:
+            switch appError {
+            case .internetNotWorking:
+                self = .internetNotWorking
+
+            case .notFound:
+                self = .notFound
+
+            case .serverError:
+                self = .notFound
+
+            case .message(let message):
+                self = .message(message)
+
+            case .scriptError:
+                self = .scriptError
+            }
+
+        default:
+            self = .notFound
+        }
+    }
+}
+
 extension DisplayErrorState {
 
     static func displayErrorState(hasData: Bool, error: Error) -> DisplayErrorState {
