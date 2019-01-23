@@ -163,8 +163,11 @@ private extension CreateAliasViewController {
             case .message(let text):
                 errorSnackKey = showMessageSnack(title: text)
 
-            case .notFound, .scriptError:
+            case .notFound:
                 errorSnackKey = showErrorNotFoundSnackWithoutAction()
+
+            case .scriptError:
+                TransactionScriptErrorView.show()
             }
 
         case .none:
