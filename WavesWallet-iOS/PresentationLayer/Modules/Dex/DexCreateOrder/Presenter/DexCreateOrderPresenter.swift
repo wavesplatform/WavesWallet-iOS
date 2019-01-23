@@ -19,10 +19,13 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
     
     weak var moduleOutput: DexCreateOrderModuleOutput?
     
+    var pair: DomainLayer.DTO.Dex.Pair!
+    
     func system(feedbacks: [DexCreateOrderPresenter.Feedback]) {
         var newFeedbacks = feedbacks
         newFeedbacks.append(modelsQuery())
-        
+        newFeedbacks.append(feeQuery())
+
         Driver.system(initialState: DexCreateOrder.State.initialState,
                       reduce: { [weak self] state, event -> DexCreateOrder.State in
                         return self?.reduce(state: state, event: event) ?? state },
@@ -30,6 +33,19 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
             .drive()
             .disposed(by: disposeBag)
         
+    }
+    
+    private func feeQuery() -> Feedback {
+        return react(query: { state -> DexCreateOrder.State? in
+            return state.isNeedGetFee ? state : nil
+        }, effects: { [weak self] ss -> Signal<DexCreateOrder.Event> in
+            
+            guard let strongSelf = self else { return Signal.empty() }
+            
+            return strongSelf.interactor.getFee(amountAsset: strongSelf.pair.amountAsset.id,
+                                                priceAsset: strongSelf.pair.priceAsset.id)
+                .map {.didGetFee($0)}.asSignal(onErrorSignalWith: Signal.empty())
+        })
     }
     
     private func modelsQuery() -> Feedback {
@@ -49,6 +65,12 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
     private func reduce(state: DexCreateOrder.State, event: DexCreateOrder.Event) -> DexCreateOrder.State {
         
         switch event {
+            
+        case .didGetFee(let fee):
+            return state.mutate {
+                $0.isNeedGetFee = false
+            }.changeAction(.didGetFee(fee))
+            
         case .createOrder:
             
             return state.mutate {
@@ -94,6 +116,6 @@ fileprivate extension DexCreateOrder.State {
     
 fileprivate extension DexCreateOrder.State {
     static var initialState: DexCreateOrder.State {
-        return DexCreateOrder.State(isNeedCreateOrder: false, order: nil, action: .none)
+        return DexCreateOrder.State(isNeedCreateOrder: false, isNeedGetFee: true, order: nil, action: .none)
     }
 }

@@ -11,8 +11,8 @@ import RxSwift
 
 final class StartLeasingInteractor: StartLeasingInteractorProtocol {
 
-    let transactionInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
-    let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let transactionInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
+    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
 
     func createOrder(order: StartLeasingTypes.DTO.Order) -> Observable<DomainLayer.DTO.SmartTransaction> {
 
@@ -24,6 +24,17 @@ final class StartLeasingInteractor: StartLeasingInteractorProtocol {
             .flatMap({ (wallet) -> Observable<DomainLayer.DTO.SmartTransaction> in
                 return self.transactionInteractor
                     .send(by: .lease(sender), wallet: wallet)
+            })
+    }
+    
+    func getFee() -> Observable<Money> {
+        return authorizationInteractor.authorizedWallet()
+            .flatMap({ [weak self] (wallet) -> Observable<Money> in
+                guard let owner = self else { return Observable.empty() }
+                return owner.transactionInteractor.calculateFee(by: .lease, accountAddress: wallet.address)
+            })
+            .catchError({ (error) -> Observable<Money> in
+                return Observable.just(GlobalConstants.WavesTransactionFee)
             })
     }
 }
