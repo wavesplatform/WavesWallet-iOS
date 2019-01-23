@@ -29,8 +29,9 @@ extension AliasesTypes {
         case viewWillAppear
         case tapCreateAlias
         case completedQuery
-        case handlerError(Error)
+        case handlerFeeError(Error)
         case setFee(Money)
+        case refresh
     }
 
     struct DisplayState: Mutating, DataSourceProtocol {
@@ -48,7 +49,7 @@ extension AliasesTypes {
         var sections: [ViewModel.Section]
         var isAppeared: Bool
         var action: Action?
-        var error: DisplayError?
+        var error: DisplayErrorState
         var transactionFee: TransactionFee
         var isEnabledCreateAliasButton: Bool
     }

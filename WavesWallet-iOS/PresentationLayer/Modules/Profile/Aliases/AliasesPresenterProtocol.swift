@@ -98,7 +98,7 @@ fileprivate extension AliasesPresenter {
                     return owner.transactionsInteractor.calculateFee(by: .createAlias, accountAddress: wallet.address)
                 })
                 .map { .setFee($0) }
-                .asSignal(onErrorRecover: { Signal.just(.handlerError($0)) })
+                .asSignal(onErrorRecover: { Signal.just(.handlerFeeError($0)) })
         })
     }
 }
@@ -118,16 +118,14 @@ private extension AliasesPresenter {
         switch event {
         case .viewWillAppear:
             state.displayState.isAppeared = true
-            state.query = .calculateFee
-            state.displayState.transactionFee = .progress
-            state.displayState.isEnabledCreateAliasButton = false
 
         case .tapCreateAlias:
             state.query = .createAlias
 
-        case .handlerError(let error):
+        case .handlerFeeError(let error):
             state.query = nil
-            state.displayState.error = DisplayError(error: error)
+
+            state.displayState.error = .error(DisplayError(error: error))
             state.displayState.isEnabledCreateAliasButton = false
             state.displayState.transactionFee = .progress
 
@@ -135,10 +133,16 @@ private extension AliasesPresenter {
             state.query = nil
             state.displayState.isEnabledCreateAliasButton = true
             state.displayState.transactionFee = .fee(money)
-            state.displayState.error = nil
+            state.displayState.error = .none
 
         case .completedQuery:
             state.query = nil
+
+        case .refresh:
+            state.query = .calculateFee
+            state.displayState.transactionFee = .progress
+            state.displayState.isEnabledCreateAliasButton = false
+            state.displayState.error = .none
         }
     }
 }
@@ -166,7 +170,7 @@ private extension AliasesPresenter {
         return Types.DisplayState(sections: [section],
                                   isAppeared: false,
                                   action: .update,
-                                  error: nil,
+                                  error: .none,
                                   transactionFee: .progress,
                                   isEnabledCreateAliasButton: false)
     }
