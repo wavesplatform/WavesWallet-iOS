@@ -30,7 +30,8 @@ final class DexCreateOrderViewController: UIViewController {
                                              amount: Money(0, input.amountAsset.decimals),
                                              price: input.price ?? Money(0, input.priceAsset.decimals),
                                              total: Money(0, input.priceAsset.decimals),
-                                             expiration: DexCreateOrder.DTO.Expiration.expiration29d)
+                                             expiration: DexCreateOrder.DTO.Expiration.expiration29d,
+                                             fee: 0)
         }
     }
     
@@ -38,7 +39,7 @@ final class DexCreateOrderViewController: UIViewController {
     @IBOutlet private weak var inputAmount: DexCreateOrderInputView!
     @IBOutlet private weak var inputPrice: DexCreateOrderInputView!
     @IBOutlet private weak var inputTotal: DexCreateOrderInputView!
-    @IBOutlet private weak var labelFee: UILabel!
+    @IBOutlet private weak var labelFeeLocalization: UILabel!
     @IBOutlet private weak var labelExpiration: UILabel!
     @IBOutlet private weak var labelExpirationDays: UILabel!
     @IBOutlet private weak var buttonSellBuy: HighlightedButton!
@@ -52,6 +53,8 @@ final class DexCreateOrderViewController: UIViewController {
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var viewErrorFee: UIView!
     @IBOutlet private weak var labelErrorFee: UILabel!
+    @IBOutlet private weak var labelFee: UILabel!
+    @IBOutlet private weak var activityIndicatorViewFee: UIActivityIndicatorView!
     
     private var order: DexCreateOrder.DTO.Order!
     private var isCreatingOrderState: Bool = false
@@ -68,12 +71,19 @@ final class DexCreateOrderViewController: UIViewController {
         setupLocalization()
         setupButtonSellBuy()
         setupUIForIPhone5IfNeed()
+        labelFee.isHidden = true
     }
 }
 
 //MARK: - UI State
 private extension DexCreateOrderViewController {
  
+    func showFee(fee: Money) {
+        activityIndicatorViewFee.stopAnimating()
+        labelFee.isHidden = false
+        labelFee.text = fee.displayText + " " + "WAVES"
+    }
+    
     func setupCreatingOrderState() {
         isCreatingOrderState = true
         setupButtonSellBuy()
@@ -132,6 +142,12 @@ private extension DexCreateOrderViewController {
                 case .orderDidCreate:
                     strongSelf.dismissController()
                     
+                case .didGetFee(let fee):
+                    strongSelf.showFee(fee: fee)
+                    strongSelf.order.fee = Int(fee.amount)
+                    strongSelf.setupButtonSellBuy()
+                    strongSelf.setupValidationErrors()
+                    
                 default:
                     break
                 }
@@ -172,7 +188,8 @@ private extension DexCreateOrderViewController {
             isValidAmountAssetBalance &&
             isValidPriceAssetBalance &&
             !isCreatingOrderState &&
-            isValidWavesFee
+            isValidWavesFee &&
+            order.fee > 0
     }
     
     var availableAmountAssetBalance: Money {
@@ -529,7 +546,7 @@ private extension DexCreateOrderViewController {
     func setupLocalization() {
         setupLabelExpiration()
         
-        labelFee.text = Localizable.Waves.Dexcreateorder.Label.fee
+        labelFeeLocalization.text = Localizable.Waves.Dexcreateorder.Label.fee
         labelExpiration.text = Localizable.Waves.Dexcreateorder.Label.expiration
         
         inputAmount.setupTitle(title: Localizable.Waves.Dexcreateorder.Label.amountIn + " " + input.amountAsset.shortName)

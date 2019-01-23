@@ -1930,6 +1930,9 @@ You do not have any orders</string>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="changearrows14Basic500" translatesAutoresizingMaskIntoConstraints="NO" id="FeP-hh-QpS">
                                                         <rect key="frame" x="224" y="19" width="14" height="14"/>
                                                     </imageView>
+                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="wyT-Nz-Wbb">
+                                                        <rect key="frame" x="0.0" y="18" width="20" height="20"/>
+                                                    </activityIndicatorView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -1940,6 +1943,7 @@ You do not have any orders</string>
                                                     <constraint firstItem="0Gq-ZM-SUQ" firstAttribute="top" secondItem="1Sf-j0-xXd" secondAttribute="top" id="C9r-CX-bsx"/>
                                                     <constraint firstItem="yuQ-7u-Mrc" firstAttribute="trailing" secondItem="VTj-qc-GaF" secondAttribute="trailing" constant="10" id="Cqn-em-G6c"/>
                                                     <constraint firstItem="3Ie-0S-Kpq" firstAttribute="leading" secondItem="VTj-qc-GaF" secondAttribute="leading" id="E0z-Bg-p21"/>
+                                                    <constraint firstItem="wyT-Nz-Wbb" firstAttribute="top" secondItem="NGu-X7-Wxc" secondAttribute="bottom" constant="2" id="FkV-nv-J1s"/>
                                                     <constraint firstAttribute="bottom" secondItem="0Gq-ZM-SUQ" secondAttribute="bottom" id="R5t-Nw-QWI"/>
                                                     <constraint firstItem="FeP-hh-QpS" firstAttribute="centerY" secondItem="3Ie-0S-Kpq" secondAttribute="centerY" id="UAH-CO-U0C"/>
                                                     <constraint firstItem="KzZ-Ku-aDF" firstAttribute="top" secondItem="NGu-X7-Wxc" secondAttribute="bottom" constant="2" id="UXA-xN-pUQ"/>
@@ -1948,6 +1952,7 @@ You do not have any orders</string>
                                                     <constraint firstItem="3Ie-0S-Kpq" firstAttribute="centerY" secondItem="KzZ-Ku-aDF" secondAttribute="centerY" id="j9s-hz-FVn"/>
                                                     <constraint firstAttribute="bottom" secondItem="yuQ-7u-Mrc" secondAttribute="bottom" id="jCk-Ws-FsA"/>
                                                     <constraint firstItem="NGu-X7-Wxc" firstAttribute="leading" secondItem="1Sf-j0-xXd" secondAttribute="leading" id="mNV-Os-pWa"/>
+                                                    <constraint firstItem="wyT-Nz-Wbb" firstAttribute="leading" secondItem="1Sf-j0-xXd" secondAttribute="leading" id="qbd-Vv-bhv"/>
                                                     <constraint firstItem="FeP-hh-QpS" firstAttribute="leading" secondItem="3Ie-0S-Kpq" secondAttribute="trailing" constant="4" id="s3P-e9-kBf"/>
                                                     <constraint firstItem="VTj-qc-GaF" firstAttribute="top" secondItem="1Sf-j0-xXd" secondAttribute="top" id="sjz-CC-a2k"/>
                                                     <constraint firstItem="yuQ-7u-Mrc" firstAttribute="leading" secondItem="3Ie-0S-Kpq" secondAttribute="leading" constant="-10" id="xye-Fw-T4C"/>
@@ -2059,7 +2064,8 @@ You do not have any orders</string>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="activityIndicatorView" destination="WN7-jS-yUQ" id="nZY-uA-qqc"/>
+                        <outlet property="activityIndicatorView" destination="WN7-jS-yUQ" id="MgQ-Sz-u4m"/>
+                        <outlet property="activityIndicatorViewFee" destination="wyT-Nz-Wbb" id="5HG-mL-sHi"/>
                         <outlet property="buttonSellBuy" destination="Zhj-r8-mHL" id="P4R-7o-Wmh"/>
                         <outlet property="buttonSellBuyBottomOffset" destination="23X-Sf-gFw" id="lli-tX-p4Z"/>
                         <outlet property="inputAmount" destination="pCj-mR-Pg4" id="hUO-EZ-uTn"/>
@@ -2071,7 +2077,8 @@ You do not have any orders</string>
                         <outlet property="labelErrorFee" destination="X0w-V9-uLf" id="ucx-v3-7KH"/>
                         <outlet property="labelExpiration" destination="VTj-qc-GaF" id="xHi-f8-nHq"/>
                         <outlet property="labelExpirationDays" destination="3Ie-0S-Kpq" id="Gzq-fN-eEX"/>
-                        <outlet property="labelFee" destination="NGu-X7-Wxc" id="smc-nm-g5h"/>
+                        <outlet property="labelFee" destination="KzZ-Ku-aDF" id="sSd-0B-v1x"/>
+                        <outlet property="labelFeeLocalization" destination="NGu-X7-Wxc" id="ZF4-1Q-7vd"/>
                         <outlet property="segmentedControl" destination="PG3-20-Dd2" id="ayw-oZ-Rpg"/>
                         <outlet property="segmentedTopOffset" destination="TAE-Gg-1Za" id="UGz-vq-nSf"/>
                         <outlet property="viewErrorFee" destination="Chn-Dd-Ush" id="NbR-bB-ABe"/>
