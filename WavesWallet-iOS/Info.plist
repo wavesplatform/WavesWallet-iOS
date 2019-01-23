@@ -32,11 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-<<<<<<< HEAD
-	<string>2250</string>
-=======
-	<string>2213</string>
->>>>>>> IOS-480
+	<string>2251</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>

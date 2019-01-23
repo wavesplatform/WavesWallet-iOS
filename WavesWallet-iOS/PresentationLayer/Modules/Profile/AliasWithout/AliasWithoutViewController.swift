@@ -21,7 +21,7 @@ final class AliasWithoutViewController: UIViewController, Localization {
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var subtitleLabel: UILabel!
     @IBOutlet private var secondSubtitleLabel: UILabel!    
-    @IBOutlet private var sendTransactionFeeView: SendTransactionFeeView!
+    @IBOutlet private var transactionFeeView: TransactionFeeView!
 
     private let disposeBag: DisposeBag = DisposeBag()
     private let transactionsInteractor = FactoryInteractors.instance.transactions
@@ -56,12 +56,12 @@ final class AliasWithoutViewController: UIViewController, Localization {
     }
 
     private func startLoadingFee() {
-        sendTransactionFeeView.showLoadingState()
+        transactionFeeView.showLoadingState()
     }
 
     private func setFee(_ fee: Money) {
-        sendTransactionFeeView.hideLoadingState()
-        sendTransactionFeeView.update(with: fee)
+        transactionFeeView.hideLoadingState()
+        transactionFeeView.update(with: fee)
 
         if let errorSnackKey = errorSnackKey {
             hideSnack(key: errorSnackKey)
