@@ -79,7 +79,7 @@ extension StartLeasingConfirmationViewController: StartLeasingErrorDelegate {
         
         switch error {
         case .scriptError:
-            SendTransactionScriptErrorView.show()
+            TransactionScriptErrorView.show()
         default:
             showNetworkErrorSnack(error: error)
         }

@@ -889,8 +889,6 @@
 
 "send.label.send" = "Kirim";
 
-"send.label.transactionFee" = "Biaya transaksi";
-
 "send.textField.placeholderPaymentId" = "Tempel atau ketikkan ID Pembayaran Anda";
 
 "sendcomplete.button.okey" = "Baik";
@@ -967,8 +965,6 @@
 
 "startleasing.label.startLeasing" = "Mulai Sewa";
 
-"startleasing.label.transactionFee" = "Biaya transaksi";
-
 "startleasingcomplete.button.okey" = "Ok";
 
 "startleasingcomplete.label.youHaveCanceledTransaction" = "Anda telah membatalkan transaksi leasing";
@@ -1022,8 +1018,6 @@
 "tokenBurn.label.reissuable" = "Dapat diterbitkan kembali";
 
 "tokenBurn.label.tokenBurn" = "Bakar Token";
-
-"tokenBurn.label.transactionFee" = "Biaya transaksi %@ %@";
 
 "tokenBurn.label.transactionIsOnWay" = "Transaksi Anda sedang dalam perjalanan!";
 
