@@ -38,9 +38,8 @@ final class StartLeasingViewController: UIViewController {
     private var order: StartLeasingTypes.DTO.Order!
     weak var output: StartLeasingModuleOutput?
     
-    private let transactionInteractor = FactoryInteractors.instance.transactions
-    private let auth = FactoryInteractors.instance.authorization
     private let disposeBag = DisposeBag()
+    private let interactor: StartLeasingInteractorProtocol = StartLeasingInteractor()
     
     
     var totalBalance: Money! {
@@ -88,12 +87,8 @@ private extension StartLeasingViewController {
     
     func loadFee() {
         viewFee.showLoadingState()
-        auth.authorizedWallet().flatMap { [weak self] (wallet) -> Observable<Money>  in
-            guard let owner = self else { return Observable.empty() }
-            return owner.transactionInteractor.calculateFee(by: .lease, accountAddress: wallet.address)
-        }
-        .asDriver { (error) -> SharedSequence<DriverSharingStrategy, Money> in
-            return SharedSequence.just(GlobalConstants.WavesTransactionFee)
+        interactor.getFee().asDriver { (error) -> SharedSequence<DriverSharingStrategy, Money> in
+            return SharedSequence.never()
         }
         .drive(onNext: { [weak self] (fee) in
             guard let owner = self else { return }
@@ -101,6 +96,7 @@ private extension StartLeasingViewController {
             owner.viewFee.hideLoadingState()
             owner.order.fee = fee
             owner.setupData()
+            owner.setupButtonState()
         }).disposed(by: disposeBag)
     }
     
@@ -108,6 +104,7 @@ private extension StartLeasingViewController {
         return order.recipient.count > 0
             && !isNotEnoughAmount
             && order.amount.amount > 0
+            && order.fee.amount > 0
             && (Address.isValidAddress(address: order.recipient) || Address.isValidAlias(alias: order.recipient))
     }
     
