@@ -132,10 +132,8 @@ fileprivate extension CreateAliasPresenter {
                 .flatMap({ wallet -> Observable<String> in
                     return strongSelf.aliasesRepository.alias(by: name, accountAddress: wallet.address)
                 })
-                .sweetDebug("Debug")
                 .map { _ in .errorAliasExist }
                 .asSignal(onErrorRecover: { e in
-                    error(e)
                     return Signal.just(Types.Event.aliasAameFree)
                 })
         })
@@ -168,65 +166,67 @@ private extension CreateAliasPresenter {
             state.displayState.input = text
             state.displayState.action = .none
             state.query = nil
+            state.displayState.errorState = .none
 
+            var inputError: String? = nil
             if let text = text {
                 if RegEx.alias(text) {
                     if text.count < GlobalConstants.aliasNameMinLimitSymbols {
                         state.displayState.isEnabledSaveButton = false
-                        state.displayState.error = Localizable.Waves.Createalias.Error.minimumcharacters
+                        inputError = Localizable.Waves.Createalias.Error.minimumcharacters
                     } else if text.count > GlobalConstants.aliasNameMaxLimitSymbols {
                         state.displayState.isEnabledSaveButton = false
-                        state.displayState.error = Localizable.Waves.Createalias.Error.charactersmaximum
+                        inputError = Localizable.Waves.Createalias.Error.charactersmaximum
                     } else {
                         state.displayState.isLoading = true
                         state.displayState.isEnabledSaveButton = false
-                        state.displayState.error = nil
+                        inputError = nil
                         state.query = .checkExist(text)
                     }
                 } else {
-                    state.displayState.error = Localizable.Waves.Createalias.Error.invalidcharacter
+                    inputError = Localizable.Waves.Createalias.Error.invalidcharacter
                     state.displayState.isEnabledSaveButton = false
                 }
             } else {
-                state.displayState.error = nil
+                inputError = nil
                 state.displayState.isEnabledSaveButton = false
             }
 
             state.displayState.action = .update
-            let section = Types.ViewModel.Section(rows: [.input(state.displayState.input, error: state.displayState.error)])
+            let section = Types.ViewModel.Section(rows: [.input(state.displayState.input, error: inputError)])
             state.displayState.sections = [section]
 
         case .aliasAameFree:
             state.query = nil
-            state.displayState.error = nil
             state.displayState.action = .update
             state.displayState.isLoading = false
             state.displayState.isEnabledSaveButton = true
-            let section = Types.ViewModel.Section(rows: [.input(state.displayState.input, error: state.displayState.error)])
+            let section = Types.ViewModel.Section(rows: [.input(state.displayState.input, error: nil)])
             state.displayState.sections = [section]
 
         case .errorAliasExist:
             state.query = nil
-            state.displayState.error = Localizable.Waves.Createalias.Error.alreadyinuse
             state.displayState.action = .update
             state.displayState.isLoading = false            
-            let section = Types.ViewModel.Section(rows: [.input(state.displayState.input, error: state.displayState.error)])
+            let section = Types.ViewModel.Section(rows: [.input(state.displayState.input, error: Localizable.Waves.Createalias.Error.alreadyinuse)])
             state.displayState.sections = [section]
 
-        case .handlerError:
+        case .handlerError(let error):
             state.query = nil
             state.displayState.isLoading = false
-            // TODO: error
+            state.displayState.errorState = DisplayErrorState.error(DisplayError(error: error))
 
         case .aliasCreated:
             guard let text = state.displayState.input else { return }
             state.displayState.isLoading = false
             state.query = .completedCreateAlias(text)
+            state.displayState.errorState = .none
 
         case .createAlias:
             guard let text = state.displayState.input else { return }
             state.query = .createAlias(text)
             state.displayState.isLoading = true
+            state.displayState.errorState = .none
 
         case .completedQuery:
             state.query = nil
@@ -247,7 +247,7 @@ private extension CreateAliasPresenter {
 
         return Types.DisplayState(sections: [],
                                   input: nil,
-                                  error: nil,
+                                  errorState: .none,
                                   isEnabledSaveButton: false,
                                   isLoading: false,
                                   isAppeared: false,
