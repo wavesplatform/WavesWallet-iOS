@@ -29,7 +29,7 @@ final class AliasesInfoView: UIView {
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var subTitleLabel: UILabel!
     @IBOutlet private var secondSubTitleLabel: UILabel!    
-    @IBOutlet private var transactionFeeView: SendTransactionFeeView!
+    @IBOutlet private var transactionFeeView: TransactionFeeView!
     @IBOutlet private var createButton: UIButton!
     @IBOutlet var arrayButton: UIButton!
 
