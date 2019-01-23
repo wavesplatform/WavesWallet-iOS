@@ -98,7 +98,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QHy-MN-LVW" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="547" width="343" height="48"/>
+                                                <rect key="frame" x="16" y="519" width="343" height="48"/>
                                                 <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="48" id="zuf-Ac-Um2"/>
@@ -114,28 +114,29 @@
                                                     <action selector="startLeaseTapped:" destination="1BP-7K-xs7" eventType="touchUpInside" id="JRK-tl-r9t"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction Fee 0.001 WAVES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YJd-Gm-oiA">
-                                                <rect key="frame" x="0.0" y="607" width="375" height="16"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rlg-Z5-lbm" customClass="SendTransactionFeeView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="581" width="343" height="42"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="42" id="PE4-7C-Qn6"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="YJd-Gm-oiA" secondAttribute="trailing" id="02Y-SX-KMW"/>
-                                            <constraint firstAttribute="bottom" secondItem="QHy-MN-LVW" secondAttribute="bottom" constant="52" id="1Mc-x3-CM8"/>
                                             <constraint firstItem="d3N-X9-AfA" firstAttribute="top" secondItem="TFQ-eg-6Pz" secondAttribute="top" constant="24" id="1vb-mU-hBq"/>
                                             <constraint firstItem="hWH-rd-6Bn" firstAttribute="leading" secondItem="TFQ-eg-6Pz" secondAttribute="leading" id="50w-ED-AhL"/>
                                             <constraint firstAttribute="trailing" secondItem="3mx-Zb-ncf" secondAttribute="trailing" id="8Dn-6u-I1O"/>
                                             <constraint firstAttribute="trailing" secondItem="QHy-MN-LVW" secondAttribute="trailing" constant="16" id="Cjr-5b-gXf"/>
                                             <constraint firstItem="d3N-X9-AfA" firstAttribute="leading" secondItem="TFQ-eg-6Pz" secondAttribute="leading" constant="16" id="D7v-vd-4L1"/>
                                             <constraint firstItem="hWH-rd-6Bn" firstAttribute="top" secondItem="d3N-X9-AfA" secondAttribute="bottom" constant="24" id="HGB-Vo-Neo"/>
-                                            <constraint firstItem="YJd-Gm-oiA" firstAttribute="leading" secondItem="TFQ-eg-6Pz" secondAttribute="leading" id="IGc-5i-wvb"/>
                                             <constraint firstAttribute="trailing" secondItem="d3N-X9-AfA" secondAttribute="trailing" constant="16" id="K7Z-Hs-Ehl"/>
+                                            <constraint firstAttribute="trailing" secondItem="Rlg-Z5-lbm" secondAttribute="trailing" constant="16" id="VZn-hx-KtW"/>
                                             <constraint firstItem="3mx-Zb-ncf" firstAttribute="top" secondItem="hWH-rd-6Bn" secondAttribute="bottom" constant="24" id="hmp-4w-Pwl"/>
-                                            <constraint firstAttribute="bottom" secondItem="YJd-Gm-oiA" secondAttribute="bottom" constant="24" id="olB-f4-29c"/>
+                                            <constraint firstAttribute="bottom" secondItem="Rlg-Z5-lbm" secondAttribute="bottom" constant="24" id="ke0-08-ENv"/>
+                                            <constraint firstItem="Rlg-Z5-lbm" firstAttribute="top" secondItem="QHy-MN-LVW" secondAttribute="bottom" constant="14" id="mot-oJ-66i"/>
                                             <constraint firstAttribute="trailing" secondItem="hWH-rd-6Bn" secondAttribute="trailing" id="qD7-16-7x9"/>
+                                            <constraint firstItem="Rlg-Z5-lbm" firstAttribute="leading" secondItem="TFQ-eg-6Pz" secondAttribute="leading" constant="16" id="qgk-Sb-AVd"/>
                                             <constraint firstItem="QHy-MN-LVW" firstAttribute="leading" secondItem="TFQ-eg-6Pz" secondAttribute="leading" constant="16" id="sQi-lT-QiB"/>
                                             <constraint firstItem="3mx-Zb-ncf" firstAttribute="leading" secondItem="TFQ-eg-6Pz" secondAttribute="leading" id="wwP-xl-0Zm"/>
                                         </constraints>
@@ -173,8 +174,8 @@
                         <outlet property="labelAssetAmount" destination="CyE-NT-qIQ" id="b76-It-maO"/>
                         <outlet property="labelAssetName" destination="YWO-ii-pEm" id="XpX-oL-5GS"/>
                         <outlet property="labelBalanceTitle" destination="5NV-3w-JNV" id="uCs-AV-oTk"/>
-                        <outlet property="labelTransactionFee" destination="YJd-Gm-oiA" id="gau-rX-mWc"/>
                         <outlet property="scrollView" destination="5qH-Yh-spg" id="N0F-zj-KUO"/>
+                        <outlet property="viewFee" destination="Rlg-Z5-lbm" id="V1S-iA-ZpL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dbx-V0-eS4" userLabel="First Responder" sceneMemberID="firstResponder"/>
