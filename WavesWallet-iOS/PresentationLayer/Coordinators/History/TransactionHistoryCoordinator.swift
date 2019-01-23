@@ -128,7 +128,8 @@ extension TransactionHistoryCoordinator: AddAddressBookModuleOutput {
             router.dismiss(animated: false)
             
             let cancelOrder = StartLeasingTypes.DTO.CancelOrder(leasingTX: transaction.id,
-                                                               amount: leasing.balance.money)
+                                                               amount: leasing.balance.money,
+                                                               fee: transaction.totalFee.money)
             let vc = StartLeasingConfirmModuleBuilder(output: self).build(input: .cancel(cancelOrder))
             router.pushViewController(vc, animated: true)
 
