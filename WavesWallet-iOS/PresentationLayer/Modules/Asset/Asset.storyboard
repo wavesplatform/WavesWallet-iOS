@@ -789,7 +789,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VKR-D9-Jcf" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="547" width="343" height="48"/>
+                                                <rect key="frame" x="16" y="519" width="343" height="48"/>
                                                 <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="48" id="lVP-o4-ZeG"/>
@@ -805,12 +805,6 @@
                                                     <action selector="continueTapped:" destination="yCn-1B-F7E" eventType="touchUpInside" id="2xV-K2-Yyo"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction Fee 0.001 WAVES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZCc-kj-e5z">
-                                                <rect key="frame" x="0.0" y="607" width="375" height="16"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O02-7e-sgd" customClass="AssetSelectView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="24" width="375" height="72"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -847,26 +841,33 @@
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Io9-U5-RZZ">
                                                 <rect key="frame" x="177.5" y="234" width="20" height="20"/>
                                             </activityIndicatorView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KPe-Ol-wOb" customClass="TransactionFeeView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="581" width="343" height="42"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="42" id="Uc8-lt-dUO"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="O02-7e-sgd" firstAttribute="leading" secondItem="cfL-hl-a8z" secondAttribute="leading" id="2hS-X4-0kC"/>
                                             <constraint firstItem="0Ni-B5-pVf" firstAttribute="leading" secondItem="cfL-hl-a8z" secondAttribute="leading" constant="16" id="2ih-3j-uzS"/>
+                                            <constraint firstAttribute="trailing" secondItem="KPe-Ol-wOb" secondAttribute="trailing" constant="16" id="7NN-5R-MYS"/>
                                             <constraint firstAttribute="trailing" secondItem="O02-7e-sgd" secondAttribute="trailing" id="AGd-qe-xxm"/>
                                             <constraint firstItem="18n-d2-Oob" firstAttribute="top" secondItem="O02-7e-sgd" secondAttribute="bottom" constant="24" id="DdN-MQ-Qil"/>
                                             <constraint firstItem="VKR-D9-Jcf" firstAttribute="leading" secondItem="cfL-hl-a8z" secondAttribute="leading" constant="16" id="Fyy-D2-MJ2"/>
                                             <constraint firstItem="Io9-U5-RZZ" firstAttribute="centerX" secondItem="cfL-hl-a8z" secondAttribute="centerX" id="IJ0-Kb-rWa"/>
                                             <constraint firstAttribute="trailing" secondItem="VKR-D9-Jcf" secondAttribute="trailing" constant="16" id="JTm-ha-Pvl"/>
-                                            <constraint firstAttribute="trailing" secondItem="ZCc-kj-e5z" secondAttribute="trailing" id="NkK-ck-jPM"/>
                                             <constraint firstItem="O02-7e-sgd" firstAttribute="top" secondItem="cfL-hl-a8z" secondAttribute="top" constant="24" id="QLA-Sw-BTN"/>
-                                            <constraint firstItem="ZCc-kj-e5z" firstAttribute="leading" secondItem="cfL-hl-a8z" secondAttribute="leading" id="ZeC-1Y-4FR"/>
-                                            <constraint firstAttribute="bottom" secondItem="ZCc-kj-e5z" secondAttribute="bottom" constant="24" id="d2x-1P-ZsL"/>
+                                            <constraint firstAttribute="bottom" secondItem="KPe-Ol-wOb" secondAttribute="bottom" constant="24" id="ctP-rz-UfF"/>
                                             <constraint firstItem="18n-d2-Oob" firstAttribute="leading" secondItem="cfL-hl-a8z" secondAttribute="leading" id="fWG-i0-AT3"/>
                                             <constraint firstAttribute="trailing" secondItem="18n-d2-Oob" secondAttribute="trailing" id="iEO-JH-n4l"/>
                                             <constraint firstAttribute="trailing" secondItem="0Ni-B5-pVf" secondAttribute="trailing" constant="16" id="oAm-so-rrd"/>
+                                            <constraint firstItem="KPe-Ol-wOb" firstAttribute="leading" secondItem="cfL-hl-a8z" secondAttribute="leading" constant="16" id="olx-QV-kJP"/>
+                                            <constraint firstItem="KPe-Ol-wOb" firstAttribute="top" secondItem="VKR-D9-Jcf" secondAttribute="bottom" constant="14" id="qa8-H3-BLH"/>
                                             <constraint firstItem="0Ni-B5-pVf" firstAttribute="top" secondItem="18n-d2-Oob" secondAttribute="bottom" constant="14" id="rAL-jt-AEr"/>
                                             <constraint firstItem="Io9-U5-RZZ" firstAttribute="top" secondItem="0Ni-B5-pVf" secondAttribute="top" id="vbs-Uo-ZYX"/>
-                                            <constraint firstAttribute="bottom" secondItem="VKR-D9-Jcf" secondAttribute="bottom" constant="52" id="ycZ-9l-lk3"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -898,7 +899,7 @@
                         <outlet property="assetView" destination="O02-7e-sgd" id="Rk8-jF-pzB"/>
                         <outlet property="buttonContinue" destination="VKR-D9-Jcf" id="wby-kK-ieP"/>
                         <outlet property="labelFeeError" destination="rQn-hy-3Ve" id="hqt-U4-VV6"/>
-                        <outlet property="labelTransactionFee" destination="ZCc-kj-e5z" id="Djs-eS-opp"/>
+                        <outlet property="viewFee" destination="KPe-Ol-wOb" id="bRi-zP-ol9"/>
                         <outlet property="viewFeeError" destination="0Ni-B5-pVf" id="PbD-b0-EwD"/>
                     </connections>
                 </viewController>

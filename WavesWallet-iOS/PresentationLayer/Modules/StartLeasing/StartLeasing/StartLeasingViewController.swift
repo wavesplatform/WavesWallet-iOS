@@ -32,16 +32,21 @@ final class StartLeasingViewController: UIViewController {
     @IBOutlet private weak var assetBgView: UIView!
     @IBOutlet private weak var amountView: AmountInputView!
     @IBOutlet private weak var buttonStartLease: HighlightedButton!
-    @IBOutlet private weak var labelTransactionFee: UILabel!
     @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private weak var viewFee: TransactionFeeView!
     
     private var order: StartLeasingTypes.DTO.Order!
     weak var output: StartLeasingModuleOutput?
     
+    private let disposeBag = DisposeBag()
+    private let interactor: StartLeasingInteractorProtocol = StartLeasingInteractor()
+    
+    
     var totalBalance: Money! {
         didSet {
             order = StartLeasingTypes.DTO.Order(recipient: "",
-                                           amount: Money(0, totalBalance.decimals))
+                                                amount: Money(0, totalBalance.decimals),
+                                                fee: Money(0, 0))
         }
     }
     
@@ -59,6 +64,7 @@ final class StartLeasingViewController: UIViewController {
         createBackButton()
         setupUI()
         setupData()
+        loadFee()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -68,6 +74,9 @@ final class StartLeasingViewController: UIViewController {
     }
  
     @IBAction private func startLeaseTapped(_ sender: Any) {
+        if order.fee.isZero {
+            return
+        }
         let vc = StartLeasingConfirmModuleBuilder(output: output).build(input: .send(order))
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -76,10 +85,26 @@ final class StartLeasingViewController: UIViewController {
 //MARK: - Setup
 private extension StartLeasingViewController {
     
+    func loadFee() {
+        viewFee.showLoadingState()
+        interactor.getFee().asDriver { (error) -> SharedSequence<DriverSharingStrategy, Money> in
+            return SharedSequence.never()
+        }
+        .drive(onNext: { [weak self] (fee) in
+            guard let owner = self else { return }
+            owner.viewFee.update(with: fee)
+            owner.viewFee.hideLoadingState()
+            owner.order.fee = fee
+            owner.setupData()
+            owner.setupButtonState()
+        }).disposed(by: disposeBag)
+    }
+    
     var isValidOrder: Bool {
         return order.recipient.count > 0
             && !isNotEnoughAmount
             && order.amount.amount > 0
+            && order.fee.amount > 0
             && (Address.isValidAddress(address: order.recipient) || Address.isValidAlias(alias: order.recipient))
     }
     
@@ -90,8 +115,6 @@ private extension StartLeasingViewController {
     func setupLocalization() {
         title = Localizable.Waves.Startleasing.Label.startLeasing
         labelBalanceTitle.text = Localizable.Waves.Startleasing.Label.balance
-        
-        labelTransactionFee.text = Localizable.Waves.Startleasing.Label.transactionFee + " " + order.fee.displayText + " WAVES"
         amountView.setupRightLabelText("WAVES")
     }
     

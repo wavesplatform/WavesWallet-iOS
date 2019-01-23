@@ -34,13 +34,13 @@ enum StartLeasingTypes {
         struct Order {
             var recipient: String
             var amount: Money
-            let fee = GlobalConstants.WavesTransactionFee
+            var fee: Money
         }
         
         struct CancelOrder {
             let leasingTX: String
             let amount: Money
-            let fee = GlobalConstants.WavesTransactionFee
+            let fee: Money
         }
        
     }

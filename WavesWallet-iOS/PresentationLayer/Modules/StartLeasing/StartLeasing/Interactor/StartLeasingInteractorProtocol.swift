@@ -11,4 +11,5 @@ import RxSwift
 
 protocol StartLeasingInteractorProtocol {
     func createOrder(order: StartLeasingTypes.DTO.Order) -> Observable<DomainLayer.DTO.SmartTransaction>
+    func getFee() -> Observable<Money>
 }
