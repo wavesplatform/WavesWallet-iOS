@@ -11,12 +11,15 @@ import RxSwift
 
 protocol TokenBurnInteractorProtocol {
     func getWavesBalance() -> Observable<Money>
+    func getFee(assetID: String) -> Observable<Money>
 }
 
 final class TokenBurnInteractor: TokenBurnInteractorProtocol {
 
     private let account = FactoryInteractors.instance.accountBalance
-    
+    private let auth = FactoryInteractors.instance.authorization
+    private let transactionInteractor = FactoryInteractors.instance.transactions
+
     func getWavesBalance() -> Observable<Money> {
         return account.balances().flatMap({ (balances) -> Observable<Money> in
 
@@ -26,4 +29,15 @@ final class TokenBurnInteractor: TokenBurnInteractorProtocol {
             return Observable.empty()
         })
     }
+    
+    func getFee(assetID: String) -> Observable<Money> {
+        return auth.authorizedWallet().flatMap { [weak self] (wallet) -> Observable<Money>  in
+            guard let owner = self else { return Observable.empty() }
+            return owner.transactionInteractor.calculateFee(by: .burn(assetID: assetID), accountAddress: wallet.address)
+        }
+        .catchError({ (error) -> Observable<Money> in
+            return Observable.just(GlobalConstants.WavesTransactionFee)
+        })
+    }
+
 }
