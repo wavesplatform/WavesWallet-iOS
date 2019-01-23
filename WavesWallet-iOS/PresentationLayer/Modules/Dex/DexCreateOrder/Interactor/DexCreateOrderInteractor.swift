@@ -10,12 +10,17 @@ import Foundation
 import RxSwift
 import Moya
 
+private enum Constants {
+    static let minimumOrderFee: Int64 = 300000
+}
+
 final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     
     private let auth = FactoryInteractors.instance.authorization
     private let matcherRepository = FactoryRepositories.instance.matcherRepository
     private let matcherProvider: MoyaProvider<Matcher.Service.OrderBook> = .nodeMoyaProvider()
     private let orderBookRepository = FactoryRepositories.instance.dexOrderBookRepository
+    private let transactionInteractor = FactoryInteractors.instance.transactions
     
     func createOrder(order: DexCreateOrder.DTO.Order) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
         
@@ -50,6 +55,17 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
         })
         .catchError({ (error) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
             return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
+        })
+    }
+    
+    func getFee(amountAsset: String, priceAsset: String) -> Observable<Money> {
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) ->  Observable<Money> in
+            guard let owner = self else { return Observable.empty() }
+            return owner.transactionInteractor.calculateFee(by: .createOrder(amountAsset: amountAsset, priceAsset: priceAsset),
+                                                            accountAddress: wallet.address)
+        })
+        .catchError({ (error) -> Observable<Money> in
+            return Observable.just(Money(Constants.minimumOrderFee, GlobalConstants.WavesDecimals))
         })
     }
 }

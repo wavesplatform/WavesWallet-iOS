@@ -8,10 +8,6 @@
 
 import Foundation
 
-private enum Constansts {
-    static let orderFee = 300000
-}
-
 enum DexCreateOrder {
     enum DTO {}
     enum ViewModel {}
@@ -20,6 +16,7 @@ enum DexCreateOrder {
         case createOrder
         case orderDidCreate(ResponseType<DTO.Output>)
         case updateInputOrder(DTO.Order)
+        case didGetFee(Money)
     }
     
     struct State: Mutating {
@@ -28,9 +25,11 @@ enum DexCreateOrder {
             case showCreatingOrderState
             case orderDidFailCreate(NetworkError)
             case orderDidCreate
+            case didGetFee(Money)
         }
         
         var isNeedCreateOrder: Bool
+        var isNeedGetFee: Bool
         var order: DTO.Order?
         var action: Action
     }
@@ -69,9 +68,9 @@ extension DexCreateOrder.DTO {
         var price: Money
         var total: Money
         var expiration: Expiration
-        let fee: Int = Constansts.orderFee
+        var fee: Int
         
-        init(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, type: DomainLayer.DTO.Dex.OrderType, amount: Money, price: Money, total: Money, expiration: Expiration) {
+        init(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, type: DomainLayer.DTO.Dex.OrderType, amount: Money, price: Money, total: Money, expiration: Expiration, fee: Int) {
             
             self.amountAsset = amountAsset
             self.priceAsset = priceAsset
@@ -80,6 +79,7 @@ extension DexCreateOrder.DTO {
             self.price = price
             self.total = total
             self.expiration = expiration
+            self.fee = fee
         }
     }
     
@@ -114,5 +114,13 @@ extension DexCreateOrder.DTO.Expiration {
         case .expiration29d:
             return "29" + " " + Localizable.Waves.Dexcreateorder.Button.days
         }
+    }
+}
+
+extension DexCreateOrder.State: Equatable {
+    
+    static func == (lhs: DexCreateOrder.State, rhs: DexCreateOrder.State) -> Bool {
+        return lhs.isNeedCreateOrder == rhs.isNeedCreateOrder &&
+            lhs.isNeedGetFee == rhs.isNeedGetFee
     }
 }
