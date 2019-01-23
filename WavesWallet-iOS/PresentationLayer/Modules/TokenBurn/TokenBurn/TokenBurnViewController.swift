@@ -24,11 +24,11 @@ final class TokenBurnViewController: UIViewController {
     @IBOutlet private weak var assetView: AssetSelectView!
     @IBOutlet private weak var amountView: AmountInputView!
     @IBOutlet private weak var buttonContinue: HighlightedButton!
-    @IBOutlet private weak var labelTransactionFee: UILabel!
     @IBOutlet private weak var viewFeeError: UIView!
     @IBOutlet private weak var labelFeeError: UILabel!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
-    
+    @IBOutlet private weak var viewFee: SendTransactionFeeView!
+
     var asset: DomainLayer.DTO.SmartAssetBalance!
     weak var delegate: TokenBurnTransactionDelegate?
     
@@ -37,8 +37,7 @@ final class TokenBurnViewController: UIViewController {
     
     private var wavesBalance: Money?
     private var amount: Money?
-    private let fee = GlobalConstants.WavesTransactionFee
-    
+    private var fee: Money?
     private var isShowError = false
     
     override func viewDidLoad() {
@@ -49,6 +48,7 @@ final class TokenBurnViewController: UIViewController {
         setupData()
         setupButtonContinue()
         loadWavesBalance()
+        loadFee()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,6 +59,8 @@ final class TokenBurnViewController: UIViewController {
    
     @IBAction private func continueTapped(_ sender: Any) {
         guard let amount = self.amount else { return }
+        guard let fee = self.fee else { return }
+        
         let vc = StoryboardScene.Asset.tokenBurnConfirmationViewController.instantiate()
         vc.input = .init(asset: asset, amount: amount, fee: fee, delegate: delegate)
         navigationController?.pushViewController(vc, animated: true)
@@ -90,6 +92,7 @@ private extension TokenBurnViewController {
     
     var isValidFee: Bool {
         guard let balance = wavesBalance else { return false }
+        guard let fee = fee else { return false }
         return balance.amount >= fee.amount
     }
     
@@ -127,6 +130,20 @@ extension TokenBurnViewController: UIScrollViewDelegate {
 
 //MARK: - UI
 private extension TokenBurnViewController {
+    
+    func loadFee() {
+        viewFee.showLoadingState()
+        interactor.getFee(assetID: asset.assetId).asDriver { (error) -> SharedSequence<DriverSharingStrategy, Money> in
+            return SharedSequence.never()
+        }
+        .drive(onNext: { [weak self] (fee) in
+            guard let owner = self else { return }
+            owner.viewFee.update(with: fee)
+            owner.viewFee.hideLoadingState()
+            owner.fee = fee
+            owner.setupButtonContinue()
+        }).disposed(by: disposeBag)
+    }
     
     func setupButtonContinue() {
         let canContinue = isValidInputAmount && isValidFee
@@ -188,7 +205,6 @@ private extension TokenBurnViewController {
         amountView.setupRightLabelText(asset.asset.displayName)
         amountView.setupTitle(Localizable.Waves.Tokenburn.Label.quantityTokensBurned)
         buttonContinue.setTitle(Localizable.Waves.Tokenburn.Button.continue, for: .normal)
-        labelTransactionFee.text = Localizable.Waves.Tokenburn.Label.transactionFee(fee.displayText, "WAVES")
         labelFeeError.text = Localizable.Waves.Tokenburn.Label.Error.notFundsFee
     }
 }
