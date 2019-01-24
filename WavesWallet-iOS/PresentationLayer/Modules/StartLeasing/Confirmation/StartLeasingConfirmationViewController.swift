@@ -26,7 +26,7 @@ final class StartLeasingConfirmationViewController: UIViewController {
     var order: StartLeasingTypes.DTO.Order!
     weak var output: StartLeasingModuleOutput?
     weak var errorDelegate: StartLeasingErrorDelegate?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         createBackWhiteButton()
