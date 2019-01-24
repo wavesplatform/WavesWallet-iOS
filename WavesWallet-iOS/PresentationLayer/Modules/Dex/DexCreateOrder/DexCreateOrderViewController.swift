@@ -143,7 +143,7 @@ private extension DexCreateOrderViewController {
                     
                 case .didGetFee(let fee):
                     strongSelf.showFee(fee: fee)
-                    strongSelf.order.fee = Int(fee.amount)
+                    strongSelf.order.fee = fee.amount
                     strongSelf.setupButtonSellBuy()
                     strongSelf.setupValidationErrors()
                     
