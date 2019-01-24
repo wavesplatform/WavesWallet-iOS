@@ -2,6 +2,7 @@ PODS:
   - 25519 (2.0.2)
   - Alamofire (4.8.0)
   - AppsFlyerFramework (4.8.10)
+  - AppSpectorSDK (1.1.5)
   - base58 (0.1)
   - blake2 (0.1)
   - Charts (3.2.1):
@@ -162,6 +163,7 @@ PODS:
 DEPENDENCIES:
   - "25519 (from `git@github.com:wavesplatform/25519.git`)"
   - AppsFlyerFramework
+  - AppSpectorSDK
   - base58 (from `Vendors/Base58`)
   - blake2 (from `Vendors/Blake2`)
   - Charts
@@ -214,6 +216,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AppsFlyerFramework
+    - AppSpectorSDK
     - Charts
     - Crashlytics
     - CryptoSwift
@@ -305,6 +308,7 @@ SPEC CHECKSUMS:
   '25519': 2c284bd04dc489ee6c3ad5f04339480a5bcae042
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   AppsFlyerFramework: 481eafa4f92e3274fa8d04f10108cdad83fd532b
+  AppSpectorSDK: 210091a50e4db5e7bfe58ff56289a1df0521e2ab
   base58: b3862511216d07dbb10ec85f08902f51b674462f
   blake2: b767add912ed9f7ded789bf257d3c6081ed10ec0
   Charts: f122fb70b19847fa5817d018b77d6c5a2296ab25
@@ -368,6 +372,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: 5858a8349204430135d5de699d7a1d84519a9f72
+PODFILE CHECKSUM: 24db8960f18500363e6cc76842657b260266ba82
 
 COCOAPODS: 1.5.3
