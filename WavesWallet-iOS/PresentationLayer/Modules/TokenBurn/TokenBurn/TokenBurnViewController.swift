@@ -63,10 +63,31 @@ final class TokenBurnViewController: UIViewController {
         guard let fee = self.fee else { return }
         
         let vc = StoryboardScene.Asset.tokenBurnConfirmationViewController.instantiate()
-        vc.input = .init(asset: asset, amount: amount, fee: fee, delegate: delegate)
+        vc.input = .init(asset: asset, amount: amount, fee: fee, delegate: delegate, errorDelegate: self)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
+
+
+//MARK: - TokenBurnLoadingViewControllerDelegate
+extension TokenBurnViewController: TokenBurnLoadingViewControllerDelegate {
+    
+    func tokenBurnLoadingViewControllerDidFail(error: Error) {
+        
+        switch error {
+        case let error as NetworkError:
+            switch error {
+            case .scriptError:
+                TransactionScriptErrorView.show()
+            default:
+                showNetworkErrorSnack(error: error)
+            }
+        default:
+            showErrorNotFoundSnack()
+        }
+    }
+}
+
 
 
 //MARK: - Data
