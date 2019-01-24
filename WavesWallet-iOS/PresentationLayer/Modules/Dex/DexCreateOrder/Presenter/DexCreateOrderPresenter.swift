@@ -42,9 +42,11 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
             
             guard let strongSelf = self else { return Signal.empty() }
             
-            return strongSelf.interactor.getFee(amountAsset: strongSelf.pair.amountAsset.id,
-                                                priceAsset: strongSelf.pair.priceAsset.id)
-                .map {.didGetFee($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            return strongSelf
+                .interactor
+                .getFee(amountAsset: strongSelf.pair.amountAsset.id, priceAsset: strongSelf.pair!.priceAsset.id)
+                .map {.didGetFee($0)}
+                .asSignal(onErrorRecover: { Signal.just(.handlerFeeError($0)) } )
         })
     }
     
@@ -65,11 +67,34 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
     private func reduce(state: DexCreateOrder.State, event: DexCreateOrder.Event) -> DexCreateOrder.State {
         
         switch event {
-            
+        case .refreshFee:
+
+            return state.mutate {
+                $0.isNeedGetFee = true
+            }
+            .changeAction(.none)
+
+        case .handlerFeeError(let error):
+
+            return state.mutate {
+                $0.isNeedGetFee = false
+                $0.isDisabledSellBuyButton = true
+                if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
+                    $0.displayFeeErrorState = .error(DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving))
+                } else {
+                    $0.displayFeeErrorState = .error(DisplayError(error: error))
+                }
+            }
+            .changeAction(.none)
+
         case .didGetFee(let fee):
             return state.mutate {
                 $0.isNeedGetFee = false
-            }.changeAction(.didGetFee(fee))
+                $0.isDisabledSellBuyButton = false
+                $0.displayFeeErrorState = .none
+                $0.order?.fee = fee.amount
+            }
+            .changeAction(.didGetFee(fee))
             
         case .createOrder:
             
@@ -116,6 +141,11 @@ fileprivate extension DexCreateOrder.State {
     
 fileprivate extension DexCreateOrder.State {
     static var initialState: DexCreateOrder.State {
-        return DexCreateOrder.State(isNeedCreateOrder: false, isNeedGetFee: true, order: nil, action: .none)
+        return DexCreateOrder.State(isNeedCreateOrder: false,
+                                    isNeedGetFee: true,
+                                    order: nil,
+                                    action: .none,
+                                    displayFeeErrorState: .none,
+                                    isDisabledSellBuyButton: false)
     }
 }
