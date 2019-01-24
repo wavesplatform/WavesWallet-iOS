@@ -58,6 +58,8 @@ final class DexCreateOrderViewController: UIViewController {
     
     private var order: DexCreateOrder.DTO.Order!
     private var isCreatingOrderState: Bool = false
+    private var isDisabledBuySellButton: Bool = false
+    private var errorSnackKey: String?
     
     var presenter: DexCreateOrderPresenterProtocol!
     private let sendEvent: PublishRelay<DexCreateOrder.Event> = PublishRelay<DexCreateOrder.Event>()
@@ -122,6 +124,11 @@ private extension DexCreateOrderViewController {
             .drive(onNext: { [weak self] state in
                 
                 guard let strongSelf = self else { return }
+
+                strongSelf.isDisabledBuySellButton = state.isDisabledSellBuyButton
+
+                strongSelf.setupFeeError(error: state.displayFeeErrorState)
+
                 switch state.action {
                 case .none:
                     return
@@ -188,7 +195,7 @@ private extension DexCreateOrderViewController {
             isValidPriceAssetBalance &&
             !isCreatingOrderState &&
             isValidWavesFee &&
-            order.fee > 0
+            order.fee > 0 && isDisabledBuySellButton == false
     }
     
     var availableAmountAssetBalance: Money {
@@ -225,7 +232,8 @@ private extension DexCreateOrderViewController {
 
 //MARK: - Actions
 private extension DexCreateOrderViewController {
-    
+
+
     func dismissController() {
         if let parent = self.parent as? PopupViewController {
             parent.dismissPopup()
@@ -324,7 +332,51 @@ extension DexCreateOrderViewController: DexCreateOrderInputViewDelegate {
 
 //MARK: - Setup
 private extension DexCreateOrderViewController {
-    
+
+    func setupFeeError(error: DisplayErrorState) {
+
+        switch error {
+        case .error(let error):
+
+            switch error {
+            case .globalError(let isInternetNotWorking):
+
+                if isInternetNotWorking {
+                    errorSnackKey = showWithoutInternetSnack { [weak self] in
+                        self?.sendEvent.accept(.refreshFee)
+                    }
+                } else {
+                    errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
+                        self?.sendEvent.accept(.refreshFee)
+                    })
+                }
+            case .internetNotWorking:
+                errorSnackKey = showWithoutInternetSnack { [weak self] in
+                    self?.sendEvent.accept(.refreshFee)
+                }
+
+            case .message(let text):
+                errorSnackKey = showErrorSnack(title: text, didTap: { [weak self] in
+                    self?.sendEvent.accept(.refreshFee)
+                })
+
+            case .notFound, .scriptError:
+                errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
+                    self?.sendEvent.accept(.refreshFee)
+                })
+            }
+
+        case .none:
+            if let errorSnackKey = errorSnackKey {
+                hideSnack(key: errorSnackKey)
+            }
+
+        case .waiting:
+            break
+        }
+        
+    }
+
     func setupValidationErrors() {
         if order.type == .sell {
             
