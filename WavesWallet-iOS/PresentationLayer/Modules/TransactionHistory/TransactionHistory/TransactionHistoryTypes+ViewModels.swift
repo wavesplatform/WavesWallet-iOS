@@ -321,8 +321,18 @@ extension TransactionHistoryTypes.ViewModel.Section {
         case .data:
             customTitle = Localizable.Waves.Transactionhistory.Cell.dataTransaction
             
-        case .unrecognisedTransaction, .assetScript, .script:
-            break
+        case .unrecognisedTransaction:
+            customTitle = Localizable.Waves.History.Transaction.Title.unrecognisedTransaction
+
+        case .assetScript:
+            customTitle = Localizable.Waves.History.Transaction.Value.setAssetScript
+
+        case .script(let isHasScript):
+            if isHasScript {
+                customTitle = Localizable.Waves.History.Transaction.Value.Setscript.set
+            } else {
+                customTitle = Localizable.Waves.History.Transaction.Value.Setscript.cancel
+            }
         }
 
         // general
