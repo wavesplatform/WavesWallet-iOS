@@ -34,6 +34,7 @@ final class TokenBurnViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     private let interactor = TokenBurnInteractor()
+    private var errorSnackKey: String?
     
     private var wavesBalance: Money?
     private var amount: Money?
@@ -133,16 +134,61 @@ private extension TokenBurnViewController {
     
     func loadFee() {
         viewFee.showLoadingState()
-        interactor.getFee(assetID: asset.assetId).asDriver { (error) -> SharedSequence<DriverSharingStrategy, Money> in
-            return SharedSequence.never()
-        }
-        .drive(onNext: { [weak self] (fee) in
-            guard let owner = self else { return }
-            owner.viewFee.update(with: fee)
-            owner.viewFee.hideLoadingState()
-            owner.fee = fee
-            owner.setupButtonContinue()
+        interactor.getFee(assetID: asset.assetId)
+        .observeOn(MainScheduler.asyncInstance)
+        .subscribe(onNext: { [weak self] (fee) in
+            self?.updateFee(fee)
+        }, onError: { [weak self] (error) in
+            
+            if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
+                self?.showFeeError(DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving))
+            } else {
+                self?.showFeeError(DisplayError(error: error))
+            }
         }).disposed(by: disposeBag)
+    }
+    
+    func showFeeError(_ error: DisplayError) {
+        
+        switch error {
+        case .globalError(let isInternetNotWorking):
+            
+            if isInternetNotWorking {
+                errorSnackKey = showWithoutInternetSnack { [weak self] in
+                    self?.loadFee()
+                }
+            } else {
+                errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
+                    self?.loadFee()
+                })
+            }
+        case .internetNotWorking:
+            errorSnackKey = showWithoutInternetSnack { [weak self] in
+                self?.loadFee()
+            }
+            
+        case .message(let text):
+            errorSnackKey = showErrorSnack(title: text, didTap: { [weak self] in
+                self?.loadFee()
+            })
+            
+        case .notFound, .scriptError:
+            errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
+                self?.loadFee()
+            })
+        }
+    }
+    
+    func updateFee(_ fee: Money) {
+        
+        if let errorSnackKey = errorSnackKey {
+            hideSnack(key: errorSnackKey)
+        }
+        
+        viewFee.update(with: fee)
+        viewFee.hideLoadingState()
+        self.fee = fee
+        setupButtonContinue()
     }
     
     func setupButtonContinue() {
