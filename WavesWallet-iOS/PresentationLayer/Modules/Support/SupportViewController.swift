@@ -53,7 +53,7 @@ final class SupportViewController: UIViewController {
                                           data: [.init(key: "image", value: .binary(Array(SupportViewController.image.utf8)))])),
                           wallet: wallet)
             }
-            .subscribe()
+            .subscribe().dispose()
     }
 
     @IBAction func actionClean(_ sender: Any) {
