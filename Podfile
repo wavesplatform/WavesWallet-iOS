@@ -93,7 +93,8 @@ target 'WavesWallet-iOS' do
     pod 'SwiftGen', '~> 5.3.0'
 
     # Debug
-    pod 'Reveal-SDK', :configurations => ['Debug']
+    pod 'Reveal-SDK', :configurations => ['Debug', 'Test']
+    pod 'AppSpectorSDK', :configurations => ['Debug', 'Test']
 end
 
 post_install do |installer|

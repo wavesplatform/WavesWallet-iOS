@@ -39,7 +39,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                                                                        amount: order.amount.amount,
                                                                        price: order.price.amount,
                                                                        orderType: order.type,
-                                                                       matcherFee: Int64(order.fee),
+                                                                       matcherFee: order.fee,
                                                                        expiration: Int64(order.expiration.rawValue))
 
                     
