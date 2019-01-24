@@ -11,7 +11,8 @@ import UIKit
 struct StartLeasingConfirmModuleBuilder: ModuleBuilderOutput {
     
     var output: StartLeasingModuleOutput?
-  
+    var errorDelegate: StartLeasingErrorDelegate?
+    
     func build(input: StartLeasingTypes.Kind) -> UIViewController {
         
         switch input {
@@ -19,6 +20,7 @@ struct StartLeasingConfirmModuleBuilder: ModuleBuilderOutput {
             let vc = StoryboardScene.StartLeasing.startLeasingConfirmationViewController.instantiate()
             vc.order = order
             vc.output = output
+            vc.errorDelegate = errorDelegate
             return vc
         
         case .cancel(let cancelOrder):

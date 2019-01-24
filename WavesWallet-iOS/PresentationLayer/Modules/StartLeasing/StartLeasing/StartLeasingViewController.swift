@@ -77,8 +77,23 @@ final class StartLeasingViewController: UIViewController {
         if order.fee.isZero {
             return
         }
-        let vc = StartLeasingConfirmModuleBuilder(output: output).build(input: .send(order))
+        
+        let vc = StartLeasingConfirmModuleBuilder(output: output, errorDelegate: self).build(input: .send(order))
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+
+//MARK: - StartLeasingErrorDelegate
+extension StartLeasingViewController: StartLeasingErrorDelegate {
+    func startLeasingDidFail(error: NetworkError) {
+        
+        switch error {
+        case .scriptError:
+            TransactionScriptErrorView.show()
+        default:
+            showNetworkErrorSnack(error: error)
+        }
     }
 }
 
