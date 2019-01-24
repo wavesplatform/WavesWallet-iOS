@@ -17,7 +17,10 @@ import FirebaseDatabase
 import Fabric
 import Crashlytics
 import AppsFlyerLib
+
+#if DEBUG || TEST
 import AppSpectorSDK
+#endif
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
