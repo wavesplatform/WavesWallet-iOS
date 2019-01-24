@@ -64,8 +64,5 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
             return owner.transactionInteractor.calculateFee(by: .createOrder(amountAsset: amountAsset, priceAsset: priceAsset),
                                                             accountAddress: wallet.address)
         })
-        .catchError({ (error) -> Observable<Money> in
-            return Observable.just(Money(Constants.minimumOrderFee, GlobalConstants.WavesDecimals))
-        })
     }
 }
