@@ -17,6 +17,8 @@ enum DexCreateOrder {
         case orderDidCreate(ResponseType<DTO.Output>)
         case updateInputOrder(DTO.Order)
         case didGetFee(Money)
+        case handlerFeeError(Error)
+        case refreshFee
     }
     
     struct State: Mutating {
@@ -32,6 +34,8 @@ enum DexCreateOrder {
         var isNeedGetFee: Bool
         var order: DTO.Order?
         var action: Action
+        var displayFeeErrorState: DisplayErrorState
+        var isDisabledSellBuyButton: Bool
     }
 }
 
