@@ -9,7 +9,7 @@
 import UIKit
 
 fileprivate enum Constants {
-    static let issueDateFormat = "dd.MM.yyyy 'at' hh:mm"
+    static let issueDateFormat = "dd.MM.yyyy 'at' HH:mm"
     static let pictureSize: CGFloat = 40
     static let pictureLeftPadding: CGFloat = 4
     static let padding: CGFloat = 16
