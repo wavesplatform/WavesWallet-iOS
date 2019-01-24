@@ -78,8 +78,7 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
                                                                     isHidden: settings.isHidden,
                                                                     isFavorite: settings.isFavorite)
                     }
-
-                debug("settings \(settings.count) \(ids)")
+                
                 return Observable.just(settings)
             }
             .flatMapLatest { [weak self] (settings) -> Observable<Bool> in
