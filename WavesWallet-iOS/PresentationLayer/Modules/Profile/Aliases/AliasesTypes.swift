@@ -32,6 +32,8 @@ extension AliasesTypes {
         case handlerFeeError(Error)
         case setFee(Money)
         case refresh
+        case showCreateAlias
+        case hideCreateAlias
     }
 
     struct DisplayState: Mutating, DataSourceProtocol {

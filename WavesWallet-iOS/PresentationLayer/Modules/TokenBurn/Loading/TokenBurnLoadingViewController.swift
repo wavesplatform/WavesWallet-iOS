@@ -11,7 +11,7 @@ import RxSwift
 
 protocol TokenBurnLoadingViewControllerDelegate: AnyObject {
     
-    func tokenBurnLoadingViewControllerDidFail(error: NetworkError)
+    func tokenBurnLoadingViewControllerDidFail(error: Error)
 }
 
 final class TokenBurnLoadingViewController: UIViewController {
@@ -19,7 +19,6 @@ final class TokenBurnLoadingViewController: UIViewController {
     @IBOutlet private weak var labelLoading: UILabel!
     
     var input: TokenBurnConfirmationViewController.Input!
-    weak var delegate: TokenBurnLoadingViewControllerDelegate?
     
     private let interactor: TokenBurnSendInteractorProtocol = TokenBurnSendInteractor()
     private let disposeBag = DisposeBag()
@@ -40,8 +39,13 @@ final class TokenBurnLoadingViewController: UIViewController {
                     self?.showCompleteScreen()
                     
                 case .error(let error):
-                    self?.delegate?.tokenBurnLoadingViewControllerDidFail(error: error)
-                    self?.navigationController?.popViewController(animated: true)
+                    self?.input.errorDelegate?.tokenBurnLoadingViewControllerDidFail(error: error)
+                    //TODO: Coordinator
+                    if let vc = self?.navigationController?.viewControllers.first(where: { (vc) -> Bool in
+                        return vc is TokenBurnViewController
+                    }) {
+                        self?.navigationController?.popToViewController(vc, animated: true)
+                    }
                 }
                 
             })

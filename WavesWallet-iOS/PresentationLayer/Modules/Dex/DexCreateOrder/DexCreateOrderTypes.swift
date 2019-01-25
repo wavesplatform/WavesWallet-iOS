@@ -17,6 +17,8 @@ enum DexCreateOrder {
         case orderDidCreate(ResponseType<DTO.Output>)
         case updateInputOrder(DTO.Order)
         case didGetFee(Money)
+        case handlerFeeError(Error)
+        case refreshFee
     }
     
     struct State: Mutating {
@@ -32,6 +34,8 @@ enum DexCreateOrder {
         var isNeedGetFee: Bool
         var order: DTO.Order?
         var action: Action
+        var displayFeeErrorState: DisplayErrorState
+        var isDisabledSellBuyButton: Bool
     }
 }
 
@@ -68,9 +72,9 @@ extension DexCreateOrder.DTO {
         var price: Money
         var total: Money
         var expiration: Expiration
-        var fee: Int
+        var fee: Int64
         
-        init(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, type: DomainLayer.DTO.Dex.OrderType, amount: Money, price: Money, total: Money, expiration: Expiration, fee: Int) {
+        init(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, type: DomainLayer.DTO.Dex.OrderType, amount: Money, price: Money, total: Money, expiration: Expiration, fee: Int64) {
             
             self.amountAsset = amountAsset
             self.priceAsset = priceAsset

@@ -40,7 +40,7 @@ final class StartLeasingViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     private let interactor: StartLeasingInteractorProtocol = StartLeasingInteractor()
-    
+    private var errorSnackKey: String?
     
     var totalBalance: Money! {
         didSet {
@@ -77,8 +77,23 @@ final class StartLeasingViewController: UIViewController {
         if order.fee.isZero {
             return
         }
-        let vc = StartLeasingConfirmModuleBuilder(output: output).build(input: .send(order))
+        
+        let vc = StartLeasingConfirmModuleBuilder(output: output, errorDelegate: self).build(input: .send(order))
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+
+//MARK: - StartLeasingErrorDelegate
+extension StartLeasingViewController: StartLeasingErrorDelegate {
+    func startLeasingDidFail(error: NetworkError) {
+        
+        switch error {
+        case .scriptError:
+            TransactionScriptErrorView.show()
+        default:
+            showNetworkErrorSnack(error: error)
+        }
     }
 }
 
@@ -87,17 +102,64 @@ private extension StartLeasingViewController {
     
     func loadFee() {
         viewFee.showLoadingState()
-        interactor.getFee().asDriver { (error) -> SharedSequence<DriverSharingStrategy, Money> in
-            return SharedSequence.never()
-        }
-        .drive(onNext: { [weak self] (fee) in
-            guard let owner = self else { return }
-            owner.viewFee.update(with: fee)
-            owner.viewFee.hideLoadingState()
-            owner.order.fee = fee
-            owner.setupData()
-            owner.setupButtonState()
+        interactor.getFee()
+        .observeOn(MainScheduler.asyncInstance)
+        .subscribe(onNext: { [weak self] (fee) in
+            
+            self?.updateFee(fee)
+        }, onError: { [weak self] (error) in
+            
+            if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
+                self?.showFeeError(DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving))
+            } else {
+                self?.showFeeError(DisplayError(error: error))
+            }
+            
         }).disposed(by: disposeBag)
+    }
+    
+    func showFeeError(_ error: DisplayError) {
+        
+        switch error {
+        case .globalError(let isInternetNotWorking):
+            
+            if isInternetNotWorking {
+                errorSnackKey = showWithoutInternetSnack { [weak self] in
+                    self?.loadFee()
+                }
+            } else {
+                errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
+                    self?.loadFee()
+                })
+            }
+        case .internetNotWorking:
+            errorSnackKey = showWithoutInternetSnack { [weak self] in
+                self?.loadFee()
+            }
+            
+        case .message(let text):
+            errorSnackKey = showErrorSnack(title: text, didTap: { [weak self] in
+                self?.loadFee()
+            })
+            
+        case .notFound, .scriptError:
+            errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
+                self?.loadFee()
+            })
+        }
+    }
+    
+    func updateFee(_ fee: Money) {
+        
+        if let errorSnackKey = errorSnackKey {
+            hideSnack(key: errorSnackKey)
+        }
+        
+        viewFee.update(with: fee)
+        viewFee.hideLoadingState()
+        order.fee = fee
+        setupData()
+        setupButtonState()
     }
     
     var isValidOrder: Bool {

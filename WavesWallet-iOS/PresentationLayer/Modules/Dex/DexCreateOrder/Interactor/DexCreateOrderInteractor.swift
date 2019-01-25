@@ -40,7 +40,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                                                                        price: order.price.amount,
                                                                        orderType: order.type,
                                                                        matcherFee: order.fee,
-                                                                       expiration: order.expiration.rawValue)
+                                                                       expiration: Int64(order.expiration.rawValue))
 
                     
                     return owner.orderBookRepository.createOrder(wallet: wallet, order: orderQuery)
@@ -63,9 +63,6 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
             guard let owner = self else { return Observable.empty() }
             return owner.transactionInteractor.calculateFee(by: .createOrder(amountAsset: amountAsset, priceAsset: priceAsset),
                                                             accountAddress: wallet.address)
-        })
-        .catchError({ (error) -> Observable<Money> in
-            return Observable.just(Money(Constants.minimumOrderFee, GlobalConstants.WavesDecimals))
         })
     }
 }

@@ -76,6 +76,7 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
             return .requestParameters(parameters: order.params, encoding: JSONEncoding.default)
             
         case .createOrder(let order):
+
             return .requestParameters(parameters: order.params, encoding: JSONEncoding.default)
 
         default:
@@ -159,7 +160,7 @@ fileprivate extension DomainLayer.Query.Dex.CreateOrder {
     }
     
     private var toSign: [UInt8] {
-        let s1 = wallet.publicKey.publicKey + matcherPublicKey.publicKey
+        let s1 = toByteArray(UInt8(2)) + wallet.publicKey.publicKey + matcherPublicKey.publicKey
         let s2 = assetPair.bytes + orderType.bytes
         let s3 = toByteArray(price) + toByteArray(amount)
         let s4 = toByteArray(timestamp) + toByteArray(expirationTimestamp) + toByteArray(matcherFee)
@@ -169,11 +170,10 @@ fileprivate extension DomainLayer.Query.Dex.CreateOrder {
     private var expirationTimestamp: Int64 {
         return timestamp + Int64(expiration) * 60 * 1000
     }
-    
+
     var params: [String : Any] {
-        
-        return ["id" : Base58.encode(id),
-                "senderPublicKey" :  Base58.encode(wallet.publicKey.publicKey),
+
+        return ["senderPublicKey" :  Base58.encode(wallet.publicKey.publicKey),
                 "matcherPublicKey" : Base58.encode(matcherPublicKey.publicKey),
                 "assetPair" : assetPair.json,
                 "orderType" : orderType.rawValue,
@@ -182,7 +182,8 @@ fileprivate extension DomainLayer.Query.Dex.CreateOrder {
                 "timestamp" : timestamp,
                 "expiration" : expirationTimestamp,
                 "matcherFee" : matcherFee,
-                "signature" : Base58.encode(signature)]
+                "proofs" : [Base58.encode(signature)],
+                "version": 2]
     }
 }
 

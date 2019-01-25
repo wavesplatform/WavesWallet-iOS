@@ -9,7 +9,7 @@
 import UIKit
     
 private enum Constants {
-    static let timestampDateFormat = "MM.dd.yyyy, hh:mm"
+    static let timestampDateFormat = "MM.dd.yyyy, HH:mm"
     static let titleEdgeInsets = UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 0)
     static let сontentInset = UIEdgeInsets(top: 0, left: 0, bottom: 24, right: 0)
     static let buttonsHeight: CGFloat = 48
