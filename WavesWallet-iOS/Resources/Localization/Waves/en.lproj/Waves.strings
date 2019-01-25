@@ -1164,3 +1164,5 @@
 "wavespopup.button.send" = "Send";
 
 "wavespopup.label.comingsoon" = "Coming soon";
+
+"transaction.error.commission.receiving" = "Commission receiving error";

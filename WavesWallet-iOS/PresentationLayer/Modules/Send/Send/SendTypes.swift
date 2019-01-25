@@ -31,6 +31,8 @@ enum Send {
         case cancelGetingAsset
         case didGetAssetBalance(DomainLayer.DTO.SmartAssetBalance?)
         case didCalculateFee(Money)
+        case handleFeeError(Error)
+        case refreshFee
     }
     
     struct State: Mutating {
@@ -44,6 +46,7 @@ enum Send {
             case didFailGenerateMoneroAddress(NetworkError)
             case didGetAssetBalance(DomainLayer.DTO.SmartAssetBalance?)
             case didCalculateFee(Money)
+            case didHandleFeeError(DisplayError)
         }
         
         var isNeedLoadGateWayInfo: Bool
@@ -109,7 +112,8 @@ extension Send.State: Equatable {
                 lhs.recipient == rhs.recipient &&
                 lhs.moneroPaymentID == rhs.moneroPaymentID &&
                 lhs.selectedAsset?.assetId == rhs.selectedAsset?.assetId &&
-                lhs.scanningAssetID == rhs.scanningAssetID
+                lhs.scanningAssetID == rhs.scanningAssetID &&
+                lhs.isNeedLoadFee == rhs.isNeedLoadFee
     }
 }
 

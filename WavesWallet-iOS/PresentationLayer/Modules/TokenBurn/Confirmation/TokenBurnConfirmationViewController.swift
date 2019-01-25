@@ -30,6 +30,7 @@ final class TokenBurnConfirmationViewController: UIViewController {
         let amount: Money
         let fee: Money
         let delegate: TokenBurnTransactionDelegate?
+        let errorDelegate: TokenBurnLoadingViewControllerDelegate?
     }
     
     var input: Input!
@@ -64,22 +65,7 @@ final class TokenBurnConfirmationViewController: UIViewController {
     
         let vc = StoryboardScene.Asset.tokenBurnLoadingViewController.instantiate()
         vc.input = input
-        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
-    }
-}
-
-//MARK: - TokenBurnLoadingViewControllerDelegate
-extension TokenBurnConfirmationViewController: TokenBurnLoadingViewControllerDelegate {
-
-    func tokenBurnLoadingViewControllerDidFail(error: NetworkError) {
-        
-        switch error {
-        case .scriptError:
-            TransactionScriptErrorView.show()
-        default:
-            showNetworkErrorSnack(error: error)
-        }
     }
 }
 

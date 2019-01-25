@@ -25,6 +25,7 @@ final class StartLeasingConfirmationViewController: UIViewController {
     
     var order: StartLeasingTypes.DTO.Order!
     weak var output: StartLeasingModuleOutput?
+    weak var errorDelegate: StartLeasingErrorDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +55,7 @@ final class StartLeasingConfirmationViewController: UIViewController {
     @IBAction private func confirmTapped(_ sender: Any) {
         
         let vc = StoryboardScene.StartLeasing.startLeasingLoadingViewController.instantiate()
-        vc.input = .init(kind: .send(order), errorDelegate: self, output: output)
+        vc.input = .init(kind: .send(order), errorDelegate: errorDelegate, output: output)
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -70,18 +71,5 @@ final class StartLeasingConfirmationViewController: UIViewController {
         labelNodeAddressTitle.text = Localizable.Waves.Startleasingconfirmation.Label.nodeAddress
         labelFeeTitle.text = Localizable.Waves.Startleasingconfirmation.Label.fee
         buttonConfirm.setTitle(Localizable.Waves.Startleasingconfirmation.Button.confirm, for: .normal)
-    }
-}
-
-//MARK: - StartLeasingErrorDelegate
-extension StartLeasingConfirmationViewController: StartLeasingErrorDelegate {
-    func startLeasingDidFail(error: NetworkError) {
-        
-        switch error {
-        case .scriptError:
-            TransactionScriptErrorView.show()
-        default:
-            showNetworkErrorSnack(error: error)
-        }
     }
 }

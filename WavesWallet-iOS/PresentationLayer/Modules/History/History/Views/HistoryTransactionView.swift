@@ -69,7 +69,7 @@ fileprivate extension HistoryTransactionView {
         
         if tx.myOrder.kind == .sell {
             sign = .minus
-            text = Localizable.Waves.History.Transaction.Cell.Exchange.buy(tx.amount.currency.title, tx.price.currency.title)
+            text = Localizable.Waves.History.Transaction.Cell.Exchange.sell(tx.amount.currency.title, tx.price.currency.title)
         }
         else {
             sign = .plus

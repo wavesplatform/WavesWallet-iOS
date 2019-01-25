@@ -89,7 +89,15 @@ final class StartLeasingLoadingViewController: UIViewController {
     
     private func popBackWithFail(error: NetworkError) {
         input.errorDelegate?.startLeasingDidFail(error: error)
-        navigationController?.popViewController(animated: true)
+
+        //TODO: Coordinator        
+        if let vc = navigationController?.viewControllers.first(where: { (vc) -> Bool in
+            return vc is StartLeasingViewController
+        }) {
+            self.navigationController?.popToViewController(vc, animated: true)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     private func cancelOrderRequest(cancelOrder: StartLeasingTypes.DTO.CancelOrder) -> Observable<DomainLayer.DTO.SmartTransaction> {

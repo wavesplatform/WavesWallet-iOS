@@ -33,8 +33,5 @@ final class StartLeasingInteractor: StartLeasingInteractorProtocol {
                 guard let owner = self else { return Observable.empty() }
                 return owner.transactionInteractor.calculateFee(by: .lease, accountAddress: wallet.address)
             })
-            .catchError({ (error) -> Observable<Money> in
-                return Observable.just(GlobalConstants.WavesTransactionFee)
-            })
     }
 }
