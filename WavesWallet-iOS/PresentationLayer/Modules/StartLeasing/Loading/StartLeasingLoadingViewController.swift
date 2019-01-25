@@ -96,7 +96,7 @@ final class StartLeasingLoadingViewController: UIViewController {
         }) {
             self.navigationController?.popToViewController(vc, animated: true)
         } else {
-            self.navigationController?.popToRootViewController(animated: true)
+            self.navigationController?.popViewController(animated: true)
         }
     }
     

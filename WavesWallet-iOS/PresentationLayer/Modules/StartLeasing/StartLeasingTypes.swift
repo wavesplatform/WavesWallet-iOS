@@ -40,7 +40,7 @@ enum StartLeasingTypes {
         struct CancelOrder {
             let leasingTX: String
             let amount: Money
-            let fee: Money
+            var fee: Money
         }
        
     }

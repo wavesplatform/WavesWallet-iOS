@@ -56,9 +56,6 @@ final class SendInteractor: SendInteractorProtocol {
             guard let owner = self else { return Observable.empty() }
             return owner.transactionInteractor.calculateFee(by: .sendTransaction(assetID: assetID), accountAddress: wallet.address)
         })
-        .catchError({ (error) -> Observable<Money> in
-            return Observable.just(GlobalConstants.WavesTransactionFee)
-        })
     }
     
     func getWavesBalance() -> Observable<DomainLayer.DTO.SmartAssetBalance> {
