@@ -283,6 +283,10 @@ final class CustomNavigationController: UINavigationController {
         return self.topViewController?.preferredStatusBarStyle ?? .default
     }
 
+    override var prefersStatusBarHidden: Bool {
+        return self.topViewController?.prefersStatusBarHidden ?? false
+    }
+
     deinit {
         if let prevViewContoller = prevViewContoller {
             prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.shadowImage)

@@ -28,6 +28,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var disposeBag: DisposeBag = DisposeBag()
     var window: UIWindow?
 
+    let lockWindow: UIWindow = {
+        let window = UIWindow()
+        let launch = StoryboardScene.LaunchScreen.initialScene.instantiate()
+        window.rootViewController = launch
+        return window
+    }()
+
     var appCoordinator: AppCoordinator!
     let migrationInteractor: MigrationInteractor = MigrationInteractor()
 
@@ -92,19 +99,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func applicationWillResignActive(_ application: UIApplication) {}
+    func applicationWillResignActive(_ application: UIApplication) {
+        showLockWindow()
+    }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         appCoordinator.applicationDidEnterBackground()
     }
 
-    func applicationWillEnterForeground(_ application: UIApplication) {
-
-    }
+    func applicationWillEnterForeground(_ application: UIApplication) {}
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         appCoordinator.applicationDidBecomeActive()
         AppsFlyerTracker.shared().trackAppLaunch()
+        hideLockWindow()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {}
@@ -130,5 +138,16 @@ extension AppDelegate {
 
     var menuController: RESideMenu {
         return self.window?.rootViewController as! RESideMenu
+    }
+}
+
+fileprivate extension AppDelegate {
+
+    func showLockWindow() {
+        lockWindow.makeKeyAndVisible()
+    }
+
+    func hideLockWindow() {
+        lockWindow.isHidden = true
     }
 }
