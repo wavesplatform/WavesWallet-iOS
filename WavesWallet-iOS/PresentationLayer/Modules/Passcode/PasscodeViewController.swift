@@ -43,6 +43,10 @@ final class PasscodeViewController: UIViewController {
         setupSystem()
     }
 
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isAppeared.onNext(true)
