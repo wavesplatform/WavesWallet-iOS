@@ -35,9 +35,6 @@ final class TokenBurnInteractor: TokenBurnInteractorProtocol {
             guard let owner = self else { return Observable.empty() }
             return owner.transactionInteractor.calculateFee(by: .burn(assetID: assetID), accountAddress: wallet.address)
         }
-        .catchError({ (error) -> Observable<Money> in
-            return Observable.just(GlobalConstants.WavesTransactionFee)
-        })
     }
 
 }

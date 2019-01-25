@@ -41,7 +41,7 @@ final class PasscodeLogInCoordinator: Coordinator {
         case .alertWindow:
 
             let window = UIWindow()
-            window.windowLevel = UIWindow.Level(rawValue: CGFloat.greatestFiniteMagnitude)
+            window.windowLevel = UIWindow.Level.normal
             self.windowRouter = WindowRouter(window: window)
             self.passcodeNavigationRouter = NavigationRouter(navigationController: CustomNavigationController())
 

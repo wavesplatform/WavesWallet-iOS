@@ -18,6 +18,10 @@ import Fabric
 import Crashlytics
 import AppsFlyerLib
 
+#if DEBUG || TEST
+import AppSpectorSDK
+#endif
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -53,9 +57,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Swizzle(initializers: [UIView.passtroughInit, UIView.insetsInit, UIView.shadowInit]).start()
 
-        #if DEBUG
+        #if DEBUG || TEST
             SweetLogger.current.visibleLevels = [.debug, .error]
             AppsFlyerTracker.shared()?.isDebug = false
+
+
+            if let path = Bundle.main.path(forResource: "AppSpector-Info", ofType: "plist"),
+                let apiKey = NSDictionary(contentsOfFile: path)?["API_KEY"] as? String {
+                let config = AppSpectorConfig(apiKey: apiKey)
+                AppSpector.run(with: config)                
+            }
+
         #else
             SweetLogger.current.visibleLevels = []
             AppsFlyerTracker.shared()?.isDebug = false
@@ -86,9 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appCoordinator.applicationDidEnterBackground()
     }
 
-    func applicationWillEnterForeground(_ application: UIApplication) {
-
-    }
+    func applicationWillEnterForeground(_ application: UIApplication) {}
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         appCoordinator.applicationDidBecomeActive()

@@ -12,4 +12,5 @@ import RxSwift
 protocol TokenBurnSendInteractorProtocol {
     
     func burnAsset(asset: DomainLayer.DTO.SmartAssetBalance, fee: Money, quiantity: Money) -> Observable<TokenBurnTypes.TransactionStatus>
+    func getFee(assetID: String) -> Observable<Money>
 }

@@ -2201,6 +2201,17 @@ internal enum Localizable {
       }
     }
 
+    internal enum Transaction {
+
+      internal enum Error {
+
+        internal enum Commission {
+          /// Commission receiving error
+          internal static var receiving: String { return Localizable.tr("Waves", "transaction.error.commission.receiving") }
+        }
+      }
+    }
+
     internal enum Transactionfee {
 
       internal enum Label {
