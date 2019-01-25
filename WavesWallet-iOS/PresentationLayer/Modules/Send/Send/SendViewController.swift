@@ -58,13 +58,14 @@ final class SendViewController: UIViewController {
     private var wavesAsset: DomainLayer.DTO.SmartAssetBalance?
     private var moneroAddress: String = ""
     private var isLoadingAssetBalanceAfterScan = false
-    
+    private var errorSnackKey: String?
+
     var availableBalance: Money {
         
         guard let asset = selectedAsset else { return Money(0, 0)}
         
         var balance: Int64 = 0
-        if asset.asset.isWaves == true {
+        if asset.asset.isWaves {
             balance = asset.avaliableBalance - (wavesFee?.amount ?? GlobalConstants.WavesTransactionFeeAmount)
         }
         else if isValidCryptocyrrencyAddress {
@@ -259,6 +260,12 @@ private extension SendViewController {
                 
                 switch state.action {
                 
+                case .didCalculateFee(let fee):
+                    owner.updateFee(fee: fee)
+                    
+                case .didHandleFeeError(let error):
+                    owner.showFeeError(error)
+                    
                 case .didGetAssetBalance(let assetBalance):
                     
                     owner.hideLoadingAssetState(isLoadAsset: assetBalance != nil)
@@ -306,9 +313,6 @@ private extension SendViewController {
                     owner.hideButtonLoadingButtonsState()
                     owner.setupButtonState()
                     owner.showConfirmScreen()
-
-                case .didCalculateFee(let fee):
-                    owner.updateFee(fee: fee)
                     
                 default:
                     break
@@ -392,7 +396,43 @@ private extension SendViewController {
 //MARK: - UI
 private extension SendViewController {
 
+    func showFeeError(_ error: DisplayError) {
+        
+        switch error {
+        case .globalError(let isInternetNotWorking):
+            
+            if isInternetNotWorking {
+                errorSnackKey = showWithoutInternetSnack { [weak self] in
+                    self?.sendEvent.accept(.refreshFee)
+                }
+            } else {
+                errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
+                    self?.sendEvent.accept(.refreshFee)
+                })
+            }
+        case .internetNotWorking:
+            errorSnackKey = showWithoutInternetSnack { [weak self] in
+                self?.sendEvent.accept(.refreshFee)
+            }
+            
+        case .message(let text):
+            errorSnackKey = showErrorSnack(title: text, didTap: { [weak self] in
+                self?.sendEvent.accept(.refreshFee)
+            })
+            
+        case .notFound, .scriptError:
+            errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
+                self?.sendEvent.accept(.refreshFee)
+            })
+        }
+    }
+    
     func updateFee(fee: Money) {
+        
+        if let errorSnackKey = errorSnackKey {
+            hideSnack(key: errorSnackKey)
+        }
+        
         wavesFee = fee
         viewFee.update(with: fee)
         viewFee.isHidden = false

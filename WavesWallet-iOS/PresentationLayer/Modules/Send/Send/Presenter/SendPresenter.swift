@@ -41,7 +41,8 @@ final class SendPresenter: SendPresenterProtocol {
             guard let assetID = state.selectedAsset?.assetId else { return Signal.empty() }
             
             return strongSelf.interactor.calculateFee(assetID: assetID)
-                .map{ .didCalculateFee($0)}.asSignal(onErrorSignalWith: Signal.empty())        
+                .map{ .didCalculateFee($0)}
+                .asSignal(onErrorRecover: { Signal.just(.handleFeeError($0)) } )
         })
 
     }
@@ -100,6 +101,23 @@ final class SendPresenter: SendPresenterProtocol {
 
         switch event {
         
+        case .refreshFee:
+            return state.mutate {
+                $0.isNeedLoadFee = true
+                $0.action = .none
+            }
+            
+        case .handleFeeError(let error):
+
+            return state.mutate {
+                $0.isNeedLoadFee = false
+                if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
+                    $0.action = .didHandleFeeError(.message(Localizable.Waves.Transaction.Error.Commission.receiving))
+                } else {
+                    $0.action = .didHandleFeeError(DisplayError(error: error))
+                }
+            }
+            
         case .didCalculateFee(let fee):
             return state.mutate {
                 $0.isNeedLoadFee = false
