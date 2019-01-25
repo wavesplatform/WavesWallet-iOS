@@ -30,4 +30,11 @@ final class TokenBurnSendInteractor: TokenBurnSendInteractorProtocol {
             }
             .catchError( { Observable.just(TokenBurnTypes.TransactionStatus.error($0)) })
     }
+    
+    func getFee(assetID: String) -> Observable<Money> {
+        return authorization.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<Money> in
+            guard let owner = self else { return Observable.empty() }
+            return owner.transactions.calculateFee(by: .burn(assetID: assetID), accountAddress: wallet.address)
+        })
+    }
 }
