@@ -1,13 +1,9 @@
 
-"coinomat.tryAgain" = "Try again later";
-
-"coinomat.temporarilyUnavailable" = "Service Coinomat temporarily unavailable";
-
 "Receivecard.Label.minimunAmountInfo" = "最小額は %@です。最大額は %@ です。";
 
 "Send.Label.Error.notFundsFeeGateway" = "必要な手数料を支払うための資金が足りません。取引手数料%@とゲートウェイ手数料 %@ を支払う必要があります。";
 
-"Send.Label.Warning.description" = "%@ をICOの為に引き出さないで下さい。そのセールに関するトークンを私達は入金しません。";
+"Send.Label.Warning.description" = "%@ をICOの為に引き出さないで下さい。そのセールに関するトークンを私達はデポジットしません。";
 
 "Send.Label.Warning.subtitle" = "私たちは、%@ のアドレスを検出し、そのアドレスにCoinomatゲートウェイを経由してあなたのお金を送信します。最少額は %@、最大額は%@です。";
 
@@ -224,6 +220,10 @@
 "chooseaccount.label.nothingWallets" = "まだ何もありません…\n保存されたアカウントがありません";
 
 "chooseaccount.navigation.title" = "アカウントを選択";
+
+"coinomat.temporarilyUnavailable" = "Coinomatのサービスは一時的にご利用いただけません";
+
+"coinomat.tryAgain" = "再度お試しください";
 
 "createalias.button.create.title" = "作成";
 
@@ -569,7 +569,11 @@
 
 "history.transaction.title.sent" = "送信";
 
-"history.transaction.title.startedLeasing" = "リース中";
+"history.transaction.title.setAssetScript" = "ブロックチェーンへの記録";
+
+"history.transaction.title.setScript" = "ブロックチェーンへの記録";
+
+"history.transaction.title.startedLeasing" = "開始されたリース";
 
 "history.transaction.title.tokenBurn" = "トークンのバーン";
 
@@ -580,6 +584,12 @@
 "history.transaction.title.unrecognisedTransaction" = "未認識のトランザクション";
 
 "history.transaction.value.data" = "ブロックチェーンへの登録";
+
+"history.transaction.value.setAssetScript" = "アセットスクリプトのセット";
+
+"history.transaction.value.setScript.cancel" = "スクリプトトランザクションのキャンセル";
+
+"history.transaction.value.setScript.set" = "スクリプトトランザクションのセット";
 
 "import.account.button.enter.title" = "マニュアルでシードを入力する";
 
@@ -849,9 +859,9 @@
 
 "receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "このアドレスに他の通貨を送信すると、あなたのデポジットを失うことがあります。";
 
-"receivecryptocurrency.label.warningSmartContracts.subtitle" = "Check if you wallet or exchange users smart-contracts to withdraw %@. We do not accept such transactions and can’t refund them. You will lose that money.";
+"receivecryptocurrency.label.warningSmartContracts.subtitle" = "あなたが利用する取引所が %@ 引出のためにスマートコントラクトを利用しているか確認してください。私たちはそのようなトランザクションに対応しておらず、返金をすることができません。あなたのお金が失われます。";
 
-"receivecryptocurrency.label.warningSmartContracts.title" = "Please do not deposit %@ form smart contracts! Do not deposit ERC20 tokens! Only %@ is allowed.";
+"receivecryptocurrency.label.warningSmartContracts.title" = "%@ をスマートコントラクトからデポジットしないでください。ERCトークンをデポジットしないでください。%@ のみ対応しています。";
 
 "receivegenerate.label.generate" = "生成中…";
 
@@ -1025,6 +1035,16 @@
 
 "tokenBurn.label.youHaveBurned" = "バーンしました";
 
+"transaction.error.commission.receiving" = "コミッション受取エラー";
+
+"transactionFee.label.transactionFee" = "トランザクション手数料";
+
+"transactionScript.button.okey" = "OK";
+
+"transactionScript.label.subtitle" = "スクリプトによるアカウント/アセットを利用する場合、Wavesクライアントをご利用ください";
+
+"transactionScript.label.title" = "スクリプトはあなたのアカウント/アセットにインストールされました";
+
 "transactionhistory.button.copied" = "コピーされました";
 
 "transactionhistory.button.copyAllData" = "すべてのデータをコピー";
@@ -1117,7 +1137,7 @@
 
 "wallet.label.quickNote.description.third" = "生成中の残高は1000ブロック後に更新されます";
 
-"wallet.label.startedLeasing" = "リース中";
+"wallet.label.startedLeasing" = "開始されたリース";
 
 "wallet.label.totalBalance" = "合計残高";
 

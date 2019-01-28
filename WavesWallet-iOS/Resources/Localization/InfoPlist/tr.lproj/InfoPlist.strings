@@ -11,4 +11,4 @@
 
 "cameraAccess.alert.message" = "Bu uygulamanın bütün özelliklerini kullanabilmeniz için kameraya erişim izni vermeniz gerekmektedir.";
 
-"cameraAccess.alert.title" = "Kamera erişim izni gerekmektedir.";
+"cameraAccess.alert.title" = "Kamera erişim izni gerekmektedir";

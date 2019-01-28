@@ -1,8 +1,4 @@
 
-"coinomat.tryAgain" = "Tente mais tarde";
-
-"coinomat.temporarilyUnavailable" = "O serviço da Coinomat está temporariamente indisponível";
-
 "Receivecard.Label.minimunAmountInfo" = "O mínimo é %@ e o máximo é %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "Você não tem saldo suficiente para pagar as taxas exigidas. Você deve pagar uma taxa de transação de %@ pela taxa do gateway.";
@@ -224,6 +220,10 @@
 "chooseaccount.label.nothingWallets" = "Não há nada aqui…\nVocê não tem contas salvas";
 
 "chooseaccount.navigation.title" = "Escolha uma conta";
+
+"coinomat.temporarilyUnavailable" = "O Serviço da Coinomat está temporariamente indisponível";
+
+"coinomat.tryAgain" = "Tente novamente mais tarde";
 
 "createalias.button.create.title" = "Criar";
 
@@ -569,6 +569,10 @@
 
 "history.transaction.title.sent" = "Enviado";
 
+"history.transaction.title.setAssetScript" = "Acesse o blockchain";
+
+"history.transaction.title.setScript" = "Acesse o blockchain";
+
 "history.transaction.title.startedLeasing" = "Aluguel Ativado";
 
 "history.transaction.title.tokenBurn" = "Queima de Tokens";
@@ -580,6 +584,12 @@
 "history.transaction.title.unrecognisedTransaction" = "Transação não reconhecida";
 
 "history.transaction.value.data" = "Acesse o blockchain";
+
+"history.transaction.value.setAssetScript" = "Definir Script do Ativo";
+
+"history.transaction.value.setScript.cancel" = "Cancelar Script de Transação";
+
+"history.transaction.value.setScript.set" = "Definir Script de Transação";
 
 "import.account.button.enter.title" = "Inserir SEED manualmente";
 
@@ -1024,6 +1034,16 @@
 "tokenBurn.label.type" = "Tipo";
 
 "tokenBurn.label.youHaveBurned" = "Você queimou";
+
+"transaction.error.commission.receiving" = "Erro no recebimento de comissão";
+
+"transactionFee.label.transactionFee" = "Taxa de Transação";
+
+"transactionScript.button.okey" = "Ok";
+
+"transactionScript.label.subtitle" = "Para executar com uma conta/ativo com script, utilize a Waves Client";
+
+"transactionScript.label.title" = "Um script está instalado em sua conta ou ativo";
 
 "transactionhistory.button.copied" = "Copiado";
 

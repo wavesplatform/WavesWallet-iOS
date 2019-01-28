@@ -1,8 +1,4 @@
 
-"coinomat.tryAgain" = "나중에 다시 시도하세요";
-
-"coinomat.temporarilyUnavailable" = "Coinomat 서비스를 일시적으로 사용할 수 없습니다";
-
 "Receivecard.Label.minimunAmountInfo" = "न्यूनतम %@ है, अधिकतम %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "आवश्यक फ़ीस का भुगतान करने के लिए आपके पास पर्याप्त धनराशि नहीं है। आपको %@ लेनदेन फ़ीस और %@ गेटवे फ़ीस का भुगतान करना होगा।";
@@ -224,6 +220,10 @@
 "chooseaccount.label.nothingWallets" = "यहां कुछ नहीं…\nआपके पास सेव्ड खाते नहीं हैं";
 
 "chooseaccount.navigation.title" = "खाता चुनें";
+
+"coinomat.temporarilyUnavailable" = "कोइनोमाट सेवा अस्थायी रूप से अनुपलब्ध है";
+
+"coinomat.tryAgain" = "बाद में पुन: प्रयास करें";
 
 "createalias.button.create.title" = "निर्माण करना";
 
@@ -569,6 +569,10 @@
 
 "history.transaction.title.sent" = "भेज दिया";
 
+"history.transaction.title.setAssetScript" = "ब्लॉकचेन में प्रवेश";
+
+"history.transaction.title.setScript" = "ब्लॉकचेन में प्रवेश";
+
 "history.transaction.title.startedLeasing" = "लीजिंग शुरू हुई";
 
 "history.transaction.title.tokenBurn" = "टोकन बर्न";
@@ -580,6 +584,12 @@
 "history.transaction.title.unrecognisedTransaction" = "अपरिचित ट्रांसक्शन";
 
 "history.transaction.value.data" = "ब्लॉकचेन में प्रवेश";
+
+"history.transaction.value.setAssetScript" = "एसेट स्क्रिप्ट सेट करें";
+
+"history.transaction.value.setScript.cancel" = "स्क्रिप्ट लेन-देन रद्द करें";
+
+"history.transaction.value.setScript.set" = "स्क्रिप्ट लेन-देन सेट करें";
 
 "import.account.button.enter.title" = "मैन्युअल रूप से सीड दर्ज करें";
 
@@ -1024,6 +1034,16 @@
 "tokenBurn.label.type" = "प्रकार";
 
 "tokenBurn.label.youHaveBurned" = "यू हाव बर्नड";
+
+"transaction.error.commission.receiving" = "कमीशन रिसीविंग एरर";
+
+"transactionFee.label.transactionFee" = "ट्रांसक्शन फी";
+
+"transactionScript.button.okey" = "ठीक है";
+
+"transactionScript.label.subtitle" = "स्क्रिप्टेड अकाउंट / एसेट के साथ काम करने के लिए वेव्स क्लाइंट का इस्तेमाल करें";
+
+"transactionScript.label.title" = "आपके खाते या परिसंपत्ति पर एक स्क्रिप्ट स्थापित है";
 
 "transactionhistory.button.copied" = "कॉपी किया गया";
 

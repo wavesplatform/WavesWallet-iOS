@@ -1,8 +1,4 @@
 
-"coinomat.tryAgain" = "Try again later";
-
-"coinomat.temporarilyUnavailable" = "Service Coinomat temporarily unavailable";
-
 "Receivecard.Label.minimunAmountInfo" = "Das minimum ist %@, das maximum ist %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "Sie haben nicht genug Geld, um die erforderlichen Gebühren zu zahlen. Sie müssen %@ Transaktionsgebühr und %@ Gateway-Gebühr bezahlen.";
@@ -224,6 +220,10 @@
 "chooseaccount.label.nothingWallets" = "Nichts hier…\nSie haben keine Konten gespeichert";
 
 "chooseaccount.navigation.title" = "Wählen Sie ein Konto";
+
+"coinomat.temporarilyUnavailable" = "Der Coinomat Service ist vorübergehend nicht verfügbar";
+
+"coinomat.tryAgain" = "Versuchen Sie es später noch einmal";
 
 "createalias.button.create.title" = "Erstellen";
 
@@ -569,6 +569,10 @@
 
 "history.transaction.title.sent" = "Geschickt";
 
+"history.transaction.title.setAssetScript" = "Eintrag in Blockchain";
+
+"history.transaction.title.setScript" = "Eintrag in Blockchain";
+
 "history.transaction.title.startedLeasing" = "Leasing begonnen";
 
 "history.transaction.title.tokenBurn" = "Token Burn";
@@ -580,6 +584,12 @@
 "history.transaction.title.unrecognisedTransaction" = "Nicht erkannte Transaktion";
 
 "history.transaction.value.data" = "Eintrag in Blockchain";
+
+"history.transaction.value.setAssetScript" = "Setze Asset Script";
+
+"history.transaction.value.setScript.cancel" = "Skripttransaktion abbrechen";
+
+"history.transaction.value.setScript.set" = "Skripttransaktion einstellen";
 
 "import.account.button.enter.title" = "Geben Sie Ihren SEED ein";
 
@@ -849,9 +859,9 @@
 
 "receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Das Senden einer anderen Währung an diese Adresse kann zum Verlust Ihrer Einzahlung führen.";
 
-"receivecryptocurrency.label.warningSmartContracts.subtitle" = "Check if you wallet or exchange users smart-contracts to withdraw %@. We do not accept such transactions and can’t refund them. You will lose that money.";
+"receivecryptocurrency.label.warningSmartContracts.subtitle" = "Prüfen Sie, ob Sie Smart-Kontrakte überweisen oder tauschen, um% @ zurückzuziehen. Wir akzeptieren solche Transaktionen nicht und können sie nicht erstatten. Sie würden ihr Geld verlieren.";
 
-"receivecryptocurrency.label.warningSmartContracts.title" = "Please do not deposit %@ form smart contracts! Do not deposit ERC20 tokens! Only %@ is allowed.";
+"receivecryptocurrency.label.warningSmartContracts.title" = "Bitte hinterlegen Sie% @ form smart Verträge nicht! Zahlen Sie keine ERC20-Token ein! Nur% @ ist erlaubt.";
 
 "receivegenerate.label.generate" = "Generiere…";
 
@@ -1024,6 +1034,16 @@
 "tokenBurn.label.type" = "Typ";
 
 "tokenBurn.label.youHaveBurned" = "Sie haben verbrannt";
+
+"transaction.error.commission.receiving" = "Fehler beim Empfangen der Kommission";
+
+"transactionFee.label.transactionFee" = "Transaktionsgebühr";
+
+"transactionScript.button.okey" = "okay";
+
+"transactionScript.label.subtitle" = "Verwenden Sie den Waves-Client, um mit einem geskripteten Account / Asset zu arbeiten";
+
+"transactionScript.label.title" = "In Ihrem Account oder Asset ist ein Skript installiert";
 
 "transactionhistory.button.copied" = "Kopiert";
 

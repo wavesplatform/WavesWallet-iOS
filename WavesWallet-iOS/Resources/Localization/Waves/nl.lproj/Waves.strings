@@ -1,8 +1,4 @@
 
-"coinomat.tryAgain" = "Try again later";
-
-"coinomat.temporarilyUnavailable" = "Service Coinomat temporarily unavailable";
-
 "Receivecard.Label.minimunAmountInfo" = "Het minimum is %@, het maximum is %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "U heeft onvoldoende funds om de transactiekosten te betalen. U dient %@ transactiekosten en %@ gateway kosten te betalen.";
@@ -224,6 +220,10 @@
 "chooseaccount.label.nothingWallets" = "Niets hier…\nU heeft geen opgeslagen accounts";
 
 "chooseaccount.navigation.title" = "Kies een account";
+
+"coinomat.temporarilyUnavailable" = "Coinomat Service is tijdelijk niet beschikbaar";
+
+"coinomat.tryAgain" = "Probeer later opnieuw";
 
 "createalias.button.create.title" = "Creëren";
 
@@ -569,6 +569,10 @@
 
 "history.transaction.title.sent" = "Verzonden";
 
+"history.transaction.title.setAssetScript" = "Entry in blockchain";
+
+"history.transaction.title.setScript" = "Entry in blockchain";
+
 "history.transaction.title.startedLeasing" = "Begonnen met leasen";
 
 "history.transaction.title.tokenBurn" = "Token Burnen";
@@ -580,6 +584,12 @@
 "history.transaction.title.unrecognisedTransaction" = "Niet-herkende transactie";
 
 "history.transaction.value.data" = "Ingang in blockchain";
+
+"history.transaction.value.setAssetScript" = "Configureer Asset Script";
+
+"history.transaction.value.setScript.cancel" = "Annuleer Script Transactie";
+
+"history.transaction.value.setScript.set" = "Configureer Script Transactie";
 
 "import.account.button.enter.title" = "Voer SEED handmatig in";
 
@@ -825,7 +835,7 @@
 
 "receiveaddress.label.linkToInvoice" = "Link naar een factuur";
 
-"receiveaddress.label.yourAddress" = "Uw adres";
+"receiveaddress.label.yourAddress" = "Uw %@ adres";
 
 "receiveaddress.label.yourQRCode" = "Uw QR-code";
 
@@ -1024,6 +1034,16 @@
 "tokenBurn.label.type" = "Type";
 
 "tokenBurn.label.youHaveBurned" = "U heeft verbrand";
+
+"transaction.error.commission.receiving" = "Commissie ontvang fout";
+
+"transactionFee.label.transactionFee" = "Transactiekosten";
+
+"transactionScript.button.okey" = "Oké";
+
+"transactionScript.label.subtitle" = "Om met een scripted account/asset te werken, gebruik de Waves Client";
+
+"transactionScript.label.title" = "Een script is configureerd op uw account of asset";
 
 "transactionhistory.button.copied" = "Gekopieerd";
 

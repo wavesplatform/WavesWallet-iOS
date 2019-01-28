@@ -1,8 +1,4 @@
 
-"coinomat.tryAgain" = "Inténte de nuevo más tarde";
-
-"coinomat.temporarilyUnavailable" = "Servicio Coinomat no disponible temporalmente";
-
 "Receivecard.Label.minimunAmountInfo" = "El mínimo es %@, el máximo es %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "No tiene fondos suficientes para pagar las comisiones requeridas. Debe pagar %@ una comisión de transacción y %@ una cuota de acceso.";
@@ -224,6 +220,10 @@
 "chooseaccount.label.nothingWallets" = "No hay nada  aquí…\nNo tiene cuentas guardadas";
 
 "chooseaccount.navigation.title" = "Elegir cuenta";
+
+"coinomat.temporarilyUnavailable" = "Servicio Coinomat temporalmente no disponible";
+
+"coinomat.tryAgain" = "Inténtalo más tarde";
 
 "createalias.button.create.title" = "Crear";
 
@@ -569,6 +569,10 @@
 
 "history.transaction.title.sent" = "Enviado";
 
+"history.transaction.title.setAssetScript" = "Entrada en la blockchain";
+
+"history.transaction.title.setScript" = "Entrada en la blockchain";
+
 "history.transaction.title.startedLeasing" = "Leasing empezado";
 
 "history.transaction.title.tokenBurn" = "Quemar Token";
@@ -580,6 +584,12 @@
 "history.transaction.title.unrecognisedTransaction" = "Transacción no reconocida";
 
 "history.transaction.value.data" = "Entrada en el blockchain";
+
+"history.transaction.value.setAssetScript" = "Establecer script de activos";
+
+"history.transaction.value.setScript.cancel" = "Cancelar transacción de script";
+
+"history.transaction.value.setScript.set" = "Establecer transacción de script";
 
 "import.account.button.enter.title" = "Introduzca la semilla manualmente";
 
@@ -1024,6 +1034,16 @@
 "tokenBurn.label.type" = "Tipo";
 
 "tokenBurn.label.youHaveBurned" = "Ha quemado";
+
+"transaction.error.commission.receiving" = "Error de recepción en la comisión";
+
+"transactionFee.label.transactionFee" = "Tarifa de transacción";
+
+"transactionScript.button.okey" = "Ok";
+
+"transactionScript.label.subtitle" = "Para trabajar con una cuenta/activo con script, use el Cliente Waves";
+
+"transactionScript.label.title" = "Un script está instalado en su cuenta o activo";
 
 "transactionhistory.button.copied" = "Copiado";
 
