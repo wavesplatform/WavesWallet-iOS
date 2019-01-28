@@ -1,13 +1,4 @@
 
-"transactionScript.label.title" = "A script is installed on your account or asset";
-"transactionScript.label.subtitle" = "To work with a scripted account/asset,\nuse the Waves Client";
-"transactionScript.button.okey" = "Okay";
-"transactionFee.label.transactionFee" = "Transaction Fee";
-
-"coinomat.tryAgain" = "Try again later";
-
-"coinomat.temporarilyUnavailable" = "Service Coinomat temporarily unavailable";
-
 "Receivecard.Label.minimunAmountInfo" = "The minimum is %@, the maximum is %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "You don't have enough funds to pay the required fees. You must pay %@ transaction fee and %@ gateway fee.";
@@ -229,6 +220,10 @@
 "chooseaccount.label.nothingWallets" = "Nothing Here…\nYou do not have saved accounts";
 
 "chooseaccount.navigation.title" = "Choose account";
+
+"coinomat.temporarilyUnavailable" = "Service Coinomat temporarily unavailable";
+
+"coinomat.tryAgain" = "Try again later";
 
 "createalias.button.create.title" = "Create";
 
@@ -572,16 +567,11 @@
 
 "history.transaction.title.selfTransfer" = "Self-transfer";
 
+"history.transaction.title.sent" = "Sent";
 
-"history.transaction.title.setScript" = "Entry in blockchain";
 "history.transaction.title.setAssetScript" = "Entry in blockchain";
 
-"history.transaction.value.setScript.set" = "Set Script Transaction";
-"history.transaction.value.setScript.cancel" = "Cancel Script Transaction";
-"history.transaction.value.setAssetScript" = "Set Asset Script";
-
-
-"history.transaction.title.sent" = "Sent";
+"history.transaction.title.setScript" = "Entry in blockchain";
 
 "history.transaction.title.startedLeasing" = "Started Leasing";
 
@@ -594,6 +584,12 @@
 "history.transaction.title.unrecognisedTransaction" = "Unrecognised Transaction";
 
 "history.transaction.value.data" = "Entry in blockchain";
+
+"history.transaction.value.setAssetScript" = "Set Asset Script";
+
+"history.transaction.value.setScript.cancel" = "Cancel Script Transaction";
+
+"history.transaction.value.setScript.set" = "Set Script Transaction";
 
 "import.account.button.enter.title" = "Enter SEED manually";
 
@@ -985,7 +981,7 @@
 
 "startleasingcomplete.label.youHaveLeased" = "You have leased %@ %@";
 
-"startleasingcomplete.label.yourTransactionIsOnWay" = "Your transaction is on way!";
+"startleasingcomplete.label.yourTransactionIsOnWay" = "Your transaction is on the way!";
 
 "startleasingconfirmation.button.cancelLeasing" = "Cancel leasing";
 
@@ -1038,6 +1034,16 @@
 "tokenBurn.label.type" = "Type";
 
 "tokenBurn.label.youHaveBurned" = "You have burned";
+
+"transaction.error.commission.receiving" = "Commission receiving error";
+
+"transactionFee.label.transactionFee" = "Transaction Fee";
+
+"transactionScript.button.okey" = "Okay";
+
+"transactionScript.label.subtitle" = "To work with a scripted account/asset, use the Waves Client";
+
+"transactionScript.label.title" = "A script is installed on your account or asset";
 
 "transactionhistory.button.copied" = "Copied";
 
@@ -1164,5 +1170,3 @@
 "wavespopup.button.send" = "Send";
 
 "wavespopup.label.comingsoon" = "Coming soon";
-
-"transaction.error.commission.receiving" = "Commission receiving error";
