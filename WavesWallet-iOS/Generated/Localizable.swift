@@ -2117,7 +2117,7 @@ internal enum Localizable {
         internal static func youHaveLeased(_ p1: String, _ p2: String) -> String {
           return Localizable.tr("Waves", "startleasingcomplete.label.youHaveLeased", p1, p2)
         }
-        /// Your transaction is on way!
+        /// Your transaction is on the way!
         internal static var yourTransactionIsOnWay: String { return Localizable.tr("Waves", "startleasingcomplete.label.yourTransactionIsOnWay") }
       }
     }
@@ -2321,7 +2321,7 @@ internal enum Localizable {
       }
 
       internal enum Label {
-        /// To work with a scripted account/asset,\nuse the Waves Client
+        /// To work with a scripted account/asset, use the Waves Client
         internal static var subtitle: String { return Localizable.tr("Waves", "transactionScript.label.subtitle") }
         /// A script is installed on your account or asset
         internal static var title: String { return Localizable.tr("Waves", "transactionScript.label.title") }

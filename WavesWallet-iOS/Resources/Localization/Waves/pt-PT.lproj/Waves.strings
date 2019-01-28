@@ -1,8 +1,4 @@
 
-"coinomat.tryAgain" = "Tente mais tarde";
-
-"coinomat.temporarilyUnavailable" = "O serviço da Coinomat está temporariamente indisponível";
-
 "Receivecard.Label.minimunAmountInfo" = "O valor mínimo é de %@ e máximo de %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "Não tens fundos suficientes para pagar as taxas de transação. Precisas de %@ para a taxa em blockchain e %@ para taxa do Gateway.";
@@ -224,6 +220,10 @@
 "chooseaccount.label.nothingWallets" = "Ainda não há nada aqui…\nNão existem contas criadas";
 
 "chooseaccount.navigation.title" = "Escolhe uma conta";
+
+"coinomat.temporarilyUnavailable" = "O serviços da Coinomat estão temporariamente indisponíveis";
+
+"coinomat.tryAgain" = "Tenta novamente mais tarde";
 
 "createalias.button.create.title" = "Criar um pseudónimo";
 
@@ -569,6 +569,10 @@
 
 "history.transaction.title.sent" = "Enviado";
 
+"history.transaction.title.setAssetScript" = "Registo de Script";
+
+"history.transaction.title.setScript" = "Registo de Script";
+
 "history.transaction.title.startedLeasing" = "Concessão Iniciada";
 
 "history.transaction.title.tokenBurn" = "Destruir Token";
@@ -580,6 +584,12 @@
 "history.transaction.title.unrecognisedTransaction" = "Transação desconhecida";
 
 "history.transaction.value.data" = "Dados em blockchain";
+
+"history.transaction.value.setAssetScript" = "Registo de Script";
+
+"history.transaction.value.setScript.cancel" = "Script Cancelado";
+
+"history.transaction.value.setScript.set" = "Registo de Script";
 
 "import.account.button.enter.title" = "Introduz o conjunto das palavras de recuperação";
 
@@ -1025,6 +1035,16 @@
 
 "tokenBurn.label.youHaveBurned" = "Destruíste";
 
+"transaction.error.commission.receiving" = "Erro ao processar a comissão do Gateway";
+
+"transactionFee.label.transactionFee" = "Taxa de Transação";
+
+"transactionScript.button.okey" = "Ok";
+
+"transactionScript.label.subtitle" = "Usa o cliente de Desktop para realizares operações numa conta ou num ativo sujeito a um smart contract";
+
+"transactionScript.label.title" = "A tua conta ou o teu ativo contém um smart contract ativo";
+
 "transactionhistory.button.copied" = "Copiado";
 
 "transactionhistory.button.copyAllData" = "Copiar todos os dados";
@@ -1131,7 +1151,7 @@
 
 "wallet.section.quickNote" = "Nota rápida";
 
-"wallet.section.spamAssets" = "Ativos classificados como Spam (%d)";
+"wallet.section.spamAssets" = "Spam-Ativos (%d)";
 
 "wallet.segmentedControl.assets" = "Ativos";
 
