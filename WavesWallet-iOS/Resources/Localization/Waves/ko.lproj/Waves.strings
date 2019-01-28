@@ -1,8 +1,4 @@
 
-"coinomat.tryAgain" = "나중에 다시 시도하세요";
-
-"coinomat.temporarilyUnavailable" = "Coinomat 서비스를 일시적으로 사용할 수 없습니다";
-
 "Receivecard.Label.minimunAmountInfo" = "최소 수량 %@, 최대 수량 %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "필요한 수수료를 지불하기 위한 충분한 자금이 없습니다. %@ 트랜잭션 수수료와 %@ 게이트웨이 수수료를 지불해야 합니다.";
@@ -224,6 +220,10 @@
 "chooseaccount.label.nothingWallets" = "아무것도 없습니다…\n저장된 계정이 없습니다";
 
 "chooseaccount.navigation.title" = "계정 선택";
+
+"coinomat.temporarilyUnavailable" = "Coinomat 서비스를 일시적으로 사용할 수 없습니다";
+
+"coinomat.tryAgain" = "잠시후 다시 시도하세요";
 
 "createalias.button.create.title" = "생성";
 
@@ -569,6 +569,10 @@
 
 "history.transaction.title.sent" = "발신 내역";
 
+"history.transaction.title.setAssetScript" = "블록체인에 기입";
+
+"history.transaction.title.setScript" = "블록체인에 기입";
+
 "history.transaction.title.startedLeasing" = "시작된 Leasing";
 
 "history.transaction.title.tokenBurn" = "토큰 소각";
@@ -580,6 +584,12 @@
 "history.transaction.title.unrecognisedTransaction" = "알수없는 트랜잭션";
 
 "history.transaction.value.data" = "블록체인에 들어가기";
+
+"history.transaction.value.setAssetScript" = "자산 Script 설정";
+
+"history.transaction.value.setScript.cancel" = "Script 트랜잭션 취소";
+
+"history.transaction.value.setScript.set" = "Script 트랜잭션 설정";
 
 "import.account.button.enter.title" = "SEED 수동 입력";
 
@@ -655,7 +665,7 @@
 
 "myaddress.button.share.title" = "공유";
 
-"myaddress.cell.aliases.subtitle.withaliaces" = "%d개를 보유하고 있습니다";
+"myaddress.cell.aliases.subtitle.withaliaces" = "%d 개를 보유하고 있습니다";
 
 "myaddress.cell.aliases.subtitle.withoutaliaces" = "보유하고있지 않습니다.";
 
@@ -1024,6 +1034,16 @@
 "tokenBurn.label.type" = "유형";
 
 "tokenBurn.label.youHaveBurned" = "소각을 완료했습니다";
+
+"transaction.error.commission.receiving" = "수수료 수신 오류";
+
+"transactionFee.label.transactionFee" = "트랜잭션 수수료";
+
+"transactionScript.button.okey" = "확인";
+
+"transactionScript.label.subtitle" = "Script된 계정/자산을 이용하기 위해 Waves 클라이언트를 사용하세요";
+
+"transactionScript.label.title" = "귀하의 계정 또는 자산에 script가 설치되어 있습니다";
 
 "transactionhistory.button.copied" = "복사 완료";
 

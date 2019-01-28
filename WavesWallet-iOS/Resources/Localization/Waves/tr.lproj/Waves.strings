@@ -1,8 +1,4 @@
 
-"coinomat.tryAgain" = "Lütfen tekrar deneyin";
-
-"coinomat.temporarilyUnavailable" = "Coinomat hizmeti geçici olarak durdurulmuştur";
-
 "Receivecard.Label.minimunAmountInfo" = "Minimum %@, Maksimum %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "Komisyonları ödemek için yeterli bakiyeniz bulunmamaktadır. İşlem için %@ komisyon ödemeniz ve geçit için %@ komisyon ödemeniz gerekmektedir.";
@@ -224,6 +220,10 @@
 "chooseaccount.label.nothingWallets" = "Burada bir şey yok…\nKayıtlı hesabınız bulunmamaktadır.";
 
 "chooseaccount.navigation.title" = "Hesabı seç";
+
+"coinomat.temporarilyUnavailable" = "Coinomat geçici olarak servis dışıdır.";
+
+"coinomat.tryAgain" = "Daha sonra tekrar deneyiniz.";
 
 "createalias.button.create.title" = "Oluştur";
 
@@ -569,6 +569,10 @@
 
 "history.transaction.title.sent" = "Gönderildi";
 
+"history.transaction.title.setAssetScript" = "Blokzinciri girdisi";
+
+"history.transaction.title.setScript" = "Blokzinciri girdisi";
+
 "history.transaction.title.startedLeasing" = "Kiralandı";
 
 "history.transaction.title.tokenBurn" = "Kripto Para Yakma";
@@ -580,6 +584,12 @@
 "history.transaction.title.unrecognisedTransaction" = "Tanımlanmayan işlem";
 
 "history.transaction.value.data" = "Blok zinciri girdisi";
+
+"history.transaction.value.setAssetScript" = "Kripto para için script ayarla";
+
+"history.transaction.value.setScript.cancel" = "Script işlemini iptal et";
+
+"history.transaction.value.setScript.set" = "Script işlemi ayarla";
 
 "import.account.button.enter.title" = "Anahtar kelimelerinizi girin";
 
@@ -1024,6 +1034,16 @@
 "tokenBurn.label.type" = "Tip";
 
 "tokenBurn.label.youHaveBurned" = "Yaktığınız";
+
+"transaction.error.commission.receiving" = "Komisyon hatası";
+
+"transactionFee.label.transactionFee" = "İşlem komisyonu";
+
+"transactionScript.button.okey" = "Tamam";
+
+"transactionScript.label.subtitle" = "Scriptli bir hesap üzerinde çalışmak için Waves Client'ı kullanın";
+
+"transactionScript.label.title" = "Hesabınıza script yüklendi";
 
 "transactionhistory.button.copied" = "Kopyalandı";
 
