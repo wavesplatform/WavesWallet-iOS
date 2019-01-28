@@ -1,8 +1,4 @@
 
-"coinomat.tryAgain" = "Try again later";
-
-"coinomat.temporarilyUnavailable" = "Service Coinomat temporarily unavailable";
-
 "Receivecard.Label.minimunAmountInfo" = "Minimumnya %@, maksimumnya %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "Anda tidak memiliki cukup dana untuk membayar biaya yang diperlukan. Anda harus membayar %@ biaya transaksi dan %@ biaya gateway.";
@@ -224,6 +220,10 @@
 "chooseaccount.label.nothingWallets" = "Tidak ada apapun disini…\nAnda tidak memiliki akun yang disimpan";
 
 "chooseaccount.navigation.title" = "Pilih akun";
+
+"coinomat.temporarilyUnavailable" = "Layanan Coinomat sementara tidak tersedia";
+
+"coinomat.tryAgain" = "Coba lagi nanti";
 
 "createalias.button.create.title" = "Buat";
 
@@ -569,6 +569,10 @@
 
 "history.transaction.title.sent" = "Terkirim";
 
+"history.transaction.title.setAssetScript" = "Entri dalam blockchain";
+
+"history.transaction.title.setScript" = "Entri dalam blockchain";
+
 "history.transaction.title.startedLeasing" = "Memulai Sewa";
 
 "history.transaction.title.tokenBurn" = "Bakar Token";
@@ -580,6 +584,12 @@
 "history.transaction.title.unrecognisedTransaction" = "Transaksi Tidak Dikenal";
 
 "history.transaction.value.data" = "Masuk dalam blockchain";
+
+"history.transaction.value.setAssetScript" = "Setel Skrip Aset";
+
+"history.transaction.value.setScript.cancel" = "Batalkan Transaksi Skrip";
+
+"history.transaction.value.setScript.set" = "Tetapkan Transaksi Skrip";
 
 "import.account.button.enter.title" = "Masukkan SEED secara manual";
 
@@ -835,7 +845,7 @@
 
 "receivecard.label.warningInfo" = "Untuk melakukan pembayaran dari kartu Anda, Anda akan dialihkan ke situs web pedagang";
 
-"receivecardcomplete.button.okay" = "Baik";
+"receivecardcomplete.button.okay" = "Ok";
 
 "receivecardcomplete.label.afterPaymentUpdateBalance" = "Setelah pembayaran telah dilakukan, saldo Anda akan diperbarui";
 
@@ -849,9 +859,9 @@
 
 "receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Mengirimkan mata uang lain ke alamat ini dapat menyebabkan hilangnya deposit Anda.";
 
-"receivecryptocurrency.label.warningSmartContracts.subtitle" = "Check if you wallet or exchange users smart-contracts to withdraw %@. We do not accept such transactions and can’t refund them. You will lose that money.";
+"receivecryptocurrency.label.warningSmartContracts.subtitle" = "Periksa apakah Anda dompet atau dompet exchange menggunakan smart-contract untuk menarik %@. Kami tidak menerima transaksi tersebut dan tidak dapat mengembalikannya. Anda akan kehilangan uang itu.";
 
-"receivecryptocurrency.label.warningSmartContracts.title" = "Please do not deposit %@ form smart contracts! Do not deposit ERC20 tokens! Only %@ is allowed.";
+"receivecryptocurrency.label.warningSmartContracts.title" = "Tolong jangan setorkan %@ dari smart contracts! Jangan setorkan token ERC20! Hanya %@ yang diizinkan.";
 
 "receivegenerate.label.generate" = "Hasilkan…";
 
@@ -891,7 +901,7 @@
 
 "send.textField.placeholderPaymentId" = "Tempel atau ketikkan ID Pembayaran Anda";
 
-"sendcomplete.button.okey" = "Baik";
+"sendcomplete.button.okey" = "Ok";
 
 "sendcomplete.label.saveThisAddress" = "Apakah Anda ingin menyimpan alamat ini?";
 
@@ -995,7 +1005,7 @@
 
 "tokenBurn.button.continue" = "Lanjutkan";
 
-"tokenBurn.button.okey" = "Baik";
+"tokenBurn.button.okey" = "Ok";
 
 "tokenBurn.button.useTotalBalanace" = "Gunakan saldo total";
 
@@ -1024,6 +1034,16 @@
 "tokenBurn.label.type" = "Tipe";
 
 "tokenBurn.label.youHaveBurned" = "Anda telah membakar";
+
+"transaction.error.commission.receiving" = "Komisi menerima kesalahan";
+
+"transactionFee.label.transactionFee" = "Biaya transaksi";
+
+"transactionScript.button.okey" = "Ok";
+
+"transactionScript.label.subtitle" = "Untuk bekerja dengan akun/aset skrip, gunakan Waves Client";
+
+"transactionScript.label.title" = "Sebuah skrip dipasang di akun atau aset Anda";
 
 "transactionhistory.button.copied" = "Disalin";
 
