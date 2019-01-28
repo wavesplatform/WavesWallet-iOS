@@ -1,8 +1,4 @@
 
-"coinomat.tryAgain" = "Попробуйте, пожалуйста, позже";
-
-"coinomat.temporarilyUnavailable" = "Сервис Coinomat временно недоступен";
-
 "Receivecard.Label.minimunAmountInfo" = "Минимум %@, максимум %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "У вас недостаточно средств для отправки транзакции. Вы должны оплатить комиссию %@ и %@ gateway комиссию.";
@@ -225,13 +221,17 @@
 
 "chooseaccount.navigation.title" = "Выберите аккаунт";
 
+"coinomat.temporarilyUnavailable" = "Сервис Coinomat временно недоступен";
+
+"coinomat.tryAgain" = "Попробуйте позже";
+
 "createalias.button.create.title" = "Создать";
 
 "createalias.cell.input.textfiled.input.placeholder" = "Символическое имя";
 
 "createalias.cell.input.textfiled.input.title" = "Символическое имя";
 
-"createalias.error.alreadyinuse" = "Уже в используется";
+"createalias.error.alreadyinuse" = "Уже используется";
 
 "createalias.error.charactersmaximum" = "Максимум 30";
 
@@ -569,6 +569,10 @@
 
 "history.transaction.title.sent" = "Отправлено";
 
+"history.transaction.title.setAssetScript" = "Запись в блокчейн";
+
+"history.transaction.title.setScript" = "Запись в блокчейн";
+
 "history.transaction.title.startedLeasing" = "Передано в лизинг";
 
 "history.transaction.title.tokenBurn" = "Сожжено";
@@ -580,6 +584,12 @@
 "history.transaction.title.unrecognisedTransaction" = "Неопознанная транзакция";
 
 "history.transaction.value.data" = "Запись в блокчейн";
+
+"history.transaction.value.setAssetScript" = "Установка скрипт ассета";
+
+"history.transaction.value.setScript.cancel" = "Отмена скрипта";
+
+"history.transaction.value.setScript.set" = "Установка скрипта";
 
 "import.account.button.enter.title" = "Введите секретную фразу вручную";
 
@@ -837,7 +847,7 @@
 
 "receivecardcomplete.button.okay" = "Хорошо";
 
-"receivecardcomplete.label.afterPaymentUpdateBalance" = "После того, как платеж будет произведен, ваш баланс обновиться";
+"receivecardcomplete.label.afterPaymentUpdateBalance" = "После того, как платеж будет произведен, ваш баланс обновится";
 
 "receivecardcomplete.label.redirectToIndacoin" = "Вы перенаправлены на «Indacoin»";
 
@@ -1024,6 +1034,16 @@
 "tokenBurn.label.type" = "Тип";
 
 "tokenBurn.label.youHaveBurned" = "Вы сожгли";
+
+"transaction.error.commission.receiving" = "Ошибка при получении комиссии";
+
+"transactionFee.label.transactionFee" = "Комиссия";
+
+"transactionScript.button.okey" = "Хорошо";
+
+"transactionScript.label.subtitle" = "Для работы с заскриптованным аккаунтом/ассетом воспользуйтесь Waves Client";
+
+"transactionScript.label.title" = "На вашем аккаунте или ассете установлен скрипт";
 
 "transactionhistory.button.copied" = "Скопировано";
 

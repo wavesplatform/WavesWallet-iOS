@@ -1,5 +1,5 @@
 
-"NSCameraUsageDescription" = "Zum Scannen des QR Codes ist Zugriff auf die Kamera erforderlich.";
+"NSCameraUsageDescription" = "Zum Scannen des QR Codes ist Zugriff auf die Kamera erforderlich";
 
 "NSFaceIDUsageDescription" = "Zugriff zu Deinem Wallet";
 

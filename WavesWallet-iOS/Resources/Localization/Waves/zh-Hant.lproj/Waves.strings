@@ -1,8 +1,4 @@
 
-"coinomat.tryAgain" = "稍后再试";
-
-"coinomat.temporarilyUnavailable" = "Coinomat服务暂时无法使用";
-
 "Receivecard.Label.minimunAmountInfo" = "最少 %@，最大 %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "你没有足够的资金支付需要的费用。你需要支付 %@ 的交易费用和 %@ 网关费用。";
@@ -224,6 +220,10 @@
 "chooseaccount.label.nothingWallets" = "没有信息…\n你没有已保持的账户";
 
 "chooseaccount.navigation.title" = "选择账户";
+
+"coinomat.temporarilyUnavailable" = "Coinomat服务暂时无法使用";
+
+"coinomat.tryAgain" = "稍后再试";
 
 "createalias.button.create.title" = "创建";
 
@@ -569,6 +569,10 @@
 
 "history.transaction.title.sent" = "发送";
 
+"history.transaction.title.setAssetScript" = "输入区块链";
+
+"history.transaction.title.setScript" = "输入区块链";
+
 "history.transaction.title.startedLeasing" = "开始租赁";
 
 "history.transaction.title.tokenBurn" = "代币销毁";
@@ -580,6 +584,12 @@
 "history.transaction.title.unrecognisedTransaction" = "无法识别的交易";
 
 "history.transaction.value.data" = "进入区块链";
+
+"history.transaction.value.setAssetScript" = "设置资产脚本";
+
+"history.transaction.value.setScript.cancel" = "取消脚本交易";
+
+"history.transaction.value.setScript.set" = "设置脚本交易";
 
 "import.account.button.enter.title" = "手工输入种子";
 
@@ -1024,6 +1034,16 @@
 "tokenBurn.label.type" = "类型";
 
 "tokenBurn.label.youHaveBurned" = "你的代币已焚毁";
+
+"transaction.error.commission.receiving" = "交易费用出现错误";
+
+"transactionFee.label.transactionFee" = "交易费用";
+
+"transactionScript.button.okey" = "好";
+
+"transactionScript.label.subtitle" = "如要使用脚本帐户/资产，请使用Waves客户端";
+
+"transactionScript.label.title" = "您的帐户或资产上已安装脚本";
 
 "transactionhistory.button.copied" = "已复制";
 
