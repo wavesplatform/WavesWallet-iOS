@@ -16,6 +16,6 @@ enum AliasesRepositoryError: Error {
 
 protocol AliasesRepositoryProtocol {
     func aliases(accountAddress: String) -> Observable<[DomainLayer.DTO.Alias]>
-    func alias(by name: String, accountAddress: String) -> Observable<String>
+    func alias(by name: String, accountAddress: String) -> Observable<String?>
     func saveAliases(by accountAddress: String, aliases: [DomainLayer.DTO.Alias]) -> Observable<Bool>
 }

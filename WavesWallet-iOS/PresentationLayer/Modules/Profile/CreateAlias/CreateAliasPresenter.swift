@@ -139,12 +139,12 @@ fileprivate extension CreateAliasPresenter {
             return strongSelf
                 .authorizationInteractor
                 .authorizedWallet()
-                .flatMap({ wallet -> Observable<String> in
+                .flatMap({ wallet -> Observable<String?> in
                     return strongSelf.aliasesRepository.alias(by: name, accountAddress: wallet.address)
                 })
                 .map { _ in .errorAliasExist }
                 .asSignal(onErrorRecover: { e in
-                    return Signal.just(Types.Event.aliasAameFree)
+                    return Signal.just(Types.Event.aliasNameFree)
                 })
         })
     }
@@ -206,7 +206,7 @@ private extension CreateAliasPresenter {
             let section = Types.ViewModel.Section(rows: [.input(state.displayState.input, error: inputError)])
             state.displayState.sections = [section]
 
-        case .aliasAameFree:
+        case .aliasNameFree:
             state.query = nil
             state.displayState.action = .update
             state.displayState.isLoading = false
