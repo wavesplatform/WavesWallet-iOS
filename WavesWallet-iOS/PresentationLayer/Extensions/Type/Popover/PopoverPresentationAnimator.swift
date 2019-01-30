@@ -9,11 +9,9 @@
 import Foundation
 import UIKit
 
-final class PopverPresentationAnimator: NSObject {
+final class PopoverPresentationAnimator: NSObject {
 
     let isPresentation: Bool
-
-    private lazy var panGesture: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlerScrollPanGesture(recognizer:)))
 
     init(isPresentation: Bool) {
         self.isPresentation = isPresentation
@@ -23,7 +21,7 @@ final class PopverPresentationAnimator: NSObject {
 
 // MARK: - UIViewControllerAnimatedTransitioning
 
-extension PopverPresentationAnimator: UIViewControllerAnimatedTransitioning {
+extension PopoverPresentationAnimator: UIViewControllerAnimatedTransitioning {
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.4
@@ -39,12 +37,6 @@ extension PopverPresentationAnimator: UIViewControllerAnimatedTransitioning {
 
         if isPresentation {
             transitionContext.containerView.addSubview(controller.view)
-        }
-
-        if let context = controller as? PopoverPresentationAnimatorScrollViewContext {
-            let scrollView = context.scrollView
-            panGesture.delegate = self
-            scrollView.addGestureRecognizer(panGesture)
         }
 
         let parentFrame = transitionContext.finalFrame(for: parentController)
@@ -103,21 +95,4 @@ extension PopverPresentationAnimator: UIViewControllerAnimatedTransitioning {
 
         return frame
     }
-
-    @objc private func handlerScrollPanGesture(recognizer: UIPanGestureRecognizer) {
-
-    }
-}
-
-extension PopverPresentationAnimator: UIGestureRecognizerDelegate {
-
-
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-
 }
