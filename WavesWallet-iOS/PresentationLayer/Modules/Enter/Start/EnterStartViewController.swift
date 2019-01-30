@@ -106,8 +106,8 @@ final class EnterStartViewController: UIViewController, UICollectionViewDelegate
     
     private func setupLanguageButton() {
         let language = Language.currentLanguage
-        
-        let item = UIBarButtonItem(title: language.code.uppercased(), style: .plain, target: self, action: #selector(changeLanguage(_:)))
+        let title = language.code.uppercased()
+        let item = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(changeLanguage(_:)))
         item.tintColor = .black
         
         navigationItem.rightBarButtonItem = item
