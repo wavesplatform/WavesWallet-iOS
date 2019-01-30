@@ -1491,7 +1491,7 @@
 		E923A764219D53EE000DD9F6 /* TokenBurnInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnInteractor.swift; sourceTree = "<group>"; };
 		E923A767219D714E000DD9F6 /* TokenBurnLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnLoadingViewController.swift; sourceTree = "<group>"; };
 		E923A76C219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnCompleteViewController.swift; sourceTree = "<group>"; };
-		E92D9BFE2148740B006D6D6B /* InputScrollButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InputScrollButtonsView.swift; path = "WavesWallet-iOS/customviews/InputScrollButtonsView.swift"; sourceTree = SOURCE_ROOT; };
+		E92D9BFE2148740B006D6D6B /* InputScrollButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InputScrollButtonsView.swift; path = "WavesWallet-iOS/PresentationLayer/CustomViews/InputScrollButtonsView.swift"; sourceTree = SOURCE_ROOT; };
 		E9310D0B217924D0008BF3EE /* SendConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmationViewController.swift; sourceTree = "<group>"; };
 		E9310D1821792D01008BF3EE /* SendConfirmationRecipientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmationRecipientView.swift; sourceTree = "<group>"; };
 		E9310D1A21792D13008BF3EE /* SendConfirmationRecipientView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SendConfirmationRecipientView.xib; sourceTree = "<group>"; };
@@ -2075,7 +2075,6 @@
 			isa = PBXGroup;
 			children = (
 				04E80A11214EF20C00D00AA4 /* SmartTransactionDomain+Assistants.swift */,
-				0AF0C67E21AB1B4D00602197 /* Sync.swift */,
 			);
 			path = Assisstants;
 			sourceTree = "<group>";
@@ -2215,6 +2214,57 @@
 			path = Node;
 			sourceTree = "<group>";
 		};
+		0A4E7DE322018057007BBA39 /* Type */ = {
+			isa = PBXGroup;
+			children = (
+				0ADD7F4621F22FB60075FC59 /* Crypto */,
+				0AF0C67E21AB1B4D00602197 /* Sync.swift */,
+				0ADD7F6321F22FB60075FC59 /* WordList.swift */,
+				0ADD7F6421F22FB60075FC59 /* Language.swift */,
+				0ADD7F6621F22FB60075FC59 /* MoneyUtil.swift */,
+				0ADD7F6721F22FB60075FC59 /* AppSettings.swift */,
+				0ADD7F6821F22FB60075FC59 /* DateUtil.swift */,
+				0ADD7F6921F22FB60075FC59 /* SweetLogger */,
+				0ADD7F6D21F22FB60075FC59 /* Balance.swift */,
+				0ADD7F6E21F22FB60075FC59 /* Money.swift */,
+				0ADD7F6F21F22FB60075FC59 /* TSUD.swift */,
+				0ADD7F7021F22FB60075FC59 /* QRCodeParser.swift */,
+			);
+			path = Type;
+			sourceTree = "<group>";
+		};
+		0A4E7DE422018067007BBA39 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		0A4E7DE52201810F007BBA39 /* Date */ = {
+			isa = PBXGroup;
+			children = (
+				0ADD7F7C21F22FB60075FC59 /* DateExtension.swift */,
+				0ADD7F4C21F22FB60075FC59 /* DateFormatter+ISO.swift */,
+				0ADD7F7421F22FB60075FC59 /* DateFormatter+Once.swift */,
+			);
+			path = Date;
+			sourceTree = "<group>";
+		};
+		0A4E7DE622018132007BBA39 /* Type */ = {
+			isa = PBXGroup;
+			children = (
+				0ADD7F6521F22FB60075FC59 /* AssetLogo.swift */,
+				0ADD7F5B21F22FB60075FC59 /* DisplayError.swift */,
+				0ADD7F6121F22FB60075FC59 /* GlobalConstants.swift */,
+				0ADD7F4A21F22FB60075FC59 /* UIAlertController+Factory.swift */,
+				0ADD7F3321F22FB60075FC59 /* Notifications.swift */,
+				0ADD7F3D21F22FB60075FC59 /* QRCodeReader+Factory.swift */,
+				0ADD7F3F21F22FB60075FC59 /* MailCompose+Support.swift */,
+				0ADD7F3021F22FB60075FC59 /* RateApp.swift */,
+			);
+			path = Type;
+			sourceTree = "<group>";
+		};
 		0A59331921870AC60059A77A /* Aliases */ = {
 			isa = PBXGroup;
 			children = (
@@ -2268,16 +2318,16 @@
 			isa = PBXGroup;
 			children = (
 				0A485E942100A0D400079B49 /* DomainLayerTypes.swift */,
-				E967786C21ECE12D00CE56D6 /* Queries */,
-				0A14CFCD2144157A00C3A4D5 /* Mapper */,
-				0AEB358D2115DF8300EDD63C /* Models */,
-				0AEB358A2115DB1D00EDD63C /* Repositories */,
+				0A7643FD21187DF500B633E1 /* FactoryInteractors.swift */,
+				0A7643F9211874F400B633E1 /* FactoryInteractorsProtocol.swift */,
+				0A7643FF21187E3A00B633E1 /* FactoryRepositories.swift */,
+				0A7643FB211876DF00B633E1 /* FactoryRepositoriesProtocol.swift */,
 				0A381EEF2106892700D250F1 /* Assisstants */,
 				0A1DAD6320F395E7004DA625 /* Interactor */,
-				0A7643F9211874F400B633E1 /* FactoryInteractorsProtocol.swift */,
-				0A7643FD21187DF500B633E1 /* FactoryInteractors.swift */,
-				0A7643FB211876DF00B633E1 /* FactoryRepositoriesProtocol.swift */,
-				0A7643FF21187E3A00B633E1 /* FactoryRepositories.swift */,
+				0A14CFCD2144157A00C3A4D5 /* Mapper */,
+				0AEB358D2115DF8300EDD63C /* Models */,
+				E967786C21ECE12D00CE56D6 /* Queries */,
+				0AEB358A2115DB1D00EDD63C /* Repositories */,
 			);
 			path = DomainLayer;
 			sourceTree = "<group>";
@@ -2602,6 +2652,8 @@
 			isa = PBXGroup;
 			children = (
 				0ADD7FF721F22FFA0075FC59 /* Coordinators */,
+				0AF92281212E1234003BA067 /* CustomViews */,
+				0ADD7F1E21F22FB60075FC59 /* Extensions */,
 				0AF58F8B2191909200C8A4B3 /* Modules */,
 			);
 			path = PresentationLayer;
@@ -2789,98 +2841,89 @@
 			path = TextFields;
 			sourceTree = "<group>";
 		};
-		0ADD7F1C21F22FB60075FC59 /* extensions */ = {
+		0ADD7F1C21F22FB60075FC59 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				0ADD7F1D21F22FB60075FC59 /* JSONDecoder+JSON.swift */,
-				0ADD7F1E21F22FB60075FC59 /* UI */,
-				0ADD7F4521F22FB60075FC59 /* Bundle+Version.swift */,
-				0ADD7F4621F22FB60075FC59 /* Crypto */,
-				0ADD7F4A21F22FB60075FC59 /* UIAlertController+Factory.swift */,
-				0ADD7F4B21F22FB60075FC59 /* CGFloat+Min.swift */,
-				0ADD7F4C21F22FB60075FC59 /* DateFormatter+ISO.swift */,
-				0ADD7F4D21F22FB60075FC59 /* Array+Sort.swift */,
-				0ADD7F4E21F22FB60075FC59 /* Assert+Message.swift */,
-				0ADD7F4F21F22FB60075FC59 /* Results+Limit.swift */,
-				0ADD7F5021F22FB60075FC59 /* NSAttributedString+Styles.swift */,
-				0ADD7F5121F22FB60075FC59 /* Runtime.swift */,
-				0ADD7F5221F22FB60075FC59 /* BiometricType.swift */,
-				0ADD7F5321F22FB60075FC59 /* ObjectDestructor.swift */,
-				0ADD7F5421F22FB60075FC59 /* Dictionary+Json.swift */,
-				0ADD7F5521F22FB60075FC59 /* ArrayExtension.swift */,
-				0ADD7F5621F22FB60075FC59 /* JSONDecoder+Rx.swift */,
-				0ADD7F5721F22FB60075FC59 /* Decimal+Assisstants.swift */,
-				0ADD7F5821F22FB60075FC59 /* Thread+Assisstants.swift */,
-				0ADD7F5921F22FB60075FC59 /* String+URL.swift */,
-				0ADD7F5A21F22FB60075FC59 /* String+Escaped.swift */,
-				0ADD7F5B21F22FB60075FC59 /* DisplayError.swift */,
-				0ADD7F5C21F22FB60075FC59 /* DatabaseReference+Rx.swift */,
-				0ADD7F5D21F22FB60075FC59 /* RunLoopThreadScheduler.swift */,
-				0ADD7F5E21F22FB60075FC59 /* String+NormalizeAssetId.swift */,
-				0ADD7F5F21F22FB60075FC59 /* RxSwift+Scheduler.swift */,
-				0ADD7F6021F22FB60075FC59 /* DispatchTimeInterval.swift */,
-				0ADD7F6121F22FB60075FC59 /* GlobalConstants.swift */,
-				0ADD7F6221F22FB60075FC59 /* Type */,
-				0ADD7F7121F22FB60075FC59 /* CGSize+Hashable.swift */,
-				0ADD7F7221F22FB60075FC59 /* NSObject+AssociatedObject.swift */,
-				0ADD7F7321F22FB60075FC59 /* Encodable+Dictionary.swift */,
-				0ADD7F7421F22FB60075FC59 /* DateFormatter+Once.swift */,
-				0ADD7F7521F22FB60075FC59 /* RXCrypto+SHA.swift */,
-				0ADD7F7621F22FB60075FC59 /* Reachability+Shared.swift */,
-				0ADD7F7721F22FB60075FC59 /* Data+AES.swift */,
-				0ADD7F7821F22FB60075FC59 /* Optional+Hashable.swift */,
-				0ADD7F7921F22FB60075FC59 /* StringExtension.swift */,
-				0ADD7F7A21F22FB60075FC59 /* ObservableType+Weak.swift */,
 				0ADD7F7B21F22FB60075FC59 /* Any+Name.swift */,
-				0ADD7F7C21F22FB60075FC59 /* DateExtension.swift */,
-				0ADD7F7D21F22FB60075FC59 /* Protocols */,
+				0ADD7F4D21F22FB60075FC59 /* Array+Sort.swift */,
+				0ADD7F5521F22FB60075FC59 /* ArrayExtension.swift */,
+				0ADD7F4E21F22FB60075FC59 /* Assert+Message.swift */,
+				0ADD7F5221F22FB60075FC59 /* BiometricType.swift */,
+				0ADD7F4521F22FB60075FC59 /* Bundle+Version.swift */,
+				0ADD7F7121F22FB60075FC59 /* CGSize+Hashable.swift */,
+				0ADD7F7721F22FB60075FC59 /* Data+AES.swift */,
+				0ADD7F5C21F22FB60075FC59 /* DatabaseReference+Rx.swift */,
+				0ADD7F5721F22FB60075FC59 /* Decimal+Assisstants.swift */,
+				0ADD7F5421F22FB60075FC59 /* Dictionary+Json.swift */,
+				0ADD7F6021F22FB60075FC59 /* DispatchTimeInterval.swift */,
+				0ADD7F7321F22FB60075FC59 /* Encodable+Dictionary.swift */,
+				0ADD7F1D21F22FB60075FC59 /* JSONDecoder+JSON.swift */,
+				0ADD7F5621F22FB60075FC59 /* JSONDecoder+Rx.swift */,
+				0ADD7F8521F22FB60075FC59 /* Mutating.swift */,
+				0ADD7F7221F22FB60075FC59 /* NSObject+AssociatedObject.swift */,
+				0ADD7F5321F22FB60075FC59 /* ObjectDestructor.swift */,
+				0ADD7F7A21F22FB60075FC59 /* ObservableType+Weak.swift */,
+				0ADD7F7821F22FB60075FC59 /* Optional+Hashable.swift */,
+				0ADD7F7621F22FB60075FC59 /* Reachability+Shared.swift */,
+				0ADD7F4F21F22FB60075FC59 /* Results+Limit.swift */,
+				0ADD7F5D21F22FB60075FC59 /* RunLoopThreadScheduler.swift */,
+				0ADD7F5121F22FB60075FC59 /* Runtime.swift */,
+				0ADD7F7521F22FB60075FC59 /* RXCrypto+SHA.swift */,
+				0ADD7F5F21F22FB60075FC59 /* RxSwift+Scheduler.swift */,
+				0ADD7F5A21F22FB60075FC59 /* String+Escaped.swift */,
+				0ADD7F5E21F22FB60075FC59 /* String+NormalizeAssetId.swift */,
+				0ADD7F5921F22FB60075FC59 /* String+URL.swift */,
+				0ADD7F7921F22FB60075FC59 /* StringExtension.swift */,
+				0ADD7F5821F22FB60075FC59 /* Thread+Assisstants.swift */,
+				0ADD7F3A21F22FB60075FC59 /* UInt8+Assisstants.swift */,
+				0A4E7DE52201810F007BBA39 /* Date */,
+				0A4E7DE422018067007BBA39 /* Protocols */,
+				0A4E7DE322018057007BBA39 /* Type */,
 			);
-			path = extensions;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
-		0ADD7F1E21F22FB60075FC59 /* UI */ = {
+		0ADD7F1E21F22FB60075FC59 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				0ADD7F1F21F22FB60075FC59 /* CALayer+Shadow.swift */,
-				0ADD7F2021F22FB60075FC59 /* ControlEvent+ScrollView.swift */,
-				0ADD7F2121F22FB60075FC59 /* UIButton+WithoutAnimation.swift */,
-				0ADD7F2221F22FB60075FC59 /* UIScrollView+Pagination.swift */,
-				0ADD7F2321F22FB60075FC59 /* RxDataSource+TableView.swift */,
-				0ADD7F2421F22FB60075FC59 /* UIFeedbackGenerator.swift */,
-				0ADD7F2521F22FB60075FC59 /* UIColor+Asset.swift */,
-				0ADD7F2621F22FB60075FC59 /* UIColor+Hex.swift */,
-				0ADD7F2721F22FB60075FC59 /* UIView+Additionals.swift */,
-				0ADD7F2821F22FB60075FC59 /* UITableView+HeaderView.swift */,
-				0ADD7F2921F22FB60075FC59 /* UITableView+Animation.swift */,
-				0ADD7F2A21F22FB60075FC59 /* UIFont+Additions.swift */,
-				0ADD7F2B21F22FB60075FC59 /* UIApplication+OpenURL.swift */,
-				0ADD7F2C21F22FB60075FC59 /* UIViewController+Additionals.swift */,
-				0ADD7F2D21F22FB60075FC59 /* UIResponder+Rx.swift */,
-				0ADD7F2E21F22FB60075FC59 /* RxTableViewAnimatedDataSource.swift */,
-				0ADD7F2F21F22FB60075FC59 /* UIViewController+Alert.swift */,
-				0ADD7F3021F22FB60075FC59 /* RateApp.swift */,
-				0ADD7F3121F22FB60075FC59 /* UIColor+Colors.swift */,
-				0ADD7F3221F22FB60075FC59 /* ControlEvent+Signal.swift */,
-				0ADD7F3321F22FB60075FC59 /* Notifications.swift */,
-				0ADD7F3421F22FB60075FC59 /* UIView+SafeArea.swift */,
-				0ADD7F3521F22FB60075FC59 /* UINavigationController+Additionals.swift */,
-				0ADD7F3621F22FB60075FC59 /* UIView+TouchInset.swift */,
 				0ADD7F3721F22FB60075FC59 /* ActivityIndicator+Rx.swift */,
-				0ADD7F3821F22FB60075FC59 /* UIImage+Color.swift */,
-				0ADD7F3921F22FB60075FC59 /* UIViewController+SafeArea.swift */,
-				0ADD7F3A21F22FB60075FC59 /* UInt8+Assisstants.swift */,
-				0ADD7F3B21F22FB60075FC59 /* PasteboardButton.swift */,
-				0ADD7F3C21F22FB60075FC59 /* UIViewController+Rx.swift */,
-				0ADD7F3D21F22FB60075FC59 /* QRCodeReader+Factory.swift */,
-				0ADD7F3E21F22FB60075FC59 /* UIView+Passtrough.swift */,
-				0ADD7F3F21F22FB60075FC59 /* MailCompose+Support.swift */,
-				0ADD7F4021F22FB60075FC59 /* UIView+Shadow.swift */,
-				0ADD7F4121F22FB60075FC59 /* UIScrollView+ContentInset.swift */,
 				0ADD7F4221F22FB60075FC59 /* CALayer+RoundingCorners.swift */,
+				0ADD7F1F21F22FB60075FC59 /* CALayer+Shadow.swift */,
+				0ADD7F4B21F22FB60075FC59 /* CGFloat+Min.swift */,
+				0ADD7F2021F22FB60075FC59 /* ControlEvent+ScrollView.swift */,
+				0ADD7F3221F22FB60075FC59 /* ControlEvent+Signal.swift */,
+				0ADD7F5021F22FB60075FC59 /* NSAttributedString+Styles.swift */,
+				0ADD7F7D21F22FB60075FC59 /* Protocols */,
+				0A4E7DE622018132007BBA39 /* Type */,
+				0ADD7F2321F22FB60075FC59 /* RxDataSource+TableView.swift */,
+				0ADD7F2E21F22FB60075FC59 /* RxTableViewAnimatedDataSource.swift */,
 				0ADD7F4321F22FB60075FC59 /* TimingFunction.swift */,
+				0ADD7F2B21F22FB60075FC59 /* UIApplication+OpenURL.swift */,
+				0ADD7F2121F22FB60075FC59 /* UIButton+WithoutAnimation.swift */,
+				0ADD7F2521F22FB60075FC59 /* UIColor+Asset.swift */,
+				0ADD7F3121F22FB60075FC59 /* UIColor+Colors.swift */,
+				0ADD7F2621F22FB60075FC59 /* UIColor+Hex.swift */,
+				0ADD7F2421F22FB60075FC59 /* UIFeedbackGenerator.swift */,
+				0ADD7F2A21F22FB60075FC59 /* UIFont+Additions.swift */,
+				0ADD7F3821F22FB60075FC59 /* UIImage+Color.swift */,
+				0ADD7F3521F22FB60075FC59 /* UINavigationController+Additionals.swift */,
+				0ADD7F2D21F22FB60075FC59 /* UIResponder+Rx.swift */,
+				0ADD7F4121F22FB60075FC59 /* UIScrollView+ContentInset.swift */,
+				0ADD7F2221F22FB60075FC59 /* UIScrollView+Pagination.swift */,
+				0ADD7F2921F22FB60075FC59 /* UITableView+Animation.swift */,
+				0ADD7F2821F22FB60075FC59 /* UITableView+HeaderView.swift */,
+				0ADD7F2721F22FB60075FC59 /* UIView+Additionals.swift */,
 				0ADD7F4421F22FB60075FC59 /* UIView+Animation.swift */,
+				0ADD7F3E21F22FB60075FC59 /* UIView+Passtrough.swift */,
+				0ADD7F3421F22FB60075FC59 /* UIView+SafeArea.swift */,
+				0ADD7F4021F22FB60075FC59 /* UIView+Shadow.swift */,
+				0ADD7F3621F22FB60075FC59 /* UIView+TouchInset.swift */,
+				0ADD7F2C21F22FB60075FC59 /* UIViewController+Additionals.swift */,
+				0ADD7F2F21F22FB60075FC59 /* UIViewController+Alert.swift */,
+				0ADD7F3C21F22FB60075FC59 /* UIViewController+Rx.swift */,
+				0ADD7F3921F22FB60075FC59 /* UIViewController+SafeArea.swift */,
 			);
-			path = UI;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		0ADD7F4621F22FB60075FC59 /* Crypto */ = {
@@ -2891,24 +2934,6 @@
 				0ADD7F4921F22FB60075FC59 /* Base58.swift */,
 			);
 			path = Crypto;
-			sourceTree = "<group>";
-		};
-		0ADD7F6221F22FB60075FC59 /* Type */ = {
-			isa = PBXGroup;
-			children = (
-				0ADD7F6321F22FB60075FC59 /* WordList.swift */,
-				0ADD7F6421F22FB60075FC59 /* Language.swift */,
-				0ADD7F6521F22FB60075FC59 /* AssetLogo.swift */,
-				0ADD7F6621F22FB60075FC59 /* MoneyUtil.swift */,
-				0ADD7F6721F22FB60075FC59 /* AppSettings.swift */,
-				0ADD7F6821F22FB60075FC59 /* DateUtil.swift */,
-				0ADD7F6921F22FB60075FC59 /* SweetLogger */,
-				0ADD7F6D21F22FB60075FC59 /* Balance.swift */,
-				0ADD7F6E21F22FB60075FC59 /* Money.swift */,
-				0ADD7F6F21F22FB60075FC59 /* TSUD.swift */,
-				0ADD7F7021F22FB60075FC59 /* QRCodeParser.swift */,
-			);
-			path = Type;
 			sourceTree = "<group>";
 		};
 		0ADD7F6921F22FB60075FC59 /* SweetLogger */ = {
@@ -2927,7 +2952,6 @@
 				0ADD7F7E21F22FB60075FC59 /* Skeleton */,
 				0ADD7F8121F22FB60075FC59 /* Module */,
 				0ADD7F8421F22FB60075FC59 /* ViewConfiguration.swift */,
-				0ADD7F8521F22FB60075FC59 /* Mutating.swift */,
 				0ADD7F8621F22FB60075FC59 /* ViewCalculate.swift */,
 				0ADD7F8721F22FB60075FC59 /* SectionDisplayCollection.swift */,
 				0ADD7F8821F22FB60075FC59 /* Reusable */,
@@ -3350,9 +3374,10 @@
 			path = Skeletons;
 			sourceTree = "<group>";
 		};
-		0AF92281212E1234003BA067 /* Customviews */ = {
+		0AF92281212E1234003BA067 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				0ADD7F3B21F22FB60075FC59 /* PasteboardButton.swift */,
 				F7C683BA1EA93C5800C87DAF /* CustomNavigationController.swift */,
 				E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */,
 				E904525920B4EF4200A490E5 /* PopupViewController.swift */,
@@ -3385,7 +3410,7 @@
 				0AF0C67A21AACA4F00602197 /* GlobalErrorView.swift */,
 				0AF0C67C21AACB3700602197 /* GlobalErrorView.xib */,
 			);
-			path = Customviews;
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 		0AF92283212E1234003BA067 /* HalfModalPresentationController */ = {
@@ -4590,14 +4615,14 @@
 		F74240AF1EAB8D1600C3B84D /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
+				E971DA5120FFF4B600616A03 /* BiometricManager.swift */,
+				F74240B41EAB8D1600C3B84D /* NodeManager.swift */,
 				0A5C919120F3D00D00443CE6 /* Assisstants */,
 				0A1DAD6720F3971B004DA625 /* DataBase */,
 				0A7E0CDC20F369E20010CA6C /* Environment */,
 				0A6CCD3920F4BC730023E36E /* Mapper */,
 				0A979775210A19B400407F67 /* Repositories */,
 				0A1DAD6620F396F4004DA625 /* Service */,
-				E971DA5120FFF4B600616A03 /* BiometricManager.swift */,
-				F74240B41EAB8D1600C3B84D /* NodeManager.swift */,
 			);
 			path = DataLayer;
 			sourceTree = "<group>";
@@ -4642,8 +4667,7 @@
 				F7E954F51EA8FE0700A804DE /* Info.plist */,
 				0AFBCA7F211306F600285BCB /* LaunchScreen.storyboard */,
 				F7E954E71EA8FE0700A804DE /* AppDelegate.swift */,
-				0ADD7F1C21F22FB60075FC59 /* extensions */,
-				0AF92281212E1234003BA067 /* Customviews */,
+				0ADD7F1C21F22FB60075FC59 /* Extensions */,
 				F74240AF1EAB8D1600C3B84D /* DataLayer */,
 				0A5C919520F3D7D700443CE6 /* DomainLayer */,
 				0A93FED120FCAAA30058179E /* PresentationLayer */,
