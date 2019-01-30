@@ -76,3 +76,11 @@ extension WavesPopupViewController: PopoverPresentationAnimatorContext {
     }
 
 }
+
+extension WavesPopupViewController: PopoverPresentationAnimatorContext {
+
+    func contectHeight(for size: CGSize) -> CGFloat {
+        return 305
+    }
+
+}
