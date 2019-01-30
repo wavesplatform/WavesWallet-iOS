@@ -13,29 +13,11 @@ protocol PopoverPresentationAnimatorContext {
     func contectHeight(for size:  CGSize) -> CGFloat
 }
 
+protocol PopoverPresentationAnimatorScrollContext {
+    func contectHeight(for size:  CGSize) -> CGFloat
+//    func contectHeight(for size:  CGSize) -> CGFloat
+}
+
 protocol PopoverPresentationAnimatorScrollViewContext: PopoverPresentationAnimatorContext {
     var scrollView: UIScrollView { get }
 }
-
-//protocol PopoverPresentationAnimatorScrollViewContext: PopoverPresentationAnimatorContext {
-//
-//    var scrollView: UIScrollView { get}
-//
-//    func visibleScrollViewHeight(for size: CGSize) -> CGFloat
-//}
-//
-//extension PopoverPresentationAnimatorScrollViewContext {
-//
-//    func appearContentHeight(for size:  CGSize) -> CGFloat {
-//        return visibleScrollViewHeight(for: size) + scrollView.contentOffset.y + scrollView.contentInset.top
-//    }
-//
-//    func disappearContentHeight(for size:  CGSize) -> CGFloat {
-//
-//        if scrollView.contentOffset.y < 0 {
-//             return visibleScrollViewHeight(for: size) + scrollView.contentInset.top
-//        } else {
-//             return visibleScrollViewHeight(for: size) + scrollView.contentOffset.y + scrollView.contentInset.top
-//        }
-//    }
-//}
