@@ -18,16 +18,11 @@ target 'WavesWallet-iOS' do
     pod 'RxCocoa'
     pod 'RxDataSources'
 
-    pod 'SwiftSVG'
-
     pod 'TTTAttributedLabel'    
     pod 'UITextView+Placeholder'
 
     pod 'SwipeView'
     pod 'MGSwipeTableCell'
-
-    pod 'MBProgressHUD', '~> 1.0.0'
-    pod 'SVProgressHUD'
 
     pod 'UPCarouselFlowLayout'
     pod 'InfiniteCollectionView', :git => 'git@github.com:wavesplatform/InfiniteCollectionView.git'

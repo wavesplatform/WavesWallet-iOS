@@ -10,7 +10,6 @@
 		04016DFC219420C900BA5235 /* ImportAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04016DFB219420C900BA5235 /* ImportAccountViewController.swift */; };
 		04016E00219499DA00BA5235 /* ImportAccountScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04016DFF219499DA00BA5235 /* ImportAccountScanViewController.swift */; };
 		04016E0221949A8400BA5235 /* ImportAccountManuallyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04016E0121949A8400BA5235 /* ImportAccountManuallyViewController.swift */; };
-		0448BC7DCD5D392845FBBB4C /* Pods_WavesWallet_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC7DC7AA9D605D72A4AE8DE6 /* Pods_WavesWallet_iOS.framework */; };
 		044A1FD02114BDBF00B63C6A /* HistoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A1FCF2114BDBF00B63C6A /* HistoryPresenter.swift */; };
 		044A1FD22114CA6D00B63C6A /* HistoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A1FD12114CA6D00B63C6A /* HistoryInteractor.swift */; };
 		044D6C8B21978C9C003861A2 /* EditAccountName.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044D6C8721978C9C003861A2 /* EditAccountName.storyboard */; };
@@ -132,6 +131,10 @@
 		0A4C9AA320EE65910095A417 /* SeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9AA220EE65910095A417 /* SeedItem.swift */; };
 		0A4C9AAB20EF6BFF0095A417 /* AssetsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9AAA20EF6BFF0095A417 /* AssetsApiService.swift */; };
 		0A4D221E21809E3600155A8E /* AccountEnvironmentDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4D221D21809E3600155A8E /* AccountEnvironmentDomainDTO.swift */; };
+		0A4E7DEC22018C5F007BBA39 /* PopoverPresentationAnimatorContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4E7DE822018C5E007BBA39 /* PopoverPresentationAnimatorContext.swift */; };
+		0A4E7DED22018C5F007BBA39 /* PopoverViewControllerTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4E7DE922018C5E007BBA39 /* PopoverViewControllerTransitioning.swift */; };
+		0A4E7DEE22018C5F007BBA39 /* PopverPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4E7DEA22018C5F007BBA39 /* PopverPresentationAnimator.swift */; };
+		0A4E7DEF22018C5F007BBA39 /* PopoverPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4E7DEB22018C5F007BBA39 /* PopoverPresentationController.swift */; };
 		0A57C38C21F74E21003B5386 /* ScriptTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C38B21F74E20003B5386 /* ScriptTransaction+Mapper.swift */; };
 		0A57C38E21F74E2E003B5386 /* AssetScriptTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C38D21F74E2E003B5386 /* AssetScriptTransaction+Mapper.swift */; };
 		0A57C39021F74EB0003B5386 /* ScriptTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C38F21F74EB0003B5386 /* ScriptTransaction.swift */; };
@@ -572,6 +575,7 @@
 		0AFF5C7F215BD08E00B82940 /* AccountPasswordInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C7E215BD08E00B82940 /* AccountPasswordInteractor.swift */; };
 		0AFF5C81215BD09500B82940 /* AccountPasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C80215BD09500B82940 /* AccountPasswordPresenter.swift */; };
 		0AFF5C8D215CE2D000B82940 /* UseTouchIDModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C8C215CE2D000B82940 /* UseTouchIDModuleBuilder.swift */; };
+		53AA2F7E1F0FB6ED983FDF2F /* Pods_WavesWallet_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2F04F55A260735DF3584D3E /* Pods_WavesWallet_iOS.framework */; };
 		E901CE592149D27000942783 /* ExchangeTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E9B2100A91500079B49 /* ExchangeTransaction.swift */; };
 		E90223C421D53A8F0057AA45 /* DexAssetPairDomainDTO+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90223C321D53A8F0057AA45 /* DexAssetPairDomainDTO+Mapper.swift */; };
 		E902F61520E5829B00A46335 /* ChooseAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902F61420E5829B00A46335 /* ChooseAccountViewController.swift */; };
@@ -1005,6 +1009,10 @@
 		0A4C9AA220EE65910095A417 /* SeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedItem.swift; sourceTree = "<group>"; };
 		0A4C9AAA20EF6BFF0095A417 /* AssetsApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsApiService.swift; sourceTree = "<group>"; };
 		0A4D221D21809E3600155A8E /* AccountEnvironmentDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountEnvironmentDomainDTO.swift; sourceTree = "<group>"; };
+		0A4E7DE822018C5E007BBA39 /* PopoverPresentationAnimatorContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverPresentationAnimatorContext.swift; sourceTree = "<group>"; };
+		0A4E7DE922018C5E007BBA39 /* PopoverViewControllerTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewControllerTransitioning.swift; sourceTree = "<group>"; };
+		0A4E7DEA22018C5F007BBA39 /* PopverPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopverPresentationAnimator.swift; sourceTree = "<group>"; };
+		0A4E7DEB22018C5F007BBA39 /* PopoverPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverPresentationController.swift; sourceTree = "<group>"; };
 		0A57C38B21F74E20003B5386 /* ScriptTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScriptTransaction+Mapper.swift"; sourceTree = "<group>"; };
 		0A57C38D21F74E2E003B5386 /* AssetScriptTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssetScriptTransaction+Mapper.swift"; sourceTree = "<group>"; };
 		0A57C38F21F74EB0003B5386 /* ScriptTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptTransaction.swift; sourceTree = "<group>"; };
@@ -1468,7 +1476,7 @@
 		3780CE9B95DA4BD90D83FC04 /* Pods-WavesWallet-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		621D6D45B8A2773F670A4883 /* Pods-WavesWallet-iOS.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.adhoc.xcconfig"; sourceTree = "<group>"; };
 		965E90884D099176A23D5038 /* Pods-WavesWallet-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.debug.xcconfig"; sourceTree = "<group>"; };
-		BC7DC7AA9D605D72A4AE8DE6 /* Pods_WavesWallet_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WavesWallet_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2F04F55A260735DF3584D3E /* Pods_WavesWallet_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WavesWallet_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0E99F201DFCDD4280DDB64C /* Pods-WavesWallet-iOS.test-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.test-adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.test-adhoc.xcconfig"; sourceTree = "<group>"; };
 		E90223C321D53A8F0057AA45 /* DexAssetPairDomainDTO+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DexAssetPairDomainDTO+Mapper.swift"; sourceTree = "<group>"; };
 		E902F61420E5829B00A46335 /* ChooseAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAccountViewController.swift; sourceTree = "<group>"; };
@@ -1791,7 +1799,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0448BC7DCD5D392845FBBB4C /* Pods_WavesWallet_iOS.framework in Frameworks */,
+				53AA2F7E1F0FB6ED983FDF2F /* Pods_WavesWallet_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2253,6 +2261,7 @@
 		0A4E7DE622018132007BBA39 /* Type */ = {
 			isa = PBXGroup;
 			children = (
+				0A4E7DE722018C3B007BBA39 /* Popover */,
 				0ADD7F6521F22FB60075FC59 /* AssetLogo.swift */,
 				0ADD7F5B21F22FB60075FC59 /* DisplayError.swift */,
 				0ADD7F6121F22FB60075FC59 /* GlobalConstants.swift */,
@@ -2263,6 +2272,17 @@
 				0ADD7F3021F22FB60075FC59 /* RateApp.swift */,
 			);
 			path = Type;
+			sourceTree = "<group>";
+		};
+		0A4E7DE722018C3B007BBA39 /* Popover */ = {
+			isa = PBXGroup;
+			children = (
+				0A4E7DE822018C5E007BBA39 /* PopoverPresentationAnimatorContext.swift */,
+				0A4E7DEB22018C5F007BBA39 /* PopoverPresentationController.swift */,
+				0A4E7DE922018C5E007BBA39 /* PopoverViewControllerTransitioning.swift */,
+				0A4E7DEA22018C5F007BBA39 /* PopverPresentationAnimator.swift */,
+			);
+			path = Popover;
 			sourceTree = "<group>";
 		};
 		0A59331921870AC60059A77A /* Aliases */ = {
@@ -3499,7 +3519,7 @@
 				F76AF1E91EBB43E00081A8BD /* SwiftBase58.framework.dSYM */,
 				F7C683DC1EA94ECA00C87DAF /* SwiftGMP.framework */,
 				F7C683DD1EA94ECA00C87DAF /* SwiftGMP.framework.dSYM */,
-				BC7DC7AA9D605D72A4AE8DE6 /* Pods_WavesWallet_iOS.framework */,
+				B2F04F55A260735DF3584D3E /* Pods_WavesWallet_iOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -4894,7 +4914,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm -rf $PROJECT_DIR/WavesWallet-iOS/Generated/\nmkdir $PROJECT_DIR/WavesWallet-iOS/Generated\n\necho \"SwiftGen Begin\"\n\n$PODS_ROOT/SwiftGen/bin/swiftgen storyboards -t swift4 -o $PROJECT_DIR/WavesWallet-iOS/Generated/Storyboards.swift $PROJECT_DIR/WavesWallet-iOS/\n\nSTRINGS=\"\"\nfor i in $(find . -name \"*.strings\"); do\nif [[ $i = *\"en.lproj\"* ]]; then\nSTRINGS=\"$STRINGS $i\"\nfi\ndone\n\n$PODS_ROOT/SwiftGen/bin/swiftgen strings --param enumName=Localizable --templatePath $PROJECT_DIR/Templates/structured-swift4.stencil -o $PROJECT_DIR/WavesWallet-iOS/Generated/Localizable.swift $STRINGS\n\n$PODS_ROOT/SwiftGen/bin/swiftgen xcassets -t swift4 -o $PROJECT_DIR/WavesWallet-iOS/Generated/Images.swift --param enumName=Images $PROJECT_DIR/WavesWallet-iOS/Resources/Assets.xcassets\n\necho \"SwiftGen End\"\n";
+			shellScript = "rm -rf $PROJECT_DIR/WavesWallet-iOS/Generated/\nmkdir $PROJECT_DIR/WavesWallet-iOS/Generated\n\necho \"SwiftGen Begin\"\n\n$PODS_ROOT/SwiftGen/bin/swiftgen storyboards -t swift4 -o $PROJECT_DIR/WavesWallet-iOS/Generated/Storyboards.swift $PROJECT_DIR/WavesWallet-iOS/\n\nSTRINGS=\"\"\nfor i in $(find . -name \"*.strings\"); do\nif [[ $i = *\"en.lproj\"* ]]; then\nSTRINGS=\"$STRINGS $i\"\nfi\ndone\n\n$PODS_ROOT/SwiftGen/bin/swiftgen strings --param enumName=Localizable --templatePath $PROJECT_DIR/Templates/structured-swift4.stencil -o $PROJECT_DIR/WavesWallet-iOS/Generated/Localizable.swift $STRINGS\n\n$PODS_ROOT/SwiftGen/bin/swiftgen xcassets -t swift4 -o $PROJECT_DIR/WavesWallet-iOS/Generated/Images.swift --param enumName=Images $PROJECT_DIR/WavesWallet-iOS/Resources/Assets.xcassets\n\necho \"SwiftGen End\"\n\n";
 		};
 		0AC14789218B043400A25BE5 /* Change Build Version */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4938,7 +4958,6 @@
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Koloda/Koloda.framework",
-				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MGSwipeTableCell/MGSwipeTableCell.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/QRCode/QRCode.framework",
@@ -4960,10 +4979,8 @@
 				"${BUILT_PRODUCTS_DIR}/RxRealm/RxRealm.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
-				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Skeleton/Skeleton.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftSVG/SwiftSVG.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeView/SwipeView.framework",
 				"${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework",
 				"${BUILT_PRODUCTS_DIR}/TTTAttributedLabel/TTTAttributedLabel.framework",
@@ -4995,7 +5012,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Koloda.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MGSwipeTableCell.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCode.framework",
@@ -5017,10 +5033,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRealm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftExt.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Skeleton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSVG.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TPKeyboardAvoiding.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TTTAttributedLabel.framework",
@@ -5155,6 +5169,7 @@
 				0ADD801F21F22FFA0075FC59 /* RoutingCoordinator.swift in Sources */,
 				0A2B7D3B216038F80098438D /* AssetsSpamService.swift in Sources */,
 				0A7CCDAD218A138D005D372B /* MyAddressTypes.swift in Sources */,
+				0A4E7DEE22018C5F007BBA39 /* PopverPresentationAnimator.swift in Sources */,
 				0ADD7FDC21F22FB60075FC59 /* TSUD.swift in Sources */,
 				0A3FE8AE2136E51900DBF4E1 /* TransactionContainersNode.swift in Sources */,
 				0A3FE8AC2136AF4B00DBF4E1 /* TransactionsRepositoryProtocol.swift in Sources */,
@@ -5341,6 +5356,7 @@
 				E9B087D02163886800937644 /* DexListCell.swift in Sources */,
 				E9A380AD21D3035B004377A6 /* OrderMatcher.swift in Sources */,
 				E9D36DCA2175C755001E6DF0 /* ReceiveCryptocurrencyPresenterProtocol.swift in Sources */,
+				0A4E7DED22018C5F007BBA39 /* PopoverViewControllerTransitioning.swift in Sources */,
 				E9B088072163886800937644 /* DexCompleteOrderModuleBuilder.swift in Sources */,
 				E9B086B22163883000937644 /* AddAddressBookModuleOutput.swift in Sources */,
 				E9D36DF82175C755001E6DF0 /* AssetListInteractorProtocol.swift in Sources */,
@@ -5599,6 +5615,7 @@
 				0A071E85215DB1B3007D9750 /* ChooseAccountCell.swift in Sources */,
 				0ADD7FC521F22FB60075FC59 /* JSONDecoder+Rx.swift in Sources */,
 				E9B088122163886800937644 /* DexMarketCell.swift in Sources */,
+				0A4E7DEF22018C5F007BBA39 /* PopoverPresentationController.swift in Sources */,
 				0A764402211881A900B633E1 /* FactoryRepositoriesProtocol.swift in Sources */,
 				E923A768219D714E000DD9F6 /* TokenBurnLoadingViewController.swift in Sources */,
 				0ADD7FC121F22FB60075FC59 /* BiometricType.swift in Sources */,
@@ -5643,6 +5660,7 @@
 				0AD83608217A1C26004413E9 /* AccountSettings.swift in Sources */,
 				0AF921E8212E07B3003BA067 /* AssetPresenterProtocol.swift in Sources */,
 				0ADD7F9B21F22FB60075FC59 /* UIApplication+OpenURL.swift in Sources */,
+				0A4E7DEC22018C5F007BBA39 /* PopoverPresentationAnimatorContext.swift in Sources */,
 				0ADD7FCC21F22FB60075FC59 /* RunLoopThreadScheduler.swift in Sources */,
 				E9B087FF2163886800937644 /* DexMyOrdersInteractor.swift in Sources */,
 				0484474A2118658400552772 /* HistoryTypes+ViewModels.swift in Sources */,
@@ -6179,6 +6197,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -warn-long-function-bodies=200 -Xfrontend -warn-long-expression-type-checking=200";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
