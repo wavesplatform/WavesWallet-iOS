@@ -35,7 +35,7 @@ final class PopoverPresentationController: UIPresentationController {
 
         addShadowView()
         addGestureRecognizers()
-        shadowView.alpha = 0
+
     
         if let containerView = containerView {
             presentedViewController.view.bounds.size = containerView.bounds.size
@@ -90,6 +90,7 @@ extension PopoverPresentationController {
             return
         }
 
+        shadowView.alpha = 0
         containerView.insertSubview(shadowView, at: 0)
 
         NSLayoutConstraint.activate([
@@ -97,8 +98,7 @@ extension PopoverPresentationController {
             shadowView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             shadowView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             shadowView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
-            ]
-        )
+            ])
     }
 
     private func addGestureRecognizers() {
