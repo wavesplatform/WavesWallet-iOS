@@ -133,7 +133,7 @@
 		0A4D221E21809E3600155A8E /* AccountEnvironmentDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4D221D21809E3600155A8E /* AccountEnvironmentDomainDTO.swift */; };
 		0A4E7DEC22018C5F007BBA39 /* PopoverPresentationAnimatorContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4E7DE822018C5E007BBA39 /* PopoverPresentationAnimatorContext.swift */; };
 		0A4E7DED22018C5F007BBA39 /* PopoverViewControllerTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4E7DE922018C5E007BBA39 /* PopoverViewControllerTransitioning.swift */; };
-		0A4E7DEE22018C5F007BBA39 /* PopverPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4E7DEA22018C5F007BBA39 /* PopverPresentationAnimator.swift */; };
+		0A4E7DEE22018C5F007BBA39 /* PopoverPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4E7DEA22018C5F007BBA39 /* PopoverPresentationAnimator.swift */; };
 		0A4E7DEF22018C5F007BBA39 /* PopoverPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4E7DEB22018C5F007BBA39 /* PopoverPresentationController.swift */; };
 		0A57C38C21F74E21003B5386 /* ScriptTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C38B21F74E20003B5386 /* ScriptTransaction+Mapper.swift */; };
 		0A57C38E21F74E2E003B5386 /* AssetScriptTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C38D21F74E2E003B5386 /* AssetScriptTransaction+Mapper.swift */; };
@@ -1011,7 +1011,7 @@
 		0A4D221D21809E3600155A8E /* AccountEnvironmentDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountEnvironmentDomainDTO.swift; sourceTree = "<group>"; };
 		0A4E7DE822018C5E007BBA39 /* PopoverPresentationAnimatorContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverPresentationAnimatorContext.swift; sourceTree = "<group>"; };
 		0A4E7DE922018C5E007BBA39 /* PopoverViewControllerTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewControllerTransitioning.swift; sourceTree = "<group>"; };
-		0A4E7DEA22018C5F007BBA39 /* PopverPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopverPresentationAnimator.swift; sourceTree = "<group>"; };
+		0A4E7DEA22018C5F007BBA39 /* PopoverPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverPresentationAnimator.swift; sourceTree = "<group>"; };
 		0A4E7DEB22018C5F007BBA39 /* PopoverPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverPresentationController.swift; sourceTree = "<group>"; };
 		0A57C38B21F74E20003B5386 /* ScriptTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScriptTransaction+Mapper.swift"; sourceTree = "<group>"; };
 		0A57C38D21F74E2E003B5386 /* AssetScriptTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssetScriptTransaction+Mapper.swift"; sourceTree = "<group>"; };
@@ -2241,13 +2241,6 @@
 			path = Type;
 			sourceTree = "<group>";
 		};
-		0A4E7DE422018067007BBA39 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
 		0A4E7DE52201810F007BBA39 /* Date */ = {
 			isa = PBXGroup;
 			children = (
@@ -2280,7 +2273,7 @@
 				0A4E7DE822018C5E007BBA39 /* PopoverPresentationAnimatorContext.swift */,
 				0A4E7DEB22018C5F007BBA39 /* PopoverPresentationController.swift */,
 				0A4E7DE922018C5E007BBA39 /* PopoverViewControllerTransitioning.swift */,
-				0A4E7DEA22018C5F007BBA39 /* PopverPresentationAnimator.swift */,
+				0A4E7DEA22018C5F007BBA39 /* PopoverPresentationAnimator.swift */,
 			);
 			path = Popover;
 			sourceTree = "<group>";
@@ -2897,7 +2890,6 @@
 				0ADD7F5821F22FB60075FC59 /* Thread+Assisstants.swift */,
 				0ADD7F3A21F22FB60075FC59 /* UInt8+Assisstants.swift */,
 				0A4E7DE52201810F007BBA39 /* Date */,
-				0A4E7DE422018067007BBA39 /* Protocols */,
 				0A4E7DE322018057007BBA39 /* Type */,
 			);
 			path = Extensions;
@@ -5169,7 +5161,7 @@
 				0ADD801F21F22FFA0075FC59 /* RoutingCoordinator.swift in Sources */,
 				0A2B7D3B216038F80098438D /* AssetsSpamService.swift in Sources */,
 				0A7CCDAD218A138D005D372B /* MyAddressTypes.swift in Sources */,
-				0A4E7DEE22018C5F007BBA39 /* PopverPresentationAnimator.swift in Sources */,
+				0A4E7DEE22018C5F007BBA39 /* PopoverPresentationAnimator.swift in Sources */,
 				0ADD7FDC21F22FB60075FC59 /* TSUD.swift in Sources */,
 				0A3FE8AE2136E51900DBF4E1 /* TransactionContainersNode.swift in Sources */,
 				0A3FE8AC2136AF4B00DBF4E1 /* TransactionsRepositoryProtocol.swift in Sources */,

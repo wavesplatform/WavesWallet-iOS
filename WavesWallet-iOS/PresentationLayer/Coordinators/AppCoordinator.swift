@@ -15,7 +15,7 @@ import RxOptional
 private enum Contants {
 
     #if DEBUG
-    static let delay: TimeInterval = 0
+    static let delay: TimeInterval = 100000
     #else
     static let delay: TimeInterval = 10
     #endif
