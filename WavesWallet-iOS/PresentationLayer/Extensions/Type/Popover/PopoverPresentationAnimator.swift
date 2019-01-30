@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-final class PopverPresentationAnimator: NSObject {
+final class PopoverPresentationAnimator: NSObject {
 
     let isPresentation: Bool
 
@@ -23,7 +23,7 @@ final class PopverPresentationAnimator: NSObject {
 
 // MARK: - UIViewControllerAnimatedTransitioning
 
-extension PopverPresentationAnimator: UIViewControllerAnimatedTransitioning {
+extension PopoverPresentationAnimator: UIViewControllerAnimatedTransitioning {
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.4
@@ -41,11 +41,9 @@ extension PopverPresentationAnimator: UIViewControllerAnimatedTransitioning {
             transitionContext.containerView.addSubview(controller.view)
         }
 
-        if let context = controller as? PopoverPresentationAnimatorScrollViewContext {
-            let scrollView = context.scrollView
-            panGesture.delegate = self
-            scrollView.addGestureRecognizer(panGesture)
-        }
+
+        panGesture.delegate = self
+        controller.view.addGestureRecognizer(panGesture)
 
         let parentFrame = transitionContext.finalFrame(for: parentController)
 
@@ -109,7 +107,7 @@ extension PopverPresentationAnimator: UIViewControllerAnimatedTransitioning {
     }
 }
 
-extension PopverPresentationAnimator: UIGestureRecognizerDelegate {
+extension PopoverPresentationAnimator: UIGestureRecognizerDelegate {
 
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -120,4 +118,21 @@ extension PopverPresentationAnimator: UIGestureRecognizerDelegate {
         return true
     }
 
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return true
+    }
+
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive press: UIPress) -> Bool {
+        return true
+    }
 }
