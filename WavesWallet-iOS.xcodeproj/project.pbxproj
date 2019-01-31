@@ -135,6 +135,7 @@
 		0A4E7DED22018C5F007BBA39 /* PopoverViewControllerTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4E7DE922018C5E007BBA39 /* PopoverViewControllerTransitioning.swift */; };
 		0A4E7DEE22018C5F007BBA39 /* PopoverPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4E7DEA22018C5F007BBA39 /* PopoverPresentationAnimator.swift */; };
 		0A4E7DEF22018C5F007BBA39 /* PopoverPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4E7DEB22018C5F007BBA39 /* PopoverPresentationController.swift */; };
+		0A4E7DF222030A67007BBA39 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4E7DF122030A66007BBA39 /* TestViewController.swift */; };
 		0A57C38C21F74E21003B5386 /* ScriptTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C38B21F74E20003B5386 /* ScriptTransaction+Mapper.swift */; };
 		0A57C38E21F74E2E003B5386 /* AssetScriptTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C38D21F74E2E003B5386 /* AssetScriptTransaction+Mapper.swift */; };
 		0A57C39021F74EB0003B5386 /* ScriptTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C38F21F74EB0003B5386 /* ScriptTransaction.swift */; };
@@ -1013,6 +1014,7 @@
 		0A4E7DE922018C5E007BBA39 /* PopoverViewControllerTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewControllerTransitioning.swift; sourceTree = "<group>"; };
 		0A4E7DEA22018C5F007BBA39 /* PopoverPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverPresentationAnimator.swift; sourceTree = "<group>"; };
 		0A4E7DEB22018C5F007BBA39 /* PopoverPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverPresentationController.swift; sourceTree = "<group>"; };
+		0A4E7DF122030A66007BBA39 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TestViewController.swift; path = "/Users/mefilt/Works/Waves/waveswallet-ios_dex/WavesWallet-iOS/PresentationLayer/Modules/Support/TestViewController.swift"; sourceTree = "<absolute>"; };
 		0A57C38B21F74E20003B5386 /* ScriptTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScriptTransaction+Mapper.swift"; sourceTree = "<group>"; };
 		0A57C38D21F74E2E003B5386 /* AssetScriptTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssetScriptTransaction+Mapper.swift"; sourceTree = "<group>"; };
 		0A57C38F21F74EB0003B5386 /* ScriptTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptTransaction.swift; sourceTree = "<group>"; };
@@ -2254,15 +2256,15 @@
 		0A4E7DE622018132007BBA39 /* Type */ = {
 			isa = PBXGroup;
 			children = (
-				0A4E7DE722018C3B007BBA39 /* Popover */,
 				0ADD7F6521F22FB60075FC59 /* AssetLogo.swift */,
 				0ADD7F5B21F22FB60075FC59 /* DisplayError.swift */,
 				0ADD7F6121F22FB60075FC59 /* GlobalConstants.swift */,
-				0ADD7F4A21F22FB60075FC59 /* UIAlertController+Factory.swift */,
+				0ADD7F3F21F22FB60075FC59 /* MailCompose+Support.swift */,
 				0ADD7F3321F22FB60075FC59 /* Notifications.swift */,
 				0ADD7F3D21F22FB60075FC59 /* QRCodeReader+Factory.swift */,
-				0ADD7F3F21F22FB60075FC59 /* MailCompose+Support.swift */,
 				0ADD7F3021F22FB60075FC59 /* RateApp.swift */,
+				0ADD7F4A21F22FB60075FC59 /* UIAlertController+Factory.swift */,
+				0A4E7DE722018C3B007BBA39 /* Popover */,
 			);
 			path = Type;
 			sourceTree = "<group>";
@@ -2572,6 +2574,7 @@
 		0A762D9E2163ACE80019D447 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				0A4E7DF122030A66007BBA39 /* TestViewController.swift */,
 				0A762D9F2163AD0F0019D447 /* Support.storyboard */,
 				0A762DA12163AD1A0019D447 /* SupportViewController.swift */,
 			);
@@ -2905,8 +2908,6 @@
 				0ADD7F2021F22FB60075FC59 /* ControlEvent+ScrollView.swift */,
 				0ADD7F3221F22FB60075FC59 /* ControlEvent+Signal.swift */,
 				0ADD7F5021F22FB60075FC59 /* NSAttributedString+Styles.swift */,
-				0ADD7F7D21F22FB60075FC59 /* Protocols */,
-				0A4E7DE622018132007BBA39 /* Type */,
 				0ADD7F2321F22FB60075FC59 /* RxDataSource+TableView.swift */,
 				0ADD7F2E21F22FB60075FC59 /* RxTableViewAnimatedDataSource.swift */,
 				0ADD7F4321F22FB60075FC59 /* TimingFunction.swift */,
@@ -2934,6 +2935,8 @@
 				0ADD7F2F21F22FB60075FC59 /* UIViewController+Alert.swift */,
 				0ADD7F3C21F22FB60075FC59 /* UIViewController+Rx.swift */,
 				0ADD7F3921F22FB60075FC59 /* UIViewController+SafeArea.swift */,
+				0ADD7F7D21F22FB60075FC59 /* Protocols */,
+				0A4E7DE622018132007BBA39 /* Type */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3389,38 +3392,38 @@
 		0AF92281212E1234003BA067 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
-				0ADD7F3B21F22FB60075FC59 /* PasteboardButton.swift */,
-				F7C683BA1EA93C5800C87DAF /* CustomNavigationController.swift */,
-				E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */,
-				E904525920B4EF4200A490E5 /* PopupViewController.swift */,
-				0A43996821504CF60032E608 /* SideMenu.swift */,
-				0AACD59721A59E6300B30815 /* SweetSnackbar */,
+				E9310D1C217942C8008BF3EE /* BlueBgView.swift */,
 				0AF922A2212E1234003BA067 /* BorderButtView.swift */,
 				0AF922A1212E1234003BA067 /* CenteringContentButton.swift */,
+				0AF6AD24218A54840004F107 /* CopyableImageView.swift */,
 				0AF92295212E1234003BA067 /* CopyableLabel.swift */,
 				04831F8321697A4F006D1ED6 /* CustomGradientView.swift */,
+				F7C683BA1EA93C5800C87DAF /* CustomNavigationController.swift */,
 				0AF9228C212E1234003BA067 /* DottedLineView.swift */,
 				E9C4134B20E826E300AA044F /* DottedRoundView.swift */,
+				0ACC0232217E2BA1000E3EE0 /* DynamicHeaderTableView.swift */,
 				0AF92288212E1234003BA067 /* EmptyCell.swift */,
-				0AF9228A212E1234003BA067 /* EmptyCell.xib */,
+				0AF0C67A21AACA4F00602197 /* GlobalErrorView.swift */,
 				0AF922A3212E1234003BA067 /* GradientView.swift */,
 				E92D9BFE2148740B006D6D6B /* InputScrollButtonsView.swift */,
 				0AF922A5212E1234003BA067 /* NavigationAccessoryView.swift */,
+				0ADD7F3B21F22FB60075FC59 /* PasteboardButton.swift */,
+				E904525920B4EF4200A490E5 /* PopupViewController.swift */,
+				E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */,
 				0AF92296212E1234003BA067 /* SeparatorView.swift */,
+				0A43996821504CF60032E608 /* SideMenu.swift */,
 				0AF92297212E1234003BA067 /* TickerView.swift */,
-				0AF92282212E1234003BA067 /* TickerView.xib */,
-				E9310D1C217942C8008BF3EE /* BlueBgView.swift */,
 				0A762D9621639FCC0019D447 /* WavesButton.swift */,
-				E9A2268B2159666E006E0CE1 /* UIKit */,
+				0AF9228A212E1234003BA067 /* EmptyCell.xib */,
+				0AF0C67C21AACB3700602197 /* GlobalErrorView.xib */,
+				0AF92282212E1234003BA067 /* TickerView.xib */,
 				0AF9228D212E1234003BA067 /* AssetSegmented */,
 				0AF92283212E1234003BA067 /* HalfModalPresentationController */,
 				0A96F1CF2151B6A9005E148F /* Passcode */,
 				0AF92298212E1234003BA067 /* SegmentedControl */,
 				0AF92292212E1234003BA067 /* Skeleton */,
-				0ACC0232217E2BA1000E3EE0 /* DynamicHeaderTableView.swift */,
-				0AF6AD24218A54840004F107 /* CopyableImageView.swift */,
-				0AF0C67A21AACA4F00602197 /* GlobalErrorView.swift */,
-				0AF0C67C21AACB3700602197 /* GlobalErrorView.xib */,
+				0AACD59721A59E6300B30815 /* SweetSnackbar */,
+				E9A2268B2159666E006E0CE1 /* UIKit */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -5489,6 +5492,7 @@
 				E9B087AF2163886800937644 /* DexOrderBookHeaderView.swift in Sources */,
 				0ADD7FF621F22FB60075FC59 /* NibOwnerLoadable.swift in Sources */,
 				E9B087982163886800937644 /* DexChartPresenterProtocol.swift in Sources */,
+				0A4E7DF222030A67007BBA39 /* TestViewController.swift in Sources */,
 				E9D36DC92175C755001E6DF0 /* ReceiveCryptocurrencyModuleBuilder.swift in Sources */,
 				E9B087AE2163886800937644 /* DexOrderBookCell.swift in Sources */,
 				0A7CCDAE218A138D005D372B /* MyAddressViewController.swift in Sources */,
