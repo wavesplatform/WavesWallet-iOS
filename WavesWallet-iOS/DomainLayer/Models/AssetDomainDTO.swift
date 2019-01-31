@@ -31,6 +31,8 @@ extension DomainLayer.DTO {
         let isWaves: Bool
         let modified: Date
         let addressRegEx: String
+        let hasScript: Bool
+        let minSponsoredFee: Int64
     }
 }
 

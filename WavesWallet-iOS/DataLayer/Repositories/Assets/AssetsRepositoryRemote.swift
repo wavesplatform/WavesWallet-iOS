@@ -146,7 +146,7 @@ fileprivate extension DomainLayer.DTO.Asset {
         var isFiat = false
         let isGateway = info?.isGateway ?? false
         var name = asset.name
-
+        
         //TODO: Current code need move to AssetInteractor!
         if let info = info {
             isGeneral = true
@@ -164,5 +164,7 @@ fileprivate extension DomainLayer.DTO.Asset {
         self.isGateway = isGateway
         self.displayName = name
         self.addressRegEx = info?.addressRegEx ?? ""
+        self.hasScript = asset.hasScript
+        self.minSponsoredFee = asset.minSponsoredFee ?? 0
     }
 }
