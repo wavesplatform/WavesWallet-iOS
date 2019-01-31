@@ -10,14 +10,25 @@ import Foundation
 import UIKit
 
 protocol PopoverPresentationAnimatorContext {
+
     func contectHeight(for size:  CGSize) -> CGFloat
+
+    func appearingContectHeight(for size:  CGSize) -> CGFloat
+
+    func disappearingContectHeight(for size:  CGSize) -> CGFloat
 }
 
-protocol PopoverPresentationAnimatorScrollContext {
-    func contectHeight(for size:  CGSize) -> CGFloat
-//    func contectHeight(for size:  CGSize) -> CGFloat
+protocol PopoverPresentationAnimatorSimpleContext: PopoverPresentationAnimatorContext {}
+
+extension PopoverPresentationAnimatorSimpleContext {
+    func appearingContectHeight(for size:  CGSize) -> CGFloat {
+
+        let contectHeight = self.contectHeight(for: size)
+        return size.height - contectHeight
+    }
+
+    func disappearingContectHeight(for size:  CGSize) -> CGFloat {
+        return size.height
+    }
 }
 
-protocol PopoverPresentationAnimatorScrollViewContext: PopoverPresentationAnimatorContext {
-    var scrollView: UIScrollView { get }
-}

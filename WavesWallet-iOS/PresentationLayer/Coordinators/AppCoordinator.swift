@@ -253,7 +253,7 @@ extension AppCoordinator {
 #if DEBUG || TEST
 
 // MARK: Support
-extension AppCoordinator {
+private extension AppCoordinator {
 
     func addTapGestureForSupportDisplay() {
 
@@ -264,13 +264,17 @@ extension AppCoordinator {
     }
 
     @objc func tapGesture(tap: UITapGestureRecognizer) {
-        let vc = StoryboardScene.Support.supportViewController.instantiate()
-        vc.delegate = self
-        self.windowRouter.window.rootViewController?.present(vc, animated: true, completion: nil)
+        showSupport()
     }
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+
+    private func showSupport() {
+        let vc = StoryboardScene.Support.supportViewController.instantiate()
+        vc.delegate = self
+        self.windowRouter.window.rootViewController?.present(vc, animated: true, completion: nil)
     }
 }
 

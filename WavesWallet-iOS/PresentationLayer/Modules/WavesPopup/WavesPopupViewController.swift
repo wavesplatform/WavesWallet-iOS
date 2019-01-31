@@ -29,10 +29,6 @@ final class WavesPopupViewController: UIViewController {
         sendButton.setTitle(Localizable.Waves.Wavespopup.Button.send, for: .normal)
         receiveButton.setTitle(Localizable.Waves.Wavespopup.Button.receive, for: .normal)
         exchangeButton.setTitle(Localizable.Waves.Wavespopup.Button.exchange, for: .normal)
-
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlerScrollPanGesture(recognizer:)))
-        panGesture.delegate = self
-        self.view.addGestureRecognizer(panGesture)
     }
 
     @IBAction func sendTapped(_ sender: Any) {
@@ -58,29 +54,4 @@ final class WavesPopupViewController: UIViewController {
             parent.dismissPopup()
         }
     }
-
-    @objc func handlerScrollPanGesture(recognizer: UIPanGestureRecognizer) {
-//        self.dismiss(animated: true, completion: nil)
-    }
-}
-
-extension WavesPopupViewController: UIGestureRecognizerDelegate {
-
-
-}
-
-extension WavesPopupViewController: PopoverPresentationAnimatorContext {
-
-    func contectHeight(for size: CGSize) -> CGFloat {
-        return 305
-    }
-
-}
-
-extension WavesPopupViewController: PopoverPresentationAnimatorContext {
-
-    func contectHeight(for size: CGSize) -> CGFloat {
-        return 305
-    }
-
 }

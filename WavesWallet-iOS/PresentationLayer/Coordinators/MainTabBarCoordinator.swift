@@ -26,11 +26,6 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
     weak var parent: Coordinator?
 
     private let slideMenuRouter: SlideMenuRouter
-
-    private let popoverViewControllerTransitioning: PopoverViewControllerTransitioning = PopoverViewControllerTransitioning {
-
-    }
-
     private lazy var tabBarRouter: TabBarRouter = {
 
         let mainTabBar = StoryboardScene.Main.mainTabBarController.instantiate()
@@ -188,13 +183,9 @@ extension MainTabBarCoordinator: UITabBarControllerDelegate {
         if viewController is PopoperButtonViewController {
             let vc = StoryboardScene.Waves.wavesPopupViewController.instantiate()
             vc.moduleOutput = self
-            vc.modalPresentationStyle = .custom
-            vc.transitioningDelegate = popoverViewControllerTransitioning
-//            let popup = PopupViewController()
-//            popup.contentHeight = 300
-//            popup.present(contentViewController: vc)
-            
-            tabBarController.present(vc, animated: true, completion: nil)
+            let popup = PopupViewController()
+            popup.contentHeight = 300
+            popup.present(contentViewController: vc)
 
             return false
         }
