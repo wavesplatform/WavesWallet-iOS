@@ -20,5 +20,7 @@ extension API.DTO {
         let sender: String
         let quantity: Int64
         let reissuable: Bool
+        let hasScript: Bool
+        let minSponsoredFee: Int64?
     }
 }
