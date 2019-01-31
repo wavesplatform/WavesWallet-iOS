@@ -56,13 +56,15 @@ extension PopoverPresentationAnimator: UIViewControllerAnimatedTransitioning {
         let maxSize = CGSize(width: width, height: maxHeight)
 
         let initialFrame: CGRect =  calculateFrame(isPresentation: !isPresentation,
-                                                     maxSize: maxSize,
-                                                     height: height)
+                                                    maxSize: maxSize,
+                                                    height: height,
+                                                    controller: controller)
 
 
         let finalFrame: CGRect = calculateFrame(isPresentation: isPresentation,
-                                                    maxSize: maxSize,
-                                                    height: height)
+                                                maxSize: maxSize,
+                                                height: height,
+                                                controller: controller)
 
         let animationDuration = transitionDuration(using: transitionContext)
         controller.view.frame = initialFrame
@@ -74,24 +76,46 @@ extension PopoverPresentationAnimator: UIViewControllerAnimatedTransitioning {
         })
     }
 
-    private func calculateFrame(isPresentation: Bool, maxSize: CGSize, height: CGFloat) -> CGRect {
+    private func calculateFrame(isPresentation: Bool, maxSize: CGSize, height: CGFloat, controller: UIViewController) -> CGRect {
 
         var frame: CGRect!
 
         let maxHeight = maxSize.height
         let width = maxSize.width
 
-        if isPresentation {
-            frame = CGRect(x: 0,
-                           y: maxHeight - height,
-                           width: width,
-                           height: height)
+        if let context = controller as? PopoverPresentationAnimatorContext {
+
+            let appY = context.appearingContectHeight(for: maxSize)
+            let dissY = context.disappearingContectHeight(for: maxSize)
+
+            if isPresentation {
+                frame = CGRect(x: 0,
+                               y: appY,
+                               width: width,
+                               height: height)
+            } else {
+                frame = CGRect(x: 0,
+                               y: dissY,
+                               width: width,
+                               height: height)
+            }
+
         } else {
-            frame = CGRect(x: 0,
-                           y: maxHeight,
-                           width: width,
-                           height: height)
+
+            if isPresentation {
+                frame = CGRect(x: 0,
+                               y: maxHeight - height,
+                               width: width,
+                               height: height)
+            } else {
+                frame = CGRect(x: 0,
+                               y: maxHeight,
+                               width: width,
+                               height: height)
+            }
         }
+
+
 
         return frame
     }

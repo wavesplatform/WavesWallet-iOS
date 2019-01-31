@@ -37,24 +37,25 @@ final class SupportViewController: UIViewController {
     }
 
     @IBAction func actionTestNetSwitch(sender: Any) {
-        
+
     }
 
     static let image = "test"
 
+    private let popoverViewControllerTransitioning = PopoverViewControllerTransitioning {
+
+    }
+
     @IBAction private func actionCrash(_ sender: Any) {
 
-        auth
-            .authorizedWallet()
-            .flatMap { (wallet) -> Observable<DomainLayer.DTO.SmartTransaction> in
-                return self
-                    .transactions
-                    .send(by: .data(.init(fee: GlobalConstants.WavesTransactionFeeAmount,
-                                          data: [.init(key: "image", value: .binary(Array(SupportViewController.image.utf8)))])),
-                          wallet: wallet)
-            }
-            .subscribe().dispose()
+        let test = StoryboardScene.Support.testViewController.instantiate()
+
+        test.modalPresentationStyle = .custom
+        test.transitioningDelegate = popoverViewControllerTransitioning
+
+        self.present(test, animated: true, completion: nil)
     }
+
 
     @IBAction func actionClean(_ sender: Any) {
         let auth = FactoryInteractors.instance.authorization
