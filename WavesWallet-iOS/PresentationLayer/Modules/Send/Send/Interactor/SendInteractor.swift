@@ -89,7 +89,7 @@ final class SendInteractor: SendInteractorProtocol {
             
             return owner.aliasRepository.alias(by: alias, accountAddress: wallet.address)
                 .flatMap({ (address) -> Observable<Bool>  in
-                    return Observable.just(address != nil ? true : false)
+                    return Observable.just(true)
             })
         })
         .catchError({ (error) -> Observable<Bool> in

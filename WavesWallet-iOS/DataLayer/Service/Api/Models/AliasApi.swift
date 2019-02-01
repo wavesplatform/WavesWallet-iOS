@@ -12,6 +12,6 @@ extension API.DTO {
     
     struct Alias: Decodable {
         let alias: String
-        let address: String?
+        let address: String
     }
 }
