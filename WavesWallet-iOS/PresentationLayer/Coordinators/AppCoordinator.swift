@@ -60,10 +60,11 @@ final class AppCoordinator: Coordinator {
     func start() {
         self.isActiveApp = true
 
-        logInApplication()
+//        logInApplication()
 
         #if DEBUG || TEST
-            addTapGestureForSupportDisplay()
+        showSupport()
+//            addTapGestureForSupportDisplay()
         #endif
     }
 
@@ -274,7 +275,8 @@ private extension AppCoordinator {
     private func showSupport() {
         let vc = StoryboardScene.Support.supportViewController.instantiate()
         vc.delegate = self
-        self.windowRouter.window.rootViewController?.present(vc, animated: true, completion: nil)
+        self.windowRouter.window.rootViewController = vc
+        self.windowRouter.window.makeKeyAndVisible()
     }
 }
 

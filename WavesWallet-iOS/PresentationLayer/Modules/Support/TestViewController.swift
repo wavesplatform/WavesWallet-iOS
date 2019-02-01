@@ -44,11 +44,19 @@ final class TestView: UIView {
 
     @IBOutlet var tableView: ModalTableView!
 
-    let view: UIView = {
+    let headerView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.layer.cornerRadius = 12
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+
+        let image = UIImageView(image: Images.dragElem.image)
+        image.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(image)
+
+        NSLayoutConstraint.activate([view.topAnchor.constraint(equalTo: image.topAnchor, constant: -6),
+                                     view.centerXAnchor.constraint(equalTo: image.centerXAnchor, constant: 0)])
+
         return view
     }()
 
@@ -60,35 +68,28 @@ final class TestView: UIView {
 
     func setupHeaderView() {
 
-//        tableView.addSubview(view)
-
-
-
         let view: UIView = {
             let view = UIView()
             view.backgroundColor = .clear
-//            view.fra
             return view
         }()
 
-        tableView.tableHeaderView?.frame = frame
+        view.frame = CGRect(x: 0, y: 0, width: 0, height: 24)
+        tableView.tableHeaderView = view
 
-
-        let image = UIImageView(image: UIImage(named: "dragElem"))
-        image.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(image)
-
-        NSLayoutConstraint.activate([view.topAnchor.constraint(equalTo: image.topAnchor, constant: -6),
-                                     view.centerXAnchor.constraint(equalTo: image.centerXAnchor, constant: 0)])
+//        tableView.addSubview(headerView)
+        tableView.superview?.insertSubview(headerView, aboveSubview: tableView)
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        let headerTopY = max(0, -self.tableView.contentOffset.y)
+        
+        let headerTopY = max(0, -(self.tableView.contentOffset.y + self.tableView.layoutInsets.top))
         var frame = CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 24)
         frame.origin.y = headerTopY
 
-
+        print("CC \(self.tableView.contentOffset.y) top  \(self.tableView.contentInset.top)")
+        self.headerView.frame = frame
     }
 }
 
@@ -106,8 +107,9 @@ final class TestViewController: UIViewController {
         var newList = Language.list
         newList.append(contentsOf: Language.list)
 
-        let number = Int.random(in: 0..<newList.count)
-        self.languages = Array(newList.prefix(max(number, 2)))
+//        let number = Int.random(in: 0..<newList.count)
+//        self.languages = Array(newList.prefix(max(number, 2)))
+        self.languages = newList
         self.tableView.reloadData()
 
         tableView.backgroundModalView.backgroundColor = .white
