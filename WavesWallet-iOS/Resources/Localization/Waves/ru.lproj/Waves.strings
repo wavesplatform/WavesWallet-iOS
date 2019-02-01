@@ -585,7 +585,7 @@
 
 "history.transaction.value.data" = "Запись в блокчейн";
 
-"history.transaction.value.setAssetScript" = "Установка скрипт ассета";
+"history.transaction.value.setAssetScript" = "Установка скрипта ассета";
 
 "history.transaction.value.setScript.cancel" = "Отмена скрипта";
 
