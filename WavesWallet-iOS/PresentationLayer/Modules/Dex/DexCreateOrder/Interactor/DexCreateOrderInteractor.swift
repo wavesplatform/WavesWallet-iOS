@@ -12,6 +12,7 @@ import Moya
 
 private enum Constants {
     static let minimumOrderFee: Int64 = 300000
+    static let numberForConveringDecimals = 8
 }
 
 final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
@@ -31,13 +32,17 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
             return owner.matcherRepository.matcherPublicKey(accountAddress: wallet.address)
                 .flatMap({ [weak self] (matcherPublicKey) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
                     guard let owner = self else { return Observable.empty() }
-                    
+
+                    let precisionDifference =  (order.priceAsset.decimals - order.amountAsset.decimals) + Constants.numberForConveringDecimals
+
+                    let price = (order.price.decimalValue * pow(10, precisionDifference)).int64Value
+
                     let orderQuery = DomainLayer.Query.Dex.CreateOrder(wallet: wallet,
                                                                        matcherPublicKey: matcherPublicKey,
                                                                        amountAsset: order.amountAsset.id,
                                                                        priceAsset: order.priceAsset.id,
                                                                        amount: order.amount.amount,
-                                                                       price: order.price.amount,
+                                                                       price: price,
                                                                        orderType: order.type,
                                                                        matcherFee: order.fee,
                                                                        expiration: Int64(order.expiration.rawValue))
