@@ -139,12 +139,16 @@ fileprivate extension CreateAliasPresenter {
             return strongSelf
                 .authorizationInteractor
                 .authorizedWallet()
-                .flatMap({ wallet -> Observable<String?> in
+                .flatMap({ wallet -> Observable<String> in
                     return strongSelf.aliasesRepository.alias(by: name, accountAddress: wallet.address)
                 })
                 .map { _ in .errorAliasExist }
                 .asSignal(onErrorRecover: { e in
-                    return Signal.just(Types.Event.aliasNameFree)
+                    
+                    if let error = e as? AliasesRepositoryError, error == .dontExist {
+                        return Signal.just(Types.Event.aliasNameFree)
+                    }
+                    return Signal.just(Types.Event.errorAliasExist)
                 })
         })
     }
