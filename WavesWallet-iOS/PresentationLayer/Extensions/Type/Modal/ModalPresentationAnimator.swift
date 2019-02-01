@@ -1,5 +1,5 @@
 //
-//  PopverPresentationAnimator.swift
+//  ModalPresentationAnimator
 //  Popover
 //
 //  Created by mefilt on 29/01/2019.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-final class PopoverPresentationAnimator: NSObject {
+final class ModalPresentationAnimator: NSObject {
 
     let isPresentation: Bool
 
@@ -21,7 +21,7 @@ final class PopoverPresentationAnimator: NSObject {
 
 // MARK: - UIViewControllerAnimatedTransitioning
 
-extension PopoverPresentationAnimator: UIViewControllerAnimatedTransitioning {
+extension ModalPresentationAnimator: UIViewControllerAnimatedTransitioning {
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.4
@@ -48,7 +48,7 @@ extension PopoverPresentationAnimator: UIViewControllerAnimatedTransitioning {
         let width = parentFrame.size.width
         var height = maxHeight
 
-        if let context = controller as? PopoverPresentationAnimatorContext {
+        if let context = controller as? ModalPresentationAnimatorContext {
             height = context.contectHeight(for: CGSize(width: width,
                                                        height: maxHeight))
         }
@@ -83,7 +83,7 @@ extension PopoverPresentationAnimator: UIViewControllerAnimatedTransitioning {
         let maxHeight = maxSize.height
         let width = maxSize.width
 
-        if let context = controller as? PopoverPresentationAnimatorContext {
+        if let context = controller as? ModalPresentationAnimatorContext {
 
             let appY = context.appearingContectHeight(for: maxSize)
             let dissY = context.disappearingContectHeight(for: maxSize)

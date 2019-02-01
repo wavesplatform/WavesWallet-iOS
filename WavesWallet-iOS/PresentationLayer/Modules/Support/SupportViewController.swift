@@ -42,7 +42,7 @@ final class SupportViewController: UIViewController {
 
     static let image = "test"
 
-    private let popoverViewControllerTransitioning = PopoverViewControllerTransitioning {
+    private let popoverViewControllerTransitioning = ModalViewControllerTransitioning {
 
     }
 

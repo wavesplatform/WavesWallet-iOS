@@ -9,29 +9,29 @@
 import Foundation
 import UIKit
 
-final class PopoverViewControllerTransitioning: NSObject {
+final class ModalViewControllerTransitioning: NSObject {
 
-    private var animator = PopoverPresentationAnimator(isPresentation: false)
+    private var animator = ModalPresentationAnimator(isPresentation: false)
 
-    private let dismiss: PopoverPresentationController.DismissCompleted?
+    private let dismiss: ModalPresentationController.DismissCompleted?
 
-    init(dismiss: PopoverPresentationController.DismissCompleted?) {
+    init(dismiss: ModalPresentationController.DismissCompleted?) {
         self.dismiss = dismiss
     }
 }
 
-extension PopoverViewControllerTransitioning: UIViewControllerTransitioningDelegate {
+extension ModalViewControllerTransitioning: UIViewControllerTransitioningDelegate {
 
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return PopoverPresentationAnimator(isPresentation: true)
+        return ModalPresentationAnimator(isPresentation: true)
     }
 
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return PopoverPresentationAnimator(isPresentation: false)
+        return ModalPresentationAnimator(isPresentation: false)
     }
 
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController?  {
-        return PopoverPresentationController(presentedViewController: presented, presenting: presenting, dismiss: { [weak self] in
+        return ModalPresentationController(presentedViewController: presented, presenting: presenting, dismiss: { [weak self] in
             self?.dismiss?()
         })
     }
