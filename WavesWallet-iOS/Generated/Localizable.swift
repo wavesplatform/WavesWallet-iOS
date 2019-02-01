@@ -1949,6 +1949,14 @@ internal enum Localizable {
           internal static var insufficientFunds: String { return Localizable.tr("Waves", "send.label.error.insufficientFunds") }
           /// invalid ID
           internal static var invalidId: String { return Localizable.tr("Waves", "send.label.error.invalidId") }
+          /// Max %@ %@
+          internal static func maximum(_ p1: String, _ p2: String) -> String {
+            return Localizable.tr("Waves", "send.label.error.maximum", p1, p2)
+          }
+          /// Min %@ %@
+          internal static func minimun(_ p1: String, _ p2: String) -> String {
+            return Localizable.tr("Waves", "send.label.error.minimun", p1, p2)
+          }
           /// You don't have enough funds to pay the required fees.
           internal static var notFundsFee: String { return Localizable.tr("Waves", "send.label.error.notFundsFee") }
           /// You don't have enough funds to pay the required fees. You must pay %@ transaction fee and %@ gateway fee.
