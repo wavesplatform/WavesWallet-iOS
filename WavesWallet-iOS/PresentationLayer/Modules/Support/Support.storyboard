@@ -209,7 +209,7 @@
         <scene sceneID="rBf-27-3v1">
             <objects>
                 <viewController storyboardIdentifier="TestViewController" id="Mke-Ak-d8I" customClass="TestViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="NTE-5m-9tv" customClass="TestView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="NTE-5m-9tv" customClass="ModalRootView" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
