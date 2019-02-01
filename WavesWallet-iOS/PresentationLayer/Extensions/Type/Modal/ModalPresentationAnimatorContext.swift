@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol PopoverPresentationAnimatorContext {
+protocol ModalPresentationAnimatorContext {
 
     func contectHeight(for size:  CGSize) -> CGFloat
 
@@ -18,9 +18,9 @@ protocol PopoverPresentationAnimatorContext {
     func disappearingContectHeight(for size:  CGSize) -> CGFloat
 }
 
-protocol PopoverPresentationAnimatorSimpleContext: PopoverPresentationAnimatorContext {}
+protocol ModalPresentationAnimatorSimpleContext: ModalPresentationAnimatorContext {}
 
-extension PopoverPresentationAnimatorSimpleContext {
+extension ModalPresentationAnimatorSimpleContext {
     func appearingContectHeight(for size:  CGSize) -> CGFloat {
 
         let contectHeight = self.contectHeight(for: size)

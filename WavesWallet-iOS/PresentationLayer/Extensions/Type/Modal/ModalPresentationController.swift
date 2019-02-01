@@ -1,5 +1,5 @@
 //
-//  PopoverPresentationController.swift
+//  ModalPresentationController.swift
 //  Popover
 //
 //  Created by mefilt on 29/01/2019.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-final class PopoverPresentationController: UIPresentationController {
+final class ModalPresentationController: UIPresentationController {
 
     typealias DismissCompleted = (() -> Void)
 
@@ -78,9 +78,9 @@ final class PopoverPresentationController: UIPresentationController {
 
 // MARK: - Private
 
-extension PopoverPresentationController {
+extension ModalPresentationController {
 
-    @objc private func close() {
+    @objc private func dimssViewController() {
         presentedViewController.dismiss(animated: true)
     }
 
@@ -102,11 +102,20 @@ extension PopoverPresentationController {
     }
 
     private func addGestureRecognizers() {
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(close))
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(dimssViewController))
+        tapRecognizer.delegate = self
         shadowView.addGestureRecognizer(tapRecognizer)
 
-        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(close))
+        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(dimssViewController))
         swipeRecognizer.direction = .down
+        swipeRecognizer.delegate = self
         shadowView.addGestureRecognizer(swipeRecognizer)
+    }
+}
+
+extension ModalPresentationController: UIGestureRecognizerDelegate {
+
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }
