@@ -62,20 +62,20 @@ final class AliasesRepository: AliasesRepositoryProtocol {
             })
     }
 
-    func alias(by name: String, accountAddress: String) -> Observable<String?> {
+    func alias(by name: String, accountAddress: String) -> Observable<String> {
 
         return environmentRepository.accountEnvironment(accountAddress: accountAddress)
-            .flatMap({ [weak self] (environment) -> Observable<String?> in
+            .flatMap({ [weak self] (environment) -> Observable<String> in
                 guard let owner = self else { return Observable.empty() }
                 return owner.aliasApi.rx.request(API.Service.Alias(environment: environment,
                                                                    kind: .alias(name: name)))
                 .filterSuccessfulStatusAndRedirectCodes()
                 .map(API.Response<API.DTO.Alias>.self)
-                .map({ (response) -> String? in
+                .map({ (response) -> String in
                     return response.data.address
                 })
                 .asObservable()
-                .catchError({ (e) -> Observable<String?> in
+                .catchError({ (e) -> Observable<String> in
                     guard let error = e as? MoyaError else {
                         return Observable.error(NetworkError.error(by: e))
                     }
