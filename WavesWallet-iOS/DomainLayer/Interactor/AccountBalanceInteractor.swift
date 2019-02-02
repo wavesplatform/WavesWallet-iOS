@@ -183,12 +183,13 @@ private extension AccountBalanceInteractor {
             }
 
             return DomainLayer.DTO.SmartAssetBalance(assetId: balance.assetId,
-                                                    totalBalance: balance.totalBalance,
-                                                    leasedBalance: balance.leasedBalance,
-                                                    inOrderBalance: balance.inOrderBalance,
-                                                    settings: settings,
-                                                    asset: asset,
-                                                    modified: balance.modified)
+                                                     totalBalance: balance.totalBalance,
+                                                     leasedBalance: balance.leasedBalance,
+                                                     inOrderBalance: balance.inOrderBalance,
+                                                     settings: settings,
+                                                     asset: asset,
+                                                     modified: balance.modified,
+                                                     sponsorBalance: balance.sponsorBalance)
         }
         .compactMap { $0 }
         .sorted(by: { $0.settings.sortLevel < $1.settings.sortLevel })
@@ -224,5 +225,6 @@ private extension DomainLayer.DTO.AssetBalance {
         self.leasedBalance = 0
         self.inOrderBalance = 0
         self.modified = Date()
+        self.sponsorBalance = 0
     }
 }

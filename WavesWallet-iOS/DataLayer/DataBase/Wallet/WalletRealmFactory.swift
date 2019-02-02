@@ -173,6 +173,7 @@ enum WalletRealmFactory {
     
     static func removeAsset(migration: Migration) {
         migration.deleteData(forType: Asset.className())
+        migration.deleteData(forType: AssetBalance.className())        
     }
 }
 
