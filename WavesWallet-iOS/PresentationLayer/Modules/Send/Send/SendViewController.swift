@@ -59,7 +59,8 @@ final class SendViewController: UIViewController {
     private var moneroAddress: String = ""
     private var isLoadingAssetBalanceAfterScan = false
     private var errorSnackKey: String?
-
+    private var feeAssetID = GlobalConstants.wavesAssetId
+    
     var availableBalance: Money {
         
         guard let asset = selectedAsset else { return Money(0, 0)}
@@ -85,6 +86,8 @@ final class SendViewController: UIViewController {
         setupRecipientAddress()
         setupLocalization()
         setupFeedBack()
+        viewFee.isSelectedAssetFee = true
+        viewFee.delegate = self
         hideGatewayInfo(animation: false)
         hideCoinomatError(animation: false)
         updateAmountError(animation: false)
@@ -213,6 +216,25 @@ final class SendViewController: UIViewController {
     }
 }
 
+//MARK: - TransactionFeeViewDelegate
+extension SendViewController: TransactionFeeViewDelegate {
+    func transactionFeeViewDidTap() {
+        
+        guard let assetID = selectedAsset?.assetId else { return }
+        let vc = SendFeeModuleBuilder(output: self).build(input: .init(assetID: assetID, feeAssetID: feeAssetID))
+        let popup = PopupViewController()
+        popup.contentHeight = SendFeeModuleBuilder.minimumHeight
+        popup.present(contentViewController: vc)
+    }
+}
+
+//MARK: - SendFeeModuleOutput
+extension SendViewController: SendFeeModuleOutput {
+    
+    func sendFeeModuleDidSelectAssetFee(_ asset: DomainLayer.DTO.Asset) {
+        feeAssetID = asset.id
+    }
+}
 
 //MARK: - SendResultDelegate
 extension SendViewController: SendResultDelegate {

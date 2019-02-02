@@ -40,7 +40,8 @@ final class SendInteractor: SendInteractorProtocol {
                                                  inOrderBalance: 0,
                                                  settings: .init(assetId: asset.id, sortLevel: 0, isHidden: false, isFavorite: false),
                                                  asset: asset,
-                                                 modified: asset.modified)
+                                                 modified: asset.modified,
+                                                 sponsorBalance: 0)
                         }
                         return Observable.just(assetBalance)
                     })

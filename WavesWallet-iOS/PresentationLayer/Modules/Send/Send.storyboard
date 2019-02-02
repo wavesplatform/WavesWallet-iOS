@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -360,22 +364,155 @@
             </objects>
             <point key="canvasLocation" x="-223.19999999999999" y="148.42578710644679"/>
         </scene>
+        <!--Send Fee View Controller-->
+        <scene sceneID="pK4-wi-cJB">
+            <objects>
+                <viewController storyboardIdentifier="SendFeeViewController" id="oNq-g4-CRq" customClass="SendFeeViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Q0W-vb-zSu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="56" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rI3-p1-HiL">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SendFeeTableViewCell" id="B2Z-iO-Cfd" customClass="SendFeeTableViewCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="56"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="B2Z-iO-Cfd" id="YVD-RB-Gv4">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k54-Mv-FRD">
+                                                    <rect key="frame" x="16" y="14" width="28" height="28"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="28" id="44T-Ki-Sdv"/>
+                                                        <constraint firstAttribute="height" constant="28" id="IcL-9c-PF5"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="deq-eW-hWm">
+                                                    <rect key="frame" x="58" y="8.5" width="272" height="39"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WAVES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmr-0h-daA">
+                                                            <rect key="frame" x="0.0" y="0.0" width="272" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0005 AIPCOIN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ir-Sg-P8i">
+                                                            <rect key="frame" x="0.0" y="23" width="272" height="16"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="fmr-0h-daA" firstAttribute="top" secondItem="deq-eW-hWm" secondAttribute="top" id="5ad-ln-adz"/>
+                                                        <constraint firstItem="1ir-Sg-P8i" firstAttribute="leading" secondItem="deq-eW-hWm" secondAttribute="leading" id="5at-bE-Ctn"/>
+                                                        <constraint firstAttribute="bottom" secondItem="1ir-Sg-P8i" secondAttribute="bottom" id="9if-gm-BkJ"/>
+                                                        <constraint firstItem="fmr-0h-daA" firstAttribute="leading" secondItem="deq-eW-hWm" secondAttribute="leading" id="H3W-sN-NlB"/>
+                                                        <constraint firstAttribute="trailing" secondItem="fmr-0h-daA" secondAttribute="trailing" id="Ooa-O7-544"/>
+                                                        <constraint firstItem="1ir-Sg-P8i" firstAttribute="top" secondItem="fmr-0h-daA" secondAttribute="bottom" constant="2" id="cQ1-U9-Rbo"/>
+                                                        <constraint firstAttribute="trailing" secondItem="1ir-Sg-P8i" secondAttribute="trailing" id="f3W-fI-neD"/>
+                                                    </constraints>
+                                                </view>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="on" translatesAutoresizingMaskIntoConstraints="NO" id="xds-HC-IL1">
+                                                    <rect key="frame" x="335" y="16" width="24" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="24" id="X0v-4M-q74"/>
+                                                        <constraint firstAttribute="height" constant="24" id="mYr-sJ-bfz"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="xds-HC-IL1" firstAttribute="leading" secondItem="deq-eW-hWm" secondAttribute="trailing" constant="5" id="1mo-un-2zK"/>
+                                                <constraint firstItem="xds-HC-IL1" firstAttribute="centerY" secondItem="YVD-RB-Gv4" secondAttribute="centerY" id="4W5-uz-ise"/>
+                                                <constraint firstItem="deq-eW-hWm" firstAttribute="centerY" secondItem="YVD-RB-Gv4" secondAttribute="centerY" id="608-iQ-daX"/>
+                                                <constraint firstItem="k54-Mv-FRD" firstAttribute="centerY" secondItem="YVD-RB-Gv4" secondAttribute="centerY" id="Mju-bN-siE"/>
+                                                <constraint firstItem="deq-eW-hWm" firstAttribute="leading" secondItem="k54-Mv-FRD" secondAttribute="trailing" constant="14" id="aNy-HI-uK8"/>
+                                                <constraint firstAttribute="trailing" secondItem="xds-HC-IL1" secondAttribute="trailing" constant="16" id="tng-FA-ss0"/>
+                                                <constraint firstItem="k54-Mv-FRD" firstAttribute="leading" secondItem="YVD-RB-Gv4" secondAttribute="leading" constant="16" id="vwW-ht-obT"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="iconCheckmark" destination="xds-HC-IL1" id="4GA-tZ-f8z"/>
+                                            <outlet property="iconLogo" destination="k54-Mv-FRD" id="rnP-Wz-vVa"/>
+                                            <outlet property="labelSubtitle" destination="1ir-Sg-P8i" id="1xD-Q2-VjX"/>
+                                            <outlet property="labelTitle" destination="fmr-0h-daA" id="Tfj-rg-eH3"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SendFeeHeaderCell" rowHeight="40" id="J5c-Z3-zgU" customClass="SendFeeHeaderCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="84" width="375" height="40"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="J5c-Z3-zgU" id="gI3-YM-bal">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction Fee" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IOV-br-1IN">
+                                                    <rect key="frame" x="16" y="5" width="128" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="IOV-br-1IN" firstAttribute="top" secondItem="gI3-YM-bal" secondAttribute="top" constant="5" id="UeM-Hh-Nvr"/>
+                                                <constraint firstItem="IOV-br-1IN" firstAttribute="leading" secondItem="gI3-YM-bal" secondAttribute="leading" constant="16" id="kP4-RM-4oi"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="labelTitle" destination="IOV-br-1IN" id="62s-3W-lXh"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="oNq-g4-CRq" id="BgC-gh-gej"/>
+                                    <outlet property="delegate" destination="oNq-g4-CRq" id="CAL-0e-7NY"/>
+                                </connections>
+                            </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="JuH-Ic-2ta">
+                                <rect key="frame" x="177.5" y="140" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="rI3-p1-HiL" firstAttribute="leading" secondItem="aSY-Ju-zDz" secondAttribute="leading" id="6cI-dh-Iy8"/>
+                            <constraint firstItem="JuH-Ic-2ta" firstAttribute="centerX" secondItem="Q0W-vb-zSu" secondAttribute="centerX" id="LA0-x8-doS"/>
+                            <constraint firstItem="rI3-p1-HiL" firstAttribute="top" secondItem="aSY-Ju-zDz" secondAttribute="top" id="S6i-zl-grG"/>
+                            <constraint firstItem="aSY-Ju-zDz" firstAttribute="bottom" secondItem="rI3-p1-HiL" secondAttribute="bottom" id="d0X-aK-hEi"/>
+                            <constraint firstItem="aSY-Ju-zDz" firstAttribute="trailing" secondItem="rI3-p1-HiL" secondAttribute="trailing" id="drO-qY-HLZ"/>
+                            <constraint firstItem="JuH-Ic-2ta" firstAttribute="centerY" secondItem="Q0W-vb-zSu" secondAttribute="centerY" id="eM5-4I-fcn"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="aSY-Ju-zDz"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="300"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="JuH-Ic-2ta" id="UIo-Xw-tOG"/>
+                        <outlet property="tableView" destination="rI3-p1-HiL" id="OXj-Zw-bKc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1d9-Lp-Kja" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-228" y="899.10044977511257"/>
+        </scene>
         <!--Send Loading View Controller-->
         <scene sceneID="ch8-3P-QUY">
             <objects>
                 <viewController storyboardIdentifier="SendLoadingViewController" id="3cB-oT-qR7" customClass="SendLoadingViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cwb-sd-n1K" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vES-Ka-NcK">
-                                <rect key="frame" x="16" y="40" width="568" height="212"/>
+                                <rect key="frame" x="16" y="40" width="343" height="212"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="wdZ-zy-EaB">
-                                        <rect key="frame" x="274" y="72" width="20" height="20"/>
+                                        <rect key="frame" x="161.5" y="72" width="20" height="20"/>
                                     </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sending…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J7G-6a-HIF">
-                                        <rect key="frame" x="246" y="147" width="76" height="21"/>
+                                        <rect key="frame" x="133.5" y="147" width="76" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -417,29 +554,29 @@
             <objects>
                 <viewController storyboardIdentifier="SendCompleteViewController" id="4A4-Mb-mFY" customClass="SendCompleteViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZpD-UO-czN" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qZj-wj-Z6p">
-                                <rect key="frame" x="16" y="40" width="568" height="308.5"/>
+                                <rect key="frame" x="16" y="40" width="343" height="308.5"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgDone80Success400" translatesAutoresizingMaskIntoConstraints="NO" id="grk-dw-qZ6">
-                                        <rect key="frame" x="244" y="44" width="80" height="80"/>
+                                        <rect key="frame" x="131.5" y="44" width="80" height="80"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your transaction is on the way!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mfv-j1-kYa">
-                                        <rect key="frame" x="10" y="148" width="548" height="20.5"/>
+                                        <rect key="frame" x="10" y="148" width="323" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have sent 0.00138696 WAVES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wD-gw-5HY">
-                                        <rect key="frame" x="10" y="176.5" width="548" height="16"/>
+                                        <rect key="frame" x="10" y="176.5" width="323" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BdU-lO-36x" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="236.5" width="536" height="48"/>
+                                        <rect key="frame" x="16" y="236.5" width="311" height="48"/>
                                         <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="4uC-DB-Iq7"/>
@@ -478,22 +615,22 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aVl-eO-jUq">
-                                <rect key="frame" x="16" y="372.5" width="568" height="82"/>
+                                <rect key="frame" x="16" y="372.5" width="343" height="82"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you want to save this address?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pkN-XE-21A">
-                                        <rect key="frame" x="16" y="24" width="507" height="16"/>
+                                        <rect key="frame" x="16" y="24" width="282" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="96AFUzFKebbwmJulY6evx9GrfYBkmn8LcUL0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PuJ-mt-cBj">
-                                        <rect key="frame" x="16" y="46" width="507" height="12"/>
+                                        <rect key="frame" x="16" y="46" width="282" height="12"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" red="0.30588235294117649" green="0.36078431372549019" blue="0.43137254901960786" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4r-9h-hzz">
-                                        <rect key="frame" x="523" y="21" width="40" height="40"/>
+                                        <rect key="frame" x="298" y="21" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="LYF-sR-osy"/>
                                             <constraint firstAttribute="width" constant="40" id="OFL-ao-gVD"/>
@@ -552,23 +689,23 @@
             <objects>
                 <viewController storyboardIdentifier="SendConfirmationViewController" id="imD-w0-9hQ" customClass="SendConfirmationViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="idF-mP-1wj" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1d3-Oa-gbF">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QGq-EW-8rO">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="580"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uqi-5b-exH">
-                                                <rect key="frame" x="16" y="20" width="568" height="560"/>
+                                                <rect key="frame" x="16" y="20" width="343" height="627"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tSend48" translatesAutoresizingMaskIntoConstraints="NO" id="pYf-DT-ri9">
-                                                        <rect key="frame" x="260" y="24" width="48" height="48"/>
+                                                        <rect key="frame" x="147.5" y="24" width="48" height="48"/>
                                                     </imageView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="8Uv-nC-Erx">
-                                                        <rect key="frame" x="154" y="96" width="260.5" height="20.5"/>
+                                                        <rect key="frame" x="41.5" y="96" width="260.5" height="20.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="000000000.0000000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="huQ-iL-QPJ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="168.5" height="20.5"/>
@@ -597,24 +734,24 @@
                                                         </constraints>
                                                     </stackView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X19-QJ-fOJ" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                        <rect key="frame" x="16" y="140.5" width="536" height="1"/>
+                                                        <rect key="frame" x="16" y="140.5" width="311" height="1"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="GVd-s3-wbi"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h9U-4g-k4e" customClass="SendConfirmationRecipientView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                        <rect key="frame" x="16" y="141.5" width="536" height="100"/>
+                                                        <rect key="frame" x="16" y="141.5" width="311" height="100"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="100" id="Wnd-K6-oWv"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6IL-zl-lhs">
-                                                        <rect key="frame" x="16" y="241.5" width="536" height="67"/>
+                                                        <rect key="frame" x="16" y="241.5" width="311" height="67"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wd8-wR-Fd1" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="66" width="536" height="1"/>
+                                                                <rect key="frame" x="0.0" y="66" width="311" height="1"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="gxF-Ee-wrs"/>
@@ -645,7 +782,7 @@
                                                         </constraints>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2b6-2S-l2G" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                        <rect key="frame" x="16" y="488" width="536" height="48"/>
+                                                        <rect key="frame" x="16" y="555" width="311" height="48"/>
                                                         <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="48" id="YzG-1s-f4C"/>
@@ -662,10 +799,10 @@
                                                         </connections>
                                                     </button>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="h6z-4e-CIj">
-                                                        <rect key="frame" x="16" y="308.5" width="536" height="84"/>
+                                                        <rect key="frame" x="16" y="308.5" width="311" height="84"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BCC-sK-gOc">
-                                                                <rect key="frame" x="0.0" y="0.0" width="536" height="84"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="311" height="84"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EgQ-wq-aAL">
                                                                         <rect key="frame" x="0.0" y="14" width="69.5" height="16"/>
@@ -674,13 +811,13 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The description is too long" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="roR-qB-pJm">
-                                                                        <rect key="frame" x="374.5" y="14" width="161.5" height="16"/>
+                                                                        <rect key="frame" x="149.5" y="14" width="161.5" height="16"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                         <color key="textColor" red="0.93725490199999995" green="0.28235294119999998" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Write an optional message" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="26L-7c-uQ5">
-                                                                        <rect key="frame" x="0.0" y="36" width="536" height="48"/>
+                                                                        <rect key="frame" x="0.0" y="36" width="311" height="48"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="48" id="srf-bC-LhF"/>
                                                                         </constraints>
@@ -693,7 +830,7 @@
                                                                         </connections>
                                                                     </textField>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oWu-pa-4CB">
-                                                                        <rect key="frame" x="0.0" y="83.5" width="536" height="0.5"/>
+                                                                        <rect key="frame" x="0.0" y="83.5" width="311" height="0.5"/>
                                                                         <color key="backgroundColor" red="0.80784313725490198" green="0.81568627450980391" blue="0.85490196078431369" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="0.5" id="Kzd-nj-rek"/>
@@ -796,6 +933,7 @@
         <image name="addaddress24Submit300" width="24" height="24"/>
         <image name="info18Error500" width="18" height="18"/>
         <image name="info18Warning600" width="18" height="18"/>
+        <image name="on" width="24" height="24"/>
         <image name="tSend48" width="48" height="48"/>
         <image name="userimgDone80Success400" width="80" height="80"/>
         <image name="warning_address" width="18" height="18"/>
