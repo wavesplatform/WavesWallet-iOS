@@ -2017,6 +2017,14 @@ internal enum Localizable {
       }
     }
 
+    internal enum Sendfee {
+
+      internal enum Label {
+        /// Transaction Fee
+        internal static var transactionFee: String { return Localizable.tr("Waves", "sendfee.label.transactionFee") }
+      }
+    }
+
     internal enum Sendloading {
 
       internal enum Label {

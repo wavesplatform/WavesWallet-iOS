@@ -13,9 +13,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TransactionFeeView" customModule="WavesWallet_iOS" customModuleProvider="target">
             <connections>
                 <outlet property="activityIndicator" destination="uT9-iA-bun" id="RLO-7F-mHe"/>
+                <outlet property="iconArrows" destination="aQI-xv-1bU" id="rKf-pb-qqK"/>
                 <outlet property="labelFee" destination="XhU-Ds-YOf" id="aDC-qP-djp"/>
                 <outlet property="labelLocalization" destination="olV-R8-fEQ" id="b70-I4-LHw"/>
                 <outlet property="labelTicker" destination="Ge1-b9-9Wz" id="kNf-5J-N1k"/>
+                <outlet property="rightTickerPadding" destination="2RV-V2-Zkd" id="0KF-4I-uwS"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -30,13 +32,13 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.001" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XhU-Ds-YOf">
-                    <rect key="frame" x="280.5" y="42" width="33.5" height="16"/>
+                    <rect key="frame" x="256.5" y="42" width="33.5" height="16"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WAVES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ge1-b9-9Wz">
-                    <rect key="frame" x="318" y="42" width="43" height="16"/>
+                    <rect key="frame" x="294" y="42" width="43" height="16"/>
                     <color key="backgroundColor" red="0.93333333333333335" green="0.96078431372549022" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="16" id="Gpd-F6-1LR"/>
@@ -54,15 +56,30 @@
                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="uT9-iA-bun">
                     <rect key="frame" x="341" y="40" width="20" height="20"/>
                 </activityIndicatorView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="changearrows14Basic500" translatesAutoresizingMaskIntoConstraints="NO" id="aQI-xv-1bU">
+                    <rect key="frame" x="347" y="43" width="14" height="14"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y23-Qo-PMz">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                    <connections>
+                        <action selector="buttontTapped:" destination="-1" eventType="touchUpInside" id="NNL-XQ-BgJ"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="Ge1-b9-9Wz" firstAttribute="leading" secondItem="XhU-Ds-YOf" secondAttribute="trailing" constant="4" id="0O9-Jm-SsR"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="uT9-iA-bun" secondAttribute="trailing" constant="14" id="Dm8-g3-B9B"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Ge1-b9-9Wz" secondAttribute="trailing" constant="38" id="2RV-V2-Zkd"/>
+                <constraint firstItem="aQI-xv-1bU" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="716-tu-a26"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="aQI-xv-1bU" secondAttribute="trailing" constant="14" id="Ewy-Uv-fp2"/>
                 <constraint firstItem="uT9-iA-bun" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Ga6-rt-oP2"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Y23-Qo-PMz" secondAttribute="bottom" id="I1N-1S-UfT"/>
                 <constraint firstItem="XhU-Ds-YOf" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="RPe-bP-pIr"/>
+                <constraint firstItem="Y23-Qo-PMz" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="WIT-yo-dSb"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="uT9-iA-bun" secondAttribute="trailing" constant="14" id="Z5P-Zh-EM2"/>
                 <constraint firstItem="Ge1-b9-9Wz" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="bag-bB-1Jz"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Ge1-b9-9Wz" secondAttribute="trailing" constant="14" id="e8U-dy-5Sx"/>
+                <constraint firstItem="Y23-Qo-PMz" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="c2T-Kb-igL"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Y23-Qo-PMz" secondAttribute="trailing" id="dfv-s3-H6w"/>
                 <constraint firstItem="olV-R8-fEQ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="14" id="sTJ-3j-feT"/>
                 <constraint firstItem="olV-R8-fEQ" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="uah-WQ-kHD"/>
             </constraints>
@@ -82,4 +99,7 @@
             <point key="canvasLocation" x="-77.599999999999994" y="82.758620689655174"/>
         </view>
     </objects>
+    <resources>
+        <image name="changearrows14Basic500" width="14" height="14"/>
+    </resources>
 </document>
