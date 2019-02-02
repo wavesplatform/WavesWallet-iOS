@@ -48,4 +48,8 @@ extension DomainLayer.DTO.Asset {
     var isEthereum: Bool {
         return gatewayId == "ETH"
     }
+    
+    var isSponsored: Bool {
+        return minSponsoredFee > 0
+    }
 }
