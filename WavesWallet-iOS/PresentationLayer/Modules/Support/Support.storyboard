@@ -205,5 +205,85 @@
             </objects>
             <point key="canvasLocation" x="-1006" y="60"/>
         </scene>
+        <!--Test View Controller-->
+        <scene sceneID="rBf-27-3v1">
+            <objects>
+                <viewController storyboardIdentifier="TestViewController" id="Mke-Ak-d8I" customClass="TestViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NTE-5m-9tv" customClass="ModalRootView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JSo-jE-G12" customClass="ModalTableView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Content" rowHeight="156" id="YgB-2Q-Qc3">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="156"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YgB-2Q-Qc3" id="baZ-TH-6es">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="156"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flag18Rus" translatesAutoresizingMaskIntoConstraints="NO" id="b1C-cC-5cB">
+                                                    <rect key="frame" x="24" y="69" width="18" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="3eA-5G-IFs"/>
+                                                        <constraint firstAttribute="width" constant="18" id="5H2-Yh-qnv"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Россиюшка" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMr-vE-Og2">
+                                                    <rect key="frame" x="50" y="67.5" width="301" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="bMr-vE-Og2" firstAttribute="leading" secondItem="b1C-cC-5cB" secondAttribute="trailing" constant="8" id="BiB-qa-JlO"/>
+                                                <constraint firstItem="bMr-vE-Og2" firstAttribute="centerY" secondItem="b1C-cC-5cB" secondAttribute="centerY" id="Ney-p3-AZX"/>
+                                                <constraint firstItem="b1C-cC-5cB" firstAttribute="centerY" secondItem="baZ-TH-6es" secondAttribute="centerY" id="Tmx-mL-cTw"/>
+                                                <constraint firstItem="b1C-cC-5cB" firstAttribute="leading" secondItem="baZ-TH-6es" secondAttribute="leading" constant="24" id="YeK-FV-xhd"/>
+                                                <constraint firstAttribute="trailing" secondItem="bMr-vE-Og2" secondAttribute="trailing" constant="24" id="cKi-uI-gsY"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="167" id="fNn-3u-izs">
+                                        <rect key="frame" x="0.0" y="184" width="375" height="167"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fNn-3u-izs" id="84G-et-emL">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="167"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Mke-Ak-d8I" id="nkK-cA-pVW"/>
+                                    <outlet property="delegate" destination="Mke-Ak-d8I" id="nv0-Ml-0ba"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="HnL-RZ-spY" firstAttribute="trailing" secondItem="JSo-jE-G12" secondAttribute="trailing" id="059-C3-bJg"/>
+                            <constraint firstItem="JSo-jE-G12" firstAttribute="top" secondItem="HnL-RZ-spY" secondAttribute="top" id="9QP-Oq-f8R"/>
+                            <constraint firstItem="JSo-jE-G12" firstAttribute="bottom" secondItem="NTE-5m-9tv" secondAttribute="bottom" id="Bnk-Ag-Jlv"/>
+                            <constraint firstItem="JSo-jE-G12" firstAttribute="leading" secondItem="HnL-RZ-spY" secondAttribute="leading" id="m43-eL-Hl7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="HnL-RZ-spY"/>
+                        <connections>
+                            <outlet property="tableView" destination="JSo-jE-G12" id="TUG-rt-1sf"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="JSo-jE-G12" id="6E7-5U-vFe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w9x-ic-sk0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-119.2" y="112.89355322338831"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="flag18Rus" width="18" height="18"/>
+    </resources>
 </document>
