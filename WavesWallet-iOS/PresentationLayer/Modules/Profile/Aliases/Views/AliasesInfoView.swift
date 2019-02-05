@@ -61,7 +61,7 @@ extension AliasesInfoView: ViewConfiguration {
         switch model.status {
         case .fee(let money):
             transactionFeeView.hideLoadingState()
-            transactionFeeView.update(with: .init(fee: money, ticker: nil))
+            transactionFeeView.update(with: .init(fee: money, assetName: nil))
 
         case .progress:
             transactionFeeView.showLoadingState()

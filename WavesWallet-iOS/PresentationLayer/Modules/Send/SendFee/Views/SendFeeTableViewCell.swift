@@ -13,6 +13,7 @@ private enum Constants {
     static let height: CGFloat = 56
     static let icon = CGSize(width: 28, height: 28)
     static let sponsoredIcon = CGSize(width: 12, height: 12)
+    static let noneActiveAlpha: CGFloat = 0.3
 }
 
 final class SendFeeTableViewCell: UITableViewCell, Reusable {
@@ -35,7 +36,6 @@ extension SendFeeTableViewCell: ViewConfiguration {
     func update(with model: SendFee.DTO.SponsoredAsset) {
 
         labelTitle.text = model.asset.displayName
-        labelSubtitle.text = model.fee.displayText + " " + model.asset.displayName
         
         let sponsoredSize = model.asset.isSponsored ? Constants.sponsoredIcon : nil
         let style = AssetLogo.Style(size: Constants.icon,
@@ -49,7 +49,11 @@ extension SendFeeTableViewCell: ViewConfiguration {
         
         
         iconCheckmark.image = model.isChecked ? Images.on.image : Images.off.image
+        labelTitle.textColor = model.isActive ? .black : .blueGrey
+        iconLogo.alpha = model.isActive ? 1 : Constants.noneActiveAlpha
 
+        let feeText =  model.fee.displayText + " " + model.asset.displayName
+        labelSubtitle.text = model.isActive ? feeText : Localizable.Waves.Sendfee.Label.notAvailable
     }
 }
 
