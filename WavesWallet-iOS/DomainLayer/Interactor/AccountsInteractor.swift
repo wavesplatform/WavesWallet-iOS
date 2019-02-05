@@ -33,7 +33,7 @@ final class AccountsInteractor: AccountsInteractorProtocol {
                 if let remote = sync.remote {
 
                     return owner
-                        .localAccounts(aliases: remote, ids: ids, accountAddress: accountAddress)
+                        .localAccounts(myAliases: remote, ids: ids, accountAddress: accountAddress)
                         .map({ accounts -> Sync<[DomainLayer.DTO.Account]> in
                             return .remote(accounts)
                         })
@@ -44,7 +44,7 @@ final class AccountsInteractor: AccountsInteractorProtocol {
                 } else if let local = sync.local {
 
                     return owner
-                        .localAccounts(aliases: local.result, ids: ids, accountAddress: accountAddress)
+                        .localAccounts(myAliases: local.result, ids: ids, accountAddress: accountAddress)
                         .map({ accounts -> Sync<[DomainLayer.DTO.Account]> in
                             return .local(accounts, error: local.error)
                         })
@@ -60,7 +60,7 @@ final class AccountsInteractor: AccountsInteractorProtocol {
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .background)))
     }
 
-    private func localAccounts(aliases: [DomainLayer.DTO.Alias], ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Account]> {
+    private func localAccounts(myAliases: [DomainLayer.DTO.Alias], ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Account]> {
 
         return Observable.merge(addressBookRepository.listListener(by: accountAddress),
                                 addressBookRepository.list(by: accountAddress))
@@ -72,8 +72,11 @@ final class AccountsInteractor: AccountsInteractorProtocol {
 
                 let accounts = ids.map({ address -> DomainLayer.DTO.Account in
 
-                    let isMyAccount = accountAddress == address || aliases.map { $0.name }.contains(address)
-                    return DomainLayer.DTO.Account(address: address, contact: maps[address], isMyAccount: isMyAccount)
+                    let isMyAccount = accountAddress == address || myAliases.map { $0.name }.contains(address)
+                    return DomainLayer.DTO.Account(address: address,
+                                                   contact: maps[address],
+                                                   isMyAccount: isMyAccount,
+                                                   aliases: isMyAccount == true ? myAliases : [])
                 })
 
                 return Observable.just(accounts)

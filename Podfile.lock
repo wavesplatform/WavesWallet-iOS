@@ -148,6 +148,9 @@ PODS:
   - RxSwiftExt/RxCocoa (3.4.0):
     - RxCocoa (~> 4.0)
     - RxSwiftExt/Core
+  - Sentry (4.2.0):
+    - Sentry/Core (= 4.2.0)
+  - Sentry/Core (4.2.0)
   - Skeleton (0.3.1)
   - SwiftDate (5.0.13)
   - SwiftGen (5.3.0)
@@ -197,6 +200,7 @@ DEPENDENCIES:
   - RxRealm
   - RxSwift
   - RxSwiftExt
+  - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`)
   - Skeleton
   - SwiftDate
   - SwiftGen (~> 5.3.0)
@@ -280,6 +284,8 @@ EXTERNAL SOURCES:
     :path: Vendors/Keccak
   RESideMenu:
     :git: https://github.com/wavesplatform/RESideMenu.git
+  Sentry:
+    :git: https://github.com/getsentry/sentry-cocoa.git
 
 CHECKOUT OPTIONS:
   '25519':
@@ -294,6 +300,9 @@ CHECKOUT OPTIONS:
   RESideMenu:
     :commit: c4870be8caf988b3c164bbf5675a717a905e9952
     :git: https://github.com/wavesplatform/RESideMenu.git
+  Sentry:
+    :commit: 930720b95a78f92fd4b33793acece5e4935c99ce
+    :git: https://github.com/getsentry/sentry-cocoa.git
 
 SPEC CHECKSUMS:
   '25519': 2c284bd04dc489ee6c3ad5f04339480a5bcae042
@@ -351,6 +360,7 @@ SPEC CHECKSUMS:
   RxRealm: 5379eddd74f8d617ca7681d1f8d144af25b432b0
   RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
   RxSwiftExt: 01f8ecbeeb355698e9c75365ebe908b00dacf45d
+  Sentry: 3f7ac231c07fc410441641188262b2f043553cdd
   Skeleton: 4b11a4aa6fb289626aa7e486f0b16b9b394d0ba4
   SwiftDate: f4aea5fa9dee812485f34041121a4cbde01b0dee
   SwiftGen: 4379bd3640b0a212a0f6ea3c494adba385513d10
@@ -360,6 +370,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: 299c10bca981340d6225ee507256b578f498938b
+PODFILE CHECKSUM: 21dbdd1de035034e79d6518f3f9af5dfa0bdbd54
 
 COCOAPODS: 1.5.3

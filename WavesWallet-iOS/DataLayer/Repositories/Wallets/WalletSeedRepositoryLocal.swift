@@ -127,7 +127,7 @@ private extension WalletSeedRepositoryLocal {
             .appendingPathComponent("\(address)_seed_\(seedId).realm")
 
         config.migrationBlock = { _, oldSchemaVersion in
-            debug("Migration!!! \(oldSchemaVersion)")
+            SweetLogger.debug("Migration!!! \(oldSchemaVersion)")
         }
         return config
     }

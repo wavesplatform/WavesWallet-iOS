@@ -96,7 +96,7 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
                 observer.onNext(true)
                 observer.onCompleted()
             } catch let e {
-                error(e)
+                SweetLogger.error(e)
                 observer.onNext(false)
                 observer.onError(AccountBalanceRepositoryError.fail)
                 return Disposables.create()

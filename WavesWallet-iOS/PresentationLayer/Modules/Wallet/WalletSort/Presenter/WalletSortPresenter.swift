@@ -71,8 +71,6 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
         switch event {
         case .dragAsset(let sourceIndexPath, let destinationIndexPath):
 
-
-
             let movableAsset = state
                 .sections[sourceIndexPath.section]
                 .items[sourceIndexPath.row].asset
@@ -83,13 +81,13 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
             if let movableAsset = movableAsset, let toAsset = toAsset {
                 if sourceIndexPath.row > destinationIndexPath.row {
 
-                    debug("asset \(movableAsset.name)")
-                    debug("overAsset \(toAsset.name)")
+                    SweetLogger.debug("asset \(movableAsset.name)")
+                    SweetLogger.debug("overAsset \(toAsset.name)")
 
                     interactor.move(asset: movableAsset, overAsset: toAsset)
                 } else {
-                    debug("asset \(movableAsset.name)")
-                    debug("underAsset \(toAsset.name)")
+                    SweetLogger.debug("asset \(movableAsset.name)")
+                    SweetLogger.debug("underAsset \(toAsset.name)")
                     interactor.move(asset: movableAsset, underAsset: toAsset)
                 }
             }
