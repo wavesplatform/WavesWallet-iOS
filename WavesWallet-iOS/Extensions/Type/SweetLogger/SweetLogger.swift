@@ -241,8 +241,11 @@ final class SweetLoggerConsole: SweetLoggerProtocol {
         if let type = type {
             nameClass = nameType(type)
         }
+        
+        let message = message()
+
         DispatchQueue.main.async {
-            print("\(level.nameLevel) \(nameClass) 👉 \(message()) 👈")
+            print("\(level.nameLevel) \(nameClass) 👉 \(message) 👈")
 
             if self.isShortLog {
                 return
