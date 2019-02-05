@@ -40,7 +40,7 @@ enum RegEx {
             let regex = try NSRegularExpression(pattern: RegEx.alias)
             return regex.matches(in: alias, options: NSRegularExpression.MatchingOptions.withTransparentBounds, range: NSRange(location: 0, length: alias.count)).count > 0
         } catch let e {
-            error(e)
+            SweetLogger.error(e)
             return false
         }
     }

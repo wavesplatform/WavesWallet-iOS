@@ -498,12 +498,16 @@ fileprivate extension TransactionsInteractor {
 
         let accountAddress = query.accountAddress
         let assetsIds = query.transactions.assetsIds
-        let accountsIds = query.transactions.accountsIds
+
+        var accountsIds = query.transactions.accountsIds
+        accountsIds.insert(accountAddress)
+
+        let listAccountsIds = accountsIds.flatMap { [$0] }
 
         let assets = self.assetsInteractors.assetsSync(by: assetsIds,
                                                        accountAddress: accountAddress).take(1)
 
-        let accounts = self.accountsInteractors.accountsSync(by: accountsIds,
+        let accounts = self.accountsInteractors.accountsSync(by: listAccountsIds,
                                                              accountAddress: accountAddress)
 
         //TODO: Caching
@@ -724,7 +728,7 @@ private extension Array where Element == DomainLayer.DTO.AnyTransaction {
     }
 
 
-    var accountsIds: [String] {
+    var accountsIds: Set<String> {
 
         return reduce(into: [String](), { list, tx in
             let accountsIds = tx.accountsIds
@@ -733,7 +737,6 @@ private extension Array where Element == DomainLayer.DTO.AnyTransaction {
         .reduce(into: Set<String>(), { set, id in
             set.insert(id)
         })
-        .flatMap { [$0] }
     }
 }
 
@@ -751,7 +754,7 @@ private extension DomainLayer.DTO.AnyTransaction {
 
         case .transfer(let tx):
             let assetId = tx.assetId
-            return [assetId, GlobalConstants.wavesAssetId]
+            return [assetId, GlobalConstants.wavesAssetId, tx.feeAssetId]
 
         case .reissue(let tx):
             return [tx.assetId]
@@ -782,6 +785,9 @@ private extension DomainLayer.DTO.AnyTransaction {
             return [GlobalConstants.wavesAssetId]
 
         case .assetScript(let tx):
+            return [tx.assetId]
+
+        case .sponsorship(let tx):
             return [tx.assetId]
         }
     }
@@ -835,6 +841,9 @@ private extension DomainLayer.DTO.AnyTransaction {
             return [tx.sender]
 
         case .assetScript(let tx):
+            return [tx.sender]
+
+        case .sponsorship(let tx):
             return [tx.sender]
         }
     }

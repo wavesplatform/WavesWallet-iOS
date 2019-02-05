@@ -6,11 +6,17 @@ default_platform(:ios)
 platform :ios do
 
   lane :waves_test do
-    ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Test"    
+    ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Test"
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.test"
-    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Test.plist"
-    ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_APPSFLYER']}/Appsflyer-Info-Test.plist"
+
+    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Test.plist"
+    ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Test.plist"
+
+    ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
+    ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry.io-Info.plist"
+    ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
+
     ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
     ENV['MATCH_TYPE'] = "appstore"
     ENV['CHANGELOG_BETWEEN_BRANCH']="develop"
@@ -23,8 +29,14 @@ platform :ios do
     ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Release"
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.WavesWallet"
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.WavesWallet"
-    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Prod.plist"
-    ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_APPSFLYER']}/Appsflyer-Info-Prod.plist"
+
+    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Prod.plist"
+    ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Prod.plist"
+
+    ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
+    ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry.io-Info.plist"
+    ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
+
     ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
     ENV['MATCH_TYPE'] = "appstore"
     ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
@@ -37,9 +49,15 @@ platform :ios do
       ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Test-AdHoc"
       ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
       ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.test"
-      ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Test.plist"
-      ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_APPSFLYER']}/Appsflyer-Info-Test.plist"
-      ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AdHoc.plist"      
+
+      ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Test.plist"
+      ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Test.plist"
+
+      ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
+      ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry.io-Info.plist"
+      ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
+
+      ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AdHoc.plist"
       ENV['MATCH_TYPE'] = "adhoc"
       ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.test"
       ENV['CHANGELOG_BETWEEN_BRANCH']="develop"
@@ -64,15 +82,7 @@ platform :ios do
       readonly: true,
       keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
 
-    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
-    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FABRIC']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
-    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
-    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FIREBASE']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
-    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Appsflyer-Info.plist")
-    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_APPSFLYER']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Appsflyer-Info.plist")
-    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/AppSpector-Info.plist")
-    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_APPSFLYER']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/AppSpector-Info.plist")
-
+    download_environments()
 
 		cocoapods(
 			verbose: true,
@@ -89,13 +99,13 @@ platform :ios do
 
   end
 
-  lane :create_changelog do 
+  lane :create_changelog do
     puts "create_changelog"
     ROOT=File.expand_path("..", Dir.pwd)
     ENV['FL_BUILD_NUMBER_PROJECT'] = "#{ROOT}/WavesWallet-iOS.xcodeproj"
     build_number = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'")
-    version = get_version_number(xcodeproj: "#{ROOT}/WavesWallet-iOS.xcodeproj")    
-    commit = last_git_commit    
+    version = get_version_number(xcodeproj: "#{ROOT}/WavesWallet-iOS.xcodeproj")
+    commit = last_git_commit
     author = commit[:author] # author of the commit
     author_email = commit[:author_email] # email of the author of the commit
     hash = commit[:commit_hash] # long sha of commit
@@ -107,7 +117,7 @@ platform :ios do
       date_format: "short",# Optional, lets you provide an additional date format to dates within the pretty-formatted string
       match_lightweight_tag: false,  # Optional, lets you ignore lightweight (non-annotated) tags when searching for the last tag
       merge_commit_filtering: "exclude_merges" # Optional, lets you filter out merge commits
-    )    
+    )
 
     # root_ouput = Pathname.new(ENV["FL_OUTPUT_DIR"])
     # puts "#{root_ouput}"
@@ -116,13 +126,13 @@ platform :ios do
     puts "_changelog_"
     puts ENV['CHANGELOG']
     # ENV['CHANGELOG_PATH']="#{ROOT}/changelog.txt"
-    # sh("echo \"#{ENV['CHANGELOG']}\" >> #{ENV['CHANGELOG_PATH']}") 
+    # sh("echo \"#{ENV['CHANGELOG']}\" >> #{ENV['CHANGELOG_PATH']}")
   end
 
-  lane :upload_crashlytics do 
+  lane :upload_crashlytics do
 
     create_changelog
-  
+
     ENV['CRASHLYTICS_API_TOKEN']=sh("/usr/libexec/PlistBuddy -c 'Print :Fabric:APIKey' '#{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist'")
     ENV['CRASHLYTICS_API_TOKEN']="#{ENV['CRASHLYTICS_API_TOKEN']}"
     ENV['CRASHLYTICS_BUILD_SECRET']=sh("/usr/libexec/PlistBuddy -c 'Print :Fabric:BuildSecret' '#{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist'")
@@ -130,7 +140,7 @@ platform :ios do
     ROOT=File.expand_path("..", Dir.pwd)
     ENV['SUMBIT_PAPTH']="#{ROOT}/Pods/Crashlytics/submit"
     ENV['IPA_PATH']="#{GYM_OUTPUT_DIRECTORY}/#{GYM_OUTPUT_NAME}"
-    # "#{ROOT}/WavesWallet-iOS.ipa"        
+    # "#{ROOT}/WavesWallet-iOS.ipa"
 
     puts "upload_crashlytics"
     sh("bash #{Dir.pwd}/run_fabric.sh")
@@ -149,13 +159,20 @@ platform :ios do
   end
 
   lane :download_environments do
-    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_FIREBASE']}/GoogleService-Info-Dev.plist"
     sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
     sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FABRIC']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
+
     sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
     sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FIREBASE']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
+
     sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Appsflyer-Info.plist")
     sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_APPSFLYER']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Appsflyer-Info.plist")
+
+    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/AppSpector-Info.plist")
+    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_APPSPECTOR']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/AppSpector-Info.plist")
+
+    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Sentry.io-Info.plist")
+    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_SENTRY_IO']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Sentry.io-Info.plist")
   end
 
   lane :upload_testflight do
@@ -167,7 +184,7 @@ platform :ios do
     end
 
     testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
-               itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",      
+               itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",
                wait_for_uploaded_build: "false")
     upload_symbols_to_crashlytics(gsp_path: "#{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
   end
