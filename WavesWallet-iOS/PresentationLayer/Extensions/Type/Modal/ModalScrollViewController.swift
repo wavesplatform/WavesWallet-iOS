@@ -96,11 +96,11 @@ extension ModalScrollViewController  {
 
 extension ModalScrollViewController: ModalScrollViewContext {
 
-    func appearingContectHeight(for size:  CGSize) -> CGFloat {
+    func appearingContentHeight(for size:  CGSize) -> CGFloat {
         return 0
     }
 
-    func disappearingContectHeight(for size:  CGSize) -> CGFloat {
+    func disappearingContentHeight(for size:  CGSize) -> CGFloat {
 
         if scrollView.contentOffset.y < 0 {
             return scrollView.bounds.height + scrollView.contentOffset.y
@@ -109,7 +109,7 @@ extension ModalScrollViewController: ModalScrollViewContext {
         }
     }
 
-    func contectHeight(for size: CGSize) -> CGFloat {
+    func contentHeight(for size: CGSize) -> CGFloat {
         return size.height
     }
 }

@@ -135,7 +135,6 @@
 		0A4E7DED22018C5F007BBA39 /* ModalViewControllerTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4E7DE922018C5E007BBA39 /* ModalViewControllerTransitioning.swift */; };
 		0A4E7DEE22018C5F007BBA39 /* ModalPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4E7DEA22018C5F007BBA39 /* ModalPresentationAnimator.swift */; };
 		0A4E7DEF22018C5F007BBA39 /* ModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4E7DEB22018C5F007BBA39 /* ModalPresentationController.swift */; };
-		0A4E7DF222030A67007BBA39 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4E7DF122030A66007BBA39 /* TestViewController.swift */; };
 		0A57C38C21F74E21003B5386 /* ScriptTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C38B21F74E20003B5386 /* ScriptTransaction+Mapper.swift */; };
 		0A57C38E21F74E2E003B5386 /* AssetScriptTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C38D21F74E2E003B5386 /* AssetScriptTransaction+Mapper.swift */; };
 		0A57C39021F74EB0003B5386 /* ScriptTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57C38F21F74EB0003B5386 /* ScriptTransaction.swift */; };
@@ -570,6 +569,7 @@
 		0AFA0C7B2174A2300003FE3B /* CheckboxControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA0C712174A2300003FE3B /* CheckboxControl.swift */; };
 		0AFA0C7C2174A2300003FE3B /* LegalModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA0C722174A2300003FE3B /* LegalModuleBuilder.swift */; };
 		0AFA0C7D2174A2300003FE3B /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA0C742174A2300003FE3B /* BrowserViewController.swift */; };
+		0AFB59402209AD56001F0DD8 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFB593F2209AD56001F0DD8 /* TestViewController.swift */; };
 		0AFBCA80211306F600285BCB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AFBCA7F211306F600285BCB /* LaunchScreen.storyboard */; };
 		0AFBCA852113173300285BCB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AFBCA832113173300285BCB /* InfoPlist.strings */; };
 		0AFBCA8A2113254100285BCB /* WalletModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFBCA892113254100285BCB /* WalletModuleBuilder.swift */; };
@@ -1017,7 +1017,6 @@
 		0A4E7DE922018C5E007BBA39 /* ModalViewControllerTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalViewControllerTransitioning.swift; sourceTree = "<group>"; };
 		0A4E7DEA22018C5F007BBA39 /* ModalPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalPresentationAnimator.swift; sourceTree = "<group>"; };
 		0A4E7DEB22018C5F007BBA39 /* ModalPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalPresentationController.swift; sourceTree = "<group>"; };
-		0A4E7DF122030A66007BBA39 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TestViewController.swift; path = "/Users/mefilt/Works/Waves/waveswallet-ios_dex/WavesWallet-iOS/PresentationLayer/Modules/Support/TestViewController.swift"; sourceTree = "<absolute>"; };
 		0A57C38B21F74E20003B5386 /* ScriptTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScriptTransaction+Mapper.swift"; sourceTree = "<group>"; };
 		0A57C38D21F74E2E003B5386 /* AssetScriptTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssetScriptTransaction+Mapper.swift"; sourceTree = "<group>"; };
 		0A57C38F21F74EB0003B5386 /* ScriptTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptTransaction.swift; sourceTree = "<group>"; };
@@ -1470,6 +1469,7 @@
 		0AFA0C712174A2300003FE3B /* CheckboxControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckboxControl.swift; sourceTree = "<group>"; };
 		0AFA0C722174A2300003FE3B /* LegalModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegalModuleBuilder.swift; sourceTree = "<group>"; };
 		0AFA0C742174A2300003FE3B /* BrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
+		0AFB593F2209AD56001F0DD8 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		0AFBCA7F211306F600285BCB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0AFBCA862113188A00285BCB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0AFBCA872113188B00285BCB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -2583,7 +2583,7 @@
 		0A762D9E2163ACE80019D447 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				0A4E7DF122030A66007BBA39 /* TestViewController.swift */,
+				0AFB593F2209AD56001F0DD8 /* TestViewController.swift */,
 				0A762D9F2163AD0F0019D447 /* Support.storyboard */,
 				0A762DA12163AD1A0019D447 /* SupportViewController.swift */,
 			);
@@ -5475,6 +5475,7 @@
 				0AEB35A421165E1300EDD63C /* AccountBalanceRepositoryRemote.swift in Sources */,
 				E94E4E6921CF9F6D00053A49 /* CoinomatService.swift in Sources */,
 				E9B087CF2163886800937644 /* DexListHeaderCell.swift in Sources */,
+				0AFB59402209AD56001F0DD8 /* TestViewController.swift in Sources */,
 				E9B087A72163886800937644 /* DexOrderBookTypes.swift in Sources */,
 				E9642C8F21CB32570065A1BD /* CoinomatServiceErrorView.swift in Sources */,
 				E9B087B32163886800937644 /* DexOrderBookInteractor.swift in Sources */,
@@ -5502,7 +5503,6 @@
 				E9B087AF2163886800937644 /* DexOrderBookHeaderView.swift in Sources */,
 				0ADD7FF621F22FB60075FC59 /* NibOwnerLoadable.swift in Sources */,
 				E9B087982163886800937644 /* DexChartPresenterProtocol.swift in Sources */,
-				0A4E7DF222030A67007BBA39 /* TestViewController.swift in Sources */,
 				E9D36DC92175C755001E6DF0 /* ReceiveCryptocurrencyModuleBuilder.swift in Sources */,
 				E9B087AE2163886800937644 /* DexOrderBookCell.swift in Sources */,
 				0A7CCDAE218A138D005D372B /* MyAddressViewController.swift in Sources */,
