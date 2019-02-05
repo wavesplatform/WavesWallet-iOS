@@ -31,7 +31,7 @@ extension CreateAliasTypes {
         case input(String?)
         case createAlias
         case errorAliasExist
-        case aliasAameFree
+        case aliasNameFree
         case aliasCreated
         case handlerError(Error)
         case completedQuery
