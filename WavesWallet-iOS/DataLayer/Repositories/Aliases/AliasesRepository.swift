@@ -84,7 +84,7 @@ final class AliasesRepository: AliasesRepositoryProtocol {
                         }
                         guard let response = error.response else { return Observable.error(NetworkError.error(by: e)) }
                         guard response.statusCode == Constants.notFoundCode else { return Observable.error(NetworkError.error(by: e)) }
-                        return Observable.error(AliasesRepositoryError.dontExist)                    
+                        return Observable.error(AliasesRepositoryError.dontExist)
                     })
 
             })
