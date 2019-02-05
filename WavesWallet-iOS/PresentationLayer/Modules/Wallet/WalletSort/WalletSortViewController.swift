@@ -176,7 +176,8 @@ extension WalletSortViewController: UITableViewDelegate {
                                                     isVisibility: status == .visibility,
                                                     isHidden: asset.isHidden,
                                                     isGateway: asset.isGateway,
-                                                    icon: asset.icon)
+                                                    icon: asset.icon,
+                                                    isSponsored: asset.isSponsored)
             cell.update(with: model)
             cell.buttonFav
                 .rx
@@ -200,7 +201,8 @@ extension WalletSortViewController: UITableViewDelegate {
                                                        isMyWavesToken: asset.isMyWavesToken,
                                                        isLock: asset.isLock,
                                                        isGateway: asset.isGateway,
-                                                       icon: asset.icon)
+                                                       icon: asset.icon,
+                                                       isSponsored: asset.isSponsored)
             cell.update(with: model)
             cell.buttonFav
                 .rx

@@ -19,5 +19,6 @@ extension ReceiveInvoice.DTO {
         let invoiceLink: String
         let assetName: String
         let icon: String
+        let isSponsored: Bool
     }
 }

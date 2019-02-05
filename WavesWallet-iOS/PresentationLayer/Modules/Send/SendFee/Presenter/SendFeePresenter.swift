@@ -11,6 +11,10 @@ import RxSwift
 import RxFeedback
 import RxCocoa
 
+private enum Constants {
+    static let wavesMinFee: Decimal = 0.001
+}
+
 final class SendFeePresenter: SendFeePresenterProtocol {
     
     var interactor: SendFeeInteractorProtocol!
@@ -64,11 +68,23 @@ final class SendFeePresenter: SendFeePresenterProtocol {
             state.action = .handleError(error)
 
         case .didGetInfo(let assets, let fee):
+
             
             let sectionHeader = SendFee.ViewModel.Section(items: [SendFee.ViewModel.Row.header])
-            let assetsRow = assets.map {SendFee.ViewModel.Row.asset(.init(asset: $0,
-                                                                          wavesFee: fee,
-                                                                          isChecked: $0.id == state.feeAssetID))}
+            var assetsRow: [SendFee.ViewModel.Row] = []
+            var calculatedFee = fee
+
+            for asset in assets {
+                if !asset.isWaves {
+                    let sponsorFee = Money(asset.minSponsoredFee, asset.precision).decimalValue
+                    let value = (fee.decimalValue / Constants.wavesMinFee) * sponsorFee
+                    calculatedFee = Money(value: value, asset.precision)
+                }
+                assetsRow.append(SendFee.ViewModel.Row.asset(.init(asset: asset,
+                                                                   fee: calculatedFee,
+                                                                   isChecked: asset.id == state.feeAssetID)))
+            }
+            
             let sectionAssets = SendFee.ViewModel.Section(items: assetsRow)
             state.sections = [sectionHeader, sectionAssets]
             state.isNeedLoadInfo = false

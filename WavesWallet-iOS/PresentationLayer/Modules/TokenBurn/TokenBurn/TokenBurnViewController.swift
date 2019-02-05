@@ -206,7 +206,7 @@ private extension TokenBurnViewController {
             hideSnack(key: errorSnackKey)
         }
         
-        viewFee.update(with: fee)
+        viewFee.update(with: .init(fee: fee, ticker: nil))
         viewFee.hideLoadingState()
         self.fee = fee
         setupButtonContinue()

@@ -12,8 +12,8 @@ import UIKit
 
 fileprivate enum Constants {
     static let height: CGFloat = 56
-    static let icon: CGSize = CGSize(width: 28,
-                                     height: 28)
+    static let icon: CGSize = CGSize(width: 28, height: 28)
+    static let sponsoredIcon = CGSize(width: 12, height: 12)
 }
 
 final class WalletSortCell: UITableViewCell, Reusable {
@@ -103,6 +103,7 @@ extension WalletSortCell: ViewConfiguration {
         let isHidden: Bool
         let isGateway: Bool
         let icon: String
+        let isSponsored: Bool
     }
 
     func update(with model: Model) {
@@ -121,8 +122,11 @@ extension WalletSortCell: ViewConfiguration {
             viewContent.addTableCellShadowStyle()
         }
 
+        let sponsoredSize = model.isSponsored ? Constants.sponsoredIcon : nil
+
         taskForAssetLogo = AssetLogo.logoFromCache(name: model.icon,
                                                    style: AssetLogo.Style(size: Constants.icon,
+                                                                          sponsoredSize: sponsoredSize,
                                                                           font: UIFont.systemFont(ofSize: 15),
                                                                           border: nil)) { [weak self] image in
             self?.imageIcon.image = image

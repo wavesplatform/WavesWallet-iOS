@@ -230,6 +230,7 @@ internal enum Images {
   internal static let share18Submit400 = ImageAsset(name: "share18Submit400")
   internal static let shareAddress = ImageAsset(name: "share_address")
   internal static let sizefull14Basic500 = ImageAsset(name: "sizefull14Basic500")
+  internal static let sponsoritem18White = ImageAsset(name: "sponsoritem18White")
   internal static let star = ImageAsset(name: "star")
   internal static let starBtn = ImageAsset(name: "star_btn")
   internal static let swipeLeft = ImageAsset(name: "swipe_left")
@@ -487,6 +488,7 @@ internal enum Images {
     share18Submit400,
     shareAddress,
     sizefull14Basic500,
+    sponsoritem18White,
     star,
     starBtn,
     swipeLeft,
