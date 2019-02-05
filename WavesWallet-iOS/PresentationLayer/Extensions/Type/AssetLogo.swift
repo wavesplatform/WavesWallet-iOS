@@ -24,6 +24,7 @@ enum AssetLogo: String {
 }
 
 extension AssetLogo {
+    
     var image48: UIImage {
         switch self {
         case .waves:
@@ -62,6 +63,7 @@ extension AssetLogo {
         }
 
         let size: CGSize
+        let sponsoredSize: CGSize?
         let font: UIFont
         let border: Border?
 
@@ -71,6 +73,10 @@ extension AssetLogo {
 
             if let border = border {
                 key += "\(border.width)_\(border.color.toHexString())"
+            }
+            
+            if let sponsoredSize = sponsoredSize {
+                key += "\(sponsoredSize.width)_\(sponsoredSize.height)"
             }
             return key
         }
@@ -110,7 +116,7 @@ extension AssetLogo {
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         context.addPath(UIBezierPath(roundedRect: rect, cornerRadius: rect.height * 0.5).cgPath)
         context.clip()
-
+        
         if let logo = AssetLogo(rawValue: name.lowercased()) {
 
             context.setFillColor(UIColor.white.cgColor)
@@ -150,8 +156,29 @@ extension AssetLogo {
             context.setStrokeColor(border.color.cgColor)
             context.strokePath()
         }
+        
+        
+        if let sponsoredSize = style.sponsoredSize {
+
+            let rect = CGRect(x: size.width - sponsoredSize.width,
+                              y: size.height - sponsoredSize.height,
+                              width: sponsoredSize.width,
+                              height: sponsoredSize.height)
+
+            context.resetClip()
+            context.addPath(UIBezierPath(roundedRect: rect, cornerRadius: rect.height * 0.5).cgPath)
+            context.clip()
+            
+            let color = UIColor.colorAsset(name: name)
+            context.setFillColor(color.cgColor)
+            context.fill(rect)
+
+            let image = Images.sponsoritem18White.image
+            image.draw(in: rect)
+        }
+        
         let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext();
+        UIGraphicsEndImageContext()
         return image
     }
 }

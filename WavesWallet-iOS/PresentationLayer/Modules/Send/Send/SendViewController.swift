@@ -47,7 +47,9 @@ final class SendViewController: UIViewController {
     private var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
     private var amount: Money?
     private var wavesFee: Money?
-    
+    private var feeAssetID = GlobalConstants.wavesAssetId
+    private var feeAssetName: String? = nil
+
     private let sendEvent: PublishRelay<Send.Event> = PublishRelay<Send.Event>()
     var presenter: SendPresenterProtocol!
     
@@ -59,7 +61,6 @@ final class SendViewController: UIViewController {
     private var moneroAddress: String = ""
     private var isLoadingAssetBalanceAfterScan = false
     private var errorSnackKey: String?
-    private var feeAssetID = GlobalConstants.wavesAssetId
     
     var availableBalance: Money {
         
@@ -233,6 +234,11 @@ extension SendViewController: SendFeeModuleOutput {
     
     func sendFeeModuleDidSelectAssetFee(_ asset: DomainLayer.DTO.Asset) {
         feeAssetID = asset.id
+        feeAssetName = asset.isWaves ? nil : asset.displayName
+        
+        if let fee = wavesFee {
+            viewFee.update(with: .init(fee: fee, ticker: feeAssetName))
+        }
     }
 }
 
@@ -456,7 +462,7 @@ private extension SendViewController {
         }
         
         wavesFee = fee
-        viewFee.update(with: fee)
+        viewFee.update(with: .init(fee: fee, ticker: feeAssetName))
         viewFee.isHidden = false
         viewFee.hideLoadingState()
     }

@@ -12,6 +12,7 @@ import QRCode
 
 private enum Constants {
     static let icon = CGSize(width: 48, height: 48)
+    static let sponsoredIcon = CGSize(width: 18, height: 18)
     static let copyDuration: TimeInterval = 2
 }
 
@@ -76,7 +77,12 @@ final class ReceiveAddressViewController: UIViewController {
     private func setupInfo() {
         title = Localizable.Waves.Receiveaddress.Label.yourAddress(input.assetName)
         labelAddress.text = input.address
-        let iconStyle = AssetLogo.Style(size: Constants.icon, font: UIFont.systemFont(ofSize: 22), border: nil)
+        
+        let sponsoredSize = input.isSponsored ? Constants.sponsoredIcon : nil
+        let iconStyle = AssetLogo.Style(size: Constants.icon,
+                                        sponsoredSize: sponsoredSize,
+                                        font: UIFont.systemFont(ofSize: 22),
+                                        border: nil)
         logoTask = AssetLogo.logoFromCache(name: input.icon, style: iconStyle, completionHandler: { [weak self] (image) in
             self?.iconAsset.image = image
         })

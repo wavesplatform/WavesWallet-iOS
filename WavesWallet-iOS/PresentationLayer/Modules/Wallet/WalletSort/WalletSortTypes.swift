@@ -73,5 +73,6 @@ extension WalletSort.DTO {
         var isHidden: Bool
         var sortLevel: Float
         let icon: String
+        let isSponsored: Bool
     }
 }
