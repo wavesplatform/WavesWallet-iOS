@@ -144,7 +144,11 @@ fileprivate extension CreateAliasPresenter {
                 })
                 .map { _ in .errorAliasExist }
                 .asSignal(onErrorRecover: { e in
-                    return Signal.just(Types.Event.aliasAameFree)
+                    
+                    if let error = e as? AliasesRepositoryError, error == .dontExist {
+                        return Signal.just(Types.Event.aliasNameFree)
+                    }
+                    return Signal.just(Types.Event.errorAliasExist)
                 })
         })
     }
@@ -206,7 +210,7 @@ private extension CreateAliasPresenter {
             let section = Types.ViewModel.Section(rows: [.input(state.displayState.input, error: inputError)])
             state.displayState.sections = [section]
 
-        case .aliasAameFree:
+        case .aliasNameFree:
             state.query = nil
             state.displayState.action = .update
             state.displayState.isLoading = false

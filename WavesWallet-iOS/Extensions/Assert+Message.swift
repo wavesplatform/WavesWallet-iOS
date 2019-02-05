@@ -15,3 +15,7 @@ func assertMethodDontSupported() {
 func assertVarDontSupported() {
     assert(true, "Method don't supported")
 }
+
+func assertMethodNeedOverriding() {
+    assert(true, "Method need overriding")
+}
