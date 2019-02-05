@@ -532,7 +532,19 @@ private extension SendViewController {
                
             }
         }
-        amountView.showErrorMessage(message: Localizable.Waves.Send.Label.Error.insufficientFunds, isShow: isShowAmountError)
+        
+        let gatewayName = gateWayInfo?.assetShortName ?? ""
+        if !isCorrectMinCryptocyrrencyAmount {
+            let min = gateWayInfo?.minAmount.displayText ?? ""
+            amountView.showErrorMessage(message: Localizable.Waves.Send.Label.Error.minimun(min, gatewayName), isShow: true)
+        }
+        else if !isCorrectMaxCryptocyrrencyAmount {
+            let max = gateWayInfo?.maxAmount.displayText ?? ""
+            amountView.showErrorMessage(message: Localizable.Waves.Send.Label.Error.maximum(max, gatewayName), isShow: true)
+        }
+        else {
+            amountView.showErrorMessage(message: Localizable.Waves.Send.Label.Error.insufficientFunds, isShow: isShowAmountError)
+        }
     }
     
     func showLoadingButtonState() {
@@ -841,6 +853,22 @@ extension SendViewController: UIScrollViewDelegate {
 //MARK: - Validation
 private extension SendViewController {
 
+    var isCorrectMinCryptocyrrencyAmount: Bool {
+        if let info = gateWayInfo, let amount = amount, amount.decimalValue > 0,
+            isValidCryptocyrrencyAddress, selectedAsset != nil {
+            return amount.decimalValue >= info.minAmount.decimalValue
+        }
+        return true
+    }
+    
+    var isCorrectMaxCryptocyrrencyAmount: Bool {
+        if let info = gateWayInfo, let amount = amount, amount.decimalValue > 0,
+            isValidCryptocyrrencyAddress, selectedAsset != nil {
+            return amount.decimalValue <= info.maxAmount.decimalValue
+        }
+        return true
+    }
+    
     var isNeedGenerateMoneroAddress: Bool {
         if selectedAsset?.asset.isMonero == true && isValidCryptocyrrencyAddress && moneroPaymentIdView.isValidPaymentID {
             return moneroAddress.count == 0

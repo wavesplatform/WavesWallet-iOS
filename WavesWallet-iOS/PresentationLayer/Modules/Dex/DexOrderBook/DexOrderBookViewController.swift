@@ -48,6 +48,7 @@ final class DexOrderBookViewController: UIViewController {
 extension DexOrderBookViewController: DexTraderContainerProcotol {
     
     func controllerWillAppear() {
+        sendEvent.accept(.updateData)
         Observable<Int>.interval(Constansts.updateTime, scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] (value) in
             self?.sendEvent.accept(.updateData)
         }).disposed(by: disposeBag)

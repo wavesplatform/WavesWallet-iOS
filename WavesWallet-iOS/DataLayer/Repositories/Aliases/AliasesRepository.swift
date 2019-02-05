@@ -12,14 +12,14 @@ import Moya
 
 private enum Constants {
     static var notFoundCode = 404
-    static var addressKey = "address"
 }
 
 final class AliasesRepository: AliasesRepositoryProtocol {
-
+    
     private let environmentRepository: EnvironmentRepositoryProtocol
     private let aliasNode: MoyaProvider<Node.Service.Alias> = .nodeMoyaProvider()
-
+    private let aliasApi: MoyaProvider<API.Service.Alias> = .nodeMoyaProvider()
+    
     init(environmentRepository: EnvironmentRepositoryProtocol) {
         self.environmentRepository = environmentRepository
     }
@@ -63,30 +63,25 @@ final class AliasesRepository: AliasesRepositoryProtocol {
     }
 
     func alias(by name: String, accountAddress: String) -> Observable<String> {
-
-        return environmentRepository
-            .accountEnvironment(accountAddress: accountAddress)
-            .flatMap({ [weak self] environment -> Observable<String> in
-                guard let owner = self else { return Observable.never() }
-                return owner
-                    .aliasNode
-                    .rx
-                    .request(Node.Service.Alias(environment: environment,
-                                                kind: .alias(name: name)),
-                            callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                    .filterSuccessfulStatusAndRedirectCodes()
-                    .map([String:String].self)
-                    .map({ $0[Constants.addressKey] ?? "" })
-                    .asObservable()
-                    .catchError({ e -> Observable<String> in
-                        guard let error = e as? MoyaError else {
-                            return Observable.error(NetworkError.error(by: e))
-                        }
-                        guard let response = error.response else { return Observable.error(NetworkError.error(by: e)) }
-                        guard response.statusCode == Constants.notFoundCode else { return Observable.error(NetworkError.error(by: e)) }
-                        return Observable.error(AliasesRepositoryError.dontExist)                    
-                    })
-
+        return environmentRepository.accountEnvironment(accountAddress: accountAddress)
+            .flatMap({ [weak self] (environment) -> Observable<String> in
+                guard let owner = self else { return Observable.empty() }
+                return owner.aliasApi.rx.request(API.Service.Alias(environment: environment,
+                                                                   kind: .alias(name: name)))
+                .filterSuccessfulStatusAndRedirectCodes()
+                .map(API.Response<API.DTO.Alias>.self)
+                .map({ (response) -> String in
+                    return response.data.address
+                })
+                .asObservable()
+                .catchError({ (e) -> Observable<String> in
+                    guard let error = e as? MoyaError else {
+                        return Observable.error(NetworkError.error(by: e))
+                    }
+                    guard let response = error.response else { return Observable.error(NetworkError.error(by: e)) }
+                    guard response.statusCode == Constants.notFoundCode else { return Observable.error(NetworkError.error(by: e)) }
+                    return Observable.error(AliasesRepositoryError.dontExist)
+                })
             })
     }
 

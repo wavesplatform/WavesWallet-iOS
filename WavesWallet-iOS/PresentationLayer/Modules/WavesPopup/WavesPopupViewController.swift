@@ -15,7 +15,7 @@ protocol WavesPopupModuleOutput: AnyObject {
     func showExchange()
 }
 
-class WavesPopupViewController: UIViewController {
+final class WavesPopupViewController: UIViewController {
 
     weak var moduleOutput: WavesPopupModuleOutput?
     @IBOutlet weak var comingSoonLabel: UILabel!
@@ -40,7 +40,7 @@ class WavesPopupViewController: UIViewController {
     
     @IBAction func receiveTapped(_ sender: Any) {
         
-        moduleOutput?.showReceive()
+        moduleOutput?.showReceive() 
         dismissTapped(sender)
     }
     
@@ -48,10 +48,8 @@ class WavesPopupViewController: UIViewController {
     @IBAction func exchangeTapped(_ sender: Any) {
         moduleOutput?.showExchange()
     }
-    
-    
+
     @IBAction func dismissTapped(_ sender: Any) {
-        
         if let parent = parent as? PopupViewController {
             parent.dismissPopup()
         }
