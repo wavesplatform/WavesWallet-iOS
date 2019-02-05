@@ -88,7 +88,7 @@ final class SendInteractor: SendInteractorProtocol {
             guard let owner = self else { return Observable.empty() }
             
             return owner.aliasRepository.alias(by: alias, accountAddress: wallet.address)
-                .flatMap({ (alias) -> Observable<Bool>  in
+                .flatMap({ (address) -> Observable<Bool>  in
                     return Observable.just(true)
             })
         })
