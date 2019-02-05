@@ -30,6 +30,7 @@ extension DomainLayer.DTO {
         case data(DomainLayer.DTO.DataTransaction)
         case script(DomainLayer.DTO.ScriptTransaction)
         case assetScript(DomainLayer.DTO.AssetScriptTransaction)
+        case sponsorship(DomainLayer.DTO.SponsorshipTransaction)
     }
 }
 
@@ -76,6 +77,10 @@ extension DomainLayer.DTO.AnyTransaction {
 
         case .assetScript(let tx):
             return tx.status
+
+        case .sponsorship(let tx):
+            return tx.status
+
         }
     }
 
@@ -139,6 +144,10 @@ extension DomainLayer.DTO.AnyTransaction {
 
         case .assetScript(let tx):
             return tx.id
+
+        case .sponsorship(let tx):
+            return tx.id
+
         }
     }
 
@@ -182,6 +191,9 @@ extension DomainLayer.DTO.AnyTransaction {
 
         case .assetScript(let tx):
             return tx.timestamp
+
+        case .sponsorship(let tx):
+            return tx.timestamp
         }
     }
 
@@ -224,6 +236,9 @@ extension DomainLayer.DTO.AnyTransaction {
             return tx.modified
 
         case .assetScript(let tx):
+            return tx.modified
+
+        case .sponsorship(let tx):
             return tx.modified
         }
     }

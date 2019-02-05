@@ -90,6 +90,7 @@ target 'WavesWallet-iOS' do
     # Debug
     pod 'Reveal-SDK', :configurations => ['Debug', 'Test']
     pod 'AppSpectorSDK', :configurations => ['Debug', 'Test']
+    pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git'
 end
 
 post_install do |installer|
