@@ -672,6 +672,8 @@
 		E980EACE20A9F5BF001834DB /* ScannerCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */; };
 		E983665E21F5972300178A8A /* TransactionScriptErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983665D21F5972300178A8A /* TransactionScriptErrorView.swift */; };
 		E983666121F5973900178A8A /* TransactionScriptErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E983666021F5973900178A8A /* TransactionScriptErrorView.xib */; };
+		E991BB15220189530022E27D /* AliasApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB14220189530022E27D /* AliasApiService.swift */; };
+		E991BB17220197280022E27D /* AliasApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB16220197280022E27D /* AliasApi.swift */; };
 		E99DD81B21CEE7690091AFEC /* CandlesApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81A21CEE7690091AFEC /* CandlesApiService.swift */; };
 		E99DD81D21CEF09C0091AFEC /* CandleApiFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81C21CEF09C0091AFEC /* CandleApiFilters.swift */; };
 		E99DD81F21CEF7AC0091AFEC /* CandleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81E21CEF7AC0091AFEC /* CandleApi.swift */; };
@@ -884,7 +886,6 @@
 		F74240B61EAB8D1600C3B84D /* AddressBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74240B11EAB8D1600C3B84D /* AddressBook.swift */; };
 		F74240B71EAB8D1600C3B84D /* AssetBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74240B21EAB8D1600C3B84D /* AssetBalance.swift */; };
 		F74240B81EAB8D1600C3B84D /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74240B31EAB8D1600C3B84D /* Transaction.swift */; };
-		F74240B91EAB8D1600C3B84D /* NodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74240B41EAB8D1600C3B84D /* NodeManager.swift */; };
 		F74240C91EAB8EC800C3B84D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F74240C81EAB8EC800C3B84D /* Main.storyboard */; };
 		F78E33151EB329DF00132A8B /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78E33141EB329DF00132A8B /* Environment.swift */; };
 		F7C683BE1EA93C5800C87DAF /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C683BA1EA93C5800C87DAF /* CustomNavigationController.swift */; };
@@ -1585,6 +1586,8 @@
 		E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerCustomView.swift; sourceTree = "<group>"; };
 		E983665D21F5972300178A8A /* TransactionScriptErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionScriptErrorView.swift; sourceTree = "<group>"; };
 		E983666021F5973900178A8A /* TransactionScriptErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionScriptErrorView.xib; sourceTree = "<group>"; };
+		E991BB14220189530022E27D /* AliasApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasApiService.swift; sourceTree = "<group>"; };
+		E991BB16220197280022E27D /* AliasApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasApi.swift; sourceTree = "<group>"; };
 		E99DD81A21CEE7690091AFEC /* CandlesApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandlesApiService.swift; sourceTree = "<group>"; };
 		E99DD81C21CEF09C0091AFEC /* CandleApiFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleApiFilters.swift; sourceTree = "<group>"; };
 		E99DD81E21CEF7AC0091AFEC /* CandleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleApi.swift; sourceTree = "<group>"; };
@@ -1797,7 +1800,6 @@
 		F74240B11EAB8D1600C3B84D /* AddressBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBook.swift; sourceTree = "<group>"; };
 		F74240B21EAB8D1600C3B84D /* AssetBalance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetBalance.swift; sourceTree = "<group>"; };
 		F74240B31EAB8D1600C3B84D /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
-		F74240B41EAB8D1600C3B84D /* NodeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeManager.swift; sourceTree = "<group>"; };
 		F74240C81EAB8EC800C3B84D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		F76AF1E81EBB43E00081A8BD /* SwiftBase58.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftBase58.framework; path = Carthage/Build/iOS/SwiftBase58.framework; sourceTree = "<group>"; };
 		F76AF1E91EBB43E00081A8BD /* SwiftBase58.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SwiftBase58.framework.dSYM; path = Carthage/Build/iOS/SwiftBase58.framework.dSYM; sourceTree = "<group>"; };
@@ -2024,6 +2026,7 @@
 				0A1DAD7920F3A9AE004DA625 /* TransactionApi.swift */,
 				E99DD81E21CEF7AC0091AFEC /* CandleApi.swift */,
 				E9A380A621D2E1C5004377A6 /* PairPriceApi.swift */,
+				E991BB16220197280022E27D /* AliasApi.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2388,6 +2391,7 @@
 				0A4C9AAA20EF6BFF0095A417 /* AssetsApiService.swift */,
 				E99DD81A21CEE7690091AFEC /* CandlesApiService.swift */,
 				E9740E5D21D1C90F00EAD3ED /* PairsPriceApiService.swift */,
+				E991BB14220189530022E27D /* AliasApiService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -4655,7 +4659,6 @@
 			isa = PBXGroup;
 			children = (
 				E971DA5120FFF4B600616A03 /* BiometricManager.swift */,
-				F74240B41EAB8D1600C3B84D /* NodeManager.swift */,
 				0A5C919120F3D00D00443CE6 /* Assisstants */,
 				0A1DAD6720F3971B004DA625 /* DataBase */,
 				0A7E0CDC20F369E20010CA6C /* Environment */,
@@ -5099,8 +5102,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04831F7A216917B0006D1ED6 /* ApiServiceTypes.swift in Sources */,
 				0AAB15C12165534500F1F7BC /* DomainLayerTypes.swift in Sources */,
 				0A5E4BCF213820C500E3C3C3 /* ReissueTransactionDomainDTO.swift in Sources */,
+				E991BB17220197280022E27D /* AliasApi.swift in Sources */,
 				0A5E4BC9213820C500E3C3C3 /* LeaseCancelTransactionDomainDTO.swift in Sources */,
 				0A5E4BD1213820C500E3C3C3 /* LeaseTransactionDomainDTO.swift in Sources */,
 				0A5E4BD3213820C500E3C3C3 /* AliasTransactionDomainDTO.swift in Sources */,
@@ -5123,7 +5128,6 @@
 				0A8AFF282101F37200D0582B /* MatcherServiceTypes.swift in Sources */,
 				E96E2A0521D3D9AA00AC2FA9 /* DomainDexQueries.swift in Sources */,
 				0ADD7F9F21F22FB60075FC59 /* UIViewController+Alert.swift in Sources */,
-				04831F7A216917B0006D1ED6 /* ApiServiceTypes.swift in Sources */,
 				E9DC959621A3A5BD0020249F /* StartLeasingTypes.swift in Sources */,
 				0ADD7FAC21F22FB60075FC59 /* UIViewController+Rx.swift in Sources */,
 				0ADD7FB521F22FB60075FC59 /* Bundle+Version.swift in Sources */,
@@ -5297,6 +5301,7 @@
 				E9B087EE2163886800937644 /* DexLastTradesPresenter.swift in Sources */,
 				E9D36DDC2175C755001E6DF0 /* ReceiveCardCompleteViewController.swift in Sources */,
 				E9B086B92163883000937644 /* AddressBookTypes.swift in Sources */,
+				E991BB15220189530022E27D /* AliasApiService.swift in Sources */,
 				0A7E0CD120F2AF6C0010CA6C /* BaseTargetType.swift in Sources */,
 				0AF92300212E1234003BA067 /* NavigationAccessoryView.swift in Sources */,
 				E9657038219360770052F0FC /* WalletSortModuleBuilder.swift in Sources */,
@@ -5786,7 +5791,6 @@
 				0ADD7FD721F22FB60075FC59 /* ObservableType+SweetLogger.swift in Sources */,
 				0AF92208212E07B3003BA067 /* AssetHeaderView.swift in Sources */,
 				E9B087D32163886800937644 /* DexListModuleBuilder.swift in Sources */,
-				F74240B91EAB8D1600C3B84D /* NodeManager.swift in Sources */,
 				04EB742621133318004A065B /* HistoryViewController.swift in Sources */,
 				0ADD7F9321F22FB60075FC59 /* RxDataSource+TableView.swift in Sources */,
 				0AD83606217A1C14004413E9 /* AccountEnvironment.swift in Sources */,
