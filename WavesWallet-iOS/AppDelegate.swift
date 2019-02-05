@@ -58,18 +58,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Swizzle(initializers: [UIView.passtroughInit, UIView.insetsInit, UIView.shadowInit]).start()
 
         #if DEBUG || TEST
-            SweetLogger.current.visibleLevels = [.debug, .error]
+            SweetLogger.current.plugins = [SweetLoggerConsole(visibleLevels: [.warning, .debug, .error],
+                                                              isShortLog: true),
+                                            SweetLoggerSentry(visibleLevels: [.error])]
+
+            SweetLogger.current.visibleLevels = [.warning, .debug, .error]
+
             AppsFlyerTracker.shared()?.isDebug = false
-
-
+        
             if let path = Bundle.main.path(forResource: "AppSpector-Info", ofType: "plist"),
                 let apiKey = NSDictionary(contentsOfFile: path)?["API_KEY"] as? String {
                 let config = AppSpectorConfig(apiKey: apiKey)
                 AppSpector.run(with: config)                
             }
 
+
         #else
-            SweetLogger.current.visibleLevels = []
+            SweetLogger.current.plugins = []
+            SweetLogger.current.visibleLevels = [.error]
             AppsFlyerTracker.shared()?.isDebug = false
         #endif
 

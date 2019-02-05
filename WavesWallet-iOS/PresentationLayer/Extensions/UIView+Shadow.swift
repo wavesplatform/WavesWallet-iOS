@@ -106,7 +106,7 @@ extension UIView {
             //corner ratius in UIImageView not working wihout masksToBounds
             if layer.masksToBounds == false && self is UIImageView {
                 layer.masksToBounds = true
-                warning("Corner radius dont work, need enable mask to bounds")
+                SweetLogger.warning("Corner radius dont work, need enable mask to bounds")
             }
         }
 

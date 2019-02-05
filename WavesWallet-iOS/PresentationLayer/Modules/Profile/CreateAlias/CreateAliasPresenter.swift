@@ -116,7 +116,7 @@ fileprivate extension CreateAliasPresenter {
                 })
                 .map { _ in .aliasCreated }
                 .asSignal(onErrorRecover: { e in
-                    error(e)
+                    SweetLogger.error(e)
                     return Signal.just(Types.Event.handlerError(e))
                 })
         })

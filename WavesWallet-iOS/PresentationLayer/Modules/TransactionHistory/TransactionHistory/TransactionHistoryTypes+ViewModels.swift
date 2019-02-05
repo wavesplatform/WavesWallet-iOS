@@ -333,6 +333,12 @@ extension TransactionHistoryTypes.ViewModel.Section {
             } else {
                 customTitle = Localizable.Waves.History.Transaction.Value.Setscript.cancel
             }
+        case .sponsorship(let isEnabled, _):
+            if isEnabled {
+                customTitle = Localizable.Waves.History.Transaction.Value.Setsponsorship.set
+            } else {
+                customTitle = Localizable.Waves.History.Transaction.Value.Setsponsorship.cancel
+            }
         }
 
         // general

@@ -33,7 +33,7 @@ extension DomainLayer.DTO {
             let asset: Asset
             let recipient: Account
             let attachment: String?
-            
+            let hasSponsorship: Bool
             var isGatewayAddress: Bool {
                 return CoinomatService.addresses.contains(recipient.address)
             }
@@ -132,6 +132,7 @@ extension DomainLayer.DTO {
 
             case script(isHasScript: Bool)
             case assetScript(Asset)
+            case sponsorship(isEnabled: Bool, asset: Asset)
 
         }
 

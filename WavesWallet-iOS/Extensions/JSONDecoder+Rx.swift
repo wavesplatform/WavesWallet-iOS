@@ -28,7 +28,7 @@ extension JSONDecoder {
 
                 observer.onNext(element)
             } catch let error {
-                debug(error)
+                SweetLogger.debug(error)
                 observer.onError(error)
             }
             return Disposables.create()

@@ -145,14 +145,14 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
                 let newSections = display.sections.reduce(into: [Types.ViewModel.Section](), { (sections, section) in
 
                     let newItems = section.items.reduce(into: [Types.ViewModel.Row](), { (rows, row) in
-
-
+                        
                         if case let .recipient(recipient) = row,
                             recipient.account.address == contact.address
                         {
                             let newAccount = DomainLayer.DTO.Account(address: recipient.account.address,
                                                                      contact: needDelete == true ? nil : contact,
-                                                                     isMyAccount: recipient.account.isMyAccount)
+                                                                     isMyAccount: recipient.account.isMyAccount,
+                                                                     aliases: recipient.account.aliases)
 
                             rows.append(.recipient(Types.ViewModel.Recipient(kind: recipient.kind,
                                                                              account: newAccount,

@@ -253,6 +253,7 @@ internal enum Images {
   internal static let tSpamReceive48 = ImageAsset(name: "tSpamReceive48")
   internal static let tSponsoredDisable48 = ImageAsset(name: "tSponsoredDisable48")
   internal static let tSponsoredEnable48 = ImageAsset(name: "tSponsoredEnable48")
+  internal static let tSponsoredPlus48 = ImageAsset(name: "tSponsoredPlus48")
   internal static let tStartlease48 = ImageAsset(name: "tStartlease48")
   internal static let tTokenburn24 = ImageAsset(name: "tTokenburn24")
   internal static let tTokenburn48 = ImageAsset(name: "tTokenburn48")
@@ -511,6 +512,7 @@ internal enum Images {
     tSpamReceive48,
     tSponsoredDisable48,
     tSponsoredEnable48,
+    tSponsoredPlus48,
     tStartlease48,
     tTokenburn24,
     tTokenburn48,
