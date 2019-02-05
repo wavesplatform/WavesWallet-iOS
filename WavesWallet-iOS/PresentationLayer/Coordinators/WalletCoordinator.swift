@@ -56,8 +56,7 @@ final class WalletCoordinator: Coordinator {
         }).disposed(by: disposeBag)
     }
 
-    private func showBackupTostIfNeed() {
-        let navigationController = self.navigationRouter.navigationController
+    private func showBackupTostIfNeed() {        
         let coordinator = BackupTostCoordinator(navigationRouter: navigationRouter)
         addChildCoordinatorAndStart(childCoordinator: coordinator)
     }

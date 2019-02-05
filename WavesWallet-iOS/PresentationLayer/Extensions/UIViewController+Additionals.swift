@@ -98,9 +98,8 @@ extension UIViewController {
     func tableViewTopOffsetForBigNavBar(_ tableView: UITableView) -> CGPoint {
         
         //TODO: check if IOS 10 will be support
-        let offset = -(Constants.bigNavBarHeight +
-                    (navigationController?.navigationBar.frame.origin.y ?? 0) +
-                    tableView.contentInset.top)
+        let navBarY = (navigationController?.navigationBar.frame.origin.y ?? 0)
+        let offset = -(Constants.bigNavBarHeight + navBarY + tableView.contentInset.top)
         return CGPoint(x: 0, y: offset)
     }
 }
