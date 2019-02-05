@@ -63,7 +63,6 @@ final class AliasesRepository: AliasesRepositoryProtocol {
     }
 
     func alias(by name: String, accountAddress: String) -> Observable<String> {
-
         return environmentRepository.accountEnvironment(accountAddress: accountAddress)
             .flatMap({ [weak self] (environment) -> Observable<String> in
                 guard let owner = self else { return Observable.empty() }
