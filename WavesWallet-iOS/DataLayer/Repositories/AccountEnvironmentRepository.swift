@@ -49,7 +49,7 @@ final class AccountSettingsRepository: AccountSettingsRepositoryProtocol {
                 }
                 
             } catch let e {
-                debug(e)
+                SweetLogger.debug(e)
                 observer.onError(AccountSettingsRepositoryError.invalid)
             }
 

@@ -36,7 +36,7 @@ class Base58 {
         let beginIndex = (csize - size)
 
         if beginIndex < 0 || csize > data.count {
-            error("beginIndex \(str) \(size), \(csize), \(data.count)")
+            SweetLogger.error("beginIndex \(str) \(size), \(csize), \(data.count)")
             return []
         }
 

@@ -570,6 +570,11 @@
 		0AFA0C7C2174A2300003FE3B /* LegalModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA0C722174A2300003FE3B /* LegalModuleBuilder.swift */; };
 		0AFA0C7D2174A2300003FE3B /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA0C742174A2300003FE3B /* BrowserViewController.swift */; };
 		0AFB59402209AD56001F0DD8 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFB593F2209AD56001F0DD8 /* TestViewController.swift */; };
+		0AFB59422209B2BD001F0DD8 /* SponsorshipTransactionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFB59412209B2BD001F0DD8 /* SponsorshipTransactionNode.swift */; };
+		0AFB59442209B5F3001F0DD8 /* SponsorshipTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFB59432209B5F3001F0DD8 /* SponsorshipTransaction.swift */; };
+		0AFB59462209C20E001F0DD8 /* SponsorshipTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFB59452209C20E001F0DD8 /* SponsorshipTransaction+Mapper.swift */; };
+		0AFB59482209C2F8001F0DD8 /* SponsorshipTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFB59472209C2F8001F0DD8 /* SponsorshipTransactionDomainDTO.swift */; };
+		0AFB594A2209F167001F0DD8 /* Sentry.io-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AFB59492209F167001F0DD8 /* Sentry.io-Info.plist */; };
 		0AFBCA80211306F600285BCB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AFBCA7F211306F600285BCB /* LaunchScreen.storyboard */; };
 		0AFBCA852113173300285BCB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AFBCA832113173300285BCB /* InfoPlist.strings */; };
 		0AFBCA8A2113254100285BCB /* WalletModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFBCA892113254100285BCB /* WalletModuleBuilder.swift */; };
@@ -1480,6 +1485,11 @@
 		0AFA0C722174A2300003FE3B /* LegalModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegalModuleBuilder.swift; sourceTree = "<group>"; };
 		0AFA0C742174A2300003FE3B /* BrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
 		0AFB593F2209AD56001F0DD8 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		0AFB59412209B2BD001F0DD8 /* SponsorshipTransactionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorshipTransactionNode.swift; sourceTree = "<group>"; };
+		0AFB59432209B5F3001F0DD8 /* SponsorshipTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorshipTransaction.swift; sourceTree = "<group>"; };
+		0AFB59452209C20E001F0DD8 /* SponsorshipTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SponsorshipTransaction+Mapper.swift"; sourceTree = "<group>"; };
+		0AFB59472209C2F8001F0DD8 /* SponsorshipTransactionDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorshipTransactionDomainDTO.swift; sourceTree = "<group>"; };
+		0AFB59492209F167001F0DD8 /* Sentry.io-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Sentry.io-Info.plist"; sourceTree = "<group>"; };
 		0AFBCA7F211306F600285BCB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0AFBCA862113188A00285BCB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0AFBCA872113188B00285BCB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -2134,6 +2144,7 @@
 				0A5C53DC2139491C00667E34 /* UnrecognisedTransactionNode.swift */,
 				0ADD804121F71FD90075FC59 /* ScriptTransactionNode.swift */,
 				0ADD804321F72B2C0075FC59 /* AssetScriptTransactionNode.swift */,
+				0AFB59412209B2BD001F0DD8 /* SponsorshipTransactionNode.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -2189,6 +2200,7 @@
 				0A5C3203213E93C700420004 /* UnrecognisedTransaction.swift */,
 				0A57C38F21F74EB0003B5386 /* ScriptTransaction.swift */,
 				0A57C39121F74EBA003B5386 /* AssetScriptTransaction.swift */,
+				0AFB59432209B5F3001F0DD8 /* SponsorshipTransaction.swift */,
 			);
 			path = Transaction;
 			sourceTree = "<group>";
@@ -2434,6 +2446,7 @@
 				0A5C53DE2139498800667E34 /* UnrecognisedTransactionDomainDTO.swift */,
 				0ADD804721F73C280075FC59 /* AssetScriptTransactionDomainDTO.swift */,
 				0ADD804921F73C360075FC59 /* ScriptTransactionDomainDTO.swift */,
+				0AFB59472209C2F8001F0DD8 /* SponsorshipTransactionDomainDTO.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -2753,6 +2766,7 @@
 		0A979752210885B500407F67 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0AFB59492209F167001F0DD8 /* Sentry.io-Info.plist */,
 				0AADFD0521F9F4AB001F5C0A /* AppSpector-Info.plist */,
 				F7C683BC1EA93C5800C87DAF /* ObjCBridgingHeader.h */,
 				0A02D20621AEA1B1005DF820 /* Appsflyer-Info.plist */,
@@ -3145,6 +3159,7 @@
 				0A98D14B2138A30700550FE0 /* AnyTransaction+Mapper.swift */,
 				0A57C38B21F74E20003B5386 /* ScriptTransaction+Mapper.swift */,
 				0A57C38D21F74E2E003B5386 /* AssetScriptTransaction+Mapper.swift */,
+				0AFB59452209C20E001F0DD8 /* SponsorshipTransaction+Mapper.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -4887,6 +4902,7 @@
 				E9D36DFA2175C755001E6DF0 /* AssetList.storyboard in Resources */,
 				0AFA0C762174A2300003FE3B /* Legal.storyboard in Resources */,
 				0AFBCA80211306F600285BCB /* LaunchScreen.storyboard in Resources */,
+				0AFB594A2209F167001F0DD8 /* Sentry.io-Info.plist in Resources */,
 				E917B3AF21BD688500CC849A /* AmountSkeletonView.xib in Resources */,
 				E9B087F12163886800937644 /* DexLastTradesHeaderView.xib in Resources */,
 				E9B086B02163883000937644 /* AddAddressTextField.xib in Resources */,
@@ -5045,6 +5061,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxRealm/RxRealm.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
+				"${BUILT_PRODUCTS_DIR}/Sentry/Sentry.framework",
 				"${BUILT_PRODUCTS_DIR}/Skeleton/Skeleton.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeView/SwipeView.framework",
@@ -5099,6 +5116,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRealm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftExt.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sentry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Skeleton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeView.framework",
@@ -5144,11 +5162,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				04831F7A216917B0006D1ED6 /* ApiServiceTypes.swift in Sources */,
+				0AAB15C12165534500F1F7BC /* DomainLayerTypes.swift in Sources */,
 				0A5E4BCF213820C500E3C3C3 /* ReissueTransactionDomainDTO.swift in Sources */,
 				E991BB17220197280022E27D /* AliasApi.swift in Sources */,
 				0A5E4BC9213820C500E3C3C3 /* LeaseCancelTransactionDomainDTO.swift in Sources */,
 				0A5E4BD1213820C500E3C3C3 /* LeaseTransactionDomainDTO.swift in Sources */,
 				0A5E4BD3213820C500E3C3C3 /* AliasTransactionDomainDTO.swift in Sources */,
+				0AFB59482209C2F8001F0DD8 /* SponsorshipTransactionDomainDTO.swift in Sources */,
 				0A5E4BCA213820C500E3C3C3 /* MassTransferTransactionDomainDTO.swift in Sources */,
 				0A5E4BC8213820C500E3C3C3 /* DataTransactionDomainDTO.swift in Sources */,
 				0A5E4BCD213820C500E3C3C3 /* TransferTransactionDomainDTO.swift in Sources */,
@@ -5188,7 +5208,6 @@
 				E97D451021C814C0000E3C48 /* OrderBookMatcher.swift in Sources */,
 				0A88CC06217D27DF0083874C /* AccountSettingsDomainDTO.swift in Sources */,
 				0A6F60EA216F893600A5C615 /* WalletTypes.swift in Sources */,
-				0AAB15C12165534500F1F7BC /* DomainLayerTypes.swift in Sources */,
 				0ADD6C892167980E00B06917 /* ProfileBiometricCell.swift in Sources */,
 				0A14E3E821871B7700EA7E91 /* AliasesHeadCell.swift in Sources */,
 				0ADD7FCE21F22FB60075FC59 /* RxSwift+Scheduler.swift in Sources */,
@@ -5487,6 +5506,7 @@
 				E95B6B0A219B3B0100A85B5D /* TokenBurnViewController.swift in Sources */,
 				0A762D8121639FA60019D447 /* TransactionHistoryButtonCell.swift in Sources */,
 				0A14E3E42187184000EA7E91 /* AliasesPresenterProtocol.swift in Sources */,
+				0AFB59422209B2BD001F0DD8 /* SponsorshipTransactionNode.swift in Sources */,
 				0AF92205212E07B3003BA067 /* WrapperAssetsSegmentedControl.swift in Sources */,
 				E9D36DC72175C755001E6DF0 /* ReceiveCryptocurrencyTypes.swift in Sources */,
 				E95B47F221638B11004D4E39 /* AmountInputView.swift in Sources */,
@@ -5529,6 +5549,7 @@
 				E9D36DD32175C755001E6DF0 /* ReceiveCardPresenter.swift in Sources */,
 				0A1DAD7320F3A12B004DA625 /* AssetsNodeService.swift in Sources */,
 				E9C8F94B20F66A05004C438A /* ConfirmBackupStackListView.swift in Sources */,
+				0AFB59462209C20E001F0DD8 /* SponsorshipTransaction+Mapper.swift in Sources */,
 				E9A4812F20D8DDBB00272C6D /* ChangePasswordViewController.swift in Sources */,
 				0A6AC3D921839F4E005D2525 /* AddressesKeysValueCell.swift in Sources */,
 				F7E954E81EA8FE0700A804DE /* AppDelegate.swift in Sources */,
@@ -5613,6 +5634,7 @@
 				0A43996921504CF60032E608 /* SideMenu.swift in Sources */,
 				04A403242164D89700652F21 /* EnterStartBlockCell.swift in Sources */,
 				0ADD7FD521F22FB60075FC59 /* AppSettings.swift in Sources */,
+				0AFB59442209B5F3001F0DD8 /* SponsorshipTransaction.swift in Sources */,
 				0ADD7FA921F22FB60075FC59 /* UIViewController+SafeArea.swift in Sources */,
 				0A762D8D21639FA60019D447 /* TransactionHistoryPopupView.swift in Sources */,
 				E9D36DF12175C755001E6DF0 /* AssetListModuleBuilder.swift in Sources */,

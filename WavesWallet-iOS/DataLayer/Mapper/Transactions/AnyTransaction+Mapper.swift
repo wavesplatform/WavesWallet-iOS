@@ -51,6 +51,10 @@ extension Node.DTO.Transaction {
 
         case .assetScript(let transaction):
             return .assetScript(.init(transaction: transaction, status: status, environment: environment))
+
+        case .sponsorship(let transaction):
+            return .sponsorship(.init(transaction: transaction, status: status, environment: environment))
+
         }
     }
 }
@@ -122,6 +126,9 @@ extension DomainLayer.DTO.AnyTransaction {
 
         case .assetScript(let tx):
             return AssetScriptTransaction(transaction: tx)
+
+        case .sponsorship(let tx):
+            return SponsorshipTransaction(transaction: tx)
         }
     }
 
@@ -178,6 +185,9 @@ extension DomainLayer.DTO.AnyTransaction {
 
         case .assetScript:
             any.assetScriptTransaction = from as? AssetScriptTransaction
+
+        case .sponsorship:
+            any.sponsorshipTransaction = from as? SponsorshipTransaction
         }
 
         return any
