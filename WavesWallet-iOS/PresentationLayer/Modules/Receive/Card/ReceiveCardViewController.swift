@@ -157,7 +157,7 @@ private extension ReceiveCardViewController {
                 case .didGetWavesAmount(let amount):
                     strongSelf.hideLoadingmountWaves(amount: amount)
                 
-                case .didFailGetWavesAmount(let error):
+                case .didFailGetWavesAmount:
                     strongSelf.hideLoadingmountWaves(amount: nil)
                     
                 default:
@@ -188,7 +188,9 @@ private extension ReceiveCardViewController {
     
     func hideLoadingmountWaves(amount: Money?) {
         activityIndicatorWavesAmount.stopAnimating()
-        labelAmountWaves.text = "≈ " + (amount?.displayText ?? "0") + " " + "WAVES"
+
+        let amount = amount?.displayText ?? "0"
+        labelAmountWaves.text = "≈ \(amount) WAVES"
     }
     
     func showLoadingAmountWaves() {

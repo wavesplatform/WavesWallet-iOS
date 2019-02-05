@@ -8,6 +8,10 @@
 
 import UIKit
 
+private enum Constants {
+    static let offsetHeight: CGFloat = 0.5
+}
+
 class DynamicHeaderTableView: UITableView {
 
     @IBOutlet private weak var tableView: DynamicHeaderTableView!
@@ -32,7 +36,12 @@ class DynamicHeaderTableView: UITableView {
             let height = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
             var headerFrame = headerView.frame
 
-            let newHeight = max(height, frame.height - (initialLayoutInsets?.top ?? 0) - (initialLayoutInsets?.bottom ?? 0) - 0.5)
+            let top = (initialLayoutInsets?.top ?? 0)
+            let bottom = (initialLayoutInsets?.bottom ?? 0)
+
+            var newHeight = frame.height - top - bottom - Constants.offsetHeight
+            newHeight =  max(height, newHeight)
+            
             if headerView.frame.height != newHeight {
                 headerFrame.size.height = newHeight
                 headerView.frame = headerFrame
