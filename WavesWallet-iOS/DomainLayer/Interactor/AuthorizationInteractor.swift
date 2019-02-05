@@ -771,8 +771,10 @@ private extension AuthorizationInteractor {
                         if  let error = error {
                             context.invalidate()
                             if let error = error as? LAError {
+                                SweetLogger.error("biometricDisable \(error.code) \(error.localizedDescription)")
                                 observer.onError(error.authorizationInteractorError)
                             } else {
+                                SweetLogger.error("biometricDisable Not Found \(error)")
                                 observer.onError(AuthorizationInteractorError.biometricDisable)
                             }
 

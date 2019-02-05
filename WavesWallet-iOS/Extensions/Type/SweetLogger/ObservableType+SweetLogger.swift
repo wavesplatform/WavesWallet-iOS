@@ -12,7 +12,7 @@ import RxSwift
 private func log(identifier: String, message: String) {
     let name = Thread.current.displayName
 
-    debug("▶️ \(name) ◀️ \(identifier) -> \(message)")
+    SweetLogger.debug("▶️ \(name) ◀️ \(identifier) -> \(message)")
 }
 
 private extension Thread {

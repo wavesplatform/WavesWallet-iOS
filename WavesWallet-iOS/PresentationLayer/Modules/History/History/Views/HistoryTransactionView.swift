@@ -170,6 +170,9 @@ extension HistoryTransactionView: ViewConfiguration {
 
         case .assetScript:
             labelValue.text = Localizable.Waves.History.Transaction.Value.setAssetScript
+
+        case .sponsorship(_, let tx):
+            labelValue.text = tx.displayName
         }
     }
 }
@@ -241,13 +244,24 @@ extension DomainLayer.DTO.SmartTransaction {
 
         case .assetScript:
             return Localizable.Waves.History.Transaction.Title.setAssetScript
+
+        case .sponsorship(let isEnabled, _):
+            if isEnabled {
+                return Localizable.Waves.History.Transaction.Value.Setsponsorship.set
+            } else {
+                return Localizable.Waves.History.Transaction.Value.Setsponsorship.cancel
+            }
         }
     }
 
     var image: UIImage {
         switch kind {
-        case .receive:
-            return Images.assetReceive.image
+        case .receive(let tx):
+            if tx.hasSponsorship {
+                return Images.tSponsoredPlus48.image
+            } else {
+                return Images.assetReceive.image
+            }
 
         case .sent:
             return Images.tSend48.image
@@ -306,6 +320,13 @@ extension DomainLayer.DTO.SmartTransaction {
 
         case .assetScript:
             return Images.tSetassetscript48.image
+
+        case .sponsorship(let isEnabled, _):
+            if isEnabled {
+                return Images.tSponsoredEnable48.image
+            } else {
+                return Images.tSponsoredDisable48.image
+            }
         }
     }
 }
