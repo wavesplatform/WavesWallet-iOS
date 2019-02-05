@@ -18,11 +18,6 @@ extension Node.Service {
              - Node.DTO.Block
              */
             case list(accountAddress: String)
-            /**
-             Response:
-             - String
-             */
-            case alias(name: String)
         }
 
         let environment: Environment
@@ -38,29 +33,25 @@ extension Node.Service.Alias: NodeTargetType {
     fileprivate enum Constants {
         static let alias = "alias"
         static let by_address = "by-address"
-        static let by_alias = "by-alias"
     }
 
     var path: String {
         switch kind {
         case .list(let accountAddress):
             return Constants.alias + "/" + Constants.by_address + "/" + "\(accountAddress)"
-
-        case .alias(let name):
-            return Constants.alias + "/" + Constants.by_alias + "/" + "\(name)"
         }
     }
 
     var method: Moya.Method {
         switch kind {
-        case .list, .alias:
+        case .list:
             return .get
         }
     }
 
     var task: Task {
         switch kind {
-        case .list, .alias:
+        case .list:
             return .requestPlain
         }
     }
