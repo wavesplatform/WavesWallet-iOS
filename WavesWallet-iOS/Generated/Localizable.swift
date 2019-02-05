@@ -1195,6 +1195,13 @@ internal enum Localizable {
             /// Set Script Transaction
             internal static var `set`: String { return Localizable.tr("Waves", "history.transaction.value.setScript.set") }
           }
+
+          internal enum Setsponsorship {
+            /// Disable Sponsorship
+            internal static var cancel: String { return Localizable.tr("Waves", "history.transaction.value.setSponsorship.cancel") }
+            /// Set Sponsorship
+            internal static var `set`: String { return Localizable.tr("Waves", "history.transaction.value.setSponsorship.set") }
+          }
         }
       }
     }

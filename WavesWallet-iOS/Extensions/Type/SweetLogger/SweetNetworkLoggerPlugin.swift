@@ -117,7 +117,7 @@ private extension SweetNetworkLoggerPlugin {
 fileprivate extension SweetNetworkLoggerPlugin {
     static func reversedPrint(_ separator: String, terminator: String, items: Any...) {
         for item in items {
-            network("\(item)")
+            SweetLogger.network("\(item)")
         }
     }
 }

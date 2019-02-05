@@ -44,7 +44,7 @@ extension Int64 {
 }
 
 struct SmartTransactionMetaData {
-    let accountAddress: String
+    let account: DomainLayer.DTO.Account
     let assets: [String: DomainLayer.DTO.Asset]
     let accounts: [String: DomainLayer.DTO.Account]
     let totalHeight: Int64
@@ -133,27 +133,48 @@ extension DomainLayer.DTO.TransferTransaction {
 
         let assetId = self.assetId
         guard let asset = assets[assetId] else {
-            error("TransferTransaction Not found Asset ID")
-            return nil
-        }
-        guard let recipient = accounts[self.recipient] else {
-            error("TransferTransaction Not found Recipient ID")
-            return nil
-        }
-        guard let sender = accounts[self.sender] else {
-            error("TransferTransaction Not found Sender ID")
+            SweetLogger.error("TransferTransaction Not found Asset ID")
             return nil
         }
 
-        let balance = asset.balance(self.amount)
-        
+        guard let feeAsset = assets[feeAssetId] else {
+            SweetLogger.error("TransferTransaction Not found Fee Asset ID")
+            return nil
+        }
+        guard let recipient = accounts[self.recipient] else {
+            SweetLogger.error("TransferTransaction Not found Recipient ID")
+            return nil
+        }
+        guard let sender = accounts[self.sender] else {
+            SweetLogger.error("TransferTransaction Not found Sender ID")
+            return nil
+        }
+
+        let externalAccounts = [recipient.address, sender.address]
+
+        let hasMyAccount = externalAccounts.contains(metaData.account.address)
+        let hasMyAliases = metaData.account.aliases.contains(where: { (alias) -> Bool in
+            return externalAccounts.contains(alias.name)
+        })
+
         let transactionDirection = TransactionDirection(sender: sender,
                                                         recipient: recipient)
-        
-        let transfer: DomainLayer.DTO.SmartTransaction.Transfer = .init(balance: balance,
-                                                                        asset: asset,
+
+        let hasSponsorship = (hasMyAccount == false && hasMyAliases == false) && transactionDirection == .receive
+
+        var transferBalance = asset.balance(self.amount)
+        var transferAsset = asset
+
+        if hasSponsorship {
+            transferBalance = feeAsset.balance(self.fee)
+            transferAsset = feeAsset
+        }
+
+        let transfer: DomainLayer.DTO.SmartTransaction.Transfer = .init(balance: transferBalance,
+                                                                        asset: transferAsset,
                                                                         recipient: transactionDirection == .receive ? sender : recipient,
-                                                                        attachment: decodedString(attachment))
+                                                                        attachment: decodedString(attachment),
+                                                                        hasSponsorship: hasSponsorship)
 
 
         var kind: DomainLayer.DTO.SmartTransaction.Kind!
@@ -172,7 +193,7 @@ extension DomainLayer.DTO.TransferTransaction {
         }
 
         guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else {
-            error("TransferTransaction Not found Waves ID")
+            SweetLogger.error("TransferTransaction Not found Waves ID")
             return nil
         }
         let feeBalance = wavesAsset.balance(fee)
@@ -235,15 +256,15 @@ extension DomainLayer.DTO.BurnTransaction {
         let totalHeight: Int64 = metaData.totalHeight
 
         guard let asset = assets[self.assetId] else {
-            error("MassTransferTransaction Not found Asset ID")
+            SweetLogger.error("MassTransferTransaction Not found Asset ID")
             return nil
         }
         guard let sender = accounts[self.sender] else {
-            error("MassTransferTransaction Not found Sender ID")
+            SweetLogger.error("MassTransferTransaction Not found Sender ID")
             return nil
         }
         guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else {
-            error("MassTransferTransaction Not found Waves ID")
+            SweetLogger.error("MassTransferTransaction Not found Waves ID")
             return nil
         }
         let balance = asset.balance(self.amount)
@@ -337,7 +358,7 @@ extension DomainLayer.DTO.LeaseTransaction {
 
     func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
 
-        let accountAddress: String = metaData.accountAddress
+        let accountAddress: String = metaData.account.address
         let assets: [String: DomainLayer.DTO.Asset] = metaData.assets
         let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
@@ -505,6 +526,36 @@ extension DomainLayer.DTO.AssetScriptTransaction {
     }
 }
 
+// MARK: SponsorshipTransaction
+
+extension DomainLayer.DTO.SponsorshipTransaction {
+
+    func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
+
+        let assets: [String: DomainLayer.DTO.Asset] = metaData.assets
+        let accounts: [String: DomainLayer.DTO.Account] = metaData.accounts
+        let totalHeight: Int64 = metaData.totalHeight
+
+        guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else { return nil }
+        guard let assetAccount = assets[assetId] else { return nil }
+        guard let sender = accounts[self.sender] else { return nil }
+
+        let isEnabled = self.minSponsoredAssetFee != nil
+        
+        let kind: DomainLayer.DTO.SmartTransaction.Kind = .sponsorship(isEnabled: isEnabled, asset: assetAccount)
+        let feeBalance = wavesAsset.balance(fee)
+
+        return .init(id: id,
+                     kind: kind,
+                     timestamp: Date(milliseconds: timestamp),
+                     totalFee: feeBalance,
+                     height: height,
+                     confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
+                     sender: sender,
+                     status: metaData.status)
+    }
+}
+
 // MARK: MassTransferTransaction
 
 extension DomainLayer.DTO.MassTransferTransaction {
@@ -517,12 +568,12 @@ extension DomainLayer.DTO.MassTransferTransaction {
 
         let assetId = self.assetId
         guard let asset = assets[assetId] else {
-            error("MassTransferTransaction Not found assetId")
+            SweetLogger.error("MassTransferTransaction Not found assetId")
             return nil
 
         }
         guard let sender = accounts[self.sender] else {
-            error("MassTransferTransaction not found sender")
+            SweetLogger.error("MassTransferTransaction not found sender")
             return nil
         }
 
@@ -535,7 +586,7 @@ extension DomainLayer.DTO.MassTransferTransaction {
         if isSenderAccount {
             let transfers = self.transfers.map { tx -> DomainLayer.DTO.SmartTransaction.MassTransfer.Transfer? in
                 guard let recipient = accounts[tx.recipient] else {
-                    error("MassTransferTransaction Not found recipient")
+                    SweetLogger.error("MassTransferTransaction Not found recipient")
                     return nil
                 }
                 let amount = asset.money(tx.amount)
@@ -552,7 +603,7 @@ extension DomainLayer.DTO.MassTransferTransaction {
 
             let transfers = self.transfers.map { tx -> DomainLayer.DTO.SmartTransaction.MassReceive.Transfer? in
                 guard accounts[tx.recipient] != nil else {
-                    error("MassTransferTransaction Not found recipient")
+                    SweetLogger.error("MassTransferTransaction Not found recipient")
                     return nil
                 }
                 let amount = asset.money(tx.amount)
@@ -582,7 +633,7 @@ extension DomainLayer.DTO.MassTransferTransaction {
         }
 
         guard let wavesAsset = assets[GlobalConstants.wavesAssetId] else {
-            error("MassTransferTransaction Not found Waves ID")
+            SweetLogger.error("MassTransferTransaction Not found Waves ID")
             return nil
         }
         let feeBalance = wavesAsset.balance(fee)
@@ -645,6 +696,12 @@ extension DomainLayer.DTO.AnyTransaction {
                      leaseTransactions: [String: DomainLayer.DTO.LeaseTransaction],
                      mapTxs: [String: DomainLayer.DTO.AnyTransaction]) -> DomainLayer.DTO.SmartTransaction? {
 
+
+        guard let account = accounts[accountAddress] else {
+            SweetLogger.debug("account Not Found \(self)")
+            return nil
+        }
+
         var status: DomainLayer.DTO.SmartTransaction.Status = .completed
 
         switch self.status {
@@ -662,7 +719,7 @@ extension DomainLayer.DTO.AnyTransaction {
             status = .activeNow
         }
 
-        let smartData = SmartTransactionMetaData(accountAddress: accountAddress,
+        let smartData = SmartTransactionMetaData(account: account,
                                                  assets: assets,
                                                  accounts: accounts,
                                                  totalHeight: totalHeight,
@@ -710,10 +767,13 @@ extension DomainLayer.DTO.AnyTransaction {
 
         case .assetScript(let tx):
             smartTransaction = tx.transaction(by: smartData)
+
+        case .sponsorship(let tx):
+            smartTransaction = tx.transaction(by: smartData)
         }
 
         if smartTransaction == nil {
-           debug("Not Found TX \(self)")
+           SweetLogger.debug("Not Found TX \(self)")
         }
 
         return smartTransaction

@@ -277,7 +277,7 @@ private extension WalletsRepositoryLocal {
             .appendingPathComponent("wallets_\(Environments.current.scheme).realm")
 
         config.migrationBlock = { _, oldSchemaVersion in
-            debug("Migration!!! \(oldSchemaVersion)")
+            SweetLogger.debug("Migration!!! \(oldSchemaVersion)")
         }
 
         return config
@@ -285,7 +285,7 @@ private extension WalletsRepositoryLocal {
 
     var realm: Realm? {
         guard let config = getWalletsConfig() else {
-            error("Realm Configuration is nil")
+            SweetLogger.error("Realm Configuration is nil")
             return nil
         }
 
