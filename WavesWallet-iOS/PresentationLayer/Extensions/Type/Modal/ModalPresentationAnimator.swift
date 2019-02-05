@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+private enum Constants {
+    static let animationDuration: TimeInterval = 0.38
+}
+
 final class ModalPresentationAnimator: NSObject {
 
     let isPresentation: Bool
@@ -24,7 +28,7 @@ final class ModalPresentationAnimator: NSObject {
 extension ModalPresentationAnimator: UIViewControllerAnimatedTransitioning {
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.4
+        return Constants.animationDuration
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -49,7 +53,7 @@ extension ModalPresentationAnimator: UIViewControllerAnimatedTransitioning {
         var height = maxHeight
 
         if let context = controller as? ModalPresentationAnimatorContext {
-            height = context.contectHeight(for: CGSize(width: width,
+            height = context.contentHeight(for: CGSize(width: width,
                                                        height: maxHeight))
         }
 
@@ -85,8 +89,8 @@ extension ModalPresentationAnimator: UIViewControllerAnimatedTransitioning {
 
         if let context = controller as? ModalPresentationAnimatorContext {
 
-            let appY = context.appearingContectHeight(for: maxSize)
-            let dissY = context.disappearingContectHeight(for: maxSize)
+            let appY = context.appearingContentHeight(for: maxSize)
+            let dissY = context.disappearingContentHeight(for: maxSize)
 
             if isPresentation {
                 frame = CGRect(x: 0,

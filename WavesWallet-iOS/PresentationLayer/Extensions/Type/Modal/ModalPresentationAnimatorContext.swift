@@ -11,23 +11,23 @@ import UIKit
 
 protocol ModalPresentationAnimatorContext {
 
-    func contectHeight(for size:  CGSize) -> CGFloat
+    func contentHeight(for size:  CGSize) -> CGFloat
 
-    func appearingContectHeight(for size:  CGSize) -> CGFloat
+    func appearingContentHeight(for size:  CGSize) -> CGFloat
 
-    func disappearingContectHeight(for size:  CGSize) -> CGFloat
+    func disappearingContentHeight(for size:  CGSize) -> CGFloat
 }
 
 protocol ModalPresentationAnimatorSimpleContext: ModalPresentationAnimatorContext {}
 
 extension ModalPresentationAnimatorSimpleContext {
-    func appearingContectHeight(for size:  CGSize) -> CGFloat {
+    func appearingContentHeight(for size:  CGSize) -> CGFloat {
 
-        let contectHeight = self.contectHeight(for: size)
-        return size.height - contectHeight
+        let contentHeight = self.contentHeight(for: size)
+        return size.height - contentHeight
     }
 
-    func disappearingContectHeight(for size:  CGSize) -> CGFloat {
+    func disappearingContentHeight(for size:  CGSize) -> CGFloat {
         return size.height
     }
 }
