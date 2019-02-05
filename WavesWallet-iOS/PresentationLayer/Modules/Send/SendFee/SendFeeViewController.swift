@@ -82,7 +82,10 @@ extension SendFeeViewController: UITableViewDelegate {
 
         switch row {
         case .asset(let asset):
-            delegate.sendFeeModuleDidSelectAssetFee(asset.asset)
+            if !asset.isActive {
+                return
+            }
+            delegate.sendFeeModuleDidSelectAssetFee(asset.asset, fee: asset.fee)
             if let vc = parent as? PopupViewController {
                 vc.dismissPopup()
             }

@@ -61,7 +61,7 @@ final class AliasWithoutViewController: UIViewController, Localization {
 
     private func setFee(_ fee: Money) {
         transactionFeeView.hideLoadingState()
-        transactionFeeView.update(with: .init(fee: fee, ticker: nil))
+        transactionFeeView.update(with: .init(fee: fee, assetName: nil))
 
         if let errorSnackKey = errorSnackKey {
             hideSnack(key: errorSnackKey)

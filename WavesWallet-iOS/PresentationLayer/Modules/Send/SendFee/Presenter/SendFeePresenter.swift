@@ -13,6 +13,7 @@ import RxCocoa
 
 private enum Constants {
     static let wavesMinFee: Decimal = 0.001
+    static let minWavesSponsoredBalance: Decimal = 1.005
 }
 
 final class SendFeePresenter: SendFeePresenterProtocol {
@@ -74,15 +75,24 @@ final class SendFeePresenter: SendFeePresenterProtocol {
             var assetsRow: [SendFee.ViewModel.Row] = []
             var calculatedFee = fee
 
-            for asset in assets {
-                if !asset.isWaves {
-                    let sponsorFee = Money(asset.minSponsoredFee, asset.precision).decimalValue
+            for smartAsset in assets {
+                
+                if !smartAsset.asset.isWaves {
+
+                    let sponsorFee = Money(smartAsset.asset.minSponsoredFee, smartAsset.asset.precision).decimalValue
                     let value = (fee.decimalValue / Constants.wavesMinFee) * sponsorFee
-                    calculatedFee = Money(value: value, asset.precision)
+                    calculatedFee = Money(value: value, smartAsset.asset.precision)
                 }
-                assetsRow.append(SendFee.ViewModel.Row.asset(.init(asset: asset,
+                
+                let sponsorBalance = Money(smartAsset.sponsorBalance, GlobalConstants.WavesDecimals)
+                let isActive = (sponsorBalance.decimalValue >= Constants.minWavesSponsoredBalance &&
+                                smartAsset.availableBalance >= smartAsset.asset.minSponsoredFee) ||
+                                smartAsset.asset.isWaves
+                
+                assetsRow.append(SendFee.ViewModel.Row.asset(.init(asset: smartAsset.asset,
                                                                    fee: calculatedFee,
-                                                                   isChecked: asset.id == state.feeAssetID)))
+                                                                   isChecked: smartAsset.assetId == state.feeAssetID,
+                                                                   isActive: isActive)))
             }
             
             let sectionAssets = SendFee.ViewModel.Section(items: assetsRow)

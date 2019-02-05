@@ -56,7 +56,7 @@ extension WalletTableAssetsCell: ViewConfiguration {
         iconStar.isHidden = !model.settings.isFavorite
         viewFiatBalance.isHidden = true
         viewSpam.isHidden = model.asset.isSpam == false
-        let balance = Money(model.avaliableBalance, model.asset.precision)
+        let balance = Money(model.availableBalance, model.asset.precision)
         let text = balance.displayShortText
 
         labelSubtitle.attributedText = NSAttributedString.styleForBalance(text: text, font: labelSubtitle.font)

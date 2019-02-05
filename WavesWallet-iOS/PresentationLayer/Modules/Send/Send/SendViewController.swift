@@ -68,13 +68,13 @@ final class SendViewController: UIViewController {
         
         var balance: Int64 = 0
         if asset.asset.isWaves {
-            balance = asset.avaliableBalance - (wavesFee?.amount ?? GlobalConstants.WavesTransactionFeeAmount)
+            balance = asset.availableBalance - (wavesFee?.amount ?? GlobalConstants.WavesTransactionFeeAmount)
         }
         else if isValidCryptocyrrencyAddress {
-            balance = asset.avaliableBalance - (gateWayInfo?.fee.amount ?? 0)
+            balance = asset.availableBalance - (gateWayInfo?.fee.amount ?? 0)
         }
         else {
-            balance = asset.avaliableBalance
+            balance = asset.availableBalance
         }
         return Money(balance, asset.asset.precision)
     }
@@ -232,13 +232,10 @@ extension SendViewController: TransactionFeeViewDelegate {
 //MARK: - SendFeeModuleOutput
 extension SendViewController: SendFeeModuleOutput {
     
-    func sendFeeModuleDidSelectAssetFee(_ asset: DomainLayer.DTO.Asset) {
+    func sendFeeModuleDidSelectAssetFee(_ asset: DomainLayer.DTO.Asset, fee: Money) {
         feeAssetID = asset.id
         feeAssetName = asset.isWaves ? nil : asset.displayName
-        
-        if let fee = wavesFee {
-            viewFee.update(with: .init(fee: fee, ticker: feeAssetName))
-        }
+        viewFee.update(with: .init(fee: fee, assetName: feeAssetName))
     }
 }
 
@@ -462,7 +459,7 @@ private extension SendViewController {
         }
         
         wavesFee = fee
-        viewFee.update(with: .init(fee: fee, ticker: feeAssetName))
+        viewFee.update(with: .init(fee: fee, assetName: feeAssetName))
         viewFee.isHidden = false
         viewFee.hideLoadingState()
     }
@@ -898,7 +895,7 @@ private extension SendViewController {
     }
     
     var isValidFee: Bool {
-        return (wavesAsset?.avaliableBalance ?? 0) >= wavesFee?.amount ?? 0
+        return (wavesAsset?.availableBalance ?? 0) >= wavesFee?.amount ?? 0
     }
     
     var isValidAmount: Bool {

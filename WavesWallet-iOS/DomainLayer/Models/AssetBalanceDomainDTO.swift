@@ -41,7 +41,7 @@ extension DomainLayer.DTO {
 
 extension DomainLayer.DTO.SmartAssetBalance {
 
-    var avaliableBalance: Int64 {
+    var availableBalance: Int64 {
         return totalBalance - leasedBalance - inOrderBalance
     }
 }
