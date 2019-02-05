@@ -36,7 +36,7 @@ extension SendFee.DTO {
     
     struct SponsoredAsset {
         let asset: DomainLayer.DTO.Asset
-        let wavesFee: Money
+        let fee: Money
         let isChecked: Bool
     }
 }

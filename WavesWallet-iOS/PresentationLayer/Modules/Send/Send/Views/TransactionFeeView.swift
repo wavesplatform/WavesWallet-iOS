@@ -26,8 +26,11 @@ final class TransactionFeeView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var labelTicker: UILabel!
     @IBOutlet private weak var iconArrows: UIImageView!
     @IBOutlet private weak var rightTickerPadding: NSLayoutConstraint!
+    @IBOutlet private weak var labelTickerCustom: UILabel!
     
     weak var delegate: TransactionFeeViewDelegate?
+    
+    private var isCustomTicker = false
     
     var isSelectedAssetFee = false {
         didSet {
@@ -56,19 +59,23 @@ final class TransactionFeeView: UIView, NibOwnerLoadable {
             rightTickerPadding.constant = Constants.smallRightOffset
             iconArrows.isHidden = true
         }
+        labelTicker.isHidden = isCustomTicker
+        labelTickerCustom.isHidden = !isCustomTicker
     }
     
     func showLoadingState() {
         isHidden = false
         labelFee.isHidden = true
         labelTicker.isHidden = true
+        labelTickerCustom.isHidden = true
         iconArrows.isHidden = true
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
     }
     
     func hideLoadingState() {
-        labelTicker.isHidden = false
+        labelTicker.isHidden = isCustomTicker
+        labelTickerCustom.isHidden = !isCustomTicker
         labelFee.isHidden = false
         iconArrows.isHidden = !isSelectedAssetFee
         activityIndicator.stopAnimating()
@@ -77,7 +84,17 @@ final class TransactionFeeView: UIView, NibOwnerLoadable {
 
 extension TransactionFeeView: ViewConfiguration {
     
-    func update(with model: Money) {
-        labelFee.text = model.displayText
+    struct Model {
+        let fee: Money
+        let ticker: String?
+    }
+    
+    func update(with model: Model) {
+        labelFee.text = model.fee.displayText
+        
+        isCustomTicker = model.ticker != nil && model.ticker != GlobalConstants.wavesAssetId
+        updateUI()
+
+        labelTickerCustom.text = model.ticker
     }
 }

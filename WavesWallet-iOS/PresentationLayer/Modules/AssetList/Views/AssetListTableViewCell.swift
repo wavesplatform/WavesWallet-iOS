@@ -11,6 +11,7 @@ import Kingfisher
 
 private enum Constants {
     static let icon = CGSize(width: 24, height: 24)
+    static let sponsoredIcon = CGSize(width: 10, height: 10)
     static let defaultTopTitleOffset: CGFloat = 10
 }
 
@@ -52,7 +53,11 @@ extension AssetListTableViewCell: ViewConfiguration {
         
         labelAmount.text = model.balance.displayText
 
-        let style = AssetLogo.Style(size: Constants.icon, font: UIFont.systemFont(ofSize: 15), border: nil)
+        let sponsoredIcon = model.asset.isSponsored ? Constants.sponsoredIcon : nil
+        let style = AssetLogo.Style(size: Constants.icon,
+                                    sponsoredSize: sponsoredIcon,
+                                    font: UIFont.systemFont(ofSize: 15),
+                                    border: nil)
         taskForAssetLogo = AssetLogo.logoFromCache(name: model.asset.icon, style: style, completionHandler: { [weak self] (image) in
             self?.iconAsset.image = image
         })

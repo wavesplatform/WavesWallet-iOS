@@ -11,7 +11,8 @@ import Kingfisher
 
 private enum Constants {
     static let height: CGFloat = 56
-    static let wavesMinFee: Decimal = 0.001
+    static let icon = CGSize(width: 28, height: 28)
+    static let sponsoredIcon = CGSize(width: 12, height: 12)
 }
 
 final class SendFeeTableViewCell: UITableViewCell, Reusable {
@@ -32,22 +33,13 @@ final class SendFeeTableViewCell: UITableViewCell, Reusable {
 extension SendFeeTableViewCell: ViewConfiguration {
     
     func update(with model: SendFee.DTO.SponsoredAsset) {
-        
-        if model.asset.isWaves {
-            labelSubtitle.text = model.wavesFee.displayText + " " + model.asset.displayName
-        }
-        else {
-                    
-            let sponsorFee = Money(model.asset.minSponsoredFee, model.asset.precision).decimalValue
-            let value = (model.wavesFee.decimalValue / Constants.wavesMinFee) * sponsorFee
-            let fee = Money(value: value, model.asset.precision)
-            
-            labelSubtitle.text = fee.displayText + " " + model.asset.displayName
-        }
 
         labelTitle.text = model.asset.displayName
+        labelSubtitle.text = model.fee.displayText + " " + model.asset.displayName
         
-        let style = AssetLogo.Style(size: iconLogo.frame.size,
+        let sponsoredSize = model.asset.isSponsored ? Constants.sponsoredIcon : nil
+        let style = AssetLogo.Style(size: Constants.icon,
+                                    sponsoredSize: sponsoredSize,
                                     font: UIFont.systemFont(ofSize: 15),
                                     border: nil)
         
