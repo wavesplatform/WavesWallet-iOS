@@ -22,8 +22,7 @@ extension Node.DTO {
         case massTransfer = 11
         case data = 12
         case script = 13
-        //TODO: Next release
-//        case setSponsorship = 14
+        case sponsorship = 14
         case assetScript = 15
     }
 
@@ -44,6 +43,7 @@ extension Node.DTO {
         case massTransfer(Node.DTO.MassTransferTransaction)
         case data(Node.DTO.DataTransaction)
         case script(Node.DTO.ScriptTransaction)
+        case sponsorship(Node.DTO.SponsorshipTransaction)
         case assetScript(Node.DTO.AssetScriptTransaction)
 
         init(from decoder: Decoder) throws {
@@ -54,7 +54,7 @@ extension Node.DTO {
 
                 self = try Transaction.transaction(from: decoder, type: type)
             } catch let e {
-                error(e)
+                SweetLogger.error(e)
                 throw TransactionError.none
             }
         }
@@ -98,6 +98,9 @@ extension Node.DTO {
 
             case .assetScript:
                 return .assetScript(try Node.DTO.AssetScriptTransaction(from: decode))
+
+            case .sponsorship:
+                return .sponsorship(try Node.DTO.SponsorshipTransaction(from: decode))
             }
         }
     }
@@ -175,20 +178,24 @@ extension Node.DTO {
                         case .assetScript:
                             let tx = try listArray.decode(Node.DTO.AssetScriptTransaction.self)
                             transactions.append(.assetScript(tx))
+
+                        case .sponsorship:
+                            let tx = try listArray.decode(Node.DTO.SponsorshipTransaction.self)
+                            transactions.append(.sponsorship(tx))                            
                         }
                     } catch let e {
 
                         if let tx = try? listArray.decode(Node.DTO.UnrecognisedTransaction.self) {
                             transactions.append(.unrecognised(tx))
-                            error("Unrecognised \(e)")
+                            SweetLogger.error("Unrecognised \(e)")
                         } else {
-                            error("Not Found type \(e)")
+                            SweetLogger.error("Not Found type \(e)")
                         }
                     }
                 }
 
             } catch let e {
-                error("WTF \(e)")
+                SweetLogger.error("WTF \(e)")
             }
 
             self.transactions = transactions

@@ -24,4 +24,5 @@ final class AnyTransaction: Transaction {
     @objc dynamic var dataTransaction: DataTransaction?
     @objc dynamic var scriptTransaction: ScriptTransaction?
     @objc dynamic var assetScriptTransaction: AssetScriptTransaction?
+    @objc dynamic var sponsorshipTransaction: SponsorshipTransaction?
 }

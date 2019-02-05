@@ -41,8 +41,12 @@ final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
         case .sent:
             image = Images.tSend48
 
-        case .receive:
-            image = Images.assetReceive
+        case .receive(let tx):
+            if tx.hasSponsorship {
+                image = Images.tSponsoredPlus48
+            } else {
+                image = Images.assetReceive
+            }
 
         case .startedLeasing:
             image = Images.walletStartLease
@@ -98,6 +102,13 @@ final class TransactionHistoryGeneralCell: UITableViewCell, NibReusable {
 
         case .assetScript:
             image = Images.tSetassetscript48
+
+        case .sponsorship(let isEnabled, _):
+            if isEnabled {
+                image = Images.tSponsoredEnable48
+            } else {
+                image = Images.tSponsoredDisable48
+            }
         }
         
         return UIImage(asset: image)

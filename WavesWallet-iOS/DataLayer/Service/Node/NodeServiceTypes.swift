@@ -59,7 +59,7 @@ struct NodePlugin: PluginType {
 
         if let url = request.url {
             let cookies = HTTPCookieStorage.shared.cookies(for: url)
-            network(cookies ?? [])
+            SweetLogger.network(cookies ?? [])
         }
         return request
     }

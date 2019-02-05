@@ -21,6 +21,7 @@ enum AssetLogo: String {
     case bitcoinCash = "bch"
     case bitcoin = "btc"
     case zcash = "zec"
+    case wct = "wavescommunity"
 }
 
 extension AssetLogo {
@@ -48,6 +49,8 @@ extension AssetLogo {
             return Images.logoBitcoincash48.image
         case .zcash:
             return Images.logoZec48.image
+        case .wct:
+            return Images.logoWct48.image
         }
     }
 }
@@ -81,7 +84,7 @@ extension AssetLogo {
                               completionHandler: @escaping ((UIImage) -> Void)) -> RetrieveImageDiskTask?
     {
         let cache = ImageCache.default
-        let key = "com.wavesplatform.asset.logo.\(name).\(style.key)"
+        let key = "com.wavesplatform.asset.logo.v1.\(name).\(style.key)"
 
         return cache.retrieveImage(forKey: key,
                                    options: nil,
