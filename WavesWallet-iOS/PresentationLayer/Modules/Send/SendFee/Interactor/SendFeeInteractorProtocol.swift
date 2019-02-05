@@ -10,6 +10,6 @@ import Foundation
 import RxSwift
 
 protocol SendFeeInteractorProtocol {
-    func assets() -> Observable<[DomainLayer.DTO.Asset]>
+    func assets() -> Observable<[DomainLayer.DTO.SmartAssetBalance]>
     func calculateFee(assetID: String) -> Observable<Money>
 }

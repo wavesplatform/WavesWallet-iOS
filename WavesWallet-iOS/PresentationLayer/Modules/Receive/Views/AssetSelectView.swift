@@ -126,7 +126,7 @@ extension AssetSelectView: ViewConfiguration {
         iconFav.isHidden = !model.assetBalance.settings.isFavorite
        
         loadIcon(name: asset.icon, isSponsored: model.assetBalance.asset.isSponsored)
-        let money = Money(model.assetBalance.avaliableBalance, asset.precision)
+        let money = Money(model.assetBalance.availableBalance, asset.precision)
         labelAmount.text = money.displayText
     }
     

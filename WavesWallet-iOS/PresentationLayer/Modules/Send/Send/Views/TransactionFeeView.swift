@@ -86,15 +86,15 @@ extension TransactionFeeView: ViewConfiguration {
     
     struct Model {
         let fee: Money
-        let ticker: String?
+        let assetName: String?
     }
     
     func update(with model: Model) {
         labelFee.text = model.fee.displayText
         
-        isCustomTicker = model.ticker != nil && model.ticker != GlobalConstants.wavesAssetId
+        isCustomTicker = model.assetName != nil && model.assetName != GlobalConstants.wavesAssetId
         updateUI()
 
-        labelTickerCustom.text = model.ticker
+        labelTickerCustom.text = model.assetName
     }
 }

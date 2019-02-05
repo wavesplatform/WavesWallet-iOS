@@ -13,7 +13,7 @@ enum SendFee {
     enum ViewModel {}
     
     enum Event {
-        case didGetInfo([DomainLayer.DTO.Asset], Money)
+        case didGetInfo([DomainLayer.DTO.SmartAssetBalance], Money)
         case handleError(NetworkError)
     }
     
@@ -38,6 +38,7 @@ extension SendFee.DTO {
         let asset: DomainLayer.DTO.Asset
         let fee: Money
         let isChecked: Bool
+        let isActive: Bool
     }
 }
 
