@@ -591,6 +591,13 @@
 
 "history.transaction.value.setScript.set" = "Set Script Transaction";
 
+
+"history.transaction.value.setSponsorship.cancel" = "Disable Sponsorship";
+
+"history.transaction.value.setSponsorship.set" = "Set Sponsorship";
+
+
+
 "import.account.button.enter.title" = "Enter SEED manually";
 
 "import.account.button.scan.title" = "Scan pairing code";

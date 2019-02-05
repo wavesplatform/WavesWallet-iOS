@@ -16,11 +16,13 @@ fileprivate enum SchemaVersions: UInt64 {
     case version_5 = 5 // BetaTest 2.0rc1
     case version_6 = 6 // v2.0
     case version_7 = 7 // v2.0.2
-    case version_8 = 8 // Dev version
+    case version_8 = 8 // v2.1
+    case version_9 = 9 // v2.2
+
+    static let currentVersion: SchemaVersions = .version_9
 }
 
 fileprivate enum Constants {
-    static let currentVersion: SchemaVersions = .version_8
     static let isHiddenKey: String = "isHidden"
     static let isSpamKey: String = "isSpam"
     static let assetIdKey: String = "assetId"
@@ -36,7 +38,7 @@ enum WalletRealmFactory {
         var config = Realm.Configuration()
         config.fileURL = config.fileURL!.deletingLastPathComponent()
             .appendingPathComponent("\(accountAddress).realm")
-        config.schemaVersion = Constants.currentVersion.rawValue
+        config.schemaVersion = SchemaVersions.currentVersion.rawValue
         config.objectTypes = [Transaction.self,
                               IssueTransaction.self,
                               TransferTransaction.self,
@@ -56,6 +58,7 @@ enum WalletRealmFactory {
                               DataTransactionData.self,
                               AnyTransaction.self,
                               UnrecognisedTransaction.self,
+                              SponsorshipTransaction.self,
                               Asset.self,
                               AddressBook.self,
                               AssetBalance.self,
@@ -68,7 +71,7 @@ enum WalletRealmFactory {
 
         config.migrationBlock = { migration, oldSchemaVersion in
 
-            debug("Wallet Migration!!! \(oldSchemaVersion)")
+            SweetLogger.debug("Wallet Migration!!! \(oldSchemaVersion)")
 
             if oldSchemaVersion < SchemaVersions.version_2.rawValue {
 
@@ -128,6 +131,10 @@ enum WalletRealmFactory {
             if oldSchemaVersion < SchemaVersions.version_8.rawValue {
                 removeTransaction(migration: migration)
             }
+
+            if oldSchemaVersion < SchemaVersions.version_9.rawValue {
+                removeTransaction(migration: migration)
+            }
         }
 
         return config
@@ -164,6 +171,7 @@ enum WalletRealmFactory {
         migration.deleteData(forType: UnrecognisedTransaction.className())
         migration.deleteData(forType: ScriptTransaction.className())
         migration.deleteData(forType: AssetScriptTransaction.className())
+        migration.deleteData(forType: SponsorshipTransaction.className())
     }
 }
 

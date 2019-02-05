@@ -189,6 +189,7 @@ internal enum Images {
   internal static let logoMonero48 = ImageAsset(name: "logoMonero48")
   internal static let logoUsd48 = ImageAsset(name: "logoUsd48")
   internal static let logoWaves48 = ImageAsset(name: "logoWaves48")
+  internal static let logoWct48 = ImageAsset(name: "logoWct48")
   internal static let logoZec48 = ImageAsset(name: "logoZec48")
   internal static let menuDiscord = ImageAsset(name: "menu_discord")
   internal static let menuGit = ImageAsset(name: "menu_git")
@@ -252,6 +253,7 @@ internal enum Images {
   internal static let tSpamReceive48 = ImageAsset(name: "tSpamReceive48")
   internal static let tSponsoredDisable48 = ImageAsset(name: "tSponsoredDisable48")
   internal static let tSponsoredEnable48 = ImageAsset(name: "tSponsoredEnable48")
+  internal static let tSponsoredPlus48 = ImageAsset(name: "tSponsoredPlus48")
   internal static let tStartlease48 = ImageAsset(name: "tStartlease48")
   internal static let tTokenburn24 = ImageAsset(name: "tTokenburn24")
   internal static let tTokenburn48 = ImageAsset(name: "tTokenburn48")
@@ -446,6 +448,7 @@ internal enum Images {
     logoMonero48,
     logoUsd48,
     logoWaves48,
+    logoWct48,
     logoZec48,
     menuDiscord,
     menuGit,
@@ -509,6 +512,7 @@ internal enum Images {
     tSpamReceive48,
     tSponsoredDisable48,
     tSponsoredEnable48,
+    tSponsoredPlus48,
     tStartlease48,
     tTokenburn24,
     tTokenburn48,

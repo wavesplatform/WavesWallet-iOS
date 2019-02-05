@@ -10,7 +10,7 @@ import Foundation
 
 extension DomainLayer.DTO {
 
-    struct Alias: Equatable {
+    struct Alias: Hashable {
         let name: String
         let originalName: String
     }

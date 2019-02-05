@@ -138,18 +138,18 @@ final class MigrationInteractor {
                 let oldFileExistsSeed = FileManager.default.fileExists(atPath: oldUrl.path)
                 let newFileExistsSeed = FileManager.default.fileExists(atPath: newUrl.path)
 
-                  debug("exist file old \(oldFileExistsSeed) - new \(newFileExistsSeed)")
+                  SweetLogger.debug("exist file old \(oldFileExistsSeed) - new \(newFileExistsSeed)")
 
                 do {
                     if oldFileExistsSeed == true
                         && newFileExistsSeed == false {
                         try FileManager.default.copyItem(at: oldUrl, to: newUrl)
-                        debug("Move \(oldUrl) - \(newUrl)")
+                        SweetLogger.debug("Move \(oldUrl) - \(newUrl)")
                     } else {
-                        debug("Dont Move \(oldUrl) - \(newUrl)")
+                        SweetLogger.debug("Dont Move \(oldUrl) - \(newUrl)")
                     }
                 } catch let e {
-                    error(e)
+                    SweetLogger.error(e)
                 }
 
                 observer.onCompleted()

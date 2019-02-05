@@ -24,10 +24,9 @@ extension Realm {
 }
 
 fileprivate extension TransactionType {
+    // The types using only waves assetId
     static var waves: [TransactionType] {
-        return [.issue,
-                .reissue,
-                .lease,
+        return [.lease,
                 .leaseCancel,
                 .alias,
                 .data,
@@ -72,6 +71,9 @@ fileprivate extension TransactionType {
 
         case .script:
             return ScriptTransaction.predicate(specifications)
+
+        case .sponsorship:
+            return SponsorshipTransaction.predicate(specifications)
 
         default:
             return UnrecognisedTransaction.predicate(specifications)
@@ -128,6 +130,10 @@ fileprivate extension TransactionType {
         case .assetScript:
             guard let assetScriptTransaction = transaction.assetScriptTransaction else { return nil }
             return .assetScript(.init(transaction: assetScriptTransaction))
+
+        case .sponsorship:
+            guard let sponsorshipTransaction = transaction.sponsorshipTransaction else { return nil }
+            return .sponsorship(.init(transaction: sponsorshipTransaction))
 
         default:
             guard let unrecognisedTransaction = transaction.unrecognisedTransaction else { return nil }
@@ -384,7 +390,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                 observer.onNext(true)
                 observer.onCompleted()
             } catch let e {
-                error(e)
+                SweetLogger.error(e)
                 observer.onNext(false)
                 observer.onError(AccountBalanceRepositoryError.fail)
             }
@@ -544,5 +550,19 @@ extension AssetScriptTransaction: TransactionsSpecificationsConverter {
 extension ScriptTransaction: TransactionsSpecificationsConverter {
     static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
         return NSPredicate(format: "scriptTransaction != NULL")
+    }
+}
+
+extension SponsorshipTransaction: TransactionsSpecificationsConverter {
+    static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
+
+        var predicates: [NSPredicate] = .init()
+        predicates.append(NSPredicate(format: "sponsorshipTransaction != NULL"))
+
+        if from.assets.count > 0 {
+            predicates.append(NSPredicate(format: "sponsorshipTransaction.assetId IN %@", from.assets))
+        }
+
+        return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
     }
 }
