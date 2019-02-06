@@ -12,7 +12,6 @@ import RxFeedback
 import RxCocoa
 
 private enum Constants {
-    static let wavesMinFee: Decimal = 0.001
     static let minWavesSponsoredBalance: Decimal = 1.005
 }
 
@@ -21,6 +20,8 @@ final class SendFeePresenter: SendFeePresenterProtocol {
     var interactor: SendFeeInteractorProtocol!
     var assetID: String!
     var feeAssetID: String!
+    var wavesFee: Money!
+    
     private let disposeBag = DisposeBag()
         
     func system(feedbacks: [SendFeePresenterProtocol.Feedback]) {
@@ -28,7 +29,8 @@ final class SendFeePresenter: SendFeePresenterProtocol {
         var newFeedbacks = feedbacks
         newFeedbacks.append(infoQuery())
         
-        Driver.system(initialState: SendFee.State.initialState(feeAssetID: feeAssetID),
+        Driver.system(initialState: SendFee.State.initialState(feeAssetID: feeAssetID,
+                                                               wavesFee: wavesFee),
                       reduce: SendFeePresenter.reduce,
                       feedback: newFeedbacks)
         .drive()
@@ -44,14 +46,12 @@ final class SendFeePresenter: SendFeePresenterProtocol {
     
     private func infoQuery() -> Feedback {
         return react(query: { state -> Bool? in
-            return state.isNeedLoadInfo ? true : nil
+            return state.isNeedLoadAssets ? true : nil
             
         }, effects: {[weak self] state -> Signal<SendFee.Event> in
             guard let strongSelf = self else { return Signal.empty() }
             
-            return Observable.zip(strongSelf.interactor.assets(),
-            strongSelf.interactor.calculateFee(assetID: strongSelf.assetID))
-                .map { .didGetInfo($0, $1)}
+            return strongSelf.interactor.assets().map { .didGetAssets($0) }
                 .asSignal(onErrorRecover: { (error) -> SharedSequence<SignalSharingStrategy, SendFee.Event> in
                     
                     if let error = error as? NetworkError {
@@ -68,21 +68,16 @@ final class SendFeePresenter: SendFeePresenterProtocol {
         case .handleError(let error):
             state.action = .handleError(error)
 
-        case .didGetInfo(let assets, let fee):
+        case .didGetAssets(let assets):
 
             
             let sectionHeader = SendFee.ViewModel.Section(items: [SendFee.ViewModel.Row.header])
             var assetsRow: [SendFee.ViewModel.Row] = []
-            var calculatedFee = fee
 
             for smartAsset in assets {
-                
-                if !smartAsset.asset.isWaves {
 
-                    let sponsorFee = Money(smartAsset.asset.minSponsoredFee, smartAsset.asset.precision).decimalValue
-                    let value = (fee.decimalValue / Constants.wavesMinFee) * sponsorFee
-                    calculatedFee = Money(value: value, smartAsset.asset.precision)
-                }
+                let wavesFee = state.wavesFee
+                let fee = smartAsset.asset.isWaves ? wavesFee : SendFee.DTO.calculateSponsoredFee(by: smartAsset.asset, wavesFee: wavesFee)
                 
                 let sponsorBalance = Money(smartAsset.sponsorBalance, GlobalConstants.WavesDecimals)
                 let isActive = (sponsorBalance.decimalValue >= Constants.minWavesSponsoredBalance &&
@@ -90,14 +85,14 @@ final class SendFeePresenter: SendFeePresenterProtocol {
                                 smartAsset.asset.isWaves
                 
                 assetsRow.append(SendFee.ViewModel.Row.asset(.init(asset: smartAsset.asset,
-                                                                   fee: calculatedFee,
+                                                                   fee: fee,
                                                                    isChecked: smartAsset.assetId == state.feeAssetID,
                                                                    isActive: isActive)))
             }
             
             let sectionAssets = SendFee.ViewModel.Section(items: assetsRow)
             state.sections = [sectionHeader, sectionAssets]
-            state.isNeedLoadInfo = false
+            state.isNeedLoadAssets = false
             state.action = .update
         }
     }
@@ -105,10 +100,11 @@ final class SendFeePresenter: SendFeePresenterProtocol {
 
 fileprivate extension SendFee.State {
     
-    static func initialState(feeAssetID: String) -> SendFee.State {
+    static func initialState(feeAssetID: String, wavesFee: Money) -> SendFee.State {
         return SendFee.State(feeAssetID: feeAssetID,
+                             wavesFee: wavesFee,
                              action: .none,
-                             isNeedLoadInfo: true,
+                             isNeedLoadAssets: true,
                              sections: [])
     }
 }
