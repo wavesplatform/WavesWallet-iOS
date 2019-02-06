@@ -10,7 +10,7 @@ import UIKit
 
 protocol SendFeeModuleOutput: AnyObject {
     
-    func sendFeeModuleDidSelectAssetFee(_ asset: DomainLayer.DTO.Asset, fee: Money)
+    func sendFeeModuleDidSelectAssetFee(_ asset: DomainLayer.DTO.SmartAssetBalance, fee: Money)
 }
 
 private enum Constants {

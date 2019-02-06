@@ -16,6 +16,6 @@ protocol SendInteractorProtocol {
     func generateMoneroAddress(asset: DomainLayer.DTO.SmartAssetBalance, address: String, paymentID: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>>
     func gateWayInfo(asset: DomainLayer.DTO.SmartAssetBalance, address: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>>
     func validateAlis(alias: String) -> Observable<Bool>
-    func send(fee: Money, recipient: String, assetId: String, amount: Money, attachment: String) -> Observable<Send.TransactionStatus>
+    func send(fee: Money, recipient: String, assetId: String, amount: Money, attachment: String, feeAssetID: String) -> Observable<Send.TransactionStatus>
     func calculateFee(assetID: String) -> Observable<Money>
 }

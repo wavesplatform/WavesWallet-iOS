@@ -334,6 +334,7 @@ fileprivate extension TransactionSenderSpecifications {
                 recipient = model.recipient
             }
             
+            let feeAssetID = model.feeAssetID == GlobalConstants.wavesAssetId ? "" : model.feeAssetID
             return .send(Node.Service.Transaction.Send(type: self.type.rawValue,
                                                        version: self.version,
                                                        recipient: recipient,
@@ -341,6 +342,7 @@ fileprivate extension TransactionSenderSpecifications {
                                                        amount: model.amount,
                                                        fee: model.fee,
                                                        attachment: Base58.encode(Array(model.attachment.utf8)),
+                                                       feeAssetId: feeAssetID,
                                                        timestamp: timestamp,
                                                        senderPublicKey: publicKey,
                                                        proofs: proofs))
@@ -444,10 +446,10 @@ fileprivate extension TransactionSenderSpecifications {
             
             var signature: [UInt8] = []
             signature += toByteArray(Int8(self.type.rawValue))
-            signature +=  toByteArray(Int8(self.version))
+            signature += toByteArray(Int8(self.version))
             signature += publicKey
             signature += model.assetId.isEmpty ? [UInt8(0)] : ([UInt8(1)] + Base58.decode(model.assetId))
-            signature += [UInt8(0)]
+            signature += model.feeAssetID.isEmpty ? [UInt8(0)] : ([UInt8(1)] + Base58.decode(model.feeAssetID))
             signature += toByteArray(timestamp)
             signature += toByteArray(model.amount)
             signature += toByteArray(model.fee)

@@ -98,17 +98,18 @@ final class SendInteractor: SendInteractorProtocol {
         })
     }
     
-    
-    func send(fee: Money, recipient: String, assetId: String, amount: Money, attachment: String) -> Observable<Send.TransactionStatus> {
-       
+    func send(fee: Money, recipient: String, assetId: String, amount: Money, attachment: String, feeAssetID: String) -> Observable<Send.TransactionStatus> {
+        
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<Send.TransactionStatus> in
             guard let owner = self else { return Observable.empty() }
 
+            
             let sender = SendTransactionSender(recipient: recipient,
                                                assetId: assetId,
                                                amount: amount.amount,
                                                fee: fee.amount,
-                                               attachment: attachment)
+                                               attachment: attachment,
+                                               feeAssetID: feeAssetID)
             return owner.transactionInteractor.send(by: TransactionSenderSpecifications.send(sender), wallet: wallet)
                 .flatMap({ (transaction) -> Observable<Send.TransactionStatus>  in
                     return Observable.just(.success)

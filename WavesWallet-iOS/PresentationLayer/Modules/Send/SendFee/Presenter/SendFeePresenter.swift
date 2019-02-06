@@ -78,19 +78,22 @@ final class SendFeePresenter: SendFeePresenterProtocol {
 
                 let wavesFee = state.wavesFee
                 let fee = smartAsset.asset.isWaves ? wavesFee : SendFee.DTO.calculateSponsoredFee(by: smartAsset.asset, wavesFee: wavesFee)
+                let availableBalance = Money(smartAsset.availableBalance, smartAsset.asset.precision)
                 
                 let sponsorBalance = Money(smartAsset.sponsorBalance, GlobalConstants.WavesDecimals)
                 let isActive = (sponsorBalance.decimalValue >= Constants.minWavesSponsoredBalance &&
-                                smartAsset.availableBalance >= smartAsset.asset.minSponsoredFee) ||
+                                availableBalance.decimalValue >= fee.decimalValue) ||
                                 smartAsset.asset.isWaves
                 
-                assetsRow.append(SendFee.ViewModel.Row.asset(.init(asset: smartAsset.asset,
+                assetsRow.append(SendFee.ViewModel.Row.asset(.init(assetBalance: smartAsset,
                                                                    fee: fee,
                                                                    isChecked: smartAsset.assetId == state.feeAssetID,
                                                                    isActive: isActive)))
             }
+
+            let sorted = assetsRow.sorted(by: {$1.asset?.isActive == false})
             
-            let sectionAssets = SendFee.ViewModel.Section(items: assetsRow)
+            let sectionAssets = SendFee.ViewModel.Section(items: sorted)
             state.sections = [sectionHeader, sectionAssets]
             state.isNeedLoadAssets = false
             state.action = .update

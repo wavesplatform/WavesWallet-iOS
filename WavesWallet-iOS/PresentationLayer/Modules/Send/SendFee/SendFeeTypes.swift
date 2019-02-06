@@ -40,7 +40,7 @@ enum SendFee {
 extension SendFee.DTO {
     
     struct SponsoredAsset {
-        let asset: DomainLayer.DTO.Asset
+        let assetBalance: DomainLayer.DTO.SmartAssetBalance
         let fee: Money
         let isChecked: Bool
         let isActive: Bool
