@@ -22,6 +22,7 @@ struct SendFeeModuleBuilder: ModuleBuilderOutput {
     var output: SendFeeModuleOutput
     
     struct Input {
+        let wavesFee: Money
         let assetID: String
         let feeAssetID: String
     }
@@ -33,6 +34,7 @@ struct SendFeeModuleBuilder: ModuleBuilderOutput {
         presenter.interactor = interactor
         presenter.assetID = input.assetID
         presenter.feeAssetID = input.feeAssetID
+        presenter.wavesFee = input.wavesFee
         
         let vc = StoryboardScene.Send.sendFeeViewController.instantiate()
         vc.presenter = presenter

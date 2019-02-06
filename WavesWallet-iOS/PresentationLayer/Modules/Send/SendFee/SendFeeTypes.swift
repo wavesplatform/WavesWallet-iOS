@@ -8,12 +8,16 @@
 
 import Foundation
 
+private enum Constants {
+    static let wavesMinFee: Decimal = 0.001
+}
+
 enum SendFee {
     enum DTO {}
     enum ViewModel {}
     
     enum Event {
-        case didGetInfo([DomainLayer.DTO.SmartAssetBalance], Money)
+        case didGetAssets([DomainLayer.DTO.SmartAssetBalance])
         case handleError(NetworkError)
     }
     
@@ -26,8 +30,9 @@ enum SendFee {
         }
         
         let feeAssetID: String
+        let wavesFee: Money
         var action: Action
-        var isNeedLoadInfo: Bool
+        var isNeedLoadAssets: Bool
         var sections: [ViewModel.Section]
     }
 }
@@ -39,6 +44,13 @@ extension SendFee.DTO {
         let fee: Money
         let isChecked: Bool
         let isActive: Bool
+    }
+    
+    static func calculateSponsoredFee(by asset: DomainLayer.DTO.Asset, wavesFee: Money) -> Money {
+        
+        let sponsorFee = Money(asset.minSponsoredFee, asset.precision).decimalValue
+        let value = (wavesFee.decimalValue / Constants.wavesMinFee) * sponsorFee
+        return Money(value: value, asset.precision)
     }
 }
 
