@@ -35,15 +35,15 @@ extension SendFeeTableViewCell: ViewConfiguration {
     
     func update(with model: SendFee.DTO.SponsoredAsset) {
 
-        labelTitle.text = model.asset.displayName
+        labelTitle.text = model.assetBalance.asset.displayName
         
-        let sponsoredSize = model.asset.isSponsored ? Constants.sponsoredIcon : nil
+        let sponsoredSize = model.assetBalance.asset.isSponsored ? Constants.sponsoredIcon : nil
         let style = AssetLogo.Style(size: Constants.icon,
                                     sponsoredSize: sponsoredSize,
                                     font: UIFont.systemFont(ofSize: 15),
                                     border: nil)
         
-        taskForAssetLogo = AssetLogo.logoFromCache(name: model.asset.icon, style: style, completionHandler: { [weak self] (image) in
+        taskForAssetLogo = AssetLogo.logoFromCache(name: model.assetBalance.asset.icon, style: style, completionHandler: { [weak self] (image) in
             self?.iconLogo.image = image
         })
         
@@ -51,8 +51,9 @@ extension SendFeeTableViewCell: ViewConfiguration {
         iconCheckmark.image = model.isChecked ? Images.on.image : Images.off.image
         labelTitle.textColor = model.isActive ? .black : .blueGrey
         iconLogo.alpha = model.isActive ? 1 : Constants.noneActiveAlpha
-
-        let feeText =  model.fee.displayText + " " + model.asset.displayName
+        iconCheckmark.isHidden = !model.isActive
+        
+        let feeText =  model.fee.displayText + " " + model.assetBalance.asset.displayName
         labelSubtitle.text = model.isActive ? feeText : Localizable.Waves.Sendfee.Label.notAvailable
     }
 }
