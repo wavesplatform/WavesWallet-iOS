@@ -16,5 +16,6 @@ protocol SendFeePresenterProtocol {
     
     var assetID: String! { get set }
     var feeAssetID: String! { get set }
+    var wavesFee: Money! { get set }
     
 }

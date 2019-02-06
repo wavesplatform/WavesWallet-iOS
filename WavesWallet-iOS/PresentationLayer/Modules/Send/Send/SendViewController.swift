@@ -61,7 +61,7 @@ final class SendViewController: UIViewController {
     private var moneroAddress: String = ""
     private var isLoadingAssetBalanceAfterScan = false
     private var errorSnackKey: String?
-    
+   
     var availableBalance: Money {
         
         guard let asset = selectedAsset else { return Money(0, 0)}
@@ -222,7 +222,11 @@ extension SendViewController: TransactionFeeViewDelegate {
     func transactionFeeViewDidTap() {
         
         guard let assetID = selectedAsset?.assetId else { return }
-        let vc = SendFeeModuleBuilder(output: self).build(input: .init(assetID: assetID, feeAssetID: feeAssetID))
+        guard let fee = wavesFee else { return }
+        
+        let vc = SendFeeModuleBuilder(output: self).build(input: .init(wavesFee: fee,
+                                                                       assetID: assetID,
+                                                                       feeAssetID: feeAssetID))
         let popup = PopupViewController()
         popup.contentHeight = SendFeeModuleBuilder.minimumHeight
         popup.present(contentViewController: vc)
@@ -285,7 +289,7 @@ private extension SendViewController {
                 
                 switch state.action {
                 
-                case .didCalculateFee(let fee):
+                case .didGetWavesFee(let fee):
                     owner.updateFee(fee: fee)
                     
                 case .didHandleFeeError(let error):
@@ -505,9 +509,9 @@ private extension SendViewController {
         let isShowAmountError = selectedAsset != nil && !isValidAmount && amountInput > 0
         
         if let gateWayInfo = gateWayInfo, isValidCryptocyrrencyAddress, isShowAmountError {
-            let wavesFeeText = wavesFee?.displayText ?? GlobalConstants.WavesTransactionFee.displayText + " WAVES"
+            let feeText = wavesFee?.displayText ?? "" + " WAVES"
             let gateWayFee = gateWayInfo.fee.displayText + " " + gateWayInfo.assetShortName
-            let error = Localizable.Waves.Send.Label.Error.notFundsFeeGateway(wavesFeeText, gateWayFee)
+            let error = Localizable.Waves.Send.Label.Error.notFundsFeeGateway(feeText, gateWayFee)
             showFeeError(error, animation: animation)
         }
         else if amountInput > 0 && !isValidFee && wavesAsset != nil {
