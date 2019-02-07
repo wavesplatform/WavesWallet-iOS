@@ -237,8 +237,20 @@ extension MultilineTextField: UITextViewDelegate {
             return false
         }
     
-        updateText(newText: newText)
         
+        var newRange: NSRange!
+        if text.count > 0 {
+            newRange = NSRange(location: textView.selectedRange.location + text.count, length: 0)
+        }
+        else {
+            let location = textView.selectedRange.location - range.length
+            newRange = NSRange(location: location > 0 ? location : 0, length: 0)
+        }
+        
+        updateText(newText: newText)
+        if textView.text.count > newRange.location {
+            textView.selectedRange = newRange
+        }
         return false
     }
  
