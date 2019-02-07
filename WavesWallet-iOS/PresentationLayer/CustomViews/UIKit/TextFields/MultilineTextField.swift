@@ -226,8 +226,10 @@ extension MultilineTextField: ViewConfiguration {
 
 extension MultilineTextField: UITextViewDelegate {
     
+    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let newText = (textView.text! as NSString).replacingCharacters(in: range, with: text) as String
+        
+        let newText = (textView.text! as NSString).replacingCharacters(in: range, with: text).trimmingLeadingWhitespace()
         
         if text == "\n" {
             checkValid()
@@ -236,8 +238,7 @@ extension MultilineTextField: UITextViewDelegate {
             }
             return false
         }
-    
-        
+       
         var newRange: NSRange!
         if text.count > 0 {
             newRange = NSRange(location: textView.selectedRange.location + text.count, length: 0)
