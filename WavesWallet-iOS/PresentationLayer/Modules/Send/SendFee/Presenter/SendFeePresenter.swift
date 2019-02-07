@@ -62,6 +62,7 @@ final class SendFeePresenter: SendFeePresenterProtocol {
         })
     }
 
+    
     static func reduce(state: inout SendFee.State, event: SendFee.Event)  {
 
         switch event {
@@ -78,11 +79,17 @@ final class SendFeePresenter: SendFeePresenterProtocol {
 
                 let wavesFee = state.wavesFee
                 let fee = smartAsset.asset.isWaves ? wavesFee : SendFee.DTO.calculateSponsoredFee(by: smartAsset.asset, wavesFee: wavesFee)
+
                 let availableBalance = Money(smartAsset.availableBalance, smartAsset.asset.precision)
-                
-                let sponsorBalance = Money(smartAsset.sponsorBalance, GlobalConstants.WavesDecimals)
-                let isActive = (sponsorBalance.decimalValue >= Constants.minWavesSponsoredBalance &&
+                let sponsorWavesBalance = Money(smartAsset.sponsorBalance, GlobalConstants.WavesDecimals)
+              
+                let isActive = (sponsorWavesBalance.decimalValue >= Constants.minWavesSponsoredBalance &&
                                 availableBalance.decimalValue >= fee.decimalValue) ||
+                    
+                                (sponsorWavesBalance.decimalValue >= wavesFee.decimalValue &&
+                                availableBalance.decimalValue >= fee.decimalValue &&
+                                smartAsset.asset.isMyWavesToken) ||
+                    
                                 smartAsset.asset.isWaves
                 
                 assetsRow.append(SendFee.ViewModel.Row.asset(.init(assetBalance: smartAsset,
