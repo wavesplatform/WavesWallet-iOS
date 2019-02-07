@@ -480,7 +480,7 @@
                             <constraint firstItem="rI3-p1-HiL" firstAttribute="leading" secondItem="aSY-Ju-zDz" secondAttribute="leading" id="6cI-dh-Iy8"/>
                             <constraint firstItem="JuH-Ic-2ta" firstAttribute="centerX" secondItem="Q0W-vb-zSu" secondAttribute="centerX" id="LA0-x8-doS"/>
                             <constraint firstItem="rI3-p1-HiL" firstAttribute="top" secondItem="aSY-Ju-zDz" secondAttribute="top" id="S6i-zl-grG"/>
-                            <constraint firstItem="aSY-Ju-zDz" firstAttribute="bottom" secondItem="rI3-p1-HiL" secondAttribute="bottom" id="d0X-aK-hEi"/>
+                            <constraint firstAttribute="bottom" secondItem="rI3-p1-HiL" secondAttribute="bottom" id="d0X-aK-hEi"/>
                             <constraint firstItem="aSY-Ju-zDz" firstAttribute="trailing" secondItem="rI3-p1-HiL" secondAttribute="trailing" id="drO-qY-HLZ"/>
                             <constraint firstItem="JuH-Ic-2ta" firstAttribute="centerY" secondItem="Q0W-vb-zSu" secondAttribute="centerY" id="eM5-4I-fcn"/>
                         </constraints>
