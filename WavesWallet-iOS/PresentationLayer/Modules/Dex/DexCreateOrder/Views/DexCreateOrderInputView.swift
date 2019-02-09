@@ -126,6 +126,15 @@ extension DexCreateOrderInputView: UITextFieldDelegate {
 //MARK: - InputScrollButtonsViewDelegate
 extension DexCreateOrderInputView: InputScrollButtonsViewDelegate {
     
+    func updateAmount(_ amount: Money) {
+        if !isShowInputWhenFilled {
+            hideInputScrollView(animation: true)
+        }
+        
+        textField.setValue(value: amount)
+        textFieldDidChangeNewValue()
+    }
+    
     func inputScrollButtonsViewDidTapAt(index: Int) {
         if !isShowInputWhenFilled {
             hideInputScrollView(animation: true)
