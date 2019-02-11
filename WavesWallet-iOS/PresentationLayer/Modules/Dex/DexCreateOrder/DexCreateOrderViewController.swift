@@ -27,7 +27,7 @@ final class DexCreateOrderViewController: UIViewController {
                
             order = DexCreateOrder.DTO.Order(amountAsset: input.amountAsset, priceAsset: input.priceAsset,
                                              type: input.type,
-                                             amount: Money(0, input.amountAsset.decimals),
+                                             amount: input.amount ?? Money(0, input.amountAsset.decimals),
                                              price: input.price ?? Money(0, input.priceAsset.decimals),
                                              total: Money(0, input.priceAsset.decimals),
                                              expiration: DexCreateOrder.DTO.Expiration.expiration29d,
@@ -153,6 +153,8 @@ private extension DexCreateOrderViewController {
                     strongSelf.order.fee = fee.amount
                     strongSelf.setupButtonSellBuy()
                     strongSelf.setupValidationErrors()
+                    strongSelf.sendEvent.accept(.updateInputOrder(strongSelf.order))
+                    strongSelf.setupInputAmountData()
                     
                 default:
                     break
@@ -522,8 +524,8 @@ private extension DexCreateOrderViewController {
             order.price = price
             inputPrice.setupValue(price)
             
-            if input.inputMaxAmount && amountValues.count > 0 {
-                inputAmount.inputScrollButtonsViewDidTapAt(index: 0)
+            if let amount = input.amount {
+                inputAmount.updateAmount(amount)
             }
             setupValidationErrors()
         }
