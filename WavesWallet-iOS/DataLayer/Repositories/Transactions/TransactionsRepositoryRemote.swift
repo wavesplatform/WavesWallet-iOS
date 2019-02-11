@@ -341,7 +341,7 @@ fileprivate extension TransactionSenderSpecifications {
                                                        amount: model.amount,
                                                        fee: model.fee,
                                                        attachment: Base58.encode(Array(model.attachment.utf8)),
-                                                       feeAssetId: model.getfeeAssetID,
+                                                       feeAssetId: model.getFeeAssetID,
                                                        timestamp: timestamp,
                                                        senderPublicKey: publicKey,
                                                        proofs: proofs))
@@ -448,7 +448,7 @@ fileprivate extension TransactionSenderSpecifications {
             signature += toByteArray(Int8(self.version))
             signature += publicKey
             signature += model.assetId.isEmpty ? [UInt8(0)] : ([UInt8(1)] + Base58.decode(model.assetId))
-            signature += model.getfeeAssetID.isEmpty ? [UInt8(0)] : ([UInt8(1)] + Base58.decode(model.getfeeAssetID))
+            signature += model.getFeeAssetID.isEmpty ? [UInt8(0)] : ([UInt8(1)] + Base58.decode(model.getFeeAssetID))
             signature += toByteArray(timestamp)
             signature += toByteArray(model.amount)
             signature += toByteArray(model.fee)
@@ -462,7 +462,7 @@ fileprivate extension TransactionSenderSpecifications {
 
 private extension SendTransactionSender {
    
-    var getfeeAssetID: String {
+    var getFeeAssetID: String {
         return feeAssetID == GlobalConstants.wavesAssetId ? "" : feeAssetID
     }
 }
