@@ -22,6 +22,7 @@ enum AssetLogo: String {
     case bitcoin = "btc"
     case zcash = "zec"
     case wct = "wavescommunity"
+    case bsv = "bsv"
 }
 
 extension AssetLogo {
@@ -51,6 +52,8 @@ extension AssetLogo {
             return Images.logoZec48.image
         case .wct:
             return Images.logoWct48.image
+        case .bsv:
+            return Images.logoWct48.image
         }
     }
 }
@@ -79,25 +82,38 @@ extension AssetLogo {
         }
     }
 
-    static func logoFromCache(name: String,
-                              style: Style,
-                              completionHandler: @escaping ((UIImage) -> Void)) -> RetrieveImageDiskTask?
+    static func logo(url: DomainLayer.DTO.Asset.Icon,
+                     style: Style,
+                     completionHandler: @escaping ((UIImage) -> Void)) -> DispatchWorkItem?
     {
         let cache = ImageCache.default
-        let key = "com.wavesplatform.asset.logo.v1.\(name).\(style.key)"
+        let key = "com.wavesplatform.asset.logo.v1.\(url).\(style.key)"
 
-        return cache.retrieveImage(forKey: key,
+        let workItem = cache.retrieveImage(forKey: key,
                                    options: nil,
                                    completionHandler: { image, _ in
                                     if let image = image {
                                         completionHandler(image)
                                     } else {
-                                        if let image = createLogo(name: name, style: style) {
-                                            cache.store(image, forKey: key)
-                                            completionHandler(image)
-                                        }
+//                                        if let image = createLogo(name: url, style: style) {
+//                                            cache.store(image, forKey: key)
+//                                            completionHandler(image)
+//                                        }
                                     }
         })
+
+        return workItem
+    }
+
+    static func downloadLogo() -> RetrieveImageDownloadTask? {
+
+        let url = URL(string: "https://example.com/high_resolution_image.png")!
+        let downloader = ImageDownloader.default
+        let workItem = downloader.downloadImage(with: url, retrieveImageTask: nil, options: nil, progressBlock: nil) { (image, error, url, data) in
+
+        }
+
+        return workItem
     }
 
     static func createLogo(name: String,

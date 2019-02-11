@@ -6,7 +6,6 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
-import Kingfisher
 import RxSwift
 import UIKit
 
@@ -26,7 +25,7 @@ final class WalletSortCell: UITableViewCell, Reusable {
 
     private var isDragging: Bool = false
 
-    private var taskForAssetLogo: RetrieveImageDiskTask?
+    private var taskForAssetLogo: DispatchWorkItem?
     private(set) var disposeBag = DisposeBag()
     private var isHiddenAsset: Bool = false
     var changedValueSwitchControl: ((Bool) -> Void)?
@@ -102,7 +101,7 @@ extension WalletSortCell: ViewConfiguration {
         let isVisibility: Bool
         let isHidden: Bool
         let isGateway: Bool
-        let icon: String
+        let icon: DomainLayer.DTO.Asset.Icon
     }
 
     func update(with model: Model) {
@@ -121,11 +120,11 @@ extension WalletSortCell: ViewConfiguration {
             viewContent.addTableCellShadowStyle()
         }
 
-        taskForAssetLogo = AssetLogo.logoFromCache(name: model.icon,
-                                                   style: AssetLogo.Style(size: Constants.icon,
-                                                                          font: UIFont.systemFont(ofSize: 15),
-                                                                          border: nil)) { [weak self] image in
-            self?.imageIcon.image = image
+        taskForAssetLogo = AssetLogo.logo(url: model.icon,
+                                          style: AssetLogo.Style(size: Constants.icon,
+                                                                 font: UIFont.systemFont(ofSize: 15),
+                                                                 border: nil)) { [weak self] image in
+                                                                    self?.imageIcon.image = image
         }
     }
 }

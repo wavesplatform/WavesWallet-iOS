@@ -17,7 +17,7 @@ extension GitHub {
 }
 
 private enum Constants {
-    static let urlEnvironmentMainNet: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/master/environment_mainnet.json")!
+    static let urlEnvironmentMainNet: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/feature/bsv/environment_mainnet.json")!
     static let urlEnvironmentTestNet: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/master/environment_testnet.json")!
     static let urlTransactionFee: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/master/fee.json")!
 }
@@ -113,4 +113,5 @@ extension GitHub.Service.TransactionRules: TargetType {
             return .requestPlain
         }
     }
+
 }

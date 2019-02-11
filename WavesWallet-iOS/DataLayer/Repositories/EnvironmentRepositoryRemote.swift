@@ -71,7 +71,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
             .rx
             .request(.get(isTestNet: Environments.isTestNet))
             .map(Environment.self)
-            .catchError { _ -> Single<Environment> in
+            .catchError { error -> Single<Environment> in
                 return Single.just(Environments.current)
             }
             .asObservable()
