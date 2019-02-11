@@ -140,7 +140,7 @@ extension DexCreateOrderInputView: InputScrollButtonsViewDelegate {
             hideInputScrollView(animation: true)
         }
         
-        if let values = input {
+        if let values = input, values().count > 0 {
             let value = values()[index]
             textField.setValue(value: value)
             textFieldDidChangeNewValue()
