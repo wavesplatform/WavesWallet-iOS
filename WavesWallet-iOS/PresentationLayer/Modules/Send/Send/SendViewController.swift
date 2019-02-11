@@ -306,7 +306,8 @@ private extension SendViewController {
                 
                 case .didGetWavesFee(let fee):
                     owner.updateWavesFee(fee: fee)
-                    
+                    owner.updateAmountData()
+
                 case .didHandleFeeError(let error):
                     owner.showFeeError(error)
                     
@@ -318,7 +319,8 @@ private extension SendViewController {
                         owner.setupAssetInfo(asset)
                         owner.amountView.setDecimals(asset.asset.precision, forceUpdateMoney: true)
                     }
-                    
+                    owner.updateAmountData()
+
                     
                 case .didFailInfo(let error):
                     
