@@ -173,7 +173,7 @@ extension AssetsSegmentedControl: InfiniteCollectionViewDataSource {
 
         let isHiddenArrow = asset.kind != .fiat || asset.kind != .gateway
 
-        let model = AssetsSegmentedCell.Model(icon: asset.iconLogo,
+        let model = AssetsSegmentedCell.Model(icon: asset.icon,
                                               isHiddenArrow: isHiddenArrow)
         cell.update(with: model)
 
