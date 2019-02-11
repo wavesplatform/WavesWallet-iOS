@@ -31,6 +31,8 @@ extension DomainLayer.DTO {
         let isWaves: Bool
         let modified: Date
         let addressRegEx: String
+        let hasScript: Bool
+        let minSponsoredFee: Int64
     }
 }
 
@@ -45,5 +47,9 @@ extension DomainLayer.DTO.Asset {
     
     var isEthereum: Bool {
         return gatewayId == "ETH"
+    }
+    
+    var isSponsored: Bool {
+        return minSponsoredFee > 0
     }
 }
