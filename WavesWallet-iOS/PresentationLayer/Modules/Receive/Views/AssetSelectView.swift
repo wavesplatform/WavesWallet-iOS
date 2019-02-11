@@ -71,8 +71,9 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
         
         labelAssetName.text = "Waves"
         labelAmount.isHidden = true
-        
-        loadIcon(name: GlobalConstants.wavesAssetId)
+
+        //TODO: Icon for waves ?
+//        loadIcon(name: GlobalConstants.wavesAssetId)
     }
     
     func showLoadingState() {
@@ -123,12 +124,12 @@ extension AssetSelectView: ViewConfiguration {
         labelAssetName.text = asset.displayName
         iconFav.isHidden = !model.assetBalance.settings.isFavorite
        
-        loadIcon(name: asset.icon)
+        loadIcon(name: asset.iconLogo)
         let money = Money(model.assetBalance.avaliableBalance, asset.precision)
         labelAmount.text = money.displayText
     }
     
-    private func loadIcon(name: String) {
+    private func loadIcon(name: DomainLayer.DTO.Asset.Icon) {
 
         taskForAssetLogo?.cancel()
         let style = AssetLogo.Style(size: Constants.icon, font: UIFont.systemFont(ofSize: 15), border: nil)
