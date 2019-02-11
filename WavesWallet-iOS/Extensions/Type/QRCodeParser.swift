@@ -10,6 +10,7 @@ import Foundation
 
 private enum Constants {
     static let wavesPrefixScan = "waves://"
+    static let bitcoinPrefixScan = ":"
     static let addressKeyScan = "recipient"
     static let amountKeyScan = "amount"
     
@@ -38,6 +39,10 @@ final class QRCodeParser {
             return (string as NSString).substring(from: wavesPrefixRange.location + wavesPrefixRange.length)
         }
         
+        let btcPrefixRange = (string.lowercased() as NSString).range(of: Constants.bitcoinPrefixScan)
+        if btcPrefixRange.location != NSNotFound {
+            return (string as NSString).substring(from: btcPrefixRange.location + btcPrefixRange.length)
+        }
         return string
     }
     
