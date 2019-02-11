@@ -30,7 +30,7 @@ final class ReceiveInvoiceInteractor: ReceiveInvoiceInteractorProtocol {
             let info = ReceiveInvoice.DTO.DisplayInfo(address: signedWallet.address,
                                                       invoiceLink: url,
                                                       assetName: asset.displayName,
-                                                      icon: asset.icon)
+                                                      icon: asset.iconLogo)
             return Observable.just(info)
         })
     }

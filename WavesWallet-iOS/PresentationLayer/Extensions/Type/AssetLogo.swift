@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxSwift
 import Kingfisher
 
 enum AssetLogo: String {
@@ -82,6 +83,74 @@ extension AssetLogo {
         }
     }
 
+    static func retrieveLogo(url: DomainLayer.DTO.Asset.Icon,
+                             style: Style) -> Observable<UIImage?> {
+
+        return Observable.create({ (observer) -> Disposable in
+
+            let cache = ImageCache.default
+            let key = "com.wavesplatform.asset.logo.v2.\(url).\(style.key)"
+
+            let workItem = cache.retrieveImage(forKey: key,
+                                               options: nil,
+                                               completionHandler: { image, _ in
+                                                    observer.onNext(image)
+                                                    observer.onCompleted()
+            })
+
+            return Disposables.create {
+                if workItem?.isCancelled == false {
+                    workItem?.cancel()
+                }
+            }
+        })
+    }
+
+    static func downloadLogo(path: String) -> Observable<UIImage?> {
+
+        return Observable.create({ (observer) -> Disposable in
+
+            let url = URL(string: path)!
+            let downloader = ImageDownloader.default
+            let workItem = downloader.downloadImage(with: url,
+                                                    retrieveImageTask: nil,
+                                                    options: nil,
+                                                    progressBlock: nil) { (image, error, url, data) in
+                                                        observer.onNext(image)
+                                                        observer.onCompleted()
+            }
+
+            return Disposables.create {
+                workItem?.cancel()
+            }
+        })
+    }
+
+
+    static func logo(icon: DomainLayer.DTO.Asset.Icon,
+                     style: Style) -> Observable<UIImage> {
+
+        return retrieveLogo(url: icon, style: style)
+            .flatMap({ (image) -> Observable<UIImage> in
+                if let image = image {
+                    return Observable.just(image)
+                } else {
+                    if let url = icon.url {
+                        return downloadLogo(path: url)
+                            .flatMap({ (image) ->  Observable<UIImage> in
+                                let image = createLogo(name: icon.name,
+                                                       image: image,
+                                                       style: style)
+                                return Observable.just(image!)
+                            })
+                    } else {
+                        return Observable.just(UIImage())
+                    }
+                }
+            })
+
+    }
+
     static func logo(url: DomainLayer.DTO.Asset.Icon,
                      style: Style,
                      completionHandler: @escaping ((UIImage) -> Void)) -> DispatchWorkItem?
@@ -89,12 +158,23 @@ extension AssetLogo {
         let cache = ImageCache.default
         let key = "com.wavesplatform.asset.logo.v1.\(url).\(style.key)"
 
+//        if let path = url.url {
+////            var downloadTask: RetrieveImageDownloadTask = downloadLogo(path: path) { (image) in
+////
+////            }
+//
+//
+//        } else {
+//
+//        }
+
         let workItem = cache.retrieveImage(forKey: key,
                                    options: nil,
                                    completionHandler: { image, _ in
                                     if let image = image {
                                         completionHandler(image)
                                     } else {
+
 //                                        if let image = createLogo(name: url, style: style) {
 //                                            cache.store(image, forKey: key)
 //                                            completionHandler(image)
@@ -102,21 +182,27 @@ extension AssetLogo {
                                     }
         })
 
-        return workItem
-    }
+//        workItem?.notify(queue: DispatchQueue.main, execute: {
+//
+//        })
 
-    static func downloadLogo() -> RetrieveImageDownloadTask? {
-
-        let url = URL(string: "https://example.com/high_resolution_image.png")!
-        let downloader = ImageDownloader.default
-        let workItem = downloader.downloadImage(with: url, retrieveImageTask: nil, options: nil, progressBlock: nil) { (image, error, url, data) in
-
-        }
 
         return workItem
     }
+
+//    static func downloadLogo(path: String, completionHandler: ((UIImage?) -> Void)) -> RetrieveImageDownloadTask? {
+//
+//        let url = URL(string: path)!
+//        let downloader = ImageDownloader.default
+//        let workItem = downloader.downloadImage(with: url, retrieveImageTask: nil, options: nil, progressBlock: nil) { (image, error, url, data) in
+//            completionHandler(image)
+//        }
+//
+//        return workItem
+//    }
 
     static func createLogo(name: String,
+                           image: UIImage?,
                            style: Style) -> UIImage? {
 
         let size = style.size
@@ -130,16 +216,16 @@ extension AssetLogo {
         context.addPath(UIBezierPath(roundedRect: rect, cornerRadius: rect.height * 0.5).cgPath)
         context.clip()
 
-        if let logo = AssetLogo(rawValue: name.lowercased()) {
+        if let image = image {
 
             context.setFillColor(UIColor.white.cgColor)
             context.fill(rect)
-            logo.image48.draw(in: CGRect(x: 0,
-                                         y: 0,
-                                         width: size.width,
-                                         height: size.height),
-                              blendMode: .normal,
-                              alpha: 1)
+            image.draw(in: CGRect(x: 0,
+                                  y: 0,
+                                  width: size.width,
+                                  height: size.height),
+                        blendMode: .normal,
+                        alpha: 1)
         } else {
             let color = UIColor.colorAsset(name: name)
             context.setFillColor(color.cgColor)
