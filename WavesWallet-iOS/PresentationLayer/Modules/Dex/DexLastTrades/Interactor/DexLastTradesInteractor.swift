@@ -64,15 +64,15 @@ extension DexLastTradesInteractor {
         var wavesBalance = Money(0, GlobalConstants.WavesDecimals)
         
         if let amountAsset = balances.first(where: {$0.assetId == pair.amountAsset.id}) {
-            amountAssetBalance = Money(amountAsset.avaliableBalance, amountAsset.asset.precision)
+            amountAssetBalance = Money(amountAsset.availableBalance, amountAsset.asset.precision)
         }
         
         if let priceAsset = balances.first(where: {$0.assetId == pair.priceAsset.id}) {
-            priceAssetBalance = Money(priceAsset.avaliableBalance, priceAsset.asset.precision)
+            priceAssetBalance = Money(priceAsset.availableBalance, priceAsset.asset.precision)
         }
         
         if let wavesAsset = balances.first(where: { $0.asset.isWaves == true }) {
-            wavesBalance = Money(wavesAsset.avaliableBalance, wavesAsset.asset.precision)
+            wavesBalance = Money(wavesAsset.availableBalance, wavesAsset.asset.precision)
         }
         
         let display = DexLastTrades.DTO.DisplayData(trades: lastTrades,

@@ -141,6 +141,7 @@ private extension DomainLayer.DTO.AssetBalance {
         self.leasedBalance = 0
         self.inOrderBalance = inOrderBalance
         self.modified = Date()
+        self.sponsorBalance = 0
     }
 
     init(model: Node.DTO.AssetBalance, inOrderBalance: Int64) {
@@ -148,7 +149,7 @@ private extension DomainLayer.DTO.AssetBalance {
         self.totalBalance = model.balance
         self.leasedBalance = 0
         self.inOrderBalance = inOrderBalance
-
+        self.sponsorBalance = model.sponsorBalance ?? 0
         self.modified = Date()
     }
 

@@ -114,7 +114,7 @@ extension Node.Service {
             let amount: Int64
             let fee: Int64
             let attachment: String
-            let feeAssetId: String = ""
+            let feeAssetId: String
             let feeAsset: String = ""
             let timestamp: Int64
             let senderPublicKey: String
