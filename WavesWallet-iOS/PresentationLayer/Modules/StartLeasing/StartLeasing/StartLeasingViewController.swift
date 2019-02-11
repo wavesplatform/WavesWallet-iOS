@@ -155,7 +155,7 @@ private extension StartLeasingViewController {
             hideSnack(key: errorSnackKey)
         }
         
-        viewFee.update(with: fee)
+        viewFee.update(with: .init(fee: fee, assetName: nil))
         viewFee.hideLoadingState()
         order.fee = fee
         setupData()

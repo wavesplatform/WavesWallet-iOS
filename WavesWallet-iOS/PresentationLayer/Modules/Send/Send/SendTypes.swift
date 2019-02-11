@@ -30,7 +30,7 @@ enum Send {
         case getAssetById(String)
         case cancelGetingAsset
         case didGetAssetBalance(DomainLayer.DTO.SmartAssetBalance?)
-        case didCalculateFee(Money)
+        case didGetWavesFee(Money)
         case handleFeeError(Error)
         case refreshFee
     }
@@ -45,7 +45,7 @@ enum Send {
             case didGenerateMoneroAddress(DTO.GatewayInfo)
             case didFailGenerateMoneroAddress(NetworkError)
             case didGetAssetBalance(DomainLayer.DTO.SmartAssetBalance?)
-            case didCalculateFee(Money)
+            case didGetWavesFee(Money)
             case didHandleFeeError(DisplayError)
         }
         
@@ -53,7 +53,7 @@ enum Send {
         var isNeedValidateAliase: Bool
         var isNeedLoadWaves: Bool
         var isNeedGenerateMoneroAddress: Bool
-        var isNeedLoadFee: Bool
+        var isNeedLoadWavesFee: Bool
         var action: Action
         var recipient: String = ""
         var moneroPaymentID: String = ""
@@ -113,7 +113,7 @@ extension Send.State: Equatable {
                 lhs.moneroPaymentID == rhs.moneroPaymentID &&
                 lhs.selectedAsset?.assetId == rhs.selectedAsset?.assetId &&
                 lhs.scanningAssetID == rhs.scanningAssetID &&
-                lhs.isNeedLoadFee == rhs.isNeedLoadFee
+                lhs.isNeedLoadWavesFee == rhs.isNeedLoadWavesFee
     }
 }
 

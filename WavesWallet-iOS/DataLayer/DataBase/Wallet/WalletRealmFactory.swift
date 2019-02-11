@@ -16,9 +16,9 @@ fileprivate enum SchemaVersions: UInt64 {
     case version_5 = 5 // BetaTest 2.0rc1
     case version_6 = 6 // v2.0
     case version_7 = 7 // v2.0.2
-    case version_8 = 8 // v2.1
+    case version_8 = 8 // Dev version
     case version_9 = 9 // v2.2
-
+	
     static let currentVersion: SchemaVersions = .version_9
 }
 
@@ -134,6 +134,7 @@ enum WalletRealmFactory {
 
             if oldSchemaVersion < SchemaVersions.version_9.rawValue {
                 removeTransaction(migration: migration)
+                removeAsset(migration: migration)
             }
         }
 
@@ -172,6 +173,11 @@ enum WalletRealmFactory {
         migration.deleteData(forType: ScriptTransaction.className())
         migration.deleteData(forType: AssetScriptTransaction.className())
         migration.deleteData(forType: SponsorshipTransaction.className())
+    }
+    
+    static func removeAsset(migration: Migration) {
+        migration.deleteData(forType: Asset.className())
+        migration.deleteData(forType: AssetBalance.className())        
     }
 }
 
