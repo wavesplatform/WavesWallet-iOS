@@ -13,7 +13,7 @@ enum ReceiveAddress {
         struct Info {
             let assetName: String
             let address: String
-            let icon: String
+            let icon: DomainLayer.DTO.Asset.Icon
             let qrCode: String
             let invoiceLink: String?
         }

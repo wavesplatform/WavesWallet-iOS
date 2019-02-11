@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 fileprivate enum Constants {
     static let height: CGFloat = 76    
@@ -23,7 +22,7 @@ final class WalletTableAssetsCell: UITableViewCell, Reusable {
     @IBOutlet private var viewFiatBalance: UIView!
     @IBOutlet private var viewSpam: UIView!
     @IBOutlet private weak var labelSpam: UILabel!
-    private var taskForAssetLogo: RetrieveImageDiskTask?
+    private var taskForAssetLogo: DispatchWorkItem?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -60,7 +59,7 @@ extension WalletTableAssetsCell: ViewConfiguration {
 
         labelSubtitle.attributedText = NSAttributedString.styleForBalance(text: text, font: labelSubtitle.font)
 
-        taskForAssetLogo = AssetLogo.logoFromCache(name: model.asset.icon,
+        taskForAssetLogo = AssetLogo.logo(url: model.asset.iconLogo,
                                                    style: AssetLogo.Style(size: Constants.icon,
                                                                           font: UIFont.systemFont(ofSize: 22),
                                                                           border: nil)) { [weak self] image in

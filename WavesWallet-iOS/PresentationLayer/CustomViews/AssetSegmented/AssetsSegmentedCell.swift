@@ -6,7 +6,6 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
-import Kingfisher
 import UIKit
 
 final class AssetsSegmentedCell: UICollectionViewCell, NibReusable {
@@ -16,13 +15,13 @@ final class AssetsSegmentedCell: UICollectionViewCell, NibReusable {
     }
 
     struct Model {
-        let icon: String
+        let icon: DomainLayer.DTO.Asset.Icon
         let isHiddenArrow: Bool
     }
 
     @IBOutlet private var imageViewIcon: UIImageView!
     @IBOutlet private var imageArrow: UIImageView!
-    private var task: RetrieveImageDiskTask?
+    private var task: DispatchWorkItem?
 
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -37,7 +36,7 @@ extension AssetsSegmentedCell: ViewConfiguration {
     func update(with model: AssetsSegmentedCell.Model) {
         imageArrow.isHidden = model.isHiddenArrow
 
-        task = AssetLogo.logoFromCache(name: model.icon,
+        task = AssetLogo.logo(url: model.icon,
                                        style: .init(size: Constants.sizeLogo,
                                                     font: UIFont.systemFont(ofSize: 15),
                                                     border: nil)) { [weak self] image in
