@@ -16,6 +16,7 @@ enum ReceiveAddress {
             let icon: String
             let qrCode: String
             let invoiceLink: String?
+            let isSponsored: Bool
         }
     }
 }

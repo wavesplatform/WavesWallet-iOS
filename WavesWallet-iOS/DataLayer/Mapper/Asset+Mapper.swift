@@ -33,6 +33,8 @@ extension Asset {
         self.isWaves = asset.isWaves
         self.modified = asset.modified
         self.addressRegEx = asset.addressRegEx
+        self.hasScript = asset.hasScript
+        self.minSponsoredFee = asset.minSponsoredFee
     }
 }
 
@@ -60,5 +62,7 @@ extension DomainLayer.DTO.Asset {
         self.isGateway = asset.isGateway
         self.isWaves = asset.isWaves
         self.addressRegEx = asset.addressRegEx
+        self.hasScript = asset.hasScript
+        self.minSponsoredFee = asset.minSponsoredFee
     }
 }
