@@ -103,13 +103,13 @@ final class SendInteractor: SendInteractorProtocol {
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<Send.TransactionStatus> in
             guard let owner = self else { return Observable.empty() }
 
-            
+            let newFeeAssetID = feeAssetID == GlobalConstants.wavesAssetId ? "" : feeAssetID
             let sender = SendTransactionSender(recipient: recipient,
                                                assetId: assetId,
                                                amount: amount.amount,
                                                fee: fee.amount,
                                                attachment: attachment,
-                                               feeAssetID: feeAssetID)
+                                               feeAssetID: newFeeAssetID)
             return owner.transactionInteractor.send(by: TransactionSenderSpecifications.send(sender), wallet: wallet)
                 .flatMap({ (transaction) -> Observable<Send.TransactionStatus>  in
                     return Observable.just(.success)
