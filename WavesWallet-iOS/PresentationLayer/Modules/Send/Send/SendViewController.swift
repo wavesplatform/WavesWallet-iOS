@@ -254,7 +254,7 @@ extension SendViewController: SendFeeModuleOutput {
         updateActualFee()
         setupButtonState()
         updateAmountError(animation: true)
-        
+        updateAmountData()
     }
 }
 
@@ -343,6 +343,7 @@ private extension SendViewController {
                 case .didGetWavesAsset(let asset):
                     owner.feeAssetBalance = asset
                     owner.updateAmountError(animation: true)
+                    owner.updateAmountData()
                     
                 case .didFailGenerateMoneroAddress(let error):
                     
