@@ -60,11 +60,12 @@ extension WalletTableAssetsCell: ViewConfiguration {
 
         labelSubtitle.attributedText = NSAttributedString.styleForBalance(text: text, font: labelSubtitle.font)
 
-            AssetLogo.logo(icon: model.asset.iconLogo,
-                           style: AssetLogo.Style(size: Constants.icon,
-                                                  font: UIFont.systemFont(ofSize: 22),
-                                                  border: nil))
-                .bind(to: imageIcon.rx.image)
-                .disposed(by: disposeBag)
+        AssetLogo.logo(icon: model.asset.iconLogo,
+                       style: AssetLogo.Style(size: Constants.icon,
+                                              font: UIFont.systemFont(ofSize: 22),
+                                              border: nil))
+            .bind(to: imageIcon.rx.image)
+            .disposed(by: disposeBag)
+
     }
 }
