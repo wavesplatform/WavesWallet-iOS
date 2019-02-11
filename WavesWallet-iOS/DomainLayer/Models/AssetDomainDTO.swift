@@ -9,7 +9,14 @@
 import Foundation
 
 extension DomainLayer.DTO {
+
     struct Asset: Mutating {
+
+        struct Icon {
+            let name: String
+            let url: String?
+        }
+
         let id: String
         let gatewayId: String?
         let wavesId: String?
@@ -31,10 +38,12 @@ extension DomainLayer.DTO {
         let isWaves: Bool
         let modified: Date
         let addressRegEx: String
+        let iconLogo: DomainLayer.DTO.Asset.Icon
     }
 }
 
 extension DomainLayer.DTO.Asset {
+
     var icon: String {
         return gatewayId ?? displayName
     }

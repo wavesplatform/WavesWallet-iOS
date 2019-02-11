@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 private enum Constants {
     static let borderRadius: CGFloat = 2
@@ -39,7 +38,7 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var buttonTap: UIButton!
     @IBOutlet private weak var skeletonView: AssetSelectSkeletonView!
     
-    private var taskForAssetLogo: RetrieveImageDiskTask?
+    private var taskForAssetLogo: DispatchWorkItem?
 
     weak var delegate: AssetSelectViewDelegate?
     var isSelectedAssetMode: Bool = true {
@@ -133,7 +132,8 @@ extension AssetSelectView: ViewConfiguration {
 
         taskForAssetLogo?.cancel()
         let style = AssetLogo.Style(size: Constants.icon, font: UIFont.systemFont(ofSize: 15), border: nil)
-        taskForAssetLogo = AssetLogo.logoFromCache(name: name, style: style, completionHandler: { [weak self] (image) in
+        
+        taskForAssetLogo = AssetLogo.logo(url: name, style: style, completionHandler: { [weak self] (image) in
             self?.iconAssetLogo.image = image
         })
     }

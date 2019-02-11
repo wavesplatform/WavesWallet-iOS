@@ -6,7 +6,6 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
-import Kingfisher
 import RxSwift
 import UIKit
 
@@ -23,7 +22,7 @@ final class WalletSortFavCell: UITableViewCell, Reusable {
     @IBOutlet private var iconLock: UIImageView!
     @IBOutlet private var viewContent: UIView!
 
-    private var taskForAssetLogo: RetrieveImageDiskTask?
+    private var taskForAssetLogo: DispatchWorkItem?
     private(set) var disposeBag = DisposeBag()
 
     override func prepareForReuse() {
@@ -50,7 +49,7 @@ extension WalletSortFavCell: ViewConfiguration {
         let isMyWavesToken: Bool
         let isLock: Bool
         let isGateway: Bool
-        let icon: String
+        let icon: DomainLayer.DTO.Asset.Icon
     }
 
     func update(with model: WalletSortFavCell.Model) {
@@ -58,11 +57,11 @@ extension WalletSortFavCell: ViewConfiguration {
         labelTitle.text = cryptoName
         iconLock.isHidden = !model.isLock
 
-        taskForAssetLogo = AssetLogo.logoFromCache(name: model.icon,
-                                                   style: AssetLogo.Style(size: Constants.icon,
-                                                                          font: UIFont.systemFont(ofSize: 15),
-                                                                          border: nil)) { [weak self] image in
-            self?.imageIcon.image = image
+        taskForAssetLogo = AssetLogo.logo(url: model.icon,
+                                          style: AssetLogo.Style(size: Constants.icon,
+                                                                 font: UIFont.systemFont(ofSize: 15),
+                                                                 border: nil)) { [weak self] image in
+                                                                    self?.imageIcon.image = image
         }
     }
 }

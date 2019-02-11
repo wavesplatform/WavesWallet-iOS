@@ -60,5 +60,9 @@ extension DomainLayer.DTO.Asset {
         self.isGateway = asset.isGateway
         self.isWaves = asset.isWaves
         self.addressRegEx = asset.addressRegEx
+
+        //TODO: Save Icon
+        self.iconLogo = Icon(name: "",
+                             url: nil)
     }
 }

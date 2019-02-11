@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 private enum Constants {
     static let icon = CGSize(width: 24, height: 24)
@@ -23,7 +22,7 @@ final class AssetListTableViewCell: UITableViewCell, NibReusable {
     @IBOutlet private weak var iconFav: UIImageView!
     @IBOutlet private weak var topTitleOffset: NSLayoutConstraint!
     
-    private var taskForAssetLogo: RetrieveImageDiskTask?
+    private var taskForAssetLogo: DispatchWorkItem?
 
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -53,7 +52,7 @@ extension AssetListTableViewCell: ViewConfiguration {
         labelAmount.text = model.balance.displayText
 
         let style = AssetLogo.Style(size: Constants.icon, font: UIFont.systemFont(ofSize: 15), border: nil)
-        taskForAssetLogo = AssetLogo.logoFromCache(name: model.asset.icon, style: style, completionHandler: { [weak self] (image) in
+        taskForAssetLogo = AssetLogo.logo(url: model.asset.iconLogo, style: style, completionHandler: { [weak self] (image) in
             self?.iconAsset.image = image
         })
         iconCheckmark.image = model.isChecked ? Images.on.image : Images.off.image
