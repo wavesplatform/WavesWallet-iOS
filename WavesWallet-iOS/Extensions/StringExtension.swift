@@ -10,6 +10,12 @@ import Foundation
 import UIKit
 
 extension String {
+    
+    func trimmingLeadingWhitespace() -> String {
+        let range = (self as NSString).range(of: "^\\s*", options: [.regularExpression])
+        return (self as NSString).replacingCharacters(in: range, with: "")
+    }
+    
     func removeCharacters(from forbiddenChars: CharacterSet) -> String {
         let passed = unicodeScalars.filter { !forbiddenChars.contains($0) }
         return String(String.UnicodeScalarView(passed))
