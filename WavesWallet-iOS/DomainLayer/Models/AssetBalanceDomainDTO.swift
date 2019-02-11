@@ -42,6 +42,6 @@ extension DomainLayer.DTO {
 extension DomainLayer.DTO.SmartAssetBalance {
 
     var availableBalance: Int64 {
-        return totalBalance - leasedBalance - inOrderBalance
+        return max(totalBalance - leasedBalance - inOrderBalance, 0)
     }
 }
