@@ -34,14 +34,14 @@ final class SendPresenter: SendPresenterProtocol {
     
     private func feeQuery() -> Feedback {
         return react(query: { state -> Send.State? in
-            return state.isNeedLoadFee ? state : nil
+            return state.isNeedLoadWavesFee ? state : nil
             
         }, effects: {[weak self] state -> Signal<Send.Event> in
             guard let strongSelf = self else { return Signal.empty() }
             guard let assetID = state.selectedAsset?.assetId else { return Signal.empty() }
             
             return strongSelf.interactor.calculateFee(assetID: assetID)
-                .map{ .didCalculateFee($0)}
+                .map{ .didGetWavesFee($0)}
                 .asSignal(onErrorRecover: { Signal.just(.handleFeeError($0)) } )
         })
 
@@ -103,14 +103,14 @@ final class SendPresenter: SendPresenterProtocol {
         
         case .refreshFee:
             return state.mutate {
-                $0.isNeedLoadFee = true
+                $0.isNeedLoadWavesFee = true
                 $0.action = .none
             }
             
         case .handleFeeError(let error):
 
             return state.mutate {
-                $0.isNeedLoadFee = false
+                $0.isNeedLoadWavesFee = false
                 if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
                     $0.action = .didHandleFeeError(.message(Localizable.Waves.Transaction.Error.Commission.receiving))
                 } else {
@@ -118,10 +118,10 @@ final class SendPresenter: SendPresenterProtocol {
                 }
             }
             
-        case .didCalculateFee(let fee):
+        case .didGetWavesFee(let fee):
             return state.mutate {
-                $0.isNeedLoadFee = false
-                $0.action = .didCalculateFee(fee)
+                $0.isNeedLoadWavesFee = false
+                $0.action = .didGetWavesFee(fee)
             }
         
         case .didGetWavesAsset(let asset):
@@ -144,7 +144,7 @@ final class SendPresenter: SendPresenterProtocol {
                 $0.isNeedLoadGateWayInfo = loadGatewayInfo
                 $0.isNeedValidateAliase = false
                 $0.isNeedGenerateMoneroAddress = false
-                $0.isNeedLoadFee = true
+                $0.isNeedLoadWavesFee = true
                 $0.selectedAsset = asset
             }
     
@@ -239,7 +239,7 @@ fileprivate extension Send.State {
                           isNeedValidateAliase: false,
                           isNeedLoadWaves: true,
                           isNeedGenerateMoneroAddress: false,
-                          isNeedLoadFee: false,
+                          isNeedLoadWavesFee: false,
                           action: .none,
                           recipient: "",
                           moneroPaymentID: "",

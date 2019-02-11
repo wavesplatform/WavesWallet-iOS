@@ -591,6 +591,10 @@ extension AssetTypes.DTO.Asset.Info {
             kind = .wavesToken
         }
 
-        return AssetsSegmentedControl.Model.Asset(id: id, name: name, kind: kind, icon: icon)
+        return AssetsSegmentedControl.Model.Asset(id: id,
+                                                  name: name,
+                                                  kind: kind,
+                                                  icon: icon,
+                                                  isSponsored: assetBalance.asset.isSponsored)
     }
 }

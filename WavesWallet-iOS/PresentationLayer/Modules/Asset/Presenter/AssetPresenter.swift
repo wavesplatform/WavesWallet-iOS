@@ -254,7 +254,7 @@ extension AssetPresenter {
         }
         
         var infoRows: [AssetTypes.ViewModel.Row] = [.assetInfo(asset.info)]
-        if !asset.info.isSpam && !asset.info.isWaves && asset.info.assetBalance.avaliableBalance > 0 {
+        if !asset.info.isSpam && !asset.info.isWaves && asset.info.assetBalance.availableBalance > 0 {
             infoRows.append(.tokenBurn(asset.info))
         }
         let assetInfo: AssetTypes.ViewModel.Section = .init(kind: .none, rows: infoRows)
