@@ -154,7 +154,8 @@ private extension DexCreateOrderViewController {
                     strongSelf.setupButtonSellBuy()
                     strongSelf.setupValidationErrors()
                     strongSelf.sendEvent.accept(.updateInputOrder(strongSelf.order))
-
+                    strongSelf.setupInputAmountData()
+                    
                 default:
                     break
                 }
