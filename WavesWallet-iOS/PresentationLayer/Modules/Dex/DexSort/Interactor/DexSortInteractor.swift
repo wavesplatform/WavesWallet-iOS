@@ -40,21 +40,15 @@ final class DexSortInteractor: DexSortInteractorProtocol {
    
     func update(_ models: [DexSort.DTO.DexSortModel]) {
         
+        
         auth
             .authorizedWallet()
-            .subscribe(onNext: { (wallet) in
-            
-                let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address)
-
-                try? realm?.write {
-                    for model in models {
-                        if let object = realm?.object(ofType: DexAssetPair.self, forPrimaryKey: model.id) {
-                            object.sortLevel = model.sortLevel
-                        }
-                    }
-                }
-            
+            .flatMap({ [weak self] (wallet) -> Observable<Bool> in
+                guard let owner = self else { return Observable.never() }
+                let ids = models.reduce(into:  [String : Int](), { $0[$1.id] = $1.sortLevel})
+                return owner.reposity.updateSortLevel(ids: ids, accountAddress: wallet.address)
             })
+            .subscribe()
             .disposed(by: disposeBag)
     }
     
