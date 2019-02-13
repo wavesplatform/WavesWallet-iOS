@@ -25,7 +25,6 @@ final class WalletSortCell: UITableViewCell, Reusable {
 
     private var isDragging: Bool = false
 
-    private var taskForAssetLogo: DispatchWorkItem?
     private(set) var disposeBag = DisposeBag()
     private var isHiddenAsset: Bool = false
     var changedValueSwitchControl: ((Bool) -> Void)?
@@ -33,7 +32,6 @@ final class WalletSortCell: UITableViewCell, Reusable {
     override func prepareForReuse() {
         super.prepareForReuse()
         disposeBag = DisposeBag()
-        taskForAssetLogo?.cancel()
     }
 
     override func awakeFromNib() {
@@ -120,11 +118,11 @@ extension WalletSortCell: ViewConfiguration {
             viewContent.addTableCellShadowStyle()
         }
 
-        taskForAssetLogo = AssetLogo.logo(url: model.icon,
-                                          style: AssetLogo.Style(size: Constants.icon,
-                                                                 font: UIFont.systemFont(ofSize: 15),
-                                                                 border: nil)) { [weak self] image in
-                                                                    self?.imageIcon.image = image
-        }
+        AssetLogo.logo(icon: model.icon,
+                       style: AssetLogo.Style(size: Constants.icon,
+                                              font: UIFont.systemFont(ofSize: 15),
+                                              border: nil))
+            .bind(to: imageIcon.rx.imageAnimationFadeIn)
+            .disposed(by: disposeBag)
     }
 }

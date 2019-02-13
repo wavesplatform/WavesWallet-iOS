@@ -22,7 +22,6 @@ final class WalletSortFavCell: UITableViewCell, Reusable {
     @IBOutlet private var iconLock: UIImageView!
     @IBOutlet private var viewContent: UIView!
 
-    private var taskForAssetLogo: DispatchWorkItem?
     private(set) var disposeBag = DisposeBag()
 
     override func prepareForReuse() {
@@ -32,7 +31,6 @@ final class WalletSortFavCell: UITableViewCell, Reusable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        taskForAssetLogo?.cancel()
         backgroundColor = .basic50
         contentView.backgroundColor = .basic50
         viewContent.backgroundColor = .basic50
@@ -57,11 +55,11 @@ extension WalletSortFavCell: ViewConfiguration {
         labelTitle.text = cryptoName
         iconLock.isHidden = !model.isLock
 
-        taskForAssetLogo = AssetLogo.logo(url: model.icon,
-                                          style: AssetLogo.Style(size: Constants.icon,
-                                                                 font: UIFont.systemFont(ofSize: 15),
-                                                                 border: nil)) { [weak self] image in
-                                                                    self?.imageIcon.image = image
-        }
+        AssetLogo.logo(icon: model.icon,
+                       style: AssetLogo.Style(size: Constants.icon,
+                                              font: UIFont.systemFont(ofSize: 15),
+                                              border: nil))
+            .bind(to: imageIcon.rx.imageAnimationFadeIn)
+            .disposed(by: disposeBag)        
     }
 }

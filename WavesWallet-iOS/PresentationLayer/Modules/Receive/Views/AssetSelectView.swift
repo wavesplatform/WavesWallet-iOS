@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 private enum Constants {
     static let borderRadius: CGFloat = 2
@@ -38,7 +39,7 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var buttonTap: UIButton!
     @IBOutlet private weak var skeletonView: AssetSelectSkeletonView!
     
-    private var taskForAssetLogo: DispatchWorkItem?
+    private var disposeBag: DisposeBag = DisposeBag()
 
     weak var delegate: AssetSelectViewDelegate?
     var isSelectedAssetMode: Bool = true {
@@ -71,7 +72,7 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
         
         labelAssetName.text = "Waves"
         labelAmount.isHidden = true
-
+        
         //TODO: Icon for waves ?
 //        loadIcon(name: GlobalConstants.wavesAssetId)
     }
@@ -124,19 +125,21 @@ extension AssetSelectView: ViewConfiguration {
         labelAssetName.text = asset.displayName
         iconFav.isHidden = !model.assetBalance.settings.isFavorite
        
-        loadIcon(name: asset.iconLogo)
+        loadIcon(icon: asset.iconLogo)
         let money = Money(model.assetBalance.avaliableBalance, asset.precision)
         labelAmount.text = money.displayText
     }
     
-    private func loadIcon(name: DomainLayer.DTO.Asset.Icon) {
+    private func loadIcon(icon: DomainLayer.DTO.Asset.Icon) {
 
-        taskForAssetLogo?.cancel()
-        let style = AssetLogo.Style(size: Constants.icon, font: UIFont.systemFont(ofSize: 15), border: nil)
-        
-        taskForAssetLogo = AssetLogo.logo(url: name, style: style, completionHandler: { [weak self] (image) in
-            self?.iconAssetLogo.image = image
-        })
+        disposeBag = DisposeBag()
+
+        AssetLogo.logo(icon: icon,
+                       style: AssetLogo.Style(size: Constants.icon,
+                                              font: UIFont.systemFont(ofSize: 15),
+                                              border: nil))
+            .bind(to: iconAssetLogo.rx.imageAnimationFadeIn)
+            .disposed(by: disposeBag)
     }
 }
 

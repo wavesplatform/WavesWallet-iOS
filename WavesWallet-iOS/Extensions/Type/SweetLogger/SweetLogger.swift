@@ -158,11 +158,6 @@ final class SweetLoggerSentry: SweetLoggerProtocol {
     {
         guard visibleLevels.contains(level) == true else { return }
 
-        var nameClass = ""
-        if let type = type {
-            nameClass = nameType(type)
-        }
-
         let event = Sentry.Event(level: level.sentrySeverity)
         event.message = "\(message())"
         Client.shared?.send(event: event, completion: nil)
@@ -242,10 +237,10 @@ final class SweetLoggerConsole: SweetLoggerProtocol {
             nameClass = nameType(type)
         }
         
-        let message = message()
+        let message = "\(level.nameLevel) \(nameClass) 👉 \(message()) 👈"
 
         DispatchQueue.main.async {
-            print("\(level.nameLevel) \(nameClass) 👉 \(message) 👈")
+            print(message)
 
             if self.isShortLog {
                 return

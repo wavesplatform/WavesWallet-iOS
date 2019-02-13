@@ -91,7 +91,7 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
     func setCurrentAsset(id: String, animated: Bool = true) {
         let element = assets.enumerated().first(where: { $0.element.id == id })
         guard let page = element?.offset else { return }
-        setCurrentPage(page, animated: animated)
+//        setCurrentPage(page, animated: animated)
     }
 
     func setCurrentPage(_ page: Int, animated: Bool = true) {
@@ -202,7 +202,11 @@ extension AssetsSegmentedControl: InfiniteCollectionViewDelegate {
 extension AssetsSegmentedControl: ViewConfiguration {
     func update(with model: Model) {
         self.assets = model.assets
-        collectionView.reloadInfinity()
-        setCurrentAsset(id: model.currentAsset.id, animated: false)
+        collectionView.performBatchUpdates({
+            collectionView.reloadInfinity()
+            setCurrentAsset(id: model.currentAsset.id, animated: false)
+        }) { _ in
+
+        }
     }
 }

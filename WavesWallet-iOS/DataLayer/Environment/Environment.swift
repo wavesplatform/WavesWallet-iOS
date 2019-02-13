@@ -17,7 +17,7 @@ struct Environment: Decodable {
     struct AssetInfo: Decodable {
 
         struct Icon: Decodable {
-            let pdf: String?
+            let `default`: String?
         }
 
         let assetId: String
@@ -27,7 +27,7 @@ struct Environment: Decodable {
         let wavesId: String
         let gatewayId: String
         let addressRegEx: String
-        let iconUrl: Icon?
+        let iconUrls: Icon?
     }
 
     struct Servers: Decodable {
