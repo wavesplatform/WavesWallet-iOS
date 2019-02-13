@@ -367,7 +367,7 @@ fileprivate extension TransactionsInteractor {
             .transactions(by: query.accountAddress, specifications: query.specifications)
 
         var newTxs = transactionsRepositoryLocal
-            .newTransactions(by: query.accountAddress, specifications: query.specifications).skip(1).sweetDebugWithoutResponse("newTxss")
+            .newTransactions(by: query.accountAddress, specifications: query.specifications).skip(1)
 
         newTxs = Observable.merge(Observable.just([]), newTxs)
 

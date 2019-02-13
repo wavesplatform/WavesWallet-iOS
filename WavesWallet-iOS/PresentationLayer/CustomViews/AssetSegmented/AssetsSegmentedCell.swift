@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class AssetsSegmentedCell: UICollectionViewCell, NibReusable {
 
@@ -21,11 +22,12 @@ final class AssetsSegmentedCell: UICollectionViewCell, NibReusable {
 
     @IBOutlet private var imageViewIcon: UIImageView!
     @IBOutlet private var imageArrow: UIImageView!
-    private var task: DispatchWorkItem?
+    private var disposeBag: DisposeBag = DisposeBag()
+    private var model: AssetsSegmentedCell.Model?
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        task?.cancel()
+        disposeBag = DisposeBag()
     }
 }
 
@@ -35,12 +37,17 @@ extension AssetsSegmentedCell: ViewConfiguration {
 
     func update(with model: AssetsSegmentedCell.Model) {
         imageArrow.isHidden = model.isHiddenArrow
+        self.model = model
 
-        task = AssetLogo.logo(url: model.icon,
-                                       style: .init(size: Constants.sizeLogo,
-                                                    font: UIFont.systemFont(ofSize: 15),
-                                                    border: nil)) { [weak self] image in
-            self?.imageViewIcon.image = image
-        }
+        disposeBag = DisposeBag()        
+
+        AssetLogo.logo(icon: model.icon,
+                       style: AssetLogo.Style(size: Constants.sizeLogo,
+                                              font: UIFont.systemFont(ofSize: 15),
+                                              border: nil))
+            .subscribe(onNext: { (image) in
+                self.imageViewIcon.image = image
+            })
+            .disposed(by: disposeBag)
     }
 }

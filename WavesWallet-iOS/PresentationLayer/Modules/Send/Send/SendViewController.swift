@@ -239,7 +239,7 @@ private extension SendViewController {
             return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
         }
         
-        presenter.system(feedbacks: [feedback])
+        presenter.system(feedbacks: [feedback])        
     }
     
     func events() -> [Signal<Send.Event>] {

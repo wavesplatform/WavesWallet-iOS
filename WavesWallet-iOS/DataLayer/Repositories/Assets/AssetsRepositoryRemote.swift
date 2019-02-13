@@ -165,7 +165,7 @@ fileprivate extension DomainLayer.DTO.Asset {
         self.displayName = name
         self.addressRegEx = info?.addressRegEx ?? ""
 
-        if let icon = info?.iconUrl?.pdf {
+        if let icon = info?.iconUrls?.default {
             self.iconLogo =  .init(name: gatewayId ?? name,
                                    url: icon)
         } else {
