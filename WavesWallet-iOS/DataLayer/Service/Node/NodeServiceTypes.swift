@@ -61,13 +61,11 @@ struct NodePlugin: PluginType {
             let cookies = HTTPCookieStorage.shared.cookies(for: url)
             SweetLogger.network(cookies ?? [])
         }
-
-
-        var mutableRequest = request
-        mutableRequest.cachePolicy = URLRequest.CachePolicy.reloadIgnoringCacheData
-        return mutableRequest
-
-
+//
+//        var mutableRequest = request
+//        mutableRequest.cachePolicy = URLRequest.CachePolicy.reloadIgnoringCacheData
+//        return mutableRequest
+//
         return request
     }
 

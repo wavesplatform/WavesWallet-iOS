@@ -83,29 +83,50 @@ extension AssetLogo {
         }
     }
 
-    static func retrieveLogo(url: DomainLayer.DTO.Asset.Icon,
-                             style: Style) -> Observable<UIImage?> {
+    private static func cacheKeyForRemoteLogo(icon: DomainLayer.DTO.Asset.Icon,
+                                              style: Style) -> String {
+        return "com.wavesplatform.asset.logo.v2.\(icon.name).\(style.key)"
+    }
+
+    private static func cacheKeyForLocalLogo(icon: DomainLayer.DTO.Asset.Icon,
+                                             style: Style) -> String {
+        return "\(cacheKeyForRemoteLogo(icon: icon, style: style)).local"
+    }
+
+
+    private static func saveImage(key: String, image: UIImage) -> Observable<UIImage> {
 
         return Observable.create({ (observer) -> Disposable in
 
             let cache = ImageCache.default
-            let key = "com.wavesplatform.asset.logo.v5.\(url).\(style.key)"
+            cache.store(image, forKey: key)
+            observer.onNext(image)
+            observer.onCompleted()
+
+            return Disposables.create {}
+        })
+    }
+
+    private static func retrieveImage(key: String) -> Observable<UIImage?> {
+
+        return Observable.create({ (observer) -> Disposable in
+
+            let cache = ImageCache.default
 
             let workItem = cache.retrieveImage(forKey: key,
                                                options: nil,
                                                completionHandler: { image, _ in
-                                                    observer.onNext(image)
+                                                observer.onNext(image)
+                                                observer.onCompleted()
             })
 
             return Disposables.create {
-                if workItem?.isCancelled == false {
-                    workItem?.cancel()
-                }
+                workItem?.cancel()                
             }
         })
     }
 
-    static func downloadLogo(path: String) -> Observable<UIImage?> {
+    static func downloadImage(path: String) -> Observable<UIImage?> {
 
         return Observable.create({ (observer) -> Disposable in
 
@@ -131,101 +152,91 @@ extension AssetLogo {
         })
     }
 
+
     static func logo(icon: DomainLayer.DTO.Asset.Icon,
                      style: Style) -> Observable<UIImage> {
 
-        return retrieveLogo(url: icon, style: style)
+        let key = cacheKeyForRemoteLogo(icon: icon, style: style)
+
+        return retrieveImage(key: key)
             .flatMap({ (image) -> Observable<UIImage> in
                 if let image = image {
                     return Observable.just(image)
                 } else {
                     if let url = icon.url {
-                        let download = downloadLogo(path: url)
-                            .flatMap({ (image) ->  Observable<UIImage> in
-                                let image = createLogo(name: icon.name,
-                                                       image: image,
-                                                       style: style)
-                                return Observable.just(image!)
-                            })
 
-                        return Observable.merge([localLogo(icon: icon, style: style), download])
+                        return Observable.merge(localLogo(icon: icon,
+                                                          style: style),
+                                                remoteLogo(icon: icon,
+                                                           style: style,
+                                                           url: url))
                     } else {
                         return localLogo(icon: icon,
                                          style: style)
                     }
                 }
             })
-            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .background)))
-            .sweetDebug("Test \(arc4random() % 100)")
-
     }
 
-    static func localLogo(icon: DomainLayer.DTO.Asset.Icon,
-                          style: Style) -> Observable<UIImage> {
+    static func remoteLogo(icon: DomainLayer.DTO.Asset.Icon,
+                           style: Style,
+                           url: String) -> Observable<UIImage> {
 
-        return retrieveLogo(url: icon, style: style)
+        return retrieveImage(key: url)
             .flatMap({ (image) -> Observable<UIImage> in
                 if let image = image {
-                    return Observable.just(image)
+                    return prepareRemoteLogo(icon: icon, style: style, image: image)
                 } else {
-                    let image = createLogo(name: icon.name,
-                                           image: image,
-                                           style: style) ?? UIImage()
-                    return Observable.just(image)
+
+                    return downloadImage(path: url)
+                        .flatMap({ (image) -> Observable<UIImage> in
+
+                            if let image = image {
+                                return saveImage(key: url, image: image)
+                                    .flatMap({ (image) -> Observable<UIImage> in
+                                        return prepareRemoteLogo(icon: icon, style: style, image: image)
+                                    })
+                            } else {
+                                return localLogo(icon: icon, style: style)
+                            }
+                        })
                 }
             })
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .background)))
     }
 
-    static func logo(url: DomainLayer.DTO.Asset.Icon,
-                     style: Style,
-                     completionHandler: @escaping ((UIImage) -> Void)) -> DispatchWorkItem?
-    {
-        let cache = ImageCache.default
-        let key = "com.wavesplatform.asset.logo.v1.\(url).\(style.key)"
+    static func prepareRemoteLogo(icon: DomainLayer.DTO.Asset.Icon,
+                                  style: Style,
+                                  image: UIImage) -> Observable<UIImage> {
 
-//        if let path = url.url {
-////            var downloadTask: RetrieveImageDownloadTask = downloadLogo(path: path) { (image) in
-////
-////            }
-//
-//
-//        } else {
-//
-//        }
+        let image = createLogo(name: icon.name,
+                               image: image,
+                               style: style) ?? UIImage()
 
-        let workItem = cache.retrieveImage(forKey: key,
-                                   options: nil,
-                                   completionHandler: { image, _ in
-                                    if let image = image {
-                                        completionHandler(image)
-                                    } else {
+        let key = cacheKeyForRemoteLogo(icon: icon, style: style)
 
-//                                        if let image = createLogo(name: url, style: style) {
-//                                            cache.store(image, forKey: key)
-//                                            completionHandler(image)
-//                                        }
-                                    }
-        })
-
-//        workItem?.notify(queue: DispatchQueue.main, execute: {
-//
-//        })
-
-
-        return workItem
+        return saveImage(key: key, image: image)
     }
 
-//    static func downloadLogo(path: String, completionHandler: ((UIImage?) -> Void)) -> RetrieveImageDownloadTask? {
-//
-//        let url = URL(string: path)!
-//        let downloader = ImageDownloader.default
-//        let workItem = downloader.downloadImage(with: url, retrieveImageTask: nil, options: nil, progressBlock: nil) { (image, error, url, data) in
-//            completionHandler(image)
-//        }
-//
-//        return workItem
-//    }
+    static func localLogo(icon: DomainLayer.DTO.Asset.Icon,
+                          style: Style) -> Observable<UIImage> {
+
+        let localKey = cacheKeyForLocalLogo(icon: icon, style: style)
+        return retrieveImage(key: localKey)
+            .flatMap({ (image) -> Observable<UIImage> in
+                if let image = image {
+                    return Observable.just(image)
+                } else {
+                    let logo = AssetLogo(rawValue: icon.name.lowercased())?.image48
+                    let image = createLogo(name: icon.name,
+                                           image: logo,
+                                           style: style) ?? UIImage()
+
+                    return saveImage(key: localKey, image: image)
+                }
+            })
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .background)))
+    }
 
     static func createLogo(name: String,
                            image: UIImage?,

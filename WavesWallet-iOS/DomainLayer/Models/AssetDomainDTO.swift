@@ -38,7 +38,7 @@ extension DomainLayer.DTO {
         let isWaves: Bool
         let modified: Date
         let addressRegEx: String
-        let iconLogo: DomainLayer.DTO.Asset.Icon
+        let iconLogoUrl: String?
     }
 }
 

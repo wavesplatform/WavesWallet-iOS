@@ -64,7 +64,7 @@ extension WalletTableAssetsCell: ViewConfiguration {
                        style: AssetLogo.Style(size: Constants.icon,
                                               font: UIFont.systemFont(ofSize: 22),
                                               border: nil))
-            .bind(to: imageIcon.rx.image)
+            .bind(to: imageIcon.rx.imageAnimationFadeIn)
             .disposed(by: disposeBag)
 
     }
