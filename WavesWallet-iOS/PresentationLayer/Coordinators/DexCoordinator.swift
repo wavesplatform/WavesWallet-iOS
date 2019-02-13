@@ -102,8 +102,9 @@ extension DexCoordinator:  DexOrderBookModuleOutput {
     
     func didCreateOrder(_ bidAsk: DexOrderBook.DTO.BidAsk, amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, ask: Money?, bid: Money?, last: Money?, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money, inputMaxAmount: Bool) {
         
+        let amount = inputMaxAmount ? bidAsk.amount : nil
         showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: bidAsk.orderType,
-                                  price: bidAsk.price, amount: bidAsk.amount, ask: ask, bid: bid, last: last,
+                                  price: bidAsk.price, amount: amount, ask: ask, bid: bid, last: last,
                                   availableAmountAssetBalance: availableAmountAssetBalance,
                                   availablePriceAssetBalance: availablePriceAssetBalance,
                                   availableWavesBalance: availableWavesBalance,
