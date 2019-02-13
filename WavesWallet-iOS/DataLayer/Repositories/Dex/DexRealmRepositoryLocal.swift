@@ -23,7 +23,6 @@ final class DexRealmRepositoryLocal: DexRealmRepositoryProtocol {
                         if let object = realm.object(ofType: DexAssetPair.self, forPrimaryKey: id.key) {
                             object.sortLevel = id.value
                         }
-
                     }
                 }
                 subscribe.onNext(true)
