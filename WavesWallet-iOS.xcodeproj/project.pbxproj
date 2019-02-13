@@ -672,6 +672,8 @@
 		E980EACE20A9F5BF001834DB /* ScannerCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */; };
 		E983665E21F5972300178A8A /* TransactionScriptErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983665D21F5972300178A8A /* TransactionScriptErrorView.swift */; };
 		E983666121F5973900178A8A /* TransactionScriptErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E983666021F5973900178A8A /* TransactionScriptErrorView.xib */; };
+		E991BB15220189530022E27D /* AliasApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB14220189530022E27D /* AliasApiService.swift */; };
+		E991BB17220197280022E27D /* AliasApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB16220197280022E27D /* AliasApi.swift */; };
 		E991BB1A2202CA250022E27D /* SendFeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB192202CA250022E27D /* SendFeeViewController.swift */; };
 		E991BB1C2202CB3C0022E27D /* SendFeeModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB1B2202CB3C0022E27D /* SendFeeModuleBuilder.swift */; };
 		E991BB202202CE090022E27D /* SendFeeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB1F2202CE090022E27D /* SendFeeTableViewCell.swift */; };
@@ -681,8 +683,6 @@
 		E991BB2A2202D5E00022E27D /* SendFeeInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB292202D5E00022E27D /* SendFeeInteractorProtocol.swift */; };
 		E991BB2C2202D6560022E27D /* SendFeeTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB2B2202D6560022E27D /* SendFeeTypes.swift */; };
 		E991BB2E2202DD420022E27D /* SendFeeHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB2D2202DD420022E27D /* SendFeeHeaderCell.swift */; };
-		E991BB15220189530022E27D /* AliasApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB14220189530022E27D /* AliasApiService.swift */; };
-		E991BB17220197280022E27D /* AliasApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB16220197280022E27D /* AliasApi.swift */; };
 		E99DD81B21CEE7690091AFEC /* CandlesApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81A21CEE7690091AFEC /* CandlesApiService.swift */; };
 		E99DD81D21CEF09C0091AFEC /* CandleApiFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81C21CEF09C0091AFEC /* CandleApiFilters.swift */; };
 		E99DD81F21CEF7AC0091AFEC /* CandleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81E21CEF7AC0091AFEC /* CandleApi.swift */; };
@@ -1595,6 +1595,8 @@
 		E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerCustomView.swift; sourceTree = "<group>"; };
 		E983665D21F5972300178A8A /* TransactionScriptErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionScriptErrorView.swift; sourceTree = "<group>"; };
 		E983666021F5973900178A8A /* TransactionScriptErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionScriptErrorView.xib; sourceTree = "<group>"; };
+		E991BB14220189530022E27D /* AliasApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasApiService.swift; sourceTree = "<group>"; };
+		E991BB16220197280022E27D /* AliasApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasApi.swift; sourceTree = "<group>"; };
 		E991BB192202CA250022E27D /* SendFeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeViewController.swift; sourceTree = "<group>"; };
 		E991BB1B2202CB3C0022E27D /* SendFeeModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeModuleBuilder.swift; sourceTree = "<group>"; };
 		E991BB1F2202CE090022E27D /* SendFeeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeTableViewCell.swift; sourceTree = "<group>"; };
@@ -1604,8 +1606,6 @@
 		E991BB292202D5E00022E27D /* SendFeeInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeInteractorProtocol.swift; sourceTree = "<group>"; };
 		E991BB2B2202D6560022E27D /* SendFeeTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeTypes.swift; sourceTree = "<group>"; };
 		E991BB2D2202DD420022E27D /* SendFeeHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeHeaderCell.swift; sourceTree = "<group>"; };
-		E991BB14220189530022E27D /* AliasApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasApiService.swift; sourceTree = "<group>"; };
-		E991BB16220197280022E27D /* AliasApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasApi.swift; sourceTree = "<group>"; };
 		E99DD81A21CEE7690091AFEC /* CandlesApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandlesApiService.swift; sourceTree = "<group>"; };
 		E99DD81C21CEF09C0091AFEC /* CandleApiFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleApiFilters.swift; sourceTree = "<group>"; };
 		E99DD81E21CEF7AC0091AFEC /* CandleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleApi.swift; sourceTree = "<group>"; };
@@ -1998,7 +1998,6 @@
 			children = (
 				0A14CFCE2144159300C3A4D5 /* Asset+Assistants.swift */,
 				0A14CFD0214415C100C3A4D5 /* TransactionDomainDTO+Mapper.swift */,
-				E90223C321D53A8F0057AA45 /* DexAssetPairDomainDTO+Mapper.swift */,
 			);
 			path = Mapper;
 			sourceTree = "<group>";
@@ -2495,6 +2494,7 @@
 				0A218B882155221F00B989A1 /* Wallet+Mapper.swift */,
 				0AD8360D217DD34B004413E9 /* AccountSettings+Mapper.swift */,
 				E967786A21EC660C00CE56D6 /* DexMyOrders+Mapper.swift */,
+				E90223C321D53A8F0057AA45 /* DexAssetPairDomainDTO+Mapper.swift */,
 			);
 			path = Mapper;
 			sourceTree = "<group>";
