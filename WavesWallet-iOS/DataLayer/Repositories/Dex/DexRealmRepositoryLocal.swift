@@ -11,6 +11,54 @@ import RxSwift
 
 final class DexRealmRepositoryLocal: DexRealmRepositoryProtocol {
 
+    
+    func updateSortLevel(ids: [String: Int], accountAddress: String) -> Observable<Bool> {
+        
+        return Observable.create({ (subscribe) -> Disposable in
+            
+            do {
+                let realm = try WalletRealmFactory.realm(accountAddress: accountAddress)
+                try realm.write {
+                    for id in ids {
+                        if let object = realm.object(ofType: DexAssetPair.self, forPrimaryKey: id.key) {
+                            object.sortLevel = id.value
+                        }
+
+                    }
+                }
+                subscribe.onNext(true)
+            }
+            catch _ {
+                subscribe.onNext(false)
+            }
+            
+            subscribe.onCompleted()
+            return Disposables.create()
+        })
+    }
+    func checkmark(pairs: [DomainLayer.DTO.Dex.SmartPair], accountAddress: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
+        
+        return Observable.create({ (subscribe) -> Disposable in
+        
+            do {
+                let realm = try WalletRealmFactory.realm(accountAddress: accountAddress)
+                var newPairs = pairs
+                for (index, pair) in pairs.enumerated() {
+                    newPairs[index] = pair.mutate {
+                        $0.isChecked = realm.object(ofType: DexAssetPair.self, forPrimaryKey: pair.id) != nil
+                    }
+                }
+                subscribe.onNext(newPairs)
+            }
+            catch let error {
+                subscribe.onError(error)
+            }
+
+            subscribe.onCompleted()
+            return Disposables.create()
+        })
+    }
+    
     func save(pair: DomainLayer.DTO.Dex.SmartPair, accountAddress: String) -> Observable<Bool> {
        
         return Observable.create({ (subscribe) -> Disposable in
