@@ -12,7 +12,7 @@ private enum Constants {
     static let height: CGFloat = 40
 }
 
-final class SendFeeHeaderCell: UITableViewCell, Reusable {
+final class SendFeeHeaderView: UITableViewHeaderFooterView, Reusable {
     
     @IBOutlet private weak var labelTitle: UILabel!
     
@@ -23,7 +23,7 @@ final class SendFeeHeaderCell: UITableViewCell, Reusable {
     }
 }
 
-extension SendFeeHeaderCell: ViewHeight {
+extension SendFeeHeaderView: ViewHeight {
     
     static func viewHeight() -> CGFloat {
         return Constants.height

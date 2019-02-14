@@ -26,6 +26,9 @@ PODS:
   - Firebase/Database (5.14.0):
     - Firebase/CoreOnly
     - FirebaseDatabase (= 5.0.4)
+  - Firebase/InAppMessagingDisplay (5.14.0):
+    - Firebase/CoreOnly
+    - FirebaseInAppMessagingDisplay (= 0.12.2)
   - FirebaseAnalytics (5.4.0):
     - FirebaseCore (~> 5.1)
     - FirebaseInstanceID (~> 3.3)
@@ -47,6 +50,14 @@ PODS:
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 5.1)
     - leveldb-library (~> 1.18)
+  - FirebaseInAppMessaging (0.12.1):
+    - FirebaseAnalytics (~> 5.3)
+    - FirebaseCore (~> 5.1)
+    - FirebaseInstanceID (~> 3.3)
+    - GoogleUtilities/Environment (~> 5.0)
+  - FirebaseInAppMessagingDisplay (0.12.2):
+    - FirebaseCore
+    - FirebaseInAppMessaging (>= 0.12.0)
   - FirebaseInstanceID (3.3.0):
     - FirebaseCore (~> 5.1)
     - GoogleUtilities/Environment (~> 5.3)
@@ -175,6 +186,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
+  - Firebase/InAppMessagingDisplay
   - Gloss (= 2.0.0-beta.1)
   - "IdentityImg (from `git@github.com:wavesplatform/identity-img-swift.git`)"
   - "InfiniteCollectionView (from `git@github.com:wavesplatform/InfiniteCollectionView.git`)"
@@ -228,6 +240,8 @@ SPEC REPOS:
     - FirebaseAuthInterop
     - FirebaseCore
     - FirebaseDatabase
+    - FirebaseInAppMessaging
+    - FirebaseInAppMessagingDisplay
     - FirebaseInstanceID
     - Gloss
     - GoogleAppMeasurement
@@ -324,6 +338,8 @@ SPEC CHECKSUMS:
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
   FirebaseCore: 8f49b70f57ab5cbb032ef41d64992ded21606459
   FirebaseDatabase: 0621689f77528d62b47e1c06ca737c4c19275d1a
+  FirebaseInAppMessaging: aa04bdbbee12aa132156e6085b3bfad7d6e0dcbb
+  FirebaseInAppMessagingDisplay: 5591606580c1ed8040fbf55c938a1ccc0caad3ef
   FirebaseInstanceID: e2fa4cb35ef5558c200f7f0ad8a53e212215f93e
   Gloss: 3224f4d6e345138475216855a32e880d9e03e6d2
   GoogleAppMeasurement: 98b71f5e04142793729a5ef23e5b96651ff4b70f
@@ -370,6 +386,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: 21dbdd1de035034e79d6518f3f9af5dfa0bdbd54
+PODFILE CHECKSUM: ff51f02f59ac6466e83034a12c2ffa67bd91b616
 
 COCOAPODS: 1.5.3
