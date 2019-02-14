@@ -49,7 +49,12 @@ extension DomainLayer.DTO.Asset {
     }
 
     var icon: String {
-        return gatewayId ?? displayName
+
+        if let gatewayId = gatewayId, gatewayId.count > 0 {
+            return gatewayId
+        }
+        
+        return displayName
     }
     
     var isMonero: Bool {
