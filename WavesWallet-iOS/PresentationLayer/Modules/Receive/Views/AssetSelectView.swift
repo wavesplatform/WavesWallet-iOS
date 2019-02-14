@@ -73,8 +73,8 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
         labelAssetName.text = "Waves"
         labelAmount.isHidden = true
         
-        //TODO: Icon for waves ?
-//        loadIcon(name: GlobalConstants.wavesAssetId)
+        //TODO: mb get url from enviromnets
+        loadIcon(icon: .init(name: GlobalConstants.wavesAssetId, url: nil))
     }
     
     func showLoadingState() {
