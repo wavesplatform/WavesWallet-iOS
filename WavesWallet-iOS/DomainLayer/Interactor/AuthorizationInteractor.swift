@@ -930,7 +930,7 @@ private extension AuthorizationInteractor {
                 return Observable.error(owner.handlerError(error))
             })
 
-        return Observable.merge(Observable.just(AuthorizationVerifyAccessStatus.detectBiometric), auth).sweetDebugWithoutResponse("Biometric")
+        return Observable.merge(Observable.just(AuthorizationVerifyAccessStatus.detectBiometric), auth)
     }
 
     private func verifyAccessWalletUsingPasscode(_ passcode: String, wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.SignedWallet> {

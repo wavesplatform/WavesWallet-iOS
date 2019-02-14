@@ -9,7 +9,14 @@
 import Foundation
 
 extension DomainLayer.DTO {
+
     struct Asset: Mutating {
+
+        struct Icon {
+            let name: String
+            let url: String?
+        }
+
         let id: String
         let gatewayId: String?
         let wavesId: String?
@@ -31,14 +38,25 @@ extension DomainLayer.DTO {
         let isWaves: Bool
         let modified: Date
         let addressRegEx: String
+        let iconLogoUrl: String?
         let hasScript: Bool
         let minSponsoredFee: Int64
     }
 }
 
 extension DomainLayer.DTO.Asset {
+
+    var iconLogo: DomainLayer.DTO.Asset.Icon {
+        return DomainLayer.DTO.Asset.Icon(name: icon, url: iconLogoUrl)
+    }
+
     var icon: String {
-        return gatewayId ?? displayName
+
+        if let gatewayId = gatewayId, gatewayId.count > 0 {
+            return gatewayId
+        }
+        
+        return displayName
     }
     
     var isMonero: Bool {

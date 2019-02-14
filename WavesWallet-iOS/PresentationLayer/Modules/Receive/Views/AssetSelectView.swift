@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Kingfisher
+import RxSwift
 
 private enum Constants {
     static let borderRadius: CGFloat = 2
@@ -40,7 +40,7 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var buttonTap: UIButton!
     @IBOutlet private weak var skeletonView: AssetSelectSkeletonView!
     
-    private var taskForAssetLogo: RetrieveImageDiskTask?
+    private var disposeBag: DisposeBag = DisposeBag()
 
     weak var delegate: AssetSelectViewDelegate?
     var isSelectedAssetMode: Bool = true {
@@ -73,8 +73,9 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
         
         labelAssetName.text = "Waves"
         labelAmount.isHidden = true
-        
-        loadIcon(name: GlobalConstants.wavesAssetId, isSponsored: false)
+
+        //TODO: mb get url from enviromnets
+        loadIcon(icon: .init(name: GlobalConstants.wavesAssetId, url: nil), isSponsored: false)
     }
     
     func showLoadingState() {
@@ -124,23 +125,24 @@ extension AssetSelectView: ViewConfiguration {
 
         labelAssetName.text = asset.displayName
         iconFav.isHidden = !model.assetBalance.settings.isFavorite
-       
-        loadIcon(name: asset.icon, isSponsored: model.assetBalance.asset.isSponsored)
+
+        loadIcon(icon: asset.iconLogo, isSponsored: model.assetBalance.asset.isSponsored)
         let money = Money(model.assetBalance.availableBalance, asset.precision)
         labelAmount.text = money.displayText
     }
     
-    private func loadIcon(name: String, isSponsored: Bool) {
+    private func loadIcon(icon: DomainLayer.DTO.Asset.Icon, isSponsored: Bool) {
+
+        disposeBag = DisposeBag()
 
         let sponsoredSize = isSponsored ? Constants.sponsoredIcon : nil
-        taskForAssetLogo?.cancel()
-        let style = AssetLogo.Style(size: Constants.icon,
-                                    sponsoredSize: sponsoredSize,
-                                    font: UIFont.systemFont(ofSize: 15),
-                                    border: nil)
-        taskForAssetLogo = AssetLogo.logoFromCache(name: name, style: style, completionHandler: { [weak self] (image) in
-            self?.iconAssetLogo.image = image
-        })
+        AssetLogo.logo(icon: icon,
+                       style: AssetLogo.Style(size: Constants.icon,
+                                              sponsoredSize: sponsoredSize,
+                                              font: UIFont.systemFont(ofSize: 15),
+                                              border: nil))
+            .bind(to: iconAssetLogo.rx.imageAnimationFadeIn)
+            .disposed(by: disposeBag)
     }
 }
 

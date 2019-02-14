@@ -29,7 +29,7 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
             let id: String
             let name: String
             let kind: Kind
-            let icon: String
+            let icon: DomainLayer.DTO.Asset.Icon
             let isSponsored: Bool
         }
 
@@ -204,7 +204,11 @@ extension AssetsSegmentedControl: InfiniteCollectionViewDelegate {
 extension AssetsSegmentedControl: ViewConfiguration {
     func update(with model: Model) {
         self.assets = model.assets
-        collectionView.reloadInfinity()
-        setCurrentAsset(id: model.currentAsset.id, animated: false)
+        collectionView.performBatchUpdates({
+            collectionView.reloadInfinity()
+            setCurrentAsset(id: model.currentAsset.id, animated: false)
+        }) { _ in
+
+        }
     }
 }
