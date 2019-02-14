@@ -11,6 +11,7 @@ import RxSwift
 
 private enum Constants {
     static let icon = CGSize(width: 24, height: 24)
+    static let sponsoredIcon = CGSize(width: 10, height: 10)
     static let defaultTopTitleOffset: CGFloat = 10
 }
 
@@ -52,13 +53,16 @@ extension AssetListTableViewCell: ViewConfiguration {
         
         labelAmount.text = model.balance.displayText
 
+        let sponsoredIcon = model.asset.isSponsored ? Constants.sponsoredIcon : nil
+
         AssetLogo.logo(icon: model.asset.iconLogo,
                        style: AssetLogo.Style(size: Constants.icon,
+                                              sponsoredSize: sponsoredIcon,
                                               font: UIFont.systemFont(ofSize: 15),
                                               border: nil))
             .bind(to: iconAsset.rx.imageAnimationFadeIn)
             .disposed(by: disposeBag)
-        
+
         iconCheckmark.image = model.isChecked ? Images.on.image : Images.off.image
     }
 }

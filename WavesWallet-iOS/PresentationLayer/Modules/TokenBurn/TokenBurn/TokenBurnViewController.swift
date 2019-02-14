@@ -119,7 +119,7 @@ private extension TokenBurnViewController {
     }
     
     var availableBalance: Money {
-        return Money(asset.avaliableBalance, asset.asset.precision)
+        return Money(asset.availableBalance, asset.asset.precision)
     }
     
     var isValidInputAmount: Bool {
@@ -206,7 +206,7 @@ private extension TokenBurnViewController {
             hideSnack(key: errorSnackKey)
         }
         
-        viewFee.update(with: fee)
+        viewFee.update(with: .init(fee: fee, assetName: nil))
         viewFee.hideLoadingState()
         self.fee = fee
         setupButtonContinue()

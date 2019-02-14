@@ -110,7 +110,7 @@ fileprivate extension WalletInteractor {
                 let balance = leasing.balance
                 let totalMoney: Money = .init(balance.totalBalance,
                                               precision)
-                let avaliableMoney: Money = .init(balance.avaliableBalance,
+                let avaliableMoney: Money = .init(balance.availableBalance,
                                                   precision)
                 let leasedMoney: Money = .init(leaseAmount,
                                                precision)

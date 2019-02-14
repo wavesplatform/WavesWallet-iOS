@@ -144,22 +144,7 @@ private extension DexMarketInteractor {
         if DexMarketInteractor.allPairs.count > 0 &&
             isEnableSpam == DexMarketInteractor.isEnableSpam &&
             spamURL == DexMarketInteractor.spamURL {
-            
-            return Observable.create({ (subscribe) -> Disposable in
-                
-                //TODO: Error
-                let realm = try! WalletRealmFactory.realm(accountAddress: wallet.address)
-                
-                for (index, pair) in DexMarketInteractor.allPairs.enumerated() {
-                    DexMarketInteractor.allPairs[index] = pair.mutate {
-                        $0.isChecked = realm.object(ofType: DexAssetPair.self, forPrimaryKey: pair.id) != nil
-                    }
-                }
-                
-                subscribe.onNext(DexMarketInteractor.allPairs)
-                subscribe.onCompleted()
-                return Disposables.create()
-            })
+            return dexRealmRepository.checkmark(pairs: DexMarketInteractor.allPairs, accountAddress: wallet.address)
         }
         
         return orderBookRepository.markets(wallet: wallet, isEnableSpam: isEnableSpam)

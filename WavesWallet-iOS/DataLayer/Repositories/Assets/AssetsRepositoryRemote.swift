@@ -146,8 +146,8 @@ fileprivate extension DomainLayer.DTO.Asset {
         var isFiat = false
         let isGateway = info?.isGateway ?? false
         var name = asset.name
-
-        //TODO: Current code need move to AssetInteractor!
+        
+        //TODO: Current code need move to AssetsInteractor!
         if let info = info {
             isGeneral = true
             if info.assetId == GlobalConstants.wavesAssetId {
@@ -165,5 +165,7 @@ fileprivate extension DomainLayer.DTO.Asset {
         self.displayName = name
         self.addressRegEx = info?.addressRegEx ?? ""
         self.iconLogoUrl = info?.iconUrls?.default
+        self.hasScript = asset.hasScript
+        self.minSponsoredFee = asset.minSponsoredFee ?? 0
     }
 }
