@@ -132,7 +132,7 @@ private extension DomainLayer.DTO.SmartAssetBalance {
         let isSpam = asset.isSpam
         let isGateway = asset.isGateway
         let sortLevel = settings.sortLevel
-        let icon = asset.icon
+        let icon = asset.iconLogo
 
         return .init(id: id,
                      issuer: issuer,

@@ -126,7 +126,7 @@ extension AssetTypes.DTO {
             let isSpam: Bool
             let isGateway: Bool
             let sortLevel: Float
-            let icon: String
+            let icon: DomainLayer.DTO.Asset.Icon
             let assetBalance: DomainLayer.DTO.SmartAssetBalance
         }
 

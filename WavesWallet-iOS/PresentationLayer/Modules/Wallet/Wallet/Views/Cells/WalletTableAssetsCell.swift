@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Kingfisher
+import RxSwift
 
 fileprivate enum Constants {
     static let height: CGFloat = 76    
@@ -24,7 +24,7 @@ final class WalletTableAssetsCell: UITableViewCell, Reusable {
     @IBOutlet private var viewFiatBalance: UIView!
     @IBOutlet private var viewSpam: UIView!
     @IBOutlet private weak var labelSpam: UILabel!
-    private var taskForAssetLogo: RetrieveImageDiskTask?
+    private var disposeBag: DisposeBag = DisposeBag()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,7 +38,7 @@ final class WalletTableAssetsCell: UITableViewCell, Reusable {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        taskForAssetLogo?.cancel()
+        disposeBag = DisposeBag()
     }
 
     class func cellHeight() -> CGFloat {
@@ -62,12 +62,13 @@ extension WalletTableAssetsCell: ViewConfiguration {
         labelSubtitle.attributedText = NSAttributedString.styleForBalance(text: text, font: labelSubtitle.font)
 
         let sponsoredSize = model.asset.isSponsored ? Constants.sponsoredIcon : nil
-        taskForAssetLogo = AssetLogo.logoFromCache(name: model.asset.icon,
-                                                   style: AssetLogo.Style(size: Constants.icon,
-                                                                          sponsoredSize: sponsoredSize,
-                                                                          font: UIFont.systemFont(ofSize: 22),
-                                                                          border: nil)) { [weak self] image in
-                                                                            self?.imageIcon.image = image
-        }
+        AssetLogo.logo(icon: model.asset.iconLogo,
+                       style: AssetLogo.Style(size: Constants.icon,
+                                              sponsoredSize: sponsoredSize,
+                                              font: UIFont.systemFont(ofSize: 22),
+                                              border: nil))
+            .bind(to: imageIcon.rx.imageAnimationFadeIn)
+            .disposed(by: disposeBag)
+
     }
 }

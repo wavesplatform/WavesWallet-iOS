@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import Kingfisher
 import QRCode
+import RxSwift
 
 private enum Constants {
     static let icon = CGSize(width: 48, height: 48)
@@ -32,7 +32,7 @@ final class ReceiveAddressViewController: UIViewController {
     @IBOutlet private weak var viewInvoice: UIView!
     @IBOutlet private weak var viewInvoiceHeight: NSLayoutConstraint!
     @IBOutlet private weak var buttonClose: UIButton!
-    private var logoTask: RetrieveImageDiskTask?
+    private var disposeBag: DisposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,15 +77,16 @@ final class ReceiveAddressViewController: UIViewController {
     private func setupInfo() {
         title = Localizable.Waves.Receiveaddress.Label.yourAddress(input.assetName)
         labelAddress.text = input.address
-        
+
         let sponsoredSize = input.isSponsored ? Constants.sponsoredIcon : nil
-        let iconStyle = AssetLogo.Style(size: Constants.icon,
-                                        sponsoredSize: sponsoredSize,
-                                        font: UIFont.systemFont(ofSize: 22),
-                                        border: nil)
-        logoTask = AssetLogo.logoFromCache(name: input.icon, style: iconStyle, completionHandler: { [weak self] (image) in
-            self?.iconAsset.image = image
-        })
+        AssetLogo.logo(icon: input.icon,
+                       style: AssetLogo.Style(size: Constants.icon,
+                                              sponsoredSize: sponsoredSize,
+                                              font: UIFont.systemFont(ofSize: 22),
+                                              border: nil))
+            .bind(to: iconAsset.rx.imageAnimationFadeIn)
+            .disposed(by: disposeBag)
+
         imageQR.image = QRCode(input.qrCode)?.image
         
         if input.invoiceLink == nil {
