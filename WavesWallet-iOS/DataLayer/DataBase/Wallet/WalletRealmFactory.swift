@@ -134,6 +134,7 @@ enum WalletRealmFactory {
 
             if oldSchemaVersion < SchemaVersions.version_2_2.rawValue {
                 removeTransaction(migration: migration)
+                removeAsset(migration: migration)
             }
         }
 
@@ -172,6 +173,11 @@ enum WalletRealmFactory {
         migration.deleteData(forType: ScriptTransaction.className())
         migration.deleteData(forType: AssetScriptTransaction.className())
         migration.deleteData(forType: SponsorshipTransaction.className())
+    }
+    
+    static func removeAsset(migration: Migration) {
+        migration.deleteData(forType: Asset.className())
+        migration.deleteData(forType: AssetBalance.className())        
     }
 }
 

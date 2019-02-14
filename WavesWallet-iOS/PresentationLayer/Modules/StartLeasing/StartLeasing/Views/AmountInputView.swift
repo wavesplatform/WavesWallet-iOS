@@ -174,7 +174,7 @@ extension AmountInputView: InputScrollButtonsViewDelegate {
 
     func inputScrollButtonsViewDidTapAt(index: Int) {
         
-        if let values = input {
+        if let values = input, values().count > index {
             let value = values()[index]
             setAmount(value)
             delegate?.amountInputView(didChangeValue: value)

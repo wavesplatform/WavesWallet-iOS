@@ -16,6 +16,7 @@ enum ReceiveAddress {
             let icon: DomainLayer.DTO.Asset.Icon
             let qrCode: String
             let invoiceLink: String?
+            let isSponsored: Bool
         }
     }
 }

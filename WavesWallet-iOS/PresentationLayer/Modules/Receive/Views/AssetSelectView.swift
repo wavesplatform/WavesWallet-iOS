@@ -15,6 +15,7 @@ private enum Constants {
     static let assetRightOffsetSelectedMode: CGFloat = 36
     static let assetRightOffsetNotSelectedMode: CGFloat = 14
     static let icon = CGSize(width: 24, height: 24)
+    static let sponsoredIcon = CGSize(width: 10, height: 10)
 }
 
 protocol AssetSelectViewDelegate: AnyObject {
@@ -72,9 +73,9 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
         
         labelAssetName.text = "Waves"
         labelAmount.isHidden = true
-        
+
         //TODO: mb get url from enviromnets
-        loadIcon(icon: .init(name: GlobalConstants.wavesAssetId, url: nil))
+        loadIcon(icon: .init(name: GlobalConstants.wavesAssetId, url: nil), isSponsored: false)
     }
     
     func showLoadingState() {
@@ -124,18 +125,20 @@ extension AssetSelectView: ViewConfiguration {
 
         labelAssetName.text = asset.displayName
         iconFav.isHidden = !model.assetBalance.settings.isFavorite
-       
-        loadIcon(icon: asset.iconLogo)
-        let money = Money(model.assetBalance.avaliableBalance, asset.precision)
+
+        loadIcon(icon: asset.iconLogo, isSponsored: model.assetBalance.asset.isSponsored)
+        let money = Money(model.assetBalance.availableBalance, asset.precision)
         labelAmount.text = money.displayText
     }
     
-    private func loadIcon(icon: DomainLayer.DTO.Asset.Icon) {
+    private func loadIcon(icon: DomainLayer.DTO.Asset.Icon, isSponsored: Bool) {
 
         disposeBag = DisposeBag()
 
+        let sponsoredSize = isSponsored ? Constants.sponsoredIcon : nil
         AssetLogo.logo(icon: icon,
                        style: AssetLogo.Style(size: Constants.icon,
+                                              sponsoredSize: sponsoredSize,
                                               font: UIFont.systemFont(ofSize: 15),
                                               border: nil))
             .bind(to: iconAssetLogo.rx.imageAnimationFadeIn)

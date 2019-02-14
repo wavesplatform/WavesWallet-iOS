@@ -2032,6 +2032,16 @@ internal enum Localizable {
       }
     }
 
+    internal enum Sendfee {
+
+      internal enum Label {
+        /// Not available
+        internal static var notAvailable: String { return Localizable.tr("Waves", "sendfee.label.notAvailable") }
+        /// Transaction Fee
+        internal static var transactionFee: String { return Localizable.tr("Waves", "sendfee.label.transactionFee") }
+      }
+    }
+
     internal enum Sendloading {
 
       internal enum Label {

@@ -341,6 +341,7 @@ fileprivate extension TransactionSenderSpecifications {
                                                        amount: model.amount,
                                                        fee: model.fee,
                                                        attachment: Base58.encode(Array(model.attachment.utf8)),
+                                                       feeAssetId: model.getFeeAssetID,
                                                        timestamp: timestamp,
                                                        senderPublicKey: publicKey,
                                                        proofs: proofs))
@@ -353,7 +354,7 @@ fileprivate extension TransactionSenderSpecifications {
         switch self {
 
         case .data(let model):
-            // todo check size
+            //TODO: check size
             var signature: [UInt8] = []
             signature += toByteArray(Int8(self.type.rawValue))
             signature += toByteArray(Int8(self.version))
@@ -444,10 +445,10 @@ fileprivate extension TransactionSenderSpecifications {
             
             var signature: [UInt8] = []
             signature += toByteArray(Int8(self.type.rawValue))
-            signature +=  toByteArray(Int8(self.version))
+            signature += toByteArray(Int8(self.version))
             signature += publicKey
             signature += model.assetId.isEmpty ? [UInt8(0)] : ([UInt8(1)] + Base58.decode(model.assetId))
-            signature += [UInt8(0)]
+            signature += model.getFeeAssetID.isEmpty ? [UInt8(0)] : ([UInt8(1)] + Base58.decode(model.getFeeAssetID))
             signature += toByteArray(timestamp)
             signature += toByteArray(model.amount)
             signature += toByteArray(model.fee)
@@ -459,6 +460,12 @@ fileprivate extension TransactionSenderSpecifications {
     }
 }
 
+private extension SendTransactionSender {
+   
+    var getFeeAssetID: String {
+        return feeAssetID == GlobalConstants.wavesAssetId ? "" : feeAssetID
+    }
+}
 
 private extension DataTransactionSender {
 

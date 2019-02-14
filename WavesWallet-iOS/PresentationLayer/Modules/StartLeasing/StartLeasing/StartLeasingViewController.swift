@@ -107,6 +107,7 @@ private extension StartLeasingViewController {
         .subscribe(onNext: { [weak self] (fee) in
             
             self?.updateFee(fee)
+            self?.setupData()
         }, onError: { [weak self] (error) in
             
             if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
@@ -155,7 +156,7 @@ private extension StartLeasingViewController {
             hideSnack(key: errorSnackKey)
         }
         
-        viewFee.update(with: fee)
+        viewFee.update(with: .init(fee: fee, assetName: nil))
         viewFee.hideLoadingState()
         order.fee = fee
         setupData()
@@ -171,7 +172,7 @@ private extension StartLeasingViewController {
     }
     
     var isNotEnoughAmount: Bool {
-        return order.amount.decimalValue > availableBalance.decimalValue
+        return order.amount.decimalValue > availableBalance.decimalValue && order.amount.amount > 0
     }
     
     func setupLocalization() {
@@ -201,7 +202,7 @@ private extension StartLeasingViewController {
         
         var fields: [String] = []
         
-        if !availableBalance.isZero {
+        if availableBalance.amount > 0 {
             
             fields.append(contentsOf: [Localizable.Waves.Dexcreateorder.Button.useTotalBalanace,
                                       String(Constants.percent50) + "%",

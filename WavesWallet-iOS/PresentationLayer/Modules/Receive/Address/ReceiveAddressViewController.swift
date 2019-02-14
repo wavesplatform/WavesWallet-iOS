@@ -12,6 +12,7 @@ import RxSwift
 
 private enum Constants {
     static let icon = CGSize(width: 48, height: 48)
+    static let sponsoredIcon = CGSize(width: 18, height: 18)
     static let copyDuration: TimeInterval = 2
 }
 
@@ -77,8 +78,10 @@ final class ReceiveAddressViewController: UIViewController {
         title = Localizable.Waves.Receiveaddress.Label.yourAddress(input.assetName)
         labelAddress.text = input.address
 
+        let sponsoredSize = input.isSponsored ? Constants.sponsoredIcon : nil
         AssetLogo.logo(icon: input.icon,
                        style: AssetLogo.Style(size: Constants.icon,
+                                              sponsoredSize: sponsoredSize,
                                               font: UIFont.systemFont(ofSize: 22),
                                               border: nil))
             .bind(to: iconAsset.rx.imageAnimationFadeIn)

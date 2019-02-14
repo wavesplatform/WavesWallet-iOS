@@ -11,8 +11,8 @@ import UIKit
 
 fileprivate enum Constants {
     static let height: CGFloat = 48
-    static let icon: CGSize = CGSize(width: 28,
-                                     height: 28)
+    static let icon: CGSize = CGSize(width: 28, height: 28)
+    static let sponsoredIcon = CGSize(width: 12, height: 12)
 }
 
 final class WalletSortFavCell: UITableViewCell, Reusable {
@@ -48,6 +48,7 @@ extension WalletSortFavCell: ViewConfiguration {
         let isLock: Bool
         let isGateway: Bool
         let icon: DomainLayer.DTO.Asset.Icon
+        let isSponsored: Bool
     }
 
     func update(with model: WalletSortFavCell.Model) {
@@ -55,11 +56,15 @@ extension WalletSortFavCell: ViewConfiguration {
         labelTitle.text = cryptoName
         iconLock.isHidden = !model.isLock
 
+        let sponsoredSize = model.isSponsored ? Constants.sponsoredIcon : nil
+
         AssetLogo.logo(icon: model.icon,
                        style: AssetLogo.Style(size: Constants.icon,
+                                              sponsoredSize: sponsoredSize,
                                               font: UIFont.systemFont(ofSize: 15),
                                               border: nil))
             .bind(to: imageIcon.rx.imageAnimationFadeIn)
             .disposed(by: disposeBag)        
+
     }
 }

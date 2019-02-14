@@ -13,11 +13,13 @@ final class AssetsSegmentedCell: UICollectionViewCell, NibReusable {
 
     enum Constants {
         static let sizeLogo = CGSize(width: 48, height: 48)
+        static let sponsoredSize = CGSize(width: 18, height: 18)
     }
 
     struct Model {
         let icon: DomainLayer.DTO.Asset.Icon
         let isHiddenArrow: Bool
+        let isSponsored: Bool
     }
 
     @IBOutlet private var imageViewIcon: UIImageView!
@@ -37,12 +39,15 @@ extension AssetsSegmentedCell: ViewConfiguration {
 
     func update(with model: AssetsSegmentedCell.Model) {
         imageArrow.isHidden = model.isHiddenArrow
+
         self.model = model
 
         disposeBag = DisposeBag()        
 
+        let sponsoredSize = model.isSponsored ? Constants.sponsoredSize : nil
         AssetLogo.logo(icon: model.icon,
                        style: AssetLogo.Style(size: Constants.sizeLogo,
+                                              sponsoredSize: sponsoredSize,
                                               font: UIFont.systemFont(ofSize: 15),
                                               border: nil))
             .subscribe(onNext: { (image) in

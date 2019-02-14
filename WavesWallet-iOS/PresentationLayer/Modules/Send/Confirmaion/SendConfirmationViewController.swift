@@ -21,6 +21,8 @@ final class SendConfirmationViewController: UIViewController {
         let address: String
         let displayAddress: String
         let fee: Money
+        let feeAssetID: String
+        let feeName: String
         let amount: Money
         let amountWithoutFee: Money
         var attachment: String
@@ -175,7 +177,7 @@ private extension SendConfirmationViewController {
             tickerView.isHidden = true
             labelAssetName.text = input.asset.displayName
         }
-        labelFeeAmount.text = input.fee.displayText + " WAVES"
+        labelFeeAmount.text = input.fee.displayText + " " + input.feeName
         labelBalance.attributedText = NSAttributedString.styleForBalance(text: input.amountWithoutFee.displayText, font: labelBalance.font)
     }
 }
