@@ -178,11 +178,12 @@ extension ImportAccountManuallyViewController: MultilineTextFieldDelegate {
     
     func multilineTextFieldDidChange(textField: MultilineTextField) {
         
+        textField.error = nil
+
         let seed = textField.value.trimmingCharacters(in: CharacterSet.whitespaces)
         let isActiveSeed = textField.isValidValue && seed.count > 0
         
         buttonContinue.isEnabled = isActiveSeed
-        textField.error = nil
 
         if isActiveSeed {
             addressBar.isHidden = false
