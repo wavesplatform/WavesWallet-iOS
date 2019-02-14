@@ -171,12 +171,23 @@ private extension AssetPresenter {
 
             return state.mutate { state in
 
-                var asset = assets.first(where: { asset -> Bool in
+                var newAssets = assets
+                
+                let currentAssetIndex = state.displayState.assets.index(where: {$0.id == state.displayState.currentAsset.id})
+                
+                var asset = newAssets.first(where: { asset -> Bool in
                     return asset.info.id == state.displayState.currentAsset.id
                 })
 
                 if asset == nil {
-                   asset = assets.first
+                    if let index = currentAssetIndex {
+                        let emptyAsset = state.displayState.currentAsset.emptyAssetBalance()
+                        asset = emptyAsset
+                        newAssets.insert(emptyAsset, at: index)
+                    }
+                    else {
+                        asset = newAssets.first
+                    }
                 }
 
                 if let asset = asset {
@@ -195,8 +206,8 @@ private extension AssetPresenter {
                     state.displayState.action = .none
                 }
                 state.displayState.isRefreshing = false
-                state.displayState.assets = assets.map { $0.info }
-                state.assets = assets
+                state.displayState.assets = newAssets.map { $0.info }
+                state.assets = newAssets
             }
 
         case .tapFavorite(let on):
@@ -314,5 +325,36 @@ private extension AssetPresenter {
                                        sections: [balances,
                                                   transactions],
                                        action: .refresh)
+    }
+}
+
+fileprivate extension AssetTypes.DTO.Asset.Info {
+    
+    func emptyAssetBalance() -> AssetTypes.DTO.Asset {
+
+        let decimals = assetBalance.asset.precision
+        
+        let totalMoney = Money(0, decimals)
+        let availableMoney = Money(0, decimals)
+        let leasedMoney = Money(0, decimals)
+        let inOrderMoney = Money(0, decimals)
+
+        let newBalance = AssetTypes.DTO.Asset.Balance(totalMoney: totalMoney,
+                                                      avaliableMoney: availableMoney,
+                                                      leasedMoney: leasedMoney,
+                                                      inOrderMoney: inOrderMoney,
+                                                      isFiat: isFiat)
+        
+        let newSmartBalance = DomainLayer.DTO.SmartAssetBalance(assetId: assetBalance.assetId,
+                                                                totalBalance: 0,
+                                                                leasedBalance: 0,
+                                                                inOrderBalance: 0,
+                                                                settings: assetBalance.settings,
+                                                                asset: assetBalance.asset,
+                                                                modified: assetBalance.modified,
+                                                                sponsorBalance: assetBalance.sponsorBalance)
+        var info = self
+        info.assetBalance = newSmartBalance
+        return AssetTypes.DTO.Asset(info: info, balance: newBalance)
     }
 }
