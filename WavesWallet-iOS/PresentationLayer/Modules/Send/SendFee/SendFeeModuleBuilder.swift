@@ -39,10 +39,17 @@ struct SendFeeModuleBuilder: ModuleBuilderOutput {
         let vc = StoryboardScene.Send.sendFeeViewController.instantiate()
         vc.presenter = presenter
         vc.delegate = output
+
+        
         return vc
     }
+
+    //        let popup = PopupViewController()
+    //        popup.contentHeight = SendFeeModuleBuilder.minimumHeight
+    //        popup.present(contentViewController: vc)
+
     
-    static var minimumHeight: CGFloat {
-        return Constants.minimumHeight
-    }
+//    static var minimumHeight: CGFloat {
+//        return Constants.minimumHeight
+//    }
 }

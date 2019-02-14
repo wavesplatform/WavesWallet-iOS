@@ -15,7 +15,7 @@ private struct Constants {
     static let dragElemTopMargin: CGFloat = 6
 }
 
-final class ModalRootView: UIView {
+final class ModalRootView: UIView, ModalScrollViewRootView {
 
     @IBOutlet private(set) var tableView: ModalTableView!
 
@@ -61,7 +61,7 @@ final class ModalRootView: UIView {
 
         let fakeHeaderView: UIView = {
             let view = UIView()
-            view.backgroundColor = .red
+            view.backgroundColor = .white
             view.frame = CGRect(x: 0, y: 0, width: 0, height: Constants.headerHeight)
             view.layer.cornerRadius = Constants.cornerRadius
             view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -70,5 +70,10 @@ final class ModalRootView: UIView {
 
         tableView.tableHeaderView = fakeHeaderView
         tableView.superview?.insertSubview(headerView, aboveSubview: tableView)
+    }
+
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        setNeedsLayout()
     }
 }
