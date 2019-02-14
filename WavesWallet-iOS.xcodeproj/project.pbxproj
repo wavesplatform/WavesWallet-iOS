@@ -290,6 +290,7 @@
 		0AAB15C921655C1800F1F7BC /* ProfileValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB15C821655C1800F1F7BC /* ProfileValueCell.swift */; };
 		0AAB15CA21655EB000F1F7BC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9193B8420D8A98500F5D983 /* ProfileViewController.swift */; };
 		0AAC2811221438B200D8A404 /* UIImageView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC2810221438B200D8A404 /* UIImageView+Rx.swift */; };
+		0AAC28132215C4C700D8A404 /* SendFeeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AAC28122215C4C700D8A404 /* SendFeeHeaderView.xib */; };
 		0AAC2A442146C40A00F6EB27 /* TransactionsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5EC393213ED90F00659350 /* TransactionsInteractor.swift */; };
 		0AAC2A462146C65900F6EB27 /* BlockRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC2A452146C65900F6EB27 /* BlockRepositoryProtocol.swift */; };
 		0AAC2A482146C69700F6EB27 /* BlockRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC2A472146C69600F6EB27 /* BlockRepositoryRemote.swift */; };
@@ -683,7 +684,7 @@
 		E991BB282202D5AA0022E27D /* SendFeePresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB272202D5AA0022E27D /* SendFeePresenterProtocol.swift */; };
 		E991BB2A2202D5E00022E27D /* SendFeeInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB292202D5E00022E27D /* SendFeeInteractorProtocol.swift */; };
 		E991BB2C2202D6560022E27D /* SendFeeTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB2B2202D6560022E27D /* SendFeeTypes.swift */; };
-		E991BB2E2202DD420022E27D /* SendFeeHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB2D2202DD420022E27D /* SendFeeHeaderCell.swift */; };
+		E991BB2E2202DD420022E27D /* SendFeeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB2D2202DD420022E27D /* SendFeeHeaderView.swift */; };
 		E99DD81B21CEE7690091AFEC /* CandlesApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81A21CEE7690091AFEC /* CandlesApiService.swift */; };
 		E99DD81D21CEF09C0091AFEC /* CandleApiFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81C21CEF09C0091AFEC /* CandleApiFilters.swift */; };
 		E99DD81F21CEF7AC0091AFEC /* CandleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81E21CEF7AC0091AFEC /* CandleApi.swift */; };
@@ -1195,6 +1196,7 @@
 		0AAB15C621655C0600F1F7BC /* ProfileDisabledButtomTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDisabledButtomTableCell.swift; sourceTree = "<group>"; };
 		0AAB15C821655C1800F1F7BC /* ProfileValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileValueCell.swift; sourceTree = "<group>"; };
 		0AAC2810221438B200D8A404 /* UIImageView+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Rx.swift"; sourceTree = "<group>"; };
+		0AAC28122215C4C700D8A404 /* SendFeeHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SendFeeHeaderView.xib; sourceTree = "<group>"; };
 		0AAC2A452146C65900F6EB27 /* BlockRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0AAC2A472146C69600F6EB27 /* BlockRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRepositoryRemote.swift; sourceTree = "<group>"; };
 		0AACD59821A59E7000B30815 /* SweetSnackbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweetSnackbar.swift; sourceTree = "<group>"; };
@@ -1607,7 +1609,7 @@
 		E991BB272202D5AA0022E27D /* SendFeePresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeePresenterProtocol.swift; sourceTree = "<group>"; };
 		E991BB292202D5E00022E27D /* SendFeeInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeInteractorProtocol.swift; sourceTree = "<group>"; };
 		E991BB2B2202D6560022E27D /* SendFeeTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeTypes.swift; sourceTree = "<group>"; };
-		E991BB2D2202DD420022E27D /* SendFeeHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeHeaderCell.swift; sourceTree = "<group>"; };
+		E991BB2D2202DD420022E27D /* SendFeeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeHeaderView.swift; sourceTree = "<group>"; };
 		E99DD81A21CEE7690091AFEC /* CandlesApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandlesApiService.swift; sourceTree = "<group>"; };
 		E99DD81C21CEF09C0091AFEC /* CandleApiFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleApiFilters.swift; sourceTree = "<group>"; };
 		E99DD81E21CEF7AC0091AFEC /* CandleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleApi.swift; sourceTree = "<group>"; };
@@ -3886,7 +3888,8 @@
 			isa = PBXGroup;
 			children = (
 				E991BB1F2202CE090022E27D /* SendFeeTableViewCell.swift */,
-				E991BB2D2202DD420022E27D /* SendFeeHeaderCell.swift */,
+				E991BB2D2202DD420022E27D /* SendFeeHeaderView.swift */,
+				0AAC28122215C4C700D8A404 /* SendFeeHeaderView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4796,6 +4799,7 @@
 				A60EA21BC9B82445DBBC7E14 /* [CP] Embed Pods Frameworks */,
 				0A218B93215549BB00B989A1 /* Fabric run */,
 				0AC14789218B043400A25BE5 /* Change Build Version */,
+				D9383DCDC821C7D049D6BA4A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -4869,6 +4873,7 @@
 				0AB63C1E216F952E0056B17E /* HistoryTransactionView.xib in Resources */,
 				E9642C9121CB326A0065A1BD /* CoinomatServiceErrorView.xib in Resources */,
 				E9B087A12163886800937644 /* DexChartHeaderView.xib in Resources */,
+				0AAC28132215C4C700D8A404 /* SendFeeHeaderView.xib in Resources */,
 				E9B12DBA219E2D3900128EFE /* AssetBurnCell.xib in Resources */,
 				E965703C219360770052F0FC /* WalletSortSeparatorFooter.xib in Resources */,
 				0A762D8021639FA60019D447 /* TransactionHistoryGeneralCell.xib in Resources */,
@@ -5155,6 +5160,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D9383DCDC821C7D049D6BA4A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseInAppMessagingDisplay/InAppMessagingDisplayResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/InAppMessagingDisplayResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -5484,7 +5511,7 @@
 				0ADD803E21F5B7090075FC59 /* AssetDetailNode.swift in Sources */,
 				0A344E2F2194747E007809B1 /* MigrationInteractor.swift in Sources */,
 				E938356F20A472B4001A2509 /* HistoryTransactionCell.swift in Sources */,
-				E991BB2E2202DD420022E27D /* SendFeeHeaderCell.swift in Sources */,
+				E991BB2E2202DD420022E27D /* SendFeeHeaderView.swift in Sources */,
 				E910B7EC21C3266F00E402AB /* CoinomatDomainDTO.swift in Sources */,
 				04016E0221949A8400BA5235 /* ImportAccountManuallyViewController.swift in Sources */,
 				E920372B21A5F4C10055E4D8 /* StartLeasingConfirmModuleBuilder.swift in Sources */,

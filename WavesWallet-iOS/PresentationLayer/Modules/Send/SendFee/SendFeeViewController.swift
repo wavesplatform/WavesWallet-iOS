@@ -12,7 +12,7 @@ import RxCocoa
 import RxSwift
 
 
-final class SendFeeViewController: UIViewController {
+final class SendFeeViewController: ModalScrollViewController {
     
     weak var delegate: SendFeeModuleOutput!
     var presenter: SendFeePresenterProtocol!
@@ -26,8 +26,15 @@ final class SendFeeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
         setupFeedBack()
+    }
+
+    override var scrollView: UIScrollView {
+        return self.tableView
+    }
+
+    override func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
+        return 288
     }
 }
 
@@ -98,7 +105,16 @@ extension SendFeeViewController: UITableViewDelegate {
 //MARK: - UITableViewDataSource
 extension SendFeeViewController: UITableViewDataSource {
 
-    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return SendFeeHeaderView.viewHeight()
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
+        let sendFeeHeaderView: SendFeeHeaderView = tableView.dequeueAndRegisterHeaderFooter()
+        return sendFeeHeaderView
+    }
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
@@ -113,7 +129,7 @@ extension SendFeeViewController: UITableViewDataSource {
         
         switch row {
         case .header:
-            return tableView.dequeueCell() as SendFeeHeaderCell
+            return UITableViewCell()
             
         case .asset(let asset):
             let cell = tableView.dequeueCell() as SendFeeTableViewCell

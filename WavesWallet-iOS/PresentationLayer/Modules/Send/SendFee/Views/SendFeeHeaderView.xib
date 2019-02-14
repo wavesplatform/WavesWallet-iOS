@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="thh-rp-hFv" customClass="SendFeeHeaderView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction Fee" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sU5-Ub-nWo">
+                    <rect key="frame" x="16" y="38" width="343" height="21"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="sU5-Ub-nWo" firstAttribute="leading" secondItem="LoO-HA-B7d" secondAttribute="leading" constant="16" id="UkV-ZP-uMl"/>
+                <constraint firstItem="LoO-HA-B7d" firstAttribute="trailing" secondItem="sU5-Ub-nWo" secondAttribute="trailing" constant="16" id="kJ0-t7-huO"/>
+                <constraint firstItem="sU5-Ub-nWo" firstAttribute="top" secondItem="LoO-HA-B7d" secondAttribute="top" constant="18" id="nGH-Iv-Fg9"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="LoO-HA-B7d"/>
+            <connections>
+                <outlet property="labelTitle" destination="sU5-Ub-nWo" id="aGj-z6-b0k"/>
+            </connections>
+            <point key="canvasLocation" x="124" y="44"/>
+        </view>
+    </objects>
+</document>
