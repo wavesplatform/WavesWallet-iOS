@@ -11,7 +11,13 @@ import UIKit
 extension UIColor {
 
     static func colorAsset(name: String) -> UIColor {
-        let name = String(name.lowercased().first!)
+
+        guard let symbol = name.lowercased().first else {
+            return UIColor(150, 188, 160)
+        }
+
+        let name = String(symbol)
+        
         if name == "a" { return UIColor(56, 161, 45) }
         else if name == "b" { return UIColor(105, 114, 123) }
         else if name == "c" { return UIColor(228, 149, 22) }
