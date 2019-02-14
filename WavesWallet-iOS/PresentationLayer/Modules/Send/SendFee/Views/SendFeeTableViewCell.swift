@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Kingfisher
+import RxSwift
 
 private enum Constants {
     static let height: CGFloat = 56
@@ -23,11 +23,11 @@ final class SendFeeTableViewCell: UITableViewCell, Reusable {
     @IBOutlet private weak var labelSubtitle: UILabel!
     @IBOutlet private weak var iconCheckmark: UIImageView!
 
-    private var taskForAssetLogo: RetrieveImageDiskTask?
+    private var disposeBag: DisposeBag = DisposeBag()
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        taskForAssetLogo?.cancel()
+        disposeBag = DisposeBag()
     }
 }
 
@@ -42,11 +42,11 @@ extension SendFeeTableViewCell: ViewConfiguration {
                                     sponsoredSize: sponsoredSize,
                                     font: UIFont.systemFont(ofSize: 15),
                                     border: nil)
-        
-        taskForAssetLogo = AssetLogo.logoFromCache(name: model.assetBalance.asset.icon, style: style, completionHandler: { [weak self] (image) in
-            self?.iconLogo.image = image
-        })
-        
+
+        AssetLogo.logo(icon: model.assetBalance.asset.iconLogo,
+                       style: style)
+            .bind(to: iconLogo.rx.imageAnimationFadeIn)
+            .disposed(by: disposeBag)
         
         iconCheckmark.image = model.isChecked ? Images.on.image : Images.off.image
         labelTitle.textColor = model.isActive ? .black : .blueGrey

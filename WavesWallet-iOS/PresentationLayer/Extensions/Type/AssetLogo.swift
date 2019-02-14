@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxSwift
 import Kingfisher
 
 enum AssetLogo: String {
@@ -22,6 +23,7 @@ enum AssetLogo: String {
     case bitcoin = "btc"
     case zcash = "zec"
     case wct = "wavescommunity"
+    case bsv = "bsv"
 }
 
 extension AssetLogo {
@@ -51,6 +53,8 @@ extension AssetLogo {
         case .zcash:
             return Images.logoZec48.image
         case .wct:
+            return Images.logoWct48.image
+        case .bsv:
             return Images.logoWct48.image
         }
     }
@@ -85,28 +89,163 @@ extension AssetLogo {
         }
     }
 
-    static func logoFromCache(name: String,
-                              style: Style,
-                              completionHandler: @escaping ((UIImage) -> Void)) -> RetrieveImageDiskTask?
-    {
-        let cache = ImageCache.default
-        let key = "com.wavesplatform.asset.logo.v1.\(name).\(style.key)"
+    private static func cacheKeyForRemoteLogo(icon: DomainLayer.DTO.Asset.Icon,
+                                              style: Style) -> String {
+        return "com.wavesplatform.asset.logo.v2.\(icon.name).\(style.key)"
+    }
 
-        return cache.retrieveImage(forKey: key,
-                                   options: nil,
-                                   completionHandler: { image, _ in
-                                    if let image = image {
-                                        completionHandler(image)
-                                    } else {
-                                        if let image = createLogo(name: name, style: style) {
-                                            cache.store(image, forKey: key)
-                                            completionHandler(image)
-                                        }
-                                    }
+    private static func cacheKeyForLocalLogo(icon: DomainLayer.DTO.Asset.Icon,
+                                             style: Style) -> String {
+        return "\(cacheKeyForRemoteLogo(icon: icon, style: style)).local"
+    }
+
+
+    private static func saveImage(key: String, image: UIImage) -> Observable<UIImage> {
+
+        return Observable.create({ (observer) -> Disposable in
+
+            let cache = ImageCache.default
+            cache.store(image, forKey: key)
+            observer.onNext(image)
+            observer.onCompleted()
+
+            return Disposables.create {}
         })
     }
 
+    private static func retrieveImage(key: String) -> Observable<UIImage?> {
+
+        return Observable.create({ (observer) -> Disposable in
+
+            let cache = ImageCache.default
+
+            let workItem = cache.retrieveImage(forKey: key,
+                                               options: nil,
+                                               completionHandler: { image, _ in
+                                                observer.onNext(image)
+                                                observer.onCompleted()
+            })
+
+            return Disposables.create {
+                workItem?.cancel()                
+            }
+        })
+    }
+
+    static func downloadImage(path: String) -> Observable<UIImage?> {
+
+        return Observable.create({ (observer) -> Disposable in
+
+            let url = URL(string: path)!
+            let downloader = ImageDownloader.default
+            let workItem = downloader.downloadImage(with: url,
+                                                    retrieveImageTask: nil,
+                                                    options: nil,
+                                                    progressBlock: nil) { (image, error, url, data) in
+
+                                                        if let data = data, let pic = UIImage(data: data) {
+                                                            observer.onNext(pic)
+                                                            observer.onCompleted()
+                                                        } else {
+                                                            observer.onNext(nil)
+                                                            observer.onCompleted()
+                                                        }
+            }
+
+            return Disposables.create {
+                workItem?.cancel()
+            }
+        })
+    }
+
+
+    static func logo(icon: DomainLayer.DTO.Asset.Icon,
+                     style: Style) -> Observable<UIImage> {
+
+        let key = cacheKeyForRemoteLogo(icon: icon, style: style)
+
+        return retrieveImage(key: key)
+            .flatMap({ (image) -> Observable<UIImage> in
+                if let image = image {
+                    return Observable.just(image)
+                } else {
+                    if let url = icon.url {
+
+                        return Observable.merge(localLogo(icon: icon,
+                                                          style: style),
+                                                remoteLogo(icon: icon,
+                                                           style: style,
+                                                           url: url))
+                    } else {
+                        return localLogo(icon: icon,
+                                         style: style)
+                    }
+                }
+            })
+    }
+
+    static func remoteLogo(icon: DomainLayer.DTO.Asset.Icon,
+                           style: Style,
+                           url: String) -> Observable<UIImage> {
+
+        return retrieveImage(key: url)
+            .flatMap({ (image) -> Observable<UIImage> in
+                if let image = image {
+                    return prepareRemoteLogo(icon: icon, style: style, image: image)
+                } else {
+
+                    return downloadImage(path: url)
+                        .flatMap({ (image) -> Observable<UIImage> in
+
+                            if let image = image {
+                                return saveImage(key: url, image: image)
+                                    .flatMap({ (image) -> Observable<UIImage> in
+                                        return prepareRemoteLogo(icon: icon, style: style, image: image)
+                                    })
+                            } else {
+                                return localLogo(icon: icon, style: style)
+                            }
+                        })
+                }
+            })
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .background)))
+    }
+
+    static func prepareRemoteLogo(icon: DomainLayer.DTO.Asset.Icon,
+                                  style: Style,
+                                  image: UIImage) -> Observable<UIImage> {
+
+        let image = createLogo(name: icon.name,
+                               image: image,
+                               style: style) ?? UIImage()
+
+        let key = cacheKeyForRemoteLogo(icon: icon, style: style)
+
+        return saveImage(key: key, image: image)
+    }
+
+    static func localLogo(icon: DomainLayer.DTO.Asset.Icon,
+                          style: Style) -> Observable<UIImage> {
+
+        let localKey = cacheKeyForLocalLogo(icon: icon, style: style)
+        return retrieveImage(key: localKey)
+            .flatMap({ (image) -> Observable<UIImage> in
+                if let image = image {
+                    return Observable.just(image)
+                } else {
+                    let logo = AssetLogo(rawValue: icon.name.lowercased())?.image48
+                    let image = createLogo(name: icon.name,
+                                           image: logo,
+                                           style: style) ?? UIImage()
+
+                    return saveImage(key: localKey, image: image)
+                }
+            })
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .background)))
+    }
+
     static func createLogo(name: String,
+                           image: UIImage?,
                            style: Style) -> UIImage? {
 
         let size = style.size
@@ -119,17 +258,17 @@ extension AssetLogo {
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         context.addPath(UIBezierPath(roundedRect: rect, cornerRadius: rect.height * 0.5).cgPath)
         context.clip()
-        
-        if let logo = AssetLogo(rawValue: name.lowercased()) {
+
+        if let image = image {
 
             context.setFillColor(UIColor.white.cgColor)
             context.fill(rect)
-            logo.image48.draw(in: CGRect(x: 0,
-                                         y: 0,
-                                         width: size.width,
-                                         height: size.height),
-                              blendMode: .normal,
-                              alpha: 1)
+            image.draw(in: CGRect(x: 0,
+                                  y: 0,
+                                  width: size.width,
+                                  height: size.height),
+                        blendMode: .normal,
+                        alpha: 1)
         } else {
             let color = UIColor.colorAsset(name: name)
             context.setFillColor(color.cgColor)
