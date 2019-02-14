@@ -44,6 +44,10 @@ extension DomainLayer.DTO {
 
 extension DomainLayer.DTO.Asset {
 
+    var iconLogo: DomainLayer.DTO.Asset.Icon {
+        return DomainLayer.DTO.Asset.Icon(name: icon, url: iconLogoUrl)
+    }
+
     var icon: String {
         return gatewayId ?? displayName
     }
