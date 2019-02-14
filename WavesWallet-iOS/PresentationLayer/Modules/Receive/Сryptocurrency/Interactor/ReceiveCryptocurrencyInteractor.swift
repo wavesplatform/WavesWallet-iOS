@@ -35,7 +35,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                                                                             assetName: asset.displayName,
                                                                             assetShort: currencyFrom,
                                                                             minAmount: rate.min,
-                                                                            icon: asset.icon)
+                                                                            icon: asset.iconLogo)
                     return Observable.just(ResponseType(output: displayInfo, error: nil))
             })
         })

@@ -289,6 +289,7 @@
 		0AAB15C721655C0600F1F7BC /* ProfileDisabledButtomTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB15C621655C0600F1F7BC /* ProfileDisabledButtomTableCell.swift */; };
 		0AAB15C921655C1800F1F7BC /* ProfileValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB15C821655C1800F1F7BC /* ProfileValueCell.swift */; };
 		0AAB15CA21655EB000F1F7BC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9193B8420D8A98500F5D983 /* ProfileViewController.swift */; };
+		0AAC2811221438B200D8A404 /* UIImageView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC2810221438B200D8A404 /* UIImageView+Rx.swift */; };
 		0AAC2A442146C40A00F6EB27 /* TransactionsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5EC393213ED90F00659350 /* TransactionsInteractor.swift */; };
 		0AAC2A462146C65900F6EB27 /* BlockRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC2A452146C65900F6EB27 /* BlockRepositoryProtocol.swift */; };
 		0AAC2A482146C69700F6EB27 /* BlockRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC2A472146C69600F6EB27 /* BlockRepositoryRemote.swift */; };
@@ -1193,6 +1194,7 @@
 		0AAB15C421655BEC00F1F7BC /* ProfileBackupPhraseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBackupPhraseCell.swift; sourceTree = "<group>"; };
 		0AAB15C621655C0600F1F7BC /* ProfileDisabledButtomTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDisabledButtomTableCell.swift; sourceTree = "<group>"; };
 		0AAB15C821655C1800F1F7BC /* ProfileValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileValueCell.swift; sourceTree = "<group>"; };
+		0AAC2810221438B200D8A404 /* UIImageView+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Rx.swift"; sourceTree = "<group>"; };
 		0AAC2A452146C65900F6EB27 /* BlockRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0AAC2A472146C69600F6EB27 /* BlockRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRepositoryRemote.swift; sourceTree = "<group>"; };
 		0AACD59821A59E7000B30815 /* SweetSnackbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweetSnackbar.swift; sourceTree = "<group>"; };
@@ -2982,6 +2984,7 @@
 				0ADD7F3921F22FB60075FC59 /* UIViewController+SafeArea.swift */,
 				0ADD7F7D21F22FB60075FC59 /* Protocols */,
 				0A4E7DE622018132007BBA39 /* Type */,
+				0AAC2810221438B200D8A404 /* UIImageView+Rx.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -5206,6 +5209,7 @@
 				E9657039219360770052F0FC /* WalletSortTypes.swift in Sources */,
 				E9FB6E382178265100FA13C1 /* SendInteractor.swift in Sources */,
 				E97D451021C814C0000E3C48 /* OrderBookMatcher.swift in Sources */,
+				0AAC2811221438B200D8A404 /* UIImageView+Rx.swift in Sources */,
 				0A88CC06217D27DF0083874C /* AccountSettingsDomainDTO.swift in Sources */,
 				0A6F60EA216F893600A5C615 /* WalletTypes.swift in Sources */,
 				0ADD6C892167980E00B06917 /* ProfileBiometricCell.swift in Sources */,

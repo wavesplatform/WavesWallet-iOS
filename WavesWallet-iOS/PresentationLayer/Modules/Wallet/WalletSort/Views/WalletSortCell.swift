@@ -6,7 +6,6 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
-import Kingfisher
 import RxSwift
 import UIKit
 
@@ -26,7 +25,6 @@ final class WalletSortCell: UITableViewCell, Reusable {
 
     private var isDragging: Bool = false
 
-    private var taskForAssetLogo: RetrieveImageDiskTask?
     private(set) var disposeBag = DisposeBag()
     private var isHiddenAsset: Bool = false
     var changedValueSwitchControl: ((Bool) -> Void)?
@@ -34,7 +32,6 @@ final class WalletSortCell: UITableViewCell, Reusable {
     override func prepareForReuse() {
         super.prepareForReuse()
         disposeBag = DisposeBag()
-        taskForAssetLogo?.cancel()
     }
 
     override func awakeFromNib() {
@@ -102,7 +99,7 @@ extension WalletSortCell: ViewConfiguration {
         let isVisibility: Bool
         let isHidden: Bool
         let isGateway: Bool
-        let icon: String
+        let icon: DomainLayer.DTO.Asset.Icon
         let isSponsored: Bool
     }
 
@@ -123,13 +120,12 @@ extension WalletSortCell: ViewConfiguration {
         }
 
         let sponsoredSize = model.isSponsored ? Constants.sponsoredIcon : nil
-
-        taskForAssetLogo = AssetLogo.logoFromCache(name: model.icon,
-                                                   style: AssetLogo.Style(size: Constants.icon,
-                                                                          sponsoredSize: sponsoredSize,
-                                                                          font: UIFont.systemFont(ofSize: 15),
-                                                                          border: nil)) { [weak self] image in
-            self?.imageIcon.image = image
-        }
+        AssetLogo.logo(icon: model.icon,
+                       style: AssetLogo.Style(size: Constants.icon,
+                                                sponsoredSize: sponsoredSize,
+                                              font: UIFont.systemFont(ofSize: 15),
+                                              border: nil))
+            .bind(to: imageIcon.rx.imageAnimationFadeIn)
+            .disposed(by: disposeBag)
     }
 }
