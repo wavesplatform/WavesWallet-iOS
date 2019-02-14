@@ -91,7 +91,7 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
     func setCurrentAsset(id: String, animated: Bool = true) {
         let element = assets.enumerated().first(where: { $0.element.id == id })
         guard let page = element?.offset else { return }
-//        setCurrentPage(page, animated: animated)
+        setCurrentPage(page, animated: animated)
     }
 
     func setCurrentPage(_ page: Int, animated: Bool = true) {

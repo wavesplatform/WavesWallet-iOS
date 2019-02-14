@@ -33,6 +33,7 @@ extension Asset {
         self.isWaves = asset.isWaves
         self.modified = asset.modified
         self.addressRegEx = asset.addressRegEx
+        self.iconLogoUrl = asset.iconLogoUrl
     }
 }
 
@@ -61,6 +62,6 @@ extension DomainLayer.DTO.Asset {
         self.isWaves = asset.isWaves
         self.addressRegEx = asset.addressRegEx
 
-        self.iconUrl = asset.iconLogoUrl
+        self.iconLogoUrl = asset.iconLogoUrl
     }
 }
