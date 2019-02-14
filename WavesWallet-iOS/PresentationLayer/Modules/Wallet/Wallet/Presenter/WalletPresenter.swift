@@ -61,8 +61,7 @@ final class WalletPresenter: WalletPresenterProtocol {
             guard let strongSelf = self else { return Signal.empty() }
             let signal = strongSelf
                 .interactor
-                .assets()
-                .sweetDebugWithoutResponse("Balance")
+                .assets()                
                 .map { .setAssets($0) }
                 .share()
                 .asSignal(onErrorRecover: { Signal<WalletTypes.Event>.just(.handlerError($0)) })

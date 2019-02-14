@@ -6,8 +6,8 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
-import Kingfisher
 import UIKit
+import RxSwift
 
 final class AssetsSegmentedCell: UICollectionViewCell, NibReusable {
 
@@ -17,18 +17,19 @@ final class AssetsSegmentedCell: UICollectionViewCell, NibReusable {
     }
 
     struct Model {
-        let icon: String
+        let icon: DomainLayer.DTO.Asset.Icon
         let isHiddenArrow: Bool
         let isSponsored: Bool
     }
 
     @IBOutlet private var imageViewIcon: UIImageView!
     @IBOutlet private var imageArrow: UIImageView!
-    private var task: RetrieveImageDiskTask?
+    private var disposeBag: DisposeBag = DisposeBag()
+    private var model: AssetsSegmentedCell.Model?
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        task?.cancel()
+        disposeBag = DisposeBag()
     }
 }
 
@@ -39,13 +40,19 @@ extension AssetsSegmentedCell: ViewConfiguration {
     func update(with model: AssetsSegmentedCell.Model) {
         imageArrow.isHidden = model.isHiddenArrow
 
+        self.model = model
+
+        disposeBag = DisposeBag()        
+
         let sponsoredSize = model.isSponsored ? Constants.sponsoredSize : nil
-        task = AssetLogo.logoFromCache(name: model.icon,
-                                       style: .init(size: Constants.sizeLogo,
-                                                    sponsoredSize: sponsoredSize,
-                                                    font: UIFont.systemFont(ofSize: 15),
-                                                    border: nil)) { [weak self] image in
-            self?.imageViewIcon.image = image
-        }
+        AssetLogo.logo(icon: model.icon,
+                       style: AssetLogo.Style(size: Constants.sizeLogo,
+                                              sponsoredSize: sponsoredSize,
+                                              font: UIFont.systemFont(ofSize: 15),
+                                              border: nil))
+            .subscribe(onNext: { (image) in
+                self.imageViewIcon.image = image
+            })
+            .disposed(by: disposeBag)
     }
 }

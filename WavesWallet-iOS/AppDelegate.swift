@@ -17,6 +17,7 @@ import FirebaseDatabase
 import Fabric
 import Crashlytics
 import AppsFlyerLib
+import Kingfisher
 
 #if DEBUG || TEST
 import AppSpectorSDK

@@ -61,6 +61,7 @@ struct NodePlugin: PluginType {
             let cookies = HTTPCookieStorage.shared.cookies(for: url)
             SweetLogger.network(cookies ?? [])
         }
+
         return request
     }
 

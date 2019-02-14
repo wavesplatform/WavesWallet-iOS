@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Kingfisher
+import RxSwift
 
 private enum Constants {
     static let icon = CGSize(width: 24, height: 24)
@@ -24,11 +24,11 @@ final class AssetListTableViewCell: UITableViewCell, NibReusable {
     @IBOutlet private weak var iconFav: UIImageView!
     @IBOutlet private weak var topTitleOffset: NSLayoutConstraint!
     
-    private var taskForAssetLogo: RetrieveImageDiskTask?
+    private var disposeBag: DisposeBag = DisposeBag()
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        taskForAssetLogo?.cancel()
+        disposeBag = DisposeBag()
     }
     
 }
@@ -54,13 +54,15 @@ extension AssetListTableViewCell: ViewConfiguration {
         labelAmount.text = model.balance.displayText
 
         let sponsoredIcon = model.asset.isSponsored ? Constants.sponsoredIcon : nil
-        let style = AssetLogo.Style(size: Constants.icon,
-                                    sponsoredSize: sponsoredIcon,
-                                    font: UIFont.systemFont(ofSize: 15),
-                                    border: nil)
-        taskForAssetLogo = AssetLogo.logoFromCache(name: model.asset.icon, style: style, completionHandler: { [weak self] (image) in
-            self?.iconAsset.image = image
-        })
+
+        AssetLogo.logo(icon: model.asset.iconLogo,
+                       style: AssetLogo.Style(size: Constants.icon,
+                                              sponsoredSize: sponsoredIcon,
+                                              font: UIFont.systemFont(ofSize: 15),
+                                              border: nil))
+            .bind(to: iconAsset.rx.imageAnimationFadeIn)
+            .disposed(by: disposeBag)
+
         iconCheckmark.image = model.isChecked ? Images.on.image : Images.off.image
     }
 }

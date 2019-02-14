@@ -31,9 +31,9 @@ final class Asset: Object {
     @objc dynamic var isGateway: Bool = false
     @objc dynamic var isWaves: Bool = false
     @objc dynamic var addressRegEx: String = ""
+    @objc dynamic var iconLogoUrl: String?
     @objc dynamic var hasScript: Bool = false
     @objc dynamic var minSponsoredFee: Int64 = 0
-    
     override class func primaryKey() -> String? {
         return "id"
     }
