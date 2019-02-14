@@ -98,7 +98,7 @@ private extension AssetListInteractor {
     }
     
     func filterIsMyAsset(_ assets: [DomainLayer.DTO.SmartAssetBalance]) -> [DomainLayer.DTO.SmartAssetBalance] {
-        return isMyList ? assets.filter({$0.avaliableBalance > 0 }) : assets
+        return isMyList ? assets.filter({$0.availableBalance > 0 }) : assets
     }
     
     func filterAssets(filters: [AssetList.DTO.Filter], assets: [DomainLayer.DTO.SmartAssetBalance], isEnableSpam: Bool) {

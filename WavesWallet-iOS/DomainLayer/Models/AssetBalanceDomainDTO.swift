@@ -18,6 +18,7 @@ extension DomainLayer.DTO {
         var settings: DomainLayer.DTO.AssetBalanceSettings
         var asset: DomainLayer.DTO.Asset
         var modified: Date
+        let sponsorBalance: Int64
     }
 
     struct AssetBalance: Mutating {
@@ -27,6 +28,7 @@ extension DomainLayer.DTO {
         var leasedBalance: Int64
         var inOrderBalance: Int64
         var modified: Date
+        let sponsorBalance: Int64
     }
 
     struct AssetBalanceSettings: Mutating {
@@ -39,7 +41,7 @@ extension DomainLayer.DTO {
 
 extension DomainLayer.DTO.SmartAssetBalance {
 
-    var avaliableBalance: Int64 {
-        return totalBalance - leasedBalance - inOrderBalance
+    var availableBalance: Int64 {
+        return max(totalBalance - leasedBalance - inOrderBalance, 0)
     }
 }

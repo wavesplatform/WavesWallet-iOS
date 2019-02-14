@@ -1,3 +1,5 @@
+"sendfee.label.transactionFee" = "Transaction Fee";
+"sendfee.label.notAvailable" = "Not available";
 
 "Receivecard.Label.minimunAmountInfo" = "The minimum is %@, the maximum is %@";
 

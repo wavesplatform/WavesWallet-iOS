@@ -675,6 +675,15 @@
 		E983666121F5973900178A8A /* TransactionScriptErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E983666021F5973900178A8A /* TransactionScriptErrorView.xib */; };
 		E991BB15220189530022E27D /* AliasApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB14220189530022E27D /* AliasApiService.swift */; };
 		E991BB17220197280022E27D /* AliasApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB16220197280022E27D /* AliasApi.swift */; };
+		E991BB1A2202CA250022E27D /* SendFeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB192202CA250022E27D /* SendFeeViewController.swift */; };
+		E991BB1C2202CB3C0022E27D /* SendFeeModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB1B2202CB3C0022E27D /* SendFeeModuleBuilder.swift */; };
+		E991BB202202CE090022E27D /* SendFeeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB1F2202CE090022E27D /* SendFeeTableViewCell.swift */; };
+		E991BB242202D5740022E27D /* SendFeeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB232202D5740022E27D /* SendFeeInteractor.swift */; };
+		E991BB262202D58C0022E27D /* SendFeePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB252202D58C0022E27D /* SendFeePresenter.swift */; };
+		E991BB282202D5AA0022E27D /* SendFeePresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB272202D5AA0022E27D /* SendFeePresenterProtocol.swift */; };
+		E991BB2A2202D5E00022E27D /* SendFeeInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB292202D5E00022E27D /* SendFeeInteractorProtocol.swift */; };
+		E991BB2C2202D6560022E27D /* SendFeeTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB2B2202D6560022E27D /* SendFeeTypes.swift */; };
+		E991BB2E2202DD420022E27D /* SendFeeHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB2D2202DD420022E27D /* SendFeeHeaderCell.swift */; };
 		E99DD81B21CEE7690091AFEC /* CandlesApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81A21CEE7690091AFEC /* CandlesApiService.swift */; };
 		E99DD81D21CEF09C0091AFEC /* CandleApiFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81C21CEF09C0091AFEC /* CandleApiFilters.swift */; };
 		E99DD81F21CEF7AC0091AFEC /* CandleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99DD81E21CEF7AC0091AFEC /* CandleApi.swift */; };
@@ -1590,6 +1599,15 @@
 		E983666021F5973900178A8A /* TransactionScriptErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionScriptErrorView.xib; sourceTree = "<group>"; };
 		E991BB14220189530022E27D /* AliasApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasApiService.swift; sourceTree = "<group>"; };
 		E991BB16220197280022E27D /* AliasApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasApi.swift; sourceTree = "<group>"; };
+		E991BB192202CA250022E27D /* SendFeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeViewController.swift; sourceTree = "<group>"; };
+		E991BB1B2202CB3C0022E27D /* SendFeeModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeModuleBuilder.swift; sourceTree = "<group>"; };
+		E991BB1F2202CE090022E27D /* SendFeeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeTableViewCell.swift; sourceTree = "<group>"; };
+		E991BB232202D5740022E27D /* SendFeeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeInteractor.swift; sourceTree = "<group>"; };
+		E991BB252202D58C0022E27D /* SendFeePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeePresenter.swift; sourceTree = "<group>"; };
+		E991BB272202D5AA0022E27D /* SendFeePresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeePresenterProtocol.swift; sourceTree = "<group>"; };
+		E991BB292202D5E00022E27D /* SendFeeInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeInteractorProtocol.swift; sourceTree = "<group>"; };
+		E991BB2B2202D6560022E27D /* SendFeeTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeTypes.swift; sourceTree = "<group>"; };
+		E991BB2D2202DD420022E27D /* SendFeeHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeHeaderCell.swift; sourceTree = "<group>"; };
 		E99DD81A21CEE7690091AFEC /* CandlesApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandlesApiService.swift; sourceTree = "<group>"; };
 		E99DD81C21CEF09C0091AFEC /* CandleApiFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleApiFilters.swift; sourceTree = "<group>"; };
 		E99DD81E21CEF7AC0091AFEC /* CandleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandleApi.swift; sourceTree = "<group>"; };
@@ -1982,7 +2000,6 @@
 			children = (
 				0A14CFCE2144159300C3A4D5 /* Asset+Assistants.swift */,
 				0A14CFD0214415C100C3A4D5 /* TransactionDomainDTO+Mapper.swift */,
-				E90223C321D53A8F0057AA45 /* DexAssetPairDomainDTO+Mapper.swift */,
 			);
 			path = Mapper;
 			sourceTree = "<group>";
@@ -2479,6 +2496,7 @@
 				0A218B882155221F00B989A1 /* Wallet+Mapper.swift */,
 				0AD8360D217DD34B004413E9 /* AccountSettings+Mapper.swift */,
 				E967786A21EC660C00CE56D6 /* DexMyOrders+Mapper.swift */,
+				E90223C321D53A8F0057AA45 /* DexAssetPairDomainDTO+Mapper.swift */,
 			);
 			path = Mapper;
 			sourceTree = "<group>";
@@ -3851,6 +3869,46 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		E991BB182202C9E10022E27D /* SendFee */ = {
+			isa = PBXGroup;
+			children = (
+				E991BB222202D5490022E27D /* Presenter */,
+				E991BB212202D5420022E27D /* Interactor */,
+				E991BB1D2202CDDF0022E27D /* Views */,
+				E991BB192202CA250022E27D /* SendFeeViewController.swift */,
+				E991BB1B2202CB3C0022E27D /* SendFeeModuleBuilder.swift */,
+				E991BB2B2202D6560022E27D /* SendFeeTypes.swift */,
+			);
+			path = SendFee;
+			sourceTree = "<group>";
+		};
+		E991BB1D2202CDDF0022E27D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E991BB1F2202CE090022E27D /* SendFeeTableViewCell.swift */,
+				E991BB2D2202DD420022E27D /* SendFeeHeaderCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E991BB212202D5420022E27D /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E991BB292202D5E00022E27D /* SendFeeInteractorProtocol.swift */,
+				E991BB232202D5740022E27D /* SendFeeInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		E991BB222202D5490022E27D /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				E991BB272202D5AA0022E27D /* SendFeePresenterProtocol.swift */,
+				E991BB252202D58C0022E27D /* SendFeePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		E9A2268B2159666E006E0CE1 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -4592,6 +4650,7 @@
 			isa = PBXGroup;
 			children = (
 				E9EC5B362175F35800E5C29A /* Send.storyboard */,
+				E991BB182202C9E10022E27D /* SendFee */,
 				E9543900217FF9C8001A7860 /* Complete */,
 				E95438F6217F919B001A7860 /* Loading */,
 				E9310D0A217924B7008BF3EE /* Confirmaion */,
@@ -5117,6 +5176,7 @@
 				0A5E4BC8213820C500E3C3C3 /* DataTransactionDomainDTO.swift in Sources */,
 				0A5E4BCD213820C500E3C3C3 /* TransferTransactionDomainDTO.swift in Sources */,
 				0A5E4BD0213820C500E3C3C3 /* BurnTransactionDomainDTO.swift in Sources */,
+				E991BB1C2202CB3C0022E27D /* SendFeeModuleBuilder.swift in Sources */,
 				0A5E4BCE213820C500E3C3C3 /* ExchangeTransactionDomainDTO.swift in Sources */,
 				0A5C53DF2139498800667E34 /* UnrecognisedTransactionDomainDTO.swift in Sources */,
 				0A5E4BCC213820C500E3C3C3 /* IssueTransactionDomainDTO.swift in Sources */,
@@ -5126,6 +5186,7 @@
 				0ADD804821F73C280075FC59 /* AssetScriptTransactionDomainDTO.swift in Sources */,
 				0A6F60EC216F89B300A5C615 /* SmartTransactionDomain+Assistants.swift in Sources */,
 				0A14CFD221441FDB00C3A4D5 /* TransactionDomainDTO+Mapper.swift in Sources */,
+				E991BB202202CE090022E27D /* SendFeeTableViewCell.swift in Sources */,
 				0AF921EA212E07B3003BA067 /* AssetTypes.swift in Sources */,
 				E964067E21D5299D00569963 /* DexDomainDTO.swift in Sources */,
 				0A8AFF282101F37200D0582B /* MatcherServiceTypes.swift in Sources */,
@@ -5295,6 +5356,7 @@
 				E9D36DF92175C755001E6DF0 /* AssetListModuleOutput.swift in Sources */,
 				0A7CCDB4218A138D005D372B /* MyAddressAliacesCell.swift in Sources */,
 				0A762D7B21639FA60019D447 /* TransactionHistoryModuleInput.swift in Sources */,
+				E991BB1A2202CA250022E27D /* SendFeeViewController.swift in Sources */,
 				0AF92201212E07B3003BA067 /* AssetHeaderSkeletonView.swift in Sources */,
 				E94A7007215AEB0E001814F7 /* AddressBookRepository.swift in Sources */,
 				E95B6B0F219C22E400A85B5D /* TokenBurnConfirmationViewController.swift in Sources */,
@@ -5422,6 +5484,7 @@
 				0ADD803E21F5B7090075FC59 /* AssetDetailNode.swift in Sources */,
 				0A344E2F2194747E007809B1 /* MigrationInteractor.swift in Sources */,
 				E938356F20A472B4001A2509 /* HistoryTransactionCell.swift in Sources */,
+				E991BB2E2202DD420022E27D /* SendFeeHeaderCell.swift in Sources */,
 				E910B7EC21C3266F00E402AB /* CoinomatDomainDTO.swift in Sources */,
 				04016E0221949A8400BA5235 /* ImportAccountManuallyViewController.swift in Sources */,
 				E920372B21A5F4C10055E4D8 /* StartLeasingConfirmModuleBuilder.swift in Sources */,
@@ -5471,6 +5534,7 @@
 				E9B087F32163886800937644 /* DexLastTradesHeaderView.swift in Sources */,
 				04EB742A2113415E004A065B /* HistoryTypes+State.swift in Sources */,
 				0ADD7FBD21F22FB60075FC59 /* Assert+Message.swift in Sources */,
+				E991BB262202D58C0022E27D /* SendFeePresenter.swift in Sources */,
 				0ADD7F9021F22FB60075FC59 /* ControlEvent+ScrollView.swift in Sources */,
 				E9B087F92163886800937644 /* DexMyOrdersPresenterProtocol.swift in Sources */,
 				0A4C9AA320EE65910095A417 /* SeedItem.swift in Sources */,
@@ -5499,6 +5563,7 @@
 				0A84F00321F4C68000C0B7DB /* TransactionFeeRulesGitHub.swift in Sources */,
 				E9B0879B2163886800937644 /* DexChartAxisFormatters.swift in Sources */,
 				E9B087C42163886800937644 /* DexTraderContainerModuleBuilder.swift in Sources */,
+				E991BB2A2202D5E00022E27D /* SendFeeInteractorProtocol.swift in Sources */,
 				0A762D9721639FCC0019D447 /* WavesButton.swift in Sources */,
 				0AF0C67421A97D3500602197 /* AliasesRepositoryLocal.swift in Sources */,
 				E9D36DF62175C755001E6DF0 /* AssetListTableViewCell.swift in Sources */,
@@ -5656,6 +5721,7 @@
 				E9B088122163886800937644 /* DexMarketCell.swift in Sources */,
 				0A4E7DEF22018C5F007BBA39 /* ModalPresentationController.swift in Sources */,
 				0A764402211881A900B633E1 /* FactoryRepositoriesProtocol.swift in Sources */,
+				E991BB282202D5AA0022E27D /* SendFeePresenterProtocol.swift in Sources */,
 				E923A768219D714E000DD9F6 /* TokenBurnLoadingViewController.swift in Sources */,
 				0ADD7FC121F22FB60075FC59 /* BiometricType.swift in Sources */,
 				04831F6321691429006D1ED6 /* MoneyTextField.swift in Sources */,
@@ -5713,6 +5779,7 @@
 				E9D36DDA2175C755001E6DF0 /* ReceiveTypes.swift in Sources */,
 				0A14CFCF2144159300C3A4D5 /* Asset+Assistants.swift in Sources */,
 				0A762D8921639FA60019D447 /* TransactionHistoryGeneralCell.swift in Sources */,
+				E991BB2C2202D6560022E27D /* SendFeeTypes.swift in Sources */,
 				0AF921F4212E07B3003BA067 /* AssetChartCell.swift in Sources */,
 				0A5D3302215842860009CDF3 /* AuthorizationInteractor.swift in Sources */,
 				E9B087C12163886800937644 /* DexTraderContainerTypes.swift in Sources */,
@@ -5817,6 +5884,7 @@
 				0AD83616217DE071004413E9 /* NetworkSettingsModuleBuilder.swift in Sources */,
 				0ADD7FF221F22FB60075FC59 /* UICollectionView+Reusable.swift in Sources */,
 				04F2DD2E219F27AB0070AF9D /* MultilineTextField.swift in Sources */,
+				E991BB242202D5740022E27D /* SendFeeInteractor.swift in Sources */,
 				0ADD7FE721F22FB60075FC59 /* ObservableType+Weak.swift in Sources */,
 				0A593312218344000059A77A /* AddressesKeysHiddenPrivateKeyCell.swift in Sources */,
 				0A762D7E21639FA60019D447 /* TransactionHistoryViewController.swift in Sources */,

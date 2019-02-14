@@ -12,6 +12,7 @@ import RxSwift
 fileprivate enum Constants {
     static let height: CGFloat = 76    
     static let icon: CGSize = CGSize(width: 48, height: 48)
+    static let sponsoredIcon = CGSize(width: 18, height: 18)
 }
 
 final class WalletTableAssetsCell: UITableViewCell, Reusable {
@@ -55,13 +56,15 @@ extension WalletTableAssetsCell: ViewConfiguration {
         iconStar.isHidden = !model.settings.isFavorite
         viewFiatBalance.isHidden = true
         viewSpam.isHidden = model.asset.isSpam == false
-        let balance = Money.init(model.avaliableBalance, model.asset.precision)
+        let balance = Money(model.availableBalance, model.asset.precision)
         let text = balance.displayShortText
 
         labelSubtitle.attributedText = NSAttributedString.styleForBalance(text: text, font: labelSubtitle.font)
 
+        let sponsoredSize = model.asset.isSponsored ? Constants.sponsoredIcon : nil
         AssetLogo.logo(icon: model.asset.iconLogo,
                        style: AssetLogo.Style(size: Constants.icon,
+                                              sponsoredSize: sponsoredSize,
                                               font: UIFont.systemFont(ofSize: 22),
                                               border: nil))
             .bind(to: imageIcon.rx.imageAnimationFadeIn)

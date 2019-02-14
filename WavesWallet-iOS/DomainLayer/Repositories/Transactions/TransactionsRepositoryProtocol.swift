@@ -122,6 +122,7 @@ struct SendTransactionSender {
     let amount: Int64
     let fee: Int64
     let attachment: String
+    let feeAssetID: String
 }
 
 enum TransactionSenderSpecifications {

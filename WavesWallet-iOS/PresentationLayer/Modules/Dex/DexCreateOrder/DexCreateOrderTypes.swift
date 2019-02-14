@@ -55,13 +55,13 @@ extension DexCreateOrder.DTO {
         let priceAsset: DomainLayer.DTO.Dex.Asset
         let type: DomainLayer.DTO.Dex.OrderType
         let price: Money?
+        let amount: Money?
         let ask: Money?
         let bid: Money?
         let last: Money?
         let availableAmountAssetBalance: Money
         let availablePriceAssetBalance: Money
         let availableWavesBalance: Money
-        let inputMaxAmount: Bool
     }
     
     struct Order {
