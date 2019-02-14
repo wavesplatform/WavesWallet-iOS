@@ -21,8 +21,7 @@ final class TestViewController: ModalScrollViewController {
 
         var newList = Language.list
         newList.append(contentsOf: Language.list)
-
-        let number = Int.random(in: 0..<newList.count)
+        
         self.languages = newList
         self.tableView.reloadData()
 

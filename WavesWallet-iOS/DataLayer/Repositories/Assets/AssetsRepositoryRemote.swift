@@ -164,6 +164,7 @@ fileprivate extension DomainLayer.DTO.Asset {
         self.isGateway = isGateway
         self.displayName = name
         self.addressRegEx = info?.addressRegEx ?? ""
+        self.iconLogoUrl = info?.iconUrls?.default
         self.hasScript = asset.hasScript
         self.minSponsoredFee = asset.minSponsoredFee ?? 0
     }
