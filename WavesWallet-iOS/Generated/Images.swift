@@ -88,6 +88,7 @@ internal enum Images {
   internal static let assets = ImageAsset(name: "assets")
   internal static let backChevron = ImageAsset(name: "back-chevron")
   internal static let backspace48Disabled900 = ImageAsset(name: "backspace48Disabled900")
+  internal static let bchHardforkPart1 = ImageAsset(name: "bchHardforkPart1")
   internal static let bgIphone5 = ImageAsset(name: "bg-iphone5")
   internal static let bgIphone8 = ImageAsset(name: "bg-iphone8")
   internal static let bgIphone8plus = ImageAsset(name: "bg-iphone8plus")
@@ -348,6 +349,7 @@ internal enum Images {
     assets,
     backChevron,
     backspace48Disabled900,
+    bchHardforkPart1,
     bgIphone5,
     bgIphone8,
     bgIphone8plus,
