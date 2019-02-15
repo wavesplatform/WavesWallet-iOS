@@ -128,7 +128,7 @@ private extension AccountBalanceInteractor {
     func removeOldsBalanceSettings(by wallet: DomainLayer.DTO.SignedWallet,
                                    balances: [DomainLayer.DTO.SmartAssetBalance]) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
         return assetsBalanceSettingsRepository
-            .removeOldBalancesSettting(actualIds: balances.map {$0.assetId}, accountAddress: wallet.address)
+            .removeBalancesSettting(actualIds: balances.map {$0.assetId}, accountAddress: wallet.address)
             .flatMap({ (success) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
                 return Observable.just(balances)
             })
