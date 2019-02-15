@@ -29,6 +29,7 @@ final class AssetsSegmentedCell: UICollectionViewCell, NibReusable {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        imageViewIcon.image = nil
         disposeBag = DisposeBag()
     }
 }

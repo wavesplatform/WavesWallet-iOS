@@ -442,23 +442,20 @@
                                             <outlet property="labelTitle" destination="fmr-0h-daA" id="Tfj-rg-eH3"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SendFeeHeaderCell" rowHeight="40" id="J5c-Z3-zgU">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SendFeeIndicatorCell" rowHeight="40" id="J5c-Z3-zgU" customClass="SendFeeIndicatorCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="84" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="J5c-Z3-zgU" id="gI3-YM-bal">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction Fee" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IOV-br-1IN">
-                                                    <rect key="frame" x="16" y="5" width="128" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="DGi-wm-qux">
+                                                    <rect key="frame" x="177.5" y="10" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="IOV-br-1IN" firstAttribute="top" secondItem="gI3-YM-bal" secondAttribute="top" constant="5" id="UeM-Hh-Nvr"/>
-                                                <constraint firstItem="IOV-br-1IN" firstAttribute="leading" secondItem="gI3-YM-bal" secondAttribute="leading" constant="16" id="kP4-RM-4oi"/>
+                                                <constraint firstItem="DGi-wm-qux" firstAttribute="centerX" secondItem="gI3-YM-bal" secondAttribute="centerX" id="7Rd-gX-yWx"/>
+                                                <constraint firstItem="DGi-wm-qux" firstAttribute="centerY" secondItem="gI3-YM-bal" secondAttribute="centerY" id="aVp-0q-l4q"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -468,18 +465,13 @@
                                     <outlet property="delegate" destination="oNq-g4-CRq" id="CAL-0e-7NY"/>
                                 </connections>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="JuH-Ic-2ta">
-                                <rect key="frame" x="177.5" y="140" width="20" height="20"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="rI3-p1-HiL" firstAttribute="leading" secondItem="aSY-Ju-zDz" secondAttribute="leading" id="6cI-dh-Iy8"/>
-                            <constraint firstItem="JuH-Ic-2ta" firstAttribute="centerX" secondItem="Q0W-vb-zSu" secondAttribute="centerX" id="LA0-x8-doS"/>
                             <constraint firstItem="rI3-p1-HiL" firstAttribute="top" secondItem="aSY-Ju-zDz" secondAttribute="top" id="S6i-zl-grG"/>
                             <constraint firstAttribute="bottom" secondItem="rI3-p1-HiL" secondAttribute="bottom" id="d0X-aK-hEi"/>
                             <constraint firstItem="aSY-Ju-zDz" firstAttribute="trailing" secondItem="rI3-p1-HiL" secondAttribute="trailing" id="drO-qY-HLZ"/>
-                            <constraint firstItem="JuH-Ic-2ta" firstAttribute="centerY" secondItem="Q0W-vb-zSu" secondAttribute="centerY" id="eM5-4I-fcn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aSY-Ju-zDz"/>
                         <connections>
@@ -489,7 +481,6 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="300"/>
                     <connections>
-                        <outlet property="activityIndicator" destination="JuH-Ic-2ta" id="UIo-Xw-tOG"/>
                         <outlet property="tableView" destination="rI3-p1-HiL" id="OXj-Zw-bKc"/>
                     </connections>
                 </viewController>

@@ -30,7 +30,7 @@ class ModalScrollViewController: UIViewController {
     private var needUpdateInsets: Bool = true
 
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad()        
         self.scrollView.delegate = self
     }
 
@@ -76,7 +76,7 @@ class ModalScrollViewController: UIViewController {
 extension ModalScrollViewController  {
 
     private func setupInsets() {
-        let top = view.frame.height - visibleScrollViewHeight(for: view.frame.size)
+        let top = scrollView.frame.height - visibleScrollViewHeight(for: view.frame.size)
         scrollView.contentInset.top = top
         scrollView.scrollIndicatorInsets.top = top
         scrollView.contentOffset.y = -top

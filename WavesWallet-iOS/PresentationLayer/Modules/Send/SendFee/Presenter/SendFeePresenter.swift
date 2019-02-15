@@ -71,8 +71,6 @@ final class SendFeePresenter: SendFeePresenterProtocol {
 
         case .didGetAssets(let assets):
 
-            
-//            let sectionHeader = SendFee.ViewModel.Section(items: [SendFee.ViewModel.Row.header])
             var assetsRow: [SendFee.ViewModel.Row] = []
 
             for smartAsset in assets {
@@ -111,10 +109,13 @@ final class SendFeePresenter: SendFeePresenterProtocol {
 fileprivate extension SendFee.State {
     
     static func initialState(feeAssetID: String, wavesFee: Money) -> SendFee.State {
+
+        let sectionHeader = SendFee.ViewModel.Section(items: [SendFee.ViewModel.Row.indicator])
+
         return SendFee.State(feeAssetID: feeAssetID,
                              wavesFee: wavesFee,
-                             action: .none,
-                             isNeedLoadAssets: true,
-                             sections: [])
+                             action: .update,
+                             isNeedLoadAssets: false,
+                             sections: [sectionHeader])
     }
 }
