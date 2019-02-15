@@ -606,6 +606,9 @@
 		E922D26421B82C2100575955 /* CandlesRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E922D26321B82C2100575955 /* CandlesRepositoryProtocol.swift */; };
 		E922D26821B8311F00575955 /* LastTradesRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E922D26721B8311F00575955 /* LastTradesRepositoryProtocol.swift */; };
 		E922D26A21B831B600575955 /* LastTradesRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E922D26921B831B600575955 /* LastTradesRepositoryRemote.swift */; };
+		E9236F1D2216F35B00A12FD5 /* AppNewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9236F1C2216F35B00A12FD5 /* AppNewsView.swift */; };
+		E9236F1F2216F37300A12FD5 /* AppNewsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9236F1E2216F37300A12FD5 /* AppNewsView.xib */; };
+		E9236F212216F48A00A12FD5 /* PopupActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9236F202216F48A00A12FD5 /* PopupActionView.swift */; };
 		E923A765219D53EE000DD9F6 /* TokenBurnInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923A764219D53EE000DD9F6 /* TokenBurnInteractor.swift */; };
 		E923A768219D714E000DD9F6 /* TokenBurnLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923A767219D714E000DD9F6 /* TokenBurnLoadingViewController.swift */; };
 		E923A76D219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923A76C219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift */; };
@@ -1531,6 +1534,9 @@
 		E922D26321B82C2100575955 /* CandlesRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandlesRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E922D26721B8311F00575955 /* LastTradesRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastTradesRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E922D26921B831B600575955 /* LastTradesRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastTradesRepositoryRemote.swift; sourceTree = "<group>"; };
+		E9236F1C2216F35B00A12FD5 /* AppNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNewsView.swift; sourceTree = "<group>"; };
+		E9236F1E2216F37300A12FD5 /* AppNewsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppNewsView.xib; sourceTree = "<group>"; };
+		E9236F202216F48A00A12FD5 /* PopupActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupActionView.swift; sourceTree = "<group>"; };
 		E923A764219D53EE000DD9F6 /* TokenBurnInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnInteractor.swift; sourceTree = "<group>"; };
 		E923A767219D714E000DD9F6 /* TokenBurnLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnLoadingViewController.swift; sourceTree = "<group>"; };
 		E923A76C219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnCompleteViewController.swift; sourceTree = "<group>"; };
@@ -2511,6 +2517,7 @@
 			children = (
 				E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */,
 				E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */,
+				E9236F202216F48A00A12FD5 /* PopupActionView.swift */,
 			);
 			path = WavesPopup;
 			sourceTree = "<group>";
@@ -3274,6 +3281,7 @@
 		0AF58F8B2191909200C8A4B3 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				E9236F192216F2FE00A12FD5 /* AppNews */,
 				0A071E3D215AEF03007D9750 /* AccountPassword */,
 				E9B086902163882F00937644 /* AddressBook */,
 				0AF921BE212E07B2003BA067 /* Asset */,
@@ -3583,6 +3591,15 @@
 				E0E99F201DFCDD4280DDB64C /* Pods-WavesWallet-iOS.test-adhoc.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		E9236F192216F2FE00A12FD5 /* AppNews */ = {
+			isa = PBXGroup;
+			children = (
+				E9236F1C2216F35B00A12FD5 /* AppNewsView.swift */,
+				E9236F1E2216F37300A12FD5 /* AppNewsView.xib */,
+			);
+			path = AppNews;
 			sourceTree = "<group>";
 		};
 		E923A766219D713A000DD9F6 /* Loading */ = {
@@ -4875,6 +4892,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A150824219B0D6B00516037 /* GoogleService-Info.plist in Resources */,
+				E9236F1F2216F37300A12FD5 /* AppNewsView.xib in Resources */,
 				E9EC5BAA2175F35900E5C29A /* Send.storyboard in Resources */,
 				0AF0C67D21AACB3700602197 /* GlobalErrorView.xib in Resources */,
 				0AB63C1E216F952E0056B17E /* HistoryTransactionView.xib in Resources */,
@@ -5528,6 +5546,7 @@
 				E9D36DC72175C755001E6DF0 /* ReceiveCryptocurrencyTypes.swift in Sources */,
 				E95B47F221638B11004D4E39 /* AmountInputView.swift in Sources */,
 				0AF58F962191C95A00C8A4B3 /* PasscodeLogInPresenter.swift in Sources */,
+				E9236F212216F48A00A12FD5 /* PopupActionView.swift in Sources */,
 				E9B087F02163886800937644 /* DexLastTradesViewController.swift in Sources */,
 				0ADD7FB621F22FB60075FC59 /* Hash.swift in Sources */,
 				E9B087C72163886800937644 /* DexTraderContainerBaseHeaderView.swift in Sources */,
@@ -5674,6 +5693,7 @@
 				0ADD7F9C21F22FB60075FC59 /* UIViewController+Additionals.swift in Sources */,
 				0ADD6C87216796DB00B06917 /* ProfileLanguageCell.swift in Sources */,
 				0A1DAD6520F395F2004DA625 /* AssetsInteractor.swift in Sources */,
+				E9236F1D2216F35B00A12FD5 /* AppNewsView.swift in Sources */,
 				0A7643FA211874F400B633E1 /* FactoryInteractorsProtocol.swift in Sources */,
 				E9B086B32163883000937644 /* AddAddressBookViewController.swift in Sources */,
 				0AE491F62107A529009223DB /* WalletInteractorProtocol.swift in Sources */,

@@ -27,10 +27,34 @@ protocol AssetsBalanceSettingsRepositoryProtocol {
     func settings(by accountAddress: String) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]>
     func listenerSettings(by accountAddress: String, ids: [String]) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]>
     func saveSettings(by accountAddress: String, settings: [DomainLayer.DTO.AssetBalanceSettings]) -> Observable<Bool>
+    func removeBalancesSettting(actualIds: [String], accountAddress: String) -> Observable<Bool>
 }
 
 final class AssetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositoryProtocol {
 
+    func removeBalancesSettting(actualIds: [String], accountAddress: String) -> Observable<Bool> {
+        
+        return Observable.create({ (subscribe) -> Disposable in
+            
+            do {
+                let realm = try WalletRealmFactory.realm(accountAddress: accountAddress)
+                let objects = realm.objects(AssetBalanceSettings.self).filter("NOT (assetId  IN %@)", actualIds)
+                if objects.count > 0 {
+                    try realm.write {
+                        realm.delete(objects)
+                    }
+                }
+                subscribe.onNext(true)
+            }
+            catch _ {
+                subscribe.onNext(false)
+            }
+            
+            subscribe.onCompleted()
+            return Disposables.create()
+        })
+    }
+    
     func settings(by accountAddress: String, ids: [String]) -> Observable<[String: DomainLayer.DTO.AssetBalanceSettings]> {
 
         return Observable.create({ (observer) -> Disposable in

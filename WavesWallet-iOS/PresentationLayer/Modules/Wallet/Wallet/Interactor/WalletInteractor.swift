@@ -19,7 +19,6 @@ final class WalletInteractor: WalletInteractorProtocol {
 
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
-    private let accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol = FactoryRepositories.instance.accountBalanceRepositoryLocal
 
     private let leasingInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
 

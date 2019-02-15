@@ -24,13 +24,13 @@ protocol AccountBalanceInteractorProtocol {
 final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
     
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let balanceRepositoryLocal: AccountBalanceRepositoryProtocol = FactoryRepositories.instance.accountBalanceRepositoryLocal
     private let balanceRepositoryRemote: AccountBalanceRepositoryProtocol = FactoryRepositories.instance.accountBalanceRepositoryRemote
     private let environmentRepository: EnvironmentRepositoryProtocol = FactoryRepositories.instance.environmentRepository
 
     private let assetsInteractor: AssetsInteractorProtocol = FactoryInteractors.instance.assetsInteractor
     private let assetsBalanceSettings: AssetsBalanceSettingsInteractorProtocol = FactoryInteractors.instance.assetsBalanceSettings
     private let leasingInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
+    private let assetsBalanceSettingsRepository: AssetsBalanceSettingsRepositoryProtocol = FactoryRepositories.instance.assetsBalanceSettingsRepositoryLocal
 
     private let disposeBag: DisposeBag = DisposeBag()
 
@@ -125,6 +125,15 @@ private extension AccountBalanceInteractor {
         let settings: [String: DomainLayer.DTO.AssetBalanceSettings]
     }
 
+    func removeOldsBalanceSettings(by wallet: DomainLayer.DTO.SignedWallet,
+                                   balances: [DomainLayer.DTO.SmartAssetBalance]) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
+        return assetsBalanceSettingsRepository
+            .removeBalancesSettting(actualIds: balances.map {$0.assetId}, accountAddress: wallet.address)
+            .flatMap({ (success) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
+                return Observable.just(balances)
+            })
+    }
+    
     private func prepareMappingBalancesToSmartBalances(by wallet: DomainLayer.DTO.SignedWallet,
                                                        balances: [DomainLayer.DTO.AssetBalance]) -> Observable<MappingQuery> {
 
@@ -212,6 +221,10 @@ private extension AccountBalanceInteractor {
                 guard let owner = self else { return Observable.never() }
                 return owner.mappingBalancesToSmartBalances(by: wallet, query: query)
             }
+            .flatMap({ [weak self] (balances) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
+                guard let owner = self else { return Observable.empty()}
+                return owner.removeOldsBalanceSettings(by: wallet, balances: balances)
+            })
     }
 }
 
