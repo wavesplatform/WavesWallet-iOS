@@ -27,12 +27,12 @@ protocol AssetsBalanceSettingsRepositoryProtocol {
     func settings(by accountAddress: String) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]>
     func listenerSettings(by accountAddress: String, ids: [String]) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]>
     func saveSettings(by accountAddress: String, settings: [DomainLayer.DTO.AssetBalanceSettings]) -> Observable<Bool>
-    func removeOldBalancesSettting(actualIds: [String], accountAddress: String) -> Observable<Bool>
+    func removeBalancesSettting(actualIds: [String], accountAddress: String) -> Observable<Bool>
 }
 
 final class AssetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositoryProtocol {
 
-    func removeOldBalancesSettting(actualIds: [String], accountAddress: String) -> Observable<Bool> {
+    func removeBalancesSettting(actualIds: [String], accountAddress: String) -> Observable<Bool> {
         
         return Observable.create({ (subscribe) -> Disposable in
             
