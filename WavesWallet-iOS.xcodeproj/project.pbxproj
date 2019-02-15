@@ -200,6 +200,11 @@
 		0A6F60EA216F893600A5C615 /* WalletTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C9A9E20EE425B0095A417 /* WalletTypes.swift */; };
 		0A6F60EB216F895A00A5C615 /* WalletTypes+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A93FED220FCAADC0058179E /* WalletTypes+DTO.swift */; };
 		0A6F60EC216F89B300A5C615 /* SmartTransactionDomain+Assistants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E80A11214EF20C00D00AA4 /* SmartTransactionDomain+Assistants.swift */; };
+		0A751D3222170EF60024D523 /* NotificationNewsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A751D3122170EF60024D523 /* NotificationNewsRepositoryProtocol.swift */; };
+		0A751D3422170F3D0024D523 /* NotificationNewsDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A751D3322170F3D0024D523 /* NotificationNewsDomainDTO.swift */; };
+		0A751D36221711380024D523 /* NotificationNewsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A751D35221711380024D523 /* NotificationNewsRepository.swift */; };
+		0A751D38221715F80024D523 /* AppNewsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A751D37221715F80024D523 /* AppNewsCoordinator.swift */; };
+		0A751D3A22171ABB0024D523 /* Kingfisher+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A751D3922171ABA0024D523 /* Kingfisher+Rx.swift */; };
 		0A762D11214FDFA100BE9204 /* NewAccountAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D10214FDFA100BE9204 /* NewAccountAvatarView.swift */; };
 		0A762D13214FE23E00BE9204 /* NewAccountAvatarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D12214FE23E00BE9204 /* NewAccountAvatarView.xib */; };
 		0A762D15214FE3F300BE9204 /* InputTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D14214FE3F300BE9204 /* InputTextField.xib */; };
@@ -1106,6 +1111,11 @@
 		0A6AC3E921848C2F005D2525 /* AliasNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasNodeService.swift; sourceTree = "<group>"; };
 		0A6CCD3A20F4CE250023E36E /* Asset+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Asset+Mapper.swift"; sourceTree = "<group>"; };
 		0A6CCD3C20F4CF490023E36E /* AccountBalanceInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceInteractor.swift; sourceTree = "<group>"; };
+		0A751D3122170EF60024D523 /* NotificationNewsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNewsRepositoryProtocol.swift; sourceTree = "<group>"; };
+		0A751D3322170F3D0024D523 /* NotificationNewsDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNewsDomainDTO.swift; sourceTree = "<group>"; };
+		0A751D35221711380024D523 /* NotificationNewsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNewsRepository.swift; sourceTree = "<group>"; };
+		0A751D37221715F80024D523 /* AppNewsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNewsCoordinator.swift; sourceTree = "<group>"; };
+		0A751D3922171ABA0024D523 /* Kingfisher+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Kingfisher+Rx.swift"; sourceTree = "<group>"; };
 		0A762D10214FDFA100BE9204 /* NewAccountAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountAvatarView.swift; sourceTree = "<group>"; };
 		0A762D12214FE23E00BE9204 /* NewAccountAvatarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewAccountAvatarView.xib; sourceTree = "<group>"; };
 		0A762D14214FE3F300BE9204 /* InputTextField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InputTextField.xib; sourceTree = "<group>"; };
@@ -2803,21 +2813,22 @@
 		0A979775210A19B400407F67 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				0A218B7F215517E300B989A1 /* Wallets */,
-				E94A7005215AEAFB001814F7 /* AddressBook */,
-				0A5E4BD72138274A00E3C3C3 /* Transactions */,
-				0A5ABB9F21171A75006A10A7 /* AccountBalance */,
-				0A5ABB9C21171A4F006A10A7 /* Assets */,
-				0AF0C67521A97D3900602197 /* Aliases */,
-				E97D450621C801C4000E3C48 /* Dex */,
-				0AAC2A472146C69600F6EB27 /* BlockRepositoryRemote.swift */,
-				0A218B9621555A4B00B989A1 /* AuthenticationRepositoryRemote.swift */,
-				0A4508FB2178E72B00EBF669 /* EnvironmentRepositoryRemote.swift */,
 				0A88CC07217D281F0083874C /* AccountEnvironmentRepository.swift */,
-				0AC33AEF21A826B700B66747 /* NetworkError.swift */,
-				0AF2536421B6C2F900B8F7DF /* AssetsBalanceSettingsRepositoryLocal.swift */,
-				E910B7E821C3261B00E402AB /* CoinomatRepository.swift */,
 				0ADD803F21F5D2DD0075FC59 /* AddressRepositoryRemote.swift */,
+				0AF2536421B6C2F900B8F7DF /* AssetsBalanceSettingsRepositoryLocal.swift */,
+				0A218B9621555A4B00B989A1 /* AuthenticationRepositoryRemote.swift */,
+				0AAC2A472146C69600F6EB27 /* BlockRepositoryRemote.swift */,
+				E910B7E821C3261B00E402AB /* CoinomatRepository.swift */,
+				0A4508FB2178E72B00EBF669 /* EnvironmentRepositoryRemote.swift */,
+				0AC33AEF21A826B700B66747 /* NetworkError.swift */,
+				0A751D35221711380024D523 /* NotificationNewsRepository.swift */,
+				0A5ABB9F21171A75006A10A7 /* AccountBalance */,
+				E94A7005215AEAFB001814F7 /* AddressBook */,
+				0AF0C67521A97D3900602197 /* Aliases */,
+				0A5ABB9C21171A4F006A10A7 /* Assets */,
+				E97D450621C801C4000E3C48 /* Dex */,
+				0A5E4BD72138274A00E3C3C3 /* Transactions */,
+				0A218B7F215517E300B989A1 /* Wallets */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -2973,6 +2984,7 @@
 				0ADD7F2421F22FB60075FC59 /* UIFeedbackGenerator.swift */,
 				0ADD7F2A21F22FB60075FC59 /* UIFont+Additions.swift */,
 				0ADD7F3821F22FB60075FC59 /* UIImage+Color.swift */,
+				0AAC2810221438B200D8A404 /* UIImageView+Rx.swift */,
 				0ADD7F3521F22FB60075FC59 /* UINavigationController+Additionals.swift */,
 				0ADD7F2D21F22FB60075FC59 /* UIResponder+Rx.swift */,
 				0ADD7F4121F22FB60075FC59 /* UIScrollView+ContentInset.swift */,
@@ -2991,7 +3003,7 @@
 				0ADD7F3921F22FB60075FC59 /* UIViewController+SafeArea.swift */,
 				0ADD7F7D21F22FB60075FC59 /* Protocols */,
 				0A4E7DE622018132007BBA39 /* Type */,
-				0AAC2810221438B200D8A404 /* UIImageView+Rx.swift */,
+				0A751D3922171ABA0024D523 /* Kingfisher+Rx.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3075,6 +3087,7 @@
 				0ADD801221F22FFA0075FC59 /* History */,
 				0ADD801521F22FFA0075FC59 /* Passcode */,
 				0ADD800F21F22FFA0075FC59 /* Profile */,
+				0A751D37221715F80024D523 /* AppNewsCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -3200,6 +3213,7 @@
 				0A6AC3E321848920005D2525 /* AliasesRepositoryProtocol.swift */,
 				E9BB724721C2A94000B2AF7E /* CoinomatRepositoryProtocol.swift */,
 				0A84F00021F4BBA000C0B7DB /* AddressRepositoryProtocol.swift */,
+				0A751D3122170EF60024D523 /* NotificationNewsRepositoryProtocol.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -3219,6 +3233,7 @@
 				E922D25E21B81BE800575955 /* CandleDomainDTO.swift */,
 				E910B7EB21C3266F00E402AB /* CoinomatDomainDTO.swift */,
 				E964067D21D5299D00569963 /* DexDomainDTO.swift */,
+				0A751D3322170F3D0024D523 /* NotificationNewsDomainDTO.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -5182,9 +5197,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AD83601217A0D25004413E9 /* GitHubService.swift in Sources */,
 				04831F7A216917B0006D1ED6 /* ApiServiceTypes.swift in Sources */,
 				0AAB15C12165534500F1F7BC /* DomainLayerTypes.swift in Sources */,
 				0A5E4BCF213820C500E3C3C3 /* ReissueTransactionDomainDTO.swift in Sources */,
+				0A751D38221715F80024D523 /* AppNewsCoordinator.swift in Sources */,
 				E991BB17220197280022E27D /* AliasApi.swift in Sources */,
 				0A5E4BC9213820C500E3C3C3 /* LeaseCancelTransactionDomainDTO.swift in Sources */,
 				0A5E4BD1213820C500E3C3C3 /* LeaseTransactionDomainDTO.swift in Sources */,
@@ -5295,6 +5312,7 @@
 				0ABD1BED2146C2760027A7A2 /* BlocksNodeService.swift in Sources */,
 				0ABD1BEC2146BFEE0027A7A2 /* BlockNode.swift in Sources */,
 				0ADD7FBF21F22FB60075FC59 /* NSAttributedString+Styles.swift in Sources */,
+				0A751D36221711380024D523 /* NotificationNewsRepository.swift in Sources */,
 				E9B087CC2163886800937644 /* DexListPresenterProtocol.swift in Sources */,
 				0ADD6C832167948500B06917 /* ProfileHeaderView.swift in Sources */,
 				0ACC0233217E2BA1000E3EE0 /* DynamicHeaderTableView.swift in Sources */,
@@ -5307,6 +5325,7 @@
 				E965703E219360770052F0FC /* WalletSortSeparatorFooter.swift in Sources */,
 				0ADD7FA821F22FB60075FC59 /* UIImage+Color.swift in Sources */,
 				E9B087CE2163886800937644 /* DexListTypes.swift in Sources */,
+				0A751D3222170EF60024D523 /* NotificationNewsRepositoryProtocol.swift in Sources */,
 				0A5933162183604F0059A77A /* AddressesKeysPresenter.swift in Sources */,
 				0ADD804221F71FDA0075FC59 /* ScriptTransactionNode.swift in Sources */,
 				0ADD803621F22FFB0075FC59 /* PasscodeLogInCoordinator.swift in Sources */,
@@ -5332,7 +5351,6 @@
 				E9B087BC2163886800937644 /* DexInfoViewController.swift in Sources */,
 				0A3FE8BF2137007500DBF4E1 /* AliasTransactionNode.swift in Sources */,
 				0ADD7FC221F22FB60075FC59 /* ObjectDestructor.swift in Sources */,
-				0AD83601217A0D25004413E9 /* GitHubService.swift in Sources */,
 				0A762DAA21661AC40019D447 /* ProfileModuleBuilder.swift in Sources */,
 				0A071E7E215DB158007D9750 /* ChooseAccountPresenter.swift in Sources */,
 				0A5E4BE721383E1600E3C3C3 /* BurnTransaction+Mapper.swift in Sources */,
@@ -5737,6 +5755,7 @@
 				0A98D14A2138910600550FE0 /* DataTransaction+Mapper.swift in Sources */,
 				0ADD801D21F22FFA0075FC59 /* DexCoordinator.swift in Sources */,
 				0A071E85215DB1B3007D9750 /* ChooseAccountCell.swift in Sources */,
+				0A751D3A22171ABB0024D523 /* Kingfisher+Rx.swift in Sources */,
 				0ADD7FC521F22FB60075FC59 /* JSONDecoder+Rx.swift in Sources */,
 				E9B088122163886800937644 /* DexMarketCell.swift in Sources */,
 				0A4E7DEF22018C5F007BBA39 /* ModalPresentationController.swift in Sources */,
@@ -5898,6 +5917,7 @@
 				0AE6572F2106340A003D2DB8 /* Signature.swift in Sources */,
 				0ADD7FC721F22FB60075FC59 /* Thread+Assisstants.swift in Sources */,
 				E97EC84320E689A800AB006B /* ImportAccountPasswordViewController.swift in Sources */,
+				0A751D3422170F3D0024D523 /* NotificationNewsDomainDTO.swift in Sources */,
 				0A762D9C2163A1C90019D447 /* HistoryTypes.swift in Sources */,
 				0A764401211881A500B633E1 /* FactoryRepositories.swift in Sources */,
 				0ADD7FF521F22FB60075FC59 /* NibLoadable.swift in Sources */,
