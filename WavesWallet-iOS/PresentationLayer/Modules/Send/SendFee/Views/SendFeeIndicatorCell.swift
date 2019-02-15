@@ -24,4 +24,3 @@ extension SendFeeIndicatorCell: ViewHeight {
         return Constants.height
     }
 }
-
