@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="AppNewsView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2PJ-vA-Psb">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" red="0.0" green="0.1019607843" blue="0.22352941179999999" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ge6-oq-flV">
+                    <rect key="frame" x="16" y="332" width="343" height="311"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bchHardforkPart1" translatesAutoresizingMaskIntoConstraints="NO" id="X2U-Db-JuX">
+                            <rect key="frame" x="0.0" y="44" width="343" height="67"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="67" id="qUG-vg-WnQ"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BCH HARDFORK" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P0i-c2-R8y">
+                            <rect key="frame" x="5" y="135" width="333" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We have suspended BCH trading and are currently airdropping the new BSV coin to BCH holders." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nn2-h7-kPO">
+                            <rect key="frame" x="5" y="163.5" width="333" height="31.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J17-C6-6qT" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                            <rect key="frame" x="24" y="239" width="295" height="48"/>
+                            <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="Rhr-wg-EtB"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                            <state key="normal" title="Okay"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="highlightedBackground">
+                                    <color key="value" red="0.35294117650000001" green="0.50588235290000005" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="okeyTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="wUI-pz-Fpv"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="nn2-h7-kPO" firstAttribute="top" secondItem="P0i-c2-R8y" secondAttribute="bottom" constant="8" id="7W7-rt-AkF"/>
+                        <constraint firstItem="P0i-c2-R8y" firstAttribute="leading" secondItem="ge6-oq-flV" secondAttribute="leading" constant="5" id="8sH-hi-d60"/>
+                        <constraint firstItem="P0i-c2-R8y" firstAttribute="top" secondItem="X2U-Db-JuX" secondAttribute="bottom" constant="24" id="FEh-9F-YCx"/>
+                        <constraint firstAttribute="trailing" secondItem="J17-C6-6qT" secondAttribute="trailing" constant="24" id="H9T-U9-onn"/>
+                        <constraint firstAttribute="trailing" secondItem="X2U-Db-JuX" secondAttribute="trailing" id="Nkr-LB-GSQ"/>
+                        <constraint firstItem="J17-C6-6qT" firstAttribute="leading" secondItem="ge6-oq-flV" secondAttribute="leading" constant="24" id="O06-c7-BYJ"/>
+                        <constraint firstItem="nn2-h7-kPO" firstAttribute="leading" secondItem="P0i-c2-R8y" secondAttribute="leading" id="R1t-XJ-W75"/>
+                        <constraint firstItem="X2U-Db-JuX" firstAttribute="centerX" secondItem="ge6-oq-flV" secondAttribute="centerX" id="T8r-aV-MwP"/>
+                        <constraint firstItem="X2U-Db-JuX" firstAttribute="leading" secondItem="ge6-oq-flV" secondAttribute="leading" id="U4y-Wr-Xxn"/>
+                        <constraint firstAttribute="bottom" secondItem="J17-C6-6qT" secondAttribute="bottom" constant="24" id="dEe-ha-oJa"/>
+                        <constraint firstAttribute="trailing" secondItem="P0i-c2-R8y" secondAttribute="trailing" constant="5" id="gyn-TF-gpE"/>
+                        <constraint firstItem="nn2-h7-kPO" firstAttribute="trailing" secondItem="P0i-c2-R8y" secondAttribute="trailing" id="nNw-YH-bLS"/>
+                        <constraint firstItem="X2U-Db-JuX" firstAttribute="top" secondItem="ge6-oq-flV" secondAttribute="top" constant="44" id="q5z-Ab-g9o"/>
+                        <constraint firstItem="J17-C6-6qT" firstAttribute="top" secondItem="nn2-h7-kPO" secondAttribute="bottom" constant="44" id="rch-HE-duT"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="2PJ-vA-Psb" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="7Dp-3M-DGe"/>
+                <constraint firstItem="ge6-oq-flV" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="EBZ-Cm-PQv"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ge6-oq-flV" secondAttribute="trailing" constant="16" id="Wzw-0M-ysp"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="ge6-oq-flV" secondAttribute="bottom" constant="24" id="kVp-Bc-DtL"/>
+                <constraint firstItem="2PJ-vA-Psb" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="n10-af-yww"/>
+                <constraint firstItem="2PJ-vA-Psb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="rLB-nX-X9p"/>
+                <constraint firstItem="2PJ-vA-Psb" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="vol-yH-7Tf"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="bottomOffset" destination="kVp-Bc-DtL" id="o8O-JB-zhg"/>
+                <outlet property="buttonOkey" destination="J17-C6-6qT" id="6s1-pP-ZX8"/>
+                <outlet property="imageView" destination="X2U-Db-JuX" id="hO4-cs-KlO"/>
+                <outlet property="labelSubtitle" destination="nn2-h7-kPO" id="XSB-lj-Fod"/>
+                <outlet property="labelTitle" destination="P0i-c2-R8y" id="ZYZ-Fq-RC0"/>
+                <outlet property="viewBackground" destination="2PJ-vA-Psb" id="nfn-kp-1bY"/>
+                <outlet property="viewContainer" destination="ge6-oq-flV" id="LCz-oR-953"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="bchHardforkPart1" width="213" height="67"/>
+    </resources>
+</document>
