@@ -26,6 +26,7 @@ final class WalletSortFavCell: UITableViewCell, Reusable {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        imageIcon.image = nil
         disposeBag = DisposeBag()
     }
 

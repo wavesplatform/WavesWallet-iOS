@@ -251,6 +251,8 @@ extension SendViewController: TransactionFeeViewDelegate {
 extension SendViewController: SendFeeModuleOutput {
     
     func sendFeeModuleDidSelectAssetFee(_ asset: DomainLayer.DTO.SmartAssetBalance, fee: Money) {
+
+        self.dismiss(animated: true, completion: nil)
         feeAssetID = asset.assetId
         feeAssetBalance = asset
         currentFee = fee
