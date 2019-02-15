@@ -234,6 +234,14 @@ internal enum Localizable {
       }
     }
 
+    internal enum Appnews {
+
+      internal enum Button {
+        /// Okay
+        internal static var okey: String { return Localizable.tr("Waves", "appnews.button.okey") }
+      }
+    }
+
     internal enum Asset {
 
       internal enum Cell {

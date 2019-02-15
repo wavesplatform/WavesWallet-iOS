@@ -21,7 +21,7 @@
                     <color key="backgroundColor" red="0.0" green="0.10196078431372549" blue="0.22352941176470587" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v69-yQ-u9m">
-                    <rect key="frame" x="16" y="354.5" width="343" height="288.5"/>
+                    <rect key="frame" x="16" y="350.5" width="343" height="292.5"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tSetscript48" translatesAutoresizingMaskIntoConstraints="NO" id="mQL-EO-cmQ">
                             <rect key="frame" x="147.5" y="24" width="48" height="48"/>
@@ -39,7 +39,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sSj-nu-C0I" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
-                            <rect key="frame" x="24" y="216.5" width="295" height="48"/>
+                            <rect key="frame" x="24" y="220.5" width="295" height="48"/>
                             <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="48" id="VJJ-oy-3Ip"/>
@@ -69,7 +69,7 @@
                         <constraint firstAttribute="bottom" secondItem="sSj-nu-C0I" secondAttribute="bottom" constant="24" id="aIi-im-EHw"/>
                         <constraint firstItem="mQL-EO-cmQ" firstAttribute="top" secondItem="v69-yQ-u9m" secondAttribute="top" constant="24" id="cUE-xr-rjY"/>
                         <constraint firstItem="Ovp-MH-tTi" firstAttribute="leading" secondItem="Hdl-vU-9Jh" secondAttribute="leading" id="lp3-LD-0Gx"/>
-                        <constraint firstItem="sSj-nu-C0I" firstAttribute="top" secondItem="Ovp-MH-tTi" secondAttribute="bottom" constant="40" id="wmy-DC-cXv"/>
+                        <constraint firstItem="sSj-nu-C0I" firstAttribute="top" secondItem="Ovp-MH-tTi" secondAttribute="bottom" constant="44" id="wmy-DC-cXv"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -90,12 +90,12 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
-                <outlet property="bottomOffset" destination="Amz-7T-bR4" id="GFX-Fb-EaK"/>
+                <outlet property="bottomOffset" destination="Amz-7T-bR4" id="lUz-py-gEP"/>
                 <outlet property="buttonOkey" destination="sSj-nu-C0I" id="lVI-5C-xql"/>
                 <outlet property="labelSubtitle" destination="Ovp-MH-tTi" id="nWp-BF-AYM"/>
                 <outlet property="labelTitle" destination="Hdl-vU-9Jh" id="x2r-ZS-LSu"/>
-                <outlet property="viewBackground" destination="mVY-ap-8PM" id="8ic-sk-VJC"/>
-                <outlet property="viewContainer" destination="v69-yQ-u9m" id="rrG-Sp-BS9"/>
+                <outlet property="viewBackground" destination="mVY-ap-8PM" id="1nL-ru-Bkw"/>
+                <outlet property="viewContainer" destination="v69-yQ-u9m" id="IYi-IR-2gu"/>
             </connections>
             <point key="canvasLocation" x="23.199999999999999" y="299.55022488755623"/>
         </view>
