@@ -43,13 +43,4 @@ struct SendFeeModuleBuilder: ModuleBuilderOutput {
         
         return vc
     }
-
-    //        let popup = PopupViewController()
-    //        popup.contentHeight = SendFeeModuleBuilder.minimumHeight
-    //        popup.present(contentViewController: vc)
-
-    
-//    static var minimumHeight: CGFloat {
-//        return Constants.minimumHeight
-//    }
 }
