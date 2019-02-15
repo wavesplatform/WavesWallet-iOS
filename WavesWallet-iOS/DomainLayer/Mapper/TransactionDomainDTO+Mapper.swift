@@ -196,7 +196,14 @@ extension DomainLayer.DTO.TransferTransaction {
             SweetLogger.error("TransferTransaction Not found Waves ID")
             return nil
         }
-        let feeBalance = wavesAsset.balance(fee)
+        
+        var feeBalance: Balance!
+        if feeAssetId.count > 0 {
+            feeBalance = feeAsset.balance(fee)
+        }
+        else {
+            feeBalance = wavesAsset.balance(fee)
+        }
 
         return .init(id: id,
                      kind: kind,
