@@ -127,7 +127,7 @@ extension AssetTypes.DTO {
             let isGateway: Bool
             let sortLevel: Float
             let icon: DomainLayer.DTO.Asset.Icon
-            let assetBalance: DomainLayer.DTO.SmartAssetBalance
+            var assetBalance: DomainLayer.DTO.SmartAssetBalance
         }
 
         struct Balance: Codable {
