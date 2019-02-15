@@ -39,8 +39,7 @@ struct SendFeeModuleBuilder: ModuleBuilderOutput {
         let vc = StoryboardScene.Send.sendFeeViewController.instantiate()
         vc.presenter = presenter
         vc.delegate = output
-
-        
+    
         return vc
     }
 }
