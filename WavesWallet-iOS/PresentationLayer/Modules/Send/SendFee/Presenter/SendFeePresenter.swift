@@ -115,7 +115,7 @@ fileprivate extension SendFee.State {
         return SendFee.State(feeAssetID: feeAssetID,
                              wavesFee: wavesFee,
                              action: .update,
-                             isNeedLoadAssets: false,
+                             isNeedLoadAssets: true,
                              sections: [sectionHeader])
     }
 }
