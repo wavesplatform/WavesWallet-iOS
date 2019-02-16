@@ -73,15 +73,29 @@ final class AppNewsCoordinator: Coordinator {
         }
 
         let code = Language.currentLanguage.code
-        let title = first.title[code] ?? ""
-        let subTitle = first.subTitle[code] ?? ""
+        let defaultLanguageCode = Language.defaultLanguage.code
+
+        var title = first.title[code]
+
+        if title == nil {
+            title = first.title[defaultLanguageCode]
+        }
+
+        var subTitle = first.subTitle[code]
+
+        if subTitle == nil {
+            subTitle = first.subTitle[defaultLanguageCode]
+        }
+
+        let titleValue = title ?? ""
+        let subTitleValue = subTitle ?? ""
 
         retrieveOrDonwloadImage(key: first.logoUrl, url: first.logoUrl)
             .subscribe(onNext: { [weak self] (image) in
                 if let image = image {
-                     let news = AppNewsView.show(model: AppNewsView.Model.init(title: title,
-                                                                               subtitle: subTitle,
-                                                                               image: image))
+                     let news = AppNewsView.show(model: .init(title: titleValue,
+                                                              subtitle: subTitleValue,
+                                                              image: image))
                     news.tapDismiss = { [weak self] in
                         self?.closeCoordinator()
                     }
