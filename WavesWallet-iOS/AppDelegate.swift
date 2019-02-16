@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Database.database().isPersistenceEnabled = false
             Fabric.with([Crashlytics.self])
         }
-
+        
         if let path = Bundle.main.path(forResource: "Appsflyer-Info", ofType: "plist"),
             let root = NSDictionary(contentsOfFile: path)?["Appsflyer"] as? NSDictionary {
             if let devKey = root["AppsFlyerDevKey"] as? String,
