@@ -17,7 +17,19 @@ final class NotificationNewsRepository: NotificationNewsRepositoryProtocol {
     func notificationNews() -> Observable<[DomainLayer.DTO.NotificationNews]> {
 
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(DateFormatter.iso())
+        decoder.dateDecodingStrategy = .custom({ (decoder) -> Date in
+            let container = try decoder.singleValueContainer()
+            let dateStr = try container.decode(String.self)
+
+            guard let double = NumberFormatter()
+                .number(from: dateStr)?
+                .doubleValue else {
+                    throw RepositoryError.fail
+                }
+
+            return Date(timeIntervalSince1970: double)
+            
+        })
 
         return applicationNews
             .rx
