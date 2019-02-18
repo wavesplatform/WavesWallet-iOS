@@ -197,7 +197,7 @@ extension AppCoordinator  {
             .subscribe(weak: self, onNext: { owner, wallet in
                 if let wallet = wallet {
                     owner.showDisplay(.passcode(wallet))
-                } else {
+                } else if Application.get().isAlreadyShowHelloDisplay {
                     owner.showDisplay(.enter)
                 }
             })
