@@ -16,8 +16,7 @@ target 'WavesWallet-iOS' do
 
     # UI
     pod 'RxCocoa'
-    pod 'RxDataSources'
-
+    
     pod 'TTTAttributedLabel'    
     pod 'UITextView+Placeholder'
 
