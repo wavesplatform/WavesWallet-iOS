@@ -39,10 +39,7 @@ struct SendFeeModuleBuilder: ModuleBuilderOutput {
         let vc = StoryboardScene.Send.sendFeeViewController.instantiate()
         vc.presenter = presenter
         vc.delegate = output
-        return vc
-    }
     
-    static var minimumHeight: CGFloat {
-        return Constants.minimumHeight
+        return vc
     }
 }
