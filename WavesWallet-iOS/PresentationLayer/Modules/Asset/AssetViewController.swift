@@ -97,7 +97,7 @@ private extension AssetViewController {
     func setupSystem() {
 
         let uiFeedback: AssetPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<AssetTypes.Event>) in
-            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
         }
 
         let readyViewFeedback: AssetPresenterProtocol.Feedback = { [weak self] _ in

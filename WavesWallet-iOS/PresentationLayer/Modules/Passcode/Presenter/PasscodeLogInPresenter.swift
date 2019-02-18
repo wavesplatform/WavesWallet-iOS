@@ -60,7 +60,7 @@ final class PasscodeLogInPresenter: PasscodePresenterProtocol {
 extension PasscodeLogInPresenter {
 
     private func logInBiometric() -> Feedback {
-        return react(query: { state -> LogInByBiometricQuery? in
+        return react(request: { state -> LogInByBiometricQuery? in
 
             if case .logIn(let wallet) = state.kind, let action = state.action, case .logInBiometric = action {
                 return LogInByBiometricQuery(wallet: wallet)
@@ -83,7 +83,7 @@ extension PasscodeLogInPresenter {
     }
 
     private func logIn() -> Feedback {
-        return react(query: { state -> LogInQuery? in
+        return react(request: { state -> LogInQuery? in
 
             if let action = state.action, case .logIn = action {
                 if case .logIn(let wallet) = state.kind {
@@ -108,7 +108,7 @@ extension PasscodeLogInPresenter {
     }
 
     private func logout() -> Feedback {
-        return react(query: { state -> LogoutQuery? in
+        return react(request: { state -> LogoutQuery? in
 
             if case .logIn(let wallet) = state.kind,
                 let action = state.action, case .logout = action {

@@ -33,7 +33,7 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
     }
     
     private func modelsQuery() -> Feedback {
-        return react(query: { state -> Bool? in
+        return react(request: { state -> Bool? in
             return true
         }, effects: { [weak self] _ -> Signal<DexMarket.Event> in
             
@@ -43,7 +43,7 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
     }
     
     private func searchModelsQuery() -> Feedback {
-        return react(query: { state -> Bool? in
+        return react(request: { state -> Bool? in
             return true
         }, effects: { [weak self] _ -> Signal<DexMarket.Event> in
             

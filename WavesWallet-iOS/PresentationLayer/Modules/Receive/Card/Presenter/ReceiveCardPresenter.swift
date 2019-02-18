@@ -34,7 +34,7 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
     }
     
     private func wavesAmountQuery() -> Feedback {
-        return react(query: { state -> ReceiveCard.State? in
+        return react(request: { state -> ReceiveCard.State? in
             return state.isNeedLoadPriceInfo ? state : nil
         }, effects: { [weak self] state -> Signal<ReceiveCard.Event> in
             
@@ -56,7 +56,7 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
     
     private func modelsQuery() -> Feedback {
         
-        return react(query: { state -> ReceiveCard.State? in
+        return react(request: { state -> ReceiveCard.State? in
             return state.isNeedLoadInfo ? state : nil
         }, effects: { [weak self] state -> Signal<ReceiveCard.Event> in
             
@@ -67,7 +67,7 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
 
     private func generateLinkQuery() -> Feedback {
         
-        return react(query: { state -> ReceiveCard.State? in
+        return react(request: { state -> ReceiveCard.State? in
             return state.isNeedLoadPriceInfo ? state : nil
         }, effects: { [weak self] state -> Signal<ReceiveCard.Event> in
             
