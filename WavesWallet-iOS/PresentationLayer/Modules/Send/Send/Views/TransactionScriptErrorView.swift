@@ -31,14 +31,21 @@ final class TransactionScriptErrorView: PopupActionView, NibLoadable {
         labelSubtitle.text = Localizable.Waves.Transactionscript.Label.subtitle
         buttonOkey.setTitle(Localizable.Waves.Transactionscript.Button.okey, for: .normal)
     }
+    
+    func update() {
+        frame = UIScreen.main.bounds
+        layoutIfNeeded()
+    }
 }
+
 
 extension TransactionScriptErrorView {
     
     class func show() {
         
-        let view = TransactionScriptErrorView.loadFromNib()        
-        view.frame = UIScreen.main.bounds
+        let view = TransactionScriptErrorView.loadFromNib()
+        view.update()
         AppDelegate.shared().window?.addSubview(view)
+        view.setupInitialAnimationPoition()
     }
 }
