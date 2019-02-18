@@ -20,7 +20,8 @@ final class AppNewsView: PopupActionView, NibLoadable {
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var labelSubtitle: UILabel!
     @IBOutlet private weak var buttonOkey: HighlightedButton!
-    
+
+    var tapDismiss: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,6 +30,7 @@ final class AppNewsView: PopupActionView, NibLoadable {
     }
     
     @IBAction private func okeyTapped(_ sender: Any) {
+        tapDismiss?()
         dismiss()
     }
 }
@@ -48,10 +50,11 @@ extension AppNewsView: ViewConfiguration {
 
 extension AppNewsView {
     
-    class func show(model: Model) {
+    class func show(model: Model) -> AppNewsView {
         let view = AppNewsView.loadFromNib()
         view.update(with: model)
         AppDelegate.shared().window?.addSubview(view)
         view.setupInitialAnimationPoition()
+        return view
     }
 }

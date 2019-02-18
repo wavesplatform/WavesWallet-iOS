@@ -48,6 +48,10 @@ extension Language {
         return LanguageCode.get()
     }
 
+    static var defaultLanguage: Language {
+        return LanguageCode.defaultValue
+    }
+
     static var currentLocale: Locale {
         return Locale(identifier: currentLanguage.code)
     }
