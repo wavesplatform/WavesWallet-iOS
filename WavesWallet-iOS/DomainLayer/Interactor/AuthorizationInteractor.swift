@@ -166,12 +166,21 @@ private final class SeedRepositoryMemory {
 
 final class AuthorizationInteractor: AuthorizationInteractorProtocol {
 
-    private let localWalletRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
-    private let localWalletSeedRepository: WalletSeedRepositoryProtocol = FactoryRepositories.instance.walletSeedRepositoryLocal
-    private let remoteAuthenticationRepository: AuthenticationRepositoryProtocol = FactoryRepositories.instance.authenticationRepositoryRemote
+    private let localWalletRepository: WalletsRepositoryProtocol
+    private let localWalletSeedRepository: WalletSeedRepositoryProtocol
+    private let remoteAuthenticationRepository: AuthenticationRepositoryProtocol
+    private let accountSettingsRepository: AccountSettingsRepositoryProtocol
 
-    private let accountSettingsRepository: AccountSettingsRepositoryProtocol = FactoryRepositories.instance.accountSettingsRepository
-    
+    init(localWalletRepository: WalletsRepositoryProtocol,
+         localWalletSeedRepository: WalletSeedRepositoryProtocol,
+         remoteAuthenticationRepository: AuthenticationRepositoryProtocol,
+         accountSettingsRepository: AccountSettingsRepositoryProtocol) {
+
+        self.localWalletRepository = localWalletRepository
+        self.localWalletSeedRepository = localWalletSeedRepository
+        self.remoteAuthenticationRepository = remoteAuthenticationRepository
+        self.accountSettingsRepository = accountSettingsRepository
+    }
 
     //TODO: Mutex
     private let seedRepositoryMemory: SeedRepositoryMemory = SeedRepositoryMemory()
