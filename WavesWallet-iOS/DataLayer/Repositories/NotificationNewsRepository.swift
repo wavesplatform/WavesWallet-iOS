@@ -36,8 +36,7 @@ final class NotificationNewsRepository: NotificationNewsRepositoryProtocol {
             .request(.get, callbackQueue: DispatchQueue.global(qos: .userInteractive))
             .asObservable()
             .filterSuccessfulStatusAndRedirectCodes()
-            .map(GitHub.DTO.News.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
-            .sweetDebug("22 test")
+            .map(GitHub.DTO.News.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)            
             .map { news -> [DomainLayer.DTO.NotificationNews] in
                 return news.notifications.map {
                     return DomainLayer.DTO.NotificationNews(startDate: $0.startDate,

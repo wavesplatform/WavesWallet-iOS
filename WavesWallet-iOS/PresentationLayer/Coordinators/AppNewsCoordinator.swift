@@ -15,7 +15,9 @@ private struct ApplicationNewsSettings: TSUD, Codable, Mutating {
 
     var showIdSet: Set<String> = Set<String>()
 
-    private static let key: String = "com.waves.application.news.settings"
+    private enum Constants {
+        static let key: String = "com.waves.application.news.settings"
+    }
 
     init(showIdSet: Set<String>) {
         self.showIdSet = showIdSet
@@ -30,7 +32,7 @@ private struct ApplicationNewsSettings: TSUD, Codable, Mutating {
     }
 
     static var stringKey: String {
-        return ApplicationNewsSettings.key
+        return Constants.key
     }
 }
 
@@ -48,8 +50,7 @@ final class AppNewsCoordinator: Coordinator {
     func start()  {
 
         notificationNewsRepository
-            .notificationNews()
-            .sweetDebug("11 test")
+            .notificationNews()            
             .asDriver(onErrorJustReturn: [])
             .asObservable()
             .subscribe(onNext: { [weak self] (news) in
