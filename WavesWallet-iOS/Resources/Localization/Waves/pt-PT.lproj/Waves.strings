@@ -67,9 +67,7 @@
 
 "aliases.view.info.button.create" = "Criar novo pseudónimo";
 
-"aliases.view.info.label.fee" = "Taxa de transação de 0.001 WAVES";
-
-"aliases.view.info.label.secondsubtitle" = "O pseudónimo deve ter entre 4 e 30 caracteres e ser composto apenas por letras minúsculas, números e símbolos (@, -, _ etc)";
+"aliases.view.info.label.secondsubtitle" = "O pseudónimo deve ter entre 4 e 30 caracteres e ser composto apenas por letras minúsculas, números e símbolos (@, -, _ e ponto)";
 
 "aliases.view.info.label.subtitle" = "Um pseudónimo é um nome curto que pode ser usado como uma alternativa mais simples ao teu endereço. Deste modo podes enviar e receber transações mais facilmente. ";
 
@@ -77,13 +75,13 @@
 
 "aliaseswithout.view.info.button.create" = "Criar novo pseudónimo";
 
-"aliaseswithout.view.info.label.fee" = "Taxa de transação de 0.001 WAVES";
-
-"aliaseswithout.view.info.label.secondsubtitle" = "O pseudónimo deve ter entre 4 e 30 caracteres e ser composto apenas por letras minúsculas, números e símbolos (@, -, _ etc)";
+"aliaseswithout.view.info.label.secondsubtitle" = "O pseudónimo deve ter entre 4 e 30 caracteres e ser composto apenas por letras minúsculas, números e símbolos (@, -, _ e ponto)";
 
 "aliaseswithout.view.info.label.subtitle" = "Um pseudónimo é um nome curto que pode ser usado como uma alternativa mais simples ao teu endereço. Deste modo podes enviar e receber transações mais facilmente. ";
 
 "aliaseswithout.view.info.label.title" = "Ainda não criaste um pseudónimo";
+
+"appnews.button.okey" = "OK";
 
 "asset.cell.assetInfo.cantPerformTransactions" = "Não podes realizar transações com este ativo";
 
@@ -565,6 +563,8 @@
 
 "history.transaction.title.received" = "Recebido";
 
+"history.transaction.title.receivedSponsorship" = "Sponsorship Recebido";
+
 "history.transaction.title.selfTransfer" = "Auto-Transferência";
 
 "history.transaction.title.sent" = "Enviado";
@@ -590,6 +590,10 @@
 "history.transaction.value.setScript.cancel" = "Script Cancelado";
 
 "history.transaction.value.setScript.set" = "Registo de Script";
+
+"history.transaction.value.setSponsorship.cancel" = "Cancelar de Sponsorship";
+
+"history.transaction.value.setSponsorship.set" = "Criar de Sponsorship";
 
 "import.account.button.enter.title" = "Introduz o conjunto das palavras de recuperação";
 
@@ -845,7 +849,7 @@
 
 "receivecard.label.warningInfo" = "Para usares o teu cartão de débito ou crédito vamos redirecionar-te para o site do fornecedor";
 
-"receivecardcomplete.button.okay" = "Ok";
+"receivecardcomplete.button.okay" = "OK";
 
 "receivecardcomplete.label.afterPaymentUpdateBalance" = "O teu saldo é atualizado depois de efetuado o pagamento";
 
@@ -887,6 +891,10 @@
 
 "send.label.error.invalidId" = "O ID não é válido";
 
+"send.label.error.maximum" = "O máximo é %@ %@";
+
+"send.label.error.minimun" = "O mínimo é %@ %@";
+
 "send.label.error.notFundsFee" = "Não tens fundos suficientes para pagar a taxa de transação.";
 
 "send.label.gatewayFee" = "A taxa do Gateway é de";
@@ -901,7 +909,7 @@
 
 "send.textField.placeholderPaymentId" = "Cola ou copia o teu ID de Pagamento";
 
-"sendcomplete.button.okey" = "Ok";
+"sendcomplete.button.okey" = "OK";
 
 "sendcomplete.label.saveThisAddress" = "Queres guardar este endereço?";
 
@@ -924,6 +932,10 @@
 "sendconfirmation.label.optionalMessage" = "Opcionalmente podes escrever uma mensagem";
 
 "sendconfirmation.label.sentTo" = "Enviar para";
+
+"sendfee.label.notAvailable" = "Não podes realizar esta ação";
+
+"sendfee.label.transactionFee" = "Taxa de Transação";
 
 "sendloading.label.sending" = "A enviar…";
 
@@ -975,7 +987,7 @@
 
 "startleasing.label.startLeasing" = "Iniciar concessão";
 
-"startleasingcomplete.button.okey" = "Ok";
+"startleasingcomplete.button.okey" = "OK";
 
 "startleasingcomplete.label.youHaveCanceledTransaction" = "Cancelaste a concessão";
 
@@ -1005,7 +1017,7 @@
 
 "tokenBurn.button.continue" = "Continuar";
 
-"tokenBurn.button.okey" = "Ok";
+"tokenBurn.button.okey" = "OK";
 
 "tokenBurn.button.useTotalBalanace" = "Máximo disponível";
 
@@ -1039,7 +1051,7 @@
 
 "transactionFee.label.transactionFee" = "Taxa de Transação";
 
-"transactionScript.button.okey" = "Ok";
+"transactionScript.button.okey" = "OK";
 
 "transactionScript.label.subtitle" = "Usa o cliente de Desktop para realizares operações numa conta ou num ativo sujeito a um smart contract";
 
