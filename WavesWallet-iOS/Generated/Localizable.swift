@@ -196,8 +196,6 @@ internal enum Localizable {
           }
 
           internal enum Label {
-            /// Transaction Fee 0.001 Waves
-            internal static var fee: String { return Localizable.tr("Waves", "aliases.view.info.label.fee") }
             /// Your Alias must be between 4 and 30 characters long, and must contain only lowercase Latin letters, digits and symbols (@, -, _ etc)
             internal static var secondsubtitle: String { return Localizable.tr("Waves", "aliases.view.info.label.secondsubtitle") }
             /// An Alias is a nickname for your address. You can use an Alias instead of an address to make transactions.
@@ -221,8 +219,6 @@ internal enum Localizable {
           }
 
           internal enum Label {
-            /// Transaction Fee 0.001 Waves
-            internal static var fee: String { return Localizable.tr("Waves", "aliaseswithout.view.info.label.fee") }
             /// Your Alias must be between 4 and 30 characters long, and must contain only lowercase Latin letters, digits and symbols (@, -, _ etc)
             internal static var secondsubtitle: String { return Localizable.tr("Waves", "aliaseswithout.view.info.label.secondsubtitle") }
             /// An Alias is a nickname for your address. You can use an Alias instead of an address to make transactions.

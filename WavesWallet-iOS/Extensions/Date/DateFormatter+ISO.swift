@@ -15,6 +15,7 @@ extension DateFormatter {
         let enUSPosixLocale = Locale(identifier: "en_US_POSIX")
         dateFormatter.locale = enUSPosixLocale
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        
         return dateFormatter
     }
 }
