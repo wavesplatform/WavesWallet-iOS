@@ -12,6 +12,8 @@ struct Environment: Decodable {
 
     enum Constants {
         static let alias = "alias"
+        fileprivate static let main = "environment_mainnet"
+        fileprivate static let test = "environment_testnet"
     }
 
     struct AssetInfo: Decodable {
@@ -42,26 +44,8 @@ struct Environment: Decodable {
     let scheme: String
     let generalAssetIds: [AssetInfo]
 
-    let isTestNet: Bool = {
-        UserDefaults.standard.bool(forKey: "isTestEnvironment")
-    }()
-}
-
-extension Environment {
-
-    var aliasScheme: String {
-        return Constants.alias + ":" + scheme + ":"
-    }
-}
-
-final class Environments {
-    enum Constants {
-        fileprivate static let main = "environment_mainnet"
-        fileprivate static let test = "environment_testnet"
-    }
-
-    static let Testnet: Environment = parseJSON(json: Constants.test)!
-    static let Mainnet: Environment = parseJSON(json: Constants.main)!
+    private static let Testnet: Environment = parseJSON(json: Constants.test)!
+    private static let Mainnet: Environment = parseJSON(json: Constants.main)!
 
     static var isTestNet: Bool {
         set {
@@ -86,5 +70,12 @@ final class Environments {
 
     private static func parseJSON(json fileName: String) -> Environment? {
         return JSONDecoder.decode(json: fileName)
+    }
+}
+
+extension Environment {
+
+    var aliasScheme: String {
+        return Constants.alias + ":" + scheme + ":"
     }
 }

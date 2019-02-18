@@ -51,8 +51,6 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
         self.assetsBalanceSettingsRepository = assetsBalanceSettingsRepository
     }
 
-
-
     func balances() -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
         return
             authorizationInteractor
