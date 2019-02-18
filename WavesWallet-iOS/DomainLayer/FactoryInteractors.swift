@@ -8,6 +8,21 @@
 
 import Foundation
 
+private struct AuthorizationInteractorLocalizableImp: AuthorizationInteractorLocalizable {
+    var fallbackTitle: String {
+        return Localizable.Waves.Biometric.localizedFallbackTitle
+    }
+    var cancelTitle: String {
+        return Localizable.Waves.Biometric.localizedCancelTitle
+    }
+    var readFromkeychain: String {
+        return Localizable.Waves.Biometric.readfromkeychain
+    }
+    var saveInkeychain: String {
+        return Localizable.Waves.Biometric.saveinkeychain
+    }
+}
+
 final class FactoryInteractors: FactoryInteractorsProtocol {
 
     static let instance: FactoryInteractors = FactoryInteractors()
@@ -64,7 +79,8 @@ final class FactoryInteractors: FactoryInteractorsProtocol {
         let interactor = AuthorizationInteractor(localWalletRepository: instance.walletsRepositoryLocal,
                                                  localWalletSeedRepository: instance.walletSeedRepositoryLocal,
                                                  remoteAuthenticationRepository: instance.authenticationRepositoryRemote,
-                                                 accountSettingsRepository: instance.accountSettingsRepository)
+                                                 accountSettingsRepository: instance.accountSettingsRepository,
+                                                 localizable: AuthorizationInteractorLocalizableImp())
 
         return interactor
     }()

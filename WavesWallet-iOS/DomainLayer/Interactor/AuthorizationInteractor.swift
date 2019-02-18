@@ -164,6 +164,13 @@ private final class SeedRepositoryMemory {
     }
 }
 
+protocol AuthorizationInteractorLocalizable {
+    var fallbackTitle: String { get }
+    var cancelTitle: String { get }
+    var readFromkeychain: String { get }
+    var saveInkeychain: String { get }
+}
+
 final class AuthorizationInteractor: AuthorizationInteractorProtocol {
 
     private let localWalletRepository: WalletsRepositoryProtocol
@@ -171,15 +178,19 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
     private let remoteAuthenticationRepository: AuthenticationRepositoryProtocol
     private let accountSettingsRepository: AccountSettingsRepositoryProtocol
 
+    private let localizable: AuthorizationInteractorLocalizable
+
     init(localWalletRepository: WalletsRepositoryProtocol,
          localWalletSeedRepository: WalletSeedRepositoryProtocol,
          remoteAuthenticationRepository: AuthenticationRepositoryProtocol,
-         accountSettingsRepository: AccountSettingsRepositoryProtocol) {
+         accountSettingsRepository: AccountSettingsRepositoryProtocol,
+         localizable: AuthorizationInteractorLocalizable) {
 
         self.localWalletRepository = localWalletRepository
         self.localWalletSeedRepository = localWalletSeedRepository
         self.remoteAuthenticationRepository = remoteAuthenticationRepository
         self.accountSettingsRepository = accountSettingsRepository
+        self.localizable = localizable
     }
 
     //TODO: Mutex
@@ -760,20 +771,20 @@ private extension AuthorizationInteractor {
         }
     }
 
-    private func biometricAccess(localizedFallbackTitle: String? = Localizable.Waves.Biometric.localizedFallbackTitle) -> Observable<LAContext> {
+    private func biometricAccess(localizedFallbackTitle: String?) -> Observable<LAContext> {
 
         return Observable<LAContext>.create { observer -> Disposable in
 
             let context = LAContext()
 
-            context.localizedFallbackTitle = localizedFallbackTitle
-            context.localizedCancelTitle = Localizable.Waves.Biometric.localizedCancelTitle
+            context.localizedFallbackTitle = localizedFallbackTitle ?? localizable.fallbackTitle
+            context.localizedCancelTitle = localizable.cancelTitle
 
             var error: NSError?
             if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &error) {
 
                 context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics,
-                                       localizedReason: Localizable.Waves.Biometric.readfromkeychain,
+                                       localizedReason: localizable.readFromkeychain,
                                        reply:
                     { (result, error) in
 
@@ -822,7 +833,7 @@ private extension AuthorizationInteractor {
 
 
                 let keychain = Keychain(service: Constants.service)
-                    .authenticationPrompt(Localizable.Waves.Biometric.saveinkeychain)
+                    .authenticationPrompt(localizable.saveInkeychain)
                     .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
 
                 do {
@@ -858,7 +869,7 @@ private extension AuthorizationInteractor {
 
                 let keychain = Keychain(service: Constants.service)
                     .authenticationContext(context)
-                    .authenticationPrompt(Localizable.Waves.Biometric.readfromkeychain)
+                    .authenticationPrompt(localizable.readFromkeychain)
                     .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
 
                 do {
