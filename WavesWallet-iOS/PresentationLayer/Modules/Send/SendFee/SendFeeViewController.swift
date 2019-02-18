@@ -11,23 +11,39 @@ import RxFeedback
 import RxCocoa
 import RxSwift
 
+private enum Constants {
+    static let contentHeight: CGFloat = 288
+    static let headerHeight: CGFloat = 74
+}
 
-final class SendFeeViewController: UIViewController {
+
+final class SendFeeViewController: ModalScrollViewController {
     
     weak var delegate: SendFeeModuleOutput!
     var presenter: SendFeePresenterProtocol!
 
     @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
-    
+
+    private var modalRootView: ModalRootView {
+        return self.view as! ModalRootView
+    }
+
     private var sections: [SendFee.ViewModel.Section] = []
     private let sendEvent: PublishRelay<SendFee.Event> = PublishRelay<SendFee.Event>()
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        modalRootView.delegate = self
         setupFeedBack()
+    }
+
+    override var scrollView: UIScrollView {
+        return self.tableView
+    }
+
+    override func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
+        return Constants.contentHeight + Constants.headerHeight
     }
 }
 
@@ -60,10 +76,8 @@ private extension SendFeeViewController {
                 case .update:
                     owner.sections = state.sections
                     owner.tableView.reloadData()
-                    owner.activityIndicator.stopAnimating()
                     
                 case .handleError(let error):
-                    owner.activityIndicator.stopAnimating()
                     owner.showNetworkErrorSnack(error: error)
                 }
             })
@@ -86,19 +100,29 @@ extension SendFeeViewController: UITableViewDelegate {
                 return
             }
             delegate.sendFeeModuleDidSelectAssetFee(asset.assetBalance, fee: asset.fee)
-            if let vc = parent as? PopupViewController {
-                vc.dismissPopup()
-            }
         default:
             break
+        }
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+
+        let row = sections[indexPath.section].items[indexPath.row]
+
+        switch row {
+        case .indicator:
+            return Constants.contentHeight - Constants.headerHeight
+
+        case .asset:
+            return SendFeeTableViewCell.viewHeight()
         }
     }
 }
 
 //MARK: - UITableViewDataSource
+
 extension SendFeeViewController: UITableViewDataSource {
 
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
@@ -112,13 +136,28 @@ extension SendFeeViewController: UITableViewDataSource {
         let row = sections[indexPath.section].items[indexPath.row]
         
         switch row {
-        case .header:
-            return tableView.dequeueCell() as SendFeeHeaderCell
-            
+        case .indicator:
+            let cell = tableView.dequeueCell() as SendFeeIndicatorCell
+            return cell
+
         case .asset(let asset):
             let cell = tableView.dequeueCell() as SendFeeTableViewCell
             cell.update(with: asset)
             return cell
         }
+    }
+}
+
+//MARK: - UITableViewDataSource
+
+extension SendFeeViewController: ModalRootViewDelegate {
+
+    func modalHeaderView() -> UIView {
+        let sendFeeHeaderView: SendFeeHeaderView = SendFeeHeaderView.loadView() as! SendFeeHeaderView
+        return sendFeeHeaderView
+    }
+
+    func modalHeaderHeight() -> CGFloat {
+        return Constants.headerHeight
     }
 }
