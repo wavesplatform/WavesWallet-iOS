@@ -82,7 +82,7 @@ platform :ios do
       readonly: true,
       keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
 
-    download_environments()
+    download_environments
 
 		cocoapods(
 			verbose: true,

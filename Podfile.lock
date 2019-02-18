@@ -309,8 +309,8 @@ SPEC CHECKSUMS:
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   AppsFlyerFramework: 481eafa4f92e3274fa8d04f10108cdad83fd532b
   AppSpectorSDK: 210091a50e4db5e7bfe58ff56289a1df0521e2ab
-  base58: b3862511216d07dbb10ec85f08902f51b674462f
-  blake2: b767add912ed9f7ded789bf257d3c6081ed10ec0
+  base58: 58513cc706aab9b9ccbc0827d640e21f8998d94e
+  blake2: 44673ebf5df0a6e5d7423f4b327319513c218e7b
   Charts: f122fb70b19847fa5817d018b77d6c5a2296ab25
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
   CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
@@ -332,7 +332,7 @@ SPEC CHECKSUMS:
   IdentityImg: ada114256228c58b82b9eadfe30863aa5908e74f
   InfiniteCollectionView: 49a7639a04c7cb21164de3840245f084fda257d0
   IQKeyboardManagerSwift: b07ccf9d8cafe993dcd6cb794eb4ba34611a0c4e
-  keccak: a73c028b7a5ec094d1c827398ae33618aa8cb19d
+  keccak: 00e58598ccb9fd2bbda8a3250c02a8ac788401f4
   KeychainAccess: b3816fddcf28aa29d94b10ec305cd52be14c472b
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   Koloda: fc08984dc013b4d5aff3bd7265a8874e6784b5ef
@@ -372,4 +372,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 9d960c4cbee763a866a9516cb32dd1d11f5c1d9c
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.0
