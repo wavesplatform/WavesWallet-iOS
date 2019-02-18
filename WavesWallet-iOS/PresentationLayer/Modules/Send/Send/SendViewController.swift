@@ -42,7 +42,10 @@ final class SendViewController: UIViewController {
     @IBOutlet private weak var coinomatErrorView: UIView!
     @IBOutlet private weak var viewBottomContent: UIView!
     @IBOutlet private weak var viewBottomContentHeightConstraint: NSLayoutConstraint!
-    
+
+    private let popoverViewControllerTransitioning = ModalViewControllerTransitioning {
+
+    }
     
     private var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
     private var amount: Money?
@@ -238,9 +241,9 @@ extension SendViewController: TransactionFeeViewDelegate {
         let vc = SendFeeModuleBuilder(output: self).build(input: .init(wavesFee: wavesFee,
                                                                        assetID: assetID,
                                                                        feeAssetID: feeAssetID))
-        let popup = PopupViewController()
-        popup.contentHeight = SendFeeModuleBuilder.minimumHeight
-        popup.present(contentViewController: vc)
+        vc.modalPresentationStyle = .custom
+        vc.transitioningDelegate = popoverViewControllerTransitioning
+        self.present(vc, animated: true, completion: nil)
     }
 }
 
@@ -248,6 +251,8 @@ extension SendViewController: TransactionFeeViewDelegate {
 extension SendViewController: SendFeeModuleOutput {
     
     func sendFeeModuleDidSelectAssetFee(_ asset: DomainLayer.DTO.SmartAssetBalance, fee: Money) {
+
+        self.dismiss(animated: true, completion: nil)
         feeAssetID = asset.assetId
         feeAssetBalance = asset
         currentFee = fee

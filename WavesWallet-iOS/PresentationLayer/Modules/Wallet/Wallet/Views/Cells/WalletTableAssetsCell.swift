@@ -38,6 +38,7 @@ final class WalletTableAssetsCell: UITableViewCell, Reusable {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        imageIcon.image = nil
         disposeBag = DisposeBag()
     }
 
