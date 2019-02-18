@@ -56,9 +56,19 @@ final class WalletCoordinator: Coordinator {
         }).disposed(by: disposeBag)
     }
 
-    private func showBackupTostIfNeed() {        
+    private func showBackupTost() {        
         let coordinator = BackupTostCoordinator(navigationRouter: navigationRouter)
         addChildCoordinatorAndStart(childCoordinator: coordinator)
+    }
+
+    private func showNews() {
+        let coordinator = AppNewsCoordinator()
+        addChildCoordinatorAndStart(childCoordinator: coordinator)
+    }
+
+    private func showNewsAndBackupTost() {
+        showBackupTost()
+        showNews()
     }
 
     private func showLegalOrBackupIfNeed() {
@@ -66,10 +76,10 @@ final class WalletCoordinator: Coordinator {
         self.authorization
             .authorizedWallet()
             .take(1)
-            .subscribe(onNext: { [weak self] wallet in                
+            .subscribe(onNext: { [weak self] wallet in
                 guard let owner = self else { return }
                 guard wallet.wallet.isAlreadyShowLegalDisplay == false else {
-                    owner.showBackupTostIfNeed()
+                    owner.showNewsAndBackupTost()
                     return
                 }
 
@@ -280,7 +290,7 @@ extension WalletCoordinator: LegalCoordinatorDelegate {
             .flatMap({ [weak self] (wallet) -> Observable<Void> in
                 guard let owner = self else { return Observable.never() }
 
-                owner.showBackupTostIfNeed()
+                owner.showNewsAndBackupTost()
 
                 var newWallet = wallet.wallet
                 newWallet.isAlreadyShowLegalDisplay = true

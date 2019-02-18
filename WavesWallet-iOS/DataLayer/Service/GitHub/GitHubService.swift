@@ -20,6 +20,7 @@ private enum Constants {
     static let urlEnvironmentMainNet: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/mobile/v2.2/environment_mainnet.json")!
     static let urlEnvironmentTestNet: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/master/environment_testnet.json")!
     static let urlTransactionFee: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/master/fee.json")!
+    static let urlApplicationNews: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.2/notifications.json")!
 }
 
 extension GitHub.Service {
@@ -33,6 +34,14 @@ extension GitHub.Service {
     }
 
     enum TransactionRules {
+        /**
+         Response:
+         - ?
+         */
+        case get
+    }
+
+    enum ApplicationNews {
         /**
          Response:
          - ?
@@ -89,6 +98,42 @@ extension GitHub.Service.TransactionRules: TargetType {
         switch self {
         case .get:
             return Constants.urlTransactionFee
+        }
+    }
+
+    var path: String {
+        return ""
+    }
+
+    var headers: [String: String]? {
+        return ContentType.applicationJson.headers
+    }
+
+    var method: Moya.Method {
+        switch self {
+        case .get:
+            return .get
+        }
+    }
+
+    var task: Task {
+        switch self {
+        case .get:
+            return .requestPlain
+        }
+    }
+
+}
+
+extension GitHub.Service.ApplicationNews: TargetType {
+    var sampleData: Data {
+        return Data()
+    }
+
+    var baseURL: URL {
+        switch self {
+        case .get:
+            return Constants.urlApplicationNews
         }
     }
 

@@ -99,66 +99,6 @@ extension AssetLogo {
         return "\(cacheKeyForRemoteLogo(icon: icon, style: style)).local"
     }
 
-
-    private static func saveImage(key: String, image: UIImage) -> Observable<UIImage> {
-
-        return Observable.create({ (observer) -> Disposable in
-
-            let cache = ImageCache.default
-            cache.store(image, forKey: key)
-            observer.onNext(image)
-            observer.onCompleted()
-
-            return Disposables.create {}
-        })
-    }
-
-    private static func retrieveImage(key: String) -> Observable<UIImage?> {
-
-        return Observable.create({ (observer) -> Disposable in
-
-            let cache = ImageCache.default
-
-            let workItem = cache.retrieveImage(forKey: key,
-                                               options: nil,
-                                               completionHandler: { image, _ in
-                                                observer.onNext(image)
-                                                observer.onCompleted()
-            })
-
-            return Disposables.create {
-                workItem?.cancel()                
-            }
-        })
-    }
-
-    static func downloadImage(path: String) -> Observable<UIImage?> {
-
-        return Observable.create({ (observer) -> Disposable in
-
-            let url = URL(string: path)!
-            let downloader = ImageDownloader.default
-            let workItem = downloader.downloadImage(with: url,
-                                                    retrieveImageTask: nil,
-                                                    options: nil,
-                                                    progressBlock: nil) { (image, error, url, data) in
-
-                                                        if let data = data, let pic = UIImage(data: data) {
-                                                            observer.onNext(pic)
-                                                            observer.onCompleted()
-                                                        } else {
-                                                            observer.onNext(nil)
-                                                            observer.onCompleted()
-                                                        }
-            }
-
-            return Disposables.create {
-                workItem?.cancel()
-            }
-        })
-    }
-
-
     static func logo(icon: DomainLayer.DTO.Asset.Icon,
                      style: Style) -> Observable<UIImage> {
 
