@@ -63,10 +63,13 @@ final class SweetMigration {
 
 final class MigrationInteractor {
 
-    private var walletsRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
+    private var walletsRepository: WalletsRepositoryProtocol
 
     private var sweetMigration: SweetMigration = SweetMigration()
 
+    init(walletsRepository: WalletsRepositoryProtocol) {
+        self.walletsRepository = walletsRepository
+    }
 
     func migration() -> Observable<Void> {
 

@@ -19,5 +19,10 @@ final class FactoryInteractors: FactoryInteractorsProtocol {
     private(set) lazy var authorization: AuthorizationInteractorProtocol = AuthorizationInteractor()
     private(set) lazy var aliases: AliasesInteractorProtocol = AliasesInteractor()
     private(set) lazy var assetsBalanceSettings: AssetsBalanceSettingsInteractorProtocol = AssetsBalanceSettingsInteractor()
+
+    private(set) lazy var migrationInteractor: MigrationInteractor = {
+        return MigrationInteractor(walletsRepository: FactoryRepositories.instance.walletsRepositoryLocal)
+    }()
+
     fileprivate init() {}
 }
