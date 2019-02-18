@@ -1167,6 +1167,8 @@ internal enum Localizable {
           internal static var masssent: String { return Localizable.tr("Waves", "history.transaction.title.masssent") }
           /// Received
           internal static var received: String { return Localizable.tr("Waves", "history.transaction.title.received") }
+          /// Received Sponsorship
+          internal static var receivedSponsorship: String { return Localizable.tr("Waves", "history.transaction.title.receivedSponsorship") }
           /// Self-transfer
           internal static var selfTransfer: String { return Localizable.tr("Waves", "history.transaction.title.selfTransfer") }
           /// Sent
