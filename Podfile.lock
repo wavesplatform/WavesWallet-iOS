@@ -365,14 +365,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-<<<<<<< Updated upstream
-PODFILE CHECKSUM: 52275f348eeed70c874cfb5bd087f0ddb517d1a5
-=======
-<<<<<<< HEAD
-PODFILE CHECKSUM: 9d960c4cbee763a866a9516cb32dd1d11f5c1d9c
-=======
-PODFILE CHECKSUM: 2f29908b755bf7625c545af0c4a13e28f7695926
->>>>>>> 05e9f93... Remove local vendors
->>>>>>> Stashed changes
+PODFILE CHECKSUM: 11f01b2a879d8b88f61eaeae949800d412928f69
 
-COCOAPODS: 1.6.0
+COCOAPODS: 1.5.3

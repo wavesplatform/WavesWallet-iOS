@@ -842,15 +842,9 @@ private extension AuthorizationInteractor {
                 return Disposables.create()
             }
 
-<<<<<<< HEAD
-                let keychain = Keychain(service: Constants.service)
-                    .authenticationPrompt(localizable.saveInkeychain)
-                    .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
-=======
             let keychain = Keychain(service: Constants.service)
                 .authenticationPrompt(owner.localizable.saveInkeychain)
                 .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
->>>>>>> b38b3e4... Remove Localizable from auth
 
             do {
                 try keychain.remove(wallet.publicKey)
@@ -883,17 +877,10 @@ private extension AuthorizationInteractor {
 
         return Observable<String>.create { [weak self] observer -> Disposable in
 
-<<<<<<< HEAD
-                let keychain = Keychain(service: Constants.service)
-                    .authenticationContext(context)
-                    .authenticationPrompt(localizable.readFromkeychain)
-                    .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
-=======
             guard let owner = self else {
                 observer.onError(AuthorizationInteractorError.fail)
                 return Disposables.create()
             }
->>>>>>> b38b3e4... Remove Localizable from auth
 
             let keychain = Keychain(service: Constants.service)
                 .authenticationContext(context)
@@ -1185,16 +1172,13 @@ extension LAError {
              LAError.authenticationFailed:
             return AuthorizationInteractorError.biometricUserCancel
 
-        case LAError.biometryLockout,
-             LAError.touchIDLockout:
+        case LAError.biometryLockout:
             return AuthorizationInteractorError.biometricLockout
 
         case LAError.userFallback:
             return AuthorizationInteractorError.biometricUserFallback
 
-        case LAError.touchIDNotEnrolled,
-             LAError.touchIDNotAvailable,
-             LAError.biometryNotEnrolled,
+        case LAError.biometryNotEnrolled,
              LAError.biometryNotAvailable,
              LAError.passcodeNotSet:
             return AuthorizationInteractorError.biometricDisable

@@ -104,5 +104,11 @@ final class FactoryInteractors: FactoryInteractorsProtocol {
         return interactor
     }()
 
+    private(set) lazy var migrationInteractor: MigrationInteractor = {
+
+        let instance = FactoryRepositories.instance
+        return MigrationInteractor(walletsRepository: instance.walletsRepositoryLocal)
+    }()
+
     fileprivate init() {}
 }
