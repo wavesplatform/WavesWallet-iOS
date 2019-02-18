@@ -13,7 +13,6 @@ PODS:
   - CryptoSwift (0.13.1)
   - CSV.swift (2.3.1)
   - DeviceKit (1.11.0)
-  - Differentiator (3.1.0)
   - Fabric (1.9.0)
   - Firebase/Auth (5.14.0):
     - Firebase/CoreOnly
@@ -118,10 +117,6 @@ PODS:
   - RxAtomic (4.4.0)
   - RxCocoa (4.4.0):
     - RxSwift (~> 4.0)
-  - RxDataSources (3.1.0):
-    - Differentiator (~> 3.0)
-    - RxCocoa (~> 4.0)
-    - RxSwift (~> 4.0)
   - RxFeedback (1.1.1):
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
@@ -192,7 +187,6 @@ DEPENDENCIES:
   - Reveal-SDK
   - RxAlamofire
   - RxCocoa
-  - RxDataSources
   - RxFeedback
   - RxGesture
   - RxOptional
@@ -220,7 +214,6 @@ SPEC REPOS:
     - CryptoSwift
     - CSV.swift
     - DeviceKit
-    - Differentiator
     - Fabric
     - Firebase
     - FirebaseAnalytics
@@ -252,7 +245,6 @@ SPEC REPOS:
     - RxAlamofire
     - RxAtomic
     - RxCocoa
-    - RxDataSources
     - RxFeedback
     - RxGesture
     - RxOptional
@@ -316,7 +308,6 @@ SPEC CHECKSUMS:
   CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
   CSV.swift: d16f671b3090a2c0525d5f2165b18319074aae2b
   DeviceKit: a3a86f8dddbe1317a9a243cdf9646858bf135dce
-  Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   Firebase: 963d5685fae888a56d6d4d9cfce6b9c976958798
   FirebaseAnalytics: c06f9d70577d79074214700a71fd5d39de5550fb
@@ -352,7 +343,6 @@ SPEC CHECKSUMS:
   RxAlamofire: 09624d0f2d48ed8b686e4eb4cf68e28cbd2df556
   RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
   RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
-  RxDataSources: a843bad90c29817f5923ec8163f4af2de084ceb3
   RxFeedback: 640e317bc7f6c4914c39a2063c6d5c0e6c1aa65d
   RxGesture: 7f6dfb45dbde06e618c24442d38493e3144f2c95
   RxOptional: 80426a0ddbd092573e4c482d8cc13302078c4d5e
@@ -370,6 +360,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: 9d960c4cbee763a866a9516cb32dd1d11f5c1d9c
+PODFILE CHECKSUM: a20cfcbb9ef30ef292e1816ab608245ed6d3341e
 
 COCOAPODS: 1.5.3

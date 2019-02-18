@@ -335,7 +335,6 @@
 		0ADD7F9021F22FB60075FC59 /* ControlEvent+ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2021F22FB60075FC59 /* ControlEvent+ScrollView.swift */; };
 		0ADD7F9121F22FB60075FC59 /* UIButton+WithoutAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2121F22FB60075FC59 /* UIButton+WithoutAnimation.swift */; };
 		0ADD7F9221F22FB60075FC59 /* UIScrollView+Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2221F22FB60075FC59 /* UIScrollView+Pagination.swift */; };
-		0ADD7F9321F22FB60075FC59 /* RxDataSource+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2321F22FB60075FC59 /* RxDataSource+TableView.swift */; };
 		0ADD7F9421F22FB60075FC59 /* UIFeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2421F22FB60075FC59 /* UIFeedbackGenerator.swift */; };
 		0ADD7F9521F22FB60075FC59 /* UIColor+Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2521F22FB60075FC59 /* UIColor+Asset.swift */; };
 		0ADD7F9621F22FB60075FC59 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2621F22FB60075FC59 /* UIColor+Hex.swift */; };
@@ -346,7 +345,6 @@
 		0ADD7F9B21F22FB60075FC59 /* UIApplication+OpenURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2B21F22FB60075FC59 /* UIApplication+OpenURL.swift */; };
 		0ADD7F9C21F22FB60075FC59 /* UIViewController+Additionals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2C21F22FB60075FC59 /* UIViewController+Additionals.swift */; };
 		0ADD7F9D21F22FB60075FC59 /* UIResponder+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2D21F22FB60075FC59 /* UIResponder+Rx.swift */; };
-		0ADD7F9E21F22FB60075FC59 /* RxTableViewAnimatedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2E21F22FB60075FC59 /* RxTableViewAnimatedDataSource.swift */; };
 		0ADD7F9F21F22FB60075FC59 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2F21F22FB60075FC59 /* UIViewController+Alert.swift */; };
 		0ADD7FA021F22FB60075FC59 /* RateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F3021F22FB60075FC59 /* RateApp.swift */; };
 		0ADD7FA121F22FB60075FC59 /* UIColor+Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F3121F22FB60075FC59 /* UIColor+Colors.swift */; };
@@ -1259,7 +1257,6 @@
 		0ADD7F2021F22FB60075FC59 /* ControlEvent+ScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ControlEvent+ScrollView.swift"; sourceTree = "<group>"; };
 		0ADD7F2121F22FB60075FC59 /* UIButton+WithoutAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+WithoutAnimation.swift"; sourceTree = "<group>"; };
 		0ADD7F2221F22FB60075FC59 /* UIScrollView+Pagination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Pagination.swift"; sourceTree = "<group>"; };
-		0ADD7F2321F22FB60075FC59 /* RxDataSource+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RxDataSource+TableView.swift"; sourceTree = "<group>"; };
 		0ADD7F2421F22FB60075FC59 /* UIFeedbackGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFeedbackGenerator.swift; sourceTree = "<group>"; };
 		0ADD7F2521F22FB60075FC59 /* UIColor+Asset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Asset.swift"; sourceTree = "<group>"; };
 		0ADD7F2621F22FB60075FC59 /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
@@ -1270,7 +1267,6 @@
 		0ADD7F2B21F22FB60075FC59 /* UIApplication+OpenURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+OpenURL.swift"; sourceTree = "<group>"; };
 		0ADD7F2C21F22FB60075FC59 /* UIViewController+Additionals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additionals.swift"; sourceTree = "<group>"; };
 		0ADD7F2D21F22FB60075FC59 /* UIResponder+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIResponder+Rx.swift"; sourceTree = "<group>"; };
-		0ADD7F2E21F22FB60075FC59 /* RxTableViewAnimatedDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxTableViewAnimatedDataSource.swift; sourceTree = "<group>"; };
 		0ADD7F2F21F22FB60075FC59 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		0ADD7F3021F22FB60075FC59 /* RateApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateApp.swift; sourceTree = "<group>"; };
 		0ADD7F3121F22FB60075FC59 /* UIColor+Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Colors.swift"; sourceTree = "<group>"; };
@@ -2978,8 +2974,6 @@
 				0ADD7F2021F22FB60075FC59 /* ControlEvent+ScrollView.swift */,
 				0ADD7F3221F22FB60075FC59 /* ControlEvent+Signal.swift */,
 				0ADD7F5021F22FB60075FC59 /* NSAttributedString+Styles.swift */,
-				0ADD7F2321F22FB60075FC59 /* RxDataSource+TableView.swift */,
-				0ADD7F2E21F22FB60075FC59 /* RxTableViewAnimatedDataSource.swift */,
 				0ADD7F4321F22FB60075FC59 /* TimingFunction.swift */,
 				0ADD7F2B21F22FB60075FC59 /* UIApplication+OpenURL.swift */,
 				0ADD7F2121F22FB60075FC59 /* UIButton+WithoutAnimation.swift */,
@@ -5078,7 +5072,6 @@
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/DeviceKit/DeviceKit.framework",
-				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/Gloss/Gloss.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
@@ -5101,7 +5094,6 @@
 				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/RxFeedback/RxFeedback.framework",
 				"${BUILT_PRODUCTS_DIR}/RxGesture/RxGesture.framework",
 				"${BUILT_PRODUCTS_DIR}/RxOptional/RxOptional.framework",
@@ -5133,7 +5125,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DeviceKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gloss.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
@@ -5156,7 +5147,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxFeedback.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxGesture.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxOptional.framework",
@@ -5677,7 +5667,6 @@
 				0ADD7FE221F22FB60075FC59 /* RXCrypto+SHA.swift in Sources */,
 				0ADD7F9721F22FB60075FC59 /* UIView+Additionals.swift in Sources */,
 				E9B086AE2163883000937644 /* AddAddressBookModuleBuilder.swift in Sources */,
-				0ADD7F9E21F22FB60075FC59 /* RxTableViewAnimatedDataSource.swift in Sources */,
 				E9B087DF2163886800937644 /* DexCreateOrderPresenterProtocol.swift in Sources */,
 				E99DD81B21CEE7690091AFEC /* CandlesApiService.swift in Sources */,
 				E9C0B49C2176C46E00669D1D /* SendPresenterProtocol.swift in Sources */,
@@ -5915,7 +5904,6 @@
 				0AF92208212E07B3003BA067 /* AssetHeaderView.swift in Sources */,
 				E9B087D32163886800937644 /* DexListModuleBuilder.swift in Sources */,
 				04EB742621133318004A065B /* HistoryViewController.swift in Sources */,
-				0ADD7F9321F22FB60075FC59 /* RxDataSource+TableView.swift in Sources */,
 				0AD83606217A1C14004413E9 /* AccountEnvironment.swift in Sources */,
 				0AF922F2212E1234003BA067 /* CopyableLabel.swift in Sources */,
 				E96E2A0021D34A2100AC2FA9 /* MatcherRepositoryProtocol.swift in Sources */,

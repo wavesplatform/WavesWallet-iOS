@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import base58
+import Base58
 
 class Base58 {
     class func encode(_ input: [UInt8]) -> String {
