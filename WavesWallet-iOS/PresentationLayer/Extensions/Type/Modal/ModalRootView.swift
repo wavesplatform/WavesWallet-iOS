@@ -11,34 +11,32 @@ import UIKit
 
 private struct Constants {
     static let cornerRadius: CGFloat = 12
-    static let headerHeight: CGFloat = 24
-    static let dragElemTopMargin: CGFloat = 6
 }
 
-final class ModalRootView: UIView {
+protocol ModalRootViewDelegate {
+
+    func modalHeaderView() -> UIView
+
+    func modalHeaderHeight() -> CGFloat
+}
+
+final class ModalRootView: UIView, ModalScrollViewRootView {
 
     @IBOutlet private(set) var tableView: ModalTableView!
 
-    let headerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        view.layer.cornerRadius = Constants.cornerRadius
-        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    private var headerView: UIView?
 
-        let image = UIImageView(image: Images.dragElem.image)
-        image.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(image)
+    private var headerHeight: CGFloat = 0
 
-        NSLayoutConstraint.activate([view.topAnchor.constraint(equalTo: image.topAnchor, constant: -Constants.dragElemTopMargin),
-                                     view.centerXAnchor.constraint(equalTo: image.centerXAnchor, constant: 0)])
-
-        return view
-    }()
+    var delegate: ModalRootViewDelegate? {
+        didSet {
+            setupHeaderView()
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
         tableView.layer.cornerRadius = Constants.cornerRadius
-        setupHeaderView()
     }
 
     override func layoutSubviews() {
@@ -48,10 +46,10 @@ final class ModalRootView: UIView {
         var frame = CGRect(x: 0,
                            y: headerTopY,
                            width: tableView.frame.size.width,
-                           height: Constants.headerHeight)
+                           height: self.headerHeight)
         frame.origin.y = headerTopY
 
-        self.headerView.frame = frame
+        self.headerView?.frame = frame
 
 
         self.tableView.scrollIndicatorInsets.top = max(0, -(self.tableView.contentOffset.y))
@@ -59,16 +57,25 @@ final class ModalRootView: UIView {
 
     private func setupHeaderView() {
 
+        guard let headerView = self.delegate?.modalHeaderView() else { return }
+        self.headerHeight = self.delegate?.modalHeaderHeight() ?? 0
+        self.headerView = headerView
+
         let fakeHeaderView: UIView = {
             let view = UIView()
-            view.backgroundColor = .red
-            view.frame = CGRect(x: 0, y: 0, width: 0, height: Constants.headerHeight)
-            view.layer.cornerRadius = Constants.cornerRadius
-            view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            view.backgroundColor = .white
+            view.frame = CGRect(x: 0, y: 0, width: 0, height: self.headerHeight)
+            view.layer.cornerRadius = headerView.layer.cornerRadius
+            view.layer.maskedCorners = headerView.layer.maskedCorners
             return view
         }()
 
         tableView.tableHeaderView = fakeHeaderView
         tableView.superview?.insertSubview(headerView, aboveSubview: tableView)
+    }
+
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        setNeedsLayout()
     }
 }

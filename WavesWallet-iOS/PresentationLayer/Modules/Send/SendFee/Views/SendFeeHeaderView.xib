@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view userInteractionEnabled="NO" contentMode="scaleToFill" id="thh-rp-hFv" customClass="SendFeeHeaderView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sji-15-yNC">
+                    <rect key="frame" x="0.0" y="69" width="375" height="598"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dHL-Uc-7o0">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction Fee" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sU5-Ub-nWo">
+                    <rect key="frame" x="16" y="48" width="343" height="21"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dragElem" translatesAutoresizingMaskIntoConstraints="NO" id="vN1-79-MZj">
+                    <rect key="frame" x="169.5" y="26" width="36" height="4"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="dHL-Uc-7o0" firstAttribute="bottom" secondItem="sU5-Ub-nWo" secondAttribute="bottom" id="2te-dq-Rcq"/>
+                <constraint firstItem="vN1-79-MZj" firstAttribute="top" secondItem="LoO-HA-B7d" secondAttribute="top" constant="6" id="4D7-nt-73C"/>
+                <constraint firstItem="dHL-Uc-7o0" firstAttribute="leading" secondItem="thh-rp-hFv" secondAttribute="leading" id="LSd-HP-J7D"/>
+                <constraint firstItem="LoO-HA-B7d" firstAttribute="trailing" secondItem="sji-15-yNC" secondAttribute="trailing" id="SQQ-b2-1S7"/>
+                <constraint firstItem="sU5-Ub-nWo" firstAttribute="leading" secondItem="LoO-HA-B7d" secondAttribute="leading" constant="16" id="UkV-ZP-uMl"/>
+                <constraint firstItem="LoO-HA-B7d" firstAttribute="trailing" secondItem="dHL-Uc-7o0" secondAttribute="trailing" id="dx8-dZ-6z5"/>
+                <constraint firstItem="LoO-HA-B7d" firstAttribute="trailing" secondItem="sU5-Ub-nWo" secondAttribute="trailing" constant="16" id="kJ0-t7-huO"/>
+                <constraint firstItem="LoO-HA-B7d" firstAttribute="bottom" secondItem="sji-15-yNC" secondAttribute="bottom" id="mEc-OS-g8h"/>
+                <constraint firstItem="sji-15-yNC" firstAttribute="top" secondItem="dHL-Uc-7o0" secondAttribute="bottom" id="o79-KQ-o06"/>
+                <constraint firstItem="dHL-Uc-7o0" firstAttribute="top" secondItem="thh-rp-hFv" secondAttribute="top" id="rDh-zn-FEc"/>
+                <constraint firstItem="sU5-Ub-nWo" firstAttribute="top" secondItem="vN1-79-MZj" secondAttribute="bottom" constant="18" id="ruh-qc-bjd"/>
+                <constraint firstItem="vN1-79-MZj" firstAttribute="centerX" secondItem="thh-rp-hFv" secondAttribute="centerX" id="sXF-Ej-C4m"/>
+                <constraint firstItem="sji-15-yNC" firstAttribute="leading" secondItem="LoO-HA-B7d" secondAttribute="leading" id="xxF-TG-1A6"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="LoO-HA-B7d"/>
+            <connections>
+                <outlet property="gradientView" destination="sji-15-yNC" id="REB-HM-FAG"/>
+                <outlet property="labelTitle" destination="sU5-Ub-nWo" id="aGj-z6-b0k"/>
+                <outlet property="topBackgroundView" destination="dHL-Uc-7o0" id="nhz-pM-AeE"/>
+            </connections>
+            <point key="canvasLocation" x="-213" y="67"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="dragElem" width="36" height="4"/>
+    </resources>
+</document>
