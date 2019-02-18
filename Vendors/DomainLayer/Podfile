@@ -16,7 +16,8 @@ target 'WavesWallet-iOS' do
 
     # UI
     pod 'RxCocoa'
-    
+    pod 'RxDataSources'
+
     pod 'TTTAttributedLabel'    
     pod 'UITextView+Placeholder'
 
@@ -46,7 +47,6 @@ target 'WavesWallet-iOS' do
     pod 'Firebase/Core'
     pod 'Firebase/Database'
     pod 'Firebase/Auth'
-
     pod 'AppsFlyerFramework'
 
     pod 'Fabric'
@@ -80,7 +80,8 @@ target 'WavesWallet-iOS' do
     pod 'RxAlamofire'
     pod 'Moya/RxSwift'
 
-    # Parser    
+    # Parser
+    pod 'Gloss', '2.0.0-beta.1'
     pod 'CSV.swift'
 
     # Gen
