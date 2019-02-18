@@ -29,7 +29,7 @@ final class MyAddressPresenter: MyAddressPresenterProtocol {
 
     private let disposeBag: DisposeBag = DisposeBag()
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let aliasesRepository: AliasesRepositoryProtocol = FactoryRepositories.instance.aliasesRepository
+    private let aliasesRepository: AliasesRepositoryProtocol = FactoryRepositories.instance.aliasesRepositoryRemote
 
     weak var moduleOutput: MyAddressModuleOutput?
 

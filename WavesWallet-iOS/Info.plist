@@ -32,7 +32,11 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
+<<<<<<< HEAD
 	<string>2874</string>
+=======
+	<string>2734</string>
+>>>>>>> 3a99591... Refactor Factories
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
