@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '9.0'
+platform :ios, '10.0'
 
 # Ignore all warnings from all pods
 inhibit_all_warnings!
@@ -49,27 +49,20 @@ target 'WavesWallet-iOS' do
 
     pod 'AppsFlyerFramework'
 
-    pod 'Fabric'
-    pod 'Crashlytics'
-
     # Helperrs
     pod 'IdentityImg', :git => 'git@github.com:wavesplatform/identity-img-swift.git'
     pod '25519', :git => 'git@github.com:wavesplatform/25519.git'
-    pod 'base58', :path => 'Vendors/Base58'
-    pod 'keccak', :path => 'Vendors/Keccak'
-    pod 'blake2', :path => 'Vendors/Blake2'
+    pod 'Base58', :git => 'git@github.com:wavesplatform/Base58.git'
+    pod 'Keccak', :git => 'git@github.com:wavesplatform/Keccak.git'
+    pod 'Blake2', :git => 'git@github.com:wavesplatform/Blake2.git'
     pod 'CryptoSwift'
-
     pod 'KeychainAccess'
-
     pod 'QRCode'
     pod 'QRCodeReader.swift'
-
     pod 'SwiftDate'
-
     pod 'DeviceKit', '~> 1.3'
     
-    # Cache
+    # Cache & Download Images
     pod 'Kingfisher'
 
     # DB
@@ -90,6 +83,8 @@ target 'WavesWallet-iOS' do
     pod 'Reveal-SDK', :configurations => ['Debug', 'Test']
     pod 'AppSpectorSDK', :configurations => ['Debug', 'Test']
     pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git'
+    pod 'Fabric'
+    pod 'Crashlytics'
 end
 
 post_install do |installer|
