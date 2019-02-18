@@ -3198,21 +3198,21 @@
 		0AEB358A2115DB1D00EDD63C /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				0A88CC03217D27370083874C /* AccountSettingsRepositoryProtocol.swift */,
+				0A84F00021F4BBA000C0B7DB /* AddressRepositoryProtocol.swift */,
+				0A6AC3E321848920005D2525 /* AliasesRepositoryProtocol.swift */,
+				0A218B94215556F600B989A1 /* AuthenticationRepositoryProtocol.swift */,
+				0AAC2A452146C65900F6EB27 /* BlockRepositoryProtocol.swift */,
+				E9BB724721C2A94000B2AF7E /* CoinomatRepositoryProtocol.swift */,
 				0A4508F92178938C00EBF669 /* EnvironmentRepositoryProtocol.swift */,
-				E94A7002215AEA2A001814F7 /* AddressBook */,
-				0A5E4BD62138242C00E3C3C3 /* Transactions */,
+				0A751D3122170EF60024D523 /* NotificationNewsRepositoryProtocol.swift */,
+				0A218B8A2155335F00B989A1 /* WalletSeedRepositoryProtocol.swift */,
+				0A218B8621551E6600B989A1 /* WalletsRepositoryProtocol.swift */,
 				0AEB359521160E1700EDD63C /* AccountBalance */,
+				E94A7002215AEA2A001814F7 /* AddressBook */,
 				0AEB35922115E44A00EDD63C /* Assets */,
 				E97D450721C8020F000E3C48 /* Dex */,
-				0AAC2A452146C65900F6EB27 /* BlockRepositoryProtocol.swift */,
-				0A218B8621551E6600B989A1 /* WalletsRepositoryProtocol.swift */,
-				0A218B8A2155335F00B989A1 /* WalletSeedRepositoryProtocol.swift */,
-				0A218B94215556F600B989A1 /* AuthenticationRepositoryProtocol.swift */,
-				0A88CC03217D27370083874C /* AccountSettingsRepositoryProtocol.swift */,
-				0A6AC3E321848920005D2525 /* AliasesRepositoryProtocol.swift */,
-				E9BB724721C2A94000B2AF7E /* CoinomatRepositoryProtocol.swift */,
-				0A84F00021F4BBA000C0B7DB /* AddressRepositoryProtocol.swift */,
-				0A751D3122170EF60024D523 /* NotificationNewsRepositoryProtocol.swift */,
+				0A5E4BD62138242C00E3C3C3 /* Transactions */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -3220,19 +3220,19 @@
 		0AEB358D2115DF8300EDD63C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				E9BCF48021636DAC00FA6502 /* ResponseType.swift */,
-				0AEB358E2115DFF500EDD63C /* AssetDomainDTO.swift */,
-				E94A6E9E215AD53E001814F7 /* ContactDomainDTO.swift */,
-				0AEB359F21165CBF00EDD63C /* AssetBalanceDomainDTO.swift */,
-				0A5E4BBB213820C500E3C3C3 /* Transactions */,
-				0A218B802155180C00B989A1 /* WalletDomainDTO.swift */,
-				0A88CC05217D27DF0083874C /* AccountSettingsDomainDTO.swift */,
 				0A4D221D21809E3600155A8E /* AccountEnvironmentDomainDTO.swift */,
+				0A88CC05217D27DF0083874C /* AccountSettingsDomainDTO.swift */,
 				0A6AC3E7218489F5005D2525 /* AliasDomainDTO.swift */,
+				0AEB359F21165CBF00EDD63C /* AssetBalanceDomainDTO.swift */,
+				0AEB358E2115DFF500EDD63C /* AssetDomainDTO.swift */,
 				E922D25E21B81BE800575955 /* CandleDomainDTO.swift */,
 				E910B7EB21C3266F00E402AB /* CoinomatDomainDTO.swift */,
+				E94A6E9E215AD53E001814F7 /* ContactDomainDTO.swift */,
 				E964067D21D5299D00569963 /* DexDomainDTO.swift */,
 				0A751D3322170F3D0024D523 /* NotificationNewsDomainDTO.swift */,
+				E9BCF48021636DAC00FA6502 /* ResponseType.swift */,
+				0A218B802155180C00B989A1 /* WalletDomainDTO.swift */,
+				0A5E4BBB213820C500E3C3C3 /* Transactions */,
 			);
 			path = Models;
 			sourceTree = "<group>";
