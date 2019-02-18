@@ -1,7 +1,5 @@
-"appnews.button.okey" = "Okay";
 
-"sendfee.label.transactionFee" = "Transaction Fee";
-"sendfee.label.notAvailable" = "Not available";
+"history.transaction.title.receivedSponsorship" = "Received Sponsorship";
 
 "Receivecard.Label.minimunAmountInfo" = "The minimum is %@, the maximum is %@";
 
@@ -71,7 +69,7 @@
 
 "aliases.view.info.button.create" = "Create a new alias";
 
-"aliases.view.info.label.secondsubtitle" = "Your Alias must be between 4 and 30 characters long, and must contain only lowercase Latin letters, digits and symbols (@, -, _ etc)";
+"aliases.view.info.label.secondsubtitle" = "Your Alias must be between 4 and 30 characters long, and must contain only lowercase Latin letters, digits and symbols (@, -, _ and dot)";
 
 "aliases.view.info.label.subtitle" = "An Alias is a nickname for your address. You can use an Alias instead of an address to make transactions.";
 
@@ -79,11 +77,13 @@
 
 "aliaseswithout.view.info.button.create" = "Create a new alias";
 
-"aliaseswithout.view.info.label.secondsubtitle" = "Your Alias must be between 4 and 30 characters long, and must contain only lowercase Latin letters, digits and symbols (@, -, _ etc)";
+"aliaseswithout.view.info.label.secondsubtitle" = "Your Alias must be between 4 and 30 characters long, and must contain only lowercase Latin letters, digits and symbols (@, -, _ and dot)";
 
 "aliaseswithout.view.info.label.subtitle" = "An Alias is a nickname for your address. You can use an Alias instead of an address to make transactions.";
 
 "aliaseswithout.view.info.label.title" = "You do not have Aliases";
+
+"appnews.button.okey" = "Okay";
 
 "asset.cell.assetInfo.cantPerformTransactions" = "You can not perform transactions with this asset";
 
@@ -565,8 +565,6 @@
 
 "history.transaction.title.received" = "Received";
 
-"history.transaction.title.receivedSponsorship" = "Received Sponsorship";
-
 "history.transaction.title.selfTransfer" = "Self-transfer";
 
 "history.transaction.title.sent" = "Sent";
@@ -593,12 +591,9 @@
 
 "history.transaction.value.setScript.set" = "Set Script Transaction";
 
-
 "history.transaction.value.setSponsorship.cancel" = "Disable Sponsorship";
 
 "history.transaction.value.setSponsorship.set" = "Set Sponsorship";
-
-
 
 "import.account.button.enter.title" = "Enter SEED manually";
 
@@ -894,10 +889,11 @@
 
 "send.label.error.insufficientFunds" = "Insufficient funds";
 
-"send.label.error.minimun" = "Min %@ %@";
-"send.label.error.maximum" = "Max %@ %@";
-
 "send.label.error.invalidId" = "invalid ID";
+
+"send.label.error.maximum" = "Maximum %@ %@";
+
+"send.label.error.minimun" = "Minimum %@ %@";
 
 "send.label.error.notFundsFee" = "You don't have enough funds to pay the required fees.";
 
@@ -936,6 +932,10 @@
 "sendconfirmation.label.optionalMessage" = "Write an optional message";
 
 "sendconfirmation.label.sentTo" = "Sent to";
+
+"sendfee.label.notAvailable" = "Not available";
+
+"sendfee.label.transactionFee" = "Transaction Fee";
 
 "sendloading.label.sending" = "Sending…";
 

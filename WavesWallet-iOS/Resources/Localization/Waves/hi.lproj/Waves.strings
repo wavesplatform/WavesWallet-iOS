@@ -67,9 +67,7 @@
 
 "aliases.view.info.button.create" = "नया उपनाम बनाएं";
 
-"aliases.view.info.label.fee" = "लेनदेन फ़ीस 0.001 वेव";
-
-"aliases.view.info.label.secondsubtitle" = "आपका उपनाम 4 से 30 अक्षरों के बीच होना चाहिए, और इसमें केवल लोअरकेस लैटिन अक्षरों, अंक और प्रतीकों (@, -, _ आदि) होना चाहिए";
+"aliases.view.info.label.secondsubtitle" = "आपका उपनाम 4 से 30 अक्षरों के बीच होना चाहिए, और इसमें केवल लोअरकेस लैटिन अक्षरों, अंक और प्रतीकों (@, -, _ और डॉट) होना चाहिए";
 
 "aliases.view.info.label.subtitle" = "एक उपनाम आपके पते के लिए उपनाम है। लेनदेन करने के लिए आप पते के बजाय एलियास का उपयोग कर सकते हैं।";
 
@@ -77,13 +75,13 @@
 
 "aliaseswithout.view.info.button.create" = "नया उपनाम बनाएं";
 
-"aliaseswithout.view.info.label.fee" = "लेनदेन फ़ीस 0.001 वेव";
-
-"aliaseswithout.view.info.label.secondsubtitle" = "आपका उपनाम 4 से 30 अक्षरों के बीच होना चाहिए, और इसमें केवल लोअरकेस लैटिन अक्षरों, अंक और प्रतीकों (@, -, _ आदि) होना चाहिए";
+"aliaseswithout.view.info.label.secondsubtitle" = "आपका उपनाम 4 से 30 अक्षरों के बीच होना चाहिए, और इसमें केवल लोअरकेस लैटिन अक्षरों, अंक और प्रतीकों (@, -, _ और डॉट) होना चाहिए";
 
 "aliaseswithout.view.info.label.subtitle" = "एक उपनाम आपके पते के लिए उपनाम है। लेनदेन करने के लिए आप पते के बजाय एलियास का उपयोग कर सकते हैं।";
 
 "aliaseswithout.view.info.label.title" = "आपके पास उपनाम नहीं है";
+
+"appnews.button.okey" = "ठीक है";
 
 "asset.cell.assetInfo.cantPerformTransactions" = "आप इस संपत्ति के साथ लेनदेन नहीं कर सकते हैं";
 
@@ -565,6 +563,8 @@
 
 "history.transaction.title.received" = "प्राप्त किया";
 
+"history.transaction.title.receivedSponsorship" = "पॉन्सरशिप प्राप्त किया";
+
 "history.transaction.title.selfTransfer" = "सेल्फ-ट्रांसफर";
 
 "history.transaction.title.sent" = "भेज दिया";
@@ -590,6 +590,10 @@
 "history.transaction.value.setScript.cancel" = "स्क्रिप्ट लेन-देन रद्द करें";
 
 "history.transaction.value.setScript.set" = "स्क्रिप्ट लेन-देन सेट करें";
+
+"history.transaction.value.setSponsorship.cancel" = "रायोजन लेनदेन रद्द करें";
+
+"history.transaction.value.setSponsorship.set" = "रायोजन लेनदेन सेट करें";
 
 "import.account.button.enter.title" = "मैन्युअल रूप से सीड दर्ज करें";
 
@@ -887,6 +891,10 @@
 
 "send.label.error.invalidId" = "इनवैलिड आई डी";
 
+"send.label.error.maximum" = "अधिकतम %@ %@";
+
+"send.label.error.minimun" = "न्यूनतम %@ %@";
+
 "send.label.error.notFundsFee" = "आवश्यक फ़ीस का भुगतान करने के लिए आपके पास पर्याप्त धनराशि नहीं है।";
 
 "send.label.gatewayFee" = "गेटवे फ़ीस है";
@@ -924,6 +932,10 @@
 "sendconfirmation.label.optionalMessage" = "एक वैकल्पिक संदेश लिखें";
 
 "sendconfirmation.label.sentTo" = "भेजा";
+
+"sendfee.label.notAvailable" = "उपलब्ध नहीं है";
+
+"sendfee.label.transactionFee" = "ट्रांसक्शन फी";
 
 "sendloading.label.sending" = "भेजा जा रहा है…";
 
