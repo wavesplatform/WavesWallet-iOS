@@ -565,6 +565,8 @@
 
 "history.transaction.title.received" = "Received";
 
+"history.transaction.title.receivedSponsorship" = "Received Sponsorship";
+
 "history.transaction.title.selfTransfer" = "Self-transfer";
 
 "history.transaction.title.sent" = "Sent";
