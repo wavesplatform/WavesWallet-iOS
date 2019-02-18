@@ -37,7 +37,7 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
     
     private func modelsQuery() -> Feedback {
         
-        return react(query: { state -> Bool? in
+        return react(request: { state -> Bool? in
             return state.isNeedRefreshing ? true : nil
             
         }, effects: { [weak self] ss -> Signal<DexLastTrades.Event> in

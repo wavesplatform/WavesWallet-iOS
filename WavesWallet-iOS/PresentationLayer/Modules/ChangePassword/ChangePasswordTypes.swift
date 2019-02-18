@@ -13,7 +13,7 @@ enum ChangePasswordTypes {
 
 extension ChangePasswordTypes {
 
-    enum Query {
+    enum Query: Equatable {
         case confirmPassword(wallet: DomainLayer.DTO.Wallet, old: String, new: String)
     }
 

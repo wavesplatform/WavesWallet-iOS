@@ -41,7 +41,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     }
 
     private func queryRefresh() -> Feedback {
-        return react(query: { (state) -> HistoryTypes.RefreshData? in
+        return react(request: { (state) -> HistoryTypes.RefreshData? in
 
             return state.refreshData
         }, effects: { [weak self] query -> Signal<HistoryTypes.Event> in

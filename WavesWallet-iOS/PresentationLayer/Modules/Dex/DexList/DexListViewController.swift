@@ -49,7 +49,7 @@ final class DexListViewController: UIViewController {
         setupViewNoItems(isHidden: true)
                 
         let feedback = bind(self) { owner, state -> Bindings<DexList.Event> in
-            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
         }
         
         let readyViewFeedback: DexListPresenter.Feedback = { [weak self] _ in

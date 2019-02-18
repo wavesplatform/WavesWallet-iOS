@@ -62,7 +62,7 @@ final class ChangePasswordPresenter: ChangePasswordPresenterProtocol {
     }
 
     private func checkOldFeedback() -> Feedback {
-        return react(query: { state -> CheckPasswordQuery? in
+        return react(request: { state -> CheckPasswordQuery? in
 
             if state.isAppeared == false {
                 return nil
@@ -100,7 +100,7 @@ final class ChangePasswordPresenter: ChangePasswordPresenterProtocol {
     }
 
     private func handlerQuery() -> Feedback {
-        return react(query: { state -> Types.Query? in
+        return react(request: { state -> Types.Query? in
 
             if let query = state.query,
                 case .confirmPassword = query,

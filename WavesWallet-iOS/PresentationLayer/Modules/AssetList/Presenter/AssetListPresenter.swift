@@ -34,7 +34,7 @@ final class AssetListPresenter: AssetListPresenterProtocol {
     }
     
     private func modelsQuery() -> Feedback {
-        return react(query: { state -> AssetList.State? in
+        return react(request: { state -> AssetList.State? in
             return state.isAppeared ? state : nil
         }, effects: { [weak self] state -> Signal<AssetList.Event> in
             

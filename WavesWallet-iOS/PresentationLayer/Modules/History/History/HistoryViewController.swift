@@ -153,7 +153,7 @@ private extension HistoryViewController {
             let events = owner.events()
             
             return Bindings(subscriptions: subscriptions,
-                            mutations: events)
+                            events: events)
         }
         
         let readyViewFeedback: HistoryPresenter.Feedback = { [weak self] _ in
