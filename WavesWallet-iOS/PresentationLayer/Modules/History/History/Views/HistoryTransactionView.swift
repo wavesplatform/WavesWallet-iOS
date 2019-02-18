@@ -182,8 +182,14 @@ extension DomainLayer.DTO.SmartTransaction {
     var title: String {
 
         switch kind {
-        case .receive:
-            return Localizable.Waves.History.Transaction.Title.received
+        case .receive(let tx):
+
+            if tx.hasSponsorship {
+                return Localizable.Waves.History.Transaction.Title.receivedSponsorship
+            } else {
+                return Localizable.Waves.History.Transaction.Title.received
+            }
+
 
         case .sent:
             return Localizable.Waves.History.Transaction.Title.sent
