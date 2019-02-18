@@ -3,8 +3,8 @@ PODS:
   - Alamofire (4.8.0)
   - AppsFlyerFramework (4.8.10)
   - AppSpectorSDK (1.1.5)
-  - base58 (0.1)
-  - blake2 (0.1)
+  - Base58 (0.2)
+  - Blake2 (0.1)
   - Charts (3.2.1):
     - Charts/Core (= 3.2.1)
   - Charts/Core (3.2.1)
@@ -50,7 +50,6 @@ PODS:
     - FirebaseCore (~> 5.1)
     - GoogleUtilities/Environment (~> 5.3)
     - GoogleUtilities/UserDefaults (~> 5.3)
-  - Gloss (2.0.0-beta.1)
   - GoogleAppMeasurement (5.4.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
@@ -79,7 +78,7 @@ PODS:
   - IdentityImg (0.1)
   - InfiniteCollectionView (1.3.2)
   - IQKeyboardManagerSwift (6.2.0)
-  - keccak (0.1)
+  - Keccak (0.1)
   - KeychainAccess (3.1.2)
   - Kingfisher (4.10.1)
   - Koloda (4.5.1):
@@ -159,8 +158,8 @@ DEPENDENCIES:
   - "25519 (from `git@github.com:wavesplatform/25519.git`)"
   - AppsFlyerFramework
   - AppSpectorSDK
-  - base58 (from `Vendors/Base58`)
-  - blake2 (from `Vendors/Blake2`)
+  - "Base58 (from `git@github.com:wavesplatform/Base58.git`)"
+  - "Blake2 (from `git@github.com:wavesplatform/Blake2.git`)"
   - Charts
   - Crashlytics
   - CryptoSwift
@@ -170,11 +169,10 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
-  - Gloss (= 2.0.0-beta.1)
   - "IdentityImg (from `git@github.com:wavesplatform/identity-img-swift.git`)"
   - "InfiniteCollectionView (from `git@github.com:wavesplatform/InfiniteCollectionView.git`)"
   - IQKeyboardManagerSwift
-  - keccak (from `Vendors/Keccak`)
+  - "Keccak (from `git@github.com:wavesplatform/Keccak.git`)"
   - KeychainAccess
   - Kingfisher
   - Koloda
@@ -222,7 +220,6 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseDatabase
     - FirebaseInstanceID
-    - Gloss
     - GoogleAppMeasurement
     - GoogleUtilities
     - GTMSessionFetcher
@@ -264,16 +261,16 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   '25519':
     :git: "git@github.com:wavesplatform/25519.git"
-  base58:
-    :path: Vendors/Base58
-  blake2:
-    :path: Vendors/Blake2
+  Base58:
+    :git: "git@github.com:wavesplatform/Base58.git"
+  Blake2:
+    :git: "git@github.com:wavesplatform/Blake2.git"
   IdentityImg:
     :git: "git@github.com:wavesplatform/identity-img-swift.git"
   InfiniteCollectionView:
     :git: "git@github.com:wavesplatform/InfiniteCollectionView.git"
-  keccak:
-    :path: Vendors/Keccak
+  Keccak:
+    :git: "git@github.com:wavesplatform/Keccak.git"
   RESideMenu:
     :git: https://github.com/wavesplatform/RESideMenu.git
   Sentry:
@@ -283,12 +280,21 @@ CHECKOUT OPTIONS:
   '25519':
     :commit: b7eb7b9b951d0503669c991af371a27fdefa28ee
     :git: "git@github.com:wavesplatform/25519.git"
+  Base58:
+    :commit: caf9297d5667ab575a79c25671a470c1da48267c
+    :git: "git@github.com:wavesplatform/Base58.git"
+  Blake2:
+    :commit: 7a95d2703487a487ff65e4fc0d9a4c41162952be
+    :git: "git@github.com:wavesplatform/Blake2.git"
   IdentityImg:
     :commit: d44a40a2334c9cb7c0a76d6dde36fd8cc9266e28
     :git: "git@github.com:wavesplatform/identity-img-swift.git"
   InfiniteCollectionView:
     :commit: 0168a154821a80611dda2f524da143e3392328d6
     :git: "git@github.com:wavesplatform/InfiniteCollectionView.git"
+  Keccak:
+    :commit: b67ef7767ff598ddcff6d468f7772b3fc6b65810
+    :git: "git@github.com:wavesplatform/Keccak.git"
   RESideMenu:
     :commit: c4870be8caf988b3c164bbf5675a717a905e9952
     :git: https://github.com/wavesplatform/RESideMenu.git
@@ -301,8 +307,8 @@ SPEC CHECKSUMS:
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   AppsFlyerFramework: 481eafa4f92e3274fa8d04f10108cdad83fd532b
   AppSpectorSDK: 210091a50e4db5e7bfe58ff56289a1df0521e2ab
-  base58: b3862511216d07dbb10ec85f08902f51b674462f
-  blake2: b767add912ed9f7ded789bf257d3c6081ed10ec0
+  Base58: a8409491c6f89c3b86a9b447d4302b1a4e03e2a2
+  Blake2: b29e27d1cc9ae2a8073a96990321e0c1a8fb5e8b
   Charts: f122fb70b19847fa5817d018b77d6c5a2296ab25
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
   CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
@@ -316,14 +322,13 @@ SPEC CHECKSUMS:
   FirebaseCore: 8f49b70f57ab5cbb032ef41d64992ded21606459
   FirebaseDatabase: 0621689f77528d62b47e1c06ca737c4c19275d1a
   FirebaseInstanceID: e2fa4cb35ef5558c200f7f0ad8a53e212215f93e
-  Gloss: 3224f4d6e345138475216855a32e880d9e03e6d2
   GoogleAppMeasurement: 98b71f5e04142793729a5ef23e5b96651ff4b70f
   GoogleUtilities: 95996bea7c7d9b8fb811b7507669a4a8762f80c7
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   IdentityImg: ada114256228c58b82b9eadfe30863aa5908e74f
   InfiniteCollectionView: 49a7639a04c7cb21164de3840245f084fda257d0
   IQKeyboardManagerSwift: b07ccf9d8cafe993dcd6cb794eb4ba34611a0c4e
-  keccak: a73c028b7a5ec094d1c827398ae33618aa8cb19d
+  Keccak: 99956a01b86eeac74e4debdac71a8c9ef33fb46d
   KeychainAccess: b3816fddcf28aa29d94b10ec305cd52be14c472b
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   Koloda: fc08984dc013b4d5aff3bd7265a8874e6784b5ef
@@ -360,6 +365,14 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
+<<<<<<< Updated upstream
 PODFILE CHECKSUM: 52275f348eeed70c874cfb5bd087f0ddb517d1a5
+=======
+<<<<<<< HEAD
+PODFILE CHECKSUM: 9d960c4cbee763a866a9516cb32dd1d11f5c1d9c
+=======
+PODFILE CHECKSUM: 2f29908b755bf7625c545af0c4a13e28f7695926
+>>>>>>> 05e9f93... Remove local vendors
+>>>>>>> Stashed changes
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.0

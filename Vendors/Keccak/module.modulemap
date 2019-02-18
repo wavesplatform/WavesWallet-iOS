@@ -1,4 +1,0 @@
-module keccak [system][extern_c] {
-    header "keccak.h"
-    export *
-}
