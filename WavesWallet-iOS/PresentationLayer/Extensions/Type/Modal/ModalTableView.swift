@@ -11,7 +11,11 @@ import UIKit
 
 final class ModalTableView: UITableView {
 
-    private(set) lazy var backgroundModalView = UIView()
+    private(set) lazy var backgroundModalView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
 
     override func layoutSubviews() {
         super.layoutSubviews()

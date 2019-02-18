@@ -28,6 +28,7 @@ final class AssetListTableViewCell: UITableViewCell, NibReusable {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        iconAsset.image = nil
         disposeBag = DisposeBag()
     }
     
