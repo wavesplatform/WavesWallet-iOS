@@ -152,7 +152,7 @@ extension WalletViewController {
             let events = owner.events()
 
             return Bindings(subscriptions: subscriptions,
-                            mutations: events)
+                            events: events)
         }
 
         let readyViewFeedback: WalletPresenterProtocol.Feedback = { [weak self] _ in

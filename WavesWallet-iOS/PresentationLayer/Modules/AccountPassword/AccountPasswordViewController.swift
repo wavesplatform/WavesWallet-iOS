@@ -92,7 +92,7 @@ private extension AccountPasswordViewController {
     func setupSystem() {
 
         let uiFeedback: AccountPasswordPresenter.Feedback = bind(self) { (owner, state) -> (Bindings<Types.Event>) in
-            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())            
+            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())            
         }
 
         presenter.system(feedbacks: [uiFeedback])

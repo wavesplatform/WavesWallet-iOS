@@ -97,7 +97,7 @@ final class PasscodePresenter: PasscodePresenterProtocol {
 extension PasscodePresenter {
 
     private func changePassword() -> Feedback {
-        return react(query: { state -> ChangePasswordQuery? in
+        return react(request: { state -> ChangePasswordQuery? in
 
             if case .changePassword(let wallet, let newPassword, let oldPassword) = state.kind,
                 let action = state.action,
@@ -123,7 +123,7 @@ extension PasscodePresenter {
 
 
     private func changePasscodeByPassword() -> Feedback {
-        return react(query: { state -> ChangePasscodeByPasswordQuery? in
+        return react(request: { state -> ChangePasscodeByPasswordQuery? in
 
             if case .changePasscodeByPassword(let wallet, let password) = state.kind, let action = state.action, case .changePasscodeByPassword = action {
                 return ChangePasscodeByPasswordQuery(wallet: wallet, passcode: state.passcode, password: password)
@@ -148,7 +148,7 @@ extension PasscodePresenter {
     }
 
     private func changePasscode() -> Feedback {
-        return react(query: { state -> ChangePasscodeQuery? in
+        return react(request: { state -> ChangePasscodeQuery? in
 
             if case .changePasscode(let wallet) = state.kind, let action = state.action, case .changePasscode(let oldPasscode) = action {
                 return ChangePasscodeQuery(wallet: wallet, passcode: state.passcode, oldPasscode: oldPasscode)
@@ -173,7 +173,7 @@ extension PasscodePresenter {
     }
 
     private func registration() -> Feedback {
-        return react(query: { state -> RegistationQuery? in
+        return react(request: { state -> RegistationQuery? in
 
             if case .registration(let account) = state.kind, let action = state.action, case .registration = action {
                 return RegistationQuery(account: account, passcode: state.passcode)
@@ -197,7 +197,7 @@ extension PasscodePresenter {
     }
 
     private func disabledBiometricUsingBiometric() -> Feedback {
-        return react(query: { state -> DomainLayer.DTO.Wallet? in
+        return react(request: { state -> DomainLayer.DTO.Wallet? in
 
             if case .setEnableBiometric(_, let wallet) = state.kind,
                 let action = state.action,
@@ -223,7 +223,7 @@ extension PasscodePresenter {
     }
 
     private func changeEnableBiometric() -> Feedback {
-        return react(query: { state -> SetEnableBiometricQuery? in
+        return react(request: { state -> SetEnableBiometricQuery? in
 
             if case .setEnableBiometric(let isOn, let wallet) = state.kind,
                 let action = state.action, case .setEnableBiometric = action {
@@ -248,7 +248,7 @@ extension PasscodePresenter {
     }
 
     private func logInBiometric() -> Feedback {
-        return react(query: { state -> LogInByBiometricQuery? in
+        return react(request: { state -> LogInByBiometricQuery? in
 
             if case .logIn(let wallet) = state.kind, let action = state.action, case .logInBiometric = action {
                 return LogInByBiometricQuery(wallet: wallet)
@@ -272,7 +272,7 @@ extension PasscodePresenter {
     }
 
     private func verifyAccess() -> Feedback {
-        return react(query: { state -> LogInQuery? in
+        return react(request: { state -> LogInQuery? in
 
             if let action = state.action, case .verifyAccess = action {
                 if case .verifyAccess(let wallet) = state.kind {
@@ -300,7 +300,7 @@ extension PasscodePresenter {
     }
 
     private func verifyAccessBiometric() -> Feedback {
-        return react(query: { state -> LogInByBiometricQuery? in
+        return react(request: { state -> LogInByBiometricQuery? in
 
             if let action = state.action, case .verifyAccessBiometric = action {
                 if case .verifyAccess(let wallet) = state.kind {
@@ -325,7 +325,7 @@ extension PasscodePresenter {
     }
 
     private func logIn() -> Feedback {
-        return react(query: { state -> LogInQuery? in
+        return react(request: { state -> LogInQuery? in
 
             if let action = state.action, case .logIn = action {
                 if case .logIn(let wallet) = state.kind {
@@ -351,7 +351,7 @@ extension PasscodePresenter {
     }
 
     private func logout() -> Feedback {
-        return react(query: { state -> LogoutQuery? in
+        return react(request: { state -> LogoutQuery? in
 
             if case .logIn(let wallet) = state.kind,
                 let action = state.action, case .logout = action {
