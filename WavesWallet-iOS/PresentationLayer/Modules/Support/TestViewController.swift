@@ -25,9 +25,6 @@ final class TestViewController: ModalScrollViewController {
         self.languages = newList
         self.tableView.reloadData()
 
-        tableView.backgroundModalView.backgroundColor = .white
-        self.tableView.shouldPassthroughTouch = true
-        self.tableView.isEnabledPassthroughSubviews = true
     }
 
     override var scrollView: UIScrollView {
@@ -35,9 +32,8 @@ final class TestViewController: ModalScrollViewController {
     }
 
     override func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
-        return 500
+        return 288
     }
-
 }
 
 extension TestViewController: UITableViewDataSource {

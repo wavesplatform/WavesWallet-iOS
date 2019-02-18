@@ -60,7 +60,7 @@ extension SendFee.ViewModel {
     }
     
     enum Row {
-        case header
+        case indicator
         case asset(SendFee.DTO.SponsoredAsset)
     }
 }

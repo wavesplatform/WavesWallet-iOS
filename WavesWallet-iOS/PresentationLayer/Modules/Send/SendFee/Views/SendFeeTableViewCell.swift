@@ -27,6 +27,7 @@ final class SendFeeTableViewCell: UITableViewCell, Reusable {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        iconLogo.image = nil
         disposeBag = DisposeBag()
     }
 }
