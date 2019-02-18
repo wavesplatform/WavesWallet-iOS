@@ -35,16 +35,17 @@ class PopupActionView: UIView {
                                                  opacity: Constants.Shadow.opacity,
                                                  shadowRadius: Constants.Shadow.shadowRadius,
                                                  shouldRasterize: true))
-        
+    }
+    
+    func setupInitialAnimationPoition() {
+
         viewBackground.alpha = 0
         bottomOffset.constant = initialViewPosition
-        
-        DispatchQueue.main.asyncAfter(deadline: .now()) {
-            self.bottomOffset.constant = Constants.defaultBottomOffset
-            UIView.animate(withDuration: Constants.animationDuration) {
-                self.viewBackground.alpha = 1
-                self.layoutIfNeeded()
-            }
+        layoutIfNeeded()
+        bottomOffset.constant = Constants.defaultBottomOffset
+        UIView.animate(withDuration: Constants.animationDuration) {
+            self.viewBackground.alpha = 1
+            self.layoutIfNeeded()
         }
     }
     

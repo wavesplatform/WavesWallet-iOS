@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class AppNewsView: PopupActionView, NibLoadable, ViewConfiguration {
+final class AppNewsView: PopupActionView, NibLoadable {
 
     struct Model {
         let title: String
@@ -28,27 +28,33 @@ final class AppNewsView: PopupActionView, NibLoadable, ViewConfiguration {
         buttonOkey.setTitle(Localizable.Waves.Appnews.Button.okey, for: .normal)
         
     }
+    
     @IBAction private func okeyTapped(_ sender: Any) {
         tapDismiss?()
         dismiss()
     }
-    
+}
+
+extension AppNewsView: ViewConfiguration {
     
     func update(with model: Model) {
+        
         labelTitle.text = model.title
         labelSubtitle.text = model.subtitle
         imageView.image = model.image
+        
+        frame = UIScreen.main.bounds
+        layoutIfNeeded()
     }
 }
-
 
 extension AppNewsView {
     
     class func show(model: Model) -> AppNewsView {
         let view = AppNewsView.loadFromNib()
         view.update(with: model)
-        view.frame = UIScreen.main.bounds
         AppDelegate.shared().window?.addSubview(view)
+        view.setupInitialAnimationPoition()
         return view
     }
 }
