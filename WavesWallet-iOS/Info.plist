@@ -32,11 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-<<<<<<< HEAD
-	<string>2874</string>
-=======
-	<string>2736</string>
->>>>>>> 05e9f93... Remove local vendors
+	<string>2880</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
