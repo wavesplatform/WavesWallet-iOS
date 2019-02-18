@@ -57,6 +57,7 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
 
     private(set) lazy var addressRepository: AddressRepositoryProtocol = AddressRepositoryRemote(environmentRepository: self.environmentRepository)
 
+    private(set) lazy var notificationNewsRepository: NotificationNewsRepositoryProtocol = NotificationNewsRepository()
     
     fileprivate init() {}
 }
