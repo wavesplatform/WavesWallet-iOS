@@ -21,28 +21,29 @@
                     <color key="backgroundColor" red="0.0" green="0.1019607843" blue="0.22352941179999999" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ge6-oq-flV">
-                    <rect key="frame" x="16" y="332" width="343" height="311"/>
+                    <rect key="frame" x="16" y="331" width="343" height="312"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bchHardforkPart1" translatesAutoresizingMaskIntoConstraints="NO" id="X2U-Db-JuX">
-                            <rect key="frame" x="0.0" y="44" width="343" height="67"/>
+                            <rect key="frame" x="64.5" y="44" width="214" height="68"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="67" id="qUG-vg-WnQ"/>
+                                <constraint firstAttribute="width" constant="214" id="Vnd-ud-OkQ"/>
+                                <constraint firstAttribute="height" constant="68" id="qUG-vg-WnQ"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BCH HARDFORK" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P0i-c2-R8y">
-                            <rect key="frame" x="5" y="135" width="333" height="20.5"/>
+                            <rect key="frame" x="5" y="136" width="333" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We have suspended BCH trading and are currently airdropping the new BSV coin to BCH holders." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nn2-h7-kPO">
-                            <rect key="frame" x="5" y="163.5" width="333" height="31.5"/>
+                            <rect key="frame" x="5" y="164.5" width="333" height="31.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J17-C6-6qT" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
-                            <rect key="frame" x="24" y="239" width="295" height="48"/>
+                            <rect key="frame" x="24" y="240" width="295" height="48"/>
                             <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="48" id="Rhr-wg-EtB"/>
@@ -65,11 +66,9 @@
                         <constraint firstItem="P0i-c2-R8y" firstAttribute="leading" secondItem="ge6-oq-flV" secondAttribute="leading" constant="5" id="8sH-hi-d60"/>
                         <constraint firstItem="P0i-c2-R8y" firstAttribute="top" secondItem="X2U-Db-JuX" secondAttribute="bottom" constant="24" id="FEh-9F-YCx"/>
                         <constraint firstAttribute="trailing" secondItem="J17-C6-6qT" secondAttribute="trailing" constant="24" id="H9T-U9-onn"/>
-                        <constraint firstAttribute="trailing" secondItem="X2U-Db-JuX" secondAttribute="trailing" id="Nkr-LB-GSQ"/>
                         <constraint firstItem="J17-C6-6qT" firstAttribute="leading" secondItem="ge6-oq-flV" secondAttribute="leading" constant="24" id="O06-c7-BYJ"/>
                         <constraint firstItem="nn2-h7-kPO" firstAttribute="leading" secondItem="P0i-c2-R8y" secondAttribute="leading" id="R1t-XJ-W75"/>
                         <constraint firstItem="X2U-Db-JuX" firstAttribute="centerX" secondItem="ge6-oq-flV" secondAttribute="centerX" id="T8r-aV-MwP"/>
-                        <constraint firstItem="X2U-Db-JuX" firstAttribute="leading" secondItem="ge6-oq-flV" secondAttribute="leading" id="U4y-Wr-Xxn"/>
                         <constraint firstAttribute="bottom" secondItem="J17-C6-6qT" secondAttribute="bottom" constant="24" id="dEe-ha-oJa"/>
                         <constraint firstAttribute="trailing" secondItem="P0i-c2-R8y" secondAttribute="trailing" constant="5" id="gyn-TF-gpE"/>
                         <constraint firstItem="nn2-h7-kPO" firstAttribute="trailing" secondItem="P0i-c2-R8y" secondAttribute="trailing" id="nNw-YH-bLS"/>
