@@ -771,20 +771,26 @@ private extension AuthorizationInteractor {
         }
     }
 
-    private func biometricAccess(localizedFallbackTitle: String?) -> Observable<LAContext> {
+    private func biometricAccess(localizedFallbackTitle: String? = nil) -> Observable<LAContext> {
 
-        return Observable<LAContext>.create { observer -> Disposable in
+        return Observable<LAContext>.create { [weak self] observer -> Disposable in
+
+            guard let owner = self else {
+                observer.onError(AuthorizationInteractorError.fail)
+                return Disposables.create()
+            }
 
             let context = LAContext()
 
-            context.localizedFallbackTitle = localizedFallbackTitle ?? localizable.fallbackTitle
-            context.localizedCancelTitle = localizable.cancelTitle
+            context.localizedFallbackTitle = localizedFallbackTitle ?? owner.localizable.fallbackTitle
+            context.localizedCancelTitle = owner.localizable.cancelTitle
+
 
             var error: NSError?
             if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &error) {
 
                 context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics,
-                                       localizedReason: localizable.readFromkeychain,
+                                       localizedReason: self?.localizable.readFromkeychain ?? "",
                                        reply:
                     { (result, error) in
 
@@ -829,26 +835,36 @@ private extension AuthorizationInteractor {
     }
 
     private func savePasscodeInKeychain(wallet: DomainLayer.DTO.Wallet, passcode: String, context: LAContext) -> Observable<Bool> {
-        return Observable<Bool>.create { observer -> Disposable in
+        return Observable<Bool>.create { [weak self] observer -> Disposable in
 
+            guard let owner = self else {
+                observer.onError(AuthorizationInteractorError.fail)
+                return Disposables.create()
+            }
 
+<<<<<<< HEAD
                 let keychain = Keychain(service: Constants.service)
                     .authenticationPrompt(localizable.saveInkeychain)
                     .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
+=======
+            let keychain = Keychain(service: Constants.service)
+                .authenticationPrompt(owner.localizable.saveInkeychain)
+                .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
+>>>>>>> b38b3e4... Remove Localizable from auth
 
-                do {
-                    try keychain.remove(wallet.publicKey)
-                    try keychain.set(passcode, key: wallet.publicKey)
-                    observer.onNext(true)
+            do {
+                try keychain.remove(wallet.publicKey)
+                try keychain.set(passcode, key: wallet.publicKey)
+                observer.onNext(true)
 
-                } catch let error {
+            } catch let error {
 
-                    if error is AuthorizationInteractorError {
-                        observer.onError(error)                    
-                    } else {
-                        observer.onError(AuthorizationInteractorError.biometricDisable)
-                    }
+                if error is AuthorizationInteractorError {
+                    observer.onError(error)
+                } else {
+                    observer.onError(AuthorizationInteractorError.biometricDisable)
                 }
+            }
 
 
             return Disposables.create {}
@@ -865,28 +881,40 @@ private extension AuthorizationInteractor {
 
     private func passcodeFromKeychain(wallet: DomainLayer.DTO.Wallet, context: LAContext) -> Observable<String> {
 
-        return Observable<String>.create { observer -> Disposable in
+        return Observable<String>.create { [weak self] observer -> Disposable in
 
+<<<<<<< HEAD
                 let keychain = Keychain(service: Constants.service)
                     .authenticationContext(context)
                     .authenticationPrompt(localizable.readFromkeychain)
                     .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
+=======
+            guard let owner = self else {
+                observer.onError(AuthorizationInteractorError.fail)
+                return Disposables.create()
+            }
+>>>>>>> b38b3e4... Remove Localizable from auth
 
-                do {
-                    guard let passcode = try keychain.get(wallet.publicKey) else
-                    {
-                        throw AuthorizationInteractorError.biometricDisable
-                    }
+            let keychain = Keychain(service: Constants.service)
+                .authenticationContext(context)
+                .authenticationPrompt(owner.localizable.readFromkeychain)
+                .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
 
-                    observer.onNext(passcode)
-                    observer.onCompleted()
-                } catch let error {
-                    if error is AuthorizationInteractorError {
-                        observer.onError(error)
-                    } else {
-                        observer.onError(AuthorizationInteractorError.permissionDenied)
-                    }
+            do {
+                guard let passcode = try keychain.get(wallet.publicKey) else
+                {
+                    throw AuthorizationInteractorError.biometricDisable
                 }
+
+                observer.onNext(passcode)
+                observer.onCompleted()
+            } catch let error {
+                if error is AuthorizationInteractorError {
+                    observer.onError(error)
+                } else {
+                    observer.onError(AuthorizationInteractorError.permissionDenied)
+                }
+            }
 
 
             return Disposables.create {}
