@@ -29,7 +29,7 @@ final class MyAddressPresenter: MyAddressPresenterProtocol {
 
     private let disposeBag: DisposeBag = DisposeBag()
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let aliasesRepository: AliasesRepositoryProtocol = FactoryRepositories.instance.aliasesRepository
+    private let aliasesRepository: AliasesRepositoryProtocol = FactoryRepositories.instance.aliasesRepositoryRemote
 
     weak var moduleOutput: MyAddressModuleOutput?
 
@@ -58,7 +58,7 @@ fileprivate extension MyAddressPresenter {
 
     func getWalletQuery() -> Feedback {
 
-        return react(query: { state -> Bool? in
+        return react(request: { state -> Bool? in
 
             if state.displayState.isAppeared == true {
                 return true
@@ -83,7 +83,7 @@ fileprivate extension MyAddressPresenter {
 
     func getAliasesQuery() -> Feedback {
 
-        return react(query: { state -> String? in
+        return react(request: { state -> String? in
 
             if case .getAliases? = state.query {
                 return state.wallet?.address
@@ -107,7 +107,7 @@ fileprivate extension MyAddressPresenter {
 
     func externalQuery() -> Feedback {
 
-        return react(query: { state -> Types.Query? in
+        return react(request: { state -> Types.Query? in
 
 
             if case .showInfo? = state.query {

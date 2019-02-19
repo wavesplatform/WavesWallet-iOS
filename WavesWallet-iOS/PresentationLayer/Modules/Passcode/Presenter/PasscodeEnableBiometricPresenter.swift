@@ -53,7 +53,7 @@ final class PasscodeEnableBiometricPresenter: PasscodePresenterProtocol {
 extension PasscodeEnableBiometricPresenter {
 
     private func disabledBiometricUsingBiometric() -> Feedback {
-        return react(query: { state -> DomainLayer.DTO.Wallet? in
+        return react(request: { state -> DomainLayer.DTO.Wallet? in
 
             if case .setEnableBiometric(_, let wallet) = state.kind,
                 let action = state.action,
@@ -79,7 +79,7 @@ extension PasscodeEnableBiometricPresenter {
     }
 
     private func changeEnableBiometric() -> Feedback {
-        return react(query: { state -> SetEnableBiometricQuery? in
+        return react(request: { state -> SetEnableBiometricQuery? in
 
             if case .setEnableBiometric(let isOn, let wallet) = state.kind,
                 let action = state.action, case .setEnableBiometric = action {
@@ -108,7 +108,7 @@ extension PasscodeEnableBiometricPresenter {
     }
 
     private func logout() -> Feedback {
-        return react(query: { state -> LogoutQuery? in
+        return react(request: { state -> LogoutQuery? in
 
             if case .setEnableBiometric(_, let wallet) = state.kind,
                 let action = state.action, case .logout = action {

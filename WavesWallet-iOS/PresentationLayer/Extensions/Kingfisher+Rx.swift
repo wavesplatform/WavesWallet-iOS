@@ -48,16 +48,14 @@ func retrieveImage(key: String) -> Observable<UIImage?> {
 
         let cache = ImageCache.default
 
-        let workItem = cache.retrieveImage(forKey: key,
-                                           options: nil,
-                                           completionHandler: { image, _ in
-                                            observer.onNext(image)
-                                            observer.onCompleted()
+        cache.retrieveImage(forKey: key,
+                            options: nil,
+                            completionHandler: { image, _ in
+                                observer.onNext(image)
+                                observer.onCompleted()
         })
 
-        return Disposables.create {
-            workItem?.cancel()
-        }
+        return Disposables.create {}
     })
 }
 

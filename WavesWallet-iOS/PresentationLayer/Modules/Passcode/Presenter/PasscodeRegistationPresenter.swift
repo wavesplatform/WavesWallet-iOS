@@ -51,7 +51,7 @@ final class PasscodeRegistationPresenter: PasscodePresenterProtocol {
 extension PasscodeRegistationPresenter {
 
     private func registration() -> Feedback {
-        return react(query: { state -> RegistationQuery? in
+        return react(request: { state -> RegistationQuery? in
 
             if case .registration(let account) = state.kind,
                 let action = state.action,
@@ -82,7 +82,7 @@ extension PasscodeRegistationPresenter {
     }
 
     private func logout() -> Feedback {
-        return react(query: { state -> LogoutQuery? in
+        return react(request: { state -> LogoutQuery? in
 
             if case .logIn(let wallet) = state.kind,
                 let action = state.action, case .logout = action {

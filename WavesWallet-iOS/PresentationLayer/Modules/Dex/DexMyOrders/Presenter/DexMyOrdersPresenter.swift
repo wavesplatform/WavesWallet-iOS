@@ -33,7 +33,7 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
     
     private func modelsQuery() -> Feedback {
         
-        return react(query: { state -> DexMyOrders.State? in
+        return react(request: { state -> DexMyOrders.State? in
             return state.isNeedLoadOrders || state.isNeedCancelOrder ? state : nil
         }, effects: { [weak self] state -> Signal<DexMyOrders.Event> in
             

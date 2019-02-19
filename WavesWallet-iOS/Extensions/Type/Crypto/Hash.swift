@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import keccak
-import blake2
+import Keccak
+import Blake2
 import _25519
 
 class Hash {

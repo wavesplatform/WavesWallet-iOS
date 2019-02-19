@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     var appCoordinator: AppCoordinator!
-    let migrationInteractor: MigrationInteractor = MigrationInteractor()
+    let migrationInteractor: MigrationInteractor = FactoryInteractors.instance.migrationInteractor
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
