@@ -17,11 +17,15 @@ protocol AccountsInteractorProtocol {
 
 final class AccountsInteractor: AccountsInteractorProtocol {
 
-    private let addressBookRepository: AddressBookRepositoryProtocol = FactoryRepositories.instance.addressBookRepository
+    private let addressBookRepository: AddressBookRepositoryProtocol
+    private let aliasesInteractor: AliasesInteractorProtocol
 
-    private let aliasesRepository: AliasesRepositoryProtocol = FactoryRepositories.instance.aliasesRepository
+    init(addressBookRepository: AddressBookRepositoryProtocol,
+         aliasesInteractor: AliasesInteractorProtocol) {
 
-    private let aliasesInteractor: AliasesInteractorProtocol = FactoryInteractors.instance.aliases
+        self.addressBookRepository = addressBookRepository
+        self.aliasesInteractor = aliasesInteractor
+    }
 
     func accountsSync(by ids: [String], accountAddress: String) -> SyncObservable<[DomainLayer.DTO.Account]> {
         return aliasesInteractor

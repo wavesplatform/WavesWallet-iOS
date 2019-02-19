@@ -36,7 +36,7 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
     }
     
     private func feeQuery() -> Feedback {
-        return react(query: { state -> DexCreateOrder.State? in
+        return react(request: { state -> DexCreateOrder.State? in
             return state.isNeedGetFee ? state : nil
         }, effects: { [weak self] ss -> Signal<DexCreateOrder.Event> in
             
@@ -53,7 +53,7 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
     private func modelsQuery() -> Feedback {
     
       
-        return react(query: { state -> DexCreateOrder.State? in
+        return react(request: { state -> DexCreateOrder.State? in
             return state.isNeedCreateOrder ? state : nil
         }, effects: { [weak self] ss -> Signal<DexCreateOrder.Event> in
             
