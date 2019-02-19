@@ -63,7 +63,7 @@ final class ChooseAccountPresenter: ChooseAccountPresenterProtocol {
     }
 
     private func walletsFeedback() -> Feedback {
-        return react(query: { state -> Bool? in
+        return react(request: { state -> Bool? in
             state.isAppeared == true ? true : nil
         }, effects: { [weak self] _ -> Signal<Types.Event> in
 
@@ -77,7 +77,7 @@ final class ChooseAccountPresenter: ChooseAccountPresenterProtocol {
     }
 
     private func removeWallet() -> Feedback {
-        return react(query: { state -> DeleteWalletQuery? in
+        return react(request: { state -> DeleteWalletQuery? in
             if let action = state.action, case .removeWallet(let wallet, let indexPath) = action {
                 return DeleteWalletQuery(wallet: wallet, indexPath: indexPath)
             }
@@ -95,7 +95,7 @@ final class ChooseAccountPresenter: ChooseAccountPresenterProtocol {
     }
 
     private func hasPermissionQuery() -> Feedback {
-        return react(query: { state -> DomainLayer.DTO.Wallet? in
+        return react(request: { state -> DomainLayer.DTO.Wallet? in
             if let action = state.action, case .openWallet(let wallet) = action {
                 return wallet
             }

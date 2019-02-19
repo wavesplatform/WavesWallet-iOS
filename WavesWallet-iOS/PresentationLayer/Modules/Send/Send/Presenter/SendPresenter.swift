@@ -33,7 +33,7 @@ final class SendPresenter: SendPresenterProtocol {
     }
     
     private func feeQuery() -> Feedback {
-        return react(query: { state -> Send.State? in
+        return react(request: { state -> Send.State? in
             return state.isNeedLoadWavesFee ? state : nil
             
         }, effects: {[weak self] state -> Signal<Send.Event> in
@@ -48,7 +48,7 @@ final class SendPresenter: SendPresenterProtocol {
     }
     
     private func assetQuery() -> Feedback {
-        return react(query: { state -> Send.State? in
+        return react(request: { state -> Send.State? in
             return state.scanningAssetID != nil ? state : nil
             
         }, effects: {[weak self] state -> Signal<Send.Event> in
@@ -59,7 +59,7 @@ final class SendPresenter: SendPresenterProtocol {
     }
     
     private func modelsWavesQuery() -> Feedback {
-        return react(query: { state -> Bool? in
+        return react(request: { state -> Bool? in
             return state.isNeedLoadWaves ? true : nil
         }, effects: {[weak self] state -> Signal<Send.Event> in
             guard let strongSelf = self else { return Signal.empty() }
@@ -69,7 +69,7 @@ final class SendPresenter: SendPresenterProtocol {
     }
     
     private func modelsQuery() -> Feedback {
-        return react(query: { state -> Send.State? in
+        return react(request: { state -> Send.State? in
             return  state.isNeedLoadGateWayInfo ||
                     state.isNeedValidateAliase ||
                     state.isNeedGenerateMoneroAddress ? state : nil

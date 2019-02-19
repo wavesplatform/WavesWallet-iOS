@@ -46,6 +46,7 @@
 		04EFAF4D2164F8D800277CCF /* EnterStartBlockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EFAF4C2164F8D800277CCF /* EnterStartBlockCell.xib */; };
 		04F2DD2E219F27AB0070AF9D /* MultilineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F2DD2D219F27AB0070AF9D /* MultilineTextField.swift */; };
 		04F9979621AA197B0036768D /* CameraAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F9979521AA197B0036768D /* CameraAccess.swift */; };
+		0A00B185221AE325005A9053 /* AssetsBalanceSettingsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A00B184221AE325005A9053 /* AssetsBalanceSettingsRepositoryProtocol.swift */; };
 		0A02D20721AEA1B1005DF820 /* Appsflyer-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A02D20621AEA1B1005DF820 /* Appsflyer-Info.plist */; };
 		0A071E41215AEF61007D9750 /* AccountPassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A071E40215AEF61007D9750 /* AccountPassword.storyboard */; };
 		0A071E43215B0A1B007D9750 /* SigningWalletsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A071E42215B0A1B007D9750 /* SigningWalletsProtocol.swift */; };
@@ -335,7 +336,6 @@
 		0ADD7F9021F22FB60075FC59 /* ControlEvent+ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2021F22FB60075FC59 /* ControlEvent+ScrollView.swift */; };
 		0ADD7F9121F22FB60075FC59 /* UIButton+WithoutAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2121F22FB60075FC59 /* UIButton+WithoutAnimation.swift */; };
 		0ADD7F9221F22FB60075FC59 /* UIScrollView+Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2221F22FB60075FC59 /* UIScrollView+Pagination.swift */; };
-		0ADD7F9321F22FB60075FC59 /* RxDataSource+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2321F22FB60075FC59 /* RxDataSource+TableView.swift */; };
 		0ADD7F9421F22FB60075FC59 /* UIFeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2421F22FB60075FC59 /* UIFeedbackGenerator.swift */; };
 		0ADD7F9521F22FB60075FC59 /* UIColor+Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2521F22FB60075FC59 /* UIColor+Asset.swift */; };
 		0ADD7F9621F22FB60075FC59 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2621F22FB60075FC59 /* UIColor+Hex.swift */; };
@@ -346,7 +346,6 @@
 		0ADD7F9B21F22FB60075FC59 /* UIApplication+OpenURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2B21F22FB60075FC59 /* UIApplication+OpenURL.swift */; };
 		0ADD7F9C21F22FB60075FC59 /* UIViewController+Additionals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2C21F22FB60075FC59 /* UIViewController+Additionals.swift */; };
 		0ADD7F9D21F22FB60075FC59 /* UIResponder+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2D21F22FB60075FC59 /* UIResponder+Rx.swift */; };
-		0ADD7F9E21F22FB60075FC59 /* RxTableViewAnimatedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2E21F22FB60075FC59 /* RxTableViewAnimatedDataSource.swift */; };
 		0ADD7F9F21F22FB60075FC59 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2F21F22FB60075FC59 /* UIViewController+Alert.swift */; };
 		0ADD7FA021F22FB60075FC59 /* RateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F3021F22FB60075FC59 /* RateApp.swift */; };
 		0ADD7FA121F22FB60075FC59 /* UIColor+Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F3121F22FB60075FC59 /* UIColor+Colors.swift */; };
@@ -950,6 +949,7 @@
 		04EFAF4C2164F8D800277CCF /* EnterStartBlockCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterStartBlockCell.xib; sourceTree = "<group>"; };
 		04F2DD2D219F27AB0070AF9D /* MultilineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineTextField.swift; sourceTree = "<group>"; };
 		04F9979521AA197B0036768D /* CameraAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraAccess.swift; sourceTree = "<group>"; };
+		0A00B184221AE325005A9053 /* AssetsBalanceSettingsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsBalanceSettingsRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0A02D20621AEA1B1005DF820 /* Appsflyer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Appsflyer-Info.plist"; sourceTree = "<group>"; };
 		0A02D20821AEDD3C005DF820 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0A02D20921AEDD3C005DF820 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Waves.strings; sourceTree = "<group>"; };
@@ -1259,7 +1259,6 @@
 		0ADD7F2021F22FB60075FC59 /* ControlEvent+ScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ControlEvent+ScrollView.swift"; sourceTree = "<group>"; };
 		0ADD7F2121F22FB60075FC59 /* UIButton+WithoutAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+WithoutAnimation.swift"; sourceTree = "<group>"; };
 		0ADD7F2221F22FB60075FC59 /* UIScrollView+Pagination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Pagination.swift"; sourceTree = "<group>"; };
-		0ADD7F2321F22FB60075FC59 /* RxDataSource+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RxDataSource+TableView.swift"; sourceTree = "<group>"; };
 		0ADD7F2421F22FB60075FC59 /* UIFeedbackGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFeedbackGenerator.swift; sourceTree = "<group>"; };
 		0ADD7F2521F22FB60075FC59 /* UIColor+Asset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Asset.swift"; sourceTree = "<group>"; };
 		0ADD7F2621F22FB60075FC59 /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
@@ -1270,7 +1269,6 @@
 		0ADD7F2B21F22FB60075FC59 /* UIApplication+OpenURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+OpenURL.swift"; sourceTree = "<group>"; };
 		0ADD7F2C21F22FB60075FC59 /* UIViewController+Additionals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additionals.swift"; sourceTree = "<group>"; };
 		0ADD7F2D21F22FB60075FC59 /* UIResponder+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIResponder+Rx.swift"; sourceTree = "<group>"; };
-		0ADD7F2E21F22FB60075FC59 /* RxTableViewAnimatedDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxTableViewAnimatedDataSource.swift; sourceTree = "<group>"; };
 		0ADD7F2F21F22FB60075FC59 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		0ADD7F3021F22FB60075FC59 /* RateApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateApp.swift; sourceTree = "<group>"; };
 		0ADD7F3121F22FB60075FC59 /* UIColor+Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Colors.swift"; sourceTree = "<group>"; };
@@ -1972,6 +1970,25 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		0A00B188221AE708005A9053 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				0A4D221D21809E3600155A8E /* AccountEnvironmentDomainDTO.swift */,
+				0A88CC05217D27DF0083874C /* AccountSettingsDomainDTO.swift */,
+				0A6AC3E7218489F5005D2525 /* AliasDomainDTO.swift */,
+				0AEB359F21165CBF00EDD63C /* AssetBalanceDomainDTO.swift */,
+				0AEB358E2115DFF500EDD63C /* AssetDomainDTO.swift */,
+				E922D25E21B81BE800575955 /* CandleDomainDTO.swift */,
+				E910B7EB21C3266F00E402AB /* CoinomatDomainDTO.swift */,
+				E94A6E9E215AD53E001814F7 /* ContactDomainDTO.swift */,
+				E964067D21D5299D00569963 /* DexDomainDTO.swift */,
+				0A751D3322170F3D0024D523 /* NotificationNewsDomainDTO.swift */,
+				0A218B802155180C00B989A1 /* WalletDomainDTO.swift */,
+				0A5E4BBB213820C500E3C3C3 /* Transactions */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
 		0A071E3D215AEF03007D9750 /* AccountPassword */ = {
 			isa = PBXGroup;
 			children = (
@@ -2143,6 +2160,8 @@
 		0A381EEF2106892700D250F1 /* Assisstants */ = {
 			isa = PBXGroup;
 			children = (
+				E971DA5120FFF4B600616A03 /* BiometricManager.swift */,
+				0A071E42215B0A1B007D9750 /* SigningWalletsProtocol.swift */,
 				04E80A11214EF20C00D00AA4 /* SmartTransactionDomain+Assistants.swift */,
 			);
 			path = Assisstants;
@@ -2377,10 +2396,9 @@
 		0A5C919120F3D00D00443CE6 /* Assisstants */ = {
 			isa = PBXGroup;
 			children = (
-				0AE657322106374E003D2DB8 /* Types */,
-				0A5C919220F3D01500443CE6 /* Protocols */,
-				0A071E42215B0A1B007D9750 /* SigningWalletsProtocol.swift */,
 				0A88CC01217D217D0083874C /* SpamCSV+Assisstants.swift */,
+				0A5C919220F3D01500443CE6 /* Protocols */,
+				0AE657322106374E003D2DB8 /* Types */,
 			);
 			path = Assisstants;
 			sourceTree = "<group>";
@@ -2512,12 +2530,12 @@
 		0A6CCD3920F4BC730023E36E /* Mapper */ = {
 			isa = PBXGroup;
 			children = (
-				0A6CCD3A20F4CE250023E36E /* Asset+Mapper.swift */,
-				0ADD804521F73ACE0075FC59 /* Transactions */,
-				0A218B882155221F00B989A1 /* Wallet+Mapper.swift */,
 				0AD8360D217DD34B004413E9 /* AccountSettings+Mapper.swift */,
-				E967786A21EC660C00CE56D6 /* DexMyOrders+Mapper.swift */,
+				0A6CCD3A20F4CE250023E36E /* Asset+Mapper.swift */,
 				E90223C321D53A8F0057AA45 /* DexAssetPairDomainDTO+Mapper.swift */,
+				E967786A21EC660C00CE56D6 /* DexMyOrders+Mapper.swift */,
+				0A218B882155221F00B989A1 /* Wallet+Mapper.swift */,
+				0ADD804521F73ACE0075FC59 /* Transactions */,
 			);
 			path = Mapper;
 			sourceTree = "<group>";
@@ -2703,14 +2721,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		0A7E0CDC20F369E20010CA6C /* Environment */ = {
-			isa = PBXGroup;
-			children = (
-				F78E33141EB329DF00132A8B /* Environment.swift */,
-			);
-			path = Environment;
-			sourceTree = "<group>";
-		};
 		0A8AFF262101EEEB00D0582B /* Matcher */ = {
 			isa = PBXGroup;
 			children = (
@@ -2825,7 +2835,6 @@
 				0AAC2A472146C69600F6EB27 /* BlockRepositoryRemote.swift */,
 				E910B7E821C3261B00E402AB /* CoinomatRepository.swift */,
 				0A4508FB2178E72B00EBF669 /* EnvironmentRepositoryRemote.swift */,
-				0AC33AEF21A826B700B66747 /* NetworkError.swift */,
 				0A751D35221711380024D523 /* NotificationNewsRepository.swift */,
 				0A5ABB9F21171A75006A10A7 /* AccountBalance */,
 				E94A7005215AEAFB001814F7 /* AddressBook */,
@@ -2978,8 +2987,6 @@
 				0ADD7F2021F22FB60075FC59 /* ControlEvent+ScrollView.swift */,
 				0ADD7F3221F22FB60075FC59 /* ControlEvent+Signal.swift */,
 				0ADD7F5021F22FB60075FC59 /* NSAttributedString+Styles.swift */,
-				0ADD7F2321F22FB60075FC59 /* RxDataSource+TableView.swift */,
-				0ADD7F2E21F22FB60075FC59 /* RxTableViewAnimatedDataSource.swift */,
 				0ADD7F4321F22FB60075FC59 /* TimingFunction.swift */,
 				0ADD7F2B21F22FB60075FC59 /* UIApplication+OpenURL.swift */,
 				0ADD7F2121F22FB60075FC59 /* UIButton+WithoutAnimation.swift */,
@@ -3204,21 +3211,22 @@
 		0AEB358A2115DB1D00EDD63C /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				0A00B184221AE325005A9053 /* AssetsBalanceSettingsRepositoryProtocol.swift */,
+				0A88CC03217D27370083874C /* AccountSettingsRepositoryProtocol.swift */,
+				0A84F00021F4BBA000C0B7DB /* AddressRepositoryProtocol.swift */,
+				0A6AC3E321848920005D2525 /* AliasesRepositoryProtocol.swift */,
+				0A218B94215556F600B989A1 /* AuthenticationRepositoryProtocol.swift */,
+				0AAC2A452146C65900F6EB27 /* BlockRepositoryProtocol.swift */,
+				E9BB724721C2A94000B2AF7E /* CoinomatRepositoryProtocol.swift */,
 				0A4508F92178938C00EBF669 /* EnvironmentRepositoryProtocol.swift */,
-				E94A7002215AEA2A001814F7 /* AddressBook */,
-				0A5E4BD62138242C00E3C3C3 /* Transactions */,
+				0A751D3122170EF60024D523 /* NotificationNewsRepositoryProtocol.swift */,
+				0A218B8A2155335F00B989A1 /* WalletSeedRepositoryProtocol.swift */,
+				0A218B8621551E6600B989A1 /* WalletsRepositoryProtocol.swift */,
 				0AEB359521160E1700EDD63C /* AccountBalance */,
+				E94A7002215AEA2A001814F7 /* AddressBook */,
 				0AEB35922115E44A00EDD63C /* Assets */,
 				E97D450721C8020F000E3C48 /* Dex */,
-				0AAC2A452146C65900F6EB27 /* BlockRepositoryProtocol.swift */,
-				0A218B8621551E6600B989A1 /* WalletsRepositoryProtocol.swift */,
-				0A218B8A2155335F00B989A1 /* WalletSeedRepositoryProtocol.swift */,
-				0A218B94215556F600B989A1 /* AuthenticationRepositoryProtocol.swift */,
-				0A88CC03217D27370083874C /* AccountSettingsRepositoryProtocol.swift */,
-				0A6AC3E321848920005D2525 /* AliasesRepositoryProtocol.swift */,
-				E9BB724721C2A94000B2AF7E /* CoinomatRepositoryProtocol.swift */,
-				0A84F00021F4BBA000C0B7DB /* AddressRepositoryProtocol.swift */,
-				0A751D3122170EF60024D523 /* NotificationNewsRepositoryProtocol.swift */,
+				0A5E4BD62138242C00E3C3C3 /* Transactions */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -3226,19 +3234,10 @@
 		0AEB358D2115DF8300EDD63C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F78E33141EB329DF00132A8B /* Environment.swift */,
+				0AC33AEF21A826B700B66747 /* NetworkError.swift */,
 				E9BCF48021636DAC00FA6502 /* ResponseType.swift */,
-				0AEB358E2115DFF500EDD63C /* AssetDomainDTO.swift */,
-				E94A6E9E215AD53E001814F7 /* ContactDomainDTO.swift */,
-				0AEB359F21165CBF00EDD63C /* AssetBalanceDomainDTO.swift */,
-				0A5E4BBB213820C500E3C3C3 /* Transactions */,
-				0A218B802155180C00B989A1 /* WalletDomainDTO.swift */,
-				0A88CC05217D27DF0083874C /* AccountSettingsDomainDTO.swift */,
-				0A4D221D21809E3600155A8E /* AccountEnvironmentDomainDTO.swift */,
-				0A6AC3E7218489F5005D2525 /* AliasDomainDTO.swift */,
-				E922D25E21B81BE800575955 /* CandleDomainDTO.swift */,
-				E910B7EB21C3266F00E402AB /* CoinomatDomainDTO.swift */,
-				E964067D21D5299D00569963 /* DexDomainDTO.swift */,
-				0A751D3322170F3D0024D523 /* NotificationNewsDomainDTO.swift */,
+				0A00B188221AE708005A9053 /* DTO */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4759,10 +4758,8 @@
 		F74240AF1EAB8D1600C3B84D /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
-				E971DA5120FFF4B600616A03 /* BiometricManager.swift */,
 				0A5C919120F3D00D00443CE6 /* Assisstants */,
 				0A1DAD6720F3971B004DA625 /* DataBase */,
-				0A7E0CDC20F369E20010CA6C /* Environment */,
 				0A6CCD3920F4BC730023E36E /* Mapper */,
 				0A979775210A19B400407F67 /* Repositories */,
 				0A1DAD6620F396F4004DA625 /* Service */,
@@ -4811,10 +4808,10 @@
 				F7E954F51EA8FE0700A804DE /* Info.plist */,
 				0AFBCA7F211306F600285BCB /* LaunchScreen.storyboard */,
 				F7E954E71EA8FE0700A804DE /* AppDelegate.swift */,
-				0ADD7F1C21F22FB60075FC59 /* Extensions */,
 				F74240AF1EAB8D1600C3B84D /* DataLayer */,
 				0A5C919520F3D7D700443CE6 /* DomainLayer */,
 				0A93FED120FCAAA30058179E /* PresentationLayer */,
+				0ADD7F1C21F22FB60075FC59 /* Extensions */,
 				0A97974F2108805100407F67 /* Generated */,
 				0A979752210885B500407F67 /* Resources */,
 			);
@@ -5074,17 +5071,18 @@
 				"${BUILT_PRODUCTS_DIR}/25519/_25519.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${PODS_ROOT}/AppSpectorSDK/AppSpectorSDK.framework",
+				"${BUILT_PRODUCTS_DIR}/Base58/Base58.framework",
+				"${BUILT_PRODUCTS_DIR}/Blake2/Blake2.framework",
 				"${BUILT_PRODUCTS_DIR}/CSV.swift/CSV.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/DeviceKit/DeviceKit.framework",
-				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/Gloss/Gloss.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/IdentityImg/IdentityImg.framework",
 				"${BUILT_PRODUCTS_DIR}/InfiniteCollectionView/InfiniteCollectionView.framework",
+				"${BUILT_PRODUCTS_DIR}/Keccak/Keccak.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Koloda/Koloda.framework",
@@ -5101,7 +5099,6 @@
 				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/RxFeedback/RxFeedback.framework",
 				"${BUILT_PRODUCTS_DIR}/RxGesture/RxGesture.framework",
 				"${BUILT_PRODUCTS_DIR}/RxOptional/RxOptional.framework",
@@ -5117,9 +5114,6 @@
 				"${BUILT_PRODUCTS_DIR}/TTTAttributedLabel/TTTAttributedLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
 				"${BUILT_PRODUCTS_DIR}/UPCarouselFlowLayout/UPCarouselFlowLayout.framework",
-				"${BUILT_PRODUCTS_DIR}/base58/base58.framework",
-				"${BUILT_PRODUCTS_DIR}/blake2/blake2.framework",
-				"${BUILT_PRODUCTS_DIR}/keccak/keccak.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 				"${BUILT_PRODUCTS_DIR}/pop/pop.framework",
@@ -5129,17 +5123,18 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/_25519.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppSpectorSDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Base58.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Blake2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CSV.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DeviceKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gloss.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IdentityImg.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InfiniteCollectionView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Keccak.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Koloda.framework",
@@ -5156,7 +5151,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxFeedback.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxGesture.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxOptional.framework",
@@ -5172,9 +5166,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TTTAttributedLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UPCarouselFlowLayout.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/base58.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/blake2.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/keccak.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/pop.framework",
@@ -5677,7 +5668,6 @@
 				0ADD7FE221F22FB60075FC59 /* RXCrypto+SHA.swift in Sources */,
 				0ADD7F9721F22FB60075FC59 /* UIView+Additionals.swift in Sources */,
 				E9B086AE2163883000937644 /* AddAddressBookModuleBuilder.swift in Sources */,
-				0ADD7F9E21F22FB60075FC59 /* RxTableViewAnimatedDataSource.swift in Sources */,
 				E9B087DF2163886800937644 /* DexCreateOrderPresenterProtocol.swift in Sources */,
 				E99DD81B21CEE7690091AFEC /* CandlesApiService.swift in Sources */,
 				E9C0B49C2176C46E00669D1D /* SendPresenterProtocol.swift in Sources */,
@@ -5915,7 +5905,6 @@
 				0AF92208212E07B3003BA067 /* AssetHeaderView.swift in Sources */,
 				E9B087D32163886800937644 /* DexListModuleBuilder.swift in Sources */,
 				04EB742621133318004A065B /* HistoryViewController.swift in Sources */,
-				0ADD7F9321F22FB60075FC59 /* RxDataSource+TableView.swift in Sources */,
 				0AD83606217A1C14004413E9 /* AccountEnvironment.swift in Sources */,
 				0AF922F2212E1234003BA067 /* CopyableLabel.swift in Sources */,
 				E96E2A0021D34A2100AC2FA9 /* MatcherRepositoryProtocol.swift in Sources */,
@@ -5976,6 +5965,7 @@
 				0AACD59C21A59E7100B30815 /* SweetSnackView.swift in Sources */,
 				0ADD7FA321F22FB60075FC59 /* Notifications.swift in Sources */,
 				E9B087972163886800937644 /* DexChartConstants.swift in Sources */,
+				0A00B185221AE325005A9053 /* AssetsBalanceSettingsRepositoryProtocol.swift in Sources */,
 				0A36A37D215E493D0060F49E /* NeedBackupViewController.swift in Sources */,
 				0ADD802921F22FFA0075FC59 /* EnterCoordinator.swift in Sources */,
 				0AE491E1210786BC009223DB /* ConfirmBackupStackInputView.swift in Sources */,

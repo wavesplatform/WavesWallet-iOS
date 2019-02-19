@@ -94,7 +94,7 @@ private extension CreateAliasViewController {
     func setupSystem() {
 
         let uiFeedback: CreateAliasPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<Types.Event>) in
-            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
         }
 
         let readyViewFeedback: CreateAliasPresenterProtocol.Feedback = { [weak self] _ in

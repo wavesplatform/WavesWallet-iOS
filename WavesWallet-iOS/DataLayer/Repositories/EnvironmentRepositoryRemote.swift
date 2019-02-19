@@ -32,7 +32,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
 
         var deffaultEnvironment: Observable<Environment>!
 
-        if let enviroment = localEnvironment(by: .init(accountAddress: accountAddress, isTestNet: Environments.isTestNet)) {
+        if let enviroment = localEnvironment(by: .init(accountAddress: accountAddress, isTestNet: Environment.isTestNet)) {
             deffaultEnvironment = Observable.just(enviroment)
         } else {
             deffaultEnvironment = remoteEnvironment(accountAddress: accountAddress)
@@ -53,7 +53,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
                     return
                 }
 
-                let key = EnvironmentKey(accountAddress: accountAddress, isTestNet: Environments.isTestNet)
+                let key = EnvironmentKey(accountAddress: accountAddress, isTestNet: Environment.isTestNet)
 
                 if let value = try? owner.localEnvironments.value() {
                     var newValue = value
@@ -69,10 +69,10 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
 
         return environmentRepository
             .rx
-            .request(.get(isTestNet: Environments.isTestNet))
+            .request(.get(isTestNet: Environment.isTestNet))
             .map(Environment.self)
             .catchError { error -> Single<Environment> in
-                return Single.just(Environments.current)
+                return Single.just(Environment.current)
             }
             .asObservable()
     }
