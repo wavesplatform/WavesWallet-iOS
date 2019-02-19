@@ -336,9 +336,52 @@ extension DexCreateOrderViewController: DexCreateOrderInputViewDelegate {
 //MARK: - Data
 private extension DexCreateOrderViewController {
     
+    func setupData() {
+        
+        segmentedControl.type = input.type
+        segmentedControl.delegate = self
+        
+        inputAmount.delegate = self
+        inputAmount.maximumFractionDigits = input.amountAsset.decimals
+        
+        inputPrice.delegate = self
+        inputPrice.maximumFractionDigits = input.priceAsset.decimals
+        inputPrice.isShowInputWhenFilled = true
+        
+        inputTotal.delegate = self
+        inputTotal.maximumFractionDigits = input.priceAsset.decimals
+        
+        setupInputAmountData()
+        setupInputTotalData()
+        setupInputPriceData()
+        
+        inputAmount.input = { [weak self] in
+            return self?.amountValues ?? []
+        }
+        
+        inputPrice.input = { [weak self] in
+            return self?.priceValues ?? []
+        }
+        
+        inputTotal.input = { [weak self] in
+            return self?.totalValues ?? []
+        }
+        
+        if let price = input.price {
+            order.price = price
+            inputPrice.setupValue(price)
+            
+            if let amount = input.amount {
+                inputAmount.updateAmount(amount)
+            }
+            setupValidationErrors()
+        }
+    }
+    
     func setupInputPriceData() {
         
         var fields: [String] = []
+        
         if input.bid != nil {
             fields.append(Localizable.Waves.Dexcreateorder.Button.bid)
         }
@@ -370,13 +413,7 @@ private extension DexCreateOrderViewController {
         
         var fields: [String] = []
         
-        if order.type == .sell {
-            
-            guard !availableAmountAssetBalance.isZero else {
-                inputAmount.update(with: [])
-                return
-            }
-            
+        if order.type == .sell && !availableAmountAssetBalance.isZero {
             fields.append(Localizable.Waves.Dexcreateorder.Button.useTotalBalanace)
             fields.append(String(Constants.percent50) + "%")
             fields.append(String(Constants.percent10) + "%")
@@ -384,48 +421,6 @@ private extension DexCreateOrderViewController {
         }
         
         inputAmount.update(with: fields)
-    }
-    
-    func setupData() {
-        
-        segmentedControl.type = input.type
-        segmentedControl.delegate = self
-        
-        inputAmount.delegate = self
-        inputAmount.maximumFractionDigits = input.amountAsset.decimals
-        
-        inputPrice.delegate = self
-        inputPrice.maximumFractionDigits = input.priceAsset.decimals
-        inputPrice.isShowInputWhenFilled = true
-
-        inputTotal.delegate = self
-        inputTotal.maximumFractionDigits = input.priceAsset.decimals
-        
-        setupInputAmountData()
-        setupInputTotalData()
-        setupInputPriceData()
-        
-        inputAmount.input = { [weak self] in
-            return self?.amountValues ?? []
-        }
-        
-        inputPrice.input = { [weak self] in
-            return self?.priceValues ?? []
-        }
-        
-        inputTotal.input = { [weak self] in
-            return self?.totalValues ?? []
-        }
-        
-        if let price = input.price {
-            order.price = price
-            inputPrice.setupValue(price)
-            
-            if let amount = input.amount {
-                inputAmount.updateAmount(amount)
-            }
-            setupValidationErrors()
-        }
     }
     
     var amountValues: [Money] {
