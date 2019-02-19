@@ -45,7 +45,7 @@ final class SendFeePresenter: SendFeePresenterProtocol {
     }
     
     private func infoQuery() -> Feedback {
-        return react(query: { state -> Bool? in
+        return react(request: { state -> Bool? in
             return state.isNeedLoadAssets ? true : nil
             
         }, effects: {[weak self] state -> Signal<SendFee.Event> in

@@ -33,7 +33,7 @@ final class ReceiveCryptocurrencyPresenter: ReceiveCryptocurrencyPresenterProtoc
     
     private func modelsQuery() -> Feedback {
         
-        return react(query: { state -> ReceiveCryptocurrency.State? in
+        return react(request: { state -> ReceiveCryptocurrency.State? in
             return state.isNeedGenerateAddress ? state : nil
         }, effects: { [weak self] state -> Signal<ReceiveCryptocurrency.Event> in
             

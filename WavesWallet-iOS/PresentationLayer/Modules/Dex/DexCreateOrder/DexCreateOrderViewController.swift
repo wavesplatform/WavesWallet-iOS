@@ -109,7 +109,7 @@ private extension DexCreateOrderViewController {
     func setupFeedBack() {
         
         let feedback = bind(self) { owner, state -> Bindings<DexCreateOrder.Event> in
-            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
         }
         
         presenter.system(feedbacks: [feedback])
@@ -155,6 +155,7 @@ private extension DexCreateOrderViewController {
                     strongSelf.setupValidationErrors()
                     strongSelf.sendEvent.accept(.updateInputOrder(strongSelf.order))
                     strongSelf.setupInputAmountData()
+                    strongSelf.setupInputTotalData()
                     
                 default:
                     break
@@ -235,7 +236,6 @@ private extension DexCreateOrderViewController {
 //MARK: - Actions
 private extension DexCreateOrderViewController {
 
-
     func dismissController() {
         if let parent = self.parent as? PopupViewController {
             parent.dismissPopup()
@@ -286,6 +286,7 @@ extension DexCreateOrderViewController: DexCreateOrderSegmentedControlDelegate {
         setupButtonSellBuy()
         setupValidationErrors()
         setupInputAmountData()
+        setupInputTotalData()
         sendEvent.accept(.updateInputOrder(order))
     }
 }
@@ -332,60 +333,209 @@ extension DexCreateOrderViewController: DexCreateOrderInputViewDelegate {
     }
 }
 
-//MARK: - Setup
+//MARK: - Data
 private extension DexCreateOrderViewController {
-
-    func setupFeeError(error: DisplayErrorState) {
-
-        switch error {
-        case .error(let error):
-
-            switch error {
-            case .globalError(let isInternetNotWorking):
-
-                if isInternetNotWorking {
-                    errorSnackKey = showWithoutInternetSnack { [weak self] in
-                        self?.sendEvent.accept(.refreshFee)
-                    }
-                } else {
-                    errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
-                        self?.sendEvent.accept(.refreshFee)
-                    })
-                }
-            case .internetNotWorking:
-                errorSnackKey = showWithoutInternetSnack { [weak self] in
-                    self?.sendEvent.accept(.refreshFee)
-                }
-
-            case .message(let text):
-                errorSnackKey = showErrorSnack(title: text, didTap: { [weak self] in
-                    self?.sendEvent.accept(.refreshFee)
-                })
-
-            case .notFound, .scriptError:
-                errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
-                    self?.sendEvent.accept(.refreshFee)
-                })
-            }
-
-        case .none:
-            if let errorSnackKey = errorSnackKey {
-                hideSnack(key: errorSnackKey)
-            }
-
-        case .waiting:
-            break
+    
+    func setupData() {
+        
+        segmentedControl.type = input.type
+        segmentedControl.delegate = self
+        
+        inputAmount.delegate = self
+        inputAmount.maximumFractionDigits = input.amountAsset.decimals
+        
+        inputPrice.delegate = self
+        inputPrice.maximumFractionDigits = input.priceAsset.decimals
+        inputPrice.isShowInputWhenFilled = true
+        
+        inputTotal.delegate = self
+        inputTotal.maximumFractionDigits = input.priceAsset.decimals
+        
+        setupInputAmountData()
+        setupInputTotalData()
+        setupInputPriceData()
+        
+        inputAmount.input = { [weak self] in
+            return self?.amountValues ?? []
         }
         
+        inputPrice.input = { [weak self] in
+            return self?.priceValues ?? []
+        }
+        
+        inputTotal.input = { [weak self] in
+            return self?.totalValues ?? []
+        }
+        
+        if let price = input.price {
+            order.price = price
+            inputPrice.setupValue(price)
+            
+            if let amount = input.amount {
+                inputAmount.updateAmount(amount)
+            }
+            setupValidationErrors()
+        }
     }
+    
+    func setupInputPriceData() {
+        
+        var fields: [String] = []
+        
+        if input.bid != nil {
+            fields.append(Localizable.Waves.Dexcreateorder.Button.bid)
+        }
+        if input.ask != nil {
+            fields.append(Localizable.Waves.Dexcreateorder.Button.ask)
+        }
+        if input.last != nil {
+            fields.append(Localizable.Waves.Dexcreateorder.Button.last)
+        }
+        
+        inputPrice.update(with: fields)
+    }
+    
+    func setupInputTotalData() {
+        
+        var fields: [String] = []
+        
+        if order.type == .buy && !availablePriceAssetBalance.isZero {
+            fields.append(Localizable.Waves.Dexcreateorder.Button.useTotalBalanace)
+            fields.append(String(Constants.percent50) + "%")
+            fields.append(String(Constants.percent10) + "%")
+            fields.append(String(Constants.percent5) + "%")
+        }
+        
+        inputTotal.update(with: fields)
+    }
+    
+    func setupInputAmountData() {
+        
+        var fields: [String] = []
+        
+        if order.type == .sell && !availableAmountAssetBalance.isZero {
+            fields.append(Localizable.Waves.Dexcreateorder.Button.useTotalBalanace)
+            fields.append(String(Constants.percent50) + "%")
+            fields.append(String(Constants.percent10) + "%")
+            fields.append(String(Constants.percent5) + "%")
+        }
+        
+        inputAmount.update(with: fields)
+    }
+    
+    var amountValues: [Money] {
+        
+        var values: [Money] = []
+        
+        if order.type == .sell && !availableAmountAssetBalance.isZero {
+            
+            let totalAmount: Int64 = availableAmountAssetBalance.amount
+            let decimals = availableAmountAssetBalance.decimals
+            
+            let totalAmountMoney = Money(totalAmount, decimals)
+            
+            let n5 = Decimal(totalAmountMoney.amount) * (Decimal(Constants.percent5) / 100.0)
+            let n10 = Decimal(totalAmountMoney.amount) * (Decimal(Constants.percent10) / 100.0)
+            let n50 = Decimal(totalAmountMoney.amount) * (Decimal(Constants.percent50) / 100.0)
+            
+            let valuePercent50 = Money(n50.int64Value, decimals)
+            let valuePercent10 = Money(n10.int64Value, decimals)
+            let valuePercent5 = Money(n5.int64Value, decimals)
+            
+            values.append(totalAmountMoney)
+            values.append(valuePercent50)
+            values.append(valuePercent10)
+            values.append(valuePercent5)
+        }
+        
+        return values
+    }
+    
+    var priceValues: [Money] {
+        
+        var values: [Money] = []
+        
+        if let bid = input.bid {
+            values.append(bid)
+        }
+        
+        if let ask = input.ask {
+            values.append(ask)
+        }
+        
+        if let last = input.last {
+            values.append(last)
+        }
 
+        return values
+    }
+    
+    var totalValues: [Money] {
+        
+        var values: [Money] = []
+
+        if order.type == .buy && !availablePriceAssetBalance.isZero {
+            
+            let decimals = availablePriceAssetBalance.decimals
+            let totalAmount: Int64 = availablePriceAssetBalance.amount
+
+            let totalAmountMoney = Money(totalAmount, decimals)
+            
+            let n5 = Decimal(totalAmountMoney.amount) * (Decimal(Constants.percent5) / 100.0)
+            let n10 = Decimal(totalAmountMoney.amount) * (Decimal(Constants.percent10) / 100.0)
+            let n50 = Decimal(totalAmountMoney.amount) * (Decimal(Constants.percent50) / 100.0)
+            
+            let valuePercent50 = Money(n50.int64Value, decimals)
+            let valuePercent10 = Money(n10.int64Value, decimals)
+            let valuePercent5 = Money(n5.int64Value, decimals)
+            
+            values.append(totalAmountMoney)
+            values.append(valuePercent50)
+            values.append(valuePercent10)
+            values.append(valuePercent5)
+        }
+        
+        return values
+    }
+}
+
+//MARK: - UI
+private extension DexCreateOrderViewController {
+    
+    func setupLocalization() {
+        setupLabelExpiration()
+        
+        labelFeeLocalization.text = Localizable.Waves.Dexcreateorder.Label.fee
+        labelExpiration.text = Localizable.Waves.Dexcreateorder.Label.expiration
+        
+        inputAmount.setupTitle(title: Localizable.Waves.Dexcreateorder.Label.amountIn + " " + input.amountAsset.shortName)
+        inputPrice.setupTitle(title: Localizable.Waves.Dexcreateorder.Label.limitPriceIn + " " + input.priceAsset.shortName)
+        inputTotal.setupTitle(title: Localizable.Waves.Dexcreateorder.Label.totalIn + " " + input.priceAsset.shortName)
+        labelErrorFee.text = Localizable.Waves.Dexcreateorder.Label.Error.notFundsFee
+    }
+    
+    func setupButtonSellBuy() {
+        buttonSellBuy.isUserInteractionEnabled = isValidOrder
+        
+        if order.type == .sell {
+            buttonSellBuy.setTitle(Localizable.Waves.Dexcreateorder.Button.sell + " " + input.amountAsset.shortName, for: .normal)
+            buttonSellBuy.backgroundColor = isValidOrder ? .error400 : .error100
+            buttonSellBuy.highlightedBackground = .error200
+        }
+        else {
+            buttonSellBuy.setTitle(Localizable.Waves.Dexcreateorder.Button.buy + " " + input.amountAsset.shortName, for: .normal)
+            buttonSellBuy.backgroundColor = isValidOrder ? .submit400 : .submit200
+            buttonSellBuy.highlightedBackground = .submit300
+        }
+    }
+    
     func setupValidationErrors() {
         if order.type == .sell {
             
             inputAmount.showErrorMessage(message: Localizable.Waves.Dexcreateorder.Label.notEnough + " " + input.amountAsset.shortName,
                                          isShow: !isValidAmountAssetBalance)
             
-           
+            
             var message = ""
             if order.total.isBigAmount {
                 message = Localizable.Waves.Dexcreateorder.Label.bigValue
@@ -428,184 +578,48 @@ private extension DexCreateOrderViewController {
         viewErrorFee.isHidden = isValidWavesFee
     }
     
-    func setupButtonSellBuy() {
-        buttonSellBuy.isUserInteractionEnabled = isValidOrder
-
-        if order.type == .sell {            
-            buttonSellBuy.setTitle(Localizable.Waves.Dexcreateorder.Button.sell + " " + input.amountAsset.shortName, for: .normal)
-            buttonSellBuy.backgroundColor = isValidOrder ? .error400 : .error100
-            buttonSellBuy.highlightedBackground = .error200
-        }
-        else {
-            buttonSellBuy.setTitle(Localizable.Waves.Dexcreateorder.Button.buy + " " + input.amountAsset.shortName, for: .normal)
-            buttonSellBuy.backgroundColor = isValidOrder ? .submit400 : .submit200
-            buttonSellBuy.highlightedBackground = .submit300
-        }
-    }
-    
-    func setupInputAmountData() {
+    func setupFeeError(error: DisplayErrorState) {
         
-        var fields: [String] = []
-        
-        if order.type == .sell {
+        switch error {
+        case .error(let error):
             
-            guard !availableAmountAssetBalance.isZero else {
-                inputAmount.update(with: [])
-                return
-            }
-            
-            fields.append(Localizable.Waves.Dexcreateorder.Button.useTotalBalanace)
-            fields.append(String(Constants.percent50) + "%")
-            fields.append(String(Constants.percent10) + "%")
-            fields.append(String(Constants.percent5) + "%")
-        }
-        else {
-            
-            if order.price.isZero {
-                guard !availableAmountAssetBalance.isZero else {
-                    inputAmount.update(with: [])
-                    return
-                }
-            }
-            else {
-                guard !availablePriceAssetBalance.isZero else {
-                    inputAmount.update(with: [])
-                    return
-                }
-            }
-
-            fields.append(Localizable.Waves.Dexcreateorder.Button.useTotalBalanace)
-            fields.append(String(Constants.percent50) + "%")
-            fields.append(String(Constants.percent10) + "%")
-            fields.append(String(Constants.percent5) + "%")
-        }
-        
-        inputAmount.update(with: fields)
-    }
-    
-    func setupData() {
-        
-        segmentedControl.type = input.type
-        segmentedControl.delegate = self
-        
-        inputAmount.delegate = self
-        inputAmount.maximumFractionDigits = input.amountAsset.decimals
-        
-        inputPrice.delegate = self
-        inputPrice.maximumFractionDigits = input.priceAsset.decimals
-        
-        inputTotal.delegate = self
-        inputTotal.maximumFractionDigits = input.priceAsset.decimals
-        
-        setupInputAmountData()
-
-        inputAmount.input = { [weak self] in
-            return self?.amountValues ?? []
-        }
-        
-        inputPrice.input = { [weak self] in
-            self?.priceValues ?? []
-        }
-        
-        var fields: [String] = []
-        if input.bid != nil {
-            fields.append(Localizable.Waves.Dexcreateorder.Button.bid)
-        }
-        if input.ask != nil {
-            fields.append(Localizable.Waves.Dexcreateorder.Button.ask)
-        }
-        if input.last != nil {
-            fields.append(Localizable.Waves.Dexcreateorder.Button.last)
-        }
-        inputPrice.update(with: fields)
-        inputPrice.isShowInputWhenFilled = true
-        
-        if let price = input.price {
-            order.price = price
-            inputPrice.setupValue(price)
-            
-            if let amount = input.amount {
-                inputAmount.updateAmount(amount)
-            }
-            setupValidationErrors()
-        }
-    }
-    
-    var amountValues: [Money] {
-        var values: [Money] = []
-        
-        var totalAmount: Int64 = 0
-        var decimals: Int = 0
-
-        if order.type == .sell {
-            
-            guard !availableAmountAssetBalance.isZero else { return values }
-            
-            totalAmount = availableAmountAssetBalance.amount
-            decimals = availableAmountAssetBalance.decimals
-        }
-        else {
-            if order.price.isZero {
-                guard !availableAmountAssetBalance.isZero else { return values }
-                totalAmount = availableAmountAssetBalance.amount
-                decimals = availableAmountAssetBalance.decimals
-            }
-            else {
+            switch error {
+            case .globalError(let isInternetNotWorking):
                 
-                guard !availablePriceAssetBalance.isZero else { return values }
-
-                totalAmount = ((availablePriceAssetBalance.decimalValue / order.price.decimalValue) * pow(10, availableAmountAssetBalance.decimals)).rounded().int64Value
-                decimals = availableAmountAssetBalance.decimals
+                if isInternetNotWorking {
+                    errorSnackKey = showWithoutInternetSnack { [weak self] in
+                        self?.sendEvent.accept(.refreshFee)
+                    }
+                } else {
+                    errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
+                        self?.sendEvent.accept(.refreshFee)
+                    })
+                }
+            case .internetNotWorking:
+                errorSnackKey = showWithoutInternetSnack { [weak self] in
+                    self?.sendEvent.accept(.refreshFee)
+                }
+                
+            case .message(let text):
+                errorSnackKey = showErrorSnack(title: text, didTap: { [weak self] in
+                    self?.sendEvent.accept(.refreshFee)
+                })
+                
+            case .notFound, .scriptError:
+                errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
+                    self?.sendEvent.accept(.refreshFee)
+                })
             }
+            
+        case .none:
+            if let errorSnackKey = errorSnackKey {
+                hideSnack(key: errorSnackKey)
+            }
+            
+        case .waiting:
+            break
         }
         
-        let totalAmountMoney = Money(totalAmount, decimals)
-
-        let n5 = Decimal(totalAmountMoney.amount) * (Decimal(Constants.percent5) / 100.0)
-        let n10 = Decimal(totalAmountMoney.amount) * (Decimal(Constants.percent10) / 100.0)
-        let n50 = Decimal(totalAmountMoney.amount) * (Decimal(Constants.percent50) / 100.0)
-
-        let valuePercent50 = Money(n50.int64Value, decimals)
-        let valuePercent10 = Money(n10.int64Value, decimals)
-        let valuePercent5 = Money(n5.int64Value, decimals)
-        
-        values.append(totalAmountMoney)
-        values.append(valuePercent50)
-        values.append(valuePercent10)
-        values.append(valuePercent5)
-        
-        return values
-    }
-    
-    var priceValues: [Money] {
-        
-        var values: [Money] = []
-        
-        if let bid = input.bid {
-            values.append(bid)
-        }
-        
-        if let ask = input.ask {
-            values.append(ask)
-        }
-        
-        if let last = input.last {
-            values.append(last)
-        }
-
-        return values
-    }
-    
-    func setupLocalization() {
-        setupLabelExpiration()
-        
-        labelFeeLocalization.text = Localizable.Waves.Dexcreateorder.Label.fee
-        labelExpiration.text = Localizable.Waves.Dexcreateorder.Label.expiration
-        
-        inputAmount.setupTitle(title: Localizable.Waves.Dexcreateorder.Label.amountIn + " " + input.amountAsset.shortName)
-        inputPrice.setupTitle(title: Localizable.Waves.Dexcreateorder.Label.limitPriceIn + " " + input.priceAsset.shortName)
-        inputTotal.setupTitle(title: Localizable.Waves.Dexcreateorder.Label.totalIn + " " + input.priceAsset.shortName)
-        labelErrorFee.text = Localizable.Waves.Dexcreateorder.Label.Error.notFundsFee
     }
 }
 

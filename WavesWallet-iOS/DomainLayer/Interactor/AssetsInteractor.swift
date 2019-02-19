@@ -24,9 +24,18 @@ fileprivate enum Constants {
 
 final class AssetsInteractor: AssetsInteractorProtocol {
 
-    private let repositoryLocal: AssetsRepositoryProtocol = FactoryRepositories.instance.assetsRepositoryLocal
-    private let repositoryRemote: AssetsRepositoryProtocol = FactoryRepositories.instance.assetsRepositoryRemote
-    private let accountSettingsRepository: AccountSettingsRepositoryProtocol = FactoryRepositories.instance.accountSettingsRepository
+    private let repositoryLocal: AssetsRepositoryProtocol
+    private let repositoryRemote: AssetsRepositoryProtocol
+    private let accountSettingsRepository: AccountSettingsRepositoryProtocol
+
+    init(assetsRepositoryLocal: AssetsRepositoryProtocol,
+         assetsRepositoryRemote: AssetsRepositoryProtocol,
+         accountSettingsRepository: AccountSettingsRepositoryProtocol) {
+
+        self.repositoryLocal = assetsRepositoryLocal
+        self.repositoryRemote = assetsRepositoryRemote
+        self.accountSettingsRepository = accountSettingsRepository
+    }
 
     func assetsSync(by ids: [String], accountAddress: String) -> SyncObservable<[DomainLayer.DTO.Asset]> {
 

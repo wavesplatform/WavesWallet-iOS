@@ -44,7 +44,7 @@ final class AssetPresenter: AssetPresenterProtocol {
     }
 
     private func assetsQuery() -> Feedback {
-        return react(query: { state -> Bool? in
+        return react(request: { state -> Bool? in
             return state.displayState.isAppeared == true
         }, effects: { [weak self] _ -> Signal<AssetTypes.Event> in
 
@@ -65,7 +65,7 @@ final class AssetPresenter: AssetPresenterProtocol {
     }
 
     private func transactionsQuery() -> Feedback {
-        return react(query: { state -> TransactionsQuery? in
+        return react(request: { state -> TransactionsQuery? in
 
             guard state.displayState.isAppeared == true else { return nil }
             guard state.transactionStatus.isLoading == true else { return nil }

@@ -35,7 +35,7 @@ final class AddressesKeysPresenter: AddressesKeysPresenterProtocol {
 
     private let disposeBag: DisposeBag = DisposeBag()
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let aliasesRepository: AliasesRepositoryProtocol = FactoryRepositories.instance.aliasesRepository
+    private let aliasesRepository: AliasesRepositoryProtocol = FactoryRepositories.instance.aliasesRepositoryRemote
 
     var moduleInput: AddressesKeysModuleInput!
     weak var moduleOutput: AddressesKeysModuleOutput?
@@ -65,7 +65,7 @@ fileprivate extension AddressesKeysPresenter {
 
     func getAliasesQuery() -> Feedback {
 
-        return react(query: { state -> String? in
+        return react(request: { state -> String? in
 
             if state.displayState.isAppeared == true {
                 return state.wallet.address
@@ -90,7 +90,7 @@ fileprivate extension AddressesKeysPresenter {
 
     func getPrivateKeyQuery() -> Feedback {
 
-        return react(query: { state -> DomainLayer.DTO.Wallet? in
+        return react(request: { state -> DomainLayer.DTO.Wallet? in
 
             if case .getPrivateKey? = state.query {
                 return state.wallet
@@ -126,7 +126,7 @@ fileprivate extension AddressesKeysPresenter {
 
     func externalQuery() -> Feedback {
 
-        return react(query: { state -> Types.Query? in
+        return react(request: { state -> Types.Query? in
 
 
             if case .showInfo? = state.query {

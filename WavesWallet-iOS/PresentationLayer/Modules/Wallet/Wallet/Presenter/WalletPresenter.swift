@@ -48,7 +48,7 @@ final class WalletPresenter: WalletPresenterProtocol {
     }
 
     private func queryAssets() -> Feedback {
-        return react(query: { (state) -> Types.DisplayState.RefreshData? in
+        return react(request: { (state) -> Types.DisplayState.RefreshData? in
 
             if state.displayState.kind == .assets && state.displayState.refreshData != .none {
                 return state.displayState.refreshData
@@ -72,7 +72,7 @@ final class WalletPresenter: WalletPresenterProtocol {
     }
 
     private func queryAssetsListener() -> Feedback {
-        return react(query: { (state) -> Types.DisplayState.RefreshData? in
+        return react(request: { (state) -> Types.DisplayState.RefreshData? in
 
             if state.displayState.kind == .assets {
                 return state.displayState.listenerRefreshData
@@ -88,7 +88,7 @@ final class WalletPresenter: WalletPresenterProtocol {
     }
 
     private func queryLeasingListener() -> Feedback {
-        return react(query: { (state) -> Types.DisplayState.RefreshData? in
+        return react(request: { (state) -> Types.DisplayState.RefreshData? in
 
             if state.displayState.kind == .leasing {
                 return state.displayState.listenerRefreshData
@@ -104,7 +104,7 @@ final class WalletPresenter: WalletPresenterProtocol {
     }
 
     private func queryLeasing() -> Feedback {
-        return react(query: { (state) -> Types.DisplayState.RefreshData? in
+        return react(request: { (state) -> Types.DisplayState.RefreshData? in
 
             if state.displayState.kind == .leasing {
                 return state.displayState.refreshData
