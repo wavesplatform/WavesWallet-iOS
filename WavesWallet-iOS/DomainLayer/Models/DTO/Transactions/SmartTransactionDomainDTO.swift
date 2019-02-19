@@ -12,23 +12,23 @@ private typealias CoinomatService = Coinomat
 
 extension DomainLayer.DTO {
 
-    struct AssetPair {
+    struct AssetPair: Equatable {
         var amountAsset: Asset
         var priceAsset: Asset
     }
 
-    struct SmartTransaction {
+    struct SmartTransaction: Equatable {
 
         typealias Asset = DomainLayer.DTO.Asset
         typealias Account = DomainLayer.DTO.Account
 
-        enum Status {
+        enum Status: Equatable {
             case activeNow
             case completed
             case unconfirmed
         }
 
-        struct Transfer {
+        struct Transfer: Equatable {
             let balance: Balance
             let asset: Asset
             let recipient: Account
@@ -39,10 +39,10 @@ extension DomainLayer.DTO {
             }
         }
 
-        struct Exchange {
+        struct Exchange: Equatable {
 
-            struct Order {
-                enum Kind {
+            struct Order: Equatable {
+                enum Kind: Equatable {
                     case buy
                     case sell
                 }
@@ -66,20 +66,20 @@ extension DomainLayer.DTO {
             let order2: Order
         }
 
-        struct Leasing {
+        struct Leasing: Equatable {
             let asset: Asset
             let balance: Balance
             let account: Account
         }
 
-        struct Issue {
+        struct Issue: Equatable {
             let asset: Asset
             let balance: Balance
             let description: String?            
         }
 
-        struct MassTransfer {
-            struct Transfer {
+        struct MassTransfer: Equatable {
+            struct Transfer: Equatable {
                 let amount: Money
                 let recipient: Account
             }
@@ -89,8 +89,8 @@ extension DomainLayer.DTO {
             let transfers: [Transfer]
         }
 
-        struct MassReceive {
-            struct Transfer {
+        struct MassReceive: Equatable {
+            struct Transfer: Equatable {
                 let amount: Money
                 let recipient: Account
             }
@@ -101,11 +101,11 @@ extension DomainLayer.DTO {
             let transfers: [Transfer]
         }
 
-        struct Data {
+        struct Data: Equatable {
             let prettyJSON: String
         }
 
-        enum Kind {
+        enum Kind: Equatable {
             case receive(Transfer)
             case sent(Transfer)
             case spamReceive(Transfer)

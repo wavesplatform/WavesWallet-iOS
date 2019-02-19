@@ -289,12 +289,12 @@ extension AppCoordinator: SupportViewControllerDelegate  {
     func closeSupportView(isTestNet: Bool) {
 
         self.windowRouter.window.rootViewController?.dismiss(animated: true, completion: {
-            if Environments.isTestNet != isTestNet {
+            if Environment.isTestNet != isTestNet {
 
                 self.authoAuthorizationInteractor
                     .logout()
                     .subscribe(onCompleted: { [weak self] in
-                        Environments.isTestNet = isTestNet
+                        Environment.isTestNet = isTestNet
                         self?.showDisplay(.enter)
                     })
                     .disposed(by: self.disposeBag)

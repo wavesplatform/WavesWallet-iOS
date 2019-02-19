@@ -52,7 +52,7 @@ final class PasscodeChangePasswordPresenter: PasscodePresenterProtocol {
 extension PasscodeChangePasswordPresenter {
 
     private func changePassword() -> Feedback {
-        return react(query: { state -> ChangePasswordQuery? in
+        return react(request: { state -> ChangePasswordQuery? in
 
             if case .changePassword(let wallet, let newPassword, let oldPassword) = state.kind,
                 let action = state.action,
@@ -81,7 +81,7 @@ extension PasscodeChangePasswordPresenter {
     }
 
     private func logout() -> Feedback {
-        return react(query: { state -> LogoutQuery? in
+        return react(request: { state -> LogoutQuery? in
 
             if case .changePassword(let wallet, _, _) = state.kind,
                 let action = state.action, case .logout = action {

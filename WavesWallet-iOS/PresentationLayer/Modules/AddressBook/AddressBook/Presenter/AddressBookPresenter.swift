@@ -31,7 +31,7 @@ final class AddressBookPresenter: AddressBookPresenterProtocol {
     }
     
     private func modelsQuery() -> Feedback {
-        return react(query: { state -> Bool? in
+        return react(request: { state -> Bool? in
             return state.isAppeared ? true : nil
         }, effects: { [weak self] _ -> Signal<AddressBookTypes.Event> in
             

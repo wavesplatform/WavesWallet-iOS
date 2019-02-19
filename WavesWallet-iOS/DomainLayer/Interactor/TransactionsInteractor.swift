@@ -101,16 +101,33 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
 
     typealias SmartTransactionsSyncObservable = SyncObservable<[DomainLayer.DTO.SmartTransaction]>
 
-    private var transactionsRepositoryLocal: TransactionsRepositoryProtocol = FactoryRepositories.instance.transactionsRepositoryLocal
-    private var transactionsRepositoryRemote: TransactionsRepositoryProtocol = FactoryRepositories.instance.transactionsRepositoryRemote
+    private var transactionsRepositoryLocal: TransactionsRepositoryProtocol
+    private var transactionsRepositoryRemote: TransactionsRepositoryProtocol
 
-    private var assetsInteractors: AssetsInteractorProtocol = FactoryInteractors.instance.assetsInteractor
-    private var accountsInteractors: AccountsInteractorProtocol = FactoryInteractors.instance.accounts
+    private var assetsInteractors: AssetsInteractorProtocol
+    private var accountsInteractors: AccountsInteractorProtocol
 
-    private var addressRepository: AddressRepositoryProtocol  = FactoryRepositories.instance.addressRepository
-    private var assetsRepository: AssetsRepositoryProtocol = FactoryRepositories.instance.assetsRepositoryRemote
+    private var addressRepository: AddressRepositoryProtocol
+    private var assetsRepository: AssetsRepositoryProtocol
 
-    private var blockRepositoryRemote: BlockRepositoryProtocol = FactoryRepositories.instance.blockRemote
+    private var blockRepositoryRemote: BlockRepositoryProtocol
+
+    init(transactionsRepositoryLocal: TransactionsRepositoryProtocol,
+         transactionsRepositoryRemote: TransactionsRepositoryProtocol,
+         assetsInteractors: AssetsInteractorProtocol,
+         accountsInteractors: AccountsInteractorProtocol,
+         addressRepository: AddressRepositoryProtocol,
+         assetsRepositoryRemote: AssetsRepositoryProtocol,
+         blockRepositoryRemote: BlockRepositoryProtocol) {
+
+        self.transactionsRepositoryLocal = transactionsRepositoryLocal
+        self.transactionsRepositoryRemote = transactionsRepositoryRemote
+        self.assetsInteractors = assetsInteractors
+        self.accountsInteractors = accountsInteractors
+        self.addressRepository = addressRepository
+        self.assetsRepository = assetsRepositoryRemote
+        self.blockRepositoryRemote = blockRepositoryRemote
+    }
 
     func calculateFee(by transactionSpecs: DomainLayer.Query.TransactionSpecificationType, accountAddress: String) -> Observable<Money> {
 

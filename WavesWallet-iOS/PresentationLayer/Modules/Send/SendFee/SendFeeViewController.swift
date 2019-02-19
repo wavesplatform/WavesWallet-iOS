@@ -54,7 +54,7 @@ private extension SendFeeViewController {
     func setupFeedBack() {
         
         let feedback = bind(self) { owner, state -> Bindings<SendFee.Event> in
-            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
         }
         
         presenter.system(feedbacks: [feedback])

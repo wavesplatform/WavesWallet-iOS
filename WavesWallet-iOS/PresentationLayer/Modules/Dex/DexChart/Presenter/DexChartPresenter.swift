@@ -31,7 +31,7 @@ final class DexChartPresenter: DexChartPresenterProtocol {
     
     private func modelsQuery() -> Feedback {
       
-        return react(query: { state -> DexChart.State? in
+        return react(request: { state -> DexChart.State? in
             
             return state.isNeedLoadingData ? state : nil
             

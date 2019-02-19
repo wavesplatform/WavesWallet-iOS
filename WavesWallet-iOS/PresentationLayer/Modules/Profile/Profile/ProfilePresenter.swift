@@ -41,7 +41,7 @@ public func reactQuery<State, Query: Equatable, Event, Owner: AnyObject>(owner: 
                                                        query: @escaping (State) -> Query?,
                                                        effects: @escaping (Owner, Query) -> Void) -> (Driver<State>) -> Signal<Event> {
 
-    return react(query: query, effects: { [weak owner] query -> Signal<Event> in
+    return react(request: query, effects: { [weak owner] query -> Signal<Event> in
         guard let ownerStrong = owner else { return Signal.never() }
         effects(ownerStrong, query)
         return Signal.empty()
@@ -160,7 +160,7 @@ fileprivate extension ProfilePresenter {
 
     func reactQuries() -> Feedback {
 
-        return react(query: { state -> Types.Query? in
+        return react(request: { state -> Types.Query? in
             return ProfilePresenter.needQuery(state)
         }, effects: { [weak self] query -> Signal<Types.Event> in
             guard let owner = self else { return Signal.empty() }
@@ -170,7 +170,7 @@ fileprivate extension ProfilePresenter {
     }
 
     func handlerEvent() -> Feedback {
-        return react(query: { state -> Bool? in
+        return react(request: { state -> Bool? in
             return true
         }, effects: { [weak self] isOn -> Signal<Types.Event> in
             guard let strongSelf = self else { return Signal.empty() }
@@ -180,7 +180,7 @@ fileprivate extension ProfilePresenter {
 
     func setBackupQuery() -> Feedback {
 
-        return react(query: { state -> DomainLayer.DTO.Wallet? in
+        return react(request: { state -> DomainLayer.DTO.Wallet? in
 
             guard let query = state.query else { return nil }
             guard let wallet = state.wallet else { return nil }
@@ -209,7 +209,7 @@ fileprivate extension ProfilePresenter {
 
     func profileQuery() -> Feedback {
 
-        return react(query: { state -> Bool? in
+        return react(request: { state -> Bool? in
 
             if state.displayState.isAppeared == true {
                 return true
@@ -238,7 +238,7 @@ fileprivate extension ProfilePresenter {
 
     func blockQuery() -> Feedback {
 
-        return react(query: { state -> String? in
+        return react(request: { state -> String? in
 
             if state.displayState.isAppeared == true, state.wallet != nil {
                 return state.wallet?.address
@@ -262,7 +262,7 @@ fileprivate extension ProfilePresenter {
 
     func logoutAccountQuery() -> Feedback {
 
-        return react(query: { state -> Bool? in
+        return react(request: { state -> Bool? in
 
             guard let query = state.query else { return nil }
             if case .logoutAccount = query {
@@ -293,7 +293,7 @@ fileprivate extension ProfilePresenter {
 
     func deleteAccountQuery() -> Feedback {
 
-        return react(query: { state -> Bool? in
+        return react(request: { state -> Bool? in
             guard let query = state.query else { return nil }
             if case .deleteAccount = query {
                 return true

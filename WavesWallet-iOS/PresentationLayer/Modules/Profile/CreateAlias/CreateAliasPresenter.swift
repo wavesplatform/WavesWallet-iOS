@@ -30,7 +30,7 @@ final class CreateAliasPresenter: CreateAliasPresenterProtocol {
     fileprivate typealias Types = CreateAliasTypes
 
     private let disposeBag: DisposeBag = DisposeBag()
-    private let aliasesRepository: AliasesRepositoryProtocol = FactoryRepositories.instance.aliasesRepository
+    private let aliasesRepository: AliasesRepositoryProtocol = FactoryRepositories.instance.aliasesRepositoryRemote
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let transactionsInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
 
@@ -60,7 +60,7 @@ fileprivate extension CreateAliasPresenter {
 
     func externalQueries() -> Feedback {
 
-        return react(query: { state -> Types.Query? in
+        return react(request: { state -> Types.Query? in
 
             switch state.query {
             case .completedCreateAlias?:
@@ -83,7 +83,7 @@ fileprivate extension CreateAliasPresenter {
 
     func getAliasesQuery() -> Feedback {
 
-        return react(query: { state -> String? in
+        return react(request: { state -> String? in
 
             if case .createAlias(let name)? = state.query {
                 return name
@@ -125,7 +125,7 @@ fileprivate extension CreateAliasPresenter {
 
     func checkExistAliasQuery() -> Feedback {
 
-        return react(query: { state -> String? in
+        return react(request: { state -> String? in
 
             if case .checkExist(let name)? = state.query {
                 return name
