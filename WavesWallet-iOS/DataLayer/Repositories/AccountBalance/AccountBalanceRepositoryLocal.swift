@@ -32,7 +32,7 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
         }
     }
 
-    func balance(by id: String, accountAddress: String) -> Observable<DomainLayer.DTO.AssetBalance> {
+    func balance(by assetId: String, accountAddress: String) -> Observable<DomainLayer.DTO.AssetBalance> {
 
         return Observable.create { (observer) -> Disposable in
 
@@ -41,7 +41,7 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
                 return Disposables.create()
             }
 
-            if let object = realm.object(ofType: AssetBalance.self, forPrimaryKey: id) {
+            if let object = realm.object(ofType: AssetBalance.self, forPrimaryKey: assetId) {
                 let balance = DomainLayer.DTO.AssetBalance(balance: object)
                 observer.onNext(balance)
                 observer.onCompleted()

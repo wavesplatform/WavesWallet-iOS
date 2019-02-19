@@ -9,6 +9,13 @@
 import Foundation
 
 extension Node.DTO {
+
+    struct AccountAssetBalance: Decodable {
+        let address: String
+        let assetId: String
+        let balance: Int64
+    }
+
     struct AccountAssetsBalance: Decodable {
         let address: String
         let balances: [AssetBalance]
