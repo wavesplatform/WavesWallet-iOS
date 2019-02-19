@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct Balance {
-    struct Currency {
+struct Balance: Equatable {
+    struct Currency: Equatable {
         let title: String
         let ticker: String?
     }
@@ -20,7 +20,7 @@ struct Balance {
 
 extension Balance {
 
-    enum Sign: String {
+    enum Sign: String, Equatable {
         case none = ""
         case plus = "+"
         case minus = "-"

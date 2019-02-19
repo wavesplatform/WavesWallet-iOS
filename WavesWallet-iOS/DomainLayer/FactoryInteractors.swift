@@ -8,16 +8,107 @@
 
 import Foundation
 
+private struct AuthorizationInteractorLocalizableImp: AuthorizationInteractorLocalizable {
+    var fallbackTitle: String {
+        return Localizable.Waves.Biometric.localizedFallbackTitle
+    }
+    var cancelTitle: String {
+        return Localizable.Waves.Biometric.localizedCancelTitle
+    }
+    var readFromkeychain: String {
+        return Localizable.Waves.Biometric.readfromkeychain
+    }
+    var saveInkeychain: String {
+        return Localizable.Waves.Biometric.saveinkeychain
+    }
+}
+
 final class FactoryInteractors: FactoryInteractorsProtocol {
 
     static let instance: FactoryInteractors = FactoryInteractors()
 
-    private(set) lazy var assetsInteractor: AssetsInteractorProtocol = AssetsInteractor()  
-    private(set) lazy var accountBalance: AccountBalanceInteractorProtocol = AccountBalanceInteractor()
-    private(set) lazy var transactions: TransactionsInteractorProtocol = TransactionsInteractor()
-    private(set) lazy var accounts: AccountsInteractorProtocol = AccountsInteractor()
-    private(set) lazy var authorization: AuthorizationInteractorProtocol = AuthorizationInteractor()
-    private(set) lazy var aliases: AliasesInteractorProtocol = AliasesInteractor()
-    private(set) lazy var assetsBalanceSettings: AssetsBalanceSettingsInteractorProtocol = AssetsBalanceSettingsInteractor()
+    private(set) lazy var assetsInteractor: AssetsInteractorProtocol = {
+
+        let instance = FactoryRepositories.instance
+        let interactor = AssetsInteractor(assetsRepositoryLocal: instance.assetsRepositoryLocal,
+                                          assetsRepositoryRemote: instance.assetsRepositoryRemote,
+                                          accountSettingsRepository: instance.accountSettingsRepository)
+
+        return interactor
+    }()
+
+    private(set) lazy var accountBalance: AccountBalanceInteractorProtocol = {
+        let instance = FactoryRepositories.instance
+        let interactor = AccountBalanceInteractor(authorizationInteractor: self.authorization,
+                                                  balanceRepositoryRemote: instance.accountBalanceRepositoryRemote,
+                                                  environmentRepository: instance.environmentRepository,
+                                                  assetsInteractor: self.assetsInteractor,
+                                                  assetsBalanceSettings: self.assetsBalanceSettings,
+                                                  transactionsInteractor: self.transactions,
+                                                  assetsBalanceSettingsRepository: instance.assetsBalanceSettingsRepositoryLocal)
+        return interactor
+    }()
+
+    private(set) lazy var transactions: TransactionsInteractorProtocol = {
+
+        let instance = FactoryRepositories.instance
+
+        let interactor = TransactionsInteractor(transactionsRepositoryLocal: instance.transactionsRepositoryLocal,
+                                                transactionsRepositoryRemote: instance.transactionsRepositoryRemote,
+                                                assetsInteractors: self.assetsInteractor,
+                                                accountsInteractors: self.accounts,
+                                                addressRepository: instance.addressRepository,
+                                                assetsRepositoryRemote: instance.assetsRepositoryRemote,
+                                                blockRepositoryRemote: instance.blockRemote)
+        return interactor
+    }()
+
+    private(set) lazy var accounts: AccountsInteractorProtocol = {
+
+        let instance = FactoryRepositories.instance
+
+        let interactor = AccountsInteractor(addressBookRepository: instance.addressBookRepository,
+                                            aliasesInteractor: self.aliases)
+        return interactor
+    }()
+
+    private(set) lazy var authorization: AuthorizationInteractorProtocol = {
+
+        let instance = FactoryRepositories.instance
+
+        let interactor = AuthorizationInteractor(localWalletRepository: instance.walletsRepositoryLocal,
+                                                 localWalletSeedRepository: instance.walletSeedRepositoryLocal,
+                                                 remoteAuthenticationRepository: instance.authenticationRepositoryRemote,
+                                                 accountSettingsRepository: instance.accountSettingsRepository,
+                                                 localizable: AuthorizationInteractorLocalizableImp())
+
+        return interactor
+    }()
+
+    private(set) lazy var aliases: AliasesInteractorProtocol = {
+
+        let instance = FactoryRepositories.instance
+
+        let interactor = AliasesInteractor(aliasesRepositoryRemote: instance.aliasesRepositoryRemote,
+                                           aliasesRepositoryLocal: instance.aliasesRepositoryLocal)
+
+        return interactor
+    }()
+
+    private(set) lazy var assetsBalanceSettings: AssetsBalanceSettingsInteractorProtocol = {
+
+        let instance = FactoryRepositories.instance
+
+        let interactor = AssetsBalanceSettingsInteractor(assetsBalanceSettingsRepositoryLocal: instance.assetsBalanceSettingsRepositoryLocal)
+
+        return interactor
+    }()
+
+    private(set) lazy var migrationInteractor: MigrationInteractor = {
+
+        let instance = FactoryRepositories.instance
+        return MigrationInteractor(walletsRepository: instance.walletsRepositoryLocal)
+    }()
+
     fileprivate init() {}
 }

@@ -25,7 +25,7 @@ final class SupportViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let on = Environments.isTestNet
+        let on = Environment.isTestNet
         testNetSwitch.setOn(on, animated: true)
         versionLabel.text = version()
         buildVersionLabel.text = buildVersion()

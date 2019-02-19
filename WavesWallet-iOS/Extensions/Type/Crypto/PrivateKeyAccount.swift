@@ -16,7 +16,7 @@ class Address {
     static let AddressLength = 1 + 1 + HashLength + ChecksumLength
 
     class func getSchemeByte() -> UInt8 {
-        return Environments.current.scheme.utf8.first!
+        return Environment.current.scheme.utf8.first!
     }
     
     class func addressFromPublicKey(publicKey: [UInt8]) -> String {

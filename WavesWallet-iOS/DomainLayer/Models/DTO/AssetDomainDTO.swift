@@ -10,9 +10,9 @@ import Foundation
 
 extension DomainLayer.DTO {
 
-    struct Asset: Mutating {
+    struct Asset: Mutating, Equatable {
 
-        struct Icon {
+        struct Icon: Equatable {
             let name: String
             let url: String?
         }

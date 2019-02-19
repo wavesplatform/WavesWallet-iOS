@@ -164,14 +164,34 @@ private final class SeedRepositoryMemory {
     }
 }
 
+protocol AuthorizationInteractorLocalizable {
+    var fallbackTitle: String { get }
+    var cancelTitle: String { get }
+    var readFromkeychain: String { get }
+    var saveInkeychain: String { get }
+}
+
 final class AuthorizationInteractor: AuthorizationInteractorProtocol {
 
-    private let localWalletRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
-    private let localWalletSeedRepository: WalletSeedRepositoryProtocol = FactoryRepositories.instance.walletSeedRepositoryLocal
-    private let remoteAuthenticationRepository: AuthenticationRepositoryProtocol = FactoryRepositories.instance.authenticationRepositoryRemote
+    private let localWalletRepository: WalletsRepositoryProtocol
+    private let localWalletSeedRepository: WalletSeedRepositoryProtocol
+    private let remoteAuthenticationRepository: AuthenticationRepositoryProtocol
+    private let accountSettingsRepository: AccountSettingsRepositoryProtocol
 
-    private let accountSettingsRepository: AccountSettingsRepositoryProtocol = FactoryRepositories.instance.accountSettingsRepository
-    
+    private let localizable: AuthorizationInteractorLocalizable
+
+    init(localWalletRepository: WalletsRepositoryProtocol,
+         localWalletSeedRepository: WalletSeedRepositoryProtocol,
+         remoteAuthenticationRepository: AuthenticationRepositoryProtocol,
+         accountSettingsRepository: AccountSettingsRepositoryProtocol,
+         localizable: AuthorizationInteractorLocalizable) {
+
+        self.localWalletRepository = localWalletRepository
+        self.localWalletSeedRepository = localWalletSeedRepository
+        self.remoteAuthenticationRepository = remoteAuthenticationRepository
+        self.accountSettingsRepository = accountSettingsRepository
+        self.localizable = localizable
+    }
 
     //TODO: Mutex
     private let seedRepositoryMemory: SeedRepositoryMemory = SeedRepositoryMemory()
@@ -751,20 +771,26 @@ private extension AuthorizationInteractor {
         }
     }
 
-    private func biometricAccess(localizedFallbackTitle: String? = Localizable.Waves.Biometric.localizedFallbackTitle) -> Observable<LAContext> {
+    private func biometricAccess(localizedFallbackTitle: String? = nil) -> Observable<LAContext> {
 
-        return Observable<LAContext>.create { observer -> Disposable in
+        return Observable<LAContext>.create { [weak self] observer -> Disposable in
+
+            guard let owner = self else {
+                observer.onError(AuthorizationInteractorError.fail)
+                return Disposables.create()
+            }
 
             let context = LAContext()
 
-            context.localizedFallbackTitle = localizedFallbackTitle
-            context.localizedCancelTitle = Localizable.Waves.Biometric.localizedCancelTitle
+            context.localizedFallbackTitle = localizedFallbackTitle ?? owner.localizable.fallbackTitle
+            context.localizedCancelTitle = owner.localizable.cancelTitle
+
 
             var error: NSError?
             if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &error) {
 
                 context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics,
-                                       localizedReason: Localizable.Waves.Biometric.readfromkeychain,
+                                       localizedReason: self?.localizable.readFromkeychain ?? "",
                                        reply:
                     { (result, error) in
 
@@ -809,26 +835,30 @@ private extension AuthorizationInteractor {
     }
 
     private func savePasscodeInKeychain(wallet: DomainLayer.DTO.Wallet, passcode: String, context: LAContext) -> Observable<Bool> {
-        return Observable<Bool>.create { observer -> Disposable in
+        return Observable<Bool>.create { [weak self] observer -> Disposable in
 
+            guard let owner = self else {
+                observer.onError(AuthorizationInteractorError.fail)
+                return Disposables.create()
+            }
 
-                let keychain = Keychain(service: Constants.service)
-                    .authenticationPrompt(Localizable.Waves.Biometric.saveinkeychain)
-                    .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
+            let keychain = Keychain(service: Constants.service)
+                .authenticationPrompt(owner.localizable.saveInkeychain)
+                .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
 
-                do {
-                    try keychain.remove(wallet.publicKey)
-                    try keychain.set(passcode, key: wallet.publicKey)
-                    observer.onNext(true)
+            do {
+                try keychain.remove(wallet.publicKey)
+                try keychain.set(passcode, key: wallet.publicKey)
+                observer.onNext(true)
 
-                } catch let error {
+            } catch let error {
 
-                    if error is AuthorizationInteractorError {
-                        observer.onError(error)                    
-                    } else {
-                        observer.onError(AuthorizationInteractorError.biometricDisable)
-                    }
+                if error is AuthorizationInteractorError {
+                    observer.onError(error)
+                } else {
+                    observer.onError(AuthorizationInteractorError.biometricDisable)
                 }
+            }
 
 
             return Disposables.create {}
@@ -845,28 +875,33 @@ private extension AuthorizationInteractor {
 
     private func passcodeFromKeychain(wallet: DomainLayer.DTO.Wallet, context: LAContext) -> Observable<String> {
 
-        return Observable<String>.create { observer -> Disposable in
+        return Observable<String>.create { [weak self] observer -> Disposable in
 
-                let keychain = Keychain(service: Constants.service)
-                    .authenticationContext(context)
-                    .authenticationPrompt(Localizable.Waves.Biometric.readfromkeychain)
-                    .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
+            guard let owner = self else {
+                observer.onError(AuthorizationInteractorError.fail)
+                return Disposables.create()
+            }
 
-                do {
-                    guard let passcode = try keychain.get(wallet.publicKey) else
-                    {
-                        throw AuthorizationInteractorError.biometricDisable
-                    }
+            let keychain = Keychain(service: Constants.service)
+                .authenticationContext(context)
+                .authenticationPrompt(owner.localizable.readFromkeychain)
+                .accessibility(.whenUnlocked, authenticationPolicy: AuthenticationPolicy.touchIDCurrentSet)
 
-                    observer.onNext(passcode)
-                    observer.onCompleted()
-                } catch let error {
-                    if error is AuthorizationInteractorError {
-                        observer.onError(error)
-                    } else {
-                        observer.onError(AuthorizationInteractorError.permissionDenied)
-                    }
+            do {
+                guard let passcode = try keychain.get(wallet.publicKey) else
+                {
+                    throw AuthorizationInteractorError.biometricDisable
                 }
+
+                observer.onNext(passcode)
+                observer.onCompleted()
+            } catch let error {
+                if error is AuthorizationInteractorError {
+                    observer.onError(error)
+                } else {
+                    observer.onError(AuthorizationInteractorError.permissionDenied)
+                }
+            }
 
 
             return Disposables.create {}
@@ -1137,16 +1172,13 @@ extension LAError {
              LAError.authenticationFailed:
             return AuthorizationInteractorError.biometricUserCancel
 
-        case LAError.biometryLockout,
-             LAError.touchIDLockout:
+        case LAError.biometryLockout:
             return AuthorizationInteractorError.biometricLockout
 
         case LAError.userFallback:
             return AuthorizationInteractorError.biometricUserFallback
 
-        case LAError.touchIDNotEnrolled,
-             LAError.touchIDNotAvailable,
-             LAError.biometryNotEnrolled,
+        case LAError.biometryNotEnrolled,
              LAError.biometryNotAvailable,
              LAError.passcodeNotSet:
             return AuthorizationInteractorError.biometricDisable
