@@ -27,4 +27,17 @@ final class ModalTableView: UITableView {
 
         insertSubview(backgroundModalView, at: 0)
     }
+
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView?
+    {
+        if let tableHeaderView = tableHeaderView {
+            let headerViewFrame = tableHeaderView.convert(tableHeaderView.frame, to: self)
+
+            if  headerViewFrame.contains(point) {
+                return self
+            }
+        }
+
+        return super.hitTest(point, with: event)
+    }
 }
