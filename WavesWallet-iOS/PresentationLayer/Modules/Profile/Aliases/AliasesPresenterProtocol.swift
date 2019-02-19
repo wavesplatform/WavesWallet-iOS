@@ -62,7 +62,7 @@ fileprivate extension AliasesPresenter {
 
     func createAliasQuery() -> Feedback {
 
-        return react(query: { state -> Types.Query? in
+        return react(request: { state -> Types.Query? in
 
             if case .createAlias? = state.query {
                 return state.query
@@ -78,7 +78,7 @@ fileprivate extension AliasesPresenter {
 
     func initialAliasQuery() -> Feedback {
 
-        return react(query: { state -> Types.Query? in
+        return react(request: { state -> Types.Query? in
 
             if case .calculateFee? = state.query {
                 return state.query

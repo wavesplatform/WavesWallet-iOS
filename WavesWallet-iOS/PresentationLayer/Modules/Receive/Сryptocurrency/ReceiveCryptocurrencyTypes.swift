@@ -16,8 +16,8 @@ enum ReceiveCryptocurrency {
         case addressDidGenerate(ResponseType<DTO.DisplayInfo>)
     }
     
-    struct State: Mutating {
-        enum Action {
+    struct State: Mutating, Equatable {
+        enum Action: Equatable {
             case none
             case addressDidGenerate(DTO.DisplayInfo)
             case addressDidFailGenerate(NetworkError)
@@ -32,7 +32,7 @@ enum ReceiveCryptocurrency {
 
 extension ReceiveCryptocurrency.DTO {
     
-    struct DisplayInfo {
+    struct DisplayInfo: Equatable {
         let address: String
         let assetName: String
         let assetShort: String

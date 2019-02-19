@@ -271,10 +271,10 @@ private extension WalletsRepositoryLocal {
             SweetLogger.error("File Realm is nil")
             return nil
         }
-
+        
         config.fileURL = fileURL
             .deletingLastPathComponent()
-            .appendingPathComponent("wallets_\(Environments.current.scheme).realm")
+            .appendingPathComponent("wallets_\(Environment.current.scheme).realm")
 
         config.migrationBlock = { _, oldSchemaVersion in
             SweetLogger.debug("Migration!!! \(oldSchemaVersion)")

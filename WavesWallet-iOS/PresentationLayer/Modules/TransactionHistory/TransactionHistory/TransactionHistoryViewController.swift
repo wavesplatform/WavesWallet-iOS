@@ -262,7 +262,7 @@ private extension TransactionHistoryViewController {
             let subscriptions = owner.uiSubscriptions(state: state)
             let events = owner.events()
             
-            return Bindings(subscriptions: subscriptions, mutations: events)
+            return Bindings(subscriptions: subscriptions, events: events)
             
         }
         

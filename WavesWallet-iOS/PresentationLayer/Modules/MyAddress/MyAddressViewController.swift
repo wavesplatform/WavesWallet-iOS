@@ -64,7 +64,7 @@ private extension MyAddressViewController {
     func setupSystem() {
 
         let uiFeedback: MyAddressPresenterProtocol.Feedback = bind(self) { (owner, state) -> (Bindings<Types.Event>) in
-            return Bindings(subscriptions: owner.subscriptions(state: state), mutations: owner.events())
+            return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
         }
 
         let readyViewFeedback: MyAddressPresenterProtocol.Feedback = { [weak self] _ in

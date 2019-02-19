@@ -32,7 +32,7 @@ final class DexListPresenter: DexListPresenterProtocol {
     }
     
     private func modelsQuery() -> Feedback {
-        return react(query: { state -> DexList.State? in
+        return react(request: { state -> DexList.State? in
 
             return (state.isAppear || state.isNeedRefreshing) ? state : nil
         }, effects: { [weak self] _ -> Signal<DexList.Event> in
