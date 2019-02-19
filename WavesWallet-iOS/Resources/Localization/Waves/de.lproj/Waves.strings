@@ -1,4 +1,6 @@
 
+"history.transaction.title.receivedSponsorship" = "Erhaltenes Sponsoring";
+
 "Receivecard.Label.minimunAmountInfo" = "Das minimum ist %@, das maximum ist %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "Sie haben nicht genug Geld, um die erforderlichen Gebühren zu zahlen. Sie müssen %@ Transaktionsgebühr und %@ Gateway-Gebühr bezahlen.";
@@ -67,9 +69,7 @@
 
 "aliases.view.info.button.create" = "Neuen Alias ​​erstellen";
 
-"aliases.view.info.label.fee" = "Transaktionsgebühr 0,001 Waves";
-
-"aliases.view.info.label.secondsubtitle" = "Ihr Alias muss zwischen 4 und 30 Zeichen lang sein und darf nur Kleinbuchstaben, Zahlen und Symbole (@, -, _ etc.) enthalten.";
+"aliases.view.info.label.secondsubtitle" = "Ihr Alias muss zwischen 4 und 30 Zeichen lang sein und darf nur Kleinbuchstaben, Zahlen und Symbole (@, -, _ und Punkt) enthalten.";
 
 "aliases.view.info.label.subtitle" = "Ein Alias ​​ist eine Bezeichnung für Ihre Adresse. Sie können anstelle einer Adresse einen Alias ​​verwenden, um Transaktionen durchzuführen.";
 
@@ -77,13 +77,13 @@
 
 "aliaseswithout.view.info.button.create" = "Neuen Alias ​​erstellen";
 
-"aliaseswithout.view.info.label.fee" = "Transaktionsgebühr 0,001 Waves";
-
-"aliaseswithout.view.info.label.secondsubtitle" = "Ihr Alias muss zwischen 4 und 30 Zeichen lang sein und darf nur Kleinbuchstaben, Zahlen und Symbole (@, -, _ etc.) enthalten.";
+"aliaseswithout.view.info.label.secondsubtitle" = "Ihr Alias muss zwischen 4 und 30 Zeichen lang sein und darf nur Kleinbuchstaben, Zahlen und Symbole (@, -, _ und Punkt) enthalten.";
 
 "aliaseswithout.view.info.label.subtitle" = "Ein Alias ​​ist eine Bezeichnung für Ihre Adresse. Sie können anstelle einer Adresse einen Alias ​​verwenden, um Transaktionen durchzuführen.";
 
 "aliaseswithout.view.info.label.title" = "Sie haben bisher keine Aliase";
+
+"appnews.button.okey" = "Okay";
 
 "asset.cell.assetInfo.cantPerformTransactions" = "Sie können keine Transaktionen mit diesem Asset durchführen";
 
@@ -591,6 +591,10 @@
 
 "history.transaction.value.setScript.set" = "Skripttransaktion einstellen";
 
+"history.transaction.value.setSponsorship.cancel" = "Abbrechen Sponsorship";
+
+"history.transaction.value.setSponsorship.set" = "Einstellen Sponsorship";
+
 "import.account.button.enter.title" = "Geben Sie Ihren SEED ein";
 
 "import.account.button.scan.title" = "Scannen Sie den Pairingcode";
@@ -887,6 +891,10 @@
 
 "send.label.error.invalidId" = "ungültige ID";
 
+"send.label.error.maximum" = "Maximal %@ %@";
+
+"send.label.error.minimun" = "Mindestens %@ %@";
+
 "send.label.error.notFundsFee" = "Sie haben nicht genug Guthaben, um die erforderlichen Gebühren zu zahlen.";
 
 "send.label.gatewayFee" = "Gateway-Gebühr beträgt";
@@ -924,6 +932,10 @@
 "sendconfirmation.label.optionalMessage" = "Schreiben Sie eine optionale Nachricht";
 
 "sendconfirmation.label.sentTo" = "Gesendet an";
+
+"sendfee.label.notAvailable" = "Nicht verfügbar";
+
+"sendfee.label.transactionFee" = "Transaktionsgebühr";
 
 "sendloading.label.sending" = "Senden…";
 

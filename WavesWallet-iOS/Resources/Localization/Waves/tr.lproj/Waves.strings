@@ -67,9 +67,7 @@
 
 "aliases.view.info.button.create" = "Yeni bir takma ad oluştur";
 
-"aliases.view.info.label.fee" = "İşlem ücreti 0.001 Waves";
-
-"aliases.view.info.label.secondsubtitle" = "Takma adınız 4 ile 30 karakter arasında olabilir ve sadece küçük Latin harflerinden, rakamlardan ve sembollerden (@, -, _ gibi) oluşabilir.";
+"aliases.view.info.label.secondsubtitle" = "Takma adınız 4 ile 30 karakter arasında olabilir ve sadece küçük Latin harflerinden, rakamlardan ve sembollerden (@, -, _ ve nokta) oluşabilir.";
 
 "aliases.view.info.label.subtitle" = "Kripto para transferi yaparken adres satırına takma adları girerek transferi gerçekleştirebilirsiniz.";
 
@@ -77,13 +75,13 @@
 
 "aliaseswithout.view.info.button.create" = "Yeni bir takma ad oluştur";
 
-"aliaseswithout.view.info.label.fee" = "İşlem ücreti 0.001 Waves";
-
-"aliaseswithout.view.info.label.secondsubtitle" = "Takma adınız 4 ile 30 karakter arasında olabilir ve sadece küçük Latin harflerinden, rakamlardan ve sembollerden (@, -, _ gibi) oluşabilir.";
+"aliaseswithout.view.info.label.secondsubtitle" = "Takma adınız 4 ile 30 karakter arasında olabilir ve sadece küçük Latin harflerinden, rakamlardan ve sembollerden (@, -, _ ve nokta) oluşabilir.";
 
 "aliaseswithout.view.info.label.subtitle" = "Kripto para transferi yaparken adres satırına takma adları girerek transferi gerçekleştirebilirsiniz.";
 
 "aliaseswithout.view.info.label.title" = "Takma adınız bulunmamaktadır";
+
+"appnews.button.okey" = "Tamam";
 
 "asset.cell.assetInfo.cantPerformTransactions" = "Bu kripto para ile transfer gerçekleştiremezsiniz";
 
@@ -305,7 +303,7 @@
 
 "dexcreateorder.label.error.notFundsFee" = "Komisyonu ödemek için yeterli bakiyeniz bulunmamaktadır";
 
-"dexcreateorder.label.fee" = "komisyon";
+"dexcreateorder.label.fee" = "Komisyon";
 
 "dexcreateorder.label.limitPriceIn" = "Limit fiyat";
 
@@ -565,6 +563,8 @@
 
 "history.transaction.title.received" = "Alınan";
 
+"history.transaction.title.receivedSponsorship" = "Sponsorlu alınan";
+
 "history.transaction.title.selfTransfer" = "Transfer";
 
 "history.transaction.title.sent" = "Gönderildi";
@@ -590,6 +590,10 @@
 "history.transaction.value.setScript.cancel" = "Script işlemini iptal et";
 
 "history.transaction.value.setScript.set" = "Script işlemi ayarla";
+
+"history.transaction.value.setSponsorship.cancel" = "Sponsorlu işlemi iptal et";
+
+"history.transaction.value.setSponsorship.set" = "Sponsorlu işlem ayarla";
 
 "import.account.button.enter.title" = "Anahtar kelimelerinizi girin";
 
@@ -887,6 +891,10 @@
 
 "send.label.error.invalidId" = "Geçersiz ID";
 
+"send.label.error.maximum" = "Maksimum %@ %@";
+
+"send.label.error.minimun" = "Minimum %@ %@";
+
 "send.label.error.notFundsFee" = "Komisyonu ödemek için yeterli bakiyeniz yok.";
 
 "send.label.gatewayFee" = "Geçit komisyonu";
@@ -924,6 +932,10 @@
 "sendconfirmation.label.optionalMessage" = "İsteğe bağlı bir mesaj yazın";
 
 "sendconfirmation.label.sentTo" = "Gönderildi";
+
+"sendfee.label.notAvailable" = "Uygun değil";
+
+"sendfee.label.transactionFee" = "İşlem komisyonu";
 
 "sendloading.label.sending" = "Gönderiliyor…";
 
