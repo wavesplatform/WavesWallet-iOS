@@ -46,13 +46,19 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
             .disposed(by: disposeBag)
     }
 
+    private struct AddressBookQuery: Equatable {
+        let account: DomainLayer.DTO.Account
+        let isAdded: Bool
+    }
+    
     func showAddressBookFeedback() -> TransactionHistoryPresenterProtocol.Feedback {
 
-        return react(query: { state -> (DomainLayer.DTO.Account, Bool)? in
+        return react(request: { state -> AddressBookQuery? in
 
             switch state.action {
             case .showAddressBook(let account, let isAdded):
-                return (account, isAdded)
+                return AddressBookQuery(account: account,
+                                        isAdded: isAdded)
             default:
                 return nil
             }
@@ -61,8 +67,8 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
 
             return Observable.create({ [weak self] (observer) -> Disposable in
 
-                let account = data.0
-                let isAdded = data.1
+                let account = data.account
+                let isAdded = data.isAdded
 
                 let finished: TransactionHistoryModuleOutput.FinishedAddressBook = { (contact, isOK) in
                     if isOK {
@@ -84,7 +90,7 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
 
     func resendTransactionFeedback() -> TransactionHistoryPresenterProtocol.Feedback {
         
-        return react(query: { state -> (DomainLayer.DTO.SmartTransaction)? in
+        return react(request: { state -> (DomainLayer.DTO.SmartTransaction)? in
             
             switch state.action {
             case .resendTransaction(let tx):
@@ -102,7 +108,7 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
 
     func cancelLeasingFeedback() -> TransactionHistoryPresenterProtocol.Feedback {
 
-        return react(query: { state -> (DomainLayer.DTO.SmartTransaction)? in
+        return react(request: { state -> (DomainLayer.DTO.SmartTransaction)? in
 
             switch state.action {
             case .cancelLeasing(let tx):

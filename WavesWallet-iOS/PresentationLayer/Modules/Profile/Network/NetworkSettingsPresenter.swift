@@ -62,7 +62,7 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
 
     private func handlerExternalQuery() -> Feedback {
 
-        return react(query: { state -> Bool? in
+        return react(request: { state -> Bool? in
 
             if let query = state.query {
 
@@ -86,7 +86,7 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
 
     private func environmentsQuery() -> Feedback {
 
-        return react(query: { state -> String? in
+        return react(request: { state -> String? in
 
             if state.displayState.isAppeared == true {
                 return state.wallet.address
@@ -116,7 +116,7 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
 
     private func deffaultEnvironmentQuery() -> Feedback {
 
-        return react(query: { state -> String? in
+        return react(request: { state -> String? in
 
             if let query = state.query, case .resetEnvironmentOnDeffault = query {
                 return state.wallet.address
@@ -148,7 +148,7 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
 
     private func saveEnvironmentQuery() -> Feedback {
 
-        return react(query: { state -> SaveQuery? in
+        return react(request: { state -> SaveQuery? in
 
             if let query = state.query, case .saveEnvironments = query {
 

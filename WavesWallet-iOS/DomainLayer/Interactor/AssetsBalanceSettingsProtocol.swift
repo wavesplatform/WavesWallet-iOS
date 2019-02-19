@@ -25,11 +25,15 @@ protocol AssetsBalanceSettingsInteractorProtocol {
 
 final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProtocol {
 
-    private let assetsBalanceSettingsRepository: AssetsBalanceSettingsRepositoryProtocol = FactoryRepositories.instance.assetsBalanceSettingsRepositoryLocal
+    private let assetsBalanceSettingsRepository: AssetsBalanceSettingsRepositoryProtocol
+
+    init(assetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositoryProtocol) {
+        self.assetsBalanceSettingsRepository = assetsBalanceSettingsRepositoryLocal
+    }
 
     func settings(by accountAddress: String, assets: [DomainLayer.DTO.Asset]) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> {
 
-        let enviroment = Environments.current
+        let enviroment = Environment.current
 
         let ids = assets.map { $0.id }
 
