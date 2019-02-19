@@ -16,11 +16,16 @@ protocol AliasesInteractorProtocol {
     func aliases(by accountAddress: String) -> SyncObservable<[DomainLayer.DTO.Alias]>
 }
 
-
 final class AliasesInteractor: AliasesInteractorProtocol {
 
-    private let aliasesRepository: AliasesRepositoryProtocol = FactoryRepositories.instance.aliasesRepository
-    private let aliasesRepositoryLocal: AliasesRepositoryProtocol = FactoryRepositories.instance.aliasesRepositoryLocal
+    private let aliasesRepository: AliasesRepositoryProtocol
+    private let aliasesRepositoryLocal: AliasesRepositoryProtocol
+
+    init(aliasesRepositoryRemote: AliasesRepositoryProtocol,
+         aliasesRepositoryLocal: AliasesRepositoryProtocol) {
+        self.aliasesRepository = aliasesRepositoryRemote
+        self.aliasesRepositoryLocal = aliasesRepositoryLocal
+    }
 
     func aliases(by accountAddress: String) -> SyncObservable<[DomainLayer.DTO.Alias]> {
 

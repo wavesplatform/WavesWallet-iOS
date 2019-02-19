@@ -14,7 +14,7 @@ private enum Constants {
     static let assetScriptErrorCode = 308
 }
 
-enum NetworkError: Error {
+enum NetworkError: Error, Equatable {
   
     case message(String)
     case notFound

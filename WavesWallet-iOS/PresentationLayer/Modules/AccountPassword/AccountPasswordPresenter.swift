@@ -31,7 +31,7 @@ protocol AccountPasswordPresenterProtocol {
     func system(feedbacks: [Feedback])
 }
 
-private struct LogInQuery {
+private struct LogInQuery: Equatable {
     let wallet: DomainLayer.DTO.Wallet
     let password: String
 }
@@ -68,7 +68,8 @@ final class AccountPasswordPresenter: AccountPasswordPresenterProtocol {
     }
 
     private func logIn() -> Feedback {
-        return react(query: { state -> LogInQuery? in
+
+        return react(request: { state -> LogInQuery? in
 
             guard let query = state.query else { return nil }
 
@@ -94,7 +95,9 @@ final class AccountPasswordPresenter: AccountPasswordPresenterProtocol {
     }
 
     private func verifyAccess() -> Feedback {
-        return react(query: { state -> LogInQuery? in
+
+
+        return react(request: { state -> LogInQuery? in
 
             guard let query = state.query else { return nil }
 

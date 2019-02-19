@@ -32,7 +32,7 @@ final class DexSortPresenter: DexSortPresenterProtocol {
     }
     
     private func modelsQuery() -> Feedback {
-        return react(query: { state -> Bool? in
+        return react(request: { state -> Bool? in
             return state.isNeedRefreshing == true ? true : nil
         }, effects: { [weak self] _ -> Signal<DexSort.Event> in
 

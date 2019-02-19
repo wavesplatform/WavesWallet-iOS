@@ -64,13 +64,13 @@ final class WalletDisplayData: NSObject {
 
         case .collapsed(let index):
             tableView.beginUpdates()
-            tableView.reloadSections([index], animationStyle: .fade)
+            tableView.reloadSections([index], with: .fade)
             tableView.endUpdates()
 
         case .expanded(let index):
          
             tableView.beginUpdates()
-            tableView.reloadSections([index], animationStyle: .fade)
+            tableView.reloadSections([index], with: .fade)
             DispatchQueue.main.async {
                 self.tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .middle, animated: true)
             }

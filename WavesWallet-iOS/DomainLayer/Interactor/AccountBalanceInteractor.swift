@@ -23,16 +23,33 @@ protocol AccountBalanceInteractorProtocol {
 
 final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
     
-    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let balanceRepositoryRemote: AccountBalanceRepositoryProtocol = FactoryRepositories.instance.accountBalanceRepositoryRemote
-    private let environmentRepository: EnvironmentRepositoryProtocol = FactoryRepositories.instance.environmentRepository
+    private let authorizationInteractor: AuthorizationInteractorProtocol
+    private let balanceRepositoryRemote: AccountBalanceRepositoryProtocol
+    private let environmentRepository: EnvironmentRepositoryProtocol
 
-    private let assetsInteractor: AssetsInteractorProtocol = FactoryInteractors.instance.assetsInteractor
-    private let assetsBalanceSettings: AssetsBalanceSettingsInteractorProtocol = FactoryInteractors.instance.assetsBalanceSettings
-    private let leasingInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
-    private let assetsBalanceSettingsRepository: AssetsBalanceSettingsRepositoryProtocol = FactoryRepositories.instance.assetsBalanceSettingsRepositoryLocal
+    private let assetsInteractor: AssetsInteractorProtocol
+    private let assetsBalanceSettings: AssetsBalanceSettingsInteractorProtocol
+    private let leasingInteractor: TransactionsInteractorProtocol
+    private let assetsBalanceSettingsRepository: AssetsBalanceSettingsRepositoryProtocol
 
     private let disposeBag: DisposeBag = DisposeBag()
+
+    init(authorizationInteractor: AuthorizationInteractorProtocol,
+         balanceRepositoryRemote: AccountBalanceRepositoryProtocol,
+         environmentRepository: EnvironmentRepositoryProtocol,
+         assetsInteractor: AssetsInteractorProtocol,
+         assetsBalanceSettings: AssetsBalanceSettingsInteractorProtocol,
+         transactionsInteractor: TransactionsInteractorProtocol,
+         assetsBalanceSettingsRepository: AssetsBalanceSettingsRepositoryProtocol) {
+
+        self.authorizationInteractor = authorizationInteractor
+        self.balanceRepositoryRemote = balanceRepositoryRemote
+        self.environmentRepository = environmentRepository
+        self.assetsInteractor = assetsInteractor
+        self.assetsBalanceSettings = assetsBalanceSettings
+        self.leasingInteractor = transactionsInteractor
+        self.assetsBalanceSettingsRepository = assetsBalanceSettingsRepository
+    }
 
     func balances() -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
         return
