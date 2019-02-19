@@ -67,6 +67,7 @@ final class ModalRootView: UIView, ModalScrollViewRootView {
             view.frame = CGRect(x: 0, y: 0, width: 0, height: self.headerHeight)
             view.layer.cornerRadius = headerView.layer.cornerRadius
             view.layer.maskedCorners = headerView.layer.maskedCorners
+            view.isUserInteractionEnabled = false
             return view
         }()
 
