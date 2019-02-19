@@ -67,9 +67,7 @@
 
 "aliases.view.info.button.create" = "Создать алиас";
 
-"aliases.view.info.label.fee" = "Комиссия 0.001 WAVES";
-
-"aliases.view.info.label.secondsubtitle" = "Алиас должен содержать не менее 4 и не более 30 символов. Используйте только строчные латинские буквы, цифры и символы (@, -, _ и т.д.)";
+"aliases.view.info.label.secondsubtitle" = "Алиас должен содержать не менее 4 и не более 30 символов. Используйте только строчные латинские буквы, цифры и символы (@, -, _ и точка)";
 
 "aliases.view.info.label.subtitle" = "Алиас — это короткое название вашего адреса. Вы можете использовать алиас так же, как адрес при совершении транзакции.";
 
@@ -77,13 +75,13 @@
 
 "aliaseswithout.view.info.button.create" = "Создать алиас";
 
-"aliaseswithout.view.info.label.fee" = "Комиссия 0.001 WAVES";
-
-"aliaseswithout.view.info.label.secondsubtitle" = "Алиас должен содержать не менее 4 и не более 30 символов. Используйте только строчные латинские буквы, цифры и символы (@, -, _ и т.д.)";
+"aliaseswithout.view.info.label.secondsubtitle" = "Алиас должен содержать не менее 4 и не более 30 символов. Используйте только строчные латинские буквы, цифры и символы (@, -, _ и точка)";
 
 "aliaseswithout.view.info.label.subtitle" = "Алиас — это короткое название вашего адреса. Вы можете использовать алиас так же, как адрес при совершении транзакции.";
 
 "aliaseswithout.view.info.label.title" = "У вас их нет";
+
+"appnews.button.okey" = "Хорошо";
 
 "asset.cell.assetInfo.cantPerformTransactions" = "Вы не можете совершать транзакции с этим ассетом";
 
@@ -565,6 +563,8 @@
 
 "history.transaction.title.received" = "Получено";
 
+"history.transaction.title.receivedSponsorship" = "Получение спонсорства";
+
 "history.transaction.title.selfTransfer" = "Отправлено себе";
 
 "history.transaction.title.sent" = "Отправлено";
@@ -590,6 +590,10 @@
 "history.transaction.value.setScript.cancel" = "Отмена скрипта";
 
 "history.transaction.value.setScript.set" = "Установка скрипта";
+
+"history.transaction.value.setSponsorship.cancel" = "Отключение спонсорства";
+
+"history.transaction.value.setSponsorship.set" = "Установка спонсорства";
 
 "import.account.button.enter.title" = "Введите секретную фразу вручную";
 
@@ -887,6 +891,10 @@
 
 "send.label.error.invalidId" = "Неверный ID";
 
+"send.label.error.maximum" = "Максимум %@ %@";
+
+"send.label.error.minimun" = "Минимум %@ %@";
+
 "send.label.error.notFundsFee" = "У вас недостаточно средств для оплаты комиссии.";
 
 "send.label.gatewayFee" = "Комиссия шлюза —";
@@ -924,6 +932,10 @@
 "sendconfirmation.label.optionalMessage" = "Не обязательно";
 
 "sendconfirmation.label.sentTo" = "Получатель";
+
+"sendfee.label.notAvailable" = "Недоступно";
+
+"sendfee.label.transactionFee" = "Комиссия";
 
 "sendloading.label.sending" = "Отправка…";
 
