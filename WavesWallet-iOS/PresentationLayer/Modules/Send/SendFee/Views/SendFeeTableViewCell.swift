@@ -46,7 +46,7 @@ extension SendFeeTableViewCell: ViewConfiguration {
 
         AssetLogo.logo(icon: model.assetBalance.asset.iconLogo,
                        style: style)
-            .bind(to: iconLogo.rx.imageAnimationFadeIn)
+            .bind(to: iconLogo.rx.image)
             .disposed(by: disposeBag)
         
         iconCheckmark.image = model.isChecked ? Images.on.image : Images.off.image
