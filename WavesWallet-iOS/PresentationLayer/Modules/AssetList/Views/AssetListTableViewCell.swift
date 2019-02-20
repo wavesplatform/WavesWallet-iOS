@@ -61,7 +61,7 @@ extension AssetListTableViewCell: ViewConfiguration {
                                               sponsoredSize: sponsoredIcon,
                                               font: UIFont.systemFont(ofSize: 15),
                                               border: nil))
-            .bind(to: iconAsset.rx.imageAnimationFadeIn)
+            .bind(to: iconAsset.rx.image)
             .disposed(by: disposeBag)
 
         iconCheckmark.image = model.isChecked ? Images.on.image : Images.off.image

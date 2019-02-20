@@ -12,7 +12,7 @@ protocol FactoryInteractorsProtocol {
     var assetsInteractor: AssetsInteractorProtocol { get }    
     var accountBalance: AccountBalanceInteractorProtocol { get }
     var transactions: TransactionsInteractorProtocol { get }
-    var accounts: AccountsInteractorProtocol { get }
+    var address: AddressInteractorProtocol { get }
     var authorization: AuthorizationInteractorProtocol { get }
     var aliases: AliasesInteractorProtocol { get }
     var assetsBalanceSettings: AssetsBalanceSettingsInteractorProtocol { get }

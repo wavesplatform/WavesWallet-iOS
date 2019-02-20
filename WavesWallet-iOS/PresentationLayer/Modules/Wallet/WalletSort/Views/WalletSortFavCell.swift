@@ -64,7 +64,7 @@ extension WalletSortFavCell: ViewConfiguration {
                                               sponsoredSize: sponsoredSize,
                                               font: UIFont.systemFont(ofSize: 15),
                                               border: nil))
-            .bind(to: imageIcon.rx.imageAnimationFadeIn)
+            .bind(to: imageIcon.rx.image)
             .disposed(by: disposeBag)        
 
     }
