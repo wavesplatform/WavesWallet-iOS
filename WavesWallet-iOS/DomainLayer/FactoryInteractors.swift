@@ -56,18 +56,18 @@ final class FactoryInteractors: FactoryInteractorsProtocol {
         let interactor = TransactionsInteractor(transactionsRepositoryLocal: instance.transactionsRepositoryLocal,
                                                 transactionsRepositoryRemote: instance.transactionsRepositoryRemote,
                                                 assetsInteractors: self.assetsInteractor,
-                                                accountsInteractors: self.accounts,
+                                                addressInteractors: self.address,
                                                 addressRepository: instance.addressRepository,
                                                 assetsRepositoryRemote: instance.assetsRepositoryRemote,
                                                 blockRepositoryRemote: instance.blockRemote)
         return interactor
     }()
 
-    private(set) lazy var accounts: AccountsInteractorProtocol = {
+    private(set) lazy var address: AddressInteractorProtocol = {
 
         let instance = FactoryRepositories.instance
 
-        let interactor = AccountsInteractor(addressBookRepository: instance.addressBookRepository,
+        let interactor = AddressInteractor(addressBookRepository: instance.addressBookRepository,
                                             aliasesInteractor: self.aliases)
         return interactor
     }()
