@@ -20,7 +20,7 @@ extension DomainLayer.DTO {
     struct SmartTransaction: Equatable {
 
         typealias Asset = DomainLayer.DTO.Asset
-        typealias Account = DomainLayer.DTO.Account
+        typealias Account = DomainLayer.DTO.Address
 
         enum Status: Equatable {
             case activeNow
