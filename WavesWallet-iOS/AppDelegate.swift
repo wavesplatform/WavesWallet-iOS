@@ -76,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
         #else
-        SweetLogger.current.plugins = [SweetLoggerSentry(visibleLevels: [.error])]
+            SweetLogger.current.plugins = [SweetLoggerSentry(visibleLevels: [.error])]
             SweetLogger.current.visibleLevels = [.warning, .debug, .error]
             AppsFlyerTracker.shared()?.isDebug = false
         #endif
