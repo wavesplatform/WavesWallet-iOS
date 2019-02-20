@@ -84,7 +84,7 @@ final class ReceiveAddressViewController: UIViewController {
                                               sponsoredSize: sponsoredSize,
                                               font: UIFont.systemFont(ofSize: 22),
                                               border: nil))
-            .bind(to: iconAsset.rx.imageAnimationFadeIn)
+            .bind(to: iconAsset.rx.image)
             .disposed(by: disposeBag)
 
         imageQR.image = QRCode(input.qrCode)?.image
