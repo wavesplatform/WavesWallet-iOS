@@ -23,7 +23,7 @@ extension TransactionHistoryTypes.ViewModel {
     
     struct Recipient {
         let kind: DomainLayer.DTO.SmartTransaction.Kind
-        let account: DomainLayer.DTO.Account
+        let account: DomainLayer.DTO.Address
         let amount: Money?
         let isHiddenTitle: Bool
     }

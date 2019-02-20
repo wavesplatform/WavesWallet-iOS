@@ -204,11 +204,8 @@ extension AssetsSegmentedControl: InfiniteCollectionViewDelegate {
 extension AssetsSegmentedControl: ViewConfiguration {
     func update(with model: Model) {
         self.assets = model.assets
-        collectionView.performBatchUpdates({
-            collectionView.reloadInfinity()
-            setCurrentAsset(id: model.currentAsset.id, animated: false)
-        }) { _ in
 
-        }
+        collectionView.reloadInfinity()
+        setCurrentAsset(id: model.currentAsset.id, animated: false)
     }
 }
