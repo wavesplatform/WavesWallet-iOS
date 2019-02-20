@@ -98,7 +98,7 @@ PODS:
   - nanopb/encode (0.3.901)
   - pop (1.0.12)
   - QRCode (2.0)
-  - QRCodeReader.swift (10.0.0)
+  - QRCodeReader.swift (9.0.1)
   - ReachabilitySwift (4.3.0)
   - Realm (3.13.1):
     - Realm/Headers (= 3.13.1)
@@ -179,7 +179,7 @@ DEPENDENCIES:
   - MGSwipeTableCell
   - Moya/RxSwift
   - QRCode
-  - QRCodeReader.swift
+  - QRCodeReader.swift (~> 9.0.1)
   - RealmSwift
   - RESideMenu (from `https://github.com/wavesplatform/RESideMenu.git`)
   - Reveal-SDK
@@ -338,7 +338,7 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
-  QRCodeReader.swift: 74d0378eb0c7807828552b49626bbc8307495aee
+  QRCodeReader.swift: 96292a5612fbc2fd9a0b26f93fa5164c8d02f59d
   ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
   Realm: 50071da38fe079e0735e47c9f2eae738c68c5996
   RealmSwift: 8a1e6a02b7a08cd17a31e3115143fb69fe5f3fb9
@@ -365,6 +365,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: 11f01b2a879d8b88f61eaeae949800d412928f69
+PODFILE CHECKSUM: 8a70c04b2fb151ff02572383090d8bc006ed7e9a
 
 COCOAPODS: 1.6.0
