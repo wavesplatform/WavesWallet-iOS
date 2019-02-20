@@ -33,50 +33,50 @@ fileprivate extension TransactionType {
                 .script]
     }
 
-    func predicate(from specifications: TransactionsSpecifications) -> NSPredicate {
+    func predicate(from specifications: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
 
         switch self {
         case .alias:
-            return AliasTransaction.predicate(specifications)
+            return AliasTransaction.predicate(specifications, myAddress: myAddress)
 
         case .issue:
-            return IssueTransaction.predicate(specifications)
+            return IssueTransaction.predicate(specifications, myAddress: myAddress)
 
         case .transfer:
-            return TransferTransaction.predicate(specifications)
+            return TransferTransaction.predicate(specifications, myAddress: myAddress)
 
         case .reissue:
-            return ReissueTransaction.predicate(specifications)
+            return ReissueTransaction.predicate(specifications, myAddress: myAddress)
 
         case .burn:
-            return BurnTransaction.predicate(specifications)
+            return BurnTransaction.predicate(specifications, myAddress: myAddress)
 
         case .exchange:
-            return ExchangeTransaction.predicate(specifications)
+            return ExchangeTransaction.predicate(specifications, myAddress: myAddress)
 
         case .lease:
-            return LeaseTransaction.predicate(specifications)
+            return LeaseTransaction.predicate(specifications, myAddress: myAddress)
 
         case .leaseCancel:
-            return LeaseCancelTransaction.predicate(specifications)
+            return LeaseCancelTransaction.predicate(specifications, myAddress: myAddress)
 
         case .massTransfer:
-            return MassTransferTransaction.predicate(specifications)
+            return MassTransferTransaction.predicate(specifications, myAddress: myAddress)
 
         case .data:
-            return DataTransaction.predicate(specifications)
+            return DataTransaction.predicate(specifications, myAddress: myAddress)
 
         case .assetScript:
-            return AssetScriptTransaction.predicate(specifications)
+            return AssetScriptTransaction.predicate(specifications, myAddress: myAddress)
 
         case .script:
-            return ScriptTransaction.predicate(specifications)
+            return ScriptTransaction.predicate(specifications, myAddress: myAddress)
 
         case .sponsorship:
-            return SponsorshipTransaction.predicate(specifications)
+            return SponsorshipTransaction.predicate(specifications, myAddress: myAddress)
 
         default:
-            return UnrecognisedTransaction.predicate(specifications)
+            return UnrecognisedTransaction.predicate(specifications, myAddress: myAddress)
         }
     }
 
@@ -144,12 +144,11 @@ fileprivate extension TransactionType {
 
 final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
-
-    func transactions(by accountAddress: String, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
-        return self.transactions(by: accountAddress, specifications: TransactionsSpecifications(page: .init(offset: offset, limit: limit), assets: [], senders: [], types: TransactionType.all))
+    func transactions(by address: DomainLayer.DTO.Address, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
+        return self.transactions(by: address, specifications: TransactionsSpecifications(page: .init(offset: offset, limit: limit), assets: [], senders: [], types: TransactionType.all))
     }
 
-    func transactions(by accountAddress: String,
+    func transactions(by address: DomainLayer.DTO.Address,
                       specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
 
         return Observable.create { [weak self] (observer) -> Disposable in
@@ -159,13 +158,13 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                 return Disposables.create()
             }
 
-            guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
+            guard let realm = try? WalletRealmFactory.realm(accountAddress: address.address) else {
                 observer.onError(AccountBalanceRepositoryError.fail)
                 return Disposables.create()
             }
 
 
-            let result = owner.transactionsResultFromRealm(by: accountAddress,
+            let result = owner.transactionsResultFromRealm(by: address,
                                                            specifications: specifications,
                                                            realm: realm)
 
@@ -177,9 +176,9 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
         }
     }
 
-    private func transactionsResultFromRealm(by accountAddress: String,
-                                       specifications: TransactionsSpecifications,
-                                       realm: Realm) -> Results<AnyTransaction> {
+    private func transactionsResultFromRealm(by address: DomainLayer.DTO.Address,
+                                             specifications: TransactionsSpecifications,
+                                             realm: Realm) -> Results<AnyTransaction> {
 
         let wavesAssetId = GlobalConstants.wavesAssetId
 
@@ -191,7 +190,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
         }
 
         var predicatesFromTypes: [NSPredicate] = .init()
-        types.forEach { predicatesFromTypes.append($0.predicate(from: specifications)) }
+        types.forEach { predicatesFromTypes.append($0.predicate(from: specifications, myAddress: address)) }
 
         let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: predicatesFromTypes)
         
@@ -229,7 +228,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
         return transactions
     }
 
-    func newTransactions(by accountAddress: String,
+    func newTransactions(by address: DomainLayer.DTO.Address,
                          specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
 
         return Observable.create { [weak self] (observer) -> Disposable in
@@ -239,12 +238,12 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                 return Disposables.create()
             }
 
-            guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
+            guard let realm = try? WalletRealmFactory.realm(accountAddress: address.address) else {
                 observer.onError(AccountBalanceRepositoryError.fail)
                 return Disposables.create()
             }
 
-            let txsResult = owner.transactionsResultFromRealm(by: accountAddress,
+            let txsResult = owner.transactionsResultFromRealm(by: address,
                                                         specifications: specifications,
                                                         realm: realm)
 
@@ -271,7 +270,10 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
     }
 
     func activeLeasingTransactions(by accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> {
-        return self.transactions(by: accountAddress,
+        return self.transactions(by: DomainLayer.DTO.Address(address: accountAddress,
+                                                             contact: nil,
+                                                             isMyAccount: true,
+                                                             aliases: []),
                                  specifications: TransactionsSpecifications(page: nil,
                                                                             assets: .init(),
                                                                             senders: .init(),
@@ -406,17 +408,17 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 }
 
 fileprivate protocol TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications) -> NSPredicate
+    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate
 }
 
 extension UnrecognisedTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
+    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
         return NSPredicate(format: "unrecognisedTransaction != NULL")
     }
 }
 
 extension IssueTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
+    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
 
         var predicates: [NSPredicate] = .init()
         predicates.append(NSPredicate(format: "issueTransaction != NULL"))
@@ -430,21 +432,27 @@ extension IssueTransaction: TransactionsSpecificationsConverter {
 }
 
 extension TransferTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
+    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
 
         var predicates: [NSPredicate] = .init()
         predicates.append(NSPredicate(format: "transferTransaction != NULL"))
 
         if from.assets.count > 0 {
-            predicates.append(NSPredicate(format: "transferTransaction.assetId IN %@", from.assets))
+            let aliases = myAddress.aliases.map { $0.originalName }
+            let myTx = NSPredicate(format: "transferTransaction.assetId IN %@ AND ((transferTransaction.sender == %@ ||  transferTransaction.sender IN %@) OR ((transferTransaction.recipient == %@ ||  transferTransaction.recipient IN %@)))", from.assets, myAddress.address, aliases, myAddress.address, aliases)
+
+            let sponsoredTx = NSPredicate(format: "transferTransaction.feeAssetId IN %@ AND ((transferTransaction.sender != %@ && !(transferTransaction.sender IN %@)) AND (transferTransaction.recipient != %@ ||  !(transferTransaction.recipient IN %@)))", from.assets, myAddress.address, aliases, myAddress.address, aliases)
+
+            predicates.append(NSCompoundPredicate(orPredicateWithSubpredicates: [myTx, sponsoredTx]))
         }
+
 
         return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
     }
 }
 
 extension ReissueTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
+    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
 
         var predicates: [NSPredicate] = .init()
         predicates.append(NSPredicate(format: "reissueTransaction != NULL"))
@@ -458,25 +466,25 @@ extension ReissueTransaction: TransactionsSpecificationsConverter {
 }
 
 extension LeaseTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
+    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
         return NSPredicate(format: "leaseTransaction != NULL")
     }
 }
 
 extension LeaseCancelTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
+    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
         return NSPredicate(format: "leaseCancelTransaction != NULL")
     }
 }
 
 extension AliasTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
+    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
         return NSPredicate(format: "aliasTransaction != NULL")
     }
 }
 
 extension MassTransferTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
+    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
 
         var predicates: [NSPredicate] = .init()
         predicates.append(NSPredicate(format: "massTransferTransaction != NULL"))
@@ -490,7 +498,7 @@ extension MassTransferTransaction: TransactionsSpecificationsConverter {
 }
 
 extension BurnTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
+    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
 
         var predicates: [NSPredicate] = .init()
         predicates.append(NSPredicate(format: "burnTransaction != NULL"))
@@ -504,7 +512,7 @@ extension BurnTransaction: TransactionsSpecificationsConverter {
 }
 
 extension ExchangeTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
+    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
 
         var predicates: [NSPredicate] = .init()
         predicates.append(NSPredicate(format: "exchangeTransaction != NULL"))
@@ -528,13 +536,13 @@ extension ExchangeTransaction: TransactionsSpecificationsConverter {
 }
 
 extension DataTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
+    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
         return NSPredicate(format: "dataTransaction != NULL")
     }
 }
 
 extension AssetScriptTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
+    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
 
         var predicates: [NSPredicate] = .init()
         predicates.append(NSPredicate(format: "assetScriptTransaction != NULL"))
@@ -548,13 +556,13 @@ extension AssetScriptTransaction: TransactionsSpecificationsConverter {
 }
 
 extension ScriptTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
+    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
         return NSPredicate(format: "scriptTransaction != NULL")
     }
 }
 
 extension SponsorshipTransaction: TransactionsSpecificationsConverter {
-    static func predicate(_ from: TransactionsSpecifications) -> NSPredicate {
+    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
 
         var predicates: [NSPredicate] = .init()
         predicates.append(NSPredicate(format: "sponsorshipTransaction != NULL"))
