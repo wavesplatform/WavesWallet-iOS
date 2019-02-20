@@ -10,6 +10,8 @@ import Foundation
 
 extension DomainLayer.DTO {
 
+    //TODO: need update to correct model from API
+    
     struct Alias: Hashable {
         let name: String
         let originalName: String
