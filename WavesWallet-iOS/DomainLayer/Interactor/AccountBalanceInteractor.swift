@@ -125,9 +125,7 @@ private extension AccountBalanceInteractor {
     private func assetBalance(by wallet: DomainLayer.DTO.SignedWallet,
                               assetId: String) -> Observable<DomainLayer.DTO.AssetBalance> {
 
-
-
-        return Observable.never()
+        return balanceRepositoryRemote.balance(by: assetId, wallet: wallet)
     }
 
     private func modifyBalances(by wallet: DomainLayer.DTO.SignedWallet,
@@ -271,7 +269,6 @@ private extension AccountBalanceInteractor {
             .map { (balance) -> [DomainLayer.DTO.AssetBalance] in
                 return [balance]
             }
-            .sweetDebug("assetBalance")
 
         return remoteBalances(by: wallet, assetBalances: assetBalance)
             .flatMap({ (balances) -> Observable<DomainLayer.DTO.SmartAssetBalance> in
@@ -281,7 +278,6 @@ private extension AccountBalanceInteractor {
 
                 return Observable.just(first)
             })
-            .sweetDebug("remoteBalances")
     }
 
     private func remoteBalances(by wallet: DomainLayer.DTO.SignedWallet,
