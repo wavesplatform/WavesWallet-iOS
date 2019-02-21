@@ -194,7 +194,6 @@
 		0A6AC3E021847F8D005D2525 /* AddressesKeysModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6AC3DF21847F8D005D2525 /* AddressesKeysModuleBuilder.swift */; };
 		0A6AC3E421848920005D2525 /* AliasesRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6AC3E321848920005D2525 /* AliasesRepositoryProtocol.swift */; };
 		0A6AC3E8218489F5005D2525 /* AliasDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6AC3E7218489F5005D2525 /* AliasDomainDTO.swift */; };
-		0A6AC3EA21848C2F005D2525 /* AliasNodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6AC3E921848C2F005D2525 /* AliasNodeService.swift */; };
 		0A6CCD3B20F4CE250023E36E /* Asset+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6CCD3A20F4CE250023E36E /* Asset+Mapper.swift */; };
 		0A6CCD3D20F4CF490023E36E /* AccountBalanceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6CCD3C20F4CF490023E36E /* AccountBalanceInteractor.swift */; };
 		0A6F60E8216F888B00A5C615 /* DexMyOrdersTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B087632163886800937644 /* DexMyOrdersTypes.swift */; };
@@ -1112,7 +1111,6 @@
 		0A6AC3DF21847F8D005D2525 /* AddressesKeysModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesKeysModuleBuilder.swift; sourceTree = "<group>"; };
 		0A6AC3E321848920005D2525 /* AliasesRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0A6AC3E7218489F5005D2525 /* AliasDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasDomainDTO.swift; sourceTree = "<group>"; };
-		0A6AC3E921848C2F005D2525 /* AliasNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasNodeService.swift; sourceTree = "<group>"; };
 		0A6CCD3A20F4CE250023E36E /* Asset+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Asset+Mapper.swift"; sourceTree = "<group>"; };
 		0A6CCD3C20F4CF490023E36E /* AccountBalanceInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceInteractor.swift; sourceTree = "<group>"; };
 		0A751D3122170EF60024D523 /* NotificationNewsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNewsRepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -2462,7 +2460,6 @@
 				0A485E8A20FFAC6C00079B49 /* LeasingNodeService.swift */,
 				0A5B6E6E211A2B6D005A7F09 /* TransactionNodeService.swift */,
 				0ABD1BE92146BEED0027A7A2 /* BlocksNodeService.swift */,
-				0A6AC3E921848C2F005D2525 /* AliasNodeService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -5542,7 +5539,6 @@
 				0A5E4BE921383F3D00E3C3C3 /* ExchangeTransaction+Mapper.swift in Sources */,
 				0AF58F942191C1D300C8A4B3 /* PasscodeRegistationPresenter.swift in Sources */,
 				E9B087E52163886800937644 /* DexCreateOrderInputView.swift in Sources */,
-				0A6AC3EA21848C2F005D2525 /* AliasNodeService.swift in Sources */,
 				0A88CC0A217E80040083874C /* WalletRealmFactory.swift in Sources */,
 				F74240B81EAB8D1600C3B84D /* Transaction.swift in Sources */,
 				0A071E43215B0A1B007D9750 /* SigningWalletsProtocol.swift in Sources */,
