@@ -204,10 +204,12 @@ private extension AccountBalanceInteractor {
                 return nil
             }
 
-            guard let asset = query.assets[balance.assetId] else {
+            guard var asset = query.assets[balance.assetId] else {
                 return nil
             }
 
+            //TODO: 
+            asset.minSponsoredFee = balance.minSponsoredAssetFee
             return DomainLayer.DTO.SmartAssetBalance(assetId: balance.assetId,
                                                      totalBalance: balance.totalBalance,
                                                      leasedBalance: balance.leasedBalance,
@@ -256,5 +258,6 @@ private extension DomainLayer.DTO.AssetBalance {
         self.inOrderBalance = 0
         self.modified = Date()
         self.sponsorBalance = 0
+        self.minSponsoredAssetFee = 0
     }
 }

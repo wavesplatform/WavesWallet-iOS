@@ -12,7 +12,8 @@ final class AssetBalance: Object {
     @objc dynamic var leasedBalance: Int64 = 0
     @objc dynamic var inOrderBalance: Int64 = 0
     @objc dynamic var sponsorBalance: Int64 = 0
-    
+    @objc dynamic var minSponsoredAssetFee: Int64 = 0
+
     override class func primaryKey() -> String? {
         return "assetId"
     }

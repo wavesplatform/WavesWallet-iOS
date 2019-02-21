@@ -142,6 +142,7 @@ private extension DomainLayer.DTO.AssetBalance {
         self.inOrderBalance = inOrderBalance
         self.modified = Date()
         self.sponsorBalance = 0
+        self.minSponsoredAssetFee = 0
     }
 
     init(model: Node.DTO.AssetBalance, inOrderBalance: Int64) {
@@ -151,6 +152,7 @@ private extension DomainLayer.DTO.AssetBalance {
         self.inOrderBalance = inOrderBalance
         self.sponsorBalance = model.sponsorBalance ?? 0
         self.modified = Date()
+        self.minSponsoredAssetFee = model.minSponsoredAssetFee ?? 0
     }
 
     static func map(assets: Node.DTO.AccountAssetsBalance,
