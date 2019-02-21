@@ -99,7 +99,9 @@ final class FactoryInteractors: FactoryInteractorsProtocol {
 
         let instance = FactoryRepositories.instance
 
-        let interactor = AssetsBalanceSettingsInteractor(assetsBalanceSettingsRepositoryLocal: instance.assetsBalanceSettingsRepositoryLocal)
+        let interactor = AssetsBalanceSettingsInteractor(assetsBalanceSettingsRepositoryLocal: instance.assetsBalanceSettingsRepositoryLocal,
+                                                         environmentRepository: instance.environmentRepository,
+                                                         authorizationInteractor: authorization)
 
         return interactor
     }()
