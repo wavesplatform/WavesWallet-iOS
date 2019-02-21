@@ -208,7 +208,7 @@ private extension AccountBalanceInteractor {
                 return nil
             }
 
-            //TODO: 
+            //TODO: Remove line when fixing bug 
             asset.minSponsoredFee = balance.minSponsoredAssetFee
             return DomainLayer.DTO.SmartAssetBalance(assetId: balance.assetId,
                                                      totalBalance: balance.totalBalance,
