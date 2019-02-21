@@ -51,8 +51,9 @@ extension WalletSortFavCell: ViewConfiguration {
     }
 
     func update(with model: WalletSortFavCell.Model) {
-        let cryptoName = model.name
-        labelTitle.text = cryptoName
+
+        labelTitle.attributedText = NSAttributedString.styleForMyAssetName(assetName: model.name,
+                                                                           isMyAsset: model.isMyWavesToken)
 
         let sponsoredSize = model.isSponsored ? Constants.sponsoredIcon : nil
 
