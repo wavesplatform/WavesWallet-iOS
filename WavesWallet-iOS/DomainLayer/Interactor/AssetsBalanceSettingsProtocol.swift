@@ -42,81 +42,34 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
 
         return authorizationInteractor.authorizedWallet()
             .flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
+               
                 guard let owner = self else { return Observable.empty() }
+                
                 return owner.environmentRepository.accountEnvironment(accountAddress: wallet.address)
                     .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
-                        guard let owner = self else { return Observable.empty() }
-                        
-                        let ids = assets.map { $0.id }
-                        let spamIds = assets.reduce(into: [String: Bool](), {$0[$1.id] = $1.isSpam })
                        
-                        let settings = owner.assetsBalanceSettingsRepository
-                            .settings(by: accountAddress, ids: ids)
-                            .flatMapLatest { [weak self] (mapSettings) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
-                                
-                                guard let owner = self else { return Observable.never() }
-                                
-                                let sortedSettings = mapSettings
-                                    .reduce(into: [DomainLayer.DTO.AssetBalanceSettings](), { $0.append($1.value) })
-                                    .filter({ $0.sortLevel != Constants.sortLevelNotFound })
-                                    .sorted(by: { $0.sortLevel < $1.sortLevel })
-                                
-                                let withoutSettingsAssets = assets.reduce(into: [DomainLayer.DTO.Asset](), { (result, asset) in
-                                    if let settings = mapSettings[asset.id] {
-                                        if settings.sortLevel == Constants.sortLevelNotFound {
-                                            result.append(asset)
-                                        }
-                                        else if settings.isFavorite && spamIds[settings.assetId] == true {
-                                            result.append(asset)
-                                        }
-                                    } else {
-                                        result.append(asset)
-                                    }
-                                })
+                        guard let owner = self else { return Observable.empty() }
+                        let ids = assets.map { $0.id }
 
-                                let withoutSettingsAssetsSorted = owner
-                                    .sort(assets: withoutSettingsAssets, enviroment: environment)
-                                    .map { (asset) -> DomainLayer.DTO.AssetBalanceSettings in
-                                        
-                                        return DomainLayer.DTO.AssetBalanceSettings(assetId: asset.id,
-                                                                                    sortLevel: Constants.sortLevelNotFound,
-                                                                                    isHidden: false,
-                                                                                    isFavorite: asset.isInitialFavorite)
-                                }
-                                
-                                var settings = [DomainLayer.DTO.AssetBalanceSettings]()
-                                settings.append(contentsOf: sortedSettings)
-                                settings.append(contentsOf: withoutSettingsAssetsSorted)
-                                
-                                settings = settings
-                                    .enumerated()
-                                    .map { (element) -> DomainLayer.DTO.AssetBalanceSettings in
-                                        let settings = element.element
-                                        let level = Float(element.offset)
-                                        let isFavorite = settings.isFavorite && spamIds[settings.assetId] == false
-                                        return DomainLayer.DTO.AssetBalanceSettings(assetId: settings.assetId,
-                                                                                    sortLevel: level,
-                                                                                    isHidden: settings.isHidden,
-                                                                                    isFavorite: isFavorite)
-                                }
-                                
-                                return Observable.just(settings)
-                            }
-                            .flatMapLatest { [weak self] (settings) -> Observable<Bool> in
-                                
-                                guard let owner = self else { return Observable.never() }
-                                return owner
-                                    .assetsBalanceSettingsRepository
-                                    .saveSettings(by: accountAddress, settings: settings)
-                            }
-                            .flatMapLatest { [weak self] (settings) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
-                                
-                                guard let owner = self else { return Observable.never() }
-                                return owner
-                                    .assetsBalanceSettingsRepository
-                                    .listenerSettings(by: accountAddress, ids: ids)
-                                    .map { $0.sorted(by: { $0.sortLevel < $1.sortLevel }) }
-                            }
+                        let settings = owner.assetSettings(assets: assets,
+                                                           ids: ids,
+                                                           accountAddress: accountAddress,
+                                                           environment: environment)
+                        .flatMapLatest { [weak self] (settings) -> Observable<Bool> in
+                            
+                            guard let owner = self else { return Observable.never() }
+                            return owner
+                                .assetsBalanceSettingsRepository
+                                .saveSettings(by: accountAddress, settings: settings)
+                        }
+                        .flatMapLatest { [weak self] (settings) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
+                            
+                            guard let owner = self else { return Observable.never() }
+                            return owner
+                                .assetsBalanceSettingsRepository
+                                .listenerSettings(by: accountAddress, ids: ids)
+                                .map { $0.sorted(by: { $0.sortLevel < $1.sortLevel }) }
+                        }
                         
                         return settings
                         
@@ -213,9 +166,65 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
 }
 
 
-extension AssetsBalanceSettingsInteractor {
+private extension AssetsBalanceSettingsInteractor {
     
-    private func sort(assets: [DomainLayer.DTO.Asset], enviroment: Environment) -> [DomainLayer.DTO.Asset] {
+    func assetSettings(assets: [DomainLayer.DTO.Asset], ids: [String], accountAddress: String, environment: Environment) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> {
+        
+        let spamIds = assets.reduce(into: [String: Bool](), {$0[$1.id] = $1.isSpam })
+
+        return assetsBalanceSettingsRepository.settings(by: accountAddress, ids: ids)
+            .flatMapLatest({ [weak self] (mapSettings) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
+                guard let owner = self else { return Observable.empty() }
+                
+                let sortedSettings = mapSettings
+                    .reduce(into: [DomainLayer.DTO.AssetBalanceSettings](), { $0.append($1.value) })
+                    .filter({ $0.sortLevel != Constants.sortLevelNotFound })
+                    .sorted(by: { $0.sortLevel < $1.sortLevel })
+                
+                let withoutSettingsAssets = assets.reduce(into: [DomainLayer.DTO.Asset](), { (result, asset) in
+                    if let settings = mapSettings[asset.id] {
+                        if settings.sortLevel == Constants.sortLevelNotFound {
+                            result.append(asset)
+                        }
+                        else if settings.isFavorite && spamIds[settings.assetId] == true {
+                            result.append(asset)
+                        }
+                    } else {
+                        result.append(asset)
+                    }
+                })
+                
+                let withoutSettingsAssetsSorted = owner
+                    .sortAssets(assets: withoutSettingsAssets, enviroment: environment)
+                    .map { (asset) -> DomainLayer.DTO.AssetBalanceSettings in
+                        
+                        return DomainLayer.DTO.AssetBalanceSettings(assetId: asset.id,
+                                                                    sortLevel: Constants.sortLevelNotFound,
+                                                                    isHidden: false,
+                                                                    isFavorite: asset.isInitialFavorite)
+                }
+                
+                var settings = [DomainLayer.DTO.AssetBalanceSettings]()
+                settings.append(contentsOf: sortedSettings)
+                settings.append(contentsOf: withoutSettingsAssetsSorted)
+                
+                settings = settings
+                    .enumerated()
+                    .map { (element) -> DomainLayer.DTO.AssetBalanceSettings in
+                        let settings = element.element
+                        let level = Float(element.offset)
+                        let isFavorite = settings.isFavorite && spamIds[settings.assetId] == false
+                        return DomainLayer.DTO.AssetBalanceSettings(assetId: settings.assetId,
+                                                                    sortLevel: level,
+                                                                    isHidden: settings.isHidden,
+                                                                    isFavorite: isFavorite)
+                }
+                
+                return Observable.just(settings)
+            })
+    }
+    
+    func sortAssets(assets: [DomainLayer.DTO.Asset], enviroment: Environment) -> [DomainLayer.DTO.Asset] {
 
         let favoriteAssets = assets.filter { $0.isInitialFavorite }.sorted(by: { $0.isWaves && !$1.isWaves })
         let secondsAssets = assets.filter { !$0.isInitialFavorite }
