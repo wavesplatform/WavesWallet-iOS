@@ -66,7 +66,6 @@ extension WalletSort.DTO {
     struct Asset: Mutating {
         let id: String
         let name: String
-        let isLock: Bool
         let isMyWavesToken: Bool
         var isFavorite: Bool
         let isGateway: Bool

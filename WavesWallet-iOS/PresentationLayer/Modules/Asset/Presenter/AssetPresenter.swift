@@ -141,7 +141,7 @@ private extension AssetPresenter {
                     state.displayState.sections = mapTosections(from: currentAsset,
                                                                 and: state.transactionStatus)
                     state.displayState.isFavorite = currentAsset.info.isFavorite
-                    state.displayState.isDisabledFavoriteButton = currentAsset.info.isSpam || currentAsset.info.isWaves
+                    state.displayState.isDisabledFavoriteButton = currentAsset.info.isSpam
                     state.displayState.action = .changedCurrentAsset
                 } else {
                     state.displayState.action = .none
@@ -197,7 +197,7 @@ private extension AssetPresenter {
 
                     state.displayState.currentAsset = asset.info
                     state.displayState.isFavorite = asset.info.isFavorite
-                    state.displayState.isDisabledFavoriteButton = asset.info.isSpam || asset.info.isWaves
+                    state.displayState.isDisabledFavoriteButton = asset.info.isSpam
                     state.displayState.isUserInteractionEnabled = true
                     state.displayState.action = .refresh
                 } else {

@@ -139,17 +139,20 @@ extension WalletSortViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 
         let sectionModel = sections[section]
-        guard sectionModel.kind == .favorities else { return nil }
-
-        return tableView.dequeueAndRegisterHeaderFooter() as WalletSortSeparatorFooter
+        if sectionModel.kind == .favorities && sectionModel.items.count > 0 {
+            return tableView.dequeueAndRegisterHeaderFooter() as WalletSortSeparatorFooter
+        }
+        return nil
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
 
         let sectionModel = sections[section]
-        guard sectionModel.kind == .favorities else { return CGFloat.minValue }
+        if sectionModel.kind == .favorities && sectionModel.items.count > 0 {
+            return Constants.heightForFooter
+        }
 
-        return Constants.heightForFooter
+        return CGFloat.minValue
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -199,7 +202,6 @@ extension WalletSortViewController: UITableViewDelegate {
             let cell: WalletSortFavCell = tableView.dequeueCell()
             let model: WalletSortFavCell.Model = .init(name: asset.name,
                                                        isMyWavesToken: asset.isMyWavesToken,
-                                                       isLock: asset.isLock,
                                                        isGateway: asset.isGateway,
                                                        icon: asset.icon,
                                                        isSponsored: asset.isSponsored)
