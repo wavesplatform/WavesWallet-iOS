@@ -136,9 +136,9 @@ enum TransactionSenderSpecifications {
 
 protocol TransactionsRepositoryProtocol {
 
-    func transactions(by accountAddress: String, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]>
-    func transactions(by accountAddress: String, specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]>
-    func newTransactions(by accountAddress: String,
+    func transactions(by address: DomainLayer.DTO.Address, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]>
+    func transactions(by address: DomainLayer.DTO.Address, specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]>
+    func newTransactions(by address: DomainLayer.DTO.Address,
                          specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]>
 
     func activeLeasingTransactions(by accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> 

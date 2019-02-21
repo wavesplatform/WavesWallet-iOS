@@ -17,7 +17,6 @@ private enum Constants {
 final class AliasesRepository: AliasesRepositoryProtocol {
     
     private let environmentRepository: EnvironmentRepositoryProtocol
-    private let aliasNode: MoyaProvider<Node.Service.Alias> = .nodeMoyaProvider()
     private let aliasApi: MoyaProvider<API.Service.Alias> = .nodeMoyaProvider()
     
     init(environmentRepository: EnvironmentRepositoryProtocol) {
@@ -28,12 +27,12 @@ final class AliasesRepository: AliasesRepositoryProtocol {
 
         return environmentRepository
             .accountEnvironment(accountAddress: accountAddress)
-            .flatMap({ [weak self] environment -> Observable<(aliases: [String], environment: Environment)> in
+            .flatMap({ [weak self] environment -> Observable<(aliases: [API.DTO.Alias], environment: Environment)> in
                 guard let owner = self else { return Observable.never() }
                 return owner
-                    .aliasNode
+                    .aliasApi
                     .rx
-                    .request(Node.Service.Alias(environment: environment,
+                    .request(API.Service.Alias(environment: environment,
                                                 kind: .list(accountAddress: accountAddress)),
                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()
@@ -41,22 +40,19 @@ final class AliasesRepository: AliasesRepositoryProtocol {
                     .catchError({ (error) -> Observable<Response> in
                         return Observable.error(NetworkError.error(by: error))
                     })
-                    .map([String].self)
-                    .map { (aliases: $0, environment: environment) }
+                    .map(API.Response<[API.Response<API.DTO.Alias>]>.self)
+                    .map { (aliases: $0.data.map{ $0.data }, environment: environment) }
             })
             .map({ data -> [DomainLayer.DTO.Alias] in
 
                 let list = data.aliases
                 let aliasScheme = data.environment.aliasScheme
+                
+                return list.map({ alias -> DomainLayer.DTO.Alias? in
 
-                return list.map({ originalName -> DomainLayer.DTO.Alias? in
-
-                    if originalName.range(of: aliasScheme) != nil {
-                        let name = originalName.replacingOccurrences(of: aliasScheme, with: "")
-                        return DomainLayer.DTO.Alias(name: name, originalName: originalName)
-                    }
-
-                    return nil
+                    let name = alias.alias
+                    let originalName = aliasScheme + name                    
+                    return DomainLayer.DTO.Alias(name: name, originalName: originalName)
                 })
                 .compactMap { $0 }
             })

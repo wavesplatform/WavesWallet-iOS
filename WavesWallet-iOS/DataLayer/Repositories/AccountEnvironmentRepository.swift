@@ -39,12 +39,9 @@ final class AccountSettingsRepository: AccountSettingsRepositoryProtocol {
                 let realm = try WalletRealmFactory.realm(accountAddress: accountAddress)
                 try realm.write {
 
-                    realm
-                        .objects(AccountSettings.self)
-                        .forEach({ settings in
-                            settings.realm?.delete(settings)
-                        })
-
+                    let result = realm.objects(AccountSettings.self)
+                    realm.delete(result)
+                    
                     realm.add(AccountSettings(settings))
                 }
                 

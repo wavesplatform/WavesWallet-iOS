@@ -100,5 +100,4 @@ final class ScannerCustomView: UIView, QRCodeReaderDisplayable {
 
     func setNeedsUpdateOrientation() { }
 
-    func setupComponents(with builder: QRCodeReaderViewControllerBuilder) {}
 }

@@ -47,7 +47,7 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
     }
 
     private struct AddressBookQuery: Equatable {
-        let account: DomainLayer.DTO.Account
+        let account: DomainLayer.DTO.Address
         let isAdded: Bool
     }
     
@@ -155,7 +155,7 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
                         if case let .recipient(recipient) = row,
                             recipient.account.address == contact.address
                         {
-                            let newAccount = DomainLayer.DTO.Account(address: recipient.account.address,
+                            let newAccount = DomainLayer.DTO.Address(address: recipient.account.address,
                                                                      contact: needDelete == true ? nil : contact,
                                                                      isMyAccount: recipient.account.isMyAccount,
                                                                      aliases: recipient.account.aliases)
