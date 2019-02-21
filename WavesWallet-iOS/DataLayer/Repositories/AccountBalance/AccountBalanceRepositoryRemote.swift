@@ -38,12 +38,31 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
                                                     matcherBalances: $0.2) }
     }
 
-    func balance(by assetId: String, accountAddress: String) -> Observable<DomainLayer.DTO.AssetBalance> {
+    func balance(by assetId: String, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AssetBalance> {
 
-        //Asset balance or address balance
-        // matcher balance
-        
-        return Observable.never()
+        let matcherBalances = self.matcherBalances(by: wallet.address, wallet: wallet)
+
+        if assetId == GlobalConstants.wavesAssetId {
+            let accountBalance = self.accountBalance(by: wallet.address)
+
+            return Observable
+                .zip(accountBalance,
+                     matcherBalances)
+                .map({ (accountBalance, matcher) -> DomainLayer.DTO.AssetBalance in
+                    let inOrderBalance = matcher[GlobalConstants.wavesAssetId] ?? 0
+                    return DomainLayer.DTO.AssetBalance(accountBalance: accountBalance, inOrderBalance: inOrderBalance)
+                })
+        } else {
+            let assetBalance = self.assetBalance(by: wallet.address, assetId: assetId)
+
+            return Observable
+                .zip(assetBalance,
+                     matcherBalances)
+                .map({ (assetBalance, matcher) -> DomainLayer.DTO.AssetBalance in
+                    let inOrderBalance = matcher[GlobalConstants.wavesAssetId] ?? 0
+                     return DomainLayer.DTO.AssetBalance(model: assetBalance, inOrderBalance: inOrderBalance)
+                })
+        }
     }
 
     func deleteBalances(_ balances:[DomainLayer.DTO.AssetBalance], accountAddress: String) -> Observable<Bool> {
@@ -94,25 +113,27 @@ private extension AccountBalanceRepositoryRemote {
     }
 
     func assetBalance(by walletAddress: String,
-                      assetId: String) -> Observable<Node.DTO.AccountAssetsBalance> {
+                      assetId: String) -> Observable<Node.DTO.AccountAssetBalance> {
 
         return environmentRepository
             .accountEnvironment(accountAddress: walletAddress)
+            .sweetDebug("EE")
             .flatMap { [weak self] environment -> Single<Response> in
 
                 guard let owner = self else { return Single.never() }
                 return owner
                     .assetsProvider
                     .rx
-                    .request(.init(kind: .getAssetsBalances(walletAddress: walletAddress),
+                    .request(.init(kind: .getAssetsBalance(address: walletAddress, assetId: assetId),
                                    environment: environment),
                              callbackQueue: DispatchQueue.global(qos: .userInteractive))
             }
+            .sweetDebug("AAA")
             .filterSuccessfulStatusAndRedirectCodes()
             .catchError({ (error) -> Observable<Response> in
                 return Observable.error(NetworkError.error(by: error))
             })
-            .map(Node.DTO.AccountAssetsBalance.self)
+            .map(Node.DTO.AccountAssetBalance.self)
             .asObservable()
     }
 
@@ -179,6 +200,16 @@ private extension DomainLayer.DTO.AssetBalance {
         self.modified = Date()
     }
 
+    init(model: Node.DTO.AccountAssetBalance, inOrderBalance: Int64) {
+        self.assetId = model.assetId
+        self.totalBalance = model.balance
+        self.leasedBalance = 0
+        self.inOrderBalance = inOrderBalance
+        //TODO: Need loading sponsorBalance
+        self.sponsorBalance = 0
+        self.modified = Date()
+    }
+
     static func map(assets: Node.DTO.AccountAssetsBalance,
                     account: Node.DTO.AccountBalance,
                     matcherBalances: [String: Int64]) -> [DomainLayer.DTO.AssetBalance] {
@@ -193,20 +224,20 @@ private extension DomainLayer.DTO.AssetBalance {
 
         return list
     }
-
-    static func map(asset: Node.DTO.AccountAssetBalance,
-                    account: Node.DTO.AccountBalance,
-                    matcherBalances: [String: Int64]) -> DomainLayer.DTO.AssetBalance {
-
-//        let assetsBalance = assets.balances.map { DomainLayer.DTO.AssetBalance(model: $0, inOrderBalance: matcherBalances[$0.assetId] ?? 0) }
+//
+//    static func map(asset: Node.DTO.AccountAssetBalance,
+//                    account: Node.DTO.AccountBalance,
+//                    matcherBalances: [String: Int64]) -> DomainLayer.DTO.AssetBalance {
+//
+////        let assetsBalance = assets.balances.map { DomainLayer.DTO.AssetBalance(model: $0, inOrderBalance: matcherBalances[$0.assetId] ?? 0) }
 //
 //        let accountBalance = DomainLayer.DTO.AssetBalance(accountBalance: account,
-//                                                          inOrderBalance: matcherBalances[GlobalConstants.wavesAssetId] ?? 0)
-
-        var list = [DomainLayer.DTO.AssetBalance]()
-//        list.append(contentsOf: assetsBalance)
-//        list.append(accountBalance)
-
-        return list
-    }
+////                                                          inOrderBalance: matcherBalances[GlobalConstants.wavesAssetId] ?? 0)
+//
+//        var list = [DomainLayer.DTO.AssetBalance]()
+////        list.append(contentsOf: assetsBalance)
+////        list.append(accountBalance)
+//
+//        return list
+//    }
 }

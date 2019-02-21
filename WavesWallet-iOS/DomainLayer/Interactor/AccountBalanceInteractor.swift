@@ -23,8 +23,8 @@ enum AccountBalanceInteractorError: Error {
 protocol AccountBalanceInteractorProtocol {
     func balances() -> Observable<[DomainLayer.DTO.SmartAssetBalance]>
     func balances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.SmartAssetBalance]>
-
-    func balance(by assetId: String) -> Observable<DomainLayer.DTO.SmartAssetBalance>
+    func balance(by assetId: String,
+                 wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.SmartAssetBalance>
 }
 
 final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
@@ -123,7 +123,9 @@ private extension AccountBalanceInteractor {
     }
 
     private func assetBalance(by wallet: DomainLayer.DTO.SignedWallet,
-                              assetId: String) -> Observable<[DomainLayer.DTO.AssetBalance]> {
+                              assetId: String) -> Observable<DomainLayer.DTO.AssetBalance> {
+
+
 
         return Observable.never()
     }
@@ -265,13 +267,27 @@ private extension AccountBalanceInteractor {
     private func remoteBalance(by wallet: DomainLayer.DTO.SignedWallet,
                                assetId: String) -> Observable<DomainLayer.DTO.SmartAssetBalance> {
 
-        return Observable.never()
+        let assetBalance = self.assetBalance(by: wallet, assetId: assetId)
+            .map { (balance) -> [DomainLayer.DTO.AssetBalance] in
+                return [balance]
+            }
+            .sweetDebug("assetBalance")
+
+        return remoteBalances(by: wallet, assetBalances: assetBalance)
+            .flatMap({ (balances) -> Observable<DomainLayer.DTO.SmartAssetBalance> in
+                guard let first = balances.first else {
+                    return Observable.error(AccountBalanceInteractorError.fail)
+                }
+
+                return Observable.just(first)
+            })
+            .sweetDebug("remoteBalances")
     }
 
     private func remoteBalances(by wallet: DomainLayer.DTO.SignedWallet,
                                 assetBalances: Observable<[DomainLayer.DTO.AssetBalance]>) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
 
-        return assetBalances
+        return assetBalances            
             .flatMapLatest { [weak self] balances -> Observable<[DomainLayer.DTO.AssetBalance]> in
                 guard let owner = self else { return Observable.never() }
                 return owner.modifyBalances(by: wallet, balances: balances)
