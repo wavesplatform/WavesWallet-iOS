@@ -14,6 +14,7 @@ extension API.Service {
     struct Alias {
         enum Kind {
             case alias(name: String)
+            case list(accountAddress: String)
         }
         
         let environment: Environment
@@ -27,6 +28,7 @@ extension API.Service.Alias: ApiTargetType {
 
     private enum Constants {
         static let aliases = "aliases"
+        static let address = "address"
     }
     
     var path: String {
@@ -34,22 +36,23 @@ extension API.Service.Alias: ApiTargetType {
             
         case .alias(let name):
             return Constants.aliases + "/" + "\(name)"
+            
+        case .list:
+            return Constants.aliases
         }
     }
     
     var method: Moya.Method {
-        switch kind {
-        
-        case .alias:
-            return .get
-        }
+       return .get
     }
     
     var task: Task {
         switch kind {
-
         case .alias:
             return .requestPlain
+        
+        case .list(let accountAddress):
+            return .requestParameters(parameters: [Constants.address : accountAddress], encoding: URLEncoding.default)
         }
     }
 }
