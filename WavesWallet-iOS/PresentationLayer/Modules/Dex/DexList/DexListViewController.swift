@@ -93,6 +93,7 @@ final class DexListViewController: UIViewController {
 //MARK: - MainTabBarControllerProtocol
 extension DexListViewController: MainTabBarControllerProtocol {
     func mainTabBarControllerDidTapTab() {
+        guard isViewLoaded else { return }
         tableView.setContentOffset(tableViewTopOffsetForBigNavBar(tableView), animated: true)
     }
 }
