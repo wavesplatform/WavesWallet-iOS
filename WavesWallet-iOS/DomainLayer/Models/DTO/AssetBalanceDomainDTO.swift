@@ -29,6 +29,7 @@ extension DomainLayer.DTO {
         var inOrderBalance: Int64
         var modified: Date
         let sponsorBalance: Int64
+        let minSponsoredAssetFee: Int64
     }
 
     struct AssetBalanceSettings: Mutating {
