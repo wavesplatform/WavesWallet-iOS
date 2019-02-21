@@ -42,7 +42,7 @@ enum TransactionHistoryTypes {
 
     enum Action {
         case none
-        case showAddressBook(account: DomainLayer.DTO.Account, isAdded: Bool)
+        case showAddressBook(account: DomainLayer.DTO.Address, isAdded: Bool)
         case cancelLeasing(transaction: DomainLayer.DTO.SmartTransaction)
         case resendTransaction(_ transaction: DomainLayer.DTO.SmartTransaction)
     }

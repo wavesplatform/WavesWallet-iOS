@@ -120,6 +120,7 @@ final class HistoryViewController: UIViewController {
 //MARK: - MainTabBarControllerProtocol
 extension HistoryViewController: MainTabBarControllerProtocol {
     func mainTabBarControllerDidTapTab() {
+        guard isViewLoaded else { return }
         tableView.setContentOffset(tableViewTopOffsetForBigNavBar(tableView), animated: true)
     }
 }

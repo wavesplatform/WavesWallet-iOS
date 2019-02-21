@@ -1,4 +1,6 @@
 
+"history.transaction.title.receivedSponsorship" = "Patrocinio recibido";
+
 "Receivecard.Label.minimunAmountInfo" = "El mínimo es %@, el máximo es %@";
 
 "Send.Label.Error.notFundsFeeGateway" = "No tiene fondos suficientes para pagar las comisiones requeridas. Debe pagar %@ una comisión de transacción y %@ una cuota de acceso.";
@@ -67,9 +69,7 @@
 
 "aliases.view.info.button.create" = "Crear un nuevo alias";
 
-"aliases.view.info.label.fee" = "Cuota de Transacción es 0.001 Waves";
-
-"aliases.view.info.label.secondsubtitle" = "Su alias debe contener entre 4 y 30 caracteres, y debe contener sólo letras minúscula, dígitos y símbolos (@, -, _, etc.)";
+"aliases.view.info.label.secondsubtitle" = "Su alias debe contener entre 4 y 30 caracteres, y debe contener sólo letras minúscula, dígitos y símbolos (@, -, _ y punto)";
 
 "aliases.view.info.label.subtitle" = "Un Alias es un apodo para su dirección. Puede utilizar un alias en lugar de una dirección para realizar sus transacciones.";
 
@@ -77,13 +77,13 @@
 
 "aliaseswithout.view.info.button.create" = "Crear nuevo alias";
 
-"aliaseswithout.view.info.label.fee" = "Comisión por cada transacción es 0.001 Waves";
-
-"aliaseswithout.view.info.label.secondsubtitle" = "Su alias debe contener entre 4 y 30 caracteres, y debe contener sólo letras minúscula, dígitos y símbolos (@, -, _, etc.)";
+"aliaseswithout.view.info.label.secondsubtitle" = "Su alias debe contener entre 4 y 30 caracteres, y debe contener sólo letras minúscula, dígitos y símbolos (@, -, _ y punto)";
 
 "aliaseswithout.view.info.label.subtitle" = "Un Alias es un apodo para su dirección. Puede utilizar un alias en lugar de una dirección para realizar sus transacciones.";
 
 "aliaseswithout.view.info.label.title" = "No tiene alias";
+
+"appnews.button.okey" = "Ok";
 
 "asset.cell.assetInfo.cantPerformTransactions" = "No puede realizar transacciones con este activo";
 
@@ -421,7 +421,7 @@
 
 "editaccountname.label.newName" = "Nueva cuenta";
 
-"editaccountname.navigation.title" = "Editar nombre";
+"editaccountname.navigation.title" = "Editar su nombre";
 
 "enter.block.blockchain.text" = "Conviértase en parte de un área de rápido crecimiento del mundo criptográfico. Es la única persona que puede acceder a sus criptomonedas.";
 
@@ -590,6 +590,10 @@
 "history.transaction.value.setScript.cancel" = "Cancelar transacción de script";
 
 "history.transaction.value.setScript.set" = "Establecer transacción de script";
+
+"history.transaction.value.setSponsorship.cancel" = "Cancelar de patrocinio";
+
+"history.transaction.value.setSponsorship.set" = "Establecer de patrocinio";
 
 "import.account.button.enter.title" = "Introduzca la semilla manualmente";
 
@@ -887,6 +891,10 @@
 
 "send.label.error.invalidId" = "ID inválido";
 
+"send.label.error.maximum" = "Máximo %@ %@";
+
+"send.label.error.minimun" = "Mínimo %@ %@";
+
 "send.label.error.notFundsFee" = "No tiene fondos suficientes para pagar las cuotas requeridas.";
 
 "send.label.gatewayFee" = "La cuota de la entrada es";
@@ -924,6 +932,10 @@
 "sendconfirmation.label.optionalMessage" = "Escriba un mensaje opcional";
 
 "sendconfirmation.label.sentTo" = "Enviado a";
+
+"sendfee.label.notAvailable" = "No está disponible";
+
+"sendfee.label.transactionFee" = "Tarifa de transacción";
 
 "sendloading.label.sending" = "Enviando…";
 

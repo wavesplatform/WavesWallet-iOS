@@ -23,7 +23,7 @@ final class SendFeeHeaderView: UIView, NibReusable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        isUserInteractionEnabled = false
         backgroundColor = .clear
         labelTitle.text = Localizable.Waves.Sendfee.Label.transactionFee
         layer.cornerRadius = Constants.cornerRadius

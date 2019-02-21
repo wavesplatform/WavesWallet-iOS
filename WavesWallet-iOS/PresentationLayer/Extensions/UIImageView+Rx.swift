@@ -17,13 +17,18 @@ extension Reactive where Base: UIImageView {
     public var imageAnimationFadeIn: Binder<UIImage?> {
         return Binder(base) { imageView, image in
 
+            if imageView.image == nil {
+                imageView.image = image
+                return
+            }
+
             UIView.transition(with: imageView,
                               duration: 0.3,
                               options: .transitionCrossDissolve,
                               animations:
                 {
-                    let object = imageView as? UIImageView
-                    object?.image = image
+                    let object = imageView as UIImageView
+                    object.image = image
             }, completion: { _ in })
         }
     }

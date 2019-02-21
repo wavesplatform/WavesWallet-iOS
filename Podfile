@@ -58,7 +58,7 @@ target 'WavesWallet-iOS' do
     pod 'CryptoSwift'
     pod 'KeychainAccess'
     pod 'QRCode'
-    pod 'QRCodeReader.swift'
+    pod 'QRCodeReader.swift', '~> 9.0.1'
     pod 'SwiftDate'
     pod 'DeviceKit', '~> 1.3'
     

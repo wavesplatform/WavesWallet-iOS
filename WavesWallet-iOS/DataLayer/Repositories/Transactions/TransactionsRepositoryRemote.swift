@@ -74,10 +74,10 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
         self.environmentRepository = environmentRepository
     }
 
-    func transactions(by accountAddress: String, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
+    func transactions(by address: DomainLayer.DTO.Address, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
 
         return environmentRepository
-            .accountEnvironment(accountAddress: accountAddress)
+            .accountEnvironment(accountAddress: address.address)
             .flatMap { [weak self] environment -> Observable<[DomainLayer.DTO.AnyTransaction]> in
 
                 guard let owner = self else { return Observable.never() }
@@ -87,7 +87,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                 return owner
                     .transactions
                     .rx
-                    .request(.init(kind: .list(accountAddress: accountAddress,
+                    .request(.init(kind: .list(accountAddress: address.address,
                                                limit: limit),
                                    environment: environment),
                              callbackQueue: DispatchQueue.global(qos: .userInteractive))
@@ -170,13 +170,13 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
     }
 
 // MARK - -  Dont support
-    func newTransactions(by accountAddress: String,
+    func newTransactions(by address: DomainLayer.DTO.Address,
                          specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
         assertMethodDontSupported()
         return Observable.never()
     }
 
-    func transactions(by accountAddress: String,
+    func transactions(by address: DomainLayer.DTO.Address,
                       specifications: TransactionsSpecifications) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
         assertMethodDontSupported()
         return Observable.never()

@@ -67,9 +67,7 @@
 
 "aliases.view.info.button.create" = "Criar um novo alias";
 
-"aliases.view.info.label.fee" = "Taxa de Transação 0.001 Waves";
-
-"aliases.view.info.label.secondsubtitle" = "Seu Alias deve ter entre 4 e 30 caracteres e deve conter apenas letras latinas minúsculas, dígitos e símbolos (@, -, _ etc)";
+"aliases.view.info.label.secondsubtitle" = "Seu Alias deve ter entre 4 e 30 caracteres e deve conter apenas letras latinas minúsculas, dígitos e símbolos (@, -, _ e ponto)";
 
 "aliases.view.info.label.subtitle" = "O Alias ​​é um apelido para o seu endereço. Você pode usá-lo ao invés do endereço para fazer transações.";
 
@@ -77,13 +75,13 @@
 
 "aliaseswithout.view.info.button.create" = "Crie um novo alias";
 
-"aliaseswithout.view.info.label.fee" = "Taxa de Transação 0.001 Waves";
-
-"aliaseswithout.view.info.label.secondsubtitle" = "Seu Alias deve ter entre 4 e 30 caracteres e deve conter apenas letras latinas minúsculas, dígitos e símbolos (@, -, _ etc)";
+"aliaseswithout.view.info.label.secondsubtitle" = "Seu Alias deve ter entre 4 e 30 caracteres e deve conter apenas letras latinas minúsculas, dígitos e símbolos (@, -, _ e ponto)";
 
 "aliaseswithout.view.info.label.subtitle" = "O Alias ​​é um apelido para o seu endereço. Você pode usá-lo ao invés do endereço para fazer transações.";
 
 "aliaseswithout.view.info.label.title" = "Você ainda não tem Aliases";
+
+"appnews.button.okey" = "Ok";
 
 "asset.cell.assetInfo.cantPerformTransactions" = "Você não pode realizar transações com este ativo";
 
@@ -565,6 +563,8 @@
 
 "history.transaction.title.received" = "Recebido";
 
+"history.transaction.title.receivedSponsorship" = "Patrocínio recebido";
+
 "history.transaction.title.selfTransfer" = "Autotransferência";
 
 "history.transaction.title.sent" = "Enviado";
@@ -590,6 +590,10 @@
 "history.transaction.value.setScript.cancel" = "Cancelar Script de Transação";
 
 "history.transaction.value.setScript.set" = "Definir Script de Transação";
+
+"history.transaction.value.setSponsorship.cancel" = "Cancelar patrocinada";
+
+"history.transaction.value.setSponsorship.set" = "Definir patrocinada";
 
 "import.account.button.enter.title" = "Inserir SEED manualmente";
 
@@ -887,6 +891,10 @@
 
 "send.label.error.invalidId" = "ID Inválido";
 
+"send.label.error.maximum" = "Máximo %@ %@";
+
+"send.label.error.minimun" = "Mínimo %@ %@";
+
 "send.label.error.notFundsFee" = "Você não tem saldo suficiente para pagar as taxas exigidas. ";
 
 "send.label.gatewayFee" = "A taxa do gateway é";
@@ -924,6 +932,10 @@
 "sendconfirmation.label.optionalMessage" = "Escreva uma mensagem opcional";
 
 "sendconfirmation.label.sentTo" = "Enviado para";
+
+"sendfee.label.notAvailable" = "Não disponível";
+
+"sendfee.label.transactionFee" = "Taxa de Transação";
 
 "sendloading.label.sending" = "Enviando…";
 

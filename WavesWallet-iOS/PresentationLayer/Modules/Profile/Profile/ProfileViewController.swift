@@ -19,7 +19,7 @@ final class ProfileViewController: UIViewController {
 
     fileprivate typealias Types = ProfileTypes
 
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private var tableView: UITableView!
     private lazy var logoutItem = UIBarButtonItem(image: Images.topbarLogout.image, style: .plain, target: self, action: #selector(logoutTapped))
     private var sections: [Types.ViewModel.Section] = [Types.ViewModel.Section]()
 
@@ -50,6 +50,7 @@ final class ProfileViewController: UIViewController {
 //MARK: - MainTabBarControllerProtocol
 extension ProfileViewController: MainTabBarControllerProtocol {
     func mainTabBarControllerDidTapTab() {
+        guard isViewLoaded else { return }
         tableView.setContentOffset(tableViewTopOffsetForBigNavBar(tableView), animated: true)
     }
 }
