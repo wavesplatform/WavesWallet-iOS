@@ -67,9 +67,7 @@
 
 "aliases.view.info.button.create" = "Maak een nieuw alias";
 
-"aliases.view.info.label.fee" = "Transactiekosten 0,001 Waves";
-
-"aliases.view.info.label.secondsubtitle" = "Uw Alias ​​moet tussen de 4 en 30 tekens lang zijn en mag alleen Latijnse letters, cijfers en symbolen in kleine letters bevatten (@, -, _ enz.)";
+"aliases.view.info.label.secondsubtitle" = "Uw Alias ​​moet tussen de 4 en 30 tekens lang zijn en mag alleen Latijnse letters, cijfers en symbolen in kleine letters bevatten (@, -, _ en punt)";
 
 "aliases.view.info.label.subtitle" = "Een alias is een bijnaam voor uw adres. U kunt een alias in plaats van een adres gebruiken om transacties uit te voeren.";
 
@@ -77,13 +75,13 @@
 
 "aliaseswithout.view.info.button.create" = "Maak een nieuw alias";
 
-"aliaseswithout.view.info.label.fee" = "Transactiekosten 0,001 Waves";
-
-"aliaseswithout.view.info.label.secondsubtitle" = "Uw Alias ​​moet tussen de 4 en 30 tekens lang zijn en mag alleen Latijnse letters, cijfers en symbolen in kleine letters bevatten (@, -, _ enz.)";
+"aliaseswithout.view.info.label.secondsubtitle" = "Uw Alias ​​moet tussen de 4 en 30 tekens lang zijn en mag alleen Latijnse letters, cijfers en symbolen in kleine letters bevatten (@, -, _ en punt)";
 
 "aliaseswithout.view.info.label.subtitle" = "Een alias is een bijnaam voor uw adres. U kunt een alias in plaats van een adres gebruiken om transacties uit te voeren.";
 
 "aliaseswithout.view.info.label.title" = "U heeft geen Aliassen";
+
+"appnews.button.okey" = "Oke";
 
 "asset.cell.assetInfo.cantPerformTransactions" = "U kunt geen transacties met deze asset doen";
 
@@ -565,6 +563,8 @@
 
 "history.transaction.title.received" = "Ontvangen";
 
+"history.transaction.title.receivedSponsorship" = "Ontvangen Sponsoring";
+
 "history.transaction.title.selfTransfer" = "Zelfoverdracht";
 
 "history.transaction.title.sent" = "Verzonden";
@@ -590,6 +590,10 @@
 "history.transaction.value.setScript.cancel" = "Annuleer Script Transactie";
 
 "history.transaction.value.setScript.set" = "Configureer Script Transactie";
+
+"history.transaction.value.setSponsorship.cancel" = "Annuleer gesponsorde";
+
+"history.transaction.value.setSponsorship.set" = "Configureer gesponsorde";
 
 "import.account.button.enter.title" = "Voer SEED handmatig in";
 
@@ -887,6 +891,10 @@
 
 "send.label.error.invalidId" = "Ongeldige ID";
 
+"send.label.error.maximum" = "Maximum %@ %@";
+
+"send.label.error.minimun" = "Minimum %@ %@";
+
 "send.label.error.notFundsFee" = "U hebt niet genoeg geld om de vereiste kosten te betalen.";
 
 "send.label.gatewayFee" = "Gateway-kosten zijn";
@@ -924,6 +932,10 @@
 "sendconfirmation.label.optionalMessage" = "Schrijf een optioneel bericht";
 
 "sendconfirmation.label.sentTo" = "Verzonden naar";
+
+"sendfee.label.notAvailable" = "Niet beschikbaar";
+
+"sendfee.label.transactionFee" = "Transactiekosten";
 
 "sendloading.label.sending" = "Bezig met verzenden…";
 

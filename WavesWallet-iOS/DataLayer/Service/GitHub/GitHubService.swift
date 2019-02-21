@@ -20,7 +20,7 @@ private enum Constants {
     static let urlEnvironmentMainNet: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/mobile/v2.2/environment_mainnet.json")!
     static let urlEnvironmentTestNet: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/master/environment_testnet.json")!
     static let urlTransactionFee: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/master/fee.json")!
-    static let urlApplicationNews: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.2/notifications.json")!
+    static let urlApplicationNews: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/mobile/v2.2/notifications_ios.json")!
 }
 
 extension GitHub.Service {

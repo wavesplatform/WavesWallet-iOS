@@ -67,9 +67,7 @@
 
 "aliases.view.info.button.create" = "创建新的别名";
 
-"aliases.view.info.label.fee" = "交易费0.001waves";
-
-"aliases.view.info.label.secondsubtitle" = "你的别名必须是4到30个字符，而且只能包含小写字母，数字和特殊字符（@，-，—etc）";
+"aliases.view.info.label.secondsubtitle" = "你的别名必须是4到30个字符，而且只能包含小写字母，数字和特殊字符（@，-，_ 和点）";
 
 "aliases.view.info.label.subtitle" = "别名是你的地址的昵称。你可以使用一个别名来代替一个地址，用于交易。";
 
@@ -77,13 +75,13 @@
 
 "aliaseswithout.view.info.button.create" = "创建新的别名";
 
-"aliaseswithout.view.info.label.fee" = "交易费0.001waves";
-
-"aliaseswithout.view.info.label.secondsubtitle" = "你的别名必须是4到30个字符，而且只能包含小写字母，数字和特殊字符（@，-，—etc）";
+"aliaseswithout.view.info.label.secondsubtitle" = "你的别名必须是4到30个字符，而且只能包含小写字母，数字和特殊字符（@，-，_ 和点）";
 
 "aliaseswithout.view.info.label.subtitle" = "别名是你的地址的昵称。你可以使用一个别名来代替一个地址，用于交易。";
 
 "aliaseswithout.view.info.label.title" = "你没有别名";
+
+"appnews.button.okey" = "好";
 
 "asset.cell.assetInfo.cantPerformTransactions" = "您无法使用此资产执行交易";
 
@@ -257,7 +255,7 @@
 
 "dexchart.label.minutes" = "分钟";
 
-"dexcompleteorder.button.okey" = "OK";
+"dexcompleteorder.button.okey" = "好";
 
 "dexcompleteorder.label.amount" = "数量";
 
@@ -565,6 +563,8 @@
 
 "history.transaction.title.received" = "收到";
 
+"history.transaction.title.receivedSponsorship" = "获得赞助";
+
 "history.transaction.title.selfTransfer" = "内部转账";
 
 "history.transaction.title.sent" = "发送";
@@ -590,6 +590,10 @@
 "history.transaction.value.setScript.cancel" = "取消脚本交易";
 
 "history.transaction.value.setScript.set" = "设置脚本交易";
+
+"history.transaction.value.setSponsorship.cancel" = "取消赞助传输";
+
+"history.transaction.value.setSponsorship.set" = "设置赞助交易";
 
 "import.account.button.enter.title" = "手工输入种子";
 
@@ -845,7 +849,7 @@
 
 "receivecard.label.warningInfo" = "要从您的卡中进行付款，您将被重定向到商家的网站";
 
-"receivecardcomplete.button.okay" = "OK";
+"receivecardcomplete.button.okay" = "好";
 
 "receivecardcomplete.label.afterPaymentUpdateBalance" = "付款完成后，您的余额将会更新";
 
@@ -887,6 +891,10 @@
 
 "send.label.error.invalidId" = "无效的ID";
 
+"send.label.error.maximum" = "最大值";
+
+"send.label.error.minimun" = "最少值";
+
 "send.label.error.notFundsFee" = "您没有足够的资金来支付所需的费用。";
 
 "send.label.gatewayFee" = "gateway的费用是";
@@ -901,7 +909,7 @@
 
 "send.textField.placeholderPaymentId" = "粘贴或输入您的付款ID";
 
-"sendcomplete.button.okey" = "OK";
+"sendcomplete.button.okey" = "好";
 
 "sendcomplete.label.saveThisAddress" = "要保存此地址吗？";
 
@@ -924,6 +932,10 @@
 "sendconfirmation.label.optionalMessage" = "写一个可选的消息";
 
 "sendconfirmation.label.sentTo" = "发送到";
+
+"sendfee.label.notAvailable" = "无法使用";
+
+"sendfee.label.transactionFee" = "交易费用";
 
 "sendloading.label.sending" = "发送中…";
 
@@ -975,7 +987,7 @@
 
 "startleasing.label.startLeasing" = "开始租赁";
 
-"startleasingcomplete.button.okey" = "OK";
+"startleasingcomplete.button.okey" = "好";
 
 "startleasingcomplete.label.youHaveCanceledTransaction" = "您已取消一笔租赁交易";
 
@@ -1005,7 +1017,7 @@
 
 "tokenBurn.button.continue" = "继续";
 
-"tokenBurn.button.okey" = "OK";
+"tokenBurn.button.okey" = "好";
 
 "tokenBurn.button.useTotalBalanace" = "使用所有余额";
 

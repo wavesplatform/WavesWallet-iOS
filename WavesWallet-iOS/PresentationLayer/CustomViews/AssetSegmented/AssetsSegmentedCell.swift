@@ -43,15 +43,15 @@ extension AssetsSegmentedCell: ViewConfiguration {
 
         self.model = model
 
-        disposeBag = DisposeBag()        
-
         let sponsoredSize = model.isSponsored ? Constants.sponsoredSize : nil
         AssetLogo.logo(icon: model.icon,
                        style: AssetLogo.Style(size: Constants.sizeLogo,
                                               sponsoredSize: sponsoredSize,
                                               font: UIFont.systemFont(ofSize: 15),
                                               border: nil))
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { (image) in
+
                 self.imageViewIcon.image = image
             })
             .disposed(by: disposeBag)

@@ -131,6 +131,7 @@ private extension NetworkSettingsViewController {
             .asSignal(onErrorSignalWith: Signal.empty())
 
         let spamFilterSwitch = self.spamFilterSwitch.rx.value
+            .skip(1)
             .map { Types.Event.switchSpam($0) }
             .asSignal(onErrorSignalWith: Signal.empty())
 
@@ -153,7 +154,7 @@ private extension NetworkSettingsViewController {
 
         spamUrlTextField.value = state.spamUrl
         spamUrlTextField.error = state.spamError
-        spamFilterSwitch.isOn = state.isSpam
+        spamFilterSwitch.isOn =  state.isSpam
         saveButton.isEnabled = state.isEnabledSaveButton
         setDefaultButton.isEnabled = state.isEnabledSetDeffaultButton
 
