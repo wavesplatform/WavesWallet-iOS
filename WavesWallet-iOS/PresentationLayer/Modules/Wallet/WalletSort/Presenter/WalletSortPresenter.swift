@@ -188,7 +188,10 @@ extension WalletSort.State {
         guard let favoriteSectionIndex = favoriteSection?.offset else { return }
         guard let allSectionIndex = allSection?.offset else { return }
 
-        let newAsset = asset.mutate { $0.isFavorite = !$0.isFavorite }
+        let newAsset = asset.mutate {
+            $0.isFavorite = !$0.isFavorite
+            $0.isHidden = false
+        }
 
         newFavoriteSection = newFavoriteSection.mutate { section in
             if asset.isFavorite {
