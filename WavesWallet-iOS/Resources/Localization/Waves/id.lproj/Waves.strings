@@ -67,9 +67,7 @@
 
 "aliases.view.info.button.create" = "Buat alias baru";
 
-"aliases.view.info.label.fee" = "Biaya Transaksi 0,001 Waves";
-
-"aliases.view.info.label.secondsubtitle" = "Alias ​​Anda harus memiliki panjang antara 4 hingga 30 karakter, dan hanya boleh berisi huruf kecil, angka, dan simbol Latin (@, -, _ dll)";
+"aliases.view.info.label.secondsubtitle" = "Alias ​​Anda harus memiliki panjang antara 4 hingga 30 karakter, dan hanya boleh berisi huruf kecil, angka, dan simbol Latin (@, -, _ dan titik)";
 
 "aliases.view.info.label.subtitle" = "Alias ​​adalah nama panggilan untuk alamat Anda. Anda dapat menggunakan Alias ​​alih-alih alamat untuk melakukan transaksi.";
 
@@ -77,13 +75,13 @@
 
 "aliaseswithout.view.info.button.create" = "Buat alias baru";
 
-"aliaseswithout.view.info.label.fee" = "Biaya Transaksi 0.001 Waves";
-
-"aliaseswithout.view.info.label.secondsubtitle" = "Alias ​​Anda harus memiliki panjang antara 4 hingga 30 karakter, dan hanya boleh berisi huruf kecil, angka, dan simbol Latin (@, -, _ dll)";
+"aliaseswithout.view.info.label.secondsubtitle" = "Alias ​​Anda harus memiliki panjang antara 4 hingga 30 karakter, dan hanya boleh berisi huruf kecil, angka, dan simbol Latin (@, -, _ dan titik)";
 
 "aliaseswithout.view.info.label.subtitle" = "Alias ​​adalah nama panggilan untuk alamat Anda. Anda dapat menggunakan Alias ​​alih-alih alamat untuk melakukan transaksi.";
 
 "aliaseswithout.view.info.label.title" = "Anda tidak memiliki Alias";
+
+"appnews.button.okey" = "Ok";
 
 "asset.cell.assetInfo.cantPerformTransactions" = "Anda tidak dapat melakukan transaksi dengan aset ini";
 
@@ -565,6 +563,8 @@
 
 "history.transaction.title.received" = "Diterima";
 
+"history.transaction.title.receivedSponsorship" = "Menerima Sponsorship";
+
 "history.transaction.title.selfTransfer" = "Transfer mandiri";
 
 "history.transaction.title.sent" = "Terkirim";
@@ -590,6 +590,10 @@
 "history.transaction.value.setScript.cancel" = "Batalkan Transaksi Skrip";
 
 "history.transaction.value.setScript.set" = "Tetapkan Transaksi Skrip";
+
+"history.transaction.value.setSponsorship.cancel" = "Batalkan Sponsor";
+
+"history.transaction.value.setSponsorship.set" = "Setel Sponsor";
 
 "import.account.button.enter.title" = "Masukkan SEED secara manual";
 
@@ -887,6 +891,10 @@
 
 "send.label.error.invalidId" = "ID tidak valid";
 
+"send.label.error.maximum" = "Maksimum %@ %@";
+
+"send.label.error.minimun" = "Minimum %@ %@";
+
 "send.label.error.notFundsFee" = "Anda tidak memiliki cukup dana untuk membayar biaya yang diperlukan.";
 
 "send.label.gatewayFee" = "Biaya gateway";
@@ -924,6 +932,10 @@
 "sendconfirmation.label.optionalMessage" = "Tulis pesan opsional";
 
 "sendconfirmation.label.sentTo" = "Dikirim ke";
+
+"sendfee.label.notAvailable" = "Tidak tersedia";
+
+"sendfee.label.transactionFee" = "Biaya transaksi";
 
 "sendloading.label.sending" = "Mengirim…";
 

@@ -196,7 +196,7 @@ internal enum Localizable {
           }
 
           internal enum Label {
-            /// Your Alias must be between 4 and 30 characters long, and must contain only lowercase Latin letters, digits and symbols (@, -, _ etc)
+            /// Your Alias must be between 4 and 30 characters long, and must contain only lowercase Latin letters, digits and symbols (@, -, _ and dot)
             internal static var secondsubtitle: String { return Localizable.tr("Waves", "aliases.view.info.label.secondsubtitle") }
             /// An Alias is a nickname for your address. You can use an Alias instead of an address to make transactions.
             internal static var subtitle: String { return Localizable.tr("Waves", "aliases.view.info.label.subtitle") }
@@ -219,7 +219,7 @@ internal enum Localizable {
           }
 
           internal enum Label {
-            /// Your Alias must be between 4 and 30 characters long, and must contain only lowercase Latin letters, digits and symbols (@, -, _ etc)
+            /// Your Alias must be between 4 and 30 characters long, and must contain only lowercase Latin letters, digits and symbols (@, -, _ and dot)
             internal static var secondsubtitle: String { return Localizable.tr("Waves", "aliaseswithout.view.info.label.secondsubtitle") }
             /// An Alias is a nickname for your address. You can use an Alias instead of an address to make transactions.
             internal static var subtitle: String { return Localizable.tr("Waves", "aliaseswithout.view.info.label.subtitle") }
@@ -1962,11 +1962,11 @@ internal enum Localizable {
           internal static var insufficientFunds: String { return Localizable.tr("Waves", "send.label.error.insufficientFunds") }
           /// invalid ID
           internal static var invalidId: String { return Localizable.tr("Waves", "send.label.error.invalidId") }
-          /// Max %@ %@
+          /// Maximum %@ %@
           internal static func maximum(_ p1: String, _ p2: String) -> String {
             return Localizable.tr("Waves", "send.label.error.maximum", p1, p2)
           }
-          /// Min %@ %@
+          /// Minimum %@ %@
           internal static func minimun(_ p1: String, _ p2: String) -> String {
             return Localizable.tr("Waves", "send.label.error.minimun", p1, p2)
           }
