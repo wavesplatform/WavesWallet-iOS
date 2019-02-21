@@ -172,16 +172,20 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
                     return Observable.just(true)
                 }
 
-                if asset.assetId == GlobalConstants.wavesAssetId {
-                    return Observable.just(true)
-                }
-
                 if isFavorite {
-                    guard let topFavorite = sortedSettings.first(where: { $0.isFavorite == true }) else { return Observable.never() }
-                    asset.sortLevel = topFavorite.sortLevel + Constants.step
+                    if let topFavorite = sortedSettings.first(where: { $0.isFavorite == true }) {
+                        asset.sortLevel = topFavorite.sortLevel + Constants.step
+                    }
+                    else {
+                        asset.sortLevel = Constants.step
+                    }
                 } else {
-                    guard let topNotFavorite = sortedSettings.first(where: { $0.isFavorite == false }) else { return Observable.never() }
-                    asset.sortLevel = topNotFavorite.sortLevel - Constants.step
+                    if let topNotFavorite = sortedSettings.first(where: { $0.isFavorite == false }) {
+                        asset.sortLevel = topNotFavorite.sortLevel - Constants.step
+                    }
+                    else {
+                        asset.sortLevel = Constants.step
+                    }
                 }
                 asset.isFavorite = isFavorite
                 asset.isHidden = false

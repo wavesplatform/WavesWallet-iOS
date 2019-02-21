@@ -15,7 +15,6 @@ private extension DomainLayer.DTO.SmartAssetBalance {
 
     static func map(from balance: DomainLayer.DTO.SmartAssetBalance) -> WalletSort.DTO.Asset {
 
-        let isLock = balance.asset.isWaves == true
         let isMyWavesToken = balance.asset.isMyWavesToken
         let isFavorite = balance.settings.isFavorite
         let isGateway = balance.asset.isGateway
@@ -23,7 +22,6 @@ private extension DomainLayer.DTO.SmartAssetBalance {
         let sortLevel = balance.settings.sortLevel
         return WalletSort.DTO.Asset(id: balance.assetId,
                                     name: balance.asset.displayName,
-                                    isLock: isLock,
                                     isMyWavesToken: isMyWavesToken,
                                     isFavorite: isFavorite,
                                     isGateway: isGateway,
@@ -162,7 +160,6 @@ extension WalletSort.State {
 
     func toogleHiddenAsset(state: inout WalletSort.State, indexPath: IndexPath) {
         guard let asset = sections[indexPath.section].items[indexPath.row].asset else { return }
-        guard asset.isLock == false else { return }
 
         let section = sections[indexPath.section].mutate { section in
             var newAsset = asset
@@ -177,8 +174,6 @@ extension WalletSort.State {
 
     func toogleFavoriteAsset(state: inout WalletSort.State, indexPath: IndexPath) {
         guard let asset = sections[indexPath.section].items[indexPath.row].asset else { return }
-
-        guard asset.isLock == false else { return }
 
         let favoriteSection = sections.enumerated().first { $0.element.kind == .favorities }
         let allSection = sections.enumerated().first { $0.element.kind == .all }
