@@ -211,7 +211,7 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
                     .setIsLoggedIn(wallet: wallet)
                     .flatMap { [weak self] wallet -> Observable<AuthorizationVerifyAccessStatus> in
                         guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
-                        return Observable.just(AuthorizationVerifyAccessStatus.completed(.init(wallet: wallet, seed: seed, signingWallets: owner)))
+                        return Observable.just(AuthorizationVerifyAccessStatus.completed(.init(wallet: wallet, seed: seed)))
                     }
             })
             .map({ (status) -> AuthorizationAuthStatus in
@@ -1034,14 +1034,9 @@ fileprivate extension AuthorizationInteractor {
     func signedWallet(wallet: DomainLayer.DTO.Wallet, seed: DomainLayer.DTO.WalletSeed) -> Observable<DomainLayer.DTO.SignedWallet> {
 
         return Observable.create({ [weak self] (observer) -> Disposable in
-            guard let owner = self else {
-                observer.onError(AuthorizationInteractorError.fail)
-                return Disposables.create()
-            }
 
             let signedWallet = DomainLayer.DTO.SignedWallet(wallet: wallet,
-                                                            seed: seed,
-                                                            signingWallets: owner)
+                                                            seed: seed)
             observer.onNext(signedWallet)
             return Disposables.create()
         })
@@ -1147,17 +1142,6 @@ fileprivate extension AuthorizationInteractor {
         }
 
         return error
-    }
-}
-
-// MARK: - SigningWalletsProtocol
-extension AuthorizationInteractor: SigningWalletsProtocol {
-
-    func sign(input: [UInt8], kind: [SigningKind], publicKey: String) throws -> [UInt8] {
-
-        guard let seed = seedRepositoryMemory.seed(publicKey) else { throw SigningWalletsError.notSigned }
-        let privateKey = PrivateKeyAccount(seedStr: seed.seed)
-        return Hash.sign(input, privateKey.privateKey)
     }
 }
 
