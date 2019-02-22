@@ -108,8 +108,8 @@ extension PasscodeCoordinator: PasscodeModuleOutput {
                 .build(input: .init(passcode: passcode, wallet: wallet))
             mainNavigationRouter.present(vc, animated: true, completion: nil)
         } else {
-            dissmiss()
             delegate?.passcodeCoordinatorAuthorizationCompleted(wallet: wallet)
+            dissmiss()
         }
     }
 
@@ -178,14 +178,14 @@ extension PasscodeCoordinator: UseTouchIDModuleOutput {
     func userSkipRegisterBiometric(wallet: DomainLayer.DTO.Wallet) {
 
         mainNavigationRouter.dismiss(animated: true, completion: nil)
-        dissmiss()
         delegate?.passcodeCoordinatorAuthorizationCompleted(wallet: wallet)
+        dissmiss()
     }
 
     func userRegisteredBiometric(wallet: DomainLayer.DTO.Wallet) {
 
         mainNavigationRouter.dismiss(animated: true, completion: nil)
-        dissmiss()
         delegate?.passcodeCoordinatorAuthorizationCompleted(wallet: wallet)
+        dissmiss()
     }
 }
