@@ -66,8 +66,8 @@ final class SupportViewController: UIViewController {
             .balance(by: "8gQ9X6vgg7dXD1GkvqjhnANM4KDdA24ARpTKzuLJ9ZBm",
                                wallet: signedWallet)
             .subscribe({ (event) in
-            print(event)
-        })
+                print(event)
+            })
     }
 
 
