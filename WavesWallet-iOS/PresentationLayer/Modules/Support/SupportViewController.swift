@@ -46,14 +46,28 @@ final class SupportViewController: UIViewController {
 
     }
 
+    let accountBalance: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
+
     @IBAction private func actionCrash(_ sender: Any) {
 
-        let test = StoryboardScene.Support.testViewController.instantiate()
+        let wallet = DomainLayer.DTO.Wallet(name: "Test",
+                                            address: "3P5r1EXZwxJ21f3T3zvjx61RtY52QV4fb18",
+                                            publicKey: "27C8ksVhVFUXyngF1F8TfyCGLmkDMsm2QuTv4VvhBpJU",
+                                            isLoggedIn: true,
+                                            isBackedUp: false, hasBiometricEntrance: false, isAlreadyShowLegalDisplay: false, id: "test")
 
-        test.modalPresentationStyle = .custom
-        test.transitioningDelegate = popoverViewControllerTransitioning
+        let walletSeed = DomainLayer.DTO.WalletSeed.init(publicKey: "27C8ksVhVFUXyngF1F8TfyCGLmkDMsm2QuTv4VvhBpJU",
+                                                         seed: "",
+                                                         address: "3P5r1EXZwxJ21f3T3zvjx61RtY52QV4fb18")
 
-        self.present(test, animated: true, completion: nil)
+        let signedWallet = DomainLayer.DTO.SignedWallet(wallet: wallet, seed: walletSeed)
+
+        accountBalance
+            .balance(by: "8gQ9X6vgg7dXD1GkvqjhnANM4KDdA24ARpTKzuLJ9ZBm",
+                               wallet: signedWallet)
+            .subscribe({ (event) in
+                print(event)
+            })
     }
 
 
