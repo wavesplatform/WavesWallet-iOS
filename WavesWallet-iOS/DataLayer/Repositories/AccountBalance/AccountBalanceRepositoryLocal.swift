@@ -145,6 +145,7 @@ fileprivate extension DomainLayer.DTO.AssetBalance {
         self.leasedBalance = balance.leasedBalance
         self.inOrderBalance = balance.inOrderBalance
         self.sponsorBalance = balance.sponsorBalance
+        self.minSponsoredAssetFee = balance.minSponsoredAssetFee
     }
 }
 
@@ -158,5 +159,6 @@ fileprivate extension AssetBalance {
         self.leasedBalance = balance.leasedBalance
         self.inOrderBalance = balance.inOrderBalance
         self.sponsorBalance = balance.sponsorBalance
+        self.minSponsoredAssetFee = balance.minSponsoredAssetFee
     }
 }

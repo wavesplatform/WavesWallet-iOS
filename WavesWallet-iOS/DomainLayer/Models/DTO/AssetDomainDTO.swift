@@ -40,7 +40,7 @@ extension DomainLayer.DTO {
         let addressRegEx: String
         let iconLogoUrl: String?
         let hasScript: Bool
-        let minSponsoredFee: Int64
+        var minSponsoredFee: Int64
     }
 }
 
