@@ -51,7 +51,7 @@ final class AliasesInteractor: AliasesInteractorProtocol {
                     })
             }
             .share()
-            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .background)))
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .userInteractive)))
     }
 
     private func remoteAliases(by accountAddress: String) -> Observable<[DomainLayer.DTO.Alias]> {
