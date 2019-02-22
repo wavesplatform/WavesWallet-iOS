@@ -117,7 +117,6 @@ private extension AccountBalanceRepositoryRemote {
 
         return environmentRepository
             .accountEnvironment(accountAddress: walletAddress)
-            .sweetDebug("EE")
             .flatMap { [weak self] environment -> Single<Response> in
 
                 guard let owner = self else { return Single.never() }
@@ -128,7 +127,6 @@ private extension AccountBalanceRepositoryRemote {
                                    environment: environment),
                              callbackQueue: DispatchQueue.global(qos: .userInteractive))
             }
-            .sweetDebug("AAA")
             .filterSuccessfulStatusAndRedirectCodes()
             .catchError({ (error) -> Observable<Response> in
                 return Observable.error(NetworkError.error(by: error))
@@ -224,20 +222,4 @@ private extension DomainLayer.DTO.AssetBalance {
 
         return list
     }
-//
-//    static func map(asset: Node.DTO.AccountAssetBalance,
-//                    account: Node.DTO.AccountBalance,
-//                    matcherBalances: [String: Int64]) -> DomainLayer.DTO.AssetBalance {
-//
-////        let assetsBalance = assets.balances.map { DomainLayer.DTO.AssetBalance(model: $0, inOrderBalance: matcherBalances[$0.assetId] ?? 0) }
-//
-//        let accountBalance = DomainLayer.DTO.AssetBalance(accountBalance: account,
-////                                                          inOrderBalance: matcherBalances[GlobalConstants.wavesAssetId] ?? 0)
-//
-//        var list = [DomainLayer.DTO.AssetBalance]()
-////        list.append(contentsOf: assetsBalance)
-////        list.append(accountBalance)
-//
-//        return list
-//    }
 }
