@@ -4830,6 +4830,7 @@
 				A60EA21BC9B82445DBBC7E14 /* [CP] Embed Pods Frameworks */,
 				0A218B93215549BB00B989A1 /* Fabric run */,
 				0AC14789218B043400A25BE5 /* Change Build Version */,
+				64578F1B5667F7D76B8CA9B1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -5057,6 +5058,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nPLIST=\"${PROJECT_DIR}/${INFOPLIST_FILE}\"\nPLB=/usr/libexec/PlistBuddy\nLAST_NUMBER=$($PLB -c \"Print CFBundleVersion\" \"$PLIST\")\nNEW_VERSION=$(($LAST_NUMBER + 1))\n$PLB -c \"Set :CFBundleVersion $NEW_VERSION\" \"$PLIST\"\n";
+		};
+		64578F1B5667F7D76B8CA9B1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseInAppMessagingDisplay/InAppMessagingDisplayResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/InAppMessagingDisplayResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		A60EA21BC9B82445DBBC7E14 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
