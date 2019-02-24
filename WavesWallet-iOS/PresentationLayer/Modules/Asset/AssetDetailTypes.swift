@@ -8,14 +8,14 @@
 
 import Foundation
 
-enum AssetTypes {}
+enum AssetDetailTypes {}
 
-extension AssetTypes {
+extension AssetDetailTypes {
     enum ViewModel {}
     enum DTO {}
 }
 
-extension AssetTypes {
+extension AssetDetailTypes {
 
     struct State: Mutating {
 
@@ -35,7 +35,7 @@ extension AssetTypes {
             }
         }
 
-        var assets: [AssetTypes.DTO.Asset]        
+        var assets: [DTO.Asset]
         var transactionStatus: TransactionStatus
         var displayState: DisplayState
     }
@@ -44,7 +44,7 @@ extension AssetTypes {
         case readyView
         case changedAsset(id: String)
         case setTransactions([DomainLayer.DTO.SmartTransaction])
-        case setAssets([AssetTypes.DTO.Asset])
+        case setAssets([DTO.Asset])
         case refreshing
         case tapFavorite(on: Bool)
         case tapSend
@@ -72,14 +72,14 @@ extension AssetTypes {
         var isDisabledFavoriteButton: Bool
         var isUserInteractionEnabled: Bool
 
-        var currentAsset: AssetTypes.DTO.Asset.Info
-        var assets: [AssetTypes.DTO.Asset.Info]
-        var sections: [AssetTypes.ViewModel.Section] = []
+        var currentAsset: DTO.Asset.Info
+        var assets: [DTO.Asset.Info]
+        var sections: [ViewModel.Section] = []
         var action: Action
     }
 }
 
-extension AssetTypes.ViewModel {
+extension AssetDetailTypes.ViewModel {
 
     struct Section: SectionBase {
 
@@ -90,24 +90,24 @@ extension AssetTypes.ViewModel {
         }
         
         var kind: Kind
-        var rows: [AssetTypes.ViewModel.Row]
+        var rows: [AssetDetailTypes.ViewModel.Row]
     }
 
     enum Row {
         case balanceSkeleton
-        case balance(AssetTypes.DTO.Asset.Balance)
-        case spamBalance(AssetTypes.DTO.Asset.Balance)
+        case balance(AssetDetailTypes.DTO.Asset.Balance)
+        case spamBalance(AssetDetailTypes.DTO.Asset.Balance)
         case viewHistory
         case viewHistoryDisabled
         case viewHistorySkeleton
         case lastTransactions([DomainLayer.DTO.SmartTransaction])
         case transactionSkeleton
-        case assetInfo(AssetTypes.DTO.Asset.Info)
-        case tokenBurn(AssetTypes.DTO.Asset.Info)
+        case assetInfo(AssetDetailTypes.DTO.Asset.Info)
+        case tokenBurn(AssetDetailTypes.DTO.Asset.Info)
     }
 }
 
-extension AssetTypes.DTO {
+extension AssetDetailTypes.DTO {
 
     struct Asset {
 
@@ -121,7 +121,7 @@ extension AssetTypes.DTO {
             let isMyWavesToken: Bool
             let isWavesToken: Bool
             let isWaves: Bool
-            let isFavorite: Bool
+            var isFavorite: Bool
             let isFiat: Bool
             let isSpam: Bool
             let isGateway: Bool
@@ -138,12 +138,12 @@ extension AssetTypes.DTO {
             let isFiat: Bool
         }
 
-        let info: Info
+        var info: Info
         let balance: Balance
     }
 }
 
-extension AssetTypes.ViewModel.Section {
+extension AssetDetailTypes.ViewModel.Section {
     
     var assetBalance: DomainLayer.DTO.SmartAssetBalance? {
         if let row = rows.first(where: {$0.asset != nil}) {
@@ -154,9 +154,9 @@ extension AssetTypes.ViewModel.Section {
         return nil
     }
 }
-extension AssetTypes.ViewModel.Row {
+extension AssetDetailTypes.ViewModel.Row {
     
-    var asset: AssetTypes.DTO.Asset.Info? {
+    var asset: AssetDetailTypes.DTO.Asset.Info? {
         switch self {
         case .assetInfo(let info):
             return info
