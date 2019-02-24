@@ -108,7 +108,7 @@ extension WalletCoordinator: WalletModuleOutput {
 
     func showAsset(with currentAsset: DomainLayer.DTO.SmartAssetBalance, assets: [DomainLayer.DTO.SmartAssetBalance]) {
 
-        let vc = AssetModuleBuilder(output: self)
+        let vc = AssetDetailModuleBuilder(output: self)
             .build(input: .init(assets: assets,
                                 currentAsset: currentAsset))
         
@@ -138,7 +138,7 @@ extension WalletCoordinator: WalletModuleOutput {
 
 // MARK: AssetModuleOutput
 
-extension WalletCoordinator: AssetModuleOutput {
+extension WalletCoordinator: AssetDetailModuleOutput {
 
     func showSend(asset: DomainLayer.DTO.SmartAssetBalance) {
         let vc = SendModuleBuilder().build(input: .selectedAsset(asset))
@@ -189,7 +189,7 @@ extension WalletCoordinator: StartLeasingModuleOutput {
     }
 }
 
-fileprivate extension AssetModuleBuilder.Input {
+fileprivate extension AssetDetailModuleBuilder.Input {
 
     init(assets: [DomainLayer.DTO.SmartAssetBalance],
          currentAsset: DomainLayer.DTO.SmartAssetBalance) {
@@ -198,7 +198,7 @@ fileprivate extension AssetModuleBuilder.Input {
     }
 }
 
-fileprivate extension AssetTypes.DTO.Asset.Info {
+fileprivate extension AssetDetailTypes.DTO.Asset.Info {
 
     init(asset: DomainLayer.DTO.SmartAssetBalance) {
         id = asset.asset.id
