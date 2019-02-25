@@ -29,7 +29,7 @@ final class AssetBalanceSpamCell: UITableViewCell, NibReusable {
 
 extension AssetBalanceSpamCell: ViewConfiguration {
     
-    func update(with model: AssetTypes.DTO.Asset.Balance) {
+    func update(with model: AssetDetailTypes.DTO.Asset.Balance) {
         
         labelBalance.attributedText = NSAttributedString.styleForBalance(text: model.avaliableMoney.displayTextFull(isFiat: model.isFiat),
                                                                          font: labelBalance.font)

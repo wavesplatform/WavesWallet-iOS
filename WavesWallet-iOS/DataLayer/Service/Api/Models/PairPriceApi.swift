@@ -14,7 +14,7 @@ extension API.DTO {
         let firstPrice: Double
         let lastPrice: Double
         let volume: Double
-        let volumeWaves: Double
+        let volumeWaves: Double?
     
         static var empty: PairPrice {
             return PairPrice(firstPrice: 0,

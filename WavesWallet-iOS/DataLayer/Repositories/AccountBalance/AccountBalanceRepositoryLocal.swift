@@ -32,16 +32,16 @@ final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
         }
     }
 
-    func balance(by id: String, accountAddress: String) -> Observable<DomainLayer.DTO.AssetBalance> {
+    func balance(by assetId: String, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AssetBalance> {
 
         return Observable.create { (observer) -> Disposable in
 
-            guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
+            guard let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address) else {
                 observer.onError(AccountBalanceRepositoryError.fail)
                 return Disposables.create()
             }
 
-            if let object = realm.object(ofType: AssetBalance.self, forPrimaryKey: id) {
+            if let object = realm.object(ofType: AssetBalance.self, forPrimaryKey: assetId) {
                 let balance = DomainLayer.DTO.AssetBalance(balance: object)
                 observer.onNext(balance)
                 observer.onCompleted()
@@ -145,6 +145,7 @@ fileprivate extension DomainLayer.DTO.AssetBalance {
         self.leasedBalance = balance.leasedBalance
         self.inOrderBalance = balance.inOrderBalance
         self.sponsorBalance = balance.sponsorBalance
+        self.minSponsoredAssetFee = balance.minSponsoredAssetFee
     }
 }
 
@@ -158,5 +159,6 @@ fileprivate extension AssetBalance {
         self.leasedBalance = balance.leasedBalance
         self.inOrderBalance = balance.inOrderBalance
         self.sponsorBalance = balance.sponsorBalance
+        self.minSponsoredAssetFee = balance.minSponsoredAssetFee
     }
 }

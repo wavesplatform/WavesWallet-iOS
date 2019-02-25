@@ -160,7 +160,9 @@ final class SweetLoggerSentry: SweetLoggerProtocol {
 
         let event = Sentry.Event(level: level.sentrySeverity)
         event.message = "\(message())"
-        Client.shared?.send(event: event, completion: nil)
+        Client.shared?.send(event: event, completion: { error in
+            print("SweetLogger :( \(String(describing: error))")
+        })
     }
 
 }

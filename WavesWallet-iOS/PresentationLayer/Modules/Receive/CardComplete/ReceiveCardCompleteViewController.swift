@@ -39,7 +39,7 @@ final class ReceiveCardCompleteViewController: UIViewController {
     }
     
     @IBAction private func okeyTapped(_ sender: Any) {
-        if let assetVc = navigationController?.viewControllers.first(where: {$0.classForCoder == AssetViewController.classForCoder()}) {
+        if let assetVc = navigationController?.viewControllers.first(where: {$0.classForCoder == AssetDetailViewController.classForCoder()}) {
             navigationController?.popToViewController(assetVc, animated: true)
         }
         else {
