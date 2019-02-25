@@ -13,7 +13,7 @@ fileprivate enum Constants {
     static let transactionLimit: Int = 10
 }
 
-final class AssetInteractor: AssetInteractorProtocol {
+final class AssetDetailInteractor: AssetDetailInteractorProtocol {
 
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
@@ -22,24 +22,25 @@ final class AssetInteractor: AssetInteractorProtocol {
 
     private let assetsBalanceSettings: AssetsBalanceSettingsInteractorProtocol = FactoryInteractors.instance.assetsBalanceSettings
 
-    private let refreshAssetsSubject: PublishSubject<[AssetTypes.DTO.Asset]> = PublishSubject<[AssetTypes.DTO.Asset]>()
+    private let refreshAssetsSubject: PublishSubject<[AssetDetailTypes.DTO.Asset]> = PublishSubject<[AssetDetailTypes.DTO.Asset]>()
     private let disposeBag: DisposeBag = DisposeBag()
 
-    func assets(by ids: [String]) -> Observable<[AssetTypes.DTO.Asset]> {
+    func assets(by ids: [String]) -> Observable<[AssetDetailTypes.DTO.Asset]> {
 
         return Observable.merge(refreshAssetsSubject.asObserver(),
                                 assets(by: ids,
                                        isNeedUpdate: false))
     }
 
-    private func assets(by ids: [String], isNeedUpdate: Bool) -> Observable<[AssetTypes.DTO.Asset]> {
+    private func assets(by ids: [String], isNeedUpdate: Bool) -> Observable<[AssetDetailTypes.DTO.Asset]> {
 
         return authorizationInteractor
             .authorizedWallet()
-            .flatMap(weak: self) { owner, wallet -> Observable<[AssetTypes.DTO.Asset]> in
+            .flatMap(weak: self) { owner, wallet -> Observable<[AssetDetailTypes.DTO.Asset]> in
 
                 owner.accountBalanceInteractor
                     .balances(by: wallet)
+                    .take(1)
                     .map {
                         $0.filter { asset -> Bool in
                             ids.contains(asset.assetId)
@@ -95,12 +96,12 @@ final class AssetInteractor: AssetInteractorProtocol {
 
 private extension DomainLayer.DTO.SmartAssetBalance {
 
-    func mapToAsset() -> AssetTypes.DTO.Asset {
-        return AssetTypes.DTO.Asset(info: mapToInfo(),
+    func mapToAsset() -> AssetDetailTypes.DTO.Asset {
+        return AssetDetailTypes.DTO.Asset(info: mapToInfo(),
                                     balance: mapToBalance())
     }
 
-    func mapToBalance() -> AssetTypes.DTO.Asset.Balance {
+    func mapToBalance() -> AssetDetailTypes.DTO.Asset.Balance {
 
         let decimal = asset.precision
 
@@ -109,14 +110,14 @@ private extension DomainLayer.DTO.SmartAssetBalance {
         let leasedMoney = Money(leasedBalance, decimal)
         let inOrderMoney = Money(inOrderBalance, decimal)
 
-        return AssetTypes.DTO.Asset.Balance(totalMoney: totalMoney,
+        return AssetDetailTypes.DTO.Asset.Balance(totalMoney: totalMoney,
                                             avaliableMoney: avaliableMoney,
                                             leasedMoney: leasedMoney,
                                             inOrderMoney: inOrderMoney,
                                             isFiat: asset.isFiat)
     }
 
-    func mapToInfo() -> AssetTypes.DTO.Asset.Info {
+    func mapToInfo() -> AssetDetailTypes.DTO.Asset.Info {
 
         let id = asset.id
         let issuer = asset.sender
