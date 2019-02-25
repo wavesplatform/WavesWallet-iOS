@@ -209,8 +209,8 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
 
                 return owner
                     .setIsLoggedIn(wallet: wallet)
-                    .flatMap { [weak self] wallet -> Observable<AuthorizationVerifyAccessStatus> in
-                        guard let owner = self else { return Observable.error(AuthorizationInteractorError.fail) }
+                    .flatMap { wallet -> Observable<AuthorizationVerifyAccessStatus> in
+                        
                         return Observable.just(AuthorizationVerifyAccessStatus.completed(.init(wallet: wallet, seed: seed)))
                     }
             })
@@ -1033,7 +1033,7 @@ fileprivate extension AuthorizationInteractor {
 
     func signedWallet(wallet: DomainLayer.DTO.Wallet, seed: DomainLayer.DTO.WalletSeed) -> Observable<DomainLayer.DTO.SignedWallet> {
 
-        return Observable.create({ [weak self] (observer) -> Disposable in
+        return Observable.create({ (observer) -> Disposable in
 
             let signedWallet = DomainLayer.DTO.SignedWallet(wallet: wallet,
                                                             seed: seed)
@@ -1162,9 +1162,7 @@ extension LAError {
         case LAError.userFallback:
             return AuthorizationInteractorError.biometricUserFallback
 
-        case LAError.biometryNotEnrolled,
-             LAError.biometryNotAvailable,
-             LAError.passcodeNotSet:
+        case LAError.passcodeNotSet:
             return AuthorizationInteractorError.biometricDisable
 
         default:

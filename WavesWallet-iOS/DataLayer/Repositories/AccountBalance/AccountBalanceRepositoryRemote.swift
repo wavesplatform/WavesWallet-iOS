@@ -10,6 +10,11 @@ import Foundation
 import Moya
 import RxSwift
 
+private struct SponsoredAssetDetail {
+    let minSponsoredAssetFee: Int64?
+    let sponsoredBalance: Int64
+}
+
 final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
 
     private let assetsProvider: MoyaProvider<Node.Service.Assets> = .nodeMoyaProvider()
@@ -62,7 +67,9 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
                      sponsorBalance)
                 .map({ (assetBalance, matcher, sponsorBalance) -> DomainLayer.DTO.AssetBalance in
                     let inOrderBalance = matcher[GlobalConstants.wavesAssetId] ?? 0
-                    return DomainLayer.DTO.AssetBalance(model: assetBalance, inOrderBalance: inOrderBalance, sponsorBalance: sponsorBalance)
+                    return DomainLayer.DTO.AssetBalance(model: assetBalance,
+                                                        inOrderBalance: inOrderBalance,
+                                                        sponsoredAssetDetail: sponsorBalance)
                 })
         }
     }
@@ -137,19 +144,20 @@ private extension AccountBalanceRepositoryRemote {
             .asObservable()
     }
 
-
     //TODO: https://wavesplatform.atlassian.net/browse/NODE-1488
-    func sponsorBalance(assetId: String, walletAddress: String) -> Observable<Int64> {
+    
+    func sponsorBalance(assetId: String, walletAddress: String) -> Observable<SponsoredAssetDetail> {
         return assetDetail(assetId: assetId,
                            walletAddress: walletAddress)
-            .flatMap { [weak self] (detail) -> Observable<Int64> in
+            .flatMap { [weak self] (detail) -> Observable<SponsoredAssetDetail> in
 
                 guard let owner = self else { return Observable.never() }
-
+                
                 return owner.balance(for: detail.issuer,
                                      myWalletAddress: walletAddress)
-                    .map({ (balance) -> Int64 in
-                        return balance.balance
+                    .map({ (balance) -> SponsoredAssetDetail in
+                        return SponsoredAssetDetail(minSponsoredAssetFee: detail.minSponsoredAssetFee,
+                                                    sponsoredBalance: balance.balance)
                     })
             }
     }
@@ -263,13 +271,14 @@ private extension DomainLayer.DTO.AssetBalance {
         self.minSponsoredAssetFee = model.minSponsoredAssetFee ?? 0
     }
 
-    init(model: Node.DTO.AccountAssetBalance, inOrderBalance: Int64, sponsorBalance: Int64) {
+    init(model: Node.DTO.AccountAssetBalance, inOrderBalance: Int64, sponsoredAssetDetail: SponsoredAssetDetail) {
         self.assetId = model.assetId
         self.totalBalance = model.balance
         self.leasedBalance = 0
         self.inOrderBalance = inOrderBalance
-        self.sponsorBalance = sponsorBalance
+        self.sponsorBalance = sponsoredAssetDetail.sponsoredBalance
         self.modified = Date()
+        self.minSponsoredAssetFee = sponsoredAssetDetail.minSponsoredAssetFee ?? 0
     }
 
     static func map(assets: Node.DTO.AccountAssetsBalance,
