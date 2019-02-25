@@ -74,7 +74,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 AppSpector.run(with: config)                
             }
 
-
         #else
             SweetLogger.current.plugins = [SweetLoggerSentry(visibleLevels: [.error])]
             SweetLogger.current.visibleLevels = [.warning, .debug, .error]

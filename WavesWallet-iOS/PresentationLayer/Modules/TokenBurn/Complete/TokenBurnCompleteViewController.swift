@@ -44,7 +44,7 @@ final class TokenBurnCompleteViewController: UIViewController {
             navigationController?.popToRootViewController(animated: true)
         }
         else {
-            if let vc = navigationController?.viewControllers.first(where: {$0.isKind(of: AssetViewController.classForCoder())}) {
+            if let vc = navigationController?.viewControllers.first(where: {$0.isKind(of: AssetDetailViewController.classForCoder())}) {
                 
                 input.delegate?.tokenBurnDidSuccessBurn(amount: input.amount)
                 navigationController?.popToViewController(vc, animated: true)

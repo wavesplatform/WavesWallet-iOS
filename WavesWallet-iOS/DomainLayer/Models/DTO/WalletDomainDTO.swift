@@ -63,26 +63,22 @@ extension DomainLayer.DTO {
         let privateKey: PrivateKeyAccount
         let seed: WalletSeed
 
-        private weak var signingWallets: SigningWalletsProtocol?
-
         var address: String {
             return wallet.address
         }
 
         init(wallet: Wallet,
-             seed: WalletSeed,
-             signingWallets: SigningWalletsProtocol) {
+             seed: WalletSeed) {
             
             self.seed = seed
-            self.wallet = wallet
-            self.signingWallets = signingWallets
+            self.wallet = wallet            
             self.publicKey = PublicKeyAccount(publicKey: seed.publicKey)
             self.privateKey = PrivateKeyAccount(seedStr: seed.seed)
         }
 
         func sign(input: [UInt8], kind: [SigningKind]) throws -> [UInt8] {
-            guard let signingWallets = signingWallets else { throw SigningWalletsError.accessDenied }
-            return try signingWallets.sign(input: input, kind: kind, publicKey: wallet.publicKey)
+            let privateKey = PrivateKeyAccount(seedStr: seed.seed)
+            return Hash.sign(input, privateKey.privateKey)
         }
         
         var seedWords: [String] {

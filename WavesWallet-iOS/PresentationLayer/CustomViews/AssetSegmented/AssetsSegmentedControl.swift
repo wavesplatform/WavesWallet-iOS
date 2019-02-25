@@ -14,6 +14,7 @@ import InfiniteCollectionView
 fileprivate enum Constants {
     static let spacing: CGFloat = 24
     static let scaleCell: CGFloat = 0.7
+    static let currentPageEmpty: Int = -1
 }
 
 final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
@@ -50,7 +51,7 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
         }
     }
 
-    private(set) var currentPage: Int = 0
+    private(set) var currentPage: Int = Constants.currentPageEmpty
 
     var currentAsset: Model.Asset {
         return assets[currentPage]
@@ -204,7 +205,7 @@ extension AssetsSegmentedControl: InfiniteCollectionViewDelegate {
 extension AssetsSegmentedControl: ViewConfiguration {
     func update(with model: Model) {
         self.assets = model.assets
-
+        currentPage = Constants.currentPageEmpty
         collectionView.reloadInfinity()
         setCurrentAsset(id: model.currentAsset.id, animated: false)
     }
