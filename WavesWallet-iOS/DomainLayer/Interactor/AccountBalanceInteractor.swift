@@ -25,6 +25,7 @@ protocol AccountBalanceInteractorProtocol {
     func balances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.SmartAssetBalance]>
     func balance(by assetId: String,
                  wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.SmartAssetBalance>
+    func balance(by assetId: String) -> Observable<DomainLayer.DTO.SmartAssetBalance>
 }
 
 final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
