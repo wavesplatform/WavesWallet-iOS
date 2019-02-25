@@ -47,13 +47,7 @@ final class SupportViewController: UIViewController {
     }
 
     @IBAction private func actionCrash(_ sender: Any) {
-
-        let test = StoryboardScene.Support.testViewController.instantiate()
-
-        test.modalPresentationStyle = .custom
-        test.transitioningDelegate = popoverViewControllerTransitioning
-
-        self.present(test, animated: true, completion: nil)
+        
     }
 
 
