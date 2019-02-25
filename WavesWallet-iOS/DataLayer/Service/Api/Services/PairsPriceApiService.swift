@@ -10,6 +10,7 @@ import Foundation
 import Moya
 
 extension API.Service {
+
     
     struct PairsPrice {
         let pairs: [DomainLayer.DTO.Dex.Pair]
