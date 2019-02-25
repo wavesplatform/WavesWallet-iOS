@@ -92,7 +92,7 @@ final class AssetBalanceCell: UITableViewCell, NibReusable {
 
 extension AssetBalanceCell: ViewConfiguration {
 
-    func update(with model: AssetTypes.DTO.Asset.Balance) {
+    func update(with model: AssetDetailTypes.DTO.Asset.Balance) {
 
         options = Options(isHiddenLeased: model.leasedMoney.isZero, isHiddenInOrder: model.inOrderMoney.isZero)
 
@@ -122,7 +122,7 @@ extension AssetBalanceCell: ViewConfiguration {
 
 extension AssetBalanceCell: ViewCalculateHeight {
 
-    static func viewHeight(model: AssetTypes.DTO.Asset.Balance, width: CGFloat) -> CGFloat {
+    static func viewHeight(model: AssetDetailTypes.DTO.Asset.Balance, width: CGFloat) -> CGFloat {
 
         let isHiddenLeased = model.leasedMoney.isZero
         let isHiddenInOrder = model.inOrderMoney.isZero

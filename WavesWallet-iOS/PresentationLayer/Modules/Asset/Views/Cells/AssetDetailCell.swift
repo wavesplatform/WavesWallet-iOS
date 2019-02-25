@@ -102,7 +102,7 @@ final class AssetDetailCell: UITableViewCell, Reusable {
 
 extension AssetDetailCell: ViewConfiguration {
 
-    func update(with model: AssetTypes.DTO.Asset.Info) {
+    func update(with model: AssetDetailTypes.DTO.Asset.Info) {
         
         nameLabel.text = model.name
         idLabel.text = model.id
@@ -131,7 +131,7 @@ extension AssetDetailCell: ViewConfiguration {
 
 extension AssetDetailCell: ViewCalculateHeight {
 
-    static func viewHeight(model: AssetTypes.DTO.Asset.Info, width: CGFloat) -> CGFloat {
+    static func viewHeight(model: AssetDetailTypes.DTO.Asset.Info, width: CGFloat) -> CGFloat {
         
         var offset: CGFloat = Constants.nameTopOffset
         let nameHeight = model.name.maxHeightMultiline(font: UIFont.systemFont(ofSize: 13), forWidth: width - Constants.padding * 2)

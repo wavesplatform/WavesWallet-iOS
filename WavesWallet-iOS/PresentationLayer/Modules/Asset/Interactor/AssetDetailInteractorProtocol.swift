@@ -9,9 +9,9 @@
 import Foundation
 import RxSwift
 
-protocol AssetInteractorProtocol {
+protocol AssetDetailInteractorProtocol {
 
-    func assets(by ids: [String]) -> Observable<[AssetTypes.DTO.Asset]>
+    func assets(by ids: [String]) -> Observable<[AssetDetailTypes.DTO.Asset]>
     func transactions(by assetId: String) -> Observable<[DomainLayer.DTO.SmartTransaction]>
     func refreshAssets(by ids: [String])
     func toggleFavoriteFlagForAsset(by id: String, isFavorite: Bool)
