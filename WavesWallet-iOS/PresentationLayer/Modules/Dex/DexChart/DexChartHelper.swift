@@ -74,7 +74,7 @@ extension DexChartHelper {
         candleSet.highlightLineDashLengths = Constants.Candle.DataSet.highlightLineDashLengths
         candleSet.drawHorizontalHighlightIndicatorEnabled = false
         
-        if candleSet.entryCount > 0 {
+        if candleSet.count > 0 {
             candleChartView.data = CandleChartData(dataSet: candleSet)
             candleChartView.notifyDataSetChanged()
         }
