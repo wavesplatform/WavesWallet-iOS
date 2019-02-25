@@ -62,7 +62,7 @@ final class AssetsInteractor: AssetsInteractorProtocol {
             }
             .take(1)
             .share()
-            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .background)))
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .userInteractive)))
     }
 
     private func remoteAssets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
@@ -128,6 +128,6 @@ final class AssetsInteractor: AssetsInteractorProtocol {
                 }
             })
             .share()
-            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .background)))
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .userInteractive)))
     }
 }
