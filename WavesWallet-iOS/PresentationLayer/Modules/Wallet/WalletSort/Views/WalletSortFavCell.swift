@@ -19,7 +19,6 @@ final class WalletSortFavCell: UITableViewCell, Reusable {
     @IBOutlet private var imageIcon: UIImageView!
     @IBOutlet var buttonFav: UIButton!
     @IBOutlet private var labelTitle: UILabel!
-    @IBOutlet private var iconLock: UIImageView!
     @IBOutlet private var viewContent: UIView!
 
     private(set) var disposeBag = DisposeBag()
@@ -46,16 +45,15 @@ extension WalletSortFavCell: ViewConfiguration {
     struct Model {
         let name: String
         let isMyWavesToken: Bool
-        let isLock: Bool
         let isGateway: Bool
         let icon: DomainLayer.DTO.Asset.Icon
         let isSponsored: Bool
     }
 
     func update(with model: WalletSortFavCell.Model) {
-        let cryptoName = model.name
-        labelTitle.text = cryptoName
-        iconLock.isHidden = !model.isLock
+
+        labelTitle.attributedText = NSAttributedString.styleForMyAssetName(assetName: model.name,
+                                                                           isMyAsset: model.isMyWavesToken)
 
         let sponsoredSize = model.isSponsored ? Constants.sponsoredIcon : nil
 
