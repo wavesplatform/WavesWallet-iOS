@@ -1,11 +1,13 @@
 require 'open-uri'
 require 'credentials_manager'
+## require 'dotenv/load'
 
 default_platform(:ios)
 
 platform :ios do
 
   lane :waves_test do
+
     ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Test"
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.test"
@@ -21,6 +23,7 @@ platform :ios do
     ENV['MATCH_TYPE'] = "appstore"
     ENV['CHANGELOG_BETWEEN_BRANCH']="develop"
     ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.test"
+    
     build_projet
     upload_testflight
   end
@@ -69,20 +72,8 @@ platform :ios do
 
     setup_circle_ci
 
-    unless Helper.ci?
-        sh("echo CI DONT USE")
-        ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
-    end
-    sh("printenv")
-
-    match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'].split(","),
-      git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
-      username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
-      type: "#{ENV['MATCH_TYPE']}",
-      readonly: true,
-      keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
-
-    download_environments
+    download_certificates
+    download_resources
 
 		cocoapods(
 			verbose: true,
@@ -149,16 +140,50 @@ platform :ios do
 
   end
 
-  lane :certificates do
+  lane :download_certificates do
 
-    match(app_identifier: ["com.wavesplatform.waveswallet.test", "com.wavesplatform.waveswallet", "com.wavesplatform.waveswallet.dev"],
-          git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
-          username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
-          type: "appstore",
-          readonly: true)
+    unless Helper.ci?
+      sh("echo CI DONT USE")
+      ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
+    end
+  
+    match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'].split(","),
+      git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
+      username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
+      type: "#{ENV['MATCH_TYPE']}",
+      readonly: true,
+      keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}"
+    )
   end
 
-  lane :download_environments do
+  lane :dev_enviroment do
+
+    ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Dev"
+    ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.dev"
+    ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.dev"
+    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
+
+    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Dev.plist"
+    ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Dev.plist"
+
+    ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
+    ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
+    ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
+  
+    ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
+
+    ENV['MATCH_TYPE'] = "development"
+    ENV['CHANGELOG_BETWEEN_BRANCH']="develop"
+    
+  end
+
+  lane :dev_install do
+    dev_enviroment
+    download_certificates
+  end
+
+
+  lane :download_resources do
     sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
     sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FABRIC']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
 
