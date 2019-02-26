@@ -17,7 +17,7 @@ fileprivate enum SchemaVersions: UInt64 {
     case version_2_0 = 6 // v2.0
     case version_2_0_2 = 7 // v2.0.2
     case version_2_1 = 8 // v2.1
-    case version_2_2 = 10 // v2.2
+    case version_2_2 = 11 // v2.2
 
     static let currentVersion: SchemaVersions = .version_2_2
 }

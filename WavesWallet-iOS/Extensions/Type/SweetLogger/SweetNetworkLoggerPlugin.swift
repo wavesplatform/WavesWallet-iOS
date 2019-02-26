@@ -10,53 +10,80 @@ import Foundation
 import Result
 import Moya
 
-/// Logs network activity (outgoing requests and incoming responses).
+
 public final class SweetNetworkLoggerPlugin: PluginType {
-    fileprivate let loggerId = "Moya_Logger"
+    fileprivate let loggerId = "Network"
     fileprivate let dateFormatString = "dd/MM/yyyy HH:mm:ss"
     fileprivate let dateFormatter = DateFormatter()
-    fileprivate let separator = ", "
-    fileprivate let terminator = "\n"
-    fileprivate let cURLTerminator = "\\\n"
-    fileprivate let output: (_ separator: String, _ terminator: String, _ items: Any...) -> Void
-    fileprivate let requestDataFormatter: ((Data) -> (String))?
-    fileprivate let responseDataFormatter: ((Data) -> (Data))?
+
+    fileprivate var outputs: [String: [String]] = .init()
 
     /// A Boolean value determing whether response body data should be logged.
     public let isVerbose: Bool
-    public let cURL: Bool
+    public let cURL: Bool = false
+    public let isResponse: Bool = false
 
-    /// Initializes a NetworkLoggerPlugin.
-    public init(verbose: Bool = false, cURL: Bool = false, output: ((_ separator: String, _ terminator: String, _ items: Any...) -> Void)? = nil, requestDataFormatter: ((Data) -> (String))? = nil, responseDataFormatter: ((Data) -> (Data))? = nil) {
-        self.cURL = cURL
+    public init(verbose: Bool = false) {
         self.isVerbose = verbose
-        self.output = output ?? SweetNetworkLoggerPlugin.reversedPrint
-        self.requestDataFormatter = requestDataFormatter
-        self.responseDataFormatter = responseDataFormatter
     }
 
     public func willSend(_ request: RequestType, target: TargetType) {
-        if let request = request as? CustomDebugStringConvertible, cURL {
-            output(separator, terminator, request.debugDescription)
-            return
+        
+        if let request = request as? CustomDebugStringConvertible {
+            outputItems([request.debugDescription, "\n"], target: target)
+        } else {
+            outputItems(logNetworkRequest(request.request as URLRequest?), target: target)
         }
-        outputItems(logNetworkRequest(request.request as URLRequest?))
     }
 
     public func didReceive(_ result: Result<Moya.Response, MoyaError>, target: TargetType) {
+
+
+        let key = target.key
+
+        var isError: Bool = false
+
         if case .success(let response) = result {
-            outputItems(logNetworkResponse(response.response, data: response.data, target: target))
+            isError = response.statusCode > 299
+            outputItems(logNetworkResponse(response.response,
+                                           data: response.data,
+                                           target: target),
+                        target: target)
+        } else if case .failure(let error) = result {
+            isError = true
+            outputItems(logNetworkError(error, target: target), target: target, isError: true)
+        }
+
+        if isError {
+            outputsPrint(target: target)
         } else {
-            outputItems(logNetworkResponse(nil, data: nil, target: target))
+            outputs.removeValue(forKey: key)
         }
     }
 
-    fileprivate func outputItems(_ items: [String]) {
-        if isVerbose {
-            items.forEach { output(separator, terminator, $0) }
+    fileprivate func outputItems(_ items: [String], target: TargetType, isError: Bool = false) {
+
+        let key = target.key
+
+        if var errors = outputs[target.key] {
+            errors.append(contentsOf: items)
+            outputs[key] = errors
         } else {
-            output(separator, terminator, items)
+            outputs[key] = items
         }
+    }
+
+    fileprivate func outputsPrint(target: TargetType) {
+
+        let key = target.key
+
+        if let outputs = outputs[key] {
+
+            let message = "\(loggerId): \(date) \(target.baseURL.absoluteString) \n \(outputs.joined(separator: "\n"))"
+            SweetLogger.error(message)
+        }
+
+        outputs.removeValue(forKey: key)
     }
 }
 
@@ -69,7 +96,7 @@ private extension SweetNetworkLoggerPlugin {
     }
 
     func format(_ loggerId: String, date: String, identifier: String, message: String) -> String {
-        return "\(loggerId): [\(date)] \(identifier): \(message)"
+        return "\(identifier): \(message)"
     }
 
     func logNetworkRequest(_ request: URLRequest?) -> [String] {
@@ -90,7 +117,7 @@ private extension SweetNetworkLoggerPlugin {
             output += [format(loggerId, date: date, identifier: "HTTP Request Method", message: httpMethod)]
         }
 
-        if let body = request?.httpBody, let stringOutput = requestDataFormatter?(body) ?? String(data: body, encoding: .utf8), isVerbose {
+        if let body = request?.httpBody, let stringOutput = String(data: body, encoding: .utf8), isVerbose {
             output += [format(loggerId, date: date, identifier: "Request Body", message: stringOutput)]
         }
 
@@ -106,18 +133,41 @@ private extension SweetNetworkLoggerPlugin {
 
         output += [format(loggerId, date: date, identifier: "Response", message: response.description)]
 
-        if let data = data, let stringData = String(data: responseDataFormatter?(data) ?? data, encoding: String.Encoding.utf8), isVerbose {
+        if let data = data, let stringData = String(data: data, encoding: String.Encoding.utf8), isVerbose {
             output += [stringData]
+        }
+
+        return output
+    }
+
+    func logNetworkError(_ error: MoyaError, target: TargetType) -> [String] {
+
+        var output = [String]()
+
+        if let errorDescription = error.errorDescription {
+            output += [format(loggerId, date: date, identifier: "Description", message: errorDescription)]
+        }
+
+        if let responce = error.response {
+            output += [format(loggerId, date: date, identifier: "Status Code", message: "\(responce.statusCode)")]
+
+            if let responce = String(data: responce.data, encoding: String.Encoding.utf8) {
+                output += [format(loggerId, date: date, identifier: "Responce", message: responce)]
+            }
         }
 
         return output
     }
 }
 
-fileprivate extension SweetNetworkLoggerPlugin {
-    static func reversedPrint(_ separator: String, terminator: String, items: Any...) {
-        for item in items {
-            SweetLogger.network("\(item)")
-        }
+extension TargetType {
+    var key: String {
+        var output = [String]()
+        output += [self.baseURL.absoluteString]
+        output += ["\(self.headers.hashValue)"]
+        output += [self.method.rawValue]
+        output += [self.path]
+        output += ["\(self.sampleData.hashValue)"]
+        return output.joined(separator: "")
     }
 }

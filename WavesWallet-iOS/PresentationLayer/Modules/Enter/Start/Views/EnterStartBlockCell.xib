@@ -43,11 +43,6 @@
                             </fragment>
                         </attributedString>
                         <nil key="highlightedColor"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="morphingDuration">
-                                <real key="value" value="0.29999999999999999"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZuA-vX-uH1">
                         <rect key="frame" x="127.5" y="0.0" width="120" height="100"/>
