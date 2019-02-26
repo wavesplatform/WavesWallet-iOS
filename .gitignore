@@ -65,8 +65,4 @@ WavesWallet-iOS/Resources/AppSpector-Info\.plist
 
 WavesWallet-iOS/Resources/Sentry\.io-Info\.plist
 
-\.bundle/config
-
-\.bundle/
-
 \.env

@@ -1,6 +1,6 @@
 require 'open-uri'
 require 'credentials_manager'
-## require 'dotenv/load'
+require 'dotenv/load'
 
 default_platform(:ios)
 
