@@ -61,7 +61,7 @@ final class AddressInteractor: AddressInteractorProtocol {
                 return Observable.never()
             }
             .share()
-            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .background)))
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .userInteractive)))
     }
 
     private func localAddress(myAliases: [DomainLayer.DTO.Alias], ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Address]> {
