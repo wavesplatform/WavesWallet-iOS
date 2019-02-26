@@ -183,13 +183,18 @@ private extension AssetDetailViewController {
             return
         }
 
-        favoriteOnBarButton.isEnabled = state.isDisabledFavoriteButton == false
-        favoriteOffBarButton.isEnabled = state.isDisabledFavoriteButton == false
-
-        if state.isFavorite {
-            self.navigationItem.rightBarButtonItem = favoriteOnBarButton
-        } else {
-            self.navigationItem.rightBarButtonItem = favoriteOffBarButton
+        if state.isDisabledFavoriteButton {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+        else {
+            favoriteOnBarButton.isEnabled = true
+            favoriteOffBarButton.isEnabled = true
+            
+            if state.isFavorite {
+                self.navigationItem.rightBarButtonItem = favoriteOnBarButton
+            } else {
+                self.navigationItem.rightBarButtonItem = favoriteOffBarButton
+            }
         }
     }
 

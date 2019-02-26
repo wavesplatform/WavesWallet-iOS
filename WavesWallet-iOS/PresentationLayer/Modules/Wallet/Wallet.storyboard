@@ -975,17 +975,12 @@
                                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_lock" translatesAutoresizingMaskIntoConstraints="NO" id="cw0-cE-pE7">
-                                                            <rect key="frame" x="307" y="13" width="22" height="22"/>
-                                                        </imageView>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="1f5-ZL-KWJ" firstAttribute="centerY" secondItem="m6W-Pe-j0q" secondAttribute="centerY" id="2Sa-S2-k6v"/>
-                                                        <constraint firstItem="cw0-cE-pE7" firstAttribute="centerY" secondItem="m6W-Pe-j0q" secondAttribute="centerY" id="4c1-VO-RV1"/>
                                                         <constraint firstAttribute="height" constant="48" id="CIL-dm-g0p"/>
                                                         <constraint firstItem="1f5-ZL-KWJ" firstAttribute="leading" secondItem="m6W-Pe-j0q" secondAttribute="leading" id="OcH-gG-B8U"/>
                                                         <constraint firstItem="eSb-dq-41o" firstAttribute="centerY" secondItem="m6W-Pe-j0q" secondAttribute="centerY" id="Sw8-Kk-nbf"/>
-                                                        <constraint firstAttribute="trailing" secondItem="cw0-cE-pE7" secondAttribute="trailing" constant="14" id="XTP-x2-DUc"/>
                                                         <constraint firstItem="eSb-dq-41o" firstAttribute="leading" secondItem="1f5-ZL-KWJ" secondAttribute="trailing" id="aK9-fc-bMP"/>
                                                         <constraint firstItem="1TU-gA-bnh" firstAttribute="leading" secondItem="eSb-dq-41o" secondAttribute="trailing" constant="8" id="k3N-9A-LMV"/>
                                                         <constraint firstItem="1TU-gA-bnh" firstAttribute="centerY" secondItem="m6W-Pe-j0q" secondAttribute="centerY" id="xNT-TE-I9l"/>
@@ -1000,7 +995,6 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="buttonFav" destination="1f5-ZL-KWJ" id="a0f-4h-ACY"/>
-                                            <outlet property="iconLock" destination="cw0-cE-pE7" id="vVv-sX-YTl"/>
                                             <outlet property="imageIcon" destination="eSb-dq-41o" id="nDQ-VY-FHn"/>
                                             <outlet property="labelTitle" destination="1TU-gA-bnh" id="Tsd-JT-lGz"/>
                                             <outlet property="viewContent" destination="p5p-Nm-HJC" id="4MV-Kw-jtW"/>
@@ -1136,7 +1130,6 @@
     <resources>
         <image name="favorite14Submit300" width="14" height="14"/>
         <image name="icon_fav_empty" width="14" height="14"/>
-        <image name="icon_lock" width="22" height="22"/>
         <image name="icon_menu_sort" width="22" height="22"/>
         <image name="wallet_icon_fav" width="14" height="14"/>
         <image name="wallet_quick_note" width="28" height="28"/>
