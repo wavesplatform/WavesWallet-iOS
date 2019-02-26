@@ -17,7 +17,13 @@ extension Node.Service {
              Response:
              - [Node.Model.AccountAssetsBalance]
              */
-            case getAssetsBalance(walletAddress: String)
+            case getAssetsBalances(walletAddress: String)
+
+            /**
+             Response:
+             - [Node.Model.AccountAssetsBalance]
+             */
+            case getAssetsBalance(address: String, assetId: String)
 
             /**
              Response:
@@ -44,8 +50,12 @@ extension Node.Service.Assets: NodeTargetType {
 
     var path: String {
         switch kind {
-        case .getAssetsBalance(let id):
+        case .getAssetsBalances(let id):
             return Constants.assets + "/" + Constants.balance + "/" + "\(id)".urlEscaped
+
+        case .getAssetsBalance(let address,
+                               let assetId):
+            return Constants.assets + "/" + Constants.balance + "/" + "\(address)".urlEscaped + "/" + "\(assetId)".urlEscaped
 
         case .details(let id):
             return Constants.assets + "/" + Constants.details + "/" + "\(id)".urlEscaped
@@ -54,14 +64,14 @@ extension Node.Service.Assets: NodeTargetType {
 
     var method: Moya.Method {
         switch kind {
-        case .getAssetsBalance, .details:
+        case .getAssetsBalances, .getAssetsBalance, .details:
             return .get
         }
     }
 
     var task: Task {
         switch kind {
-        case .getAssetsBalance, .details:
+        case .getAssetsBalances, .getAssetsBalance, .details:
             return .requestPlain
         }
     }
