@@ -52,6 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
+        clearImageCache()
+        
         IQKeyboardManager.shared.enable = true
         UIBarButtonItem.appearance().tintColor = UIColor.black
 
