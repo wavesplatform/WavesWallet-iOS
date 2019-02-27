@@ -60,7 +60,6 @@ extension AssetLogo {
     }
 }
 
-//UIFont.systemFont(ofSize: 15)
 extension AssetLogo {
 
     struct Style: Hashable {
@@ -189,7 +188,6 @@ extension AssetLogo {
                         })
                 }
             })
-//            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .userInteractive)))
     }
     
     private static func rxCreateLogo(name: String,
