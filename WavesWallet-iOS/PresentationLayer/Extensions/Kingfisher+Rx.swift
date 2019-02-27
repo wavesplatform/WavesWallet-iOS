@@ -115,12 +115,14 @@ extension Reactive where Base == ImageCache {
         return Observable.create({ [base] (observer) -> Disposable in
             
             let cache = base
+            if let memoryImage = cache.retrieveImageInMemoryCache(forKey: key) {
+                observer.onNext(memoryImage)
+            } else {
+                let diskImage = cache.retrieveImageInDiskCache(forKey: key)
+                observer.onNext(diskImage)
+            }
+            observer.onCompleted()
             
-            cache.retrieveImage(forKey: key, completionHandler: { (result) in
-                let image = result.value?.image
-                observer.onNext(image)
-                observer.onCompleted()
-            })
             return Disposables.create {}
         })
     }

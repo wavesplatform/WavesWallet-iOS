@@ -51,8 +51,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 AppsFlyerTracker.shared().appleAppID = appId
             }
         }
-
-        clearImageCache()
         
         IQKeyboardManager.shared.enable = true
         UIBarButtonItem.appearance().tintColor = UIColor.black
