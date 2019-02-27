@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var appCoordinator: AppCoordinator!
     let migrationInteractor: MigrationInteractor = FactoryInteractors.instance.migrationInteractor
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
@@ -51,6 +51,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 AppsFlyerTracker.shared().appleAppID = appId
             }
         }
+        
+        
         
         IQKeyboardManager.shared.enable = true
         UIBarButtonItem.appearance().tintColor = UIColor.black
@@ -118,15 +120,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      open url: URL,
                      sourceApplication: String?,
                      annotation: Any) -> Bool {
-        if let urlScheme = url.scheme, urlScheme == "waves" {
-//            OpenUrlManager.openUrl = url
-            return true
-        } else {
-            return false
-        }
+        return false
     }
 }
 
+//TODO: Remove code
 extension AppDelegate {
 
     class func shared() -> AppDelegate {
