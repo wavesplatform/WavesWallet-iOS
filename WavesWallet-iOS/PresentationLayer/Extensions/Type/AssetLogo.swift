@@ -148,7 +148,7 @@ extension AssetLogo {
                         })
                 }
             })
-            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .userInteractive)))
+//            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .userInteractive)))
     }
 
     static func prepareRemoteLogo(icon: DomainLayer.DTO.Asset.Icon,
@@ -181,7 +181,7 @@ extension AssetLogo {
                     return saveImage(key: localKey, image: image)
                 }
             })
-            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .userInteractive)))
+//            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .userInteractive)))
     }
 
     static func createLogo(name: String,

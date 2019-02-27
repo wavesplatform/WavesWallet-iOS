@@ -22,6 +22,7 @@ public final class SweetNetworkLoggerPlugin: PluginType {
     public let isVerbose: Bool
     public let cURL: Bool = false
     public let isResponse: Bool = false
+//    public let dispatch_queue = dispatch_queue_create("com.Experiments.Cache", DISPATCH_QUEUE_CONCURRENT);
 
     public init(verbose: Bool = false) {
         self.isVerbose = verbose
@@ -45,6 +46,7 @@ public final class SweetNetworkLoggerPlugin: PluginType {
 
         if case .success(let response) = result {
             isError = response.statusCode > 299
+            
             outputItems(logNetworkResponse(response.response,
                                            data: response.data,
                                            target: target),
