@@ -20,19 +20,25 @@ public final class SweetNetworkLoggerPlugin: PluginType {
         
         switch result {
         case .failure(let error):
-            if case .underlying(let error, _) = error,
+             if case .underlying(let error, _) = error,
                 (error as NSError).code == NSURLErrorCancelled {
                 return
             }
             
             message = error.message
         case .success(let value):
+            if let statusCode = value.response?.statusCode,
+                statusCode < 300 {
+                return
+            }
+            
             message = value.message
         }
         
         guard let unwrapMessage = message else { return }
     
         let event = SentryManager.Event(level: .error)
+        //TODO: Remove
         event.tags = ["test": "value"]
         event.message = unwrapMessage
         SentryManager.send(event: event)
