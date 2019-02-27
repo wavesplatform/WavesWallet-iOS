@@ -27,39 +27,14 @@ func retrieveOrDonwloadImage(key: String, url: String) -> Observable<UIImage?> {
                     })
             }
         })
-        .observeOn(MainScheduler.asyncInstance)
 }
 
 func saveImage(key: String, image: UIImage) -> Observable<UIImage> {
-
-    return Observable.create({ (observer) -> Disposable in
-
-        let cache = ImageCache.default
-        cache.store(image, forKey: key)
-        observer.onNext(image)
-        observer.onCompleted()
-
-        return Disposables.create {}
-    })
-    .observeOn(MainScheduler.asyncInstance)
+   return ImageCache.default.rx.saveImage(key: key, image: image)
 }
 
 func retrieveImage(key: String) -> Observable<UIImage?> {
-
-    return Observable.create({ (observer) -> Disposable in
-
-        let cache = ImageCache.default
-
-        cache.retrieveImage(forKey: key,
-                            options: nil,
-                            completionHandler: { image, _ in
-                                observer.onNext(image)
-                                observer.onCompleted()
-        })
-
-        return Disposables.create {}
-    })
-    .observeOn(MainScheduler.asyncInstance)
+    return ImageCache.default.rx.retrieveImage(key: key)
 }
 
 func clearImageCache() {
@@ -69,37 +44,42 @@ func clearImageCache() {
     ImageCache.default.cleanExpiredMemoryCache()
 }
 
+func downloadImage(path: String) -> Observable<UIImage?> {
+    return ImageDownloader.default.rx.downloadImage(path: path)
+}
+
 extension Reactive where Base == ImageDownloader {
     
     func downloadImage(path: String) -> Observable<UIImage?> {
         
         return Observable.create({ [base] (observer) -> Disposable in
             
-            let url = URL(string: path)!
+            guard let url = URL(string: path) else {
+                observer.onNext(nil)
+                observer.onCompleted()
+                return Disposables.create()
+            }
+            
             let downloader = base
-            print("obser \(Thread.isMainThread)")
             
             var isFinish = false
             let workItem = downloader.downloadImage(with: url,
-                                                    retrieveImageTask: nil,
                                                     options: nil,
-                                                    progressBlock: nil) { (image, error, url, data) in
-                                                        
-                                                        isFinish = true
-                                                        print("block \(Thread.isMainThread)")
-                                                        if let data = data, let pic = UIImage(data: data) {
-                                                            observer.onNext(pic)
-                                                            observer.onCompleted()
-                                                        } else {
-                                                            observer.onNext(nil)
-                                                            observer.onCompleted()
-                                                        }
-            }
+                                                    progressBlock: nil,
+                                                    completionHandler:
+                { (result) in
+                    isFinish = true
+                    if let pic = result.value?.image {
+                        observer.onNext(pic)
+                        observer.onCompleted()
+                    } else {
+                        observer.onNext(nil)
+                        observer.onCompleted()
+                    }
+                })
+            
             
             return Disposables.create {
-//                    workItem?.cancel()
-                
-                print("isFinish \(isFinish)")
                 if isFinish == false {
                     workItem?.cancel()
                 }
@@ -115,32 +95,40 @@ extension ImageDownloader: ReactiveCompatible {
     }
 }
 
-func downloadImage(path: String) -> Observable<UIImage?> {
+extension Reactive where Base == ImageCache {
+    
+    func saveImage(key: String, image: UIImage) -> Observable<UIImage> {
+        
+        return Observable.create({ [base] (observer) -> Disposable in
+            
+            let cache = base
+            cache.store(image, forKey: key)
+            observer.onNext(image)
+            observer.onCompleted()
+            
+            return Disposables.create {}
+        })
+    }
+    
+    func retrieveImage(key: String) -> Observable<UIImage?> {
+        
+        return Observable.create({ [base] (observer) -> Disposable in
+            
+            let cache = base
+            
+            cache.retrieveImage(forKey: key, completionHandler: { (result) in
+                let image = result.value?.image
+                observer.onNext(image)
+                observer.onCompleted()
+            })
+            return Disposables.create {}
+        })
+    }
+}
 
-    return ImageDownloader.default.rx.downloadImage(path: path)
-    return Observable.create({ (observer) -> Disposable in
-
-        let url = URL(string: path)!
-        let downloader = ImageDownloader.default
-        print("obser \(Thread.isMainThread)")
-//        let workItem = downloader.downloadImage(with: url,
-//                                                retrieveImageTask: nil,
-//                                                options: nil,
-//                                                progressBlock: nil) { (image, error, url, data) in
-//
-//                                                    print("block \(Thread.isMainThread)")
-//                                                    if let data = data, let pic = UIImage(data: data) {
-//                                                        observer.onNext(pic)
-//                                                        observer.onCompleted()
-//                                                    } else {
-//                                                        observer.onNext(nil)
-//                                                        observer.onCompleted()
-//                                                    }
-//        }
-        observer.onNext(nil)
-        return Disposables.create {
-//            workItem?.cancel()
-        }
-    })
-    .observeOn(MainScheduler.asyncInstance)
+extension ImageCache: ReactiveCompatible {
+    public var rx: Reactive<ImageCache> {
+        get { return Reactive(self) }
+        set { }
+    }
 }

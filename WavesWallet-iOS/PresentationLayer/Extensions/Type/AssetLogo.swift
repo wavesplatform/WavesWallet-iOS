@@ -150,7 +150,6 @@ extension AssetLogo {
                         })
                 }
             })
-//            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .userInteractive)))
     }
 
     private static func prepareRemoteLogo(icon: DomainLayer.DTO.Asset.Icon,
@@ -198,23 +197,12 @@ extension AssetLogo {
                                      style: Style) -> Observable<UIImage?> {
         
         return Observable.create { (observer) -> Disposable in
-                           
-//            let workItem = DispatchWorkItem(block: {
-                let logo = createLogo(name: name, image: image, style: style)
-                
-//                DispatchQueue.main.async {
-                observer.onNext(logo)
-                observer.onCompleted()
-//                }
-//            })
             
-//            DispatchQueue
-//                .global(qos: .userInteractive)
-//                .async(execute: workItem)
-            
-            return Disposables.create {
-//                workItem.cancel()
-            }
+            let logo = createLogo(name: name, image: image, style: style)
+            observer.onNext(logo)
+            observer.onCompleted()
+
+            return Disposables.create {}
         }
         .observeOn(MainScheduler.asyncInstance)
     }
