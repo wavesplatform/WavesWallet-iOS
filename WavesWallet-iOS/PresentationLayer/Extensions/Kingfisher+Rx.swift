@@ -47,14 +47,15 @@ func retrieveImage(key: String) -> Observable<UIImage?> {
     return Observable.create({ (observer) -> Disposable in
 
         let cache = ImageCache.default
-
-        cache.retrieveImage(forKey: key,
-                            options: nil,
-                            completionHandler: { image, _ in
-                                observer.onNext(image)
-                                observer.onCompleted()
-        })
-
+        if let memoryImage = cache.retrieveImageInMemoryCache(forKey: key) {
+            observer.onNext(memoryImage)
+        }
+        else {
+            let diskImage = cache.retrieveImageInDiskCache(forKey: key)
+            observer.onNext(diskImage)
+        }
+        observer.onCompleted()
+                
         return Disposables.create {}
     })
 }
