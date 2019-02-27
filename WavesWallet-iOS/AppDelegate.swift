@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Swizzle(initializers: [UIView.passtroughInit, UIView.insetsInit, UIView.shadowInit]).start()
 
         #if DEBUG || TEST
-            SweetLogger.current.plugins = [SweetLoggerConsole(visibleLevels: [.warning, .debug, .error],
+            SweetLogger.current.plugins = [SweetLoggerConsole(visibleLevels: [],
                                                               isShortLog: true),
                                             SweetLoggerSentry(visibleLevels: [.error])]
 
