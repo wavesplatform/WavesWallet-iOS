@@ -122,9 +122,11 @@ extension AssetLogo {
                     }
                 }
             })
+            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .userInteractive)))
+            .observeOn(MainScheduler.asyncInstance)
     }
 
-    static func remoteLogo(icon: DomainLayer.DTO.Asset.Icon,
+    private static func remoteLogo(icon: DomainLayer.DTO.Asset.Icon,
                            style: Style,
                            url: String) -> Observable<UIImage> {
 
@@ -151,21 +153,25 @@ extension AssetLogo {
 //            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .userInteractive)))
     }
 
-    static func prepareRemoteLogo(icon: DomainLayer.DTO.Asset.Icon,
+    private static func prepareRemoteLogo(icon: DomainLayer.DTO.Asset.Icon,
                                   style: Style,
                                   image: UIImage) -> Observable<UIImage> {
 
-        let image = createLogo(name: icon.name,
-                               image: image,
-                               style: style) ?? UIImage()
+        let image = rxCreateLogo(name: icon.name,
+                                 image: image,
+                                 style: style)
 
-        let key = cacheKeyForRemoteLogo(icon: icon, style: style)
-
-        return saveImage(key: key, image: image)
+        return image
+            .flatMap({ (image) -> Observable<UIImage> in
+                
+                let key = cacheKeyForRemoteLogo(icon: icon, style: style)
+                
+                return saveImage(key: key, image: image ?? UIImage())
+            })
     }
 
-    static func localLogo(icon: DomainLayer.DTO.Asset.Icon,
-                          style: Style) -> Observable<UIImage> {
+    private static func localLogo(icon: DomainLayer.DTO.Asset.Icon,
+                                  style: Style) -> Observable<UIImage> {
 
         let localKey = cacheKeyForLocalLogo(icon: icon, style: style)
         return retrieveImage(key: localKey)
@@ -174,17 +180,46 @@ extension AssetLogo {
                     return Observable.just(image)
                 } else {
                     let logo = AssetLogo(rawValue: icon.name.lowercased())?.image48
-                    let image = createLogo(name: icon.name,
-                                           image: logo,
-                                           style: style) ?? UIImage()
-
-                    return saveImage(key: localKey, image: image)
+                    let image = rxCreateLogo(name: icon.name,
+                                             image: logo,
+                                             style: style)
+                    
+                    return image
+                        .flatMap({ (image) -> Observable<UIImage> in
+                            return saveImage(key: localKey, image: image ?? UIImage())
+                        })
                 }
             })
 //            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .userInteractive)))
     }
+    
+    private static func rxCreateLogo(name: String,
+                                     image: UIImage?,
+                                     style: Style) -> Observable<UIImage?> {
+        
+        return Observable.create { (observer) -> Disposable in
+                           
+//            let workItem = DispatchWorkItem(block: {
+                let logo = createLogo(name: name, image: image, style: style)
+                
+//                DispatchQueue.main.async {
+                observer.onNext(logo)
+                observer.onCompleted()
+//                }
+//            })
+            
+//            DispatchQueue
+//                .global(qos: .userInteractive)
+//                .async(execute: workItem)
+            
+            return Disposables.create {
+//                workItem.cancel()
+            }
+        }
+        .observeOn(MainScheduler.asyncInstance)
+    }
 
-    static func createLogo(name: String,
+    private static func createLogo(name: String,
                            image: UIImage?,
                            style: Style) -> UIImage? {
 

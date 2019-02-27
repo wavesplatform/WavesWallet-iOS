@@ -92,6 +92,7 @@ final class AppNewsCoordinator: Coordinator {
         let subTitleValue = subTitle ?? ""
 
         retrieveOrDonwloadImage(key: first.logoUrl, url: first.logoUrl)
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (image) in
                 if let image = image {
                      let news = AppNewsView.show(model: .init(title: titleValue,
