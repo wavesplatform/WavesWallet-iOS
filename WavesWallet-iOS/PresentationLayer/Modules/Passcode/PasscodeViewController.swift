@@ -97,7 +97,7 @@ private extension PasscodeViewController {
 
             return Observable<Bool>.merge([strongSelf.rx.viewDidAppear.asObservable(),
                                            applicationWillEnterForeground])
-                .throttle(1, scheduler: MainScheduler.instance)
+                .throttle(1, scheduler: MainScheduler.asyncInstance)
                 .asSignal(onErrorSignalWith: Signal.empty())
                 .map { _ in Types.Event.viewDidAppear }
         }
