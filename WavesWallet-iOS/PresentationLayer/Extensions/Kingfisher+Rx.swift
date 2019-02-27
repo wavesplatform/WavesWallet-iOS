@@ -65,11 +65,13 @@ func downloadImage(path: String) -> Observable<UIImage?> {
 
         let url = URL(string: path)!
         let downloader = ImageDownloader.default
+        print("obser \(Thread.isMainThread)")
         let workItem = downloader.downloadImage(with: url,
                                                 retrieveImageTask: nil,
                                                 options: nil,
                                                 progressBlock: nil) { (image, error, url, data) in
 
+                                                    print("block \(Thread.isMainThread)")
                                                     if let data = data, let pic = UIImage(data: data) {
                                                         observer.onNext(pic)
                                                         observer.onCompleted()

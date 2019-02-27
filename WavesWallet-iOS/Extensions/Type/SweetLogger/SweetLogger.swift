@@ -139,10 +139,16 @@ final class SweetLoggerSentry: SweetLoggerProtocol {
 
             do {
                 Client.shared = try Client(dsn: dsn)
+            } catch let error {
+                print("Sentry Not Loading :( \(error)")
+            }
+            
+            do {
                 try Client.shared?.startCrashHandler()
             } catch let error {
-                print("SweetLogger :( \(error)")
+                print("Centry startCrashHandler :( \(error)")
             }
+         
         }
 
         Client.shared?.enableAutomaticBreadcrumbTracking()
@@ -161,7 +167,10 @@ final class SweetLoggerSentry: SweetLoggerProtocol {
         let event = Sentry.Event(level: level.sentrySeverity)
         event.message = "\(message())"
         Client.shared?.send(event: event, completion: { error in
-            print("SweetLogger :( \(String(describing: error))")
+            
+            if let error = error {
+                print("SweetLogger :( \(String(describing: error))")
+            }
         })
     }
 
