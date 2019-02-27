@@ -587,6 +587,12 @@
 		0AFF5C81215BD09500B82940 /* AccountPasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C80215BD09500B82940 /* AccountPasswordPresenter.swift */; };
 		0AFF5C8D215CE2D000B82940 /* UseTouchIDModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C8C215CE2D000B82940 /* UseTouchIDModuleBuilder.swift */; };
 		53AA2F7E1F0FB6ED983FDF2F /* Pods_WavesWallet_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2F04F55A260735DF3584D3E /* Pods_WavesWallet_iOS.framework */; };
+		7BBDA0B62226CA5C00A83411 /* NodePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBDA0B52226CA5C00A83411 /* NodePlugin.swift */; };
+		7BF89E892226E00800853F9D /* SentryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E882226E00800853F9D /* SentryManager.swift */; };
+		7BF89E8B2226E03D00853F9D /* SweetLoggerSentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E8A2226E03D00853F9D /* SweetLoggerSentry.swift */; };
+		7BF89E8D2226E0D300853F9D /* SweetLoggerConsole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E8C2226E0D300853F9D /* SweetLoggerConsole.swift */; };
+		7BF89E8F2226E1AF00853F9D /* SweetLoggerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E8E2226E1AF00853F9D /* SweetLoggerProtocol.swift */; };
+		7BF89E912227065300853F9D /* DeviceId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E902227065300853F9D /* DeviceId.swift */; };
 		E901CE592149D27000942783 /* ExchangeTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E9B2100A91500079B49 /* ExchangeTransaction.swift */; };
 		E90223C421D53A8F0057AA45 /* DexAssetPairDomainDTO+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90223C321D53A8F0057AA45 /* DexAssetPairDomainDTO+Mapper.swift */; };
 		E902F61520E5829B00A46335 /* ChooseAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902F61420E5829B00A46335 /* ChooseAccountViewController.swift */; };
@@ -1514,6 +1520,12 @@
 		2A5A5CDBE4190D8A1A1C4124 /* Pods-WavesWallet-iOS.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.test.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.test.xcconfig"; sourceTree = "<group>"; };
 		3780CE9B95DA4BD90D83FC04 /* Pods-WavesWallet-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		621D6D45B8A2773F670A4883 /* Pods-WavesWallet-iOS.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.adhoc.xcconfig"; sourceTree = "<group>"; };
+		7BBDA0B52226CA5C00A83411 /* NodePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodePlugin.swift; sourceTree = "<group>"; };
+		7BF89E882226E00800853F9D /* SentryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SentryManager.swift; path = Type/SentryManager.swift; sourceTree = "<group>"; };
+		7BF89E8A2226E03D00853F9D /* SweetLoggerSentry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetLoggerSentry.swift; sourceTree = "<group>"; };
+		7BF89E8C2226E0D300853F9D /* SweetLoggerConsole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetLoggerConsole.swift; sourceTree = "<group>"; };
+		7BF89E8E2226E1AF00853F9D /* SweetLoggerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetLoggerProtocol.swift; sourceTree = "<group>"; };
+		7BF89E902227065300853F9D /* DeviceId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceId.swift; sourceTree = "<group>"; };
 		965E90884D099176A23D5038 /* Pods-WavesWallet-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B2F04F55A260735DF3584D3E /* Pods_WavesWallet_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WavesWallet_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0E99F201DFCDD4280DDB64C /* Pods-WavesWallet-iOS.test-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.test-adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.test-adhoc.xcconfig"; sourceTree = "<group>"; };
@@ -2159,6 +2171,7 @@
 				E971DA5120FFF4B600616A03 /* BiometricManager.swift */,
 				0A071E42215B0A1B007D9750 /* SigningWalletsProtocol.swift */,
 				04E80A11214EF20C00D00AA4 /* SmartTransactionDomain+Assistants.swift */,
+				7BF89E882226E00800853F9D /* SentryManager.swift */,
 			);
 			path = Assisstants;
 			sourceTree = "<group>";
@@ -2392,6 +2405,7 @@
 		0A5C919120F3D00D00443CE6 /* Assisstants */ = {
 			isa = PBXGroup;
 			children = (
+				7BBDA0B52226CA5C00A83411 /* NodePlugin.swift */,
 				0A88CC01217D217D0083874C /* SpamCSV+Assisstants.swift */,
 				0A5C919220F3D01500443CE6 /* Protocols */,
 				0AE657322106374E003D2DB8 /* Types */,
@@ -2795,17 +2809,17 @@
 		0A979752210885B500407F67 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				0AFB59492209F167001F0DD8 /* Sentry.io-Info.plist */,
-				0AADFD0521F9F4AB001F5C0A /* AppSpector-Info.plist */,
 				F7C683BC1EA93C5800C87DAF /* ObjCBridgingHeader.h */,
-				0A02D20621AEA1B1005DF820 /* Appsflyer-Info.plist */,
-				0A150821219B0D6B00516037 /* GoogleService-Info.plist */,
-				04D4431A21885F4F009CEB22 /* Fabric-Info.plist */,
 				0A2060622181C2C10048CF83 /* environment_mainnet.json */,
 				0A2060632181C2C20048CF83 /* environment_testnet.json */,
-				0AEFC74F21BAA4380085D6D1 /* Localization */,
-				F7E954F01EA8FE0700A804DE /* Assets.xcassets */,
 				0A61B599214ACFD500EC60FC /* Languages.json */,
+				0A02D20621AEA1B1005DF820 /* Appsflyer-Info.plist */,
+				0AADFD0521F9F4AB001F5C0A /* AppSpector-Info.plist */,
+				04D4431A21885F4F009CEB22 /* Fabric-Info.plist */,
+				0A150821219B0D6B00516037 /* GoogleService-Info.plist */,
+				0AFB59492209F167001F0DD8 /* Sentry.io-Info.plist */,
+				F7E954F01EA8FE0700A804DE /* Assets.xcassets */,
+				0AEFC74F21BAA4380085D6D1 /* Localization */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -2968,6 +2982,7 @@
 				0ADD7F3A21F22FB60075FC59 /* UInt8+Assisstants.swift */,
 				0A4E7DE52201810F007BBA39 /* Date */,
 				0A4E7DE322018057007BBA39 /* Type */,
+				7BF89E902227065300853F9D /* DeviceId.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3031,6 +3046,9 @@
 				0ADD7F6A21F22FB60075FC59 /* ObservableType+SweetLogger.swift */,
 				0ADD7F6B21F22FB60075FC59 /* SweetNetworkLoggerPlugin.swift */,
 				0ADD7F6C21F22FB60075FC59 /* SweetLogger.swift */,
+				7BF89E8A2226E03D00853F9D /* SweetLoggerSentry.swift */,
+				7BF89E8C2226E0D300853F9D /* SweetLoggerConsole.swift */,
+				7BF89E8E2226E1AF00853F9D /* SweetLoggerProtocol.swift */,
 			);
 			path = SweetLogger;
 			sourceTree = "<group>";
@@ -5417,6 +5435,7 @@
 				E94A7007215AEB0E001814F7 /* AddressBookRepository.swift in Sources */,
 				E95B6B0F219C22E400A85B5D /* TokenBurnConfirmationViewController.swift in Sources */,
 				0A14E3E62187185700EA7E91 /* AliasesViewModuleBuilder.swift in Sources */,
+				7BBDA0B62226CA5C00A83411 /* NodePlugin.swift in Sources */,
 				0A4508FC2178E72B00EBF669 /* EnvironmentRepositoryRemote.swift in Sources */,
 				0ADD7FD921F22FB60075FC59 /* SweetLogger.swift in Sources */,
 				0AF921F5212E07B3003BA067 /* AssetDetailCell.swift in Sources */,
@@ -5560,6 +5579,7 @@
 				0A5E4BE921383F3D00E3C3C3 /* ExchangeTransaction+Mapper.swift in Sources */,
 				0AF58F942191C1D300C8A4B3 /* PasscodeRegistationPresenter.swift in Sources */,
 				E9B087E52163886800937644 /* DexCreateOrderInputView.swift in Sources */,
+				7BF89E8B2226E03D00853F9D /* SweetLoggerSentry.swift in Sources */,
 				0A88CC0A217E80040083874C /* WalletRealmFactory.swift in Sources */,
 				F74240B81EAB8D1600C3B84D /* Transaction.swift in Sources */,
 				0A071E43215B0A1B007D9750 /* SigningWalletsProtocol.swift in Sources */,
@@ -5574,6 +5594,7 @@
 				0AF58F962191C95A00C8A4B3 /* PasscodeLogInPresenter.swift in Sources */,
 				E9236F212216F48A00A12FD5 /* PopupActionView.swift in Sources */,
 				E9B087F02163886800937644 /* DexLastTradesViewController.swift in Sources */,
+				7BF89E8F2226E1AF00853F9D /* SweetLoggerProtocol.swift in Sources */,
 				0ADD7FB621F22FB60075FC59 /* Hash.swift in Sources */,
 				E9B087C72163886800937644 /* DexTraderContainerBaseHeaderView.swift in Sources */,
 				E97D450921C80233000E3C48 /* DexPairsPriceRepositoryProtocol.swift in Sources */,
@@ -5731,6 +5752,7 @@
 				0ADD803321F22FFB0075FC59 /* TransactionHistoryCoordinator.swift in Sources */,
 				E9C0B4A02176C49B00669D1D /* SendInteractorProtocol.swift in Sources */,
 				0A2B7D35216037FD0098438D /* AssetViewHistoryCell.swift in Sources */,
+				7BF89E912227065300853F9D /* DeviceId.swift in Sources */,
 				0AF92228212E0F1F003BA067 /* WalletLeasingBalanceCell.swift in Sources */,
 				0AF92225212E0F1F003BA067 /* WalletHeaderView.swift in Sources */,
 				0A485EA22100C4FA00079B49 /* LeaseTransaction+Mapper.swift in Sources */,
@@ -5771,6 +5793,7 @@
 				0ADD7F9221F22FB60075FC59 /* UIScrollView+Pagination.swift in Sources */,
 				E9EC5BAC2175F35900E5C29A /* SendViewController.swift in Sources */,
 				0A218B9721555A4B00B989A1 /* AuthenticationRepositoryRemote.swift in Sources */,
+				7BF89E892226E00800853F9D /* SentryManager.swift in Sources */,
 				0A98D14A2138910600550FE0 /* DataTransaction+Mapper.swift in Sources */,
 				0ADD801D21F22FFA0075FC59 /* DexCoordinator.swift in Sources */,
 				0A071E85215DB1B3007D9750 /* ChooseAccountCell.swift in Sources */,
@@ -5885,6 +5908,7 @@
 				0A36A37E215E493D0060F49E /* BackupInfoViewController.swift in Sources */,
 				F74240B71EAB8D1600C3B84D /* AssetBalance.swift in Sources */,
 				0ADD802821F22FFA0075FC59 /* LegalCoordinator.swift in Sources */,
+				7BF89E8D2226E0D300853F9D /* SweetLoggerConsole.swift in Sources */,
 				E9B087C22163886800937644 /* DexTraderContainerViewController.swift in Sources */,
 				0A762D7C21639FA60019D447 /* TransactionHistoryTypes+ViewModels.swift in Sources */,
 				0ADD7FEA21F22FB60075FC59 /* UITableView+Skeleton.swift in Sources */,
@@ -6366,7 +6390,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "iOS Development Dev";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wavesplatform.waveswallet.dev";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_INCLUDE_PATHS = "$(inherited) \"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/Charts\" \"${PODS_CONFIGURATION_BUILD_DIR}/Differentiator\" \"${PODS_CONFIGURATION_BUILD_DIR}/Gloss\" \"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardManagerSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/KeychainAccess\" \"${PODS_CONFIGURATION_BUILD_DIR}/Koloda\" \"${PODS_CONFIGURATION_BUILD_DIR}/Moya\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCode\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCodeReader.swift\" \"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/Result\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxAlamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxDataSources\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxGesture\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxRealm\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\" \"${PODS_CONFIGURATION_BUILD_DIR}/UPCarouselFlowLayout\" \"${PODS_ROOT}/Headers/Public\"/**";
 				SWIFT_OBJC_BRIDGING_HEADER = "WavesWallet-iOS/Resources/ObjCBridgingHeader.h";
