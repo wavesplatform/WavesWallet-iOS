@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Sentry
 
 extension SweetLogger {
 
@@ -72,35 +71,13 @@ extension SweetLogger {
     }
 }
 
-enum SweetLoggerLevel {
-    case error
-    case debug
-    case warning
-    case verbose
-    case info
-    case network
-}
-
-protocol SweetLoggerProtocol {
-
-    func send(message: @escaping @autoclosure () -> Any,
-               level: SweetLoggerLevel,
-               file: String,
-               function: String,
-               line: Int,
-               context: Any?,
-               type: Any.Type?)
-
-    var visibleLevels: [SweetLoggerLevel] { get }
-}
-
 final class SweetLogger: SweetLoggerProtocol {
-
+    
     static let current: SweetLogger = SweetLogger()
-
+    
     var visibleLevels: [SweetLoggerLevel] = []
     var plugins: [SweetLoggerProtocol] = []
-
+    
     func send(message: @escaping @autoclosure () -> Any,
               level: SweetLoggerLevel,
               file: String,
@@ -110,9 +87,9 @@ final class SweetLogger: SweetLoggerProtocol {
               type: Any.Type? = nil)
     {
         guard visibleLevels.contains(level) == true else { return }
-
+        
         for plugin in self.plugins {
-
+            
             guard plugin.visibleLevels.contains(level) == true else { continue }
             plugin.send(message: message,
                         level: level,
@@ -122,144 +99,6 @@ final class SweetLogger: SweetLoggerProtocol {
                         context: context,
                         type: type)
         }
-
-    }
-}
-
-final class SweetLoggerSentry: SweetLoggerProtocol {
-
-    var visibleLevels: [SweetLoggerLevel] = []
-
-    init(visibleLevels: [SweetLoggerLevel]) {
-
-        self.visibleLevels = visibleLevels
-
-        if let path = Bundle.main.path(forResource: "Sentry.io-Info", ofType: "plist"),
-            let dsn = NSDictionary(contentsOfFile: path)?["DSN_URL"] as? String {
-
-            do {
-                Client.shared = try Client(dsn: dsn)
-            } catch let error {
-                print("Sentry Not Loading :( \(error)")
-            }
-            
-            do {
-                try Client.shared?.startCrashHandler()
-            } catch let error {
-                print("Centry startCrashHandler :( \(error)")
-            }
-         
-        }
-
-        Client.shared?.enableAutomaticBreadcrumbTracking()
-    }
-
-    func send(message: @escaping @autoclosure () -> Any,
-              level: SweetLoggerLevel,
-              file: String,
-              function: String,
-              line: Int,
-              context: Any?,
-              type: Any.Type? = nil)
-    {
-        guard visibleLevels.contains(level) == true else { return }
-
-        let event = Sentry.Event(level: level.sentrySeverity)
-        event.message = "\(message())"
-        Client.shared?.send(event: event, completion: { error in
-            
-            if let error = error {
-                print("SweetLogger :( \(String(describing: error))")
-            }
-        })
-    }
-
-}
-
-private extension SweetLoggerLevel {
-
-    var sentrySeverity: SentrySeverity {
-        switch self {
-        case .debug:
-            return SentrySeverity.debug
-
-        case .error:
-            return SentrySeverity.error
-
-        case .warning:
-            return SentrySeverity.info
-
-        case .network:
-            return SentrySeverity.info
-
-        case .info:
-            return SentrySeverity.info
-
-        case .verbose:
-            return SentrySeverity.info
-
-        }
-    }
-
-    var nameLevel: String {
-
-        switch self {
-        case .debug:
-            return "🐞 Debug:"
-        case .error:
-            return "‼️ Error:"
-        case .info:
-            return "🦄 Info:"
-        case .verbose:
-            return "🌈 Verbose"
-        case .warning:
-            return "🎯 Warning:"
-        case .network:
-            return "🛰 Network:"
-        }
-    }
-}
-
-final class SweetLoggerConsole: SweetLoggerProtocol {
-
-    var visibleLevels: [SweetLoggerLevel]
-
-    var isShortLog = true
-
-    init(visibleLevels: [SweetLoggerLevel],
-         isShortLog: Bool) {
-
-        self.visibleLevels = visibleLevels
-        self.isShortLog = isShortLog
-    }
-
-    func send(message: @escaping @autoclosure () -> Any,
-              level: SweetLoggerLevel,
-              file: String,
-              function: String,
-              line: Int,
-              context: Any?,
-              type: Any.Type? = nil)
-    {
-        guard visibleLevels.contains(level) == true else { return }
-
-        var nameClass = ""
-        if let type = type {
-            nameClass = nameType(type)
-        }
         
-        let message = "\(level.nameLevel) \(nameClass) 👉 \(message()) 👈"
-
-        DispatchQueue.main.async {
-            print(message)
-
-            if self.isShortLog {
-                return
-            }
-            let fileLast = String(file.split(separator: "/").last ?? "")
-            print(fileLast)
-            print(line)
-            print(function)
-        }
     }
 }
