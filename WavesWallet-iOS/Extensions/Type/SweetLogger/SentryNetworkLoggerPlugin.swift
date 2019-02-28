@@ -10,13 +10,14 @@ import Foundation
 import Result
 import Moya
 
-public final class SweetNetworkLoggerPlugin: PluginType {
+public final class SentryNetworkLoggerPlugin: PluginType {
 
     public func willSend(_ request: RequestType, target: TargetType) {}
 
     public func didReceive(_ result: Result<Moya.Response, MoyaError>, target: TargetType) {
         
         var message: String? = nil
+        var statusCode: Int? = nil
         
         switch result {
         case .failure(let error):
@@ -26,6 +27,7 @@ public final class SweetNetworkLoggerPlugin: PluginType {
             }
             
             message = error.message
+            statusCode = error.statusCode
         case .success(let value):
             if let statusCode = value.response?.statusCode,
                 statusCode < 300 {
@@ -33,13 +35,17 @@ public final class SweetNetworkLoggerPlugin: PluginType {
             }
             
             message = value.message
+            statusCode = value.statusCode
         }
         
         guard let unwrapMessage = message else { return }
     
         let event = SentryManager.Event(level: .error)
-        //TODO: Remove
-        event.tags = ["test": "value"]
+
+        if let statusCode = statusCode {
+            event.tags = ["http.error": "\(statusCode)"]
+        }
+        
         event.message = unwrapMessage
         SentryManager.send(event: event)
     }
@@ -54,6 +60,8 @@ private extension Moya.Response {
         guard let response = self.response else { return nil }
         guard let request = self.request else { return nil }
         guard let url = self.request?.url?.path else { return nil }
+                
+        message += "Error: HTTP Response\n"
         
         message += "Url: \(url)\n"
         message += "Code: \(response.statusCode)\n"
@@ -62,14 +70,23 @@ private extension Moya.Response {
             let response = String(data: data, encoding: .utf8) {
             message += "Message: \(response)\n"
         }
-                
-        message += "Code: \(response.statusCode)\n"
         
         return message
     }
 }
 
 private extension MoyaError {
+    
+    var statusCode: Int? {
+        
+        if let response = self.response {
+            return response.statusCode
+        } else if case .underlying(let error, _) = self {
+            return (error as NSError).code
+        }
+        
+        return nil
+    }
     
     var message: String? {
         
