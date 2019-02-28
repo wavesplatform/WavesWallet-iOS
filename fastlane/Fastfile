@@ -196,8 +196,8 @@ platform :ios do
     sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/AppSpector-Info.plist")
     sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_APPSPECTOR']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/AppSpector-Info.plist")
 
-    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Sentry.io-Info.plist")
-    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_SENTRY_IO']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Sentry.io-Info.plist")
+    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Sentry-io-Info.plist")
+    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_SENTRY_IO']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Sentry-io-Info.plist")
   end
 
   lane :upload_testflight do

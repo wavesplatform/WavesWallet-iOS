@@ -402,7 +402,7 @@
 		0ADD7FD521F22FB60075FC59 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F6721F22FB60075FC59 /* AppSettings.swift */; };
 		0ADD7FD621F22FB60075FC59 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F6821F22FB60075FC59 /* DateUtil.swift */; };
 		0ADD7FD721F22FB60075FC59 /* ObservableType+SweetLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F6A21F22FB60075FC59 /* ObservableType+SweetLogger.swift */; };
-		0ADD7FD821F22FB60075FC59 /* SweetNetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F6B21F22FB60075FC59 /* SweetNetworkLoggerPlugin.swift */; };
+		0ADD7FD821F22FB60075FC59 /* SentryNetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F6B21F22FB60075FC59 /* SentryNetworkLoggerPlugin.swift */; };
 		0ADD7FD921F22FB60075FC59 /* SweetLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F6C21F22FB60075FC59 /* SweetLogger.swift */; };
 		0ADD7FDA21F22FB60075FC59 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F6D21F22FB60075FC59 /* Balance.swift */; };
 		0ADD7FDB21F22FB60075FC59 /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F6E21F22FB60075FC59 /* Money.swift */; };
@@ -576,7 +576,7 @@
 		0AFB59442209B5F3001F0DD8 /* SponsorshipTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFB59432209B5F3001F0DD8 /* SponsorshipTransaction.swift */; };
 		0AFB59462209C20E001F0DD8 /* SponsorshipTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFB59452209C20E001F0DD8 /* SponsorshipTransaction+Mapper.swift */; };
 		0AFB59482209C2F8001F0DD8 /* SponsorshipTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFB59472209C2F8001F0DD8 /* SponsorshipTransactionDomainDTO.swift */; };
-		0AFB594A2209F167001F0DD8 /* Sentry.io-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AFB59492209F167001F0DD8 /* Sentry.io-Info.plist */; };
+		0AFB594A2209F167001F0DD8 /* Sentry-io-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AFB59492209F167001F0DD8 /* Sentry-io-Info.plist */; };
 		0AFBCA80211306F600285BCB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AFBCA7F211306F600285BCB /* LaunchScreen.storyboard */; };
 		0AFBCA852113173300285BCB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AFBCA832113173300285BCB /* InfoPlist.strings */; };
 		0AFBCA8A2113254100285BCB /* WalletModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFBCA892113254100285BCB /* WalletModuleBuilder.swift */; };
@@ -592,7 +592,6 @@
 		7BF89E8B2226E03D00853F9D /* SweetLoggerSentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E8A2226E03D00853F9D /* SweetLoggerSentry.swift */; };
 		7BF89E8D2226E0D300853F9D /* SweetLoggerConsole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E8C2226E0D300853F9D /* SweetLoggerConsole.swift */; };
 		7BF89E8F2226E1AF00853F9D /* SweetLoggerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E8E2226E1AF00853F9D /* SweetLoggerProtocol.swift */; };
-		7BF89E912227065300853F9D /* DeviceId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E902227065300853F9D /* DeviceId.swift */; };
 		7BF89E9922272A5E00853F9D /* MonkeyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E9822272A5E00853F9D /* MonkeyTest.swift */; };
 		E1A8D6947059C03B81BC5C0B /* Pods_MonkeyTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F182E1185D069FB9F0228C7 /* Pods_MonkeyTest.framework */; };
 		E901CE592149D27000942783 /* ExchangeTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E9B2100A91500079B49 /* ExchangeTransaction.swift */; };
@@ -1341,7 +1340,7 @@
 		0ADD7F6721F22FB60075FC59 /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		0ADD7F6821F22FB60075FC59 /* DateUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
 		0ADD7F6A21F22FB60075FC59 /* ObservableType+SweetLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ObservableType+SweetLogger.swift"; sourceTree = "<group>"; };
-		0ADD7F6B21F22FB60075FC59 /* SweetNetworkLoggerPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweetNetworkLoggerPlugin.swift; sourceTree = "<group>"; };
+		0ADD7F6B21F22FB60075FC59 /* SentryNetworkLoggerPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentryNetworkLoggerPlugin.swift; sourceTree = "<group>"; };
 		0ADD7F6C21F22FB60075FC59 /* SweetLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SweetLogger.swift; sourceTree = "<group>"; };
 		0ADD7F6D21F22FB60075FC59 /* Balance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
 		0ADD7F6E21F22FB60075FC59 /* Money.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Money.swift; sourceTree = "<group>"; };
@@ -1518,7 +1517,7 @@
 		0AFB59432209B5F3001F0DD8 /* SponsorshipTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorshipTransaction.swift; sourceTree = "<group>"; };
 		0AFB59452209C20E001F0DD8 /* SponsorshipTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SponsorshipTransaction+Mapper.swift"; sourceTree = "<group>"; };
 		0AFB59472209C2F8001F0DD8 /* SponsorshipTransactionDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorshipTransactionDomainDTO.swift; sourceTree = "<group>"; };
-		0AFB59492209F167001F0DD8 /* Sentry.io-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Sentry.io-Info.plist"; sourceTree = "<group>"; };
+		0AFB59492209F167001F0DD8 /* Sentry-io-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Sentry-io-Info.plist"; sourceTree = "<group>"; };
 		0AFBCA7F211306F600285BCB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0AFBCA862113188A00285BCB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0AFBCA872113188B00285BCB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1539,7 +1538,6 @@
 		7BF89E8A2226E03D00853F9D /* SweetLoggerSentry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetLoggerSentry.swift; sourceTree = "<group>"; };
 		7BF89E8C2226E0D300853F9D /* SweetLoggerConsole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetLoggerConsole.swift; sourceTree = "<group>"; };
 		7BF89E8E2226E1AF00853F9D /* SweetLoggerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetLoggerProtocol.swift; sourceTree = "<group>"; };
-		7BF89E902227065300853F9D /* DeviceId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceId.swift; sourceTree = "<group>"; };
 		7BF89E9622272A5E00853F9D /* MonkeyTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonkeyTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF89E9822272A5E00853F9D /* MonkeyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonkeyTest.swift; sourceTree = "<group>"; };
 		7BF89E9A22272A5E00853F9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -2845,7 +2843,7 @@
 				0AADFD0521F9F4AB001F5C0A /* AppSpector-Info.plist */,
 				04D4431A21885F4F009CEB22 /* Fabric-Info.plist */,
 				0A150821219B0D6B00516037 /* GoogleService-Info.plist */,
-				0AFB59492209F167001F0DD8 /* Sentry.io-Info.plist */,
+				0AFB59492209F167001F0DD8 /* Sentry-io-Info.plist */,
 				F7E954F01EA8FE0700A804DE /* Assets.xcassets */,
 				0AEFC74F21BAA4380085D6D1 /* Localization */,
 			);
@@ -3010,7 +3008,6 @@
 				0ADD7F3A21F22FB60075FC59 /* UInt8+Assisstants.swift */,
 				0A4E7DE52201810F007BBA39 /* Date */,
 				0A4E7DE322018057007BBA39 /* Type */,
-				7BF89E902227065300853F9D /* DeviceId.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3072,7 +3069,7 @@
 			isa = PBXGroup;
 			children = (
 				0ADD7F6A21F22FB60075FC59 /* ObservableType+SweetLogger.swift */,
-				0ADD7F6B21F22FB60075FC59 /* SweetNetworkLoggerPlugin.swift */,
+				0ADD7F6B21F22FB60075FC59 /* SentryNetworkLoggerPlugin.swift */,
 				0ADD7F6C21F22FB60075FC59 /* SweetLogger.swift */,
 				7BF89E8A2226E03D00853F9D /* SweetLoggerSentry.swift */,
 				7BF89E8C2226E0D300853F9D /* SweetLoggerConsole.swift */,
@@ -5037,7 +5034,7 @@
 				E9D36DFA2175C755001E6DF0 /* AssetList.storyboard in Resources */,
 				0AFA0C762174A2300003FE3B /* Legal.storyboard in Resources */,
 				0AFBCA80211306F600285BCB /* LaunchScreen.storyboard in Resources */,
-				0AFB594A2209F167001F0DD8 /* Sentry.io-Info.plist in Resources */,
+				0AFB594A2209F167001F0DD8 /* Sentry-io-Info.plist in Resources */,
 				E917B3AF21BD688500CC849A /* AmountSkeletonView.xib in Resources */,
 				E9B087F12163886800937644 /* DexLastTradesHeaderView.xib in Resources */,
 				E9B086B02163883000937644 /* AddAddressTextField.xib in Resources */,
@@ -5429,7 +5426,7 @@
 				0AF58F902191BC9300C8A4B3 /* PasscodePresenterProtocol.swift in Sources */,
 				E9D36DF72175C755001E6DF0 /* AssetListInteractor.swift in Sources */,
 				0ADC17A22204A34100472130 /* ModalTableView.swift in Sources */,
-				0ADD7FD821F22FB60075FC59 /* SweetNetworkLoggerPlugin.swift in Sources */,
+				0ADD7FD821F22FB60075FC59 /* SentryNetworkLoggerPlugin.swift in Sources */,
 				04831F7C2169210B006D1ED6 /* PasscodeViewController.swift in Sources */,
 				E95B47D321638AF2004D4E39 /* AccountPasswordViewController.swift in Sources */,
 				0A7CCDB1218A138D005D372B /* MyAddressModuleBuilder.swift in Sources */,
@@ -5883,7 +5880,6 @@
 				0ADD803321F22FFB0075FC59 /* TransactionHistoryCoordinator.swift in Sources */,
 				E9C0B4A02176C49B00669D1D /* SendInteractorProtocol.swift in Sources */,
 				0A2B7D35216037FD0098438D /* AssetViewHistoryCell.swift in Sources */,
-				7BF89E912227065300853F9D /* DeviceId.swift in Sources */,
 				0AF92228212E0F1F003BA067 /* WalletLeasingBalanceCell.swift in Sources */,
 				0AF92225212E0F1F003BA067 /* WalletHeaderView.swift in Sources */,
 				0A485EA22100C4FA00079B49 /* LeaseTransaction+Mapper.swift in Sources */,
