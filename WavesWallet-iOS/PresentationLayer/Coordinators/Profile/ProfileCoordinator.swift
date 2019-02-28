@@ -103,16 +103,31 @@ extension ProfileCoordinator: ProfileModuleOutput {
     }
 
     func showRateApp() {
+        #if DEBUG
+        if UITest.isEnabledonkeyTest {
+            return
+        }
+        #endif
         RateApp.show()
     }
 
     func showFeedback() {
+        #if DEBUG
+        if UITest.isEnabledonkeyTest {
+            return
+        }
+        #endif
         let coordinator = MailComposeCoordinator(viewController: navigationRouter.navigationController, email: Constants.supportEmail)
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
     }
 
     func showSupport() {
+        #if DEBUG
+        if UITest.isEnabledonkeyTest {
+            return
+        }
+        #endif
         UIApplication.shared.openURLAsync(Constants.supporURL)
     }
 
@@ -143,10 +158,20 @@ extension ProfileCoordinator: ProfileModuleOutput {
     }
 
     func accountLogouted() {
+        #if DEBUG
+        if UITest.isEnabledonkeyTest {
+            return
+        }
+        #endif
         self.applicationCoordinator?.showEnterDisplay()
     }
 
     func accountDeleted() {
+        #if DEBUG
+        if UITest.isEnabledonkeyTest {
+            return
+        }
+        #endif
         self.applicationCoordinator?.showEnterDisplay()
     }
 }
