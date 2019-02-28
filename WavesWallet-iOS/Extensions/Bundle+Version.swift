@@ -74,7 +74,7 @@ extension UIDevice {
             "\nDevice Model: \(deviceModel)" +
             "\nLanguage: \(language)" +
             "\nCarrier: \(carrierName)" +
-            "\nDeviceUUID: \(UIDevice.uuid)"
+            "\nDevice ID: \(UIDevice.uuid)"
     }
 }
 
