@@ -112,20 +112,25 @@ extension Reactive where Base == ImageCache {
     
     func retrieveImage(key: String) -> Observable<UIImage?> {
         
-        return Observable.create({ [base] (observer) -> Disposable in
-            
-            let cache = base
-            if let memoryImage = cache.retrieveImageInMemoryCache(forKey: key) {
-                observer.onNext(memoryImage)
-            } else {
-                let diskImage = cache.retrieveImageInDiskCache(forKey: key)
-                observer.onNext(diskImage)
+      return Observable.create({ [base] (observer) -> Disposable in
+
+        let cache = base        
+        if let memoryImage = cache.retrieveImageInMemoryCache(forKey: key) {
+            observer.onNext(memoryImage)
+        }
+        else {
+            let diskImage = cache.retrieveImageInDiskCache(forKey: key)
+            if let image = diskImage {
+                cache.store(image, forKey: key, toDisk: false)
             }
-            observer.onCompleted()
+            observer.onNext(diskImage)
             
-            return Disposables.create {}
-        })
-    }
+        }
+        observer.onCompleted()
+        
+        return Disposables.create {}
+    })      
+  }
 }
 
 extension ImageCache: ReactiveCompatible {
