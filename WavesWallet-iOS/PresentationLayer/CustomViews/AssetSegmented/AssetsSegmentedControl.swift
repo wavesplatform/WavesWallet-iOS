@@ -53,7 +53,12 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
 
     private(set) var currentPage: Int = Constants.currentPageEmpty
 
-    var currentAsset: Model.Asset {
+    var currentAsset: Model.Asset? {
+        
+        if currentPage < 0 || currentPage >= assets.count {
+            return nil
+        }
+        
         return assets[currentPage]
     }
 

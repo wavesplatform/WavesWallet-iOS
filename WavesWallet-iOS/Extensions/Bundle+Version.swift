@@ -9,6 +9,19 @@
 import UIKit
 import CoreTelephony
 
+private struct DeviceIdStorage: TSUD {
+    
+    private static let key: String = "com.waves.device.id"
+    
+    static var defaultValue: String? {
+        return nil
+    }
+    
+    static var stringKey: String {
+        return DeviceIdStorage.key
+    }
+}
+
 extension UIDevice {
 
     var osVersion: String {
@@ -42,6 +55,17 @@ extension UIDevice {
             return carrier.carrierName ?? ""
         }
     }
+    
+    static var uuid: String {
+        
+        if let id = DeviceIdStorage.value {
+            return id
+        } else {
+            let id = UUID().uuidString
+            DeviceIdStorage.value = id
+            return id
+        }
+    }
 
     func deviceDescription() -> String {
         return "\n\n\n\n---Device Info---" +
@@ -49,7 +73,8 @@ extension UIDevice {
             "\nApp Version: \(appVersion)" +
             "\nDevice Model: \(deviceModel)" +
             "\nLanguage: \(language)" +
-            "\nCarrier: \(carrierName)"
+            "\nCarrier: \(carrierName)" +
+            "\nDevice ID: \(UIDevice.uuid)"
     }
 }
 

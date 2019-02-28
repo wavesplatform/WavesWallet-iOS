@@ -26,7 +26,7 @@ private extension Thread {
     }
 }
 
-extension ObservableType {
+public extension ObservableType {
 
     func sweetDebugWithoutResponse(_ identifier: String) -> RxSwift.Observable<Self.E> {
 
