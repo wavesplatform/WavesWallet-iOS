@@ -31,6 +31,12 @@ jobs:
           name: SSH Cat config
           command: cat ~/.ssh/config      
       - run:
+          name: Configure Bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            gem install bundler
+      - run:
           name: Bundle
           command: bundle check || bundle install --path vendor/bundle
       - save_cache:
@@ -66,16 +72,16 @@ jobs:
           command: ls -la ~/.ssh/
       - run:
           name: SSH Cat config
-          command: cat ~/.ssh/config            
-      - run:
-          name: Bundle
-          command: bundle check || bundle install --path vendor/bundle
+          command: cat ~/.ssh/config
       - run:
           name: Configure Bundler
           command: |
             echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
             source $BASH_ENV
             gem install bundler
+      - run:
+          name: Bundle
+          command: bundle check || bundle install --path vendor/bundle
       - save_cache:
           key: 1-gems-{{ checksum "Gemfile.lock" }}
           paths:
