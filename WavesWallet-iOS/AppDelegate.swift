@@ -100,8 +100,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = .basic50
         
-        print("MOnkey test")
-        
         #if DEBUG
         if UITest.isEnabledonkeyTest {
             paws = MonkeyPaws(view: window!)
