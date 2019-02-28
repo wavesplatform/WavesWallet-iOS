@@ -9,6 +9,11 @@ use_frameworks!(true)
 # Enable the stricter search paths and module map generation for all pods
 # use_modular_headers!
 
+# Pods for MonkeyTest
+target 'MonkeyTest' do
+    pod 'SwiftMonkey'
+end 
+
 # Pods for WavesWallet-iOS
 target 'WavesWallet-iOS' do
 
@@ -83,6 +88,9 @@ target 'WavesWallet-iOS' do
     # Debug
     pod 'Reveal-SDK', :configurations => ['Debug', 'Test']
     pod 'AppSpectorSDK', :configurations => ['Debug', 'Test']
+
+    pod 'SwiftMonkeyPaws', :configurations => ['Debug']
+    
     pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git'
     pod 'Fabric'
     pod 'Crashlytics'

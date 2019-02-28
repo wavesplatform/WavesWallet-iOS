@@ -61,15 +61,15 @@ final class WrapperAssetsSegmentedControl: UIView {
         assetsSegmentedControl.setCurrentAsset(id: id, animated: animated)
     }
 
-    func currentAssetId() -> Signal<String> {
+    func currentAssetId() -> Signal<String?> {
 
         return self
             .assetsSegmentedControl
             .rx
             .controlEvent(.valueChanged)
-            .flatMap({ [weak self] _ -> Observable<String> in
+            .flatMap({ [weak self] _ -> Observable<String?> in
                 guard let strongSelf = self else { return Observable.empty() }
-                return Observable.just(strongSelf.assetsSegmentedControl.currentAsset.id)
+                return Observable.just(strongSelf.assetsSegmentedControl.currentAsset?.id)
             })
             .asSignal(onErrorSignalWith: Signal.empty())
 

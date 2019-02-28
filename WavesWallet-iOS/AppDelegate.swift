@@ -24,6 +24,18 @@ import Kingfisher
 import AppSpectorSDK
 #endif
 
+#if DEBUG
+import SwiftMonkeyPaws
+#endif
+
+#if DEBUG
+enum UITest {
+    static var isEnabledonkeyTest: Bool {
+        return CommandLine.arguments.contains("--MONKEY_TEST")
+    }
+}
+#endif
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -32,9 +44,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var appCoordinator: AppCoordinator!
     let migrationInteractor: MigrationInteractor = FactoryInteractors.instance.migrationInteractor
-
+    
+    #if DEBUG 
+    var paws: MonkeyPaws?
+    #endif
+    
+    //TODO: Refactor method very long
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
+        
         if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
             let options = FirebaseOptions(contentsOfFile: path) {
 
@@ -51,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 AppsFlyerTracker.shared().appleAppID = appId
             }
         }
-
+        
         IQKeyboardManager.shared.enable = true
         UIBarButtonItem.appearance().tintColor = UIColor.black
 
@@ -60,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Swizzle(initializers: [UIView.passtroughInit, UIView.insetsInit, UIView.shadowInit]).start()
 
         #if DEBUG || TEST
-            SweetLogger.current.plugins = [SweetLoggerConsole(visibleLevels: [.warning, .debug, .error],
+            SweetLogger.current.plugins = [SweetLoggerConsole(visibleLevels: [],
                                                               isShortLog: true),
                                             SweetLoggerSentry(visibleLevels: [.error])]
 
@@ -82,6 +99,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = .basic50
+        
+        #if DEBUG
+        if UITest.isEnabledonkeyTest {
+            paws = MonkeyPaws(view: window!)
+        }
+        #endif
         
         appCoordinator = AppCoordinator(WindowRouter(window: self.window!))
 
@@ -118,15 +141,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      open url: URL,
                      sourceApplication: String?,
                      annotation: Any) -> Bool {
-        if let urlScheme = url.scheme, urlScheme == "waves" {
-//            OpenUrlManager.openUrl = url
-            return true
-        } else {
-            return false
-        }
+        return false
     }
 }
 
+//TODO: Remove code
 extension AppDelegate {
 
     class func shared() -> AppDelegate {

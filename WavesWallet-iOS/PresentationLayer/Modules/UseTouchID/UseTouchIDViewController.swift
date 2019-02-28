@@ -90,7 +90,7 @@ final class UseTouchIDViewController: UIViewController {
 
         authorizationInteractor
         .registerBiometric(wallet: input.wallet, passcode: input.passcode)
-        .observeOn(MainScheduler.instance)
+        .observeOn(MainScheduler.asyncInstance)
         .subscribe(onNext: { [weak self] status in
 
             if case .completed(let wallet) = status {
