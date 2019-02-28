@@ -10,6 +10,7 @@ jobs:
         xcode: "10.0.0"
     working_directory: ~/Waves/iOS
     environment:
+      BUNDLER_VERSION: 2.0.1
       FL_OUTPUT_DIR: output
       FASTLANE_LANE: waves_test
     shell: /bin/bash --login -eo pipefail
@@ -49,6 +50,7 @@ jobs:
         xcode: "10.0.0"
     working_directory: ~/Waves/iOS
     environment:
+      BUNDLER_VERSION: 2.0.1
       FL_OUTPUT_DIR: output
       FASTLANE_LANE: waves
     shell: /bin/bash --login -eo pipefail
@@ -85,6 +87,7 @@ jobs:
         xcode: "10.0.0"
     working_directory: ~/Waves/iOS
     environment:
+      BUNDLER_VERSION: 2.0.1
       FL_OUTPUT_DIR: output
       FASTLANE_LANE: waves_test_adhoc
     shell: /bin/bash --login -eo pipefail
