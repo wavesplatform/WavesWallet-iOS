@@ -117,7 +117,7 @@ private extension AssetDetailViewController {
 
     func events() -> [Signal<AssetDetailTypes.Event>] {
 
-        let eventChangedAsset = segmentedControl.currentAssetId().map { AssetDetailTypes.Event.changedAsset(id: $0) }
+        let eventChangedAsset = segmentedControl.currentAssetId().filterNil().map { AssetDetailTypes.Event.changedAsset(id: $0) }
         let favoriteOn = favoriteOnBarButton.rx.tap.asSignal().map { AssetDetailTypes.Event.tapFavorite(on: false) }
         let favoriteOff = favoriteOffBarButton.rx.tap.asSignal().map { AssetDetailTypes.Event.tapFavorite(on: true) }
         let refreshEvent = tableView.rx.didRefreshing(refreshControl: refreshControl).asSignal().map { _ in AssetDetailTypes.Event.refreshing }

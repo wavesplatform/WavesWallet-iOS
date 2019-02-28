@@ -101,7 +101,7 @@ private extension CreateAliasViewController {
             guard let strongSelf = self else { return Signal.empty() }
 
             return strongSelf.rx.viewWillAppear.asObservable()
-                .throttle(1, scheduler: MainScheduler.instance)
+                .throttle(1, scheduler: MainScheduler.asyncInstance)
                 .asSignal(onErrorSignalWith: Signal.empty())
                 .map { _ in Types.Event.viewWillAppear }
         }
@@ -110,7 +110,7 @@ private extension CreateAliasViewController {
             guard let strongSelf = self else { return Signal.empty() }
 
             return strongSelf.rx.viewDidDisappear.asObservable()
-                .throttle(1, scheduler: MainScheduler.instance)
+                .throttle(1, scheduler: MainScheduler.asyncInstance)
                 .asSignal(onErrorSignalWith: Signal.empty())
                 .map { _ in Types.Event.viewDidDisappear }
         }

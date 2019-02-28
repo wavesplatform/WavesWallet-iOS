@@ -83,7 +83,7 @@ private extension ProfileViewController {
             guard let strongSelf = self else { return Signal.empty() }
 
             return strongSelf.rx.viewDidAppear.asObservable()
-                .throttle(1, scheduler: MainScheduler.instance)
+                .throttle(1, scheduler: MainScheduler.asyncInstance)
                 .asSignal(onErrorSignalWith: Signal.empty())
                 .map { _ in Types.Event.viewDidAppear }
         }
@@ -92,7 +92,7 @@ private extension ProfileViewController {
             guard let strongSelf = self else { return Signal.empty() }
 
             return strongSelf.rx.viewDidDisappear.asObservable()
-                .throttle(1, scheduler: MainScheduler.instance)
+                .throttle(1, scheduler: MainScheduler.asyncInstance)
                 .asSignal(onErrorSignalWith: Signal.empty())
                 .map { _ in Types.Event.viewDidDisappear }
         }

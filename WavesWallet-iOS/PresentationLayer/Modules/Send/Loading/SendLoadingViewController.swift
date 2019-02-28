@@ -51,7 +51,7 @@ final class SendLoadingViewController: UIViewController {
       
         let assetId = input.asset.isWaves ? "" : input.asset.id
         interactor.send(fee: input.fee, recipient: input.address, assetId: assetId, amount: input.amount, attachment: input.attachment, feeAssetID: input.feeAssetID)
-            .observeOn(MainScheduler.instance)
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] status in
                 
                 switch status {

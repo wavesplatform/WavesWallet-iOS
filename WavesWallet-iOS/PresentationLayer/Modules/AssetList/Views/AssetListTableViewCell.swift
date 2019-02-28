@@ -61,6 +61,7 @@ extension AssetListTableViewCell: ViewConfiguration {
                                               sponsoredSize: sponsoredIcon,
                                               font: UIFont.systemFont(ofSize: 15),
                                               border: nil))
+            .observeOn(MainScheduler.asyncInstance)
             .bind(to: iconAsset.rx.image)
             .disposed(by: disposeBag)
 
