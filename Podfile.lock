@@ -159,6 +159,8 @@ PODS:
   - Skeleton (0.3.1)
   - SwiftDate (5.1.0)
   - SwiftGen (5.3.0)
+  - SwiftMonkey (2.1.1)
+  - SwiftMonkeyPaws (2.1.1)
   - SwipeView (1.3.2)
   - TPKeyboardAvoiding (1.3.2)
   - TTTAttributedLabel (2.0.0)
@@ -208,6 +210,8 @@ DEPENDENCIES:
   - Skeleton
   - SwiftDate
   - SwiftGen (~> 5.3.0)
+  - SwiftMonkey
+  - SwiftMonkeyPaws
   - SwipeView
   - TPKeyboardAvoiding
   - TTTAttributedLabel
@@ -266,6 +270,8 @@ SPEC REPOS:
     - Skeleton
     - SwiftDate
     - SwiftGen
+    - SwiftMonkey
+    - SwiftMonkeyPaws
     - SwipeView
     - TPKeyboardAvoiding
     - TTTAttributedLabel
@@ -375,12 +381,14 @@ SPEC CHECKSUMS:
   Skeleton: 4b11a4aa6fb289626aa7e486f0b16b9b394d0ba4
   SwiftDate: 6329e58969a2de31cea7f1ee1143b247693196e7
   SwiftGen: 4379bd3640b0a212a0f6ea3c494adba385513d10
+  SwiftMonkey: aea6f2707a4b7ab5277b4d2fd2f0723a083997b1
+  SwiftMonkeyPaws: 655524bb402df5ac2be836f9f604aca1068fbde6
   SwipeView: bd67cfaf7760c036438446b3ccb28a3b84fce009
   TPKeyboardAvoiding: cb69d5ddbe90ce0170e4bc2db1e5e41d4a3ad9a4
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: e2a96b62dd86a40ee06d1226610725bdb51eb0f3
+PODFILE CHECKSUM: 335b4ab23c78312fe0ee7075ca8bfe5c82a9b924
 
 COCOAPODS: 1.6.1

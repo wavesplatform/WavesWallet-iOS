@@ -593,6 +593,8 @@
 		7BF89E8D2226E0D300853F9D /* SweetLoggerConsole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E8C2226E0D300853F9D /* SweetLoggerConsole.swift */; };
 		7BF89E8F2226E1AF00853F9D /* SweetLoggerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E8E2226E1AF00853F9D /* SweetLoggerProtocol.swift */; };
 		7BF89E912227065300853F9D /* DeviceId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E902227065300853F9D /* DeviceId.swift */; };
+		7BF89E9922272A5E00853F9D /* MonkeyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E9822272A5E00853F9D /* MonkeyTest.swift */; };
+		E1A8D6947059C03B81BC5C0B /* Pods_MonkeyTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F182E1185D069FB9F0228C7 /* Pods_MonkeyTest.framework */; };
 		E901CE592149D27000942783 /* ExchangeTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E9B2100A91500079B49 /* ExchangeTransaction.swift */; };
 		E90223C421D53A8F0057AA45 /* DexAssetPairDomainDTO+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90223C321D53A8F0057AA45 /* DexAssetPairDomainDTO+Mapper.swift */; };
 		E902F61520E5829B00A46335 /* ChooseAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902F61420E5829B00A46335 /* ChooseAccountViewController.swift */; };
@@ -914,6 +916,16 @@
 		F7C683BE1EA93C5800C87DAF /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C683BA1EA93C5800C87DAF /* CustomNavigationController.swift */; };
 		F7E954E81EA8FE0700A804DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E954E71EA8FE0700A804DE /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7BF89E9B22272A5E00853F9D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F7E954DC1EA8FE0600A804DE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F7E954E31EA8FE0700A804DE;
+			remoteInfo = "WavesWallet-iOS";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		04016DFB219420C900BA5235 /* ImportAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountViewController.swift; sourceTree = "<group>"; };
@@ -1518,7 +1530,9 @@
 		0AFF5C80215BD09500B82940 /* AccountPasswordPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPasswordPresenter.swift; sourceTree = "<group>"; };
 		0AFF5C8C215CE2D000B82940 /* UseTouchIDModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseTouchIDModuleBuilder.swift; sourceTree = "<group>"; };
 		2A5A5CDBE4190D8A1A1C4124 /* Pods-WavesWallet-iOS.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.test.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.test.xcconfig"; sourceTree = "<group>"; };
+		2F182E1185D069FB9F0228C7 /* Pods_MonkeyTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MonkeyTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3780CE9B95DA4BD90D83FC04 /* Pods-WavesWallet-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		39E7B5DDD0BC308CCE651F05 /* Pods-MonkeyTest.test-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.test-adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.test-adhoc.xcconfig"; sourceTree = "<group>"; };
 		621D6D45B8A2773F670A4883 /* Pods-WavesWallet-iOS.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.adhoc.xcconfig"; sourceTree = "<group>"; };
 		7BBDA0B52226CA5C00A83411 /* NodePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodePlugin.swift; sourceTree = "<group>"; };
 		7BF89E882226E00800853F9D /* SentryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SentryManager.swift; path = Type/SentryManager.swift; sourceTree = "<group>"; };
@@ -1526,7 +1540,12 @@
 		7BF89E8C2226E0D300853F9D /* SweetLoggerConsole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetLoggerConsole.swift; sourceTree = "<group>"; };
 		7BF89E8E2226E1AF00853F9D /* SweetLoggerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetLoggerProtocol.swift; sourceTree = "<group>"; };
 		7BF89E902227065300853F9D /* DeviceId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceId.swift; sourceTree = "<group>"; };
+		7BF89E9622272A5E00853F9D /* MonkeyTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonkeyTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7BF89E9822272A5E00853F9D /* MonkeyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonkeyTest.swift; sourceTree = "<group>"; };
+		7BF89E9A22272A5E00853F9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8929E19527D7945D5DC03230 /* Pods-MonkeyTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.release.xcconfig"; sourceTree = "<group>"; };
 		965E90884D099176A23D5038 /* Pods-WavesWallet-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		A1E804B3D4295816120F6042 /* Pods-MonkeyTest.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.test.xcconfig"; path = "Pods/Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.test.xcconfig"; sourceTree = "<group>"; };
 		B2F04F55A260735DF3584D3E /* Pods_WavesWallet_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WavesWallet_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0E99F201DFCDD4280DDB64C /* Pods-WavesWallet-iOS.test-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.test-adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.test-adhoc.xcconfig"; sourceTree = "<group>"; };
 		E90223C321D53A8F0057AA45 /* DexAssetPairDomainDTO+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DexAssetPairDomainDTO+Mapper.swift"; sourceTree = "<group>"; };
@@ -1844,6 +1863,7 @@
 		E9F9A27D218540F700FD68D7 /* DexRealmRepositoryLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexRealmRepositoryLocal.swift; sourceTree = "<group>"; };
 		E9FE4D7720EA767B00208F29 /* SaveBackupPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveBackupPhraseViewController.swift; sourceTree = "<group>"; };
 		E9FE4D7920EA7F8500208F29 /* ConfirmBackupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupViewController.swift; sourceTree = "<group>"; };
+		F7361C3F79C88A0896BACB0C /* Pods-MonkeyTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.debug.xcconfig"; sourceTree = "<group>"; };
 		F74240B11EAB8D1600C3B84D /* AddressBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBook.swift; sourceTree = "<group>"; };
 		F74240B21EAB8D1600C3B84D /* AssetBalance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetBalance.swift; sourceTree = "<group>"; };
 		F74240B31EAB8D1600C3B84D /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
@@ -1862,6 +1882,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7BF89E9322272A5E00853F9D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1A8D6947059C03B81BC5C0B /* Pods_MonkeyTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F7E954E11EA8FE0700A804DE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -3603,8 +3631,18 @@
 				F7C683DC1EA94ECA00C87DAF /* SwiftGMP.framework */,
 				F7C683DD1EA94ECA00C87DAF /* SwiftGMP.framework.dSYM */,
 				B2F04F55A260735DF3584D3E /* Pods_WavesWallet_iOS.framework */,
+				2F182E1185D069FB9F0228C7 /* Pods_MonkeyTest.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7BF89E9722272A5E00853F9D /* MonkeyTest */ = {
+			isa = PBXGroup;
+			children = (
+				7BF89E9822272A5E00853F9D /* MonkeyTest.swift */,
+				7BF89E9A22272A5E00853F9D /* Info.plist */,
+			);
+			path = MonkeyTest;
 			sourceTree = "<group>";
 		};
 		D6029DF045FAF50274C41646 /* Pods */ = {
@@ -3615,6 +3653,10 @@
 				2A5A5CDBE4190D8A1A1C4124 /* Pods-WavesWallet-iOS.test.xcconfig */,
 				621D6D45B8A2773F670A4883 /* Pods-WavesWallet-iOS.adhoc.xcconfig */,
 				E0E99F201DFCDD4280DDB64C /* Pods-WavesWallet-iOS.test-adhoc.xcconfig */,
+				F7361C3F79C88A0896BACB0C /* Pods-MonkeyTest.debug.xcconfig */,
+				8929E19527D7945D5DC03230 /* Pods-MonkeyTest.release.xcconfig */,
+				39E7B5DDD0BC308CCE651F05 /* Pods-MonkeyTest.test-adhoc.xcconfig */,
+				A1E804B3D4295816120F6042 /* Pods-MonkeyTest.test.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -4799,6 +4841,7 @@
 			isa = PBXGroup;
 			children = (
 				F7E954E61EA8FE0700A804DE /* WavesWallet-iOS */,
+				7BF89E9722272A5E00853F9D /* MonkeyTest */,
 				F7E954E51EA8FE0700A804DE /* Products */,
 				D6029DF045FAF50274C41646 /* Pods */,
 				18CFECE732E67CAF8666D2C9 /* Frameworks */,
@@ -4809,6 +4852,7 @@
 			isa = PBXGroup;
 			children = (
 				F7E954E41EA8FE0700A804DE /* WavesWallet-iOS.app */,
+				7BF89E9622272A5E00853F9D /* MonkeyTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4833,6 +4877,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7BF89E9522272A5E00853F9D /* MonkeyTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7BF89E9D22272A5E00853F9D /* Build configuration list for PBXNativeTarget "MonkeyTest" */;
+			buildPhases = (
+				14543D7E4AECF68BEF3D3CC1 /* [CP] Check Pods Manifest.lock */,
+				7BF89E9222272A5E00853F9D /* Sources */,
+				7BF89E9322272A5E00853F9D /* Frameworks */,
+				7BF89E9422272A5E00853F9D /* Resources */,
+				499D8AE9AFF252388D25B2C8 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7BF89E9C22272A5E00853F9D /* PBXTargetDependency */,
+			);
+			name = MonkeyTest;
+			productName = MonkeyTest;
+			productReference = 7BF89E9622272A5E00853F9D /* MonkeyTest.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		F7E954E31EA8FE0700A804DE /* WavesWallet-iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F7E954F81EA8FE0700A804DE /* Build configuration list for PBXNativeTarget "WavesWallet-iOS" */;
@@ -4862,10 +4926,15 @@
 		F7E954DC1EA8FE0600A804DE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0940;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Waves Platform";
 				TargetAttributes = {
+					7BF89E9522272A5E00853F9D = {
+						CreatedOnToolsVersion = 10.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = F7E954E31EA8FE0700A804DE;
+					};
 					F7E954E31EA8FE0700A804DE = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 96SW78M3KJ;
@@ -4907,11 +4976,19 @@
 			projectRoot = "";
 			targets = (
 				F7E954E31EA8FE0700A804DE /* WavesWallet-iOS */,
+				7BF89E9522272A5E00853F9D /* MonkeyTest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7BF89E9422272A5E00853F9D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F7E954E21EA8FE0700A804DE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -5073,6 +5150,50 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nPLIST=\"${PROJECT_DIR}/${INFOPLIST_FILE}\"\nPLB=/usr/libexec/PlistBuddy\nLAST_NUMBER=$($PLB -c \"Print CFBundleVersion\" \"$PLIST\")\nNEW_VERSION=$(($LAST_NUMBER + 1))\n$PLB -c \"Set :CFBundleVersion $NEW_VERSION\" \"$PLIST\"\n";
 		};
+		14543D7E4AECF68BEF3D3CC1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MonkeyTest-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		499D8AE9AFF252388D25B2C8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SwiftMonkey/SwiftMonkey.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMonkey.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		64578F1B5667F7D76B8CA9B1 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -5143,6 +5264,7 @@
 				"${BUILT_PRODUCTS_DIR}/Sentry/Sentry.framework",
 				"${BUILT_PRODUCTS_DIR}/Skeleton/Skeleton.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftMonkeyPaws/SwiftMonkeyPaws.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeView/SwipeView.framework",
 				"${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework",
 				"${BUILT_PRODUCTS_DIR}/TTTAttributedLabel/TTTAttributedLabel.framework",
@@ -5195,6 +5317,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sentry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Skeleton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMonkeyPaws.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TPKeyboardAvoiding.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TTTAttributedLabel.framework",
@@ -5230,6 +5353,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7BF89E9222272A5E00853F9D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BF89E9922272A5E00853F9D /* MonkeyTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F7E954E01EA8FE0700A804DE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -6039,6 +6170,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		7BF89E9C22272A5E00853F9D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F7E954E31EA8FE0700A804DE /* WavesWallet-iOS */;
+			targetProxy = 7BF89E9B22272A5E00853F9D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		0AF92301212E1424003BA067 /* Waves.strings */ = {
 			isa = PBXVariantGroup;
@@ -6252,6 +6391,100 @@
 			};
 			name = Test;
 		};
+		7BF89E9E22272A5E00853F9D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F7361C3F79C88A0896BACB0C /* Pods-MonkeyTest.debug.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"MONKEY_TEST=1",
+				);
+				INFOPLIST_FILE = MonkeyTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = WV.MonkeyTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "WavesWallet-iOS";
+			};
+			name = Debug;
+		};
+		7BF89E9F22272A5E00853F9D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8929E19527D7945D5DC03230 /* Pods-MonkeyTest.release.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MonkeyTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = WV.MonkeyTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "WavesWallet-iOS";
+			};
+			name = Release;
+		};
+		7BF89EA022272A5E00853F9D /* Test-AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 39E7B5DDD0BC308CCE651F05 /* Pods-MonkeyTest.test-adhoc.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MonkeyTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = WV.MonkeyTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "WavesWallet-iOS";
+			};
+			name = "Test-AdHoc";
+		};
+		7BF89EA122272A5E00853F9D /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A1E804B3D4295816120F6042 /* Pods-MonkeyTest.test.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MonkeyTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = WV.MonkeyTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "WavesWallet-iOS";
+			};
+			name = Test;
+		};
 		F7E954F61EA8FE0700A804DE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -6431,6 +6664,17 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7BF89E9D22272A5E00853F9D /* Build configuration list for PBXNativeTarget "MonkeyTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7BF89E9E22272A5E00853F9D /* Debug */,
+				7BF89E9F22272A5E00853F9D /* Release */,
+				7BF89EA022272A5E00853F9D /* Test-AdHoc */,
+				7BF89EA122272A5E00853F9D /* Test */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F7E954DF1EA8FE0600A804DE /* Build configuration list for PBXProject "WavesWallet-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
