@@ -50,9 +50,9 @@ extension AssetsSegmentedCell: ViewConfiguration {
                                               font: UIFont.systemFont(ofSize: 15),
                                               border: nil))
             .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { (image) in
-
-                self.imageViewIcon.image = image
+            .subscribe(onNext: { [weak self] (image) in
+                
+                self?.imageViewIcon.image = image
             })
             .disposed(by: disposeBag)
     }
