@@ -26,6 +26,6 @@ extension NodeTargetType {
 extension MoyaProvider {
     final class func nodeMoyaProvider<Target: TargetType>() -> MoyaProvider<Target> {
         return MoyaProvider<Target>(callbackQueue: nil,
-                            plugins: [SweetNetworkLoggerPlugin(), NodePlugin()])
+                            plugins: [SentryNetworkLoggerPlugin(), NodePlugin()])
     }
 }

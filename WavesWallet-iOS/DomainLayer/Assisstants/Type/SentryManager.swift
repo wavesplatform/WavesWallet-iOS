@@ -17,12 +17,16 @@ public class SentryManager {
     
     private static var shared = SentryManager()
     
+    private var client: Client? = nil
+    
     init() {
-        if let path = Bundle.main.path(forResource: "Sentry.io-Info", ofType: "plist"),
+        if let path = Bundle.main.path(forResource: "Sentry-io-Info", ofType: "plist"),
             let dsn = NSDictionary(contentsOfFile: path)?["DSN_URL"] as? String {
             
             do {
-                Client.shared = try Client(dsn: dsn)
+                let client = try Client(dsn: dsn)
+                self.client = client
+                Client.shared = self.client
             } catch let error {
                 print("Sentry Not Loading :( \(error)")
             }
@@ -37,12 +41,19 @@ public class SentryManager {
         Client.shared?.enableAutomaticBreadcrumbTracking()
     }
     
+    static var currentUser: Sentry.User {
+        
+        let user = Sentry.User()
+        user.userId = UIDevice.uuid
+        return user
+    }
+    
     static func send(event: Event) {
         
         event.timestamp = Date()
-        event.user?.userId = DeviceId.id
+        event.user = currentUser
         
-        Client.shared?.send(event: event, completion: { error in
+            SentryManager.shared.client?.send(event: event, completion: { error in
             
             if let error = error {
                 print("SweetLogger :( \(String(describing: error))")
