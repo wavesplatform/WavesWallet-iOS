@@ -29,7 +29,7 @@ target 'WavesWallet-iOS' do
     pod 'MGSwipeTableCell'
 
     pod 'UPCarouselFlowLayout'
-    pod 'InfiniteCollectionView', :git => 'git@github.com:wavesplatform/InfiniteCollectionView.git'
+    pod 'InfiniteCollectionView', :git => 'https://github.com/wavesplatform/InfiniteCollectionView.git'
     pod 'RESideMenu', :git => 'https://github.com/wavesplatform/RESideMenu.git'
 
     pod 'Skeleton'
@@ -56,11 +56,11 @@ target 'WavesWallet-iOS' do
     pod 'AppsFlyerFramework'
 
     # Helperrs
-    pod 'IdentityImg', :git => 'git@github.com:wavesplatform/identity-img-swift.git'
-    pod '25519', :git => 'git@github.com:wavesplatform/25519.git'
-    pod 'Base58', :git => 'git@github.com:wavesplatform/Base58.git'
-    pod 'Keccak', :git => 'git@github.com:wavesplatform/Keccak.git'
-    pod 'Blake2', :git => 'git@github.com:wavesplatform/Blake2.git'
+    pod 'IdentityImg', :git => 'https://github.com/wavesplatform/identity-img-swift.git'
+    pod '25519', :git => 'https://github.com/wavesplatform/25519.git'
+    pod 'Base58', :git => 'https://github.com/wavesplatform/Base58.git'
+    pod 'Keccak', :git => 'https://github.com/wavesplatform/Keccak.git'
+    pod 'Blake2', :git => 'https://github.com/wavesplatform/Blake2.git'
     pod 'CryptoSwift'
     pod 'KeychainAccess'
     pod 'QRCode'
