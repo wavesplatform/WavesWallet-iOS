@@ -161,7 +161,7 @@ platform :ios do
     ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Dev"
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.dev"
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.dev"
-    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
+    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.dev"
 
     ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Dev.plist"
     ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Dev.plist"
@@ -180,6 +180,7 @@ platform :ios do
   lane :dev_install do
     dev_enviroment
     download_certificates
+    download_resources
   end
 
 
