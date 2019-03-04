@@ -33,6 +33,7 @@ enum TransactionHistoryTypes {
         case completedAction
         case setContacts([DomainLayer.DTO.Contact])
         case updateContact(DTO.ContactState)
+        case controllerDidDismiss
     }
 
     enum ActionDisplay {
