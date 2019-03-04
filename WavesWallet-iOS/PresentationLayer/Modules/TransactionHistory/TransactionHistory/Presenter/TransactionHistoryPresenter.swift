@@ -135,6 +135,9 @@ final class TransactionHistoryPresenter: TransactionHistoryPresenterProtocol {
 
         switch event {
 
+        case .controllerDidDismiss:
+            self.moduleOutput?.transactionHistoryDidDismiss()
+            
         case .setContacts(_):
             break
 
