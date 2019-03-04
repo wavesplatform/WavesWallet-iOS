@@ -141,7 +141,7 @@ extension AssetSelectView: ViewConfiguration {
                                               sponsoredSize: sponsoredSize,
                                               font: UIFont.systemFont(ofSize: 15),
                                               border: nil))
-            .observeOn(MainScheduler.asyncInstance)
+            .observeOn(MainScheduler.instance)
             .bind(to: iconAssetLogo.rx.image)
             .disposed(by: disposeBag)
     }
