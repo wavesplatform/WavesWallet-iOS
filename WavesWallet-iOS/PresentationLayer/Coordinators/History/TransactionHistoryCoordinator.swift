@@ -35,10 +35,6 @@ final class TransactionHistoryCoordinator: Coordinator {
         self.currentIndex = currentIndex
     }
     
-    private lazy var transactionHistoryViewController: TransactionHistoryViewController = {
-        return TransactionHistoryModuleBuilder(output: self).build(input: .init(transactions: transactions, currentIndex: currentIndex)) as! TransactionHistoryViewController
-    }()
-    
     func start() {
         showDisplay(.showTransactionHistory)
     }
@@ -51,7 +47,8 @@ extension TransactionHistoryCoordinator: PresentationCoordinator {
         self.lastDisplay = display
 
         switch display {
-        case .showTransactionHistory:        
+        case .showTransactionHistory:
+            let transactionHistoryViewController = TransactionHistoryModuleBuilder(output: self).build(input: .init(transactions: transactions, currentIndex: currentIndex)) as! TransactionHistoryViewController
             transactionHistoryViewController.transitioningDelegate = transactionHistoryViewController
             transactionHistoryViewController.modalPresentationStyle = .custom
             router.present(transactionHistoryViewController, animated: true, completion: nil)
@@ -61,6 +58,7 @@ extension TransactionHistoryCoordinator: PresentationCoordinator {
             let vc = AddAddressBookModuleBuilder(output: self).build(input: AddAddressBook.DTO.Input(kind: .add(address, isMutable: false)))
             router.dismiss(animated: true) { [weak self] in
                 self?.router.pushViewController(vc)
+                self?.removeFromParentCoordinator()
             }
 
         case .editContact(let contact, _):
@@ -69,6 +67,7 @@ extension TransactionHistoryCoordinator: PresentationCoordinator {
                                                                                                                  isMutable: false)))
             router.dismiss(animated: true) { [weak self] in
                 self?.router.pushViewController(vc)
+                self?.removeFromParentCoordinator()
             }
         }
     }
@@ -78,6 +77,10 @@ extension TransactionHistoryCoordinator: PresentationCoordinator {
 
 extension TransactionHistoryCoordinator: TransactionHistoryModuleOutput {
 
+    func transactionHistoryDidDismiss() {
+        removeFromParentCoordinator()
+    }
+    
     func transactionHistoryAddAddressToHistoryBook(address: String, finished: @escaping FinishedAddressBook) {
         showDisplay(.addAddress(address, finished))
     }
