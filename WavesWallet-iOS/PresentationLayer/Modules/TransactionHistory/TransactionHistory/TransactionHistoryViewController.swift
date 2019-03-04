@@ -51,10 +51,10 @@ final class TransactionHistoryViewController: UIViewController {
         
         setupBackgroundView()
         setupCollectionView()
-        
+
         setupSystem()
     }
-    
+ 
     private func setupBackgroundView() {
         backgroundView = UIControl()
         backgroundView.backgroundColor = UIColor.overlayDark
@@ -211,8 +211,8 @@ final class TransactionHistoryViewController: UIViewController {
     
     private func closeSelf() {
         
+        sendEvent.onNext(.controllerDidDismiss)
         dismiss(animated: true, completion: nil)
-        
     }
     
     private func stopPanning() {

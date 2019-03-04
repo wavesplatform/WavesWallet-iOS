@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol TransactionHistoryModuleOutput: class {
+protocol TransactionHistoryModuleOutput: AnyObject {
 
     typealias FinishedAddressBook = ((TransactionHistoryTypes.DTO.ContactState, Bool) -> Void)
 
@@ -17,4 +17,6 @@ protocol TransactionHistoryModuleOutput: class {
 
     func transactionHistoryResendTransaction(_ transaction: DomainLayer.DTO.SmartTransaction)
     func transactionHistoryCancelLeasing(_ transaction: DomainLayer.DTO.SmartTransaction)
+
+    func transactionHistoryDidDismiss()
 }
