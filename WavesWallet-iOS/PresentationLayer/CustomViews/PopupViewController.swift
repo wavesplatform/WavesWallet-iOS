@@ -35,6 +35,8 @@ final class PopupViewController: UIViewController {
     
     private var gestureTap: UITapGestureRecognizer!
     
+    var onDismiss:(() -> Void)?
+    
     // Use if screen is not have full size
     var contentHeight: CGFloat = 0 {
         didSet {
@@ -93,6 +95,8 @@ final class PopupViewController: UIViewController {
             self.bgView.alpha = 0
         }) { (compeleted) in
             completed?()
+            
+            self.onDismiss?()
             self.bgView.removeFromSuperview()
             self.view.removeFromSuperview()
             self.willMove(toParent: nil)
