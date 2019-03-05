@@ -20,7 +20,7 @@ platform :ios do
     ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
 
     ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
-    ENV['MATCH_TYPE'] = "appstore"
+    ENV['MATCH_TYPE'] = "adhoc"
     ENV['CHANGELOG_BETWEEN_BRANCH']="develop"
     ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.test"
     

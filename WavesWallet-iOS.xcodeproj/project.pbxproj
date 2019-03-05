@@ -588,6 +588,10 @@
 		0AFF5C8D215CE2D000B82940 /* UseTouchIDModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C8C215CE2D000B82940 /* UseTouchIDModuleBuilder.swift */; };
 		53AA2F7E1F0FB6ED983FDF2F /* Pods_WavesWallet_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2F04F55A260735DF3584D3E /* Pods_WavesWallet_iOS.framework */; };
 		7BBDA0B62226CA5C00A83411 /* NodePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBDA0B52226CA5C00A83411 /* NodePlugin.swift */; };
+		7BDA6AD5222D8C82001DE71C /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6AD4222D8C81001DE71C /* System.swift */; };
+		7BDA6AD7222D8CA1001DE71C /* TransactionCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6AD6222D8CA1001DE71C /* TransactionCardViewController.swift */; };
+		7BDA6AD9222D8D0A001DE71C /* TransactionCardSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6AD8222D8D0A001DE71C /* TransactionCardSystem.swift */; };
+		7BDA6ADB222D8D16001DE71C /* TransactionCardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6ADA222D8D16001DE71C /* TransactionCardType.swift */; };
 		7BF89E892226E00800853F9D /* SentryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E882226E00800853F9D /* SentryManager.swift */; };
 		7BF89E8B2226E03D00853F9D /* SweetLoggerSentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E8A2226E03D00853F9D /* SweetLoggerSentry.swift */; };
 		7BF89E8D2226E0D300853F9D /* SweetLoggerConsole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E8C2226E0D300853F9D /* SweetLoggerConsole.swift */; };
@@ -1534,6 +1538,10 @@
 		39E7B5DDD0BC308CCE651F05 /* Pods-MonkeyTest.test-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.test-adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.test-adhoc.xcconfig"; sourceTree = "<group>"; };
 		621D6D45B8A2773F670A4883 /* Pods-WavesWallet-iOS.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.adhoc.xcconfig"; sourceTree = "<group>"; };
 		7BBDA0B52226CA5C00A83411 /* NodePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodePlugin.swift; sourceTree = "<group>"; };
+		7BDA6AD4222D8C81001DE71C /* System.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
+		7BDA6AD6222D8CA1001DE71C /* TransactionCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardViewController.swift; sourceTree = "<group>"; };
+		7BDA6AD8222D8D0A001DE71C /* TransactionCardSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardSystem.swift; sourceTree = "<group>"; };
+		7BDA6ADA222D8D16001DE71C /* TransactionCardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardType.swift; sourceTree = "<group>"; };
 		7BF89E882226E00800853F9D /* SentryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SentryManager.swift; path = Type/SentryManager.swift; sourceTree = "<group>"; };
 		7BF89E8A2226E03D00853F9D /* SweetLoggerSentry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetLoggerSentry.swift; sourceTree = "<group>"; };
 		7BF89E8C2226E0D300853F9D /* SweetLoggerConsole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetLoggerConsole.swift; sourceTree = "<group>"; };
@@ -3333,9 +3341,10 @@
 		0AF58F8B2191909200C8A4B3 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				E9236F192216F2FE00A12FD5 /* AppNews */,
+				7BDA6AD3222D8AEA001DE71C /* TransactionCard */,
 				0A071E3D215AEF03007D9750 /* AccountPassword */,
 				E9B086902163882F00937644 /* AddressBook */,
+				E9236F192216F2FE00A12FD5 /* AppNews */,
 				0AF921BE212E07B2003BA067 /* Asset */,
 				E9D36DB52175C754001E6DF0 /* AssetList */,
 				0A4399672150470E0032E608 /* Backup */,
@@ -3631,6 +3640,17 @@
 				2F182E1185D069FB9F0228C7 /* Pods_MonkeyTest.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7BDA6AD3222D8AEA001DE71C /* TransactionCard */ = {
+			isa = PBXGroup;
+			children = (
+				7BDA6AD4222D8C81001DE71C /* System.swift */,
+				7BDA6AD6222D8CA1001DE71C /* TransactionCardViewController.swift */,
+				7BDA6AD8222D8D0A001DE71C /* TransactionCardSystem.swift */,
+				7BDA6ADA222D8D16001DE71C /* TransactionCardType.swift */,
+			);
+			path = TransactionCard;
 			sourceTree = "<group>";
 		};
 		7BF89E9722272A5E00853F9D /* MonkeyTest */ = {
@@ -5401,6 +5421,7 @@
 				E9DB667521A3848900962639 /* StartLeasingCancelConfirmationViewController.swift in Sources */,
 				E95B47F621638B11004D4E39 /* StartLeasingInteractorProtocol.swift in Sources */,
 				E9DB667321A3846A00962639 /* StartLeasingConfirmationViewController.swift in Sources */,
+				7BDA6AD9222D8D0A001DE71C /* TransactionCardSystem.swift in Sources */,
 				E95B47EB21638B11004D4E39 /* StartLeasingModuleBuilder.swift in Sources */,
 				0ADD7FA021F22FB60075FC59 /* RateApp.swift in Sources */,
 				044D6C8E21978CED003861A2 /* EditAccountNameModuleBuilder.swift in Sources */,
@@ -5451,6 +5472,7 @@
 				0ADD7FEF21F22FB60075FC59 /* Mutating.swift in Sources */,
 				E901CE592149D27000942783 /* ExchangeTransaction.swift in Sources */,
 				E910B7E921C3261B00E402AB /* CoinomatRepository.swift in Sources */,
+				7BDA6ADB222D8D16001DE71C /* TransactionCardType.swift in Sources */,
 				0ADD7FDA21F22FB60075FC59 /* Balance.swift in Sources */,
 				0A3AD40721492E9400F8A929 /* ExchangeApiFilters.swift in Sources */,
 				E9B086BB2163883000937644 /* AddressBookViewController.swift in Sources */,
@@ -5827,6 +5849,7 @@
 				0AF6AD25218A54840004F107 /* CopyableImageView.swift in Sources */,
 				0A762D17214FF1CD00BE9204 /* InputTextField.swift in Sources */,
 				E9A05C5820E9264300B0E0FA /* UseTouchIDViewController.swift in Sources */,
+				7BDA6AD7222D8CA1001DE71C /* TransactionCardViewController.swift in Sources */,
 				0A762D8421639FA60019D447 /* TransactionHistoryKeysValuesCell.swift in Sources */,
 				0A96F1DE2152E14D005E148F /* PasscodeBuilder.swift in Sources */,
 				E922D26A21B831B600575955 /* LastTradesRepositoryRemote.swift in Sources */,
@@ -5982,6 +6005,7 @@
 				E9B087F62163886800937644 /* DexLastTradesInteractorProtocol.swift in Sources */,
 				0ADD802D21F22FFB0075FC59 /* ImportCoordinator.swift in Sources */,
 				0AEB35A221165D2100EDD63C /* AccountBalanceRepositoryProtocol.swift in Sources */,
+				7BDA6AD5222D8C82001DE71C /* System.swift in Sources */,
 				E9B087BD2163886800937644 /* DexInfoTypes.swift in Sources */,
 				0ADD7FDD21F22FB60075FC59 /* QRCodeParser.swift in Sources */,
 				E9D36DDA2175C755001E6DF0 /* ReceiveTypes.swift in Sources */,
