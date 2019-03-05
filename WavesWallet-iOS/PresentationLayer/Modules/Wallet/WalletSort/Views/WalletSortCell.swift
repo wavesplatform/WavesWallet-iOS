@@ -126,7 +126,7 @@ extension WalletSortCell: ViewConfiguration {
                                                 sponsoredSize: sponsoredSize,
                                               font: UIFont.systemFont(ofSize: 15),
                                               border: nil))
-            .observeOn(MainScheduler.asyncInstance)
+            .observeOn(MainScheduler.instance)
             .bind(to: imageIcon.rx.image)
             .disposed(by: disposeBag)
     }
