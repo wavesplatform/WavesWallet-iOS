@@ -49,7 +49,7 @@ extension AssetsSegmentedCell: ViewConfiguration {
                                               sponsoredSize: sponsoredSize,
                                               font: UIFont.systemFont(ofSize: 15),
                                               border: nil))
-            .observeOn(MainScheduler.asyncInstance)
+            .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (image) in
                 
                 self?.imageViewIcon.image = image
