@@ -17,7 +17,7 @@ protocol ControlSystem: AnyObject {
 
     var system: SystemType { get }
 
-    var inputEvent: PublishSubject<SystemType.Event> { get }
+    var inputEvent: PublishSubject<Self.SystemType.Event> { get }
 
     var disposeBag: DisposeBag { get }
 
@@ -26,7 +26,7 @@ protocol ControlSystem: AnyObject {
 
 extension ControlSystem {
 
-    func startSystem(sideEffects: [Observable<SystemType.Event>]) {
+    func startSystem(sideEffects: [Observable<Self.SystemType.Event>]) {
 
         var newSideEffects = sideEffects
         newSideEffects.append(inputEvent.asObserver())
@@ -40,9 +40,9 @@ extension ControlSystem {
     }
 }
 
-protocol System {
+protocol System: AnyObject {
 
-    associatedtype State
+    associatedtype State: Equatable
 
     associatedtype Event
 
@@ -50,11 +50,9 @@ protocol System {
 
     func start(sideEffects: [Feedback]) -> Driver<State>
 
-    func internalSideEffects() -> [Feedback]
+    var initialState: State { get }
 
-    static var initialState: State { get }
-
-    static func reduce(event: Event, state: inout State) -> State
+    func reduce(event: Event, state: inout State)
 }
 
 extension System {
@@ -64,8 +62,10 @@ extension System {
     }
 
     func start(sideEffects: [Observable<Event>]) -> Driver<State> {
-
-        let feedback: Feedback = react(query: { $0 }) { _ -> Signal<Event> in
+        
+        let feedback: Feedback = react(request: { (state) -> State? in
+            return state
+        }) { (_) -> Signal<Event> in
             return Observable.merge(sideEffects).asSignal(onErrorSignalWith: Signal.empty())
         }
 
@@ -74,15 +74,16 @@ extension System {
 
     func start(sideEffects: [Feedback]) -> Driver<State> {
 
-        var newSideEffects = sideEffects
-        newSideEffects.append(contentsOf: internalSideEffects())
+        let newSideEffects = sideEffects
+//        newSideEffects.append(contentsOf: internalSideEffects())
 
         let system = Driver
-            .system(initialState: Self.initialState,
-                    reduce: { state, event -> Self.State in
+            .system(initialState: self.initialState,
+                    reduce: { [weak self] state, event -> Self.State in
                         var newState = state
-                        return Self.reduce(event: event, state: &newState)
-            },
+                        self?.reduce(event: event, state: &newState)
+                        return newState
+                    },
                     feedback: newSideEffects)
 
         return system

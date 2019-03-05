@@ -592,6 +592,8 @@
 		7BDA6AD7222D8CA1001DE71C /* TransactionCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6AD6222D8CA1001DE71C /* TransactionCardViewController.swift */; };
 		7BDA6AD9222D8D0A001DE71C /* TransactionCardSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6AD8222D8D0A001DE71C /* TransactionCardSystem.swift */; };
 		7BDA6ADB222D8D16001DE71C /* TransactionCardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6ADA222D8D16001DE71C /* TransactionCardType.swift */; };
+		7BDA6ADD222E95C8001DE71C /* TransactionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6ADC222E95C8001DE71C /* TransactionCardView.swift */; };
+		7BDA6ADF222E9664001DE71C /* TransactionCard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BDA6ADE222E9664001DE71C /* TransactionCard.storyboard */; };
 		7BF89E892226E00800853F9D /* SentryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E882226E00800853F9D /* SentryManager.swift */; };
 		7BF89E8B2226E03D00853F9D /* SweetLoggerSentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E8A2226E03D00853F9D /* SweetLoggerSentry.swift */; };
 		7BF89E8D2226E0D300853F9D /* SweetLoggerConsole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E8C2226E0D300853F9D /* SweetLoggerConsole.swift */; };
@@ -1542,6 +1544,8 @@
 		7BDA6AD6222D8CA1001DE71C /* TransactionCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardViewController.swift; sourceTree = "<group>"; };
 		7BDA6AD8222D8D0A001DE71C /* TransactionCardSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardSystem.swift; sourceTree = "<group>"; };
 		7BDA6ADA222D8D16001DE71C /* TransactionCardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardType.swift; sourceTree = "<group>"; };
+		7BDA6ADC222E95C8001DE71C /* TransactionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardView.swift; sourceTree = "<group>"; };
+		7BDA6ADE222E9664001DE71C /* TransactionCard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TransactionCard.storyboard; sourceTree = "<group>"; };
 		7BF89E882226E00800853F9D /* SentryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SentryManager.swift; path = Type/SentryManager.swift; sourceTree = "<group>"; };
 		7BF89E8A2226E03D00853F9D /* SweetLoggerSentry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetLoggerSentry.swift; sourceTree = "<group>"; };
 		7BF89E8C2226E0D300853F9D /* SweetLoggerConsole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetLoggerConsole.swift; sourceTree = "<group>"; };
@@ -3649,6 +3653,8 @@
 				7BDA6AD6222D8CA1001DE71C /* TransactionCardViewController.swift */,
 				7BDA6AD8222D8D0A001DE71C /* TransactionCardSystem.swift */,
 				7BDA6ADA222D8D16001DE71C /* TransactionCardType.swift */,
+				7BDA6ADC222E95C8001DE71C /* TransactionCardView.swift */,
+				7BDA6ADE222E9664001DE71C /* TransactionCard.storyboard */,
 			);
 			path = TransactionCard;
 			sourceTree = "<group>";
@@ -5083,6 +5089,7 @@
 				0A61B59A214ACFD500EC60FC /* Languages.json in Resources */,
 				E911300E21BC029300588430 /* AssetSelectSkeletonView.xib in Resources */,
 				0A762D9021639FA60019D447 /* NewTransactionHistoryContentView.xib in Resources */,
+				7BDA6ADF222E9664001DE71C /* TransactionCard.storyboard in Resources */,
 				0A580E702137449100C62549 /* AllTransactionExample.json in Resources */,
 				E9B087B92163886800937644 /* Dex.storyboard in Resources */,
 				E9193B8320D7E28400F5D983 /* Profile.storyboard in Resources */,
@@ -5585,6 +5592,7 @@
 				E94A7007215AEB0E001814F7 /* AddressBookRepository.swift in Sources */,
 				E95B6B0F219C22E400A85B5D /* TokenBurnConfirmationViewController.swift in Sources */,
 				0A14E3E62187185700EA7E91 /* AliasesViewModuleBuilder.swift in Sources */,
+				7BDA6ADD222E95C8001DE71C /* TransactionCardView.swift in Sources */,
 				7BBDA0B62226CA5C00A83411 /* NodePlugin.swift in Sources */,
 				0A4508FC2178E72B00EBF669 /* EnvironmentRepositoryRemote.swift in Sources */,
 				0ADD7FD921F22FB60075FC59 /* SweetLogger.swift in Sources */,

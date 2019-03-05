@@ -7,3 +7,22 @@
 //
 
 import Foundation
+
+enum TransactionCard {
+
+    struct State: Equatable {
+        let sections: [Section]
+    }
+
+    enum Event {
+
+    }
+
+    enum Section: Equatable {
+
+    }
+
+    enum Row: Equatable {
+
+    }
+}
