@@ -602,6 +602,7 @@ extension AssetDetailTypes.DTO.Asset.Info {
                                                   name: name,
                                                   kind: kind,
                                                   icon: icon,
-                                                  isSponsored: assetBalance.asset.isSponsored)
+                                                  isSponsored: assetBalance.asset.isSponsored,
+                                                  hasScript: assetBalance.asset.hasScript)
     }
 }

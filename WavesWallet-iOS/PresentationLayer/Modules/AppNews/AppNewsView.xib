@@ -21,7 +21,7 @@
                     <color key="backgroundColor" red="0.0" green="0.1019607843" blue="0.22352941179999999" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ge6-oq-flV">
-                    <rect key="frame" x="16" y="331" width="343" height="312"/>
+                    <rect key="frame" x="16" y="315.5" width="343" height="327.5"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bchHardforkPart1" translatesAutoresizingMaskIntoConstraints="NO" id="X2U-Db-JuX">
                             <rect key="frame" x="64.5" y="44" width="214" height="68"/>
@@ -31,19 +31,19 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BCH HARDFORK" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P0i-c2-R8y">
-                            <rect key="frame" x="5" y="136" width="333" height="20.5"/>
+                            <rect key="frame" x="24" y="136" width="295" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We have suspended BCH trading and are currently airdropping the new BSV coin to BCH holders." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nn2-h7-kPO">
-                            <rect key="frame" x="5" y="164.5" width="333" height="31.5"/>
+                            <rect key="frame" x="24" y="164.5" width="295" height="47"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J17-C6-6qT" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
-                            <rect key="frame" x="24" y="240" width="295" height="48"/>
+                            <rect key="frame" x="24" y="255.5" width="295" height="48"/>
                             <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="48" id="Rhr-wg-EtB"/>
@@ -63,15 +63,15 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="nn2-h7-kPO" firstAttribute="top" secondItem="P0i-c2-R8y" secondAttribute="bottom" constant="8" id="7W7-rt-AkF"/>
-                        <constraint firstItem="P0i-c2-R8y" firstAttribute="leading" secondItem="ge6-oq-flV" secondAttribute="leading" constant="5" id="8sH-hi-d60"/>
                         <constraint firstItem="P0i-c2-R8y" firstAttribute="top" secondItem="X2U-Db-JuX" secondAttribute="bottom" constant="24" id="FEh-9F-YCx"/>
+                        <constraint firstItem="nn2-h7-kPO" firstAttribute="leading" secondItem="J17-C6-6qT" secondAttribute="leading" id="GGn-ss-CIf"/>
                         <constraint firstAttribute="trailing" secondItem="J17-C6-6qT" secondAttribute="trailing" constant="24" id="H9T-U9-onn"/>
+                        <constraint firstItem="P0i-c2-R8y" firstAttribute="trailing" secondItem="nn2-h7-kPO" secondAttribute="trailing" id="LKy-D3-7cM"/>
                         <constraint firstItem="J17-C6-6qT" firstAttribute="leading" secondItem="ge6-oq-flV" secondAttribute="leading" constant="24" id="O06-c7-BYJ"/>
-                        <constraint firstItem="nn2-h7-kPO" firstAttribute="leading" secondItem="P0i-c2-R8y" secondAttribute="leading" id="R1t-XJ-W75"/>
+                        <constraint firstItem="nn2-h7-kPO" firstAttribute="trailing" secondItem="J17-C6-6qT" secondAttribute="trailing" id="Qgb-Q0-J6i"/>
                         <constraint firstItem="X2U-Db-JuX" firstAttribute="centerX" secondItem="ge6-oq-flV" secondAttribute="centerX" id="T8r-aV-MwP"/>
                         <constraint firstAttribute="bottom" secondItem="J17-C6-6qT" secondAttribute="bottom" constant="24" id="dEe-ha-oJa"/>
-                        <constraint firstAttribute="trailing" secondItem="P0i-c2-R8y" secondAttribute="trailing" constant="5" id="gyn-TF-gpE"/>
-                        <constraint firstItem="nn2-h7-kPO" firstAttribute="trailing" secondItem="P0i-c2-R8y" secondAttribute="trailing" id="nNw-YH-bLS"/>
+                        <constraint firstItem="P0i-c2-R8y" firstAttribute="leading" secondItem="nn2-h7-kPO" secondAttribute="leading" id="mdW-jb-ld3"/>
                         <constraint firstItem="X2U-Db-JuX" firstAttribute="top" secondItem="ge6-oq-flV" secondAttribute="top" constant="44" id="q5z-Ab-g9o"/>
                         <constraint firstItem="J17-C6-6qT" firstAttribute="top" secondItem="nn2-h7-kPO" secondAttribute="bottom" constant="44" id="rch-HE-duT"/>
                     </constraints>
