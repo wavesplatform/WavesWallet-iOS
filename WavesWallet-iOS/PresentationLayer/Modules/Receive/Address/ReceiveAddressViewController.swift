@@ -78,12 +78,12 @@ final class ReceiveAddressViewController: UIViewController {
         title = Localizable.Waves.Receiveaddress.Label.yourAddress(input.assetName)
         labelAddress.text = input.address
 
-        let sponsoredSize = input.isSponsored ? Constants.sponsoredIcon : nil
         AssetLogo.logo(icon: input.icon,
                        style: AssetLogo.Style(size: Constants.icon,
-                                              sponsoredSize: sponsoredSize,
                                               font: UIFont.systemFont(ofSize: 22),
-                                              border: nil))
+                                              specs: .init(isSponsored: input.isSponsored,
+                                                           hasScript: input.hasScript,
+                                                           size: Constants.sponsoredIcon)))
             .observeOn(MainScheduler.asyncInstance)
             .bind(to: iconAsset.rx.image)
             .disposed(by: disposeBag)
