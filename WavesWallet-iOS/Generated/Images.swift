@@ -224,6 +224,7 @@ internal enum Images {
   internal static let repeatBtn = ImageAsset(name: "repeat_btn")
   internal static let resendIcon = ImageAsset(name: "resend_icon")
   internal static let sReddit28 = ImageAsset(name: "sReddit28")
+  internal static let scriptasset18White = ImageAsset(name: "scriptasset18White")
   internal static let search = ImageAsset(name: "search")
   internal static let search24Basic500 = ImageAsset(name: "search24Basic500")
   internal static let send = ImageAsset(name: "send")
@@ -485,6 +486,7 @@ internal enum Images {
     repeatBtn,
     resendIcon,
     sReddit28,
+    scriptasset18White,
     search,
     search24Basic500,
     send,
