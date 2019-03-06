@@ -87,7 +87,8 @@ final class ReceiveGenerateAddressViewController: UIViewController {
                                                       icon: info.icon,
                                                       qrCode: info.address,
                                                       invoiceLink: nil,
-                                                      isSponsored: false)
+                                                      isSponsored: false,
+                                                      hasScript: false)
             
             let vc = ReceiveAddressModuleBuilder().build(input: addressInfo)
             self.navigationController?.pushViewController(vc, animated: true)
@@ -102,7 +103,8 @@ final class ReceiveGenerateAddressViewController: UIViewController {
                                                       icon: info.icon,
                                                       qrCode: info.invoiceLink,
                                                       invoiceLink: info.invoiceLink,
-                                                      isSponsored: info.isSponsored)
+                                                      isSponsored: info.isSponsored,
+                                                      hasScript: info.hasScript)
             
             let vc = ReceiveAddressModuleBuilder().build(input: addressInfo)
             self.navigationController?.pushViewController(vc, animated: true)
