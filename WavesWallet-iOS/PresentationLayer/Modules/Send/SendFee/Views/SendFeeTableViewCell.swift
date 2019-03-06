@@ -46,7 +46,7 @@ extension SendFeeTableViewCell: ViewConfiguration {
 
         AssetLogo.logo(icon: model.assetBalance.asset.iconLogo,
                        style: style)
-            .observeOn(MainScheduler.asyncInstance)
+            .observeOn(MainScheduler.instance)
             .bind(to: iconLogo.rx.image)
             .disposed(by: disposeBag)
         
