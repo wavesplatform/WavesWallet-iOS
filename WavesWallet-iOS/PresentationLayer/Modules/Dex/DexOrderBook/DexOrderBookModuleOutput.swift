@@ -12,11 +12,17 @@ protocol DexOrderBookModuleOutput: AnyObject {
     
     func didCreateOrder(_ bidAsk: DexOrderBook.DTO.BidAsk, amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset,
                         ask: Money?, bid: Money?, last: Money?,
-                        availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money,
-                        inputMaxAmount: Bool)
+                        availableAmountAssetBalance: Money,
+                        availablePriceAssetBalance: Money,
+                        availableWavesBalance: Money,
+                        inputMaxAmount: Bool,
+                        scriptedAssets: [DomainLayer.DTO.Asset])
 
     func didCreateEmptyOrder(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset,
                              orderType: DomainLayer.DTO.Dex.OrderType,
                              ask: Money?, bid: Money?, last: Money?,
-                             availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money)
+                             availableAmountAssetBalance: Money,
+                             availablePriceAssetBalance: Money,
+                             availableWavesBalance: Money,
+                             scriptedAssets: [DomainLayer.DTO.Asset])
 }

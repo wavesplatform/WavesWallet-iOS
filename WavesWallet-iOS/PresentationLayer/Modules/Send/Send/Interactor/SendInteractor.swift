@@ -29,7 +29,7 @@ final class SendInteractor: SendInteractorProtocol {
             guard let owner = self else { return Observable.empty() }
             return owner.auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DomainLayer.DTO.SmartAssetBalance?> in
                 guard let owner = self else { return Observable.empty() }
-                return owner.assetInteractor.assets(by: [assetID], accountAddress: wallet.address, isNeedUpdated: false)
+                return owner.assetInteractor.assets(by: [assetID], accountAddress: wallet.address)
                     .flatMap({ (assets) -> Observable<DomainLayer.DTO.SmartAssetBalance?> in
                         
                         var assetBalance: DomainLayer.DTO.SmartAssetBalance?
