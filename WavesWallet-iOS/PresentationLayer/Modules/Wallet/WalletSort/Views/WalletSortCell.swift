@@ -102,6 +102,7 @@ extension WalletSortCell: ViewConfiguration {
         let isGateway: Bool
         let icon: DomainLayer.DTO.Asset.Icon
         let isSponsored: Bool
+        let hasScript: Bool
     }
 
     func update(with model: Model) {
@@ -120,12 +121,12 @@ extension WalletSortCell: ViewConfiguration {
             viewContent.addTableCellShadowStyle()
         }
 
-        let sponsoredSize = model.isSponsored ? Constants.sponsoredIcon : nil
         AssetLogo.logo(icon: model.icon,
                        style: AssetLogo.Style(size: Constants.icon,
-                                                sponsoredSize: sponsoredSize,
                                               font: UIFont.systemFont(ofSize: 15),
-                                              border: nil))
+                                              specs: .init(isSponsored: model.isSponsored,
+                                                           hasScript: model.hasScript,
+                                                           size: Constants.sponsoredIcon)))
             .observeOn(MainScheduler.asyncInstance)
             .bind(to: imageIcon.rx.image)
             .disposed(by: disposeBag)
