@@ -84,7 +84,7 @@ final class ReceiveAddressViewController: UIViewController {
                                               sponsoredSize: sponsoredSize,
                                               font: UIFont.systemFont(ofSize: 22),
                                               border: nil))
-            .observeOn(MainScheduler.asyncInstance)
+            .observeOn(MainScheduler.instance)
             .bind(to: iconAsset.rx.image)
             .disposed(by: disposeBag)
 
