@@ -24,8 +24,6 @@ final class NeedBackupViewController: UIViewController {
     @IBOutlet private weak var backUpNowButton: UIButton!
     @IBOutlet private weak var doItLaterButton: UIButton!
 
-    private lazy var closeItem: UIBarButtonItem = UIBarButtonItem(image: Images.topbarClose.image, style: .plain, target: self, action: #selector(closeTapped(_:)))
-
     weak var output: NeedBackupModuleOutput?
     
     override func viewDidLoad() {
@@ -36,7 +34,6 @@ final class NeedBackupViewController: UIViewController {
         }
         navigationItem.shadowImage = UIImage()
         navigationItem.backgroundImage = UIImage()        
-        navigationItem.rightBarButtonItem = closeItem
         navigationItem.leftBarButtonItem = UIBarButtonItem()
 
         titleLabel.text = Localizable.Waves.Backup.Needbackup.Label.title
