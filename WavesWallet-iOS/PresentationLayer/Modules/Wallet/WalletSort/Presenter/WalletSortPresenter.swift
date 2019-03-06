@@ -28,7 +28,8 @@ private extension DomainLayer.DTO.SmartAssetBalance {
                                     isHidden: isHidden,
                                     sortLevel: sortLevel,
                                     icon: balance.asset.iconLogo,
-                                    isSponsored: balance.asset.isSponsored)
+                                    isSponsored: balance.asset.isSponsored,
+                                    hasScript: balance.asset.hasScript)
     }
 }
 

@@ -20,5 +20,6 @@ extension ReceiveInvoice.DTO {
         let assetName: String
         let icon: DomainLayer.DTO.Asset.Icon
         let isSponsored: Bool
+        let hasScript: Bool
     }
 }
