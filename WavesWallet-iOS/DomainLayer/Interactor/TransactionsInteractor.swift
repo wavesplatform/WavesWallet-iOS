@@ -676,8 +676,7 @@ fileprivate extension TransactionsInteractor {
     private func assets(by ids: [String], accountAddress: String) -> Observable<[String: DomainLayer.DTO.Asset]> {
         let assets = assetsInteractors
             .assets(by: ids,
-                    accountAddress: accountAddress,
-                    isNeedUpdated: false)
+                    accountAddress: accountAddress)
             .map { $0.reduce(into: [String: DomainLayer.DTO.Asset](), { list, asset in
                 list[asset.id] = asset
             })
