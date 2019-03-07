@@ -75,7 +75,7 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
         labelAmount.isHidden = true
 
         //TODO: mb get url from enviromnets
-        loadIcon(icon: .init(name: GlobalConstants.wavesAssetId, url: nil), isSponsored: false)
+        loadIcon(icon: .init(name: GlobalConstants.wavesAssetId, url: nil), isSponsored: false, hasScript: false)
     }
     
     func showLoadingState() {
@@ -126,21 +126,21 @@ extension AssetSelectView: ViewConfiguration {
         labelAssetName.text = asset.displayName
         iconFav.isHidden = !model.assetBalance.settings.isFavorite
 
-        loadIcon(icon: asset.iconLogo, isSponsored: model.assetBalance.asset.isSponsored)
+        loadIcon(icon: asset.iconLogo, isSponsored: model.assetBalance.asset.isSponsored, hasScript: model.assetBalance.asset.hasScript)
         let money = Money(model.assetBalance.availableBalance, asset.precision)
         labelAmount.text = money.displayText
     }
     
-    private func loadIcon(icon: DomainLayer.DTO.Asset.Icon, isSponsored: Bool) {
+    private func loadIcon(icon: DomainLayer.DTO.Asset.Icon, isSponsored: Bool, hasScript: Bool) {
 
         disposeBag = DisposeBag()
 
-        let sponsoredSize = isSponsored ? Constants.sponsoredIcon : nil
         AssetLogo.logo(icon: icon,
                        style: AssetLogo.Style(size: Constants.icon,
-                                              sponsoredSize: sponsoredSize,
                                               font: UIFont.systemFont(ofSize: 15),
-                                              border: nil))
+                                              specs: .init(isSponsored: isSponsored,
+                                                           hasScript: hasScript,
+                                                           size: Constants.sponsoredIcon)))
             .observeOn(MainScheduler.asyncInstance)
             .bind(to: iconAssetLogo.rx.image)
             .disposed(by: disposeBag)

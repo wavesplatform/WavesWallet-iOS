@@ -31,7 +31,8 @@ final class ReceiveInvoiceInteractor: ReceiveInvoiceInteractorProtocol {
                                                       invoiceLink: url,
                                                       assetName: asset.displayName,
                                                       icon: asset.iconLogo,
-                                                      isSponsored: asset.isSponsored)
+                                                      isSponsored: asset.isSponsored,
+                                                      hasScript: asset.hasScript)
             
             return Observable.just(info)
         })

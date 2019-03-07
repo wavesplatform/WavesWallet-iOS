@@ -32,6 +32,7 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
             let kind: Kind
             let icon: DomainLayer.DTO.Asset.Icon
             let isSponsored: Bool
+            let hasScript: Bool
         }
 
         let assets: [Asset]
@@ -182,7 +183,8 @@ extension AssetsSegmentedControl: InfiniteCollectionViewDataSource {
 
         let model = AssetsSegmentedCell.Model(icon: asset.icon,
                                               isHiddenArrow: isHiddenArrow,
-                                              isSponsored: asset.isSponsored)
+                                              isSponsored: asset.isSponsored,
+                                              hasScript: asset.hasScript)
         cell.update(with: model)
 
         return cell
