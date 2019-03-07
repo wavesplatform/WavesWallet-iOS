@@ -12,7 +12,7 @@ import RxSwift
 
 private typealias Types = TransactionCard
 
-final class TransactionCardViewController: ModalScrollViewController {
+final class TransactionCardViewController: ModalScrollViewController, DataSourceProtocol {
 
     @IBOutlet var tableView: UITableView!
     
@@ -24,27 +24,27 @@ final class TransactionCardViewController: ModalScrollViewController {
         return view as! TransactionCardView
     }
     
-    private let system: TransactionCardSystem = TransactionCardSystem()
+    private let system: System<TransactionCard.State, TransactionCard.Event> = TransactionCardSystem()
 
     private let disposeBag: DisposeBag = DisposeBag()
 
-    private var sections: [Types.Section] = .init()
+    var sections: [TransactionCard.Section] = .init()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         rootView.delegate = self
 
         system
-            .start()
+            .start()            
             .drive(onNext: { [weak self] (state) in
-                self?.update(state: state)
+                self?.update(state: state.ui)
             })
             .disposed(by: disposeBag)
     }
     
     // MARK: ModalScrollViewContext
     override func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
-        return size.height
+        return size.height * 0.5
     }
 }
 
@@ -52,7 +52,7 @@ final class TransactionCardViewController: ModalScrollViewController {
 
 extension TransactionCardViewController {
 
-    private func update(state: Types.State) {
+    private func update(state: Types.State.UI) {
         self.sections = state.sections
         tableView.reloadData()
     }
@@ -65,9 +65,7 @@ extension TransactionCardViewController: ModalRootViewDelegate {
     func modalHeaderView() -> UIView {
         
         let view = UIView()
-        
         view.backgroundColor = .red
-        
         return view
     }
     
@@ -81,15 +79,20 @@ extension TransactionCardViewController: ModalRootViewDelegate {
 extension TransactionCardViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 0
+        return sections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return sections.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+
+//        let cell: TransactionCardGeneralCell = tableView.dequeueCell()
+
+        let cell: TransactionCardMassSentRecipientCell = tableView.dequeueCell()
+
+        return cell
     }
 }
 

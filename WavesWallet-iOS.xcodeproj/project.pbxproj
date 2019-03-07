@@ -594,6 +594,15 @@
 		7BDA6ADB222D8D16001DE71C /* TransactionCardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6ADA222D8D16001DE71C /* TransactionCardType.swift */; };
 		7BDA6ADD222E95C8001DE71C /* TransactionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6ADC222E95C8001DE71C /* TransactionCardView.swift */; };
 		7BDA6ADF222E9664001DE71C /* TransactionCard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BDA6ADE222E9664001DE71C /* TransactionCard.storyboard */; };
+		7BDA6AE2223025AD001DE71C /* BalanceLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BDA6AE1223025AD001DE71C /* BalanceLabel.xib */; };
+		7BDA6AE42230281A001DE71C /* TransactionCardGeneralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6AE32230281A001DE71C /* TransactionCardGeneralCell.swift */; };
+		7BDA6AE6223028DC001DE71C /* BalanceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6AE5223028DC001DE71C /* BalanceLabel.swift */; };
+		7BDA6AE822313E59001DE71C /* TransactionImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6AE722313E59001DE71C /* TransactionImageView.swift */; };
+		7BDA6AEA22313E85001DE71C /* TransactionImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BDA6AE922313E85001DE71C /* TransactionImageView.xib */; };
+		7BDA6AF02231405D001DE71C /* SmartTransactionKind+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6AEF2231405D001DE71C /* SmartTransactionKind+UIImage.swift */; };
+		7BDA6AF222315024001DE71C /* ContactDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6AF122315024001DE71C /* ContactDetailView.swift */; };
+		7BDA6AF422315466001DE71C /* ContactDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BDA6AF322315466001DE71C /* ContactDetailView.xib */; };
+		7BDA6AF622316078001DE71C /* TransactionCardMassSentRecipientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6AF522316078001DE71C /* TransactionCardMassSentRecipientCell.swift */; };
 		7BF89E892226E00800853F9D /* SentryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E882226E00800853F9D /* SentryManager.swift */; };
 		7BF89E8B2226E03D00853F9D /* SweetLoggerSentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E8A2226E03D00853F9D /* SweetLoggerSentry.swift */; };
 		7BF89E8D2226E0D300853F9D /* SweetLoggerConsole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF89E8C2226E0D300853F9D /* SweetLoggerConsole.swift */; };
@@ -1546,6 +1555,15 @@
 		7BDA6ADA222D8D16001DE71C /* TransactionCardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardType.swift; sourceTree = "<group>"; };
 		7BDA6ADC222E95C8001DE71C /* TransactionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardView.swift; sourceTree = "<group>"; };
 		7BDA6ADE222E9664001DE71C /* TransactionCard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TransactionCard.storyboard; sourceTree = "<group>"; };
+		7BDA6AE1223025AD001DE71C /* BalanceLabel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BalanceLabel.xib; sourceTree = "<group>"; };
+		7BDA6AE32230281A001DE71C /* TransactionCardGeneralCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardGeneralCell.swift; sourceTree = "<group>"; };
+		7BDA6AE5223028DC001DE71C /* BalanceLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceLabel.swift; sourceTree = "<group>"; };
+		7BDA6AE722313E59001DE71C /* TransactionImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionImageView.swift; sourceTree = "<group>"; };
+		7BDA6AE922313E85001DE71C /* TransactionImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionImageView.xib; sourceTree = "<group>"; };
+		7BDA6AEF2231405D001DE71C /* SmartTransactionKind+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SmartTransactionKind+UIImage.swift"; sourceTree = "<group>"; };
+		7BDA6AF122315024001DE71C /* ContactDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailView.swift; sourceTree = "<group>"; };
+		7BDA6AF322315466001DE71C /* ContactDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactDetailView.xib; sourceTree = "<group>"; };
+		7BDA6AF522316078001DE71C /* TransactionCardMassSentRecipientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardMassSentRecipientCell.swift; sourceTree = "<group>"; };
 		7BF89E882226E00800853F9D /* SentryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SentryManager.swift; path = Type/SentryManager.swift; sourceTree = "<group>"; };
 		7BF89E8A2226E03D00853F9D /* SweetLoggerSentry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetLoggerSentry.swift; sourceTree = "<group>"; };
 		7BF89E8C2226E0D300853F9D /* SweetLoggerConsole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetLoggerConsole.swift; sourceTree = "<group>"; };
@@ -3063,6 +3081,7 @@
 				0ADD7F7D21F22FB60075FC59 /* Protocols */,
 				0A4E7DE622018132007BBA39 /* Type */,
 				0A751D3922171ABA0024D523 /* Kingfisher+Rx.swift */,
+				7BDA6AEF2231405D001DE71C /* SmartTransactionKind+UIImage.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3649,6 +3668,7 @@
 		7BDA6AD3222D8AEA001DE71C /* TransactionCard */ = {
 			isa = PBXGroup;
 			children = (
+				7BDA6AE0222FDCFA001DE71C /* View */,
 				7BDA6AD4222D8C81001DE71C /* System.swift */,
 				7BDA6AD6222D8CA1001DE71C /* TransactionCardViewController.swift */,
 				7BDA6AD8222D8D0A001DE71C /* TransactionCardSystem.swift */,
@@ -3657,6 +3677,21 @@
 				7BDA6ADE222E9664001DE71C /* TransactionCard.storyboard */,
 			);
 			path = TransactionCard;
+			sourceTree = "<group>";
+		};
+		7BDA6AE0222FDCFA001DE71C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7BDA6AE32230281A001DE71C /* TransactionCardGeneralCell.swift */,
+				7BDA6AF522316078001DE71C /* TransactionCardMassSentRecipientCell.swift */,
+				7BDA6AE5223028DC001DE71C /* BalanceLabel.swift */,
+				7BDA6AE1223025AD001DE71C /* BalanceLabel.xib */,
+				7BDA6AE722313E59001DE71C /* TransactionImageView.swift */,
+				7BDA6AE922313E85001DE71C /* TransactionImageView.xib */,
+				7BDA6AF122315024001DE71C /* ContactDetailView.swift */,
+				7BDA6AF322315466001DE71C /* ContactDetailView.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		7BF89E9722272A5E00853F9D /* MonkeyTest */ = {
@@ -5065,6 +5100,7 @@
 				E9B087F12163886800937644 /* DexLastTradesHeaderView.xib in Resources */,
 				E9B086B02163883000937644 /* AddAddressTextField.xib in Resources */,
 				E9310D1B21792D14008BF3EE /* SendConfirmationRecipientView.xib in Resources */,
+				7BDA6AEA22313E85001DE71C /* TransactionImageView.xib in Resources */,
 				0AF92229212E0F1F003BA067 /* WalletHistoryCell.xib in Resources */,
 				0A2060642181C2C20048CF83 /* environment_mainnet.json in Resources */,
 				0A2060652181C2C20048CF83 /* environment_testnet.json in Resources */,
@@ -5072,6 +5108,7 @@
 				0AA8CAC921516077000D09E6 /* Backup.storyboard in Resources */,
 				04831F89216A3EBF006D1ED6 /* LanguageTableCell.xib in Resources */,
 				0A071E64215C65D2007D9750 /* UseTouchID.storyboard in Resources */,
+				7BDA6AF422315466001DE71C /* ContactDetailView.xib in Resources */,
 				E9B087E72163886800937644 /* DexCreateOrderSegmentedControl.xib in Resources */,
 				E9B0879E2163886800937644 /* DexChartCandlePriceView.xib in Resources */,
 				E95B47EF21638B11004D4E39 /* StartLeasing.storyboard in Resources */,
@@ -5098,6 +5135,7 @@
 				E9B087B02163886800937644 /* DexOrderBookHeaderView.xib in Resources */,
 				E9B087E32163886800937644 /* DexCreateOrderInputView.xib in Resources */,
 				E9D36DE92175C755001E6DF0 /* AssetSelectView.xib in Resources */,
+				7BDA6AE2223025AD001DE71C /* BalanceLabel.xib in Resources */,
 				0A02D20721AEA1B1005DF820 /* Appsflyer-Info.plist in Resources */,
 				0AF92303212E1424003BA067 /* Waves.strings in Resources */,
 				0AF922E2212E1234003BA067 /* TickerView.xib in Resources */,
@@ -5446,6 +5484,7 @@
 				0A9D6B62216E059F006822C5 /* WalletTypes+DisplayState.swift in Sources */,
 				E9B12DB5219DD6E000128EFE /* AssetBalanceSpamCell.swift in Sources */,
 				0A9D6B68216E070E006822C5 /* WalletTypes+State.swift in Sources */,
+				7BDA6AF222315024001DE71C /* ContactDetailView.swift in Sources */,
 				0ADD7FA521F22FB60075FC59 /* UINavigationController+Additionals.swift in Sources */,
 				0ADD803821F22FFB0075FC59 /* BackupCoordinator.swift in Sources */,
 				0A6F60E9216F88B200A5C615 /* WalletTypes+ViewModels.swift in Sources */,
@@ -5674,6 +5713,7 @@
 				E9B0881D2163886800937644 /* DexSortCell.swift in Sources */,
 				0A762D7921639FA60019D447 /* TransactionHistoryPresenter.swift in Sources */,
 				0ADD7FB821F22FB60075FC59 /* Base58.swift in Sources */,
+				7BDA6AE822313E59001DE71C /* TransactionImageView.swift in Sources */,
 				0A7CCDB3218A138D005D372B /* MyAddressQRCodeCell.swift in Sources */,
 				0A96F1DF21544331005E148F /* MultyTextField.swift in Sources */,
 				0A762D8321639FA60019D447 /* TransactionHistoryKeyValueCell.swift in Sources */,
@@ -5704,6 +5744,7 @@
 				0A4508F82177970F00EBF669 /* AlertDeleteAccountViewController.swift in Sources */,
 				0AAB15C921655C1800F1F7BC /* ProfileValueCell.swift in Sources */,
 				E9419CCB21CFAD76004DACCA /* MarketMatcher.swift in Sources */,
+				7BDA6AF02231405D001DE71C /* SmartTransactionKind+UIImage.swift in Sources */,
 				E9B087DE2163886800937644 /* DexCreateOrderViewController.swift in Sources */,
 				0A14E3F721875F5600EA7E91 /* CreateAliasInputCell.swift in Sources */,
 				E95B6B13219C345B00A85B5D /* TokenBurnConfirmationIDView.swift in Sources */,
@@ -5904,6 +5945,7 @@
 				0AE491F62107A529009223DB /* WalletInteractorProtocol.swift in Sources */,
 				E9CD0D3521815849001A99B3 /* AddAddressBookTypes.swift in Sources */,
 				0AFA0C7C2174A2300003FE3B /* LegalModuleBuilder.swift in Sources */,
+				7BDA6AF622316078001DE71C /* TransactionCardMassSentRecipientCell.swift in Sources */,
 				044A1FD22114CA6D00B63C6A /* HistoryInteractor.swift in Sources */,
 				E965703D219360770052F0FC /* WalletSortCell.swift in Sources */,
 				0AF0C67921AA25B200602197 /* AliasesRepository.swift in Sources */,
@@ -6029,6 +6071,7 @@
 				E9D36DD52175C755001E6DF0 /* ReceiveCardViewController.swift in Sources */,
 				0ADD7FC621F22FB60075FC59 /* Decimal+Assisstants.swift in Sources */,
 				E9D36DE52175C755001E6DF0 /* ReceiveGenerateAddressModuleBuilder.swift in Sources */,
+				7BDA6AE42230281A001DE71C /* TransactionCardGeneralCell.swift in Sources */,
 				0A5E4BDB21382C2200E3C3C3 /* IssueTransaction+Mapper.swift in Sources */,
 				0ADD7F9821F22FB60075FC59 /* UITableView+HeaderView.swift in Sources */,
 				0AFF5C7F215BD08E00B82940 /* AccountPasswordInteractor.swift in Sources */,
@@ -6117,6 +6160,7 @@
 				0ADD7FBB21F22FB60075FC59 /* DateFormatter+ISO.swift in Sources */,
 				0AE6572F2106340A003D2DB8 /* Signature.swift in Sources */,
 				0ADD7FC721F22FB60075FC59 /* Thread+Assisstants.swift in Sources */,
+				7BDA6AE6223028DC001DE71C /* BalanceLabel.swift in Sources */,
 				E97EC84320E689A800AB006B /* ImportAccountPasswordViewController.swift in Sources */,
 				0A751D3422170F3D0024D523 /* NotificationNewsDomainDTO.swift in Sources */,
 				0A762D9C2163A1C90019D447 /* HistoryTypes.swift in Sources */,

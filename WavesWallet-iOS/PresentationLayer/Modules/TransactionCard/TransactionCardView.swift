@@ -11,5 +11,8 @@ import UIKit
 
 final class TransactionCardView: ModalRootView {
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
 }
 

@@ -11,32 +11,35 @@ import RxFeedback
 import RxSwift
 import RxSwiftExt
 
-final class TransactionCardSystem: System {
+private typealias Types = TransactionCard
+final class TransactionCardSystem: System<TransactionCard.State, TransactionCard.Event> {
 
-    func internalSideEffects() -> [Feedback] {
+    //TODO: add transaction: DomainLayer.DTO.SmartTransaction
+    override init() {
+
+    }
+
+    override func initialState() -> State! {
+
+        let section = Types.Section(rows: [.head, .address])
+
+        return State(ui: .init(sections: [section]),
+                     core: nil)
+    }
+
+    override func internalFeedbacks() -> [Feedback] {
         return []
     }
 
-    var initialState: TransactionCard.State {
-        return TransactionCard.State(sections: [])
-    }
+    override func reduce(event: Event, state: inout State) {
 
-    func reduce(event: TransactionCard.Event, state: inout TransactionCard.State) {
-        
+        switch event {
+        case .viewDidAppear:
+            break
+
+        default:
+            break
+        }
     }
+    
 }
-//
-//private final class TransactionCardCoreSystem: TransactionCardSystemProtocol {
-//
-//    func internalSideEffects() -> [Feedback] {
-//        return []
-//    }
-//
-//    var initialState: TransactionCard.State {
-//        return TransactionCard.State(sections: [])
-//    }
-//
-//    func reduce(event: TransactionCard.Event, state: inout TransactionCard.State) {
-//
-//    }
-//}

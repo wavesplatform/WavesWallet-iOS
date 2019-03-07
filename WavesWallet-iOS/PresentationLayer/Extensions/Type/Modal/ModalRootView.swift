@@ -20,7 +20,7 @@ protocol ModalRootViewDelegate {
     func modalHeaderHeight() -> CGFloat
 }
 
-final class ModalRootView: UIView, ModalScrollViewRootView {
+class ModalRootView: UIView, ModalScrollViewRootView {
 
     @IBOutlet private(set) var tableView: ModalTableView!
 

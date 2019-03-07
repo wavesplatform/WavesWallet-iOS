@@ -10,19 +10,42 @@ import Foundation
 
 enum TransactionCard {
 
-    struct State: Equatable {
-        let sections: [Section]
+    struct State {
+
+        struct UI {
+            var sections: [Section]
+        }
+
+        struct Core {
+            let transaction: DomainLayer.DTO.SmartTransaction
+        }
+
+        enum Action {
+            case get
+        }
+
+        var ui: UI
+        var core: Core?
     }
 
     enum Event {
-
+        case viewDidAppear
+        case showAllRecipients
     }
 
-    enum Section: Equatable {
-
+    struct Section: SectionProtocol {
+        var rows: [Row]
     }
 
-    enum Row: Equatable {
-
+    enum Row {
+        case head
+        case address
+        case keyValue
+        case dottedLine
+        case actions
+        case description
+        case exchange
+        case assetDetail
+        case showAll
     }
 }
