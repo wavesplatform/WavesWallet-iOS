@@ -86,8 +86,6 @@ internal enum StoryboardScene {
   internal enum Backup: StoryboardType {
     internal static let storyboardName = "Backup"
 
-    internal static let backupInfoViewController = SceneType<WavesWallet_iOS.BackupInfoViewController>(storyboard: Backup.self, identifier: "BackupInfoViewController")
-
     internal static let confirmBackupViewController = SceneType<WavesWallet_iOS.ConfirmBackupViewController>(storyboard: Backup.self, identifier: "ConfirmBackupViewController")
 
     internal static let needBackupViewController = SceneType<WavesWallet_iOS.NeedBackupViewController>(storyboard: Backup.self, identifier: "NeedBackupViewController")

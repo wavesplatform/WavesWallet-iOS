@@ -97,7 +97,6 @@
 		0A2CD238216D0F0000162063 /* AuthorizationInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2CD237216D0F0000162063 /* AuthorizationInteractorProtocol.swift */; };
 		0A344E2F2194747E007809B1 /* MigrationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A344E2E2194747E007809B1 /* MigrationInteractor.swift */; };
 		0A36A37D215E493D0060F49E /* NeedBackupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A36A37B215E493D0060F49E /* NeedBackupViewController.swift */; };
-		0A36A37E215E493D0060F49E /* BackupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A36A37C215E493D0060F49E /* BackupInfoViewController.swift */; };
 		0A3AD40721492E9400F8A929 /* ExchangeApiFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD7520F3A6A6004DA625 /* ExchangeApiFilters.swift */; };
 		0A3FE8A62135AC2B00DBF4E1 /* AssetTransactionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3FE8A52135AC2A00DBF4E1 /* AssetTransactionsCell.swift */; };
 		0A3FE8A82135AE3600DBF4E1 /* AssetTransactionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A3FE8A72135AE3600DBF4E1 /* AssetTransactionCell.xib */; };
@@ -1027,7 +1026,6 @@
 		0A2CD237216D0F0000162063 /* AuthorizationInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationInteractorProtocol.swift; sourceTree = "<group>"; };
 		0A344E2E2194747E007809B1 /* MigrationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationInteractor.swift; sourceTree = "<group>"; };
 		0A36A37B215E493D0060F49E /* NeedBackupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeedBackupViewController.swift; sourceTree = "<group>"; };
-		0A36A37C215E493D0060F49E /* BackupInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupInfoViewController.swift; sourceTree = "<group>"; };
 		0A3FE8A52135AC2A00DBF4E1 /* AssetTransactionsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetTransactionsCell.swift; sourceTree = "<group>"; };
 		0A3FE8A72135AE3600DBF4E1 /* AssetTransactionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetTransactionCell.xib; sourceTree = "<group>"; };
 		0A3FE8A92135AE4000DBF4E1 /* AssetTransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetTransactionCell.swift; sourceTree = "<group>"; };
@@ -2249,7 +2247,6 @@
 		0A4399672150470E0032E608 /* Backup */ = {
 			isa = PBXGroup;
 			children = (
-				0A36A37C215E493D0060F49E /* BackupInfoViewController.swift */,
 				0A36A37B215E493D0060F49E /* NeedBackupViewController.swift */,
 				E9FE4D7720EA767B00208F29 /* SaveBackupPhraseViewController.swift */,
 				E9FE4D7920EA7F8500208F29 /* ConfirmBackupViewController.swift */,
@@ -6044,7 +6041,6 @@
 				E923A76D219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift in Sources */,
 				0A7CCDB5218A138D005D372B /* MyAddressInfoAddressCell.swift in Sources */,
 				E9B086B42163883000937644 /* AddressBookModuleOutput.swift in Sources */,
-				0A36A37E215E493D0060F49E /* BackupInfoViewController.swift in Sources */,
 				F74240B71EAB8D1600C3B84D /* AssetBalance.swift in Sources */,
 				0ADD802821F22FFA0075FC59 /* LegalCoordinator.swift in Sources */,
 				7BF89E8D2226E0D300853F9D /* SweetLoggerConsole.swift in Sources */,
