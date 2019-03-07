@@ -168,11 +168,11 @@ PODS:
   - UPCarouselFlowLayout (1.1.2)
 
 DEPENDENCIES:
-  - "25519 (from `git@github.com:wavesplatform/25519.git`)"
+  - 25519 (from `https://github.com/wavesplatform/25519.git`)
   - AppsFlyerFramework
   - AppSpectorSDK
-  - "Base58 (from `git@github.com:wavesplatform/Base58.git`)"
-  - "Blake2 (from `git@github.com:wavesplatform/Blake2.git`)"
+  - Base58 (from `https://github.com/wavesplatform/Base58.git`)
+  - Blake2 (from `https://github.com/wavesplatform/Blake2.git`)
   - Charts
   - Crashlytics
   - CryptoSwift
@@ -183,10 +183,10 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/InAppMessagingDisplay
-  - "IdentityImg (from `git@github.com:wavesplatform/identity-img-swift.git`)"
-  - "InfiniteCollectionView (from `git@github.com:wavesplatform/InfiniteCollectionView.git`)"
+  - IdentityImg (from `https://github.com/wavesplatform/identity-img-swift.git`)
+  - InfiniteCollectionView (from `https://github.com/wavesplatform/InfiniteCollectionView.git`)
   - IQKeyboardManagerSwift
-  - "Keccak (from `git@github.com:wavesplatform/Keccak.git`)"
+  - Keccak (from `https://github.com/wavesplatform/Keccak.git`)
   - KeychainAccess
   - Kingfisher
   - Koloda
@@ -280,17 +280,17 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   '25519':
-    :git: "git@github.com:wavesplatform/25519.git"
+    :git: https://github.com/wavesplatform/25519.git
   Base58:
-    :git: "git@github.com:wavesplatform/Base58.git"
+    :git: https://github.com/wavesplatform/Base58.git
   Blake2:
-    :git: "git@github.com:wavesplatform/Blake2.git"
+    :git: https://github.com/wavesplatform/Blake2.git
   IdentityImg:
-    :git: "git@github.com:wavesplatform/identity-img-swift.git"
+    :git: https://github.com/wavesplatform/identity-img-swift.git
   InfiniteCollectionView:
-    :git: "git@github.com:wavesplatform/InfiniteCollectionView.git"
+    :git: https://github.com/wavesplatform/InfiniteCollectionView.git
   Keccak:
-    :git: "git@github.com:wavesplatform/Keccak.git"
+    :git: https://github.com/wavesplatform/Keccak.git
   RESideMenu:
     :git: https://github.com/wavesplatform/RESideMenu.git
   Sentry:
@@ -299,22 +299,22 @@ EXTERNAL SOURCES:
 CHECKOUT OPTIONS:
   '25519':
     :commit: b7eb7b9b951d0503669c991af371a27fdefa28ee
-    :git: "git@github.com:wavesplatform/25519.git"
+    :git: https://github.com/wavesplatform/25519.git
   Base58:
     :commit: caf9297d5667ab575a79c25671a470c1da48267c
-    :git: "git@github.com:wavesplatform/Base58.git"
+    :git: https://github.com/wavesplatform/Base58.git
   Blake2:
     :commit: 7a95d2703487a487ff65e4fc0d9a4c41162952be
-    :git: "git@github.com:wavesplatform/Blake2.git"
+    :git: https://github.com/wavesplatform/Blake2.git
   IdentityImg:
     :commit: d44a40a2334c9cb7c0a76d6dde36fd8cc9266e28
-    :git: "git@github.com:wavesplatform/identity-img-swift.git"
+    :git: https://github.com/wavesplatform/identity-img-swift.git
   InfiniteCollectionView:
     :commit: 0168a154821a80611dda2f524da143e3392328d6
-    :git: "git@github.com:wavesplatform/InfiniteCollectionView.git"
+    :git: https://github.com/wavesplatform/InfiniteCollectionView.git
   Keccak:
     :commit: b67ef7767ff598ddcff6d468f7772b3fc6b65810
-    :git: "git@github.com:wavesplatform/Keccak.git"
+    :git: https://github.com/wavesplatform/Keccak.git
   RESideMenu:
     :commit: c4870be8caf988b3c164bbf5675a717a905e9952
     :git: https://github.com/wavesplatform/RESideMenu.git
@@ -389,6 +389,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: 335b4ab23c78312fe0ee7075ca8bfe5c82a9b924
+PODFILE CHECKSUM: 0593419b4b2ca5bdd98ce661c791ea9207392864
 
 COCOAPODS: 1.6.1

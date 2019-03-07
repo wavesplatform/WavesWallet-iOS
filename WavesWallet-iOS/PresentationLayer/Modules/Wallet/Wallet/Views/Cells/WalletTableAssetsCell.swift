@@ -61,13 +61,13 @@ extension WalletTableAssetsCell: ViewConfiguration {
         let text = balance.displayShortText
 
         labelSubtitle.attributedText = NSAttributedString.styleForBalance(text: text, font: labelSubtitle.font)
-
-        let sponsoredSize = model.asset.isSponsored ? Constants.sponsoredIcon : nil
+        
         AssetLogo.logo(icon: model.asset.iconLogo,
                        style: AssetLogo.Style(size: Constants.icon,
-                                              sponsoredSize: sponsoredSize,
                                               font: UIFont.systemFont(ofSize: 22),
-                                              border: nil))
+                                              specs: .init(isSponsored: model.asset.isSponsored,
+                                                           hasScript: model.asset.hasScript,
+                                                           size: Constants.sponsoredIcon)))
             .observeOn(MainScheduler.instance)
             .bind(to: imageIcon.rx.image)
             .disposed(by: disposeBag)
