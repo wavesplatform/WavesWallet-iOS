@@ -14,12 +14,15 @@ final class EnterLanguageCoordinator: Coordinator {
     weak var parent: Coordinator?
     
     private let popup: PopupViewController = PopupViewController()
-
+    
     func start() {
 
         let enterLanguage = StoryboardScene.Language.languageViewController.instantiate()
         enterLanguage.delegate = self
         popup.present(contentViewController: enterLanguage)
+        popup.onDismiss = { [weak self] in
+            self?.removeFromParentCoordinator()
+        }
     }
 }
 
