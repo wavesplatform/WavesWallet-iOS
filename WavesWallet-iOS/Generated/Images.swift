@@ -108,10 +108,6 @@ internal enum Images {
   internal static let check18Success400 = ImageAsset(name: "check18Success400")
   internal static let checkMark = ImageAsset(name: "check_mark")
   internal static let checkSuccess = ImageAsset(name: "check_success")
-  internal static let checkmarkEmpty = ImageAsset(name: "checkmark_empty")
-  internal static let checkmarkEmptyGray = ImageAsset(name: "checkmark_empty_gray")
-  internal static let checkmarkFill = ImageAsset(name: "checkmark_fill")
-  internal static let checkmarkFillGray = ImageAsset(name: "checkmark_fill_gray")
   internal static let close = ImageAsset(name: "close")
   internal static let closeLeaseIcon = ImageAsset(name: "close_lease_icon")
   internal static let copy18Black = ImageAsset(name: "copy18Black")
@@ -224,6 +220,7 @@ internal enum Images {
   internal static let repeatBtn = ImageAsset(name: "repeat_btn")
   internal static let resendIcon = ImageAsset(name: "resend_icon")
   internal static let sReddit28 = ImageAsset(name: "sReddit28")
+  internal static let scriptasset18White = ImageAsset(name: "scriptasset18White")
   internal static let search = ImageAsset(name: "search")
   internal static let search24Basic500 = ImageAsset(name: "search24Basic500")
   internal static let send = ImageAsset(name: "send")
@@ -281,7 +278,7 @@ internal enum Images {
   internal static let touchid48Submit300 = ImageAsset(name: "touchid48Submit300")
   internal static let unhide = ImageAsset(name: "unhide")
   internal static let upChevron = ImageAsset(name: "up-chevron@")
-  internal static let userimgBackupmoney80Submit400 = ImageAsset(name: "userimgBackupmoney80Submit400")
+  internal static let userimgBackup100 = ImageAsset(name: "userimgBackup100")
   internal static let userimgBlockchain80 = ImageAsset(name: "userimgBlockchain80")
   internal static let userimgBlockchain80White = ImageAsset(name: "userimgBlockchain80White")
   internal static let userimgDex80 = ImageAsset(name: "userimgDex80")
@@ -369,10 +366,6 @@ internal enum Images {
     check18Success400,
     checkMark,
     checkSuccess,
-    checkmarkEmpty,
-    checkmarkEmptyGray,
-    checkmarkFill,
-    checkmarkFillGray,
     close,
     closeLeaseIcon,
     copy18Black,
@@ -485,6 +478,7 @@ internal enum Images {
     repeatBtn,
     resendIcon,
     sReddit28,
+    scriptasset18White,
     search,
     search24Basic500,
     send,
@@ -542,7 +536,7 @@ internal enum Images {
     touchid48Submit300,
     unhide,
     upChevron,
-    userimgBackupmoney80Submit400,
+    userimgBackup100,
     userimgBlockchain80,
     userimgBlockchain80White,
     userimgDex80,

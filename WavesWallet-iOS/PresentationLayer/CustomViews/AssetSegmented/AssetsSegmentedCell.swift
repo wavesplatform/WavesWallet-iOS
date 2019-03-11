@@ -20,6 +20,7 @@ final class AssetsSegmentedCell: UICollectionViewCell, NibReusable {
         let icon: DomainLayer.DTO.Asset.Icon
         let isHiddenArrow: Bool
         let isSponsored: Bool
+        let hasScript: Bool
     }
 
     @IBOutlet private var imageViewIcon: UIImageView!
@@ -43,13 +44,13 @@ extension AssetsSegmentedCell: ViewConfiguration {
 
         self.model = model
 
-        let sponsoredSize = model.isSponsored ? Constants.sponsoredSize : nil
         AssetLogo.logo(icon: model.icon,
                        style: AssetLogo.Style(size: Constants.sizeLogo,
-                                              sponsoredSize: sponsoredSize,
                                               font: UIFont.systemFont(ofSize: 15),
-                                              border: nil))
-            .observeOn(MainScheduler.asyncInstance)
+                                              specs: .init(isSponsored: model.isSponsored,
+                                                           hasScript: model.hasScript,
+                                                           size: Constants.sponsoredSize)))
+            .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (image) in
                 
                 self?.imageViewIcon.image = image

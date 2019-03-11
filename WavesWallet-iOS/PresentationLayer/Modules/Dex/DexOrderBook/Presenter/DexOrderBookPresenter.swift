@@ -69,6 +69,7 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                 $0.availableAmountAssetBalance = displayData.availableAmountAssetBalance
                 $0.availablePriceAssetBalance = displayData.availablePriceAssetBalance
                 $0.availableWavesBalance = displayData.availableWavesBalance
+                $0.scriptedAssets = displayData.scriptedAssets
                 
                 let sectionAsks = DexOrderBook.ViewModel.Section(items: displayData.asks.map {
                     DexOrderBook.ViewModel.Row.ask($0)})
@@ -98,7 +99,6 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             }
             
         case .didTapBid(let bid, let inputMaxAmount):
-            
             moduleOutput?.didCreateOrder(bid, amountAsset: amountAsset, priceAsset: priceAsset,
                                          ask: state.lastAsk?.price,
                                          bid: state.lastBid?.price,
@@ -106,7 +106,9 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
                                          availablePriceAssetBalance: state.availablePriceAssetBalance,
                                          availableWavesBalance: state.availableWavesBalance,
-                                         inputMaxAmount: inputMaxAmount)
+                                         inputMaxAmount: inputMaxAmount,
+                                         scriptedAssets: state.scriptedAssets)
+
             return state.changeAction(.none)
             
         case .didTapEmptyBid:
@@ -117,7 +119,9 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                               last: state.lastPrice?.price,
                                               availableAmountAssetBalance: state.availableAmountAssetBalance,
                                               availablePriceAssetBalance: state.availablePriceAssetBalance,
-                                              availableWavesBalance: state.availableWavesBalance)
+                                              availableWavesBalance: state.availableWavesBalance,
+                                              scriptedAssets: state.scriptedAssets)
+         
             return state.changeAction(.none)
             
         case .didTapAsk(let ask, let inputMaxAmount):
@@ -128,11 +132,12 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
                                          availablePriceAssetBalance: state.availablePriceAssetBalance,
                                          availableWavesBalance: state.availableWavesBalance,
-                                         inputMaxAmount: inputMaxAmount)
+                                         inputMaxAmount: inputMaxAmount,
+                                         scriptedAssets: state.scriptedAssets)
+
             return state.changeAction(.none)
             
         case .didTamEmptyAsk:
-            
             moduleOutput?.didCreateEmptyOrder(amountAsset: amountAsset, priceAsset: priceAsset,
                                               orderType: .buy,
                                               ask: state.lastAsk?.price,
@@ -140,7 +145,9 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                               last: state.lastPrice?.price,
                                               availableAmountAssetBalance: state.availableAmountAssetBalance,
                                               availablePriceAssetBalance: state.availablePriceAssetBalance,
-                                              availableWavesBalance: state.availableWavesBalance)
+                                              availableWavesBalance: state.availableWavesBalance,
+                                              scriptedAssets: state.scriptedAssets)
+
             return state.changeAction(.none)
         }
     }
