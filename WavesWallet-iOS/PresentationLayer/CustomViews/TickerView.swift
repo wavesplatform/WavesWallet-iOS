@@ -46,6 +46,7 @@ final class TickerView: UIView, NibOwnerLoadable {
             backgroundColor = .basic100
             layer.clip(cornerRadius: Constants.cornerRadius)
             layer.removeBorder()
+            
         case .soft:
             backgroundColor = .white
             layer.border(cornerRadius: Constants.cornerRadius, borderWidth: 0.5, borderColor: .info500)
@@ -65,5 +66,12 @@ extension TickerView: ViewConfiguration {
         titleLabel.textColor = .info500
         self.style = model.style
         setNeedsLayout()
+    }
+}
+
+extension TickerView {
+    static var spamTicker: TickerView.Model {
+        return .init(text: Localizable.Waves.General.Ticker.Title.spam,
+                     style: .normal)
     }
 }

@@ -27,6 +27,7 @@ final class TransactionCardGeneralCell: UITableViewCell, Reusable {
     override func awakeFromNib() {
         super.awakeFromNib()
 
+        //TODO: Remove
         let money = Money(100334, 3)
 
         let balance = Balance.init(currency: Balance.Currency.init(title: "Waves",

@@ -90,7 +90,7 @@ extension TransactionCardViewController: UITableViewDataSource {
 
 //        let cell: TransactionCardGeneralCell = tableView.dequeueCell()
 
-        let cell: TransactionCardMassSentRecipientCell = tableView.dequeueCell()
+        let cell: TransactionCardStatusCell = tableView.dequeueCell()
 
         return cell
     }

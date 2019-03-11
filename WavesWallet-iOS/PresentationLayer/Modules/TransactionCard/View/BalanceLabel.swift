@@ -32,6 +32,10 @@ final class BalanceLabel: UIView, NibOwnerLoadable {
         super.init(coder: aDecoder)
         loadNibContent()
     }
+
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: frame.width, height: UIView.noIntrinsicMetric)
+    }
 }
 
 extension BalanceLabel: ViewConfiguration {

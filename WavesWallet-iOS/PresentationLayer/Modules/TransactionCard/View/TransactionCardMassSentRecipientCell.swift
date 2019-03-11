@@ -27,6 +27,7 @@ final class TransactionCardMassSentRecipientCell: UITableViewCell, Reusable {
     override func awakeFromNib() {
         super.awakeFromNib()
 
+        //TODO: Remove
         let money = Money(100334, 3)
 
         let balance = Balance.init(currency: Balance.Currency.init(title: "Waves",
@@ -37,10 +38,19 @@ final class TransactionCardMassSentRecipientCell: UITableViewCell, Reusable {
                                                           style: .small))
 
         contactDetailView.update(with: .init(title: "Rec kaey",
-                                            address:. init(address: "asdas dasda23e 234 2",
-                                            contact: nil,
-            isMyAccount: false,
-            aliases: [])))
+                                             address:. init(address: "asdas dasda23e 234 2",
+                                                        contact: nil,
+                                isMyAccount: false,
+                                aliases: [])))
+
+    }
+
+    //TODO: Copy button
+    @IBAction func actionCopyButton(_ sender: Any) {
+
+    }
+
+    @IBAction func actionAddressBookButton(_ sender: Any) {
 
     }
 }

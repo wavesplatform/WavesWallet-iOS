@@ -39,7 +39,9 @@ final class PasteboardButton: UIButton {
     @IBAction func copyTapped(_ sender: UIButton) {
 
         ImpactFeedbackGenerator.impactOccurred()
-        UIPasteboard.general.string = copiedText?()
+        if let copiedText = copiedText?() {
+            UIPasteboard.general.string = copiedText
+        }
         setTitleColor(.success400, for: .normal)
         setImage(Images.checkSuccess.image, for: .normal)
         isUserInteractionEnabled = false

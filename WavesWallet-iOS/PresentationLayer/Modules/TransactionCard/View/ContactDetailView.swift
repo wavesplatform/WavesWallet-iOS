@@ -28,6 +28,10 @@ final class ContactDetailView: UIView, NibOwnerLoadable {
         super.init(coder: aDecoder)
         loadNibContent()
     }
+
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: frame.width, height: UIView.noIntrinsicMetric)
+    }
 }
 
 // MARK: ViewConfiguration
