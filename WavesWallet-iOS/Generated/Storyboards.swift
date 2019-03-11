@@ -176,11 +176,6 @@ internal enum StoryboardScene {
 
     internal static let initialScene = InitialSceneType<UIViewController>(storyboard: LaunchScreen.self)
   }
-  internal enum Legal: StoryboardType {
-    internal static let storyboardName = "Legal"
-
-    internal static let legalViewController = SceneType<WavesWallet_iOS.LegalViewController>(storyboard: Legal.self, identifier: "LegalViewController")
-  }
   internal enum Main: StoryboardType {
     internal static let storyboardName = "Main"
 

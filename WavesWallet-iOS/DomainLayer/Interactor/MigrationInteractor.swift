@@ -98,7 +98,6 @@ final class MigrationInteractor {
                                                   isLoggedIn: false,
                                                   isBackedUp: wallet.isBackedUp,
                                                   hasBiometricEntrance: false,
-                                                  isAlreadyShowLegalDisplay: false,
                                                   id: id)
                 })
 
