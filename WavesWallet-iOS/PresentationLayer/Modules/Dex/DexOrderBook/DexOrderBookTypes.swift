@@ -37,6 +37,8 @@ enum DexOrderBook {
         var availablePriceAssetBalance: Money
         var availableAmountAssetBalance: Money
         var availableWavesBalance: Money
+        var scriptedAssets: [DomainLayer.DTO.Asset]
+
     }
 }
 
@@ -84,6 +86,7 @@ extension DexOrderBook.DTO {
         let availablePriceAssetBalance: Money
         let availableAmountAssetBalance: Money
         let availableWavesBalance: Money
+        let scriptedAssets: [DomainLayer.DTO.Asset]
     }
 }
 
@@ -134,7 +137,8 @@ extension DexOrderBook.State {
         return DexOrderBook.State(action: .none, sections: [], header: header, hasFirstTimeLoad: false, isNeedRefreshing: false,
                                   availablePriceAssetBalance: Money(0, 0),
                                   availableAmountAssetBalance: Money(0, 0),
-                                  availableWavesBalance: Money (0, 0))
+                                  availableWavesBalance: Money (0, 0),
+                                  scriptedAssets: [])
     }
     
     var lastBid: DexOrderBook.DTO.BidAsk? {

@@ -108,10 +108,6 @@ internal enum Images {
   internal static let check18Success400 = ImageAsset(name: "check18Success400")
   internal static let checkMark = ImageAsset(name: "check_mark")
   internal static let checkSuccess = ImageAsset(name: "check_success")
-  internal static let checkmarkEmpty = ImageAsset(name: "checkmark_empty")
-  internal static let checkmarkEmptyGray = ImageAsset(name: "checkmark_empty_gray")
-  internal static let checkmarkFill = ImageAsset(name: "checkmark_fill")
-  internal static let checkmarkFillGray = ImageAsset(name: "checkmark_fill_gray")
   internal static let close = ImageAsset(name: "close")
   internal static let closeLeaseIcon = ImageAsset(name: "close_lease_icon")
   internal static let copy18Black = ImageAsset(name: "copy18Black")
@@ -370,10 +366,6 @@ internal enum Images {
     check18Success400,
     checkMark,
     checkSuccess,
-    checkmarkEmpty,
-    checkmarkEmptyGray,
-    checkmarkFill,
-    checkmarkFillGray,
     close,
     closeLeaseIcon,
     copy18Black,

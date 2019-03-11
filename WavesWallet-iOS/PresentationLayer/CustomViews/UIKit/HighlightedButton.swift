@@ -54,7 +54,6 @@ private extension HighlightedButton {
     }
     
     func setupBackgroundColor() {
-        let backgroundColor = isHighlighted ? highlightedBackground : defaultBackgroundColor
-        setBackgroundImage(backgroundColor?.image, for: .normal)
+        backgroundColor = isHighlighted ? highlightedBackground : defaultBackgroundColor
     }
 }
