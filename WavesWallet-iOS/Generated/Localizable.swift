@@ -841,6 +841,25 @@ internal enum Localizable {
       }
     }
 
+    internal enum Dexscriptassetmessage {
+
+      internal enum Button {
+        /// Cancel
+        internal static var cancel: String { return Localizable.tr("Waves", "dexScriptAssetMessage.button.cancel") }
+        /// Continue
+        internal static var `continue`: String { return Localizable.tr("Waves", "dexScriptAssetMessage.button.continue") }
+        /// Do not show again
+        internal static var doNotShowAgain: String { return Localizable.tr("Waves", "dexScriptAssetMessage.button.doNotShowAgain") }
+      }
+
+      internal enum Label {
+        /// Smart assets are assets that include a script that sets the conditions for the circulation of the token.\n\nWe do not recommend you perform operations with smart assets if you are an inexperienced user. Before making a transaction, please read the information about the asset and its script carefully.
+        internal static var description: String { return Localizable.tr("Waves", "dexScriptAssetMessage.label.description") }
+        /// Order placement for a pair that includes a Smart Asset
+        internal static var title: String { return Localizable.tr("Waves", "dexScriptAssetMessage.label.title") }
+      }
+    }
+
     internal enum Dexsort {
 
       internal enum Navigationbar {
