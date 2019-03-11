@@ -180,7 +180,8 @@ extension WalletSortViewController: UITableViewDelegate {
                                                     isHidden: asset.isHidden,
                                                     isGateway: asset.isGateway,
                                                     icon: asset.icon,
-                                                    isSponsored: asset.isSponsored)
+                                                    isSponsored: asset.isSponsored,
+                                                    hasScript: asset.hasScript)
             cell.update(with: model)
             cell.buttonFav
                 .rx
@@ -204,7 +205,8 @@ extension WalletSortViewController: UITableViewDelegate {
                                                        isMyWavesToken: asset.isMyWavesToken,
                                                        isGateway: asset.isGateway,
                                                        icon: asset.icon,
-                                                       isSponsored: asset.isSponsored)
+                                                       isSponsored: asset.isSponsored,
+                                                       hasScript: asset.hasScript)
             cell.update(with: model)
             cell.buttonFav
                 .rx

@@ -6,6 +6,11 @@
 "hello.page.confirm.button.termsOfUse" = "Terms of Use";
 "hello.page.confirm.button.termsAndConditions" = "Terms and conditions";
 
+"dexScriptAssetMessage.label.title" = "Order placement for a pair that includes a Smart Asset";
+"dexScriptAssetMessage.label.description" = "Smart assets are assets that include a script that sets the conditions for the circulation of the token.\n\nWe do not recommend you perform operations with smart assets if you are an inexperienced user. Before making a transaction, please read the information about the asset and its script carefully.";
+"dexScriptAssetMessage.button.continue" = "Continue";
+"dexScriptAssetMessage.button.cancel" = "Cancel";
+"dexScriptAssetMessage.button.doNotShowAgain" = "Do not show again";
 
 "history.transaction.title.receivedSponsorship" = "Received Sponsorship";
 

@@ -397,7 +397,7 @@ private extension AddressInputView {
                 .catchError({ [weak self] (error) -> Observable<Int> in
                     
                     guard let owner = self else { return Observable.empty() }
-                    return owner.assetInteractor.assets(by: [assetID], accountAddress: wallet.address, isNeedUpdated: false)
+                    return owner.assetInteractor.assets(by: [assetID], accountAddress: wallet.address)
                         .flatMap({ (assets) -> Observable<Int> in
                             
                             if let asset = assets.first(where: {$0.id == assetID}) {

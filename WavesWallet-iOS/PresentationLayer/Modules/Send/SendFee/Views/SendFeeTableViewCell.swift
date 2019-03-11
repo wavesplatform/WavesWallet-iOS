@@ -38,15 +38,15 @@ extension SendFeeTableViewCell: ViewConfiguration {
 
         labelTitle.text = model.assetBalance.asset.displayName
         
-        let sponsoredSize = model.assetBalance.asset.isSponsored ? Constants.sponsoredIcon : nil
         let style = AssetLogo.Style(size: Constants.icon,
-                                    sponsoredSize: sponsoredSize,
                                     font: UIFont.systemFont(ofSize: 15),
-                                    border: nil)
+                                    specs: .init(isSponsored: model.assetBalance.asset.isSponsored,
+                                                 hasScript: model.assetBalance.asset.hasScript,
+                                                 size: Constants.sponsoredIcon))
 
         AssetLogo.logo(icon: model.assetBalance.asset.iconLogo,
                        style: style)
-            .observeOn(MainScheduler.asyncInstance)
+            .observeOn(MainScheduler.instance)
             .bind(to: iconLogo.rx.image)
             .disposed(by: disposeBag)
         
