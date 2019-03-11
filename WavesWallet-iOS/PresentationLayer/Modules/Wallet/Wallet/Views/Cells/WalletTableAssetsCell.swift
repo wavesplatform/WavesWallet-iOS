@@ -68,7 +68,7 @@ extension WalletTableAssetsCell: ViewConfiguration {
                                               specs: .init(isSponsored: model.asset.isSponsored,
                                                            hasScript: model.asset.hasScript,
                                                            size: Constants.sponsoredIcon)))
-            .observeOn(MainScheduler.asyncInstance)
+            .observeOn(MainScheduler.instance)
             .bind(to: imageIcon.rx.image)
             .disposed(by: disposeBag)
 

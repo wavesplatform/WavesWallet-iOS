@@ -50,7 +50,7 @@ extension AssetsSegmentedCell: ViewConfiguration {
                                               specs: .init(isSponsored: model.isSponsored,
                                                            hasScript: model.hasScript,
                                                            size: Constants.sponsoredSize)))
-            .observeOn(MainScheduler.asyncInstance)
+            .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (image) in
                 
                 self?.imageViewIcon.image = image
