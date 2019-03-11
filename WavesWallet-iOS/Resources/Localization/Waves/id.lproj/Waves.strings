@@ -147,12 +147,6 @@
 
 "backup.confirmbackup.navigation.title" = "Konfirmasi pencadangan";
 
-"backup.infobackup.button.iunderstand" = "Saya mengerti";
-
-"backup.infobackup.label.detail" = "Waves Platform ingin memperingatkan Anda tentang peningkatan frekuensi serangan scam dan phishing selama sebulan terakhir. Penipu menyembunyikan malware mereka dalam versi mereka sendiri dari klien Waves dan menjanjikan bonus dan diskon untuk memancing pengguna.\n\n Harap berhati-hati dan jangan masukkan SEED ke 'klien'; ini, karena akun Anda akan dikompromikan dan Anda akan Kehilangan semua dana Anda.\n\nAnda HANYA BOLEH menggunakan klien Waves resmi.";
-
-"backup.infobackup.label.title" = "Perlakukan frase cadangan Anda dengan hati-hati!";
-
 "backup.needbackup.button.backupnow" = "Cadangkan Sekarang";
 
 "backup.needbackup.button.doitlater" = "Lakukan nanti";
