@@ -86,8 +86,6 @@ internal enum StoryboardScene {
   internal enum Backup: StoryboardType {
     internal static let storyboardName = "Backup"
 
-    internal static let backupInfoViewController = SceneType<WavesWallet_iOS.BackupInfoViewController>(storyboard: Backup.self, identifier: "BackupInfoViewController")
-
     internal static let confirmBackupViewController = SceneType<WavesWallet_iOS.ConfirmBackupViewController>(storyboard: Backup.self, identifier: "ConfirmBackupViewController")
 
     internal static let needBackupViewController = SceneType<WavesWallet_iOS.NeedBackupViewController>(storyboard: Backup.self, identifier: "NeedBackupViewController")
@@ -124,6 +122,8 @@ internal enum StoryboardScene {
     internal static let dexMyOrdersViewController = SceneType<WavesWallet_iOS.DexMyOrdersViewController>(storyboard: Dex.self, identifier: "DexMyOrdersViewController")
 
     internal static let dexOrderBookViewController = SceneType<WavesWallet_iOS.DexOrderBookViewController>(storyboard: Dex.self, identifier: "DexOrderBookViewController")
+
+    internal static let dexScriptAssetMessageViewController = SceneType<WavesWallet_iOS.DexScriptAssetMessageViewController>(storyboard: Dex.self, identifier: "DexScriptAssetMessageViewController")
 
     internal static let dexSortViewController = SceneType<WavesWallet_iOS.DexSortViewController>(storyboard: Dex.self, identifier: "DexSortViewController")
 
