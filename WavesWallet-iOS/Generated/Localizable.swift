@@ -1040,15 +1040,35 @@ internal enum Localizable {
     internal enum Hello {
 
       internal enum Button {
+        /// Begin
+        internal static var begin: String { return Localizable.tr("Waves", "hello.button.begin") }
         /// Continue
         internal static var `continue`: String { return Localizable.tr("Waves", "hello.button.continue") }
         /// Next
         internal static var next: String { return Localizable.tr("Waves", "hello.button.next") }
-        /// I Understand
-        internal static var understand: String { return Localizable.tr("Waves", "hello.button.understand") }
       }
 
       internal enum Page {
+
+        internal enum Confirm {
+          /// I understand that my funds are held securely on this device, not by a company
+          internal static var description1: String { return Localizable.tr("Waves", "hello.page.confirm.description1") }
+          /// I understand that if this app is moved to another device or deleted, my Waves can only be recovered with the backup phrase
+          internal static var description2: String { return Localizable.tr("Waves", "hello.page.confirm.description2") }
+          /// I have read, understood, and agree to the Terms of Use
+          internal static var description3: String { return Localizable.tr("Waves", "hello.page.confirm.description3") }
+          /// All the data on your Waves Wallet is encrypted and stored only on your device
+          internal static var subtitle: String { return Localizable.tr("Waves", "hello.page.confirm.subtitle") }
+          /// Confirm and Begin
+          internal static var title: String { return Localizable.tr("Waves", "hello.page.confirm.title") }
+
+          internal enum Button {
+            /// Terms and conditions
+            internal static var termsAndConditions: String { return Localizable.tr("Waves", "hello.page.confirm.button.termsAndConditions") }
+            /// Terms of Use
+            internal static var termsOfUse: String { return Localizable.tr("Waves", "hello.page.confirm.button.termsOfUse") }
+          }
+        }
 
         internal enum Info {
 
@@ -1353,32 +1373,6 @@ internal enum Localizable {
         internal enum Navigation {
           /// Welcome back
           internal static var title: String { return Localizable.tr("Waves", "import.welcome.navigation.title") }
-        }
-      }
-    }
-
-    internal enum Legal {
-
-      internal enum Checkbox {
-
-        internal enum Box {
-          /// I understand that my funds are held securely on this device, not by a company
-          internal static var first: String { return Localizable.tr("Waves", "legal.checkbox.box.first") }
-          /// I understand that if this app is moved to another device or deleted, my Waves can only be recovered with the backup phrase
-          internal static var second: String { return Localizable.tr("Waves", "legal.checkbox.box.second") }
-          /// Waves is different — it cannot be held safely by a bank or web service
-          internal static var subtitle: String { return Localizable.tr("Waves", "legal.checkbox.box.subtitle") }
-          /// Terms of Use
-          internal static var termsOfUse: String { return Localizable.tr("Waves", "legal.checkbox.box.termsOfUse") }
-          /// I have read, understood, and agree to the
-          internal static var third: String { return Localizable.tr("Waves", "legal.checkbox.box.third") }
-          /// Done!
-          internal static var title: String { return Localizable.tr("Waves", "legal.checkbox.box.title") }
-
-          internal enum Button {
-            /// Confirm and begin
-            internal static var confirm: String { return Localizable.tr("Waves", "legal.checkbox.box.button.confirm") }
-          }
         }
       }
     }
