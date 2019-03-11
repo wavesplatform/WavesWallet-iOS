@@ -98,13 +98,13 @@ private extension DexScriptAssetMessageViewController {
     }
     
     func setup(imageViewIcon: UIImageView, asset: DomainLayer.DTO.Asset) {
-        let sponsoredSize = asset.isSponsored ? Constants.sponsoredIcon : nil
         
         AssetLogo.logo(icon: asset.iconLogo,
                        style: AssetLogo.Style(size: Constants.icon,
-                                              sponsoredSize: sponsoredSize,
                                               font: UIFont.systemFont(ofSize: 15),
-                                              border: nil))
+                                              specs: .init(isSponsored: asset.isSponsored,
+                                                           hasScript: asset.hasScript,
+                                                           size: Constants.sponsoredIcon)))
             .observeOn(MainScheduler.instance)
             .bind(to: imageViewIcon.rx.image)
             .disposed(by: disposeBag)

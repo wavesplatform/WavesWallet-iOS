@@ -149,12 +149,6 @@
 
 "backup.confirmbackup.navigation.title" = "Confirmar la copia de seguridad";
 
-"backup.infobackup.button.iunderstand" = "Entiendo";
-
-"backup.infobackup.label.detail" = "Waves Platform quiere advertirle sobre el incremento de ataques de estafa y suplantación de identidad durante los últimos meses. Los estafadores ocultan su malware en sus propias versiones del cliente Waves y prometen bonificaciones y descuentos para atraer a los usuarios.\n\nPor favor, tenga cuidado y nunca introduzca su frase de respaldo (SEED) en estos 'clientes', porque su cuenta puede ser comprometida y perder todos sus fondos. \n\nDebería confiar SÓLO en el cliente oficial de Waves.";
-
-"backup.infobackup.label.title" = "¡Trate su frase de seguridad con cuidado!";
-
 "backup.needbackup.button.backupnow" = "Hacer el backup ahora";
 
 "backup.needbackup.button.doitlater" = "Hacerlo más tarde";
