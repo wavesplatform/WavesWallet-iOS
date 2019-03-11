@@ -84,7 +84,7 @@ final class ReceiveAddressViewController: UIViewController {
                                               specs: .init(isSponsored: input.isSponsored,
                                                            hasScript: input.hasScript,
                                                            size: Constants.sponsoredIcon)))
-            .observeOn(MainScheduler.asyncInstance)
+            .observeOn(MainScheduler.instance)
             .bind(to: iconAsset.rx.image)
             .disposed(by: disposeBag)
 
