@@ -62,7 +62,7 @@ extension WalletSortFavCell: ViewConfiguration {
                                               specs: .init(isSponsored: model.isSponsored,
                                                            hasScript: model.hasScript,
                                                            size: Constants.sponsoredIcon)))
-            .observeOn(MainScheduler.asyncInstance)
+            .observeOn(MainScheduler.instance)
             .bind(to: imageIcon.rx.image)
             .disposed(by: disposeBag)        
 

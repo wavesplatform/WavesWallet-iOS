@@ -141,7 +141,7 @@ extension AssetSelectView: ViewConfiguration {
                                               specs: .init(isSponsored: isSponsored,
                                                            hasScript: hasScript,
                                                            size: Constants.sponsoredIcon)))
-            .observeOn(MainScheduler.asyncInstance)
+            .observeOn(MainScheduler.instance)
             .bind(to: iconAssetLogo.rx.image)
             .disposed(by: disposeBag)
     }

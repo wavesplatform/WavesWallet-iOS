@@ -123,8 +123,6 @@ extension AssetLogo {
                     }
                 }
             })
-            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .userInteractive)))
-            .observeOn(MainScheduler.asyncInstance)
     }
 
     private static func remoteLogo(icon: DomainLayer.DTO.Asset.Icon,
