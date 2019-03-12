@@ -37,8 +37,8 @@ class CheckboxControl: UIControl {
     }
     
     private func commonInit() {
-        checkBoxImageView = UIImageView(image: Images.Checkbox.checkboxOn.image)
-        emptyBoxImageView = UIImageView(image: Images.Checkbox.checkboxOff.image)
+        checkBoxImageView = UIImageView(image: Images.checkboxOn.image)
+        emptyBoxImageView = UIImageView(image: Images.checkboxOff.image)
         
         addSubview(checkBoxImageView)
         addSubview(emptyBoxImageView)

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-final class TransactionCardRecipientCell: UITableViewCell, Reusable {
+final class TransactionCardAddressCell: UITableViewCell, Reusable {
 
     @IBOutlet private var contactDetailView: ContactDetailView!
 
@@ -17,7 +17,7 @@ final class TransactionCardRecipientCell: UITableViewCell, Reusable {
 
     @IBOutlet private var addressBookButton: AddressBookButton!
 
-    @IBOutlet private var tickerView: TickerView!
+    @IBOutlet private var spamView: TickerView!
 
     @IBOutlet private var stackView: UIStackView!
 
@@ -31,13 +31,13 @@ final class TransactionCardRecipientCell: UITableViewCell, Reusable {
                                                             aliases: [])))
 
         //TODO: Remove
-        tickerView.update(with: TickerView.spamTicker)
+        spamView.update(with: TickerView.spamTicker)
         setHiddenSpam(true)
     }
 
     private func setHiddenSpam(_ isHidden: Bool) {
         addressBookButton.isHidden = !isHidden
-        tickerView.isHidden = isHidden
+        spamView.isHidden = isHidden
     }
 
     //TODO: Copy button
@@ -52,7 +52,7 @@ final class TransactionCardRecipientCell: UITableViewCell, Reusable {
 
 // TODO: ViewConfiguration
 
-extension TransactionCardRecipientCell: ViewConfiguration {
+extension TransactionCardAddressCell: ViewConfiguration {
 
     func update(with model: DomainLayer.DTO.SmartTransaction) {
 

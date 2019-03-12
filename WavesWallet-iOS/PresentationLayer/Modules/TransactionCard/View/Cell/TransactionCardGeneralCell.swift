@@ -38,15 +38,23 @@ final class TransactionCardGeneralCell: UITableViewCell, Reusable {
                                                           style: .small))
 
         transactionImageView.update(with: .createdAlias("test"))
+
+        showInfo(.balance(BalanceLabel.Model.init(balance: balance,
+                                                  sign: .plus,
+                                                  style: .small)))
     }
 
     private func showInfo(_ info: Info) {
         switch info {
         case .balance(let balance):
             balanceLabel.update(with: balance)
+            balanceLabel.isHidden = false
+            titleLabel.isHidden = true
 
         case .label(let text):
             titleLabel.text = text
+            balanceLabel.isHidden = true
+            titleLabel.isHidden = false
         }
     }
 }

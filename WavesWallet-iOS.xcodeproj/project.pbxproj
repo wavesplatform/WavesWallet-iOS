@@ -587,11 +587,20 @@
 		0AFF5C81215BD09500B82940 /* AccountPasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C80215BD09500B82940 /* AccountPasswordPresenter.swift */; };
 		0AFF5C8D215CE2D000B82940 /* UseTouchIDModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C8C215CE2D000B82940 /* UseTouchIDModuleBuilder.swift */; };
 		53AA2F7E1F0FB6ED983FDF2F /* Pods_WavesWallet_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2F04F55A260735DF3584D3E /* Pods_WavesWallet_iOS.framework */; };
-		7B39029522366B8E00AAFDB8 /* TransactionCardRecipientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39029422366B8E00AAFDB8 /* TransactionCardRecipientCell.swift */; };
+		7B39029522366B8E00AAFDB8 /* TransactionCardAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39029422366B8E00AAFDB8 /* TransactionCardAddressCell.swift */; };
 		7B39029722366D0100AAFDB8 /* AddressBookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39029622366D0100AAFDB8 /* AddressBookButton.swift */; };
 		7B390299223698D300AAFDB8 /* TransactionCardKeyValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B390298223698D300AAFDB8 /* TransactionCardKeyValueCell.swift */; };
 		7B39029B2236A17900AAFDB8 /* TransactionCardKeyBalanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39029A2236A17900AAFDB8 /* TransactionCardKeyBalanceCell.swift */; };
 		7B39029D2236ABFF00AAFDB8 /* TransactionCardStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39029C2236ABFF00AAFDB8 /* TransactionCardStatusCell.swift */; };
+		7B39029F223790BF00AAFDB8 /* TransactionCardDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39029E223790BF00AAFDB8 /* TransactionCardDescriptionCell.swift */; };
+		7B3902A122379BFE00AAFDB8 /* TransactionCardAssetDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3902A022379BFE00AAFDB8 /* TransactionCardAssetDetailCell.swift */; };
+		7B3902A32237A00300AAFDB8 /* TransactionCardSponsorshipDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3902A22237A00300AAFDB8 /* TransactionCardSponsorshipDetailCell.swift */; };
+		7B3902A52237A5A900AAFDB8 /* TransactionCardDashedLineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3902A42237A5A900AAFDB8 /* TransactionCardDashedLineCell.swift */; };
+		7B3902A72237A74900AAFDB8 /* ActionsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3902A62237A74900AAFDB8 /* ActionsControl.swift */; };
+		7B3902A92237A75600AAFDB8 /* ActionsControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B3902A82237A75600AAFDB8 /* ActionsControl.xib */; };
+		7B3902AB2237AEE200AAFDB8 /* TransactionCardActionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3902AA2237AEE200AAFDB8 /* TransactionCardActionsCell.swift */; };
+		7B3902AD2237D31900AAFDB8 /* TransactionCardShowAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3902AC2237D31900AAFDB8 /* TransactionCardShowAllCell.swift */; };
+		7B3902B02237D8FA00AAFDB8 /* TransactionCardExchangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3902AF2237D8FA00AAFDB8 /* TransactionCardExchangeCell.swift */; };
 		7BBDA0B62226CA5C00A83411 /* NodePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBDA0B52226CA5C00A83411 /* NodePlugin.swift */; };
 		7BDA6AD5222D8C82001DE71C /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6AD4222D8C81001DE71C /* System.swift */; };
 		7BDA6AD7222D8CA1001DE71C /* TransactionCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6AD6222D8CA1001DE71C /* TransactionCardViewController.swift */; };
@@ -1553,11 +1562,20 @@
 		3780CE9B95DA4BD90D83FC04 /* Pods-WavesWallet-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		39E7B5DDD0BC308CCE651F05 /* Pods-MonkeyTest.test-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.test-adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.test-adhoc.xcconfig"; sourceTree = "<group>"; };
 		621D6D45B8A2773F670A4883 /* Pods-WavesWallet-iOS.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.adhoc.xcconfig"; sourceTree = "<group>"; };
-		7B39029422366B8E00AAFDB8 /* TransactionCardRecipientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardRecipientCell.swift; sourceTree = "<group>"; };
+		7B39029422366B8E00AAFDB8 /* TransactionCardAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardAddressCell.swift; sourceTree = "<group>"; };
 		7B39029622366D0100AAFDB8 /* AddressBookButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookButton.swift; sourceTree = "<group>"; };
 		7B390298223698D300AAFDB8 /* TransactionCardKeyValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardKeyValueCell.swift; sourceTree = "<group>"; };
 		7B39029A2236A17900AAFDB8 /* TransactionCardKeyBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardKeyBalanceCell.swift; sourceTree = "<group>"; };
 		7B39029C2236ABFF00AAFDB8 /* TransactionCardStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardStatusCell.swift; sourceTree = "<group>"; };
+		7B39029E223790BF00AAFDB8 /* TransactionCardDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardDescriptionCell.swift; sourceTree = "<group>"; };
+		7B3902A022379BFE00AAFDB8 /* TransactionCardAssetDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardAssetDetailCell.swift; sourceTree = "<group>"; };
+		7B3902A22237A00300AAFDB8 /* TransactionCardSponsorshipDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardSponsorshipDetailCell.swift; sourceTree = "<group>"; };
+		7B3902A42237A5A900AAFDB8 /* TransactionCardDashedLineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardDashedLineCell.swift; sourceTree = "<group>"; };
+		7B3902A62237A74900AAFDB8 /* ActionsControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsControl.swift; sourceTree = "<group>"; };
+		7B3902A82237A75600AAFDB8 /* ActionsControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionsControl.xib; sourceTree = "<group>"; };
+		7B3902AA2237AEE200AAFDB8 /* TransactionCardActionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardActionsCell.swift; sourceTree = "<group>"; };
+		7B3902AC2237D31900AAFDB8 /* TransactionCardShowAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardShowAllCell.swift; sourceTree = "<group>"; };
+		7B3902AF2237D8FA00AAFDB8 /* TransactionCardExchangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardExchangeCell.swift; sourceTree = "<group>"; };
 		7BBDA0B52226CA5C00A83411 /* NodePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodePlugin.swift; sourceTree = "<group>"; };
 		7BDA6AD4222D8C81001DE71C /* System.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		7BDA6AD6222D8CA1001DE71C /* TransactionCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardViewController.swift; sourceTree = "<group>"; };
@@ -3675,11 +3693,30 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7B3902AE2237D74400AAFDB8 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				7B3902AA2237AEE200AAFDB8 /* TransactionCardActionsCell.swift */,
+				7B3902A022379BFE00AAFDB8 /* TransactionCardAssetDetailCell.swift */,
+				7B3902A42237A5A900AAFDB8 /* TransactionCardDashedLineCell.swift */,
+				7B39029E223790BF00AAFDB8 /* TransactionCardDescriptionCell.swift */,
+				7BDA6AE32230281A001DE71C /* TransactionCardGeneralCell.swift */,
+				7B39029A2236A17900AAFDB8 /* TransactionCardKeyBalanceCell.swift */,
+				7B390298223698D300AAFDB8 /* TransactionCardKeyValueCell.swift */,
+				7BDA6AF522316078001DE71C /* TransactionCardMassSentRecipientCell.swift */,
+				7B39029422366B8E00AAFDB8 /* TransactionCardAddressCell.swift */,
+				7B3902AC2237D31900AAFDB8 /* TransactionCardShowAllCell.swift */,
+				7B3902A22237A00300AAFDB8 /* TransactionCardSponsorshipDetailCell.swift */,
+				7B39029C2236ABFF00AAFDB8 /* TransactionCardStatusCell.swift */,
+				7B3902AF2237D8FA00AAFDB8 /* TransactionCardExchangeCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		7BDA6AD3222D8AEA001DE71C /* TransactionCard */ = {
 			isa = PBXGroup;
 			children = (
 				7BDA6AE0222FDCFA001DE71C /* View */,
-				7BDA6AD4222D8C81001DE71C /* System.swift */,
 				7BDA6AD6222D8CA1001DE71C /* TransactionCardViewController.swift */,
 				7BDA6AD8222D8D0A001DE71C /* TransactionCardSystem.swift */,
 				7BDA6ADA222D8D16001DE71C /* TransactionCardType.swift */,
@@ -3692,12 +3729,8 @@
 		7BDA6AE0222FDCFA001DE71C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7B39029C2236ABFF00AAFDB8 /* TransactionCardStatusCell.swift */,
-				7B39029422366B8E00AAFDB8 /* TransactionCardRecipientCell.swift */,
-				7BDA6AE32230281A001DE71C /* TransactionCardGeneralCell.swift */,
-				7B390298223698D300AAFDB8 /* TransactionCardKeyValueCell.swift */,
-				7BDA6AF522316078001DE71C /* TransactionCardMassSentRecipientCell.swift */,
-				7B39029A2236A17900AAFDB8 /* TransactionCardKeyBalanceCell.swift */,
+				7BDA6AD4222D8C81001DE71C /* System.swift */,
+				7B3902AE2237D74400AAFDB8 /* Cell */,
 				7BDA6AE5223028DC001DE71C /* BalanceLabel.swift */,
 				7BDA6AE1223025AD001DE71C /* BalanceLabel.xib */,
 				7BDA6AE722313E59001DE71C /* TransactionImageView.swift */,
@@ -3705,6 +3738,8 @@
 				7BDA6AF122315024001DE71C /* ContactDetailView.swift */,
 				7BDA6AF322315466001DE71C /* ContactDetailView.xib */,
 				7B39029622366D0100AAFDB8 /* AddressBookButton.swift */,
+				7B3902A62237A74900AAFDB8 /* ActionsControl.swift */,
+				7B3902A82237A75600AAFDB8 /* ActionsControl.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5161,6 +5196,7 @@
 				0AF921FF212E07B3003BA067 /* AssetBalanceSkeletonCell.xib in Resources */,
 				0A762D8821639FA60019D447 /* TransactionHistoryRecipientCell.xib in Resources */,
 				0A762D8721639FA60019D447 /* TransactionHistoryCommentCell.xib in Resources */,
+				7B3902A92237A75600AAFDB8 /* ActionsControl.xib in Resources */,
 				0A762D7521639FA60019D447 /* TransactionHistory.storyboard in Resources */,
 				0A26549121BAE153005EA637 /* Assets.xcassets in Resources */,
 				0AB63C2C2170EBF00056B17E /* Language.storyboard in Resources */,
@@ -5528,6 +5564,7 @@
 				0A218B8721551E6600B989A1 /* WalletsRepositoryProtocol.swift in Sources */,
 				0ADD802421F22FFA0075FC59 /* TabBarRouter.swift in Sources */,
 				0A218B812155180C00B989A1 /* WalletDomainDTO.swift in Sources */,
+				7B3902A32237A00300AAFDB8 /* TransactionCardSponsorshipDetailCell.swift in Sources */,
 				0ADD7FE521F22FB60075FC59 /* Optional+Hashable.swift in Sources */,
 				E9B087E62163886800937644 /* DexCreateOrderAmountButton.swift in Sources */,
 				0ADD7FEF21F22FB60075FC59 /* Mutating.swift in Sources */,
@@ -5581,6 +5618,7 @@
 				0A5C53DD2139491C00667E34 /* UnrecognisedTransactionNode.swift in Sources */,
 				0A5C53E121394A2B00667E34 /* UnrecognisedTransaction+Mapper.swift in Sources */,
 				04A403222164D80200652F21 /* EnterStartTypes.swift in Sources */,
+				7B3902AD2237D31900AAFDB8 /* TransactionCardShowAllCell.swift in Sources */,
 				E9B0879F2163886800937644 /* DexChartCandlePriceView.swift in Sources */,
 				0A3FE8BD2137007500DBF4E1 /* ExchangeTransactionNode.swift in Sources */,
 				0ADD7FF121F22FB60075FC59 /* SectionDisplayCollection.swift in Sources */,
@@ -5637,6 +5675,7 @@
 				E9310D1D217942C8008BF3EE /* BlueBgView.swift in Sources */,
 				0AFA0C782174A2300003FE3B /* LegalModuleOutput.swift in Sources */,
 				0AEB358F2115DFF500EDD63C /* AssetDomainDTO.swift in Sources */,
+				7B3902A52237A5A900AAFDB8 /* TransactionCardDashedLineCell.swift in Sources */,
 				0A14E3EC21871BA300EA7E91 /* AliasesInfoView.swift in Sources */,
 				E9D36DF92175C755001E6DF0 /* AssetListModuleOutput.swift in Sources */,
 				0A7CCDB4218A138D005D372B /* MyAddressAliacesCell.swift in Sources */,
@@ -5915,6 +5954,7 @@
 				E9A05C5820E9264300B0E0FA /* UseTouchIDViewController.swift in Sources */,
 				7BDA6AD7222D8CA1001DE71C /* TransactionCardViewController.swift in Sources */,
 				0A762D8421639FA60019D447 /* TransactionHistoryKeysValuesCell.swift in Sources */,
+				7B3902A122379BFE00AAFDB8 /* TransactionCardAssetDetailCell.swift in Sources */,
 				0A96F1DE2152E14D005E148F /* PasscodeBuilder.swift in Sources */,
 				E922D26A21B831B600575955 /* LastTradesRepositoryRemote.swift in Sources */,
 				0AFA0C792174A2300003FE3B /* LegalModuleInput.swift in Sources */,
@@ -6075,7 +6115,7 @@
 				7BDA6AD5222D8C82001DE71C /* System.swift in Sources */,
 				E9B087BD2163886800937644 /* DexInfoTypes.swift in Sources */,
 				0ADD7FDD21F22FB60075FC59 /* QRCodeParser.swift in Sources */,
-				7B39029522366B8E00AAFDB8 /* TransactionCardRecipientCell.swift in Sources */,
+				7B39029522366B8E00AAFDB8 /* TransactionCardAddressCell.swift in Sources */,
 				E9D36DDA2175C755001E6DF0 /* ReceiveTypes.swift in Sources */,
 				0A14CFCF2144159300C3A4D5 /* Asset+Assistants.swift in Sources */,
 				0A762D8921639FA60019D447 /* TransactionHistoryGeneralCell.swift in Sources */,
@@ -6113,6 +6153,7 @@
 				E9D36DCE2175C755001E6DF0 /* ReceiveCryptocurrencyInteractor.swift in Sources */,
 				0A88CBFE2177FE130083874C /* ChangePasswordTypes.swift in Sources */,
 				0ADD7FA121F22FB60075FC59 /* UIColor+Colors.swift in Sources */,
+				7B3902AB2237AEE200AAFDB8 /* TransactionCardActionsCell.swift in Sources */,
 				E9B087EC2163886800937644 /* DexLastTradesModuleBuilder.swift in Sources */,
 				0A6AC3DE2183CEFF005D2525 /* AddressesKeysSkeletonCell.swift in Sources */,
 				0ADD7FC821F22FB60075FC59 /* String+URL.swift in Sources */,
@@ -6188,6 +6229,7 @@
 				0ADD7FF521F22FB60075FC59 /* NibLoadable.swift in Sources */,
 				0AD83616217DE071004413E9 /* NetworkSettingsModuleBuilder.swift in Sources */,
 				0ADD7FF221F22FB60075FC59 /* UICollectionView+Reusable.swift in Sources */,
+				7B3902A72237A74900AAFDB8 /* ActionsControl.swift in Sources */,
 				04F2DD2E219F27AB0070AF9D /* MultilineTextField.swift in Sources */,
 				E991BB242202D5740022E27D /* SendFeeInteractor.swift in Sources */,
 				0ADD7FE721F22FB60075FC59 /* ObservableType+Weak.swift in Sources */,
@@ -6245,6 +6287,8 @@
 				E9B0879A2163886800937644 /* DexChartHelper.swift in Sources */,
 				E9D36DF22175C755001E6DF0 /* AssetListPresenterProtocol.swift in Sources */,
 				0A96F1D52152C80E005E148F /* PasscodePresenter.swift in Sources */,
+				7B39029F223790BF00AAFDB8 /* TransactionCardDescriptionCell.swift in Sources */,
+				7B3902B02237D8FA00AAFDB8 /* TransactionCardExchangeCell.swift in Sources */,
 				0A4C9A2820ED443C0095A417 /* WalletPresenter.swift in Sources */,
 				0ADD803C21F5B60D0075FC59 /* AddressScriptInfoNode.swift in Sources */,
 				0A762D7721639FA60019D447 /* TransactionHistoryTypes.swift in Sources */,

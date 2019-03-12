@@ -11,6 +11,8 @@ import UIKit
 
 final class BalanceLabel: UIView, NibOwnerLoadable {
 
+    @IBOutlet private var contentView: UIView!
+
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var tickerView: TickerView!
     @IBOutlet private var stackView: UIStackView!

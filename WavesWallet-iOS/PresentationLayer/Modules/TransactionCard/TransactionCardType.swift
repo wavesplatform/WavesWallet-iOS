@@ -38,14 +38,17 @@ enum TransactionCard {
     }
 
     enum Row {
-        case head
+        case general
         case address
         case keyValue
-        case dottedLine
+        case keyBalance
+        case massSentRecipient
+        case dashedLine
         case actions
         case description
         case exchange
         case assetDetail
         case showAll
+        case status
     }
 }

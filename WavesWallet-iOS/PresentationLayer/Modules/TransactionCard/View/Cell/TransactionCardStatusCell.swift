@@ -30,7 +30,7 @@ final class TransactionCardStatusCell: UITableViewCell, Reusable {
     override func awakeFromNib() {
         super.awakeFromNib()
         statusContainer.cornerRadius = Constants.cornerRadius
-
+        
         //TODO: Remove
         update(with: .activeNow)
     }

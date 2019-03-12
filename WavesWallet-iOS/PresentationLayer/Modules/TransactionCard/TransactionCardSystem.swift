@@ -16,12 +16,49 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
 
     //TODO: add transaction: DomainLayer.DTO.SmartTransaction
     override init() {
-
+        
     }
 
     override func initialState() -> State! {
 
-        let section = Types.Section(rows: [.head, .address])
+//        Started Leasing
+//        let section = Types.Section(rows: [.general,
+//                                           .address,
+//                                           .keyValue,
+//                                           .keyValue,
+//                                           .keyValue,
+//                                           .keyBalance,
+//                                           .dashedLine,
+//                                           .actions
+//                                           ])
+
+        // Exchange
+//        let section = Types.Section(rows: [.general,
+//                                           .exchange,
+//                                           .keyValue,
+//                                           .keyValue,
+//                                           .status,
+//                                           .keyBalance,
+//                                           .dashedLine,
+//                                           .actions
+//            ])
+
+        let section = Types.Section(rows: [.general,
+                                           .exchange,
+                                           .keyValue,
+                                           .keyValue,
+                                           .status,
+                                           .keyBalance,
+                                           .dashedLine,
+                                           .actions
+            ])
+
+//        ,
+//        .massSentRecipient,
+//        .description,
+//        .exchange,
+//        .assetDetail,
+//        .showAll
 
         return State(ui: .init(sections: [section]),
                      core: nil)
