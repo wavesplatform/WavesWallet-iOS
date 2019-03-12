@@ -355,21 +355,6 @@ internal enum Localizable {
         }
       }
 
-      internal enum Infobackup {
-
-        internal enum Button {
-          /// I understand
-          internal static var iunderstand: String { return Localizable.tr("Waves", "backup.infobackup.button.iunderstand") }
-        }
-
-        internal enum Label {
-          /// Waves Platform would like to warn you about the increased frequency of scam and phishing attacks over the last month. Fraudsters are hiding their malware in their own versions of the Waves client and promising bonuses and discounts to lure in users.\n\nPlease be careful and never input your SEED into these 'clients', because your account will be compromised and you will lose all of your funds.\n\nYou should ONLY use the official Waves client.
-          internal static var detail: String { return Localizable.tr("Waves", "backup.infobackup.label.detail") }
-          /// Treat your backup phrase with care!
-          internal static var title: String { return Localizable.tr("Waves", "backup.infobackup.label.title") }
-        }
-      }
-
       internal enum Needbackup {
 
         internal enum Button {

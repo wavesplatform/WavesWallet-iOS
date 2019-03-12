@@ -147,12 +147,6 @@
 
 "backup.confirmbackup.navigation.title" = "Confirme o backup";
 
-"backup.infobackup.button.iunderstand" = "Eu entendi";
-
-"backup.infobackup.label.detail" = "A Plataforma Waves gostaria de avisá-lo sobre o aumento da frequência de ataques de fraude e phishing nos últimos meses. Os golpistas escondem seu malware em suas próprias versões da Waves client e prometem bônus e descontos para atrair usuários.\n\nPor favor, tenha cuidado e nunca insira seu SEED nesses 'clients', pois sua conta será comprometida e você perderá todos os seus fundos.\n\nVocê deve usar APENAS o client oficial da Waves.";
-
-"backup.infobackup.label.title" = "Mantenha segura sua frase de backup!";
-
 "backup.needbackup.button.backupnow" = "Fazer o backup agora";
 
 "backup.needbackup.button.doitlater" = "Fazer isso depois";

@@ -147,12 +147,6 @@
 
 "backup.confirmbackup.navigation.title" = "Confirma o backup";
 
-"backup.infobackup.button.iunderstand" = "Compreendi";
-
-"backup.infobackup.label.detail" = "Gostávamos de alertar para o aumento de casos de fraude e ataques de phishing na rede Waves. Os atacantes geralmente prometem ganhos para aliciar os utilizadores. Tem cuidado!\n\nPor favor, tem em consideração que nunca deverás colocar a tua SEED (conjunto de 15 palavras de recuperação) noutro site ou aplicação para além daquelas que são suportadas pela Waves, ou poderás perder todos os teus fundos.\n\nUsa apenas o Cliente oficial da Waves.";
-
-"backup.infobackup.label.title" = "Trata a tuas palavras de recuperação com cuidado!";
-
 "backup.needbackup.button.backupnow" = "Faz um Backup";
 
 "backup.needbackup.button.doitlater" = "Fazer mais tarde";

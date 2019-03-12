@@ -147,12 +147,6 @@
 
 "backup.confirmbackup.navigation.title" = "Yedeği doğrula";
 
-"backup.infobackup.button.iunderstand" = "Anladım";
-
-"backup.infobackup.label.detail" = "Son zamanlarda artan dolandırıcılık olayları ile ilgili önemli uyarı! Dolandırıcılar Waves arayüzünü değiştirerek kullanıcıları bonus veya indirim vaatleri ile kandırmaya çalışmaktadır.\n\nAnahtar kelimelerinizi bu arayüzleri girmeniz halinde hesabınız dolandırıcıların eline geçecektir.\n\nSadece resmi Waves arayüzünü kullanın!";
-
-"backup.infobackup.label.title" = "Anahtar kelimelerinizi özenle saklayın";
-
 "backup.needbackup.button.backupnow" = "Şimdi yedekle";
 
 "backup.needbackup.button.doitlater" = "Daha sonra yap";
