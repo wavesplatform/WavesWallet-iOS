@@ -1,3 +1,11 @@
+"hello.page.confirm.title" = "Confirm and Begin";
+"hello.page.confirm.subtitle" = "All the data on your Waves Wallet is encrypted and stored only on your device";
+"hello.page.confirm.description1" = "I understand that my funds are held securely on this device, not by a company";
+"hello.page.confirm.description2" = "I understand that if this app is moved to another device or deleted, my Waves can only be recovered with the backup phrase";
+"hello.page.confirm.description3" = "I have read, understood, and agree to the Terms of Use";
+"hello.page.confirm.button.termsOfUse" = "Terms of Use";
+"hello.page.confirm.button.termsAndConditions" = "Terms and conditions";
+
 "dexScriptAssetMessage.label.title" = "Order placement for a pair that includes a Smart Asset";
 "dexScriptAssetMessage.label.description" = "Smart assets are assets that include a script that sets the conditions for the circulation of the token.\n\nWe do not recommend you perform operations with smart assets if you are an inexperienced user. Before making a transaction, please read the information about the asset and its script carefully.";
 "dexScriptAssetMessage.button.continue" = "Continue";
@@ -492,7 +500,7 @@
 
 "hello.button.next" = "Next";
 
-"hello.button.understand" = "I Understand";
+"hello.button.begin" = "Begin";
 
 "hello.page.info.fifth.detail.first" = "Do not open emails or links from unknown senders.";
 
@@ -639,20 +647,6 @@
 "import.welcome.label.address.title" = "Your account SEED";
 
 "import.welcome.navigation.title" = "Welcome back";
-
-"legal.checkbox.box.button.confirm" = "Confirm and begin";
-
-"legal.checkbox.box.first" = "I understand that my funds are held securely on this device, not by a company";
-
-"legal.checkbox.box.second" = "I understand that if this app is moved to another device or deleted, my Waves can only be recovered with the backup phrase";
-
-"legal.checkbox.box.subtitle" = "Waves is different — it cannot be held safely by a bank or web service";
-
-"legal.checkbox.box.termsOfUse" = "Terms of Use";
-
-"legal.checkbox.box.third" = "I have read, understood, and agree to the";
-
-"legal.checkbox.box.title" = "Done!";
 
 "menu.button.supportwavesplatform" = "Support Wavesplatform";
 

@@ -10,10 +10,6 @@ import Foundation
 import RxSwift
 import RealmSwift
 
-fileprivate enum Constants {
-    static let schemaVersion: UInt64 = 5
-}
-
 final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 
     func wallets() -> Observable<[DomainLayer.DTO.Wallet]> {
@@ -261,30 +257,8 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 
 private extension WalletsRepositoryLocal {
 
-    func getWalletsConfig() -> Realm.Configuration? {
-
-        var config = Realm.Configuration()
-        config.objectTypes = [WalletEncryption.self, WalletItem.self]
-        config.schemaVersion = UInt64(Constants.schemaVersion)
-
-        guard let fileURL = config.fileURL else {
-            SweetLogger.error("File Realm is nil")
-            return nil
-        }
-        
-        config.fileURL = fileURL
-            .deletingLastPathComponent()
-            .appendingPathComponent("wallets_\(Environment.current.scheme).realm")
-
-        config.migrationBlock = { _, oldSchemaVersion in
-            SweetLogger.debug("Migration!!! \(oldSchemaVersion)")
-        }
-
-        return config
-    }
-
     var realm: Realm? {
-        guard let config = getWalletsConfig() else {
+        guard let config = WalletRealmFactory.Configuration.walletsConfig else {
             SweetLogger.error("Realm Configuration is nil")
             return nil
         }
