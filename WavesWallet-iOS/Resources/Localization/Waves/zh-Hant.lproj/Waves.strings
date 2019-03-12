@@ -147,12 +147,6 @@
 
 "backup.confirmbackup.navigation.title" = "确认备份";
 
-"backup.infobackup.button.iunderstand" = "我明白";
-
-"backup.infobackup.label.detail" = "WAVE平台想提醒您上个月诈骗和网络钓鱼攻击的频率增加了。欺诈者将他们的恶意软件隐藏在他们自己的Waves客户端版本中，并承诺提供奖金和折扣来吸引用户。\n\n请小心，永远不要把您的SEED输入到这些“客户端”中，因为您的帐户将被破坏，您将失去所有的资金。\n\n请您只使用官方波浪客户端。";
-
-"backup.infobackup.label.title" = "请妥善保存你的备份短语";
-
 "backup.needbackup.button.backupnow" = "现在备份";
 
 "backup.needbackup.button.doitlater" = "稍后再做";

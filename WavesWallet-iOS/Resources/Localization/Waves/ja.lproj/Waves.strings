@@ -147,12 +147,6 @@
 
 "backup.confirmbackup.navigation.title" = "バックアップを確認";
 
-"backup.infobackup.button.iunderstand" = "了解しました";
-
-"backup.infobackup.label.detail" = "Wavesプラットフォームはこの1ヶ月で増加している詐欺行為とフィッシング攻撃の警告をいたします。詐欺師は独自のWavesクライアントにマルウェアを隠し、ユーザを誘い込むために配当や割引することを約束しています。\n\n決してこれらの'クライアント'にあなたのシードを入力しないよう注意してください。あなたのアカウントに対して詐欺師がアクセスすることを許すとあなたの資産を全て失ってしまいます。\n\n公式なWavesクライアントのみを利用して下さい。";
-
-"backup.infobackup.label.title" = "バックアップフレーズは安全な方法で管理してください！";
-
 "backup.needbackup.button.backupnow" = "今すぐバックアップする";
 
 "backup.needbackup.button.doitlater" = "あとで";
