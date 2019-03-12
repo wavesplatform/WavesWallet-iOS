@@ -147,12 +147,6 @@
 
 "backup.confirmbackup.navigation.title" = "백업 승인";
 
-"backup.infobackup.button.iunderstand" = "이해했습니다";
-
-"backup.infobackup.label.detail" = "Waves Platform은 지난 몇 달간 사기 및 피싱 공격의 빈도가 증가한 것에 대해 경고드리고 싶습니다. 사기범들은 악성코드를 가짜 Waves 클라이언트에 숨기고 보너스와 할인으로 조장하여 사용자들을 유인합니다.\n\n이를 실행하면 귀하의 계정이 해킹되어 모든 자금을 잃게 되므로 절대 SEED를 가짜 '클라이언트'에 입력하지 마십시오.\n\n공식 Waves 클라이언트만 사용하세요.";
-
-"backup.infobackup.label.title" = "백업 구절을 매우 신중히 다루세요!";
-
 "backup.needbackup.button.backupnow" = "즉시 백업합니다";
 
 "backup.needbackup.button.doitlater" = "다음에 백업합니다";
