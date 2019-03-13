@@ -14,7 +14,7 @@ private struct Constants {
     static let scrollViewContentEdgeInsets: UIEdgeInsets = .init(top: 0, left: 16, bottom: 0, right: 16)
     static let contentEdgeInsets: UIEdgeInsets = .init(top: 10, left: 20, bottom: 10, right: 12)
     static let imageEdgeInsets: UIEdgeInsets = .init(top: 0, left: -16, bottom: 0, right: 0)
-    static let buttonCornerRadius: CGFloat = 2
+    static let buttonCornerRadius: CGFloat = 4
 }
 
 final class ActionsControl: UIView, NibOwnerLoadable {

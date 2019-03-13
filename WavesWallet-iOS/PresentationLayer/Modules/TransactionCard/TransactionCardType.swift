@@ -38,17 +38,19 @@ enum TransactionCard {
     }
 
     enum Row {
-        case general
-        case address
-        case keyValue
-        case keyBalance
-        case massSentRecipient
-        case dashedLine
-        case actions
-        case description
-        case exchange
-        case assetDetail
-        case showAll
-        case status
+        case general(TransactionCardGeneralCell.Model)
+        case address(TransactionCardAddressCell.Model)
+        case keyValue(TransactionCardKeyValueCell.Model)
+        case keyBalance(TransactionCardKeyBalanceCell.Model)
+        case massSentRecipient(TransactionCardMassSentRecipientCell.Model)
+        case dashedLine(TransactionCardDashedLineCell.Model)
+        case actions(TransactionCardActionsCell.Model)
+        case description(TransactionCardDescriptionCell.Model)
+        case exchange(TransactionCardExchangeCell.Model)
+        case assetDetail(TransactionCardAssetDetailCell.Model)
+        case showAll(TransactionCardShowAllCell.Model)
+        case status(TransactionCardStatusCell.Model)
+        case asset(TransactionCardAssetCell.Model)
+        case sponsorshipDetail(TransactionCardSponsorshipDetailCell.Model)
     }
 }

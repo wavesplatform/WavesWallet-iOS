@@ -29,10 +29,7 @@ final class TransactionCardStatusCell: UITableViewCell, Reusable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        statusContainer.cornerRadius = Constants.cornerRadius
-        
-        //TODO: Remove
-        update(with: .activeNow)
+        statusContainer.cornerRadius = Constants.cornerRadius        
     }
 
     override func layoutSubviews() {
@@ -45,9 +42,10 @@ final class TransactionCardStatusCell: UITableViewCell, Reusable {
 
 extension TransactionCardStatusCell: ViewConfiguration {
 
-    func update(with model: TransactionCardStatusCell.Model) {
+    func update(with model: Model) {
 
-        keyLabel.text = Localizable.Waves.Transactionhistory.Cell.Status.timestamp
+        //TODO: Localization
+        keyLabel.text = "Status"
 
         switch model {
         case .unconfirmed:

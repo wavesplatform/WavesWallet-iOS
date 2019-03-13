@@ -14,7 +14,7 @@ final class TransactionCardExchangeCell: UITableViewCell, Reusable {
     struct Model {
         
         let sell: BalanceLabel.Model
-        let buy: BalanceLabel.Model
+        let price: BalanceLabel.Model
     }
 
     @IBOutlet private var sellTitleLabel: UILabel!
@@ -25,20 +25,6 @@ final class TransactionCardExchangeCell: UITableViewCell, Reusable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        //TODO: Remove
-        let money = Money(100323423423434, 3)
-
-        let balance = Balance.init(currency: Balance.Currency.init(title: "Waves",
-                                                                   ticker: "Waves Log"),
-                                   money: money)
-        priceBalanceLabel.update(with: BalanceLabel.Model.init(balance: balance,
-                                                             sign: .plus,
-                                                             style: .small))
-
-        sellBalanceLabel.update(with: BalanceLabel.Model.init(balance: balance,
-                                                               sign: .plus,
-                                                               style: .small))
     }
 
     override func layoutSubviews() {
@@ -56,8 +42,8 @@ extension TransactionCardExchangeCell: ViewConfiguration {
         sellTitleLabel.text = "Sell"
         sellBalanceLabel.update(with: model.sell)
 
-        priceTitleLabel.text = "Sell"
-        priceBalanceLabel.update(with: model.buy)
+        priceTitleLabel.text = "Price"
+        priceBalanceLabel.update(with: model.price)
     }
 }
 

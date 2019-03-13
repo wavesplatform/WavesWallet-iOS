@@ -13,7 +13,8 @@ final class ContactDetailView: UIView, NibOwnerLoadable {
 
     struct Model {
         let title: String
-        let address: DomainLayer.DTO.Address
+        let address: String
+        let name: String?
     }
 
     @IBOutlet private var titleLabel: UILabel!
@@ -42,13 +43,13 @@ extension ContactDetailView: ViewConfiguration {
 
         self.titleLabel.text = model.title
 
-        if let contact = model.address.contact {
-            self.nameLabel.text = contact.name
-            self.nameLabel.isHidden = true
-        } else {
+        if let name = model.name {
+            self.nameLabel.text = name
             self.nameLabel.isHidden = false
+        } else {
+            self.nameLabel.isHidden = true
         }
 
-        self.addressLabel.text = model.address.address
+        self.addressLabel.text = model.address
     }
 }

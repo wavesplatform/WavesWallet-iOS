@@ -20,17 +20,6 @@ final class TransactionCardSponsorshipDetailCell: UITableViewCell, Reusable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        //TODO: Remove
-        let money = Money(100334, 3)
-
-        let balance = Balance.init(currency: Balance.Currency.init(title: "Waves",
-                                                                   ticker: "Waves Log"),
-                                   money: money)
-        balanceLabel.update(with: BalanceLabel.Model.init(balance: balance,
-                                                          sign: .plus,
-                                                          style: .small))
-
     }
 
     override func layoutSubviews() {
@@ -45,7 +34,7 @@ extension TransactionCardSponsorshipDetailCell: ViewConfiguration {
 
     func update(with model: TransactionCardSponsorshipDetailCell.Model) {
 
-        titleLabel.text = "Asset ID"
+        titleLabel.text = "Amount per transaction"
         balanceLabel.update(with: model.balance)
     }
 }

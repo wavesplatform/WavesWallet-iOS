@@ -13,6 +13,7 @@ final class TransactionCardAssetDetailCell: UITableViewCell, Reusable {
 
     struct Model {
         let assetId: String
+        let isReissuable: Bool?
     }
 
     @IBOutlet private var titleLabel: UILabel!
@@ -25,6 +26,10 @@ final class TransactionCardAssetDetailCell: UITableViewCell, Reusable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        copyButton.isBlack = true
+        copyButton.copiedText = { [weak self] in
+            return self?.assetIdLabel.text
+        }
     }
 
     override func layoutSubviews() {
@@ -33,13 +38,25 @@ final class TransactionCardAssetDetailCell: UITableViewCell, Reusable {
     }
 }
 
-// TODO: ViewConfiguration
+// MARK: ViewConfiguration
 
 extension TransactionCardAssetDetailCell: ViewConfiguration {
 
-    func update(with model: TransactionCardAssetDetailCell.Model) {
+    func update(with model: Model) {
 
+//TODO: Loc
         titleLabel.text = "Asset ID"
         assetIdLabel.text = model.assetId
+
+        if model.isReissuable != nil {
+            if let isReissuable = model.isReissuable, isReissuable == true {
+                reissuableLabel.text = "Reissuable"
+            } else {
+                reissuableLabel.text = "Not Reissuable"
+            }
+            reissuableLabel.isHidden = false
+        } else {
+            reissuableLabel.isHidden = true
+        }
     }
 }

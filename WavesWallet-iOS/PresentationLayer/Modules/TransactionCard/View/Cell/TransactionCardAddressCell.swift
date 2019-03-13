@@ -11,6 +11,12 @@ import UIKit
 
 final class TransactionCardAddressCell: UITableViewCell, Reusable {
 
+    struct Model {
+        let contactDetail: ContactDetailView.Model
+        let isSpam: Bool
+        let isEditName: Bool
+    }
+
     @IBOutlet private var contactDetailView: ContactDetailView!
 
     @IBOutlet private var copyButton: PasteboardButton!
@@ -21,16 +27,16 @@ final class TransactionCardAddressCell: UITableViewCell, Reusable {
 
     @IBOutlet private var stackView: UIStackView!
 
+    private var model: Model?
+
+    var handlerTapAddressBook: ((_ needAddAddress: Bool) -> Void)? = nil
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        contactDetailView.update(with: .init(title: "Rec kaey",
-                                             address:. init(address: "asdas dasda23e 234 2",
-                                                            contact: nil,
-                                                            isMyAccount: false,
-                                                            aliases: [])))
-
-        //TODO: Remove
+        copyButton.copiedText = { [weak self] in
+            return self?.model?.contactDetail.address
+        }
         spamView.update(with: TickerView.spamTicker)
         setHiddenSpam(true)
     }
@@ -40,13 +46,8 @@ final class TransactionCardAddressCell: UITableViewCell, Reusable {
         spamView.isHidden = isHidden
     }
 
-    //TODO: Copy button
-    @IBAction func actionCopyButton(_ sender: Any) {
-
-    }
-
     @IBAction func actionAddressBookButton(_ sender: Any) {
-
+        handlerTapAddressBook?(model?.isEditName ?? false)
     }
 }
 
@@ -54,10 +55,17 @@ final class TransactionCardAddressCell: UITableViewCell, Reusable {
 
 extension TransactionCardAddressCell: ViewConfiguration {
 
-    func update(with model: DomainLayer.DTO.SmartTransaction) {
+    func update(with model: Model) {
 
-        //        transactionImageView.update(with: model.kind)
-        //TODO: Mapping
+        self.model = model
+
+        contactDetailView.update(with: model.contactDetail)
+        if model.isEditName {
+            addressBookButton.update(with: .edit)
+        } else {
+            addressBookButton.update(with: .add)
+        }
+        setHiddenSpam(!model.isSpam)
     }
 }
 

@@ -34,6 +34,7 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
     }
 
     private var orderBookPath: String {
+
         return Constants.matcher + "/" + Constants.orderbook
     }
     
@@ -76,7 +77,7 @@ extension Matcher.Service.OrderBook: MatcherTargetType {
             return .requestParameters(parameters: order.params, encoding: JSONEncoding.default)
             
         case .createOrder(let order):
-
+            
             return .requestParameters(parameters: order.params, encoding: JSONEncoding.default)
 
         default:

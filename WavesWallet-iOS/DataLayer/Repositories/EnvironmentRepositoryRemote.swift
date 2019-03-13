@@ -62,7 +62,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
                 } else {
                     owner.localEnvironments.onNext([key: environment])
                 }
-            })            
+            })
     }
 
     private func remoteEnvironment(accountAddress: String) -> Observable<Environment> {

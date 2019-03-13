@@ -24,7 +24,7 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
         return view as! TransactionCardView
     }
     
-    private let system: System<TransactionCard.State, TransactionCard.Event> = TransactionCardSystem()
+    var system: System<TransactionCard.State, TransactionCard.Event>!
 
     private let disposeBag: DisposeBag = DisposeBag()
 
@@ -65,13 +65,13 @@ extension TransactionCardViewController: ModalRootViewDelegate {
     
     func modalHeaderView() -> UIView {
         
-        let view = UIView()
-        view.backgroundColor = .red
+        let view = TransactionCardHeaderView.loadView()
+
         return view
     }
     
     func modalHeaderHeight() -> CGFloat {
-        return 54
+        return 14
     }
 }
 
@@ -89,70 +89,92 @@ extension TransactionCardViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-//        let cell: TransactionCardGeneralCell = tableView.dequeueCell()
         let row = self[indexPath]
 
         switch row {
-        case .general:
+        case .general(let model):
             let cell: TransactionCardGeneralCell = tableView.dequeueCell()
+            cell.update(with: model)
 
             return cell
 
-        case .address:
+        case .address(let model):
             let cell: TransactionCardAddressCell = tableView.dequeueCell()
+            cell.update(with: model)
 
             return cell
 
-        case .keyValue:
+        case .keyValue(let model):
             let cell: TransactionCardKeyValueCell = tableView.dequeueCell()
+            cell.update(with: model)
 
             return cell
 
-        case .keyBalance:
+        case .keyBalance(let model):
             let cell: TransactionCardKeyBalanceCell = tableView.dequeueCell()
+            cell.update(with: model)
 
             return cell
 
-        case .status:
+        case .status(let model):
             let cell: TransactionCardStatusCell = tableView.dequeueCell()
+            cell.update(with: model)
 
             return cell
 
-        case .massSentRecipient:
+        case .massSentRecipient(let model):
             let cell: TransactionCardMassSentRecipientCell = tableView.dequeueCell()
+            cell.update(with: model)
 
             return cell
 
-        case .dashedLine:
+        case .dashedLine(let model):
             let cell: TransactionCardDashedLineCell = tableView.dequeueCell()
+            cell.update(with: model)
 
             return cell
 
-        case .actions:
+        case .actions(let model):
             let cell: TransactionCardActionsCell = tableView.dequeueCell()
+            cell.update(with: model)
 
             return cell
 
-        case .description:
+        case .description(let model):
             let cell: TransactionCardDescriptionCell = tableView.dequeueCell()
+            cell.update(with: model)
 
             return cell
 
-        case .exchange:
+        case .exchange(let model):
             let cell: TransactionCardExchangeCell = tableView.dequeueCell()
+            cell.update(with: model)
 
             return cell
 
-        case .assetDetail:
+        case .assetDetail(let model):
             let cell: TransactionCardAssetDetailCell = tableView.dequeueCell()
+            cell.update(with: model)
 
             return cell
 
-        case .showAll:
+        case .showAll(let model):
             let cell: TransactionCardShowAllCell = tableView.dequeueCell()
+            cell.update(with: model)
 
             return cell
 
+        case .asset(let model):
+            let cell: TransactionCardAssetCell = tableView.dequeueCell()
+            cell.update(with: model)
+
+            return cell
+
+        case .sponsorshipDetail(let model):
+            let cell: TransactionCardSponsorshipDetailCell = tableView.dequeueCell()
+            cell.update(with: model)
+
+            return cell
         }
     }
 }

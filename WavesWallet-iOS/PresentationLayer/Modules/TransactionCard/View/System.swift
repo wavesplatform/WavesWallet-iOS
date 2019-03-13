@@ -11,23 +11,6 @@ import RxSwift
 import RxCocoa
 import RxFeedback
 
-
-//protocol System: AnyObject {
-//
-//    associatedtype State: Equatable
-//
-//    associatedtype Event
-//
-//    typealias Feedback = (Driver<State>) -> Signal<Event>
-//
-//    func start(sideEffects: [Feedback]) -> Driver<State>
-//
-//    var initialState: State { get }
-//
-//    func reduce(event: Event, state: inout State)
-//}
-
-
 class System<S, E> {
 
     typealias State = S

@@ -19,6 +19,10 @@ final class HistoryCoordinator: Coordinator {
     private var navigationRouter: NavigationRouter!
     private let disposeBag: DisposeBag = DisposeBag()
 
+    private let popoverViewControllerTransitioning = ModalViewControllerTransitioning {
+
+    }
+
     func start() {
 
         let historyViewController = HistoryModuleBuilder(output: self)
@@ -37,12 +41,22 @@ final class HistoryCoordinator: Coordinator {
 
 
 extension HistoryCoordinator: HistoryModuleOutput {
-    func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
-        let coordinator = TransactionHistoryCoordinator(transactions: transactions,
-                                                        currentIndex: index,
-                                                        router: navigationRouter)
 
-        addChildCoordinatorAndStart(childCoordinator: coordinator)
+    //TODO: Remove array
+    func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
+//        let coordinator = TransactionHistoryCoordinator(transactions: transactions,
+//                                                        currentIndex: index,
+//                                                        router: navigationRouter)
+
+
+
+        let tx = transactions[index]
+
+        let vc = TransactionCardBuilder(output: ()).build(input: tx)
+        vc.modalPresentationStyle = .custom
+        vc.transitioningDelegate = popoverViewControllerTransitioning
+
+        navigationRouter.present(vc, animated: true, completion: nil)
     }
 }
 

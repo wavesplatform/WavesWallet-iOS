@@ -11,14 +11,22 @@ import UIKit
 
 final class TransactionCardActionsCell: UITableViewCell, Reusable {
 
-    struct Model {}
+    struct Model {
+        enum Button {
+            case viewOnExplorer
+            case copyTxID
+            case copyAllData
+            case sendAgain
+//            case cancelLeasing
+        }
+
+        let buttons: [Button]
+    }
 
     @IBOutlet private var actionsControl: ActionsControl!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        update(with: .init())
     }
 
     override func layoutSubviews() {
@@ -32,35 +40,42 @@ extension TransactionCardActionsCell: ViewConfiguration {
 
     func update(with model: TransactionCardActionsCell.Model) {
 
-        let sendAgainButton = self.sendAgainButton() {
 
+        let buttons = model.buttons.map { (button) -> ActionsControl.Model.Button in
+
+            return button.createAction({ (button) in
+                //TODO: Delegate
+            })
         }
 
-        let cancelLeasingButton = self.cancelLeasingButton() {
-
-        }
-
-        let viewOnExplorer = self.viewOnExplorer() {
-
-        }
-
-        let copyTxId = self.copyTxId() {
-
-        }
-
-        let copyAllData = self.copyAllData() {
-
-        }
-
-        actionsControl.update(with: ActionsControl.Model.init(buttons: [sendAgainButton,
-                                                                        cancelLeasingButton,
-                                                                        viewOnExplorer,
-                                                                        copyTxId,
-                                                                        copyAllData]))
+        actionsControl.update(with: ActionsControl.Model.init(buttons: buttons))
     }
 }
 
-private extension TransactionCardActionsCell {
+private extension TransactionCardActionsCell.Model.Button {
+
+    func createAction(_ handler: @escaping (TransactionCardActionsCell.Model.Button) -> Void) -> ActionsControl.Model.Button {
+        switch self {
+        case .viewOnExplorer:
+            return viewOnExplorer {
+                handler(self)
+            }
+        case .copyTxID:
+            return copyTxId {
+                handler(self)
+            }
+
+        case .copyAllData:
+            return copyTxId {
+                handler(self)
+            }
+
+        case .sendAgain:
+            return sendAgainButton {
+                handler(self)
+            }
+        }
+    }
 
 //TODO: Localization
     func sendAgainButton(_ action: @escaping () -> Void) -> ActionsControl.Model.Button {

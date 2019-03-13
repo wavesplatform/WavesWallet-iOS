@@ -21,16 +21,6 @@ final class TransactionCardKeyBalanceCell: UITableViewCell, Reusable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        //TODO: Remove
-        let money = Money(100323423423434, 3)
-
-        let balance = Balance.init(currency: Balance.Currency.init(title: "Waves",
-                                                                   ticker: "Waves Log"),
-                                   money: money)
-        balanceLabel.update(with: BalanceLabel.Model.init(balance: balance,
-                                                          sign: .plus,
-                                                          style: .small))
     }
 
     override func layoutSubviews() {

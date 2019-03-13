@@ -11,14 +11,23 @@ import UIKit
 
 final class TransactionCardGeneralCell: UITableViewCell, Reusable {
 
-    private enum Info {
-        case balance(BalanceLabel.Model)
-        case label(String)
+    struct Model {
+
+        enum Info {
+            case balance(BalanceLabel.Model)
+            case descriptionLabel(String)
+        }
+
+        let image: UIImage
+        let title: String
+        let info: Info
     }
 
     @IBOutlet private var balanceLabel: BalanceLabel!
 
     @IBOutlet private var titleLabel: UILabel!
+
+    @IBOutlet private var descriptionLabel: UILabel!
 
     @IBOutlet private var stackViewLabel: UIStackView!
 
@@ -26,35 +35,19 @@ final class TransactionCardGeneralCell: UITableViewCell, Reusable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        //TODO: Remove
-        let money = Money(100334, 3)
-
-        let balance = Balance.init(currency: Balance.Currency.init(title: "Waves",
-                                                                   ticker: "Waves Log"),
-                                   money: money)
-        balanceLabel.update(with: BalanceLabel.Model.init(balance: balance,
-                                                          sign: .plus,
-                                                          style: .small))
-
-        transactionImageView.update(with: .createdAlias("test"))
-
-        showInfo(.balance(BalanceLabel.Model.init(balance: balance,
-                                                  sign: .plus,
-                                                  style: .small)))
     }
 
-    private func showInfo(_ info: Info) {
+    private func showInfo(_ info: Model.Info) {
         switch info {
         case .balance(let balance):
             balanceLabel.update(with: balance)
             balanceLabel.isHidden = false
-            titleLabel.isHidden = true
+            descriptionLabel.isHidden = true
 
-        case .label(let text):
-            titleLabel.text = text
+        case .descriptionLabel(let text):
+            descriptionLabel.text = text
             balanceLabel.isHidden = true
-            titleLabel.isHidden = false
+            descriptionLabel.isHidden = false
         }
     }
 }
@@ -63,9 +56,10 @@ final class TransactionCardGeneralCell: UITableViewCell, Reusable {
 
 extension TransactionCardGeneralCell: ViewConfiguration {
 
-    func update(with model: DomainLayer.DTO.SmartTransaction) {
+    func update(with model: TransactionCardGeneralCell.Model) {
 
-        transactionImageView.update(with: model.kind)
-        //TODO: Mapping
+        titleLabel.text = model.title
+        transactionImageView.update(with: model.image)
+        showInfo(model.info)
     }
 }

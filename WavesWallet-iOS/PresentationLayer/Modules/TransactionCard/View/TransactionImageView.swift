@@ -11,7 +11,7 @@ import UIKit
 
 final class TransactionImageView: UIView, NibOwnerLoadable {
 
-    typealias Model = DomainLayer.DTO.SmartTransaction.Kind
+    typealias Model = UIImage
 
     @IBOutlet private var imageView: UIImageView!
 
@@ -26,6 +26,6 @@ final class TransactionImageView: UIView, NibOwnerLoadable {
 extension TransactionImageView: ViewConfiguration {
 
     func update(with model: TransactionImageView.Model) {
-        imageView.image = model.image
+        imageView.image = model
     }
 }
