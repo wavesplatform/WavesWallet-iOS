@@ -38,7 +38,7 @@ extension TransactionHistoryStatusCell: ViewConfiguration {
         // timestamp
         let formatter = DateFormatter.sharedFormatter
         formatter.dateFormat = Constants.timestampDateFormatBegin + Localizable.Waves.Transactionhistory.Cell.Status.at + Constants.timestampDateFormatEnd
-        valueLabel.text = formatter.string(from: model.timestamp)
+        valueLabel.text = formatter.string(from: model.timestamp.normalize)
         
         // status
         var status: String = ""

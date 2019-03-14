@@ -26,6 +26,6 @@ struct TimestampSignature: SignatureProtocol {
 
 extension TimestampSignature {
     init(signedWallet: DomainLayer.DTO.SignedWallet) {
-        self.init(signedWallet: signedWallet, variable: Date().millisecondsSince1970)        
+        self.init(signedWallet: signedWallet, variable: Date().normalizeMillisecondsSince1970)        
     }
 }

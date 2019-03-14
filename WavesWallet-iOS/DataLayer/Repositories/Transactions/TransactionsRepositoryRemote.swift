@@ -133,7 +133,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
             .accountEnvironment(accountAddress: wallet.address)
             .flatMap { [weak self] environment -> Observable<DomainLayer.DTO.AnyTransaction> in
 
-                let timestamp = Int64(Date().millisecondsSince1970)
+                let timestamp = Date().normalizeMillisecondsSince1970
                 var signature = specifications.signature(timestamp: timestamp,
                                                          scheme: environment.scheme,
                                                          publicKey: wallet.publicKey.publicKey)

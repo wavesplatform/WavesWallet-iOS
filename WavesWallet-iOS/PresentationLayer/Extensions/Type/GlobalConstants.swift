@@ -45,3 +45,9 @@ enum RegEx {
         }
     }
 }
+
+extension GlobalConstants {
+    enum Utils {
+        static var timestampServerDiff: Int64 = 0
+    }
+}
