@@ -54,6 +54,9 @@ protocol FactoryRepositoriesProtocol {
     var addressRepository: AddressRepositoryProtocol { get }
 
     var notificationNewsRepository: NotificationNewsRepositoryProtocol { get }
+    
+    var utilsRepository: UtilsRepositoryProtocol { get }
+
 }
 
 protocol RepositoryCache {

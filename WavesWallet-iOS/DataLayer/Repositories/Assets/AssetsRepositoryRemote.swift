@@ -46,8 +46,10 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
             }
 
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(DateFormatter.iso())
-
+        decoder.dateDecodingStrategy = .custom { decoder in
+            return Date(isoNormalize: decoder)
+        }
+        
         let assetsList = environment
             .flatMap { [weak self] environment -> Single<Response> in
 
