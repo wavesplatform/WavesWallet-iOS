@@ -17,6 +17,8 @@ final class TransactionCardShowAllCell: UITableViewCell, Reusable {
 
     @IBOutlet private var buttonShowAll: UIButton!
 
+    var didTapButtonShowAll: (() -> Void)?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         buttonShowAll.setTitleColor(.submit400,
@@ -29,7 +31,7 @@ final class TransactionCardShowAllCell: UITableViewCell, Reusable {
     }
 
     @IBAction func actionShowAllButton() {
-
+        didTapButtonShowAll?()
     }
 }
 

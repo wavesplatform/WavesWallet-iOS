@@ -605,6 +605,7 @@
 		7B5E7465223907AA00746ADD /* TransactionCardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */; };
 		7B5E74672239088800746ADD /* TransactionCardHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */; };
 		7B5E746922390B8200746ADD /* TransactionCardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E746822390B8200746ADD /* TransactionCardBuilder.swift */; };
+		7B6922C6223BA1730056DA67 /* TransactionCardSystem+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6922C5223BA1730056DA67 /* TransactionCardSystem+Mapper.swift */; };
 		7BBDA0B62226CA5C00A83411 /* NodePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBDA0B52226CA5C00A83411 /* NodePlugin.swift */; };
 		7BDA6AD5222D8C82001DE71C /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6AD4222D8C81001DE71C /* System.swift */; };
 		7BDA6AD7222D8CA1001DE71C /* TransactionCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6AD6222D8CA1001DE71C /* TransactionCardViewController.swift */; };
@@ -1584,6 +1585,7 @@
 		7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardHeaderView.swift; sourceTree = "<group>"; };
 		7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCardHeaderView.xib; sourceTree = "<group>"; };
 		7B5E746822390B8200746ADD /* TransactionCardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardBuilder.swift; sourceTree = "<group>"; };
+		7B6922C5223BA1730056DA67 /* TransactionCardSystem+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionCardSystem+Mapper.swift"; sourceTree = "<group>"; };
 		7BBDA0B52226CA5C00A83411 /* NodePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodePlugin.swift; sourceTree = "<group>"; };
 		7BDA6AD4222D8C81001DE71C /* System.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		7BDA6AD6222D8CA1001DE71C /* TransactionCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardViewController.swift; sourceTree = "<group>"; };
@@ -3728,6 +3730,7 @@
 				7BDA6AE0222FDCFA001DE71C /* View */,
 				7BDA6AD6222D8CA1001DE71C /* TransactionCardViewController.swift */,
 				7BDA6AD8222D8D0A001DE71C /* TransactionCardSystem.swift */,
+				7B6922C5223BA1730056DA67 /* TransactionCardSystem+Mapper.swift */,
 				7BDA6ADA222D8D16001DE71C /* TransactionCardType.swift */,
 				7BDA6ADC222E95C8001DE71C /* TransactionCardView.swift */,
 				7BDA6ADE222E9664001DE71C /* TransactionCard.storyboard */,
@@ -6255,6 +6258,7 @@
 				0ADD7FF321F22FB60075FC59 /* Reusable.swift in Sources */,
 				E9D36DED2175C755001E6DF0 /* ReceiveInvoiveTypes.swift in Sources */,
 				E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */,
+				7B6922C6223BA1730056DA67 /* TransactionCardSystem+Mapper.swift in Sources */,
 				0AF9222D212E0F1F003BA067 /* WalletLeasingBalanceSkeletonCell.swift in Sources */,
 				E9B0879C2163886800937644 /* DexChartModuleBuilder.swift in Sources */,
 				0AF58F9D2191DEA300C8A4B3 /* PasscodeEnableBiometricPresenter.swift in Sources */,

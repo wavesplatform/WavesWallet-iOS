@@ -23,21 +23,18 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="cjT-cr-BXP">
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="cjT-cr-BXP">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-000000000.000004" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="o9V-Ry-mIa">
-                            <rect key="frame" x="0.0" y="22.5" width="175.5" height="20.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="-000000000.000004" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="o9V-Ry-mIa">
+                            <rect key="frame" x="0.0" y="22.5" width="235.5" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <view contentMode="scaleToFill" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="65" translatesAutoresizingMaskIntoConstraints="NO" id="KJb-RH-hrw" customClass="TickerView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                            <rect key="frame" x="179.5" y="24.5" width="195.5" height="16"/>
+                        <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="65" translatesAutoresizingMaskIntoConstraints="NO" id="KJb-RH-hrw" customClass="TickerView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                            <rect key="frame" x="239.5" y="0.0" width="135.5" height="65"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="16" id="Hqb-4z-aw1"/>
-                            </constraints>
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

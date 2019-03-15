@@ -27,6 +27,10 @@ final class TransactionCardMassSentRecipientCell: UITableViewCell, Reusable {
 
     private var address: String?
 
+    private var isEditName: Bool?
+
+    var tapAddressBookButton: ((_ isAddAddress: Bool) -> Void)?
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -37,7 +41,7 @@ final class TransactionCardMassSentRecipientCell: UITableViewCell, Reusable {
 
     //TODO: Copy button
     @IBAction func actionAddressBookButton(_ sender: Any) {
-
+        tapAddressBookButton?(!(isEditName ?? false))
     }
 }
 
@@ -47,6 +51,7 @@ extension TransactionCardMassSentRecipientCell: ViewConfiguration {
 
     func update(with model: Model) {
 
+        self.isEditName = model.isEditName
         address = model.contactDetail.address
         balanceLabel.update(with: model.balance)
         contactDetailView.update(with: model.contactDetail)

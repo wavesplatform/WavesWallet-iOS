@@ -29,7 +29,7 @@ final class TransactionCardAddressCell: UITableViewCell, Reusable {
 
     private var model: Model?
 
-    var handlerTapAddressBook: ((_ needAddAddress: Bool) -> Void)? = nil
+    var tapAddressBookButton: ((_ isAddAddress: Bool) -> Void)?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,7 +47,7 @@ final class TransactionCardAddressCell: UITableViewCell, Reusable {
     }
 
     @IBAction func actionAddressBookButton(_ sender: Any) {
-        handlerTapAddressBook?(model?.isEditName ?? false)
+        tapAddressBookButton?(!(model?.isEditName ?? false))
     }
 }
 

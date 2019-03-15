@@ -17,13 +17,9 @@ final class TransactionCardDescriptionCell: UITableViewCell, Reusable {
 
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var descriptionLabel: UILabel!
-    @IBOutlet private var pasteboardButton: PasteboardButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        pasteboardButton.copiedText = { [weak self] in
-            return self?.descriptionLabel.text
-        }
     }
 
     override func layoutSubviews() {

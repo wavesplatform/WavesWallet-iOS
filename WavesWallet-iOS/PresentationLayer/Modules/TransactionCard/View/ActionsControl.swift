@@ -21,11 +21,17 @@ final class ActionsControl: UIView, NibOwnerLoadable {
 
     struct Model {
 
+        enum Effect {
+            case changeIconForTime(UIImage, TimeInterval)
+            case impactOccurred
+        }
+
         struct Button {
             let backgroundColor: UIColor
             let textColor: UIColor
             let text: String
             let icon: UIImage
+            let effectsOnTap: [Effect]
             let tapHanler: (() -> Void)
         }
 
@@ -53,8 +59,14 @@ final class ActionsControl: UIView, NibOwnerLoadable {
 
 private final class ActionButton: UIButton {
 
+    private var effectsOnTap: [ActionsControl.Model.Effect] = []
+    private var tapHanler: (() -> Void)?
+
     init(_ model: ActionsControl.Model.Button) {
         super.init(frame: CGRect.zero)
+
+        self.effectsOnTap = model.effectsOnTap
+        self.tapHanler = model.tapHanler
         self.titleLabel?.font = .systemFont(ofSize: 13, weight: .regular)
         setImage(model.icon, for: .normal)
         setTitle(model.text, for: .normal)
@@ -64,6 +76,31 @@ private final class ActionButton: UIButton {
         layer.masksToBounds = true
         contentEdgeInsets = Constants.contentEdgeInsets
         imageEdgeInsets = Constants.imageEdgeInsets
+
+        addTarget(self, action: #selector(handlerTapAction), for: .touchUpInside)
+    }
+
+    @objc func handlerTapAction() {
+
+        for effect in effectsOnTap {
+            switch effect {
+            case .changeIconForTime(let image, let interval):
+
+                let oldImage = self.imageView?.image
+                self.setImage(image, for: .normal)
+                self.isUserInteractionEnabled = false
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + interval) {
+
+                    self.setImage(oldImage, for: .normal)
+                    self.isUserInteractionEnabled = true
+                }
+
+            case .impactOccurred:
+                ImpactFeedbackGenerator.impactOccurred()
+            }
+        }
+        tapHanler?()
     }
 
     required init?(coder aDecoder: NSCoder) {

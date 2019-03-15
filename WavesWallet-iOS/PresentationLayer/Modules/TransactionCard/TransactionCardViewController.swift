@@ -45,7 +45,21 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
     
     // MARK: ModalScrollViewContext
     override func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
-        return size.height * 0.85
+
+        var inset: CGFloat = 0
+
+        // TODO: presentedViewController == SLideVC
+
+        if let vc = presentationController?.presentingViewController, vc.children.count > 1 {
+            inset = vc.children[1].children.first?.children.first?.layoutInsets.top ?? 0
+        }
+
+        return size.height - inset
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
     }
 }
 
@@ -55,7 +69,25 @@ extension TransactionCardViewController {
 
     private func update(state: Types.State.UI) {
         self.sections = state.sections
-        tableView.reloadData()
+
+        switch state.action {
+        case .update:
+            tableView.reloadData()
+
+        case .insertRows(let rows, let insertIndexPaths, let deleteIndexPaths):
+
+//            tableView.reloadData()
+
+            tableView.beginUpdates()
+
+            tableView.deleteRows(at: deleteIndexPaths, with: .fade)
+//            tableView.reloadSections(IndexSet(integer: 0), with: .fade)
+            tableView.insertRows(at: insertIndexPaths, with: .bottom)
+            tableView.endUpdates()
+        default:
+            break
+        }
+
     }
 }
 
@@ -161,6 +193,10 @@ extension TransactionCardViewController: UITableViewDataSource {
         case .showAll(let model):
             let cell: TransactionCardShowAllCell = tableView.dequeueCell()
             cell.update(with: model)
+
+            cell.didTapButtonShowAll = { [weak self] in
+                self?.system?.send(.showAllRecipients)
+            }
 
             return cell
 

@@ -13,7 +13,15 @@ enum TransactionCard {
     struct State {
 
         struct UI {
+
+            enum Action {
+                case none
+                case update
+                case insertRows(rows: [Row], insertIndexPaths: [IndexPath], deleteIndexPaths: [IndexPath])
+            }
+
             var sections: [Section]
+            var action: Action
         }
 
         struct Core {
@@ -25,7 +33,7 @@ enum TransactionCard {
         }
 
         var ui: UI
-        var core: Core?
+        var core: Core
     }
 
     enum Event {

@@ -65,7 +65,7 @@ extension TickerView: ViewConfiguration {
         titleLabel.text = model.text
         titleLabel.textColor = .info500
         self.style = model.style
-        setNeedsLayout()
+        setNeedsLayout()        
     }
 }
 
