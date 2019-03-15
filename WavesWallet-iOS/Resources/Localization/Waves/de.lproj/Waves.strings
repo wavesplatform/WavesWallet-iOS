@@ -149,12 +149,6 @@
 
 "backup.confirmbackup.navigation.title" = "Backup bestätigen";
 
-"backup.infobackup.button.iunderstand" = "Ich verstehe";
-
-"backup.infobackup.label.detail" = "Waves Platform möchte Sie über die erhöhte Häufigkeit von Betrugs- und Phishing-Angriffen im letzten Monat warnen. Betrüger verstecken ihre Malware in ihren eigenen Versionen des Waves-Clients und versprechen Boni und Rabatte, um Benutzer anzulocken.\n\nBitte seien Sie vorsichtig und geben Sie Ihren SEED nicht in diese 'Clients' ein, da Ihr Konto dadurch gefährdet wird und Sie dies tun verlieren Sie Ihr gesamtes Geld.\n\nSie sollten NUR den offiziellen Waves-Client verwenden.";
-
-"backup.infobackup.label.title" = "Behandeln Sie Ihren Backup Satz sorgfältig!";
-
 "backup.needbackup.button.backupnow" = "Jetzt sichern";
 
 "backup.needbackup.button.doitlater" = "Später erledigen";

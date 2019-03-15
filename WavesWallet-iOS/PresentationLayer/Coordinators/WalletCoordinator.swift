@@ -78,14 +78,7 @@ final class WalletCoordinator: Coordinator {
             .take(1)
             .subscribe(onNext: { [weak self] wallet in
                 guard let owner = self else { return }
-                guard wallet.wallet.isAlreadyShowLegalDisplay == false else {
-                    owner.showNewsAndBackupTost()
-                    return
-                }
-
-                let legal = LegalCoordinator(viewController: owner.walletViewContoller)
-                legal.delegate = owner
-                owner.addChildCoordinatorAndStart(childCoordinator: legal)
+                owner.showNewsAndBackupTost()
             })
             .disposed(by: self.disposeBag)
     }
@@ -276,39 +269,5 @@ extension WalletCoordinator: CreateAliasModuleOutput {
         if let myAddressVC = self.myAddressVC {
             navigationRouter.popToViewController(myAddressVC)
         }
-    }
-}
-
-// MARK: LegalCoordinatorDelegate
-
-extension WalletCoordinator: LegalCoordinatorDelegate {
-
-    func legalConfirm() {
-        
-        authorization
-            .authorizedWallet()
-            .flatMap({ [weak self] (wallet) -> Observable<Void> in
-                guard let owner = self else { return Observable.never() }
-
-                owner.showNewsAndBackupTost()
-
-                var newWallet = wallet.wallet
-                newWallet.isAlreadyShowLegalDisplay = true
-                owner.sendAnalytics()
-                return owner.authorization.changeWallet(newWallet).map { _ in }
-            })
-            .subscribe()
-            .disposed(by: disposeBag)
-    }
-
-    private func sendAnalytics() {
-
-        walletsRepository
-            .wallets()
-            .subscribe(onNext: { (wallets) in
-                AppsFlyerTracker.shared().trackEvent("new_wallet", withValues: ["wallets_count": wallets.count]);
-                Analytics.logEvent("new_wallet", parameters: ["wallets_count": wallets.count])
-        })
-        .disposed(by: disposeBag)
     }
 }

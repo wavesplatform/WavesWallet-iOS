@@ -14,7 +14,7 @@ import RxRealm
 import RxSwift
 
 protocol AssetsInteractorProtocol {
-    func assets(by ids: [String], accountAddress: String, isNeedUpdated: Bool) -> Observable<[DomainLayer.DTO.Asset]>
+    func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]>
     func assetsSync(by ids: [String], accountAddress: String) -> SyncObservable<[DomainLayer.DTO.Asset]>
 }
 
@@ -107,7 +107,7 @@ final class AssetsInteractor: AssetsInteractorProtocol {
             })
     }
 
-    func assets(by ids: [String], accountAddress: String, isNeedUpdated: Bool) -> Observable<[DomainLayer.DTO.Asset]> {
+    func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
 
         return assetsSync(by: ids, accountAddress: accountAddress)
             .flatMap({ (sync) -> Observable<[DomainLayer.DTO.Asset]> in

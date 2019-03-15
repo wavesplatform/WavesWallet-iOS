@@ -147,12 +147,6 @@
 
 "backup.confirmbackup.navigation.title" = "Bevestig een back-up";
 
-"backup.infobackup.button.iunderstand" = "Ik begrijp het";
-
-"backup.infobackup.label.detail" = "Waves Platform wil u graag waarschuwen voor de verhoogde frequentie van oplichtings- en phishing-aanvallen van de afgelopen maand. Fraudeurs verbergen hun malware in hun eigen versie van de Waves-client en beloven bonussen en kortingen om gebruikers te verleiden.\n\nWees voorzichtig en voer nooit uw SEED in deze 'clients' in, omdat uw account in gevaar komt en u verliest al uw geld.\n\nU dient ALLEEN de officiële Waves-client te gebruiken.";
-
-"backup.infobackup.label.title" = "Behandel je back-up regel met zorg!";
-
 "backup.needbackup.button.backupnow" = "Nu backuppen";
 
 "backup.needbackup.button.doitlater" = "Doe het later";
