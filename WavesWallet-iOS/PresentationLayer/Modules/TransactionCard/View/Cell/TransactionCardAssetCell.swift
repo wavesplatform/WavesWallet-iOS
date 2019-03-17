@@ -12,6 +12,7 @@ import RxSwift
 
 private enum Constants {
     static let icon = CGSize(width: 48, height: 48)
+    static let sponsoredIcon = CGSize(width: 18, height: 18)
 }
 
 final class TransactionCardAssetCell: UITableViewCell, Reusable {
@@ -37,15 +38,16 @@ final class TransactionCardAssetCell: UITableViewCell, Reusable {
         disposeBag = DisposeBag()
     }
 
-    private func loadIcon(icon: DomainLayer.DTO.Asset.Icon) {
+    private func loadIcon(asset: DomainLayer.DTO.Asset) {
 
         disposeBag = DisposeBag()
 
-        AssetLogo.logo(icon: icon,
-                       style: AssetLogo.Style(size: Constants.icon,
-                                              sponsoredSize: nil,
+        AssetLogo.logo(icon: asset.iconLogo,
+                       style: AssetLogo.Style(size: Constants.icon,                                              
                                               font: UIFont.systemFont(ofSize: 15),
-                                              border: nil))
+                                              specs: .init(isSponsored: asset.isSponsored,
+                                                           hasScript: asset.hasScript,
+                                                           size: Constants.sponsoredIcon)))
             .observeOn(MainScheduler.asyncInstance)
             .bind(to: iconImageView.rx.image)
             .disposed(by: disposeBag)
@@ -61,7 +63,7 @@ extension TransactionCardAssetCell: ViewConfiguration {
         //TODO: Loc
         titleLabel.text = "Asset"
         nameLabel.text = model.asset.displayName
-        loadIcon(icon: model.asset.iconLogo)
+        loadIcon(asset: model.asset)
     }
 }
 

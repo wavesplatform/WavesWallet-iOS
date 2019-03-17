@@ -12,6 +12,7 @@ import UIKit
 final class TransactionCardAddressCell: UITableViewCell, Reusable {
 
     struct Model {
+        let contact: DomainLayer.DTO.Contact?
         let contactDetail: ContactDetailView.Model
         let isSpam: Bool
         let isEditName: Bool

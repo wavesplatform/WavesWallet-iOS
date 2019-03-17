@@ -28,9 +28,9 @@ class System<S, E> {
         let feedback: Feedback = react(request: { (state) -> Bool? in
             return true
         }) { [weak self] _ -> Signal<Event> in
-
+            print("feedback ")
             guard let owner = self else { return Signal.empty() }
-            return owner.inputEvent.asSignal(onErrorSignalWith: Signal.empty())
+            return owner.inputEvent.observeOn(MainScheduler.instance).asSignal(onErrorSignalWith: Signal.empty())
         }
 
         newSideEffects.append(feedback)

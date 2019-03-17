@@ -18,6 +18,7 @@ enum TransactionCard {
                 case none
                 case update
                 case insertRows(rows: [Row], insertIndexPaths: [IndexPath], deleteIndexPaths: [IndexPath])
+                case editContact(DomainLayer.DTO.Contact)
             }
 
             var sections: [Section]
@@ -25,7 +26,15 @@ enum TransactionCard {
         }
 
         struct Core {
+
+            enum ContactMutation {
+                case contact(DomainLayer.DTO.Contact)
+                case deleted
+            }
+
             let transaction: DomainLayer.DTO.SmartTransaction
+            var contacts: [String: ContactMutation]
+            var showingAllRecipients: Bool
         }
 
         enum Action {
@@ -39,6 +48,9 @@ enum TransactionCard {
     enum Event {
         case viewDidAppear
         case showAllRecipients
+        case addContact(contact: DomainLayer.DTO.Contact)
+        case editContact(contact: DomainLayer.DTO.Contact)
+        case deleteContact(contact: DomainLayer.DTO.Contact)
     }
 
     struct Section: SectionProtocol {

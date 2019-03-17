@@ -12,6 +12,7 @@ import UIKit
 final class TransactionCardMassSentRecipientCell: UITableViewCell, Reusable {
 
     struct Model {
+        let contact: DomainLayer.DTO.Contact?
         let contactDetail: ContactDetailView.Model
         let balance: BalanceLabel.Model
         let isEditName: Bool

@@ -16,18 +16,21 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
 
     private let transaction: DomainLayer.DTO.SmartTransaction
 
-    //TODO: add transaction: DomainLayer.DTO.SmartTransaction
     init(transaction: DomainLayer.DTO.SmartTransaction) {
         self.transaction = transaction
     }
 
     override func initialState() -> State! {
 
-        let sections = section(by: transaction)
+        let core: State.Core = .init(transaction: transaction,
+                                     contacts: .init(),
+                                     showingAllRecipients: false)
+
+        let sections = section(by: core)
 
         return State(ui: .init(sections: sections,
                                action: .update),
-                     core: .init(transaction: transaction))
+                     core: core)
     }
 
     override func internalFeedbacks() -> [Feedback] {
@@ -58,7 +61,9 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
 
             let newRows = results
                 .enumerated()
-                .map { $0.element.createTransactionCardMassSentRecipientModel(currency: massTransferAny.total.currency, number: lastMassReceivedRowIndex + $0.offset + 2) }
+                .map { $0.element.createTransactionCardMassSentRecipientModel(currency: massTransferAny.total.currency,
+                                                                              number: lastMassReceivedRowIndex + $0.offset + 2,
+                                                                              core: state.core) }
                 .map { Types.Row.massSentRecipient($0) }
 
             let insertIndexPaths = [Int](0..<count).map {
@@ -75,7 +80,7 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
                 return true
             }
 
-            let deleteIndexPaths = newRowsAtSection.enumerated().filter { (offset, element) -> Bool in
+            let deleteIndexPaths = section.rows.enumerated().filter { (offset, element) -> Bool in
                 if case .showAll = element {
                     return true
                 }
@@ -84,13 +89,36 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
             }
             .map { IndexPath(row: $0.offset , section: 0) }
 
-            newRowsAtSection.insert(contentsOf: newRows, at: lastMassReceivedRowIndex + 2)
+            newRowsAtSection.insert(contentsOf: newRows, at: lastMassReceivedRowIndex + 1)
 
             section.rows = newRowsAtSection
+            state.core.showingAllRecipients = true
             state.ui.sections = [section]
             state.ui.action = .insertRows(rows: newRows,
                                           insertIndexPaths: insertIndexPaths,
                                           deleteIndexPaths: deleteIndexPaths)
+
+        case .addContact(let contact):
+
+            state.core.contacts[contact.address] = .contact(contact)
+            let sections = section(by: state.core)
+            state.ui.sections = sections
+            state.ui.action = .update
+
+        case .deleteContact(let contact):
+
+            state.core.contacts[contact.address] = .deleted
+            let sections = section(by: state.core)
+            state.ui.sections = sections
+            state.ui.action = .update
+
+
+        case .editContact(let contact):
+
+            state.core.contacts[contact.address] = .contact(contact)
+            let sections = section(by: state.core)
+            state.ui.sections = sections
+            state.ui.action = .update
 
         default:
             break
@@ -99,7 +127,6 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
 }
 
 fileprivate extension Types.State.UI {
-
 
     func findLastMassReceivedRowModel() -> TransactionCardMassSentRecipientCell.Model? {
         if let last = receivedRowsAny.last, case .massSentRecipient(let model) = last {
@@ -111,10 +138,16 @@ fileprivate extension Types.State.UI {
 
     func findLastMassReceivedRowIndex() -> Int? {
 
-        guard let findLastMassReceived = findLastMassReceivedRowModel() else { return nil }
+        let list = rows.enumerated().filter { (element, model) -> Bool in
 
-        let list = receivedRowsAnyModel.enumerated().filter { (element, model) -> Bool in
-            return model.contactDetail.address == findLastMassReceived.contactDetail.address
+            switch model {
+            case .massSentRecipient:
+                return true
+
+            default:
+                return false
+
+            }
         }
 
         return list.last?.offset
@@ -184,4 +217,5 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         }
     }
+
 }

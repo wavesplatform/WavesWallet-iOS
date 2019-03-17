@@ -44,19 +44,11 @@ extension HistoryCoordinator: HistoryModuleOutput {
 
     //TODO: Remove array
     func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
-//        let coordinator = TransactionHistoryCoordinator(transactions: transactions,
-//                                                        currentIndex: index,
-//                                                        router: navigationRouter)
+        let coordinator = TransactionCardCoordinator(transaction: transactions[index],
+                                                     router: navigationRouter)
 
 
-
-        let tx = transactions[index]
-
-        let vc = TransactionCardBuilder(output: ()).build(input: tx)
-        vc.modalPresentationStyle = .custom
-        vc.transitioningDelegate = popoverViewControllerTransitioning
-
-        navigationRouter.present(vc, animated: true, completion: nil)
+        addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
 }
 

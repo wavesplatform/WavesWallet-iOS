@@ -12,6 +12,20 @@ import RxSwift
 
 private typealias Types = TransactionCard
 
+protocol TransactionCardViewControllerDelegate: AnyObject {
+    func transactionCardAddContact(address: String)
+    func transactionCardEditContact(contact: DomainLayer.DTO.Contact)
+
+//    func transactionCardSendAgain(
+}
+
+protocol TransactionCardViewControllerInput: AnyObject {
+
+    func addedContact(address: String, contact: DomainLayer.DTO.Contact)
+    func editedContact(address: String, contact: DomainLayer.DTO.Contact)
+    func deleteContact(address: String, contact: DomainLayer.DTO.Contact)
+}
+
 final class TransactionCardViewController: ModalScrollViewController, DataSourceProtocol {
 
     @IBOutlet var tableView: UITableView!
@@ -23,12 +37,14 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
     private var rootView: TransactionCardView {
         return view as! TransactionCardView
     }
-    
-    var system: System<TransactionCard.State, TransactionCard.Event>!
 
     private let disposeBag: DisposeBag = DisposeBag()
 
+    var system: System<TransactionCard.State, TransactionCard.Event>!
+
     var sections: [TransactionCard.Section] = .init()
+
+    weak var delegate: TransactionCardViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +70,8 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
             inset = vc.children[1].children.first?.children.first?.layoutInsets.top ?? 0
         }
 
-        return size.height - inset
+        return size.height
+//            - inset
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -68,26 +85,41 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
 extension TransactionCardViewController {
 
     private func update(state: Types.State.UI) {
-        self.sections = state.sections
 
         switch state.action {
         case .update:
+            self.sections = state.sections
             tableView.reloadData()
 
         case .insertRows(let rows, let insertIndexPaths, let deleteIndexPaths):
+            
+            self.sections = state.sections
 
-//            tableView.reloadData()
+            DispatchQueue.main.async {
+                //TODO: Insert
+                UIView.transition(with: self.tableView, duration: 0.24, options: .transitionCrossDissolve, animations: {
+                    self.tableView.reloadData()
+                }, completion: { (_) in
 
-            tableView.beginUpdates()
+                })
 
-            tableView.deleteRows(at: deleteIndexPaths, with: .fade)
-//            tableView.reloadSections(IndexSet(integer: 0), with: .fade)
-            tableView.insertRows(at: insertIndexPaths, with: .bottom)
-            tableView.endUpdates()
+            }
+
         default:
             break
         }
 
+    }
+
+    private func updateContact(address: String, contact: DomainLayer.DTO.Contact?, isAdd: Bool) {
+
+        if isAdd {
+            self.delegate?.transactionCardAddContact(address: address)
+        } else {
+            if let contact = contact {
+                self.delegate?.transactionCardEditContact(contact: contact)
+            }
+        }
     }
 }
 
@@ -104,6 +136,24 @@ extension TransactionCardViewController: ModalRootViewDelegate {
     
     func modalHeaderHeight() -> CGFloat {
         return 14
+    }
+}
+
+
+// MARK: TransactionCardViewControllerInput
+
+extension TransactionCardViewController: TransactionCardViewControllerInput {
+
+    func deleteContact(address: String, contact: DomainLayer.DTO.Contact) {
+        self.system?.send(.deleteContact(contact: contact))
+    }
+
+    func addedContact(address: String, contact: DomainLayer.DTO.Contact) {
+        self.system?.send(.addContact(contact: contact))
+    }
+
+    func editedContact(address: String, contact: DomainLayer.DTO.Contact) {
+        self.system?.send(.editContact(contact: contact))
     }
 }
 
@@ -133,6 +183,11 @@ extension TransactionCardViewController: UITableViewDataSource {
         case .address(let model):
             let cell: TransactionCardAddressCell = tableView.dequeueCell()
             cell.update(with: model)
+            cell.tapAddressBookButton = { [weak self] (isAdd) in
+                self?.updateContact(address: model.contactDetail.address,
+                                    contact: model.contact,
+                                    isAdd: isAdd)
+            }
 
             return cell
 
@@ -157,6 +212,11 @@ extension TransactionCardViewController: UITableViewDataSource {
         case .massSentRecipient(let model):
             let cell: TransactionCardMassSentRecipientCell = tableView.dequeueCell()
             cell.update(with: model)
+            cell.tapAddressBookButton = { [weak self] (isAdd) in
+                self?.updateContact(address: model.contactDetail.address,
+                                    contact: model.contact,
+                                    isAdd: isAdd)
+            }
 
             return cell
 

@@ -29,6 +29,14 @@ class ModalScrollViewController: UIViewController {
 
     private var needUpdateInsets: Bool = true
 
+    private struct RestoreConfig {
+        let contentInset: UIEdgeInsets
+        let contentOffset: CGPoint
+        let showsVerticalScrollIndicator: Bool
+    }
+
+    private var restoreConfig: RestoreConfig? = nil
+
     override func viewDidLoad() {
         super.viewDidLoad()        
         self.scrollView.delegate = self
@@ -43,18 +51,37 @@ class ModalScrollViewController: UIViewController {
         }
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let restoreConfig = self.restoreConfig {
+
+            scrollView.contentInset.top = restoreConfig.contentInset.top
+            scrollView.contentOffset.y = restoreConfig.contentOffset.y
+            scrollView.showsVerticalScrollIndicator = restoreConfig.showsVerticalScrollIndicator
+            self.restoreConfig = nil
+        }
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setupScrollView()
+
+
         needUpdateInsets = false
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        scrollView.contentInset.top = -scrollView.contentOffset.y
-        scrollView.contentOffset.y = -scrollView.contentInset.top
-        scrollView.showsVerticalScrollIndicator = false
+//        restoreConfig = RestoreConfig(contentInset: scrollView.contentInset,
+//                                      contentOffset: scrollView.contentOffset,
+//                                      showsVerticalScrollIndicator: scrollView.showsVerticalScrollIndicator)
+//
+//        scrollView.contentInset.top = -scrollView.contentOffset.y
+//        scrollView.contentOffset.y = -scrollView.contentInset.top
+//        scrollView.showsVerticalScrollIndicator = false
+//        needUpdateInsets = true
     }
 
 
@@ -76,7 +103,7 @@ class ModalScrollViewController: UIViewController {
 extension ModalScrollViewController  {
 
     private func setupInsets() {
-        let top = scrollView.frame.height - visibleScrollViewHeight(for: view.frame.size)
+        let top = scrollView.frame.height - visibleScrollViewHeight(for: scrollView.frame.size)
         scrollView.contentInset.top = top
         scrollView.scrollIndicatorInsets.top = top
         scrollView.contentOffset.y = -top
