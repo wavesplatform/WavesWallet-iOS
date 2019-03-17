@@ -41,10 +41,16 @@ extension Language {
 
     static func load() {
         let langauge = LanguageCode.get()
-        change(langauge, withoutNotification: true)
+        if isValidLanguage(langauge) {
+            change(langauge, withoutNotification: true)
+        }
+        else {
+            change(Language.defaultLanguage, withoutNotification: true)
+        }
     }
 
     static var currentLanguage: Language {
+        
         return LanguageCode.get()
     }
 
@@ -60,7 +66,7 @@ extension Language {
         guard let path = Bundle.main.path(forResource: language.code, ofType: "lproj"), let bundle = Bundle(path: path) else {
             return
         }
-
+        
         LanguageCode.set(language)
         Localizable.current.locale = Locale(identifier: language.code)
         Localizable.current.bundle = bundle
@@ -68,5 +74,12 @@ extension Language {
         if withoutNotification == false {
             NotificationCenter.default.post(name: .changedLanguage, object: language)
         }
+    }
+    
+    private static func isValidLanguage(_ language: Language) -> Bool {
+        if let path = Bundle.main.path(forResource: language.code, ofType: "lproj"), let _ = Bundle(path: path) {
+            return true
+        }
+        return false
     }
 }
