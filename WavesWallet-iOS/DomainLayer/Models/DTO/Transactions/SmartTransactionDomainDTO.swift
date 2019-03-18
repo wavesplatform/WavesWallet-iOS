@@ -139,9 +139,11 @@ extension DomainLayer.DTO {
         }
 
         let id: String
+        let type: Int
         let kind: Kind
         let timestamp: Date
         let totalFee: Balance
+        let feeAsset: Asset
         let height: Int64?
         let confirmationHeight: Int64
         let sender: Account

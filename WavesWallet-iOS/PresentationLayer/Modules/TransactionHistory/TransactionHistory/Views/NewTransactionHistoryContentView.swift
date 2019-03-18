@@ -137,83 +137,83 @@ final class NewTransactionHistoryContentView: UIView {
         guard let transaction = display?.sections.first?.transaction else {
             return
         }
-        
-        let id = transaction.id
-        let kind = transaction.title
-        let sender = transaction.sender.address
-        
-        let formatter = DateFormatter.sharedFormatter        
-        formatter.dateFormat = Constants.timestampDateFormat
-        let date = formatter.string(from: transaction.timestamp)
-        
-        var recipients = [String]()
-        var balance: Balance?
-        
-        switch transaction.kind {
-        case .receive(let model):
-            recipients.append(model.recipient.address)
-            balance = model.balance
-
-        case .sent(let model):
-            recipients.append(model.recipient.address)
-            balance = model.balance
-
-        case .exchange(let model):
-            balance = model.total
-
-        case .selfTransfer(let model):
-            balance = model.balance
-
-        case .tokenGeneration(let model):
-            balance = model.balance
-
-        case .tokenReissue(let model):
-            balance = model.balance
-
-        case .tokenBurn(let model):
-            balance = model.balance
-
-        case .startedLeasing(let model):
-            recipients.append(model.account.address)
-            balance = model.balance
-
-        case .canceledLeasing(let model):
-            recipients.append(model.account.address)
-            balance = model.balance
-
-        case .incomingLeasing(let model):
-            recipients.append(model.account.address)
-            balance = model.balance
-
-        case .spamReceive(let model):
-            recipients.append(model.recipient.address)
-            balance = model.balance
-
-        case .massSent(let model):
-            recipients.append(contentsOf: model.transfers.map({ $0.recipient.address }))
-            balance = model.total
-
-        case .massReceived(let model):
-            recipients.append(contentsOf: model.transfers.map({ $0.recipient.address }))
-            balance = model.total
-        default:
-            break
-        }
-        
-        let recipientsKeys = recipients.map { (recipient) -> [String: String] in
-            return [Localizable.Waves.Transactionhistory.Copy.recipient: recipient]
-        }
-        let amount = balance?.displayText
-        let fee = transaction.totalFee.displayText
-        
-        let keys: [[String: String]] = [[Localizable.Waves.Transactionhistory.Copy.transactionId: id], [Localizable.Waves.Transactionhistory.Copy.type: kind], [Localizable.Waves.Transactionhistory.Copy.date: date], [Localizable.Waves.Transactionhistory.Copy.sender: sender]] + recipientsKeys +
-            [[Localizable.Waves.Transactionhistory.Copy.amount: amount ?? ""], [Localizable.Waves.Transactionhistory.Copy.fee: fee]]
-        
-        UIPasteboard.general.string = keys.map({ (item) -> String in
-            let key = item.first!.key
-            let value = item.first!.value
-            return key + ": " + value
-        }).joined(separator: "\n")
+//
+//        let id = transaction.id
+//        let kind = transaction.title
+//        let sender = transaction.sender.address
+//
+//        let formatter = DateFormatter.sharedFormatter
+//        formatter.dateFormat = Constants.timestampDateFormat
+//        let date = formatter.string(from: transaction.timestamp)
+//
+//        var recipients = [String]()
+//        var balance: Balance?
+//
+//        switch transaction.kind {
+//        case .receive(let model):
+//            recipients.append(model.recipient.address)
+//            balance = model.balance
+//
+//        case .sent(let model):
+//            recipients.append(model.recipient.address)
+//            balance = model.balance
+//
+//        case .exchange(let model):
+//            balance = model.total
+//
+//        case .selfTransfer(let model):
+//            balance = model.balance
+//
+//        case .tokenGeneration(let model):
+//            balance = model.balance
+//
+//        case .tokenReissue(let model):
+//            balance = model.balance
+//
+//        case .tokenBurn(let model):
+//            balance = model.balance
+//
+//        case .startedLeasing(let model):
+//            recipients.append(model.account.address)
+//            balance = model.balance
+//
+//        case .canceledLeasing(let model):
+//            recipients.append(model.account.address)
+//            balance = model.balance
+//
+//        case .incomingLeasing(let model):
+//            recipients.append(model.account.address)
+//            balance = model.balance
+//
+//        case .spamReceive(let model):
+//            recipients.append(model.recipient.address)
+//            balance = model.balance
+//
+//        case .massSent(let model):
+//            recipients.append(contentsOf: model.transfers.map({ $0.recipient.address }))
+//            balance = model.total
+//
+//        case .massReceived(let model):
+//            recipients.append(contentsOf: model.transfers.map({ $0.recipient.address }))
+//            balance = model.total
+//        default:
+//            break
+//        }
+//
+//        let recipientsKeys = recipients.map { (recipient) -> [String: String] in
+//            return [Localizable.Waves.Transactionhistory.Copy.recipient: recipient]
+//        }
+//        let amount = balance?.displayText
+//        let fee = transaction.totalFee.displayText
+//
+//        let keys: [[String: String]] = [[Localizable.Waves.Transactionhistory.Copy.transactionId: id], [Localizable.Waves.Transactionhistory.Copy.type: kind], [Localizable.Waves.Transactionhistory.Copy.date: date], [Localizable.Waves.Transactionhistory.Copy.sender: sender]] + recipientsKeys +
+//            [[Localizable.Waves.Transactionhistory.Copy.amount: amount ?? ""], [Localizable.Waves.Transactionhistory.Copy.fee: fee]]
+//
+//        UIPasteboard.general.string = keys.map({ (item) -> String in
+//            let key = item.first!.key
+//            let value = item.first!.value
+//            return key + ": " + value
+//        }).joined(separator: "\n")
     }
 
 }

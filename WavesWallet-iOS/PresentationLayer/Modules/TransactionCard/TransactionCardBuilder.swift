@@ -12,10 +12,10 @@ struct TransactionCardBuilder: ModuleBuilderOutput {
 
     struct Input {
         var transaction: DomainLayer.DTO.SmartTransaction
-        var callbackInput: ((TransactionCardViewControllerInput) -> Void)
+        var callbackInput: ((TransactionCardModuleInput) -> Void)
     }
 
-    var output: TransactionCardViewControllerDelegate
+    var output: TransactionCardModuleOutput
 
     func build(input: Input) -> UIViewController {
 
