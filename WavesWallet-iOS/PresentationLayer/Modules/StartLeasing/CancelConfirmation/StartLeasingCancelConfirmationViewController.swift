@@ -80,6 +80,7 @@ final class StartLeasingCancelConfirmationViewController: UIViewController {
         title = Localizable.Waves.Startleasingconfirmation.Label.confirmation
         labelLeasingTxTitle.text = Localizable.Waves.Startleasingconfirmation.Label.leasingTX
         labelFeeTitle.text = Localizable.Waves.Startleasingconfirmation.Label.fee + " " + "WAVES"
+        buttonCancel.setTitle(Localizable.Waves.Startleasingconfirmation.Button.cancelLeasing, for: .normal)
     }
     
     @IBAction private func cancelLeasing(_ sender: Any) {
