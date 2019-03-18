@@ -52,8 +52,6 @@ final class AppCoordinator: Coordinator {
     private let authoAuthorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let disposeBag: DisposeBag = DisposeBag()
     private var isActiveApp: Bool = false
-
-    private let utilsInteractor: UtilsInteractorProtocol = FactoryInteractors.instance.utilsInteractor
     
     init(_ windowRouter: WindowRouter) {
         self.windowRouter = windowRouter
@@ -103,16 +101,6 @@ extension AppCoordinator: PresentationCoordinator {
             addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
 
         case .slide(let wallet):
-
-            
-            //TODO: по хорошему время с сервера нажл брать в методе didBecomeActive.
-            // но там не будет авторизирован DomainLayer.DTO.SignedWallet
-            // а использовать Node Api я не могу без environment который требует wallet.
-            // В данном случаи такие зависимости не очень хорошо
-            
-            utilsInteractor.saveServerTimestamp()
-                .subscribe()
-                    .disposed(by: disposeBag)
             
             guard isHasCoordinator(type: SlideCoordinator.self) != true else { return }
 

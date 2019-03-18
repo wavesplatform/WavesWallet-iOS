@@ -99,13 +99,14 @@ private extension AccountBalanceRepositoryRemote {
 
     func matcherBalances(by walletAddress: String, wallet: DomainLayer.DTO.SignedWallet) -> Observable<[String: Int64]> {
 
-        let signature = TimestampSignature(signedWallet: wallet)
-
         return environmentRepository
             .accountEnvironment(accountAddress: wallet.address)
             .flatMap { [weak self] environment -> Single<Response> in
 
                 guard let owner = self else { return Single.never() }
+
+                let signature = TimestampSignature(signedWallet: wallet,
+                                                   environment: environment)
 
                 return owner
                     .matcherBalanceProvider

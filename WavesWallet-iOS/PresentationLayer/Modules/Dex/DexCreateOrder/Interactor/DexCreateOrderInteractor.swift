@@ -22,6 +22,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     private let matcherProvider: MoyaProvider<Matcher.Service.OrderBook> = .nodeMoyaProvider()
     private let orderBookRepository = FactoryRepositories.instance.dexOrderBookRepository
     private let transactionInteractor = FactoryInteractors.instance.transactions
+    private let environmentRepository = FactoryRepositories.instance.environmentRepository
     
     func createOrder(order: DexCreateOrder.DTO.Order) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
         
@@ -29,14 +30,17 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
             
             guard let owner = self else { return Observable.empty() }
             
-            return owner.matcherRepository.matcherPublicKey(accountAddress: wallet.address)
-                .flatMap({ [weak self] (matcherPublicKey) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
+            let matcher = owner.matcherRepository.matcherPublicKey(accountAddress: wallet.address)
+            let environment = owner.environmentRepository.accountEnvironment(accountAddress: wallet.address)
+            
+            return Observable.zip(matcher, environment)
+                .flatMap({ [weak self] (matcherPublicKey, environment) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
                     guard let owner = self else { return Observable.empty() }
-
+                    
                     let precisionDifference =  (order.priceAsset.decimals - order.amountAsset.decimals) + Constants.numberForConveringDecimals
-
+                    
                     let price = (order.price.decimalValue * pow(10, precisionDifference)).int64Value
-
+                    
                     let orderQuery = DomainLayer.Query.Dex.CreateOrder(wallet: wallet,
                                                                        matcherPublicKey: matcherPublicKey,
                                                                        amountAsset: order.amountAsset.id,
@@ -45,18 +49,19 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                                                                        price: price,
                                                                        orderType: order.type,
                                                                        matcherFee: order.fee,
+                                                                       timestamp: Date().millisecondsSince1970(timestampDiff: environment.timestampServerDiff),
                                                                        expiration: Int64(order.expiration.rawValue))
-
+                    
                     
                     return owner.orderBookRepository.createOrder(wallet: wallet, order: orderQuery)
-                    .flatMap({ (success) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
-                        let output = DexCreateOrder.DTO.Output(time: Date(milliseconds: orderQuery.timestamp),
-                                                               orderType: order.type,
-                                                               price: order.price,
-                                                               amount: order.amount)
-                        return Observable.just(ResponseType(output: output, error: nil))
-                    })
-            })
+                        .flatMap({ (success) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
+                            let output = DexCreateOrder.DTO.Output(time: Date(milliseconds: orderQuery.timestamp),
+                                                                   orderType: order.type,
+                                                                   price: order.price,
+                                                                   amount: order.amount)
+                            return Observable.just(ResponseType(output: output, error: nil))
+                        })
+                })
         })
         .catchError({ (error) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
             return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))

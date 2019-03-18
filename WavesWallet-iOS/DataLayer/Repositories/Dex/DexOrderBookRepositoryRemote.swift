@@ -29,7 +29,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                 
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .custom { decoder in
-                    return Date(timestampNormalize: decoder)
+                    return Date(timestampDecoder: decoder, timestampDiff: environment.timestampServerDiff)
                 }
 
                 
@@ -112,13 +112,13 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                 
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .custom { decoder in
-                    return Date(timestampNormalize: decoder)
+                    return Date(timestampDecoder: decoder, timestampDiff: environment.timestampServerDiff)
                 }
                 
                 return owner.matcherProvider.rx
                 .request(.init(kind: .getMyOrders(amountAsset: amountAsset.id,
                                                   priceAsset: priceAsset.id,
-                                                  signature: TimestampSignature(signedWallet: wallet)),
+                                                  signature: TimestampSignature(signedWallet: wallet, environment: environment)),
                                environment: environment),
                          callbackQueue: DispatchQueue.global(qos: .userInteractive))
                 .filterSuccessfulStatusAndRedirectCodes()
