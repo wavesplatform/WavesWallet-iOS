@@ -881,7 +881,6 @@
 		E9D36DFA2175C755001E6DF0 /* AssetList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9D36DC62175C755001E6DF0 /* AssetList.storyboard */; };
 		E9D892472237ECE700DFB678 /* UtilsNodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D892462237ECE700DFB678 /* UtilsNodeService.swift */; };
 		E9D892492237FA7600DFB678 /* UtilsNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D892482237FA7600DFB678 /* UtilsNode.swift */; };
-		E9D8924B2237FDCE00DFB678 /* UtilsRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D8924A2237FDCE00DFB678 /* UtilsRepositoryRemote.swift */; };
 		E9D8924D2237FE7400DFB678 /* UtilsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D8924C2237FE7400DFB678 /* UtilsRepositoryProtocol.swift */; };
 		E9DB667321A3846A00962639 /* StartLeasingConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DB667221A3846A00962639 /* StartLeasingConfirmationViewController.swift */; };
 		E9DB667521A3848900962639 /* StartLeasingCancelConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DB667421A3848900962639 /* StartLeasingCancelConfirmationViewController.swift */; };
@@ -1836,7 +1835,6 @@
 		E9D36DC62175C755001E6DF0 /* AssetList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AssetList.storyboard; sourceTree = "<group>"; };
 		E9D892462237ECE700DFB678 /* UtilsNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsNodeService.swift; sourceTree = "<group>"; };
 		E9D892482237FA7600DFB678 /* UtilsNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsNode.swift; sourceTree = "<group>"; };
-		E9D8924A2237FDCE00DFB678 /* UtilsRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsRepositoryRemote.swift; sourceTree = "<group>"; };
 		E9D8924C2237FE7400DFB678 /* UtilsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E9DB667221A3846A00962639 /* StartLeasingConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingConfirmationViewController.swift; sourceTree = "<group>"; };
 		E9DB667421A3848900962639 /* StartLeasingCancelConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingCancelConfirmationViewController.swift; sourceTree = "<group>"; };
@@ -2869,7 +2867,6 @@
 				E910B7E821C3261B00E402AB /* CoinomatRepository.swift */,
 				0A4508FB2178E72B00EBF669 /* EnvironmentRepository.swift */,
 				0A751D35221711380024D523 /* NotificationNewsRepository.swift */,
-				E9D8924A2237FDCE00DFB678 /* UtilsRepositoryRemote.swift */,
 				0A5ABB9F21171A75006A10A7 /* AccountBalance */,
 				E94A7005215AEAFB001814F7 /* AddressBook */,
 				0AF0C67521A97D3900602197 /* Aliases */,
@@ -5343,7 +5340,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A218B8521551D1400B989A1 /* WalletsRepositoryLocal.swift in Sources */,
-				E9D8924B2237FDCE00DFB678 /* UtilsRepositoryRemote.swift in Sources */,
 				0A88CC0A217E80040083874C /* WalletRealmFactory.swift in Sources */,
 				0AD83601217A0D25004413E9 /* GitHubService.swift in Sources */,
 				04831F7A216917B0006D1ED6 /* ApiServiceTypes.swift in Sources */,
