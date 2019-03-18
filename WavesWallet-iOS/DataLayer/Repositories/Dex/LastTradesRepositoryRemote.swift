@@ -27,7 +27,7 @@ final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
                 
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .custom { decoder in
-                    return Date(isoNormalize: decoder)
+                    return Date(isoDecoder: decoder, timestampDiff: environment.timestampServerDiff)
                 }
                 let filters = API.Query.ExchangeFilters(matcher: nil,
                                                         sender: nil,

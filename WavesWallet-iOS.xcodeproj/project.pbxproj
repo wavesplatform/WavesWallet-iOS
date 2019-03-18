@@ -119,7 +119,7 @@
 		0A43996921504CF60032E608 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A43996821504CF60032E608 /* SideMenu.swift */; };
 		0A4508F82177970F00EBF669 /* AlertDeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4508F72177970F00EBF669 /* AlertDeleteAccountViewController.swift */; };
 		0A4508FA2178938C00EBF669 /* EnvironmentRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4508F92178938C00EBF669 /* EnvironmentRepositoryProtocol.swift */; };
-		0A4508FC2178E72B00EBF669 /* EnvironmentRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4508FB2178E72B00EBF669 /* EnvironmentRepositoryRemote.swift */; };
+		0A4508FC2178E72B00EBF669 /* EnvironmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4508FB2178E72B00EBF669 /* EnvironmentRepository.swift */; };
 		0A485E8720FF570000079B49 /* AssetBalanceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8620FF570000079B49 /* AssetBalanceSettings.swift */; };
 		0A485E8B20FFAC6C00079B49 /* LeasingNodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8A20FFAC6C00079B49 /* LeasingNodeService.swift */; };
 		0A485E9A2100A8ED00079B49 /* TransferTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E992100A8ED00079B49 /* TransferTransaction.swift */; };
@@ -622,7 +622,6 @@
 		E94A7004215AEA4A001814F7 /* AddressBookRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A7003215AEA49001814F7 /* AddressBookRepositoryProtocol.swift */; };
 		E94A7007215AEB0E001814F7 /* AddressBookRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A7006215AEB0E001814F7 /* AddressBookRepository.swift */; };
 		E94E4E6921CF9F6D00053A49 /* CoinomatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E4E6821CF9F6D00053A49 /* CoinomatService.swift */; };
-		E953316B2239A59000C516B9 /* UtilsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E953316A2239A59000C516B9 /* UtilsInteractor.swift */; };
 		E95438F8217F91BA001A7860 /* SendLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95438F7217F91BA001A7860 /* SendLoadingViewController.swift */; };
 		E9543902217FF9EC001A7860 /* SendCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9543901217FF9EC001A7860 /* SendCompleteViewController.swift */; };
 		E95B47C021638A9F004D4E39 /* Hello.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E95B47A821638A9F004D4E39 /* Hello.storyboard */; };
@@ -1037,7 +1036,7 @@
 		0A43996821504CF60032E608 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		0A4508F72177970F00EBF669 /* AlertDeleteAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertDeleteAccountViewController.swift; sourceTree = "<group>"; };
 		0A4508F92178938C00EBF669 /* EnvironmentRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentRepositoryProtocol.swift; sourceTree = "<group>"; };
-		0A4508FB2178E72B00EBF669 /* EnvironmentRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentRepositoryRemote.swift; sourceTree = "<group>"; };
+		0A4508FB2178E72B00EBF669 /* EnvironmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentRepository.swift; sourceTree = "<group>"; };
 		0A485E8620FF570000079B49 /* AssetBalanceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceSettings.swift; sourceTree = "<group>"; };
 		0A485E8A20FFAC6C00079B49 /* LeasingNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeasingNodeService.swift; sourceTree = "<group>"; };
 		0A485E8C20FFB02100079B49 /* LeaseTransactionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseTransactionNode.swift; sourceTree = "<group>"; };
@@ -1575,7 +1574,6 @@
 		E94A7003215AEA49001814F7 /* AddressBookRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E94A7006215AEB0E001814F7 /* AddressBookRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookRepository.swift; sourceTree = "<group>"; };
 		E94E4E6821CF9F6D00053A49 /* CoinomatService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoinomatService.swift; sourceTree = "<group>"; };
-		E953316A2239A59000C516B9 /* UtilsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsInteractor.swift; sourceTree = "<group>"; };
 		E95438F7217F91BA001A7860 /* SendLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendLoadingViewController.swift; sourceTree = "<group>"; };
 		E9543901217FF9EC001A7860 /* SendCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCompleteViewController.swift; sourceTree = "<group>"; };
 		E95B47A821638A9F004D4E39 /* Hello.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Hello.storyboard; sourceTree = "<group>"; };
@@ -2134,7 +2132,6 @@
 				0A2CD237216D0F0000162063 /* AuthorizationInteractorProtocol.swift */,
 				0A344E2E2194747E007809B1 /* MigrationInteractor.swift */,
 				0A5EC393213ED90F00659350 /* TransactionsInteractor.swift */,
-				E953316A2239A59000C516B9 /* UtilsInteractor.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -2870,7 +2867,7 @@
 				0A218B9621555A4B00B989A1 /* AuthenticationRepositoryRemote.swift */,
 				0AAC2A472146C69600F6EB27 /* BlockRepositoryRemote.swift */,
 				E910B7E821C3261B00E402AB /* CoinomatRepository.swift */,
-				0A4508FB2178E72B00EBF669 /* EnvironmentRepositoryRemote.swift */,
+				0A4508FB2178E72B00EBF669 /* EnvironmentRepository.swift */,
 				0A751D35221711380024D523 /* NotificationNewsRepository.swift */,
 				E9D8924A2237FDCE00DFB678 /* UtilsRepositoryRemote.swift */,
 				0A5ABB9F21171A75006A10A7 /* AccountBalance */,
@@ -5550,7 +5547,7 @@
 				E95B6B0F219C22E400A85B5D /* TokenBurnConfirmationViewController.swift in Sources */,
 				0A14E3E62187185700EA7E91 /* AliasesViewModuleBuilder.swift in Sources */,
 				7BBDA0B62226CA5C00A83411 /* NodePlugin.swift in Sources */,
-				0A4508FC2178E72B00EBF669 /* EnvironmentRepositoryRemote.swift in Sources */,
+				0A4508FC2178E72B00EBF669 /* EnvironmentRepository.swift in Sources */,
 				0ADD7FD921F22FB60075FC59 /* SweetLogger.swift in Sources */,
 				0AF921F5212E07B3003BA067 /* AssetDetailCell.swift in Sources */,
 				E9B087EE2163886800937644 /* DexLastTradesPresenter.swift in Sources */,
@@ -5757,7 +5754,6 @@
 				E9B0879B2163886800937644 /* DexChartAxisFormatters.swift in Sources */,
 				E9B087C42163886800937644 /* DexTraderContainerModuleBuilder.swift in Sources */,
 				E991BB2A2202D5E00022E27D /* SendFeeInteractorProtocol.swift in Sources */,
-				E953316B2239A59000C516B9 /* UtilsInteractor.swift in Sources */,
 				0A762D9721639FCC0019D447 /* WavesButton.swift in Sources */,
 				0AF0C67421A97D3500602197 /* AliasesRepositoryLocal.swift in Sources */,
 				E9D36DF62175C755001E6DF0 /* AssetListTableViewCell.swift in Sources */,

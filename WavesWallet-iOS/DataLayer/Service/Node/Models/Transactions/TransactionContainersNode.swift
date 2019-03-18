@@ -111,8 +111,10 @@ extension Node.DTO {
 
     struct TransactionContainers: Decodable {
 
+        static let timeDiff: Int64 = 0
+        
         let transactions: [Transaction]
-
+        
         init(from decoder: Decoder) throws {
 
             var transactions: [Transaction] = []

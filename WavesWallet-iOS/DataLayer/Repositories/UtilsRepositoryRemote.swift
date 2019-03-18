@@ -10,6 +10,9 @@ import Foundation
 import RxSwift
 import Moya
 
+private enum Constants {
+    static let minDifference: Int64 = 1000 * 30
+}
 
 final class UtilsRepositoryRemote: UtilsRepositoryProtocol {
     
@@ -20,13 +23,17 @@ final class UtilsRepositoryRemote: UtilsRepositoryProtocol {
         self.environmentRepository = environmentRepository
     }
     
-    func serverTimestamp(accountAddress: String) -> Observable<Int64> {
+    func timestampServerDiff(accountAddress: String) -> Observable<Int64> {
         return environmentRepository.accountEnvironment(accountAddress: accountAddress)
             .flatMap({ [weak self] (environment) -> Observable<Int64> in
                 guard let owner = self else { return Observable.empty() }
                 return owner.utilsProvider.rx.request(.init(environment: environment, kind: .time))
                 .map(Node.DTO.Utils.Time.self)
-                .map {$0.NTP}
+                .map { timestamp in
+                    let localTimestamp = Int64(Date().timeIntervalSince1970 * 1000)
+                    let diff = localTimestamp - timestamp.NTP
+                    return abs(diff) > Constants.minDifference ? diff : 0
+                }
                 .asObservable()
             })
     }
