@@ -79,6 +79,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
 
     private func remoteEnvironment(accountAddress: String) -> Observable<Environment> {
 
+        //TODO: function call 6 times, after user input passcode
         return environmentRepository
             .rx
             .request(.get(isTestNet: Environment.isTestNet))
