@@ -351,11 +351,7 @@
 
 "dexmarket.searchBar.placeholder" = "검색";
 
-"dexmyorders.label.amount" = "수량";
-
 "dexmyorders.label.buy" = "매수";
-
-"dexmyorders.label.date" = "날짜";
 
 "dexmyorders.label.emptyData" = "아무것도 없습니다…\n주문 내역이 없습니다";
 
@@ -364,8 +360,6 @@
 "dexmyorders.label.price" = "가격";
 
 "dexmyorders.label.sell" = "매도";
-
-"dexmyorders.label.side" = "유형";
 
 "dexmyorders.label.status" = "상태";
 
@@ -376,8 +370,6 @@
 "dexmyorders.label.status.filled" = "체결 주문";
 
 "dexmyorders.label.status.partiallyFilled" = "부분 체결 주문";
-
-"dexmyorders.label.sum" = "합계";
 
 "dexmyorders.label.time" = "시간";
 

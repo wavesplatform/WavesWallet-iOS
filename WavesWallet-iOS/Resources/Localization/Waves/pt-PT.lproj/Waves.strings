@@ -351,11 +351,7 @@
 
 "dexmarket.searchBar.placeholder" = "Pesquisar";
 
-"dexmyorders.label.amount" = "Quantidade";
-
 "dexmyorders.label.buy" = "Comprar";
-
-"dexmyorders.label.date" = "Data";
 
 "dexmyorders.label.emptyData" = "Não há nada aqui…\nAinda não criaste Ordens no DEX";
 
@@ -364,8 +360,6 @@
 "dexmyorders.label.price" = "Cotação";
 
 "dexmyorders.label.sell" = "Vender";
-
-"dexmyorders.label.side" = "Tipo de operação";
 
 "dexmyorders.label.status" = "Estado";
 
@@ -376,8 +370,6 @@
 "dexmyorders.label.status.filled" = "Concluída";
 
 "dexmyorders.label.status.partiallyFilled" = "Parcialmente concluída";
-
-"dexmyorders.label.sum" = "Total";
 
 "dexmyorders.label.time" = "Hora";
 

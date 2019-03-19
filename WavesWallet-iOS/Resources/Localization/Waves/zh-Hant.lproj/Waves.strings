@@ -351,11 +351,7 @@
 
 "dexmarket.searchBar.placeholder" = "搜寻";
 
-"dexmyorders.label.amount" = "总数";
-
 "dexmyorders.label.buy" = "买入";
-
-"dexmyorders.label.date" = "日期";
 
 "dexmyorders.label.emptyData" = "没有信息…\n您没有任何交易";
 
@@ -364,8 +360,6 @@
 "dexmyorders.label.price" = "价格";
 
 "dexmyorders.label.sell" = "卖出";
-
-"dexmyorders.label.side" = "边缘";
 
 "dexmyorders.label.status" = "状态";
 
@@ -376,8 +370,6 @@
 "dexmyorders.label.status.filled" = "满";
 
 "dexmyorders.label.status.partiallyFilled" = "部分的";
-
-"dexmyorders.label.sum" = "总数";
 
 "dexmyorders.label.time" = "时间";
 
