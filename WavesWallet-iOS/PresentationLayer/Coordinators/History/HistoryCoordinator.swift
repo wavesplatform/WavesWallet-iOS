@@ -19,10 +19,6 @@ final class HistoryCoordinator: Coordinator {
     private var navigationRouter: NavigationRouter!
     private let disposeBag: DisposeBag = DisposeBag()
 
-    private let popoverViewControllerTransitioning = ModalViewControllerTransitioning {
-
-    }
-
     func start() {
 
         let historyViewController = HistoryModuleBuilder(output: self)

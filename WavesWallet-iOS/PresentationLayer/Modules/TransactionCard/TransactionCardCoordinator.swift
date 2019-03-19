@@ -28,7 +28,7 @@ final class TransactionCardCoordinator: Coordinator {
     private lazy var popoverViewControllerTransitioning = ModalViewControllerTransitioning { [weak self] in
         self?.removeFromParentCoordinator()
     }
-
+    
     private let transaction: DomainLayer.DTO.SmartTransaction
     private var transactionCardViewControllerInput: TransactionCardModuleInput?
 
@@ -48,13 +48,12 @@ final class TransactionCardCoordinator: Coordinator {
 
         let vc = TransactionCardBuilder(output: self).build(input: .init(transaction: transaction,
                                                                          callbackInput: callbackInput))
-        vc.modalPresentationStyle = .custom
-        vc.transitioningDelegate = popoverViewControllerTransitioning
-        vc.navigationItem.isNavigationBarHidden = true
 
         cardNavigationRouter.viewController.modalPresentationStyle = .custom
+        cardNavigationRouter.viewController.transitioningDelegate = popoverViewControllerTransitioning
 
         cardNavigationRouter.pushViewController(vc)
+
         navigationRouter.present(cardNavigationRouter.viewController, animated: true, completion: nil)
     }
 }
@@ -71,6 +70,10 @@ extension TransactionCardCoordinator: StartLeasingModuleOutput {
 // MARK: TransactionCardViewControllerDelegate
 
 extension TransactionCardCoordinator: TransactionCardModuleOutput {
+    
+    func transactionCardViewDismissCard() {
+
+    }
 
     func transactionCardAddContact(address: String) {
 

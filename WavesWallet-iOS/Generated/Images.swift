@@ -53,6 +53,7 @@ internal enum Images {
   internal static let arrowRight = ImageAsset(name: "arrow_right")
   internal static let arrowTransfer = ImageAsset(name: "arrow_transfer")
   internal static let arrowdown14Basic300 = ImageAsset(name: "arrowdown14Basic300")
+  internal static let arrowdown24Black = ImageAsset(name: "arrowdown24Black")
   internal static let arrowright14Basic200 = ImageAsset(name: "arrowright14Basic200")
   internal static let arrowup14Basic300 = ImageAsset(name: "arrowup14Basic300")
   internal static let assetChangeArrows = ImageAsset(name: "asset_change_arrows")
@@ -314,6 +315,7 @@ internal enum Images {
     arrowRight,
     arrowTransfer,
     arrowdown14Basic300,
+    arrowdown24Black,
     arrowright14Basic200,
     arrowup14Basic300,
     assetChangeArrows,

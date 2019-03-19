@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="3000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QQh-Mv-KZr" customClass="ModalTableView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="always" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQh-Mv-KZr" customClass="TransactionCardScroll" customModule="WavesWallet_iOS" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="2980"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" red="0.80784313725490198" green="0.81568627450980391" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
@@ -552,18 +552,18 @@
                                             <outlet property="stackView" destination="oyY-e6-7bS" id="Xzi-rY-QTu"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardGeneralCell" rowHeight="90" id="oST-9y-9Dk" customClass="TransactionCardGeneralCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1939" width="375" height="90"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardGeneralCell" rowHeight="83" id="oST-9y-9Dk" customClass="TransactionCardGeneralCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="1939" width="375" height="83"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oST-9y-9Dk" id="Cg2-Dy-Tks">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="83"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <userGuides>
                                                 <userLayoutGuide location="40" affinity="minY"/>
                                             </userGuides>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FpK-jh-jHb" customClass="TransactionImageView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="16" width="48" height="48"/>
+                                                    <rect key="frame" x="16" y="10" width="48" height="48"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="48" id="L6e-We-xPf"/>
@@ -571,13 +571,13 @@
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Received" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oj0-aE-Pfm">
-                                                    <rect key="frame" x="78" y="16" width="281" height="16"/>
+                                                    <rect key="frame" x="78" y="10" width="281" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="BuI-ny-bKt">
-                                                    <rect key="frame" x="78" y="34" width="281" height="128"/>
+                                                    <rect key="frame" x="78" y="28" width="281" height="128"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3yY-K3-d0g" customClass="BalanceLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="36.5" width="16.5" height="55"/>
@@ -605,7 +605,7 @@
                                                 <constraint firstItem="BuI-ny-bKt" firstAttribute="leading" secondItem="FpK-jh-jHb" secondAttribute="trailing" constant="14" id="fBP-hm-HQW"/>
                                                 <constraint firstItem="FpK-jh-jHb" firstAttribute="leading" secondItem="Cg2-Dy-Tks" secondAttribute="leading" constant="16" id="mRK-kl-hiU"/>
                                                 <constraint firstItem="Oj0-aE-Pfm" firstAttribute="leading" secondItem="FpK-jh-jHb" secondAttribute="trailing" constant="14" id="ql0-pH-qdK"/>
-                                                <constraint firstItem="FpK-jh-jHb" firstAttribute="top" secondItem="Cg2-Dy-Tks" secondAttribute="top" constant="16" id="snI-zr-mG4"/>
+                                                <constraint firstItem="FpK-jh-jHb" firstAttribute="top" secondItem="Cg2-Dy-Tks" secondAttribute="top" constant="10" id="snI-zr-mG4"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -617,7 +617,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardMassSentRecipientCell" rowHeight="206" id="LVl-zX-Qd9" customClass="TransactionCardMassSentRecipientCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2029" width="375" height="206"/>
+                                        <rect key="frame" x="0.0" y="2022" width="375" height="206"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LVl-zX-Qd9" id="ds0-Ai-Mhh">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="206"/>

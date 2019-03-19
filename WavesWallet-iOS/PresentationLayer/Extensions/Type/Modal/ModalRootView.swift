@@ -60,6 +60,7 @@ class ModalRootView: UIView, ModalScrollViewRootView {
         guard let headerView = self.delegate?.modalHeaderView() else { return }
         self.headerHeight = self.delegate?.modalHeaderHeight() ?? 0
         self.headerView = headerView
+        self.headerView?.translatesAutoresizingMaskIntoConstraints = true
 
         let fakeHeaderView: UIView = {
             let view = UIView()

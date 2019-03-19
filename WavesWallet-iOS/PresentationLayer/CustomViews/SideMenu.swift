@@ -9,7 +9,15 @@
 import UIKit
 import RESideMenu
 
-final class SlideMenu: RESideMenu {
+protocol SlideMenuProtocol {
+    var mainViewController: UIViewController { get }
+}
+
+final class SlideMenu: RESideMenu, SlideMenuProtocol {
+
+    var mainViewController: UIViewController {
+        return contentViewController
+    }
 
     override var childForStatusBarStyle: UIViewController? {
         return self.contentViewController
@@ -27,7 +35,6 @@ final class SlideMenu: RESideMenu {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +51,5 @@ final class SlideMenu: RESideMenu {
         contentViewShadowRadius = 15
         contentViewInPortraitOffsetCenterX = 100
         bouncesHorizontally = false
-//        topControllersNames = [NSStringFromClass(PopupViewController.classForCoder())]
     }
 }
