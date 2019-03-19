@@ -119,7 +119,6 @@
 		0A43996921504CF60032E608 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A43996821504CF60032E608 /* SideMenu.swift */; };
 		0A4508F82177970F00EBF669 /* AlertDeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4508F72177970F00EBF669 /* AlertDeleteAccountViewController.swift */; };
 		0A4508FA2178938C00EBF669 /* EnvironmentRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4508F92178938C00EBF669 /* EnvironmentRepositoryProtocol.swift */; };
-		0A4508FC2178E72B00EBF669 /* EnvironmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4508FB2178E72B00EBF669 /* EnvironmentRepository.swift */; };
 		0A485E8720FF570000079B49 /* AssetBalanceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8620FF570000079B49 /* AssetBalanceSettings.swift */; };
 		0A485E8B20FFAC6C00079B49 /* LeasingNodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E8A20FFAC6C00079B49 /* LeasingNodeService.swift */; };
 		0A485E9A2100A8ED00079B49 /* TransferTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A485E992100A8ED00079B49 /* TransferTransaction.swift */; };
@@ -879,13 +878,13 @@
 		E9D36DF82175C755001E6DF0 /* AssetListInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36DC42175C755001E6DF0 /* AssetListInteractorProtocol.swift */; };
 		E9D36DF92175C755001E6DF0 /* AssetListModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36DC52175C755001E6DF0 /* AssetListModuleOutput.swift */; };
 		E9D36DFA2175C755001E6DF0 /* AssetList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9D36DC62175C755001E6DF0 /* AssetList.storyboard */; };
-		E9D892472237ECE700DFB678 /* UtilsNodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D892462237ECE700DFB678 /* UtilsNodeService.swift */; };
-		E9D892492237FA7600DFB678 /* UtilsNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D892482237FA7600DFB678 /* UtilsNode.swift */; };
-		E9D8924D2237FE7400DFB678 /* UtilsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D8924C2237FE7400DFB678 /* UtilsRepositoryProtocol.swift */; };
 		E9DB667321A3846A00962639 /* StartLeasingConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DB667221A3846A00962639 /* StartLeasingConfirmationViewController.swift */; };
 		E9DB667521A3848900962639 /* StartLeasingCancelConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DB667421A3848900962639 /* StartLeasingCancelConfirmationViewController.swift */; };
 		E9DB667B21A3938200962639 /* StartLeasingLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DB667A21A3938200962639 /* StartLeasingLoadingViewController.swift */; };
 		E9DC959621A3A5BD0020249F /* StartLeasingTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47E021638B11004D4E39 /* StartLeasingTypes.swift */; };
+		E9DDF73A2240F52D00B83CFD /* EnvironmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DDF7392240F52D00B83CFD /* EnvironmentRepository.swift */; };
+		E9DDF73D2240F58900B83CFD /* UtilsNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DDF73B2240F58800B83CFD /* UtilsNode.swift */; };
+		E9DDF7402240F5FD00B83CFD /* UtilsNodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DDF73F2240F5FD00B83CFD /* UtilsNodeService.swift */; };
 		E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */; };
 		E9DEECEB20BEF97E00F28C67 /* Waves.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */; };
 		E9DF24F62221ED640077F2EB /* AssetDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DF24F52221ED640077F2EB /* AssetDetailInteractor.swift */; };
@@ -1035,7 +1034,6 @@
 		0A43996821504CF60032E608 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		0A4508F72177970F00EBF669 /* AlertDeleteAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertDeleteAccountViewController.swift; sourceTree = "<group>"; };
 		0A4508F92178938C00EBF669 /* EnvironmentRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentRepositoryProtocol.swift; sourceTree = "<group>"; };
-		0A4508FB2178E72B00EBF669 /* EnvironmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentRepository.swift; sourceTree = "<group>"; };
 		0A485E8620FF570000079B49 /* AssetBalanceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBalanceSettings.swift; sourceTree = "<group>"; };
 		0A485E8A20FFAC6C00079B49 /* LeasingNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeasingNodeService.swift; sourceTree = "<group>"; };
 		0A485E8C20FFB02100079B49 /* LeaseTransactionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseTransactionNode.swift; sourceTree = "<group>"; };
@@ -1833,12 +1831,12 @@
 		E9D36DC42175C755001E6DF0 /* AssetListInteractorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetListInteractorProtocol.swift; sourceTree = "<group>"; };
 		E9D36DC52175C755001E6DF0 /* AssetListModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetListModuleOutput.swift; sourceTree = "<group>"; };
 		E9D36DC62175C755001E6DF0 /* AssetList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AssetList.storyboard; sourceTree = "<group>"; };
-		E9D892462237ECE700DFB678 /* UtilsNodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsNodeService.swift; sourceTree = "<group>"; };
-		E9D892482237FA7600DFB678 /* UtilsNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsNode.swift; sourceTree = "<group>"; };
-		E9D8924C2237FE7400DFB678 /* UtilsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E9DB667221A3846A00962639 /* StartLeasingConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingConfirmationViewController.swift; sourceTree = "<group>"; };
 		E9DB667421A3848900962639 /* StartLeasingCancelConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingCancelConfirmationViewController.swift; sourceTree = "<group>"; };
 		E9DB667A21A3938200962639 /* StartLeasingLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartLeasingLoadingViewController.swift; sourceTree = "<group>"; };
+		E9DDF7392240F52D00B83CFD /* EnvironmentRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentRepository.swift; sourceTree = "<group>"; };
+		E9DDF73B2240F58800B83CFD /* UtilsNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilsNode.swift; sourceTree = "<group>"; };
+		E9DDF73F2240F5FD00B83CFD /* UtilsNodeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilsNodeService.swift; sourceTree = "<group>"; };
 		E9DEECE820BEF96700F28C67 /* WavesPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WavesPopupViewController.swift; sourceTree = "<group>"; };
 		E9DEECEA20BEF97E00F28C67 /* Waves.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Waves.storyboard; sourceTree = "<group>"; };
 		E9DF24F52221ED640077F2EB /* AssetDetailInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetDetailInteractor.swift; sourceTree = "<group>"; };
@@ -2468,7 +2466,7 @@
 				0ABD1BEB2146BFEE0027A7A2 /* BlockNode.swift */,
 				0ADD803B21F5B60D0075FC59 /* AddressScriptInfoNode.swift */,
 				0ADD803D21F5B7090075FC59 /* AssetDetailNode.swift */,
-				E9D892482237FA7600DFB678 /* UtilsNode.swift */,
+				E9DDF73B2240F58800B83CFD /* UtilsNode.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2493,7 +2491,7 @@
 				0A485E8A20FFAC6C00079B49 /* LeasingNodeService.swift */,
 				0A5B6E6E211A2B6D005A7F09 /* TransactionNodeService.swift */,
 				0ABD1BE92146BEED0027A7A2 /* BlocksNodeService.swift */,
-				E9D892462237ECE700DFB678 /* UtilsNodeService.swift */,
+				E9DDF73F2240F5FD00B83CFD /* UtilsNodeService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -2865,8 +2863,8 @@
 				0A218B9621555A4B00B989A1 /* AuthenticationRepositoryRemote.swift */,
 				0AAC2A472146C69600F6EB27 /* BlockRepositoryRemote.swift */,
 				E910B7E821C3261B00E402AB /* CoinomatRepository.swift */,
-				0A4508FB2178E72B00EBF669 /* EnvironmentRepository.swift */,
 				0A751D35221711380024D523 /* NotificationNewsRepository.swift */,
+				E9DDF7392240F52D00B83CFD /* EnvironmentRepository.swift */,
 				0A5ABB9F21171A75006A10A7 /* AccountBalance */,
 				E94A7005215AEAFB001814F7 /* AddressBook */,
 				0AF0C67521A97D3900602197 /* Aliases */,
@@ -3255,7 +3253,6 @@
 				0A751D3122170EF60024D523 /* NotificationNewsRepositoryProtocol.swift */,
 				0A218B8A2155335F00B989A1 /* WalletSeedRepositoryProtocol.swift */,
 				0A218B8621551E6600B989A1 /* WalletsRepositoryProtocol.swift */,
-				E9D8924C2237FE7400DFB678 /* UtilsRepositoryProtocol.swift */,
 				0AEB359521160E1700EDD63C /* AccountBalance */,
 				E94A7002215AEA2A001814F7 /* AddressBook */,
 				0AEB35922115E44A00EDD63C /* Assets */,
@@ -5500,7 +5497,6 @@
 				0A5E4BE721383E1600E3C3C3 /* BurnTransaction+Mapper.swift in Sources */,
 				E9D36DD82175C755001E6DF0 /* ReceiveCardInteractor.swift in Sources */,
 				0A5E4BB32138046E00E3C3C3 /* AliasTransaction.swift in Sources */,
-				E9D892472237ECE700DFB678 /* UtilsNodeService.swift in Sources */,
 				0ADD7F9A21F22FB60075FC59 /* UIFont+Additions.swift in Sources */,
 				0ADD7FDE21F22FB60075FC59 /* CGSize+Hashable.swift in Sources */,
 				0A3FE8BE2137007500DBF4E1 /* LeaseCancelTransactionNode.swift in Sources */,
@@ -5543,7 +5539,6 @@
 				E95B6B0F219C22E400A85B5D /* TokenBurnConfirmationViewController.swift in Sources */,
 				0A14E3E62187185700EA7E91 /* AliasesViewModuleBuilder.swift in Sources */,
 				7BBDA0B62226CA5C00A83411 /* NodePlugin.swift in Sources */,
-				0A4508FC2178E72B00EBF669 /* EnvironmentRepository.swift in Sources */,
 				0ADD7FD921F22FB60075FC59 /* SweetLogger.swift in Sources */,
 				0AF921F5212E07B3003BA067 /* AssetDetailCell.swift in Sources */,
 				E9B087EE2163886800937644 /* DexLastTradesPresenter.swift in Sources */,
@@ -5774,6 +5769,7 @@
 				0AD2B57D20F63F8A007EE076 /* WalletDisplayData.swift in Sources */,
 				0ADD7FC421F22FB60075FC59 /* ArrayExtension.swift in Sources */,
 				E9B087E12163886800937644 /* DexCreateOrderTypes.swift in Sources */,
+				E9DDF73D2240F58900B83CFD /* UtilsNode.swift in Sources */,
 				0A218B8E215534E000B989A1 /* WalletSeedRepositoryLocal.swift in Sources */,
 				E9B08822216388B100937644 /* HighlightedButton.swift in Sources */,
 				E9B087C52163886800937644 /* DexTraderContainerInputProtocol.swift in Sources */,
@@ -5868,6 +5864,7 @@
 				0AAC2A462146C65900F6EB27 /* BlockRepositoryProtocol.swift in Sources */,
 				E911300C21BC028400588430 /* AssetSelectSkeletonView.swift in Sources */,
 				0ADD7FDF21F22FB60075FC59 /* NSObject+AssociatedObject.swift in Sources */,
+				E9DDF73A2240F52D00B83CFD /* EnvironmentRepository.swift in Sources */,
 				E9B088192163886800937644 /* DexSortPresenter.swift in Sources */,
 				0A1DAD7120F3A112004DA625 /* AddressesNodeService.swift in Sources */,
 				0ADD7FCB21F22FB60075FC59 /* DatabaseReference+Rx.swift in Sources */,
@@ -5930,6 +5927,7 @@
 				0ADD802521F22FFA0075FC59 /* SlideMenuRouter.swift in Sources */,
 				E9D36DE22175C755001E6DF0 /* ReceiveAddressModuleBuilder.swift in Sources */,
 				E9B087E82163886800937644 /* DexCreateOrderInteractorProtocol.swift in Sources */,
+				E9DDF7402240F5FD00B83CFD /* UtilsNodeService.swift in Sources */,
 				04615A23211A31C90000FF80 /* HistoryModuleInput.swift in Sources */,
 				0AA8CAD22152763A000D09E6 /* PasscodeView.swift in Sources */,
 				E9B086B62163883000937644 /* AddressBookPresenter.swift in Sources */,
@@ -6040,7 +6038,6 @@
 				E9D36DD42175C755001E6DF0 /* ReceiveCardPresenterProtocol.swift in Sources */,
 				E9B086B82163883000937644 /* AddressBookModuleBuilder.swift in Sources */,
 				E9D36DEB2175C755001E6DF0 /* ReceiveInvoiceViewController.swift in Sources */,
-				E9D892492237FA7600DFB678 /* UtilsNode.swift in Sources */,
 				E9B087AD2163886800937644 /* DexOrderBookLastPriceCell.swift in Sources */,
 				E9A380A721D2E1C5004377A6 /* PairPriceApi.swift in Sources */,
 				0ADD7FD721F22FB60075FC59 /* ObservableType+SweetLogger.swift in Sources */,
@@ -6054,7 +6051,6 @@
 				E9D36DCF2175C755001E6DF0 /* ReceiveCryptocurrencyViewController.swift in Sources */,
 				0A4C9AAB20EF6BFF0095A417 /* AssetsApiService.swift in Sources */,
 				E9B088102163886800937644 /* DexMarketModuleBuilder.swift in Sources */,
-				E9D8924D2237FE7400DFB678 /* UtilsRepositoryProtocol.swift in Sources */,
 				E9C0B49E2176C48300669D1D /* SendPresenter.swift in Sources */,
 				E9D36DDE2175C755001E6DF0 /* ReceiveContainerViewController.swift in Sources */,
 				E9B087992163886800937644 /* DexChartPresenter.swift in Sources */,
