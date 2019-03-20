@@ -45,21 +45,21 @@ extension TransactionCardStatusCell: ViewConfiguration {
     func update(with model: Model) {
 
         //TODO: Localization
-        keyLabel.text = "Status"
+        keyLabel.text = Localizable.Waves.Transactioncard.Title.status
 
         switch model {
         case .unconfirmed:
-            valueLabel.text = Localizable.Waves.Transactionhistory.Cell.Status.Button.unconfirmed.uppercased()
+            valueLabel.text = Localizable.Waves.Transactioncard.Title.unconfirmed
             statusContainer.backgroundColor = Constants.warningBackgroundColor
             valueLabel.textColor = .warning600
 
         case .activeNow:
-            valueLabel.text = Localizable.Waves.Transactionhistory.Cell.Status.Button.activeNow.uppercased()
+            valueLabel.text = Localizable.Waves.Transactioncard.Title.activeNow
             statusContainer.backgroundColor = Constants.okBackgroundColor
             valueLabel.textColor = .success500
 
         case .completed:
-            valueLabel.text = Localizable.Waves.Transactionhistory.Cell.Status.Button.completed.uppercased()
+            valueLabel.text = Localizable.Waves.Transactioncard.Title.completed
             statusContainer.backgroundColor = Constants.okBackgroundColor
             valueLabel.textColor = .success500
         }

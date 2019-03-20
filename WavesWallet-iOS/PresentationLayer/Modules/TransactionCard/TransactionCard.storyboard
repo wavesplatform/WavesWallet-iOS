@@ -145,7 +145,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" verticalHuggingPriority="252" placeholderIntrinsicWidth="325" placeholderIntrinsicHeight="42" translatesAutoresizingMaskIntoConstraints="NO" id="UWN-he-KpD" customClass="BalanceLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                    <rect key="frame" x="25" y="33.5" width="325" height="42"/>
+                                                    <rect key="frame" x="24" y="33.5" width="325" height="42"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vfD-su-OzB">
@@ -168,10 +168,10 @@
                                                 <constraint firstItem="dDR-hr-avR" firstAttribute="leading" secondItem="n2L-D5-MZu" secondAttribute="leading" constant="24" id="C28-rt-VQR"/>
                                                 <constraint firstItem="aaS-xb-bBQ" firstAttribute="leading" secondItem="n2L-D5-MZu" secondAttribute="leading" constant="24" id="DBL-11-LMH"/>
                                                 <constraint firstItem="aaS-xb-bBQ" firstAttribute="top" secondItem="vfD-su-OzB" secondAttribute="bottom" constant="4" id="H3e-R2-B3L"/>
-                                                <constraint firstItem="UWN-he-KpD" firstAttribute="leading" secondItem="n2L-D5-MZu" secondAttribute="leading" constant="25" id="KEV-BF-dq4"/>
+                                                <constraint firstItem="UWN-he-KpD" firstAttribute="leading" secondItem="n2L-D5-MZu" secondAttribute="leading" constant="24" id="KEV-BF-dq4"/>
                                                 <constraint firstAttribute="trailing" secondItem="vfD-su-OzB" secondAttribute="trailing" constant="24" id="a6g-Ip-rqN"/>
-                                                <constraint firstAttribute="trailing" secondItem="UWN-he-KpD" secondAttribute="trailing" constant="25" id="dHx-3C-t0C"/>
-                                                <constraint firstAttribute="trailing" secondItem="aaS-xb-bBQ" secondAttribute="trailing" constant="24" id="eHm-sq-TmG"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UWN-he-KpD" secondAttribute="trailing" constant="24" id="dHx-3C-t0C"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aaS-xb-bBQ" secondAttribute="trailing" constant="24" id="eHm-sq-TmG"/>
                                                 <constraint firstItem="vfD-su-OzB" firstAttribute="leading" secondItem="n2L-D5-MZu" secondAttribute="leading" constant="24" id="hHR-F8-Pn7"/>
                                                 <constraint firstAttribute="trailing" secondItem="dDR-hr-avR" secondAttribute="trailing" constant="24" id="i2J-gF-t5r"/>
                                             </constraints>

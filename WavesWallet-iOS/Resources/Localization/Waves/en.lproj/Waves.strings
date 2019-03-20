@@ -1050,6 +1050,132 @@
 
 "transactionScript.label.title" = "A script is installed on your account or asset";
 
+"usetouchid.button.notNow.text" = "Not now";
+
+"usetouchid.button.useBiometric.text" = "Use %@";
+
+"usetouchid.label.detail.text" = "Use your %@ for faster, easier access to your account";
+
+"usetouchid.label.title.text" = "Use %@ to sign in?";
+
+"wallet.button.startLease" = "Start Lease";
+
+"wallet.label.available" = "Available";
+
+"wallet.label.leased" = "Leased";
+
+"wallet.label.leasedIn" = "Leased in";
+
+"wallet.label.myAssets" = "My Asset";
+
+"wallet.label.quickNote.description.first" = "You can only transfer or trade WAVES that aren’t leased. The leased amount cannot be transferred or traded by you or anyone else.";
+
+"wallet.label.quickNote.description.second" = "You can cancel a leasing transaction as soon as it appears in the blockchain which usually occurs in a minute or less.";
+
+"wallet.label.quickNote.description.third" = "The generating balance will be updated after 1000 blocks.";
+
+"wallet.label.startedLeasing" = "Started Leasing";
+
+"wallet.label.totalBalance" = "Total balance";
+
+"wallet.label.viewHistory" = "Transaction history";
+
+"wallet.navigationBar.title" = "Wallet";
+
+"wallet.section.activeNow" = "Active now (%d)";
+
+"wallet.section.hiddenAssets" = "Hidden assets (%d)";
+
+"wallet.section.quickNote" = "Quick note";
+
+"wallet.section.spamAssets" = "Spam assets (%d)";
+
+"wallet.segmentedControl.assets" = "Assets";
+
+"wallet.segmentedControl.leasing" = "Leasing";
+
+"walletsort.button.position" = "Position";
+
+"walletsort.button.visibility" = "Visibility";
+
+"walletsort.navigationBar.title" = "Sorting";
+
+"wavespopup.button.exchange" = "Exchange";
+
+"wavespopup.button.receive" = "Receive";
+
+"wavespopup.button.send" = "Send";
+
+"wavespopup.label.comingsoon" = "Coming soon";
+
+"transactioncard.title.from" = "From";
+"transactioncard.title.startedLeasing" = "Started Leasing";
+"transactioncard.title.canceledLeasing" = "Canceled Leasing";
+"transactioncard.title.nodeAddress" = "Node Address";
+"transactioncard.title.sentTo" = "Sent to";
+"transactioncard.title.sent" = "Sent";
+"transactioncard.title.tokenBurn" = "Token Burn";
+"transactioncard.title.tokenGeneration" = "Token Generation";
+"transactioncard.title.tokenReissue" = "Token Reissue";
+"transactioncard.title.createAlias" = "Create Alias"; //alias
+"transactioncard.title.unrecognisedTransaction" = "Unrecognised Transaction";
+"transactioncard.title.entryInBlockchain" = "Entry in blockchain";
+"transactioncard.title.dataTransaction" = "Data Transaction";
+"transactioncard.title.setScriptTransaction" = "Set Script Transaction";
+"transactioncard.title.cancelScriptTransaction" = "Cancel Script Transaction";
+"transactioncard.title.received" = "Received";
+"transactioncard.title.receivedFrom" = "Received from";
+"transactioncard.title.spamReceived" = "Spam Received";
+"transactioncard.title.selfTransfer" = "Self-transfer";
+"transactioncard.title.setSponsorship" = "Set Sponsorship";
+"transactioncard.title.disableSponsorship" = "Disable Sponsorship";
+"transactioncard.title.setAssetScript" = "Set Asset Script";
+"transactioncard.title.receivedSponsorship" = "Received Sponsorship";
+
+"transactioncard.title.recipient" = "#%@ Recipient";
+
+"transactioncard.title.exchange.buy" = "Buy: %@/%@";
+"transactioncard.title.exchange.sell" = "Sell: %@/%@";
+
+
+"transactioncard.title.massReceived" = "Mass Received";
+"transactioncard.title.massSent" = "Mass Sent";
+"transactioncard.title.block" = "Block";
+"transactioncard.title.confirmations" = "Confirmations";
+"transactioncard.title.fee" = "Fee";
+"transactioncard.title.timestamp" = "Timestamp";
+"transactioncard.timestamp.format" = "dd.MM.yyyy at HH:mm";
+
+"transactioncard.title.activeNow" = "Active Now";
+"transactioncard.title.completed" = "Completed";
+"transactioncard.title.unconfirmed" = "Unconfirmed";
+"transactioncard.title.status" = "Status";
+"transactioncard.title.amount" = "Amount";
+"transactioncard.title.price" = "Price";
+"transactioncard.title.asset" = "Asset";
+"transactioncard.title.assetId" = "Asset ID";
+"transactioncard.title.reissuable" = "Reissuable";
+"transactioncard.title.notReissuable" = "Not Reissuable";
+"transactioncard.title.description" = "Description";
+
+"transactioncard.title.cancelLeasing" = "Cancel Leasing";
+"transactioncard.title.sendAgain" = "Send again";
+"transactioncard.title.viewOnExplorer" = "View on Explorer";
+"transactioncard.title.copyTXID" = "Copy TX ID";
+"transactioncard.title.copyAllData" = "Copy all data";
+
+"transactioncard.title.copied" = "Copied";
+
+"transactioncard.title.amountPerTransaction" = "Amount per transaction";
+"transactioncard.title.showAll" = "Show all (%@)";
+
+
+"transactionScript.button.okey" = "Okay";
+
+"transactionScript.label.subtitle" = "To work with a scripted account/asset, use the Waves Client";
+
+"transactionScript.label.title" = "A script is installed on your account or asset";
+
 "transactionhistory.button.copied" = "Copied";
 
 "transactionhistory.button.copyAllData" = "Copy all data";
@@ -1117,61 +1243,3 @@
 "transactionhistory.copy.transactionId" = "Transaction ID";
 
 "transactionhistory.copy.type" = "Type";
-
-"usetouchid.button.notNow.text" = "Not now";
-
-"usetouchid.button.useBiometric.text" = "Use %@";
-
-"usetouchid.label.detail.text" = "Use your %@ for faster, easier access to your account";
-
-"usetouchid.label.title.text" = "Use %@ to sign in?";
-
-"wallet.button.startLease" = "Start Lease";
-
-"wallet.label.available" = "Available";
-
-"wallet.label.leased" = "Leased";
-
-"wallet.label.leasedIn" = "Leased in";
-
-"wallet.label.myAssets" = "My Asset";
-
-"wallet.label.quickNote.description.first" = "You can only transfer or trade WAVES that aren’t leased. The leased amount cannot be transferred or traded by you or anyone else.";
-
-"wallet.label.quickNote.description.second" = "You can cancel a leasing transaction as soon as it appears in the blockchain which usually occurs in a minute or less.";
-
-"wallet.label.quickNote.description.third" = "The generating balance will be updated after 1000 blocks.";
-
-"wallet.label.startedLeasing" = "Started Leasing";
-
-"wallet.label.totalBalance" = "Total balance";
-
-"wallet.label.viewHistory" = "Transaction history";
-
-"wallet.navigationBar.title" = "Wallet";
-
-"wallet.section.activeNow" = "Active now (%d)";
-
-"wallet.section.hiddenAssets" = "Hidden assets (%d)";
-
-"wallet.section.quickNote" = "Quick note";
-
-"wallet.section.spamAssets" = "Spam assets (%d)";
-
-"wallet.segmentedControl.assets" = "Assets";
-
-"wallet.segmentedControl.leasing" = "Leasing";
-
-"walletsort.button.position" = "Position";
-
-"walletsort.button.visibility" = "Visibility";
-
-"walletsort.navigationBar.title" = "Sorting";
-
-"wavespopup.button.exchange" = "Exchange";
-
-"wavespopup.button.receive" = "Receive";
-
-"wavespopup.button.send" = "Send";
-
-"wavespopup.label.comingsoon" = "Coming soon";

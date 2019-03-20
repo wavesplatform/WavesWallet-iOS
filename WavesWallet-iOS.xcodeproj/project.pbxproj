@@ -208,34 +208,6 @@
 		0A762D13214FE23E00BE9204 /* NewAccountAvatarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D12214FE23E00BE9204 /* NewAccountAvatarView.xib */; };
 		0A762D15214FE3F300BE9204 /* InputTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D14214FE3F300BE9204 /* InputTextField.xib */; };
 		0A762D17214FF1CD00BE9204 /* InputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D16214FF1CD00BE9204 /* InputTextField.swift */; };
-		0A762D7521639FA60019D447 /* TransactionHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D4921639FA50019D447 /* TransactionHistory.storyboard */; };
-		0A762D7721639FA60019D447 /* TransactionHistoryTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D4E21639FA50019D447 /* TransactionHistoryTypes.swift */; };
-		0A762D7921639FA60019D447 /* TransactionHistoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D5121639FA50019D447 /* TransactionHistoryPresenter.swift */; };
-		0A762D7A21639FA60019D447 /* TransactionHistoryModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D5221639FA50019D447 /* TransactionHistoryModuleOutput.swift */; };
-		0A762D7B21639FA60019D447 /* TransactionHistoryModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D5321639FA50019D447 /* TransactionHistoryModuleInput.swift */; };
-		0A762D7C21639FA60019D447 /* TransactionHistoryTypes+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D5421639FA50019D447 /* TransactionHistoryTypes+ViewModels.swift */; };
-		0A762D7D21639FA60019D447 /* TransactionHistoryModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D5621639FA50019D447 /* TransactionHistoryModuleBuilder.swift */; };
-		0A762D7E21639FA60019D447 /* TransactionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D5821639FA50019D447 /* TransactionHistoryViewController.swift */; };
-		0A762D7F21639FA60019D447 /* TransactionHistoryCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D5B21639FA50019D447 /* TransactionHistoryCommentCell.swift */; };
-		0A762D8021639FA60019D447 /* TransactionHistoryGeneralCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D5C21639FA50019D447 /* TransactionHistoryGeneralCell.xib */; };
-		0A762D8121639FA60019D447 /* TransactionHistoryButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D5D21639FA50019D447 /* TransactionHistoryButtonCell.swift */; };
-		0A762D8221639FA60019D447 /* TransactionHistoryStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D5E21639FA50019D447 /* TransactionHistoryStatusCell.swift */; };
-		0A762D8321639FA60019D447 /* TransactionHistoryKeyValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D5F21639FA50019D447 /* TransactionHistoryKeyValueCell.swift */; };
-		0A762D8421639FA60019D447 /* TransactionHistoryKeysValuesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D6021639FA50019D447 /* TransactionHistoryKeysValuesCell.swift */; };
-		0A762D8521639FA60019D447 /* TransactionHistoryRecipientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D6121639FA50019D447 /* TransactionHistoryRecipientCell.swift */; };
-		0A762D8621639FA60019D447 /* TransactionHistoryKeyValueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D6221639FA50019D447 /* TransactionHistoryKeyValueCell.xib */; };
-		0A762D8721639FA60019D447 /* TransactionHistoryCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D6321639FA50019D447 /* TransactionHistoryCommentCell.xib */; };
-		0A762D8821639FA60019D447 /* TransactionHistoryRecipientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D6421639FA50019D447 /* TransactionHistoryRecipientCell.xib */; };
-		0A762D8921639FA60019D447 /* TransactionHistoryGeneralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D6521639FA50019D447 /* TransactionHistoryGeneralCell.swift */; };
-		0A762D8A21639FA60019D447 /* TransactionHistoryKeysValuesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D6621639FA50019D447 /* TransactionHistoryKeysValuesCell.xib */; };
-		0A762D8B21639FA60019D447 /* TransactionHistoryButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D6721639FA50019D447 /* TransactionHistoryButtonCell.xib */; };
-		0A762D8C21639FA60019D447 /* TransactionHistoryStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D6821639FA50019D447 /* TransactionHistoryStatusCell.xib */; };
-		0A762D8D21639FA60019D447 /* TransactionHistoryPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D6921639FA50019D447 /* TransactionHistoryPopupView.swift */; };
-		0A762D8E21639FA60019D447 /* TransactionHistoryPopupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D6A21639FA50019D447 /* TransactionHistoryPopupCell.swift */; };
-		0A762D8F21639FA60019D447 /* NewTransactionHistoryContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D6B21639FA50019D447 /* NewTransactionHistoryContentView.swift */; };
-		0A762D9021639FA60019D447 /* NewTransactionHistoryContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D6C21639FA50019D447 /* NewTransactionHistoryContentView.xib */; };
-		0A762D9221639FA60019D447 /* TransactionHistoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D6F21639FA50019D447 /* TransactionHistoryInteractor.swift */; };
-		0A762D9321639FA60019D447 /* TransactionHistoryTypes+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D7021639FA50019D447 /* TransactionHistoryTypes+State.swift */; };
 		0A762D9721639FCC0019D447 /* WavesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D9621639FCC0019D447 /* WavesButton.swift */; };
 		0A762D9B2163A0B60019D447 /* FactoryInteractors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7643FD21187DF500B633E1 /* FactoryInteractors.swift */; };
 		0A762D9C2163A1C90019D447 /* HistoryTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB74272113335B004A065B /* HistoryTypes.swift */; };
@@ -452,7 +424,6 @@
 		0ADD803021F22FFB0075FC59 /* QRCodeReaderControllerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD800E21F22FFA0075FC59 /* QRCodeReaderControllerCoordinator.swift */; };
 		0ADD803121F22FFB0075FC59 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD801021F22FFA0075FC59 /* ProfileCoordinator.swift */; };
 		0ADD803221F22FFB0075FC59 /* AddressesKeysCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD801121F22FFA0075FC59 /* AddressesKeysCoordinator.swift */; };
-		0ADD803321F22FFB0075FC59 /* TransactionHistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD801321F22FFA0075FC59 /* TransactionHistoryCoordinator.swift */; };
 		0ADD803421F22FFB0075FC59 /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD801421F22FFA0075FC59 /* HistoryCoordinator.swift */; };
 		0ADD803521F22FFB0075FC59 /* PasscodeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD801621F22FFA0075FC59 /* PasscodeCoordinator.swift */; };
 		0ADD803621F22FFB0075FC59 /* PasscodeLogInCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD801721F22FFA0075FC59 /* PasscodeLogInCoordinator.swift */; };
@@ -1167,34 +1138,6 @@
 		0A762D12214FE23E00BE9204 /* NewAccountAvatarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewAccountAvatarView.xib; sourceTree = "<group>"; };
 		0A762D14214FE3F300BE9204 /* InputTextField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InputTextField.xib; sourceTree = "<group>"; };
 		0A762D16214FF1CD00BE9204 /* InputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextField.swift; sourceTree = "<group>"; };
-		0A762D4921639FA50019D447 /* TransactionHistory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TransactionHistory.storyboard; sourceTree = "<group>"; };
-		0A762D4E21639FA50019D447 /* TransactionHistoryTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryTypes.swift; sourceTree = "<group>"; };
-		0A762D5121639FA50019D447 /* TransactionHistoryPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryPresenter.swift; sourceTree = "<group>"; };
-		0A762D5221639FA50019D447 /* TransactionHistoryModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryModuleOutput.swift; sourceTree = "<group>"; };
-		0A762D5321639FA50019D447 /* TransactionHistoryModuleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryModuleInput.swift; sourceTree = "<group>"; };
-		0A762D5421639FA50019D447 /* TransactionHistoryTypes+ViewModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TransactionHistoryTypes+ViewModels.swift"; sourceTree = "<group>"; };
-		0A762D5621639FA50019D447 /* TransactionHistoryModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryModuleBuilder.swift; sourceTree = "<group>"; };
-		0A762D5821639FA50019D447 /* TransactionHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryViewController.swift; sourceTree = "<group>"; };
-		0A762D5B21639FA50019D447 /* TransactionHistoryCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryCommentCell.swift; sourceTree = "<group>"; };
-		0A762D5C21639FA50019D447 /* TransactionHistoryGeneralCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryGeneralCell.xib; sourceTree = "<group>"; };
-		0A762D5D21639FA50019D447 /* TransactionHistoryButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryButtonCell.swift; sourceTree = "<group>"; };
-		0A762D5E21639FA50019D447 /* TransactionHistoryStatusCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryStatusCell.swift; sourceTree = "<group>"; };
-		0A762D5F21639FA50019D447 /* TransactionHistoryKeyValueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryKeyValueCell.swift; sourceTree = "<group>"; };
-		0A762D6021639FA50019D447 /* TransactionHistoryKeysValuesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryKeysValuesCell.swift; sourceTree = "<group>"; };
-		0A762D6121639FA50019D447 /* TransactionHistoryRecipientCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryRecipientCell.swift; sourceTree = "<group>"; };
-		0A762D6221639FA50019D447 /* TransactionHistoryKeyValueCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryKeyValueCell.xib; sourceTree = "<group>"; };
-		0A762D6321639FA50019D447 /* TransactionHistoryCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryCommentCell.xib; sourceTree = "<group>"; };
-		0A762D6421639FA50019D447 /* TransactionHistoryRecipientCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryRecipientCell.xib; sourceTree = "<group>"; };
-		0A762D6521639FA50019D447 /* TransactionHistoryGeneralCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryGeneralCell.swift; sourceTree = "<group>"; };
-		0A762D6621639FA50019D447 /* TransactionHistoryKeysValuesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryKeysValuesCell.xib; sourceTree = "<group>"; };
-		0A762D6721639FA50019D447 /* TransactionHistoryButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryButtonCell.xib; sourceTree = "<group>"; };
-		0A762D6821639FA50019D447 /* TransactionHistoryStatusCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionHistoryStatusCell.xib; sourceTree = "<group>"; };
-		0A762D6921639FA50019D447 /* TransactionHistoryPopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryPopupView.swift; sourceTree = "<group>"; };
-		0A762D6A21639FA50019D447 /* TransactionHistoryPopupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryPopupCell.swift; sourceTree = "<group>"; };
-		0A762D6B21639FA50019D447 /* NewTransactionHistoryContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewTransactionHistoryContentView.swift; sourceTree = "<group>"; };
-		0A762D6C21639FA50019D447 /* NewTransactionHistoryContentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewTransactionHistoryContentView.xib; sourceTree = "<group>"; };
-		0A762D6F21639FA50019D447 /* TransactionHistoryInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionHistoryInteractor.swift; sourceTree = "<group>"; };
-		0A762D7021639FA50019D447 /* TransactionHistoryTypes+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TransactionHistoryTypes+State.swift"; sourceTree = "<group>"; };
 		0A762D9621639FCC0019D447 /* WavesButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WavesButton.swift; sourceTree = "<group>"; };
 		0A762D9F2163AD0F0019D447 /* Support.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Support.storyboard; sourceTree = "<group>"; };
 		0A762DA12163AD1A0019D447 /* SupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViewController.swift; sourceTree = "<group>"; };
@@ -2677,81 +2620,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		0A762D4721639FA50019D447 /* TransactionHistory */ = {
-			isa = PBXGroup;
-			children = (
-				0A762D4921639FA50019D447 /* TransactionHistory.storyboard */,
-				0A762D4B21639FA50019D447 /* TransactionHistory */,
-			);
-			path = TransactionHistory;
-			sourceTree = "<group>";
-		};
-		0A762D4B21639FA50019D447 /* TransactionHistory */ = {
-			isa = PBXGroup;
-			children = (
-				0A762D5021639FA50019D447 /* Presenter */,
-				0A762D5921639FA50019D447 /* Views */,
-				0A762D6E21639FA50019D447 /* Interactor */,
-				0A762D4E21639FA50019D447 /* TransactionHistoryTypes.swift */,
-				0A762D5421639FA50019D447 /* TransactionHistoryTypes+ViewModels.swift */,
-				0A762D5621639FA50019D447 /* TransactionHistoryModuleBuilder.swift */,
-				0A762D5821639FA50019D447 /* TransactionHistoryViewController.swift */,
-				0A762D7021639FA50019D447 /* TransactionHistoryTypes+State.swift */,
-			);
-			path = TransactionHistory;
-			sourceTree = "<group>";
-		};
-		0A762D5021639FA50019D447 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				0A762D5121639FA50019D447 /* TransactionHistoryPresenter.swift */,
-				0A762D5221639FA50019D447 /* TransactionHistoryModuleOutput.swift */,
-				0A762D5321639FA50019D447 /* TransactionHistoryModuleInput.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		0A762D5921639FA50019D447 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				0A762D5A21639FA50019D447 /* Cells */,
-				0A762D6921639FA50019D447 /* TransactionHistoryPopupView.swift */,
-				0A762D6A21639FA50019D447 /* TransactionHistoryPopupCell.swift */,
-				0A762D6B21639FA50019D447 /* NewTransactionHistoryContentView.swift */,
-				0A762D6C21639FA50019D447 /* NewTransactionHistoryContentView.xib */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		0A762D5A21639FA50019D447 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				0A762D5D21639FA50019D447 /* TransactionHistoryButtonCell.swift */,
-				0A762D6721639FA50019D447 /* TransactionHistoryButtonCell.xib */,
-				0A762D5B21639FA50019D447 /* TransactionHistoryCommentCell.swift */,
-				0A762D6321639FA50019D447 /* TransactionHistoryCommentCell.xib */,
-				0A762D6521639FA50019D447 /* TransactionHistoryGeneralCell.swift */,
-				0A762D5C21639FA50019D447 /* TransactionHistoryGeneralCell.xib */,
-				0A762D6021639FA50019D447 /* TransactionHistoryKeysValuesCell.swift */,
-				0A762D6621639FA50019D447 /* TransactionHistoryKeysValuesCell.xib */,
-				0A762D5F21639FA50019D447 /* TransactionHistoryKeyValueCell.swift */,
-				0A762D6221639FA50019D447 /* TransactionHistoryKeyValueCell.xib */,
-				0A762D6121639FA50019D447 /* TransactionHistoryRecipientCell.swift */,
-				0A762D6421639FA50019D447 /* TransactionHistoryRecipientCell.xib */,
-				0A762D5E21639FA50019D447 /* TransactionHistoryStatusCell.swift */,
-				0A762D6821639FA50019D447 /* TransactionHistoryStatusCell.xib */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		0A762D6E21639FA50019D447 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				0A762D6F21639FA50019D447 /* TransactionHistoryInteractor.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
 		0A762D9E2163ACE80019D447 /* Support */ = {
 			isa = PBXGroup;
 			children = (
@@ -3420,7 +3288,6 @@
 				E95B47D421638B11004D4E39 /* StartLeasing */,
 				0A762D9E2163ACE80019D447 /* Support */,
 				E95B6B08219B3ADF00A85B5D /* TokenBurn */,
-				0A762D4721639FA50019D447 /* TransactionHistory */,
 				0A071E62215C65BC007D9750 /* UseTouchID */,
 				0A97975E2108A10400407F67 /* Wallet */,
 				0A6E2C8521CBBCBE006F4073 /* WavesPopup */,
@@ -5101,7 +4968,6 @@
 				0AAC28132215C4C700D8A404 /* SendFeeHeaderView.xib in Resources */,
 				E9B12DBA219E2D3900128EFE /* AssetBurnCell.xib in Resources */,
 				E965703C219360770052F0FC /* WalletSortSeparatorFooter.xib in Resources */,
-				0A762D8021639FA60019D447 /* TransactionHistoryGeneralCell.xib in Resources */,
 				0AF9222A212E0F1F003BA067 /* WalletLeasingCell.xib in Resources */,
 				0A762DA02163AD0F0019D447 /* Support.storyboard in Resources */,
 				0AF92231212E0F1F003BA067 /* WalletHeaderView.xib in Resources */,
@@ -5110,8 +4976,6 @@
 				04D4431C21885F50009CEB22 /* Fabric-Info.plist in Resources */,
 				0A7CCDB7218A17A9005D372B /* MyAddress.storyboard in Resources */,
 				E9B087BF2163886800937644 /* SearchBarView.xib in Resources */,
-				0A762D8B21639FA60019D447 /* TransactionHistoryButtonCell.xib in Resources */,
-				0A762D8A21639FA60019D447 /* TransactionHistoryKeysValuesCell.xib in Resources */,
 				0AA8CAD421527672000D09E6 /* PasscodeView.xib in Resources */,
 				E95B47CE21638A9F004D4E39 /* ShortInfoPageView.xib in Resources */,
 				0AF922F7212E1234003BA067 /* SegmentedControl.xib in Resources */,
@@ -5121,7 +4985,6 @@
 				0AF922E9212E1234003BA067 /* EmptyCell.xib in Resources */,
 				0AF922EF212E1234003BA067 /* AssetsSegmentedCell.xib in Resources */,
 				0A3FE8A82135AE3600DBF4E1 /* AssetTransactionCell.xib in Resources */,
-				0A762D8C21639FA60019D447 /* TransactionHistoryStatusCell.xib in Resources */,
 				0AF921FB212E07B3003BA067 /* AssetChartHeaderView.xib in Resources */,
 				048684F721258BC400D12189 /* HistoryHeaderView.xib in Resources */,
 				0AF921F7212E07B3003BA067 /* AssetBalanceMoneyInfoView.xib in Resources */,
@@ -5131,7 +4994,6 @@
 				0ADD6C822167948500B06917 /* ProfileHeaderView.xib in Resources */,
 				0A110CB82153CE31002A8FD7 /* Import.storyboard in Resources */,
 				04EFAF4D2164F8D800277CCF /* EnterStartBlockCell.xib in Resources */,
-				0A762D8621639FA60019D447 /* TransactionHistoryKeyValueCell.xib in Resources */,
 				0AF92206212E07B3003BA067 /* AssetHeaderView.xib in Resources */,
 				E9D36DFA2175C755001E6DF0 /* AssetList.storyboard in Resources */,
 				0AFBCA80211306F600285BCB /* LaunchScreen.storyboard in Resources */,
@@ -5165,7 +5027,6 @@
 				E95B47F521638B11004D4E39 /* AmountInputView.xib in Resources */,
 				0A61B59A214ACFD500EC60FC /* Languages.json in Resources */,
 				E911300E21BC029300588430 /* AssetSelectSkeletonView.xib in Resources */,
-				0A762D9021639FA60019D447 /* NewTransactionHistoryContentView.xib in Resources */,
 				7BDA6ADF222E9664001DE71C /* TransactionCard.storyboard in Resources */,
 				E9B087B92163886800937644 /* Dex.storyboard in Resources */,
 				E9193B8320D7E28400F5D983 /* Profile.storyboard in Resources */,
@@ -5183,10 +5044,7 @@
 				0AF921EB212E07B3003BA067 /* Asset.storyboard in Resources */,
 				E9D36DDD2175C755001E6DF0 /* Receive.storyboard in Resources */,
 				0AF921FF212E07B3003BA067 /* AssetBalanceSkeletonCell.xib in Resources */,
-				0A762D8821639FA60019D447 /* TransactionHistoryRecipientCell.xib in Resources */,
-				0A762D8721639FA60019D447 /* TransactionHistoryCommentCell.xib in Resources */,
 				7B3902A92237A75600AAFDB8 /* ActionsControl.xib in Resources */,
-				0A762D7521639FA60019D447 /* TransactionHistory.storyboard in Resources */,
 				0A26549121BAE153005EA637 /* Assets.xcassets in Resources */,
 				0AB63C2C2170EBF00056B17E /* Language.storyboard in Resources */,
 				0A5D32F72154579C0009CDF3 /* MultyTextField.xib in Resources */,
@@ -5548,7 +5406,6 @@
 				0ADD804021F5D2DD0075FC59 /* AddressRepositoryRemote.swift in Sources */,
 				0ADD802021F22FFA0075FC59 /* Coordinator.swift in Sources */,
 				04831F7421691659006D1ED6 /* HistoryTransactionView.swift in Sources */,
-				0A762D9221639FA60019D447 /* TransactionHistoryInteractor.swift in Sources */,
 				0ADD7FA421F22FB60075FC59 /* UIView+SafeArea.swift in Sources */,
 				0A2B7D39216038A80098438D /* SpamService.swift in Sources */,
 				E9C0B4A42176C4BE00669D1D /* SendTypes.swift in Sources */,
@@ -5652,7 +5509,6 @@
 				E9B087CD2163886800937644 /* DexListPresenter.swift in Sources */,
 				0A5E4BE32138395200E3C3C3 /* AliasTransaction+Mapper.swift in Sources */,
 				7B601B2A2240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift in Sources */,
-				0A762D8F21639FA60019D447 /* NewTransactionHistoryContentView.swift in Sources */,
 				0A3FE8BA2137007500DBF4E1 /* LeaseTransactionNode.swift in Sources */,
 				E94A6E9F215AD53E001814F7 /* ContactDomainDTO.swift in Sources */,
 				E97D451221C817CC000E3C48 /* DexOrderBookRepositoryRemote.swift in Sources */,
@@ -5671,7 +5527,6 @@
 				0A14E3EC21871BA300EA7E91 /* AliasesInfoView.swift in Sources */,
 				E9D36DF92175C755001E6DF0 /* AssetListModuleOutput.swift in Sources */,
 				0A7CCDB4218A138D005D372B /* MyAddressAliacesCell.swift in Sources */,
-				0A762D7B21639FA60019D447 /* TransactionHistoryModuleInput.swift in Sources */,
 				E991BB1A2202CA250022E27D /* SendFeeViewController.swift in Sources */,
 				0AF92201212E07B3003BA067 /* AssetHeaderSkeletonView.swift in Sources */,
 				E94A7007215AEB0E001814F7 /* AddressBookRepository.swift in Sources */,
@@ -5758,12 +5613,10 @@
 				0AF922FE212E1234003BA067 /* GradientView.swift in Sources */,
 				0AF922F3212E1234003BA067 /* SeparatorView.swift in Sources */,
 				E9B0881D2163886800937644 /* DexSortCell.swift in Sources */,
-				0A762D7921639FA60019D447 /* TransactionHistoryPresenter.swift in Sources */,
 				0ADD7FB821F22FB60075FC59 /* Base58.swift in Sources */,
 				7BDA6AE822313E59001DE71C /* TransactionImageView.swift in Sources */,
 				0A7CCDB3218A138D005D372B /* MyAddressQRCodeCell.swift in Sources */,
 				0A96F1DF21544331005E148F /* MultyTextField.swift in Sources */,
-				0A762D8321639FA60019D447 /* TransactionHistoryKeyValueCell.swift in Sources */,
 				04831086211967D600509CED /* HistoryModuleOutput.swift in Sources */,
 				0ADD7F9D21F22FB60075FC59 /* UIResponder+Rx.swift in Sources */,
 				0AF922FC212E1234003BA067 /* CenteringContentButton.swift in Sources */,
@@ -5830,7 +5683,6 @@
 				0A071E43215B0A1B007D9750 /* SigningWalletsProtocol.swift in Sources */,
 				0ADD802221F22FFA0075FC59 /* WindowRouter.swift in Sources */,
 				E95B6B0A219B3B0100A85B5D /* TokenBurnViewController.swift in Sources */,
-				0A762D8121639FA60019D447 /* TransactionHistoryButtonCell.swift in Sources */,
 				0A14E3E42187184000EA7E91 /* AliasesPresenterProtocol.swift in Sources */,
 				0AFB59422209B2BD001F0DD8 /* SponsorshipTransactionNode.swift in Sources */,
 				0AF92205212E07B3003BA067 /* WrapperAssetsSegmentedControl.swift in Sources */,
@@ -5850,7 +5702,6 @@
 				0A57C38C21F74E21003B5386 /* ScriptTransaction+Mapper.swift in Sources */,
 				0A071E77215DB07C007D9750 /* ChooseAccountTypes.swift in Sources */,
 				0AF921FE212E07B3003BA067 /* AssetTransactionSkeletonCell.swift in Sources */,
-				0A762D9321639FA60019D447 /* TransactionHistoryTypes+State.swift in Sources */,
 				E9EC5BAD2175F35900E5C29A /* SendModuleBuilder.swift in Sources */,
 				E9157BEE21A4C081009F99B6 /* StartLeasingCompleteViewController.swift in Sources */,
 				0A3FE8C121370B1100DBF4E1 /* IssueTransactionNode.swift in Sources */,
@@ -5907,7 +5758,6 @@
 				E9CD0D32218137FE001A99B3 /* MainTabBarController.swift in Sources */,
 				0A218B95215556F600B989A1 /* AuthenticationRepositoryProtocol.swift in Sources */,
 				0A218B892155221F00B989A1 /* Wallet+Mapper.swift in Sources */,
-				0A762D8E21639FA60019D447 /* TransactionHistoryPopupCell.swift in Sources */,
 				0ADD803921F22FFB0075FC59 /* BackupTostCoordinator.swift in Sources */,
 				0AD2B57D20F63F8A007EE076 /* WalletDisplayData.swift in Sources */,
 				0ADD7FC421F22FB60075FC59 /* ArrayExtension.swift in Sources */,
@@ -5932,7 +5782,6 @@
 				0A4C9AA120EE65800095A417 /* WalletItem.swift in Sources */,
 				0ADD7F9421F22FB60075FC59 /* UIFeedbackGenerator.swift in Sources */,
 				0ADD7FE921F22FB60075FC59 /* DateExtension.swift in Sources */,
-				0A762D8521639FA60019D447 /* TransactionHistoryRecipientCell.swift in Sources */,
 				E9D36DE82175C755001E6DF0 /* AssetSelectView.swift in Sources */,
 				0ADC179E2204A23000472130 /* ModalRootView.swift in Sources */,
 				E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */,
@@ -5943,7 +5792,6 @@
 				0A762D17214FF1CD00BE9204 /* InputTextField.swift in Sources */,
 				E9A05C5820E9264300B0E0FA /* UseTouchIDViewController.swift in Sources */,
 				7BDA6AD7222D8CA1001DE71C /* TransactionCardViewController.swift in Sources */,
-				0A762D8421639FA60019D447 /* TransactionHistoryKeysValuesCell.swift in Sources */,
 				7B3902A122379BFE00AAFDB8 /* TransactionCardAssetDetailCell.swift in Sources */,
 				0A96F1DE2152E14D005E148F /* PasscodeBuilder.swift in Sources */,
 				E922D26A21B831B600575955 /* LastTradesRepositoryRemote.swift in Sources */,
@@ -5963,7 +5811,6 @@
 				0ADD7FD521F22FB60075FC59 /* AppSettings.swift in Sources */,
 				0AFB59442209B5F3001F0DD8 /* SponsorshipTransaction.swift in Sources */,
 				0ADD7FA921F22FB60075FC59 /* UIViewController+SafeArea.swift in Sources */,
-				0A762D8D21639FA60019D447 /* TransactionHistoryPopupView.swift in Sources */,
 				7B39029D2236ABFF00AAFDB8 /* TransactionCardStatusCell.swift in Sources */,
 				E9D36DF12175C755001E6DF0 /* AssetListModuleBuilder.swift in Sources */,
 				0ADD7FE821F22FB60075FC59 /* Any+Name.swift in Sources */,
@@ -5995,7 +5842,6 @@
 				E965703D219360770052F0FC /* WalletSortCell.swift in Sources */,
 				0AF0C67921AA25B200602197 /* AliasesRepository.swift in Sources */,
 				044A1FD02114BDBF00B63C6A /* HistoryPresenter.swift in Sources */,
-				0ADD803321F22FFB0075FC59 /* TransactionHistoryCoordinator.swift in Sources */,
 				E9C0B4A02176C49B00669D1D /* SendInteractorProtocol.swift in Sources */,
 				0A2B7D35216037FD0098438D /* AssetViewHistoryCell.swift in Sources */,
 				0AF92228212E0F1F003BA067 /* WalletLeasingBalanceCell.swift in Sources */,
@@ -6018,7 +5864,6 @@
 				E922D26821B8311F00575955 /* LastTradesRepositoryProtocol.swift in Sources */,
 				0ADD802B21F22FFA0075FC59 /* ChooseAccountCoordinator.swift in Sources */,
 				0ADD7FB421F22FB60075FC59 /* UIView+Animation.swift in Sources */,
-				0A762D7A21639FA60019D447 /* TransactionHistoryModuleOutput.swift in Sources */,
 				0ADD7FAD21F22FB60075FC59 /* QRCodeReader+Factory.swift in Sources */,
 				0A5C3202213D916900420004 /* AnyTransaction.swift in Sources */,
 				0ADD7FCA21F22FB60075FC59 /* DisplayError.swift in Sources */,
@@ -6071,7 +5916,6 @@
 				0A1DAD6220F3876C004DA625 /* AssetApi.swift in Sources */,
 				E9CD0D2C218099FB001A99B3 /* SendMoneroPaymentIdView.swift in Sources */,
 				04016DFC219420C900BA5235 /* ImportAccountViewController.swift in Sources */,
-				0A762D7F21639FA60019D447 /* TransactionHistoryCommentCell.swift in Sources */,
 				0ADD802521F22FFA0075FC59 /* SlideMenuRouter.swift in Sources */,
 				E9D36DE22175C755001E6DF0 /* ReceiveAddressModuleBuilder.swift in Sources */,
 				E9B087E82163886800937644 /* DexCreateOrderInteractorProtocol.swift in Sources */,
@@ -6109,7 +5953,6 @@
 				7B39029522366B8E00AAFDB8 /* TransactionCardAddressCell.swift in Sources */,
 				E9D36DDA2175C755001E6DF0 /* ReceiveTypes.swift in Sources */,
 				0A14CFCF2144159300C3A4D5 /* Asset+Assistants.swift in Sources */,
-				0A762D8921639FA60019D447 /* TransactionHistoryGeneralCell.swift in Sources */,
 				E991BB2C2202D6560022E27D /* SendFeeTypes.swift in Sources */,
 				0AF921F4212E07B3003BA067 /* AssetChartCell.swift in Sources */,
 				0A5D3302215842860009CDF3 /* AuthorizationInteractor.swift in Sources */,
@@ -6135,7 +5978,6 @@
 				0ADD802321F22FFA0075FC59 /* Router.swift in Sources */,
 				0ADD802C21F22FFA0075FC59 /* HelloCoordinator.swift in Sources */,
 				E9B087AB2163886800937644 /* DexOrderBookModuleOutput.swift in Sources */,
-				0A762D7D21639FA60019D447 /* TransactionHistoryModuleBuilder.swift in Sources */,
 				0ADD7FED21F22FB60075FC59 /* ModuleBuilder.swift in Sources */,
 				E9A3AFAE222DEECB009FB45A /* DexScriptAssetMessageModuleBuilder.swift in Sources */,
 				E9657037219360770052F0FC /* WalletSortPresenterProtocol.swift in Sources */,
@@ -6165,7 +6007,6 @@
 				F74240B71EAB8D1600C3B84D /* AssetBalance.swift in Sources */,
 				7BF89E8D2226E0D300853F9D /* SweetLoggerConsole.swift in Sources */,
 				E9B087C22163886800937644 /* DexTraderContainerViewController.swift in Sources */,
-				0A762D7C21639FA60019D447 /* TransactionHistoryTypes+ViewModels.swift in Sources */,
 				0ADD7FEA21F22FB60075FC59 /* UITableView+Skeleton.swift in Sources */,
 				0A96F1DC2152E05A005E148F /* PasscodeInteractor.swift in Sources */,
 				E923A765219D53EE000DD9F6 /* TokenBurnInteractor.swift in Sources */,
@@ -6225,7 +6066,6 @@
 				E991BB242202D5740022E27D /* SendFeeInteractor.swift in Sources */,
 				0ADD7FE721F22FB60075FC59 /* ObservableType+Weak.swift in Sources */,
 				0A593312218344000059A77A /* AddressesKeysHiddenPrivateKeyCell.swift in Sources */,
-				0A762D7E21639FA60019D447 /* TransactionHistoryViewController.swift in Sources */,
 				E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */,
 				0ADD7FF321F22FB60075FC59 /* Reusable.swift in Sources */,
 				E9D36DED2175C755001E6DF0 /* ReceiveInvoiveTypes.swift in Sources */,
@@ -6249,7 +6089,6 @@
 				E9D36DE72175C755001E6DF0 /* ReceiveGenerateAddressViewController.swift in Sources */,
 				0A762D11214FDFA100BE9204 /* NewAccountAvatarView.swift in Sources */,
 				0ADD801E21F22FFA0075FC59 /* PresentationCoordinator.swift in Sources */,
-				0A762D8221639FA60019D447 /* TransactionHistoryStatusCell.swift in Sources */,
 				0A5C3204213E93C700420004 /* UnrecognisedTransaction.swift in Sources */,
 				E9B087EF2163886800937644 /* DexLastTradesTypes.swift in Sources */,
 				0A4508FA2178938C00EBF669 /* EnvironmentRepositoryProtocol.swift in Sources */,
@@ -6283,7 +6122,6 @@
 				7B3902B02237D8FA00AAFDB8 /* TransactionCardExchangeCell.swift in Sources */,
 				0A4C9A2820ED443C0095A417 /* WalletPresenter.swift in Sources */,
 				0ADD803C21F5B60D0075FC59 /* AddressScriptInfoNode.swift in Sources */,
-				0A762D7721639FA60019D447 /* TransactionHistoryTypes.swift in Sources */,
 				0A5C919820F3DB1100443CE6 /* AccountBalanceNode.swift in Sources */,
 				0AF0C67721A97E1400602197 /* Alias.swift in Sources */,
 				0AF922E7212E1234003BA067 /* EmptyCell.swift in Sources */,

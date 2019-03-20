@@ -49,19 +49,22 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         case .startedLeasing(let leasing):
             return leasingSection(transfer: leasing,
-                                  title: "Started Leasing",
+                                  title: Localizable.Waves.Transactioncard.Title.startedLeasing,
+                                  titleContact: Localizable.Waves.Transactioncard.Title.sentTo,
                                   needCancelLeasing: true,
                                   core: core)
 
         case .canceledLeasing(let leasing):
             return leasingSection(transfer: leasing,
-                                  title: "Canceled Leasing",
+                                  title: Localizable.Waves.Transactioncard.Title.canceledLeasing,
+                                  titleContact: Localizable.Waves.Transactioncard.Title.nodeAddress,
                                   needCancelLeasing: false,
                                   core: core)
 
         case .incomingLeasing(let leasing):
             return leasingSection(transfer: leasing,
-                                  title: "Incoming Leasing",
+                                  title: Localizable.Waves.Transactioncard.Title.startedLeasing,
+                                  titleContact: Localizable.Waves.Transactioncard.Title.from,
                                   needCancelLeasing: false,
                                   core: core)
 
@@ -70,36 +73,36 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         case .tokenGeneration(let issue):
             return issueSection(transfer: issue,
-                                title: "Token Generation",
+                                title: Localizable.Waves.Transactioncard.Title.tokenGeneration,
                                 balanceSign: .none)
 
         case .tokenBurn(let issue):
             return issueSection(transfer: issue,
-                                title: "Token Burn",
+                                title: Localizable.Waves.Transactioncard.Title.tokenBurn,
                                 balanceSign: .minus)
 
         case .tokenReissue(let issue):
             return issueSection(transfer: issue,
-                                title: "Token Reissue",
+                                title: Localizable.Waves.Transactioncard.Title.tokenReissue,
                                 balanceSign: .plus)
 
         case .createdAlias(let alias):
-            return deffaultSection(title: "Create Alias",
+            return deffaultSection(title: Localizable.Waves.Transactioncard.Title.createAlias,
                                    description: alias)
 
         case .unrecognisedTransaction:
-            return deffaultSection(title: "Unrecognised Transaction",
+            return deffaultSection(title: Localizable.Waves.Transactioncard.Title.unrecognisedTransaction,
                                    description: "")
 
         case .data:
-            return deffaultSection(title: "Entry in blockchain",
-                                   description: "Data transaction")
+            return deffaultSection(title: Localizable.Waves.Transactioncard.Title.entryInBlockchain,
+                                   description: Localizable.Waves.Transactioncard.Title.dataTransaction)
 
         case .script(let isHasScript):
 
-            let description = isHasScript == true ? "Set Script Transaction" : "Cancel Script Transaction"
+            let description = isHasScript == true ? Localizable.Waves.Transactioncard.Title.setScriptTransaction : Localizable.Waves.Transactioncard.Title.cancelScriptTransaction
 
-            return deffaultSection(title: "Entry in blockchain",
+            return deffaultSection(title: Localizable.Waves.Transactioncard.Title.entryInBlockchain,
                                    description: description)
 
         case .assetScript(let asset):
@@ -111,19 +114,19 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         }
     }
 
-    // MARK: Sent Sections
+    // MARK: - Sent Sections
 
     func sentSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer, core: TransactionCard.State.Core) ->  [Types.Section] {
 
         return transferSection(transfer: transfer,
-                               generalTitle: "Sent",
-                               addressTitle: "Sent to",
+                               generalTitle: Localizable.Waves.Transactioncard.Title.sent,
+                               addressTitle: Localizable.Waves.Transactioncard.Title.sentTo,
                                balanceSign: .minus,
                                core: core,
                                needSendAgain: true)
     }
 
-    // MARK: Receive Sections
+    // MARK: - Receive Sections
     func receiveSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer, core: TransactionCard.State.Core) ->  [Types.Section] {
 
         if transfer.hasSponsorship {
@@ -131,39 +134,39 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         }
 
         return transferSection(transfer: transfer,
-                               generalTitle: "Received",
-                               addressTitle: "Received from",
+                               generalTitle: Localizable.Waves.Transactioncard.Title.received,
+                               addressTitle: Localizable.Waves.Transactioncard.Title.receivedFrom,
                                balanceSign: .plus,
                                core: core)
     }
 
-    // MARK: SpamReceive Sections
+    // MARK: - SpamReceive Sections
     func spamReceiveSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer, core: TransactionCard.State.Core) ->  [Types.Section] {
 
         return transferSection(transfer: transfer,
-                               generalTitle: "Spam Received",
-                               addressTitle: "Received from",
+                               generalTitle: Localizable.Waves.Transactioncard.Title.spamReceived,
+                               addressTitle: Localizable.Waves.Transactioncard.Title.receivedFrom,
                                balanceSign: .plus,
                                core: core)
     }
 
-    // MARK: SelfTransfer Sections
+    // MARK: - SelfTransfer Sections
     func selfTransferSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer, core: TransactionCard.State.Core) ->  [Types.Section] {
 
         return transferSection(transfer: transfer,
-                               generalTitle: "Self-transfer",
-                               addressTitle: "Received from",
+                               generalTitle: Localizable.Waves.Transactioncard.Title.selfTransfer,
+                               addressTitle: Localizable.Waves.Transactioncard.Title.receivedFrom,
                                balanceSign: .plus,
                                core: core)
     }
 
-    // MARK: Sponsorship Sections
+    // MARK: - Sponsorship Sections
     func sponsorshipSection(asset: DomainLayer.DTO.SmartTransaction.Asset,
                             isEnabled: Bool) ->  [Types.Section] {
 
         var rows: [Types.Row] = .init()
 
-        let title = isEnabled == true ? "Set Sponsorship" : "Disable Sponsorship"
+        let title = isEnabled == true ? Localizable.Waves.Transactioncard.Title.setSponsorship : Localizable.Waves.Transactioncard.Title.disableSponsorship
 
         let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
                                                                title: title,
@@ -214,14 +217,14 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         return [section]
     }
 
-    // MARK: Set Asset Script Sections
+    // MARK: - Set Asset Script Sections
     func setAssetScriptSection(asset: DomainLayer.DTO.SmartTransaction.Asset) ->  [Types.Section] {
 
         var rows: [Types.Row] = .init()
 
         let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
-                                                               title: "Entry in blockchain",
-                                                               info: .descriptionLabel("Set Asset Script"))
+                                                               title: Localizable.Waves.Transactioncard.Title.entryInBlockchain,
+                                                               info: .descriptionLabel(Localizable.Waves.Transactioncard.Title.setAssetScript))
 
 
         let rowAssetModel = TransactionCardAssetCell.Model.init(asset: asset)
@@ -248,13 +251,14 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         return [section]
     }
 
-    // MARK: Received Sponsorship Sections
+    // MARK: - Received Sponsorship Sections
     func receivedSponsorshipSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer) ->  [Types.Section] {
 
         var rows: [Types.Row] = .init()
 
+
         let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
-                                                               title: "Received Sponsorship",
+                                                               title: Localizable.Waves.Transactioncard.Title.receivedSponsorship,
                                                                info: .balance(.init(balance: transfer.balance,
                                                                                     sign: .plus,
                                                                                     style: .large)))
@@ -294,7 +298,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
     }
 
 
-    // MARK: Deffault Sections
+    // MARK: - Deffault Sections
     func deffaultSection(title: String,
                          description: String) ->  [Types.Section] {
 
@@ -326,7 +330,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         return [section]
     }
 
-    // MARK: Issue Sections
+    // MARK: - Issue Sections
     func issueSection(transfer: DomainLayer.DTO.SmartTransaction.Issue,
                       title: String,
                       balanceSign: Balance.Sign) ->  [Types.Section] {
@@ -376,7 +380,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         return [section]
     }
 
-    // MARK: Exchange Sections
+    // MARK: - Exchange Sections
     func exchangeSection(transfer: DomainLayer.DTO.SmartTransaction.Exchange) ->  [Types.Section] {
 
         var rows: [Types.Row] = .init()
@@ -389,16 +393,16 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         let amountDisplayName = transfer.myOrder.pair.amountAsset.displayName
 
         if myOrder.kind == .sell {
-            sign = .minus
-            title = "Sell: \(amountDisplayName)/\(priceDisplayName)"
-        } else {
             sign = .plus
-            title = "Buy: \(amountDisplayName)/\(priceDisplayName)"
+            title = Localizable.Waves.Transactioncard.Title.Exchange.sell(amountDisplayName, priceDisplayName)
+        } else {
+            sign = .minus
+            title = Localizable.Waves.Transactioncard.Title.Exchange.buy(amountDisplayName, priceDisplayName)
         }
 
         let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
                                                                title: title,
-                                                               info: .balance(.init(balance: myOrder.amount,
+                                                               info: .balance(.init(balance: myOrder.total,
                                                                                     sign: sign,
                                                                                     style: .large)))
 
@@ -437,9 +441,10 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         return [section]
     }
 
-    // MARK: Leasing Sections
+    // MARK: - Leasing Sections
     func leasingSection(transfer: DomainLayer.DTO.SmartTransaction.Leasing,
                         title: String,
+                        titleContact: String = "",
                         needCancelLeasing: Bool,
                         core: Types.State.Core) ->  [Types.Section] {
 
@@ -464,7 +469,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         let isEditName = name != nil
 
         let rowAddressModel = TransactionCardAddressCell.Model.init(contact: contact,
-                                                                    contactDetail: .init(title: "Node address",
+                                                                    contactDetail: .init(title: titleContact,
                                                                                          address: address,
                                                                                          name: name),
                                                                     isSpam: transfer.asset.isSpam,
@@ -500,16 +505,16 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         return [section]
     }
 
-    // MARK: Mass Received Sections
+    // MARK: - Mass Received Sections
     func massReceivedSection(transfer: DomainLayer.DTO.SmartTransaction.MassReceive,
                              core: Types.State.Core) ->  [Types.Section] {
 
         var rows: [Types.Row] = .init()
 
         let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
-                                                               title: "Mass Received",
-                                                               info: .balance(.init(balance: transfer.total,
-                                                                                    sign: .minus,
+                                                               title:  Localizable.Waves.Transactioncard.Title.massReceived,
+                                                               info: .balance(.init(balance: transfer.myTotal,
+                                                                                    sign: .plus,
                                                                                     style: .large)))
 
         rows.append(contentsOf:[.general(rowGeneralModel)])
@@ -560,14 +565,14 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         return [section]
     }
 
-    // MARK: MassSent Sections
+    // MARK: - MassSent Sections
     func massSentSection(transfer: DomainLayer.DTO.SmartTransaction.MassTransfer,
                          core: Types.State.Core) ->  [Types.Section] {
 
         var rows: [Types.Row] = .init()
 
         let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
-                                                               title: "Mass sent",
+                                                               title: Localizable.Waves.Transactioncard.Title.massSent,
                                                                info: .balance(.init(balance: transfer.total,
                                                                                     sign: .minus,
                                                                                     style: .large)))
@@ -624,7 +629,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         return [section]
     }
 
-    // MARK: Transfer Sections
+    // MARK: - Transfer Sections
     func transferSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer,
                          generalTitle: String,
                          addressTitle: String,
@@ -694,16 +699,16 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
     var rowBlockModel: TransactionCardKeyValueCell.Model {
         let height = self.height ?? 0
-        return TransactionCardKeyValueCell.Model(key: "Block", value: "\(height)")
+        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.block, value: "\(height)")
     }
 
     var rowConfirmationsModel: TransactionCardKeyValueCell.Model {
 
-        return TransactionCardKeyValueCell.Model(key: "Confirmations", value: "\(String(describing: confirmationHeight))")
+        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.confirmations, value: "\(String(describing: confirmationHeight))")
     }
 
     var rowFeeModel: TransactionCardKeyBalanceCell.Model {
-        return TransactionCardKeyBalanceCell.Model(key: "Fee", value: BalanceLabel.Model(balance: self.totalFee,
+        return TransactionCardKeyBalanceCell.Model(key: Localizable.Waves.Transactioncard.Title.fee, value: BalanceLabel.Model(balance: self.totalFee,
                                                                                          sign: nil,
                                                                                          style: .small))
     }
@@ -711,10 +716,10 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
     var rowTimestampModel: TransactionCardKeyValueCell.Model {
 
         let formatter = DateFormatter.sharedFormatter
-        formatter.dateFormat = "dd.MM.yyyy at HH:mm"
+        formatter.dateFormat = Localizable.Waves.Transactioncard.Timestamp.format
         let timestampValue = formatter.string(from: timestamp)
 
-        return TransactionCardKeyValueCell.Model(key: "Timestamp", value: timestampValue)
+        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.timestamp, value: timestampValue)
     }
 
     var rowStatusModel: TransactionCardStatusCell.Model {
@@ -759,7 +764,7 @@ extension DomainLayer.DTO.SmartTransaction.MassReceive.Transfer {
         let name = contact?.name
         let isEditName = name != nil
 
-        let addressTitle = "Received from"
+        let addressTitle = Localizable.Waves.Transactioncard.Title.receivedFrom
 
         let rowRecipientModel = TransactionCardAddressCell.Model
             .init(contact: recipient.contact,
@@ -790,7 +795,7 @@ extension DomainLayer.DTO.SmartTransaction.MassTransfer.Transfer {
         let balance = Balance(currency: currency,
                               money: amount)
 
-        let addressTitle = "#\(number) Recipient"
+        let addressTitle = Localizable.Waves.Transactioncard.Title.recipient("\(number)")
 
         let rowRecipientModel = TransactionCardMassSentRecipientCell.Model
             .init(contact: contact,

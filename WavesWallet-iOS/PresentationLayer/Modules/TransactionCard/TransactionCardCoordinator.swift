@@ -72,7 +72,7 @@ extension TransactionCardCoordinator: StartLeasingModuleOutput {
 extension TransactionCardCoordinator: TransactionCardModuleOutput {
     
     func transactionCardViewDismissCard() {
-
+        navigationRouter.dismiss(animated: true, completion: nil)
     }
 
     func transactionCardAddContact(address: String) {
@@ -122,7 +122,8 @@ extension TransactionCardCoordinator: TransactionCardModuleOutput {
         }
 
         if let url = url {
-            UIApplication.shared.openURLAsync(url)
+            let vc = BrowserViewController(url: url)
+            cardNavigationRouter.pushViewController(vc)
         }
 
     }

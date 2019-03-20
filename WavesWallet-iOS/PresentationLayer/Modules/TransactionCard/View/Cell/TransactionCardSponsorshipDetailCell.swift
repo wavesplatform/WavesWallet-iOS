@@ -34,7 +34,8 @@ extension TransactionCardSponsorshipDetailCell: ViewConfiguration {
 
     func update(with model: TransactionCardSponsorshipDetailCell.Model) {
 
-        titleLabel.text = "Amount per transaction"
+        titleLabel.text = Localizable.Waves.Transactioncard.Title.amountPerTransaction
+
         balanceLabel.update(with: model.balance)
     }
 }

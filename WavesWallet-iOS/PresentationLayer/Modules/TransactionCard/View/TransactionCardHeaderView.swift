@@ -19,27 +19,21 @@ final class TransactionCardHeaderView: UIView, NibLoadable {
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var gradientView: UIView!
     @IBOutlet private weak var topBackgroundView: UIView!
-    private let gradient = CAGradientLayer()
+    @IBOutlet private weak var separatorView: UIView!
+
+    var isHiddenSepatator: Bool = true {
+        didSet {
+            self.separatorView.isHidden = self.isHiddenSepatator
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()        
         isUserInteractionEnabled = false
         backgroundColor = .clear
-//        labelTitle.text = Localizable.Waves.Sendfee.Label.transactionFee
         layer.cornerRadius = Constants.cornerRadius
         layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         topBackgroundView.layer.cornerRadius = Constants.cornerRadius
         topBackgroundView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-//        gradientView.backgroundColor = .clear
-//        gradient.startPoint = Constants.startPoint
-//        gradient.endPoint = Constants.endPoint
-//
-//        gradient.colors = [UIColor.white.cgColor, UIColor.white.withAlphaComponent(0.0).cgColor]
-//        gradientView.layer.insertSublayer(gradient, at: 0)
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-//        gradient.frame = gradientView.bounds
     }
 }

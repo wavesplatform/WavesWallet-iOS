@@ -39,10 +39,10 @@ extension TransactionCardExchangeCell: ViewConfiguration {
 
     func update(with model: TransactionCardExchangeCell.Model) {
 
-        sellTitleLabel.text = "Sell"
+        sellTitleLabel.text = Localizable.Waves.Transactioncard.Title.amount
         sellBalanceLabel.update(with: model.sell)
 
-        priceTitleLabel.text = "Price"
+        priceTitleLabel.text = Localizable.Waves.Transactioncard.Title.price
         priceBalanceLabel.update(with: model.price)
     }
 }

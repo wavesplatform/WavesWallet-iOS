@@ -85,7 +85,7 @@ private extension TransactionCardActionsCell.Model.Button {
     func cancelLeasingButton(_ action: @escaping () -> Void) -> ActionsControl.Model.Button {
         return .init(backgroundColor: .error400,
                      textColor: .white,
-                     text: "Cancel Leasing",
+                     text: Localizable.Waves.Transactioncard.Title.cancelLeasing,
                      icon: Images.tCloselease18.image,
                      effectsOnTap: []) {
                         action()
@@ -95,7 +95,7 @@ private extension TransactionCardActionsCell.Model.Button {
     func sendAgainButton(_ action: @escaping () -> Void) -> ActionsControl.Model.Button {
         return .init(backgroundColor: .warning600,
                     textColor: .white,
-                    text: "Send again",
+                    text: Localizable.Waves.Transactioncard.Title.sendAgain,
                     icon: Images.tResend18.image,
                     effectsOnTap: []) {
             action()
@@ -105,7 +105,7 @@ private extension TransactionCardActionsCell.Model.Button {
     func viewOnExplorer(_ action: @escaping () -> Void) -> ActionsControl.Model.Button {
         return .init(backgroundColor: .basic50,
                     textColor: .black,
-                    text: "View on Explorer",
+                    text: Localizable.Waves.Transactioncard.Title.viewOnExplorer,
                     icon: Images.viewexplorer18Black.image,
                     effectsOnTap: [.impactOccurred]) {
             action()
@@ -115,9 +115,11 @@ private extension TransactionCardActionsCell.Model.Button {
     func copyTxId(_ action: @escaping () -> Void) -> ActionsControl.Model.Button {
         return .init(backgroundColor: .basic50,
                     textColor: .black,
-                    text: "Copy TX ID",
+                    text: Localizable.Waves.Transactioncard.Title.copyTXID,
                     icon: Images.copy18Black.image,
                     effectsOnTap: [.changeIconForTime(Images.checkSuccess.image, Constants.duration),
+                                   .changeTitleForTime(Localizable.Waves.Transactioncard.Title.copied, Constants.duration),
+                                   .changeTitleColorForTime(.success400, Constants.duration),
                                    .impactOccurred]) {
             action()
         }
@@ -126,9 +128,11 @@ private extension TransactionCardActionsCell.Model.Button {
     func copyAllData(_ action: @escaping () -> Void) -> ActionsControl.Model.Button {
         return .init(backgroundColor: .basic50,
                      textColor: .black,
-                     text: "Copy all data",
+                     text: Localizable.Waves.Transactioncard.Title.copyAllData,
                      icon: Images.copy18Black.image,
                      effectsOnTap: [.changeIconForTime(Images.checkSuccess.image, Constants.duration),
+                                    .changeTitleForTime(Localizable.Waves.Transactioncard.Title.copied, Constants.duration),
+                                    .changeTitleColorForTime(.success400, Constants.duration),
                                     .impactOccurred]) {
                         action()
         }

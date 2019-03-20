@@ -23,19 +23,35 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dragElem" translatesAutoresizingMaskIntoConstraints="NO" id="Ogn-zT-fNY">
                     <rect key="frame" x="169.5" y="26" width="36" height="4"/>
                 </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bB4-wJ-Isd" customClass="SeparatorView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="666" width="375" height="1"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="jRX-Fr-CdF"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                            <color key="value" red="0.80784313725490198" green="0.81568627450980391" blue="0.85490196078431369" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="zmT-fr-LSE" firstAttribute="top" secondItem="uxb-vZ-Z34" secondAttribute="top" constant="20" id="1gp-Gi-M3D"/>
                 <constraint firstItem="Ogn-zT-fNY" firstAttribute="top" secondItem="zmT-fr-LSE" secondAttribute="top" constant="6" id="6hd-1H-Skl"/>
+                <constraint firstItem="zmT-fr-LSE" firstAttribute="bottom" secondItem="bB4-wJ-Isd" secondAttribute="bottom" id="B4x-Yw-tr8"/>
                 <constraint firstItem="Ogn-zT-fNY" firstAttribute="centerX" secondItem="rz5-x2-7cS" secondAttribute="centerX" id="GDd-RT-Stm"/>
                 <constraint firstItem="uxb-vZ-Z34" firstAttribute="leading" secondItem="rz5-x2-7cS" secondAttribute="leading" id="Nhn-fY-m6g"/>
+                <constraint firstItem="zmT-fr-LSE" firstAttribute="trailing" secondItem="bB4-wJ-Isd" secondAttribute="trailing" id="Rag-bc-axf"/>
                 <constraint firstItem="uxb-vZ-Z34" firstAttribute="top" secondItem="rz5-x2-7cS" secondAttribute="top" id="YHX-sB-rAO"/>
                 <constraint firstItem="zmT-fr-LSE" firstAttribute="trailing" secondItem="uxb-vZ-Z34" secondAttribute="trailing" id="b6X-Z0-kzq"/>
+                <constraint firstItem="bB4-wJ-Isd" firstAttribute="leading" secondItem="zmT-fr-LSE" secondAttribute="leading" id="fo9-O8-GiV"/>
                 <constraint firstItem="zmT-fr-LSE" firstAttribute="bottom" secondItem="uxb-vZ-Z34" secondAttribute="bottom" id="yGl-Pg-1mj"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="zmT-fr-LSE"/>
             <connections>
+                <outlet property="separatorView" destination="bB4-wJ-Isd" id="3hq-Y2-cGy"/>
                 <outlet property="topBackgroundView" destination="uxb-vZ-Z34" id="pOG-af-aZJ"/>
             </connections>
             <point key="canvasLocation" x="-213" y="67"/>

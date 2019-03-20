@@ -96,8 +96,7 @@ extension ModalScrollViewController  {
 
         var currentView: UIView? = scrollView
 
-        repeat {
-            print("currentView \(currentView)")
+        repeat {            
             currentView?.shouldPassthroughTouch = true
             currentView?.isEnabledPassthroughSubviews = true
             currentView = currentView?.superview

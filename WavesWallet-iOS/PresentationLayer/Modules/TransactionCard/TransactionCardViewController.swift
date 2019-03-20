@@ -15,7 +15,8 @@ private typealias Types = TransactionCard
 private struct Constants {
     static let sizeArrowButton: CGSize = .init(width: 48, height: 48)
     static let rightPaddingArrowButton: CGFloat = 24
-    static let bottomPaddingArrowButton: CGFloat = 14
+    static let bottomPaddingArrowButton: CGFloat = 28
+    static let cardHeaderViewHeight: CGFloat = 20
 }
 
 protocol TransactionCardModuleOutput: AnyObject {
@@ -45,10 +46,50 @@ final class TransactionCardScroll: ModalTableView {
         arrowButton.setBackgroundImage(UIColor.basic50.image, for: .normal)
         arrowButton.cornerRadius = 24
         arrowButton.layer.masksToBounds = true
-        arrowButton.layer.zPosition = 100
         arrowButton.setImage(Images.arrowdown24Black.image, for: .normal)
         return arrowButton
     }()
+
+    var controllerLayoutInsets: UIEdgeInsets = .zero {
+        didSet {
+            layoutIfNeeded()
+        }
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        addSubview(arrowButton)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        let screenHeight = self.frame.height - contentInset.top - controllerLayoutInsets.top
+        let contentHeight = contentSize.height
+
+        var arrowFrame = arrowButton.frame
+        arrowFrame.size = Constants.sizeArrowButton
+
+        let xArrow = self.frame.width - arrowFrame.width - Constants.rightPaddingArrowButton
+        if contentHeight > screenHeight {
+
+            arrowFrame.origin = .init(x: xArrow,
+                                      y: contentHeight)
+        } else {
+
+            let screenAndButtonHeight = screenHeight + arrowFrame.height + controllerLayoutInsets.bottom
+
+            if contentHeight < screenAndButtonHeight {
+                arrowFrame.origin = .init(x: xArrow,
+                                          y: screenHeight - arrowFrame.height - controllerLayoutInsets.bottom)
+            } else {
+                arrowFrame.origin = .init(x: xArrow,
+                                          y: contentHeight)
+            }
+        }
+
+        arrowButton.frame = arrowFrame
+    }
 
     override func touchesShouldBegin(_ touches: Set<UITouch>, with event: UIEvent?, in view: UIView) -> Bool {
         if view is UIControl {
@@ -92,9 +133,9 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
         return self.tableView.arrowButton
     }
 
-    private let disposeBag: DisposeBag = DisposeBag()
+    fileprivate let cardHeaderView: TransactionCardHeaderView = TransactionCardHeaderView.loadView() as! TransactionCardHeaderView
 
-    private lazy var tap = UITapGestureRecognizer(target: self, action: #selector(handlerGestureTap(recognizer:)))
+    private let disposeBag: DisposeBag = DisposeBag()
 
     private var transaction: DomainLayer.DTO.SmartTransaction?
 
@@ -108,19 +149,7 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
         super.viewDidLoad()
         rootView.delegate = self
 
-
-        scrollView.addSubview(arrowButton)
         arrowButton.addTarget(self, action: #selector(handlerTapOnArrowButton(sender:)), for: .touchUpInside)
-
-//        tableView.panGestureRecognizer.delaysTouchesBegan = true
-//        tableView.addGestureRecognizer(tap)
-//        tableView.delaysContentTouches = false
-//        tableView.delaysContentTouches = false
-//        tableView.canCancelContentTouches = false
-
-//        tap.delaysTouchesBegan = true
-
-
 
         navigationItem.isNavigationBarHidden = true
         navigationItem.shadowImage = nil
@@ -132,27 +161,6 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
                 self?.update(state: state.ui)
             })
             .disposed(by: disposeBag)
-    }
-
-
-    @objc func handlerGestureTap(recognizer: UITapGestureRecognizer) {
-
-        let location = recognizer.location(in: self.scrollView)
-
-//        guard arrowButton.frame.contains(location) else {
-//            return
-//        }
-
-        switch recognizer.state {
-        case .began:
-            break
-
-        case .ended:
-            self.delegate?.transactionCardViewDismissCard()
-
-        default:
-            break
-        }
     }
 
     // MARK: ModalScrollViewContext
@@ -181,18 +189,12 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
     }
 
     override func bottomScrollInset(for size: CGSize) -> CGFloat {
-        return Constants.sizeArrowButton.height + 48
+        return Constants.sizeArrowButton.height + Constants.bottomPaddingArrowButton
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
-        var frame = arrowButton.frame
-        frame.size = Constants.sizeArrowButton
-        frame.origin = .init(x: scrollView.frame.width - frame.width - Constants.rightPaddingArrowButton,
-                             y: scrollView.frame.height - frame.height - Constants.bottomPaddingArrowButton)
-
-        arrowButton.frame = frame
+        self.tableView.controllerLayoutInsets = self.layoutInsets
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -205,7 +207,7 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
 extension TransactionCardViewController {
 
     @IBAction func handlerTapOnArrowButton(sender: UIButton) {
-
+        ImpactFeedbackGenerator.impactOccurred()
         self.delegate?.transactionCardViewDismissCard()
     }
 
@@ -282,14 +284,11 @@ extension TransactionCardViewController {
 extension TransactionCardViewController: ModalRootViewDelegate {
     
     func modalHeaderView() -> UIView {
-        
-        let view = TransactionCardHeaderView.loadView()
-
-        return view
+        return cardHeaderView
     }
     
     func modalHeaderHeight() -> CGFloat {
-        return 20
+        return Constants.cardHeaderViewHeight
     }
 }
 
@@ -454,7 +453,12 @@ extension TransactionCardViewController: UITableViewDelegate {
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
 
+        let yOffset = scrollView.contentOffset.y + scrollView.contentInset.top
 
-
+        if yOffset > scrollView.contentInset.top {
+            cardHeaderView.isHiddenSepatator = false
+        } else {
+            cardHeaderView.isHiddenSepatator = true
+        }
     }
 }

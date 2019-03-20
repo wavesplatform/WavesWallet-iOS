@@ -40,6 +40,6 @@ final class TransactionCardShowAllCell: UITableViewCell, Reusable {
 extension TransactionCardShowAllCell: ViewConfiguration {
 
     func update(with model: TransactionCardShowAllCell.Model) {
-        buttonShowAll.setTitle("Show all (\(model.countOtherTransactions))", for: .normal)
+        buttonShowAll.setTitle(Localizable.Waves.Transactioncard.Title.showAll("\(model.countOtherTransactions)"), for: .normal)
     }
 }

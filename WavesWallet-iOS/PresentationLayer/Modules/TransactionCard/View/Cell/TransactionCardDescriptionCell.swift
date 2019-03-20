@@ -34,8 +34,7 @@ extension TransactionCardDescriptionCell: ViewConfiguration {
 
     func update(with model: TransactionCardDescriptionCell.Model) {
 
-        //TODO: Localization
-        titleLabel.text = "Description"
+        titleLabel.text = Localizable.Waves.Transactioncard.Title.description
         descriptionLabel.text = model.description
     }
 }

@@ -23,6 +23,8 @@ final class ActionsControl: UIView, NibOwnerLoadable {
 
         enum Effect {
             case changeIconForTime(UIImage, TimeInterval)
+            case changeTitleForTime(String, TimeInterval)
+            case changeTitleColorForTime(UIColor, TimeInterval)
             case impactOccurred
         }
 
@@ -93,6 +95,29 @@ private final class ActionButton: UIButton {
                 DispatchQueue.main.asyncAfter(deadline: .now() + interval) {
 
                     self.setImage(oldImage, for: .normal)
+                    self.isUserInteractionEnabled = true
+                }
+            case .changeTitleForTime(let title, let interval):
+
+                let oldTitle = self.title(for: .normal)
+                self.setTitle(title, for: .normal)
+                self.isUserInteractionEnabled = false
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + interval) {
+
+                    self.setTitle(oldTitle, for: .normal)
+                    self.isUserInteractionEnabled = true
+                }
+
+            case .changeTitleColorForTime(let color, let interval):
+
+                let oldColor = self.titleColor(for: .normal)
+                self.setTitleColor(color, for: .normal)
+                self.isUserInteractionEnabled = false
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + interval) {
+
+                    self.setTitleColor(oldColor, for: .normal)
                     self.isUserInteractionEnabled = true
                 }
 

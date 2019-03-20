@@ -44,15 +44,14 @@ extension TransactionCardAssetDetailCell: ViewConfiguration {
 
     func update(with model: Model) {
 
-//TODO: Loc
-        titleLabel.text = "Asset ID"
+        titleLabel.text = Localizable.Waves.Transactioncard.Title.assetId
         assetIdLabel.text = model.assetId
 
         if model.isReissuable != nil {
             if let isReissuable = model.isReissuable, isReissuable == true {
-                reissuableLabel.text = "Reissuable"
+                reissuableLabel.text = Localizable.Waves.Transactioncard.Title.reissuable
             } else {
-                reissuableLabel.text = "Not Reissuable"
+                reissuableLabel.text = Localizable.Waves.Transactioncard.Title.notReissuable
             }
             reissuableLabel.isHidden = false
         } else {

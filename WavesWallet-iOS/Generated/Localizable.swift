@@ -2241,6 +2241,130 @@ internal enum Localizable {
       }
     }
 
+    internal enum Transactioncard {
+
+      internal enum Timestamp {
+        /// dd.MM.yyyy at HH:mm
+        internal static var format: String { return Localizable.tr("Waves", "transactioncard.timestamp.format") }
+      }
+
+      internal enum Title {
+        /// Active Now
+        internal static var activeNow: String { return Localizable.tr("Waves", "transactioncard.title.activeNow") }
+        /// Amount
+        internal static var amount: String { return Localizable.tr("Waves", "transactioncard.title.amount") }
+        /// Amount per transaction
+        internal static var amountPerTransaction: String { return Localizable.tr("Waves", "transactioncard.title.amountPerTransaction") }
+        /// Asset
+        internal static var asset: String { return Localizable.tr("Waves", "transactioncard.title.asset") }
+        /// Asset ID
+        internal static var assetId: String { return Localizable.tr("Waves", "transactioncard.title.assetId") }
+        /// Block
+        internal static var block: String { return Localizable.tr("Waves", "transactioncard.title.block") }
+        /// Canceled Leasing
+        internal static var canceledLeasing: String { return Localizable.tr("Waves", "transactioncard.title.canceledLeasing") }
+        /// Cancel Leasing
+        internal static var cancelLeasing: String { return Localizable.tr("Waves", "transactioncard.title.cancelLeasing") }
+        /// Cancel Script Transaction
+        internal static var cancelScriptTransaction: String { return Localizable.tr("Waves", "transactioncard.title.cancelScriptTransaction") }
+        /// Completed
+        internal static var completed: String { return Localizable.tr("Waves", "transactioncard.title.completed") }
+        /// Confirmations
+        internal static var confirmations: String { return Localizable.tr("Waves", "transactioncard.title.confirmations") }
+        /// Copied
+        internal static var copied: String { return Localizable.tr("Waves", "transactioncard.title.copied") }
+        /// Copy all data
+        internal static var copyAllData: String { return Localizable.tr("Waves", "transactioncard.title.copyAllData") }
+        /// Copy TX ID
+        internal static var copyTXID: String { return Localizable.tr("Waves", "transactioncard.title.copyTXID") }
+        /// Create Alias
+        internal static var createAlias: String { return Localizable.tr("Waves", "transactioncard.title.createAlias") }
+        /// Data Transaction
+        internal static var dataTransaction: String { return Localizable.tr("Waves", "transactioncard.title.dataTransaction") }
+        /// Description
+        internal static var description: String { return Localizable.tr("Waves", "transactioncard.title.description") }
+        /// Disable Sponsorship
+        internal static var disableSponsorship: String { return Localizable.tr("Waves", "transactioncard.title.disableSponsorship") }
+        /// Entry in blockchain
+        internal static var entryInBlockchain: String { return Localizable.tr("Waves", "transactioncard.title.entryInBlockchain") }
+        /// Fee
+        internal static var fee: String { return Localizable.tr("Waves", "transactioncard.title.fee") }
+        /// From
+        internal static var from: String { return Localizable.tr("Waves", "transactioncard.title.from") }
+        /// Mass Received
+        internal static var massReceived: String { return Localizable.tr("Waves", "transactioncard.title.massReceived") }
+        /// Mass Sent
+        internal static var massSent: String { return Localizable.tr("Waves", "transactioncard.title.massSent") }
+        /// Node Address
+        internal static var nodeAddress: String { return Localizable.tr("Waves", "transactioncard.title.nodeAddress") }
+        /// Not Reissuable
+        internal static var notReissuable: String { return Localizable.tr("Waves", "transactioncard.title.notReissuable") }
+        /// Price
+        internal static var price: String { return Localizable.tr("Waves", "transactioncard.title.price") }
+        /// Received
+        internal static var received: String { return Localizable.tr("Waves", "transactioncard.title.received") }
+        /// Received from
+        internal static var receivedFrom: String { return Localizable.tr("Waves", "transactioncard.title.receivedFrom") }
+        /// Received Sponsorship
+        internal static var receivedSponsorship: String { return Localizable.tr("Waves", "transactioncard.title.receivedSponsorship") }
+        /// #%@ Recipient
+        internal static func recipient(_ p1: String) -> String {
+          return Localizable.tr("Waves", "transactioncard.title.recipient", p1)
+        }
+        /// Reissuable
+        internal static var reissuable: String { return Localizable.tr("Waves", "transactioncard.title.reissuable") }
+        /// Self-transfer
+        internal static var selfTransfer: String { return Localizable.tr("Waves", "transactioncard.title.selfTransfer") }
+        /// Send again
+        internal static var sendAgain: String { return Localizable.tr("Waves", "transactioncard.title.sendAgain") }
+        /// Sent
+        internal static var sent: String { return Localizable.tr("Waves", "transactioncard.title.sent") }
+        /// Sent to
+        internal static var sentTo: String { return Localizable.tr("Waves", "transactioncard.title.sentTo") }
+        /// Set Asset Script
+        internal static var setAssetScript: String { return Localizable.tr("Waves", "transactioncard.title.setAssetScript") }
+        /// Set Script Transaction
+        internal static var setScriptTransaction: String { return Localizable.tr("Waves", "transactioncard.title.setScriptTransaction") }
+        /// Set Sponsorship
+        internal static var setSponsorship: String { return Localizable.tr("Waves", "transactioncard.title.setSponsorship") }
+        /// Show all (%@)
+        internal static func showAll(_ p1: String) -> String {
+          return Localizable.tr("Waves", "transactioncard.title.showAll", p1)
+        }
+        /// Spam Received
+        internal static var spamReceived: String { return Localizable.tr("Waves", "transactioncard.title.spamReceived") }
+        /// Started Leasing
+        internal static var startedLeasing: String { return Localizable.tr("Waves", "transactioncard.title.startedLeasing") }
+        /// Status
+        internal static var status: String { return Localizable.tr("Waves", "transactioncard.title.status") }
+        /// Timestamp
+        internal static var timestamp: String { return Localizable.tr("Waves", "transactioncard.title.timestamp") }
+        /// Token Burn
+        internal static var tokenBurn: String { return Localizable.tr("Waves", "transactioncard.title.tokenBurn") }
+        /// Token Generation
+        internal static var tokenGeneration: String { return Localizable.tr("Waves", "transactioncard.title.tokenGeneration") }
+        /// Token Reissue
+        internal static var tokenReissue: String { return Localizable.tr("Waves", "transactioncard.title.tokenReissue") }
+        /// Unconfirmed
+        internal static var unconfirmed: String { return Localizable.tr("Waves", "transactioncard.title.unconfirmed") }
+        /// Unrecognised Transaction
+        internal static var unrecognisedTransaction: String { return Localizable.tr("Waves", "transactioncard.title.unrecognisedTransaction") }
+        /// View on Explorer
+        internal static var viewOnExplorer: String { return Localizable.tr("Waves", "transactioncard.title.viewOnExplorer") }
+
+        internal enum Exchange {
+          /// Buy: %@/%@
+          internal static func buy(_ p1: String, _ p2: String) -> String {
+            return Localizable.tr("Waves", "transactioncard.title.exchange.buy", p1, p2)
+          }
+          /// Sell: %@/%@
+          internal static func sell(_ p1: String, _ p2: String) -> String {
+            return Localizable.tr("Waves", "transactioncard.title.exchange.sell", p1, p2)
+          }
+        }
+      }
+    }
+
     internal enum Transactionfee {
 
       internal enum Label {
