@@ -111,6 +111,6 @@ final class FactoryInteractors: FactoryInteractorsProtocol {
         let instance = FactoryRepositories.instance
         return MigrationInteractor(walletsRepository: instance.walletsRepositoryLocal)
     }()
-
+    
     fileprivate init() {}
 }

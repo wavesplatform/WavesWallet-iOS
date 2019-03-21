@@ -28,7 +28,7 @@ final class ExchangeTransactionOrder: Object {
     @objc dynamic var orderType: String = ""
     @objc dynamic var price: Int64 = 0
     @objc dynamic var amount: Int64 = 0
-    @objc dynamic var timestamp: Int64 = 0
+    @objc dynamic var timestamp: Date = Date()
     @objc dynamic var expiration: Int64 = 0
     @objc dynamic var matcherFee: Int64 = 0
     @objc dynamic var signature: String? = nil

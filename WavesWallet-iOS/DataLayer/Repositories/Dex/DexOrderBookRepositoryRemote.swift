@@ -28,7 +28,10 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                 guard let owner = self else { return Observable.empty() }
                 
                 let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .millisecondsSince1970
+                decoder.dateDecodingStrategy = .custom { decoder in
+                    return Date(timestampDecoder: decoder, timestampDiff: environment.timestampServerDiff)
+                }
+
                 
                 return owner.matcherProvider.rx
                     .request(.init(kind: .getOrderBook(amountAsset: amountAsset, priceAsset: priceAsset),
@@ -108,12 +111,14 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                 guard let owner = self else { return Observable.empty() }
                 
                 let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .millisecondsSince1970
-
+                decoder.dateDecodingStrategy = .custom { decoder in
+                    return Date(timestampDecoder: decoder, timestampDiff: environment.timestampServerDiff)
+                }
+                
                 return owner.matcherProvider.rx
                 .request(.init(kind: .getMyOrders(amountAsset: amountAsset.id,
                                                   priceAsset: priceAsset.id,
-                                                  signature: TimestampSignature(signedWallet: wallet)),
+                                                  signature: TimestampSignature(signedWallet: wallet, environment: environment)),
                                environment: environment),
                          callbackQueue: DispatchQueue.global(qos: .userInteractive))
                 .filterSuccessfulStatusAndRedirectCodes()

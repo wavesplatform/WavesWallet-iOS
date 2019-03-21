@@ -79,7 +79,7 @@ extension DomainLayer.DTO.UnrecognisedTransaction {
 
         return .init(id: id,
                      kind: .unrecognisedTransaction,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
@@ -112,7 +112,7 @@ extension DomainLayer.DTO.IssueTransaction {
 
         return .init(id: id,
                      kind: .tokenGeneration(.init(asset: asset, balance: balance, description: nil)),
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
@@ -207,7 +207,7 @@ extension DomainLayer.DTO.TransferTransaction {
 
         return .init(id: id,
                      kind: kind,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
@@ -243,7 +243,7 @@ extension DomainLayer.DTO.ReissueTransaction {
                      kind: .tokenReissue(.init(asset: asset,
                                                balance: balance,
                                                description: nil)),
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
@@ -281,7 +281,7 @@ extension DomainLayer.DTO.BurnTransaction {
                      kind: .tokenBurn(.init(asset: asset,
                                             balance: balance,
                                             description: nil)),
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
@@ -350,7 +350,7 @@ extension DomainLayer.DTO.ExchangeTransaction {
 
         return .init(id: id,
                      kind: kind,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
@@ -394,7 +394,7 @@ extension DomainLayer.DTO.LeaseTransaction {
 
         return .init(id: id,
                      kind: kind,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
@@ -442,7 +442,7 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
 
         return .init(id: id,
                      kind: kind,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
@@ -469,7 +469,7 @@ extension DomainLayer.DTO.AliasTransaction {
         
         return .init(id: id,
                      kind: kind,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
@@ -496,7 +496,7 @@ extension DomainLayer.DTO.ScriptTransaction {
 
         return .init(id: id,
                      kind: kind,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
@@ -524,7 +524,7 @@ extension DomainLayer.DTO.AssetScriptTransaction {
 
         return .init(id: id,
                      kind: kind,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
@@ -554,7 +554,7 @@ extension DomainLayer.DTO.SponsorshipTransaction {
 
         return .init(id: id,
                      kind: kind,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
@@ -647,7 +647,7 @@ extension DomainLayer.DTO.MassTransferTransaction {
 
         return .init(id: id,
                      kind: kind,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
@@ -683,7 +683,7 @@ extension DomainLayer.DTO.DataTransaction {
 
         return .init(id: id,
                      kind: kind,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
@@ -806,7 +806,7 @@ extension DomainLayer.DTO.ExchangeTransaction.Order {
         let total = assetPair.totalBalance(priceAmount: self.amount,
                                            assetAmount: self.price)
 
-        return .init(timestamp: Date(milliseconds: timestamp),
+        return .init(timestamp: timestamp,
                      expiration: Date(milliseconds: expiration),
                      sender: sender,
                      kind: kind,

@@ -52,7 +52,7 @@ final class AppCoordinator: Coordinator {
     private let authoAuthorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let disposeBag: DisposeBag = DisposeBag()
     private var isActiveApp: Bool = false
-
+    
     init(_ windowRouter: WindowRouter) {
         self.windowRouter = windowRouter
     }
@@ -101,7 +101,7 @@ extension AppCoordinator: PresentationCoordinator {
             addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
 
         case .slide(let wallet):
-
+            
             guard isHasCoordinator(type: SlideCoordinator.self) != true else { return }
 
             let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: wallet)
