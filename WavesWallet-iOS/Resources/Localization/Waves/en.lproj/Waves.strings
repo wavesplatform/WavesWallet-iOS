@@ -602,6 +602,10 @@
 
 "history.transaction.value.setSponsorship.set" = "Set Sponsorship";
 
+"import.account.warning.seed.title" = "Your Seed phrase is too simple";
+
+"import.account.warning.seed.subtitle" = "This is not secure. You should avoid using a Seed phrase that might be easy for someone else to guess. Are you sure you want to continue?";
+
 "import.account.button.enter.title" = "Enter SEED manually";
 
 "import.account.button.scan.title" = "Scan pairing code";

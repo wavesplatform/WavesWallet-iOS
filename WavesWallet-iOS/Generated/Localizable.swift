@@ -1278,6 +1278,16 @@ internal enum Localizable {
           /// Import account
           internal static var title: String { return Localizable.tr("Waves", "import.account.navigation.title") }
         }
+
+        internal enum Warning {
+
+          internal enum Seed {
+            /// This is not secure. You should avoid using a Seed phrase that might be easy for someone else to guess. Are you sure you want to continue?
+            internal static var subtitle: String { return Localizable.tr("Waves", "import.account.warning.seed.subtitle") }
+            /// Your Seed phrase is too simple
+            internal static var title: String { return Localizable.tr("Waves", "import.account.warning.seed.title") }
+          }
+        }
       }
 
       internal enum General {
