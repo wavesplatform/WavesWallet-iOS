@@ -199,7 +199,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         buttonsActions.append(contentsOf: [.viewOnExplorer, .copyTxID, .copyAllData])
 
 
-        let rowActionsModel = TransactionCardActionsCell.Model(buttons: [.viewOnExplorer, .copyTxID, .copyAllData])
+        let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
 
 
 
@@ -362,7 +362,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         buttonsActions.append(contentsOf: [.viewOnExplorer, .copyTxID, .copyAllData])
 
 
-        let rowActionsModel = TransactionCardActionsCell.Model(buttons: [.viewOnExplorer, .copyTxID, .copyAllData])
+        let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
 
 
 
@@ -424,7 +424,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         buttonsActions.append(contentsOf: [.viewOnExplorer, .copyTxID, .copyAllData])
 
 
-        let rowActionsModel = TransactionCardActionsCell.Model(buttons: [.viewOnExplorer, .copyTxID, .copyAllData])
+        let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
 
 
 
@@ -480,7 +480,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         var buttonsActions: [TransactionCardActionsCell.Model.Button] = .init()
 
-        if needCancelLeasing {
+        if needCancelLeasing && self.status == .activeNow {
             //TODO: cancelLeasing
             buttonsActions.append(.cancelLeasing)
         }
@@ -488,7 +488,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         buttonsActions.append(contentsOf: [.viewOnExplorer, .copyTxID, .copyAllData])
 
 
-        let rowActionsModel = TransactionCardActionsCell.Model(buttons: [.viewOnExplorer, .copyTxID, .copyAllData])
+        let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
 
 
 
@@ -548,7 +548,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         buttonsActions.append(contentsOf: [.viewOnExplorer, .copyTxID, .copyAllData])
 
-        let rowActionsModel = TransactionCardActionsCell.Model(buttons: [.viewOnExplorer, .copyTxID, .copyAllData])
+        let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
 
 
 
@@ -612,7 +612,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         buttonsActions.append(contentsOf: [.viewOnExplorer, .copyTxID, .copyAllData])
 
-        let rowActionsModel = TransactionCardActionsCell.Model(buttons: [.viewOnExplorer, .copyTxID, .copyAllData])
+        let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
 
 
 
@@ -676,7 +676,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         var buttonsActions: [TransactionCardActionsCell.Model.Button] = .init()
 
-        if needSendAgain {
+        if needSendAgain && self.status == .completed {
             buttonsActions.append(.sendAgain)
         }
 
