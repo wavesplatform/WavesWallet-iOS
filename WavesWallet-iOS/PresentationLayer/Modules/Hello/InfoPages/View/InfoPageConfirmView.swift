@@ -102,14 +102,14 @@ private extension InfoPageConfirmView {
         label2.text = Localizable.Waves.Hello.Page.Confirm.description2
         label3.text = Localizable.Waves.Hello.Page.Confirm.description3
         
-        let termsOfUseText = Localizable.Waves.Hello.Page.Confirm.Button.termsOfUse
+        let privacyPolicyText = Localizable.Waves.Hello.Page.Confirm.Button.privacyPolicy
         let termsOfConditions = Localizable.Waves.Hello.Page.Confirm.Button.termsAndConditions
         
-        buttonTermsUse.setTitle(termsOfUseText, for: .normal)
+        buttonTermsUse.setTitle(privacyPolicyText, for: .normal)
         buttonTermsConditions.setTitle(termsOfConditions, for: .normal)
         
         guard let font = buttonTermsUse.titleLabel?.font else { return }
-        termsOfUseWidth.constant = termsOfUseText.maxWidth(font: font) + Constants.buttonDeltaWidth
+        termsOfUseWidth.constant = privacyPolicyText.maxWidth(font: font) + Constants.buttonDeltaWidth
         termsConditionsWidth.constant = termsOfConditions.maxWidth(font: font) + Constants.buttonDeltaWidth
     }
     
