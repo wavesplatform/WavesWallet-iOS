@@ -31,6 +31,8 @@ extension DomainLayer.DTO {
         struct Transfer: Equatable {
             let balance: Balance
             let asset: Asset
+
+            //It is for sent too (sender)
             let recipient: Account
             let attachment: String?
             let hasSponsorship: Bool
@@ -137,9 +139,11 @@ extension DomainLayer.DTO {
         }
 
         let id: String
+        let type: Int
         let kind: Kind
         let timestamp: Date
         let totalFee: Balance
+        let feeAsset: Asset
         let height: Int64?
         let confirmationHeight: Int64
         let sender: Account

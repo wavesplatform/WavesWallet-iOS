@@ -44,7 +44,7 @@ final class DexScriptAssetMessageViewController: UIViewController {
 
     @IBAction private func doNotShowAgain(_ sender: Any) {
         doNotShowAgain = !doNotShowAgain
-        iconCheckmark.image = doNotShowAgain ? Images.Checkbox.checkboxOn.image : Images.Checkbox.checkboxOff.image
+        iconCheckmark.image = doNotShowAgain ? Images.checkboxOn.image : Images.checkboxOff.image
 
         output?.dexScriptAssetMessageModuleOutputDidTapCheckmark(amountAsset: input.amountAsset,
                                                                  priceAsset: input.priceAsset,

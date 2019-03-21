@@ -82,11 +82,11 @@ final class InfoPageConfirmView: UIView {
 private extension InfoPageConfirmView {
     
     var on: UIImage {
-        return Images.Checkbox.checkboxOn.image
+        return Images.checkboxOn.image
     }
     
     var off: UIImage {
-        return Images.Checkbox.checkboxOff.image
+        return Images.checkboxOff.image
     }
     
     func setupCheckBoxes() {

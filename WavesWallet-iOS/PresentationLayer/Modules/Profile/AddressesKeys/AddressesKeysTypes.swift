@@ -62,7 +62,7 @@ extension AddressesKeysTypes.ViewModel {
         case skeleton
     }
 
-    struct Section: SectionBase, Mutating {
+    struct Section: SectionProtocol, Mutating {
         var rows: [Row]
     }
 }

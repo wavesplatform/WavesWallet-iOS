@@ -81,7 +81,7 @@ extension AssetDetailTypes {
 
 extension AssetDetailTypes.ViewModel {
 
-    struct Section: SectionBase {
+    struct Section: SectionProtocol {
 
         enum Kind {
             case none

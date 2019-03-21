@@ -11,8 +11,6 @@ import UIKit
 
 final class ModalViewControllerTransitioning: NSObject {
 
-    private var animator = ModalPresentationAnimator(isPresentation: false)
-
     private let dismiss: ModalPresentationController.DismissCompleted?
 
     init(dismiss: ModalPresentationController.DismissCompleted?) {

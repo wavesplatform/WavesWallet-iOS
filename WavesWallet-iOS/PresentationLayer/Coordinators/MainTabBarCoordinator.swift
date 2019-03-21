@@ -49,9 +49,9 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
 
         let navigation = CustomNavigationController()
 
-        navigation.tabBarItem.image = Images.TabBar.tabBarWallet.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.image = Images.tabBarWallet.image.withRenderingMode(.alwaysOriginal)
         navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
-        navigation.tabBarItem.selectedImage = Images.TabBar.tabBarWalletActive.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.selectedImage = Images.tabBarWalletActive.image.withRenderingMode(.alwaysOriginal)
 
         return NavigationRouter(navigationController: navigation)
     }()
@@ -60,8 +60,8 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
 
         let navigation = CustomNavigationController()
 
-        navigation.tabBarItem.image = Images.TabBar.tabBarHistory.image.withRenderingMode(.alwaysOriginal)
-        navigation.tabBarItem.selectedImage = Images.TabBar.tabBarHistoryActive.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.image = Images.tabBarHistory.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.selectedImage = Images.tabBarHistoryActive.image.withRenderingMode(.alwaysOriginal)
         navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
         return NavigationRouter(navigationController: navigation)
@@ -71,8 +71,8 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
 
         let navigation = CustomNavigationController()
 
-        navigation.tabBarItem.image = Images.TabBar.tabBarDex.image.withRenderingMode(.alwaysOriginal)
-        navigation.tabBarItem.selectedImage = Images.TabBar.tabBarDexActive.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.image = Images.tabBarDex.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.selectedImage = Images.tabBarDexActive.image.withRenderingMode(.alwaysOriginal)
         navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
         return NavigationRouter(navigationController: navigation)
@@ -82,8 +82,8 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
 
         let navigation = CustomNavigationController()
 
-        navigation.tabBarItem.image = Images.TabBar.tabBarProfile.image.withRenderingMode(.alwaysOriginal)
-        navigation.tabBarItem.selectedImage = Images.TabBar.tabBarProfileActive.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.image = Images.tabBarProfile.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.selectedImage = Images.tabBarProfileActive.image.withRenderingMode(.alwaysOriginal)
         navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
         return NavigationRouter(navigationController: navigation)
