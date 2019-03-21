@@ -240,6 +240,7 @@ extension SendViewController: TransactionFeeViewDelegate {
         
         let vc = SendFeeModuleBuilder(output: self).build(input: .init(wavesFee: wavesFee,
                                                                        assetID: assetID,
+
                                                                        feeAssetID: feeAssetID))
         vc.modalPresentationStyle = .custom
         vc.transitioningDelegate = popoverViewControllerTransitioning

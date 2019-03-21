@@ -15,7 +15,8 @@ import RxOptional
 private enum Contants {
 
     #if DEBUG
-    static let delay: TimeInterval = 0
+    static let delay: TimeInterval = 1000
+    static let developBuild: Bool = false
     #else
     static let delay: TimeInterval = 10
     #endif
@@ -60,7 +61,22 @@ final class AppCoordinator: Coordinator {
     func start() {
         self.isActiveApp = true
 
-        logInApplication()
+
+
+        #if DEBUG
+            if Contants.developBuild {
+
+                let vc = StoryboardScene.TransactionCard.transactionCardViewController.instantiate()
+                self.windowRouter.setRootViewController(vc)
+            } else {
+                logInApplication()
+            }
+        #else
+            logInApplication()
+        #endif
+
+
+
 
         #if DEBUG || TEST
             addTapGestureForSupportDisplay()

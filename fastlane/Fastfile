@@ -20,7 +20,7 @@ platform :ios do
     ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
 
     ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
-    ENV['MATCH_TYPE'] = "appstore"
+    ENV['MATCH_TYPE'] = "adhoc"
     ENV['CHANGELOG_BETWEEN_BRANCH']="develop"
     ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.test"
     
@@ -156,6 +156,22 @@ platform :ios do
     )
   end
 
+  lane :new_devices do
+
+    dev_enviroment
+    unless Helper.ci?
+      sh("echo CI DONT USE")
+      ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
+    end
+  
+    match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'].split(","),
+          git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
+          username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
+          type: "#{ENV['MATCH_TYPE']}",
+          force_for_new_devices: true,
+          keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
+  end
+
   lane :dev_enviroment do
 
     ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Dev"
@@ -183,6 +199,11 @@ platform :ios do
     download_resources
   end
 
+
+  lane :dev_download_resources do
+    dev_enviroment    
+    download_resources
+  end
 
   lane :download_resources do
     sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")

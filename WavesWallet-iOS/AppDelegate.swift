@@ -37,7 +37,7 @@ enum UITest {
 #endif
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+    class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var disposeBag: DisposeBag = DisposeBag()
     var window: UIWindow?

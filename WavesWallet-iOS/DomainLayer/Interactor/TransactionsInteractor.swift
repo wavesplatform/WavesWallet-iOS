@@ -312,7 +312,6 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
     }
 }
 
-
 // MARK: - - Main Logic sync download/save transactions
 
 fileprivate extension TransactionsInteractor {
@@ -359,7 +358,6 @@ fileprivate extension TransactionsInteractor {
                 return SmartTransactionsSyncObservable.just(.error(error))
             })
     }
-
 
     private func ifNeededLoadNextTransactionsSync(_ query: IfNeededLoadNextTransactionsQuery) -> SmartTransactionsSyncObservable {
 

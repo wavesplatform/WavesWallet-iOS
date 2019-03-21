@@ -44,11 +44,11 @@ final class WalletViewController: UIViewController {
     private var isRefreshing: Bool = false
     private var snackError: String? = nil
 
-    private let buttonAddress = UIBarButtonItem(image: Images.Wallet.walletScanner.image,
+    private let buttonAddress = UIBarButtonItem(image: Images.walletScanner.image,
                                                 style: .plain,
                                                 target: nil,
                                                 action: nil)
-    private let buttonSort = UIBarButtonItem(image: Images.Wallet.walletSort.image,
+    private let buttonSort = UIBarButtonItem(image: Images.walletSort.image,
                                              style: .plain,
                                              target: nil,
                                              action: nil)

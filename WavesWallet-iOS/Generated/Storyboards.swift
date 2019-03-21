@@ -265,10 +265,10 @@ internal enum StoryboardScene {
 
     internal static let testViewController = SceneType<WavesWallet_iOS.TestViewController>(storyboard: Support.self, identifier: "TestViewController")
   }
-  internal enum TransactionHistory: StoryboardType {
-    internal static let storyboardName = "TransactionHistory"
+  internal enum TransactionCard: StoryboardType {
+    internal static let storyboardName = "TransactionCard"
 
-    internal static let transactionHistoryViewController = SceneType<WavesWallet_iOS.TransactionHistoryViewController>(storyboard: TransactionHistory.self, identifier: "TransactionHistoryViewController")
+    internal static let transactionCardViewController = SceneType<WavesWallet_iOS.TransactionCardViewController>(storyboard: TransactionCard.self, identifier: "TransactionCardViewController")
   }
   internal enum UseTouchID: StoryboardType {
     internal static let storyboardName = "UseTouchID"
