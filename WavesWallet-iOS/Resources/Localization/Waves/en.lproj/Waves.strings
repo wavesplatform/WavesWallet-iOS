@@ -366,11 +366,9 @@
 
 "dexmarket.searchBar.placeholder" = "Search";
 
-"dexmyorders.label.amount" = "Amount";
-
 "dexmyorders.label.buy" = "Buy";
 
-"dexmyorders.label.date" = "Date";
+"dexmyorders.label.time" = "Time";
 
 "dexmyorders.label.emptyData" = "Nothing Here…\nYou do not have any orders";
 
@@ -380,7 +378,7 @@
 
 "dexmyorders.label.sell" = "Sell";
 
-"dexmyorders.label.side" = "Side";
+"dexmyorders.label.type" = "Type";
 
 "dexmyorders.label.status" = "Status";
 
@@ -391,8 +389,6 @@
 "dexmyorders.label.status.filled" = "Filled";
 
 "dexmyorders.label.status.partiallyFilled" = "Partial";
-
-"dexmyorders.label.sum" = "Sum";
 
 "dexmyorders.label.time" = "Time";
 
@@ -601,6 +597,10 @@
 "history.transaction.value.setSponsorship.cancel" = "Disable Sponsorship";
 
 "history.transaction.value.setSponsorship.set" = "Set Sponsorship";
+
+"import.account.warning.seed.title" = "Your Seed phrase is too simple";
+
+"import.account.warning.seed.subtitle" = "This is not secure. You should avoid using a Seed phrase that might be easy for someone else to guess. Are you sure you want to continue?";
 
 "import.account.button.enter.title" = "Enter SEED manually";
 
