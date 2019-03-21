@@ -51,5 +51,6 @@ final class SlideMenu: RESideMenu, SlideMenuProtocol {
         contentViewShadowRadius = 15
         contentViewInPortraitOffsetCenterX = 100
         bouncesHorizontally = false
+        topControllersNames = [NSStringFromClass(PopupViewController.classForCoder())]
     }
 }
