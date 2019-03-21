@@ -17,6 +17,8 @@ private struct Constants {
     static let rightPaddingArrowButton: CGFloat = 24
     static let bottomPaddingArrowButton: CGFloat = 28
     static let cardHeaderViewHeight: CGFloat = 20
+    static let animationDurationReloadTable: TimeInterval = 0.24
+    static let arrowButtonCornerRadius: Float = 24
 }
 
 protocol TransactionCardModuleOutput: AnyObject {
@@ -44,7 +46,7 @@ final class TransactionCardScroll: ModalTableView {
         let arrowButton = ArrowButton(type: .custom)
         arrowButton.translatesAutoresizingMaskIntoConstraints = true
         arrowButton.setBackgroundImage(UIColor.basic50.image, for: .normal)
-        arrowButton.cornerRadius = 24
+        arrowButton.cornerRadius = Constants.arrowButtonCornerRadius
         arrowButton.layer.masksToBounds = true
         arrowButton.setImage(Images.arrowdown24Black.image, for: .normal)
         return arrowButton
@@ -64,7 +66,7 @@ final class TransactionCardScroll: ModalTableView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        let screenHeight = self.frame.height - contentInset.top - controllerLayoutInsets.top
+        let screenHeight = self.frame.height - contentInset.top - controllerLayoutInsets.bottom
         let contentHeight = contentSize.height
 
         var arrowFrame = arrowButton.frame
@@ -77,11 +79,11 @@ final class TransactionCardScroll: ModalTableView {
                                       y: contentHeight)
         } else {
 
-            let screenAndButtonHeight = screenHeight + arrowFrame.height + controllerLayoutInsets.bottom
+            let offset = screenHeight - contentHeight
 
-            if contentHeight < screenAndButtonHeight {
+            if offset > arrowFrame.height {
                 arrowFrame.origin = .init(x: xArrow,
-                                          y: screenHeight - arrowFrame.height - controllerLayoutInsets.bottom)
+                                          y: screenHeight - arrowFrame.height)
             } else {
                 arrowFrame.origin = .init(x: xArrow,
                                           y: contentHeight)
@@ -227,7 +229,10 @@ extension TransactionCardViewController {
             self.sections = state.sections
 
             //TODO: Insert
-            UIView.transition(with: self.tableView, duration: 0.24, options: .transitionCrossDissolve, animations: {
+            UIView.transition(with: self.tableView,
+                              duration: Constants.animationDurationReloadTable,
+                              options: .transitionCrossDissolve,
+                              animations: {
                 self.tableView.reloadData()
             }, completion: { (_) in
 

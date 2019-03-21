@@ -43,18 +43,15 @@ extension AddressBookButton: ViewConfiguration {
 
     func update(with model: AddressBookButton.Kind) {
 
-        //TODO: Localization
         switch model {
         case .edit:
-            setTitle("Edit name", for: .normal)
+            setTitle(Localizable.Waves.Addressbookbutton.Title.editName, for: .normal)
             setImage(Images.editaddress24Submit300.image, for: .normal)
 
         case .add:
-            setTitle("Save address", for: .normal)
+            setTitle(Localizable.Waves.Addressbookbutton.Title.saveAddress, for: .normal)
             setImage(Images.addaddress24Submit300.image, for: .normal)
         }
-
-
     }
 }
 

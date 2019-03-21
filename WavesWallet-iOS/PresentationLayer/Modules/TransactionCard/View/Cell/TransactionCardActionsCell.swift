@@ -80,8 +80,6 @@ private extension TransactionCardActionsCell.Model.Button {
         }
     }
 
-//TODO: Localization
-
     func cancelLeasingButton(_ action: @escaping () -> Void) -> ActionsControl.Model.Button {
         return .init(backgroundColor: .error400,
                      textColor: .white,

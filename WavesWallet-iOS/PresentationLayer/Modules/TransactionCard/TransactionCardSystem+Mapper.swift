@@ -203,7 +203,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
 
 
-        rows.append(contentsOf:[.keyValue(self.rowBlockModel),
+        rows.append(contentsOf:[.keyValue(self.rowBlockModel()),
                                 .keyValue(self.rowConfirmationsModel),
                                 .keyBalance(self.rowFeeModel),
                                 .keyValue(self.rowTimestampModel),
@@ -237,7 +237,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         rows.append(contentsOf:[.general(rowGeneralModel),
                                 .asset(rowAssetModel),
-                                .keyValue(self.rowBlockModel),
+                                .keyValue(self.rowBlockModel()),
                                 .keyValue(self.rowConfirmationsModel),
                                 .keyBalance(self.rowFeeModel),
                                 .keyValue(self.rowTimestampModel),
@@ -283,7 +283,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
 
 
-        rows.append(contentsOf:[.keyValue(self.rowBlockModel),
+        rows.append(contentsOf:[.keyValue(self.rowBlockModel()),
                                 .keyValue(self.rowConfirmationsModel),
                                 .keyBalance(self.rowFeeModel),
                                 .keyValue(self.rowTimestampModel),
@@ -316,7 +316,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         rows.append(contentsOf:[.general(rowGeneralModel),
                                 .dashedLine(.nonePadding),
-                                .keyValue(self.rowBlockModel),
+                                .keyValue(self.rowBlockModel()),
                                 .keyValue(self.rowConfirmationsModel),
                                 .keyBalance(self.rowFeeModel),
                                 .keyValue(self.rowTimestampModel),
@@ -366,7 +366,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
 
 
-        rows.append(contentsOf:[.keyValue(self.rowBlockModel),
+        rows.append(contentsOf:[.keyValue(self.rowBlockModel(isLargePadding: true)),
                                 .keyValue(self.rowConfirmationsModel),
                                 .keyBalance(self.rowFeeModel),
                                 .keyValue(self.rowTimestampModel),
@@ -388,30 +388,31 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         let myOrder = transfer.myOrder
         var sign: Balance.Sign = .none
         var title = ""
+        var viewModelEchange: TransactionCardExchangeCell.Model.Kind!
 
         let priceDisplayName = transfer.myOrder.pair.priceAsset.displayName
         let amountDisplayName = transfer.myOrder.pair.amountAsset.displayName
 
         if myOrder.kind == .sell {
-            sign = .plus
-            title = Localizable.Waves.Transactioncard.Title.Exchange.sell(amountDisplayName, priceDisplayName)
-        } else {
             sign = .minus
-            title = Localizable.Waves.Transactioncard.Title.Exchange.buy(amountDisplayName, priceDisplayName)
+            title = Localizable.Waves.Transactioncard.Title.Exchange.sellPair(amountDisplayName, priceDisplayName)
+            viewModelEchange = .buy(.init(balance: transfer.total, sign: .none, style: .small))
+        } else {
+            sign = .plus
+            viewModelEchange = .sell(.init(balance: transfer.total, sign: .none, style: .small))
+            title = Localizable.Waves.Transactioncard.Title.Exchange.buyPair(amountDisplayName, priceDisplayName)
         }
 
         let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
                                                                title: title,
-                                                               info: .balance(.init(balance: myOrder.total,
+                                                               info: .balance(.init(balance: transfer.amount,
                                                                                     sign: sign,
                                                                                     style: .large)))
 
         rows.append(contentsOf:[.general(rowGeneralModel)])
 
-        let rowExchangeModel = TransactionCardExchangeCell.Model.init(sell: .init(balance: transfer.sell.amount,
-                                                                                  sign: .none,
-                                                                                  style: .small),
-                                                                      price: .init(balance: transfer.buy.price,
+        let rowExchangeModel = TransactionCardExchangeCell.Model.init(amount: viewModelEchange,
+                                                                      price: .init(balance: transfer.price,
                                                                                    sign: .none,
                                                                                    style: .small))
 
@@ -427,7 +428,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
 
 
-        rows.append(contentsOf:[.keyValue(self.rowBlockModel),
+        rows.append(contentsOf:[.keyValue(self.rowBlockModel(isLargePadding: true)),
                                 .keyValue(self.rowConfirmationsModel),
                                 .keyBalance(self.rowFeeModel),
                                 .keyValue(self.rowTimestampModel),
@@ -481,7 +482,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         if needCancelLeasing {
             //TODO: cancelLeasing
-            buttonsActions.append(.sendAgain)
+            buttonsActions.append(.cancelLeasing)
         }
 
         buttonsActions.append(contentsOf: [.viewOnExplorer, .copyTxID, .copyAllData])
@@ -491,7 +492,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
 
 
-        rows.append(contentsOf:[.keyValue(self.rowBlockModel),
+        rows.append(contentsOf:[.keyValue(self.rowBlockModel(isLargePadding: true)),
                                 .keyValue(self.rowConfirmationsModel),
                                 .keyBalance(self.rowFeeModel),
                                 .keyValue(self.rowTimestampModel),
@@ -551,7 +552,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
 
 
-        rows.append(contentsOf:[.keyValue(self.rowBlockModel),
+        rows.append(contentsOf:[.keyValue(self.rowBlockModel()),
                                 .keyValue(self.rowConfirmationsModel),
                                 .keyBalance(self.rowFeeModel),
                                 .keyValue(self.rowTimestampModel),
@@ -615,7 +616,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
 
 
-        rows.append(contentsOf:[.keyValue(self.rowBlockModel),
+        rows.append(contentsOf:[.keyValue(self.rowBlockModel()),
                                 .keyValue(self.rowConfirmationsModel),
                                 .keyBalance(self.rowFeeModel),
                                 .keyValue(self.rowTimestampModel),
@@ -665,10 +666,12 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         rows.append(contentsOf:[.general(rowGeneralModel),
                                 .address(rowAddressModel)])
 
+        var isLargePadding: Bool = true
 
         if let attachment = transfer.attachment, attachment.count > 0 {
             let rowDescriptionModel = TransactionCardDescriptionCell.Model.init(description: attachment)
             rows.append(.description(rowDescriptionModel))
+            isLargePadding = false
         }
 
         var buttonsActions: [TransactionCardActionsCell.Model.Button] = .init()
@@ -683,7 +686,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
 
 
-        rows.append(contentsOf:[.keyValue(self.rowBlockModel),
+        rows.append(contentsOf:[.keyValue(self.rowBlockModel(isLargePadding: isLargePadding)),
                                 .keyValue(self.rowConfirmationsModel),
                                 .keyBalance(self.rowFeeModel),
                                 .keyValue(self.rowTimestampModel),
@@ -697,14 +700,16 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         return [section]
     }
 
-    var rowBlockModel: TransactionCardKeyValueCell.Model {
+    func rowBlockModel(isLargePadding: Bool = false) -> TransactionCardKeyValueCell.Model {
         let height = self.height ?? 0
-        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.block, value: "\(height)")
+
+        let padding: TransactionCardKeyValueCell.Model.Style = isLargePadding == true ? .largePadding : .normalPadding
+
+        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.block, value: "\(height)", style: padding)
     }
 
     var rowConfirmationsModel: TransactionCardKeyValueCell.Model {
-
-        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.confirmations, value: "\(String(describing: confirmationHeight))")
+        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.confirmations, value: "\(String(describing: confirmationHeight))", style: .normalPadding)
     }
 
     var rowFeeModel: TransactionCardKeyBalanceCell.Model {
@@ -719,7 +724,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         formatter.dateFormat = Localizable.Waves.Transactioncard.Timestamp.format
         let timestampValue = formatter.string(from: timestamp)
 
-        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.timestamp, value: timestampValue)
+        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.timestamp, value: timestampValue, style: .normalPadding)
     }
 
     var rowStatusModel: TransactionCardStatusCell.Model {

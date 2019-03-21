@@ -12,13 +12,18 @@ import UIKit
 final class TransactionCardExchangeCell: UITableViewCell, Reusable {
 
     struct Model {
-        
-        let sell: BalanceLabel.Model
+
+        enum Kind {
+            case sell(BalanceLabel.Model)
+            case buy(BalanceLabel.Model)
+        }
+
+        let amount: Kind
         let price: BalanceLabel.Model
     }
 
-    @IBOutlet private var sellTitleLabel: UILabel!
-    @IBOutlet private var sellBalanceLabel: BalanceLabel!
+    @IBOutlet private var firstTitleLabel: UILabel!
+    @IBOutlet private var firstBalanceLabel: BalanceLabel!
 
     @IBOutlet private var priceTitleLabel: UILabel!
     @IBOutlet private var priceBalanceLabel: BalanceLabel!
@@ -39,8 +44,16 @@ extension TransactionCardExchangeCell: ViewConfiguration {
 
     func update(with model: TransactionCardExchangeCell.Model) {
 
-        sellTitleLabel.text = Localizable.Waves.Transactioncard.Title.amount
-        sellBalanceLabel.update(with: model.sell)
+        switch model.amount {
+        case .buy(let model):
+            firstTitleLabel.text = Localizable.Waves.Transactioncard.Title.Exchange.buy
+            firstBalanceLabel.update(with: model)
+
+        case .sell(let model):
+            firstTitleLabel.text = Localizable.Waves.Transactioncard.Title.Exchange.sell
+            firstBalanceLabel.update(with: model)
+        }
+
 
         priceTitleLabel.text = Localizable.Waves.Transactioncard.Title.price
         priceBalanceLabel.update(with: model.price)

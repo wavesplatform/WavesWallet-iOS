@@ -1134,8 +1134,13 @@
 
 "transactioncard.title.recipient" = "#%@ Recipient";
 
-"transactioncard.title.exchange.buy" = "Buy: %@/%@";
-"transactioncard.title.exchange.sell" = "Sell: %@/%@";
+"transactioncard.title.exchange.buyPair" = "Buy: %@/%@";
+"transactioncard.title.exchange.sellPair" = "Sell: %@/%@";
+
+"transactioncard.title.exchange.buy" = "Buy";
+"transactioncard.title.exchange.sell" = "Sell";
+
+
 
 
 "transactioncard.title.massReceived" = "Mass Received";
@@ -1144,7 +1149,7 @@
 "transactioncard.title.confirmations" = "Confirmations";
 "transactioncard.title.fee" = "Fee";
 "transactioncard.title.timestamp" = "Timestamp";
-"transactioncard.timestamp.format" = "dd.MM.yyyy at HH:mm";
+"transactioncard.timestamp.format" = "dd.MM.yyyy HH:mm";
 
 "transactioncard.title.activeNow" = "Active Now";
 "transactioncard.title.completed" = "Completed";
@@ -1169,6 +1174,9 @@
 "transactioncard.title.amountPerTransaction" = "Amount per transaction";
 "transactioncard.title.showAll" = "Show all (%@)";
 
+"addressBookButton.title.editName" = "Edit name";
+"addressBookButton.title.saveAddress" = "Save address";
+
 
 "transactionScript.button.okey" = "Okay";
 
@@ -1176,70 +1184,3 @@
 
 "transactionScript.label.title" = "A script is installed on your account or asset";
 
-"transactionhistory.button.copied" = "Copied";
-
-"transactionhistory.button.copyAllData" = "Copy all data";
-
-"transactionhistory.button.copyTXId" = "Copy TX ID";
-
-"transactionhistory.cell.block" = "Block";
-
-"transactionhistory.cell.button.cancelLeasing" = "Cancel Leasing";
-
-"transactionhistory.cell.button.sendAgain" = "Send again";
-
-"transactionhistory.cell.buy" = "Buy: %@/%@";
-
-"transactionhistory.cell.confirmations" = "Confirmations";
-
-"transactionhistory.cell.dataTransaction" = "Data Transaction";
-
-"transactionhistory.cell.fee" = "Fee";
-
-"transactionhistory.cell.from" = "From";
-
-"transactionhistory.cell.id" = "ID";
-
-"transactionhistory.cell.leasingTo" = "Leasing to";
-
-"transactionhistory.cell.notReissuable" = "Not Reissuable";
-
-"transactionhistory.cell.price" = "Price";
-
-"transactionhistory.cell.receivedFrom" = "Received from";
-
-"transactionhistory.cell.recipient" = "Recipient";
-
-"transactionhistory.cell.recipients" = "Recipients";
-
-"transactionhistory.cell.reissuable" = "Reissuable";
-
-"transactionhistory.cell.sell" = "Sell: %@/%@";
-
-"transactionhistory.cell.sentTo" = "Sent to";
-
-"transactionhistory.cell.status.at" = "at";
-
-"transactionhistory.cell.status.button.activeNow" = "Active Now";
-
-"transactionhistory.cell.status.button.completed" = "Completed";
-
-"transactionhistory.cell.status.button.unconfirmed" = "Unconfirmed";
-
-"transactionhistory.cell.status.timestamp" = "Timestamp";
-
-"transactionhistory.cell.type" = "Type";
-
-"transactionhistory.copy.amount" = "Amount";
-
-"transactionhistory.copy.date" = "Date";
-
-"transactionhistory.copy.fee" = "Fee";
-
-"transactionhistory.copy.recipient" = "Recipient";
-
-"transactionhistory.copy.sender" = "Sender";
-
-"transactionhistory.copy.transactionId" = "Transaction ID";
-
-"transactionhistory.copy.type" = "Type";

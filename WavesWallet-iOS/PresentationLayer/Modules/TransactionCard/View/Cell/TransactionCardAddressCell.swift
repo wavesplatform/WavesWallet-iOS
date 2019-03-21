@@ -47,7 +47,7 @@ final class TransactionCardAddressCell: UITableViewCell, Reusable {
         spamView.isHidden = isHidden
     }
 
-    @IBAction func actionAddressBookButton(_ sender: Any) {
+    @IBAction private func actionAddressBookButton(_ sender: Any) {
         tapAddressBookButton?(!(model?.isEditName ?? false))
     }
 }

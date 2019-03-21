@@ -123,6 +123,16 @@ internal enum Localizable {
       }
     }
 
+    internal enum Addressbookbutton {
+
+      internal enum Title {
+        /// Edit name
+        internal static var editName: String { return Localizable.tr("Waves", "addressBookButton.title.editName") }
+        /// Save address
+        internal static var saveAddress: String { return Localizable.tr("Waves", "addressBookButton.title.saveAddress") }
+      }
+    }
+
     internal enum Addresseskeys {
 
       internal enum Cell {
@@ -2244,7 +2254,7 @@ internal enum Localizable {
     internal enum Transactioncard {
 
       internal enum Timestamp {
-        /// dd.MM.yyyy at HH:mm
+        /// dd.MM.yyyy HH:mm
         internal static var format: String { return Localizable.tr("Waves", "transactioncard.timestamp.format") }
       }
 
@@ -2353,13 +2363,17 @@ internal enum Localizable {
         internal static var viewOnExplorer: String { return Localizable.tr("Waves", "transactioncard.title.viewOnExplorer") }
 
         internal enum Exchange {
+          /// Buy
+          internal static var buy: String { return Localizable.tr("Waves", "transactioncard.title.exchange.buy") }
           /// Buy: %@/%@
-          internal static func buy(_ p1: String, _ p2: String) -> String {
-            return Localizable.tr("Waves", "transactioncard.title.exchange.buy", p1, p2)
+          internal static func buyPair(_ p1: String, _ p2: String) -> String {
+            return Localizable.tr("Waves", "transactioncard.title.exchange.buyPair", p1, p2)
           }
+          /// Sell
+          internal static var sell: String { return Localizable.tr("Waves", "transactioncard.title.exchange.sell") }
           /// Sell: %@/%@
-          internal static func sell(_ p1: String, _ p2: String) -> String {
-            return Localizable.tr("Waves", "transactioncard.title.exchange.sell", p1, p2)
+          internal static func sellPair(_ p1: String, _ p2: String) -> String {
+            return Localizable.tr("Waves", "transactioncard.title.exchange.sellPair", p1, p2)
           }
         }
       }
@@ -2370,99 +2384,6 @@ internal enum Localizable {
       internal enum Label {
         /// Transaction Fee
         internal static var transactionFee: String { return Localizable.tr("Waves", "transactionFee.label.transactionFee") }
-      }
-    }
-
-    internal enum Transactionhistory {
-
-      internal enum Button {
-        /// Copied
-        internal static var copied: String { return Localizable.tr("Waves", "transactionhistory.button.copied") }
-        /// Copy all data
-        internal static var copyAllData: String { return Localizable.tr("Waves", "transactionhistory.button.copyAllData") }
-        /// Copy TX ID
-        internal static var copyTXId: String { return Localizable.tr("Waves", "transactionhistory.button.copyTXId") }
-      }
-
-      internal enum Cell {
-        /// Block
-        internal static var block: String { return Localizable.tr("Waves", "transactionhistory.cell.block") }
-        /// Buy: %@/%@
-        internal static func buy(_ p1: String, _ p2: String) -> String {
-          return Localizable.tr("Waves", "transactionhistory.cell.buy", p1, p2)
-        }
-        /// Confirmations
-        internal static var confirmations: String { return Localizable.tr("Waves", "transactionhistory.cell.confirmations") }
-        /// Data Transaction
-        internal static var dataTransaction: String { return Localizable.tr("Waves", "transactionhistory.cell.dataTransaction") }
-        /// Fee
-        internal static var fee: String { return Localizable.tr("Waves", "transactionhistory.cell.fee") }
-        /// From
-        internal static var from: String { return Localizable.tr("Waves", "transactionhistory.cell.from") }
-        /// ID
-        internal static var id: String { return Localizable.tr("Waves", "transactionhistory.cell.id") }
-        /// Leasing to
-        internal static var leasingTo: String { return Localizable.tr("Waves", "transactionhistory.cell.leasingTo") }
-        /// Not Reissuable
-        internal static var notReissuable: String { return Localizable.tr("Waves", "transactionhistory.cell.notReissuable") }
-        /// Price
-        internal static var price: String { return Localizable.tr("Waves", "transactionhistory.cell.price") }
-        /// Received from
-        internal static var receivedFrom: String { return Localizable.tr("Waves", "transactionhistory.cell.receivedFrom") }
-        /// Recipient
-        internal static var recipient: String { return Localizable.tr("Waves", "transactionhistory.cell.recipient") }
-        /// Recipients
-        internal static var recipients: String { return Localizable.tr("Waves", "transactionhistory.cell.recipients") }
-        /// Reissuable
-        internal static var reissuable: String { return Localizable.tr("Waves", "transactionhistory.cell.reissuable") }
-        /// Sell: %@/%@
-        internal static func sell(_ p1: String, _ p2: String) -> String {
-          return Localizable.tr("Waves", "transactionhistory.cell.sell", p1, p2)
-        }
-        /// Sent to
-        internal static var sentTo: String { return Localizable.tr("Waves", "transactionhistory.cell.sentTo") }
-        /// Type
-        internal static var type: String { return Localizable.tr("Waves", "transactionhistory.cell.type") }
-
-        internal enum Button {
-          /// Cancel Leasing
-          internal static var cancelLeasing: String { return Localizable.tr("Waves", "transactionhistory.cell.button.cancelLeasing") }
-          /// Send again
-          internal static var sendAgain: String { return Localizable.tr("Waves", "transactionhistory.cell.button.sendAgain") }
-        }
-
-        internal enum Status {
-          /// at
-          internal static var at: String { return Localizable.tr("Waves", "transactionhistory.cell.status.at") }
-          /// Timestamp
-          internal static var timestamp: String { return Localizable.tr("Waves", "transactionhistory.cell.status.timestamp") }
-
-          internal enum Button {
-            /// Active Now
-            internal static var activeNow: String { return Localizable.tr("Waves", "transactionhistory.cell.status.button.activeNow") }
-            /// Completed
-            internal static var completed: String { return Localizable.tr("Waves", "transactionhistory.cell.status.button.completed") }
-            /// Unconfirmed
-            internal static var unconfirmed: String { return Localizable.tr("Waves", "transactionhistory.cell.status.button.unconfirmed") }
-          }
-        }
-      }
-
-      internal enum Copy {
-        /// Amount
-        internal static var amount: String { return Localizable.tr("Waves", "transactionhistory.copy.amount") }
-        /// Date
-        internal static var date: String { return Localizable.tr("Waves", "transactionhistory.copy.date") }
-        /// Fee
-        internal static var fee: String { return Localizable.tr("Waves", "transactionhistory.copy.fee") }
-        /// Recipient
-        internal static var recipient: String { return Localizable.tr("Waves", "transactionhistory.copy.recipient") }
-        /// Sender
-        internal static var sender: String { return Localizable.tr("Waves", "transactionhistory.copy.sender") }
-        /// Transaction ID
-        internal static var transactionId: String { return Localizable.tr("Waves", "transactionhistory.copy.transactionId") }
-        /// Type
-        internal static var type: String { return Localizable.tr("Waves", "transactionhistory.copy.type") }
       }
     }
 

@@ -131,7 +131,7 @@
                                             <outlet property="titleLabel" destination="yLB-Wo-pHc" id="azK-k2-wi4"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TransactionCardExchangeCell" rowHeight="195" id="A6l-3Y-fed" customClass="TransactionCardExchangeCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardExchangeCell" rowHeight="195" id="A6l-3Y-fed" customClass="TransactionCardExchangeCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="418" width="375" height="195"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A6l-3Y-fed" id="n2L-D5-MZu">
@@ -177,10 +177,10 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="firstBalanceLabel" destination="UWN-he-KpD" id="B4C-dA-viw"/>
+                                            <outlet property="firstTitleLabel" destination="dDR-hr-avR" id="o4C-r8-cKX"/>
                                             <outlet property="priceBalanceLabel" destination="aaS-xb-bBQ" id="eva-tb-VSU"/>
                                             <outlet property="priceTitleLabel" destination="vfD-su-OzB" id="P9y-Qz-wED"/>
-                                            <outlet property="sellBalanceLabel" destination="UWN-he-KpD" id="B4C-dA-viw"/>
-                                            <outlet property="sellTitleLabel" destination="dDR-hr-avR" id="o4C-r8-cKX"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardShowAllCell" id="bPj-ZJ-wy4" customClass="TransactionCardShowAllCell" customModule="WavesWallet_iOS" customModuleProvider="target">
@@ -486,6 +486,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="keyLabel" destination="o9o-zl-cak" id="9Z3-cF-1yl"/>
+                                            <outlet property="topLayoutConstaint" destination="Wal-ID-gbv" id="c2X-CC-ig4"/>
                                             <outlet property="valueLabel" destination="LDd-LU-6FE" id="f36-Fy-s3q"/>
                                         </connections>
                                     </tableViewCell>

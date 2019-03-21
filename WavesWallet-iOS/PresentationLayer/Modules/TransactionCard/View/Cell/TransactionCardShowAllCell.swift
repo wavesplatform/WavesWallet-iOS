@@ -22,8 +22,7 @@ final class TransactionCardShowAllCell: UITableViewCell, Reusable {
     override func awakeFromNib() {
         super.awakeFromNib()
         buttonShowAll.setTitleColor(.submit400,
-                                    for: .normal)
-        update(with: .init(countOtherTransactions: 10))
+                                    for: .normal)        
     }
 
     override func layoutSubviews() {

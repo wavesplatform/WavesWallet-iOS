@@ -59,8 +59,7 @@ final class TransactionCardAssetCell: UITableViewCell, Reusable {
 extension TransactionCardAssetCell: ViewConfiguration {
 
     func update(with model: Model) {
-
-        //TODO: Loc
+        
         titleLabel.text = Localizable.Waves.Transactioncard.Title.asset
         nameLabel.text = model.asset.displayName
         loadIcon(asset: model.asset)

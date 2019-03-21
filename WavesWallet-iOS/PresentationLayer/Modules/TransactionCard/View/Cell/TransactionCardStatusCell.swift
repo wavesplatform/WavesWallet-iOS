@@ -43,8 +43,7 @@ final class TransactionCardStatusCell: UITableViewCell, Reusable {
 extension TransactionCardStatusCell: ViewConfiguration {
 
     func update(with model: Model) {
-
-        //TODO: Localization
+        
         keyLabel.text = Localizable.Waves.Transactioncard.Title.status
 
         switch model {

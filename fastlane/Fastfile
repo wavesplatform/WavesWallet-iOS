@@ -199,6 +199,12 @@ platform :ios do
     download_resources
   end
 
+
+  lane :dev_download_resources do
+    dev_enviroment    
+    download_resources
+  end
+
   lane :download_resources do
     sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
     sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FABRIC']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")

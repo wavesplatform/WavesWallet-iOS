@@ -12,7 +12,7 @@ import RxSwift
 
 private struct Constants {
     static let wavesExplorerTransactionUrl = "https://wavesexplorer.com/tx/"
-    static let wavesExplorerTransactionTestnetUrl = "https://wavesexplorer.com/testnet/tx/"
+    static let wavesExplorerTransactionTestnetUrl = "https://stage.wavesexplorer.com"
 }
 
 final class TransactionCardCoordinator: Coordinator {
@@ -122,8 +122,11 @@ extension TransactionCardCoordinator: TransactionCardModuleOutput {
         }
 
         if let url = url {
+
             let vc = BrowserViewController(url: url)
-            cardNavigationRouter.pushViewController(vc)
+            let nv = CustomNavigationController(rootViewController: vc)
+
+            cardNavigationRouter.present(nv, animated: true, completion: nil)
         }
 
     }

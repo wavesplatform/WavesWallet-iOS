@@ -40,13 +40,12 @@ final class TransactionCardMassSentRecipientCell: UITableViewCell, Reusable {
         }
     }
 
-    //TODO: Copy button
-    @IBAction func actionAddressBookButton(_ sender: Any) {
+    @IBAction private func actionAddressBookButton(_ sender: Any) {
         tapAddressBookButton?(!(isEditName ?? false))
     }
 }
 
-// TODO: ViewConfiguration
+// MARK: ViewConfiguration
 
 extension TransactionCardMassSentRecipientCell: ViewConfiguration {
 
