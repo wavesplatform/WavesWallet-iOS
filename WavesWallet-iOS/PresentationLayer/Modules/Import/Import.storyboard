@@ -139,7 +139,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0dk-gQ-C1U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1351" y="768"/>
+            <point key="canvasLocation" x="1349.5999999999999" y="767.76611694152928"/>
         </scene>
         <!--Import Account Scan View Controller-->
         <scene sceneID="mPS-Mp-6ZD">
@@ -362,10 +362,10 @@ or Mac/PC</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H58-Qa-VfM">
-                                <rect key="frame" x="16" y="38" width="343" height="272"/>
+                                <rect key="frame" x="16" y="38" width="343" height="376"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ATx-9a-f9l">
-                                        <rect key="frame" x="12" y="200" width="319" height="48"/>
+                                        <rect key="frame" x="12" y="304" width="319" height="48"/>
                                         <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="MgM-nA-m86"/>
@@ -507,11 +507,54 @@ or Mac/PC</string>
                                             <constraint firstItem="UZE-lh-RUm" firstAttribute="leading" secondItem="xSQ-CZ-bm2" secondAttribute="trailing" constant="14" id="vCU-mt-0SH"/>
                                         </constraints>
                                     </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="cbR-ZM-rQB">
+                                        <rect key="frame" x="12" y="180" width="319" height="100"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ChC-RH-6qV">
+                                                <rect key="frame" x="0.0" y="0.0" width="319" height="100"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info18Warning600" translatesAutoresizingMaskIntoConstraints="NO" id="wvr-4c-dqi">
+                                                        <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="18" id="0L0-QA-lXh"/>
+                                                            <constraint firstAttribute="width" constant="18" id="wiw-v0-Wpj"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have entered an address, not a Seed phrase" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qhS-4c-PWK">
+                                                        <rect key="frame" x="32" y="0.0" width="287" height="31.5"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GYg-0B-3q0">
+                                                        <rect key="frame" x="32" y="37.5" width="287" height="62.5"/>
+                                                        <string key="text">This is not secure. You should avoid using a Seed phrase that might be easy for someone else to guess. Are you sure you want to continue?</string>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="GYg-0B-3q0" firstAttribute="leading" secondItem="qhS-4c-PWK" secondAttribute="leading" id="0om-0G-hBu"/>
+                                                    <constraint firstAttribute="bottom" secondItem="GYg-0B-3q0" secondAttribute="bottom" id="Ewo-Ie-avN"/>
+                                                    <constraint firstItem="wvr-4c-dqi" firstAttribute="leading" secondItem="ChC-RH-6qV" secondAttribute="leading" id="Qiy-Jh-9rJ"/>
+                                                    <constraint firstItem="qhS-4c-PWK" firstAttribute="top" secondItem="ChC-RH-6qV" secondAttribute="top" id="Whl-Gb-ccT"/>
+                                                    <constraint firstItem="GYg-0B-3q0" firstAttribute="top" secondItem="qhS-4c-PWK" secondAttribute="bottom" constant="6" id="dR4-Ck-aRS"/>
+                                                    <constraint firstAttribute="trailing" secondItem="qhS-4c-PWK" secondAttribute="trailing" id="eYF-3A-e23"/>
+                                                    <constraint firstItem="wvr-4c-dqi" firstAttribute="top" secondItem="ChC-RH-6qV" secondAttribute="top" id="hJq-Sn-JbS"/>
+                                                    <constraint firstItem="qhS-4c-PWK" firstAttribute="leading" secondItem="wvr-4c-dqi" secondAttribute="trailing" constant="14" id="n77-vc-PJx"/>
+                                                    <constraint firstItem="GYg-0B-3q0" firstAttribute="trailing" secondItem="qhS-4c-PWK" secondAttribute="trailing" id="zE8-j4-e5x"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="F0w-pD-6Ms" firstAttribute="top" secondItem="H58-Qa-VfM" secondAttribute="top" constant="24" id="0r3-Wf-Qnr"/>
                                     <constraint firstItem="7Ju-01-TyW" firstAttribute="top" secondItem="F0w-pD-6Ms" secondAttribute="top" id="1wc-9V-EdY"/>
+                                    <constraint firstItem="cbR-ZM-rQB" firstAttribute="leading" secondItem="F0w-pD-6Ms" secondAttribute="leading" id="3lr-jI-ThI"/>
                                     <constraint firstItem="ffH-55-n96" firstAttribute="trailing" secondItem="F0w-pD-6Ms" secondAttribute="trailing" id="5Ls-mn-uJz"/>
                                     <constraint firstItem="ATx-9a-f9l" firstAttribute="trailing" secondItem="F0w-pD-6Ms" secondAttribute="trailing" id="8s8-3F-Nf8"/>
                                     <constraint firstItem="F0w-pD-6Ms" firstAttribute="leading" secondItem="H58-Qa-VfM" secondAttribute="leading" constant="12" id="8uP-Px-Rch"/>
@@ -519,15 +562,17 @@ or Mac/PC</string>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="FlG-rt-Idm"/>
                                     <constraint firstItem="ffH-55-n96" firstAttribute="leading" secondItem="F0w-pD-6Ms" secondAttribute="leading" id="Jbv-6m-03p"/>
                                     <constraint firstItem="7Ju-01-TyW" firstAttribute="leading" secondItem="F0w-pD-6Ms" secondAttribute="leading" id="L5J-pT-kGp"/>
+                                    <constraint firstItem="ATx-9a-f9l" firstAttribute="top" secondItem="cbR-ZM-rQB" secondAttribute="bottom" constant="24" id="MI0-ro-NlJ"/>
                                     <constraint firstItem="121-uO-CG7" firstAttribute="top" secondItem="F0w-pD-6Ms" secondAttribute="bottom" constant="24" id="O4C-QS-qew"/>
+                                    <constraint firstItem="cbR-ZM-rQB" firstAttribute="trailing" secondItem="F0w-pD-6Ms" secondAttribute="trailing" id="Tcm-P5-Cq1"/>
                                     <constraint firstItem="7Ju-01-TyW" firstAttribute="trailing" secondItem="F0w-pD-6Ms" secondAttribute="trailing" id="V66-Gb-KaV"/>
+                                    <constraint firstItem="cbR-ZM-rQB" firstAttribute="top" secondItem="121-uO-CG7" secondAttribute="bottom" constant="24" id="Vh6-iL-zgF"/>
                                     <constraint firstAttribute="bottom" secondItem="ATx-9a-f9l" secondAttribute="bottom" constant="24" id="ZKa-Z1-Zw0"/>
                                     <constraint firstItem="121-uO-CG7" firstAttribute="leading" secondItem="F0w-pD-6Ms" secondAttribute="leading" id="cgq-og-088"/>
                                     <constraint firstAttribute="trailing" secondItem="F0w-pD-6Ms" secondAttribute="trailing" constant="12" id="fnz-ui-Xzl"/>
                                     <constraint firstItem="121-uO-CG7" firstAttribute="trailing" secondItem="F0w-pD-6Ms" secondAttribute="trailing" id="gix-ZN-FPa"/>
                                     <constraint firstItem="ATx-9a-f9l" firstAttribute="leading" secondItem="F0w-pD-6Ms" secondAttribute="leading" id="n9r-79-W7F"/>
                                     <constraint firstItem="ffH-55-n96" firstAttribute="top" secondItem="H58-Qa-VfM" secondAttribute="top" constant="24" id="rCH-gS-UYg"/>
-                                    <constraint firstItem="ATx-9a-f9l" firstAttribute="top" secondItem="121-uO-CG7" secondAttribute="bottom" constant="44" id="tWa-bV-jId"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -547,12 +592,15 @@ or Mac/PC</string>
                         <outlet property="containerViewRightConstraint" destination="Ij5-Bf-aa6" id="mHS-ze-0gb"/>
                         <outlet property="iconImages" destination="wT2-e8-xV2" id="iNz-bg-xdA"/>
                         <outlet property="labelAddress" destination="WI2-dC-Kmd" id="Ru7-Qe-0WU"/>
+                        <outlet property="labelWarningSubtitle" destination="GYg-0B-3q0" id="7ao-h6-9sz"/>
+                        <outlet property="labelWarningTitle" destination="qhS-4c-PWK" id="r4d-Lj-N2I"/>
                         <outlet property="skeletonEmpty" destination="7Ju-01-TyW" id="Zv7-vs-pMb"/>
                         <outlet property="skeletonView" destination="F0w-pD-6Ms" id="ch6-wb-fvC"/>
                         <outlet property="skeletonViewLeftConstraint" destination="8uP-Px-Rch" id="LFc-2R-XNq"/>
                         <outlet property="skeletonViewRightConstraint" destination="fnz-ui-Xzl" id="tAw-ZS-SGk"/>
                         <outlet property="textField" destination="121-uO-CG7" id="Dhj-cS-NuP"/>
                         <outlet property="textFieldHeightConstraint" destination="Pcb-vs-lBT" id="6F3-oc-sj5"/>
+                        <outlet property="viewWarning" destination="ChC-RH-6qV" id="pJ6-EA-NZv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BzQ-p1-pMA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -561,6 +609,7 @@ or Mac/PC</string>
         </scene>
     </scenes>
     <resources>
+        <image name="info18Warning600" width="18" height="18"/>
         <image name="userimgPairing80" width="80" height="80"/>
     </resources>
 </document>

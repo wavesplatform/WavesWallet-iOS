@@ -17,6 +17,9 @@ protocol ImportWelcomeBackViewControllerDelegate: AnyObject {
 
 private enum Constants {
     static let skeletonDelay: TimeInterval = 0.75
+    static let minimumNormalSeedLength = 59
+    static let minimumNornalWordSeedLength = 3
+    static let minimumNormalCountWordsInSeed = 15
 }
 
 final class ImportAccountManuallyViewController: UIViewController, UIScrollViewDelegate {
@@ -24,7 +27,7 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
     @IBOutlet private weak var textField: MultilineTextField!
     @IBOutlet private weak var buttonContinue: UIButton!
     
-    @IBOutlet weak var containerView: UIView!
+    @IBOutlet private weak var containerView: UIView!
     
     @IBOutlet private weak var addressBar: UIView!
     @IBOutlet private weak var labelAddress: UILabel!
@@ -32,14 +35,19 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
     @IBOutlet private weak var skeletonView: SkeletonView!
     @IBOutlet private weak var skeletonEmpty: UIView!
     
-    @IBOutlet weak var textFieldHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var textFieldHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var containerViewLeftConstraint: NSLayoutConstraint!
-    @IBOutlet weak var containerViewRightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var containerViewLeftConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var containerViewRightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var skeletonViewRightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var skeletonViewLeftConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var skeletonViewRightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var skeletonViewLeftConstraint: NSLayoutConstraint!
 
+    @IBOutlet private weak var labelWarningTitle: UILabel!
+    @IBOutlet private weak var labelWarningSubtitle: UILabel!
+    @IBOutlet private weak var viewWarning: UIView!
+    
+    
     private let disposeBag: DisposeBag = DisposeBag()
     private let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
 
@@ -61,6 +69,8 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
         setupContinueButton()
         setupConstraints()
         hideSkeletonAnimation()
+        hideViewWarning()
+        setupWarningLocalization()
     }
     
     private func setupConstraints() {
@@ -93,6 +103,11 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
         buttonContinue.setBackgroundImage(UIColor.submit200.image, for: .disabled)
         buttonContinue.setBackgroundImage(UIColor.submit400.image, for: .normal)
         buttonContinue.isEnabled = false
+    }
+    
+    private func setupWarningLocalization() {
+        labelWarningTitle.text = Localizable.Waves.Import.Account.Warning.Seed.title
+        labelWarningSubtitle.text = Localizable.Waves.Import.Account.Warning.Seed.subtitle
     }
     
     override func viewDidLayoutSubviews() {
@@ -168,6 +183,35 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
         skeletonView.stopAnimation()
         skeletonEmpty.isHidden = textField.isValidValue
     }
+    
+    private func isNormalSeed(_ seed: String) -> Bool {
+        
+        let words = seed.components(separatedBy: " ").filter{ $0.count > 0 }
+        var countValidWordsLength = 0
+        
+        for word in words {
+            if word.count >= Constants.minimumNornalWordSeedLength {
+                countValidWordsLength += 1
+            }
+        }
+        
+        return seed.count >= Constants.minimumNormalSeedLength &&
+            countValidWordsLength >= Constants.minimumNormalCountWordsInSeed
+    }
+    
+    private func hideViewWarning() {
+        if !viewWarning.isHidden {
+            viewWarning.isHidden = true
+            view.layoutIfNeeded()
+        }
+    }
+    
+    private func showViewWarning() {
+        if viewWarning.isHidden {
+            viewWarning.isHidden = false
+            view.layoutIfNeeded()
+        }
+    }
 }
 
 extension ImportAccountManuallyViewController: MultilineTextFieldDelegate {
@@ -189,7 +233,15 @@ extension ImportAccountManuallyViewController: MultilineTextFieldDelegate {
             addressBar.isHidden = false
             createAccount(seed: seed)
             hideSkeletonAnimation()
+            
+            if !isNormalSeed(seed) {
+                showViewWarning()
+            }
+            else {
+                hideViewWarning()
+            }
         } else {
+            hideViewWarning()
             showSkeletonAnimation()
             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideSkeletonAnimation), object: nil)
             perform(#selector(hideSkeletonAnimation), with: nil, afterDelay: Constants.skeletonDelay)

@@ -353,11 +353,7 @@
 
 "dexmarket.searchBar.placeholder" = "Buscar";
 
-"dexmyorders.label.amount" = "Cantidad";
-
 "dexmyorders.label.buy" = "Comprar";
-
-"dexmyorders.label.date" = "Fecha";
 
 "dexmyorders.label.emptyData" = "No hay nada aquí…\nNo tiene ninguna orden.";
 
@@ -366,8 +362,6 @@
 "dexmyorders.label.price" = "Precio";
 
 "dexmyorders.label.sell" = "Vender";
-
-"dexmyorders.label.side" = "Lado";
 
 "dexmyorders.label.status" = "Estado";
 
@@ -378,8 +372,6 @@
 "dexmyorders.label.status.filled" = "Completo";
 
 "dexmyorders.label.status.partiallyFilled" = "Parcial";
-
-"dexmyorders.label.sum" = "Suma";
 
 "dexmyorders.label.time" = "Tiempo";
 

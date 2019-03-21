@@ -351,11 +351,7 @@
 
 "dexmarket.searchBar.placeholder" = "Поиск";
 
-"dexmyorders.label.amount" = "Количество";
-
 "dexmyorders.label.buy" = "Купить";
-
-"dexmyorders.label.date" = "Дата";
 
 "dexmyorders.label.emptyData" = "Пока ничего нет…\nУ вас нет ордеров";
 
@@ -364,8 +360,6 @@
 "dexmyorders.label.price" = "Цена";
 
 "dexmyorders.label.sell" = "Продать";
-
-"dexmyorders.label.side" = "Side";
 
 "dexmyorders.label.status" = "Статус";
 
@@ -376,8 +370,6 @@
 "dexmyorders.label.status.filled" = "Заполнено";
 
 "dexmyorders.label.status.partiallyFilled" = "Частично";
-
-"dexmyorders.label.sum" = "Sum";
 
 "dexmyorders.label.time" = "Время";
 

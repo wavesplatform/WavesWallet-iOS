@@ -94,6 +94,7 @@ extension DomainLayer.DTO.Dex {
         let type: OrderType
         let amountAsset: Asset
         let priceAsset: Asset
+        let percentFilled: Int
     }
 }
 

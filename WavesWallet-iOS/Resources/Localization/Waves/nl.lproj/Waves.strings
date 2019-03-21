@@ -351,11 +351,7 @@
 
 "dexmarket.searchBar.placeholder" = "Zoeken";
 
-"dexmyorders.label.amount" = "Hoeveelheid";
-
 "dexmyorders.label.buy" = "Koop";
-
-"dexmyorders.label.date" = "Datum";
 
 "dexmyorders.label.emptyData" = "Hier is niks…\nU heeft geen orders";
 
@@ -364,8 +360,6 @@
 "dexmyorders.label.price" = "Prijs";
 
 "dexmyorders.label.sell" = "Verkoop";
-
-"dexmyorders.label.side" = "Zijde";
 
 "dexmyorders.label.status" = "Status";
 
@@ -376,8 +370,6 @@
 "dexmyorders.label.status.filled" = "Gevuld";
 
 "dexmyorders.label.status.partiallyFilled" = "Gedeeltelijk";
-
-"dexmyorders.label.sum" = "Som";
 
 "dexmyorders.label.time" = "Tijd";
 
