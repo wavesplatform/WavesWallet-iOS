@@ -21,7 +21,6 @@ final class DexMyOrdersViewController: UIViewController {
     @IBOutlet private weak var viewTopCorners: UIView!
     @IBOutlet private weak var labelDate: UILabel!
     @IBOutlet private weak var labelSidePrice: UILabel!
-    @IBOutlet private weak var labelAmountSum: UILabel!
     @IBOutlet private weak var labelStatus: UILabel!
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var headerView: UIView!
@@ -51,6 +50,11 @@ final class DexMyOrdersViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         viewTopCorners.createTopCorners(radius: Constants.cornerTableRadius)
+    }
+    
+    private func showDetailScreen(order: DomainLayer.DTO.Dex.MyOrder) {
+        print(order)
+       
     }
 }
 
@@ -153,9 +157,10 @@ extension DexMyOrdersViewController: UITableViewDataSource {
             let cell = tableView.dequeueCell() as DexMyOrdersCell
             cell.update(with: myOrder)
             
-            cell.buttonDeleteDidTap = { [weak self] in
-                self?.sendEvent.accept(.cancelOrder(indexPath))
+            cell.buttonInfoDidTap = { [weak self] order in
+                self?.showDetailScreen(order: order)
             }
+            
             return cell
         }
     }
@@ -188,9 +193,8 @@ private extension DexMyOrdersViewController {
     func setupLocalization() {
         labelEmptyData.text = Localizable.Waves.Dexmyorders.Label.emptyData
         labelLoadingData.text = Localizable.Waves.Dexmyorders.Label.loadingLastTrades
-        labelDate.text = Localizable.Waves.Dexmyorders.Label.date
-        labelSidePrice.text = Localizable.Waves.Dexmyorders.Label.side + "/" + Localizable.Waves.Dexmyorders.Label.price
-        labelAmountSum.text = Localizable.Waves.Dexmyorders.Label.amount + "/" + Localizable.Waves.Dexmyorders.Label.sum
+        labelDate.text = Localizable.Waves.Dexmyorders.Label.time
+        labelSidePrice.text = Localizable.Waves.Dexmyorders.Label.type + "/" + Localizable.Waves.Dexmyorders.Label.price
         labelStatus.text = Localizable.Waves.Dexmyorders.Label.status
     }
 }

@@ -351,11 +351,7 @@
 
 "dexmarket.searchBar.placeholder" = "Ara";
 
-"dexmyorders.label.amount" = "Miktar";
-
 "dexmyorders.label.buy" = "Al";
-
-"dexmyorders.label.date" = "Tarih";
 
 "dexmyorders.label.emptyData" = "Burada bir şey yok…\nHerhangi bir emriniz bulunmamaktadır.";
 
@@ -364,8 +360,6 @@
 "dexmyorders.label.price" = "Fiyat";
 
 "dexmyorders.label.sell" = "Sat";
-
-"dexmyorders.label.side" = "Kenar";
 
 "dexmyorders.label.status" = "Durum";
 
@@ -376,8 +370,6 @@
 "dexmyorders.label.status.filled" = "Doldurulmuş";
 
 "dexmyorders.label.status.partiallyFilled" = "Parçalı";
-
-"dexmyorders.label.sum" = "Toplam";
 
 "dexmyorders.label.time" = "Zaman";
 

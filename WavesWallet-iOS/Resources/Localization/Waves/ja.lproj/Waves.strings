@@ -351,11 +351,7 @@
 
 "dexmarket.searchBar.placeholder" = "検索する";
 
-"dexmyorders.label.amount" = "取引量";
-
 "dexmyorders.label.buy" = "購入";
-
-"dexmyorders.label.date" = "日付";
 
 "dexmyorders.label.emptyData" = "何もありません…\n注文がありません";
 
@@ -364,8 +360,6 @@
 "dexmyorders.label.price" = "価格";
 
 "dexmyorders.label.sell" = "売却";
-
-"dexmyorders.label.side" = "執行サイド";
 
 "dexmyorders.label.status" = "ステータス";
 
@@ -376,8 +370,6 @@
 "dexmyorders.label.status.filled" = "約定";
 
 "dexmyorders.label.status.partiallyFilled" = "部分的";
-
-"dexmyorders.label.sum" = "合計";
 
 "dexmyorders.label.time" = "時間";
 

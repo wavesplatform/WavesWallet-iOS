@@ -351,11 +351,7 @@
 
 "dexmarket.searchBar.placeholder" = "खोज";
 
-"dexmyorders.label.amount" = "रकम";
-
 "dexmyorders.label.buy" = "खरीदें";
-
-"dexmyorders.label.date" = "दिनांक";
 
 "dexmyorders.label.emptyData" = "यहां कुछ नहीं…\nआपके पास कोई ऑर्डर नहीं है";
 
@@ -364,8 +360,6 @@
 "dexmyorders.label.price" = "मूल्य";
 
 "dexmyorders.label.sell" = "बेचना";
-
-"dexmyorders.label.side" = "पक्ष";
 
 "dexmyorders.label.status" = "स्थिति";
 
@@ -376,8 +370,6 @@
 "dexmyorders.label.status.filled" = "भर ग्या";
 
 "dexmyorders.label.status.partiallyFilled" = "अपूर्ण";
-
-"dexmyorders.label.sum" = "राशि";
 
 "dexmyorders.label.time" = "समय";
 
