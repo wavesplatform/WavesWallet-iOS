@@ -351,11 +351,7 @@
 
 "dexmarket.searchBar.placeholder" = "Pencarian";
 
-"dexmyorders.label.amount" = "Jumlah";
-
 "dexmyorders.label.buy" = "Beli";
-
-"dexmyorders.label.date" = "Tanggal";
 
 "dexmyorders.label.emptyData" = "Tidak ada di Sini…\nAnda tidak memiliki pesanan apa pun";
 
@@ -364,8 +360,6 @@
 "dexmyorders.label.price" = "Harga";
 
 "dexmyorders.label.sell" = "Jual";
-
-"dexmyorders.label.side" = "Sisi";
 
 "dexmyorders.label.status" = "Status";
 
@@ -376,8 +370,6 @@
 "dexmyorders.label.status.filled" = "Terisi";
 
 "dexmyorders.label.status.partiallyFilled" = "Sebagian";
-
-"dexmyorders.label.sum" = "Jumlah";
 
 "dexmyorders.label.time" = "Waktu";
 
