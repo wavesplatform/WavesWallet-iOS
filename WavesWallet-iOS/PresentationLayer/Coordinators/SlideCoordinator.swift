@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class SlideCoordinator: Coordinator {
 
@@ -17,7 +18,8 @@ final class SlideCoordinator: Coordinator {
 
     private let windowRouter: WindowRouter
     private let slideMenuRouter: SlideMenuRouter
-
+    private let disposeBag = DisposeBag()
+    
     init(windowRouter: WindowRouter, wallet: DomainLayer.DTO.Wallet?) {
         self.windowRouter = windowRouter
         self.wallet = wallet
@@ -52,6 +54,7 @@ extension SlideCoordinator: PresentationCoordinator {
         
         switch display {
         case .wallet:
+            
             self.removeCoordinators()
             let mainTabBarController = MainTabBarCoordinator(slideMenuRouter: slideMenuRouter,
                                                              applicationCoordinator: self)

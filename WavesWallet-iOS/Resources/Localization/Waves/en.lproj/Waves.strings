@@ -2,8 +2,8 @@
 "hello.page.confirm.subtitle" = "All the data on your Waves Wallet is encrypted and stored only on your device";
 "hello.page.confirm.description1" = "I understand that my funds are held securely on this device, not by a company";
 "hello.page.confirm.description2" = "I understand that if this app is moved to another device or deleted, my Waves can only be recovered with the backup phrase";
-"hello.page.confirm.description3" = "I have read, understood, and agree to the Terms of Use";
-"hello.page.confirm.button.termsOfUse" = "Terms of Use";
+"hello.page.confirm.description3" = "I have read, understood, and agree to the Privacy policy, Terms and conditions";
+"hello.page.confirm.button.privacyPolicy" = "Privacy policy";
 "hello.page.confirm.button.termsAndConditions" = "Terms and conditions";
 
 "dexScriptAssetMessage.label.title" = "Order placement for a pair that includes a Smart Asset";

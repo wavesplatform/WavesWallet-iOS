@@ -1069,7 +1069,7 @@ internal enum Localizable {
           internal static var description1: String { return Localizable.tr("Waves", "hello.page.confirm.description1") }
           /// I understand that if this app is moved to another device or deleted, my Waves can only be recovered with the backup phrase
           internal static var description2: String { return Localizable.tr("Waves", "hello.page.confirm.description2") }
-          /// I have read, understood, and agree to the Terms of Use
+          /// I have read, understood, and agree to the Privacy policy, Terms and conditions
           internal static var description3: String { return Localizable.tr("Waves", "hello.page.confirm.description3") }
           /// All the data on your Waves Wallet is encrypted and stored only on your device
           internal static var subtitle: String { return Localizable.tr("Waves", "hello.page.confirm.subtitle") }
@@ -1077,10 +1077,10 @@ internal enum Localizable {
           internal static var title: String { return Localizable.tr("Waves", "hello.page.confirm.title") }
 
           internal enum Button {
+            /// Privacy policy
+            internal static var privacyPolicy: String { return Localizable.tr("Waves", "hello.page.confirm.button.privacyPolicy") }
             /// Terms and conditions
             internal static var termsAndConditions: String { return Localizable.tr("Waves", "hello.page.confirm.button.termsAndConditions") }
-            /// Terms of Use
-            internal static var termsOfUse: String { return Localizable.tr("Waves", "hello.page.confirm.button.termsOfUse") }
           }
         }
 

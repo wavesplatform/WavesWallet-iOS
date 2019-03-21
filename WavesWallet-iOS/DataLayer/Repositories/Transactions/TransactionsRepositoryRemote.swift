@@ -83,7 +83,12 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                 guard let owner = self else { return Observable.never() }
 
                 let limit = min(Constants.maxLimit, offset + limit)
-
+                
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .custom { decoder in
+                    return Date(timestampDecoder: decoder, timestampDiff: environment.timestampServerDiff)
+                }
+                
                 return owner
                     .transactions
                     .rx
@@ -95,7 +100,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                     .catchError({ (error) -> Single<Response> in
                         return Single.error(NetworkError.error(by: error))
                     })
-                    .map(Node.DTO.TransactionContainers.self)
+                    .map(Node.DTO.TransactionContainers.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
                     .map { $0.anyTransactions(status: .completed, environment: environment) }
                     .asObservable()
             }
@@ -133,7 +138,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
             .accountEnvironment(accountAddress: wallet.address)
             .flatMap { [weak self] environment -> Observable<DomainLayer.DTO.AnyTransaction> in
 
-                let timestamp = Int64(Date().millisecondsSince1970)
+                let timestamp = Date().millisecondsSince1970(timestampDiff: environment.timestampServerDiff)
                 var signature = specifications.signature(timestamp: timestamp,
                                                          scheme: environment.scheme,
                                                          publicKey: wallet.publicKey.publicKey)

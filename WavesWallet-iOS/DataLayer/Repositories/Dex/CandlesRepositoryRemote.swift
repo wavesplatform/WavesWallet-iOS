@@ -26,8 +26,8 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                 
                 guard let owner = self else { return Observable.empty() }
                 
-                let filters = API.Query.CandleFilters(timeStart: Int64(timeStart.timeIntervalSince1970 * 1000),
-                                                      timeEnd: Int64(timeEnd.timeIntervalSince1970 * 1000),
+                let filters = API.Query.CandleFilters(timeStart: timeStart.millisecondsSince1970(timestampDiff: environment.timestampServerDiff),
+                                                      timeEnd: timeEnd.millisecondsSince1970(timestampDiff: environment.timestampServerDiff),
                                                       interval: String(timeFrame.rawValue) + "m")
                 
                 let candles = API.Service.Candles(amountAsset: amountAsset,

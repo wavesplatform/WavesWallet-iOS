@@ -26,8 +26,9 @@ final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
                 guard let owner = self else { return Observable.empty() }
                 
                 let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .formatted(DateFormatter.iso())
-                
+                decoder.dateDecodingStrategy = .custom { decoder in
+                    return Date(isoDecoder: decoder, timestampDiff: environment.timestampServerDiff)
+                }
                 let filters = API.Query.ExchangeFilters(matcher: nil,
                                                         sender: nil,
                                                         timeStart: nil,
