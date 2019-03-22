@@ -23,7 +23,6 @@ jobs:
           key: 1-gems-{{ checksum "Gemfile.lock" }}      
       - run:
           name: Show exported variables
-          command: export
       - run:
           name: SSH
           command: ls -la ~/.ssh/
@@ -42,7 +41,10 @@ jobs:
       - save_cache:
           key: 1-gems-{{ checksum "Gemfile.lock" }}
           paths:
-            - vendor/bundle            
+            - vendor/bundle
+      - run:
+          name: Fastlane download env
+          command: bundle exec fastlane download_bundle_enviroments --verbose   
       - run:
           name: Fastlane Build
           command: bundle exec fastlane $FASTLANE_LANE --verbose
@@ -85,7 +87,10 @@ jobs:
       - save_cache:
           key: 1-gems-{{ checksum "Gemfile.lock" }}
           paths:
-            - vendor/bundle            
+            - vendor/bundle
+      - run:
+          name: Fastlane download env
+          command: bundle exec fastlane download_bundle_enviroments --verbose                        
       - run:
           name: Fastlane Build
           command: bundle exec fastlane $FASTLANE_LANE --verbose
@@ -128,7 +133,10 @@ jobs:
       - save_cache:
           key: 1-gems-{{ checksum "Gemfile.lock" }}
           paths:
-            - vendor/bundle            
+            - vendor/bundle
+      - run:
+          name: Fastlane download env
+          command: bundle exec fastlane download_bundle_enviroments --verbose            
       - run:
           name: Fastlane Build
           command: bundle exec fastlane $FASTLANE_LANE --verbose
