@@ -9,6 +9,7 @@
 import Foundation
 import Amplitude_iOS
 import Firebase
+import AppsFlyerLib
 
 private protocol AnalyticManagerProtocol {
     associatedtype Event
@@ -33,8 +34,7 @@ final class AnalyticManager: AnalyticManagerProtocol {
 
         Amplitude.instance().logEvent(event.name, withEventProperties: event.params)
         Analytics.logEvent(event.name, parameters: event.params)
-        
-        print("AnalyticManager ->", event.name, event.params)
+        AppsFlyerTracker.shared()?.trackEvent(event.name, withValues: event.params)
     }
 }
 

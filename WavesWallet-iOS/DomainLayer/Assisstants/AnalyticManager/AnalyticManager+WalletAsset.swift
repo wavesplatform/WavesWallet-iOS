@@ -23,9 +23,6 @@ extension AnalyticManager.Event {
         /* Нажата кнопка «Continue» у любой криптовалюты или токена. */
         case receiveTap(assetName: String)
         
-        /* Нажата кнопка «Confirm» у любой криптовалюты или токена. */
-        case receiveConfirm(assetName: String)
-        
         /* Нажата кнопка «Continue» на экране с заполненными полями карты. */
         case cardReceiveTap
         
@@ -41,14 +38,10 @@ extension AnalyticManager.Event {
             case .receiveTap:
                 return "Wallet Assets Receive Tap"
                 
-            case .receiveConfirm:
-                return "Wallet Assets Receive Confirm"
-                
             case .cardReceiveTap:
                 return "Wallet Assets Card Receive Tap"
             }
         }
-        
         
         var params: [String : String] {
             switch self {
@@ -59,9 +52,6 @@ extension AnalyticManager.Event {
                 return [WalletAsset.key: assetName]
                 
             case .receiveTap(let assetName):
-                return [WalletAsset.key: assetName]
-                
-            case .receiveConfirm(let assetName):
                 return [WalletAsset.key: assetName]
                 
             default:
