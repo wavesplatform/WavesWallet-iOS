@@ -251,6 +251,8 @@ extension WalletCoordinator: AliasesModuleOutput {
 
             let vc = CreateAliasModuleBuilder(output: owner).build()
             self?.navigationRouter.pushViewController(vc)
+            
+            AnalyticManager.trackEvent(.createAlias(.aliasCreateVcard))
         }
     }
 }
@@ -264,6 +266,8 @@ extension WalletCoordinator: AliasWithoutViewControllerDelegate {
 
             let vc = CreateAliasModuleBuilder(output: owner).build()
             self?.navigationRouter.pushViewController(vc)
+            
+            AnalyticManager.trackEvent(.createAlias(.aliasCreateVcard))
         }
     }
 }
