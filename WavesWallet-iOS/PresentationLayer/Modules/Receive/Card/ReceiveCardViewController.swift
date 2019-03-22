@@ -59,6 +59,8 @@ final class ReceiveCardViewController: UIViewController {
         UIApplication.shared.openURLAsync(url)
         let vc = StoryboardScene.Receive.receiveCardCompleteViewController.instantiate()
         navigationController?.pushViewController(vc, animated: false)
+        
+        AnalyticManager.trackEvent(.walletAsset(.cardReceiveTap))
     }
     
     @IBAction private func changeCurrency(_ sender: Any) {
