@@ -54,6 +54,9 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
         guard let info = displayInfo else { return }
         let vc = ReceiveGenerateAddressModuleBuilder().build(input: .cryptoCurrency(info))
         navigationController?.pushViewController(vc, animated: true)
+        
+        AnalyticManager.trackEvent(.walletAsset(.receiveTap(assetName: info.assetName)))
+
     }
     
     private func setupAssetInfo(_ asset: DomainLayer.DTO.SmartAssetBalance) {

@@ -19,6 +19,7 @@ import Fabric
 import Crashlytics
 import AppsFlyerLib
 import Kingfisher
+import Amplitude_iOS
 
 #if DEBUG || TEST
 import AppSpectorSDK
@@ -67,6 +68,11 @@ enum UITest {
                 AppsFlyerTracker.shared().appsFlyerDevKey = devKey
                 AppsFlyerTracker.shared().appleAppID = appId
             }
+        }
+        
+        if let path = Bundle.main.path(forResource: "Amplitude-Info", ofType: "plist"),
+            let apiKey = NSDictionary(contentsOfFile: path)?["API_KEY"] as? String {
+            Amplitude.instance()?.initializeApiKey(apiKey)
         }
         
         IQKeyboardManager.shared.enable = true

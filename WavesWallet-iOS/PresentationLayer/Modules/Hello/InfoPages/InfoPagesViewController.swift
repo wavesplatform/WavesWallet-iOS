@@ -155,6 +155,7 @@ final class InfoPagesViewController: UIViewController {
             collectionView.scrollToItem(at: IndexPath(item: page, section: 0), at: .left, animated: true)
         } else {
             output?.userFinishedReadPages()
+            AnalyticManager.trackEvent(.newUser(.confirm))
         }
         
     }
