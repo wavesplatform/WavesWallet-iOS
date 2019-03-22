@@ -6,22 +6,64 @@ default_platform(:ios)
 
 platform :ios do
 
+  # lane :waves_test_old do
+
+  #   ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Test"
+  #   ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
+  #   ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.test"
+
+  #   ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Test.plist"
+  #   ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Test.plist"
+
+  #   ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
+  #   ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
+  #   ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
+
+  #   ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
+  #   ENV['MATCH_TYPE'] = "adhoc"
+  #   ENV['CHANGELOG_BETWEEN_BRANCH']="develop"
+  #   ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.test"
+    
+  #   build_projet
+  #   upload_testflight
+  # end
+
+  # lane :waves_test_adhoc do
+  #   ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Test-AdHoc"
+  #   ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
+  #   ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.test"
+
+  #   ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Test.plist"
+  #   ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Test.plist"
+
+  #   ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
+  #   ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
+  #   ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
+
+  #   ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AdHoc.plist"
+  #   ENV['MATCH_TYPE'] = "adhoc"
+  #   ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.test"
+  #   ENV['CHANGELOG_BETWEEN_BRANCH']="develop"
+  #   build_projet
+  #   upload_crashlytics
+  # end
+
   lane :waves_test do
 
     ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Test"
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.test"
 
-    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Test.plist"
-    ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Test.plist"
+    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Prod.plist"
+    ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Prod.plist"
 
     ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
     ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
     ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
 
-    ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
+    ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AdHoc.plist"
     ENV['MATCH_TYPE'] = "adhoc"
-    ENV['CHANGELOG_BETWEEN_BRANCH']="develop"
+    ENV['CHANGELOG_BETWEEN_BRANCH']="master"
     ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.test"
     
     build_projet
@@ -46,26 +88,6 @@ platform :ios do
     ENV['CHANGELOG_BETWEEN_BRANCH']="master"
     build_projet
     upload_testflight
-  end
-
-  lane :waves_test_adhoc do
-      ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Test-AdHoc"
-      ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
-      ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.test"
-
-      ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Test.plist"
-      ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Test.plist"
-
-      ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
-      ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
-      ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
-
-      ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AdHoc.plist"
-      ENV['MATCH_TYPE'] = "adhoc"
-      ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.test"
-      ENV['CHANGELOG_BETWEEN_BRANCH']="develop"
-      build_projet
-      upload_crashlytics
   end
 
   lane :build_projet do

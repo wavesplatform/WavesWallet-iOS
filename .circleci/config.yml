@@ -144,8 +144,8 @@ workflows:
       - Test:
           filters:
             branches:
-              only: develop
+              only: /^release/v.{2,}$/
       - Release:
           filters:
             branches:
-              only: /^release/v.{2,}$/      
+              only: /^release/v.{2,}$/ 
