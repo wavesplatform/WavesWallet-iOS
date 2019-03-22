@@ -37,6 +37,9 @@ jobs:
             source $BASH_ENV
             sudo gem install bundler
       - run:
+          name: Fastlane download env
+          command: bundle exec fastlane download_bundle_enviroments --verbose
+      - run:
           name: Bundle
           command: bundle check || bundle install --path vendor/bundle
       - save_cache:
@@ -80,6 +83,9 @@ jobs:
             source $BASH_ENV
             sudo gem install bundler
       - run:
+          name: Fastlane download env
+          command: bundle exec fastlane download_bundle_enviroments --verbose
+      - run:
           name: Bundle
           command: bundle check || bundle install --path vendor/bundle
       - save_cache:
@@ -122,6 +128,9 @@ jobs:
             echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
             source $BASH_ENV
             sudo gem install bundler
+      - run:
+          name: Fastlane download env
+          command: bundle exec fastlane download_bundle_enviroments --verbose          
       - run:
           name: Bundle
           command: bundle check || bundle install --path vendor/bundle
