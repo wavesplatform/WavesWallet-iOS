@@ -36,34 +36,45 @@ struct AnalyticAssetManager: TSUD, Codable, Mutating  {
     static func trackFromZeroBalances(assets: [DomainLayer.DTO.SmartAssetBalance], accountAddress: String) {
     
         let zeroAssets = assets.filter { $0.totalBalance == 0 }
-        for zeroAsset in zeroAssets {
-            saveZeroBalance(assetId: zeroAsset.assetId, accountAddress: accountAddress)
-        }
-        
-        let assetBalances = assets.filter { $0.totalBalance > 0 }
+        saveZeroBalances(zeroAssets: zeroAssets, accountAddress: accountAddress)
         
         var setting = AnalyticAssetManager.get()
-
+        var hasChanges = false
+        
+        let assetBalances = assets.filter { $0.totalBalance > 0 }
         for asset in assetBalances {
             
             let assetId = AnalyticAssetManager.assetIdKey(assetId: asset.assetId, accountAddress: accountAddress)
 
             if setting.zeroAssetsIds.contains(assetId) && !setting.assetsIds.contains(assetId) {
                 setting.assetsIds.insert(assetId)
-                AnalyticAssetManager.set(setting)
+                hasChanges = true
                 
                 AnalyticManager.trackEvent(.walletStart(.balanceFromZero(assetName: asset.asset.displayName)))
             }
         }
+        
+        if hasChanges {
+            AnalyticAssetManager.set(setting)
+        }
     }
     
-    private static func saveZeroBalance(assetId: String, accountAddress: String) {
+    private static func saveZeroBalances(zeroAssets: [DomainLayer.DTO.SmartAssetBalance], accountAddress: String) {
         
-        let assetId = AnalyticAssetManager.assetIdKey(assetId: assetId, accountAddress: accountAddress)
         var setting = AnalyticAssetManager.get()
+        var hasChanges = false
         
-        if !setting.zeroAssetsIds.contains(assetId) {
-            setting.zeroAssetsIds.insert(assetId)
+        for asset in zeroAssets {
+            
+            let assetId = AnalyticAssetManager.assetIdKey(assetId: asset.assetId, accountAddress: accountAddress)
+            
+            if !setting.zeroAssetsIds.contains(assetId) {
+                setting.zeroAssetsIds.insert(assetId)
+                hasChanges = true
+            }
+        }
+        
+        if hasChanges {
             AnalyticAssetManager.set(setting)
         }
     }
