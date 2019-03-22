@@ -221,7 +221,6 @@ platform :ios do
     download_resources
   end
 
-
   lane :dev_download_resources do
     dev_enviroment    
     download_resources
@@ -242,6 +241,11 @@ platform :ios do
 
     sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Sentry-io-Info.plist")
     sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_SENTRY_IO']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Sentry-io-Info.plist")
+  end
+
+  lane :download_bundle_enviroments do
+    sh("rm -rf #{Dir.pwd}/../.env")
+    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_BUNDLE_ENV']} >> #{Dir.pwd}/../.env")
   end
 
   lane :upload_testflight do
