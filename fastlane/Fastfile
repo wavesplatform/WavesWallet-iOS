@@ -15,6 +15,7 @@ before_all do
   sh("echo before")
   sh("security find-identity -v -p codesigning fastlane_tmp_keychain")
   
+  sh("ssh-keyscan -H bitbucket.org >> ~/.ssh/known_hosts")
 
   unless Helper.ci?
     sh("echo CI DONT USE")
@@ -184,7 +185,7 @@ platform :ios do
   end
 
   lane :download_certificates do
-
+    
     match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'].split(","),
       git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
       username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
