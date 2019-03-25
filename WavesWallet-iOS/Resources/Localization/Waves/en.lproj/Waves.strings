@@ -1140,9 +1140,6 @@
 "transactioncard.title.exchange.buy" = "Buy";
 "transactioncard.title.exchange.sell" = "Sell";
 
-
-
-
 "transactioncard.title.massReceived" = "Mass Received";
 "transactioncard.title.massSent" = "Mass Sent";
 "transactioncard.title.block" = "Block";

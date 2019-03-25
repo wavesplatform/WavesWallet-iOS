@@ -90,18 +90,22 @@ platform :ios do
     upload_testflight
   end
 
+  lane :init_project def 
+  
+		cocoapods(
+			verbose: true,
+			clean: true,
+			use_bundle_exec: false
+    )
+    
+  end
+
   lane :build_projet do
 
     setup_circle_ci
 
     download_certificates
     download_resources
-
-		cocoapods(
-			verbose: true,
-			clean: true,
-			use_bundle_exec: false
-		)
 
 		gym(scheme: "#{ENV['SCHEME_PROJECT']}",
         workspace: "WavesWallet-iOS.xcworkspace",
@@ -178,54 +182,6 @@ platform :ios do
     )
   end
 
-  lane :new_devices do
-
-    dev_enviroment
-    unless Helper.ci?
-      sh("echo CI DONT USE")
-      ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
-    end
-  
-    match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'].split(","),
-          git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
-          username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
-          type: "#{ENV['MATCH_TYPE']}",
-          force_for_new_devices: true,
-          keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
-  end
-
-  lane :dev_enviroment do
-
-    ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Dev"
-    ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.dev"
-    ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.dev"
-    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.dev"
-
-    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Dev.plist"
-    ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Dev.plist"
-
-    ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
-    ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
-    ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
-  
-    ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
-
-    ENV['MATCH_TYPE'] = "development"
-    ENV['CHANGELOG_BETWEEN_BRANCH']="develop"
-    
-  end
-
-  lane :dev_install do
-    dev_enviroment
-    download_certificates
-    download_resources
-  end
-
-  lane :dev_download_resources do
-    dev_enviroment    
-    download_resources
-  end
-
   lane :download_resources do
     sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
     sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FABRIC']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Fabric-Info.plist")
@@ -248,6 +204,21 @@ platform :ios do
     sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_BUNDLE_ENV']} >> #{Dir.pwd}/../.env")
   end
 
+  lane :add_new_devices do
+    
+    unless Helper.ci?
+      sh("echo CI DONT USE")
+      ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
+    end
+  
+    match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'].split(","),
+          git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
+          username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
+          type: "#{ENV['MATCH_TYPE']}",
+          force_for_new_devices: true,
+          keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
+  end
+
   lane :upload_testflight do
 
     create_changelog
@@ -260,6 +231,44 @@ platform :ios do
                itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",
                wait_for_uploaded_build: "false")
     upload_symbols_to_crashlytics(gsp_path: "#{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
+  end
+
+
+  lane :dev_enviroment do
+
+    ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Dev"
+    ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.dev"
+    ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.dev"
+    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.dev"
+
+    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Dev.plist"
+    ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Dev.plist"
+
+    ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
+    ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
+    ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
+  
+    ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
+
+    ENV['MATCH_TYPE'] = "development"
+    ENV['CHANGELOG_BETWEEN_BRANCH']="develop"
+    
+  end
+
+  lane :dev_add_new_devices do
+    dev_enviroment
+    add_new_devices
+  end
+
+  lane :dev_install do
+    dev_enviroment
+    download_certificates
+    download_resources
+  end
+
+  lane :dev_download_resources do
+    dev_enviroment    
+    download_resources
   end
 
 end
