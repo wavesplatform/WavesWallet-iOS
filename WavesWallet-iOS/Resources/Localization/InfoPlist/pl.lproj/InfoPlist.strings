@@ -1,0 +1,13 @@
+"cameraAccess.alert.allow" = "Zezwalaj na kamerę";
+
+"cameraAccess.alert.cancel" = "Anuluj";
+
+"cameraAccess.alert.message" = "Dostęp do kamery jest wymagany, aby w pełni korzystać z tej aplikacji";
+
+"cameraAccess.alert.title" = "Potrzebny Dostęp do Kamery";
+
+"NSCameraUsageDescription" = "Kamera jest potrzebna do skanowania kodów QR";
+
+"NSFaceIDUsageDescription" = "Dostęp do twojego portfela";
+
+"NSPhotoLibraryAddUsageDescription" = "Kamera jest potrzebna do skanowania kodów QR";
