@@ -36,11 +36,11 @@ jobs:
             sudo gem install bundler
       - run:
           name: Bundle install or check
-          command: bundle check || bundle install --path Temp/vendor/bundle
+          command: bundle check || bundle install --path vendor/bundle
       - save_cache:
           key: 1-gems-{{ checksum "Gemfile.lock" }}
           paths:
-            - Temp/vendor/bundle
+            - vendor/bundle
       - run:
           name: CocoaPods Repo Install
           command: bundle exec pod check || curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf            
@@ -52,10 +52,6 @@ jobs:
           paths:
             - /Pods
             - /WavesWallet-iOS.xcworkspace
-            - Pods
-            - WavesWallet-iOS.xcworkspace
-            - ~/.cocoapods/repos
-            - "$HOME/.cocoapods/repos"
       - save_cache:
           key: 1-repos-{{ checksum "Podfile.lock" }}
           paths:
