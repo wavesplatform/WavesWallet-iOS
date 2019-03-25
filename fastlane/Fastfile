@@ -8,13 +8,19 @@ default_platform(:ios)
 before_all do
   Dotenv.overload '.env'
   
+  sh("echo setup_circle_ci")
+  sh("echo after")
+  sh("security find-identity -v -p codesigning fastlane_tmp_keychain")
   setup_circle_ci
+  sh("echo before")
+  sh("security find-identity -v -p codesigning fastlane_tmp_keychain")
+  
 
   unless Helper.ci?
     sh("echo CI DONT USE")
     ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
   end
-  
+
 end
 
 platform :ios do
