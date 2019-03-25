@@ -43,33 +43,27 @@ Pods/
 # Temp
 Temp/
 
-# Ingore Google Service
+# Ingore Service Plist
 *.GoogleService-Info.plist
 *.Fabric-Info.plist
 WavesWallet-iOS/Resources/Fabric-Info.plist
 WavesWallet-iOS/Resources/GoogleService-Info.plist
-
-fastlane/report\.xml
-
-fastlane/README\.md
-
 WavesWallet-iOS/Resources/GoogleService-Info-Dev\.plist
-
 WavesWallet-iOS/Resources/GoogleService-Info-Prod\.plist
-
 WavesWallet-iOS/Resources/GoogleService-Info-Test\.plist
-
 WavesWallet-iOS/Resources/Appsflyer-Info\.plist
 WavesWallet-iOS/Resources/Appsflyer-Info.plist
-WavesWallet-iOS/Resources/Appsflyer-Info.plist
-
-WavesWallet-iOS/Resources/Appsflyer-Info.plist
-
 WavesWallet-iOS/Resources/AppSpector-Info\.plist
-
-
 WavesWallet-iOS/Resources/Sentry\.io-Info\.plist
+WavesWallet-iOS/Resources/Sentry-io-Info\.plist
 
+# Ingore Fastlane
+fastlane/report\.xml
+fastlane/README\.md
+
+# Ingore Env
 \.env
 
-WavesWallet-iOS/Resources/Sentry-io-Info\.plist
+# Ingore Bundle vendor
+vendor/
+Vendor/
