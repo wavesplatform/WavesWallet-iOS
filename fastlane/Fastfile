@@ -90,7 +90,7 @@ platform :ios do
     upload_testflight
   end
 
-  lane :init_project def 
+  lane :init_project do 
   
 		cocoapods(
 			verbose: true,

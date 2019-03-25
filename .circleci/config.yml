@@ -22,6 +22,7 @@ jobs:
       - restore_cache:
           keys:
             - 1-gems-{{ checksum "Gemfile.lock" }}
+            - 1-gems-{{ checksum "Podfile.lock" }}
       - run:
           name: Configure Bundler
           command: |
@@ -29,12 +30,20 @@ jobs:
             source $BASH_ENV
             sudo gem install bundler      
       - run:
-          name: Bundle
+          name: Bundle install or check
           command: bundle check || bundle install --path vendor/bundle
       - save_cache:
           key: 1-gems-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+      - run:
+          name: CocoaPod install or cjecl
+          command: bundle exec pod check || bundle exec pod install
+      - save_cache:
+          key: 1-gems-{{ checksum "Podfile.lock" }}
+          paths:
+            - Pods
+            - WavesWallet-iOS.xcworkspace
       - run:
           name: Fastlane download env
           command: bundle exec fastlane download_bundle_enviroments --verbose   
