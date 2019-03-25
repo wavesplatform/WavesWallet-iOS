@@ -22,7 +22,7 @@ jobs:
       - restore_cache:
           keys:
             - 1-gems-{{ checksum "Gemfile.lock" }}
-            - 1-gems-{{ checksum "Podfile.lock" }}
+            - 1-gems-{{ checksum "Podfile.lock" }}            
       - run:
           name: Configure Bundler
           command: |
@@ -37,13 +37,17 @@ jobs:
           paths:
             - vendor/bundle
       - run:
-          name: CocoaPod install or cjecl
+          name: CocoaPods Repo Install
+          command: curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf            
+      - run:
+          name: CocoaPods install or check
           command: bundle exec pod check || bundle exec pod install
       - save_cache:
           key: 1-gems-{{ checksum "Podfile.lock" }}
           paths:
             - Pods
             - WavesWallet-iOS.xcworkspace
+            - ~/.cocoapods/repos
       - run:
           name: Fastlane download env
           command: bundle exec fastlane download_bundle_enviroments --verbose   
