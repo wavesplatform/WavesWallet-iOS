@@ -31,14 +31,14 @@ jobs:
             sudo gem install bundler      
       - run:
           name: Bundle install or check
-          command: bundle check || bundle install --path vendor/bundle
+          command: bundle check || bundle install --path Temp/vendor/bundle
       - save_cache:
           key: 1-gems-{{ checksum "Gemfile.lock" }}
           paths:
-            - vendor/bundle
+            - Temp/vendor/bundle
       - run:
           name: CocoaPods Repo Install
-          command: curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf            
+          command: bundle exec pod check || curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf            
       - run:
           name: CocoaPods install or check
           command: bundle exec pod check || bundle exec pod install
