@@ -1,8 +1,21 @@
 require 'open-uri'
 require 'credentials_manager'
 require 'dotenv/load'
+require 'dotenv'
 
 default_platform(:ios)
+
+before_all do
+  Dotenv.overload '.env'
+  
+  setup_circle_ci
+
+  unless Helper.ci?
+    sh("echo CI DONT USE")
+    ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
+  end
+  
+end
 
 platform :ios do
 
@@ -102,8 +115,6 @@ platform :ios do
 
   lane :build_projet do
 
-    setup_circle_ci
-
     download_certificates
     download_resources
 
@@ -168,11 +179,6 @@ platform :ios do
 
   lane :download_certificates do
 
-    unless Helper.ci?
-      sh("echo CI DONT USE")
-      ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
-    end
-  
     match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'].split(","),
       git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
       username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
@@ -206,11 +212,6 @@ platform :ios do
 
   lane :add_new_devices do
     
-    unless Helper.ci?
-      sh("echo CI DONT USE")
-      ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
-    end
-  
     match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'].split(","),
           git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
           username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
@@ -236,6 +237,8 @@ platform :ios do
 
   lane :dev_enviroment do
 
+    sh("printenv")
+  
     ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Dev"
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.dev"
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.dev"
