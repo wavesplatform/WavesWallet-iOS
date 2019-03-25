@@ -20,9 +20,11 @@ jobs:
             - "43:eb:59:d6:49:f1:ae:81:cb:5a:ba:b8:01:64:19:39"
       - checkout
       - restore_cache:
-          keys:
-            - 1-gems-{{ checksum "Gemfile.lock" }}
-            - 1-gems-{{ checksum "Podfile.lock" }}            
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          name: "Restore Gemfile"
+      - restore_cache:
+          key: 1-gems-{{ checksum "Podfile.lock" }}
+          name: "Restore Podfile"            
       - run:
           name: Configure Bundler
           command: |
@@ -45,6 +47,8 @@ jobs:
       - save_cache:
           key: 1-gems-{{ checksum "Podfile.lock" }}
           paths:
+            - /Pods
+            - /WavesWallet-iOS.xcworkspace
             - Pods
             - WavesWallet-iOS.xcworkspace
             - ~/.cocoapods/repos
