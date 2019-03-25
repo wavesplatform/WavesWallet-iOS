@@ -18,8 +18,6 @@ protocol ImportWelcomeBackViewControllerDelegate: AnyObject {
 private enum Constants {
     static let skeletonDelay: TimeInterval = 0.75
     static let minimumNormalSeedLength = 59
-    static let minimumNornalWordSeedLength = 3
-    static let minimumNormalCountWordsInSeed = 15
 }
 
 final class ImportAccountManuallyViewController: UIViewController, UIScrollViewDelegate {
@@ -54,6 +52,7 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
     private let identity: Identity = Identity(options: Identity.defaultOptions)
     
     private var currentKeyAccount: PrivateKeyAccount?
+    private var hasCheckValidationSeed = false
     
     weak var delegate: ImportWelcomeBackViewControllerDelegate?
     
@@ -133,21 +132,36 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
         labelAddress.text = privateKey.address
         
     }
-    
-    private func completedInput() {
-        view.endEditing(true)
 
+    private func continueCompletedInput() {
         guard let currentKeyAccount = currentKeyAccount else { return }
 
         auth
             .existWallet(by: currentKeyAccount.getPublicKeyStr())
             .subscribe(onNext: { [weak self] wallet in
                 self?.textField.error = Localizable.Waves.Import.General.Error.alreadyinuse
-            }, onError: { [weak self] _ in
-                self?.delegate?.userCompletedInputSeed(currentKeyAccount)
-
+                }, onError: { [weak self] _ in
+                    self?.delegate?.userCompletedInputSeed(currentKeyAccount)
+                    
             })
             .disposed(by: disposeBag)
+    }
+    
+    private func completedInput() {
+        view.endEditing(true)
+
+        if trimmingSeed.count >= Constants.minimumNormalSeedLength {
+            continueCompletedInput()
+        }
+        else {
+            if hasCheckValidationSeed {
+                continueCompletedInput()
+            }
+            else {
+                hasCheckValidationSeed = true
+                showViewWarning()
+            }
+        }
     }
     
     func showKeyboard(animated: Bool = true) {
@@ -184,21 +198,6 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
         skeletonEmpty.isHidden = textField.isValidValue
     }
     
-    private func isNormalSeed(_ seed: String) -> Bool {
-        
-        let words = seed.components(separatedBy: " ").filter{ $0.count > 0 }
-        var countValidWordsLength = 0
-        
-        for word in words {
-            if word.count >= Constants.minimumNornalWordSeedLength {
-                countValidWordsLength += 1
-            }
-        }
-        
-        return seed.count >= Constants.minimumNormalSeedLength &&
-            countValidWordsLength >= Constants.minimumNormalCountWordsInSeed
-    }
-    
     private func hideViewWarning() {
         if !viewWarning.isHidden {
             viewWarning.isHidden = true
@@ -212,6 +211,10 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
             view.layoutIfNeeded()
         }
     }
+    
+    private var trimmingSeed: String {
+        return textField.value.trimmingCharacters(in: CharacterSet.whitespaces)
+    }
 }
 
 extension ImportAccountManuallyViewController: MultilineTextFieldDelegate {
@@ -224,24 +227,19 @@ extension ImportAccountManuallyViewController: MultilineTextFieldDelegate {
         
         textField.error = nil
 
-        let seed = textField.value.trimmingCharacters(in: CharacterSet.whitespaces)
+        let seed = trimmingSeed
         let isActiveSeed = textField.isValidValue && seed.count > 0
         
         buttonContinue.isEnabled = isActiveSeed
 
+        hideViewWarning()
+        hasCheckValidationSeed = false
+        
         if isActiveSeed {
             addressBar.isHidden = false
             createAccount(seed: seed)
             hideSkeletonAnimation()
-            
-            if !isNormalSeed(seed) {
-                showViewWarning()
-            }
-            else {
-                hideViewWarning()
-            }
-        } else {
-            hideViewWarning()
+            } else {
             showSkeletonAnimation()
             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideSkeletonAnimation), object: nil)
             perform(#selector(hideSkeletonAnimation), with: nil, afterDelay: Constants.skeletonDelay)
