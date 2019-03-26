@@ -103,11 +103,13 @@ post_install do |installer|
 
             config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = "YES"
 
-            swift3_2pods = []
+            config.build_settings['SWIFT_VERSION'] = '4.2'
 
-            if swift3_2pods.include? target.name
-                config.build_settings['SWIFT_VERSION'] = '3.2'
-            end
+            # swift4_2pods = ['QRCode', 'RealmSwift', 'RxRealm']
+
+            # if swift4_2pods.include? target.name
+                # config.build_settings['SWIFT_VERSION'] = '5.0'
+            # end
         end
         
     end
