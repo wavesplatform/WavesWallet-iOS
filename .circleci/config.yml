@@ -17,7 +17,7 @@ executors:
     shell: /bin/bash --login -eo pipefail  
 jobs:     
   test_build:
-   executor: settings
+    executor: settings
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -77,7 +77,7 @@ jobs:
       - store_test_results:
           path: Output/Test
   prod_build:
-   executor: settings
+    executor: settings
     steps:
       - add_ssh_keys:
           fingerprints:
