@@ -15,9 +15,9 @@ executors:
       FL_OUTPUT_DIR: output
       FASTLANE_LANE: waves_test
     shell: /bin/bash --login -eo pipefail  
-jobs:
-  prepare_build:
-    executor: settings
+jobs:     
+  test_build:
+   executor: settings
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -60,23 +60,7 @@ jobs:
             - Pods
             - WavesWallet-iOS.xcworkspace      
             - /Pods
-            - /WavesWallet-iOS.xcworkspace                  
-  test_build:
-    executor: settings    
-    steps:
-      - run:
-          name: Configure Bundler
-          command: |
-            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
-            source $BASH_ENV
-            sudo gem install bundler  
-      - checkout
-      - restore_cache:
-          key: 1-gems-{{ checksum "Gemfile.lock" }}
-          name: "Restore Gemfile"
-      - restore_cache:
-          key: 1-gems-{{ checksum "Podfile.lock" }}
-          name: "Restore Podfile"        
+            - /WavesWallet-iOS.xcworkspace
       - run:
           name: Fastlane download env
           command: bundle exec fastlane download_bundle_enviroments --verbose 
@@ -89,12 +73,57 @@ jobs:
           command: bundle exec fastlane test_upload_testflight --verbose
           no_output_timeout: 60m
       - store_artifacts:
-          path: Maks
+          path: Output
       - store_test_results:
-          path: Maks/P
+          path: Output/Test
   prod_build:
-    executor: settings    
+   executor: settings
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "43:eb:59:d6:49:f1:ae:81:cb:5a:ba:b8:01:64:19:39"
+      - checkout
+      - restore_cache:
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          name: "Restore Gemfile"
+      - restore_cache:
+          key: 1-gems-{{ checksum "Podfile.lock" }}
+          name: "Restore Podfile"     
+      - run:
+          name: Configure Bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            sudo gem install bundler      
+      - run:
+          name: Bundle install or check
+          command: bundle check || bundle install --path vendor/bundle
+      - save_cache:
+          name: Save cache Bundle
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - run:
+          name: Bundle check loogger
+          command: |
+            ls -a             
+      - run:
+          name: CocoaPods Repo Install
+          command: bundle exec pod check || curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf            
+      - run:
+          name: CocoaPods install or check
+          command: bundle exec pod check || bundle exec pod install
+      - save_cache:
+          name: Save cache Pods
+          key: 1-gems-{{ checksum "Podfile.lock" }}
+          paths:
+            - Pods
+            - WavesWallet-iOS.xcworkspace      
+            - /Pods
+            - /WavesWallet-iOS.xcworkspace
+      - run:
+          name: Fastlane download env
+          command: bundle exec fastlane download_bundle_enviroments --verbose 
       - run:
           name: Fastlane Build
           command: bundle exec fastlane prod_build_projet --verbose
@@ -104,9 +133,9 @@ jobs:
           command: bundle exec fastlane prod_upload_testflight --verbose
           no_output_timeout: 60m
       - store_artifacts:
-          path: Maks
+          path: Output
       - store_test_results:
-          path: Maks/P                    
+          path: Output/Test                
   Test:
     macos:
         xcode: "10.0.0"
@@ -178,21 +207,15 @@ jobs:
           path: Maks/P
 workflows:
   version: 2.1
-  Main:
+  Release:
     jobs:
-      - prepare_build:
+      - prod_build:          
           filters:
             branches:
               only: /^release/v.{2,}$/
-      - prod_build:
-          requires:            
-            - prepare_build
+  Test:
+    jobs:
+      - test_build:          
           filters:
             branches:
-              only: /^release/v.{2,}$/
-      - test_build:
-          requires:            
-            - prepare_build
-          filters:
-            branches:
-              only: /^release/v.{2,}$/
+              only: /^release/v.{2,}$/              
