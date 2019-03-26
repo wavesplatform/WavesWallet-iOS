@@ -4,9 +4,8 @@
 #
 ---
 version: 2.1
-
-executors:
-  settings:    
+jobs:     
+  test_build:
     working_directory: ~/Waves/iOS
     macos:
       xcode: "10.2.0"      
@@ -14,10 +13,7 @@ executors:
       BUNDLER_VERSION: 2.0.1
       FL_OUTPUT_DIR: output
       FASTLANE_LANE: waves_test
-    shell: /bin/bash --login -eo pipefail  
-jobs:     
-  test_build:
-    executor: settings
+    shell: /bin/bash --login -eo pipefail
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -77,17 +73,24 @@ jobs:
       - store_test_results:
           path: Output/Test
   prod_build:
-    executor: settings
+    working_directory: ~/Waves/iOS
+    macos:
+      xcode: "10.2.0"      
+    environment:
+      BUNDLER_VERSION: 2.0.1
+      FL_OUTPUT_DIR: output
+      FASTLANE_LANE: waves_test
+    shell: /bin/bash --login -eo pipefail
     steps:
       - add_ssh_keys:
           fingerprints:
             - "43:eb:59:d6:49:f1:ae:81:cb:5a:ba:b8:01:64:19:39"
       - checkout
       - restore_cache:
-          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          key: gems-{{ checksum "Gemfile.lock" }}
           name: "Restore Gemfile"
       - restore_cache:
-          key: 1-gems-{{ checksum "Podfile.lock" }}
+          key: pods-{{ checksum "Podfile.lock" }}
           name: "Restore Podfile"     
       - run:
           name: Configure Bundler
@@ -100,7 +103,7 @@ jobs:
           command: bundle check || bundle install --path vendor/bundle
       - save_cache:
           name: Save cache Bundle
-          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          key: gems-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       - run:
@@ -115,7 +118,7 @@ jobs:
           command: bundle exec pod check || bundle exec pod install
       - save_cache:
           name: Save cache Pods
-          key: 1-gems-{{ checksum "Podfile.lock" }}
+          key: pods-{{ checksum "Podfile.lock" }}
           paths:
             - Pods
             - WavesWallet-iOS.xcworkspace      

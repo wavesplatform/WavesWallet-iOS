@@ -129,12 +129,17 @@ platform :ios do
     download_certificates
     download_resources
 
+    ROOT=File.expand_path("..", Dir.pwd)
+    ENV['FL_BUILD_NUMBER_PROJECT'] = "#{ROOT}/WavesWallet-iOS.xcodeproj"
+    build_number = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'")
+    version = get_version_number(xcodeproj: "#{ROOT}/WavesWallet-iOS.xcodeproj")
+
 		gym(scheme: "#{ENV['SCHEME_PROJECT']}",
         workspace: "WavesWallet-iOS.xcworkspace",
         include_bitcode: true,
         include_symbols: true,
         export_options: "#{ENV['EXPORT_OPTIONS']}",
-        output_name:  "WavesWallet-iOS-v1.0.3403"
+        output_name:  "WavesWallet-iOS-v#{version}.#{build_number}"
     )
   end
 
@@ -242,11 +247,13 @@ platform :ios do
       ENV['CHANGELOG'] = "Not Found"
     end
 
+    upload_symbols_to_crashlytics(gsp_path: "#{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
+    
     testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
                itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",
                wait_for_uploaded_build: "false",
                changelog: "#{ENV['CHANGELOG']}")
-    upload_symbols_to_crashlytics(gsp_path: "#{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
+        
   end
 
 
