@@ -44,6 +44,8 @@ final class ReceiveInvoiceViewController: UIViewController {
         
         let vc = ReceiveGenerateAddressModuleBuilder().build(input: .invoice(info))
         navigationController?.pushViewController(vc, animated: true)
+        
+        AnalyticManager.trackEvent(.walletAsset(.receiveTap(assetName: info.assetName)))
     }
     
     private func setupInfo(asset: DomainLayer.DTO.SmartAssetBalance) {

@@ -113,6 +113,12 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
             .flatMap { [weak self] environment -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
 
                 guard let owner = self else { return Observable.never() }
+                
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .custom { decoder in
+                    return Date(timestampDecoder: decoder, timestampDiff: environment.timestampServerDiff)
+                }
+                
                 return owner
                     .leasingProvider
                     .rx
@@ -123,7 +129,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                     .catchError({ (error) -> Single<Response> in
                         return Single.error(NetworkError.error(by: error))
                     })
-                    .map([Node.DTO.LeaseTransaction].self)
+                    .map([Node.DTO.LeaseTransaction].self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
                     .map { $0.map { tx in
                         return DomainLayer.DTO.LeaseTransaction(transaction: tx, status: .activeNow, environment: environment)
                         }
@@ -158,6 +164,11 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                                                                                    proofs: proofs)
                 guard let owner = self else { return Observable.never() }
                 
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .custom { decoder in
+                    return Date(timestampDecoder: decoder, timestampDiff: environment.timestampServerDiff)
+                }
+
                 return owner
                     .transactions
                     .rx
@@ -168,7 +179,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                     .catchError({ (error) -> Single<Response> in
                         return Single.error(NetworkError.error(by: error))
                     })
-                    .map(Node.DTO.Transaction.self)
+                    .map(Node.DTO.Transaction.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
                     .map({ $0.anyTransaction(status: .unconfirmed, environment: environment) })
                     .asObservable()
             }

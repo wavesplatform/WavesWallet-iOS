@@ -217,6 +217,8 @@ final class SendViewController: UIViewController {
                          isGateway: isGateway)
         
         navigationController?.pushViewController(vc, animated: true)
+        
+        AnalyticManager.trackEvent(.walletAsset(.sendTap(assetName: asset.displayName)))
     }
     
     @IBAction private func continueTapped(_ sender: Any) {
