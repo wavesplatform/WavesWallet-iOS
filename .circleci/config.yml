@@ -29,9 +29,6 @@ jobs:
       - restore_cache:
           key: 1-gems-{{ checksum "Podfile.lock" }}
           name: "Restore Podfile"     
-      - restore_cache:
-          key: 1-repos-{{ checksum "Podfile.lock" }}
-          name: "Restore Repos"         
       - run:
           name: Configure Bundler
           command: |
@@ -57,12 +54,7 @@ jobs:
           key: 1-gems-{{ checksum "Podfile.lock" }}
           paths:
             - /Pods
-            - /WavesWallet-iOS.xcworkspace
-      - save_cache:
-          name: Save cache Repos
-          key: 1-repos-{{ checksum "Podfile.lock" }}
-          paths:
-            - ~/.cocoapods/repos
+            - /WavesWallet-iOS.xcworkspace      
   test_build:
     executor: settings
     steps:
@@ -72,7 +64,7 @@ jobs:
           name: "Restore Gemfile"
       - restore_cache:
           key: 1-gems-{{ checksum "Podfile.lock" }}
-          name: "Restore Podfile"             
+          name: "Restore Podfile"        
       - run:
           name: Fastlane download env
           command: bundle exec fastlane download_bundle_enviroments --verbose 
