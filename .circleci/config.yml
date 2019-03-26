@@ -46,12 +46,7 @@ jobs:
       - run:
           name: Bundle check loogger
           command: |
-            ls -a            
-      - run:
-          name: Bundle check loogger
-          command: |
-            log=$(bundle exec pod check)
-            echo $log                    
+            ls -a             
       - run:
           name: CocoaPods Repo Install
           command: bundle exec pod check || curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf            
