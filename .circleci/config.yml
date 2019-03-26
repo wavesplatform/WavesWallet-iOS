@@ -66,6 +66,13 @@ jobs:
   test_build:
     executor: settings
     steps:
+      - checkout
+      - restore_cache:
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          name: "Restore Gemfile"
+      - restore_cache:
+          key: 1-gems-{{ checksum "Podfile.lock" }}
+          name: "Restore Podfile"             
       - run:
           name: Fastlane download env
           command: bundle exec fastlane download_bundle_enviroments --verbose 
