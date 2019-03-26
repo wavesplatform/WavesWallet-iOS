@@ -29,7 +29,7 @@ target 'WavesWallet-iOS' do
     pod 'MGSwipeTableCell'
 
     pod 'UPCarouselFlowLayout'
-    pod 'InfiniteCollectionView', :git => 'https://github.com/wavesplatform/InfiniteCollectionView.git'
+    pod 'InfiniteCollectionView', :git => 'https://github.com/wavesplatform/InfiniteCollectionView.git', :branch => 'swift5'
     pod 'RESideMenu', :git => 'https://github.com/wavesplatform/RESideMenu.git'
 
     pod 'Skeleton'
@@ -103,9 +103,7 @@ post_install do |installer|
 
             config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = "YES"
 
-            swift3_2pods = [
-            'InfiniteCollectionView'
-            ]
+            swift3_2pods = []
 
             if swift3_2pods.include? target.name
                 config.build_settings['SWIFT_VERSION'] = '3.2'
