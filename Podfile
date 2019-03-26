@@ -53,6 +53,8 @@ target 'WavesWallet-iOS' do
     pod 'Firebase/Auth'
     pod 'Firebase/InAppMessagingDisplay'
 
+    pod 'Amplitude-iOS'
+
     pod 'AppsFlyerFramework'
 
     # Helperrs
