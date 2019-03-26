@@ -138,9 +138,9 @@ platform :ios do
         workspace: "WavesWallet-iOS.xcworkspace",
         include_bitcode: true,
         include_symbols: true,
-        export_options: "#{ENV['EXPORT_OPTIONS']}",
-        output_name:  "WavesWallet-iOS-v#{version}.#{build_number}"
+        export_options: "#{ENV['EXPORT_OPTIONS']}"        
     )
+    # output_name:  "WavesWallet-iOS-v#{version}.#{build_number}"
   end
 
   lane :create_changelog do
