@@ -59,6 +59,8 @@ jobs:
           paths:
             - Pods
             - WavesWallet-iOS.xcworkspace      
+            - /Pods
+            - /WavesWallet-iOS.xcworkspace                  
   test_build:
     executor: settings    
     steps:
