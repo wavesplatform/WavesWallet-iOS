@@ -57,7 +57,14 @@ jobs:
             - /WavesWallet-iOS.xcworkspace      
   test_build:
     executor: settings
+    parallelism: 2
     steps:
+      - run:
+          name: Configure Bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            sudo gem install bundler  
       - checkout
       - restore_cache:
           key: 1-gems-{{ checksum "Gemfile.lock" }}
@@ -81,14 +88,8 @@ jobs:
       - store_test_results:
           path: Maks/P
   prod_build:
-    macos:
-        xcode: "10.2.0"
-    working_directory: ~/Waves/iOS
-    environment:
-      BUNDLER_VERSION: 2.0.1
-      FL_OUTPUT_DIR: output
-      FASTLANE_LANE: waves_test
-    shell: /bin/bash --login -eo pipefail
+    executor: settings
+    parallelism: 3
     steps:
       - run:
           name: Fastlane Build
