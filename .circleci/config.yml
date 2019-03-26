@@ -204,9 +204,15 @@ jobs:
           path: output/scan
 workflows:
   version: 2
-  Release:    
+  Release:
     jobs:
       - prepare_build:
+          filters:
+            branches:
+              only: /^release/v.{2,}$/
       - test_build:
           requires:            
-            - prepare_build          
+            - prepare_build
+          filters:
+            branches:
+              only: /^release/v.{2,}$/     
