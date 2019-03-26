@@ -3,17 +3,21 @@
 # Check https://circleci.com/docs/2.0/ios-migrating-from-1-2/ for more details
 #
 ---
-version: 2
-jobs:
-  prepare_build:
-    macos:
-        xcode: "10.2.0"
+version: 2.1
+
+executors:
+  settings:    
     working_directory: ~/Waves/iOS
+    macos:
+      xcode: "10.2.0"      
     environment:
       BUNDLER_VERSION: 2.0.1
       FL_OUTPUT_DIR: output
       FASTLANE_LANE: waves_test
-    shell: /bin/bash --login -eo pipefail
+    shell: /bin/bash --login -eo pipefail  
+jobs:
+  prepare_build:
+    executor: settings
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -58,20 +62,13 @@ jobs:
           name: Save cache Repos
           key: 1-repos-{{ checksum "Podfile.lock" }}
           paths:
-            - ~/.cocoapods/repos            
+            - ~/.cocoapods/repos
+  test_build:
+    executor: settings
+    steps:
       - run:
           name: Fastlane download env
-          command: bundle exec fastlane download_bundle_enviroments --verbose   
-  test_build:
-    macos:
-        xcode: "10.2.0"
-    working_directory: ~/Waves/iOS
-    environment:
-      BUNDLER_VERSION: 2.0.1
-      FL_OUTPUT_DIR: output
-      FASTLANE_LANE: waves_test
-    shell: /bin/bash --login -eo pipefail
-    steps:
+          command: bundle exec fastlane download_bundle_enviroments --verbose 
       - run:
           name: Fastlane Build
           command: bundle exec fastlane test_build_projet --verbose
@@ -83,7 +80,29 @@ jobs:
       - store_artifacts:
           path: Maks
       - store_test_results:
-          path: Maks/P        
+          path: Maks/P
+  prod_build:
+    macos:
+        xcode: "10.2.0"
+    working_directory: ~/Waves/iOS
+    environment:
+      BUNDLER_VERSION: 2.0.1
+      FL_OUTPUT_DIR: output
+      FASTLANE_LANE: waves_test
+    shell: /bin/bash --login -eo pipefail
+    steps:
+      - run:
+          name: Fastlane Build
+          command: bundle exec fastlane prod_build_projet --verbose
+          no_output_timeout: 60m
+      - run:
+          name: Fastlane Upload to Testflight
+          command: bundle exec fastlane prod_upload_testflight --verbose
+          no_output_timeout: 60m
+      - store_artifacts:
+          path: Maks
+      - store_test_results:
+          path: Maks/P                    
   Test:
     macos:
         xcode: "10.0.0"
@@ -153,60 +172,17 @@ jobs:
           path: Maks
       - store_test_results:
           path: Maks/P
-  Release:
-    macos:
-        xcode: "10.0.0"
-    working_directory: ~/Waves/iOS
-    environment:
-      BUNDLER_VERSION: 2.0.1
-      FL_OUTPUT_DIR: output
-      FASTLANE_LANE: waves
-    shell: /bin/bash --login -eo pipefail
-    steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "43:eb:59:d6:49:f1:ae:81:cb:5a:ba:b8:01:64:19:39"
-      - checkout
-      - restore_cache:
-          key: 1-gems-{{ checksum "Gemfile.lock" }}      
-      - run:
-          name: SSH
-          command: ls -la ~/.ssh/
-      - run:
-          name: SSH Cat config
-          command: cat ~/.ssh/config
-      - run:
-          name: Configure Bundler
-          command: |
-            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
-            source $BASH_ENV
-            sudo gem install bundler
-      - run:
-          name: Fastlane download env
-          command: bundle exec fastlane download_bundle_enviroments --verbose
-      - run:
-          name: Bundle
-          command: bundle check || bundle install --path vendor/bundle
-      - save_cache:
-          key: 1-gems-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-      - run:
-          name: Fastlane download env
-          command: bundle exec fastlane download_bundle_enviroments --verbose                        
-      - run:
-          name: Fastlane Build
-          command: bundle exec fastlane $FASTLANE_LANE --verbose
-          no_output_timeout: 60m
-      - store_artifacts:
-          path: output
-      - store_test_results:
-          path: output/scan
 workflows:
-  version: 2
-  Release:
+  version: 2.1
+  Main:
     jobs:
       - prepare_build:
+          filters:
+            branches:
+              only: /^release/v.{2,}$/
+      - prod_build:
+          requires:            
+            - prepare_build
           filters:
             branches:
               only: /^release/v.{2,}$/
@@ -215,4 +191,4 @@ workflows:
             - prepare_build
           filters:
             branches:
-              only: /^release/v.{2,}$/     
+              only: /^release/v.{2,}$/
