@@ -209,24 +209,28 @@ private extension AccountBalanceRepositoryRemote {
 
     func assetsBalance(by walletAddress: String) -> Observable<Node.DTO.AccountAssetsBalance> {
 
-        return environmentRepository
-            .accountEnvironment(accountAddress: walletAddress)
-            .flatMap { [weak self] environment -> Single<Response> in
+        return environmentRepository.accountEnvironment(accountAddress: walletAddress)
+            .flatMap({ [weak self] (environment) -> Observable<Node.DTO.AccountAssetsBalance> in
+                guard let owner = self else { return Observable.empty() }
+                
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .custom({ (decoder) -> Date in
+                    return Date(timestampDecoder: decoder, timestampDiff: environment.timestampServerDiff)
+                })
 
-                guard let owner = self else { return Single.never() }
                 return owner
                     .assetsProvider
                     .rx
                     .request(.init(kind: .getAssetsBalances(walletAddress: walletAddress),
                                    environment: environment),
                              callbackQueue: DispatchQueue.global(qos: .userInteractive))
-            }
-            .filterSuccessfulStatusAndRedirectCodes()
-            .catchError({ (error) -> Observable<Response> in
-                return Observable.error(NetworkError.error(by: error))
+                    .filterSuccessfulStatusAndRedirectCodes()
+                    .asObservable()
+                    .catchError({ (error) -> Observable<Response> in
+                        return Observable.error(NetworkError.error(by: error))
+                    })
+                    .map(Node.DTO.AccountAssetsBalance.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
             })
-            .map(Node.DTO.AccountAssetsBalance.self)
-            .asObservable()
     }
 
     func accountBalance(by walletAddress: String) -> Observable<Node.DTO.AccountBalance> {

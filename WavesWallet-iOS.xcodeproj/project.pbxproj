@@ -1635,6 +1635,10 @@
 		E96570422193E8570052F0FC /* DexMyOrdersModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexMyOrdersModuleOutput.swift; sourceTree = "<group>"; };
 		E967786821EC491500CE56D6 /* CandlesRepositoryRemote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandlesRepositoryRemote.swift; sourceTree = "<group>"; };
 		E967786A21EC660C00CE56D6 /* DexMyOrders+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DexMyOrders+Mapper.swift"; sourceTree = "<group>"; };
+		E96D1B912249922F00D31D17 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E96D1B922249923000D31D17 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Waves.strings; sourceTree = "<group>"; };
+		E96D1B932249956E00D31D17 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E96D1B942249956F00D31D17 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Waves.strings; sourceTree = "<group>"; };
 		E96E29FD21D3492F00AC2FA9 /* MatcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherService.swift; sourceTree = "<group>"; };
 		E96E29FF21D34A2100AC2FA9 /* MatcherRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E96E2A0121D34AA200AC2FA9 /* MatcherRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherRepositoryRemote.swift; sourceTree = "<group>"; };
@@ -4966,6 +4970,8 @@
 				"pt-BR",
 				"pt-PT",
 				"zh-Hans-CN",
+				pl,
+				it,
 			);
 			mainGroup = F7E954DB1EA8FE0600A804DE;
 			productRefGroup = F7E954E51EA8FE0700A804DE /* Products */;
@@ -6203,6 +6209,8 @@
 				0A9CA15121C16E70003C0A1B /* pt-BR */,
 				0A7BFD4E21CCEA8100B29654 /* pt-PT */,
 				E9A1BBE6223EDFC000B5B2A0 /* zh-Hans-CN */,
+				E96D1B922249923000D31D17 /* pl */,
+				E96D1B942249956F00D31D17 /* it */,
 			);
 			name = Waves.strings;
 			sourceTree = "<group>";
@@ -6223,6 +6231,8 @@
 				0A9CA15021C16E6F003C0A1B /* pt-BR */,
 				0A7BFD4D21CCEA8000B29654 /* pt-PT */,
 				E9A1BBE5223EDFC000B5B2A0 /* zh-Hans-CN */,
+				E96D1B912249922F00D31D17 /* pl */,
+				E96D1B932249956E00D31D17 /* it */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
