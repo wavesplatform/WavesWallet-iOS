@@ -34,7 +34,7 @@ jobs:
           command: |
             echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
             source $BASH_ENV
-            sudo gem install bundler
+            sudo gem install bundler      
       - run:
           name: Bundle install or check
           command: bundle check || bundle install --path vendor/bundle
@@ -43,6 +43,15 @@ jobs:
           key: 1-gems-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+      - run:
+          name: Bundle check loogger
+          command: |
+            ls -a            
+      - run:
+          name: Bundle check loogger
+          command: |
+            log=$(bundle check)
+            echo $log                    
       - run:
           name: CocoaPods Repo Install
           command: bundle exec pod check || curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf            
@@ -56,8 +65,7 @@ jobs:
             - /Pods
             - /WavesWallet-iOS.xcworkspace      
   test_build:
-    executor: settings
-    parallelism: 2
+    executor: settings    
     steps:
       - run:
           name: Configure Bundler
