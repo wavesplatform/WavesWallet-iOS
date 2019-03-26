@@ -1286,9 +1286,9 @@ internal enum Localizable {
         internal enum Warning {
 
           internal enum Seed {
-            /// This is not secure. You should avoid using a Seed phrase that might be easy for someone else to guess. Are you sure you want to continue?
+            /// The SEED phrase you entered is too short. Make sure you do not confuse the phrase with a wallet address. Using an address as a SEED phrase can result in loss of funds.
             internal static var subtitle: String { return Localizable.tr("Waves", "import.account.warning.seed.subtitle") }
-            /// Your Seed phrase is too simple
+            /// The SEED phrase must consist of 15 words with spaces between each word
             internal static var title: String { return Localizable.tr("Waves", "import.account.warning.seed.title") }
           }
         }
