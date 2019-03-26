@@ -50,7 +50,7 @@ jobs:
       - run:
           name: Bundle check loogger
           command: |
-            log=$(bundle check)
+            log=$(bundle exec pod check)
             echo $log                    
       - run:
           name: CocoaPods Repo Install
@@ -62,8 +62,8 @@ jobs:
           name: Save cache Pods
           key: 1-gems-{{ checksum "Podfile.lock" }}
           paths:
-            - /Pods
-            - /WavesWallet-iOS.xcworkspace      
+            - Pods
+            - WavesWallet-iOS.xcworkspace      
   test_build:
     executor: settings    
     steps:
@@ -96,8 +96,7 @@ jobs:
       - store_test_results:
           path: Maks/P
   prod_build:
-    executor: settings
-    parallelism: 3
+    executor: settings    
     steps:
       - run:
           name: Fastlane Build
