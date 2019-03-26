@@ -205,13 +205,13 @@ jobs:
 workflows:
   version: 2
   Release:
+    triggers:
+      - schedule:          
+        filters:
+          branches:
+            only: /^release/v.{2,}$/
     jobs:
-      triggers:
-        - schedule:          
-          filters:
-            branches:
-              only: /^release/v.{2,}$/
-      - prepare_build:          
+      - prepare_build
       - test_build:
           requires:            
             - prepare_build          
