@@ -66,6 +66,8 @@ final class TokenBurnConfirmationViewController: UIViewController {
         let vc = StoryboardScene.Asset.tokenBurnLoadingViewController.instantiate()
         vc.input = input
         navigationController?.pushViewController(vc, animated: true)
+        
+        AnalyticManager.trackEvent(.tokenBurn(.confirmTap))
     }
 }
 

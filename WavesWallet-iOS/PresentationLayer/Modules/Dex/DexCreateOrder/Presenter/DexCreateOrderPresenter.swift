@@ -98,6 +98,15 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
             
         case .createOrder:
             
+            if state.order?.type == .buy {
+                AnalyticManager.trackEvent(.dex(.buyOrderSuccess(amountAsset: pair.amountAsset.name,
+                                                                 priceAsset: pair.priceAsset.name)))
+            }
+            else {
+                AnalyticManager.trackEvent(.dex(.sellOrderSuccess(amountAsset: pair.amountAsset.name,
+                                                                 priceAsset: pair.priceAsset.name)))
+            }
+            
             return state.mutate {
                 $0.isNeedCreateOrder = true
             }.changeAction(.showCreatingOrderState)

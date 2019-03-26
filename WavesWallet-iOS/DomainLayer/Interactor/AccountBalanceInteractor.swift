@@ -303,6 +303,23 @@ private extension AccountBalanceInteractor {
                 guard let owner = self else { return Observable.empty()}
                 return owner.removeOldsBalanceSettings(by: wallet, balances: balances)
             })
+            .flatMap({ [weak self] (balances) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
+                guard let owner = self else { return Observable.empty() }
+                return owner.trackFromZeroBalancesToAnalytic(assets: balances, accountAddress: wallet.address)
+            })
+    }
+    
+    func trackFromZeroBalancesToAnalytic(assets: [DomainLayer.DTO.SmartAssetBalance], accountAddress: String) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
+        return Observable.create({ (subscribe) -> Disposable in
+            
+            let generalAssets = assets.filter { $0.asset.isGeneral }
+            AnalyticAssetManager.trackFromZeroBalances(assets: generalAssets,
+                                                       accountAddress: accountAddress)
+            
+            subscribe.onNext(assets)
+            subscribe.onCompleted()
+            return Disposables.create()
+        })
     }
 }
 
