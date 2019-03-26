@@ -122,8 +122,12 @@ jobs:
           paths:
             - Pods
             - WavesWallet-iOS.xcworkspace      
-            - /Pods
-            - /WavesWallet-iOS.xcworkspace
+            - ./Pods
+            - ./WavesWallet-iOS.xcworkspace
+      - run:
+          name: Bundle check loogger
+          command: |
+            ls -a 
       - run:
           name: Fastlane download env
           command: bundle exec fastlane download_bundle_enviroments --verbose 
@@ -141,7 +145,7 @@ jobs:
           path: Output/Test                
   Test:
     macos:
-        xcode: "10.0.0"
+        xcode: "10.2.0"
     working_directory: ~/Waves/iOS
     environment:
       BUNDLER_VERSION: 2.0.1
