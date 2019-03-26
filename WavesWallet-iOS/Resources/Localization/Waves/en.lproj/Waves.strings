@@ -1,3 +1,6 @@
+"send.label.error.sendingToSpamAsset" = "Sending funds to spam asset is not possible";
+"send.label.error.assetIsNotValid" = "The asset is not valid";
+
 "hello.page.confirm.title" = "Confirm and Begin";
 "hello.page.confirm.subtitle" = "All the data on your Waves Wallet is encrypted and stored only on your device";
 "hello.page.confirm.description1" = "I understand that my funds are held securely on this device, not by a company";
