@@ -99,6 +99,11 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             }
             
         case .didTapBid(let bid, let inputMaxAmount):
+            
+            if !inputMaxAmount {
+                AnalyticManager.trackEvent(.dex(.sellTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
+            }
+            
             moduleOutput?.didCreateOrder(bid, amountAsset: amountAsset, priceAsset: priceAsset,
                                          ask: state.lastAsk?.price,
                                          bid: state.lastBid?.price,
@@ -112,6 +117,8 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             return state.changeAction(.none)
             
         case .didTapEmptyBid:
+            AnalyticManager.trackEvent(.dex(.sellTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
+
             moduleOutput?.didCreateEmptyOrder(amountAsset: amountAsset, priceAsset: priceAsset,
                                               orderType: .sell,
                                               ask: state.lastAsk?.price,
@@ -125,6 +132,11 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             return state.changeAction(.none)
             
         case .didTapAsk(let ask, let inputMaxAmount):
+            
+            if !inputMaxAmount {
+                AnalyticManager.trackEvent(.dex(.buyTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
+            }
+
             moduleOutput?.didCreateOrder(ask, amountAsset: amountAsset, priceAsset: priceAsset,
                                          ask: state.lastAsk?.price,
                                          bid: state.lastBid?.price,
@@ -138,6 +150,8 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             return state.changeAction(.none)
             
         case .didTamEmptyAsk:
+            AnalyticManager.trackEvent(.dex(.buyTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
+
             moduleOutput?.didCreateEmptyOrder(amountAsset: amountAsset, priceAsset: priceAsset,
                                               orderType: .buy,
                                               ask: state.lastAsk?.price,

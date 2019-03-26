@@ -57,6 +57,8 @@ final class StartLeasingConfirmationViewController: UIViewController {
         let vc = StoryboardScene.StartLeasing.startLeasingLoadingViewController.instantiate()
         vc.input = .init(kind: .send(order), errorDelegate: errorDelegate, output: output)
         navigationController?.pushViewController(vc, animated: true)
+        
+        AnalyticManager.trackEvent(.leasing(.leasingConfirmTap))
     }
     
     private func setupData() {

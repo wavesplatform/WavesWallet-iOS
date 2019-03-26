@@ -118,6 +118,8 @@ extension WalletCoordinator: WalletModuleOutput {
         
         let controller = StartLeasingModuleBuilder(output: self).build(input: availableMoney)
         navigationRouter.pushViewController(controller)
+        
+        AnalyticManager.trackEvent(.leasing(.leasingStartTap))
     }
 
     func showLeasingTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
@@ -164,6 +166,8 @@ extension WalletCoordinator: AssetDetailModuleOutput {
         vc.asset = asset
         vc.delegate = delegate
         navigationRouter.pushViewController(vc)
+        
+        AnalyticManager.trackEvent(.tokenBurn(.tap))
     }
 }
 
@@ -247,6 +251,8 @@ extension WalletCoordinator: AliasesModuleOutput {
 
             let vc = CreateAliasModuleBuilder(output: owner).build()
             self?.navigationRouter.pushViewController(vc)
+            
+            AnalyticManager.trackEvent(.createAlias(.aliasCreateVcard))
         }
     }
 }
@@ -260,6 +266,8 @@ extension WalletCoordinator: AliasWithoutViewControllerDelegate {
 
             let vc = CreateAliasModuleBuilder(output: owner).build()
             self?.navigationRouter.pushViewController(vc)
+            
+            AnalyticManager.trackEvent(.createAlias(.aliasCreateVcard))
         }
     }
 }
