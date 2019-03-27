@@ -1,8 +1,7 @@
 PODS:
   - 25519 (2.0.2)
   - Alamofire (4.8.1)
-  - Amplitude-iOS (4.5.0)
-  - AppsFlyerFramework (4.8.12)
+  - AppsFlyerFramework (4.9.0)
   - AppSpectorSDK (1.1.7)
   - Base58 (0.2)
   - Blake2 (0.1)
@@ -11,80 +10,82 @@ PODS:
   - Charts/Core (3.2.2)
   - Crashlytics (3.12.0):
     - Fabric (~> 1.9.0)
-  - CryptoSwift (0.14.0)
+  - CryptoSwift (0.15.0)
   - CSV.swift (2.3.1)
-  - DeviceKit (1.11.0)
+  - DeviceKit (1.12.0)
   - Fabric (1.9.0)
-  - Firebase/Auth (5.16.0):
+  - Firebase/Auth (5.19.0):
     - Firebase/CoreOnly
-    - FirebaseAuth (= 5.3.0)
-  - Firebase/Core (5.16.0):
+    - FirebaseAuth (= 5.4.1)
+  - Firebase/Core (5.19.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 5.5.0)
-  - Firebase/CoreOnly (5.16.0):
-    - FirebaseCore (= 5.2.0)
-  - Firebase/Database (5.16.0):
+    - FirebaseAnalytics (= 5.8.0)
+  - Firebase/CoreOnly (5.19.0):
+    - FirebaseCore (= 5.4.0)
+  - Firebase/Database (5.19.0):
     - Firebase/CoreOnly
-    - FirebaseDatabase (= 5.1.0)
-  - Firebase/InAppMessagingDisplay (5.16.0):
+    - FirebaseDatabase (= 5.1.1)
+  - Firebase/InAppMessagingDisplay (5.19.0):
     - Firebase/CoreOnly
-    - FirebaseInAppMessagingDisplay (= 0.12.2)
-  - FirebaseAnalytics (5.5.0):
-    - FirebaseCore (~> 5.2)
-    - FirebaseInstanceID (~> 3.4)
-    - GoogleAppMeasurement (= 5.5.0)
+    - FirebaseInAppMessagingDisplay (= 0.13.1)
+  - FirebaseAnalytics (5.8.0):
+    - FirebaseCore (~> 5.4)
+    - FirebaseInstanceID (~> 3.8)
+    - GoogleAppMeasurement (= 5.8.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
-  - FirebaseAuth (5.3.0):
+  - FirebaseAnalyticsInterop (1.2.0)
+  - FirebaseAuth (5.4.1):
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 5.2)
     - GoogleUtilities/Environment (~> 5.2)
     - GTMSessionFetcher/Core (~> 1.1)
   - FirebaseAuthInterop (1.0.0)
-  - FirebaseCore (5.2.0):
+  - FirebaseCore (5.4.0):
+    - GoogleUtilities/Environment (~> 5.2)
     - GoogleUtilities/Logger (~> 5.2)
-  - FirebaseDatabase (5.1.0):
+  - FirebaseDatabase (5.1.1):
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 5.2)
     - leveldb-library (~> 1.18)
-  - FirebaseInAppMessaging (0.12.1):
-    - FirebaseAnalytics (~> 5.3)
-    - FirebaseCore (~> 5.1)
-    - FirebaseInstanceID (~> 3.3)
-    - GoogleUtilities/Environment (~> 5.0)
-  - FirebaseInAppMessagingDisplay (0.12.2):
+  - FirebaseInAppMessaging (0.13.0):
+    - FirebaseAnalytics
+    - FirebaseAnalyticsInterop
+    - FirebaseCore
+    - FirebaseInstanceID
+  - FirebaseInAppMessagingDisplay (0.13.1):
     - FirebaseCore
     - FirebaseInAppMessaging (>= 0.12.0)
-  - FirebaseInstanceID (3.4.0):
+  - FirebaseInstanceID (3.8.0):
     - FirebaseCore (~> 5.2)
-    - GoogleUtilities/Environment (~> 5.3)
-    - GoogleUtilities/UserDefaults (~> 5.3)
-  - GoogleAppMeasurement (5.5.0):
+    - GoogleUtilities/Environment (~> 5.2)
+    - GoogleUtilities/UserDefaults (~> 5.2)
+  - GoogleAppMeasurement (5.8.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
-  - GoogleUtilities/AppDelegateSwizzler (5.3.7):
+  - GoogleUtilities/AppDelegateSwizzler (5.5.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (5.3.7)
-  - GoogleUtilities/Logger (5.3.7):
+  - GoogleUtilities/Environment (5.5.0)
+  - GoogleUtilities/Logger (5.5.0):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (5.3.7):
+  - GoogleUtilities/MethodSwizzler (5.5.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (5.3.7):
+  - GoogleUtilities/Network (5.5.0):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (5.3.7)"
-  - GoogleUtilities/Reachability (5.3.7):
+  - "GoogleUtilities/NSData+zlib (5.5.0)"
+  - GoogleUtilities/Reachability (5.5.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (5.3.7):
+  - GoogleUtilities/UserDefaults (5.5.0):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.1)
   - IdentityImg (0.1)
@@ -92,8 +93,8 @@ PODS:
   - IQKeyboardManagerSwift (6.2.0)
   - Keccak (0.1)
   - KeychainAccess (3.1.2)
-  - Kingfisher (5.1.1)
-  - Koloda (4.6):
+  - Kingfisher (5.3.0)
+  - Koloda (4.7):
     - pop (~> 1.0)
   - leveldb-library (1.20)
   - MGSwipeTableCell (1.6.8)
@@ -119,15 +120,15 @@ PODS:
     - Realm (= 3.13.1)
   - RESideMenu (4.0.7)
   - Result (4.1.0)
-  - Reveal-SDK (20)
+  - Reveal-SDK (21)
   - RxAlamofire (4.3.0):
     - RxAlamofire/Core (= 4.3.0)
   - RxAlamofire/Core (4.3.0):
     - Alamofire (~> 4.5)
     - RxSwift (~> 4)
-  - RxAtomic (4.4.1)
-  - RxCocoa (4.4.1):
-    - RxSwift (~> 4.0)
+  - RxAtomic (4.4.2)
+  - RxCocoa (4.4.2):
+    - RxSwift (>= 4.4.2, ~> 4.4)
   - RxFeedback (2.0.0):
     - RxCocoa (~> 4.4)
     - RxSwift (~> 4.4)
@@ -144,8 +145,8 @@ PODS:
   - RxRealm (0.7.6):
     - RealmSwift (~> 3.0)
     - RxSwift (~> 4.0)
-  - RxSwift (4.4.1):
-    - RxAtomic (~> 4.4)
+  - RxSwift (4.4.2):
+    - RxAtomic (>= 4.4.2, ~> 4.4)
   - RxSwiftExt (3.4.0):
     - RxSwiftExt/Core (= 3.4.0)
     - RxSwiftExt/RxCocoa (= 3.4.0)
@@ -154,9 +155,9 @@ PODS:
   - RxSwiftExt/RxCocoa (3.4.0):
     - RxCocoa (~> 4.0)
     - RxSwiftExt/Core
-  - Sentry (4.2.1):
-    - Sentry/Core (= 4.2.1)
-  - Sentry/Core (4.2.1)
+  - Sentry (4.3.1):
+    - Sentry/Core (= 4.3.1)
+  - Sentry/Core (4.3.1)
   - Skeleton (0.3.1)
   - SwiftDate (5.1.0)
   - SwiftGen (5.3.0)
@@ -186,7 +187,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/InAppMessagingDisplay
   - IdentityImg (from `https://github.com/wavesplatform/identity-img-swift.git`)
-  - InfiniteCollectionView (from `https://github.com/wavesplatform/InfiniteCollectionView.git`)
+  - InfiniteCollectionView (from `https://github.com/wavesplatform/InfiniteCollectionView.git`, branch `swift5`)
   - IQKeyboardManagerSwift
   - Keccak (from `https://github.com/wavesplatform/Keccak.git`)
   - KeychainAccess
@@ -234,6 +235,7 @@ SPEC REPOS:
     - Fabric
     - Firebase
     - FirebaseAnalytics
+    - FirebaseAnalyticsInterop
     - FirebaseAuth
     - FirebaseAuthInterop
     - FirebaseCore
@@ -291,6 +293,7 @@ EXTERNAL SOURCES:
   IdentityImg:
     :git: https://github.com/wavesplatform/identity-img-swift.git
   InfiniteCollectionView:
+    :branch: swift5
     :git: https://github.com/wavesplatform/InfiniteCollectionView.git
   Keccak:
     :git: https://github.com/wavesplatform/Keccak.git
@@ -313,7 +316,7 @@ CHECKOUT OPTIONS:
     :commit: d44a40a2334c9cb7c0a76d6dde36fd8cc9266e28
     :git: https://github.com/wavesplatform/identity-img-swift.git
   InfiniteCollectionView:
-    :commit: 0168a154821a80611dda2f524da143e3392328d6
+    :commit: 0ea9140787e243a76b511ffc04c62e623262ef31
     :git: https://github.com/wavesplatform/InfiniteCollectionView.git
   Keccak:
     :commit: b67ef7767ff598ddcff6d468f7772b3fc6b65810
@@ -322,42 +325,42 @@ CHECKOUT OPTIONS:
     :commit: c4870be8caf988b3c164bbf5675a717a905e9952
     :git: https://github.com/wavesplatform/RESideMenu.git
   Sentry:
-    :commit: 6c7f2e23b0401c099ebced56d22ccc96ffa71609
+    :commit: 9b7da88b3c6454d1b07e8a0a1f627b4b495264ae
     :git: https://github.com/getsentry/sentry-cocoa.git
 
 SPEC CHECKSUMS:
   '25519': 2c284bd04dc489ee6c3ad5f04339480a5bcae042
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
-  Amplitude-iOS: 1de49103125f9b816ca11df924652e5a303e2c33
-  AppsFlyerFramework: 726f063384d8dc763d7b423e48cbc8cbe10989ab
+  AppsFlyerFramework: f57e5d590ad3124d3e594a76032a181bc91ec6cd
   AppSpectorSDK: e819dafad1a7137e0af68076effeccb77318ed5a
   Base58: a8409491c6f89c3b86a9b447d4302b1a4e03e2a2
   Blake2: b29e27d1cc9ae2a8073a96990321e0c1a8fb5e8b
   Charts: f69cf0518b6d1d62608ca504248f1bbe0b6ae77e
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
-  CryptoSwift: 35a10419f4dbf0619c13f8c1c180037e115323fa
+  CryptoSwift: 769f58a9e89f64e8796c2e59ce5f002dc81a2438
   CSV.swift: d16f671b3090a2c0525d5f2165b18319074aae2b
-  DeviceKit: a3a86f8dddbe1317a9a243cdf9646858bf135dce
+  DeviceKit: f5dbd2e70cafd420d6a09379b8800cdf5fe92ba5
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
-  Firebase: 749a8ff4962f9d8c79dda1966de20f6f77583d67
-  FirebaseAnalytics: d35d47c03c50c73c14a7fd31463c5775843e78a9
-  FirebaseAuth: c9b3ff063c223d2841d97240af547ce511bce19a
+  Firebase: c60d49e9c2630875a96207d15e2affb8364996d1
+  FirebaseAnalytics: fd72a26bf8dac84cefba2f0864366f718555a5b0
+  FirebaseAnalyticsInterop: efbe45c8385ec626e29f9525e5ebd38520dfb6c1
+  FirebaseAuth: cbb892a66baed025efc179372598941252acf853
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
-  FirebaseCore: ea2d1816723ef21492b8e9113303e1350db5e08c
-  FirebaseDatabase: 23acb0c53cd4d4070a427b60100b2e4aaa97c45d
-  FirebaseInAppMessaging: aa04bdbbee12aa132156e6085b3bfad7d6e0dcbb
-  FirebaseInAppMessagingDisplay: 5591606580c1ed8040fbf55c938a1ccc0caad3ef
-  FirebaseInstanceID: 97ea7a5dca9afd72c79bfcdddb7a44aa1cbb42a1
-  GoogleAppMeasurement: 621f3bc6211d5ba548debe01fafad30cf5ab6859
-  GoogleUtilities: 111a012f4c3a29c9e7c954c082fafd6ee3c999c0
+  FirebaseCore: 22a79a961c3951ef2f77b67bfbc99e454247b319
+  FirebaseDatabase: 2c15b0ea6f2c6eb5e57413f9d6340f1e50b81ae3
+  FirebaseInAppMessaging: 25e8c4408829928b6727fb461e0aef6a43111467
+  FirebaseInAppMessagingDisplay: 72f67cfe9711c9bf6d6768a1c538299ea2043042
+  FirebaseInstanceID: cf488df2f4b79782f0e430b04a0e17c0aa7979b2
+  GoogleAppMeasurement: 1624046ab1bcc5e170061a56ef5679000b079c8e
+  GoogleUtilities: 6481e6318c5fcabaaa8513ef8120f329055d7c10
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   IdentityImg: ada114256228c58b82b9eadfe30863aa5908e74f
   InfiniteCollectionView: 49a7639a04c7cb21164de3840245f084fda257d0
   IQKeyboardManagerSwift: b07ccf9d8cafe993dcd6cb794eb4ba34611a0c4e
   Keccak: 99956a01b86eeac74e4debdac71a8c9ef33fb46d
   KeychainAccess: b3816fddcf28aa29d94b10ec305cd52be14c472b
-  Kingfisher: 2558186963e5be42d98c5b110ccb3130148b77e4
-  Koloda: bcf5acded25fc49020d1447ed8ddd87e14d01e7e
+  Kingfisher: 4692c783ffb99e9e2e40a6eb3e518c3b96c6fa8c
+  Koloda: f456d003d2ce15ef9f10c2874a444f1f570b490c
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   MGSwipeTableCell: dc4eca3212ed38a563b27d6aa7b3c01ce656c1e2
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
@@ -370,18 +373,18 @@ SPEC CHECKSUMS:
   RealmSwift: 8a1e6a02b7a08cd17a31e3115143fb69fe5f3fb9
   RESideMenu: 4003aa053ff48d4152d464e512f1844aa82e807c
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
-  Reveal-SDK: 43206a57f575632fd304e85385cc259b5d359e32
+  Reveal-SDK: 3523e0eb7c562811c51bb71da6e523a6373702c8
   RxAlamofire: 09624d0f2d48ed8b686e4eb4cf68e28cbd2df556
-  RxAtomic: f8d6adc1ccb87a767811269e4875887bc74dbf19
-  RxCocoa: 2f35a76bf8887872e28a1914112395b11b8e0e64
+  RxAtomic: d00e97c10db88c6f08540e0bf2752fc5a2404167
+  RxCocoa: 477990dc3b4c3ff55fb0ac77e1cc06244e0aaec8
   RxFeedback: 49bb931caf6d05e315d5b5366c0991ad1474ea36
   RxGesture: 7f6dfb45dbde06e618c24442d38493e3144f2c95
   RxOptional: 80426a0ddbd092573e4c482d8cc13302078c4d5e
   RxReachability: 053f2d913db44998242ade488ccaef558f3ce7cb
   RxRealm: 5379eddd74f8d617ca7681d1f8d144af25b432b0
-  RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
+  RxSwift: 74c29b693c8e42b0f64400e8b06564575742d649
   RxSwiftExt: 01f8ecbeeb355698e9c75365ebe908b00dacf45d
-  Sentry: b4efbf4f0d1d18681954fa861d154f79196c4b58
+  Sentry: 5267d493a398663538317e4dcc438c12c66202ed
   Skeleton: 4b11a4aa6fb289626aa7e486f0b16b9b394d0ba4
   SwiftDate: 6329e58969a2de31cea7f1ee1143b247693196e7
   SwiftGen: 4379bd3640b0a212a0f6ea3c494adba385513d10
@@ -393,6 +396,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: 7b6521bcba11eb833fb0ac08afce2186584c5f72
+PODFILE CHECKSUM: dce0e0ad61897310113dbdbe191bd8b3e2ca807c
 
 COCOAPODS: 1.6.1
