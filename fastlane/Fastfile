@@ -13,6 +13,10 @@ before_all do
   sh("security find-identity -v -p codesigning fastlane_tmp_keychain")  
   sh("ssh-keyscan -H bitbucket.org >> ~/.ssh/known_hosts")
 
+  ENV['ROOT_PROJECT']= "#{Dir.pwd}/.."
+  ENV['BUILD_NUMBER'] = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'")  
+  ENV['VERSION'] = get_version_number(xcodeproj: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj")
+  
   unless Helper.ci?
     sh("echo CI DONT USE")
     ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
@@ -129,28 +133,22 @@ platform :ios do
     download_certificates
     download_resources
 
-    ROOT=File.expand_path("..", Dir.pwd)
-    ENV['FL_BUILD_NUMBER_PROJECT'] = "#{ROOT}/WavesWallet-iOS.xcodeproj"
-    build_number = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'")
-    version = get_version_number(xcodeproj: "#{ROOT}/WavesWallet-iOS.xcodeproj")
-
-    sh("echo #{version}")
-    sh("echo #{build_number}")
 		gym(scheme: "#{ENV['SCHEME_PROJECT']}",
         workspace: "WavesWallet-iOS.xcworkspace",
         include_bitcode: true,
         include_symbols: true,
         export_options: "#{ENV['EXPORT_OPTIONS']}",
-        output_name:  "#{ENV['SCHEME_PROJECT']}-v#{version}.#{build_number}".delete(' ').delete('?')      
-    )    
+        output_directory: "#{ENV['ROOT_PROJECT']}",
+        output_name: "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}.#{ENV['BUILD_NUMBER']}".delete(' ').delete('?')      
+    )
   end
 
   lane :create_changelog do    
     puts "create_changelog"
-    ROOT=File.expand_path("..", Dir.pwd)
-    ENV['FL_BUILD_NUMBER_PROJECT'] = "#{ROOT}/WavesWallet-iOS.xcodeproj"
+    
+    ENV['FL_BUILD_NUMBER_PROJECT'] = "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj"
     build_number = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'")
-    version = get_version_number(xcodeproj: "#{ROOT}/WavesWallet-iOS.xcodeproj")
+    version = get_version_number(xcodeproj: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj")
     commit = last_git_commit
     author = commit[:author] # author of the commit
     author_email = commit[:author_email] # email of the author of the commit
@@ -186,8 +184,7 @@ platform :ios do
     ROOT=File.expand_path("..", Dir.pwd)
     ENV['SUMBIT_PAPTH']="#{ROOT}/Pods/Crashlytics/submit"
     ENV['IPA_PATH']="#{GYM_OUTPUT_DIRECTORY}/#{GYM_OUTPUT_NAME}"
-    # "#{ROOT}/WavesWallet-iOS.ipa"
-
+    
     puts "upload_crashlytics"
     sh("bash #{Dir.pwd}/run_fabric.sh")
 
@@ -251,10 +248,14 @@ platform :ios do
 
     upload_symbols_to_crashlytics(gsp_path: "#{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
     
+    PROJECT_IPA = "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}.#{ENV['BUILD_NUMBER']}".delete(' ').delete('?')
+    PROJECT_IPA = "#{ENV['ROOT_PROJECT']}/#{PROJECT_IPA}.ipa"
+
     testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
                itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",
                wait_for_uploaded_build: "false",
-               changelog: "#{ENV['CHANGELOG']}")
+               changelog: "#{ENV['CHANGELOG']}",
+               ipa: PROJECT_IPA)
         
   end
 
