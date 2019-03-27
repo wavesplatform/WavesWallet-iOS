@@ -1,6 +1,7 @@
 PODS:
   - 25519 (2.0.2)
   - Alamofire (4.8.1)
+  - Amplitude-iOS (4.6.0)
   - AppsFlyerFramework (4.9.0)
   - AppSpectorSDK (1.1.7)
   - Base58 (0.2)
@@ -331,6 +332,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   '25519': 2c284bd04dc489ee6c3ad5f04339480a5bcae042
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
+  Amplitude-iOS: ac1715ae68104b7a51723209ad574f60ab22ae5f
   AppsFlyerFramework: f57e5d590ad3124d3e594a76032a181bc91ec6cd
   AppSpectorSDK: e819dafad1a7137e0af68076effeccb77318ed5a
   Base58: a8409491c6f89c3b86a9b447d4302b1a4e03e2a2
@@ -396,6 +398,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: dce0e0ad61897310113dbdbe191bd8b3e2ca807c
+PODFILE CHECKSUM: db76558de8c08e866171a77527ba51c1ecc05342
 
 COCOAPODS: 1.6.1
