@@ -141,7 +141,7 @@ platform :ios do
         include_bitcode: true,
         include_symbols: true,
         export_options: "#{ENV['EXPORT_OPTIONS']}",
-        output_name:  "#{ENV['SCHEME_PROJECT']}-v#{version}.#{build_number}".delete(' ')      
+        output_name:  "#{ENV['SCHEME_PROJECT']}-v#{version}.#{build_number}".delete(' ').delete('?')      
     )    
   end
 
