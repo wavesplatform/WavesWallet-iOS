@@ -14,9 +14,9 @@ before_all do
   sh("ssh-keyscan -H bitbucket.org >> ~/.ssh/known_hosts")
 
   ENV['ROOT_PROJECT']= "#{Dir.pwd}/.."
-  ENV['BUILD_NUMBER'] = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'")  
+  ENV['BUILD_NUMBER'] = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'").gsub!(/[^0-9A-Za-z]/, '')
   ENV['VERSION'] = get_version_number(xcodeproj: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj")
-  
+    
   unless Helper.ci?
     sh("echo CI DONT USE")
     ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
@@ -246,17 +246,16 @@ platform :ios do
       ENV['CHANGELOG'] = "Not Found"
     end
 
-    upload_symbols_to_crashlytics(gsp_path: "#{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
-    
-    PROJECT_IPA = "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}.#{ENV['BUILD_NUMBER']}".delete(' ').delete('?')
+    PROJECT_IPA = "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}.#{ENV['BUILD_NUMBER']}"
     PROJECT_IPA = "#{ENV['ROOT_PROJECT']}/#{PROJECT_IPA}.ipa"
-
+    
     testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
                itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",
                wait_for_uploaded_build: "false",
                changelog: "#{ENV['CHANGELOG']}",
                ipa: PROJECT_IPA)
         
+    upload_symbols_to_crashlytics(gsp_path: "#{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")              
   end
 
 
