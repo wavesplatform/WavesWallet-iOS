@@ -127,7 +127,6 @@ platform :ios do
     download_resources
   end
 
-
   lane :build_projet do
 
     download_certificates
@@ -163,14 +162,7 @@ platform :ios do
       merge_commit_filtering: "exclude_merges" # Optional, lets you filter out merge commits
     )
 
-    # root_ouput = Pathname.new(ENV["FL_OUTPUT_DIR"])
-    # puts "#{root_ouput}"
-
     ENV['CHANGELOG']="Version: #{version} #{build_number}\n#{changelog}"
-    puts "_changelog_"
-    puts ENV['CHANGELOG']
-    # ENV['CHANGELOG_PATH']="#{ROOT}/changelog.txt"
-    # sh("echo \"#{ENV['CHANGELOG']}\" >> #{ENV['CHANGELOG_PATH']}")
   end
 
   lane :upload_crashlytics do
