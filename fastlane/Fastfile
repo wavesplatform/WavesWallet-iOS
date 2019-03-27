@@ -1,93 +1,146 @@
 require 'open-uri'
 require 'credentials_manager'
 require 'dotenv/load'
+require 'dotenv'
 
 default_platform(:ios)
 
+before_all do
+  Dotenv.overload '.env'
+
+  sh("security find-identity -v -p codesigning fastlane_tmp_keychain")
+  setup_circle_ci  
+  sh("security find-identity -v -p codesigning fastlane_tmp_keychain")  
+  sh("ssh-keyscan -H bitbucket.org >> ~/.ssh/known_hosts")
+
+  unless Helper.ci?
+    sh("echo CI DONT USE")
+    ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
+  end
+
+end
+
 platform :ios do
 
-  lane :waves_test do
+  lane :dev_enviroment do
+
+    ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Dev"
+    ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.dev"
+    ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.dev"
+    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.dev"
+
+    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Dev.plist"
+    ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Dev.plist"
+    ENV['URL_AMPLITUDE'] = "#{ENV['URL_ROOT_CONFIG']}/Amplitude-Info-Prod.plist"
+    ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
+    ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
+    ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
+  
+    ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
+
+    ENV['MATCH_TYPE'] = "development"
+    ENV['CHANGELOG_BETWEEN_BRANCH']="develop"
+  end
+
+  lane :prod_enviroment do
+
+    ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Release"
+    ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.WavesWallet"
+    ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.WavesWallet"
+    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
+
+    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Prod.plist"
+    ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Prod.plist"
+    ENV['URL_AMPLITUDE'] = "#{ENV['URL_ROOT_CONFIG']}/Amplitude-Info-Prod.plist"
+    ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
+    ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
+    ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
+
+    ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
+
+    ENV['MATCH_TYPE'] = "appstore"
+    ENV['CHANGELOG_BETWEEN_BRANCH']="master"
+  end
+
+  lane :test_enviroment do
 
     ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Test"
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.test"
-
-    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Test.plist"
-    ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Test.plist"
-
-    ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
-    ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
-    ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
-
-    ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
-    ENV['MATCH_TYPE'] = "adhoc"
-    ENV['CHANGELOG_BETWEEN_BRANCH']="develop"
-    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.test"
-    
-    build_projet
-    upload_testflight
-  end
-
-  lane :waves do
-    ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Release"
-    ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.WavesWallet"
-    ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.WavesWallet"
+    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.test"    
 
     ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Prod.plist"
     ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Prod.plist"
-
+    ENV['URL_AMPLITUDE'] = "#{ENV['URL_ROOT_CONFIG']}/Amplitude-Info-Prod.plist"
     ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
     ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
     ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
 
-    ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
-    ENV['MATCH_TYPE'] = "appstore"
-    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
-    ENV['CHANGELOG_BETWEEN_BRANCH']="master"
-    build_projet
+    ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AdHoc.plist"
+
+    ENV['MATCH_TYPE'] = "adhoc"
+    ENV['CHANGELOG_BETWEEN_BRANCH']="master"    
+  end
+
+  lane :test_build_projet do
+    test_enviroment
+    build_projet    
+  end
+
+  lane :test_upload_testflight do
+    test_enviroment
     upload_testflight
   end
 
-  lane :waves_test_adhoc do
-      ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Test-AdHoc"
-      ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
-      ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.test"
-
-      ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Test.plist"
-      ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Test.plist"
-
-      ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
-      ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
-      ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
-
-      ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AdHoc.plist"
-      ENV['MATCH_TYPE'] = "adhoc"
-      ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.test"
-      ENV['CHANGELOG_BETWEEN_BRANCH']="develop"
-      build_projet
-      upload_crashlytics
+  lane :prod_build_projet do
+    prod_enviroment
+    build_projet    
   end
 
-  lane :build_projet do
+  lane :prod_upload_testflight do
+    prod_enviroment
+    upload_testflight 
+  end
 
-    setup_circle_ci
+  lane :dev_build_projet do
+    dev_enviroment
+    build_projet
+  end
+
+  lane :dev_add_new_devices do
+    dev_enviroment
+    add_new_devices
+  end
+
+  lane :dev_install do
+    dev_enviroment
+    download_certificates
+    download_resources
+  end
+
+  lane :dev_download_resources do
+    dev_enviroment    
+    download_resources
+  end
+
+
+  lane :build_projet do
 
     download_certificates
     download_resources
 
-		cocoapods(
-			verbose: true,
-			clean: true,
-			use_bundle_exec: false
-		)
+    ROOT=File.expand_path("..", Dir.pwd)
+    ENV['FL_BUILD_NUMBER_PROJECT'] = "#{ROOT}/WavesWallet-iOS.xcodeproj"
+    build_number = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'")
+    version = get_version_number(xcodeproj: "#{ROOT}/WavesWallet-iOS.xcodeproj")
 
 		gym(scheme: "#{ENV['SCHEME_PROJECT']}",
         workspace: "WavesWallet-iOS.xcworkspace",
         include_bitcode: true,
         include_symbols: true,
-        export_options: "#{ENV['EXPORT_OPTIONS']}"
+        export_options: "#{ENV['EXPORT_OPTIONS']}"        
     )
-
+    # output_name:  "WavesWallet-iOS-v#{version}.#{build_number}"
   end
 
   lane :create_changelog do
@@ -141,12 +194,7 @@ platform :ios do
   end
 
   lane :download_certificates do
-
-    unless Helper.ci?
-      sh("echo CI DONT USE")
-      ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
-    end
-  
+    
     match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'].split(","),
       git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
       username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
@@ -154,55 +202,6 @@ platform :ios do
       readonly: true,
       keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}"
     )
-  end
-
-  lane :new_devices do
-
-    dev_enviroment
-    unless Helper.ci?
-      sh("echo CI DONT USE")
-      ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
-    end
-  
-    match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'].split(","),
-          git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
-          username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
-          type: "#{ENV['MATCH_TYPE']}",
-          force_for_new_devices: true,
-          keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
-  end
-
-  lane :dev_enviroment do
-
-    ENV['SCHEME_PROJECT'] ="WavesWallet-iOS-Dev"
-    ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.dev"
-    ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.dev"
-    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.dev"
-
-    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Dev.plist"
-    ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Dev.plist"
-
-    ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
-    ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
-    ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
-  
-    ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
-
-    ENV['MATCH_TYPE'] = "development"
-    ENV['CHANGELOG_BETWEEN_BRANCH']="develop"
-    
-  end
-
-  lane :dev_install do
-    dev_enviroment
-    download_certificates
-    download_resources
-  end
-
-
-  lane :dev_download_resources do
-    dev_enviroment    
-    download_resources
   end
 
   lane :download_resources do
@@ -220,6 +219,24 @@ platform :ios do
 
     sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Sentry-io-Info.plist")
     sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_SENTRY_IO']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Sentry-io-Info.plist")
+
+    sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Amplitude-Info.plist")
+    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_SENTRY_IO']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Amplitude-Info.plist")
+  end
+
+  lane :download_bundle_enviroments do
+    sh("rm -rf #{Dir.pwd}/../.env")
+    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_BUNDLE_ENV']} >> #{Dir.pwd}/../.env")
+  end
+
+  lane :add_new_devices do
+    
+    match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'].split(","),
+          git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
+          username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
+          type: "#{ENV['MATCH_TYPE']}",
+          force_for_new_devices: true,
+          keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
   end
 
   lane :upload_testflight do
@@ -230,10 +247,23 @@ platform :ios do
       ENV['CHANGELOG'] = "Not Found"
     end
 
+    upload_symbols_to_crashlytics(gsp_path: "#{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
+    
     testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
                itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",
-               wait_for_uploaded_build: "false")
-    upload_symbols_to_crashlytics(gsp_path: "#{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")
+               wait_for_uploaded_build: "false",
+               changelog: "#{ENV['CHANGELOG']}")
+        
   end
 
+
+  # lane :init_project do 
+  
+	# 	cocoapods(
+	# 		verbose: true,
+	# 		clean: true,
+	# 		use_bundle_exec: false
+  #   )
+    
+  # end
 end
