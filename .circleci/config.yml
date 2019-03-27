@@ -205,6 +205,9 @@ jobs:
           command: bundle exec fastlane test_build_projet --verbose
           no_output_timeout: 60m
       - run:
+          name: Bundle Ls a
+          command: ls -a
+      - run:
           name: Fastlane Upload to Testflight
           command: bundle exec fastlane test_upload_testflight --verbose
           no_output_timeout: 60m
