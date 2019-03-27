@@ -134,16 +134,18 @@ platform :ios do
     build_number = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'")
     version = get_version_number(xcodeproj: "#{ROOT}/WavesWallet-iOS.xcodeproj")
 
+    sh("echo #{version}")
+    sh("echo #{build_number}")
 		gym(scheme: "#{ENV['SCHEME_PROJECT']}",
         workspace: "WavesWallet-iOS.xcworkspace",
         include_bitcode: true,
         include_symbols: true,
         export_options: "#{ENV['EXPORT_OPTIONS']}",
-        output_name:  "WavesWallet-iOS-v#{version}.#{build_number}"        
+        output_name:  "#{ENV['SCHEME_PROJECT']}-v#{version}.#{build_number}".delete(' ')      
     )    
   end
 
-  lane :create_changelog do
+  lane :create_changelog do    
     puts "create_changelog"
     ROOT=File.expand_path("..", Dir.pwd)
     ENV['FL_BUILD_NUMBER_PROJECT'] = "#{ROOT}/WavesWallet-iOS.xcodeproj"
@@ -157,7 +159,7 @@ platform :ios do
 
     changelog = changelog_from_git_commits(
       between: [ENV['CHANGELOG_BETWEEN_BRANCH'], hash],  # Optional, lets you specify a revision/tag range between which to collect commit info
-      pretty: "🛸 %ad 👉 %s 👈",# Optional, lets you provide a custom format to apply to each commit when generating the changelog text
+      pretty: "- %ad %s \n",# Optional, lets you provide a custom format to apply to each commit when generating the changelog text
       date_format: "short",# Optional, lets you provide an additional date format to dates within the pretty-formatted string
       match_lightweight_tag: false,  # Optional, lets you ignore lightweight (non-annotated) tags when searching for the last tag
       merge_commit_filtering: "exclude_merges" # Optional, lets you filter out merge commits

@@ -219,10 +219,10 @@ workflows:
       - prod_build:          
           filters:
             branches:
-              only: /^release/v.{2,}$/
+              only: feature/10
   Test:
     jobs:
       - test_build:          
           filters:
             branches:
-              only: /^release/v.{2,}$/              
+              only: feature/10
