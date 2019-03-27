@@ -145,7 +145,7 @@ jobs:
           path: Output/Test                
   Test:
     macos:
-        xcode: "10.2.0"
+        xcode: "10.1.0"
     working_directory: ~/Waves/iOS
     environment:
       BUNDLER_VERSION: 2.0.1
