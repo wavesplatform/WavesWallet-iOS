@@ -134,25 +134,20 @@ final class PasscodeView: UIView, NibOwnerLoadable {
 }
 
 // MARK: ViewConfiguration
-extension PasscodeView: ViewAnimatableConfiguration {
+extension PasscodeView: ViewConfiguration {
 
-    func update(with model: PasscodeView.Model, animated: Bool) {
-        UIView.animate(withDuration: 0.35, delay: 0, options: .curveEaseInOut, animations: {
+    func update(with model: PasscodeView.Model) {
 
-            self.topBarView.changeText(model.text)
-            self.topBarView.changeDetail(model.detail)
-            self.numbers = self.numbers.enumerated().map {
-                if $0.offset < model.numbers.count {
-                    return model.numbers[$0.offset]
-                } else {
-                    return nil
-                }
+        self.topBarView.changeText(model.text)
+        self.topBarView.changeDetail(model.detail)
+        self.numbers = self.numbers.enumerated().map {
+            if $0.offset < model.numbers.count {
+                return model.numbers[$0.offset]
+            } else {
+                return nil
             }
-            self.topBarView.fillDots(count: self.numbers.compactMap { $0 }.count)
-
-        }) { _ in
-
         }
+        self.topBarView.fillDots(count: self.numbers.compactMap { $0 }.count)
 
     }
 }
