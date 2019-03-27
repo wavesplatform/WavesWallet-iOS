@@ -139,7 +139,7 @@ platform :ios do
         include_symbols: true,
         export_options: "#{ENV['EXPORT_OPTIONS']}",
         output_directory: "#{ENV['ROOT_PROJECT']}",
-        output_name: "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}.#{ENV['BUILD_NUMBER']}".delete(' ').delete('?')      
+        output_name: "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}".delete(' ').delete('?')      
     )
   end
 
@@ -246,7 +246,7 @@ platform :ios do
       ENV['CHANGELOG'] = "Not Found"
     end
 
-    PROJECT_IPA = "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}.#{ENV['BUILD_NUMBER']}"
+    PROJECT_IPA = "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}"
     PROJECT_IPA = "#{ENV['ROOT_PROJECT']}/#{PROJECT_IPA}.ipa"
     
     testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
