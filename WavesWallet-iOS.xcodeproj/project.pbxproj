@@ -841,6 +841,7 @@
 		E9C0B49E2176C48300669D1D /* SendPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B49D2176C48300669D1D /* SendPresenter.swift */; };
 		E9C0B4A02176C49B00669D1D /* SendInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B49F2176C49B00669D1D /* SendInteractorProtocol.swift */; };
 		E9C0B4A42176C4BE00669D1D /* SendTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B4A32176C4BE00669D1D /* SendTypes.swift */; };
+		E9C1F5C6224D60B1006DBD8E /* ApplicationDebugSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C1F5C5224D60B1006DBD8E /* ApplicationDebugSettings.swift */; };
 		E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C4134B20E826E300AA044F /* DottedRoundView.swift */; };
 		E9C8F94B20F66A05004C438A /* ConfirmBackupStackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */; };
 		E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */; };
@@ -1812,6 +1813,7 @@
 		E9C0B49F2176C49B00669D1D /* SendInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendInteractorProtocol.swift; sourceTree = "<group>"; };
 		E9C0B4A12176C4A800669D1D /* SendInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendInteractor.swift; sourceTree = "<group>"; };
 		E9C0B4A32176C4BE00669D1D /* SendTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendTypes.swift; sourceTree = "<group>"; };
+		E9C1F5C5224D60B1006DBD8E /* ApplicationDebugSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDebugSettings.swift; sourceTree = "<group>"; };
 		E9C4134B20E826E300AA044F /* DottedRoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DottedRoundView.swift; sourceTree = "<group>"; };
 		E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackListView.swift; sourceTree = "<group>"; };
 		E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackBaseView.swift; sourceTree = "<group>"; };
@@ -2223,6 +2225,7 @@
 				0A071E42215B0A1B007D9750 /* SigningWalletsProtocol.swift */,
 				04E80A11214EF20C00D00AA4 /* SmartTransactionDomain+Assistants.swift */,
 				7BF89E882226E00800853F9D /* SentryManager.swift */,
+				E9C1F5C5224D60B1006DBD8E /* ApplicationDebugSettings.swift */,
 				E944AA72224465BE0009F494 /* AnalyticManager */,
 			);
 			path = Assisstants;
@@ -5774,6 +5777,7 @@
 				E9C8F94B20F66A05004C438A /* ConfirmBackupStackListView.swift in Sources */,
 				0AFB59462209C20E001F0DD8 /* SponsorshipTransaction+Mapper.swift in Sources */,
 				E9A4812F20D8DDBB00272C6D /* ChangePasswordViewController.swift in Sources */,
+				E9C1F5C6224D60B1006DBD8E /* ApplicationDebugSettings.swift in Sources */,
 				0A6AC3D921839F4E005D2525 /* AddressesKeysValueCell.swift in Sources */,
 				F7E954E81EA8FE0700A804DE /* AppDelegate.swift in Sources */,
 				0A96F1D12151B6B5005E148F /* PasscodeNumberButton.swift in Sources */,
