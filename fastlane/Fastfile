@@ -21,6 +21,7 @@ before_all do
   sh("ssh-keyscan -H bitbucket.org >> ~/.ssh/known_hosts")
 
   ENV['ROOT_PROJECT']= "#{Dir.pwd}/.."
+  ENV['OUTPUT_PROJECT']= "#{Dir.pwd}/../Output"
   get_version_and_build
     
   unless Helper.ci?
@@ -144,7 +145,7 @@ platform :ios do
         include_bitcode: true,
         include_symbols: true,
         export_options: "#{ENV['EXPORT_OPTIONS']}",
-        output_directory: "#{ENV['ROOT_PROJECT']}",
+        output_directory: "#{ENV['OUTPUT_PROJECT']}",
         output_name: name
     )
   end
@@ -246,7 +247,7 @@ platform :ios do
     end
 
     PROJECT_IPA = "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}"
-    PROJECT_IPA = "#{ENV['ROOT_PROJECT']}/#{PROJECT_IPA}.ipa"
+    PROJECT_IPA = "#{ENV['OUTPUT_PROJECT']}/#{PROJECT_IPA}.ipa"
     
     testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
                itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",
