@@ -60,10 +60,13 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                 return Observable.zip(assetsList, spamAssets)
                     .map({ (assets, spamAssets) -> [DomainLayer.DTO.Asset] in
                         
-                        let map = environment.hashMapGeneralAssets()
+                        let map = environment.hashMapAssets()
+                        
+                        let spamIds = spamAssets.reduce(into: [String: Bool](), {$0[$1] = true })
+
                         return assets.map { DomainLayer.DTO.Asset(asset: $0,
                                                                   info: map[$0.id],
-                                                                  isSpam: spamAssets.contains($0.id),
+                                                                  isSpam: spamIds[$0.id] == true,
                                                                   isMyWavesToken: $0.sender == accountAddress) }
                     })
             })
@@ -108,8 +111,14 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
 
 fileprivate extension Environment {
 
-    func hashMapGeneralAssets() -> [String: Environment.AssetInfo] {
-        return generalAssetIds.reduce([String: Environment.AssetInfo](), { map, info -> [String: Environment.AssetInfo] in
+    func hashMapAssets() -> [String: Environment.AssetInfo] {
+        
+        var allAssets = generalAssets
+        if let additionalAssets = assets {
+            allAssets.append(contentsOf: additionalAssets)
+        }
+        
+        return allAssets.reduce([String: Environment.AssetInfo](), { map, info -> [String: Environment.AssetInfo] in
             var new = map
             new[info.assetId] = info
             return new
