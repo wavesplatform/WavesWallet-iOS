@@ -82,6 +82,7 @@ private extension TransactionCardActionsCell.Model.Button {
 
     func cancelLeasingButton(_ action: @escaping () -> Void) -> ActionsControl.Model.Button {
         return .init(backgroundColor: .error400,
+                     selectedBackgroundColor: .error700,
                      textColor: .white,
                      text: Localizable.Waves.Transactioncard.Title.cancelLeasing,
                      icon: Images.tCloselease18.image,
@@ -92,6 +93,7 @@ private extension TransactionCardActionsCell.Model.Button {
 
     func sendAgainButton(_ action: @escaping () -> Void) -> ActionsControl.Model.Button {
         return .init(backgroundColor: .warning600,
+                    selectedBackgroundColor: .warning400,
                     textColor: .white,
                     text: Localizable.Waves.Transactioncard.Title.sendAgain,
                     icon: Images.tResend18.image,
@@ -102,6 +104,7 @@ private extension TransactionCardActionsCell.Model.Button {
 
     func viewOnExplorer(_ action: @escaping () -> Void) -> ActionsControl.Model.Button {
         return .init(backgroundColor: .basic50,
+                    selectedBackgroundColor: .basic200,
                     textColor: .black,
                     text: Localizable.Waves.Transactioncard.Title.viewOnExplorer,
                     icon: Images.viewexplorer18Black.image,
@@ -112,6 +115,7 @@ private extension TransactionCardActionsCell.Model.Button {
 
     func copyTxId(_ action: @escaping () -> Void) -> ActionsControl.Model.Button {
         return .init(backgroundColor: .basic50,
+                    selectedBackgroundColor: .basic200,
                     textColor: .black,
                     text: Localizable.Waves.Transactioncard.Title.copyTXID,
                     icon: Images.copy18Black.image,
@@ -125,6 +129,7 @@ private extension TransactionCardActionsCell.Model.Button {
 
     func copyAllData(_ action: @escaping () -> Void) -> ActionsControl.Model.Button {
         return .init(backgroundColor: .basic50,
+                     selectedBackgroundColor: .basic200,
                      textColor: .black,
                      text: Localizable.Waves.Transactioncard.Title.copyAllData,
                      icon: Images.copy18Black.image,

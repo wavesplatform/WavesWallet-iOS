@@ -50,7 +50,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         case .startedLeasing(let leasing):
             return leasingSection(transfer: leasing,
                                   title: Localizable.Waves.Transactioncard.Title.startedLeasing,
-                                  titleContact: Localizable.Waves.Transactioncard.Title.sentTo,
+                                  titleContact: Localizable.Waves.Transactioncard.Title.nodeAddress,
                                   needCancelLeasing: true,
                                   core: core)
 
