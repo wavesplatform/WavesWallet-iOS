@@ -4903,14 +4903,14 @@
 			buildConfigurationList = F7E954F81EA8FE0700A804DE /* Build configuration list for PBXNativeTarget "WavesWallet-iOS" */;
 			buildPhases = (
 				D0B2E799FD762C3AFCE7C323 /* [CP] Check Pods Manifest.lock */,
-				0A97974E21087D0400407F67 /* Gen Code */,
+				A60EA21BC9B82445DBBC7E14 /* [CP] Embed Pods Frameworks */,
+				64578F1B5667F7D76B8CA9B1 /* [CP] Copy Pods Resources */,
 				F7E954E01EA8FE0700A804DE /* Sources */,
 				F7E954E11EA8FE0700A804DE /* Frameworks */,
 				F7E954E21EA8FE0700A804DE /* Resources */,
-				A60EA21BC9B82445DBBC7E14 /* [CP] Embed Pods Frameworks */,
 				0A218B93215549BB00B989A1 /* Fabric run */,
+				0A97974E21087D0400407F67 /* Gen Code */,
 				0AC14789218B043400A25BE5 /* Change Build Version */,
-				64578F1B5667F7D76B8CA9B1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -5150,7 +5150,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nPLIST=\"${PROJECT_DIR}/${INFOPLIST_FILE}\"\nPLB=/usr/libexec/PlistBuddy\nLAST_NUMBER=$($PLB -c \"Print CFBundleVersion\" \"$PLIST\")\nNEW_VERSION=$(($LAST_NUMBER + 1))\n$PLB -c \"Set :CFBundleVersion $NEW_VERSION\" \"$PLIST\"\n";
+			shellScript = "if [ -z \"${CI_INIT}\" ]\nthen\necho \"\\${CI_INIT} is empty\"\nPLIST=\"${PROJECT_DIR}/${INFOPLIST_FILE}\"\nPLB=/usr/libexec/PlistBuddy\nLAST_NUMBER=$($PLB -c \"Print CFBundleVersion\" \"$PLIST\")\nNEW_VERSION=$(($LAST_NUMBER + 1))\n$PLB -c \"Set :CFBundleVersion $NEW_VERSION\" \"$PLIST\"\nelse\necho \"\\${CI_INIT} is NOT empty\"\nfi\n\n\n";
 		};
 		14543D7E4AECF68BEF3D3CC1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
