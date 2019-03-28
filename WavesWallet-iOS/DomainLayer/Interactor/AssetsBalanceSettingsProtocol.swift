@@ -229,7 +229,7 @@ private extension AssetsBalanceSettingsInteractor {
         let favoriteAssets = assets.filter { $0.isInitialFavorite }.sorted(by: { $0.isWaves && !$1.isWaves })
         let secondsAssets = assets.filter { !$0.isInitialFavorite }
     
-        let generalBalances = enviroment.generalAssetIds
+        let generalBalances = enviroment.generalAssets
 
         let sorted = secondsAssets.sorted { (assetFirst, assetSecond) -> Bool in
             
