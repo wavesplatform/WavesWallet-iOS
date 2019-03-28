@@ -28,12 +28,21 @@ final class TransactionCardCoordinator: Coordinator {
     private lazy var popoverViewControllerTransitioning = ModalViewControllerTransitioning { [weak self] in
         self?.removeFromParentCoordinator()
     }
-    
-    private let transaction: DomainLayer.DTO.SmartTransaction
+
+    private let kind: TransactionCard.Kind
+
     private var transactionCardViewControllerInput: TransactionCardModuleInput?
 
     init(transaction: DomainLayer.DTO.SmartTransaction, router: NavigationRouter) {
-        self.transaction = transaction
+        self.kind = .transaction(transaction)
+        self.navigationRouter = router
+
+        let nv = CustomNavigationController()
+        cardNavigationRouter = NavigationRouter(navigationController: nv)
+    }
+
+    init(kind: TransactionCard.Kind, router: NavigationRouter) {
+        self.kind = kind
         self.navigationRouter = router
 
         let nv = CustomNavigationController()
@@ -46,8 +55,9 @@ final class TransactionCardCoordinator: Coordinator {
             self?.transactionCardViewControllerInput = input
         }
 
-        let vc = TransactionCardBuilder(output: self).build(input: .init(transaction: transaction,
-                                                                         callbackInput: callbackInput))
+        let vc = TransactionCardBuilder(output: self)
+            .build(input: .init(kind: self.kind,
+                                callbackInput: callbackInput))
 
         cardNavigationRouter.viewController.modalPresentationStyle = .custom
         cardNavigationRouter.viewController.transitioningDelegate = popoverViewControllerTransitioning

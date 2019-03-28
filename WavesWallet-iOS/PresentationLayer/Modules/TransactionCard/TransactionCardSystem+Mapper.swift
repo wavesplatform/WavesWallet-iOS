@@ -14,16 +14,9 @@ private struct Constants {
 
 fileprivate typealias Types = TransactionCard
 
-extension TransactionCardSystem {
+extension DomainLayer.DTO.SmartTransaction {
 
-    func section(by core: TransactionCard.State.Core) -> [TransactionCard.Section]  {
-        return core.transaction.sections(core: core)
-    }
-}
-
-fileprivate extension DomainLayer.DTO.SmartTransaction {
-
-    func sections(core: TransactionCard.State.Core) -> [Types.Section] {
+    func sections(core: TransactionCard.State.Core) -> [TransactionCard.Section] {
 
         switch self.kind {
         case .sent(let transfer):
@@ -113,7 +106,9 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
             
         }
     }
+}
 
+fileprivate extension DomainLayer.DTO.SmartTransaction {
     // MARK: - Sent Sections
 
     func sentSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer, core: TransactionCard.State.Core) ->  [Types.Section] {

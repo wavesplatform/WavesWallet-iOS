@@ -94,28 +94,28 @@ final class TransactionCardScroll: ModalTableView {
         arrowButton.frame = arrowFrame
     }
 
-//    override func touchesShouldBegin(_ touches: Set<UITouch>, with event: UIEvent?, in view: UIView) -> Bool {
-//        if view is UIControl {
-//            return true
-//        }
-//        return super.touchesShouldBegin(touches, with: event, in: view)
-//    }
-//
-//    override func touchesShouldCancel(in view: UIView) -> Bool {
-//        if view is UIControl {
-//            return true
-//        }
-//        return super.touchesShouldCancel(in: view)
-//    }
+    override func touchesShouldBegin(_ touches: Set<UITouch>, with event: UIEvent?, in view: UIView) -> Bool {
+        if view is UIControl {
+            return true
+        }
+        return super.touchesShouldBegin(touches, with: event, in: view)
+    }
 
-//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-//
-//        if arrowButton.frame.contains(point) {
-//            return arrowButton
-//        }
-//
-//        return super.hitTest(point, with: event)
-//    }
+    override func touchesShouldCancel(in view: UIView) -> Bool {
+        if view is UIControl {
+            return true
+        }
+        return super.touchesShouldCancel(in: view)
+    }
+
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+
+        if arrowButton.frame.contains(point) {
+            return arrowButton
+        }
+
+        return super.hitTest(point, with: event)
+    }
 }
 
 final private class ArrowButton: UIButton { }
@@ -140,7 +140,7 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
 
     private let disposeBag: DisposeBag = DisposeBag()
 
-    private var transaction: DomainLayer.DTO.SmartTransaction?
+    private var kind: Types.Kind?
 
     var system: System<TransactionCard.State, TransactionCard.Event>!
 
@@ -214,7 +214,7 @@ extension TransactionCardViewController {
     }
 
     private func update(state: Types.State.Core) {
-        self.transaction = state.transaction
+        self.kind = state.kind
     }
 
     private func update(state: Types.State.UI) {
@@ -257,7 +257,7 @@ extension TransactionCardViewController {
 
     private func handlerTapActionButton(_ button: TransactionCardActionsCell.Model.Button) {
 
-        guard let transaction = self.transaction else { return }
+        guard let transaction = self.kind?.transaction else { return }
 
         switch button {
         case .cancelLeasing:

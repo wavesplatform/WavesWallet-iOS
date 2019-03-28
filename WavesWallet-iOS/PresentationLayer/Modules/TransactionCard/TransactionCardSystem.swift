@@ -14,15 +14,15 @@ import RxSwiftExt
 private typealias Types = TransactionCard
 final class TransactionCardSystem: System<TransactionCard.State, TransactionCard.Event> {
 
-    private let transaction: DomainLayer.DTO.SmartTransaction
+    private let kind: TransactionCard.Kind
 
-    init(transaction: DomainLayer.DTO.SmartTransaction) {
-        self.transaction = transaction
+    init(kind: TransactionCard.Kind) {
+        self.kind = kind
     }
 
     override func initialState() -> State! {
 
-        let core: State.Core = .init(transaction: transaction,
+        let core: State.Core = .init(kind: kind,
                                      contacts: .init(),
                                      showingAllRecipients: false)
 
@@ -45,8 +45,10 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
 
         case .showAllRecipients:
 
+            guard let transaction = state.core.kind.transaction else { return }
+
             guard var section = state.ui.sections.first else { return }
-            guard let massTransferAny = state.core.transaction.massTransferAny else { return }
+            guard let massTransferAny = transaction.massTransferAny else { return }
             guard let lastMassReceivedRowModel = state.ui.findLastMassReceivedRowModel() else { return }
 
             guard let lastMassReceivedRowIndex = state.ui.findLastMassReceivedRowIndex() else { return }
@@ -119,9 +121,7 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
             let sections = section(by: state.core)
             state.ui.sections = sections
             state.ui.action = .update
-
-        default:
-            break
+        
         }
     }
 }
@@ -205,7 +205,6 @@ fileprivate extension DomainLayer.DTO.SmartTransaction.MassTransfer {
 
 fileprivate extension DomainLayer.DTO.SmartTransaction {
 
-
     var massTransferAny: MassTransfer? {
 
         switch kind {
@@ -217,5 +216,18 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         }
     }
-
 }
+
+extension TransactionCardSystem {
+
+    func section(by core: TransactionCard.State.Core) -> [TransactionCard.Section]  {
+        switch core.kind {
+        case .transaction(let tx):
+            return tx.sections(core: core)
+
+        case .order(let order):
+            return []
+        }
+    }
+}
+
