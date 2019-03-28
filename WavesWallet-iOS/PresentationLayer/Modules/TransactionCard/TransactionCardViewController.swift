@@ -46,6 +46,7 @@ final class TransactionCardScroll: ModalTableView {
         let arrowButton = ArrowButton(type: .custom)
         arrowButton.translatesAutoresizingMaskIntoConstraints = true
         arrowButton.setBackgroundImage(UIColor.basic50.image, for: .normal)
+        arrowButton.setBackgroundImage(UIColor.basic200.image, for: .highlighted)
         arrowButton.cornerRadius = Constants.arrowButtonCornerRadius
         arrowButton.layer.masksToBounds = true
         arrowButton.setImage(Images.arrowdown24Black.image, for: .normal)
@@ -93,28 +94,28 @@ final class TransactionCardScroll: ModalTableView {
         arrowButton.frame = arrowFrame
     }
 
-    override func touchesShouldBegin(_ touches: Set<UITouch>, with event: UIEvent?, in view: UIView) -> Bool {
-        if view is UIControl {
-            return true
-        }
-        return super.touchesShouldBegin(touches, with: event, in: view)
-    }
+//    override func touchesShouldBegin(_ touches: Set<UITouch>, with event: UIEvent?, in view: UIView) -> Bool {
+//        if view is UIControl {
+//            return true
+//        }
+//        return super.touchesShouldBegin(touches, with: event, in: view)
+//    }
+//
+//    override func touchesShouldCancel(in view: UIView) -> Bool {
+//        if view is UIControl {
+//            return true
+//        }
+//        return super.touchesShouldCancel(in: view)
+//    }
 
-    override func touchesShouldCancel(in view: UIView) -> Bool {
-        if view is UIControl {
-            return true
-        }
-        return super.touchesShouldCancel(in: view)
-    }
-
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-
-        if arrowButton.frame.contains(point) {
-            return arrowButton
-        }
-
-        return super.hitTest(point, with: event)
-    }
+//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+//
+//        if arrowButton.frame.contains(point) {
+//            return arrowButton
+//        }
+//
+//        return super.hitTest(point, with: event)
+//    }
 }
 
 final private class ArrowButton: UIButton { }
@@ -150,14 +151,13 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
     override func viewDidLoad() {
         super.viewDidLoad()
         rootView.delegate = self
-
         arrowButton.addTarget(self, action: #selector(handlerTapOnArrowButton(sender:)), for: .touchUpInside)
 
         navigationItem.isNavigationBarHidden = true
         navigationItem.shadowImage = nil
 
         system
-            .start()            
+            .start()
             .drive(onNext: { [weak self] (state) in
                 self?.update(state: state.core)
                 self?.update(state: state.ui)

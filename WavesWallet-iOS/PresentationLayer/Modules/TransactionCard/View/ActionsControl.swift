@@ -30,6 +30,7 @@ final class ActionsControl: UIView, NibOwnerLoadable {
 
         struct Button {
             let backgroundColor: UIColor
+            let selectedBackgroundColor: UIColor
             let textColor: UIColor
             let text: String
             let icon: UIImage
@@ -70,10 +71,14 @@ private final class ActionButton: UIButton {
         self.effectsOnTap = model.effectsOnTap
         self.tapHanler = model.tapHanler
         self.titleLabel?.font = .systemFont(ofSize: 13, weight: .regular)
+
         setImage(model.icon, for: .normal)
+        setImage(model.icon, for: .highlighted)
+
         setTitle(model.text, for: .normal)
         setTitleColor(model.textColor, for: .normal)
         setBackgroundImage(model.backgroundColor.image, for: .normal)
+        setBackgroundImage(model.selectedBackgroundColor.image, for: .highlighted)
         layer.cornerRadius = Constants.buttonCornerRadius
         layer.masksToBounds = true
         contentEdgeInsets = Constants.contentEdgeInsets
@@ -90,11 +95,13 @@ private final class ActionButton: UIButton {
 
                 let oldImage = self.imageView?.image
                 self.setImage(image, for: .normal)
+                self.setImage(image, for: .highlighted)
                 self.isUserInteractionEnabled = false
 
                 DispatchQueue.main.asyncAfter(deadline: .now() + interval) {
 
                     self.setImage(oldImage, for: .normal)
+                    self.setImage(oldImage, for: .highlighted)
                     self.isUserInteractionEnabled = true
                 }
             case .changeTitleForTime(let title, let interval):

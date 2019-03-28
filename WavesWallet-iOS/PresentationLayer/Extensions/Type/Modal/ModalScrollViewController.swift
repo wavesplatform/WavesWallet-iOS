@@ -54,7 +54,6 @@ class ModalScrollViewController: UIViewController {
         super.viewWillDisappear(animated)
     }
 
-
     //MARK: Need overriding
     var scrollView: UIScrollView {
         assertMethodNeedOverriding()
