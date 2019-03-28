@@ -5,8 +5,15 @@ require 'dotenv'
 
 default_platform(:ios)
 
+def get_version_and_build   
+  ENV['BUILD_NUMBER'] = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'").gsub!(/[^0-9A-Za-z]/, '')
+  ENV['VERSION'] = get_version_number(xcodeproj: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj")    
+end
+
 before_all do
   Dotenv.overload '.env'
+
+  ENV['CI_INIT']="true"
 
   sh("security find-identity -v -p codesigning fastlane_tmp_keychain")
   setup_circle_ci  
@@ -14,8 +21,7 @@ before_all do
   sh("ssh-keyscan -H bitbucket.org >> ~/.ssh/known_hosts")
 
   ENV['ROOT_PROJECT']= "#{Dir.pwd}/.."
-  ENV['BUILD_NUMBER'] = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'").gsub!(/[^0-9A-Za-z]/, '')
-  ENV['VERSION'] = get_version_number(xcodeproj: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj")
+  get_version_and_build
     
   unless Helper.ci?
     sh("echo CI DONT USE")
@@ -132,13 +138,14 @@ platform :ios do
     download_certificates
     download_resources
 
+    name = "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}"
 		gym(scheme: "#{ENV['SCHEME_PROJECT']}",
         workspace: "WavesWallet-iOS.xcworkspace",
         include_bitcode: true,
         include_symbols: true,
         export_options: "#{ENV['EXPORT_OPTIONS']}",
         output_directory: "#{ENV['ROOT_PROJECT']}",
-        output_name: "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}".delete(' ').delete('?')      
+        output_name: name
     )
   end
 
