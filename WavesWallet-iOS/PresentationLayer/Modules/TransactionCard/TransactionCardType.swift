@@ -32,7 +32,7 @@ enum TransactionCard {
                 case deleted
             }
 
-            let transaction: DomainLayer.DTO.SmartTransaction
+            let kind: Kind
             var contacts: [String: ContactMutation]
             var showingAllRecipients: Bool
         }
@@ -43,6 +43,31 @@ enum TransactionCard {
 
         var ui: UI
         var core: Core
+    }
+
+    enum Kind {
+        case order(DomainLayer.DTO.Dex.MyOrder)
+        case transaction(DomainLayer.DTO.SmartTransaction)
+
+        var transaction: DomainLayer.DTO.SmartTransaction? {
+            switch self {
+            case .transaction(let tx):
+                return tx
+
+            default:
+                return nil
+            }
+        }
+
+        var order: DomainLayer.DTO.Dex.MyOrder? {
+            switch self {
+            case .order(let order):
+                return order
+
+            default:
+                return nil
+            }
+        }
     }
 
     enum Event {

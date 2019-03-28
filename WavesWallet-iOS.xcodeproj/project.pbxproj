@@ -6242,7 +6242,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		0A15081F219B04DF00516037 /* Test-AdHoc */ = {
+		0A15081F219B04DF00516037 /* Test-Build */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -6295,16 +6295,16 @@
 				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 			};
-			name = "Test-AdHoc";
+			name = "Test-Build";
 		};
-		0A150820219B04DF00516037 /* Test-AdHoc */ = {
+		0A150820219B04DF00516037 /* Test-Build */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E0E99F201DFCDD4280DDB64C /* Pods-WavesWallet-iOS.test-adhoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Test";
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2.3;
 				DEFINES_MODULE = NO;
@@ -6318,7 +6318,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.wavesplatform.waveswallet.test";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wavesplatform.waveswallet.test";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_INCLUDE_PATHS = "$(inherited) \"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/Charts\" \"${PODS_CONFIGURATION_BUILD_DIR}/Differentiator\" \"${PODS_CONFIGURATION_BUILD_DIR}/Gloss\" \"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardManagerSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/KeychainAccess\" \"${PODS_CONFIGURATION_BUILD_DIR}/Koloda\" \"${PODS_CONFIGURATION_BUILD_DIR}/Moya\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCode\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCodeReader.swift\" \"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/Result\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxAlamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxDataSources\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxGesture\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxRealm\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\" \"${PODS_CONFIGURATION_BUILD_DIR}/UPCarouselFlowLayout\" \"${PODS_ROOT}/Headers/Public\"/**";
 				SWIFT_OBJC_BRIDGING_HEADER = "WavesWallet-iOS/Resources/ObjCBridgingHeader.h";
@@ -6326,7 +6326,7 @@
 				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "";
 			};
-			name = "Test-AdHoc";
+			name = "Test-Build";
 		};
 		0A762DA4216512420019D447 /* Test */ = {
 			isa = XCBuildConfiguration;
@@ -6389,7 +6389,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Test";
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2.3;
@@ -6465,7 +6465,7 @@
 			};
 			name = Release;
 		};
-		7BF89EA022272A5E00853F9D /* Test-AdHoc */ = {
+		7BF89EA022272A5E00853F9D /* Test-Build */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 39E7B5DDD0BC308CCE651F05 /* Pods-MonkeyTest.test-adhoc.xcconfig */;
 			buildSettings = {
@@ -6485,7 +6485,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "WavesWallet-iOS";
 			};
-			name = "Test-AdHoc";
+			name = "Test-Build";
 		};
 		7BF89EA122272A5E00853F9D /* Test */ = {
 			isa = XCBuildConfiguration;
@@ -6697,7 +6697,7 @@
 			buildConfigurations = (
 				7BF89E9E22272A5E00853F9D /* Debug */,
 				7BF89E9F22272A5E00853F9D /* Release */,
-				7BF89EA022272A5E00853F9D /* Test-AdHoc */,
+				7BF89EA022272A5E00853F9D /* Test-Build */,
 				7BF89EA122272A5E00853F9D /* Test */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -6708,7 +6708,7 @@
 			buildConfigurations = (
 				F7E954F61EA8FE0700A804DE /* Debug */,
 				F7E954F71EA8FE0700A804DE /* Release */,
-				0A15081F219B04DF00516037 /* Test-AdHoc */,
+				0A15081F219B04DF00516037 /* Test-Build */,
 				0A762DA4216512420019D447 /* Test */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -6719,7 +6719,7 @@
 			buildConfigurations = (
 				F7E954F91EA8FE0700A804DE /* Debug */,
 				F7E954FA1EA8FE0700A804DE /* Release */,
-				0A150820219B04DF00516037 /* Test-AdHoc */,
+				0A150820219B04DF00516037 /* Test-Build */,
 				0A762DA5216512420019D447 /* Test */,
 			);
 			defaultConfigurationIsVisible = 0;
