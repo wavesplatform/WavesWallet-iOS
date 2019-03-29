@@ -2359,6 +2359,8 @@ internal enum Localizable {
         internal static var tokenGeneration: String { return Localizable.tr("Waves", "transactioncard.title.tokenGeneration") }
         /// Token Reissue
         internal static var tokenReissue: String { return Localizable.tr("Waves", "transactioncard.title.tokenReissue") }
+        /// Total
+        internal static var total: String { return Localizable.tr("Waves", "transactioncard.title.total") }
         /// Unconfirmed
         internal static var unconfirmed: String { return Localizable.tr("Waves", "transactioncard.title.unconfirmed") }
         /// Unrecognised Transaction

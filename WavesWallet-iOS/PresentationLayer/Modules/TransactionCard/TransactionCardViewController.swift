@@ -431,6 +431,13 @@ extension TransactionCardViewController: UITableViewDataSource {
             cell.update(with: model)
 
             return cell
+
+        case .order(let model):
+
+            let cell: TransactionCardOrderCell = tableView.dequeueCell()
+            cell.update(with: model)
+
+            return cell
         }
     }
 }
