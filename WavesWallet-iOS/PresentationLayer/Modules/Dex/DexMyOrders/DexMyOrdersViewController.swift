@@ -59,7 +59,7 @@ final class DexMyOrdersViewController: UIViewController {
         guard let navigationController = self.navigationController else { return }
         let nav = NavigationRouter(navigationController: navigationController)
         let coordinator = TransactionCardCoordinator(kind: .order(order), router: nav)
-        
+
         //TODO: Fix
         self.navigationRouter = nav
         self.transactionCardCoordinator = coordinator

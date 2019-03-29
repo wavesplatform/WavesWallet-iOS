@@ -569,6 +569,7 @@
 		7B601B2A2240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B601B292240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift */; };
 		7B6922C6223BA1730056DA67 /* TransactionCardSystem+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6922C5223BA1730056DA67 /* TransactionCardSystem+Mapper.swift */; };
 		7BBDA0B62226CA5C00A83411 /* NodePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBDA0B52226CA5C00A83411 /* NodePlugin.swift */; };
+		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
 		7BD2FD35223C5E1F0098CFB9 /* TransactionCardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */; };
 		7BDA6AD5222D8C82001DE71C /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6AD4222D8C81001DE71C /* System.swift */; };
 		7BDA6AD7222D8CA1001DE71C /* TransactionCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6AD6222D8CA1001DE71C /* TransactionCardViewController.swift */; };
@@ -1524,6 +1525,7 @@
 		7B601B292240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SmartTransactionDTO+EncodingToString.swift"; sourceTree = "<group>"; };
 		7B6922C5223BA1730056DA67 /* TransactionCardSystem+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionCardSystem+Mapper.swift"; sourceTree = "<group>"; };
 		7BBDA0B52226CA5C00A83411 /* NodePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodePlugin.swift; sourceTree = "<group>"; };
+		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
 		7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardCoordinator.swift; sourceTree = "<group>"; };
 		7BDA6AD4222D8C81001DE71C /* System.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		7BDA6AD6222D8CA1001DE71C /* TransactionCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardViewController.swift; sourceTree = "<group>"; };
@@ -2967,6 +2969,7 @@
 		0ADD7F1E21F22FB60075FC59 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				7BDA6AD4222D8C81001DE71C /* System.swift */,
 				0ADD7F3721F22FB60075FC59 /* ActivityIndicator+Rx.swift */,
 				0ADD7F4221F22FB60075FC59 /* CALayer+RoundingCorners.swift */,
 				0ADD7F1F21F22FB60075FC59 /* CALayer+Shadow.swift */,
@@ -3035,12 +3038,12 @@
 		0ADD7F7D21F22FB60075FC59 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				0ADD7F7E21F22FB60075FC59 /* Skeleton */,
-				0ADD7F8121F22FB60075FC59 /* Module */,
-				0ADD7F8421F22FB60075FC59 /* ViewConfiguration.swift */,
-				0ADD7F8621F22FB60075FC59 /* ViewCalculate.swift */,
 				0ADD7F8721F22FB60075FC59 /* SectionDisplayCollection.swift */,
+				0ADD7F8621F22FB60075FC59 /* ViewCalculate.swift */,
+				0ADD7F8421F22FB60075FC59 /* ViewConfiguration.swift */,
+				0ADD7F8121F22FB60075FC59 /* Module */,
 				0ADD7F8821F22FB60075FC59 /* Reusable */,
+				0ADD7F7E21F22FB60075FC59 /* Skeleton */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -3144,6 +3147,7 @@
 		0ADD801221F22FFA0075FC59 /* History */ = {
 			isa = PBXGroup;
 			children = (
+				7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */,
 				0ADD801321F22FFA0075FC59 /* TransactionHistoryCoordinator.swift */,
 				0ADD801421F22FFA0075FC59 /* HistoryCoordinator.swift */,
 			);
@@ -3457,6 +3461,13 @@
 		0AF92281212E1234003BA067 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				7BDA6AE722313E59001DE71C /* TransactionImageView.swift */,
+				7BDA6AE922313E85001DE71C /* TransactionImageView.xib */,
+				7BDA6AF122315024001DE71C /* ContactDetailView.swift */,
+				7BDA6AF322315466001DE71C /* ContactDetailView.xib */,
+				7B39029622366D0100AAFDB8 /* AddressBookButton.swift */,
+				7B3902A62237A74900AAFDB8 /* ActionsControl.swift */,
+				7B3902A82237A75600AAFDB8 /* ActionsControl.xib */,
 				E9310D1C217942C8008BF3EE /* BlueBgView.swift */,
 				0AF922A2212E1234003BA067 /* BorderButtView.swift */,
 				0AF922A1212E1234003BA067 /* CenteringContentButton.swift */,
@@ -3479,6 +3490,8 @@
 				0A43996821504CF60032E608 /* SideMenu.swift */,
 				0AF92297212E1234003BA067 /* TickerView.swift */,
 				0A762D9621639FCC0019D447 /* WavesButton.swift */,
+				7BDA6AE5223028DC001DE71C /* BalanceLabel.swift */,
+				7BDA6AE1223025AD001DE71C /* BalanceLabel.xib */,
 				0AF9228A212E1234003BA067 /* EmptyCell.xib */,
 				0AF0C67C21AACB3700602197 /* GlobalErrorView.xib */,
 				0AF92282212E1234003BA067 /* TickerView.xib */,
@@ -3560,19 +3573,20 @@
 			isa = PBXGroup;
 			children = (
 				7B3902AA2237AEE200AAFDB8 /* TransactionCardActionsCell.swift */,
+				7B39029422366B8E00AAFDB8 /* TransactionCardAddressCell.swift */,
+				7B3A51A7223AA08F00C3BF38 /* TransactionCardAssetCell.swift */,
+				7B3902A022379BFE00AAFDB8 /* TransactionCardAssetDetailCell.swift */,
 				7B3902A42237A5A900AAFDB8 /* TransactionCardDashedLineCell.swift */,
 				7B39029E223790BF00AAFDB8 /* TransactionCardDescriptionCell.swift */,
+				7B3902AF2237D8FA00AAFDB8 /* TransactionCardExchangeCell.swift */,
 				7BDA6AE32230281A001DE71C /* TransactionCardGeneralCell.swift */,
 				7B39029A2236A17900AAFDB8 /* TransactionCardKeyBalanceCell.swift */,
 				7B390298223698D300AAFDB8 /* TransactionCardKeyValueCell.swift */,
 				7BDA6AF522316078001DE71C /* TransactionCardMassSentRecipientCell.swift */,
-				7B3902A022379BFE00AAFDB8 /* TransactionCardAssetDetailCell.swift */,
-				7B39029422366B8E00AAFDB8 /* TransactionCardAddressCell.swift */,
 				7B3902AC2237D31900AAFDB8 /* TransactionCardShowAllCell.swift */,
 				7B3902A22237A00300AAFDB8 /* TransactionCardSponsorshipDetailCell.swift */,
 				7B39029C2236ABFF00AAFDB8 /* TransactionCardStatusCell.swift */,
-				7B3902AF2237D8FA00AAFDB8 /* TransactionCardExchangeCell.swift */,
-				7B3A51A7223AA08F00C3BF38 /* TransactionCardAssetCell.swift */,
+				7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -3585,10 +3599,8 @@
 				7BDA6AD8222D8D0A001DE71C /* TransactionCardSystem.swift */,
 				7B6922C5223BA1730056DA67 /* TransactionCardSystem+Mapper.swift */,
 				7BDA6ADA222D8D16001DE71C /* TransactionCardType.swift */,
-				7BDA6ADC222E95C8001DE71C /* TransactionCardView.swift */,
 				7BDA6ADE222E9664001DE71C /* TransactionCard.storyboard */,
 				7B5E746822390B8200746ADD /* TransactionCardBuilder.swift */,
-				7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */,
 			);
 			path = TransactionCard;
 			sourceTree = "<group>";
@@ -3596,17 +3608,8 @@
 		7BDA6AE0222FDCFA001DE71C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7BDA6AD4222D8C81001DE71C /* System.swift */,
+				7BDA6ADC222E95C8001DE71C /* TransactionCardView.swift */,
 				7B3902AE2237D74400AAFDB8 /* Cell */,
-				7BDA6AE5223028DC001DE71C /* BalanceLabel.swift */,
-				7BDA6AE1223025AD001DE71C /* BalanceLabel.xib */,
-				7BDA6AE722313E59001DE71C /* TransactionImageView.swift */,
-				7BDA6AE922313E85001DE71C /* TransactionImageView.xib */,
-				7BDA6AF122315024001DE71C /* ContactDetailView.swift */,
-				7BDA6AF322315466001DE71C /* ContactDetailView.xib */,
-				7B39029622366D0100AAFDB8 /* AddressBookButton.swift */,
-				7B3902A62237A74900AAFDB8 /* ActionsControl.swift */,
-				7B3902A82237A75600AAFDB8 /* ActionsControl.xib */,
 				7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */,
 				7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */,
 			);
@@ -5732,6 +5735,7 @@
 				0AF92205212E07B3003BA067 /* WrapperAssetsSegmentedControl.swift in Sources */,
 				E9D36DC72175C755001E6DF0 /* ReceiveCryptocurrencyTypes.swift in Sources */,
 				E95B47F221638B11004D4E39 /* AmountInputView.swift in Sources */,
+				7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */,
 				0AF58F962191C95A00C8A4B3 /* PasscodeLogInPresenter.swift in Sources */,
 				E9236F212216F48A00A12FD5 /* PopupActionView.swift in Sources */,
 				E9B087F02163886800937644 /* DexLastTradesViewController.swift in Sources */,

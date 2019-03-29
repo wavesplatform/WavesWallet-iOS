@@ -127,7 +127,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                 .map({ (orders) -> [DomainLayer.DTO.Dex.MyOrder] in
                     
                     var myOrders: [DomainLayer.DTO.Dex.MyOrder] = []
-                    
+                        
                     for order in orders {
                         myOrders.append(DomainLayer.DTO.Dex.MyOrder(order,
                                                                     priceAsset: priceAsset,

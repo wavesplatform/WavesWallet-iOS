@@ -92,6 +92,7 @@ enum TransactionCard {
         case actions(TransactionCardActionsCell.Model)
         case description(TransactionCardDescriptionCell.Model)
         case exchange(TransactionCardExchangeCell.Model)
+        case order(TransactionCardOrderCell.Model)
         case assetDetail(TransactionCardAssetDetailCell.Model)
         case showAll(TransactionCardShowAllCell.Model)
         case status(TransactionCardStatusCell.Model)
