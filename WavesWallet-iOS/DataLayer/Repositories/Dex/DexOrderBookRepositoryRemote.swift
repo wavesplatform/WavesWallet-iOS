@@ -154,6 +154,9 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                              callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()
                     .asObservable()
+                    .catchError({ (error) -> Observable<Response> in
+                        return Observable.error(NetworkError.error(by: error))
+                    })
                     .map { _ in true }
             })
     }
