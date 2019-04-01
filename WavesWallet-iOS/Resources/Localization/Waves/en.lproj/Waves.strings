@@ -1148,6 +1148,7 @@
 "transactioncard.title.timestamp" = "Timestamp";
 "transactioncard.timestamp.format" = "dd.MM.yyyy HH:mm";
 
+"transactioncard.title.cancelOrder" = "Cancel order";
 "transactioncard.title.activeNow" = "Active Now";
 "transactioncard.title.completed" = "Completed";
 "transactioncard.title.unconfirmed" = "Unconfirmed";

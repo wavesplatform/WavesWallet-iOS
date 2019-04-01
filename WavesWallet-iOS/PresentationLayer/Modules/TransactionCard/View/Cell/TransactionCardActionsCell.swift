@@ -22,6 +22,7 @@ final class TransactionCardActionsCell: UITableViewCell, Reusable {
             case copyAllData
             case sendAgain
             case cancelLeasing
+            case cancelOrder
         }
 
         let buttons: [Button]
@@ -46,7 +47,7 @@ extension TransactionCardActionsCell: ViewConfiguration {
             })
         }
 
-        actionsControl.update(with: ActionsControl.Model.init(buttons: buttons))
+        actionsControl.update(with: .init(buttons: buttons))
     }
 }
 
@@ -77,6 +78,11 @@ private extension TransactionCardActionsCell.Model.Button {
             return cancelLeasingButton {
                 handler(self)
             }
+
+        case .cancelOrder:
+            return cancelOrderButton({
+                handler(self)
+            })
         }
     }
 
@@ -86,7 +92,19 @@ private extension TransactionCardActionsCell.Model.Button {
                      textColor: .white,
                      text: Localizable.Waves.Transactioncard.Title.cancelLeasing,
                      icon: Images.tCloselease18.image,
-                     effectsOnTap: []) {
+                     effectsOnTap: [.impactOccurred]) {
+                        action()
+        }
+    }
+
+    func cancelOrderButton(_ action: @escaping () -> Void) -> ActionsControl.Model.Button {
+        return .init(backgroundColor: .error400,
+                     selectedBackgroundColor: .error700,
+                     textColor: .white,
+                     text: Localizable.Waves.Transactioncard.Title.cancelOrder,
+                     icon: Images.tCloselease18.image,
+                     effectsOnTap: [.impactOccurred,
+                                    .loading]) {
                         action()
         }
     }

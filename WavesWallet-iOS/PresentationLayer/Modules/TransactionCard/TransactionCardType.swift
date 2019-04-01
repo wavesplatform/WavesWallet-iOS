@@ -17,8 +17,10 @@ enum TransactionCard {
             enum Action {
                 case none
                 case update
+                case didCancelOrder
                 case insertRows(rows: [Row], insertIndexPaths: [IndexPath], deleteIndexPaths: [IndexPath])
                 case editContact(DomainLayer.DTO.Contact)
+                case error(NetworkError)
             }
 
             var sections: [Section]
@@ -27,14 +29,20 @@ enum TransactionCard {
 
         struct Core {
 
+            enum Action {
+                case none
+                case cancelingOrder
+            }
+
             enum ContactMutation {
                 case contact(DomainLayer.DTO.Contact)
                 case deleted
             }
 
-            let kind: Kind
+            var kind: Kind
             var contacts: [String: ContactMutation]
             var showingAllRecipients: Bool
+            var action: Action
         }
 
         var ui: UI
@@ -73,6 +81,9 @@ enum TransactionCard {
         case addContact(contact: DomainLayer.DTO.Contact)
         case editContact(contact: DomainLayer.DTO.Contact)
         case deleteContact(contact: DomainLayer.DTO.Contact)
+        case cancelOrder
+        case applyCanceledOrder
+        case handlerError(_ error: Error)
     }
 
     struct Section: SectionProtocol {

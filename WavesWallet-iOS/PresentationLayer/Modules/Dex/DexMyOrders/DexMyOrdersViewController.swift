@@ -63,6 +63,7 @@ final class DexMyOrdersViewController: UIViewController {
         //TODO: Fix
         self.navigationRouter = nav
         self.transactionCardCoordinator = coordinator
+        coordinator.delegate = self
         coordinator.start()
     }
 }
@@ -205,5 +206,14 @@ private extension DexMyOrdersViewController {
         labelDate.text = Localizable.Waves.Dexmyorders.Label.time
         labelSidePrice.text = Localizable.Waves.Dexmyorders.Label.type + "/" + Localizable.Waves.Dexmyorders.Label.price
         labelStatus.text = Localizable.Waves.Dexmyorders.Label.status
+    }
+}
+
+//MARK: - TransactionCardCoordinator
+
+extension DexMyOrdersViewController: TransactionCardCoordinatorDelegate {
+
+    func transactionCardCoordinatorCanceledOrder(_ order: DomainLayer.DTO.Dex.MyOrder) {
+        sendEvent.accept(.canceledOrder)
     }
 }

@@ -17,11 +17,11 @@ private struct Constants {
 }
 
 
-private struct CalculateFeeByOrderQuery: Equatable {
+private struct OrderQuery: Equatable {
 
     let order: DomainLayer.DTO.Dex.MyOrder
 
-    static func == (lhs: CalculateFeeByOrderQuery, rhs: CalculateFeeByOrderQuery) -> Bool {
+    static func == (lhs: OrderQuery, rhs: OrderQuery) -> Bool {
         return lhs.order.id == rhs.order.id
     }
 }
@@ -35,6 +35,8 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let transactionsInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
     private let assetsInteractor: AssetsInteractorProtocol = FactoryInteractors.instance.assetsInteractor
+    private let dexOrderBookRepository: DexOrderBookRepositoryProtocol = FactoryRepositories.instance.dexOrderBookRepository
+
 
     init(kind: TransactionCard.Kind) {
         self.kind = kind
@@ -44,7 +46,8 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
 
         let core: State.Core = .init(kind: kind,
                                      contacts: .init(),
-                                     showingAllRecipients: false)
+                                     showingAllRecipients: false,
+                                     action: .none)
 
         let sections = section(by: core)
 
@@ -54,65 +57,7 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
     }
 
     override func internalFeedbacks() -> [Feedback] {
-        return [calculateFeeByOrder]
-    }
-
-    private func getFee(amountAsset: String,
-                        priceAsset: String) -> Observable<Money> {
-        return authorizationInteractor
-            .authorizedWallet()
-            .flatMap({ [weak self] (wallet) -> Observable<Money> in
-                guard let owner = self else { return Observable.empty() }
-                return  owner
-                    .transactionsInteractor
-                    .calculateFee(by: .createOrder(amountAsset: amountAsset,
-                                                   priceAsset: priceAsset),
-                                  accountAddress: wallet.address)
-        })
-    }
-
-    private func getWaves() -> Observable<DomainLayer.DTO.Asset> {
-        return authorizationInteractor
-            .authorizedWallet()
-            .flatMap({ [weak self] (wallet) ->  Observable<DomainLayer.DTO.Asset> in
-                guard let owner = self else { return Observable.empty() }
-                return  owner
-                    .assetsInteractor
-                    .assets(by: [GlobalConstants.wavesAssetId],
-                            accountAddress: wallet.address)
-                    .map { $0.first }
-                    .filterNil()
-            })
-    }
-
-    private var calculateFeeByOrder: Feedback {
-        return react(request: { (state) -> CalculateFeeByOrderQuery? in
-
-            if case .order(let order) = state.core.kind {
-                return CalculateFeeByOrderQuery(order: order)
-            } else {
-                return nil
-            }
-
-        }, effects: { [weak self] (query) -> Signal<Types.Event> in
-
-            guard let owner = self else { return Signal.empty() }
-
-            let waves = owner.getWaves()
-            let fee = owner.getFee(amountAsset: query.order.amountAsset.id,
-                                   priceAsset: query.order.priceAsset.id)
-
-            let balance = Observable.zip(waves, fee)
-                .flatMap({ (asset, fee) -> Observable<Balance> in
-
-                    return Observable.just(Balance(currency: .init(title: asset.displayName,
-                                                                   ticker: asset.ticker),
-                                                   money: fee))
-                })
-                .map { Types.Event.updateFeeByOrder(fee: $0) }
-
-            return balance.asSignal(onErrorSignalWith: .empty())
-        })
+        return [calculateFeeByOrder, cancelOrder]
     }
 
     override func reduce(event: Event, state: inout State) {
@@ -222,6 +167,32 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
 
             state.ui.sections = [section]
             state.ui.action = .update
+
+        case .cancelOrder:
+            state.core.action = .cancelingOrder
+            state.ui.action = .none
+
+        case .applyCanceledOrder:
+
+            guard var order = state.core.kind.order else { return }
+
+            order.status = .cancelled
+            state.core.kind = .order(order)
+
+            let sections = section(by: state.core)
+            state.ui.sections = sections
+            state.core.action = .none
+            state.ui.action = .didCancelOrder
+
+        case .handlerError(let error):
+
+            state.core.action = .none
+
+            if let error = error as? NetworkError {
+                state.ui.action = .error(error)
+            } else {
+                state.ui.action = .none
+            }
         }
     }
 }
@@ -285,6 +256,107 @@ fileprivate extension Types.State.UI {
 
             }
         }
+    }
+}
+
+fileprivate extension TransactionCardSystem {
+
+    private var calculateFeeByOrder: Feedback {
+        return react(request: { (state) -> OrderQuery? in
+
+            if case .order(let order) = state.core.kind {
+                return OrderQuery(order: order)
+            } else {
+                return nil
+            }
+
+        }, effects: { [weak self] (query) -> Signal<Types.Event> in
+
+            guard let owner = self else { return Signal.empty() }
+
+            let waves = owner.getWaves()
+            let fee = owner.getFee(amountAsset: query.order.amountAsset.id,
+                                   priceAsset: query.order.priceAsset.id)
+
+            let balance = Observable.zip(waves, fee)
+                .flatMap({ (asset, fee) -> Observable<Balance> in
+
+                    return Observable.just(Balance(currency: .init(title: asset.displayName,
+                                                                   ticker: asset.ticker),
+                                                   money: fee))
+                })
+                .map { Types.Event.updateFeeByOrder(fee: $0) }
+
+            return balance.asSignal(onErrorSignalWith: .empty())
+        })
+    }
+
+    private var cancelOrder: Feedback {
+        return react(request: { (state) -> OrderQuery? in
+
+            if case .order(let order) = state.core.kind, case .cancelingOrder = state.core.action {
+                return OrderQuery(order: order)
+            } else {
+                return nil
+            }
+
+        }, effects: { [weak self] (query) -> Signal<Types.Event> in
+
+            guard let owner = self else { return Signal.empty() }
+
+            return owner
+                .cancelOrder(order: query.order)
+                .map { _ in Types.Event.applyCanceledOrder }
+                .asSignal { (error) -> Signal<Types.Event> in
+                    return Signal.just(.handlerError(error))
+                }
+        })
+    }
+
+    private func cancelOrder(order: DomainLayer.DTO.Dex.MyOrder) -> Observable<Bool> {
+
+        return authorizationInteractor
+            .authorizedWallet()
+            .flatMap({ [weak self] (wallet) ->  Observable<Bool> in
+                guard let owner = self else { return Observable.empty() }
+                return owner
+                    .dexOrderBookRepository
+                    .cancelOrder(wallet: wallet,
+                                 orderId: order.id,
+                                 amountAsset: order.amountAsset.id,
+                                 priceAsset: order.priceAsset.id)
+                    .flatMap({ (status) -> Observable<Bool> in
+                        return Observable.just(true)
+                    })
+        })
+    }
+
+    private func getFee(amountAsset: String,
+                        priceAsset: String) -> Observable<Money> {
+        return authorizationInteractor
+            .authorizedWallet()
+            .flatMap({ [weak self] (wallet) -> Observable<Money> in
+                guard let owner = self else { return Observable.empty() }
+                return  owner
+                    .transactionsInteractor
+                    .calculateFee(by: .createOrder(amountAsset: amountAsset,
+                                                   priceAsset: priceAsset),
+                                  accountAddress: wallet.address)
+            })
+    }
+
+    private func getWaves() -> Observable<DomainLayer.DTO.Asset> {
+        return authorizationInteractor
+            .authorizedWallet()
+            .flatMap({ [weak self] (wallet) ->  Observable<DomainLayer.DTO.Asset> in
+                guard let owner = self else { return Observable.empty() }
+                return  owner
+                    .assetsInteractor
+                    .assets(by: [GlobalConstants.wavesAssetId],
+                            accountAddress: wallet.address)
+                    .map { $0.first }
+                    .filterNil()
+            })
     }
 }
 

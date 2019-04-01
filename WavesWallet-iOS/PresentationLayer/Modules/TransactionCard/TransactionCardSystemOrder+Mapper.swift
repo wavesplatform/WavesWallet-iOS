@@ -87,13 +87,18 @@ extension DomainLayer.DTO.Dex.MyOrder {
 
         buttonsActions.append(contentsOf: [.viewOnExplorer, .copyTxID, .copyAllData])
 
-
-//        let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
-
         rows.append(.keyLoading(self.rowFeeLoadingModel))
         rows.append(.keyValue(self.rowTimestampModel))
         rows.append(.keyValue(self.rowStatusModel))
+        rows.append(.dashedLine(.topPadding))
 
+        switch status {
+        case .accepted, .partiallyFilled:
+            let rowActionsModel = TransactionCardActionsCell.Model(buttons: [.cancelOrder])
+            rows.append(.actions(rowActionsModel))
+        default:
+            break
+        }
 
         let section = Types.Section(rows: rows)
 

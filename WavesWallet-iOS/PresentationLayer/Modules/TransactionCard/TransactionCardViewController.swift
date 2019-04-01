@@ -28,6 +28,7 @@ protocol TransactionCardModuleOutput: AnyObject {
 
     func transactionCardResendTransaction(_ transaction: DomainLayer.DTO.SmartTransaction)
     func transactionCardCancelLeasing(_ transaction: DomainLayer.DTO.SmartTransaction)
+    func transactionCardCanceledOrder(_ order: DomainLayer.DTO.Dex.MyOrder)
     func transactionCardViewOnExplorer(_ transaction: DomainLayer.DTO.SmartTransaction)
 
     func transactionCardViewDismissCard()
@@ -221,6 +222,7 @@ extension TransactionCardViewController {
 
         switch state.action {
         case .update:
+
             self.sections = state.sections
             tableView.reloadData()
 
@@ -228,7 +230,6 @@ extension TransactionCardViewController {
             
             self.sections = state.sections
 
-            //TODO: Insert
             UIView.transition(with: self.tableView,
                               duration: Constants.animationDurationReloadTable,
                               options: .transitionCrossDissolve,
@@ -237,6 +238,16 @@ extension TransactionCardViewController {
             }, completion: { (_) in
 
             })
+
+        case .didCancelOrder:
+            self.sections = state.sections
+            tableView.reloadData()
+
+            guard let order = self.kind?.order else { return }
+            self.delegate?.transactionCardCanceledOrder(order)
+
+        case .error(let error):
+            showNetworkErrorSnack(error: error)
 
         default:
             break
@@ -257,28 +268,35 @@ extension TransactionCardViewController {
 
     private func handlerTapActionButton(_ button: TransactionCardActionsCell.Model.Button) {
 
-        guard let transaction = self.kind?.transaction else { return }
-
         switch button {
         case .cancelLeasing:
+            guard let transaction = self.kind?.transaction else { return }
             self.delegate?.transactionCardCancelLeasing(transaction)
 
         case .sendAgain:
+            guard let transaction = self.kind?.transaction else { return }
             self.delegate?.transactionCardResendTransaction(transaction)
 
+        case .cancelOrder:
+            self.system.send(.cancelOrder)
+            
         case .copyAllData:
 
+            guard let transaction = self.kind?.transaction else { return }
             DispatchQueue.main.async {
                 UIPasteboard.general.string = transaction.allData
             }
 
         case .copyTxID:
 
+            guard let transaction = self.kind?.transaction else { return }
+
             DispatchQueue.main.async {
                 UIPasteboard.general.string = transaction.id
             }
 
         case .viewOnExplorer:
+            guard let transaction = self.kind?.transaction else { return }
             self.delegate?.transactionCardViewOnExplorer(transaction)
         }
     }

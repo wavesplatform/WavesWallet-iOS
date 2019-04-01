@@ -26,6 +26,7 @@ final class ActionsControl: UIView, NibOwnerLoadable {
             case changeTitleForTime(String, TimeInterval)
             case changeTitleColorForTime(UIColor, TimeInterval)
             case impactOccurred
+            case loading
         }
 
         struct Button {
@@ -130,6 +131,26 @@ private final class ActionButton: UIButton {
 
             case .impactOccurred:
                 ImpactFeedbackGenerator.impactOccurred()
+
+            case .loading:
+
+                let activityIndicator = UIActivityIndicatorView()
+                activityIndicator.hidesWhenStopped = true
+                activityIndicator.startAnimating()
+                activityIndicator.style = .white
+                activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+
+                self.setImage(nil, for: .normal)
+                self.setTitle("", for: .normal)
+                self.isUserInteractionEnabled = false
+
+                addSubview(activityIndicator)
+
+                let constraint = self.widthAnchor.constraint(equalToConstant: self.frame.width)
+                self.centerXAnchor.constraint(equalTo: activityIndicator.centerXAnchor).isActive = true
+                self.centerYAnchor.constraint(equalTo: activityIndicator.centerYAnchor).isActive = true
+
+                constraint.isActive = true
             }
         }
         tapHanler?()
@@ -145,7 +166,10 @@ extension ActionsControl: ViewConfiguration {
     func update(with model: ActionsControl.Model) {
 
         stackView.arrangedSubviews.forEach { stackView.removeArrangedSubview($0) }
+        stackView.subviews.forEach { $0.removeFromSuperview() }
+
         model.buttons.forEach { stackView.addArrangedSubview(ActionButton($0)) }
+
         stackView.addArrangedSubview(UIView())
     }
 }

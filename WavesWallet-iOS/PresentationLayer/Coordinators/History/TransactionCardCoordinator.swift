@@ -15,6 +15,11 @@ private struct Constants {
     static let wavesExplorerTransactionTestnetUrl = "https://stage.wavesexplorer.com"
 }
 
+protocol TransactionCardCoordinatorDelegate: AnyObject {
+
+    func transactionCardCoordinatorCanceledOrder(_ order: DomainLayer.DTO.Dex.MyOrder)
+}
+
 final class TransactionCardCoordinator: Coordinator {
 
     var childCoordinators: [Coordinator] = []
@@ -32,6 +37,8 @@ final class TransactionCardCoordinator: Coordinator {
     private let kind: TransactionCard.Kind
 
     private var transactionCardViewControllerInput: TransactionCardModuleInput?
+
+    weak var delegate: TransactionCardCoordinatorDelegate?
 
     init(transaction: DomainLayer.DTO.SmartTransaction, router: NavigationRouter) {
         self.kind = .transaction(transaction)
@@ -98,6 +105,10 @@ extension TransactionCardCoordinator: TransactionCardModuleOutput {
             .build(input: AddAddressBook.DTO.Input(kind:.edit(contact: contact,
                                                               isMutable: false)))
         self.cardNavigationRouter.pushViewController(vc)
+    }
+
+    func transactionCardCanceledOrder(_ order: DomainLayer.DTO.Dex.MyOrder) {
+        delegate?.transactionCardCoordinatorCanceledOrder(order)
     }
 
     func transactionCardCancelLeasing(_ transaction: DomainLayer.DTO.SmartTransaction) {
