@@ -63,16 +63,9 @@ final class PasscodeTopBarView: UIView {
         updateColorsForDots()
     }
 
-    func fillDots(count: Int, animated: Bool = true) {
+    func fillDots(count: Int) {
         counter = min(count, PasscodeDotView.Kind.four.rawValue)
-
-        if animated {
-            UIView.animate(withDuration: UIView.fastDurationAnimation, delay: 0, options: [.curveEaseInOut], animations: {
-                self.updateColorsForDots()
-            }, completion: nil)
-        } else {
-            updateColorsForDots()
-        }
+        updateColorsForDots()
     }
 
     func addOneDot() {
@@ -98,10 +91,7 @@ final class PasscodeTopBarView: UIView {
     }
 
     func changeText(_ text: String) {
-
-        UIView.animate(withDuration: UIView.fastDurationAnimation, delay: 0, options: .transitionCrossDissolve, animations: {
-            self.titleLabel.text = text
-        }, completion: nil)
+        titleLabel.text = text
     }
 
     func showInvalidateState() {
