@@ -42,6 +42,7 @@ enum TransactionCard {
             var kind: Kind
             var contacts: [String: ContactMutation]
             var showingAllRecipients: Bool
+            var feeBalance: Balance?
             var action: Action
         }
 

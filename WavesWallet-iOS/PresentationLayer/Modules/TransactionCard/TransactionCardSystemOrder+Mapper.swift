@@ -87,7 +87,18 @@ extension DomainLayer.DTO.Dex.MyOrder {
 
         buttonsActions.append(contentsOf: [.viewOnExplorer, .copyTxID, .copyAllData])
 
-        rows.append(.keyLoading(self.rowFeeLoadingModel))
+        if let feeBalance = core.feeBalance {
+
+            let rowFeeModel = TransactionCardKeyBalanceCell.Model(key: Localizable.Waves.Transactioncard.Title.fee,
+                                                                  value: BalanceLabel.Model(balance: feeBalance,
+                                                                                            sign: nil,
+                                                                                            style: .small),
+                                                                  style: .largePadding)
+            rows.append(.keyBalance(rowFeeModel))
+        } else {
+            rows.append(.keyLoading(self.rowFeeLoadingModel))
+        }
+
         rows.append(.keyValue(self.rowTimestampModel))
         rows.append(.keyValue(self.rowStatusModel))
         rows.append(.dashedLine(.topPadding))
