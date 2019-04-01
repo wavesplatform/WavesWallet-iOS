@@ -44,7 +44,8 @@ struct Environment: Decodable {
     let name: String
     let servers: Servers
     let scheme: String
-    let generalAssetIds: [AssetInfo]
+    let generalAssets: [AssetInfo]
+    let assets: [AssetInfo]?
     
     private static let Testnet: Environment = parseJSON(json: Constants.test)!
     private static let Mainnet: Environment = parseJSON(json: Constants.main)!

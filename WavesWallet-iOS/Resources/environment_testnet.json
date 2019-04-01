@@ -7,7 +7,7 @@
         "matcherUrl": "https://matcher.testnet.wavesnodes.com"
     },
     "scheme": "T",
-    "generalAssetIds": [
+    "generalAssets": [
         {
             "assetId": "WAVES",
             "displayName": "Waves",
