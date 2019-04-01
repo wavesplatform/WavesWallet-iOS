@@ -24,8 +24,38 @@
                                 <color key="separatorColor" red="0.80784313725490198" green="0.81568627450980391" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardKeyLoadingCell" id="gqJ-Vb-um7" customClass="TransactionCardKeyLoadingCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gqJ-Vb-um7" id="Si2-is-Wnl">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Block" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0mY-Fe-9Hh">
+                                                    <rect key="frame" x="24" y="14" width="33.5" height="26"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Zqo-Xe-RQz">
+                                                    <rect key="frame" x="339" y="17" width="20" height="20"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="0mY-Fe-9Hh" firstAttribute="leading" secondItem="Si2-is-Wnl" secondAttribute="leading" constant="24" id="8nu-K1-gX1"/>
+                                                <constraint firstAttribute="trailing" secondItem="Zqo-Xe-RQz" secondAttribute="trailing" constant="16" id="DoE-Qf-9Qn"/>
+                                                <constraint firstItem="0mY-Fe-9Hh" firstAttribute="top" secondItem="Si2-is-Wnl" secondAttribute="top" constant="14" id="QVe-3A-fEg"/>
+                                                <constraint firstAttribute="bottom" secondItem="0mY-Fe-9Hh" secondAttribute="bottom" constant="4" id="UL9-ds-UNa"/>
+                                                <constraint firstItem="Zqo-Xe-RQz" firstAttribute="centerY" secondItem="0mY-Fe-9Hh" secondAttribute="centerY" id="Xo7-IE-xE6"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="keyLabel" destination="0mY-Fe-9Hh" id="yVo-cl-fB3"/>
+                                            <outlet property="topLayoutConstaint" destination="QVe-3A-fEg" id="reg-qd-RMZ"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardOrderCell" rowHeight="250" id="vvW-Lx-Oes" customClass="TransactionCardOrderCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="250"/>
+                                        <rect key="frame" x="0.0" y="72" width="375" height="250"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vvW-Lx-Oes" id="sKZ-J6-pEN">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
@@ -95,7 +125,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardAssetCell" rowHeight="195" id="GQ4-pF-tuw" customClass="TransactionCardAssetCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="278" width="375" height="195"/>
+                                        <rect key="frame" x="0.0" y="322" width="375" height="195"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GQ4-pF-tuw" id="aoi-US-eJr">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="195"/>
@@ -141,7 +171,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardAssetDetailCell" rowHeight="195" id="rdb-Kp-XM0" customClass="TransactionCardAssetDetailCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="473" width="375" height="195"/>
+                                        <rect key="frame" x="0.0" y="517" width="375" height="195"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rdb-Kp-XM0" id="JAf-N5-KmO">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="195"/>
@@ -202,7 +232,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardExchangeCell" rowHeight="195" id="A6l-3Y-fed" customClass="TransactionCardExchangeCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="668" width="375" height="195"/>
+                                        <rect key="frame" x="0.0" y="712" width="375" height="195"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A6l-3Y-fed" id="n2L-D5-MZu">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="195"/>
@@ -254,7 +284,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardShowAllCell" id="bPj-ZJ-wy4" customClass="TransactionCardShowAllCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="863" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="907" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bPj-ZJ-wy4" id="1Pw-J9-kDT">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -285,7 +315,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardActionsCell" id="Zcr-QA-ygZ" customClass="TransactionCardActionsCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="907" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="951" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zcr-QA-ygZ" id="Uuw-70-ijH">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -308,7 +338,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardDashedLineCell" rowHeight="300" id="QOH-0C-AQh" customClass="TransactionCardDashedLineCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="951" width="375" height="300"/>
+                                        <rect key="frame" x="0.0" y="995" width="375" height="300"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QOH-0C-AQh" id="oBP-B4-6dm">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
@@ -349,7 +379,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardSponsorshipDetailCell" rowHeight="300" id="plj-mp-GYZ" customClass="TransactionCardSponsorshipDetailCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1251" width="375" height="300"/>
+                                        <rect key="frame" x="0.0" y="1295" width="375" height="300"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="plj-mp-GYZ" id="6rC-vv-wtT">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
@@ -383,7 +413,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardDescriptionCell" rowHeight="300" id="jS1-Dw-YnV" customClass="TransactionCardDescriptionCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1551" width="375" height="300"/>
+                                        <rect key="frame" x="0.0" y="1595" width="375" height="300"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jS1-Dw-YnV" id="g55-a9-YjC">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
@@ -444,7 +474,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardStatusCell" id="UHA-mK-IhE" customClass="TransactionCardStatusCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1851" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="1895" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UHA-mK-IhE" id="hia-4B-GFw">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -492,7 +522,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardKeyBalanceCell" id="uFO-zd-dh9" customClass="TransactionCardKeyBalanceCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1895" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="1939" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uFO-zd-dh9" id="ACd-8k-jjx">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -511,7 +541,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="bFM-8g-zeE" secondAttribute="trailing" constant="24" id="Ibl-OD-NOJ"/>
-                                                <constraint firstItem="bFM-8g-zeE" firstAttribute="top" secondItem="ACd-8k-jjx" secondAttribute="top" constant="14" id="LQ1-AB-YyN"/>
+                                                <constraint firstItem="bFM-8g-zeE" firstAttribute="centerY" secondItem="3F9-NU-6O0" secondAttribute="centerY" id="K9G-Hx-9GW"/>
                                                 <constraint firstAttribute="bottom" secondItem="bFM-8g-zeE" secondAttribute="bottom" constant="4" id="S21-S3-Dbf"/>
                                                 <constraint firstItem="bFM-8g-zeE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3F9-NU-6O0" secondAttribute="trailing" constant="10" id="Xny-s7-nlE"/>
                                                 <constraint firstItem="3F9-NU-6O0" firstAttribute="leading" secondItem="ACd-8k-jjx" secondAttribute="leading" constant="24" id="bl9-wn-FqS"/>
@@ -522,10 +552,11 @@
                                         <connections>
                                             <outlet property="balanceLabel" destination="bFM-8g-zeE" id="agv-3i-Bj4"/>
                                             <outlet property="keyLabel" destination="3F9-NU-6O0" id="354-tb-BiJ"/>
+                                            <outlet property="topLayoutConstaint" destination="fuW-Sb-vUS" id="qNj-MO-9EZ"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardKeyValueCell" id="INO-5B-RgS" customClass="TransactionCardKeyValueCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1939" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="1983" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="INO-5B-RgS" id="mTU-ER-krd">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -561,7 +592,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardAddressCell" rowHeight="206" id="Ymi-dv-TpS" customClass="TransactionCardAddressCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1983" width="375" height="206"/>
+                                        <rect key="frame" x="0.0" y="2027" width="375" height="206"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ymi-dv-TpS" id="5rA-Wf-OqC">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="206"/>
@@ -624,7 +655,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardGeneralCell" rowHeight="83" id="oST-9y-9Dk" customClass="TransactionCardGeneralCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2189" width="375" height="83"/>
+                                        <rect key="frame" x="0.0" y="2233" width="375" height="83"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oST-9y-9Dk" id="Cg2-Dy-Tks">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="83"/>
@@ -688,7 +719,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardMassSentRecipientCell" rowHeight="206" id="LVl-zX-Qd9" customClass="TransactionCardMassSentRecipientCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2272" width="375" height="206"/>
+                                        <rect key="frame" x="0.0" y="2316" width="375" height="206"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LVl-zX-Qd9" id="ds0-Ai-Mhh">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="206"/>

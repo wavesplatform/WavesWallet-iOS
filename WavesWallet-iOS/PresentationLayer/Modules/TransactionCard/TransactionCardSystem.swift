@@ -10,11 +10,31 @@ import Foundation
 import RxFeedback
 import RxSwift
 import RxSwiftExt
+import RxCocoa
+
+private struct Constants {
+    static let shiftIndexInLenght: Int = 1
+}
+
+
+private struct CalculateFeeByOrderQuery: Equatable {
+
+    let order: DomainLayer.DTO.Dex.MyOrder
+
+    static func == (lhs: CalculateFeeByOrderQuery, rhs: CalculateFeeByOrderQuery) -> Bool {
+        return lhs.order.id == rhs.order.id
+    }
+}
 
 private typealias Types = TransactionCard
+
 final class TransactionCardSystem: System<TransactionCard.State, TransactionCard.Event> {
 
     private let kind: TransactionCard.Kind
+
+    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let transactionsInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
+    private let assetsInteractor: AssetsInteractorProtocol = FactoryInteractors.instance.assetsInteractor
 
     init(kind: TransactionCard.Kind) {
         self.kind = kind
@@ -34,7 +54,65 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
     }
 
     override func internalFeedbacks() -> [Feedback] {
-        return []
+        return [calculateFeeByOrder]
+    }
+
+    private func getFee(amountAsset: String,
+                        priceAsset: String) -> Observable<Money> {
+        return authorizationInteractor
+            .authorizedWallet()
+            .flatMap({ [weak self] (wallet) -> Observable<Money> in
+                guard let owner = self else { return Observable.empty() }
+                return  owner
+                    .transactionsInteractor
+                    .calculateFee(by: .createOrder(amountAsset: amountAsset,
+                                                   priceAsset: priceAsset),
+                                  accountAddress: wallet.address)
+        })
+    }
+
+    private func getWaves() -> Observable<DomainLayer.DTO.Asset> {
+        return authorizationInteractor
+            .authorizedWallet()
+            .flatMap({ [weak self] (wallet) ->  Observable<DomainLayer.DTO.Asset> in
+                guard let owner = self else { return Observable.empty() }
+                return  owner
+                    .assetsInteractor
+                    .assets(by: [GlobalConstants.wavesAssetId],
+                            accountAddress: wallet.address)
+                    .map { $0.first }
+                    .filterNil()
+            })
+    }
+
+    private var calculateFeeByOrder: Feedback {
+        return react(request: { (state) -> CalculateFeeByOrderQuery? in
+
+            if case .order(let order) = state.core.kind {
+                return CalculateFeeByOrderQuery(order: order)
+            } else {
+                return nil
+            }
+
+        }, effects: { [weak self] (query) -> Signal<Types.Event> in
+
+            guard let owner = self else { return Signal.empty() }
+
+            let waves = owner.getWaves()
+            let fee = owner.getFee(amountAsset: query.order.amountAsset.id,
+                                   priceAsset: query.order.priceAsset.id)
+
+            let balance = Observable.zip(waves, fee)
+                .flatMap({ (asset, fee) -> Observable<Balance> in
+
+                    return Observable.just(Balance(currency: .init(title: asset.displayName,
+                                                                   ticker: asset.ticker),
+                                                   money: fee))
+                })
+                .map { Types.Event.updateFeeByOrder(fee: $0) }
+
+            return balance.asSignal(onErrorSignalWith: .empty())
+        })
     }
 
     override func reduce(event: Event, state: inout State) {
@@ -59,17 +137,17 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
 
 
             let count = max(0, massTransferAny.transfers.count)
-            let results = massTransferAny.transfers[(transferIndex + 1)..<count]
+            let results = massTransferAny.transfers[(transferIndex + Constants.shiftIndexInLenght)..<count]
 
             let newRows = results
                 .enumerated()
                 .map { $0.element.createTransactionCardMassSentRecipientModel(currency: massTransferAny.total.currency,
-                                                                              number: lastMassReceivedRowIndex + $0.offset + 2,
+                                                                              number: lastMassReceivedRowIndex + $0.offset + Constants.shiftIndexInLenght * 2,
                                                                               core: state.core) }
                 .map { Types.Row.massSentRecipient($0) }
 
             let insertIndexPaths = [Int](0..<count).map {
-                return IndexPath(row: $0 + lastMassReceivedRowIndex + 1, section: 0)
+                return IndexPath(row: $0 + lastMassReceivedRowIndex + Constants.shiftIndexInLenght, section: 0)
             }
 
             var newRowsAtSection = section.rows
@@ -91,7 +169,7 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
             }
             .map { IndexPath(row: $0.offset , section: 0) }
 
-            newRowsAtSection.insert(contentsOf: newRows, at: lastMassReceivedRowIndex + 1)
+            newRowsAtSection.insert(contentsOf: newRows, at: lastMassReceivedRowIndex + Constants.shiftIndexInLenght)
 
             section.rows = newRowsAtSection
             state.core.showingAllRecipients = true
@@ -114,14 +192,36 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
             state.ui.sections = sections
             state.ui.action = .update
 
-
         case .editContact(let contact):
 
             state.core.contacts[contact.address] = .contact(contact)
             let sections = section(by: state.core)
             state.ui.sections = sections
             state.ui.action = .update
-        
+
+        case .updateFeeByOrder(let fee):
+
+            guard var section = state.ui.sections.first else { return }
+
+            let index = section.rows.enumerated().first { (element) -> Bool in
+                if case .keyLoading = element.element {
+                    return true
+                }
+                return false
+            }?.offset
+
+            guard let feeRowIndex = index else { return }
+
+            let rowFeeModel = TransactionCardKeyBalanceCell.Model(key: Localizable.Waves.Transactioncard.Title.fee,
+                                                                  value: BalanceLabel.Model(balance: fee,
+                                                                                            sign: nil,
+                                                                                            style: .small),
+                                                                  style: .largePadding)
+            section.rows.remove(at: feeRowIndex)
+            section.rows.insert(.keyBalance(rowFeeModel), at: feeRowIndex)
+
+            state.ui.sections = [section]
+            state.ui.action = .update
         }
     }
 }
@@ -228,147 +328,5 @@ extension TransactionCardSystem {
         case .order(let order):
             return order.sections(core: core)
         }
-    }
-}
-
-fileprivate extension DomainLayer.DTO.Dex.Asset {
-
-    var ticker: String? {
-        if name == shortName {
-            return nil
-        } else {
-            return shortName
-        }
-    }
-
-    func balance(_ amount: Int64) -> Balance {
-        return balance(amount, precision: decimals)
-    }
-
-    func balance(_ amount: Int64, precision: Int) -> Balance {
-        return Balance(currency: .init(title: name, ticker: ticker), money: money(amount, precision: precision))
-    }
-
-    func money(_ amount: Int64, precision: Int) -> Money {
-        return .init(amount, precision)
-    }
-
-    func money(_ amount: Int64) -> Money {
-        return money(amount, precision: decimals)
-    }
-}
-
-fileprivate extension DomainLayer.DTO.Dex.MyOrder {
-
-    var precisionDifference: Int {
-        return (priceAsset.decimals - amountAsset.decimals) + 8
-    }
-
-    func priceBalance(_ amount: Int64) -> Balance {
-        return priceAsset.balance(amount, precision: precisionDifference)
-    }
-
-    func amountBalance(_ amount: Int64) -> Balance {
-        return amountAsset.balance(amount)
-    }
-
-    
-    func totalBalance(priceAmount: Int64, assetAmount: Int64) -> Balance {
-
-        let priceA = Decimal(priceAmount) / pow(10, precisionDifference)
-        let assetA = Decimal(assetAmount) / pow(10, amountAsset.decimals)
-
-        let amountA = (priceA * assetA) * pow(10, priceAsset.decimals)
-
-        return priceAsset.balance(amountA.int64Value, precision: priceAsset.decimals)
-    }
-
-    var filledBalance: Balance {
-        return self.totalBalance(priceAmount: self.price.amount, assetAmount: self.filled.amount)
-    }
-
-    var priceBalance: Balance {
-        return .init(currency: .init(title: priceAsset.name, ticker: priceAsset.ticker), money: self.price)
-    }
-
-    var amountBalance: Balance {
-        return .init(currency: .init(title: amountAsset.name, ticker: amountAsset.ticker), money: self.amount)
-    }
-
-    var totalBalance: Balance {
-        return self.totalBalance(priceAmount: self.price.amount, assetAmount: self.amount.amount)
-    }
-
-    func sections(core: TransactionCard.State.Core, needSendAgain: Bool = false) ->  [Types.Section] {
-
-        var rows: [Types.Row] = .init()
-
-        var sign: Balance.Sign = .none
-        var title = ""
-
-        let priceDisplayName = self.priceAsset.name
-        let amountDisplayName = self.amountAsset.name
-
-        if self.type == .sell {
-            sign = .minus
-            title = Localizable.Waves.Transactioncard.Title.Exchange.sellPair(amountDisplayName, priceDisplayName)
-        } else {
-            sign = .plus
-            title = Localizable.Waves.Transactioncard.Title.Exchange.buyPair(amountDisplayName, priceDisplayName)
-        }
-
-        let rowGeneralModel = TransactionCardGeneralCell.Model(image: Images.tExchange48.image,
-                                                               title: title,
-                                                               info: .balance(.init(balance: self.filledBalance,
-                                                                                    sign: sign,
-                                                                                    style: .large)))
-
-        rows.append(contentsOf:[.general(rowGeneralModel)])
-
-
-        let rowOrderModel = TransactionCardOrderCell.Model(amount: .init(balance: amountBalance,
-                                                                         sign: .none,
-                                                                         style: .small),
-                                                           price: .init(balance: priceBalance,
-                                                                        sign: .none,
-                                                                        style: .small),
-                                                           total: .init(balance: totalBalance,
-                                                                        sign: .none,
-                                                                        style: .small))
-
-        rows.append(contentsOf:[.order(rowOrderModel)])
-
-        var buttonsActions: [TransactionCardActionsCell.Model.Button] = .init()
-
-
-        buttonsActions.append(contentsOf: [.viewOnExplorer, .copyTxID, .copyAllData])
-
-
-        let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
-
-//        rows.append(contentsOf:[.keyValue(self.rowTimestampModel),
-//                                .status(self.rowStatusModel)])
-
-
-        let section = Types.Section(rows: rows)
-
-
-        return [section]
-    }
-
-
-//    var rowFeeModel: TransactionCardKeyBalanceCell.Model {
-//        return TransactionCardKeyBalanceCell.Model(key: Localizable.Waves.Transactioncard.Title.fee, value: BalanceLabel.Model(balance: self.totalFee,
-//                                                                                                                               sign: nil,
-//                                                                                                                               style: .small))
-//    }
-//
-    var rowTimestampModel: TransactionCardKeyValueCell.Model {
-
-        let formatter = DateFormatter.sharedFormatter
-        formatter.dateFormat = Localizable.Waves.Transactioncard.Timestamp.format
-        let timestampValue = formatter.string(from: self.time)
-
-        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.timestamp, value: timestampValue, style: .normalPadding)
     }
 }
