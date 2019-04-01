@@ -47,6 +47,7 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
         let core: State.Core = .init(kind: kind,
                                      contacts: .init(),
                                      showingAllRecipients: false,
+                                     feeBalance: nil,
                                      action: .none)
 
         let sections = section(by: core)
@@ -164,7 +165,7 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
                                                                   style: .largePadding)
             section.rows.remove(at: feeRowIndex)
             section.rows.insert(.keyBalance(rowFeeModel), at: feeRowIndex)
-
+            state.core.feeBalance = fee
             state.ui.sections = [section]
             state.ui.action = .update
 
@@ -264,7 +265,7 @@ fileprivate extension TransactionCardSystem {
     private var calculateFeeByOrder: Feedback {
         return react(request: { (state) -> OrderQuery? in
 
-            if case .order(let order) = state.core.kind {
+            if case .order(let order) = state.core.kind, state.core.feeBalance == nil {
                 return OrderQuery(order: order)
             } else {
                 return nil
