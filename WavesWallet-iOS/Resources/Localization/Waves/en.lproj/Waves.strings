@@ -1152,6 +1152,7 @@
 "transactioncard.title.completed" = "Completed";
 "transactioncard.title.unconfirmed" = "Unconfirmed";
 "transactioncard.title.status" = "Status";
+"transactioncard.title.cancelled" = "Cancelled (%@%%)";
 "transactioncard.title.amount" = "Amount";
 "transactioncard.title.total" = "Total";
 "transactioncard.title.price" = "Price";

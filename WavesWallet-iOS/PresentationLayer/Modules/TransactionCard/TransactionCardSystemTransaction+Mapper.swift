@@ -698,19 +698,25 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
     func rowBlockModel(isLargePadding: Bool = false) -> TransactionCardKeyValueCell.Model {
         let height = self.height ?? 0
 
-        let padding: TransactionCardKeyValueCell.Model.Style = isLargePadding == true ? .largePadding : .normalPadding
+        let padding: TransactionCardKeyValueCell.Model.Style.Padding = isLargePadding == true ? .largePadding : .normalPadding
 
-        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.block, value: "\(height)", style: padding)
+        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.block,
+                                                 value: "\(height)",
+                                                 style: .init(padding: padding, textColor: .black))
     }
 
     var rowConfirmationsModel: TransactionCardKeyValueCell.Model {
-        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.confirmations, value: "\(String(describing: confirmationHeight))", style: .normalPadding)
+        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.confirmations,
+                                                 value: "\(String(describing: confirmationHeight))",
+                                                 style: .init(padding: .normalPadding, textColor: .black))
     }
 
     var rowFeeModel: TransactionCardKeyBalanceCell.Model {
-        return TransactionCardKeyBalanceCell.Model(key: Localizable.Waves.Transactioncard.Title.fee, value: BalanceLabel.Model(balance: self.totalFee,
-                                                                                         sign: nil,
-                                                                                         style: .small))
+        return TransactionCardKeyBalanceCell.Model(key: Localizable.Waves.Transactioncard.Title.fee,
+                                                   value: BalanceLabel.Model(balance: self.totalFee,
+                                                                             sign: nil,
+                                                                             style: .small),
+                                                   style: .normalPadding)
     }
 
     var rowTimestampModel: TransactionCardKeyValueCell.Model {
@@ -719,7 +725,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         formatter.dateFormat = Localizable.Waves.Transactioncard.Timestamp.format
         let timestampValue = formatter.string(from: timestamp)
 
-        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.timestamp, value: timestampValue, style: .normalPadding)
+        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.timestamp, value: timestampValue, style: .init(padding: .normalPadding, textColor: .black))
     }
 
     var rowStatusModel: TransactionCardStatusCell.Model {

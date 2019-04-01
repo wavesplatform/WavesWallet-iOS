@@ -37,10 +37,6 @@ enum TransactionCard {
             var showingAllRecipients: Bool
         }
 
-        enum Action {
-            case get
-        }
-
         var ui: UI
         var core: Core
     }
@@ -73,6 +69,7 @@ enum TransactionCard {
     enum Event {
         case viewDidAppear
         case showAllRecipients
+        case updateFeeByOrder(fee: Balance)
         case addContact(contact: DomainLayer.DTO.Contact)
         case editContact(contact: DomainLayer.DTO.Contact)
         case deleteContact(contact: DomainLayer.DTO.Contact)
@@ -98,5 +95,6 @@ enum TransactionCard {
         case status(TransactionCardStatusCell.Model)
         case asset(TransactionCardAssetCell.Model)
         case sponsorshipDetail(TransactionCardSponsorshipDetailCell.Model)
+        case keyLoading(TransactionCardKeyLoadingCell.Model)
     }
 }

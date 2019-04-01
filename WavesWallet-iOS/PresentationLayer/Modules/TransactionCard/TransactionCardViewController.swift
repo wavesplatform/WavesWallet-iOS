@@ -438,6 +438,12 @@ extension TransactionCardViewController: UITableViewDataSource {
             cell.update(with: model)
 
             return cell
+
+        case .keyLoading(let model):
+            let cell: TransactionCardKeyLoadingCell = tableView.dequeueCell()
+            cell.update(with: model)
+
+            return cell
         }
     }
 }

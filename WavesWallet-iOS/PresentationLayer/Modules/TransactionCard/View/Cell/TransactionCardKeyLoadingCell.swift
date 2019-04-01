@@ -1,8 +1,8 @@
 //
-//  TransactionCardKeyValueCell.swift
+//  TransactionCardKeyLoadingCell.swift
 //  WavesWallet-iOS
 //
-//  Created by rprokofev on 11/03/2019.
+//  Created by rprokofev on 01/04/2019.
 //  Copyright © 2019 Waves Platform. All rights reserved.
 //
 
@@ -14,27 +14,20 @@ private struct Constants {
     static let topPaddingNormal: CGFloat = 14
 }
 
-final class TransactionCardKeyValueCell: UITableViewCell, Reusable {
+final class TransactionCardKeyLoadingCell: UITableViewCell, Reusable {
 
     struct Model {
 
-        struct Style {
-            enum Padding {
-                case largePadding
-                case normalPadding
-            }
-
-            let padding: Padding
-            let textColor: UIColor
+        enum Style {
+            case largePadding
+            case normalPadding
         }
 
-        let key: String
-        let value: String
+        let key: String        
         let style: Style
     }
 
-    @IBOutlet private var keyLabel: UILabel!
-    @IBOutlet private var valueLabel: UILabel!
+    @IBOutlet private var keyLabel: UILabel!    
     @IBOutlet private var topLayoutConstaint: NSLayoutConstraint!
 
     private var model: Model?
@@ -52,7 +45,7 @@ final class TransactionCardKeyValueCell: UITableViewCell, Reusable {
 
         guard let model = model else { return }
 
-        switch model.style.padding {
+        switch model.style {
         case .largePadding:
             self.topLayoutConstaint.constant = Constants.topPaddingLarge
 
@@ -66,15 +59,14 @@ final class TransactionCardKeyValueCell: UITableViewCell, Reusable {
 
 // TODO: ViewConfiguration
 
-extension TransactionCardKeyValueCell: ViewConfiguration {
+extension TransactionCardKeyLoadingCell: ViewConfiguration {
 
-    func update(with model: TransactionCardKeyValueCell.Model) {
-        
+    func update(with model: TransactionCardKeyLoadingCell.Model) {
+
         self.model = model
         keyLabel.text = model.key
-        valueLabel.text = model.value
-        valueLabel.textColor = model.style.textColor
 
         needsUpdateConstraints()
     }
 }
+

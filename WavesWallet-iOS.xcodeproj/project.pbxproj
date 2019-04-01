@@ -566,8 +566,10 @@
 		7B5E7465223907AA00746ADD /* TransactionCardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */; };
 		7B5E74672239088800746ADD /* TransactionCardHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */; };
 		7B5E746922390B8200746ADD /* TransactionCardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E746822390B8200746ADD /* TransactionCardBuilder.swift */; };
+		7B5EDEC022522655009C2B3B /* TransactionCardKeyLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5EDEBF22522655009C2B3B /* TransactionCardKeyLoadingCell.swift */; };
+		7B5EDEC222522837009C2B3B /* TransactionCardSystemOrder+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5EDEC122522837009C2B3B /* TransactionCardSystemOrder+Mapper.swift */; };
 		7B601B2A2240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B601B292240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift */; };
-		7B6922C6223BA1730056DA67 /* TransactionCardSystem+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6922C5223BA1730056DA67 /* TransactionCardSystem+Mapper.swift */; };
+		7B6922C6223BA1730056DA67 /* TransactionCardSystemTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6922C5223BA1730056DA67 /* TransactionCardSystemTransaction+Mapper.swift */; };
 		7BBDA0B62226CA5C00A83411 /* NodePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBDA0B52226CA5C00A83411 /* NodePlugin.swift */; };
 		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
 		7BD2FD35223C5E1F0098CFB9 /* TransactionCardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */; };
@@ -1522,8 +1524,10 @@
 		7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardHeaderView.swift; sourceTree = "<group>"; };
 		7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCardHeaderView.xib; sourceTree = "<group>"; };
 		7B5E746822390B8200746ADD /* TransactionCardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardBuilder.swift; sourceTree = "<group>"; };
+		7B5EDEBF22522655009C2B3B /* TransactionCardKeyLoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardKeyLoadingCell.swift; sourceTree = "<group>"; };
+		7B5EDEC122522837009C2B3B /* TransactionCardSystemOrder+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionCardSystemOrder+Mapper.swift"; sourceTree = "<group>"; };
 		7B601B292240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SmartTransactionDTO+EncodingToString.swift"; sourceTree = "<group>"; };
-		7B6922C5223BA1730056DA67 /* TransactionCardSystem+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionCardSystem+Mapper.swift"; sourceTree = "<group>"; };
+		7B6922C5223BA1730056DA67 /* TransactionCardSystemTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionCardSystemTransaction+Mapper.swift"; sourceTree = "<group>"; };
 		7BBDA0B52226CA5C00A83411 /* NodePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodePlugin.swift; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
 		7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardCoordinator.swift; sourceTree = "<group>"; };
@@ -3581,12 +3585,13 @@
 				7B3902AF2237D8FA00AAFDB8 /* TransactionCardExchangeCell.swift */,
 				7BDA6AE32230281A001DE71C /* TransactionCardGeneralCell.swift */,
 				7B39029A2236A17900AAFDB8 /* TransactionCardKeyBalanceCell.swift */,
+				7B5EDEBF22522655009C2B3B /* TransactionCardKeyLoadingCell.swift */,
 				7B390298223698D300AAFDB8 /* TransactionCardKeyValueCell.swift */,
 				7BDA6AF522316078001DE71C /* TransactionCardMassSentRecipientCell.swift */,
+				7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */,
 				7B3902AC2237D31900AAFDB8 /* TransactionCardShowAllCell.swift */,
 				7B3902A22237A00300AAFDB8 /* TransactionCardSponsorshipDetailCell.swift */,
 				7B39029C2236ABFF00AAFDB8 /* TransactionCardStatusCell.swift */,
-				7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -3597,7 +3602,8 @@
 				7BDA6AE0222FDCFA001DE71C /* View */,
 				7BDA6AD6222D8CA1001DE71C /* TransactionCardViewController.swift */,
 				7BDA6AD8222D8D0A001DE71C /* TransactionCardSystem.swift */,
-				7B6922C5223BA1730056DA67 /* TransactionCardSystem+Mapper.swift */,
+				7B6922C5223BA1730056DA67 /* TransactionCardSystemTransaction+Mapper.swift */,
+				7B5EDEC122522837009C2B3B /* TransactionCardSystemOrder+Mapper.swift */,
 				7BDA6ADA222D8D16001DE71C /* TransactionCardType.swift */,
 				7BDA6ADE222E9664001DE71C /* TransactionCard.storyboard */,
 				7B5E746822390B8200746ADD /* TransactionCardBuilder.swift */,
@@ -3608,10 +3614,10 @@
 		7BDA6AE0222FDCFA001DE71C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7BDA6ADC222E95C8001DE71C /* TransactionCardView.swift */,
-				7B3902AE2237D74400AAFDB8 /* Cell */,
 				7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */,
+				7BDA6ADC222E95C8001DE71C /* TransactionCardView.swift */,
 				7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */,
+				7B3902AE2237D74400AAFDB8 /* Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5480,6 +5486,7 @@
 				0A4E7DEE22018C5F007BBA39 /* ModalPresentationAnimator.swift in Sources */,
 				0ADD7FDC21F22FB60075FC59 /* TSUD.swift in Sources */,
 				0A3FE8AE2136E51900DBF4E1 /* TransactionContainersNode.swift in Sources */,
+				7B5EDEC222522837009C2B3B /* TransactionCardSystemOrder+Mapper.swift in Sources */,
 				0A3FE8AC2136AF4B00DBF4E1 /* TransactionsRepositoryProtocol.swift in Sources */,
 				E9B087E22163886800937644 /* DexCreateOrderModuleBuilder.swift in Sources */,
 				0A6AC3E8218489F5005D2525 /* AliasDomainDTO.swift in Sources */,
@@ -6011,6 +6018,7 @@
 				E9B087C12163886800937644 /* DexTraderContainerTypes.swift in Sources */,
 				0ADD7FD121F22FB60075FC59 /* WordList.swift in Sources */,
 				E944AA822245394C0009F494 /* AnalyticAssetManager.swift in Sources */,
+				7B5EDEC022522655009C2B3B /* TransactionCardKeyLoadingCell.swift in Sources */,
 				0A762DAC21661B000019D447 /* ProfilePresenter.swift in Sources */,
 				E9657040219360770052F0FC /* WalletSortInteractor.swift in Sources */,
 				E9D36DD52175C755001E6DF0 /* ReceiveCardViewController.swift in Sources */,
@@ -6123,7 +6131,7 @@
 				0ADD7FF321F22FB60075FC59 /* Reusable.swift in Sources */,
 				E9D36DED2175C755001E6DF0 /* ReceiveInvoiveTypes.swift in Sources */,
 				E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */,
-				7B6922C6223BA1730056DA67 /* TransactionCardSystem+Mapper.swift in Sources */,
+				7B6922C6223BA1730056DA67 /* TransactionCardSystemTransaction+Mapper.swift in Sources */,
 				0AF9222D212E0F1F003BA067 /* WalletLeasingBalanceSkeletonCell.swift in Sources */,
 				E9B0879C2163886800937644 /* DexChartModuleBuilder.swift in Sources */,
 				0AF58F9D2191DEA300C8A4B3 /* PasscodeEnableBiometricPresenter.swift in Sources */,
