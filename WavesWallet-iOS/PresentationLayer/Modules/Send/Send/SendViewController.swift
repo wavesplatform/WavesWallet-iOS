@@ -158,6 +158,7 @@ final class SendViewController: UIViewController {
     }
     
     private func setupAssetInfo(_ assetBalance: DomainLayer.DTO.SmartAssetBalance) {
+
         gateWayInfo = nil
         wavesFee = nil
         currentFee = nil
@@ -320,6 +321,13 @@ private extension SendViewController {
                     owner.showFeeError(error)
                     
                 case .didGetAssetBalance(let assetBalance):
+                    
+                    if owner.isLoadingAssetBalanceAfterScan && assetBalance == nil {
+                        owner.showErrorSnackWithoutAction(title: Localizable.Waves.Send.Label.Error.assetIsNotValid)
+                    }
+                    else if assetBalance?.asset.isSpam == true {
+                        owner.showErrorSnackWithoutAction(title: Localizable.Waves.Send.Label.Error.sendingToSpamAsset)
+                    }
                     
                     owner.hideLoadingAssetState(isLoadAsset: assetBalance != nil)
                     
@@ -633,7 +641,8 @@ private extension SendViewController {
             isValidMinMaxGatewayAmount &&
             isValidPaymentMoneroID &&
             !isLoadingAssetBalanceAfterScan &&
-            currentFee != nil
+            currentFee != nil &&
+            selectedAsset?.asset.isSpam == false
         
         buttonContinue.isUserInteractionEnabled = canContinueAction
         buttonContinue.backgroundColor = canContinueAction ? .submit400 : .submit200
