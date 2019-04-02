@@ -1,0 +1,17 @@
+/*
+ AccessibilityIdentifier.strings
+ WavesWallet-iOS
+
+ Created by rprokofev on 02/04/2019.
+ Copyright © 2019 Waves Platform. All rights reserved.
+ */
+
+"helloLanguagesViewController.continueBtn" = "helloLanguagesViewController.continueBtn";
+"helloLanguagesViewController.rootView" = "helloLanguagesViewController.rootView";
+
+"languageTableCell.labelTitle" = "languageTableCell.labelTitle";
+"languageTableCell.iconLanguage" = "languageTableCell.iconLanguage";
+"languageTableCell.iconCheckmark.select" = "languageTableCell.iconCheckmark.select";
+"languageTableCell.iconCheckmark.unselect" = "languageTableCell.iconCheckmark.unselect";
+
+"infoPagesViewController.nextControl" = "infoPagesViewController.nextControl";
