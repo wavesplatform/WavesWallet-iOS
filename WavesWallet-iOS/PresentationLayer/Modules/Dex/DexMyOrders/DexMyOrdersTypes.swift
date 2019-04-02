@@ -17,6 +17,7 @@ enum DexMyOrders {
         case setOrders([DomainLayer.DTO.Dex.MyOrder])
         case cancelOrder(IndexPath)
         case orderDidFinishCancel(ResponseType<Bool>)
+        case canceledOrder
         case refresh
     }
     

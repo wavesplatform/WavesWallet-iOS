@@ -2283,6 +2283,12 @@ internal enum Localizable {
         internal static var canceledLeasing: String { return Localizable.tr("Waves", "transactioncard.title.canceledLeasing") }
         /// Cancel Leasing
         internal static var cancelLeasing: String { return Localizable.tr("Waves", "transactioncard.title.cancelLeasing") }
+        /// Cancelled (%@%%)
+        internal static func cancelled(_ p1: String) -> String {
+          return Localizable.tr("Waves", "transactioncard.title.cancelled", p1)
+        }
+        /// Cancel order
+        internal static var cancelOrder: String { return Localizable.tr("Waves", "transactioncard.title.cancelOrder") }
         /// Cancel Script Transaction
         internal static var cancelScriptTransaction: String { return Localizable.tr("Waves", "transactioncard.title.cancelScriptTransaction") }
         /// Completed
@@ -2363,6 +2369,8 @@ internal enum Localizable {
         internal static var tokenGeneration: String { return Localizable.tr("Waves", "transactioncard.title.tokenGeneration") }
         /// Token Reissue
         internal static var tokenReissue: String { return Localizable.tr("Waves", "transactioncard.title.tokenReissue") }
+        /// Total
+        internal static var total: String { return Localizable.tr("Waves", "transactioncard.title.total") }
         /// Unconfirmed
         internal static var unconfirmed: String { return Localizable.tr("Waves", "transactioncard.title.unconfirmed") }
         /// Unrecognised Transaction

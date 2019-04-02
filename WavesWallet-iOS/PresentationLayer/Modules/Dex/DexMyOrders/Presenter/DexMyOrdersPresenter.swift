@@ -91,7 +91,14 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
                 }
 
             }
-            
+
+        case .canceledOrder:
+            return state.mutate {
+                $0.isNeedCancelOrder = false
+                $0.isNeedLoadOrders = false
+                $0.action = .update
+            }
+
         case .cancelOrder(let indexPath):
             
             return state.mutate {
