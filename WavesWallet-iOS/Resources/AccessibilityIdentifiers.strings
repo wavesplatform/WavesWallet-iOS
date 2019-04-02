@@ -9,15 +9,12 @@
 "viewController.helloLanguages.button.continue" = "helloLanguagesViewController.button.continue";
 "viewController.helloLanguages.rootView" = "viewController.helloLanguages.rootView";
 
-"view.cell.languageTable.rootView" = "view.cell.languageTable.rootView";
-"view.cell.languageTable.title" = "view.cell.languageTable.title";
-"view.cell.languageTable.icon.language" = "view.cell.languageTable.icon.language";
-"view.cell.languageTable.icon.checkmark.select" = "view.cell.languageTable.icon.checkmark.select";
-"view.cell.languageTable.icon.checkmark.unselect" = "view.cell.languageTable.icon.checkmark.unselect";
-
+"cell.languageTable.title" = "view.languageTable.title";
+"cell.languageTable.icon.language" = "view.languageTable.icon.language";
+"cell.languageTable.icon.checkmark.select" = "view.languageTable.icon.checkmark.select";
+"cell.languageTable.icon.checkmark.unselect" = "viewlanguageTable.icon.checkmark.unselect";
 
 "viewController.infoPagesViewController.button.next" = "viewController.infoPagesViewController.button.next";
-
 "viewController.infoPagesViewController.rootView" = "viewController.infoPagesViewController.rootView";
 
 

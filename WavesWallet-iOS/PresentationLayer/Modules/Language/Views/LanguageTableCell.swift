@@ -36,11 +36,9 @@ final class LanguageTableCell: UITableViewCell, NibReusable {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        iconLanguage.accessibilityIdentifier = AccessibilityIdentifiers.View.Cell.Languagetable.Icon.language
-
-        iconCheckmark.accessibilityIdentifier = AccessibilityIdentifiers.View.Cell.Languagetable.Icon.checkmark.unselect
-
-        labelTitle.accessibilityIdentifier = AccessibilityIdentifiers.View.Cell.Languagetable.title
+        iconLanguage.accessibilityIdentifier = AccessibilityIdentifiers.Cell.Languagetable.Icon.language
+        iconCheckmark.accessibilityIdentifier = AccessibilityIdentifiers.Cell.Languagetable.Icon.checkmark.unselect
+        labelTitle.accessibilityIdentifier = AccessibilityIdentifiers.Cell.Languagetable.title
 
         if Platform.isIphone5 {
             leftConstraint.constant = Constants.smallPading
@@ -72,11 +70,11 @@ extension LanguageTableCell: ViewConfiguration {
         labelTitle.text = model.title
         
         if model.isOn {
-            iconCheckmark.accessibilityIdentifier = AccessibilityIdentifiers.View.Cell.Languagetable.Icon.checkmark.select
+            iconCheckmark.accessibilityIdentifier = AccessibilityIdentifiers.Cell.Languagetable.Icon.Checkmark.select
             iconCheckmark.image = Images.on.image
         } else {
             iconCheckmark.image = Images.off.image
-            iconCheckmark.accessibilityIdentifier = AccessibilityIdentifiers.View.Cell.Languagetable.Icon.checkmark.unselect
+            iconCheckmark.accessibilityIdentifier = AccessibilityIdentifiers.Cell.Languagetable.Icon.checkmark.unselect
         }
     }
     
