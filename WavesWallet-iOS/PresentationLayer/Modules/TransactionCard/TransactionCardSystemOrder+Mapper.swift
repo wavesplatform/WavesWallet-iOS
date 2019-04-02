@@ -14,33 +14,6 @@ private struct Constants {
 
 fileprivate typealias Types = TransactionCard
 
-fileprivate extension DomainLayer.DTO.Dex.Asset {
-
-    var ticker: String? {
-        if name == shortName {
-            return nil
-        } else {
-            return shortName
-        }
-    }
-
-    func balance(_ amount: Int64) -> Balance {
-        return balance(amount, precision: decimals)
-    }
-
-    func balance(_ amount: Int64, precision: Int) -> Balance {
-        return Balance(currency: .init(title: name, ticker: ticker), money: money(amount, precision: precision))
-    }
-
-    func money(_ amount: Int64, precision: Int) -> Money {
-        return .init(amount, precision)
-    }
-
-    func money(_ amount: Int64) -> Money {
-        return money(amount, precision: decimals)
-    }
-}
-
 extension DomainLayer.DTO.Dex.MyOrder {
     
     func sections(core: TransactionCard.State.Core, needSendAgain: Bool = false) ->  [TransactionCard.Section] {
@@ -114,6 +87,33 @@ extension DomainLayer.DTO.Dex.MyOrder {
         let section = Types.Section(rows: rows)
 
         return [section]
+    }
+}
+
+fileprivate extension DomainLayer.DTO.Dex.Asset {
+
+    var ticker: String? {
+        if name == shortName {
+            return nil
+        } else {
+            return shortName
+        }
+    }
+
+    func balance(_ amount: Int64) -> Balance {
+        return balance(amount, precision: decimals)
+    }
+
+    func balance(_ amount: Int64, precision: Int) -> Balance {
+        return Balance(currency: .init(title: name, ticker: ticker), money: money(amount, precision: precision))
+    }
+
+    func money(_ amount: Int64, precision: Int) -> Money {
+        return .init(amount, precision)
+    }
+
+    func money(_ amount: Int64) -> Money {
+        return money(amount, precision: decimals)
     }
 }
 
