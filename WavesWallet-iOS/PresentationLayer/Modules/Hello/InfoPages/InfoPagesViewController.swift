@@ -49,15 +49,45 @@ final class InfoPagesViewController: UIViewController {
     
     private lazy var pageModels: [Any] = {
         
-        let welcome = ShortInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.First.title, detail: Localizable.Waves.Hello.Page.Info.First.detail, firstImage: nil, secondImage: nil, thirdImage: nil, fourthImage: nil)
+        let welcome = ShortInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.First.title,
+                                              detail: Localizable.Waves.Hello.Page.Info.First.detail,
+                                              firstImage: nil, secondImage: nil,
+                                              thirdImage: nil,
+                                              fourthImage: nil)
         
-        let needToKnow = ShortInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.Second.title, detail: Localizable.Waves.Hello.Page.Info.Second.detail, firstImage: Images.iAnonim42Submit400.image, secondImage: Images.iPassbrowser42Submit400.image, thirdImage: Images.iBackup42Submit400.image, fourthImage: Images.iShredder42Submit400.image)
+        let needToKnow = ShortInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.Second.title,
+                                                 detail: Localizable.Waves.Hello.Page.Info.Second.detail,
+                                                 firstImage: Images.iAnonim42Submit400.image,
+                                                 secondImage: Images.iPassbrowser42Submit400.image,
+                                                 thirdImage: Images.iBackup42Submit400.image,
+                                                 fourthImage: Images.iShredder42Submit400.image)
         
-        let needToKnowLong = LongInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.Third.title, firstDetail: Localizable.Waves.Hello.Page.Info.Third.Detail.first, secondDetail: Localizable.Waves.Hello.Page.Info.Third.Detail.second, thirdDetail: Localizable.Waves.Hello.Page.Info.Third.Detail.third, fourthDetail: Localizable.Waves.Hello.Page.Info.Third.Detail.fourth, firstImage: Images.iAnonim42Submit400.image, secondImage: Images.iPassbrowser42Submit400.image, thirdImage: Images.iBackup42Submit400.image, fourthImage: Images.iShredder42Submit400.image)
+        let needToKnowLong = LongInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.Third.title,
+                                                    firstDetail: Localizable.Waves.Hello.Page.Info.Third.Detail.first,
+                                                    secondDetail: Localizable.Waves.Hello.Page.Info.Third.Detail.second,
+                                                    thirdDetail: Localizable.Waves.Hello.Page.Info.Third.Detail.third,
+                                                    fourthDetail: Localizable.Waves.Hello.Page.Info.Third.Detail.fourth,
+                                                    firstImage: Images.iAnonim42Submit400.image,
+                                                    secondImage: Images.iPassbrowser42Submit400.image,
+                                                    thirdImage: Images.iBackup42Submit400.image,
+                                                    fourthImage: Images.iShredder42Submit400.image)
         
-        let protect = ShortInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.Fourth.title, detail: Localizable.Waves.Hello.Page.Info.Fourth.detail, firstImage: Images.iMailopen42Submit400.image, secondImage: Images.iRefreshbrowser42Submit400.image, thirdImage: Images.iOs42Submit400.image, fourthImage: Images.iWifi42Submit400.image)
+        let protect = ShortInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.Fourth.title,
+                                              detail: Localizable.Waves.Hello.Page.Info.Fourth.detail,
+                                              firstImage: Images.iMailopen42Submit400.image,
+                                              secondImage: Images.iRefreshbrowser42Submit400.image,
+                                              thirdImage: Images.iOs42Submit400.image,
+                                              fourthImage: Images.iWifi42Submit400.image)
         
-        let protectLong = LongInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.Fifth.title, firstDetail: Localizable.Waves.Hello.Page.Info.Fifth.Detail.first, secondDetail: Localizable.Waves.Hello.Page.Info.Fifth.Detail.second, thirdDetail: Localizable.Waves.Hello.Page.Info.Fifth.Detail.third, fourthDetail: Localizable.Waves.Hello.Page.Info.Fifth.Detail.fourth, firstImage: Images.iMailopen42Submit400.image, secondImage: Images.iRefreshbrowser42Submit400.image, thirdImage: Images.iOs42Submit400.image, fourthImage: Images.iWifi42Submit400.image)
+        let protectLong = LongInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.Fifth.title,
+                                                 firstDetail: Localizable.Waves.Hello.Page.Info.Fifth.Detail.first,
+                                                 secondDetail: Localizable.Waves.Hello.Page.Info.Fifth.Detail.second,
+                                                 thirdDetail: Localizable.Waves.Hello.Page.Info.Fifth.Detail.third,
+                                                 fourthDetail: Localizable.Waves.Hello.Page.Info.Fifth.Detail.fourth,
+                                                 firstImage: Images.iMailopen42Submit400.image,
+                                                 secondImage: Images.iRefreshbrowser42Submit400.image,
+                                                 thirdImage: Images.iOs42Submit400.image,
+                                                 fourthImage: Images.iWifi42Submit400.image)
         
         return [welcome, needToKnow, needToKnowLong, protect, protectLong]
         
@@ -67,6 +97,8 @@ final class InfoPagesViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .basic50
+
+//        self.nextControl.accessibilityIdentifier = AccessibilityIdentifiers.Viewcontroller.Infopagesviewcontroller.Button.next
 
         navigationItem.isNavigationBarHidden = true
 
