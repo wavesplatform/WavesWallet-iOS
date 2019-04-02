@@ -568,7 +568,6 @@
 		7B5E746922390B8200746ADD /* TransactionCardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E746822390B8200746ADD /* TransactionCardBuilder.swift */; };
 		7B5EDEC42253618C009C2B3B /* AccessibilityIdentifiers.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B5EDEC32253618C009C2B3B /* AccessibilityIdentifiers.strings */; };
 		7B5EDEC622536269009C2B3B /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5EDEC522536268009C2B3B /* AccessibilityIdentifiers.swift */; };
-		7B5EDEC822537A95009C2B3B /* UIView+AccessibilityIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5EDEC722537A95009C2B3B /* UIView+AccessibilityIdentifier.swift */; };
 		7B601B2A2240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B601B292240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift */; };
 		7B6922C6223BA1730056DA67 /* TransactionCardSystem+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6922C5223BA1730056DA67 /* TransactionCardSystem+Mapper.swift */; };
 		7BBDA0B62226CA5C00A83411 /* NodePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBDA0B52226CA5C00A83411 /* NodePlugin.swift */; };
@@ -1527,7 +1526,6 @@
 		7B5E746822390B8200746ADD /* TransactionCardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardBuilder.swift; sourceTree = "<group>"; };
 		7B5EDEC32253618C009C2B3B /* AccessibilityIdentifiers.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = AccessibilityIdentifiers.strings; sourceTree = "<group>"; };
 		7B5EDEC522536268009C2B3B /* AccessibilityIdentifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityIdentifiers.swift; sourceTree = "<group>"; };
-		7B5EDEC722537A95009C2B3B /* UIView+AccessibilityIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AccessibilityIdentifier.swift"; sourceTree = "<group>"; };
 		7B601B292240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SmartTransactionDTO+EncodingToString.swift"; sourceTree = "<group>"; };
 		7B6922C5223BA1730056DA67 /* TransactionCardSystem+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionCardSystem+Mapper.swift"; sourceTree = "<group>"; };
 		7BBDA0B52226CA5C00A83411 /* NodePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodePlugin.swift; sourceTree = "<group>"; };
@@ -3016,7 +3014,6 @@
 				0A751D3922171ABA0024D523 /* Kingfisher+Rx.swift */,
 				7BDA6AEF2231405D001DE71C /* SmartTransactionKind+UIImage.swift */,
 				7B601B292240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift */,
-				7B5EDEC722537A95009C2B3B /* UIView+AccessibilityIdentifier.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -5994,7 +5991,6 @@
 				0AF922FD212E1234003BA067 /* BorderButtView.swift in Sources */,
 				0A3FE8A62135AC2B00DBF4E1 /* AssetTransactionsCell.swift in Sources */,
 				0AFBCA8A2113254100285BCB /* WalletModuleBuilder.swift in Sources */,
-				7B5EDEC822537A95009C2B3B /* UIView+AccessibilityIdentifier.swift in Sources */,
 				E967786B21EC660C00CE56D6 /* DexMyOrders+Mapper.swift in Sources */,
 				E9B088142163886800937644 /* DexMarketInteractorProtocol.swift in Sources */,
 				0ADD7FBC21F22FB60075FC59 /* Array+Sort.swift in Sources */,

@@ -8,26 +8,21 @@ import Foundation
 // swiftlint:disable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 internal enum AccessibilityIdentifiers {
 
-  internal enum View {
+  internal enum Cell {
 
-    internal enum Cell {
+    internal enum Languagetable {
+      /// view.languageTable.title
+      internal static var title: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "cell.languageTable.title") }
 
-      internal enum Languagetable {
-        /// view.cell.languageTable.rootView
-        internal static var rootView: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "view.cell.languageTable.rootView") }
-        /// view.cell.languageTable.title
-        internal static var title: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "view.cell.languageTable.title") }
+      internal enum Icon {
+        /// view.languageTable.icon.language
+        internal static var language: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "cell.languageTable.icon.language") }
 
-        internal enum Icon {
-          /// view.cell.languageTable.icon.language
-          internal static var language: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "view.cell.languageTable.icon.language") }
-
-          internal enum Checkmark {
-            /// view.cell.languageTable.icon.checkmark.select
-            internal static var select: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "view.cell.languageTable.icon.checkmark.select") }
-            /// view.cell.languageTable.icon.checkmark.unselect
-            internal static var unselect: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "view.cell.languageTable.icon.checkmark.unselect") }
-          }
+        internal enum Checkmark {
+          /// view.languageTable.icon.checkmark.select
+          internal static var select: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "cell.languageTable.icon.checkmark.select") }
+          /// viewlanguageTable.icon.checkmark.unselect
+          internal static var unselect: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "cell.languageTable.icon.checkmark.unselect") }
         }
       }
     }
