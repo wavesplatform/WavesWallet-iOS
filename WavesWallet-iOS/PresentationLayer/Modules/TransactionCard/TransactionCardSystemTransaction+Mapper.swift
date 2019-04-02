@@ -14,16 +14,9 @@ private struct Constants {
 
 fileprivate typealias Types = TransactionCard
 
-extension TransactionCardSystem {
+extension DomainLayer.DTO.SmartTransaction {
 
-    func section(by core: TransactionCard.State.Core) -> [TransactionCard.Section]  {
-        return core.transaction.sections(core: core)
-    }
-}
-
-fileprivate extension DomainLayer.DTO.SmartTransaction {
-
-    func sections(core: TransactionCard.State.Core) -> [Types.Section] {
+    func sections(core: TransactionCard.State.Core) -> [TransactionCard.Section] {
 
         switch self.kind {
         case .sent(let transfer):
@@ -50,7 +43,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         case .startedLeasing(let leasing):
             return leasingSection(transfer: leasing,
                                   title: Localizable.Waves.Transactioncard.Title.startedLeasing,
-                                  titleContact: Localizable.Waves.Transactioncard.Title.sentTo,
+                                  titleContact: Localizable.Waves.Transactioncard.Title.nodeAddress,
                                   needCancelLeasing: true,
                                   core: core)
 
@@ -113,7 +106,9 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
             
         }
     }
+}
 
+fileprivate extension DomainLayer.DTO.SmartTransaction {
     // MARK: - Sent Sections
 
     func sentSection(transfer: DomainLayer.DTO.SmartTransaction.Transfer, core: TransactionCard.State.Core) ->  [Types.Section] {
@@ -703,19 +698,25 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
     func rowBlockModel(isLargePadding: Bool = false) -> TransactionCardKeyValueCell.Model {
         let height = self.height ?? 0
 
-        let padding: TransactionCardKeyValueCell.Model.Style = isLargePadding == true ? .largePadding : .normalPadding
+        let padding: TransactionCardKeyValueCell.Model.Style.Padding = isLargePadding == true ? .largePadding : .normalPadding
 
-        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.block, value: "\(height)", style: padding)
+        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.block,
+                                                 value: "\(height)",
+                                                 style: .init(padding: padding, textColor: .black))
     }
 
     var rowConfirmationsModel: TransactionCardKeyValueCell.Model {
-        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.confirmations, value: "\(String(describing: confirmationHeight))", style: .normalPadding)
+        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.confirmations,
+                                                 value: "\(String(describing: confirmationHeight))",
+                                                 style: .init(padding: .normalPadding, textColor: .black))
     }
 
     var rowFeeModel: TransactionCardKeyBalanceCell.Model {
-        return TransactionCardKeyBalanceCell.Model(key: Localizable.Waves.Transactioncard.Title.fee, value: BalanceLabel.Model(balance: self.totalFee,
-                                                                                         sign: nil,
-                                                                                         style: .small))
+        return TransactionCardKeyBalanceCell.Model(key: Localizable.Waves.Transactioncard.Title.fee,
+                                                   value: BalanceLabel.Model(balance: self.totalFee,
+                                                                             sign: nil,
+                                                                             style: .small),
+                                                   style: .normalPadding)
     }
 
     var rowTimestampModel: TransactionCardKeyValueCell.Model {
@@ -724,7 +725,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         formatter.dateFormat = Localizable.Waves.Transactioncard.Timestamp.format
         let timestampValue = formatter.string(from: timestamp)
 
-        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.timestamp, value: timestampValue, style: .normalPadding)
+        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.timestamp, value: timestampValue, style: .init(padding: .normalPadding, textColor: .black))
     }
 
     var rowStatusModel: TransactionCardStatusCell.Model {

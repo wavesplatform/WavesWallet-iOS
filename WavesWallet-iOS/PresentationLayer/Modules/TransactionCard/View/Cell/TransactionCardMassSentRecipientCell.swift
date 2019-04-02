@@ -34,7 +34,7 @@ final class TransactionCardMassSentRecipientCell: UITableViewCell, Reusable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        
         copyButton.copiedText = { [weak self] in
             return self?.address
         }

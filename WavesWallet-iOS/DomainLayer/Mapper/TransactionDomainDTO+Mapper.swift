@@ -825,6 +825,7 @@ extension DomainLayer.DTO.ExchangeTransaction.Order {
         let kind: DomainLayer.DTO.SmartTransaction.Exchange.Order.Kind = orderType == .sell ? .sell : .buy
         let amount = assetPair.amountBalance(self.amount)
         let price = assetPair.priceBalance(self.price)
+        //TODO: Is Correct?не
         let total = assetPair.totalBalance(priceAmount: self.amount,
                                            assetAmount: self.price)
 

@@ -33,7 +33,10 @@ final class DexMyOrdersViewController: UIViewController {
     
     private var section = DexMyOrders.ViewModel.Section(items: [])
     private let sendEvent: PublishRelay<DexMyOrders.Event> = PublishRelay<DexMyOrders.Event>()
-    
+
+    private var transactionCardCoordinator: TransactionCardCoordinator?
+    private var navigationRouter: NavigationRouter?
+
     var presenter: DexMyOrdersPresenterProtocol!
     weak var output: DexMyOrdersModuleOutput?
 
@@ -53,8 +56,15 @@ final class DexMyOrdersViewController: UIViewController {
     }
     
     private func showDetailScreen(order: DomainLayer.DTO.Dex.MyOrder) {
-        print(order)
-       
+        guard let navigationController = self.navigationController else { return }
+        let nav = NavigationRouter(navigationController: navigationController)
+        let coordinator = TransactionCardCoordinator(kind: .order(order), router: nav)
+
+        //TODO: Fix
+        self.navigationRouter = nav
+        self.transactionCardCoordinator = coordinator
+        coordinator.delegate = self
+        coordinator.start()
     }
 }
 
@@ -196,5 +206,14 @@ private extension DexMyOrdersViewController {
         labelDate.text = Localizable.Waves.Dexmyorders.Label.time
         labelSidePrice.text = Localizable.Waves.Dexmyorders.Label.type + "/" + Localizable.Waves.Dexmyorders.Label.price
         labelStatus.text = Localizable.Waves.Dexmyorders.Label.status
+    }
+}
+
+//MARK: - TransactionCardCoordinator
+
+extension DexMyOrdersViewController: TransactionCardCoordinatorDelegate {
+
+    func transactionCardCoordinatorCanceledOrder(_ order: DomainLayer.DTO.Dex.MyOrder) {
+        sendEvent.accept(.canceledOrder)
     }
 }
