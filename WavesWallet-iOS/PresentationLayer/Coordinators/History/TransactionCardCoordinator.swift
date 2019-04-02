@@ -136,7 +136,7 @@ extension TransactionCardCoordinator: TransactionCardModuleOutput {
     func transactionCardViewOnExplorer(_ transaction: DomainLayer.DTO.SmartTransaction) {
 
         var url: URL?
-        if Environment.isTestNet {
+        if ApplicationDebugSettings.isEnableStage {
             url = URL(string: "\(Constants.wavesExplorerTransactionTestnetUrl)\(transaction.id)")
         } else {
             url = URL(string: "\(Constants.wavesExplorerTransactionUrl)\(transaction.id)")
