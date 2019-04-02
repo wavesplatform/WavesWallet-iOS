@@ -1,20 +1,17 @@
-/* 
-  AccessibilityIdentifier.strings
-  WavesWallet-iOS
+/*
+ AccessibilityIdentifier.strings
+ WavesWallet-iOS
 
-  Created by rprokofev on 02/04/2019.
-  Copyright © 2019 Waves Platform. All rights reserved.
-*/
+ Created by rprokofev on 02/04/2019.
+ Copyright © 2019 Waves Platform. All rights reserved.
+ */
 
-"viewController.helloLanguages.button.continue" = "helloLanguagesViewController.button.continue";
-"viewController.helloLanguages.rootView" = "viewController.helloLanguages.rootView";
+"helloLanguagesViewController.continueBtn" = "helloLanguagesViewController.continueBtn";
+"helloLanguagesViewController.rootView" = "helloLanguagesViewController.rootView";
 
-"cell.languageTable.title" = "view.languageTable.title";
-"cell.languageTable.icon.language" = "view.languageTable.icon.language";
-"cell.languageTable.icon.checkmark.select" = "view.languageTable.icon.checkmark.select";
-"cell.languageTable.icon.checkmark.unselect" = "viewlanguageTable.icon.checkmark.unselect";
+"languageTableCell.labelTitle" = "languageTableCell.labelTitle";
+"languageTableCell.iconLanguage" = "languageTableCell.iconLanguage";
+"languageTableCell.iconCheckmark.select" = "languageTableCell.iconCheckmark.select";
+"languageTableCell.iconCheckmark.unselect" = "languageTableCell.iconCheckmark.unselect";
 
-"viewController.infoPagesViewController.button.next" = "viewController.infoPagesViewController.button.next";
-"viewController.infoPagesViewController.rootView" = "viewController.infoPagesViewController.rootView";
-
-
+"infoPagesViewController.nextControl" = "infoPagesViewController.nextControl";

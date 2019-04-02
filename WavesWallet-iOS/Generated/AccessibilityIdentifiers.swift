@@ -8,46 +8,29 @@ import Foundation
 // swiftlint:disable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 internal enum AccessibilityIdentifiers {
 
-  internal enum Cell {
-
-    internal enum Languagetable {
-      /// view.languageTable.title
-      internal static var title: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "cell.languageTable.title") }
-
-      internal enum Icon {
-        /// view.languageTable.icon.language
-        internal static var language: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "cell.languageTable.icon.language") }
-
-        internal enum Checkmark {
-          /// view.languageTable.icon.checkmark.select
-          internal static var select: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "cell.languageTable.icon.checkmark.select") }
-          /// viewlanguageTable.icon.checkmark.unselect
-          internal static var unselect: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "cell.languageTable.icon.checkmark.unselect") }
-        }
-      }
-    }
+  internal enum Hellolanguagesviewcontroller {
+    /// helloLanguagesViewController.continueBtn
+    internal static var continueBtn: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "helloLanguagesViewController.continueBtn") }
+    /// helloLanguagesViewController.rootView
+    internal static var rootView: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "helloLanguagesViewController.rootView") }
   }
 
-  internal enum Viewcontroller {
+  internal enum Infopagesviewcontroller {
+    /// infoPagesViewController.nextControl
+    internal static var nextControl: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "infoPagesViewController.nextControl") }
+  }
 
-    internal enum Hellolanguages {
-      /// viewController.helloLanguages.rootView
-      internal static var rootView: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "viewController.helloLanguages.rootView") }
+  internal enum Languagetablecell {
+    /// languageTableCell.iconLanguage
+    internal static var iconLanguage: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "languageTableCell.iconLanguage") }
+    /// languageTableCell.labelTitle
+    internal static var labelTitle: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "languageTableCell.labelTitle") }
 
-      internal enum Button {
-        /// helloLanguagesViewController.button.continue
-        internal static var `continue`: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "viewController.helloLanguages.button.continue") }
-      }
-    }
-
-    internal enum Infopagesviewcontroller {
-      /// viewController.infoPagesViewController.rootView
-      internal static var rootView: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "viewController.infoPagesViewController.rootView") }
-
-      internal enum Button {
-        /// viewController.infoPagesViewController.button.next
-        internal static var next: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "viewController.infoPagesViewController.button.next") }
-      }
+    internal enum Iconcheckmark {
+      /// languageTableCell.iconCheckmark.select
+      internal static var select: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "languageTableCell.iconCheckmark.select") }
+      /// languageTableCell.iconCheckmark.unselect
+      internal static var unselect: String { return AccessibilityIdentifiers.tr("AccessibilityIdentifiers", "languageTableCell.iconCheckmark.unselect") }
     }
   }
 }
