@@ -27,7 +27,7 @@ final class DexCreateOrderViewController: UIViewController {
                
             order = DexCreateOrder.DTO.Order(amountAsset: input.amountAsset, priceAsset: input.priceAsset,
                                              type: input.type,
-                                             amount: input.amount ?? Money(0, input.amountAsset.decimals),
+                                             amount: Money(0, input.amountAsset.decimals),
                                              price: input.price ?? Money(0, input.priceAsset.decimals),
                                              total: Money(0, input.priceAsset.decimals),
                                              expiration: DexCreateOrder.DTO.Expiration.expiration29d,
@@ -151,9 +151,10 @@ private extension DexCreateOrderViewController {
                 case .didGetFee(let fee):
                     strongSelf.showFee(fee: fee)
                     strongSelf.order.fee = fee.amount
-                    strongSelf.setupButtonSellBuy()
-                    strongSelf.setupValidationErrors()
+                    strongSelf.updateInputDataFields()
                     strongSelf.sendEvent.accept(.updateInputOrder(strongSelf.order))
+                    strongSelf.setupValidationErrors()
+                    strongSelf.setupButtonSellBuy()
                     strongSelf.setupInputAmountData()
                     strongSelf.setupInputTotalData()
                     
@@ -336,6 +337,38 @@ extension DexCreateOrderViewController: DexCreateOrderInputViewDelegate {
 //MARK: - Data
 private extension DexCreateOrderViewController {
     
+    func updateInputDataFields() {
+        
+        if let price = input.price {
+            order.price = price
+            inputPrice.setupValue(price)
+            
+            if let sum = input.sum {
+                
+                if order.type == .buy {
+                    if sum.decimalValue > availablePriceAssetBalance.decimalValue {
+                        inputTotal.updateAmount(availablePriceAssetBalance)
+                    }
+                    else {
+                        inputTotal.updateAmount(sum)
+                    }
+                }
+                else {
+                    
+                    let amount = sum.decimalValue / price.decimalValue
+                    if amount > availableAmountAssetBalance.decimalValue {
+                        inputAmount.updateAmount(availableAmountAssetBalance)
+                    }
+                    else {
+                        inputTotal.updateAmount(sum)
+                    }
+                }
+            }
+            
+            setupValidationErrors()
+        }
+    }
+    
     func setupData() {
         
         segmentedControl.type = input.type
@@ -367,15 +400,7 @@ private extension DexCreateOrderViewController {
             return self?.totalValues ?? []
         }
         
-        if let price = input.price {
-            order.price = price
-            inputPrice.setupValue(price)
-            
-            if let amount = input.amount {
-                inputAmount.updateAmount(amount)
-            }
-            setupValidationErrors()
-        }
+        updateInputDataFields()
     }
     
     func setupInputPriceData() {

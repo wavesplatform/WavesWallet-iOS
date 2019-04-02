@@ -15,7 +15,7 @@ protocol DexOrderBookModuleOutput: AnyObject {
                         availableAmountAssetBalance: Money,
                         availablePriceAssetBalance: Money,
                         availableWavesBalance: Money,
-                        inputMaxAmount: Bool,
+                        inputMaxSum: Bool,
                         scriptedAssets: [DomainLayer.DTO.Asset])
 
     func didCreateEmptyOrder(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset,
