@@ -1309,13 +1309,9 @@ The trading history is empty</string>
                                                     <color key="textColor" red="0.30588235289999999" green="0.36078431370000003" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OnV-Q8-LJe">
-                                                    <rect key="frame" x="314" y="0.0" width="45" height="54"/>
-                                                    <state key="normal" image="info18Basic300"/>
-                                                    <connections>
-                                                        <action selector="infoTapped:" destination="S7d-4E-cv1" eventType="touchUpInside" id="Lfv-vC-add"/>
-                                                    </connections>
-                                                </button>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info18Basic300" translatesAutoresizingMaskIntoConstraints="NO" id="Ayt-MK-y4a">
+                                                    <rect key="frame" x="327" y="18" width="18" height="18"/>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Z6D-Mi-yA1" firstAttribute="centerY" secondItem="JjE-nh-3Oc" secondAttribute="centerY" id="1fU-bx-8Tf"/>
@@ -1325,20 +1321,18 @@ The trading history is empty</string>
                                                 <constraint firstItem="zyB-cg-T8Q" firstAttribute="top" secondItem="bbM-Lz-DqS" secondAttribute="top" id="8Ba-5g-c6G"/>
                                                 <constraint firstItem="zyB-cg-T8Q" firstAttribute="leading" secondItem="bbM-Lz-DqS" secondAttribute="trailing" constant="5" id="8Bl-eU-Lsp"/>
                                                 <constraint firstItem="8l6-XF-lka" firstAttribute="top" secondItem="JQZ-cU-tnB" secondAttribute="top" id="E7E-9O-dsB"/>
-                                                <constraint firstItem="OnV-Q8-LJe" firstAttribute="leading" secondItem="Z6D-Mi-yA1" secondAttribute="trailing" id="ESN-pK-exG"/>
                                                 <constraint firstItem="zyB-cg-T8Q" firstAttribute="leading" secondItem="JjE-nh-3Oc" secondAttribute="leading" constant="208" id="Ewz-hR-tXu"/>
                                                 <constraint firstItem="8l6-XF-lka" firstAttribute="trailing" secondItem="bbM-Lz-DqS" secondAttribute="trailing" id="PQL-iN-Qsw"/>
                                                 <constraint firstItem="l2h-gI-t7J" firstAttribute="leading" secondItem="zyB-cg-T8Q" secondAttribute="leading" id="Q2N-Dy-XOh"/>
                                                 <constraint firstItem="8u7-yL-lrM" firstAttribute="leading" secondItem="JjE-nh-3Oc" secondAttribute="leading" constant="8" id="QDK-pS-AVC"/>
-                                                <constraint firstItem="OnV-Q8-LJe" firstAttribute="top" secondItem="JjE-nh-3Oc" secondAttribute="top" id="Wya-ly-ZUb"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ayt-MK-y4a" secondAttribute="trailing" constant="14" id="Y4K-be-UNM"/>
                                                 <constraint firstAttribute="trailing" secondItem="Z6D-Mi-yA1" secondAttribute="trailing" constant="45" id="aU9-gF-zkd"/>
                                                 <constraint firstItem="l2h-gI-t7J" firstAttribute="top" secondItem="8l6-XF-lka" secondAttribute="top" id="bTu-3x-71g"/>
                                                 <constraint firstItem="JQZ-cU-tnB" firstAttribute="leading" secondItem="8u7-yL-lrM" secondAttribute="leading" id="cSO-ND-3ju"/>
-                                                <constraint firstAttribute="bottom" secondItem="OnV-Q8-LJe" secondAttribute="bottom" id="iDH-O1-utS"/>
                                                 <constraint firstItem="bbM-Lz-DqS" firstAttribute="top" secondItem="8u7-yL-lrM" secondAttribute="top" id="lR3-IZ-Fjq"/>
                                                 <constraint firstItem="JQZ-cU-tnB" firstAttribute="trailing" secondItem="8u7-yL-lrM" secondAttribute="trailing" id="lo5-P5-FUS"/>
                                                 <constraint firstItem="8l6-XF-lka" firstAttribute="leading" secondItem="bbM-Lz-DqS" secondAttribute="leading" id="ogM-cn-SC0"/>
-                                                <constraint firstAttribute="trailing" secondItem="OnV-Q8-LJe" secondAttribute="trailing" id="tn3-F2-Huc"/>
+                                                <constraint firstItem="Ayt-MK-y4a" firstAttribute="centerY" secondItem="JjE-nh-3Oc" secondAttribute="centerY" id="vR9-Aw-N63"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>

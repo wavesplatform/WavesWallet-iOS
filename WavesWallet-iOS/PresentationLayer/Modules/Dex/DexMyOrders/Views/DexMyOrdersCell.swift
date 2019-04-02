@@ -22,29 +22,22 @@ final class DexMyOrdersCell: UITableViewCell, Reusable {
     @IBOutlet private weak var labelPrice: UILabel!
     @IBOutlet private weak var labelFilled: UILabel!
     @IBOutlet private weak var viewSeparate: UIView!
-    
-    var buttonInfoDidTap: ((DomainLayer.DTO.Dex.MyOrder) -> Void)?
-    private var order: DomainLayer.DTO.Dex.MyOrder?
-    
-    @IBAction private func infoTapped(_ sender: Any) {
-        guard let order = order else { return }
-        buttonInfoDidTap?(order)
-    }
+
 }
 
 extension DexMyOrdersCell: ViewConfiguration {
     
     func update(with model: DomainLayer.DTO.Dex.MyOrder) {
-        
-        order = model
-        
+                
         labelDate.text = DexMyOrders.ViewModel.dateFormatterDate.string(from: model.time)
         labelTime.text = DexMyOrders.ViewModel.dateFormatterTime.string(from: model.time)
         labelStatus.text = model.statusText
         labelPrice.text = model.price.displayText
+        labelFilled.text = String(model.percentFilled) + "%"
+        labelSide.text = model.type == .sell ? Localizable.Waves.Dexmyorders.Label.sell : Localizable.Waves.Dexmyorders.Label.buy
+        
         labelSide.textColor = model.type == .sell ? UIColor.error500 : UIColor.submit400
         labelPrice.textColor = model.type == .sell ? UIColor.error500 : UIColor.submit400
-        labelFilled.text = String(model.percentFilled) + "%"
 
         labelDate.alpha = model.status == .cancelled ? Constants.cancelAlpha : Constants.defaultAlpha
         labelTime.alpha = model.status == .cancelled ? Constants.cancelAlpha : Constants.defaultAlpha
