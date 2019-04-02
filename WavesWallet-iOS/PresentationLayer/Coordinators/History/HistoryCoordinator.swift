@@ -24,7 +24,9 @@ final class HistoryCoordinator: Coordinator {
         let historyViewController = HistoryModuleBuilder(output: self)
             .build(input: HistoryInput(inputType: historyType))
 
-        navigationRouter.pushViewController(historyViewController)
+        navigationRouter.pushViewController(historyViewController, animated: true) { [weak self] in
+            self?.removeFromParentCoordinator()
+        }
         setupBackupTost(target: historyViewController, navigationRouter: navigationRouter, disposeBag: disposeBag)
     }
 
