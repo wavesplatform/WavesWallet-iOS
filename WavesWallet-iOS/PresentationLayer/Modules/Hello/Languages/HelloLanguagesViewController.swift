@@ -46,8 +46,8 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.accessibilityIdentifier = AccessibilityIdentifiers.Viewcontroller.Hellolanguages.rootView
-        self.continueBtn.accessibilityIdentifier = AccessibilityIdentifiers.Viewcontroller.Hellolanguages.Button.continue
+        self.view.accessibilityIdentifier = AccessibilityIdentifiers.Hellolanguagesviewcontroller.rootView
+        self.continueBtn.accessibilityIdentifier = AccessibilityIdentifiers.Hellolanguagesviewcontroller.continueBtn
         
         navigationItem.isNavigationBarHidden = true
 

@@ -98,7 +98,7 @@ final class InfoPagesViewController: UIViewController {
         
         view.backgroundColor = .basic50
 
-        self.nextControl.accessibilityIdentifier = AccessibilityIdentifiers.Viewcontroller.Infopagesviewcontroller.Button.next
+//        self.nextControl.accessibilityIdentifier = AccessibilityIdentifiers.Viewcontroller.Infopagesviewcontroller.Button.next
 
         navigationItem.isNavigationBarHidden = true
 
