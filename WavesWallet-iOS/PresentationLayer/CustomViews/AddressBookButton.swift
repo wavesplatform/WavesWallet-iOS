@@ -21,6 +21,8 @@ final class AddressBookButton: UIButton {
         titleLabel?.font = .systemFont(ofSize: 13, weight: .regular)
         setTitleColor(.white, for: .normal)
         setBackgroundImage(UIColor.submit300.image, for: .normal)
+        setBackgroundImage(UIColor.submit200.image, for: .highlighted)
+
         imageEdgeInsets = UIEdgeInsets(top: 0,
                                        left: -4,
                                        bottom: 0,
@@ -47,10 +49,12 @@ extension AddressBookButton: ViewConfiguration {
         case .edit:
             setTitle(Localizable.Waves.Addressbookbutton.Title.editName, for: .normal)
             setImage(Images.editaddress24Submit300.image, for: .normal)
+            setImage(Images.editaddress24Submit200.image, for: .highlighted)
 
         case .add:
             setTitle(Localizable.Waves.Addressbookbutton.Title.saveAddress, for: .normal)
             setImage(Images.addaddress24Submit300.image, for: .normal)
+            setImage(Images.addaddress24Submit200.image, for: .highlighted)
         }
     }
 }

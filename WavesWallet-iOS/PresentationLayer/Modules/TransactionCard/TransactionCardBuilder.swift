@@ -11,7 +11,7 @@ import UIKit
 struct TransactionCardBuilder: ModuleBuilderOutput {
 
     struct Input {
-        var transaction: DomainLayer.DTO.SmartTransaction
+        var kind: TransactionCard.Kind
         var callbackInput: ((TransactionCardModuleInput) -> Void)
     }
 
@@ -20,7 +20,7 @@ struct TransactionCardBuilder: ModuleBuilderOutput {
     func build(input: Input) -> UIViewController {
 
         let vc = StoryboardScene.TransactionCard.transactionCardViewController.instantiate()
-        vc.system = TransactionCardSystem(transaction: input.transaction)
+        vc.system = TransactionCardSystem(kind: input.kind)
         vc.delegate = output
         input.callbackInput(vc)
         return vc

@@ -46,6 +46,7 @@ internal struct ColorAsset {
 internal enum Images {
   internal static let image = ImageAsset(name: "Image")
   internal static let addAddressIcon = ImageAsset(name: "add_address_icon")
+  internal static let addaddress24Submit200 = ImageAsset(name: "addaddress24Submit200")
   internal static let addaddress24Submit300 = ImageAsset(name: "addaddress24Submit300")
   internal static let arrowGreen = ImageAsset(name: "arrow_green")
   internal static let arrowLeft = ImageAsset(name: "arrow_left")
@@ -102,6 +103,7 @@ internal enum Images {
   internal static let dragElem = ImageAsset(name: "dragElem")
   internal static let draglock22Disabled400 = ImageAsset(name: "draglock22Disabled400")
   internal static let editAddressIcon = ImageAsset(name: "edit_address_icon")
+  internal static let editaddress24Submit200 = ImageAsset(name: "editaddress24Submit200")
   internal static let editaddress24Submit300 = ImageAsset(name: "editaddress24Submit300")
   internal static let eyeclsoe24Basic500 = ImageAsset(name: "eyeclsoe24Basic500")
   internal static let eyeopen24Basic500 = ImageAsset(name: "eyeopen24Basic500")
@@ -309,6 +311,7 @@ internal enum Images {
   internal static let allImages: [ImageAsset] = [
     image,
     addAddressIcon,
+    addaddress24Submit200,
     addaddress24Submit300,
     arrowGreen,
     arrowLeft,
@@ -365,6 +368,7 @@ internal enum Images {
     dragElem,
     draglock22Disabled400,
     editAddressIcon,
+    editaddress24Submit200,
     editaddress24Submit300,
     eyeclsoe24Basic500,
     eyeopen24Basic500,

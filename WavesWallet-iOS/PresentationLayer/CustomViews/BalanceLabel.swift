@@ -57,19 +57,37 @@ extension BalanceLabel: ViewConfiguration {
             tickerView.isHidden = true
         }
 
-        let text = balance.displayText(sign: model.sign ?? .none,
-                                       withoutCurrency: hasTicker)
 
         switch model.style {
         case .large:
 
-            titleLabel.attributedText = .styleForBalance(text: text,
-                                                         font: UIFont.boldSystemFont(ofSize: 22))
+            let text = balance.displayText(sign: model.sign ?? .none,
+                                           withoutCurrency: true)
+
+
+            let string = NSMutableAttributedString()
+            string.append(.styleForBalance(text: text,
+                                           font: UIFont.boldSystemFont(ofSize: 22)))
+            
+
+            if hasTicker == false {
+                let name = NSMutableAttributedString(string: " \(balance.currency.title)",
+                                                     attributes: [.font: UIFont.systemFont(ofSize: 22,
+                                                                                           weight: .regular)])
+                string.append(name)
+            }
+
+            titleLabel.attributedText = string
 
         case .small:
 
-           let attrString = NSMutableAttributedString(string: text,
-                                                      attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13, weight: .regular)])
+
+            let text = balance.displayText(sign: model.sign ?? .none,
+                                           withoutCurrency: hasTicker)
+
+            let attrString = NSMutableAttributedString(string: text,
+                                                       attributes: [.font: UIFont.systemFont(ofSize: 13,
+                                                                                             weight: .regular)])
 
             titleLabel.attributedText = attrString
         }
