@@ -65,7 +65,13 @@ final class LongInfoPageView: UIView {
     @IBOutlet weak var secondImageView: UIImageView!
     @IBOutlet weak var thirdImageView: UIImageView!
     @IBOutlet weak var fourthImageView: UIImageView!
-    
+
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+    }
+
     func setupConstraints() {
         if Platform.isIphone5 {
             setupAllConstraints(titleTop: 58, titleLeading: 16, textTrailing: 16, secondTop: 24)
