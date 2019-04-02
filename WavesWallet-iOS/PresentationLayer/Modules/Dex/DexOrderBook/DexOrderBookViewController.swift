@@ -115,7 +115,7 @@ private extension DexOrderBookViewController {
     
     @IBAction func sellTapped(_ sender: Any) {
         if let bid = state.lastBid {
-            sendEvent.accept(.didTapBid(bid, inputMaxAmount: false))
+            sendEvent.accept(.didTapBid(bid, inputMaxSum: false))
         }
         else if state.hasFirstTimeLoad {
             sendEvent.accept(.didTapEmptyBid)
@@ -124,7 +124,7 @@ private extension DexOrderBookViewController {
     
     @IBAction func buyTapped(_ sender: Any) {
         if let ask = state.lastAsk {
-            sendEvent.accept(.didTapAsk(ask, inputMaxAmount: false))
+            sendEvent.accept(.didTapAsk(ask, inputMaxSum: false))
         }
         else if state.hasFirstTimeLoad {
             sendEvent.accept(.didTamEmptyAsk)
@@ -138,10 +138,10 @@ extension DexOrderBookViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = state.sections[indexPath.section].items[indexPath.row]
         if let bid = row.bid {
-            sendEvent.accept(.didTapBid(bid, inputMaxAmount: true))
+            sendEvent.accept(.didTapBid(bid, inputMaxSum: true))
         }
         else if let ask = row.ask {
-            sendEvent.accept(.didTapAsk(ask, inputMaxAmount: true))
+            sendEvent.accept(.didTapAsk(ask, inputMaxSum: true))
         }
     }
 }
