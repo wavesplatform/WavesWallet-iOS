@@ -50,11 +50,11 @@ final class DexMyOrdersViewController: UIViewController {
         setupRefreshControl()
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         viewTopCorners.createTopCorners(radius: Constants.cornerTableRadius)
     }
-    
+  
     private func showDetailScreen(order: DomainLayer.DTO.Dex.MyOrder) {
         guard let navigationController = self.navigationController else { return }
         let nav = NavigationRouter(navigationController: navigationController)
@@ -151,6 +151,20 @@ private extension DexMyOrdersViewController {
     }
 }
 
+//MARK: - UITableViewDelegate
+extension DexMyOrdersViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let row = section.items[indexPath.row]
+        
+        switch row {
+        case .order(let order):
+            showDetailScreen(order: order)
+        }
+    }
+}
+
 //MARK: - UITableViewDataSource
 extension DexMyOrdersViewController: UITableViewDataSource {
 
@@ -166,11 +180,6 @@ extension DexMyOrdersViewController: UITableViewDataSource {
         case .order(let myOrder):
             let cell = tableView.dequeueCell() as DexMyOrdersCell
             cell.update(with: myOrder)
-            
-            cell.buttonInfoDidTap = { [weak self] order in
-                self?.showDetailScreen(order: order)
-            }
-            
             return cell
         }
     }
