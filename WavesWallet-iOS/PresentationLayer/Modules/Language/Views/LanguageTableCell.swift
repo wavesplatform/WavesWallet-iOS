@@ -36,6 +36,10 @@ final class LanguageTableCell: UITableViewCell, NibReusable {
     override func awakeFromNib() {
         super.awakeFromNib()
 
+        iconLanguage.accessibilityIdentifier = AccessibilityIdentifiers.Languagetablecell.iconLanguage
+        iconCheckmark.accessibilityIdentifier = AccessibilityIdentifiers.Languagetablecell.Iconcheckmark.select
+        labelTitle.accessibilityIdentifier = AccessibilityIdentifiers.Languagetablecell.labelTitle
+
         if Platform.isIphone5 {
             leftConstraint.constant = Constants.smallPading
             rightConstraint.constant = Constants.smallPading
@@ -56,9 +60,7 @@ final class LanguageTableCell: UITableViewCell, NibReusable {
         } else {
             selectedBackgroundView?.backgroundColor = .white
         }
-        
     }
-    
 }
 
 extension LanguageTableCell: ViewConfiguration {
@@ -68,9 +70,11 @@ extension LanguageTableCell: ViewConfiguration {
         labelTitle.text = model.title
         
         if model.isOn {
+            iconCheckmark.accessibilityIdentifier = AccessibilityIdentifiers.Languagetablecell.Iconcheckmark.select
             iconCheckmark.image = Images.on.image
         } else {
             iconCheckmark.image = Images.off.image
+            iconCheckmark.accessibilityIdentifier = AccessibilityIdentifiers.Languagetablecell.Iconcheckmark.unselect
         }
     }
     
