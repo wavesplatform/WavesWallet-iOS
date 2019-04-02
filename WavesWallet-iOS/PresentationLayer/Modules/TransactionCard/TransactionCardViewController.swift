@@ -83,9 +83,9 @@ final class TransactionCardScroll: ModalTableView {
 
             let offset = screenHeight - contentHeight
 
-            if offset > arrowFrame.height {
+            if offset > (arrowFrame.height + Constants.bottomPaddingArrowButton) {
                 arrowFrame.origin = .init(x: xArrow,
-                                          y: screenHeight - arrowFrame.height)
+                                          y: screenHeight - arrowFrame.height - Constants.bottomPaddingArrowButton)
             } else {
                 arrowFrame.origin = .init(x: xArrow,
                                           y: contentHeight)
