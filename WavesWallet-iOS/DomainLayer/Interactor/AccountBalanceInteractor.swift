@@ -110,7 +110,7 @@ private extension AccountBalanceInteractor {
                 let (balances, environment) = arg
 
                 let generalBalances = environment
-                    .generalAssetIds
+                    .generalAssets
                     .map { DomainLayer.DTO.AssetBalance(info: $0) }
 
                     var newBalances = balances

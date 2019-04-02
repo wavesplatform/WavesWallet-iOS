@@ -19,16 +19,21 @@ final class SupportViewController: UIViewController {
     @IBOutlet private var versionLabel: UILabel!
     @IBOutlet private var buildVersionLabel: UILabel!
     @IBOutlet private var testNetSwitch: UISwitch!
+    @IBOutlet private weak var enableStageSwitch: UISwitch!
+    
+    
     weak var delegate: SupportViewControllerDelegate?
     private let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let transactions: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let on = Environment.isTestNet
-        testNetSwitch.setOn(on, animated: true)
+
+        testNetSwitch.setOn(Environment.isTestNet, animated: true)
         versionLabel.text = version()
         buildVersionLabel.text = buildVersion()
+        enableStageSwitch.isOn = ApplicationDebugSettings.isEnableStage
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.topbarLogout.image, style: .done, target: self, action: #selector(actionBack))
     }
 
@@ -40,6 +45,10 @@ final class SupportViewController: UIViewController {
 
     }
 
+    @IBAction private func switchEnableStageChange(_ sender: Any) {
+        ApplicationDebugSettings.setupIsEnableStage(isEnable: enableStageSwitch.isOn)
+    }
+    
     static let image = "test"
 
     private let popoverViewControllerTransitioning = ModalViewControllerTransitioning {

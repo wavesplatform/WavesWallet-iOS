@@ -252,7 +252,8 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
         return Environment(name: environment.name,
                            servers: servers,
                            scheme: environment.scheme,
-                           generalAssetIds: environment.generalAssetIds)
+                           generalAssets: environment.generalAssets,
+                           assets: environment.assets)
     }
 }
 

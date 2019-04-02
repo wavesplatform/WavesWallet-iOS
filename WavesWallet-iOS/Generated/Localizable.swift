@@ -1970,6 +1970,8 @@ internal enum Localizable {
         internal static var send: String { return Localizable.tr("Waves", "send.label.send") }
 
         internal enum Error {
+          /// The asset is not valid
+          internal static var assetIsNotValid: String { return Localizable.tr("Waves", "send.label.error.assetIsNotValid") }
           /// Insufficient funds
           internal static var insufficientFunds: String { return Localizable.tr("Waves", "send.label.error.insufficientFunds") }
           /// invalid ID
@@ -1988,6 +1990,8 @@ internal enum Localizable {
           internal static func notFundsFeeGateway(_ p1: String, _ p2: String) -> String {
             return Localizable.tr("Waves", "Send.Label.Error.notFundsFeeGateway", p1, p2)
           }
+          /// Sending funds to spam asset is not possible
+          internal static var sendingToSpamAsset: String { return Localizable.tr("Waves", "send.label.error.sendingToSpamAsset") }
         }
 
         internal enum Warning {
