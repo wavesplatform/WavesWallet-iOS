@@ -1143,9 +1143,6 @@
 "transactioncard.title.exchange.buy" = "Buy";
 "transactioncard.title.exchange.sell" = "Sell";
 
-
-
-
 "transactioncard.title.massReceived" = "Mass Received";
 "transactioncard.title.massSent" = "Mass Sent";
 "transactioncard.title.block" = "Block";
@@ -1154,11 +1151,14 @@
 "transactioncard.title.timestamp" = "Timestamp";
 "transactioncard.timestamp.format" = "dd.MM.yyyy HH:mm";
 
+"transactioncard.title.cancelOrder" = "Cancel order";
 "transactioncard.title.activeNow" = "Active Now";
 "transactioncard.title.completed" = "Completed";
 "transactioncard.title.unconfirmed" = "Unconfirmed";
 "transactioncard.title.status" = "Status";
+"transactioncard.title.cancelled" = "Cancelled (%@%%)";
 "transactioncard.title.amount" = "Amount";
+"transactioncard.title.total" = "Total";
 "transactioncard.title.price" = "Price";
 "transactioncard.title.asset" = "Asset";
 "transactioncard.title.assetId" = "Asset ID";

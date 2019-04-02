@@ -37,6 +37,7 @@ class ModalRootView: UIView, ModalScrollViewRootView {
     override func awakeFromNib() {
         super.awakeFromNib()
         tableView.layer.cornerRadius = Constants.cornerRadius
+        tableView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
 
     override func layoutSubviews() {
@@ -80,4 +81,5 @@ class ModalRootView: UIView, ModalScrollViewRootView {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setNeedsLayout()
     }
+    
 }

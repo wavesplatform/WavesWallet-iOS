@@ -127,7 +127,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                 .map({ (orders) -> [DomainLayer.DTO.Dex.MyOrder] in
                     
                     var myOrders: [DomainLayer.DTO.Dex.MyOrder] = []
-                    
+                        
                     for order in orders {
                         myOrders.append(DomainLayer.DTO.Dex.MyOrder(order,
                                                                     priceAsset: priceAsset,
@@ -154,6 +154,9 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                              callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()
                     .asObservable()
+                    .catchError({ (error) -> Observable<Response> in
+                        return Observable.error(NetworkError.error(by: error))
+                    })
                     .map { _ in true }
             })
     }

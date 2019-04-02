@@ -54,7 +54,6 @@ extension TransactionCardExchangeCell: ViewConfiguration {
             firstBalanceLabel.update(with: model)
         }
 
-
         priceTitleLabel.text = Localizable.Waves.Transactioncard.Title.price
         priceBalanceLabel.update(with: model.price)
     }
