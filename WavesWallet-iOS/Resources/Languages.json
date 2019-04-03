@@ -17,7 +17,8 @@
   {
       "title": "中文(简体)",
       "icon": "flag18China",
-      "code": "zh-Hans-CN"
+      "code": "zh-Hans-CN",
+      "titleCode": "ZH"
   },
   {
       "title": "Türkçe",
@@ -42,12 +43,14 @@
   {
       "title": "Português",
       "icon": "flag18Portugal",
-      "code": "pt-PT"
+      "code": "pt-PT",
+      "titleCode": "PT"
   },
   {
       "title": "Português do Brasil",
       "icon": "flag18Brazil",
-      "code": "pt-BR"
+      "code": "pt-BR",
+      "titleCode": "BR"
   },
   {
       "title": "Polszczyzna",
