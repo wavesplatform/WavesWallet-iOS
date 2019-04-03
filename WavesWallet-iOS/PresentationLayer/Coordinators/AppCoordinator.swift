@@ -189,20 +189,20 @@ extension AppCoordinator  {
             .delay(Contants.delay, scheduler: MainScheduler.asyncInstance)
             .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet?> in
 
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
-                if owner.isActiveApp == true {
+                if self.isActiveApp == true {
                     return Observable.never()
                 }
 
                 return
-                    owner
+                    self
                         .authoAuthorizationInteractor
                         .revokeAuth()
                         .flatMap({ [weak self] (_) -> Observable<DomainLayer.DTO.Wallet?> in
-                            guard let owner = self else { return Observable.never() }
+                            guard let self = self else { return Observable.never() }
 
-                            return owner.authoAuthorizationInteractor
+                            return self.authoAuthorizationInteractor
                                 .lastWalletLoggedIn()
                                 .take(1)
                         })
@@ -309,8 +309,9 @@ extension AppCoordinator: SupportViewControllerDelegate  {
                 self.authoAuthorizationInteractor
                     .logout()
                     .subscribe(onCompleted: { [weak self] in
+                        guard let self = self else { return }
                         Environment.isTestNet = isTestNet
-                        self?.showDisplay(.enter)
+                        self.showDisplay(.enter)
                     })
                     .disposed(by: self.disposeBag)
             }

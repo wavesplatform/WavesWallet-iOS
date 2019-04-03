@@ -32,11 +32,11 @@ final class AddressInteractor: AddressInteractorProtocol {
             .aliases(by: myAddress)
             .flatMapLatest { [weak self] (sync) -> SyncObservable<[DomainLayer.DTO.Address]> in
 
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
                 if let remote = sync.remote {
 
-                    return owner
+                    return self
                         .localAddress(myAliases: remote, ids: ids, accountAddress: myAddress)
                         .map({ accounts -> Sync<[DomainLayer.DTO.Address]> in
                             return .remote(accounts)
@@ -47,7 +47,7 @@ final class AddressInteractor: AddressInteractorProtocol {
 
                 } else if let local = sync.local {
 
-                    return owner
+                    return self
                         .localAddress(myAliases: local.result, ids: ids, accountAddress: myAddress)
                         .map({ accounts -> Sync<[DomainLayer.DTO.Address]> in
                             return .local(accounts, error: local.error)

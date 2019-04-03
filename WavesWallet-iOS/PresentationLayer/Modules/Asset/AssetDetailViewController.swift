@@ -103,8 +103,8 @@ private extension AssetDetailViewController {
         }
 
         let readyViewFeedback: AssetDetailPresenterProtocol.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf
+            guard let self = self else { return Signal.empty() }
+            return self
                 .rx
                 .viewWillAppear
                 .take(1)
@@ -130,9 +130,9 @@ private extension AssetDetailViewController {
 
         let subscriptionSections = state.drive(onNext: { [weak self] state in
 
-            guard let strongSelf = self else { return }
+            guard let self = self else { return }
 
-            strongSelf.updateView(with: state.displayState)
+            self.updateView(with: state.displayState)
         })
 
         return [subscriptionSections]
@@ -376,10 +376,13 @@ extension AssetDetailViewController: UITableViewDataSource {
             let cell: AssetBalanceCell = tableView.dequeueAndRegisterCell()
             cell.update(with: balance)
             cell.receiveAction = { [weak self] in
-                self?.showReceiveController()
+
+                guard let self = self else { return }
+                self.showReceiveController()
             }
             cell.sendAction = { [weak self] in
-                self?.showSendController()
+                guard let self = self else { return }
+                self.showSendController()
             }
             return cell
 
@@ -403,7 +406,10 @@ extension AssetDetailViewController: UITableViewDataSource {
         case .lastTransactions(let transactions):
             let cell: AssetTransactionsCell = tableView.dequeueAndRegisterCell()
             cell.transactionDidSelect = { [weak self] tx in
-                self?.eventInput.onNext(.tapTransaction(tx))
+
+                guard let self = self else { return }
+
+                self.eventInput.onNext(.tapTransaction(tx))
             }
             cell.update(with: transactions)
             return cell
@@ -425,7 +431,10 @@ extension AssetDetailViewController: UITableViewDataSource {
             let cell: AssetBurnCell = tableView.dequeueAndRegisterCell()
             cell.update(with: .init(isSpam: info.isSpam))
             cell.burnAction = { [weak self] in
-                self?.showBurnController()
+
+                guard let self = self else { return }
+
+                self.showBurnController()
             }
             return cell
         }

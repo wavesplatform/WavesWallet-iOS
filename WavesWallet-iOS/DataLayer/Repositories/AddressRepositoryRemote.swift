@@ -27,8 +27,8 @@ final class AddressRepositoryRemote: AddressRepositoryProtocol {
         return environment
             .flatMap { [weak self] environment -> Single<Response> in
 
-                guard let owner = self else { return Single.never() }
-                return owner
+                guard let self = self else { return Single.never() }
+                return self
                     .addressesProvider
                     .rx
                     .request(.init(kind: .scriptInfo(id: accountAddress), environment: environment),

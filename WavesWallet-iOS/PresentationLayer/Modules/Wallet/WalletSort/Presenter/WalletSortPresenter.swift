@@ -52,7 +52,8 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
 
         Driver.system(initialState: WalletSort.State.initialState(assets: assets),
                       reduce: { [weak self] state, event in
-                        return self?.reduce(state: state, event: event) ?? state
+                        guard let self = self else { return state }
+                        return self.reduce(state: state, event: event)
                      },
                       feedback: newFeedbacks)
             .drive()

@@ -157,8 +157,8 @@ extension WalletViewController {
         }
 
         let readyViewFeedback: WalletPresenterProtocol.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf
+            guard let self = self else { return Signal.empty() }
+            return self
                 .rx
                 .viewWillAppear                
                 .map { _ in WalletTypes.Event.viewWillAppear }
@@ -166,8 +166,8 @@ extension WalletViewController {
         }
 
         let viewDidDisappearFeedback: WalletPresenterProtocol.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf
+            guard let self = self else { return Signal.empty() }
+            return self
                 .rx
                 .viewDidDisappear
                 .map { _ in WalletTypes.Event.viewDidDisappear }
@@ -232,9 +232,9 @@ extension WalletViewController {
 
         let subscriptionSections = state.drive(onNext: { [weak self] state in
 
-            guard let strongSelf = self else { return }
+            guard let self = self else { return }
 
-            strongSelf.updateView(with: state.displayState)
+            self.updateView(with: state.displayState)
         })
 
         return [subscriptionSections]

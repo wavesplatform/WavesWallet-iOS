@@ -61,18 +61,18 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
             })
             .do(onNext: { [weak self] environment in
 
-                guard let owner = self else {
+                guard let self = self else {
                     return
                 }
 
                 let key = EnvironmentKey(accountAddress: accountAddress, isTestNet: Environment.isTestNet)
 
-                if let value = try? owner.localEnvironments.value() {
+                if let value = try? self.localEnvironments.value() {
                     var newValue = value
                     newValue[key] = environment
-                    owner.localEnvironments.onNext(newValue)
+                    self.localEnvironments.onNext(newValue)
                 } else {
-                    owner.localEnvironments.onNext([key: environment])
+                    self.localEnvironments.onNext([key: environment])
                 }
             })
     }
@@ -89,15 +89,15 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
             }
             .asObservable()
             .flatMap({ [weak self] (environment) -> Observable<Environment> in
-                guard let owner = self else { return Observable.empty() }
-                return owner.updateTimestampServerDiff(environment: environment)
+                guard let self = self else { return Observable.empty() }
+                return self.updateTimestampServerDiff(environment: environment)
             })
     }
 
     func setSpamURL(_ url: String, by accountAddress: String) -> Observable<Bool> {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
-            guard let owner = self else {
+            guard let self = self else {
                 return Disposables.create()
             }
 
@@ -111,7 +111,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
                 return Disposables.create()
             }
 
-            let disposable = owner.spamProvider
+            let disposable = self.spamProvider
                 .rx
                 .request(.getSpamList(url: link))
                 .flatMap({ response -> Single<Bool> in
@@ -126,21 +126,21 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
                 .asObservable()
                 .flatMap({ [weak self] _ -> Observable<DomainLayer.DTO.AccountEnvironment?> in
 
-                    guard let owner = self else {
+                    guard let self = self else {
                         return Observable.never()
                     }
-                    return owner.localAccountEnvironment(accountAddress: accountAddress)
+                    return self.localAccountEnvironment(accountAddress: accountAddress)
                 })
                 .flatMap({ [weak self] account -> Observable<Bool> in
 
-                    guard let owner = self else {
+                    guard let self = self else {
                         return Observable.never()
                     }
 
                     var newAccount = account ?? DomainLayer.DTO.AccountEnvironment()
                     newAccount.spamUrl = url
 
-                    return owner.saveAccountEnvironment(newAccount, accountAddress: accountAddress)
+                    return self.saveAccountEnvironment(newAccount, accountAddress: accountAddress)
                 })
                 .subscribe(observer)
 
@@ -271,8 +271,8 @@ private extension EnvironmentRepository {
         .asObservable()
         .flatMap({ [weak self] (time) -> Observable<Environment> in
             
-            guard let owner = self else { return Observable.empty() }
-            owner.isValidServerTimestampDiff = true
+            guard let self = self else { return Observable.empty() }
+            self.isValidServerTimestampDiff = true
             
             let localTimestamp = Int64(Date().timeIntervalSince1970 * 1000)
             let diff = localTimestamp - time.NTP

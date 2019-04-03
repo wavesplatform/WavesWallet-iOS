@@ -23,8 +23,8 @@ final class SendFeeInteractor: SendFeeInteractorProtocol {
     
     func calculateFee(assetID: String) -> Observable<Money> {
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<Money> in
-            guard let owner = self else { return Observable.empty() }
-            return owner.transactions.calculateFee(by: .sendTransaction(assetID: assetID), accountAddress: wallet.address)
+            guard let self = self else { return Observable.empty() }
+            return self.transactions.calculateFee(by: .sendTransaction(assetID: assetID), accountAddress: wallet.address)
         })
     }
 }

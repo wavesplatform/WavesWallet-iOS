@@ -113,22 +113,26 @@ private extension StartLeasingCancelConfirmationViewController {
     func loadFee() {
         labelFee.isHidden = true
         
-        auth.authorizedWallet().flatMap {  [weak self] (wallet) -> Observable<Money> in
-            guard let owner = self else { return Observable.empty() }
-            return owner.transactionInteractor.calculateFee(by: .cancelLease, accountAddress: wallet.address)
-        }
-        .observeOn(MainScheduler.asyncInstance)
-        .subscribe(onNext: { [weak self] (fee) in
-            self?.updateFee(fee)
-        }, onError: { [weak self] (error) in
-
-            if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
-                self?.showFeeError(DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving))
-            } else {
-                self?.showFeeError(DisplayError(error: error))
+        auth
+            .authorizedWallet()
+            .flatMap {  [weak self] (wallet) -> Observable<Money> in
+                guard let self = self else { return Observable.empty() }
+                return self.transactionInteractor.calculateFee(by: .cancelLease, accountAddress: wallet.address)
             }
-            
-        }).disposed(by: disposeBag)
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (fee) in
+                guard let self = self else { return }
+                self.updateFee(fee)
+            }, onError: { [weak self] (error) in
+
+                if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
+                    self?.showFeeError(DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving))
+                } else {
+                    self?.showFeeError(DisplayError(error: error))
+                }
+
+            })
+            .disposed(by: disposeBag)
     }
     
     func showFeeError(_ error: DisplayError) {
