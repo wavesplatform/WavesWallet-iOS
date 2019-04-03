@@ -12,7 +12,7 @@ import RxSwift
 
 private struct Constants {
     static let wavesExplorerTransactionUrl = "https://wavesexplorer.com/tx/"
-    static let wavesExplorerTransactionTestnetUrl = "https://stage.wavesexplorer.com"
+    static let wavesExplorerTransactionTestnetUrl = "https://stage.wavesexplorer.com/"
 }
 
 protocol TransactionCardCoordinatorDelegate: AnyObject {
