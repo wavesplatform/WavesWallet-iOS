@@ -135,7 +135,7 @@ private extension ReceiveCardViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
                 
-                guard let strongSelf = self else { return }
+                guard let self = self else { return }
                 switch state.action {
                 case .none:
                     return
@@ -143,24 +143,24 @@ private extension ReceiveCardViewController {
                     break
                 }
                 
-                strongSelf.amountUSDInfo = state.amountUSDInfo
-                strongSelf.amountEURInfo = state.amountEURInfo
-                strongSelf.asset = state.assetBalance
-                strongSelf.urlLink = state.link
+                self.amountUSDInfo = state.amountUSDInfo
+                self.amountEURInfo = state.amountEURInfo
+                self.asset = state.assetBalance
+                self.urlLink = state.link
                 
                 switch state.action {
                     
                 case .didGetInfo:
-                    strongSelf.setupInfo()
+                    self.setupInfo()
 
                 case .didFailGetInfo(let error):
-                    strongSelf.showError(error)
+                    self.showError(error)
 
                 case .didGetWavesAmount(let amount):
-                    strongSelf.hideLoadingmountWaves(amount: amount)
+                    self.hideLoadingmountWaves(amount: amount)
                 
                 case .didFailGetWavesAmount:
-                    strongSelf.hideLoadingmountWaves(amount: nil)
+                    self.hideLoadingmountWaves(amount: nil)
                     
                 default:
                     break

@@ -46,8 +46,8 @@ final class DexMarketViewController: UIViewController {
         }
 
         let readyViewFeedback: DexMarketPresenter.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.rx.viewWillAppear.take(1).map { _ in DexMarket.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
+            guard let self = self else { return Signal.empty() }
+            return self.rx.viewWillAppear.take(1).map { _ in DexMarket.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
         }
 
         presenter.system(feedbacks: [feedback, readyViewFeedback])
@@ -74,14 +74,14 @@ fileprivate extension DexMarketViewController {
             .drive(onNext: { [weak self] state in
                 
                 
-                guard let strongSelf = self else { return }
+                guard let self = self else { return }
                 guard state.action != .none else { return }
                 
-                strongSelf.setupDefaultState()
-                strongSelf.setupViews(isLoadingState: false)
-                strongSelf.modelSection = state.section
-                strongSelf.tableView.reloadData()
-                strongSelf.viewNothingHere.isHidden = state.section.items.count > 0
+                self.setupDefaultState()
+                self.setupViews(isLoadingState: false)
+                self.modelSection = state.section
+                self.tableView.reloadData()
+                self.viewNothingHere.isHidden = state.section.items.count > 0
             })
         
         return [subscriptionSections]
@@ -159,7 +159,8 @@ extension DexMarketViewController: UITableViewDataSource {
             let cell = tableView.dequeueCell() as DexMarketCell
             cell.update(with: pair)
             cell.buttonInfoDidTap = { [weak self] in
-                self?.buttonInfoDidTap(indexPath)
+                guard let self = self else { return }
+                self.buttonInfoDidTap(indexPath)
             }
             
             return cell

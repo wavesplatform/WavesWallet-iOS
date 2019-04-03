@@ -87,8 +87,8 @@ fileprivate extension DexMyOrdersViewController {
         }
         
         let readyViewFeedback: DexMyOrdersPresenter.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.rx.viewWillAppear.take(1).map { _ in DexMyOrders.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
+            guard let self = self else { return Signal.empty() }
+            return self.rx.viewWillAppear.take(1).map { _ in DexMyOrders.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
         }
         presenter.system(feedbacks: [feedback, readyViewFeedback])
     }
@@ -103,7 +103,7 @@ fileprivate extension DexMyOrdersViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
                 
-                guard let strongSelf = self else { return }
+                guard let self = self else { return }
                 switch state.action {
                 case .none:
                     return
@@ -111,21 +111,21 @@ fileprivate extension DexMyOrdersViewController {
                     break
                 }
                 
-                strongSelf.section = state.section
+                self.section = state.section
 
                 switch state.action {
                 case .update:
-                    strongSelf.tableView.reloadData()
-                    strongSelf.setupDefaultState()
-                    strongSelf.refreshControl.endRefreshing()
+                    self.tableView.reloadData()
+                    self.setupDefaultState()
+                    self.refreshControl.endRefreshing()
                     
                 case .orderDidFailCancel(let error):
                     
-                    strongSelf.showNetworkErrorSnack(error: error)
-                    strongSelf.tableView.reloadData()
+                    self.showNetworkErrorSnack(error: error)
+                    self.tableView.reloadData()
                 
                 case .orderDidFinishCancel:
-                    strongSelf.output?.myOrderDidCancel()
+                    self.output?.myOrderDidCancel()
                     
                 default:
                     break

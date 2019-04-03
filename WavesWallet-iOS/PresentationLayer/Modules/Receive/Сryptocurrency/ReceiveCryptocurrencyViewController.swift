@@ -93,7 +93,7 @@ private extension ReceiveCryptocurrencyViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
                 
-                guard let strongSelf = self else { return }
+                guard let self = self else { return }
                 switch state.action {
                 case .none:
                     return
@@ -101,26 +101,26 @@ private extension ReceiveCryptocurrencyViewController {
                     break
                 }
                 
-                strongSelf.displayInfo = state.displayInfo
+                self.displayInfo = state.displayInfo
 
                 switch state.action {
                 case .addressDidGenerate:
-                    strongSelf.setupWarning()
-                    strongSelf.setupButtonState()
+                    self.setupWarning()
+                    self.setupButtonState()
 
                 case .addressDidFailGenerate(let error):
                     
                     switch error {
                     case .internetNotWorking:
-                        strongSelf.coinomatErrorView.isHidden = true
-                        strongSelf.showNetworkErrorSnack(error: error,
+                        self.coinomatErrorView.isHidden = true
+                        self.showNetworkErrorSnack(error: error,
                                                          customTitle: Localizable.Waves.Receive.Error.serviceUnavailable)
                         
                     default:
-                        strongSelf.coinomatErrorView.isHidden = false
+                        self.coinomatErrorView.isHidden = false
                     }
                     
-                    strongSelf.activityIndicatorView.stopAnimating()
+                    self.activityIndicatorView.stopAnimating()
                     
                 default:
                     break

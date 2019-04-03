@@ -75,9 +75,9 @@ fileprivate extension AddressesKeysPresenter {
 
         }, effects: { [weak self] accountAddress -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .aliasesRepository
                 .aliases(accountAddress: accountAddress)
                 .map { Types.Event.setAliases($0) }
@@ -102,9 +102,9 @@ fileprivate extension AddressesKeysPresenter {
 
             return Observable.create({ [weak self] (observer) -> Disposable in
 
-                guard let strongSelf = self else { return Disposables.create() }
+                guard let self = self else { return Disposables.create() }
 
-                strongSelf
+                self
                     .moduleOutput?
                     .addressesKeysNeedPrivateKey(wallet: wallet, callback: { signedWallet in
 

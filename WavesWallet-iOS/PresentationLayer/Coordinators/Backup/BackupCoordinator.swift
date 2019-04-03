@@ -76,7 +76,8 @@ final class BackupCoordinator: Coordinator {
 
         case .push:
             mainNavigationRouter.pushViewController(firstViewController, animated: true) { [weak self] in
-                self?.removeFromParentCoordinator()
+                guard let self = self else { return }
+                self.removeFromParentCoordinator()
             }
         }
     }

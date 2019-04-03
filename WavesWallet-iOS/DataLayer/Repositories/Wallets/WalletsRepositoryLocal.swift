@@ -16,7 +16,12 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 
         return Observable.create({ [weak self] (observer) -> Disposable in
 
-            guard let realm = self?.realm else {
+            guard let self = self else {
+                observer.onError(WalletsRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            guard let realm = self.realm else {
                 observer.onError(WalletsRepositoryError.fail)
                 return Disposables.create()
             }
@@ -36,7 +41,12 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 
         return Observable.create({ [weak self] (observer) -> Disposable in
 
-            guard let realm = self?.realm else {
+            guard let self = self else {
+                observer.onError(WalletsRepositoryError.fail)
+                return Disposables.create()
+            }
+            
+            guard let realm = self.realm else {
                 observer.onError(WalletsRepositoryError.fail)
                 return Disposables.create()
             }
@@ -57,7 +67,12 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 
         return Observable.create({ [weak self] (observer) -> Disposable in
 
-            guard let realm = self?.realm else {
+            guard let self = self else {
+                observer.onError(WalletsRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            guard let realm = self.realm else {
                 observer.onError(WalletsRepositoryError.fail)
                 return Disposables.create()
             }
@@ -76,7 +91,12 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
     func saveWalletEncryption(_ walletEncryption: DomainLayer.DTO.WalletEncryption) -> Observable<DomainLayer.DTO.WalletEncryption> {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
-            guard let realm = self?.realm else {
+            guard let self = self else {
+                observer.onError(WalletsRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            guard let realm = self.realm else {
                 observer.onError(WalletsRepositoryError.fail)
                 return Disposables.create()
             }
@@ -100,7 +120,12 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
     func removeWalletEncryption(by publicKey: String) -> Observable<Bool> {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
-            guard let realm = self?.realm else {
+            guard let self = self else {
+                observer.onError(WalletsRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            guard let realm = self.realm else {
                 observer.onNext(false)
                 observer.onError(WalletsRepositoryError.fail)
                 return Disposables.create()
@@ -132,7 +157,12 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
     func saveWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<DomainLayer.DTO.Wallet> {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
-            guard let realm = self?.realm else {                
+            guard let self = self else {
+                observer.onError(WalletsRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            guard let realm = self.realm else {
                 observer.onError(WalletsRepositoryError.fail)
                 return Disposables.create()
             }
@@ -156,7 +186,12 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
     func saveWallets(_ wallets: [DomainLayer.DTO.Wallet]) -> Observable<[DomainLayer.DTO.Wallet]> {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
-            guard let realm = self?.realm else {
+            guard let self = self else {
+                observer.onError(WalletsRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            guard let realm = self.realm else {
                 observer.onError(WalletsRepositoryError.fail)
                 return Disposables.create()
             }
@@ -181,7 +216,12 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
     func removeWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool> {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
-            guard let realm = self?.realm else {
+            guard let self = self else {
+                observer.onError(WalletsRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            guard let realm = self.realm else {
                 observer.onNext(false)
                 observer.onError(WalletsRepositoryError.fail)
                 return Disposables.create()
@@ -214,7 +254,12 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 
         return Observable.create({ [weak self] (observer) -> Disposable in
 
-            guard let realm = self?.realm else {
+            guard let self = self else {
+                observer.onError(WalletsRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            guard let realm = self.realm else {
                 observer.onError(WalletsRepositoryError.fail)
                 return Disposables.create()
             }
@@ -235,7 +280,12 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 
         return Observable.create({ [weak self] (observer) -> Disposable in
 
-            guard let realm = self?.realm else {
+            guard let self = self else {
+                observer.onError(WalletsRepositoryError.fail)
+                return Disposables.create()
+            }
+
+            guard let realm = self.realm else {
                 observer.onError(WalletsRepositoryError.fail)
                 return Disposables.create()
             }

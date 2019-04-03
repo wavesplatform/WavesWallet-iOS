@@ -23,8 +23,8 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
 
         return environmentRepository.accountEnvironment(accountAddress: accountAddress)
             .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
-                guard let owner = self else { return Observable.empty() }
-                return owner.apiProvider.rx
+                guard let self = self else { return Observable.empty() }
+                return self.apiProvider.rx
                     .request(.init(pairs: pairs, environment: environment),
                              callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()

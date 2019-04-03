@@ -43,29 +43,29 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
         return authorizationInteractor.authorizedWallet()
             .flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
                
-                guard let owner = self else { return Observable.empty() }
+                guard let self = self else { return Observable.empty() }
                 
-                return owner.environmentRepository.accountEnvironment(accountAddress: wallet.address)
+                return self.environmentRepository.accountEnvironment(accountAddress: wallet.address)
                     .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
                        
-                        guard let owner = self else { return Observable.empty() }
+                        guard let self = self else { return Observable.empty() }
                         let ids = assets.map { $0.id }
 
-                        let settings = owner.assetSettings(assets: assets,
+                        let settings = self.assetSettings(assets: assets,
                                                            ids: ids,
                                                            accountAddress: accountAddress,
                                                            environment: environment)
                         .flatMapLatest { [weak self] (settings) -> Observable<Bool> in
                             
-                            guard let owner = self else { return Observable.never() }
-                            return owner
+                            guard let self = self else { return Observable.never() }
+                            return self
                                 .assetsBalanceSettingsRepository
                                 .saveSettings(by: accountAddress, settings: settings)
                         }
                         .flatMapLatest { [weak self] (settings) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
                             
-                            guard let owner = self else { return Observable.never() }
-                            return owner
+                            guard let self = self else { return Observable.never() }
+                            return self
                                 .assetsBalanceSettingsRepository
                                 .listenerSettings(by: accountAddress, ids: ids)
                                 .map { $0.sorted(by: { $0.sortLevel < $1.sortLevel }) }
@@ -82,13 +82,13 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
         return assetsBalanceSettingsRepository
             .settings(by: accountAddress, ids: [assetId, underAssetId])
             .flatMapLatest { [weak self] (settingsMap) -> Observable<Bool> in
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
                 guard var asset = settingsMap[assetId] else { return Observable.never() }
                 guard let underAsset = settingsMap[underAssetId] else { return Observable.never() }
 
                 asset.sortLevel = underAsset.sortLevel + Constants.step
 
-                return owner.assetsBalanceSettingsRepository.saveSettings(by: accountAddress,
+                return self.assetsBalanceSettingsRepository.saveSettings(by: accountAddress,
                                                                           settings: [asset])
             }
     }
@@ -98,14 +98,14 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
         return assetsBalanceSettingsRepository
             .settings(by: accountAddress, ids: [assetId, overAssetId])
             .flatMap { [weak self] (settingsMap) -> Observable<Bool> in
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
                 guard var asset = settingsMap[assetId] else { return Observable.never() }
                 guard let overAssetId = settingsMap[overAssetId] else { return Observable.never() }
 
                 asset.sortLevel = overAssetId.sortLevel - Constants.step
 
-                return owner.assetsBalanceSettingsRepository.saveSettings(by: accountAddress,
-                                                                          settings: [asset])
+                return self.assetsBalanceSettingsRepository.saveSettings(by: accountAddress,
+                                                                         settings: [asset])
         }
     }
 
@@ -115,7 +115,7 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
             .settings(by: accountAddress)
             .flatMap { [weak self] (settings) -> Observable<Bool> in
 
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
                 let sortedSettings = settings.sorted(by: { $0.sortLevel < $1.sortLevel })
 
@@ -143,7 +143,7 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
                 asset.isFavorite = isFavorite
                 asset.isHidden = false
 
-                return owner.assetsBalanceSettingsRepository.saveSettings(by: accountAddress,
+                return self.assetsBalanceSettingsRepository.saveSettings(by: accountAddress,
                                                                           settings: [asset])
         }
     }
@@ -153,14 +153,14 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
             .settings(by: accountAddress, ids: [assetId])
             .flatMap { [weak self] (settings) -> Observable<Bool> in
 
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
                 guard var asset = settings[assetId] else { return Observable.never() }
 
                 asset.isHidden = isHidden
                 asset.isFavorite = false
 
-                return owner.assetsBalanceSettingsRepository.saveSettings(by: accountAddress,
-                                                                          settings: [asset])
+                return self.assetsBalanceSettingsRepository.saveSettings(by: accountAddress,
+                                                                         settings: [asset])
         }
     }
 }
@@ -174,7 +174,7 @@ private extension AssetsBalanceSettingsInteractor {
 
         return assetsBalanceSettingsRepository.settings(by: accountAddress, ids: ids)
             .flatMapLatest({ [weak self] (mapSettings) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
-                guard let owner = self else { return Observable.empty() }
+                guard let self = self else { return Observable.empty() }
                 
                 let sortedSettings = mapSettings
                     .reduce(into: [DomainLayer.DTO.AssetBalanceSettings](), { $0.append($1.value) })
@@ -194,7 +194,7 @@ private extension AssetsBalanceSettingsInteractor {
                     }
                 })
                 
-                let withoutSettingsAssetsSorted = owner
+                let withoutSettingsAssetsSorted = self
                     .sortAssets(assets: withoutSettingsAssets, enviroment: environment)
                     .map { (asset) -> DomainLayer.DTO.AssetBalanceSettings in
                         

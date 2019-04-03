@@ -25,11 +25,13 @@ final class QRCodeReaderControllerCoordinator: Coordinator {
         self.completionBlock = completionBlock
         self.readerVC.delegate = self
         self.readerVC.completionBlock = { [weak self] (result) -> Void in
+
+            guard let self = self else { return }
             if let seed = result?.value {
-                self?.completionBlock(seed)
+                self.completionBlock(seed)
             }
-            self?.navigationRouter.dismiss()
-            self?.removeFromParentCoordinator()
+            self.navigationRouter.dismiss()
+            self.removeFromParentCoordinator()
         }
     }
     
@@ -37,12 +39,13 @@ final class QRCodeReaderControllerCoordinator: Coordinator {
         guard QRCodeReader.isAvailable() else { return }
 
         CameraAccess.requestAccess(success: { [weak self] in
-            guard let owner = self else { return }
-            owner.readerVC.modalPresentationStyle = .formSheet
-            owner.navigationRouter.present(owner.readerVC)
+            guard let self = self else { return }
+            self.readerVC.modalPresentationStyle = .formSheet
+            self.navigationRouter.present(self.readerVC)
         }, failure: { [weak self] in
+            guard let self = self else { return }
             let alert = CameraAccess.alertController
-            self?.navigationRouter.present(alert)
+            self.navigationRouter.present(alert)
         })
     }
 

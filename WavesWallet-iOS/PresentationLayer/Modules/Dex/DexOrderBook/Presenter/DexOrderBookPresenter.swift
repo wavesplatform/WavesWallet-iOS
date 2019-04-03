@@ -28,7 +28,10 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
         
         Driver.system(initialState: DexOrderBook.State.initialState,
                       reduce: { [weak self] state, event -> DexOrderBook.State in
-                        return self?.reduce(state: state, event: event) ?? state },
+
+                        guard let self = self else { return state }
+
+                        return self.reduce(state: state, event: event) },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
@@ -42,9 +45,9 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             
         }, effects: { [weak self] ss -> Signal<DexOrderBook.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf.interactor.displayInfo().map {.setDisplayData($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            return self.interactor.displayInfo().map {.setDisplayData($0)}.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     

@@ -21,7 +21,8 @@ final class EnterLanguageCoordinator: Coordinator {
         enterLanguage.delegate = self
         popup.present(contentViewController: enterLanguage)
         popup.onDismiss = { [weak self] in
-            self?.removeFromParentCoordinator()
+            guard let self = self else { return }
+            self.removeFromParentCoordinator()
         }
     }
 }

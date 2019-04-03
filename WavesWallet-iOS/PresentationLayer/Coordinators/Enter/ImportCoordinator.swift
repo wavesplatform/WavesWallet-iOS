@@ -38,7 +38,8 @@ final class ImportCoordinator: Coordinator {
         vc.manuallyViewController.delegate = self
 
         navigationRouter.pushViewController(vc, animated: true) { [weak self] in
-            self?.removeFromParentCoordinator()
+            guard let self = self else { return }
+            self.removeFromParentCoordinator()
         }        
     }
     
@@ -55,9 +56,11 @@ final class ImportCoordinator: Coordinator {
         auth
             .existWallet(by: privateKeyAccount.getPublicKeyStr())
             .subscribe(onNext: { [weak self] wallet in
-                self?.navigationRouter.navigationController.topViewController?.showErrorSnackWithoutAction(tille: Localizable.Waves.Import.General.Error.alreadyinuse, duration: Constants.duration)
+                guard let self = self else { return }
+                self.navigationRouter.navigationController.topViewController?.showErrorSnackWithoutAction(tille: Localizable.Waves.Import.General.Error.alreadyinuse, duration: Constants.duration)
             }, onError: { [weak self] _ in
-                self?.showAccountPassword(privateKeyAccount)
+                guard let self = self else { return }
+                self.showAccountPassword(privateKeyAccount)
             })
             .disposed(by: disposeBag)
     }
@@ -67,7 +70,8 @@ final class ImportCoordinator: Coordinator {
         let qrcode = QRCodeReaderControllerCoordinator(navigationRouter: navigationRouter,
                                                        completionBlock:
             { [weak self] (result) in
-                self?.scannedSeed(result)
+                guard let self = self else { return }
+                self.scannedSeed(result)
             })
 
         addChildCoordinatorAndStart(childCoordinator: qrcode)

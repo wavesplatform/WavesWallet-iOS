@@ -139,10 +139,12 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
         auth
             .existWallet(by: currentKeyAccount.getPublicKeyStr())
             .subscribe(onNext: { [weak self] wallet in
-                self?.textField.error = Localizable.Waves.Import.General.Error.alreadyinuse
-                }, onError: { [weak self] _ in
-                    self?.delegate?.userCompletedInputSeed(currentKeyAccount)
-                    
+
+                guard let self = self else { return }
+                self.textField.error = Localizable.Waves.Import.General.Error.alreadyinuse
+            }, onError: { [weak self] _ in
+                guard let self = self else { return }
+                self.delegate?.userCompletedInputSeed(currentKeyAccount)                    
             })
             .disposed(by: disposeBag)
     }

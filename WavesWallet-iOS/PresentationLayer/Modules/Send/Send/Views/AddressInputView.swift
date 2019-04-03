@@ -128,10 +128,12 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     @IBAction private func scanTapped(_ sender: Any) {
         
         CameraAccess.requestAccess(success: { [weak self] in
-                self?.showScanner()
+            guard let self = self else { return }
+            self.showScanner()
         }, failure: { [weak self] in
+            guard let self = self else { return }
             let alert = CameraAccess.alertController
-            self?.firstAvailableViewController().present(alert, animated: true, completion: nil)
+            self.firstAvailableViewController().present(alert, animated: true, completion: nil)
         })
     }
 }
@@ -384,9 +386,9 @@ private extension AddressInputView {
         }
         
         return auth.authorizedWallet().flatMap({[weak self] (wallet) -> Observable<Int> in
-            guard let owner = self else { return Observable.empty() }
+            guard let self = self else { return Observable.empty() }
             
-            return owner.assetsRepositoryLocal.assets(by: [assetID], accountAddress: wallet.address)
+            return self.assetsRepositoryLocal.assets(by: [assetID], accountAddress: wallet.address)
                 .flatMap({ (assets) -> Observable<Int> in
                     
                     if let asset = assets.first(where: {$0.id == assetID}) {
@@ -396,8 +398,8 @@ private extension AddressInputView {
                 })
                 .catchError({ [weak self] (error) -> Observable<Int> in
                     
-                    guard let owner = self else { return Observable.empty() }
-                    return owner.assetInteractor.assets(by: [assetID], accountAddress: wallet.address)
+                    guard let self = self else { return Observable.empty() }
+                    return self.assetInteractor.assets(by: [assetID], accountAddress: wallet.address)
                         .flatMap({ (assets) -> Observable<Int> in
                             
                             if let asset = assets.first(where: {$0.id == assetID}) {

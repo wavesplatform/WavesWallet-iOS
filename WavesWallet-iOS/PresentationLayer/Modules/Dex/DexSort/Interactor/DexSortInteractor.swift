@@ -22,8 +22,8 @@ final class DexSortInteractor: DexSortInteractorProtocol {
             .authorizedWallet()
             .flatMap({ [weak self] (wallet) -> Observable<[DexSort.DTO.DexSortModel]> in
             
-                guard let owner = self else { return Observable.empty() }
-                return owner
+                guard let self = self else { return Observable.empty() }
+                return self
                     .reposity
                     .list(by: wallet.address)
                     .flatMap({ (pairs) -> Observable<[DexSort.DTO.DexSortModel]> in
@@ -44,9 +44,9 @@ final class DexSortInteractor: DexSortInteractorProtocol {
         auth
             .authorizedWallet()
             .flatMap({ [weak self] (wallet) -> Observable<Bool> in
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
                 let ids = models.reduce(into:  [String : Int](), { $0[$1.id] = $1.sortLevel})
-                return owner.reposity.updateSortLevel(ids: ids, accountAddress: wallet.address)
+                return self.reposity.updateSortLevel(ids: ids, accountAddress: wallet.address)
             })
             .subscribe()
             .disposed(by: disposeBag)
@@ -58,9 +58,9 @@ final class DexSortInteractor: DexSortInteractorProtocol {
         auth
             .authorizedWallet()
             .flatMap({ [weak self] (wallet) -> Observable<Bool> in
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
-                return owner
+                return self
                     .reposity
                     .delete(by: model.id,
                             accountAddress: wallet.address)

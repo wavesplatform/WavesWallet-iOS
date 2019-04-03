@@ -23,7 +23,9 @@ final class DexChartPresenter: DexChartPresenterProtocol {
         
         Driver.system(initialState: DexChart.State.initialState,
                       reduce: { [weak self] state, event -> DexChart.State in
-                        return self?.reduce(state: state, event: event) ?? state },
+
+                        guard let self = self else { return state }
+                        return self.reduce(state: state, event: event) },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
@@ -37,12 +39,13 @@ final class DexChartPresenter: DexChartPresenterProtocol {
             
         }, effects: { [weak self] state -> Signal<DexChart.Event> in
             
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
             
-            return strongSelf.interactor.candles(timeFrame: state.timeFrame,
-                                                 timeStart: state.timeStart,
-                                                 timeEnd: state.timeEnd)
-                .map {.setCandles($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            return self.interactor.candles(timeFrame: state.timeFrame,
+                                           timeStart: state.timeStart,
+                                           timeEnd: state.timeEnd)
+                .map {.setCandles($0) }
+                .asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     

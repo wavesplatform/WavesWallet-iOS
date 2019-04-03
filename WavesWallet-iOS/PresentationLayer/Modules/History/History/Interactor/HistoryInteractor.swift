@@ -52,9 +52,9 @@ final class HistoryInteractor: HistoryInteractorProtocol {
         return authorizationInteractor
             .authorizedWallet()
             .flatMap({ [weak self] (wallet) -> SyncObservable<[DomainLayer.DTO.SmartTransaction]> in
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
-                return owner
+                return self
                     .transactionsInteractor
                     .transactionsSync(by: wallet.address, specifications: specifications)
             })            

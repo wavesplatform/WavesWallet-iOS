@@ -156,18 +156,18 @@ private extension MainTabBarCoordinator {
         authorizationInteractor
             .authorizedWallet()
             .flatMap({ [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
-                guard let strongSelf = self else { return Observable.empty() }
-                return strongSelf.walletsRepository.listenerWallet(by: wallet.wallet.publicKey)
+                guard let self = self else { return Observable.empty() }
+                return self.walletsRepository.listenerWallet(by: wallet.wallet.publicKey)
             })
             .asDriver(onErrorRecover: { _ in Driver.empty() })
             .drive(onNext: { [weak self] wallet in
 
-                guard let strongSelf = self else { return }
+                guard let self = self else { return }
 
                 if wallet.isBackedUp {
-                    strongSelf.removeTabBarBadge()
+                    self.removeTabBarBadge()
                 } else {
-                    strongSelf.addTabBarBadge()
+                    self.addTabBarBadge()
                 }
             })
             .disposed(by: disposeBag)

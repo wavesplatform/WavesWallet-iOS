@@ -128,7 +128,9 @@ final class ChooseAccountViewController: UIViewController {
         }
     
         let yes = UIAlertAction(title: Localizable.Waves.Chooseaccount.Alert.Button.ok, style: .default) { [weak self] (action) in
-            self?.eventInput.onNext(.tapRemoveButton(wallet, indexPath: indexPath))
+
+            guard let self = self else { return }
+            self.eventInput.onNext(.tapRemoveButton(wallet, indexPath: indexPath))
         }
     
         alert.addAction(cancel)
@@ -176,9 +178,9 @@ private extension ChooseAccountViewController {
         }
 
         let readyViewFeedback: ChooseAccountPresenterProtocol.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .rx
                 .viewWillAppear
                 .asObservable()
@@ -187,9 +189,9 @@ private extension ChooseAccountViewController {
         }
 
         let viewDidDisappearFeedback: ChooseAccountPresenterProtocol.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .rx
                 .viewDidDisappear
                 .asObservable()
@@ -209,9 +211,9 @@ private extension ChooseAccountViewController {
 
         let subscriptionSections = state.drive(onNext: { [weak self] state in
 
-            guard let strongSelf = self else { return }
+            guard let self = self else { return }
 
-            strongSelf.updateView(with: state.displayState)
+            self.updateView(with: state.displayState)
         })
 
         return [subscriptionSections]

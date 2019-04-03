@@ -94,8 +94,8 @@ private extension AddressBookViewController {
         }
         
         let readyViewFeedback: AddressBookPresenter.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.rx.viewWillAppear.take(1).map { _ in AddressBookTypes.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
+            guard let self = self else { return Signal.empty() }
+            return self.rx.viewWillAppear.take(1).map { _ in AddressBookTypes.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
         }
         presenter.system(feedbacks: [feedback, readyViewFeedback])
     }
@@ -108,11 +108,11 @@ private extension AddressBookViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
                 
-                guard let strongSelf = self else { return }
+                guard let self = self else { return }
                 guard state.action != .none else { return }
-                strongSelf.modelSection = state.section
-                strongSelf.tableView.reloadData()
-                strongSelf.setupUIState()
+                self.modelSection = state.section
+                self.tableView.reloadData()
+                self.setupUIState()
             })
         
         return [subscriptionSections]

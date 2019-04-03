@@ -81,21 +81,21 @@ private extension PasscodeViewController {
         }
 
         let readyViewFeedback: PasscodePresenterProtocol.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
             let applicationWillEnterForeground =  NotificationCenter
                 .default
                 .rx
                 .notification(UIApplication.willEnterForegroundNotification, object: nil)
                 .flatMap({ [weak self] _ -> Observable<Bool> in
-                    guard let strongSelf = self else { return Observable.empty() }
-                    let isAppeared = (try? strongSelf.isAppeared.value()) ?? false
+                    guard let self = self else { return Observable.empty() }
+                    let isAppeared = (try? self.isAppeared.value()) ?? false
                     return Observable.just(isAppeared)
                 })
                 .ignoreWhen({ $0 == false })
                 .sweetDebug("UIApplicationWillEnterForeground")
 
-            return Observable<Bool>.merge([strongSelf.rx.viewDidAppear.asObservable(),
+            return Observable<Bool>.merge([self.rx.viewDidAppear.asObservable(),
                                            applicationWillEnterForeground])
                 .throttle(1, scheduler: MainScheduler.asyncInstance)
                 .asSignal(onErrorSignalWith: Signal.empty())
@@ -104,8 +104,8 @@ private extension PasscodeViewController {
 
 
         let viewWillAppear: PasscodePresenterProtocol.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf
+            guard let self = self else { return Signal.empty() }
+            return self
                 .rx
                 .viewWillAppear
                 .take(1)
@@ -124,9 +124,9 @@ private extension PasscodeViewController {
 
         let subscriptionSections = state.drive(onNext: { [weak self] state in
 
-            guard let strongSelf = self else { return }
+            guard let self = self else { return }
 
-            strongSelf.updateView(with: state.displayState)
+            self.updateView(with: state.displayState)
         })
 
         return [subscriptionSections]
