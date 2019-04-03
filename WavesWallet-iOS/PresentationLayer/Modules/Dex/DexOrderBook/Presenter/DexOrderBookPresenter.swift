@@ -98,9 +98,9 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                 }
             }
             
-        case .didTapBid(let bid, let inputMaxAmount):
+        case .didTapBid(let bid, let inputMaxSum):
             
-            if !inputMaxAmount {
+            if !inputMaxSum {
                 AnalyticManager.trackEvent(.dex(.sellTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
             }
             
@@ -111,7 +111,7 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
                                          availablePriceAssetBalance: state.availablePriceAssetBalance,
                                          availableWavesBalance: state.availableWavesBalance,
-                                         inputMaxAmount: inputMaxAmount,
+                                         inputMaxSum: inputMaxSum,
                                          scriptedAssets: state.scriptedAssets)
 
             return state.changeAction(.none)
@@ -131,9 +131,9 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
          
             return state.changeAction(.none)
             
-        case .didTapAsk(let ask, let inputMaxAmount):
+        case .didTapAsk(let ask, let inputMaxSum):
             
-            if !inputMaxAmount {
+            if !inputMaxSum {
                 AnalyticManager.trackEvent(.dex(.buyTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
             }
 
@@ -144,7 +144,7 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
                                          availablePriceAssetBalance: state.availablePriceAssetBalance,
                                          availableWavesBalance: state.availableWavesBalance,
-                                         inputMaxAmount: inputMaxAmount,
+                                         inputMaxSum: inputMaxSum,
                                          scriptedAssets: state.scriptedAssets)
 
             return state.changeAction(.none)
