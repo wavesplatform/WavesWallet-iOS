@@ -12,6 +12,7 @@ struct Language: Codable {
     let title: String
     let icon: String
     let code: String
+    let titleCode: String?
 }
 
 protocol Localization {
