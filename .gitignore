@@ -69,3 +69,5 @@ vendor/
 Vendor/
 WavesWallet-iOS/Resources/Sentry-io-Info\.plist
 WavesWallet-iOS/Resources/Amplitude-Info.plist
+
+Output/
