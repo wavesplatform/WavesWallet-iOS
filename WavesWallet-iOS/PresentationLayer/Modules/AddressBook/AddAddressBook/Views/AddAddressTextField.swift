@@ -75,13 +75,14 @@ final class AddAddressTextField: UIView, NibOwnerLoadable {
                                             placeholder: Localizable.Waves.Addaddressbook.Label.address))
 
         addressTextField.textFieldShouldReturn = { [weak self] _ in
-            self?.delegate?.addressTextFieldTappedNext()
+            guard let self = self else { return }
+            self.delegate?.addressTextFieldTappedNext()
         }
 
         addressTextField.changedValue = { [weak self] (_, value) in
-            guard let owner = self else { return }
-            owner.delegate?.addAddressTextField(owner, didChange: value ?? "")
-            owner.setupButtonsState(animation: true)
+            guard let self = self else { return }
+            self.delegate?.addAddressTextField(self, didChange: value ?? "")
+            self.setupButtonsState(animation: true)
         }
 
         addressTextField.rightView = buttonScan
@@ -110,10 +111,12 @@ private extension AddAddressTextField {
     @IBAction func scanTapped(_ sender: Any) {
         
         CameraAccess.requestAccess(success: { [weak self] in
-            self?.showScanner()
+            guard let self = self else { return }
+            self.showScanner()
         }, failure: { [weak self] in
+            guard let self = self else { return }
             let alert = CameraAccess.alertController
-            self?.firstAvailableViewController().present(alert, animated: true, completion: nil)
+            self.firstAvailableViewController().present(alert, animated: true, completion: nil)
         })
         
     }

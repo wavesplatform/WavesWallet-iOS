@@ -18,7 +18,8 @@ extension Coordinator {
             .viewDidAppear
             .asObservable()
             .subscribe(onNext: { [weak self] _ in
-                self?.showTost(navigationRouter: navigationRouter)
+                guard let self = self else { return }
+                self.showTost(navigationRouter: navigationRouter)
             })
             .disposed(by: disposeBag)
 
@@ -27,7 +28,8 @@ extension Coordinator {
             .viewDidDisappear
             .asObservable()
             .subscribe(onNext: { [weak self] _ in
-                self?.hideTost()
+                guard let self = self else { return }
+                self.hideTost()
             })
             .disposed(by: disposeBag)
     }
@@ -67,7 +69,8 @@ final class BackupTostCoordinator: Coordinator {
         self.authorization
             .authorizedWallet()
             .subscribe(onNext: { [weak self] (signedWallet) in
-                self?.showBackupTostIfNeed(signedWallet: signedWallet)
+                guard let self = self else { return }
+                self.showBackupTostIfNeed(signedWallet: signedWallet)
             })
             .disposed(by: disposeBag)
     }
@@ -86,10 +89,10 @@ final class BackupTostCoordinator: Coordinator {
                                                                 icon: Images.warning18White.image,
                                                                 didTap:
             { [weak self] in
-                guard let owner = self else { return }
+                guard let self = self else { return }
                 BackupTostCoordinator.lockMap.append(signedWallet.address)
-                let backupContainer = BackupContainer(navigationRouter: owner.navigationRouter, signedWallet: signedWallet)
-                owner.parent?.addChildCoordinatorAndStart(childCoordinator: backupContainer)
+                let backupContainer = BackupContainer(navigationRouter: self.navigationRouter, signedWallet: signedWallet)
+                self.parent?.addChildCoordinatorAndStart(childCoordinator: backupContainer)
         }) {
             BackupTostCoordinator.lockMap.append(signedWallet.address)
         }
@@ -133,7 +136,7 @@ final private class BackupContainer: Coordinator {
                                        behaviorPresentation: .push(navigationRouter),
                                        hasShowNeedBackupView: false) { [weak self] isSkipBackup in
 
-                                        guard let owner = self else { return }
+                                        guard let self = self else { return }
 
                                         if isSkipBackup {
                                             return
@@ -143,11 +146,11 @@ final private class BackupContainer: Coordinator {
                                             $0.isBackedUp = true
                                         }
 
-                                        owner
+                                        self
                                             .authorization
                                             .changeWallet(wallet)
                                             .subscribe()
-                                            .disposed(by: owner.disposeBag)
+                                            .disposed(by: self.disposeBag)
         }
 
         parent?.addChildCoordinatorAndStart(childCoordinator: backup)

@@ -43,7 +43,8 @@ extension TransactionCardActionsCell: ViewConfiguration {
         let buttons = model.buttons.map { [weak self] (button) -> ActionsControl.Model.Button in
 
             return button.createAction({ [weak self] (button) in
-                self?.tapOnButton?(button)
+                guard let self = self else { return }
+                self.tapOnButton?(button)
             })
         }
 

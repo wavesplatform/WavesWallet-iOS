@@ -24,7 +24,7 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
         return environmentRepository.accountEnvironment(accountAddress: accountAddress)
             .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Candle]> in
                 
-                guard let owner = self else { return Observable.empty() }
+                guard let self = self else { return Observable.empty() }
                 
                 let filters = API.Query.CandleFilters(timeStart: timeStart.millisecondsSince1970(timestampDiff: environment.timestampServerDiff),
                                                       timeEnd: timeEnd.millisecondsSince1970(timestampDiff: environment.timestampServerDiff),
@@ -35,7 +35,7 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                                                   params: filters,
                                                   environment: environment)
                 
-                return owner.apiProvider.rx
+                return self.apiProvider.rx
                     .request(candles, callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()
                     .map(API.DTO.Chart.self)
@@ -55,7 +55,7 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                             }
                             
                             if volume > 0 {
-                                let timestamp = owner.convertTimestamp(model.time, timeFrame: timeFrame)
+                                let timestamp = self.convertTimestamp(model.time, timeFrame: timeFrame)
                                 
                                 let model = DomainLayer.DTO.Candle(close: close,
                                                                    high: high,

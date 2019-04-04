@@ -75,8 +75,8 @@ private extension AssetListViewController {
         }
         
         let readyViewFeedback: AssetListPresenter.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.rx.viewWillAppear.take(1).map { _ in AssetList.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
+            guard let self = self else { return Signal.empty() }
+            return self.rx.viewWillAppear.take(1).map { _ in AssetList.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
         }
         presenter.system(feedbacks: [feedback, readyViewFeedback])
     }
@@ -89,18 +89,18 @@ private extension AssetListViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
                 
-                guard let strongSelf = self else { return }
+                guard let self = self else { return }
                 guard state.action != .none else { return }
                 
-                if strongSelf.isNeedCheckAssetsBalance {
-                    strongSelf.isNeedCheckAssetsBalance = false
+                if self.isNeedCheckAssetsBalance {
+                    self.isNeedCheckAssetsBalance = false
                     if !state.section.isEmptyAssetsBalance {
-                        strongSelf.createButtonList()
+                        self.createButtonList()
                     }
                 }
-                strongSelf.modelSection = state.section
-                strongSelf.tableView.reloadData()
-                strongSelf.setupDefaultState()
+                self.modelSection = state.section
+                self.tableView.reloadData()
+                self.setupDefaultState()
             })
         
         return [subscriptionSections]

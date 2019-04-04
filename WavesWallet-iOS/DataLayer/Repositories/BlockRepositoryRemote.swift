@@ -24,8 +24,8 @@ final class BlockRepositoryRemote: BlockRepositoryProtocol {
         return environmentRepository
             .accountEnvironment(accountAddress: accountAddress)
             .flatMap({ [weak self] environment -> Single<Response> in
-                guard let owner = self else { return Single.never() }
-                return owner
+                guard let self = self else { return Single.never() }
+                return self
                     .blockNode
                     .rx
                     .request(Node.Service.Blocks(environment: environment,

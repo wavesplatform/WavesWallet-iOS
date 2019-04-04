@@ -24,8 +24,9 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
         
         Driver.system(initialState: DexMyOrders.State.initialState,
                       reduce: { [weak self] state, event -> DexMyOrders.State in
-                        return self?.reduce(state: state, event: event) ?? state },
-                      feedback: newFeedbacks)
+                        guard let self = self else { return state }
+                        return self.reduce(state: state, event: event) }
+            , feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
         
@@ -37,13 +38,13 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
             return state.isNeedLoadOrders || state.isNeedCancelOrder ? state : nil
         }, effects: { [weak self] state -> Signal<DexMyOrders.Event> in
             
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
             if let order = state.canceledOrder, state.isNeedCancelOrder {
-                return strongSelf.interactor.cancelOrder(order: order).map {.orderDidFinishCancel($0)}.asSignal(onErrorSignalWith: Signal.empty())
+                return self.interactor.cancelOrder(order: order).map {.orderDidFinishCancel($0)}.asSignal(onErrorSignalWith: Signal.empty())
             }
             
-            return strongSelf.interactor.myOrders().map {.setOrders($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            return self.interactor.myOrders().map {.setOrders($0)}.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     

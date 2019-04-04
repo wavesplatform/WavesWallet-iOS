@@ -30,8 +30,8 @@ final class StartLeasingInteractor: StartLeasingInteractorProtocol {
     func getFee() -> Observable<Money> {
         return authorizationInteractor.authorizedWallet()
             .flatMap({ [weak self] (wallet) -> Observable<Money> in
-                guard let owner = self else { return Observable.empty() }
-                return owner.transactionInteractor.calculateFee(by: .lease, accountAddress: wallet.address)
+                guard let self = self else { return Observable.empty() }
+                return self.transactionInteractor.calculateFee(by: .lease, accountAddress: wallet.address)
             })
     }
 }

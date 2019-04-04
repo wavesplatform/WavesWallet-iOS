@@ -49,8 +49,8 @@ final class WalletSortViewController: UIViewController {
         }
 
         let readyViewFeedback: WalletSortPresenterProtocol.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf
+            guard let self = self else { return Signal.empty() }
+            return self
                 .rx
                 .viewWillAppear
                 .take(1)
@@ -95,13 +95,13 @@ fileprivate extension WalletSortViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
 
-                guard let strongSelf = self else { return }
+                guard let self = self else { return }
 
-                strongSelf.changeStatus(state.status)
-                strongSelf.sections = state.sections
+                self.changeStatus(state.status)
+                self.sections = state.sections
 
                 guard state.action != .none else { return }
-                strongSelf.tableView.reloadDataWithAnimationTheCrossDissolve()
+                self.tableView.reloadDataWithAnimationTheCrossDissolve()
             })
 
         return [subscriptionSections]

@@ -172,8 +172,9 @@ extension EditAccountNameViewController {
         keyboardHeight = h
         
         UIView.animate(withDuration: animationDuration, delay: 0, options: animationOptions, animations: { [weak self] in
-           self?.layoutSaveButton()
-            }, completion: nil)
+            guard let self = self else { return }
+            self.layoutSaveButton()
+        }, completion: nil)
     }
     
 }

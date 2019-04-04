@@ -37,7 +37,8 @@ final class AddressesKeysCoordinator: Coordinator {
         let vc = AddressesKeysModuleBuilder(output: self).build(input: .init(wallet: wallet))
         self.rootViewController = vc
         self.navigationRouter.pushViewController(vc, animated: true) { [weak self] in
-            self?.removeFromParentCoordinator()
+            guard let self = self else { return }
+            self.removeFromParentCoordinator()
         }
     }
 }

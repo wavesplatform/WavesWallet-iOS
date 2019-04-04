@@ -35,9 +35,9 @@ final class AliasesInteractor: AliasesInteractorProtocol {
             })
             .catchError { [weak self] remoteError -> SyncObservable<[DomainLayer.DTO.Alias]> in
 
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
-                return owner
+                return self
                     .localeAliases(by: accountAddress)
                     .map({ aliases in
                         if aliases.count > 0 {
@@ -58,8 +58,8 @@ final class AliasesInteractor: AliasesInteractorProtocol {
         return aliasesRepository
             .aliases(accountAddress: accountAddress)
             .flatMapLatest({ [weak self] aliases -> Observable<[DomainLayer.DTO.Alias]> in
-                guard let owner = self else { return Observable.never() }
-                return owner
+                guard let self = self else { return Observable.never() }
+                return self
                     .aliasesRepositoryLocal
                     .saveAliases(by: accountAddress, aliases: aliases)
                     .map({ _ -> [DomainLayer.DTO.Alias] in

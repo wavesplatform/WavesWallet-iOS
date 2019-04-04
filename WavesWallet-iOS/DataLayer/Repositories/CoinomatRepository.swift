@@ -59,12 +59,12 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
         .map(Response.CreateTunnel.self)
         .asObservable()
         .flatMap({ [weak self] (model) -> Observable<DomainLayer.DTO.Coinomat.TunnelInfo> in
-            guard let owner = self else { return Observable.empty() }
+            guard let self = self else { return Observable.empty() }
 
             let tunnel = Coinomat.Service.GetTunnel(xt_id: model.tunnel_id,
                                                     k1: model.k1,
                                                     k2: model.k2)
-            return owner.coinomatProvider.rx
+            return self.coinomatProvider.rx
             .request(.getTunnel(tunnel), callbackQueue:  DispatchQueue.global(qos: .userInteractive))
             .filterSuccessfulStatusAndRedirectCodes()
             .map(Response.GetTunnel.self)

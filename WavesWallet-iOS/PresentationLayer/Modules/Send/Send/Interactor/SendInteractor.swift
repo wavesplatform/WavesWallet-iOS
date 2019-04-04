@@ -26,10 +26,10 @@ final class SendInteractor: SendInteractorProtocol {
                 return Observable.just(asset)
             }
             
-            guard let owner = self else { return Observable.empty() }
-            return owner.auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DomainLayer.DTO.SmartAssetBalance?> in
-                guard let owner = self else { return Observable.empty() }
-                return owner.assetInteractor.assets(by: [assetID], accountAddress: wallet.address)
+            guard let self = self else { return Observable.empty() }
+            return self.auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DomainLayer.DTO.SmartAssetBalance?> in
+                guard let self = self else { return Observable.empty() }
+                return self.assetInteractor.assets(by: [assetID], accountAddress: wallet.address)
                     .flatMap({ (assets) -> Observable<DomainLayer.DTO.SmartAssetBalance?> in
                         
                         var assetBalance: DomainLayer.DTO.SmartAssetBalance?
@@ -53,10 +53,12 @@ final class SendInteractor: SendInteractorProtocol {
     }
     
     func calculateFee(assetID: String) -> Observable<Money> {
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<Money> in
-            guard let owner = self else { return Observable.empty() }
-            return owner.transactionInteractor.calculateFee(by: .sendTransaction(assetID: assetID), accountAddress: wallet.address)
-        })
+        return auth
+            .authorizedWallet()
+            .flatMap({ [weak self] (wallet) -> Observable<Money> in
+                guard let self = self else { return Observable.empty() }
+                return self.transactionInteractor.calculateFee(by: .sendTransaction(assetID: assetID), accountAddress: wallet.address)
+            })
     }
     
     func getWavesBalance() -> Observable<DomainLayer.DTO.SmartAssetBalance> {
@@ -85,23 +87,25 @@ final class SendInteractor: SendInteractorProtocol {
     
     func validateAlis(alias: String) -> Observable<Bool> {
 
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<Bool> in
-            guard let owner = self else { return Observable.empty() }
+        return auth
+            .authorizedWallet()
+            .flatMap({ [weak self] (wallet) -> Observable<Bool> in
+                guard let self = self else { return Observable.never() }
             
-            return owner.aliasRepository.alias(by: alias, accountAddress: wallet.address)
-                .flatMap({ (address) -> Observable<Bool>  in
-                    return Observable.just(true)
+                return self.aliasRepository.alias(by: alias, accountAddress: wallet.address)
+                    .flatMap({ (address) -> Observable<Bool>  in
+                        return Observable.just(true)
+                })
             })
-        })
-        .catchError({ (error) -> Observable<Bool> in
-            return Observable.just(false)
-        })
+            .catchError({ (error) -> Observable<Bool> in
+                return Observable.just(false)
+            })
     }
     
     func send(fee: Money, recipient: String, assetId: String, amount: Money, attachment: String, feeAssetID: String) -> Observable<Send.TransactionStatus> {
         
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<Send.TransactionStatus> in
-            guard let owner = self else { return Observable.empty() }
+            guard let self = self else { return Observable.empty() }
 
             let sender = SendTransactionSender(recipient: recipient,
                                                assetId: assetId,
@@ -109,7 +113,7 @@ final class SendInteractor: SendInteractorProtocol {
                                                fee: fee.amount,
                                                attachment: attachment,
                                                feeAssetID: feeAssetID)
-            return owner.transactionInteractor.send(by: TransactionSenderSpecifications.send(sender), wallet: wallet)
+            return self.transactionInteractor.send(by: TransactionSenderSpecifications.send(sender), wallet: wallet)
                 .flatMap({ (transaction) -> Observable<Send.TransactionStatus>  in
                     return Observable.just(.success)
                 })

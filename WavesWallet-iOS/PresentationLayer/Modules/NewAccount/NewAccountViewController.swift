@@ -108,6 +108,7 @@ final class NewAccountViewController: UIViewController {
         }
 
         confirmPasswordInput.valueValidator = { [weak self] value in
+
             if self?.passwordInput.value != value {
                 return Localizable.Waves.Newaccount.Textfield.Error.passwordnotmatch
             } else {
@@ -120,19 +121,24 @@ final class NewAccountViewController: UIViewController {
         confirmPasswordInput.returnKey = .done
 
         accountNameInput.textFieldShouldReturn = { [weak self] _ in
-            if self?.accountNameInput.isValidValue == true {
-                self?.passwordInput.becomeFirstResponder()
+
+            guard let self = self else { return }
+
+            if self.accountNameInput.isValidValue == true {
+                self.passwordInput.becomeFirstResponder()
             }
         }
 
         passwordInput.textFieldShouldReturn = { [weak self] _ in
-            if self?.passwordInput.isValidValue == true {
-                self?.confirmPasswordInput.becomeFirstResponder()
+            guard let self = self else { return }
+            if self.passwordInput.isValidValue == true {
+                self.confirmPasswordInput.becomeFirstResponder()
             }
         }
 
-        confirmPasswordInput.textFieldShouldReturn = { [weak self] _ in    
-            self?.nextInputAfterChoiceAvatar()
+        confirmPasswordInput.textFieldShouldReturn = { [weak self] _ in
+            guard let self = self else { return }
+            self.nextInputAfterChoiceAvatar()
         }
     }
 
@@ -146,9 +152,9 @@ final class NewAccountViewController: UIViewController {
             let privateKey = PrivateKeyAccount(seedStr: seed)
 
             view.avatarDidTap = { [weak self] view, address in
-
-                self?.currentAvatar = Avatar(address: address, privateKey: privateKey, index: index)
-                self?.avatars.enumerated().filter { $0.offset != index }.forEach { $0.element.state = .unselected }
+                guard let self = self else { return }
+                self.currentAvatar = Avatar(address: address, privateKey: privateKey, index: index)
+                self.avatars.enumerated().filter { $0.offset != index }.forEach { $0.element.state = .unselected }
             }
 
             let image = identity.createImage(by: privateKey.address, size: view.iconSize) ?? UIImage()

@@ -28,14 +28,15 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
         
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
             
-            guard let owner = self else { return Observable.empty() }
+            guard let self = self else { return Observable.empty() }
             
-            let matcher = owner.matcherRepository.matcherPublicKey(accountAddress: wallet.address)
-            let environment = owner.environmentRepository.accountEnvironment(accountAddress: wallet.address)
-            
+            let matcher = self.matcherRepository.matcherPublicKey(accountAddress: wallet.address)
+            let environment = self.environmentRepository.accountEnvironment(accountAddress: wallet.address)
+
+            //TODO: Code move to another method
             return Observable.zip(matcher, environment)
                 .flatMap({ [weak self] (matcherPublicKey, environment) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
-                    guard let owner = self else { return Observable.empty() }
+                    guard let self = self else { return Observable.empty() }
                     
                     let precisionDifference =  (order.priceAsset.decimals - order.amountAsset.decimals) + Constants.numberForConveringDecimals
                     
@@ -53,7 +54,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                                                                        expiration: Int64(order.expiration.rawValue))
                     
                     
-                    return owner.orderBookRepository.createOrder(wallet: wallet, order: orderQuery)
+                    return self.orderBookRepository.createOrder(wallet: wallet, order: orderQuery)
                         .flatMap({ (success) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
                             let output = DexCreateOrder.DTO.Output(time: Date(milliseconds: orderQuery.timestamp),
                                                                    orderType: order.type,
@@ -70,8 +71,8 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     
     func getFee(amountAsset: String, priceAsset: String) -> Observable<Money> {
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) ->  Observable<Money> in
-            guard let owner = self else { return Observable.empty() }
-            return owner.transactionInteractor.calculateFee(by: .createOrder(amountAsset: amountAsset, priceAsset: priceAsset),
+            guard let self = self else { return Observable.empty() }
+            return self.transactionInteractor.calculateFee(by: .createOrder(amountAsset: amountAsset, priceAsset: priceAsset),
                                                             accountAddress: wallet.address)
         })
     }

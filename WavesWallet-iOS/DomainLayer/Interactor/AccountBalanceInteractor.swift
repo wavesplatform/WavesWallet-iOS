@@ -63,8 +63,8 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
             authorizationInteractor
             .authorizedWallet()
             .flatMap({ [weak self] wallet -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
-                guard let owner = self else { return Observable.never() }
-                return owner.balances(by: wallet)
+                guard let self = self else { return Observable.never() }
+                return self.balances(by: wallet)
             })
     }
     
@@ -80,8 +80,8 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
             authorizationInteractor
                 .authorizedWallet()
                 .flatMap({ [weak self] wallet -> Observable<DomainLayer.DTO.SmartAssetBalance> in
-                    guard let owner = self else { return Observable.never() }
-                    return owner.balance(by: assetId,
+                    guard let self = self else { return Observable.never() }
+                    return self.balance(by: assetId,
                                          wallet: wallet)
                 })
     }
@@ -213,9 +213,9 @@ private extension AccountBalanceInteractor {
         return assets
             .flatMapLatest({ [weak self] (assets) -> Observable<MappingQuery> in
 
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
-                let settings = owner.assetsBalanceSettings
+                let settings = self.assetsBalanceSettings
                     .settings(by: wallet.address, assets: assets)
                     .map { (balances) -> [String: DomainLayer.DTO.AssetBalanceSettings] in
                         return balances.reduce(into: [String: DomainLayer.DTO.AssetBalanceSettings](), { $0[$1.assetId] = $1 })
@@ -288,24 +288,25 @@ private extension AccountBalanceInteractor {
 
         return assetBalances            
             .flatMapLatest { [weak self] balances -> Observable<[DomainLayer.DTO.AssetBalance]> in
-                guard let owner = self else { return Observable.never() }
-                return owner.modifyBalances(by: wallet, balances: balances)
+                guard let self = self else { return Observable.never() }
+                return self.modifyBalances(by: wallet, balances: balances)
             }
             .flatMapLatest { [weak self] balances -> Observable<MappingQuery> in
-                guard let owner = self else { return Observable.never() }
-                return owner.prepareMappingBalancesToSmartBalances(by: wallet, balances: balances)
+                guard let self = self else { return Observable.never() }
+                return self.prepareMappingBalancesToSmartBalances(by: wallet, balances: balances)
             }
             .flatMap { [weak self] query -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
-                guard let owner = self else { return Observable.never() }
-                return owner.mappingBalancesToSmartBalances(by: wallet, query: query)
+                guard let self = self else { return Observable.never() }
+                return self.mappingBalancesToSmartBalances(by: wallet, query: query)
             }
             .flatMap({ [weak self] (balances) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
-                guard let owner = self else { return Observable.empty()}
-                return owner.removeOldsBalanceSettings(by: wallet, balances: balances)
+                guard let self = self else { return Observable.empty()}
+                return self.removeOldsBalanceSettings(by: wallet, balances: balances)
             })
             .flatMap({ [weak self] (balances) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
-                guard let owner = self else { return Observable.empty() }
-                return owner.trackFromZeroBalancesToAnalytic(assets: balances, accountAddress: wallet.address)
+                guard let self = self else { return Observable.empty() }
+                return self.trackFromZeroBalancesToAnalytic(assets: balances,
+                                                            accountAddress: wallet.address)
             })
     }
     

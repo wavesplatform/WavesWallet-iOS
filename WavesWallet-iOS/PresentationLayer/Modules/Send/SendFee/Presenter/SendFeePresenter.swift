@@ -49,9 +49,9 @@ final class SendFeePresenter: SendFeePresenterProtocol {
             return state.isNeedLoadAssets ? true : nil
             
         }, effects: {[weak self] state -> Signal<SendFee.Event> in
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
             
-            return strongSelf.interactor.assets().map { .didGetAssets($0) }
+            return self.interactor.assets().map { .didGetAssets($0) }
                 .asSignal(onErrorRecover: { (error) -> SharedSequence<SignalSharingStrategy, SendFee.Event> in
                     
                     if let error = error as? NetworkError {
