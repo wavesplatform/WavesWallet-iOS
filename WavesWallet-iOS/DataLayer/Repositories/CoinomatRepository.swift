@@ -23,6 +23,7 @@ private enum Response {
         struct Tunnel: Decodable {
             let wallet_from: String
             let attachment: String
+            let in_min: Double
         }
         
         let tunnel: Tunnel
@@ -45,7 +46,7 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
     
     private let coinomatProvider: MoyaProvider<Coinomat.Service> = .nodeMoyaProvider()
 
-    func tunnelInfo(currencyFrom: String, currencyTo: String, walletTo: String, moneroPaymentID: String?) -> Observable<DomainLayer.DTO.Coinomat.TunnelInfo> {
+    func tunnelInfo(asset: DomainLayer.DTO.Asset, currencyFrom: String, currencyTo: String, walletTo: String, moneroPaymentID: String?) -> Observable<DomainLayer.DTO.Coinomat.TunnelInfo> {
         
         let tunnel = Coinomat.Service.CreateTunnel(currency_from: currencyFrom,
                                                    currency_to: currencyTo,
@@ -69,8 +70,10 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
             .map(Response.GetTunnel.self)
             .asObservable()
             .map({ (model) -> DomainLayer.DTO.Coinomat.TunnelInfo in
+                let min = Money(value: Decimal(model.tunnel.in_min), asset.precision)
                 return DomainLayer.DTO.Coinomat.TunnelInfo(address: model.tunnel.wallet_from,
-                                                           attachment: model.tunnel.attachment)
+                                                           attachment: model.tunnel.attachment,
+                                                           min: min)
             })
         })
     }
