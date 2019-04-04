@@ -15,9 +15,9 @@ enum DexOrderBook {
     enum Event {
         case readyView
         case setDisplayData(DTO.DisplayData)
-        case didTapBid(DTO.BidAsk, inputMaxAmount: Bool)
+        case didTapBid(DTO.BidAsk, inputMaxSum: Bool)
         case didTapEmptyBid
-        case didTapAsk(DTO.BidAsk, inputMaxAmount: Bool)
+        case didTapAsk(DTO.BidAsk, inputMaxSum: Bool)
         case didTamEmptyAsk
         case updateData
     }

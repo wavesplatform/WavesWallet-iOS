@@ -55,7 +55,7 @@ extension DexCreateOrder.DTO {
         let priceAsset: DomainLayer.DTO.Dex.Asset
         let type: DomainLayer.DTO.Dex.OrderType
         let price: Money?
-        let amount: Money?
+        let sum: Money?
         let ask: Money?
         let bid: Money?
         let last: Money?

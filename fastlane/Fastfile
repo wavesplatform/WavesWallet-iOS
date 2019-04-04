@@ -2,31 +2,40 @@ require 'open-uri'
 require 'credentials_manager'
 require 'dotenv/load'
 require 'dotenv'
+require 'json'
+require 'uri'
 
 default_platform(:ios)
 
 def get_version_and_build   
   ENV['BUILD_NUMBER'] = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'").gsub!(/[^0-9A-Za-z]/, '')
-  ENV['VERSION'] = get_version_number(xcodeproj: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj")    
+  ENV['VERSION'] = get_version_number(xcodeproj: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj")      
 end
 
 before_all do
   Dotenv.overload '.env'
+  setup_circle_ci  
 
   ENV['CI_INIT']="true"
 
   sh("security find-identity -v -p codesigning fastlane_tmp_keychain")
-  setup_circle_ci  
+  
   sh("security find-identity -v -p codesigning fastlane_tmp_keychain")  
   sh("ssh-keyscan -H bitbucket.org >> ~/.ssh/known_hosts")
 
   ENV['ROOT_PROJECT']= "#{Dir.pwd}/.."
   ENV['OUTPUT_PROJECT']= "#{Dir.pwd}/../Output"
+
+  if Dir["#{ENV['OUTPUT_PROJECT']}"].empty? 
+    sh("mkdir #{ENV['OUTPUT_PROJECT']}")  
+  end
+  
   get_version_and_build
     
   unless Helper.ci?
     sh("echo CI DONT USE")
     ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
+    ENV['CI_INIT']="false"
   end
 
 end
@@ -258,6 +267,56 @@ platform :ios do
     upload_symbols_to_crashlytics(gsp_path: "#{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")              
   end
 
+
+  lane :send_to_slack_artifacts  do
+      
+    URL_ARTIFACTS = "https://circleci.com/api/v1.1/project/github/wavesplatform/WavesWallet-iOS/#{ENV['CIRCLE_BUILD_NUM']}/artifacts?circle-token=#{ENV['CIRCLE_CI_TOKEN']}"
+
+    JSON_ARTIFACTS = "#{ENV['OUTPUT_PROJECT']}/artifacts.json"
+
+    sh("rm -rf #{JSON_ARTIFACTS}")    
+    sh('curl -X GET "' + URL_ARTIFACTS + '" >> "' + JSON_ARTIFACTS + '"')
+
+    file = File.read("#{JSON_ARTIFACTS}")
+    artifacts = JSON.parse(file)
+
+    if artifacts.count > 0
+      fields = []
+
+      artifacts.each { |artifact|
+        
+        name = URI(artifact["path"]).path.split('/').last
+        url = artifact["url"]
+  
+        field_artifact = []
+  
+        fields.push({
+          "title": name,
+          "value": url          
+        })      
+      }
+    
+      slack(message: "🤖 CI Build #{ENV['CIRCLE_BUILD_NUM']}",
+            pretext: "Artifacts Version iOS #{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}",
+            username: "BurningMan",
+            icon_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2IOUZkkfdAaYMVpGkzNZr-cEv855jpVuI79UaHE2dE8SLACJW",          
+            default_payloads: [],
+            attachment_properties: {
+              fields: fields
+            } 
+         )
+    else
+      slack(message: "🤖 CI Build #{ENV['CIRCLE_BUILD_NUM']}",
+        pretext: "Artifacts not founds Version iOS #{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}",
+        username: "BurningMan",
+        icon_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2IOUZkkfdAaYMVpGkzNZr-cEv855jpVuI79UaHE2dE8SLACJW",          
+        default_payloads: [],
+        success: false
+     )
+    end
+
+
+  end
 
   # lane :init_project do 
   
