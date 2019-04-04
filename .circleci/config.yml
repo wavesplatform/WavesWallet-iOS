@@ -206,10 +206,14 @@ jobs:
           name: Fastlane Build
           command: bundle exec fastlane prod_build_projet --verbose
           no_output_timeout: 60m
+      - run:
+          name: Slack
+          command: bundle exec fastlane send_to_slack_artifacts --verbose
+          no_output_timeout: 60m
       - store_artifacts:
           path: ~/Waves/iOS/Output
       - store_test_results:
-          path: Store/Test
+          path: Store/Test                    
 workflows:
   version: 2.1
   Release:
