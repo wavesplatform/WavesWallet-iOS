@@ -10,6 +10,9 @@
 		744056B10274BC211A2A75AE /* Pods_WavesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B5C2356C257EAC84D74AC2 /* Pods_WavesSDK.framework */; };
 		7B42335522563A2100E82730 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B42335422563A2100E82730 /* CoreTelephony.framework */; };
 		7B42335722563A3200E82730 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B42335622563A3200E82730 /* Security.framework */; };
+		7B42335922563B8500E82730 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B42335822563B8500E82730 /* CryptoSwift.framework */; };
+		7B42335B22563D6700E82730 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42335A22563D6700E82730 /* Environment.swift */; };
+		7B42335D22563FDC00E82730 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42335C22563FDC00E82730 /* GlobalConstants.swift */; };
 		7B72BBAE22550493004A047F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72BBAD22550493004A047F /* AppDelegate.swift */; };
 		7B72BBB022550493004A047F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72BBAF22550493004A047F /* ViewController.swift */; };
 		7B72BBB322550493004A047F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B72BBB122550493004A047F /* Main.storyboard */; };
@@ -65,6 +68,9 @@
 		706DAF5CB0B9F0ADFECB54AE /* Pods-WavesSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesSDK.debug.xcconfig"; path = "Target Support Files/Pods-WavesSDK/Pods-WavesSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		7B42335422563A2100E82730 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		7B42335622563A3200E82730 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		7B42335822563B8500E82730 /* CryptoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B42335A22563D6700E82730 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		7B42335C22563FDC00E82730 /* GlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
 		7B72BBAA22550493004A047F /* WavesSDK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WavesSDK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B72BBAD22550493004A047F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B72BBAF22550493004A047F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -125,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B42335922563B8500E82730 /* CryptoSwift.framework in Frameworks */,
 				7B42335722563A3200E82730 /* Security.framework in Frameworks */,
 				7B42335522563A2100E82730 /* CoreTelephony.framework in Frameworks */,
 				744056B10274BC211A2A75AE /* Pods_WavesSDK.framework in Frameworks */,
@@ -232,15 +239,17 @@
 		7B72BBDC225504E5004A047F /* Type */ = {
 			isa = PBXGroup;
 			children = (
+				7B42335C22563FDC00E82730 /* GlobalConstants.swift */,
+				7B42335A22563D6700E82730 /* Environment.swift */,
+				7B72BBEE225504E5004A047F /* Balance.swift */,
+				7B72BBE5225504E5004A047F /* DateUtil.swift */,
+				7B72BBEF225504E5004A047F /* Money.swift */,
+				7B72BBE3225504E5004A047F /* MoneyUtil.swift */,
+				7B72BBE6225504E5004A047F /* Sync.swift */,
+				7B72BBF0225504E5004A047F /* TSUD.swift */,
 				7B72BBDD225504E5004A047F /* WordList.swift */,
 				7B72BBDE225504E5004A047F /* Crypto */,
-				7B72BBE3225504E5004A047F /* MoneyUtil.swift */,
-				7B72BBE5225504E5004A047F /* DateUtil.swift */,
-				7B72BBE6225504E5004A047F /* Sync.swift */,
 				7B72BBE7225504E5004A047F /* SweetLogger */,
-				7B72BBEE225504E5004A047F /* Balance.swift */,
-				7B72BBEF225504E5004A047F /* Money.swift */,
-				7B72BBF0225504E5004A047F /* TSUD.swift */,
 			);
 			path = Type;
 			sourceTree = "<group>";
@@ -269,6 +278,7 @@
 		AC99ABEB4BBE336881203739 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B42335822563B8500E82730 /* CryptoSwift.framework */,
 				7B42335622563A3200E82730 /* Security.framework */,
 				7B42335422563A2100E82730 /* CoreTelephony.framework */,
 				C4B5C2356C257EAC84D74AC2 /* Pods_WavesSDK.framework */,
@@ -460,6 +470,8 @@
 				7B72BC31225504E5004A047F /* ObservableType+Weak.swift in Sources */,
 				7B72BC24225504E5004A047F /* Balance.swift in Sources */,
 				7B72BC21225504E5004A047F /* SweetLoggerProtocol.swift in Sources */,
+				7B42335D22563FDC00E82730 /* GlobalConstants.swift in Sources */,
+				7B42335B22563D6700E82730 /* Environment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

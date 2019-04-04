@@ -10,6 +10,7 @@ import Foundation
 import Keccak
 import Blake2
 import _25519
+import CommonCrypto
 
 public class Hash {
     static func secureHash(_ input: [UInt8]) -> [UInt8] {
