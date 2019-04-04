@@ -46,8 +46,10 @@ extension ContactDetailView: ViewConfiguration {
         if let name = model.name {
             self.nameLabel.text = name
             self.nameLabel.isHidden = false
+            self.addressLabel.font = UIFont.systemFont(ofSize: 10)
         } else {
             self.nameLabel.isHidden = true
+            self.addressLabel.font = UIFont.systemFont(ofSize: 13)
         }
 
         self.addressLabel.text = model.address

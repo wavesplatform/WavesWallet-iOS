@@ -1112,6 +1112,7 @@
 "wavespopup.label.comingsoon" = "Coming soon";
 
 "transactioncard.title.from" = "From";
+"transactioncard.title.incomingLeasing" = "Incoming Leasing";
 "transactioncard.title.startedLeasing" = "Started Leasing";
 "transactioncard.title.canceledLeasing" = "Canceled Leasing";
 "transactioncard.title.nodeAddress" = "Node Address";
@@ -1136,6 +1137,8 @@
 "transactioncard.title.receivedSponsorship" = "Received Sponsorship";
 
 "transactioncard.title.recipient" = "#%@ Recipient";
+
+"transactioncard.title.leasingFrom" = "Leasing from";
 
 "transactioncard.title.exchange.buyPair" = "Buy: %@/%@";
 "transactioncard.title.exchange.sellPair" = "Sell: %@/%@";
