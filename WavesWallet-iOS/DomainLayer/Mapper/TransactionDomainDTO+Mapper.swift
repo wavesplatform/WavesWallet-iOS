@@ -176,7 +176,7 @@ extension DomainLayer.DTO.TransferTransaction {
 
         let transfer: DomainLayer.DTO.SmartTransaction.Transfer = .init(balance: transferBalance,
                                                                         asset: transferAsset,
-                                                                        recipient: transactionDirection == .receive ? recipient : sender,
+                                                                        recipient: transactionDirection == .receive ? sender : recipient,
                                                                         attachment: decodedString(attachment),
                                                                         hasSponsorship: hasSponsorship)
 

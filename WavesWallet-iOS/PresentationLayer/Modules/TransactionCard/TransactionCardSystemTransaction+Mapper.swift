@@ -56,8 +56,8 @@ extension DomainLayer.DTO.SmartTransaction {
 
         case .incomingLeasing(let leasing):
             return leasingSection(transfer: leasing,
-                                  title: Localizable.Waves.Transactioncard.Title.startedLeasing,
-                                  titleContact: Localizable.Waves.Transactioncard.Title.from,
+                                  title: Localizable.Waves.Transactioncard.Title.incomingLeasing,
+                                  titleContact: Localizable.Waves.Transactioncard.Title.leasingFrom,
                                   needCancelLeasing: false,
                                   core: core)
 
@@ -643,24 +643,27 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
                                                                                     sign: balanceSign,
                                                                                     style: .large)))
 
-        let address = transfer.recipient.address
+        rows.append(.general(rowGeneralModel))
 
-        let contact = core.normalizedContact(by: address,
-                                             externalContact: transfer.recipient.contact)
-
-        let name = contact?.name
-        let isEditName = name != nil
-
-        let rowAddressModel = TransactionCardAddressCell.Model.init(contact: contact,
-                                                                    contactDetail: .init(title: addressTitle,
-                                                                                         address: address,
-                                                                                         name: name),
-                                                                    isSpam: isSpam,
-                                                                    isEditName: isEditName)
-
-        rows.append(contentsOf:[.general(rowGeneralModel),
-                                .address(rowAddressModel)])
-
+        if core.kind.transaction?.isSelfTransfer == false {
+            
+            let address = transfer.recipient.address
+            
+            let contact = core.normalizedContact(by: address,
+                                                 externalContact: transfer.recipient.contact)
+            
+            let name = contact?.name
+            let isEditName = name != nil
+            
+            let rowAddressModel = TransactionCardAddressCell.Model.init(contact: contact,
+                                                                        contactDetail: .init(title: addressTitle,
+                                                                                             address: address,
+                                                                                             name: name),
+                                                                        isSpam: isSpam,
+                                                                        isEditName: isEditName)
+            rows.append(.address(rowAddressModel))
+        }
+        
         var isLargePadding: Bool = true
 
         if let attachment = transfer.attachment, attachment.count > 0 {
@@ -814,5 +817,19 @@ extension DomainLayer.DTO.SmartTransaction.MassTransfer.Transfer {
                   isEditName: isEditName)
 
         return rowRecipientModel
+    }
+}
+
+fileprivate extension DomainLayer.DTO.SmartTransaction {
+
+    var isSelfTransfer: Bool {
+       
+        switch kind {
+        case .selfTransfer:
+            return true
+            
+        default:
+            return false
+        }
     }
 }
