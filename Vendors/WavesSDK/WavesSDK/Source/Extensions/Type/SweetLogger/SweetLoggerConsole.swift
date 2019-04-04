@@ -10,9 +10,9 @@ import Foundation
 
 public final class SweetLoggerConsole: SweetLoggerProtocol {
     
-    var visibleLevels: [SweetLoggerLevel]
+    public var visibleLevels: [SweetLoggerLevel]
     
-    var isShortLog = true
+    public var isShortLog = true
     
     init(visibleLevels: [SweetLoggerLevel],
          isShortLog: Bool) {
@@ -21,7 +21,7 @@ public final class SweetLoggerConsole: SweetLoggerProtocol {
         self.isShortLog = isShortLog
     }
     
-    func send(message: @escaping @autoclosure () -> Any,
+    public func send(message: @escaping @autoclosure () -> Any,
               level: SweetLoggerLevel,
               file: String,
               function: String,
