@@ -11,7 +11,7 @@ import CryptoSwift
 import RxSwift
 
 public enum Crypto {}
-public extension Crypto: ReactiveCompatible {}
+extension Crypto: ReactiveCompatible {}
 
 public extension Reactive where Base == Crypto {
 

@@ -6,5 +6,14 @@ Pod::Spec.new do |spec|
   spec.authors      = { 'Mefilt' => 'Mefilt' }
   spec.summary      = 'Mefilt'
   spec.source       = { 'path' => '' }
-  spec.source_files = 'IdentityImg/IdentityImg/Source/*.{swift}'
+  spec.source_files = 'WavesSDK/Source/*.{swift}'
+
+
+  spec.subspec 'Extensions' do |subSpec|
+    subSpec.source_files =  'WavesSDK/Source/Extensions/*.{swift}'
+    subSpec.dependency 'RestKit/ObjectMapping'
+    subSpec.dependency 'RestKit/Network'
+    subSpec.dependency 'RestKit/CoreData'
+  end
+
 end

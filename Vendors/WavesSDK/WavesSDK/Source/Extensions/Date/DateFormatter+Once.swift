@@ -19,7 +19,8 @@ public extension DateFormatter {
             .threadSharedObject(key: Constants.DateFormatterKey,
                                 create: { return DateFormatter() })
 
-        formatter.locale = Language.currentLocale
+        //TODO: Library
+//        formatter.locale = Language.currentLocale
 
         return formatter
     }

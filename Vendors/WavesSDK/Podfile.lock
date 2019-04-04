@@ -1,0 +1,74 @@
+PODS:
+  - 25519 (2.0.2)
+  - Base58 (0.2)
+  - Blake2 (0.1)
+  - CryptoSwift (0.15.0)
+  - Keccak (0.1)
+  - ReachabilitySwift (4.3.0)
+  - RxAtomic (4.4.2)
+  - RxCocoa (4.4.2):
+    - RxSwift (>= 4.4.2, ~> 4.4)
+  - RxReachability (0.1.8):
+    - ReachabilitySwift (~> 4.3.0)
+    - RxCocoa (~> 4)
+    - RxSwift (~> 4)
+  - RxSwift (4.4.2):
+    - RxAtomic (>= 4.4.2, ~> 4.4)
+
+DEPENDENCIES:
+  - 25519 (from `https://github.com/wavesplatform/25519.git`)
+  - Base58 (from `https://github.com/wavesplatform/Base58.git`)
+  - Blake2 (from `https://github.com/wavesplatform/Blake2.git`)
+  - CryptoSwift
+  - Keccak (from `https://github.com/wavesplatform/Keccak.git`)
+  - RxReachability
+  - RxSwift
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - CryptoSwift
+    - ReachabilitySwift
+    - RxAtomic
+    - RxCocoa
+    - RxReachability
+    - RxSwift
+
+EXTERNAL SOURCES:
+  '25519':
+    :git: https://github.com/wavesplatform/25519.git
+  Base58:
+    :git: https://github.com/wavesplatform/Base58.git
+  Blake2:
+    :git: https://github.com/wavesplatform/Blake2.git
+  Keccak:
+    :git: https://github.com/wavesplatform/Keccak.git
+
+CHECKOUT OPTIONS:
+  '25519':
+    :commit: b7eb7b9b951d0503669c991af371a27fdefa28ee
+    :git: https://github.com/wavesplatform/25519.git
+  Base58:
+    :commit: caf9297d5667ab575a79c25671a470c1da48267c
+    :git: https://github.com/wavesplatform/Base58.git
+  Blake2:
+    :commit: 7a95d2703487a487ff65e4fc0d9a4c41162952be
+    :git: https://github.com/wavesplatform/Blake2.git
+  Keccak:
+    :commit: b67ef7767ff598ddcff6d468f7772b3fc6b65810
+    :git: https://github.com/wavesplatform/Keccak.git
+
+SPEC CHECKSUMS:
+  '25519': 2c284bd04dc489ee6c3ad5f04339480a5bcae042
+  Base58: a8409491c6f89c3b86a9b447d4302b1a4e03e2a2
+  Blake2: b29e27d1cc9ae2a8073a96990321e0c1a8fb5e8b
+  CryptoSwift: 769f58a9e89f64e8796c2e59ce5f002dc81a2438
+  Keccak: 99956a01b86eeac74e4debdac71a8c9ef33fb46d
+  ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
+  RxAtomic: d00e97c10db88c6f08540e0bf2752fc5a2404167
+  RxCocoa: 477990dc3b4c3ff55fb0ac77e1cc06244e0aaec8
+  RxReachability: 053f2d913db44998242ade488ccaef558f3ce7cb
+  RxSwift: 74c29b693c8e42b0f64400e8b06564575742d649
+
+PODFILE CHECKSUM: fb8ad42ea5a0c8bc28588ce7b6d6c47f7c41533c
+
+COCOAPODS: 1.6.1

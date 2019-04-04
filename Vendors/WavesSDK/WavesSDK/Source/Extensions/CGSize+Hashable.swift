@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension CGSize: Hashable {
+extension CGSize: Hashable {
     public var hashValue: Int {
         return width.hashValue ^ height.hashValue
     }

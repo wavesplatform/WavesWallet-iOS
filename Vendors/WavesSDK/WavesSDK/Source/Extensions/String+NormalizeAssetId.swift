@@ -14,22 +14,27 @@ public extension Optional where Wrapped == String {
         if let id = self {
             return id
         } else {
-            return GlobalConstants.wavesAssetId
+
+            //TODO: Library
+            return ""
+//            return GlobalConstants.wavesAssetId
         }
     }
 }
 
 public extension String {
-    func normalizeAddress(environment: Environment) -> String {
 
-        if let range = self.range(of: environment.aliasScheme), self.contains(environment.aliasScheme) {
-            var newString = self
-            newString.removeSubrange(range)
-            return newString
-        }
-
-        return self
-    }
+    //TODO: Library
+//    func normalizeAddress(environment: Environment) -> String {
+//
+//        if let range = self.range(of: environment.aliasScheme), self.contains(environment.aliasScheme) {
+//            var newString = self
+//            newString.removeSubrange(range)
+//            return newString
+//        }
+//
+//        return self
+//    }
 }
 
 //TODO: Move 
