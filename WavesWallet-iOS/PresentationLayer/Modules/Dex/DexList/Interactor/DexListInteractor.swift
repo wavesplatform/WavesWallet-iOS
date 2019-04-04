@@ -19,21 +19,20 @@ final class DexListInteractor: DexListInteractorProtocol {
     func pairs() -> Observable<ResponseType<[DexList.DTO.Pair]>> {
         
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<[DexList.DTO.Pair]>> in
-            guard let owner = self else { return Observable.empty() }
+            guard let self = self else { return Observable.empty() }
             
-            return owner.dexRealmRepository.list(by: wallet.address)
+            return self.dexRealmRepository.list(by: wallet.address)
                 .flatMap({ [weak self] (pairs) -> Observable<ResponseType<[DexList.DTO.Pair]>> in
                                         
-                    guard let owner = self else { return Observable.empty() }
+                    guard let self = self else { return Observable.empty() }
                     if pairs.count == 0 {
                         return Observable.just(ResponseType(output: [], error: nil))
-                    }
-                    else {
-                        
+                    } else {
+
                         let listPairs = pairs.map { DomainLayer.DTO.Dex.Pair(amountAsset: $0.amountAsset,
                                                                              priceAsset: $0.priceAsset)}
-                        
-                        return owner.dexListRepository.list(by: wallet.address, pairs: listPairs)
+                        //TODO: Move code to other method
+                        return self.dexListRepository.list(by: wallet.address, pairs: listPairs)
                             .flatMap({ (list) -> Observable<ResponseType<[DexList.DTO.Pair]>> in
                                 
                                 var listPairs: [DexList.DTO.Pair] = []

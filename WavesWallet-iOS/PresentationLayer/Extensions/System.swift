@@ -28,8 +28,8 @@ class System<S, E> {
         let feedback: Feedback = react(request: { (state) -> Bool? in
             return true
         }) { [weak self] _ -> Signal<Event> in
-            guard let owner = self else { return Signal.empty() }
-            return owner.inputEvent.observeOn(MainScheduler.instance).asSignal(onErrorSignalWith: Signal.empty())
+            guard let self = self else { return Signal.empty() }
+            return self.inputEvent.observeOn(MainScheduler.instance).asSignal(onErrorSignalWith: Signal.empty())
         }
 
         newSideEffects.append(feedback)
@@ -38,8 +38,11 @@ class System<S, E> {
         let system = Driver
             .system(initialState: self.initialState(),
                     reduce: { [weak self] state, event -> State in
+
+                        guard let self = self else { return state }
+
                         var newState = state
-                        self?.reduce(event: event, state: &newState)
+                        self.reduce(event: event, state: &newState)
                         return newState
                     },
                     feedback: newSideEffects)

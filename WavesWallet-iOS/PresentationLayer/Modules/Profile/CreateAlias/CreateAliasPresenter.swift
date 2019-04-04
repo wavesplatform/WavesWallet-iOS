@@ -71,10 +71,10 @@ fileprivate extension CreateAliasPresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
             if case .completedCreateAlias(let name) = query {
-                strongSelf.moduleOutput?.createAliasCompletedCreateAlias(name)
+                self.moduleOutput?.createAliasCompletedCreateAlias(name)
             }
 
             return Signal.just(.completedQuery)
@@ -93,23 +93,23 @@ fileprivate extension CreateAliasPresenter {
 
         }, effects: { [weak self] name -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .authorizationInteractor
                 .authorizedWallet()
                 .flatMap({ [weak self] wallet -> Observable<(Money, DomainLayer.DTO.SignedWallet)> in
-                    guard let strongSelf = self else { return Observable.empty() }
+                    guard let self = self else { return Observable.empty() }
 
-                    return strongSelf
+                    return self
                         .transactionsInteractor
                         .calculateFee(by: .createAlias, accountAddress: wallet.address)
                         .map { ($0, wallet) }
                 })
                 .flatMap({ [weak self] data -> Observable<Bool> in
-                    guard let strongSelf = self else { return Observable.empty() }
+                    guard let self = self else { return Observable.empty() }
 
-                    return strongSelf
+                    return self
                         .transactionsInteractor
                         .send(by: .createAlias(.init(alias: name, fee: data.0.amount)), wallet: data.1)
                         .map { _ in true }
@@ -134,13 +134,13 @@ fileprivate extension CreateAliasPresenter {
             }
 
         }, effects: { [weak self] name -> Signal<Types.Event> in
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .authorizationInteractor
                 .authorizedWallet()
                 .flatMap({ wallet -> Observable<String> in
-                    return strongSelf.aliasesRepository.alias(by: name, accountAddress: wallet.address)
+                    return self.aliasesRepository.alias(by: name, accountAddress: wallet.address)
                 })
                 .map { _ in .errorAliasExist }
                 .asSignal(onErrorRecover: { e in

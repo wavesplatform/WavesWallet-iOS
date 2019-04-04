@@ -31,7 +31,8 @@ final class TransactionCardCoordinator: Coordinator {
     private let disposeBag: DisposeBag = DisposeBag()
 
     private lazy var popoverViewControllerTransitioning = ModalViewControllerTransitioning { [weak self] in
-        self?.removeFromParentCoordinator()
+        guard let self = self else { return }
+        self.removeFromParentCoordinator()
     }
 
     private let kind: TransactionCard.Kind
@@ -59,7 +60,8 @@ final class TransactionCardCoordinator: Coordinator {
     func start() {
 
         let callbackInput: ((TransactionCardModuleInput) -> Void) = { [weak self] (input) in
-            self?.transactionCardViewControllerInput = input
+            guard let self = self else { return }
+            self.transactionCardViewControllerInput = input
         }
 
         let vc = TransactionCardBuilder(output: self)

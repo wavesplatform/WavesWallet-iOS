@@ -70,9 +70,9 @@ extension PasscodeLogInPresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor
                 .logInBiometric(wallet: query.wallet)
                 .map { Types.Event.completedLogIn($0) }
@@ -95,9 +95,9 @@ extension PasscodeLogInPresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor
                 .logIn(wallet: query.wallet, passcode: query.passcode)
                 .map { Types.Event.completedLogIn($0) }
@@ -119,9 +119,9 @@ extension PasscodeLogInPresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor.logout(wallet: query.wallet)
                 .map { _ in .completedLogout }
                 .asSignal { (error) -> Signal<Types.Event> in

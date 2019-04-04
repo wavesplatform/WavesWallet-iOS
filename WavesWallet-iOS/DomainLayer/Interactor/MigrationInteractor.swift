@@ -74,8 +74,8 @@ final class MigrationInteractor {
     func migration() -> Observable<Void> {
 
         sweetMigration.register(targetVersion: "2.0") { [weak self] () -> Observable<Void> in
-            guard let owner = self else { return Observable.never() }
-            return owner.migration2_0()
+            guard let self = self else { return Observable.never() }
+            return self.migration2_0()
         }
 
         return sweetMigration.run()
@@ -105,14 +105,17 @@ final class MigrationInteractor {
             }
             .flatMap { [weak self] wallets -> Observable<Void> in
 
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
                 let observers = wallets
-                    .compactMap({ wallet -> Observable<Void> in
+                    .compactMap({ [weak self] wallet -> Observable<Void> in
+
+                        guard let self = self else { return Observable.never() }
+                        
                         let seedId = UUID().uuidString
-                        let migrateOldSeed = owner.migrateOldSeed(wallet: wallet, seedId: seedId)
-                        let addedWalletEncryption = owner.addedWalletEncryption(wallet: wallet, seedId: seedId).map { _ in () }
-                        let save = owner.walletsRepository.saveWallet(wallet).map { _ in () }
+                        let migrateOldSeed = self.migrateOldSeed(wallet: wallet, seedId: seedId)
+                        let addedWalletEncryption = self.addedWalletEncryption(wallet: wallet, seedId: seedId).map { _ in () }
+                        let save = self.walletsRepository.saveWallet(wallet).map { _ in () }
                         return Observable.merge([migrateOldSeed, addedWalletEncryption, save])
                     })
 

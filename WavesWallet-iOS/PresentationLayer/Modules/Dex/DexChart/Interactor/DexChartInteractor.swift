@@ -24,10 +24,10 @@ final class DexChartInteractor: DexChartInteractorProtocol {
     
     func candles(timeFrame: DomainLayer.DTO.Candle.TimeFrameType, timeStart: Date, timeEnd: Date) -> Observable<[DomainLayer.DTO.Candle]> {
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.Candle]> in
-            guard let owner = self else { return Observable.empty() }
-            return owner.candlesReposotiry.candles(accountAddress: wallet.address,
-                                                   amountAsset: owner.pair.amountAsset.id,
-                                                   priceAsset: owner.pair.priceAsset.id,
+            guard let self = self else { return Observable.empty() }
+            return self.candlesReposotiry.candles(accountAddress: wallet.address,
+                                                   amountAsset: self.pair.amountAsset.id,
+                                                   priceAsset: self.pair.priceAsset.id,
                                                    timeStart: timeStart,
                                                    timeEnd: timeEnd,
                                                    timeFrame: timeFrame)

@@ -70,8 +70,13 @@ fileprivate extension DexChartViewController {
         }
         
         let readyViewFeedback: DexChartPresenter.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.rx.viewWillAppear.take(1).map { _ in DexChart.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
+            guard let self = self else { return Signal.empty() }
+            return self
+                .rx
+                .viewWillAppear
+                .take(1)
+                .map { _ in DexChart.Event.readyView }
+                .asSignal(onErrorSignalWith: Signal.empty())
         }
         presenter.system(feedbacks: [feedback, readyViewFeedback])
     }
@@ -84,21 +89,21 @@ fileprivate extension DexChartViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
                 
-                guard let strongSelf = self else { return }
-                strongSelf.state = state
+                guard let self = self else { return }
+                self.state = state
                 guard state.action != .none else { return }
                 
-                strongSelf.candles = state.candles
-                strongSelf.headerView.setupTimeFrame(timeFrame: state.timeFrame)
-                strongSelf.headerView.stopAnimation()
-                strongSelf.setupCandleChartInfo()
-                strongSelf.setupChartData(state: state)
+                self.candles = state.candles
+                self.headerView.setupTimeFrame(timeFrame: state.timeFrame)
+                self.headerView.stopAnimation()
+                self.setupCandleChartInfo()
+                self.setupChartData(state: state)
                 
                 if state.action == .changeTimeFrame {
-                    strongSelf.setupUpdatingState()
+                    self.setupUpdatingState()
                 }
                 else {
-                    strongSelf.setupDefaultState()
+                    self.setupDefaultState()
                 }
             })
         

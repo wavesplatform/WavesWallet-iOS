@@ -27,9 +27,9 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
 
         return environmentRepository.accountEnvironment(accountAddress: accountAddress)
             .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Asset]> in
-                guard let owner = self else { return Observable.empty() }
+                guard let self = self else { return Observable.empty() }
                 
-                let spamAssets = owner.spamProvider.rx
+                let spamAssets = self.spamProvider.rx
                                 .request(.getSpamList(url: environment.servers.spamUrl),
                                          callbackQueue: DispatchQueue.global(qos: .userInteractive))
                                 .filterSuccessfulStatusAndRedirectCodes()
@@ -46,7 +46,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                     return Date(isoDecoder: decoder, timestampDiff: environment.timestampServerDiff)
                 }
                 
-                let assetsList = owner.apiProvider.rx
+                let assetsList = self.apiProvider.rx
                                 .request(.init(kind: .getAssets(ids: ids), environment: environment),
                                         callbackQueue: DispatchQueue.global(qos: .userInteractive))
                                 .filterSuccessfulStatusAndRedirectCodes()
@@ -93,8 +93,8 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
         return environment
             .flatMap { [weak self] environment -> Single<Response> in
 
-                guard let owner = self else { return Single.never() }
-                return owner
+                guard let self = self else { return Single.never() }
+                return self
                     .assetNodeProvider
                     .rx
                     .request(.init(kind: .details(assetId: assetId), environment: environment),

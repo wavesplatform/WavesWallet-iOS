@@ -68,7 +68,8 @@ final class PasscodeCoordinator: Coordinator {
 
         case .push:
             mainNavigationRouter.pushViewController(vc, animated: true) { [weak self] in
-                self?.removeFromParentCoordinator()
+                guard let self = self else { return }
+                self.removeFromParentCoordinator()
             }
         }
     }

@@ -60,10 +60,12 @@ final class ImportAccountScanViewController: UIViewController {
     @IBAction func scanTapped(_ sender: Any) {
 
         CameraAccess.requestAccess(success: { [weak self] in
-                self?.delegate?.scanTapped()
-            }, failure: { [weak self] in
-                let alert = CameraAccess.alertController
-                self?.present(alert, animated: true, completion: nil)
+            guard let self = self else { return }
+            self.delegate?.scanTapped()
+        }, failure: { [weak self] in
+            guard let self = self else { return }
+            let alert = CameraAccess.alertController
+            self.present(alert, animated: true, completion: nil)
         })
     
     }

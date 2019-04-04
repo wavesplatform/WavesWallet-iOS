@@ -52,8 +52,8 @@ extension AssetsSegmentedCell: ViewConfiguration {
                                                            size: Constants.sponsoredSize)))
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (image) in
-                
-                self?.imageViewIcon.image = image
+                guard let self = self else { return }
+                self.imageViewIcon.image = image
             })
             .disposed(by: disposeBag)
     }

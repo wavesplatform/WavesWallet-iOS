@@ -53,8 +53,9 @@ final class DexListViewController: UIViewController {
         }
         
         let readyViewFeedback: DexListPresenter.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.rx.viewWillAppear.take(1).map { _ in DexList.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
+
+            guard let self = self else { return Signal.empty() }
+            return self.rx.viewWillAppear.take(1).map { _ in DexList.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
         }
         
         presenter.system(feedbacks: [feedback, readyViewFeedback])
@@ -74,9 +75,14 @@ final class DexListViewController: UIViewController {
         super.viewWillAppear(animated)
         setupBigNavigationBar()
         
-        Observable<Int>.interval(Constants.updateTime, scheduler: MainScheduler.asyncInstance).subscribe(onNext: { [weak self] (value) in
-            self?.sendEvent.accept(.refresh)
-        }).disposed(by: disposeBag)
+        Observable<Int>
+            .interval(Constants.updateTime,
+                      scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (value) in
+                guard let self = self else { return }
+                self.sendEvent.accept(.refresh)
+            })
+            .disposed(by: disposeBag)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -137,24 +143,23 @@ fileprivate extension DexListViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
 
-                guard let strongSelf = self else { return }
+                guard let self = self else { return }
                
                 switch state.action {
                     
                 case .update:
-                        strongSelf.hideErrorIfExist()
-                        strongSelf.tableView.isHidden = false
-                        strongSelf.globalErrorView.isHidden = true
-                        strongSelf.sections = state.sections
-                        strongSelf.tableView.reloadData()
-                        strongSelf.refreshControl.endRefreshing()
-                        strongSelf.setupViews(loadingDataState: state.isFirstLoadingData, isVisibleItems: state.isVisibleItems)
+                    self.hideErrorIfExist()
+                    self.tableView.isHidden = false
+                    self.globalErrorView.isHidden = true
+                    self.sections = state.sections
+                    self.tableView.reloadData()
+                    self.refreshControl.endRefreshing()
+                    self.setupViews(loadingDataState: state.isFirstLoadingData, isVisibleItems: state.isVisibleItems)
                     
                 case .didFailGetModels(let error):
-                    strongSelf.hideErrorIfExist()
-                    strongSelf.setupErrorState(error: error, isFirstLoadingData: state.isFirstLoadingData)
-                    
-                    
+                    self.hideErrorIfExist()
+                    self.setupErrorState(error: error, isFirstLoadingData: state.isFirstLoadingData)
+
                 default:
                     break
                 }
@@ -205,7 +210,8 @@ private extension DexListViewController {
             switch error {
             case .internetNotWorking:
                 errorSnackKey = showWithoutInternetSnack { [weak self] in
-                    self?.sendEvent.accept(.refresh)
+                    guard let self = self else { return }
+                    self.sendEvent.accept(.refresh)
                 }
                 
             default:

@@ -30,7 +30,8 @@ extension ModalViewControllerTransitioning: UIViewControllerTransitioningDelegat
 
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController?  {
         return ModalPresentationController(presentedViewController: presented, presenting: presenting, dismiss: { [weak self] in
-            self?.dismiss?()
+            guard let self = self else { return }
+            self.dismiss?()
         })
     }
 }

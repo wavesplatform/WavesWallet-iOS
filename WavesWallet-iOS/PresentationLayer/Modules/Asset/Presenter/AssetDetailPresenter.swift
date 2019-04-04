@@ -34,7 +34,9 @@ final class AssetDetailPresenter: AssetDetailPresenterProtocol {
 
         let system = Driver.system(initialState: initialState,
                                    reduce: { [weak self] state, event -> AssetDetailTypes.State in
-                                        return self?.reduce(state: state, event: event) ?? state
+
+                                        guard let self = self else { return state }
+                                        return self.reduce(state: state, event: event)
                                     },
                                    feedback: newFeedbacks)
 
@@ -49,10 +51,10 @@ final class AssetDetailPresenter: AssetDetailPresenterProtocol {
         }, effects: { [weak self] _ -> Signal<AssetDetailTypes.Event> in
 
             // TODO: Error
-            guard let strongSelf = self else { return Signal.empty() }
-            let ids = strongSelf.input.assets.map { $0.id }
+            guard let self = self else { return Signal.empty() }
+            let ids = self.input.assets.map { $0.id }
 
-            return strongSelf
+            return self
                 .interactor
                 .assets(by: ids)
                 .map { AssetDetailTypes.Event.setAssets($0) }
@@ -75,9 +77,9 @@ final class AssetDetailPresenter: AssetDetailPresenterProtocol {
         }, effects: { [weak self] query -> Signal<AssetDetailTypes.Event> in
 
             // TODO: Error
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor.transactions(by: query.id)
                 .map { AssetDetailTypes.Event.setTransactions($0) }
                 .asSignal(onErrorSignalWith: Signal.empty())

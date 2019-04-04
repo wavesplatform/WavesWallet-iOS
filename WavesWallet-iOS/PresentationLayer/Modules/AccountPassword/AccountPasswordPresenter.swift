@@ -62,7 +62,8 @@ final class AccountPasswordPresenter: AccountPasswordPresenterProtocol {
             .map { $0.query }
             .filterNil()
             .drive(onNext: { [weak self] query in
-                self?.handlerQuery(query: query)
+                guard let self = self else { return }
+                self.handlerQuery(query: query)
             })
             .disposed(by: disposeBag)
     }
@@ -81,9 +82,9 @@ final class AccountPasswordPresenter: AccountPasswordPresenterProtocol {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor
                 .logIn(wallet: query.wallet, password: query.password)
                 .map { .completedLogIn($0, password: query.password) }
@@ -109,9 +110,9 @@ final class AccountPasswordPresenter: AccountPasswordPresenterProtocol {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor
                 .verifyAccess(wallet: query.wallet, password: query.password)
                 .map { .completedVerifyAccess($0, password: query.password) }

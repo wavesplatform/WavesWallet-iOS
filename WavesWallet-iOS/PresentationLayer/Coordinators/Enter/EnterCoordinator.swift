@@ -62,7 +62,9 @@ extension EnterCoordinator: PresentationCoordinator {
 
         case .importAccount:
             let coordinator = ImportCoordinator(navigationRouter: navigationRouter) { [weak self] account in
-                self?.showPasscode(with: .init(privateKey: account.privateKey,
+
+                guard let self = self else { return }
+                self.showPasscode(with: .init(privateKey: account.privateKey,
                                                password: account.password,
                                                name: account.name,
                                                needBackup: false))
@@ -71,12 +73,15 @@ extension EnterCoordinator: PresentationCoordinator {
 
         case .newAccount:
             let coordinator = NewAccountCoordinator(navigationRouter: navigationRouter) { [weak self] account, needBackup  in
+
+                guard let self = self else { return }
+
                 let account: PasscodeTypes.DTO.Account = .init(privateKey: account.privateKey,
                                                                password: account.password,
                                                                name: account.name,
                                                                needBackup: needBackup)
 
-                self?.showDisplay(.passcodeRegistration(account))
+                self.showDisplay(.passcodeRegistration(account))
             }
             addChildCoordinatorAndStart(childCoordinator: coordinator)            
 

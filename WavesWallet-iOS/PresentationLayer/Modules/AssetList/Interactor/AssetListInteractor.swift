@@ -23,58 +23,58 @@ final class AssetListInteractor: AssetListInteractorProtocol {
     func assets(filters: [AssetList.DTO.Filter], isMyList: Bool) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
         
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
-            guard let owner = self else { return Observable.empty() }
+            guard let self = self else { return Observable.empty() }
             
-            owner.isMyList = isMyList
+            self.isMyList = isMyList
             
-            let assets = owner.getCachedAssets()
-            let accountSettings = owner.accountSettings.accountSettings(accountAddress: wallet.address)
+            let assets = self.getCachedAssets()
+            let accountSettings = self.accountSettings.accountSettings(accountAddress: wallet.address)
             
             let merge = Observable.zip(assets, accountSettings).map({ [weak self] (assets, settings) -> [DomainLayer.DTO.SmartAssetBalance] in
                 
-                guard let strongSelf = self else { return [] }
-                strongSelf.cachedAssets = assets
+                guard let self = self else { return [] }
+                self.cachedAssets = assets
                 
                 let isEnableSpam = settings?.isEnabledSpam ?? false
                 
                 if filters.contains(.all) {
                     
                     if isEnableSpam {
-                        self?.filteredAssets = assets.filter({$0.asset.isSpam == false})
+                        self.filteredAssets = assets.filter({$0.asset.isSpam == false})
                     }
                     else {
-                        self?.filteredAssets = assets
+                        self.filteredAssets = assets
                     }
                 }
                 else {
-                    self?.filterAssets(filters: filters, assets: assets, isEnableSpam: isEnableSpam)
+                    self.filterAssets(filters: filters, assets: assets, isEnableSpam: isEnableSpam)
                 }
                 
-                return strongSelf.filterIsMyAsset(strongSelf.filteredAssets)
+                return self.filterIsMyAsset(self.filteredAssets)
             })
             
-            let search = owner.searchString
+            let search = self.searchString
                 .asObserver().skip(1)
                 .map { [weak self] searchString -> [DomainLayer.DTO.SmartAssetBalance] in
                     
-                    guard let strongSelf = self else { return [] }
-                    return strongSelf.filterIsMyAsset(strongSelf.filteredAssets)
+                    guard let self = self else { return [] }
+                    return self.filterIsMyAsset(self.filteredAssets)
             }
             
             return Observable
                 .merge([merge, search])
                 .map { [weak self] assets -> [DomainLayer.DTO.SmartAssetBalance] in
                     
-                    guard let strongSelf = self else { return [] }
+                    guard let self = self else { return [] }
                     
-                    let searchText = (try? self?.searchString.value() ?? "") ?? ""
+                    let searchText = (try? self.searchString.value()) ?? ""
                     
                     let newAssets = assets.filter {
                         let asset = $0.asset
-                        return strongSelf.isValidSearch(name: asset.displayName, searchText: searchText)
+                        return self.isValidSearch(name: asset.displayName, searchText: searchText)
                     }
                     
-                    return strongSelf.filterIsMyAsset(newAssets)
+                    return self.filterIsMyAsset(newAssets)
             }
         })
         .catchError({ (error) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in

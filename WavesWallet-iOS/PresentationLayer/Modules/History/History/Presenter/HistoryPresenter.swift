@@ -45,10 +45,10 @@ final class HistoryPresenter: HistoryPresenterProtocol {
 
             return state.refreshData
         }, effects: { [weak self] query -> Signal<HistoryTypes.Event> in
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf
+            guard let self = self else { return Signal.empty() }
+            return self
                 .interactor
-                .transactions(input: strongSelf.moduleInput)
+                .transactions(input: self.moduleInput)
                 .map { .responseAll($0) }
                 .asSignal(onErrorRecover: { _ in
                     return Signal.empty()

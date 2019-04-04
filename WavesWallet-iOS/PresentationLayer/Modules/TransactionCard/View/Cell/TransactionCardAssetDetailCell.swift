@@ -28,7 +28,8 @@ final class TransactionCardAssetDetailCell: UITableViewCell, Reusable {
         super.awakeFromNib()
         copyButton.isBlack = true
         copyButton.copiedText = { [weak self] in
-            return self?.assetIdLabel.text
+            guard let self = self else { return nil }
+            return self.assetIdLabel.text
         }
     }
 

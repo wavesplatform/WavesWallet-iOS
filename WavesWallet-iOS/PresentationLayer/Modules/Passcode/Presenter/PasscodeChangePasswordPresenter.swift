@@ -37,7 +37,8 @@ final class PasscodeChangePasswordPresenter: PasscodePresenterProtocol {
 
         let system = Driver.system(initialState: initialState,
                                    reduce: { [weak self] state, event -> Types.State in
-                                    self?.reduce(state: state, event: event) ?? state
+                                        guard let self = self else { return state }
+                                        return self.reduce(state: state, event: event)
                                     },
                                    feedback: newFeedbacks)
 
@@ -64,9 +65,9 @@ extension PasscodeChangePasswordPresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor
                 .changePassword(wallet: query.wallet, passcode: query.passcode, oldPassword: query.oldPassword, newPassword: query.newPassword)
                 .map { .completedChangePassword($0) }
@@ -92,9 +93,9 @@ extension PasscodeChangePasswordPresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor.logout(wallet: query.wallet)
                 .map { _ in .completedLogout }
                 .asSignal { (error) -> Signal<Types.Event> in

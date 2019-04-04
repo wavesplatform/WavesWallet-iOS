@@ -37,16 +37,16 @@ protocol ProfilePresenterProtocol {
     func system(feedbacks: [Feedback])
 }
 
-public func reactQuery<State, Query: Equatable, Event, Owner: AnyObject>(owner: Owner,
-                                                       query: @escaping (State) -> Query?,
-                                                       effects: @escaping (Owner, Query) -> Void) -> (Driver<State>) -> Signal<Event> {
-
-    return react(request: query, effects: { [weak owner] query -> Signal<Event> in
-        guard let ownerStrong = owner else { return Signal.never() }
-        effects(ownerStrong, query)
-        return Signal.empty()
-    })
-}
+//public func reactQuery<State, Query: Equatable, Event, Owner: AnyObject>(owner: Owner,
+//                                                       query: @escaping (State) -> Query?,
+//                                                       effects: @escaping (Owner, Query) -> Void) -> (Driver<State>) -> Signal<Event> {
+//
+//    return react(request: query, effects: { [weak owner] query -> Signal<Event> in
+//        guard let self = owner else { return Signal.never() }
+//        effects(ownerStrong, query)
+//        return Signal.empty()
+//    })
+//}
 
 final class ProfilePresenter: ProfilePresenterProtocol {
 
@@ -163,8 +163,8 @@ fileprivate extension ProfilePresenter {
         return react(request: { state -> Types.Query? in
             return ProfilePresenter.needQuery(state)
         }, effects: { [weak self] query -> Signal<Types.Event> in
-            guard let owner = self else { return Signal.empty() }
-            ProfilePresenter.handlerQuery(owner: owner, query: query)
+            guard let self = self else { return Signal.empty() }
+            ProfilePresenter.handlerQuery(owner: self, query: query)
             return Signal.just(.completedQuery)
         })
     }
@@ -173,8 +173,8 @@ fileprivate extension ProfilePresenter {
         return react(request: { state -> Bool? in
             return true
         }, effects: { [weak self] isOn -> Signal<Types.Event> in
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.eventInput.asSignal(onErrorSignalWith: Signal.empty())
+            guard let self = self else { return Signal.empty() }
+            return self.eventInput.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
 
@@ -194,9 +194,9 @@ fileprivate extension ProfilePresenter {
 
         }, effects: { [weak self] wallet -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
             
-            return strongSelf
+            return self
                 .authorizationInteractor
                 .changeWallet(wallet)
                 .map { $0.isBackedUp }
@@ -219,14 +219,14 @@ fileprivate extension ProfilePresenter {
 
         }, effects: { [weak self] isOn -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .authorizationInteractor
                 .authorizedWallet()
                 .flatMap({ [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
-                    guard let strongSelf = self else { return Observable.empty() }
-                    return strongSelf.walletsRepository.listenerWallet(by: wallet.wallet.publicKey)
+                    guard let self = self else { return Observable.empty() }
+                    return self.walletsRepository.listenerWallet(by: wallet.wallet.publicKey)
                 })
                 .map { Types.Event.setWallet($0) }
                 .asSignal(onErrorRecover: { _ in
@@ -248,9 +248,9 @@ fileprivate extension ProfilePresenter {
 
         }, effects: { [weak self] address -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .blockRepository
                 .height(accountAddress: address)
                 .map { Types.Event.setBlock($0) }
@@ -273,9 +273,9 @@ fileprivate extension ProfilePresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .authorizationInteractor
                 .logout()
                 .do(onNext: { [weak self] _ in
@@ -303,13 +303,13 @@ fileprivate extension ProfilePresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .authorizationInteractor.logout()
                 .flatMap({ [weak self] wallet -> Observable<Types.Event> in
-                    guard let strongSelf = self else { return Observable.empty() }
-                    return strongSelf
+                    guard let self = self else { return Observable.empty() }
+                    return self
                         .authorizationInteractor
                         .deleteWallet(wallet)
                         .map { _ in
