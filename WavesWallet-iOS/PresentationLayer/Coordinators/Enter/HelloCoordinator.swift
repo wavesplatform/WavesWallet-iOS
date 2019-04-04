@@ -34,7 +34,8 @@ final class HelloCoordinator: Coordinator {
         let vc = StoryboardScene.Hello.helloLanguagesViewController.instantiate()
         vc.output = self
         self.navigationRouter.pushViewController(vc, animated: true) { [weak self] in
-            self?.removeFromParentCoordinator()
+            guard let self = self else { return }
+            self.removeFromParentCoordinator()
         }
 
         self.windowRouter.setRootViewController(self.navigationRouter.navigationController)

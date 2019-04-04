@@ -45,9 +45,9 @@ final class AssetsInteractor: AssetsInteractorProtocol {
             })
             .catchError { [weak self] remoteError -> SyncObservable<[DomainLayer.DTO.Asset]> in
 
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
-                return owner
+                return self
                     .localeAssets(by: ids, accountAddress: accountAddress)
                     .map({ assets in
                         if assets.count > 0 {
@@ -69,8 +69,8 @@ final class AssetsInteractor: AssetsInteractorProtocol {
         return repositoryRemote
         .assets(by: ids, accountAddress: accountAddress)
         .flatMapLatest({ [weak self] assets -> Observable<[DomainLayer.DTO.Asset]> in
-            guard let owner = self else { return Observable.never() }
-            return owner
+            guard let self = self else { return Observable.never() }
+            return self
                 .repositoryLocal
                 .saveAssets(assets, by: accountAddress)
                 .map({ _ -> [DomainLayer.DTO.Asset] in
@@ -78,8 +78,8 @@ final class AssetsInteractor: AssetsInteractorProtocol {
                 })
         })
         .flatMapLatest({ [weak self] assets -> Observable<[DomainLayer.DTO.Asset]> in
-            guard let owner = self else { return Observable.never() }
-            return owner.mutableResponce(assets: assets, accountAddress: accountAddress)
+            guard let self = self else { return Observable.never() }
+            return self.mutableResponce(assets: assets, accountAddress: accountAddress)
         })
     }
 
@@ -87,8 +87,8 @@ final class AssetsInteractor: AssetsInteractorProtocol {
         return repositoryLocal
             .assets(by: ids, accountAddress: accountAddress)
             .flatMapLatest({ [weak self] assets -> Observable<[DomainLayer.DTO.Asset]> in
-                guard let owner = self else { return Observable.never() }
-                return owner.mutableResponce(assets: assets, accountAddress: accountAddress)
+                guard let self = self else { return Observable.never() }
+                return self.mutableResponce(assets: assets, accountAddress: accountAddress)
             })
     }
 

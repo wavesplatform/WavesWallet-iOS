@@ -19,10 +19,10 @@ final class DexMyOrdersInteractor: DexMyOrdersInteractorProtocol {
     func myOrders() -> Observable<[DomainLayer.DTO.Dex.MyOrder]> {
         
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.Dex.MyOrder]>  in
-            guard let owner = self else { return Observable.empty() }
-            return owner.repository.myOrders(wallet: wallet,
-                                             amountAsset: owner.pair.amountAsset,
-                                             priceAsset: owner.pair.priceAsset)
+            guard let self = self else { return Observable.empty() }
+            return self.repository.myOrders(wallet: wallet,
+                                             amountAsset: self.pair.amountAsset,
+                                             priceAsset: self.pair.priceAsset)
                 .catchError({ (error) -> Observable<[DomainLayer.DTO.Dex.MyOrder]> in
                     return Observable.just([])
                 })
@@ -33,8 +33,8 @@ final class DexMyOrdersInteractor: DexMyOrdersInteractorProtocol {
     func cancelOrder(order: DomainLayer.DTO.Dex.MyOrder) -> Observable<ResponseType<Bool>> {
         
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) ->  Observable<ResponseType<Bool>> in
-            guard let owner = self else { return Observable.empty() }
-            return owner.repository.cancelOrder(wallet: wallet,
+            guard let self = self else { return Observable.empty() }
+            return self.repository.cancelOrder(wallet: wallet,
                                           orderId: order.id,
                                           amountAsset: order.amountAsset.id,
                                           priceAsset: order.priceAsset.id)

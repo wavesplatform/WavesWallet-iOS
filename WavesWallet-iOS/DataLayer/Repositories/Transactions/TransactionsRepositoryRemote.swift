@@ -80,7 +80,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
             .accountEnvironment(accountAddress: address.address)
             .flatMap { [weak self] environment -> Observable<[DomainLayer.DTO.AnyTransaction]> in
 
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
                 let limit = min(Constants.maxLimit, offset + limit)
                 
@@ -89,7 +89,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                     return Date(timestampDecoder: decoder, timestampDiff: environment.timestampServerDiff)
                 }
                 
-                return owner
+                return self
                     .transactions
                     .rx
                     .request(.init(kind: .list(accountAddress: address.address,
@@ -112,14 +112,14 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
             .accountEnvironment(accountAddress: accountAddress)
             .flatMap { [weak self] environment -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
 
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
                 
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .custom { decoder in
                     return Date(timestampDecoder: decoder, timestampDiff: environment.timestampServerDiff)
                 }
                 
-                return owner
+                return self
                     .leasingProvider
                     .rx
                     .request(.init(kind: .getActive(accountAddress: accountAddress),
@@ -162,14 +162,14 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                                                                                    environment: environment,
                                                                                    publicKey: wallet.publicKey.getPublicKeyStr(),
                                                                                    proofs: proofs)
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
                 
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .custom { decoder in
                     return Date(timestampDecoder: decoder, timestampDiff: environment.timestampServerDiff)
                 }
 
-                return owner
+                return self
                     .transactions
                     .rx
                     .request(.init(kind: .broadcast(broadcastSpecification),

@@ -210,22 +210,21 @@ private extension DexCoordinator {
         auth.authorizedWallet()
         .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (wallet) in
-                guard let owner = self else { return }
-                
-                
+                guard let self = self else { return }
+
                 if scriptedAssets.count > 0 && !SettingsScriptPair.contain(amountAsset: amountAsset.id,
                                                                            priceAsset: priceAsset.id,
                                                                            address: wallet.address) {
                     
                     let actionContinue = { [weak self] in
-                        guard let owner = self else { return }
+                        guard let self = self else { return }
                         
-                        let controller = DexCreateOrderModuleBuilder(output: owner).build(input: input)
+                        let controller = DexCreateOrderModuleBuilder(output: self).build(input: input)
                         let popup = PopupViewController()
                         popup.present(contentViewController: controller)
                     }
                     
-                    let vc = DexScriptAssetMessageModuleBuilder(output: owner).build(input: .init(assets: scriptedAssets,
+                    let vc = DexScriptAssetMessageModuleBuilder(output: self).build(input: .init(assets: scriptedAssets,
                                                                                                  amountAsset: amountAsset.id,
                                                                                                  priceAsset: priceAsset.id,
                                                                                                  continueAction: actionContinue))
@@ -233,11 +232,12 @@ private extension DexCoordinator {
                     popup.present(contentViewController: vc)
                 }
                 else {
-                    let controller = DexCreateOrderModuleBuilder(output: owner).build(input: input)
+                    let controller = DexCreateOrderModuleBuilder(output: self).build(input: input)
                     let popup = PopupViewController()
                     popup.present(contentViewController: controller)
                 }
-            }).disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
     }
 }
 

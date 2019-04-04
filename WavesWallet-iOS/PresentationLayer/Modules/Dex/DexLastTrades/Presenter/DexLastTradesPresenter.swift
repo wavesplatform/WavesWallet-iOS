@@ -29,8 +29,9 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
         
         Driver.system(initialState: DexLastTrades.State.initialState,
                       reduce: { [weak self] state, event -> DexLastTrades.State in
-                        return self?.reduce(state: state, event: event) ?? state },
-                      feedback: newFeedbacks)
+                        guard let self = self else { return state }
+                        return self.reduce(state: state, event: event)
+            }, feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
     }
@@ -42,8 +43,12 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
             
         }, effects: { [weak self] ss -> Signal<DexLastTrades.Event> in
             
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.interactor.displayInfo().map {.setDisplayData($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            guard let self = self else { return Signal.empty() }
+            return self
+                .interactor
+                .displayInfo()
+                .map {.setDisplayData($0) }
+                .asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     

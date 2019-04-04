@@ -160,8 +160,9 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
         system
             .start()
             .drive(onNext: { [weak self] (state) in
-                self?.update(state: state.core)
-                self?.update(state: state.ui)
+                guard let self = self else { return }
+                self.update(state: state.core)
+                self.update(state: state.ui)
             })
             .disposed(by: disposeBag)
     }
@@ -359,7 +360,10 @@ extension TransactionCardViewController: UITableViewDataSource {
             let cell:TransactionCardAddressCell = tableView.dequeueCell()
             cell.update(with: model)
             cell.tapAddressBookButton = { [weak self] (isAdd) in
-                self?.updateContact(address: model.contactDetail.address,
+
+                guard let self = self else { return }
+
+                self.updateContact(address: model.contactDetail.address,
                                     contact: model.contact,
                                     isAdd: isAdd)
             }
@@ -388,7 +392,9 @@ extension TransactionCardViewController: UITableViewDataSource {
             let cell: TransactionCardMassSentRecipientCell = tableView.dequeueCell()
             cell.update(with: model)
             cell.tapAddressBookButton = { [weak self] (isAdd) in
-                self?.updateContact(address: model.contactDetail.address,
+
+                guard let self = self else { return }
+                self.updateContact(address: model.contactDetail.address,
                                     contact: model.contact,
                                     isAdd: isAdd)
             }
@@ -405,7 +411,8 @@ extension TransactionCardViewController: UITableViewDataSource {
             let cell: TransactionCardActionsCell = tableView.dequeueCell()
             cell.update(with: model)
             cell.tapOnButton = { [weak self] (button)  in
-                self?.handlerTapActionButton(button)
+                guard let self = self else { return }
+                self.handlerTapActionButton(button)
             }
 
             return cell
@@ -433,7 +440,8 @@ extension TransactionCardViewController: UITableViewDataSource {
             cell.update(with: model)
 
             cell.didTapButtonShowAll = { [weak self] in
-                self?.system?.send(.showAllRecipients)
+                guard let self = self else { return }
+                self.system?.send(.showAllRecipients)
             }
 
             return cell

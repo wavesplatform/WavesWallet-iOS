@@ -273,11 +273,11 @@ fileprivate extension TransactionCardSystem {
 
         }, effects: { [weak self] (query) -> Signal<Types.Event> in
 
-            guard let owner = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            let waves = owner.getWaves()
-            let fee = owner.getFee(amountAsset: query.order.amountAsset.id,
-                                   priceAsset: query.order.priceAsset.id)
+            let waves = self.getWaves()
+            let fee = self.getFee(amountAsset: query.order.amountAsset.id,
+                                  priceAsset: query.order.priceAsset.id)
 
             let balance = Observable.zip(waves, fee)
                 .flatMap({ (asset, fee) -> Observable<Balance> in
@@ -303,9 +303,9 @@ fileprivate extension TransactionCardSystem {
 
         }, effects: { [weak self] (query) -> Signal<Types.Event> in
 
-            guard let owner = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return owner
+            return self
                 .cancelOrder(order: query.order)
                 .map { _ in Types.Event.applyCanceledOrder }
                 .asSignal { (error) -> Signal<Types.Event> in
@@ -319,8 +319,8 @@ fileprivate extension TransactionCardSystem {
         return authorizationInteractor
             .authorizedWallet()
             .flatMap({ [weak self] (wallet) ->  Observable<Bool> in
-                guard let owner = self else { return Observable.empty() }
-                return owner
+                guard let self = self else { return Observable.empty() }
+                return self
                     .dexOrderBookRepository
                     .cancelOrder(wallet: wallet,
                                  orderId: order.id,
@@ -337,8 +337,8 @@ fileprivate extension TransactionCardSystem {
         return authorizationInteractor
             .authorizedWallet()
             .flatMap({ [weak self] (wallet) -> Observable<Money> in
-                guard let owner = self else { return Observable.empty() }
-                return  owner
+                guard let self = self else { return Observable.empty() }
+                return  self
                     .transactionsInteractor
                     .calculateFee(by: .createOrder(amountAsset: amountAsset,
                                                    priceAsset: priceAsset),
@@ -350,8 +350,8 @@ fileprivate extension TransactionCardSystem {
         return authorizationInteractor
             .authorizedWallet()
             .flatMap({ [weak self] (wallet) ->  Observable<DomainLayer.DTO.Asset> in
-                guard let owner = self else { return Observable.empty() }
-                return  owner
+                guard let self = self else { return Observable.empty() }
+                return  self
                     .assetsInteractor
                     .assets(by: [GlobalConstants.wavesAssetId],
                             accountAddress: wallet.address)

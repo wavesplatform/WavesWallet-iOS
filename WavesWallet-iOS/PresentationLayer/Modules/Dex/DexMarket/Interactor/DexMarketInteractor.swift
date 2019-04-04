@@ -23,18 +23,18 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
 
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
             
-            guard let owner = self else { return Observable.empty() }
-            return owner.accountSettings.accountSettings(accountAddress: wallet.address).flatMap({ [weak self] (accountSettings) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
+            guard let self = self else { return Observable.empty() }
+            return self.accountSettings.accountSettings(accountAddress: wallet.address).flatMap({ [weak self] (accountSettings) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                 
-                guard let owner = self else { return Observable.empty() }
+                guard let self = self else { return Observable.empty() }
                 let isEnableSpam = accountSettings?.isEnabledSpam ?? DexMarketInteractor.isEnableSpam
 
-                return owner.environment.accountEnvironment(accountAddress: wallet.address).flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
+                return self.environment.accountEnvironment(accountAddress: wallet.address).flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                     
-                    guard let owner = self else { return Observable.empty() }
-                    return owner.pairs(wallet: wallet,
-                                       isEnableSpam: isEnableSpam,
-                                       spamURL: environment.servers.spamUrl.relativeString)
+                    guard let self = self else { return Observable.empty() }
+                    return self.pairs(wallet: wallet,
+                                      isEnableSpam: isEnableSpam,
+                                      spamURL: environment.servers.spamUrl.relativeString)
                 })
             })
         })
@@ -57,12 +57,12 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
                 
                 auth.authorizedWallet().flatMap { [weak self] wallet -> Observable<Bool> in
                         
-                    guard let owner = self else { return Observable.never() }
+                    guard let self = self else { return Observable.never() }
 
                     if needSaveAssetPair {
-                        return owner.dexRealmRepository.save(pair: pair, accountAddress: wallet.address)
+                        return self.dexRealmRepository.save(pair: pair, accountAddress: wallet.address)
                     }
-                    return owner.dexRealmRepository.delete(by: pair.id, accountAddress: wallet.address)
+                    return self.dexRealmRepository.delete(by: pair.id, accountAddress: wallet.address)
                     
                 }.subscribe().disposed(by: disposeBag)
             }

@@ -28,8 +28,10 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
 
         Driver.system(initialState: DexCreateOrder.State.initialState,
                       reduce: { [weak self] state, event -> DexCreateOrder.State in
-                        return self?.reduce(state: state, event: event) ?? state },
-                      feedback: newFeedbacks)
+
+                        guard let self = self else { return state }
+                        return self.reduce(state: state, event: event)
+                    }, feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
         
@@ -40,27 +42,26 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
             return state.isNeedGetFee ? state : nil
         }, effects: { [weak self] ss -> Signal<DexCreateOrder.Event> in
             
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
             
-            return strongSelf
+            return self
                 .interactor
-                .getFee(amountAsset: strongSelf.pair.amountAsset.id, priceAsset: strongSelf.pair!.priceAsset.id)
+                .getFee(amountAsset: self.pair.amountAsset.id, priceAsset: self.pair!.priceAsset.id)
                 .map {.didGetFee($0)}
                 .asSignal(onErrorRecover: { Signal.just(.handlerFeeError($0)) } )
         })
     }
     
     private func modelsQuery() -> Feedback {
-    
-      
+        
         return react(request: { state -> DexCreateOrder.State? in
             return state.isNeedCreateOrder ? state : nil
         }, effects: { [weak self] ss -> Signal<DexCreateOrder.Event> in
             
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
             guard let order = ss.order else { return Signal.empty() }
 
-            return strongSelf.interactor.createOrder(order: order).map { .orderDidCreate($0) }.asSignal(onErrorSignalWith: Signal.empty())
+            return self.interactor.createOrder(order: order).map { .orderDidCreate($0) }.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     

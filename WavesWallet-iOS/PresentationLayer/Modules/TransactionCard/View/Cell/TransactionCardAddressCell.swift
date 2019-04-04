@@ -36,7 +36,8 @@ final class TransactionCardAddressCell: UITableViewCell, Reusable {
         super.awakeFromNib()
 
         copyButton.copiedText = { [weak self] in
-            return self?.model?.contactDetail.address
+            guard let self = self else { return nil }
+            return self.model?.contactDetail.address
         }
         spamView.update(with: TickerView.spamTicker)
         setHiddenSpam(true)

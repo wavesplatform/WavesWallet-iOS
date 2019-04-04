@@ -46,14 +46,20 @@ final class WalletCoordinator: Coordinator {
 
     private func setupLifeCycleTost() {
         walletViewContoller.rx.viewDidAppear.asObservable().subscribe(onNext: { [weak self] _ in
-            self?.showLegalOrBackupIfNeed()
+            guard let self = self else { return }
+            self.showLegalOrBackupIfNeed()
         }).disposed(by: disposeBag)
 
         walletViewContoller.rx.viewDidDisappear.asObservable().subscribe(onNext: { [weak self] _ in
-            self?.childCoordinators.first(where: { (coordinator) -> Bool in
-                return coordinator is BackupTostCoordinator
-            })?.removeFromParentCoordinator()
-        }).disposed(by: disposeBag)
+            guard let self = self else { return }
+
+            self.childCoordinators
+                .first(where: { (coordinator) -> Bool in
+                    return coordinator is BackupTostCoordinator
+                })?
+            .removeFromParentCoordinator()
+        })
+        .disposed(by: disposeBag)
     }
 
     private func showBackupTost() {        
@@ -77,8 +83,8 @@ final class WalletCoordinator: Coordinator {
             .authorizedWallet()
             .take(1)
             .subscribe(onNext: { [weak self] wallet in
-                guard let owner = self else { return }
-                owner.showNewsAndBackupTost()
+                guard let self = self else { return }
+                self.showNewsAndBackupTost()
             })
             .disposed(by: self.disposeBag)
     }
@@ -247,10 +253,10 @@ extension WalletCoordinator: AliasesModuleOutput {
     func aliasesCreateAlias() {
 
         self.currentPopup?.dismissPopup { [weak self] in
-            guard let owner = self else { return }
+            guard let self = self else { return }
 
-            let vc = CreateAliasModuleBuilder(output: owner).build()
-            self?.navigationRouter.pushViewController(vc)
+            let vc = CreateAliasModuleBuilder(output: self).build()
+            self.navigationRouter.pushViewController(vc)
             
             AnalyticManager.trackEvent(.createAlias(.aliasCreateVcard))
         }
@@ -262,10 +268,10 @@ extension WalletCoordinator: AliasesModuleOutput {
 extension WalletCoordinator: AliasWithoutViewControllerDelegate {
     func aliasWithoutUserTapCreateNewAlias() {
         self.currentPopup?.dismissPopup { [weak self] in
-            guard let owner = self else { return }
+            guard let self = self else { return }
 
-            let vc = CreateAliasModuleBuilder(output: owner).build()
-            self?.navigationRouter.pushViewController(vc)
+            let vc = CreateAliasModuleBuilder(output: self).build()
+            self.navigationRouter.pushViewController(vc)
             
             AnalyticManager.trackEvent(.createAlias(.aliasCreateVcard))
         }

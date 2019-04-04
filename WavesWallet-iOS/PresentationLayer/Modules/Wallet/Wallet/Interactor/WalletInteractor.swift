@@ -28,8 +28,8 @@ final class WalletInteractor: WalletInteractorProtocol {
         return authorizationInteractor
             .authorizedWallet()
             .flatMap({ [weak self] wallet -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
-                guard let owner = self else { return Observable.never() }
-                return owner.accountBalanceInteractor.balances(by: wallet)
+                guard let self = self else { return Observable.never() }
+                return self.accountBalanceInteractor.balances(by: wallet)
             })
     }
 

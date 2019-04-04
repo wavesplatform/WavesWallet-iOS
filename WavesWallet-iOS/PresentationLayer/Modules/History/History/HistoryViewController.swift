@@ -56,7 +56,8 @@ final class HistoryViewController: UIViewController {
         tableView.addGestureRecognizer(rightSwipeGesture)
 
         globalErrorView.retryDidTap = { [weak self] in
-            self?.sendEvent.accept(.refresh)
+            guard let self = self else { return }
+            self.sendEvent.accept(.refresh)
         }
 
         emptyView.isHidden = true
@@ -158,8 +159,8 @@ private extension HistoryViewController {
         }
         
         let readyViewFeedback: HistoryPresenter.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf
+            guard let self = self else { return Signal.empty() }
+            return self
                 .rx
                 .viewWillAppear
                 .map { _ in HistoryTypes.Event.readyView }
@@ -167,8 +168,8 @@ private extension HistoryViewController {
         }
 
         let viewDidDisappearFeedback: HistoryPresenter.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf
+            guard let self = self else { return Signal.empty() }
+            return self
                 .rx
                 .viewDidDisappear
                 .map { _ in HistoryTypes.Event.viewDidDisappear }
@@ -205,7 +206,6 @@ private extension HistoryViewController {
 
         let changedDisplayEvent = segmentedControl.changedValue()
             .map { [weak self] selectedIndex -> HistoryTypes.Event in
-                
                 let filter = self?.filters[selectedIndex] ?? .all
                 return .changeFilter(filter)
         }
@@ -218,8 +218,8 @@ private extension HistoryViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] (state) in
             
-                guard let strongSelf = self else { return }
-                strongSelf.updateView(state: state)
+                guard let self = self else { return }
+                self.updateView(state: state)
             })
         
         return [subscriptionSections]
@@ -292,19 +292,22 @@ private extension HistoryViewController {
 
     private func showWithoutInternetSnack() -> String {
         return showWithoutInternetSnack { [weak self] in
-            self?.sendEvent.accept(.refresh)
+            guard let self = self else { return }
+            self.sendEvent.accept(.refresh)
         }
     }
 
     private func showErrorSnack(_ message: (String)) -> String {
         return showErrorSnack(title: message, didTap: { [weak self] in
-            self?.sendEvent.accept(.refresh)
+            guard let self = self else { return }
+            self.sendEvent.accept(.refresh)
         })
     }
 
     private func showErrorNotFoundSnack() -> String {
         return showErrorNotFoundSnack() { [weak self] in
-            self?.sendEvent.accept(.refresh)
+            guard let self = self else { return }
+            self.sendEvent.accept(.refresh)
         }
     }
 }

@@ -25,7 +25,8 @@ final class DexSortPresenter: DexSortPresenterProtocol {
         
         Driver.system(initialState: DexSort.State.initialState,
                       reduce: { [weak self] state, event -> DexSort.State in
-                        return self?.reduce(state: state, event: event) ?? state },
+                        guard let self = self else { return state }
+                        return self.reduce(state: state, event: event) },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
@@ -36,8 +37,8 @@ final class DexSortPresenter: DexSortPresenterProtocol {
             return state.isNeedRefreshing == true ? true : nil
         }, effects: { [weak self] _ -> Signal<DexSort.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.interactor.models().map { .setModels($0) }.asSignal(onErrorSignalWith: Signal.empty())
+            guard let self = self else { return Signal.empty() }
+            return self.interactor.models().map { .setModels($0) }.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
 

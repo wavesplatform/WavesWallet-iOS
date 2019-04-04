@@ -24,7 +24,8 @@ final class AddressBookPresenter: AddressBookPresenterProtocol {
         
         Driver.system(initialState: AddressBookTypes.State.initialState,
                       reduce: { [weak self] state, event -> AddressBookTypes.State in
-                        return self?.reduce(state: state, event: event) ?? state },
+                        guard let self = self else { return state }
+                        return self.reduce(state: state, event: event) },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
@@ -35,8 +36,8 @@ final class AddressBookPresenter: AddressBookPresenterProtocol {
             return state.isAppeared ? true : nil
         }, effects: { [weak self] _ -> Signal<AddressBookTypes.Event> in
             
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.interactor.users().map {.setContacts($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            guard let self = self else { return Signal.empty() }
+            return self.interactor.users().map {.setContacts($0)}.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     

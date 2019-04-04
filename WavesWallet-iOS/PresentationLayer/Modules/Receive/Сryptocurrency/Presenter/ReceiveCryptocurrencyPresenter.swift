@@ -37,10 +37,10 @@ final class ReceiveCryptocurrencyPresenter: ReceiveCryptocurrencyPresenterProtoc
             return state.isNeedGenerateAddress ? state : nil
         }, effects: { [weak self] state -> Signal<ReceiveCryptocurrency.Event> in
             
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
             guard let asset = state.asset else { return Signal.empty() }
             
-            return strongSelf.interactor.generateAddress(asset: asset)
+            return self.interactor.generateAddress(asset: asset)
                 .map { .addressDidGenerate($0) }.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
