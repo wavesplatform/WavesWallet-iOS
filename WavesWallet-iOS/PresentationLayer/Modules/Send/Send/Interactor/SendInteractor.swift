@@ -134,7 +134,8 @@ private extension SendInteractor {
         guard let currencyFrom = asset.wavesId,
             let currencyTo = asset.gatewayId else { return Observable.empty() }
         
-        let tunnel = coinomatRepository.tunnelInfo(currencyFrom: currencyFrom,
+        let tunnel = coinomatRepository.tunnelInfo(asset: asset,
+                                                   currencyFrom: currencyFrom,
                                                    currencyTo: currencyTo,
                                                    walletTo: address,
                                                    moneroPaymentID: moneroPaymentID)

@@ -132,23 +132,23 @@ extension DexCoordinator: DexLastTradesModuleOutput {
     func didCreateOrder(_ trade: DexLastTrades.DTO.SellBuyTrade, amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money, scriptedAssets: [DomainLayer.DTO.Asset]) {
         
         showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: trade.type,
-                                  price: trade.price, amount: nil, ask: nil, bid: nil, last: nil,
+                                  price: trade.price, ask: nil, bid: nil, last: nil,
                                   availableAmountAssetBalance: availableAmountAssetBalance,
                                   availablePriceAssetBalance: availablePriceAssetBalance,
                                   availableWavesBalance: availableWavesBalance,
-                                  inputMaxAmount: false,
-                                  scriptedAssets: scriptedAssets)
+                                  scriptedAssets: scriptedAssets,
+                                  sum: nil)
     }
     
     func didCreateEmptyOrder(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, orderType: DomainLayer.DTO.Dex.OrderType, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money, scriptedAssets: [DomainLayer.DTO.Asset]) {
         
         showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: orderType,
-                                  price: nil, amount: nil, ask: nil, bid: nil, last: nil,
+                                  price: nil, ask: nil, bid: nil, last: nil,
                                   availableAmountAssetBalance: availableAmountAssetBalance,
                                   availablePriceAssetBalance: availablePriceAssetBalance,
                                   availableWavesBalance: availableWavesBalance,
-                                  inputMaxAmount: false,
-                                  scriptedAssets: scriptedAssets)
+                                  scriptedAssets: scriptedAssets,
+                                  sum: nil)
         
     }
 }
@@ -156,16 +156,16 @@ extension DexCoordinator: DexLastTradesModuleOutput {
 //MARK: - DexOrderBookModuleOutput
 extension DexCoordinator:  DexOrderBookModuleOutput {
     
-    func didCreateOrder(_ bidAsk: DexOrderBook.DTO.BidAsk, amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, ask: Money?, bid: Money?, last: Money?, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money, inputMaxAmount: Bool, scriptedAssets: [DomainLayer.DTO.Asset]) {
+    func didCreateOrder(_ bidAsk: DexOrderBook.DTO.BidAsk, amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, ask: Money?, bid: Money?, last: Money?, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money, inputMaxSum: Bool, scriptedAssets: [DomainLayer.DTO.Asset]) {
         
-        let amount = inputMaxAmount ? bidAsk.amount : nil
+        let sum = inputMaxSum ? bidAsk.sum : nil
         showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: bidAsk.orderType,
-                                  price: bidAsk.price, amount: amount, ask: ask, bid: bid, last: last,
+                                  price: bidAsk.price, ask: ask, bid: bid, last: last,
                                   availableAmountAssetBalance: availableAmountAssetBalance,
                                   availablePriceAssetBalance: availablePriceAssetBalance,
                                   availableWavesBalance: availableWavesBalance,
-                                  inputMaxAmount: inputMaxAmount,
-                                  scriptedAssets: scriptedAssets)
+                                  scriptedAssets: scriptedAssets,
+                                  sum: sum)
 
     }
     
@@ -173,12 +173,12 @@ extension DexCoordinator:  DexOrderBookModuleOutput {
     func didCreateEmptyOrder(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, orderType: DomainLayer.DTO.Dex.OrderType, ask: Money?, bid: Money?, last: Money?, availableAmountAssetBalance: Money, availablePriceAssetBalance: Money, availableWavesBalance: Money, scriptedAssets: [DomainLayer.DTO.Asset]) {
         
         showCreateOrderController(amountAsset: amountAsset, priceAsset: priceAsset, type: orderType,
-                                  price: nil, amount: nil, ask: ask, bid: bid, last: last,
+                                  price: nil, ask: ask, bid: bid, last: last,
                                   availableAmountAssetBalance: availableAmountAssetBalance,
                                   availablePriceAssetBalance: availablePriceAssetBalance,
                                   availableWavesBalance: availableWavesBalance,
-                                  inputMaxAmount: false,
-                                  scriptedAssets: scriptedAssets)
+                                  scriptedAssets: scriptedAssets,
+                                  sum: nil)
         
     }
 }
@@ -189,12 +189,12 @@ private extension DexCoordinator {
     func showCreateOrderController(amountAsset: DomainLayer.DTO.Dex.Asset,
                                    priceAsset: DomainLayer.DTO.Dex.Asset,
                                    type: DomainLayer.DTO.Dex.OrderType,
-                                   price: Money?, amount: Money?, ask: Money?, bid: Money?, last: Money?,
+                                   price: Money?, ask: Money?, bid: Money?, last: Money?,
                                    availableAmountAssetBalance: Money,
                                    availablePriceAssetBalance: Money,
                                    availableWavesBalance: Money,
-                                   inputMaxAmount: Bool,
-                                   scriptedAssets: [DomainLayer.DTO.Asset]) {
+                                   scriptedAssets: [DomainLayer.DTO.Asset],
+                                   sum: Money?) {
         
         var lastPrice: Money?
         if let last = last, last.amount > 0 {
@@ -202,7 +202,7 @@ private extension DexCoordinator {
         }
         
         let input = DexCreateOrder.DTO.Input(amountAsset: amountAsset, priceAsset: priceAsset, type: type,
-                                             price: price, amount: amount, ask: ask, bid: bid, last: lastPrice,
+                                             price: price, sum: sum, ask: ask, bid: bid, last: lastPrice,
                                              availableAmountAssetBalance: availableAmountAssetBalance,
                                              availablePriceAssetBalance: availablePriceAssetBalance,
                                              availableWavesBalance: availableWavesBalance)

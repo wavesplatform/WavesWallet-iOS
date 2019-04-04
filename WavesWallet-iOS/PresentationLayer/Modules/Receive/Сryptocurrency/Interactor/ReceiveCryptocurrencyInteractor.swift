@@ -23,7 +23,8 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
           
             guard let self = self else { return Observable.empty() }
             
-            let tunnel = self.coinomatRepository.tunnelInfo(currencyFrom: currencyFrom,
+            let tunnel = self.coinomatRepository.tunnelInfo(asset: asset,
+                                                             currencyFrom: currencyFrom,
                                                              currencyTo: currencyTo,
                                                              walletTo: wallet.address,
                                                              moneroPaymentID: nil)
@@ -34,7 +35,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                     let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(address: tunnel.address,
                                                                             assetName: asset.displayName,
                                                                             assetShort: currencyFrom,
-                                                                            minAmount: rate.min,
+                                                                            minAmount: tunnel.min,
                                                                             icon: asset.iconLogo)
                     return Observable.just(ResponseType(output: displayInfo, error: nil))
             })

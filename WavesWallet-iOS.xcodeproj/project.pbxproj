@@ -1561,7 +1561,9 @@
 		8929E19527D7945D5DC03230 /* Pods-MonkeyTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.release.xcconfig"; sourceTree = "<group>"; };
 		965E90884D099176A23D5038 /* Pods-WavesWallet-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		A1E804B3D4295816120F6042 /* Pods-MonkeyTest.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.test.xcconfig"; path = "Pods/Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.test.xcconfig"; sourceTree = "<group>"; };
+		AFB68EB998D497670C5F75E3 /* Pods-WavesWallet-iOS.test-build.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.test-build.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.test-build.xcconfig"; sourceTree = "<group>"; };
 		B2F04F55A260735DF3584D3E /* Pods_WavesWallet_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WavesWallet_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0E2547DB09713AC51E70B93 /* Pods-MonkeyTest.test-build.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.test-build.xcconfig"; path = "Pods/Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.test-build.xcconfig"; sourceTree = "<group>"; };
 		E0E99F201DFCDD4280DDB64C /* Pods-WavesWallet-iOS.test-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.test-adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.test-adhoc.xcconfig"; sourceTree = "<group>"; };
 		E90223C321D53A8F0057AA45 /* DexAssetPairDomainDTO+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DexAssetPairDomainDTO+Mapper.swift"; sourceTree = "<group>"; };
 		E902F61420E5829B00A46335 /* ChooseAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAccountViewController.swift; sourceTree = "<group>"; };
@@ -3652,6 +3654,8 @@
 				8929E19527D7945D5DC03230 /* Pods-MonkeyTest.release.xcconfig */,
 				39E7B5DDD0BC308CCE651F05 /* Pods-MonkeyTest.test-adhoc.xcconfig */,
 				A1E804B3D4295816120F6042 /* Pods-MonkeyTest.test.xcconfig */,
+				D0E2547DB09713AC51E70B93 /* Pods-MonkeyTest.test-build.xcconfig */,
+				AFB68EB998D497670C5F75E3 /* Pods-WavesWallet-iOS.test-build.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -6323,7 +6327,7 @@
 		};
 		0A150820219B04DF00516037 /* Test-Build */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E0E99F201DFCDD4280DDB64C /* Pods-WavesWallet-iOS.test-adhoc.xcconfig */;
+			baseConfigurationReference = AFB68EB998D497670C5F75E3 /* Pods-WavesWallet-iOS.test-build.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Test";
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
@@ -6491,7 +6495,7 @@
 		};
 		7BF89EA022272A5E00853F9D /* Test-Build */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 39E7B5DDD0BC308CCE651F05 /* Pods-MonkeyTest.test-adhoc.xcconfig */;
+			baseConfigurationReference = D0E2547DB09713AC51E70B93 /* Pods-MonkeyTest.test-build.xcconfig */;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
