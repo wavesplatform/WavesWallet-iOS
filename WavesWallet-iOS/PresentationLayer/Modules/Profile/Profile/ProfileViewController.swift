@@ -80,18 +80,18 @@ private extension ProfileViewController {
         }
 
         let readyViewFeedback: ProfilePresenterProtocol.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf.rx.viewDidAppear.asObservable()
+            return self.rx.viewDidAppear.asObservable()
                 .throttle(1, scheduler: MainScheduler.asyncInstance)
                 .asSignal(onErrorSignalWith: Signal.empty())
                 .map { _ in Types.Event.viewDidAppear }
         }
 
         let viewDidDisappear: ProfilePresenterProtocol.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf.rx.viewDidDisappear.asObservable()
+            return self.rx.viewDidDisappear.asObservable()
                 .throttle(1, scheduler: MainScheduler.asyncInstance)
                 .asSignal(onErrorSignalWith: Signal.empty())
                 .map { _ in Types.Event.viewDidDisappear }
@@ -108,9 +108,9 @@ private extension ProfileViewController {
 
         let subscriptionSections = state.drive(onNext: { [weak self] state in
 
-            guard let strongSelf = self else { return }
+            guard let self = self else { return }
 
-            strongSelf.updateView(with: state.displayState)
+            self.updateView(with: state.displayState)
         })
 
         return [subscriptionSections]

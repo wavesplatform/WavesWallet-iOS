@@ -123,11 +123,10 @@ private extension DexCreateOrderViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
                 
-                guard let strongSelf = self else { return }
+                guard let self = self else { return }
 
-                strongSelf.isDisabledBuySellButton = state.isDisabledSellBuyButton
-
-                strongSelf.setupFeeError(error: state.displayFeeErrorState)
+                self.isDisabledBuySellButton = state.isDisabledSellBuyButton
+                self.setupFeeError(error: state.displayFeeErrorState)
 
                 switch state.action {
                 case .none:
@@ -138,25 +137,26 @@ private extension DexCreateOrderViewController {
                 
                 switch state.action {
                 case .showCreatingOrderState:
-                    strongSelf.setupCreatingOrderState()
+                    self.setupCreatingOrderState()
                     
                 case .orderDidFailCreate(let error):
                     
-                    strongSelf.showNetworkErrorSnack(error: error)
-                    strongSelf.setupDefaultState()
+                    self.showNetworkErrorSnack(error: error)
+                    self.setupDefaultState()
                     
                 case .orderDidCreate:
-                    strongSelf.dismissController()
+                    self.dismissController()
                     
                 case .didGetFee(let fee):
-                    strongSelf.showFee(fee: fee)
-                    strongSelf.order.fee = fee.amount
-                    strongSelf.updateInputDataFields()
-                    strongSelf.sendEvent.accept(.updateInputOrder(strongSelf.order))
-                    strongSelf.setupValidationErrors()
-                    strongSelf.setupButtonSellBuy()
-                    strongSelf.setupInputAmountData()
-                    strongSelf.setupInputTotalData()
+
+                    self.showFee(fee: fee)
+                    self.order.fee = fee.amount
+                    self.updateInputDataFields()
+                    self.sendEvent.accept(.updateInputOrder(self.order))
+                    self.setupValidationErrors()
+                    self.setupButtonSellBuy()
+                    self.setupInputAmountData()
+                    self.setupInputTotalData()
                     
                 default:
                     break
@@ -389,15 +389,19 @@ private extension DexCreateOrderViewController {
         setupInputPriceData()
         
         inputAmount.input = { [weak self] in
-            return self?.amountValues ?? []
+
+            guard let self = self else { return [] }
+            return self.amountValues
         }
         
         inputPrice.input = { [weak self] in
-            return self?.priceValues ?? []
+            guard let self = self else { return [] }
+            return self.priceValues
         }
         
         inputTotal.input = { [weak self] in
-            return self?.totalValues ?? []
+            guard let self = self else { return []}
+            return self.totalValues
         }
         
         updateInputDataFields()
@@ -613,26 +617,31 @@ private extension DexCreateOrderViewController {
                 
                 if isInternetNotWorking {
                     errorSnackKey = showWithoutInternetSnack { [weak self] in
-                        self?.sendEvent.accept(.refreshFee)
+                        guard let self = self else { return }
+                        self.sendEvent.accept(.refreshFee)
                     }
                 } else {
                     errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
-                        self?.sendEvent.accept(.refreshFee)
+                        guard let self = self else { return }
+                        self.sendEvent.accept(.refreshFee)
                     })
                 }
             case .internetNotWorking:
                 errorSnackKey = showWithoutInternetSnack { [weak self] in
-                    self?.sendEvent.accept(.refreshFee)
+                    guard let self = self else { return }
+                    self.sendEvent.accept(.refreshFee)
                 }
                 
             case .message(let text):
                 errorSnackKey = showErrorSnack(title: text, didTap: { [weak self] in
-                    self?.sendEvent.accept(.refreshFee)
+                    guard let self = self else { return }
+                    self.sendEvent.accept(.refreshFee)
                 })
                 
             case .notFound, .scriptError:
                 errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
-                    self?.sendEvent.accept(.refreshFee)
+                    guard let self = self else { return }
+                    self.sendEvent.accept(.refreshFee)
                 })
             }
             

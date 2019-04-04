@@ -25,7 +25,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
 
         return environmentRepository.accountEnvironment(accountAddress: wallet.address)
             .flatMap({ [weak self] (environment) -> Observable<DomainLayer.DTO.Dex.OrderBook> in
-                guard let owner = self else { return Observable.empty() }
+                guard let self = self else { return Observable.empty() }
                 
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .custom { decoder in
@@ -33,7 +33,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                 }
 
                 
-                return owner.matcherProvider.rx
+                return self.matcherProvider.rx
                     .request(.init(kind: .getOrderBook(amountAsset: amountAsset, priceAsset: priceAsset),
                                    environment: environment),
                              callbackQueue: DispatchQueue.global(qos: .userInteractive))
@@ -57,9 +57,9 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
 
         return environmentRepository.accountEnvironment(accountAddress: wallet.address)
             .flatMap({ [weak self] (environment) -> Observable<[Matcher.DTO.Market]> in
-                guard let owner = self else { return Observable.empty() }
+                guard let self = self else { return Observable.empty() }
                 
-                let markets = owner.matcherProvider.rx
+                let markets = self.matcherProvider.rx
                             .request(.init(kind: .getMarket, environment: environment),
                                      callbackQueue: DispatchQueue.global(qos: .userInteractive))
                             .filterSuccessfulStatusAndRedirectCodes()
@@ -68,7 +68,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                             .map { $0.markets }
             
                 if isEnableSpam {
-                    return Observable.zip(markets, owner.spamList(accountAddress: wallet.address))
+                    return Observable.zip(markets, self.spamList(accountAddress: wallet.address))
                     .map({ (markets, spamList) -> [Matcher.DTO.Market] in
 
                         var filterMarkets: [Matcher.DTO.Market] = []
@@ -88,16 +88,18 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                 return markets
             })
             .map({ [weak self] (markets) -> [DomainLayer.DTO.Dex.SmartPair] in
-                guard let owner = self else { return [] }
-                
-                //TODO: Error
-                let realm = try! WalletRealmFactory.realm(accountAddress: wallet.address)
+                guard let self = self else { return [] }
+
+                //TODO: Remove Realm from remote repository
+                guard let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address) else {
+                    return []
+                }
                 
                 var pairs: [DomainLayer.DTO.Dex.SmartPair] = []
                 for market in markets {
                     pairs.append(DomainLayer.DTO.Dex.SmartPair(market, realm: realm))
                 }
-                pairs = owner.sort(pairs: pairs, realm: realm)
+                pairs = self.sort(pairs: pairs, realm: realm)
                 
                 return pairs
             })
@@ -108,14 +110,14 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
 
         return environmentRepository.accountEnvironment(accountAddress: wallet.address)
             .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.MyOrder]> in
-                guard let owner = self else { return Observable.empty() }
+                guard let self = self else { return Observable.empty() }
                 
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .custom { decoder in
                     return Date(timestampDecoder: decoder, timestampDiff: environment.timestampServerDiff)
                 }
                 
-                return owner.matcherProvider.rx
+                return self.matcherProvider.rx
                 .request(.init(kind: .getMyOrders(amountAsset: amountAsset.id,
                                                   priceAsset: priceAsset.id,
                                                   signature: TimestampSignature(signedWallet: wallet, environment: environment)),
@@ -143,9 +145,9 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
         
         return environmentRepository.accountEnvironment(accountAddress: wallet.address)
             .flatMap({ [weak self] (environment) -> Observable<Bool> in
-                guard let owner = self else { return Observable.empty() }
+                guard let self = self else { return Observable.empty() }
                 
-                return owner.matcherProvider.rx
+                return self.matcherProvider.rx
                     .request(.init(kind: .cancelOrder(.init(wallet: wallet,
                                                             orderId: orderId,
                                                             amountAsset: amountAsset,
@@ -166,9 +168,9 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
         return environmentRepository.accountEnvironment(accountAddress: wallet.address)
             .flatMap({ [weak self] (environment) -> Observable<Bool> in
 
-                guard let owner = self else { return Observable.empty() }
+                guard let self = self else { return Observable.empty() }
                 
-                return owner.matcherProvider.rx
+                return self.matcherProvider.rx
                     .request(.init(kind: .createOrder(order),
                                    environment: environment),
                              callbackQueue: DispatchQueue.global(qos: .userInteractive))
@@ -187,9 +189,9 @@ private extension DexOrderBookRepositoryRemote {
         
         return environmentRepository.accountEnvironment(accountAddress: accountAddress)
             .flatMap({ [weak self] (environment) -> Observable<[String]> in
-                guard let owner = self else { return Observable.empty() }
+                guard let self = self else { return Observable.empty() }
                 
-                return owner.spamProvider.rx
+                return self.spamProvider.rx
                     .request(.getSpamList(url: environment.servers.spamUrl),
                              callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()

@@ -43,14 +43,16 @@ final class AliasWithoutViewController: UIViewController, Localization {
             .authorizationInteractor
             .authorizedWallet()
             .flatMap({ [weak self] (wallet) -> Observable<Money> in
-                guard let owner = self else { return Observable.never() }
-                return owner.transactionsInteractor.calculateFee(by: .createAlias, accountAddress: wallet.address)
+                guard let self = self else { return Observable.never() }
+                return self.transactionsInteractor.calculateFee(by: .createAlias, accountAddress: wallet.address)
             })
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (money) in
-                self?.setFee(money)
+                guard let self = self else { return }
+                self.setFee(money)
             }, onError: { [weak self] (error) in
-                self?.handlerError(error)
+                guard let self = self else { return }
+                self.handlerError(error)
             })
             .disposed(by: disposeBag)
     }

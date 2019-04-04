@@ -68,18 +68,24 @@ private extension MyAddressViewController {
         }
 
         let readyViewFeedback: MyAddressPresenterProtocol.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf.rx.viewWillAppear.asObservable()
+            return self
+                .rx
+                .viewWillAppear
+                .asObservable()
                 .throttle(1, scheduler: MainScheduler.asyncInstance)
                 .asSignal(onErrorSignalWith: Signal.empty())
                 .map { _ in Types.Event.viewWillAppear }
         }
 
         let viewDidDisappearFeedback: MyAddressPresenterProtocol.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf.rx.viewDidDisappear.asObservable()
+            return self
+                .rx
+                .viewDidDisappear
+                .asObservable()
                 .throttle(1, scheduler: MainScheduler.asyncInstance)
                 .asSignal(onErrorSignalWith: Signal.empty())
                 .map { _ in Types.Event.viewDidDisappear }
@@ -96,9 +102,8 @@ private extension MyAddressViewController {
 
         let subscriptionSections = state.drive(onNext: { [weak self] state in
 
-            guard let strongSelf = self else { return }
-
-            strongSelf.updateView(with: state.displayState)
+            guard let self = self else { return }
+            self.updateView(with: state.displayState)
         })
 
         return [subscriptionSections]
@@ -146,7 +151,9 @@ extension MyAddressViewController: UITableViewDataSource {
             let cell: MyAddressAliacesCell = tableView.dequeueCell()
             cell.update(with: .init(count: count))
             cell.infoButtonDidTap = { [weak self] in
-                self?.eventInput.onNext(.tapShowInfo)
+
+                guard let self = self else { return }
+                self.eventInput.onNext(.tapShowInfo)
             }
             return cell
 

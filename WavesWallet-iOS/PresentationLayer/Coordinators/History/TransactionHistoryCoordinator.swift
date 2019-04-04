@@ -57,8 +57,9 @@ extension TransactionHistoryCoordinator: PresentationCoordinator {
 
             let vc = AddAddressBookModuleBuilder(output: self).build(input: AddAddressBook.DTO.Input(kind: .add(address, isMutable: false)))
             router.dismiss(animated: true) { [weak self] in
-                self?.router.pushViewController(vc)
-                self?.removeFromParentCoordinator()
+                guard let self = self else { return }
+                self.router.pushViewController(vc)
+                self.removeFromParentCoordinator()
             }
 
         case .editContact(let contact, _):
@@ -66,8 +67,9 @@ extension TransactionHistoryCoordinator: PresentationCoordinator {
             let vc = AddAddressBookModuleBuilder(output: self).build(input: AddAddressBook.DTO.Input(kind: .edit(contact: contact,
                                                                                                                  isMutable: false)))
             router.dismiss(animated: true) { [weak self] in
-                self?.router.pushViewController(vc)
-                self?.removeFromParentCoordinator()
+                guard let self = self else { return }
+                self.router.pushViewController(vc)
+                self.removeFromParentCoordinator()
             }
         }
     }
@@ -159,8 +161,9 @@ extension TransactionHistoryCoordinator {
     func finishedAddToAddressBook(contact: TransactionHistoryTypes.DTO.ContactState) {
 
         _ = self.router.popViewController(animated: true, completed: { [weak self] in
-            self?.lastDisplay?.finishedAddressBook?(contact, true)
-            self?.showDisplay(.showTransactionHistory)
+            guard let self = self else { return }
+            self.lastDisplay?.finishedAddressBook?(contact, true)
+            self.showDisplay(.showTransactionHistory)
         })
     }
 }

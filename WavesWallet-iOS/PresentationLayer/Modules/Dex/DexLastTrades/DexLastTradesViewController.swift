@@ -55,8 +55,8 @@ fileprivate extension DexLastTradesViewController {
         }
         
         let readyViewFeedback: DexLastTradesPresenter.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.rx.viewWillAppear.take(1).map { _ in DexLastTrades.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
+            guard let self = self else { return Signal.empty() }
+            return self.rx.viewWillAppear.take(1).map { _ in DexLastTrades.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
         }
         presenter.system(feedbacks: [feedback, readyViewFeedback])
     }
@@ -72,14 +72,14 @@ fileprivate extension DexLastTradesViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
                 
-                guard let strongSelf = self else { return }
+                guard let self = self else { return }
                 guard state.action != .none else { return }
                 
-                strongSelf.state = state
-                strongSelf.tableView.reloadData()
-                strongSelf.setupSellBuyButtons()
-                strongSelf.setupDefaultState(state: state)
-                strongSelf.refreshControl.endRefreshing()
+                self.state = state
+                self.tableView.reloadData()
+                self.setupSellBuyButtons()
+                self.setupDefaultState(state: state)
+                self.refreshControl.endRefreshing()
             })
         
         return [subscriptionSections]

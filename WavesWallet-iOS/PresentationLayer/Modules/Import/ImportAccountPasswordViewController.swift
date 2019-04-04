@@ -45,13 +45,16 @@ final class ImportAccountPasswordViewController: UIViewController {
         setupButtonContinue()
         
         accountTextField.changedValue = { [weak self] (_, _) in
-            self?.setupButtonContinue()
+            guard let self = self else { return }
+            self.setupButtonContinue()
         }
         passwordTextField.changedValue = { [weak self] (_, _) in
-            self?.setupButtonContinue()
+            guard let self = self else { return }
+            self.setupButtonContinue()
         }
         confirmPasswordTextField.changedValue = { [weak self] (_, _) in
-            self?.setupButtonContinue()
+            guard let self = self else { return }
+            self.setupButtonContinue()
         }
     }
 
@@ -133,15 +136,18 @@ extension ImportAccountPasswordViewController {
         confirmPasswordTextField.returnKey = .done
 
         accountTextField.textFieldShouldReturn = { [weak self] _ in
-            self?.nextInput()
+            guard let self = self else { return }
+            self.nextInput()
         }
 
         passwordTextField.textFieldShouldReturn = { [weak self] _ in
-            self?.nextInput()
+            guard let self = self else { return }
+            self.nextInput()
         }
 
         confirmPasswordTextField.textFieldShouldReturn = { [weak self] _ in
-            self?.nextInput()
+            guard let self = self else { return }
+            self.nextInput()
         }
     }
 

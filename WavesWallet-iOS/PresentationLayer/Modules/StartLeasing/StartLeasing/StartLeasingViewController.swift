@@ -104,21 +104,24 @@ private extension StartLeasingViewController {
     
     func loadFee() {
         viewFee.showLoadingState()
-        interactor.getFee()
-        .observeOn(MainScheduler.asyncInstance)
-        .subscribe(onNext: { [weak self] (fee) in
-            
-            self?.updateFee(fee)
-            self?.setupData()
-        }, onError: { [weak self] (error) in
-            
-            if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
-                self?.showFeeError(DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving))
-            } else {
-                self?.showFeeError(DisplayError(error: error))
-            }
-            
-        }).disposed(by: disposeBag)
+
+        interactor
+            .getFee()
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (fee) in
+                guard let self = self else { return }
+                self.updateFee(fee)
+                self.setupData()
+            }, onError: { [weak self] (error) in
+                guard let self = self else { return }
+                if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
+                    self.showFeeError(DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving))
+                } else {
+                    self.showFeeError(DisplayError(error: error))
+                }
+
+            })
+            .disposed(by: disposeBag)
     }
     
     func showFeeError(_ error: DisplayError) {

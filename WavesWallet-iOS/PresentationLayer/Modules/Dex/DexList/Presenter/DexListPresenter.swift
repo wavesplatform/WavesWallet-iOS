@@ -25,7 +25,8 @@ final class DexListPresenter: DexListPresenterProtocol {
         
         Driver.system(initialState: DexList.State.initialState,
                       reduce: { [weak self] state, event -> DexList.State in
-                        return self?.reduce(state: state, event: event) ?? state },
+                        guard let self = self else { return state }
+                        return self.reduce(state: state, event: event) },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
@@ -37,8 +38,11 @@ final class DexListPresenter: DexListPresenterProtocol {
             return (state.isAppear || state.isNeedRefreshing) ? state : nil
         }, effects: { [weak self] _ -> Signal<DexList.Event> in
             
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.interactor.pairs().map { .setModels($0) }.asSignal(onErrorSignalWith: Signal.empty())
+            guard let self = self else { return Signal.empty() }
+            return self.interactor
+                .pairs()
+                .map { .setModels($0) }
+                .asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     
