@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-public var myDefaultScheduler: SchedulerType = MainScheduler.instance
+public var myDefaultScheduler: SchedulerType = MainScheduler.asyncInstance
 public var myWorkScheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .default)
 
 extension ObservableType {

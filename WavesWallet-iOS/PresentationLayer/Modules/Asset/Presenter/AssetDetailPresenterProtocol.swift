@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-protocol AssetModuleOutput: AnyObject {
+protocol AssetDetailModuleOutput: AnyObject {
 
     func showSend(asset: DomainLayer.DTO.SmartAssetBalance)
     func showReceive(asset: DomainLayer.DTO.SmartAssetBalance)
@@ -19,18 +19,18 @@ protocol AssetModuleOutput: AnyObject {
     func showBurn(asset: DomainLayer.DTO.SmartAssetBalance, delegate: TokenBurnTransactionDelegate?)
 }
 
-protocol AssetModuleInput {
+protocol AssetDetailModuleInput {
 
-    var assets: [AssetTypes.DTO.Asset.Info] { get set }
-    var currentAsset: AssetTypes.DTO.Asset.Info { get set }
+    var assets: [AssetDetailTypes.DTO.Asset.Info] { get set }
+    var currentAsset: AssetDetailTypes.DTO.Asset.Info { get set }
 }
 
-protocol AssetPresenterProtocol {
+protocol AssetDetailPresenterProtocol {
 
-    typealias Feedback = (Driver<AssetTypes.State>) -> Signal<AssetTypes.Event>
+    typealias Feedback = (Driver<AssetDetailTypes.State>) -> Signal<AssetDetailTypes.Event>
 
-    var interactor: AssetInteractorProtocol! { get set }
-    var moduleOutput: AssetModuleOutput? { get set }
+    var interactor: AssetDetailInteractorProtocol! { get set }
+    var moduleOutput: AssetDetailModuleOutput? { get set }
 
     func system(feedbacks: [Feedback])
 }

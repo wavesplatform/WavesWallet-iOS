@@ -10,6 +10,7 @@ jobs:
         xcode: "10.0.0"
     working_directory: ~/Waves/iOS
     environment:
+      BUNDLER_VERSION: 2.0.1
       FL_OUTPUT_DIR: output
       FASTLANE_LANE: waves_test
     shell: /bin/bash --login -eo pipefail
@@ -30,6 +31,12 @@ jobs:
           name: SSH Cat config
           command: cat ~/.ssh/config      
       - run:
+          name: Configure Bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            sudo gem install bundler
+      - run:
           name: Bundle
           command: bundle check || bundle install --path vendor/bundle
       - save_cache:
@@ -49,6 +56,7 @@ jobs:
         xcode: "10.0.0"
     working_directory: ~/Waves/iOS
     environment:
+      BUNDLER_VERSION: 2.0.1
       FL_OUTPUT_DIR: output
       FASTLANE_LANE: waves
     shell: /bin/bash --login -eo pipefail
@@ -64,7 +72,13 @@ jobs:
           command: ls -la ~/.ssh/
       - run:
           name: SSH Cat config
-          command: cat ~/.ssh/config            
+          command: cat ~/.ssh/config
+      - run:
+          name: Configure Bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            sudo gem install bundler
       - run:
           name: Bundle
           command: bundle check || bundle install --path vendor/bundle
@@ -85,6 +99,7 @@ jobs:
         xcode: "10.0.0"
     working_directory: ~/Waves/iOS
     environment:
+      BUNDLER_VERSION: 2.0.1
       FL_OUTPUT_DIR: output
       FASTLANE_LANE: waves_test_adhoc
     shell: /bin/bash --login -eo pipefail
@@ -101,6 +116,12 @@ jobs:
       - run:
           name: SSH Cat config
           command: cat ~/.ssh/config      
+      - run:
+          name: Configure Bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            sudo gem install bundler
       - run:
           name: Bundle
           command: bundle check || bundle install --path vendor/bundle

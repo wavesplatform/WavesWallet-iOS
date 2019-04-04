@@ -11,16 +11,16 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 
-final class AssetPresenter: AssetPresenterProtocol {
+final class AssetDetailPresenter: AssetDetailPresenterProtocol {
 
     private var disposeBag: DisposeBag = DisposeBag()
     
-    var interactor: AssetInteractorProtocol!
-    weak var moduleOutput: AssetModuleOutput?
+    var interactor: AssetDetailInteractorProtocol!
+    weak var moduleOutput: AssetDetailModuleOutput?
 
-    let input: AssetModuleInput
+    let input: AssetDetailModuleInput
 
-    init(input: AssetModuleInput) {
+    init(input: AssetDetailModuleInput) {
         self.input = input
     }
 
@@ -33,7 +33,7 @@ final class AssetPresenter: AssetPresenterProtocol {
         let initialState = self.initialState(input: input)
 
         let system = Driver.system(initialState: initialState,
-                                   reduce: { [weak self] state, event -> AssetTypes.State in
+                                   reduce: { [weak self] state, event -> AssetDetailTypes.State in
                                         return self?.reduce(state: state, event: event) ?? state
                                     },
                                    feedback: newFeedbacks)
@@ -46,7 +46,7 @@ final class AssetPresenter: AssetPresenterProtocol {
     private func assetsQuery() -> Feedback {
         return react(request: { state -> Bool? in
             return state.displayState.isAppeared == true
-        }, effects: { [weak self] _ -> Signal<AssetTypes.Event> in
+        }, effects: { [weak self] _ -> Signal<AssetDetailTypes.Event> in
 
             // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
@@ -55,7 +55,7 @@ final class AssetPresenter: AssetPresenterProtocol {
             return strongSelf
                 .interactor
                 .assets(by: ids)
-                .map { AssetTypes.Event.setAssets($0) }
+                .map { AssetDetailTypes.Event.setAssets($0) }
                 .asSignal(onErrorSignalWith: Signal.empty())
         })
     }
@@ -72,14 +72,14 @@ final class AssetPresenter: AssetPresenterProtocol {
 
             return TransactionsQuery(id: state.displayState.currentAsset.id)
 
-        }, effects: { [weak self] query -> Signal<AssetTypes.Event> in
+        }, effects: { [weak self] query -> Signal<AssetDetailTypes.Event> in
 
             // TODO: Error
             guard let strongSelf = self else { return Signal.empty() }
 
             return strongSelf
                 .interactor.transactions(by: query.id)
-                .map { AssetTypes.Event.setTransactions($0) }
+                .map { AssetDetailTypes.Event.setTransactions($0) }
                 .asSignal(onErrorSignalWith: Signal.empty())
         })
     }
@@ -87,9 +87,9 @@ final class AssetPresenter: AssetPresenterProtocol {
 
 // MARK: Core State
 
-private extension AssetPresenter {
+private extension AssetDetailPresenter {
 
-    func reduce(state: AssetTypes.State, event: AssetTypes.Event) -> AssetTypes.State {
+    func reduce(state: AssetDetailTypes.State, event: AssetDetailTypes.Event) -> AssetDetailTypes.State {
 
         switch event {
         case .tapTransaction(let tx):
@@ -141,7 +141,7 @@ private extension AssetPresenter {
                     state.displayState.sections = mapTosections(from: currentAsset,
                                                                 and: state.transactionStatus)
                     state.displayState.isFavorite = currentAsset.info.isFavorite
-                    state.displayState.isDisabledFavoriteButton = currentAsset.info.isSpam || currentAsset.info.isWaves
+                    state.displayState.isDisabledFavoriteButton = currentAsset.info.isSpam
                     state.displayState.action = .changedCurrentAsset
                 } else {
                     state.displayState.action = .none
@@ -197,7 +197,7 @@ private extension AssetPresenter {
 
                     state.displayState.currentAsset = asset.info
                     state.displayState.isFavorite = asset.info.isFavorite
-                    state.displayState.isDisabledFavoriteButton = asset.info.isSpam || asset.info.isWaves
+                    state.displayState.isDisabledFavoriteButton = asset.info.isSpam
                     state.displayState.isUserInteractionEnabled = true
                     state.displayState.action = .refresh
                 } else {
@@ -215,6 +215,11 @@ private extension AssetPresenter {
             interactor.toggleFavoriteFlagForAsset(by: state.displayState.currentAsset.id, isFavorite: on)
 
             return state.mutate {
+                
+                if let index = state.assets.index(where: {$0.info.id == state.displayState.currentAsset.id}) {
+                    $0.assets[index].info.isFavorite = on
+                }
+                
                 $0.displayState.isFavorite = on
                 $0.displayState.action = .changedFavorite
             }
@@ -250,13 +255,13 @@ private extension AssetPresenter {
 }
 
 // MARK: Map
-extension AssetPresenter {
+extension AssetDetailPresenter {
 
-    func mapTosections(from asset: AssetTypes.DTO.Asset,
-                             and transactionStatus: AssetTypes.State.TransactionStatus) -> [AssetTypes.ViewModel.Section]
+    func mapTosections(from asset: AssetDetailTypes.DTO.Asset,
+                             and transactionStatus: AssetDetailTypes.State.TransactionStatus) -> [AssetDetailTypes.ViewModel.Section]
     {
 
-        var balance: AssetTypes.ViewModel.Section!
+        var balance: AssetDetailTypes.ViewModel.Section!
         if asset.info.isSpam {
             balance = .init(kind: .none, rows: [.spamBalance(asset.balance), .tokenBurn(asset.info)])
         }
@@ -264,13 +269,13 @@ extension AssetPresenter {
             balance = .init(kind: .none, rows: [.balance(asset.balance)])
         }
         
-        var infoRows: [AssetTypes.ViewModel.Row] = [.assetInfo(asset.info)]
+        var infoRows: [AssetDetailTypes.ViewModel.Row] = [.assetInfo(asset.info)]
         if !asset.info.isSpam && !asset.info.isWaves && asset.info.assetBalance.availableBalance > 0 {
             infoRows.append(.tokenBurn(asset.info))
         }
-        let assetInfo: AssetTypes.ViewModel.Section = .init(kind: .none, rows: infoRows)
+        let assetInfo: AssetDetailTypes.ViewModel.Section = .init(kind: .none, rows: infoRows)
 
-        var transactionRows: [AssetTypes.ViewModel.Row] = []
+        var transactionRows: [AssetDetailTypes.ViewModel.Row] = []
         var transactionHeaderTitle: String = ""
 
         switch transactionStatus {
@@ -290,7 +295,7 @@ extension AssetPresenter {
             break
         }
 
-        let transactions: AssetTypes.ViewModel.Section = .init(kind: .title(transactionHeaderTitle),
+        let transactions: AssetDetailTypes.ViewModel.Section = .init(kind: .title(transactionHeaderTitle),
                                                                rows: transactionRows)
 
         return [balance,
@@ -302,20 +307,20 @@ extension AssetPresenter {
 
 // MARK: UI State
 
-private extension AssetPresenter {
+private extension AssetDetailPresenter {
 
-    func initialState(input: AssetModuleInput) -> AssetTypes.State {
-        return AssetTypes.State(assets: [],
+    func initialState(input: AssetDetailModuleInput) -> AssetDetailTypes.State {
+        return AssetDetailTypes.State(assets: [],
                                 transactionStatus: .none,
                                 displayState: initialDisplayState(input: input))
     }
 
-    func initialDisplayState(input: AssetModuleInput) -> AssetTypes.DisplayState {
+    func initialDisplayState(input: AssetDetailModuleInput) -> AssetDetailTypes.DisplayState {
 
-        let balances = AssetTypes.ViewModel.Section.init(kind: .none, rows: [.balanceSkeleton])
-        let transactions = AssetTypes.ViewModel.Section.init(kind: .skeletonTitle, rows: [.transactionSkeleton, .viewHistorySkeleton])
+        let balances = AssetDetailTypes.ViewModel.Section.init(kind: .none, rows: [.balanceSkeleton])
+        let transactions = AssetDetailTypes.ViewModel.Section.init(kind: .skeletonTitle, rows: [.transactionSkeleton, .viewHistorySkeleton])
 
-        return AssetTypes.DisplayState(isAppeared: false,
+        return AssetDetailTypes.DisplayState(isAppeared: false,
                                        isRefreshing: false,
                                        isFavorite: false,
                                        isDisabledFavoriteButton: false,
@@ -328,9 +333,9 @@ private extension AssetPresenter {
     }
 }
 
-fileprivate extension AssetTypes.DTO.Asset.Info {
+fileprivate extension AssetDetailTypes.DTO.Asset.Info {
     
-    func emptyAssetBalance() -> AssetTypes.DTO.Asset {
+    func emptyAssetBalance() -> AssetDetailTypes.DTO.Asset {
 
         let decimals = assetBalance.asset.precision
         
@@ -339,7 +344,7 @@ fileprivate extension AssetTypes.DTO.Asset.Info {
         let leasedMoney = Money(0, decimals)
         let inOrderMoney = Money(0, decimals)
 
-        let newBalance = AssetTypes.DTO.Asset.Balance(totalMoney: totalMoney,
+        let newBalance = AssetDetailTypes.DTO.Asset.Balance(totalMoney: totalMoney,
                                                       avaliableMoney: availableMoney,
                                                       leasedMoney: leasedMoney,
                                                       inOrderMoney: inOrderMoney,
@@ -355,6 +360,6 @@ fileprivate extension AssetTypes.DTO.Asset.Info {
                                                                 sponsorBalance: assetBalance.sponsorBalance)
         var info = self
         info.assetBalance = newSmartBalance
-        return AssetTypes.DTO.Asset(info: info, balance: newBalance)
+        return AssetDetailTypes.DTO.Asset(info: info, balance: newBalance)
     }
 }

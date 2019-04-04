@@ -439,9 +439,9 @@ extension TransferTransaction: TransactionsSpecificationsConverter {
 
         if from.assets.count > 0 {
             let aliases = myAddress.aliases.map { $0.name }
-            let myTx = NSPredicate(format: "transferTransaction.assetId IN %@ AND ((transferTransaction.sender == %@ ||  transferTransaction.sender IN %@) OR ((transferTransaction.recipient == %@ ||  transferTransaction.recipient IN %@)))", from.assets, myAddress.address, aliases, myAddress.address, aliases)
+            let myTx = NSPredicate(format: "transferTransaction.assetId IN %@ AND ((transferTransaction.sender == %@ ||  transferTransaction.sender IN %@) OR ((transferTransaction.recipient == %@ || transferTransaction.recipient IN %@)))", from.assets, myAddress.address, aliases, myAddress.address, aliases)
 
-            let sponsoredTx = NSPredicate(format: "transferTransaction.feeAssetId IN %@ AND ((transferTransaction.sender != %@ && !(transferTransaction.sender IN %@)) AND (transferTransaction.recipient != %@ ||  !(transferTransaction.recipient IN %@)))", from.assets, myAddress.address, aliases, myAddress.address, aliases)
+            let sponsoredTx = NSPredicate(format: "transferTransaction.feeAssetId IN %@ AND ((transferTransaction.sender != %@ && !(transferTransaction.sender IN %@)) AND (transferTransaction.recipient != %@ && !(transferTransaction.recipient IN %@)))", from.assets, myAddress.address, aliases, myAddress.address, aliases)
 
             predicates.append(NSCompoundPredicate(orPredicateWithSubpredicates: [myTx, sponsoredTx]))
         }

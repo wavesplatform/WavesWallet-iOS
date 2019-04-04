@@ -60,7 +60,7 @@ final class ReceiveAddressViewController: UIViewController {
     }
     
     @objc private func cancelTapped() {
-        if let assetVc = navigationController?.viewControllers.first(where: {$0.classForCoder == AssetViewController.classForCoder()}) {
+        if let assetVc = navigationController?.viewControllers.first(where: {$0.classForCoder == AssetDetailViewController.classForCoder()}) {
             navigationController?.popToViewController(assetVc, animated: true)
         }
         else {
@@ -84,6 +84,7 @@ final class ReceiveAddressViewController: UIViewController {
                                               sponsoredSize: sponsoredSize,
                                               font: UIFont.systemFont(ofSize: 22),
                                               border: nil))
+            .observeOn(MainScheduler.asyncInstance)
             .bind(to: iconAsset.rx.image)
             .disposed(by: disposeBag)
 
