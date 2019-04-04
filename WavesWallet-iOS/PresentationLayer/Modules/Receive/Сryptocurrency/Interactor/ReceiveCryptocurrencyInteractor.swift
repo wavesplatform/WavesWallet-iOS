@@ -23,7 +23,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
           
             guard let self = self else { return Observable.empty() }
             
-            let tunnel = owner.coinomatRepository.tunnelInfo(asset: asset,
+            let tunnel = self.coinomatRepository.tunnelInfo(asset: asset,
                                                              currencyFrom: currencyFrom,
                                                              currencyTo: currencyTo,
                                                              walletTo: wallet.address,

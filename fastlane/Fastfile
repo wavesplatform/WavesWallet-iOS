@@ -2,12 +2,13 @@ require 'open-uri'
 require 'credentials_manager'
 require 'dotenv/load'
 require 'dotenv'
+require 'json'
 
 default_platform(:ios)
 
 def get_version_and_build   
   ENV['BUILD_NUMBER'] = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'").gsub!(/[^0-9A-Za-z]/, '')
-  ENV['VERSION'] = get_version_number(xcodeproj: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj")    
+  ENV['VERSION'] = get_version_number(xcodeproj: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj")      
 end
 
 before_all do
@@ -258,6 +259,14 @@ platform :ios do
     upload_symbols_to_crashlytics(gsp_path: "#{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")              
   end
 
+
+  lane :send_to_slack_artifacts  do
+  
+    URL_ARTIFACTS = "https://circleci.com/api/v1.1/project/github/wavesplatform/WavesWallet-iOS/#{ENV['CIRCLE_BUILD_NUM']}/artifacts?circle-token=#{ENV['CIRCLE_CI_TOKEN']}"
+
+    slack(message: "Maks <3",
+          username: "Maks")
+  end
 
   # lane :init_project do 
   

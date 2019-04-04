@@ -211,6 +211,7 @@ DEPENDENCIES
   cocoapods-check
   dotenv
   fastlane
+  json
 
 BUNDLED WITH
    2.0.1
