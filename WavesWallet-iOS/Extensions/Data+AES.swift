@@ -8,6 +8,7 @@
 
 import CryptoSwift
 import Foundation
+import Base58
 
 fileprivate enum Constants {
     static let iterations: Int = 5000

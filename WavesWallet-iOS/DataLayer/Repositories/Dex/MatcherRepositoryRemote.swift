@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import Moya
+import Base58
 
 final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
 

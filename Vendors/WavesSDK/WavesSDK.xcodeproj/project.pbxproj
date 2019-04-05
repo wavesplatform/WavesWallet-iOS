@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		744056B10274BC211A2A75AE /* Pods_WavesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B5C2356C257EAC84D74AC2 /* Pods_WavesSDK.framework */; };
-		7B42335522563A2100E82730 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B42335422563A2100E82730 /* CoreTelephony.framework */; };
-		7B42335722563A3200E82730 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B42335622563A3200E82730 /* Security.framework */; };
-		7B42335922563B8500E82730 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B42335822563B8500E82730 /* CryptoSwift.framework */; };
 		7B42335B22563D6700E82730 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42335A22563D6700E82730 /* Environment.swift */; };
 		7B42335D22563FDC00E82730 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42335C22563FDC00E82730 /* GlobalConstants.swift */; };
 		7B72BBAE22550493004A047F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72BBAD22550493004A047F /* AppDelegate.swift */; };
@@ -40,7 +37,6 @@
 		7B72BC15225504E5004A047F /* WordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72BBDD225504E5004A047F /* WordList.swift */; };
 		7B72BC16225504E5004A047F /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72BBDF225504E5004A047F /* Hash.swift */; };
 		7B72BC17225504E5004A047F /* PrivateKeyAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72BBE0225504E5004A047F /* PrivateKeyAccount.swift */; };
-		7B72BC18225504E5004A047F /* Base58.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72BBE1225504E5004A047F /* Base58.swift */; };
 		7B72BC1A225504E5004A047F /* MoneyUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72BBE3225504E5004A047F /* MoneyUtil.swift */; };
 		7B72BC1C225504E5004A047F /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72BBE5225504E5004A047F /* DateUtil.swift */; };
 		7B72BC1D225504E5004A047F /* Sync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72BBE6225504E5004A047F /* Sync.swift */; };
@@ -100,7 +96,6 @@
 		7B72BBDD225504E5004A047F /* WordList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordList.swift; sourceTree = "<group>"; };
 		7B72BBDF225504E5004A047F /* Hash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hash.swift; sourceTree = "<group>"; };
 		7B72BBE0225504E5004A047F /* PrivateKeyAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateKeyAccount.swift; sourceTree = "<group>"; };
-		7B72BBE1225504E5004A047F /* Base58.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base58.swift; sourceTree = "<group>"; };
 		7B72BBE3225504E5004A047F /* MoneyUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyUtil.swift; sourceTree = "<group>"; };
 		7B72BBE5225504E5004A047F /* DateUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
 		7B72BBE6225504E5004A047F /* Sync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sync.swift; sourceTree = "<group>"; };
@@ -131,9 +126,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B42335922563B8500E82730 /* CryptoSwift.framework in Frameworks */,
-				7B42335722563A3200E82730 /* Security.framework in Frameworks */,
-				7B42335522563A2100E82730 /* CoreTelephony.framework in Frameworks */,
 				744056B10274BC211A2A75AE /* Pods_WavesSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,7 +251,6 @@
 			children = (
 				7B72BBDF225504E5004A047F /* Hash.swift */,
 				7B72BBE0225504E5004A047F /* PrivateKeyAccount.swift */,
-				7B72BBE1225504E5004A047F /* Base58.swift */,
 			);
 			path = Crypto;
 			sourceTree = "<group>";
@@ -442,7 +433,6 @@
 				7B72BC26225504E5004A047F /* TSUD.swift in Sources */,
 				7B72BC2A225504E5004A047F /* NSObject+AssociatedObject.swift in Sources */,
 				7B72BC2D225504E5004A047F /* Reachability+Shared.swift in Sources */,
-				7B72BC18225504E5004A047F /* Base58.swift in Sources */,
 				7B72BC16225504E5004A047F /* Hash.swift in Sources */,
 				7B72BC1F225504E5004A047F /* SweetLoggerConsole.swift in Sources */,
 				7B72BC1A225504E5004A047F /* MoneyUtil.swift in Sources */,

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Base58
 
 fileprivate enum TransactionDirection {
     case sent
