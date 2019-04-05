@@ -11,9 +11,15 @@ Pod::Spec.new do |spec|
 
   spec.subspec 'Extensions' do |subSpec|
     subSpec.source_files =  'WavesSDK/Source/Extensions/*.{swift}'
-    subSpec.dependency 'RestKit/ObjectMapping'
-    subSpec.dependency 'RestKit/Network'
-    subSpec.dependency 'RestKit/CoreData'
+
+    subSpec.dependency 'RxSwift'
+    subSpec.dependency 'RxReachability'
+    subSpec.dependency '25519'
+    subSpec.dependency 'Base58'
+    subSpec.dependency 'Keccak'
+    subSpec.dependency 'Blake2'
+    subSpec.dependency 'CryptoSwift'
+    
   end
 
 end

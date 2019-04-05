@@ -10,6 +10,7 @@ import Foundation
 import Base58
 
 class Base58 {
+
     class func encode(_ input: [UInt8]) -> String {
         var size = Int(ceil(log(256.0)/log(58)*Double(input.count))) + 1
         var data = Data(count: size)
@@ -35,8 +36,7 @@ class Base58 {
 
         let beginIndex = (csize - size)
 
-        if beginIndex < 0 || csize > data.count {
-            SweetLogger.error("beginIndex \(str) \(size), \(csize), \(data.count)")
+        if beginIndex < 0 || csize > data.count {            
             return []
         }
 

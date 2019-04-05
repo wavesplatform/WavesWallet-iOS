@@ -9,18 +9,6 @@
 import Foundation
 
 enum GlobalConstants {
-    #if DEBUG
-    static let accountNameMinLimitSymbols: Int = 2
-    static let accountNameMaxLimitSymbols: Int = 24
-    static let minLengthPassword: Int = 2
-    static let minimumSeedLength = 10
-    #else
-    static let accountNameMinLimitSymbols: Int = 2
-    static let accountNameMaxLimitSymbols: Int = 24
-    static let minLengthPassword: Int = 6
-    static let minimumSeedLength = 25
-    #endif
-
     static let aliasNameMinLimitSymbols: Int = 4
     static let aliasNameMaxLimitSymbols: Int = 30
 
@@ -31,6 +19,21 @@ enum GlobalConstants {
     static let WavesTransactionFee = Money(GlobalConstants.WavesTransactionFeeAmount, GlobalConstants.WavesDecimals)
     static let FiatDecimals: Int = 2
 }
+
+////TODO: Move
+//extension GlobalConstants {
+//    #if DEBUG
+//    static let accountNameMinLimitSymbols: Int = 2
+//    static let accountNameMaxLimitSymbols: Int = 24
+//    static let minLengthPassword: Int = 2
+//    static let minimumSeedLength = 10
+//    #else
+//    static let accountNameMinLimitSymbols: Int = 2
+//    static let accountNameMaxLimitSymbols: Int = 24
+//    static let minLengthPassword: Int = 6
+//    static let minimumSeedLength = 25
+//    #endif
+//}
 
 enum RegEx {
     static let alias = "^[a-z0-9\\.@_-]*$"
