@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import Moya
 import CryptoSwift
+import Base58
 
 fileprivate enum Constants {
     static let maxLimit: Int = 10000

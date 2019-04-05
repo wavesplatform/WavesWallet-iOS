@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import Base58
 
 class SeedItem: Object {
     @objc dynamic var publicKey: String = ""

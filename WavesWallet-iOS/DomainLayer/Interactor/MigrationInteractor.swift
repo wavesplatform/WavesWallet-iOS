@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import Realm
 import RealmSwift
+import Base58
 
 fileprivate struct ApplicationVersion: Codable, TSUD {
 

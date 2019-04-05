@@ -8,6 +8,7 @@
 
 import Foundation
 import _25519
+import Base58
 
 class Address {
     static let AddressVersion: UInt8 = 1

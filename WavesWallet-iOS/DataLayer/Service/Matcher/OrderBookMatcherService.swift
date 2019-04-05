@@ -8,6 +8,7 @@
 
 import Foundation
 import Moya
+import Base58
 
 extension Matcher.Service {
     
