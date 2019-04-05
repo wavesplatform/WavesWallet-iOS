@@ -386,12 +386,14 @@ extension DomainLayer.DTO.LeaseTransaction {
             guard let recipient = accounts[self.recipient] else { return nil }
             kind = .startedLeasing(.init(asset: wavesAsset,
                                          balance: balance,
-                                         account: recipient))
+                                         account: recipient,
+                                         myAccount: metaData.account))
         } else {
             guard let sender = accounts[self.sender] else { return nil }
             kind = .incomingLeasing(.init(asset: wavesAsset,
                                           balance: balance,
-                                          account: sender))
+                                          account: sender,
+                                          myAccount: metaData.account))
         }
 
         let feeBalance = wavesAsset.balance(fee)
@@ -444,7 +446,8 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
 
         let kind: DomainLayer.DTO.SmartTransaction.Kind = .canceledLeasing(.init(asset: wavesAsset,
                                                                                  balance: balance,
-                                                                                 account: recipient))
+                                                                                 account: recipient,
+                                                                                 myAccount: metaData.account))
 
         let feeBalance = wavesAsset.balance(fee)
 
