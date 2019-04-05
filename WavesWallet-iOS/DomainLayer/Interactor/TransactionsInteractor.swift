@@ -647,6 +647,7 @@ fileprivate extension TransactionsInteractor {
                                   mapTxs: [:])
         })
         .compactMap { $0 }
+        .filter { $0.isCanceledLeasingBySender == false }
     }
 }
 
@@ -933,4 +934,17 @@ private extension DomainLayer.Query.TransactionSpecificationType {
         }
     }
 
+}
+
+fileprivate extension DomainLayer.DTO.SmartTransaction {
+    
+    var isCanceledLeasingBySender: Bool {
+        
+        switch kind {
+        case .canceledLeasing:
+            return sender.isMyAccount ? false : true
+        default:
+            return false
+        }
+    }
 }
