@@ -43,6 +43,6 @@ extension DomainLayer.DTO.Dex.MyOrder {
         
         self.amountAsset = amountAsset
         self.priceAsset = priceAsset
-        percentFilled = Int(filled.amount * 100 / amount.amount)
+        percentFilled = status == .filled ? 100 : Int(filled.amount * 100 / amount.amount)
     }
 }
