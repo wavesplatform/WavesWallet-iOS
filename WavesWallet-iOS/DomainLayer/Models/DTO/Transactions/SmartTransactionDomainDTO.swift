@@ -72,6 +72,7 @@ extension DomainLayer.DTO {
             let asset: Asset
             let balance: Balance
             let account: Account
+            let myAccount: Account
         }
 
         struct Issue: Equatable {

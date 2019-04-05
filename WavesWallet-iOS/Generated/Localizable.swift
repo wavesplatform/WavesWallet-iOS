@@ -2315,6 +2315,10 @@ internal enum Localizable {
         internal static var fee: String { return Localizable.tr("Waves", "transactioncard.title.fee") }
         /// From
         internal static var from: String { return Localizable.tr("Waves", "transactioncard.title.from") }
+        /// Incoming Leasing
+        internal static var incomingLeasing: String { return Localizable.tr("Waves", "transactioncard.title.incomingLeasing") }
+        /// Leasing from
+        internal static var leasingFrom: String { return Localizable.tr("Waves", "transactioncard.title.leasingFrom") }
         /// Mass Received
         internal static var massReceived: String { return Localizable.tr("Waves", "transactioncard.title.massReceived") }
         /// Mass Sent
