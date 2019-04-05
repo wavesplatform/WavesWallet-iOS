@@ -15,9 +15,6 @@ enum DexMyOrders {
     enum Event {
         case readyView
         case setOrders([DomainLayer.DTO.Dex.MyOrder])
-        case cancelOrder(IndexPath)
-        case orderDidFinishCancel(ResponseType<Bool>)
-        case canceledOrder
         case refresh
     }
     
@@ -25,15 +22,11 @@ enum DexMyOrders {
         enum Action {
             case none
             case update
-            case orderDidFailCancel(NetworkError)
-            case orderDidFinishCancel
         }
         
         var action: Action
         var section: DexMyOrders.ViewModel.Section
         var isNeedLoadOrders: Bool
-        var isNeedCancelOrder: Bool
-        var canceledOrder: DomainLayer.DTO.Dex.MyOrder?
     }
 }
 
@@ -72,7 +65,6 @@ extension DexMyOrders.ViewModel.Row {
 extension DexMyOrders.State: Equatable {
     
     static func == (lhs: DexMyOrders.State, rhs: DexMyOrders.State) -> Bool {
-        return lhs.isNeedLoadOrders == rhs.isNeedLoadOrders &&
-            lhs.isNeedCancelOrder == rhs.isNeedCancelOrder
+        return lhs.isNeedLoadOrders == rhs.isNeedLoadOrders
     }
 }

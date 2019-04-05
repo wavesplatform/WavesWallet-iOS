@@ -119,14 +119,6 @@ fileprivate extension DexMyOrdersViewController {
                     self.setupDefaultState()
                     self.refreshControl.endRefreshing()
                     
-                case .orderDidFailCancel(let error):
-                    
-                    self.showNetworkErrorSnack(error: error)
-                    self.tableView.reloadData()
-                
-                case .orderDidFinishCancel:
-                    self.output?.myOrderDidCancel()
-                    
                 default:
                     break
                 }
@@ -223,6 +215,7 @@ private extension DexMyOrdersViewController {
 extension DexMyOrdersViewController: TransactionCardCoordinatorDelegate {
 
     func transactionCardCoordinatorCanceledOrder(_ order: DomainLayer.DTO.Dex.MyOrder) {
-        sendEvent.accept(.canceledOrder)
+        sendEvent.accept(.refresh)
+        output?.myOrderDidCancel()
     }
 }
