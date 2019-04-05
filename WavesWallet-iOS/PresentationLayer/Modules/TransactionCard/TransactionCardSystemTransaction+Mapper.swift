@@ -645,7 +645,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         rows.append(.general(rowGeneralModel))
 
-        if core.kind.transaction?.isSelfTransfer == false {
+        if isSelfTransfer == false {
             
             let address = transfer.recipient.address
             
