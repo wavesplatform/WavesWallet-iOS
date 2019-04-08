@@ -11,7 +11,8 @@ import Foundation
 struct Environment: Decodable {
     
     private static var timestampServerDiff: Int64 = 0
-    
+    private static let timestampQueue = DispatchQueue(label: "timestampServerQueue.diff")
+
     enum Constants {
         static let alias = "alias"
         fileprivate static let main = "environment_mainnet"
@@ -86,10 +87,19 @@ extension Environment {
 extension Environment {
 
     static func updateTimestampServerDiff(_ timestamp: Int64) {
-        Environment.timestampServerDiff = timestamp
+        
+        Environment.timestampQueue.async(flags: .barrier) {
+            Environment.timestampServerDiff = timestamp
+        }
     }
     
     var timestampServerDiff: Int64 {
-        return Environment.timestampServerDiff
+
+        var timeDiff: Int64 = 0
+
+        Environment.timestampQueue.sync {
+            timeDiff = Environment.timestampServerDiff
+        }
+        return timeDiff
     }
 }
