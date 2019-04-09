@@ -87,6 +87,10 @@
 "biometric.manyattempts.title" = "Troppi tentativi falliti";
 "biometric.readfromkeychain" = "Accedi al tuo wallet";
 "biometric.saveinkeychain" = "Accedi al tuo wallet";
+"cameraAccess.alert.allow" = "Consenti accesso alla fotocamera";
+"cameraAccess.alert.cancel" = "Cancella";
+"cameraAccess.alert.message" = "Per sfruttare appieno questa app è necessario l'accesso alla videocamera";
+"cameraAccess.alert.title" = "Richiesta di accesso alla videocamera";
 "changepassword.button.confirm.title" = "Conferma";
 "changepassword.navigation.title" = "Password modificata";
 "changepassword.textfield.confirmpassword.title" = "Conferma password";

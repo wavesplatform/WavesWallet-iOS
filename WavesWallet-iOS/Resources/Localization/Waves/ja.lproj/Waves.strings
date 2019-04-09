@@ -87,6 +87,10 @@
 "biometric.manyattempts.title" = "規定回数を超えました";
 "biometric.readfromkeychain" = "あなたのウォレットにアクセス";
 "biometric.saveinkeychain" = "あなたのウォレットにアクセス";
+"cameraAccess.alert.allow" = "カメラの使用を許可する";
+"cameraAccess.alert.cancel" = "キャンセル";
+"cameraAccess.alert.message" = "アプリ内の全ての機能にアクセスするためにカメラ機能へのアクセスを許可してください";
+"cameraAccess.alert.title" = "カメラ機能へのアクセス権が必要です";
 "changepassword.button.confirm.title" = "確定";
 "changepassword.navigation.title" = "パスワードを変更";
 "changepassword.textfield.confirmpassword.title" = "新しいパスワードを再入力";

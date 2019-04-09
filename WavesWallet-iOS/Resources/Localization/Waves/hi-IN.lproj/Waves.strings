@@ -87,6 +87,10 @@
 "biometric.manyattempts.title" = "भी कई प्रयास";
 "biometric.readfromkeychain" = "अपने वॉलेट तक पहुंच";
 "biometric.saveinkeychain" = "अपने वॉलेट तक पहुंच";
+"cameraAccess.alert.allow" = "कैमरा की अनुमति दें";
+"cameraAccess.alert.cancel" = "रोकना";
+"cameraAccess.alert.message" = "इस ऐप का पूर्ण उपयोग करने के लिए कैमरा एक्सेस की आवश्यकता है";
+"cameraAccess.alert.title" = "कैमरा एक्सेस की आवश्यकता है";
 "changepassword.button.confirm.title" = "कन्फर्म";
 "changepassword.navigation.title" = "बदला हुआ पासवर्ड";
 "changepassword.textfield.confirmpassword.title" = "पासवर्ड की पुष्टि कीजिये";
