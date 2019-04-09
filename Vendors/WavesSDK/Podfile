@@ -1,3 +1,4 @@
+source 'https://github.com/wavesplatform/Specs.git'
 # Uncomment the next line to define a global platform for your project
 platform :ios, '10.0'
 
@@ -13,10 +14,10 @@ target 'WavesSDK' do
 
     pod 'RxSwift'
     pod 'RxReachability'
-    pod '25519', :git => 'https://github.com/wavesplatform/25519.git'
-    pod 'Base58', :git => 'https://github.com/wavesplatform/Base58.git'
-    pod 'Keccak', :git => 'https://github.com/wavesplatform/Keccak.git'
-    pod 'Blake2', :git => 'https://github.com/wavesplatform/Blake2.git'
+    pod 'Curve25519'
+    pod 'Base58'
+    pod 'Keccak'
+    pod 'Blake2'
     pod 'CryptoSwift'
 
 end

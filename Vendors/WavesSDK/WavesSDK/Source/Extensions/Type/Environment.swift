@@ -18,39 +18,39 @@ public struct Environment: Decodable {
     
     private static var timestampServerDiff: Int64 = 0
 
-    struct AssetInfo: Decodable {
+    public struct AssetInfo: Decodable {
 
-        struct Icon: Decodable {
-            let `default`: String?
+        public struct Icon: Decodable {
+            public let `default`: String?
         }
 
-        let assetId: String
-        let displayName: String
-        let isFiat: Bool
-        let isGateway: Bool
-        let wavesId: String
-        let gatewayId: String
-        let addressRegEx: String
-        let iconUrls: Icon?
+        public let assetId: String
+        public let displayName: String
+        public let isFiat: Bool
+        public let isGateway: Bool
+        public let wavesId: String
+        public let gatewayId: String
+        public let addressRegEx: String
+        public let iconUrls: Icon?
     }
 
-    struct Servers: Decodable {
-        let nodeUrl: URL
-        let dataUrl: URL
-        let spamUrl: URL
-        let matcherUrl: URL
+    public struct Servers: Decodable {
+        public let nodeUrl: URL
+        public let dataUrl: URL
+        public let spamUrl: URL
+        public let matcherUrl: URL
     }
 
-    let name: String
-    let servers: Servers
-    let scheme: String
-    let generalAssets: [AssetInfo]
-    let assets: [AssetInfo]?
+    public let name: String
+    public let servers: Servers
+    public let scheme: String
+    public let generalAssets: [AssetInfo]
+    public let assets: [AssetInfo]?
     
     private static let Testnet: Environment = parseJSON(json: Constants.test)!
     private static let Mainnet: Environment = parseJSON(json: Constants.main)!
 
-    static var isTestNet: Bool {
+    public static var isTestNet: Bool {
         set {
             UserDefaults.standard.set(newValue, forKey: "isTestEnvironment")
             UserDefaults.standard.synchronize()
@@ -61,7 +61,7 @@ public struct Environment: Decodable {
         }
     }
 
-    static var current: Environment {
+    public static var current: Environment {
         get {
             if isTestNet {
                 return Testnet

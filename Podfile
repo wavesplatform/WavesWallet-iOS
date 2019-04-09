@@ -1,4 +1,6 @@
 source 'https://github.com/wavesplatform/Specs.git'
+source 'https://github.com/CocoaPods/Specs.git'
+
 # Uncomment the next line to define a global platform for your project
 platform :ios, '10.0'
 
@@ -60,11 +62,14 @@ target 'WavesWallet-iOS' do
 
     # Helperrs
     pod 'IdentityImg'
-    pod '25519'
-    pod 'Base58'
-    pod 'Keccak'
-    pod 'Blake2'
-    pod 'CryptoSwift'
+
+    pod 'WavesSDKExtension',  :path => 'Vendors/WavesSDK'
+    # pod '25519'
+    # pod 'Base58'
+    # pod 'Keccak'
+    # pod 'Blake2'
+    # pod 'CryptoSwift'
+    
     pod 'KeychainAccess'
     pod 'QRCode'
     pod 'QRCodeReader.swift', '~> 9.0.1'

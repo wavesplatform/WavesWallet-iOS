@@ -9,6 +9,7 @@
 import Foundation
 import Moya
 import Base58
+import WavesSDKExtension
 
 extension Matcher.Service {
     
