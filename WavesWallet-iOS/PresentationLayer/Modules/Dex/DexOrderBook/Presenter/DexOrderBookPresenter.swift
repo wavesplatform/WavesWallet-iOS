@@ -64,9 +64,18 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                 $0.isNeedRefreshing = true
             }.changeAction(.none)
             
-        case .setDisplayData(let displayData):
+        case .setDisplayData(let data):
+            
+            if data.authWalletError {
+                return state.mutate {
+                    $0.isNeedRefreshing = false
+                    $0.action = .none
+                }
+            }
             
             return state.mutate {
+                
+                let displayData = data.data
                 
                 $0.isNeedRefreshing = false
                 $0.availableAmountAssetBalance = displayData.availableAmountAssetBalance
