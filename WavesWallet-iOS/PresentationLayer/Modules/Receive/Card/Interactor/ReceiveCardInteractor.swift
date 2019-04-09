@@ -8,7 +8,7 @@
 
 import Foundation
 import RxSwift
-
+import WavesSDKExtension
 
 final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
  

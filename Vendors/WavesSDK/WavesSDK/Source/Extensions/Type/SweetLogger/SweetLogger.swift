@@ -8,9 +8,9 @@
 
 import Foundation
 
-extension SweetLogger {
+public extension SweetLogger {
 
-    static func error(_ message: @escaping  @autoclosure () -> Any,
+    public static func error(_ message: @escaping  @autoclosure () -> Any,
                _ file: String = #file,
                _ function: String = #function,
                _ line: Int = #line,
@@ -20,7 +20,7 @@ extension SweetLogger {
         SweetLogger.current.send(message: message(), level: .error, file: file, function: function, line: line, context: context, type: type)
     }
 
-    static func warning(_ message: @escaping @autoclosure () -> Any,
+    public static func warning(_ message: @escaping @autoclosure () -> Any,
                  _ file: String = #file,
                  _ function: String = #function,
                  _ line: Int = #line,
@@ -30,7 +30,7 @@ extension SweetLogger {
         SweetLogger.current.send(message: message(), level: .warning, file: file, function: function, line: line, context: context)
     }
 
-    static func debug(_ message: @escaping   @autoclosure () -> Any,
+    public static func debug(_ message: @escaping   @autoclosure () -> Any,
                _ file: String = #file,
                _ function: String = #function,
                _ line: Int = #line,
@@ -40,7 +40,7 @@ extension SweetLogger {
         SweetLogger.current.send(message: message(), level: .debug, file: file, function: function, line: line, context: context, type: type)
     }
 
-    static func verbose(_ message: @escaping  @autoclosure () -> Any,
+    public static func verbose(_ message: @escaping  @autoclosure () -> Any,
                  _ file: String = #file,
                  _ function: String = #function,
                  _ line: Int = #line,
@@ -50,7 +50,7 @@ extension SweetLogger {
         SweetLogger.current.send(message: message(), level: .verbose, file: file, function: function, line: line, context: context, type: type)
     }
 
-    static func info(_ message: @escaping  @autoclosure () -> Any,
+    public static func info(_ message: @escaping  @autoclosure () -> Any,
               _ file: String = #file,
               _ function: String = #function,
               _ line: Int = #line,
@@ -60,7 +60,7 @@ extension SweetLogger {
         SweetLogger.current.send(message: message(), level: .info, file: file, function: function, line: line, context: context, type: type)
     }
 
-    static func network(_ message: @escaping  @autoclosure () -> Any,
+    public static func network(_ message: @escaping  @autoclosure () -> Any,
                  _ file: String = #file,
                  _ function: String = #function,
                  _ line: Int = #line,
@@ -71,14 +71,14 @@ extension SweetLogger {
     }
 }
 
-final class SweetLogger: SweetLoggerProtocol {
+public class SweetLogger: SweetLoggerProtocol {
     
-    static let current: SweetLogger = SweetLogger()
+    public static let current: SweetLogger = SweetLogger()
     
-    var visibleLevels: [SweetLoggerLevel] = []
-    var plugins: [SweetLoggerProtocol] = []
+    public var visibleLevels: [SweetLoggerLevel] = []
+    public var plugins: [SweetLoggerProtocol] = []
     
-    func send(message: @escaping @autoclosure () -> Any,
+    public func send(message: @escaping @autoclosure () -> Any,
               level: SweetLoggerLevel,
               file: String,
               function: String,

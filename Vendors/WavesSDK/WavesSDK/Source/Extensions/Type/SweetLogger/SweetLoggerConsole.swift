@@ -14,7 +14,7 @@ public final class SweetLoggerConsole: SweetLoggerProtocol {
     
     public var isShortLog = true
     
-    init(visibleLevels: [SweetLoggerLevel],
+    public init(visibleLevels: [SweetLoggerLevel],
          isShortLog: Bool) {
         
         self.visibleLevels = visibleLevels

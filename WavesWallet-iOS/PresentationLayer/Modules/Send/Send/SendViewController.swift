@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxFeedback
 import RxCocoa
+import WavesSDKExtension
 
 protocol SendResultDelegate: AnyObject {
     func sendResultDidFail(_ error: NetworkError)
@@ -511,7 +512,7 @@ private extension SendViewController {
     
     func updateActualFee() {
         if feeAssetID == GlobalConstants.wavesAssetId {
-            let fee = currentFee ?? GlobalConstants.WavesTransactionFee
+            let fee = currentFee ?? UIGlobalConstants.WavesTransactionFee
             viewFee.update(with: .init(fee: fee, assetName: nil))
         }
         else {

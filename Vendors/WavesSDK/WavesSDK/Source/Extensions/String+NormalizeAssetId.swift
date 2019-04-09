@@ -14,10 +14,7 @@ public extension Optional where Wrapped == String {
         if let id = self {
             return id
         } else {
-
-            //TODO: Library
-            return ""
-//            return GlobalConstants.wavesAssetId
+            return GlobalConstants.wavesAssetId
         }
     }
 }

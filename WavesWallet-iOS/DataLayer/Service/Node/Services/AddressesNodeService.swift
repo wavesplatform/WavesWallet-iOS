@@ -8,6 +8,7 @@
 
 import Foundation
 import Moya
+import WavesSDKExtension
 
 extension Node.Service {
 

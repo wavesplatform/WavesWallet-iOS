@@ -8,6 +8,7 @@
 
 import UIKit
 import Reachability
+import WavesSDKExtension
 
 final class GlobalErrorView: UIView, NibOwnerLoadable {
 

@@ -8,6 +8,7 @@
 
 import Foundation
 import Base58
+import WavesSDKExtension
 
 fileprivate enum TransactionDirection {
     case sent

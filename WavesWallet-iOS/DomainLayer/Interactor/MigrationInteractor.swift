@@ -11,6 +11,7 @@ import RxSwift
 import Realm
 import RealmSwift
 import Base58
+import WavesSDKExtension
 
 fileprivate struct ApplicationVersion: Codable, TSUD {
 

@@ -9,6 +9,7 @@
 import Foundation
 import Moya
 import RxSwift
+import WavesSDKExtension
 
 enum TransactionsInteractorError: Error {
     case invalid

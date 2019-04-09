@@ -9,13 +9,13 @@
 import Foundation
 
 public enum Runtime {
-    static func swizzle(for forClass: AnyClass, original: Selector, swizzled: Selector) {
+    public static func swizzle(for forClass: AnyClass, original: Selector, swizzled: Selector) {
         let originalMethod = class_getInstanceMethod(forClass, original)!
         let swizzledMethod = class_getInstanceMethod(forClass, swizzled)!
         method_exchangeImplementations(originalMethod, swizzledMethod)
     }
 
-    static func swizzleClass(for forClass: AnyClass, original: Selector, swizzled: Selector) {        
+    public static func swizzleClass(for forClass: AnyClass, original: Selector, swizzled: Selector) {
         let originalMethod = class_getClassMethod(forClass, original)!
         let swizzledMethod = class_getClassMethod(forClass, swizzled)!
         method_exchangeImplementations(originalMethod, swizzledMethod)
@@ -24,10 +24,14 @@ public enum Runtime {
 
 public struct Swizzle {
 
-    typealias Initializer = (() -> Void)
-    let initializers: [Initializer]
+    public typealias Initializer = (() -> Void)
+    public let initializers: [Initializer]
 
-    func start() {
+    public init(initializers: [Initializer]) {
+        self.initializers = initializers
+    }
+
+    public func start() {
         initializers.forEach { call in
             call()
         }

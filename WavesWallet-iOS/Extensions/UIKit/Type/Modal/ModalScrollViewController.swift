@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import WavesSDKExtension
 
 private struct Constants {
     static let offsetDistanceForDismiss: CGFloat = 48

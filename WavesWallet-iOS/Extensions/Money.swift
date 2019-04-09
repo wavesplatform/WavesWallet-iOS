@@ -9,13 +9,13 @@
 import Foundation
 
 public struct Money: Hashable, Codable {
-    let amount: Int64
-    let decimals: Int
+    public let amount: Int64
+    public let decimals: Int
     
-    private(set) var isBigAmount = false
-    private(set) var isSmallAmount = false
+    public private(set) var isBigAmount = false
+    public private(set) var isSmallAmount = false
 
-    init(_ amount: Int64, _ decimals: Int) {
+    public init(_ amount: Int64, _ decimals: Int) {
         self.amount = amount
         self.decimals = decimals
     }
@@ -23,7 +23,7 @@ public struct Money: Hashable, Codable {
 
 public extension Money {
  
-    init(value: Decimal, _ decimals: Int) {
+    public init(value: Decimal, _ decimals: Int) {
         let decimalValue = (value * pow(10, decimals)).rounded()
         let isValidDecimal = Decimal(Int64.max) >= decimalValue
         
@@ -36,38 +36,38 @@ public extension Money {
 
 
 public extension Money {
-    var displayText: String {
+    public var displayText: String {
         return MoneyUtil.getScaledText(amount, decimals: decimals)
     }
 
-    var displayTextWithoutSpaces: String {
+    public var displayTextWithoutSpaces: String {
         return displayText.replacingOccurrences(of: " ", with: "")
     }
     
-    func displayTextFull(isFiat: Bool) -> String {
+    public func displayTextFull(isFiat: Bool) -> String {
         return MoneyUtil.getScaledFullText(amount, decimals: decimals, isFiat: isFiat)
     }
     
-    var displayShortText: String {
+    public var displayShortText: String {
         return MoneyUtil.getScaledShortText(amount, decimals: decimals)
     }
 }
 
 public extension Money {
 
-    var isZero: Bool {
+    public var isZero: Bool {
         return amount == 0
     }
     
-    var decimalValue: Decimal {
+    public var decimalValue: Decimal {
         return Decimal(amount) / pow(10, decimals)
     }
 
-    var doubleValue: Double {
+    public var doubleValue: Double {
         return decimalValue.doubleValue
     }
 
-    var floatValue: Float {
+    public var floatValue: Float {
         return decimalValue.floatValue
     }
 }
@@ -75,12 +75,12 @@ public extension Money {
 
 public extension Money {
     
-    func add(_ value: Double) -> Money {
+    public func add(_ value: Double) -> Money {
         let additionalValue = Int64(value * pow(10, decimals).doubleValue)
         return Money(amount + additionalValue, decimals)
     }
     
-    func minus(_ value: Double) -> Money {
+    public func minus(_ value: Double) -> Money {
         
         let additionalValue = Int64(value * pow(10, decimals).doubleValue)
         var newAmount = amount - additionalValue
@@ -95,7 +95,7 @@ public extension Money {
 //MARK: - Calculation
 public extension Money {
     
-    static func price(amount: Int64, amountDecimals: Int, priceDecimals: Int) -> Money {
+    public static func price(amount: Int64, amountDecimals: Int, priceDecimals: Int) -> Money {
         
         let precisionDiff = priceDecimals - amountDecimals + 8
         let decimalValue = Decimal(amount) / pow(10, precisionDiff)

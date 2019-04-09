@@ -8,7 +8,7 @@ private enum Constants {
 
 public class MoneyUtil {
     
-    class func getScaledFullText(_ amount: Int64, decimals: Int, isFiat: Bool) -> String {
+    public class func getScaledFullText(_ amount: Int64, decimals: Int, isFiat: Bool) -> String {
         let f = NumberFormatter()
         f.decimalSeparator = Constants.decimalSeparator
         f.groupingSeparator = Constants.groupingSeparator
@@ -19,7 +19,7 @@ public class MoneyUtil {
         return result ?? ""
     }
 
-    class func getScaledText(_ amount: Int64, decimals: Int) -> String {
+    public class func getScaledText(_ amount: Int64, decimals: Int) -> String {
         let f = NumberFormatter()
         f.decimalSeparator = Constants.decimalSeparator
         f.groupingSeparator = Constants.groupingSeparator
@@ -30,7 +30,7 @@ public class MoneyUtil {
         return result ?? ""
     }
     
-    class func getScaledShortText(_ amount: Int64, decimals: Int) -> String {
+    public class func getScaledShortText(_ amount: Int64, decimals: Int) -> String {
 
         let decimalValue = Decimal(amount) / pow(10, decimals)
         let num = decimalValue.doubleValue;

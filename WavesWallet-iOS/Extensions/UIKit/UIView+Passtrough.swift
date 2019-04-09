@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WavesSDKExtension
 
 extension UIView {
 
