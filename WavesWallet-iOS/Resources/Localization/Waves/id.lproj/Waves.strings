@@ -87,6 +87,10 @@
 "biometric.manyattempts.title" = "Terlalu banyak upaya";
 "biometric.readfromkeychain" = "Akses ke dompet Anda";
 "biometric.saveinkeychain" = "Akses ke dompet Anda";
+"cameraAccess.alert.allow" = "Izinkan Kamera";
+"cameraAccess.alert.cancel" = "Batalkan";
+"cameraAccess.alert.message" = "Akses kamera diperlukan untuk memanfaatkan sepenuhnya aplikasi ini";
+"cameraAccess.alert.title" = "Butuh Akses Kamera";
 "changepassword.button.confirm.title" = "Konfirmasi";
 "changepassword.navigation.title" = "Kata sandi diubah";
 "changepassword.textfield.confirmpassword.title" = "Konfirmasi sandi";

@@ -87,6 +87,10 @@
 "biometric.manyattempts.title" = "시도 횟수 초과";
 "biometric.readfromkeychain" = "귀하의 지갑에 액세스";
 "biometric.saveinkeychain" = "귀하의 지갑에 액세스";
+"cameraAccess.alert.allow" = "카메라 허용";
+"cameraAccess.alert.cancel" = "취소";
+"cameraAccess.alert.message" = "이 앱을 최대한 활용하려면 카메라에 액세스해야합니다";
+"cameraAccess.alert.title" = "카메라 액세스 필요";
 "changepassword.button.confirm.title" = "승인";
 "changepassword.navigation.title" = "비밀번호 변경";
 "changepassword.textfield.confirmpassword.title" = "비밀번호 승인";

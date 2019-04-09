@@ -1,13 +1,7 @@
 "cameraAccess.alert.allow" = "Consenti accesso alla fotocamera";
-
 "cameraAccess.alert.cancel" = "Cancella";
-
 "cameraAccess.alert.message" = "Per sfruttare appieno questa app è necessario l'accesso alla videocamera";
-
 "cameraAccess.alert.title" = "Richiesta di accesso alla videocamera";
-
 "NSCameraUsageDescription" = "Per la scansione del codice QR è necessaria la fotocamera";
-
 "NSFaceIDUsageDescription" = "Accedi al tuo wallet";
-
 "NSPhotoLibraryAddUsageDescription" = "Per la scansione del codice QR è necessaria la fotocamera";

@@ -87,6 +87,10 @@
 "biometric.manyattempts.title" = "Çok fazla deneme";
 "biometric.readfromkeychain" = "Cüzdanınıza erişin";
 "biometric.saveinkeychain" = "Cüzdanınıza erişin";
+"cameraAccess.alert.allow" = "Kameraya İzin Ver";
+"cameraAccess.alert.cancel" = "İptal";
+"cameraAccess.alert.message" = "Bu uygulamanın tam kullanımını sağlamak için kamera erişimi gereklidir";
+"cameraAccess.alert.title" = "Kamera Erişimi Gerekir";
 "changepassword.button.confirm.title" = "Doğrula";
 "changepassword.navigation.title" = "Parolayı değiştir";
 "changepassword.textfield.confirmpassword.title" = "Parolayı doğrula";

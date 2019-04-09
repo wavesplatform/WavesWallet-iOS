@@ -87,6 +87,10 @@
 "biometric.manyattempts.title" = "Слишком много попыток";
 "biometric.readfromkeychain" = "Доступ к вашему кошельку";
 "biometric.saveinkeychain" = "Доступ к вашему кошельку";
+"cameraAccess.alert.allow" = "Разрешить";
+"cameraAccess.alert.cancel" = "Отменить";
+"cameraAccess.alert.message" = "Для полноценного использования приложения, требуется доступ к камере";
+"cameraAccess.alert.title" = "Необходим доступ к камере";
 "changepassword.button.confirm.title" = "Подтвердить";
 "changepassword.navigation.title" = "Изменить пароль";
 "changepassword.textfield.confirmpassword.title" = "Подтвердите пароль";

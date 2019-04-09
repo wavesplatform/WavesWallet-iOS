@@ -1,14 +1,7 @@
-
-"NSCameraUsageDescription" = "Камера необходима для сканирования QR-кодов";
-
-"NSFaceIDUsageDescription" = "Доступ к вашему кошельку";
-
-"NSPhotoLibraryAddUsageDescription" = "Камера необходима для сканирования QR-кодов";
-
 "cameraAccess.alert.allow" = "Разрешить";
-
-"cameraAccess.alert.cancel" = "Закрыть";
-
-"cameraAccess.alert.message" = "Для полноценного использования приложения требуется доступ к камере";
-
+"cameraAccess.alert.cancel" = "Отменить";
+"cameraAccess.alert.message" = "Для полноценного использования приложения, требуется доступ к камере";
 "cameraAccess.alert.title" = "Необходим доступ к камере";
+"NSCameraUsageDescription" = "Камера необходима для сканирования QR-кодов";
+"NSFaceIDUsageDescription" = "Доступ к вашему кошельку";
+"NSPhotoLibraryAddUsageDescription" = "Камера необходима для сканирования QR-кодов";
