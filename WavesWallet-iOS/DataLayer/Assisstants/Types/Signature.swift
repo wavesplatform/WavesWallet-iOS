@@ -9,6 +9,7 @@
 import Foundation
 import Base58
 import Base58
+import WavesSDKExtension
 
 fileprivate enum Constants {
     static let senderPublicKey = "senderPublicKey"

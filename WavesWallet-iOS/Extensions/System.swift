@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 import RxFeedback
+import WavesSDKExtension
 
 class System<S, E> {
 

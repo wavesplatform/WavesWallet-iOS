@@ -39,6 +39,17 @@ public struct Environment: Decodable {
         public let dataUrl: URL
         public let spamUrl: URL
         public let matcherUrl: URL
+
+        public init(nodeUrl: URL,
+                    dataUrl: URL,
+                    spamUrl: URL,
+                    matcherUrl: URL) {
+
+            self.nodeUrl = nodeUrl
+            self.dataUrl = dataUrl
+            self.spamUrl = spamUrl
+            self.matcherUrl = matcherUrl
+        }
     }
 
     public let name: String
@@ -71,14 +82,28 @@ public struct Environment: Decodable {
         }
     }
 
+    public init(name: String,
+                servers: Servers,
+                scheme: String,
+                generalAssets: [AssetInfo],
+                assets: [AssetInfo]?) {
+
+        self.name = name
+        self.servers = servers
+        self.scheme = scheme
+        self.generalAssets = generalAssets
+        self.assets = assets
+    }
+
     private static func parseJSON(json fileName: String) -> Environment? {
         return JSONDecoder.decode(json: fileName)
     }
+    
 }
 
 public extension Environment {
 
-    var aliasScheme: String {
+    public var aliasScheme: String {
         return Constants.alias + ":" + scheme + ":"
     }
 }
@@ -89,7 +114,7 @@ public extension Environment {
         Environment.timestampServerDiff = timestamp
     }
     
-    var timestampServerDiff: Int64 {
+    public var timestampServerDiff: Int64 {
         return Environment.timestampServerDiff
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 import Reachability
 
 public enum ReachabilityService {
-    static var instance: Reachability = {
+    public static var instance: Reachability = {
         let reachability = Reachability()!
         try? reachability.startNotifier()
         return reachability

@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import WavesSDKExtension
 
 private enum Constants {
     static let cornerRadius: CGFloat = 2

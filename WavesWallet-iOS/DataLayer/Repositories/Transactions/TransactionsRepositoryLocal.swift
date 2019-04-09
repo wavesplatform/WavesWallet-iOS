@@ -11,6 +11,7 @@ import RealmSwift
 import RxRealm
 import RxSwift
 import RxOptional
+import WavesSDKExtension
 
 extension Realm {
     func filter<ParentType: Object>(parentType: ParentType.Type,

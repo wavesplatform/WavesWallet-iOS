@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import WavesSDKExtension
+
 extension DomainLayer.DTO {
 
     struct Wallet: Mutating, Hashable {

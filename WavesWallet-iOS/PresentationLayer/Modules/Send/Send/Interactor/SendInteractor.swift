@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import WavesSDKExtension
 
 final class SendInteractor: SendInteractorProtocol {
     

@@ -28,7 +28,7 @@ private extension Thread {
 
 public extension ObservableType {
 
-    func sweetDebugWithoutResponse(_ identifier: String) -> RxSwift.Observable<Self.E> {
+    public func sweetDebugWithoutResponse(_ identifier: String) -> RxSwift.Observable<Self.E> {
 
         return self.do(onNext: { element in
             log(identifier: identifier, message: "onNext 💬")
@@ -45,7 +45,7 @@ public extension ObservableType {
         })
     }
 
-    func sweetDebug(_ identifier: String) -> RxSwift.Observable<Self.E> {
+    public func sweetDebug(_ identifier: String) -> RxSwift.Observable<Self.E> {
 
         return self.do(onNext: { element in
             log(identifier: identifier, message: "onNext \(element)")

@@ -16,34 +16,29 @@ public class Address {
     static let HashLength = 20
     static let AddressLength = 1 + 1 + HashLength + ChecksumLength
 
-    class func getSchemeByte() -> UInt8 {
-
-        return 0
-        //TODO: Library
-//        return Environment.current.scheme.utf8.first!
+    public class func getSchemeByte() -> UInt8 {
+        return Environment.current.scheme.utf8.first!
     }
     
-    class func addressFromPublicKey(publicKey: [UInt8]) -> String {
+    public class func addressFromPublicKey(publicKey: [UInt8]) -> String {
         let publicKeyHash = Hash.secureHash(publicKey)[0..<HashLength]
         let withoutChecksum: [UInt8] = [AddressVersion, getSchemeByte()] + publicKeyHash
         return Base58.encode(withoutChecksum + calcCheckSum(withoutChecksum))
     }
     
-    class func calcCheckSum(_ withoutChecksum: [UInt8]) -> [UInt8] {
+    public class func calcCheckSum(_ withoutChecksum: [UInt8]) -> [UInt8] {
         return Array(Hash.secureHash(withoutChecksum)[0..<ChecksumLength])
     }
     
-    class func isValidAlias(alias: String?) -> Bool {
+    public class func isValidAlias(alias: String?) -> Bool {
         guard let alias = alias else { return false }
-
-        return false
-        //TODO: Library
-//        return RegEx.alias(alias) &&
-//            alias.count >= GlobalConstants.aliasNameMinLimitSymbols &&
-//            alias.count <= GlobalConstants.aliasNameMaxLimitSymbols
+        
+        return RegEx.alias(alias) &&
+            alias.count >= GlobalConstants.aliasNameMinLimitSymbols &&
+            alias.count <= GlobalConstants.aliasNameMaxLimitSymbols
     }
     
-    class func isValidAddress(address: String?) -> Bool {
+    public class func isValidAddress(address: String?) -> Bool {
         guard let address = address else { return false }
         
         let bytes = Base58.decode(address)
@@ -57,7 +52,7 @@ public class Address {
         return false
     }
 
-    class func scheme(from publicKey: String) -> String? {
+    public class func scheme(from publicKey: String) -> String? {
 
         let address = Address.addressFromPublicKey(publicKey: publicKey.bytes)
         let bytes = Base58.decode(address)
@@ -73,19 +68,19 @@ public class Address {
 
 public class PublicKeyAccount: Hashable {
 
-    let publicKey: [UInt8]
-    let address: String
+    public let publicKey: [UInt8]
+    public let address: String
     
-    init(publicKey: [UInt8]) {
+    public init(publicKey: [UInt8]) {
         self.publicKey = publicKey
         self.address = Address.addressFromPublicKey(publicKey: publicKey)
     }
 
-    convenience init(publicKey: String) {
+    public convenience init(publicKey: String) {
         self.init(publicKey: Base58.decode(publicKey))
     }
     
-    func getPublicKeyStr() -> String {
+    public func getPublicKeyStr() -> String {
         return Base58.encode(publicKey)
     }
 
@@ -100,10 +95,10 @@ public class PublicKeyAccount: Hashable {
 
 public class PrivateKeyAccount: PublicKeyAccount {
     
-    let privateKey: [UInt8]
-    let seed: [UInt8]
+    public let privateKey: [UInt8]
+    public let seed: [UInt8]
     
-    init(seed: [UInt8]) {
+    public init(seed: [UInt8]) {
         self.seed = seed
         let nonce : [UInt8] = [0, 0, 0, 0]
         let hashSeed = Hash.sha256(Hash.secureHash(nonce + seed))
@@ -112,19 +107,19 @@ public class PrivateKeyAccount: PublicKeyAccount {
         super.init(publicKey: Array(pair.publicKey()))
     }
 
-    var privateKeyStr: String {
+    public var privateKeyStr: String {
         return Base58.encode(privateKey)
     }
 
-    var words: [String] {
+    public var words: [String] {
         return String(data: Data(seed), encoding: .utf8)?.components(separatedBy: " ") ?? []
     }
     
-    var wordsStr: String {
+    public var wordsStr: String {
         return String(data: Data(seed), encoding: .utf8) ?? ""
     }
     
-    convenience init(seedStr: String) {
+    public convenience init(seedStr: String) {
         self.init(seed: Array(seedStr.utf8))
     }
 }

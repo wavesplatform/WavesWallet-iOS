@@ -11,6 +11,7 @@ import RxFeedback
 import RxSwift
 import RxSwiftExt
 import RxCocoa
+import WavesSDKExtension
 
 private struct Constants {
     static let shiftIndexInLenght: Int = 1

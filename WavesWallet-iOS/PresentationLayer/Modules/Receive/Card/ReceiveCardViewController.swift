@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxFeedback
+import WavesSDKExtension
 
 final class ReceiveCardViewController: UIViewController {
 

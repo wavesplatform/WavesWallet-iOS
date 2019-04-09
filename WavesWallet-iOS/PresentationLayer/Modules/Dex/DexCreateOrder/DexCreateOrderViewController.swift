@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxFeedback
-
+import WavesSDKExtension
 
 private enum Constants {
     static let percent50 = 50

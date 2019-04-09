@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import WavesSDKExtension
 
 enum ImportTypes {
     enum DTO { }

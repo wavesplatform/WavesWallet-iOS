@@ -9,6 +9,7 @@
 import Foundation
 import Moya
 import RxSwift
+import WavesSDKExtension
 
 private struct SponsoredAssetDetail {
     let minSponsoredAssetFee: Int64?

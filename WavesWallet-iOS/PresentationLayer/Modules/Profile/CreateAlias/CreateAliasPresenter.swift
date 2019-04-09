@@ -10,6 +10,7 @@ import Foundation
 import RxFeedback
 import RxSwift
 import RxCocoa
+import WavesSDKExtension
 
 protocol CreateAliasModuleOutput: AnyObject {
     func createAliasCompletedCreateAlias(_ alias: String)

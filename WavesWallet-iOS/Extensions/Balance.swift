@@ -9,24 +9,24 @@
 import Foundation
 
 public struct Balance: Equatable {
-    struct Currency: Equatable {
-        let title: String
-        let ticker: String?
+    public struct Currency: Equatable {
+        public let title: String
+        public let ticker: String?
     }
 
-    let currency: Currency
-    let money: Money
+    public let currency: Currency
+    public let money: Money
 }
 
 public extension Balance {
 
-    enum Sign: String, Equatable {
+    public enum Sign: String, Equatable {
         case none = ""
         case plus = "+"
         case minus = "-"
     }
 
-    func displayShortText(sign: Sign, withoutCurrency: Bool) -> String {
+    public func displayShortText(sign: Sign, withoutCurrency: Bool) -> String {
         var text = ""
         
         if withoutCurrency {
@@ -38,7 +38,7 @@ public extension Balance {
         return sign.rawValue + text
     }
     
-    func displayText(sign: Sign, withoutCurrency: Bool) -> String {
+    public func displayText(sign: Sign, withoutCurrency: Bool) -> String {
         var text = ""
 
         if withoutCurrency {
@@ -50,11 +50,11 @@ public extension Balance {
         return sign.rawValue + text
     }
 
-    var displayText: String {
+    public var displayText: String {
         return money.displayText + " " + currency.title
     }
 
-    var displayTextWithoutCurrencyName: String {
+    public var displayTextWithoutCurrencyName: String {
         return money.displayText
     }
 

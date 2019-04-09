@@ -213,7 +213,7 @@ public final class WordList {
         return bits
    }
 
-    static func generatePhrase() -> String {
+    public static func generatePhrase() -> String {
         let nbWords = 15;
         let len = nbWords / 3 * 4;
         let entropy = randomBytes(len)

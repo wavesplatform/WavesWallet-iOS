@@ -10,6 +10,7 @@ import UIKit
 import IdentityImg
 import IQKeyboardManagerSwift
 import RxSwift
+import WavesSDKExtension
 
 protocol ImportWelcomeBackViewControllerDelegate: AnyObject {
     func userCompletedInputSeed(_ keyAccount: PrivateKeyAccount)
@@ -257,7 +258,7 @@ extension ImportAccountManuallyViewController: MultilineTextFieldDelegate {
     }
     
     func multilineTextField(textField: MultilineTextField, errorTextForValue value: String) -> String? {
-        if value.count >= GlobalConstants.minimumSeedLength {
+        if value.count >= UIGlobalConstants.minimumSeedLength {
             return nil
         } else {
             return ""

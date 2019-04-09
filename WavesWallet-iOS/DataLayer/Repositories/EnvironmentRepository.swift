@@ -11,6 +11,7 @@ import Moya
 import RealmSwift
 import RxRealm
 import RxSwift
+import WavesSDKExtension
 
 private enum Constants {
     static let minServerTimestampDiff: Int64 = 1000 * 30
