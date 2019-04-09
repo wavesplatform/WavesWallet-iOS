@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import WavesSDKExtension
 
 private enum Constancts {
     static let baseUrl = "https://client.wavesplatform.com/"

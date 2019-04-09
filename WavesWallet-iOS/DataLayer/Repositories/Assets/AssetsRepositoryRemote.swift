@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import Moya
 import CSV
+import WavesSDKExtension
 
 final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     

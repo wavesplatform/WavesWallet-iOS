@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import WavesSDKExtension
 
 fileprivate enum Constants {
     static let timestamp = "timestamp"

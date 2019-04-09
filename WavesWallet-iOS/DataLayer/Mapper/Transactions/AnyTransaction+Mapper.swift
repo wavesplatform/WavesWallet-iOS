@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import WavesSDKExtension
 
 extension Node.DTO.Transaction {
 

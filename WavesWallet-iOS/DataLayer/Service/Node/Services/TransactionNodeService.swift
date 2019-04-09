@@ -8,6 +8,7 @@
 
 import Foundation
 import Moya
+import WavesSDKExtension
 
 fileprivate enum Constants {
     static let transactions = "transactions"

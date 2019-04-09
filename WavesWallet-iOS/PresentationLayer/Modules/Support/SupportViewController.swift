@@ -9,6 +9,7 @@
 import UIKit
 import Crashlytics
 import RxSwift
+import WavesSDKExtension
 
 protocol SupportViewControllerDelegate: AnyObject {
     func closeSupportView(isTestNet: Bool)

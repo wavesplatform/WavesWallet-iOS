@@ -8,6 +8,8 @@
 
 import Foundation
 import Moya
+import WavesSDKExtension
+
 
 extension API.Service {
 

@@ -8,6 +8,7 @@
 
 import Foundation
 import Moya
+import WavesSDKExtension
 
 protocol BaseTargetType: TargetType {
     var environment: Environment { get }

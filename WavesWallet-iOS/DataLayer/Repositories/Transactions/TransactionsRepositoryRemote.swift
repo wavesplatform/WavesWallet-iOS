@@ -11,6 +11,7 @@ import RxSwift
 import Moya
 import CryptoSwift
 import Base58
+import WavesSDKExtension
 
 fileprivate enum Constants {
     static let maxLimit: Int = 10000

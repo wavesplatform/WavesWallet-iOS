@@ -12,7 +12,7 @@ PODS:
     - RxCocoa (~> 4)
     - RxSwift (~> 4)
   - RxSwift (4.5.0)
-  - WavesSDK/Extensions (0.1):
+  - WavesSDK/Extensions (0.2.2):
     - Base58
     - Blake2
     - CryptoSwift (~> 0.15)
@@ -52,7 +52,7 @@ SPEC CHECKSUMS:
   RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
   RxReachability: 053f2d913db44998242ade488ccaef558f3ce7cb
   RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
-  WavesSDK: 91f011fccac029912299aac08bc98a15b0eae9ea
+  WavesSDK: 4bb07a9ca80ea6b70c6d8e078e2d896e23b01042
 
 PODFILE CHECKSUM: b3a2edff6fc7a18c6d6304d373fefb05303eff3e
 
