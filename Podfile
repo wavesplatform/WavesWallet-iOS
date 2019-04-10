@@ -59,7 +59,7 @@ target 'WavesWallet-iOS' do
 
     # Helperrs
     pod 'IdentityImg', :git => 'https://github.com/wavesplatform/identity-img-swift.git'
-    pod '25519', :git => 'https://github.com/wavesplatform/25519.git'
+    pod 'Curve25519', :git => 'https://github.com/wavesplatform/Curve25519.git'
     pod 'Base58', :git => 'https://github.com/wavesplatform/Base58.git'
     pod 'Keccak', :git => 'https://github.com/wavesplatform/Keccak.git'
     pod 'Blake2', :git => 'https://github.com/wavesplatform/Blake2.git'
