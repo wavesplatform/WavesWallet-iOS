@@ -7,8 +7,8 @@ Pod::Spec.new do |spec|
   spec.homepage     = 'https://wavesplatform.com'
   spec.authors      = { 'Mefilt' => 'Mefilt@gmail.com' }
   spec.summary      = 'Mefilt'  
-  spec.source_files =  'WavesSDK/Source/Extensions/**/*.{swift}'
-  # spec.source       = { 'path' => 'WavesSDK/Source/Extensions/**/*.{swift}' }
+  spec.source_files =  'WavesSDKSource/Extensions/**/*.{swift}'
+  # spec.source       = { 'path' => 'WavesSDKSource/Extensions/**/*.{swift}' }
   spec.source =  { 
     :git => 'https://github.com/wavesplatform/WavesSDK-iOS.git',    
     :submodules => true

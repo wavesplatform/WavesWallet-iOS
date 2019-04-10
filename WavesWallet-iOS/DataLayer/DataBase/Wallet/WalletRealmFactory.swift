@@ -9,6 +9,7 @@
 import Foundation
 import RealmSwift
 import WavesSDKExtension
+import WavesSDKCrypto
 
 fileprivate enum SchemaVersions: UInt64 {
     case version_1 = 1 // Release old version
@@ -89,7 +90,7 @@ enum WalletRealmFactory {
                         guard var assetId = oldObject?[Constants.assetIdKey] as? String else { return }
                         guard let isSpam = oldObject?[Constants.isSpamKey] as? Bool else { return }
 
-                        assetId = assetId.count == 0 ? GlobalConstants.wavesAssetId : assetId
+                        assetId = assetId.count == 0 ? WavesSDKCryptoConstants.wavesAssetId : assetId
 
                         let assetBalanceSettings = migration.create(AssetBalanceSettings.className())
                         assetBalanceSettings[Constants.assetIdKey] = assetId

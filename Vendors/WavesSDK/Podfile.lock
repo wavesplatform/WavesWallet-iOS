@@ -1,36 +1,28 @@
 PODS:
   - Base58 (0.3)
   - Blake2 (0.1)
-  - CryptoSwift (0.15.0)
+  - CryptoSwift (1.0.0)
   - Curve25519 (2.0.3)
   - Keccak (0.2)
-  - ReachabilitySwift (4.3.0)
-  - RxAtomic (4.4.2)
-  - RxCocoa (4.4.2):
-    - RxSwift (>= 4.4.2, ~> 4.4)
-  - RxReachability (0.1.8):
-    - ReachabilitySwift (~> 4.3.0)
-    - RxCocoa (~> 4)
-    - RxSwift (~> 4)
-  - RxSwift (4.4.2):
-    - RxAtomic (>= 4.4.2, ~> 4.4)
+  - RxSwift (4.5.0)
+  - WavesSDKCrypto (0.1):
+    - Base58
+    - Blake2
+    - CryptoSwift
+    - Curve25519
+    - Keccak
+    - RxSwift (~> 4.0)
+    - WavesSDKExtension
+  - WavesSDKExtension (0.1):
+    - RxSwift (~> 4.0)
 
 DEPENDENCIES:
-  - Base58
-  - Blake2
-  - CryptoSwift
-  - Curve25519
-  - Keccak
-  - RxReachability
-  - RxSwift
+  - WavesSDKCrypto (from `.`)
+  - WavesSDKExtension (from `.`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - CryptoSwift
-    - ReachabilitySwift
-    - RxAtomic
-    - RxCocoa
-    - RxReachability
     - RxSwift
   https://github.com/wavesplatform/Specs.git:
     - Base58
@@ -38,18 +30,22 @@ SPEC REPOS:
     - Curve25519
     - Keccak
 
+EXTERNAL SOURCES:
+  WavesSDKCrypto:
+    :path: "."
+  WavesSDKExtension:
+    :path: "."
+
 SPEC CHECKSUMS:
   Base58: 419d6be274b8bb6ae4649e492bee67a0c1c09230
   Blake2: 682a2367efad6a4c85ecc691acfa3f9dfceeceb0
-  CryptoSwift: 769f58a9e89f64e8796c2e59ce5f002dc81a2438
+  CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   Curve25519: 4c9483171010b27488a3bac6ee327588a1182fb4
   Keccak: 746b8f26ac04386f165f55998ca7c81666b8721d
-  ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
-  RxAtomic: d00e97c10db88c6f08540e0bf2752fc5a2404167
-  RxCocoa: 477990dc3b4c3ff55fb0ac77e1cc06244e0aaec8
-  RxReachability: 053f2d913db44998242ade488ccaef558f3ce7cb
-  RxSwift: 74c29b693c8e42b0f64400e8b06564575742d649
+  RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
+  WavesSDKCrypto: 9101d467b1b9335a2c6f948b1f31887d6c71a6e3
+  WavesSDKExtension: fd34aa4358f46503d2560adeb1747721d8cbd6c6
 
-PODFILE CHECKSUM: fbca6c42506c36da6571b7f10a196a727e097024
+PODFILE CHECKSUM: d50b8031143cb3417590bb084534f237d362bdd8
 
 COCOAPODS: 1.6.1

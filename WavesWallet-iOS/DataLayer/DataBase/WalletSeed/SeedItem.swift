@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 import Base58
 import WavesSDKExtension
+import WavesSDKCrypto
 
 class SeedItem: Object {
     @objc dynamic var publicKey: String = ""

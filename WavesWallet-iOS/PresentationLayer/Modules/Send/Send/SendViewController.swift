@@ -11,6 +11,7 @@ import RxSwift
 import RxFeedback
 import RxCocoa
 import WavesSDKExtension
+import WavesSDKCrypto
 
 protocol SendResultDelegate: AnyObject {
     func sendResultDidFail(_ error: NetworkError)
@@ -51,7 +52,7 @@ final class SendViewController: UIViewController {
     private var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
     private var amount: Money?
     private var wavesFee: Money?
-    private var feeAssetID = GlobalConstants.wavesAssetId
+    private var feeAssetID = WavesSDKCryptoConstants.wavesAssetId
     private var feeAssetBalance: DomainLayer.DTO.SmartAssetBalance?
     private var currentFee: Money?
     
@@ -77,7 +78,7 @@ final class SendViewController: UIViewController {
         else {
             if feeAssetID == asset.assetId {
                 if asset.asset.isWaves {
-                    balance = asset.availableBalance - (currentFee?.amount ?? GlobalConstants.WavesTransactionFeeAmount)
+                    balance = asset.availableBalance - (currentFee?.amount ?? WavesSDKCryptoConstants.WavesTransactionFeeAmount)
                 }
                 else {
                     balance = asset.availableBalance - (currentFee?.amount ?? 0)
@@ -188,7 +189,7 @@ final class SendViewController: UIViewController {
         guard let asset = selectedAsset?.asset else { return }
         guard let fee = currentFee else { return }
         
-        let feeName = feeAssetID == GlobalConstants.wavesAssetId ? "WAVES" : (feeAssetBalance?.asset.displayName ?? "")
+        let feeName = feeAssetID == WavesSDKCryptoConstants.wavesAssetId ? "WAVES" : (feeAssetBalance?.asset.displayName ?? "")
         var address = recipientAddressView.text
         var amount = amountWithoutFee
         var isGateway = false
@@ -498,7 +499,7 @@ private extension SendViewController {
         }
 
         wavesFee = fee
-        if feeAssetID != GlobalConstants.wavesAssetId, let asset = feeAssetBalance?.asset {
+        if feeAssetID != WavesSDKCryptoConstants.wavesAssetId, let asset = feeAssetBalance?.asset {
             currentFee = SendFee.DTO.calculateSponsoredFee(by: asset, wavesFee: fee)
         }
         else {
@@ -511,7 +512,7 @@ private extension SendViewController {
     }
     
     func updateActualFee() {
-        if feeAssetID == GlobalConstants.wavesAssetId {
+        if feeAssetID == WavesSDKCryptoConstants.wavesAssetId {
             let fee = currentFee ?? UIGlobalConstants.WavesTransactionFee
             viewFee.update(with: .init(fee: fee, assetName: nil))
         }
@@ -567,7 +568,7 @@ private extension SendViewController {
             var feeText: String = ""
             let currentFeeText = currentFee?.displayText ?? ""
             
-            if feeAssetID == GlobalConstants.wavesAssetId {
+            if feeAssetID == WavesSDKCryptoConstants.wavesAssetId {
                 feeText = currentFeeText + " " + "WAVES"
             }
             else {

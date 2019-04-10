@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import WavesSDKExtension
+import WavesSDKCrypto
 
 private enum Constants {
     static let duration: TimeInterval = 3

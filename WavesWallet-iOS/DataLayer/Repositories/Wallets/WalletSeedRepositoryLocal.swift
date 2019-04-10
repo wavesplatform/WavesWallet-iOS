@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RealmSwift
 import WavesSDKExtension
+import WavesSDKCrypto
 
 fileprivate enum Constants {
     static let schemaVersion: UInt64 = 4

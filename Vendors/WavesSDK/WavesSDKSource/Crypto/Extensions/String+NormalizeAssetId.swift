@@ -14,7 +14,7 @@ public extension Optional where Wrapped == String {
         if let id = self {
             return id
         } else {
-            return GlobalConstants.wavesAssetId
+            return WavesSDKCryptoConstants.wavesAssetId
         }
     }
 }
@@ -30,17 +30,5 @@ public extension String {
         }
 
         return self
-    }
-}
-
-//TODO: Move 
-public extension String {
-    func toUInt() -> UInt? {
-        let scanner = Scanner(string: self)
-        var u: UInt64 = 0
-        if scanner.scanUnsignedLongLong(&u)  && scanner.isAtEnd {
-            return UInt(u)
-        }
-        return nil
     }
 }

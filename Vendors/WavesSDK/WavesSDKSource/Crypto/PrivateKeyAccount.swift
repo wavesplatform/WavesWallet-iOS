@@ -34,8 +34,8 @@ public class Address {
         guard let alias = alias else { return false }
         
         return RegEx.alias(alias) &&
-            alias.count >= GlobalConstants.aliasNameMinLimitSymbols &&
-            alias.count <= GlobalConstants.aliasNameMaxLimitSymbols
+            alias.count >= WavesSDKCryptoConstants.aliasNameMinLimitSymbols &&
+            alias.count <= WavesSDKCryptoConstants.aliasNameMaxLimitSymbols
     }
     
     public class func isValidAddress(address: String?) -> Bool {

@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import WavesSDKExtension
 
-public enum GlobalConstants {
+public enum WavesSDKCryptoConstants {
     public static let aliasNameMinLimitSymbols: Int = 4
     public static let aliasNameMaxLimitSymbols: Int = 30
     public static let wavesAssetId = "WAVES"

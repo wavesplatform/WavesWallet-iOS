@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import WavesSDKExtension
+import WavesSDKCrypto
 
 private enum Constants {
     static let borderRadius: CGFloat = 2
@@ -76,7 +77,8 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
         labelAmount.isHidden = true
 
         //TODO: mb get url from enviromnets
-        loadIcon(icon: .init(name: GlobalConstants.wavesAssetId, url: nil), isSponsored: false, hasScript: false)
+        loadIcon(icon: .init(name: WavesSDKCryptoConstants.wavesAssetId,
+                             url: nil), isSponsored: false, hasScript: false)
     }
     
     func showLoadingState() {

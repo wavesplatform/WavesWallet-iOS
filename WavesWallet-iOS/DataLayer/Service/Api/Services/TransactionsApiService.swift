@@ -8,7 +8,7 @@
 
 import Foundation
 import Moya
-import WavesSDKExtension
+import WavesSDKCrypto
 
 extension API.Service {
 

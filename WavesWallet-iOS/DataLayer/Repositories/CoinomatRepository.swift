@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import Moya
 import WavesSDKExtension
+import WavesSDKCrypto
 
 private enum Response {
     
@@ -100,7 +101,7 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
     
     func cardLimits(address: String, fiat: String) -> Observable<DomainLayer.DTO.Coinomat.CardLimit> {
         
-        let cardLimit = Coinomat.Service.CardLimit(crypto: GlobalConstants.wavesAssetId,
+        let cardLimit = Coinomat.Service.CardLimit(crypto: WavesSDKCryptoConstants.wavesAssetId,
                                                    address: address,
                                                    fiat: fiat)
         return coinomatProvider.rx
@@ -109,8 +110,8 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
             .map(Response.CardLimit.self)
             .asObservable()
             .map({ (limit) -> DomainLayer.DTO.Coinomat.CardLimit in
-                let min = Money(value: Decimal(limit.min), GlobalConstants.FiatDecimals)
-                let max = Money(value: Decimal(limit.max), GlobalConstants.FiatDecimals)
+                let min = Money(value: Decimal(limit.min), WavesSDKCryptoConstants.FiatDecimals)
+                let max = Money(value: Decimal(limit.max), WavesSDKCryptoConstants.FiatDecimals)
                 return DomainLayer.DTO.Coinomat.CardLimit(min: min, max: max)
             })
     }
@@ -127,13 +128,13 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
         .map({ (response) -> Money in
             
             let string = String(data: response.data, encoding: .utf8) ?? ""
-            return Money(value: Decimal((string as NSString).doubleValue), GlobalConstants.WavesDecimals)
+            return Money(value: Decimal((string as NSString).doubleValue), WavesSDKCryptoConstants.WavesDecimals)
         })
     }
     
     func generateBuyLink(address: String, amount: Double, fiat: String) -> Observable<String> {
 
-        let params = ["crypto" : GlobalConstants.wavesAssetId,
+        let params = ["crypto" : WavesSDKCryptoConstants.wavesAssetId,
                       "address" : address,
                       "amount" : String(amount),
                       "fiat" : fiat]

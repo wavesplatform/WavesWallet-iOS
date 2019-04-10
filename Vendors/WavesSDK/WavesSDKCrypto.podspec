@@ -7,8 +7,8 @@ Pod::Spec.new do |spec|
   spec.homepage     = 'https://wavesplatform.com'
   spec.authors      = { 'Mefilt' => 'Mefilt@gmail.com' }
   spec.summary      = 'Mefilt'  
-  spec.source_files =  'WavesSDK/Source/Crypto/**/*.{swift}'
-  spec.source       = { 'path' => 'WavesSDK/Source/Crypto/**/*.{swift}' }
+  spec.source_files =  'WavesSDKSource/Crypto/**/*.{swift}'
+  spec.source       = { 'path' => 'WavesSDKSource/Crypto/**/*.{swift}' }
 
   # spec.source       = { 'git' => 'https://github.com/wavesplatform/WavesSDK-iOS.git' }
 
@@ -18,6 +18,7 @@ Pod::Spec.new do |spec|
   spec.ios.framework = 'UIKit'
   spec.ios.framework = 'Security'  
 
+  spec.dependency 'WavesSDKExtension'
   spec.dependency 'CryptoSwift'
   spec.dependency 'Curve25519'
   spec.dependency 'Base58'

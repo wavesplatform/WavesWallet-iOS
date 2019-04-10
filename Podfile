@@ -2,7 +2,7 @@ source 'https://github.com/wavesplatform/Specs.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
 # Uncomment the next line to define a global platform for your project
-platform :ios, '10.0'
+platform :ios, '11.0'
 
 # Ignore all warnings from all pods
 inhibit_all_warnings!

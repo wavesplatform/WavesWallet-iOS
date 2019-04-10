@@ -11,6 +11,7 @@ import RxFeedback
 import RxSwift
 import RxCocoa
 import WavesSDKExtension
+import WavesSDKCrypto
 
 protocol CreateAliasModuleOutput: AnyObject {
     func createAliasCompletedCreateAlias(_ alias: String)
@@ -186,10 +187,10 @@ private extension CreateAliasPresenter {
             var inputError: String? = nil
             if let text = text {
                 if RegEx.alias(text) {
-                    if text.count < GlobalConstants.aliasNameMinLimitSymbols {
+                    if text.count < WavesSDKCryptoConstants.aliasNameMinLimitSymbols {
                         state.displayState.isEnabledSaveButton = false
                         inputError = Localizable.Waves.Createalias.Error.minimumcharacters
-                    } else if text.count > GlobalConstants.aliasNameMaxLimitSymbols {
+                    } else if text.count > WavesSDKCryptoConstants.aliasNameMaxLimitSymbols {
                         state.displayState.isEnabledSaveButton = false
                         inputError = Localizable.Waves.Createalias.Error.charactersmaximum
                     } else {

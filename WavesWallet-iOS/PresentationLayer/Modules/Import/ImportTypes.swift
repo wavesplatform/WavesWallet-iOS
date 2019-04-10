@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import WavesSDKExtension
+import WavesSDKCrypto
 
 enum ImportTypes {
     enum DTO { }
