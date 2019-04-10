@@ -1,35 +1,14 @@
 source 'https://github.com/wavesplatform/Specs.git'
-# Uncomment the next line to define a global platform for your project
-platform :ios, '10.0'
+source 'https://github.com/CocoaPods/Specs.git'
 
-# Ignore all warnings from all pods
-inhibit_all_warnings!
+platform :ios, '10.0'
 
 use_frameworks!(true)
 
 # Pods for WavesSDK
-target 'WavesSDK' do
+target 'WavesSDKUI' do
 
     inherit! :search_paths
-
-    pod 'RxSwift'
-    pod 'RxReachability'
-    pod 'Curve25519'
-    pod 'Base58'
-    pod 'Keccak'
-    pod 'Blake2'
-    pod 'CryptoSwift'
-
-end
-
-post_install do |installer|
-    installer.pods_project.targets.each do |target|
-        
-        target.build_configurations.each do |config|
-
-            config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = "YES"
-            config.build_settings['SWIFT_VERSION'] = '4.2'
-            
-        end        
-    end
+    pod 'WavesSDKExtension',  :path => '.'    
+    pod 'WavesSDKCrypto',  :path => '.'    
 end

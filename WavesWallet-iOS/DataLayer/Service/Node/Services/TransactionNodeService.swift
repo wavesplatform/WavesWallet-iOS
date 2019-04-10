@@ -9,6 +9,7 @@
 import Foundation
 import Moya
 import WavesSDKExtension
+import WavesSDKCrypto
 
 fileprivate enum Constants {
     static let transactions = "transactions"

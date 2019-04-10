@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import WavesSDKExtension
 
 private enum Constants {
     static let alias = "alias"

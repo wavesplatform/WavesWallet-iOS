@@ -11,6 +11,7 @@ import RxSwift
 import RxFeedback
 import RxCocoa
 import WavesSDKExtension
+import WavesSDKCrypto
 
 final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
     
@@ -42,7 +43,7 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
             guard let self = self else { return Signal.empty() }
             
             let emptyAmount: Signal<ReceiveCard.Event> = Signal.just(.didGetPriceInfo(
-                ResponseType(output: Money(0, GlobalConstants.WavesDecimals), error: nil)))
+                ResponseType(output: Money(0, WavesSDKCryptoConstants.WavesDecimals), error: nil)))
                 .asSignal(onErrorSignalWith: Signal.empty())
             
             guard let amount = state.amount else { return emptyAmount }

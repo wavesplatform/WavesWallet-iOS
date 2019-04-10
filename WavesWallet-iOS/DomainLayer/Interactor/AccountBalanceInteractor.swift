@@ -12,6 +12,7 @@ import RealmSwift
 import RxSwift
 import RxSwiftExt
 import WavesSDKExtension
+import WavesSDKCrypto
 
 fileprivate enum Constants {
     static let durationInseconds: Double = 0
@@ -164,7 +165,7 @@ private extension AccountBalanceInteractor {
             .flatMapLatest { (leasing) -> Observable<[DomainLayer.DTO.AssetBalance]> in
                 let amount = leasing.reduce(into: Int64(0), { $0 = $0 + $1.balance.money.amount })
                 let newBalances = balances.mutate(transform: { (balance) in
-                    if balance.assetId == GlobalConstants.wavesAssetId {
+                    if balance.assetId == WavesSDKCryptoConstants.wavesAssetId {
                         balance.leasedBalance = amount
                     }
                 })

@@ -10,6 +10,7 @@ import Foundation
 import Moya
 import Base58
 import WavesSDKExtension
+import WavesSDKCrypto
 
 extension Matcher.Service {
     
@@ -150,8 +151,8 @@ fileprivate extension DomainLayer.Query.Dex.CreateOrder {
     }
     
     private var assetPair: AssetPair {
-        return .init(amountAssetId: amountAsset == GlobalConstants.wavesAssetId ? nil : amountAsset,
-                     priceAssetId: priceAsset == GlobalConstants.wavesAssetId ? nil : priceAsset)
+        return .init(amountAssetId: amountAsset == WavesSDKCryptoConstants.wavesAssetId ? nil : amountAsset,
+                     priceAssetId: priceAsset == WavesSDKCryptoConstants.wavesAssetId ? nil : priceAsset)
     }
     
     private var id: [UInt8] {

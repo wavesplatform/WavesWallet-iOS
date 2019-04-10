@@ -176,6 +176,7 @@ PODS:
     - Curve25519
     - Keccak
     - RxSwift (~> 4.0)
+    - WavesSDKExtension
   - WavesSDKExtension (0.1):
     - RxSwift (~> 4.0)
 
@@ -226,7 +227,7 @@ DEPENDENCIES:
   - "UITextView+Placeholder"
   - UPCarouselFlowLayout
   - WavesSDKCrypto (from `Vendors/WavesSDK`)
-  - WavesSDKExtension (from `Vendors/WavesSDK`)
+  - WavesSDKExtension
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -295,6 +296,7 @@ SPEC REPOS:
     - Curve25519
     - IdentityImg
     - Keccak
+    - WavesSDKExtension
 
 EXTERNAL SOURCES:
   InfiniteCollectionView:
@@ -305,8 +307,6 @@ EXTERNAL SOURCES:
   Sentry:
     :git: https://github.com/getsentry/sentry-cocoa.git
   WavesSDKCrypto:
-    :path: Vendors/WavesSDK
-  WavesSDKExtension:
     :path: Vendors/WavesSDK
 
 CHECKOUT OPTIONS:
@@ -388,9 +388,9 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
-  WavesSDKCrypto: 910046d8d1bca3b299b540860a5731ec7c97bf2f
-  WavesSDKExtension: 492631a85d57c1978f846b114e06b75545cba586
+  WavesSDKCrypto: 9101d467b1b9335a2c6f948b1f31887d6c71a6e3
+  WavesSDKExtension: 0aed017a081d980d2bef7ead4e980e9d2a5dfb12
 
-PODFILE CHECKSUM: 742a2a5f53d058eee66135b2c5adf7b7370d90a9
+PODFILE CHECKSUM: 7c62d11be868fdf522ff8b8cac654aaead2be1c6
 
 COCOAPODS: 1.6.1

@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import Moya
 import WavesSDKExtension
+import WavesSDKCrypto
 
 private enum Constants {
     static var notFoundCode = 404

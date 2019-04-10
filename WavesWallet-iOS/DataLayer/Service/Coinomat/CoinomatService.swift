@@ -9,6 +9,7 @@
 import Foundation
 import Moya
 import WavesSDKExtension
+import WavesSDKCrypto
 
 private enum Constants {
     static let url = "https://coinomat.com/"
@@ -96,7 +97,7 @@ extension Coinomat.Service {
     
     struct Price: Codable, ApiServicePath {
         
-        let crypto: String = GlobalConstants.wavesAssetId
+        let crypto: String = WavesSDKCryptoConstants.wavesAssetId
         let fiat: String
         let address: String
         let amount: Double

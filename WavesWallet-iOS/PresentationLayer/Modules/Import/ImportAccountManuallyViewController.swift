@@ -11,6 +11,7 @@ import IdentityImg
 import IQKeyboardManagerSwift
 import RxSwift
 import WavesSDKExtension
+import WavesSDKCrypto
 
 protocol ImportWelcomeBackViewControllerDelegate: AnyObject {
     func userCompletedInputSeed(_ keyAccount: PrivateKeyAccount)
