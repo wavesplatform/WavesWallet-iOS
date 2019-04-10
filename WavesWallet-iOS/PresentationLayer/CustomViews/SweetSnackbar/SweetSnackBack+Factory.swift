@@ -43,6 +43,9 @@ extension UIViewController {
         
         case .scriptError:
             return showErrorNotFoundSnackWithoutAction()
+            
+        case .authWallet:
+            return showErrorNotFoundSnackWithoutAction()
         }
     }
 }

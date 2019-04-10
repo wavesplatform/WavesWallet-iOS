@@ -43,6 +43,9 @@ extension DisplayError {
 
             case .scriptError:
                 self = .scriptError
+            
+            case .authWallet:
+                self = .notFound
             }
 
         default:
