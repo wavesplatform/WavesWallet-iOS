@@ -78,7 +78,7 @@ extension DexOrderBook.DTO {
         let percentAmount: Float
     }
     
-    struct DisplayData {
+    struct Data {
         let asks: [BidAsk]
         let lastPrice: LastPrice
         let bids: [BidAsk]
@@ -87,6 +87,11 @@ extension DexOrderBook.DTO {
         let availableAmountAssetBalance: Money
         let availableWavesBalance: Money
         let scriptedAssets: [DomainLayer.DTO.Asset]
+    }
+    
+    struct DisplayData {
+        let data: Data
+        let authWalletError: Bool
     }
 }
 
