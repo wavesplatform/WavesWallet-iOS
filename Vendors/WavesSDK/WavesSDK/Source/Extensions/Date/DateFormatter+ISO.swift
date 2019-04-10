@@ -10,8 +10,15 @@ import Foundation
 
 public extension DateFormatter {
 
+    private enum Constants {
+        static let key: String = "dateFormatter.iso"
+    }
+
     static func iso() -> DateFormatter {
-        let dateFormatter = DateFormatter.sharedFormatter
+
+        let dateFormatter = Thread
+            .threadSharedObject(key: Constants.key,
+                                create: { return DateFormatter() })
         let enUSPosixLocale = Locale(identifier: "en_US_POSIX")
         dateFormatter.locale = enUSPosixLocale
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"

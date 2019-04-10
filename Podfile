@@ -63,13 +63,9 @@ target 'WavesWallet-iOS' do
     # Helperrs
     pod 'IdentityImg'
 
-    pod 'WavesSDKExtension',  :path => 'Vendors/WavesSDK'
-    # pod '25519'
-    # pod 'Base58'
-    # pod 'Keccak'
-    # pod 'Blake2'
-    # pod 'CryptoSwift'
-    
+    pod 'WavesSDKExtension'
+    pod 'WavesSDKCrypto',  :path => 'Vendors/WavesSDK'    
+
     pod 'KeychainAccess'
     pod 'QRCode'
     pod 'QRCodeReader.swift', '~> 9.0.1'
