@@ -16,24 +16,25 @@ final class DexListInteractor: DexListInteractorProtocol {
     private let dexListRepository = FactoryRepositories.instance.dexPairsPriceRepository
     private let auth = FactoryInteractors.instance.authorization
     
-    func pairs() -> Observable<ResponseType<[DexList.DTO.Pair]>> {
+    func pairs() -> Observable<ResponseType<DexList.DTO.DisplayInfo>> {
         
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<[DexList.DTO.Pair]>> in
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<DexList.DTO.DisplayInfo>> in
             guard let self = self else { return Observable.empty() }
             
             return self.dexRealmRepository.list(by: wallet.address)
-                .flatMap({ [weak self] (pairs) -> Observable<ResponseType<[DexList.DTO.Pair]>> in
+                .flatMap({ [weak self] (pairs) -> Observable<ResponseType<DexList.DTO.DisplayInfo>> in
                                         
                     guard let self = self else { return Observable.empty() }
                     if pairs.count == 0 {
-                        return Observable.just(ResponseType(output: [], error: nil))
+                        let displayInfo = DexList.DTO.DisplayInfo(pairs: [], authWalletError: false)
+                        return Observable.just(ResponseType(output: displayInfo, error: nil))
                     } else {
 
                         let listPairs = pairs.map { DomainLayer.DTO.Dex.Pair(amountAsset: $0.amountAsset,
                                                                              priceAsset: $0.priceAsset)}
                         //TODO: Move code to other method
                         return self.dexListRepository.list(by: wallet.address, pairs: listPairs)
-                            .flatMap({ (list) -> Observable<ResponseType<[DexList.DTO.Pair]>> in
+                            .flatMap({ (list) -> Observable<ResponseType<DexList.DTO.DisplayInfo>> in
                                 
                                 var listPairs: [DexList.DTO.Pair] = []
                                 
@@ -49,9 +50,10 @@ final class DexListInteractor: DexListInteractorProtocol {
                                     listPairs.append(pair)
                                     
                                 }
-                                return Observable.just(ResponseType(output: listPairs, error: nil))
+                                let displayInfo = DexList.DTO.DisplayInfo(pairs: listPairs, authWalletError: false)
+                                return Observable.just(ResponseType(output: displayInfo, error: nil))
                             })
-                        .catchError({ (error) -> Observable<ResponseType<[DexList.DTO.Pair]>> in
+                        .catchError({ (error) -> Observable<ResponseType<DexList.DTO.DisplayInfo>> in
                             if let error = error as? NetworkError {
                                 return Observable.just(ResponseType(output: nil, error: error))
                             }
@@ -60,8 +62,9 @@ final class DexListInteractor: DexListInteractorProtocol {
                     }
             })
         })
-        .catchError({ (error) -> Observable<ResponseType<[DexList.DTO.Pair]>> in
-            return Observable.just(ResponseType(output: nil, error: NetworkError.authWallet))
+        .catchError({ (error) -> Observable<ResponseType<DexList.DTO.DisplayInfo>> in
+            let displayInfo = DexList.DTO.DisplayInfo(pairs: [], authWalletError: true)
+            return Observable.just(ResponseType(output: displayInfo, error: nil))
         })
     }
 }

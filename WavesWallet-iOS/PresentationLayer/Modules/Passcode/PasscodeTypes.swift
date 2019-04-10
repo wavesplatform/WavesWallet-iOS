@@ -54,8 +54,6 @@ extension PasscodeTypes {
             case .scriptError:
                 return .notFound
                 
-            case .authWallet:
-                return .notFound
             }
 
         case let authError as AuthorizationInteractorError:
