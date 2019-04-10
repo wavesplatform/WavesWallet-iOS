@@ -149,6 +149,10 @@ fileprivate extension DexListViewController {
                     
                 case .update:
                     self.hideErrorIfExist()
+                    
+                    if state.authWalletError {
+                        return
+                    }
                     self.tableView.isHidden = false
                     self.globalErrorView.isHidden = true
                     self.sections = state.sections
@@ -190,10 +194,6 @@ private extension DexListViewController {
     func setupErrorState(error: NetworkError, isFirstLoadingData: Bool) {
         
         refreshControl.endRefreshing()
-        
-        if error == .authWallet {
-            return
-        }
         
         if isFirstLoadingData {
             globalErrorView.isHidden = false
