@@ -60,5 +60,8 @@ final class DexListInteractor: DexListInteractorProtocol {
                     }
             })
         })
+        .catchError({ (error) -> Observable<ResponseType<[DexList.DTO.Pair]>> in
+            return Observable.just(ResponseType(output: nil, error: NetworkError.authWallet))
+        })
     }
 }

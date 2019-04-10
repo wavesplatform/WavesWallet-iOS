@@ -21,6 +21,7 @@ enum NetworkError: Error, Equatable {
     case internetNotWorking
     case serverError
     case scriptError
+    case authWallet
     
     var isInternetNotWorking: Bool {
         switch self {

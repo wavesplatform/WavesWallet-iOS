@@ -191,6 +191,10 @@ private extension DexListViewController {
         
         refreshControl.endRefreshing()
         
+        if error == .authWallet {
+            return
+        }
+        
         if isFirstLoadingData {
             globalErrorView.isHidden = false
             tableView.isHidden = true
