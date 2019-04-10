@@ -8,21 +8,29 @@ Pod::Spec.new do |spec|
   spec.authors      = { 'Mefilt' => 'Mefilt@gmail.com' }
   spec.summary      = 'Mefilt'  
   spec.source_files =  'WavesSDK/Source/Extensions/**/*.{swift}'
-  
-  spec.source       = { 'path' => 'WavesSDK/Source/Extensions/**/*.{swift}' }
-  # spec.source       = { 'git' => 'https://github.com/wavesplatform/WavesSDK-iOS.git' }
+  # spec.source       = { 'path' => 'WavesSDK/Source/Extensions/**/*.{swift}' }
+  spec.source =  { 
+    :git => 'https://github.com/wavesplatform/WavesSDK-iOS.git',    
+    :submodules => true
+  }
 
+  # spec.source       = { 'git' => 'https://github.com/wavesplatform/WavesSDK-iOS.git' }
   spec.dependency 'RxSwift', '~> 4.0'
-  spec.dependency 'RxReachability', '~> 0.1.8'    
-  spec.dependency 'CryptoSwift'
-  spec.dependency 'Curve25519'
-  spec.dependency 'Base58'
-  spec.dependency 'Keccak'
-  spec.dependency 'Blake2'
   
-  spec.ios.framework = 'CoreTelephony'
   spec.ios.framework = 'Foundation'
   spec.ios.framework = 'UIKit'
-  spec.ios.framework = 'Security'  
+  # spec.ios.framework = 'Security'  
+
+  # spec.dependency 'RxSwift', '~> 4.0'  
+  # spec.dependency 'CryptoSwift'
+  # spec.dependency 'Curve25519'
+  # spec.dependency 'Base58'
+  # spec.dependency 'Keccak'
+  # spec.dependency 'Blake2'
+  
+  # spec.ios.framework = 'CoreTelephony'
+  # spec.ios.framework = 'Foundation'
+  # spec.ios.framework = 'UIKit'
+  # spec.ios.framework = 'Security'  
 
 end
