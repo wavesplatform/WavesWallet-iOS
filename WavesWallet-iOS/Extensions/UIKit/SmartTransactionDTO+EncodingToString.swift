@@ -187,7 +187,7 @@ extension DomainLayer.DTO.SmartTransaction {
     }
 
     private var dateData: String {
-        let formatter = DateFormatter.sharedFormatter
+        let formatter = DateFormatter.uiSharedFormatter(key: TransactionCard.Constants.transactionCardDateFormatterKey)
         formatter.dateFormat = "dd.MM.yyyy at HH:mm"
         return "Date: \(formatter.string(from: timestamp))\n"
     }

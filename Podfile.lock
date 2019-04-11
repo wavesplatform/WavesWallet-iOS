@@ -226,7 +226,7 @@ DEPENDENCIES:
   - TTTAttributedLabel
   - "UITextView+Placeholder"
   - UPCarouselFlowLayout
-  - WavesSDKCrypto (from `Vendors/WavesSDK`)
+  - WavesSDKCrypto
   - WavesSDKExtension
 
 SPEC REPOS:
@@ -296,6 +296,7 @@ SPEC REPOS:
     - Curve25519
     - IdentityImg
     - Keccak
+    - WavesSDKCrypto
     - WavesSDKExtension
 
 EXTERNAL SOURCES:
@@ -306,8 +307,6 @@ EXTERNAL SOURCES:
     :git: https://github.com/wavesplatform/RESideMenu.git
   Sentry:
     :git: https://github.com/getsentry/sentry-cocoa.git
-  WavesSDKCrypto:
-    :path: Vendors/WavesSDK
 
 CHECKOUT OPTIONS:
   InfiniteCollectionView:
@@ -388,9 +387,9 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
-  WavesSDKCrypto: 9101d467b1b9335a2c6f948b1f31887d6c71a6e3
-  WavesSDKExtension: 0aed017a081d980d2bef7ead4e980e9d2a5dfb12
+  WavesSDKCrypto: bfed1f3affffe60720891437d58476c308588f02
+  WavesSDKExtension: 481915050282acd448e0945dbffb4937213c0a5f
 
-PODFILE CHECKSUM: 7c62d11be868fdf522ff8b8cac654aaead2be1c6
+PODFILE CHECKSUM: d39063502e29cb70a6034277ed192689b72cc00c
 
 COCOAPODS: 1.6.1
