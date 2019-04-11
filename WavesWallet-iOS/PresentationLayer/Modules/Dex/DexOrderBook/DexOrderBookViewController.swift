@@ -14,7 +14,7 @@ import RxFeedback
 private enum Constansts {
     static let emptyButtonsTitle: String = "0.000"
     static let loadingButtonsTitle: String = "—"
-    static let updateTime: RxTimeInterval = 20
+    static let updateTime: RxTimeInterval = 5
 }
 
 final class DexOrderBookViewController: UIViewController {
