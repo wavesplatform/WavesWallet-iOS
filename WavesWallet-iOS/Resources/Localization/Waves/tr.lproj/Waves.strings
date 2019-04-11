@@ -1,1170 +1,637 @@
-
 "Receivecard.Label.minimunAmountInfo" = "Minimum %@, Maksimum %@";
-
 "Send.Label.Error.notFundsFeeGateway" = "Komisyonları ödemek için yeterli bakiyeniz bulunmamaktadır. İşlem için %@ komisyon ödemeniz ve geçit için %@ komisyon ödemeniz gerekmektedir.";
-
 "Send.Label.Warning.description" = "Herhangi bir ICO'ya katılmak için %@ çekmeyin. ICO'dan elde edeceğiniz kripto paraları hesabınıza tanımlayamayız.";
-
 "Send.Label.Warning.subtitle" = "%@ Adresini tespit ettik. Bu adrese gönderimler Coinomat geçidi tarafından yapılacaktır. Minimum %@, Maksimum %@.";
-
 "accountpassword.button.signIn.title" = "Giriş Yap";
-
 "accountpassword.error.wrongpassword" = "Hatalı Parola";
-
 "accountpassword.textfield.error.atleastcharacters" = "Minimum %d karakter";
-
 "accountpassword.textfield.password.placeholder" = "Hesap parolası";
-
 "addAddressbook.button.cancel" = "İptal";
-
 "addAddressbook.button.delete" = "Sil";
-
 "addAddressbook.button.deleteAddress" = "Adresi sil";
-
 "addAddressbook.button.save" = "Kaydet";
-
 "addAddressbook.error.charactersMaximum" = "Maksimum %d karakter";
-
 "addAddressbook.error.charactersMinimum" = "Minimum %d karakter";
-
 "addAddressbook.label.add" = "Ekle";
-
 "addAddressbook.label.address" = "Adres";
-
 "addAddressbook.label.deleteAlertMessage" = "Adres defterinden bu hesabı silmek istediğinizden emin misiniz?";
-
 "addAddressbook.label.edit" = "Güncelle";
-
 "addAddressbook.label.name" = "İsim";
-
 "addAddressbook.textfield.address.error.addressexist" = "Zaten kullanımda";
-
 "addressbook.label.addressBook" = "Adres defteri";
-
 "addressbook.label.addressDeleted" = "Adres silindi";
-
 "addressbook.label.noInfo" = "Burada Hiç bir şey yok…\nYeni bir adres oluşturabilirsiniz";
-
 "addresseskeys.cell.address.title" = "Adresiniz";
-
 "addresseskeys.cell.aliases.subtitle.withaliaces" = "Elinizde %d";
-
 "addresseskeys.cell.aliases.subtitle.withoutaliaces" = "Sahip değilsiniz";
-
 "addresseskeys.cell.aliases.title" = "Takma ad";
-
 "addresseskeys.cell.privatekey.title" = "Özel anahtar";
-
 "addresseskeys.cell.privatekeyhidde.button.title" = "Göster";
-
 "addresseskeys.cell.publickey.title" = "Genel anahtar";
-
 "addresseskeys.cell.seed.title" = "Anahtar kelimeler";
-
 "addresseskeys.navigation.title" = "Adressler ve şifreler";
-
 "aliases.cell.head.title" = "Takma adların";
-
 "aliases.view.info.button.create" = "Yeni bir takma ad oluştur";
-
 "aliases.view.info.label.secondsubtitle" = "Takma adınız 4 ile 30 karakter arasında olabilir ve sadece küçük Latin harflerinden, rakamlardan ve sembollerden (@, -, _ ve nokta) oluşabilir.";
-
 "aliases.view.info.label.subtitle" = "Kripto para transferi yaparken adres satırına takma adları girerek transferi gerçekleştirebilirsiniz.";
-
 "aliases.view.info.label.title" = "Takma ad hakkında";
-
 "aliaseswithout.view.info.button.create" = "Yeni bir takma ad oluştur";
-
 "aliaseswithout.view.info.label.secondsubtitle" = "Takma adınız 4 ile 30 karakter arasında olabilir ve sadece küçük Latin harflerinden, rakamlardan ve sembollerden (@, -, _ ve nokta) oluşabilir.";
-
 "aliaseswithout.view.info.label.subtitle" = "Kripto para transferi yaparken adres satırına takma adları girerek transferi gerçekleştirebilirsiniz.";
-
 "aliaseswithout.view.info.label.title" = "Takma adınız bulunmamaktadır";
-
 "appnews.button.okey" = "Tamam";
-
 "asset.cell.assetInfo.cantPerformTransactions" = "Bu kripto para ile transfer gerçekleştiremezsiniz";
-
 "asset.cell.assetInfo.decimalPoints" = "Ondalık";
-
 "asset.cell.assetInfo.description" = "Tanım";
-
 "asset.cell.assetInfo.id" = "ID";
-
 "asset.cell.assetInfo.issueDate" = "Oluşturulma tarihi";
-
 "asset.cell.assetInfo.issuer" = "Oluşturan";
-
 "asset.cell.assetInfo.kind.notReissuable" = "Tekrar üretilemez";
-
 "asset.cell.assetInfo.kind.reissuable" = "Tekrar üretilebilir";
-
 "asset.cell.assetInfo.kind.title" = "Tip";
-
 "asset.cell.assetInfo.name" = "Ad";
-
 "asset.cell.assetInfo.title" = "Kripto para bilgisi";
-
 "asset.cell.assetInfo.totalAmount" = "Toplam Miktar";
-
 "asset.cell.balance.avaliableBalance" = "Kullanılabilir bakiye";
-
 "asset.cell.balance.button.exchange" = "Takas";
-
 "asset.cell.balance.button.receive" = "Al";
-
 "asset.cell.balance.button.send" = "Gönder";
-
 "asset.cell.balance.inOrderBalance" = "Emir girilmiş";
-
 "asset.cell.balance.leased" = "Kiralanmış";
-
 "asset.cell.balance.totalBalance" = "Toplam";
-
 "asset.cell.viewHistory" = "İşlem geçmişi";
-
 "asset.header.lastTransactions" = "Son işlemler";
-
 "asset.header.notHaveTransactions" = "Herhangi bir işleminiz bulunmamaktadır";
-
 "assetlist.button.allList" = "Tam liste";
-
 "assetlist.button.myList" = "Bakiyesi bulunan";
-
 "assetlist.button.withBalance" = "Bakiye bulunan";
-
 "assetlist.label.assets" = "Kripto paralar";
-
 "assetlist.label.loadingAssets" = "Kripto paralar yükleniyor…";
-
 "backup.backup.navigation.title" = "Anahtar kelimeler";
-
 "backup.confirmbackup.button.confirm" = "Onayla";
-
 "backup.confirmbackup.error.label" = "Hatalı talep, tekrar deneyin";
-
 "backup.confirmbackup.info.label" = "Her bir kelimeye doğru sıra ile dokunun";
-
 "backup.confirmbackup.navigation.title" = "Yedeği doğrula";
-
 "backup.needbackup.button.backupnow" = "Şimdi yedekle";
-
 "backup.needbackup.button.doitlater" = "Daha sonra yap";
-
 "backup.needbackup.label.detail" = "Anahtar kelimelerinizi kaydetmeniz zorunludur. Aksi halde hesabınıza erişemeyebilirsiniz.";
-
 "backup.needbackup.label.title" = "Yedek yoksa, para da yok!";
-
 "backup.savebackup.copy.label.title" = "Lütfen 15 kelimeyi dikkatlice not alın veya kopyalayın.";
-
 "backup.savebackup.label.title" = "Hesabınızı sadece siz kontrol edersiniz. Uygulamanın silinmesi durumuna karşı Anahtar kelimelerinizi mutlaka kaydedin.";
-
 "backup.savebackup.navigation.title" = "Anahtar kelimeleri yedekle";
-
 "backup.savebackup.next.button.title" = "Not aldım";
-
 "backup.savebackup.next.label.title" = "Bu kelimeleri bir sonraki ekranda doğrulayacaksınız.";
-
 "biometric.localizedCancelTitle" = "İptal";
-
 "biometric.localizedFallbackTitle" = "Pin'inizi girin";
-
 "biometric.manyattempts.subtitle" = "Biyometrik kilidini açmak için hesap şifrenizle giriş yapın";
-
 "biometric.manyattempts.title" = "Çok fazla deneme";
-
 "biometric.readfromkeychain" = "Cüzdanınıza erişin";
-
 "biometric.saveinkeychain" = "Cüzdanınıza erişin";
-
 "cameraAccess.alert.allow" = "Kameraya İzin Ver";
-
 "cameraAccess.alert.cancel" = "İptal";
-
 "cameraAccess.alert.message" = "Bu uygulamanın tam kullanımını sağlamak için kamera erişimi gereklidir";
-
 "cameraAccess.alert.title" = "Kamera Erişimi Gerekir";
-
 "changepassword.button.confirm.title" = "Doğrula";
-
 "changepassword.navigation.title" = "Parolayı değiştir";
-
 "changepassword.textfield.confirmpassword.title" = "Parolayı doğrula";
-
 "changepassword.textfield.createpassword.title" = "Yeni parola";
-
 "changepassword.textfield.error.atleastcharacters" = "Minimum %d karakter";
-
 "changepassword.textfield.error.incorrectpassword" = "hatalı parola";
-
 "changepassword.textfield.error.passwordnotmatch" = "parolalar eşleşmiyor";
-
 "changepassword.textfield.oldpassword.title" = "Eski parola";
-
 "chooseaccount.alert.button.no" = "İptal";
-
 "chooseaccount.alert.button.ok" = "Evet";
-
 "chooseaccount.alert.delete.message" = "Bu hesabı silmek istediğinizden emin misiniz?";
-
 "chooseaccount.alert.delete.title" = "Hesabı sil";
-
 "chooseaccount.label.nothingWallets" = "Burada bir şey yok…\nKayıtlı hesabınız bulunmamaktadır.";
-
 "chooseaccount.navigation.title" = "Hesabı seç";
-
 "coinomat.temporarilyUnavailable" = "Coinomat geçici olarak servis dışıdır.";
-
 "coinomat.tryAgain" = "Daha sonra tekrar deneyiniz.";
-
 "createalias.button.create.title" = "Oluştur";
-
 "createalias.cell.input.textfiled.input.placeholder" = "Sembolik isim";
-
 "createalias.cell.input.textfiled.input.title" = "Sembolik isim";
-
 "createalias.error.alreadyinuse" = "Zaten kullanılmakta";
-
 "createalias.error.charactersmaximum" = "Maksimum 30 karakter";
-
 "createalias.error.invalidcharacter" = "Hatalı karakter";
-
 "createalias.error.minimumcharacters" = "Minimum 4 karakter";
-
 "createalias.navigation.title" = "Yeni takma ad";
-
 "dex.general.error.nothingHere" = "Burada bir şey yok…";
-
 "dex.general.error.somethingWentWrong" = "Bir şeyler ters gitti";
-
 "dexchart.button.cancel" = "İptal";
-
 "dexchart.label.emptyData" = "Grafik bulunmamaktadır";
-
 "dexchart.label.hour" = "saat";
-
 "dexchart.label.hours" = "saatler";
-
 "dexchart.label.loadingChart" = "Grafikler yükleniyor…";
-
 "dexchart.label.minutes" = "dakikalar";
-
 "dexcompleteorder.button.okey" = "Tamam";
-
 "dexcompleteorder.label.amount" = "Miktar";
-
 "dexcompleteorder.label.open" = "Aç";
-
 "dexcompleteorder.label.orderIsCreated" = "emir girildi";
-
 "dexcompleteorder.label.price" = "Fiyat";
-
 "dexcompleteorder.label.status" = "Durum";
-
 "dexcompleteorder.label.time" = "Zaman";
-
 "dexcreateorder.button.ask" = "Ask";
-
 "dexcreateorder.button.bid" = "Bid";
-
 "dexcreateorder.button.buy" = "Al";
-
 "dexcreateorder.button.cancel" = "İptal";
-
 "dexcreateorder.button.day" = "gün";
-
 "dexcreateorder.button.days" = "günler";
-
 "dexcreateorder.button.hour" = "saat";
-
 "dexcreateorder.button.last" = "En son";
-
 "dexcreateorder.button.minutes" = "dakikalar";
-
 "dexcreateorder.button.sell" = "Sat";
-
 "dexcreateorder.button.useTotalBalanace" = "Kullanılabilir bakiyenin tamamı";
-
 "dexcreateorder.button.week" = "hafta";
-
 "dexcreateorder.label.Expiration" = "Geçerlilik";
-
 "dexcreateorder.label.amountIn" = "Miktar";
-
 "dexcreateorder.label.bigValue" = "Değer çok büyük";
-
 "dexcreateorder.label.days" = "günler";
-
 "dexcreateorder.label.error.notFundsFee" = "Komisyonu ödemek için yeterli bakiyeniz bulunmamaktadır";
-
 "dexcreateorder.label.fee" = "Komisyon";
-
 "dexcreateorder.label.limitPriceIn" = "Limit fiyat";
-
 "dexcreateorder.label.notEnough" = "yeterli değil";
-
 "dexcreateorder.label.smallValue" = "Miktar çok az";
-
 "dexcreateorder.label.totalIn" = "toplam";
-
 "dexinfo.label.amountAsset" = "Miktar";
-
 "dexinfo.label.popular" = "Popüler";
-
 "dexinfo.label.priceAsset" = "Fiyat";
-
 "dexlasttrades.button.buy" = "AL";
-
 "dexlasttrades.button.sell" = "SAT";
-
 "dexlasttrades.label.amount" = "Miktar";
-
 "dexlasttrades.label.emptyData" = "Burada bir şey yok…\nTakas geçmişi boş";
-
 "dexlasttrades.label.loadingLastTrades" = "Son işlemler yükleniyor";
-
 "dexlasttrades.label.price" = "Fiyat";
-
 "dexlasttrades.label.sum" = "Toplam";
-
 "dexlasttrades.label.time" = "Zaman";
-
 "dexlist.button.addMarkets" = "Pazar ekle";
-
 "dexlist.label.decentralisedExchange" = "Merkezsiz Borsa";
-
 "dexlist.label.description" = "Hızlı ve güvenli bir şekilde takas yapın. Merkezsiz borsada işlem yaparken tüm kripto paralarınızın kontrolü sizin elinizdedir.";
-
 "dexlist.label.lastUpdate" = "Son güncelleme";
-
 "dexlist.label.price" = "Fiyat";
-
 "dexlist.label.today" = "Bugün";
-
 "dexlist.label.yesterday" = "Dün";
-
 "dexlist.navigationBar.title" = "DEX";
-
 "dexmarket.label.loadingMarkets" = "Pazarlar yükleniyor…";
-
 "dexmarket.navigationBar.title" = "Pazarlar";
-
 "dexmarket.searchBar.placeholder" = "Ara";
-
 "dexmyorders.label.buy" = "Al";
-
 "dexmyorders.label.emptyData" = "Burada bir şey yok…\nHerhangi bir emriniz bulunmamaktadır.";
-
 "dexmyorders.label.loadingLastTrades" = "Emirler yükleniyor…";
-
 "dexmyorders.label.price" = "Fiyat";
-
 "dexmyorders.label.sell" = "Sat";
-
 "dexmyorders.label.status" = "Durum";
-
 "dexmyorders.label.status.accepted" = "Aç";
-
 "dexmyorders.label.status.cancelled" = "İptal edilmiş";
-
 "dexmyorders.label.status.filled" = "Doldurulmuş";
-
 "dexmyorders.label.status.partiallyFilled" = "Parçalı";
-
 "dexmyorders.label.time" = "Zaman";
-
 "dexorderbook.button.buy" = "AL";
-
 "dexorderbook.button.sell" = "SAT";
-
 "dexorderbook.label.amount" = "Miktar";
-
 "dexorderbook.label.emptyData" = "Burada bir şey yok…\nTakas geçmişi boş";
-
 "dexorderbook.label.lastPrice" = "SON FİYAT";
-
 "dexorderbook.label.loadingOrderbook" = "Emir tahtası yükleniyor";
-
 "dexorderbook.label.price" = "Fiyat";
-
 "dexorderbook.label.spread" = "SPREAD";
-
 "dexorderbook.label.sum" = "Toplam";
-
 "dexsort.navigationBar.title" = "Sıralama";
-
 "dextradercontainer.button.chart" = "Grafik";
-
 "dextradercontainer.button.lastTrades" = "Son takaslar";
-
 "dextradercontainer.button.myOrders" = "Benim takaslarım";
-
 "dextradercontainer.button.orderbook" = "Emir Tahtası";
-
 "editaccountname.button.save" = "Kaydet";
-
 "editaccountname.label.newName" = "Yeni hesap adı";
-
 "editaccountname.navigation.title" = "Adı güncelle";
-
 "enter.block.blockchain.text" = "Kripto para dünyasının hızla büyüyen alanının bir parçası olun. Kripto paralarınıza sizden başkası erişemez.";
-
 "enter.block.blockchain.title" = "Blok zincirinin bir parçası olun";
-
 "enter.block.exchange.text" = "Hızlı ve güvenli bir şekilde takas yapın! Waves Platform merkezsiz borsasında işlem yaparak kripto paralarınız üzerinde tam hakimiyete sahip olursunuz.";
-
 "enter.block.exchange.title" = "Merkezsiz borsa";
-
 "enter.block.token.text" = "Üreteceğiniz kripto paralarınızı merkezsiz oylamalar, derecelendirme sistemleri veya sadakat programları gibi amaçlar için de kullanabilirsiniz.";
-
 "enter.block.token.title" = "Kendi Kripto Paranızı Yaratın";
-
 "enter.block.wallet.text" = "Dijital varlıklarınızı kolay ve güvenli bir şekilde saklayın, yönetin veya kiralayın!";
-
 "enter.block.wallet.title" = "Cüzdan";
-
 "enter.button.confirm.title" = "Onayla";
-
 "enter.button.createNewAccount.title" = "Yeni cüzdan oluştur";
-
 "enter.button.importAccount.detail" = "Kod eşleme veya manuel";
-
 "enter.button.importAccount.error.insecureSeed" = "Anahtar kelimeler güvenli değil";
-
 "enter.button.importAccount.title" = "Hesabı içe aktar";
-
 "enter.button.signIn.detail" = "kayıtlı bir hesaba";
-
 "enter.button.signIn.title" = "Giriş yap";
-
 "enter.label.or" = "veya";
-
 "enter.language.navigation.title" = "Dil ayarları";
-
 "general.biometric.faceID.title" = "Face ID";
-
 "general.biometric.touchID.title" = "Touch ID";
-
 "general.error.subtitle.notfound" = "Merak etmeyin, bu problemi çözmek üzereyiz.\nYakında her şey çalışacak!";
-
 "general.error.title.noconnectiontotheinternet" = "İnternet bağlantısı yok";
-
 "general.error.title.notfound" = "Eyvah, bozuldu!";
-
 "general.label.title.myasset" = "/ Benim kripto param";
-
 "general.tabbar.title.dex" = "DEX";
-
 "general.tabbar.title.history" = "Geçmiş";
-
 "general.tabbar.title.profile" = "Profil";
-
 "general.tabbar.title.wallet" = "Cüzdan";
-
 "general.ticker.title.cryptocurrency" = "Kripto para";
-
 "general.ticker.title.fiatmoney" = "Fiat Para";
-
 "general.ticker.title.spam" = "SPAM";
-
 "general.ticker.title.wavestoken" = "Waves Token";
-
 "general.tost.saveBackup.subtitle" = "Anahtar kelimelerinizi kaydedin, bu sizin cüzdanınıza tekrar ulaşmanızın tek yoludur!";
-
 "general.tost.saveBackup.title" = "Anahtar (SEED) kelimelerinizi yedekleyin";
-
 "hello.button.continue" = "Devam";
-
 "hello.button.next" = "Sonraki";
-
-"hello.button.understand" = "Anladım";
-
 "hello.page.info.fifth.detail.first" = "Bilmediğiniz biri tarafından gönderilen mailleri ve linkleri açmayın.";
-
 "hello.page.info.fifth.detail.fourth" = "Ortak Wi-fi alanlarında veya bir başkasının cihazında hesabınıza erişmeyin.";
-
 "hello.page.info.fifth.detail.second" = "İşletim sisteminizi güncel tutun";
-
 "hello.page.info.fifth.detail.third" = "Resmi yazılımları kullanın. Hacklenme ihtimali olan yazılımları kullanmayın.";
-
 "hello.page.info.fifth.title" = "Hesabınızı nasıl korursunuz?";
-
 "hello.page.info.first.detail" = "Lütfen kendi güvenliğiniz için önemli bilgileri içeren bu bilgilendirmeyi okuyunuz.\n\nEğer anahtar kelimelerinizi kaybederseniz veya çaldırırsanız hesabınızı donduramayız ve varlıklarınızı tekrar alamayız.\n\nWaves Platform'u kullanmaya devam ederek, anahtar kelimelerinizi kaybettiğinizde veya çaldırdığınızda Waves Platform'un sorumlu olmadığını kabul etmiş olursunuz.";
-
 "hello.page.info.first.title" = "Waves Platform'a hoş geldiniz!";
-
 "hello.page.info.fourth.detail" = "En sık karşılaşılan dolandırıcılık yöntemi Waves Platform'a benzeyen sahte web siteleri, Facebook sayfaları olarak karşımıza çıkmaktadır.";
-
 "hello.page.info.fourth.title" = "Kendinizi nasıl koruyacaksınız?";
-
 "hello.page.info.second.detail" = "Hesabınızı oluştururken sizden anahtar kelimelerinizi saklamanız ve bir parola ile korumanız istenecektir. Merkezi sunucularda parolanız e-posta adresinize gönderilen bir link ile sıfırlanabilir ancak Waves Platform gibi merkezsiz borsalarda bu durum daha farklıdır.";
-
 "hello.page.info.second.title" = "Anahtar kelimeler (SEED) hakkında bilmeniz gerekenler";
-
 "hello.page.info.third.detail.first" = "Hesabınızı anonim olarak kullanırsınız. Hesabınız herhangi bir e-posta adresine veya kimliğiniz ile eşleşen bir hizmet sağlayıcıya bağlı değildir.";
-
 "hello.page.info.third.detail.fourth" = "Anahtar kelimelerinizi değiştiremezsiniz. Eğer yanlışlıkla birine gönderirseniz veya çaldırırsanız en kısa sürede yeni bir cüzdan oluşturarak tüm varlıklarınızı bu yeni cüzdanınıza aktarın.";
-
 "hello.page.info.third.detail.second" = "Bağlı bulunduğunuz cihazdan veya tarayıcıdan cüzdanınıza erişim için parolanızı kullanırsınız.";
-
 "hello.page.info.third.detail.third" = "Eğer parolanızı kaybederseniz anahtar kelimeleriniz ile yeni bir parola oluşturabilirsiniz. Ancak anahtar kelimelerinizi kaybederseniz bir daha hesabınıza erişemezsiniz.";
-
 "hello.page.info.third.title" = "Anahtar kelimeleriniz hakkında bilmeniz gerekenler";
-
 "history.navigationBar.title" = "Geçmiş";
-
 "history.segmentedControl.activeNow" = "Aktif";
-
 "history.segmentedControl.all" = "Hepsi";
-
 "history.segmentedControl.canceled" = "İptal edilen";
-
 "history.segmentedControl.exchanged" = "Takas edilen";
-
 "history.segmentedControl.issued" = "Oluşturulan";
-
 "history.segmentedControl.leased" = "Kiralanan";
-
 "history.segmentedControl.received" = "Alınan";
-
 "history.segmentedControl.sent" = "Gönderilen";
-
 "history.transaction.cell.exchange.buy" = "Al: %@/%@";
-
 "history.transaction.cell.exchange.sell" = "Sat: %@/%@";
-
 "history.transaction.title.alias" = "Takma ad oluştur";
-
 "history.transaction.title.canceledLeasing" = "İptal edilen kiralama";
-
 "history.transaction.title.data" = "Veri işlemi";
-
 "history.transaction.title.exchange" = "Takas";
-
 "history.transaction.title.incomingLeasing" = "Gelen Kiralama";
-
 "history.transaction.title.massreceived" = "Toplu gönderim alındı";
-
 "history.transaction.title.masssent" = "Toplu gönderim yapıldı";
-
 "history.transaction.title.received" = "Alınan";
-
 "history.transaction.title.receivedSponsorship" = "Sponsorlu alınan";
-
 "history.transaction.title.selfTransfer" = "Transfer";
-
 "history.transaction.title.sent" = "Gönderildi";
-
 "history.transaction.title.setAssetScript" = "Blokzinciri girdisi";
-
 "history.transaction.title.setScript" = "Blokzinciri girdisi";
-
 "history.transaction.title.startedLeasing" = "Kiralandı";
-
 "history.transaction.title.tokenBurn" = "Kripto Para Yakma";
-
 "history.transaction.title.tokenGeneration" = "Kripto Para Oluşturma";
-
 "history.transaction.title.tokenReissue" = "Kripto Para Tekrar oluşturma";
-
 "history.transaction.title.unrecognisedTransaction" = "Tanımlanmayan işlem";
-
 "history.transaction.value.data" = "Blok zinciri girdisi";
-
 "history.transaction.value.setAssetScript" = "Kripto para için script ayarla";
-
 "history.transaction.value.setScript.cancel" = "Script işlemini iptal et";
-
 "history.transaction.value.setScript.set" = "Script işlemi ayarla";
-
 "history.transaction.value.setSponsorship.cancel" = "Sponsorlu işlemi iptal et";
-
 "history.transaction.value.setSponsorship.set" = "Sponsorlu işlem ayarla";
-
 "import.account.button.enter.title" = "Anahtar kelimelerinizi girin";
-
 "import.account.button.scan.title" = "Eşleşme kodunu tara";
-
 "import.account.label.info.step.one.detail" = "Ayarlar — Genel — Hesabı dışa aktar";
-
 "import.account.label.info.step.one.title" = "Waves uygulamasına PC'nizden veya Mac'inizden giriş yapın https://client.wavesplatform.com";
-
 "import.account.label.info.step.two.title" = "«Eşleme kodunu Göster» 'e tıklayarak QR koda ulaşın ve kameranız ile tarayın.";
-
 "import.account.navigation.title" = "Hesabı içe aktar";
-
 "import.general.error.alreadyinuse" = "Zaten kullanılmakta";
-
 "import.general.navigation.title" = "Hesabı içe aktar";
-
 "import.general.segmentedControl.manually" = "Manuel olarak";
-
 "import.general.segmentedControl.scan" = "Tara";
-
 "import.manually.button.continue" = "Devam";
-
 "import.manually.label.address.placeholder" = "Anahtar kelimeleriniz hesabınızı oluştururken size verilen 15 Kelimeden oluşmaktadır.";
-
 "import.manually.label.address.title" = "Anahtar kelimeleriniz";
-
 "import.password.button.continue" = "Devam";
-
 "import.scan.button.title" = "Eşleşme kodunu tara";
-
 "import.scan.label.step.one.title" = "Waves uygulamasına PC'nizden veya Mac'inizden giriş yapın ";
-
 "import.scan.label.step.three.title" = "Kodu kameranız ile tarayın";
-
 "import.scan.label.step.two.detail" = "Ayarlar — Genel — Export account";
-
 "import.scan.label.step.two.title" = "«Eşleme kodunu Göster» 'e tıklayarak QR koda ulaşın";
-
 "import.welcome.button.continue" = "Devam";
-
 "import.welcome.label.address.placeholder" = "Anahtar kelimeleriniz hesabınızı oluştururken size verilen 15 Kelimeden oluşmaktadır.";
-
 "import.welcome.label.address.title" = "Anahtar kelimeleriniz";
-
 "import.welcome.navigation.title" = "Hoş geldiniz";
-
-"legal.checkbox.box.button.confirm" = "Onaylayın ve başlayın";
-
-"legal.checkbox.box.first" = "Kripto varlıklarımın herhangi bir şirket tarafından saklanmadığını ve bu cihazda güvenle benim tarafımdan saklandığını anladım.";
-
-"legal.checkbox.box.second" = "Eğer uygulamayı başka bir cihaza taşımam gerekirse veya uygulama silinirse cüzdanıma erişmemin tek yolunun Anahtar (yedek) kelimeler olduğunu ve başka hiç bir şekilde erişemeyeceğimi biliyorum.";
-
-"legal.checkbox.box.subtitle" = "Waves Başkadır";
-
-"legal.checkbox.box.termsOfUse" = "Kullanım koşulları";
-
-"legal.checkbox.box.third" = "Okudum, anladım ve onaylıyorum";
-
-"legal.checkbox.box.title" = "Bitti!";
-
+"hello.page.confirm.title" = "Onaylayın ve başlayın";
+"hello.page.confirm.description1" = "I understand that my funds are held securely on this device, not by a company. If this app is moved to another device or deleted, my Waves can only be recovered with the backup phrase.";
+"hello.page.confirm.description2" = "I have read and agree with the Privacy Policy";
+"hello.page.confirm.button.privacyPolicy" = "Gizlilik politikası";
+"hello.page.confirm.description3" = "I have read and agree with the Terms and Conditions";
 "menu.button.supportwavesplatform" = "Waves Platform'u destekle";
-
 "menu.button.termsandconditions" = "Koşullar ve şartlar";
-
 "menu.button.whitepaper" = "Whitepaper";
-
 "menu.label.communities" = "Waves Topluluğuna katıl";
-
 "menu.label.description" = "Waves Platform ile ilgili son haberleri, makaleleri ve etkinlikleri kaçırmayın.";
-
 "myaddress.button.copy.title" = "Kopyala";
-
 "myaddress.button.share.title" = "Paylaş";
-
 "myaddress.cell.aliases.subtitle.withaliaces" = "Mevcut %d";
-
 "myaddress.cell.aliases.subtitle.withoutaliaces" = "Yetersiz";
-
 "myaddress.cell.aliases.title" = "Takma adlar";
-
 "myaddress.cell.info.title" = "Adresleriniz";
-
 "myaddress.cell.qrcode.title" = "QR kodunuz";
-
 "networksettings.button.save.title" = "Kaydet";
-
 "networksettings.button.setdefault.title" = "Varsayılan olarak ayarla";
-
 "networksettings.label.switchspam.title" = "Spam filtresi";
-
 "networksettings.navigation.title" = "Ağ";
-
 "networksettings.textfield.spamfilter.title" = "Spam filtresi";
-
 "newaccount.avatar.detail" = "Daha sonra değiştiremezsiniz";
-
 "newaccount.avatar.title" = "Adresinize özel avatarınızı seçin";
-
 "newaccount.backup.navigation.title" = "Yeni Hesap";
-
 "newaccount.error.noavatarselected" = "Avatar seçilmedi";
-
 "newaccount.main.navigation.title" = "Yeni Hesap";
-
 "newaccount.secret.navigation.title" = "Yeni Hesap";
-
 "newaccount.textfield.accountName.title" = "Hesap adı";
-
 "newaccount.textfield.confirmpassword.title" = "Parolayı onayla";
-
 "newaccount.textfield.createpassword.title" = "Parola oluştur";
-
 "newaccount.textfield.error.atleastcharacters" = "Minimum %d karakter";
-
 "newaccount.textfield.error.charactersmaximum" = "Maksimum %d karakter";
-
 "newaccount.textfield.error.doesnotmatch" = "Eşleşmiyor";
-
 "newaccount.textfield.error.maximumcharacters" = "Maksimum %d karakter";
-
 "newaccount.textfield.error.minimumcharacters" = "Minimum %d karakter";
-
 "newaccount.textfield.error.passwordnotmatch" = "Parolalar eşleşmiyor";
-
 "newaccount.textfield.error.wrongordertryagain" = "Hatalı emir, tekrar deneyin";
-
 "passcode.alert.attempsended.button.cancel" = "İptal";
-
 "passcode.alert.attempsended.button.enterpassword" = "Şifre kullan";
-
 "passcode.alert.attempsended.button.ok" = "Tamam";
-
 "passcode.alert.attempsended.subtitle" = "Açmak için hesap parolanız ile giriş yapın";
-
 "passcode.alert.attempsended.title" = "Çok fazla deneme";
-
 "passcode.button.forgotPasscode.title" = "Hesap parolasını kullanın";
-
 "passcode.label.forgotPasscode.title" = "Pin'inizi mi unuttunuz?";
-
 "passcode.label.passcode.create" = "Pin oluşturun";
-
 "passcode.label.passcode.enter" = "Pin'inizi girin";
-
 "passcode.label.passcode.old" = "Eski pin'inizi girin";
-
 "passcode.label.passcode.verify" = "Pin'inizi doğrulayın";
-
 "profile.alert.deleteAccount.button.cancel" = "İptal";
-
 "profile.alert.deleteAccount.button.delete" = "Sil";
-
 "profile.alert.deleteAccount.message" = "Hesabınızı bu cihazdan silmek istiyor musunuz?";
-
 "profile.alert.deleteAccount.notSaveSeed" = "SEED'inizi kaydetmediniz";
-
 "profile.alert.deleteAccount.title" = "Hesabı sil";
-
 "profile.alert.deleteAccount.withoutbackup.message" = "Hesabı silmek tekrar döndürülemeyen kayıplara yol açabilir!";
-
 "profile.alert.setupbiometric.button.cancel" = "İptal";
-
 "profile.alert.setupbiometric.button.settings" = "Ayarlar";
-
 "profile.alert.setupbiometric.message" = "Hızlı ve güvenli giriş yapmak için biyometriyi etkinleştirmek üzere ayarlara gidin";
-
 "profile.alert.setupbiometric.title" = "Biyometri devre dışı";
-
 "profile.button.delete.title" = "Bu cihazdan hesabı sil";
-
 "profile.button.logout.title" = "Hesaptan çıkış yap";
-
 "profile.cell.addressbook.title" = "Adres defteri";
-
 "profile.cell.addresses.title" = "Adresler, anahtarlar";
-
 "profile.cell.backupphrase.title" = "Anahtar kelimeler";
-
 "profile.cell.changepasscode.title" = "Pin'i değiştir";
-
 "profile.cell.changepassword.title" = "Parolayı değiştir";
-
 "profile.cell.currentheight.title" = "Mevcut blok";
-
 "profile.cell.feedback.title" = "Geri bildirim";
-
 "profile.cell.info.currentheight.title" = "Mevcut blok";
-
 "profile.cell.info.version.title" = "Versiyon";
-
 "profile.cell.language.title" = "Dil";
-
 "profile.cell.network.title" = "Ağ";
-
 "profile.cell.pushnotifications.title" = "Bildirimler";
-
 "profile.cell.rateApp.title" = "Uygulamayı değerlendir";
-
 "profile.cell.supportwavesplatform.title" = "Waves Platform'u destekle";
-
 "profile.header.general.title" = "Genel ayarlar";
-
 "profile.header.other.title" = "Diğer";
-
 "profile.header.security.title" = "Güvenlik";
-
 "profile.language.navigation.title" = "Dil";
-
 "profile.navigation.title" = "Profil";
-
 "receive.button.card" = "Kart";
-
 "receive.button.continue" = "Devam";
-
 "receive.button.cryptocurrency" = "Kripto para";
-
 "receive.button.invoice" = "Fatura";
-
 "receive.button.useTotalBalance" = "Toplam bakiyeyi kullan";
-
 "receive.error.serviceUnavailable" = "Hizmet geçici olarak kullanılamıyor";
-
 "receive.label.amount" = "Miktar";
-
 "receive.label.amountIn" = "Giren miktar";
-
 "receive.label.asset" = "Kripto para";
-
 "receive.label.receive" = "Al";
-
 "receive.label.selectYourAsset" = "Kripto paranızı seçin";
-
 "receiveaddress.button.cancel" = "İptal";
-
 "receiveaddress.button.close" = "Kapat";
-
 "receiveaddress.button.copied" = "Kopyalandı!";
-
 "receiveaddress.button.copy" = "Kopyala";
-
 "receiveaddress.button.share" = "Paylaş";
-
 "receiveaddress.label.linkToInvoice" = "Faturaya link ver";
-
 "receiveaddress.label.yourAddress" = "%@ adresin";
-
 "receiveaddress.label.yourQRCode" = "QR Kodun";
-
 "receivecard.button.cancel" = "İptal";
-
 "receivecard.label.changeCurrency" = "Para birimini değiştir";
-
 "receivecard.label.warningInfo" = "Kartınızdan ödeme yapmak için ilgili siteye yönlendirileceksiniz.";
-
 "receivecardcomplete.button.okay" = "Tamam";
-
 "receivecardcomplete.label.afterPaymentUpdateBalance" = "Ödemeden sonra bakiyeniz güncellenecek";
-
 "receivecardcomplete.label.redirectToIndacoin" = "«Indacoin»'e yönlendirileceksiniz";
-
 "receivecryptocurrency.label.minumumAmountOfDeposit" = "Minimum yatırma tutarı %@";
-
 "receivecryptocurrency.label.sendOnlyOnThisDeposit" = "Bu adrese sadece %@ gönderin";
-
 "receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "Eğer %@'nin altında gönderim yaparsanız paranızı kaybedersiniz.";
-
 "receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Bu adrese başka bir kripto para gönderilmesi kayıplara yol açabilir.";
-
 "receivecryptocurrency.label.warningSmartContracts.subtitle" = "Cüzdanınızın veya Kripto para borsasının %@ çekimlerinde akıllı kontrat kullanıp kullanmadığını kontrol edin. Akıllı kontratlar tarafından gelen transferleri kabul edemiyoruz. Paranızı kaybedersiniz.";
-
 "receivecryptocurrency.label.warningSmartContracts.title" = "%@ akıllı kontratlarından yatırma işlemi yapmayınız. ERC20 tokenleri yatırmayınız! Sadece %@ transferleri kabul edilir.";
-
 "receivegenerate.label.generate" = "Oluştur…";
-
 "receivegenerate.label.yourAddress" = "%@ adresin";
-
 "receiveinvoice.label.dollar" = "US Dollar";
-
 "scannerqrcode.label.scan" = "QR'yi Tara";
-
 "send.button.chooseFromAddressBook" = "Adres defterinden seç";
-
 "send.button.continue" = "Devam";
-
 "send.button.useTotalBalanace" = "Tüm bakiyeyi kullan";
-
 "send.label.addressNotValid" = "Bu adres geçerli değil";
-
 "send.label.amount" = "Miktar";
-
 "send.label.dollar" = "US Dollar";
-
 "send.label.error.insufficientFunds" = "Yetersiz bakiye";
-
 "send.label.error.invalidId" = "Geçersiz ID";
-
 "send.label.error.maximum" = "Maksimum %@ %@";
-
 "send.label.error.minimun" = "Minimum %@ %@";
-
 "send.label.error.notFundsFee" = "Komisyonu ödemek için yeterli bakiyeniz yok.";
-
-"send.label.gatewayFee" = "Geçit komisyonu";
-
+"send.label.gatewayFee" = "Geçit komisyonu —";
 "send.label.moneroPaymentId" = "Monero Ödeme ID'si";
-
 "send.label.recipient" = "Alıcı";
-
 "send.label.recipientAddress" = "Alıcı adresi…";
-
 "send.label.send" = "Gönder";
-
 "send.textField.placeholderPaymentId" = "Ödeme ID'nizi girin";
-
 "sendcomplete.button.okey" = "Tamam";
-
 "sendcomplete.label.saveThisAddress" = "Bu adresi kaydetmek istiyor musunuz?";
-
 "sendcomplete.label.transactionIsOnWay" = "Transferiniz yolda!";
-
 "sendcomplete.label.youHaveSent" = "Gönderdiniz";
-
 "sendconfirmation.button.confim" = "Onayla";
-
 "sendconfirmation.label.confirmation" = "Onaylar";
-
 "sendconfirmation.label.description" = "Tanım";
-
 "sendconfirmation.label.descriptionIsTooLong" = "Tanımınız çok uzun";
-
 "sendconfirmation.label.dollar" = "US Dollar";
-
 "sendconfirmation.label.fee" = "Komisyon";
-
 "sendconfirmation.label.optionalMessage" = "İsteğe bağlı bir mesaj yazın";
-
 "sendconfirmation.label.sentTo" = "Gönderildi";
-
 "sendfee.label.notAvailable" = "Uygun değil";
-
 "sendfee.label.transactionFee" = "İşlem komisyonu";
-
 "sendloading.label.sending" = "Gönderiliyor…";
-
 "serverDisconnect.label.subtitle" = "Mobil veya Wi-Fi internet bağlantınızı kontrol edin";
-
 "serverDisconnect.label.title" = "İnternet bağlantısı yok";
-
 "serverEngineering.label.subtitle" = "Merhaba, şu anda uygulamayı geliştirmek adına çok önemli bir işin üzerindeyiz";
-
 "serverEngineering.label.title" = "Mühendislik çalışır";
-
 "serverError.button.retry" = "Tekrar deneyin";
-
 "serverError.button.sendReport" = "Rapor gönder";
-
 "serverError.label.allBroken" = "Eyvah, bozuldu!";
-
 "serverError.label.allBrokenDescription" = "Merak etmeyin, bu problemi çözmek üzereyiz.\nYakında her şey çalışacak!";
-
 "serverError.label.noInternetConnection" = "İnternet bağlantısı yok";
-
 "serverError.label.noInternetConnectionDescription" = "Mobil veya Wi-Fi internet bağlantınızı kontrol edin";
-
 "serverError.label.subtitle" = "Merak etmeyin, bu problemi çözmek üzereyiz.\nYakında her şey çalışacak!";
-
 "serverError.label.title" = "Eyvah, bozuldu!";
-
 "startleasing.button.chooseFromAddressBook" = "Adres defterinden seç";
-
 "startleasing.button.startLease" = "Kiralamayı başlat";
-
 "startleasing.button.useTotalBalanace" = "Tüm bakiyeyi kullan";
-
 "startleasing.button.useTotalBalance" = "Tüm bakiyeyi kullan";
-
 "startleasing.label.addressIsNotValid" = "Adres geçerli değil";
-
 "startleasing.label.amount" = "Miktar";
-
 "startleasing.label.balance" = "Bakiye";
-
 "startleasing.label.generator" = "Oluşturan";
-
 "startleasing.label.insufficientFunds" = "Yetersiz bakiye";
-
 "startleasing.label.nodeAddress" = "Node adresi…";
-
 "startleasing.label.notEnough" = "Yetersiz";
-
 "startleasing.label.startLeasing" = "Kiralamayı başlat";
-
 "startleasingcomplete.button.okey" = "Tamam";
-
 "startleasingcomplete.label.youHaveCanceledTransaction" = "Kiralamayı iptal ettiniz";
-
 "startleasingcomplete.label.youHaveLeased" = "Kiraladınız: %@ %@";
-
 "startleasingcomplete.label.yourTransactionIsOnWay" = "Transfer yolda!";
-
 "startleasingconfirmation.button.cancelLeasing" = "Kiralamayı iptal et";
-
 "startleasingconfirmation.button.confirm" = "Onayla";
-
 "startleasingconfirmation.label.TXID" = "TXID";
-
 "startleasingconfirmation.label.confirmation" = "Onaylar";
-
 "startleasingconfirmation.label.fee" = "Komisyon";
-
 "startleasingconfirmation.label.leasingTX" = "Kiralama TX";
-
 "startleasingconfirmation.label.nodeAddress" = "Node adresi";
-
 "startleasingloading.label.cancelLeasing" = "Kiralamayı iptal et…";
-
 "startleasingloading.label.startLeasing" = "Kiralamayı başlat…";
-
 "tokenBurn.button.burn" = "Yak";
-
 "tokenBurn.button.continue" = "Devam";
-
 "tokenBurn.button.okey" = "Tamam";
-
 "tokenBurn.button.useTotalBalanace" = "Tüm bakiyeyi kullan";
-
 "tokenBurn.label.confirmation" = "Onaylar";
-
 "tokenBurn.label.error.insufficientFunds" = "Yetersiz bakiye";
-
 "tokenBurn.label.error.notFundsFee" = "Komisyonu ödemek için yeterli bakiyeniz yok.";
-
 "tokenBurn.label.fee" = "Komisyon";
-
 "tokenBurn.label.id" = "ID";
-
 "tokenBurn.label.loading" = "Yak…";
-
 "tokenBurn.label.notReissuable" = "Tekrar oluşturulamaz";
-
 "tokenBurn.label.quantityTokensBurned" = "Yakılacak miktar";
-
 "tokenBurn.label.reissuable" = "Tekrar oluşturulabilir";
-
 "tokenBurn.label.tokenBurn" = "Kripto para yak";
-
 "tokenBurn.label.transactionIsOnWay" = "Transfer yolda!";
-
 "tokenBurn.label.type" = "Tip";
-
 "tokenBurn.label.youHaveBurned" = "Yaktığınız";
-
 "transaction.error.commission.receiving" = "Komisyon hatası";
-
 "transactionFee.label.transactionFee" = "İşlem komisyonu";
-
 "transactionScript.button.okey" = "Tamam";
-
 "transactionScript.label.subtitle" = "Scriptli bir hesap üzerinde çalışmak için Waves Client'ı kullanın";
-
 "transactionScript.label.title" = "Hesabınıza script yüklendi";
-
-"transactionhistory.button.copied" = "Kopyalandı";
-
-"transactionhistory.button.copyAllData" = "Tüm verileri kopyala";
-
-"transactionhistory.button.copyTXId" = "İşlem ID'sini kopyala";
-
+"transactioncard.title.copied" = "Kopyalandı";
+"transactioncard.title.copyAllData" = "Tüm verileri kopyala";
+"transactioncard.title.copyTXID" = "İşlem ID'sini kopyala";
 "transactionhistory.cell.block" = "Blok";
-
-"transactionhistory.cell.button.cancelLeasing" = "Kiralamayı iptal et";
-
-"transactionhistory.cell.button.sendAgain" = "Tekrar gönder";
-
-"transactionhistory.cell.buy" = "Al: %@/%@";
-
-"transactionhistory.cell.confirmations" = "Onaylar";
-
+"transactioncard.title.cancelLeasing" = "Kiralamayı iptal et";
+"transactioncard.title.sendAgain" = "Tekrar gönder";
+"transactioncard.title.exchange.buyPair" = "Al: %@/%@";
+"transactioncard.title.confirmations" = "Onaylar";
 "transactionhistory.cell.dataTransaction" = "Veri işlemi";
-
 "transactionhistory.cell.fee" = "Komisyon";
-
-"transactionhistory.cell.from" = "Kimde";
-
+"transactioncard.title.from" = "Kimde";
 "transactionhistory.cell.id" = "ID";
-
 "transactionhistory.cell.leasingTo" = "Kiralanan";
-
-"transactionhistory.cell.notReissuable" = "Tekrar oluşturulamaz";
-
+"transactioncard.title.notReissuable" = "Tekrar oluşturulamaz";
 "transactionhistory.cell.price" = "Fiyat";
-
-"transactionhistory.cell.receivedFrom" = "Alındı";
-
+"transactioncard.title.receivedFrom" = "Alındı";
 "transactionhistory.cell.recipient" = "Alıcı";
-
 "transactionhistory.cell.recipients" = "Alıcılar";
-
-"transactionhistory.cell.reissuable" = "Tekrar oluşturulabilir";
-
-"transactionhistory.cell.sell" = "Sat: %@/%@";
-
-"transactionhistory.cell.sentTo" = "Gönderildi";
-
-"transactionhistory.cell.status.at" = " ";
-
-"transactionhistory.cell.status.button.activeNow" = "Şu anda aktif";
-
-"transactionhistory.cell.status.button.completed" = "Tamamlanan";
-
-"transactionhistory.cell.status.button.unconfirmed" = "Onaylanmayan";
-
-"transactionhistory.cell.status.timestamp" = "Zaman Damgası";
-
+"transactioncard.title.reissuable" = "Tekrar oluşturulabilir";
+"transactioncard.title.exchange.sellPair" = "Sat: %@/%@";
+"transactioncard.title.sentTo" = "Gönderildi";
+"transactionhistory.cell.status.at" = "en";
+"transactioncard.title.activeNow" = "Şu anda aktif";
+"transactioncard.title.completed" = "Tamamlanan";
+"transactioncard.title.unconfirmed" = "Onaylanmayan";
+"transactioncard.title.timestamp" = "Zaman Damgası";
 "transactionhistory.cell.type" = "Tip";
-
-"transactionhistory.copy.amount" = "Miktar";
-
+"transactioncard.title.amount" = "Miktar";
 "transactionhistory.copy.date" = "Zaman";
-
-"transactionhistory.copy.fee" = "Komisyon";
-
+"transactioncard.title.fee" = "Komisyon";
 "transactionhistory.copy.recipient" = "Alıcı";
-
 "transactionhistory.copy.sender" = "Gönderen";
-
 "transactionhistory.copy.transactionId" = "İşlem ID'si";
-
 "transactionhistory.copy.type" = "Tip";
-
 "usetouchid.button.notNow.text" = "Şimdi değil";
-
 "usetouchid.button.useBiometric.text" = "%@ kullan";
-
 "usetouchid.label.detail.text" = "%@ kullanarak hesabınıza daha hızlı ve kolay erişin";
-
 "usetouchid.label.title.text" = "%@ kullanarak giriş yap";
-
 "wallet.button.startLease" = "Kiralamayı başlat";
-
 "wallet.label.available" = "Kullanılabilir";
-
 "wallet.label.leased" = "Kiralanmış";
-
 "wallet.label.leasedIn" = "Kiralanmış";
-
 "wallet.label.myAssets" = "Benim kripto param";
-
 "wallet.label.quickNote.description.first" = "Sadece kiralanmamış WAVES'lerinizi transfer veya takas edebilirsiniz. Kiralanmış miktarlar başka bir adrese gönderilemez veya takas amacı ile kullanılamaz.";
-
 "wallet.label.quickNote.description.second" = "Kiralama işlemini dilediğiniz zaman iptal edebilirsiniz. İptal işlemi saniyeler içerisinde gerçekleşir.";
-
 "wallet.label.quickNote.description.third" = "Üretim bakiyesi 1000 Blok sonra güncellenecektir.";
-
 "wallet.label.startedLeasing" = "Kiralama başladı";
-
 "wallet.label.totalBalance" = "Toplam bakiye";
-
 "wallet.label.viewHistory" = "İşlem geçmişi";
-
 "wallet.navigationBar.title" = "Cüzdan";
-
 "wallet.section.activeNow" = "Şu anda aktif (%d)";
-
 "wallet.section.hiddenAssets" = "Gizlenmiş kripto paralar (%d)";
-
 "wallet.section.quickNote" = "Hızlı not";
-
 "wallet.section.spamAssets" = "Spam kripto paralar (%d)";
-
 "wallet.segmentedControl.assets" = "Kripto paralar";
-
 "wallet.segmentedControl.leasing" = "Kiralama";
-
 "walletsort.button.position" = "Pozisyon";
-
 "walletsort.button.visibility" = "Görünürlük";
-
 "walletsort.navigationBar.title" = "Sıralama";
-
 "wavespopup.button.exchange" = "Takas";
-
 "wavespopup.button.receive" = "Al";
-
 "wavespopup.button.send" = "Gönder";
-
 "wavespopup.label.comingsoon" = "Yakında!";
+"dexScriptAssetMessage.label.title" = "Akıllı kripto para içeren bir çift için emir girme";
+"dexScriptAssetMessage.label.description" = "Akıllı kripto paralar, kripto paraların dolaşım standartlarını belirleyen Scriptlerden oluşur. \n\nDeneyimsiz bir kullanıcı iseniz akllı kripto paralar ile işlem yapmanızı önermiyoruz. Bir işlem yapmadan önce akıllı kripto paralar ve Script'ler ile ilgili bilgileri dikkatlice okuyunuz.";
+"dexScriptAssetMessage.button.continue" = "Devam";
+"dexScriptAssetMessage.button.cancel" = "İptal";
+"dexScriptAssetMessage.button.doNotShowAgain" = "Tekrar gösterme";
+"hello.page.confirm.button.termsAndConditions" = "Koşullar ve şartlar";
+"hello.button.begin" = "Başla";
+"hello.page.confirm.subtitle" = "Waves cüzdanınızdaki tüm veriler şifrelenir ve sadece cihazınızda depolanır";
+"import.account.warning.seed.title" = "Anahtar Kelimeler 15 kelimeden oluşmaktadır ve her kelimenin arasında bir boşluk vardır.";
+"import.account.warning.seed.subtitle" = "Girdiğiniz Anahtar Kelimeler çok kısadır. Anahtar kelimeler ile cüzdan adresinizi karıştırmadığınızdan emin olun. Anahtar kelimeler yerine cüzdan adresinin kullanılması kayıplara neden olabilir.";
+"dexmyorders.label.type" = "Tip";
+"transactioncard.title.startedLeasing" = "Kiralama başladı";
+"transactioncard.title.canceledLeasing" = "İptal edilen kiralama";
+"transactioncard.title.nodeAddress" = "Node adresi";
+"transactioncard.title.description" = "Tanım";
+"transactioncard.title.asset" = "Kripto para";
+"transactioncard.title.price" = "Fiyat";
+"transactioncard.title.status" = "Durum";
+"transactioncard.timestamp.format" = "dd.MM.yyyy HH:mm";
+"transactioncard.title.block" = "Blok";
+"transactioncard.title.massSent" = "Toplu gönderim yapıldı";
+"transactioncard.title.massReceived" = "Toplu gönderim alındı";
+"transactioncard.title.exchange.buy" = "Al";
+"transactioncard.title.exchange.sell" = "Sat";
+"transactioncard.title.recipient" = "#%@ Alıcı";
+"transactioncard.title.receivedSponsorship" = "Sponsorlu alınan";
+"transactioncard.title.setAssetScript" = "Kripto para için script ayarla";
+"transactioncard.title.disableSponsorship" = "Sponsorlu işlemi iptal et";
+"transactioncard.title.setSponsorship" = "Sponsorlu işlem ayarla";
+"transactioncard.title.selfTransfer" = "Transfer";
+"transactioncard.title.received" = "Alınan";
+"transactioncard.title.spamReceived" = "Spam Alınan";
+"transactioncard.title.cancelScriptTransaction" = "Script işlemini iptal et";
+"transactioncard.title.setScriptTransaction" = "Script işlemi ayarla";
+"transactioncard.title.dataTransaction" = "Veri işlemi";
+"transactioncard.title.entryInBlockchain" = "Blok zinciri girdisi";
+"transactioncard.title.unrecognisedTransaction" = "Tanımlanmayan işlem";
+"transactioncard.title.createAlias" = "Takma ad oluştur";
+"transactioncard.title.tokenReissue" = "Kripto Para Tekrar oluşturma";
+"transactioncard.title.tokenGeneration" = "Kripto Para Oluşturma";
+"transactioncard.title.tokenBurn" = "Kripto para yak";
+"transactioncard.title.sent" = "Gönderildi";
+"transactioncard.title.assetId" = "Kripto Para ID";
+"transactioncard.title.viewOnExplorer" = "Explorer'da görüntüle";
+"transactioncard.title.amountPerTransaction" = "işlem başına düşen miktar";
+"transactioncard.title.showAll" = "Hepsini göster (%@)";
+"addressBookButton.title.editName" = "Adı düzenle";
+"addressBookButton.title.saveAddress" = "Adresi kaydet";
+"send.label.error.sendingToSpamAsset" = "Spam olarak işaretlenen kripto paraya kaynak aktaramazsınız";
+"send.label.error.assetIsNotValid" = "Bu kripto para geçerli değil";
+"transactioncard.title.cancelOrder" = "Cancel order";
+"transactioncard.title.cancelled" = "Cancelled (%@%%)";
+"transactioncard.title.total" = "Toplam";
+"transactioncard.title.incomingLeasing" = "Gelen Kiralama";
+"transactioncard.title.leasingFrom" = "Leasing from";

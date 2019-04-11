@@ -1,5 +1,4 @@
 PODS:
-  - 25519 (2.0.2)
   - Alamofire (4.8.1)
   - Amplitude-iOS (4.6.0)
   - AppsFlyerFramework (4.9.0)
@@ -13,6 +12,7 @@ PODS:
     - Fabric (~> 1.9.0)
   - CryptoSwift (0.15.0)
   - CSV.swift (2.3.1)
+  - Curve25519 (2.0.3)
   - DeviceKit (1.12.0)
   - Fabric (1.9.0)
   - Firebase/Auth (5.19.0):
@@ -171,7 +171,6 @@ PODS:
   - UPCarouselFlowLayout (1.1.2)
 
 DEPENDENCIES:
-  - 25519 (from `https://github.com/wavesplatform/25519.git`)
   - Amplitude-iOS
   - AppsFlyerFramework
   - AppSpectorSDK
@@ -181,6 +180,7 @@ DEPENDENCIES:
   - Crashlytics
   - CryptoSwift
   - CSV.swift
+  - Curve25519 (from `https://github.com/wavesplatform/Curve25519.git`)
   - DeviceKit (~> 1.3)
   - Fabric
   - Firebase/Auth
@@ -285,12 +285,12 @@ SPEC REPOS:
     - UPCarouselFlowLayout
 
 EXTERNAL SOURCES:
-  '25519':
-    :git: https://github.com/wavesplatform/25519.git
   Base58:
     :git: https://github.com/wavesplatform/Base58.git
   Blake2:
     :git: https://github.com/wavesplatform/Blake2.git
+  Curve25519:
+    :git: https://github.com/wavesplatform/Curve25519.git
   IdentityImg:
     :git: https://github.com/wavesplatform/identity-img-swift.git
   InfiniteCollectionView:
@@ -304,15 +304,15 @@ EXTERNAL SOURCES:
     :git: https://github.com/getsentry/sentry-cocoa.git
 
 CHECKOUT OPTIONS:
-  '25519':
-    :commit: b7eb7b9b951d0503669c991af371a27fdefa28ee
-    :git: https://github.com/wavesplatform/25519.git
   Base58:
     :commit: caf9297d5667ab575a79c25671a470c1da48267c
     :git: https://github.com/wavesplatform/Base58.git
   Blake2:
     :commit: 7a95d2703487a487ff65e4fc0d9a4c41162952be
     :git: https://github.com/wavesplatform/Blake2.git
+  Curve25519:
+    :commit: 301c37b15b7c63ed20bd9a1419893ac080a5146c
+    :git: https://github.com/wavesplatform/Curve25519.git
   IdentityImg:
     :commit: d44a40a2334c9cb7c0a76d6dde36fd8cc9266e28
     :git: https://github.com/wavesplatform/identity-img-swift.git
@@ -330,7 +330,6 @@ CHECKOUT OPTIONS:
     :git: https://github.com/getsentry/sentry-cocoa.git
 
 SPEC CHECKSUMS:
-  '25519': 2c284bd04dc489ee6c3ad5f04339480a5bcae042
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   Amplitude-iOS: ac1715ae68104b7a51723209ad574f60ab22ae5f
   AppsFlyerFramework: f57e5d590ad3124d3e594a76032a181bc91ec6cd
@@ -341,6 +340,7 @@ SPEC CHECKSUMS:
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
   CryptoSwift: 769f58a9e89f64e8796c2e59ce5f002dc81a2438
   CSV.swift: d16f671b3090a2c0525d5f2165b18319074aae2b
+  Curve25519: 260e0ef19be48c2f0b711e518fefeca0da3b3b19
   DeviceKit: f5dbd2e70cafd420d6a09379b8800cdf5fe92ba5
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   Firebase: c60d49e9c2630875a96207d15e2affb8364996d1
@@ -398,6 +398,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: db76558de8c08e866171a77527ba51c1ecc05342
+PODFILE CHECKSUM: 36e10b82154e556d53f2cf11f30152dab2d5f974
 
 COCOAPODS: 1.6.1

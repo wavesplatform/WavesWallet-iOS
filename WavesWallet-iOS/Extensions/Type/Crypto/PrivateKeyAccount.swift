@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import _25519
+import Curve25519
 
 class Address {
     static let AddressVersion: UInt8 = 1
