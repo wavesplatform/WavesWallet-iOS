@@ -1,0 +1,3 @@
+[submodule "Vendors/WavesSDK"]
+	path = Vendors/WavesSDK
+	url = git@github.com:wavesplatform/WavesSDK-iOS.git
