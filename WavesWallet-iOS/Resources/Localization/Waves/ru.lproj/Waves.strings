@@ -1,1170 +1,637 @@
-
 "Receivecard.Label.minimunAmountInfo" = "Минимум %@, максимум %@";
-
 "Send.Label.Error.notFundsFeeGateway" = "У вас недостаточно средств для отправки транзакции. Вы должны оплатить комиссию %@ и %@ gateway комиссию.";
-
 "Send.Label.Warning.description" = "Не выводите %@ на адреса ICO, так как мы не зачислим вам токены полученные после окончания распродажи.";
-
 "Send.Label.Warning.subtitle" = "Введенный адрес определен как %@, ваши средства будут отправлены на него через шлюз Coinomat. Минимальная сумма перевода — %@, максимальная — %@.";
-
 "accountpassword.button.signIn.title" = "Войти";
-
 "accountpassword.error.wrongpassword" = "Неправильный пароль";
-
 "accountpassword.textfield.error.atleastcharacters" = "Минимум %d символов";
-
 "accountpassword.textfield.password.placeholder" = "Пароль от аккаунта";
-
 "addAddressbook.button.cancel" = "Отменить";
-
 "addAddressbook.button.delete" = "Удалить";
-
 "addAddressbook.button.deleteAddress" = "Удалить адрес";
-
 "addAddressbook.button.save" = "Сохранить";
-
 "addAddressbook.error.charactersMaximum" = "Максимум %d";
-
 "addAddressbook.error.charactersMinimum" = "Минимум %d символов";
-
 "addAddressbook.label.add" = "Добавить";
-
 "addAddressbook.label.address" = "Адрес";
-
 "addAddressbook.label.deleteAlertMessage" = "Вы действительно хотите удалить адрес из адресной книги?";
-
 "addAddressbook.label.edit" = "Изменить";
-
 "addAddressbook.label.name" = "Имя";
-
 "addAddressbook.textfield.address.error.addressexist" = "Уже используется";
-
 "addressbook.label.addressBook" = "Адресная книга";
-
 "addressbook.label.addressDeleted" = "Адрес удален";
-
 "addressbook.label.noInfo" = "Пока ничего нет…\nВы можете добавить адрес";
-
 "addresseskeys.cell.address.title" = "Ваш адрес";
-
 "addresseskeys.cell.aliases.subtitle.withaliaces" = "У вас есть %d";
-
 "addresseskeys.cell.aliases.subtitle.withoutaliaces" = "У вас их нет";
-
 "addresseskeys.cell.aliases.title" = "Алиасы";
-
 "addresseskeys.cell.privatekey.title" = "Приватный ключ";
-
 "addresseskeys.cell.privatekeyhidde.button.title" = "Показать";
-
 "addresseskeys.cell.publickey.title" = "Публичный ключ";
-
 "addresseskeys.cell.seed.title" = "Секретная фраза";
-
 "addresseskeys.navigation.title" = "Адреса, ключи";
-
 "aliases.cell.head.title" = "Ваши алиасы";
-
 "aliases.view.info.button.create" = "Создать алиас";
-
 "aliases.view.info.label.secondsubtitle" = "Алиас должен содержать не менее 4 и не более 30 символов. Используйте только строчные латинские буквы, цифры и символы (@, -, _ и точка)";
-
 "aliases.view.info.label.subtitle" = "Алиас — это короткое название вашего адреса. Вы можете использовать алиас так же, как адрес при совершении транзакции.";
-
 "aliases.view.info.label.title" = "Об алиасах";
-
 "aliaseswithout.view.info.button.create" = "Создать алиас";
-
 "aliaseswithout.view.info.label.secondsubtitle" = "Алиас должен содержать не менее 4 и не более 30 символов. Используйте только строчные латинские буквы, цифры и символы (@, -, _ и точка)";
-
 "aliaseswithout.view.info.label.subtitle" = "Алиас — это короткое название вашего адреса. Вы можете использовать алиас так же, как адрес при совершении транзакции.";
-
 "aliaseswithout.view.info.label.title" = "У вас их нет";
-
 "appnews.button.okey" = "Хорошо";
-
 "asset.cell.assetInfo.cantPerformTransactions" = "Вы не можете совершать транзакции с этим ассетом";
-
 "asset.cell.assetInfo.decimalPoints" = "Знаков после запятой";
-
 "asset.cell.assetInfo.description" = "Описание";
-
 "asset.cell.assetInfo.id" = "ID";
-
 "asset.cell.assetInfo.issueDate" = "Дата выпуска";
-
 "asset.cell.assetInfo.issuer" = "Эмитент";
-
 "asset.cell.assetInfo.kind.notReissuable" = "Не перевыпускаемый";
-
 "asset.cell.assetInfo.kind.reissuable" = "Перевыпускаемый";
-
 "asset.cell.assetInfo.kind.title" = "Тип";
-
 "asset.cell.assetInfo.name" = "Имя";
-
 "asset.cell.assetInfo.title" = "Информация об ассете";
-
 "asset.cell.assetInfo.totalAmount" = "Всего выпущено";
-
 "asset.cell.balance.avaliableBalance" = "Доступный баланс";
-
 "asset.cell.balance.button.exchange" = "Обменять";
-
 "asset.cell.balance.button.receive" = "Получить";
-
 "asset.cell.balance.button.send" = "Отправить";
-
 "asset.cell.balance.inOrderBalance" = "В ордерах";
-
 "asset.cell.balance.leased" = "В лизинге";
-
 "asset.cell.balance.totalBalance" = "Всего";
-
 "asset.cell.viewHistory" = "История транзакций";
-
 "asset.header.lastTransactions" = "Последние транзакции";
-
 "asset.header.notHaveTransactions" = "У вас нет транзакций";
-
 "assetlist.button.allList" = "Весь список";
-
 "assetlist.button.myList" = "С балансом";
-
 "assetlist.button.withBalance" = "С балансом";
-
 "assetlist.label.assets" = "Ассеты";
-
 "assetlist.label.loadingAssets" = "Загрузка ассетов…";
-
 "backup.backup.navigation.title" = "Секретная фраза";
-
 "backup.confirmbackup.button.confirm" = "Подтвердить";
-
 "backup.confirmbackup.error.label" = "Неверный порядок, повторите попытку";
-
 "backup.confirmbackup.info.label" = "Пожалуйста, нажмите на слова в правильном порядке";
-
 "backup.confirmbackup.navigation.title" = "Подтвердить";
-
 "backup.needbackup.button.backupnow" = "Сохранить сейчас";
-
 "backup.needbackup.button.doitlater" = "Сделаю это позже";
-
 "backup.needbackup.label.detail" = "Вы должны сохранить секретную фразу. Это необходимо для доступа к вашему кошельку.";
-
 "backup.needbackup.label.title" = "Нет бэкапа — нет денег";
-
 "backup.savebackup.copy.label.title" = "Пожалуйста, внимательно запишите эти 15 слов или скопируйте их";
-
 "backup.savebackup.label.title" = "Посколько только вы контролируете ваши деньги, вам необходимо сохранить секретную фразу";
-
 "backup.savebackup.navigation.title" = "Секретная фраза";
-
 "backup.savebackup.next.button.title" = "Я всё записал";
-
 "backup.savebackup.next.label.title" = "Вам нужно будет восстановить эту фразу на следующем шаге";
-
 "biometric.localizedCancelTitle" = "Отменить";
-
 "biometric.localizedFallbackTitle" = "Ввести код-пароль";
-
 "biometric.manyattempts.subtitle" = "Чтобы разблокировать биометрию, войдите в аккаунт используя пароль";
-
 "biometric.manyattempts.title" = "Слишком много попыток";
-
 "biometric.readfromkeychain" = "Доступ к вашему кошельку";
-
 "biometric.saveinkeychain" = "Доступ к вашему кошельку";
-
 "cameraAccess.alert.allow" = "Разрешить";
-
 "cameraAccess.alert.cancel" = "Отменить";
-
 "cameraAccess.alert.message" = "Для полноценного использования приложения, требуется доступ к камере";
-
 "cameraAccess.alert.title" = "Необходим доступ к камере";
-
 "changepassword.button.confirm.title" = "Подтвердить";
-
 "changepassword.navigation.title" = "Изменить пароль";
-
 "changepassword.textfield.confirmpassword.title" = "Подтвердите пароль";
-
 "changepassword.textfield.createpassword.title" = "Новый пароль";
-
 "changepassword.textfield.error.atleastcharacters" = "Минимум %d символов";
-
 "changepassword.textfield.error.incorrectpassword" = "неверный пароль";
-
 "changepassword.textfield.error.passwordnotmatch" = "пароли не совпадают";
-
 "changepassword.textfield.oldpassword.title" = "Текущий пароль";
-
 "chooseaccount.alert.button.no" = "Отменить";
-
 "chooseaccount.alert.button.ok" = "Да";
-
 "chooseaccount.alert.delete.message" = "Вы действительно хотите удалить этот аккаунт?";
-
 "chooseaccount.alert.delete.title" = "Удалить аккаунт";
-
 "chooseaccount.label.nothingWallets" = "Пока ничего нет…\nВы не сохраняли аккаунты";
-
 "chooseaccount.navigation.title" = "Выберите аккаунт";
-
 "coinomat.temporarilyUnavailable" = "Сервис Coinomat временно недоступен";
-
 "coinomat.tryAgain" = "Попробуйте позже";
-
 "createalias.button.create.title" = "Создать";
-
 "createalias.cell.input.textfiled.input.placeholder" = "Символическое имя";
-
 "createalias.cell.input.textfiled.input.title" = "Символическое имя";
-
 "createalias.error.alreadyinuse" = "Уже используется";
-
 "createalias.error.charactersmaximum" = "Максимум 30";
-
 "createalias.error.invalidcharacter" = "Неправильный символ";
-
 "createalias.error.minimumcharacters" = "Минимум 4 символа";
-
 "createalias.navigation.title" = "Новый алиас";
-
 "dex.general.error.nothingHere" = "Пока ничего нет…";
-
 "dex.general.error.somethingWentWrong" = "Что-то пошло не так";
-
 "dexchart.button.cancel" = "Отменить";
-
 "dexchart.label.emptyData" = "Нет данных для графиков";
-
 "dexchart.label.hour" = "час";
-
 "dexchart.label.hours" = "часов";
-
 "dexchart.label.loadingChart" = "Загружаем график…";
-
 "dexchart.label.minutes" = "минут";
-
 "dexcompleteorder.button.okey" = "Хорошо";
-
 "dexcompleteorder.label.amount" = "Количество";
-
 "dexcompleteorder.label.open" = "Открыто";
-
 "dexcompleteorder.label.orderIsCreated" = "Ордер создан";
-
 "dexcompleteorder.label.price" = "Цена";
-
 "dexcompleteorder.label.status" = "Статус";
-
 "dexcompleteorder.label.time" = "Время";
-
 "dexcreateorder.button.ask" = "Ask";
-
 "dexcreateorder.button.bid" = "Bid";
-
 "dexcreateorder.button.buy" = "Купить";
-
 "dexcreateorder.button.cancel" = "Отменить";
-
 "dexcreateorder.button.day" = "день";
-
 "dexcreateorder.button.days" = "дней";
-
 "dexcreateorder.button.hour" = "час";
-
 "dexcreateorder.button.last" = "Last";
-
 "dexcreateorder.button.minutes" = "минут";
-
 "dexcreateorder.button.sell" = "Продать";
-
 "dexcreateorder.button.useTotalBalanace" = "Весь баланс";
-
 "dexcreateorder.button.week" = "неделя";
-
 "dexcreateorder.label.Expiration" = "Действителен";
-
 "dexcreateorder.label.amountIn" = "Количество в";
-
 "dexcreateorder.label.bigValue" = "Значение слишком велико";
-
 "dexcreateorder.label.days" = "дней";
-
 "dexcreateorder.label.error.notFundsFee" = "У вас недостаточно средств для оплаты комиссии.";
-
 "dexcreateorder.label.fee" = "Комиссия";
-
 "dexcreateorder.label.limitPriceIn" = "Цена";
-
 "dexcreateorder.label.notEnough" = "Недостаточно";
-
 "dexcreateorder.label.smallValue" = "Значение слишком мало";
-
 "dexcreateorder.label.totalIn" = "Всего в";
-
 "dexinfo.label.amountAsset" = "Amount Asset";
-
 "dexinfo.label.popular" = "Популярно";
-
 "dexinfo.label.priceAsset" = "Price Asset";
-
 "dexlasttrades.button.buy" = "КУПИТЬ";
-
 "dexlasttrades.button.sell" = "ПРОДАТЬ";
-
 "dexlasttrades.label.amount" = "Количество";
-
 "dexlasttrades.label.emptyData" = "Пока ничего нет…\nИстория торговли пуста";
-
 "dexlasttrades.label.loadingLastTrades" = "Загрузка последних сделок…";
-
 "dexlasttrades.label.price" = "Цена";
-
 "dexlasttrades.label.sum" = "Сумма";
-
 "dexlasttrades.label.time" = "Время";
-
 "dexlist.button.addMarkets" = "Добавить пару";
-
 "dexlist.label.decentralisedExchange" = "Децентрализованная биржа";
-
 "dexlist.label.description" = "Торгуйте быстро и безопасно. Вы всегда держите свои средства под контролем, даже в момент обмена.";
-
 "dexlist.label.lastUpdate" = "Последнее обновление";
-
 "dexlist.label.price" = "Цена";
-
 "dexlist.label.today" = "Сегодня";
-
 "dexlist.label.yesterday" = "Вчера";
-
 "dexlist.navigationBar.title" = "DEX";
-
 "dexmarket.label.loadingMarkets" = "Загрузка рынков…";
-
 "dexmarket.navigationBar.title" = "Рынки";
-
 "dexmarket.searchBar.placeholder" = "Поиск";
-
 "dexmyorders.label.buy" = "Купить";
-
 "dexmyorders.label.emptyData" = "Пока ничего нет…\nУ вас нет ордеров";
-
 "dexmyorders.label.loadingLastTrades" = "Загрузка оредеров…";
-
 "dexmyorders.label.price" = "Цена";
-
 "dexmyorders.label.sell" = "Продать";
-
 "dexmyorders.label.status" = "Статус";
-
 "dexmyorders.label.status.accepted" = "Открыт";
-
 "dexmyorders.label.status.cancelled" = "Отменен";
-
 "dexmyorders.label.status.filled" = "Заполнено";
-
 "dexmyorders.label.status.partiallyFilled" = "Частично";
-
 "dexmyorders.label.time" = "Время";
-
 "dexorderbook.button.buy" = "КУПИТЬ";
-
 "dexorderbook.button.sell" = "ПРОДАТЬ";
-
 "dexorderbook.label.amount" = "Кол-во";
-
 "dexorderbook.label.emptyData" = "Пока ничего нет…\nСписок сделок пуст";
-
 "dexorderbook.label.lastPrice" = "LAST PRICE";
-
 "dexorderbook.label.loadingOrderbook" = "Загрузка ордербука…";
-
 "dexorderbook.label.price" = "Цена";
-
 "dexorderbook.label.spread" = "РАЗНИЦА";
-
 "dexorderbook.label.sum" = "Сумма";
-
 "dexsort.navigationBar.title" = "Сортировка";
-
 "dextradercontainer.button.chart" = "График";
-
 "dextradercontainer.button.lastTrades" = "Сделки";
-
 "dextradercontainer.button.myOrders" = "Мои ордера";
-
 "dextradercontainer.button.orderbook" = "Ордербук";
-
 "editaccountname.button.save" = "Сохранить";
-
 "editaccountname.label.newName" = "Новое имя аккаунта";
-
 "editaccountname.navigation.title" = "Изменить имя";
-
 "enter.block.blockchain.text" = "Станьте частью быстро растущего криптомира. Только вы можете получить доступ к своим средствам.";
-
 "enter.block.blockchain.title" = "Начните работать с блокчейном";
-
 "enter.block.exchange.text" = "Торгуйте быстро и безопасно. Вы всегда держите свои средства под контролем, даже в момент обмена.";
-
 "enter.block.exchange.title" = "Децентрализованная биржа";
-
 "enter.block.token.text" = "Выпускайте свои собственные токены. Они могут быть использованы в вашем бизнесе не только как внутренняя валюта, но и в голосованиях, рейтинге и программах лояльности.";
-
 "enter.block.token.title" = "Создание токенов";
-
 "enter.block.wallet.text" = "Храните токены, отправляйте и получайте платежи легко и безопасно.";
-
 "enter.block.wallet.title" = "Кошелёк";
-
 "enter.button.confirm.title" = "Подтвердить";
-
 "enter.button.createNewAccount.title" = "Создать новый аккаунт";
-
 "enter.button.importAccount.detail" = "через QR-код или вручную";
-
 "enter.button.importAccount.error.insecureSeed" = "Небезопасный SEED";
-
 "enter.button.importAccount.title" = "Импортировать";
-
 "enter.button.signIn.detail" = "в сохраненный аккаунт";
-
 "enter.button.signIn.title" = "Войти";
-
 "enter.label.or" = "или";
-
 "enter.language.navigation.title" = "Изменить язык";
-
 "general.biometric.faceID.title" = "Face ID";
-
 "general.biometric.touchID.title" = "Touch ID";
-
 "general.error.subtitle.notfound" = "Не беспокойтесь, мы уже исправляем эту проблему.\nСкоро всё будет работать!";
-
 "general.error.title.noconnectiontotheinternet" = "Нет подключения к Интернету";
-
 "general.error.title.notfound" = "Ой… Всё сломалось!";
-
 "general.label.title.myasset" = "/ Мой ассет";
-
 "general.tabbar.title.dex" = "DEX";
-
 "general.tabbar.title.history" = "История";
-
 "general.tabbar.title.profile" = "Профиль";
-
 "general.tabbar.title.wallet" = "Кошелёк";
-
 "general.ticker.title.cryptocurrency" = "Криптовалюта";
-
 "general.ticker.title.fiatmoney" = "Фиатные деньги";
-
 "general.ticker.title.spam" = "СПАМ";
-
 "general.ticker.title.wavestoken" = "Waves токены";
-
 "general.tost.saveBackup.subtitle" = "Сохраните свою секретную фразу (SEED) в безопасном месте, это единственный способ восстановить ваш аккаунт";
-
 "general.tost.saveBackup.title" = "Сохраните секретную фразу (SEED)";
-
 "hello.button.continue" = "Продолжить";
-
 "hello.button.next" = "Дальше";
-
-"hello.button.understand" = "Я понимаю";
-
 "hello.page.info.fifth.detail.first" = "Не открывайте письма или ссылки от неизвестных вам отправителей.";
-
 "hello.page.info.fifth.detail.fourth" = "Не заходите в кошелёк, используя общественный Wi-Fi или с чужого устройства.";
-
 "hello.page.info.fifth.detail.second" = "Регулярно проверяйте наличие обновлений для операционной системы.";
-
 "hello.page.info.fifth.detail.third" = "Пользуйтесь официальным программным обеспечением. Не устанавливайте неизвестные или взломанные программы.";
-
 "hello.page.info.fifth.title" = "Как защититься от фишинга";
-
 "hello.page.info.first.detail" = "Пожалуйста, уделите немного времени для того, чтобы ознакомиться с важной информацией.\n\nМы не можем вернуть ваши средства или заморозить ваш аккаунт, если вы вошли в него на фишинговом сайте или потеряли секретную фразу (SEED).\n\nПродолжая использовать нашу платформу, вы соглашаетесь с тем, что в случае утраты вами секретной фразы (SEED), платформа Waves не сможет восстановить доступ к вашему аккаунту или вернуть вам ваши средства. Только вы контролируете свой аккаунт и ответственны за сохранность секретной фразы.";
-
 "hello.page.info.first.title" = "Добро пожаловать на платформу Waves!";
-
 "hello.page.info.fourth.detail" = "Одним из распространённых видов мошенничества является фишинг — мошенники создают фальшивые группы в Facebook, сайты, внешне похожие на настоящие.";
-
 "hello.page.info.fourth.title" = "Как защититься от фишинга";
-
 "hello.page.info.second.detail" = "При регистрации аккаунта вам предлагается сохранить секретную фразу (Seed) и защитить аккаунт паролем. В обычных централизованных сервисах особое внимание уделяется именно паролю, который, в случае чего, можно изменить или восстановить через почту. У децентрализованной платформы Waves всё устроено иначе.";
-
 "hello.page.info.second.title" = "Что вам нужно знать о секретной фразе";
-
 "hello.page.info.third.detail.first" = "Вы пользуетесь кошельком анонимно, ваш аккаунт не привязывается к электронной почте или к другим идентифицирующим данным.";
-
 "hello.page.info.third.detail.fourth" = "Секретную фразу нельзя изменить. Если вы её случайно кому-то отправили или подозреваете, что ею завладели мошенники, срочно создайте новый кошелёк Waves и переведите все средства на него, не забыв при этом сохранить новую секретную фразу.";
-
 "hello.page.info.third.detail.second" = "Пароль защищает ваш аккаунт в рамках работы с конкретным устройством или браузером. Он необходим для того, чтобы ваша секретная фраза не хранилась в памяти и злоумышленники не могли получить к ней доступ.";
-
 "hello.page.info.third.detail.third" = "Забыв пароль, вы легко можете создать новый, воспользовавшись формой восстановления аккаунта через секретную фразу. Потеряв секретную фразу, вы теряете доступ к вашему аккаунту навсегда.";
-
 "hello.page.info.third.title" = "Что вам нужно знать о секретной фразе";
-
 "history.navigationBar.title" = "История";
-
 "history.segmentedControl.activeNow" = "Активные";
-
 "history.segmentedControl.all" = "Все";
-
 "history.segmentedControl.canceled" = "Отмененные";
-
 "history.segmentedControl.exchanged" = "Обмен";
-
 "history.segmentedControl.issued" = "Выпуск токенов";
-
 "history.segmentedControl.leased" = "Лизинг";
-
 "history.segmentedControl.received" = "Полученные";
-
 "history.segmentedControl.sent" = "Отправленные";
-
 "history.transaction.cell.exchange.buy" = "Покупка: %@/%@";
-
 "history.transaction.cell.exchange.sell" = "Продажа: %@/%@";
-
 "history.transaction.title.alias" = "Создан алиас";
-
 "history.transaction.title.canceledLeasing" = "Отменен лизинг";
-
 "history.transaction.title.data" = "Дата транзакция";
-
 "history.transaction.title.exchange" = "Обмен";
-
-"history.transaction.title.incomingLeasing" = "Получено в лизинг";
-
+"history.transaction.title.incomingLeasing" = "Входящий лизинг";
 "history.transaction.title.massreceived" = "Массовое получение";
-
 "history.transaction.title.masssent" = "Массовая отправка";
-
-"history.transaction.title.received" = "Получено";
-
+"history.transaction.title.received" = "Получение";
 "history.transaction.title.receivedSponsorship" = "Получение спонсорства";
-
 "history.transaction.title.selfTransfer" = "Отправлено себе";
-
 "history.transaction.title.sent" = "Отправлено";
-
 "history.transaction.title.setAssetScript" = "Запись в блокчейн";
-
 "history.transaction.title.setScript" = "Запись в блокчейн";
-
 "history.transaction.title.startedLeasing" = "Передано в лизинг";
-
 "history.transaction.title.tokenBurn" = "Сожжено";
-
 "history.transaction.title.tokenGeneration" = "Выпуск токена";
-
 "history.transaction.title.tokenReissue" = "Перевыпуск токена";
-
 "history.transaction.title.unrecognisedTransaction" = "Неопознанная транзакция";
-
 "history.transaction.value.data" = "Запись в блокчейн";
-
 "history.transaction.value.setAssetScript" = "Установка скрипта ассета";
-
 "history.transaction.value.setScript.cancel" = "Отмена скрипта";
-
 "history.transaction.value.setScript.set" = "Установка скрипта";
-
 "history.transaction.value.setSponsorship.cancel" = "Отключение спонсорства";
-
 "history.transaction.value.setSponsorship.set" = "Установка спонсорства";
-
 "import.account.button.enter.title" = "Введите секретную фразу вручную";
-
 "import.account.button.scan.title" = "Сканировать QR-код";
-
 "import.account.label.info.step.one.detail" = "Настройки — Основные — Экспортировать аккаунт";
-
 "import.account.label.info.step.one.title" = "Войдите в Waves клиент через свой ПК, Mac или https://client.wavesplatform.com";
-
 "import.account.label.info.step.two.title" = "Нажмите «Показать QR-код» и сканируйте его с помощью камеры.";
-
 "import.account.navigation.title" = "Импорт аккаунта";
-
 "import.general.error.alreadyinuse" = "Уже используется";
-
 "import.general.navigation.title" = "Импорт аккаунта";
-
 "import.general.segmentedControl.manually" = "Вручную";
-
 "import.general.segmentedControl.scan" = "Сканировать";
-
 "import.manually.button.continue" = "Продолжить";
-
 "import.manually.label.address.placeholder" = "Введите 15 слов, которые вы сохранили при создании аккаунта";
-
 "import.manually.label.address.title" = "Секретная фраза";
-
 "import.password.button.continue" = "Продолжить";
-
 "import.scan.button.title" = "Сканировать QR-код";
-
 "import.scan.label.step.one.title" = "Войдите в Waves клиент через свой ПК, Mac";
-
 "import.scan.label.step.three.title" = "Сканируйте QR-код с помощью камеры";
-
 "import.scan.label.step.two.detail" = "Настройки — Основные — Экспортировать аккаунт";
-
 "import.scan.label.step.two.title" = "Нажмите «Показать QR-код», чтобы экспортировать аккаунт";
-
 "import.welcome.button.continue" = "Продолжить";
-
 "import.welcome.label.address.placeholder" = "Введите 15 слов, которые вы сохранили при создании аккаунта";
-
 "import.welcome.label.address.title" = "Секретная фраза вашего аккаунта";
-
 "import.welcome.navigation.title" = "Добро пожаловать";
-
-"legal.checkbox.box.button.confirm" = "Подтвердить и начать";
-
-"legal.checkbox.box.first" = "Я понимаю, что мои средства хранятся на этом устройстве, а не у компании";
-
-"legal.checkbox.box.second" = "Я понимаю, что если это приложение установлено на другом устройстве или удалено, то я получу доступ к своим средствам только с помощью секретной фразы";
-
-"legal.checkbox.box.subtitle" = "Кошелёк Waves хранится только на вашем устройстве";
-
-"legal.checkbox.box.termsOfUse" = "Условиями использования";
-
-"legal.checkbox.box.third" = "Я прочитал, понял и согласился с";
-
-"legal.checkbox.box.title" = "Готово!";
-
+"hello.page.confirm.title" = "Подтвердите и начните";
+"hello.page.confirm.description1" = "Я понимаю, что мои средства хранятся на этом устройстве, а не у компании и, что, если это приложение установлено на другом устройстве или удалено, то я получу доступ к своим средствам только с помощью секретной фразы.";
+"hello.page.confirm.description2" = "Я прочёл и согласен с политикой конфиденциальности";
+"hello.page.confirm.button.privacyPolicy" = "Политика конфиденциальности";
+"hello.page.confirm.description3" = "Я прочёл и согласен с условиями использования";
 "menu.button.supportwavesplatform" = "Поддержка Wavesplatform";
-
 "menu.button.termsandconditions" = "Условия и положения";
-
 "menu.button.whitepaper" = "Whitepaper";
-
 "menu.label.communities" = "Присоединяйтесь к сообществу Waves";
-
 "menu.label.description" = "Следите за последними новостями и статьями и узнавайте о событиях, происходящих на платформе Waves";
-
 "myaddress.button.copy.title" = "Копировать";
-
 "myaddress.button.share.title" = "Поделиться";
-
 "myaddress.cell.aliases.subtitle.withaliaces" = "У вас есть %d";
-
 "myaddress.cell.aliases.subtitle.withoutaliaces" = "У вас их нет";
-
 "myaddress.cell.aliases.title" = "Алиасы";
-
 "myaddress.cell.info.title" = "Ваш адрес";
-
 "myaddress.cell.qrcode.title" = "Ваш QR-код";
-
 "networksettings.button.save.title" = "Сохранить";
-
 "networksettings.button.setdefault.title" = "По умолчанию";
-
 "networksettings.label.switchspam.title" = "Фильтрация спама";
-
 "networksettings.navigation.title" = "Сеть";
-
 "networksettings.textfield.spamfilter.title" = "Спам-фильтр";
-
 "newaccount.avatar.detail" = "Вы не сможете изменить его потом";
-
 "newaccount.avatar.title" = "Выберите свой уникальный аватар";
-
 "newaccount.backup.navigation.title" = "Новый аккаунт";
-
 "newaccount.error.noavatarselected" = "Аватар не выбран";
-
 "newaccount.main.navigation.title" = "Новый аккаунт";
-
 "newaccount.secret.navigation.title" = "Новый аккаунт";
-
 "newaccount.textfield.accountName.title" = "Имя аккаунта";
-
 "newaccount.textfield.confirmpassword.title" = "Подтвердите пароль";
-
 "newaccount.textfield.createpassword.title" = "Создайте пароль";
-
 "newaccount.textfield.error.atleastcharacters" = "Минимум %d символов";
-
 "newaccount.textfield.error.charactersmaximum" = "Максимум %d";
-
 "newaccount.textfield.error.doesnotmatch" = "Не совпадает";
-
 "newaccount.textfield.error.maximumcharacters" = "Максимум %d";
-
 "newaccount.textfield.error.minimumcharacters" = "Минимум %d символов";
-
 "newaccount.textfield.error.passwordnotmatch" = "пароли не совпадают";
-
 "newaccount.textfield.error.wrongordertryagain" = "Неверный порядок, повторите попытку";
-
 "passcode.alert.attempsended.button.cancel" = "Закрыть";
-
 "passcode.alert.attempsended.button.enterpassword" = "Использовать пароль";
-
 "passcode.alert.attempsended.button.ok" = "Хорошо";
-
 "passcode.alert.attempsended.subtitle" = "Чтобы разблокировать, войдите в аккаунт под своим паролем";
-
 "passcode.alert.attempsended.title" = "Слишком много попыток";
-
 "passcode.button.forgotPasscode.title" = "Использовать пароль аккаунта";
-
 "passcode.label.forgotPasscode.title" = "Забыли код-пароль?";
-
 "passcode.label.passcode.create" = "Создайте код-пароль";
-
 "passcode.label.passcode.enter" = "Введите код-пароль";
-
 "passcode.label.passcode.old" = "Введите текущий код-пароль";
-
 "passcode.label.passcode.verify" = "Проверьте код-пароль";
-
 "profile.alert.deleteAccount.button.cancel" = "Отменить";
-
 "profile.alert.deleteAccount.button.delete" = "Удалить";
-
 "profile.alert.deleteAccount.message" = "Вы действительно хотите удалить этот аккаунт с устройства?";
-
 "profile.alert.deleteAccount.notSaveSeed" = "Вы не сохранили свой SEED";
-
 "profile.alert.deleteAccount.title" = "Удалить аккаунт";
-
 "profile.alert.deleteAccount.withoutbackup.message" = "Удаление аккаунта приведет к его безвозвратной утрате!";
-
 "profile.alert.setupbiometric.button.cancel" = "Отменить";
-
 "profile.alert.setupbiometric.button.settings" = "Настройки";
-
 "profile.alert.setupbiometric.message" = "Чтобы использовать быстрый и безопасный вход в приложение, перейдите в настройки и включите биометрию";
-
 "profile.alert.setupbiometric.title" = "Биометрия отключена";
-
 "profile.button.delete.title" = "Удалить аккаунт с устройства";
-
 "profile.button.logout.title" = "Выйти из аккаунта";
-
 "profile.cell.addressbook.title" = "Адресная книга";
-
 "profile.cell.addresses.title" = "Адреса, ключи";
-
 "profile.cell.backupphrase.title" = "Секретная фраза";
-
 "profile.cell.changepasscode.title" = "Изменить код-пароль";
-
 "profile.cell.changepassword.title" = "Изменить пароль";
-
 "profile.cell.currentheight.title" = "Текущая высота";
-
 "profile.cell.feedback.title" = "Обратная связь";
-
 "profile.cell.info.currentheight.title" = "Текущая высота";
-
 "profile.cell.info.version.title" = "Версия";
-
 "profile.cell.language.title" = "Язык";
-
 "profile.cell.network.title" = "Сеть";
-
 "profile.cell.pushnotifications.title" = "Уведомления";
-
 "profile.cell.rateApp.title" = "Оценить приложение";
-
 "profile.cell.supportwavesplatform.title" = "Поддержка Wavesplatform";
-
 "profile.header.general.title" = "Основные настройки";
-
 "profile.header.other.title" = "Другое";
-
 "profile.header.security.title" = "Безопасность";
-
 "profile.language.navigation.title" = "Язык";
-
 "profile.navigation.title" = "Профиль";
-
 "receive.button.card" = "Карта";
-
 "receive.button.continue" = "Продолжить";
-
 "receive.button.cryptocurrency" = "Криптовалюта";
-
 "receive.button.invoice" = "Внутри сети";
-
 "receive.button.useTotalBalance" = "Весь баланс";
-
 "receive.error.serviceUnavailable" = "Сервис временно недоступен";
-
 "receive.label.amount" = "Количество";
-
 "receive.label.amountIn" = "Количество в";
-
 "receive.label.asset" = "Ассет";
-
 "receive.label.receive" = "Получить";
-
 "receive.label.selectYourAsset" = "Выберите свой ассет";
-
 "receiveaddress.button.cancel" = "Отменить";
-
 "receiveaddress.button.close" = "Закрыть";
-
 "receiveaddress.button.copied" = "Скопировано!";
-
 "receiveaddress.button.copy" = "Копировать";
-
 "receiveaddress.button.share" = "Поделиться";
-
 "receiveaddress.label.linkToInvoice" = "Ссылка на выставленный счет";
-
 "receiveaddress.label.yourAddress" = "Ваш %@ адрес";
-
 "receiveaddress.label.yourQRCode" = "Ваш QR-код";
-
 "receivecard.button.cancel" = "Отменить";
-
 "receivecard.label.changeCurrency" = "Изменить валюту";
-
 "receivecard.label.warningInfo" = "Для оплаты с карты вы будете перенаправлены на сайт продавца";
-
 "receivecardcomplete.button.okay" = "Хорошо";
-
 "receivecardcomplete.label.afterPaymentUpdateBalance" = "После того, как платеж будет произведен, ваш баланс обновится";
-
 "receivecardcomplete.label.redirectToIndacoin" = "Вы перенаправлены на «Indacoin»";
-
 "receivecryptocurrency.label.minumumAmountOfDeposit" = "Минимальная сумма пополнения %@";
-
 "receivecryptocurrency.label.sendOnlyOnThisDeposit" = "Отправляйте только %@ на этот адрес";
-
 "receivecryptocurrency.label.warningMinimumAmountOfDeposit" = "Если вы отправите меньше чем %@, вы потеряете деньги.";
-
 "receivecryptocurrency.label.warningSendOnlyOnThisDeposit" = "Отправка любой другой валюты на этот адрес может привести к потере ваших средств.";
-
 "receivecryptocurrency.label.warningSmartContracts.subtitle" = "Проверьте, не использует ли ваш кошелёк или биржа смарт-контракты для отправки %@. Мы не принимаем такие переводы и не можем возместить их. Вы потеряете эти деньги.";
-
 "receivecryptocurrency.label.warningSmartContracts.title" = "Не отправляйте %@ со смарт-контрактов! Не отправляйте ERC20-токены! Только %@.";
-
 "receivegenerate.label.generate" = "Создание…";
-
 "receivegenerate.label.yourAddress" = "Ваш %@ адрес";
-
 "receiveinvoice.label.dollar" = "US Dollar";
-
 "scannerqrcode.label.scan" = "Сканирование QR-кода";
-
 "send.button.chooseFromAddressBook" = "Адресная книга";
-
 "send.button.continue" = "Продолжить";
-
 "send.button.useTotalBalanace" = "Весь баланс";
-
 "send.label.addressNotValid" = "Неверный адрес";
-
 "send.label.amount" = "Количество";
-
 "send.label.dollar" = "US Dollar";
-
 "send.label.error.insufficientFunds" = "Недостаточно средств";
-
 "send.label.error.invalidId" = "Неверный ID";
-
 "send.label.error.maximum" = "Максимум %@ %@";
-
 "send.label.error.minimun" = "Минимум %@ %@";
-
 "send.label.error.notFundsFee" = "У вас недостаточно средств для оплаты комиссии.";
-
 "send.label.gatewayFee" = "Комиссия шлюза —";
-
 "send.label.moneroPaymentId" = "ID платежа Monero";
-
 "send.label.recipient" = "Получатель";
-
 "send.label.recipientAddress" = "Адрес получателя…";
-
 "send.label.send" = "Отправить";
-
 "send.textField.placeholderPaymentId" = "Вставьте или введите ID платежа";
-
 "sendcomplete.button.okey" = "Хорошо";
-
 "sendcomplete.label.saveThisAddress" = "Хотите сохранить этот адрес?";
-
 "sendcomplete.label.transactionIsOnWay" = "Ваша транзакция уже в пути!";
-
 "sendcomplete.label.youHaveSent" = "Вы отправили";
-
 "sendconfirmation.button.confim" = "Подтвердить";
-
 "sendconfirmation.label.confirmation" = "Подтверждение";
-
 "sendconfirmation.label.description" = "Описание";
-
 "sendconfirmation.label.descriptionIsTooLong" = "Слишком длинное описание";
-
 "sendconfirmation.label.dollar" = "US Dollar";
-
 "sendconfirmation.label.fee" = "Комиссия";
-
 "sendconfirmation.label.optionalMessage" = "Не обязательно";
-
 "sendconfirmation.label.sentTo" = "Получатель";
-
 "sendfee.label.notAvailable" = "Недоступно";
-
 "sendfee.label.transactionFee" = "Комиссия";
-
 "sendloading.label.sending" = "Отправка…";
-
 "serverDisconnect.label.subtitle" = "Проверьте соединение с мобильным Интернетом или Wi-Fi";
-
 "serverDisconnect.label.title" = "Нет подключения к Интернету";
-
 "serverEngineering.label.subtitle" = "Привет, на данный момент мы делаем очень важную работу по улучшению приложения";
-
 "serverEngineering.label.title" = "Технические работы";
-
 "serverError.button.retry" = "Повторить";
-
 "serverError.button.sendReport" = "Отправить отчет";
-
 "serverError.label.allBroken" = "Ой… Всё сломалось!";
-
 "serverError.label.allBrokenDescription" = "Не беспокойтесь, мы уже исправляем эту проблему.\nСкоро всё будет работать!";
-
 "serverError.label.noInternetConnection" = "Нет подключения к Интернету";
-
 "serverError.label.noInternetConnectionDescription" = "Проверьте соединение с мобильным Интернетом или Wi-Fi";
-
 "serverError.label.subtitle" = "Не беспокойтесь, мы уже исправляем эту проблему.\nСкоро всё будет работать!";
-
 "serverError.label.title" = "Ой… Всё сломалось!";
-
 "startleasing.button.chooseFromAddressBook" = "Адресная книга";
-
 "startleasing.button.startLease" = "Передать в лизинг";
-
 "startleasing.button.useTotalBalanace" = "Весь баланс";
-
 "startleasing.button.useTotalBalance" = "Весь баланс";
-
 "startleasing.label.addressIsNotValid" = "Неверный адрес";
-
 "startleasing.label.amount" = "Количество";
-
 "startleasing.label.balance" = "Баланс";
-
 "startleasing.label.generator" = "Генератор";
-
 "startleasing.label.insufficientFunds" = "Недостаточно средств";
-
 "startleasing.label.nodeAddress" = "Адрес ноды…";
-
 "startleasing.label.notEnough" = "Недостаточно";
-
 "startleasing.label.startLeasing" = "Передать в лизинг";
-
 "startleasingcomplete.button.okey" = "Хорошо";
-
 "startleasingcomplete.label.youHaveCanceledTransaction" = "Вы отменили транзакцию лизинга";
-
 "startleasingcomplete.label.youHaveLeased" = "Вы отдали в лизинг %@ %@";
-
 "startleasingcomplete.label.yourTransactionIsOnWay" = "Ваша транзакция отправлена!";
-
 "startleasingconfirmation.button.cancelLeasing" = "Отменить лизинг";
-
 "startleasingconfirmation.button.confirm" = "Подтвердить";
-
 "startleasingconfirmation.label.TXID" = "TXID";
-
 "startleasingconfirmation.label.confirmation" = "Подтверждение";
-
 "startleasingconfirmation.label.fee" = "Комиссия";
-
 "startleasingconfirmation.label.leasingTX" = "Лизинг TX";
-
 "startleasingconfirmation.label.nodeAddress" = "Адрес ноды";
-
 "startleasingloading.label.cancelLeasing" = "Отмена лизинга…";
-
 "startleasingloading.label.startLeasing" = "Передача в лизинг…";
-
 "tokenBurn.button.burn" = "Сжечь токен";
-
 "tokenBurn.button.continue" = "Продолжить";
-
 "tokenBurn.button.okey" = "Хорошо";
-
 "tokenBurn.button.useTotalBalanace" = "Весь баланс";
-
 "tokenBurn.label.confirmation" = "Подтверждение";
-
 "tokenBurn.label.error.insufficientFunds" = "Недостаточно средств";
-
 "tokenBurn.label.error.notFundsFee" = "У вас недостаточно средств для оплаты комиссии.";
-
 "tokenBurn.label.fee" = "Комиссия";
-
 "tokenBurn.label.id" = "ID";
-
 "tokenBurn.label.loading" = "Сожжение…";
-
 "tokenBurn.label.notReissuable" = "Не перевыпускаемый";
-
 "tokenBurn.label.quantityTokensBurned" = "Количество токенов для сжигания";
-
 "tokenBurn.label.reissuable" = "Перевыпускаемый";
-
 "tokenBurn.label.tokenBurn" = "Сжечь токен";
-
 "tokenBurn.label.transactionIsOnWay" = "Ваша транзакция отправлена!";
-
 "tokenBurn.label.type" = "Тип";
-
 "tokenBurn.label.youHaveBurned" = "Вы сожгли";
-
 "transaction.error.commission.receiving" = "Ошибка при получении комиссии";
-
 "transactionFee.label.transactionFee" = "Комиссия";
-
 "transactionScript.button.okey" = "Хорошо";
-
 "transactionScript.label.subtitle" = "Для работы с заскриптованным аккаунтом/ассетом воспользуйтесь Waves Client";
-
 "transactionScript.label.title" = "На вашем аккаунте или ассете установлен скрипт";
-
-"transactionhistory.button.copied" = "Скопировано";
-
-"transactionhistory.button.copyAllData" = "Скопировать всё";
-
-"transactionhistory.button.copyTXId" = "Копировать TX ID";
-
+"transactioncard.title.copied" = "Скопировано";
+"transactioncard.title.copyAllData" = "Скопировать всё";
+"transactioncard.title.copyTXID" = "Копировать TX ID";
 "transactionhistory.cell.block" = "Блок";
-
-"transactionhistory.cell.button.cancelLeasing" = "Отменить лизинг";
-
-"transactionhistory.cell.button.sendAgain" = "Отправить ещё раз";
-
-"transactionhistory.cell.buy" = "Покупка: %@/%@";
-
-"transactionhistory.cell.confirmations" = "Подтверждений";
-
+"transactioncard.title.cancelLeasing" = "Отменить лизинг";
+"transactioncard.title.sendAgain" = "Отправить ещё раз";
+"transactioncard.title.exchange.buyPair" = "Покупка: %@/%@";
+"transactioncard.title.confirmations" = "Подтверждений";
 "transactionhistory.cell.dataTransaction" = "Дата транзакция";
-
 "transactionhistory.cell.fee" = "Комиссия";
-
-"transactionhistory.cell.from" = "От";
-
+"transactioncard.title.from" = "От";
 "transactionhistory.cell.id" = "ID";
-
 "transactionhistory.cell.leasingTo" = "Отдано в лизинг";
-
-"transactionhistory.cell.notReissuable" = "Не перевыпускаемый";
-
+"transactioncard.title.notReissuable" = "Не перевыпускаемый";
 "transactionhistory.cell.price" = "Цена";
-
-"transactionhistory.cell.receivedFrom" = "Получено от";
-
+"transactioncard.title.receivedFrom" = "Получено от";
 "transactionhistory.cell.recipient" = "Получатель";
-
 "transactionhistory.cell.recipients" = "Получатели";
-
-"transactionhistory.cell.reissuable" = "Перевыпускаемый";
-
-"transactionhistory.cell.sell" = "Продажа: %@/%@";
-
-"transactionhistory.cell.sentTo" = "Получатель";
-
+"transactioncard.title.reissuable" = "Перевыпускаемый";
+"transactioncard.title.exchange.sellPair" = "Продажа: %@/%@";
+"transactioncard.title.sentTo" = "Получатель";
 "transactionhistory.cell.status.at" = "в";
-
-"transactionhistory.cell.status.button.activeNow" = "Активен";
-
-"transactionhistory.cell.status.button.completed" = "Выполнено";
-
-"transactionhistory.cell.status.button.unconfirmed" = "Неподтверждено";
-
-"transactionhistory.cell.status.timestamp" = "Время";
-
+"transactioncard.title.activeNow" = "Активен";
+"transactioncard.title.completed" = "Выполнено";
+"transactioncard.title.unconfirmed" = "Не подтверждено";
+"transactioncard.title.timestamp" = "Время";
 "transactionhistory.cell.type" = "Тип";
-
-"transactionhistory.copy.amount" = "Количество";
-
+"transactioncard.title.amount" = "Количество";
 "transactionhistory.copy.date" = "Дата";
-
-"transactionhistory.copy.fee" = "Комиссия";
-
+"transactioncard.title.fee" = "Комиссия";
 "transactionhistory.copy.recipient" = "Получатель";
-
 "transactionhistory.copy.sender" = "Отправитель";
-
 "transactionhistory.copy.transactionId" = "ID транзакции";
-
 "transactionhistory.copy.type" = "Тип";
-
 "usetouchid.button.notNow.text" = "Не сейчас";
-
 "usetouchid.button.useBiometric.text" = "Использовать %@";
-
 "usetouchid.label.detail.text" = "Используйте свой %@ для более быстрого и легкого доступа к своему аккаунту";
-
 "usetouchid.label.title.text" = "Использовать %@ для входа?";
-
 "wallet.button.startLease" = "Передать в лизинг";
-
 "wallet.label.available" = "Доступный баланс";
-
 "wallet.label.leased" = "В лизинге";
-
 "wallet.label.leasedIn" = "Входящий лизинг";
-
 "wallet.label.myAssets" = "Мои ассет";
-
 "wallet.label.quickNote.description.first" = "Вы можете отправлять и торговать тем объёмом WAVES, который не находится в лизинге. WAVES, которые находятся в лизинге, нельзя отправить или обменять.";
-
 "wallet.label.quickNote.description.second" = "Вы можете отменить транзакцию лизинга, как только она появится в блокчейне, что обычно занимает около минуты.";
-
 "wallet.label.quickNote.description.third" = "Генерирующий баланс обновится после 1000 блоков.";
-
 "wallet.label.startedLeasing" = "Передача в лизинг";
-
 "wallet.label.totalBalance" = "Всего";
-
 "wallet.label.viewHistory" = "История транзакций";
-
 "wallet.navigationBar.title" = "Кошелёк";
-
 "wallet.section.activeNow" = "Активных сейчас (%d)";
-
 "wallet.section.hiddenAssets" = "Скрытые ассеты (%d)";
-
 "wallet.section.quickNote" = "О лизинге";
-
 "wallet.section.spamAssets" = "Спам-ассеты (%d)";
-
 "wallet.segmentedControl.assets" = "Ассеты";
-
 "wallet.segmentedControl.leasing" = "Лизинг";
-
 "walletsort.button.position" = "Позиция";
-
 "walletsort.button.visibility" = "Видимость";
-
 "walletsort.navigationBar.title" = "Сортировка";
-
 "wavespopup.button.exchange" = "Обменять";
-
 "wavespopup.button.receive" = "Получить";
-
 "wavespopup.button.send" = "Отправить";
-
 "wavespopup.label.comingsoon" = "Скоро";
+"dexScriptAssetMessage.label.title" = "Постановка ордера в паре со смарт-ассетом";
+"dexScriptAssetMessage.label.description" = "Смарт-ассеты — это ассеты со скриптом, который устанавливает условия обращения данного токена.\n\nМы не рекомендуем совершть операции со смарт-ассетами, если вы неопытный пользователь. Перед совершением транзакции изучите информацию об ассете и его скрипт.";
+"dexScriptAssetMessage.button.continue" = "Продолжить";
+"dexScriptAssetMessage.button.cancel" = "Отменить";
+"dexScriptAssetMessage.button.doNotShowAgain" = "Не показывать снова";
+"hello.page.confirm.button.termsAndConditions" = "Условия и положения";
+"hello.button.begin" = "Начать";
+"hello.page.confirm.subtitle" = "Все данные в Waves Wallet зашифрованы и хранятся только на вашем устройстве";
+"import.account.warning.seed.title" = "Секретная фраза должна состоять из 15 слов c пробелами между каждым словом";
+"import.account.warning.seed.subtitle" = "Введенная секретная фраза слишком коротка. Убедитесь, что не перепутали фразу с адресом кошелька. Использование адреса в качестве секретной фразы может привести к потере средств.";
+"dexmyorders.label.type" = "Тип";
+"transactioncard.title.startedLeasing" = "Передача в лизинг";
+"transactioncard.title.canceledLeasing" = "Отменен лизинг";
+"transactioncard.title.nodeAddress" = "Адрес ноды";
+"transactioncard.title.description" = "Описание";
+"transactioncard.title.asset" = "Ассет";
+"transactioncard.title.price" = "Цена";
+"transactioncard.title.status" = "Статус";
+"transactioncard.timestamp.format" = "dd.MM.yyyy HH:mm";
+"transactioncard.title.block" = "Блок";
+"transactioncard.title.massSent" = "Массовая отправка";
+"transactioncard.title.massReceived" = "Массовое получение";
+"transactioncard.title.exchange.buy" = "Купить";
+"transactioncard.title.exchange.sell" = "Продать";
+"transactioncard.title.recipient" = "#%@ Получатель";
+"transactioncard.title.receivedSponsorship" = "Получение спонсорства";
+"transactioncard.title.setAssetScript" = "Установка скрипта ассета";
+"transactioncard.title.disableSponsorship" = "Отключение спонсорства";
+"transactioncard.title.setSponsorship" = "Установка спонсорства";
+"transactioncard.title.selfTransfer" = "Отправлено себе";
+"transactioncard.title.received" = "Получение";
+"transactioncard.title.spamReceived" = "Получение спама";
+"transactioncard.title.cancelScriptTransaction" = "Отмена скрипта";
+"transactioncard.title.setScriptTransaction" = "Установка скрипта";
+"transactioncard.title.dataTransaction" = "Дата транзакция";
+"transactioncard.title.entryInBlockchain" = "Запись в блокчейн";
+"transactioncard.title.unrecognisedTransaction" = "Неопознанная транзакция";
+"transactioncard.title.createAlias" = "Создан алиас";
+"transactioncard.title.tokenReissue" = "Перевыпуск токена";
+"transactioncard.title.tokenGeneration" = "Выпуск токена";
+"transactioncard.title.tokenBurn" = "Сжечь токен";
+"transactioncard.title.sent" = "Отправлено";
+"transactioncard.title.assetId" = "Ассет ID";
+"transactioncard.title.viewOnExplorer" = "Посмотреть в Explorer";
+"transactioncard.title.amountPerTransaction" = "Сумма за транзакцию";
+"transactioncard.title.showAll" = "Показать всё (%@)";
+"addressBookButton.title.editName" = "Изменить имя";
+"addressBookButton.title.saveAddress" = "Сохранить адрес";
+"send.label.error.sendingToSpamAsset" = "Отправка средств на спам-актив невозможна";
+"send.label.error.assetIsNotValid" = "Ассет недействителен";
+"transactioncard.title.cancelOrder" = "Отменить ордер";
+"transactioncard.title.cancelled" = "Отменен (%@%%)";
+"transactioncard.title.total" = "Всего";
+"transactioncard.title.incomingLeasing" = "Получено в лизинг";
+"transactioncard.title.leasingFrom" = "Лизинг от";

@@ -1,0 +1,7 @@
+"cameraAccess.alert.allow" = "कैमरा की अनुमति दें";
+"cameraAccess.alert.cancel" = "रोकना";
+"cameraAccess.alert.message" = "इस ऐप का पूर्ण उपयोग करने के लिए कैमरा एक्सेस की आवश्यकता है";
+"cameraAccess.alert.title" = "कैमरा एक्सेस की आवश्यकता है";
+"NSCameraUsageDescription" = "क्यू आर कोड स्कैन करने के लिए कैमरे की आवश्यकता है";
+"NSFaceIDUsageDescription" = "अपने वॉलेट तक पहुंच";
+"NSPhotoLibraryAddUsageDescription" = "क्यू आर कोड स्कैन करने के लिए कैमरे की आवश्यकता है";

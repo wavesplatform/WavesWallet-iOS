@@ -1,14 +1,7 @@
-
-"NSCameraUsageDescription" = "需要扫描二维码";
-
-"NSFaceIDUsageDescription" = "进入钱包";
-
-"NSPhotoLibraryAddUsageDescription" = "需要扫描二维码";
-
 "cameraAccess.alert.allow" = "允许相机访问";
-
 "cameraAccess.alert.cancel" = "取消";
-
 "cameraAccess.alert.message" = "需要允许相机访问才能充分利用此应用程序";
-
 "cameraAccess.alert.title" = "需要相机访问";
+"NSCameraUsageDescription" = "需要扫描二维码";
+"NSFaceIDUsageDescription" = "进入钱包";
+"NSPhotoLibraryAddUsageDescription" = "需要扫描二维码";
