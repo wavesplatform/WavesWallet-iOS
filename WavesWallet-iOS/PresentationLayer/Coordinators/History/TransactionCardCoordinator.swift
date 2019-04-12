@@ -68,12 +68,16 @@ final class TransactionCardCoordinator: Coordinator {
             .build(input: .init(kind: self.kind,
                                 callbackInput: callbackInput))
 
-        cardNavigationRouter.viewController.modalPresentationStyle = .custom
-        cardNavigationRouter.viewController.transitioningDelegate = popoverViewControllerTransitioning
+//        cardNavigationRouter.viewController.modalPresentationStyle = .custom
+//        cardNavigationRouter.viewController.transitioningDelegate = popoverViewControllerTransitioning
 
-        cardNavigationRouter.pushViewController(vc)
+//        cardNavigationRouter.pushViewController(vc)
 
-        navigationRouter.present(cardNavigationRouter.viewController, animated: true, completion: nil)
+        vc.modalPresentationStyle = .custom
+        vc.transitioningDelegate = popoverViewControllerTransitioning
+
+        navigationRouter.present(vc, animated: true, completion: nil)
+//        navigationRouter.present(cardNavigationRouter.viewController, animated: true, completion: nil)
     }
 }
 
