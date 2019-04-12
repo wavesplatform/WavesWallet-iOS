@@ -117,6 +117,19 @@ extension ModalPresentationController {
 extension ModalPresentationController: UIGestureRecognizerDelegate {
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+
+//        guard let superview = shadowView.superview else { return false }
+//        let point = gestureRecognizer.location(in: superview)
+//        return gestureRecognizer.view
+
+//        return shadowView.frame.contains(point)
+
         return true
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        
+        return true
+//            (touch.view === self.shadowView)
     }
 }
