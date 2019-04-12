@@ -104,12 +104,12 @@ extension ModalPresentationController {
     private func addGestureRecognizers() {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(dimssViewController))
         tapRecognizer.delegate = self
-        containerView?.addGestureRecognizer(tapRecognizer)
+        shadowView.addGestureRecognizer(tapRecognizer)
 
         let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(dimssViewController))
         swipeRecognizer.direction = .down
         swipeRecognizer.delegate = self
-        containerView?.addGestureRecognizer(swipeRecognizer)
+        shadowView.addGestureRecognizer(swipeRecognizer)
 
     }
 }
@@ -128,8 +128,6 @@ extension ModalPresentationController: UIGestureRecognizerDelegate {
     }
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        
         return true
-//            (touch.view === self.shadowView)
     }
 }

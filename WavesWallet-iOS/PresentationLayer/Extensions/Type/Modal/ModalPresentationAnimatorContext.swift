@@ -16,6 +16,8 @@ protocol ModalPresentationAnimatorContext {
     func appearingContentHeight(for size:  CGSize) -> CGFloat
 
     func disappearingContentHeight(for size:  CGSize) -> CGFloat
+
+    func dissmissHeight(for size:  CGSize) -> CGFloat?
 }
 
 protocol ModalPresentationAnimatorSimpleContext: ModalPresentationAnimatorContext {}
