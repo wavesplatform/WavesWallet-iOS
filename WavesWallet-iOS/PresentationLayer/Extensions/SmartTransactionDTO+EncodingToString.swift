@@ -23,6 +23,7 @@ extension DomainLayer.DTO.SmartTransaction {
             + attachmentData
     }
 
+    
     private var titleData: String {
 
         switch kind {
@@ -79,6 +80,9 @@ extension DomainLayer.DTO.SmartTransaction {
 
         case .sponsorship:
             return "sponsor ship"
+            
+        case .invokeScript:
+            return "invoke script"
         }
     }
 
@@ -103,7 +107,8 @@ extension DomainLayer.DTO.SmartTransaction {
              .data,
              .script,
              .assetScript,
-             .sponsorship:
+             .sponsorship,
+             .invokeScript:
             return "Type: \(type) (\(titleData))\n"
 
         case .exchange(let tx):
@@ -177,6 +182,9 @@ extension DomainLayer.DTO.SmartTransaction {
             return nil
 
         case .sponsorship:
+            return nil
+            
+        case .invokeScript:
             return nil
         }
     }
@@ -258,6 +266,9 @@ extension DomainLayer.DTO.SmartTransaction {
 
         case .sponsorship:
             return nil
+            
+        case .invokeScript:
+            return nil
         }
     }
 
@@ -322,6 +333,9 @@ extension DomainLayer.DTO.SmartTransaction {
             return nil
 
         case .sponsorship:
+            return nil
+            
+        case .invokeScript:
             return nil
         }
     }
@@ -407,6 +421,9 @@ extension DomainLayer.DTO.SmartTransaction {
             return nil
 
         case .sponsorship:
+            return nil
+            
+        case .invokeScript:
             return nil
         }
     }

@@ -108,5 +108,6 @@ enum TransactionCard {
         case asset(TransactionCardAssetCell.Model)
         case sponsorshipDetail(TransactionCardSponsorshipDetailCell.Model)
         case keyLoading(TransactionCardKeyLoadingCell.Model)
+        case invokeScript(DomainLayer.DTO.SmartTransaction.InvokeScript)
     }
 }

@@ -575,10 +575,6 @@
 
 "history.transaction.title.sent" = "Sent";
 
-"history.transaction.title.setAssetScript" = "Entry in blockchain";
-
-"history.transaction.title.setScript" = "Entry in blockchain";
-
 "history.transaction.title.startedLeasing" = "Started Leasing";
 
 "history.transaction.title.tokenBurn" = "Token Burn";
@@ -589,17 +585,19 @@
 
 "history.transaction.title.unrecognisedTransaction" = "Unrecognised Transaction";
 
-"history.transaction.value.data" = "Entry in blockchain";
+"history.transaction.value.setAssetScript" = "Update script";
 
-"history.transaction.value.setAssetScript" = "Set Asset Script";
+"history.transaction.value.setScript.cancel" = "Cancel Script";
 
-"history.transaction.value.setScript.cancel" = "Cancel Script Transaction";
-
-"history.transaction.value.setScript.set" = "Set Script Transaction";
+"history.transaction.value.setScript.set" = "Set Script";
 
 "history.transaction.value.setSponsorship.cancel" = "Disable Sponsorship";
 
 "history.transaction.value.setSponsorship.set" = "Set Sponsorship";
+
+"history.transaction.value.scriptInvocation" = "Script Invocation";
+
+"history.transaction.title.entryInBlockchain" = "Entry in blockchain";
 
 "import.account.warning.seed.title" = "The SEED phrase must consist of 15 words with spaces between each word";
 
@@ -1125,16 +1123,20 @@
 "transactioncard.title.unrecognisedTransaction" = "Unrecognised Transaction";
 "transactioncard.title.entryInBlockchain" = "Entry in blockchain";
 "transactioncard.title.dataTransaction" = "Data Transaction";
-"transactioncard.title.setScriptTransaction" = "Set Script Transaction";
-"transactioncard.title.cancelScriptTransaction" = "Cancel Script Transaction";
+"transactioncard.title.setScriptTransaction" = "Set Script";
+"transactioncard.title.cancelScriptTransaction" = "Cancel Script";
 "transactioncard.title.received" = "Received";
 "transactioncard.title.receivedFrom" = "Received from";
 "transactioncard.title.spamReceived" = "Spam Received";
 "transactioncard.title.selfTransfer" = "Self-transfer";
 "transactioncard.title.setSponsorship" = "Set Sponsorship";
 "transactioncard.title.disableSponsorship" = "Disable Sponsorship";
-"transactioncard.title.setAssetScript" = "Set Asset Script";
+"transactioncard.title.setAssetScript" = "Update script";
 "transactioncard.title.receivedSponsorship" = "Received Sponsorship";
+"transactioncard.title.scriptInvocation" = "Script Invocation";
+"transactioncard.title.scriptAddress" = "Script address";
+"transactioncard.title.payment" = "Payment";
+
 
 "transactioncard.title.recipient" = "#%@ Recipient";
 

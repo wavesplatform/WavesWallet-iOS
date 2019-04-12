@@ -104,6 +104,10 @@ extension DomainLayer.DTO.SmartTransaction {
         case .sponsorship(let isEnabled, let asset):
             return sponsorshipSection(asset: asset, isEnabled: isEnabled)
             
+        case .invokeScript(let tx):
+            return invokeScriptSection(tx: tx,
+                                       title: Localizable.Waves.Transactioncard.Title.entryInBlockchain,
+                                       subTitle: Localizable.Waves.Transactioncard.Title.scriptInvocation)
         }
     }
 }
@@ -292,6 +296,35 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         return [section]
     }
 
+    //todo - invokescript
+    func invokeScriptSection(tx: DomainLayer.DTO.SmartTransaction.InvokeScript, title: String, subTitle: String) -> [Types.Section] {
+        var rows: [Types.Row] = .init()
+        
+        let rowGeneralModel = TransactionCardGeneralCell.Model(image: kind.image,
+                                                               title: title,
+                                                               info: .descriptionLabel(subTitle))
+        
+        var buttonsActions: [TransactionCardActionsCell.Model.Button] = .init()
+        
+        buttonsActions.append(contentsOf: [.viewOnExplorer, .copyTxID, .copyAllData])
+        
+        let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
+
+        rows.append(contentsOf:[.general(rowGeneralModel),
+                                .invokeScript(tx),
+                                .keyValue(self.rowBlockModel()),
+                                .keyValue(self.rowConfirmationsModel),
+                                .keyBalance(self.rowFeeModel),
+                                .keyValue(self.rowTimestampModel),
+                                .status(self.rowStatusModel),
+                                .dashedLine(.topPadding),
+                                .actions(rowActionsModel)])
+        
+        
+        let section = Types.Section(rows: rows)
+        
+        return [section]
+    }
 
     // MARK: - Deffault Sections
     func deffaultSection(title: String,
