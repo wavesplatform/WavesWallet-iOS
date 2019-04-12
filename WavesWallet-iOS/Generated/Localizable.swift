@@ -1216,6 +1216,8 @@ internal enum Localizable {
         }
 
         internal enum Value {
+          /// Entry in blockchain
+          internal static var data: String { return Localizable.tr("Waves", "history.transaction.value.data") }
           /// Script Invocation
           internal static var scriptInvocation: String { return Localizable.tr("Waves", "history.transaction.value.scriptInvocation") }
           /// Update script
@@ -2287,7 +2289,7 @@ internal enum Localizable {
         }
         /// Cancel order
         internal static var cancelOrder: String { return Localizable.tr("Waves", "transactioncard.title.cancelOrder") }
-        /// Cancel Script
+        /// Cancel Script Transaction
         internal static var cancelScriptTransaction: String { return Localizable.tr("Waves", "transactioncard.title.cancelScriptTransaction") }
         /// Completed
         internal static var completed: String { return Localizable.tr("Waves", "transactioncard.title.completed") }
@@ -2353,7 +2355,7 @@ internal enum Localizable {
         internal static var sent: String { return Localizable.tr("Waves", "transactioncard.title.sent") }
         /// Sent to
         internal static var sentTo: String { return Localizable.tr("Waves", "transactioncard.title.sentTo") }
-        /// Update script
+        /// Set Asset Script
         internal static var setAssetScript: String { return Localizable.tr("Waves", "transactioncard.title.setAssetScript") }
         /// Set Script
         internal static var setScriptTransaction: String { return Localizable.tr("Waves", "transactioncard.title.setScriptTransaction") }
