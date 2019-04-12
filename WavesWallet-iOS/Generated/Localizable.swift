@@ -1059,15 +1059,15 @@ internal enum Localizable {
       internal enum Page {
 
         internal enum Confirm {
-          /// I understand that my funds are held securely on this device, not by a company
+          /// I understand that my funds are held securely on this device, not by a company. If this app is moved to another device or deleted, my Waves can only be recovered with the backup phrase.
           internal static var description1: String { return Localizable.tr("Waves", "hello.page.confirm.description1") }
-          /// I understand that if this app is moved to another device or deleted, my Waves can only be recovered with the backup phrase
+          /// I have read and agree with the Privacy Policy
           internal static var description2: String { return Localizable.tr("Waves", "hello.page.confirm.description2") }
-          /// I have read, understood, and agree to the Privacy policy, Terms and conditions
+          /// I have read and agree with the Terms and Conditions
           internal static var description3: String { return Localizable.tr("Waves", "hello.page.confirm.description3") }
           /// All the data on your Waves Wallet is encrypted and stored only on your device
           internal static var subtitle: String { return Localizable.tr("Waves", "hello.page.confirm.subtitle") }
-          /// Confirm and Begin
+          /// Confirm and begin
           internal static var title: String { return Localizable.tr("Waves", "hello.page.confirm.title") }
 
           internal enum Button {
@@ -2321,7 +2321,7 @@ internal enum Localizable {
         internal static var massReceived: String { return Localizable.tr("Waves", "transactioncard.title.massReceived") }
         /// Mass Sent
         internal static var massSent: String { return Localizable.tr("Waves", "transactioncard.title.massSent") }
-        /// Node Address
+        /// Node address
         internal static var nodeAddress: String { return Localizable.tr("Waves", "transactioncard.title.nodeAddress") }
         /// Not Reissuable
         internal static var notReissuable: String { return Localizable.tr("Waves", "transactioncard.title.notReissuable") }
@@ -2408,6 +2408,48 @@ internal enum Localizable {
       internal enum Label {
         /// Transaction Fee
         internal static var transactionFee: String { return Localizable.tr("Waves", "transactionFee.label.transactionFee") }
+      }
+    }
+
+    internal enum Transactionhistory {
+
+      internal enum Cell {
+        /// Block
+        internal static var block: String { return Localizable.tr("Waves", "transactionhistory.cell.block") }
+        /// Data Transaction
+        internal static var dataTransaction: String { return Localizable.tr("Waves", "transactionhistory.cell.dataTransaction") }
+        /// Fee
+        internal static var fee: String { return Localizable.tr("Waves", "transactionhistory.cell.fee") }
+        /// ID
+        internal static var id: String { return Localizable.tr("Waves", "transactionhistory.cell.id") }
+        /// Leasing to
+        internal static var leasingTo: String { return Localizable.tr("Waves", "transactionhistory.cell.leasingTo") }
+        /// Price
+        internal static var price: String { return Localizable.tr("Waves", "transactionhistory.cell.price") }
+        /// Recipient
+        internal static var recipient: String { return Localizable.tr("Waves", "transactionhistory.cell.recipient") }
+        /// Recipients
+        internal static var recipients: String { return Localizable.tr("Waves", "transactionhistory.cell.recipients") }
+        /// Type
+        internal static var type: String { return Localizable.tr("Waves", "transactionhistory.cell.type") }
+
+        internal enum Status {
+          /// at
+          internal static var at: String { return Localizable.tr("Waves", "transactionhistory.cell.status.at") }
+        }
+      }
+
+      internal enum Copy {
+        /// Date
+        internal static var date: String { return Localizable.tr("Waves", "transactionhistory.copy.date") }
+        /// Recipient
+        internal static var recipient: String { return Localizable.tr("Waves", "transactionhistory.copy.recipient") }
+        /// Sender
+        internal static var sender: String { return Localizable.tr("Waves", "transactionhistory.copy.sender") }
+        /// Transaction ID
+        internal static var transactionId: String { return Localizable.tr("Waves", "transactionhistory.copy.transactionId") }
+        /// Type
+        internal static var type: String { return Localizable.tr("Waves", "transactionhistory.copy.type") }
       }
     }
 

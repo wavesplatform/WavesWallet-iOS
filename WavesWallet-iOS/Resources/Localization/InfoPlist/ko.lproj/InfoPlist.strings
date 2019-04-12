@@ -1,14 +1,7 @@
-
-"NSCameraUsageDescription" = "QR 코드를 스캔하기 위해 카메라가 필요합니다";
-
-"NSFaceIDUsageDescription" = "귀하의 지갑에 액세스";
-
-"NSPhotoLibraryAddUsageDescription" = "QR 코드를 스캔하기 위해 카메라가 필요합니다";
-
 "cameraAccess.alert.allow" = "카메라 허용";
-
 "cameraAccess.alert.cancel" = "취소";
-
-"cameraAccess.alert.message" = "이 앱을 최대한 활용하기 위해 카메라에 액세스해야 합니다";
-
+"cameraAccess.alert.message" = "이 앱을 최대한 활용하려면 카메라에 액세스해야합니다";
 "cameraAccess.alert.title" = "카메라 액세스 필요";
+"NSCameraUsageDescription" = "QR 코드를 스캔하기 위해 카메라가 필요합니다";
+"NSFaceIDUsageDescription" = "귀하의 지갑에 액세스";
+"NSPhotoLibraryAddUsageDescription" = "QR 코드를 스캔하기 위해 카메라가 필요합니다";

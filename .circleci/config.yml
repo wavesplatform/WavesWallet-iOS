@@ -12,7 +12,6 @@ jobs:
     environment:
       BUNDLER_VERSION: 2.0.1
       FL_OUTPUT_DIR: output
-      FASTLANE_LANE: waves_test
     shell: /bin/bash --login -eo pipefail
     steps:
       - add_ssh_keys:
@@ -150,7 +149,6 @@ jobs:
     environment:
       BUNDLER_VERSION: 2.0.1
       FL_OUTPUT_DIR: output
-      FASTLANE_LANE: waves_test
     shell: /bin/bash --login -eo pipefail
     steps:
       - add_ssh_keys:
@@ -217,7 +215,6 @@ jobs:
     environment:
       BUNDLER_VERSION: 2.0.1
       FL_OUTPUT_DIR: output
-      FASTLANE_LANE: waves_test
     shell: /bin/bash --login -eo pipefail
     steps:
       - add_ssh_keys:
