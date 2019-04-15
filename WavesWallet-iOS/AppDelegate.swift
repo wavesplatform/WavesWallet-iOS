@@ -37,6 +37,19 @@ enum UITest {
 }
 #endif
 
+
+class TestWindow : UIWindow {
+    override func sendEvent(_ event: UIEvent) {
+
+        print(event)
+
+
+
+        super.sendEvent(event)
+    }
+}
+
+
 @UIApplicationMain
     class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -103,7 +116,7 @@ enum UITest {
             AppsFlyerTracker.shared()?.isDebug = false
         #endif
 
-        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window = TestWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = .basic50
         
         #if DEBUG
