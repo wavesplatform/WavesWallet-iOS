@@ -92,7 +92,7 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
             .asObservable()
             .map({ (model) -> DomainLayer.DTO.Coinomat.Rate in
                 
-                let fee = Money(value: Decimal(model.fee_in + model.fee_out), asset.precision)
+                let fee = Money(value: Decimal(model.fee_out), asset.precision)
                 let min = Money(value: Decimal(model.in_min), asset.precision)
                 let max = Money(value: Decimal(model.in_max), asset.precision)
                 return DomainLayer.DTO.Coinomat.Rate(fee: fee, min: min, max: max)

@@ -29,23 +29,39 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
     
     func displayInfo() -> Observable<DexOrderBook.DTO.DisplayData> {
 
+        let header = DexOrderBook.ViewModel.Header(amountName: self.pair.amountAsset.name,
+                                                   priceName: self.pair.priceAsset.name,
+                                                   sumName: self.pair.priceAsset.name)
+        
+        let emptyData = DexOrderBook.DTO.Data(asks: [],
+                                              lastPrice: self.lastPrice,
+                                              bids: [],
+                                              header: header,
+                                              availablePriceAssetBalance: Money(0, self.pair.priceAsset.decimals),
+                                              availableAmountAssetBalance: Money(0, self.pair.amountAsset.decimals),
+                                              availableWavesBalance: Money(0, GlobalConstants.WavesDecimals),
+                                              scriptedAssets: [])
         
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DexOrderBook.DTO.DisplayData> in
 
             guard let self = self else { return Observable.empty() }
-            
-            let header = DexOrderBook.ViewModel.Header(amountName: self.pair.amountAsset.name,
-                                                       priceName: self.pair.priceAsset.name,
-                                                       sumName: self.pair.priceAsset.name)
-            
-            let emptyDisplayData = DexOrderBook.DTO.DisplayData(asks: [],
-                                                                lastPrice: self.lastPrice,
-                                                                bids: [],
-                                                                header: header,
-                                                                availablePriceAssetBalance: Money(0, self.pair.priceAsset.decimals),
-                                                                availableAmountAssetBalance: Money(0, self.pair.amountAsset.decimals),
-                                                                availableWavesBalance: Money(0, WavesSDKCryptoConstants.WavesDecimals),
-                                                                scriptedAssets: [])
+//            
+//<<<<<<< HEAD
+//            let header = DexOrderBook.ViewModel.Header(amountName: self.pair.amountAsset.name,
+//                                                       priceName: self.pair.priceAsset.name,
+//                                                       sumName: self.pair.priceAsset.name)
+//            
+//            let emptyDisplayData = DexOrderBook.DTO.DisplayData(asks: [],
+//                                                                lastPrice: self.lastPrice,
+//                                                                bids: [],
+//                                                                header: header,
+//                                                                availablePriceAssetBalance: Money(0, self.pair.priceAsset.decimals),
+//                                                                availableAmountAssetBalance: Money(0, self.pair.amountAsset.decimals),
+//                                                                availableWavesBalance: Money(0, WavesSDKCryptoConstants.WavesDecimals),
+//                                                                scriptedAssets: [])
+//=======
+//
+//>>>>>>> develop
             return Observable.zip(self.account.balances(),
                                   self.getLastTransactionInfo(),
                                   self.orderBookRepository.orderBook(wallet: wallet,
@@ -66,8 +82,11 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
                                                                scriptedAssets: scriptedAssets))
                 })
                 .catchError({ (error) -> Observable<DexOrderBook.DTO.DisplayData> in
-                    return Observable.just(emptyDisplayData)
+                    return Observable.just(DexOrderBook.DTO.DisplayData(data: emptyData, authWalletError: false))
                 })
+        })
+        .catchError({ (error) -> Observable<DexOrderBook.DTO.DisplayData> in
+            return Observable.just(DexOrderBook.DTO.DisplayData(data: emptyData, authWalletError: true))
         })
     }
 }
@@ -163,11 +182,13 @@ private extension DexOrderBookInteractor {
             wavesBalance = Money(wavesAsset.availableBalance, wavesAsset.asset.precision)
         }
         
-        return DexOrderBook.DTO.DisplayData(asks: asks.reversed(), lastPrice: lastPrice, bids: bids, header: header,
-                                            availablePriceAssetBalance: priceAssetBalance,
-                                            availableAmountAssetBalance: amountAssetBalance,
-                                            availableWavesBalance: wavesBalance,
-                                            scriptedAssets: scriptedAssets)
+        let data = DexOrderBook.DTO.Data(asks: asks.reversed(), lastPrice: lastPrice, bids: bids, header: header,
+                                         availablePriceAssetBalance: priceAssetBalance,
+                                         availableAmountAssetBalance: amountAssetBalance,
+                                         availableWavesBalance: wavesBalance,
+                                         scriptedAssets: scriptedAssets)
+        
+        return DexOrderBook.DTO.DisplayData(data: data, authWalletError: false)
     }
     
     func getLastTransactionInfo() -> Observable<DomainLayer.DTO.Dex.LastTrade?> {

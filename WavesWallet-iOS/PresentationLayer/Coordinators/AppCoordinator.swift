@@ -63,22 +63,7 @@ final class AppCoordinator: Coordinator {
     func start() {
         self.isActiveApp = true
 
-
-
-        #if DEBUG
-            if Contants.developBuild {
-
-                let vc = StoryboardScene.TransactionCard.transactionCardViewController.instantiate()
-                self.windowRouter.setRootViewController(vc)
-            } else {
-                logInApplication()
-            }
-        #else
-            logInApplication()
-        #endif
-
-
-
+        logInApplication()
 
         #if DEBUG || TEST
             addTapGestureForSupportDisplay()
