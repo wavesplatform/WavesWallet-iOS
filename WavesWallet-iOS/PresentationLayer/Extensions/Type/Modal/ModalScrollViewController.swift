@@ -25,7 +25,7 @@ protocol ModalScrollViewRootView: AnyObject {
     func scrollViewDidScroll(_ scrollView: UIScrollView)
 }
 
-class ModalScrollViewController: UIViewController {
+class ModalScrollViewController: UIViewController, ModalScrollViewContext {
 
     private var needUpdateInsets: Bool = true
 
@@ -97,13 +97,21 @@ extension ModalScrollViewController  {
 
         repeat {            
             currentView?.shouldPassthroughTouch = true
-            currentView?.isEnabledPassthroughSubviews = true
+            currentView?.isEnabledPassthroughSubviews = true            
             currentView = currentView?.superview
         } while currentView != view.superview
     }
 }
 
-extension ModalScrollViewController: ModalScrollViewContext {
+extension ModalScrollViewController: ModalPresentationAnimatorContext {
+
+    func hideBoundaries(for size: CGSize) -> CGRect {
+
+        return CGRect(x: 0,
+                      y: 0,
+                      width: size.width,
+                      height: scrollView.contentInset.top - (scrollView.contentOffset.y + scrollView.contentInset.top))
+    }
 
     func appearingContentHeight(for size:  CGSize) -> CGFloat {
         return 0
@@ -148,5 +156,7 @@ extension ModalScrollViewController: UIScrollViewDelegate {
         if let view = self.view as? ModalScrollViewRootView {
             view.scrollViewDidScroll(scrollView)
         }
+
+        setupScrollView()
     }
 }
