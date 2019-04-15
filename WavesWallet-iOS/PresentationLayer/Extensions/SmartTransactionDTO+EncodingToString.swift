@@ -21,6 +21,7 @@ extension DomainLayer.DTO.SmartTransaction {
             + priceData
             + feeData
             + attachmentData
+            + scriptAddress
     }
 
     
@@ -434,5 +435,14 @@ extension DomainLayer.DTO.SmartTransaction {
         guard attachment.count > 0 else { return "" }
 
         return "Attachment: \(attachment)\n"
+    }
+    
+    private var scriptAddress: String {
+        switch kind {
+        case .invokeScript(let tx):
+            return "Script address: \(tx.scriptAddress)\n"
+        default:
+            return ""
+        }
     }
 }
