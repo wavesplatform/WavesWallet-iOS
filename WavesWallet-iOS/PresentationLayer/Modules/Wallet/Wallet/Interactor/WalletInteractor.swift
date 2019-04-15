@@ -19,6 +19,7 @@ final class WalletInteractor: WalletInteractorProtocol {
 
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
+    private let accountSettingsRepository: AccountSettingsRepositoryProtocol = FactoryRepositories.instance.accountSettingsRepository
 
     private let leasingInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
 
@@ -29,7 +30,18 @@ final class WalletInteractor: WalletInteractorProtocol {
             .authorizedWallet()
             .flatMap({ [weak self] wallet -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
                 guard let self = self else { return Observable.never() }
-                return self.accountBalanceInteractor.balances(by: wallet)
+                
+                let assets = self.accountBalanceInteractor.balances(by: wallet)
+                let settings = self.accountSettingsRepository.accountSettings(accountAddress: wallet.address)
+                return Observable.zip(assets, settings)
+                    .map({ (assets, settings) -> [DomainLayer.DTO.SmartAssetBalance] in
+                        
+                        if let settings = settings, settings.isEnabledSpam {
+                            return assets.filter { $0.asset.isSpam == false }
+                        }
+
+                        return assets
+                    })
             })
     }
 

@@ -31,8 +31,7 @@ final class FactoryInteractors: FactoryInteractorsProtocol {
 
         let instance = FactoryRepositories.instance
         let interactor = AssetsInteractor(assetsRepositoryLocal: instance.assetsRepositoryLocal,
-                                          assetsRepositoryRemote: instance.assetsRepositoryRemote,
-                                          accountSettingsRepository: instance.accountSettingsRepository)
+                                          assetsRepositoryRemote: instance.assetsRepositoryRemote)
 
         return interactor
     }()
@@ -59,7 +58,8 @@ final class FactoryInteractors: FactoryInteractorsProtocol {
                                                 addressInteractors: self.address,
                                                 addressRepository: instance.addressRepository,
                                                 assetsRepositoryRemote: instance.assetsRepositoryRemote,
-                                                blockRepositoryRemote: instance.blockRemote)
+                                                blockRepositoryRemote: instance.blockRemote,
+                                                accountSettingsRepository: instance.accountSettingsRepository)
         return interactor
     }()
 
