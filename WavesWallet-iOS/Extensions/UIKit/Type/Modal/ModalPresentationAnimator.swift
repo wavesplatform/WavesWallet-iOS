@@ -40,6 +40,7 @@ extension ModalPresentationAnimator: UIViewControllerAnimatedTransitioning {
         guard let controller = transitionContext.viewController(forKey: key) else { return }
 
         if isPresentation {
+
             transitionContext.containerView.addSubview(controller.view)
         }
 

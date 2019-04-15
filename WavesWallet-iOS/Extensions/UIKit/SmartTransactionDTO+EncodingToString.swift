@@ -145,7 +145,7 @@ extension DomainLayer.DTO.SmartTransaction {
             return tx.account
 
         case .incomingLeasing(let tx):
-            return tx.account
+            return tx.myAccount
 
         case .canceledLeasing(let tx):
             return tx.account

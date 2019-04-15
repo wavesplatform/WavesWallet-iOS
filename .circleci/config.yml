@@ -8,11 +8,10 @@ jobs:
   test_build:
     working_directory: ~/Waves/iOS
     macos:
-      xcode: "10.1.0"      
+      xcode: "10.2.0"      
     environment:
       BUNDLER_VERSION: 2.0.1
       FL_OUTPUT_DIR: output
-      FASTLANE_LANE: waves_test
     shell: /bin/bash --login -eo pipefail
     steps:
       - add_ssh_keys:
@@ -75,7 +74,7 @@ jobs:
   prod_build:
     working_directory: ~/Waves/iOS
     macos:
-      xcode: "10.1.0"      
+      xcode: "10.2.0"      
     environment:
       BUNDLER_VERSION: 2.0.1
       FL_OUTPUT_DIR: output
@@ -146,11 +145,10 @@ jobs:
   dev_build:
     working_directory: ~/Waves/iOS
     macos:
-      xcode: "10.1.0"      
+      xcode: "10.2.0"      
     environment:
       BUNDLER_VERSION: 2.0.1
       FL_OUTPUT_DIR: output
-      FASTLANE_LANE: waves_test
     shell: /bin/bash --login -eo pipefail
     steps:
       - add_ssh_keys:
@@ -205,11 +203,55 @@ jobs:
       - run:
           name: Fastlane Build
           command: bundle exec fastlane prod_build_projet --verbose
+          no_output_timeout: 60m      
+      - store_artifacts:
+          path: ~/Waves/iOS/Output
+      - store_test_results:
+          path: Store/Test   
+  dev_log:
+    working_directory: ~/Waves/iOS
+    macos:
+      xcode: "10.1.0"      
+    environment:
+      BUNDLER_VERSION: 2.0.1
+      FL_OUTPUT_DIR: output
+    shell: /bin/bash --login -eo pipefail
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "43:eb:59:d6:49:f1:ae:81:cb:5a:ba:b8:01:64:19:39"
+      - checkout
+      - restore_cache:
+          key: gems-{{ checksum "Gemfile.lock" }}
+          name: "Restore Gemfile"
+      - restore_cache:
+          key: pods-{{ checksum "Podfile.lock" }}
+          name: "Restore Podfile"     
+      - run:
+          name: Configure Bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            sudo gem install bundler      
+      - run:
+          name: Bundle install or check
+          command: bundle check || bundle install --path vendor/bundle
+      - save_cache:
+          name: Save cache Bundle
+          key: gems-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - run:
+          name: Fastlane download env
+          command: bundle exec fastlane download_bundle_enviroments --verbose 
+      - run:
+          name: Slack
+          command: bundle exec fastlane send_to_slack_artifacts --verbose
           no_output_timeout: 60m
       - store_artifacts:
           path: ~/Waves/iOS/Output
       - store_test_results:
-          path: Store/Test
+          path: Store/Test                              
 workflows:
   version: 2.1
   Release:
@@ -226,6 +268,9 @@ workflows:
               only: /^release/v.{2,}$/
   Develop:
     jobs:
+      - dev_log:
+          requires:
+            - dev_build
       - dev_build:          
           filters:
             branches:

@@ -29,21 +29,4 @@ final class DexMyOrdersInteractor: DexMyOrdersInteractorProtocol {
         })
     }
     
- 
-    func cancelOrder(order: DomainLayer.DTO.Dex.MyOrder) -> Observable<ResponseType<Bool>> {
-        
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) ->  Observable<ResponseType<Bool>> in
-            guard let self = self else { return Observable.empty() }
-            return self.repository.cancelOrder(wallet: wallet,
-                                          orderId: order.id,
-                                          amountAsset: order.amountAsset.id,
-                                          priceAsset: order.priceAsset.id)
-                .flatMap({ (status) -> Observable<ResponseType<Bool>> in
-                    return Observable.just(ResponseType(output: true, error: nil))
-                })
-                .catchError({ (error) -> Observable<ResponseType<Bool>> in
-                    return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
-                })
-        })
-    }
 }
