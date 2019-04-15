@@ -187,7 +187,6 @@ DEPENDENCIES:
   - Charts
   - Crashlytics
   - CSV.swift
-  - Curve25519 (from `https://github.com/wavesplatform/Curve25519.git`)
   - DeviceKit (~> 1.3)
   - Fabric
   - Firebase/Auth
@@ -227,8 +226,8 @@ DEPENDENCIES:
   - TTTAttributedLabel
   - "UITextView+Placeholder"
   - UPCarouselFlowLayout
-  - WavesSDKCrypto
-  - WavesSDKExtension
+  - WavesSDKCrypto (from `WavesSDK-iOS`)
+  - WavesSDKExtension (from `WavesSDK-iOS`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -297,8 +296,6 @@ SPEC REPOS:
     - Curve25519
     - IdentityImg
     - Keccak
-    - WavesSDKCrypto
-    - WavesSDKExtension
 
 EXTERNAL SOURCES:
   InfiniteCollectionView:
@@ -308,6 +305,10 @@ EXTERNAL SOURCES:
     :git: https://github.com/wavesplatform/RESideMenu.git
   Sentry:
     :git: https://github.com/getsentry/sentry-cocoa.git
+  WavesSDKCrypto:
+    :path: WavesSDK-iOS
+  WavesSDKExtension:
+    :path: WavesSDK-iOS
 
 CHECKOUT OPTIONS:
   InfiniteCollectionView:
@@ -388,9 +389,9 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
-  WavesSDKCrypto: bfed1f3affffe60720891437d58476c308588f02
-  WavesSDKExtension: 481915050282acd448e0945dbffb4937213c0a5f
+  WavesSDKCrypto: f991e7e171dddec803b464dca57fd09fefcc73ab
+  WavesSDKExtension: 85e827b2177f8cc556cc584aa277b1e185d5e782
 
-PODFILE CHECKSUM: d39063502e29cb70a6034277ed192689b72cc00c
+PODFILE CHECKSUM: 8d42501e535596230933101c224ffc8e47546697
 
 COCOAPODS: 1.6.1
