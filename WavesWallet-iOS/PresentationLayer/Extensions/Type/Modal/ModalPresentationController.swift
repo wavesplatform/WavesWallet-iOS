@@ -85,10 +85,12 @@ extension ModalPresentationController {
     }
 
     private func addShadowView() {
-        
+
         guard let containerView = containerView else {
             return
         }
+
+        shadowView.isUserInteractionEnabled = true
 
         shadowView.alpha = 0
         containerView.insertSubview(shadowView, at: 0)
@@ -98,7 +100,7 @@ extension ModalPresentationController {
             shadowView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             shadowView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             shadowView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
-            ])
+        ])
     }
 
     private func addGestureRecognizers() {
@@ -109,8 +111,7 @@ extension ModalPresentationController {
         let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(dimssViewController))
         swipeRecognizer.direction = .down
         swipeRecognizer.delegate = self
-        shadowView.addGestureRecognizer(swipeRecognizer)
-
+        containerView?.addGestureRecognizer(swipeRecognizer)
     }
 }
 
@@ -118,13 +119,25 @@ extension ModalPresentationController: UIGestureRecognizerDelegate {
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
 
-//        guard let superview = shadowView.superview else { return false }
-//        let point = gestureRecognizer.location(in: superview)
-//        return gestureRecognizer.view
+        guard let containerView = containerView else { return false }
 
-//        return shadowView.frame.contains(point)
+        var vc: UIViewController? = presentedViewController
+        var modalPresentationAnimatorContext = vc as? ModalPresentationAnimatorContext
 
-        return true
+        if let nav = presentedViewController as? UINavigationController, modalPresentationAnimatorContext == nil {
+            vc = nav.topViewController
+            modalPresentationAnimatorContext = vc as? ModalPresentationAnimatorContext
+        }
+
+        guard let contextUnwrapper = modalPresentationAnimatorContext else { return false }
+        guard let vcUnwrapper = vc else { return false }
+
+        var location = gestureRecognizer.location(in: containerView)
+        location.y = location.y - containerView.layoutInsets.top
+        
+        let rect = contextUnwrapper.hideBoundaries(for: vcUnwrapper.view.frame.size)
+
+        return rect.contains(location)
     }
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
