@@ -70,7 +70,6 @@ final class TransactionCardCoordinator: Coordinator {
 
         cardNavigationRouter.viewController.modalPresentationStyle = .custom
         cardNavigationRouter.viewController.transitioningDelegate = popoverViewControllerTransitioning
-
         cardNavigationRouter.pushViewController(vc)
 
         navigationRouter.present(cardNavigationRouter.viewController, animated: true, completion: nil)
