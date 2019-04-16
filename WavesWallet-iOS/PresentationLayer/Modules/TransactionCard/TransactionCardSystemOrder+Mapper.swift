@@ -133,7 +133,7 @@ fileprivate extension DomainLayer.DTO.Dex.MyOrder {
 
     func totalBalance(priceAmount: Int64, assetAmount: Int64) -> Balance {
 
-        let priceA = Decimal(priceAmount) / pow(10, precisionDifference)
+        let priceA = Decimal(priceAmount) / pow(10, priceAsset.decimals)
         let assetA = Decimal(assetAmount) / pow(10, amountAsset.decimals)
 
         let amountA = (priceA * assetA) * pow(10, priceAsset.decimals)
