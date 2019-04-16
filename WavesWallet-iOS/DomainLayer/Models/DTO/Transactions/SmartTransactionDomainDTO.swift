@@ -39,6 +39,7 @@ extension DomainLayer.DTO {
             var isGatewayAddress: Bool {
                 return CoinomatService.addresses.contains(recipient.address)
             }
+            let myAccount: Account
         }
 
         struct Exchange: Equatable {
