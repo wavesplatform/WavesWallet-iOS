@@ -169,7 +169,7 @@ PODS:
   - TTTAttributedLabel (2.0.0)
   - "UITextView+Placeholder (1.2.1)"
   - UPCarouselFlowLayout (1.1.2)
-  - WavesSDKCrypto (0.1):
+  - WavesSDKCrypto (0.1.1):
     - Base58
     - Blake2
     - CryptoSwift
@@ -177,7 +177,7 @@ PODS:
     - Keccak
     - RxSwift (~> 4.0)
     - WavesSDKExtension
-  - WavesSDKExtension (0.1):
+  - WavesSDKExtension (0.1.1):
     - RxSwift (~> 4.0)
 
 DEPENDENCIES:
@@ -226,8 +226,8 @@ DEPENDENCIES:
   - TTTAttributedLabel
   - "UITextView+Placeholder"
   - UPCarouselFlowLayout
-  - WavesSDKCrypto (from `WavesSDK-iOS`)
-  - WavesSDKExtension (from `WavesSDK-iOS`)
+  - WavesSDKCrypto (~> 0.1.1)
+  - WavesSDKExtension (~> 0.1.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -296,6 +296,8 @@ SPEC REPOS:
     - Curve25519
     - IdentityImg
     - Keccak
+    - WavesSDKCrypto
+    - WavesSDKExtension
 
 EXTERNAL SOURCES:
   InfiniteCollectionView:
@@ -305,10 +307,6 @@ EXTERNAL SOURCES:
     :git: https://github.com/wavesplatform/RESideMenu.git
   Sentry:
     :git: https://github.com/getsentry/sentry-cocoa.git
-  WavesSDKCrypto:
-    :path: WavesSDK-iOS
-  WavesSDKExtension:
-    :path: WavesSDK-iOS
 
 CHECKOUT OPTIONS:
   InfiniteCollectionView:
@@ -389,9 +387,9 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
-  WavesSDKCrypto: f991e7e171dddec803b464dca57fd09fefcc73ab
-  WavesSDKExtension: 85e827b2177f8cc556cc584aa277b1e185d5e782
+  WavesSDKCrypto: 75a878b7ecb5ec88cd5b3e17dfd88be5d8c2c7a9
+  WavesSDKExtension: 76e2add9577bd1e2b0bd309faa81e4caa70bc3cf
 
-PODFILE CHECKSUM: 8d42501e535596230933101c224ffc8e47546697
+PODFILE CHECKSUM: d71e4afdc3a3433b41a258e3fbb3248e06efc925
 
 COCOAPODS: 1.6.1
