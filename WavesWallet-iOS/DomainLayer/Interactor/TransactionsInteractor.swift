@@ -9,6 +9,8 @@
 import Foundation
 import Moya
 import RxSwift
+import WavesSDKExtension
+import WavesSDKCrypto
 
 enum TransactionsInteractorError: Error {
     case invalid
@@ -132,7 +134,7 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
     func calculateFee(by transactionSpecs: DomainLayer.Query.TransactionSpecificationType, accountAddress: String) -> Observable<Money> {
 
         let isSmartAccount = addressRepository.isSmartAddress(accountAddress: accountAddress).sweetDebug("isSmartAddress")
-        let wavesAsset = assetsInteractors.assetsSync(by: [GlobalConstants.wavesAssetId], accountAddress: accountAddress)
+        let wavesAsset = assetsInteractors.assetsSync(by: [WavesSDKCryptoConstants.wavesAssetId], accountAddress: accountAddress)
             .flatMap { (asset) -> Observable<DomainLayer.DTO.Asset> in
 
                 if let result = asset.remote?.first {
@@ -779,42 +781,42 @@ private extension DomainLayer.DTO.AnyTransaction {
 
         switch self {
         case .unrecognised:
-            return [GlobalConstants.wavesAssetId]
+            return [WavesSDKCryptoConstants.wavesAssetId]
 
         case .issue(let tx):
             return [tx.assetId]
 
         case .transfer(let tx):
             let assetId = tx.assetId
-            return [assetId, GlobalConstants.wavesAssetId, tx.feeAssetId]
+            return [assetId, WavesSDKCryptoConstants.wavesAssetId, tx.feeAssetId]
 
         case .reissue(let tx):
             return [tx.assetId]
 
         case .burn(let tx):
             
-            return [tx.assetId, GlobalConstants.wavesAssetId]
+            return [tx.assetId, WavesSDKCryptoConstants.wavesAssetId]
 
         case .exchange(let tx):
             return [tx.order1.assetPair.amountAsset, tx.order1.assetPair.priceAsset]
 
         case .lease:
-            return [GlobalConstants.wavesAssetId]
+            return [WavesSDKCryptoConstants.wavesAssetId]
 
         case .leaseCancel:
-            return [GlobalConstants.wavesAssetId]
+            return [WavesSDKCryptoConstants.wavesAssetId]
 
         case .alias:
-            return [GlobalConstants.wavesAssetId]
+            return [WavesSDKCryptoConstants.wavesAssetId]
 
         case .massTransfer(let tx):
-            return [tx.assetId, GlobalConstants.wavesAssetId]
+            return [tx.assetId, WavesSDKCryptoConstants.wavesAssetId]
 
         case .data:
-            return [GlobalConstants.wavesAssetId]
+            return [WavesSDKCryptoConstants.wavesAssetId]
 
         case .script:
-            return [GlobalConstants.wavesAssetId]
+            return [WavesSDKCryptoConstants.wavesAssetId]
 
         case .assetScript(let tx):
             return [tx.assetId]

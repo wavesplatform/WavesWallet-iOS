@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Decimal {
+public extension Decimal {
     
     //We ovveride this methods because is Foundation framework Decimal has a bug when it init from (U)Int64
     //  https://github.com/apple/swift/commit/2f4e70bf7f4eee43bfb2f24d6215eb1f63c05d01
@@ -45,7 +45,7 @@ extension Decimal {
         }
     }
     
-    func rounded() -> Decimal {
+    public func rounded() -> Decimal {
         
         let behavior = NSDecimalNumberHandler(roundingMode: .down,
                                               scale: 0,
@@ -58,15 +58,15 @@ extension Decimal {
         return number.rounding(accordingToBehavior: behavior).decimalValue
     }
     
-    var doubleValue:Double {
+    public var doubleValue:Double {
         return NSDecimalNumber(decimal:self).doubleValue
     }
 
-    var floatValue: Float {
+    public var floatValue: Float {
         return NSDecimalNumber(decimal: self).floatValue
     }
 
-    var int64Value: Int64 {
+    public var int64Value: Int64 {
         return NSDecimalNumber(decimal: self).int64Value
     }
 }

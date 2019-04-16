@@ -11,6 +11,8 @@ import RealmSwift
 import RxRealm
 import RxSwift
 import RxOptional
+import WavesSDKExtension
+import WavesSDKCrypto
 
 extension Realm {
     func filter<ParentType: Object>(parentType: ParentType.Type,
@@ -180,7 +182,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                                              specifications: TransactionsSpecifications,
                                              realm: Realm) -> Results<AnyTransaction> {
 
-        let wavesAssetId = GlobalConstants.wavesAssetId
+        let wavesAssetId = WavesSDKCryptoConstants.wavesAssetId
 
         let hasWaves = specifications.assets.contains(wavesAssetId)
 

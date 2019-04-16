@@ -11,6 +11,7 @@ import RxSwift
 import KeychainAccess
 import LocalAuthentication
 import RealmSwift
+import WavesSDKExtension
 
 private enum Constants {
     static let service = "com.wavesplatform.wallets"
