@@ -45,23 +45,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DexOrderBook.DTO.DisplayData> in
 
             guard let self = self else { return Observable.empty() }
-//            
-//<<<<<<< HEAD
-//            let header = DexOrderBook.ViewModel.Header(amountName: self.pair.amountAsset.name,
-//                                                       priceName: self.pair.priceAsset.name,
-//                                                       sumName: self.pair.priceAsset.name)
-//            
-//            let emptyDisplayData = DexOrderBook.DTO.DisplayData(asks: [],
-//                                                                lastPrice: self.lastPrice,
-//                                                                bids: [],
-//                                                                header: header,
-//                                                                availablePriceAssetBalance: Money(0, self.pair.priceAsset.decimals),
-//                                                                availableAmountAssetBalance: Money(0, self.pair.amountAsset.decimals),
-//                                                                availableWavesBalance: Money(0, WavesSDKCryptoConstants.WavesDecimals),
-//                                                                scriptedAssets: [])
-//=======
-//
-//>>>>>>> develop
+
             return Observable.zip(self.account.balances(),
                                   self.getLastTransactionInfo(),
                                   self.orderBookRepository.orderBook(wallet: wallet,
