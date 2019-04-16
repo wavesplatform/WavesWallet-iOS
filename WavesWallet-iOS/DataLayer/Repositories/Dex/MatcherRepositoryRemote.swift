@@ -9,6 +9,8 @@
 import Foundation
 import RxSwift
 import Moya
+import Base58
+import WavesSDKCrypto
 
 final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
 

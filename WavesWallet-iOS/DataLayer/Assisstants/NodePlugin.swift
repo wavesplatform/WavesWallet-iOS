@@ -9,6 +9,7 @@
 import Foundation
 import Result
 import Moya
+import WavesSDKExtension
 
 private struct NodeHeaders: Encodable, Decodable, TSUD {
     

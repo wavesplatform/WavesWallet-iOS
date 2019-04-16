@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import RealmSwift
+import WavesSDKExtension
 
 final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 
@@ -236,7 +237,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
                     observer.onCompleted()
                 } else {
                     observer.onNext(false)
-                    observer.onError(WalletsRepositoryError.notFound)
+                    observer.onError(WalletsRepositoryError.notFound)                    
                     SweetLogger.error(WalletsRepositoryError.notFound)
                 }
             } catch let error {
