@@ -308,6 +308,10 @@ private extension AccountBalanceInteractor {
                 return self.trackFromZeroBalancesToAnalytic(assets: balances,
                                                             accountAddress: wallet.address)
             })
+            .flatMap({ [weak self] (balances) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
+                guard let self = self else { return Observable.empty() }
+                return self.cleanWalletList(assets: balances, accountAddress: wallet.address)
+            })
     }
     
     func trackFromZeroBalancesToAnalytic(assets: [DomainLayer.DTO.SmartAssetBalance], accountAddress: String) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
@@ -321,6 +325,81 @@ private extension AccountBalanceInteractor {
             subscribe.onCompleted()
             return Disposables.create()
         })
+    }
+    
+    func cleanWalletList(assets: [DomainLayer.DTO.SmartAssetBalance], accountAddress: String) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
+
+        let generalAssets = assets.filter { $0.asset.isGeneral }
+        let isNewWallet = assets.count == generalAssets.count
+        
+        if isNewWallet && CleanerWalletManager.isCleanWallet == false {
+            CleanerWalletManager.setCleanWallet(isClean: true)
+        }
+        
+        if CleanerWalletManager.isCleanWallet {
+            return Observable.just(assets)
+        }
+
+        var newAssets: [DomainLayer.DTO.SmartAssetBalance] = []
+        var hiddenAssets: [DomainLayer.DTO.SmartAssetBalance] = []
+        
+        for smartAsset in assets {
+            
+            if smartAsset.asset.isGeneral &&
+                smartAsset.settings.isFavorite == false &&
+                smartAsset.asset.isWaves == false &&
+                smartAsset.availableBalance == 0 {
+                
+                var newAsset = smartAsset
+                newAsset.settings = newAsset.settings.mutate {
+                    $0.isHidden = true
+                    $0.isFavorite = false
+                }
+                hiddenAssets.append(newAsset)
+                
+                continue
+            }
+            
+            
+            if smartAsset.asset.isWavesToken &&
+                smartAsset.settings.isFavorite == false &&
+                smartAsset.asset.isMyWavesToken == false &&
+                smartAsset.asset.isSpam == false {
+                
+                var newAsset = smartAsset
+                newAsset.settings = newAsset.settings.mutate {
+                    $0.isHidden = true
+                    $0.isFavorite = false
+                }
+                
+                hiddenAssets.append(newAsset)
+                continue
+            }
+            newAssets.append(smartAsset)
+        }
+        
+        let generalHiddenAssets = hiddenAssets.filter { $0.asset.isGeneral }
+        let otherHiddenAssets = hiddenAssets.filter { $0.asset.isGeneral == false }
+        
+        newAssets.append(contentsOf: generalHiddenAssets)
+        newAssets.append(contentsOf: otherHiddenAssets)
+        
+        for index in 0..<newAssets.count {
+            var asset = newAssets[index]
+            asset.settings = asset.settings.mutate {
+                $0.sortLevel = Float(index)
+            }
+            newAssets[index] = asset
+        }
+        
+        let newSettings = newAssets.map { $0.settings }
+        
+        return assetsBalanceSettingsRepository.saveSettings(by: accountAddress, settings: newSettings)
+            .flatMap({ (success) -> Observable<[DomainLayer.DTO.SmartAssetBalance]>  in
+                CleanerWalletManager.setCleanWallet(isClean: true)
+                return Observable.just(newAssets)
+            })
+
     }
 }
 
