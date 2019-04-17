@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import WavesSDKExtension
 
 struct AnalyticAssetManager: TSUD, Codable, Mutating  {
 

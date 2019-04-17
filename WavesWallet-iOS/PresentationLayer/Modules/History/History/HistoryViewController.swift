@@ -13,6 +13,7 @@ import RxSwift
 import SwiftDate
 
 fileprivate enum Constants {
+    static let historyDateFormatterKey: String = "historyDateFormatterKey"
     static let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0 )
     static let animationDurationReloadTabel: TimeInterval = 0.24
 }
@@ -462,7 +463,7 @@ extension HistoryViewController: UITableViewDataSource {
             let view: HistoryHeaderView = tableView.dequeueAndRegisterHeaderFooter()
             
             if let date = model.date {
-                let formatter = DateFormatter.sharedFormatter
+                let formatter = DateFormatter.uiSharedFormatter(key: Constants.historyDateFormatterKey)
                 formatter.dateStyle = .long
                 formatter.timeStyle = .none                
                 view.update(with: formatter.string(from: date))

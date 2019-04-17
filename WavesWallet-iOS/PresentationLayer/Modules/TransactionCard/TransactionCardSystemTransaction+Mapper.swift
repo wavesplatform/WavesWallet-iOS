@@ -9,7 +9,7 @@
 import Foundation
 
 private struct Constants {
-    static let maxVisibleRecipients: Int = 3
+    static let maxVisibleRecipients: Int = 3    
 }
 
 fileprivate typealias Types = TransactionCard
@@ -757,7 +757,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
     var rowTimestampModel: TransactionCardKeyValueCell.Model {
 
-        let formatter = DateFormatter.sharedFormatter
+        let formatter = DateFormatter.uiSharedFormatter(key: TransactionCard.Constants.transactionCardDateFormatterKey)
         formatter.dateFormat = Localizable.Waves.Transactioncard.Timestamp.format
         let timestampValue = formatter.string(from: timestamp)
 

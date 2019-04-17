@@ -3,14 +3,14 @@ PODS:
   - Amplitude-iOS (4.6.0)
   - AppsFlyerFramework (4.9.0)
   - AppSpectorSDK (1.1.7)
-  - Base58 (0.2)
+  - Base58 (0.3)
   - Blake2 (0.1)
   - Charts (3.2.2):
     - Charts/Core (= 3.2.2)
   - Charts/Core (3.2.2)
   - Crashlytics (3.12.0):
     - Fabric (~> 1.9.0)
-  - CryptoSwift (0.15.0)
+  - CryptoSwift (1.0.0)
   - CSV.swift (2.3.1)
   - Curve25519 (2.0.3)
   - DeviceKit (1.12.0)
@@ -89,10 +89,10 @@ PODS:
   - GoogleUtilities/UserDefaults (5.7.0):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.1)
-  - IdentityImg (0.1)
+  - IdentityImg (0.2)
   - InfiniteCollectionView (1.3.2)
   - IQKeyboardManagerSwift (6.2.0)
-  - Keccak (0.1)
+  - Keccak (0.2)
   - KeychainAccess (3.1.2)
   - Kingfisher (5.3.0)
   - Koloda (4.7):
@@ -169,28 +169,33 @@ PODS:
   - TTTAttributedLabel (2.0.0)
   - "UITextView+Placeholder (1.2.1)"
   - UPCarouselFlowLayout (1.1.2)
+  - WavesSDKCrypto (0.1.1):
+    - Base58
+    - Blake2
+    - CryptoSwift
+    - Curve25519
+    - Keccak
+    - RxSwift (~> 4.0)
+    - WavesSDKExtension
+  - WavesSDKExtension (0.1.1):
+    - RxSwift (~> 4.0)
 
 DEPENDENCIES:
   - Amplitude-iOS
   - AppsFlyerFramework
   - AppSpectorSDK
-  - Base58 (from `https://github.com/wavesplatform/Base58.git`)
-  - Blake2 (from `https://github.com/wavesplatform/Blake2.git`)
   - Charts
   - Crashlytics
-  - CryptoSwift
   - CSV.swift
-  - Curve25519 (from `https://github.com/wavesplatform/Curve25519.git`)
   - DeviceKit (~> 1.3)
   - Fabric
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
   - Firebase/InAppMessagingDisplay
-  - IdentityImg (from `https://github.com/wavesplatform/identity-img-swift.git`)
+  - IdentityImg
   - InfiniteCollectionView (from `https://github.com/wavesplatform/InfiniteCollectionView.git`, branch `swift5`)
   - IQKeyboardManagerSwift
-  - Keccak (from `https://github.com/wavesplatform/Keccak.git`)
   - KeychainAccess
   - Kingfisher
   - Koloda
@@ -221,6 +226,8 @@ DEPENDENCIES:
   - TTTAttributedLabel
   - "UITextView+Placeholder"
   - UPCarouselFlowLayout
+  - WavesSDKCrypto (~> 0.1.1)
+  - WavesSDKExtension (~> 0.1.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -283,45 +290,28 @@ SPEC REPOS:
     - TTTAttributedLabel
     - "UITextView+Placeholder"
     - UPCarouselFlowLayout
+  https://github.com/wavesplatform/Specs.git:
+    - Base58
+    - Blake2
+    - Curve25519
+    - IdentityImg
+    - Keccak
+    - WavesSDKCrypto
+    - WavesSDKExtension
 
 EXTERNAL SOURCES:
-  Base58:
-    :git: https://github.com/wavesplatform/Base58.git
-  Blake2:
-    :git: https://github.com/wavesplatform/Blake2.git
-  Curve25519:
-    :git: https://github.com/wavesplatform/Curve25519.git
-  IdentityImg:
-    :git: https://github.com/wavesplatform/identity-img-swift.git
   InfiniteCollectionView:
     :branch: swift5
     :git: https://github.com/wavesplatform/InfiniteCollectionView.git
-  Keccak:
-    :git: https://github.com/wavesplatform/Keccak.git
   RESideMenu:
     :git: https://github.com/wavesplatform/RESideMenu.git
   Sentry:
     :git: https://github.com/getsentry/sentry-cocoa.git
 
 CHECKOUT OPTIONS:
-  Base58:
-    :commit: caf9297d5667ab575a79c25671a470c1da48267c
-    :git: https://github.com/wavesplatform/Base58.git
-  Blake2:
-    :commit: 7a95d2703487a487ff65e4fc0d9a4c41162952be
-    :git: https://github.com/wavesplatform/Blake2.git
-  Curve25519:
-    :commit: 301c37b15b7c63ed20bd9a1419893ac080a5146c
-    :git: https://github.com/wavesplatform/Curve25519.git
-  IdentityImg:
-    :commit: d44a40a2334c9cb7c0a76d6dde36fd8cc9266e28
-    :git: https://github.com/wavesplatform/identity-img-swift.git
   InfiniteCollectionView:
     :commit: 0ea9140787e243a76b511ffc04c62e623262ef31
     :git: https://github.com/wavesplatform/InfiniteCollectionView.git
-  Keccak:
-    :commit: b67ef7767ff598ddcff6d468f7772b3fc6b65810
-    :git: https://github.com/wavesplatform/Keccak.git
   RESideMenu:
     :commit: c4870be8caf988b3c164bbf5675a717a905e9952
     :git: https://github.com/wavesplatform/RESideMenu.git
@@ -334,13 +324,13 @@ SPEC CHECKSUMS:
   Amplitude-iOS: ac1715ae68104b7a51723209ad574f60ab22ae5f
   AppsFlyerFramework: f57e5d590ad3124d3e594a76032a181bc91ec6cd
   AppSpectorSDK: e819dafad1a7137e0af68076effeccb77318ed5a
-  Base58: a8409491c6f89c3b86a9b447d4302b1a4e03e2a2
-  Blake2: b29e27d1cc9ae2a8073a96990321e0c1a8fb5e8b
+  Base58: 419d6be274b8bb6ae4649e492bee67a0c1c09230
+  Blake2: 682a2367efad6a4c85ecc691acfa3f9dfceeceb0
   Charts: f69cf0518b6d1d62608ca504248f1bbe0b6ae77e
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
-  CryptoSwift: 769f58a9e89f64e8796c2e59ce5f002dc81a2438
+  CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   CSV.swift: d16f671b3090a2c0525d5f2165b18319074aae2b
-  Curve25519: 260e0ef19be48c2f0b711e518fefeca0da3b3b19
+  Curve25519: 4c9483171010b27488a3bac6ee327588a1182fb4
   DeviceKit: f5dbd2e70cafd420d6a09379b8800cdf5fe92ba5
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   Firebase: 0c8cf33f266410c61ab3e2265cfa412200351d9c
@@ -356,10 +346,10 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: ffe513e90551844a739e7bcbb1d2aca1c28a4338
   GoogleUtilities: 273e67030e0de313e7304f6dcfa96fc5214f6c23
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
-  IdentityImg: ada114256228c58b82b9eadfe30863aa5908e74f
+  IdentityImg: 9012dceefa148c3aac55c61ff2170a0e3a1a869a
   InfiniteCollectionView: 49a7639a04c7cb21164de3840245f084fda257d0
   IQKeyboardManagerSwift: b07ccf9d8cafe993dcd6cb794eb4ba34611a0c4e
-  Keccak: 99956a01b86eeac74e4debdac71a8c9ef33fb46d
+  Keccak: 746b8f26ac04386f165f55998ca7c81666b8721d
   KeychainAccess: b3816fddcf28aa29d94b10ec305cd52be14c472b
   Kingfisher: 4692c783ffb99e9e2e40a6eb3e518c3b96c6fa8c
   Koloda: f456d003d2ce15ef9f10c2874a444f1f570b490c
@@ -397,7 +387,9 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
+  WavesSDKCrypto: 75a878b7ecb5ec88cd5b3e17dfd88be5d8c2c7a9
+  WavesSDKExtension: 76e2add9577bd1e2b0bd309faa81e4caa70bc3cf
 
-PODFILE CHECKSUM: cc71851e66a823973f741fd6ab56113fd41caeac
+PODFILE CHECKSUM: d71e4afdc3a3433b41a258e3fbb3248e06efc925
 
 COCOAPODS: 1.6.1

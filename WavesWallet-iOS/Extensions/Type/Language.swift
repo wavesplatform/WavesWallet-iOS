@@ -5,8 +5,8 @@
 //  Created by mefilt on 13.09.2018.
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
-
 import Foundation
+import WavesSDKExtension
 
 struct Language: Codable {
     let title: String
@@ -51,7 +51,7 @@ extension Language {
     }
 
     static var currentLanguage: Language {
-        
+
         return LanguageCode.get()
     }
 
@@ -67,7 +67,7 @@ extension Language {
         guard let path = Bundle.main.path(forResource: language.code, ofType: "lproj"), let bundle = Bundle(path: path) else {
             return
         }
-        
+
         LanguageCode.set(language)
         Localizable.current.locale = Locale(identifier: language.code)
         Localizable.current.bundle = bundle
@@ -76,7 +76,7 @@ extension Language {
             NotificationCenter.default.post(name: .changedLanguage, object: language)
         }
     }
-    
+
     private static func isValidLanguage(_ language: Language) -> Bool {
         if let path = Bundle.main.path(forResource: language.code, ofType: "lproj"), let _ = Bundle(path: path) {
             return true

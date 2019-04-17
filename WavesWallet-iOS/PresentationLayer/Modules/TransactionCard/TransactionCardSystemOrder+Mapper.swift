@@ -168,7 +168,7 @@ fileprivate extension DomainLayer.DTO.Dex.MyOrder {
 
     var rowTimestampModel: TransactionCardKeyValueCell.Model {
 
-        let formatter = DateFormatter.sharedFormatter
+        let formatter = DateFormatter.uiSharedFormatter(key: TransactionCard.Constants.transactionCardDateFormatterKey)
         formatter.dateFormat = Localizable.Waves.Transactioncard.Timestamp.format
         let timestampValue = formatter.string(from: self.time)
 

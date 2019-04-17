@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 import RxRealm
 import RxSwift
+import WavesSDKExtension
 
 final class AccountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol {
 
