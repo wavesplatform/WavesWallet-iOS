@@ -20,25 +20,27 @@ extension DomainLayer.DTO.Dex.MyOrder {
 
         var rows: [Types.Row] = .init()
 
-        var sign: Balance.Sign = .none
-        var title = ""
+        var statusValue: String? = nil
+        var percent: String = ""
 
-        let priceDisplayName = self.priceAsset.name
-        let amountDisplayName = self.amountAsset.name
+        switch status {
+        case .accepted, .partiallyFilled:
+            statusValue = nil
+            percent = "\(self.filledPercent)% "
 
-        if self.type == .sell {
-            sign = .minus
-            title = Localizable.Waves.Transactioncard.Title.Exchange.sellPair(amountDisplayName, priceDisplayName)
-        } else {
-            sign = .plus
-            title = Localizable.Waves.Transactioncard.Title.Exchange.buyPair(amountDisplayName, priceDisplayName)
+        case .cancelled:
+            statusValue = Localizable.Waves.Transactioncard.Title.cancelled
+            percent = "\(self.filledPercent)% "
+
+        case .filled:
+            statusValue = nil
+            percent = Constants.filledStatusValue
         }
 
+
         let rowGeneralModel = TransactionCardGeneralCell.Model(image: Images.tExchange48.image,
-                                                               title: title,
-                                                               info: .balance(.init(balance: self.filledBalance,
-                                                                                    sign: sign,
-                                                                                    style: .large)))
+                                                               title: Localizable.Waves.Transactioncard.Title.status,
+                                                               info: .status(percent, status: statusValue))
 
         rows.append(contentsOf:[.general(rowGeneralModel)])
 
@@ -73,7 +75,6 @@ extension DomainLayer.DTO.Dex.MyOrder {
         }
 
         rows.append(.keyValue(self.rowTimestampModel))
-        rows.append(.keyValue(self.rowStatusModel))
         rows.append(.dashedLine(.topPadding))
 
         switch status {
@@ -175,26 +176,5 @@ fileprivate extension DomainLayer.DTO.Dex.MyOrder {
         return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.timestamp,
                                                  value: timestampValue,
                                                  style: .init(padding: .normalPadding, textColor: .black))
-    }
-
-    var rowStatusModel: TransactionCardKeyValueCell.Model {
-
-        var value: String = ""
-
-        switch status {
-        case .accepted, .partiallyFilled:
-            value = "\(self.filledPercent)%"
-
-        case .cancelled:
-            value = Localizable.Waves.Transactioncard.Title.cancelled("\(self.filledPercent)")
-
-        case .filled:
-            value = Constants.filledStatusValue
-        }
-
-        return TransactionCardKeyValueCell.Model(key: Localizable.Waves.Transactioncard.Title.status,
-                                                 value: value,
-                                                 style: .init(padding: .normalPadding,
-                                                              textColor: .submit400))
     }
 }

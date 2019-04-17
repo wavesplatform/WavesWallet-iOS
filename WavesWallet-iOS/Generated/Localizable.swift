@@ -2283,10 +2283,8 @@ internal enum Localizable {
         internal static var canceledLeasing: String { return Localizable.tr("Waves", "transactioncard.title.canceledLeasing") }
         /// Cancel Leasing
         internal static var cancelLeasing: String { return Localizable.tr("Waves", "transactioncard.title.cancelLeasing") }
-        /// Cancelled (%@%%)
-        internal static func cancelled(_ p1: String) -> String {
-          return Localizable.tr("Waves", "transactioncard.title.cancelled", p1)
-        }
+        /// (Cancelled)
+        internal static var cancelled: String { return Localizable.tr("Waves", "transactioncard.title.cancelled") }
         /// Cancel order
         internal static var cancelOrder: String { return Localizable.tr("Waves", "transactioncard.title.cancelOrder") }
         /// Cancel Script Transaction
