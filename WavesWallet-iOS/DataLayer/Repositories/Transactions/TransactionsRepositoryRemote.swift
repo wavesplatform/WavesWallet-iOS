@@ -10,6 +10,9 @@ import Foundation
 import RxSwift
 import Moya
 import CryptoSwift
+import Base58
+import WavesSDKExtension
+import WavesSDKCrypto
 
 fileprivate enum Constants {
     static let maxLimit: Int = 10000
@@ -306,7 +309,7 @@ fileprivate extension TransactionSenderSpecifications {
         case .lease(let model):
 
             var recipient = ""
-            if model.recipient.count <= GlobalConstants.aliasNameMaxLimitSymbols {
+            if model.recipient.count <= WavesSDKCryptoConstants.aliasNameMaxLimitSymbols {
                 recipient = environment.aliasScheme + model.recipient
             } else {
                 recipient = model.recipient
@@ -344,7 +347,7 @@ fileprivate extension TransactionSenderSpecifications {
         case .send(let model):
             
             var recipient = ""
-            if model.recipient.count <= GlobalConstants.aliasNameMaxLimitSymbols {
+            if model.recipient.count <= WavesSDKCryptoConstants.aliasNameMaxLimitSymbols {
                 recipient = environment.aliasScheme + model.recipient
             } else {
                 recipient = model.recipient
@@ -428,7 +431,7 @@ fileprivate extension TransactionSenderSpecifications {
         case .lease(let model):
 
             var recipient: [UInt8] = []
-            if model.recipient.count <= GlobalConstants.aliasNameMaxLimitSymbols {
+            if model.recipient.count <= WavesSDKCryptoConstants.aliasNameMaxLimitSymbols {
                 recipient += toByteArray(Int8(self.version))
                 recipient += scheme.utf8
                 recipient += model.recipient.arrayWithSize()
@@ -451,7 +454,7 @@ fileprivate extension TransactionSenderSpecifications {
         case .send(let model):
            
             var recipient: [UInt8] = []
-            if model.recipient.count <= GlobalConstants.aliasNameMaxLimitSymbols {
+            if model.recipient.count <= WavesSDKCryptoConstants.aliasNameMaxLimitSymbols {
                 recipient += toByteArray(Int8(self.version))
                 recipient += scheme.utf8
                 recipient += model.recipient.arrayWithSize()
@@ -479,7 +482,7 @@ fileprivate extension TransactionSenderSpecifications {
 private extension SendTransactionSender {
    
     var getFeeAssetID: String {
-        return feeAssetID == GlobalConstants.wavesAssetId ? "" : feeAssetID
+        return feeAssetID == WavesSDKCryptoConstants.wavesAssetId ? "" : feeAssetID
     }
 }
 

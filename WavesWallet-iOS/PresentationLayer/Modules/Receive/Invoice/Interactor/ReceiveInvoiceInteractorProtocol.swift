@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import WavesSDKExtension
 
 protocol ReceiveInvoiceInteractorProtocol {
     func displayInfo(asset: DomainLayer.DTO.Asset, amount: Money) -> Observable<ReceiveInvoice.DTO.DisplayInfo>

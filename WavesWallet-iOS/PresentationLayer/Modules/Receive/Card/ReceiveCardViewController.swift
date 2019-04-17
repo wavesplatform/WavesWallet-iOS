@@ -10,6 +10,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxFeedback
+import WavesSDKExtension
+import WavesSDKCrypto
 
 final class ReceiveCardViewController: UIViewController {
 
@@ -34,7 +36,7 @@ final class ReceiveCardViewController: UIViewController {
     private var amountUSDInfo: ReceiveCard.DTO.AmountInfo?
     private var amountEURInfo: ReceiveCard.DTO.AmountInfo?
     private var asset: DomainLayer.DTO.SmartAssetBalance?
-    private var amount: Money = Money(0, GlobalConstants.FiatDecimals)
+    private var amount: Money = Money(0, WavesSDKCryptoConstants.FiatDecimals)
     private var urlLink = ""
     
     override func viewDidLoad() {

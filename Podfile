@@ -1,5 +1,8 @@
+source 'https://github.com/wavesplatform/Specs.git'
+source 'https://github.com/CocoaPods/Specs.git'
+
 # Uncomment the next line to define a global platform for your project
-platform :ios, '10.0'
+platform :ios, '11.0'
 
 # Ignore all warnings from all pods
 inhibit_all_warnings!
@@ -58,12 +61,11 @@ target 'WavesWallet-iOS' do
     pod 'AppsFlyerFramework'
 
     # Helperrs
-    pod 'IdentityImg', :git => 'https://github.com/wavesplatform/identity-img-swift.git'
-    pod 'Curve25519', :git => 'https://github.com/wavesplatform/Curve25519.git'
-    pod 'Base58', :git => 'https://github.com/wavesplatform/Base58.git'
-    pod 'Keccak', :git => 'https://github.com/wavesplatform/Keccak.git'
-    pod 'Blake2', :git => 'https://github.com/wavesplatform/Blake2.git'
-    pod 'CryptoSwift'
+    pod 'IdentityImg'
+
+    pod 'WavesSDKExtension', '~> 0.1.1'
+    pod 'WavesSDKCrypto', '~> 0.1.1'
+
     pod 'KeychainAccess'
     pod 'QRCode'
     pod 'QRCodeReader.swift', '~> 9.0.1'

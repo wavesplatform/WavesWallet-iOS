@@ -10,6 +10,8 @@ import Foundation
 import RxSwift
 import Moya
 import CSV
+import WavesSDKExtension
+import WavesSDKCrypto
 
 final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     
@@ -84,7 +86,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
 
     func isSmartAsset(_ assetId: String, by accountAddress: String) -> Observable<Bool> {
 
-        if assetId == GlobalConstants.wavesAssetId {
+        if assetId == WavesSDKCryptoConstants.wavesAssetId {
             return Observable.just(false)
         }
 
