@@ -631,7 +631,7 @@
 "send.label.error.sendingToSpamAsset" = "Sending funds to spam asset is not possible";
 "send.label.error.assetIsNotValid" = "The asset is not valid";
 "transactioncard.title.cancelOrder" = "Cancel order";
-"transactioncard.title.cancelled" = "Cancelled (%@%%)";
+"transactioncard.title.cancelled" = "(Cancelled)";
 "transactioncard.title.total" = "Total";
 "transactioncard.title.incomingLeasing" = "Incoming Leasing";
 "transactioncard.title.leasingFrom" = "Leasing from";
