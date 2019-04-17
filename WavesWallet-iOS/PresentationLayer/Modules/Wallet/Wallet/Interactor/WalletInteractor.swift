@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import WavesSDKExtension
 
 private struct Leasing {
     let balance: DomainLayer.DTO.SmartAssetBalance

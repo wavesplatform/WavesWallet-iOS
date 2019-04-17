@@ -8,6 +8,8 @@
 
 import Foundation
 import RxSwift
+import WavesSDKExtension
+import WavesSDKCrypto
 
 final class SendInteractor: SendInteractorProtocol {
     
@@ -68,7 +70,7 @@ final class SendInteractor: SendInteractorProtocol {
         return accountBalance.balances()
             .flatMap({ balances -> Observable<DomainLayer.DTO.SmartAssetBalance> in
                 
-                guard let wavesAsset = balances.first(where: {$0.asset.wavesId == GlobalConstants.wavesAssetId}) else {
+                guard let wavesAsset = balances.first(where: {$0.asset.wavesId == WavesSDKCryptoConstants.wavesAssetId}) else {
                     return Observable.empty()
                 }
                 return Observable.just(wavesAsset)

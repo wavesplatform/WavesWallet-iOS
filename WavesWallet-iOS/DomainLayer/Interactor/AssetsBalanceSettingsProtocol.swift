@@ -8,6 +8,8 @@
 
 import Foundation
 import RxSwift
+import WavesSDKExtension
+import WavesSDKCrypto
 
 private enum Constants {
     static let sortLevelNotFound: Float = -1
