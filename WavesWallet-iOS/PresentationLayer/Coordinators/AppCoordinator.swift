@@ -11,6 +11,8 @@ import UIKit
 import RxSwift
 import RESideMenu
 import RxOptional
+import WavesSDKExtension
+import WavesSDKCrypto
 
 private enum Contants {
 

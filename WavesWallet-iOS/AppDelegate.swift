@@ -20,6 +20,7 @@ import Crashlytics
 import AppsFlyerLib
 import Kingfisher
 import Amplitude_iOS
+import WavesSDKExtension
 
 #if DEBUG || TEST
 import AppSpectorSDK

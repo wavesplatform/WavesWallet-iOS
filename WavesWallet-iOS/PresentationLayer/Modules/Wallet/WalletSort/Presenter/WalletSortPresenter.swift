@@ -10,6 +10,7 @@ import Foundation
 import RxCocoa
 import RxFeedback
 import RxSwift
+import WavesSDKExtension
 
 private extension DomainLayer.DTO.SmartAssetBalance {
 

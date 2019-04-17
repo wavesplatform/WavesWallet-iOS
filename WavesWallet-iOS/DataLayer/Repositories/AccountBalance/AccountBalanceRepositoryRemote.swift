@@ -9,6 +9,8 @@
 import Foundation
 import Moya
 import RxSwift
+import WavesSDKExtension
+import WavesSDKCrypto
 
 private struct SponsoredAssetDetail {
     let minSponsoredAssetFee: Int64?
@@ -47,14 +49,14 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
 
         let matcherBalances = self.matcherBalances(by: wallet.address, wallet: wallet)
 
-        if assetId == GlobalConstants.wavesAssetId {
+        if assetId == WavesSDKCryptoConstants.wavesAssetId {
             let accountBalance = self.accountBalance(by: wallet.address)
 
             return Observable
                 .zip(accountBalance,
                      matcherBalances)
                 .map({ (accountBalance, matcher) -> DomainLayer.DTO.AssetBalance in
-                    let inOrderBalance = matcher[GlobalConstants.wavesAssetId] ?? 0
+                    let inOrderBalance = matcher[WavesSDKCryptoConstants.wavesAssetId] ?? 0
                     return DomainLayer.DTO.AssetBalance(accountBalance: accountBalance, inOrderBalance: inOrderBalance)
                 })
         } else {
@@ -66,7 +68,7 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
                      matcherBalances,
                      sponsorBalance)
                 .map({ (assetBalance, matcher, sponsorBalance) -> DomainLayer.DTO.AssetBalance in
-                    let inOrderBalance = matcher[GlobalConstants.wavesAssetId] ?? 0
+                    let inOrderBalance = matcher[WavesSDKCryptoConstants.wavesAssetId] ?? 0
                     return DomainLayer.DTO.AssetBalance(model: assetBalance,
                                                         inOrderBalance: inOrderBalance,
                                                         sponsoredAssetDetail: sponsorBalance)
@@ -257,7 +259,7 @@ private extension AccountBalanceRepositoryRemote {
 private extension DomainLayer.DTO.AssetBalance {
 
     init(accountBalance: Node.DTO.AccountBalance, inOrderBalance: Int64) {
-        self.assetId = GlobalConstants.wavesAssetId
+        self.assetId = WavesSDKCryptoConstants.wavesAssetId
         self.totalBalance = accountBalance.balance
         self.leasedBalance = 0
         self.inOrderBalance = inOrderBalance
@@ -292,7 +294,7 @@ private extension DomainLayer.DTO.AssetBalance {
 
         let assetsBalance = assets.balances.map { DomainLayer.DTO.AssetBalance(model: $0, inOrderBalance: matcherBalances[$0.assetId] ?? 0) }
         let accountBalance = DomainLayer.DTO.AssetBalance(accountBalance: account,
-                                                          inOrderBalance: matcherBalances[GlobalConstants.wavesAssetId] ?? 0)
+                                                          inOrderBalance: matcherBalances[WavesSDKCryptoConstants.wavesAssetId] ?? 0)
 
         var list = [DomainLayer.DTO.AssetBalance]()
         list.append(contentsOf: assetsBalance)

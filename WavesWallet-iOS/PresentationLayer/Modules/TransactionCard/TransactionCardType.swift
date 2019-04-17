@@ -10,6 +10,10 @@ import Foundation
 
 enum TransactionCard {
 
+    enum Constants {
+        static let transactionCardDateFormatterKey: String = "transactionCardDateFormatterKey"
+    }
+
     struct State {
 
         struct UI {

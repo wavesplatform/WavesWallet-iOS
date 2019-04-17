@@ -8,6 +8,7 @@
 
 import Foundation
 import Moya
+import WavesSDKCrypto
 
 extension Matcher.Service {
     
