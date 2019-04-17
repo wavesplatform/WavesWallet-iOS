@@ -693,6 +693,7 @@
 		E980EACE20A9F5BF001834DB /* ScannerCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */; };
 		E983665E21F5972300178A8A /* TransactionScriptErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983665D21F5972300178A8A /* TransactionScriptErrorView.swift */; };
 		E983666121F5973900178A8A /* TransactionScriptErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E983666021F5973900178A8A /* TransactionScriptErrorView.xib */; };
+		E98D14D12266B25500BE5481 /* CleanerWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98D14D02266B25500BE5481 /* CleanerWalletManager.swift */; };
 		E991BB15220189530022E27D /* AliasApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB14220189530022E27D /* AliasApiService.swift */; };
 		E991BB17220197280022E27D /* AliasApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB16220197280022E27D /* AliasApi.swift */; };
 		E991BB1A2202CA250022E27D /* SendFeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB192202CA250022E27D /* SendFeeViewController.swift */; };
@@ -1670,6 +1671,7 @@
 		E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerCustomView.swift; sourceTree = "<group>"; };
 		E983665D21F5972300178A8A /* TransactionScriptErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionScriptErrorView.swift; sourceTree = "<group>"; };
 		E983666021F5973900178A8A /* TransactionScriptErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionScriptErrorView.xib; sourceTree = "<group>"; };
+		E98D14D02266B25500BE5481 /* CleanerWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanerWalletManager.swift; sourceTree = "<group>"; };
 		E991BB14220189530022E27D /* AliasApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasApiService.swift; sourceTree = "<group>"; };
 		E991BB16220197280022E27D /* AliasApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasApi.swift; sourceTree = "<group>"; };
 		E991BB192202CA250022E27D /* SendFeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeViewController.swift; sourceTree = "<group>"; };
@@ -2238,6 +2240,7 @@
 				04E80A11214EF20C00D00AA4 /* SmartTransactionDomain+Assistants.swift */,
 				7BF89E882226E00800853F9D /* SentryManager.swift */,
 				E9C1F5C5224D60B1006DBD8E /* ApplicationDebugSettings.swift */,
+				E98D14D02266B25500BE5481 /* CleanerWalletManager.swift */,
 				E944AA72224465BE0009F494 /* AnalyticManager */,
 			);
 			path = Assisstants;
@@ -5833,6 +5836,7 @@
 				0AD2B57D20F63F8A007EE076 /* WalletDisplayData.swift in Sources */,
 				0ADD7FC421F22FB60075FC59 /* ArrayExtension.swift in Sources */,
 				E9B087E12163886800937644 /* DexCreateOrderTypes.swift in Sources */,
+				E98D14D12266B25500BE5481 /* CleanerWalletManager.swift in Sources */,
 				E9DDF73D2240F58900B83CFD /* UtilsNode.swift in Sources */,
 				0A218B8E215534E000B989A1 /* WalletSeedRepositoryLocal.swift in Sources */,
 				E9B08822216388B100937644 /* HighlightedButton.swift in Sources */,
