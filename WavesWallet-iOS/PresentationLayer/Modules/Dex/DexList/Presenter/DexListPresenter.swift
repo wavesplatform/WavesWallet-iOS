@@ -38,7 +38,6 @@ final class DexListPresenter: DexListPresenterProtocol {
             return (state.isAppear || state.isNeedRefreshing) ? state : nil
         }, effects: { [weak self] _ -> Signal<DexList.Event> in
             
-            print("load new data")
             guard let self = self else { return Signal.empty() }
             return self.interactor
                 .pairs()
