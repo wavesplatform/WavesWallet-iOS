@@ -1,7 +1,3 @@
-"cameraAccess.alert.allow" = "カメラの使用を許可する";
-"cameraAccess.alert.cancel" = "キャンセル";
-"cameraAccess.alert.message" = "アプリ内の全ての機能にアクセスするためにカメラ機能へのアクセスを許可してください";
-"cameraAccess.alert.title" = "カメラ機能へのアクセス権が必要です";
 "NSCameraUsageDescription" = "QRコードをスキャンする為にカメラ機能が必要です";
 "NSFaceIDUsageDescription" = "あなたのウォレットにアクセス";
 "NSPhotoLibraryAddUsageDescription" = "QRコードをスキャンする為にカメラ機能が必要です";
