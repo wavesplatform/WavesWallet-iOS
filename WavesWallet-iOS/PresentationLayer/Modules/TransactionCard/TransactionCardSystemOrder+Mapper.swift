@@ -19,20 +19,6 @@ extension DomainLayer.DTO.Dex.MyOrder {
     func sections(core: TransactionCard.State.Core, needSendAgain: Bool = false) ->  [TransactionCard.Section] {
 
         var rows: [Types.Row] = .init()
-//
-//        var sign: Balance.Sign = .none
-//        var title = ""
-//
-//        let priceDisplayName = self.priceAsset.name
-//        let amountDisplayName = self.amountAsset.name
-//
-//        if self.type == .sell {
-//            sign = .minus
-//            title = Localizable.Waves.Transactioncard.Title.Exchange.sellPair(amountDisplayName, priceDisplayName)
-//        } else {
-//            sign = .plus
-//            title = Localizable.Waves.Transactioncard.Title.Exchange.buyPair(amountDisplayName, priceDisplayName)
-//        }
 
         var statusValue: String? = nil
         var percent: String = ""
