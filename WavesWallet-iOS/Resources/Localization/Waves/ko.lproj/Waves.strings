@@ -82,7 +82,7 @@
 "backup.savebackup.next.button.title" = "메모했습니다";
 "backup.savebackup.next.label.title" = "다음 페이지에서 백업 구절을 승인해야 합니다";
 "biometric.localizedCancelTitle" = "취소";
-"biometric.localizedFallbackTitle" = "Passcode 입력";
+"biometric.localizedFallbackTitle" = "패스코드 입력";
 "biometric.manyattempts.subtitle" = "생체 인식 잠금을 해제하려면 계정 비밀번호로 로그인하십시오";
 "biometric.manyattempts.title" = "시도 횟수 초과";
 "biometric.readfromkeychain" = "귀하의 지갑에 액세스";
@@ -352,11 +352,11 @@
 "passcode.alert.attempsended.subtitle" = "잠금을 해제하려면 계정 비밀번호로 로그인 하세요";
 "passcode.alert.attempsended.title" = "시도 횟수 초과";
 "passcode.button.forgotPasscode.title" = "계정 비밀번호 사용";
-"passcode.label.forgotPasscode.title" = "Passcode를 잊어버렸나요?";
-"passcode.label.passcode.create" = "Passcode 생성";
-"passcode.label.passcode.enter" = "Passcode 입력";
-"passcode.label.passcode.old" = "이전 Passcode 입력";
-"passcode.label.passcode.verify" = "귀하의 Passcode 인증";
+"passcode.label.forgotPasscode.title" = "패스코드를 잊어버렸나요?";
+"passcode.label.passcode.create" = "패스코드 생성";
+"passcode.label.passcode.enter" = "패스코드 입력";
+"passcode.label.passcode.old" = "오래된 패스코드 입력";
+"passcode.label.passcode.verify" = "귀하의 패스코드 인증";
 "profile.alert.deleteAccount.button.cancel" = "취소";
 "profile.alert.deleteAccount.button.delete" = "삭제";
 "profile.alert.deleteAccount.message" = "본 기기에서 이 계정을 삭제하시겠습니까?";
@@ -372,7 +372,7 @@
 "profile.cell.addressbook.title" = "주소록";
 "profile.cell.addresses.title" = "주소, 키";
 "profile.cell.backupphrase.title" = "백업 구절";
-"profile.cell.changepasscode.title" = "Passcode 변경";
+"profile.cell.changepasscode.title" = "패스코드 변경";
 "profile.cell.changepassword.title" = "비밀번호 변경";
 "profile.cell.currentheight.title" = "현재 Height";
 "profile.cell.feedback.title" = "피드백";
