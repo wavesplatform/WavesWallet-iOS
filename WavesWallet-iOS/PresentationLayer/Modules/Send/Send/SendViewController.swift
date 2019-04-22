@@ -988,7 +988,8 @@ private extension SendViewController {
         if let regExp = selectedAsset?.asset.addressRegEx, regExp.count > 0 {
             return NSPredicate(format: "SELF MATCHES %@", regExp).evaluate(with: address) &&
                 selectedAsset?.asset.isGateway == true &&
-                selectedAsset?.asset.isFiat == false
+                selectedAsset?.asset.isFiat == false &&
+                isValidLocalAddress == false
         }
         return false
     }
