@@ -101,6 +101,7 @@ internal enum Images {
   internal static let downChevron = ImageAsset(name: "down-chevron")
   internal static let down = ImageAsset(name: "down")
   internal static let dragElem = ImageAsset(name: "dragElem")
+  internal static let dragelem22Disabled400 = ImageAsset(name: "dragelem22Disabled400")
   internal static let draglock22Disabled400 = ImageAsset(name: "draglock22Disabled400")
   internal static let editAddressIcon = ImageAsset(name: "edit_address_icon")
   internal static let editaddress24Submit200 = ImageAsset(name: "editaddress24Submit200")
@@ -146,7 +147,6 @@ internal enum Images {
   internal static let iconFavEmpty = ImageAsset(name: "icon_fav_empty")
   internal static let iconLock = ImageAsset(name: "icon_lock")
   internal static let iconMenu = ImageAsset(name: "icon_menu")
-  internal static let iconMenuSort = ImageAsset(name: "icon_menu_sort")
   internal static let iconReceive = ImageAsset(name: "icon_receive")
   internal static let iconSend = ImageAsset(name: "icon_send")
   internal static let iconWaves = ImageAsset(name: "icon_waves")
@@ -183,6 +183,7 @@ internal enum Images {
   internal static let pairNotSelected = ImageAsset(name: "pair-not-selected")
   internal static let pairSelected = ImageAsset(name: "pair-selected")
   internal static let plus18Disabled900 = ImageAsset(name: "plus18Disabled900")
+  internal static let position18Black = ImageAsset(name: "position18Black")
   internal static let qrcode = ImageAsset(name: "qrcode")
   internal static let qrcode24Basic500 = ImageAsset(name: "qrcode24Basic500")
   internal static let rBank14Basic500 = ImageAsset(name: "rBank14Basic500")
@@ -289,6 +290,8 @@ internal enum Images {
   internal static let verification28Success400 = ImageAsset(name: "verification28Success400")
   internal static let verified = ImageAsset(name: "verified")
   internal static let viewexplorer18Black = ImageAsset(name: "viewexplorer18Black")
+  internal static let visibility18Basic500 = ImageAsset(name: "visibility18Basic500")
+  internal static let visibility18Black = ImageAsset(name: "visibility18Black")
   internal static let wallet80 = ImageAsset(name: "wallet80")
   internal static let walletArrowGreen = ImageAsset(name: "wallet_arrow_green")
   internal static let walletArrowHeader = ImageAsset(name: "wallet_arrow_header")
@@ -366,6 +369,7 @@ internal enum Images {
     downChevron,
     down,
     dragElem,
+    dragelem22Disabled400,
     draglock22Disabled400,
     editAddressIcon,
     editaddress24Submit200,
@@ -411,7 +415,6 @@ internal enum Images {
     iconFavEmpty,
     iconLock,
     iconMenu,
-    iconMenuSort,
     iconReceive,
     iconSend,
     iconWaves,
@@ -448,6 +451,7 @@ internal enum Images {
     pairNotSelected,
     pairSelected,
     plus18Disabled900,
+    position18Black,
     qrcode,
     qrcode24Basic500,
     rBank14Basic500,
@@ -554,6 +558,8 @@ internal enum Images {
     verification28Success400,
     verified,
     viewexplorer18Black,
+    visibility18Basic500,
+    visibility18Black,
     wallet80,
     walletArrowGreen,
     walletArrowHeader,

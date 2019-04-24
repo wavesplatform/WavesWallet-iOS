@@ -1,13 +1,13 @@
 //
-//  WalletSortCell.swift
+//  NewWalletSortCell.swift
 //  WavesWallet-iOS
 //
-//  Created by mefilt on 24.07.2018.
-//  Copyright © 2018 Waves Platform. All rights reserved.
+//  Created by Pavel Gubin on 4/23/19.
+//  Copyright © 2019 Waves Platform. All rights reserved.
 //
 
-import RxSwift
 import UIKit
+import RxSwift
 
 fileprivate enum Constants {
     static let height: CGFloat = 56
@@ -15,112 +15,123 @@ fileprivate enum Constants {
     static let sponsoredIcon = CGSize(width: 12, height: 12)
 }
 
-final class WalletSortCell: UITableViewCell, Reusable {
-    @IBOutlet var buttonFav: UIButton!
+final class WalletSortCell: UITableViewCell, NibReusable {
+    @IBOutlet private var buttonFav: UIButton!
     @IBOutlet private var imageIcon: UIImageView!
     @IBOutlet private var labelTitle: UILabel!
-    @IBOutlet private var iconMenu: UIImageView!
     @IBOutlet private var switchControl: UISwitch!
     @IBOutlet private var viewContent: UIView!
-
+    
     private var isDragging: Bool = false
-
-    private(set) var disposeBag = DisposeBag()
-    private var isHiddenAsset: Bool = false
-    var changedValueSwitchControl: ((Bool) -> Void)?
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        imageIcon.image = nil
-        disposeBag = DisposeBag()
-    }
-
+    
+    private var disposeBag = DisposeBag()
+    private var assetType = AssetType.list
+    
+    var changedValueSwitchControl: (() -> Void)?
+    var favouriteButtonTapped:(() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         selectedBackgroundView = UIView()
         selectionStyle = .none
         backgroundColor = .basic50
         contentView.backgroundColor = .basic50
-        iconMenu.isHidden = true
-        viewContent.addTableCellShadowStyle()        
+        viewContent.addTableCellShadowStyle()
         switchControl.addTarget(self, action: #selector(changedValueSwitchAction), for: .valueChanged)
+        buttonFav.addTarget(self, action: #selector(favouriteTapped), for: .touchUpInside)
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageIcon.image = nil
+        disposeBag = DisposeBag()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if alpha <= 0.9 && !isDragging {
+            isDragging = true
+            beginMove()
+        }
+        
+        if alpha <= 0.9 && isDragging {
+            isDragging = false
+            endMove()
+        }
+    }
+    
+    @objc private func favouriteTapped() {
+        
+        favouriteButtonTapped?()
+        ImpactFeedbackGenerator.impactOccurred()
+    }
+    
+    @objc private func changedValueSwitchAction() {
+        changedValueSwitchControl?()
+    
+    }
+}
 
-    class func cellHeight() -> CGFloat {
+extension WalletSortCell: ViewHeight {
+    static func viewHeight() -> CGFloat {
         return Constants.height
     }
+}
 
-     @objc private func changedValueSwitchAction() {
-        changedValueSwitchControl?(switchControl.isOn)
-
-        isHiddenAsset = !switchControl.isOn
-        updateBackground()
-    }
-
-    
+private extension WalletSortCell {
     func beginMove() {
-        self.viewContent.removeShadow()
+        viewContent.removeShadow()
     }
-
+    
     func endMove() {
         updateBackground()
     }
-
+    
     func updateBackground() {
-        if self.isHiddenAsset {
+        if assetType == .favourite || assetType == .hidden {
             viewContent.backgroundColor = .clear
             viewContent.removeShadow()
         } else {
             viewContent.backgroundColor = .white
             viewContent.addTableCellShadowStyle()
         }
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        if self.alpha <= 0.9 && !isDragging {
-            isDragging = true
-            beginMove()
-        }
-
-        if self.alpha <= 0.9 && isDragging {
-            isDragging = false
-            endMove()
-        }
-
     }
 }
 
 // MARK: ViewConfiguration
 extension WalletSortCell: ViewConfiguration {
+    
+    enum AssetType {
+        case favourite
+        case list
+        case hidden
+    }
+    
     struct Model {
         let name: String
         let isMyWavesToken: Bool
         let isVisibility: Bool
         let isHidden: Bool
+        let isFavorite: Bool
         let isGateway: Bool
         let icon: DomainLayer.DTO.Asset.Icon
         let isSponsored: Bool
         let hasScript: Bool
+        let type: AssetType
     }
-
+    
     func update(with model: Model) {
-
+        
+        let image = model.isFavorite ? Images.favorite14Submit300.image : Images.iconFavEmpty.image
+        buttonFav.setImage(image , for: .normal)
         labelTitle.attributedText = NSAttributedString.styleForMyAssetName(assetName: model.name,
                                                                            isMyAsset: model.isMyWavesToken)
-        switchControl.isHidden = model.isVisibility
+        switchControl.isHidden = !model.isVisibility
         switchControl.isOn = !model.isHidden
-
-        isHiddenAsset = model.isHidden
-        if model.isHidden {
-            viewContent.backgroundColor = .clear
-            viewContent.removeShadow()
-        } else {
-            viewContent.backgroundColor = .white
-            viewContent.addTableCellShadowStyle()
-        }
-
+        assetType = model.type
+        updateBackground()
+        
         AssetLogo.logo(icon: model.icon,
                        style: AssetLogo.Style(size: Constants.icon,
                                               font: UIFont.systemFont(ofSize: 15),

@@ -1,13 +1,13 @@
 //
-//  WalletSortPresenterProtocol.swift
+//  NewWalletSortPresenterProtocol.swift
 //  WavesWallet-iOS
 //
-//  Created by mefilt on 02.08.2018.
-//  Copyright © 2018 Waves Platform. All rights reserved.
+//  Created by Pavel Gubin on 4/17/19.
+//  Copyright © 2019 Waves Platform. All rights reserved.
 //
 
 import Foundation
-import RxSwift
+import RxFeedback
 import RxCocoa
 
 protocol WalletSortPresenterProtocol {
