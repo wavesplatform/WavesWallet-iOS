@@ -181,7 +181,8 @@ extension DomainLayer.DTO.TransferTransaction {
                                                                         asset: transferAsset,
                                                                         recipient: transactionDirection == .receive ? sender : recipient,
                                                                         attachment: decodedString(attachment),
-                                                                        hasSponsorship: hasSponsorship)
+                                                                        hasSponsorship: hasSponsorship,
+                                                                        myAccount: metaData.account)
 
 
         var kind: DomainLayer.DTO.SmartTransaction.Kind!
@@ -720,6 +721,47 @@ extension DomainLayer.DTO.DataTransaction {
     }
 }
 
+//MARK: InvokeScriptTransaction
+
+extension DomainLayer.DTO.InvokeScriptTransaction {
+
+    func transaction(by metaData: SmartTransactionMetaData) -> DomainLayer.DTO.SmartTransaction? {
+        
+        let assets: [String: DomainLayer.DTO.Asset] = metaData.assets
+        let accounts: [String: DomainLayer.DTO.Address] = metaData.accounts
+        let totalHeight: Int64 = metaData.totalHeight
+
+        guard let wavesAsset = assets[WavesSDKCryptoConstants.wavesAssetId] else { return nil }
+        
+        var payment: DomainLayer.DTO.SmartTransaction.InvokeScript.Payment?
+        
+        if let txPayment = self.payment {
+            if let paymentAssetId = txPayment.assetId {
+                guard let paymentAsset = assets[paymentAssetId] else { return nil }
+                payment = .init(amount: Money(txPayment.amount, paymentAsset.precision), asset: paymentAsset)
+            }
+            else {
+                payment = .init(amount: Money(txPayment.amount, wavesAsset.precision), asset: nil)
+            }
+        }
+        
+        let feeBalance = wavesAsset.balance(fee)
+        guard let sender = accounts[self.sender] else { return nil }
+        
+        return .init(id: id,
+                     type: type,
+                     kind: .invokeScript(DomainLayer.DTO.SmartTransaction.InvokeScript(payment: payment,
+                                                                                       scriptAddress: dappAddress)),
+                     timestamp: timestamp,
+                     totalFee: feeBalance,
+                     feeAsset: wavesAsset,
+                     height: height,
+                     confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
+                     sender: sender,
+                     status: metaData.status)
+    }
+}
+
 // MARK: AnyTransaction
 
 extension DomainLayer.DTO.AnyTransaction {
@@ -804,6 +846,9 @@ extension DomainLayer.DTO.AnyTransaction {
             smartTransaction = tx.transaction(by: smartData)
 
         case .sponsorship(let tx):
+            smartTransaction = tx.transaction(by: smartData)
+            
+        case .invokeScript(let tx):
             smartTransaction = tx.transaction(by: smartData)
         }
 

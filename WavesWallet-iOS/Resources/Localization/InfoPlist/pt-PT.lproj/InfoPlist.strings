@@ -1,7 +1,3 @@
-"cameraAccess.alert.allow" = "Autorizar a câmera";
-"cameraAccess.alert.cancel" = "Cancelar";
-"cameraAccess.alert.message" = "Necessitas de autorizar o acesso à câmera para tirares partido total do uso desta app";
-"cameraAccess.alert.title" = "É necessário aceder à câmera";
 "NSCameraUsageDescription" = "Ativa a câmera para ler códigos QR";
 "NSFaceIDUsageDescription" = "Aceder à carteira";
 "NSPhotoLibraryAddUsageDescription" = "Ativa a câmera para ler códigos QR";

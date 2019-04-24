@@ -528,7 +528,6 @@
 		7B95111E225CD6140030390C /* RunLoopThreadScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B95111D225CD6140030390C /* RunLoopThreadScheduler.swift */; };
 		7B951121225CD6790030390C /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951120225CD6790030390C /* Language.swift */; };
 		7B951123225CD6AD0030390C /* SentryNetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951122225CD6AD0030390C /* SentryNetworkLoggerPlugin.swift */; };
-		7B951125225CD6D80030390C /* SweetLoggerSentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951124225CD6D80030390C /* SweetLoggerSentry.swift */; };
 		7B951127225CD7160030390C /* QRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951126225CD7160030390C /* QRCodeParser.swift */; };
 		7B951129225CD7350030390C /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951128225CD7350030390C /* AppSettings.swift */; };
 		7B95112E225CDA880030390C /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B95112A225CDA860030390C /* Balance.swift */; };
@@ -805,6 +804,7 @@
 		E9B12DB6219DD6E000128EFE /* AssetBalanceSpamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B12DB4219DD6E000128EFE /* AssetBalanceSpamCell.xib */; };
 		E9B12DB9219E2D3900128EFE /* AssetBurnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B12DB7219E2D3900128EFE /* AssetBurnCell.swift */; };
 		E9B12DBA219E2D3900128EFE /* AssetBurnCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B12DB8219E2D3900128EFE /* AssetBurnCell.xib */; };
+		E9BB2D852260DEB000366278 /* TransactionCardInvokeScriptCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB2D842260DEB000366278 /* TransactionCardInvokeScriptCell.swift */; };
 		E9BB724821C2A94000B2AF7E /* CoinomatRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB724721C2A94000B2AF7E /* CoinomatRepositoryProtocol.swift */; };
 		E9BCF48121636DAC00FA6502 /* ResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BCF48021636DAC00FA6502 /* ResponseType.swift */; };
 		E9C0B49C2176C46E00669D1D /* SendPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B49B2176C46E00669D1D /* SendPresenterProtocol.swift */; };
@@ -820,6 +820,9 @@
 		E9CD0D2E21809A5D001A99B3 /* SendMoneroPaymentIdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9CD0D2D21809A5D001A99B3 /* SendMoneroPaymentIdView.xib */; };
 		E9CD0D32218137FE001A99B3 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD0D30218137FE001A99B3 /* MainTabBarController.swift */; };
 		E9CD0D3521815849001A99B3 /* AddAddressBookTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD0D3421815849001A99B3 /* AddAddressBookTypes.swift */; };
+		E9D0ED86225CB8400098C234 /* InvokeScriptTransactionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0ED85225CB8400098C234 /* InvokeScriptTransactionNode.swift */; };
+		E9D0ED88225CBDEA0098C234 /* InvokeScriptTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0ED87225CBDEA0098C234 /* InvokeScriptTransactionDomainDTO.swift */; };
+		E9D0ED8A225CBECA0098C234 /* InvokeScriptTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0ED89225CBECA0098C234 /* InvokeScriptTransaction+Mapper.swift */; };
 		E9D36DC72175C755001E6DF0 /* ReceiveCryptocurrencyTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D6D2175C754001E6DF0 /* ReceiveCryptocurrencyTypes.swift */; };
 		E9D36DC92175C755001E6DF0 /* ReceiveCryptocurrencyModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D702175C754001E6DF0 /* ReceiveCryptocurrencyModuleBuilder.swift */; };
 		E9D36DCA2175C755001E6DF0 /* ReceiveCryptocurrencyPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D722175C754001E6DF0 /* ReceiveCryptocurrencyPresenterProtocol.swift */; };
@@ -874,11 +877,13 @@
 		E9DF24F62221ED640077F2EB /* AssetDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DF24F52221ED640077F2EB /* AssetDetailInteractor.swift */; };
 		E9DF24F82221EE180077F2EB /* AssetDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DF24F72221EE180077F2EB /* AssetDetailPresenter.swift */; };
 		E9DF24FA2221EF4D0077F2EB /* AssetDetailTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DF24F92221EF4D0077F2EB /* AssetDetailTypes.swift */; };
+		E9E62D1F22678B7000D7DC95 /* SweetLoggerSentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951124225CD6D80030390C /* SweetLoggerSentry.swift */; };
 		E9EC5BAA2175F35900E5C29A /* Send.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9EC5B362175F35800E5C29A /* Send.storyboard */; };
 		E9EC5BAC2175F35900E5C29A /* SendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EC5B3A2175F35800E5C29A /* SendViewController.swift */; };
 		E9EC5BAD2175F35900E5C29A /* SendModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EC5B3B2175F35800E5C29A /* SendModuleBuilder.swift */; };
 		E9EC5C0F2175F35900E5C29A /* AddressInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EC5BA82175F35800E5C29A /* AddressInputView.swift */; };
 		E9EC5C102175F35900E5C29A /* AddressInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9EC5BA92175F35800E5C29A /* AddressInputView.xib */; };
+		E9EE476D225E91ED0005176A /* InvokeScriptTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EE476C225E91ED0005176A /* InvokeScriptTransaction.swift */; };
 		E9F984A920E526DA00D2CB4D /* Enter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9F984A820E526DA00D2CB4D /* Enter.storyboard */; };
 		E9F984AB20E52D8E00D2CB4D /* EnterStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F984AA20E52D8E00D2CB4D /* EnterStartViewController.swift */; };
 		E9F984B220E53FE000D2CB4D /* LanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F984B120E53FE000D2CB4D /* LanguageViewController.swift */; };
@@ -1747,6 +1752,7 @@
 		E9B12DB4219DD6E000128EFE /* AssetBalanceSpamCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetBalanceSpamCell.xib; sourceTree = "<group>"; };
 		E9B12DB7219E2D3900128EFE /* AssetBurnCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBurnCell.swift; sourceTree = "<group>"; };
 		E9B12DB8219E2D3900128EFE /* AssetBurnCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetBurnCell.xib; sourceTree = "<group>"; };
+		E9BB2D842260DEB000366278 /* TransactionCardInvokeScriptCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardInvokeScriptCell.swift; sourceTree = "<group>"; };
 		E9BB724721C2A94000B2AF7E /* CoinomatRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinomatRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E9BCF48021636DAC00FA6502 /* ResponseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseType.swift; sourceTree = "<group>"; };
 		E9C0B49B2176C46E00669D1D /* SendPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPresenterProtocol.swift; sourceTree = "<group>"; };
@@ -1763,6 +1769,9 @@
 		E9CD0D2D21809A5D001A99B3 /* SendMoneroPaymentIdView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SendMoneroPaymentIdView.xib; sourceTree = "<group>"; };
 		E9CD0D30218137FE001A99B3 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		E9CD0D3421815849001A99B3 /* AddAddressBookTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAddressBookTypes.swift; sourceTree = "<group>"; };
+		E9D0ED85225CB8400098C234 /* InvokeScriptTransactionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvokeScriptTransactionNode.swift; sourceTree = "<group>"; };
+		E9D0ED87225CBDEA0098C234 /* InvokeScriptTransactionDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvokeScriptTransactionDomainDTO.swift; sourceTree = "<group>"; };
+		E9D0ED89225CBECA0098C234 /* InvokeScriptTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InvokeScriptTransaction+Mapper.swift"; sourceTree = "<group>"; };
 		E9D36D6D2175C754001E6DF0 /* ReceiveCryptocurrencyTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyTypes.swift; sourceTree = "<group>"; };
 		E9D36D702175C754001E6DF0 /* ReceiveCryptocurrencyModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyModuleBuilder.swift; sourceTree = "<group>"; };
 		E9D36D722175C754001E6DF0 /* ReceiveCryptocurrencyPresenterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyPresenterProtocol.swift; sourceTree = "<group>"; };
@@ -1821,6 +1830,7 @@
 		E9EC5B3B2175F35800E5C29A /* SendModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendModuleBuilder.swift; sourceTree = "<group>"; };
 		E9EC5BA82175F35800E5C29A /* AddressInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressInputView.swift; sourceTree = "<group>"; };
 		E9EC5BA92175F35800E5C29A /* AddressInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressInputView.xib; sourceTree = "<group>"; };
+		E9EE476C225E91ED0005176A /* InvokeScriptTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvokeScriptTransaction.swift; sourceTree = "<group>"; };
 		E9F984A820E526DA00D2CB4D /* Enter.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Enter.storyboard; sourceTree = "<group>"; };
 		E9F984AA20E52D8E00D2CB4D /* EnterStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterStartViewController.swift; sourceTree = "<group>"; };
 		E9F984B120E53FE000D2CB4D /* LanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageViewController.swift; sourceTree = "<group>"; };
@@ -2190,6 +2200,7 @@
 				0ADD804121F71FD90075FC59 /* ScriptTransactionNode.swift */,
 				0ADD804321F72B2C0075FC59 /* AssetScriptTransactionNode.swift */,
 				0AFB59412209B2BD001F0DD8 /* SponsorshipTransactionNode.swift */,
+				E9D0ED85225CB8400098C234 /* InvokeScriptTransactionNode.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -2245,6 +2256,7 @@
 				0A57C38F21F74EB0003B5386 /* ScriptTransaction.swift */,
 				0A57C39121F74EBA003B5386 /* AssetScriptTransaction.swift */,
 				0AFB59432209B5F3001F0DD8 /* SponsorshipTransaction.swift */,
+				E9EE476C225E91ED0005176A /* InvokeScriptTransaction.swift */,
 			);
 			path = Transaction;
 			sourceTree = "<group>";
@@ -2464,6 +2476,7 @@
 				0ADD804721F73C280075FC59 /* AssetScriptTransactionDomainDTO.swift */,
 				0ADD804921F73C360075FC59 /* ScriptTransactionDomainDTO.swift */,
 				0AFB59472209C2F8001F0DD8 /* SponsorshipTransactionDomainDTO.swift */,
+				E9D0ED87225CBDEA0098C234 /* InvokeScriptTransactionDomainDTO.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -3017,6 +3030,7 @@
 				0A57C38B21F74E20003B5386 /* ScriptTransaction+Mapper.swift */,
 				0A57C38D21F74E2E003B5386 /* AssetScriptTransaction+Mapper.swift */,
 				0AFB59452209C20E001F0DD8 /* SponsorshipTransaction+Mapper.swift */,
+				E9D0ED89225CBECA0098C234 /* InvokeScriptTransaction+Mapper.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -3414,6 +3428,7 @@
 				7B3902AC2237D31900AAFDB8 /* TransactionCardShowAllCell.swift */,
 				7B3902A22237A00300AAFDB8 /* TransactionCardSponsorshipDetailCell.swift */,
 				7B39029C2236ABFF00AAFDB8 /* TransactionCardStatusCell.swift */,
+				E9BB2D842260DEB000366278 /* TransactionCardInvokeScriptCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -4796,7 +4811,6 @@
 				A60EA21BC9B82445DBBC7E14 /* [CP] Embed Pods Frameworks */,
 				64578F1B5667F7D76B8CA9B1 /* [CP] Copy Pods Resources */,
 				0A97974E21087D0400407F67 /* Gen Code */,
-				0AC14789218B043400A25BE5 /* Change Build Version */,
 				F7E954E01EA8FE0700A804DE /* Sources */,
 				F7E954E11EA8FE0700A804DE /* Frameworks */,
 				F7E954E21EA8FE0700A804DE /* Resources */,
@@ -5025,24 +5039,6 @@
 			shellPath = "/bin/bash -l";
 			shellScript = "\necho \"SwiftGen Begin\"\nHAS_NEED_GENERATE_CODE=\"$(ruby $PROJECT_DIR/fastlane/swiftgenhash.ruby)\"\n\nif [ \"$HAS_NEED_GENERATE_CODE\" == false ] ; then\n    echo \"SwiftGen Cancel\"\n    exit\nfi \n\nrm -rf $PROJECT_DIR/WavesWallet-iOS/Generated/\nmkdir $PROJECT_DIR/WavesWallet-iOS/Generated\n\n$PODS_ROOT/SwiftGen/bin/swiftgen storyboards -t swift4 -o $PROJECT_DIR/WavesWallet-iOS/Generated/Storyboards.swift $PROJECT_DIR/WavesWallet-iOS/\n\nSTRINGS=\"\"\nfor i in $(find ./WavesWallet-iOS/ -name \"*.strings\"); do\nif [[ $i = *\"en.lproj\"* ]]; then\nSTRINGS=\"$STRINGS $i\"\necho \"$STRINGS\"\nfi\ndone\n\n$PODS_ROOT/SwiftGen/bin/swiftgen strings --param enumName=Localizable --templatePath $PROJECT_DIR/Templates/structured-swift4.stencil -o $PROJECT_DIR/WavesWallet-iOS/Generated/Localizable.swift $STRINGS\n\n$PODS_ROOT/SwiftGen/bin/swiftgen xcassets -t swift4 -o $PROJECT_DIR/WavesWallet-iOS/Generated/Images.swift --param enumName=Images $PROJECT_DIR/WavesWallet-iOS/Resources/Assets.xcassets\n\n$PODS_ROOT/SwiftGen/bin/swiftgen strings --param enumName=AccessibilityIdentifiers --templatePath $PROJECT_DIR/Templates/structured-swift4.stencil -o $PROJECT_DIR/WavesWallet-iOS/Generated/AccessibilityIdentifiers.swift $PROJECT_DIR/WavesWallet-iOS/Resources/AccessibilityIdentifiers.strings\n\necho \"SwiftGen End\"\n\n";
 		};
-		0AC14789218B043400A25BE5 /* Change Build Version */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Change Build Version";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ -z \"${CI_INIT}\" ]\nthen\necho \"\\${CI_INIT} is empty\"\nPLIST=\"${PROJECT_DIR}/${INFOPLIST_FILE}\"\nPLB=/usr/libexec/PlistBuddy\nLAST_NUMBER=$($PLB -c \"Print CFBundleVersion\" \"$PLIST\")\nNEW_VERSION=$(($LAST_NUMBER + 1))\n$PLB -c \"Set :CFBundleVersion $NEW_VERSION\" \"$PLIST\"\nelse\necho \"\\${CI_INIT} is NOT empty\"\nfi\n\n\n";
-		};
 		14543D7E4AECF68BEF3D3CC1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -5264,34 +5260,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9E62D1F22678B7000D7DC95 /* SweetLoggerSentry.swift in Sources */,
+				0A5C53DF2139498800667E34 /* UnrecognisedTransactionDomainDTO.swift in Sources */,
+				0A5E4BC9213820C500E3C3C3 /* LeaseCancelTransactionDomainDTO.swift in Sources */,
+				0A5E4BD1213820C500E3C3C3 /* LeaseTransactionDomainDTO.swift in Sources */,
+				E9D0ED88225CBDEA0098C234 /* InvokeScriptTransactionDomainDTO.swift in Sources */,
+				0A5E4BCE213820C500E3C3C3 /* ExchangeTransactionDomainDTO.swift in Sources */,
+				0A5E4BCC213820C500E3C3C3 /* IssueTransactionDomainDTO.swift in Sources */,
+				0A5E4BD2213820C500E3C3C3 /* AnyTransactionDomainDTO.swift in Sources */,
+				04831F7B216917EF006D1ED6 /* SmartTransactionDomainDTO.swift in Sources */,
+				0ADD804A21F73C360075FC59 /* ScriptTransactionDomainDTO.swift in Sources */,
+				0ADD804821F73C280075FC59 /* AssetScriptTransactionDomainDTO.swift in Sources */,
+				0A5E4BD3213820C500E3C3C3 /* AliasTransactionDomainDTO.swift in Sources */,
+				0A5E4BCA213820C500E3C3C3 /* MassTransferTransactionDomainDTO.swift in Sources */,
+				0A5E4BC8213820C500E3C3C3 /* DataTransactionDomainDTO.swift in Sources */,
+				0A5E4BCD213820C500E3C3C3 /* TransferTransactionDomainDTO.swift in Sources */,
+				0A5E4BD0213820C500E3C3C3 /* BurnTransactionDomainDTO.swift in Sources */,
+				0AFB59482209C2F8001F0DD8 /* SponsorshipTransactionDomainDTO.swift in Sources */,
+				0A5E4BCF213820C500E3C3C3 /* ReissueTransactionDomainDTO.swift in Sources */,
 				0A218B8521551D1400B989A1 /* WalletsRepositoryLocal.swift in Sources */,
 				0A88CC0A217E80040083874C /* WalletRealmFactory.swift in Sources */,
 				0AD83601217A0D25004413E9 /* GitHubService.swift in Sources */,
 				04831F7A216917B0006D1ED6 /* ApiServiceTypes.swift in Sources */,
 				0AAB15C12165534500F1F7BC /* DomainLayerTypes.swift in Sources */,
-				0A5E4BCF213820C500E3C3C3 /* ReissueTransactionDomainDTO.swift in Sources */,
 				E9DF24FA2221EF4D0077F2EB /* AssetDetailTypes.swift in Sources */,
+				0A14CFD221441FDB00C3A4D5 /* TransactionDomainDTO+Mapper.swift in Sources */,
 				0A751D38221715F80024D523 /* AppNewsCoordinator.swift in Sources */,
 				E991BB17220197280022E27D /* AliasApi.swift in Sources */,
-				0A5E4BC9213820C500E3C3C3 /* LeaseCancelTransactionDomainDTO.swift in Sources */,
-				0A5E4BD1213820C500E3C3C3 /* LeaseTransactionDomainDTO.swift in Sources */,
-				0A5E4BD3213820C500E3C3C3 /* AliasTransactionDomainDTO.swift in Sources */,
-				0AFB59482209C2F8001F0DD8 /* SponsorshipTransactionDomainDTO.swift in Sources */,
-				0A5E4BCA213820C500E3C3C3 /* MassTransferTransactionDomainDTO.swift in Sources */,
-				0A5E4BC8213820C500E3C3C3 /* DataTransactionDomainDTO.swift in Sources */,
-				0A5E4BCD213820C500E3C3C3 /* TransferTransactionDomainDTO.swift in Sources */,
-				0A5E4BD0213820C500E3C3C3 /* BurnTransactionDomainDTO.swift in Sources */,
 				E991BB1C2202CB3C0022E27D /* SendFeeModuleBuilder.swift in Sources */,
-				0A5E4BCE213820C500E3C3C3 /* ExchangeTransactionDomainDTO.swift in Sources */,
-				0A5C53DF2139498800667E34 /* UnrecognisedTransactionDomainDTO.swift in Sources */,
-				0A5E4BCC213820C500E3C3C3 /* IssueTransactionDomainDTO.swift in Sources */,
-				7B951125225CD6D80030390C /* SweetLoggerSentry.swift in Sources */,
-				0A5E4BD2213820C500E3C3C3 /* AnyTransactionDomainDTO.swift in Sources */,
-				04831F7B216917EF006D1ED6 /* SmartTransactionDomainDTO.swift in Sources */,
-				0ADD804A21F73C360075FC59 /* ScriptTransactionDomainDTO.swift in Sources */,
-				0ADD804821F73C280075FC59 /* AssetScriptTransactionDomainDTO.swift in Sources */,
 				0A6F60EC216F89B300A5C615 /* SmartTransactionDomain+Assistants.swift in Sources */,
-				0A14CFD221441FDB00C3A4D5 /* TransactionDomainDTO+Mapper.swift in Sources */,
 				E991BB202202CE090022E27D /* SendFeeTableViewCell.swift in Sources */,
 				E964067E21D5299D00569963 /* DexDomainDTO.swift in Sources */,
 				0A8AFF282101F37200D0582B /* MatcherServiceTypes.swift in Sources */,
@@ -5694,10 +5691,12 @@
 				E9D36DC92175C755001E6DF0 /* ReceiveCryptocurrencyModuleBuilder.swift in Sources */,
 				E9B087AE2163886800937644 /* DexOrderBookCell.swift in Sources */,
 				0A7CCDAE218A138D005D372B /* MyAddressViewController.swift in Sources */,
+				E9EE476D225E91ED0005176A /* InvokeScriptTransaction.swift in Sources */,
 				7B95112F225CDA880030390C /* Money.swift in Sources */,
 				0AFF5C8D215CE2D000B82940 /* UseTouchIDModuleBuilder.swift in Sources */,
 				0AF921F3212E07B3003BA067 /* AssetEmptyHistoryCell.swift in Sources */,
 				0AF0C67B21AACA4F00602197 /* GlobalErrorView.swift in Sources */,
+				E9BB2D852260DEB000366278 /* TransactionCardInvokeScriptCell.swift in Sources */,
 				E9D36DD62175C755001E6DF0 /* ReceiveCardModuleBuilder.swift in Sources */,
 				0A14E3F121875B1300EA7E91 /* CreateAliasPresenter.swift in Sources */,
 				0A4C9AA120EE65800095A417 /* WalletItem.swift in Sources */,
@@ -5736,6 +5735,7 @@
 				0AF921ED212E07B3003BA067 /* AssetDetailViewController.swift in Sources */,
 				E9B0880E2163886800937644 /* DexMarketViewController.swift in Sources */,
 				0A5F953F2185FAD4005308AC /* AliasWithoutViewController.swift in Sources */,
+				E9D0ED8A225CBECA0098C234 /* InvokeScriptTransaction+Mapper.swift in Sources */,
 				E945F4C4208B88DD00545776 /* WalletViewController.swift in Sources */,
 				0A9797612108A60000407F67 /* Storyboards.swift in Sources */,
 				0A762D9B2163A0B60019D447 /* FactoryInteractors.swift in Sources */,
@@ -5921,6 +5921,7 @@
 				0A7CCDB5218A138D005D372B /* MyAddressInfoAddressCell.swift in Sources */,
 				E9B086B42163883000937644 /* AddressBookModuleOutput.swift in Sources */,
 				F74240B71EAB8D1600C3B84D /* AssetBalance.swift in Sources */,
+				E9D0ED86225CB8400098C234 /* InvokeScriptTransactionNode.swift in Sources */,
 				E9B087C22163886800937644 /* DexTraderContainerViewController.swift in Sources */,
 				0ADD7FEA21F22FB60075FC59 /* UITableView+Skeleton.swift in Sources */,
 				0A96F1DC2152E05A005E148F /* PasscodeInteractor.swift in Sources */,
@@ -6170,7 +6171,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2.3;
+				CURRENT_PROJECT_VERSION = 3813;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -6257,7 +6258,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2.3;
+				CURRENT_PROJECT_VERSION = 3813;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -6499,7 +6500,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2.3;
+				CURRENT_PROJECT_VERSION = 3813;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -6532,7 +6533,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2.3;
+				CURRENT_PROJECT_VERSION = 3813;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
