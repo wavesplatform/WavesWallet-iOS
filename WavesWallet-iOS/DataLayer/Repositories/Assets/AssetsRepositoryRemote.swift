@@ -157,6 +157,7 @@ fileprivate extension DomainLayer.DTO.Asset {
             if info.assetId == WavesSDKCryptoConstants.wavesAssetId {
                 isWaves = true
             }
+            isGeneral = info.isGateway || isWaves
             name = info.displayName
             isFiat = info.isFiat
         }

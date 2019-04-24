@@ -127,13 +127,13 @@ extension DomainLayer.DTO.SmartTransaction {
 
         switch kind {
         case .receive(let tx):
-            return tx.recipient
+            return tx.myAccount
 
         case .sent(let tx):
             return tx.recipient
 
         case .spamReceive(let tx):
-            return tx.recipient
+            return tx.myAccount
 
         case .selfTransfer(let tx):
             return tx.recipient
