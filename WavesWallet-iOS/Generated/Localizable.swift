@@ -1185,6 +1185,8 @@ internal enum Localizable {
           internal static var canceledLeasing: String { return Localizable.tr("Waves", "history.transaction.title.canceledLeasing") }
           /// Data transaction
           internal static var data: String { return Localizable.tr("Waves", "history.transaction.title.data") }
+          /// Entry in blockchain
+          internal static var entryInBlockchain: String { return Localizable.tr("Waves", "history.transaction.title.entryInBlockchain") }
           /// Exchange
           internal static var exchange: String { return Localizable.tr("Waves", "history.transaction.title.exchange") }
           /// Incoming Leasing
@@ -1201,10 +1203,6 @@ internal enum Localizable {
           internal static var selfTransfer: String { return Localizable.tr("Waves", "history.transaction.title.selfTransfer") }
           /// Sent
           internal static var sent: String { return Localizable.tr("Waves", "history.transaction.title.sent") }
-          /// Entry in blockchain
-          internal static var setAssetScript: String { return Localizable.tr("Waves", "history.transaction.title.setAssetScript") }
-          /// Entry in blockchain
-          internal static var setScript: String { return Localizable.tr("Waves", "history.transaction.title.setScript") }
           /// Started Leasing
           internal static var startedLeasing: String { return Localizable.tr("Waves", "history.transaction.title.startedLeasing") }
           /// Token Burn
@@ -1220,11 +1218,13 @@ internal enum Localizable {
         internal enum Value {
           /// Entry in blockchain
           internal static var data: String { return Localizable.tr("Waves", "history.transaction.value.data") }
-          /// Set Asset Script
+          /// Script Invocation
+          internal static var scriptInvocation: String { return Localizable.tr("Waves", "history.transaction.value.scriptInvocation") }
+          /// Update script
           internal static var setAssetScript: String { return Localizable.tr("Waves", "history.transaction.value.setAssetScript") }
 
           internal enum Setscript {
-            /// Cancel Script Transaction
+            /// Cancel Script
             internal static var cancel: String { return Localizable.tr("Waves", "history.transaction.value.setScript.cancel") }
             /// Set Script
             internal static var `set`: String { return Localizable.tr("Waves", "history.transaction.value.setScript.set") }
@@ -2327,6 +2327,8 @@ internal enum Localizable {
         internal static var nodeAddress: String { return Localizable.tr("Waves", "transactioncard.title.nodeAddress") }
         /// Not Reissuable
         internal static var notReissuable: String { return Localizable.tr("Waves", "transactioncard.title.notReissuable") }
+        /// Payment
+        internal static var payment: String { return Localizable.tr("Waves", "transactioncard.title.payment") }
         /// Price
         internal static var price: String { return Localizable.tr("Waves", "transactioncard.title.price") }
         /// Received
@@ -2341,6 +2343,10 @@ internal enum Localizable {
         }
         /// Reissuable
         internal static var reissuable: String { return Localizable.tr("Waves", "transactioncard.title.reissuable") }
+        /// Script address
+        internal static var scriptAddress: String { return Localizable.tr("Waves", "transactioncard.title.scriptAddress") }
+        /// Script Invocation
+        internal static var scriptInvocation: String { return Localizable.tr("Waves", "transactioncard.title.scriptInvocation") }
         /// Self-transfer
         internal static var selfTransfer: String { return Localizable.tr("Waves", "transactioncard.title.selfTransfer") }
         /// Send again

@@ -275,19 +275,31 @@
 "history.transaction.title.receivedSponsorship" = "Received Sponsorship";
 "history.transaction.title.selfTransfer" = "Self-transfer";
 "history.transaction.title.sent" = "Sent";
-"history.transaction.title.setAssetScript" = "Entry in blockchain";
-"history.transaction.title.setScript" = "Entry in blockchain";
 "history.transaction.title.startedLeasing" = "Started Leasing";
 "history.transaction.title.tokenBurn" = "Token Burn";
 "history.transaction.title.tokenGeneration" = "Token Generation";
 "history.transaction.title.tokenReissue" = "Token Reissue";
 "history.transaction.title.unrecognisedTransaction" = "Unrecognised Transaction";
-"history.transaction.value.data" = "Entry in blockchain";
-"history.transaction.value.setAssetScript" = "Set Asset Script";
-"history.transaction.value.setScript.cancel" = "Cancel Script Transaction";
+
+"history.transaction.value.setAssetScript" = "Update script";
+
+"history.transaction.value.setScript.cancel" = "Cancel Script";
+
 "history.transaction.value.setScript.set" = "Set Script";
+
+"history.transaction.value.data" = "Entry in blockchain";
+
 "history.transaction.value.setSponsorship.cancel" = "Disable Sponsorship";
 "history.transaction.value.setSponsorship.set" = "Set Sponsorship";
+
+"history.transaction.value.scriptInvocation" = "Script Invocation";
+
+"history.transaction.title.entryInBlockchain" = "Entry in blockchain";
+
+"import.account.warning.seed.title" = "The SEED phrase must consist of 15 words with spaces between each word";
+
+"import.account.warning.seed.subtitle" = "The SEED phrase you entered is too short. Make sure you do not confuse the phrase with a wallet address. Using an address as a SEED phrase can result in loss of funds.";
+
 "import.account.button.enter.title" = "Enter SEED manually";
 "import.account.button.scan.title" = "Scan pairing code";
 "import.account.label.info.step.one.detail" = "Settings — General — Export account";
@@ -593,6 +605,40 @@
 "dexmyorders.label.type" = "Type";
 "transactioncard.title.startedLeasing" = "Started Leasing";
 "transactioncard.title.canceledLeasing" = "Canceled Leasing";
+
+
+"transactioncard.title.nodeAddress" = "Node Address";
+"transactioncard.title.sentTo" = "Sent to";
+"transactioncard.title.sent" = "Sent";
+"transactioncard.title.tokenBurn" = "Token Burn";
+"transactioncard.title.tokenGeneration" = "Token Generation";
+"transactioncard.title.tokenReissue" = "Token Reissue";
+"transactioncard.title.createAlias" = "Create Alias"; //alias
+"transactioncard.title.unrecognisedTransaction" = "Unrecognised Transaction";
+"transactioncard.title.entryInBlockchain" = "Entry in blockchain";
+"transactioncard.title.dataTransaction" = "Data Transaction";
+"transactioncard.title.setScriptTransaction" = "Set Script";
+"transactioncard.title.cancelScriptTransaction" = "Cancel Script";
+"transactioncard.title.received" = "Received";
+"transactioncard.title.receivedFrom" = "Received from";
+"transactioncard.title.spamReceived" = "Spam Received";
+"transactioncard.title.selfTransfer" = "Self-transfer";
+"transactioncard.title.setSponsorship" = "Set Sponsorship";
+"transactioncard.title.disableSponsorship" = "Disable Sponsorship";
+"transactioncard.title.setAssetScript" = "Update script";
+"transactioncard.title.receivedSponsorship" = "Received Sponsorship";
+"transactioncard.title.scriptInvocation" = "Script Invocation";
+"transactioncard.title.scriptAddress" = "Script address";
+"transactioncard.title.payment" = "Payment";
+
+
+"transactioncard.title.recipient" = "#%@ Recipient";
+
+"transactioncard.title.leasingFrom" = "Leasing from";
+
+"transactioncard.title.exchange.buyPair" = "Buy: %@/%@";
+"transactioncard.title.exchange.sellPair" = "Sell: %@/%@";
+
 "transactioncard.title.nodeAddress" = "Node address";
 "transactioncard.title.description" = "Description";
 "transactioncard.title.asset" = "Asset";
@@ -602,6 +648,7 @@
 "transactioncard.title.block" = "Block";
 "transactioncard.title.massSent" = "Mass Sent";
 "transactioncard.title.massReceived" = "Mass Received";
+
 "transactioncard.title.exchange.buy" = "Buy";
 "transactioncard.title.exchange.sell" = "Sell";
 "transactioncard.title.recipient" = "#%@ Recipient";
