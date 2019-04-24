@@ -13,7 +13,7 @@ fileprivate enum Constants {
     static let height: CGFloat = 56
     static let icon: CGSize = CGSize(width: 28, height: 28)
     static let sponsoredIcon = CGSize(width: 12, height: 12)
-    static let delaySwitch: TimeInterval = 0.2
+    static let delaySwitch: TimeInterval = 0.3
 }
 
 final class WalletSortCell: UITableViewCell, NibReusable {
