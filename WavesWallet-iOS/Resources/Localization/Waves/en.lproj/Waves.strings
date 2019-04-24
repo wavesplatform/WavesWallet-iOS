@@ -231,7 +231,7 @@
 "general.tabbar.title.wallet" = "Wallet";
 "general.ticker.title.cryptocurrency" = "Cryptocurrency";
 "general.ticker.title.fiatmoney" = "Fiat Money";
-"general.ticker.title.spam" = "SPAM";
+"general.ticker.title.spam" = "SUSPICIOUS";
 "general.ticker.title.wavestoken" = "Waves Token";
 "general.tost.saveBackup.subtitle" = "Store your SEED safely, it is the only way to restore your wallet";
 "general.tost.saveBackup.title" = "Save your backup phrase (SEED)";
@@ -275,11 +275,14 @@
 "history.transaction.title.receivedSponsorship" = "Received Sponsorship";
 "history.transaction.title.selfTransfer" = "Self-transfer";
 "history.transaction.title.sent" = "Sent";
+"history.transaction.title.entryInBlockchain" = "Entry in blockchain";
 "history.transaction.title.startedLeasing" = "Started Leasing";
 "history.transaction.title.tokenBurn" = "Token Burn";
 "history.transaction.title.tokenGeneration" = "Token Generation";
 "history.transaction.title.tokenReissue" = "Token Reissue";
 "history.transaction.title.unrecognisedTransaction" = "Unrecognised Transaction";
+"history.transaction.value.setScript.cancel" = "Cancel Script";
+"history.transaction.value.setScript.set" = "Set Script";
 
 "history.transaction.value.setAssetScript" = "Update script";
 
@@ -552,7 +555,7 @@
 "transactioncard.title.sentTo" = "Sent to";
 "transactionhistory.cell.status.at" = "at";
 "transactioncard.title.activeNow" = "Active Now";
-"transactioncard.title.completed" = "Completed";
+"transactioncard.title.completed" = "COMPLETED";
 "transactioncard.title.unconfirmed" = "Unconfirmed";
 "transactioncard.title.timestamp" = "Timestamp";
 "transactionhistory.cell.type" = "Type";
@@ -582,7 +585,7 @@
 "wallet.section.activeNow" = "Active now (%d)";
 "wallet.section.hiddenAssets" = "Hidden assets (%d)";
 "wallet.section.quickNote" = "Quick note";
-"wallet.section.spamAssets" = "Spam assets (%d)";
+"wallet.section.spamAssets" = "Suspicious assets (%d)";
 "wallet.segmentedControl.assets" = "Assets";
 "wallet.segmentedControl.leasing" = "Leasing";
 "walletsort.button.position" = "Position";
@@ -653,13 +656,12 @@
 "transactioncard.title.exchange.sell" = "Sell";
 "transactioncard.title.recipient" = "#%@ Recipient";
 "transactioncard.title.receivedSponsorship" = "Received Sponsorship";
-"transactioncard.title.setAssetScript" = "Set Asset Script";
 "transactioncard.title.disableSponsorship" = "Disable Sponsorship";
 "transactioncard.title.setSponsorship" = "Set Sponsorship";
 "transactioncard.title.selfTransfer" = "Self-transfer";
 "transactioncard.title.received" = "Received";
-"transactioncard.title.spamReceived" = "Spam Received";
-"transactioncard.title.cancelScriptTransaction" = "Cancel Script Transaction";
+"transactioncard.title.spamReceived" = "Suspicious received";
+"transactioncard.title.cancelScriptTransaction" = "Cancel Script";
 "transactioncard.title.setScriptTransaction" = "Set Script";
 "transactioncard.title.dataTransaction" = "Data Transaction";
 "transactioncard.title.entryInBlockchain" = "Entry in blockchain";
@@ -675,10 +677,19 @@
 "transactioncard.title.showAll" = "Show all (%@)";
 "addressBookButton.title.editName" = "Edit name";
 "addressBookButton.title.saveAddress" = "Save address";
-"send.label.error.sendingToSpamAsset" = "Sending funds to spam asset is not possible";
+"send.label.error.sendingToSpamAsset" = "Sending funds to suspicious asset is not possible";
 "send.label.error.assetIsNotValid" = "The asset is not valid";
 "transactioncard.title.cancelOrder" = "Cancel order";
-"transactioncard.title.cancelled" = "Cancelled (%@%%)";
+"transactioncard.title.cancelled" = "(Cancelled)";
 "transactioncard.title.total" = "Total";
 "transactioncard.title.incomingLeasing" = "Incoming Leasing";
 "transactioncard.title.leasingFrom" = "Leasing from";
+"transactioncard.title.setAssetScript" = "Update Script";
+"history.transaction.value.setAssetScript" = "Update Script";
+"transactioncard.title.scriptInvocation" = "Script Invocation";
+"transactioncard.title.scriptAddress" = "Script address";
+"transactioncard.title.payment" = "Payment";
+"history.transaction.value.scriptInvocation" = "Script Invocation";
+"history.transaction.value.data" = "Entry in blockchain";
+"history.transaction.title.setAssetScript" = "Entry in blockchain";
+"history.transaction.title.setScript" = "Entry in blockchain";

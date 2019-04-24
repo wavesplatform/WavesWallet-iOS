@@ -181,7 +181,8 @@ extension DomainLayer.DTO.TransferTransaction {
                                                                         asset: transferAsset,
                                                                         recipient: transactionDirection == .receive ? sender : recipient,
                                                                         attachment: decodedString(attachment),
-                                                                        hasSponsorship: hasSponsorship)
+                                                                        hasSponsorship: hasSponsorship,
+                                                                        myAccount: metaData.account)
 
 
         var kind: DomainLayer.DTO.SmartTransaction.Kind!
