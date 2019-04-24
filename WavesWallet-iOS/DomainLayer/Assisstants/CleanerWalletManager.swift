@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import WavesSDKExtension
 
 struct CleanerWalletManager: TSUD, Codable, Mutating  {
     
