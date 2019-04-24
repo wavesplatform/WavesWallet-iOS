@@ -88,7 +88,7 @@ private extension WalletSortViewController {
                 self.sections = state.sections
                 self.status = state.status
                 self.tableView.isEditing = state.status == .position
-                self.tableView.reloadData()
+                self.tableView.reloadDataWithAnimationTheCrossDissolve()
             })
         
         return [subscriptionSections]
