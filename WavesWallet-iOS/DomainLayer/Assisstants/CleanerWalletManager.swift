@@ -13,23 +13,27 @@ struct CleanerWalletManager: TSUD, Codable, Mutating  {
     
     private static let key = "com.waves.cleanwallet.settings"
     
-    private var isCleanWallet: Bool = false
-
+    private var cleanAccounts: Set<String> = Set<String>()
+    
+    init() {
+        self.cleanAccounts = .init()
+    }
+    
     static var defaultValue: CleanerWalletManager {
-        return CleanerWalletManager(isCleanWallet: false)
+        return CleanerWalletManager()
     }
     
     static var stringKey: String {
         return key
     }
     
-    static func setCleanWallet(isClean: Bool) {
+    static func setCleanWallet(accountAddress: String) {
         var settings = CleanerWalletManager.get()
-        settings.isCleanWallet = isClean
+        settings.cleanAccounts.insert(accountAddress)
         CleanerWalletManager.set(settings)
     }
     
-    static var isCleanWallet: Bool {
-        return CleanerWalletManager.get().isCleanWallet
+    static func isCleanWallet(by accountAddress: String) -> Bool {
+        return CleanerWalletManager.get().cleanAccounts.contains(accountAddress)
     }
 }
