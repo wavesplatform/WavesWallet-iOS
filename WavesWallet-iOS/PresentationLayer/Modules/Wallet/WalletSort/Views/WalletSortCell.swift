@@ -13,6 +13,7 @@ fileprivate enum Constants {
     static let height: CGFloat = 56
     static let icon: CGSize = CGSize(width: 28, height: 28)
     static let sponsoredIcon = CGSize(width: 12, height: 12)
+    static let delaySwitch: TimeInterval = 0.2
 }
 
 final class WalletSortCell: UITableViewCell, NibReusable {
@@ -41,6 +42,7 @@ final class WalletSortCell: UITableViewCell, NibReusable {
         buttonFav.addTarget(self, action: #selector(favouriteTapped), for: .touchUpInside)
     }
     
+  
     override func prepareForReuse() {
         super.prepareForReuse()
         imageIcon.image = nil
@@ -68,8 +70,10 @@ final class WalletSortCell: UITableViewCell, NibReusable {
     }
     
     @objc private func changedValueSwitchAction() {
-        changedValueSwitchControl?()
-    
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.delaySwitch) {
+            self.changedValueSwitchControl?()
+        }
     }
 }
 
