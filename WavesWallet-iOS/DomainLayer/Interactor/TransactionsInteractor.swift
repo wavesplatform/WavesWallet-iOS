@@ -351,7 +351,6 @@ fileprivate extension TransactionsInteractor {
             })
             .flatMap({ [weak self] result -> Observable<RemoteResult> in
                 guard let self = self else { return Observable.never() }
-
                 if result.txs.count == 0 {
                     return Observable.just(result)
                 }
@@ -836,6 +835,13 @@ private extension DomainLayer.DTO.AnyTransaction {
 
         case .sponsorship(let tx):
             return [tx.assetId]
+            
+        case .invokeScript(let tx):
+
+            if let payment = tx.payment, let assetId = payment.assetId {
+                return [WavesSDKCryptoConstants.wavesAssetId, assetId]
+            }
+            return [WavesSDKCryptoConstants.wavesAssetId]
         }
     }
 
@@ -891,6 +897,9 @@ private extension DomainLayer.DTO.AnyTransaction {
             return [tx.sender]
 
         case .sponsorship(let tx):
+            return [tx.sender]
+            
+        case .invokeScript(let tx):
             return [tx.sender]
         }
     }

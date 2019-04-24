@@ -77,6 +77,9 @@ fileprivate extension TransactionType {
         case .sponsorship:
             return SponsorshipTransaction.predicate(specifications, myAddress: myAddress)
 
+        case .invokeScript:
+            return InvokeScriptTransaction.predicate(specifications, myAddress: myAddress)
+            
         default:
             return UnrecognisedTransaction.predicate(specifications, myAddress: myAddress)
         }
@@ -136,6 +139,10 @@ fileprivate extension TransactionType {
         case .sponsorship:
             guard let sponsorshipTransaction = transaction.sponsorshipTransaction else { return nil }
             return .sponsorship(.init(transaction: sponsorshipTransaction))
+
+        case .invokeScript:
+            guard let invokeScriptTransaction = transaction.invokeScriptTransaction else { return nil }
+            return .invokeScript(.init(transaction: invokeScriptTransaction))
 
         default:
             guard let unrecognisedTransaction = transaction.unrecognisedTransaction else { return nil }
@@ -573,6 +580,20 @@ extension SponsorshipTransaction: TransactionsSpecificationsConverter {
             predicates.append(NSPredicate(format: "sponsorshipTransaction.assetId IN %@", from.assets))
         }
 
+        return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+    }
+}
+
+extension InvokeScriptTransaction: TransactionsSpecificationsConverter {
+    static func predicate(_ from: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
+        
+        var predicates: [NSPredicate] = .init()
+        predicates.append(NSPredicate(format: "invokeScriptTransaction != NULL"))
+
+        if from.assets.count > 0 {
+            predicates.append(NSPredicate(format: "invokeScriptTransaction.payment.assetId IN %@", from.assets))
+        }
+        
         return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
     }
 }

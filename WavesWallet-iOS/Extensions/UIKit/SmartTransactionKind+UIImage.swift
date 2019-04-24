@@ -84,6 +84,9 @@ extension DomainLayer.DTO.SmartTransaction.Kind {
             } else {
                 return Images.tSponsoredDisable48.image
             }
+            
+        case .invokeScript:
+            return Images.tInvocationscript48.image
         }
     }
 }
