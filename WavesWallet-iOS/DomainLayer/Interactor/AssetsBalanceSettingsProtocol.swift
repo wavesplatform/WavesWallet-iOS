@@ -19,13 +19,12 @@ private enum Constants {
 protocol AssetsBalanceSettingsInteractorProtocol {
 
     func settings(by accountAddress: String, assets: [DomainLayer.DTO.Asset]) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]>
-    func move(by accountAddress: String, assetId: String, underAssetId: String) -> Observable<Bool>
-    func move(by accountAddress: String, assetId: String, overAssetId: String) -> Observable<Bool>
     func setFavorite(by accountAddress: String, assetId: String, isFavorite: Bool) -> Observable<Bool>
-    func setHidden(by accountAddress: String, assetId: String, isHidden: Bool) -> Observable<Bool>
+    func updateAssetsSettings(by accountAddress: String, settings: [DomainLayer.DTO.AssetBalanceSettings]) -> Observable<Bool>
 }
 
 final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProtocol {
+    
 
     private let assetsBalanceSettingsRepository: AssetsBalanceSettingsRepositoryProtocol
     private let environmentRepository: EnvironmentRepositoryProtocol
@@ -79,38 +78,6 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
         })
     }
     
-    func move(by accountAddress: String, assetId: String, underAssetId: String) -> Observable<Bool> {
-
-        return assetsBalanceSettingsRepository
-            .settings(by: accountAddress, ids: [assetId, underAssetId])
-            .flatMapLatest { [weak self] (settingsMap) -> Observable<Bool> in
-                guard let self = self else { return Observable.never() }
-                guard var asset = settingsMap[assetId] else { return Observable.never() }
-                guard let underAsset = settingsMap[underAssetId] else { return Observable.never() }
-
-                asset.sortLevel = underAsset.sortLevel + Constants.step
-
-                return self.assetsBalanceSettingsRepository.saveSettings(by: accountAddress,
-                                                                          settings: [asset])
-            }
-    }
-
-    func move(by accountAddress: String, assetId: String, overAssetId: String) -> Observable<Bool> {
-
-        return assetsBalanceSettingsRepository
-            .settings(by: accountAddress, ids: [assetId, overAssetId])
-            .flatMap { [weak self] (settingsMap) -> Observable<Bool> in
-                guard let self = self else { return Observable.never() }
-                guard var asset = settingsMap[assetId] else { return Observable.never() }
-                guard let overAssetId = settingsMap[overAssetId] else { return Observable.never() }
-
-                asset.sortLevel = overAssetId.sortLevel - Constants.step
-
-                return self.assetsBalanceSettingsRepository.saveSettings(by: accountAddress,
-                                                                         settings: [asset])
-        }
-    }
-
     func setFavorite(by accountAddress: String, assetId: String, isFavorite: Bool) -> Observable<Bool> {
 
         return assetsBalanceSettingsRepository
@@ -126,6 +93,8 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
                 if asset.isFavorite == isFavorite {
                     return Observable.just(true)
                 }
+                
+                //TODO - need correct update sort level
 
                 if isFavorite {
                     if let topFavorite = sortedSettings.first(where: { $0.isFavorite == true }) {
@@ -149,22 +118,11 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
                                                                           settings: [asset])
         }
     }
-
-    func setHidden(by accountAddress: String, assetId: String, isHidden: Bool) -> Observable<Bool> {
-        return assetsBalanceSettingsRepository
-            .settings(by: accountAddress, ids: [assetId])
-            .flatMap { [weak self] (settings) -> Observable<Bool> in
-
-                guard let self = self else { return Observable.never() }
-                guard var asset = settings[assetId] else { return Observable.never() }
-
-                asset.isHidden = isHidden
-                asset.isFavorite = false
-
-                return self.assetsBalanceSettingsRepository.saveSettings(by: accountAddress,
-                                                                         settings: [asset])
-        }
+    
+    func updateAssetsSettings(by accountAddress: String, settings: [DomainLayer.DTO.AssetBalanceSettings]) -> Observable<Bool> {
+        return assetsBalanceSettingsRepository.saveSettings(by: accountAddress, settings: settings)
     }
+    
 }
 
 

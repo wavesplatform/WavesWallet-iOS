@@ -1,22 +1,23 @@
 //
-//  WalletSortModuleBuilder.swift
+//  NewWalletSortModuleBuilder.swift
 //  WavesWallet-iOS
 //
-//  Created by mefilt on 02.08.2018.
-//  Copyright © 2018 Waves Platform. All rights reserved.
+//  Created by Pavel Gubin on 4/17/19.
+//  Copyright © 2019 Waves Platform. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 struct WalletSortModuleBuilder: ModuleBuilder {
-
+    
     func build(input: [DomainLayer.DTO.SmartAssetBalance]) -> UIViewController {
-
+        
         let vc = StoryboardScene.Wallet.walletSortViewController.instantiate()
         var presenter: WalletSortPresenterProtocol = WalletSortPresenter(input: input)
         presenter.interactor = WalletSortInteractor()
         vc.presenter = presenter
-        
+
         return vc
     }
 }
