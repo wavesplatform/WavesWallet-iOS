@@ -156,7 +156,7 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "aa:15:14:22:f4:fe:a3:3d:5c:52:5b:20:f4:1f:3f:52"
-            - "43:eb:59:d6:49:f1:ae:81:cb:5a:ba:b8:01:64:19:39"
+            # - "43:eb:59:d6:49:f1:ae:81:cb:5a:ba:b8:01:64:19:39"
       - checkout
       - restore_cache:
           key: gems-{{ checksum "Gemfile.lock" }}
