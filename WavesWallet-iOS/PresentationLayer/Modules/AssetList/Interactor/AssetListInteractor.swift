@@ -30,7 +30,6 @@ final class AssetListInteractor: AssetListInteractorProtocol {
                 .map({ [weak self] (assets) -> [DomainLayer.DTO.SmartAssetBalance] in
                     
                     guard let self = self else { return [] }
-                    self.cachedAssets = assets
                     
                     let filteredSpamAssets = assets.filter{ $0.asset.isSpam == false }
                     
@@ -86,6 +85,11 @@ private extension AssetListInteractor {
             return Observable.just(cachedAssets)
         }
         return accountBalanceInteractor.balances()
+            .flatMap( { [weak self] (assets) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
+                guard let self = self else { return Observable.empty() }
+                self.cachedAssets = assets
+                return Observable.just(assets)
+        })
     }
     
     func filterIsMyAsset(_ assets: [DomainLayer.DTO.SmartAssetBalance]) -> [DomainLayer.DTO.SmartAssetBalance] {
