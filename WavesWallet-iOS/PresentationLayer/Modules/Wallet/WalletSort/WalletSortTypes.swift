@@ -15,8 +15,8 @@ enum WalletSort {
     enum Event {
         case readyView
         case setStatus(Status)
-        case setFavorite(WalletSort.DTO.Asset)
-        case setHidden(WalletSort.DTO.Asset)
+        case setFavoriteAt(IndexPath)
+        case setHiddenAt(IndexPath)
         case moveAsset(from: IndexPath, to: IndexPath)
     }
     
@@ -26,10 +26,11 @@ enum WalletSort {
     }
     
     struct State: Mutating {
-        
+       
         enum Action {
             case none
             case refresh
+            case move(at: IndexPath, to: IndexPath, delete: IndexPath?, insert: IndexPath?)
         }
         
         var assets: [WalletSort.DTO.Asset]

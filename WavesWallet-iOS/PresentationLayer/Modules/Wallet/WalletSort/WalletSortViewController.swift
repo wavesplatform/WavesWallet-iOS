@@ -15,7 +15,6 @@ private enum Constants {
     static let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0)
 }
 
-
 final class WalletSortViewController: UIViewController {
     
     @IBOutlet private weak var tableView: UITableView!
@@ -84,11 +83,40 @@ private extension WalletSortViewController {
                 
                 guard let self = self else { return }
                 
-                guard state.action != .none else { return }
+                switch state.action {
+                case .none:
+                    return
+                default:
+                    break
+                }
+                
                 self.sections = state.sections
                 self.status = state.status
                 self.tableView.isEditing = state.status == .position
-                self.tableView.reloadDataWithAnimationTheCrossDissolve()
+                
+                switch state.action {
+                
+                case .move(let at, let to, let delete, let insert):
+                    
+                    self.tableView.performBatchUpdates({
+                        
+                        if let delete = delete {
+                            self.tableView.deleteRows(at: [delete], with: .fade)
+                        }
+                        if let insert = insert {
+                            self.tableView.insertRows(at: [insert], with: .fade)
+                        }
+                        self.tableView.moveRow(at: at, to: to)
+                    }, completion: { (complete) in
+                        self.tableView.reloadData()
+                    })
+                    
+                case .refresh:
+                    self.tableView.reloadDataWithAnimationTheCrossDissolve()
+                    
+                default:
+                    break
+                }
             })
         
         return [subscriptionSections]
@@ -193,30 +221,29 @@ extension WalletSortViewController: UITableViewDataSource {
           
             let cell: WalletSortCell = tableView.dequeueAndRegisterCell()
             cell.update(with: cellModel(asset: asset, type: .favourite))
-            addAction(cell: cell, asset: asset)
+            addAction(cell: cell, asset: asset, indexPath: indexPath)
             return cell
 
         case .list(let asset):
           
             let cell: WalletSortCell = tableView.dequeueAndRegisterCell()
             cell.update(with: cellModel(asset: asset, type: .list))
-            addAction(cell: cell, asset: asset)
+            addAction(cell: cell, asset: asset, indexPath: indexPath)
             return cell
             
         case .hidden(let asset):
-          
             
             let cell: WalletSortCell = tableView.dequeueAndRegisterCell()
             cell.update(with: cellModel(asset: asset, type: .hidden))
-            addAction(cell: cell, asset: asset)
+            addAction(cell: cell, asset: asset, indexPath: indexPath)
             return cell
         }
     }
 }
 
-
+//MARK: - UI
 private extension WalletSortViewController {
-    
+ 
     func cellModel(asset: WalletSort.DTO.Asset, type: WalletSortCell.AssetType) -> WalletSortCell.Model {
         return WalletSortCell.Model(name: asset.name,
                                     isMyWavesToken: asset.isMyWavesToken,
@@ -230,14 +257,15 @@ private extension WalletSortViewController {
                                     type: type)
     }
     
-    func addAction(cell: WalletSortCell, asset: WalletSort.DTO.Asset) {
+    func addAction(cell: WalletSortCell, asset: WalletSort.DTO.Asset, indexPath: IndexPath) {
+        
         cell.favouriteButtonTapped = { [weak self] in
             guard let self = self else { return }
-            self.sendEvent.accept(.setFavorite(asset))
+            self.sendEvent.accept(.setFavoriteAt(indexPath))
         }
         cell.changedValueSwitchControl = { [weak self]  in
             guard let self = self else { return }
-            self.sendEvent.accept(.setHidden(asset))
+            self.sendEvent.accept(.setHiddenAt(indexPath))
         }
     }
 }
