@@ -52,17 +52,9 @@ GEM
     coderay (1.1.2)
     colored (1.2)
     colored2 (3.1.2)
-    commander (4.4.6)
-      highline (~> 1.7.2)
     commander-fastlane (4.4.6)
       highline (~> 1.7.2)
     concurrent-ruby (1.1.5)
-    credentials_manager (1.0.0)
-      colored
-      commander (>= 4.3.5)
-      fastlane (>= 2.0.0, < 3.0.0)
-      highline (>= 1.7.1)
-      security
     declarative (0.0.10)
     declarative-option (0.1.0)
     digest-crc (0.4.1)
@@ -191,16 +183,6 @@ GEM
       CFPropertyList
       naturally
     slack-notifier (2.3.2)
-    spaceship (1.0.0)
-      babosa (= 1.0.2)
-      colored
-      credentials_manager (>= 0.16.0)
-      faraday (~> 0.9)
-      faraday-cookie_jar (~> 0.0.6)
-      faraday_middleware (~> 0.9)
-      fastimage (>= 1.6)
-      multi_xml (~> 0.5)
-      plist (>= 3.1.0, < 4.0.0)
     terminal-notifier (2.0.0)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
@@ -241,7 +223,6 @@ DEPENDENCIES
   fastlane
   json
   pry
-  spaceship
   versionomy
 
 BUNDLED WITH
