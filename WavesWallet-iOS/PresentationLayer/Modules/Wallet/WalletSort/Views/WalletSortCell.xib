@@ -19,6 +19,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="137.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OCx-uv-K4v">
+                        <rect key="frame" x="16" y="45" width="303" height="48"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i9t-vj-4Jw">
                         <rect key="frame" x="16" y="45" width="303" height="48"/>
                         <subviews>
@@ -48,7 +52,7 @@
                                 <color key="onTintColor" red="0.35294117650000001" green="0.50588235290000005" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </switch>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="cZb-jP-rpJ" firstAttribute="centerY" secondItem="i9t-vj-4Jw" secondAttribute="centerY" id="7vD-2j-uiu"/>
                             <constraint firstItem="cZb-jP-rpJ" firstAttribute="leading" secondItem="pTk-B4-njO" secondAttribute="trailing" id="FI1-E8-eGH"/>
@@ -68,8 +72,12 @@
                     </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="OCx-uv-K4v" firstAttribute="centerX" secondItem="i9t-vj-4Jw" secondAttribute="centerX" id="BIw-G0-bXd"/>
                     <constraint firstItem="i9t-vj-4Jw" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="GyD-Wr-0a5"/>
+                    <constraint firstItem="OCx-uv-K4v" firstAttribute="centerY" secondItem="i9t-vj-4Jw" secondAttribute="centerY" id="Ic8-WG-Z0A"/>
                     <constraint firstItem="i9t-vj-4Jw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="ZDb-FT-a6B"/>
+                    <constraint firstItem="OCx-uv-K4v" firstAttribute="height" secondItem="i9t-vj-4Jw" secondAttribute="height" id="n0A-Z0-8lC"/>
+                    <constraint firstItem="OCx-uv-K4v" firstAttribute="width" secondItem="i9t-vj-4Jw" secondAttribute="width" id="w0E-52-Loa"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -82,7 +90,7 @@
                 <outlet property="imageIcon" destination="cZb-jP-rpJ" id="Hsv-rq-gJV"/>
                 <outlet property="labelTitle" destination="lgK-17-DHI" id="7VU-HD-4eD"/>
                 <outlet property="switchControl" destination="aHN-aX-dD1" id="L5M-QH-cb0"/>
-                <outlet property="viewContent" destination="i9t-vj-4Jw" id="gc0-wW-NC2"/>
+                <outlet property="viewShadow" destination="OCx-uv-K4v" id="gUh-sw-d2a"/>
             </connections>
             <point key="canvasLocation" x="102.89855072463769" y="66.964285714285708"/>
         </tableViewCell>

@@ -13,20 +13,23 @@ fileprivate enum Constants {
     static let height: CGFloat = 56
     static let icon: CGSize = CGSize(width: 28, height: 28)
     static let sponsoredIcon = CGSize(width: 12, height: 12)
-    static let delaySwitch: TimeInterval = 0.3
+    static let delaySwitch: TimeInterval = 0.25
+    static let animationDuration: TimeInterval = 0.3
 }
 
 final class WalletSortCell: UITableViewCell, NibReusable {
-    @IBOutlet private var buttonFav: UIButton!
-    @IBOutlet private var imageIcon: UIImageView!
-    @IBOutlet private var labelTitle: UILabel!
-    @IBOutlet private var switchControl: UISwitch!
-    @IBOutlet private var viewContent: UIView!
+    @IBOutlet weak var buttonFav: UIButton!
+    @IBOutlet private weak var imageIcon: UIImageView!
+    @IBOutlet private weak var labelTitle: UILabel!
+    @IBOutlet private weak var switchControl: UISwitch!
+    @IBOutlet weak var viewShadow: UIView!
     
     private var isDragging: Bool = false
     
     private var disposeBag = DisposeBag()
     private var assetType = AssetType.list
+    
+    private var isHiddenWhiteContainer = false
     
     var changedValueSwitchControl: (() -> Void)?
     var favouriteButtonTapped:(() -> Void)?
@@ -37,7 +40,7 @@ final class WalletSortCell: UITableViewCell, NibReusable {
         selectionStyle = .none
         backgroundColor = .basic50
         contentView.backgroundColor = .basic50
-        viewContent.addTableCellShadowStyle()
+        viewShadow.addTableCellShadowStyle()
         switchControl.addTarget(self, action: #selector(changedValueSwitchAction), for: .valueChanged)
         buttonFav.addTarget(self, action: #selector(favouriteTapped), for: .touchUpInside)
     }
@@ -60,13 +63,28 @@ final class WalletSortCell: UITableViewCell, NibReusable {
         if alpha <= 0.9 && isDragging {
             isDragging = false
             endMove()
-        }
+        }        
     }
     
     @objc private func favouriteTapped() {
         
         favouriteButtonTapped?()
         ImpactFeedbackGenerator.impactOccurred()
+        
+        if assetType == .favourite {
+            buttonFav.setImage(Images.iconFavEmpty.image , for: .normal)
+        }
+        else {
+            buttonFav.setImage(Images.favorite14Submit300.image , for: .normal)
+        }
+        switchControl.setOn(true, animated: true)
+        
+        if assetType == .list {
+            showAnimationFromVisibleToHidden()
+        }
+        else if assetType == .favourite {
+            showAnimationFromHiddenToVisible()
+        }
     }
     
     @objc private func changedValueSwitchAction() {
@@ -75,6 +93,7 @@ final class WalletSortCell: UITableViewCell, NibReusable {
             self.changedValueSwitchControl?()
         }
     }
+    
 }
 
 extension WalletSortCell: ViewHeight {
@@ -85,7 +104,7 @@ extension WalletSortCell: ViewHeight {
 
 private extension WalletSortCell {
     func beginMove() {
-        viewContent.removeShadow()
+        viewShadow.alpha = 0
     }
     
     func endMove() {
@@ -94,11 +113,38 @@ private extension WalletSortCell {
     
     func updateBackground() {
         if assetType == .favourite || assetType == .hidden {
-            viewContent.backgroundColor = .clear
-            viewContent.removeShadow()
+            viewShadow.alpha = 0
+            viewShadow.backgroundColor = .clear
+            viewShadow.removeShadow()
+            isHiddenWhiteContainer = true
+
         } else {
-            viewContent.backgroundColor = .white
-            viewContent.addTableCellShadowStyle()
+            viewShadow.alpha = 1
+            viewShadow.backgroundColor = .white
+            viewShadow.addTableCellShadowStyle()
+            isHiddenWhiteContainer = false
+        }
+    }
+    
+    func showAnimationFromHiddenToVisible() {
+        if !isHiddenWhiteContainer {
+            return
+        }
+        isHiddenWhiteContainer = false
+        viewShadow.backgroundColor = .white
+        viewShadow.addTableCellShadowStyle()
+        UIView.animate(withDuration: Constants.animationDuration) {
+            self.viewShadow.alpha = 1
+        }
+    }
+    
+    func showAnimationFromVisibleToHidden() {
+        if isHiddenWhiteContainer {
+            return
+        }
+        isHiddenWhiteContainer = true
+        UIView.animate(withDuration: Constants.animationDuration) {
+            self.viewShadow.alpha = 0
         }
     }
 }
@@ -123,6 +169,7 @@ extension WalletSortCell: ViewConfiguration {
         let isSponsored: Bool
         let hasScript: Bool
         let type: AssetType
+        
     }
     
     func update(with model: Model) {
@@ -134,6 +181,7 @@ extension WalletSortCell: ViewConfiguration {
         switchControl.isHidden = !model.isVisibility
         switchControl.isOn = !model.isHidden
         assetType = model.type
+        
         updateBackground()
         
         AssetLogo.logo(icon: model.icon,
