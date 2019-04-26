@@ -363,7 +363,7 @@ platform :ios do
   lane :increment_build_number_and_commit_push do      
       increment_build_number
       get_version_and_build
-      git_commit(path: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS/Info.plist", message: "Increment build number [ci skip]")
+      git_commit(path: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS/Info.plist", message: "Increment build number ")
       push_to_git_remote
   end
 
