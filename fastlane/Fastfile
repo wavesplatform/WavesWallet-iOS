@@ -149,12 +149,12 @@ platform :ios do
   lane :prod_build_projet do
     prod_enviroment
     increment_build_number_and_commit_push
-    # build_projet    
+    build_projet    
   end
 
   lane :prod_upload_testflight do
-    # prod_enviroment
-    # upload_testflight 
+    prod_enviroment
+    upload_testflight 
   end
 
   lane :dev_build_projet do
