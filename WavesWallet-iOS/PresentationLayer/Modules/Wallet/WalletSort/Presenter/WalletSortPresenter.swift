@@ -185,6 +185,7 @@ private extension DomainLayer.DTO.SmartAssetBalance {
 
 //MARK: - SetFavorite
 private extension WalletSortPresenter {
+    
     func setFavorite(at indexPath: IndexPath, state: inout WalletSort.State) {
         
         if var asset = state.asset(by: indexPath) {
@@ -194,8 +195,8 @@ private extension WalletSortPresenter {
             if asset.isFavorite {
                 asset.isFavorite = false
                 
-                let newSection = state.sectionIndex(.list)
-                let to = IndexPath(row: 0, section: newSection)
+                let listSection = state.sectionIndex(.list)
+                let to = IndexPath(row: 0, section: listSection)
                 
                 if state.isEmptySection(.favorities) && state.isEmptySection(.list) {
                     
@@ -220,7 +221,7 @@ private extension WalletSortPresenter {
                                          delete: nil,
                                          insert: nil)
                 }
-                state.sections[newSection].items.insert(.list(asset), at: 0)
+                state.sections[listSection].items.insert(.list(asset), at: 0)
             }
             else {
                 asset.isFavorite = true
@@ -272,14 +273,30 @@ private extension WalletSortPresenter {
 private extension WalletSortPresenter {
     func setHidden(at indexPath: IndexPath, state: inout WalletSort.State) {
         if var asset = state.asset(by: indexPath) {
+            
             state.sections[indexPath.section].items.remove(at: indexPath.row)
             
             if asset.isHidden {
                 asset.isHidden = false
+                
+                let listSection = state.sectionIndex(.list)
+
+                if state.isEmptySection(.hidden) && state.isEmptySection(.list) {
+                    
+                    let to = IndexPath(row: 0, section: listSection)
+                    state.action = .move(at: indexPath, to: to,
+                                         delete: state.blockIndexPath(by: .list),
+                                         insert: state.blockIndexPath(by: .hidden))
+                }
+                
+                state.sections[listSection].items.append(.list(asset))
             }
             else {
                 
             }
+            
+
+            update(state: &state)
         }
     }
 }
