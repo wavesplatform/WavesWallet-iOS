@@ -21,7 +21,7 @@ def highest_app_version_number(username, password, bundle_id)
 
   app = Spaceship::Tunes::Application.find(bundle_id)
 
-  Spaceship::AppVersion.find(app, username, true, platform: "ios")
+  # Spaceship::AppVersion.find(app, username, true, platform: "ios")
 
   puts(app.live_version("ios"))
   # puts(app.name())
@@ -149,12 +149,12 @@ platform :ios do
   lane :prod_build_projet do
     prod_enviroment
     increment_build_number_and_commit_push
-    build_projet    
+    # build_projet    
   end
 
   lane :prod_upload_testflight do
-    prod_enviroment
-    upload_testflight 
+    # prod_enviroment
+    # upload_testflight 
   end
 
   lane :dev_build_projet do
@@ -363,7 +363,10 @@ platform :ios do
   lane :increment_build_number_and_commit_push do      
       increment_build_number
       get_version_and_build
-      git_commit(path: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS/Info.plist", message: "Increment build number")
+
+      git_commit(path: ["#{ENV['ROOT_PROJECT']}/WavesWallet-iOS/Info.plist",
+                        "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj"],
+                  message: "Increment build number [ci skip]")
       push_to_git_remote
   end
 
