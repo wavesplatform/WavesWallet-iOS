@@ -30,7 +30,9 @@ enum WalletSort {
         enum Action {
             case none
             case refresh
+            case refreshWithAnimation(movedRowAt: IndexPath)
             case move(at: IndexPath, to: IndexPath, delete: IndexPath?, insert: IndexPath?)
+            case updateMoveAction(insertAt: IndexPath?, deleteAt: IndexPath?, movedRowAt: IndexPath)
         }
         
         var assets: [WalletSort.DTO.Asset]

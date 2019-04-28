@@ -11,6 +11,7 @@ import UIKit
 private enum Constants {
     static let defaultHeight: CGFloat = 26
     static let titleHeight: CGFloat = 55
+    static let animationDuration: TimeInterval = 0.3
 }
 
 final class WalletSortSeparatorCell: UITableViewCell, NibReusable {
@@ -29,12 +30,31 @@ final class WalletSortSeparatorCell: UITableViewCell, NibReusable {
         labelTitle.text = Localizable.Waves.Walletsort.Label.hiddenAssets
     }
     
+    func hideTitleWithAnimation() {
+        if labelTitle.alpha == 0 {
+            return
+        }
+        
+        UIView.animate(withDuration: Constants.animationDuration) {
+            self.labelTitle.alpha = 0
+        }
+    }
+    
+    func showTitleWithAnimation() {
+        if labelTitle.alpha == 1 {
+            return
+        }
+        
+        UIView.animate(withDuration: Constants.animationDuration) {
+            self.labelTitle.alpha = 1
+        }
+    }
 }
 
 extension WalletSortSeparatorCell: ViewConfiguration {
     
     func update(with model: Model) {
-        labelTitle.isHidden = model != .title
+        labelTitle.alpha = model == .title ? 1 : 0
     }
 }
 

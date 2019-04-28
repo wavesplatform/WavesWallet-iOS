@@ -13,16 +13,16 @@ fileprivate enum Constants {
     static let height: CGFloat = 56
     static let icon: CGSize = CGSize(width: 28, height: 28)
     static let sponsoredIcon = CGSize(width: 12, height: 12)
-    static let delaySwitch: TimeInterval = 0.25
+    static let delaySwitch: TimeInterval = 0.2
     static let animationDuration: TimeInterval = 0.3
 }
 
 final class WalletSortCell: UITableViewCell, NibReusable {
-    @IBOutlet weak var buttonFav: UIButton!
+    @IBOutlet private weak var buttonFav: UIButton!
     @IBOutlet private weak var imageIcon: UIImageView!
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var switchControl: UISwitch!
-    @IBOutlet weak var viewShadow: UIView!
+    @IBOutlet private weak var viewShadow: UIView!
     
     private var isDragging: Bool = false
     
@@ -52,19 +52,19 @@ final class WalletSortCell: UITableViewCell, NibReusable {
         disposeBag = DisposeBag()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        if alpha <= 0.9 && !isDragging {
-            isDragging = true
-            beginMove()
-        }
-        
-        if alpha <= 0.9 && isDragging {
-            isDragging = false
-            endMove()
-        }        
-    }
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//
+//        if alpha <= 0.9 && !isDragging {
+//            isDragging = true
+//            beginMove()
+//        }
+//
+//        if alpha <= 0.9 && isDragging {
+//            isDragging = false
+//            endMove()
+//        }
+//    }
     
     @objc private func favouriteTapped() {
         
@@ -91,9 +91,32 @@ final class WalletSortCell: UITableViewCell, NibReusable {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.delaySwitch) {
             self.changedValueSwitchControl?()
+            
+            self.buttonFav.setImage(Images.iconFavEmpty.image , for: .normal)
+           
+            if self.assetType == .hidden {
+                self.showAnimationFromHiddenToVisible()
+            }
+            else if self.assetType == .list {
+                self.showAnimationFromVisibleToHidden()
+            }
         }
     }
     
+    func showFavoriteAnimation() {
+        buttonFav.setImage(Images.favorite14Submit300.image , for: .normal)
+        showAnimationFromVisibleToHidden()
+    }
+    
+    func showHiddenAnimation() {
+        buttonFav.setImage(Images.iconFavEmpty.image , for: .normal)
+        showAnimationFromVisibleToHidden()
+    }
+    
+    func showListAnimation() {
+        buttonFav.setImage(Images.iconFavEmpty.image , for: .normal)
+        showAnimationFromHiddenToVisible()
+    }
 }
 
 extension WalletSortCell: ViewHeight {
@@ -104,6 +127,7 @@ extension WalletSortCell: ViewHeight {
 
 private extension WalletSortCell {
     func beginMove() {
+        isHiddenWhiteContainer = true
         viewShadow.alpha = 0
     }
     

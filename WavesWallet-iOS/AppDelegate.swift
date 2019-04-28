@@ -81,7 +81,8 @@ enum UITest {
 
         Language.load()
 
-        Swizzle(initializers: [UIView.passtroughInit, UIView.insetsInit, UIView.shadowInit]).start()
+//        Swizzle(initializers: [UIView.passtroughInit, UIView.insetsInit, UIView.shadowInit]).start()
+        Swizzle(initializers: [UIView.passtroughInit, UIView.insetsInit]).start()
 
         #if DEBUG || TEST
             SweetLogger.current.plugins = [SweetLoggerConsole(visibleLevels: [],
