@@ -54,7 +54,7 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
             
         case .setStatus(let status):
             state.status = status
-            state.action = .refresh
+            state.action = .refreshWithAnimation
             
         case .moveAsset(let from, let to):
             move(from: from, to: to, state: &state)
@@ -374,7 +374,7 @@ private extension WalletSortPresenter {
                                              movedRowAt: to)
         }
         else {
-            state.action = .refreshWithAnimation(movedRowAt: to)
+            state.action = .finishUpdateMoveAction(movedRowAt: to)
         }
     }
 }
