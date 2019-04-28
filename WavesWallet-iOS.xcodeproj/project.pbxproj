@@ -683,6 +683,7 @@
 		E9A380AD21D3035B004377A6 /* OrderMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A380AC21D3035B004377A6 /* OrderMatcher.swift */; };
 		E9A3AFAE222DEECB009FB45A /* DexScriptAssetMessageModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A3AFAD222DEECB009FB45A /* DexScriptAssetMessageModuleBuilder.swift */; };
 		E9A4812F20D8DDBB00272C6D /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */; };
+		E9A6A49A227661940093FC59 /* TableViewNoShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A6A499227661940093FC59 /* TableViewNoShadow.swift */; };
 		E9AFDBE421F32E88003130A8 /* TransactionFeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AFDBE321F32E88003130A8 /* TransactionFeeView.swift */; };
 		E9AFDBE621F32E96003130A8 /* TransactionFeeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9AFDBE521F32E96003130A8 /* TransactionFeeView.xib */; };
 		E9B086AE2163883000937644 /* AddAddressBookModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B086922163882F00937644 /* AddAddressBookModuleBuilder.swift */; };
@@ -1628,6 +1629,7 @@
 		E9A380AC21D3035B004377A6 /* OrderMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderMatcher.swift; sourceTree = "<group>"; };
 		E9A3AFAD222DEECB009FB45A /* DexScriptAssetMessageModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexScriptAssetMessageModuleBuilder.swift; sourceTree = "<group>"; };
 		E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		E9A6A499227661940093FC59 /* TableViewNoShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewNoShadow.swift; sourceTree = "<group>"; };
 		E9AFDBE321F32E88003130A8 /* TransactionFeeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFeeView.swift; sourceTree = "<group>"; };
 		E9AFDBE521F32E96003130A8 /* TransactionFeeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionFeeView.xib; sourceTree = "<group>"; };
 		E9B086922163882F00937644 /* AddAddressBookModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAddressBookModuleBuilder.swift; sourceTree = "<group>"; };
@@ -3461,6 +3463,7 @@
 				0ADD7F2F21F22FB60075FC59 /* UIViewController+Alert.swift */,
 				0ADD7F3C21F22FB60075FC59 /* UIViewController+Rx.swift */,
 				0ADD7F3921F22FB60075FC59 /* UIViewController+SafeArea.swift */,
+				E9A6A499227661940093FC59 /* TableViewNoShadow.swift */,
 				0ADD7F7D21F22FB60075FC59 /* Protocols */,
 				0A4E7DE622018132007BBA39 /* Type */,
 				0A751D3922171ABA0024D523 /* Kingfisher+Rx.swift */,
@@ -6042,6 +6045,7 @@
 				E91DC0E120E0054A00BAB519 /* NetworkSettingsViewController.swift in Sources */,
 				0ADD7FA221F22FB60075FC59 /* ControlEvent+Signal.swift in Sources */,
 				0A1DAD6920F39AE3004DA625 /* ResponseApi.swift in Sources */,
+				E9A6A49A227661940093FC59 /* TableViewNoShadow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

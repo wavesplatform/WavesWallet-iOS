@@ -17,7 +17,7 @@ private enum Constants {
 
 final class WalletSortViewController: UIViewController {
     
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: TableViewNoShadow!
     
     private let sendEvent: PublishRelay<WalletSort.Event> = PublishRelay<WalletSort.Event>()
     private var sections: [WalletSort.ViewModel.Section] = []
@@ -31,8 +31,8 @@ final class WalletSortViewController: UIViewController {
         createBackButton()
         setupBigNavigationBar()
         title = Localizable.Waves.Walletsort.Navigationbar.title
-        setupFeedBack()
         tableView.contentInset = Constants.contentInset
+        setupFeedBack()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -101,20 +101,20 @@ private extension WalletSortViewController {
                 case .updateMoveAction(let insertAt, let deleteAt, let movedRowAt):
                     self.updateTableMove(moveAt: nil, moveTo: nil, delete: deleteAt, insert: insertAt, movedRowAt: movedRowAt)
                     
-                case .refreshWithAnimation(let movedRowAt):
-
+                case .finishUpdateMoveAction(let movedRowAt):
                     self.updateMovedRow(movedRow: movedRowAt)
-                    
                     self.tableView.performBatchUpdates({
-
+                        
                     }, completion: { (complete) in
                         self.tableView.reloadData()
                     })
+                    
+                case .refreshWithAnimation:
+                    self.tableView.reloadDataWithAnimationTheCrossDissolve()
 
                 case .refresh:
                     self.tableView.reloadData()
-//                    self.tableView.reloadDataWithAnimationTheCrossDissolve()
-                    
+
                 default:
                     break
                 }
@@ -258,13 +258,13 @@ private extension WalletSortViewController {
             let section = self.sections[movedRow.section]
             
             if section.kind == .favorities {
-                cell.showFavoriteAnimation()
+                cell.showAnimationToFavoriteState()
             }
             else if section.kind == .list {
-                cell.showListAnimation()
+                cell.showAnimationToListState()
             }
             else if section.kind == .hidden {
-                cell.showHiddenAnimation()
+                cell.showAnimationToHiddenState()
             }
         }
     }
