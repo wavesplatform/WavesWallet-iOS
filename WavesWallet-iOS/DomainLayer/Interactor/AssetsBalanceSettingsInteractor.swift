@@ -13,7 +13,6 @@ import WavesSDKCrypto
 
 private enum Constants {
     static let sortLevelNotFound: Float = -1
-    static let step: Float = 0.005
 }
 
 protocol AssetsBalanceSettingsInteractorProtocol {
@@ -94,28 +93,21 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
                     return Observable.just(true)
                 }
                 
-                //TODO - need correct update sort level
-
-                if isFavorite {
-                    if let topFavorite = sortedSettings.first(where: { $0.isFavorite == true }) {
-                        asset.sortLevel = topFavorite.sortLevel + Constants.step
-                    }
-                    else {
-                        asset.sortLevel = Constants.step
-                    }
-                } else {
-                    if let topNotFavorite = sortedSettings.first(where: { $0.isFavorite == false }) {
-                        asset.sortLevel = topNotFavorite.sortLevel - Constants.step
-                    }
-                    else {
-                        asset.sortLevel = Constants.step
-                    }
-                }
+                var newSettings = sortedSettings.filter { $0.isFavorite && $0.assetId != assetId }
+                let otherList = sortedSettings.filter { $0.isFavorite == false && $0.assetId != assetId }
+                
                 asset.isFavorite = isFavorite
                 asset.isHidden = false
+                
+                newSettings.append(asset)
+                newSettings.append(contentsOf: otherList)
 
+                for index in 0..<newSettings.count {
+                    newSettings[index].sortLevel = Float(index)
+                }
+                
                 return self.assetsBalanceSettingsRepository.saveSettings(by: accountAddress,
-                                                                          settings: [asset])
+                                                                          settings: newSettings)
         }
     }
     
