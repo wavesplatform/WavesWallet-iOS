@@ -95,24 +95,25 @@ private extension WalletSortViewController {
                 self.tableView.isEditing = state.status == .position
                 
                 switch state.action {
-                
                 case .move(let at, let to, let delete, let insert):
+                    self.updateTableMove(moveAt: at, moveTo: to, delete: delete, insert: insert, movedRowAt: nil)
+                
+                case .updateMoveAction(let insertAt, let deleteAt, let movedRowAt):
+                    self.updateTableMove(moveAt: nil, moveTo: nil, delete: deleteAt, insert: insertAt, movedRowAt: movedRowAt)
+                    
+                case .refreshWithAnimation(let movedRowAt):
+
+                    self.updateMovedRow(movedRow: movedRowAt)
                     
                     self.tableView.performBatchUpdates({
-                        
-                        if let delete = delete {
-                            self.tableView.deleteRows(at: [delete], with: .fade)
-                        }
-                        if let insert = insert {
-                            self.tableView.insertRows(at: [insert], with: .fade)
-                        }
-                        self.tableView.moveRow(at: at, to: to)
+
                     }, completion: { (complete) in
                         self.tableView.reloadData()
                     })
-                    
+
                 case .refresh:
-                    self.tableView.reloadDataWithAnimationTheCrossDissolve()
+                    self.tableView.reloadData()
+//                    self.tableView.reloadDataWithAnimationTheCrossDissolve()
                     
                 default:
                     break
@@ -152,6 +153,9 @@ extension WalletSortViewController: UITableViewDelegate {
             if let favSectionIndex = sections.firstIndex(where: {$0.kind == .favorities}) {
                 return IndexPath(row: 0, section: favSectionIndex)
             }
+        }
+        else if isEmptySection(at: proposedDestinationIndexPath) {
+            return IndexPath(row: 0, section: proposedDestinationIndexPath.section)
         }
         return proposedDestinationIndexPath
     }
@@ -244,6 +248,70 @@ extension WalletSortViewController: UITableViewDataSource {
 //MARK: - UI
 private extension WalletSortViewController {
  
+    func isEmptySection(at indexPath: IndexPath) -> Bool {
+        return sections[indexPath.section].items.filter({$0.asset != nil }).count == 0
+    }
+    
+    func updateMovedRow(movedRow: IndexPath?) {
+        
+        if let movedRow = movedRow, let cell = self.tableView.cellForRow(at: movedRow) as? WalletSortCell {
+            let section = self.sections[movedRow.section]
+            
+            if section.kind == .favorities {
+                cell.showFavoriteAnimation()
+            }
+            else if section.kind == .list {
+                cell.showListAnimation()
+            }
+            else if section.kind == .hidden {
+                cell.showHiddenAnimation()
+            }
+        }
+    }
+    
+    func animateTitleSeparatorCell(isShowTitle: Bool) {
+        
+        let listSectionIndex = sections.firstIndex(where: {$0.kind == .list}) ?? 0
+        let separatorRow = sections[listSectionIndex].items.count - 1
+        
+        if let cell = tableView.cellForRow(at: IndexPath(row: separatorRow, section: listSectionIndex)) as? WalletSortSeparatorCell {
+            
+            if isShowTitle {
+                cell.showTitleWithAnimation()
+            }
+            else {
+                cell.hideTitleWithAnimation()
+            }
+        }
+    }
+    
+    func updateTableMove(moveAt: IndexPath?, moveTo: IndexPath?, delete: IndexPath?, insert: IndexPath?, movedRowAt: IndexPath?) {
+        
+        if let insert = insert, sections.firstIndex(where: {$0.kind == .hidden}) == insert.section {
+            animateTitleSeparatorCell(isShowTitle: false)
+        }
+        else if let delete = delete, sections.firstIndex(where: {$0.kind == .hidden}) == delete.section {
+            animateTitleSeparatorCell(isShowTitle: true)
+        }
+        
+        updateMovedRow(movedRow: movedRowAt)
+        
+        tableView.performBatchUpdates({
+            
+            if let delete = delete {
+                self.tableView.deleteRows(at: [delete], with: .fade)
+            }
+            if let insert = insert {
+                self.tableView.insertRows(at: [insert], with: .fade)
+            }
+            if let at = moveAt, let to = moveTo {
+                self.tableView.moveRow(at: at, to: to)
+            }
+        }, completion: { (complete) in
+            self.tableView.reloadData()
+        })
+    }
+    
     func cellModel(asset: WalletSort.DTO.Asset, type: WalletSortCell.AssetType) -> WalletSortCell.Model {
         return WalletSortCell.Model(name: asset.name,
                                     isMyWavesToken: asset.isMyWavesToken,

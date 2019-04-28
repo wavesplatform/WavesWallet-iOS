@@ -57,38 +57,7 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
             state.action = .refresh
             
         case .moveAsset(let from, let to):
-            
-            if let asset = state.asset(by: from) {
-
-                state.sections[from.section].items.remove(at: from.row)
-                
-                let newSection = state.sections[to.section].kind
-                
-                var newAsset = asset
-
-                if newSection  == .favorities {
-                    newAsset.isFavorite = true
-                    newAsset.isHidden = false
-                    
-                    state.sections[to.section].items.insert(.favorityAsset(newAsset), at: to.row)
-                }
-                else if newSection == .list {
-                    newAsset.isFavorite = false
-                    newAsset.isHidden = false
-                    
-                    state.sections[to.section].items.insert(.list(newAsset), at: to.row)
-                }
-                else if newSection == .hidden {
-                    newAsset.isFavorite = false
-                    newAsset.isHidden = true
-                    
-                    state.sections[to.section].items.insert(.hidden(newAsset), at: to.row)
-                }
-                
-                update(state: &state)
-                state.action = .refresh
-            }
-            
+            move(from: from, to: to, state: &state)
             
         case .setHiddenAt(let indexPath):
             setHidden(at: indexPath, state: &state)
@@ -148,6 +117,10 @@ private extension WalletSort.State {
     }
     
     func lastVisibleAssetRow(_ kind: WalletSort.ViewModel.Section.Kind) -> Int {
+        
+        if isEmptySection(kind) {
+            return 0
+        }
         return sections[sectionIndex(kind)].items.count - 1
     }
     
@@ -230,35 +203,28 @@ private extension WalletSortPresenter {
                 let favoriteSection = state.sectionIndex(.favorities)
                 
                 let kind = state.kind(by: indexPath)
-                
+                let to = IndexPath(row: state.lastVisibleAssetRow(.favorities), section: favoriteSection)
+
                 if state.isEmptySection(.favorities) && state.isEmptySection(kind) {
-                    
-                    let to = IndexPath(row: 0, section: favoriteSection)
+
                     state.action = .move(at: indexPath, to: to,
                                          delete: state.blockIndexPath(by: .favorities),
                                          insert: state.blockIndexPath(by: kind))
                 }
                 else if state.isEmptySection(.favorities) {
-                    let to = IndexPath(row: 0, section: favoriteSection)
-                    
+
                     state.action = .move(at: indexPath, to: to,
                                          delete: state.blockIndexPath(by: .favorities),
                                          insert: nil)
                 }
                 else if state.isEmptySection(kind) {
-                    let to = IndexPath(row: state.lastVisibleAssetRow(.favorities), section: favoriteSection)
                     
                     state.action = .move(at: indexPath, to: to,
                                          delete: nil,
                                          insert: state.blockIndexPath(by: kind))
                 }
                 else {
-                    
-                    let to = IndexPath(row: state.lastVisibleAssetRow(.favorities), section: favoriteSection)
-                    
-                    state.action = .move(at: indexPath, to: to,
-                                         delete: nil,
-                                         insert: nil)
+                    state.action = .move(at: indexPath, to: to, delete: nil, insert: nil)
                 }
                 
                 state.sections[favoriteSection].items.append(.favorityAsset(asset))
@@ -280,23 +246,135 @@ private extension WalletSortPresenter {
                 asset.isHidden = false
                 
                 let listSection = state.sectionIndex(.list)
+                let to = IndexPath(row: state.lastVisibleAssetRow(.list), section: listSection)
 
                 if state.isEmptySection(.hidden) && state.isEmptySection(.list) {
                     
-                    let to = IndexPath(row: 0, section: listSection)
                     state.action = .move(at: indexPath, to: to,
                                          delete: state.blockIndexPath(by: .list),
                                          insert: state.blockIndexPath(by: .hidden))
+                }
+                else if state.isEmptySection(.hidden) {
+                    state.action = .move(at: indexPath, to: to,
+                                         delete: nil,
+                                         insert: state.blockIndexPath(by: .hidden))
+                }
+                else if state.isEmptySection(.list) {
+                    state.action = .move(at: indexPath, to: to,
+                                         delete: state.blockIndexPath(by: .list),
+                                         insert: nil)
+                }
+                else {
+                    state.action = .move(at: indexPath, to: to, delete: nil, insert: nil)
                 }
                 
                 state.sections[listSection].items.append(.list(asset))
             }
             else {
+                asset.isHidden = true
+                asset.isFavorite = false
                 
+                let hiddenSection = state.sectionIndex(.hidden)
+                let to = IndexPath(row: 0, section: hiddenSection)
+                let kind = state.kind(by: indexPath)
+                
+                if state.isEmptySection(.hidden) && state.isEmptySection(kind) {
+                    
+                    state.action = .move(at: indexPath, to: to,
+                                         delete: state.blockIndexPath(by: .hidden),
+                                         insert: state.blockIndexPath(by: kind))
+                }
+                else if state.isEmptySection(.hidden) {
+
+                    state.action = .move(at: indexPath, to: to,
+                                         delete: state.blockIndexPath(by: .hidden),
+                                         insert: nil)
+                }
+                else if state.isEmptySection(kind) {
+
+                    state.action = .move(at: indexPath, to: to,
+                                         delete: nil,
+                                         insert: state.blockIndexPath(by: kind))
+                }
+                else {
+                    state.action = .move(at: indexPath, to: to,
+                                         delete: nil,
+                                         insert: nil)
+                }
+                state.sections[hiddenSection].items.insert(.hidden(asset), at: 0)
             }
             
-
             update(state: &state)
+        }
+    }
+}
+
+//MARK: - Move
+private extension WalletSortPresenter {
+    
+    func move(from: IndexPath, to: IndexPath, state: inout WalletSort.State) {
+        
+        if var asset = state.asset(by: from) {
+            
+            state.sections[from.section].items.remove(at: from.row)
+            
+            let newSection = state.sections[to.section].kind
+            
+            if newSection == .favorities {
+                asset.isFavorite = true
+                asset.isHidden = false
+                
+                updateSectionsWithMoveAction(from: from, to: to, state: &state)
+                
+                state.sections[to.section].items.insert(.favorityAsset(asset), at: to.row)
+            }
+            else if newSection == .list {
+                asset.isFavorite = false
+                asset.isHidden = false
+                
+                updateSectionsWithMoveAction(from: from, to: to, state: &state)
+
+                state.sections[to.section].items.insert(.list(asset), at: to.row)
+            }
+            else if newSection == .hidden {
+                asset.isFavorite = false
+                asset.isHidden = true
+                
+                updateSectionsWithMoveAction(from: from, to: to, state: &state)
+
+                state.sections[to.section].items.insert(.hidden(asset), at: to.row)
+            }
+            
+            update(state: &state)
+        }
+    }
+    
+    func updateSectionsWithMoveAction(from: IndexPath, to: IndexPath, state: inout WalletSort.State) {
+        
+        let newSection = state.sections[to.section].kind
+        let lastSection = state.sections[from.section].kind
+        let isSameSection = newSection == lastSection
+        
+        let block = state.blockIndexPath(by: newSection)
+        let deletedIndexPath = IndexPath(row: block.row + 1, section: block.section)
+        
+        if state.isEmptySection(newSection) && state.isEmptySection(lastSection) && !isSameSection {
+            state.action = .updateMoveAction(insertAt: state.blockIndexPath(by: lastSection),
+                                             deleteAt: deletedIndexPath,
+                                             movedRowAt: to)
+        }
+        else if state.isEmptySection(newSection) && !isSameSection {
+            
+            state.action = .updateMoveAction(insertAt: nil, deleteAt: deletedIndexPath,
+                                             movedRowAt: to)
+        }
+        else if state.isEmptySection(lastSection) && !isSameSection {
+            state.action = .updateMoveAction(insertAt: state.blockIndexPath(by: lastSection),
+                                             deleteAt: nil,
+                                             movedRowAt: to)
+        }
+        else {
+            state.action = .refreshWithAnimation(movedRowAt: to)
         }
     }
 }
