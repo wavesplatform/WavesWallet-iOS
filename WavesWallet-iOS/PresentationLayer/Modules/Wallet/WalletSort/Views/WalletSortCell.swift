@@ -30,6 +30,7 @@ final class WalletSortCell: UITableViewCell, NibReusable {
     
     private var isHiddenWhiteContainer = false
     private var isMovingAnimation = false
+    private var isBlockedCell = false
     
     var changedValueSwitchControl: (() -> Void)?
     var favouriteButtonTapped:(() -> Void)?
@@ -61,7 +62,11 @@ final class WalletSortCell: UITableViewCell, NibReusable {
     }
     
     @objc private func favouriteTapped() {
-        
+        if isBlockedCell {
+            return
+        }
+        blockAllCells()
+
         favouriteButtonTapped?()
         ImpactFeedbackGenerator.impactOccurred()
         
@@ -83,6 +88,11 @@ final class WalletSortCell: UITableViewCell, NibReusable {
     
     @objc private func changedValueSwitchAction() {
         
+        if isBlockedCell {
+            return
+        }
+        blockAllCells()
+
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.delaySwitch) {
             self.changedValueSwitchControl?()
             
@@ -164,6 +174,24 @@ private extension WalletSortCell {
         }
     }
 
+    
+    func blockAllCells() {
+        if let table = tableView {
+            for cell in table.visibleCells {
+                if let cell = cell as? WalletSortCell {
+                    cell.isBlockedCell = true
+                }
+            }
+        }
+    }
+    
+    var tableView: UITableView? {
+        var view = self.superview
+        while (view != nil && view!.isKind(of: UITableView.self) == false) {
+            view = view!.superview
+        }
+        return view as? UITableView
+    }
 }
 
 // MARK: ViewConfiguration
@@ -202,6 +230,7 @@ extension WalletSortCell: ViewConfiguration {
         switchControl.isOn = !model.isHidden
         assetType = model.type
         
+        isBlockedCell = false
         updateBackground()
         
         AssetLogo.logo(icon: model.icon,
