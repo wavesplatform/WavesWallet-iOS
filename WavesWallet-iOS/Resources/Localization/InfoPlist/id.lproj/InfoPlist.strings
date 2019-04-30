@@ -1,7 +1,3 @@
-"cameraAccess.alert.allow" = "Izinkan Kamera";
-"cameraAccess.alert.cancel" = "Batalkan";
-"cameraAccess.alert.message" = "Akses kamera diperlukan untuk memanfaatkan sepenuhnya aplikasi ini";
-"cameraAccess.alert.title" = "Butuh Akses Kamera";
 "NSCameraUsageDescription" = "Kamera diperlukan untuk memindai kode QR";
 "NSFaceIDUsageDescription" = "Akses ke dompet Anda";
 "NSPhotoLibraryAddUsageDescription" = "Kamera diperlukan untuk memindai kode QR";
