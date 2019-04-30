@@ -2568,6 +2568,17 @@ internal enum Localizable {
         internal static var visibility: String { return Localizable.tr("Waves", "walletsort.button.visibility") }
       }
 
+      internal enum Label {
+        /// Hidden assets
+        internal static var hiddenAssets: String { return Localizable.tr("Waves", "walletsort.label.hiddenAssets") }
+        /// The list of assets is empty
+        internal static var listOfAssetsEmpty: String { return Localizable.tr("Waves", "walletsort.label.listOfAssetsEmpty") }
+        /// You do not added assets in favorites
+        internal static var notAddedAssetsInFavorites: String { return Localizable.tr("Waves", "walletsort.label.notAddedAssetsInFavorites") }
+        /// You do not added assets in hidden
+        internal static var notAddedAssetsInHidden: String { return Localizable.tr("Waves", "walletsort.label.notAddedAssetsInHidden") }
+      }
+
       internal enum Navigationbar {
         /// Sorting
         internal static var title: String { return Localizable.tr("Waves", "walletsort.navigationBar.title") }

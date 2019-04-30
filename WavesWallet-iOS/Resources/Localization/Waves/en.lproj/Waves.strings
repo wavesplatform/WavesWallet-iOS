@@ -588,6 +588,11 @@
 "wallet.section.spamAssets" = "Suspicious assets (%d)";
 "wallet.segmentedControl.assets" = "Assets";
 "wallet.segmentedControl.leasing" = "Leasing";
+"walletsort.label.notAddedAssetsInFavorites" = "You do not added assets in favorites";
+"walletsort.label.listOfAssetsEmpty" = "The list of assets is empty";
+"walletsort.label.notAddedAssetsInHidden" = "You do not added assets in hidden";
+"walletsort.label.hiddenAssets" = "Hidden assets";
+
 "walletsort.button.position" = "Position";
 "walletsort.button.visibility" = "Visibility";
 "walletsort.navigationBar.title" = "Sorting";
