@@ -8,12 +8,15 @@
 
 import Foundation
 import WavesSDKExtension
+import RxSwift
+
+extension CleanerWalletManager: ReactiveCompatible {}
 
 struct CleanerWalletManager: TSUD, Codable, Mutating  {
     
     private static let key = "com.waves.cleanwallet.settings"
     
-    private var cleanAccounts: Set<String> = Set<String>()
+    fileprivate var cleanAccounts: Set<String> = Set<String>()
     
     init() {
         self.cleanAccounts = .init()
@@ -26,8 +29,10 @@ struct CleanerWalletManager: TSUD, Codable, Mutating  {
     static var stringKey: String {
         return key
     }
+
     
     static func setCleanWallet(accountAddress: String) {
+
         var settings = CleanerWalletManager.get()
         settings.cleanAccounts.insert(accountAddress)
         CleanerWalletManager.set(settings)
@@ -35,5 +40,18 @@ struct CleanerWalletManager: TSUD, Codable, Mutating  {
     
     static func isCleanWallet(by accountAddress: String) -> Bool {
         return CleanerWalletManager.get().cleanAccounts.contains(accountAddress)
+    }
+}
+
+extension Reactive where Base == CleanerWalletManager {
+    
+    static func setCleanWallet(accountAddress: String) -> Observable<Bool> {
+        return CleanerWalletManager.rx.get()
+            .flatMap({ (settings) -> Observable<Bool> in
+                
+                var newSettings = settings
+                newSettings.cleanAccounts.insert(accountAddress)
+                return CleanerWalletManager.rx.set(newSettings)
+            })
     }
 }

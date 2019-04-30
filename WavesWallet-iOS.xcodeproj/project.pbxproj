@@ -584,6 +584,7 @@
 		E923A765219D53EE000DD9F6 /* TokenBurnInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923A764219D53EE000DD9F6 /* TokenBurnInteractor.swift */; };
 		E923A768219D714E000DD9F6 /* TokenBurnLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923A767219D714E000DD9F6 /* TokenBurnLoadingViewController.swift */; };
 		E923A76D219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923A76C219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift */; };
+		E92A8DE12278ACFF0009DF27 /* TSUD+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A8DE02278ACFF0009DF27 /* TSUD+Rx.swift */; };
 		E92D9BFF2148740B006D6D6B /* InputScrollButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92D9BFE2148740B006D6D6B /* InputScrollButtonsView.swift */; };
 		E9310D0C217924D0008BF3EE /* SendConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9310D0B217924D0008BF3EE /* SendConfirmationViewController.swift */; };
 		E9310D1921792D01008BF3EE /* SendConfirmationRecipientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9310D1821792D01008BF3EE /* SendConfirmationRecipientView.swift */; };
@@ -1525,6 +1526,7 @@
 		E923A764219D53EE000DD9F6 /* TokenBurnInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnInteractor.swift; sourceTree = "<group>"; };
 		E923A767219D714E000DD9F6 /* TokenBurnLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnLoadingViewController.swift; sourceTree = "<group>"; };
 		E923A76C219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnCompleteViewController.swift; sourceTree = "<group>"; };
+		E92A8DE02278ACFF0009DF27 /* TSUD+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TSUD+Rx.swift"; sourceTree = "<group>"; };
 		E92D9BFE2148740B006D6D6B /* InputScrollButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InputScrollButtonsView.swift; path = "WavesWallet-iOS/PresentationLayer/CustomViews/InputScrollButtonsView.swift"; sourceTree = SOURCE_ROOT; };
 		E9310D0B217924D0008BF3EE /* SendConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmationViewController.swift; sourceTree = "<group>"; };
 		E9310D1821792D01008BF3EE /* SendConfirmationRecipientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmationRecipientView.swift; sourceTree = "<group>"; };
@@ -2871,6 +2873,7 @@
 				7B95111B225CD5EE0030390C /* Results+Limit.swift */,
 				7B95111D225CD6140030390C /* RunLoopThreadScheduler.swift */,
 				7B95115E225F7BA80030390C /* DateFormatter+UI.swift */,
+				E92A8DE02278ACFF0009DF27 /* TSUD+Rx.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -5888,6 +5891,7 @@
 				0AFF5C7F215BD08E00B82940 /* AccountPasswordInteractor.swift in Sources */,
 				7B3A51A8223AA08F00C3BF38 /* TransactionCardAssetCell.swift in Sources */,
 				0ADD803421F22FFB0075FC59 /* HistoryCoordinator.swift in Sources */,
+				E92A8DE12278ACFF0009DF27 /* TSUD+Rx.swift in Sources */,
 				0AFF5C81215BD09500B82940 /* AccountPasswordPresenter.swift in Sources */,
 				0A5E4BE521383B3600E3C3C3 /* MassTransferTransaction+Mapper.swift in Sources */,
 				E9B12DAB219DCCDB00128EFE /* TokenBurnSendInteractorProtocol.swift in Sources */,
