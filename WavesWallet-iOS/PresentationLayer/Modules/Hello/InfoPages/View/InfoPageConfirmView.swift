@@ -35,7 +35,8 @@ final class InfoPageConfirmView: UIView {
     @IBOutlet private weak var buttonTermsConditions: HighlightedButton!
     @IBOutlet private weak var termsOfUseWidth: NSLayoutConstraint!
     @IBOutlet private weak var termsConditionsWidth: NSLayoutConstraint!
-    
+    @IBOutlet private weak var scrollView: UIScrollView!
+
     weak var delegate: InfoPageConfirmViewDelegate?
     
     private var isCheck1 = false
@@ -76,6 +77,10 @@ final class InfoPageConfirmView: UIView {
     
     private var isActive: Bool {
         return isCheck1 && isCheck2 && isCheck3
+    }
+    
+    func setupContentInset(_ inset: UIEdgeInsets) {
+        scrollView.contentInset = inset
     }
 }
 

@@ -1,9 +1,39 @@
-require 'open-uri'
-require 'credentials_manager'
-require 'dotenv/load'
-require 'dotenv'
-require 'json'
-require 'uri'
+# $:.unshift File.dirname(__FILE__)
+
+require 'fastlane_core/helper'
+
+fastlane_require 'open-uri'
+fastlane_require 'credentials_manager'
+fastlane_require 'dotenv/load'
+fastlane_require 'dotenv'
+fastlane_require 'json'
+fastlane_require 'uri'
+fastlane_require "versionomy"
+
+fastlane_require "spaceship"
+
+
+def highest_app_version_number(username, password, bundle_id)
+  puts "fetching highest version on iTunes Connect..."
+
+  Spaceship::Tunes.login(username, password)  
+  # Spaceship::Tunes.select_team("#{ENV['FASTLANE_ITC_TEAM_ID']}", "#{ENV['FASTLANE_ITC_TEAM_NAME']}")
+
+  app = Spaceship::Tunes::Application.find(bundle_id)
+
+  # Spaceship::AppVersion.find(app, username, true, platform: "ios")
+
+  puts(app.live_version("ios"))
+  # puts(app.name())
+  # liveVersion = Versionomy.parse(app.live_version.version)
+
+  # if app.edit_version
+  # editVersion = Versionomy.parse(app.edit_version.version)
+    # return editVersion.to_s
+  # else
+    # return liveVersion.to_s
+  # end
+end
 
 default_platform(:ios)
 
@@ -48,6 +78,7 @@ platform :ios do
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.dev"
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.dev"
     ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.dev"
+    ENV['PROD_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
 
     ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Dev.plist"
     ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Dev.plist"
@@ -68,6 +99,7 @@ platform :ios do
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.WavesWallet"
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.WavesWallet"
     ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
+    ENV['PROD_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
 
     ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Prod.plist"
     ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Prod.plist"
@@ -88,6 +120,7 @@ platform :ios do
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.test"
     ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.test"    
+    ENV['PROD_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
 
     ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Prod.plist"
     ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Prod.plist"
@@ -96,7 +129,7 @@ platform :ios do
     ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
     ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
 
-    ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AdHoc.plist"
+    ENV['EXPORT_OPTIONS'] = "#{Dir.pwd}/ExportOptions-AppStore.plist"
 
     ENV['MATCH_TYPE'] = "adhoc"
     ENV['CHANGELOG_BETWEEN_BRANCH']="master"    
@@ -266,8 +299,17 @@ platform :ios do
                wait_for_uploaded_build: "false",
                changelog: "#{ENV['CHANGELOG']}",
                ipa: PROJECT_IPA)
-        
-    upload_symbols_to_crashlytics(gsp_path: "#{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")              
+     skip_waiting_for_build_processing    
+    refresh_dsyms    
+  end
+
+  lane :refresh_dsyms do
+    download_dsyms(username: "#{ENV['ITUNES_CONNECT_ACCOUNT']}",
+                   app_identifier: "#{ENV['TESTFLIGHT_APP_IDENTITIFER']}",
+                   output_directory: "#{ENV['OUTPUT_PROJECT']}",
+                   version: "#{ENV['VERSION']}",
+                   build_number: "3823")
+    upload_symbols_to_crashlytics(gsp_path: "#{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")    
   end
 
   lane :send_to_slack_artifacts  do
@@ -320,11 +362,23 @@ platform :ios do
 
   lane :increment_build_number_and_commit_push do      
       increment_build_number
+      get_version_and_build
 
-      git_commit(path: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS/Info.plist", message: "Increment build number")
+      git_commit(path: ["#{ENV['ROOT_PROJECT']}/WavesWallet-iOS/Info.plist",
+                        "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj"],
+                  message: "Increment build number [ci skip]")
       push_to_git_remote
   end
 
+  lane :aaaa do
+
+    puts(highest_app_version_number("#{ENV['TESTFLIGHT_APPLE_ID']}",
+                                    "#{ENV['ITUNES_CONNECT_PASSWORD']}",
+                                    "#{ENV['PROD_APP_IDENTIFIERS']}"))
+    # puts(app.live_version)
+    # puts(app.edit_version)
+    
+  end
   # lane :init_project do 
   
 	# 	cocoapods(

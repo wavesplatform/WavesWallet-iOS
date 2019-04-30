@@ -1,7 +1,3 @@
-"cameraAccess.alert.allow" = "Kameraya İzin Ver";
-"cameraAccess.alert.cancel" = "İptal";
-"cameraAccess.alert.message" = "Bu uygulamanın tam kullanımını sağlamak için kamera erişimi gereklidir";
-"cameraAccess.alert.title" = "Kamera Erişimi Gerekir";
 "NSCameraUsageDescription" = "QR kodları taramak için kamera gerekmektedir";
 "NSFaceIDUsageDescription" = "Hesabınıza erişin";
 "NSPhotoLibraryAddUsageDescription" = "QR kodları taramak için kamera gerekmektedir";

@@ -153,10 +153,10 @@ fileprivate extension DomainLayer.DTO.Asset {
         
         //TODO: Current code need move to AssetsInteractor!
         if let info = info {
-            isGeneral = true
             if info.assetId == WavesSDKCryptoConstants.wavesAssetId {
                 isWaves = true
             }
+            isGeneral = info.isGateway || isWaves
             name = info.displayName
             isFiat = info.isFiat
         }
