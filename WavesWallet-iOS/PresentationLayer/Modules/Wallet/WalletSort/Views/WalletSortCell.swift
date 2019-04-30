@@ -30,10 +30,12 @@ final class WalletSortCell: UITableViewCell, NibReusable {
     
     private var isHiddenWhiteContainer = false
     private var isMovingAnimation = false
-    private var isBlockedCell = false
+    
+    var isBlockedCell = false
     
     var changedValueSwitchControl: (() -> Void)?
     var favouriteButtonTapped:(() -> Void)?
+    var didBlockAllActions:(() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -65,7 +67,8 @@ final class WalletSortCell: UITableViewCell, NibReusable {
         if isBlockedCell {
             return
         }
-        blockAllCells()
+        
+        didBlockAllActions?()
 
         favouriteButtonTapped?()
         ImpactFeedbackGenerator.impactOccurred()
@@ -91,7 +94,7 @@ final class WalletSortCell: UITableViewCell, NibReusable {
         if isBlockedCell {
             return
         }
-        blockAllCells()
+        didBlockAllActions?()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.delaySwitch) {
             self.changedValueSwitchControl?()
@@ -172,25 +175,6 @@ private extension WalletSortCell {
                 self.viewShadow.alpha = 0
             }
         }
-    }
-
-    
-    func blockAllCells() {
-        if let table = tableView {
-            for cell in table.visibleCells {
-                if let cell = cell as? WalletSortCell {
-                    cell.isBlockedCell = true
-                }
-            }
-        }
-    }
-    
-    var tableView: UITableView? {
-        var view = self.superview
-        while (view != nil && view!.isKind(of: UITableView.self) == false) {
-            view = view!.superview
-        }
-        return view as? UITableView
     }
 }
 

@@ -272,15 +272,19 @@ private extension WalletSortViewController {
     func animateTitleSeparatorCell(isShowTitle: Bool) {
         
         let listSectionIndex = sections.firstIndex(where: {$0.kind == .list}) ?? 0
-        let separatorRow = sections[listSectionIndex].items.count - 1
         
-        if let cell = tableView.cellForRow(at: IndexPath(row: separatorRow, section: listSectionIndex)) as? WalletSortSeparatorCell {
-            
-            if isShowTitle {
-                cell.showTitleWithAnimation()
-            }
-            else {
-                cell.hideTitleWithAnimation()
+        for cell in tableView.visibleCells {
+            if let indexPath = tableView.indexPath(for: cell),
+                let separatorRow = cell as? WalletSortSeparatorCell,
+                indexPath.section == listSectionIndex {
+                
+                if isShowTitle {
+                    separatorRow.showTitleWithAnimation()
+                }
+                else {
+                    separatorRow.hideTitleWithAnimation()
+                }
+                break
             }
         }
     }
@@ -327,6 +331,14 @@ private extension WalletSortViewController {
     
     func addAction(cell: WalletSortCell, asset: WalletSort.DTO.Asset, indexPath: IndexPath) {
         
+        cell.didBlockAllActions = { [weak self] in
+            guard let self = self else { return }
+            for visibleCell in self.tableView.visibleCells {
+                if let cell = visibleCell as? WalletSortCell {
+                    cell.isBlockedCell = true
+                }
+            }
+        }
         cell.favouriteButtonTapped = { [weak self] in
             guard let self = self else { return }
             self.sendEvent.accept(.setFavoriteAt(indexPath))
