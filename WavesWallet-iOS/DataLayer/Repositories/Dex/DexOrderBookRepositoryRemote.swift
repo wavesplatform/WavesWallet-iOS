@@ -53,7 +53,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
         })
     }
     
-    func markets(wallet: DomainLayer.DTO.SignedWallet, isEnableSpam: Bool) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
+    func markets(wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
 
         return environmentRepository.accountEnvironment(accountAddress: wallet.address)
             .flatMap({ [weak self] (environment) -> Observable<[Matcher.DTO.Market]> in
@@ -67,8 +67,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                             .asObservable()
                             .map { $0.markets }
             
-                if isEnableSpam {
-                    return Observable.zip(markets, self.spamList(accountAddress: wallet.address))
+                return Observable.zip(markets, self.spamList(accountAddress: wallet.address))
                     .map({ (markets, spamList) -> [Matcher.DTO.Market] in
 
                         var filterMarkets: [Matcher.DTO.Market] = []
@@ -83,9 +82,6 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
 
                         return filterMarkets
                     })
-                }
-
-                return markets
             })
             .map({ [weak self] (markets) -> [DomainLayer.DTO.Dex.SmartPair] in
                 guard let self = self else { return [] }
