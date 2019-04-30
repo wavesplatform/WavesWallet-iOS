@@ -398,8 +398,12 @@ private extension AccountBalanceInteractor {
         
         return assetsBalanceSettingsRepository.saveSettings(by: accountAddress, settings: newSettings)
             .flatMap({ (success) -> Observable<[DomainLayer.DTO.SmartAssetBalance]>  in
-                CleanerWalletManager.setCleanWallet(accountAddress: accountAddress)
-                return Observable.just(newAssets)
+                
+                return CleanerWalletManager.rx.setCleanWallet(accountAddress: accountAddress)
+                    .flatMap({ (success) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
+                        
+                        return Observable.just(newAssets)
+                    })
             })
 
     }
