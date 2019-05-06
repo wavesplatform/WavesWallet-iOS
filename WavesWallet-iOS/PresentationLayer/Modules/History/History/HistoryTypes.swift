@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WavesSDKCrypto
 
 enum HistoryTypes {
     enum DTO {}
@@ -189,9 +190,14 @@ extension HistoryType {
     var filters: [HistoryTypes.Filter] {
         switch self {
         case .all:
-            fallthrough
-        case .asset:
             return [.all, .sent, .received, .exchanged, .leased, .issued]
+
+        case .asset(let assetId):
+            if assetId == WavesSDKCryptoConstants.wavesAssetId {
+                return [.all, .sent, .received, .exchanged, .leased]
+            }
+            return [.all, .sent, .received, .exchanged, .leased, .issued]
+            
         case .leasing:
             return [.all, .activeNow, .canceled]
         }
