@@ -83,4 +83,13 @@ extension Language {
         }
         return false
     }
+    
+    func localizedString(key: String) -> String {
+        
+        if let path = Bundle.main.path(forResource: code, ofType: "lproj"),
+            let bundle = Bundle(path: path) {
+            return bundle.localizedString(forKey: key, value: nil, table: "Waves")
+        }
+        return key
+    }
 }
