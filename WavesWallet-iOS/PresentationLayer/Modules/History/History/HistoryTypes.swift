@@ -196,7 +196,7 @@ extension HistoryType {
             if assetId == WavesSDKCryptoConstants.wavesAssetId {
                 return [.all, .sent, .received, .exchanged, .leased]
             }
-            return [.all, .sent, .received, .exchanged, .leased, .issued]
+            return [.all, .sent, .received, .exchanged, .issued]
             
         case .leasing:
             return [.all, .activeNow, .canceled]
