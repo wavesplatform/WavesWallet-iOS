@@ -231,7 +231,7 @@
 "general.tabbar.title.wallet" = "Wallet";
 "general.ticker.title.cryptocurrency" = "Cryptocurrency";
 "general.ticker.title.fiatmoney" = "Fiat Money";
-"general.ticker.title.spam" = "SPAM";
+"general.ticker.title.spam" = "SUSPICIOUS";
 "general.ticker.title.wavestoken" = "Waves Token";
 "general.tost.saveBackup.subtitle" = "Store your SEED safely, it is the only way to restore your wallet";
 "general.tost.saveBackup.title" = "Save your backup phrase (SEED)";
@@ -275,19 +275,34 @@
 "history.transaction.title.receivedSponsorship" = "Received Sponsorship";
 "history.transaction.title.selfTransfer" = "Self-transfer";
 "history.transaction.title.sent" = "Sent";
-"history.transaction.title.setAssetScript" = "Entry in blockchain";
-"history.transaction.title.setScript" = "Entry in blockchain";
+"history.transaction.title.entryInBlockchain" = "Entry in blockchain";
 "history.transaction.title.startedLeasing" = "Started Leasing";
 "history.transaction.title.tokenBurn" = "Token Burn";
 "history.transaction.title.tokenGeneration" = "Token Generation";
 "history.transaction.title.tokenReissue" = "Token Reissue";
 "history.transaction.title.unrecognisedTransaction" = "Unrecognised Transaction";
-"history.transaction.value.data" = "Entry in blockchain";
-"history.transaction.value.setAssetScript" = "Set Asset Script";
-"history.transaction.value.setScript.cancel" = "Cancel Script Transaction";
+"history.transaction.value.setScript.cancel" = "Cancel Script";
 "history.transaction.value.setScript.set" = "Set Script";
+
+"history.transaction.value.setAssetScript" = "Update script";
+
+"history.transaction.value.setScript.cancel" = "Cancel Script";
+
+"history.transaction.value.setScript.set" = "Set Script";
+
+"history.transaction.value.data" = "Entry in blockchain";
+
 "history.transaction.value.setSponsorship.cancel" = "Disable Sponsorship";
 "history.transaction.value.setSponsorship.set" = "Set Sponsorship";
+
+"history.transaction.value.scriptInvocation" = "Script Invocation";
+
+"history.transaction.title.entryInBlockchain" = "Entry in blockchain";
+
+"import.account.warning.seed.title" = "The SEED phrase must consist of 15 words with spaces between each word";
+
+"import.account.warning.seed.subtitle" = "The SEED phrase you entered is too short. Make sure you do not confuse the phrase with a wallet address. Using an address as a SEED phrase can result in loss of funds.";
+
 "import.account.button.enter.title" = "Enter SEED manually";
 "import.account.button.scan.title" = "Scan pairing code";
 "import.account.label.info.step.one.detail" = "Settings — General — Export account";
@@ -540,13 +555,14 @@
 "transactioncard.title.sentTo" = "Sent to";
 "transactionhistory.cell.status.at" = "at";
 "transactioncard.title.activeNow" = "Active Now";
-"transactioncard.title.completed" = "Completed";
+"transactioncard.title.completed" = "COMPLETED";
 "transactioncard.title.unconfirmed" = "Unconfirmed";
 "transactioncard.title.timestamp" = "Timestamp";
 "transactionhistory.cell.type" = "Type";
 "transactioncard.title.amount" = "Amount";
 "transactionhistory.copy.date" = "Date";
 "transactioncard.title.fee" = "Fee";
+"transactioncard.title.filled" = "Filled";
 "transactionhistory.copy.recipient" = "Recipient";
 "transactionhistory.copy.sender" = "Sender";
 "transactionhistory.copy.transactionId" = "Transaction ID";
@@ -570,9 +586,14 @@
 "wallet.section.activeNow" = "Active now (%d)";
 "wallet.section.hiddenAssets" = "Hidden assets (%d)";
 "wallet.section.quickNote" = "Quick note";
-"wallet.section.spamAssets" = "Spam assets (%d)";
+"wallet.section.spamAssets" = "Suspicious assets (%d)";
 "wallet.segmentedControl.assets" = "Assets";
 "wallet.segmentedControl.leasing" = "Leasing";
+"walletsort.label.notAddedAssetsInFavorites" = "You do not added assets in favorites";
+"walletsort.label.listOfAssetsEmpty" = "The list of assets is empty";
+"walletsort.label.notAddedAssetsInHidden" = "You do not added assets in hidden";
+"walletsort.label.hiddenAssets" = "Hidden assets";
+
 "walletsort.button.position" = "Position";
 "walletsort.button.visibility" = "Visibility";
 "walletsort.navigationBar.title" = "Sorting";
@@ -593,6 +614,40 @@
 "dexmyorders.label.type" = "Type";
 "transactioncard.title.startedLeasing" = "Started Leasing";
 "transactioncard.title.canceledLeasing" = "Canceled Leasing";
+
+
+"transactioncard.title.nodeAddress" = "Node Address";
+"transactioncard.title.sentTo" = "Sent to";
+"transactioncard.title.sent" = "Sent";
+"transactioncard.title.tokenBurn" = "Token Burn";
+"transactioncard.title.tokenGeneration" = "Token Generation";
+"transactioncard.title.tokenReissue" = "Token Reissue";
+"transactioncard.title.createAlias" = "Create Alias"; //alias
+"transactioncard.title.unrecognisedTransaction" = "Unrecognised Transaction";
+"transactioncard.title.entryInBlockchain" = "Entry in blockchain";
+"transactioncard.title.dataTransaction" = "Data Transaction";
+"transactioncard.title.setScriptTransaction" = "Set Script";
+"transactioncard.title.cancelScriptTransaction" = "Cancel Script";
+"transactioncard.title.received" = "Received";
+"transactioncard.title.receivedFrom" = "Received from";
+"transactioncard.title.spamReceived" = "Spam Received";
+"transactioncard.title.selfTransfer" = "Self-transfer";
+"transactioncard.title.setSponsorship" = "Set Sponsorship";
+"transactioncard.title.disableSponsorship" = "Disable Sponsorship";
+"transactioncard.title.setAssetScript" = "Update script";
+"transactioncard.title.receivedSponsorship" = "Received Sponsorship";
+"transactioncard.title.scriptInvocation" = "Script Invocation";
+"transactioncard.title.scriptAddress" = "Script address";
+"transactioncard.title.payment" = "Payment";
+
+
+"transactioncard.title.recipient" = "#%@ Recipient";
+
+"transactioncard.title.leasingFrom" = "Leasing from";
+
+"transactioncard.title.exchange.buyPair" = "Buy: %@/%@";
+"transactioncard.title.exchange.sellPair" = "Sell: %@/%@";
+
 "transactioncard.title.nodeAddress" = "Node address";
 "transactioncard.title.description" = "Description";
 "transactioncard.title.asset" = "Asset";
@@ -602,17 +657,17 @@
 "transactioncard.title.block" = "Block";
 "transactioncard.title.massSent" = "Mass Sent";
 "transactioncard.title.massReceived" = "Mass Received";
+
 "transactioncard.title.exchange.buy" = "Buy";
 "transactioncard.title.exchange.sell" = "Sell";
 "transactioncard.title.recipient" = "#%@ Recipient";
 "transactioncard.title.receivedSponsorship" = "Received Sponsorship";
-"transactioncard.title.setAssetScript" = "Set Asset Script";
 "transactioncard.title.disableSponsorship" = "Disable Sponsorship";
 "transactioncard.title.setSponsorship" = "Set Sponsorship";
 "transactioncard.title.selfTransfer" = "Self-transfer";
 "transactioncard.title.received" = "Received";
-"transactioncard.title.spamReceived" = "Spam Received";
-"transactioncard.title.cancelScriptTransaction" = "Cancel Script Transaction";
+"transactioncard.title.spamReceived" = "Suspicious received";
+"transactioncard.title.cancelScriptTransaction" = "Cancel Script";
 "transactioncard.title.setScriptTransaction" = "Set Script";
 "transactioncard.title.dataTransaction" = "Data Transaction";
 "transactioncard.title.entryInBlockchain" = "Entry in blockchain";
@@ -628,10 +683,19 @@
 "transactioncard.title.showAll" = "Show all (%@)";
 "addressBookButton.title.editName" = "Edit name";
 "addressBookButton.title.saveAddress" = "Save address";
-"send.label.error.sendingToSpamAsset" = "Sending funds to spam asset is not possible";
+"send.label.error.sendingToSpamAsset" = "Sending funds to suspicious asset is not possible";
 "send.label.error.assetIsNotValid" = "The asset is not valid";
 "transactioncard.title.cancelOrder" = "Cancel order";
-"transactioncard.title.cancelled" = "Cancelled (%@%%)";
+"transactioncard.title.cancelled" = "(Cancelled)";
 "transactioncard.title.total" = "Total";
 "transactioncard.title.incomingLeasing" = "Incoming Leasing";
 "transactioncard.title.leasingFrom" = "Leasing from";
+"transactioncard.title.setAssetScript" = "Update Script";
+"history.transaction.value.setAssetScript" = "Update Script";
+"transactioncard.title.scriptInvocation" = "Script Invocation";
+"transactioncard.title.scriptAddress" = "Script address";
+"transactioncard.title.payment" = "Payment";
+"history.transaction.value.scriptInvocation" = "Script Invocation";
+"history.transaction.value.data" = "Entry in blockchain";
+"history.transaction.title.setAssetScript" = "Entry in blockchain";
+"history.transaction.title.setScript" = "Entry in blockchain";

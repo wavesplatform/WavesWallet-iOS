@@ -16,6 +16,7 @@ final class TransactionCardGeneralCell: UITableViewCell, Reusable {
         enum Info {
             case balance(BalanceLabel.Model)
             case descriptionLabel(String)
+            case status(_ percent: String, status: String?)
         }
 
         let image: UIImage
@@ -45,7 +46,31 @@ final class TransactionCardGeneralCell: UITableViewCell, Reusable {
             descriptionLabel.isHidden = true
 
         case .descriptionLabel(let text):
-            descriptionLabel.text = text
+
+            let attrString = NSMutableAttributedString(string: text,
+                                                       attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22,
+                                                                                                                   weight: .bold)])
+
+            descriptionLabel.attributedText = attrString
+            balanceLabel.isHidden = true
+            descriptionLabel.isHidden = false
+
+        case .status(let percent, let status):
+
+            let attrString = NSMutableAttributedString(string: percent,
+                                                       attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22,
+                                                                                                                   weight: .bold)])
+
+
+            if let status = status {
+                attrString.append(NSMutableAttributedString(string: status,
+                                                            attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22,
+                                                                                                                        weight: .regular)]))
+
+            }
+
+
+            descriptionLabel.attributedText = attrString
             balanceLabel.isHidden = true
             descriptionLabel.isHidden = false
         }
