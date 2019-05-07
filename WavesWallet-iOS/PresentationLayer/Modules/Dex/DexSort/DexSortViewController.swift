@@ -19,7 +19,7 @@ fileprivate enum Constants {
 final class DexSortViewController: UIViewController {
 
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: TableViewNoShadow!
     
     var presenter: DexSortPresenterProtocol!
     private var modelSection = DexSort.ViewModel.Section(items: [])
