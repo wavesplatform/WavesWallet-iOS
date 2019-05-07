@@ -9,12 +9,13 @@
 import Foundation
 import RxSwift
 import Moya
+import WavesSDKServices
 
 final class BlockRepositoryRemote: BlockRepositoryProtocol {
 
     private let environmentRepository: EnvironmentRepositoryProtocol
-    private let blockNode: MoyaProvider<Node.Service.Blocks> = .nodeMoyaProvider()
-
+    private let blocksNodeService = ServicesFactory.shared.blocksNodeService
+    
     init(environmentRepository: EnvironmentRepositoryProtocol) {
         self.environmentRepository = environmentRepository
     }
@@ -23,19 +24,15 @@ final class BlockRepositoryRemote: BlockRepositoryProtocol {
 
         return environmentRepository
             .accountEnvironment(accountAddress: accountAddress)
-            .flatMap({ [weak self] environment -> Single<Response> in
-                guard let self = self else { return Single.never() }
+            .flatMap({ [weak self] environment -> Observable<Int64> in
+
+                guard let self = self else { return Observable.never() }
+                
                 return self
-                    .blockNode
-                    .rx
-                    .request(Node.Service.Blocks(environment: environment,
-                                                 kind: .height))
+                    .blocksNodeService
+                    .height(address: accountAddress,
+                            enviroment: environment.environmentServiceNode)
+                    .map { $0.height }
             })
-            .filterSuccessfulStatusAndRedirectCodes()
-            .catchError({ (error) -> Observable<Response> in
-                return Observable.error(NetworkError.error(by: error))
-            })
-            .map(Node.DTO.Block.self)
-            .map { $0.height }        
     }
 }

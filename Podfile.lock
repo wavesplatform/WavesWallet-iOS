@@ -99,6 +99,8 @@ PODS:
     - pop (~> 1.0)
   - leveldb-library (1.20)
   - MGSwipeTableCell (1.6.8)
+  - Moya (12.0.1):
+    - Moya/Core (= 12.0.1)
   - Moya/Core (12.0.1):
     - Alamofire (~> 4.1)
     - Result (~> 4.0)
@@ -179,6 +181,11 @@ PODS:
     - WavesSDKExtension
   - WavesSDKExtension (0.1.1):
     - RxSwift (~> 4.0)
+  - WavesSDKServices (0.1.1):
+    - Moya (~> 12.0.1)
+    - Moya/RxSwift (~> 12.0.1)
+    - RxSwift (~> 4.0)
+    - WavesSDKExtension
 
 DEPENDENCIES:
   - Amplitude-iOS
@@ -228,6 +235,7 @@ DEPENDENCIES:
   - UPCarouselFlowLayout
   - WavesSDKCrypto (~> 0.1.1)
   - WavesSDKExtension (~> 0.1.1)
+  - WavesSDKServices (from `/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -307,6 +315,8 @@ EXTERNAL SOURCES:
     :git: https://github.com/wavesplatform/RESideMenu.git
   Sentry:
     :git: https://github.com/getsentry/sentry-cocoa.git
+  WavesSDKServices:
+    :path: "/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS"
 
 CHECKOUT OPTIONS:
   InfiniteCollectionView:
@@ -389,7 +399,8 @@ SPEC CHECKSUMS:
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
   WavesSDKCrypto: 75a878b7ecb5ec88cd5b3e17dfd88be5d8c2c7a9
   WavesSDKExtension: 76e2add9577bd1e2b0bd309faa81e4caa70bc3cf
+  WavesSDKServices: 2baa285d817be47b519c1720af7df9f174207143
 
-PODFILE CHECKSUM: d71e4afdc3a3433b41a258e3fbb3248e06efc925
+PODFILE CHECKSUM: 17774648cd34c6cd5625afc19df6ad22c98fae6b
 
 COCOAPODS: 1.6.1

@@ -11,6 +11,7 @@ import Moya
 import RxSwift
 import WavesSDKExtension
 import WavesSDKCrypto
+import WavesSDKServices
 
 private struct SponsoredAssetDetail {
     let minSponsoredAssetFee: Int64?
@@ -18,10 +19,11 @@ private struct SponsoredAssetDetail {
 }
 
 final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
-
-    private let assetsProvider: MoyaProvider<Node.Service.Assets> = .nodeMoyaProvider()
-    private let addressesProvider: MoyaProvider<Node.Service.Addresses> = .nodeMoyaProvider()
-    private let matcherBalanceProvider: MoyaProvider<Matcher.Service.Balance> = .nodeMoyaProvider()
+    
+    //TODO: Library
+    private let matcherBalanceProvider: MoyaProvider<Matcher.Service.Balance> = MoyaProvider<Matcher.Service.Balance>()
+    private let assetsNodeService = ServicesFactory.shared.assetsNodeService
+    private let addressesNodeService = ServicesFactory.shared.addressesNodeService
 
     private let environmentRepository: EnvironmentRepositoryProtocol
 
@@ -109,7 +111,7 @@ private extension AccountBalanceRepositoryRemote {
 
                 let signature = TimestampSignature(signedWallet: wallet,
                                                    environment: environment)
-
+                
                 return self
                     .matcherBalanceProvider
                     .rx
@@ -125,26 +127,19 @@ private extension AccountBalanceRepositoryRemote {
     }
 
     func assetBalance(by walletAddress: String,
-                      assetId: String) -> Observable<Node.DTO.AccountAssetBalance> {
+                      assetId: String) -> Observable<WavesSDKServices.Node.DTO.AccountAssetBalance> {
 
         return environmentRepository
             .accountEnvironment(accountAddress: walletAddress)
-            .flatMap { [weak self] environment -> Single<Response> in
-
-                guard let self = self else { return Single.never() }
-                return self
-                    .assetsProvider
-                    .rx
-                    .request(.init(kind: .getAssetsBalance(address: walletAddress, assetId: assetId),
-                                   environment: environment),
-                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
+            .flatMap { [weak self] environment -> Observable<WavesSDKServices.Node.DTO.AccountAssetBalance> in
+                
+                guard let self = self else { return Observable.never() }
+                
+                return self.assetsNodeService
+                    .assetBalance(address: walletAddress,
+                                  assetId: assetId,
+                                  enviroment: environment.environmentServiceNode)
             }
-            .filterSuccessfulStatusAndRedirectCodes()
-            .catchError({ (error) -> Observable<Response> in
-                return Observable.error(NetworkError.error(by: error))
-            })
-            .map(Node.DTO.AccountAssetBalance.self)
-            .asObservable()
     }
 
     //TODO: https://wavesplatform.atlassian.net/browse/NODE-1488
@@ -169,69 +164,41 @@ private extension AccountBalanceRepositoryRemote {
 
         return environmentRepository
             .accountEnvironment(accountAddress: walletAddress)
-            .flatMap { [weak self] environment -> Single<Response> in
-
-                guard let self = self else { return Single.never() }
-                return self
-                    .assetsProvider
-                    .rx
-                    .request(.init(kind: .details(assetId: assetId),
-                                   environment: environment),
-                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
+            .flatMap { [weak self]  environment -> Observable<Node.DTO.AssetDetail> in
+                
+                guard let self = self else { return Observable.never() }
+                
+                return self.assetsNodeService
+                    .assetDetails(assetId: assetId,
+                                  enviroment: environment.environmentServiceNode)
             }
-            .filterSuccessfulStatusAndRedirectCodes()
-            .catchError({ (error) -> Observable<Response> in
-                return Observable.error(NetworkError.error(by: error))
-            })
-            .map(Node.DTO.AssetDetail.self)
-            .asObservable()
     }
 
     func balance(for walletAddress: String, myWalletAddress: String) -> Observable<Node.DTO.AccountBalance> {
 
         return environmentRepository
             .accountEnvironment(accountAddress: myWalletAddress)
-            .flatMap { [weak self] environment -> Single<Response> in
+            .flatMap { [weak self] environment -> Observable<Node.DTO.AccountBalance> in
 
-                guard let self = self else { return Single.never() }
+                guard let self = self else { return Observable.never() }
+                
                 return self
-                    .addressesProvider
-                    .rx
-                    .request(.init(kind: .getAccountBalance(id: walletAddress),
-                                   environment: environment),
-                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                    .addressesNodeService
+                    .accountBalance(address: walletAddress,
+                                    enviroment: environment.environmentServiceNode)
             }
-            .filterSuccessfulStatusAndRedirectCodes()
-            .catchError({ (error) -> Observable<Response> in
-                return Observable.error(NetworkError.error(by: error))
-            })
-            .map(Node.DTO.AccountBalance.self)
-            .asObservable()
     }
 
     func assetsBalance(by walletAddress: String) -> Observable<Node.DTO.AccountAssetsBalance> {
 
         return environmentRepository.accountEnvironment(accountAddress: walletAddress)
             .flatMap({ [weak self] (environment) -> Observable<Node.DTO.AccountAssetsBalance> in
-                guard let self = self else { return Observable.empty() }
                 
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .custom({ (decoder) -> Date in
-                    return Date(timestampDecoder: decoder, timestampDiff: environment.timestampServerDiff)
-                })
-
-                return self
-                    .assetsProvider
-                    .rx
-                    .request(.init(kind: .getAssetsBalances(walletAddress: walletAddress),
-                                   environment: environment),
-                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                    .filterSuccessfulStatusAndRedirectCodes()
-                    .asObservable()
-                    .catchError({ (error) -> Observable<Response> in
-                        return Observable.error(NetworkError.error(by: error))
-                    })
-                    .map(Node.DTO.AccountAssetsBalance.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
+                guard let self = self else { return Observable.never() }
+                
+                return self.assetsNodeService
+                    .assetsBalances(address: walletAddress,
+                                    enviroment: environment.environmentServiceNode)
             })
     }
 
@@ -239,20 +206,15 @@ private extension AccountBalanceRepositoryRemote {
 
         return environmentRepository
             .accountEnvironment(accountAddress: walletAddress)
-            .flatMap { [weak self] environment -> Single<Response> in
-                guard let self = self else { return Single.never() }
+            .flatMap { [weak self] environment -> Observable<Node.DTO.AccountBalance> in
+                
+                guard let self = self else { return Observable.never() }
+                
                 return self
-                    .addressesProvider
-                    .rx
-                    .request(.init(kind: .getAccountBalance(id: walletAddress),
-                                   environment: environment),
-                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                    .addressesNodeService
+                    .accountBalance(address: walletAddress,
+                                    enviroment: environment.environmentServiceNode)
             }
-            .filterSuccessfulStatusAndRedirectCodes()
-            .catchError({ (error) -> Observable<Response> in
-                return Observable.error(NetworkError.error(by: error))
-            })
-            .map(Node.DTO.AccountBalance.self)
     }
 }
 

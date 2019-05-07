@@ -21,6 +21,7 @@ import AppsFlyerLib
 import Kingfisher
 import Amplitude_iOS
 import WavesSDKExtension
+import WavesSDKServices
 
 #if DEBUG || TEST
 import AppSpectorSDK
@@ -54,6 +55,12 @@ enum UITest {
     //TODO: Refactor method very long
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        ServicesFactory
+            .initialization(dataServicePlugins: [SentryNetworkLoggerPlugin()],
+                            nodeServicePlugins: [SentryNetworkLoggerPlugin(),
+                                                 NodePlugin()],
+                            matcherrServicePlugins: [SentryNetworkLoggerPlugin()])
+        
         if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
             let options = FirebaseOptions(contentsOfFile: path) {
 
@@ -84,7 +91,7 @@ enum UITest {
         Swizzle(initializers: [UIView.passtroughInit, UIView.insetsInit, UIView.shadowInit]).start()
 
         #if DEBUG || TEST
-            SweetLogger.current.plugins = [SweetLoggerConsole(visibleLevels: [],
+            SweetLogger.current.plugins = [SweetLoggerConsole(visibleLevels: [.warning, .debug, .error],
                                                               isShortLog: true),
                                             SweetLoggerSentry(visibleLevels: [.error])]
 

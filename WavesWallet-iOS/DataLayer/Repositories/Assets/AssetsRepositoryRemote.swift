@@ -12,13 +12,15 @@ import Moya
 import CSV
 import WavesSDKExtension
 import WavesSDKCrypto
+import WavesSDKServices
 
 final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     
-    private let apiProvider: MoyaProvider<API.Service.Assets> = .nodeMoyaProvider()
-    private let assetNodeProvider: MoyaProvider<Node.Service.Assets> = .nodeMoyaProvider()
+    private let apiProvider: MoyaProvider<API.Service.Assets> = .nodeMoyaProvider()    
     private let spamProvider: MoyaProvider<Spam.Service.Assets> = .nodeMoyaProvider()
 
+    private let assetsNodeService = ServicesFactory.shared.assetsNodeService
+    
     private let environmentRepository: EnvironmentRepositoryProtocol
 
     init(environmentRepository: EnvironmentRepositoryProtocol) {
@@ -93,21 +95,16 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
         let environment = environmentRepository.accountEnvironment(accountAddress: accountAddress)
 
         return environment
-            .flatMap { [weak self] environment -> Single<Response> in
+            .flatMap { [weak self] environment -> Observable<Bool> in
 
-                guard let self = self else { return Single.never() }
+                guard let self = self else { return Observable.never() }
+                
                 return self
-                    .assetNodeProvider
-                    .rx
-                    .request(.init(kind: .details(assetId: assetId), environment: environment),
-                            callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                    .assetsNodeService
+                    .assetDetails(assetId: assetId,
+                                  enviroment: environment.environmentServiceNode)
+                    .map { $0.scripted == true }
             }
-            .filterSuccessfulStatusAndRedirectCodes()
-            .catchError({ (error) -> Observable<Response> in
-                return Observable.error(NetworkError.error(by: error))
-            })
-            .map(Node.DTO.AssetDetail.self)
-            .map { $0.scripted == true }
     }
 }
 

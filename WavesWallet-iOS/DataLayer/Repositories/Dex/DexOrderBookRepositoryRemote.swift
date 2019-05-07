@@ -13,8 +13,8 @@ import RealmSwift
 
 final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
 
-    private let matcherProvider: MoyaProvider<Matcher.Service.OrderBook> = .nodeMoyaProvider()
-    private let spamProvider: MoyaProvider<Spam.Service.Assets> = .nodeMoyaProvider()
+    private let matcherProvider: MoyaProvider<Matcher.Service.OrderBook> = MoyaProvider<Matcher.Service.OrderBook>()
+    private let spamProvider: MoyaProvider<Spam.Service.Assets> = MoyaProvider<Spam.Service.Assets>()
     private let environmentRepository: EnvironmentRepositoryProtocol
     
     init(environmentRepository: EnvironmentRepositoryProtocol) {
