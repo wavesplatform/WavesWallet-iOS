@@ -9,6 +9,7 @@
 import Foundation
 import WavesSDKExtension
 import WavesSDKCrypto
+import WavesSDKServices
 
 extension TransferTransaction {
 

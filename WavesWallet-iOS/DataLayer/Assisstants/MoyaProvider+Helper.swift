@@ -11,19 +11,20 @@ import Result
 import Moya
 import WavesSDKExtension
 
-enum Node {}
+//enum Node {}
+//
+//extension Node {
+//    enum DTO {}
+//    enum Service {}
+//}
+//
+//protocol NodeTargetType: BaseTargetType {}
+//
+//extension NodeTargetType {
+//    var baseURL: URL { return environment.servers.nodeUrl }
+//}
 
-extension Node {
-    enum DTO {}
-    enum Service {}
-}
-
-protocol NodeTargetType: BaseTargetType {}
-
-extension NodeTargetType {
-    var baseURL: URL { return environment.servers.nodeUrl }    
-}
-
+//TODO: Library
 extension MoyaProvider {
     final class func nodeMoyaProvider<Target: TargetType>() -> MoyaProvider<Target> {
         return MoyaProvider<Target>(callbackQueue: nil,

@@ -8,6 +8,7 @@
 
 import Foundation
 import WavesSDKCrypto
+import WavesSDKServices
 
 extension UnrecognisedTransaction {
 

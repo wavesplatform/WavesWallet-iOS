@@ -12,7 +12,8 @@ import Moya
 
 final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
     
-    private let apiProvider: MoyaProvider<API.Service.PairsPrice> = .nodeMoyaProvider()
+    private let apiProvider: MoyaProvider<API.Service.PairsPrice> = MoyaProvider<API.Service.PairsPrice>()
+    
     private let environmentRepository: EnvironmentRepositoryProtocol
     
     init(environmentRepository: EnvironmentRepositoryProtocol) {

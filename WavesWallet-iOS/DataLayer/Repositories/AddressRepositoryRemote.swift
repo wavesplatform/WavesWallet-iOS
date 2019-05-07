@@ -9,13 +9,33 @@
 import Foundation
 import RxSwift
 import Moya
+import WavesSDKServices
+import WavesSDKCrypto
+
+extension WavesSDKCrypto.Environment {
+    
+    var environmentServiceNode: WavesSDKServices.EnviromentService {
+        return EnviromentService(serverUrl: servers.nodeUrl,
+                                 timestampServerDiff: timestampServerDiff)
+    }
+    
+    var environmentServiceMatcher: WavesSDKServices.EnviromentService {
+        return EnviromentService(serverUrl: servers.matcherUrl,
+                                 timestampServerDiff: timestampServerDiff)
+    }
+    
+    var environmentServiceData: WavesSDKServices.EnviromentService {
+        return EnviromentService(serverUrl: servers.dataUrl,
+                                 timestampServerDiff: timestampServerDiff)
+    }
+}
 
 final class AddressRepositoryRemote: AddressRepositoryProtocol {
 
     private let environmentRepository: EnvironmentRepositoryProtocol
-
-    private let addressesProvider: MoyaProvider<Node.Service.Addresses> = .nodeMoyaProvider()
-
+    
+    private let addressesNodeService = ServicesFactory.shared.addressesNodeService
+    
     init(environmentRepository: EnvironmentRepositoryProtocol) {
         self.environmentRepository = environmentRepository
     }
@@ -25,20 +45,14 @@ final class AddressRepositoryRemote: AddressRepositoryProtocol {
         let environment = environmentRepository.accountEnvironment(accountAddress: accountAddress)
 
         return environment
-            .flatMap { [weak self] environment -> Single<Response> in
-
-                guard let self = self else { return Single.never() }
-                return self
-                    .addressesProvider
-                    .rx
-                    .request(.init(kind: .scriptInfo(id: accountAddress), environment: environment),
-                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
+            .flatMap { [weak self] environment -> Observable<Bool> in
+                
+                guard let self = self else { return Observable.never() }
+                
+                return self.addressesNodeService
+                    .scriptInfo(address: accountAddress,
+                                enviroment: environment.environmentServiceNode)
+                    .map { ($0.extraFee ?? 0) > 0 }
             }
-            .filterSuccessfulStatusAndRedirectCodes()
-            .catchError({ (error) -> Observable<Response> in
-                return Observable.error(NetworkError.error(by: error))
-            })
-            .map(Node.DTO.AddressScriptInfo.self)
-            .map { ($0.extraFee ?? 0) > 0 }
     }
 }

@@ -14,7 +14,7 @@ import WavesSDKCrypto
 
 final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
 
-    private let matcherProvider: MoyaProvider<Matcher.Service.MatcherPublicKey> = .nodeMoyaProvider()
+    private let matcherProvider: MoyaProvider<Matcher.Service.MatcherPublicKey> = MoyaProvider<Matcher.Service.MatcherPublicKey>()
     private let environmentRepository: EnvironmentRepositoryProtocol
     
     init(environmentRepository: EnvironmentRepositoryProtocol) {

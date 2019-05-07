@@ -13,6 +13,7 @@ import RxRealm
 import RxSwift
 import WavesSDKExtension
 import WavesSDKCrypto
+import WavesSDKServices
 
 private enum Constants {
     static let minServerTimestampDiff: Int64 = 1000 * 30
@@ -28,11 +29,10 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
     private var isValidServerTimestampDiff = false
     private let environmentRepository: MoyaProvider<GitHub.Service.Environment> = .nodeMoyaProvider()
     private let spamProvider: MoyaProvider<Spam.Service.Assets> = .nodeMoyaProvider()
-
+    private let utilsNodeService = ServicesFactory.shared.utilsNodeService
+    
     private var localEnvironments: BehaviorSubject<[EnvironmentKey: Environment]> = BehaviorSubject<[EnvironmentKey: Environment]>(value: [:])
-
-    private let utilsProvider: MoyaProvider<Node.Service.Utils> = .nodeMoyaProvider()
-
+    
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(timeDidChange), name: UIApplication.significantTimeChangeNotification, object: nil)
     }
@@ -257,6 +257,10 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
                            generalAssets: environment.generalAssets,
                            assets: environment.assets)
     }
+    
+    var zalypa = ServicesFactory
+        .shared
+        .utilsNodeService
 }
 
 private extension EnvironmentRepository {
@@ -267,22 +271,20 @@ private extension EnvironmentRepository {
     
     func updateTimestampServerDiff(environment: Environment) -> Observable<Environment> {
 
-        return utilsProvider.rx.request(.init(environment: environment, kind: .time),
-                                        callbackQueue: DispatchQueue.global(qos: .userInteractive))
-        .map(Node.DTO.Utils.Time.self)
-        .asObservable()
-        .flatMap({ [weak self] (time) -> Observable<Environment> in
-            
-            guard let self = self else { return Observable.empty() }
-            self.isValidServerTimestampDiff = true
-            
-            let localTimestamp = Int64(Date().timeIntervalSince1970 * 1000)
-            let diff = localTimestamp - time.NTP
-            let timestamp = abs(diff) > Constants.minServerTimestampDiff ? diff : 0
-            
-            Environment.updateTimestampServerDiff(timestamp)
+        return utilsNodeService
+            .time(serverUrl: environment.servers.nodeUrl)
+            .flatMap({ [weak self] (time) -> Observable<Environment> in
+                
+                guard let self = self else { return Observable.empty() }
+                self.isValidServerTimestampDiff = true
+                
+                let localTimestamp = Int64(Date().timeIntervalSince1970 * 1000)
+                let diff = localTimestamp - time.NTP
+                let timestamp = abs(diff) > Constants.minServerTimestampDiff ? diff : 0
+                
+                Environment.updateTimestampServerDiff(timestamp)
 
-            return Observable.just(environment)
-        })
+                return Observable.just(environment)
+            })
     }
 }
