@@ -91,6 +91,7 @@ private struct SmartTransactionSyncData {
     let block: Int64
     let accounts: Sync<[DomainLayer.DTO.Address]>
     let leaseTxs: [DomainLayer.DTO.LeaseTransaction]
+    let isEnableSpamFilter: Bool
 }
 
 private typealias RemoteResult = (txs: [DomainLayer.DTO.AnyTransaction], error: Error?)
@@ -114,13 +115,16 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
 
     private var blockRepositoryRemote: BlockRepositoryProtocol
 
+    private var accountSettingsRepository: AccountSettingsRepositoryProtocol
+    
     init(transactionsRepositoryLocal: TransactionsRepositoryProtocol,
          transactionsRepositoryRemote: TransactionsRepositoryProtocol,
          assetsInteractors: AssetsInteractorProtocol,
          addressInteractors: AddressInteractorProtocol,
          addressRepository: AddressRepositoryProtocol,
          assetsRepositoryRemote: AssetsRepositoryProtocol,
-         blockRepositoryRemote: BlockRepositoryProtocol) {
+         blockRepositoryRemote: BlockRepositoryProtocol,
+         accountSettingsRepository: AccountSettingsRepositoryProtocol) {
 
         self.transactionsRepositoryLocal = transactionsRepositoryLocal
         self.transactionsRepositoryRemote = transactionsRepositoryRemote
@@ -129,6 +133,7 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
         self.addressRepository = addressRepository
         self.assetsRepository = assetsRepositoryRemote
         self.blockRepositoryRemote = blockRepositoryRemote
+        self.accountSettingsRepository = accountSettingsRepository
     }
 
     func calculateFee(by transactionSpecs: DomainLayer.Query.TransactionSpecificationType, accountAddress: String) -> Observable<Money> {
@@ -346,7 +351,6 @@ fileprivate extension TransactionsInteractor {
             })
             .flatMap({ [weak self] result -> Observable<RemoteResult> in
                 guard let self = self else { return Observable.never() }
-
                 if result.txs.count == 0 {
                     return Observable.just(result)
                 }
@@ -568,11 +572,15 @@ fileprivate extension TransactionsInteractor {
                 return Observable.just(0)
             }
 
+        let accountSettings = accountSettingsRepository.accountSettings(accountAddress: accountAddress)
+        
         return Observable
-            .zip(blockHeight, assets)
+            .zip(blockHeight, assets, accountSettings)
             .flatMap { (args) -> Observable<SmartTransactionSyncData> in
                 let blocks = args.0
                 let assets = args.1
+                let settings = args.2
+                
                 let activeLeaseing = query.leaseTransactions ?? []
 
                 return accounts
@@ -582,7 +590,8 @@ fileprivate extension TransactionsInteractor {
                                                         transaction: query.transactions,
                                                         block: blocks,
                                                         accounts: accounts,
-                                                        leaseTxs: activeLeaseing)
+                                                        leaseTxs: activeLeaseing,
+                                                        isEnableSpamFilter: settings?.isEnabledSpam ?? false)
 
                     })
             }
@@ -623,7 +632,8 @@ fileprivate extension TransactionsInteractor {
                                                       assets: assetsMap,
                                                       accounts: accountsMap,
                                                       block: data.block,
-                                                      leaseTxs: leaseTxsMap)
+                                                      leaseTxs: leaseTxsMap,
+                                                      isEnableSpamFilter: data.isEnableSpamFilter)
 
                 if let error = query.remoteError {
                     return .just(.local(txs, error: error))
@@ -638,7 +648,8 @@ fileprivate extension TransactionsInteractor {
                                         assets: [String: DomainLayer.DTO.Asset],
                                         accounts: [String: DomainLayer.DTO.Address],
                                         block: Int64,
-                                        leaseTxs: [String: DomainLayer.DTO.LeaseTransaction]) -> [DomainLayer.DTO.SmartTransaction]
+                                        leaseTxs: [String: DomainLayer.DTO.LeaseTransaction],
+                                        isEnableSpamFilter: Bool) -> [DomainLayer.DTO.SmartTransaction]
     {
         return txs.map({ (tx) -> DomainLayer.DTO.SmartTransaction? in
             return tx.transaction(by: accountAddress,
@@ -649,7 +660,8 @@ fileprivate extension TransactionsInteractor {
                                   mapTxs: [:])
         })
         .compactMap { $0 }
-        .filter { $0.isCanceledLeasingBySender == false }
+            .filter { $0.isCanceledLeasingBySender == false &&
+                $0.isSpamTransaction(isEnableSpam: isEnableSpamFilter) == false }
     }
 }
 
@@ -823,6 +835,13 @@ private extension DomainLayer.DTO.AnyTransaction {
 
         case .sponsorship(let tx):
             return [tx.assetId]
+            
+        case .invokeScript(let tx):
+
+            if let payment = tx.payment, let assetId = payment.assetId {
+                return [WavesSDKCryptoConstants.wavesAssetId, assetId]
+            }
+            return [WavesSDKCryptoConstants.wavesAssetId]
         }
     }
 
@@ -878,6 +897,9 @@ private extension DomainLayer.DTO.AnyTransaction {
             return [tx.sender]
 
         case .sponsorship(let tx):
+            return [tx.sender]
+            
+        case .invokeScript(let tx):
             return [tx.sender]
         }
     }
@@ -948,5 +970,46 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         default:
             return false
         }
+    }
+    
+    func isSpamTransaction(isEnableSpam: Bool) -> Bool {
+        if isEnableSpam {
+            switch kind {
+            case .spamReceive:
+                return true
+            
+            case .spamMassReceived:
+                return true
+            
+            case .sent(let tx):
+                return tx.asset.isSpam
+                
+            case .selfTransfer(let tx):
+                return tx.asset.isSpam
+                
+            case .massSent(let tx):
+                return tx.asset.isSpam
+                
+            case .tokenGeneration(let tx):
+                return tx.asset.isSpam
+                
+            case .tokenBurn(let tx):
+                return tx.asset.isSpam
+
+            case .tokenReissue(let tx):
+                return tx.asset.isSpam
+
+            case .assetScript(let asset):
+                return asset.isSpam
+                
+            case .sponsorship(_, let asset):
+                return asset.isSpam
+                
+            default:
+                return false
+            }
+        }
+        return false
+       
     }
 }

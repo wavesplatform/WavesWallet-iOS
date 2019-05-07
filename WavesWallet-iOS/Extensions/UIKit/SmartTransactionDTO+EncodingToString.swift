@@ -22,8 +22,10 @@ extension DomainLayer.DTO.SmartTransaction {
             + priceData
             + feeData
             + attachmentData
+            + scriptAddress
     }
 
+    
     private var titleData: String {
 
         switch kind {
@@ -80,6 +82,9 @@ extension DomainLayer.DTO.SmartTransaction {
 
         case .sponsorship:
             return "sponsor ship"
+            
+        case .invokeScript:
+            return "invoke script"
         }
     }
 
@@ -104,7 +109,8 @@ extension DomainLayer.DTO.SmartTransaction {
              .data,
              .script,
              .assetScript,
-             .sponsorship:
+             .sponsorship,
+             .invokeScript:
             return "Type: \(type) (\(titleData))\n"
 
         case .exchange(let tx):
@@ -121,13 +127,13 @@ extension DomainLayer.DTO.SmartTransaction {
 
         switch kind {
         case .receive(let tx):
-            return tx.recipient
+            return tx.myAccount
 
         case .sent(let tx):
             return tx.recipient
 
         case .spamReceive(let tx):
-            return tx.recipient
+            return tx.myAccount
 
         case .selfTransfer(let tx):
             return tx.recipient
@@ -178,6 +184,9 @@ extension DomainLayer.DTO.SmartTransaction {
             return nil
 
         case .sponsorship:
+            return nil
+            
+        case .invokeScript:
             return nil
         }
     }
@@ -259,6 +268,9 @@ extension DomainLayer.DTO.SmartTransaction {
 
         case .sponsorship:
             return nil
+            
+        case .invokeScript:
+            return nil
         }
     }
 
@@ -323,6 +335,9 @@ extension DomainLayer.DTO.SmartTransaction {
             return nil
 
         case .sponsorship:
+            return nil
+            
+        case .invokeScript:
             return nil
         }
     }
@@ -409,6 +424,9 @@ extension DomainLayer.DTO.SmartTransaction {
 
         case .sponsorship:
             return nil
+            
+        case .invokeScript:
+            return nil
         }
     }
 
@@ -418,5 +436,14 @@ extension DomainLayer.DTO.SmartTransaction {
         guard attachment.count > 0 else { return "" }
 
         return "Attachment: \(attachment)\n"
+    }
+    
+    private var scriptAddress: String {
+        switch kind {
+        case .invokeScript(let tx):
+            return "Script address: \(tx.scriptAddress)\n"
+        default:
+            return ""
+        }
     }
 }

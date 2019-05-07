@@ -8,11 +8,14 @@
 
 import UIKit
 
+private enum Constants {
+    static let movedRowAlpha: CGFloat = 0.9
+}
+
 final class DexSortCell: UITableViewCell, Reusable {
     
     @IBOutlet weak var viewContainer: UIView!
     @IBOutlet weak var labelTitle: UILabel!
-    private var isDragging: Bool = false
 
     var buttonDeleteDidTap: (() -> Void)?
 
@@ -25,26 +28,12 @@ final class DexSortCell: UITableViewCell, Reusable {
         buttonDeleteDidTap?()
     }
 
-    func beginMove() {
-        viewContainer.removeShadow()
-    }
-
-    func endMove() {
-        viewContainer.backgroundColor = .white
-        viewContainer.addTableCellShadowStyle()
-    }
-
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        if self.alpha <= 0.9 && !isDragging {
-            isDragging = true
-            beginMove()
-        }
-
-        if self.alpha <= 0.9 && isDragging {
-            isDragging = false
-            endMove()
+        if alpha <= Constants.movedRowAlpha {
+            viewContainer.backgroundColor = .white
+            viewContainer.addTableCellShadowStyle()
         }
     }
 }
