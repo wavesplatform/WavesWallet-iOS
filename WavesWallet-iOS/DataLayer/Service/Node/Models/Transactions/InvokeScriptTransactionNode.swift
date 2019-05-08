@@ -44,8 +44,8 @@ extension Node.DTO {
         let timestamp: Date
         let proofs: [String]?
         let version: Int
-        let dappAddress: String
-        let call: Call
+        let dApp: String
+        let call: Call?
         let payment: [Payment]
         let height: Int64
     }
