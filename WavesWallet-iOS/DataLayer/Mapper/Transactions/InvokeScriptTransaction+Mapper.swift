@@ -52,7 +52,7 @@ extension DomainLayer.DTO.InvokeScriptTransaction {
         timestamp = transaction.timestamp
         proofs = transaction.proofs
         version = transaction.version
-        dappAddress = transaction.dappAddress
+        dappAddress = transaction.dApp
         height = transaction.height
         payment = transaction.payment.first.map { .init(amount: $0.amount, assetId: $0.assetId) }
         
