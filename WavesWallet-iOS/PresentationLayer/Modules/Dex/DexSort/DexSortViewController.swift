@@ -104,7 +104,7 @@ extension DexSortViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
 
         sendEvent.accept(.dragModels(sourceIndexPath: sourceIndexPath, destinationIndexPath: destinationIndexPath))
-        delegate.refreshPairs()
+        delegate.sortPairs()
     }
     
     func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
