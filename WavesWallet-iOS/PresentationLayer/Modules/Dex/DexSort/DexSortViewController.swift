@@ -158,7 +158,7 @@ private extension DexSortViewController {
     
     func buttonDeleteDidTap(_ indexPath: IndexPath) {
         sendEvent.accept(.tapDeleteButton(indexPath))
-        delegate.refreshPairs()
+        delegate.sortPairs()
     }
 }
 
