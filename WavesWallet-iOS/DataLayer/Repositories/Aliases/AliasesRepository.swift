@@ -11,15 +11,12 @@ import RxSwift
 import Moya
 import WavesSDKExtension
 import WavesSDKCrypto
-
-private enum Constants {
-    static var notFoundCode = 404
-}
+import WavesSDKServices
 
 final class AliasesRepository: AliasesRepositoryProtocol {
     
     private let environmentRepository: EnvironmentRepositoryProtocol
-    private let aliasApi: MoyaProvider<API.Service.Alias> = .nodeMoyaProvider()
+    private let aliasDataService = ServicesFactory.shared.aliasDataService
     
     init(environmentRepository: EnvironmentRepositoryProtocol) {
         self.environmentRepository = environmentRepository
@@ -29,21 +26,14 @@ final class AliasesRepository: AliasesRepositoryProtocol {
 
         return environmentRepository
             .accountEnvironment(accountAddress: accountAddress)
-            .flatMap({ [weak self] environment -> Observable<(aliases: [API.DTO.Alias], environment: Environment)> in
+            .flatMap({ [weak self] environment -> Observable<(aliases: [DataService.DTO.Alias], environment: Environment)> in
                 guard let self = self else { return Observable.never() }
+
                 return self
-                    .aliasApi
-                    .rx
-                    .request(API.Service.Alias(environment: environment,
-                                                kind: .list(accountAddress: accountAddress)),
-                            callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                    .filterSuccessfulStatusAndRedirectCodes()
-                    .asObservable()
-                    .catchError({ (error) -> Observable<Response> in
-                        return Observable.error(NetworkError.error(by: error))
-                    })
-                    .map(API.Response<[API.Response<API.DTO.Alias>]>.self)
-                    .map { (aliases: $0.data.map{ $0.data }, environment: environment) }
+                    .aliasDataService
+                    .list(address: accountAddress,
+                          enviroment: environment.environmentServiceData)
+                    .map { (aliases: $0, environment: environment) }
             })
             .map({ data -> [DomainLayer.DTO.Alias] in
 
@@ -61,25 +51,26 @@ final class AliasesRepository: AliasesRepositoryProtocol {
     }
 
     func alias(by name: String, accountAddress: String) -> Observable<String> {
-        return environmentRepository.accountEnvironment(accountAddress: accountAddress)
+        return environmentRepository
+            .accountEnvironment(accountAddress: accountAddress)
             .flatMap({ [weak self] (environment) -> Observable<String> in
+                
                 guard let self = self else { return Observable.empty() }
-                return self.aliasApi.rx.request(API.Service.Alias(environment: environment,
-                                                                   kind: .alias(name: name)))
-                .filterSuccessfulStatusAndRedirectCodes()
-                .map(API.Response<API.DTO.Alias>.self)
-                .map({ (response) -> String in
-                    return response.data.address
-                })
-                .asObservable()
-                .catchError({ (e) -> Observable<String> in
-                    guard let error = e as? MoyaError else {
-                        return Observable.error(NetworkError.error(by: e))
-                    }
-                    guard let response = error.response else { return Observable.error(NetworkError.error(by: e)) }
-                    guard response.statusCode == Constants.notFoundCode else { return Observable.error(NetworkError.error(by: e)) }
-                    return Observable.error(AliasesRepositoryError.dontExist)
-                })
+                
+                
+                return self
+                    .aliasDataService
+                    .alias(name: name,
+                           enviroment: environment.environmentServiceData)
+                    .map { $0.address }
+                    .catchError({ (error) -> Observable<String> in
+                        
+                        if let error = error as? NetworkError, error == .notFound {
+                            return Observable.error(AliasesRepositoryError.dontExist)
+                        }
+                        
+                        return Observable.error(AliasesRepositoryError.invalid)
+                    })
             })
     }
 

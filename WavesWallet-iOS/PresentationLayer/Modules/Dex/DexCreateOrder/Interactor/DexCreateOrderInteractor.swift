@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import Moya
 import WavesSDKExtension
+import WavesSDKServices
 
 private enum Constants {
     static let minimumOrderFee: Int64 = 300000
@@ -20,7 +21,6 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     
     private let auth = FactoryInteractors.instance.authorization
     private let matcherRepository = FactoryRepositories.instance.matcherRepository
-    private let matcherProvider: MoyaProvider<Matcher.Service.OrderBook> = .nodeMoyaProvider()
     private let orderBookRepository = FactoryRepositories.instance.dexOrderBookRepository
     private let transactionInteractor = FactoryInteractors.instance.transactions
     private let environmentRepository = FactoryRepositories.instance.environmentRepository
@@ -55,7 +55,9 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                                                                        expiration: Int64(order.expiration.rawValue))
                     
                     
-                    return self.orderBookRepository.createOrder(wallet: wallet, order: orderQuery)
+                    return self
+                        .orderBookRepository
+                        .createOrder(wallet: wallet, order: orderQuery)
                         .flatMap({ (success) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
                             let output = DexCreateOrder.DTO.Output(time: Date(milliseconds: orderQuery.timestamp),
                                                                    orderType: order.type,

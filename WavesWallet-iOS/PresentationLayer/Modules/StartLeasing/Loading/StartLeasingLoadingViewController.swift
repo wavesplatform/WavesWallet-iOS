@@ -8,7 +8,7 @@
 
 import UIKit
 import RxSwift
-
+import WavesSDKServices
 
 final class StartLeasingLoadingViewController: UIViewController {
 

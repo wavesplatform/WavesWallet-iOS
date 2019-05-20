@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import WavesSDKServices
 import RxCocoa
 
 private enum Constants {
@@ -202,7 +203,7 @@ private extension TokenBurnViewController {
                 self?.loadFee()
             })
             
-        case .notFound, .scriptError:
+        case .none, .scriptError:
             errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
                 self?.loadFee()
             })

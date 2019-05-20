@@ -8,6 +8,7 @@
 
 import Foundation
 import WavesSDKCrypto
+import WavesSDKServices
 
 enum PasscodeTypes {
     enum DTO { }
@@ -43,7 +44,7 @@ extension PasscodeTypes {
             case .internetNotWorking:
                 return .internetNotWorking
 
-            case .notFound:
+            case .notFound, .none:
                 return .notFound
 
             case .serverError:

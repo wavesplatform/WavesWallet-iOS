@@ -7,11 +7,12 @@
 //
 
 import Foundation
+import WavesSDKServices
 
 enum DisplayError: Equatable {
     case globalError(isInternetNotWorking: Bool)
     case internetNotWorking
-    case notFound
+    case none
     case message(String)
     case scriptError
 }
@@ -32,11 +33,11 @@ extension DisplayError {
             case .internetNotWorking:
                 self = .internetNotWorking
 
-            case .notFound:
-                self = .notFound
+            case .notFound, .none:
+                self = .none
 
             case .serverError:
-                self = .notFound
+                self = .none
 
             case .message(let message):
                 self = .message(message)
@@ -46,7 +47,7 @@ extension DisplayError {
             }
 
         default:
-            self = .notFound
+            self = .none
         }
     }
 }

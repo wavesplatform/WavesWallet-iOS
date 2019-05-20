@@ -9,10 +9,11 @@
 import Foundation
 import RxSwift
 import Moya
+import WavesSDKServices
 
 final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
     
-    private let apiProvider: MoyaProvider<API.Service.PairsPrice> = MoyaProvider<API.Service.PairsPrice>()
+    private let pairsPriceDataService = ServicesFactory.shared.pairsPriceDataService
     
     private let environmentRepository: EnvironmentRepositoryProtocol
     
@@ -20,17 +21,24 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
         self.environmentRepository = environmentRepository
     }
     
-    func list(by accountAddress: String, pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
+    func list(by accountAddress: String,
+              pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
 
-        return environmentRepository.accountEnvironment(accountAddress: accountAddress)
+        return environmentRepository
+            .accountEnvironment(accountAddress: accountAddress)
             .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
+                
                 guard let self = self else { return Observable.empty() }
-                return self.apiProvider.rx
-                    .request(.init(pairs: pairs, environment: environment),
-                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                    .filterSuccessfulStatusAndRedirectCodes()
-                    .map(API.Response<[API.OptionalResponse<API.DTO.PairPrice>]>.self)
-                    .map { $0.data.map {$0.data ?? .empty}}
+                
+                let pairsForQuery = pairs.map { DataService.Query.PairsPrice.Pair(amountAssetId: $0.amountAsset.id,
+                                                                                  priceAssetId: $0.priceAsset.id) }
+                
+                let query = DataService.Query.PairsPrice(pairs: pairsForQuery)
+                
+                return self
+                    .pairsPriceDataService
+                    .pairsPrice(query: query,
+                                enviroment: environment.environmentServiceData)
                     .map({ (list) -> [DomainLayer.DTO.Dex.PairPrice] in
                         
                         var listPairs: [DomainLayer.DTO.Dex.PairPrice] = []
@@ -51,7 +59,6 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
                         
                         return listPairs
                     })
-                    .asObservable()
             })
     }
 }

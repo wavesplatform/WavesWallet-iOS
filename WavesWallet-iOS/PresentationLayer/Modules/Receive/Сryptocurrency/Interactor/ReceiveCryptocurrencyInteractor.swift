@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import WavesSDKServices
 
 final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProtocol {
     

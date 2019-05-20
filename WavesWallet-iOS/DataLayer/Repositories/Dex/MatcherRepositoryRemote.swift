@@ -11,10 +11,11 @@ import RxSwift
 import Moya
 import Base58
 import WavesSDKCrypto
+import WavesSDKServices
 
 final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
 
-    private let matcherProvider: MoyaProvider<Matcher.Service.MatcherPublicKey> = MoyaProvider<Matcher.Service.MatcherPublicKey>()
+    private let matcherService: PublicKeyMatcherServiceProtocol = ServicesFactory.shared.publicKeyMatcherService
     private let environmentRepository: EnvironmentRepositoryProtocol
     
     init(environmentRepository: EnvironmentRepositoryProtocol) {
@@ -23,25 +24,17 @@ final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
     
     func matcherPublicKey(accountAddress: String) -> Observable<PublicKeyAccount> {
         
-        return environmentRepository.accountEnvironment(accountAddress: accountAddress)
+        return environmentRepository
+            .accountEnvironment(accountAddress: accountAddress)
             .flatMap({ [weak self] (environment) -> Observable<PublicKeyAccount> in
                 guard let self = self else { return Observable.empty() }
                 
-                return self.matcherProvider.rx
-                    .request(.init(environment: environment),
-                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                    .filterSuccessfulStatusAndRedirectCodes()
-                    .asObservable()
-                    .flatMap({ (response) -> Observable<PublicKeyAccount>  in
-                        
-                        do {
-                            let key = try JSONSerialization.jsonObject(with: response.data, options: .allowFragments) as? String ?? ""
-                            return Observable.just(PublicKeyAccount(publicKey: Base58.decode(key)))
-                        }
-                        catch let error {
-                            return Observable.error(error)
-                        }
-                    })
+                return self
+                    .matcherService
+                    .publicKey(enviroment: environment.environmentServiceMatcher)
+                    .map {
+                        return PublicKeyAccount(publicKey: Base58.decode($0))
+                    }
             })
     }
 }

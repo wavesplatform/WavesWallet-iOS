@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import RxFeedback
 import WavesSDKCrypto
+import WavesSDKServices
 
 private enum Constants {
     static let percent50 = 50
@@ -638,7 +639,7 @@ private extension DexCreateOrderViewController {
                     self.sendEvent.accept(.refreshFee)
                 })
                 
-            case .notFound, .scriptError:
+            case .none, .scriptError:
                 errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
                     guard let self = self else { return }
                     self.sendEvent.accept(.refreshFee)

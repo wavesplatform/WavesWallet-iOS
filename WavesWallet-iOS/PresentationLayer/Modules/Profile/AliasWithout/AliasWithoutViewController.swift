@@ -72,7 +72,7 @@ final class AliasWithoutViewController: UIViewController, Localization {
 
     private func handlerError(_ error: Error) {
 
-        var displayError: DisplayError = .notFound
+        var displayError: DisplayError = .none
 
         if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
             displayError = DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving)
@@ -102,7 +102,7 @@ final class AliasWithoutViewController: UIViewController, Localization {
                 self?.loadingFee()
             })
 
-        case .notFound, .scriptError:
+        case .none, .scriptError:
             errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
                 self?.loadingFee()
             })

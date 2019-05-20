@@ -179,7 +179,7 @@ private extension AliasesViewController {
                     self?.eventInput.onNext(.refresh)
                 })
 
-            case .notFound, .scriptError:
+            case .none, .scriptError:
                 errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
                     self?.eventInput.onNext(.refresh)
                 })

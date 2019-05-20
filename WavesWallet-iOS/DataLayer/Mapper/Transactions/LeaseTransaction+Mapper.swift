@@ -37,7 +37,7 @@ extension LeaseTransaction {
 
 extension DomainLayer.DTO.LeaseTransaction {
 
-    init(transaction: Node.DTO.LeaseTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
+    init(transaction: NodeService.DTO.LeaseTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender.normalizeAddress(environment: environment)

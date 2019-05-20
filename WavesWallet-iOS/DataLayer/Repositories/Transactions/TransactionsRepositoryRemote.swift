@@ -68,7 +68,7 @@ extension TransactionSenderSpecifications {
 
 final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
     
-    private let transactionRules: MoyaProvider<GitHub.Service.TransactionRules> = .nodeMoyaProvider()
+    private let transactionRules: MoyaProvider<GitHub.Service.TransactionRules> = .anyMoyaProvider()
     private let transactionNodeService = ServicesFactory.shared.transactionNodeService
     private let leasingNodeService = ServicesFactory.shared.leasingNodeService
     
@@ -245,13 +245,13 @@ fileprivate extension TransactionSenderSpecifications {
     func broadcastSpecification(timestamp: Int64,
                                 environment: Environment,
                                 publicKey: String,
-                                proofs: [String]) -> Node.Query.Broadcast {
+                                proofs: [String]) -> NodeService.Query.Broadcast {
 
         switch self {
             
         case .burn(let model):
             
-            return .burn(Node.Query.Broadcast.Burn(version: self.version,
+            return .burn(NodeService.Query.Broadcast.Burn(version: self.version,
                                                     type: self.type.rawValue,
                                                     scheme: environment.scheme,
                                                     fee: model.fee,
@@ -263,7 +263,7 @@ fileprivate extension TransactionSenderSpecifications {
             
         case .createAlias(let model):
 
-            return .createAlias(Node.Query.Broadcast.Alias(version: self.version,
+            return .createAlias(NodeService.Query.Broadcast.Alias(version: self.version,
                                                             name: model.alias,
                                                             fee: model.fee,
                                                             timestamp: timestamp,
@@ -278,7 +278,7 @@ fileprivate extension TransactionSenderSpecifications {
             } else {
                 recipient = model.recipient
             }
-            return .startLease(Node.Query.Broadcast.Lease(version: self.version,
+            return .startLease(NodeService.Query.Broadcast.Lease(version: self.version,
                                                           scheme: environment.scheme,
                                                           fee: model.fee,
                                                           recipient: recipient,
@@ -289,7 +289,7 @@ fileprivate extension TransactionSenderSpecifications {
                                                           proofs: proofs))
         case .cancelLease(let model):
 
-            return .cancelLease(Node.Query.Broadcast.LeaseCancel(version: self.version,
+            return .cancelLease(NodeService.Query.Broadcast.LeaseCancel(version: self.version,
                                                                  scheme: environment.scheme,
                                                                  fee: model.fee,
                                                                  leaseId: model.leaseId,
@@ -300,7 +300,7 @@ fileprivate extension TransactionSenderSpecifications {
 
         case .data(let model):
 
-            return .data(Node.Query.Broadcast.Data.init(type: self.type.rawValue,
+            return .data(NodeService.Query.Broadcast.Data.init(type: self.type.rawValue,
                                                         version: self.version,
                                                         fee: model.fee,
                                                         timestamp: timestamp,
@@ -317,7 +317,7 @@ fileprivate extension TransactionSenderSpecifications {
                 recipient = model.recipient
             }
             
-            return .send(Node.Query.Broadcast.Send(type: self.type.rawValue,
+            return .send(NodeService.Query.Broadcast.Send(type: self.type.rawValue,
                                                    version: self.version,
                                                    recipient: recipient,
                                                    assetId: model.assetId,
@@ -482,10 +482,10 @@ private extension DataTransactionSender {
         return signature
     }
 
-    var dataForNode: [Node.Query.Broadcast.Data.Value] {
-        return self.data.map { (value) -> Node.Query.Broadcast.Data.Value in
+    var dataForNode: [NodeService.Query.Broadcast.Data.Value] {
+        return self.data.map { (value) -> NodeService.Query.Broadcast.Data.Value in
 
-            var kind: Node.Query.Broadcast.Data.Value.Kind!
+            var kind: NodeService.Query.Broadcast.Data.Value.Kind!
 
             switch value.value {
             case .binary(let data):
@@ -501,7 +501,7 @@ private extension DataTransactionSender {
                 kind = .string(str)
             }
 
-            return Node.Query.Broadcast.Data.Value.init(key: value.key, value: kind)
+            return NodeService.Query.Broadcast.Data.Value.init(key: value.key, value: kind)
         }
     }
 }

@@ -10,10 +10,12 @@ import Foundation
 import RxSwift
 import Moya
 import RealmSwift
+import WavesSDKServices
 
 final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
 
-    private let matcherProvider: MoyaProvider<Matcher.Service.OrderBook> = MoyaProvider<Matcher.Service.OrderBook>()
+    private let orderBookMatcherService = ServicesFactory.shared.orderBookMatcherService
+    
     private let spamProvider: MoyaProvider<Spam.Service.Assets> = MoyaProvider<Spam.Service.Assets>()
     private let environmentRepository: EnvironmentRepositoryProtocol
     
@@ -21,25 +23,18 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
         self.environmentRepository = environmentRepository
     }
     
-    func orderBook(wallet: DomainLayer.DTO.SignedWallet, amountAsset: String, priceAsset: String) -> Observable<DomainLayer.DTO.Dex.OrderBook> {
+    func orderBook(wallet: DomainLayer.DTO.SignedWallet,
+                   amountAsset: String,
+                   priceAsset: String) -> Observable<DomainLayer.DTO.Dex.OrderBook> {
 
         return environmentRepository.accountEnvironment(accountAddress: wallet.address)
             .flatMap({ [weak self] (environment) -> Observable<DomainLayer.DTO.Dex.OrderBook> in
                 guard let self = self else { return Observable.empty() }
                 
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .custom { decoder in
-                    return Date(timestampDecoder: decoder, timestampDiff: environment.timestampServerDiff)
-                }
-
-                
-                return self.matcherProvider.rx
-                    .request(.init(kind: .getOrderBook(amountAsset: amountAsset, priceAsset: priceAsset),
-                                   environment: environment),
-                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                    .filterSuccessfulStatusAndRedirectCodes()
-                    .map(Matcher.DTO.OrderBook.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
-                    .asObservable()
+                return self.orderBookMatcherService
+                    .orderBook(amountAsset: amountAsset,
+                               priceAsset: priceAsset,
+                               enviroment: environment.environmentServiceMatcher)
                     .flatMap({ (orderBook) -> Observable<DomainLayer.DTO.Dex.OrderBook> in
                         
                         let bids = orderBook.bids.map { DomainLayer.DTO.Dex.OrderBook.Value(amount: $0.amount,
@@ -56,21 +51,18 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
     func markets(wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
 
         return environmentRepository.accountEnvironment(accountAddress: wallet.address)
-            .flatMap({ [weak self] (environment) -> Observable<[Matcher.DTO.Market]> in
+            .flatMap({ [weak self] (environment) -> Observable<[MatcherService.DTO.Market]> in
                 guard let self = self else { return Observable.empty() }
                 
-                let markets = self.matcherProvider.rx
-                            .request(.init(kind: .getMarket, environment: environment),
-                                     callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                            .filterSuccessfulStatusAndRedirectCodes()
-                            .map(Matcher.DTO.MarketResponse.self)
-                            .asObservable()
-                            .map { $0.markets }
+                let markets = self
+                    .orderBookMatcherService
+                    .market(enviroment: environment.environmentServiceMatcher)
+                    .map { $0.markets }
             
                 return Observable.zip(markets, self.spamList(accountAddress: wallet.address))
-                    .map({ (markets, spamList) -> [Matcher.DTO.Market] in
+                    .map({ (markets, spamList) -> [MatcherService.DTO.Market] in
 
-                        var filterMarkets: [Matcher.DTO.Market] = []
+                        var filterMarkets: [MatcherService.DTO.Market] = []
                         let spamListKeys = spamList.reduce(into:  [String : String](), { $0[$1] = $1})
 
                         for market in markets {
@@ -108,20 +100,15 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
             .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.MyOrder]> in
                 guard let self = self else { return Observable.empty() }
                 
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .custom { decoder in
-                    return Date(timestampDecoder: decoder, timestampDiff: environment.timestampServerDiff)
-                }
-                
-                return self.matcherProvider.rx
-                .request(.init(kind: .getMyOrders(amountAsset: amountAsset.id,
-                                                  priceAsset: priceAsset.id,
-                                                  signature: TimestampSignature(signedWallet: wallet, environment: environment)),
-                               environment: environment),
-                         callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                .filterSuccessfulStatusAndRedirectCodes()
-                .map([Matcher.DTO.Order].self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
-                .asObservable()
+                //TODO: Library
+                return self
+                    .orderBookMatcherService
+                    .myOrders(query: .init(amountAsset: amountAsset.id,
+                                           priceAsset: priceAsset.id,
+                                           publicKey: wallet.publicKey.getPublicKeyStr(),
+                                           signature: "",
+                                           timestamp: 0),
+                              enviroment: environment.environmentServiceMatcher)
                 .map({ (orders) -> [DomainLayer.DTO.Dex.MyOrder] in
                     
                     var myOrders: [DomainLayer.DTO.Dex.MyOrder] = []
@@ -143,19 +130,15 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
             .flatMap({ [weak self] (environment) -> Observable<Bool> in
                 guard let self = self else { return Observable.empty() }
                 
-                return self.matcherProvider.rx
-                    .request(.init(kind: .cancelOrder(.init(wallet: wallet,
-                                                            orderId: orderId,
-                                                            amountAsset: amountAsset,
-                                                            priceAsset: priceAsset)),
-                                   environment: environment),
-                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                    .filterSuccessfulStatusAndRedirectCodes()
-                    .asObservable()
-                    .catchError({ (error) -> Observable<Response> in
-                        return Observable.error(NetworkError.error(by: error))
-                    })
-                    .map { _ in true }
+                //TODO: Library
+                return self
+                    .orderBookMatcherService
+                    .cancelOrder(query: .init(orderId: orderId,
+                                              amountAsset: amountAsset,
+                                              priceAsset: priceAsset,
+                                              signature: "",
+                                              senderPublicKey: wallet.publicKey.getPublicKeyStr()),
+                                 enviroment: environment.environmentServiceMatcher)
             })
     }
     
@@ -166,14 +149,30 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
 
                 guard let self = self else { return Observable.empty() }
                 
-                return self.matcherProvider.rx
-                    .request(.init(kind: .createOrder(order),
-                                   environment: environment),
-                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                    .filterSuccessfulStatusAndRedirectCodes()
-                    .asObservable()
-                    .map { _ in true }
+                let createOrderSignature = CreateOrderSignature(signedWallet: wallet,
+                                                                environment: environment,
+                                                                matcherPublicKey: order.matcherPublicKey,
+                                                                assetPair: .init(priceAssetId: order.priceAsset,
+                                                                                 amountAssetId: order.amountAsset),
+                                                                orderType: (order.orderType == .sell ? .sell : .buy),
+                                                                price: order.price,
+                                                                amount: order.amount,
+                                                                expiration: order.expiration * 60 * 1000,
+                                                                matcherFee: order.matcherFee)
                 
+                //TODO: Library
+                return self
+                    .orderBookMatcherService.createOrder(query: .init(matcherPublicKey: order.matcherPublicKey.getPublicKeyStr(),
+                                                                      senderPublicKey: wallet.publicKey.getPublicKeyStr(),
+                                                                      assetPair: .init(amountAssetId: order.amountAsset, priceAssetId: order.priceAsset),
+                                                                      amount: order.amount,
+                                                                      price: order.price,
+                                                                      orderType: (order.orderType == .sell ? .sell : .buy),
+                                                                      matcherFee: order.matcherFee,
+                                                                      timestamp: order.timestamp,
+                                                                      expirationTimestamp: order.expiration * 60 * 1000,
+                                                                      proofs: [createOrderSignature.signature()]),
+                                                         enviroment: environment.environmentServiceMatcher)
         })
     }
 }

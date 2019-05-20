@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import WavesSDKServices
 
 enum DexList {
     enum DTO {}

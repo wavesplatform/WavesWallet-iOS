@@ -12,6 +12,7 @@ import RxFeedback
 import RxCocoa
 import WavesSDKExtension
 import WavesSDKCrypto
+import WavesSDKServices
 
 private enum Constants {
     static let minWavesSponsoredBalance: Decimal = 1.005

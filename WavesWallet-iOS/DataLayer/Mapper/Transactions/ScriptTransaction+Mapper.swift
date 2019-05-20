@@ -36,7 +36,7 @@ extension ScriptTransaction {
 
 extension DomainLayer.DTO.ScriptTransaction {
 
-    init(transaction: Node.DTO.ScriptTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
+    init(transaction: NodeService.DTO.ScriptTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id

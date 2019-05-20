@@ -16,8 +16,8 @@ import WavesSDKServices
 
 final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     
-    private let apiProvider: MoyaProvider<API.Service.Assets> = .nodeMoyaProvider()    
-    private let spamProvider: MoyaProvider<Spam.Service.Assets> = .nodeMoyaProvider()
+    private let assetsDataService: AssetsDataServiceProtocol = ServicesFactory.shared.assetsDataService
+    private let spamProvider: MoyaProvider<Spam.Service.Assets> = .anyMoyaProvider()
 
     private let assetsNodeService = ServicesFactory.shared.assetsNodeService
     
@@ -44,22 +44,10 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                                 .map { response -> [String] in
                                     return (try? SpamCVC.addresses(from: response.data)) ?? []
                                 }
-
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .custom { decoder in
-                    return Date(isoDecoder: decoder, timestampDiff: environment.timestampServerDiff)
-                }
                 
-                let assetsList = self.apiProvider.rx
-                                .request(.init(kind: .getAssets(ids: ids), environment: environment),
-                                        callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                                .filterSuccessfulStatusAndRedirectCodes()
-                                .asObservable()
-                                .catchError({ (error) -> Observable<Response> in
-                                    return Observable.error(NetworkError.error(by: error))
-                                })
-                                .map(API.Response<[API.Response<API.DTO.Asset>]>.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
-                                .map { $0.data.map { $0.data } }
+                let assetsList = self
+                    .assetsDataService
+                    .assets(ids: ids, enviroment: environment.environmentServiceData)
                 
                 return Observable.zip(assetsList, spamAssets)
                     .map({ (assets, spamAssets) -> [DomainLayer.DTO.Asset] in
@@ -127,7 +115,7 @@ fileprivate extension Environment {
 
 fileprivate extension DomainLayer.DTO.Asset {
 
-    init(asset: API.DTO.Asset, info: Environment.AssetInfo?, isSpam: Bool, isMyWavesToken: Bool) {
+    init(asset: DataService.DTO.Asset, info: Environment.AssetInfo?, isSpam: Bool, isMyWavesToken: Bool) {
         self.ticker = asset.ticker
         self.id = asset.id
         self.wavesId = info?.wavesId

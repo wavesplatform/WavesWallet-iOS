@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import WavesSDKExtension
 import WavesSDKCrypto
+import WavesSDKServices
 
 private enum Constants {
     static let cornerRadius: CGFloat = 2
@@ -160,7 +161,7 @@ private extension StartLeasingCancelConfirmationViewController {
                 self?.loadFee()
             })
             
-        case .notFound, .scriptError:
+        case .none, .scriptError:
             errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
                 self?.loadFee()
             })
