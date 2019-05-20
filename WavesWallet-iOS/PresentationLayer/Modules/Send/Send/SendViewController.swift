@@ -12,6 +12,7 @@ import RxFeedback
 import RxCocoa
 import WavesSDKExtension
 import WavesSDKCrypto
+import WavesSDKServices
 
 protocol SendResultDelegate: AnyObject {
     func sendResultDidFail(_ error: NetworkError)
@@ -485,7 +486,7 @@ private extension SendViewController {
                 self?.sendEvent.accept(.refreshFee)
             })
             
-        case .notFound, .scriptError:
+        case .none, .scriptError:
             errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
                 self?.sendEvent.accept(.refreshFee)
             })

@@ -42,7 +42,7 @@ extension ExchangeTransaction {
 
 extension DomainLayer.DTO.ExchangeTransaction {
 
-    init(transaction: Node.DTO.ExchangeTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
+    init(transaction: NodeService.DTO.ExchangeTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id
@@ -132,7 +132,7 @@ extension ExchangeTransactionOrder {
 
 extension DomainLayer.DTO.ExchangeTransaction.Order {
 
-    init(order: Node.DTO.ExchangeTransaction.Order, environment: Environment) {
+    init(order: NodeService.DTO.ExchangeTransaction.Order, environment: Environment) {
 
         id = order.id
         sender = order.sender.normalizeAddress(environment: environment)

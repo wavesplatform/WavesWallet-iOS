@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import WavesSDKServices
 
 extension DomainLayer.DTO.Dex.SmartPair {
     
@@ -37,7 +38,7 @@ extension DomainLayer.DTO.Dex.SmartPair {
 
 extension DomainLayer.DTO.Dex.SmartPair {
     
-    init(_ market: Matcher.DTO.Market, realm: Realm) {
+    init(_ market: MatcherService.DTO.Market, realm: Realm) {
         
         var amountAssetName = market.amountAssetName
         var amountAssetShortName = market.amountAssetName

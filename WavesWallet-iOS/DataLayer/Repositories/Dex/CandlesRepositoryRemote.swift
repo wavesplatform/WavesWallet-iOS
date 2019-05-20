@@ -9,37 +9,38 @@
 import Foundation
 import RxSwift
 import Moya
+import WavesSDKServices
 
 final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
     
-    private let apiProvider: MoyaProvider<API.Service.Candles> = .nodeMoyaProvider()
+    private let candlesDataService =  ServicesFactory.shared.candlesDataService
     private let environmentRepository: EnvironmentRepositoryProtocol
     
     init(environmentRepository: EnvironmentRepositoryProtocol) {
         self.environmentRepository = environmentRepository
     }
     
-    func candles(accountAddress: String, amountAsset: String, priceAsset: String, timeStart: Date, timeEnd: Date, timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> Observable<[DomainLayer.DTO.Candle]> {
+    func candles(accountAddress: String,
+                 amountAsset: String,
+                 priceAsset: String,
+                 timeStart: Date,
+                 timeEnd: Date,
+                 timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> Observable<[DomainLayer.DTO.Candle]> {
  
-        return environmentRepository.accountEnvironment(accountAddress: accountAddress)
+        return environmentRepository
+            .accountEnvironment(accountAddress: accountAddress)
             .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Candle]> in
                 
                 guard let self = self else { return Observable.empty() }
                 
-                let filters = API.Query.CandleFilters(timeStart: timeStart.millisecondsSince1970(timestampDiff: environment.timestampServerDiff),
-                                                      timeEnd: timeEnd.millisecondsSince1970(timestampDiff: environment.timestampServerDiff),
-                                                      interval: String(timeFrame.rawValue) + "m")
-                
-                let candles = API.Service.Candles(amountAsset: amountAsset,
-                                                  priceAsset: priceAsset,
-                                                  params: filters,
-                                                  environment: environment)
-                
-                return self.apiProvider.rx
-                    .request(candles, callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                    .filterSuccessfulStatusAndRedirectCodes()
-                    .map(API.DTO.Chart.self)
-                    .asObservable()
+                let candles = DataService.Query.CandleFilters(amountAsset: amountAsset,
+                                                              priceAsset: priceAsset,
+                                                              timeStart: timeStart.millisecondsSince1970(timestampDiff: environment.timestampServerDiff),
+                                                              timeEnd: timeEnd.millisecondsSince1970(timestampDiff: environment.timestampServerDiff),
+                                                              interval: String(timeFrame.rawValue) + "m")
+                return self
+                    .candlesDataService
+                    .candles(query: candles, enviroment: environment.environmentServiceData)
                     .map({ (chart) -> [DomainLayer.DTO.Candle] in
                         
                         var models: [DomainLayer.DTO.Candle] = []

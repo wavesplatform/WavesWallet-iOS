@@ -7,11 +7,11 @@
 //
 
 import Foundation
-
+import WavesSDKServices
 
 extension DomainLayer.DTO.Dex.MyOrder {
     
-    init(_ model: Matcher.DTO.Order, priceAsset: DomainLayer.DTO.Dex.Asset, amountAsset: DomainLayer.DTO.Dex.Asset) {
+    init(_ model: MatcherService.DTO.Order, priceAsset: DomainLayer.DTO.Dex.Asset, amountAsset: DomainLayer.DTO.Dex.Asset) {
         
         id = model.id
         

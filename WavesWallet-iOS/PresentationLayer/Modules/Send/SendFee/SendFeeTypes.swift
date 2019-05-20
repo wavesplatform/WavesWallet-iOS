@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import WavesSDKServices
 
 private enum Constants {
     static let wavesMinFee: Decimal = 0.001

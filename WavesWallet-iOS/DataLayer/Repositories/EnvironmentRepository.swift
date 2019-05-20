@@ -27,8 +27,8 @@ private struct EnvironmentKey: Hashable {
 final class EnvironmentRepository: EnvironmentRepositoryProtocol {
 
     private var isValidServerTimestampDiff = false
-    private let environmentRepository: MoyaProvider<GitHub.Service.Environment> = .nodeMoyaProvider()
-    private let spamProvider: MoyaProvider<Spam.Service.Assets> = .nodeMoyaProvider()
+    private let environmentRepository: MoyaProvider<GitHub.Service.Environment> = .anyMoyaProvider()
+    private let spamProvider: MoyaProvider<Spam.Service.Assets> = .anyMoyaProvider()
     private let utilsNodeService = ServicesFactory.shared.utilsNodeService
     
     private var localEnvironments: BehaviorSubject<[EnvironmentKey: Environment]> = BehaviorSubject<[EnvironmentKey: Environment]>(value: [:])

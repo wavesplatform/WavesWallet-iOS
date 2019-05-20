@@ -12,6 +12,7 @@ import RxCocoa
 import RxFeedback
 import WavesSDKExtension
 import WavesSDKCrypto
+import WavesSDKServices
 
 private enum Constants {
     static let borderWidth: CGFloat = 0.5
@@ -150,7 +151,7 @@ private extension StartLeasingViewController {
                 self?.loadFee()
             })
             
-        case .notFound, .scriptError:
+        case .none, .scriptError:
             errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
                 self?.loadFee()
             })

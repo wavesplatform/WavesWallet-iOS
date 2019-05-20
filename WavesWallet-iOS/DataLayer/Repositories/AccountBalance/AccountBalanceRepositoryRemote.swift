@@ -12,6 +12,7 @@ import RxSwift
 import WavesSDKExtension
 import WavesSDKCrypto
 import WavesSDKServices
+import Base58
 
 private struct SponsoredAssetDetail {
     let minSponsoredAssetFee: Int64?
@@ -20,8 +21,7 @@ private struct SponsoredAssetDetail {
 
 final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
     
-    //TODO: Library
-    private let matcherBalanceProvider: MoyaProvider<Matcher.Service.Balance> = MoyaProvider<Matcher.Service.Balance>()
+    private let balanceMatcherService = ServicesFactory.shared.balanceMatcherService
     private let assetsNodeService = ServicesFactory.shared.assetsNodeService
     private let addressesNodeService = ServicesFactory.shared.addressesNodeService
 
@@ -105,33 +105,28 @@ private extension AccountBalanceRepositoryRemote {
 
         return environmentRepository
             .accountEnvironment(accountAddress: wallet.address)
-            .flatMap { [weak self] environment -> Single<Response> in
+            .flatMap { [weak self] environment ->  Observable<[String: Int64]> in
 
-                guard let self = self else { return Single.never() }
+                guard let self = self else { return Observable.never() }
 
                 let signature = TimestampSignature(signedWallet: wallet,
                                                    environment: environment)
                 
                 return self
-                    .matcherBalanceProvider
-                    .rx
-                    .request(.init(kind: .getReservedBalances(signature),
-                                   environment: environment),
-                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                    .balanceMatcherService
+                    .reservedBalances(query: .init(senderPublicKey: wallet.publicKey.getPublicKeyStr(),
+                                                   signature: Base58.encode(signature.signature()),
+                                                   timestamp: signature.timestamp),
+                                      enviroment: environment.environmentServiceMatcher)                
             }
-            .filterSuccessfulStatusAndRedirectCodes()
-            .catchError({ (error) -> Observable<Response> in
-                return Observable.error(NetworkError.error(by: error))
-            })
-            .map([String: Int64].self)
     }
 
     func assetBalance(by walletAddress: String,
-                      assetId: String) -> Observable<WavesSDKServices.Node.DTO.AccountAssetBalance> {
+                      assetId: String) -> Observable<WavesSDKServices.NodeService.DTO.AccountAssetBalance> {
 
         return environmentRepository
             .accountEnvironment(accountAddress: walletAddress)
-            .flatMap { [weak self] environment -> Observable<WavesSDKServices.Node.DTO.AccountAssetBalance> in
+            .flatMap { [weak self] environment -> Observable<WavesSDKServices.NodeService.DTO.AccountAssetBalance> in
                 
                 guard let self = self else { return Observable.never() }
                 
@@ -160,11 +155,11 @@ private extension AccountBalanceRepositoryRemote {
             }
     }
 
-    func assetDetail(assetId: String, walletAddress: String) -> Observable<Node.DTO.AssetDetail> {
+    func assetDetail(assetId: String, walletAddress: String) -> Observable<NodeService.DTO.AssetDetail> {
 
         return environmentRepository
             .accountEnvironment(accountAddress: walletAddress)
-            .flatMap { [weak self]  environment -> Observable<Node.DTO.AssetDetail> in
+            .flatMap { [weak self]  environment -> Observable<NodeService.DTO.AssetDetail> in
                 
                 guard let self = self else { return Observable.never() }
                 
@@ -174,11 +169,11 @@ private extension AccountBalanceRepositoryRemote {
             }
     }
 
-    func balance(for walletAddress: String, myWalletAddress: String) -> Observable<Node.DTO.AccountBalance> {
+    func balance(for walletAddress: String, myWalletAddress: String) -> Observable<NodeService.DTO.AccountBalance> {
 
         return environmentRepository
             .accountEnvironment(accountAddress: myWalletAddress)
-            .flatMap { [weak self] environment -> Observable<Node.DTO.AccountBalance> in
+            .flatMap { [weak self] environment -> Observable<NodeService.DTO.AccountBalance> in
 
                 guard let self = self else { return Observable.never() }
                 
@@ -189,10 +184,10 @@ private extension AccountBalanceRepositoryRemote {
             }
     }
 
-    func assetsBalance(by walletAddress: String) -> Observable<Node.DTO.AccountAssetsBalance> {
+    func assetsBalance(by walletAddress: String) -> Observable<NodeService.DTO.AccountAssetsBalance> {
 
         return environmentRepository.accountEnvironment(accountAddress: walletAddress)
-            .flatMap({ [weak self] (environment) -> Observable<Node.DTO.AccountAssetsBalance> in
+            .flatMap({ [weak self] (environment) -> Observable<NodeService.DTO.AccountAssetsBalance> in
                 
                 guard let self = self else { return Observable.never() }
                 
@@ -202,11 +197,11 @@ private extension AccountBalanceRepositoryRemote {
             })
     }
 
-    func accountBalance(by walletAddress: String) -> Observable<Node.DTO.AccountBalance> {
+    func accountBalance(by walletAddress: String) -> Observable<NodeService.DTO.AccountBalance> {
 
         return environmentRepository
             .accountEnvironment(accountAddress: walletAddress)
-            .flatMap { [weak self] environment -> Observable<Node.DTO.AccountBalance> in
+            .flatMap { [weak self] environment -> Observable<NodeService.DTO.AccountBalance> in
                 
                 guard let self = self else { return Observable.never() }
                 
@@ -220,7 +215,7 @@ private extension AccountBalanceRepositoryRemote {
 
 private extension DomainLayer.DTO.AssetBalance {
 
-    init(accountBalance: Node.DTO.AccountBalance, inOrderBalance: Int64) {
+    init(accountBalance: NodeService.DTO.AccountBalance, inOrderBalance: Int64) {
         self.assetId = WavesSDKCryptoConstants.wavesAssetId
         self.totalBalance = accountBalance.balance
         self.leasedBalance = 0
@@ -230,7 +225,7 @@ private extension DomainLayer.DTO.AssetBalance {
         self.minSponsoredAssetFee = 0
     }
 
-    init(model: Node.DTO.AssetBalance, inOrderBalance: Int64) {
+    init(model: NodeService.DTO.AssetBalance, inOrderBalance: Int64) {
         self.assetId = model.assetId
         self.totalBalance = model.balance
         self.leasedBalance = 0
@@ -240,7 +235,7 @@ private extension DomainLayer.DTO.AssetBalance {
         self.minSponsoredAssetFee = model.minSponsoredAssetFee ?? 0
     }
 
-    init(model: Node.DTO.AccountAssetBalance, inOrderBalance: Int64, sponsoredAssetDetail: SponsoredAssetDetail) {
+    init(model: NodeService.DTO.AccountAssetBalance, inOrderBalance: Int64, sponsoredAssetDetail: SponsoredAssetDetail) {
         self.assetId = model.assetId
         self.totalBalance = model.balance
         self.leasedBalance = 0
@@ -250,8 +245,8 @@ private extension DomainLayer.DTO.AssetBalance {
         self.minSponsoredAssetFee = sponsoredAssetDetail.minSponsoredAssetFee ?? 0
     }
 
-    static func map(assets: Node.DTO.AccountAssetsBalance,
-                    account: Node.DTO.AccountBalance,
+    static func map(assets: NodeService.DTO.AccountAssetsBalance,
+                    account: NodeService.DTO.AccountBalance,
                     matcherBalances: [String: Int64]) -> [DomainLayer.DTO.AssetBalance] {
 
         let assetsBalance = assets.balances.map { DomainLayer.DTO.AssetBalance(model: $0, inOrderBalance: matcherBalances[$0.assetId] ?? 0) }

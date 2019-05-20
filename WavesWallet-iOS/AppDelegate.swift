@@ -60,7 +60,7 @@ enum UITest {
                             nodeServicePlugins: [SentryNetworkLoggerPlugin(),
                                                  NodePlugin()],
                             matcherrServicePlugins: [SentryNetworkLoggerPlugin()])
-        
+                
         if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
             let options = FirebaseOptions(contentsOfFile: path) {
 

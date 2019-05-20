@@ -41,7 +41,7 @@ extension TransferTransaction {
 
 extension DomainLayer.DTO.TransferTransaction {
 
-    init(transaction: Node.DTO.TransferTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
+    init(transaction: NodeService.DTO.TransferTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id

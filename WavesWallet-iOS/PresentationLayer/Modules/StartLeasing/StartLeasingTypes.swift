@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import WavesSDKServices
 
 protocol StartLeasingErrorDelegate: AnyObject {
     func startLeasingDidFail(error: NetworkError)

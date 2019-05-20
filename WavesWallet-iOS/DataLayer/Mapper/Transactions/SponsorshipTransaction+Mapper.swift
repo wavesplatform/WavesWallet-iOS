@@ -37,7 +37,7 @@ extension SponsorshipTransaction {
 
 extension DomainLayer.DTO.SponsorshipTransaction {
 
-    init(transaction: Node.DTO.SponsorshipTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
+    init(transaction: NodeService.DTO.SponsorshipTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id

@@ -12,7 +12,7 @@ import Moya
 
 final class NotificationNewsRepository: NotificationNewsRepositoryProtocol {
 
-    private let applicationNews: MoyaProvider<GitHub.Service.ApplicationNews> = .nodeMoyaProvider()
+    private let applicationNews: MoyaProvider<GitHub.Service.ApplicationNews> = .anyMoyaProvider()
 
     func notificationNews() -> Observable<[DomainLayer.DTO.NotificationNews]> {
 

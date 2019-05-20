@@ -9,45 +9,41 @@
 import Foundation
 import RxSwift
 import Moya
+import WavesSDKServices
 
 final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
 
-    private let apiProvider: MoyaProvider<API.Service.Transactions> = .nodeMoyaProvider()
+    private let transactionsDataService = ServicesFactory.shared.transactionsDataService
+    
     private let environmentRepository: EnvironmentRepositoryProtocol
     
     init(environmentRepository: EnvironmentRepositoryProtocol) {
         self.environmentRepository = environmentRepository
     }
     
-    func lastTrades(accountAddress: String, amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, limit: Int) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> {
+    func lastTrades(accountAddress: String,
+                    amountAsset: DomainLayer.DTO.Dex.Asset,
+                    priceAsset: DomainLayer.DTO.Dex.Asset,
+                    limit: Int) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> {
 
-        return environmentRepository.accountEnvironment(accountAddress: accountAddress)
+        return environmentRepository
+            .accountEnvironment(accountAddress: accountAddress)
             .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.LastTrade]>  in
                 guard let self = self else { return Observable.empty() }
-                
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .custom { decoder in
-                    return Date(isoDecoder: decoder, timestampDiff: environment.timestampServerDiff)
-                }
-                let filters = API.Query.ExchangeFilters(matcher: nil,
-                                                        sender: nil,
-                                                        timeStart: nil,
-                                                        timeEnd: nil,
-                                                        amountAsset: amountAsset.id,
-                                                        priceAsset: priceAsset.id,
-                                                        after: nil,
-                                                        limit: limit)
+                             
+                let query = DataService.Query.ExchangeFilters(matcher: nil,
+                                                              sender: nil,
+                                                              timeStart: nil,
+                                                              timeEnd: nil,
+                                                              amountAsset: amountAsset.id,
+                                                              priceAsset: priceAsset.id,
+                                                              after: nil,
+                                                              limit: limit)
                 
                 return self
-                    .apiProvider
-                    .rx
-                    .request(.init(kind: .getExchangeWithFilters(filters),
-                                   environment: environment),
-                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                    .filterSuccessfulStatusAndRedirectCodes()
-                    .asObservable()
-                    .map(API.Response<[API.Response<API.DTO.ExchangeTransaction>]>.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
-                    .map { $0.data.map { $0.data } }
+                    .transactionsDataService
+                    .exchangeFilters(query: query,
+                                     enviroment: environment.environmentServiceData)
                     .flatMap({ (transactions) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> in
                         
                         var trades: [DomainLayer.DTO.Dex.LastTrade] = []

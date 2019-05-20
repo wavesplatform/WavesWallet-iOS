@@ -50,7 +50,7 @@ extension MassTransferTransaction {
 
 extension DomainLayer.DTO.MassTransferTransaction {
 
-    init(transaction: Node.DTO.MassTransferTransaction,
+    init(transaction: NodeService.DTO.MassTransferTransaction,
          status: DomainLayer.DTO.TransactionStatus,
          environment: Environment) {
 

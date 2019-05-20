@@ -29,7 +29,7 @@ extension UnrecognisedTransaction {
 
 extension DomainLayer.DTO.UnrecognisedTransaction {
 
-    init(transaction: Node.DTO.UnrecognisedTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
+    init(transaction: NodeService.DTO.UnrecognisedTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id

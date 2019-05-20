@@ -11,7 +11,7 @@ import WavesSDKExtension
 import WavesSDKCrypto
 import WavesSDKServices
 
-extension Node.DTO.Transaction {
+extension NodeService.DTO.Transaction {
 
     func anyTransaction(status: DomainLayer.DTO.TransactionStatus, environment: Environment) -> DomainLayer.DTO.AnyTransaction {
 
@@ -64,7 +64,7 @@ extension Node.DTO.Transaction {
     }
 }
 
-extension Node.DTO.TransactionContainers {
+extension NodeService.DTO.TransactionContainers {
 
     func anyTransactions(status: DomainLayer.DTO.TransactionStatus, environment: Environment) -> [DomainLayer.DTO.AnyTransaction] {
 

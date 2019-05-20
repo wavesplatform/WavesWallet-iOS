@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import WavesSDKExtension
 import WavesSDKCrypto
+import WavesSDKServices
 
 final class SendInteractor: SendInteractorProtocol {
     

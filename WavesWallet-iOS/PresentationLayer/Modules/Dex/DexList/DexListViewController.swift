@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxFeedback
 import RxSwift
-
+import WavesSDKServices
 
 fileprivate enum Constants {
     static let contentInset = UIEdgeInsets.init(top: 8, left: 0, bottom: 0, right: 0)

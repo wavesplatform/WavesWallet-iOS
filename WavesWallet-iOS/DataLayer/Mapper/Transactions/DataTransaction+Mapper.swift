@@ -54,7 +54,7 @@ extension DataTransaction {
 
 extension DomainLayer.DTO.DataTransaction {
 
-    init(transaction: Node.DTO.DataTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
+    init(transaction: NodeService.DTO.DataTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id

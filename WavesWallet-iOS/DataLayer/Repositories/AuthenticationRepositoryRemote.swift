@@ -11,6 +11,7 @@ import FirebaseCore
 import FirebaseDatabase
 import Foundation
 import RxSwift
+import WavesSDKServices
 
 fileprivate enum Constants {
     #if DEBUG

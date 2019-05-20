@@ -37,7 +37,7 @@ extension AssetScriptTransaction {
 
 extension DomainLayer.DTO.AssetScriptTransaction {
 
-    init(transaction: Node.DTO.AssetScriptTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
+    init(transaction: NodeService.DTO.AssetScriptTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
 
         type = transaction.type
         id = transaction.id

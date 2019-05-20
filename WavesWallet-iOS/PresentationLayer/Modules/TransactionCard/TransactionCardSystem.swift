@@ -13,6 +13,7 @@ import RxSwiftExt
 import RxCocoa
 import WavesSDKExtension
 import WavesSDKCrypto
+import WavesSDKServices
 
 private struct Constants {
     static let shiftIndexInLenght: Int = 1
