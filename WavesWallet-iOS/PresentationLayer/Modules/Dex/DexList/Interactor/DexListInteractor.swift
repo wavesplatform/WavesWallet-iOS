@@ -16,6 +16,20 @@ final class DexListInteractor: DexListInteractorProtocol {
     private let dexListRepository = FactoryRepositories.instance.dexPairsPriceRepository
     private let auth = FactoryInteractors.instance.authorization
     
+    func localPairs() -> Observable<DexList.DTO.LocalDisplayInfo> {
+        
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DexList.DTO.LocalDisplayInfo> in
+            guard let self = self else { return Observable.empty() }
+            return self.dexRealmRepository.list(by: wallet.address)
+                .flatMap({ (pairs) -> Observable<DexList.DTO.LocalDisplayInfo> in
+                    return Observable.just(.init(pairs: pairs, authWalletError: false))
+                })
+        })
+        .catchError({ (error) -> Observable<DexList.DTO.LocalDisplayInfo> in
+            return Observable.just(.init(pairs: [], authWalletError: true))
+        })
+    }
+    
     func pairs() -> Observable<ResponseType<DexList.DTO.DisplayInfo>> {
         
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<DexList.DTO.DisplayInfo>> in
@@ -41,7 +55,8 @@ final class DexListInteractor: DexListInteractorProtocol {
                                 for (index, pair) in list.enumerated() {
                                     let localPair = pairs[index]
                                     
-                                    let pair = DexList.DTO.Pair(firstPrice: pair.firstPrice,
+                                    let pair = DexList.DTO.Pair(id: localPair.id,
+                                                                firstPrice: pair.firstPrice,
                                                                 lastPrice: pair.lastPrice,
                                                                 amountAsset: pair.amountAsset,
                                                                 priceAsset: pair.priceAsset,
