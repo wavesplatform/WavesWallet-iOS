@@ -583,7 +583,7 @@
                                         <rect key="frame" x="0.0" y="698" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vJG-r1-UAG" id="iph-aj-DDz">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JkA-5J-abG">
@@ -632,7 +632,7 @@
                                         <rect key="frame" x="0.0" y="742" width="375" height="292"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Q4l-dc-88O" id="kfg-x4-slT">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="292"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="291.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yRV-Dn-K2P">
@@ -944,18 +944,30 @@
                                     <outlet property="delegate" destination="j3k-WB-cWa" id="yfB-uQ-ZG3"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PGy-af-epv" customClass="WalletSortSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="375" height="48"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="puV-QL-Nwe"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="4dn-NV-8ah" firstAttribute="top" secondItem="YHI-cs-EXF" secondAttribute="top" id="0KS-Mg-rKM"/>
                             <constraint firstItem="4dn-NV-8ah" firstAttribute="leading" secondItem="28S-Kb-kFd" secondAttribute="leading" id="3lu-XE-YAW"/>
+                            <constraint firstItem="PGy-af-epv" firstAttribute="leading" secondItem="28S-Kb-kFd" secondAttribute="leading" id="CJZ-la-vWY"/>
+                            <constraint firstItem="PGy-af-epv" firstAttribute="top" secondItem="28S-Kb-kFd" secondAttribute="top" id="SPH-4F-tec"/>
                             <constraint firstAttribute="bottom" secondItem="4dn-NV-8ah" secondAttribute="bottom" id="ofa-Ql-4Ee"/>
                             <constraint firstItem="28S-Kb-kFd" firstAttribute="trailing" secondItem="4dn-NV-8ah" secondAttribute="trailing" constant="15" id="vfs-8I-aSb"/>
+                            <constraint firstItem="28S-Kb-kFd" firstAttribute="trailing" secondItem="PGy-af-epv" secondAttribute="trailing" id="w1O-fr-PTT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="28S-Kb-kFd"/>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="segmentedControl" destination="PGy-af-epv" id="357-YS-Jwu"/>
+                        <outlet property="segmentedTopPosition" destination="SPH-4F-tec" id="wvR-h5-rcF"/>
                         <outlet property="tableView" destination="4dn-NV-8ah" id="pr3-TU-bko"/>
                     </connections>
                 </viewController>
