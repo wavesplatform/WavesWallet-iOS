@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxFeedback
-import WavesSDKCrypto
+import WavesSDKExtension
 import WavesSDKServices
 
 private enum Constants {

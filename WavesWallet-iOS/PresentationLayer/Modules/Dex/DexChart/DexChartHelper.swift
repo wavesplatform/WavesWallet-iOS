@@ -58,7 +58,7 @@ extension DexChartHelper {
             barYVals.append(BarChartDataEntry(x: model.timestamp, y: model.volume))
         }
         
-        let candleSet = CandleChartDataSet(values: candleYVals, label: nil)
+        let candleSet = CandleChartDataSet(entries: candleYVals, label: nil)
         candleSet.axisDependency = .right
         candleSet.drawIconsEnabled = false
         candleSet.drawValuesEnabled = false
@@ -79,7 +79,7 @@ extension DexChartHelper {
             candleChartView.notifyDataSetChanged()
         }
         
-        let barSet = BarChartDataSet(values: barYVals, label: nil)
+        let barSet = BarChartDataSet(entries: barYVals, label: nil)
         barSet.axisDependency = .right
         barSet.drawIconsEnabled = false
         barSet.drawValuesEnabled = false

@@ -49,8 +49,8 @@ struct CreateOrderSignature: SignatureProtocol {
         let priceAssetId: String
         let amountAssetId: String
         
-        func assetIdBytes(_ id: String?) -> [UInt8] {
-            return id == nil ? [UInt8(0)] : ([UInt8(1)] + Base58.decode(id!))
+        func assetIdBytes(_ id: String) -> [UInt8] {
+            return (id == WavesSDKCryptoConstants.wavesAssetId) ? [UInt8(0)] : ([UInt8(1)] + Base58.decode(id))
         }
         
         var bytes: [UInt8] {
@@ -93,48 +93,74 @@ struct CreateOrderSignature: SignatureProtocol {
         let s1 = toByteArray(UInt8(2)) + signedWallet.publicKey.publicKey + matcherPublicKey.publicKey
         let s2 = assetPair.bytes + orderType.bytes
         let s3 = toByteArray(price) + toByteArray(amount)
-        let s4 = toByteArray(timestamp) + toByteArray(expirationTimestamp) + toByteArray(matcherFee)
+        let s4 = toByteArray(timestamp) + toByteArray(expiration) + toByteArray(matcherFee)
         return s1 + s2 + s3 + s4
     }
     
-    var parameters: [String: String] {
-        return [Constants.senderPublicKey: signedWallet.publicKey.getPublicKeyStr(),
-                Constants.timestamp: "\(timestamp)",
-                Constants.signature: Base58.encode(signature())]
-    }
-        
-    private var expirationTimestamp: Int64 {
-        return timestamp + Int64(expiration)
-    }
+//    private var id: [UInt8] {
+//        return Hash.fastHash(toSign)
+//    }
+}
+
+struct CancelOrderSignature: SignatureProtocol {
     
-    private var id: [UInt8] {
-        return Hash.fastHash(toSign)
+    private(set) var signedWallet: DomainLayer.DTO.SignedWallet
+    
+    private(set) var orderId: String
+    
+    var toSign: [UInt8] {
+        let s1 = signedWallet.publicKey.publicKey
+        let s2 = Base58.decode(orderId)
+        return s1 + s2
     }
 }
 
-extension CreateOrderSignature {
-    
-    init(signedWallet: DomainLayer.DTO.SignedWallet,
-         environment: Environment,
-         matcherPublicKey: PublicKeyAccount,
-         assetPair: AssetPair,
-         orderType: OrderType,
-         price: Int64,
-         amount: Int64,
-         expiration: Int64,
-         matcherFee: Int64) {
-        
-        self.init(signedWallet: signedWallet,
-                  timestamp: Date().millisecondsSince1970(timestampDiff: environment.timestampServerDiff),
-                  matcherPublicKey: matcherPublicKey,
-                  assetPair: assetPair,
-                  orderType: orderType,
-                  price: price,
-                  amount: amount,
-                  expiration: expiration,
-                  matcherFee: matcherFee)
-    }
-}
+
+//fileprivate extension DomainLayer.Query.Dex.CancelOrder {
+//
+//    private var toSign: [UInt8] {
+//        let s1 = wallet.publicKey.publicKey
+//        let s2 = Base58.decode(orderId)
+//        return s1 + s2
+//    }
+//
+//    private var signature: [UInt8] {
+//        return Hash.sign(toSign, wallet.privateKey.privateKey)
+//    }
+//
+//    //TODO: Need we use proofs instead of signature?
+//
+//    var params: [String : String] {
+//        return ["sender" : Base58.encode(wallet.publicKey.publicKey),
+//                "orderId" : orderId,
+//                "signature" : Base58.encode(signature)]
+//    }
+//}
+
+
+//extension CreateOrderSignature {
+//    
+//    init(signedWallet: DomainLayer.DTO.SignedWallet,
+//         timestamp: Int64,
+//         matcherPublicKey: PublicKeyAccount,
+//         assetPair: AssetPair,
+//         orderType: OrderType,
+//         price: Int64,
+//         amount: Int64,
+//         expiration: Int64,
+//         matcherFee: Int64) {
+//        
+//        self.init(signedWallet: signedWallet,
+//                  timestamp: timestamp,
+//                  matcherPublicKey: matcherPublicKey,
+//                  assetPair: assetPair,
+//                  orderType: orderType,
+//                  price: price,
+//                  amount: amount,
+//                  expiration: expiration,
+//                  matcherFee: matcherFee)
+//    }
+//}
 
 
 //fileprivate extension DomainLayer.Query.Dex.CreateOrder {

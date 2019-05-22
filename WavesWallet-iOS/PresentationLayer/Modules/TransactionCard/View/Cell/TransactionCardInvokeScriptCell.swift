@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import WavesSDKCrypto
+import WavesSDKExtension
+
 private enum Constants {
     static let paymentBottomOffset: CGFloat = 14
 }

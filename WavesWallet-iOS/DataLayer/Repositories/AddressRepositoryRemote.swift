@@ -12,7 +12,7 @@ import Moya
 import WavesSDKServices
 import WavesSDKCrypto
 
-extension WavesSDKCrypto.Environment {
+extension Environment {
     
     var environmentServiceNode: WavesSDKServices.EnviromentService {
         return EnviromentService(serverUrl: servers.nodeUrl,
