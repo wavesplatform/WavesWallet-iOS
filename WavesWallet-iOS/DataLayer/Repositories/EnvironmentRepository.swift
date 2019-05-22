@@ -45,7 +45,8 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
 
         var deffaultEnvironment: Observable<Environment>!
 
-        if let enviroment = localEnvironment(by: .init(accountAddress: accountAddress, isTestNet: Environment.isTestNet)),
+        if let enviroment = localEnvironment(by: .init(accountAddress: accountAddress,
+                                                       isTestNet: Environment.isTestNet)),
             isValidServerTimestampDiff {
             deffaultEnvironment = Observable.just(enviroment)
         } else {

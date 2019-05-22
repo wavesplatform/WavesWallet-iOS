@@ -101,13 +101,14 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                 guard let self = self else { return Observable.empty() }
                 
                 //TODO: Library
+                let signature = TimestampSignature(signedWallet: wallet, environment: environment)
                 return self
                     .orderBookMatcherService
                     .myOrders(query: .init(amountAsset: amountAsset.id,
                                            priceAsset: priceAsset.id,
                                            publicKey: wallet.publicKey.getPublicKeyStr(),
-                                           signature: "",
-                                           timestamp: 0),
+                                           signature: signature.signature(),
+                                           timestamp: signature.timestamp),
                               enviroment: environment.environmentServiceMatcher)
                 .map({ (orders) -> [DomainLayer.DTO.Dex.MyOrder] in
                     
@@ -130,13 +131,15 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
             .flatMap({ [weak self] (environment) -> Observable<Bool> in
                 guard let self = self else { return Observable.empty() }
                 
+                
+                let signature = CancelOrderSignature(signedWallet: wallet, orderId: orderId)
                 //TODO: Library
                 return self
                     .orderBookMatcherService
                     .cancelOrder(query: .init(orderId: orderId,
                                               amountAsset: amountAsset,
                                               priceAsset: priceAsset,
-                                              signature: "",
+                                              signature: signature.signature(),
                                               senderPublicKey: wallet.publicKey.getPublicKeyStr()),
                                  enviroment: environment.environmentServiceMatcher)
             })
@@ -149,15 +152,20 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
 
                 guard let self = self else { return Observable.empty() }
                 
+                //TODO: Library refactor
+                let timestamp = order.timestamp - environment.timestampServerDiff
+                
+                let expirationTimestamp = timestamp + order.expiration * 60 * 1000
+                
                 let createOrderSignature = CreateOrderSignature(signedWallet: wallet,
-                                                                environment: environment,
+                                                                timestamp: timestamp,
                                                                 matcherPublicKey: order.matcherPublicKey,
                                                                 assetPair: .init(priceAssetId: order.priceAsset,
                                                                                  amountAssetId: order.amountAsset),
                                                                 orderType: (order.orderType == .sell ? .sell : .buy),
                                                                 price: order.price,
                                                                 amount: order.amount,
-                                                                expiration: order.expiration * 60 * 1000,
+                                                                expiration: expirationTimestamp,
                                                                 matcherFee: order.matcherFee)
                 
                 //TODO: Library
@@ -169,8 +177,8 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                                                                       price: order.price,
                                                                       orderType: (order.orderType == .sell ? .sell : .buy),
                                                                       matcherFee: order.matcherFee,
-                                                                      timestamp: order.timestamp,
-                                                                      expirationTimestamp: order.expiration * 60 * 1000,
+                                                                      timestamp: timestamp,
+                                                                      expirationTimestamp: expirationTimestamp,
                                                                       proofs: [createOrderSignature.signature()]),
                                                          enviroment: environment.environmentServiceMatcher)
         })

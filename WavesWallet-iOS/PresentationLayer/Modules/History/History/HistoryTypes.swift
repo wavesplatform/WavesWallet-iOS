@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import WavesSDKCrypto
+import WavesSDKExtension
 
 enum HistoryTypes {
     enum DTO {}

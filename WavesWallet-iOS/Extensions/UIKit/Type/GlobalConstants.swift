@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import WavesSDKCrypto
+import WavesSDKExtension
 
 enum UIGlobalConstants {
 

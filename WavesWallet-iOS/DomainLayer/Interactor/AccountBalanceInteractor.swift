@@ -106,11 +106,9 @@ private extension AccountBalanceInteractor {
 
         let balances = balanceRepositoryRemote
             .balances(by: wallet)
-            .debug("bb", trimOutput: true)
         
         let environment = environmentRepository
             .accountEnvironment(accountAddress: wallet.address)
-            .debug("AA", trimOutput: true)
 
         return Observable.zip(balances, environment)
             .map { (arg) -> [DomainLayer.DTO.AssetBalance] in
@@ -128,7 +126,6 @@ private extension AccountBalanceInteractor {
                     }
                 return newBalances
             }
-            .debug("RR", trimOutput: true)
     }
 
     private func assetBalance(by wallet: DomainLayer.DTO.SignedWallet,
