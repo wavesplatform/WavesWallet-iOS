@@ -9,7 +9,7 @@
 import Foundation
 import Base58
 import WavesSDKExtension
-import WavesSDKCrypto
+import WavesSDKClientCrypto
 
 fileprivate enum TransactionDirection {
     case sent

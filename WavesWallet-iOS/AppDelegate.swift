@@ -171,3 +171,33 @@ extension AppDelegate {
         return self.window?.rootViewController as! RESideMenu
     }
 }
+
+//
+//protocol AddressService {}
+//
+//
+//protocol WavesServices {
+//    
+//    var addressService: AddressService { get }
+//    
+//    var serverKind: ServerKind { get set }
+//}
+//
+//protocol WavesCrypto {
+//    //Interface Юрки
+//}
+//
+//enum ServerKind {
+//    case mainNet
+//    case testNet
+//    case custom(node: URL, matcher: URL, data: URL)
+//}
+//
+//protocol WavesSDK {
+//    
+//    var services: WavesServices { get }
+//    var crypto: WavesCrypto { get }
+//    var serverKind: ServerKind { get set }
+//    
+//    func initialization(serverKind: ServerKind)
+//}

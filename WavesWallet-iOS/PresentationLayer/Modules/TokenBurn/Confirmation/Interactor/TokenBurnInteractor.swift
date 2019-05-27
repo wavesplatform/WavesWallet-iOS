@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 import WavesSDKExtension
-import WavesSDKCrypto
+import WavesSDKClientCrypto
 
 protocol TokenBurnInteractorProtocol {
     func getWavesBalance() -> Observable<Money>

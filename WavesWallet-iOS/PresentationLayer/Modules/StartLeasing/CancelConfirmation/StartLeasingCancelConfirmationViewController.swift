@@ -9,7 +9,7 @@
 import UIKit
 import RxSwift
 import WavesSDKExtension
-import WavesSDKCrypto
+import WavesSDKClientCrypto
 import WavesSDKServices
 
 private enum Constants {

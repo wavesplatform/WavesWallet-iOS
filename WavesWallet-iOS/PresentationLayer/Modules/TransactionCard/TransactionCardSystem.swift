@@ -12,7 +12,7 @@ import RxSwift
 import RxSwiftExt
 import RxCocoa
 import WavesSDKExtension
-import WavesSDKCrypto
+import WavesSDKClientCrypto
 import WavesSDKServices
 
 private struct Constants {

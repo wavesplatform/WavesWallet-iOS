@@ -8,7 +8,7 @@
 
 import Foundation
 import WavesSDKExtension
-import WavesSDKCrypto
+import WavesSDKClientCrypto
 import WavesSDKServices
 
 extension ScriptTransaction {

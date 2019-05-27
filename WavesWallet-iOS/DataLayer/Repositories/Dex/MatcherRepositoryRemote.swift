@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import Moya
 import Base58
-import WavesSDKCrypto
+import WavesSDKClientCrypto
 import WavesSDKServices
 
 final class MatcherRepositoryRemote: MatcherRepositoryProtocol {

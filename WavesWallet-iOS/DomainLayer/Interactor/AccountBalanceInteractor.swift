@@ -12,7 +12,7 @@ import RealmSwift
 import RxSwift
 import RxSwiftExt
 import WavesSDKExtension
-import WavesSDKCrypto
+import WavesSDKClientCrypto
 
 fileprivate enum Constants {
     static let durationInseconds: Double = 0

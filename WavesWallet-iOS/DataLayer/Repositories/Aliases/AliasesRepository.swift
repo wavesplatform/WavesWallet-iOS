@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import Moya
 import WavesSDKExtension
-import WavesSDKCrypto
+import WavesSDKClientCrypto
 import WavesSDKServices
 
 final class AliasesRepository: AliasesRepositoryProtocol {

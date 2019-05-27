@@ -461,6 +461,7 @@
 		0AFF5C8D215CE2D000B82940 /* UseTouchIDModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C8C215CE2D000B82940 /* UseTouchIDModuleBuilder.swift */; };
 		53AA2F7E1F0FB6ED983FDF2F /* Pods_WavesWallet_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2F04F55A260735DF3584D3E /* Pods_WavesWallet_iOS.framework */; };
 		7B2C827522958DB3007FB25F /* String+NormalizeAssetId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2C827422958DB3007FB25F /* String+NormalizeAssetId.swift */; };
+		7B32A8EC22981B82004789E7 /* String+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B32A8EB22981B82004789E7 /* String+Size.swift */; };
 		7B39029522366B8E00AAFDB8 /* TransactionCardAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39029422366B8E00AAFDB8 /* TransactionCardAddressCell.swift */; };
 		7B39029722366D0100AAFDB8 /* AddressBookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39029622366D0100AAFDB8 /* AddressBookButton.swift */; };
 		7B390299223698D300AAFDB8 /* TransactionCardKeyValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B390298223698D300AAFDB8 /* TransactionCardKeyValueCell.swift */; };
@@ -1351,6 +1352,7 @@
 		39E7B5DDD0BC308CCE651F05 /* Pods-MonkeyTest.test-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.test-adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.test-adhoc.xcconfig"; sourceTree = "<group>"; };
 		621D6D45B8A2773F670A4883 /* Pods-WavesWallet-iOS.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.adhoc.xcconfig"; sourceTree = "<group>"; };
 		7B2C827422958DB3007FB25F /* String+NormalizeAssetId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+NormalizeAssetId.swift"; sourceTree = "<group>"; };
+		7B32A8EB22981B82004789E7 /* String+Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Size.swift"; sourceTree = "<group>"; };
 		7B39029422366B8E00AAFDB8 /* TransactionCardAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardAddressCell.swift; sourceTree = "<group>"; };
 		7B39029622366D0100AAFDB8 /* AddressBookButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookButton.swift; sourceTree = "<group>"; };
 		7B390298223698D300AAFDB8 /* TransactionCardKeyValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardKeyValueCell.swift; sourceTree = "<group>"; };
@@ -2693,6 +2695,7 @@
 				7B95111D225CD6140030390C /* RunLoopThreadScheduler.swift */,
 				7B95115E225F7BA80030390C /* DateFormatter+UI.swift */,
 				E92A8DE02278ACFF0009DF27 /* TSUD+Rx.swift */,
+				7B32A8EB22981B82004789E7 /* String+Size.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -4991,6 +4994,7 @@
 				"${BUILT_PRODUCTS_DIR}/TTTAttributedLabel/TTTAttributedLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
 				"${BUILT_PRODUCTS_DIR}/UPCarouselFlowLayout/UPCarouselFlowLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/WavesSDKClientCrypto/WavesSDKClientCrypto.framework",
 				"${BUILT_PRODUCTS_DIR}/WavesSDKCrypto/WavesSDKCrypto.framework",
 				"${BUILT_PRODUCTS_DIR}/WavesSDKExtension/WavesSDKExtension.framework",
 				"${BUILT_PRODUCTS_DIR}/WavesSDKServices/WavesSDKServices.framework",
@@ -5047,6 +5051,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TTTAttributedLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UPCarouselFlowLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WavesSDKClientCrypto.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WavesSDKCrypto.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WavesSDKExtension.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WavesSDKServices.framework",
@@ -5519,6 +5524,7 @@
 				7B3902A122379BFE00AAFDB8 /* TransactionCardAssetDetailCell.swift in Sources */,
 				0A96F1DE2152E14D005E148F /* PasscodeBuilder.swift in Sources */,
 				E922D26A21B831B600575955 /* LastTradesRepositoryRemote.swift in Sources */,
+				7B32A8EC22981B82004789E7 /* String+Size.swift in Sources */,
 				0ADD7F9721F22FB60075FC59 /* UIView+Additionals.swift in Sources */,
 				E9B086AE2163883000937644 /* AddAddressBookModuleBuilder.swift in Sources */,
 				E9B087DF2163886800937644 /* DexCreateOrderPresenterProtocol.swift in Sources */,
