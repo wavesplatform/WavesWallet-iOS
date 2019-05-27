@@ -8,7 +8,7 @@
 
 import Foundation
 import Moya
-import WavesSDKCrypto
+import WavesSDKClientCrypto
 
 protocol BaseTargetType: TargetType {
     var environment: Environment { get }

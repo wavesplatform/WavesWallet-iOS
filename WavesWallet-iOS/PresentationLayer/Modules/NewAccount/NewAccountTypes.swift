@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import WavesSDKCrypto
+import WavesSDKClientCrypto
 
 enum NewAccountTypes {
     enum DTO { }

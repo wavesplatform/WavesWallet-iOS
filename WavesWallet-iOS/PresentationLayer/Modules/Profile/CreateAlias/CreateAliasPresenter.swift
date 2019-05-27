@@ -11,7 +11,7 @@ import RxFeedback
 import RxSwift
 import RxCocoa
 import WavesSDKExtension
-import WavesSDKCrypto
+import WavesSDKClientCrypto
 
 protocol CreateAliasModuleOutput: AnyObject {
     func createAliasCompletedCreateAlias(_ alias: String)

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import WavesSDKCrypto
+import WavesSDKClientCrypto
 import WavesSDKServices
 
 extension LeaseCancelTransaction {

@@ -9,7 +9,7 @@
 import UIKit
 import RxSwift
 import WavesSDKExtension
-import WavesSDKCrypto
+import WavesSDKClientCrypto
 
 private enum Constants {
     static let borderRadius: CGFloat = 2

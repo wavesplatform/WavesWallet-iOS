@@ -12,7 +12,7 @@ import RxSwift
 import RESideMenu
 import RxOptional
 import WavesSDKExtension
-import WavesSDKCrypto
+import WavesSDKClientCrypto
 
 private enum Contants {
 

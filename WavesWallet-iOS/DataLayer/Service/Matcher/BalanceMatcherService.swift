@@ -9,7 +9,7 @@
 import Foundation
 import Moya
 import WavesSDKExtension
-import WavesSDKCrypto
+import WavesSDKClientCrypto
 
 extension Matcher.Service {
     struct Balance {

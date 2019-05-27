@@ -8,7 +8,7 @@
 
 import Foundation
 import WavesSDKExtension
-import WavesSDKCrypto
+import WavesSDKClientCrypto
 
 extension DomainLayer.Query {
     

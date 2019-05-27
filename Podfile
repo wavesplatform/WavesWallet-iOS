@@ -65,6 +65,7 @@ target 'WavesWallet-iOS' do
 
     pod 'WavesSDKExtension', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
     pod 'WavesSDKCrypto', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
+    pod 'WavesSDKClientCrypto', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
     pod 'WavesSDKServices', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
 
     pod 'KeychainAccess'

@@ -11,7 +11,7 @@ import RxSwift
 import RxFeedback
 import RxCocoa
 import WavesSDKExtension
-import WavesSDKCrypto
+import WavesSDKClientCrypto
 import WavesSDKServices
 
 protocol SendResultDelegate: AnyObject {

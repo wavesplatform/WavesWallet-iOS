@@ -12,6 +12,7 @@ import Moya
 import CryptoSwift
 import Base58
 import WavesSDKExtension
+import WavesSDKClientCrypto
 import WavesSDKCrypto
 import WavesSDKServices
 
@@ -129,7 +130,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                 var signature = specifications.signature(timestamp: timestamp,
                                                          scheme: environment.scheme,
                                                          publicKey: wallet.publicKey.publicKey)
-
+                
                 do {
                     signature = try wallet.sign(input: signature, kind: [.none])
                 } catch let e {
@@ -338,108 +339,72 @@ fileprivate extension TransactionSenderSpecifications {
         switch self {
 
         case .data(let model):
-            //TODO: check size
-            var signature: [UInt8] = []
-            signature += toByteArray(Int8(self.type.rawValue))
-            signature += toByteArray(Int8(self.version))
-            signature += publicKey
-            signature += model.bytesForSignature
-            signature += toByteArray(timestamp)
-            signature += toByteArray(model.fee)
-            return signature
+
+            let bytes = TransactionSignatureV2.data(.init(fee: model.fee,
+                                                          data: model.dataForSignature,
+                                                          scheme: scheme,
+                                                          senderPublicKey: Base58.encode(publicKey),
+                                                          timestamp: timestamp)).bytesStructure
+            
+            return bytes
 
         case .burn(let model):
+            
+            let bytes = TransactionSignatureV2.burn(.init(assetID: model.assetID,
+                                                          quantity: model.quantity,
+                                                          fee: model.fee,
+                                                          scheme: scheme,
+                                                          senderPublicKey: Base58.encode(publicKey),
+                                                          timestamp: timestamp)).bytesStructure
 
-            let assetId: [UInt8] = Base58.decode(model.assetID)
-
-            var signature: [UInt8] = []
-            signature += toByteArray(Int8(self.type.rawValue))
-            signature += toByteArray(Int8(self.version))
-            signature += scheme.utf8
-            signature += publicKey
-            signature += assetId
-            signature += toByteArray(model.quantity)
-            signature += toByteArray(model.fee)
-            signature += toByteArray(timestamp)
-            return signature
+            return bytes
 
         case .cancelLease(let model):
 
-            let leaseId: [UInt8] = Base58.decode(model.leaseId)
-
-            var signature: [UInt8] = []
-            signature += toByteArray(Int8(self.type.rawValue))
-            signature += toByteArray(Int8(self.version))
-            signature += scheme.utf8
-            signature += publicKey
-            signature += toByteArray(model.fee)
-            signature += toByteArray(timestamp)
-            signature += leaseId
-            return signature
+            let bytes = TransactionSignatureV2.cancelLease(.init(leaseId: model.leaseId,
+                                                                 fee: model.fee,
+                                                                 scheme: scheme,
+                                                                 senderPublicKey: Base58.encode(publicKey),
+                                                                 timestamp: timestamp)).bytesStructure
+            
+            return bytes
+            
 
         case .createAlias(let model):
-
-            var alias: [UInt8] = toByteArray(Int8(self.version))
-            alias += scheme.utf8
-            alias += model.alias.arrayWithSize()
-
-            var signature: [UInt8] = []
-            signature += toByteArray(Int8(self.type.rawValue))
-            signature += toByteArray(Int8(self.version))
-            signature += publicKey
-
-            signature += alias.arrayWithSize()
-            signature += toByteArray(model.fee)
-            signature += toByteArray(timestamp)
-            return signature
-
+            
+            let bytes = TransactionSignatureV2.createAlias(.init(alias: model.alias,
+                                                                 fee: model.fee,
+                                                                 scheme: scheme,
+                                                                 senderPublicKey: Base58.encode(publicKey),
+                                                                 timestamp: timestamp)).bytesStructure
+            
+            return bytes
+   
         case .lease(let model):
-
-            var recipient: [UInt8] = []
-            if model.recipient.count <= WavesSDKCryptoConstants.aliasNameMaxLimitSymbols {
-                recipient += toByteArray(Int8(self.version))
-                recipient += scheme.utf8
-                recipient += model.recipient.arrayWithSize()
-            } else {
-                recipient += Base58.decode(model.recipient)
-            }
-
-            var signature: [UInt8] = []
-            signature += toByteArray(Int8(self.type.rawValue))
-            signature += toByteArray(Int8(self.version))
-            signature += [0]
-            signature += publicKey
-
-            signature += recipient
-            signature += toByteArray(model.amount)
-            signature += toByteArray(model.fee)
-            signature += toByteArray(timestamp)
-            return signature
+            
+            let bytes = TransactionSignatureV2.startLease(.init(recipient: model.recipient,
+                                                                amount: model.amount,
+                                                                fee: model.fee,
+                                                                scheme: scheme,
+                                                                senderPublicKey: Base58.encode(publicKey),
+                                                                timestamp: timestamp)).bytesStructure
+            
+            return bytes
             
         case .send(let model):
-           
-            var recipient: [UInt8] = []
-            if model.recipient.count <= WavesSDKCryptoConstants.aliasNameMaxLimitSymbols {
-                recipient += toByteArray(Int8(self.version))
-                recipient += scheme.utf8
-                recipient += model.recipient.arrayWithSize()
-            } else {
-                recipient += Base58.decode(model.recipient)
-            }
             
-            var signature: [UInt8] = []
-            signature += toByteArray(Int8(self.type.rawValue))
-            signature += toByteArray(Int8(self.version))
-            signature += publicKey
-            signature += model.assetId.isEmpty ? [UInt8(0)] : ([UInt8(1)] + Base58.decode(model.assetId))
-            signature += model.getFeeAssetID.isEmpty ? [UInt8(0)] : ([UInt8(1)] + Base58.decode(model.getFeeAssetID))
-            signature += toByteArray(timestamp)
-            signature += toByteArray(model.amount)
-            signature += toByteArray(model.fee)
-            signature += recipient
-            signature += model.attachment.arrayWithSize()
-            
-            return signature
+            let bytes = TransactionSignatureV2.transfer(.init(senderPublicKey: Base58.encode(publicKey),
+                                                              recipient: model.recipient,
+                                                              assetId: model.assetId,
+                                                              amount: model.amount,
+                                                              fee: model.fee,
+                                                              attachment: model.attachment,
+                                                              feeAssetID: model.feeAssetID,
+                                                              scheme: scheme,
+                                                              timestamp: timestamp))
+                .bytesStructure
+
+            return bytes
         }
     }
 }
@@ -453,35 +418,30 @@ private extension SendTransactionSender {
 
 private extension DataTransactionSender {
 
-    var bytesForSignature: [UInt8] {
-
-        var signature: [UInt8] = []
-        signature += toByteArray(Int16(self.data.count))
-
-        for value in self.data {
-            signature += value.key.arrayWithSize()
-
+    var dataForSignature: [TransactionSignatureV2.Structure.Data.Value] {
+        return self.data.map({ (value) -> TransactionSignatureV2.Structure.Data.Value in
+            
+            var kind: TransactionSignatureV2.Structure.Data.Value.Kind!
+            
             switch value.value {
             case .binary(let data):
-                signature += toByteArray(Int8(2))
-                signature += data.arrayWithSize()
-
+                kind = .binary(data)
+                
             case .integer(let number):
-                signature += toByteArray(Int8(0))
-                signature += toByteArray(number)
-
+                kind = .integer(number)
+                
             case .boolean(let flag):
-                signature += toByteArray(Int8(1))
-                signature += toByteArray(flag)
-
+                kind = .boolean(flag)
+                
             case .string(let str):
-                signature += toByteArray(Int8(3))
-                signature += str.arrayWithSize()
+                kind = .string(str)
             }
-        }
-        return signature
+            
+            return TransactionSignatureV2.Structure.Data.Value.init(key: value.key, value: kind)
+            
+        })
     }
-
+    
     var dataForNode: [NodeService.Query.Broadcast.Data.Value] {
         return self.data.map { (value) -> NodeService.Query.Broadcast.Data.Value in
 

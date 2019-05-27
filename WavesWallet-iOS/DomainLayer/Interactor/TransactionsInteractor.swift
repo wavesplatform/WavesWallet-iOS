@@ -10,7 +10,7 @@ import Foundation
 import Moya
 import RxSwift
 import WavesSDKExtension
-import WavesSDKCrypto
+import WavesSDKClientCrypto
 import WavesSDKServices
 
 enum TransactionsInteractorError: Error {
