@@ -16,11 +16,9 @@ import UIKit
 
 private enum Constants {
     static let animationDuration: TimeInterval = 0.3
-
     static let segmentedHeight: CGFloat = 40
     static let bigNavBarHeight: CGFloat = 96
     static let smallNavBarHeight: CGFloat = 44
-    
     static let refreshSize: CGFloat = 30
 }
 
@@ -47,18 +45,17 @@ protocol ScrolledContainerViewProtocol {
 
 class ScrolledContainerView: UIScrollView {
     
-    private(set) var tableViews: [UITableView] = []
+    private var tableViews: [UITableView] = []
     private var topContents: [UIView] = []
     private let segmentedControl = SegmentedControl()
     
-    private var currentIndex = 0
-    private var isAnimationTable = false
-    
-    private var searchController: UISearchController!
-    private(set) var topOffset: CGFloat = 0
+    private var currentIndex: Int = 0
+    private var isAnimationTable: Bool = false
     private var topContentsSectionIndex: Int = 0
-    
+    private(set) var topOffset: CGFloat = 0
+
     weak var scrollViewDelegate: UIScrollViewDelegate?
+    var refreshDidChange:(() -> Void)?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -77,7 +74,7 @@ class ScrolledContainerView: UIScrollView {
         backgroundColor = .clear
         
         refreshControl = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: Constants.refreshSize, height: Constants.refreshSize))
-        refreshControl?.addTarget(self, action: #selector(refreshDidChange), for: .valueChanged)
+        refreshControl?.addTarget(self, action: #selector(refreshValueDidChange), for: .valueChanged)
         segmentedControl.segmentedDelegate = self
     }
   
@@ -111,21 +108,21 @@ class ScrolledContainerView: UIScrollView {
     }
 }
 
-//MARK: - Methods
+//MARK: - ScrolledContainerViewProtocol
 extension ScrolledContainerView: ScrolledContainerViewProtocol {
     
     func setup(segmentedItems: [String], topContents:[UIView], topContentsSectionIndex: Int, tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate) {
         
-        segmentedControl.items = segmentedItems
+        self.segmentedControl.items = segmentedItems
         self.topContentsSectionIndex = topContentsSectionIndex
-        
+        self.topContents = topContents
+
         for view in topContents {
             view.frame.origin.y = topOffset
             addSubview(view)
             topOffset += view.frame.size.height
         }
         
-        self.topContents = topContents
         for index in 0..<segmentedItems.count {
             
             let table = UITableView(frame: CGRect(x: CGFloat(index) * frame.size.width,
@@ -150,11 +147,6 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
         setContentSize()
     }
     
-    
-    var segmentedHeight: CGFloat {
-        return Constants.segmentedHeight
-    }
-    
     func removeView(_ view: UIView, animation: Bool) {
         
         if let index = topContents.firstIndex(of: view) {
@@ -163,7 +155,7 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
             topContents.removeAll(where: {$0 == view})
             
             for table in tableViews {
-                if table == visibleTableView {
+                if table == visibleTableView && animation {
                     table.beginUpdates()
                     table.deleteRows(at: [indexPath], with: .fade)
                     table.endUpdates()
@@ -200,6 +192,10 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
         }
     }
     
+    var segmentedHeight: CGFloat {
+        return Constants.segmentedHeight
+    }
+    
     var visibleTableView: UITableView {
         return tableViews.first(where: {$0.tag == currentIndex})!
     }
@@ -212,10 +208,8 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
 //MARK: - Actions
 private extension ScrolledContainerView {
     
-    @objc func refreshDidChange() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.refreshControl?.endRefreshing()
-        }
+    @objc func refreshValueDidChange() {
+        refreshDidChange?()
     }
     
     @objc func handlerRightSwipe(_ gesture: UISwipeGestureRecognizer) {
