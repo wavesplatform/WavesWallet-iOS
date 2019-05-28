@@ -165,8 +165,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print(#function)
-//        print(scrollView.contentOffset.y + viewCustom.smallTopOffset, viewCustom.topOffset)
+
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
