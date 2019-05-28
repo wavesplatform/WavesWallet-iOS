@@ -77,6 +77,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         banners.append(topBannerView2)
         
         viewCustom.scrollViewDelegate = self
+        viewCustom.refreshDidChange = { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+                self?.viewCustom.refreshControl?.endRefreshing()
+            })
+        }
+        
         viewCustom.setup(segmentedItems: [SegmentedIndex.test.title,
                                           SegmentedIndex.test2.title,
                                           SegmentedIndex.test3.title,
