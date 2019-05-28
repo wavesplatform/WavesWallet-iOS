@@ -21,6 +21,7 @@ class SearchResultViewController: UIViewController, UITableViewDelegate, UITable
         self.viewContainer.backgroundColor = UIColor(red: 248/255, green: 249/255, blue: 251/255, alpha: 1)
         searchBar.delegate = self
         searchBar.placeholder = "Search"
+        tableView.keyboardDismissMode = .onDrag
     }
     
     override func didMove(toParent parent: UIViewController?) {

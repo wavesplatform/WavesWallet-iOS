@@ -8,7 +8,6 @@
 
 #warning("bug with segmendtedControl position on swipe when refresh is animating")
 #warning("Прыгающий navigation bar (при переходе на маленький navBar и обратно)")
-#warning("На iPhone X позиция у таблицы")
 #warning("Установка view после инициализации")
 #warning("Navigation Bar убрать blur")
 
@@ -289,7 +288,7 @@ private extension ScrolledContainerView {
         contentSize = CGSize(width: contentSize.width, height: visibleTableView.contentSize.height)
     }
     
-    func acceptNewOffset() -> UITableView {
+    func acceptCurrentTableOffset() -> UITableView {
         isAnimationTable = true
         let lastOffset = contentOffset.y
         
@@ -306,11 +305,21 @@ private extension ScrolledContainerView {
         return currentTable
     }
     
+    func updateNewTableOffset(_ newTable: UITableView) {
+        newTable.frame.origin.y = contentOffset.y > 0 ? contentOffset.y : 0
+        newTable.contentOffset.y = contentOffset.y > 0 ? contentOffset.y : 0
+        
+        if newTable.frame.origin.y + newTable.frame.size.height > contentSize.height &&
+            contentSize.height > self.frame.size.height {
+            newTable.frame.origin.y = contentSize.height - newTable.frame.size.height
+        }
+    }
+    
     func showNextScreen(nextIndex: Int) {
         
         if nextIndex < segmentedControl.items.count {
             
-            let currentTable = acceptNewOffset()
+            let currentTable = acceptCurrentTableOffset()
             currentIndex = nextIndex
             
             UIView.animate(withDuration: Constants.animationDuration) {
@@ -321,9 +330,8 @@ private extension ScrolledContainerView {
             updateSegmentedShadow()
             let newTable = visibleTableView
             newTable.frame.origin.x = frame.size.width
-            newTable.frame.origin.y = contentOffset.y > 0 ? contentOffset.y : 0
-            newTable.contentOffset.y = contentOffset.y > 0 ? contentOffset.y : 0
-                        
+            updateNewTableOffset(newTable)
+
             updateSwipeAnimationBlock {
                 newTable.frame.origin.x = 0
                 currentTable.frame.origin.x = -self.frame.size.width
@@ -335,7 +343,7 @@ private extension ScrolledContainerView {
 
         if prevIndex >= 0 {
             
-            let currentTable = acceptNewOffset()
+            let currentTable = acceptCurrentTableOffset()
             currentIndex = prevIndex
             
             UIView.animate(withDuration: Constants.animationDuration) {
@@ -346,8 +354,7 @@ private extension ScrolledContainerView {
             updateSegmentedShadow()
             let newTable = visibleTableView
             newTable.frame.origin.x = -frame.size.width
-            newTable.frame.origin.y = contentOffset.y > 0 ? contentOffset.y : 0
-            newTable.contentOffset.y = contentOffset.y > 0 ? contentOffset.y : 0
+            updateNewTableOffset(newTable)
             
             updateSwipeAnimationBlock {
                 newTable.frame.origin.x = 0
