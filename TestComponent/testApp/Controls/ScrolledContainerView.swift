@@ -7,6 +7,10 @@
 //
 
 #warning("bug with segmendtedControl position on swipe when refresh is animating")
+#warning("Прыгающий navigation bar (при переходе на маленький navBar и обратно)")
+#warning("На iPhone X позиция у таблицы")
+#warning("Установка view после инициализации")
+#warning("Navigation Bar убрать blur")
 
 import UIKit
 
@@ -21,11 +25,24 @@ private enum Constants {
 }
 
 protocol ContainerViewDelegate: AnyObject {
-    func containerViewDelegateDidRemoveView(_ view: UIView)
+    func containerViewDidRemoveView(_ view: UIView)
 }
 
 class ContainerView: UIView {
     weak var delegate: ContainerViewDelegate?
+}
+
+protocol ScrolledContainerViewProtocol {
+    
+    func setup(segmentedItems: [String], topContents:[UIView], topContentsSectionIndex: Int, tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate)
+    
+    func removeView(_ view: UIView, animation: Bool)
+    
+    var segmentedHeight: CGFloat { get }
+    
+    var visibleTableView: UITableView { get }
+    
+    var smallTopOffset: CGFloat { get }
 }
 
 class ScrolledContainerView: UIScrollView {
@@ -39,7 +56,7 @@ class ScrolledContainerView: UIScrollView {
     
     private var searchController: UISearchController!
     private(set) var topOffset: CGFloat = 0
-    private var topContentsSection: Int = 0
+    private var topContentsSectionIndex: Int = 0
     
     weak var scrollViewDelegate: UIScrollViewDelegate?
     
@@ -95,12 +112,12 @@ class ScrolledContainerView: UIScrollView {
 }
 
 //MARK: - Methods
-extension ScrolledContainerView {
+extension ScrolledContainerView: ScrolledContainerViewProtocol {
     
-    func setupContent(segmentedItems: [String], topContents:[UIView], topContentsSection: Int, tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate) {
+    func setup(segmentedItems: [String], topContents:[UIView], topContentsSectionIndex: Int, tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate) {
         
         segmentedControl.items = segmentedItems
-        self.topContentsSection = topContentsSection
+        self.topContentsSectionIndex = topContentsSectionIndex
         
         for view in topContents {
             view.frame.origin.y = topOffset
@@ -141,7 +158,7 @@ extension ScrolledContainerView {
     func removeView(_ view: UIView, animation: Bool) {
         
         if let index = topContents.firstIndex(of: view) {
-            let indexPath = IndexPath(row: index, section: topContentsSection)
+            let indexPath = IndexPath(row: index, section: topContentsSectionIndex)
             
             topContents.removeAll(where: {$0 == view})
             

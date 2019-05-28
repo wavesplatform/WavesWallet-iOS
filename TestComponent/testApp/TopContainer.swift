@@ -33,7 +33,7 @@ class TopContainer: ContainerView {
     }
     
     @IBAction func crossTapped(_ sender: Any) {
-        delegate?.containerViewDelegateDidRemoveView(self)
+        delegate?.containerViewDidRemoveView(self)
     }
     
     deinit {

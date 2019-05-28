@@ -77,22 +77,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         banners.append(topBannerView2)
         
         viewCustom.scrollViewDelegate = self
-        viewCustom.setupContent(segmentedItems: [SegmentedIndex.test.title,
-                                                 SegmentedIndex.test2.title,
-                                                 SegmentedIndex.test3.title,
+        viewCustom.setup(segmentedItems: [SegmentedIndex.test.title,
+                                          SegmentedIndex.test2.title,
+                                          SegmentedIndex.test3.title,
                                                  SegmentedIndex.test4.title,
                                                  SegmentedIndex.test5.title,
                                                  SegmentedIndex.test6.title,
                                                  SegmentedIndex.test7.title,
                                                  SegmentedIndex.test8.title],
                                 topContents: banners,
-                                topContentsSection: Section.banner.rawValue,
+                                topContentsSectionIndex: Section.banner.rawValue,
                                 tableDataSource: self,
                                 tableDelegate: self)
 
         self.view.backgroundColor = UIColor(red: 248/255, green: 249/255, blue: 251/255, alpha: 1)
         
         navigationItem.shadowImage = UIImage()
+        setupBigNavigationBar()
     }
    
     override func viewWillLayoutSubviews() {
@@ -254,7 +255,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 }
 
 extension ViewController: ContainerViewDelegate {
-    func containerViewDelegateDidRemoveView(_ view: UIView) {
+    func containerViewDidRemoveView(_ view: UIView) {
         banners.removeAll(where: {$0 == view})
         viewCustom.removeView(view, animation: true)
     }

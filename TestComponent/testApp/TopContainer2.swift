@@ -14,7 +14,7 @@ class TopContainer2: ContainerView {
     @IBOutlet weak var labelTitle: UILabel!
     
     @IBAction func cancelTapped(_ sender: Any) {
-        delegate?.containerViewDelegateDidRemoveView(self)
+        delegate?.containerViewDidRemoveView(self)
     }
     
     override func awakeFromNib() {
