@@ -15,13 +15,7 @@ private enum Constants {
 }
 
 extension UIViewController {
-
-   
-
-
     
-
- 
     @objc func backTapped() {
         navigationController?.popViewController(animated: true)
     }

@@ -22,11 +22,9 @@ class SearchResultViewController: UIViewController, UITableViewDelegate, UITable
         searchBar.delegate = self
         searchBar.placeholder = "Search"
         tableView.keyboardDismissMode = .onDrag
+        
     }
-    
-    override func didMove(toParent parent: UIViewController?) {
-        print("sdsd")
-    }
+   
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
         searchBar.resignFirstResponder()
@@ -35,17 +33,9 @@ class SearchResultViewController: UIViewController, UITableViewDelegate, UITable
         UIView.animate(withDuration: 0.3, animations: {
             self.viewContainer.frame.origin.y = self.initialY
         }) { (complete) in
-            self.dismiss(animated: false, completion: nil)
-        }
-//        self.dismiss(animated: true, completion: nil)
-        return()
-            
-        UIView.animate(withDuration: 0.3, animations: {
-            self.viewContainer.frame.origin.y = self.initialY
-            self.view.alpha = 0
-        }) { (complete) in
-            self.view.removeFromSuperview()
-            self.removeFromParent()
+            DispatchQueue.main.async {
+                self.dismiss(animated: false, completion: nil)
+            }
         }
     }
     
