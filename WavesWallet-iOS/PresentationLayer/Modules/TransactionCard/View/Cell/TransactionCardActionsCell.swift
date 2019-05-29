@@ -29,8 +29,19 @@ final class TransactionCardActionsCell: UITableViewCell, Reusable {
     }
 
     @IBOutlet private var actionsControl: ActionsControl!
-
+    
+    @IBOutlet private var gradientView: GradientView!
+    
     var tapOnButton: ((Model.Button) -> Void)?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        gradientView.startColor = UIColor.white.withAlphaComponent(0.0)
+        gradientView.endColor = UIColor.white
+        gradientView.direction = .custom(GradientView.Settings.init(startPoint: CGPoint(x: 0.0, y: 0),
+                                                                    endPoint: CGPoint(x: 1, y: 0),
+                                                                    locations: [0.0, 1]))
+    }
 }
 
 // TODO: ViewConfiguration
