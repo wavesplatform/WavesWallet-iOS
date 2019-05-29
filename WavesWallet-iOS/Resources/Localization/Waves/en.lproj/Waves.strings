@@ -562,6 +562,7 @@
 "transactioncard.title.amount" = "Amount";
 "transactionhistory.copy.date" = "Date";
 "transactioncard.title.fee" = "Fee";
+"transactioncard.title.filled" = "Filled";
 "transactionhistory.copy.recipient" = "Recipient";
 "transactionhistory.copy.sender" = "Sender";
 "transactionhistory.copy.transactionId" = "Transaction ID";

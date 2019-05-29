@@ -2833,6 +2833,9 @@ internal enum Localizable {
         /// Fee
         internal static var fee: String { return Localizable.tr("Waves", "transactioncard.title.fee") }
         internal static var feeKey: String { return "transactioncard.title.fee" }
+        /// Filled
+        internal static var filled: String { return Localizable.tr("Waves", "transactioncard.title.filled") }
+        internal static var filledKey: String { return "transactioncard.title.filled" }
         /// From
         internal static var from: String { return Localizable.tr("Waves", "transactioncard.title.from") }
         internal static var fromKey: String { return "transactioncard.title.from" }

@@ -475,6 +475,11 @@ extension TransactionCardViewController: UITableViewDataSource {
             let cell: TransactionCardInvokeScriptCell = tableView.dequeueCell()
             cell.update(with: model)
             return cell
+            
+        case .orderFilled(let model):
+            let cell: TransactionCardOrderFilledCell = tableView.dequeueCell()
+            cell.update(with: model)
+            return cell
         }
     }
 }
