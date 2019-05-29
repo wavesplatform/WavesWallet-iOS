@@ -14,7 +14,7 @@
         <scene sceneID="9h9-il-HEO">
             <objects>
                 <navigationController id="QQw-zE-trr" customClass="CustomNavigationController" customModule="testApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zLc-5T-4qC">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zLc-5T-4qC" customClass="CustomNavigationBar" customModule="testApp" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

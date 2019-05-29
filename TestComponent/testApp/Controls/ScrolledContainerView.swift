@@ -9,7 +9,6 @@
 #warning("bug with segmendtedControl position on swipe when refresh is animating")
 #warning("Прыгающий navigation bar (при переходе на маленький navBar и обратно)")
 #warning("Установка view после инициализации")
-#warning("Navigation Bar убрать blur")
 
 import UIKit
 
@@ -230,13 +229,13 @@ private extension ScrolledContainerView {
 extension ScrolledContainerView: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+        if isAnimationTable {
+            return
+        }
         
         if scrollView.contentOffset.y < -smallTopOffset {
             setupBigNavigationBar()
-        }
-        
-        if isAnimationTable {
-            return
         }
         
         let table = visibleTableView
@@ -379,10 +378,6 @@ private extension ScrolledContainerView {
         else {
             segmentedControl.removeShadow()
         }
-    }
- 
-    var isSupportBigNavBar: Bool {
-        return contentSize.height > frame.size.height
     }
     
     var topSegmentOffset: CGFloat {

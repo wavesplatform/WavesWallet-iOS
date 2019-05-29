@@ -30,6 +30,7 @@
 		E9C88E57229C48C3006C9944 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C88E55229C48C3006C9944 /* SearchTableViewCell.swift */; };
 		E9C88E58229C48C3006C9944 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9C88E56229C48C3006C9944 /* SearchTableViewCell.xib */; };
 		E9C88E5A229C87E1006C9944 /* UIViewController+Additionals.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C88E59229C87E1006C9944 /* UIViewController+Additionals.swift */; };
+		E9C88E5C229DB235006C9944 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C88E5B229DB235006C9944 /* CustomNavigationBar.swift */; };
 		E9CD5D9E228AFABD001D1565 /* HistoryTransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD5D9C228AFABD001D1565 /* HistoryTransactionCell.swift */; };
 		E9CD5D9F228AFABD001D1565 /* HistoryTransactionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9CD5D9D228AFABD001D1565 /* HistoryTransactionCell.xib */; };
 		E9CD5DA1228AFB08001D1565 /* HistoryTransactionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9CD5DA0228AFB08001D1565 /* HistoryTransactionView.xib */; };
@@ -62,6 +63,7 @@
 		E9C88E55229C48C3006C9944 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		E9C88E56229C48C3006C9944 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
 		E9C88E59229C87E1006C9944 /* UIViewController+Additionals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additionals.swift"; sourceTree = "<group>"; };
+		E9C88E5B229DB235006C9944 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		E9CD5D9C228AFABD001D1565 /* HistoryTransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionCell.swift; sourceTree = "<group>"; };
 		E9CD5D9D228AFABD001D1565 /* HistoryTransactionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTransactionCell.xib; sourceTree = "<group>"; };
 		E9CD5DA0228AFB08001D1565 /* HistoryTransactionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryTransactionView.xib; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				E96DAB6D228D5E52005ED12B /* Controls */,
 				E9C70FA4228A1085000254E6 /* Additionals */,
 				E9C70F8C2289C68E000254E6 /* ViewController.swift */,
+				E9C88E5B229DB235006C9944 /* CustomNavigationBar.swift */,
 				E9CD5D9C228AFABD001D1565 /* HistoryTransactionCell.swift */,
 				E9C88E55229C48C3006C9944 /* SearchTableViewCell.swift */,
 				E9C88E56229C48C3006C9944 /* SearchTableViewCell.xib */,
@@ -226,6 +229,7 @@
 				E9CD5D9E228AFABD001D1565 /* HistoryTransactionCell.swift in Sources */,
 				E99FEC2722948FFF00D98400 /* UIImage+Color.swift in Sources */,
 				E9C70FA1228A1036000254E6 /* CustomNavigationController.swift in Sources */,
+				E9C88E5C229DB235006C9944 /* CustomNavigationBar.swift in Sources */,
 				E9CD5DA3228AFB14001D1565 /* HistoryTransactionView.swift in Sources */,
 				E9C70FA6228A2511000254E6 /* UIView+Additionals.swift in Sources */,
 				E9C88E2822973C77006C9944 /* TestPushViewController.swift in Sources */,

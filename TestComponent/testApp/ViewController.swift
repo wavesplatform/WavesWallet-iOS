@@ -72,9 +72,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         topBannerView.delegate = self
         let topBannerView2 = Bundle.main.loadNibNamed("TopContainer2", owner: self, options: nil)?.last as! TopContainer2
         topBannerView2.delegate = self
+      
         
         banners.append(topBannerView)
         banners.append(topBannerView2)
+
         
         viewCustom.scrollViewDelegate = self
         viewCustom.refreshDidChange = { [weak self] in
@@ -82,7 +84,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self?.viewCustom.refreshControl?.endRefreshing()
             })
         }
-        
+//        banners = []
         viewCustom.setup(segmentedItems: [SegmentedIndex.test.title,
                                           SegmentedIndex.test2.title,
                                           SegmentedIndex.test3.title,
@@ -97,20 +99,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                 tableDelegate: self)
 
         self.view.backgroundColor = UIColor(red: 248/255, green: 249/255, blue: 251/255, alpha: 1)
+        navigationController?.navigationBar.backgroundColor = self.view.backgroundColor
         
         navigationItem.shadowImage = UIImage()
         setupBigNavigationBar()
-    }
-   
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        print(#function)
-    }
-  
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationItem.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .automatic
     }
   
     func searchTapped(_ cell: UITableViewCell) {
@@ -121,24 +113,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let rectInSuperview = viewCustom.visibleTableView.convert(rectInTableView, to: self.view)
         
         let initialY = rectInSuperview.origin.y
-        vc.view.frame = UIScreen.main.bounds
         vc.initialY = initialY
+
         vc.modalPresentationStyle = .custom;
-        
+        vc.view.frame = UIScreen.main.bounds
+        vc.view.alpha = 0
+
         present(vc, animated: false) {
             
+            vc.view.alpha = 1
             let startOffset = vc.viewContainer.frame.origin.y
             vc.viewContainer.frame.origin.y = initialY
             vc.searchBar.setShowsCancelButton(true, animated: true)
+            vc.searchBar.becomeFirstResponder()
+
             UIView.animate(withDuration: 0.3, animations: {
                 vc.viewContainer.frame.origin.y = startOffset
             }, completion: { (complete) in
-                DispatchQueue.main.async {
-                    vc.searchBar.becomeFirstResponder()
-                }
+                
+//                DispatchQueue.main.async {
+//                    vc.searchBar.becomeFirstResponder()
+//                }
             })
         }
-        
     }
     
     func setupSearchBarOffset() {
@@ -165,7 +162,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
+//        print(viewCustom.visibleTableView.frame.origin.y,
+//              viewCustom.visibleTableView.contentOffset.y,
+//              viewCustom.contentOffset.y)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -221,7 +220,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if tableView.tag == 0 {
             return 20
         }
-        
+        else if tableView.tag == 1 {
+            return 2
+        }
         return 4 + tableView.tag * 3
     }
     
@@ -229,12 +230,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if indexPath.section == Section.segmented.rawValue ||
             indexPath.section == Section.banner.rawValue {
+            
             var cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: "emptyCell")
             if cell == nil {
                 cell = UITableViewCell.init(style: .default, reuseIdentifier: "emptyCell")
                 cell.selectionStyle = .none
             }
             cell.backgroundColor = .clear
+            
             return cell
         }
         else if indexPath.section == Section.search.rawValue && tableView.tag == SegmentedIndex.test.rawValue {
@@ -253,7 +256,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if cell == nil {
             cell = Bundle.main.loadNibNamed("HistoryTransactionCell", owner: nil, options: nil)?.last as? HistoryTransactionCell
         }
-        
+
         cell.viewHistory.labelTitle.text = "table \(tableView.tag + 1), row \(indexPath.row + 1)"
         return cell
     }
