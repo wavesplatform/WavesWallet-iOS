@@ -1,8 +1,8 @@
 //
-//  WalletSortTopCell.swift
+//  WalletSortHeaderView.swift
 //  WavesWallet-iOS
 //
-//  Created by Pavel Gubin on 4/18/19.
+//  Created by Pavel Gubin on 5/17/19.
 //  Copyright © 2019 Waves Platform. All rights reserved.
 //
 
@@ -10,27 +10,33 @@ import UIKit
 import WavesSDKExtension
 
 private enum Constants {
-    static let height: CGFloat = 60
     static let deltaButtonWidth: CGFloat = 50
 }
 
-protocol WalletSortTopCellDelegate: AnyObject {
+protocol WalletSortSegmentedControlDelegate: AnyObject {
     
-    func walletSortDidUpdateStatus(_ status: WalletSort.Status)
+    func walletSortSegmentedControlDidChangeStatus(_ status: WalletSort.Status)
 }
 
-final class WalletSortTopCell: UITableViewCell, NibReusable {
+final class WalletSortSegmentedControl: UIView, NibOwnerLoadable {
 
     @IBOutlet private weak var buttonPosition: UIButton!
     @IBOutlet private weak var buttonVisibility: UIButton!
-    @IBOutlet private weak var buttonPositionWidth: NSLayoutConstraint!
-    @IBOutlet private weak var buttonVisibilityWidth: NSLayoutConstraint!
+    @IBOutlet weak var buttonPositionWidth: NSLayoutConstraint!
+    @IBOutlet weak var buttonVisibilityWidth: NSLayoutConstraint!
     
-    weak var delegate: WalletSortTopCellDelegate?
+    weak var delegate: WalletSortSegmentedControlDelegate?
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        loadNibContent()
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-    
+                
+        addShadow()
+        
         let positionTitle = Localizable.Waves.Walletsort.Button.position
         buttonPosition.setTitle(positionTitle, for: .normal)
         
@@ -41,17 +47,29 @@ final class WalletSortTopCell: UITableViewCell, NibReusable {
         buttonPositionWidth.constant = positionTitle.maxWidth(font: font) + Constants.deltaButtonWidth
         buttonVisibilityWidth.constant = visibilityTitle.maxWidth(font: font) + Constants.deltaButtonWidth
     }
-
-    @IBAction private func positionTapped(_ sender: Any) {
-        delegate?.walletSortDidUpdateStatus(.position)
-    }
     
     @IBAction private func visibilityTapped(_ sender: Any) {
-        delegate?.walletSortDidUpdateStatus(.visibility)
+        delegate?.walletSortSegmentedControlDidChangeStatus(.visibility)
     }
+    
+    @IBAction private func positionTapped(_ sender: Any) {
+        delegate?.walletSortSegmentedControlDidChangeStatus(.position)
+    }
+    
+    func addShadow() {
+        if layer.shadowColor == nil {
+            setupShadow(options: .init(offset: CGSize(width: 0, height: 4),
+                                       color: .black,
+                                       opacity: 0.10,
+                                       shadowRadius: 3,
+                                       shouldRasterize: true))
+            
+        }
+    }
+    
 }
 
-extension WalletSortTopCell: ViewConfiguration {
+extension WalletSortSegmentedControl: ViewConfiguration {
     
     func update(with model: WalletSort.Status) {
         
@@ -63,11 +81,5 @@ extension WalletSortTopCell: ViewConfiguration {
             buttonPosition.tintColor = .basic500
             buttonVisibility.tintColor = .black
         }
-    }
-}
-
-extension WalletSortTopCell: ViewHeight {
-    static func viewHeight() -> CGFloat {
-        return Constants.height
     }
 }
