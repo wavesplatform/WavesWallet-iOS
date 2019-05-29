@@ -60,6 +60,8 @@ class ScrolledContainerView: UIScrollView {
         delegate = self
         
         showsHorizontalScrollIndicator = false
+        contentInsetAdjustmentBehavior = .automatic
+        insetsLayoutMarginsFromSafeArea = true
         
         let leftRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handlerLeftSwipe(_:)))
         leftRightGesture.direction = .left
