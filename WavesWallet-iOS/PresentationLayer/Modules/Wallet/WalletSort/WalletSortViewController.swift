@@ -13,6 +13,8 @@ import RxSwift
 
 private enum Constants {
     static let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0)
+    static let segmentedCellIdentifier = "SegmentedCell"
+    static let segmentedHeight: CGFloat = 48
 }
 
 final class WalletSortViewController: UIViewController {
@@ -23,16 +25,22 @@ final class WalletSortViewController: UIViewController {
     private var sections: [WalletSort.ViewModel.Section] = []
     private var status: WalletSort.Status = .position
 
+    @IBOutlet private weak var segmentedControl: WalletSortSegmentedControl!
+    @IBOutlet private weak var segmentedTopPosition: NSLayoutConstraint!
+    
     var presenter: WalletSortPresenterProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        segmentedControl.delegate = self
         createBackButton()
         setupBigNavigationBar()
         title = Localizable.Waves.Walletsort.Navigationbar.title
         tableView.contentInset = Constants.contentInset
         setupFeedBack()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.segmentedCellIdentifier)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -41,10 +49,10 @@ final class WalletSortViewController: UIViewController {
     }
 }
 
-//MARK: - WalletSortTopCellDelegate
-extension WalletSortViewController: WalletSortTopCellDelegate {
+//MARK: - WalletSortSegmentedControlDelegate
+extension WalletSortViewController: WalletSortSegmentedControlDelegate {
     
-    func walletSortDidUpdateStatus(_ status: WalletSort.Status) {
+    func walletSortSegmentedControlDidChangeStatus(_ status: WalletSort.Status) {
         if self.status != status {
             sendEvent.accept(.setStatus(status))
         }
@@ -93,6 +101,7 @@ private extension WalletSortViewController {
                 self.sections = state.sections
                 self.status = state.status
                 self.tableView.isEditing = state.status == .position
+                self.segmentedControl.update(with: state.status)
                 
                 switch state.action {
                 case .move(let at, let to, let delete, let insert):
@@ -118,6 +127,7 @@ private extension WalletSortViewController {
                 default:
                     break
                 }
+                
             })
         
         return [subscriptionSections]
@@ -127,7 +137,26 @@ private extension WalletSortViewController {
 //MARK: - UIScrollViewDelegate
 extension WalletSortViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
         setupTopBarLine()
+        
+        if isSmallNavigationBar {
+            segmentedControl.addShadow()
+        }
+        else {
+            segmentedControl.removeShadow()
+        }
+        
+        let tableTopOffset = tableViewTopOffsetForBigNavBar(tableView).y
+
+        if tableView.contentOffset.y < tableTopOffset {
+            let diff = abs(tableView.contentOffset.y) - abs(tableTopOffset)
+            segmentedTopPosition.constant = diff
+        }
+        else {
+            segmentedTopPosition.constant = 0
+        }
+        
     }
 }
 
@@ -180,8 +209,9 @@ extension WalletSortViewController: UITableViewDataSource {
         
         let row = sections[indexPath.section].items[indexPath.row]
         switch row {
+            
         case .top:
-            return WalletSortTopCell.viewHeight()
+            return Constants.segmentedHeight
             
         case .emptyAssets(let model):
             return WalletSortEmptyAssetsCell.viewHeight(model: model, width: tableView.frame.size.width)
@@ -204,11 +234,10 @@ extension WalletSortViewController: UITableViewDataSource {
         let row = sections[indexPath.section].items[indexPath.row]
 
         switch row {
-        
+    
         case .top:
-            let cell: WalletSortTopCell = tableView.dequeueAndRegisterCell()
-            cell.update(with: status)
-            cell.delegate = self
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.segmentedCellIdentifier, for: indexPath)
+            cell.backgroundColor = .clear
             return cell
             
         case .emptyAssets(let model):
