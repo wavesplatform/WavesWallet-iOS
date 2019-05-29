@@ -43,8 +43,11 @@ extension DomainLayer.DTO.Dex.MyOrder {
                                                                info: .status(percent, status: statusValue))
 
         rows.append(contentsOf:[.general(rowGeneralModel)])
-
-
+        rows.append(.dashedLine(.bottomPadding))
+        rows.append(.orderFilled(.init(filled: .init(balance: filledBalance,
+                                               sign: .none,
+                                               style: .small))))
+        
         let rowOrderModel = TransactionCardOrderCell.Model(amount: .init(balance: amountBalance,
                                                                          sign: .none,
                                                                          style: .small),
@@ -143,7 +146,7 @@ fileprivate extension DomainLayer.DTO.Dex.MyOrder {
     }
 
     var filledBalance: Balance {
-        return self.totalBalance(priceAmount: self.price.amount, assetAmount: self.filled.amount)
+        return .init(currency: .init(title: amountAsset.name, ticker: amountAsset.ticker), money: self.filled)
     }
 
     var priceBalance: Balance {

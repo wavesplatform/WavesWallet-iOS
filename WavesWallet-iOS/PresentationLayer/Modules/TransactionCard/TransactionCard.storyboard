@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -905,6 +905,41 @@
                                             <outlet property="labelScriptAddressLocalizable" destination="E52-Oi-kkk" id="lqZ-12-Xfg"/>
                                             <outlet property="paymentBottomOffset" destination="Xqu-ua-WGP" id="Blq-0G-u5e"/>
                                             <outlet property="viewPayment" destination="oNO-hM-hkA" id="hKd-oF-qpO"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardOrderFilledCell" rowHeight="80" id="AOa-cB-jgj" customClass="TransactionCardOrderFilledCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="2722" width="375" height="80"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AOa-cB-jgj" id="wbr-Ug-NI6">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BZD-HX-2yX">
+                                                    <rect key="frame" x="24" y="7" width="327" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="25.5" translatesAutoresizingMaskIntoConstraints="NO" id="z8T-d1-xBf" customClass="BalanceLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                    <rect key="frame" x="24" y="37" width="100" height="26"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="26" id="guX-w8-kan"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="BZD-HX-2yX" firstAttribute="top" secondItem="wbr-Ug-NI6" secondAttribute="top" constant="7" id="4a9-y4-tkQ"/>
+                                                <constraint firstAttribute="trailing" secondItem="BZD-HX-2yX" secondAttribute="trailing" constant="24" id="CGa-J3-Cxj"/>
+                                                <constraint firstItem="BZD-HX-2yX" firstAttribute="leading" secondItem="wbr-Ug-NI6" secondAttribute="leading" constant="24" id="D54-gM-3L7"/>
+                                                <constraint firstItem="z8T-d1-xBf" firstAttribute="top" secondItem="BZD-HX-2yX" secondAttribute="bottom" id="Q8S-lr-mfn"/>
+                                                <constraint firstAttribute="bottom" secondItem="z8T-d1-xBf" secondAttribute="bottom" constant="17" id="Sk5-gv-5eV"/>
+                                                <constraint firstItem="z8T-d1-xBf" firstAttribute="leading" secondItem="wbr-Ug-NI6" secondAttribute="leading" constant="24" id="eKR-z2-l8O"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="balanceLabel" destination="z8T-d1-xBf" id="vdF-fG-z2J"/>
+                                            <outlet property="labelTitle" destination="BZD-HX-2yX" id="HEH-Db-vL7"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
