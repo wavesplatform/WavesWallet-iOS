@@ -14,11 +14,16 @@ enum DexList {
 
     enum Event {
         case readyView
+        case viewWillAppear
         case setDisplayInfo(ResponseType<DTO.DisplayInfo>)
+        case setLocalDisplayInfo(DTO.LocalDisplayInfo)
         case tapSortButton(DexListRefreshOutput)
         case tapAddButton(DexListRefreshOutput)
         case refresh
+        case refreshBackground
         case tapAssetPair(DTO.Pair)
+        case didChangeAssets
+        case updateSortLevel
     }
     
     struct State: Mutating {
@@ -29,20 +34,46 @@ enum DexList {
             case didFailGetModels(NetworkError)
         }
         
-        var isAppear: Bool
         var isNeedRefreshing: Bool
+        var isNeedRefreshingBackground: Bool
+        var isNeedUpdateSortLevel: Bool
         var action: Action
         var sections: [DexList.ViewModel.Section]
         var isFirstLoadingData: Bool
         var lastUpdate: Date
         var errorState: DisplayErrorState
         var authWalletError: Bool
+        var hasChangeAssets: Bool
     }
 }
 
 extension DexList.ViewModel {
     struct Section: Mutating {
         var items: [Row]
+        
+        var isHeaderSection: Bool {
+            return items.filter{ (row) -> Bool in
+                switch row {
+                case .header:
+                    return true
+                    
+                default:
+                    return false
+                }
+            }.count > 0
+        }
+        
+        var isModelSection: Bool {
+            return items.filter{ (row) -> Bool in
+                switch row {
+                case .model:
+                    return true
+                    
+                default:
+                    return false
+                }
+            }.count > 0
+        }
     }
     
     enum Row {
@@ -63,31 +94,38 @@ extension DexList.ViewModel {
 
 extension DexList.DTO {
     
+    struct LocalDisplayInfo {
+        let pairs: [DomainLayer.DTO.Dex.SmartPair]
+        let authWalletError: Bool
+    }
+    
     struct DisplayInfo {
         let pairs: [Pair]
         let authWalletError: Bool
     }
     
-    struct Pair: Mutating {        
+    struct Pair: Mutating {
+        let id: String
         var firstPrice: Money
         var lastPrice: Money
         let amountAsset: DomainLayer.DTO.Dex.Asset
         let priceAsset: DomainLayer.DTO.Dex.Asset
         let isGeneral: Bool
-        let sortLevel: Int
+        var sortLevel: Int
     }
 }
 
 extension DexList.State {
     var isVisibleItems: Bool {
-        return sections.count > 1
+        return sections.count > 0
     }
 }
 
 extension DexList.State : Equatable {
     
     static func == (lhs: DexList.State, rhs: DexList.State) -> Bool {
-        return lhs.isAppear == rhs.isAppear &&
-        lhs.isNeedRefreshing == rhs.isNeedRefreshing
+        return lhs.isNeedRefreshing == rhs.isNeedRefreshing &&
+        lhs.isNeedRefreshingBackground == rhs.isNeedRefreshingBackground &&
+        lhs.isNeedUpdateSortLevel == rhs.isNeedUpdateSortLevel
     }
 }

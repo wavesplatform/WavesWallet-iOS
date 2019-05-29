@@ -113,8 +113,12 @@ extension LanguageViewController: UITableViewDelegate {
         selectedIndex = indexPath.row
         tableView.reloadData()
         
+        let language = languages[indexPath.row]
+        let title = language.localizedString(key: Localizable.Waves.Enter.Button.Confirm.titleKey)
+        buttonConfirm.setTitle(title, for: .normal)
     }
-
+    
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setupTopBarLine()
     }
