@@ -12,10 +12,6 @@ protocol LanguageViewControllerDelegate: AnyObject {
     func languageViewChangedLanguage()
 }
 
-private extension Localizable.Waves.Enter.Button.Confirm {
-    static var titleKey = "enter.button.confirm.title"
-}
-
 final class LanguageViewController: UIViewController {
     
     @IBOutlet private weak var gradientView: CustomGradientView!
