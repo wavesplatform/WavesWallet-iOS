@@ -11,4 +11,5 @@ import RxSwift
 
 protocol DexListInteractorProtocol {
     func pairs() -> Observable<ResponseType<DexList.DTO.DisplayInfo>>
+    func localPairs() -> Observable<DexList.DTO.LocalDisplayInfo>
 }

@@ -27,6 +27,7 @@ import Foundation
 {{sp}}  }
 {{sp}}  {% else %}
 {{sp}}  {{accessModifier}} static var {{string.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}: String { return {{enumName}}.tr("{{table}}", "{{string.key}}") }
+{{sp}}  {{accessModifier}} static var {{string.name|swiftIdentifier:"pretty"|lowerFirstWord}}Key: String { return "{{string.key}}" }
 {{sp}}  {% endif %}
 {{sp}}  {% endfor %}
 {{sp}}  {% for child in item.children %}
