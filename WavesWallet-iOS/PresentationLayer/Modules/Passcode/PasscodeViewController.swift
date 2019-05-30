@@ -50,6 +50,9 @@ final class PasscodeViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isAppeared.onNext(true)
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            self.eventInput.onNext(.completedInputNumbers([1,1,1,1]))
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {

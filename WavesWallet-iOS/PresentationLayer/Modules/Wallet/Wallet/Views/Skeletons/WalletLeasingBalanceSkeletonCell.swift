@@ -13,9 +13,10 @@ private enum Constants {
     static let height: CGFloat = 290
 }
 
-final class WalletLeasingBalanceSkeletonCell: SkeletonTableCell, Reusable {
-    @IBOutlet var viewContent: UIView!    
-    @IBOutlet var separatorViews: [SeparatorView]!
+final class WalletLeasingBalanceSkeletonCell: SkeletonTableCell, NibReusable {
+    
+    @IBOutlet private weak var viewContent: UIView!
+    @IBOutlet private var separatorViews: [SeparatorView]!
 
     override func awakeFromNib() {
         super.awakeFromNib()
