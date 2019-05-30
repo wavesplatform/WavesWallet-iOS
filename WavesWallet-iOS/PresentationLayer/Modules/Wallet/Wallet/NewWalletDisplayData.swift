@@ -14,30 +14,28 @@ import UIKit
 private enum Constants {
     static let animationDuration: TimeInterval = 0.34
     static let spamSection = 1
+    static let emptyCellIdentifier: String = "emptyCellIdentifier"
 }
 
-protocol WalletDisplayDataDelegate: AnyObject {
-    func scrollViewDidScroll(_ scrollView: UIScrollView)
+protocol NewWalletDisplayDataDelegate: AnyObject {
     func tableViewDidSelect(indexPath: IndexPath)
 }
 
-final class WalletDisplayData: NSObject {
+final class NewWalletDisplayData: NSObject {
     private typealias Section = WalletTypes.ViewModel.Section
 
     private var sections: [Section] = []
-    private weak var tableView: UITableView!
+    private weak var scrolledTablesComponent: ScrolledContainerView!
 
-    weak var delegate: WalletDisplayDataDelegate?
+    weak var delegate: NewWalletDisplayDataDelegate?
     weak var balanceCellDelegate: WalletLeasingBalanceCellDelegate?
 
     let tapSection: PublishRelay<Int> = PublishRelay<Int>()
     var completedReload: (() -> Void)?
 
-    init(tableView: UITableView) {
+    init(scrolledTablesComponent: ScrolledContainerView) {
         super.init()
-        self.tableView = tableView
-        tableView.delegate = self
-        tableView.dataSource = self
+        self.scrolledTablesComponent = scrolledTablesComponent
     }
 
     func apply(sections: [WalletTypes.ViewModel.Section], animateType: WalletTypes.DisplayState.ContentAction, completed: @escaping (() -> Void)) {
@@ -55,26 +53,25 @@ final class WalletDisplayData: NSObject {
         case .refresh(let animated):
 
             if animated {
-                UIView.transition(with: tableView, duration: Constants.animationDuration, options: [.transitionCrossDissolve], animations: {
-                    self.tableView.reloadData()
+                UIView.transition(with: scrolledTablesComponent, duration: Constants.animationDuration, options: [.transitionCrossDissolve], animations: {
+                    self.scrolledTablesComponent.reloadData()
                 }, completion: nil)
             } else {
-                self.tableView.reloadData()
+                self.scrolledTablesComponent.reloadData()
             }
 
         case .collapsed(let index):
-            tableView.beginUpdates()
-            tableView.reloadSections([index], with: .fade)
-            tableView.endUpdates()
+            self.scrolledTablesComponent.visibleTableView.beginUpdates()
+            self.scrolledTablesComponent.visibleTableView.reloadSections([index], with: .fade)
+            self.scrolledTablesComponent.visibleTableView.endUpdates()
 
         case .expanded(let index):
-         
-            tableView.beginUpdates()
-            tableView.reloadSections([index], with: .fade)
+            self.scrolledTablesComponent.visibleTableView.beginUpdates()
+            self.scrolledTablesComponent.visibleTableView.reloadSections([index], with: .fade)
             DispatchQueue.main.async {
-                self.tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .middle, animated: true)
+                self.scrolledTablesComponent.visibleTableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .middle, animated: true)
             }
-            tableView.endUpdates()
+            self.scrolledTablesComponent.visibleTableView.endUpdates()
 
         default:
             break
@@ -84,13 +81,26 @@ final class WalletDisplayData: NSObject {
 }
 
 // MARK: UITableViewDelegate
-extension WalletDisplayData: UITableViewDataSource {
-
+extension NewWalletDisplayData: UITableViewDataSource {
+  
+    private func emptyCell(tableView: UITableView) -> UITableViewCell {
+        var cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: Constants.emptyCellIdentifier)
+        if cell == nil {
+            cell = UITableViewCell(style: .default, reuseIdentifier: Constants.emptyCellIdentifier)
+            cell.backgroundColor = .clear
+            cell.selectionStyle = .none
+        }
+        return cell
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let item = sections[indexPath.section].items[indexPath.row]
     
         switch item {
+        case .emptySegmented:
+           return emptyCell(tableView: tableView)
+            
         case .historySkeleton:
             return tableView.dequeueAndRegisterCell() as WalletHistorySkeletonCell
 
@@ -128,9 +138,6 @@ extension WalletDisplayData: UITableViewDataSource {
             let cell = tableView.dequeueAndRegisterCell() as WalletQuickNoteCell
             cell.setupLocalization()
             return cell
-            
-        default:
-            return UITableViewCell()
         }
     }
 
@@ -143,7 +150,7 @@ extension WalletDisplayData: UITableViewDataSource {
     }
 }
 
-extension WalletDisplayData: UITableViewDelegate {
+extension NewWalletDisplayData: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 
@@ -214,7 +221,9 @@ extension WalletDisplayData: UITableViewDelegate {
         let row = items[indexPath.row]
 
         switch row {
-        
+        case .emptySegmented:
+            return scrolledTablesComponent.segmentedHeight
+            
         case .historySkeleton:
             return WalletHistorySkeletonCell.cellHeight()
 
@@ -241,9 +250,6 @@ extension WalletDisplayData: UITableViewDelegate {
 
         case .quickNote:
             return WalletQuickNoteCell.cellHeight(with: tableView.frame.width)
-            
-        default:
-            return 0
         }
     }
 
@@ -253,12 +259,6 @@ extension WalletDisplayData: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         delegate?.tableViewDidSelect(indexPath: indexPath)
-    }
-}
-
-extension WalletDisplayData: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        delegate?.scrollViewDidScroll(scrollView)
     }
 }
 

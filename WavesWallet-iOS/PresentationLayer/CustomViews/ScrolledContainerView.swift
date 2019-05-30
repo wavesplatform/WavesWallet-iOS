@@ -34,18 +34,23 @@ protocol ScrolledContainerViewProtocol {
     
     func removeView(_ view: UIView, animation: Bool)
     
+    func reloadData()
+    
+    func viewControllerWillDissapear()
+    
     var segmentedHeight: CGFloat { get }
     
     var visibleTableView: UITableView { get }
     
     var smallTopOffset: CGFloat { get }
+    
 }
 
 final class ScrolledContainerView: UIScrollView {
     
-    private var tableViews: [UITableView] = []
+    private(set) var tableViews: [UITableView] = []
     private var topContents: [UIView] = []
-    private let segmentedControl = NewSegmentedControl()
+    private(set) var segmentedControl = NewSegmentedControl()
     
     private var currentIndex: Int = 0
     private var isAnimationTable: Bool = false
@@ -54,6 +59,7 @@ final class ScrolledContainerView: UIScrollView {
 
     weak var scrollViewDelegate: UIScrollViewDelegate?
     var refreshDidChange:(() -> Void)?
+  
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -110,6 +116,16 @@ final class ScrolledContainerView: UIScrollView {
 
 //MARK: - ScrolledContainerViewProtocol
 extension ScrolledContainerView: ScrolledContainerViewProtocol {
+   
+    func viewControllerWillDissapear() {
+        if isSmallNavBar {
+            firstAvailableViewController().setupSmallNavigationBar()
+        }
+        else {
+            firstAvailableViewController().setupBigNavigationBar()
+        }
+    }
+    
     
     func setup(segmentedItems: [String], topContents:[UIView], topContentsSectionIndex: Int, tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate) {
         
@@ -192,6 +208,12 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
         }
     }
     
+    func reloadData() {
+        for table in tableViews {
+            table.reloadData()
+        }
+    }
+    
     var segmentedHeight: CGFloat {
         return Constants.segmentedHeight
     }
@@ -229,7 +251,7 @@ private extension ScrolledContainerView {
 
 //MARK: - UIScrollViewDelegate
 extension ScrolledContainerView: UIScrollViewDelegate {
-    
+   
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
         if isAnimationTable {

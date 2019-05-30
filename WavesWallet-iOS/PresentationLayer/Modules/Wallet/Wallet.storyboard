@@ -91,7 +91,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="qrM-2c-c1u" firstAttribute="trailing" secondItem="oan-D1-xo2" secondAttribute="trailing" id="9Dg-dm-qTN"/>
                             <constraint firstItem="oan-D1-xo2" firstAttribute="leading" secondItem="qrM-2c-c1u" secondAttribute="leading" id="E6u-db-7Vo"/>
@@ -106,8 +106,8 @@
                     </view>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
-                        <outlet property="containerView" destination="oan-D1-xo2" id="l97-6W-jZo"/>
-                        <outlet property="globalErrorView" destination="zwU-EK-Okl" id="qGY-3a-rEV"/>
+                        <outlet property="globalErrorView" destination="zwU-EK-Okl" id="k73-q1-qOb"/>
+                        <outlet property="scrolledTablesComponent" destination="oan-D1-xo2" id="yvv-Vg-53m"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dGP-zk-Lfl" userLabel="First Responder" sceneMemberID="firstResponder"/>
