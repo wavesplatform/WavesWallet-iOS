@@ -68,6 +68,8 @@ final class NewWalletViewController: UIViewController {
         
         displayData = NewWalletDisplayData(scrolledTablesComponent: scrolledTablesComponent)
 
+        scrolledTablesComponent.scrollViewDelegate = self
+        scrolledTablesComponent.containerViewDelegate = self
         scrolledTablesComponent.setup(segmentedItems: displays.map{ $0.name }, topContents: [], topContentsSectionIndex: 0, tableDataSource: displayData, tableDelegate: displayData)
 
         setupLanguages()
@@ -131,6 +133,30 @@ extension NewWalletViewController: MainTabBarControllerProtocol {
     func mainTabBarControllerDidTapTab() {
         guard isViewLoaded else { return }
         scrolledTablesComponent.setContentOffset(tableViewTopOffsetForBigNavBar(scrolledTablesComponent.visibleTableView), animated: true)
+    }
+}
+
+//MARK: - UIScrollViewDelegate
+extension NewWalletViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if scrollView == scrolledTablesComponent {
+            
+        }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if scrollView == scrolledTablesComponent {
+            
+        }
+    }
+}
+
+//MARK: - ScrolledContainerViewDelegate
+extension NewWalletViewController: ScrolledContainerViewDelegate {
+    
+    func scrolledContainerViewDidScrollToIndex(_ index: Int) {
+        sendEvent.accept(.changeDisplay(displays[index]))
     }
 }
 

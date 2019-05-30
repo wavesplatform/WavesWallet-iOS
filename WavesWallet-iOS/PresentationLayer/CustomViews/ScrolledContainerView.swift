@@ -46,6 +46,10 @@ protocol ScrolledContainerViewProtocol {
     
 }
 
+@objc protocol ScrolledContainerViewDelegate: AnyObject {
+    func scrolledContainerViewDidScrollToIndex(_ index: Int)
+}
+
 final class ScrolledContainerView: UIScrollView {
     
     private(set) var tableViews: [UITableView] = []
@@ -58,8 +62,7 @@ final class ScrolledContainerView: UIScrollView {
     private(set) var topOffset: CGFloat = 0
 
     weak var scrollViewDelegate: UIScrollViewDelegate?
-    var refreshDidChange:(() -> Void)?
-  
+    weak var containerViewDelegate: ScrolledContainerViewDelegate?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -80,7 +83,6 @@ final class ScrolledContainerView: UIScrollView {
         backgroundColor = .clear
         
         refreshControl = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: Constants.refreshSize, height: Constants.refreshSize))
-        refreshControl?.addTarget(self, action: #selector(refreshValueDidChange), for: .valueChanged)
         segmentedControl.segmentedDelegate = self
     }
   
@@ -230,10 +232,6 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
 //MARK: - Actions
 private extension ScrolledContainerView {
     
-    @objc func refreshValueDidChange() {
-        refreshDidChange?()
-    }
-    
     @objc func handlerRightSwipe(_ gesture: UISwipeGestureRecognizer) {
         if gesture.state == .ended {
             showPrevScreen(prevIndex: currentIndex - 1)
@@ -342,6 +340,8 @@ private extension ScrolledContainerView {
         
         if nextIndex < segmentedControl.items.count {
             
+            containerViewDelegate?.scrolledContainerViewDidScrollToIndex(nextIndex)
+            
             let currentTable = acceptCurrentTableOffset()
             currentIndex = nextIndex
             
@@ -365,6 +365,8 @@ private extension ScrolledContainerView {
     func showPrevScreen(prevIndex: Int) {
 
         if prevIndex >= 0 {
+            
+            containerViewDelegate?.scrolledContainerViewDidScrollToIndex(prevIndex)
             
             let currentTable = acceptCurrentTableOffset()
             currentIndex = prevIndex
