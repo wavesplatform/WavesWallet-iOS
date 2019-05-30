@@ -17,6 +17,24 @@ internal enum Localizable {
     /// The camera is needed to scan QR codes
     internal static var nsPhotoLibraryAddUsageDescription: String { return Localizable.tr("InfoPlist", "NSPhotoLibraryAddUsageDescription") }
     internal static var nsPhotoLibraryAddUsageDescriptionKey: String { return "NSPhotoLibraryAddUsageDescription" }
+
+    internal enum Cameraaccess {
+
+      internal enum Alert {
+        /// Allow Camera
+        internal static var allow: String { return Localizable.tr("InfoPlist", "cameraAccess.alert.allow") }
+        internal static var allowKey: String { return "cameraAccess.alert.allow" }
+        /// Cancel
+        internal static var cancel: String { return Localizable.tr("InfoPlist", "cameraAccess.alert.cancel") }
+        internal static var cancelKey: String { return "cameraAccess.alert.cancel" }
+        /// Camera access is required to make full use of this app
+        internal static var message: String { return Localizable.tr("InfoPlist", "cameraAccess.alert.message") }
+        internal static var messageKey: String { return "cameraAccess.alert.message" }
+        /// Need Camera Access
+        internal static var title: String { return Localizable.tr("InfoPlist", "cameraAccess.alert.title") }
+        internal static var titleKey: String { return "cameraAccess.alert.title" }
+      }
+    }
   }
           internal enum Waves {
 
@@ -281,7 +299,7 @@ internal enum Localizable {
         internal static var viewHistoryKey: String { return "asset.cell.viewHistory" }
 
         internal enum Assetinfo {
-          /// You can not perform transactions with this asset
+          /// You can not perform transactions with this token
           internal static var cantPerformTransactions: String { return Localizable.tr("Waves", "asset.cell.assetInfo.cantPerformTransactions") }
           internal static var cantPerformTransactionsKey: String { return "asset.cell.assetInfo.cantPerformTransactions" }
           /// Decimal points
@@ -302,7 +320,7 @@ internal enum Localizable {
           /// Name
           internal static var name: String { return Localizable.tr("Waves", "asset.cell.assetInfo.name") }
           internal static var nameKey: String { return "asset.cell.assetInfo.name" }
-          /// Asset Info
+          /// Token Info
           internal static var title: String { return Localizable.tr("Waves", "asset.cell.assetInfo.title") }
           internal static var titleKey: String { return "asset.cell.assetInfo.title" }
           /// Total amount
@@ -375,10 +393,10 @@ internal enum Localizable {
       }
 
       internal enum Label {
-        /// Assets
+        /// Tokens
         internal static var assets: String { return Localizable.tr("Waves", "assetlist.label.assets") }
         internal static var assetsKey: String { return "assetlist.label.assets" }
-        /// Loading assets…
+        /// Loading tokens…
         internal static var loadingAssets: String { return Localizable.tr("Waves", "assetlist.label.loadingAssets") }
         internal static var loadingAssetsKey: String { return "assetlist.label.loadingAssets" }
       }
@@ -504,24 +522,6 @@ internal enum Localizable {
         /// Too many attempts
         internal static var title: String { return Localizable.tr("Waves", "biometric.manyattempts.title") }
         internal static var titleKey: String { return "biometric.manyattempts.title" }
-      }
-    }
-
-    internal enum Cameraaccess {
-
-      internal enum Alert {
-        /// Allow Camera
-        internal static var allow: String { return Localizable.tr("Waves", "cameraAccess.alert.allow") }
-        internal static var allowKey: String { return "cameraAccess.alert.allow" }
-        /// Cancel
-        internal static var cancel: String { return Localizable.tr("Waves", "cameraAccess.alert.cancel") }
-        internal static var cancelKey: String { return "cameraAccess.alert.cancel" }
-        /// Camera access is required to make full use of this app
-        internal static var message: String { return Localizable.tr("Waves", "cameraAccess.alert.message") }
-        internal static var messageKey: String { return "cameraAccess.alert.message" }
-        /// Need Camera Access
-        internal static var title: String { return Localizable.tr("Waves", "cameraAccess.alert.title") }
-        internal static var titleKey: String { return "cameraAccess.alert.title" }
       }
     }
 
@@ -826,13 +826,13 @@ internal enum Localizable {
     internal enum Dexinfo {
 
       internal enum Label {
-        /// Amount Asset
+        /// Amount Token
         internal static var amountAsset: String { return Localizable.tr("Waves", "dexinfo.label.amountAsset") }
         internal static var amountAssetKey: String { return "dexinfo.label.amountAsset" }
         /// Popular
         internal static var popular: String { return Localizable.tr("Waves", "dexinfo.label.popular") }
         internal static var popularKey: String { return "dexinfo.label.popular" }
-        /// Price Asset
+        /// Price Token
         internal static var priceAsset: String { return Localizable.tr("Waves", "dexinfo.label.priceAsset") }
         internal static var priceAssetKey: String { return "dexinfo.label.priceAsset" }
       }
@@ -1113,7 +1113,7 @@ internal enum Localizable {
         }
 
         internal enum Wallet {
-          /// Store, manage and receive interest on your digital assets balance, easily and securely.
+          /// Store, manage and receive interest on your digital tokens balance, easily and securely.
           internal static var text: String { return Localizable.tr("Waves", "enter.block.wallet.text") }
           internal static var textKey: String { return "enter.block.wallet.text" }
           /// Wallet
@@ -1215,7 +1215,7 @@ internal enum Localizable {
       internal enum Label {
 
         internal enum Title {
-          /// / My Asset
+          /// / My token
           internal static var myasset: String { return Localizable.tr("Waves", "general.label.title.myasset") }
           internal static var myassetKey: String { return "general.label.title.myasset" }
         }
@@ -2204,13 +2204,13 @@ internal enum Localizable {
         /// Amount in
         internal static var amountIn: String { return Localizable.tr("Waves", "receive.label.amountIn") }
         internal static var amountInKey: String { return "receive.label.amountIn" }
-        /// Asset
+        /// Token
         internal static var asset: String { return Localizable.tr("Waves", "receive.label.asset") }
         internal static var assetKey: String { return "receive.label.asset" }
         /// Receive
         internal static var receive: String { return Localizable.tr("Waves", "receive.label.receive") }
         internal static var receiveKey: String { return "receive.label.receive" }
-        /// Select your asset
+        /// Select your token
         internal static var selectYourAsset: String { return Localizable.tr("Waves", "receive.label.selectYourAsset") }
         internal static var selectYourAssetKey: String { return "receive.label.selectYourAsset" }
       }
@@ -2394,7 +2394,7 @@ internal enum Localizable {
         internal static var sendKey: String { return "send.label.send" }
 
         internal enum Error {
-          /// The asset is not valid
+          /// The token is not valid
           internal static var assetIsNotValid: String { return Localizable.tr("Waves", "send.label.error.assetIsNotValid") }
           internal static var assetIsNotValidKey: String { return "send.label.error.assetIsNotValid" }
           /// Insufficient funds
@@ -2418,7 +2418,7 @@ internal enum Localizable {
           internal static func notFundsFeeGateway(_ p1: String, _ p2: String) -> String {
             return Localizable.tr("Waves", "Send.Label.Error.notFundsFeeGateway", p1, p2)
           }
-          /// Sending funds to suspicious asset is not possible
+          /// Sending funds to suspicious token is not possible
           internal static var sendingToSpamAsset: String { return Localizable.tr("Waves", "send.label.error.sendingToSpamAsset") }
           internal static var sendingToSpamAssetKey: String { return "send.label.error.sendingToSpamAsset" }
         }
@@ -2776,10 +2776,10 @@ internal enum Localizable {
         /// Amount per transaction
         internal static var amountPerTransaction: String { return Localizable.tr("Waves", "transactioncard.title.amountPerTransaction") }
         internal static var amountPerTransactionKey: String { return "transactioncard.title.amountPerTransaction" }
-        /// Asset
+        /// Token
         internal static var asset: String { return Localizable.tr("Waves", "transactioncard.title.asset") }
         internal static var assetKey: String { return "transactioncard.title.asset" }
-        /// Asset ID
+        /// Token ID
         internal static var assetId: String { return Localizable.tr("Waves", "transactioncard.title.assetId") }
         internal static var assetIdKey: String { return "transactioncard.title.assetId" }
         /// Block
@@ -2833,9 +2833,6 @@ internal enum Localizable {
         /// Fee
         internal static var fee: String { return Localizable.tr("Waves", "transactioncard.title.fee") }
         internal static var feeKey: String { return "transactioncard.title.fee" }
-        /// Filled
-        internal static var filled: String { return Localizable.tr("Waves", "transactioncard.title.filled") }
-        internal static var filledKey: String { return "transactioncard.title.filled" }
         /// From
         internal static var from: String { return Localizable.tr("Waves", "transactioncard.title.from") }
         internal static var fromKey: String { return "transactioncard.title.from" }
@@ -3038,10 +3035,10 @@ internal enum Localizable {
       }
 
       internal enum Label {
-        /// To work with a scripted account/asset, use the Waves Client
+        /// To work with a scripted account/token, use the Waves Client
         internal static var subtitle: String { return Localizable.tr("Waves", "transactionScript.label.subtitle") }
         internal static var subtitleKey: String { return "transactionScript.label.subtitle" }
-        /// A script is installed on your account or asset
+        /// A script is installed on your account or token
         internal static var title: String { return Localizable.tr("Waves", "transactionScript.label.title") }
         internal static var titleKey: String { return "transactionScript.label.title" }
       }
@@ -3101,7 +3098,7 @@ internal enum Localizable {
         /// Leased in
         internal static var leasedIn: String { return Localizable.tr("Waves", "wallet.label.leasedIn") }
         internal static var leasedInKey: String { return "wallet.label.leasedIn" }
-        /// My Asset
+        /// My token
         internal static var myAssets: String { return Localizable.tr("Waves", "wallet.label.myAssets") }
         internal static var myAssetsKey: String { return "wallet.label.myAssets" }
         /// Started Leasing
@@ -3141,21 +3138,21 @@ internal enum Localizable {
         internal static func activeNow(_ p1: Int) -> String {
           return Localizable.tr("Waves", "wallet.section.activeNow", p1)
         }
-        /// Hidden assets (%d)
+        /// Hidden tokens (%d)
         internal static func hiddenAssets(_ p1: Int) -> String {
           return Localizable.tr("Waves", "wallet.section.hiddenAssets", p1)
         }
         /// Quick note
         internal static var quickNote: String { return Localizable.tr("Waves", "wallet.section.quickNote") }
         internal static var quickNoteKey: String { return "wallet.section.quickNote" }
-        /// Suspicious assets (%d)
+        /// Suspicious tokens (%d)
         internal static func spamAssets(_ p1: Int) -> String {
           return Localizable.tr("Waves", "wallet.section.spamAssets", p1)
         }
       }
 
       internal enum Segmentedcontrol {
-        /// Assets
+        /// Tokens
         internal static var assets: String { return Localizable.tr("Waves", "wallet.segmentedControl.assets") }
         internal static var assetsKey: String { return "wallet.segmentedControl.assets" }
         /// Leasing
@@ -3176,16 +3173,16 @@ internal enum Localizable {
       }
 
       internal enum Label {
-        /// Hidden assets
+        /// Hidden tokens
         internal static var hiddenAssets: String { return Localizable.tr("Waves", "walletsort.label.hiddenAssets") }
         internal static var hiddenAssetsKey: String { return "walletsort.label.hiddenAssets" }
-        /// The list of assets is empty
+        /// The list of tokens is empty
         internal static var listOfAssetsEmpty: String { return Localizable.tr("Waves", "walletsort.label.listOfAssetsEmpty") }
         internal static var listOfAssetsEmptyKey: String { return "walletsort.label.listOfAssetsEmpty" }
-        /// You do not added assets in favorites
+        /// You didn't add tokens in favorite
         internal static var notAddedAssetsInFavorites: String { return Localizable.tr("Waves", "walletsort.label.notAddedAssetsInFavorites") }
         internal static var notAddedAssetsInFavoritesKey: String { return "walletsort.label.notAddedAssetsInFavorites" }
-        /// You do not added assets in hidden
+        /// You didn't add tokens in hidden
         internal static var notAddedAssetsInHidden: String { return Localizable.tr("Waves", "walletsort.label.notAddedAssetsInHidden") }
         internal static var notAddedAssetsInHiddenKey: String { return "walletsort.label.notAddedAssetsInHidden" }
       }
