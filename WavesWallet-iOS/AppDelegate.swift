@@ -125,7 +125,7 @@ enum UITest {
                 self.appCoordinator.start()
             })
             .disposed(by: disposeBag)
-
+    
         return true
     }
 
