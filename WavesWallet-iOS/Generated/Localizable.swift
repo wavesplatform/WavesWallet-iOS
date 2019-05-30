@@ -17,24 +17,6 @@ internal enum Localizable {
     /// The camera is needed to scan QR codes
     internal static var nsPhotoLibraryAddUsageDescription: String { return Localizable.tr("InfoPlist", "NSPhotoLibraryAddUsageDescription") }
     internal static var nsPhotoLibraryAddUsageDescriptionKey: String { return "NSPhotoLibraryAddUsageDescription" }
-
-    internal enum Cameraaccess {
-
-      internal enum Alert {
-        /// Allow Camera
-        internal static var allow: String { return Localizable.tr("InfoPlist", "cameraAccess.alert.allow") }
-        internal static var allowKey: String { return "cameraAccess.alert.allow" }
-        /// Cancel
-        internal static var cancel: String { return Localizable.tr("InfoPlist", "cameraAccess.alert.cancel") }
-        internal static var cancelKey: String { return "cameraAccess.alert.cancel" }
-        /// Camera access is required to make full use of this app
-        internal static var message: String { return Localizable.tr("InfoPlist", "cameraAccess.alert.message") }
-        internal static var messageKey: String { return "cameraAccess.alert.message" }
-        /// Need Camera Access
-        internal static var title: String { return Localizable.tr("InfoPlist", "cameraAccess.alert.title") }
-        internal static var titleKey: String { return "cameraAccess.alert.title" }
-      }
-    }
   }
           internal enum Waves {
 
@@ -522,6 +504,24 @@ internal enum Localizable {
         /// Too many attempts
         internal static var title: String { return Localizable.tr("Waves", "biometric.manyattempts.title") }
         internal static var titleKey: String { return "biometric.manyattempts.title" }
+      }
+    }
+
+    internal enum Cameraaccess {
+
+      internal enum Alert {
+        /// Allow Camera
+        internal static var allow: String { return Localizable.tr("Waves", "cameraAccess.alert.allow") }
+        internal static var allowKey: String { return "cameraAccess.alert.allow" }
+        /// Cancel
+        internal static var cancel: String { return Localizable.tr("Waves", "cameraAccess.alert.cancel") }
+        internal static var cancelKey: String { return "cameraAccess.alert.cancel" }
+        /// Camera access is required to make full use of this app
+        internal static var message: String { return Localizable.tr("Waves", "cameraAccess.alert.message") }
+        internal static var messageKey: String { return "cameraAccess.alert.message" }
+        /// Need Camera Access
+        internal static var title: String { return Localizable.tr("Waves", "cameraAccess.alert.title") }
+        internal static var titleKey: String { return "cameraAccess.alert.title" }
       }
     }
 
@@ -1475,12 +1475,6 @@ internal enum Localizable {
           /// Sent
           internal static var sent: String { return Localizable.tr("Waves", "history.transaction.title.sent") }
           internal static var sentKey: String { return "history.transaction.title.sent" }
-          /// Entry in blockchain
-          internal static var setAssetScript: String { return Localizable.tr("Waves", "history.transaction.title.setAssetScript") }
-          internal static var setAssetScriptKey: String { return "history.transaction.title.setAssetScript" }
-          /// Entry in blockchain
-          internal static var setScript: String { return Localizable.tr("Waves", "history.transaction.title.setScript") }
-          internal static var setScriptKey: String { return "history.transaction.title.setScript" }
           /// Started Leasing
           internal static var startedLeasing: String { return Localizable.tr("Waves", "history.transaction.title.startedLeasing") }
           internal static var startedLeasingKey: String { return "history.transaction.title.startedLeasing" }
@@ -1499,9 +1493,6 @@ internal enum Localizable {
         }
 
         internal enum Value {
-          /// Entry in blockchain
-          internal static var data: String { return Localizable.tr("Waves", "history.transaction.value.data") }
-          internal static var dataKey: String { return "history.transaction.value.data" }
           /// Script Invocation
           internal static var scriptInvocation: String { return Localizable.tr("Waves", "history.transaction.value.scriptInvocation") }
           internal static var scriptInvocationKey: String { return "history.transaction.value.scriptInvocation" }
@@ -2833,6 +2824,9 @@ internal enum Localizable {
         /// Fee
         internal static var fee: String { return Localizable.tr("Waves", "transactioncard.title.fee") }
         internal static var feeKey: String { return "transactioncard.title.fee" }
+        /// Filled
+        internal static var filled: String { return Localizable.tr("Waves", "transactioncard.title.filled") }
+        internal static var filledKey: String { return "transactioncard.title.filled" }
         /// From
         internal static var from: String { return Localizable.tr("Waves", "transactioncard.title.from") }
         internal static var fromKey: String { return "transactioncard.title.from" }
