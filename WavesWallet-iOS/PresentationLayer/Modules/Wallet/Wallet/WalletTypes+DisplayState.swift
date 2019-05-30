@@ -163,7 +163,8 @@ extension WalletTypes.DisplayState.Display {
         var section: WalletTypes.ViewModel.Section!
         if kind == .assets {
             section = WalletTypes.ViewModel.Section(kind: .skeleton,
-                                                    items: [.assetSkeleton,
+                                                    items: [.emptySegmented,
+                                                            .assetSkeleton,
                                                             .assetSkeleton,
                                                             .assetSkeleton,
                                                             .assetSkeleton,
@@ -171,7 +172,8 @@ extension WalletTypes.DisplayState.Display {
                                                     isExpanded: true)
         } else {
             section = WalletTypes.ViewModel.Section(kind: .skeleton,
-                                                    items: [.balanceSkeleton,
+                                                    items: [.emptySegmented,
+                                                            .balanceSkeleton,
                                                             .historySkeleton],
                                                     isExpanded: true)
         }
