@@ -74,6 +74,7 @@ enum UITest {
         if let path = Bundle.main.path(forResource: "Amplitude-Info", ofType: "plist"),
             let apiKey = NSDictionary(contentsOfFile: path)?["API_KEY"] as? String {
             Amplitude.instance()?.initializeApiKey(apiKey)
+            Amplitude.instance()?.setDeviceId(UIDevice.uuid)
         }
         
         IQKeyboardManager.shared.enable = true
