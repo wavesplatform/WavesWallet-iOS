@@ -92,16 +92,16 @@ extension WalletDisplayData: UITableViewDataSource {
     
         switch item {
         case .historySkeleton:
-            return tableView.dequeueCell() as WalletHistorySkeletonCell
+            return tableView.dequeueAndRegisterCell() as WalletHistorySkeletonCell
 
         case .balanceSkeleton:
-            return tableView.dequeueCell() as WalletLeasingBalanceSkeletonCell
+            return tableView.dequeueAndRegisterCell() as WalletLeasingBalanceSkeletonCell
 
         case .assetSkeleton:
-            return tableView.dequeueCell() as WalletAssetSkeletonCell
+            return tableView.dequeueAndRegisterCell() as WalletAssetSkeletonCell
 
         case .balance(let balance):
-            let cell: WalletLeasingBalanceCell = tableView.dequeueCell()
+            let cell: WalletLeasingBalanceCell = tableView.dequeueAndRegisterCell()
             cell.update(with: balance)
             cell.delegate = balanceCellDelegate
             return cell
@@ -120,12 +120,12 @@ extension WalletDisplayData: UITableViewDataSource {
             return tableView.dequeueAndRegisterCell() as EmptyCell
 
         case .asset(let model):
-            let cell: WalletTableAssetsCell = tableView.dequeueCell()
+            let cell: WalletTableAssetsCell = tableView.dequeueAndRegisterCell()
             cell.update(with: model)
             return cell
 
         case .quickNote:
-            let cell = tableView.dequeueCell() as WalletQuickNoteCell
+            let cell = tableView.dequeueAndRegisterCell() as WalletQuickNoteCell
             cell.setupLocalization()
             return cell
         }
