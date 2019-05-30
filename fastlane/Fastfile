@@ -82,7 +82,7 @@ platform :ios do
 
     ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Dev.plist"
     ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Dev.plist"
-    ENV['URL_AMPLITUDE'] = "#{ENV['URL_ROOT_CONFIG']}/Amplitude-Info-Prod.plist"
+    ENV['URL_AMPLITUDE'] = "#{ENV['URL_ROOT_CONFIG']}/Amplitude-Info-Dev.plist"
     ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
     ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
     ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
@@ -170,6 +170,12 @@ platform :ios do
 
   lane :dev_install do
     dev_enviroment
+    download_certificates
+    download_resources
+  end
+
+  lane :prod_install do
+    prod_enviroment
     download_certificates
     download_resources
   end
@@ -265,7 +271,7 @@ platform :ios do
     sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_SENTRY_IO']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Sentry-io-Info.plist")
 
     sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Amplitude-Info.plist")
-    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_SENTRY_IO']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Amplitude-Info.plist")
+    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_AMPLITUDE']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Amplitude-Info.plist")
   end
 
   lane :download_bundle_enviroments do
