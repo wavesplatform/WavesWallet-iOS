@@ -112,5 +112,7 @@ final class FactoryInteractors: FactoryInteractorsProtocol {
         return MigrationInteractor(walletsRepository: instance.walletsRepositoryLocal)
     }()
     
+    var applicationVersionUseCase: ApplicationVersionUseCase = ApplicationVersionUseCase()
+    
     fileprivate init() {}
 }
