@@ -43,6 +43,12 @@
       "code": "es"
   },
   {
+      "title": "Français",
+      "icon": "flag18France",
+      "code": "fr-FR",
+      "titleCode": "FR"
+  },
+  {
       "title": "Português",
       "icon": "flag18Portugal",
       "code": "pt-PT",
