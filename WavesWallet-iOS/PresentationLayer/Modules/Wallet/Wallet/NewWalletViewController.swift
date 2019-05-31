@@ -58,7 +58,7 @@ final class NewWalletViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        displayData = NewWalletDisplayData(scrolledTablesComponent: scrolledTablesComponent, displays: displays)
+        displayData = NewWalletDisplayData(scrolledTablesComponent: scrolledTablesComponent)
         
         scrolledTablesComponent.scrollViewDelegate = self
         scrolledTablesComponent.containerViewDelegate = self

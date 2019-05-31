@@ -23,10 +23,8 @@ protocol NewWalletDisplayDataDelegate: AnyObject {
 
 final class NewWalletDisplayData: NSObject {
     private typealias Section = WalletTypes.ViewModel.Section
-//    private var sections: [Section] = []
     private var assetsSections: [Section] = []
     private var leasingSections: [Section] = []
-    private var displays: [WalletTypes.DisplayState.Kind] = []
     
     private weak var scrolledTablesComponent: ScrolledContainerView!
 
@@ -36,10 +34,9 @@ final class NewWalletDisplayData: NSObject {
     let tapSection: PublishRelay<Int> = PublishRelay<Int>()
     var completedReload: (() -> Void)?
 
-    init(scrolledTablesComponent: ScrolledContainerView, displays: [WalletTypes.DisplayState.Kind]) {
+    init(scrolledTablesComponent: ScrolledContainerView) {
         super.init()
         self.scrolledTablesComponent = scrolledTablesComponent
-        self.displays = displays
     }
 
     func apply(assetsSections: [WalletTypes.ViewModel.Section], leasingSections: [WalletTypes.ViewModel.Section], animateType: WalletTypes.DisplayState.ContentAction, completed: @escaping (() -> Void)) {
@@ -77,7 +74,9 @@ final class NewWalletDisplayData: NSObject {
             self.scrolledTablesComponent.visibleTableView.beginUpdates()
             self.scrolledTablesComponent.visibleTableView.reloadSections([index], with: .fade)
             DispatchQueue.main.async {
-                self.scrolledTablesComponent.visibleTableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .middle, animated: true)
+                #warning("bug with incorrect contentOffset after scrolling")
+                let indexPath = IndexPath(row: 0, section: index)
+                self.scrolledTablesComponent.visibleTableView.scrollToRow(at: indexPath, at: .middle, animated: true)
             }
             self.scrolledTablesComponent.visibleTableView.endUpdates()
             
