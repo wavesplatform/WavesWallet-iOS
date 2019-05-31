@@ -325,16 +325,27 @@
                                                     <rect key="frame" x="0.0" y="24" width="375" height="44"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uf5-kA-8PZ" customClass="GradientView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                    <rect key="frame" x="327" y="24" width="48" height="44"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="48" id="ro5-DO-HNV"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="Uf5-kA-8PZ" firstAttribute="height" secondItem="gf6-Ho-cJ8" secondAttribute="height" id="4vT-1u-sut"/>
                                                 <constraint firstItem="gf6-Ho-cJ8" firstAttribute="top" secondItem="Uuw-70-ijH" secondAttribute="top" constant="24" id="bWb-Ko-MkG"/>
+                                                <constraint firstItem="Uf5-kA-8PZ" firstAttribute="centerY" secondItem="gf6-Ho-cJ8" secondAttribute="centerY" id="cQQ-pq-rKN"/>
                                                 <constraint firstAttribute="bottom" secondItem="gf6-Ho-cJ8" secondAttribute="bottom" constant="24" id="hLx-JA-aae"/>
                                                 <constraint firstAttribute="trailing" secondItem="gf6-Ho-cJ8" secondAttribute="trailing" id="jkk-dG-aOr"/>
                                                 <constraint firstItem="gf6-Ho-cJ8" firstAttribute="leading" secondItem="Uuw-70-ijH" secondAttribute="leading" id="nPw-gI-f4d"/>
+                                                <constraint firstAttribute="trailing" secondItem="Uf5-kA-8PZ" secondAttribute="trailing" id="yMH-rp-YWm"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="actionsControl" destination="gf6-Ho-cJ8" id="aqw-bM-edf"/>
+                                            <outlet property="gradientView" destination="Uf5-kA-8PZ" id="HkE-Pg-IU2"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardDashedLineCell" rowHeight="300" id="QOH-0C-AQh" customClass="TransactionCardDashedLineCell" customModule="WavesWallet_iOS" customModuleProvider="target">

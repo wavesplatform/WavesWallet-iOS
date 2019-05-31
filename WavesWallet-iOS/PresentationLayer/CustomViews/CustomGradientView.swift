@@ -8,6 +8,7 @@
 
 import UIKit
 
+//TODO: Remove class. Need use GradientView
 @IBDesignable
 class CustomGradientView: UIView {
     
