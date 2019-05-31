@@ -77,7 +77,7 @@ final class NewWalletViewController: UIViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideTopBarLine()

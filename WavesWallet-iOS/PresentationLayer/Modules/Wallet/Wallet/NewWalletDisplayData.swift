@@ -47,6 +47,7 @@ final class NewWalletDisplayData: NSObject {
         CATransaction.begin()
         CATransaction.setCompletionBlock {
             completed()
+
         }
         
         switch animateType {
@@ -70,14 +71,9 @@ final class NewWalletDisplayData: NSObject {
             self.scrolledTablesComponent.visibleTableView.endUpdates()
             
         case .expanded(let index):
-
+            
             self.scrolledTablesComponent.visibleTableView.beginUpdates()
             self.scrolledTablesComponent.visibleTableView.reloadSections([index], with: .fade)
-            DispatchQueue.main.async {
-                #warning("bug with incorrect contentOffset after scrolling")
-                let indexPath = IndexPath(row: 0, section: index)
-                self.scrolledTablesComponent.visibleTableView.scrollToRow(at: indexPath, at: .middle, animated: true)
-            }
             self.scrolledTablesComponent.visibleTableView.endUpdates()
             
         default:
