@@ -17,6 +17,7 @@ extension GitHub {
 }
 
 private enum Constants {
+
     
     static let urlEnvironmentMainNet: URL = URL(string: "https://raw.githubusercontent.com//wavesplatform/waves-client-config/mobile/v2.3/environment_mainnet.json")!
     
@@ -39,6 +40,8 @@ private enum Constants {
     static let urlApplicationNewsProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/mobile/v2.3/notifications_ios.json")!
     
     static let urlVersionIosProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/master/version_ios.json")!
+
+    static let urlApplicationNewsDebug: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.3/notifications_test_ios.json")!
 }
 
 extension GitHub.Service {
@@ -64,7 +67,7 @@ extension GitHub.Service {
          Response:
          - ?
          */
-        case get(hasProxy: Bool)
+        case get(isDebug: Bool, hasProxy: Bool)
     }
     
     enum ApplicationVersion {
@@ -170,11 +173,16 @@ extension GitHub.Service.ApplicationNews: TargetType {
 
     var baseURL: URL {
         switch self {
-        case .get(let hasProxy):
-            if hasProxy {
-                return Constants.urlApplicationNewsProxy
+        case .get(let isDebug, let hasProxy):
+            
+            if isDebug {
+                return Constants.urlApplicationNewsDebug
             } else {
-                return Constants.urlApplicationNews
+                if hasProxy {
+                    return Constants.urlApplicationNewsProxy
+                } else {
+                    return Constants.urlApplicationNews
+                }
             }
         }
     }
@@ -201,4 +209,40 @@ extension GitHub.Service.ApplicationNews: TargetType {
         }
     }
 
+}
+
+extension GitHub.Service.ApplicationVersion: TargetType {
+    var sampleData: Data {
+        return Data()
+    }
+    
+    var baseURL: URL {
+        switch self {
+        case .get:
+            return Constants.urlVersionIos
+        }
+    }
+    
+    var path: String {
+        return ""
+    }
+    
+    var headers: [String: String]? {
+        return ContentType.applicationJson.headers
+    }
+    
+    var method: Moya.Method {
+        switch self {
+        case .get:
+            return .get
+        }
+    }
+    
+    var task: Task {
+        switch self {
+        case .get:
+            return .requestPlain
+        }
+    }
+    
 }

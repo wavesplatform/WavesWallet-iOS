@@ -538,6 +538,9 @@
 		7B951135225CDAA90030390C /* CGSize+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951134225CDAA80030390C /* CGSize+Hashable.swift */; };
 		7B951137225CF7A00030390C /* Reachability+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951136225CF7A00030390C /* Reachability+Shared.swift */; };
 		7B95115F225F7BA80030390C /* DateFormatter+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B95115E225F7BA80030390C /* DateFormatter+UI.swift */; };
+		7BAA9F7B22A032DF003B6D01 /* ApplicationVersionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F7A22A032DE003B6D01 /* ApplicationVersionUseCase.swift */; };
+		7BAA9F7D22A03329003B6D01 /* ApplicationVersionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F7C22A03329003B6D01 /* ApplicationVersionRepository.swift */; };
+		7BAA9F7F22A03361003B6D01 /* ApplicationVersionRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F7E22A03361003B6D01 /* ApplicationVersionRepositoryProtocol.swift */; };
 		7BBDA0B62226CA5C00A83411 /* NodePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBDA0B52226CA5C00A83411 /* NodePlugin.swift */; };
 		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
 		7BD2FD35223C5E1F0098CFB9 /* TransactionCardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */; };
@@ -1431,6 +1434,8 @@
 		3780CE9B95DA4BD90D83FC04 /* Pods-WavesWallet-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		39E7B5DDD0BC308CCE651F05 /* Pods-MonkeyTest.test-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.test-adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.test-adhoc.xcconfig"; sourceTree = "<group>"; };
 		621D6D45B8A2773F670A4883 /* Pods-WavesWallet-iOS.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.adhoc.xcconfig"; sourceTree = "<group>"; };
+		7B32A903229EEFB0004789E7 /* fr-FR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-FR"; path = "fr-FR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		7B32A904229EEFB1004789E7 /* fr-FR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-FR"; path = "fr-FR.lproj/Waves.strings"; sourceTree = "<group>"; };
 		7B39029422366B8E00AAFDB8 /* TransactionCardAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardAddressCell.swift; sourceTree = "<group>"; };
 		7B39029622366D0100AAFDB8 /* AddressBookButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookButton.swift; sourceTree = "<group>"; };
 		7B390298223698D300AAFDB8 /* TransactionCardKeyValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardKeyValueCell.swift; sourceTree = "<group>"; };
@@ -1479,6 +1484,9 @@
 		7B951134225CDAA80030390C /* CGSize+Hashable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Hashable.swift"; sourceTree = "<group>"; };
 		7B951136225CF7A00030390C /* Reachability+Shared.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Reachability+Shared.swift"; sourceTree = "<group>"; };
 		7B95115E225F7BA80030390C /* DateFormatter+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+UI.swift"; sourceTree = "<group>"; };
+		7BAA9F7A22A032DE003B6D01 /* ApplicationVersionUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationVersionUseCase.swift; sourceTree = "<group>"; };
+		7BAA9F7C22A03329003B6D01 /* ApplicationVersionRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationVersionRepository.swift; sourceTree = "<group>"; };
+		7BAA9F7E22A03361003B6D01 /* ApplicationVersionRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationVersionRepositoryProtocol.swift; sourceTree = "<group>"; };
 		7BBDA0B52226CA5C00A83411 /* NodePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodePlugin.swift; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
 		7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardCoordinator.swift; sourceTree = "<group>"; };
@@ -2118,6 +2126,7 @@
 		0A1DAD6320F395E7004DA625 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
+				7BAA9F7A22A032DE003B6D01 /* ApplicationVersionUseCase.swift */,
 				0A6CCD3C20F4CF490023E36E /* AccountBalanceInteractor.swift */,
 				0ABD1BE521469CE70027A7A2 /* AddressInteractor.swift */,
 				0AF0C67121A97C4700602197 /* AliasesInteractor.swift */,
@@ -2761,6 +2770,7 @@
 		0A979775210A19B400407F67 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				7BAA9F7C22A03329003B6D01 /* ApplicationVersionRepository.swift */,
 				0A88CC07217D281F0083874C /* AccountEnvironmentRepository.swift */,
 				0ADD803F21F5D2DD0075FC59 /* AddressRepositoryRemote.swift */,
 				0AF2536421B6C2F900B8F7DF /* AssetsBalanceSettingsRepositoryLocal.swift */,
@@ -3064,6 +3074,7 @@
 		0AEB358A2115DB1D00EDD63C /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				7BAA9F7E22A03361003B6D01 /* ApplicationVersionRepositoryProtocol.swift */,
 				0A00B184221AE325005A9053 /* AssetsBalanceSettingsRepositoryProtocol.swift */,
 				0A88CC03217D27370083874C /* AccountSettingsRepositoryProtocol.swift */,
 				0A84F00021F4BBA000C0B7DB /* AddressRepositoryProtocol.swift */,
@@ -4902,6 +4913,7 @@
 				"nl-NL",
 				"hi-IN",
 				"zh-Hans-CN",
+				"fr-FR",
 			);
 			mainGroup = F7E954DB1EA8FE0600A804DE;
 			productRefGroup = F7E954E51EA8FE0700A804DE /* Products */;
@@ -5293,6 +5305,7 @@
 				0A5E4BD1213820C500E3C3C3 /* LeaseTransactionDomainDTO.swift in Sources */,
 				E9D0ED88225CBDEA0098C234 /* InvokeScriptTransactionDomainDTO.swift in Sources */,
 				0A5E4BCE213820C500E3C3C3 /* ExchangeTransactionDomainDTO.swift in Sources */,
+				7BAA9F7F22A03361003B6D01 /* ApplicationVersionRepositoryProtocol.swift in Sources */,
 				0A5E4BCC213820C500E3C3C3 /* IssueTransactionDomainDTO.swift in Sources */,
 				0A5E4BD2213820C500E3C3C3 /* AnyTransactionDomainDTO.swift in Sources */,
 				04831F7B216917EF006D1ED6 /* SmartTransactionDomainDTO.swift in Sources */,
@@ -5498,6 +5511,7 @@
 				0A14E3E62187185700EA7E91 /* AliasesViewModuleBuilder.swift in Sources */,
 				7BDA6ADD222E95C8001DE71C /* TransactionCardView.swift in Sources */,
 				7BBDA0B62226CA5C00A83411 /* NodePlugin.swift in Sources */,
+				7BAA9F7D22A03329003B6D01 /* ApplicationVersionRepository.swift in Sources */,
 				0AF921F5212E07B3003BA067 /* AssetDetailCell.swift in Sources */,
 				E9B087EE2163886800937644 /* DexLastTradesPresenter.swift in Sources */,
 				E9D36DDC2175C755001E6DF0 /* ReceiveCardCompleteViewController.swift in Sources */,
@@ -5832,6 +5846,7 @@
 				0ADC17A02204A24C00472130 /* ModalScrollViewController.swift in Sources */,
 				0AF922E6212E1234003BA067 /* HalfModalTransitioningDelegate.swift in Sources */,
 				E9FE4D7820EA767B00208F29 /* SaveBackupPhraseViewController.swift in Sources */,
+				7BAA9F7B22A032DF003B6D01 /* ApplicationVersionUseCase.swift in Sources */,
 				0AF921FA212E07B3003BA067 /* AssetBalanceMoneyInfoView.swift in Sources */,
 				0AF92203212E07B3003BA067 /* AssetBalanceSkeletonCell.swift in Sources */,
 				0ADD802121F22FFA0075FC59 /* NavigationRouter.swift in Sources */,
@@ -6117,6 +6132,7 @@
 				7B95110F225CC2CF0030390C /* nl-NL */,
 				7B951111225CC2E60030390C /* hi-IN */,
 				7B951113225CC32C0030390C /* zh-Hans-CN */,
+				7B32A904229EEFB1004789E7 /* fr-FR */,
 			);
 			name = Waves.strings;
 			sourceTree = "<group>";
@@ -6139,6 +6155,7 @@
 				7B95110E225CC2CF0030390C /* nl-NL */,
 				7B951110225CC2E60030390C /* hi-IN */,
 				7B951112225CC32B0030390C /* zh-Hans-CN */,
+				7B32A903229EEFB0004789E7 /* fr-FR */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -6210,7 +6227,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3827;
+				CURRENT_PROJECT_VERSION = 3830;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -6297,7 +6314,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3827;
+				CURRENT_PROJECT_VERSION = 3830;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -6539,7 +6556,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3827;
+				CURRENT_PROJECT_VERSION = 3830;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -6572,7 +6589,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3827;
+				CURRENT_PROJECT_VERSION = 3830;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
