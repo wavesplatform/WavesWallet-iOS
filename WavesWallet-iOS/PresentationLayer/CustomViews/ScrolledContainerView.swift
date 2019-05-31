@@ -6,8 +6,6 @@
 //  Copyright © 2019 Pavel Gubin. All rights reserved.
 //
 
-#warning("bug with segmendtedControl position on swipe when refresh is animating")
-#warning("Прыгающий navigation bar (при переходе на маленький navBar и обратно)")
 #warning("Установка view после инициализации")
 
 import UIKit
@@ -43,7 +41,6 @@ protocol ScrolledContainerViewProtocol {
     var visibleTableView: UITableView { get }
     
     var smallTopOffset: CGFloat { get }
-    
 }
 
 @objc protocol ScrolledContainerViewDelegate: AnyObject {
@@ -84,8 +81,16 @@ final class ScrolledContainerView: UIScrollView {
         
         refreshControl = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: Constants.refreshSize, height: Constants.refreshSize))
         segmentedControl.segmentedDelegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
   
+    @objc private func didEnterBackground() {
+        if isSmallNavBar {
+            firstAvailableViewController().setupSmallNavigationBar()
+        }
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -111,7 +116,7 @@ final class ScrolledContainerView: UIScrollView {
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         segmentedControl.frame = .init(x: 0, y: topSegmentOffset, width: frame.size.width, height: Constants.segmentedHeight)
-        segmentedControl.backgroundColor = UIColor.init(red: 248/255, green: 249/255, blue: 251/255, alpha: 1)
+        segmentedControl.backgroundColor = superview?.backgroundColor
         superview?.addSubview(segmentedControl)
     }
 }
@@ -261,6 +266,7 @@ extension ScrolledContainerView: UIScrollViewDelegate {
         if scrollView.contentOffset.y < -smallTopOffset {
             firstAvailableViewController().setupBigNavigationBar()
         }
+        
         
         let table = visibleTableView
         if scrollView.contentOffset.y > 0 {
@@ -422,6 +428,7 @@ private extension ScrolledContainerView {
     var bigTopOffset: CGFloat {
         return Constants.bigNavBarHeight + navigationBarOriginY
     }
+    
     
     var isSmallNavBar: Bool {
         if let nav = firstAvailableViewController().navigationController {
