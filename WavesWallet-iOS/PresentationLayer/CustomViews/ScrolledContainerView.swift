@@ -252,6 +252,8 @@ extension ScrolledContainerView: UIScrollViewDelegate {
    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
+        segmentedControl.frame.origin.y = topSegmentOffset
+
         if isAnimationTable {
             return
         }
@@ -274,7 +276,6 @@ extension ScrolledContainerView: UIScrollViewDelegate {
             contentSize.height = table.contentSize.height
         }
         
-        segmentedControl.frame.origin.y = topSegmentOffset
         updateSegmentedShadow()
         
         scrollViewDelegate?.scrollViewDidScroll?(scrollView)
