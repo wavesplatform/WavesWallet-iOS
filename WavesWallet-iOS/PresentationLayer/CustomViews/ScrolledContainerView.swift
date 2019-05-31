@@ -116,7 +116,7 @@ final class ScrolledContainerView: UIScrollView {
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         segmentedControl.frame = .init(x: 0, y: topSegmentOffset, width: frame.size.width, height: Constants.segmentedHeight)
-        segmentedControl.backgroundColor = superview?.backgroundColor
+        segmentedControl.backgroundColor = .basic50
         superview?.addSubview(segmentedControl)
     }
 }
