@@ -15,10 +15,9 @@ final class CustomNavigationBar: UINavigationBar {
     override func layoutSubviews() {
         super.layoutSubviews()
         if let view = subviews.first {
-            if let visualEffectView = view.subviews.last as? UIVisualEffectView {
-                if let color = backgroundColor {
-                    visualEffectView.subviews.last?.backgroundColor = color
-                }
+            if let color = backgroundColor {
+                view.alpha = 1
+                view.backgroundColor = color
             }
         }
     }
