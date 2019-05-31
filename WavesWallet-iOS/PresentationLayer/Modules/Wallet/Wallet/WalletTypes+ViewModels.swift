@@ -13,6 +13,7 @@ import Foundation
 extension WalletTypes.ViewModel {
     enum Row {
         case emptySegmented
+        case search
         case hidden
         case asset(DomainLayer.DTO.SmartAssetBalance)
         case assetSkeleton
@@ -28,6 +29,7 @@ extension WalletTypes.ViewModel {
 
         enum Kind {
             case segmented
+            case search
             case skeleton
             case balance
             case transactions(count: Int)
@@ -66,13 +68,10 @@ extension WalletTypes.ViewModel.Row {
 extension WalletTypes.ViewModel.Section {
 
     static func map(from assets: [DomainLayer.DTO.SmartAssetBalance]) -> [WalletTypes.ViewModel.Section] {
-        var generalItems = assets
+        let generalItems = assets
             .filter { $0.asset.isSpam != true && $0.settings.isHidden != true }
             .map { WalletTypes.ViewModel.Row.asset($0) }
 
-
-        generalItems.insert(.emptySegmented, at: 0)
-        
         let generalSection: WalletTypes.ViewModel.Section = .init(kind: .general,
                                                                   items: generalItems,
                                                                   isExpanded: true)
@@ -85,6 +84,8 @@ extension WalletTypes.ViewModel.Section {
             .map { WalletTypes.ViewModel.Row.asset($0) }
 
         var sections: [WalletTypes.ViewModel.Section] = [WalletTypes.ViewModel.Section]()
+        sections.append(.init(kind: .segmented, items: [.emptySegmented], isExpanded: true))
+        sections.append(.init(kind: .search, items: [.search], isExpanded: true))
         sections.append(generalSection)
 
         if hiddenItems.count > 0 {
@@ -106,11 +107,12 @@ extension WalletTypes.ViewModel.Section {
 
     static func map(from leasing: WalletTypes.DTO.Leasing) -> [WalletTypes.ViewModel.Section] {
         var sections: [WalletTypes.ViewModel.Section] = []
+        sections.append(.init(kind: .segmented, items: [.emptySegmented], isExpanded: true))
 
         let balanceRow = WalletTypes.ViewModel.Row.balance(leasing.balance)
         let historyRow = WalletTypes.ViewModel.Row.allHistory
         let mainSection: WalletTypes.ViewModel.Section = .init(kind: .balance,
-                                                               items: [.emptySegmented, balanceRow, historyRow],
+                                                               items: [balanceRow, historyRow],
                                                                isExpanded: true)
         sections.append(mainSection)
         if leasing.transactions.count > 0 {

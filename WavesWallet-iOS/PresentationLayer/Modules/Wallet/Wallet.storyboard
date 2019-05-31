@@ -75,6 +75,111 @@
             </objects>
             <point key="canvasLocation" x="-2292" y="-226.23688155922042"/>
         </scene>
+        <!--Wallet Search View Controller-->
+        <scene sceneID="WfG-aF-iag">
+            <objects>
+                <viewController storyboardIdentifier="WalletSearchViewController" id="U1L-Tr-bv8" customClass="WalletSearchViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wOo-tk-Klb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OFc-Rb-M50">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D50-as-rFk">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NA9-sN-NmI">
+                                                <rect key="frame" x="16" y="4" width="283" height="36"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="cuQ-nl-b5j">
+                                                        <rect key="frame" x="0.0" y="0.0" width="283" height="36"/>
+                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.92941176469999998" green="0.94117647059999998" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="cuQ-nl-b5j" firstAttribute="leading" secondItem="NA9-sN-NmI" secondAttribute="leading" id="Gtg-E3-iGF"/>
+                                                    <constraint firstAttribute="height" constant="36" id="Nen-px-gdq"/>
+                                                    <constraint firstAttribute="bottom" secondItem="cuQ-nl-b5j" secondAttribute="bottom" id="bsZ-zO-uwT"/>
+                                                    <constraint firstItem="cuQ-nl-b5j" firstAttribute="top" secondItem="NA9-sN-NmI" secondAttribute="top" id="ltG-Bv-W27"/>
+                                                    <constraint firstAttribute="trailing" secondItem="cuQ-nl-b5j" secondAttribute="trailing" id="mCt-FS-3Z4"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="4"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rse-Ns-OgP">
+                                                <rect key="frame" x="315" y="5.5" width="60" height="33"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="60" id="Qv6-US-ekc"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <state key="normal" title="Cancel">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="cancelTapped:" destination="U1L-Tr-bv8" eventType="touchUpInside" id="Szo-x5-XDv"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="56" id="8tp-7E-jhJ"/>
+                                            <constraint firstItem="NA9-sN-NmI" firstAttribute="top" secondItem="D50-as-rFk" secondAttribute="top" constant="4" id="Cib-5w-JAj"/>
+                                            <constraint firstItem="Rse-Ns-OgP" firstAttribute="centerY" secondItem="cuQ-nl-b5j" secondAttribute="centerY" id="U08-sk-oIs"/>
+                                            <constraint firstItem="NA9-sN-NmI" firstAttribute="leading" secondItem="D50-as-rFk" secondAttribute="leading" constant="16" id="i5X-TD-rYd"/>
+                                            <constraint firstItem="Rse-Ns-OgP" firstAttribute="leading" secondItem="NA9-sN-NmI" secondAttribute="trailing" constant="16" id="q9Y-dx-xMl"/>
+                                            <constraint firstAttribute="trailing" secondItem="Rse-Ns-OgP" secondAttribute="trailing" id="sDU-eo-wmC"/>
+                                        </constraints>
+                                    </view>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9cn-6d-a5q">
+                                        <rect key="frame" x="0.0" y="56" width="375" height="591"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="U1L-Tr-bv8" id="VZj-Qm-F9e"/>
+                                            <outlet property="delegate" destination="U1L-Tr-bv8" id="onF-md-cFy"/>
+                                        </connections>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="9cn-6d-a5q" firstAttribute="leading" secondItem="OFc-Rb-M50" secondAttribute="leading" id="3ya-1P-IUZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="9cn-6d-a5q" secondAttribute="trailing" id="55W-6h-uoN"/>
+                                    <constraint firstItem="D50-as-rFk" firstAttribute="top" secondItem="OFc-Rb-M50" secondAttribute="top" id="8TW-zW-ufK"/>
+                                    <constraint firstAttribute="trailing" secondItem="D50-as-rFk" secondAttribute="trailing" id="V0y-Rf-aeC"/>
+                                    <constraint firstAttribute="bottom" secondItem="9cn-6d-a5q" secondAttribute="bottom" id="nOw-BA-BOj"/>
+                                    <constraint firstItem="D50-as-rFk" firstAttribute="leading" secondItem="OFc-Rb-M50" secondAttribute="leading" id="wDX-s5-8uf"/>
+                                    <constraint firstItem="9cn-6d-a5q" firstAttribute="top" secondItem="D50-as-rFk" secondAttribute="bottom" id="yyi-M9-4yb"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="OFc-Rb-M50" secondAttribute="bottom" id="FZJ-ot-j3w"/>
+                            <constraint firstItem="OFc-Rb-M50" firstAttribute="leading" secondItem="wOo-tk-Klb" secondAttribute="leading" id="N1a-8M-A80"/>
+                            <constraint firstItem="OFc-Rb-M50" firstAttribute="top" secondItem="P2I-51-jbO" secondAttribute="top" id="SG2-FM-4uL"/>
+                            <constraint firstItem="P2I-51-jbO" firstAttribute="trailing" secondItem="OFc-Rb-M50" secondAttribute="trailing" id="UGz-vO-WyM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="P2I-51-jbO"/>
+                    </view>
+                    <connections>
+                        <outlet property="buttonCancel" destination="Rse-Ns-OgP" id="NUe-v2-Tv9"/>
+                        <outlet property="buttonCancelPosition" destination="sDU-eo-wmC" id="GLQ-5c-TWY"/>
+                        <outlet property="buttonCancelWidth" destination="Qv6-US-ekc" id="MPd-7C-XDL"/>
+                        <outlet property="tableView" destination="9cn-6d-a5q" id="AGR-eA-xF3"/>
+                        <outlet property="textFieldSearch" destination="cuQ-nl-b5j" id="ZmX-aU-jHE"/>
+                        <outlet property="viewContainer" destination="OFc-Rb-M50" id="PZ6-u2-vSd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iDg-yc-HaI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2287.1999999999998" y="463.71814092953525"/>
+        </scene>
         <!--New Wallet View Controller-->
         <scene sceneID="3sz-9F-DHT">
             <objects>

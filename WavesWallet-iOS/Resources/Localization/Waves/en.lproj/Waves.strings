@@ -570,9 +570,12 @@
 "wallet.section.spamAssets" = "Suspicious tokens (%d)";
 "wallet.segmentedControl.assets" = "Tokens";
 "wallet.segmentedControl.leasing" = "Leasing";
+"wallet.label.search" = "Search";
 "walletsort.button.position" = "Position";
 "walletsort.button.visibility" = "Visibility";
 "walletsort.navigationBar.title" = "Sorting";
+"walletsearch.button.cancel" = "Cancel";
+
 "wavespopup.button.exchange" = "Exchange";
 "wavespopup.button.receive" = "Receive";
 "wavespopup.button.send" = "Send";

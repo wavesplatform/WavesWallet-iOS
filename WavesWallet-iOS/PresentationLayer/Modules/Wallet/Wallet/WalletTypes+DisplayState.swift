@@ -163,8 +163,7 @@ extension WalletTypes.DisplayState.Display {
         var section: WalletTypes.ViewModel.Section!
         if kind == .assets {
             section = WalletTypes.ViewModel.Section(kind: .skeleton,
-                                                    items: [.emptySegmented,
-                                                            .assetSkeleton,
+                                                    items: [.assetSkeleton,
                                                             .assetSkeleton,
                                                             .assetSkeleton,
                                                             .assetSkeleton,
@@ -172,12 +171,11 @@ extension WalletTypes.DisplayState.Display {
                                                     isExpanded: true)
         } else {
             section = WalletTypes.ViewModel.Section(kind: .skeleton,
-                                                    items: [.emptySegmented,
-                                                            .balanceSkeleton,
+                                                    items: [.balanceSkeleton,
                                                             .historySkeleton],
                                                     isExpanded: true)
         }
-        return [section]
+        return [.init(kind: .segmented, items: [.emptySegmented], isExpanded: true), section]
     }
 
     func toggleCollapse(index: Int) -> WalletTypes.DisplayState.Display {

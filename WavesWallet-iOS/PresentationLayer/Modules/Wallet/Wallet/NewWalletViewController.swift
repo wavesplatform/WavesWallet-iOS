@@ -29,8 +29,6 @@ private enum Constants {
 
 final class NewWalletViewController: UIViewController {
 
-    typealias Types = WalletTypes
-
     @IBOutlet weak var scrolledTablesComponent: ScrolledContainerView!
     @IBOutlet var globalErrorView: GlobalErrorView!
 
@@ -114,13 +112,13 @@ extension NewWalletViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView == scrolledTablesComponent {
-            
+            setupSearchBarOffset()
         }
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if scrollView == scrolledTablesComponent {
-            
+            setupSearchBarOffset()
         }
     }
 }
@@ -313,6 +311,31 @@ extension NewWalletViewController {
 
 private extension NewWalletViewController {
 
+    func setupSearchBarOffset() {
+        
+        if scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset > scrolledTablesComponent.topOffset &&
+            scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset < scrolledTablesComponent.topOffset + WalletSearchTableViewCell.viewHeight() &&
+            isSmallNavigationBar &&
+            scrolledTablesComponent.visibleTableView.tag == WalletTypes.DisplayState.Kind.assets.rawValue {
+            
+            
+            let diff = (scrolledTablesComponent.topOffset + WalletSearchTableViewCell.viewHeight()) - (scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset)
+            
+            var offset: CGFloat = 0
+            if diff > WalletSearchTableViewCell.viewHeight() / 2 {
+                offset = -scrolledTablesComponent.smallTopOffset
+            }
+            else {
+                offset = -scrolledTablesComponent.smallTopOffset + WalletSearchTableViewCell.viewHeight()
+            }
+            offset += scrolledTablesComponent.topOffset
+            setupSmallNavigationBar()
+            
+            scrolledTablesComponent.setContentOffset(.init(x: 0, y: offset), animated: true)
+        }
+    }
+
+    
     func setupLanguages() {
         navigationItem.title = Localizable.Waves.Wallet.Navigationbar.title
     }
@@ -351,6 +374,19 @@ extension NewWalletViewController: WalletLeasingBalanceCellDelegate {
 
 extension NewWalletViewController: NewWalletDisplayDataDelegate {
 
+    
+    func showSearchVC(fromStartPosition: CGFloat) {
+        
+        let vc = StoryboardScene.Wallet.walletSearchViewController.instantiate()
+        
+        vc.modalPresentationStyle = .custom;
+        vc.view.alpha = 0
+        
+        navigationController?.topViewController?.present(vc, animated: false, completion: {
+            vc.showWithAnimation(fromStartPosition: fromStartPosition)
+        })
+    }
+    
     func tableViewDidSelect(indexPath: IndexPath) {
         sendEvent.accept(.tapRow(indexPath))
     }

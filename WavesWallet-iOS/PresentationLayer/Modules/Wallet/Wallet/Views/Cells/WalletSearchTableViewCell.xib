@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletSearchTableViewCell" rowHeight="57" id="KGk-i7-Jjw" customClass="WalletSearchTableViewCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="55.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AQl-v4-VQ4">
+                        <rect key="frame" x="16" y="4" width="288" height="36"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4WH-2T-MfR">
+                                <rect key="frame" x="0.0" y="0.0" width="288" height="36"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XFU-yt-cVN">
+                                <rect key="frame" x="0.0" y="0.0" width="288" height="36"/>
+                                <connections>
+                                    <action selector="searchButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="dVo-9v-g38"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.92941176470588238" green="0.94117647058823528" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="XFU-yt-cVN" firstAttribute="leading" secondItem="AQl-v4-VQ4" secondAttribute="leading" id="15U-4m-7JS"/>
+                            <constraint firstAttribute="trailing" secondItem="4WH-2T-MfR" secondAttribute="trailing" id="CbV-ij-Zdg"/>
+                            <constraint firstAttribute="bottom" secondItem="4WH-2T-MfR" secondAttribute="bottom" id="DCN-oI-Lwa"/>
+                            <constraint firstItem="XFU-yt-cVN" firstAttribute="top" secondItem="AQl-v4-VQ4" secondAttribute="top" id="NBl-Uq-Lwp"/>
+                            <constraint firstItem="4WH-2T-MfR" firstAttribute="top" secondItem="AQl-v4-VQ4" secondAttribute="top" id="NMx-LK-6dw"/>
+                            <constraint firstAttribute="trailing" secondItem="XFU-yt-cVN" secondAttribute="trailing" id="OKh-lo-wxN"/>
+                            <constraint firstAttribute="height" constant="36" id="d71-AG-WQE"/>
+                            <constraint firstItem="4WH-2T-MfR" firstAttribute="leading" secondItem="AQl-v4-VQ4" secondAttribute="leading" id="r1y-kq-9bk"/>
+                            <constraint firstAttribute="bottom" secondItem="XFU-yt-cVN" secondAttribute="bottom" id="tol-uH-2mh"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="4"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="AQl-v4-VQ4" secondAttribute="trailing" constant="16" id="4Hj-zz-yUu"/>
+                    <constraint firstItem="AQl-v4-VQ4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="bgA-l0-g68"/>
+                    <constraint firstItem="AQl-v4-VQ4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="vmg-s5-rYD"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="textField" destination="4WH-2T-MfR" id="Hn7-qw-1R4"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="128.23660714285714"/>
+        </tableViewCell>
+    </objects>
+</document>
