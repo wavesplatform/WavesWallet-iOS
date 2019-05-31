@@ -3095,6 +3095,9 @@ internal enum Localizable {
         /// My token
         internal static var myAssets: String { return Localizable.tr("Waves", "wallet.label.myAssets") }
         internal static var myAssetsKey: String { return "wallet.label.myAssets" }
+        /// Search
+        internal static var search: String { return Localizable.tr("Waves", "wallet.label.search") }
+        internal static var searchKey: String { return "wallet.label.search" }
         /// Started Leasing
         internal static var startedLeasing: String { return Localizable.tr("Waves", "wallet.label.startedLeasing") }
         internal static var startedLeasingKey: String { return "wallet.label.startedLeasing" }
@@ -3152,6 +3155,15 @@ internal enum Localizable {
         /// Leasing
         internal static var leasing: String { return Localizable.tr("Waves", "wallet.segmentedControl.leasing") }
         internal static var leasingKey: String { return "wallet.segmentedControl.leasing" }
+      }
+    }
+
+    internal enum Walletsearch {
+
+      internal enum Button {
+        /// Cancel
+        internal static var cancel: String { return Localizable.tr("Waves", "walletsearch.button.cancel") }
+        internal static var cancelKey: String { return "walletsearch.button.cancel" }
       }
     }
 

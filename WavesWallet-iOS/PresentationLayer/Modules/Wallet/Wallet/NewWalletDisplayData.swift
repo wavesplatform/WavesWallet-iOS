@@ -19,6 +19,7 @@ private enum Constants {
 
 protocol NewWalletDisplayDataDelegate: AnyObject {
     func tableViewDidSelect(indexPath: IndexPath)
+    func showSearchVC(fromStartPosition: CGFloat)
 }
 
 final class NewWalletDisplayData: NSObject {
@@ -94,6 +95,17 @@ final class NewWalletDisplayData: NSObject {
         }
         return leasingSections
     }
+    
+    private func searchTapped(_ cell: UITableViewCell) {
+        
+        if let indexPath = scrolledTablesComponent.visibleTableView.indexPath(for: cell) {
+            
+            let rectInTableView = scrolledTablesComponent.visibleTableView.rectForRow(at: indexPath)
+            let rectInSuperview = scrolledTablesComponent.visibleTableView.convert(rectInTableView, to: AppDelegate.shared().window)
+            
+            delegate?.showSearchVC(fromStartPosition: rectInSuperview.origin.y)
+        }
+    }
 }
 
 // MARK: UITableViewDelegate
@@ -114,6 +126,14 @@ extension NewWalletDisplayData: UITableViewDataSource {
         let item = sections(by: tableView)[indexPath.section].items[indexPath.row]
     
         switch item {
+        case .search:
+            let cell = tableView.dequeueAndRegisterCell() as WalletSearchTableViewCell
+            cell.update(with: ())
+            cell.searchTapped = { [weak self] in
+                self?.searchTapped(cell)
+            }
+            return cell
+            
         case .emptySegmented:
            return emptyCell(tableView: tableView)
             
@@ -237,6 +257,10 @@ extension NewWalletDisplayData: UITableViewDelegate {
         let row = items[indexPath.row]
 
         switch row {
+        
+        case .search:
+            return WalletSearchTableViewCell.viewHeight()
+            
         case .emptySegmented:
             return scrolledTablesComponent.segmentedHeight
             
