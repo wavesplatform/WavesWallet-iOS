@@ -373,7 +373,7 @@ private extension ProfilePresenter {
             let other = Types.ViewModel.Section(rows: [.rateApp,
                                                        .feedback,
                                                        .supportWavesplatform,
-                                                       .info(version: Bundle.main.version, height: nil, isBackedUp: wallet.isBackedUp)], kind: .other)
+                                                       .info(version: Bundle.main.versionAndBuild, height: nil, isBackedUp: wallet.isBackedUp)], kind: .other)
 
             state.displayState.sections = [generalSettings,
                                            security,
@@ -525,7 +525,7 @@ private extension ProfilePresenter {
         state
             .displayState
             .sections[section.offset]
-            .rows[index.offset] = .info(version: Bundle.main.version,
+            .rows[index.offset] = .info(version: Bundle.main.versionAndBuild,
                                         height: "\(block)",
                 isBackedUp: isBackedUp)
     }
