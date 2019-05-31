@@ -40,7 +40,7 @@
 "aliaseswithout.view.info.label.subtitle" = "An Alias is a nickname for your address. You can use an Alias instead of an address to make transactions.";
 "aliaseswithout.view.info.label.title" = "You do not have Aliases";
 "appnews.button.okey" = "Okay";
-"asset.cell.assetInfo.cantPerformTransactions" = "You can not perform transactions with this asset";
+"asset.cell.assetInfo.cantPerformTransactions" = "You can not perform transactions with this token";
 "asset.cell.assetInfo.decimalPoints" = "Decimal points";
 "asset.cell.assetInfo.description" = "Description";
 "asset.cell.assetInfo.id" = "ID";
@@ -50,7 +50,7 @@
 "asset.cell.assetInfo.kind.reissuable" = "Reissuable";
 "asset.cell.assetInfo.kind.title" = "Type";
 "asset.cell.assetInfo.name" = "Name";
-"asset.cell.assetInfo.title" = "Asset Info";
+"asset.cell.assetInfo.title" = "Token Info";
 "asset.cell.assetInfo.totalAmount" = "Total amount";
 "asset.cell.balance.avaliableBalance" = "Available balance";
 "asset.cell.balance.button.exchange" = "Exchange";
@@ -65,8 +65,8 @@
 "assetlist.button.allList" = "All list";
 "assetlist.button.myList" = "With balance";
 "assetlist.button.withBalance" = "With balance";
-"assetlist.label.assets" = "Assets";
-"assetlist.label.loadingAssets" = "Loading assets…";
+"assetlist.label.assets" = "Tokens";
+"assetlist.label.loadingAssets" = "Loading tokens…";
 "backup.backup.navigation.title" = "Backup phrase";
 "backup.confirmbackup.button.confirm" = "Confirm";
 "backup.confirmbackup.error.label" = "Wrong order, try again";
@@ -152,9 +152,9 @@
 "dexcreateorder.label.notEnough" = "Not enough";
 "dexcreateorder.label.smallValue" = "Value is too small";
 "dexcreateorder.label.totalIn" = "Total in";
-"dexinfo.label.amountAsset" = "Amount Asset";
+"dexinfo.label.amountAsset" = "Amount Token";
 "dexinfo.label.popular" = "Popular";
-"dexinfo.label.priceAsset" = "Price Asset";
+"dexinfo.label.priceAsset" = "Price Token";
 "dexlasttrades.button.buy" = "BUY";
 "dexlasttrades.button.sell" = "SELL";
 "dexlasttrades.label.amount" = "Amount";
@@ -208,7 +208,7 @@
 "enter.block.exchange.title" = "Decentralised Exchange";
 "enter.block.token.text" = "Issue your own tokens. These can be integrated into your business not only as an internal currency but also as a token for decentralised voting, as a rating system, or loyalty program.";
 "enter.block.token.title" = "Token Launcher";
-"enter.block.wallet.text" = "Store, manage and receive interest on your digital assets balance, easily and securely.";
+"enter.block.wallet.text" = "Store, manage and receive interest on your digital tokens balance, easily and securely.";
 "enter.block.wallet.title" = "Wallet";
 "enter.button.confirm.title" = "Confirm";
 "enter.button.createNewAccount.title" = "Create a new account";
@@ -224,7 +224,7 @@
 "general.error.subtitle.notfound" = "Do not worry, we are already fixing this problem.\nSoon everything will work!";
 "general.error.title.noconnectiontotheinternet" = "No connection to the Internet";
 "general.error.title.notfound" = "Oh… It's all broken!";
-"general.label.title.myasset" = "/ My Asset";
+"general.label.title.myasset" = "/ My token";
 "general.tabbar.title.dex" = "DEX";
 "general.tabbar.title.history" = "History";
 "general.tabbar.title.profile" = "Profile";
@@ -283,26 +283,8 @@
 "history.transaction.title.unrecognisedTransaction" = "Unrecognised Transaction";
 "history.transaction.value.setScript.cancel" = "Cancel Script";
 "history.transaction.value.setScript.set" = "Set Script";
-
-"history.transaction.value.setAssetScript" = "Update script";
-
-"history.transaction.value.setScript.cancel" = "Cancel Script";
-
-"history.transaction.value.setScript.set" = "Set Script";
-
-"history.transaction.value.data" = "Entry in blockchain";
-
 "history.transaction.value.setSponsorship.cancel" = "Disable Sponsorship";
 "history.transaction.value.setSponsorship.set" = "Set Sponsorship";
-
-"history.transaction.value.scriptInvocation" = "Script Invocation";
-
-"history.transaction.title.entryInBlockchain" = "Entry in blockchain";
-
-"import.account.warning.seed.title" = "The SEED phrase must consist of 15 words with spaces between each word";
-
-"import.account.warning.seed.subtitle" = "The SEED phrase you entered is too short. Make sure you do not confuse the phrase with a wallet address. Using an address as a SEED phrase can result in loss of funds.";
-
 "import.account.button.enter.title" = "Enter SEED manually";
 "import.account.button.scan.title" = "Scan pairing code";
 "import.account.label.info.step.one.detail" = "Settings — General — Export account";
@@ -414,9 +396,9 @@
 "receive.error.serviceUnavailable" = "Service is temporarily unavailable";
 "receive.label.amount" = "Amount";
 "receive.label.amountIn" = "Amount in";
-"receive.label.asset" = "Asset";
+"receive.label.asset" = "Token";
 "receive.label.receive" = "Receive";
-"receive.label.selectYourAsset" = "Select your asset";
+"receive.label.selectYourAsset" = "Select your token";
 "receiveaddress.button.cancel" = "Cancel";
 "receiveaddress.button.close" = "Close";
 "receiveaddress.button.copied" = "Сopied!";
@@ -530,8 +512,8 @@
 "transaction.error.commission.receiving" = "Commission receiving error";
 "transactionFee.label.transactionFee" = "Transaction Fee";
 "transactionScript.button.okey" = "Okay";
-"transactionScript.label.subtitle" = "To work with a scripted account/asset, use the Waves Client";
-"transactionScript.label.title" = "A script is installed on your account or asset";
+"transactionScript.label.subtitle" = "To work with a scripted account/token, use the Waves Client";
+"transactionScript.label.title" = "A script is installed on your account or token";
 "transactioncard.title.copied" = "Copied";
 "transactioncard.title.copyAllData" = "Copy all data";
 "transactioncard.title.copyTXID" = "Copy TX ID";
@@ -562,7 +544,6 @@
 "transactioncard.title.amount" = "Amount";
 "transactionhistory.copy.date" = "Date";
 "transactioncard.title.fee" = "Fee";
-"transactioncard.title.filled" = "Filled";
 "transactionhistory.copy.recipient" = "Recipient";
 "transactionhistory.copy.sender" = "Sender";
 "transactionhistory.copy.transactionId" = "Transaction ID";
@@ -575,7 +556,7 @@
 "wallet.label.available" = "Available";
 "wallet.label.leased" = "Leased";
 "wallet.label.leasedIn" = "Leased in";
-"wallet.label.myAssets" = "My Asset";
+"wallet.label.myAssets" = "My token";
 "wallet.label.quickNote.description.first" = "You can only transfer or trade WAVES that aren’t leased. The leased amount cannot be transferred or traded by you or anyone else.";
 "wallet.label.quickNote.description.second" = "You can cancel a leasing transaction as soon as it appears in the blockchain which usually occurs in a minute or less.";
 "wallet.label.quickNote.description.third" = "The generating balance will be updated after 1000 blocks.";
@@ -584,16 +565,11 @@
 "wallet.label.viewHistory" = "Transaction history";
 "wallet.navigationBar.title" = "Wallet";
 "wallet.section.activeNow" = "Active now (%d)";
-"wallet.section.hiddenAssets" = "Hidden assets (%d)";
+"wallet.section.hiddenAssets" = "Hidden tokens (%d)";
 "wallet.section.quickNote" = "Quick note";
-"wallet.section.spamAssets" = "Suspicious assets (%d)";
-"wallet.segmentedControl.assets" = "Assets";
+"wallet.section.spamAssets" = "Suspicious tokens (%d)";
+"wallet.segmentedControl.assets" = "Tokens";
 "wallet.segmentedControl.leasing" = "Leasing";
-"walletsort.label.notAddedAssetsInFavorites" = "You do not added assets in favorites";
-"walletsort.label.listOfAssetsEmpty" = "The list of assets is empty";
-"walletsort.label.notAddedAssetsInHidden" = "You do not added assets in hidden";
-"walletsort.label.hiddenAssets" = "Hidden assets";
-
 "walletsort.button.position" = "Position";
 "walletsort.button.visibility" = "Visibility";
 "walletsort.navigationBar.title" = "Sorting";
@@ -614,50 +590,15 @@
 "dexmyorders.label.type" = "Type";
 "transactioncard.title.startedLeasing" = "Started Leasing";
 "transactioncard.title.canceledLeasing" = "Canceled Leasing";
-
-
-"transactioncard.title.nodeAddress" = "Node Address";
-"transactioncard.title.sentTo" = "Sent to";
-"transactioncard.title.sent" = "Sent";
-"transactioncard.title.tokenBurn" = "Token Burn";
-"transactioncard.title.tokenGeneration" = "Token Generation";
-"transactioncard.title.tokenReissue" = "Token Reissue";
-"transactioncard.title.createAlias" = "Create Alias"; //alias
-"transactioncard.title.unrecognisedTransaction" = "Unrecognised Transaction";
-"transactioncard.title.entryInBlockchain" = "Entry in blockchain";
-"transactioncard.title.dataTransaction" = "Data Transaction";
-"transactioncard.title.setScriptTransaction" = "Set Script";
-"transactioncard.title.cancelScriptTransaction" = "Cancel Script";
-"transactioncard.title.received" = "Received";
-"transactioncard.title.receivedFrom" = "Received from";
-"transactioncard.title.spamReceived" = "Spam Received";
-"transactioncard.title.selfTransfer" = "Self-transfer";
-"transactioncard.title.setSponsorship" = "Set Sponsorship";
-"transactioncard.title.disableSponsorship" = "Disable Sponsorship";
-"transactioncard.title.setAssetScript" = "Update script";
-"transactioncard.title.receivedSponsorship" = "Received Sponsorship";
-"transactioncard.title.scriptInvocation" = "Script Invocation";
-"transactioncard.title.scriptAddress" = "Script address";
-"transactioncard.title.payment" = "Payment";
-
-
-"transactioncard.title.recipient" = "#%@ Recipient";
-
-"transactioncard.title.leasingFrom" = "Leasing from";
-
-"transactioncard.title.exchange.buyPair" = "Buy: %@/%@";
-"transactioncard.title.exchange.sellPair" = "Sell: %@/%@";
-
 "transactioncard.title.nodeAddress" = "Node address";
 "transactioncard.title.description" = "Description";
-"transactioncard.title.asset" = "Asset";
+"transactioncard.title.asset" = "Token";
 "transactioncard.title.price" = "Price";
 "transactioncard.title.status" = "Status";
 "transactioncard.timestamp.format" = "dd.MM.yyyy HH:mm";
 "transactioncard.title.block" = "Block";
 "transactioncard.title.massSent" = "Mass Sent";
 "transactioncard.title.massReceived" = "Mass Received";
-
 "transactioncard.title.exchange.buy" = "Buy";
 "transactioncard.title.exchange.sell" = "Sell";
 "transactioncard.title.recipient" = "#%@ Recipient";
@@ -677,14 +618,14 @@
 "transactioncard.title.tokenGeneration" = "Token Generation";
 "transactioncard.title.tokenBurn" = "Token Burn";
 "transactioncard.title.sent" = "Sent";
-"transactioncard.title.assetId" = "Asset ID";
+"transactioncard.title.assetId" = "Token ID";
 "transactioncard.title.viewOnExplorer" = "View on Explorer";
 "transactioncard.title.amountPerTransaction" = "Amount per transaction";
 "transactioncard.title.showAll" = "Show all (%@)";
 "addressBookButton.title.editName" = "Edit name";
 "addressBookButton.title.saveAddress" = "Save address";
-"send.label.error.sendingToSpamAsset" = "Sending funds to suspicious asset is not possible";
-"send.label.error.assetIsNotValid" = "The asset is not valid";
+"send.label.error.sendingToSpamAsset" = "Sending funds to suspicious token is not possible";
+"send.label.error.assetIsNotValid" = "The token is not valid";
 "transactioncard.title.cancelOrder" = "Cancel order";
 "transactioncard.title.cancelled" = "(Cancelled)";
 "transactioncard.title.total" = "Total";
@@ -696,6 +637,8 @@
 "transactioncard.title.scriptAddress" = "Script address";
 "transactioncard.title.payment" = "Payment";
 "history.transaction.value.scriptInvocation" = "Script Invocation";
-"history.transaction.value.data" = "Entry in blockchain";
-"history.transaction.title.setAssetScript" = "Entry in blockchain";
-"history.transaction.title.setScript" = "Entry in blockchain";
+"walletsort.label.notAddedAssetsInFavorites" = "You didn't add tokens in favorite";
+"walletsort.label.listOfAssetsEmpty" = "The list of tokens is empty";
+"walletsort.label.notAddedAssetsInHidden" = "You didn't add tokens in hidden";
+"walletsort.label.hiddenAssets" = "Hidden tokens";
+"transactioncard.title.filled" = "Filled";
