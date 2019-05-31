@@ -36,6 +36,8 @@ protocol ScrolledContainerViewProtocol {
     
     func viewControllerWillDissapear()
     
+    func setContentSize()
+
     var segmentedHeight: CGFloat { get }
     
     var visibleTableView: UITableView { get }
@@ -221,6 +223,10 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
         }
     }
     
+    func setContentSize() {
+        contentSize = CGSize(width: contentSize.width, height: visibleTableView.contentSize.height)
+    }
+    
     var segmentedHeight: CGFloat {
         return Constants.segmentedHeight
     }
@@ -311,10 +317,6 @@ extension ScrolledContainerView: NewSegmentedControlDelegate {
 
 
 private extension ScrolledContainerView {
-  
-    func setContentSize() {
-        contentSize = CGSize(width: contentSize.width, height: visibleTableView.contentSize.height)
-    }
     
     func acceptCurrentTableOffset() -> UITableView {
         isAnimationTable = true

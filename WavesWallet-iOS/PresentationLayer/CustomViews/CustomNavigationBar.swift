@@ -16,8 +16,8 @@ final class CustomNavigationBar: UINavigationBar {
         super.layoutSubviews()
         if let view = subviews.first {
             if let color = backgroundColor {
-//                view.alpha = 1
-//                view.backgroundColor = color
+                view.alpha = 1
+                view.backgroundColor = color
             }
         }
     }

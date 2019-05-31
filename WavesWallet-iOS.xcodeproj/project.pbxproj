@@ -644,7 +644,7 @@
 		E95E14FB229FFA65003552B8 /* WalletHistorySkeletonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95E14FA229FFA65003552B8 /* WalletHistorySkeletonCell.xib */; };
 		E95E14FD22A07230003552B8 /* NewWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E14FC22A07230003552B8 /* NewWalletViewController.swift */; };
 		E95E14FF22A07364003552B8 /* NewWalletDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E14FE22A07364003552B8 /* NewWalletDisplayData.swift */; };
-		E95E150122A08727003552B8 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E150022A08727003552B8 /* CustomNavigationBar.swift */; };
+		E95E150F22A18B67003552B8 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E150E22A18B66003552B8 /* CustomNavigationBar.swift */; };
 		E964067E21D5299D00569963 /* DexDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E964067D21D5299D00569963 /* DexDomainDTO.swift */; };
 		E9642C8F21CB32570065A1BD /* CoinomatServiceErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9642C8E21CB32570065A1BD /* CoinomatServiceErrorView.swift */; };
 		E9642C9121CB326A0065A1BD /* CoinomatServiceErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9642C9021CB326A0065A1BD /* CoinomatServiceErrorView.xib */; };
@@ -1611,7 +1611,7 @@
 		E95E14FA229FFA65003552B8 /* WalletHistorySkeletonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletHistorySkeletonCell.xib; sourceTree = "<group>"; };
 		E95E14FC22A07230003552B8 /* NewWalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewWalletViewController.swift; sourceTree = "<group>"; };
 		E95E14FE22A07364003552B8 /* NewWalletDisplayData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewWalletDisplayData.swift; sourceTree = "<group>"; };
-		E95E150022A08727003552B8 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomNavigationBar.swift; path = TestComponent/testApp/CustomNavigationBar.swift; sourceTree = SOURCE_ROOT; };
+		E95E150E22A18B66003552B8 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		E964067D21D5299D00569963 /* DexDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexDomainDTO.swift; sourceTree = "<group>"; };
 		E9642C8E21CB32570065A1BD /* CoinomatServiceErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinomatServiceErrorView.swift; sourceTree = "<group>"; };
 		E9642C9021CB326A0065A1BD /* CoinomatServiceErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CoinomatServiceErrorView.xib; sourceTree = "<group>"; };
@@ -3359,7 +3359,6 @@
 		0AF92281212E1234003BA067 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
-				E95E150022A08727003552B8 /* CustomNavigationBar.swift */,
 				E9F78A3E229E990D0065324B /* ScrolledContainerView.swift */,
 				E9F78A3C229E98B40065324B /* NewSegmentedControl.swift */,
 				7BDA6AE722313E59001DE71C /* TransactionImageView.swift */,
@@ -3376,6 +3375,7 @@
 				0AF92295212E1234003BA067 /* CopyableLabel.swift */,
 				04831F8321697A4F006D1ED6 /* CustomGradientView.swift */,
 				F7C683BA1EA93C5800C87DAF /* CustomNavigationController.swift */,
+				E95E150E22A18B66003552B8 /* CustomNavigationBar.swift */,
 				0AF9228C212E1234003BA067 /* DottedLineView.swift */,
 				E9C4134B20E826E300AA044F /* DottedRoundView.swift */,
 				0ACC0232217E2BA1000E3EE0 /* DynamicHeaderTableView.swift */,
@@ -5615,7 +5615,6 @@
 				E9B086BA2163883000937644 /* AddressBookCell.swift in Sources */,
 				0ADD7F8F21F22FB60075FC59 /* CALayer+Shadow.swift in Sources */,
 				0A6AC3E021847F8D005D2525 /* AddressesKeysModuleBuilder.swift in Sources */,
-				E95E150122A08727003552B8 /* CustomNavigationBar.swift in Sources */,
 				E9443014226E64F600EB6257 /* WalletSortInteractorProtocol.swift in Sources */,
 				0A97975C210888B600407F67 /* Localizable.swift in Sources */,
 				0AF58F9F2192056400C8A4B3 /* PasscodeChangePasswordPresenter.swift in Sources */,
@@ -5747,6 +5746,7 @@
 				E9B087C42163886800937644 /* DexTraderContainerModuleBuilder.swift in Sources */,
 				E991BB2A2202D5E00022E27D /* SendFeeInteractorProtocol.swift in Sources */,
 				0A762D9721639FCC0019D447 /* WavesButton.swift in Sources */,
+				E95E150F22A18B67003552B8 /* CustomNavigationBar.swift in Sources */,
 				0AF0C67421A97D3500602197 /* AliasesRepositoryLocal.swift in Sources */,
 				E9D36DF62175C755001E6DF0 /* AssetListTableViewCell.swift in Sources */,
 				0AEB35A421165E1300EDD63C /* AccountBalanceRepositoryRemote.swift in Sources */,

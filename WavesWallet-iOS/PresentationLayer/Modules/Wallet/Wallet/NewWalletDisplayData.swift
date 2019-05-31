@@ -70,12 +70,18 @@ final class NewWalletDisplayData: NSObject {
             self.scrolledTablesComponent.visibleTableView.reloadSections([index], with: .fade)
             self.scrolledTablesComponent.visibleTableView.endUpdates()
             
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: Constants.animationDuration, animations: {
+                    self.scrolledTablesComponent.setContentSize()
+                })
+            }
+            
         case .expanded(let index):
             
             self.scrolledTablesComponent.visibleTableView.beginUpdates()
             self.scrolledTablesComponent.visibleTableView.reloadSections([index], with: .fade)
             self.scrolledTablesComponent.visibleTableView.endUpdates()
-            
+                    
         default:
             break
         }
