@@ -20,9 +20,12 @@ private enum Constants {
     static let urlEnvironmentMainNet: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/mobile/v2.3/environment_mainnet.json")!
     static let urlEnvironmentTestNet: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/mobile/v2.3/environment_testnet.json")!
     static let urlTransactionFee: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/master/fee.json")!
+    
+    
     static let urlApplicationNews: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/mobile/v2.3/notifications_ios.json")!
     
     static let urlVersionIos: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/master/version_ios.json")!
+    static let urlApplicationNewsDebug: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.3/notifications_test_ios.json")!
 }
 
 extension GitHub.Service {
@@ -48,7 +51,7 @@ extension GitHub.Service {
          Response:
          - ?
          */
-        case get
+        case get(isDebug: Bool)
     }
     
     enum ApplicationVersion {
@@ -142,8 +145,12 @@ extension GitHub.Service.ApplicationNews: TargetType {
 
     var baseURL: URL {
         switch self {
-        case .get:
-            return Constants.urlApplicationNews
+        case .get(let isDebug):
+            if isDebug {
+                return Constants.urlApplicationNewsDebug
+            } else {
+                return Constants.urlApplicationNews
+            }
         }
     }
 
