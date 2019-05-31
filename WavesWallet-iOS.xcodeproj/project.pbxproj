@@ -1434,6 +1434,8 @@
 		3780CE9B95DA4BD90D83FC04 /* Pods-WavesWallet-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		39E7B5DDD0BC308CCE651F05 /* Pods-MonkeyTest.test-adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.test-adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.test-adhoc.xcconfig"; sourceTree = "<group>"; };
 		621D6D45B8A2773F670A4883 /* Pods-WavesWallet-iOS.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.adhoc.xcconfig"; sourceTree = "<group>"; };
+		7B32A903229EEFB0004789E7 /* fr-FR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-FR"; path = "fr-FR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		7B32A904229EEFB1004789E7 /* fr-FR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-FR"; path = "fr-FR.lproj/Waves.strings"; sourceTree = "<group>"; };
 		7B39029422366B8E00AAFDB8 /* TransactionCardAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardAddressCell.swift; sourceTree = "<group>"; };
 		7B39029622366D0100AAFDB8 /* AddressBookButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookButton.swift; sourceTree = "<group>"; };
 		7B390298223698D300AAFDB8 /* TransactionCardKeyValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardKeyValueCell.swift; sourceTree = "<group>"; };
@@ -4911,6 +4913,7 @@
 				"nl-NL",
 				"hi-IN",
 				"zh-Hans-CN",
+				"fr-FR",
 			);
 			mainGroup = F7E954DB1EA8FE0600A804DE;
 			productRefGroup = F7E954E51EA8FE0700A804DE /* Products */;
@@ -6129,6 +6132,7 @@
 				7B95110F225CC2CF0030390C /* nl-NL */,
 				7B951111225CC2E60030390C /* hi-IN */,
 				7B951113225CC32C0030390C /* zh-Hans-CN */,
+				7B32A904229EEFB1004789E7 /* fr-FR */,
 			);
 			name = Waves.strings;
 			sourceTree = "<group>";
@@ -6151,6 +6155,7 @@
 				7B95110E225CC2CF0030390C /* nl-NL */,
 				7B951110225CC2E60030390C /* hi-IN */,
 				7B951112225CC32B0030390C /* zh-Hans-CN */,
+				7B32A903229EEFB0004789E7 /* fr-FR */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
