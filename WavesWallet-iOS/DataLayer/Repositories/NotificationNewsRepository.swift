@@ -33,7 +33,7 @@ final class NotificationNewsRepository: NotificationNewsRepositoryProtocol {
 
         return applicationNews
             .rx
-            .request(.get, callbackQueue: DispatchQueue.global(qos: .userInteractive))
+            .request(.get(isDebug: ApplicationDebugSettings.isEnableNotificationsSettingDev), callbackQueue: DispatchQueue.global(qos: .userInteractive))
             .asObservable()
             .filterSuccessfulStatusAndRedirectCodes()
             .map(GitHub.DTO.News.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)            
