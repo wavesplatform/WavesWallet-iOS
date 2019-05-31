@@ -23,8 +23,11 @@ protocol NewWalletDisplayDataDelegate: AnyObject {
 
 final class NewWalletDisplayData: NSObject {
     private typealias Section = WalletTypes.ViewModel.Section
-
-    private var sections: [Section] = []
+//    private var sections: [Section] = []
+    private var assetsSections: [Section] = []
+    private var leasingSections: [Section] = []
+    private var displays: [WalletTypes.DisplayState.Kind] = []
+    
     private weak var scrolledTablesComponent: ScrolledContainerView!
 
     weak var delegate: NewWalletDisplayDataDelegate?
@@ -33,14 +36,17 @@ final class NewWalletDisplayData: NSObject {
     let tapSection: PublishRelay<Int> = PublishRelay<Int>()
     var completedReload: (() -> Void)?
 
-    init(scrolledTablesComponent: ScrolledContainerView) {
+    init(scrolledTablesComponent: ScrolledContainerView, displays: [WalletTypes.DisplayState.Kind]) {
         super.init()
         self.scrolledTablesComponent = scrolledTablesComponent
+        self.displays = displays
     }
 
-    func apply(sections: [WalletTypes.ViewModel.Section], animateType: WalletTypes.DisplayState.ContentAction, completed: @escaping (() -> Void)) {
-        self.sections = sections
-
+    func apply(assetsSections: [WalletTypes.ViewModel.Section], leasingSections: [WalletTypes.ViewModel.Section], animateType: WalletTypes.DisplayState.ContentAction, completed: @escaping (() -> Void)) {
+        
+        self.assetsSections = assetsSections
+        self.leasingSections = leasingSections
+        
         CATransaction.begin()
         CATransaction.setCompletionBlock {
             completed()
@@ -51,7 +57,7 @@ final class NewWalletDisplayData: NSObject {
             break
             
         case .refresh(let animated):
-
+            
             if animated {
                 UIView.transition(with: scrolledTablesComponent, duration: Constants.animationDuration, options: [.transitionCrossDissolve], animations: {
                     self.scrolledTablesComponent.reloadData()
@@ -59,24 +65,33 @@ final class NewWalletDisplayData: NSObject {
             } else {
                 self.scrolledTablesComponent.reloadData()
             }
-
+            
         case .collapsed(let index):
+
             self.scrolledTablesComponent.visibleTableView.beginUpdates()
             self.scrolledTablesComponent.visibleTableView.reloadSections([index], with: .fade)
             self.scrolledTablesComponent.visibleTableView.endUpdates()
-
+            
         case .expanded(let index):
+
             self.scrolledTablesComponent.visibleTableView.beginUpdates()
             self.scrolledTablesComponent.visibleTableView.reloadSections([index], with: .fade)
             DispatchQueue.main.async {
                 self.scrolledTablesComponent.visibleTableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .middle, animated: true)
             }
             self.scrolledTablesComponent.visibleTableView.endUpdates()
-
+            
         default:
             break
         }
         CATransaction.commit()
+    }
+    
+    private func sections(by tableView: UITableView) -> [Section] {
+        if tableView.tag == WalletTypes.DisplayState.Kind.assets.rawValue {
+            return assetsSections
+        }
+        return leasingSections
     }
 }
 
@@ -95,7 +110,7 @@ extension NewWalletDisplayData: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let item = sections[indexPath.section].items[indexPath.row]
+        let item = sections(by: tableView)[indexPath.section].items[indexPath.row]
     
         switch item {
         case .emptySegmented:
@@ -142,11 +157,11 @@ extension NewWalletDisplayData: UITableViewDataSource {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        return sections(by: tableView).count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].items.count
+        return sections(by: tableView)[section].items.count
     }
 }
 
@@ -154,7 +169,7 @@ extension NewWalletDisplayData: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 
-        let item = sections[indexPath.section].items[indexPath.row]
+        let item = sections(by: tableView)[indexPath.section].items[indexPath.row]
         switch item {
         case .historySkeleton:
             let skeletonCell: WalletHistorySkeletonCell = cell as! WalletHistorySkeletonCell
@@ -173,7 +188,7 @@ extension NewWalletDisplayData: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let model = sections[section]
+        let model = sections(by: tableView)[section]
 
         if let header = model.header {
             let view: WalletHeaderView = tableView.dequeueAndRegisterHeaderFooter()
@@ -190,7 +205,7 @@ extension NewWalletDisplayData: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        let model = sections[section]
+        let model = sections(by: tableView)[section]
 
         if model.header == nil {
             return CGFloat.minValue
@@ -217,7 +232,7 @@ extension NewWalletDisplayData: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        let items = sections[indexPath.section].items
+        let items = sections(by: tableView)[indexPath.section].items
         let row = items[indexPath.row]
 
         switch row {

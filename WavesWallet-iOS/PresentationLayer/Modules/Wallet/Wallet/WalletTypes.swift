@@ -28,7 +28,7 @@ extension WalletTypes {
             case refresh
         }
 
-        enum Kind {
+        enum Kind: Int {
             case assets
             case leasing
         }
