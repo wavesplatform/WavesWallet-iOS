@@ -225,7 +225,14 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
     func feeRules() -> Observable<DomainLayer.DTO.TransactionFeeRules> {
         return transactionRules
             .rx
-            .request(.get)
+            .request(.get(hasProxy: true))
+            .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
+                guard let self = self else { return Single.never() }
+                return self
+                    .transactionRules
+                    .rx
+                    .request(.get(hasProxy: false))
+            })
             .map(GitHub.DTO.TransactionFeeRules.self)
             .asObservable()
             .map({ (txRules) -> DomainLayer.DTO.TransactionFeeRules in

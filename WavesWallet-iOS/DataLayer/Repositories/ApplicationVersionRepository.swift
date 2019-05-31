@@ -17,12 +17,19 @@ private struct Constants {
 
 final class ApplicationVersionRepository: ApplicationVersionRepositoryProtocol {
     
-    private let applicationNewsService: MoyaProvider<GitHub.Service.ApplicationVersion> = .nodeMoyaProvider()
+    private let applicationVersionService: MoyaProvider<GitHub.Service.ApplicationVersion> = .nodeMoyaProvider()
     
     func version() -> Observable<String> {
-        return applicationNewsService
+        return applicationVersionService
             .rx
-            .request(.get)
+            .request(.get(hasProxy: true))
+            .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
+                guard let self = self else { return Single.never() }
+                return self
+                    .applicationVersionService
+                    .rx
+                    .request(.get(hasProxy: false))
+            })
             .map([String: String].self)
             .map { $0[Constants.lastVersion] }
             .asObservable()
