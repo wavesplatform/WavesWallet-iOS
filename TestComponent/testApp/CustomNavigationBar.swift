@@ -8,6 +8,8 @@
 
 import UIKit
 
+#warning("После перехода на экран AssetDetailsViewController появляеться баг что при push / scrollToTop не закрашиваеться верхняя область")
+
 final class CustomNavigationBar: UINavigationBar {
     
     override func layoutSubviews() {

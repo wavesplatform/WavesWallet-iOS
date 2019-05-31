@@ -24,7 +24,7 @@ private extension WalletTypes.DisplayState.Kind {
 }
 
 private enum Constants {
-    static let contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 16, right: 0)
+    static let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
 }
 
 final class NewWalletViewController: UIViewController {
@@ -53,21 +53,13 @@ final class NewWalletViewController: UIViewController {
 
     private let sendEvent: PublishRelay<WalletTypes.Event> = PublishRelay<WalletTypes.Event>()
 
-    private lazy var leftRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handlerLeftSwipe(gesture:)))
-    private lazy var rightSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handlerRightSwipe(gesture:)))
     var presenter: WalletPresenterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        leftRightGesture.delegate = self
-        leftRightGesture.direction = .left
-        rightSwipeGesture.delegate = self
-        rightSwipeGesture.direction = .right
-
         
-        displayData = NewWalletDisplayData(scrolledTablesComponent: scrolledTablesComponent)
-
+        displayData = NewWalletDisplayData(scrolledTablesComponent: scrolledTablesComponent, displays: displays)
+        
         scrolledTablesComponent.scrollViewDelegate = self
         scrolledTablesComponent.containerViewDelegate = self
         scrolledTablesComponent.setup(segmentedItems: displays.map{ $0.name }, topContents: [], topContentsSectionIndex: 0, tableDataSource: displayData, tableDelegate: displayData)
@@ -84,21 +76,6 @@ final class NewWalletViewController: UIViewController {
         }
 
         NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
-    }
-
-    @objc func handlerLeftSwipe(gesture: UIGestureRecognizer) {
-
-        if isHiddenSegmentedControl {
-            return
-        }
-        sendEvent.accept(.changeDisplay(.leasing))
-    }
-
-    @objc func handlerRightSwipe(gesture: UIGestureRecognizer) {
-        if isHiddenSegmentedControl {
-            return
-        }
-        sendEvent.accept(.changeDisplay(.assets))
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -121,10 +98,6 @@ final class NewWalletViewController: UIViewController {
         setupLanguages()
         setupSegmetedControl()
         scrolledTablesComponent.reloadData()
-    }
-
-    private var isHiddenSegmentedControl: Bool {
-        return false
     }
 }
 
@@ -235,18 +208,10 @@ extension NewWalletViewController {
             .map { _ in WalletTypes.Event.refresh }
             .asSignal(onErrorSignalWith: Signal.empty())
 
-//        let changedDisplayEvent = segmentedControl.changedValue()
-//            .map { [weak self] selectedIndex -> WalletTypes.Event in
-//
-//                let display = self?.displays[selectedIndex] ?? .assets
-//                return .changeDisplay(display)
-//            }
-
         let recieverEvents = sendEvent.asSignal()
 
         return [refreshEvent,
                 tapEvent,
-//                changedDisplayEvent,
                 sortTapEvent,
                 addressTapEvent,
                 recieverEvents,
@@ -268,12 +233,13 @@ extension NewWalletViewController {
 
     func updateView(with state: WalletTypes.DisplayState) {
 
-        displayData.apply(sections: state.visibleSections, animateType: state.animateType, completed: { [weak self] in
-            if state.isRefreshing == false {            
+        displayData.apply(assetsSections: state.assets.visibleSections, leasingSections: state.leasing.visibleSections, animateType: state.animateType) { [weak self] in
+                            
+            if state.isRefreshing == false {
                 self?.scrolledTablesComponent.refreshControl?.endRefreshing()
             }
-        })
-
+        }
+        
         switch state.animateType {
         case .refreshOnlyError, .refresh:
                 updateErrorView(with: state.currentDisplay.errorState)
