@@ -94,6 +94,14 @@ final class WalletCoordinator: Coordinator {
 // MARK: WalletModuleOutput
 
 extension WalletCoordinator: WalletModuleOutput {
+    func presentSearchScreen(from startPoint: CGFloat, assets: [DomainLayer.DTO.SmartAssetBalance]) {
+        
+        if let vc = WalletSearchModuleBuilder().build(input: assets) as? WalletSearchViewController {
+            navigationRouter.present(vc, animated: false) {
+                vc.showWithAnimation(fromStartPosition: startPoint)
+            }
+        }
+    }
 
     func showWalletSort(balances: [DomainLayer.DTO.SmartAssetBalance]) {
         let vc = WalletSortModuleBuilder().build(input: balances)

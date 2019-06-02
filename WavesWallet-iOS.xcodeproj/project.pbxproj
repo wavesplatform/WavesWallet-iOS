@@ -598,6 +598,7 @@
 		E9310D1D217942C8008BF3EE /* BlueBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9310D1C217942C8008BF3EE /* BlueBgView.swift */; };
 		E938356F20A472B4001A2509 /* HistoryTransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */; };
 		E9419CCB21CFAD76004DACCA /* MarketMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9419CCA21CFAD76004DACCA /* MarketMatcher.swift */; };
+		E94231F022A40FA80087F82F /* WalletSearchModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94231EF22A40FA80087F82F /* WalletSearchModuleBuilder.swift */; };
 		E9443008226E62A600EB6257 /* WalletSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9443007226E62A600EB6257 /* WalletSortViewController.swift */; };
 		E944300A226E641E00EB6257 /* WalletSortTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9443009226E641E00EB6257 /* WalletSortTypes.swift */; };
 		E944300C226E643B00EB6257 /* WalletSortModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E944300B226E643A00EB6257 /* WalletSortModuleBuilder.swift */; };
@@ -1566,6 +1567,7 @@
 		E9310D1C217942C8008BF3EE /* BlueBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueBgView.swift; sourceTree = "<group>"; };
 		E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionCell.swift; sourceTree = "<group>"; };
 		E9419CCA21CFAD76004DACCA /* MarketMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketMatcher.swift; sourceTree = "<group>"; };
+		E94231EF22A40FA80087F82F /* WalletSearchModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSearchModuleBuilder.swift; sourceTree = "<group>"; };
 		E9443007226E62A600EB6257 /* WalletSortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortViewController.swift; sourceTree = "<group>"; };
 		E9443009226E641E00EB6257 /* WalletSortTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortTypes.swift; sourceTree = "<group>"; };
 		E944300B226E643A00EB6257 /* WalletSortModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortModuleBuilder.swift; sourceTree = "<group>"; };
@@ -2349,7 +2351,6 @@
 				E945F4C3208B88DD00545776 /* WalletViewController.swift */,
 				E95E14FC22A07230003552B8 /* NewWalletViewController.swift */,
 				E95E14FE22A07364003552B8 /* NewWalletDisplayData.swift */,
-				E95E151422A197B8003552B8 /* WalletSearchViewController.swift */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -2791,6 +2792,7 @@
 		0A97975E2108A10400407F67 /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
+				E94231EE22A40A010087F82F /* WalletSearch */,
 				E9657026219360770052F0FC /* WalletSort */,
 				0A4C9A2620ED3A180095A417 /* Wallet */,
 				0A97975F2108A11A00407F67 /* Wallet.storyboard */,
@@ -3673,6 +3675,15 @@
 				E9310D1A21792D13008BF3EE /* SendConfirmationRecipientView.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		E94231EE22A40A010087F82F /* WalletSearch */ = {
+			isa = PBXGroup;
+			children = (
+				E95E151422A197B8003552B8 /* WalletSearchViewController.swift */,
+				E94231EF22A40FA80087F82F /* WalletSearchModuleBuilder.swift */,
+			);
+			path = WalletSearch;
 			sourceTree = "<group>";
 		};
 		E944AA72224465BE0009F494 /* AnalyticManager */ = {
@@ -5825,6 +5836,7 @@
 				E99DD81B21CEE7690091AFEC /* CandlesApiService.swift in Sources */,
 				E9C0B49C2176C46E00669D1D /* SendPresenterProtocol.swift in Sources */,
 				0A071E82215DB182007D9750 /* ChooseAccountModuleBuilder.swift in Sources */,
+				E94231F022A40FA80087F82F /* WalletSearchModuleBuilder.swift in Sources */,
 				7B951127225CD7160030390C /* QRCodeParser.swift in Sources */,
 				0AF58FA121931AD400C8A4B3 /* WalletEncryption.swift in Sources */,
 				0ADD802A21F22FFA0075FC59 /* EnterLanguageCoordinator.swift in Sources */,

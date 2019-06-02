@@ -12,9 +12,17 @@ private enum Constants {
     static let animationDuration: TimeInterval = 0.3
     static let searchIconFrame: CGRect = .init(x: 0, y: 0, width: 36, height: 24)
     static let deltaButtonWidth: CGFloat = 16
+    static let contentInset = UIEdgeInsets(top: 18, left: 0, bottom: 0, right: 0)
+    static let searchBarTopDiff: CGFloat = 6
+    
+    enum Shadow {
+        static let height: CGFloat = 4
+        static let opacity: Float = 0.1
+        static let radius: Float = 3
+    }
 }
 
-final class WalletSearchViewController: UIViewController {
+final class WalletSearchViewController: UIViewController  {
 
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var textFieldSearch: UITextField!
@@ -22,23 +30,24 @@ final class WalletSearchViewController: UIViewController {
     @IBOutlet private weak var buttonCancel: UIButton!
     @IBOutlet private weak var buttonCancelWidth: NSLayoutConstraint!
     @IBOutlet private weak var buttonCancelPosition: NSLayoutConstraint!
+    @IBOutlet private weak var searchBarContainer: UIView!
     
     private var startPosition: CGFloat = 0
     
+    var assets: [DomainLayer.DTO.SmartAssetBalance] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupSearchBar()
         setupButtonCancel()
         view.alpha = 0
-        textFieldSearch.becomeFirstResponder()
         tableView.keyboardDismissMode = .onDrag
+        tableView.contentInset = Constants.contentInset
     }
-    
     
     @IBAction private func cancelTapped(_ sender: Any) {
 
-        textFieldSearch.resignFirstResponder()
         buttonCancelPosition.constant = -buttonCancelWidth.constant
         UIView.animate(withDuration: Constants.animationDuration, animations: {
             self.viewContainer.frame.origin.y = self.startPosition
@@ -50,16 +59,18 @@ final class WalletSearchViewController: UIViewController {
     }
     
     func showWithAnimation(fromStartPosition: CGFloat) {
+        startPosition = fromStartPosition - Constants.searchBarTopDiff
         
-        startPosition = fromStartPosition
-        view.alpha = 1        
         let startOffset = viewContainer.frame.origin.y
-        viewContainer.frame.origin.y = fromStartPosition
+        viewContainer.frame.origin.y = startPosition 
         buttonCancelPosition.constant = 0
         UIView.animate(withDuration: Constants.animationDuration, animations: {
+            self.view.alpha = 1
             self.view.layoutIfNeeded()
             self.viewContainer.frame.origin.y = startOffset
-        })
+        }) { (complete) in
+            self.textFieldSearch.becomeFirstResponder()
+        }
     }
 }
 
@@ -77,12 +88,19 @@ private extension WalletSearchViewController {
     
     func setupSearchBar() {
         
-        let imageView = UIImageView(image: Images.search24Basic500.image)
+        let imageView = UIImageView(image: Images.search24Black.image)
         imageView.frame = Constants.searchIconFrame
         imageView.contentMode = .center
         textFieldSearch.leftView = imageView
         textFieldSearch.leftViewMode = .always
-        textFieldSearch.attributedPlaceholder = NSAttributedString.init(string: Localizable.Waves.Wallet.Label.search, attributes: [NSAttributedString.Key.foregroundColor : UIColor.basic500])
+        textFieldSearch.placeholder = nil
+        
+        searchBarContainer.backgroundColor = .basic50
+        searchBarContainer.layer.setupShadow(options: .init(offset: CGSize(width: 0, height: Constants.Shadow.height),
+                                                            color: .black,
+                                                            opacity: Constants.Shadow.opacity,
+                                                            shadowRadius: Constants.Shadow.radius,
+                                                            shouldRasterize: true))
     }
 }
 
@@ -93,7 +111,11 @@ extension WalletSearchViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        return assets.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return WalletTableAssetsCell.cellHeight()
     }
 }
 
@@ -101,11 +123,8 @@ extension WalletSearchViewController: UITableViewDelegate {
 extension WalletSearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: "cell")
-        if cell == nil {
-            cell = UITableViewCell.init(style: .default, reuseIdentifier: "cell")
-        }
-        cell.textLabel?.text = String(indexPath.row + 1)
+        let cell = tableView.dequeueAndRegisterCell() as WalletTableAssetsCell
+        cell.update(with: assets[indexPath.row])
         return cell
     }
 }

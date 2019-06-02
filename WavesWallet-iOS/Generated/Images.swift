@@ -206,6 +206,7 @@ internal enum Images {
   internal static let scriptasset18White = ImageAsset(name: "scriptasset18White")
   internal static let search = ImageAsset(name: "search")
   internal static let search24Basic500 = ImageAsset(name: "search24Basic500")
+  internal static let search24Black = ImageAsset(name: "search24Black")
   internal static let send = ImageAsset(name: "send")
   internal static let sendBtn = ImageAsset(name: "send_btn")
   internal static let settings = ImageAsset(name: "settings")
@@ -477,6 +478,7 @@ internal enum Images {
     scriptasset18White,
     search,
     search24Basic500,
+    search24Black,
     send,
     sendBtn,
     settings,
