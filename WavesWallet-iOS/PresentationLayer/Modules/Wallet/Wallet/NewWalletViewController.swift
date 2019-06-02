@@ -377,14 +377,7 @@ extension NewWalletViewController: NewWalletDisplayDataDelegate {
     
     func showSearchVC(fromStartPosition: CGFloat) {
         
-        let vc = StoryboardScene.Wallet.walletSearchViewController.instantiate()
-        
-        vc.modalPresentationStyle = .custom;
-        vc.view.alpha = 0
-        
-        navigationController?.topViewController?.present(vc, animated: false, completion: {
-            vc.showWithAnimation(fromStartPosition: fromStartPosition)
-        })
+        sendEvent.accept(.presentSearch(startPoint: fromStartPosition))
     }
     
     func tableViewDidSelect(indexPath: IndexPath) {

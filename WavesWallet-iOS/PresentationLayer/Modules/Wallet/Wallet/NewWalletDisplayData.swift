@@ -48,7 +48,6 @@ final class NewWalletDisplayData: NSObject {
         CATransaction.begin()
         CATransaction.setCompletionBlock {
             completed()
-
         }
         
         switch animateType {

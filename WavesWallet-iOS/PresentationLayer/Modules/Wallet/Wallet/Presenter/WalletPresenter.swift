@@ -302,6 +302,9 @@ final class WalletPresenter: WalletPresenterProtocol {
 
         case .showStartLease(let money):
             moduleOutput?.showStartLease(availableMoney: money)
+            
+        case .presentSearch(let startPoint):
+            moduleOutput?.presentSearchScreen(from: startPoint, assets: state.assets)
         }
     }
 
