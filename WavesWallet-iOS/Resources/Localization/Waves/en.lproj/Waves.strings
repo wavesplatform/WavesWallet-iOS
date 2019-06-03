@@ -575,6 +575,8 @@
 "walletsort.button.visibility" = "Visibility";
 "walletsort.navigationBar.title" = "Sorting";
 "walletsearch.button.cancel" = "Cancel";
+"walletsearch.label.hiddenTokens" = "Hidden tokens";
+"walletsearch.label.suspiciousTokens" = "Suspicious tokens";
 
 "wavespopup.button.exchange" = "Exchange";
 "wavespopup.button.receive" = "Receive";

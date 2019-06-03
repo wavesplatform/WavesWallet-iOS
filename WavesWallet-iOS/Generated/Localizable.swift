@@ -3165,6 +3165,15 @@ internal enum Localizable {
         internal static var cancel: String { return Localizable.tr("Waves", "walletsearch.button.cancel") }
         internal static var cancelKey: String { return "walletsearch.button.cancel" }
       }
+
+      internal enum Label {
+        /// Hidden tokens
+        internal static var hiddenTokens: String { return Localizable.tr("Waves", "walletsearch.label.hiddenTokens") }
+        internal static var hiddenTokensKey: String { return "walletsearch.label.hiddenTokens" }
+        /// Suspicious tokens
+        internal static var suspiciousTokens: String { return Localizable.tr("Waves", "walletsearch.label.suspiciousTokens") }
+        internal static var suspiciousTokensKey: String { return "walletsearch.label.suspiciousTokens" }
+      }
     }
 
     internal enum Walletsort {
