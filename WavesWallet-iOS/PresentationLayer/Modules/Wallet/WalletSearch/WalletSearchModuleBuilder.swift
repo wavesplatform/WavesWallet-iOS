@@ -8,13 +8,14 @@
 
 import UIKit
 
-struct WalletSearchModuleBuilder: ModuleBuilder {
+struct WalletSearchModuleBuilder: ModuleBuilderOutput {
     
+    var output: WalletSearchViewControllerDelegate
     
     func build(input: [DomainLayer.DTO.SmartAssetBalance]) -> UIViewController {
         let vc = StoryboardScene.Wallet.walletSearchViewController.instantiate()
         vc.presenter = WalletSearchPresenter(assets: input)
-        vc.modalPresentationStyle = .custom;
+        vc.delegate = output
         return vc
     }
 }
