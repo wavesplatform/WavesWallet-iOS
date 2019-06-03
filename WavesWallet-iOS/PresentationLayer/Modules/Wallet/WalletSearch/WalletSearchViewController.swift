@@ -25,6 +25,11 @@ private enum Constants {
     }
 }
 
+protocol WalletSearchViewControllerDelegate: AnyObject {
+
+    func walletSearchViewControllerDidSelectAsset(_ asset: DomainLayer.DTO.SmartAssetBalance, assets: [DomainLayer.DTO.SmartAssetBalance])
+}
+
 final class WalletSearchViewController: UIViewController  {
 
     @IBOutlet private weak var tableView: UITableView!
@@ -38,9 +43,11 @@ final class WalletSearchViewController: UIViewController  {
     private var startPosition: CGFloat = 0
     private let sendEvent: PublishRelay<WalletSearch.Event> = PublishRelay<WalletSearch.Event>()
     private var sections: [WalletSearch.ViewModel.Section] = []
-
+    private var assets: [DomainLayer.DTO.SmartAssetBalance] = []
+    
     var presenter: WalletSearchPresenterProtocol!
-
+    weak var delegate: WalletSearchViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -122,8 +129,12 @@ private extension WalletSearchViewController {
                 }
                 
                 self.sections = state.sections
+                self.assets = state.assets
                 self.tableView.contentInset.top = state.hasGeneralAssets ? Constants.contentInset.top : 0
                 self.tableView.reloadData()
+                DispatchQueue.main.async {
+                    self.tableView.setContentOffset(.init(x: 0, y: -self.tableView.contentInset.top), animated: false)
+                }
             })
         
         return [subscriptionSections]
@@ -168,7 +179,7 @@ extension WalletSearchViewController: UITableViewDelegate {
         let row = sections[indexPath.section].items[indexPath.row]
         switch row {
         case .asset(let asset):
-            print("asset")
+            delegate?.walletSearchViewControllerDidSelectAsset(asset, assets: assets)
         default:
             break
         }

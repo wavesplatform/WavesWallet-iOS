@@ -22,7 +22,7 @@ final class WalletSearchPresenter: WalletSearchPresenterProtocol {
     private let disposeBag = DisposeBag()
     
     init(assets: [DomainLayer.DTO.SmartAssetBalance]) {
-        self.assets = assets//.sorted(by: {$0.settings.sortLevel > $1.settings.sortLevel})
+        self.assets = assets
     }
     
     func system(feedbacks: [WalletSearchPresenter.Feedback]) {
