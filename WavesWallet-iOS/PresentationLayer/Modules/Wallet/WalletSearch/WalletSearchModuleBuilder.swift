@@ -13,7 +13,7 @@ struct WalletSearchModuleBuilder: ModuleBuilder {
     
     func build(input: [DomainLayer.DTO.SmartAssetBalance]) -> UIViewController {
         let vc = StoryboardScene.Wallet.walletSearchViewController.instantiate()
-        vc.assets = input
+        vc.presenter = WalletSearchPresenter(assets: input)
         vc.modalPresentationStyle = .custom;
         return vc
     }

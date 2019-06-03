@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import RxCocoa
+import RxFeedback
+import RxSwift
 
 private enum Constants {
     static let animationDuration: TimeInterval = 0.3
@@ -33,17 +36,25 @@ final class WalletSearchViewController: UIViewController  {
     @IBOutlet private weak var searchBarContainer: UIView!
     
     private var startPosition: CGFloat = 0
-    
-    var assets: [DomainLayer.DTO.SmartAssetBalance] = []
-    
+    private let sendEvent: PublishRelay<WalletSearch.Event> = PublishRelay<WalletSearch.Event>()
+    private var sections: [WalletSearch.ViewModel.Section] = []
+
+    var presenter: WalletSearchPresenterProtocol!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupFeedBack()
         setupSearchBar()
         setupButtonCancel()
         view.alpha = 0
         tableView.keyboardDismissMode = .onDrag
         tableView.contentInset = Constants.contentInset
+        textFieldSearch.addTarget(self, action: #selector(textFieldSearchDidChange), for: .editingChanged)
+    }
+    
+    @objc private func textFieldSearchDidChange() {
+        sendEvent.accept(.search(textFieldSearch.text ?? ""))
     }
     
     @IBAction private func cancelTapped(_ sender: Any) {
@@ -73,6 +84,52 @@ final class WalletSearchViewController: UIViewController  {
         }
     }
 }
+
+//MARK: - RXFeedBack
+private extension WalletSearchViewController {
+    
+    func setupFeedBack() {
+        let feedback = bind(self) { owner, state -> Bindings<WalletSearch.Event> in
+            return Bindings(subscriptions: owner.subscriptions(state: state),
+                            events: owner.events())
+        }
+        
+        let readyViewFeedback: WalletSearchPresenterProtocol.Feedback = { [weak self] _ in
+            guard let self = self else { return Signal.empty() }
+            return self
+                .rx
+                .viewWillAppear
+                .take(1)
+                .map { _ in WalletSearch.Event.readyView }
+                .asSignal(onErrorSignalWith: Signal.empty())
+        }
+        
+        presenter.system(feedbacks: [feedback, readyViewFeedback])
+    }
+    
+    func events() -> [Signal<WalletSearch.Event>] {
+        return [sendEvent.asSignal()]
+    }
+    
+    func subscriptions(state: Driver<WalletSearch.State>) -> [Disposable] {
+        let subscriptionSections = state
+            .drive(onNext: { [weak self] state in
+                
+                guard let self = self else { return }
+                
+                if state.action == .none {
+                    return
+                }
+                
+                self.sections = state.sections
+                self.tableView.contentInset.top = state.hasGeneralAssets ? Constants.contentInset.top : 0
+                self.tableView.reloadData()
+            })
+        
+        return [subscriptionSections]
+    }
+}
+
 
 //MARK: - UI
 private extension WalletSearchViewController {
@@ -106,16 +163,36 @@ private extension WalletSearchViewController {
 
 //MARK: - UITableViewDelegate
 extension WalletSearchViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let row = sections[indexPath.section].items[indexPath.row]
+        switch row {
+        case .asset(let asset):
+            print("asset")
+        default:
+            break
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return assets.count
+        return sections[section].items.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return WalletTableAssetsCell.cellHeight()
+        
+        let section = sections[indexPath.section]
+        let row = section.items[indexPath.row]
+        switch row {
+        case .asset:
+            return WalletTableAssetsCell.cellHeight()
+            
+        case .header:
+            return WalletSearchHeaderCell.viewHeight()
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
     }
 }
 
@@ -123,8 +200,18 @@ extension WalletSearchViewController: UITableViewDelegate {
 extension WalletSearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueAndRegisterCell() as WalletTableAssetsCell
-        cell.update(with: assets[indexPath.row])
-        return cell
+        let row = sections[indexPath.section].items[indexPath.row]
+        
+        switch row {
+        case .asset(let asset):
+            let cell = tableView.dequeueAndRegisterCell() as WalletTableAssetsCell
+            cell.update(with: asset)
+            return cell
+            
+        case .header(let kind):
+            let cell = tableView.dequeueAndRegisterCell() as WalletSearchHeaderCell
+            cell.update(with: kind)
+            return cell
+        }
     }
 }
