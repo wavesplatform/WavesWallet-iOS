@@ -17,4 +17,5 @@ protocol WalletModuleOutput: AnyObject {
     func showStartLease(availableMoney: Money)
     func showLeasingTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int)
     func presentSearchScreen(from startPoint: CGFloat, assets: [DomainLayer.DTO.SmartAssetBalance])
+    func openAppStore()
 }

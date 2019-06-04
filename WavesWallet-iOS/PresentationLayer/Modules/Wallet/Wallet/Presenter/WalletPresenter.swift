@@ -305,6 +305,9 @@ final class WalletPresenter: WalletPresenterProtocol {
             
         case .presentSearch(let startPoint):
             moduleOutput?.presentSearchScreen(from: startPoint, assets: state.assets)
+            
+        case .updateApp:
+            moduleOutput?.openAppStore()
         }
     }
 

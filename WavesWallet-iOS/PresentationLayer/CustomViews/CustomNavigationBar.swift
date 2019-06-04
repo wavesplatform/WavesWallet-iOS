@@ -19,6 +19,11 @@ final class CustomNavigationBar: UINavigationBar {
                 view.alpha = 1
                 view.backgroundColor = color
             }
+            
+            if let effectView = view.subviews.last as? UIVisualEffectView {
+                effectView.isHidden = backgroundColor != nil
+            }
+        
         }
     }
 

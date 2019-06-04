@@ -79,5 +79,6 @@ extension WalletTypes {
         case changeDisplay(DisplayState.Kind)
         case showStartLease(Money)
         case presentSearch(startPoint: CGFloat)
+        case updateApp
     }
 }

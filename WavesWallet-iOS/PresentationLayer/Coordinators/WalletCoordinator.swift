@@ -94,6 +94,10 @@ final class WalletCoordinator: Coordinator {
 // MARK: WalletModuleOutput
 
 extension WalletCoordinator: WalletModuleOutput {
+    func openAppStore() {
+        RateApp.show()
+    }
+    
     func presentSearchScreen(from startPoint: CGFloat, assets: [DomainLayer.DTO.SmartAssetBalance]) {
         
         if let vc = WalletSearchModuleBuilder(output: self).build(input: assets) as? WalletSearchViewController {

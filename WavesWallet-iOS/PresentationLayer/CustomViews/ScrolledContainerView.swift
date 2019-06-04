@@ -7,6 +7,7 @@
 //
 
 #warning("Установка view после инициализации")
+#warning("после скролингка с таб бара баг")
 
 import UIKit
 
@@ -28,9 +29,11 @@ class ContainerView: UIView {
 
 protocol ScrolledContainerViewProtocol {
     
-    func setup(segmentedItems: [String], topContents:[UIView], topContentsSectionIndex: Int, tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate)
+    func setup(segmentedItems: [String], topContents:[UIView], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate)
     
-    func removeView(_ view: UIView, animation: Bool)
+    func removeTopView(_ view: UIView, animation: Bool)
+    
+    func addTopView(_ view: UIView, animation: Bool)
     
     func reloadData()
     
@@ -52,12 +55,11 @@ protocol ScrolledContainerViewProtocol {
 final class ScrolledContainerView: UIScrollView {
     
     private(set) var tableViews: [UITableView] = []
-    private var topContents: [UIView] = []
+    private(set) var topContents: [UIView] = []
     private(set) var segmentedControl = NewSegmentedControl()
     
     private var currentIndex: Int = 0
     private var isAnimationTable: Bool = false
-    private var topContentsSectionIndex: Int = 0
     private(set) var topOffset: CGFloat = 0
 
     weak var scrollViewDelegate: UIScrollViewDelegate?
@@ -96,10 +98,10 @@ final class ScrolledContainerView: UIScrollView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        if visibleTableView.frame.size.height != frame.size.height ||
+        if visibleTableView.frame.size.height != frame.size.height + topOffset ||
             visibleTableView.frame.size.width != frame.size.width {
             for table in tableViews {
-                table.frame.size.height = frame.size.height
+                table.frame.size.height = frame.size.height + topOffset
                 table.frame.size.width = frame.size.width
             }
         }
@@ -120,12 +122,13 @@ final class ScrolledContainerView: UIScrollView {
         segmentedControl.frame = .init(x: 0, y: topSegmentOffset, width: frame.size.width, height: Constants.segmentedHeight)
         segmentedControl.backgroundColor = .basic50
         superview?.addSubview(segmentedControl)
+        
     }
 }
 
 //MARK: - ScrolledContainerViewProtocol
 extension ScrolledContainerView: ScrolledContainerViewProtocol {
-   
+  
     func viewControllerWillDissapear() {
         if isSmallNavBar {
             firstAvailableViewController().setupSmallNavigationBar()
@@ -136,10 +139,9 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
     }
     
     
-    func setup(segmentedItems: [String], topContents:[UIView], topContentsSectionIndex: Int, tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate) {
+    func setup(segmentedItems: [String], topContents:[UIView], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate) {
         
         self.segmentedControl.items = segmentedItems
-        self.topContentsSectionIndex = topContentsSectionIndex
         self.topContents = topContents
 
         for view in topContents {
@@ -160,6 +162,7 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
             table.separatorStyle = .none
             table.isScrollEnabled = false
             table.backgroundColor = .clear
+            table.contentInset.top = segmentedHeight
             addSubview(table)
             tableViews.append(table)
         }
@@ -172,59 +175,74 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
         setContentSize()
     }
     
-    func removeView(_ view: UIView, animation: Bool) {
+    func removeTopView(_ view: UIView, animation: Bool) {
         
-        if let index = topContents.firstIndex(of: view) {
-            let indexPath = IndexPath(row: index, section: topContentsSectionIndex)
-            
-            topContents.removeAll(where: {$0 == view})
-            
-            for table in tableViews {
-                if table == visibleTableView && animation {
-                    table.beginUpdates()
-                    table.deleteRows(at: [indexPath], with: .fade)
-                    table.endUpdates()
-                }
-                else {
-                    table.reloadData()
-                }
-            }
-        }
-        
-        topOffset = 0
-        
-        let table = visibleTableView
+        topContents.removeAll(where: {$0 == view})
+        topOffset = topContents.map {$0.frame.size.height}.reduce(0, {$0 + $1})
+
         UIView.animate(withDuration: animation ? Constants.animationDuration : 0, animations: {
-            
-            for view in self.topContents {
-                view.frame.origin.y = self.topOffset
-                self.topOffset += view.frame.size.height
-            }
-            
             view.alpha = 0
-            self.contentOffset.y -= view.frame.size.height
-            if self.contentOffset.y > 0 {
-                table.frame.origin.y = self.contentOffset.y
-                table.contentOffset.y = self.contentOffset.y
-            }
-            else {
-                table.frame.origin.y = 0
-                table.contentOffset.y = 0
+            
+            var offset: CGFloat = 0
+            for topView in self.topContents {
+                topView.frame.origin.y = offset
+                offset += topView.frame.origin.y
             }
             
+            for table in self.tableViews {
+                table.contentInset.top = self.topOffset + self.segmentedHeight
+            }
+            
+            self.scrollViewDidScroll(self)
         }) { (complete) in
             view.removeFromSuperview()
         }
     }
     
+    func addTopView(_ view: UIView, animation: Bool) {
+     
+        topContents.append(view)
+        addSubview(view)
+        layoutIfNeeded()
+        
+        view.alpha = 0
+        
+        topOffset = topContents.map {$0.frame.size.height}.reduce(0, {$0 + $1})
+        
+        UIView.animate(withDuration: animation ? Constants.animationDuration : 0, animations: {
+            view.alpha = 1
+            
+            var offset: CGFloat = 0
+            for topView in self.topContents {
+                topView.frame.origin.y = offset
+                offset += topView.frame.origin.y
+            }
+            
+            for table in self.tableViews {
+                table.contentInset.top = self.topOffset + self.segmentedHeight
+            }
+            
+            self.scrollViewDidScroll(self)
+        })
+    }
+    
     func reloadData() {
+     
+        layoutIfNeeded()
+        
+        topOffset = topContents.map {$0.frame.size.height}.reduce(0, {$0 + $1})
+
         for table in tableViews {
             table.reloadData()
+            table.contentInset.top = topOffset + segmentedHeight
         }
+        
+        setContentSize()
+        scrollViewDidScroll(self)
     }
     
     func setContentSize() {
-        contentSize = CGSize(width: contentSize.width, height: visibleTableView.contentSize.height)
+        contentSize = CGSize(width: contentSize.width, height: visibleContentHeight)
     }
     
     var segmentedHeight: CGFloat {
@@ -263,8 +281,8 @@ extension ScrolledContainerView: UIScrollViewDelegate {
    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
-        segmentedControl.frame.origin.y = topSegmentOffset
-
+        setupSegmentedPosition()
+        
         if isAnimationTable {
             return
         }
@@ -273,26 +291,20 @@ extension ScrolledContainerView: UIScrollViewDelegate {
             firstAvailableViewController().setupBigNavigationBar()
         }
         
-        
         let table = visibleTableView
-        if scrollView.contentOffset.y > 0 {
-            table.frame.origin.y = scrollView.contentOffset.y
-            table.contentOffset.y = scrollView.contentOffset.y
+        table.frame.origin.y = tableTopPosition
+        table.contentOffset.y = tableTopPosition - table.contentInset.top
+
+        if contentSize.height != visibleContentHeight {
+            contentSize.height = visibleContentHeight
         }
-        else {
-            table.frame.origin.y = 0
-            table.contentOffset.y = 0
-        }
-        
-        if contentSize.height != table.contentSize.height {
-            contentSize.height = table.contentSize.height
-        }
-        
+            
         updateSegmentedShadow()
         
         scrollViewDelegate?.scrollViewDidScroll?(scrollView)
     }
     
+  
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         scrollViewDelegate?.scrollViewDidEndDragging?(scrollView, willDecelerate: decelerate)
     }
@@ -318,9 +330,22 @@ extension ScrolledContainerView: NewSegmentedControlDelegate {
 
 private extension ScrolledContainerView {
     
+    func setupSegmentedPosition() {
+        segmentedControl.frame.origin.y = topSegmentOffset
+    }
+    
     func acceptCurrentTableOffset() -> UITableView {
         isAnimationTable = true
+        
         let lastOffset = contentOffset.y
+        var diff: CGFloat = 0
+        let currentTable = visibleTableView
+
+        if contentSize.height - frame.size.height - contentOffset.y < smallTopOffset &&
+            contentSize.height > frame.size.height &&
+            contentOffset.y > 0 {
+            diff = contentSize.height - frame.size.height - contentOffset.y - smallTopOffset
+        }
         
         if isSmallNavBar {
             firstAvailableViewController().setupSmallNavigationBar()
@@ -330,17 +355,18 @@ private extension ScrolledContainerView {
         }
         
         let newOffset = contentOffset.y - lastOffset
-        let currentTable = visibleTableView
-        currentTable.frame.origin.y += newOffset
+        currentTable.frame.origin.y += newOffset + diff
         return currentTable
     }
     
+    
     func updateNewTableOffset(_ newTable: UITableView) {
-        newTable.frame.origin.y = contentOffset.y > 0 ? contentOffset.y : 0
-        newTable.contentOffset.y = contentOffset.y > 0 ? contentOffset.y : 0
+        
+        newTable.frame.origin.y = tableTopPosition
+        newTable.contentOffset.y = tableTopPosition - newTable.contentInset.top
         
         if newTable.frame.origin.y + newTable.frame.size.height > contentSize.height &&
-            contentSize.height > self.frame.size.height {
+            contentSize.height > newTable.frame.size.height {
             newTable.frame.origin.y = contentSize.height - newTable.frame.size.height
         }
     }
@@ -356,7 +382,7 @@ private extension ScrolledContainerView {
             
             UIView.animate(withDuration: Constants.animationDuration) {
                 self.setContentSize()
-                self.segmentedControl.frame.origin.y = self.topSegmentOffset
+                self.setupSegmentedPosition()
             }
             
             updateSegmentedShadow()
@@ -382,7 +408,7 @@ private extension ScrolledContainerView {
             
             UIView.animate(withDuration: Constants.animationDuration) {
                 self.setContentSize()
-                self.segmentedControl.frame.origin.y = self.topSegmentOffset
+                self.setupSegmentedPosition()
             }
             
             updateSegmentedShadow()
@@ -415,6 +441,10 @@ private extension ScrolledContainerView {
         }
     }
     
+    var visibleContentHeight: CGFloat {
+        return visibleTableView.contentSize.height + visibleTableView.contentInset.top
+    }
+    
     var topSegmentOffset: CGFloat {
         var offset = -contentOffset.y + topOffset
         if offset < smallTopOffset {
@@ -427,15 +457,25 @@ private extension ScrolledContainerView {
         return firstAvailableViewController().navigationController?.navigationBar.frame.origin.y ?? 0
     }
     
+    var navigationBarHeight: CGFloat {
+        return firstAvailableViewController().navigationController?.navigationBar.frame.size.height ?? 0
+    }
+    
     var bigTopOffset: CGFloat {
         return Constants.bigNavBarHeight + navigationBarOriginY
     }
-    
     
     var isSmallNavBar: Bool {
         if let nav = firstAvailableViewController().navigationController {
             return nav.navigationBar.frame.size.height.rounded(.down) <= Constants.smallNavBarHeight
         }
         return false
+    }
+    
+    var tableTopPosition: CGFloat {
+        let navBarSize = navigationBarOriginY + navigationBarHeight
+        var topOffset = navBarSize + contentOffset.y
+        topOffset -= self.topOffset
+        return topOffset > 0 ? topOffset : 0
     }
 }
