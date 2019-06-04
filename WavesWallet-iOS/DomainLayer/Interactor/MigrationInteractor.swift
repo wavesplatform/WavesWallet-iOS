@@ -12,7 +12,7 @@ import Realm
 import RealmSwift
 import Base58
 import WavesSDKExtension
-import WavesSDKClientCrypto
+
 
 fileprivate struct ApplicationVersion: Codable, TSUD {
 

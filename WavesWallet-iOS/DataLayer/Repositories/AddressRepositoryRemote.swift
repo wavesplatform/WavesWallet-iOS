@@ -9,8 +9,7 @@
 import Foundation
 import RxSwift
 import Moya
-import WavesSDKServices
-import WavesSDKClientCrypto
+import WavesSDK
 
 extension Environment {
     

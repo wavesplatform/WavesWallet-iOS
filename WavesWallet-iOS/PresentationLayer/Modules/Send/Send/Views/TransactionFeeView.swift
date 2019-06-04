@@ -8,7 +8,7 @@
 
 import UIKit
 import WavesSDKExtension
-import WavesSDKClientCrypto
+import WavesSDK
 
 private enum Constants {
     static let smallRightOffset: CGFloat = 14

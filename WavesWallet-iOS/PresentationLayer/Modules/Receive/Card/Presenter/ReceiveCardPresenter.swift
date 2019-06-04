@@ -10,8 +10,7 @@ import Foundation
 import RxSwift
 import RxFeedback
 import RxCocoa
-import WavesSDKExtension
-import WavesSDKClientCrypto
+import WavesSDK
 
 final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
     

@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 import WavesSDKExtension
-import WavesSDKClientCrypto
+
 
 protocol MatcherRepositoryProtocol {
     

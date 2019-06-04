@@ -8,8 +8,8 @@
 
 import Foundation
 import WavesSDKExtension
-import WavesSDKClientCrypto
-import WavesSDKServices
+
+import WavesSDK
 
 extension MassTransferTransaction {
 

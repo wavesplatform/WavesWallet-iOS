@@ -8,7 +8,7 @@
 
 import Foundation
 import RxSwift
-import WavesSDKServices
+import WavesSDK
 
 final class DexListInteractor: DexListInteractorProtocol {
    

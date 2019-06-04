@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import Moya
 import RealmSwift
-import WavesSDKServices
+import WavesSDK
 
 final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
 

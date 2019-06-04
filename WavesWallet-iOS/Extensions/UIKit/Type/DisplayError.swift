@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import WavesSDKServices
+import WavesSDK
 
 enum DisplayError: Equatable {
     case globalError(isInternetNotWorking: Bool)

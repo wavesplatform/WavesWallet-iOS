@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import WavesSDKServices
+import WavesSDK
 
 extension DomainLayer.DTO.Dex.MyOrder {
     

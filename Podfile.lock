@@ -175,21 +175,12 @@ PODS:
     - RxSwift (~> 4.0)
     - WavesSDKCrypto
     - WavesSDKExtension
-  - WavesSDKClientCrypto (0.1.2):
+  - WavesSDKCrypto (0.1.2):
     - Base58
     - Blake2
     - CryptoSwift
     - Curve25519
     - Keccak
-    - RxSwift (~> 4.0)
-    - WavesSDKExtension
-  - WavesSDKCrypto (0.1.1):
-    - Base58
-    - Blake2
-    - CryptoSwift
-    - Curve25519
-    - Keccak
-    - RxSwift (~> 4.0)
     - WavesSDKExtension
   - WavesSDKExtension (0.1.1):
     - RxSwift (~> 4.0)
@@ -241,7 +232,7 @@ DEPENDENCIES:
   - "UITextView+Placeholder"
   - UPCarouselFlowLayout
   - WavesSDK (from `/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS`)
-  - WavesSDKClientCrypto (from `/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS`)
+  - WavesSDKCrypto (from `/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS`)
   - WavesSDKExtension (from `/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS`)
 
 SPEC REPOS:
@@ -310,7 +301,6 @@ SPEC REPOS:
     - Curve25519
     - IdentityImg
     - Keccak
-    - WavesSDKCrypto
 
 EXTERNAL SOURCES:
   InfiniteCollectionView:
@@ -322,7 +312,7 @@ EXTERNAL SOURCES:
     :git: https://github.com/getsentry/sentry-cocoa.git
   WavesSDK:
     :path: "/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS"
-  WavesSDKClientCrypto:
+  WavesSDKCrypto:
     :path: "/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS"
   WavesSDKExtension:
     :path: "/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS"
@@ -406,10 +396,9 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
   WavesSDK: 25ce6d414f09a852c3e8bd92d5ee5c13b3db9ae8
-  WavesSDKClientCrypto: aa049f55adc83d6e9174df4304863fbd4a7afe0f
-  WavesSDKCrypto: 75a878b7ecb5ec88cd5b3e17dfd88be5d8c2c7a9
+  WavesSDKCrypto: e440df3d82dbd2bd60a6a1433240f7b7a199b9e8
   WavesSDKExtension: 2e972e3090a981d80932912f341f381aa2880b84
 
-PODFILE CHECKSUM: 87c7f5b3dda45005cb143981a30162cfa21531ff
+PODFILE CHECKSUM: 7d3aa8f2b3b6bcaa35267a7faff3e81c2cd37075
 
 COCOAPODS: 1.6.1

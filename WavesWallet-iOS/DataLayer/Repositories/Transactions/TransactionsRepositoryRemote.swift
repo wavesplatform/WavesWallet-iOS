@@ -12,9 +12,9 @@ import Moya
 import CryptoSwift
 import Base58
 import WavesSDKExtension
-import WavesSDKClientCrypto
+
 import WavesSDKCrypto
-import WavesSDKServices
+import WavesSDK
 
 fileprivate enum Constants {
     static let maxLimit: Int = 10000

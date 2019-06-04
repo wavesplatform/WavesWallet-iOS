@@ -10,7 +10,7 @@ import Foundation
 import Moya
 import Base58
 import WavesSDKExtension
-import WavesSDKClientCrypto
+
 
 extension Matcher.Service {
     

@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 import WavesSDKExtension
-import WavesSDKServices
+import WavesSDK
 
 final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
  

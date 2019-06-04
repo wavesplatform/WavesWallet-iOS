@@ -11,8 +11,8 @@ import RxSwift
 import Moya
 import CSV
 import WavesSDKExtension
-import WavesSDKClientCrypto
-import WavesSDKServices
+
+import WavesSDK
 
 final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     

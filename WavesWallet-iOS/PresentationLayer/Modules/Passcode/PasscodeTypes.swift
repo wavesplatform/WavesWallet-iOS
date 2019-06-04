@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import WavesSDKClientCrypto
-import WavesSDKServices
+
+import WavesSDK
 
 enum PasscodeTypes {
     enum DTO { }

@@ -21,7 +21,7 @@ import AppsFlyerLib
 import Kingfisher
 import Amplitude_iOS
 import WavesSDKExtension
-import WavesSDKServices
+import WavesSDK
 
 #if DEBUG || TEST
 import AppSpectorSDK
@@ -54,6 +54,11 @@ enum UITest {
     
     //TODO: Refactor method very long
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        
+        WavesSDK.initialization(servicesPlugins: .init(data: [], node: [], matcher: []), enviroment: Enviroment.init(server: .mainNet,
+                                                                                                                     timestampServerDiff: 0))
+        
         
         ServicesFactory
             .initialization(dataServicePlugins: [SentryNetworkLoggerPlugin()],

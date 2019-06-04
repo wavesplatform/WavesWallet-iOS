@@ -8,8 +8,8 @@
 
 import Foundation
 import Base58
+import WavesSDK
 import WavesSDKExtension
-import WavesSDKClientCrypto
 
 fileprivate enum TransactionDirection {
     case sent
