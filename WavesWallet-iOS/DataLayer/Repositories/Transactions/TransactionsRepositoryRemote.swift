@@ -70,65 +70,71 @@ extension TransactionSenderSpecifications {
 final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
     
     private let transactionRules: MoyaProvider<GitHub.Service.TransactionRules> = .anyMoyaProvider()
-    private let transactionNodeService = ServicesFactory.shared.transactionNodeService
-    private let leasingNodeService = ServicesFactory.shared.leasingNodeService
-    
-    private let environmentRepository: EnvironmentRepositoryProtocol
 
-    init(environmentRepository: EnvironmentRepositoryProtocol) {
-        self.environmentRepository = environmentRepository
+    private let applicationEnviroment: Observable<ApplicationEnviroment>
+    
+    init(applicationEnviroment: Observable<ApplicationEnviroment>) {
+        self.applicationEnviroment = applicationEnviroment
     }
 
-    func transactions(by address: DomainLayer.DTO.Address, offset: Int, limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
+    func transactions(by address: DomainLayer.DTO.Address,
+                      offset: Int,
+                      limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
 
-        return environmentRepository
-            .accountEnvironment(accountAddress: address.address)
-            .flatMap { [weak self] environment -> Observable<[DomainLayer.DTO.AnyTransaction]> in
+        return applicationEnviroment
+            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<[DomainLayer.DTO.AnyTransaction]> in
 
                 guard let self = self else { return Observable.never() }
                 
                 let limit = min(Constants.maxLimit, offset + limit)
                 
-                return self
+                return applicationEnviroment
+                    .services
+                    .nodeServices
                     .transactionNodeService
                     .list(address: address.address,
                           offset: 0,
-                          limit: limit, enviroment: environment.environmentServiceNode)
-                    .map { $0.anyTransactions(status: .completed, environment: environment) }
-            }
+                          limit: limit)
+                    .map { $0.anyTransactions(status: .completed, environment: applicationEnviroment.walletEnviroment) }
+            })
     }
 
     func activeLeasingTransactions(by accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> {
 
-        return environmentRepository
-            .accountEnvironment(accountAddress: accountAddress)
-            .flatMap { [weak self] environment -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
+        return applicationEnviroment
+            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
                 
                 guard let self = self else { return Observable.never() }
                 
-                return self
+                return applicationEnviroment
+                    .services
+                    .nodeServices
                     .leasingNodeService
-                    .activeLeasingTransactions(by: accountAddress,
-                                               enviroment: environment.environmentServiceNode)
+                    .activeLeasingTransactions(by: accountAddress)
                     .map { $0.map { tx in
-                        return DomainLayer.DTO.LeaseTransaction(transaction: tx, status: .activeNow, environment: environment)
+                        return DomainLayer.DTO.LeaseTransaction(transaction: tx,
+                                                                status: .activeNow,
+                                                                environment: applicationEnviroment.walletEnviroment)
                         }
                     }
                     .asObservable()
-            }
+            })
     }
 
-    func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AnyTransaction> {
+    func send(by specifications: TransactionSenderSpecifications,
+              wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AnyTransaction> {
 
-        return environmentRepository
-            .accountEnvironment(accountAddress: wallet.address)
-            .flatMap { [weak self] environment -> Observable<DomainLayer.DTO.AnyTransaction> in
-
+        return applicationEnviroment
+            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<DomainLayer.DTO.AnyTransaction> in
+            
                 guard let self = self else { return Observable.never() }
                 
-                let timestamp = Date().millisecondsSince1970(timestampDiff: environment.timestampServerDiff)
+                let walletEnviroment = applicationEnviroment.walletEnviroment
+                let timestampServerDiff = applicationEnviroment.walletEnviroment.timestampServerDiff
+                
+                let timestamp = Date().millisecondsSince1970(timestampDiff: timestampServerDiff)
                 var signature = specifications.signature(timestamp: timestamp,
-                                                         scheme: environment.scheme,
+                                                         scheme: walletEnviroment.scheme,
                                                          publicKey: wallet.publicKey.publicKey)
                 
                 do {
@@ -141,16 +147,16 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                 let proofs = [Base58.encode(signature)]
 
                 let broadcastSpecification = specifications.broadcastSpecification(timestamp: timestamp,
-                                                                                   environment: environment,
+                                                                                   environment: walletEnviroment,
                                                                                    publicKey: wallet.publicKey.getPublicKeyStr(),
                                                                                    proofs: proofs)
-                return self
+                return applicationEnviroment
+                    .services.nodeServices
                     .transactionNodeService
-                    .broadcast(query: broadcastSpecification,
-                               enviroment: environment.environmentServiceNode)
-                    .map({ $0.anyTransaction(status: .unconfirmed, environment: environment) })
+                    .broadcast(query: broadcastSpecification)
+                    .map({ $0.anyTransaction(status: .unconfirmed, environment: walletEnviroment) })
                     .asObservable()
-            }
+            })
     }
 
 // MARK - -  Dont support
@@ -244,7 +250,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
 fileprivate extension TransactionSenderSpecifications {
 
     func broadcastSpecification(timestamp: Int64,
-                                environment: Environment,
+                                environment: WalletEnvironment,
                                 publicKey: String,
                                 proofs: [String]) -> NodeService.Query.Broadcast {
 

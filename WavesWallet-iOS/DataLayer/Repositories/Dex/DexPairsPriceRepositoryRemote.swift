@@ -12,21 +12,18 @@ import Moya
 import WavesSDK
 
 final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
+            
+    private let applicationEnviroment: Observable<ApplicationEnviroment>
     
-    private let pairsPriceDataService = ServicesFactory.shared.pairsPriceDataService
-    
-    private let environmentRepository: EnvironmentRepositoryProtocol
-    
-    init(environmentRepository: EnvironmentRepositoryProtocol) {
-        self.environmentRepository = environmentRepository
+    init(applicationEnviroment: Observable<ApplicationEnviroment>) {
+        self.applicationEnviroment = applicationEnviroment
     }
     
     func list(by accountAddress: String,
               pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
 
-        return environmentRepository
-            .accountEnvironment(accountAddress: accountAddress)
-            .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
+        return applicationEnviroment
+            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
                 
                 guard let self = self else { return Observable.empty() }
                 
@@ -35,10 +32,11 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
                 
                 let query = DataService.Query.PairsPrice(pairs: pairsForQuery)
                 
-                return self
+                return applicationEnviroment
+                    .services
+                    .dataServices
                     .pairsPriceDataService
-                    .pairsPrice(query: query,
-                                enviroment: environment.environmentServiceData)
+                    .pairsPrice(query: query)
                     .map({ (list) -> [DomainLayer.DTO.Dex.PairPrice] in
                         
                         var listPairs: [DomainLayer.DTO.Dex.PairPrice] = []

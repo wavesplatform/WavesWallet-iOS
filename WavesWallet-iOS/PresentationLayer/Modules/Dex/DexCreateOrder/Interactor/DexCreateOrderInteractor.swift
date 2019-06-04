@@ -23,6 +23,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     private let matcherRepository = FactoryRepositories.instance.matcherRepository
     private let orderBookRepository = FactoryRepositories.instance.dexOrderBookRepository
     private let transactionInteractor = FactoryInteractors.instance.transactions
+    //TODO: Library
     private let environmentRepository = FactoryRepositories.instance.environmentRepository
     
     func createOrder(order: DexCreateOrder.DTO.Order) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {

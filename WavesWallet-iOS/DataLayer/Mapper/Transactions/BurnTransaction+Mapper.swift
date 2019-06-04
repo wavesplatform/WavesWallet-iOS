@@ -37,7 +37,7 @@ extension BurnTransaction {
 
 extension DomainLayer.DTO.BurnTransaction {
 
-    init(transaction: NodeService.DTO.BurnTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
+    init(transaction: NodeService.DTO.BurnTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
 
         type = transaction.type
         id = transaction.id

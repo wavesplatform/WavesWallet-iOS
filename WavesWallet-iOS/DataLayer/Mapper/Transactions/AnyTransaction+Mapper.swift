@@ -13,7 +13,7 @@ import WavesSDK
 
 extension NodeService.DTO.Transaction {
 
-    func anyTransaction(status: DomainLayer.DTO.TransactionStatus, environment: Environment) -> DomainLayer.DTO.AnyTransaction {
+    func anyTransaction(status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) -> DomainLayer.DTO.AnyTransaction {
 
         switch self  {
         case .unrecognised(let transaction):
@@ -66,7 +66,7 @@ extension NodeService.DTO.Transaction {
 
 extension NodeService.DTO.TransactionContainers {
 
-    func anyTransactions(status: DomainLayer.DTO.TransactionStatus, environment: Environment) -> [DomainLayer.DTO.AnyTransaction] {
+    func anyTransactions(status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) -> [DomainLayer.DTO.AnyTransaction] {
 
         var anyTransactions = [DomainLayer.DTO.AnyTransaction]()
 

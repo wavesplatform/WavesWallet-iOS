@@ -11,47 +11,26 @@ import RxSwift
 import Moya
 import WavesSDK
 
-extension Environment {
-    
-    var environmentServiceNode: WavesSDKServices.EnviromentService {
-        return EnviromentService(serverUrl: servers.nodeUrl,
-                                 timestampServerDiff: timestampServerDiff)
-    }
-    
-    var environmentServiceMatcher: WavesSDKServices.EnviromentService {
-        return EnviromentService(serverUrl: servers.matcherUrl,
-                                 timestampServerDiff: timestampServerDiff)
-    }
-    
-    var environmentServiceData: WavesSDKServices.EnviromentService {
-        return EnviromentService(serverUrl: servers.dataUrl,
-                                 timestampServerDiff: timestampServerDiff)
-    }
-}
-
 final class AddressRepositoryRemote: AddressRepositoryProtocol {
 
-    private let environmentRepository: EnvironmentRepositoryProtocol
+    private let applicationEnviroment: Observable<ApplicationEnviroment>
     
-    private let addressesNodeService = ServicesFactory.shared.addressesNodeService
-    
-    init(environmentRepository: EnvironmentRepositoryProtocol) {
-        self.environmentRepository = environmentRepository
+    init(applicationEnviroment: Observable<ApplicationEnviroment>) {
+        self.applicationEnviroment = applicationEnviroment
     }
-
+    
     func isSmartAddress(accountAddress: String) -> Observable<Bool> {
-
-        let environment = environmentRepository.accountEnvironment(accountAddress: accountAddress)
-
-        return environment
-            .flatMap { [weak self] environment -> Observable<Bool> in
+        
+        return applicationEnviroment.flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<Bool> in
                 
                 guard let self = self else { return Observable.never() }
                 
-                return self.addressesNodeService
-                    .scriptInfo(address: accountAddress,
-                                enviroment: environment.environmentServiceNode)
+                return applicationEnviroment
+                    .services
+                    .nodeServices
+                    .addressesNodeService
+                    .scriptInfo(address: accountAddress)
                     .map { ($0.extraFee ?? 0) > 0 }
-            }
+            })
     }
 }

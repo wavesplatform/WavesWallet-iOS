@@ -43,7 +43,7 @@ extension InvokeScriptTransaction {
 }
 extension DomainLayer.DTO.InvokeScriptTransaction {
     
-    init(transaction: NodeService.DTO.InvokeScriptTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
+    init(transaction: NodeService.DTO.InvokeScriptTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
         type = transaction.type
         id = transaction.id
         sender = transaction.sender.normalizeAddress(environment: environment)

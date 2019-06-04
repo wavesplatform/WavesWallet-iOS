@@ -21,7 +21,7 @@ import AppsFlyerLib
 import Kingfisher
 import Amplitude_iOS
 import WavesSDKExtension
-import WavesSDK
+//import WavesSDK
 
 #if DEBUG || TEST
 import AppSpectorSDK
@@ -56,16 +56,16 @@ enum UITest {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         
-        WavesSDK.initialization(servicesPlugins: .init(data: [], node: [], matcher: []), enviroment: Enviroment.init(server: .mainNet,
-                                                                                                                     timestampServerDiff: 0))
-        
-        
-        ServicesFactory
-            .initialization(dataServicePlugins: [SentryNetworkLoggerPlugin()],
-                            nodeServicePlugins: [SentryNetworkLoggerPlugin(),
-                                                 NodePlugin()],
-                            matcherrServicePlugins: [SentryNetworkLoggerPlugin()])
-        
+//        WavesSDK.initialization(servicesPlugins: .init(data: [], node: [], matcher: []), enviroment: Enviroment.init(server: .mainNet,
+//                                                                                                                     timestampServerDiff: 0))
+//
+//
+//        ServicesFactory
+//            .initialization(dataServicePlugins: [SentryNetworkLoggerPlugin()],
+//                            nodeServicePlugins: [SentryNetworkLoggerPlugin(),
+//                                                 NodePlugin()],
+//                            matcherrServicePlugins: [SentryNetworkLoggerPlugin()])
+//
                     
         if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
             let options = FirebaseOptions(contentsOfFile: path) {

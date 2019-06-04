@@ -31,7 +31,7 @@ final class SupportViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        testNetSwitch.setOn(Environment.isTestNet, animated: true)
+        testNetSwitch.setOn(WalletEnvironment.isTestNet, animated: true)
         versionLabel.text = version()
         buildVersionLabel.text = buildVersion()
         enableStageSwitch.isOn = ApplicationDebugSettings.isEnableStage

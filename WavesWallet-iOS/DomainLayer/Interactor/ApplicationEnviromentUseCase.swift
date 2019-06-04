@@ -10,14 +10,14 @@ import Foundation
 import RxSwift
 import WavesSDK
 
-final class ApplicationEnviroment {
+public final class ApplicationEnviroment {
     
-    let services: WavesServicesProtocol
-    let enviroment: Enviroment
+    public let services: WavesServicesProtocol
+    public let walletEnviroment: WalletEnvironment
     
-    init(services: WavesServicesProtocol, enviroment: Enviroment) {
+    init(services: WavesServicesProtocol, walletEnviroment: WalletEnvironment) {
         self.services = services
-        self.enviroment = enviroment
+        self.walletEnviroment = walletEnviroment
     }
 }
 
@@ -41,7 +41,7 @@ final class ApplicationEnviromentUseCase: ApplicationEnviromentUseCaseProtocol {
         
         enviromentRepository.accountEnvironment(accountAddress: "")
             .flatMap { (enviroment) -> Observable<ApplicationEnviroment> in
-                
+                    
                 
                 return Observable.never()
             }

@@ -52,7 +52,7 @@ extension DomainLayer.DTO.MassTransferTransaction {
 
     init(transaction: NodeService.DTO.MassTransferTransaction,
          status: DomainLayer.DTO.TransactionStatus,
-         environment: Environment) {
+         environment: WalletEnvironment) {
 
         type = transaction.type
         id = transaction.id

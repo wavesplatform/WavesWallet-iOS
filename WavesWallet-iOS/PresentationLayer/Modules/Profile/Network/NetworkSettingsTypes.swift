@@ -25,7 +25,7 @@ extension NetworkSettingsTypes {
     struct State: Mutating {
         var wallet: DomainLayer.DTO.Wallet
         var accountSettings: DomainLayer.DTO.AccountSettings?
-        var environment: Environment?
+        var environment: WalletEnvironment?
         var displayState: DisplayState
         var query: Query?
         var isValidSpam: Bool        
@@ -33,8 +33,8 @@ extension NetworkSettingsTypes {
 
     enum Event {
         case readyView
-        case setEnvironmets(Environment, DomainLayer.DTO.AccountSettings?)
-        case setDeffaultEnvironmet(Environment)
+        case setEnvironmets(WalletEnvironment, DomainLayer.DTO.AccountSettings?)
+        case setDeffaultEnvironmet(WalletEnvironment)
         case handlerError(Error)
         case inputSpam(String?)
         case switchSpam(Bool)

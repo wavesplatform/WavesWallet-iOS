@@ -37,7 +37,7 @@ extension ReissueTransaction {
 
 extension DomainLayer.DTO.ReissueTransaction {
 
-    init(transaction: NodeService.DTO.ReissueTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
+    init(transaction: NodeService.DTO.ReissueTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
 
         type = transaction.type
         id = transaction.id

@@ -22,7 +22,7 @@ public extension Optional where Wrapped == String {
 
 public extension String {
     
-    func normalizeAddress(environment: Environment) -> String {
+    func normalizeAddress(environment: WalletEnvironment) -> String {
         
         if let range = self.range(of: environment.aliasScheme), self.contains(environment.aliasScheme) {
             var newString = self

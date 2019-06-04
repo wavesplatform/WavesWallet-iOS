@@ -232,7 +232,7 @@ extension WalletRealmFactory {
             
             config.fileURL = fileURL
                 .deletingLastPathComponent()
-                .appendingPathComponent("wallets_\(Environment.current.scheme).realm")
+                .appendingPathComponent("wallets_\(WalletEnvironment.current.scheme).realm")
             
             config.migrationBlock = { _, oldSchemaVersion in
                 SweetLogger.debug("Migration!!! \(oldSchemaVersion)")

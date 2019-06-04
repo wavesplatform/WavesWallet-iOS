@@ -44,7 +44,7 @@ extension LeaseCancelTransaction {
 
 extension DomainLayer.DTO.LeaseCancelTransaction {
 
-    init(transaction: NodeService.DTO.LeaseCancelTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
+    init(transaction: NodeService.DTO.LeaseCancelTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
 
         type = transaction.type
         id = transaction.id

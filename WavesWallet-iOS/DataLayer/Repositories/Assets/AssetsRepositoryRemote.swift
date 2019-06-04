@@ -11,57 +11,58 @@ import RxSwift
 import Moya
 import CSV
 import WavesSDKExtension
-
 import WavesSDK
 
 final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     
-    private let assetsDataService: AssetsDataServiceProtocol = ServicesFactory.shared.assetsDataService
     private let spamProvider: MoyaProvider<Spam.Service.Assets> = .anyMoyaProvider()
 
-    private let assetsNodeService = ServicesFactory.shared.assetsNodeService
+    private let applicationEnviroment: Observable<ApplicationEnviroment>
     
-    private let environmentRepository: EnvironmentRepositoryProtocol
-
-    init(environmentRepository: EnvironmentRepositoryProtocol) {
-        self.environmentRepository = environmentRepository
+    init(applicationEnviroment: Observable<ApplicationEnviroment>) {
+        self.applicationEnviroment = applicationEnviroment
     }
 
     func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
 
-        return environmentRepository.accountEnvironment(accountAddress: accountAddress)
-            .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Asset]> in
-                guard let self = self else { return Observable.empty() }
+        return applicationEnviroment
+            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<[DomainLayer.DTO.Asset]> in
                 
-                let spamAssets = self.spamProvider.rx
-                                .request(.getSpamList(url: environment.servers.spamUrl),
-                                         callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                                .filterSuccessfulStatusAndRedirectCodes()
-                                .asObservable()
-                                .catchError({ (error) -> Observable<Response> in
-                                    return Observable.error(NetworkError.error(by: error))
-                                })
-                                .map { response -> [String] in
-                                    return (try? SpamCVC.addresses(from: response.data)) ?? []
-                                }
+            guard let self = self else { return Observable.empty() }
+            
+            let walletEnviroment = applicationEnviroment.walletEnviroment
                 
-                let assetsList = self
-                    .assetsDataService
-                    .assets(ids: ids, enviroment: environment.environmentServiceData)
-                
-                return Observable.zip(assetsList, spamAssets)
-                    .map({ (assets, spamAssets) -> [DomainLayer.DTO.Asset] in
-                        
-                        let map = environment.hashMapAssets()
-                        
-                        let spamIds = spamAssets.reduce(into: [String: Bool](), {$0[$1] = true })
+            let spamAssets = self.spamProvider.rx
+                            .request(.getSpamList(url: walletEnviroment.servers.spamUrl),
+                                     callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                            .filterSuccessfulStatusAndRedirectCodes()
+                            .asObservable()
+                            .catchError({ (error) -> Observable<Response> in
+                                return Observable.error(NetworkError.error(by: error))
+                            })
+                            .map { response -> [String] in
+                                return (try? SpamCVC.addresses(from: response.data)) ?? []
+                            }
+            
+            let assetsList = applicationEnviroment
+                .services
+                .dataServices
+                .assetsDataService
+                .assets(ids: ids)
+            
+            return Observable.zip(assetsList, spamAssets)
+                .map({ (assets, spamAssets) -> [DomainLayer.DTO.Asset] in
+                    
+                    let map = walletEnviroment.hashMapAssets()
+                    
+                    let spamIds = spamAssets.reduce(into: [String: Bool](), {$0[$1] = true })
 
-                        return assets.map { DomainLayer.DTO.Asset(asset: $0,
-                                                                  info: map[$0.id],
-                                                                  isSpam: spamIds[$0.id] == true,
-                                                                  isMyWavesToken: $0.sender == accountAddress) }
-                    })
-            })
+                    return assets.map { DomainLayer.DTO.Asset(asset: $0,
+                                                              info: map[$0.id],
+                                                              isSpam: spamIds[$0.id] == true,
+                                                              isMyWavesToken: $0.sender == accountAddress) }
+                })
+        })
     }
 
     func saveAssets(_ assets:[DomainLayer.DTO.Asset], by accountAddress: String) -> Observable<Bool> {
@@ -80,32 +81,31 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
             return Observable.just(false)
         }
 
-        let environment = environmentRepository.accountEnvironment(accountAddress: accountAddress)
-
-        return environment
-            .flatMap { [weak self] environment -> Observable<Bool> in
+        return applicationEnviroment
+            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<Bool> in
 
                 guard let self = self else { return Observable.never() }
                 
-                return self
+                return applicationEnviroment
+                    .services
+                    .nodeServices
                     .assetsNodeService
-                    .assetDetails(assetId: assetId,
-                                  enviroment: environment.environmentServiceNode)
+                    .assetDetails(assetId: assetId)
                     .map { $0.scripted == true }
-            }
+            })
     }
 }
 
-fileprivate extension Environment {
+fileprivate extension WalletEnvironment {
 
-    func hashMapAssets() -> [String: Environment.AssetInfo] {
+    func hashMapAssets() -> [String: WalletEnvironment.AssetInfo] {
         
         var allAssets = generalAssets
         if let additionalAssets = assets {
             allAssets.append(contentsOf: additionalAssets)
         }
         
-        return allAssets.reduce([String: Environment.AssetInfo](), { map, info -> [String: Environment.AssetInfo] in
+        return allAssets.reduce([String: WalletEnvironment.AssetInfo](), { map, info -> [String: WalletEnvironment.AssetInfo] in
             var new = map
             new[info.assetId] = info
             return new
@@ -115,7 +115,7 @@ fileprivate extension Environment {
 
 fileprivate extension DomainLayer.DTO.Asset {
 
-    init(asset: DataService.DTO.Asset, info: Environment.AssetInfo?, isSpam: Bool, isMyWavesToken: Bool) {
+    init(asset: DataService.DTO.Asset, info: WalletEnvironment.AssetInfo?, isSpam: Bool, isMyWavesToken: Bool) {
         self.ticker = asset.ticker
         self.id = asset.id
         self.wavesId = info?.wavesId

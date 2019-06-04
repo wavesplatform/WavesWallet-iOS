@@ -8,11 +8,6 @@
 
 import Foundation
 import WavesSDK
-//import <#module#>
-final class WavesApplication {
-    
-    var services: WavesServicesProtocol
-}
 
 private struct AuthorizationInteractorLocalizableImp: AuthorizationInteractorLocalizable {
     var fallbackTitle: String {
