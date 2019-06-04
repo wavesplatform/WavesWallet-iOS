@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 import Moya
-import WavesSDKServices
+import WavesSDK
 
 final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
 

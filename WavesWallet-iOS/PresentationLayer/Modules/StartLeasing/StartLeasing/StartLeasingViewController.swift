@@ -11,8 +11,8 @@ import RxSwift
 import RxCocoa
 import RxFeedback
 import WavesSDKExtension
-import WavesSDKClientCrypto
-import WavesSDKServices
+
+import WavesSDK
 
 private enum Constants {
     static let borderWidth: CGFloat = 0.5

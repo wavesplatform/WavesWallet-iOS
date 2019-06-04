@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import WavesSDKServices
+import WavesSDK
 
 enum ReceiveCryptocurrency {
     enum DTO {}

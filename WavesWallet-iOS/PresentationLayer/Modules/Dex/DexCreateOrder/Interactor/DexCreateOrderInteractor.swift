@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import Moya
 import WavesSDKExtension
-import WavesSDKServices
+import WavesSDK
 
 private enum Constants {
     static let minimumOrderFee: Int64 = 300000

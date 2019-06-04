@@ -8,7 +8,7 @@
 
 import Foundation
 import RealmSwift
-import WavesSDKServices
+import WavesSDK
 
 extension DomainLayer.DTO.Dex.SmartPair {
     

@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 import RxFeedback
 import WavesSDKExtension
-import WavesSDKServices
+import WavesSDK
 
 private enum Constants {
     static let percent50 = 50

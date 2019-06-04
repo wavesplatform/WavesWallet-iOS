@@ -8,8 +8,8 @@
 
 import Foundation
 import RealmSwift
+import WavesSDK
 import WavesSDKExtension
-import WavesSDKClientCrypto
 
 fileprivate enum SchemaVersions: UInt64 {
     case version_1 = 1 // Release old version

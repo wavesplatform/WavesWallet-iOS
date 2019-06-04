@@ -8,8 +8,7 @@
 
 import Foundation
 import Moya
-import WavesSDKExtension
-import WavesSDKClientCrypto
+import WavesSDK
 
 private enum Constants {
     static let url = "https://coinomat.com/"

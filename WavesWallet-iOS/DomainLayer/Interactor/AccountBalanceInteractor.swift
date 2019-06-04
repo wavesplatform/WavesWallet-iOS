@@ -11,8 +11,8 @@ import Moya
 import RealmSwift
 import RxSwift
 import RxSwiftExt
+import WavesSDK
 import WavesSDKExtension
-import WavesSDKClientCrypto
 
 fileprivate enum Constants {
     static let durationInseconds: Double = 0

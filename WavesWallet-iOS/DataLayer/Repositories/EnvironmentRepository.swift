@@ -12,8 +12,8 @@ import RealmSwift
 import RxRealm
 import RxSwift
 import WavesSDKExtension
-import WavesSDKClientCrypto
-import WavesSDKServices
+
+import WavesSDK
 
 private enum Constants {
     static let minServerTimestampDiff: Int64 = 1000 * 30

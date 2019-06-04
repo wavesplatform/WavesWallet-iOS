@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import WavesSDKServices
+import WavesSDK
 
 private enum Constants {
     static let withoutInternetSnackAlpha: CGFloat = 0.74

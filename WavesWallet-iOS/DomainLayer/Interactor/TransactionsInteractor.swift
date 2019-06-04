@@ -10,8 +10,8 @@ import Foundation
 import Moya
 import RxSwift
 import WavesSDKExtension
-import WavesSDKClientCrypto
-import WavesSDKServices
+
+import WavesSDK
 
 enum TransactionsInteractorError: Error {
     case invalid

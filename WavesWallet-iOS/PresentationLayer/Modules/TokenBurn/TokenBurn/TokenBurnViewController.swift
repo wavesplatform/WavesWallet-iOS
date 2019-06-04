@@ -8,7 +8,7 @@
 
 import UIKit
 import RxSwift
-import WavesSDKServices
+import WavesSDK
 import RxCocoa
 
 private enum Constants {

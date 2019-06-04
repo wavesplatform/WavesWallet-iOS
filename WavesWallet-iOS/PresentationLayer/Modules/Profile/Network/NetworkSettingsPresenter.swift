@@ -10,7 +10,7 @@ import Foundation
 import RxCocoa
 import RxFeedback
 import RxSwift
-import WavesSDKClientCrypto
+
 
 protocol NetworkSettingsModuleOutput: AnyObject {
     func networkSettingSavedSetting()

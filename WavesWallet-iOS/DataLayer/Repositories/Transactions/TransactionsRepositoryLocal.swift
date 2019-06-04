@@ -11,8 +11,8 @@ import RealmSwift
 import RxRealm
 import RxSwift
 import RxOptional
+import WavesSDK
 import WavesSDKExtension
-import WavesSDKClientCrypto
 
 extension Realm {
     func filter<ParentType: Object>(parentType: ParentType.Type,

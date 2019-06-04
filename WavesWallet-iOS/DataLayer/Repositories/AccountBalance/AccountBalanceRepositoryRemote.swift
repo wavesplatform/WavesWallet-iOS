@@ -10,8 +10,8 @@ import Foundation
 import Moya
 import RxSwift
 import WavesSDKExtension
-import WavesSDKClientCrypto
-import WavesSDKServices
+
+import WavesSDK
 import Base58
 
 private struct SponsoredAssetDetail {
