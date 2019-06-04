@@ -19,6 +19,8 @@ final class WalletUpdateAppView: UIView, NibLoadable {
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var labelSubtitle: UILabel!
     
+    var viewTapped:(() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         viewContainer.layer.borderColor = UIColor.basic200.cgColor
@@ -26,6 +28,10 @@ final class WalletUpdateAppView: UIView, NibLoadable {
         update(with: ())
     }
 
+    
+    @IBAction private func buttonTapped(_ sender: Any) {
+        viewTapped?()
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()

@@ -26,7 +26,7 @@
                                 <constraint firstAttribute="width" constant="48" id="XnL-vg-iD5"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It's time to update your app!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BpJ-2f-VVo">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It's time to update your app!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BpJ-2f-VVo">
                             <rect key="frame" x="76" y="14" width="273" height="16"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                             <nil key="textColor"/>
@@ -45,17 +45,27 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOW-UR-eb9">
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="86"/>
+                            <connections>
+                                <action selector="buttonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="A4B-hL-MsI"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="V7b-Bn-Ycv" secondAttribute="trailing" constant="14" id="02p-z4-nfP"/>
                         <constraint firstItem="bXq-mu-5iE" firstAttribute="leading" secondItem="BpJ-2f-VVo" secondAttribute="leading" id="HVH-eP-2j0"/>
+                        <constraint firstItem="XOW-UR-eb9" firstAttribute="top" secondItem="2pP-hd-7mc" secondAttribute="top" id="Nac-uf-BjV"/>
+                        <constraint firstAttribute="trailing" secondItem="XOW-UR-eb9" secondAttribute="trailing" id="NyE-gc-gCU"/>
                         <constraint firstItem="V7b-Bn-Ycv" firstAttribute="centerY" secondItem="2pP-hd-7mc" secondAttribute="centerY" id="Tsb-Kh-5YF"/>
                         <constraint firstAttribute="bottom" secondItem="bXq-mu-5iE" secondAttribute="bottom" constant="14" id="fAY-8h-Lqd"/>
                         <constraint firstItem="BpJ-2f-VVo" firstAttribute="leading" secondItem="0WM-LP-C3E" secondAttribute="trailing" constant="14" id="gBj-b2-Rhm"/>
                         <constraint firstItem="0WM-LP-C3E" firstAttribute="leading" secondItem="2pP-hd-7mc" secondAttribute="leading" constant="14" id="lc4-sK-AXo"/>
+                        <constraint firstAttribute="bottom" secondItem="XOW-UR-eb9" secondAttribute="bottom" id="lzn-gG-GnD"/>
                         <constraint firstItem="V7b-Bn-Ycv" firstAttribute="leading" secondItem="BpJ-2f-VVo" secondAttribute="trailing" constant="5" id="o29-oJ-P9l"/>
                         <constraint firstItem="bXq-mu-5iE" firstAttribute="trailing" secondItem="BpJ-2f-VVo" secondAttribute="trailing" id="qeR-nC-Wh8"/>
+                        <constraint firstItem="XOW-UR-eb9" firstAttribute="leading" secondItem="2pP-hd-7mc" secondAttribute="leading" id="tH7-jc-QXD"/>
                         <constraint firstItem="0WM-LP-C3E" firstAttribute="centerY" secondItem="2pP-hd-7mc" secondAttribute="centerY" id="uWC-Jl-HS1"/>
                         <constraint firstItem="bXq-mu-5iE" firstAttribute="top" secondItem="BpJ-2f-VVo" secondAttribute="bottom" constant="6" id="xRa-io-XFT"/>
                         <constraint firstItem="BpJ-2f-VVo" firstAttribute="top" secondItem="2pP-hd-7mc" secondAttribute="top" constant="14" id="zZC-K3-97F"/>

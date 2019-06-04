@@ -12,7 +12,6 @@ import Foundation
 
 extension WalletTypes.ViewModel {
     enum Row {
-        case emptySegmented
         case search
         case hidden
         case asset(DomainLayer.DTO.SmartAssetBalance)
@@ -28,7 +27,6 @@ extension WalletTypes.ViewModel {
     struct Section {
 
         enum Kind {
-            case segmented
             case search
             case skeleton
             case balance
@@ -84,7 +82,6 @@ extension WalletTypes.ViewModel.Section {
             .map { WalletTypes.ViewModel.Row.asset($0) }
 
         var sections: [WalletTypes.ViewModel.Section] = [WalletTypes.ViewModel.Section]()
-        sections.append(.init(kind: .segmented, items: [.emptySegmented], isExpanded: true))
         sections.append(.init(kind: .search, items: [.search], isExpanded: true))
         sections.append(generalSection)
 
@@ -107,7 +104,6 @@ extension WalletTypes.ViewModel.Section {
 
     static func map(from leasing: WalletTypes.DTO.Leasing) -> [WalletTypes.ViewModel.Section] {
         var sections: [WalletTypes.ViewModel.Section] = []
-        sections.append(.init(kind: .segmented, items: [.emptySegmented], isExpanded: true))
 
         let balanceRow = WalletTypes.ViewModel.Row.balance(leasing.balance)
         let historyRow = WalletTypes.ViewModel.Row.allHistory

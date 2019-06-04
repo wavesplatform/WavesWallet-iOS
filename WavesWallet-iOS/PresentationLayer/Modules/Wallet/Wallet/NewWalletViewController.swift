@@ -60,7 +60,7 @@ final class NewWalletViewController: UIViewController {
         
         scrolledTablesComponent.scrollViewDelegate = self
         scrolledTablesComponent.containerViewDelegate = self
-        scrolledTablesComponent.setup(segmentedItems: displays.map{ $0.name }, topContents: [], topContentsSectionIndex: 0, tableDataSource: displayData, tableDelegate: displayData)
+        scrolledTablesComponent.setup(segmentedItems: displays.map{ $0.name }, topContents: [], tableDataSource: displayData, tableDelegate: displayData)
 
         setupLanguages()
         setupBigNavigationBar()
@@ -77,8 +77,11 @@ final class NewWalletViewController: UIViewController {
     
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             let view = WalletUpdateAppView.loadFromNib()
-//            self.scrolledTablesComponent.addView(view, animation: false)
-//            self.scrolledTablesComponent.visibleTableView.contentInset =
+            self.scrolledTablesComponent.addTopView(view, animation: true)
+            
+            view.viewTapped = { [weak self] in
+                self?.sendEvent.accept(.updateApp)
+            }
         }
     }
     
@@ -101,6 +104,12 @@ final class NewWalletViewController: UIViewController {
     @objc func changedLanguage() {
         setupLanguages()
         setupSegmetedControl()
+        
+        for view in scrolledTablesComponent.topContents {
+            if let updateView = view as? WalletUpdateAppView {
+                updateView.update(with: ())
+            }
+        }
         scrolledTablesComponent.reloadData()
     }
 }

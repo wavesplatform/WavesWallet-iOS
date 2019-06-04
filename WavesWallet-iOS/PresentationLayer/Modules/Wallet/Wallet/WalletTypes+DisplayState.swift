@@ -175,7 +175,7 @@ extension WalletTypes.DisplayState.Display {
                                                             .historySkeleton],
                                                     isExpanded: true)
         }
-        return [.init(kind: .segmented, items: [.emptySegmented], isExpanded: true), section]
+        return [section]
     }
 
     func toggleCollapse(index: Int) -> WalletTypes.DisplayState.Display {

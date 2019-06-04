@@ -11,10 +11,10 @@ import RxCocoa
 import RxSwift
 import UIKit
 
+#warning("сделать скролинг анимации при открытии секций")
+
 private enum Constants {
     static let animationDuration: TimeInterval = 0.34
-    static let spamSection = 1
-    static let emptyCellIdentifier: String = "emptyCellIdentifier"
 }
 
 protocol NewWalletDisplayDataDelegate: AnyObject {
@@ -125,16 +125,6 @@ final class NewWalletDisplayData: NSObject {
 
 // MARK: UITableViewDelegate
 extension NewWalletDisplayData: UITableViewDataSource {
-  
-    private func emptyCell(tableView: UITableView) -> UITableViewCell {
-        var cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: Constants.emptyCellIdentifier)
-        if cell == nil {
-            cell = UITableViewCell(style: .default, reuseIdentifier: Constants.emptyCellIdentifier)
-            cell.backgroundColor = .clear
-            cell.selectionStyle = .none
-        }
-        return cell
-    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
@@ -148,9 +138,6 @@ extension NewWalletDisplayData: UITableViewDataSource {
                 self?.searchTapped(cell)
             }
             return cell
-            
-        case .emptySegmented:
-           return emptyCell(tableView: tableView)
             
         case .historySkeleton:
             return tableView.dequeueAndRegisterCell() as WalletHistorySkeletonCell
@@ -275,9 +262,6 @@ extension NewWalletDisplayData: UITableViewDelegate {
         
         case .search:
             return WalletSearchTableViewCell.viewHeight()
-            
-        case .emptySegmented:
-            return scrolledTablesComponent.segmentedHeight
             
         case .historySkeleton:
             return WalletHistorySkeletonCell.cellHeight()
