@@ -14,49 +14,51 @@ import WavesSDK
 
 final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
 
-    private let orderBookMatcherService = ServicesFactory.shared.orderBookMatcherService
-    
     private let spamProvider: MoyaProvider<Spam.Service.Assets> = MoyaProvider<Spam.Service.Assets>()
-    private let environmentRepository: EnvironmentRepositoryProtocol
     
-    init(environmentRepository: EnvironmentRepositoryProtocol) {
-        self.environmentRepository = environmentRepository
+    private let applicationEnviroment: Observable<ApplicationEnviroment>
+    
+    init(applicationEnviroment: Observable<ApplicationEnviroment>) {
+        self.applicationEnviroment = applicationEnviroment
     }
     
     func orderBook(wallet: DomainLayer.DTO.SignedWallet,
                    amountAsset: String,
                    priceAsset: String) -> Observable<DomainLayer.DTO.Dex.OrderBook> {
 
-        return environmentRepository.accountEnvironment(accountAddress: wallet.address)
-            .flatMap({ [weak self] (environment) -> Observable<DomainLayer.DTO.Dex.OrderBook> in
-                guard let self = self else { return Observable.empty() }
-                
-                return self.orderBookMatcherService
-                    .orderBook(amountAsset: amountAsset,
-                               priceAsset: priceAsset,
-                               enviroment: environment.environmentServiceMatcher)
-                    .flatMap({ (orderBook) -> Observable<DomainLayer.DTO.Dex.OrderBook> in
-                        
-                        let bids = orderBook.bids.map { DomainLayer.DTO.Dex.OrderBook.Value(amount: $0.amount,
-                                                                                            price: $0.price)}
-                        
-                        let asks = orderBook.asks.map { DomainLayer.DTO.Dex.OrderBook.Value(amount: $0.amount,
-                                                                                            price: $0.price)}
-                        
-                        return Observable.just(DomainLayer.DTO.Dex.OrderBook(bids: bids, asks: asks))
-                    })
+        return applicationEnviroment
+            .flatMapLatest({ (applicationEnviroment) -> Observable<DomainLayer.DTO.Dex.OrderBook> in
+            
+            return applicationEnviroment
+                .services
+                .matcherServices
+                .orderBookMatcherService
+                .orderBook(amountAsset: amountAsset,
+                           priceAsset: priceAsset)
+                .flatMap({ (orderBook) -> Observable<DomainLayer.DTO.Dex.OrderBook> in
+                    
+                    let bids = orderBook.bids.map { DomainLayer.DTO.Dex.OrderBook.Value(amount: $0.amount,
+                                                                                        price: $0.price)}
+                    
+                    let asks = orderBook.asks.map { DomainLayer.DTO.Dex.OrderBook.Value(amount: $0.amount,
+                                                                                        price: $0.price)}
+                    
+                    return Observable.just(DomainLayer.DTO.Dex.OrderBook(bids: bids, asks: asks))
+                })
         })
     }
     
     func markets(wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
 
-        return environmentRepository.accountEnvironment(accountAddress: wallet.address)
-            .flatMap({ [weak self] (environment) -> Observable<[MatcherService.DTO.Market]> in
+        return applicationEnviroment.flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<[MatcherService.DTO.Market]> in
+            
                 guard let self = self else { return Observable.empty() }
                 
-                let markets = self
+                let markets = applicationEnviroment
+                    .services
+                    .matcherServices
                     .orderBookMatcherService
-                    .market(enviroment: environment.environmentServiceMatcher)
+                    .market()
                     .map { $0.markets }
             
                 return Observable.zip(markets, self.spamList(accountAddress: wallet.address))
@@ -94,66 +96,74 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
     }
     
     
-    func myOrders(wallet: DomainLayer.DTO.SignedWallet, amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset) -> Observable<[DomainLayer.DTO.Dex.MyOrder]> {
+    func myOrders(wallet: DomainLayer.DTO.SignedWallet,
+                  amountAsset: DomainLayer.DTO.Dex.Asset,
+                  priceAsset: DomainLayer.DTO.Dex.Asset) -> Observable<[DomainLayer.DTO.Dex.MyOrder]> {
 
-        return environmentRepository.accountEnvironment(accountAddress: wallet.address)
-            .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.MyOrder]> in
-                guard let self = self else { return Observable.empty() }
+        return applicationEnviroment.flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<[DomainLayer.DTO.Dex.MyOrder]> in
+            
+            guard let self = self else { return Observable.empty() }
                 
-                //TODO: Library
-                let signature = TimestampSignature(signedWallet: wallet, environment: environment)
-                return self
-                    .orderBookMatcherService
-                    .myOrders(query: .init(amountAsset: amountAsset.id,
-                                           priceAsset: priceAsset.id,
-                                           publicKey: wallet.publicKey.getPublicKeyStr(),
-                                           signature: signature.signature(),
-                                           timestamp: signature.timestamp),
-                              enviroment: environment.environmentServiceMatcher)
-                .map({ (orders) -> [DomainLayer.DTO.Dex.MyOrder] in
+            //TODO: Library
+            let signature = TimestampSignature(signedWallet: wallet,
+                                               environment: applicationEnviroment.walletEnviroment)
+            
+            return applicationEnviroment
+                .services
+                .matcherServices
+                .orderBookMatcherService
+                .myOrders(query: .init(amountAsset: amountAsset.id,
+                                       priceAsset: priceAsset.id,
+                                       publicKey: wallet.publicKey.getPublicKeyStr(),
+                                       signature: signature.signature(),
+                                       timestamp: signature.timestamp))
+            .map({ (orders) -> [DomainLayer.DTO.Dex.MyOrder] in
+                
+                var myOrders: [DomainLayer.DTO.Dex.MyOrder] = []
+                
+                for order in orders {
+                    myOrders.append(DomainLayer.DTO.Dex.MyOrder(order,
+                                                                priceAsset: priceAsset,
+                                                                amountAsset: amountAsset))
                     
-                    var myOrders: [DomainLayer.DTO.Dex.MyOrder] = []
-                        
-                    for order in orders {
-                        myOrders.append(DomainLayer.DTO.Dex.MyOrder(order,
-                                                                    priceAsset: priceAsset,
-                                                                    amountAsset: amountAsset))
-                        
-                    }
-                    return myOrders
-                })
+                }
+                return myOrders
+            })
         })
     }
     
-    func cancelOrder(wallet: DomainLayer.DTO.SignedWallet, orderId: String, amountAsset: String, priceAsset: String) -> Observable<Bool> {
+    func cancelOrder(wallet: DomainLayer.DTO.SignedWallet,
+                     orderId: String,
+                     amountAsset: String,
+                     priceAsset: String) -> Observable<Bool> {
         
-        return environmentRepository.accountEnvironment(accountAddress: wallet.address)
-            .flatMap({ [weak self] (environment) -> Observable<Bool> in
+        return applicationEnviroment.flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<Bool> in
+            
                 guard let self = self else { return Observable.empty() }
-                
                 
                 let signature = CancelOrderSignature(signedWallet: wallet, orderId: orderId)
                 //TODO: Library
-                return self
+                return applicationEnviroment
+                    .services
+                    .matcherServices
                     .orderBookMatcherService
                     .cancelOrder(query: .init(orderId: orderId,
                                               amountAsset: amountAsset,
                                               priceAsset: priceAsset,
                                               signature: signature.signature(),
-                                              senderPublicKey: wallet.publicKey.getPublicKeyStr()),
-                                 enviroment: environment.environmentServiceMatcher)
+                                              senderPublicKey: wallet.publicKey.getPublicKeyStr()))
             })
     }
     
-    func createOrder(wallet: DomainLayer.DTO.SignedWallet, order: DomainLayer.Query.Dex.CreateOrder) -> Observable<Bool> {
+    func createOrder(wallet: DomainLayer.DTO.SignedWallet,
+                     order: DomainLayer.Query.Dex.CreateOrder) -> Observable<Bool> {
         
-        return environmentRepository.accountEnvironment(accountAddress: wallet.address)
-            .flatMap({ [weak self] (environment) -> Observable<Bool> in
-
+        return applicationEnviroment.flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<Bool> in
+            
                 guard let self = self else { return Observable.empty() }
                 
                 //TODO: Library refactor
-                let timestamp = order.timestamp - environment.timestampServerDiff
+                let timestamp = order.timestamp - applicationEnviroment.walletEnviroment.timestampServerDiff
                 
                 let expirationTimestamp = timestamp + order.expiration * 60 * 1000
                 
@@ -169,18 +179,20 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                                                                 matcherFee: order.matcherFee)
                 
                 //TODO: Library
-                return self
-                    .orderBookMatcherService.createOrder(query: .init(matcherPublicKey: order.matcherPublicKey.getPublicKeyStr(),
-                                                                      senderPublicKey: wallet.publicKey.getPublicKeyStr(),
-                                                                      assetPair: .init(amountAssetId: order.amountAsset, priceAssetId: order.priceAsset),
-                                                                      amount: order.amount,
-                                                                      price: order.price,
-                                                                      orderType: (order.orderType == .sell ? .sell : .buy),
-                                                                      matcherFee: order.matcherFee,
-                                                                      timestamp: timestamp,
-                                                                      expirationTimestamp: expirationTimestamp,
-                                                                      proofs: [createOrderSignature.signature()]),
-                                                         enviroment: environment.environmentServiceMatcher)
+                return applicationEnviroment
+                    .services
+                    .matcherServices
+                    .orderBookMatcherService
+                    .createOrder(query: .init(matcherPublicKey: order.matcherPublicKey.getPublicKeyStr(),
+                                              senderPublicKey: wallet.publicKey.getPublicKeyStr(),
+                                              assetPair: .init(amountAssetId: order.amountAsset, priceAssetId: order.priceAsset),
+                                              amount: order.amount,
+                                              price: order.price,
+                                              orderType: (order.orderType == .sell ? .sell : .buy),
+                                              matcherFee: order.matcherFee,
+                                              timestamp: timestamp,
+                                              expirationTimestamp: expirationTimestamp,
+                                              proofs: [createOrderSignature.signature()]))
         })
     }
 }
@@ -190,12 +202,15 @@ private extension DexOrderBookRepositoryRemote {
     
     func spamList(accountAddress: String) -> Observable<[String]> {
         
-        return environmentRepository.accountEnvironment(accountAddress: accountAddress)
-            .flatMap({ [weak self] (environment) -> Observable<[String]> in
+        return applicationEnviroment
+            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<[String]> in
+            
                 guard let self = self else { return Observable.empty() }
-                
+            
+                let walletEnviroment = applicationEnviroment.walletEnviroment
+            
                 return self.spamProvider.rx
-                    .request(.getSpamList(url: environment.servers.spamUrl),
+                    .request(.getSpamList(url: walletEnviroment.servers.spamUrl),
                              callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()
                     .asObservable()

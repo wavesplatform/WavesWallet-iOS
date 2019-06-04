@@ -506,7 +506,7 @@
 		7BAA9F8C22A51FFC003B6D01 /* WordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F8322A51FFB003B6D01 /* WordList.swift */; };
 		7BAA9F8D22A51FFC003B6D01 /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F8422A51FFB003B6D01 /* Hash.swift */; };
 		7BAA9F8E22A51FFC003B6D01 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F8522A51FFB003B6D01 /* Address.swift */; };
-		7BAA9F8F22A51FFC003B6D01 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F8622A51FFB003B6D01 /* Environment.swift */; };
+		7BAA9F8F22A51FFC003B6D01 /* WalletEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F8622A51FFB003B6D01 /* WalletEnvironment.swift */; };
 		7BAA9F9022A51FFC003B6D01 /* PublicKeyAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F8722A51FFB003B6D01 /* PublicKeyAccount.swift */; };
 		7BAA9F9122A51FFC003B6D01 /* PrivateKeyAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F8822A51FFB003B6D01 /* PrivateKeyAccount.swift */; };
 		7BAA9F9222A51FFC003B6D01 /* RXCrypto+SHA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F8A22A51FFB003B6D01 /* RXCrypto+SHA.swift */; };
@@ -1413,7 +1413,7 @@
 		7BAA9F8322A51FFB003B6D01 /* WordList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordList.swift; sourceTree = "<group>"; };
 		7BAA9F8422A51FFB003B6D01 /* Hash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hash.swift; sourceTree = "<group>"; };
 		7BAA9F8522A51FFB003B6D01 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
-		7BAA9F8622A51FFB003B6D01 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		7BAA9F8622A51FFB003B6D01 /* WalletEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletEnvironment.swift; sourceTree = "<group>"; };
 		7BAA9F8722A51FFB003B6D01 /* PublicKeyAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicKeyAccount.swift; sourceTree = "<group>"; };
 		7BAA9F8822A51FFB003B6D01 /* PrivateKeyAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateKeyAccount.swift; sourceTree = "<group>"; };
 		7BAA9F8A22A51FFB003B6D01 /* RXCrypto+SHA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RXCrypto+SHA.swift"; sourceTree = "<group>"; };
@@ -3343,7 +3343,7 @@
 				7BAA9F8322A51FFB003B6D01 /* WordList.swift */,
 				7BAA9F8422A51FFB003B6D01 /* Hash.swift */,
 				7BAA9F8522A51FFB003B6D01 /* Address.swift */,
-				7BAA9F8622A51FFB003B6D01 /* Environment.swift */,
+				7BAA9F8622A51FFB003B6D01 /* WalletEnvironment.swift */,
 				7BAA9F8722A51FFB003B6D01 /* PublicKeyAccount.swift */,
 				7BAA9F8822A51FFB003B6D01 /* PrivateKeyAccount.swift */,
 				7BAA9F8922A51FFB003B6D01 /* Extensions */,
@@ -4707,12 +4707,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Waves Platform";
 				TargetAttributes = {
 					7BF89E9522272A5E00853F9D = {
 						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1020;
+						LastSwiftMigration = 1100;
 						ProvisioningStyle = Automatic;
 						TestTargetID = F7E954E31EA8FE0700A804DE;
 					};
@@ -4734,10 +4734,9 @@
 			};
 			buildConfigurationList = F7E954DF1EA8FE0600A804DE /* Build configuration list for PBXProject "WavesWallet-iOS" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				ru,
 				ko,
@@ -4753,6 +4752,7 @@
 				"nl-NL",
 				"hi-IN",
 				"zh-Hans-CN",
+				Base,
 			);
 			mainGroup = F7E954DB1EA8FE0600A804DE;
 			productRefGroup = F7E954E51EA8FE0700A804DE /* Products */;
@@ -5164,14 +5164,7 @@
 				0A14CFD221441FDB00C3A4D5 /* TransactionDomainDTO+Mapper.swift in Sources */,
 				0A751D38221715F80024D523 /* AppNewsCoordinator.swift in Sources */,
 				E991BB1C2202CB3C0022E27D /* SendFeeModuleBuilder.swift in Sources */,
-				0A5E4BCE213820C500E3C3C3 /* ExchangeTransactionDomainDTO.swift in Sources */,
-				0A5C53DF2139498800667E34 /* UnrecognisedTransactionDomainDTO.swift in Sources */,
 				E9443012226E64E900EB6257 /* WalletSortInteractor.swift in Sources */,
-				0A5E4BCC213820C500E3C3C3 /* IssueTransactionDomainDTO.swift in Sources */,
-				0A5E4BD2213820C500E3C3C3 /* AnyTransactionDomainDTO.swift in Sources */,
-				04831F7B216917EF006D1ED6 /* SmartTransactionDomainDTO.swift in Sources */,
-				0ADD804A21F73C360075FC59 /* ScriptTransactionDomainDTO.swift in Sources */,
-				0ADD804821F73C280075FC59 /* AssetScriptTransactionDomainDTO.swift in Sources */,
 				0A6F60EC216F89B300A5C615 /* SmartTransactionDomain+Assistants.swift in Sources */,
 				E991BB202202CE090022E27D /* SendFeeTableViewCell.swift in Sources */,
 				E964067E21D5299D00569963 /* DexDomainDTO.swift in Sources */,
@@ -5578,7 +5571,7 @@
 				7B951127225CD7160030390C /* QRCodeParser.swift in Sources */,
 				0AF58FA121931AD400C8A4B3 /* WalletEncryption.swift in Sources */,
 				0ADD802A21F22FFA0075FC59 /* EnterLanguageCoordinator.swift in Sources */,
-				7BAA9F8F22A51FFC003B6D01 /* Environment.swift in Sources */,
+				7BAA9F8F22A51FFC003B6D01 /* WalletEnvironment.swift in Sources */,
 				E921ED04222DDA4600DE286D /* DexScriptAssetMessageViewController.swift in Sources */,
 				0AE657342106375D003D2DB8 /* TimestampSignature.swift in Sources */,
 				0A43996921504CF60032E608 /* SideMenu.swift in Sources */,
@@ -6032,6 +6025,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.test;
+				PRODUCT_MODULE_NAME = WavesWallet_iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wavesplatform.waveswallet.test";
@@ -6119,6 +6113,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.test;
+				PRODUCT_MODULE_NAME = WavesWallet_iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.wavesplatform.waveswallet.test";
@@ -6363,6 +6358,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -warn-long-function-bodies=200 -Xfrontend -warn-long-expression-type-checking=200";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.dev;
+				PRODUCT_MODULE_NAME = WavesWallet_iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wavesplatform.waveswallet.dev";
@@ -6394,6 +6390,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet;
+				PRODUCT_MODULE_NAME = WavesWallet_iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.wavesplatform.WavesWallet";

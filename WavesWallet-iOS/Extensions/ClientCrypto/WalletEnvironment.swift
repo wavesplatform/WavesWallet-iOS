@@ -15,7 +15,7 @@ private enum Constants {
     fileprivate static let test = "environment_testnet"
 }
 
-public struct Environment: Decodable {
+public struct WalletEnvironment: Decodable {
     
     private static var timestampServerDiff: Int64 = 0
     private static let timestampQueue = DispatchQueue(label: "timestampServerQueue.diff")
@@ -60,8 +60,8 @@ public struct Environment: Decodable {
     public let generalAssets: [AssetInfo]
     public let assets: [AssetInfo]?
     
-    private static let Testnet: Environment = parseJSON(json: Constants.test)!
-    private static let Mainnet: Environment = parseJSON(json: Constants.main)!
+    private static let Testnet: WalletEnvironment = parseJSON(json: Constants.test)!
+    private static let Mainnet: WalletEnvironment = parseJSON(json: Constants.main)!
     
     public static var isTestNet: Bool {
         set {
@@ -74,7 +74,7 @@ public struct Environment: Decodable {
         }
     }
     
-    public static var current: Environment {
+    public static var current: WalletEnvironment {
         get {
             if isTestNet {
                 return Testnet
@@ -97,25 +97,25 @@ public struct Environment: Decodable {
         self.assets = assets
     }
     
-    private static func parseJSON(json fileName: String) -> Environment? {
+    private static func parseJSON(json fileName: String) -> WalletEnvironment? {
         return JSONDecoder.decode(json: fileName)
     }
     
 }
 
-public extension Environment {
+public extension WalletEnvironment {
     
     public var aliasScheme: String {
         return Constants.alias + ":" + scheme + ":"
     }
 }
 
-public extension Environment {
+public extension WalletEnvironment {
     
     public static func updateTimestampServerDiff(_ timestamp: Int64) {
         
-        Environment.timestampQueue.async(flags: .barrier) {
-            Environment.timestampServerDiff = timestamp
+        WalletEnvironment.timestampQueue.async(flags: .barrier) {
+            WalletEnvironment.timestampServerDiff = timestamp
         }
     }
     
@@ -123,8 +123,8 @@ public extension Environment {
         
         var timeDiff: Int64 = 0
         
-        Environment.timestampQueue.sync {
-            timeDiff = Environment.timestampServerDiff
+        WalletEnvironment.timestampQueue.sync {
+            timeDiff = WalletEnvironment.timestampServerDiff
         }
         return timeDiff
     }

@@ -14,54 +14,51 @@ import WavesSDKExtension
 import WavesSDK
 
 final class AliasesRepository: AliasesRepositoryProtocol {
+            
+    private let applicationEnviroment: Observable<ApplicationEnviroment>
     
-    private let environmentRepository: EnvironmentRepositoryProtocol
-    private let aliasDataService = ServicesFactory.shared.aliasDataService
-    
-    init(environmentRepository: EnvironmentRepositoryProtocol) {
-        self.environmentRepository = environmentRepository
+    init(applicationEnviroment: Observable<ApplicationEnviroment>) {
+        self.applicationEnviroment = applicationEnviroment
     }
 
     func aliases(accountAddress: String) -> Observable<[DomainLayer.DTO.Alias]> {
 
-        return environmentRepository
-            .accountEnvironment(accountAddress: accountAddress)
-            .flatMap({ [weak self] environment -> Observable<(aliases: [DataService.DTO.Alias], environment: Environment)> in
-                guard let self = self else { return Observable.never() }
+        return applicationEnviroment.flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<(aliases: [DataService.DTO.Alias], environment: WalletEnvironment)> in
+            
+            guard let self = self else { return Observable.never() }
 
-                return self
-                    .aliasDataService
-                    .list(address: accountAddress,
-                          enviroment: environment.environmentServiceData)
-                    .map { (aliases: $0, environment: environment) }
+            return applicationEnviroment
+                .services
+                .dataServices
+                .aliasDataService
+                .list(address: accountAddress)
+                .map { (aliases: $0, environment: applicationEnviroment.walletEnviroment) }
+        })
+        .map({ data -> [DomainLayer.DTO.Alias] in
+
+            let list = data.aliases
+            let aliasScheme = data.environment.aliasScheme
+            
+            return list.map({ alias -> DomainLayer.DTO.Alias? in
+
+                let name = alias.alias
+                let originalName = aliasScheme + name
+                return DomainLayer.DTO.Alias(name: name, originalName: originalName)
             })
-            .map({ data -> [DomainLayer.DTO.Alias] in
-
-                let list = data.aliases
-                let aliasScheme = data.environment.aliasScheme
-                
-                return list.map({ alias -> DomainLayer.DTO.Alias? in
-
-                    let name = alias.alias
-                    let originalName = aliasScheme + name                    
-                    return DomainLayer.DTO.Alias(name: name, originalName: originalName)
-                })
-                .compactMap { $0 }
-            })
+            .compactMap { $0 }
+        })
     }
 
     func alias(by name: String, accountAddress: String) -> Observable<String> {
-        return environmentRepository
-            .accountEnvironment(accountAddress: accountAddress)
-            .flatMap({ [weak self] (environment) -> Observable<String> in
-                
+        return applicationEnviroment.flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<String> in
+            
                 guard let self = self else { return Observable.empty() }
                 
-                
-                return self
+                return applicationEnviroment
+                    .services
+                    .dataServices
                     .aliasDataService
-                    .alias(name: name,
-                           enviroment: environment.environmentServiceData)
+                    .alias(name: name)
                     .map { $0.address }
                     .catchError({ (error) -> Observable<String> in
                         

@@ -29,24 +29,26 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
     private var isValidServerTimestampDiff = false
     private let environmentRepository: MoyaProvider<GitHub.Service.Environment> = .anyMoyaProvider()
     private let spamProvider: MoyaProvider<Spam.Service.Assets> = .anyMoyaProvider()
-    private let utilsNodeService = ServicesFactory.shared.utilsNodeService
     
-    private var localEnvironments: BehaviorSubject<[EnvironmentKey: Environment]> = BehaviorSubject<[EnvironmentKey: Environment]>(value: [:])
+    //TODO: Library
+    private var utilsNodeService: UtilsNodeServiceProtocol? = nil
+    
+    private var localEnvironments: BehaviorSubject<[EnvironmentKey: WalletEnvironment]> = BehaviorSubject<[EnvironmentKey: WalletEnvironment]>(value: [:])
     
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(timeDidChange), name: UIApplication.significantTimeChangeNotification, object: nil)
     }
     
-    func deffaultEnvironment(accountAddress: String) -> Observable<Environment> {
+    func deffaultEnvironment(accountAddress: String) -> Observable<WalletEnvironment> {
         return remoteEnvironment(accountAddress: accountAddress)
     }
 
-    func accountEnvironment(accountAddress: String) -> Observable<Environment> {
+    func accountEnvironment(accountAddress: String) -> Observable<WalletEnvironment> {
 
-        var deffaultEnvironment: Observable<Environment>!
+        var deffaultEnvironment: Observable<WalletEnvironment>!
 
         if let enviroment = localEnvironment(by: .init(accountAddress: accountAddress,
-                                                       isTestNet: Environment.isTestNet)),
+                                                       isTestNet: WalletEnvironment.isTestNet)),
             isValidServerTimestampDiff {
             deffaultEnvironment = Observable.just(enviroment)
         } else {
@@ -57,9 +59,9 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
 
         return Observable
             .zip(deffaultEnvironment, accountEnvironment)
-            .flatMap(weak: self, selector: { (owner, environments) -> Observable<Environment> in
+            .flatMap(weak: self, selector: { (owner, environments) -> Observable<WalletEnvironment> in
 
-                let environment: Environment = owner.merge(environment: environments.0, with: environments.1)
+                let environment: WalletEnvironment = owner.merge(environment: environments.0, with: environments.1)
                 return Observable.just(environment)
             })
             .do(onNext: { [weak self] environment in
@@ -68,7 +70,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
                     return
                 }
 
-                let key = EnvironmentKey(accountAddress: accountAddress, isTestNet: Environment.isTestNet)
+                let key = EnvironmentKey(accountAddress: accountAddress, isTestNet: WalletEnvironment.isTestNet)
 
                 if let value = try? self.localEnvironments.value() {
                     var newValue = value
@@ -80,18 +82,18 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
             })
     }
 
-    private func remoteEnvironment(accountAddress: String) -> Observable<Environment> {
+    private func remoteEnvironment(accountAddress: String) -> Observable<WalletEnvironment> {
 
         //TODO: function call 6 times, after user input passcode
         return environmentRepository
             .rx
-            .request(.get(isTestNet: Environment.isTestNet))
-            .map(Environment.self)
-            .catchError { error -> Single<Environment> in
-                return Single.just(Environment.current)
+            .request(.get(isTestNet: WalletEnvironment.isTestNet))
+            .map(WalletEnvironment.self)
+            .catchError { error -> Single<WalletEnvironment> in
+                return Single.just(WalletEnvironment.current)
             }
             .asObservable()
-            .flatMap({ [weak self] (environment) -> Observable<Environment> in
+            .flatMap({ [weak self] (environment) -> Observable<WalletEnvironment> in
                 guard let self = self else { return Observable.empty() }
                 return self.updateTimestampServerDiff(environment: environment)
             })
@@ -152,7 +154,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
         .sweetDebug("setURL")
     }
 
-    private func localEnvironment(by key: EnvironmentKey) -> Environment? {
+    private func localEnvironment(by key: EnvironmentKey) -> WalletEnvironment? {
 
         if let value = try? localEnvironments.value() {
             return value[key]
@@ -212,9 +214,9 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
         }
     }
 
-    func merge(environment: Environment, with accountEnvironment: DomainLayer.DTO.AccountEnvironment?) -> Environment {
+    func merge(environment: WalletEnvironment, with accountEnvironment: DomainLayer.DTO.AccountEnvironment?) -> WalletEnvironment {
 
-        var servers: Environment.Servers!
+        var servers: WalletEnvironment.Servers!
 
         if let accountEnvironmet = accountEnvironment {
 
@@ -252,16 +254,12 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
             servers = environment.servers
         }
 
-        return Environment(name: environment.name,
+        return WalletEnvironment(name: environment.name,
                            servers: servers,
                            scheme: environment.scheme,
                            generalAssets: environment.generalAssets,
                            assets: environment.assets)
     }
-    
-    var zalypa = ServicesFactory
-        .shared
-        .utilsNodeService
 }
 
 private extension EnvironmentRepository {
@@ -270,11 +268,11 @@ private extension EnvironmentRepository {
         isValidServerTimestampDiff = false
     }
     
-    func updateTimestampServerDiff(environment: Environment) -> Observable<Environment> {
+    func updateTimestampServerDiff(environment: WalletEnvironment) -> Observable<WalletEnvironment> {
 
-        return utilsNodeService
-            .time(serverUrl: environment.servers.nodeUrl)
-            .flatMap({ [weak self] (time) -> Observable<Environment> in
+        return utilsNodeService!
+            .time()
+            .flatMap({ [weak self] (time) -> Observable<WalletEnvironment> in
                 
                 guard let self = self else { return Observable.empty() }
                 self.isValidServerTimestampDiff = true
@@ -283,7 +281,7 @@ private extension EnvironmentRepository {
                 let diff = localTimestamp - time.NTP
                 let timestamp = abs(diff) > Constants.minServerTimestampDiff ? diff : 0
                 
-                Environment.updateTimestampServerDiff(timestamp)
+                WalletEnvironment.updateTimestampServerDiff(timestamp)
 
                 return Observable.just(environment)
             })

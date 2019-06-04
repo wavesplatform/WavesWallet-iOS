@@ -11,7 +11,7 @@ import Moya
 
 
 protocol BaseTargetType: TargetType {
-    var environment: Environment { get }
+    var environment: WalletEnvironment { get }
  }
 
 enum ContentType {

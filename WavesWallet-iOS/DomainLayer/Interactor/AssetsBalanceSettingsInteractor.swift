@@ -120,7 +120,7 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
 
 private extension AssetsBalanceSettingsInteractor {
     
-    func assetSettings(assets: [DomainLayer.DTO.Asset], ids: [String], accountAddress: String, environment: Environment) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> {
+    func assetSettings(assets: [DomainLayer.DTO.Asset], ids: [String], accountAddress: String, environment: WalletEnvironment) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> {
         
         let spamIds = assets.reduce(into: [String: Bool](), {$0[$1.id] = $1.isSpam })
 
@@ -176,7 +176,7 @@ private extension AssetsBalanceSettingsInteractor {
             })
     }
     
-    func sortAssets(assets: [DomainLayer.DTO.Asset], enviroment: Environment) -> [DomainLayer.DTO.Asset] {
+    func sortAssets(assets: [DomainLayer.DTO.Asset], enviroment: WalletEnvironment) -> [DomainLayer.DTO.Asset] {
 
         let favoriteAssets = assets.filter { $0.isInitialFavorite }.sorted(by: { $0.isWaves && !$1.isWaves })
         let secondsAssets = assets.filter { !$0.isInitialFavorite }

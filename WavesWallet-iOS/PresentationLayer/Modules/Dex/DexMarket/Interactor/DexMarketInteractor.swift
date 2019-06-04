@@ -14,6 +14,7 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
 
     private let dexRealmRepository: DexRealmRepositoryProtocol = FactoryRepositories.instance.dexRealmRepository
     private let auth = FactoryInteractors.instance.authorization
+    //TODO: Library
     private let environment = FactoryRepositories.instance.environmentRepository
     private let orderBookRepository = FactoryRepositories.instance.dexOrderBookRepository
 

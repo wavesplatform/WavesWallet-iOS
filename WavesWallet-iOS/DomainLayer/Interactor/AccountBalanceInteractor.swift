@@ -416,7 +416,7 @@ private extension AccountBalanceInteractor {
 
 private extension DomainLayer.DTO.AssetBalance {
 
-    init(info: Environment.AssetInfo) {
+    init(info: WalletEnvironment.AssetInfo) {
         self.assetId = info.assetId
         self.totalBalance = 0
         self.leasedBalance = 0

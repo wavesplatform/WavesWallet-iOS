@@ -34,7 +34,7 @@ extension AliasTransaction {
 
 extension DomainLayer.DTO.AliasTransaction {
 
-    init(transaction: NodeService.DTO.AliasTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
+    init(transaction: NodeService.DTO.AliasTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
 
         type = transaction.type
         id = transaction.id

@@ -13,11 +13,10 @@ import WavesSDK
 
 final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
     
-    private let candlesDataService =  ServicesFactory.shared.candlesDataService
-    private let environmentRepository: EnvironmentRepositoryProtocol
+    private let applicationEnviroment: Observable<ApplicationEnviroment>
     
-    init(environmentRepository: EnvironmentRepositoryProtocol) {
-        self.environmentRepository = environmentRepository
+    init(applicationEnviroment: Observable<ApplicationEnviroment>) {
+        self.applicationEnviroment = applicationEnviroment
     }
     
     func candles(accountAddress: String,
@@ -27,20 +26,23 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                  timeEnd: Date,
                  timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> Observable<[DomainLayer.DTO.Candle]> {
  
-        return environmentRepository
-            .accountEnvironment(accountAddress: accountAddress)
-            .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Candle]> in
+        return applicationEnviroment
+            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<[DomainLayer.DTO.Candle]> in
                 
                 guard let self = self else { return Observable.empty() }
                 
+                let timestampServerDiff = applicationEnviroment.walletEnviroment.timestampServerDiff
+                
                 let candles = DataService.Query.CandleFilters(amountAsset: amountAsset,
                                                               priceAsset: priceAsset,
-                                                              timeStart: timeStart.millisecondsSince1970(timestampDiff: environment.timestampServerDiff),
-                                                              timeEnd: timeEnd.millisecondsSince1970(timestampDiff: environment.timestampServerDiff),
+                                                              timeStart: timeStart.millisecondsSince1970(timestampDiff: timestampServerDiff),
+                                                              timeEnd: timeEnd.millisecondsSince1970(timestampDiff: timestampServerDiff),
                                                               interval: String(timeFrame.rawValue) + "m")
-                return self
+                return applicationEnviroment
+                    .services
+                    .dataServices
                     .candlesDataService
-                    .candles(query: candles, enviroment: environment.environmentServiceData)
+                    .candles(query: candles)
                     .map({ (chart) -> [DomainLayer.DTO.Candle] in
                         
                         var models: [DomainLayer.DTO.Candle] = []
