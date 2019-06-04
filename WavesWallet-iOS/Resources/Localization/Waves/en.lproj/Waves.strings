@@ -577,6 +577,8 @@
 "walletsearch.button.cancel" = "Cancel";
 "walletsearch.label.hiddenTokens" = "Hidden tokens";
 "walletsearch.label.suspiciousTokens" = "Suspicious tokens";
+"wallet.updateApp.label.title" = "It's time to update your app!";
+"wallet.updateApp.label.subtitle" = "We are constantly working to make Waves Wallet better and more useful. Please update your app to gain access to new features.";
 
 "wavespopup.button.exchange" = "Exchange";
 "wavespopup.button.receive" = "Receive";

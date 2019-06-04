@@ -680,6 +680,8 @@
 		E983665E21F5972300178A8A /* TransactionScriptErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E983665D21F5972300178A8A /* TransactionScriptErrorView.swift */; };
 		E983666121F5973900178A8A /* TransactionScriptErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E983666021F5973900178A8A /* TransactionScriptErrorView.xib */; };
 		E98D14D12266B25500BE5481 /* CleanerWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98D14D02266B25500BE5481 /* CleanerWalletManager.swift */; };
+		E98F1D2D22A5E2E600B4A8C4 /* WalletUpdateAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98F1D2C22A5E2E600B4A8C4 /* WalletUpdateAppView.swift */; };
+		E98F1D2F22A5E2F200B4A8C4 /* WalletUpdateAppView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E98F1D2E22A5E2F200B4A8C4 /* WalletUpdateAppView.xib */; };
 		E991BB15220189530022E27D /* AliasApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB14220189530022E27D /* AliasApiService.swift */; };
 		E991BB17220197280022E27D /* AliasApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB16220197280022E27D /* AliasApi.swift */; };
 		E991BB1A2202CA250022E27D /* SendFeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB192202CA250022E27D /* SendFeeViewController.swift */; };
@@ -1659,6 +1661,8 @@
 		E983665D21F5972300178A8A /* TransactionScriptErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionScriptErrorView.swift; sourceTree = "<group>"; };
 		E983666021F5973900178A8A /* TransactionScriptErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionScriptErrorView.xib; sourceTree = "<group>"; };
 		E98D14D02266B25500BE5481 /* CleanerWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanerWalletManager.swift; sourceTree = "<group>"; };
+		E98F1D2C22A5E2E600B4A8C4 /* WalletUpdateAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletUpdateAppView.swift; sourceTree = "<group>"; };
+		E98F1D2E22A5E2F200B4A8C4 /* WalletUpdateAppView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletUpdateAppView.xib; sourceTree = "<group>"; };
 		E991BB14220189530022E27D /* AliasApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasApiService.swift; sourceTree = "<group>"; };
 		E991BB16220197280022E27D /* AliasApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasApi.swift; sourceTree = "<group>"; };
 		E991BB192202CA250022E27D /* SendFeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeViewController.swift; sourceTree = "<group>"; };
@@ -3336,6 +3340,8 @@
 			children = (
 				0AF92224212E0F1F003BA067 /* WalletHeaderView.xib */,
 				0AF92216212E0F1F003BA067 /* WalletHeaderView.swift */,
+				E98F1D2C22A5E2E600B4A8C4 /* WalletUpdateAppView.swift */,
+				E98F1D2E22A5E2F200B4A8C4 /* WalletUpdateAppView.xib */,
 				0AF92217212E0F1F003BA067 /* Cells */,
 				0AF9221F212E0F1F003BA067 /* Skeletons */,
 				0AF92223212E0F1F003BA067 /* WalletSegmentedControl.swift */,
@@ -5084,6 +5090,7 @@
 				E9B087C62163886800937644 /* DexTraderContainerSegmentedControl.xib in Resources */,
 				E95E14F3229FF31A003552B8 /* WalletLeasingBalanceCell.xib in Resources */,
 				0AF92204212E07B3003BA067 /* AssetHeaderSkeletonView.xib in Resources */,
+				E98F1D2F22A5E2F200B4A8C4 /* WalletUpdateAppView.xib in Resources */,
 				0A4140EB2174F09C00B1310E /* ChangePassword.storyboard in Resources */,
 				0A2B7D34216037FD0098438D /* AssetViewHistoryCell.xib in Resources */,
 				044D6C8B21978C9C003861A2 /* EditAccountName.storyboard in Resources */,
@@ -6150,6 +6157,7 @@
 				0A5E4BB5213805B400E3C3C3 /* MassTransferTransaction.swift in Sources */,
 				0A57C38E21F74E2E003B5386 /* AssetScriptTransaction+Mapper.swift in Sources */,
 				0A5E4BBA21381E3400E3C3C3 /* DataTransaction.swift in Sources */,
+				E98F1D2D22A5E2E600B4A8C4 /* WalletUpdateAppView.swift in Sources */,
 				0ADD803721F22FFB0075FC59 /* SlideCoordinator.swift in Sources */,
 				E9310D0C217924D0008BF3EE /* SendConfirmationViewController.swift in Sources */,
 				E9D36DD72175C755001E6DF0 /* ReceiveCardInteractorProtocol.swift in Sources */,
