@@ -3156,6 +3156,18 @@ internal enum Localizable {
         internal static var leasing: String { return Localizable.tr("Waves", "wallet.segmentedControl.leasing") }
         internal static var leasingKey: String { return "wallet.segmentedControl.leasing" }
       }
+
+      internal enum Updateapp {
+
+        internal enum Label {
+          /// We are constantly working to make Waves Wallet better and more useful. Please update your app to gain access to new features.
+          internal static var subtitle: String { return Localizable.tr("Waves", "wallet.updateApp.label.subtitle") }
+          internal static var subtitleKey: String { return "wallet.updateApp.label.subtitle" }
+          /// It's time to update your app!
+          internal static var title: String { return Localizable.tr("Waves", "wallet.updateApp.label.title") }
+          internal static var titleKey: String { return "wallet.updateApp.label.title" }
+        }
+      }
     }
 
     internal enum Walletsearch {

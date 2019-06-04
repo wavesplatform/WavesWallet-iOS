@@ -29,10 +29,7 @@ final class WalletSearchHeaderCell: UITableViewCell, NibReusable {
 }
 
 extension WalletSearchHeaderCell: ViewConfiguration {
-//    func update(with model: WalletSearchHeaderCell.Model) {
-//        <#code#>
-//    }
-//    
+
     func update(with model: WalletSearch.ViewModel.Kind) {
         switch model {
         case .hidden:

@@ -105,6 +105,22 @@ final class NewWalletDisplayData: NSObject {
             delegate?.showSearchVC(fromStartPosition: rectInSuperview.origin.y)
         }
     }
+
+    var isNeedSetupSearchBarPosition: Bool {
+        
+        return assetsSections.first(where: { (section) -> Bool in
+            switch section.kind {
+            case .search:
+                return true
+            default:
+                return false
+            }
+        }) != nil &&
+            scrolledTablesComponent.visibleTableView.tag == WalletTypes.DisplayState.Kind.assets.rawValue &&
+            scrolledTablesComponent.contentSize.height > scrolledTablesComponent.frame.size.height &&
+            scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset < scrolledTablesComponent.topOffset + WalletSearchTableViewCell.viewHeight() &&
+            scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset > scrolledTablesComponent.topOffset
+    }
 }
 
 // MARK: UITableViewDelegate

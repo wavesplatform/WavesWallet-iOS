@@ -74,6 +74,12 @@ final class NewWalletViewController: UIViewController {
         }
 
         NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
+    
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            let view = WalletUpdateAppView.loadFromNib()
+//            self.scrolledTablesComponent.addView(view, animation: false)
+//            self.scrolledTablesComponent.visibleTableView.contentInset =
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -313,11 +319,7 @@ private extension NewWalletViewController {
 
     func setupSearchBarOffset() {
         
-        if scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset > scrolledTablesComponent.topOffset &&
-            scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset < scrolledTablesComponent.topOffset + WalletSearchTableViewCell.viewHeight() &&
-            isSmallNavigationBar &&
-            scrolledTablesComponent.visibleTableView.tag == WalletTypes.DisplayState.Kind.assets.rawValue {
-            
+        if isSmallNavigationBar && displayData.isNeedSetupSearchBarPosition {
             
             let diff = (scrolledTablesComponent.topOffset + WalletSearchTableViewCell.viewHeight()) - (scrolledTablesComponent.contentOffset.y + scrolledTablesComponent.smallTopOffset)
             
