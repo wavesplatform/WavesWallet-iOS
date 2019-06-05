@@ -8,6 +8,7 @@
 
 #warning("Установка view после инициализации")
 #warning("после скролингка с таб бара баг")
+#warning("После рефреша большой navigationBar")
 
 import UIKit
 
