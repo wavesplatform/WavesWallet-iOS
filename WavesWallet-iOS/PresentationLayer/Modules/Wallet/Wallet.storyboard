@@ -10,71 +10,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Wallet View Controller-->
-        <scene sceneID="ynv-jl-pCH">
-            <objects>
-                <viewController storyboardIdentifier="WalletViewController" id="lOp-6p-1AP" customClass="WalletViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Qg3-dc-oLf"/>
-                        <viewControllerLayoutGuide type="bottom" id="vDX-PX-8g9"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Q4x-oD-st2">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="always" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" estimatedRowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="b2m-TL-gDN">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="SDa-Pg-ekZ" customClass="WalletSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="66"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O8R-9z-bG6" customClass="SegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="18" width="343" height="30"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </view>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="O8R-9z-bG6" secondAttribute="bottom" constant="18" id="2Rp-nL-scv"/>
-                                        <constraint firstAttribute="trailing" secondItem="O8R-9z-bG6" secondAttribute="trailing" constant="16" id="gYT-fZ-u1g"/>
-                                        <constraint firstItem="O8R-9z-bG6" firstAttribute="leading" secondItem="SDa-Pg-ekZ" secondAttribute="leading" constant="16" id="kjg-l2-OSJ"/>
-                                        <constraint firstItem="O8R-9z-bG6" firstAttribute="top" secondItem="SDa-Pg-ekZ" secondAttribute="top" constant="18" id="w2c-yz-suE"/>
-                                    </constraints>
-                                    <connections>
-                                        <outlet property="segmentedControl" destination="O8R-9z-bG6" id="Eni-24-hvd"/>
-                                    </connections>
-                                </view>
-                            </tableView>
-                            <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dbz-lN-cI1" customClass="GlobalErrorView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="b2m-TL-gDN" firstAttribute="top" secondItem="Q4x-oD-st2" secondAttribute="top" id="5J7-Pn-Vcm"/>
-                            <constraint firstItem="b2m-TL-gDN" firstAttribute="leading" secondItem="Q4x-oD-st2" secondAttribute="leading" id="Rha-qp-0rV"/>
-                            <constraint firstAttribute="trailing" secondItem="b2m-TL-gDN" secondAttribute="trailing" id="Vpp-5G-Xe9"/>
-                            <constraint firstItem="Dbz-lN-cI1" firstAttribute="leading" secondItem="LbA-uf-tAJ" secondAttribute="leading" id="Xm3-Fu-1Su"/>
-                            <constraint firstItem="Dbz-lN-cI1" firstAttribute="top" secondItem="b2m-TL-gDN" secondAttribute="top" id="cpP-ZL-Dkd"/>
-                            <constraint firstItem="Dbz-lN-cI1" firstAttribute="bottom" secondItem="b2m-TL-gDN" secondAttribute="bottom" id="jlt-28-wQE"/>
-                            <constraint firstItem="LbA-uf-tAJ" firstAttribute="trailing" secondItem="Dbz-lN-cI1" secondAttribute="trailing" id="oQu-VM-NRt"/>
-                            <constraint firstAttribute="bottom" secondItem="b2m-TL-gDN" secondAttribute="bottom" id="x1S-Ci-3Tx"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="LbA-uf-tAJ"/>
-                    </view>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
-                    <connections>
-                        <outlet property="globalErrorView" destination="Dbz-lN-cI1" id="dQd-XH-9jJ"/>
-                        <outlet property="segmentedControl" destination="SDa-Pg-ekZ" id="PwS-eG-iMS"/>
-                        <outlet property="tableView" destination="b2m-TL-gDN" id="knk-WN-8gB"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OHv-It-KZU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2292" y="-226.23688155922042"/>
-        </scene>
         <!--Wallet Search View Controller-->
         <scene sceneID="WfG-aF-iag">
             <objects>
@@ -179,12 +114,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iDg-yc-HaI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2287.1999999999998" y="463.71814092953525"/>
+            <point key="canvasLocation" x="-1617" y="-206"/>
         </scene>
-        <!--New Wallet View Controller-->
+        <!--Wallet View Controller-->
         <scene sceneID="3sz-9F-DHT">
             <objects>
-                <viewController storyboardIdentifier="NewWalletViewController" id="gTi-Ra-bdn" customClass="NewWalletViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WalletViewController" id="gTi-Ra-bdn" customClass="WalletViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Edc-9e-W4D">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -218,7 +153,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dGP-zk-Lfl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1618" y="-230"/>
+            <point key="canvasLocation" x="-2345" y="-206"/>
         </scene>
         <!--Wallet Sort View Controller-->
         <scene sceneID="Dlr-77-jMR">
@@ -265,7 +200,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mba-pA-XIg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-742" y="-139"/>
+            <point key="canvasLocation" x="-916" y="-206"/>
         </scene>
     </scenes>
 </document>
