@@ -117,14 +117,6 @@ final class ScrolledContainerView: UIScrollView {
             }
         }
     }
-
-    override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        segmentedControl.frame = .init(x: 0, y: topSegmentOffset, width: frame.size.width, height: Constants.segmentedHeight)
-        segmentedControl.backgroundColor = .basic50
-        superview?.addSubview(segmentedControl)
-        
-    }
 }
 
 //MARK: - ScrolledContainerViewProtocol
@@ -161,6 +153,10 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
             tableViews.append(table)
         }
         
+        segmentedControl.frame = .init(x: 0, y: topSegmentOffset, width: frame.size.width, height: Constants.segmentedHeight)
+        segmentedControl.backgroundColor = .basic50
+        addSubview(segmentedControl)
+
         visibleTableView.reloadData()
         setContentSize()
     }
@@ -438,11 +434,11 @@ private extension ScrolledContainerView {
     }
     
     var topSegmentOffset: CGFloat {
-        var offset = -contentOffset.y + topOffset
-        if offset < smallTopOffset {
-            offset = smallTopOffset
+
+        if contentOffset.y > -smallTopOffset + topOffset {
+            return contentOffset.y + smallTopOffset
         }
-        return offset
+        return topOffset
     }
     
     var navigationBarOriginY: CGFloat {
