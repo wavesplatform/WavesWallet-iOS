@@ -142,7 +142,7 @@ final class WalletPresenter: WalletPresenterProtocol {
     private func queryLeasing() -> Feedback {
         return react(request: { (state) -> Types.DisplayState.RefreshData? in
 
-            if state.displayState.kind == .leasing {
+            if state.displayState.kind == .leasing && state.displayState.refreshData != .none {
                 return state.displayState.refreshData
             } else {
                 return nil
@@ -190,13 +190,18 @@ final class WalletPresenter: WalletPresenterProtocol {
                 var currentDisplay = state.displayState.currentDisplay
                 currentDisplay.animateType = .refresh(animated: false)
                 state.displayState.currentDisplay = currentDisplay
+                state.action = .update
             }
-
+            else {
+                state.action = .none
+            }
+            
         case .viewDidDisappear:
             state.displayState.isAppeared = false
             state.displayState.leasing.animateType = .none
             state.displayState.assets.animateType = .none
             state.displayState.refreshData = .none
+            state.action = .none
 
         case .handlerError(let error):
             state.displayState = state.displayState.setIsRefreshing(isRefreshing: false)
@@ -207,12 +212,15 @@ final class WalletPresenter: WalletPresenterProtocol {
             currentDisplay.errorState = errorStatus
             currentDisplay.animateType = .refreshOnlyError
             state.displayState.currentDisplay = currentDisplay
+            state.action = .update
 
         case .tapSortButton:
             moduleOutput?.showWalletSort(balances: state.assets)
+            state.action = .none
 
         case .tapAddressButton:
             moduleOutput?.showMyAddress()
+            state.action = .none
 
         case .refresh:
             if state.displayState.refreshData == .update {
@@ -227,11 +235,16 @@ final class WalletPresenter: WalletPresenterProtocol {
                 currentDisplay.sections = WalletTypes.DisplayState.Display.skeletonSections(kind: state.displayState.kind)
                 currentDisplay.errorState = .none
                 currentDisplay.animateType = .refresh(animated: false)
+                state.action = .update
+            }
+            else {
+                state.action = .none
             }
             currentDisplay.isRefreshing = true
             state.displayState.currentDisplay = currentDisplay
 
         case .tapRow(let indexPath):
+            state.action = .none
 
             let section = state.displayState.currentDisplay.visibleSections[indexPath.section]
 
@@ -265,14 +278,19 @@ final class WalletPresenter: WalletPresenterProtocol {
 
         case .tapSection(let section):
             state.displayState = state.displayState.toggleCollapse(index: section)
+            state.action = .update
 
         case .changeDisplay(let kind):
             state.changeDisplay(state: &state, kind: kind)
             var currentDisplay = state.displayState.currentDisplay
             currentDisplay.isRefreshing = false
-            state.displayState.currentDisplay = currentDisplay
+            state.displayState.currentDisplay = currentDisplay            
+            state.displayState.refreshData = state.hasData ? .none : .refresh
+            
+            state.action = .none
 
         case .setAssets(let response):
+            state.action = .update
 
             let sections = WalletTypes.ViewModel.Section.map(from: response)
             state.displayState = state.displayState.updateDisplay(kind: .assets,
@@ -291,6 +309,7 @@ final class WalletPresenter: WalletPresenterProtocol {
             }
 
         case .setLeasing(let response):
+            state.action = .update
 
             let sections = WalletTypes.ViewModel.Section.map(from: response)
             state.displayState = state.displayState.updateDisplay(kind: .leasing,
@@ -308,25 +327,32 @@ final class WalletPresenter: WalletPresenterProtocol {
 
         case .showStartLease(let money):
             moduleOutput?.showStartLease(availableMoney: money)
-            
+            state.action = .none
+
         case .presentSearch(let startPoint):
             moduleOutput?.presentSearchScreen(from: startPoint, assets: state.assets)
-            
+            state.action = .none
+
         case .updateApp:
             moduleOutput?.openAppStore()
-        
+            state.action = .none
+
         case .isShowCleanWalletBanner(let isShowCleanWalletBanner):
             state.isShowCleanWalletBanner = isShowCleanWalletBanner
-            
+            state.action = .none
+
         case .setCleanWalletBanner:
             state.isNeedCleanWalletBanner = true
-            
+            state.action = .none
+
         case .completeCleanWalletBanner:
             state.isShowCleanWalletBanner = false
             state.isNeedCleanWalletBanner = false
-            
+            state.action = .none
+
         case .isHasAppUpdate(let isHasAppUpdate):
             state.isHasAppUpdate = isHasAppUpdate
+            state.action = .none
         }
     }
 

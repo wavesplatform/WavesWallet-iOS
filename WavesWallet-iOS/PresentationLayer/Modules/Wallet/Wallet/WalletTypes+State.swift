@@ -17,7 +17,8 @@ extension WalletTypes.State {
                                  displayState: .initialState(kind: .assets),
                                  isShowCleanWalletBanner: false,
                                  isNeedCleanWalletBanner: false,
-                                 isHasAppUpdate: false)
+                                 isHasAppUpdate: false,
+                                 action: .none)
     }
 
     func changeDisplay(state: inout WalletTypes.State, kind: WalletTypes.DisplayState.Kind) {
