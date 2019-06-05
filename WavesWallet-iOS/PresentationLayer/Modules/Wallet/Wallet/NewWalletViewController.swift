@@ -39,7 +39,8 @@ final class NewWalletViewController: UIViewController {
 
     private var isRefreshing: Bool = false
     private var snackError: String? = nil
-
+    private var hasAddingViewBanners: Bool = false
+    
     private let buttonAddress = UIBarButtonItem(image: Images.walletScanner.image,
                                                 style: .plain,
                                                 target: nil,
@@ -68,27 +69,12 @@ final class NewWalletViewController: UIViewController {
         setupSegmetedControl()
         setupTableView()
         setupSystem()
-
+        
         globalErrorView.retryDidTap = { [weak self] in
             self?.sendEvent.accept(.refresh)
         }
 
         NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
-    
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            let viewClear = WalletClearAssetsView.loadFromNib()
-            viewClear.removeViewTapped = { [weak self] in
-                self?.scrolledTablesComponent.removeTopView(viewClear, animation: true)
-            }
-            self.scrolledTablesComponent.addTopView(viewClear, animation: true)
-            
-            let viewUpdate = WalletUpdateAppView.loadFromNib()
-            self.scrolledTablesComponent.addTopView(viewUpdate, animation: true)
-            
-            viewUpdate.viewTapped = { [weak self] in
-                self?.sendEvent.accept(.updateApp)
-            }
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -166,6 +152,7 @@ extension NewWalletViewController: UIGestureRecognizerDelegate {
 // MARK: Bind UI
 
 extension NewWalletViewController {
+  
     func setupSystem() {
 
         let feedback: WalletPresenterProtocol.Feedback = bind(self) { owner, state in
@@ -246,13 +233,40 @@ extension NewWalletViewController {
         let subscriptionSections = state.drive(onNext: { [weak self] state in
 
             guard let self = self else { return }
-
+            self.addTopViewBanners(hasData: state.hasData,
+                                   isShowCleanWalletBanner: state.isShowCleanWalletBanner,
+                                   isHasAppUpdate: state.isHasAppUpdate)
+            
             self.updateView(with: state.displayState)
         })
-
+        
         return [subscriptionSections]
     }
 
+    func addTopViewBanners(hasData: Bool, isShowCleanWalletBanner: Bool, isHasAppUpdate: Bool) {
+        if hasData && !hasAddingViewBanners {
+            hasAddingViewBanners = true
+            if isHasAppUpdate {
+                
+                let view = WalletUpdateAppView.loadFromNib()
+                scrolledTablesComponent.addTopView(view, animation: false)
+            
+                view.viewTapped = { [weak self] in
+                    self?.sendEvent.accept(.updateApp)
+                }
+            }
+            
+            if isShowCleanWalletBanner {
+                let view = WalletClearAssetsView.loadFromNib()
+                scrolledTablesComponent.addTopView(view, animation: false)
+                view.removeViewTapped = { [weak self] in
+                    self?.scrolledTablesComponent.removeTopView(view, animation: true)
+                    self?.sendEvent.accept(.setCleanWalletBanner)
+                }
+            }
+        }
+    }
+    
     func updateView(with state: WalletTypes.DisplayState) {
 
         displayData.apply(assetsSections: state.assets.visibleSections, leasingSections: state.leasing.visibleSections, animateType: state.animateType) { [weak self] in

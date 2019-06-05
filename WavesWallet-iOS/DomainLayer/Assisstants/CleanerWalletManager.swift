@@ -54,4 +54,14 @@ extension Reactive where Base == CleanerWalletManager {
                 return CleanerWalletManager.rx.set(newSettings)
             })
     }
+    
+    static func isCleanWallet(by accountAddress: String) -> Observable<Bool> {
+        return Observable.create({ (subscribe) -> Disposable in
+
+            subscribe.onNext(CleanerWalletManager.get().cleanAccounts.contains(accountAddress))
+            subscribe.onCompleted()
+            
+            return Disposables.create()
+        })
+    }
 }
