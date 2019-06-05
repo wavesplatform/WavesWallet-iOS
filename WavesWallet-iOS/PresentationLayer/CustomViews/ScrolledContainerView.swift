@@ -29,7 +29,7 @@ class ContainerView: UIView {
 
 protocol ScrolledContainerViewProtocol {
     
-    func setup(segmentedItems: [String], topContents:[UIView], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate)
+    func setup(segmentedItems: [String], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate)
     
     func removeTopView(_ view: UIView, animation: Bool)
     
@@ -139,17 +139,10 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
     }
     
     
-    func setup(segmentedItems: [String], topContents:[UIView], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate) {
+    func setup(segmentedItems: [String], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate) {
         
         self.segmentedControl.items = segmentedItems
-        self.topContents = topContents
 
-        for view in topContents {
-            view.frame.origin.y = topOffset
-            addSubview(view)
-            topOffset += view.frame.size.height
-        }
-        
         for index in 0..<segmentedItems.count {
             
             let table = UITableView(frame: CGRect(x: CGFloat(index) * frame.size.width,
@@ -167,10 +160,6 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
             tableViews.append(table)
         }
         
-        for view in self.topContents {
-            bringSubviewToFront(view)
-        }
-        
         visibleTableView.reloadData()
         setContentSize()
     }
@@ -186,7 +175,7 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
             var offset: CGFloat = 0
             for topView in self.topContents {
                 topView.frame.origin.y = offset
-                offset += topView.frame.origin.y
+                offset += topView.frame.size.height
             }
             
             for table in self.tableViews {
@@ -207,16 +196,14 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
         
         view.alpha = 0
         
-        topOffset = topContents.map {$0.frame.size.height}.reduce(0, {$0 + $1})
+        topOffset = 0
+        for topView in self.topContents {
+            topView.frame.origin.y = topOffset
+            topOffset += topView.frame.size.height
+        }
         
         UIView.animate(withDuration: animation ? Constants.animationDuration : 0, animations: {
             view.alpha = 1
-            
-            var offset: CGFloat = 0
-            for topView in self.topContents {
-                topView.frame.origin.y = offset
-                offset += topView.frame.origin.y
-            }
             
             for table in self.tableViews {
                 table.contentInset.top = self.topOffset + self.segmentedHeight
@@ -230,8 +217,12 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
      
         layoutIfNeeded()
         
-        topOffset = topContents.map {$0.frame.size.height}.reduce(0, {$0 + $1})
-
+        topOffset = 0
+        for view in topContents {
+            view.frame.origin.y = topOffset
+            topOffset += view.frame.size.height
+        }
+        
         for table in tableViews {
             table.reloadData()
             table.contentInset.top = topOffset + segmentedHeight

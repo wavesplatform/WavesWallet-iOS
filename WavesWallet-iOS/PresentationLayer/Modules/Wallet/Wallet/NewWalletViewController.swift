@@ -60,7 +60,7 @@ final class NewWalletViewController: UIViewController {
         
         scrolledTablesComponent.scrollViewDelegate = self
         scrolledTablesComponent.containerViewDelegate = self
-        scrolledTablesComponent.setup(segmentedItems: displays.map{ $0.name }, topContents: [], tableDataSource: displayData, tableDelegate: displayData)
+        scrolledTablesComponent.setup(segmentedItems: displays.map{ $0.name }, tableDataSource: displayData, tableDelegate: displayData)
 
         setupLanguages()
         setupBigNavigationBar()
@@ -76,10 +76,16 @@ final class NewWalletViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
     
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            let view = WalletUpdateAppView.loadFromNib()
-            self.scrolledTablesComponent.addTopView(view, animation: true)
+            let viewClear = WalletClearAssetsView.loadFromNib()
+            viewClear.removeViewTapped = { [weak self] in
+                self?.scrolledTablesComponent.removeTopView(viewClear, animation: true)
+            }
+            self.scrolledTablesComponent.addTopView(viewClear, animation: true)
             
-            view.viewTapped = { [weak self] in
+            let viewUpdate = WalletUpdateAppView.loadFromNib()
+            self.scrolledTablesComponent.addTopView(viewUpdate, animation: true)
+            
+            viewUpdate.viewTapped = { [weak self] in
                 self?.sendEvent.accept(.updateApp)
             }
         }
@@ -108,6 +114,9 @@ final class NewWalletViewController: UIViewController {
         for view in scrolledTablesComponent.topContents {
             if let updateView = view as? WalletUpdateAppView {
                 updateView.update(with: ())
+            }
+            else if let clearView = view as? WalletClearAssetsView {
+                clearView.update(with: ())
             }
         }
         scrolledTablesComponent.reloadData()

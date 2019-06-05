@@ -3082,6 +3082,18 @@ internal enum Localizable {
         internal static var startLeaseKey: String { return "wallet.button.startLease" }
       }
 
+      internal enum Clearassets {
+
+        internal enum Label {
+          /// We have redesigned the display of assets to allow you to keep your wallet clean and tidy. You can customise your asset list however you want!
+          internal static var subtitle: String { return Localizable.tr("Waves", "wallet.clearAssets.label.subtitle") }
+          internal static var subtitleKey: String { return "wallet.clearAssets.label.subtitle" }
+          /// No more mess!
+          internal static var title: String { return Localizable.tr("Waves", "wallet.clearAssets.label.title") }
+          internal static var titleKey: String { return "wallet.clearAssets.label.title" }
+        }
+      }
+
       internal enum Label {
         /// Available
         internal static var available: String { return Localizable.tr("Waves", "wallet.label.available") }

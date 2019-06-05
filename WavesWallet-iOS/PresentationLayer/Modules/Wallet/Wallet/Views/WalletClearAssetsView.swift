@@ -1,8 +1,8 @@
 //
-//  WalletUpdateAppView.swift
+//  WalletClearAssetsView.swift
 //  WavesWallet-iOS
 //
-//  Created by Pavel Gubin on 6/4/19.
+//  Created by Pavel Gubin on 6/5/19.
 //  Copyright © 2019 Waves Platform. All rights reserved.
 //
 
@@ -13,13 +13,13 @@ private enum Constants {
     static let deltaHeight: CGFloat = 16
 }
 
-final class WalletUpdateAppView: UIView, NibLoadable {
+final class WalletClearAssetsView: UIView, NibLoadable {
 
     @IBOutlet private weak var viewContainer: UIView!
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var labelSubtitle: UILabel!
     
-    var viewTapped:(() -> Void)?
+    var removeViewTapped:(() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,9 +28,8 @@ final class WalletUpdateAppView: UIView, NibLoadable {
         update(with: ())
     }
 
-    
-    @IBAction private func buttonTapped(_ sender: Any) {
-        viewTapped?()
+    @IBAction private func crossTapped(_ sender: Any) {
+        removeViewTapped?()
     }
     
     override func layoutSubviews() {
@@ -39,9 +38,9 @@ final class WalletUpdateAppView: UIView, NibLoadable {
     }
 }
 
-extension WalletUpdateAppView: ViewConfiguration {
+extension WalletClearAssetsView: ViewConfiguration {
     func update(with model: Void) {
-        labelTitle.text = Localizable.Waves.Wallet.Updateapp.Label.title
-        labelSubtitle.text = Localizable.Waves.Wallet.Updateapp.Label.subtitle
+        labelTitle.text = Localizable.Waves.Wallet.Clearassets.Label.title
+        labelSubtitle.text = Localizable.Waves.Wallet.Clearassets.Label.subtitle
     }
 }
