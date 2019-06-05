@@ -63,6 +63,9 @@ extension WalletTypes {
         var assets: [DomainLayer.DTO.SmartAssetBalance]
         var leasing: DTO.Leasing?
         var displayState: DisplayState
+        var isShowCleanWalletBanner: Bool
+        var isNeedCleanWalletBanner: Bool
+        var isHasAppUpdate: Bool
     }
 
     enum Event {
@@ -80,5 +83,10 @@ extension WalletTypes {
         case showStartLease(Money)
         case presentSearch(startPoint: CGFloat)
         case updateApp
+        case setCleanWalletBanner
+        case isShowCleanWalletBanner(Bool)
+        case completeCleanWalletBanner(Bool)
+        case isHasAppUpdate(Bool)
     }
 }
+
