@@ -60,12 +60,18 @@ extension WalletTypes {
 
     struct State: Mutating {
 
+        enum Action {
+            case none
+            case update
+        }
+        
         var assets: [DomainLayer.DTO.SmartAssetBalance]
         var leasing: DTO.Leasing?
         var displayState: DisplayState
         var isShowCleanWalletBanner: Bool
         var isNeedCleanWalletBanner: Bool
         var isHasAppUpdate: Bool
+        var action: Action
     }
 
     enum Event {

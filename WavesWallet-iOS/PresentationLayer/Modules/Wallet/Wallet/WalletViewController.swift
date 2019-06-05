@@ -137,6 +137,7 @@ extension WalletViewController: UIScrollViewDelegate {
 extension WalletViewController: ScrolledContainerViewDelegate {
     
     func scrolledContainerViewDidScrollToIndex(_ index: Int) {
+        setupRightButons(kind: displays[index])
         sendEvent.accept(.changeDisplay(displays[index]))
     }
 }
@@ -233,6 +234,11 @@ extension WalletViewController {
         let subscriptionSections = state.drive(onNext: { [weak self] state in
 
             guard let self = self else { return }
+            if state.action == .none {
+                return
+            }
+            
+            print("updateUI")
             self.addTopViewBanners(hasData: state.hasData,
                                    isShowCleanWalletBanner: state.isShowCleanWalletBanner,
                                    isHasAppUpdate: state.isHasAppUpdate)
