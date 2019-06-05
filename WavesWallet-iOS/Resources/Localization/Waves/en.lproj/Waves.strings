@@ -579,6 +579,9 @@
 "walletsearch.label.suspiciousTokens" = "Suspicious tokens";
 "wallet.updateApp.label.title" = "It's time to update your app!";
 "wallet.updateApp.label.subtitle" = "We are constantly working to make Waves Wallet better and more useful. Please update your app to gain access to new features.";
+"wallet.clearAssets.label.title" = "No more mess!";
+"wallet.clearAssets.label.subtitle" = "We have redesigned the display of assets to allow you to keep your wallet clean and tidy. You can customise your asset list however you want!";
+
 
 "wavespopup.button.exchange" = "Exchange";
 "wavespopup.button.receive" = "Receive";

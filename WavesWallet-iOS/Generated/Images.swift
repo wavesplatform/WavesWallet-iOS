@@ -85,6 +85,7 @@ internal enum Images {
   internal static let checkSuccess = ImageAsset(name: "check_success")
   internal static let checkboxOff = ImageAsset(name: "checkbox-off")
   internal static let checkboxOn = ImageAsset(name: "checkbox-on")
+  internal static let clear14Basic300 = ImageAsset(name: "clear14Basic300")
   internal static let close = ImageAsset(name: "close")
   internal static let closeLeaseIcon = ImageAsset(name: "close_lease_icon")
   internal static let copy18Black = ImageAsset(name: "copy18Black")
@@ -358,6 +359,7 @@ internal enum Images {
     checkSuccess,
     checkboxOff,
     checkboxOn,
+    clear14Basic300,
     close,
     closeLeaseIcon,
     copy18Black,
