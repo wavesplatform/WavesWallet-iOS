@@ -278,8 +278,6 @@ internal enum StoryboardScene {
   internal enum Wallet: StoryboardType {
     internal static let storyboardName = "Wallet"
 
-    internal static let newWalletViewController = SceneType<WavesWallet_iOS.NewWalletViewController>(storyboard: Wallet.self, identifier: "NewWalletViewController")
-
     internal static let walletSearchViewController = SceneType<WavesWallet_iOS.WalletSearchViewController>(storyboard: Wallet.self, identifier: "WalletSearchViewController")
 
     internal static let walletSortViewController = SceneType<WavesWallet_iOS.WalletSortViewController>(storyboard: Wallet.self, identifier: "WalletSortViewController")

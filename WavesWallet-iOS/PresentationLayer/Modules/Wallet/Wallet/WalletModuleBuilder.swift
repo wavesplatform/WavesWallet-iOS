@@ -14,7 +14,7 @@ struct WalletModuleBuilder: ModuleBuilderOutput {
 
     func build(input: Void) -> UIViewController {
 
-        let vc = StoryboardScene.Wallet.newWalletViewController.instantiate()
+        let vc = StoryboardScene.Wallet.walletViewController.instantiate()
         let presenter = WalletPresenter()
         presenter.interactor = WalletInteractor()
         presenter.moduleOutput = output
