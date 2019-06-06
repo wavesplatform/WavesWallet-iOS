@@ -27,6 +27,8 @@ final class SupportViewController: UIViewController {
     weak var delegate: SupportViewControllerDelegate?
     private let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let transactions: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
+    
+    private let enviroment: EnvironmentRepository = EnvironmentRepository()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,14 +53,24 @@ final class SupportViewController: UIViewController {
         ApplicationDebugSettings.setupIsEnableStage(isEnable: enableStageSwitch.isOn)
     }
     
-    static let image = "test"
-
-    private let popoverViewControllerTransitioning = ModalViewControllerTransitioning {
-
-    }
 
     @IBAction private func actionCrash(_ sender: Any) {
         
+    }
+    
+    static var number: Int = 0
+    @IBAction private func actionAnyButton(_ sender: Any) {
+        
+        enviroment
+            .accountEnvironment(accountAddress: "")
+            .flatMap({ (a) -> Observable<WalletEnvironment> in
+                print("I \(SupportViewController.number)")                
+                return Observable.just(a)
+            })
+            .subscribe(onNext: { (walletEnvi) in
+                
+            })
+        SupportViewController.number = SupportViewController.number + 1
     }
 
 
@@ -98,14 +110,21 @@ final class SupportViewController: UIViewController {
             print("ฅ(⌯͒•̩̩̩́ ˑ̫ •̩̩̩̀⌯͒)ฅ")
         }
     }
+}
 
 
+extension SupportViewController {
+    
+}
+
+extension SupportViewController {
+    
     private func version() -> String {
         let dictionary = Bundle.main.infoDictionary
         let version = dictionary?["CFBundleShortVersionString"] as? String
         return version ?? ""
     }
-
+    
     private func buildVersion() -> String {
         let dictionary = Bundle.main.infoDictionary
         let build = dictionary?["CFBundleVersion"] as? String
