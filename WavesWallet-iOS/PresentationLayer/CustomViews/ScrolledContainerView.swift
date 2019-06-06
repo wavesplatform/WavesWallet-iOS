@@ -6,9 +6,8 @@
 //  Copyright © 2019 Pavel Gubin. All rights reserved.
 //
 
-#warning("Установка view после инициализации")
 #warning("после скролингка с таб бара баг")
-#warning("После рефреша большой navigationBar")
+#warning("После рефреша если проскролить вниз то большой navigationBar")
 
 import UIKit
 

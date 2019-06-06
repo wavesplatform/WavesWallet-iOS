@@ -8,7 +8,7 @@
 
 import UIKit
 
-#warning("После перехода на экран AssetDetailsViewController появляеться баг что при push / scrollToTop не закрашиваеться верхняя область")
+#warning("После перехода на экран AssetDetailsViewController появляеться баг что при push / scrollToTop не закрашиваеться верхняя область, заметно не сильно")
 
 final class CustomNavigationBar: UINavigationBar {
     
