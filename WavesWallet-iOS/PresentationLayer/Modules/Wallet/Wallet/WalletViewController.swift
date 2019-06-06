@@ -23,9 +23,7 @@ private extension WalletTypes.DisplayState.Kind {
     }
 }
 
-//private enum Constants {
-//    static let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
-//}
+#warning("Поправить refresh control после перехода на другой segmtenedIndex по время обновления")
 
 final class WalletViewController: UIViewController {
 
@@ -238,7 +236,6 @@ extension WalletViewController {
                 return
             }
             
-            print("updateUI")
             self.addTopViewBanners(hasData: state.hasData,
                                    isShowCleanWalletBanner: state.isShowCleanWalletBanner,
                                    isHasAppUpdate: state.isHasAppUpdate)

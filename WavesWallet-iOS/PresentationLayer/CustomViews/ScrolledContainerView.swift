@@ -286,7 +286,7 @@ extension ScrolledContainerView: UIScrollViewDelegate {
         if contentSize.height != visibleContentHeight {
             contentSize.height = visibleContentHeight
         }
-            
+
         updateSegmentedShadow()
         
         scrollViewDelegate?.scrollViewDidScroll?(scrollView)
@@ -325,15 +325,19 @@ private extension ScrolledContainerView {
     func acceptCurrentTableOffset() -> UITableView {
         isAnimationTable = true
         
-        let lastOffset = contentOffset.y
         var diff: CGFloat = 0
         let currentTable = visibleTableView
 
-        if contentSize.height - frame.size.height - contentOffset.y < smallTopOffset &&
-            contentSize.height > frame.size.height &&
-            contentOffset.y > 0 {
-            diff = contentSize.height - frame.size.height - contentOffset.y - smallTopOffset
+        let offset = contentSize.height - currentTable.frame.origin.y - currentTable.frame.size.height
+        
+        if contentSize.height < currentTable.frame.size.height {
+            diff = -(contentOffset.y + smallTopOffset) + topOffset
         }
+        else {
+            diff = offset
+        }
+        
+        diff = min(diff, 0)
         
         if isSmallNavBar {
             firstAvailableViewController().setupSmallNavigationBar()
@@ -342,8 +346,7 @@ private extension ScrolledContainerView {
             }
         }
         
-        let newOffset = contentOffset.y - lastOffset
-        currentTable.frame.origin.y += newOffset + diff
+        currentTable.frame.origin.y = diff
         return currentTable
     }
     
