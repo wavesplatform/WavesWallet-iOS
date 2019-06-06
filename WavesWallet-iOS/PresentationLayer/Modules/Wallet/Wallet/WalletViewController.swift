@@ -23,8 +23,6 @@ private extension WalletTypes.DisplayState.Kind {
     }
 }
 
-#warning("Поправить refresh control после перехода на другой segmtenedIndex по время обновления")
-
 final class WalletViewController: UIViewController {
 
     @IBOutlet weak var scrolledTablesComponent: ScrolledContainerView!
@@ -137,7 +135,10 @@ extension WalletViewController: ScrolledContainerViewDelegate {
     func scrolledContainerViewDidScrollToIndex(_ index: Int) {
         setupRightButons(kind: displays[index])
         sendEvent.accept(.changeDisplay(displays[index]))
-        scrolledTablesComponent.endRefreshing()
+        
+        DispatchQueue.main.async {
+            self.scrolledTablesComponent.endRefreshing()
+        }
     }
 }
 
