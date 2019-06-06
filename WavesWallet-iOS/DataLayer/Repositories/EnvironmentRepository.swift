@@ -24,6 +24,22 @@ private struct EnvironmentKey: Hashable {
     let isTestNet: Bool
 }
 
+public final class ServicesEnviroment {
+    
+    public let wavesServices: WavesServicesProtocol
+    
+    init(wavesServices: WavesServicesProtocol) {
+        self.wavesServices = wavesServices
+    }
+}
+
+
+protocol ServicesEnvironmentRepositoryProtocol {
+    
+    func servicesEnvironment() -> Observable<ServicesEnviroment>
+}
+    
+
 final class EnvironmentRepository: EnvironmentRepositoryProtocol {
 
     private var isValidServerTimestampDiff = false

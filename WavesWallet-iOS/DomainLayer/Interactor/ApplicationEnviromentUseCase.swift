@@ -24,8 +24,6 @@ public final class ApplicationEnviroment {
 protocol ApplicationEnviromentUseCaseProtocol {
     
     func environment() -> Observable<ApplicationEnviroment>
-    
-//    func setSpam
 }
 
 final class ApplicationEnviromentUseCase: ApplicationEnviromentUseCaseProtocol {
@@ -37,7 +35,6 @@ final class ApplicationEnviromentUseCase: ApplicationEnviromentUseCaseProtocol {
     }
     
     func environment() -> Observable<ApplicationEnviroment> {
-        
         
         enviromentRepository.accountEnvironment(accountAddress: "")
             .flatMap { (enviroment) -> Observable<ApplicationEnviroment> in
