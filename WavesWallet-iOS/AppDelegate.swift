@@ -21,7 +21,7 @@ import AppsFlyerLib
 import Kingfisher
 import Amplitude_iOS
 import WavesSDKExtension
-//import WavesSDK
+import WavesSDK
 
 #if DEBUG || TEST
 import AppSpectorSDK

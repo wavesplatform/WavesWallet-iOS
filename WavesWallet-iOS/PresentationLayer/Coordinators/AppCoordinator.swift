@@ -277,7 +277,13 @@ private extension AppCoordinator {
     private func showSupport() {
         let vc = StoryboardScene.Support.supportViewController.instantiate()
         vc.delegate = self
-        self.windowRouter.window.rootViewController?.present(vc, animated: true, completion: nil)        
+        
+        if self.windowRouter.window.rootViewController == nil {
+            self.windowRouter.window.rootViewController = vc
+            self.windowRouter.window.makeKeyAndVisible()
+        } else {
+            self.windowRouter.window.rootViewController?.present(vc, animated: true, completion: nil)
+        }
     }
 }
 
