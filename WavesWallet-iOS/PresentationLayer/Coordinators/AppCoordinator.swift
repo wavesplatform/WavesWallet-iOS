@@ -63,7 +63,8 @@ final class AppCoordinator: Coordinator {
     func start() {
         self.isActiveApp = true
 
-        logInApplication()
+//        logInApplication()
+        showSupport()
 
         #if DEBUG || TEST
             addTapGestureForSupportDisplay()

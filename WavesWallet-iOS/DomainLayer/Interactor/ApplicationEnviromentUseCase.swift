@@ -36,6 +36,8 @@ final class ApplicationEnviromentUseCase: ApplicationEnviromentUseCaseProtocol {
     
     func environment() -> Observable<ApplicationEnviroment> {
         
+        return Observable.never()
+        
         enviromentRepository.accountEnvironment(accountAddress: "")
             .flatMap { (enviroment) -> Observable<ApplicationEnviroment> in
                     

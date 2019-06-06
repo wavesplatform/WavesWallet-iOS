@@ -3,7 +3,6 @@
 // swiftlint:disable sorted_imports
 import Foundation
 import UIKit
-import WavesWallet_iOS
 
 // swiftlint:disable superfluous_disable_command
 // swiftlint:disable file_length
