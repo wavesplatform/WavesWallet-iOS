@@ -6,9 +6,6 @@
 //  Copyright © 2019 Pavel Gubin. All rights reserved.
 //
 
-#warning("после скролингка с таб бара баг")
-#warning("После рефреша если проскролить вниз то большой navigationBar")
-
 import UIKit
 
 private enum Constants {
@@ -41,6 +38,9 @@ protocol ScrolledContainerViewProtocol {
     
     func setContentSize()
 
+    func scrollToTop()
+    
+    func endRefreshing()
     var segmentedHeight: CGFloat { get }
     
     var visibleTableView: UITableView { get }
@@ -120,6 +120,15 @@ final class ScrolledContainerView: UIScrollView {
 
 //MARK: - ScrolledContainerViewProtocol
 extension ScrolledContainerView: ScrolledContainerViewProtocol {
+    func endRefreshing() {
+        
+        if refreshControl?.isRefreshing == true {
+            if isSmallNavBar {
+                firstAvailableViewController().setupSmallNavigationBar()
+            }
+            refreshControl?.endRefreshing()
+        }
+    }
   
     func viewControllerWillDissapear() {
         if isSmallNavBar {
@@ -226,6 +235,10 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
         
         setContentSize()
         scrollViewDidScroll(self)
+    }
+    
+    func scrollToTop() {
+        setContentOffset(.init(x: 0, y: -bigTopOffset), animated: true)
     }
     
     func setContentSize() {
@@ -450,16 +463,16 @@ private extension ScrolledContainerView {
     var navigationBarHeight: CGFloat {
         return firstAvailableViewController().navigationController?.navigationBar.frame.size.height ?? 0
     }
-    
-    var bigTopOffset: CGFloat {
-        return Constants.bigNavBarHeight + navigationBarOriginY
-    }
-    
+  
     var isSmallNavBar: Bool {
         if let nav = firstAvailableViewController().navigationController {
             return nav.navigationBar.frame.size.height.rounded(.down) <= Constants.smallNavBarHeight
         }
         return false
+    }
+    
+    var bigTopOffset: CGFloat {
+        return Constants.bigNavBarHeight + navigationBarOriginY
     }
     
     var tableTopPosition: CGFloat {

@@ -111,7 +111,7 @@ final class WalletViewController: UIViewController {
 extension WalletViewController: MainTabBarControllerProtocol {
     func mainTabBarControllerDidTapTab() {
         guard isViewLoaded else { return }
-        scrolledTablesComponent.setContentOffset(tableViewTopOffsetForBigNavBar(scrolledTablesComponent.visibleTableView), animated: true)
+        scrolledTablesComponent.scrollToTop()
     }
 }
 
@@ -137,6 +137,7 @@ extension WalletViewController: ScrolledContainerViewDelegate {
     func scrolledContainerViewDidScrollToIndex(_ index: Int) {
         setupRightButons(kind: displays[index])
         sendEvent.accept(.changeDisplay(displays[index]))
+        scrolledTablesComponent.endRefreshing()
     }
 }
 
@@ -275,7 +276,7 @@ extension WalletViewController {
         displayData.apply(assetsSections: state.assets.visibleSections, leasingSections: state.leasing.visibleSections, animateType: state.animateType) { [weak self] in
                             
             if state.isRefreshing == false {
-                self?.scrolledTablesComponent.refreshControl?.endRefreshing()
+                self?.scrolledTablesComponent.endRefreshing()
             }
         }
         
