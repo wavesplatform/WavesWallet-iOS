@@ -44,7 +44,10 @@ final class ActionsControl: UIView, NibOwnerLoadable {
 
     @IBOutlet private var scrollView: UIScrollView!
     @IBOutlet private var stackView: UIStackView!
-
+    
+    @IBOutlet private var rightGradientView: GradientView!
+    @IBOutlet private var leftGradientView: GradientView!
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadNibContent()
@@ -56,8 +59,34 @@ final class ActionsControl: UIView, NibOwnerLoadable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        scrollView.delegate = self
+        
         stackView.spacing = Constants.spacingBetweenButtons
         scrollView.contentInset = Constants.scrollViewContentEdgeInsets
+        
+        rightGradientView.startColor = UIColor.white.withAlphaComponent(0.0)
+        rightGradientView.endColor = UIColor.white
+        rightGradientView.direction = .custom(GradientView.Settings.init(startPoint: CGPoint(x: 0.0, y: 0),
+                                                                         endPoint: CGPoint(x: 1, y: 0),
+                                                                         locations: [0.0, 1]))
+        leftGradientView.startColor = UIColor.white
+        leftGradientView.endColor = UIColor.white.withAlphaComponent(0.0)
+        leftGradientView.direction = .custom(GradientView.Settings.init(startPoint: CGPoint(x: 0.0, y: 0),
+                                                                        endPoint: CGPoint(x: 1, y: 0),
+                                                                        locations: [0, 1.0]))
+    }
+    
+}
+
+extension ActionsControl: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.x > 0 {
+            leftGradientView.isHidden = false
+        } else {
+            leftGradientView.isHidden = true
+        }
     }
 }
 
