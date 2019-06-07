@@ -154,6 +154,11 @@ extension WalletCoordinator: WalletModuleOutput {
 
 //MARK: - WalletSearchViewControllerDelegate
 extension WalletCoordinator: WalletSearchViewControllerDelegate {
+    
+    func walletSearchViewControllerDidTapCancel(_ searchController: WalletSearchViewController) {
+        searchController.dismiss()
+    }
+    
     func walletSearchViewControllerDidSelectAsset(_ asset: DomainLayer.DTO.SmartAssetBalance, assets: [DomainLayer.DTO.SmartAssetBalance]) {
         
         navigationRouter.dismiss(animated: false, completion: nil)

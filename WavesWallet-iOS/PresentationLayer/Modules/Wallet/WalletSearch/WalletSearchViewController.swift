@@ -28,6 +28,7 @@ private enum Constants {
 protocol WalletSearchViewControllerDelegate: AnyObject {
 
     func walletSearchViewControllerDidSelectAsset(_ asset: DomainLayer.DTO.SmartAssetBalance, assets: [DomainLayer.DTO.SmartAssetBalance])
+    func walletSearchViewControllerDidTapCancel(_ searchController: WalletSearchViewController)
 }
 
 final class WalletSearchViewController: UIViewController  {
@@ -65,7 +66,10 @@ final class WalletSearchViewController: UIViewController  {
     }
     
     @IBAction private func cancelTapped(_ sender: Any) {
-
+        delegate?.walletSearchViewControllerDidTapCancel(self)
+    }
+    
+    func dismiss() {
         buttonCancelPosition.constant = -buttonCancelWidth.constant
         UIView.animate(withDuration: Constants.animationDuration, animations: {
             self.viewContainer.frame.origin.y = self.startPosition
