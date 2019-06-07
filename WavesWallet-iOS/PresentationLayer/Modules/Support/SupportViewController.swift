@@ -62,14 +62,11 @@ final class SupportViewController: UIViewController {
     @IBAction private func actionAnyButton(_ sender: Any) {
         
         enviroment
-            .accountEnvironment(accountAddress: "")
-            .flatMap({ (a) -> Observable<WalletEnvironment> in
-                print("I \(SupportViewController.number)")                
-                return Observable.just(a)
-            })
+            .servicesEnvironment()
             .subscribe(onNext: { (walletEnvi) in
                 
             })
+        
         SupportViewController.number = SupportViewController.number + 1
     }
 
