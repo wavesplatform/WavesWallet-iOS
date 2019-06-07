@@ -22,6 +22,12 @@ private enum Constants {
     static let lineColor = UIColor.submit400
     
     static let animationDuration: TimeInterval = 0.3
+    
+    enum Shadow {
+        static let height: CGFloat = 4
+        static let opacity: Float = 0.1
+        static let shadowRadius: Float = 3
+    }
 }
 
 protocol NewSegmentedControlDelegate: AnyObject {
@@ -84,10 +90,10 @@ extension NewSegmentedControl {
     
     func addShadow() {
         if layer.shadowColor == nil {
-            layer.setupShadow(options: .init(offset: CGSize(width: 0, height: 4),
+            layer.setupShadow(options: .init(offset: CGSize(width: 0, height: Constants.Shadow.height),
                                              color: .black,
-                                             opacity: 0.10,
-                                             shadowRadius: 3,
+                                             opacity: Constants.Shadow.opacity,
+                                             shadowRadius: Constants.Shadow.shadowRadius,
                                              shouldRasterize: true))
         }
     }
