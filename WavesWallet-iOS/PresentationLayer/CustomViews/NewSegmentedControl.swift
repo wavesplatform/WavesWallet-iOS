@@ -31,57 +31,31 @@ protocol NewSegmentedControlDelegate: AnyObject {
 final class NewSegmentedControl: UIScrollView {
     
     private let lineView = UIView()
-
+    
     private(set) var selectedIndex: Int = 0
     weak var segmentedDelegate: NewSegmentedControlDelegate?
     
     var items: [String] = [] {
         didSet {
             selectedIndex = 0
-            layoutIfNeeded()
+            setup()
         }
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
-    }
- 
-    override func layoutIfNeeded() {
-        super.layoutIfNeeded()
+    override func layoutSubviews() {
+        super.layoutSubviews()
         
-        for view in subviews {
-            view.removeFromSuperview()
-        }
-
         var offset: CGFloat = Constants.startOffset
-        for (index, item) in items.enumerated() {
-            let button = UIButton(type: .system)
-            let width = item.maxWidth(font: Constants.font) + Constants.deltaTitleWidth
+        for button in titleButtons {
+            guard let title = button.title(for: .normal) else { return }
+            let width = title.maxWidth(font: Constants.font) + Constants.deltaTitleWidth
             button.frame = .init(x: offset, y: 0, width: width, height: frame.size.height)
-            button.titleLabel?.font = Constants.font
-            button.contentVerticalAlignment = .top
-            button.titleEdgeInsets = Constants.titleEdgeInsets
-            button.addTarget(self, action: #selector(buttonDidTapped(_:)), for: .touchUpInside)
-            button.tag = index
-            button.setTitle(item, for: .normal)
-            addSubview(button)
             offset = button.frame.origin.x + button.frame.size.width
         }
         
-        setupTitleColors()
-        
-        if let subView = subviews.last {
+        if let subView = titleButtons.last {
             contentSize.width = subView.frame.origin.x + subView.frame.size.width
         }
-        
-        addSubview(lineView)
-        setupLinePosition(animation: false)
     }
     
     @objc private func buttonDidTapped(_ sender: UIButton) {
@@ -136,6 +110,33 @@ private extension NewSegmentedControl {
         lineView.frame = CGRect(x: 0, y: 0, width: Constants.lineWidth, height: Constants.lineHeight)
         lineView.layer.cornerRadius = Constants.lineCorner
         lineView.backgroundColor = Constants.lineColor
+        
+        for view in subviews {
+            view.removeFromSuperview()
+        }
+
+        var offset: CGFloat = Constants.startOffset
+        for (index, item) in items.enumerated() {
+            let button = UIButton(type: .system)
+            let width = item.maxWidth(font: Constants.font) + Constants.deltaTitleWidth
+            button.frame = .init(x: offset, y: 0, width: width, height: frame.size.height)
+            button.titleLabel?.font = Constants.font
+            button.contentVerticalAlignment = .top
+            button.titleEdgeInsets = Constants.titleEdgeInsets
+            button.addTarget(self, action: #selector(buttonDidTapped(_:)), for: .touchUpInside)
+            button.tag = index
+            button.setTitle(item, for: .normal)
+            addSubview(button)
+            offset = button.frame.origin.x + button.frame.size.width
+        }
+
+        setupTitleColors()
+
+        if let subView = subviews.last {
+            contentSize.width = subView.frame.origin.x + subView.frame.size.width
+        }
+        addSubview(lineView)
+        setupLinePosition(animation: false)
     }
     
     func setupLinePosition(animation: Bool) {
