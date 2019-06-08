@@ -250,7 +250,11 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
     }
     
     func scrollToTop() {
-        setContentOffset(.init(x: 0, y: -bigTopOffset), animated: true)
+        var offset = -bigTopOffset
+        if refreshControl?.isRefreshing == true {
+            offset -= refreshControl?.frame.size.height ?? 0
+        }
+        setContentOffset(.init(x: 0, y: offset), animated: true)
     }
     
     func setContentSize() {
@@ -294,7 +298,6 @@ extension ScrolledContainerView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
         setupSegmentedPosition()
-        
         if isAnimationTable {
             return
         }
