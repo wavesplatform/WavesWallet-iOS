@@ -82,7 +82,7 @@ final class WalletViewController: UIViewController {
         for table in scrolledTablesComponent.tableViews {
             table.startSkeletonCells()
         }
-        
+        scrolledTablesComponent.viewControllerWillAppear()
         navigationController?.navigationBar.backgroundColor = view.backgroundColor
     }
 

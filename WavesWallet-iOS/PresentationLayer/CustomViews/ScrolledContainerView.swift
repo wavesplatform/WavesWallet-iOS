@@ -36,6 +36,8 @@ protocol ScrolledContainerViewProtocol {
     
     func viewControllerWillDissapear()
     
+    func viewControllerWillAppear()
+
     func setContentSize()
 
     func scrollToTop()
@@ -120,6 +122,16 @@ final class ScrolledContainerView: UIScrollView {
 
 //MARK: - ScrolledContainerViewProtocol
 extension ScrolledContainerView: ScrolledContainerViewProtocol {
+    
+    func viewControllerWillAppear() {
+        if refreshControl?.isRefreshing == true {
+            DispatchQueue.main.async {
+                self.endRefreshing()
+                self.scrollViewDidScroll(self)
+            }
+        }
+    }
+    
     func endRefreshing() {
         
         if refreshControl?.isRefreshing == true {
@@ -137,9 +149,9 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
         else {
             firstAvailableViewController().setupBigNavigationBar()
         }
+      
     }
-    
-    
+
     func setup(segmentedItems: [String], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate) {
         
         self.segmentedControl.items = segmentedItems
