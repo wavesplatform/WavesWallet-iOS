@@ -11,9 +11,6 @@ import RxFeedback
 import RxSwift
 import UIKit
 
-#warning("RefreshControl после перехода между табами")
-#warning("RefreshControl при сролинге на большом contentSize")
-
 private extension WalletTypes.DisplayState.Kind {
 
     var name: String {
