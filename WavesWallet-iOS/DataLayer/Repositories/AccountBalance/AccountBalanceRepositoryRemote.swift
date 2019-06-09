@@ -20,10 +20,10 @@ private struct SponsoredAssetDetail {
 
 final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
     
-    private let applicationEnviroment: Observable<ApplicationEnviroment>
+    private let environmentRepository: EnvironmentRepositoryProtocols
     
-    init(applicationEnviroment: Observable<ApplicationEnviroment>) {
-        self.applicationEnviroment = applicationEnviroment
+    init(environmentRepository: EnvironmentRepositoryProtocols) {
+        self.environmentRepository = environmentRepository
     }
 
     func balances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]> {
@@ -99,16 +99,18 @@ private extension AccountBalanceRepositoryRemote {
     func matcherBalances(by walletAddress: String,
                          wallet: DomainLayer.DTO.SignedWallet) -> Observable<[String: Int64]> {
 
-        return applicationEnviroment
-            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<[String: Int64]> in
+        return environmentRepository
+            .servicesEnvironment()
+            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<[String: Int64]> in
                 
                 guard let self = self else { return Observable.never() }
 
+                //TODO: Refactor
                 let signature = TimestampSignature(signedWallet: wallet,
-                                                   environment: applicationEnviroment.walletEnviroment)
+                                                   environment: servicesEnvironment.walletEnvironment)
                 
-                return applicationEnviroment
-                    .services
+                return servicesEnvironment
+                    .wavesServices
                     .matcherServices
                     .balanceMatcherService
                     .reservedBalances(query: .init(senderPublicKey: wallet.publicKey.getPublicKeyStr(),
@@ -120,13 +122,14 @@ private extension AccountBalanceRepositoryRemote {
     func assetBalance(by walletAddress: String,
                       assetId: String) -> Observable<NodeService.DTO.AddressAssetBalance> {
 
-        return applicationEnviroment
-            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<NodeService.DTO.AddressAssetBalance> in
+        return environmentRepository
+            .servicesEnvironment()
+            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<NodeService.DTO.AddressAssetBalance> in
                 
                 guard let self = self else { return Observable.never() }
                 
-                return applicationEnviroment
-                    .services
+                return servicesEnvironment
+                    .wavesServices
                     .nodeServices
                     .assetsNodeService
                     .assetBalance(address: walletAddress,
@@ -153,13 +156,14 @@ private extension AccountBalanceRepositoryRemote {
 
     func assetDetail(assetId: String, walletAddress: String) -> Observable<NodeService.DTO.AssetDetail> {
 
-        return applicationEnviroment
-            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<NodeService.DTO.AssetDetail> in
+        return environmentRepository
+            .servicesEnvironment()
+            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<NodeService.DTO.AssetDetail> in
                 
                 guard let self = self else { return Observable.never() }
                 
-                return applicationEnviroment
-                    .services
+                return servicesEnvironment
+                    .wavesServices
                     .nodeServices
                     .assetsNodeService
                     .assetDetails(assetId: assetId)
@@ -168,13 +172,14 @@ private extension AccountBalanceRepositoryRemote {
 
     func balance(for walletAddress: String, myWalletAddress: String) -> Observable<NodeService.DTO.AddressBalance> {
 
-        return applicationEnviroment
-            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<NodeService.DTO.AddressBalance> in
+        return environmentRepository
+            .servicesEnvironment()
+            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<NodeService.DTO.AddressBalance> in
 
                 guard let self = self else { return Observable.never() }
                 
-                return applicationEnviroment
-                    .services
+                return servicesEnvironment
+                    .wavesServices
                     .nodeServices
                     .addressesNodeService
                     .addressBalance(address: walletAddress)
@@ -183,13 +188,14 @@ private extension AccountBalanceRepositoryRemote {
 
     func assetsBalance(by walletAddress: String) -> Observable<NodeService.DTO.AddressAssetsBalance> {
 
-        return applicationEnviroment
-            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<NodeService.DTO.AddressAssetsBalance> in
+        return environmentRepository
+            .servicesEnvironment()
+            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<NodeService.DTO.AddressAssetsBalance> in
                 
                 guard let self = self else { return Observable.never() }
                 
-                return applicationEnviroment
-                    .services
+                return servicesEnvironment
+                    .wavesServices
                     .nodeServices
                     .assetsNodeService
                     .assetsBalances(address: walletAddress)
@@ -199,13 +205,14 @@ private extension AccountBalanceRepositoryRemote {
 
     func accountBalance(by walletAddress: String) -> Observable<NodeService.DTO.AddressBalance> {
 
-        return applicationEnviroment
-            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<NodeService.DTO.AddressBalance> in
+        return environmentRepository
+            .servicesEnvironment()
+            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<NodeService.DTO.AddressBalance> in
                 
                 guard let self = self else { return Observable.never() }
                 
-                return applicationEnviroment
-                    .services
+                return servicesEnvironment
+                    .wavesServices
                     .nodeServices
                     .addressesNodeService
                     .addressBalance(address: walletAddress)

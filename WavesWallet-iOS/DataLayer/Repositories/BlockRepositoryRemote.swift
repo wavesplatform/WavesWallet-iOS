@@ -13,21 +13,22 @@ import WavesSDK
 
 final class BlockRepositoryRemote: BlockRepositoryProtocol {
 
-    private let applicationEnviroment: Observable<ApplicationEnviroment>
+    private let environmentRepository: EnvironmentRepositoryProtocols
     
-    init(applicationEnviroment: Observable<ApplicationEnviroment>) {
-        self.applicationEnviroment = applicationEnviroment
+    init(environmentRepository: EnvironmentRepositoryProtocols) {
+        self.environmentRepository = environmentRepository
     }
 
     func height(accountAddress: String) -> Observable<Int64> {
 
-        return applicationEnviroment
-            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<Int64> in
+        return environmentRepository
+            .servicesEnvironment()
+            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<Int64> in
 
                 guard let self = self else { return Observable.never() }
                 
-                return applicationEnviroment
-                    .services
+                return servicesEnvironment
+                    .wavesServices
                     .nodeServices
                     .blocksNodeService
                     .height(address: accountAddress)

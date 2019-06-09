@@ -44,15 +44,16 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
     private let environmentRepository: MoyaProvider<GitHub.Service.Environment> = .anyMoyaProvider()
     private let spamProvider: MoyaProvider<Spam.Service.Assets> = .anyMoyaProvider()
     
-    //TODO: Library
-    private var utilsNodeService: UtilsNodeServiceProtocol? = nil
-    
     private lazy var remoteAccountEnvironmentShare: Observable<WalletEnvironment> = {
         return remoteEnvironment().share()
     }()
     
+    //TODO: Library
     private lazy var accountEnvironmentShare: Observable<WalletEnvironment> = {
-        return logicAccountEnvironment().share()
+        return Observable<Int>.timer(5, scheduler: MainScheduler.asyncInstance)
+            .flatMap({ (_) -> Observable<WalletEnvironment> in
+                return self.setupEnvironment().share()
+            }).share()
     }()
     
     private var localEnvironments: BehaviorSubject<[EnvironmentKey: WalletEnvironment]> = BehaviorSubject<[EnvironmentKey: WalletEnvironment]>(value: [:])
@@ -69,54 +70,69 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
         return accountEnvironmentShare
     }
     
-    private func logicAccountEnvironment() -> Observable<WalletEnvironment> {
-
-        let key = EnvironmentKey(isTestNet: WalletEnvironment.isTestNet)
+    private func setupEnvironment() -> Observable<WalletEnvironment> {
         
-        var deffaultEnvironment: Observable<WalletEnvironment>!
-
-        if let enviroment = localEnvironment(by: key),
-            isValidServerTimestampDiff {
-            deffaultEnvironment = Observable.just(enviroment)
-        } else {
-            deffaultEnvironment = remoteAccountEnvironmentShare
-        }
-        
-        return deffaultEnvironment
-            .flatMap { [weak self] (enviroment) -> Observable<WalletEnvironment> in
+        return self.ifNeedRemoteEnvironment()
+        .flatMap { [weak self] (enviroment) -> Observable<WalletEnvironment> in
             
-                guard let self = self else {
-                    return Observable.never()
-                }
-                
-                self.initializationService(environment: enviroment)
-                
-                return self.updateTimestampServerDiff(environment: enviroment)
+            guard let self = self else {
+                return Observable.never()
             }
-            .flatMap { [weak self] (enviroment) -> Observable<WalletEnvironment> in
-                
-                guard let self = self else {
-                    return Observable.never()
-                }
-                return self.saveEnvironmentToMemory(environment: enviroment)
+            
+            return self.initializationService(environment: enviroment).map { _ in enviroment }
+        }
+        .flatMap { [weak self] (enviroment) -> Observable<WalletEnvironment> in
+            
+            guard let self = self else {
+                return Observable.never()
             }
+            
+
+            return self.updateTimestampServerDiff(environment: enviroment)
+        }
+        .flatMap { [weak self] (enviroment) -> Observable<WalletEnvironment> in
+            
+            guard let self = self else {
+                return Observable.never()
+            }
+            return self.saveEnvironmentToMemory(environment: enviroment)
+        }
     }
     
-    private func initializationService(environment: WalletEnvironment) {
+    private func initializationService(environment: WalletEnvironment) -> Observable<Void> {
         
-        WavesSDK.initialization(servicesPlugins: .init(data: [], node: [], matcher: []),
-                                enviroment: .init(server: .custom(node: environment.servers.nodeUrl,
-                                                                  matcher: environment.servers.matcherUrl,
-                                                                  data: environment.servers.dataUrl,
-                                                                  scheme: environment.scheme),
-                                                  timestampServerDiff: 0))
+        return Observable.create { (observer) -> Disposable in
+            
+            
+            let server: Enviroment.Server = .custom(node: environment.servers.nodeUrl,
+                                                             matcher: environment.servers.matcherUrl,
+                                                             data: environment.servers.dataUrl,
+                                                             scheme: environment.scheme)
+            if WavesSDK.isInitialized() {
+                
+                var enviromentService = WavesSDK.shared.enviroment
+                enviromentService.server = server
+                enviromentService.timestampServerDiff = environment.timestampServerDiff
+                    
+                WavesSDK.shared.enviroment = enviromentService
+                
+                observer.onCompleted()
+                return Disposables.create()
+            }
+            
+            WavesSDK.initialization(servicesPlugins: .init(data: [], node: [], matcher: []),
+                                    enviroment: .init(server: server, timestampServerDiff: 0))
+            
+            observer.onCompleted()
+            
+            return Disposables.create()
+        }
     }
     
     private func saveEnvironmentToMemory(environment: WalletEnvironment) -> Observable<WalletEnvironment> {
         return Observable.create { [weak self] (observer) -> Disposable in
             
             guard let self = self else {
-                observer.onError(RepositoryError.fail)
                 return Disposables.create()
             }
             
@@ -137,12 +153,6 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
             return Disposables.create()
         }
     }
-    
-//    .asObservable()
-//    .flatMap({ [weak self] (environment) -> Observable<WalletEnvironment> in
-//    guard let self = self else { return Observable.empty() }
-//    return self.updateTimestampServerDiff(environment: environment)
-//    })
 
     func setSpamURL(_ url: String, by accountAddress: String) -> Observable<Bool> {
         return Observable.create({ [weak self] (observer) -> Disposable in
@@ -199,10 +209,11 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
         .sweetDebug("setURL")
     }
     
+    // Loading
     func servicesEnvironment() -> Observable<ServicesEnviroment> {
         
         return self
-            .remoteAccountEnvironmentShare
+            .accountEnvironmentShare
             .map { (walletEnvironment) -> ServicesEnviroment in
                 
                 return ServicesEnviroment(wavesServices: WavesSDK.shared.services,
@@ -215,6 +226,34 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
 }
 
 private extension EnvironmentRepository {
+    
+    private func ifNeedRemoteEnvironment() -> Observable<WalletEnvironment> {
+        
+        return Observable<WalletEnvironment>.create({ [weak self] (observer) -> Disposable in
+            
+            guard let self = self else {
+                return Disposables.create()
+            }
+            
+            let key = EnvironmentKey(isTestNet: WalletEnvironment.isTestNet)
+            
+            var deffaultEnvironment: Observable<WalletEnvironment>!
+            
+            if let enviroment = self.localEnvironment(by: key) {
+                deffaultEnvironment = Observable.just(enviroment)
+                print("local")
+            } else {
+                deffaultEnvironment = self.remoteAccountEnvironmentShare
+                print("Remote")
+            }
+            
+            let disposable = deffaultEnvironment.bind(to: observer)
+            
+            return Disposables.create([disposable])
+        })
+        
+    }
+    
     
     private func remoteEnvironment() -> Observable<WalletEnvironment> {
         
@@ -357,10 +396,11 @@ private extension EnvironmentRepository {
     
     func updateTimestampServerDiff(environment: WalletEnvironment) -> Observable<WalletEnvironment> {
 
-        //TODO:Library
-        return Observable.just(environment)
-        
-        return utilsNodeService!
+        return WavesSDK
+            .shared
+            .services
+            .nodeServices
+            .utilsNodeService
             .time()
             .flatMap({ [weak self] (time) -> Observable<WalletEnvironment> in
                 
@@ -372,6 +412,11 @@ private extension EnvironmentRepository {
                 let timestamp = abs(diff) > Constants.minServerTimestampDiff ? diff : 0
                 
                 WalletEnvironment.updateTimestampServerDiff(timestamp)
+                
+                var enviromentService = WavesSDK.shared.enviroment
+                enviromentService.timestampServerDiff = environment.timestampServerDiff
+                
+                WavesSDK.shared.enviroment = enviromentService
 
                 return Observable.just(environment)
             })

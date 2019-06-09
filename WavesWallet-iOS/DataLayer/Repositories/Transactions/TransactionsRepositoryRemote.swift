@@ -71,50 +71,52 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
     
     private let transactionRules: MoyaProvider<GitHub.Service.TransactionRules> = .anyMoyaProvider()
 
-    private let applicationEnviroment: Observable<ApplicationEnviroment>
+    private let environmentRepository: EnvironmentRepositoryProtocols
     
-    init(applicationEnviroment: Observable<ApplicationEnviroment>) {
-        self.applicationEnviroment = applicationEnviroment
+    init(environmentRepository: EnvironmentRepositoryProtocols) {
+        self.environmentRepository = environmentRepository
     }
 
     func transactions(by address: DomainLayer.DTO.Address,
                       offset: Int,
                       limit: Int) -> Observable<[DomainLayer.DTO.AnyTransaction]> {
 
-        return applicationEnviroment
-            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<[DomainLayer.DTO.AnyTransaction]> in
+        return environmentRepository
+            .servicesEnvironment()
+            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<[DomainLayer.DTO.AnyTransaction]> in
 
                 guard let self = self else { return Observable.never() }
                 
                 let limit = min(Constants.maxLimit, offset + limit)
                 
-                return applicationEnviroment
-                    .services
+                return servicesEnvironment
+                    .wavesServices
                     .nodeServices
                     .transactionNodeService
                     .list(address: address.address,
                           offset: 0,
                           limit: limit)
-                    .map { $0.anyTransactions(status: .completed, environment: applicationEnviroment.walletEnviroment) }
+                    .map { $0.anyTransactions(status: .completed, environment: servicesEnvironment.walletEnvironment) }
             })
     }
 
     func activeLeasingTransactions(by accountAddress: String) -> Observable<[DomainLayer.DTO.LeaseTransaction]> {
 
-        return applicationEnviroment
-            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
+        return environmentRepository
+            .servicesEnvironment()
+            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
                 
                 guard let self = self else { return Observable.never() }
                 
-                return applicationEnviroment
-                    .services
+                return servicesEnvironment
+                    .wavesServices
                     .nodeServices
                     .leasingNodeService
                     .activeLeasingTransactions(by: accountAddress)
                     .map { $0.map { tx in
                         return DomainLayer.DTO.LeaseTransaction(transaction: tx,
                                                                 status: .activeNow,
-                                                                environment: applicationEnviroment.walletEnviroment)
+                                                                environment: servicesEnvironment.walletEnvironment)
                         }
                     }
                     .asObservable()
@@ -124,17 +126,18 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
     func send(by specifications: TransactionSenderSpecifications,
               wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.AnyTransaction> {
 
-        return applicationEnviroment
-            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<DomainLayer.DTO.AnyTransaction> in
+        return environmentRepository
+            .servicesEnvironment()
+            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<DomainLayer.DTO.AnyTransaction> in
             
                 guard let self = self else { return Observable.never() }
                 
-                let walletEnviroment = applicationEnviroment.walletEnviroment
-                let timestampServerDiff = applicationEnviroment.walletEnviroment.timestampServerDiff
+                let walletEnvironment = servicesEnvironment.walletEnvironment
+                let timestampServerDiff = walletEnvironment.timestampServerDiff
                 
                 let timestamp = Date().millisecondsSince1970(timestampDiff: timestampServerDiff)
                 var signature = specifications.signature(timestamp: timestamp,
-                                                         scheme: walletEnviroment.scheme,
+                                                         scheme: walletEnvironment.scheme,
                                                          publicKey: wallet.publicKey.publicKey)
                 
                 do {
@@ -147,14 +150,15 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                 let proofs = [Base58.encode(signature)]
 
                 let broadcastSpecification = specifications.broadcastSpecification(timestamp: timestamp,
-                                                                                   environment: walletEnviroment,
+                                                                                   environment: walletEnvironment,
                                                                                    publicKey: wallet.publicKey.getPublicKeyStr(),
                                                                                    proofs: proofs)
-                return applicationEnviroment
-                    .services.nodeServices
+                return servicesEnvironment
+                    .wavesServices
+                    .nodeServices
                     .transactionNodeService
                     .broadcast(query: broadcastSpecification)
-                    .map({ $0.anyTransaction(status: .unconfirmed, environment: walletEnviroment) })
+                    .map({ $0.anyTransaction(status: .unconfirmed, environment: walletEnvironment) })
                     .asObservable()
             })
     }
@@ -176,7 +180,6 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
         assertMethodDontSupported()
         return Observable.never()
     }
-
 
     func isHasTransactions(by accountAddress: String, ignoreUnconfirmed: Bool) -> Observable<Bool> {
         assertMethodDontSupported()
