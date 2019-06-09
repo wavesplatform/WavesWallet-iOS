@@ -85,6 +85,7 @@ internal enum Images {
   internal static let checkSuccess = ImageAsset(name: "check_success")
   internal static let checkboxOff = ImageAsset(name: "checkbox-off")
   internal static let checkboxOn = ImageAsset(name: "checkbox-on")
+  internal static let clear14Basic300 = ImageAsset(name: "clear14Basic300")
   internal static let close = ImageAsset(name: "close")
   internal static let closeLeaseIcon = ImageAsset(name: "close_lease_icon")
   internal static let copy18Black = ImageAsset(name: "copy18Black")
@@ -206,6 +207,7 @@ internal enum Images {
   internal static let scriptasset18White = ImageAsset(name: "scriptasset18White")
   internal static let search = ImageAsset(name: "search")
   internal static let search24Basic500 = ImageAsset(name: "search24Basic500")
+  internal static let search24Black = ImageAsset(name: "search24Black")
   internal static let send = ImageAsset(name: "send")
   internal static let sendBtn = ImageAsset(name: "send_btn")
   internal static let settings = ImageAsset(name: "settings")
@@ -285,6 +287,7 @@ internal enum Images {
   internal static let userimgDone80Success400 = ImageAsset(name: "userimgDone80Success400")
   internal static let userimgEmpty80Multi = ImageAsset(name: "userimgEmpty80Multi")
   internal static let userimgPairing80 = ImageAsset(name: "userimgPairing80")
+  internal static let userimgRocket48 = ImageAsset(name: "userimgRocket48")
   internal static let userimgSeed80Submit400 = ImageAsset(name: "userimgSeed80Submit400")
   internal static let userimgServerdown80Multy = ImageAsset(name: "userimgServerdown80Multy")
   internal static let userimgWallet80 = ImageAsset(name: "userimgWallet80")
@@ -356,6 +359,7 @@ internal enum Images {
     checkSuccess,
     checkboxOff,
     checkboxOn,
+    clear14Basic300,
     close,
     closeLeaseIcon,
     copy18Black,
@@ -477,6 +481,7 @@ internal enum Images {
     scriptasset18White,
     search,
     search24Basic500,
+    search24Black,
     send,
     sendBtn,
     settings,
@@ -556,6 +561,7 @@ internal enum Images {
     userimgDone80Success400,
     userimgEmpty80Multi,
     userimgPairing80,
+    userimgRocket48,
     userimgSeed80Submit400,
     userimgServerdown80Multy,
     userimgWallet80,

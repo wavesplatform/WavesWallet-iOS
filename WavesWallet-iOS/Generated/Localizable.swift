@@ -3082,6 +3082,18 @@ internal enum Localizable {
         internal static var startLeaseKey: String { return "wallet.button.startLease" }
       }
 
+      internal enum Clearassets {
+
+        internal enum Label {
+          /// We have redesigned the display of assets to allow you to keep your wallet clean and tidy. You can customise your asset list however you want!
+          internal static var subtitle: String { return Localizable.tr("Waves", "wallet.clearAssets.label.subtitle") }
+          internal static var subtitleKey: String { return "wallet.clearAssets.label.subtitle" }
+          /// No more mess!
+          internal static var title: String { return Localizable.tr("Waves", "wallet.clearAssets.label.title") }
+          internal static var titleKey: String { return "wallet.clearAssets.label.title" }
+        }
+      }
+
       internal enum Label {
         /// Available
         internal static var available: String { return Localizable.tr("Waves", "wallet.label.available") }
@@ -3095,6 +3107,9 @@ internal enum Localizable {
         /// My token
         internal static var myAssets: String { return Localizable.tr("Waves", "wallet.label.myAssets") }
         internal static var myAssetsKey: String { return "wallet.label.myAssets" }
+        /// Search
+        internal static var search: String { return Localizable.tr("Waves", "wallet.label.search") }
+        internal static var searchKey: String { return "wallet.label.search" }
         /// Started Leasing
         internal static var startedLeasing: String { return Localizable.tr("Waves", "wallet.label.startedLeasing") }
         internal static var startedLeasingKey: String { return "wallet.label.startedLeasing" }
@@ -3152,6 +3167,36 @@ internal enum Localizable {
         /// Leasing
         internal static var leasing: String { return Localizable.tr("Waves", "wallet.segmentedControl.leasing") }
         internal static var leasingKey: String { return "wallet.segmentedControl.leasing" }
+      }
+
+      internal enum Updateapp {
+
+        internal enum Label {
+          /// We are constantly working to make Waves Wallet better and more useful. Please update your app to gain access to new features.
+          internal static var subtitle: String { return Localizable.tr("Waves", "wallet.updateApp.label.subtitle") }
+          internal static var subtitleKey: String { return "wallet.updateApp.label.subtitle" }
+          /// It's time to update your app!
+          internal static var title: String { return Localizable.tr("Waves", "wallet.updateApp.label.title") }
+          internal static var titleKey: String { return "wallet.updateApp.label.title" }
+        }
+      }
+    }
+
+    internal enum Walletsearch {
+
+      internal enum Button {
+        /// Cancel
+        internal static var cancel: String { return Localizable.tr("Waves", "walletsearch.button.cancel") }
+        internal static var cancelKey: String { return "walletsearch.button.cancel" }
+      }
+
+      internal enum Label {
+        /// Hidden tokens
+        internal static var hiddenTokens: String { return Localizable.tr("Waves", "walletsearch.label.hiddenTokens") }
+        internal static var hiddenTokensKey: String { return "walletsearch.label.hiddenTokens" }
+        /// Suspicious tokens
+        internal static var suspiciousTokens: String { return Localizable.tr("Waves", "walletsearch.label.suspiciousTokens") }
+        internal static var suspiciousTokensKey: String { return "walletsearch.label.suspiciousTokens" }
       }
     }
 

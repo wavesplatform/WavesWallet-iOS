@@ -12,6 +12,7 @@ import Foundation
 
 extension WalletTypes.ViewModel {
     enum Row {
+        case search
         case hidden
         case asset(DomainLayer.DTO.SmartAssetBalance)
         case assetSkeleton
@@ -26,6 +27,7 @@ extension WalletTypes.ViewModel {
     struct Section {
 
         enum Kind {
+            case search
             case skeleton
             case balance
             case transactions(count: Int)
@@ -68,7 +70,6 @@ extension WalletTypes.ViewModel.Section {
             .filter { $0.asset.isSpam != true && $0.settings.isHidden != true }
             .map { WalletTypes.ViewModel.Row.asset($0) }
 
-
         let generalSection: WalletTypes.ViewModel.Section = .init(kind: .general,
                                                                   items: generalItems,
                                                                   isExpanded: true)
@@ -81,6 +82,7 @@ extension WalletTypes.ViewModel.Section {
             .map { WalletTypes.ViewModel.Row.asset($0) }
 
         var sections: [WalletTypes.ViewModel.Section] = [WalletTypes.ViewModel.Section]()
+        sections.append(.init(kind: .search, items: [.search], isExpanded: true))
         sections.append(generalSection)
 
         if hiddenItems.count > 0 {
