@@ -17,20 +17,23 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     
     private let spamProvider: MoyaProvider<Spam.Service.Assets> = .anyMoyaProvider()
 
-    private let applicationEnviroment: Observable<ApplicationEnviroment>
+    private let environmentRepository: EnvironmentRepositoryProtocols
     
-    init(applicationEnviroment: Observable<ApplicationEnviroment>) {
-        self.applicationEnviroment = applicationEnviroment
+    init(environmentRepository: EnvironmentRepositoryProtocols) {
+        self.environmentRepository = environmentRepository
     }
 
     func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
 
-        return applicationEnviroment
-            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<[DomainLayer.DTO.Asset]> in
+        return environmentRepository
+            .servicesEnvironment()
+            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<[DomainLayer.DTO.Asset]> in
                 
             guard let self = self else { return Observable.empty() }
             
-            let walletEnviroment = applicationEnviroment.walletEnviroment
+            let walletEnviroment = servicesEnvironment.walletEnvironment
+            
+                //TODO: move provider to service
                 
             let spamAssets = self.spamProvider.rx
                             .request(.getSpamList(url: walletEnviroment.servers.spamUrl),
@@ -44,8 +47,8 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                                 return (try? SpamCVC.addresses(from: response.data)) ?? []
                             }
             
-            let assetsList = applicationEnviroment
-                .services
+            let assetsList = servicesEnvironment
+                .wavesServices
                 .dataServices
                 .assetsDataService
                 .assets(ids: ids)
@@ -81,13 +84,14 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
             return Observable.just(false)
         }
 
-        return applicationEnviroment
-            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<Bool> in
+        return environmentRepository
+            .servicesEnvironment()
+            .map { $0.wavesServices }
+            .flatMapLatest({ [weak self] (wavesServices) -> Observable<Bool> in
 
                 guard let self = self else { return Observable.never() }
                 
-                return applicationEnviroment
-                    .services
+                return wavesServices
                     .nodeServices
                     .assetsNodeService
                     .assetDetails(assetId: assetId)

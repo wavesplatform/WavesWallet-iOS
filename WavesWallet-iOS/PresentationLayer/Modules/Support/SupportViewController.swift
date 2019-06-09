@@ -64,7 +64,7 @@ final class SupportViewController: UIViewController {
         enviroment
             .servicesEnvironment()
             .subscribe(onNext: { (walletEnvi) in
-                
+                print("walletEnvi")
             })
         
         SupportViewController.number = SupportViewController.number + 1
