@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletAssetSkeletonCell" rowHeight="44" id="CeH-hK-Y2D" customClass="WalletAssetSkeletonCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CeH-hK-Y2D" id="D91-kl-aul">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sV4-PP-7QG">
+                        <rect key="frame" x="16" y="0.0" width="382" height="35.5"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qba-2I-XVB" userLabel="Top" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="70" y="18" width="64" height="10"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="0fD-Xe-kA2"/>
+                                    <constraint firstAttribute="height" constant="10" id="5K9-XE-92Q"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Upr-PR-ceK" userLabel="Icon" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="14" y="10" width="48" height="48"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="6jk-c2-KTX"/>
+                                    <constraint firstAttribute="width" constant="48" id="x4I-Bn-s5J"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="24"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tv9-IX-d5D" userLabel="Bottom" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="70" y="38" width="144" height="12"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="144" id="l1d-8H-oiC"/>
+                                    <constraint firstAttribute="height" constant="12" id="nCj-ww-v94"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aod-QL-gOt" userLabel="RightBottom" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="224" y="38" width="44" height="12"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="eme-Na-2N6"/>
+                                    <constraint firstAttribute="height" constant="12" id="i0q-nP-yCA"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Qba-2I-XVB" firstAttribute="leading" secondItem="Upr-PR-ceK" secondAttribute="trailing" constant="8" id="DdU-fc-hD7"/>
+                            <constraint firstItem="aod-QL-gOt" firstAttribute="leading" secondItem="Tv9-IX-d5D" secondAttribute="trailing" constant="10" id="EPf-cO-47V"/>
+                            <constraint firstItem="aod-QL-gOt" firstAttribute="centerY" secondItem="Tv9-IX-d5D" secondAttribute="centerY" id="Hmr-Rh-w7o"/>
+                            <constraint firstItem="Tv9-IX-d5D" firstAttribute="leading" secondItem="Upr-PR-ceK" secondAttribute="trailing" constant="8" id="Xv4-rF-WvY"/>
+                            <constraint firstItem="Upr-PR-ceK" firstAttribute="top" secondItem="sV4-PP-7QG" secondAttribute="top" constant="10" id="bBM-bk-9Yc"/>
+                            <constraint firstItem="Tv9-IX-d5D" firstAttribute="top" secondItem="Qba-2I-XVB" secondAttribute="bottom" constant="10" id="fWW-bh-jk7"/>
+                            <constraint firstItem="Upr-PR-ceK" firstAttribute="leading" secondItem="sV4-PP-7QG" secondAttribute="leading" constant="14" id="i8S-ev-7oe"/>
+                            <constraint firstItem="Qba-2I-XVB" firstAttribute="top" secondItem="sV4-PP-7QG" secondAttribute="top" constant="18" id="sf2-jW-DiW"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="4"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="sV4-PP-7QG" secondAttribute="trailing" constant="16" id="KC6-33-t1m"/>
+                    <constraint firstAttribute="bottom" secondItem="sV4-PP-7QG" secondAttribute="bottom" constant="8" id="S1g-yl-vfD"/>
+                    <constraint firstItem="sV4-PP-7QG" firstAttribute="top" secondItem="D91-kl-aul" secondAttribute="top" id="j17-eG-0iH"/>
+                    <constraint firstItem="sV4-PP-7QG" firstAttribute="leading" secondItem="D91-kl-aul" secondAttribute="leading" constant="16" id="o2z-Wh-mn1"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="viewContent" destination="sV4-PP-7QG" id="89C-LW-7ue"/>
+                <outletCollection property="views" destination="Qba-2I-XVB" collectionClass="NSMutableArray" id="B5F-gp-okO"/>
+                <outletCollection property="views" destination="Upr-PR-ceK" collectionClass="NSMutableArray" id="kyd-yV-QfH"/>
+                <outletCollection property="views" destination="Tv9-IX-d5D" collectionClass="NSMutableArray" id="DDE-FH-BtF"/>
+                <outletCollection property="views" destination="aod-QL-gOt" collectionClass="NSMutableArray" id="G8D-uf-Q3u"/>
+            </connections>
+            <point key="canvasLocation" x="-200.00000000000003" y="137.61160714285714"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -19,14 +19,14 @@ fileprivate enum Constants {
     static let paddingThirdTitleBottom: CGFloat = 8
 }
 
-final class WalletQuickNoteCell: UITableViewCell, Reusable {
+final class WalletQuickNoteCell: UITableViewCell, NibReusable {
 
     typealias Model = Void
 
-    @IBOutlet var viewContent: UIView!
-    @IBOutlet var firstTitle: UILabel!
-    @IBOutlet var secondTitle: UILabel!
-    @IBOutlet var thirdTitle: UILabel!
+    @IBOutlet private weak var viewContent: UIView!
+    @IBOutlet private weak var firstTitle: UILabel!
+    @IBOutlet private weak var secondTitle: UILabel!
+    @IBOutlet private weak var thirdTitle: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
