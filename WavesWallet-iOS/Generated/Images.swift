@@ -133,7 +133,6 @@ internal enum Images {
   internal static let forwardChevron = ImageAsset(name: "forward-chevron")
   internal static let hide = ImageAsset(name: "hide")
   internal static let history = ImageAsset(name: "history")
-  internal static let historyEmpty = ImageAsset(name: "history_empty")
   internal static let iAnonim42Submit400 = ImageAsset(name: "iAnonim42Submit400")
   internal static let iBackup42Submit400 = ImageAsset(name: "iBackup42Submit400")
   internal static let iMailopen42Submit400 = ImageAsset(name: "iMailopen42Submit400")
@@ -285,7 +284,7 @@ internal enum Images {
   internal static let userimgDex80White = ImageAsset(name: "userimgDex80White")
   internal static let userimgDisconnect80Multy = ImageAsset(name: "userimgDisconnect80Multy")
   internal static let userimgDone80Success400 = ImageAsset(name: "userimgDone80Success400")
-  internal static let userimgEmpty80Multi = ImageAsset(name: "userimgEmpty80Multi")
+  internal static let userimgEmpty80 = ImageAsset(name: "userimgEmpty80")
   internal static let userimgPairing80 = ImageAsset(name: "userimgPairing80")
   internal static let userimgRocket48 = ImageAsset(name: "userimgRocket48")
   internal static let userimgSeed80Submit400 = ImageAsset(name: "userimgSeed80Submit400")
@@ -407,7 +406,6 @@ internal enum Images {
     forwardChevron,
     hide,
     history,
-    historyEmpty,
     iAnonim42Submit400,
     iBackup42Submit400,
     iMailopen42Submit400,
@@ -559,7 +557,7 @@ internal enum Images {
     userimgDex80White,
     userimgDisconnect80Multy,
     userimgDone80Success400,
-    userimgEmpty80Multi,
+    userimgEmpty80,
     userimgPairing80,
     userimgRocket48,
     userimgSeed80Submit400,
