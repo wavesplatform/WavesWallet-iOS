@@ -246,7 +246,9 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
         }
         
         setContentSize()
-        scrollViewDidScroll(self)
+        DispatchQueue.main.async {
+            self.scrollViewDidScroll(self)
+        }
     }
     
     func scrollToTop() {
@@ -315,7 +317,6 @@ extension ScrolledContainerView: UIScrollViewDelegate {
         }
 
         updateSegmentedShadow()
-        
         scrollViewDelegate?.scrollViewDidScroll?(scrollView)
     }
     
