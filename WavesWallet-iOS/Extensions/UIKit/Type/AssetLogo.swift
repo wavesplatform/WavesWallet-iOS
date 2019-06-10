@@ -265,7 +265,7 @@ extension AssetLogo {
             context.addPath(UIBezierPath(roundedRect: rect, cornerRadius: rect.height * 0.5).cgPath)
             context.clip()
             
-            let color = UIColor.colorAsset(name: name)
+            let color = UIColor.colorAsset(assetId: icon.assetId)
             context.setFillColor(color.cgColor)
             context.fill(rect)
 
