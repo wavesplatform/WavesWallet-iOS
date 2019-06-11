@@ -13,10 +13,10 @@ import WavesSDK
 
 final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
     
-    private let applicationEnviroment: Observable<ApplicationEnviroment>
+    private let environmentRepository: EnvironmentRepositoryProtocols
     
-    init(applicationEnviroment: Observable<ApplicationEnviroment>) {
-        self.applicationEnviroment = applicationEnviroment
+    init(environmentRepository: EnvironmentRepositoryProtocols) {
+        self.environmentRepository = environmentRepository
     }
     
     func candles(accountAddress: String,
@@ -26,20 +26,23 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                  timeEnd: Date,
                  timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> Observable<[DomainLayer.DTO.Candle]> {
  
-        return applicationEnviroment
-            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<[DomainLayer.DTO.Candle]> in
+        return environmentRepository
+            .servicesEnvironment()
+            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<[DomainLayer.DTO.Candle]> in
                 
                 guard let self = self else { return Observable.empty() }
                 
-                let timestampServerDiff = applicationEnviroment.walletEnviroment.timestampServerDiff
+                
+                //TODO: Library
+                let timestampServerDiff = servicesEnvironment.walletEnvironment.timestampServerDiff
                 
                 let candles = DataService.Query.CandleFilters(amountAsset: amountAsset,
                                                               priceAsset: priceAsset,
                                                               timeStart: timeStart.millisecondsSince1970(timestampDiff: timestampServerDiff),
                                                               timeEnd: timeEnd.millisecondsSince1970(timestampDiff: timestampServerDiff),
                                                               interval: String(timeFrame.rawValue) + "m")
-                return applicationEnviroment
-                    .services
+                return servicesEnvironment
+                    .wavesServices
                     .dataServices
                     .candlesDataService
                     .candles(query: candles)

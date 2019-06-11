@@ -15,21 +15,22 @@ import WavesSDK
 
 final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
 
-    private let applicationEnviroment: Observable<ApplicationEnviroment>
+    private let environmentRepository: EnvironmentRepositoryProtocols
     
-    init(applicationEnviroment: Observable<ApplicationEnviroment>) {
-        self.applicationEnviroment = applicationEnviroment
+    init(environmentRepository: EnvironmentRepositoryProtocols) {
+        self.environmentRepository = environmentRepository
     }
     
     func matcherPublicKey(accountAddress: String) -> Observable<PublicKeyAccount> {
         
-        return applicationEnviroment
-            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<PublicKeyAccount> in
+        return environmentRepository
+            .servicesEnvironment()
+            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<PublicKeyAccount> in
             
                 guard let self = self else { return Observable.empty() }
                 
-                return applicationEnviroment
-                    .services
+                return servicesEnvironment
+                    .wavesServices
                     .matcherServices
                     .publicKeyMatcherService
                     .publicKey()                                        

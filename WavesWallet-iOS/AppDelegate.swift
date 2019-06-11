@@ -55,7 +55,7 @@ enum UITest {
     //TODO: Refactor method very long
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        
+        //TODO: Library
 //        WavesSDK.initialization(servicesPlugins: .init(data: [], node: [], matcher: []), enviroment: Enviroment.init(server: .mainNet,
 //                                                                                                                     timestampServerDiff: 0))
 //

@@ -13,17 +13,18 @@ import WavesSDK
 
 final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
             
-    private let applicationEnviroment: Observable<ApplicationEnviroment>
+    private let environmentRepository: EnvironmentRepositoryProtocols
     
-    init(applicationEnviroment: Observable<ApplicationEnviroment>) {
-        self.applicationEnviroment = applicationEnviroment
+    init(environmentRepository: EnvironmentRepositoryProtocols) {
+        self.environmentRepository = environmentRepository
     }
     
     func list(by accountAddress: String,
               pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
 
-        return applicationEnviroment
-            .flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
+        return environmentRepository
+            .servicesEnvironment()
+            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
                 
                 guard let self = self else { return Observable.empty() }
                 
@@ -32,8 +33,8 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
                 
                 let query = DataService.Query.PairsPrice(pairs: pairsForQuery)
                 
-                return applicationEnviroment
-                    .services
+                return servicesEnvironment
+                    .wavesServices
                     .dataServices
                     .pairsPriceDataService
                     .pairsPrice(query: query)

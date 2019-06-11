@@ -20,8 +20,6 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
     
     private(set) lazy var environmentRepository: EnvironmentRepositoryProtocol = environmentRepositoryInternal
     
-    private(set) lazy var applicationEnviroment: ApplicationEnviromentUseCaseProtocol = ApplicationEnviromentUseCase(enviromentRepository: self.environmentRepository)
-    
     private(set) lazy var assetsRepositoryLocal: AssetsRepositoryProtocol = AssetsRepositoryLocal()
     
     private(set) lazy var assetsRepositoryRemote: AssetsRepositoryProtocol = AssetsRepositoryRemote(environmentRepository: environmentRepositoryInternal)
@@ -41,7 +39,6 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
     private(set) lazy var authenticationRepositoryRemote: AuthenticationRepositoryProtocol = AuthenticationRepositoryRemote()
 
   
-
     private(set) lazy var accountSettingsRepository: AccountSettingsRepositoryProtocol = AccountSettingsRepository()
 
     private(set) lazy var addressBookRepository: AddressBookRepositoryProtocol = AddressBookRepository()
@@ -50,23 +47,23 @@ final class FactoryRepositories: FactoryRepositoriesProtocol {
     
     private(set) lazy var dexPairsPriceRepository: DexPairsPriceRepositoryProtocol = DexPairsPriceRepositoryRemote(environmentRepository: environmentRepositoryInternal)
     
-    private(set) lazy var dexOrderBookRepository: DexOrderBookRepositoryProtocol = DexOrderBookRepositoryRemote(applicationEnviroment: applicationEnviroment.environment())
+    private(set) lazy var dexOrderBookRepository: DexOrderBookRepositoryProtocol = DexOrderBookRepositoryRemote(environmentRepository: environmentRepositoryInternal)
     
-    private(set) lazy var aliasesRepositoryRemote: AliasesRepositoryProtocol = AliasesRepository(applicationEnviroment: applicationEnviroment.environment())
+    private(set) lazy var aliasesRepositoryRemote: AliasesRepositoryProtocol = AliasesRepository(environmentRepository: environmentRepositoryInternal)
 
     private(set) lazy var aliasesRepositoryLocal: AliasesRepositoryProtocol = AliasesRepositoryLocal()
 
     private(set) lazy var assetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositoryProtocol = AssetsBalanceSettingsRepositoryLocal()
 
-    private(set) lazy var candlesRepository: CandlesRepositoryProtocol = CandlesRepositoryRemote(applicationEnviroment: applicationEnviroment.environment())
+    private(set) lazy var candlesRepository: CandlesRepositoryProtocol = CandlesRepositoryRemote(environmentRepository: environmentRepositoryInternal)
     
-    private(set) lazy var lastTradesRespository: LastTradesRepositoryProtocol = LastTradesRepositoryRemote(applicationEnviroment: applicationEnviroment.environment())
+    private(set) lazy var lastTradesRespository: LastTradesRepositoryProtocol = LastTradesRepositoryRemote(environmentRepository: environmentRepositoryInternal)
     
     private(set) lazy var coinomatRepository: CoinomatRepositoryProtocol = CoinomatRepository()
     
-    private(set) lazy var matcherRepository: MatcherRepositoryProtocol = MatcherRepositoryRemote(applicationEnviroment: applicationEnviroment.environment())
+    private(set) lazy var matcherRepository: MatcherRepositoryProtocol = MatcherRepositoryRemote(environmentRepository: environmentRepositoryInternal)
 
-    private(set) lazy var addressRepository: AddressRepositoryProtocol = AddressRepositoryRemote(applicationEnviroment: applicationEnviroment.environment())
+    private(set) lazy var addressRepository: AddressRepositoryProtocol = AddressRepositoryRemote(environmentRepository: environmentRepositoryInternal)
 
     private(set) lazy var notificationNewsRepository: NotificationNewsRepositoryProtocol = NotificationNewsRepository()
         

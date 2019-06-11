@@ -13,20 +13,22 @@ import WavesSDK
 
 final class AddressRepositoryRemote: AddressRepositoryProtocol {
 
-    private let applicationEnviroment: Observable<ApplicationEnviroment>
+    private let environmentRepository: EnvironmentRepositoryProtocols
     
-    init(applicationEnviroment: Observable<ApplicationEnviroment>) {
-        self.applicationEnviroment = applicationEnviroment
+    init(environmentRepository: EnvironmentRepositoryProtocols) {
+        self.environmentRepository = environmentRepository
     }
     
     func isSmartAddress(accountAddress: String) -> Observable<Bool> {
         
-        return applicationEnviroment.flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<Bool> in
+        return environmentRepository
+            .servicesEnvironment()
+            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<Bool> in
                 
                 guard let self = self else { return Observable.never() }
                 
-                return applicationEnviroment
-                    .services
+                return servicesEnvironment
+                    .wavesServices
                     .nodeServices
                     .addressesNodeService
                     .scriptInfo(address: accountAddress)
