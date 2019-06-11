@@ -34,6 +34,7 @@ final class WalletInteractor: WalletInteractorProtocol {
                 
                 let assets = self.accountBalanceInteractor.balances(by: wallet)
                 let settings = self.accountSettingsRepository.accountSettings(accountAddress: wallet.address)
+                    .sweetDebug("accountSettingsRepository.local")
                 return Observable.zip(assets, settings)
                     .map({ (assets, settings) -> [DomainLayer.DTO.SmartAssetBalance] in
                         
@@ -43,7 +44,7 @@ final class WalletInteractor: WalletInteractorProtocol {
 
                         return assets
                     })
-            })
+            }).sweetDebug("WalletInteractor.assets")
     }
 
     func leasing() -> Observable<WalletTypes.DTO.Leasing> {

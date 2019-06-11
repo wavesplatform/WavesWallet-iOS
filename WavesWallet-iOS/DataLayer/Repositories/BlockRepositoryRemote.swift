@@ -23,10 +23,11 @@ final class BlockRepositoryRemote: BlockRepositoryProtocol {
 
         return environmentRepository
             .servicesEnvironment()
-            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<Int64> in
+            .sweetDebug("blockRepository.height.serv")
+            .flatMap({ [weak self] (servicesEnvironment) -> Observable<Int64> in
 
                 guard let self = self else { return Observable.never() }
-                
+                print(servicesEnvironment)
                 return servicesEnvironment
                     .wavesServices
                     .nodeServices

@@ -253,6 +253,7 @@ fileprivate extension ProfilePresenter {
             return self
                 .blockRepository
                 .height(accountAddress: address)
+                .sweetDebug("blockRepository.height")
                 .map { Types.Event.setBlock($0) }
                 .asSignal(onErrorRecover: { _ in
                     return Signal.empty()

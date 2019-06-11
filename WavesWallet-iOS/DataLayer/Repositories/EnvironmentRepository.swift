@@ -48,12 +48,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
     }()
     
     //TODO: Library
-    private lazy var accountEnvironmentShare: Observable<WalletEnvironment> = {
-        return Observable<Int>.timer(5, scheduler: MainScheduler.asyncInstance)
-            .flatMap({ (_) -> Observable<WalletEnvironment> in
-                return self.setupEnvironment().share()
-            }).share()
-    }()
+    private lazy var accountEnvironmentShare: Observable<WalletEnvironment>  = self.setupEnvironment().share()
     
     private var localEnvironments: BehaviorSubject<[EnvironmentKey: WalletEnvironment]> = BehaviorSubject<[EnvironmentKey: WalletEnvironment]>(value: [:])
     
@@ -114,6 +109,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
                     
                 WavesSDK.shared.enviroment = enviromentService
                 
+                observer.onNext(())
                 observer.onCompleted()
                 return Disposables.create()
             }
@@ -237,13 +233,13 @@ private extension EnvironmentRepository {
             
             var deffaultEnvironment: Observable<WalletEnvironment>!
             
-            if let enviroment = self.localEnvironment(by: key) {
-                deffaultEnvironment = Observable.just(enviroment)
-                print("local")
-            } else {
+//            if let enviroment = self.localEnvironment(by: key) {
+//                deffaultEnvironment = Observable.just(enviroment)
+//                print("local")
+//            } else {
                 deffaultEnvironment = self.remoteAccountEnvironmentShare
-                print("Remote")
-            }
+//                print("Remote")
+//            }
             
             
             let disposable = deffaultEnvironment.bind(to: observer)
