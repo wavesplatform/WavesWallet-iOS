@@ -33,7 +33,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
             guard let self = self else { return Observable.empty() }
             
             let matcher = self.matcherRepository.matcherPublicKey(accountAddress: wallet.address)
-            let environment = self.environmentRepository.accountEnvironment(accountAddress: wallet.address)
+            let environment = self.environmentRepository.applicationEnvironment()
 
             //TODO: Code move to another method
             return Observable.zip(matcher, environment)

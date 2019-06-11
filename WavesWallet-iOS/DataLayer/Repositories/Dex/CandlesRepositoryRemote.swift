@@ -34,7 +34,7 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                 
                 
                 //TODO: Library
-                let timestampServerDiff = servicesEnvironment.walletEnvironment.timestampServerDiff
+                let timestampServerDiff = servicesEnvironment.timestampServerDiff
                 
                 let candles = DataService.Query.CandleFilters(amountAsset: amountAsset,
                                                               priceAsset: priceAsset,

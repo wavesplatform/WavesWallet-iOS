@@ -16,10 +16,7 @@ private enum Constants {
 }
 
 public struct WalletEnvironment: Decodable {
-    
-    private static var timestampServerDiff: Int64 = 0
-    private static let timestampQueue = DispatchQueue(label: "timestampServerQueue.diff")
-    
+            
     public struct AssetInfo: Decodable {
         
         public struct Icon: Decodable {
@@ -110,22 +107,3 @@ public extension WalletEnvironment {
     }
 }
 
-public extension WalletEnvironment {
-    
-    public static func updateTimestampServerDiff(_ timestamp: Int64) {
-        
-        WalletEnvironment.timestampQueue.async(flags: .barrier) {
-            WalletEnvironment.timestampServerDiff = timestamp
-        }
-    }
-    
-    public var timestampServerDiff: Int64 {
-        
-        var timeDiff: Int64 = 0
-        
-        WalletEnvironment.timestampQueue.sync {
-            timeDiff = WalletEnvironment.timestampServerDiff
-        }
-        return timeDiff
-    }
-}
