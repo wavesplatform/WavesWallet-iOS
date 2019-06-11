@@ -208,7 +208,7 @@
 		0A88CC02217D217D0083874C /* SpamCSV+Assisstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CC01217D217D0083874C /* SpamCSV+Assisstants.swift */; };
 		0A88CC04217D27370083874C /* AccountSettingsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CC03217D27370083874C /* AccountSettingsRepositoryProtocol.swift */; };
 		0A88CC06217D27DF0083874C /* AccountSettingsDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CC05217D27DF0083874C /* AccountSettingsDomainDTO.swift */; };
-		0A88CC08217D281F0083874C /* AccountEnvironmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CC07217D281F0083874C /* AccountEnvironmentRepository.swift */; };
+		0A88CC08217D281F0083874C /* AccountSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CC07217D281F0083874C /* AccountSettingsRepository.swift */; };
 		0A88CC0A217E80040083874C /* WalletRealmFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88CC09217E80040083874C /* WalletRealmFactory.swift */; };
 		0A96F1CC2151B392005E148F /* Passcode.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A96F1CB2151B392005E148F /* Passcode.storyboard */; };
 		0A96F1D12151B6B5005E148F /* PasscodeNumberButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A96F1D02151B6B5005E148F /* PasscodeNumberButton.swift */; };
@@ -1091,7 +1091,7 @@
 		0A88CC01217D217D0083874C /* SpamCSV+Assisstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpamCSV+Assisstants.swift"; sourceTree = "<group>"; };
 		0A88CC03217D27370083874C /* AccountSettingsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0A88CC05217D27DF0083874C /* AccountSettingsDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsDomainDTO.swift; sourceTree = "<group>"; };
-		0A88CC07217D281F0083874C /* AccountEnvironmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountEnvironmentRepository.swift; sourceTree = "<group>"; };
+		0A88CC07217D281F0083874C /* AccountSettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsRepository.swift; sourceTree = "<group>"; };
 		0A88CC09217E80040083874C /* WalletRealmFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletRealmFactory.swift; sourceTree = "<group>"; };
 		0A8AFF272101F37200D0582B /* MatcherServiceTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatcherServiceTypes.swift; sourceTree = "<group>"; };
 		0A8AFF292101F47F00D0582B /* OrderBookMatcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookMatcherService.swift; sourceTree = "<group>"; };
@@ -2584,7 +2584,7 @@
 		0A979775210A19B400407F67 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				0A88CC07217D281F0083874C /* AccountEnvironmentRepository.swift */,
+				0A88CC07217D281F0083874C /* AccountSettingsRepository.swift */,
 				0ADD803F21F5D2DD0075FC59 /* AddressRepositoryRemote.swift */,
 				0AF2536421B6C2F900B8F7DF /* AssetsBalanceSettingsRepositoryLocal.swift */,
 				0A218B9621555A4B00B989A1 /* AuthenticationRepositoryRemote.swift */,
@@ -5289,7 +5289,7 @@
 				0A5E4BB12138034500E3C3C3 /* LeaseCancelTransaction.swift in Sources */,
 				0A485EA02100B0BD00079B49 /* LeaseTransaction.swift in Sources */,
 				0A84F00121F4BBA000C0B7DB /* AddressRepositoryProtocol.swift in Sources */,
-				0A88CC08217D281F0083874C /* AccountEnvironmentRepository.swift in Sources */,
+				0A88CC08217D281F0083874C /* AccountSettingsRepository.swift in Sources */,
 				0ADD7FA721F22FB60075FC59 /* ActivityIndicator+Rx.swift in Sources */,
 				0A218B8B2155335F00B989A1 /* WalletSeedRepositoryProtocol.swift in Sources */,
 				E9B087BE2163886800937644 /* SearchBarView.swift in Sources */,
