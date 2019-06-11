@@ -16,7 +16,15 @@ enum EnvironmentRepositoryError: Error {
     case invalidResponse
 }
 
+protocol ApplicationEnvironmentProtocol {
+    var walletEnvironment: WalletEnvironment { get }
+    var timestampServerDiff: Int64 { get }
+}
+
 protocol EnvironmentRepositoryProtocol {
+    
+    func applicationEnvironment() -> Observable<ApplicationEnvironmentProtocol>
+    
     func accountEnvironment(accountAddress: String) -> Observable<WalletEnvironment>
     func deffaultEnvironment(accountAddress: String) -> Observable<WalletEnvironment>
     func setSpamURL(_ url: String, by accountAddress: String) -> Observable<Bool>

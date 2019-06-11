@@ -22,8 +22,7 @@ final class BlockRepositoryRemote: BlockRepositoryProtocol {
     func height(accountAddress: String) -> Observable<Int64> {
 
         return environmentRepository
-            .servicesEnvironment()
-            .sweetDebug("blockRepository.height.serv")
+            .servicesEnvironment()            
             .flatMap({ [weak self] (servicesEnvironment) -> Observable<Int64> in
 
                 guard let self = self else { return Observable.never() }

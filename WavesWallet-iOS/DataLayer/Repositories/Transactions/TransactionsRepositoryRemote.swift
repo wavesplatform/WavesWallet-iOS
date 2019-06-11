@@ -133,7 +133,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                 guard let self = self else { return Observable.never() }
                 
                 let walletEnvironment = servicesEnvironment.walletEnvironment
-                let timestampServerDiff = walletEnvironment.timestampServerDiff
+                let timestampServerDiff = servicesEnvironment.timestampServerDiff
                 
                 let timestamp = Date().millisecondsSince1970(timestampDiff: timestampServerDiff)
                 var signature = specifications.signature(timestamp: timestamp,
