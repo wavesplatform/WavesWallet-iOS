@@ -259,16 +259,16 @@ workflows:
   version: 2.1
   Release:
     jobs:
-      - prod_build:          
-          filters:
-            branches:
-              only: /^release/v.{2,}$/
-  Test:
-    jobs:
       - test_build:          
           filters:
             branches:
               only: /^release/v.{2,}$/
+      - prod_build:          
+          filters:
+            branches:
+              only: /^release/v.{2,}$/
+          requires:
+            - test_build         
   Develop:
     jobs:
       - dev_log:
