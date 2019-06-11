@@ -67,10 +67,6 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
             .flatMap({ [weak self] wallet -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
                 guard let self = self else { return Observable.never() }
                 return self.balances(by: wallet)
-            }).sweetDebug("balance")
-            .catchError({ (error) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
-                
-                return Observable.never()
             })
     }
     

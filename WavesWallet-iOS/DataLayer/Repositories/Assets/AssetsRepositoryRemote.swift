@@ -27,7 +27,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
 
         return environmentRepository
             .servicesEnvironment()
-            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<[DomainLayer.DTO.Asset]> in
+            .flatMap({ [weak self] (servicesEnvironment) -> Observable<[DomainLayer.DTO.Asset]> in
                 
             guard let self = self else { return Observable.empty() }
             
@@ -87,7 +87,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
         return environmentRepository
             .servicesEnvironment()
             .map { $0.wavesServices }
-            .flatMapLatest({ [weak self] (wavesServices) -> Observable<Bool> in
+            .flatMap({ [weak self] (wavesServices) -> Observable<Bool> in
 
                 guard let self = self else { return Observable.never() }
                 

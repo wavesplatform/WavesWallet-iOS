@@ -17,7 +17,7 @@ final class AccountSettingsRepository: AccountSettingsRepositoryProtocol {
     func accountSettings(accountAddress: String) -> Observable<DomainLayer.DTO.AccountSettings?> {
         return Observable.create({ observer -> Disposable in
 
-            //TODO: Error
+            //TODO: Error                  
             let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
             let result = realm.objects(AccountSettings.self)
 
@@ -46,15 +46,17 @@ final class AccountSettingsRepository: AccountSettingsRepositoryProtocol {
                     realm.add(AccountSettings(settings))
                 }
                 
+                observer.onNext(settings)
+                observer.onCompleted()
+                
+                return Disposables.create()
+                
             } catch let e {
                 SweetLogger.debug(e)
                 observer.onError(AccountSettingsRepositoryError.invalid)
+                return Disposables.create()
             }
 
-            observer.onNext(settings)
-            observer.onCompleted()
-
-            return Disposables.create()
         })
     }
 }
