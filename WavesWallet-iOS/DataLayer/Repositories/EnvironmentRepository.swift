@@ -33,7 +33,6 @@ public final class ServicesEnviroment {
     }
 }
 
-
 protocol ServicesEnvironmentRepositoryProtocol {
     func servicesEnvironment() -> Observable<ServicesEnviroment>
 }
@@ -86,7 +85,6 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
             guard let self = self else {
                 return Observable.never()
             }
-            
 
             return self.updateTimestampServerDiff(environment: enviroment)
         }
@@ -122,7 +120,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
             
             WavesSDK.initialization(servicesPlugins: .init(data: [], node: [], matcher: []),
                                     enviroment: .init(server: server, timestampServerDiff: 0))
-            
+            observer.onNext(())
             observer.onCompleted()
             
             return Disposables.create()
@@ -148,7 +146,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
             }
             
             observer.onNext(environment)
-            observer.onCompleted()
+//            observer.onCompleted()
             
             return Disposables.create()
         }
@@ -246,6 +244,7 @@ private extension EnvironmentRepository {
                 deffaultEnvironment = self.remoteAccountEnvironmentShare
                 print("Remote")
             }
+            
             
             let disposable = deffaultEnvironment.bind(to: observer)
             
@@ -396,6 +395,10 @@ private extension EnvironmentRepository {
     
     func updateTimestampServerDiff(environment: WalletEnvironment) -> Observable<WalletEnvironment> {
 
+        if self.isValidServerTimestampDiff == true {
+            return Observable.just(environment)
+        }
+        
         return WavesSDK
             .shared
             .services

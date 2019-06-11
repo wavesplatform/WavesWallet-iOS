@@ -13,10 +13,10 @@ import WavesSDK
 
 final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
 
-    let applicationEnviroment: Observable<ApplicationEnviroment>
+    private let environmentRepository: EnvironmentRepositoryProtocols
     
-    init(applicationEnviroment: Observable<ApplicationEnviroment>) {
-        self.applicationEnviroment = applicationEnviroment
+    init(environmentRepository: EnvironmentRepositoryProtocols) {
+        self.environmentRepository = environmentRepository
     }
     
     func lastTrades(accountAddress: String,
@@ -24,7 +24,9 @@ final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
                     priceAsset: DomainLayer.DTO.Dex.Asset,
                     limit: Int) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> {
 
-        return applicationEnviroment.flatMapLatest({ [weak self] (applicationEnviroment) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> in
+        return environmentRepository
+            .servicesEnvironment()
+            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> in
             
             guard let self = self else { return Observable.empty() }
                              
@@ -37,8 +39,8 @@ final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
                                                           after: nil,
                                                           limit: limit)
             
-            return applicationEnviroment
-                .services
+            return servicesEnvironment
+                .wavesServices
                 .dataServices
                 .transactionsDataService
                 .exchangeFilters(query: query)

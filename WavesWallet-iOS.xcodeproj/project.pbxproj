@@ -511,7 +511,6 @@
 		7BAA9F9122A51FFC003B6D01 /* PrivateKeyAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F8822A51FFB003B6D01 /* PrivateKeyAccount.swift */; };
 		7BAA9F9222A51FFC003B6D01 /* RXCrypto+SHA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F8A22A51FFB003B6D01 /* RXCrypto+SHA.swift */; };
 		7BAA9F9322A51FFC003B6D01 /* Data+AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F8B22A51FFB003B6D01 /* Data+AES.swift */; };
-		7BAA9F9822A568D0003B6D01 /* ApplicationEnviromentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F9722A568D0003B6D01 /* ApplicationEnviromentUseCase.swift */; };
 		7BAF732D2281C97E001E919D /* MoyaProvider+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DAD6C20F39F94004DA625 /* MoyaProvider+Helper.swift */; };
 		7BBDA0B62226CA5C00A83411 /* NodePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBDA0B52226CA5C00A83411 /* NodePlugin.swift */; };
 		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
@@ -1418,7 +1417,6 @@
 		7BAA9F8822A51FFB003B6D01 /* PrivateKeyAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateKeyAccount.swift; sourceTree = "<group>"; };
 		7BAA9F8A22A51FFB003B6D01 /* RXCrypto+SHA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RXCrypto+SHA.swift"; sourceTree = "<group>"; };
 		7BAA9F8B22A51FFB003B6D01 /* Data+AES.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+AES.swift"; sourceTree = "<group>"; };
-		7BAA9F9722A568D0003B6D01 /* ApplicationEnviromentUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationEnviromentUseCase.swift; sourceTree = "<group>"; };
 		7BBDA0B52226CA5C00A83411 /* NodePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodePlugin.swift; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
 		7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardCoordinator.swift; sourceTree = "<group>"; };
@@ -2035,7 +2033,6 @@
 		0A1DAD6320F395E7004DA625 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
-				7BAA9F9722A568D0003B6D01 /* ApplicationEnviromentUseCase.swift */,
 				0A6CCD3C20F4CF490023E36E /* AccountBalanceInteractor.swift */,
 				0ABD1BE521469CE70027A7A2 /* AddressInteractor.swift */,
 				0AF0C67121A97C4700602197 /* AliasesInteractor.swift */,
@@ -5373,7 +5370,6 @@
 				E9FE4D7A20EA7F8500208F29 /* ConfirmBackupViewController.swift in Sources */,
 				E9D36DE62175C755001E6DF0 /* ReceiveGenerateTypes.swift in Sources */,
 				0A4D221E21809E3600155A8E /* AccountEnvironmentDomainDTO.swift in Sources */,
-				7BAA9F9822A568D0003B6D01 /* ApplicationEnviromentUseCase.swift in Sources */,
 				E9F9A27C21853E7D00FD68D7 /* DexRealmRepositoryProtocol.swift in Sources */,
 				E9B088062163886800937644 /* DexCompleteOrderViewController.swift in Sources */,
 				048684F521258B0B00D12189 /* HistoryHeaderView.swift in Sources */,
