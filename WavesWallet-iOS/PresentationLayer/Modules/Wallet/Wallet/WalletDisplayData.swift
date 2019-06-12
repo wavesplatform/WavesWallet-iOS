@@ -66,14 +66,20 @@ final class WalletDisplayData: NSObject {
             
         case .collapsed(let index):
 
+            let offset = self.scrolledTablesComponent.visibleTableView.contentOffset.y
             self.scrolledTablesComponent.visibleTableView.beginUpdates()
             self.scrolledTablesComponent.visibleTableView.reloadSections([index], with: .fade)
             self.scrolledTablesComponent.visibleTableView.endUpdates()
             
             DispatchQueue.main.async {
-                UIView.animate(withDuration: Constants.animationDuration, animations: {
-                    self.scrolledTablesComponent.setContentSize()
-                })
+                let diff = self.scrolledTablesComponent.visibleTableView.contentOffset.y - offset
+                let newOffset = self.scrolledTablesComponent.contentOffset.y + diff
+                let isSmallNavBar = self.scrolledTablesComponent.firstAvailableViewController().isSmallNavigationBar
+                self.scrolledTablesComponent.setContentOffset(.init(x: 0, y: newOffset), animated: false)
+                self.scrolledTablesComponent.scrollViewDidScroll(self.scrolledTablesComponent)
+                if isSmallNavBar {
+                    self.scrolledTablesComponent.firstAvailableViewController().setupSmallNavigationBar()
+                }
             }
             
         case .expanded(let index):
@@ -81,7 +87,41 @@ final class WalletDisplayData: NSObject {
             self.scrolledTablesComponent.visibleTableView.beginUpdates()
             self.scrolledTablesComponent.visibleTableView.reloadSections([index], with: .fade)
             self.scrolledTablesComponent.visibleTableView.endUpdates()
-                    
+
+//            DispatchQueue.main.async {
+//                UIView.animate(withDuration: Constants.animationDuration, animations: {
+//                    self.scrolledTablesComponent.setContentSize()
+//                })
+//
+//                let indexPath = IndexPath.init(row: 0, section: index)
+//                let rectInTableView = self.scrolledTablesComponent.visibleTableView.rectForRow(at: indexPath)
+//                let rectInSuperview = self.scrolledTablesComponent.visibleTableView.convert(rectInTableView, to: self.scrolledTablesComponent)
+//
+//
+//                print("rectInSuperview", rectInSuperview.origin.y,"\n",
+//                      "visibleTableView.frame.y",self.scrolledTablesComponent.visibleTableView.frame.origin.y,"\n",
+//                      "visibleTableView.offset.y", self.scrolledTablesComponent.visibleTableView.contentOffset.y,"\n",
+//                      "scrolledTablesComponent.offset.y",self.scrolledTablesComponent.contentOffset.y,"\n",
+//                      "scrolledTablesComponent.frame.h",self.scrolledTablesComponent.frame.size.height,"\n",
+//                      "visibleTableView.frame.h",self.scrolledTablesComponent.visibleTableView.frame.size.height)
+//
+//
+//                var offset = self.scrolledTablesComponent.contentOffset.y
+//
+//                if rectInSuperview.origin.y - 116 > self.scrolledTablesComponent.frame.size.height / 2 {
+//                    offset += self.scrolledTablesComponent.frame.size.height / 2 - 116
+//                    if offset > self.scrolledTablesComponent.contentSize.height - self.scrolledTablesComponent.frame.size.height {
+//                        offset = self.scrolledTablesComponent.contentSize.height - self.scrolledTablesComponent.frame.size.height
+//                    }
+//                    let isSmallNavBar = self.scrolledTablesComponent.firstAvailableViewController().isSmallNavigationBar
+//
+//                    self.scrolledTablesComponent.setContentOffset(.init(x: 0, y: offset), animated: true)
+//                    self.scrolledTablesComponent.scrollViewDidScroll(self.scrolledTablesComponent)
+//                    if isSmallNavBar {
+//                        self.scrolledTablesComponent.firstAvailableViewController().setupSmallNavigationBar()
+//                    }
+//                }
+//            }
         default:
             break
         }
