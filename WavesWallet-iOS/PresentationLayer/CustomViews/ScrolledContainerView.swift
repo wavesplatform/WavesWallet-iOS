@@ -43,6 +43,9 @@ protocol ScrolledContainerViewProtocol {
     func scrollToTop()
     
     func endRefreshing()
+    
+    func reloadSectionWithCloseAnimation(section: Int)
+    
     var segmentedHeight: CGFloat { get }
     
     var visibleTableView: UITableView { get }
@@ -122,6 +125,34 @@ final class ScrolledContainerView: UIScrollView {
 
 //MARK: - ScrolledContainerViewProtocol
 extension ScrolledContainerView: ScrolledContainerViewProtocol {
+    func reloadSectionWithCloseAnimation(section: Int) {
+        
+        let offset = visibleTableView.contentOffset.y
+        visibleTableView.beginUpdates()
+        visibleTableView.reloadSections([section], with: .fade)
+        visibleTableView.endUpdates()
+        
+        DispatchQueue.main.async {
+            let diff = self.visibleTableView.contentOffset.y - offset
+            let isSmallNavBarBefore = self.isSmallNavBar
+
+            if diff == 0 {
+                UIView.animate(withDuration: Constants.animationDuration, animations: {
+                    self.setContentSize()
+                })
+            }
+            else {
+                let newOffset = self.contentOffset.y + diff
+                self.setContentOffset(.init(x: 0, y: newOffset), animated: false)
+                self.scrollViewDidScroll(self)
+            }
+            
+            if isSmallNavBarBefore {
+                self.firstAvailableViewController().setupSmallNavigationBar()
+            }
+        }
+    }
+    
     
     func viewControllerWillAppear() {
         if refreshControl?.isRefreshing == true {
@@ -481,10 +512,7 @@ private extension ScrolledContainerView {
     }
   
     var isSmallNavBar: Bool {
-        if let nav = firstAvailableViewController().navigationController {
-            return nav.navigationBar.frame.size.height.rounded(.down) <= Constants.smallNavBarHeight
-        }
-        return false
+        return firstAvailableViewController().isSmallNavigationBar
     }
     
     var bigTopOffset: CGFloat {

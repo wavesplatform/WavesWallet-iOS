@@ -65,22 +65,9 @@ final class WalletDisplayData: NSObject {
             }
             
         case .collapsed(let index):
-
-            let offset = self.scrolledTablesComponent.visibleTableView.contentOffset.y
-            self.scrolledTablesComponent.visibleTableView.beginUpdates()
-            self.scrolledTablesComponent.visibleTableView.reloadSections([index], with: .fade)
-            self.scrolledTablesComponent.visibleTableView.endUpdates()
             
-            DispatchQueue.main.async {
-                let diff = self.scrolledTablesComponent.visibleTableView.contentOffset.y - offset
-                let newOffset = self.scrolledTablesComponent.contentOffset.y + diff
-                let isSmallNavBar = self.scrolledTablesComponent.firstAvailableViewController().isSmallNavigationBar
-                self.scrolledTablesComponent.setContentOffset(.init(x: 0, y: newOffset), animated: false)
-                self.scrolledTablesComponent.scrollViewDidScroll(self.scrolledTablesComponent)
-                if isSmallNavBar {
-                    self.scrolledTablesComponent.firstAvailableViewController().setupSmallNavigationBar()
-                }
-            }
+            self.scrolledTablesComponent.reloadSectionWithCloseAnimation(section: index)
+    
             
         case .expanded(let index):
             
