@@ -11,8 +11,6 @@ import RxCocoa
 import RxSwift
 import UIKit
 
-#warning("сделать скролинг анимации при открытии секций")
-
 private enum Constants {
     static let animationDuration: TimeInterval = 0.34
 }
