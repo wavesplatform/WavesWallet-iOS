@@ -71,44 +71,8 @@ final class WalletDisplayData: NSObject {
             
         case .expanded(let index):
             
-            self.scrolledTablesComponent.visibleTableView.beginUpdates()
-            self.scrolledTablesComponent.visibleTableView.reloadSections([index], with: .fade)
-            self.scrolledTablesComponent.visibleTableView.endUpdates()
+            self.scrolledTablesComponent.reloadSectionWithOpenAnimation(section: index)
 
-//            DispatchQueue.main.async {
-//                UIView.animate(withDuration: Constants.animationDuration, animations: {
-//                    self.scrolledTablesComponent.setContentSize()
-//                })
-//
-//                let indexPath = IndexPath.init(row: 0, section: index)
-//                let rectInTableView = self.scrolledTablesComponent.visibleTableView.rectForRow(at: indexPath)
-//                let rectInSuperview = self.scrolledTablesComponent.visibleTableView.convert(rectInTableView, to: self.scrolledTablesComponent)
-//
-//
-//                print("rectInSuperview", rectInSuperview.origin.y,"\n",
-//                      "visibleTableView.frame.y",self.scrolledTablesComponent.visibleTableView.frame.origin.y,"\n",
-//                      "visibleTableView.offset.y", self.scrolledTablesComponent.visibleTableView.contentOffset.y,"\n",
-//                      "scrolledTablesComponent.offset.y",self.scrolledTablesComponent.contentOffset.y,"\n",
-//                      "scrolledTablesComponent.frame.h",self.scrolledTablesComponent.frame.size.height,"\n",
-//                      "visibleTableView.frame.h",self.scrolledTablesComponent.visibleTableView.frame.size.height)
-//
-//
-//                var offset = self.scrolledTablesComponent.contentOffset.y
-//
-//                if rectInSuperview.origin.y - 116 > self.scrolledTablesComponent.frame.size.height / 2 {
-//                    offset += self.scrolledTablesComponent.frame.size.height / 2 - 116
-//                    if offset > self.scrolledTablesComponent.contentSize.height - self.scrolledTablesComponent.frame.size.height {
-//                        offset = self.scrolledTablesComponent.contentSize.height - self.scrolledTablesComponent.frame.size.height
-//                    }
-//                    let isSmallNavBar = self.scrolledTablesComponent.firstAvailableViewController().isSmallNavigationBar
-//
-//                    self.scrolledTablesComponent.setContentOffset(.init(x: 0, y: offset), animated: true)
-//                    self.scrolledTablesComponent.scrollViewDidScroll(self.scrolledTablesComponent)
-//                    if isSmallNavBar {
-//                        self.scrolledTablesComponent.firstAvailableViewController().setupSmallNavigationBar()
-//                    }
-//                }
-//            }
         default:
             break
         }

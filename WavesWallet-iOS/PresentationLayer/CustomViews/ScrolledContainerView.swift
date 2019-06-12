@@ -45,7 +45,9 @@ protocol ScrolledContainerViewProtocol {
     func endRefreshing()
     
     func reloadSectionWithCloseAnimation(section: Int)
-    
+
+    func reloadSectionWithOpenAnimation(section: Int)
+
     var segmentedHeight: CGFloat { get }
     
     var visibleTableView: UITableView { get }
@@ -125,6 +127,43 @@ final class ScrolledContainerView: UIScrollView {
 
 //MARK: - ScrolledContainerViewProtocol
 extension ScrolledContainerView: ScrolledContainerViewProtocol {
+    
+    func reloadSectionWithOpenAnimation(section: Int) {
+        visibleTableView.beginUpdates()
+        visibleTableView.reloadSections([section], with: .fade)
+        visibleTableView.endUpdates()
+        
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: Constants.animationDuration, animations: {
+                self.setContentSize()
+            })
+            
+            guard self.visibleTableView.numberOfRows(inSection: section) > 0 else { return }
+            
+            let indexPath = IndexPath(row: 0, section: section)
+            let rectInTableView = self.visibleTableView.rectForRow(at: indexPath)
+            let rectInSuperview = self.visibleTableView.convert(rectInTableView, to: self)
+            
+            var offset = self.contentOffset.y
+            
+            if rectInSuperview.origin.y - self.bigTopOffset > self.frame.size.height / 2 {
+                offset += self.frame.size.height / 2 - self.bigTopOffset
+                if offset > self.contentSize.height - self.frame.size.height {
+                    offset = self.contentSize.height - self.frame.size.height
+                }
+                let isSmallNavBarBefore = self.isSmallNavBar
+                
+                self.setContentOffset(.init(x: 0, y: offset), animated: true)
+                self.scrollViewDidScroll(self)
+
+                if isSmallNavBarBefore || offset > -self.smallTopOffset {
+                    self.firstAvailableViewController().setupSmallNavigationBar()
+                }
+            }
+        }
+
+    }
+    
     func reloadSectionWithCloseAnimation(section: Int) {
         
         let offset = visibleTableView.contentOffset.y
