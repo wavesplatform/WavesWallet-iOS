@@ -93,10 +93,10 @@ final class ScrolledContainerView: UIScrollView {
         refreshControl = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: Constants.refreshSize, height: Constants.refreshSize))
         segmentedControl.segmentedDelegate = self
         
-        NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackgroundHandler), name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
     
-    @objc private func didEnterBackground() {
+    @objc private func didEnterBackgroundHandler() {
         if isSmallNavBar {
             firstAvailableViewController().setupSmallNavigationBar()
         }
