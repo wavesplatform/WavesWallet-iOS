@@ -32,7 +32,6 @@ final class WalletSortViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
         segmentedControl.delegate = self
         createBackButton()
@@ -42,10 +41,10 @@ final class WalletSortViewController: UIViewController {
         setupFeedBack()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.segmentedCellIdentifier)
     }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupTopBarLine()
+        hideTopBarLine()
+        navigationController?.navigationBar.backgroundColor = view.backgroundColor
     }
 }
 
@@ -137,8 +136,6 @@ private extension WalletSortViewController {
 //MARK: - UIScrollViewDelegate
 extension WalletSortViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        setupTopBarLine()
         
         if isSmallNavigationBar {
             segmentedControl.addShadow()
