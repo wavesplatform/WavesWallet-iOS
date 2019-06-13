@@ -74,7 +74,7 @@ final class WalletPresenter: WalletPresenterProtocol {
     
     private func queryCleanWallet() -> Feedback {
         return react(request: { (state) -> Bool? in
-            return true
+            return state.assets.count > 0 && state.isNeedRunQueryCheckCleanWalletBanner ? true : nil
             
         }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
             
@@ -290,7 +290,13 @@ final class WalletPresenter: WalletPresenterProtocol {
             state.action = .none
 
         case .setAssets(let response):
-            state.action = .update
+            
+            if state.isNeedRunQueryCheckCleanWalletBanner {
+                state.action = .none
+            }
+            else {
+                state.action = .update
+            }
 
             let sections = WalletTypes.ViewModel.Section.map(from: response)
             state.displayState = state.displayState.updateDisplay(kind: .assets,
@@ -339,8 +345,19 @@ final class WalletPresenter: WalletPresenterProtocol {
 
         case .isShowCleanWalletBanner(let isShowCleanWalletBanner):
             state.isShowCleanWalletBanner = isShowCleanWalletBanner
-            state.action = .none
 
+            if state.isNeedRunQueryCheckCleanWalletBanner {
+                state.isNeedRunQueryCheckCleanWalletBanner = false
+                
+                var currentDisplay = state.displayState.currentDisplay
+                currentDisplay.animateType = .refresh(animated: false)
+                state.displayState.currentDisplay = currentDisplay
+                state.action = .update
+            }
+            else {
+                state.action = .none
+            }
+            
         case .setCleanWalletBanner:
             state.isNeedCleanWalletBanner = true
             state.action = .none
