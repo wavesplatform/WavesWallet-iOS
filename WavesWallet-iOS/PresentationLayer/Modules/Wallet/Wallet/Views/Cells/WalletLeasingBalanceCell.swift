@@ -21,7 +21,7 @@ protocol WalletLeasingBalanceCellDelegate: AnyObject {
     func walletLeasingBalanceCellDidTapStartLease(availableMoney: Money)
 }
 
-final class WalletLeasingBalanceCell: UITableViewCell, Reusable {
+final class WalletLeasingBalanceCell: UITableViewCell, NibReusable {
     
     @IBOutlet private weak var viewContainer: UIView!
 

@@ -15,13 +15,12 @@ fileprivate enum Constants {
     static let sponsoredIcon = CGSize(width: 18, height: 18)
 }
 
-final class WalletTableAssetsCell: UITableViewCell, Reusable {
+final class WalletTableAssetsCell: UITableViewCell, NibReusable {
     @IBOutlet private var imageIcon: UIImageView!
     @IBOutlet private var viewContent: UIView!
     @IBOutlet private var iconStar: UIImageView!
     @IBOutlet private var labelTitle: UILabel!
     @IBOutlet private var labelSubtitle: UILabel!
-    @IBOutlet private var viewFiatBalance: UIView!
     @IBOutlet private var viewSpam: UIView!
     @IBOutlet private weak var labelSpam: UILabel!
     private var disposeBag: DisposeBag = DisposeBag()
@@ -55,7 +54,6 @@ extension WalletTableAssetsCell: ViewConfiguration {
 
         viewSpam.isHidden = true
         iconStar.isHidden = !model.settings.isFavorite
-        viewFiatBalance.isHidden = true
         viewSpam.isHidden = model.asset.isSpam == false
         let balance = Money(model.availableBalance, model.asset.precision)
         let text = balance.displayShortText

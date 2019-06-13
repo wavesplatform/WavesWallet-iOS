@@ -30,7 +30,7 @@ extension WalletSortEmptyAssetsCell: ViewConfiguration {
             labelTitle.text = Localizable.Waves.Walletsort.Label.notAddedAssetsInFavorites
             
         case .list:
-            imageIcon.image = Images.userimgEmpty80Multi.image
+            imageIcon.image = Images.userimgEmpty80.image
             labelTitle.text = Localizable.Waves.Walletsort.Label.listOfAssetsEmpty
             
         case .hidden:

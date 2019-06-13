@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -89,13 +89,13 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ork-8W-EgS">
-                                <rect key="frame" x="0.0" y="266" width="375" height="135.5"/>
+                                <rect key="frame" x="0.0" y="266.5" width="375" height="134.5"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgEmpty80Multi" translatesAutoresizingMaskIntoConstraints="NO" id="dm7-8m-rW4">
-                                        <rect key="frame" x="147.5" y="0.0" width="80" height="80"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgEmpty80" translatesAutoresizingMaskIntoConstraints="NO" id="dm7-8m-rW4">
+                                        <rect key="frame" x="147.5" y="0.0" width="80" height="79"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1YL-A1-ItF">
-                                        <rect key="frame" x="0.0" y="104" width="375" height="31.5"/>
+                                        <rect key="frame" x="0.0" y="103" width="375" height="31.5"/>
                                         <string key="text">Nothing Here…
 You can create new address</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -257,6 +257,6 @@ You can create new address</string>
     <resources>
         <image name="editaddress24Submit300" width="24" height="24"/>
         <image name="off" width="24" height="24"/>
-        <image name="userimgEmpty80Multi" width="80" height="80"/>
+        <image name="userimgEmpty80" width="80" height="79"/>
     </resources>
 </document>
