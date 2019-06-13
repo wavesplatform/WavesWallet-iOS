@@ -199,8 +199,7 @@ private extension AccountBalanceRepositoryRemote {
                     .wavesServices
                     .nodeServices
                     .assetsNodeService
-                    .assetsBalances(address: walletAddress)
-                    .sweetDebugWithoutResponse("assetsNodeService.assetsBalances")
+                    .assetsBalances(address: walletAddress)                    
                 
             })
     }

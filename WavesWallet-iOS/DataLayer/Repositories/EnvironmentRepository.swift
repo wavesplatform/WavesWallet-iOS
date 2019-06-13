@@ -91,7 +91,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
     }
     
     func servicesEnvironment() -> Observable<ApplicationEnviroment> {
-        return setupServicesEnviromentShare
+        return setupServicesEnviromentShare.sweetDebug("id-\(NSUUID.init().uuidString)")
     }
 }
 
@@ -226,7 +226,11 @@ private extension EnvironmentRepository {
             var deffaultEnvironment: Observable<WalletEnvironment>!
             
             if let enviroment = self.localEnvironment(by: key) {
-                deffaultEnvironment = Observable.just(enviroment)
+                //TODO: Observable.just(enviroment) - dont return enviroment. i dont know how fix it the bug
+                deffaultEnvironment = Observable<Int>.timer(0.01, period: nil, scheduler: MainScheduler.asyncInstance)
+                    .flatMap({ (_) -> Observable<WalletEnvironment> in
+                        return Observable.just(enviroment)
+                    })
             } else {
                 deffaultEnvironment = self.remoteAccountEnvironmentShare
             }
