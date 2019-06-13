@@ -13,6 +13,7 @@ import CSV
 import WavesSDKExtension
 import WavesSDKCrypto
 
+//TODO: move to SDK or change mapping assets
 private enum Constants {
     static let vostokAssetId = "4LHHvYGNKJUg5hj65aGD5vgScvCBmLpdRFtjokvCjSL8"
 }
