@@ -80,6 +80,8 @@ platform :ios do
     ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.dev"
     ENV['PROD_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
 
+    ENV['APPSTORECONNECT_APP_APPLE_ID'] = ""
+
     ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Dev.plist"
     ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Dev.plist"
     ENV['URL_AMPLITUDE'] = "#{ENV['URL_ROOT_CONFIG']}/Amplitude-Info-Dev.plist"
@@ -101,6 +103,8 @@ platform :ios do
     ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
     ENV['PROD_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
 
+    ENV['APPSTORECONNECT_APP_APPLE_ID'] = "1233158971"
+
     ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Prod.plist"
     ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Prod.plist"
     ENV['URL_AMPLITUDE'] = "#{ENV['URL_ROOT_CONFIG']}/Amplitude-Info-Prod.plist"
@@ -121,6 +125,8 @@ platform :ios do
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.test"
     ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.test"    
     ENV['PROD_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
+
+    ENV['APPSTORECONNECT_APP_APPLE_ID'] = "1438015790"
 
     ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Prod.plist"
     ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Prod.plist"
@@ -302,7 +308,7 @@ platform :ios do
     
     testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
                app_identifier: "#{ENV['TESTFLIGHT_APP_IDENTITIFER']}",
-               apple_id: "#{ENV['TESTFLIGHT_APPLE_ID']}",
+               apple_id: "#{ENV['APPSTORECONNECT_APP_APPLE_ID']}",
                itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",
                team_id: "#{ENV['FASTLANE_TEAM_ID']}",
                team_name: "#{ENV['FASTLANE_ITC_TEAM_NAME']}",
