@@ -107,7 +107,8 @@ final class ScrolledContainerView: UIScrollView {
         
         if visibleTableView.frame.size.height != frame.size.height + topOffset ||
             visibleTableView.frame.size.width != frame.size.width {
-            for table in tableViews {
+            for (index, table) in tableViews.enumerated() {
+                table.frame.origin.x = CGFloat(index) * frame.size.width
                 table.frame.size.height = frame.size.height + topOffset
                 table.frame.size.width = frame.size.width
             }
