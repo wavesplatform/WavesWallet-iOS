@@ -67,7 +67,7 @@ final class StartLeasingConfirmationViewController: UIViewController {
         tickerView.update(with: .init(text: WavesSDKCryptoConstants.wavesAssetId, style: .soft))
         labelAmount.text = order.amount.displayText
         labelNodeAddress.text = order.recipient
-        labelFee.text = order.fee.displayText
+        labelFee.text = order.fee.displayText + " " + WavesSDKCryptoConstants.wavesAssetId
     }
     
     private func setupLocalization() {
