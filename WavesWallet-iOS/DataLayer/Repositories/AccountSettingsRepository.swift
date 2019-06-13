@@ -61,60 +61,60 @@ final class AccountSettingsRepository: AccountSettingsRepositoryProtocol {
     }
 }
 
-//func setSpamURL(_ url: String, by accountAddress: String) -> Observable<Bool> {
-//    return Observable.create({ [weak self] (observer) -> Disposable in
-//        
-//        guard let self = self else {
-//            return Disposables.create()
-//        }
-//        
-//        guard url.isValidUrl else {
-//            observer.onError(EnvironmentRepositoryError.invalidURL)
-//            return Disposables.create()
-//        }
-//        
-//        guard let link = URL(string: url) else {
-//            observer.onError(EnvironmentRepositoryError.invalidURL)
-//            return Disposables.create()
-//        }
-//        
-//        let disposable = self.spamProvider
-//            .rx
-//            .request(.getSpamList(url: link))
-//            .flatMap({ response -> Single<Bool> in
-//                
-//                do {
-//                    _ = try SpamCVC.addresses(from: response.data)
-//                    return Single.just(true)
-//                } catch _ {
-//                    return Single.error(EnvironmentRepositoryError.invalidResponse)
-//                }
-//            })
-//            .asObservable()
-//            .flatMap({ [weak self] _ -> Observable<DomainLayer.DTO.AccountEnvironment?> in
-//                
-//                guard let self = self else {
-//                    return Observable.never()
-//                }
-//                return self.localAccountEnvironment(accountAddress: accountAddress)
-//            })
-//            .flatMap({ [weak self] account -> Observable<Bool> in
-//                
-//                guard let self = self else {
-//                    return Observable.never()
-//                }
-//                
-//                var newAccount = account ?? DomainLayer.DTO.AccountEnvironment()
-//                newAccount.spamUrl = url
-//                
-//                return self.saveAccountEnvironment(newAccount, accountAddress: accountAddress)
-//            })
-//            .subscribe(observer)
-//        
-//        return Disposables.create([disposable])
-//    })
-//        .sweetDebug("setURL")
-//}
+    //func setSpamURL(_ url: String, by accountAddress: String) -> Observable<Bool> {
+    //    return Observable.create({ [weak self] (observer) -> Disposable in
+    //
+    //        guard let self = self else {
+    //            return Disposables.create()
+    //        }
+    //
+    //        guard url.isValidUrl else {
+    //            observer.onError(EnvironmentRepositoryError.invalidURL)
+    //            return Disposables.create()
+    //        }
+    //
+    //        guard let link = URL(string: url) else {
+    //            observer.onError(EnvironmentRepositoryError.invalidURL)
+    //            return Disposables.create()
+    //        }
+    //
+    //        let disposable = self.spamProvider
+    //            .rx
+    //            .request(.getSpamList(url: link))
+    //            .flatMap({ response -> Single<Bool> in
+    //
+    //                do {
+    //                    _ = try SpamCVC.addresses(from: response.data)
+    //                    return Single.just(true)
+    //                } catch _ {
+    //                    return Single.error(EnvironmentRepositoryError.invalidResponse)
+    //                }
+    //            })
+    //            .asObservable()
+    //            .flatMap({ [weak self] _ -> Observable<DomainLayer.DTO.AccountEnvironment?> in
+    //
+    //                guard let self = self else {
+    //                    return Observable.never()
+    //                }
+    //                return self.localAccountEnvironment(accountAddress: accountAddress)
+    //            })
+    //            .flatMap({ [weak self] account -> Observable<Bool> in
+    //
+    //                guard let self = self else {
+    //                    return Observable.never()
+    //                }
+    //
+    //                var newAccount = account ?? DomainLayer.DTO.AccountEnvironment()
+    //                newAccount.spamUrl = url
+    //
+    //                return self.saveAccountEnvironment(newAccount, accountAddress: accountAddress)
+    //            })
+    //            .subscribe(observer)
+    //
+    //        return Disposables.create([disposable])
+    //    })
+    //        .sweetDebug("setURL")
+    //}
 //
 //private func localAccountEnvironment(accountAddress: String) -> Observable<DomainLayer.DTO.AccountEnvironment?> {
 //    return Observable.create { observer -> Disposable in

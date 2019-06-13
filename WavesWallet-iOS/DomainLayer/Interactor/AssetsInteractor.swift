@@ -40,6 +40,7 @@ final class AssetsInteractor: AssetsInteractorProtocol {
             .map({ assets in
                 return .remote(assets)
             })
+            .sweetDebugWithoutResponse("Alax")
             .catchError { [weak self] remoteError -> SyncObservable<[DomainLayer.DTO.Asset]> in
 
                 guard let self = self else { return Observable.never() }

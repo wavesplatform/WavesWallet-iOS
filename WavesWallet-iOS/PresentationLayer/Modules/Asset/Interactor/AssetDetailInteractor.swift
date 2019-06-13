@@ -40,6 +40,7 @@ final class AssetDetailInteractor: AssetDetailInteractorProtocol {
 
                 owner.accountBalanceInteractor
                     .balances(by: wallet)
+                    .sweetDebugWithoutResponse("Assets")
                     .take(1)
                     .map {
                         $0.filter { asset -> Bool in
