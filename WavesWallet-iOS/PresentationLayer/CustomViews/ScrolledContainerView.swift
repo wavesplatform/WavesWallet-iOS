@@ -151,14 +151,13 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
                 if offset > self.contentSize.height - self.frame.size.height {
                     offset = self.contentSize.height - self.frame.size.height
                 }
-                let isSmallNavBarBefore = self.isSmallNavBar
-                
+
+                if self.isSmallNavBar || offset > -self.smallTopOffset {
+                    self.firstAvailableViewController().setupSmallNavigationBar()
+                }
                 self.setContentOffset(.init(x: 0, y: offset), animated: true)
                 self.scrollViewDidScroll(self)
 
-                if isSmallNavBarBefore || offset > -self.smallTopOffset {
-                    self.firstAvailableViewController().setupSmallNavigationBar()
-                }
             }
         }
 
@@ -385,7 +384,6 @@ extension ScrolledContainerView: UIScrollViewDelegate {
         if contentSize.height != visibleContentHeight {
             contentSize.height = visibleContentHeight
         }
-
         updateSegmentedShadow()
         scrollViewDelegate?.scrollViewDidScroll?(scrollView)
     }
