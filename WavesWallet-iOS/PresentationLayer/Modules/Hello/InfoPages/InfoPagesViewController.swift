@@ -186,6 +186,7 @@ final class InfoPagesViewController: UIViewController {
         if page < pageViews.count {
             collectionView.scrollToItem(at: IndexPath(item: page, section: 0), at: .left, animated: true)
         } else {
+            guard isActiveConfirm else { return }
             output?.userFinishedReadPages()
             AnalyticManager.trackEvent(.newUser(.confirm))
         }

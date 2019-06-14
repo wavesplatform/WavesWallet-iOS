@@ -90,7 +90,7 @@ target 'WavesWallet-iOS' do
     pod 'SwiftGen', '~> 5.3.0'
 
     # Debug
-    pod 'Reveal-SDK', :configurations => ['Debug']
+    # pod 'Reveal-SDK', :configurations => ['Debug']
     pod 'AppSpectorSDK', :configurations => ['Debug', 'Test']
 
     pod 'SwiftMonkeyPaws', :configurations => ['Debug']
