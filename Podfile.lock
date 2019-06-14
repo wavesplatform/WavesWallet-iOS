@@ -174,14 +174,14 @@ PODS:
     - RxSwift (~> 4.0)
     - WavesSDKCrypto
     - WavesSDKExtension
-  - WavesSDKCrypto (0.1.2):
+  - WavesSDKCrypto (0.1.3):
     - Base58
     - Blake2
     - CryptoSwift
     - Curve25519
     - Keccak
     - WavesSDKExtension
-  - WavesSDKExtension (0.1.1):
+  - WavesSDKExtension (0.1.3):
     - RxSwift (~> 4.0)
 
 DEPENDENCIES:
@@ -392,8 +392,8 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
   WavesSDK: 25ce6d414f09a852c3e8bd92d5ee5c13b3db9ae8
-  WavesSDKCrypto: e440df3d82dbd2bd60a6a1433240f7b7a199b9e8
-  WavesSDKExtension: 2e972e3090a981d80932912f341f381aa2880b84
+  WavesSDKCrypto: efbe49381abb54d2d9fe249056d12009be3bd79c
+  WavesSDKExtension: 6fc665d55211805012f28c21ef1803310c4f940b
 
 PODFILE CHECKSUM: 7c9a4421e9f4eaf841ad3276f346c229b9722d97
 
