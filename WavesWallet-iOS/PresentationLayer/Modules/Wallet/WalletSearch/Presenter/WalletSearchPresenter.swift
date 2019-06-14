@@ -81,7 +81,14 @@ extension WalletSearch.ViewModel.Section {
             return map(from: assets)
         }
         
-        let searchAssets = assets.filter{ $0.asset.displayName.lowercased().contains(searchString.lowercased()) }
+        let searchAssets = assets.filter { (smartAsset) -> Bool in
+            let asset = smartAsset.asset
+            let searchText = searchString.lowercased()
+            
+            return asset.displayName.lowercased().contains(searchText) ||
+                asset.id.lowercased() == searchText.replacingOccurrences(of: " ", with: "") ||
+                asset.ticker?.lowercased().contains(searchText) == true
+        }
         
         let generalItems = searchAssets
             .filter { $0.asset.isSpam != true && $0.settings.isHidden != true }

@@ -33,7 +33,7 @@ final class WalletInteractor: WalletInteractorProtocol {
     func setCleanWalletBanner() -> Observable<Bool> {
         return authorizationInteractor.authorizedWallet()
             .flatMap({ (wallet) -> Observable<Bool> in
-                return CleanerWalletManagerBanner.rx.setCleanWalletBanner(accountAddress: wallet.address)
+                return CleanerWalletManagerBanner.rx.setCleanWalletBanner(accountAddress: wallet.address, isClean: true)
             })
     }
     
