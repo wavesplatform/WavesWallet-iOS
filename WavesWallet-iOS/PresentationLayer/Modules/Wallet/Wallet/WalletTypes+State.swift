@@ -18,6 +18,7 @@ extension WalletTypes.State {
                                  isShowCleanWalletBanner: false,
                                  isNeedCleanWalletBanner: false,
                                  isHasAppUpdate: false,
+                                 isNeedRunQueryCheckCleanWalletBanner: true,
                                  action: .none)
     }
 
