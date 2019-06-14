@@ -23,7 +23,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     private let matcherRepository = FactoryRepositories.instance.matcherRepository
     private let orderBookRepository = FactoryRepositories.instance.dexOrderBookRepository
     private let transactionInteractor = FactoryInteractors.instance.transactions
-    //TODO: Library
+    
     private let environmentRepository = FactoryRepositories.instance.environmentRepository
     
     func createOrder(order: DexCreateOrder.DTO.Order) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
@@ -52,7 +52,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                                                                        price: price,
                                                                        orderType: order.type,
                                                                        matcherFee: order.fee,
-                                                                       timestamp: Date().millisecondsSince1970(timestampDiff: environment.timestampServerDiff),
+                                                                       timestamp: Date().millisecondsSince1970,
                                                                        expiration: Int64(order.expiration.rawValue))
                     
                     

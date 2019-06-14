@@ -109,7 +109,6 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
             
                 guard let self = self else { return Observable.empty() }
                 
-                //TODO: Library
                 let signature = TimestampSignature(signedWallet: wallet,
                                                    timestampServerDiff: servicesEnvironment.timestampServerDiff)
                 
@@ -149,7 +148,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                 guard let self = self else { return Observable.empty() }
                 
                 let signature = CancelOrderSignature(signedWallet: wallet, orderId: orderId)
-                //TODO: Library
+                
                 return servicesEnvironment
                     .wavesServices
                     .matcherServices
@@ -171,7 +170,6 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
             
                 guard let self = self else { return Observable.empty() }
                 
-                //TODO: Library refactor
                 let timestamp = order.timestamp - servicesEnvironment.timestampServerDiff
                 
                 let expirationTimestamp = timestamp + order.expiration * 60 * 1000
@@ -187,7 +185,6 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                                                                 expiration: expirationTimestamp,
                                                                 matcherFee: order.matcherFee)
                 
-                //TODO: Library
                 return servicesEnvironment
                     .wavesServices
                     .matcherServices

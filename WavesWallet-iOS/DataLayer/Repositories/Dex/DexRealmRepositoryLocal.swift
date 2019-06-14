@@ -48,8 +48,7 @@ final class DexRealmRepositoryLocal: DexRealmRepositoryProtocol {
                     }
                 }
                 subscribe.onNext(newPairs)
-            }
-            catch let error {
+            } catch let error {
                 subscribe.onError(error)
             }
 

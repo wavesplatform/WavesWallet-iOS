@@ -8,9 +8,9 @@
 
 import Foundation
 import WavesSDKExtension
-
 import Base58
 
+//TODO: Signature Protocol need remove and is using Signature Protocol from SDK
 protocol SignatureProtocol {
 
     var signedWallet: DomainLayer.DTO.SignedWallet { get }
