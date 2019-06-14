@@ -86,7 +86,7 @@ final class ProfilePresenter: ProfilePresenterProtocol {
 // MARK: - Feedbacks
 fileprivate extension ProfilePresenter {
 
-    fileprivate static func needQuery(_ state: Types.State) -> Types.Query? {
+    static func needQuery(_ state: Types.State) -> Types.Query? {
 
         guard let query = state.query else { return nil }
 
@@ -112,7 +112,7 @@ fileprivate extension ProfilePresenter {
         return nil
     }
 
-    fileprivate static func handlerQuery(owner: ProfilePresenter, query: Types.Query) {
+    static func handlerQuery(owner: ProfilePresenter, query: Types.Query) {
 
         switch query {
         case .showAddressesKeys(let wallet):

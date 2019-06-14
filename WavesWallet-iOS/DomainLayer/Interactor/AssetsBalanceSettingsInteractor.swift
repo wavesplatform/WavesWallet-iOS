@@ -120,6 +120,7 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
 
 private extension AssetsBalanceSettingsInteractor {
     
+    //TODO: Refactor method
     func assetSettings(assets: [DomainLayer.DTO.Asset], ids: [String], accountAddress: String, environment: WalletEnvironment) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> {
         
         let spamIds = assets.reduce(into: [String: Bool](), {$0[$1.id] = $1.isSpam })

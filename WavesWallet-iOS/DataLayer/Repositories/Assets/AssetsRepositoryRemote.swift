@@ -87,9 +87,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
         return environmentRepository
             .servicesEnvironment()
             .map { $0.wavesServices }
-            .flatMap({ [weak self] (wavesServices) -> Observable<Bool> in
-
-                guard let self = self else { return Observable.never() }
+            .flatMap({ (wavesServices) -> Observable<Bool> in                
                 
                 return wavesServices
                     .nodeServices

@@ -15,7 +15,7 @@ public extension Decimal {
     
     //TODO: can be fixed with new xCode 10.2, need to check
     
-    public init(_ value: UInt64) {
+    init(_ value: UInt64) {
         self = Decimal()
         if value == 0 {
             return
@@ -38,14 +38,14 @@ public extension Decimal {
         _mantissa.3 = UInt16(truncatingIfNeeded: compactValue >> 48)
     }
     
-    public init(_ value: Int64) {
+    init(_ value: Int64) {
         self.init(value.magnitude)
         if value < 0 {
             _isNegative = 1
         }
     }
     
-    public func rounded() -> Decimal {
+    func rounded() -> Decimal {
         
         let behavior = NSDecimalNumberHandler(roundingMode: .down,
                                               scale: 0,
@@ -58,15 +58,15 @@ public extension Decimal {
         return number.rounding(accordingToBehavior: behavior).decimalValue
     }
     
-    public var doubleValue:Double {
+    var doubleValue:Double {
         return NSDecimalNumber(decimal:self).doubleValue
     }
 
-    public var floatValue: Float {
+    var floatValue: Float {
         return NSDecimalNumber(decimal: self).floatValue
     }
 
-    public var int64Value: Int64 {
+    var int64Value: Int64 {
         return NSDecimalNumber(decimal: self).int64Value
     }
 }

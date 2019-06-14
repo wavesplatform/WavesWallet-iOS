@@ -24,9 +24,7 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
 
         return environmentRepository
             .servicesEnvironment()
-            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
-                
-                guard let self = self else { return Observable.empty() }
+            .flatMapLatest({ (servicesEnvironment) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
                 
                 let pairsForQuery = pairs.map { DataService.Query.PairsPrice.Pair(amountAssetId: $0.amountAsset.id,
                                                                                   priceAssetId: $0.priceAsset.id) }

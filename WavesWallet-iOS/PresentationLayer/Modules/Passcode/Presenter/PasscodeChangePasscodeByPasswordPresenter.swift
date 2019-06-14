@@ -212,6 +212,10 @@ private extension PasscodeChangePasscodeByPasswordPresenter {
 
     private func handlerInputNumbersForChangePasscodeByPassword(_ numbers: [Int], state: inout Types.State) {
 
+        defer {
+            state.displayState.titleLabel = state.displayState.kind.title()
+        }
+        
         let kind = state.displayState.kind
         state.numbers[kind] = numbers
 
@@ -244,10 +248,6 @@ private extension PasscodeChangePasscodeByPasswordPresenter {
             }
         default:
             break
-        }
-
-        defer {
-            state.displayState.titleLabel = state.displayState.kind.title()
         }
     }
 }

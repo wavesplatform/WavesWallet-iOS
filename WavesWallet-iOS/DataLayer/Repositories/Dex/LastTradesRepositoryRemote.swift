@@ -26,10 +26,8 @@ final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
 
         return environmentRepository
             .servicesEnvironment()
-            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> in
-            
-            guard let self = self else { return Observable.empty() }
-                             
+            .flatMapLatest({ (servicesEnvironment) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> in
+                
             let query = DataService.Query.ExchangeFilters(matcher: nil,
                                                           sender: nil,
                                                           timeStart: nil,

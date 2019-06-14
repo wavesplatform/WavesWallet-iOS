@@ -655,6 +655,10 @@ private extension PasscodePresenter {
 
     private func handlerInputNumbersForChangePasscodeByPassword(_ numbers: [Int], state: inout Types.State) {
 
+        defer {
+            state.displayState.titleLabel = state.kind.title(kind: state.displayState.kind)
+        }
+        
         let kind = state.displayState.kind
         state.numbers[kind] = numbers
 
@@ -688,16 +692,16 @@ private extension PasscodePresenter {
         default:
             break
         }
-
-        defer {
-            state.displayState.titleLabel = state.kind.title(kind: state.displayState.kind)
-        }
     }
 
     // MARK: - Input Numbers For Chanage Passcode
 
     private func handlerInputNumbersForChangePasscode(_ numbers: [Int], state: inout Types.State) {
 
+        defer {
+            state.displayState.titleLabel = state.kind.title(kind: state.displayState.kind)
+        }
+        
         let kind = state.displayState.kind
         state.numbers[kind] = numbers
 
@@ -740,16 +744,16 @@ private extension PasscodePresenter {
         default:
             break
         }
-
-        defer {
-            state.displayState.titleLabel = state.kind.title(kind: state.displayState.kind)
-        }
     }
 
     // MARK: - Input Numbers For Registration
 
     private func handlerInputNumbersForRegistration(_ numbers: [Int], state: inout Types.State) {
 
+        defer {
+            state.displayState.titleLabel = state.kind.title(kind: state.displayState.kind)
+        }
+        
         let kind = state.displayState.kind
         state.numbers[kind] = numbers
 
@@ -777,10 +781,6 @@ private extension PasscodePresenter {
             }
         default:
             break
-        }
-
-        defer {
-            state.displayState.titleLabel = state.kind.title(kind: state.displayState.kind)
         }
     }
 

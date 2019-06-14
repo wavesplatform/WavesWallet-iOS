@@ -795,7 +795,7 @@ private extension AuthorizationInteractor {
             if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &error) {
 
                 context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics,
-                                       localizedReason: self.localizable.readFromkeychain ?? "",
+                                       localizedReason: self.localizable.readFromkeychain,
                                        reply:
                     { (result, error) in
 

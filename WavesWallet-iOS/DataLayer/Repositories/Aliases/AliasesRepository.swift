@@ -25,10 +25,8 @@ final class AliasesRepository: AliasesRepositoryProtocol {
 
         return environmentRepository
             .servicesEnvironment()
-            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<(aliases: [DataService.DTO.Alias], environment: WalletEnvironment)> in
-            
-                guard let self = self else { return Observable.never() }
-
+            .flatMapLatest({ (servicesEnvironment) -> Observable<(aliases: [DataService.DTO.Alias], environment: WalletEnvironment)> in
+                
                 return servicesEnvironment
                     .wavesServices
                     .dataServices
@@ -54,9 +52,7 @@ final class AliasesRepository: AliasesRepositoryProtocol {
     func alias(by name: String, accountAddress: String) -> Observable<String> {
         return environmentRepository
             .servicesEnvironment()
-            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<String> in
-            
-                guard let self = self else { return Observable.empty() }
+            .flatMapLatest({ (servicesEnvironment) -> Observable<String> in
                 
                 return servicesEnvironment
                     .wavesServices

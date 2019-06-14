@@ -185,6 +185,10 @@ private extension PasscodeRegistationPresenter {
 
     private func handlerInputNumbersForRegistration(_ numbers: [Int], state: inout Types.State) {
 
+        defer {
+            state.displayState.titleLabel = state.displayState.kind.title()
+        }
+        
         let kind = state.displayState.kind
         state.numbers[kind] = numbers
 
@@ -212,10 +216,6 @@ private extension PasscodeRegistationPresenter {
             }
         default:
             break
-        }
-
-        defer {
-            state.displayState.titleLabel = state.displayState.kind.title()
         }
     }
 }
