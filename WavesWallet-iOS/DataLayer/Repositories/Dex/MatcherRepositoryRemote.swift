@@ -25,9 +25,7 @@ final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
         
         return environmentRepository
             .servicesEnvironment()
-            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<PublicKeyAccount> in
-            
-                guard let self = self else { return Observable.empty() }
+            .flatMapLatest({ (servicesEnvironment) -> Observable<PublicKeyAccount> in
                 
                 return servicesEnvironment
                     .wavesServices

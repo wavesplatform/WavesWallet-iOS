@@ -143,7 +143,7 @@ private extension EnvironmentRepository {
                     }
                 }
             }
-            .flatMap({ [weak self] (enviroment) -> Observable<ApplicationEnviroment> in
+            .flatMap({ (enviroment) -> Observable<ApplicationEnviroment> in
                 
                 var enviromentService = WavesSDK.shared.enviroment
                 enviromentService.timestampServerDiff = enviroment.timestampServerDiff
@@ -165,12 +165,11 @@ private extension EnvironmentRepository {
                                                     scheme: environment.scheme)
             if WavesSDK.isInitialized() {
                 
-                //                var enviromentService = WavesSDK.shared.enviroment
-                //                enviromentService.server = server
-                //                enviromentService.timestampServerDiff = environment.timestampServerDiff
-                //
-                //                WavesSDK.shared.enviroment = enviromentService
-                //
+                var enviromentService = WavesSDK.shared.enviroment
+                enviromentService.server = server
+                    
+                WavesSDK.shared.enviroment = enviromentService
+
                 observer.onNext(WavesSDK.shared.services)
                 observer.onCompleted()
                 return Disposables.create()
@@ -223,21 +222,17 @@ private extension EnvironmentRepository {
             
             let key = EnvironmentKey(isTestNet: WalletEnvironment.isTestNet)
             
-            var deffaultEnvironment: Observable<WalletEnvironment>!
+            var disposables: [Disposable] = .init()
             
             if let enviroment = self.localEnvironment(by: key) {
-                //TODO: Observable.just(enviroment) - dont return enviroment. i dont know how fix it the bug
-                deffaultEnvironment = Observable<Int>.timer(0.01, period: nil, scheduler: MainScheduler.asyncInstance)
-                    .flatMap({ (_) -> Observable<WalletEnvironment> in
-                        return Observable.just(enviroment)
-                    })
+                observer.onNext(enviroment)
+                observer.onCompleted()
             } else {
-                deffaultEnvironment = self.remoteAccountEnvironmentShare
+                let disposable = self.remoteAccountEnvironmentShare.bind(to: observer)
+                disposables.append(disposable)
             }
             
-            let disposable = deffaultEnvironment.bind(to: observer)
-            
-            return Disposables.create([disposable])
+            return Disposables.create(disposables)
         })
     }
     

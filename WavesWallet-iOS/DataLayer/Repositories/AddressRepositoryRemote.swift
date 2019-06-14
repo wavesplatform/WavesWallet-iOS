@@ -23,9 +23,7 @@ final class AddressRepositoryRemote: AddressRepositoryProtocol {
         
         return environmentRepository
             .servicesEnvironment()
-            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<Bool> in
-                
-                guard let self = self else { return Observable.never() }
+            .flatMapLatest({ (servicesEnvironment) -> Observable<Bool> in
                 
                 return servicesEnvironment
                     .wavesServices

@@ -20,13 +20,13 @@ public struct Balance: Equatable {
 
 public extension Balance {
 
-    public enum Sign: String, Equatable {
+    enum Sign: String, Equatable {
         case none = ""
         case plus = "+"
         case minus = "-"
     }
 
-    public func displayShortText(sign: Sign, withoutCurrency: Bool) -> String {
+    func displayShortText(sign: Sign, withoutCurrency: Bool) -> String {
         var text = ""
         
         if withoutCurrency {
@@ -38,7 +38,7 @@ public extension Balance {
         return sign.rawValue + text
     }
     
-    public func displayText(sign: Sign, withoutCurrency: Bool) -> String {
+    func displayText(sign: Sign, withoutCurrency: Bool) -> String {
         var text = ""
 
         if withoutCurrency {
@@ -50,11 +50,11 @@ public extension Balance {
         return sign.rawValue + text
     }
 
-    public var displayText: String {
+    var displayText: String {
         return money.displayText + " " + currency.title
     }
 
-    public var displayTextWithoutCurrencyName: String {
+    var displayTextWithoutCurrencyName: String {
         return money.displayText
     }
 

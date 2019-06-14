@@ -23,10 +23,8 @@ final class BlockRepositoryRemote: BlockRepositoryProtocol {
 
         return environmentRepository
             .servicesEnvironment()            
-            .flatMap({ [weak self] (servicesEnvironment) -> Observable<Int64> in
+            .flatMap({ (servicesEnvironment) -> Observable<Int64> in
 
-                guard let self = self else { return Observable.never() }
-                print(servicesEnvironment)
                 return servicesEnvironment
                     .wavesServices
                     .nodeServices

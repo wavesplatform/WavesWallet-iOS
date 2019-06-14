@@ -105,9 +105,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
 
         return environmentRepository
             .servicesEnvironment()
-            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<[DomainLayer.DTO.Dex.MyOrder]> in
-            
-                guard let self = self else { return Observable.empty() }
+            .flatMapLatest({ (servicesEnvironment) -> Observable<[DomainLayer.DTO.Dex.MyOrder]> in
                 
                 let signature = TimestampSignature(signedWallet: wallet,
                                                    timestampServerDiff: servicesEnvironment.timestampServerDiff)
@@ -143,9 +141,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
         
         return environmentRepository
             .servicesEnvironment()
-            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<Bool> in
-            
-                guard let self = self else { return Observable.empty() }
+            .flatMapLatest({ (servicesEnvironment) -> Observable<Bool> in
                 
                 let signature = CancelOrderSignature(signedWallet: wallet, orderId: orderId)
                 
@@ -166,9 +162,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
         
         return environmentRepository
             .servicesEnvironment()
-            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<Bool> in
-            
-                guard let self = self else { return Observable.empty() }
+            .flatMapLatest({ (servicesEnvironment) -> Observable<Bool> in
                 
                 let timestamp = order.timestamp - servicesEnvironment.timestampServerDiff
                 

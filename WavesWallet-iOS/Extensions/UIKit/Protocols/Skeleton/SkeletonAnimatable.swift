@@ -83,13 +83,13 @@ extension SkeletonAnimatable where Self: UIView {
 }
 
 fileprivate extension UIView { 
-    @objc fileprivate  func didBecomeActive() {
+    @objc func didBecomeActive() {
         if let skeleton = self as? (UIView & SkeletonAnimatable) {
             skeleton.startAnimation(to: skeleton.direction)
         }
     }
 
-    @objc fileprivate  func didEnterBackground() {
+    @objc func didEnterBackground() {
         if let skeleton = self as? (UIView & SkeletonAnimatable) {
             skeleton.stopAnimation()
         }
