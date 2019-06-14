@@ -14,7 +14,12 @@ extension WalletTypes.State {
     static func initialState() -> WalletTypes.State {
         return WalletTypes.State(assets: [],
                                  leasing: nil,
-                                 displayState: .initialState(kind: .assets))
+                                 displayState: .initialState(kind: .assets),
+                                 isShowCleanWalletBanner: false,
+                                 isNeedCleanWalletBanner: false,
+                                 isHasAppUpdate: false,
+                                 isNeedRunQueryCheckCleanWalletBanner: true,
+                                 action: .none)
     }
 
     func changeDisplay(state: inout WalletTypes.State, kind: WalletTypes.DisplayState.Kind) {
@@ -32,5 +37,16 @@ extension WalletTypes.State {
 
         state.displayState.kind = kind
         state.displayState = state.displayState.updateCurrentDisplay(display)
+    }
+    
+    var hasData: Bool {
+        
+        switch displayState.kind {
+        case .assets:
+            return assets.count > 0
+            
+        case .leasing:
+            return leasing != nil
+        }
     }
 }

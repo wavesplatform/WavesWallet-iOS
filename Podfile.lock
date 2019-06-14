@@ -123,7 +123,6 @@ PODS:
     - Realm (= 3.15.0)
   - RESideMenu (4.0.7)
   - Result (4.1.0)
-  - Reveal-SDK (22)
   - RxAlamofire (4.4.1):
     - RxAlamofire/Core (= 4.4.1)
   - RxAlamofire/Core (4.4.1):
@@ -210,7 +209,6 @@ DEPENDENCIES:
   - QRCodeReader.swift (~> 9.0.1)
   - RealmSwift
   - RESideMenu (from `https://github.com/wavesplatform/RESideMenu.git`)
-  - Reveal-SDK
   - RxAlamofire
   - RxCocoa
   - RxFeedback
@@ -275,7 +273,6 @@ SPEC REPOS:
     - Realm
     - RealmSwift
     - Result
-    - Reveal-SDK
     - RxAlamofire
     - RxCocoa
     - RxFeedback
@@ -335,7 +332,7 @@ SPEC CHECKSUMS:
   AppSpectorSDK: cc49a0fcfa01200cb273782ae4e294c5aebc5fd2
   Base58: 419d6be274b8bb6ae4649e492bee67a0c1c09230
   Blake2: 682a2367efad6a4c85ecc691acfa3f9dfceeceb0
-  Charts: ec1f57f9340054155691e84d4544a1d239d382c5
+  Charts: e0dd4cd8f257bccf98407b58183ddca8e8d5b578
   Crashlytics: 5aa8e90dcbf2f34898b4f5a0037787531246cca0
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   CSV.swift: 947283699fe698d08a4d675d9e642c2bf32418a8
@@ -374,7 +371,6 @@ SPEC CHECKSUMS:
   RealmSwift: 8a41886f8ab6efef9eb8df97de2f2bb911561a79
   RESideMenu: 4003aa053ff48d4152d464e512f1844aa82e807c
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
-  Reveal-SDK: 1385ab77aa15e9a3e21f798c74bd8e94cb54c651
   RxAlamofire: ed65f451f5a9a59419b0b9e705043dc01410edd9
   RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
   RxFeedback: 49bb931caf6d05e315d5b5366c0991ad1474ea36
@@ -399,6 +395,6 @@ SPEC CHECKSUMS:
   WavesSDKCrypto: e440df3d82dbd2bd60a6a1433240f7b7a199b9e8
   WavesSDKExtension: 2e972e3090a981d80932912f341f381aa2880b84
 
-PODFILE CHECKSUM: 7d3aa8f2b3b6bcaa35267a7faff3e81c2cd37075
+PODFILE CHECKSUM: 7c9a4421e9f4eaf841ad3276f346c229b9722d97
 
 COCOAPODS: 1.6.1

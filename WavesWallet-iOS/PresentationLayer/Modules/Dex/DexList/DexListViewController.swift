@@ -53,16 +53,20 @@ final class DexListViewController: UIViewController {
         }
         
         let readyViewFeedback: DexListPresenter.Feedback = { [weak self] _ in
-
             guard let self = self else { return Signal.empty() }
             return self.rx.viewWillAppear.take(1).map { _ in DexList.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
         }
         
-        presenter.system(feedbacks: [feedback, readyViewFeedback])
+        let viewWillAppearFeedback: DexListPresenter.Feedback = { [weak self] _ in
+            guard let self = self else { return Signal.empty() }
+            return self.rx.viewWillAppear.map {_ in DexList.Event.viewWillAppear }.asSignal(onErrorSignalWith: Signal.empty())
+        }
+        
+        presenter.system(feedbacks: [feedback, readyViewFeedback, viewWillAppearFeedback])
         NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
         
         globalErrorView.retryDidTap = { [weak self] in
-            self?.sendEvent.accept(.refresh)
+            self?.sendEvent.accept(.refreshBackground)
         }
     }
 
@@ -80,7 +84,7 @@ final class DexListViewController: UIViewController {
                       scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (value) in
                 guard let self = self else { return }
-                self.sendEvent.accept(.refresh)
+                self.sendEvent.accept(.refreshBackground)
             })
             .disposed(by: disposeBag)
     }
@@ -120,7 +124,7 @@ extension DexListViewController: Localization {
 fileprivate extension DexListViewController {
     func events() -> [Signal<DexList.Event>] {
         
-        let refresh = refreshControl.rx.controlEvent(.valueChanged).map { DexList.Event.refresh }.asSignal(onErrorSignalWith: Signal.empty())
+        let refresh = refreshControl.rx.controlEvent(.valueChanged).map { DexList.Event.refreshBackground }.asSignal(onErrorSignalWith: Signal.empty())
 
         let sortTapEvent = buttonSort.rx.tap.map { DexList.Event.tapSortButton(self) }
             .asSignal(onErrorSignalWith: Signal.empty())
@@ -177,7 +181,11 @@ fileprivate extension DexListViewController {
 extension DexListViewController: DexListRefreshOutput {
     
     func refreshPairs() {
-        sendEvent.accept(.refresh)
+        sendEvent.accept(.didChangeAssets)
+    }
+    
+    func sortPairs() {
+        sendEvent.accept(.updateSortLevel)
     }
 }
 
@@ -215,7 +223,7 @@ private extension DexListViewController {
             case .internetNotWorking:
                 errorSnackKey = showWithoutInternetSnack { [weak self] in
                     guard let self = self else { return }
-                    self.sendEvent.accept(.refresh)
+                    self.sendEvent.accept(.refreshBackground)
                 }
                 
             default:

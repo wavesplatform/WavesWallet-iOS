@@ -22,7 +22,11 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="9CU-iz-QSP">
+<<<<<<< HEAD
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1079"/>
+=======
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1089"/>
+>>>>>>> develop
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aLc-X0-W7d" userLabel="Info">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
@@ -149,8 +153,38 @@
                                                     <constraint firstItem="60z-ua-Ygh" firstAttribute="leading" secondItem="JjR-8c-NtL" secondAttribute="trailing" constant="16" id="xSf-0L-7JN"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgT-dp-apJ" userLabel="Testnet">
+                                                <rect key="frame" x="0.0" y="364" width="375" height="60"/>
+                                                <subviews>
+                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uck-bg-B2e">
+                                                        <rect key="frame" x="310" y="15.5" width="51" height="31"/>
+                                                        <connections>
+                                                            <action selector="switchEnableNotificationsSettingDevChange:" destination="KtO-Cy-mSf" eventType="valueChanged" id="ac9-JP-YeT"/>
+                                                        </connections>
+                                                    </switch>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notification Dev" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lIb-Zd-Em4">
+                                                        <rect key="frame" x="16" y="20" width="278" height="21.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="lIb-Zd-Em4" firstAttribute="leading" secondItem="rgT-dp-apJ" secondAttribute="leading" constant="16" id="Dx3-fN-6bI"/>
+                                                    <constraint firstAttribute="trailing" secondItem="uck-bg-B2e" secondAttribute="trailing" constant="16" id="gUa-sh-PsQ"/>
+                                                    <constraint firstItem="uck-bg-B2e" firstAttribute="centerY" secondItem="lIb-Zd-Em4" secondAttribute="centerY" id="ryX-39-8ut"/>
+                                                    <constraint firstItem="lIb-Zd-Em4" firstAttribute="top" secondItem="rgT-dp-apJ" secondAttribute="top" constant="20" id="wqr-ad-KtB"/>
+                                                    <constraint firstItem="uck-bg-B2e" firstAttribute="leading" secondItem="lIb-Zd-Em4" secondAttribute="trailing" constant="16" id="yfb-xR-xld"/>
+                                                    <constraint firstAttribute="height" constant="60" id="zLR-6c-PQr"/>
+                                                </constraints>
+                                            </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="4wY-4J-WWV">
+<<<<<<< HEAD
                                                 <rect key="frame" x="0.0" y="430" width="375" height="50"/>
+=======
+                                                <rect key="frame" x="0.0" y="440" width="375" height="50"/>
+>>>>>>> develop
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xX0-CM-TMo">
                                                         <rect key="frame" x="0.0" y="0.0" width="94" height="50"/>
@@ -187,11 +221,19 @@
                                                 </constraints>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3W5-Qx-C3r">
+<<<<<<< HEAD
                                                 <rect key="frame" x="0.0" y="496" width="375" height="487"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6XP-DP-fiR">
                                                 <rect key="frame" x="0.0" y="999" width="375" height="80"/>
+=======
+                                                <rect key="frame" x="0.0" y="506" width="375" height="487"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6XP-DP-fiR">
+                                                <rect key="frame" x="0.0" y="1009" width="375" height="80"/>
+>>>>>>> develop
                                                 <color key="backgroundColor" red="0.090196078430000007" green="0.31764705879999999" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="80" id="5Mx-tR-9N6"/>
@@ -227,6 +269,7 @@
                     </view>
                     <connections>
                         <outlet property="buildVersionLabel" destination="VPp-TE-clP" id="3y7-En-YgY"/>
+                        <outlet property="enableNotificationsSettingDevSwitch" destination="uck-bg-B2e" id="Po5-us-vXk"/>
                         <outlet property="enableStageSwitch" destination="60z-ua-Ygh" id="wTv-rL-7af"/>
                         <outlet property="testNetSwitch" destination="9Aw-4z-NJO" id="m5G-Sa-PtZ"/>
                         <outlet property="versionLabel" destination="vlg-KL-06V" id="3ck-kl-VGs"/>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WalletHistorySkeletonCell" id="Kfb-B6-rjY" customClass="WalletHistorySkeletonCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Kfb-B6-rjY" id="5iv-lc-wGZ">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HIl-Ug-dOo">
+                        <rect key="frame" x="16" y="0.0" width="382" height="35.5"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Ft-sw-Rw2" userLabel="1" customClass="GradientContainerView" customModule="Skeleton">
+                                <rect key="frame" x="14" y="13" width="144" height="10"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="144" id="h3a-Qz-OBc"/>
+                                    <constraint firstAttribute="height" constant="10" id="vNA-70-N9I"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="2Ft-sw-Rw2" firstAttribute="leading" secondItem="HIl-Ug-dOo" secondAttribute="leading" constant="14" id="9yh-JX-ZuF"/>
+                            <constraint firstItem="2Ft-sw-Rw2" firstAttribute="centerY" secondItem="HIl-Ug-dOo" secondAttribute="centerY" id="Tx3-rj-4fb"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="4"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="HIl-Ug-dOo" firstAttribute="leading" secondItem="5iv-lc-wGZ" secondAttribute="leading" constant="16" id="Fvb-r7-bic"/>
+                    <constraint firstAttribute="trailing" secondItem="HIl-Ug-dOo" secondAttribute="trailing" constant="16" id="RTx-Rc-Kp1"/>
+                    <constraint firstItem="HIl-Ug-dOo" firstAttribute="top" secondItem="5iv-lc-wGZ" secondAttribute="top" id="Ub6-LN-cdM"/>
+                    <constraint firstAttribute="bottom" secondItem="HIl-Ug-dOo" secondAttribute="bottom" constant="8" id="s9H-5L-d1D"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="viewContent" destination="HIl-Ug-dOo" id="k4L-Do-IZu"/>
+                <outletCollection property="views" destination="2Ft-sw-Rw2" collectionClass="NSMutableArray" id="SBQ-zX-gIj"/>
+            </connections>
+            <point key="canvasLocation" x="57" y="71"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -94,6 +94,19 @@ final class WalletCoordinator: Coordinator {
 // MARK: WalletModuleOutput
 
 extension WalletCoordinator: WalletModuleOutput {
+    func openAppStore() {
+        RateApp.show()
+    }
+    
+    func presentSearchScreen(from startPoint: CGFloat, assets: [DomainLayer.DTO.SmartAssetBalance]) {
+        
+        if let vc = WalletSearchModuleBuilder(output: self).build(input: assets) as? WalletSearchViewController {
+            vc.modalPresentationStyle = .custom
+            navigationRouter.present(vc, animated: false) {
+                vc.showWithAnimation(fromStartPosition: startPoint)
+            }
+        }
+    }
 
     func showWalletSort(balances: [DomainLayer.DTO.SmartAssetBalance]) {
         let vc = WalletSortModuleBuilder().build(input: balances)
@@ -136,6 +149,23 @@ extension WalletCoordinator: WalletModuleOutput {
 
 
         addChildCoordinatorAndStart(childCoordinator: coordinator)
+    }
+}
+
+//MARK: - WalletSearchViewControllerDelegate
+extension WalletCoordinator: WalletSearchViewControllerDelegate {
+    
+    func walletSearchViewControllerDidTapCancel(_ searchController: WalletSearchViewController) {
+        searchController.dismiss()
+    }
+    
+    func walletSearchViewControllerDidSelectAsset(_ asset: DomainLayer.DTO.SmartAssetBalance, assets: [DomainLayer.DTO.SmartAssetBalance]) {
+        
+        navigationRouter.dismiss(animated: false, completion: nil)
+        let vc = AssetDetailModuleBuilder(output: self)
+            .build(input: .init(assets: assets, currentAsset: asset))
+        
+        navigationRouter.pushViewController(vc)
     }
 }
 

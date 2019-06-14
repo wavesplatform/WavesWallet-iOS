@@ -80,9 +80,11 @@ platform :ios do
     ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.dev"
     ENV['PROD_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
 
+    ENV['APPSTORECONNECT_APP_APPLE_ID'] = ""
+
     ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Dev.plist"
     ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Dev.plist"
-    ENV['URL_AMPLITUDE'] = "#{ENV['URL_ROOT_CONFIG']}/Amplitude-Info-Prod.plist"
+    ENV['URL_AMPLITUDE'] = "#{ENV['URL_ROOT_CONFIG']}/Amplitude-Info-Dev.plist"
     ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
     ENV['URL_SENTRY_IO'] = "#{ENV['URL_ROOT_CONFIG']}/Sentry-io-Info.plist"
     ENV['URL_FABRIC'] = "#{ENV['URL_ROOT_CONFIG']}/Fabric-Info.plist"
@@ -100,6 +102,8 @@ platform :ios do
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.WavesWallet"
     ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
     ENV['PROD_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
+
+    ENV['APPSTORECONNECT_APP_APPLE_ID'] = "1233158971"
 
     ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Prod.plist"
     ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Prod.plist"
@@ -122,6 +126,8 @@ platform :ios do
     ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.test"    
     ENV['PROD_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
 
+    ENV['APPSTORECONNECT_APP_APPLE_ID'] = "1438015790"
+
     ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Prod.plist"
     ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Prod.plist"
     ENV['URL_AMPLITUDE'] = "#{ENV['URL_ROOT_CONFIG']}/Amplitude-Info-Prod.plist"
@@ -137,7 +143,7 @@ platform :ios do
 
   lane :test_build_projet do
     test_enviroment
-    increment_build_number_and_commit_push
+    # increment_build_number_and_commit_push
     build_projet    
   end
 
@@ -159,7 +165,7 @@ platform :ios do
 
   lane :dev_build_projet do
     dev_enviroment
-    increment_build_number_and_commit_push
+    # increment_build_number_and_commit_push
     build_projet
   end
 
@@ -170,6 +176,12 @@ platform :ios do
 
   lane :dev_install do
     dev_enviroment
+    download_certificates
+    download_resources
+  end
+
+  lane :prod_install do
+    prod_enviroment
     download_certificates
     download_resources
   end
@@ -265,7 +277,7 @@ platform :ios do
     sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_SENTRY_IO']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Sentry-io-Info.plist")
 
     sh("rm -rf #{Dir.pwd}/../WavesWallet-iOS/Resources/Amplitude-Info.plist")
-    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_SENTRY_IO']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Amplitude-Info.plist")
+    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_AMPLITUDE']} >> #{Dir.pwd}/../WavesWallet-iOS/Resources/Amplitude-Info.plist")
   end
 
   lane :download_bundle_enviroments do
@@ -295,11 +307,16 @@ platform :ios do
     PROJECT_IPA = "#{ENV['OUTPUT_PROJECT']}/#{PROJECT_IPA}.ipa"
     
     testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
+               app_identifier: "#{ENV['TESTFLIGHT_APP_IDENTITIFER']}",
+               apple_id: "#{ENV['APPSTORECONNECT_APP_APPLE_ID']}",
                itc_provider: "#{ENV['FASTLANE_ITC_TEAM_ID']}",
+               team_id: "#{ENV['FASTLANE_TEAM_ID']}",
+               team_name: "#{ENV['FASTLANE_ITC_TEAM_NAME']}",
+               dev_portal_team_id: "#{ENV['FASTLANE_TEAM_ID']}",
                wait_for_uploaded_build: "false",
                changelog: "#{ENV['CHANGELOG']}",
                ipa: PROJECT_IPA)
-     skip_waiting_for_build_processing    
+     
     refresh_dsyms    
   end
 
@@ -361,9 +378,10 @@ platform :ios do
   end
 
   lane :increment_build_number_and_commit_push do      
+      
       increment_build_number
       get_version_and_build
-
+      
       git_commit(path: ["#{ENV['ROOT_PROJECT']}/WavesWallet-iOS/Info.plist",
                         "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj"],
                   message: "Increment build number [ci skip]")
