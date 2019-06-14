@@ -55,18 +55,6 @@ enum UITest {
     //TODO: Refactor method very long
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        //TODO: Library
-//        WavesSDK.initialization(servicesPlugins: .init(data: [], node: [], matcher: []), enviroment: Enviroment.init(server: .mainNet,
-//                                                                                                                     timestampServerDiff: 0))
-//
-//
-//        ServicesFactory
-//            .initialization(dataServicePlugins: [SentryNetworkLoggerPlugin()],
-//                            nodeServicePlugins: [SentryNetworkLoggerPlugin(),
-//                                                 NodePlugin()],
-//                            matcherrServicePlugins: [SentryNetworkLoggerPlugin()])
-//
-                    
         if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
             let options = FirebaseOptions(contentsOfFile: path) {
 
@@ -176,33 +164,3 @@ extension AppDelegate {
         return self.window?.rootViewController as! RESideMenu
     }
 }
-
-//
-//protocol AddressService {}
-//
-//
-//protocol WavesServices {
-//    
-//    var addressService: AddressService { get }
-//    
-//    var serverKind: ServerKind { get set }
-//}
-//
-//protocol WavesCrypto {
-//    //Interface Юрки
-//}
-//
-//enum ServerKind {
-//    case mainNet
-//    case testNet
-//    case custom(node: URL, matcher: URL, data: URL)
-//}
-//
-//protocol WavesSDK {
-//    
-//    var services: WavesServices { get }
-//    var crypto: WavesCrypto { get }
-//    var serverKind: ServerKind { get set }
-//    
-//    func initialization(serverKind: ServerKind)
-//}

@@ -282,7 +282,6 @@
 		0ADD7F9B21F22FB60075FC59 /* UIApplication+OpenURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2B21F22FB60075FC59 /* UIApplication+OpenURL.swift */; };
 		0ADD7F9C21F22FB60075FC59 /* UIViewController+Additionals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2C21F22FB60075FC59 /* UIViewController+Additionals.swift */; };
 		0ADD7F9D21F22FB60075FC59 /* UIResponder+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2D21F22FB60075FC59 /* UIResponder+Rx.swift */; };
-		0ADD7F9F21F22FB60075FC59 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F2F21F22FB60075FC59 /* UIViewController+Alert.swift */; };
 		0ADD7FA021F22FB60075FC59 /* RateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F3021F22FB60075FC59 /* RateApp.swift */; };
 		0ADD7FA121F22FB60075FC59 /* UIColor+Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F3121F22FB60075FC59 /* UIColor+Colors.swift */; };
 		0ADD7FA221F22FB60075FC59 /* ControlEvent+Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F3221F22FB60075FC59 /* ControlEvent+Signal.swift */; };
@@ -1171,7 +1170,6 @@
 		0ADD7F2B21F22FB60075FC59 /* UIApplication+OpenURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+OpenURL.swift"; sourceTree = "<group>"; };
 		0ADD7F2C21F22FB60075FC59 /* UIViewController+Additionals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additionals.swift"; sourceTree = "<group>"; };
 		0ADD7F2D21F22FB60075FC59 /* UIResponder+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIResponder+Rx.swift"; sourceTree = "<group>"; };
-		0ADD7F2F21F22FB60075FC59 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		0ADD7F3021F22FB60075FC59 /* RateApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateApp.swift; sourceTree = "<group>"; };
 		0ADD7F3121F22FB60075FC59 /* UIColor+Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Colors.swift"; sourceTree = "<group>"; };
 		0ADD7F3221F22FB60075FC59 /* ControlEvent+Signal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ControlEvent+Signal.swift"; sourceTree = "<group>"; };
@@ -3309,7 +3307,6 @@
 				0ADD7F4021F22FB60075FC59 /* UIView+Shadow.swift */,
 				0ADD7F3621F22FB60075FC59 /* UIView+TouchInset.swift */,
 				0ADD7F2C21F22FB60075FC59 /* UIViewController+Additionals.swift */,
-				0ADD7F2F21F22FB60075FC59 /* UIViewController+Alert.swift */,
 				0ADD7F3C21F22FB60075FC59 /* UIViewController+Rx.swift */,
 				0ADD7F3921F22FB60075FC59 /* UIViewController+SafeArea.swift */,
 				E9A6A499227661940093FC59 /* TableViewNoShadow.swift */,
@@ -5166,7 +5163,6 @@
 				E991BB202202CE090022E27D /* SendFeeTableViewCell.swift in Sources */,
 				E964067E21D5299D00569963 /* DexDomainDTO.swift in Sources */,
 				E96E2A0521D3D9AA00AC2FA9 /* DomainDexQueries.swift in Sources */,
-				0ADD7F9F21F22FB60075FC59 /* UIViewController+Alert.swift in Sources */,
 				E9DC959621A3A5BD0020249F /* StartLeasingTypes.swift in Sources */,
 				0ADD7FAC21F22FB60075FC59 /* UIViewController+Rx.swift in Sources */,
 				E9DB667B21A3938200962639 /* StartLeasingLoadingViewController.swift in Sources */,

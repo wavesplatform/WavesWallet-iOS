@@ -35,7 +35,7 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
     var input: NetworkSettingsModuleInput!
 
     private var accountSettingsRepository: AccountSettingsRepositoryProtocol = FactoryRepositories.instance.accountSettingsRepository
-    //TODO: Library
+    
     private var environmentRepository: EnvironmentRepositoryProtocol = FactoryRepositories.instance.environmentRepository
 
     private let disposeBag: DisposeBag = DisposeBag()

@@ -32,8 +32,7 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                 
                 guard let self = self else { return Observable.empty() }
                 
-                
-                //TODO: Library
+                                
                 let timestampServerDiff = servicesEnvironment.timestampServerDiff
                 
                 let candles = DataService.Query.CandleFilters(amountAsset: amountAsset,
