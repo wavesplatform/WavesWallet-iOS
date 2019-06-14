@@ -172,7 +172,7 @@ fileprivate extension DomainLayer.DTO.Asset {
             isFiat = info.isFiat
         }
 
-        self.isWavesToken = isFiat == false && isGateway == false && isWaves == false
+        self.isWavesToken = isFiat == false && isGateway == false && isWaves == false && isVostok == false
         self.isGeneral = isGeneral
         self.isWaves = isWaves
         self.isFiat = isFiat
