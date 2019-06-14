@@ -57,20 +57,20 @@ extension UIViewController {
     }
 
     var isSmallNavigationBar: Bool {
-        return navigationController?.navigationBar.frame.size.height.rounded(.down) ?? 0 <= Constants.smallNavBarHeight
+        
+        if let nav = navigationController {
+            return nav.navigationBar.frame.size.height.rounded(.down) <= Constants.smallNavBarHeight
+        }
+        return false
     }
 
     func setupTopBarLine() {
         
-        if let nav = navigationController {
-            
-            let showImage = nav.navigationBar.frame.size.height.rounded(.down) <= Constants.smallNavBarHeight
-            
-            if showImage {
-                navigationItem.shadowImage = UIViewController.shadowImage
-            } else {
-                navigationItem.shadowImage = UIViewController.cleanShadowImage
-            }
+        if isSmallNavigationBar {
+            navigationItem.shadowImage = UIViewController.shadowImage
+        }
+        else {
+            navigationItem.shadowImage = UIViewController.cleanShadowImage
         }
     }
     

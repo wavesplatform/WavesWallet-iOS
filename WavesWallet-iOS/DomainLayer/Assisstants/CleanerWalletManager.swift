@@ -31,10 +31,17 @@ struct CleanerWalletManager: TSUD, Codable, Mutating  {
     }
 
     
-    static func setCleanWallet(accountAddress: String) {
+    static func setCleanWallet(accountAddress: String, isClean: Bool) {
 
         var settings = CleanerWalletManager.get()
-        settings.cleanAccounts.insert(accountAddress)
+        if isClean {
+            if settings.cleanAccounts.contains(accountAddress) == false {
+                settings.cleanAccounts.insert(accountAddress)
+            }
+        }
+        else {
+            settings.cleanAccounts.remove(accountAddress)
+        }
         CleanerWalletManager.set(settings)
     }
     
@@ -45,13 +52,30 @@ struct CleanerWalletManager: TSUD, Codable, Mutating  {
 
 extension Reactive where Base == CleanerWalletManager {
     
-    static func setCleanWallet(accountAddress: String) -> Observable<Bool> {
+    static func setCleanWallet(accountAddress: String, isClean: Bool) -> Observable<Bool> {
         return CleanerWalletManager.rx.get()
             .flatMap({ (settings) -> Observable<Bool> in
                 
                 var newSettings = settings
-                newSettings.cleanAccounts.insert(accountAddress)
+                if isClean {
+                    if newSettings.cleanAccounts.contains(accountAddress) == false {
+                        newSettings.cleanAccounts.insert(accountAddress)
+                    }
+                }
+                else {
+                    newSettings.cleanAccounts.remove(accountAddress)
+                }
                 return CleanerWalletManager.rx.set(newSettings)
             })
+    }
+    
+    static func isCleanWallet(by accountAddress: String) -> Observable<Bool> {
+        return Observable.create({ (subscribe) -> Disposable in
+
+            subscribe.onNext(CleanerWalletManager.get().cleanAccounts.contains(accountAddress))
+            subscribe.onCompleted()
+            
+            return Disposables.create()
+        })
     }
 }

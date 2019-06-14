@@ -28,7 +28,7 @@ extension WalletTypes {
             case refresh
         }
 
-        enum Kind {
+        enum Kind: Int {
             case assets
             case leasing
         }
@@ -60,9 +60,19 @@ extension WalletTypes {
 
     struct State: Mutating {
 
+        enum Action {
+            case none
+            case update
+        }
+        
         var assets: [DomainLayer.DTO.SmartAssetBalance]
         var leasing: DTO.Leasing?
         var displayState: DisplayState
+        var isShowCleanWalletBanner: Bool
+        var isNeedCleanWalletBanner: Bool
+        var isHasAppUpdate: Bool
+        var isNeedRunQueryCheckCleanWalletBanner: Bool
+        var action: Action
     }
 
     enum Event {
@@ -78,5 +88,12 @@ extension WalletTypes {
         case tapAddressButton
         case changeDisplay(DisplayState.Kind)
         case showStartLease(Money)
+        case presentSearch(startPoint: CGFloat)
+        case updateApp
+        case setCleanWalletBanner
+        case isShowCleanWalletBanner(Bool)
+        case completeCleanWalletBanner(Bool)
+        case isHasAppUpdate(Bool)
     }
 }
+

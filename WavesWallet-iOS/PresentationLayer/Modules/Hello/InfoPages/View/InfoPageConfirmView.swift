@@ -13,6 +13,7 @@ protocol InfoPageConfirmViewDelegate: AnyObject {
     func infoPageContirmViewDidTapURL(_ url: URL)
 }
 
+//TODO: MOVE URL TO GLOBAL CONSTANTS
 private enum Constants {
     static let termsOfUse = "https://wavesplatform.com/files/docs/Privacy%20Policy_SW.pdf"
     static let termsOfConditions = "https://wavesplatform.com/files/docs/Waves_terms_and_conditions.pdf"
@@ -36,7 +37,11 @@ final class InfoPageConfirmView: UIView {
     @IBOutlet private weak var termsOfUseWidth: NSLayoutConstraint!
     @IBOutlet private weak var termsConditionsWidth: NSLayoutConstraint!
     @IBOutlet private weak var scrollView: UIScrollView!
-
+    @IBOutlet private weak var buttonsScrollView: UIScrollView!
+    
+    @IBOutlet private var rightGradientView: GradientView!
+    @IBOutlet private var leftGradientView: GradientView!
+    
     weak var delegate: InfoPageConfirmViewDelegate?
     
     private var isCheck1 = false
@@ -47,6 +52,18 @@ final class InfoPageConfirmView: UIView {
         super.awakeFromNib()
         setupLocalization()
         setupCheckBoxes()
+        buttonsScrollView.delegate = self
+
+        rightGradientView.startColor = UIColor.basic50.withAlphaComponent(0.0)
+        rightGradientView.endColor = UIColor.basic50
+        rightGradientView.direction = .custom(GradientView.Settings.init(startPoint: CGPoint(x: 0.0, y: 0),
+                                                                         endPoint: CGPoint(x: 1, y: 0),
+                                                                         locations: [0.0, 1]))
+        leftGradientView.startColor = UIColor.basic50
+        leftGradientView.endColor = UIColor.basic50.withAlphaComponent(0.0)
+        leftGradientView.direction = .custom(GradientView.Settings.init(startPoint: CGPoint(x: 0.0, y: 0),
+                                                                        endPoint: CGPoint(x: 1, y: 0),
+                                                                        locations: [0, 1.0]))
     }
     
     @IBAction private func check1Tapped(_ sender: Any) {
@@ -81,6 +98,17 @@ final class InfoPageConfirmView: UIView {
     
     func setupContentInset(_ inset: UIEdgeInsets) {
         scrollView.contentInset = inset
+    }
+}
+
+extension InfoPageConfirmView: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.x > 0 {
+            leftGradientView.isHidden = false
+        } else {
+            leftGradientView.isHidden = true
+        }
     }
 }
 

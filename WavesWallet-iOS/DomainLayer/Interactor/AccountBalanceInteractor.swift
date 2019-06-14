@@ -338,7 +338,7 @@ private extension AccountBalanceInteractor {
         let isNewWallet = assets.count == generalAssets.count
         
         if isNewWallet && CleanerWalletManager.isCleanWallet(by: accountAddress) == false {
-            CleanerWalletManager.setCleanWallet(accountAddress: accountAddress)
+            CleanerWalletManager.setCleanWallet(accountAddress: accountAddress, isClean: true)
         }
         
         if CleanerWalletManager.isCleanWallet(by: accountAddress) {
@@ -402,7 +402,7 @@ private extension AccountBalanceInteractor {
         return assetsBalanceSettingsRepository.saveSettings(by: accountAddress, settings: newSettings)
             .flatMap({ (success) -> Observable<[DomainLayer.DTO.SmartAssetBalance]>  in
                 
-                return CleanerWalletManager.rx.setCleanWallet(accountAddress: accountAddress)
+                return CleanerWalletManager.rx.setCleanWallet(accountAddress: accountAddress, isClean: true)
                     .flatMap({ (success) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
                         
                         return Observable.just(newAssets)

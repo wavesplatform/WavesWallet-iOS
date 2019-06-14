@@ -29,7 +29,7 @@ final class TransactionCardActionsCell: UITableViewCell, Reusable {
     }
 
     @IBOutlet private var actionsControl: ActionsControl!
-
+    
     var tapOnButton: ((Model.Button) -> Void)?
 }
 

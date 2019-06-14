@@ -23,6 +23,8 @@ final class SupportViewController: UIViewController {
     @IBOutlet private var testNetSwitch: UISwitch!
     @IBOutlet private weak var enableStageSwitch: UISwitch!
     
+    @IBOutlet private weak var enableNotificationsSettingDevSwitch: UISwitch!
+    
     
     weak var delegate: SupportViewControllerDelegate?
     private let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
@@ -37,6 +39,7 @@ final class SupportViewController: UIViewController {
         versionLabel.text = version()
         buildVersionLabel.text = buildVersion()
         enableStageSwitch.isOn = ApplicationDebugSettings.isEnableStage
+        enableNotificationsSettingDevSwitch.isOn = ApplicationDebugSettings.isEnableNotificationsSettingDev
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.topbarLogout.image, style: .done, target: self, action: #selector(actionBack))
     }
@@ -53,7 +56,6 @@ final class SupportViewController: UIViewController {
         ApplicationDebugSettings.setupIsEnableStage(isEnable: enableStageSwitch.isOn)
     }
     
-
     @IBAction private func actionCrash(_ sender: Any) {
         
     }

@@ -17,15 +17,43 @@ private struct Leasing {
 }
 
 final class WalletInteractor: WalletInteractorProtocol {
-
+  
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
     private let accountSettingsRepository: AccountSettingsRepositoryProtocol = FactoryRepositories.instance.accountSettingsRepository
 
     private let leasingInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
-
+    
     private let disposeBag: DisposeBag = DisposeBag()
 
+    func isHasAppUpdate() -> Observable<Bool> {
+        return ApplicationVersionUseCase().isHasNewVersion()
+    }
+    
+    func setCleanWalletBanner() -> Observable<Bool> {
+        return authorizationInteractor.authorizedWallet()
+            .flatMap({ (wallet) -> Observable<Bool> in
+                return CleanerWalletManagerBanner.rx.setCleanWalletBanner(accountAddress: wallet.address, isClean: true)
+            })
+    }
+    
+    func isShowCleanWalletBanner() -> Observable<Bool> {
+        return authorizationInteractor.authorizedWallet()
+            .flatMap({ (wallet) -> Observable<Bool> in
+                return CleanerWalletManager.rx.isCleanWallet(by: wallet.address)
+                    .flatMap({ (hasCleanWallet) -> Observable<Bool> in
+                        if hasCleanWallet {
+                            return CleanerWalletManagerBanner.rx.isCleanWalletBanner(by: wallet.address)
+                                .flatMap({ (hasCleanBanner) -> Observable<Bool> in
+                                    return Observable.just(!hasCleanBanner)
+                                })
+                            
+                        }
+                        return Observable.just(false)
+                    })
+            })
+    }
+    
     func assets() -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
         return authorizationInteractor
             .authorizedWallet()

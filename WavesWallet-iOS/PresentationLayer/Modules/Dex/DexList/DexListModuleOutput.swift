@@ -17,4 +17,5 @@ protocol DexListModuleOutput: AnyObject {
 
 protocol DexListRefreshOutput: AnyObject {
     func refreshPairs()
+    func sortPairs()
 }

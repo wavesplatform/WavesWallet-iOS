@@ -548,8 +548,11 @@ extension AuthorizationInteractor {
                 return self.localWalletSeedRepository.deleteSeed(for: wallet.address, seedId: walletEncryption.seedId)
             }
 
+        
         return Observable.zip([localWalletRepository.removeWallet(wallet),
                                deleleteWalletSeed,
+                               CleanerWalletManager.rx.setCleanWallet(accountAddress: wallet.address, isClean: false),
+                               CleanerWalletManagerBanner.rx.setCleanWalletBanner(accountAddress: wallet.address, isClean: false),
                                localWalletRepository.removeWalletEncryption(by: wallet.publicKey)])
             .flatMap({ _ -> Observable<Bool> in
                 let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address)

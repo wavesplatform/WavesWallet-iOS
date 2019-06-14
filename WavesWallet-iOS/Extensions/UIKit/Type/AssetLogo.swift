@@ -83,16 +83,16 @@ extension AssetLogo {
             key += "\(font.familyName)_\(font.lineHeight)"
             
             if specs.isSponsored || specs.hasScript {
-                key += "\(specs.size.width)_\(specs.size.height)"
+                key += "\(specs.size.width)_\(specs.size.height)_\(specs.isSponsored)_\(specs.hasScript)"
             }
-
+            
             return key
         }
     }
 
     private static func cacheKeyForRemoteLogo(icon: DomainLayer.DTO.Asset.Icon,
                                               style: Style) -> String {
-        return "com.wavesplatform.asset.logo.v2.\(icon.name).\(style.key)"
+        return "com.wavesplatform.asset.logo.v2.\(icon.name).\(icon.assetId).\(style.key)"
     }
 
     private static func cacheKeyForLocalLogo(icon: DomainLayer.DTO.Asset.Icon,
@@ -155,7 +155,7 @@ extension AssetLogo {
                                   style: Style,
                                   image: UIImage) -> Observable<UIImage> {
 
-        let image = rxCreateLogo(name: icon.name,
+        let image = rxCreateLogo(icon: icon,
                                  image: image,
                                  style: style)
 
@@ -178,7 +178,7 @@ extension AssetLogo {
                     return Observable.just(image)
                 } else {
                     let logo = AssetLogo(rawValue: icon.name.lowercased())?.image48
-                    let image = rxCreateLogo(name: icon.name,
+                    let image = rxCreateLogo(icon: icon,
                                              image: logo,
                                              style: style)
                     
@@ -190,13 +190,13 @@ extension AssetLogo {
             })
     }
     
-    private static func rxCreateLogo(name: String,
+    private static func rxCreateLogo(icon: DomainLayer.DTO.Asset.Icon,
                                      image: UIImage?,
                                      style: Style) -> Observable<UIImage?> {
         
         return Observable.create { (observer) -> Disposable in
             
-            let logo = createLogo(name: name, image: image, style: style)
+            let logo = createLogo(icon: icon, image: image, style: style)
             observer.onNext(logo)
             observer.onCompleted()
 
@@ -205,12 +205,13 @@ extension AssetLogo {
         .observeOn(MainScheduler.asyncInstance)
     }
 
-    private static func createLogo(name: String,
-                           image: UIImage?,
-                           style: Style) -> UIImage? {
+    private static func createLogo(icon: DomainLayer.DTO.Asset.Icon,
+                                   image: UIImage?,
+                                   style: Style) -> UIImage? {
 
         let size = style.size
         let font = style.font
+        let name = icon.name
 
         UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
         guard let context = UIGraphicsGetCurrentContext() else { return nil }
@@ -231,7 +232,7 @@ extension AssetLogo {
                         blendMode: .normal,
                         alpha: 1)
         } else {
-            let color = UIColor.colorAsset(name: name)
+            let color = UIColor.colorAsset(assetId: icon.assetId)
             context.setFillColor(color.cgColor)
             context.fill(rect)
             if let first = name.first {
@@ -264,7 +265,7 @@ extension AssetLogo {
             context.addPath(UIBezierPath(roundedRect: rect, cornerRadius: rect.height * 0.5).cgPath)
             context.clip()
             
-            let color = UIColor.colorAsset(name: name)
+            let color = UIColor.colorAsset(assetId: icon.assetId)
             context.setFillColor(color.cgColor)
             context.fill(rect)
 
