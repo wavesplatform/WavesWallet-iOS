@@ -7,11 +7,11 @@
 //
 import Foundation
 
-protocol Mutating {
+public protocol Mutating {
     func mutate(transform: (inout Self) -> ()) -> Self
 }
 
-extension Mutating {
+public extension Mutating {
     func mutate(transform: (inout Self) -> ()) -> Self {
         var value = self
         transform(&value)
@@ -19,7 +19,7 @@ extension Mutating {
     }
 }
 
-extension Array where Element: Mutating {
+public extension Array where Element: Mutating {
 
     func mutate(transform: (inout Element) -> ()) -> [Element] {
         return self.map({ element -> Element in
