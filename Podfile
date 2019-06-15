@@ -101,6 +101,34 @@ target 'WavesWallet-iOS' do
     pod 'Crashlytics'
 end
 
+target 'DomainLayer' do
+
+    inherit! :search_paths
+
+    # DB
+    pod 'RealmSwift'
+    pod 'RxRealm'
+
+    # Assisstant
+    pod 'RxSwift'
+    pod 'RxSwiftExt'
+    pod 'RxOptional'
+    pod 'RxGesture'
+    pod 'RxFeedback'
+    pod 'RxReachability'
+
+    # 
+    pod 'KeychainAccess'
+    pod 'CSV.swift'
+    pod 'DeviceKit', '~> 1.3'
+
+    # Waves
+    pod 'WavesSDKExtension', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
+    pod 'WavesSDK', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'    
+    pod 'WavesSDKCrypto', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
+
+end
+
 post_install do |installer|
 
     installer.pods_project.targets.each do |target|

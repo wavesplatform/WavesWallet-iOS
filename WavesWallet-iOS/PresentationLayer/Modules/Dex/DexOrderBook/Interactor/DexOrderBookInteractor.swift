@@ -11,6 +11,7 @@ import RxSwift
 import Moya
 import WavesSDKExtension
 import WavesSDK
+import DomainLayer
 
 private enum Constants {
     static let maxPercent: Float = 99.99
