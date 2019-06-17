@@ -15,6 +15,8 @@ final class StartLeasingCompleteViewController: UIViewController {
     @IBOutlet private weak var buttonOkey: HighlightedButton!
     
     var kind: StartLeasingTypes.Kind!
+    weak var output: StartLeasingModuleOutput?
+    var transaction: DomainLayer.DTO.SmartTransaction!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +42,7 @@ final class StartLeasingCompleteViewController: UIViewController {
     }
     
     @IBAction private func okeyTapped(_ sender: Any) {
+        output?.startLeasingDidSuccess(transaction: transaction, kind: kind)
         self.navigationController?.popToRootViewController(animated: true)
     }
     
