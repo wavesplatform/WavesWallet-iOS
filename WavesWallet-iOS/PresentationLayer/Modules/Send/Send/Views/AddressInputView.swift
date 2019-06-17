@@ -11,6 +11,7 @@ import QRCodeReader
 import RxSwift
 import RxCocoa
 import DomainLayer
+import Extensions
 
 private enum Constants {
     static let animationDuration: TimeInterval = 0.3

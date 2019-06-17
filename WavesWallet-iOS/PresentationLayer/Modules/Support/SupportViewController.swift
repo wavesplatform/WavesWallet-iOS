@@ -10,7 +10,8 @@ import UIKit
 import Crashlytics
 import RxSwift
 import WavesSDKExtension
-
+import Extensions
+import DomainLayer
 
 protocol SupportViewControllerDelegate: AnyObject {
     func closeSupportView(isTestNet: Bool)
@@ -30,7 +31,7 @@ final class SupportViewController: UIViewController {
     private let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let transactions: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
     
-    private let enviroment: EnvironmentRepository = EnvironmentRepository()
+//    private let enviroment: EnvironmentRepository = EnvironmentRepository()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,25 +64,26 @@ final class SupportViewController: UIViewController {
     static var number: Int = 0
     @IBAction private func actionAnyButton(_ sender: Any) {
         
-        enviroment
-            .servicesEnvironment()
-            .subscribe(onNext: { (walletEnvi) in
-                print("walletEnvi")
-            })
+//        enviroment
+//            .servicesEnvironment()
+//            .subscribe(onNext: { (walletEnvi) in
+//                print("walletEnvi")
+//            })
         
         SupportViewController.number = SupportViewController.number + 1
     }
 
 
     @IBAction func actionClean(_ sender: Any) {
-        let auth = FactoryInteractors.instance.authorization
-        auth.authorizedWallet().flatMap { (wallet) -> Observable<Bool> in
-            let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address)
-            try? realm?.write {
-                realm?.deleteAll()
-            }
-            return Observable.just(true)
-        }.subscribe().dispose()
+        //TODO: Libr
+//        let auth = FactoryInteractors.instance.authorization
+//        auth.authorizedWallet().flatMap { (wallet) -> Observable<Bool> in
+//            let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address)
+//            try? realm?.write {
+//                realm?.deleteAll()
+//            }
+//            return Observable.just(true)
+//        }.subscribe().dispose()
     }
 
     @IBAction func actionShowErrorSnack(_ sender: Any) {

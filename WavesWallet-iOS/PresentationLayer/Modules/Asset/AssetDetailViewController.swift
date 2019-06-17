@@ -11,6 +11,7 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 import UIKit
+import Extensions
 
 fileprivate enum Constants {
     static let segmentedControlHeight: CGFloat = 100

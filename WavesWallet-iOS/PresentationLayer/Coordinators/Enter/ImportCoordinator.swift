@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import WavesSDKExtension
 import DomainLayer
+import Extensions
 
 private enum Constants {
     static let duration: TimeInterval = 3

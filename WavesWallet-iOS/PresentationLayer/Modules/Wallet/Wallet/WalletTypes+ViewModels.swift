@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Extensions
+import DomainLayer
 
 // MARK: ViewModel for UITableView
 

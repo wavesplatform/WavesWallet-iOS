@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import WavesSDK
 import DomainLayer
+import Extensions
 
 final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProtocol {
     

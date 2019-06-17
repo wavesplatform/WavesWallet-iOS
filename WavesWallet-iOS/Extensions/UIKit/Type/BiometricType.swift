@@ -6,10 +6,11 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 import UIKit
+import DomainLayer
 
-extension BiometricType {
+public extension BiometricType {
 
-    var title: String? {
+    public var title: String? {
         switch self {
         case .none:
             return nil
@@ -22,7 +23,7 @@ extension BiometricType {
         }
     }
 
-    var icon: UIImage? {
+    public var icon: UIImage? {
 
         switch self {
         case .none:

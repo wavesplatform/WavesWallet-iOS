@@ -10,6 +10,7 @@ import Foundation
 import RxFeedback
 import RxCocoa
 import RxSwift
+import DomainLayer
 
 protocol WalletSearchPresenterProtocol {
     typealias Feedback = (Driver<WalletSearch.State>) -> Signal<WalletSearch.Event>

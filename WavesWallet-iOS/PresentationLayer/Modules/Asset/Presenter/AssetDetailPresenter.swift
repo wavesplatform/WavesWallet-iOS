@@ -10,6 +10,8 @@ import Foundation
 import RxCocoa
 import RxFeedback
 import RxSwift
+import Extensions
+import DomainLayer
 
 final class AssetDetailPresenter: AssetDetailPresenterProtocol {
 

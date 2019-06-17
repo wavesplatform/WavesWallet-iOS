@@ -9,8 +9,9 @@
 import Foundation
 import RxSwift
 import WavesSDKExtension
-
 import WavesSDK
+import Extensions
+import DomainLayer
 
 final class SendInteractor: SendInteractorProtocol {
     

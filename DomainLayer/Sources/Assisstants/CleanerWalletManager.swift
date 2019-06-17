@@ -7,31 +7,32 @@
 //
 
 import Foundation
-import WavesSDKExtension
 import RxSwift
+import WavesSDKExtension
+import Extensions
 
 extension CleanerWalletManager: ReactiveCompatible {}
 
-struct CleanerWalletManager: TSUD, Codable, Mutating  {
+public struct CleanerWalletManager: TSUD, Codable, Mutating  {
     
     private static let key = "com.waves.cleanwallet.settings"
     
     fileprivate var cleanAccounts: Set<String> = Set<String>()
     
-    init() {
+    public init() {
         self.cleanAccounts = .init()
     }
     
-    static var defaultValue: CleanerWalletManager {
+    public static var defaultValue: CleanerWalletManager {
         return CleanerWalletManager()
     }
     
-    static var stringKey: String {
+    public static var stringKey: String {
         return key
     }
 
     
-    static func setCleanWallet(accountAddress: String, isClean: Bool) {
+    public static func setCleanWallet(accountAddress: String, isClean: Bool) {
 
         var settings = CleanerWalletManager.get()
         if isClean {
@@ -45,14 +46,14 @@ struct CleanerWalletManager: TSUD, Codable, Mutating  {
         CleanerWalletManager.set(settings)
     }
     
-    static func isCleanWallet(by accountAddress: String) -> Bool {
+    public static func isCleanWallet(by accountAddress: String) -> Bool {
         return CleanerWalletManager.get().cleanAccounts.contains(accountAddress)
     }
 }
 
 extension Reactive where Base == CleanerWalletManager {
     
-    static func setCleanWallet(accountAddress: String, isClean: Bool) -> Observable<Bool> {
+    public static func setCleanWallet(accountAddress: String, isClean: Bool) -> Observable<Bool> {
         return CleanerWalletManager.rx.get()
             .flatMap({ (settings) -> Observable<Bool> in
                 
@@ -69,7 +70,7 @@ extension Reactive where Base == CleanerWalletManager {
             })
     }
     
-    static func isCleanWallet(by accountAddress: String) -> Observable<Bool> {
+    public static func isCleanWallet(by accountAddress: String) -> Observable<Bool> {
         return Observable.create({ (subscribe) -> Disposable in
 
             subscribe.onNext(CleanerWalletManager.get().cleanAccounts.contains(accountAddress))

@@ -9,6 +9,8 @@
 import UIKit
 import RxSwift
 import WavesSDKExtension
+import Extensions
+import DomainLayer
 
 private struct SettingsScriptPair: TSUD, Codable, Mutating  {
     

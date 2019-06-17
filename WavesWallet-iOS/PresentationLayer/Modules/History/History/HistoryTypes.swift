@@ -8,6 +8,7 @@
 
 import UIKit
 import WavesSDK
+import Extensions
 import DomainLayer
 
 enum HistoryTypes {

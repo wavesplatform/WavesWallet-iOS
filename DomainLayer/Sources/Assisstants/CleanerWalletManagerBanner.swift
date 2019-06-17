@@ -12,25 +12,26 @@ import RxSwift
 
 extension CleanerWalletManagerBanner: ReactiveCompatible {}
 
-struct CleanerWalletManagerBanner: TSUD, Codable, Mutating {
+public struct CleanerWalletManagerBanner: TSUD, Codable, Mutating {
+    
     private static let key = "com.waves.cleanwalletbanner.settings"
 
     fileprivate var cleanAccounts: Set<String> = Set<String>()
     
-    init() {
+    public init() {
         self.cleanAccounts = .init()
     }
     
-    static var defaultValue: CleanerWalletManagerBanner {
+    public static var defaultValue: CleanerWalletManagerBanner {
         return CleanerWalletManagerBanner()
     }
     
-    static var stringKey: String {
+    public static var stringKey: String {
         return key
     }
 }
 
-extension Reactive where Base == CleanerWalletManagerBanner {
+public extension Reactive where Base == CleanerWalletManagerBanner {
     
     static func setCleanWalletBanner(accountAddress: String, isClean: Bool) -> Observable<Bool> {
         return CleanerWalletManagerBanner.rx.get()

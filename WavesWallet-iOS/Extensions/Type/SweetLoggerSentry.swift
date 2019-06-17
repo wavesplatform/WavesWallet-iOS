@@ -8,17 +8,18 @@
 import Foundation
 import Sentry
 import WavesSDKExtension
+
 //TODO: Experement
-final class SweetLoggerSentry: SweetLoggerProtocol {
+public final class SweetLoggerSentry: SweetLoggerProtocol {
 
-    var visibleLevels: [SweetLoggerLevel] = []
+    public private(set) var visibleLevels: [SweetLoggerLevel] = []
 
-    init(visibleLevels: [SweetLoggerLevel]) {
+    public init(visibleLevels: [SweetLoggerLevel]) {
 
         self.visibleLevels = visibleLevels
     }
 
-    func send(message: @escaping @autoclosure () -> Any,
+    public func send(message: @escaping @autoclosure () -> Any,
               level: SweetLoggerLevel,
               file: String,
               function: String,
@@ -31,7 +32,8 @@ final class SweetLoggerSentry: SweetLoggerProtocol {
         let event = Sentry.Event(level: level.sentrySeverity)
         event.message = "\(message())"
 
-        SentryManager.send(event: event)
+        //TODO: Experement
+//        SentryManager.send(event: event)
     }
 }
 

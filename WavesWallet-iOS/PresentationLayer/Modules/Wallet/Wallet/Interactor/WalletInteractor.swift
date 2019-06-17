@@ -9,6 +9,8 @@
 import Foundation
 import RxSwift
 import WavesSDKExtension
+import DomainLayer
+import Extensions
 
 private struct Leasing {
     let balance: DomainLayer.DTO.SmartAssetBalance
@@ -27,7 +29,10 @@ final class WalletInteractor: WalletInteractorProtocol {
     private let disposeBag: DisposeBag = DisposeBag()
 
     func isHasAppUpdate() -> Observable<Bool> {
-        return ApplicationVersionUseCase().isHasNewVersion()
+        
+        //TOOD: Experement
+        return Observable.never()
+//        return ApplicationVersionUseCase().isHasNewVersion()
     }
     
     func setCleanWalletBanner() -> Observable<Bool> {

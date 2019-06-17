@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import Extensions
 import DomainLayer
 
 fileprivate enum Constants {

@@ -10,6 +10,7 @@ import Foundation
 import Base58
 import WavesSDK
 import WavesSDKExtension
+import Extensions
 
 fileprivate enum TransactionDirection {
     case sent

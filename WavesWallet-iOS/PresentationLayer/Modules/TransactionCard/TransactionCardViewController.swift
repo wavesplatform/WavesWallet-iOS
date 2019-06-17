@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 import RxSwift
+import Extensions
+import DomainLayer
 
 private typealias Types = TransactionCard
 

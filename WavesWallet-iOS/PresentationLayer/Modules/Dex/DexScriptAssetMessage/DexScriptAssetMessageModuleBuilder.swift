@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DomainLayer
 
 protocol DexScriptAssetMessageModuleOutput: AnyObject {
     func dexScriptAssetMessageModuleOutputDidTapCheckmark(amountAsset: String, priceAsset: String, doNotShow: Bool)

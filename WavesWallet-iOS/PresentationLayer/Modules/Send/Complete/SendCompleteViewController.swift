@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import DomainLayer
+import Extensions
 
 final class SendCompleteViewController: UIViewController {
 

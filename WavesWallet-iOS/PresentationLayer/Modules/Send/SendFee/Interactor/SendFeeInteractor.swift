@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import DomainLayer
+import Extensions
 
 final class SendFeeInteractor: SendFeeInteractorProtocol {
     

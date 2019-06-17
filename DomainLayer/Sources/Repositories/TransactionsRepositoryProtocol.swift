@@ -126,6 +126,11 @@ public struct BurnTransactionSender {
 public struct CancelLeaseTransactionSender {
     public let leaseId: String
     public let fee: Int64
+    
+    public init(leaseId: String, fee: Int64) {
+        self.leaseId = leaseId
+        self.fee = fee
+    }
 }
 
 public struct DataTransactionSender {

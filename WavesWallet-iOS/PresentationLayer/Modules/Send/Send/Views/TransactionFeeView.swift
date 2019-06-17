@@ -9,6 +9,7 @@
 import UIKit
 import WavesSDKExtension
 import WavesSDK
+import Extensions
 
 private enum Constants {
     static let smallRightOffset: CGFloat = 14

@@ -10,7 +10,7 @@ import Foundation
 import RxFeedback
 import RxSwift
 import RxCocoa
-
+import DomainLayer
 
 final class DexListPresenter: DexListPresenterProtocol {
 

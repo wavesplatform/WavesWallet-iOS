@@ -84,8 +84,8 @@ target 'WavesWallet-iOS' do
     pod 'RxAlamofire'
     pod 'Moya/RxSwift'
 
-    # Parser    
-    pod 'CSV.swift'
+    # # Parser    
+    # pod 'CSV.swift'
 
     # Gen
     pod 'SwiftGen', '~> 5.3.0'
@@ -119,8 +119,61 @@ target 'DomainLayer' do
 
     # 
     pod 'KeychainAccess'
-    pod 'CSV.swift'
+    # pod 'CSV.swift'
     pod 'DeviceKit', '~> 1.3'
+
+    # Waves
+    pod 'WavesSDKExtension', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
+    pod 'WavesSDK', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'    
+    pod 'WavesSDKCrypto', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
+
+end
+
+target 'Extensions' do
+
+    inherit! :search_paths
+
+    # # DB
+    # pod 'RealmSwift'
+    # pod 'RxRealm'
+
+    # Assisstant
+    pod 'RxSwift'
+    pod 'RxSwiftExt'
+    pod 'RxOptional'
+    # pod 'RxGesture'
+    # pod 'RxFeedback'
+    # pod 'RxReachability'
+
+    # Waves
+    pod 'WavesSDKExtension', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
+    pod 'WavesSDK', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'    
+    pod 'WavesSDKCrypto', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
+
+end
+
+target 'DataLayer' do
+
+    inherit! :search_paths
+
+    # External Service
+    pod 'Firebase/Core'
+    pod 'Firebase/Database'
+    pod 'Firebase/Auth'
+    pod 'Firebase/InAppMessagingDisplay'
+
+    # # DB
+    pod 'RealmSwift'
+    pod 'RxRealm'
+
+    # Assisstant
+    pod 'RxSwift'
+    pod 'RxSwiftExt'
+    pod 'RxOptional'
+    pod 'CSV.swift'
+    # pod 'RxGesture'
+    # pod 'RxFeedback'
+    # pod 'RxReachability'
 
     # Waves
     pod 'WavesSDKExtension', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'

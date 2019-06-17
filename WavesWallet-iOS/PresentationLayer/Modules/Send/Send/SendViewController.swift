@@ -11,8 +11,9 @@ import RxSwift
 import RxFeedback
 import RxCocoa
 import WavesSDKExtension
-
 import WavesSDK
+import Extensions
+import DomainLayer
 
 protocol SendResultDelegate: AnyObject {
     func sendResultDidFail(_ error: NetworkError)
