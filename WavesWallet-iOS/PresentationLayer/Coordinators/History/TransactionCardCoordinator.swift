@@ -82,6 +82,12 @@ extension TransactionCardCoordinator: StartLeasingModuleOutput {
 
     func startLeasingDidSuccess(transaction: DomainLayer.DTO.SmartTransaction, kind: StartLeasingTypes.Kind) {
         
+        switch kind {
+        case .cancel:
+            transactionCardViewDismissCard()
+        default:
+            break
+        }
     }
 }
 
