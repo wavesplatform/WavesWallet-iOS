@@ -11,15 +11,20 @@ import WavesSDK
 
 public struct ResponseType <T> {
     
-    let output: T?
-    let error: NetworkError?
+    public let output: T?
+    public let error: NetworkError?
+
+    public init(output: T?, error: NetworkError?) {
+        self.output = output
+        self.error = error
+    }
     
-    enum Result {
+    public enum Result {
         case success(T)
         case error(NetworkError)
     }
     
-    var result: Result {
+    public var result: Result {
         if let output = self.output {
             return Result.success(output)
         }

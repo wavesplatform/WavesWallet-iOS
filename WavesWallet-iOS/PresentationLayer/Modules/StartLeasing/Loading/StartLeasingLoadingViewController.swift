@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import WavesSDK
+import DomainLayer
 
 final class StartLeasingLoadingViewController: UIViewController {
 

@@ -11,6 +11,7 @@ import RxSwift
 import Moya
 import WavesSDKExtension
 import WavesSDK
+import DomainLayer
 
 private enum Constants {
     static let minimumOrderFee: Int64 = 300000
@@ -20,11 +21,11 @@ private enum Constants {
 final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     
     private let auth = FactoryInteractors.instance.authorization
-    private let matcherRepository = FactoryRepositories.instance.matcherRepository
-    private let orderBookRepository = FactoryRepositories.instance.dexOrderBookRepository
+    private let matcherRepository = FactoryInteractors.instance.repositories.matcherRepository
+    private let orderBookRepository = FactoryInteractors.instance.repositories.dexOrderBookRepository
     private let transactionInteractor = FactoryInteractors.instance.transactions
     
-    private let environmentRepository = FactoryRepositories.instance.environmentRepository
+    private let environmentRepository = FactoryInteractors.instance.repositories.environmentRepository
     
     func createOrder(order: DexCreateOrder.DTO.Order) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
         

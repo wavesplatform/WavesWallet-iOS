@@ -9,11 +9,11 @@
 import Foundation
 import RxSwift
 
-enum AccountSettingsRepositoryError: Error {
+public enum AccountSettingsRepositoryError: Error {
     case invalid
 }
 
-protocol AccountSettingsRepositoryProtocol {
+public protocol AccountSettingsRepositoryProtocol {
     func accountSettings(accountAddress: String) -> Observable<DomainLayer.DTO.AccountSettings?>
     func saveAccountSettings(accountAddress: String, settings: DomainLayer.DTO.AccountSettings) -> Observable<DomainLayer.DTO.AccountSettings>
 }

@@ -9,17 +9,17 @@
 import Foundation
 import RxSwift
 
-enum WalletsRepositoryError: Error {
+public enum WalletsRepositoryError: Error {
     case fail
     case notFound
 }
 
-struct WalletsRepositorySpecifications {
-    let isLoggedIn: Bool
+public struct WalletsRepositorySpecifications {
+    public let isLoggedIn: Bool
 }
 
 
-protocol WalletsRepositoryProtocol {
+public protocol WalletsRepositoryProtocol {
     
     func wallet(by publicKey: String) -> Observable<DomainLayer.DTO.Wallet>
     func wallets() -> Observable<[DomainLayer.DTO.Wallet]>

@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-protocol AddressBookRepositoryProtocol {
+public protocol AddressBookRepositoryProtocol {
 
     func contact(by address: String, accountAddress: String) -> Observable<DomainLayer.DTO.Contact?>
     func save(contact: DomainLayer.DTO.Contact, accountAddress: String) -> Observable<Bool>

@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-protocol DexOrderBookRepositoryProtocol {
+public protocol DexOrderBookRepositoryProtocol {
     
     func orderBook(wallet: DomainLayer.DTO.SignedWallet, amountAsset: String, priceAsset: String) -> Observable<DomainLayer.DTO.Dex.OrderBook>
     

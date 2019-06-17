@@ -9,11 +9,12 @@
 import Foundation
 import RxSwift
 import WavesSDK
+import DomainLayer
 
 final class DexListInteractor: DexListInteractorProtocol {
    
-    private let dexRealmRepository = FactoryRepositories.instance.dexRealmRepository
-    private let dexListRepository = FactoryRepositories.instance.dexPairsPriceRepository
+    private let dexRealmRepository = FactoryInteractors.instance.repositories.dexRealmRepository
+    private let dexListRepository = FactoryInteractors.instance.repositories.dexPairsPriceRepository
     private let auth = FactoryInteractors.instance.authorization
     
     func localPairs() -> Observable<DexList.DTO.LocalDisplayInfo> {

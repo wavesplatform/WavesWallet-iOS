@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import WavesSDK
 import RxCocoa
+import DomainLayer
 
 private enum Constants {
     static let animationDuration: TimeInterval = 0.3

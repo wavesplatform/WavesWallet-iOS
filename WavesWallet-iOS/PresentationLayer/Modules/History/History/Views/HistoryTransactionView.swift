@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DomainLayer
 
 final class HistoryTransactionView: UIView, NibOwnerLoadable {
 

@@ -9,17 +9,17 @@
 import Foundation
 import RxSwift
 
-enum TransactionsRepositoryError: Error {
+public enum TransactionsRepositoryError: Error {
     case fail
 }
 
-enum TransactionStatus: Int, Decodable {
+public enum TransactionStatus: Int, Decodable {
     case activeNow
     case completed
     case unconfirmed
 }
 
-enum TransactionType: Int {
+public enum TransactionType: Int {
     case issue = 3
     case transfer = 4
     case reissue = 5
@@ -40,7 +40,7 @@ enum TransactionType: Int {
     case any_20 = 20
     case any_21 = 21
 
-    static var all: [TransactionType] {
+    public static var all: [TransactionType] {
         return [.issue,
                 .transfer,
                 .reissue,
@@ -63,29 +63,52 @@ enum TransactionType: Int {
     }
 }
 
-struct TransactionsSpecifications {
+public struct TransactionsSpecifications {
     
-    struct Page {
-        let offset: Int
-        let limit: Int
+    public struct Page {
+        public let offset: Int
+        public let limit: Int
+
+        public init(offset: Int, limit: Int) {
+            self.offset = offset
+            self.limit = limit
+        }
     }
 
-    let page: Page?
-    let assets: [String]
-    let senders: [String]
-    let types: [TransactionType]
+    public let page: Page?
+    public let assets: [String]
+    public let senders: [String]
+    public let types: [TransactionType]
+
+    public init(page: Page?, assets: [String], senders: [String], types: [TransactionType]) {
+        self.page = page
+        self.assets = assets
+        self.senders = senders
+        self.types = types
+    }
 }
 
 
-struct AliasTransactionSender {
-    let alias: String
-    let fee: Int64
+public struct AliasTransactionSender {
+    public let alias: String
+    public let fee: Int64
+
+    public init(alias: String, fee: Int64) {
+        self.alias = alias
+        self.fee = fee
+    }
 }
 
 public struct LeaseTransactionSender {
     public let recipient: String
     public let amount: Int64
     public let fee: Int64
+
+    public init(recipient: String, amount: Int64, fee: Int64) {
+        self.recipient = recipient
+        self.amount = amount
+        self.fee = fee
+    }
 }
 
 public struct BurnTransactionSender {
@@ -181,21 +204,38 @@ public protocol TransactionsRepositoryProtocol {
 
 extension DomainLayer.DTO {
 
-    struct TransactionFeeRules {
-        struct Rule  {
-            let addSmartAssetFee: Bool
-            let addSmartAccountFee: Bool
-            let minPriceStep: Int64
-            let fee: Int64
-            let pricePerTransfer: Int64
-            let pricePerKb: Int64
+    public struct TransactionFeeRules {
+        public struct Rule  {
+            public let addSmartAssetFee: Bool
+            public let addSmartAccountFee: Bool
+            public let minPriceStep: Int64
+            public let fee: Int64
+            public let pricePerTransfer: Int64
+            public let pricePerKb: Int64
+        
+
+            public init(addSmartAssetFee: Bool, addSmartAccountFee: Bool, minPriceStep: Int64, fee: Int64, pricePerTransfer: Int64, pricePerKb: Int64) {
+                self.addSmartAssetFee = addSmartAssetFee
+                self.addSmartAccountFee = addSmartAccountFee
+                self.minPriceStep = minPriceStep
+                self.fee = fee
+                self.pricePerTransfer = pricePerTransfer
+                self.pricePerKb = pricePerKb
+            }
         }
+        
+        public let smartAssetExtraFee: Int64
+        public let smartAccountExtraFee: Int64
 
-        let smartAssetExtraFee: Int64
-        let smartAccountExtraFee: Int64
+        public let defaultRule: TransactionFeeRules.Rule
+        public let rules: [TransactionType: TransactionFeeRules.Rule]
 
-        let defaultRule: TransactionFeeRules.Rule
-        let rules: [TransactionType: TransactionFeeRules.Rule]
+        public init(smartAssetExtraFee: Int64, smartAccountExtraFee: Int64, defaultRule: TransactionFeeRules.Rule, rules: [TransactionType: TransactionFeeRules.Rule]) {
+            self.smartAssetExtraFee = smartAssetExtraFee
+            self.smartAccountExtraFee = smartAccountExtraFee
+            self.defaultRule = defaultRule
+            self.rules = rules
+        }
     }
 }
 

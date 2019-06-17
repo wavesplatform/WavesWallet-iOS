@@ -9,11 +9,12 @@
 import Foundation
 import RxSwift
 import WavesSDK
+import DomainLayer
 
 final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProtocol {
     
     private let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let coinomatRepository = FactoryRepositories.instance.coinomatRepository
+    private let coinomatRepository = FactoryInteractors.instance.repositories.coinomatRepository
     
     func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> {
         

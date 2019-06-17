@@ -11,20 +11,20 @@ import RxSwift
 
 typealias StringSHA512 = String
 
-enum WalletSeedRepositoryError: Error {
+public enum WalletSeedRepositoryError: Error {
     case fail
     case permissionDenied
     case notFound
 }
 
-struct WalletSeedRepositoryChangePasswordQuery {
+public struct WalletSeedRepositoryChangePasswordQuery {
     let oldSeedId: String
     let newSeedId: String
     let oldPassword: String
     let newPassword: String
 }
 
-protocol WalletSeedRepositoryProtocol {
+public protocol WalletSeedRepositoryProtocol {
     func seed(for address: String, publicKey: String, seedId: String, password: String) -> Observable<DomainLayer.DTO.WalletSeed>
     func saveSeed(for walletSeed: DomainLayer.DTO.WalletSeed, seedId: String, password: String) -> Observable<DomainLayer.DTO.WalletSeed>
     func deleteSeed(for address: String, seedId: String) -> Observable<Bool>

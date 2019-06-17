@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import WavesSDK
+import DomainLayer
 
 protocol TokenBurnInteractorProtocol {
     func getWavesBalance() -> Observable<Money>

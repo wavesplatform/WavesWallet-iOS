@@ -11,7 +11,7 @@ import RxSwift
 import WavesSDKExtension
 
 
-protocol MatcherRepositoryProtocol {
+public protocol MatcherRepositoryProtocol {
     
     func matcherPublicKey(accountAddress: String) -> Observable<PublicKeyAccount>
 }

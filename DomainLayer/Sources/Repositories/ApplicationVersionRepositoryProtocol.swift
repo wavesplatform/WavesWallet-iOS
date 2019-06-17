@@ -9,6 +9,6 @@
 import Foundation
 import RxSwift
 
-protocol ApplicationVersionRepositoryProtocol {
+public protocol ApplicationVersionRepositoryProtocol {
     func version() -> Observable<String>
 }

@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxFeedback
+import DomainLayer
 
 private enum Constants {
     static let buttonHeight: CGFloat = 40

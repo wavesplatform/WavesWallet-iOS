@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-protocol AddressInteractorProtocol {
+public protocol AddressInteractorProtocol {
     func address(by ids: [String], myAddress: String) -> Observable<[DomainLayer.DTO.Address]>
     func addressSync(by ids: [String], myAddress: String) -> SyncObservable<[DomainLayer.DTO.Address]>
 }

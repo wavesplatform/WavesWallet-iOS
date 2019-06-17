@@ -9,14 +9,14 @@
 import Foundation
 import RxSwift
 
-enum AuthorizationType {
+public enum AuthorizationType {
     case passcode(String)
     // The password by format sha512
     case password(String)
     case biometric
 }
 
-enum AuthorizationInteractorError: Error {
+public enum AuthorizationInteractorError: Error {
     case fail
     case walletAlreadyExist
     case walletNotFound
@@ -31,19 +31,19 @@ enum AuthorizationInteractorError: Error {
     case biometricUserFallback
 }
 
-enum AuthorizationAuthStatus {
+public enum AuthorizationAuthStatus {
     case detectBiometric
     case waiting
     case completed(DomainLayer.DTO.Wallet)
 }
 
-enum AuthorizationVerifyAccessStatus {
+public enum AuthorizationVerifyAccessStatus {
     case detectBiometric
     case waiting
     case completed(DomainLayer.DTO.SignedWallet)
 }
 
-protocol AuthorizationInteractorProtocol {
+public protocol AuthorizationInteractorProtocol {
 
     func existWallet(by publicKey: String) -> Observable<DomainLayer.DTO.Wallet>
     func wallets() -> Observable<[DomainLayer.DTO.Wallet]>

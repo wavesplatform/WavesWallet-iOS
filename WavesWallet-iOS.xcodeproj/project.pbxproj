@@ -425,7 +425,6 @@
 		7B6686A822B51E250029E6F1 /* ContactDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66864F22B51E250029E6F1 /* ContactDomainDTO.swift */; };
 		7B6686A922B51E250029E6F1 /* AccountSettingsDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66865022B51E250029E6F1 /* AccountSettingsDomainDTO.swift */; };
 		7B6686AA22B51E250029E6F1 /* ResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66865122B51E250029E6F1 /* ResponseType.swift */; };
-		7B6686AB22B51E250029E6F1 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66865222B51E250029E6F1 /* NetworkError.swift */; };
 		7B6686AD22B51E250029E6F1 /* FactoryInteractors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66865422B51E250029E6F1 /* FactoryInteractors.swift */; };
 		7B6686AE22B51E250029E6F1 /* AccountBalanceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66865622B51E250029E6F1 /* AccountBalanceInteractor.swift */; };
 		7B6686AF22B51E250029E6F1 /* AuthorizationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66865722B51E250029E6F1 /* AuthorizationInteractor.swift */; };
@@ -801,7 +800,6 @@
 		E9DF24F62221ED640077F2EB /* AssetDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DF24F52221ED640077F2EB /* AssetDetailInteractor.swift */; };
 		E9DF24F82221EE180077F2EB /* AssetDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DF24F72221EE180077F2EB /* AssetDetailPresenter.swift */; };
 		E9DF24FA2221EF4D0077F2EB /* AssetDetailTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DF24F92221EF4D0077F2EB /* AssetDetailTypes.swift */; };
-		E9E62D1F22678B7000D7DC95 /* SweetLoggerSentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951124225CD6D80030390C /* SweetLoggerSentry.swift */; };
 		E9EC5BAA2175F35900E5C29A /* Send.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9EC5B362175F35800E5C29A /* Send.storyboard */; };
 		E9EC5BAC2175F35900E5C29A /* SendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EC5B3A2175F35800E5C29A /* SendViewController.swift */; };
 		E9EC5BAD2175F35900E5C29A /* SendModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EC5B3B2175F35800E5C29A /* SendModuleBuilder.swift */; };
@@ -1296,7 +1294,6 @@
 		7B66864F22B51E250029E6F1 /* ContactDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDomainDTO.swift; sourceTree = "<group>"; };
 		7B66865022B51E250029E6F1 /* AccountSettingsDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingsDomainDTO.swift; sourceTree = "<group>"; };
 		7B66865122B51E250029E6F1 /* ResponseType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseType.swift; sourceTree = "<group>"; };
-		7B66865222B51E250029E6F1 /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		7B66865322B51E250029E6F1 /* FactoryRepositories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryRepositories.swift; sourceTree = "<group>"; };
 		7B66865422B51E250029E6F1 /* FactoryInteractors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryInteractors.swift; sourceTree = "<group>"; };
 		7B66865622B51E250029E6F1 /* AccountBalanceInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountBalanceInteractor.swift; sourceTree = "<group>"; };
@@ -2900,7 +2897,6 @@
 			children = (
 				7B66863222B51E250029E6F1 /* DTO */,
 				7B66865122B51E250029E6F1 /* ResponseType.swift */,
-				7B66865222B51E250029E6F1 /* NetworkError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4865,7 +4861,6 @@
 				7B6686AA22B51E250029E6F1 /* ResponseType.swift in Sources */,
 				7B6686C422B51E250029E6F1 /* BiometricManager.swift in Sources */,
 				7B6686E422B52FBA0029E6F1 /* CleanerWalletManagerBanner.swift in Sources */,
-				7B6686AB22B51E250029E6F1 /* NetworkError.swift in Sources */,
 				7B66867122B51E250029E6F1 /* FactoryRepositoriesProtocol.swift in Sources */,
 				7B6686D222B529FE0029E6F1 /* PublicKeyAccount.swift in Sources */,
 				7B6686D522B529FE0029E6F1 /* Data+AES.swift in Sources */,
@@ -4959,7 +4954,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9E62D1F22678B7000D7DC95 /* SweetLoggerSentry.swift in Sources */,
 				E9F78A3F229E990D0065324B /* ScrolledContainerView.swift in Sources */,
 				E9DF24FA2221EF4D0077F2EB /* AssetDetailTypes.swift in Sources */,
 				0A751D38221715F80024D523 /* AppNewsCoordinator.swift in Sources */,

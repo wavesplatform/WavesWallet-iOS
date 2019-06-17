@@ -10,18 +10,17 @@ import Foundation
 import RxSwift
 import WavesSDKExtension
 
-
-enum EnvironmentRepositoryError: Error {
+public enum EnvironmentRepositoryError: Error {
     case invalidURL
     case invalidResponse
 }
 
-protocol ApplicationEnvironmentProtocol {
+public protocol ApplicationEnvironmentProtocol {
     var walletEnvironment: WalletEnvironment { get }
     var timestampServerDiff: Int64 { get }
 }
 
-protocol EnvironmentRepositoryProtocol {
+public protocol EnvironmentRepositoryProtocol {
     
     func applicationEnvironment() -> Observable<ApplicationEnvironmentProtocol>
     

@@ -14,7 +14,7 @@ public enum Sync<Result> {
     case local(Result, error: Error)
     case error(Error)
 
-    var remote: Result?  {
+    public var remote: Result?  {
         switch self {
         case .remote(let model):
             return model
@@ -24,7 +24,7 @@ public enum Sync<Result> {
         }
     }
 
-    var local: (result: Result, error: Error)? {
+    public var local: (result: Result, error: Error)? {
         switch self {
         case .local(let model, let error):
             return (result: model, error: error)
@@ -34,7 +34,7 @@ public enum Sync<Result> {
         }
     }
 
-    var resultIngoreError: Result?  {
+    public var resultIngoreError: Result?  {
         switch self {
         case .remote(let model):
             return model
@@ -46,7 +46,7 @@ public enum Sync<Result> {
         }
     }
 
-    var error: Error? {
+    public var error: Error? {
         switch self {
         case .error(let error):
             return error
@@ -56,7 +56,7 @@ public enum Sync<Result> {
         }
     }
 
-    var anyError: Error? {
+    public var anyError: Error? {
         switch self {
         case .error(let error):
             return error

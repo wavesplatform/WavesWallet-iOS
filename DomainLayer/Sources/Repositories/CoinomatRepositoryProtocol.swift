@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-protocol CoinomatRepositoryProtocol {
+public protocol CoinomatRepositoryProtocol {
     func tunnelInfo(asset: DomainLayer.DTO.Asset, currencyFrom: String, currencyTo: String, walletTo: String, moneroPaymentID: String?) -> Observable<DomainLayer.DTO.Coinomat.TunnelInfo>
     func getRate(asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.Coinomat.Rate>
     func cardLimits(address: String, fiat: String) -> Observable<DomainLayer.DTO.Coinomat.CardLimit>

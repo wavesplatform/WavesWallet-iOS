@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import DomainLayer
 
 private enum Constants {
     static let minScrollOffsetOnKeyboardDismiss: CGFloat = -0.3

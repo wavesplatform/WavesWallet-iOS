@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import DomainLayer
 
 protocol AssetDetailModuleOutput: AnyObject {
 

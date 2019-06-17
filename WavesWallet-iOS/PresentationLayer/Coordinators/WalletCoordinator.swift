@@ -11,6 +11,7 @@ import RxSwift
 import AppsFlyerLib
 import FirebaseAnalytics
 import WavesSDKExtension
+import DomainLayer
 
 private enum Constants {
     static let popoverHeight: CGFloat = 378
@@ -34,7 +35,7 @@ final class WalletCoordinator: Coordinator {
 
     private let disposeBag: DisposeBag = DisposeBag()
     private let authorization: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let walletsRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
+    private let walletsRepository: WalletsRepositoryProtocol = FactoryInteractors.instance.repositories.walletsRepositoryLocal
 
     init(navigationRouter: NavigationRouter){
         self.navigationRouter = navigationRouter

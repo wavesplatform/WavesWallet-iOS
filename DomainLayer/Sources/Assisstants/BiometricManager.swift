@@ -9,15 +9,15 @@
 import Foundation
 import LocalAuthentication
 
-enum BiometricType {
+public enum BiometricType {
     case none
     case touchID
     case faceID
 }
 
-extension BiometricType {
+public extension BiometricType {
 
-    static var biometricByDevice: BiometricType {
+    public static var biometricByDevice: BiometricType {
         get {
             let current = self.enabledBiometric
             if current == .none {
@@ -33,7 +33,7 @@ extension BiometricType {
         }
     }
 
-    static var enabledBiometric: BiometricType {
+    public static var enabledBiometric: BiometricType {
         get {
             let context = LAContext()
 
@@ -56,16 +56,16 @@ extension BiometricType {
     }
 }
 
-final class BiometricManager {
+public final class BiometricManager {
 
-    static var touchIDTypeText: String {
+    public static var touchIDTypeText: String {
         
         //TODO: Experement
         return "" 
 //        return type == .faceID ? Localizable.Waves.General.Biometric.Faceid.title : Localizable.Waves.General.Biometric.Touchid.title
     }
     
-    static var type: BiometricType {
+    public static var type: BiometricType {
         get {
             return BiometricType.enabledBiometric
         }

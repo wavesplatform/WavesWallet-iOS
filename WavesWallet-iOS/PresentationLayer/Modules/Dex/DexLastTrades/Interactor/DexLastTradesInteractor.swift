@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import Moya
 import WavesSDK
+import DomainLayer
 
 private enum Constants {
     static let limit = 100
@@ -23,10 +24,10 @@ final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
     }
     
     private let account = FactoryInteractors.instance.accountBalance
-    private let lastTradesRepository = FactoryRepositories.instance.lastTradesRespository
-    private let orderBookRepository = FactoryRepositories.instance.dexOrderBookRepository
+    private let lastTradesRepository = FactoryInteractors.instance.repositories.lastTradesRespository
+    private let orderBookRepository = FactoryInteractors.instance.repositories.dexOrderBookRepository
     private let auth = FactoryInteractors.instance.authorization
-    private let assetsRepositoryLocal = FactoryRepositories.instance.assetsRepositoryLocal
+    private let assetsRepositoryLocal = FactoryInteractors.instance.repositories.assetsRepositoryLocal
     private let assetsInteractor = FactoryInteractors.instance.assetsInteractor
 
     var pair: DexTraderContainer.DTO.Pair!

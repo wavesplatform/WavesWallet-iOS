@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 import RxFeedback
+import DomainLayer
 
 enum AccountPasswordInteractorError: Error {
     case fail

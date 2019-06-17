@@ -7,12 +7,11 @@
 //
 
 import Foundation
-
+import DomainLayer
 
 enum DexInfoPair {
     enum DTO {}
 }
-
 
 extension DexInfoPair.DTO {
     
@@ -22,4 +21,3 @@ extension DexInfoPair.DTO {
         let isGeneral: Bool
     }
 }
-

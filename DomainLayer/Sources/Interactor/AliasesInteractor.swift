@@ -12,7 +12,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-protocol AliasesInteractorProtocol {
+public protocol AliasesInteractorProtocol {
     func aliases(by accountAddress: String) -> SyncObservable<[DomainLayer.DTO.Alias]>
 }
 

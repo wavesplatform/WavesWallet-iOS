@@ -11,8 +11,8 @@ import RxSwift
 import RxCocoa
 import RxFeedback
 import WavesSDKExtension
-
 import WavesSDK
+import DomainLayer
 
 final class ReceiveCardViewController: UIViewController {
 

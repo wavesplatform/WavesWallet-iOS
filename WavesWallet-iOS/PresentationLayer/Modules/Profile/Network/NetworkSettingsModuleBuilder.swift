@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DomainLayer
 
 struct NetworkSettingsModuleBuilder: ModuleBuilderOutput {
 

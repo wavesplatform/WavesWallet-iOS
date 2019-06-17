@@ -3,6 +3,7 @@ import RxSwift
 import RealmSwift
 import Alamofire
 import Moya
+import DomainLayer
 
 final class DexMarketInteractor: DexMarketInteractorProtocol {
     
@@ -12,11 +13,11 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
     private let searchPairsSubject: PublishSubject<[DomainLayer.DTO.Dex.SmartPair]> = PublishSubject<[DomainLayer.DTO.Dex.SmartPair]>()
     private let disposeBag: DisposeBag = DisposeBag()
 
-    private let dexRealmRepository: DexRealmRepositoryProtocol = FactoryRepositories.instance.dexRealmRepository
+    private let dexRealmRepository: DexRealmRepositoryProtocol = FactoryInteractors.instance.repositories.dexRealmRepository
     private let auth = FactoryInteractors.instance.authorization
     
-    private let environment = FactoryRepositories.instance.environmentRepository
-    private let orderBookRepository = FactoryRepositories.instance.dexOrderBookRepository
+    private let environment = FactoryInteractors.instance.repositories.environmentRepository
+    private let orderBookRepository = FactoryInteractors.instance.repositories.dexOrderBookRepository
 
     func pairs() -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
 

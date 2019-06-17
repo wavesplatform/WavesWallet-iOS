@@ -7,8 +7,8 @@
 //
 
 import Foundation
-
 import WavesSDK
+import DomainLayer
 
 enum PasscodeTypes {
     enum DTO { }

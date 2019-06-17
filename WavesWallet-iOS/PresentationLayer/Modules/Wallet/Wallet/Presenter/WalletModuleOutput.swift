@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import DomainLayer
 
 protocol WalletModuleOutput: AnyObject {
     func showWalletSort(balances: [DomainLayer.DTO.SmartAssetBalance])

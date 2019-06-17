@@ -64,7 +64,7 @@ final class SweetMigration {
     }
 }
 
-final class MigrationInteractor {
+public final class MigrationInteractor {
 
     private var walletsRepository: WalletsRepositoryProtocol
 

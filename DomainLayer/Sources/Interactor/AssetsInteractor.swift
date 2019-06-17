@@ -13,7 +13,7 @@ import RealmSwift
 import RxRealm
 import RxSwift
 
-protocol AssetsInteractorProtocol {
+public protocol AssetsInteractorProtocol {
     func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]>
     func assetsSync(by ids: [String], accountAddress: String) -> SyncObservable<[DomainLayer.DTO.Asset]>
 }

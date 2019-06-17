@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import RxSwift
+import DomainLayer
 
 private struct Constants {
     static let wavesExplorerTransactionUrl = "https://wavesexplorer.com/tx/"

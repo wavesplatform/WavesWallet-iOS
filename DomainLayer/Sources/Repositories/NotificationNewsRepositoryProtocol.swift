@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-protocol NotificationNewsRepositoryProtocol  {
+public protocol NotificationNewsRepositoryProtocol  {
 
     func notificationNews() -> Observable<[DomainLayer.DTO.NotificationNews]>
 }

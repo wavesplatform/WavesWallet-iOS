@@ -14,7 +14,7 @@ import WavesSDK
 final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
  
     private let auth = FactoryInteractors.instance.authorization
-    private let coinomatRepository = FactoryRepositories.instance.coinomatRepository
+    private let coinomatRepository = FactoryInteractors.instance.repositories.coinomatRepository
     private let accountBalance = FactoryInteractors.instance.accountBalance
 
     func getInfo(fiatType: ReceiveCard.DTO.FiatType) -> Observable<ResponseType<ReceiveCard.DTO.Info>> {

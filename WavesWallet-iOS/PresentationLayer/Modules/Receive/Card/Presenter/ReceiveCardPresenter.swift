@@ -17,7 +17,7 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
     var interactor: ReceiveCardInteractorProtocol!
     private let disposeBag = DisposeBag()
     
-    private let coinomateRepository = FactoryRepositories.instance.coinomatRepository
+    private let coinomateRepository = FactoryInteractors.instance.repositories.coinomatRepository
     
     func system(feedbacks: [ReceiveCardPresenter.Feedback]) {
         var newFeedbacks = feedbacks

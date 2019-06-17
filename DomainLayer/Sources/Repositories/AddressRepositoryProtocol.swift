@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-protocol AddressRepositoryProtocol {
+public protocol AddressRepositoryProtocol {
 
     func isSmartAddress(accountAddress: String) -> Observable<Bool>
 }
