@@ -9,6 +9,6 @@
 import Foundation
 import RxSwift
 
-protocol UtilsRepositoryProtocol {
+public protocol UtilsRepositoryProtocol {
     func timestampServerDiff(accountAddress: String) -> Observable<Int64>
 }

@@ -8,8 +8,8 @@
 
 import Foundation
 
-extension DomainLayer.DTO.SmartTransaction.Exchange {
-    var myOrder: Order {
+public extension DomainLayer.DTO.SmartTransaction.Exchange {
+    public var myOrder: Order {
         if order1.sender.isMyAccount && order2.sender.isMyAccount {
             return order1.timestamp > order2.timestamp ? order1 : order2
         } else if order1.sender.isMyAccount {
@@ -21,7 +21,7 @@ extension DomainLayer.DTO.SmartTransaction.Exchange {
         }
     }
 
-    var sell: Order {
+    public var sell: Order {
         if order1.kind == .sell {
             return order1
         } else {
@@ -29,7 +29,7 @@ extension DomainLayer.DTO.SmartTransaction.Exchange {
         }
     }
 
-    var buy: Order {
+    public var buy: Order {
         if order1.kind == .buy {
             return order1
         } else {

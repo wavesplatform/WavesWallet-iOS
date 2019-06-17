@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import DomainLayer
 
 private enum Constants {
     static let popoverHeight: CGFloat = 378

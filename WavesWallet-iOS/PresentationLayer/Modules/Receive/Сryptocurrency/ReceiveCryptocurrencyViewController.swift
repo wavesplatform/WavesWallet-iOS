@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxFeedback
 import RxSwift
-
+import DomainLayer
 
 final class ReceiveCryptocurrencyViewController: UIViewController {
 

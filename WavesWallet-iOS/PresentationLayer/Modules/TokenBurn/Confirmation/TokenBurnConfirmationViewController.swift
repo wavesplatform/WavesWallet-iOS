@@ -8,6 +8,7 @@
 
 import UIKit
 import WavesSDKExtension
+import DomainLayer
 
 private enum Constants {
     static let cornerRadius: CGFloat = 2

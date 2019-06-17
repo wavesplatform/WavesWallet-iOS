@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import DomainLayer
 
 private enum Constants {
     static let tabBarItemImageInset = UIEdgeInsets.init(top: 0, left: 0, bottom: -8, right: 0)
@@ -43,7 +44,7 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
     private let disposeBag = DisposeBag()
 
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let walletsRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
+    private let walletsRepository: WalletsRepositoryProtocol = FactoryInteractors.instance.repositories.walletsRepositoryLocal
 
     private let navigationRouterWallet: NavigationRouter = {
 

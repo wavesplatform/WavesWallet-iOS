@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import DomainLayer
 
 protocol DexCreateOrderInteractorProtocol {
     func createOrder(order: DexCreateOrder.DTO.Order) -> Observable<ResponseType<DexCreateOrder.DTO.Output>>

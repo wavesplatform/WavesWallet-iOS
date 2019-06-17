@@ -9,10 +9,11 @@
 import Foundation
 import RxSwift
 import RealmSwift
+import DomainLayer
 
 final class DexSortInteractor: DexSortInteractorProtocol {
     
-    private let reposity = FactoryRepositories.instance.dexRealmRepository
+    private let reposity = FactoryInteractors.instance.repositories.dexRealmRepository
     private let auth = FactoryInteractors.instance.authorization
     private let disposeBag = DisposeBag()
     

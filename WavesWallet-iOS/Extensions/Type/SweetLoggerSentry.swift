@@ -8,7 +8,7 @@
 import Foundation
 import Sentry
 import WavesSDKExtension
-
+//TODO: Experement
 final class SweetLoggerSentry: SweetLoggerProtocol {
 
     var visibleLevels: [SweetLoggerLevel] = []

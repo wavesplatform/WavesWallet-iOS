@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import DomainLayer
 
 enum ChangePasswordTypes {
     enum DTO { }

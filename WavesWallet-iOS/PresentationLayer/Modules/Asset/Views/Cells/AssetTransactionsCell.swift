@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DomainLayer
 
 fileprivate enum Constants {
     static let collectionViewSpacing: CGFloat = 16

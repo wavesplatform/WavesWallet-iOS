@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol FactoryInteractorsProtocol {
+public protocol FactoryInteractorsProtocol {
     var assetsInteractor: AssetsInteractorProtocol { get }    
     var accountBalance: AccountBalanceInteractorProtocol { get }
     var transactions: TransactionsInteractorProtocol { get }

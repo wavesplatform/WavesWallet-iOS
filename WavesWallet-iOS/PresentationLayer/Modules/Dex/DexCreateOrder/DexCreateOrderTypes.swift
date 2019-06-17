@@ -8,6 +8,7 @@
 
 import Foundation
 import WavesSDK
+import DomainLayer
 
 enum DexCreateOrder {
     enum DTO {}

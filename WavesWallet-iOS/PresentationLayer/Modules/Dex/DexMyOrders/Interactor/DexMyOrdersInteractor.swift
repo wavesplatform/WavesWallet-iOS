@@ -8,11 +8,12 @@
 
 import Foundation
 import RxSwift
+import DomainLayer
 
 final class DexMyOrdersInteractor: DexMyOrdersInteractorProtocol {
     
     private let auth = FactoryInteractors.instance.authorization
-    private let repository = FactoryRepositories.instance.dexOrderBookRepository
+    private let repository = FactoryInteractors.instance.repositories.dexOrderBookRepository
     
     var pair: DexTraderContainer.DTO.Pair!
     

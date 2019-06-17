@@ -7,16 +7,23 @@
 //
 
 import Foundation
+import DomainLayer
 
-enum DexTraderContainer {
-    enum DTO {}
+public enum DexTraderContainer {
+    public enum DTO {}
 }
 
-extension DexTraderContainer.DTO {
+public extension DexTraderContainer.DTO {
     
-    struct Pair {
-        let amountAsset: DomainLayer.DTO.Dex.Asset
-        let priceAsset: DomainLayer.DTO.Dex.Asset
-        let isGeneral: Bool
+    public struct Pair {
+        public let amountAsset: DomainLayer.DTO.Dex.Asset
+        public let priceAsset: DomainLayer.DTO.Dex.Asset
+        public let isGeneral: Bool
+
+        public init(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, isGeneral: Bool) {
+            self.amountAsset = amountAsset
+            self.priceAsset = priceAsset
+            self.isGeneral = isGeneral
+        }
     }
 }

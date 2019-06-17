@@ -10,6 +10,7 @@ import Foundation
 import RxFeedback
 import RxSwift
 import RxCocoa
+import DomainLayer
 
 protocol AliasesModuleOutput: AnyObject {
     func aliasesCreateAlias()

@@ -10,6 +10,7 @@ import Foundation
 import RxFeedback
 import RxSwift
 import RxCocoa
+import DomainLayer
 
 protocol AddressesKeysModuleOutput: AnyObject {
     func addressesKeysNeedPrivateKey(wallet: DomainLayer.DTO.Wallet, callback: @escaping ((DomainLayer.DTO.SignedWallet?) -> Void))
@@ -35,7 +36,7 @@ final class AddressesKeysPresenter: AddressesKeysPresenterProtocol {
 
     private let disposeBag: DisposeBag = DisposeBag()
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let aliasesRepository: AliasesRepositoryProtocol = FactoryRepositories.instance.aliasesRepositoryRemote
+    private let aliasesRepository: AliasesRepositoryProtocol = FactoryInteractors.instance.repositories.aliasesRepositoryRemote
 
     var moduleInput: AddressesKeysModuleInput!
     weak var moduleOutput: AddressesKeysModuleOutput?

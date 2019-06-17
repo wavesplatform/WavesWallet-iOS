@@ -18,11 +18,11 @@ fileprivate enum Constants {
     static let durationInseconds: Double = 0
 }
 
-enum AccountBalanceInteractorError: Error {
+public enum AccountBalanceInteractorError: Error {
     case fail
 }
 
-protocol AccountBalanceInteractorProtocol {
+public protocol AccountBalanceInteractorProtocol {
     func balances() -> Observable<[DomainLayer.DTO.SmartAssetBalance]>
     func balances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.SmartAssetBalance]>
     func balance(by assetId: String,

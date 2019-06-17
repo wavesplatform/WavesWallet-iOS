@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-final class ApplicationVersionUseCase {
+public final class ApplicationVersionUseCase {
     
     private let applicationVersionRepository: ApplicationVersionRepositoryProtocol
     

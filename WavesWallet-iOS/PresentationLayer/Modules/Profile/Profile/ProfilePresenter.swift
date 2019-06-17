@@ -10,6 +10,7 @@ import Foundation
 import RxFeedback
 import RxSwift
 import RxCocoa
+import DomainLayer
 
 protocol ProfileModuleOutput: AnyObject {
 
@@ -54,9 +55,9 @@ final class ProfilePresenter: ProfilePresenterProtocol {
 
     private let disposeBag: DisposeBag = DisposeBag()
 
-    private let blockRepository: BlockRepositoryProtocol = FactoryRepositories.instance.blockRemote
+    private let blockRepository: BlockRepositoryProtocol = FactoryInteractors.instance.repositories.blockRemote
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let walletsRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
+    private let walletsRepository: WalletsRepositoryProtocol = FactoryInteractors.instance.repositories.walletsRepositoryLocal
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
 
     weak var moduleOutput: ProfileModuleOutput?

@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import DomainLayer
 
 final class AddressBookInteractor: AddressBookInteractorProtocol {
 

@@ -39,7 +39,7 @@ public final class FactoryInteractors: FactoryInteractorsProtocol {
     //TODO: Experement
     public var repositories: FactoryRepositoriesProtocol! = nil
 
-    private(set) lazy var assetsInteractor: AssetsInteractorProtocol = {
+    public private(set) lazy var assetsInteractor: AssetsInteractorProtocol = {
         
         let interactor = AssetsInteractor(assetsRepositoryLocal: repositories.assetsRepositoryLocal,
                                           assetsRepositoryRemote: repositories.assetsRepositoryRemote)
@@ -47,7 +47,7 @@ public final class FactoryInteractors: FactoryInteractorsProtocol {
         return interactor
     }()
 
-    private(set) lazy var accountBalance: AccountBalanceInteractorProtocol = {
+    public private(set) lazy var accountBalance: AccountBalanceInteractorProtocol = {
         
         let interactor = AccountBalanceInteractor(authorizationInteractor: self.authorization,
                                                   balanceRepositoryRemote: repositories.accountBalanceRepositoryRemote,
@@ -59,7 +59,7 @@ public final class FactoryInteractors: FactoryInteractorsProtocol {
         return interactor
     }()
 
-    private(set) lazy var transactions: TransactionsInteractorProtocol = {
+    public private(set) lazy var transactions: TransactionsInteractorProtocol = {
         
         let interactor = TransactionsInteractor(transactionsRepositoryLocal: repositories.transactionsRepositoryLocal,
                                                 transactionsRepositoryRemote: repositories.transactionsRepositoryRemote,
@@ -72,14 +72,14 @@ public final class FactoryInteractors: FactoryInteractorsProtocol {
         return interactor
     }()
 
-    private(set) lazy var address: AddressInteractorProtocol = {
+    public private(set) lazy var address: AddressInteractorProtocol = {
         
         let interactor = AddressInteractor(addressBookRepository: repositories.addressBookRepository,
                                             aliasesInteractor: self.aliases)
         return interactor
     }()
 
-    private(set) lazy var authorization: AuthorizationInteractorProtocol = {
+    public private(set) lazy var authorization: AuthorizationInteractorProtocol = {
 
         let interactor = AuthorizationInteractor(localWalletRepository: repositories.walletsRepositoryLocal,
                                                  localWalletSeedRepository: repositories.walletSeedRepositoryLocal,
@@ -90,7 +90,7 @@ public final class FactoryInteractors: FactoryInteractorsProtocol {
         return interactor
     }()
 
-    private(set) lazy var aliases: AliasesInteractorProtocol = {
+    public private(set) lazy var aliases: AliasesInteractorProtocol = {
 
         let interactor = AliasesInteractor(aliasesRepositoryRemote: repositories.aliasesRepositoryRemote,
                                            aliasesRepositoryLocal: repositories.aliasesRepositoryLocal)
@@ -98,7 +98,7 @@ public final class FactoryInteractors: FactoryInteractorsProtocol {
         return interactor
     }()
 
-    private(set) lazy var assetsBalanceSettings: AssetsBalanceSettingsInteractorProtocol = {
+    public private(set) lazy var assetsBalanceSettings: AssetsBalanceSettingsInteractorProtocol = {
         
         let interactor = AssetsBalanceSettingsInteractor(assetsBalanceSettingsRepositoryLocal: repositories.assetsBalanceSettingsRepositoryLocal,
                                                          environmentRepository: repositories.environmentRepository,
@@ -107,12 +107,12 @@ public final class FactoryInteractors: FactoryInteractorsProtocol {
         return interactor
     }()
 
-    private(set) lazy var migrationInteractor: MigrationInteractor = {
+    public private(set) lazy var migrationInteractor: MigrationInteractor = {
         
         return MigrationInteractor(walletsRepository: repositories.walletsRepositoryLocal)
     }()
     
-    private(set) lazy var applicationVersionUseCase: ApplicationVersionUseCase = ApplicationVersionUseCase(applicationVersionRepository: repositories.applicationVersionRepository)
+    public private(set) lazy var applicationVersionUseCase: ApplicationVersionUseCase = ApplicationVersionUseCase(applicationVersionRepository: repositories.applicationVersionRepository)
     
     fileprivate init() {
         self.repositories = nil

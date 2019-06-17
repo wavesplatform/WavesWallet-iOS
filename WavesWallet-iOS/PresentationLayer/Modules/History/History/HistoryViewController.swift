@@ -11,6 +11,7 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 import SwiftDate
+import DomainLayer
 
 fileprivate enum Constants {
     static let historyDateFormatterKey: String = "historyDateFormatterKey"

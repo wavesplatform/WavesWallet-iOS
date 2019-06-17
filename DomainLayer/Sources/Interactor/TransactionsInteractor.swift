@@ -10,16 +10,16 @@ import Foundation
 import Moya
 import RxSwift
 import WavesSDKExtension
-
 import WavesSDK
+import DomainLayer
 
-enum TransactionsInteractorError: Error {
+public enum TransactionsInteractorError: Error {
     case invalid
     case commissionReceiving
 }
 
-extension DomainLayer.Query {
-    enum TransactionSpecificationType {
+public extension DomainLayer.Query {
+    public enum TransactionSpecificationType {
         case createAlias
         case lease
         case burn(assetID: String)
@@ -31,7 +31,7 @@ extension DomainLayer.Query {
 
 let TransactionFeeDefaultRule: String = "default"
 
-protocol TransactionsInteractorProtocol {
+public protocol TransactionsInteractorProtocol {
 
     func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.SmartTransaction>
     func transactionsSync(by accountAddress: String, specifications: TransactionsSpecifications) -> SyncObservable<[DomainLayer.DTO.SmartTransaction]>

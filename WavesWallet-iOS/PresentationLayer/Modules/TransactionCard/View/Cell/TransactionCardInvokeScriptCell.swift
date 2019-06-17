@@ -9,6 +9,7 @@
 import UIKit
 import WavesSDKExtension
 import WavesSDK
+import DomainLayer
 
 private enum Constants {
     static let paymentBottomOffset: CGFloat = 14

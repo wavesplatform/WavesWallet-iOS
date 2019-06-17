@@ -10,6 +10,7 @@ import Foundation
 import RxFeedback
 import RxSwift
 import RxCocoa
+import DomainLayer
 
 protocol MyAddressModuleOutput: AnyObject {
     func myAddressShowAliases(_ aliases: [DomainLayer.DTO.Alias])
@@ -29,7 +30,7 @@ final class MyAddressPresenter: MyAddressPresenterProtocol {
 
     private let disposeBag: DisposeBag = DisposeBag()
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let aliasesRepository: AliasesRepositoryProtocol = FactoryRepositories.instance.aliasesRepositoryRemote
+    private let aliasesRepository: AliasesRepositoryProtocol = FactoryInteractors.instance.repositories.aliasesRepositoryRemote
 
     weak var moduleOutput: MyAddressModuleOutput?
 

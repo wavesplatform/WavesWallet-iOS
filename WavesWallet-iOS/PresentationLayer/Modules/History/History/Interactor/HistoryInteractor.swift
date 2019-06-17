@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import DomainLayer
 
 fileprivate enum Constants {
     static let limitTransactions = 10000

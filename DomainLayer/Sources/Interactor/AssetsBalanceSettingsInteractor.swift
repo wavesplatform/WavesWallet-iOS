@@ -10,12 +10,11 @@ import Foundation
 import RxSwift
 import WavesSDKExtension
 
-
 private enum Constants {
     static let sortLevelNotFound: Float = -1
 }
 
-protocol AssetsBalanceSettingsInteractorProtocol {
+public protocol AssetsBalanceSettingsInteractorProtocol {
 
     func settings(by accountAddress: String, assets: [DomainLayer.DTO.Asset]) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]>
     func setFavorite(by accountAddress: String, assetId: String, isFavorite: Bool) -> Observable<Bool>

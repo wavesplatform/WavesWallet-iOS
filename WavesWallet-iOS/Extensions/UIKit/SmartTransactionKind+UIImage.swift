@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import DomainLayer
 
 extension DomainLayer.DTO.SmartTransaction.Kind {
 

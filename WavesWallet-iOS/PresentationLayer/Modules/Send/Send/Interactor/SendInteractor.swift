@@ -17,8 +17,8 @@ final class SendInteractor: SendInteractorProtocol {
     private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
     private let assetInteractor = FactoryInteractors.instance.assetsInteractor
     private let auth = FactoryInteractors.instance.authorization
-    private let coinomatRepository = FactoryRepositories.instance.coinomatRepository
-    private let aliasRepository = FactoryRepositories.instance.aliasesRepositoryRemote
+    private let coinomatRepository = FactoryInteractors.instance.repositories.coinomatRepository
+    private let aliasRepository = FactoryInteractors.instance.repositories.aliasesRepositoryRemote
     private let transactionInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
     private let accountBalance = FactoryInteractors.instance.accountBalance
 

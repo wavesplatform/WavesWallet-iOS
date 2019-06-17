@@ -9,10 +9,10 @@
 import Foundation
 import RxSwift
 
-enum BlockRepositoryError: Error {
+public enum BlockRepositoryError: Error {
     case fail
 }
 
-protocol BlockRepositoryProtocol {
+public protocol BlockRepositoryProtocol {
     func height(accountAddress: String) -> Observable<Int64>
 }

@@ -11,6 +11,7 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 import RxOptional
+import DomainLayer
 
 protocol AccountPasswordModuleInput {
     var kind: AccountPasswordTypes.DTO.Kind { get }

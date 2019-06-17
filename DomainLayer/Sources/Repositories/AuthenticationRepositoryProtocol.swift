@@ -9,14 +9,14 @@
 import Foundation
 import RxSwift
 
-enum AuthenticationRepositoryError: Error {
+public enum AuthenticationRepositoryError: Error {
     case fail
     case passcodeIncorrect
     case permissionDenied
     case attemptsEnded
 }
 
-protocol AuthenticationRepositoryProtocol {
+public protocol AuthenticationRepositoryProtocol {
     func registration(with id: String, keyForPassword: String, passcode: String) -> Observable<Bool>
     func auth(with id: String, passcode: String) -> Observable<String>
     func changePasscode(with id: String, oldPasscode: String, passcode: String) -> Observable<Bool>
