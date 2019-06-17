@@ -39,42 +39,41 @@ extension DomainLayer.DTO.ReissueTransaction {
 
     init(transaction: NodeService.DTO.ReissueTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
         
-        type = transaction.type
-        id = transaction.id
-        sender = transaction.sender.normalizeAddress(environment: environment)
-        senderPublicKey = transaction.senderPublicKey
-        fee = transaction.fee
-        timestamp = transaction.timestamp
-        version = transaction.version
-        height = transaction.height
-        modified = Date()
-
-        signature = transaction.signature
-        assetId = transaction.assetId
-        chainId = transaction.chainId
-        quantity = transaction.quantity
-        reissuable = transaction.reissuable
-        proofs = transaction.proofs
-        self.status = status
+        self.init(type: transaction.type,
+                  id: transaction.id,
+                  sender: transaction.sender.normalizeAddress(environment: environment),
+                  senderPublicKey: transaction.senderPublicKey,
+                  fee: transaction.fee,
+                  timestamp: transaction.timestamp,
+                  version: transaction.version,
+                  height: transaction.height,
+                  signature: transaction.signature,
+                  proofs: transaction.proofs,
+                  chainId: transaction.chainId,
+                  assetId: transaction.assetId,
+                  quantity: transaction.quantity,
+                  reissuable: transaction.reissuable,
+                  modified: Date(),
+                  status: status)
     }
 
     init(transaction: ReissueTransaction) {
-        type = transaction.type
-        id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.senderPublicKey
-        fee = transaction.fee
-        timestamp = transaction.timestamp
-        version = transaction.version
-        height = transaction.height
-        modified = transaction.modified
-
-        signature = transaction.signature
-        assetId = transaction.assetId
-        chainId = transaction.chainId.value
-        quantity = transaction.quantity
-        reissuable = transaction.reissuable
-        proofs = transaction.proofs.toArray()
-        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
+        
+        self.init(type: transaction.type,
+                  id: transaction.id,
+                  sender: transaction.sender,
+                  senderPublicKey: transaction.senderPublicKey,
+                  fee: transaction.fee,
+                  timestamp: transaction.timestamp,
+                  version: transaction.version,
+                  height: transaction.height,
+                  signature: transaction.signature,
+                  proofs: transaction.proofs.toArray(),
+                  chainId: transaction.chainId.value,
+                  assetId: transaction.assetId,
+                  quantity: transaction.quantity,
+                  reissuable: transaction.reissuable,
+                  modified: transaction.modified,
+                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
     }
 }
