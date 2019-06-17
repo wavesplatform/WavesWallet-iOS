@@ -8,6 +8,7 @@
 
 import Foundation
 import DomainLayer
+import Extensions
 
 private struct Constants {
     static let maxVisibleRecipients: Int = 3    

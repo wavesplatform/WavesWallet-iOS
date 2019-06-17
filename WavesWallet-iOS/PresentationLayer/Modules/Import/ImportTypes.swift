@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import Extensions
 
 enum ImportTypes {
     enum DTO { }

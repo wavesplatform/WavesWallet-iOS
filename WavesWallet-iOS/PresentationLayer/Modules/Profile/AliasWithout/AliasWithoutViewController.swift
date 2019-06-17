@@ -8,7 +8,8 @@
 
 import UIKit
 import RxSwift
-
+import Extensions
+import DomainLayer
 
 protocol AliasWithoutViewControllerDelegate: AnyObject {
     func aliasWithoutUserTapCreateNewAlias()

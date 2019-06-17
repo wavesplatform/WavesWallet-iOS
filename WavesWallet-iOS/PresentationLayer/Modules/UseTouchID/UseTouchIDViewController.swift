@@ -10,6 +10,8 @@ import UIKit
 import LocalAuthentication
 import RxSwift
 import RxOptional
+import Extensions
+import DomainLayer
 
 protocol UseTouchIDModuleOutput: AnyObject {
     func userSkipRegisterBiometric(wallet: DomainLayer.DTO.Wallet)

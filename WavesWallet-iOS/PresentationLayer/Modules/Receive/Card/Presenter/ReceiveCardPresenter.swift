@@ -11,6 +11,8 @@ import RxSwift
 import RxFeedback
 import RxCocoa
 import WavesSDK
+import Extensions
+import DomainLayer
 
 final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
     

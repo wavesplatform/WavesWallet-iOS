@@ -12,7 +12,7 @@ import Realm
 import RealmSwift
 import Base58
 import WavesSDKExtension
-
+import Extensions
 
 fileprivate struct ApplicationVersion: Codable, TSUD {
 
@@ -70,11 +70,11 @@ public final class MigrationInteractor {
 
     private var sweetMigration: SweetMigration = SweetMigration()
 
-    init(walletsRepository: WalletsRepositoryProtocol) {
+    public init(walletsRepository: WalletsRepositoryProtocol) {
         self.walletsRepository = walletsRepository
     }
 
-    func migration() -> Observable<Void> {
+    public func migration() -> Observable<Void> {
 
         sweetMigration.register(targetVersion: "2.0") { [weak self] () -> Observable<Void> in
             guard let self = self else { return Observable.never() }

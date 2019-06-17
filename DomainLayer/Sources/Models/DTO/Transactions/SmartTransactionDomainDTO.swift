@@ -7,14 +7,16 @@
 //
 
 import Foundation
-
+import Extensions
+import DomainLayer
+//TODO: Exeperemet
 //private typealias CoinomatService = Coinomat
 
 public extension DomainLayer.DTO {
 
     public struct AssetPair: Equatable {
-        var amountAsset: Asset
-        var priceAsset: Asset
+        public var amountAsset: Asset
+        public var priceAsset: Asset
 
         public init(amountAsset: Asset, priceAsset: Asset) {
             self.amountAsset = amountAsset

@@ -6,12 +6,12 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
-import CSV
 import Foundation
 import Moya
 import RealmSwift
 import RxRealm
 import RxSwift
+import Extensions
 
 public protocol AssetsInteractorProtocol {
     func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]>

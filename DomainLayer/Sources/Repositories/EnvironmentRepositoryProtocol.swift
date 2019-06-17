@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import WavesSDKExtension
+import Extensions
 
 public enum EnvironmentRepositoryError: Error {
     case invalidURL

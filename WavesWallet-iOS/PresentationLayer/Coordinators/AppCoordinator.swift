@@ -12,7 +12,8 @@ import RxSwift
 import RESideMenu
 import RxOptional
 import WavesSDKExtension
-
+import Extensions
+import DomainLayer
 
 private enum Contants {
 

@@ -9,6 +9,8 @@
 import Foundation
 import RxSwift
 import WavesSDKExtension
+import Extensions
+import DomainLayer
 
 final class TokenBurnSendInteractor: TokenBurnSendInteractorProtocol {
 

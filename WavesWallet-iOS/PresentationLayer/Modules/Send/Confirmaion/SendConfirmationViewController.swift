@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import DomainLayer
+import Extensions
 
 private enum Constants {
     static let cornerRadius: CGFloat = 2

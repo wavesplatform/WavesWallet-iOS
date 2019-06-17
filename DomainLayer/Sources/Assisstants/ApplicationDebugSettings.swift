@@ -9,36 +9,43 @@
 import Foundation
 import WavesSDKExtension
 
-struct ApplicationDebugSettings: TSUD, Codable, Mutating {
+public struct ApplicationDebugSettings: TSUD, Codable, Mutating {
     
     private static let key: String = "com.waves.debug.settings"
 
     private var isEnableStage: Bool = false
     private var isEnableNotificationsSettingDev: Bool = false
     
-    static var defaultValue: ApplicationDebugSettings {
+    public static var defaultValue: ApplicationDebugSettings {
         return ApplicationDebugSettings(isEnableStage: false, isEnableNotificationsSettingDev: false)
     }
     
-    static var stringKey: String {
+    public static var stringKey: String {
         return key
     }
     
-    static var isEnableStage: Bool {
+    public static var isEnableStage: Bool {
         return ApplicationDebugSettings.get().isEnableStage
     }
     
-    static func setupIsEnableStage(isEnable: Bool) {
+    public init() {}
+    
+    public init(isEnableStage: Bool, isEnableNotificationsSettingDev: Bool) {
+        self.isEnableStage = isEnableStage
+        self.isEnableNotificationsSettingDev = isEnableNotificationsSettingDev
+    }
+    
+    public static func setupIsEnableStage(isEnable: Bool) {
         var settings = ApplicationDebugSettings.get()
         settings.isEnableStage = isEnable
         ApplicationDebugSettings.set(settings)
     }
     
-    static var isEnableNotificationsSettingDev: Bool {
+    public static var isEnableNotificationsSettingDev: Bool {
         return ApplicationDebugSettings.get().isEnableNotificationsSettingDev
     }
     
-    static func setEnableNotificationsSettingDev(isEnable: Bool) {
+    public static func setEnableNotificationsSettingDev(isEnable: Bool) {
         var settings = ApplicationDebugSettings.get()
         settings.isEnableNotificationsSettingDev = isEnable
         ApplicationDebugSettings.set(settings)

@@ -12,6 +12,8 @@ import RxSwift
 import RxCocoa
 import WavesSDKExtension
 import WavesSDK
+import Extensions
+import DomainLayer
 
 protocol CreateAliasModuleOutput: AnyObject {
     func createAliasCompletedCreateAlias(_ alias: String)

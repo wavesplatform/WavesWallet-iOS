@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Extensions
 
 public extension DomainLayer.DTO {
     enum Dex {}
@@ -81,8 +82,8 @@ public extension DomainLayer.DTO.Dex {
 public extension DomainLayer.DTO.Dex {
     
     public struct Pair {
-        let amountAsset: Asset
-        let priceAsset: Asset
+        public let amountAsset: Asset
+        public let priceAsset: Asset
 
         public init(amountAsset: Asset, priceAsset: Asset) {
             self.amountAsset = amountAsset

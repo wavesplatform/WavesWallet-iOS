@@ -12,8 +12,9 @@ import RxSwift
 import RxSwiftExt
 import RxCocoa
 import WavesSDKExtension
-
 import WavesSDK
+import Extensions
+import DomainLayer
 
 private struct Constants {
     static let shiftIndexInLenght: Int = 1

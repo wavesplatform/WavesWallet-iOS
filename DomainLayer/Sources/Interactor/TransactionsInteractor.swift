@@ -11,7 +11,7 @@ import Moya
 import RxSwift
 import WavesSDKExtension
 import WavesSDK
-import DomainLayer
+import Extensions
 
 public enum TransactionsInteractorError: Error {
     case invalid

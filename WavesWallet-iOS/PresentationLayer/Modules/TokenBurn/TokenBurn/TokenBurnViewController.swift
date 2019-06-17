@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import WavesSDK
 import RxCocoa
+import Extensions
 import DomainLayer
 
 private enum Constants {

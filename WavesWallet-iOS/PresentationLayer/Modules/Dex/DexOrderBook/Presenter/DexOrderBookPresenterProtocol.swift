@@ -8,6 +8,7 @@
 
 import Foundation
 import RxCocoa
+import DomainLayer
 
 protocol DexOrderBookPresenterProtocol {
     typealias Feedback = (Driver<DexOrderBook.State>) -> Signal<DexOrderBook.Event>

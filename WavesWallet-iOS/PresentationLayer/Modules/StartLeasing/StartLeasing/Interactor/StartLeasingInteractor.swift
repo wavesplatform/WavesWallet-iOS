@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import Extensions
 import DomainLayer
 
 final class StartLeasingInteractor: StartLeasingInteractorProtocol {

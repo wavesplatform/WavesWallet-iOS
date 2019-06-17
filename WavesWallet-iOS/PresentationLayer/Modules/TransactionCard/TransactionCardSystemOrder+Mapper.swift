@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Extensions
 import DomainLayer
 
 private struct Constants {

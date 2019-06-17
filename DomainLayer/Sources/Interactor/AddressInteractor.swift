@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import Extensions
 
 public protocol AddressInteractorProtocol {
     func address(by ids: [String], myAddress: String) -> Observable<[DomainLayer.DTO.Address]>

@@ -8,6 +8,7 @@
 
 import UIKit
 import WavesSDKExtension
+import Extensions
 import DomainLayer
 
 private enum Constants {

@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 
+//TODO: Remove
 public enum WalletsRepositoryError: Error {
     case fail
     case notFound

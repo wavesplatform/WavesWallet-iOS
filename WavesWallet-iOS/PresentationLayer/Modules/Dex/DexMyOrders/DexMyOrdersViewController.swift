@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxFeedback
+import DomainLayer
 
 fileprivate enum Constants {
     static let cornerTableRadius: CGFloat = 3

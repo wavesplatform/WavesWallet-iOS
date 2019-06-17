@@ -8,6 +8,7 @@
 
 import Foundation
 import WavesSDKExtension
+import Extensions
 
 public extension DomainLayer.DTO {
 

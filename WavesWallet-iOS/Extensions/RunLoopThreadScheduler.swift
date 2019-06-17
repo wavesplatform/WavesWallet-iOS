@@ -8,11 +8,11 @@
 import Foundation
 import RxSwift
 
-final class RunLoopThreadScheduler: ImmediateSchedulerType {
+public final class RunLoopThreadScheduler: ImmediateSchedulerType {
     private let thread: Thread
     private let target: ThreadTarget
 
-    init(threadName: String) {
+    public init(threadName: String) {
         self.target = ThreadTarget()
         self.thread = Thread(target: target,
                              selector: #selector(ThreadTarget.threadEntryPoint),
@@ -21,7 +21,7 @@ final class RunLoopThreadScheduler: ImmediateSchedulerType {
         self.thread.start()
     }
 
-    func schedule<StateType>(_ state: StateType, action: @escaping (StateType) -> Disposable) -> Disposable {
+    public func schedule<StateType>(_ state: StateType, action: @escaping (StateType) -> Disposable) -> Disposable {
         let disposable = SingleAssignmentDisposable()
 
         var action: Action? = Action {
@@ -49,7 +49,7 @@ final class RunLoopThreadScheduler: ImmediateSchedulerType {
     }
 }
 
-enum Schedulers {
+public enum Schedulers {
     static var realmThreadScheduler: RunLoopThreadScheduler  {
         return RunLoopThreadScheduler(threadName: "Realm")
     }

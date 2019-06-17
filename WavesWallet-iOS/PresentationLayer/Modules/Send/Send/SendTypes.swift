@@ -8,6 +8,7 @@
 
 import Foundation
 import WavesSDK
+import Extensions
 import DomainLayer
 
 enum Send {

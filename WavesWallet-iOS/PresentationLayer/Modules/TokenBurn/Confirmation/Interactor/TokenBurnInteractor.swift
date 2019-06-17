@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import WavesSDK
+import Extensions
 import DomainLayer
 
 protocol TokenBurnInteractorProtocol {

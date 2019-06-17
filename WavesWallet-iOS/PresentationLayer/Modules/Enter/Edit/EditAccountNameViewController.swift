@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import IdentityImg
+import DomainLayer
 
 final class EditAccountNameViewController: UIViewController {
     
