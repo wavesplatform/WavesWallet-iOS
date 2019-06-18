@@ -37,8 +37,14 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                 guard let self = self else { return Observable.empty() }
                 
                 let spamAssets = self.spamProvider.rx
-                                .request(.getSpamList(url: environment.servers.spamUrl),
+                                .request(.getSpamList(hasProxy: true),
                                          callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                                .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
+                                    guard let self = self else { return Single.never() }
+                                    return self.spamProvider
+                                        .rx
+                                        .request(.getSpamList(hasProxy: false))
+                                })
                                 .filterSuccessfulStatusAndRedirectCodes()
                                 .asObservable()
                                 .catchError({ (error) -> Observable<Response> in
