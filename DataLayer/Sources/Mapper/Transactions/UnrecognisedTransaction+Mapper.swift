@@ -7,8 +7,8 @@
 //
 
 import Foundation
-
 import WavesSDK
+import DomainLayer
 
 extension UnrecognisedTransaction {
 
@@ -31,26 +31,27 @@ extension DomainLayer.DTO.UnrecognisedTransaction {
 
     init(transaction: NodeService.DTO.UnrecognisedTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
 
-        type = transaction.type
-        id = transaction.id
-        sender = transaction.sender.normalizeAddress(environment: environment)
-        senderPublicKey = transaction.senderPublicKey
-        fee = transaction.fee
-        timestamp = transaction.timestamp
-        height = transaction.height
-        modified = Date()
-        self.status = status
+        self.init(type: transaction.type,
+                  id: transaction.id,
+                  sender: transaction.sender.normalizeAddress(environment: environment),
+                  senderPublicKey: transaction.senderPublicKey,
+                  fee: transaction.fee,
+                  timestamp: transaction.timestamp,
+                  height: transaction.height,
+                  modified: Date(),
+                  status: status)
     }
 
     init(transaction: UnrecognisedTransaction) {
-        type = transaction.type
-        id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.sender
-        fee = transaction.fee
-        timestamp = transaction.timestamp
-        modified = transaction.modified
-        height = transaction.height
-        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
+        
+        self.init(type: transaction.type,
+                  id: transaction.id,
+                  sender: transaction.sender,
+                  senderPublicKey: transaction.senderPublicKey,
+                  fee: transaction.fee,
+                  timestamp: transaction.timestamp,
+                  height: transaction.height,
+                  modified: transaction.modified,
+                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
     }
 }

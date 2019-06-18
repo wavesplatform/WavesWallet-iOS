@@ -44,40 +44,38 @@ extension InvokeScriptTransaction {
 extension DomainLayer.DTO.InvokeScriptTransaction {
     
     init(transaction: NodeService.DTO.InvokeScriptTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
-        type = transaction.type
-        id = transaction.id
-        sender = transaction.sender.normalizeAddress(environment: environment)
-        senderPublicKey = transaction.senderPublicKey
-        fee = transaction.fee
-        feeAssetId = transaction.feeAssetId
-        timestamp = transaction.timestamp
-        proofs = transaction.proofs
-        version = transaction.version
-        dappAddress = transaction.dApp
-        height = transaction.height
-        payment = transaction.payment.first.map { .init(amount: $0.amount, assetId: $0.assetId) }
         
-        modified = Date()
-        self.status = status
+        self.init(type: transaction.type,
+                  id: transaction.id,
+                  sender: transaction.sender.normalizeAddress(environment: environment),
+                  senderPublicKey: transaction.senderPublicKey,
+                  fee: transaction.fee,
+                  feeAssetId: transaction.feeAssetId,
+                  timestamp: transaction.timestamp,
+                  proofs: transaction.proofs,
+                  version: transaction.version,
+                  dappAddress: transaction.dApp,
+                  payment: transaction.payment.first.map { .init(amount: $0.amount, assetId: $0.assetId) },
+                  height: transaction.height,
+                  modified: Date(),
+                  status: status)
     }
     
     init(transaction: InvokeScriptTransaction) {
         
-        type = transaction.type
-        id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.senderPublicKey
-        fee = transaction.fee
-        feeAssetId = transaction.feeAssetId
-        timestamp = transaction.timestamp
-        version = transaction.version
-        dappAddress = transaction.dappAddress
-        height = transaction.height
-        proofs = transaction.proofs.toArray()
-        payment = transaction.payment.map { .init(amount: $0.amount, assetId: $0.assetId) }
-        
-        modified = transaction.modified
-        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
+        self.init(type: transaction.type,
+                  id: transaction.id,
+                  sender: transaction.sender,
+                  senderPublicKey: transaction.senderPublicKey,
+                  fee: transaction.fee,
+                  feeAssetId: transaction.feeAssetId,
+                  timestamp: transaction.timestamp,
+                  proofs: transaction.proofs.toArray(),
+                  version: transaction.version,
+                  dappAddress: transaction.dappAddress,
+                  payment: transaction.payment.map { .init(amount: $0.amount, assetId: $0.assetId) },
+                  height: transaction.height,
+                  modified: transaction.modified,
+                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
     }
-
 }

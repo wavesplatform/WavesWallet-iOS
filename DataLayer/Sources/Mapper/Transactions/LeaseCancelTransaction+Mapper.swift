@@ -46,27 +46,28 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
 
     init(transaction: NodeService.DTO.LeaseCancelTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
 
-        type = transaction.type
-        id = transaction.id
-        sender = transaction.sender.normalizeAddress(environment: environment)
-        senderPublicKey = transaction.senderPublicKey
-        fee = transaction.fee
-        timestamp = transaction.timestamp
-        version = transaction.version
-        height = transaction.height ?? -1
-        modified = Date()
-
-        signature = transaction.signature
-        chainId = transaction.chainId
-        leaseId = transaction.leaseId
+        var leaseTx: DomainLayer.DTO.LeaseTransaction? = nil
+        
         if let lease = transaction.lease {
-            self.lease = DomainLayer.DTO.LeaseTransaction(transaction: lease, status: .completed, environment: environment)
-        } else {
-            self.lease = nil
+            leaseTx = DomainLayer.DTO.LeaseTransaction(transaction: lease, status: .completed, environment: environment)
         }
+        
+        self.init(type: transaction.type,
+                  id: transaction.id,
+                  sender: transaction.sender.normalizeAddress(environment: environment),
+                  senderPublicKey: transaction.senderPublicKey,
+                  fee: transaction.fee,
+                  timestamp: transaction.timestamp,
+                  version: transaction.version,
+                  height: transaction.height ?? -1,
+                  signature: transaction.signature,
+                  proofs: transaction.proofs,
+                  chainId: transaction.chainId,
+                  leaseId: transaction.leaseId,
+                  lease: leaseTx,
+                  modified: Date(),
+                  status: status)
 
-        proofs = transaction.proofs
-        self.status = status
     }
 
     init(transaction: LeaseCancelTransaction) {

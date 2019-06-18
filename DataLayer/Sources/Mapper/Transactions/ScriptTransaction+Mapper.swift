@@ -37,37 +37,38 @@ extension ScriptTransaction {
 extension DomainLayer.DTO.ScriptTransaction {
 
     init(transaction: NodeService.DTO.ScriptTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
-
-        type = transaction.type
-        id = transaction.id
-        sender = transaction.sender.normalizeAddress(environment: environment)
-        senderPublicKey = transaction.senderPublicKey
-        fee = transaction.fee
-        timestamp = transaction.timestamp
-        version = transaction.version
-        height = transaction.height
-        chainId = transaction.chainId
-        signature = transaction.signature
-        proofs = transaction.proofs
-        script = transaction.script
-        modified = Date()
-        self.status = status
+        
+        self.init(type: transaction.type,
+                  id: transaction.id,
+                  sender: transaction.sender.normalizeAddress(environment: environment),
+                  senderPublicKey: transaction.senderPublicKey,
+                  fee: transaction.fee,
+                  timestamp: transaction.timestamp,
+                  version: transaction.version,
+                  height: transaction.height,
+                  chainId: transaction.chainId,
+                  signature: transaction.signature,
+                  proofs: transaction.proofs,
+                  script: transaction.script,
+                  modified: Date(),
+                  status: status)
     }
 
     init(transaction: ScriptTransaction) {
-        type = transaction.type
-        id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.sender
-        fee = transaction.fee
-        timestamp = transaction.timestamp
-        modified = transaction.modified
-        height = transaction.height
-        chainId = transaction.chainId.value
-        signature = transaction.signature
-        proofs = transaction.proofs.toArray()
-        script = transaction.script
-        version = transaction.version
-        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
+        
+        self.init(type: transaction.type,
+                  id: transaction.id,
+                  sender: transaction.sender,
+                  senderPublicKey: transaction.senderPublicKey,
+                  fee: transaction.fee,
+                  timestamp: transaction.timestamp,
+                  version: transaction.version,
+                  height: transaction.height,
+                  chainId: transaction.chainId.value,
+                  signature: transaction.signature,
+                  proofs: transaction.proofs.toArray(),
+                  script: transaction.script,
+                  modified: transaction.modified,
+                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
     }
 }
