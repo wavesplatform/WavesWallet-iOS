@@ -85,6 +85,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
         return environmentRepository
             .rx
             .request(.get(isTestNet: Environment.isTestNet, hasProxy: true))
+            .debug("Alax", trimOutput: true)
             .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
                 guard let self = self else { return Single.never() }
                 return self
@@ -122,7 +123,13 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
 
             let disposable = self.spamProvider
                 .rx
-                .request(.getSpamList(url: link))
+                .request(.getSpamList(hasProxy: true))
+                .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
+                    guard let self = self else { return Single.never() }
+                    return self.spamProvider
+                        .rx
+                        .request(.getSpamListByUrl(url: link))
+                })
                 .flatMap({ response -> Single<Bool> in
 
                     do {
