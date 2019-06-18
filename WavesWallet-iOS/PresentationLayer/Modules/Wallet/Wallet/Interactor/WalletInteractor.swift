@@ -25,6 +25,7 @@ final class WalletInteractor: WalletInteractorProtocol {
     private let leasingInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
     
     private let disposeBag: DisposeBag = DisposeBag()
+    private let walletsRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
 
     func isHasAppUpdate() -> Observable<Bool> {
         return ApplicationVersionUseCase().isHasNewVersion()
@@ -32,26 +33,25 @@ final class WalletInteractor: WalletInteractorProtocol {
     
     func setCleanWalletBanner() -> Observable<Bool> {
         return authorizationInteractor.authorizedWallet()
-            .flatMap({ (wallet) -> Observable<Bool> in
-                return CleanerWalletManagerBanner.rx.setCleanWalletBanner(accountAddress: wallet.address, isClean: true)
+            .flatMap({ [weak self] (signedWallet) -> Observable<Bool> in
+                guard let self = self else { return Observable.empty() }
+                return self.walletsRepository.wallet(by: signedWallet.wallet.publicKey)
+                    .flatMap{  [weak self] (wallet) -> Observable<Bool> in
+                        guard let self = self else { return Observable.empty() }
+
+                        var newWallet = wallet
+                        newWallet.isNeedShowWalletCleanBanner = false
+                        return self.walletsRepository.saveWallet(newWallet)
+                            .flatMap({ (_) -> Observable<Bool> in
+                                return Observable.just(true)
+                            })
+                    }
             })
     }
     
     func isShowCleanWalletBanner() -> Observable<Bool> {
         return authorizationInteractor.authorizedWallet()
-            .flatMap({ (wallet) -> Observable<Bool> in
-                return CleanerWalletManager.rx.isCleanWallet(by: wallet.address)
-                    .flatMap({ (hasCleanWallet) -> Observable<Bool> in
-                        if hasCleanWallet {
-                            return CleanerWalletManagerBanner.rx.isCleanWalletBanner(by: wallet.address)
-                                .flatMap({ (hasCleanBanner) -> Observable<Bool> in
-                                    return Observable.just(!hasCleanBanner)
-                                })
-                            
-                        }
-                        return Observable.just(false)
-                    })
-            })
+            .map { $0.wallet.isNeedShowWalletCleanBanner }
     }
     
     func assets() -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {

@@ -101,7 +101,8 @@ final class MigrationInteractor {
                                                   isLoggedIn: false,
                                                   isBackedUp: wallet.isBackedUp,
                                                   hasBiometricEntrance: false,
-                                                  id: id)
+                                                  id: id,
+                                                  isNeedShowWalletCleanBanner: wallet.isNeedShowWalletCleanBanner)
                 })
 
                 return Observable.just(newWallets)
