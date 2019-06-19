@@ -42,6 +42,7 @@ extension WalletItem {
         self.address = wallet.address
         self.hasBiometricEntrance = wallet.hasBiometricEntrance
         self.id = wallet.id
+        self.isNeedShowWalletCleanBanner = wallet.isNeedShowWalletCleanBanner
     }
 }
 
@@ -56,6 +57,7 @@ extension DomainLayer.DTO.Wallet {
         self.address = wallet.address        
         self.hasBiometricEntrance = wallet.hasBiometricEntrance
         self.id = wallet.id
+        self.isNeedShowWalletCleanBanner = wallet.isNeedShowWalletCleanBanner
     }
 }
 

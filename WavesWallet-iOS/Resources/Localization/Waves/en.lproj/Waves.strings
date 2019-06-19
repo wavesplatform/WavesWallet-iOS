@@ -570,19 +570,9 @@
 "wallet.section.spamAssets" = "Suspicious tokens (%d)";
 "wallet.segmentedControl.assets" = "Tokens";
 "wallet.segmentedControl.leasing" = "Leasing";
-"wallet.label.search" = "Search";
 "walletsort.button.position" = "Position";
 "walletsort.button.visibility" = "Visibility";
 "walletsort.navigationBar.title" = "Sorting";
-"walletsearch.button.cancel" = "Cancel";
-"walletsearch.label.hiddenTokens" = "Hidden tokens";
-"walletsearch.label.suspiciousTokens" = "Suspicious tokens";
-"wallet.updateApp.label.title" = "It's time to update your app!";
-"wallet.updateApp.label.subtitle" = "We are constantly working to make Waves Wallet better and more useful. Please update your app to gain access to new features.";
-"wallet.clearAssets.label.title" = "No more mess!";
-"wallet.clearAssets.label.subtitle" = "We have redesigned the display of assets to allow you to keep your wallet clean and tidy. You can customise your asset list however you want!";
-
-
 "wavespopup.button.exchange" = "Exchange";
 "wavespopup.button.receive" = "Receive";
 "wavespopup.button.send" = "Send";
@@ -647,8 +637,19 @@
 "transactioncard.title.scriptAddress" = "Script address";
 "transactioncard.title.payment" = "Payment";
 "history.transaction.value.scriptInvocation" = "Script Invocation";
+"history.transaction.value.data" = "Entry in blockchain";
+"history.transaction.title.setAssetScript" = "Entry in blockchain";
+"history.transaction.title.setScript" = "Entry in blockchain";
 "walletsort.label.notAddedAssetsInFavorites" = "You didn't add tokens in favorite";
 "walletsort.label.listOfAssetsEmpty" = "The list of tokens is empty";
 "walletsort.label.notAddedAssetsInHidden" = "You didn't add tokens in hidden";
 "walletsort.label.hiddenAssets" = "Hidden tokens";
 "transactioncard.title.filled" = "Filled";
+"wallet.label.search" = "Search";
+"walletsearch.button.cancel" = "Cancel";
+"walletsearch.label.hiddenTokens" = "Hidden tokens";
+"walletsearch.label.suspiciousTokens" = "Suspicious tokens";
+"wallet.updateApp.label.title" = "It's time to update your app!";
+"wallet.updateApp.label.subtitle" = "We are constantly working to make Waves Wallet better and more useful. Please update your app to gain access to new features.";
+"wallet.clearAssets.label.title" = "No more mess!";
+"wallet.clearAssets.label.subtitle" = "We have redesigned the display of assets to allow you to keep your wallet clean and tidy. You can customise your asset list however you want!";

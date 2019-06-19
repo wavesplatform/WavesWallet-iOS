@@ -20,6 +20,7 @@ extension DomainLayer.DTO {
         var isBackedUp: Bool
         var hasBiometricEntrance: Bool
         let id: String
+        var isNeedShowWalletCleanBanner: Bool
     }
 
     struct WalletEncryption: Mutating {
