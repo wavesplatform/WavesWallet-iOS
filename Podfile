@@ -52,50 +52,35 @@ target 'WavesWallet-iOS' do
     pod 'RxFeedback'
     pod 'RxReachability'
 
-    # External Service
-    # pod 'Firebase/Core'
-    # pod 'Firebase/Database'
-    # pod 'Firebase/Auth'
-    # pod 'Firebase/InAppMessagingDisplay'
-
-    # Helperrs
     pod 'IdentityImg'
+    pod 'QRCode'
+    pod 'QRCodeReader.swift', '~> 9.0.1'    
+    pod 'SwiftDate'
+    pod 'Kingfisher'
 
+    # Waves
     pod 'WavesSDKExtension', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
     pod 'WavesSDK', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'    
     pod 'WavesSDKCrypto', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
 
-    pod 'KeychainAccess'
-    pod 'QRCode'
-    pod 'QRCodeReader.swift', '~> 9.0.1'
-    pod 'SwiftDate'
-    pod 'DeviceKit', '~> 1.3'
-    
-    # Cache & Download Images
-    pod 'Kingfisher'
-
-    # # DB
-    # pod 'RealmSwift'
-    # pod 'RxRealm'
-
-    # # Network
-    # pod 'RxAlamofire'
-    # pod 'Moya/RxSwift'
-
+    # Waves Internal
     pod 'DomainLayer', :path => '.'
     pod 'DataLayer', :path => '.'
     pod 'Extensions', :path => '.'
     
 
-    # Gen
+    # pod 'KeychainAccess'
+    # pod 'DeviceKit', '~> 1.3'
+
+    # Code Gen
     pod 'SwiftGen', '~> 5.3.0'
 
     # Debug
     # pod 'Reveal-SDK', :configurations => ['Debug']
     pod 'AppSpectorSDK', :configurations => ['Debug', 'Test']
-
     pod 'SwiftMonkeyPaws', :configurations => ['Debug']
     
+
     pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git'
     pod 'Fabric'
     pod 'Crashlytics'
@@ -104,7 +89,7 @@ target 'WavesWallet-iOS' do
     pod 'AppsFlyerFramework'
 end
 
-target '_DomainLayer' do
+target 'InternalDomainLayer' do
 
     inherit! :search_paths
 
@@ -128,7 +113,7 @@ target '_DomainLayer' do
 
 end
 
-target '_Extensions' do
+target 'InternalExtensions' do
 
     inherit! :search_paths
 
@@ -144,7 +129,7 @@ target '_Extensions' do
 
 end
 
-target '_DataLayer' do
+target 'InternalDataLayer' do
 
     inherit! :search_paths
 
