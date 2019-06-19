@@ -20,8 +20,9 @@ public extension DomainLayer.DTO {
         public var isBackedUp: Bool
         public var hasBiometricEntrance: Bool
         public let id: String
+        public var isNeedShowWalletCleanBanner: Bool
 
-        public init(name: String, address: String, publicKey: String, isLoggedIn: Bool, isBackedUp: Bool, hasBiometricEntrance: Bool, id: String) {
+        public init(name: String, address: String, publicKey: String, isLoggedIn: Bool, isBackedUp: Bool, hasBiometricEntrance: Bool, id: String, isNeedShowWalletCleanBanner: Bool) {
             self.name = name
             self.address = address
             self.publicKey = publicKey
@@ -29,6 +30,7 @@ public extension DomainLayer.DTO {
             self.isBackedUp = isBackedUp
             self.hasBiometricEntrance = hasBiometricEntrance
             self.id = id
+            self.isNeedShowWalletCleanBanner = isNeedShowWalletCleanBanner
         }
     }
 

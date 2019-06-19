@@ -27,11 +27,11 @@ final class WalletInteractor: WalletInteractorProtocol {
     private let leasingInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
     
     private let disposeBag: DisposeBag = DisposeBag()
-    private let walletsRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
+    private let walletsRepository: WalletsRepositoryProtocol = FactoryInteractors.instance.repositories.walletsRepositoryLocal
 
     func isHasAppUpdate() -> Observable<Bool> {
         
-        //TOOD: Experement
+        //TODO: Experement
         return Observable.never()
 //        return ApplicationVersionUseCase().isHasNewVersion()
     }

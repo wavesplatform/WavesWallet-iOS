@@ -204,18 +204,19 @@ private extension DexOrderBookRepositoryRemote {
     
     func spamList(accountAddress: String) -> Observable<[String]> {
         
-        return environmentRepository
-            .servicesEnvironment()
-            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<[String]> in
-            
+        return environmentRepository.accountEnvironment(accountAddress: accountAddress)
+            .flatMap({ [weak self] (environment) -> Observable<[String]> in
                 guard let self = self else { return Observable.empty() }
-            
-                let walletEnviroment = servicesEnvironment.walletEnvironment
-            
-                //TODO: Move to service
+                
                 return self.spamProvider.rx
-                    .request(.getSpamList(url: walletEnviroment.servers.spamUrl),
+                    .request(.getSpamList(hasProxy: true),
                              callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                    .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
+                        guard let self = self else { return Single.never() }
+                        return self.spamProvider
+                            .rx
+                            .request(.getSpamList(hasProxy: false))
+                    })
                     .filterSuccessfulStatusAndRedirectCodes()
                     .asObservable()
                     .map({ (response) -> [String] in
