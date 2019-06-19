@@ -36,7 +36,7 @@ final class TransactionCardOrderCell: UITableViewCell, Reusable {
     }
 }
 
-// TODO: ViewConfiguration
+// MARK: ViewConfiguration
 
 extension TransactionCardOrderCell: ViewConfiguration {
 

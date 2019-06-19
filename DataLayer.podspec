@@ -25,6 +25,10 @@ Pod::Spec.new do |spec|
   # DB
   spec.dependency 'RealmSwift'
   spec.dependency 'RxRealm'
+  spec.dependency 'Moya/RxSwift'
+
+      # pod 'RxAlamofire'
+    # pod 'Moya/RxSwift'
 
   # Assisstant
   spec.dependency 'RxSwift'

@@ -8,6 +8,7 @@
 
 import Foundation
 import DomainLayer
+import Extensions
 
 enum ProfileTypes {
     enum ViewModel { }

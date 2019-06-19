@@ -21,6 +21,7 @@ PODS:
     - Firebase/Core
     - Firebase/Database
     - Firebase/InAppMessagingDisplay
+    - Moya/RxSwift
     - RealmSwift
     - RxOptional
     - RxRealm
@@ -31,7 +32,6 @@ PODS:
     - WavesSDKExtension
   - DeviceKit (1.13.0)
   - DomainLayer (0.1):
-    - DeviceKit
     - Extensions
     - KeychainAccess
     - RealmSwift
@@ -375,10 +375,10 @@ SPEC CHECKSUMS:
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   CSV.swift: 947283699fe698d08a4d675d9e642c2bf32418a8
   Curve25519: 4c9483171010b27488a3bac6ee327588a1182fb4
-  DataLayer: fe38e63649ed99d96bf4a3a3f23731e433a5c96c
+  DataLayer: 69b167523c642e2cc55a6e0f8f3ca403d000916e
   DeviceKit: 5a4accdb2918ce0b69e62dc3bef6e4d2cc06e2e4
-  DomainLayer: bf404a0293d6fd9264d3279640a8652f591bc37a
-  Extensions: b941bbf0c46074c93eef278bab471864e6d13688
+  DomainLayer: 25858bba49dd480a61adb36b89bba68f27087c11
+  Extensions: 5f1848be75374fd1a579d1423fe85a88438e69f1
   Fabric: f6f21452846788bb44595d73e9909d79d328e617
   Firebase: fa80b9d987ca014a1ba9357496ef2a0178b28b12
   FirebaseAnalytics: 1743c5f4de3687d0745709dfdc4b1dea1484f44c
@@ -435,6 +435,6 @@ SPEC CHECKSUMS:
   WavesSDKCrypto: efbe49381abb54d2d9fe249056d12009be3bd79c
   WavesSDKExtension: 6fc665d55211805012f28c21ef1803310c4f940b
 
-PODFILE CHECKSUM: 5d1f11800644e857cfd1b944d258ea46b4deda9f
+PODFILE CHECKSUM: 07605ac31e712012e0ddfeda743e7e67e5694a5e
 
 COCOAPODS: 1.6.1

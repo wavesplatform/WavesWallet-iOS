@@ -28,7 +28,7 @@ final class TransactionCardDescriptionCell: UITableViewCell, Reusable {
     }
 }
 
-// TODO: ViewConfiguration
+// MARK: ViewConfiguration
 
 extension TransactionCardDescriptionCell: ViewConfiguration {
 

@@ -35,7 +35,7 @@ public extension DomainLayer.DTO {
     }
 }
 
-// TODO: Protocol
+//TODO: Protocol
 public extension DomainLayer.DTO.AnyTransaction {
 
     public var status: DomainLayer.DTO.TransactionStatus {

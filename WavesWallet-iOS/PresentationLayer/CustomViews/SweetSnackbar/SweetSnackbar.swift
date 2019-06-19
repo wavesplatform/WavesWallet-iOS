@@ -113,7 +113,7 @@ final class SweetSnackbar: NSObject {
         view.bounds = bounds
 
         viewController.view.addSubview(view)
-        // TODO: Need check iOS 10 version
+        //TODO: Need check iOS 10 version
         if let tabBarVC = viewController as? UITabBarController {
             tabBarVC.view.bringSubviewToFront(tabBarVC.tabBar)
         }

@@ -54,7 +54,7 @@ final class TransactionCardAddressCell: UITableViewCell, Reusable {
     }
 }
 
-// TODO: ViewConfiguration
+// MARK: ViewConfiguration
 
 extension TransactionCardAddressCell: ViewConfiguration {
 

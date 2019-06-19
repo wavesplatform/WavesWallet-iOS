@@ -8,6 +8,7 @@
 
 import Foundation
 import DomainLayer
+import Extensions
 
 private enum Constants {
     static let MinersRewardToken = ["4uK8i4ThRGbehENwa6MxyLtxAjAo1Rj9fduborGExarC" : "MRT"]
