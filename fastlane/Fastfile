@@ -147,6 +147,12 @@ platform :ios do
     build_projet    
   end
 
+  lane :prod_go do
+    prod_install
+    prod_build_projet
+    prod_upload_testflight
+  end
+
   lane :test_upload_testflight do
     test_enviroment
     upload_testflight
@@ -154,7 +160,7 @@ platform :ios do
 
   lane :prod_build_projet do
     prod_enviroment
-    increment_build_number_and_commit_push
+    # increment_build_number_and_commit_push
     build_projet    
   end
 
@@ -315,7 +321,8 @@ platform :ios do
                dev_portal_team_id: "#{ENV['FASTLANE_TEAM_ID']}",
                wait_for_uploaded_build: "false",
                changelog: "#{ENV['CHANGELOG']}",
-               ipa: PROJECT_IPA)
+               ipa: PROJECT_IPA,
+               skip_waiting_for_build_processing: true)
      
     refresh_dsyms    
   end

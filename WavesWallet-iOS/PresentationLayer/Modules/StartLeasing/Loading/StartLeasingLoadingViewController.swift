@@ -57,8 +57,9 @@ final class StartLeasingLoadingViewController: UIViewController {
 
                 let vc = StoryboardScene.StartLeasing.startLeasingCompleteViewController.instantiate()
                 vc.kind = self.input.kind
+                vc.output = self.input.output
+                vc.transaction = transaction
                 self.navigationController?.pushViewController(vc, animated: true)
-                self.input.output?.startLeasingDidSuccess(transaction: transaction, kind: self.input.kind)
 
             }, onError: { [weak self] (error) in
 
@@ -80,8 +81,9 @@ final class StartLeasingLoadingViewController: UIViewController {
 
                 let vc = StoryboardScene.StartLeasing.startLeasingCompleteViewController.instantiate()
                 vc.kind = self.input.kind
+                vc.output = self.input.output
+                vc.transaction = transaction
                 self.navigationController?.pushViewController(vc, animated: true)
-                self.input.output?.startLeasingDidSuccess(transaction: transaction, kind: self.input.kind)
 
             }, onError: { [weak self] (error) in
                 guard let self = self else { return }
