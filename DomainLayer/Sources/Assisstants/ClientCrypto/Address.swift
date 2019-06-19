@@ -18,7 +18,7 @@ public class Address {
     
     private class func getSchemeByte() -> UInt8 {
         //TODO: Experement
-        return "M".utf8.first!
+        return "W".utf8.first!
     }
     
     public class func addressFromPublicKey(publicKey: [UInt8]) -> String {

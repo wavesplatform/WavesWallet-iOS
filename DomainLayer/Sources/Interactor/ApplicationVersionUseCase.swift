@@ -9,8 +9,11 @@
 import Foundation
 import RxSwift
 
-//TODO Protocol
-public final class ApplicationVersionUseCase {
+public protocol ApplicationVersionUseCaseProtocol {
+    func isHasNewVersion() -> Observable<Bool>
+}
+
+public final class ApplicationVersionUseCase: ApplicationVersionUseCaseProtocol {
     
     private let applicationVersionRepository: ApplicationVersionRepositoryProtocol
     

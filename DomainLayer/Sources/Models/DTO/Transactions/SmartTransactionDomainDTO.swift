@@ -9,8 +9,6 @@
 import Foundation
 import Extensions
 import DomainLayer
-//TODO: Exeperemet
-//private typealias CoinomatService = Coinomat
 
 public extension DomainLayer.DTO {
 
@@ -53,11 +51,6 @@ public extension DomainLayer.DTO {
                 self.attachment = attachment
                 self.hasSponsorship = hasSponsorship
                 self.myAccount = myAccount
-            }
-            
-            public var isGatewayAddress: Bool {
-                return false
-//                return CoinomatService.addresses.contains(recipient.address)
             }
         }
 

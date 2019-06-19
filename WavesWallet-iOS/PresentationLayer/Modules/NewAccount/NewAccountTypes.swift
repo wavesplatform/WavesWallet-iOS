@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Extensions
+import DomainLayer
 
 enum NewAccountTypes {
     enum DTO { }
