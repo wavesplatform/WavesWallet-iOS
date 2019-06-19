@@ -165,7 +165,7 @@ private final class SeedRepositoryMemory {
     }
 }
 
-protocol AuthorizationInteractorLocalizable {
+public protocol AuthorizationInteractorLocalizable {
     var fallbackTitle: String { get }
     var cancelTitle: String { get }
     var readFromkeychain: String { get }

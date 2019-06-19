@@ -8,6 +8,7 @@
 
 import Foundation
 import WavesSDK
+import DomainLayer
 
 public extension Optional where Wrapped == String {
     

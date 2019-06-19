@@ -108,7 +108,7 @@ extension GitHub.Service.Environment: TargetType {
     }
 
     var headers: [String: String]? {
-        return ContentType.applicationJson.headers
+        return ["Content-type": "application/json"]
     }
 
     var method: Moya.Method {
@@ -147,7 +147,7 @@ extension GitHub.Service.TransactionRules: TargetType {
     }
 
     var headers: [String: String]? {
-        return ContentType.applicationJson.headers
+        return  ["Content-type": "application/json"]
     }
 
     var method: Moya.Method {
@@ -192,7 +192,7 @@ extension GitHub.Service.ApplicationNews: TargetType {
     }
 
     var headers: [String: String]? {
-        return ContentType.applicationJson.headers
+        return  ["Content-type": "application/json"]
     }
 
     var method: Moya.Method {
@@ -228,7 +228,7 @@ extension GitHub.Service.ApplicationVersion: TargetType {
     }
     
     var headers: [String: String]? {
-        return ContentType.applicationJson.headers
+        return  ["Content-type": "application/json"]
     }
     
     var method: Moya.Method {

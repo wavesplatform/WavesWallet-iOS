@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxSwiftExt
 import Moya
+import DomainLayer
 
 private struct Constants {
     static let lastVersion: String = "last_version"

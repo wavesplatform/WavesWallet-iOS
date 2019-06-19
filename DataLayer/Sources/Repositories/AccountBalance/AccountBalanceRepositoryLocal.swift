@@ -142,13 +142,13 @@ fileprivate extension DomainLayer.DTO.AssetBalance {
 
     init(balance: AssetBalance) {
 
-        self.modified = balance.modified
-        self.assetId = balance.assetId
-        self.totalBalance = balance.balance
-        self.leasedBalance = balance.leasedBalance
-        self.inOrderBalance = balance.inOrderBalance
-        self.sponsorBalance = balance.sponsorBalance
-        self.minSponsoredAssetFee = balance.minSponsoredAssetFee
+        self.init(assetId: balance.assetId,
+                  totalBalance: balance.balance,
+                  leasedBalance: balance.leasedBalance,
+                  inOrderBalance: balance.inOrderBalance,
+                  modified: balance.modified,
+                  sponsorBalance: balance.sponsorBalance,
+                  minSponsoredAssetFee: balance.minSponsoredAssetFee)
     }
 }
 

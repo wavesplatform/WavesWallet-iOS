@@ -29,7 +29,7 @@ public extension DomainLayer.Query {
     }
 }
 
-let TransactionFeeDefaultRule: String = "default"
+public let TransactionFeeDefaultRule: String = "default"
 
 public protocol TransactionsInteractorProtocol {
 

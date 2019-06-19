@@ -7,6 +7,7 @@
 
 import UIKit
 import Koloda
+import Extensions
 
 protocol InfoPagesViewModuleOutput: AnyObject {
     func userFinishedReadPages()

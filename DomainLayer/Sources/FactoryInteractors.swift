@@ -34,18 +34,9 @@ private struct AuthorizationInteractorLocalizableImp: AuthorizationInteractorLoc
 
 public final class FactoryInteractors: FactoryInteractorsProtocol {
 
-    public static let instance: FactoryInteractors = FactoryInteractors()
+    public static var instance: FactoryInteractors!
     
-    //TODO: Experement
-    public var repositories: FactoryRepositoriesProtocol! = nil
-
-    public private(set) lazy var assetsInteractor: AssetsInteractorProtocol = {
-        
-        let interactor = AssetsInteractor(assetsRepositoryLocal: repositories.assetsRepositoryLocal,
-                                          assetsRepositoryRemote: repositories.assetsRepositoryRemote)
-
-        return interactor
-    }()
+    public let repositories: FactoryRepositoriesProtocol
 
     public private(set) lazy var accountBalance: AccountBalanceInteractorProtocol = {
         
@@ -114,7 +105,19 @@ public final class FactoryInteractors: FactoryInteractorsProtocol {
     
     public private(set) lazy var applicationVersionUseCase: ApplicationVersionUseCase = ApplicationVersionUseCase(applicationVersionRepository: repositories.applicationVersionRepository)
     
-    fileprivate init() {
-        self.repositories = nil
+    public private(set) lazy var assetsInteractor: AssetsInteractorProtocol = {
+        
+        let interactor = AssetsInteractor(assetsRepositoryLocal: repositories.assetsRepositoryLocal,
+                                          assetsRepositoryRemote: repositories.assetsRepositoryRemote)
+        
+        return interactor
+    }()
+    
+    init(repositories: FactoryRepositoriesProtocol) {
+        self.repositories = repositories
+    }
+    
+    public class func initialization(repositories: FactoryRepositoriesProtocol) {
+        self.instance = FactoryInteractors(repositories: repositories)
     }
 }

@@ -11,6 +11,7 @@ import RxSwift
 import RealmSwift
 import RxRealm
 import WavesSDKExtension
+import DomainLayer
 
 final class AssetsRepositoryLocal: AssetsRepositoryProtocol {
     

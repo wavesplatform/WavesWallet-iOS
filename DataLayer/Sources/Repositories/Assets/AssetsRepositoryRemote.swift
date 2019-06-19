@@ -125,25 +125,13 @@ fileprivate extension WalletEnvironment {
 fileprivate extension DomainLayer.DTO.Asset {
 
     init(asset: DataService.DTO.Asset, info: WalletEnvironment.AssetInfo?, isSpam: Bool, isMyWavesToken: Bool) {
-        self.ticker = asset.ticker
-        self.id = asset.id
-        self.wavesId = info?.wavesId
-        self.gatewayId = info?.gatewayId
-        self.precision = asset.precision
-        self.description = asset.description
-        self.height = asset.height
-        self.timestamp = asset.timestamp
-        self.sender = asset.sender
-        self.quantity = asset.quantity
-        self.isReusable = asset.reissuable
-        self.isSpam = isSpam
-        self.isMyWavesToken = isMyWavesToken
-        self.modified = Date()
+        
         var isGeneral = false
         var isWaves = false
         var isVostok = false
         var isFiat = false
         let isGateway = info?.isGateway ?? false
+        let isWavesToken = isFiat == false && isGateway == false && isWaves == false
         var name = asset.name
         
         //TODO: Current code need move to AssetsInteractor!
@@ -160,16 +148,30 @@ fileprivate extension DomainLayer.DTO.Asset {
             name = info.displayName
             isFiat = info.isFiat
         }
-
-        self.isWavesToken = isFiat == false && isGateway == false && isWaves == false
-        self.isGeneral = isGeneral
-        self.isWaves = isWaves
-        self.isFiat = isFiat
-        self.isGateway = isGateway
-        self.displayName = name
-        self.addressRegEx = info?.addressRegEx ?? ""
-        self.iconLogoUrl = info?.iconUrls?.default
-        self.hasScript = asset.hasScript
-        self.minSponsoredFee = asset.minSponsoredFee ?? 0
+        
+        self.init(id: asset.id,
+                  gatewayId: info?.gatewayId,
+                  wavesId: info?.wavesId,
+                  displayName: name,
+                  precision: asset.precision,
+                  description: asset.description,
+                  height: asset.height,
+                  timestamp: asset.timestamp,
+                  sender: asset.sender,
+                  quantity: asset.quantity,
+                  ticker: asset.ticker,
+                  isReusable: asset.reissuable,
+                  isSpam: isSpam,
+                  isFiat: isFiat,
+                  isGeneral: isGeneral,
+                  isMyWavesToken: isMyWavesToken,
+                  isWavesToken: isWavesToken,
+                  isGateway: isGateway,
+                  isWaves: isWaves,
+                  modified: Date(),
+                  addressRegEx: info?.addressRegEx ?? "",
+                  iconLogoUrl: info?.iconUrls?.default,
+                  hasScript: asset.hasScript,
+                  minSponsoredFee: asset.minSponsoredFee ?? 0)
     }
 }

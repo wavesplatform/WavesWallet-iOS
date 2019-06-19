@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Extensions
 
 private enum Constants {
     static let logoTop: CGFloat = 44

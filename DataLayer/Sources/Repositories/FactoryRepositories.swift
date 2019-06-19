@@ -15,7 +15,7 @@ typealias EnvironmentRepositoryProtocols = EnvironmentRepositoryProtocol & Servi
 
 public final class FactoryRepositories: FactoryRepositoriesProtocol {
 
-    static let instance: FactoryRepositories = FactoryRepositories()
+    public static let instance: FactoryRepositories = FactoryRepositories()
     
     private lazy var environmentRepositoryInternal: EnvironmentRepository = EnvironmentRepository()
     

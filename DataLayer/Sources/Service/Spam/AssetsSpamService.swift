@@ -30,7 +30,7 @@ extension Spam.Service.Assets: TargetType {
     }
 
     var headers: [String: String]? {
-        return ContentType.applicationCsv.headers
+        return ["Content-type": "application/csv"]
     }
 
     var sampleData: Data {

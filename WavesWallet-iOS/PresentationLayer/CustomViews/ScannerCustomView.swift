@@ -9,6 +9,7 @@
 import UIKit
 import QRCodeReader
 import AVFoundation
+import Extensions
 
 final class ScannerCustomView: UIView, QRCodeReaderDisplayable {
 

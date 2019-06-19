@@ -38,41 +38,40 @@ extension LeaseTransaction {
 extension DomainLayer.DTO.LeaseTransaction {
 
     init(transaction: NodeService.DTO.LeaseTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
-        type = transaction.type
-        id = transaction.id
-        sender = transaction.sender.normalizeAddress(environment: environment)
-        senderPublicKey = transaction.senderPublicKey
-        fee = transaction.fee
-        timestamp = transaction.timestamp
-        signature = transaction.signature
-        version = transaction.version
-        amount = transaction.amount
-        recipient = transaction.recipient.normalizeAddress(environment: environment)
-
-        height = transaction.height ?? -1
-        chainId = nil
-        modified = Date()
-        proofs = transaction.proofs
-
-        self.status = status
+        
+        self.init(type: transaction.type,
+                  id: transaction.id,
+                  sender: transaction.sender.normalizeAddress(environment: environment),
+                  senderPublicKey: transaction.senderPublicKey,
+                  fee: transaction.fee,
+                  timestamp: transaction.timestamp,
+                  version: transaction.version,
+                  height: transaction.height ?? -1,
+                  chainId: nil,
+                  signature: transaction.signature,
+                  proofs: transaction.proofs,
+                  amount: transaction.amount,
+                  recipient: transaction.recipient.normalizeAddress(environment: environment),
+                  modified: Date(),
+                  status: status)
     }
 
     init(transaction: LeaseTransaction) {
 
-        type = transaction.type
-        id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.senderPublicKey
-        fee = transaction.fee
-        timestamp = transaction.timestamp
-        signature = transaction.signature
-        version = transaction.version
-        amount = transaction.amount
-        recipient = transaction.recipient
-        height = transaction.height
-        chainId = transaction.chainId.value
-        proofs = transaction.proofs.toArray()
-        modified = transaction.modified
-        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
+        self.init(type: transaction.type,
+                  id: transaction.id,
+                  sender: transaction.sender,
+                  senderPublicKey: transaction.senderPublicKey,
+                  fee: transaction.fee,
+                  timestamp: transaction.timestamp,
+                  version: transaction.version,
+                  height: transaction.height,
+                  chainId: transaction.chainId.value,
+                  signature: transaction.signature,
+                  proofs: transaction.proofs.toArray(),
+                  amount: transaction.amount,
+                  recipient: transaction.recipient,
+                  modified: transaction.modified,
+                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)        
     }
 }

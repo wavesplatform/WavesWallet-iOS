@@ -8,9 +8,9 @@
 import Foundation
 import RealmSwift
 
-extension Results {
+public extension Results {
 
-    func get<T: Object>(offset: Int, limit: Int) -> Array<T> {
+    public func get<T: Object>(offset: Int, limit: Int) -> Array<T> {
 
         var lim = 0
         var off = 0

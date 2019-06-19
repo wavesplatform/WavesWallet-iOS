@@ -65,24 +65,24 @@ extension DomainLayer.DTO.TransferTransaction {
     }
 
     init(transaction: TransferTransaction) {
-        type = transaction.type
-        id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.senderPublicKey
-        fee = transaction.fee
-        timestamp = transaction.timestamp
-        version = transaction.version
-        height = transaction.height
-        assetId = transaction.assetId.normalizeAssetId
-        modified = transaction.modified
-
-        recipient = transaction.recipient
-        feeAssetId = transaction.feeAssetId.normalizeAssetId
-        feeAsset = transaction.feeAsset
-        amount = transaction.amount
-        attachment = transaction.attachment
-        proofs = transaction.proofs.toArray()
-        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
-        signature = transaction.signature
+        
+        self.init(type: transaction.type,
+                  id: transaction.id,
+                  sender: transaction.sender,
+                  senderPublicKey: transaction.senderPublicKey,
+                  fee: transaction.fee,
+                  timestamp: transaction.timestamp,
+                  version: transaction.version,
+                  height: transaction.height,
+                  signature: transaction.signature,
+                  proofs: transaction.proofs.toArray(),
+                  recipient: transaction.recipient,
+                  assetId: transaction.assetId.normalizeAssetId,
+                  feeAssetId: transaction.feeAssetId.normalizeAssetId,
+                  feeAsset: transaction.feeAsset.normalizeAssetId,
+                  amount: transaction.amount,
+                  attachment: transaction.attachment,
+                  modified: transaction.modified,
+                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
     }
 }

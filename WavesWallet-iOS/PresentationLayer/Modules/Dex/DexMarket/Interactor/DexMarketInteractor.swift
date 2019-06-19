@@ -1,8 +1,6 @@
 import Foundation
 import RxSwift
 import RealmSwift
-import Alamofire
-import Moya
 import DomainLayer
 
 final class DexMarketInteractor: DexMarketInteractorProtocol {

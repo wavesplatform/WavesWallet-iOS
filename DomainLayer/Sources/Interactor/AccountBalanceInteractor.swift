@@ -13,6 +13,7 @@ import RxSwift
 import RxSwiftExt
 import WavesSDK
 import WavesSDKExtension
+import Extensions
 
 fileprivate enum Constants {
     static let durationInseconds: Double = 0

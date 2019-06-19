@@ -8,7 +8,6 @@
 
 import Foundation
 import RxSwift
-import Moya
 import WavesSDK
 import Extensions
 import DomainLayer

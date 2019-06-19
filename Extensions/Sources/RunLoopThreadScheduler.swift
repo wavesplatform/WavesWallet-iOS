@@ -50,7 +50,7 @@ public final class RunLoopThreadScheduler: ImmediateSchedulerType {
 }
 
 public enum Schedulers {
-    static var realmThreadScheduler: RunLoopThreadScheduler  {
+    public static var realmThreadScheduler: RunLoopThreadScheduler  {
         return RunLoopThreadScheduler(threadName: "Realm")
     }
 }

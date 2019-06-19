@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Extensions
 
 private enum Constants {
     static let smallPading: CGFloat = 16
