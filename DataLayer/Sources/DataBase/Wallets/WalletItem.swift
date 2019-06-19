@@ -17,8 +17,13 @@ class WalletItem: Object {
     @objc dynamic var address: String = ""
     @objc dynamic var hasBiometricEntrance: Bool = false
     @objc dynamic var id: String = ""
-
+    @objc dynamic var isNeedShowWalletCleanBanner: Bool = false
+    
     override static func primaryKey() -> String? {
         return "publicKey"
+    }
+    
+    static var isNeedShowWalletCleanBannerKey: String {
+        return "isNeedShowWalletCleanBanner"
     }
 }

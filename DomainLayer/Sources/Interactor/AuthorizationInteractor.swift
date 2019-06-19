@@ -29,6 +29,7 @@ private extension DomainLayer.DTO.Wallet {
         self.isBackedUp = query.isBackedUp
         self.hasBiometricEntrance = false
         self.id = id
+        self.isNeedShowWalletCleanBanner = false
     }
 }
 
@@ -553,7 +554,6 @@ extension AuthorizationInteractor {
         return Observable.zip([localWalletRepository.removeWallet(wallet),
                                deleleteWalletSeed,
                                CleanerWalletManager.rx.setCleanWallet(accountAddress: wallet.address, isClean: false),
-                               CleanerWalletManagerBanner.rx.setCleanWalletBanner(accountAddress: wallet.address, isClean: false),
                                localWalletRepository.removeWalletEncryption(by: wallet.publicKey)])
             .flatMap({ _ -> Observable<Bool> in
                 //TODO: Experement

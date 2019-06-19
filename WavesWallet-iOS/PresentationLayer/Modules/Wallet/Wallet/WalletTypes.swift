@@ -73,7 +73,6 @@ extension WalletTypes {
         var isShowCleanWalletBanner: Bool
         var isNeedCleanWalletBanner: Bool
         var isHasAppUpdate: Bool
-        var isNeedRunQueryCheckCleanWalletBanner: Bool
         var action: Action
     }
 

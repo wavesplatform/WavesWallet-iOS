@@ -148,7 +148,7 @@ extension WalletCoordinator: WalletModuleOutput {
 
         let coordinator = TransactionCardCoordinator(transaction: transactions[index],
                                                      router: navigationRouter)
-
+        coordinator.delegate = self
 
         addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
@@ -210,6 +210,12 @@ extension WalletCoordinator: AssetDetailModuleOutput {
     }
 }
 
+//MARK: - TransactionCardCoordinatorDelegate
+extension WalletCoordinator: TransactionCardCoordinatorDelegate {
+    func transactionCardCoordinatorCanceledLeasing() {
+        walletViewContoller.viewWillAppear(false)
+    }
+}
 // MARK: - StartLeasingModuleOutput
 
 extension WalletCoordinator: StartLeasingModuleOutput {
