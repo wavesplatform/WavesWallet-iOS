@@ -25,7 +25,7 @@ fileprivate enum SchemaVersions: UInt64 {
 
     static let currentVersion: SchemaVersions = .version_2_4
 
-    static let schemaWalletsVersion: UInt64 = 6
+    static let schemaWalletsVersion: UInt64 = 7
 }
 
 fileprivate enum Constants {
@@ -234,7 +234,13 @@ extension WalletRealmFactory {
                 .deletingLastPathComponent()
                 .appendingPathComponent("wallets_\(Environment.current.scheme).realm")
             
-            config.migrationBlock = { _, oldSchemaVersion in
+            config.migrationBlock = { migration, oldSchemaVersion in
+                
+                migration.enumerateObjects(ofType: WalletItem.className()) { _ , newObject in
+
+                    newObject?[WalletItem.isNeedShowWalletCleanBannerKey] = true
+                }
+                
                 SweetLogger.debug("Migration!!! \(oldSchemaVersion)")
             }
             
