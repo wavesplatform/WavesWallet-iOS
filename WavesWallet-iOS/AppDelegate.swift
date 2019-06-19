@@ -10,7 +10,6 @@ import RESideMenu
 import RxSwift
 import IQKeyboardManagerSwift
 import UIKit
-import Moya
 import RealmSwift
 import FirebaseCore
 import FirebaseDatabase
@@ -26,6 +25,7 @@ import WavesSDK
 
 import Extensions
 import DomainLayer
+import DataLayer
 
 #if DEBUG || TEST
 import AppSpectorSDK
@@ -50,7 +50,7 @@ enum UITest {
     var window: UIWindow?
 
     var appCoordinator: AppCoordinator!
-    let migrationInteractor: MigrationInteractor = FactoryInteractors.instance.migrationInteractor
+    lazy var migrationInteractor: MigrationInteractor = FactoryInteractors.instance.migrationInteractor
     
     #if DEBUG 
     var paws: MonkeyPaws?
@@ -66,6 +66,8 @@ enum UITest {
             Database.database().isPersistenceEnabled = false
             Fabric.with([Crashlytics.self])
         }
+        
+        FactoryInteractors.initialization(repositories: FactoryRepositories.instance)
         
         if let path = Bundle.main.path(forResource: "Appsflyer-Info", ofType: "plist"),
             let root = NSDictionary(contentsOfFile: path)?["Appsflyer"] as? NSDictionary {
@@ -88,7 +90,7 @@ enum UITest {
         Language.load()
 
         Swizzle(initializers: [UIView.passtroughInit, UIView.insetsInit, UIView.shadowInit]).start()
-
+        
         #if DEBUG || TEST
             SweetLogger.current.plugins = [SweetLoggerConsole(visibleLevels: [.warning, .debug, .error],
                                                               isShortLog: true),

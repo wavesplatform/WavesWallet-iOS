@@ -139,10 +139,11 @@ final class AssetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositor
 
 private extension DomainLayer.DTO.AssetBalanceSettings {
     init(_ settings: AssetBalanceSettings) {
-        self.assetId = settings.assetId
-        self.sortLevel = settings.sortLevel
-        self.isHidden = settings.isHidden
-        self.isFavorite = settings.isFavorite
+        
+        self.init(assetId: settings.assetId,
+                  sortLevel: settings.sortLevel,
+                  isHidden: settings.isHidden,
+                  isFavorite: settings.isFavorite)
     }
 }
 

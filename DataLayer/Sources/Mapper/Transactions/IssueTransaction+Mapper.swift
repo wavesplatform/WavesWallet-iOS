@@ -8,8 +8,8 @@
 
 import Foundation
 import WavesSDKExtension
-
 import WavesSDK
+import DomainLayer
 
 extension IssueTransaction {
 
@@ -44,49 +44,49 @@ extension DomainLayer.DTO.IssueTransaction {
 
     init(transaction: NodeService.DTO.IssueTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
 
-        type = transaction.type
-        id = transaction.id
-        sender = transaction.sender.normalizeAddress(environment: environment)
-        senderPublicKey = transaction.senderPublicKey
-        fee = transaction.fee
-        timestamp = transaction.timestamp
-        version = transaction.version
-        height = transaction.height
-        signature = transaction.signature
-        assetId = transaction.assetId
-        name = transaction.name
-        chainId = nil
-
-        quantity = transaction.quantity
-        reissuable = transaction.reissuable
-        decimals = transaction.decimals
-        description = transaction.description
-        script = transaction.script
-        modified = Date()
-        proofs = transaction.proofs
-        self.status = status
+        self.init(type: transaction.type,
+                  id: transaction.id,
+                  sender: transaction.sender.normalizeAddress(environment: environment),
+                  senderPublicKey: transaction.senderPublicKey,
+                  fee: transaction.fee,
+                  timestamp: transaction.timestamp,
+                  version: transaction.version,
+                  height: transaction.height,
+                  chainId: nil,
+                  signature: transaction.signature,
+                  proofs: transaction.proofs,
+                  assetId: transaction.assetId,
+                  name: transaction.name,
+                  quantity: transaction.quantity,
+                  reissuable: transaction.reissuable,
+                  decimals: transaction.decimals,
+                  description: transaction.description,
+                  script: transaction.script,
+                  modified: Date(),
+                  status: status)
     }
 
     init(transaction: IssueTransaction) {
-        type = transaction.type
-        id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.senderPublicKey
-        fee = transaction.fee
-        timestamp = transaction.timestamp
-        version = transaction.version
-        height = transaction.height
-        signature = transaction.signature
-        assetId = transaction.assetId
-        name = transaction.name
-        quantity = transaction.quantity
-        reissuable = transaction.reissuable
-        decimals = transaction.decimals
-        description = transaction.assetDescription
-        script = transaction.script
-        modified = transaction.modified
-        proofs = transaction.proofs.toArray()
-        chainId = transaction.chainId.value
-        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
+        
+        self.init(type: transaction.type,
+                  id: transaction.id,
+                  sender: transaction.sender,
+                  senderPublicKey: transaction.senderPublicKey,
+                  fee: transaction.fee,
+                  timestamp: transaction.timestamp,
+                  version: transaction.version,
+                  height: transaction.height,
+                  chainId: transaction.chainId.value,
+                  signature: transaction.signature,
+                  proofs: transaction.proofs.toArray(),
+                  assetId: transaction.assetId,
+                  name: transaction.name,
+                  quantity: transaction.quantity,
+                  reissuable: transaction.reissuable,
+                  decimals: transaction.decimals,
+                  description: transaction.assetDescription,
+                  script: transaction.script,
+                  modified: transaction.modified,
+                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
     }
 }

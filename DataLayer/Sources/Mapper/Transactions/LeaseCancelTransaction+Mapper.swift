@@ -71,25 +71,27 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
     }
 
     init(transaction: LeaseCancelTransaction) {
-        type = transaction.type
-        id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.senderPublicKey
-        fee = transaction.fee
-        timestamp = transaction.timestamp
-        version = transaction.version
-        height = transaction.height
-        modified = transaction.modified
-
-        signature = transaction.signature
-        chainId = transaction.chainId.value
-        leaseId = transaction.leaseId
+        
+        var leaseTx: DomainLayer.DTO.LeaseTransaction? = nil
+        
         if let lease = transaction.lease {
-            self.lease = DomainLayer.DTO.LeaseTransaction(transaction: lease)
-        } else {
-            self.lease = nil
+            leaseTx = DomainLayer.DTO.LeaseTransaction(transaction: lease)
         }
-        proofs = transaction.proofs.toArray()
-        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
+        
+        self.init(type: transaction.type,
+                  id: transaction.id,
+                  sender: transaction.sender,
+                  senderPublicKey: transaction.senderPublicKey,
+                  fee: transaction.fee,
+                  timestamp: transaction.timestamp,
+                  version: transaction.version,
+                  height: transaction.height,
+                  signature: transaction.signature,
+                  proofs: transaction.proofs.toArray(),
+                  chainId: transaction.chainId.value,
+                  leaseId: transaction.leaseId,
+                  lease: leaseTx,
+                  modified: transaction.modified,
+                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)    
     }
 }

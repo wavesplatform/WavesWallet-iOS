@@ -13,6 +13,8 @@ import RxSwift
 import RxOptional
 import WavesSDK
 import WavesSDKExtension
+import DomainLayer
+import Extensions
 
 extension Realm {
     func filter<ParentType: Object>(parentType: ParentType.Type,
@@ -215,7 +217,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
     private func mapping(result: Results<AnyTransaction>, by specifications: TransactionsSpecifications) -> [DomainLayer.DTO.AnyTransaction] {
 
         var txs: [AnyTransaction] = []
-        if let page = specifications.page {
+        if let page = specifications.page {        
             txs = result.get(offset: page.offset, limit: page.limit)
         } else {
             txs = result.toArray()

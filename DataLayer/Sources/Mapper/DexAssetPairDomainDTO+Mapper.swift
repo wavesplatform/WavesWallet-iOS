@@ -9,6 +9,14 @@
 import Foundation
 import RealmSwift
 import WavesSDK
+import DomainLayer
+
+
+//TODO: Constants
+private enum Constants {
+    static let MinersRewardToken = ["4uK8i4ThRGbehENwa6MxyLtxAjAo1Rj9fduborGExarC" : "MRT"]
+    static let WavesCommunityToken = ["DHgwrRvVyqJsepd32YbBqUeDH4GJ1N984X8QoekjgH8J" : "WCT"]
+}
 
 extension DomainLayer.DTO.Dex.SmartPair {
     
@@ -25,13 +33,12 @@ extension DomainLayer.DTO.Dex.SmartPair {
                                                    decimals: pair.priceAsset.decimals)
         
         
-        self.amountAsset = amountAsset
-        self.priceAsset = priceAsset
-        self.isChecked = isChecked
-        self.isGeneral = pair.isGeneral
-        self.sortLevel = pair.sortLevel
-        self.id = pair.id
-        
+        self.init(id: pair.id,
+                  amountAsset: amountAsset,
+                  priceAsset: priceAsset,
+                  isChecked: isChecked,
+                  isGeneral: pair.isGeneral,
+                  sortLevel: pair.sortLevel)        
     }
 }
 
@@ -51,10 +58,10 @@ extension DomainLayer.DTO.Dex.SmartPair {
         }
         
         //TODO: need remove when move on new Api
-        if let ticker = DexMarket.MinersRewardToken[market.amountAsset] {
+        if let ticker = Constants.MinersRewardToken[market.amountAsset] {
             amountAssetShortName = ticker
         }
-        else if let ticker = DexMarket.WavesCommunityToken[market.amountAsset] {
+        else if let ticker = Constants.WavesCommunityToken[market.amountAsset] {
             amountAssetShortName = ticker
         }
         
@@ -69,22 +76,22 @@ extension DomainLayer.DTO.Dex.SmartPair {
         }
         
         //TODO: need remove when move on new Api
-        if let ticker = DexMarket.MinersRewardToken[market.priceAsset] {
+        if let ticker = Constants.MinersRewardToken[market.priceAsset] {
             priceAssetShortName = ticker
         }
-        else if let ticker = DexMarket.WavesCommunityToken[market.priceAsset] {
+        else if let ticker = Constants.WavesCommunityToken[market.priceAsset] {
             priceAssetShortName = ticker
         }
         
-        amountAsset = .init(id: market.amountAsset,
-                            name: amountAssetName,
-                            shortName: amountAssetShortName,
-                            decimals: market.amountAssetInfo?.decimals ?? 0)
+        let amountAsset: DomainLayer.DTO.Dex.Asset = .init(id: market.amountAsset,
+                                                           name: amountAssetName,
+                                                           shortName: amountAssetShortName,
+                                                           decimals: market.amountAssetInfo?.decimals ?? 0)
         
-        priceAsset = .init(id: market.priceAsset,
-                           name: priceAssetName,
-                           shortName: priceAssetShortName,
-                           decimals: market.priceAssetInfo?.decimals ?? 0)
+        let priceAsset: DomainLayer.DTO.Dex.Asset = .init(id: market.priceAsset,
+                                                          name: priceAssetName,
+                                                          shortName: priceAssetShortName,
+                                                          decimals: market.priceAssetInfo?.decimals ?? 0)
         
         
         let isGeneralAmount = realm.objects(Asset.self)
@@ -92,9 +99,17 @@ extension DomainLayer.DTO.Dex.SmartPair {
         let isGeneralPrice = realm.objects(Asset.self)
             .filter(NSPredicate(format: "id == %@ AND isGeneral == true", priceAsset.id)).count > 0
         
-        isGeneral = isGeneralAmount && isGeneralPrice
-        id = market.amountAsset + market.priceAsset
-        isChecked = realm.object(ofType: DexAssetPair.self, forPrimaryKey: id) != nil
-        sortLevel = realm.object(ofType: DexAssetPair.self, forPrimaryKey: id)?.sortLevel ?? 0
+        let isGeneral = isGeneralAmount && isGeneralPrice
+        let id = market.amountAsset + market.priceAsset
+        let isChecked = realm.object(ofType: DexAssetPair.self, forPrimaryKey: id) != nil
+        let sortLevel = realm.object(ofType: DexAssetPair.self, forPrimaryKey: id)?.sortLevel ?? 0
+        
+        
+        self.init(id: id,
+                  amountAsset: amountAsset,
+                  priceAsset: priceAsset,
+                  isChecked: isChecked,
+                  isGeneral: isGeneral,
+                  sortLevel: sortLevel)
     }
 }

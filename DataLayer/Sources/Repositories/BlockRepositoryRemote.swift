@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import Moya
 import WavesSDK
+import DomainLayer
 
 final class BlockRepositoryRemote: BlockRepositoryProtocol {
 

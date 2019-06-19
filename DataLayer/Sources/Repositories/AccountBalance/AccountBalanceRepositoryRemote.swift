@@ -12,6 +12,7 @@ import RxSwift
 import WavesSDKExtension
 import WavesSDK
 import Base58
+import DomainLayer
 
 private struct SponsoredAssetDetail {
     let minSponsoredAssetFee: Int64?
@@ -211,33 +212,36 @@ private extension AccountBalanceRepositoryRemote {
 private extension DomainLayer.DTO.AssetBalance {
 
     init(accountBalance: NodeService.DTO.AddressBalance, inOrderBalance: Int64) {
-        self.assetId = WavesSDKCryptoConstants.wavesAssetId
-        self.totalBalance = accountBalance.balance
-        self.leasedBalance = 0
-        self.inOrderBalance = inOrderBalance
-        self.modified = Date()
-        self.sponsorBalance = 0
-        self.minSponsoredAssetFee = 0
+        
+        self.init(assetId: WavesSDKCryptoConstants.wavesAssetId,
+                  totalBalance: accountBalance.balance,
+                  leasedBalance: 0,
+                  inOrderBalance: inOrderBalance,
+                  modified: Date(),
+                  sponsorBalance: 0,
+                  minSponsoredAssetFee: 0)
     }
 
     init(model: NodeService.DTO.AssetBalance, inOrderBalance: Int64) {
-        self.assetId = model.assetId
-        self.totalBalance = model.balance
-        self.leasedBalance = 0
-        self.inOrderBalance = inOrderBalance
-        self.sponsorBalance = model.sponsorBalance ?? 0
-        self.modified = Date()
-        self.minSponsoredAssetFee = model.minSponsoredAssetFee ?? 0
+
+        self.init(assetId: model.assetId,
+                  totalBalance: model.balance,
+                  leasedBalance: 0,
+                  inOrderBalance: inOrderBalance,
+                  modified: Date(),
+                  sponsorBalance: model.sponsorBalance ?? 0,
+                  minSponsoredAssetFee: model.minSponsoredAssetFee ?? 0)
     }
 
     init(model: NodeService.DTO.AddressAssetBalance, inOrderBalance: Int64, sponsoredAssetDetail: SponsoredAssetDetail) {
-        self.assetId = model.assetId
-        self.totalBalance = model.balance
-        self.leasedBalance = 0
-        self.inOrderBalance = inOrderBalance
-        self.sponsorBalance = sponsoredAssetDetail.sponsoredBalance
-        self.modified = Date()
-        self.minSponsoredAssetFee = sponsoredAssetDetail.minSponsoredAssetFee ?? 0
+        
+        self.init(assetId: model.assetId,
+                  totalBalance: model.balance,
+                  leasedBalance: 0,
+                  inOrderBalance: inOrderBalance,
+                  modified: Date(),
+                  sponsorBalance: sponsoredAssetDetail.sponsoredBalance,
+                  minSponsoredAssetFee: sponsoredAssetDetail.minSponsoredAssetFee ?? 0)
     }
 
     static func map(assets: NodeService.DTO.AddressAssetsBalance,

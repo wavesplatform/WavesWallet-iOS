@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import Moya
+import DomainLayer
 
 final class NotificationNewsRepository: NotificationNewsRepositoryProtocol {
 

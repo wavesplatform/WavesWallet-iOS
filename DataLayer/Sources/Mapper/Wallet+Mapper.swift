@@ -21,14 +21,18 @@ extension WalletEncryption {
 extension DomainLayer.DTO.WalletEncryption {
 
     init(wallet: WalletEncryption) {
-        self.publicKey = wallet.publicKey
-
+        
+        var kind: DomainLayer.DTO.WalletEncryption.Kind! = nil
+        
         if let secret = wallet.secret {
-            self.kind = .passcode(secret: secret)
+            kind = .passcode(secret: secret)
         } else {
-            self.kind = .none
+            kind = .none
         }
-        self.seedId = wallet.seedId
+        
+        self.init(publicKey: wallet.publicKey,
+                  kind: kind,
+                  seedId: wallet.seedId)
     }
 }
 
@@ -50,13 +54,13 @@ extension DomainLayer.DTO.Wallet {
 
     init(wallet: WalletItem) {
 
-        self.publicKey = wallet.publicKey
-        self.name = wallet.name
-        self.isLoggedIn = wallet.isLoggedIn
-        self.isBackedUp = wallet.isBackedUp
-        self.address = wallet.address        
-        self.hasBiometricEntrance = wallet.hasBiometricEntrance
-        self.id = wallet.id
+        self.init(name: wallet.name,
+                  address: wallet.address,
+                  publicKey: wallet.publicKey,
+                  isLoggedIn: wallet.isLoggedIn,
+                  isBackedUp: wallet.isBackedUp,
+                  hasBiometricEntrance: wallet.hasBiometricEntrance,
+                  id: wallet.id)
     }
 }
 
@@ -73,8 +77,9 @@ extension SeedItem {
 extension DomainLayer.DTO.WalletSeed {
 
     init(seed: SeedItem) {
-        self.publicKey = seed.publicKey
-        self.seed = seed.seed
-        self.address = seed.address
+        
+        self.init(publicKey: seed.publicKey,
+                  seed: seed.seed,
+                  address: seed.address)
     }
 }

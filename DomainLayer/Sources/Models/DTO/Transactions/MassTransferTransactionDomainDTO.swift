@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Extensions
 
 public extension DomainLayer.DTO {
     public struct MassTransferTransaction: Mutating {

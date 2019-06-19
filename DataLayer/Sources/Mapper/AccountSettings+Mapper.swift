@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import DomainLayer
 
 extension AccountSettings {
 
@@ -20,6 +21,6 @@ extension AccountSettings {
 extension DomainLayer.DTO.AccountSettings {
 
     init(_ settings: AccountSettings) {
-        self.isEnabledSpam = settings.isEnabledSpam
+        self.init(isEnabledSpam: settings.isEnabledSpam)        
     }
 }

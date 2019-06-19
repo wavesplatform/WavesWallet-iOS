@@ -204,10 +204,10 @@ private extension EnvironmentRepository {
                 return Disposables.create()
             }
             
-            WavesSDK.initialization(servicesPlugins: .init(data: [SentryNetworkLoggerPlugin()],
-                                                           node: [SentryNetworkLoggerPlugin(),
-                                                                  NodePlugin()],
-                                                           matcher: [SentryNetworkLoggerPlugin()]),
+            //TODO: Library SentryNetworkLoggerPlugin()
+            WavesSDK.initialization(servicesPlugins: .init(data: [],
+                                                           node: [NodePlugin()],
+                                                           matcher: []),
                                     enviroment: .init(server: server, timestampServerDiff: 0))
             observer.onNext(WavesSDK.shared.services)
             observer.onCompleted()

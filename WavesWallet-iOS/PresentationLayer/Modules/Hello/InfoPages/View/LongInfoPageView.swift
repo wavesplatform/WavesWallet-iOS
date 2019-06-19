@@ -6,11 +6,11 @@
 //
 
 import UIKit
+import Extensions
 
 protocol LongInfoPageViewDelegate: class {
     
-    func longInfoPageViewDidScrollToBottom(view: LongInfoPageView)
-    
+    func longInfoPageViewDidScrollToBottom(view: LongInfoPageView)    
 }
 
 final class LongInfoPageView: UIView {

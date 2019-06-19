@@ -54,51 +54,54 @@ extension DomainLayer.DTO.MassTransferTransaction {
          status: DomainLayer.DTO.TransactionStatus,
          environment: WalletEnvironment) {
 
-        type = transaction.type
-        id = transaction.id
-        sender = transaction.sender.normalizeAddress(environment: environment)
-        senderPublicKey = transaction.senderPublicKey
-        fee = transaction.fee
-        timestamp = transaction.timestamp
-        version = transaction.version
-        height = transaction.height
-        modified = Date()
-
-        assetId = transaction.assetId.normalizeAssetId
-        attachment = transaction.attachment
-        transferCount = transaction.transferCount
-        totalAmount = transaction.totalAmount
-        proofs = transaction.proofs
-
-        transfers = transaction
+        let transfers: [DomainLayer.DTO.MassTransferTransaction.Transfer] = transaction
             .transfers
             .map { .init(recipient: $0.recipient.normalizeAddress(environment: environment),
                          amount: $0.amount) }
 
+        self.init(type: transaction.type,
+                  id: transaction.id,
+                  sender: transaction.sender.normalizeAddress(environment: environment),
+                  senderPublicKey: transaction.senderPublicKey,
+                  fee: transaction.fee,
+                  timestamp: transaction.timestamp,
+                  version: transaction.version,
+                  height: transaction.height,
+                  proofs: transaction.proofs,
+                  assetId: transaction.assetId.normalizeAssetId,
+                  attachment: transaction.attachment,
+                  transferCount: transaction.transferCount,
+                  totalAmount: transaction.totalAmount,
+                  transfers: transfers,
+                  modified: Date(),
+                  status: status)
+        
         self.status = status
     }
 
     init(transaction: MassTransferTransaction) {
-        type = transaction.type
-        id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.sender
-        fee = transaction.fee
-        timestamp = transaction.timestamp
-        version = transaction.version
-        height = transaction.height
-        modified = transaction.modified
 
-        assetId = transaction.assetId.normalizeAssetId
-        attachment = transaction.attachment
-        transferCount = transaction.transferCount
-        totalAmount = transaction.totalAmount
-        proofs = transaction.proofs.toArray()
-
-        transfers = transaction
+        let transfers = transaction
             .transfers
-            .map { .init(recipient: $0.recipient,
-                         amount: $0.amount) }
-        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
+            .toArray()
+            .map { DomainLayer.DTO.MassTransferTransaction.Transfer(recipient: $0.recipient,
+                                                                    amount: $0.amount) }
+        
+        self.init(type: transaction.type,
+                  id: transaction.id,
+                  sender: transaction.sender,
+                  senderPublicKey: transaction.senderPublicKey,
+                  fee: transaction.fee,
+                  timestamp: transaction.timestamp,
+                  version: transaction.version,
+                  height: transaction.height,
+                  proofs: transaction.proofs.toArray(),
+                  assetId: transaction.assetId.normalizeAssetId,
+                  attachment: transaction.attachment,
+                  transferCount: transaction.transferCount,
+                  totalAmount: transaction.totalAmount,
+                  transfers: transfers,
+                  modified: transaction.modified,
+                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
     }
 }

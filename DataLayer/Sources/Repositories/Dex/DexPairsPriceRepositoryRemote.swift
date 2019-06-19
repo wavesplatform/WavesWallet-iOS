@@ -10,6 +10,8 @@ import Foundation
 import RxSwift
 import Moya
 import WavesSDK
+import DomainLayer
+import Extensions
 
 final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
             

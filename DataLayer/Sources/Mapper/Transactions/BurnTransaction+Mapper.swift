@@ -39,40 +39,39 @@ extension DomainLayer.DTO.BurnTransaction {
 
     init(transaction: NodeService.DTO.BurnTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
 
-        type = transaction.type
-        id = transaction.id
-        sender = transaction.sender.normalizeAddress(environment: environment)
-        senderPublicKey = transaction.senderPublicKey
-        fee = transaction.fee
-        timestamp = transaction.timestamp
-        version = transaction.version
-        height = transaction.height ?? -1
-        modified = Date()
-
-        assetId = transaction.assetId
-        signature = transaction.signature
-        chainId = transaction.chainId
-        amount = transaction.amount
-        proofs = transaction.proofs
-        self.status = status
+        self.init(type: transaction.type,
+                  id: transaction.id,
+                  sender: transaction.sender.normalizeAddress(environment: environment),
+                  senderPublicKey: transaction.senderPublicKey,
+                  fee: transaction.fee,
+                  timestamp: transaction.timestamp,
+                  version: transaction.version,
+                  height: transaction.height ?? -1,
+                  signature: transaction.signature,
+                  proofs: transaction.proofs,
+                  chainId: transaction.chainId,
+                  assetId: transaction.assetId,
+                  amount: transaction.amount,
+                  modified: Date(),
+                  status: status)
     }
 
     init(transaction: BurnTransaction) {
-        type = transaction.type
-        id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.senderPublicKey
-        fee = transaction.fee
-        timestamp = transaction.timestamp
-        version = transaction.version
-        height = transaction.height
-        modified = transaction.modified
-
-        assetId = transaction.assetId
-        amount = transaction.amount
-        signature = transaction.signature
-        chainId = transaction.chainId.value
-        proofs = transaction.proofs.toArray()
-        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
+        
+        self.init(type: transaction.type,
+                  id: transaction.id,
+                  sender: transaction.sender,
+                  senderPublicKey: transaction.senderPublicKey,
+                  fee: transaction.fee,
+                  timestamp: transaction.timestamp,
+                  version: transaction.version,
+                  height: transaction.height,
+                  signature: transaction.signature,
+                  proofs: transaction.proofs.toArray(),
+                  chainId: transaction.chainId.value,
+                  assetId: transaction.assetId,
+                  amount: transaction.amount,
+                  modified: transaction.modified,
+                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)        
     }
 }

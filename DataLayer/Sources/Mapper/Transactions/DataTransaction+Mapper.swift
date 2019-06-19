@@ -57,15 +57,7 @@ extension DomainLayer.DTO.DataTransaction {
 
     init(transaction: NodeService.DTO.DataTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
 
-        type = transaction.type
-        id = transaction.id
-        sender = transaction.sender.normalizeAddress(environment: environment)
-        senderPublicKey = transaction.senderPublicKey
-        fee = transaction.fee
-        timestamp = transaction.timestamp
-        version = transaction.version
-        height = transaction.height
-        modified = Date()
+    
 
         let dataList = transaction.data.map { data -> DomainLayer.DTO.DataTransaction.Data in
 
@@ -85,24 +77,22 @@ extension DomainLayer.DTO.DataTransaction {
                                                         type: data.type)
         }
 
-        proofs = transaction.proofs
-        data = dataList
-
-        self.status = status
+        self.init(type: transaction.type,
+                  id: transaction.id,
+                  sender: transaction.sender.normalizeAddress(environment: environment),
+                  senderPublicKey: transaction.senderPublicKey,
+                  fee: transaction.fee,
+                  timestamp: transaction.timestamp,
+                  height: transaction.height,
+                  version: transaction.version,
+                  proofs: transaction.proofs,
+                  data: dataList,
+                  modified: Date(),
+                  status: status)
     }
 
     init(transaction: DataTransaction) {
-        type = transaction.type
-        id = transaction.id
-        sender = transaction.sender
-        senderPublicKey = transaction.sender
-        fee = transaction.fee
-        timestamp = transaction.timestamp
-        version = transaction.version
-        height = transaction.height
-        modified = transaction.modified
-
-        proofs = transaction.proofs.toArray()
+    
         let dataList = transaction.data.toArray().map { data -> DomainLayer.DTO.DataTransaction.Data in
 
             var dataValue: DomainLayer.DTO.DataTransaction.Data.Value!
@@ -119,7 +109,18 @@ extension DomainLayer.DTO.DataTransaction {
 
             return DomainLayer.DTO.DataTransaction.Data(key: data.key, value: dataValue, type: data.type)
         }
-        data = dataList
-        status = DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed
+        
+        self.init(type: transaction.type,
+                  id: transaction.id,
+                  sender: transaction.sender,
+                  senderPublicKey: transaction.senderPublicKey,
+                  fee: transaction.fee,
+                  timestamp: transaction.timestamp,
+                  height: transaction.height,
+                  version: transaction.version,
+                  proofs: transaction.proofs.toArray(),
+                  data: dataList,
+                  modified: transaction.modified,
+                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)        
     }
 }

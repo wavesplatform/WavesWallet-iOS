@@ -8,6 +8,7 @@
 
 import Foundation
 import LocalAuthentication
+import Extensions
 
 public enum BiometricType {
     case none
