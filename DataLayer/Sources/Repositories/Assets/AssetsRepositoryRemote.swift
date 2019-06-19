@@ -36,51 +36,19 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
             .servicesEnvironment()
             .flatMap({ [weak self] (servicesEnvironment) -> Observable<[DomainLayer.DTO.Asset]> in
                 
-<<<<<<< HEAD:DataLayer/Sources/Repositories/Assets/AssetsRepositoryRemote.swift
             guard let self = self else { return Observable.empty() }
             
             let walletEnviroment = servicesEnvironment.walletEnvironment
-            
-                //TODO: move provider to service
-=======
-                let spamAssets = self.spamProvider.rx
-                                .request(.getSpamList(hasProxy: true),
-                                         callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                                .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
-                                    guard let self = self else { return Single.never() }
-                                    return self.spamProvider
-                                        .rx
-                                        .request(.getSpamList(hasProxy: false))
-                                })
-                                .filterSuccessfulStatusAndRedirectCodes()
-                                .asObservable()
-                                .catchError({ (error) -> Observable<Response> in
-                                    return Observable.error(NetworkError.error(by: error))
-                                })
-                                .map { response -> [String] in
-                                    return (try? SpamCVC.addresses(from: response.data)) ?? []
-                                }
 
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .custom { decoder in
-                    return Date(isoDecoder: decoder, timestampDiff: environment.timestampServerDiff)
-                }
-                
-                let assetsList = self.apiProvider.rx
-                                .request(.init(kind: .getAssets(ids: ids), environment: environment),
-                                        callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                                .filterSuccessfulStatusAndRedirectCodes()
-                                .asObservable()
-                                .catchError({ (error) -> Observable<Response> in
-                                    return Observable.error(NetworkError.error(by: error))
-                                })
-                                .map(API.Response<[API.Response<API.DTO.Asset>]>.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
-                                .map { $0.data.map { $0.data } }
->>>>>>> develop:WavesWallet-iOS/DataLayer/Repositories/Assets/AssetsRepositoryRemote.swift
-                
             let spamAssets = self.spamProvider.rx
-                            .request(.getSpamList(url: walletEnviroment.servers.spamUrl),
+                            .request(.getSpamList(hasProxy: true),
                                      callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                            .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
+                                guard let self = self else { return Single.never() }
+                                return self.spamProvider
+                                    .rx
+                                    .request(.getSpamList(hasProxy: false))
+                            })
                             .filterSuccessfulStatusAndRedirectCodes()
                             .asObservable()
                             .catchError({ (error) -> Observable<Response> in
@@ -89,7 +57,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                             .map { response -> [String] in
                                 return (try? SpamCVC.addresses(from: response.data)) ?? []
                             }
-            
+
             let assetsList = servicesEnvironment
                 .wavesServices
                 .dataServices
@@ -167,7 +135,7 @@ fileprivate extension DomainLayer.DTO.Asset {
         var isVostok = false
         var isFiat = false
         let isGateway = info?.isGateway ?? false
-        let isWavesToken = isFiat == false && isGateway == false && isWaves == false
+        let isWavesToken = isFiat == false && isGateway == false && isWaves == false && isVostok == false
         var name = asset.name
         
         //TODO: Current code need move to AssetsInteractor!
@@ -184,7 +152,6 @@ fileprivate extension DomainLayer.DTO.Asset {
             name = info.displayName
             isFiat = info.isFiat
         }
-<<<<<<< HEAD:DataLayer/Sources/Repositories/Assets/AssetsRepositoryRemote.swift
         
         self.init(id: asset.id,
                   gatewayId: info?.gatewayId,
@@ -210,18 +177,5 @@ fileprivate extension DomainLayer.DTO.Asset {
                   iconLogoUrl: info?.iconUrls?.default,
                   hasScript: asset.hasScript,
                   minSponsoredFee: asset.minSponsoredFee ?? 0)
-=======
-
-        self.isWavesToken = isFiat == false && isGateway == false && isWaves == false && isVostok == false
-        self.isGeneral = isGeneral
-        self.isWaves = isWaves
-        self.isFiat = isFiat
-        self.isGateway = isGateway
-        self.displayName = name
-        self.addressRegEx = info?.addressRegEx ?? ""
-        self.iconLogoUrl = info?.iconUrls?.default
-        self.hasScript = asset.hasScript
-        self.minSponsoredFee = asset.minSponsoredFee ?? 0
->>>>>>> develop:WavesWallet-iOS/DataLayer/Repositories/Assets/AssetsRepositoryRemote.swift
     }
 }

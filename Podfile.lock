@@ -432,7 +432,7 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
   WavesSDK: 25ce6d414f09a852c3e8bd92d5ee5c13b3db9ae8
-  WavesSDKCrypto: efbe49381abb54d2d9fe249056d12009be3bd79c
+  WavesSDKCrypto: 13726c6c30ba60723d56bad89e36c40749e87120
   WavesSDKExtension: 6fc665d55211805012f28c21ef1803310c4f940b
 
 PODFILE CHECKSUM: 2d5aba1cfc2cb1c76cf3ebf7f8dda025a11c0fb7
