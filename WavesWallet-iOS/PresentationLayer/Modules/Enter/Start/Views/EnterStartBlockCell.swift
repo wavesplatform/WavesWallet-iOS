@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Extensions
 
 private enum Constants {
     static let imageSize = CGSize(width: 120, height: 100)

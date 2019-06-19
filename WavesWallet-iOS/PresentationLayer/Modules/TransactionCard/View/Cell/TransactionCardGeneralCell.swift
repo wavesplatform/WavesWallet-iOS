@@ -77,7 +77,7 @@ final class TransactionCardGeneralCell: UITableViewCell, Reusable {
     }
 }
 
-// TODO: ViewConfiguration
+// MARK: ViewConfiguration
 
 extension TransactionCardGeneralCell: ViewConfiguration {
 

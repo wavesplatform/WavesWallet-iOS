@@ -7,6 +7,7 @@
 
 import Foundation
 import DomainLayer
+import Extensions
 
 enum ChangePasswordTypes {
     enum DTO { }

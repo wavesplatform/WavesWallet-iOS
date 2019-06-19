@@ -13,6 +13,7 @@ Pod::Spec.new do |spec|
   spec.source =  {  :git => ''}
   
   spec.ios.framework = 'Foundation'
+  spec.ios.framework = 'UIKit'
   
   spec.static_framework = true
   

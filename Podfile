@@ -104,7 +104,7 @@ target 'WavesWallet-iOS' do
     pod 'AppsFlyerFramework'
 end
 
-target 'DomainLayer' do
+target '_DomainLayer' do
 
     inherit! :search_paths
 
@@ -128,7 +128,7 @@ target 'DomainLayer' do
 
 end
 
-target 'Extensions' do
+target '_Extensions' do
 
     inherit! :search_paths
 
@@ -144,7 +144,7 @@ target 'Extensions' do
 
 end
 
-target 'DataLayer' do
+target '_DataLayer' do
 
     inherit! :search_paths
 

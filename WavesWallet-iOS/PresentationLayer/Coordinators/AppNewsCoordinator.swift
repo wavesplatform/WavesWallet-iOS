@@ -12,6 +12,7 @@ import RxCocoa
 import Kingfisher
 import WavesSDKExtension
 import DomainLayer
+import Extensions
 
 private struct ApplicationNewsSettings: TSUD, Codable, Mutating {
 
