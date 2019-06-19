@@ -97,7 +97,7 @@
 "changepassword.textfield.createpassword.title" = "Nouveau mot de passe";
 "changepassword.textfield.error.atleastcharacters" = "Minimum %d caractères";
 "changepassword.textfield.error.incorrectpassword" = "Mot de passe erroné";
-"changepassword.textfield.error.passwordnotmatch" = "Le mot de passe ne correspond pas";
+"changepassword.textfield.error.passwordnotmatch" = "ne correspond pas";
 "changepassword.textfield.oldpassword.title" = "Ancien mot de passe";
 "chooseaccount.alert.button.no" = "Annuler";
 "chooseaccount.alert.button.ok" = "Oui";
@@ -344,7 +344,7 @@
 "newaccount.textfield.error.doesnotmatch" = "Ne correspond pas";
 "newaccount.textfield.error.maximumcharacters" = "%d caractères maximum";
 "newaccount.textfield.error.minimumcharacters" = "Minimum %d caractères";
-"newaccount.textfield.error.passwordnotmatch" = "Le mot de passe no correspond pas";
+"newaccount.textfield.error.passwordnotmatch" = "ne correspond pas";
 "newaccount.textfield.error.wrongordertryagain" = "Mauvais ordre, réessayez";
 "passcode.alert.attempsended.button.cancel" = "Annuler";
 "passcode.alert.attempsended.button.enterpassword" = "Utiliser le mot de passe";
