@@ -9,7 +9,7 @@
 import Foundation
 import WavesSDK
 
-private struct AuthorizationInteractorLocalizableImp: AuthorizationInteractorLocalizable {
+private struct AuthorizationInteractorLocalizableImp: AuthorizationInteractorLocalizableProtocol {
     var fallbackTitle: String {
         //TODO: Experement
         return ""
