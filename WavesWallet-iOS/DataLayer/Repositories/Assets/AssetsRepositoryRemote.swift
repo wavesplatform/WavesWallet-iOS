@@ -13,11 +13,6 @@ import CSV
 import WavesSDKExtension
 import WavesSDKCrypto
 
-//TODO: move to SDK or change mapping assets
-private enum Constants {
-    static let vostokAssetId = "4LHHvYGNKJUg5hj65aGD5vgScvCBmLpdRFtjokvCjSL8"
-}
-
 final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     
     private let apiProvider: MoyaProvider<API.Service.Assets> = .nodeMoyaProvider()
@@ -70,17 +65,20 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                                 .map(API.Response<[API.Response<API.DTO.Asset>]>.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
                                 .map { $0.data.map { $0.data } }
                 
+                
                 return Observable.zip(assetsList, spamAssets)
                     .map({ (assets, spamAssets) -> [DomainLayer.DTO.Asset] in
                         
                         let map = environment.hashMapAssets()
+                        let mapGeneralAssets = environment.hashMapGeneralAssets()
                         
                         let spamIds = spamAssets.reduce(into: [String: Bool](), {$0[$1] = true })
 
                         return assets.map { DomainLayer.DTO.Asset(asset: $0,
                                                                   info: map[$0.id],
                                                                   isSpam: spamIds[$0.id] == true,
-                                                                  isMyWavesToken: $0.sender == accountAddress) }
+                                                                  isMyWavesToken: $0.sender == accountAddress,
+                                                                  isGeneral: mapGeneralAssets[$0.id] != nil) }
                     })
             })
     }
@@ -137,11 +135,22 @@ fileprivate extension Environment {
             return new
         })
     }
+    
+    func hashMapGeneralAssets() -> [String: Environment.AssetInfo] {
+        
+        var allAssets = generalAssets
+        
+        return allAssets.reduce([String: Environment.AssetInfo](), { map, info -> [String: Environment.AssetInfo] in
+            var new = map
+            new[info.assetId] = info
+            return new
+        })
+    }
 }
 
 fileprivate extension DomainLayer.DTO.Asset {
 
-    init(asset: API.DTO.Asset, info: Environment.AssetInfo?, isSpam: Bool, isMyWavesToken: Bool) {
+    init(asset: API.DTO.Asset, info: Environment.AssetInfo?, isSpam: Bool, isMyWavesToken: Bool, isGeneral: Bool) {
         self.ticker = asset.ticker
         self.id = asset.id
         self.wavesId = info?.wavesId
@@ -155,10 +164,8 @@ fileprivate extension DomainLayer.DTO.Asset {
         self.isReusable = asset.reissuable
         self.isSpam = isSpam
         self.isMyWavesToken = isMyWavesToken
-        self.modified = Date()
-        var isGeneral = false
+        self.modified = Date()        
         var isWaves = false
-        var isVostok = false
         var isFiat = false
         let isGateway = info?.isGateway ?? false
         var name = asset.name
@@ -169,16 +176,11 @@ fileprivate extension DomainLayer.DTO.Asset {
                 isWaves = true
             }
             
-            if info.assetId == Constants.vostokAssetId {
-                isVostok = true
-            }
-            
-            isGeneral = info.isGateway || isWaves || isVostok
             name = info.displayName
             isFiat = info.isFiat
         }
 
-        self.isWavesToken = isFiat == false && isGateway == false && isWaves == false && isVostok == false
+        self.isWavesToken = isFiat == false && isGateway == false && isWaves == false
         self.isGeneral = isGeneral
         self.isWaves = isWaves
         self.isFiat = isFiat
