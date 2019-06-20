@@ -13,11 +13,6 @@ import CSV
 import WavesSDKExtension
 import WavesSDKCrypto
 
-//TODO: move to SDK or change mapping assets
-private enum Constants {
-    static let vostokAssetId = "4LHHvYGNKJUg5hj65aGD5vgScvCBmLpdRFtjokvCjSL8"
-}
-
 final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     
     private let apiProvider: MoyaProvider<API.Service.Assets> = .nodeMoyaProvider()
@@ -169,10 +164,8 @@ fileprivate extension DomainLayer.DTO.Asset {
         self.isReusable = asset.reissuable
         self.isSpam = isSpam
         self.isMyWavesToken = isMyWavesToken
-        self.modified = Date()
-        var isGeneral = false
+        self.modified = Date()        
         var isWaves = false
-        var isVostok = false
         var isFiat = false
         let isGateway = info?.isGateway ?? false
         var name = asset.name
@@ -183,16 +176,11 @@ fileprivate extension DomainLayer.DTO.Asset {
                 isWaves = true
             }
             
-            if info.assetId == Constants.vostokAssetId {
-                isVostok = true
-            }
-            
-            isGeneral = info.isGateway || isWaves || isVostok || isGeneral
             name = info.displayName
             isFiat = info.isFiat
         }
 
-        self.isWavesToken = isFiat == false && isGateway == false && isWaves == false && isVostok == false
+        self.isWavesToken = isFiat == false && isGateway == false && isWaves == false
         self.isGeneral = isGeneral
         self.isWaves = isWaves
         self.isFiat = isFiat
