@@ -82,37 +82,10 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
     func accountEnvironment(accountAddress: String) -> Observable<WalletEnvironment> {
         return setupServicesEnviromentShare.map { $0.walletEnvironment }
     }
-//<<<<<<< HEAD
-    
+
     func applicationEnvironment() -> Observable<ApplicationEnvironmentProtocol> {
         return setupServicesEnviromentShare.map { $0 as ApplicationEnvironmentProtocol }
     }
-//=======
-//
-//    private func remoteEnvironment(accountAddress: String) -> Observable<Environment> {
-//
-//        //TODO: function call 6 times, after user input passcode
-//        return environmentRepository
-//            .rx
-//            .request(.get(isTestNet: Environment.isTestNet, hasProxy: true))
-//            .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
-//                guard let self = self else { return Single.never() }
-//                return self
-//                    .environmentRepository
-//                    .rx
-//                    .request(.get(isTestNet: Environment.isTestNet, hasProxy: false))
-//            })
-//            .map(Environment.self)
-//            .catchError { error -> Single<Environment> in
-//                return Single.just(Environment.current)
-//            }
-//            .asObservable()
-//            .flatMap({ [weak self] (environment) -> Observable<Environment> in
-//                guard let self = self else { return Observable.empty() }
-//                return self.updateTimestampServerDiff(environment: environment)
-//            })
-//>>>>>>> develop
-//    }
     
     func setSpamURL(_ url: String, by accountAddress: String) -> Observable<Bool> {
         //Method move to AccountSettingsRepository

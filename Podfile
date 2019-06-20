@@ -50,7 +50,7 @@ target 'WavesWallet-iOS' do
     pod 'RxOptional'
     pod 'RxGesture'
     pod 'RxFeedback'
-    pod 'RxReachability'
+    # pod 'RxReachability'
 
     pod 'IdentityImg'
     pod 'QRCode'
@@ -121,6 +121,7 @@ target 'InternalExtensions' do
     pod 'RxSwift'
     pod 'RxSwiftExt'
     pod 'RxOptional'
+    pod 'DeviceKit'
 
     # Waves
     pod 'WavesSDKExtension', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'

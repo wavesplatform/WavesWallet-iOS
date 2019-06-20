@@ -166,7 +166,7 @@ private final class SeedRepositoryMemory {
     }
 }
 
-public protocol AuthorizationInteractorLocalizable {
+public protocol AuthorizationInteractorLocalizableProtocol {
     var fallbackTitle: String { get }
     var cancelTitle: String { get }
     var readFromkeychain: String { get }
@@ -180,13 +180,13 @@ final class AuthorizationInteractor: AuthorizationInteractorProtocol {
     private let remoteAuthenticationRepository: AuthenticationRepositoryProtocol
     private let accountSettingsRepository: AccountSettingsRepositoryProtocol
 
-    private let localizable: AuthorizationInteractorLocalizable
+    private let localizable: AuthorizationInteractorLocalizableProtocol
 
     init(localWalletRepository: WalletsRepositoryProtocol,
          localWalletSeedRepository: WalletSeedRepositoryProtocol,
          remoteAuthenticationRepository: AuthenticationRepositoryProtocol,
          accountSettingsRepository: AccountSettingsRepositoryProtocol,
-         localizable: AuthorizationInteractorLocalizable) {
+         localizable: AuthorizationInteractorLocalizableProtocol) {
 
         self.localWalletRepository = localWalletRepository
         self.localWalletSeedRepository = localWalletSeedRepository
@@ -556,6 +556,8 @@ extension AuthorizationInteractor {
                                CleanerWalletManager.rx.setCleanWallet(accountAddress: wallet.address, isClean: false),
                                localWalletRepository.removeWalletEncryption(by: wallet.publicKey)])
             .flatMap({ _ -> Observable<Bool> in
+                
+//                FactoryRepositories
                 //TODO: Experement
 //                let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address)
 //                try? realm?.write {

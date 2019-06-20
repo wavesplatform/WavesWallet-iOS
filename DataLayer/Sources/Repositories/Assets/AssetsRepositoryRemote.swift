@@ -128,7 +128,7 @@ fileprivate extension WalletEnvironment {
 
 fileprivate extension DomainLayer.DTO.Asset {
 
-    init(asset: DataService.DTO.Asset, info: WalletEnvironment.AssetInfo?, isSpam: Bool, isMyWavesToken: Bool) {
+    init(asset: DataService.DTO.Asset, info: WalletEnvironment.AssetInfo?, isSpam: Bool, isMyWavesToken: Bool, isGeneral: Bool) {
         
         var isGeneral = false
         var isWaves = false

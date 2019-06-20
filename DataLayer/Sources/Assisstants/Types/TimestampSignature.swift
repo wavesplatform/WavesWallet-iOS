@@ -99,9 +99,9 @@ struct CreateOrderSignature: SignatureProtocol {
         return s1 + s2 + s3 + s4
     }
     
-//    private var id: [UInt8] {
-//        return Hash.fastHash(toSign)
-//    }
+    private var id: [UInt8] {
+        return Hash.fastHash(toSign)
+    }
 }
 
 struct CancelOrderSignature: SignatureProtocol {

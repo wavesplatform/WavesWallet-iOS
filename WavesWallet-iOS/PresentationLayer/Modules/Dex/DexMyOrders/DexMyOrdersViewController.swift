@@ -61,7 +61,7 @@ final class DexMyOrdersViewController: UIViewController {
         let nav = NavigationRouter(navigationController: navigationController)
         let coordinator = TransactionCardCoordinator(kind: .order(order), router: nav)
 
-        //TODO: Fix
+        //TODO: Move code to parent Coordinat
         self.navigationRouter = nav
         self.transactionCardCoordinator = coordinator
         coordinator.delegate = self

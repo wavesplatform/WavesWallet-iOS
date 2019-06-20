@@ -363,89 +363,15 @@
 		7B5EDEC222522837009C2B3B /* TransactionCardSystemOrder+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5EDEC122522837009C2B3B /* TransactionCardSystemOrder+Mapper.swift */; };
 		7B5EDEC42253618C009C2B3B /* AccessibilityIdentifiers.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B5EDEC32253618C009C2B3B /* AccessibilityIdentifiers.strings */; };
 		7B5EDEC622536269009C2B3B /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5EDEC522536268009C2B3B /* AccessibilityIdentifiers.swift */; };
+		7B5FA9FB22BBCFBA00621A44 /* BiometricManager+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FA9FA22BBCFBA00621A44 /* BiometricManager+String.swift */; };
+		7B5FA9FD22BBD19000621A44 /* Sources in Resources */ = {isa = PBXBuildFile; fileRef = 7B5FA9FC22BBD18F00621A44 /* Sources */; };
 		7B601B2A2240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B601B292240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift */; };
 		7B66860422B3F70E0029E6F1 /* DomainLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B66860222B3F70E0029E6F1 /* DomainLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B66867022B51E250029E6F1 /* FactoryInteractorsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66861122B51E250029E6F1 /* FactoryInteractorsProtocol.swift */; };
-		7B66867122B51E250029E6F1 /* FactoryRepositoriesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66861222B51E250029E6F1 /* FactoryRepositoriesProtocol.swift */; };
-		7B66867222B51E250029E6F1 /* TransactionDomainDTO+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66861422B51E250029E6F1 /* TransactionDomainDTO+Mapper.swift */; };
-		7B66867322B51E250029E6F1 /* Asset+Assistants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66861522B51E250029E6F1 /* Asset+Assistants.swift */; };
-		7B66867422B51E250029E6F1 /* DomainDexQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66861722B51E250029E6F1 /* DomainDexQueries.swift */; };
-		7B66867522B51E250029E6F1 /* WalletsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66861922B51E250029E6F1 /* WalletsRepositoryProtocol.swift */; };
-		7B66867622B51E250029E6F1 /* AccountSettingsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66861A22B51E250029E6F1 /* AccountSettingsRepositoryProtocol.swift */; };
-		7B66867722B51E250029E6F1 /* CoinomatRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66861B22B51E250029E6F1 /* CoinomatRepositoryProtocol.swift */; };
-		7B66867822B51E250029E6F1 /* AddressRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66861C22B51E250029E6F1 /* AddressRepositoryProtocol.swift */; };
-		7B66867922B51E250029E6F1 /* AssetsBalanceSettingsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66861D22B51E250029E6F1 /* AssetsBalanceSettingsRepositoryProtocol.swift */; };
-		7B66867A22B51E250029E6F1 /* MatcherRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66861E22B51E250029E6F1 /* MatcherRepositoryProtocol.swift */; };
-		7B66867B22B51E250029E6F1 /* DexRealmRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66861F22B51E250029E6F1 /* DexRealmRepositoryProtocol.swift */; };
-		7B66867C22B51E250029E6F1 /* NotificationNewsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66862022B51E250029E6F1 /* NotificationNewsRepositoryProtocol.swift */; };
-		7B66867D22B51E250029E6F1 /* ApplicationVersionRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66862122B51E250029E6F1 /* ApplicationVersionRepositoryProtocol.swift */; };
-		7B66867E22B51E250029E6F1 /* DexPairsPriceRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66862222B51E250029E6F1 /* DexPairsPriceRepositoryProtocol.swift */; };
-		7B66867F22B51E250029E6F1 /* AddressBookRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66862322B51E250029E6F1 /* AddressBookRepositoryProtocol.swift */; };
-		7B66868022B51E250029E6F1 /* WalletSeedRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66862422B51E250029E6F1 /* WalletSeedRepositoryProtocol.swift */; };
-		7B66868122B51E250029E6F1 /* CandlesRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66862522B51E250029E6F1 /* CandlesRepositoryProtocol.swift */; };
-		7B66868222B51E250029E6F1 /* TransactionsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66862622B51E250029E6F1 /* TransactionsRepositoryProtocol.swift */; };
-		7B66868322B51E250029E6F1 /* LastTradesRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66862722B51E250029E6F1 /* LastTradesRepositoryProtocol.swift */; };
-		7B66868422B51E250029E6F1 /* AssetsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66862822B51E250029E6F1 /* AssetsRepositoryProtocol.swift */; };
-		7B66868522B51E250029E6F1 /* BlockRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66862922B51E250029E6F1 /* BlockRepositoryProtocol.swift */; };
-		7B66868622B51E250029E6F1 /* AliasesRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66862A22B51E250029E6F1 /* AliasesRepositoryProtocol.swift */; };
-		7B66868722B51E250029E6F1 /* AccountBalanceRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66862B22B51E250029E6F1 /* AccountBalanceRepositoryProtocol.swift */; };
-		7B66868822B51E250029E6F1 /* DexOrderBookRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66862C22B51E250029E6F1 /* DexOrderBookRepositoryProtocol.swift */; };
-		7B66868922B51E250029E6F1 /* AuthenticationRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66862D22B51E250029E6F1 /* AuthenticationRepositoryProtocol.swift */; };
-		7B66868A22B51E250029E6F1 /* EnvironmentRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66862E22B51E250029E6F1 /* EnvironmentRepositoryProtocol.swift */; };
-		7B66868B22B51E250029E6F1 /* UtilsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66862F22B51E250029E6F1 /* UtilsRepositoryProtocol.swift */; };
-		7B66868C22B51E250029E6F1 /* DomainLayerTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66863022B51E250029E6F1 /* DomainLayerTypes.swift */; };
-		7B66868D22B51E250029E6F1 /* AccountEnvironmentDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66863322B51E250029E6F1 /* AccountEnvironmentDomainDTO.swift */; };
-		7B66868E22B51E250029E6F1 /* CandleDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66863422B51E250029E6F1 /* CandleDomainDTO.swift */; };
-		7B66868F22B51E250029E6F1 /* AssetBalanceDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66863522B51E250029E6F1 /* AssetBalanceDomainDTO.swift */; };
-		7B66869022B51E250029E6F1 /* DexDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66863622B51E250029E6F1 /* DexDomainDTO.swift */; };
-		7B66869122B51E250029E6F1 /* WalletDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66863722B51E250029E6F1 /* WalletDomainDTO.swift */; };
-		7B66869222B51E250029E6F1 /* AliasDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66863822B51E250029E6F1 /* AliasDomainDTO.swift */; };
-		7B66869322B51E250029E6F1 /* SponsorshipTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66863A22B51E250029E6F1 /* SponsorshipTransactionDomainDTO.swift */; };
-		7B66869422B51E250029E6F1 /* AddressDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66863B22B51E250029E6F1 /* AddressDomainDTO.swift */; };
-		7B66869522B51E250029E6F1 /* InvokeScriptTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66863C22B51E250029E6F1 /* InvokeScriptTransactionDomainDTO.swift */; };
-		7B66869622B51E250029E6F1 /* DataTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66863D22B51E250029E6F1 /* DataTransactionDomainDTO.swift */; };
-		7B66869722B51E250029E6F1 /* AssetScriptTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66863E22B51E250029E6F1 /* AssetScriptTransactionDomainDTO.swift */; };
-		7B66869822B51E250029E6F1 /* SmartTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66863F22B51E250029E6F1 /* SmartTransactionDomainDTO.swift */; };
-		7B66869922B51E250029E6F1 /* LeaseCancelTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66864022B51E250029E6F1 /* LeaseCancelTransactionDomainDTO.swift */; };
-		7B66869A22B51E250029E6F1 /* MassTransferTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66864122B51E250029E6F1 /* MassTransferTransactionDomainDTO.swift */; };
-		7B66869B22B51E250029E6F1 /* ScriptTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66864222B51E250029E6F1 /* ScriptTransactionDomainDTO.swift */; };
-		7B66869C22B51E250029E6F1 /* AnyTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66864322B51E250029E6F1 /* AnyTransactionDomainDTO.swift */; };
-		7B66869D22B51E250029E6F1 /* UnrecognisedTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66864422B51E250029E6F1 /* UnrecognisedTransactionDomainDTO.swift */; };
-		7B66869E22B51E250029E6F1 /* IssueTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66864522B51E250029E6F1 /* IssueTransactionDomainDTO.swift */; };
-		7B66869F22B51E250029E6F1 /* TransferTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66864622B51E250029E6F1 /* TransferTransactionDomainDTO.swift */; };
-		7B6686A022B51E250029E6F1 /* ExchangeTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66864722B51E250029E6F1 /* ExchangeTransactionDomainDTO.swift */; };
-		7B6686A122B51E250029E6F1 /* ReissueTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66864822B51E250029E6F1 /* ReissueTransactionDomainDTO.swift */; };
-		7B6686A222B51E250029E6F1 /* BurnTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66864922B51E250029E6F1 /* BurnTransactionDomainDTO.swift */; };
-		7B6686A322B51E250029E6F1 /* LeaseTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66864A22B51E250029E6F1 /* LeaseTransactionDomainDTO.swift */; };
-		7B6686A422B51E250029E6F1 /* AliasTransactionDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66864B22B51E250029E6F1 /* AliasTransactionDomainDTO.swift */; };
-		7B6686A522B51E250029E6F1 /* NotificationNewsDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66864C22B51E250029E6F1 /* NotificationNewsDomainDTO.swift */; };
-		7B6686A622B51E250029E6F1 /* AssetDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66864D22B51E250029E6F1 /* AssetDomainDTO.swift */; };
-		7B6686A722B51E250029E6F1 /* CoinomatDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66864E22B51E250029E6F1 /* CoinomatDomainDTO.swift */; };
-		7B6686A822B51E250029E6F1 /* ContactDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66864F22B51E250029E6F1 /* ContactDomainDTO.swift */; };
-		7B6686A922B51E250029E6F1 /* AccountSettingsDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66865022B51E250029E6F1 /* AccountSettingsDomainDTO.swift */; };
-		7B6686AA22B51E250029E6F1 /* ResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66865122B51E250029E6F1 /* ResponseType.swift */; };
-		7B6686AD22B51E250029E6F1 /* FactoryInteractors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66865422B51E250029E6F1 /* FactoryInteractors.swift */; };
-		7B6686AE22B51E250029E6F1 /* AccountBalanceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66865622B51E250029E6F1 /* AccountBalanceInteractor.swift */; };
-		7B6686AF22B51E250029E6F1 /* AuthorizationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66865722B51E250029E6F1 /* AuthorizationInteractor.swift */; };
-		7B6686B022B51E250029E6F1 /* AuthorizationInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66865822B51E250029E6F1 /* AuthorizationInteractorProtocol.swift */; };
-		7B6686B122B51E250029E6F1 /* AliasesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66865922B51E250029E6F1 /* AliasesInteractor.swift */; };
-		7B6686B222B51E250029E6F1 /* MigrationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66865A22B51E250029E6F1 /* MigrationInteractor.swift */; };
-		7B6686B322B51E250029E6F1 /* AddressInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66865B22B51E250029E6F1 /* AddressInteractor.swift */; };
-		7B6686B422B51E250029E6F1 /* AssetsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66865C22B51E250029E6F1 /* AssetsInteractor.swift */; };
-		7B6686B522B51E250029E6F1 /* ApplicationVersionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66865D22B51E250029E6F1 /* ApplicationVersionUseCase.swift */; };
-		7B6686B622B51E250029E6F1 /* TransactionsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66865E22B51E250029E6F1 /* TransactionsInteractor.swift */; };
-		7B6686B822B51E250029E6F1 /* AssetsBalanceSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66866022B51E250029E6F1 /* AssetsBalanceSettingsInteractor.swift */; };
-		7B6686B922B51E250029E6F1 /* ApplicationDebugSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66866222B51E250029E6F1 /* ApplicationDebugSettings.swift */; };
-		7B6686BB22B51E250029E6F1 /* SmartTransactionDomain+Assistants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66866422B51E250029E6F1 /* SmartTransactionDomain+Assistants.swift */; };
-		7B6686BC22B51E250029E6F1 /* CleanerWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66866522B51E250029E6F1 /* CleanerWalletManager.swift */; };
-		7B6686BE22B51E250029E6F1 /* SigningWalletsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66866822B51E250029E6F1 /* SigningWalletsProtocol.swift */; };
-		7B6686C422B51E250029E6F1 /* BiometricManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66866F22B51E250029E6F1 /* BiometricManager.swift */; };
 		7B6686C522B527E70029E6F1 /* AnalyticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66866A22B51E250029E6F1 /* AnalyticManager.swift */; };
 		7B6686C722B528330029E6F1 /* AnalyticAssetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66866B22B51E250029E6F1 /* AnalyticAssetManager.swift */; };
 		7B6686C922B528380029E6F1 /* AnalyticManager+WalletAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66866C22B51E250029E6F1 /* AnalyticManager+WalletAsset.swift */; };
 		7B6686CA22B5283B0029E6F1 /* AnalyticManager+WalletStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66866D22B51E250029E6F1 /* AnalyticManager+WalletStart.swift */; };
 		7B6686CB22B5283F0029E6F1 /* AnalyticManager+Dex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66866E22B51E250029E6F1 /* AnalyticManager+Dex.swift */; };
-		7B6686E422B52FBA0029E6F1 /* CleanerWalletManagerBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66866322B51E250029E6F1 /* CleanerWalletManagerBanner.swift */; };
 		7B6686F222B7C5120029E6F1 /* Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6686F022B7C5120029E6F1 /* Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6686FC22B7C5270029E6F1 /* InternalExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6686EE22B7C5120029E6F1 /* InternalExtensions.framework */; };
 		7B6686FD22B7C5730029E6F1 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B95112A225CDA860030390C /* Balance.swift */; };
@@ -454,14 +380,6 @@
 		7B66870022B7C5730029E6F1 /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B95112B225CDA870030390C /* Money.swift */; };
 		7B66870122B7C57F0029E6F1 /* Decimal+Assisstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951132225CDA9F0030390C /* Decimal+Assisstants.swift */; };
 		7B66870222B7C5880029E6F1 /* TSUD+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A8DE02278ACFF0009DF27 /* TSUD+Rx.swift */; };
-		7B66870F22B7C5AE0029E6F1 /* RXCrypto+SHA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F8A22A51FFB003B6D01 /* RXCrypto+SHA.swift */; };
-		7B66871022B7C5AE0029E6F1 /* Data+AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F8B22A51FFB003B6D01 /* Data+AES.swift */; };
-		7B66871122B7C5AE0029E6F1 /* WordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F8322A51FFB003B6D01 /* WordList.swift */; };
-		7B66871222B7C5AE0029E6F1 /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F8422A51FFB003B6D01 /* Hash.swift */; };
-		7B66871322B7C5AE0029E6F1 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F8522A51FFB003B6D01 /* Address.swift */; };
-		7B66871522B7C5AE0029E6F1 /* PublicKeyAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F8722A51FFB003B6D01 /* PublicKeyAccount.swift */; };
-		7B66871622B7C5AE0029E6F1 /* PrivateKeyAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F8822A51FFB003B6D01 /* PrivateKeyAccount.swift */; };
-		7B66871722B7C8A90029E6F1 /* WalletEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA9F8622A51FFB003B6D01 /* WalletEnvironment.swift */; };
 		7B66871A22B7E1DA0029E6F1 /* SweetLoggerSentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951124225CD6D80030390C /* SweetLoggerSentry.swift */; };
 		7B66872722B7E68B0029E6F1 /* DataLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B66872522B7E68B0029E6F1 /* DataLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B66873222B7E6950029E6F1 /* InternalExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6686EE22B7C5120029E6F1 /* InternalExtensions.framework */; };
@@ -1310,94 +1228,19 @@
 		7B5EDEC122522837009C2B3B /* TransactionCardSystemOrder+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionCardSystemOrder+Mapper.swift"; sourceTree = "<group>"; };
 		7B5EDEC32253618C009C2B3B /* AccessibilityIdentifiers.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = AccessibilityIdentifiers.strings; sourceTree = "<group>"; };
 		7B5EDEC522536268009C2B3B /* AccessibilityIdentifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityIdentifiers.swift; sourceTree = "<group>"; };
+		7B5FA9FA22BBCFBA00621A44 /* BiometricManager+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BiometricManager+String.swift"; sourceTree = "<group>"; };
+		7B5FA9FC22BBD18F00621A44 /* Sources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sources; sourceTree = "<group>"; };
 		7B601B292240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SmartTransactionDTO+EncodingToString.swift"; sourceTree = "<group>"; };
 		7B66860022B3F70D0029E6F1 /* InternalDomainLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = InternalDomainLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B66860222B3F70E0029E6F1 /* DomainLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainLayer.h; sourceTree = "<group>"; };
 		7B66860322B3F70E0029E6F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7B66861122B51E250029E6F1 /* FactoryInteractorsProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryInteractorsProtocol.swift; sourceTree = "<group>"; };
-		7B66861222B51E250029E6F1 /* FactoryRepositoriesProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryRepositoriesProtocol.swift; sourceTree = "<group>"; };
-		7B66861422B51E250029E6F1 /* TransactionDomainDTO+Mapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TransactionDomainDTO+Mapper.swift"; sourceTree = "<group>"; };
-		7B66861522B51E250029E6F1 /* Asset+Assistants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Asset+Assistants.swift"; sourceTree = "<group>"; };
-		7B66861722B51E250029E6F1 /* DomainDexQueries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DomainDexQueries.swift; sourceTree = "<group>"; };
-		7B66861922B51E250029E6F1 /* WalletsRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletsRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66861A22B51E250029E6F1 /* AccountSettingsRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingsRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66861B22B51E250029E6F1 /* CoinomatRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoinomatRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66861C22B51E250029E6F1 /* AddressRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66861D22B51E250029E6F1 /* AssetsBalanceSettingsRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsBalanceSettingsRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66861E22B51E250029E6F1 /* MatcherRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatcherRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66861F22B51E250029E6F1 /* DexRealmRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexRealmRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66862022B51E250029E6F1 /* NotificationNewsRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationNewsRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66862122B51E250029E6F1 /* ApplicationVersionRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationVersionRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66862222B51E250029E6F1 /* DexPairsPriceRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexPairsPriceRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66862322B51E250029E6F1 /* AddressBookRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressBookRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66862422B51E250029E6F1 /* WalletSeedRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletSeedRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66862522B51E250029E6F1 /* CandlesRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandlesRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66862622B51E250029E6F1 /* TransactionsRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66862722B51E250029E6F1 /* LastTradesRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastTradesRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66862822B51E250029E6F1 /* AssetsRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66862922B51E250029E6F1 /* BlockRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66862A22B51E250029E6F1 /* AliasesRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliasesRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66862B22B51E250029E6F1 /* AccountBalanceRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountBalanceRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66862C22B51E250029E6F1 /* DexOrderBookRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexOrderBookRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66862D22B51E250029E6F1 /* AuthenticationRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66862E22B51E250029E6F1 /* EnvironmentRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66862F22B51E250029E6F1 /* UtilsRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilsRepositoryProtocol.swift; sourceTree = "<group>"; };
-		7B66863022B51E250029E6F1 /* DomainLayerTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DomainLayerTypes.swift; sourceTree = "<group>"; };
-		7B66863322B51E250029E6F1 /* AccountEnvironmentDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountEnvironmentDomainDTO.swift; sourceTree = "<group>"; };
-		7B66863422B51E250029E6F1 /* CandleDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandleDomainDTO.swift; sourceTree = "<group>"; };
-		7B66863522B51E250029E6F1 /* AssetBalanceDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetBalanceDomainDTO.swift; sourceTree = "<group>"; };
-		7B66863622B51E250029E6F1 /* DexDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexDomainDTO.swift; sourceTree = "<group>"; };
-		7B66863722B51E250029E6F1 /* WalletDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletDomainDTO.swift; sourceTree = "<group>"; };
-		7B66863822B51E250029E6F1 /* AliasDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliasDomainDTO.swift; sourceTree = "<group>"; };
-		7B66863A22B51E250029E6F1 /* SponsorshipTransactionDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SponsorshipTransactionDomainDTO.swift; sourceTree = "<group>"; };
-		7B66863B22B51E250029E6F1 /* AddressDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressDomainDTO.swift; sourceTree = "<group>"; };
-		7B66863C22B51E250029E6F1 /* InvokeScriptTransactionDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvokeScriptTransactionDomainDTO.swift; sourceTree = "<group>"; };
-		7B66863D22B51E250029E6F1 /* DataTransactionDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTransactionDomainDTO.swift; sourceTree = "<group>"; };
-		7B66863E22B51E250029E6F1 /* AssetScriptTransactionDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetScriptTransactionDomainDTO.swift; sourceTree = "<group>"; };
-		7B66863F22B51E250029E6F1 /* SmartTransactionDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartTransactionDomainDTO.swift; sourceTree = "<group>"; };
-		7B66864022B51E250029E6F1 /* LeaseCancelTransactionDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaseCancelTransactionDomainDTO.swift; sourceTree = "<group>"; };
-		7B66864122B51E250029E6F1 /* MassTransferTransactionDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MassTransferTransactionDomainDTO.swift; sourceTree = "<group>"; };
-		7B66864222B51E250029E6F1 /* ScriptTransactionDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptTransactionDomainDTO.swift; sourceTree = "<group>"; };
-		7B66864322B51E250029E6F1 /* AnyTransactionDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyTransactionDomainDTO.swift; sourceTree = "<group>"; };
-		7B66864422B51E250029E6F1 /* UnrecognisedTransactionDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnrecognisedTransactionDomainDTO.swift; sourceTree = "<group>"; };
-		7B66864522B51E250029E6F1 /* IssueTransactionDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueTransactionDomainDTO.swift; sourceTree = "<group>"; };
-		7B66864622B51E250029E6F1 /* TransferTransactionDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferTransactionDomainDTO.swift; sourceTree = "<group>"; };
-		7B66864722B51E250029E6F1 /* ExchangeTransactionDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExchangeTransactionDomainDTO.swift; sourceTree = "<group>"; };
-		7B66864822B51E250029E6F1 /* ReissueTransactionDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReissueTransactionDomainDTO.swift; sourceTree = "<group>"; };
-		7B66864922B51E250029E6F1 /* BurnTransactionDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BurnTransactionDomainDTO.swift; sourceTree = "<group>"; };
-		7B66864A22B51E250029E6F1 /* LeaseTransactionDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaseTransactionDomainDTO.swift; sourceTree = "<group>"; };
-		7B66864B22B51E250029E6F1 /* AliasTransactionDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliasTransactionDomainDTO.swift; sourceTree = "<group>"; };
-		7B66864C22B51E250029E6F1 /* NotificationNewsDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationNewsDomainDTO.swift; sourceTree = "<group>"; };
-		7B66864D22B51E250029E6F1 /* AssetDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetDomainDTO.swift; sourceTree = "<group>"; };
-		7B66864E22B51E250029E6F1 /* CoinomatDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoinomatDomainDTO.swift; sourceTree = "<group>"; };
-		7B66864F22B51E250029E6F1 /* ContactDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDomainDTO.swift; sourceTree = "<group>"; };
-		7B66865022B51E250029E6F1 /* AccountSettingsDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingsDomainDTO.swift; sourceTree = "<group>"; };
-		7B66865122B51E250029E6F1 /* ResponseType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseType.swift; sourceTree = "<group>"; };
 		7B66865322B51E250029E6F1 /* FactoryRepositories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryRepositories.swift; sourceTree = "<group>"; };
-		7B66865422B51E250029E6F1 /* FactoryInteractors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryInteractors.swift; sourceTree = "<group>"; };
-		7B66865622B51E250029E6F1 /* AccountBalanceInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountBalanceInteractor.swift; sourceTree = "<group>"; };
-		7B66865722B51E250029E6F1 /* AuthorizationInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationInteractor.swift; sourceTree = "<group>"; };
-		7B66865822B51E250029E6F1 /* AuthorizationInteractorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationInteractorProtocol.swift; sourceTree = "<group>"; };
-		7B66865922B51E250029E6F1 /* AliasesInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliasesInteractor.swift; sourceTree = "<group>"; };
-		7B66865A22B51E250029E6F1 /* MigrationInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MigrationInteractor.swift; sourceTree = "<group>"; };
-		7B66865B22B51E250029E6F1 /* AddressInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressInteractor.swift; sourceTree = "<group>"; };
-		7B66865C22B51E250029E6F1 /* AssetsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsInteractor.swift; sourceTree = "<group>"; };
-		7B66865D22B51E250029E6F1 /* ApplicationVersionUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationVersionUseCase.swift; sourceTree = "<group>"; };
-		7B66865E22B51E250029E6F1 /* TransactionsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsInteractor.swift; sourceTree = "<group>"; };
-		7B66865F22B51E250029E6F1 /* AccountsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsInteractor.swift; sourceTree = "<group>"; };
-		7B66866022B51E250029E6F1 /* AssetsBalanceSettingsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsBalanceSettingsInteractor.swift; sourceTree = "<group>"; };
-		7B66866222B51E250029E6F1 /* ApplicationDebugSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationDebugSettings.swift; sourceTree = "<group>"; };
-		7B66866322B51E250029E6F1 /* CleanerWalletManagerBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanerWalletManagerBanner.swift; sourceTree = "<group>"; };
-		7B66866422B51E250029E6F1 /* SmartTransactionDomain+Assistants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SmartTransactionDomain+Assistants.swift"; sourceTree = "<group>"; };
-		7B66866522B51E250029E6F1 /* CleanerWalletManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanerWalletManager.swift; sourceTree = "<group>"; };
 		7B66866722B51E250029E6F1 /* SentryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentryManager.swift; sourceTree = "<group>"; };
-		7B66866822B51E250029E6F1 /* SigningWalletsProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigningWalletsProtocol.swift; sourceTree = "<group>"; };
 		7B66866A22B51E250029E6F1 /* AnalyticManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticManager.swift; sourceTree = "<group>"; };
 		7B66866B22B51E250029E6F1 /* AnalyticAssetManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticAssetManager.swift; sourceTree = "<group>"; };
 		7B66866C22B51E250029E6F1 /* AnalyticManager+WalletAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AnalyticManager+WalletAsset.swift"; sourceTree = "<group>"; };
 		7B66866D22B51E250029E6F1 /* AnalyticManager+WalletStart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AnalyticManager+WalletStart.swift"; sourceTree = "<group>"; };
 		7B66866E22B51E250029E6F1 /* AnalyticManager+Dex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AnalyticManager+Dex.swift"; sourceTree = "<group>"; };
-		7B66866F22B51E250029E6F1 /* BiometricManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiometricManager.swift; sourceTree = "<group>"; };
 		7B6686EE22B7C5120029E6F1 /* InternalExtensions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = InternalExtensions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B6686F022B7C5120029E6F1 /* Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Extensions.h; sourceTree = "<group>"; };
 		7B6686F122B7C5120029E6F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1516,14 +1359,6 @@
 		7B951134225CDAA80030390C /* CGSize+Hashable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Hashable.swift"; sourceTree = "<group>"; };
 		7B951136225CF7A00030390C /* Reachability+Shared.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Reachability+Shared.swift"; sourceTree = "<group>"; };
 		7B95115E225F7BA80030390C /* DateFormatter+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+UI.swift"; sourceTree = "<group>"; };
-		7BAA9F8322A51FFB003B6D01 /* WordList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordList.swift; sourceTree = "<group>"; };
-		7BAA9F8422A51FFB003B6D01 /* Hash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hash.swift; sourceTree = "<group>"; };
-		7BAA9F8522A51FFB003B6D01 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
-		7BAA9F8622A51FFB003B6D01 /* WalletEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletEnvironment.swift; sourceTree = "<group>"; };
-		7BAA9F8722A51FFB003B6D01 /* PublicKeyAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicKeyAccount.swift; sourceTree = "<group>"; };
-		7BAA9F8822A51FFB003B6D01 /* PrivateKeyAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateKeyAccount.swift; sourceTree = "<group>"; };
-		7BAA9F8A22A51FFB003B6D01 /* RXCrypto+SHA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RXCrypto+SHA.swift"; sourceTree = "<group>"; };
-		7BAA9F8B22A51FFB003B6D01 /* Data+AES.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+AES.swift"; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
 		7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardCoordinator.swift; sourceTree = "<group>"; };
 		7BDA6AD4222D8C81001DE71C /* System.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
@@ -2523,6 +2358,7 @@
 				7B951114225CD4EC0030390C /* UIKit */,
 				7B95115E225F7BA80030390C /* DateFormatter+UI.swift */,
 				7B32A8EB22981B82004789E7 /* String+Size.swift */,
+				7B5FA9FA22BBCFBA00621A44 /* BiometricManager+String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3017,170 +2853,12 @@
 		7B66860122B3F70E0029E6F1 /* DomainLayer */ = {
 			isa = PBXGroup;
 			children = (
-				7B66861022B51E250029E6F1 /* Sources */,
+				7B5FA9FC22BBD18F00621A44 /* Sources */,
 				7B66860222B3F70E0029E6F1 /* DomainLayer.h */,
 				18CFECE732E67CAF8666D2C9 /* Frameworks */,
 				7B66860322B3F70E0029E6F1 /* Info.plist */,
 			);
 			path = DomainLayer;
-			sourceTree = "<group>";
-		};
-		7B66861022B51E250029E6F1 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				7B66863022B51E250029E6F1 /* DomainLayerTypes.swift */,
-				7B66865422B51E250029E6F1 /* FactoryInteractors.swift */,
-				7B66861122B51E250029E6F1 /* FactoryInteractorsProtocol.swift */,
-				7B66861222B51E250029E6F1 /* FactoryRepositoriesProtocol.swift */,
-				7B66866122B51E250029E6F1 /* Assisstants */,
-				7B66865522B51E250029E6F1 /* Interactor */,
-				7B66861322B51E250029E6F1 /* Mapper */,
-				7B66863122B51E250029E6F1 /* Models */,
-				7B66861622B51E250029E6F1 /* Queries */,
-				7B66861822B51E250029E6F1 /* Repositories */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
-		7B66861322B51E250029E6F1 /* Mapper */ = {
-			isa = PBXGroup;
-			children = (
-				7B66861422B51E250029E6F1 /* TransactionDomainDTO+Mapper.swift */,
-				7B66861522B51E250029E6F1 /* Asset+Assistants.swift */,
-			);
-			path = Mapper;
-			sourceTree = "<group>";
-		};
-		7B66861622B51E250029E6F1 /* Queries */ = {
-			isa = PBXGroup;
-			children = (
-				7B66861722B51E250029E6F1 /* DomainDexQueries.swift */,
-			);
-			path = Queries;
-			sourceTree = "<group>";
-		};
-		7B66861822B51E250029E6F1 /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-				7B66861922B51E250029E6F1 /* WalletsRepositoryProtocol.swift */,
-				7B66861A22B51E250029E6F1 /* AccountSettingsRepositoryProtocol.swift */,
-				7B66861B22B51E250029E6F1 /* CoinomatRepositoryProtocol.swift */,
-				7B66861C22B51E250029E6F1 /* AddressRepositoryProtocol.swift */,
-				7B66861D22B51E250029E6F1 /* AssetsBalanceSettingsRepositoryProtocol.swift */,
-				7B66861E22B51E250029E6F1 /* MatcherRepositoryProtocol.swift */,
-				7B66861F22B51E250029E6F1 /* DexRealmRepositoryProtocol.swift */,
-				7B66862022B51E250029E6F1 /* NotificationNewsRepositoryProtocol.swift */,
-				7B66862122B51E250029E6F1 /* ApplicationVersionRepositoryProtocol.swift */,
-				7B66862222B51E250029E6F1 /* DexPairsPriceRepositoryProtocol.swift */,
-				7B66862322B51E250029E6F1 /* AddressBookRepositoryProtocol.swift */,
-				7B66862422B51E250029E6F1 /* WalletSeedRepositoryProtocol.swift */,
-				7B66862522B51E250029E6F1 /* CandlesRepositoryProtocol.swift */,
-				7B66862622B51E250029E6F1 /* TransactionsRepositoryProtocol.swift */,
-				7B66862722B51E250029E6F1 /* LastTradesRepositoryProtocol.swift */,
-				7B66862822B51E250029E6F1 /* AssetsRepositoryProtocol.swift */,
-				7B66862922B51E250029E6F1 /* BlockRepositoryProtocol.swift */,
-				7B66862A22B51E250029E6F1 /* AliasesRepositoryProtocol.swift */,
-				7B66862B22B51E250029E6F1 /* AccountBalanceRepositoryProtocol.swift */,
-				7B66862C22B51E250029E6F1 /* DexOrderBookRepositoryProtocol.swift */,
-				7B66862D22B51E250029E6F1 /* AuthenticationRepositoryProtocol.swift */,
-				7B66862E22B51E250029E6F1 /* EnvironmentRepositoryProtocol.swift */,
-				7B66862F22B51E250029E6F1 /* UtilsRepositoryProtocol.swift */,
-			);
-			path = Repositories;
-			sourceTree = "<group>";
-		};
-		7B66863122B51E250029E6F1 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				7BAA9F8622A51FFB003B6D01 /* WalletEnvironment.swift */,
-				7B66863222B51E250029E6F1 /* DTO */,
-				7B66865122B51E250029E6F1 /* ResponseType.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		7B66863222B51E250029E6F1 /* DTO */ = {
-			isa = PBXGroup;
-			children = (
-				7B66863322B51E250029E6F1 /* AccountEnvironmentDomainDTO.swift */,
-				7B66863422B51E250029E6F1 /* CandleDomainDTO.swift */,
-				7B66863522B51E250029E6F1 /* AssetBalanceDomainDTO.swift */,
-				7B66863622B51E250029E6F1 /* DexDomainDTO.swift */,
-				7B66863722B51E250029E6F1 /* WalletDomainDTO.swift */,
-				7B66863822B51E250029E6F1 /* AliasDomainDTO.swift */,
-				7B66863922B51E250029E6F1 /* Transactions */,
-				7B66864C22B51E250029E6F1 /* NotificationNewsDomainDTO.swift */,
-				7B66864D22B51E250029E6F1 /* AssetDomainDTO.swift */,
-				7B66864E22B51E250029E6F1 /* CoinomatDomainDTO.swift */,
-				7B66864F22B51E250029E6F1 /* ContactDomainDTO.swift */,
-				7B66865022B51E250029E6F1 /* AccountSettingsDomainDTO.swift */,
-			);
-			path = DTO;
-			sourceTree = "<group>";
-		};
-		7B66863922B51E250029E6F1 /* Transactions */ = {
-			isa = PBXGroup;
-			children = (
-				7B66863A22B51E250029E6F1 /* SponsorshipTransactionDomainDTO.swift */,
-				7B66863B22B51E250029E6F1 /* AddressDomainDTO.swift */,
-				7B66863C22B51E250029E6F1 /* InvokeScriptTransactionDomainDTO.swift */,
-				7B66863D22B51E250029E6F1 /* DataTransactionDomainDTO.swift */,
-				7B66863E22B51E250029E6F1 /* AssetScriptTransactionDomainDTO.swift */,
-				7B66863F22B51E250029E6F1 /* SmartTransactionDomainDTO.swift */,
-				7B66864022B51E250029E6F1 /* LeaseCancelTransactionDomainDTO.swift */,
-				7B66864122B51E250029E6F1 /* MassTransferTransactionDomainDTO.swift */,
-				7B66864222B51E250029E6F1 /* ScriptTransactionDomainDTO.swift */,
-				7B66864322B51E250029E6F1 /* AnyTransactionDomainDTO.swift */,
-				7B66864422B51E250029E6F1 /* UnrecognisedTransactionDomainDTO.swift */,
-				7B66864522B51E250029E6F1 /* IssueTransactionDomainDTO.swift */,
-				7B66864622B51E250029E6F1 /* TransferTransactionDomainDTO.swift */,
-				7B66864722B51E250029E6F1 /* ExchangeTransactionDomainDTO.swift */,
-				7B66864822B51E250029E6F1 /* ReissueTransactionDomainDTO.swift */,
-				7B66864922B51E250029E6F1 /* BurnTransactionDomainDTO.swift */,
-				7B66864A22B51E250029E6F1 /* LeaseTransactionDomainDTO.swift */,
-				7B66864B22B51E250029E6F1 /* AliasTransactionDomainDTO.swift */,
-			);
-			path = Transactions;
-			sourceTree = "<group>";
-		};
-		7B66865522B51E250029E6F1 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				7B66865622B51E250029E6F1 /* AccountBalanceInteractor.swift */,
-				7B66865722B51E250029E6F1 /* AuthorizationInteractor.swift */,
-				7B66865822B51E250029E6F1 /* AuthorizationInteractorProtocol.swift */,
-				7B66865922B51E250029E6F1 /* AliasesInteractor.swift */,
-				7B66865A22B51E250029E6F1 /* MigrationInteractor.swift */,
-				7B66865B22B51E250029E6F1 /* AddressInteractor.swift */,
-				7B66865C22B51E250029E6F1 /* AssetsInteractor.swift */,
-				7B66865D22B51E250029E6F1 /* ApplicationVersionUseCase.swift */,
-				7B66865E22B51E250029E6F1 /* TransactionsInteractor.swift */,
-				7B66865F22B51E250029E6F1 /* AccountsInteractor.swift */,
-				7B66866022B51E250029E6F1 /* AssetsBalanceSettingsInteractor.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		7B66866122B51E250029E6F1 /* Assisstants */ = {
-			isa = PBXGroup;
-			children = (
-				7BAA9F8222A51FFB003B6D01 /* ClientCrypto */,
-				7B66866222B51E250029E6F1 /* ApplicationDebugSettings.swift */,
-				7B66866322B51E250029E6F1 /* CleanerWalletManagerBanner.swift */,
-				7B66866422B51E250029E6F1 /* SmartTransactionDomain+Assistants.swift */,
-				7B66866522B51E250029E6F1 /* CleanerWalletManager.swift */,
-				7B66866622B51E250029E6F1 /* Type */,
-				7B66866822B51E250029E6F1 /* SigningWalletsProtocol.swift */,
-				7B66866F22B51E250029E6F1 /* BiometricManager.swift */,
-			);
-			path = Assisstants;
-			sourceTree = "<group>";
-		};
-		7B66866622B51E250029E6F1 /* Type */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Type;
 			sourceTree = "<group>";
 		};
 		7B66866922B51E250029E6F1 /* AnalyticManager */ = {
@@ -3581,20 +3259,6 @@
 				7B951126225CD7160030390C /* QRCodeParser.swift */,
 			);
 			path = Type;
-			sourceTree = "<group>";
-		};
-		7BAA9F8222A51FFB003B6D01 /* ClientCrypto */ = {
-			isa = PBXGroup;
-			children = (
-				7BAA9F8A22A51FFB003B6D01 /* RXCrypto+SHA.swift */,
-				7BAA9F8B22A51FFB003B6D01 /* Data+AES.swift */,
-				7BAA9F8322A51FFB003B6D01 /* WordList.swift */,
-				7BAA9F8422A51FFB003B6D01 /* Hash.swift */,
-				7BAA9F8522A51FFB003B6D01 /* Address.swift */,
-				7BAA9F8722A51FFB003B6D01 /* PublicKeyAccount.swift */,
-				7BAA9F8822A51FFB003B6D01 /* PrivateKeyAccount.swift */,
-			);
-			path = ClientCrypto;
 			sourceTree = "<group>";
 		};
 		7BDA6AD3222D8AEA001DE71C /* TransactionCard */ = {
@@ -5071,6 +4735,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B5FA9FD22BBD19000621A44 /* Sources in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5422,83 +5087,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B66869022B51E250029E6F1 /* DexDomainDTO.swift in Sources */,
-				7B6686A322B51E250029E6F1 /* LeaseTransactionDomainDTO.swift in Sources */,
-				7B66867922B51E250029E6F1 /* AssetsBalanceSettingsRepositoryProtocol.swift in Sources */,
-				7B6686A422B51E250029E6F1 /* AliasTransactionDomainDTO.swift in Sources */,
-				7B6686AF22B51E250029E6F1 /* AuthorizationInteractor.swift in Sources */,
-				7B66869B22B51E250029E6F1 /* ScriptTransactionDomainDTO.swift in Sources */,
-				7B66868922B51E250029E6F1 /* AuthenticationRepositoryProtocol.swift in Sources */,
-				7B66869D22B51E250029E6F1 /* UnrecognisedTransactionDomainDTO.swift in Sources */,
-				7B66869E22B51E250029E6F1 /* IssueTransactionDomainDTO.swift in Sources */,
-				7B6686BC22B51E250029E6F1 /* CleanerWalletManager.swift in Sources */,
-				7B6686AA22B51E250029E6F1 /* ResponseType.swift in Sources */,
-				7B6686C422B51E250029E6F1 /* BiometricManager.swift in Sources */,
-				7B6686E422B52FBA0029E6F1 /* CleanerWalletManagerBanner.swift in Sources */,
-				7B66867122B51E250029E6F1 /* FactoryRepositoriesProtocol.swift in Sources */,
-				7B66867E22B51E250029E6F1 /* DexPairsPriceRepositoryProtocol.swift in Sources */,
-				7B6686B522B51E250029E6F1 /* ApplicationVersionUseCase.swift in Sources */,
-				7B66869922B51E250029E6F1 /* LeaseCancelTransactionDomainDTO.swift in Sources */,
-				7B66867C22B51E250029E6F1 /* NotificationNewsRepositoryProtocol.swift in Sources */,
-				7B66869C22B51E250029E6F1 /* AnyTransactionDomainDTO.swift in Sources */,
-				7B66868C22B51E250029E6F1 /* DomainLayerTypes.swift in Sources */,
-				7B66868422B51E250029E6F1 /* AssetsRepositoryProtocol.swift in Sources */,
-				7B66867D22B51E250029E6F1 /* ApplicationVersionRepositoryProtocol.swift in Sources */,
-				7B66869322B51E250029E6F1 /* SponsorshipTransactionDomainDTO.swift in Sources */,
-				7B6686B222B51E250029E6F1 /* MigrationInteractor.swift in Sources */,
-				7B66867622B51E250029E6F1 /* AccountSettingsRepositoryProtocol.swift in Sources */,
-				7B66868D22B51E250029E6F1 /* AccountEnvironmentDomainDTO.swift in Sources */,
-				7B66868822B51E250029E6F1 /* DexOrderBookRepositoryProtocol.swift in Sources */,
-				7B6686A922B51E250029E6F1 /* AccountSettingsDomainDTO.swift in Sources */,
-				7B6686B122B51E250029E6F1 /* AliasesInteractor.swift in Sources */,
-				7B66868322B51E250029E6F1 /* LastTradesRepositoryProtocol.swift in Sources */,
-				7B66868122B51E250029E6F1 /* CandlesRepositoryProtocol.swift in Sources */,
-				7B66868B22B51E250029E6F1 /* UtilsRepositoryProtocol.swift in Sources */,
-				7B66869822B51E250029E6F1 /* SmartTransactionDomainDTO.swift in Sources */,
-				7B6686A022B51E250029E6F1 /* ExchangeTransactionDomainDTO.swift in Sources */,
-				7B66867322B51E250029E6F1 /* Asset+Assistants.swift in Sources */,
-				7B66869422B51E250029E6F1 /* AddressDomainDTO.swift in Sources */,
-				7B6686AE22B51E250029E6F1 /* AccountBalanceInteractor.swift in Sources */,
-				7B6686A822B51E250029E6F1 /* ContactDomainDTO.swift in Sources */,
-				7B6686A722B51E250029E6F1 /* CoinomatDomainDTO.swift in Sources */,
-				7B6686BE22B51E250029E6F1 /* SigningWalletsProtocol.swift in Sources */,
-				7B6686BB22B51E250029E6F1 /* SmartTransactionDomain+Assistants.swift in Sources */,
-				7B66869622B51E250029E6F1 /* DataTransactionDomainDTO.swift in Sources */,
-				7B66867422B51E250029E6F1 /* DomainDexQueries.swift in Sources */,
-				7B6686B322B51E250029E6F1 /* AddressInteractor.swift in Sources */,
-				7B66869222B51E250029E6F1 /* AliasDomainDTO.swift in Sources */,
-				7B66867222B51E250029E6F1 /* TransactionDomainDTO+Mapper.swift in Sources */,
-				7B66867F22B51E250029E6F1 /* AddressBookRepositoryProtocol.swift in Sources */,
-				7B66868222B51E250029E6F1 /* TransactionsRepositoryProtocol.swift in Sources */,
-				7B66869522B51E250029E6F1 /* InvokeScriptTransactionDomainDTO.swift in Sources */,
-				7B66867B22B51E250029E6F1 /* DexRealmRepositoryProtocol.swift in Sources */,
-				7B66867A22B51E250029E6F1 /* MatcherRepositoryProtocol.swift in Sources */,
-				7B66868A22B51E250029E6F1 /* EnvironmentRepositoryProtocol.swift in Sources */,
-				7B6686A622B51E250029E6F1 /* AssetDomainDTO.swift in Sources */,
-				7B6686B422B51E250029E6F1 /* AssetsInteractor.swift in Sources */,
-				7B66867522B51E250029E6F1 /* WalletsRepositoryProtocol.swift in Sources */,
-				7B66869F22B51E250029E6F1 /* TransferTransactionDomainDTO.swift in Sources */,
-				7B66868622B51E250029E6F1 /* AliasesRepositoryProtocol.swift in Sources */,
-				7B6686B022B51E250029E6F1 /* AuthorizationInteractorProtocol.swift in Sources */,
-				7B6686B822B51E250029E6F1 /* AssetsBalanceSettingsInteractor.swift in Sources */,
-				7B66868522B51E250029E6F1 /* BlockRepositoryProtocol.swift in Sources */,
-				7B66867722B51E250029E6F1 /* CoinomatRepositoryProtocol.swift in Sources */,
-				7B66869A22B51E250029E6F1 /* MassTransferTransactionDomainDTO.swift in Sources */,
-				7B66868E22B51E250029E6F1 /* CandleDomainDTO.swift in Sources */,
-				7B6686B622B51E250029E6F1 /* TransactionsInteractor.swift in Sources */,
-				7B66868F22B51E250029E6F1 /* AssetBalanceDomainDTO.swift in Sources */,
-				7B6686A122B51E250029E6F1 /* ReissueTransactionDomainDTO.swift in Sources */,
-				7B66869722B51E250029E6F1 /* AssetScriptTransactionDomainDTO.swift in Sources */,
-				7B66867022B51E250029E6F1 /* FactoryInteractorsProtocol.swift in Sources */,
-				7B6686A222B51E250029E6F1 /* BurnTransactionDomainDTO.swift in Sources */,
-				7B66871722B7C8A90029E6F1 /* WalletEnvironment.swift in Sources */,
-				7B66868022B51E250029E6F1 /* WalletSeedRepositoryProtocol.swift in Sources */,
-				7B66868722B51E250029E6F1 /* AccountBalanceRepositoryProtocol.swift in Sources */,
-				7B6686A522B51E250029E6F1 /* NotificationNewsDomainDTO.swift in Sources */,
-				7B66869122B51E250029E6F1 /* WalletDomainDTO.swift in Sources */,
-				7B66867822B51E250029E6F1 /* AddressRepositoryProtocol.swift in Sources */,
-				7B6686AD22B51E250029E6F1 /* FactoryInteractors.swift in Sources */,
-				7B6686B922B51E250029E6F1 /* ApplicationDebugSettings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5506,22 +5094,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B66871522B7C5AE0029E6F1 /* PublicKeyAccount.swift in Sources */,
-				7B66871622B7C5AE0029E6F1 /* PrivateKeyAccount.swift in Sources */,
 				7B6688D022BA70930029E6F1 /* Mutating.swift in Sources */,
 				7B66870122B7C57F0029E6F1 /* Decimal+Assisstants.swift in Sources */,
 				7B6688CA22B942EF0029E6F1 /* RunLoopThreadScheduler.swift in Sources */,
-				7B66870F22B7C5AE0029E6F1 /* RXCrypto+SHA.swift in Sources */,
 				7B6686FE22B7C5730029E6F1 /* MoneyUtil.swift in Sources */,
 				7B6686FF22B7C5730029E6F1 /* Sync.swift in Sources */,
 				7B66870022B7C5730029E6F1 /* Money.swift in Sources */,
 				7B6688CE22BA6FD70029E6F1 /* Platform.swift in Sources */,
-				7B66871222B7C5AE0029E6F1 /* Hash.swift in Sources */,
 				7B6686FD22B7C5730029E6F1 /* Balance.swift in Sources */,
 				7B66870222B7C5880029E6F1 /* TSUD+Rx.swift in Sources */,
-				7B66871022B7C5AE0029E6F1 /* Data+AES.swift in Sources */,
-				7B66871322B7C5AE0029E6F1 /* Address.swift in Sources */,
-				7B66871122B7C5AE0029E6F1 /* WordList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6011,6 +5592,7 @@
 				E92D9BFF2148740B006D6D6B /* InputScrollButtonsView.swift in Sources */,
 				E9B12DAF219DCDD300128EFE /* TokenBurnTypes.swift in Sources */,
 				0ADD7F9921F22FB60075FC59 /* UITableView+Animation.swift in Sources */,
+				7B5FA9FB22BBCFBA00621A44 /* BiometricManager+String.swift in Sources */,
 				0AAB15CA21655EB000F1F7BC /* ProfileViewController.swift in Sources */,
 				0ADC17A02204A24C00472130 /* ModalScrollViewController.swift in Sources */,
 				0AF922E6212E1234003BA067 /* HalfModalTransitioningDelegate.swift in Sources */,

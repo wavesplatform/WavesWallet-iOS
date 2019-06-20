@@ -16,9 +16,8 @@ public class Address {
     static let HashLength = 20
     static let AddressLength = 1 + 1 + HashLength + ChecksumLength
     
-    private class func getSchemeByte() -> UInt8 {
-        //TODO: Experement
-        return "W".utf8.first!
+    private class func getSchemeByte() -> UInt8 {        
+        return WalletEnvironment.current.scheme.utf8.first!
     }
     
     public class func addressFromPublicKey(publicKey: [UInt8]) -> String {

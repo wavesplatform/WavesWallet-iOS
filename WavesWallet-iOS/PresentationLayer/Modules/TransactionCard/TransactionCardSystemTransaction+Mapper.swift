@@ -510,8 +510,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         var buttonsActions: [TransactionCardActionsCell.Model.Button] = .init()
 
-        if needCancelLeasing && self.status == .activeNow {
-            //TODO: cancelLeasing
+        if needCancelLeasing && self.status == .activeNow {            
             buttonsActions.append(.cancelLeasing)
         }
 

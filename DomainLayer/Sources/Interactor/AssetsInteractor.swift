@@ -18,10 +18,6 @@ public protocol AssetsInteractorProtocol {
     func assetsSync(by ids: [String], accountAddress: String) -> SyncObservable<[DomainLayer.DTO.Asset]>
 }
 
-fileprivate enum Constants {
-    static let durationInseconds: Double =  0
-}
-
 final class AssetsInteractor: AssetsInteractorProtocol {
 
     private let repositoryLocal: AssetsRepositoryProtocol
