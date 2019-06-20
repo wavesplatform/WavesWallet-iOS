@@ -10,7 +10,6 @@ import Foundation
 import RxSwift
 import KeychainAccess
 import LocalAuthentication
-import RealmSwift
 import WavesSDKExtension
 import Extensions
 
@@ -555,16 +554,6 @@ extension AuthorizationInteractor {
                                deleleteWalletSeed,
                                CleanerWalletManager.rx.setCleanWallet(accountAddress: wallet.address, isClean: false),
                                localWalletRepository.removeWalletEncryption(by: wallet.publicKey)])
-            .flatMap({ _ -> Observable<Bool> in
-                
-//                FactoryRepositories
-                //TODO: Experement
-//                let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address)
-//                try? realm?.write {
-//                    realm?.deleteAll()
-//                }
-                return Observable.just(true)
-            })
             .map { _ in true }
             .catchError({ [weak self] error -> Observable<Bool> in
                 guard let self = self else { return Observable.error(AuthorizationInteractorError.fail) }

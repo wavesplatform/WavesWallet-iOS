@@ -191,7 +191,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                                              specifications: TransactionsSpecifications,
                                              realm: Realm) -> Results<AnyTransaction> {
 
-        let wavesAssetId = WavesSDKCryptoConstants.wavesAssetId
+        let wavesAssetId = WavesSDKConstants.wavesAssetId
 
         let hasWaves = specifications.assets.contains(wavesAssetId)
 

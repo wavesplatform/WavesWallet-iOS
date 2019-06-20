@@ -454,6 +454,9 @@
 		7B5FAAC022BBE3EC00621A44 /* RXCrypto+SHA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA6622BBE3EC00621A44 /* RXCrypto+SHA.swift */; };
 		7B5FAAC122BBE3EC00621A44 /* Data+AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA6722BBE3EC00621A44 /* Data+AES.swift */; };
 		7B5FAAC222BBE3EC00621A44 /* BiometricManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA6822BBE3EC00621A44 /* BiometricManager.swift */; };
+		7B5FAAC422BC2C0300621A44 /* SentryNetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951122225CD6AD0030390C /* SentryNetworkLoggerPlugin.swift */; };
+		7B5FAAC522BC2C0300621A44 /* SweetLoggerSentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951124225CD6D80030390C /* SweetLoggerSentry.swift */; };
+		7B5FAAC722BC311800621A44 /* SentryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66866722B51E250029E6F1 /* SentryManager.swift */; };
 		7B601B2A2240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B601B292240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift */; };
 		7B66860422B3F70E0029E6F1 /* DomainLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B66860222B3F70E0029E6F1 /* DomainLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6686F222B7C5120029E6F1 /* Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6686F022B7C5120029E6F1 /* Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -464,7 +467,6 @@
 		7B66870022B7C5730029E6F1 /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B95112B225CDA870030390C /* Money.swift */; };
 		7B66870122B7C57F0029E6F1 /* Decimal+Assisstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951132225CDA9F0030390C /* Decimal+Assisstants.swift */; };
 		7B66870222B7C5880029E6F1 /* TSUD+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A8DE02278ACFF0009DF27 /* TSUD+Rx.swift */; };
-		7B66871A22B7E1DA0029E6F1 /* SweetLoggerSentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951124225CD6D80030390C /* SweetLoggerSentry.swift */; };
 		7B66872722B7E68B0029E6F1 /* DataLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B66872522B7E68B0029E6F1 /* DataLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B66873222B7E6950029E6F1 /* InternalExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6686EE22B7C5120029E6F1 /* InternalExtensions.framework */; };
 		7B66873322B7E6980029E6F1 /* InternalDomainLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B66860022B3F70D0029E6F1 /* InternalDomainLayer.framework */; };
@@ -3517,6 +3519,9 @@
 		7B66886622B7E6C80029E6F1 /* Assisstants */ = {
 			isa = PBXGroup;
 			children = (
+				7B66866722B51E250029E6F1 /* SentryManager.swift */,
+				7B951122225CD6AD0030390C /* SentryNetworkLoggerPlugin.swift */,
+				7B951124225CD6D80030390C /* SweetLoggerSentry.swift */,
 				7B95111B225CD5EE0030390C /* Results+Limit.swift */,
 				7B951117225CD5850030390C /* DatabaseReference+Rx.swift */,
 				7B66886722B7E6C80029E6F1 /* SpamCSV+Assisstants.swift */,
@@ -3586,10 +3591,7 @@
 			isa = PBXGroup;
 			children = (
 				7BDA6AD4222D8C81001DE71C /* System.swift */,
-				7B66866722B51E250029E6F1 /* SentryManager.swift */,
 				7B951120225CD6790030390C /* Language.swift */,
-				7B951122225CD6AD0030390C /* SentryNetworkLoggerPlugin.swift */,
-				7B951124225CD6D80030390C /* SweetLoggerSentry.swift */,
 				7B951126225CD7160030390C /* QRCodeParser.swift */,
 			);
 			path = Type;
@@ -5574,6 +5576,7 @@
 				7B6688A222B7E6C90029E6F1 /* Asset+Mapper.swift in Sources */,
 				7B66887422B7E6C90029E6F1 /* ScriptTransaction.swift in Sources */,
 				7B6688B922B7E6C90029E6F1 /* AssetsBalanceSettingsRepositoryLocal.swift in Sources */,
+				7B5FAAC422BC2C0300621A44 /* SentryNetworkLoggerPlugin.swift in Sources */,
 				7B6688C222B7E6C90029E6F1 /* SpamCSV+Assisstants.swift in Sources */,
 				7B6688A922B7E6C90029E6F1 /* AddressRepositoryRemote.swift in Sources */,
 				7B6688B122B7E6C90029E6F1 /* DexOrderBookRepositoryRemote.swift in Sources */,
@@ -5610,9 +5613,11 @@
 				7B6688A722B7E6C90029E6F1 /* CoinomatRepository.swift in Sources */,
 				7B66888222B7E6C90029E6F1 /* AnyTransaction.swift in Sources */,
 				7B6688C322B7E6C90029E6F1 /* TimestampSignature.swift in Sources */,
+				7B5FAAC522BC2C0300621A44 /* SweetLoggerSentry.swift in Sources */,
 				7B66887022B7E6C90029E6F1 /* SeedItem.swift in Sources */,
 				7B66889822B7E6C90029E6F1 /* DataTransaction+Mapper.swift in Sources */,
 				7B66887922B7E6C90029E6F1 /* LeaseCancelTransaction.swift in Sources */,
+				7B5FAAC722BC311800621A44 /* SentryManager.swift in Sources */,
 				7B66887822B7E6C90029E6F1 /* SponsorshipTransaction.swift in Sources */,
 				7B6688AA22B7E6C90029E6F1 /* TransactionsRepositoryRemote.swift in Sources */,
 				7B66888822B7E6C90029E6F1 /* DexAssetPair.swift in Sources */,
@@ -5921,7 +5926,6 @@
 				E9B087D52163886800937644 /* DexListInteractorProtocol.swift in Sources */,
 				E9B087D22163886800937644 /* DexListViewController.swift in Sources */,
 				E9CD0D32218137FE001A99B3 /* MainTabBarController.swift in Sources */,
-				7B66871A22B7E1DA0029E6F1 /* SweetLoggerSentry.swift in Sources */,
 				0ADD803921F22FFB0075FC59 /* BackupTostCoordinator.swift in Sources */,
 				E9B087E12163886800937644 /* DexCreateOrderTypes.swift in Sources */,
 				E9B08822216388B100937644 /* HighlightedButton.swift in Sources */,

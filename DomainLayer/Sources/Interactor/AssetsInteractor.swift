@@ -8,8 +8,6 @@
 
 import Foundation
 import Moya
-import RealmSwift
-import RxRealm
 import RxSwift
 import Extensions
 

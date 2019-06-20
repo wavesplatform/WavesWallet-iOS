@@ -74,10 +74,10 @@ final class StartLeasingCancelConfirmationViewController: UIViewController {
     }
     
     private func setupData() {
-        tickerView.update(with: .init(text: WavesSDKCryptoConstants.wavesAssetId, style: .soft))
+        tickerView.update(with: .init(text: WavesSDKConstants.wavesAssetId, style: .soft))
         labelAmount.text = cancelOrder.amount.displayText
         labelLeasingTx.text = cancelOrder.leasingTX
-        labelFee.text = cancelOrder.fee.displayText + " " + WavesSDKCryptoConstants.wavesAssetId
+        labelFee.text = cancelOrder.fee.displayText + " " + WavesSDKConstants.wavesAssetId
     }
     
     private func setupLocalization() {
@@ -176,7 +176,7 @@ private extension StartLeasingCancelConfirmationViewController {
         }
         
         cancelOrder.fee = fee
-        labelFee.text = cancelOrder.fee.displayText + " " + WavesSDKCryptoConstants.wavesAssetId
+        labelFee.text = cancelOrder.fee.displayText + " " + WavesSDKConstants.wavesAssetId
         labelFee.isHidden = false
         setupButtonCancel()
         activityIndicatorFee.stopAnimating()

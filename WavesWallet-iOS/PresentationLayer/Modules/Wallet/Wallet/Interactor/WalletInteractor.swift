@@ -31,10 +31,7 @@ final class WalletInteractor: WalletInteractorProtocol {
     private let walletsRepository: WalletsRepositoryProtocol = FactoryInteractors.instance.repositories.walletsRepositoryLocal
 
     func isHasAppUpdate() -> Observable<Bool> {
-        
-        //TODO: Experement
-        return Observable.never()
-//        return ApplicationVersionUseCase().isHasNewVersion()
+        return applicationVersionUseCase.isHasNewVersion()
     }
     
     func setCleanWalletBanner() -> Observable<Bool> {

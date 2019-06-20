@@ -51,7 +51,7 @@ final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
                                                             lastBuy:  nil,
                                                             availableAmountAssetBalance: Money(0, self.pair.amountAsset.decimals),
                                                             availablePriceAssetBalance: Money(0, self.pair.priceAsset.decimals),
-                                                            availableWavesBalance: Money(0, WavesSDKCryptoConstants.WavesDecimals),
+                                                            availableWavesBalance: Money(0, WavesSDKConstants.WavesDecimals),
                                                             scriptedAssets: [])
                 return Observable.just(display)
             })
@@ -68,7 +68,7 @@ extension DexLastTradesInteractor {
         
         var amountAssetBalance =  Money(0, pair.amountAsset.decimals)
         var priceAssetBalance =  Money(0, pair.priceAsset.decimals)
-        var wavesBalance = Money(0, WavesSDKCryptoConstants.WavesDecimals)
+        var wavesBalance = Money(0, WavesSDKConstants.WavesDecimals)
         
         if let amountAsset = balances.first(where: {$0.assetId == pair.amountAsset.id}) {
             amountAssetBalance = Money(amountAsset.availableBalance, amountAsset.asset.precision)

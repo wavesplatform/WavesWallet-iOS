@@ -38,8 +38,7 @@ public final class SentryNetworkLoggerPlugin: PluginType {
         }
 
         guard let unwrapMessage = message else { return }
-
-        //TODO: Exeperement
+        
         let event = SentryManager.Event(level: .error)
 
         if let statusCode = statusCode {

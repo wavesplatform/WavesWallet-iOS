@@ -72,7 +72,7 @@ final class SendInteractor: SendInteractorProtocol {
         return accountBalance.balances()
             .flatMap({ balances -> Observable<DomainLayer.DTO.SmartAssetBalance> in
                 
-                guard let wavesAsset = balances.first(where: {$0.asset.wavesId == WavesSDKCryptoConstants.wavesAssetId}) else {
+                guard let wavesAsset = balances.first(where: {$0.asset.wavesId == WavesSDKConstants.wavesAssetId}) else {
                     return Observable.empty()
                 }
                 return Observable.just(wavesAsset)

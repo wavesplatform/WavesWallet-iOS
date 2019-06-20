@@ -102,7 +102,7 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
     
     func cardLimits(address: String, fiat: String) -> Observable<DomainLayer.DTO.Coinomat.CardLimit> {
         
-        let cardLimit = Coinomat.Service.CardLimit(crypto: WavesSDKCryptoConstants.wavesAssetId,
+        let cardLimit = Coinomat.Service.CardLimit(crypto: WavesSDKConstants.wavesAssetId,
                                                    address: address,
                                                    fiat: fiat)
         return coinomatProvider.rx
@@ -111,8 +111,8 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
             .map(Response.CardLimit.self)
             .asObservable()
             .map({ (limit) -> DomainLayer.DTO.Coinomat.CardLimit in
-                let min = Money(value: Decimal(limit.min), WavesSDKCryptoConstants.FiatDecimals)
-                let max = Money(value: Decimal(limit.max), WavesSDKCryptoConstants.FiatDecimals)
+                let min = Money(value: Decimal(limit.min), WavesSDKConstants.FiatDecimals)
+                let max = Money(value: Decimal(limit.max), WavesSDKConstants.FiatDecimals)
                 return DomainLayer.DTO.Coinomat.CardLimit(min: min, max: max)
             })
     }
@@ -129,13 +129,13 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
         .map({ (response) -> Money in
             
             let string = String(data: response.data, encoding: .utf8) ?? ""
-            return Money(value: Decimal((string as NSString).doubleValue), WavesSDKCryptoConstants.WavesDecimals)
+            return Money(value: Decimal((string as NSString).doubleValue), WavesSDKConstants.WavesDecimals)
         })
     }
     
     func generateBuyLink(address: String, amount: Double, fiat: String) -> Observable<String> {
 
-        let params = ["crypto" : WavesSDKCryptoConstants.wavesAssetId,
+        let params = ["crypto" : WavesSDKConstants.wavesAssetId,
                       "address" : address,
                       "amount" : String(amount),
                       "fiat" : fiat]

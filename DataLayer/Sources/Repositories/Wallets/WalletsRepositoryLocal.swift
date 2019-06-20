@@ -241,6 +241,11 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
                     observer.onError(WalletsRepositoryError.notFound)                    
                     SweetLogger.error(WalletsRepositoryError.notFound)
                 }
+                
+                let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address)
+                try? realm?.write {
+                    realm?.deleteAll()
+                }                
             } catch let error {
                 SweetLogger.error(error)
                 observer.onNext(false)

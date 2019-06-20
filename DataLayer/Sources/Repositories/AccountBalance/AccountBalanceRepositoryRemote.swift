@@ -47,14 +47,14 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
 
         let matcherBalances = self.matcherBalances(by: wallet.address, wallet: wallet)
 
-        if assetId == WavesSDKCryptoConstants.wavesAssetId {
+        if assetId == WavesSDKConstants.wavesAssetId {
             let accountBalance = self.accountBalance(by: wallet.address)
 
             return Observable
                 .zip(accountBalance,
                      matcherBalances)
                 .map({ (accountBalance, matcher) -> DomainLayer.DTO.AssetBalance in
-                    let inOrderBalance = matcher[WavesSDKCryptoConstants.wavesAssetId] ?? 0
+                    let inOrderBalance = matcher[WavesSDKConstants.wavesAssetId] ?? 0
                     return DomainLayer.DTO.AssetBalance(accountBalance: accountBalance, inOrderBalance: inOrderBalance)
                 })
         } else {
@@ -66,7 +66,7 @@ final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
                      matcherBalances,
                      sponsorBalance)
                 .map({ (assetBalance, matcher, sponsorBalance) -> DomainLayer.DTO.AssetBalance in
-                    let inOrderBalance = matcher[WavesSDKCryptoConstants.wavesAssetId] ?? 0
+                    let inOrderBalance = matcher[WavesSDKConstants.wavesAssetId] ?? 0
                     return DomainLayer.DTO.AssetBalance(model: assetBalance,
                                                         inOrderBalance: inOrderBalance,
                                                         sponsoredAssetDetail: sponsorBalance)
@@ -213,7 +213,7 @@ private extension DomainLayer.DTO.AssetBalance {
 
     init(accountBalance: NodeService.DTO.AddressBalance, inOrderBalance: Int64) {
         
-        self.init(assetId: WavesSDKCryptoConstants.wavesAssetId,
+        self.init(assetId: WavesSDKConstants.wavesAssetId,
                   totalBalance: accountBalance.balance,
                   leasedBalance: 0,
                   inOrderBalance: inOrderBalance,
@@ -250,7 +250,7 @@ private extension DomainLayer.DTO.AssetBalance {
 
         let assetsBalance = assets.balances.map { DomainLayer.DTO.AssetBalance(model: $0, inOrderBalance: matcherBalances[$0.assetId] ?? 0) }
         let accountBalance = DomainLayer.DTO.AssetBalance(accountBalance: account,
-                                                          inOrderBalance: matcherBalances[WavesSDKCryptoConstants.wavesAssetId] ?? 0)
+                                                          inOrderBalance: matcherBalances[WavesSDKConstants.wavesAssetId] ?? 0)
 
         var list = [DomainLayer.DTO.AssetBalance]()
         list.append(contentsOf: assetsBalance)

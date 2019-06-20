@@ -9,7 +9,6 @@ import Foundation
 import Sentry
 import WavesSDKExtension
 
-//TODO: Experement
 public final class SweetLoggerSentry: SweetLoggerProtocol {
 
     public private(set) var visibleLevels: [SweetLoggerLevel] = []
@@ -31,9 +30,8 @@ public final class SweetLoggerSentry: SweetLoggerProtocol {
 
         let event = Sentry.Event(level: level.sentrySeverity)
         event.message = "\(message())"
-
-        //TODO: Experement
-//        SentryManager.send(event: event)
+        
+        SentryManager.send(event: event)
     }
 }
 

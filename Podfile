@@ -19,6 +19,14 @@ target 'MonkeyTest' do
     pod 'SwiftMonkey'
 end 
 
+
+def wavesSDKPod
+    pod 'WavesSDKExtension', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
+    pod 'WavesSDK', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'    
+    pod 'WavesSDKCrypto', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
+end
+
+
 # Pods for WavesWallet-iOS
 target 'WavesWallet-iOS' do
 
@@ -49,8 +57,7 @@ target 'WavesWallet-iOS' do
     pod 'RxSwiftExt'
     pod 'RxOptional'
     pod 'RxGesture'
-    pod 'RxFeedback'
-    # pod 'RxReachability'
+    pod 'RxFeedback'    
 
     pod 'IdentityImg'
     pod 'QRCode'
@@ -67,11 +74,7 @@ target 'WavesWallet-iOS' do
     pod 'DomainLayer', :path => '.'
     pod 'DataLayer', :path => '.'
     pod 'Extensions', :path => '.'
-    
-
-    # pod 'KeychainAccess'
-    # pod 'DeviceKit', '~> 1.3'
-
+ 
     # Code Gen
     pod 'SwiftGen', '~> 5.3.0'
 
@@ -79,14 +82,8 @@ target 'WavesWallet-iOS' do
     # pod 'Reveal-SDK', :configurations => ['Debug']
     pod 'AppSpectorSDK', :configurations => ['Debug', 'Test']
     pod 'SwiftMonkeyPaws', :configurations => ['Debug']
-    
-
-    pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git'
-    pod 'Fabric'
-    pod 'Crashlytics'
-
-    pod 'Amplitude-iOS'
-    pod 'AppsFlyerFramework'
+        
+    # pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git'
 end
 
 target 'InternalDomainLayer' do
@@ -103,14 +100,11 @@ target 'InternalDomainLayer' do
     pod 'RxOptional'        
     pod 'RxReachability'
 
-    pod 'KeychainAccess'    
-    pod 'DeviceKit', '~> 1.3'
+    pod 'KeychainAccess'        
 
-    # Waves
-    pod 'WavesSDKExtension', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
-    pod 'WavesSDK', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'    
-    pod 'WavesSDKCrypto', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
-
+    # Waves    
+    wavesSDKPod
+    pod 'Extensions', :path => '.'   
 end
 
 target 'InternalExtensions' do
@@ -124,9 +118,7 @@ target 'InternalExtensions' do
     pod 'DeviceKit'
 
     # Waves
-    pod 'WavesSDKExtension', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
-    pod 'WavesSDK', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'    
-    pod 'WavesSDKCrypto', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
+    wavesSDKPod
 
 end
 
@@ -140,6 +132,12 @@ target 'InternalDataLayer' do
     pod 'Firebase/Auth'
     pod 'Firebase/InAppMessagingDisplay'
 
+    pod 'Fabric'
+    pod 'Crashlytics'
+    pod 'Amplitude-iOS'
+    pod 'AppsFlyerFramework'
+    pod 'Sentry'
+
     # DB
     pod 'RealmSwift'
     pod 'RxRealm'
@@ -151,9 +149,9 @@ target 'InternalDataLayer' do
     pod 'CSV.swift'
 
     # Waves
-    pod 'WavesSDKExtension', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
-    pod 'WavesSDK', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'    
-    pod 'WavesSDKCrypto', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
+    wavesSDKPod
+    pod 'Extensions', :path => '.'   
+    pod 'DataLayer', :path => '.'   
 
 end
 

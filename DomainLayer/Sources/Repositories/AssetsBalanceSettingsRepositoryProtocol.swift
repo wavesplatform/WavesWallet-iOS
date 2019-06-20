@@ -8,8 +8,6 @@
 
 import Foundation
 import RxSwift
-import RealmSwift
-import RxRealm
 
 public enum RepositoryError: Error {
     case fail

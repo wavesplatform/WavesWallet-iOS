@@ -214,21 +214,10 @@ extension WalletCoordinator: TransactionCardCoordinatorDelegate {
         walletViewContoller.viewWillAppear(false)
     }
 }
-// MARK: - StartLeasingModuleOutput
 
+// MARK: - StartLeasingModuleOutput
 extension WalletCoordinator: StartLeasingModuleOutput {
-    
-    func startLeasingDidSuccess(transaction: DomainLayer.DTO.SmartTransaction, kind: StartLeasingTypes.Kind) {
-        
-        switch kind {
-        case .send:
-            //TODO: Here can be some logic
-            break
-            
-        default:
-            break
-        }
-    }
+    func startLeasingDidSuccess(transaction: DomainLayer.DTO.SmartTransaction, kind: StartLeasingTypes.Kind) {}
 }
 
 fileprivate extension AssetDetailModuleBuilder.Input {

@@ -64,10 +64,10 @@ final class StartLeasingConfirmationViewController: UIViewController {
     }
     
     private func setupData() {
-        tickerView.update(with: .init(text: WavesSDKCryptoConstants.wavesAssetId, style: .soft))
+        tickerView.update(with: .init(text: WavesSDKConstants.wavesAssetId, style: .soft))
         labelAmount.text = order.amount.displayText
         labelNodeAddress.text = order.recipient
-        labelFee.text = order.fee.displayText + " " + WavesSDKCryptoConstants.wavesAssetId
+        labelFee.text = order.fee.displayText + " " + WavesSDKConstants.wavesAssetId
     }
     
     private func setupLocalization() {

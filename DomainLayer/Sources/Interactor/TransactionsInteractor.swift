@@ -140,7 +140,7 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
     func calculateFee(by transactionSpecs: DomainLayer.Query.TransactionSpecificationType, accountAddress: String) -> Observable<Money> {
 
         let isSmartAccount = addressRepository.isSmartAddress(accountAddress: accountAddress).sweetDebug("isSmartAddress")
-        let wavesAsset = assetsInteractors.assetsSync(by: [WavesSDKCryptoConstants.wavesAssetId], accountAddress: accountAddress)
+        let wavesAsset = assetsInteractors.assetsSync(by: [WavesSDKConstants.wavesAssetId], accountAddress: accountAddress)
             .flatMap { (asset) -> Observable<DomainLayer.DTO.Asset> in
 
                 if let result = asset.remote?.first {
@@ -794,42 +794,42 @@ private extension DomainLayer.DTO.AnyTransaction {
 
         switch self {
         case .unrecognised:
-            return [WavesSDKCryptoConstants.wavesAssetId]
+            return [WavesSDKConstants.wavesAssetId]
 
         case .issue(let tx):
             return [tx.assetId]
 
         case .transfer(let tx):
             let assetId = tx.assetId
-            return [assetId, WavesSDKCryptoConstants.wavesAssetId, tx.feeAssetId]
+            return [assetId, WavesSDKConstants.wavesAssetId, tx.feeAssetId]
 
         case .reissue(let tx):
             return [tx.assetId]
 
         case .burn(let tx):
             
-            return [tx.assetId, WavesSDKCryptoConstants.wavesAssetId]
+            return [tx.assetId, WavesSDKConstants.wavesAssetId]
 
         case .exchange(let tx):
             return [tx.order1.assetPair.amountAsset, tx.order1.assetPair.priceAsset]
 
         case .lease:
-            return [WavesSDKCryptoConstants.wavesAssetId]
+            return [WavesSDKConstants.wavesAssetId]
 
         case .leaseCancel:
-            return [WavesSDKCryptoConstants.wavesAssetId]
+            return [WavesSDKConstants.wavesAssetId]
 
         case .alias:
-            return [WavesSDKCryptoConstants.wavesAssetId]
+            return [WavesSDKConstants.wavesAssetId]
 
         case .massTransfer(let tx):
-            return [tx.assetId, WavesSDKCryptoConstants.wavesAssetId]
+            return [tx.assetId, WavesSDKConstants.wavesAssetId]
 
         case .data:
-            return [WavesSDKCryptoConstants.wavesAssetId]
+            return [WavesSDKConstants.wavesAssetId]
 
         case .script:
-            return [WavesSDKCryptoConstants.wavesAssetId]
+            return [WavesSDKConstants.wavesAssetId]
 
         case .assetScript(let tx):
             return [tx.assetId]
@@ -840,9 +840,9 @@ private extension DomainLayer.DTO.AnyTransaction {
         case .invokeScript(let tx):
 
             if let payment = tx.payment, let assetId = payment.assetId {
-                return [WavesSDKCryptoConstants.wavesAssetId, assetId]
+                return [WavesSDKConstants.wavesAssetId, assetId]
             }
-            return [WavesSDKCryptoConstants.wavesAssetId]
+            return [WavesSDKConstants.wavesAssetId]
         }
     }
 

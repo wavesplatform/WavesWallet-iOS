@@ -52,7 +52,7 @@ struct CreateOrderSignature: SignatureProtocol {
         let amountAssetId: String
         
         func assetIdBytes(_ id: String) -> [UInt8] {
-            return (id == WavesSDKCryptoConstants.wavesAssetId) ? [UInt8(0)] : ([UInt8(1)] + Base58.decode(id))
+            return (id == WavesSDKConstants.wavesAssetId) ? [UInt8(0)] : ([UInt8(1)] + Base58.decode(id))
         }
         
         var bytes: [UInt8] {

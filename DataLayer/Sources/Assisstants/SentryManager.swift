@@ -16,30 +16,36 @@ public class SentryManager {
     
     typealias Level = SweetLoggerLevel
     
-    private static var shared = SentryManager()
+    private static var shared: SentryManager!
     
     private var client: Client? = nil
     
-    init() {
-        if let path = Bundle.main.path(forResource: "Sentry-io-Info", ofType: "plist"),
-            let dsn = NSDictionary(contentsOfFile: path)?["DSN_URL"] as? String {
-            
-            do {
-                let client = try Client(dsn: dsn)
-                self.client = client
-                Client.shared = self.client
-            } catch let error {
-                print("Sentry Not Loading :( \(error)")
-            }
-            
-            do {
-                try Client.shared?.startCrashHandler()
-            } catch let error {
-                print("Centry startCrashHandler :( \(error)")
-            }
+    init(sentryIoInfoPath: String) {
+        
+        guard let dsn = NSDictionary(contentsOfFile: sentryIoInfoPath)?["DSN_URL"] as? String else {
+            print("Sentry DSN Not found")
+            return
         }
         
+        do {
+            let client = try Client(dsn: dsn)
+            self.client = client
+            Client.shared = self.client
+        } catch let error {
+            print("Sentry Not Loading :( \(error)")
+        }
+        
+        do {
+            try Client.shared?.startCrashHandler()
+        } catch let error {
+            print("Centry startCrashHandler :( \(error)")
+        }
+            
         Client.shared?.enableAutomaticBreadcrumbTracking()
+    }
+    
+    class func initialization(sentryIoInfoPath: String) {
+        shared = SentryManager(sentryIoInfoPath: sentryIoInfoPath)
     }
     
     static var currentUser: Sentry.User {

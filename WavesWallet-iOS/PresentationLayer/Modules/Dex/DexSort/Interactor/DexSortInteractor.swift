@@ -8,7 +8,6 @@
 
 import Foundation
 import RxSwift
-import RealmSwift
 import DomainLayer
 
 final class DexSortInteractor: DexSortInteractorProtocol {

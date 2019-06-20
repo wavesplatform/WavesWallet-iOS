@@ -38,7 +38,7 @@ final class ReceiveCardViewController: UIViewController {
     private var amountUSDInfo: ReceiveCard.DTO.AmountInfo?
     private var amountEURInfo: ReceiveCard.DTO.AmountInfo?
     private var asset: DomainLayer.DTO.SmartAssetBalance?
-    private var amount: Money = Money(0, WavesSDKCryptoConstants.FiatDecimals)
+    private var amount: Money = Money(0, WavesSDKConstants.FiatDecimals)
     private var urlLink = ""
     
     override func viewDidLoad() {

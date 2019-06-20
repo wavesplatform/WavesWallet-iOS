@@ -357,7 +357,7 @@ fileprivate extension TransactionCardSystem {
                 guard let self = self else { return Observable.empty() }
                 return  self
                     .assetsInteractor
-                    .assets(by: [WavesSDKCryptoConstants.wavesAssetId],
+                    .assets(by: [WavesSDKConstants.wavesAssetId],
                             accountAddress: wallet.address)
                     .map { $0.first }
                     .filterNil()

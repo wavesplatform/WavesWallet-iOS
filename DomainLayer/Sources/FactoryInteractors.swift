@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import WavesSDK
 
 public final class FactoryInteractors: FactoryInteractorsProtocol {
 
