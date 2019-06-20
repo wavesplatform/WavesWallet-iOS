@@ -85,7 +85,7 @@ final class StartLeasingViewController: UIViewController {
         let vc = StartLeasingConfirmModuleBuilder(output: output, errorDelegate: self).build(input: .send(order))
         navigationController?.pushViewController(vc, animated: true)
         
-        AnalyticManager.trackEvent(.leasing(.leasingSendTap))
+        FactoryInteractors.instance.analyticManager.trackEvent(.leasing(.leasingSendTap))
     }
 }
 

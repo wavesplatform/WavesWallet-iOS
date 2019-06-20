@@ -8,9 +8,9 @@
 
 import Foundation
 
-extension AnalyticManager.Event {
+public extension AnalyticManagerEvent {
     
-    enum Dex {
+    public  enum Dex {
         
         private static let key = "Pair"
         

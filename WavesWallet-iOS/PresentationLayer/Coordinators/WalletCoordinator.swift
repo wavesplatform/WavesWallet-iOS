@@ -8,8 +8,6 @@
 
 import UIKit
 import RxSwift
-import AppsFlyerLib
-import FirebaseAnalytics
 import WavesSDKExtension
 import DomainLayer
 import Extensions
@@ -141,7 +139,7 @@ extension WalletCoordinator: WalletModuleOutput {
         let controller = StartLeasingModuleBuilder(output: self).build(input: availableMoney)
         navigationRouter.pushViewController(controller)
         
-        AnalyticManager.trackEvent(.leasing(.leasingStartTap))
+        FactoryInteractors.instance.analyticManager.trackEvent(.leasing(.leasingStartTap))
     }
 
     func showLeasingTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
@@ -206,7 +204,7 @@ extension WalletCoordinator: AssetDetailModuleOutput {
         vc.delegate = delegate
         navigationRouter.pushViewController(vc)
         
-        AnalyticManager.trackEvent(.tokenBurn(.tap))
+        FactoryInteractors.instance.analyticManager.trackEvent(.tokenBurn(.tap))
     }
 }
 
@@ -297,7 +295,7 @@ extension WalletCoordinator: AliasesModuleOutput {
             let vc = CreateAliasModuleBuilder(output: self).build()
             self.navigationRouter.pushViewController(vc)
             
-            AnalyticManager.trackEvent(.createAlias(.aliasCreateVcard))
+            FactoryInteractors.instance.analyticManager.trackEvent(.createAlias(.aliasCreateVcard))
         }
     }
 }
@@ -312,7 +310,7 @@ extension WalletCoordinator: AliasWithoutViewControllerDelegate {
             let vc = CreateAliasModuleBuilder(output: self).build()
             self.navigationRouter.pushViewController(vc)
             
-            AnalyticManager.trackEvent(.createAlias(.aliasCreateVcard))
+            FactoryInteractors.instance.analyticManager.trackEvent(.createAlias(.aliasCreateVcard))
         }
     }
 }

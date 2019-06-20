@@ -8,8 +8,8 @@
 
 import Foundation
 
-extension AnalyticManager.Event {
-    enum WalletStart {
+public extension AnalyticManagerEvent {
+    public enum WalletStart {
         
         private static let key = "Currency"
         

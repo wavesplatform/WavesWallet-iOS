@@ -8,6 +8,7 @@
 
 import UIKit
 import WavesSDK
+import DomainLayer
 
 private enum Constants {
     static let cornerRadius: CGFloat = 2
@@ -59,7 +60,7 @@ final class StartLeasingConfirmationViewController: UIViewController {
         vc.input = .init(kind: .send(order), errorDelegate: errorDelegate, output: output)
         navigationController?.pushViewController(vc, animated: true)
         
-        AnalyticManager.trackEvent(.leasing(.leasingConfirmTap))
+        FactoryInteractors.instance.analyticManager.trackEvent(.leasing(.leasingConfirmTap))
     }
     
     private func setupData() {

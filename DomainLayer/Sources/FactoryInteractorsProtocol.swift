@@ -19,4 +19,5 @@ public protocol FactoryInteractorsProtocol {
     var migrationInteractor: MigrationInteractor { get }
     
     var applicationVersionUseCase: ApplicationVersionUseCase { get }
+    var analyticManager: AnalyticManagerProtocol { get }
 }
