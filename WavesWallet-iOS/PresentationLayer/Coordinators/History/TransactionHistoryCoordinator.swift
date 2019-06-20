@@ -96,16 +96,7 @@ extension TransactionHistoryCoordinator: TransactionHistoryModuleOutput {
 // MARK: - StartLeasingModuleOutput
 extension TransactionHistoryCoordinator: StartLeasingModuleOutput {
     
-    func startLeasingDidSuccess(transaction: DomainLayer.DTO.SmartTransaction, kind: StartLeasingTypes.Kind) {
-        
-        switch kind {
-        case .cancel:
-            break
-        //TODO: here can be logic
-        default:
-            break
-        }
-    }
+    func startLeasingDidSuccess(transaction: DomainLayer.DTO.SmartTransaction, kind: StartLeasingTypes.Kind) {}
 }
 // MARK: AddAddressBookModuleOutput
 extension TransactionHistoryCoordinator: AddAddressBookModuleOutput {

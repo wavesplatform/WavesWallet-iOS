@@ -288,7 +288,7 @@ fileprivate extension TransactionSenderSpecifications {
         case .lease(let model):
 
             var recipient = ""
-            if model.recipient.count <= WavesSDKCryptoConstants.aliasNameMaxLimitSymbols {
+            if model.recipient.count <= WavesSDKConstants.aliasNameMaxLimitSymbols {
                 recipient = environment.aliasScheme + model.recipient
             } else {
                 recipient = model.recipient
@@ -326,7 +326,7 @@ fileprivate extension TransactionSenderSpecifications {
         case .send(let model):
             
             var recipient = ""
-            if model.recipient.count <= WavesSDKCryptoConstants.aliasNameMaxLimitSymbols {
+            if model.recipient.count <= WavesSDKConstants.aliasNameMaxLimitSymbols {
                 recipient = environment.aliasScheme + model.recipient
             } else {
                 recipient = model.recipient
@@ -426,7 +426,7 @@ fileprivate extension TransactionSenderSpecifications {
 private extension SendTransactionSender {
    
     var getFeeAssetID: String {
-        return feeAssetID == WavesSDKCryptoConstants.wavesAssetId ? "" : feeAssetID
+        return feeAssetID == WavesSDKConstants.wavesAssetId ? "" : feeAssetID
     }
 }
 

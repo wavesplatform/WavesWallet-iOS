@@ -44,7 +44,7 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
             guard let self = self else { return Signal.empty() }
             
             let emptyAmount: Signal<ReceiveCard.Event> = Signal.just(.didGetPriceInfo(
-                ResponseType(output: Money(0, WavesSDKCryptoConstants.WavesDecimals), error: nil)))
+                ResponseType(output: Money(0, WavesSDKConstants.WavesDecimals), error: nil)))
                 .asSignal(onErrorSignalWith: Signal.empty())
             
             guard let amount = state.amount else { return emptyAmount }

@@ -91,7 +91,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
 
     func isSmartAsset(_ assetId: String, by accountAddress: String) -> Observable<Bool> {
 
-        if assetId == WavesSDKCryptoConstants.wavesAssetId {
+        if assetId == WavesSDKConstants.wavesAssetId {
             return Observable.just(false)
         }
 
@@ -140,7 +140,7 @@ fileprivate extension DomainLayer.DTO.Asset {
         
         //TODO: Current code need move to AssetsInteractor!
         if let info = info {
-            if info.assetId == WavesSDKCryptoConstants.wavesAssetId {
+            if info.assetId == WavesSDKConstants.wavesAssetId {
                 isWaves = true
             }
             

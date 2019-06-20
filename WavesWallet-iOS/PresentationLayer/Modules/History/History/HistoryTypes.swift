@@ -195,7 +195,7 @@ extension HistoryType {
             return [.all, .sent, .received, .exchanged, .leased, .issued]
 
         case .asset(let assetId):
-            if assetId == WavesSDKCryptoConstants.wavesAssetId {
+            if assetId == WavesSDKConstants.wavesAssetId {
                 return [.all, .sent, .received, .exchanged, .leased]
             }
             return [.all, .sent, .received, .exchanged, .issued]

@@ -10,15 +10,8 @@ import RESideMenu
 import RxSwift
 import IQKeyboardManagerSwift
 import UIKit
-import RealmSwift
-import FirebaseCore
-import FirebaseDatabase
 
-import Fabric
-import Crashlytics
 import AppsFlyerLib
-import Kingfisher
-import Amplitude_iOS
 
 import WavesSDKExtension
 import WavesSDK
@@ -56,70 +49,36 @@ enum UITest {
     var paws: MonkeyPaws?
     #endif
     
-    //TODO: Refactor method very long
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
-            let options = FirebaseOptions(contentsOfFile: path) {
-
-            FirebaseApp.configure(options: options)
-            Database.database().isPersistenceEnabled = false
-            Fabric.with([Crashlytics.self])
+        
+        guard let googleServiceInfoPath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") else {
+            return false
         }
         
-        FactoryInteractors.initialization(repositories: FactoryRepositories.instance, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp())
-        
-        if let path = Bundle.main.path(forResource: "Appsflyer-Info", ofType: "plist"),
-            let root = NSDictionary(contentsOfFile: path)?["Appsflyer"] as? NSDictionary {
-            if let devKey = root["AppsFlyerDevKey"] as? String,
-                let appId = root["AppleAppID"] as? String {
-                AppsFlyerTracker.shared().appsFlyerDevKey = devKey
-                AppsFlyerTracker.shared().appleAppID = appId
-            }
+        guard let appsflyerInfoPath = Bundle.main.path(forResource: "Appsflyer-Info", ofType: "plist") else {
+            return false
         }
         
-        if let path = Bundle.main.path(forResource: "Amplitude-Info", ofType: "plist"),
-            let apiKey = NSDictionary(contentsOfFile: path)?["API_KEY"] as? String {
-            Amplitude.instance()?.initializeApiKey(apiKey)
-            Amplitude.instance()?.setDeviceId(UIDevice.uuid)
+        guard let amplitudeInfoPath = Bundle.main.path(forResource: "Amplitude-Info", ofType: "plist") else {
+            return false
         }
         
-        IQKeyboardManager.shared.enable = true
-        UIBarButtonItem.appearance().tintColor = UIColor.black
-
-        Language.load()
-
-        Swizzle(initializers: [UIView.passtroughInit, UIView.insetsInit, UIView.shadowInit]).start()
-        
-        #if DEBUG || TEST
-            SweetLogger.current.plugins = [SweetLoggerConsole(visibleLevels: [.warning, .debug, .error],
-                                                              isShortLog: true),
-                                            SweetLoggerSentry(visibleLevels: [.error])]
-
-            SweetLogger.current.visibleLevels = [.warning, .debug, .error]
-
-            AppsFlyerTracker.shared()?.isDebug = false
-        
-            if let path = Bundle.main.path(forResource: "AppSpector-Info", ofType: "plist"),
-                let apiKey = NSDictionary(contentsOfFile: path)?["API_KEY"] as? String {
-                let config = AppSpectorConfig(apiKey: apiKey)
-                AppSpector.run(with: config)                
-            }
-
-        #else
-            SweetLogger.current.plugins = [SweetLoggerSentry(visibleLevels: [.error])]
-            SweetLogger.current.visibleLevels = [.warning, .debug, .error]
-            AppsFlyerTracker.shared()?.isDebug = false
-        #endif
-
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.backgroundColor = .basic50
-        
-        #if DEBUG
-        if UITest.isEnabledonkeyTest {
-            paws = MonkeyPaws(view: window!)
+        guard let sentryIoInfoPath = Bundle.main.path(forResource: "Sentry-io-Info", ofType: "plist") else {
+            return false
         }
-        #endif
+        
+        let resourses = FactoryRepositories.Resources(googleServiceInfo: googleServiceInfoPath,
+                                                      appsflyerInfo: appsflyerInfoPath,
+                                                      amplitudeInfo: amplitudeInfoPath,
+                                                      sentryIoInfoPath: sentryIoInfoPath)
+        let repositories = FactoryRepositories(resources: resourses)
+        
+        FactoryInteractors.initialization(repositories: repositories,
+                                          authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp())
+        
+        setupUI()
+        setupServices()
         
         appCoordinator = AppCoordinator(WindowRouter(window: self.window!))
 
@@ -160,8 +119,46 @@ enum UITest {
     }
 }
 
-//TODO: Remove code
 extension AppDelegate {
+    
+    func setupUI() {
+        Swizzle(initializers: [UIView.passtroughInit, UIView.insetsInit, UIView.shadowInit]).start()
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.backgroundColor = .basic50
+        
+        #if DEBUG
+        if UITest.isEnabledonkeyTest {
+            paws = MonkeyPaws(view: window!)
+        }
+        #endif
+        
+        IQKeyboardManager.shared.enable = true
+        UIBarButtonItem.appearance().tintColor = UIColor.black
+        Language.load()
+    }
+    
+    func setupServices() {
+        #if DEBUG || TEST
+        
+        SweetLogger.current.add(plugin: SweetLoggerConsole(visibleLevels: [.warning, .debug, .error],
+                                                           isShortLog: true))
+        SweetLogger.current.visibleLevels = [.warning, .debug, .error]
+        
+        AppsFlyerTracker.shared()?.isDebug = false
+        
+        if let path = Bundle.main.path(forResource: "AppSpector-Info", ofType: "plist"),
+            let apiKey = NSDictionary(contentsOfFile: path)?["API_KEY"] as? String {
+            let config = AppSpectorConfig(apiKey: apiKey)
+            AppSpector.run(with: config)
+        }
+        
+        #else
+        SweetLogger.current.add(plugin: SweetLoggerSentry(visibleLevels: [.error]))
+        SweetLogger.current.visibleLevels = [.warning, .debug, .error]
+        AppsFlyerTracker.shared()?.isDebug = false
+        #endif
+    }
 
     class func shared() -> AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate

@@ -16,7 +16,7 @@ public extension Optional where Wrapped == String {
         if let id = self {
             return id
         } else {
-            return WavesSDKCryptoConstants.wavesAssetId
+            return WavesSDKConstants.wavesAssetId
         }
     }
 }

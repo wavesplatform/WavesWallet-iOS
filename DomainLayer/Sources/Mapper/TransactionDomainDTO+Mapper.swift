@@ -72,7 +72,7 @@ extension DomainLayer.DTO.UnrecognisedTransaction {
         let accounts: [String: DomainLayer.DTO.Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
 
-        guard let wavesAsset = assets[WavesSDKCryptoConstants.wavesAssetId] else {
+        guard let wavesAsset = assets[WavesSDKConstants.wavesAssetId] else {
             return nil
         }
         guard let sender = accounts[self.sender] else {
@@ -104,7 +104,7 @@ extension DomainLayer.DTO.IssueTransaction {
         let accounts: [String: DomainLayer.DTO.Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
 
-        guard let wavesAsset = assets[WavesSDKCryptoConstants.wavesAssetId] else {
+        guard let wavesAsset = assets[WavesSDKConstants.wavesAssetId] else {
             return nil
         }
         guard let sender = accounts[self.sender] else {
@@ -201,7 +201,7 @@ extension DomainLayer.DTO.TransferTransaction {
             }
         }
 
-        guard let wavesAsset = assets[WavesSDKCryptoConstants.wavesAssetId] else {
+        guard let wavesAsset = assets[WavesSDKConstants.wavesAssetId] else {
             SweetLogger.error("TransferTransaction Not found Waves ID")
             return nil
         }
@@ -237,7 +237,7 @@ extension DomainLayer.DTO.ReissueTransaction {
         guard let sender = accounts[self.sender] else {
             return nil
         }
-        guard let wavesAsset = assets[WavesSDKCryptoConstants.wavesAssetId] else {
+        guard let wavesAsset = assets[WavesSDKConstants.wavesAssetId] else {
             return nil
         }
 
@@ -277,7 +277,7 @@ extension DomainLayer.DTO.BurnTransaction {
             SweetLogger.error("MassTransferTransaction Not found Sender ID")
             return nil
         }
-        guard let wavesAsset = assets[WavesSDKCryptoConstants.wavesAssetId] else {
+        guard let wavesAsset = assets[WavesSDKConstants.wavesAssetId] else {
             SweetLogger.error("MassTransferTransaction Not found Waves ID")
             return nil
         }
@@ -311,7 +311,7 @@ extension DomainLayer.DTO.ExchangeTransaction {
 
         let amountAssetId = order1.assetPair.amountAsset
         let priceAssetId = order1.assetPair.priceAsset
-        guard let wavesAsset = assets[WavesSDKCryptoConstants.wavesAssetId] else {
+        guard let wavesAsset = assets[WavesSDKConstants.wavesAssetId] else {
             return nil
         }
         guard let amountAsset = assets[amountAssetId] else {
@@ -381,7 +381,7 @@ extension DomainLayer.DTO.LeaseTransaction {
         let accounts: [String: DomainLayer.DTO.Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
 
-        guard let wavesAsset = assets[WavesSDKCryptoConstants.wavesAssetId] else { return nil }
+        guard let wavesAsset = assets[WavesSDKConstants.wavesAssetId] else { return nil }
         let balance = wavesAsset.balance(self.amount)
         let isSenderAccount = sender.isMyAccount(accountAddress)
 
@@ -434,7 +434,7 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
             return nil
         }
 
-        guard let wavesAsset = assets[WavesSDKCryptoConstants.wavesAssetId] else {
+        guard let wavesAsset = assets[WavesSDKConstants.wavesAssetId] else {
 
             return nil
         }
@@ -479,7 +479,7 @@ extension DomainLayer.DTO.AliasTransaction {
         let accounts: [String: DomainLayer.DTO.Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
 
-        guard let wavesAsset = assets[WavesSDKCryptoConstants.wavesAssetId] else { return nil }
+        guard let wavesAsset = assets[WavesSDKConstants.wavesAssetId] else { return nil }
         guard let sender = accounts[self.sender] else { return nil }
 
         let kind: DomainLayer.DTO.SmartTransaction.Kind = .createdAlias(alias)
@@ -508,7 +508,7 @@ extension DomainLayer.DTO.ScriptTransaction {
         let accounts: [String: DomainLayer.DTO.Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
 
-        guard let wavesAsset = assets[WavesSDKCryptoConstants.wavesAssetId] else { return nil }
+        guard let wavesAsset = assets[WavesSDKConstants.wavesAssetId] else { return nil }
         guard let sender = accounts[self.sender] else { return nil }
 
         let kind: DomainLayer.DTO.SmartTransaction.Kind = .script(isHasScript: script != nil)
@@ -537,7 +537,7 @@ extension DomainLayer.DTO.AssetScriptTransaction {
         let accounts: [String: DomainLayer.DTO.Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
 
-        guard let wavesAsset = assets[WavesSDKCryptoConstants.wavesAssetId] else { return nil }
+        guard let wavesAsset = assets[WavesSDKConstants.wavesAssetId] else { return nil }
         guard let assetId = assets[assetId] else { return nil }
         guard let sender = accounts[self.sender] else { return nil }
 
@@ -567,7 +567,7 @@ extension DomainLayer.DTO.SponsorshipTransaction {
         let accounts: [String: DomainLayer.DTO.Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
 
-        guard let wavesAsset = assets[WavesSDKCryptoConstants.wavesAssetId] else { return nil }
+        guard let wavesAsset = assets[WavesSDKConstants.wavesAssetId] else { return nil }
         guard let assetAccount = assets[assetId] else { return nil }
         guard let sender = accounts[self.sender] else { return nil }
 
@@ -665,7 +665,7 @@ extension DomainLayer.DTO.MassTransferTransaction {
             }
         }
 
-        guard let wavesAsset = assets[WavesSDKCryptoConstants.wavesAssetId] else {
+        guard let wavesAsset = assets[WavesSDKConstants.wavesAssetId] else {
             SweetLogger.error("MassTransferTransaction Not found Waves ID")
             return nil
         }
@@ -705,7 +705,7 @@ extension DomainLayer.DTO.DataTransaction {
         let prettyJSON = list.prettyJSON ?? ""
         let kind: DomainLayer.DTO.SmartTransaction.Kind = .data(.init(prettyJSON: prettyJSON))
 
-        guard let wavesAsset = assets[WavesSDKCryptoConstants.wavesAssetId] else { return nil }
+        guard let wavesAsset = assets[WavesSDKConstants.wavesAssetId] else { return nil }
         guard let sender = accounts[self.sender] else { return nil }
         let feeBalance = wavesAsset.balance(fee)
 
@@ -732,7 +732,7 @@ extension DomainLayer.DTO.InvokeScriptTransaction {
         let accounts: [String: DomainLayer.DTO.Address] = metaData.accounts
         let totalHeight: Int64 = metaData.totalHeight
 
-        guard let wavesAsset = assets[WavesSDKCryptoConstants.wavesAssetId] else { return nil }
+        guard let wavesAsset = assets[WavesSDKConstants.wavesAssetId] else { return nil }
         
         var payment: DomainLayer.DTO.SmartTransaction.InvokeScript.Payment?
         

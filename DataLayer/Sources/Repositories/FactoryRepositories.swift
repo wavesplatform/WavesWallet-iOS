@@ -8,14 +8,20 @@
 
 import Foundation
 import DomainLayer
+import WavesSDKExtension
+
+import FirebaseCore
+import FirebaseDatabase
+
+import Fabric
+import Crashlytics
+import AppsFlyerLib
+import Amplitude_iOS
 
 //TODO: Rename Local Repository and protocol
-
 typealias EnvironmentRepositoryProtocols = EnvironmentRepositoryProtocol & ServicesEnvironmentRepositoryProtocol
 
 public final class FactoryRepositories: FactoryRepositoriesProtocol {
-
-    public static let instance: FactoryRepositories = FactoryRepositories()
     
     private lazy var environmentRepositoryInternal: EnvironmentRepository = EnvironmentRepository()
     
@@ -70,6 +76,60 @@ public final class FactoryRepositories: FactoryRepositoriesProtocol {
     public private(set) lazy var notificationNewsRepository: NotificationNewsRepositoryProtocol = NotificationNewsRepository()
     
     public private(set) lazy var applicationVersionRepository: ApplicationVersionRepositoryProtocol = ApplicationVersionRepository()
-                
-    fileprivate init() {}
+    
+    
+    public struct Resources {
+        
+        public typealias PathForFile = String
+        
+        let googleServiceInfo: PathForFile
+        let appsflyerInfo: PathForFile
+        let amplitudeInfo: PathForFile
+        let sentryIoInfoPath: PathForFile
+
+        public init(googleServiceInfo: PathForFile,
+                    appsflyerInfo: PathForFile,
+                    amplitudeInfo: PathForFile,
+                    sentryIoInfoPath: PathForFile) {
+            
+            self.googleServiceInfo = googleServiceInfo
+            self.appsflyerInfo = appsflyerInfo
+            self.amplitudeInfo = amplitudeInfo
+            self.sentryIoInfoPath = sentryIoInfoPath
+        }
+    }
+    
+    public init(resources: Resources) {
+        
+        if let options = FirebaseOptions(contentsOfFile: resources.googleServiceInfo) {
+            FirebaseApp.configure(options: options)
+            Database.database().isPersistenceEnabled = false
+            Fabric.with([Crashlytics.self])
+        }
+        
+        if let root = NSDictionary(contentsOfFile: resources.appsflyerInfo)?["Appsflyer"] as? NSDictionary {
+            if let devKey = root["AppsFlyerDevKey"] as? String,
+                let appId = root["AppleAppID"] as? String {
+                AppsFlyerTracker.shared().appsFlyerDevKey = devKey
+                AppsFlyerTracker.shared().appleAppID = appId
+            }
+        }
+
+        if let apiKey = NSDictionary(contentsOfFile: resources.amplitudeInfo)?["API_KEY"] as? String {
+            Amplitude.instance()?.initializeApiKey(apiKey)
+            Amplitude.instance()?.setDeviceId(UIDevice.uuid)
+        }
+        
+        SentryManager.initialization(sentryIoInfoPath: resources.sentryIoInfoPath)
+        
+        #if DEBUG || TEST
+            SweetLogger.current.add(plugin: SweetLoggerConsole(visibleLevels: [.warning, .debug, .error],
+                                                               isShortLog: true))
+        
+            AppsFlyerTracker.shared()?.isDebug = true
+        #else
+            AppsFlyerTracker.shared()?.isDebug = false
+        #endif
+        
+    }
 }

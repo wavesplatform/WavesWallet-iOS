@@ -8,7 +8,6 @@
 
 import Foundation
 import Moya
-import RealmSwift
 import RxSwift
 import RxSwiftExt
 import WavesSDK
@@ -169,7 +168,7 @@ private extension AccountBalanceInteractor {
             .flatMapLatest { (leasing) -> Observable<[DomainLayer.DTO.AssetBalance]> in
                 let amount = leasing.reduce(into: Int64(0), { $0 = $0 + $1.balance.money.amount })
                 let newBalances = balances.mutate(transform: { (balance) in
-                    if balance.assetId == WavesSDKCryptoConstants.wavesAssetId {
+                    if balance.assetId == WavesSDKConstants.wavesAssetId {
                         balance.leasedBalance = amount
                     }
                 })
@@ -324,9 +323,9 @@ private extension AccountBalanceInteractor {
         return Observable.create({ (subscribe) -> Disposable in
             
             let generalAssets = assets.filter { $0.asset.isGeneral }
-            //TODO: Experement
-//            AnalyticAssetManager.trackFromZeroBalances(assets: generalAssets,
-//                                                       accountAddress: accountAddress)
+            
+            AnalyticAssetManager.trackFromZeroBalances(assets: generalAssets,
+                                                       accountAddress: accountAddress)
             
             subscribe.onNext(assets)
             subscribe.onCompleted()

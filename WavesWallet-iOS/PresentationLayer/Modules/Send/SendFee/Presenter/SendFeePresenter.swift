@@ -82,7 +82,7 @@ final class SendFeePresenter: SendFeePresenterProtocol {
                 let fee = smartAsset.asset.isWaves ? wavesFee : SendFee.DTO.calculateSponsoredFee(by: smartAsset.asset, wavesFee: wavesFee)
 
                 let availableBalance = Money(smartAsset.availableBalance, smartAsset.asset.precision)
-                let sponsorWavesBalance = Money(smartAsset.sponsorBalance, WavesSDKCryptoConstants.WavesDecimals)
+                let sponsorWavesBalance = Money(smartAsset.sponsorBalance, WavesSDKConstants.WavesDecimals)
               
                 let isActive = (sponsorWavesBalance.decimalValue >= Constants.minWavesSponsoredBalance &&
                                 availableBalance.decimalValue >= fee.decimalValue) ||

@@ -26,6 +26,7 @@ Pod::Spec.new do |spec|
   spec.dependency 'Crashlytics'
   spec.dependency 'Amplitude-iOS'
   spec.dependency 'AppsFlyerFramework'
+  spec.dependency 'Sentry'
 
   # DB
   spec.dependency 'RealmSwift'

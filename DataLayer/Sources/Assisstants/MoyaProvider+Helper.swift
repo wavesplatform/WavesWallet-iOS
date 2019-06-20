@@ -13,9 +13,7 @@ import Moya
 extension MoyaProvider {    
     final class func anyMoyaProvider<Target: TargetType>() -> MoyaProvider<Target> {
         
-//        TODO: Library
-//        SentryNetworkLoggerPlugin()
         return MoyaProvider<Target>(callbackQueue: nil,
-                                    plugins: [])
+                                    plugins: [SentryNetworkLoggerPlugin()])
     }
 }

@@ -96,7 +96,7 @@ extension Coinomat.Service {
     
     struct Price: Codable, ApiServicePath {
         
-        let crypto: String = WavesSDKCryptoConstants.wavesAssetId
+        let crypto: String = WavesSDKConstants.wavesAssetId
         let fiat: String
         let address: String
         let amount: Double
