@@ -8,6 +8,7 @@
 import UIKit
 import Koloda
 import Extensions
+import DomainLayer
 
 protocol InfoPagesViewModuleOutput: AnyObject {
     func userFinishedReadPages()
@@ -189,7 +190,7 @@ final class InfoPagesViewController: UIViewController {
         } else {
             guard isActiveConfirm else { return }
             output?.userFinishedReadPages()
-            AnalyticManager.trackEvent(.newUser(.confirm))
+            FactoryInteractors.instance.analyticManager.trackEvent(.newUser(.confirm))
         }
         
     }

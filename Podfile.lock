@@ -14,9 +14,13 @@ PODS:
   - CSV.swift (2.4.0)
   - Curve25519 (2.0.3)
   - DataLayer (0.1):
+    - Amplitude-iOS
+    - AppsFlyerFramework
+    - Crashlytics
     - CSV.swift
     - DomainLayer
     - Extensions
+    - Fabric
     - Firebase/Auth
     - Firebase/Core
     - Firebase/Database
@@ -376,7 +380,7 @@ SPEC CHECKSUMS:
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   CSV.swift: 947283699fe698d08a4d675d9e642c2bf32418a8
   Curve25519: 4c9483171010b27488a3bac6ee327588a1182fb4
-  DataLayer: 69b167523c642e2cc55a6e0f8f3ca403d000916e
+  DataLayer: f71d72e3924a6ef8fbc9c1308a526d74c0e86743
   DeviceKit: 5a4accdb2918ce0b69e62dc3bef6e4d2cc06e2e4
   DomainLayer: 25858bba49dd480a61adb36b89bba68f27087c11
   Extensions: 5f1848be75374fd1a579d1423fe85a88438e69f1

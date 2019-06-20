@@ -102,11 +102,11 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
         case .createOrder:
             
             if state.order?.type == .buy {
-                AnalyticManager.trackEvent(.dex(.buyOrderSuccess(amountAsset: pair.amountAsset.name,
+                FactoryInteractors.instance.analyticManager.trackEvent(.dex(.buyOrderSuccess(amountAsset: pair.amountAsset.name,
                                                                  priceAsset: pair.priceAsset.name)))
             }
             else {
-                AnalyticManager.trackEvent(.dex(.sellOrderSuccess(amountAsset: pair.amountAsset.name,
+                FactoryInteractors.instance.analyticManager.trackEvent(.dex(.sellOrderSuccess(amountAsset: pair.amountAsset.name,
                                                                  priceAsset: pair.priceAsset.name)))
             }
             

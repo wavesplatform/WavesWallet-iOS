@@ -22,13 +22,16 @@ Pod::Spec.new do |spec|
   spec.dependency 'Firebase/Auth'
   spec.dependency 'Firebase/InAppMessagingDisplay'
 
+  spec.dependency 'Fabric'
+  spec.dependency 'Crashlytics'
+  spec.dependency 'Amplitude-iOS'
+  spec.dependency 'AppsFlyerFramework'
+
   # DB
   spec.dependency 'RealmSwift'
   spec.dependency 'RxRealm'
   spec.dependency 'Moya/RxSwift'
-
-      # pod 'RxAlamofire'
-    # pod 'Moya/RxSwift'
+    
 
   # Assisstant
   spec.dependency 'RxSwift'

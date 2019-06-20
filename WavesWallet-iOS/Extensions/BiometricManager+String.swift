@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Extensions
+import DomainLayer
 
 extension BiometricManager {
     public static var touchIDTypeText: String {

@@ -67,7 +67,7 @@ enum UITest {
             Fabric.with([Crashlytics.self])
         }
         
-        FactoryInteractors.initialization(repositories: FactoryRepositories.instance)
+        FactoryInteractors.initialization(repositories: FactoryRepositories.instance, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp())
         
         if let path = Bundle.main.path(forResource: "Appsflyer-Info", ofType: "plist"),
             let root = NSDictionary(contentsOfFile: path)?["Appsflyer"] as? NSDictionary {

@@ -69,7 +69,7 @@ final class TokenBurnViewController: UIViewController {
         vc.input = .init(asset: asset, amount: amount, fee: fee, delegate: delegate, errorDelegate: self)
         navigationController?.pushViewController(vc, animated: true)
         
-        AnalyticManager.trackEvent(.tokenBurn(.continueTap))
+        FactoryInteractors.instance.analyticManager.trackEvent(.tokenBurn(.continueTap))
     }
 }
 

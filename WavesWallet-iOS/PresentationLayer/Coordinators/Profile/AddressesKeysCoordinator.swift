@@ -84,7 +84,7 @@ extension AddressesKeysCoordinator: AliasesModuleOutput {
         self.currentPopup?.dismissPopup {
             let vc = CreateAliasModuleBuilder(output: self).build()
             self.navigationRouter.pushViewController(vc)
-            AnalyticManager.trackEvent(.createAlias(.createProfile))
+            FactoryInteractors.instance.analyticManager.trackEvent(.createAlias(.createProfile))
         }
     }
 }
@@ -96,7 +96,7 @@ extension AddressesKeysCoordinator: AliasWithoutViewControllerDelegate {
         self.currentPopup?.dismissPopup {
             let vc = CreateAliasModuleBuilder(output: self).build()
             self.navigationRouter.pushViewController(vc, animated: true)
-            AnalyticManager.trackEvent(.createAlias(.createProfile))
+            FactoryInteractors.instance.analyticManager.trackEvent(.createAlias(.createProfile))
         }
     }
 }

@@ -1,46 +1,34 @@
 //
-//  AnalyticManager.swift
+//  AnalyticManagerProtocol.swift
 //  WavesWallet-iOS
 //
-//  Created by Pavel Gubin on 3/22/19.
+//  Created by rprokofev on 20.06.2019.
 //  Copyright © 2019 Waves Platform. All rights reserved.
 //
 
 import Foundation
-import Amplitude_iOS
-import Firebase
-import FirebaseAnalytics
-import AppsFlyerLib
 
-private protocol AnalyticManagerProtocol {
-    associatedtype Event
-    static func trackEvent(_ event: Event)
+public enum AnalyticManagerEvent {
+    case leasing(Leasing)
+    case createAlias(CreateAlias)
+    case dex(Dex)
+    case walletAsset(WalletAsset)
+    case tokenBurn(TokenBurn)
+    case walletStart(WalletStart)
+    case newUser(NewUser)
 }
 
-final class AnalyticManager: AnalyticManagerProtocol {
-  
-    enum Event {
-        
-        case leasing(Leasing)
-        case createAlias(CreateAlias)
-        case dex(Dex)
-        case walletAsset(WalletAsset)
-        case tokenBurn(TokenBurn)
-        case walletStart(WalletStart)
-        case newUser(NewUser)
-    }
-    
-    
-    static func trackEvent(_ event: Event) {
+public protocol AnalyticManagerEventInfo {
+    var name: String { get }
+    var params: String { get }
+}
 
-        Amplitude.instance().logEvent(event.name, withEventProperties: event.params)
-        Analytics.logEvent(event.name.replacingOccurrences(of: " ", with: "_"), parameters: event.params)
-        AppsFlyerTracker.shared()?.trackEvent(event.name, withValues: event.params)        
-    }
+public protocol AnalyticManagerProtocol {
+    func trackEvent(_ event: AnalyticManagerEvent)
 }
 
 //MARK - Event params
-extension AnalyticManager.Event {
+public extension AnalyticManagerEvent {
     
     var name: String {
         switch self {
@@ -86,8 +74,8 @@ extension AnalyticManager.Event {
 }
 
 //MARK: - Leasing
-extension AnalyticManager.Event {
-    enum Leasing: String {
+public extension AnalyticManagerEvent {
+    public enum Leasing: String {
         
         /* Нажата кнопка «Start Lease» на экране Wallet. */
         case leasingStartTap = "Leasing Start Tap"
@@ -101,8 +89,8 @@ extension AnalyticManager.Event {
 }
 
 //MARK: - CreateAlias
-extension AnalyticManager.Event {
-    enum CreateAlias: String {
+public extension AnalyticManagerEvent {
+    public enum CreateAlias: String {
         
         /* Нажата кнопка «Create a new alias» на экране профайла. */
         case createProfile = "Alias Create Profile"
@@ -113,8 +101,8 @@ extension AnalyticManager.Event {
 }
 
 //MARK: - TokenBurn
-extension AnalyticManager.Event {
-    enum TokenBurn: String {
+public extension AnalyticManagerEvent {
+    public enum TokenBurn: String {
         
         /* Нажата кнопка «Token Burn» на экране ассета. */
         case tap = "Burn Token Tap"
@@ -128,8 +116,8 @@ extension AnalyticManager.Event {
 }
 
 //MARK: - NewUser
-extension AnalyticManager.Event {
-    enum NewUser: String {
+public extension AnalyticManagerEvent {
+    public enum NewUser: String {
         
         /* Проставлены 3 чекбокса с условиями использования и нажата кнопка "Begin". */
         case confirm = "New User Confirm"

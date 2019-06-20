@@ -9,34 +9,13 @@
 import Foundation
 import WavesSDK
 
-private struct AuthorizationInteractorLocalizableImp: AuthorizationInteractorLocalizableProtocol {
-    var fallbackTitle: String {
-        //TODO: Experement
-        return ""
-//        return Localizable.Waves.Biometric.localizedFallbackTitle
-    }
-    var cancelTitle: String {
-        //TODO: Experement
-        return ""
-//        return Localizable.Waves.Biometric.localizedCancelTitle
-    }
-    var readFromkeychain: String {
-        //TODO: Experement
-        return ""
-//        return Localizable.Waves.Biometric.readfromkeychain
-    }
-    var saveInkeychain: String {
-        //TODO: Experement
-        return ""
-//        return Localizable.Waves.Biometric.saveinkeychain
-    }
-}
-
 public final class FactoryInteractors: FactoryInteractorsProtocol {
 
     public static var instance: FactoryInteractors!
     
     public let repositories: FactoryRepositoriesProtocol
+    
+    public let authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol
 
     public private(set) lazy var accountBalance: AccountBalanceInteractorProtocol = {
         
@@ -76,7 +55,7 @@ public final class FactoryInteractors: FactoryInteractorsProtocol {
                                                  localWalletSeedRepository: repositories.walletSeedRepositoryLocal,
                                                  remoteAuthenticationRepository: repositories.authenticationRepositoryRemote,
                                                  accountSettingsRepository: repositories.accountSettingsRepository,
-                                                 localizable: AuthorizationInteractorLocalizableImp())
+                                                 localizable: self.authorizationInteractorLocalizable)
 
         return interactor
     }()
@@ -113,11 +92,16 @@ public final class FactoryInteractors: FactoryInteractorsProtocol {
         return interactor
     }()
     
-    init(repositories: FactoryRepositoriesProtocol) {
+    init(repositories: FactoryRepositoriesProtocol, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
         self.repositories = repositories
+        self.authorizationInteractorLocalizable = authorizationInteractorLocalizable
     }
     
-    public class func initialization(repositories: FactoryRepositoriesProtocol) {
-        self.instance = FactoryInteractors(repositories: repositories)
+    public class func initialization(repositories: FactoryRepositoriesProtocol, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
+        self.instance = FactoryInteractors(repositories: repositories, authorizationInteractorLocalizable: authorizationInteractorLocalizable)
     }
+    
+    public private(set) lazy var analyticManager: AnalyticManagerProtocol = {
+        return AnalyticManager()
+    }()
 }
