@@ -13,9 +13,11 @@ import CSV
 import WavesSDKExtension
 import WavesSDKCrypto
 
-//TODO: move to SDK or change mapping assets
+//TODO: update mapping code from general assets
+
 private enum Constants {
     static let vostokAssetId = "4LHHvYGNKJUg5hj65aGD5vgScvCBmLpdRFtjokvCjSL8"
+    static let ergoAssetId = "5dJj4Hn9t2Ve3tRpNGirUHy4yBK6qdJRAJYV21yPPuGz"
 }
 
 final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
@@ -159,6 +161,7 @@ fileprivate extension DomainLayer.DTO.Asset {
         var isGeneral = false
         var isWaves = false
         var isVostok = false
+        var isErgo = false
         var isFiat = false
         let isGateway = info?.isGateway ?? false
         var name = asset.name
@@ -173,12 +176,16 @@ fileprivate extension DomainLayer.DTO.Asset {
                 isVostok = true
             }
             
-            isGeneral = info.isGateway || isWaves || isVostok
+            if info.assetId == Constants.ergoAssetId {
+                isErgo = true
+            }
+            
+            isGeneral = info.isGateway || isWaves || isVostok || isErgo
             name = info.displayName
             isFiat = info.isFiat
         }
 
-        self.isWavesToken = isFiat == false && isGateway == false && isWaves == false && isVostok == false
+        self.isWavesToken = isFiat == false && isGateway == false && isWaves == false && isVostok == false && isErgo == false
         self.isGeneral = isGeneral
         self.isWaves = isWaves
         self.isFiat = isFiat
