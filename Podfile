@@ -66,9 +66,7 @@ target 'WavesWallet-iOS' do
     pod 'Kingfisher'
 
     # Waves
-    pod 'WavesSDKExtension', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
-    pod 'WavesSDK', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'    
-    pod 'WavesSDKCrypto', :path => '/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS'
+    wavesSDKPod
 
     # Waves Internal
     pod 'DomainLayer', :path => '.'
