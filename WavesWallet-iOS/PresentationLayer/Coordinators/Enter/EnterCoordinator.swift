@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DomainLayer
 
 protocol EnterCoordinatorDelegate: AnyObject {
     func userCompletedLogIn(wallet: DomainLayer.DTO.Wallet)

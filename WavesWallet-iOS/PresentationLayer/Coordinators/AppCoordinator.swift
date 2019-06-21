@@ -12,7 +12,8 @@ import RxSwift
 import RESideMenu
 import RxOptional
 import WavesSDKExtension
-import WavesSDKCrypto
+import Extensions
+import DomainLayer
 
 private enum Contants {
 
@@ -52,7 +53,7 @@ final class AppCoordinator: Coordinator {
 
     private let windowRouter: WindowRouter
 
-    private let authoAuthorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let authoAuthorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let disposeBag: DisposeBag = DisposeBag()
     private var isActiveApp: Bool = false
     
@@ -64,6 +65,7 @@ final class AppCoordinator: Coordinator {
         self.isActiveApp = true
 
         logInApplication()
+//        showSupport()
 
         #if DEBUG || TEST
             addTapGestureForSupportDisplay()
@@ -277,7 +279,13 @@ private extension AppCoordinator {
     private func showSupport() {
         let vc = StoryboardScene.Support.supportViewController.instantiate()
         vc.delegate = self
-        self.windowRouter.window.rootViewController?.present(vc, animated: true, completion: nil)        
+        
+        if self.windowRouter.window.rootViewController == nil {
+            self.windowRouter.window.rootViewController = vc
+            self.windowRouter.window.makeKeyAndVisible()
+        } else {
+            self.windowRouter.window.rootViewController?.present(vc, animated: true, completion: nil)
+        }
     }
 }
 
@@ -291,13 +299,13 @@ extension AppCoordinator: SupportViewControllerDelegate  {
     func closeSupportView(isTestNet: Bool) {
 
         self.windowRouter.window.rootViewController?.dismiss(animated: true, completion: {
-            if Environment.isTestNet != isTestNet {
+            if WalletEnvironment.isTestNet != isTestNet {
 
                 self.authoAuthorizationInteractor
                     .logout()
                     .subscribe(onCompleted: { [weak self] in
                         guard let self = self else { return }
-                        Environment.isTestNet = isTestNet
+                        WalletEnvironment.isTestNet = isTestNet
                         self.showDisplay(.enter)
                     })
                     .disposed(by: self.disposeBag)

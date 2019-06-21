@@ -9,7 +9,9 @@
 import UIKit
 import RxSwift
 import WavesSDKExtension
-import WavesSDKCrypto
+import WavesSDK
+import Extensions
+import DomainLayer
 
 private enum Constants {
     static let cornerRadius: CGFloat = 2
@@ -31,8 +33,8 @@ final class StartLeasingCancelConfirmationViewController: UIViewController {
     weak var output: StartLeasingModuleOutput?
 
     private var fee: Money?
-    private let transactionInteractor = FactoryInteractors.instance.transactions
-    private let auth = FactoryInteractors.instance.authorization
+    private let transactionInteractor = UseCasesFactory.instance.transactions
+    private let auth = UseCasesFactory.instance.authorization
     private var disposeBag = DisposeBag()
     
     private var errorSnackKey: String?
@@ -72,10 +74,10 @@ final class StartLeasingCancelConfirmationViewController: UIViewController {
     }
     
     private func setupData() {
-        tickerView.update(with: .init(text: WavesSDKCryptoConstants.wavesAssetId, style: .soft))
+        tickerView.update(with: .init(text: WavesSDKConstants.wavesAssetId, style: .soft))
         labelAmount.text = cancelOrder.amount.displayText
         labelLeasingTx.text = cancelOrder.leasingTX
-        labelFee.text = cancelOrder.fee.displayText + " " + WavesSDKCryptoConstants.wavesAssetId
+        labelFee.text = cancelOrder.fee.displayText + " " + WavesSDKConstants.wavesAssetId
     }
     
     private func setupLocalization() {
@@ -127,7 +129,7 @@ private extension StartLeasingCancelConfirmationViewController {
                 self.updateFee(fee)
             }, onError: { [weak self] (error) in
 
-                if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
+                if let error = error as? TransactionsUseCaseError, error == .commissionReceiving {
                     self?.showFeeError(DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving))
                 } else {
                     self?.showFeeError(DisplayError(error: error))
@@ -160,7 +162,7 @@ private extension StartLeasingCancelConfirmationViewController {
                 self?.loadFee()
             })
             
-        case .notFound, .scriptError:
+        case .none, .scriptError:
             errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
                 self?.loadFee()
             })
@@ -174,7 +176,7 @@ private extension StartLeasingCancelConfirmationViewController {
         }
         
         cancelOrder.fee = fee
-        labelFee.text = cancelOrder.fee.displayText + " " + WavesSDKCryptoConstants.wavesAssetId
+        labelFee.text = cancelOrder.fee.displayText + " " + WavesSDKConstants.wavesAssetId
         labelFee.isHidden = false
         setupButtonCancel()
         activityIndicatorFee.stopAnimating()

@@ -8,11 +8,12 @@
 
 import Foundation
 import RxSwift
+import DomainLayer
 
 final class WalletSortInteractor: WalletSortInteractorProtocol {
  
-    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let assetsBalanceSettings: AssetsBalanceSettingsInteractorProtocol = FactoryInteractors.instance.assetsBalanceSettings
+    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
+    private let assetsBalanceSettings: AssetsBalanceSettingsUseCaseProtocol = UseCasesFactory.instance.assetsBalanceSettings
     
     private let disposeBag: DisposeBag = DisposeBag()
     

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Extensions
 
 enum CreateAliasTypes {
     enum ViewModel { }

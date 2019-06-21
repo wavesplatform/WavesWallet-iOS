@@ -11,7 +11,9 @@ import RxFeedback
 import RxSwift
 import RxCocoa
 import WavesSDKExtension
-import WavesSDKCrypto
+import WavesSDK
+import Extensions
+import DomainLayer
 
 protocol CreateAliasModuleOutput: AnyObject {
     func createAliasCompletedCreateAlias(_ alias: String)
@@ -32,9 +34,9 @@ final class CreateAliasPresenter: CreateAliasPresenterProtocol {
     fileprivate typealias Types = CreateAliasTypes
 
     private let disposeBag: DisposeBag = DisposeBag()
-    private let aliasesRepository: AliasesRepositoryProtocol = FactoryRepositories.instance.aliasesRepositoryRemote
-    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let transactionsInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
+    private let aliasesRepository: AliasesRepositoryProtocol = UseCasesFactory.instance.repositories.aliasesRepositoryRemote
+    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
+    private let transactionsInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
 
     weak var moduleOutput: CreateAliasModuleOutput?
 
@@ -187,10 +189,10 @@ private extension CreateAliasPresenter {
             var inputError: String? = nil
             if let text = text {
                 if RegEx.alias(text) {
-                    if text.count < WavesSDKCryptoConstants.aliasNameMinLimitSymbols {
+                    if text.count < WavesSDKConstants.aliasNameMinLimitSymbols {
                         state.displayState.isEnabledSaveButton = false
                         inputError = Localizable.Waves.Createalias.Error.minimumcharacters
-                    } else if text.count > WavesSDKCryptoConstants.aliasNameMaxLimitSymbols {
+                    } else if text.count > WavesSDKConstants.aliasNameMaxLimitSymbols {
                         state.displayState.isEnabledSaveButton = false
                         inputError = Localizable.Waves.Createalias.Error.charactersmaximum
                     } else {

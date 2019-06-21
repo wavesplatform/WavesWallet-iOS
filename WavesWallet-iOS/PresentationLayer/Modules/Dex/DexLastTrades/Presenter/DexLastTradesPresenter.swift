@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxFeedback
 import RxCocoa
+import DomainLayer
 
 final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
     
@@ -82,7 +83,7 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
             }.changeAction(.update)
         
         case .didTapBuy(let buy):
-            AnalyticManager.trackEvent(.dex(.buyTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
+            UseCasesFactory.instance.analyticManager.trackEvent(.dex(.buyTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
 
             moduleOutput?.didCreateOrder(buy, amountAsset: amountAsset, priceAsset: priceAsset,
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
@@ -92,7 +93,7 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
             return state.changeAction(.none)
         
         case .didTapEmptyBuy:
-            AnalyticManager.trackEvent(.dex(.buyTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
+            UseCasesFactory.instance.analyticManager.trackEvent(.dex(.buyTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
 
             moduleOutput?.didCreateEmptyOrder(amountAsset: amountAsset, priceAsset: priceAsset,
                                               orderType: .buy,
@@ -103,7 +104,7 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
             return state.changeAction(.none)
             
         case .didTapSell(let sell):
-            AnalyticManager.trackEvent(.dex(.sellTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
+            UseCasesFactory.instance.analyticManager.trackEvent(.dex(.sellTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
 
             moduleOutput?.didCreateOrder(sell, amountAsset: amountAsset, priceAsset: priceAsset,
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
@@ -114,7 +115,7 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
             return state.changeAction(.none)
             
         case .didTapEmptySell:
-            AnalyticManager.trackEvent(.dex(.sellTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
+            UseCasesFactory.instance.analyticManager.trackEvent(.dex(.sellTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
 
             moduleOutput?.didCreateEmptyOrder(amountAsset: amountAsset, priceAsset: priceAsset,
                                               orderType: .sell,

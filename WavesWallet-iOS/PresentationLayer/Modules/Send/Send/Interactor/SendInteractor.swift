@@ -9,17 +9,19 @@
 import Foundation
 import RxSwift
 import WavesSDKExtension
-import WavesSDKCrypto
+import WavesSDK
+import Extensions
+import DomainLayer
 
 final class SendInteractor: SendInteractorProtocol {
     
-    private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
-    private let assetInteractor = FactoryInteractors.instance.assetsInteractor
-    private let auth = FactoryInteractors.instance.authorization
-    private let coinomatRepository = FactoryRepositories.instance.coinomatRepository
-    private let aliasRepository = FactoryRepositories.instance.aliasesRepositoryRemote
-    private let transactionInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
-    private let accountBalance = FactoryInteractors.instance.accountBalance
+    private let accountBalanceInteractor: AccountBalanceUseCaseProtocol = UseCasesFactory.instance.accountBalance
+    private let assetInteractor = UseCasesFactory.instance.assets
+    private let auth = UseCasesFactory.instance.authorization
+    private let coinomatRepository = UseCasesFactory.instance.repositories.coinomatRepository
+    private let aliasRepository = UseCasesFactory.instance.repositories.aliasesRepositoryRemote
+    private let transactionInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
+    private let accountBalance = UseCasesFactory.instance.accountBalance
 
     func assetBalance(by assetID: String) -> Observable<DomainLayer.DTO.SmartAssetBalance?> {
         return accountBalanceInteractor.balances().flatMap({ [weak self] (balances) -> Observable<DomainLayer.DTO.SmartAssetBalance?>  in
@@ -70,7 +72,7 @@ final class SendInteractor: SendInteractorProtocol {
         return accountBalance.balances()
             .flatMap({ balances -> Observable<DomainLayer.DTO.SmartAssetBalance> in
                 
-                guard let wavesAsset = balances.first(where: {$0.asset.wavesId == WavesSDKCryptoConstants.wavesAssetId}) else {
+                guard let wavesAsset = balances.first(where: {$0.asset.wavesId == WavesSDKConstants.wavesAssetId}) else {
                     return Observable.empty()
                 }
                 return Observable.just(wavesAsset)

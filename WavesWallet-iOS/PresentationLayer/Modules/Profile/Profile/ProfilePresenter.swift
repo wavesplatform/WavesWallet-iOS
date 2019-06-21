@@ -10,6 +10,7 @@ import Foundation
 import RxFeedback
 import RxSwift
 import RxCocoa
+import DomainLayer
 
 protocol ProfileModuleOutput: AnyObject {
 
@@ -54,9 +55,9 @@ final class ProfilePresenter: ProfilePresenterProtocol {
 
     private let disposeBag: DisposeBag = DisposeBag()
 
-    private let blockRepository: BlockRepositoryProtocol = FactoryRepositories.instance.blockRemote
-    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let walletsRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
+    private let blockRepository: BlockRepositoryProtocol = UseCasesFactory.instance.repositories.blockRemote
+    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
+    private let walletsRepository: WalletsRepositoryProtocol = UseCasesFactory.instance.repositories.walletsRepositoryLocal
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
 
     weak var moduleOutput: ProfileModuleOutput?
@@ -86,7 +87,7 @@ final class ProfilePresenter: ProfilePresenterProtocol {
 // MARK: - Feedbacks
 fileprivate extension ProfilePresenter {
 
-    fileprivate static func needQuery(_ state: Types.State) -> Types.Query? {
+    static func needQuery(_ state: Types.State) -> Types.Query? {
 
         guard let query = state.query else { return nil }
 
@@ -112,7 +113,7 @@ fileprivate extension ProfilePresenter {
         return nil
     }
 
-    fileprivate static func handlerQuery(owner: ProfilePresenter, query: Types.Query) {
+    static func handlerQuery(owner: ProfilePresenter, query: Types.Query) {
 
         switch query {
         case .showAddressesKeys(let wallet):
@@ -252,7 +253,7 @@ fileprivate extension ProfilePresenter {
 
             return self
                 .blockRepository
-                .height(accountAddress: address)
+                .height(accountAddress: address)                
                 .map { Types.Event.setBlock($0) }
                 .asSignal(onErrorRecover: { _ in
                     return Signal.empty()

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Extensions
 
 fileprivate enum Constants {
     static let issueDateFormat = "dd.MM.yyyy 'at' HH:mm"

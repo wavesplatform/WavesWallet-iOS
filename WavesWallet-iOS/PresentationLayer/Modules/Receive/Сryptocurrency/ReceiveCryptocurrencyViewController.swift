@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxFeedback
 import RxSwift
-
+import DomainLayer
 
 final class ReceiveCryptocurrencyViewController: UIViewController {
 
@@ -55,7 +55,7 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
         let vc = ReceiveGenerateAddressModuleBuilder().build(input: .cryptoCurrency(info))
         navigationController?.pushViewController(vc, animated: true)
         
-        AnalyticManager.trackEvent(.walletAsset(.receiveTap(assetName: info.assetName)))
+        UseCasesFactory.instance.analyticManager.trackEvent(.walletAsset(.receiveTap(assetName: info.assetName)))
 
     }
     

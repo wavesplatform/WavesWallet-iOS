@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Extensions
+import DomainLayer
 
 protocol SendFeeModuleOutput: AnyObject {
     

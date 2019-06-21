@@ -8,8 +8,10 @@
 
 import Foundation
 import RxSwift
-import Moya
 import WavesSDKExtension
+import WavesSDK
+import Extensions
+import DomainLayer
 
 private enum Constants {
     static let minimumOrderFee: Int64 = 300000
@@ -18,12 +20,12 @@ private enum Constants {
 
 final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     
-    private let auth = FactoryInteractors.instance.authorization
-    private let matcherRepository = FactoryRepositories.instance.matcherRepository
-    private let matcherProvider: MoyaProvider<Matcher.Service.OrderBook> = .nodeMoyaProvider()
-    private let orderBookRepository = FactoryRepositories.instance.dexOrderBookRepository
-    private let transactionInteractor = FactoryInteractors.instance.transactions
-    private let environmentRepository = FactoryRepositories.instance.environmentRepository
+    private let auth = UseCasesFactory.instance.authorization
+    private let matcherRepository = UseCasesFactory.instance.repositories.matcherRepository
+    private let orderBookRepository = UseCasesFactory.instance.repositories.dexOrderBookRepository
+    private let transactionInteractor = UseCasesFactory.instance.transactions
+    
+    private let environmentRepository = UseCasesFactory.instance.repositories.environmentRepository
     
     func createOrder(order: DexCreateOrder.DTO.Order) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
         
@@ -32,7 +34,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
             guard let self = self else { return Observable.empty() }
             
             let matcher = self.matcherRepository.matcherPublicKey(accountAddress: wallet.address)
-            let environment = self.environmentRepository.accountEnvironment(accountAddress: wallet.address)
+            let environment = self.environmentRepository.applicationEnvironment()
 
             //TODO: Code move to another method
             return Observable.zip(matcher, environment)
@@ -51,11 +53,13 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                                                                        price: price,
                                                                        orderType: order.type,
                                                                        matcherFee: order.fee,
-                                                                       timestamp: Date().millisecondsSince1970(timestampDiff: environment.timestampServerDiff),
+                                                                       timestamp: Date().millisecondsSince1970,
                                                                        expiration: Int64(order.expiration.rawValue))
                     
                     
-                    return self.orderBookRepository.createOrder(wallet: wallet, order: orderQuery)
+                    return self
+                        .orderBookRepository
+                        .createOrder(wallet: wallet, order: orderQuery)
                         .flatMap({ (success) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
                             let output = DexCreateOrder.DTO.Output(time: Date(milliseconds: orderQuery.timestamp),
                                                                    orderType: order.type,

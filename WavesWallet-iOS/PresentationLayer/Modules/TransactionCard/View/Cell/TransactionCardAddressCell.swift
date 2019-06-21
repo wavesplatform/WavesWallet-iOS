@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import DomainLayer
 
 final class TransactionCardAddressCell: UITableViewCell, Reusable {
 
@@ -53,7 +54,7 @@ final class TransactionCardAddressCell: UITableViewCell, Reusable {
     }
 }
 
-// TODO: ViewConfiguration
+// MARK: ViewConfiguration
 
 extension TransactionCardAddressCell: ViewConfiguration {
 

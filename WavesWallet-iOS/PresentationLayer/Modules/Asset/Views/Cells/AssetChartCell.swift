@@ -78,7 +78,7 @@ class AssetChartCell: UITableViewCell {
             return ChartDataEntry(x: Double(i), y: val)
         }
         
-        let set = LineChartDataSet(values: values, label: "DataSet")
+        let set = LineChartDataSet(entries: values, label: "DataSet")
         set.drawValuesEnabled = false
         set.drawIconsEnabled = false
         set.drawCircleHoleEnabled = false

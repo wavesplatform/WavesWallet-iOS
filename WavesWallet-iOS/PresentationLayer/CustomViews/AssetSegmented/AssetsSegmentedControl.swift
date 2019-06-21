@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import UPCarouselFlowLayout
 import InfiniteCollectionView
+import DomainLayer
 
 fileprivate enum Constants {
     static let spacing: CGFloat = 24

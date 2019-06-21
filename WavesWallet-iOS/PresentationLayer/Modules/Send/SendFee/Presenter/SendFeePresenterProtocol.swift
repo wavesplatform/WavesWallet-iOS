@@ -8,6 +8,7 @@
 
 import Foundation
 import RxCocoa
+import Extensions
 
 protocol SendFeePresenterProtocol {
     typealias Feedback = (Driver<SendFee.State>) -> Signal<SendFee.Event>

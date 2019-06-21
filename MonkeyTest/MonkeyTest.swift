@@ -34,7 +34,7 @@ final class MonkeyTest: XCTestCase {
         // Workaround for bug in Xcode 7.3. Snapshots are not properly updated
         // when you initially call app.frame, resulting in a zero-sized rect.
         // Doing a random query seems to update everything properly.
-        // TODO: Remove this when the Xcode bug is fixed!
+        //TODO: Remove this when the Xcode bug is fixed!
         _ = application.descendants(matching: .any).element(boundBy: 0).frame
         
         // Initialise the monkey tester with the current device

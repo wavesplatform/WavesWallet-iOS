@@ -8,9 +8,9 @@
 
 import UIKit
 import RxSwift
-import AppsFlyerLib
-import FirebaseAnalytics
 import WavesSDKExtension
+import DomainLayer
+import Extensions
 
 private enum Constants {
     static let popoverHeight: CGFloat = 378
@@ -33,8 +33,8 @@ final class WalletCoordinator: Coordinator {
     private var currentPopup: PopupViewController? = nil
 
     private let disposeBag: DisposeBag = DisposeBag()
-    private let authorization: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let walletsRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
+    private let authorization: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
+    private let walletsRepository: WalletsRepositoryProtocol = UseCasesFactory.instance.repositories.walletsRepositoryLocal
 
     init(navigationRouter: NavigationRouter){
         self.navigationRouter = navigationRouter
@@ -139,7 +139,7 @@ extension WalletCoordinator: WalletModuleOutput {
         let controller = StartLeasingModuleBuilder(output: self).build(input: availableMoney)
         navigationRouter.pushViewController(controller)
         
-        AnalyticManager.trackEvent(.leasing(.leasingStartTap))
+        UseCasesFactory.instance.analyticManager.trackEvent(.leasing(.leasingStartTap))
     }
 
     func showLeasingTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
@@ -204,7 +204,7 @@ extension WalletCoordinator: AssetDetailModuleOutput {
         vc.delegate = delegate
         navigationRouter.pushViewController(vc)
         
-        AnalyticManager.trackEvent(.tokenBurn(.tap))
+        UseCasesFactory.instance.analyticManager.trackEvent(.tokenBurn(.tap))
     }
 }
 
@@ -214,21 +214,10 @@ extension WalletCoordinator: TransactionCardCoordinatorDelegate {
         walletViewContoller.viewWillAppear(false)
     }
 }
-// MARK: - StartLeasingModuleOutput
 
+// MARK: - StartLeasingModuleOutput
 extension WalletCoordinator: StartLeasingModuleOutput {
-    
-    func startLeasingDidSuccess(transaction: DomainLayer.DTO.SmartTransaction, kind: StartLeasingTypes.Kind) {
-        
-        switch kind {
-        case .send:
-            //TODO: Here can be some logic
-            break
-            
-        default:
-            break
-        }
-    }
+    func startLeasingDidSuccess(transaction: DomainLayer.DTO.SmartTransaction, kind: StartLeasingTypes.Kind) {}
 }
 
 fileprivate extension AssetDetailModuleBuilder.Input {
@@ -295,7 +284,7 @@ extension WalletCoordinator: AliasesModuleOutput {
             let vc = CreateAliasModuleBuilder(output: self).build()
             self.navigationRouter.pushViewController(vc)
             
-            AnalyticManager.trackEvent(.createAlias(.aliasCreateVcard))
+            UseCasesFactory.instance.analyticManager.trackEvent(.createAlias(.aliasCreateVcard))
         }
     }
 }
@@ -310,7 +299,7 @@ extension WalletCoordinator: AliasWithoutViewControllerDelegate {
             let vc = CreateAliasModuleBuilder(output: self).build()
             self.navigationRouter.pushViewController(vc)
             
-            AnalyticManager.trackEvent(.createAlias(.aliasCreateVcard))
+            UseCasesFactory.instance.analyticManager.trackEvent(.createAlias(.aliasCreateVcard))
         }
     }
 }

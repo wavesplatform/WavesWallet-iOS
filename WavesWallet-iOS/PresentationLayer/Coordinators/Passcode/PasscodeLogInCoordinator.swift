@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import DomainLayer
 
 protocol PasscodeLogInCoordinatorDelegate: AnyObject {
     func passcodeCoordinatorLogInCompleted(wallet: DomainLayer.DTO.Wallet)

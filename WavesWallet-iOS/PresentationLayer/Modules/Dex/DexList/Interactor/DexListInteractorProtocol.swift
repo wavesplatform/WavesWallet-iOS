@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import DomainLayer
 
 protocol DexListInteractorProtocol {
     func pairs() -> Observable<ResponseType<DexList.DTO.DisplayInfo>>

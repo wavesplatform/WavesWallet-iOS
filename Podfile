@@ -7,6 +7,8 @@ platform :ios, '11.0'
 # Ignore all warnings from all pods
 inhibit_all_warnings!
 
+install! 'cocoapods', :disable_input_output_paths => true
+
 use_frameworks!(true)
 
 # Enable the stricter search paths and module map generation for all pods
@@ -16,6 +18,14 @@ use_frameworks!(true)
 target 'MonkeyTest' do
     pod 'SwiftMonkey'
 end 
+
+
+def wavesSDKPod
+    pod 'WavesSDKExtension', :git => 'https://github.com/wavesplatform/WavesSDK-iOS.git', :branch => 'develop'
+    pod 'WavesSDK', :git => 'https://github.com/wavesplatform/WavesSDK-iOS.git', :branch => 'develop'
+    pod 'WavesSDKCrypto', :git => 'https://github.com/wavesplatform/WavesSDK-iOS.git', :branch => 'develop'
+end
+
 
 # Pods for WavesWallet-iOS
 target 'WavesWallet-iOS' do
@@ -47,8 +57,72 @@ target 'WavesWallet-iOS' do
     pod 'RxSwiftExt'
     pod 'RxOptional'
     pod 'RxGesture'
-    pod 'RxFeedback'
+    pod 'RxFeedback'    
+
+    pod 'IdentityImg'
+    pod 'QRCode'
+    pod 'QRCodeReader.swift', '~> 9.0.1'    
+    pod 'SwiftDate'
+    pod 'Kingfisher'
+
+    # Waves
+    wavesSDKPod
+
+    # Waves Internal
+    pod 'DomainLayer', :path => '.'
+    pod 'DataLayer', :path => '.'
+    pod 'Extensions', :path => '.'
+ 
+    # Code Gen
+    pod 'SwiftGen', '~> 5.3.0'
+
+    # Debug
+    # pod 'Reveal-SDK', :configurations => ['Debug']
+    pod 'AppSpectorSDK', :configurations => ['Debug', 'Test']
+    pod 'SwiftMonkeyPaws', :configurations => ['Debug']
+        
+    # pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git'
+end
+
+target 'InternalDomainLayer' do
+
+    inherit! :search_paths
+
+    # DB
+    pod 'RealmSwift'
+    pod 'RxRealm'
+
+    # Assisstant
+    pod 'RxSwift'
+    pod 'RxSwiftExt'
+    pod 'RxOptional'        
     pod 'RxReachability'
+
+    pod 'KeychainAccess'        
+
+    # Waves    
+    wavesSDKPod
+    pod 'Extensions', :path => '.'   
+end
+
+target 'InternalExtensions' do
+
+    inherit! :search_paths
+
+    # Assisstant
+    pod 'RxSwift'
+    pod 'RxSwiftExt'
+    pod 'RxOptional'
+    pod 'DeviceKit'
+
+    # Waves
+    wavesSDKPod
+
+end
+
+target 'InternalDataLayer' do
+
+    inherit! :search_paths
 
     # External Service
     pod 'Firebase/Core'
@@ -56,48 +130,27 @@ target 'WavesWallet-iOS' do
     pod 'Firebase/Auth'
     pod 'Firebase/InAppMessagingDisplay'
 
+    pod 'Fabric'
+    pod 'Crashlytics'
     pod 'Amplitude-iOS'
-
     pod 'AppsFlyerFramework'
-
-    # Helperrs
-    pod 'IdentityImg'
-
-    pod 'WavesSDKExtension', '~> 0.1.3'
-    pod 'WavesSDKCrypto', '~> 0.1.3'
-
-    pod 'KeychainAccess'
-    pod 'QRCode'
-    pod 'QRCodeReader.swift', '~> 9.0.1'
-    pod 'SwiftDate'
-    pod 'DeviceKit', '~> 1.3'
-    
-    # Cache & Download Images
-    pod 'Kingfisher'
+    pod 'Sentry'
 
     # DB
     pod 'RealmSwift'
     pod 'RxRealm'
 
-    # Network
-    pod 'RxAlamofire'
-    pod 'Moya/RxSwift'
-
-    # Parser    
+    # Assisstant
+    pod 'RxSwift'
+    pod 'RxSwiftExt'
+    pod 'RxOptional'
     pod 'CSV.swift'
 
-    # Gen
-    pod 'SwiftGen', '~> 5.3.0'
+    # Waves
+    wavesSDKPod
+    pod 'Extensions', :path => '.'   
+    pod 'DataLayer', :path => '.'   
 
-    # Debug
-    # pod 'Reveal-SDK', :configurations => ['Debug']
-    pod 'AppSpectorSDK', :configurations => ['Debug', 'Test']
-
-    pod 'SwiftMonkeyPaws', :configurations => ['Debug']
-    
-    pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git'
-    pod 'Fabric'
-    pod 'Crashlytics'
 end
 
 post_install do |installer|

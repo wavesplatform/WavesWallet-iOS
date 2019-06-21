@@ -8,6 +8,8 @@
 
 import UIKit
 import RxSwift
+import DomainLayer
+import Extensions
 
 private enum Constants {
     static let cornerRadius: CGFloat = 2
@@ -85,7 +87,7 @@ final class SendConfirmationViewController: UIViewController {
         vc.input = input
         navigationController?.pushViewController(vc, animated: true)
         
-        AnalyticManager.trackEvent(.walletAsset(.sendConfirm(assetName: input.asset.displayName)))
+        UseCasesFactory.instance.analyticManager.trackEvent(.walletAsset(.sendConfirm(assetName: input.asset.displayName)))
 
     }
     

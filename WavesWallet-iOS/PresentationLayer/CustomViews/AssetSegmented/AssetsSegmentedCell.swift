@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import DomainLayer
 
 final class AssetsSegmentedCell: UICollectionViewCell, NibReusable {
 

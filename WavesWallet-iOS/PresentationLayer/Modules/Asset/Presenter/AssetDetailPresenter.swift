@@ -10,6 +10,8 @@ import Foundation
 import RxCocoa
 import RxFeedback
 import RxSwift
+import Extensions
+import DomainLayer
 
 final class AssetDetailPresenter: AssetDetailPresenterProtocol {
 
@@ -50,7 +52,7 @@ final class AssetDetailPresenter: AssetDetailPresenterProtocol {
             return state.displayState.isAppeared == true
         }, effects: { [weak self] _ -> Signal<AssetDetailTypes.Event> in
 
-            // TODO: Error
+            //TODO: Error
             guard let self = self else { return Signal.empty() }
             let ids = self.input.assets.map { $0.id }
 
@@ -76,7 +78,7 @@ final class AssetDetailPresenter: AssetDetailPresenterProtocol {
 
         }, effects: { [weak self] query -> Signal<AssetDetailTypes.Event> in
 
-            // TODO: Error
+            //TODO: Error
             guard let self = self else { return Signal.empty() }
 
             return self

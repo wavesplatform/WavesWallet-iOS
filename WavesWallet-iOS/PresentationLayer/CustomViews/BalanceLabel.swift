@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import Extensions
+import DomainLayer
 
 final class BalanceLabel: UIView, NibOwnerLoadable {
 

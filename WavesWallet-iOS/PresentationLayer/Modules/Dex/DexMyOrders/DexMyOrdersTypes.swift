@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import DomainLayer
+import Extensions
 
 enum DexMyOrders {
     enum DTO {}
