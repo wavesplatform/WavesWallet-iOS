@@ -8,7 +8,8 @@
 
 import UIKit
 import RxSwift
-
+import Extensions
+import DomainLayer
 
 protocol AliasWithoutViewControllerDelegate: AnyObject {
     func aliasWithoutUserTapCreateNewAlias()
@@ -24,8 +25,8 @@ final class AliasWithoutViewController: UIViewController, Localization {
     @IBOutlet private var transactionFeeView: TransactionFeeView!
 
     private let disposeBag: DisposeBag = DisposeBag()
-    private let transactionsInteractor = FactoryInteractors.instance.transactions
-    private let authorizationInteractor = FactoryInteractors.instance.authorization
+    private let transactionsInteractor = UseCasesFactory.instance.transactions
+    private let authorizationInteractor = UseCasesFactory.instance.authorization
     private var errorSnackKey: String?
 
     override func viewDidLoad() {
@@ -74,7 +75,7 @@ final class AliasWithoutViewController: UIViewController, Localization {
 
         var displayError: DisplayError = .none
 
-        if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
+        if let error = error as? TransactionsUseCaseError, error == .commissionReceiving {
             displayError = DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving)
         } else {
             displayError = DisplayError(error: error)

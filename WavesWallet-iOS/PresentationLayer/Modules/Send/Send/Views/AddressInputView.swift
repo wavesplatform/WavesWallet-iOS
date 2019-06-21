@@ -10,7 +10,8 @@ import UIKit
 import QRCodeReader
 import RxSwift
 import RxCocoa
-
+import DomainLayer
+import Extensions
 
 private enum Constants {
     static let animationDuration: TimeInterval = 0.3
@@ -59,9 +60,9 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     private let disposeBag = DisposeBag()
-    private let assetInteractor = FactoryInteractors.instance.assetsInteractor
-    private let assetsRepositoryLocal = FactoryRepositories.instance.assetsRepositoryLocal
-    private let auth = FactoryInteractors.instance.authorization
+    private let assetInteractor = UseCasesFactory.instance.assets
+    private let assetsRepositoryLocal = UseCasesFactory.instance.repositories.assetsRepositoryLocal
+    private let auth = UseCasesFactory.instance.authorization
 
     weak var delegate: AddressInputViewDelegate?
     var decimals: Int = 0

@@ -8,6 +8,8 @@
 
 import UIKit
 import WavesSDKExtension
+import Extensions
+import DomainLayer
 
 private enum Constants {
     static let cornerRadius: CGFloat = 2
@@ -68,7 +70,7 @@ final class TokenBurnConfirmationViewController: UIViewController {
         vc.input = input
         navigationController?.pushViewController(vc, animated: true)
         
-        AnalyticManager.trackEvent(.tokenBurn(.confirmTap))
+        UseCasesFactory.instance.analyticManager.trackEvent(.tokenBurn(.confirmTap))
     }
 }
 

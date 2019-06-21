@@ -7,7 +7,8 @@
 //
 
 import UIKit
-
+import DomainLayer
+ 
 struct DexCreateOrderModuleBuilder: ModuleBuilderOutput {
     
     weak var output: DexCreateOrderModuleOutput?

@@ -8,6 +8,8 @@
 
 import Foundation
 import RxSwift
+import DomainLayer
+import Extensions
 
 protocol ReceiveCardInteractorProtocol {
     

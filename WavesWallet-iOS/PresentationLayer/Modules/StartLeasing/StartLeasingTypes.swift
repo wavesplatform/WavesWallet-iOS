@@ -8,6 +8,8 @@
 
 import Foundation
 import WavesSDK
+import Extensions
+import DomainLayer
 
 protocol StartLeasingErrorDelegate: AnyObject {
     func startLeasingDidFail(error: NetworkError)

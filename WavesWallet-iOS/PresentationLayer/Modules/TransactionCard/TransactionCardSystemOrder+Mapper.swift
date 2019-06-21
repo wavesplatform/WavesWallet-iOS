@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Extensions
+import DomainLayer
 
 private struct Constants {
     static let filledStatusValue: String = "100%"

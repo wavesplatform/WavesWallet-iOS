@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DomainLayer
 
 final class WalletLeasingCell: UITableViewCell, NibReusable {
     @IBOutlet var labelTitle: UILabel!

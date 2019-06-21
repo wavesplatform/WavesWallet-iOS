@@ -8,7 +8,8 @@
 
 import Foundation
 import WavesSDKExtension
-
+import DomainLayer
+import Extensions
 
 enum NetworkSettingsTypes {
     enum DTO { }

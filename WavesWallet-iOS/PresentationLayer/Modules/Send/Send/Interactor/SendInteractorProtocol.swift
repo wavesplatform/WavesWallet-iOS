@@ -8,6 +8,8 @@
 
 import Foundation
 import RxSwift
+import Extensions
+import DomainLayer
 
 protocol SendInteractorProtocol {
     

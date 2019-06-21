@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DomainLayer
 
 protocol PasscodeCoordinatorDelegate: AnyObject {
     func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet)

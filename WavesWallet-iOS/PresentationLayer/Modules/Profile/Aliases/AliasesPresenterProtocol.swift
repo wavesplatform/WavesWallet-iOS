@@ -10,6 +10,8 @@ import Foundation
 import RxFeedback
 import RxSwift
 import RxCocoa
+import DomainLayer
+import Extensions
 
 protocol AliasesModuleOutput: AnyObject {
     func aliasesCreateAlias()
@@ -33,8 +35,8 @@ final class AliasesPresenter: AliasesPresenterProtocol {
 
     private let disposeBag: DisposeBag = DisposeBag()
 
-    private let transactionsInteractor = FactoryInteractors.instance.transactions
-    private let authorizationInteractor = FactoryInteractors.instance.authorization
+    private let transactionsInteractor = UseCasesFactory.instance.transactions
+    private let authorizationInteractor = UseCasesFactory.instance.authorization
 
     var moduleInput: AliasesModuleInput!
     weak var moduleOutput: AliasesModuleOutput?
@@ -125,7 +127,7 @@ private extension AliasesPresenter {
         case .handlerFeeError(let error):
             state.query = nil
 
-            if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
+            if let error = error as? TransactionsUseCaseError, error == .commissionReceiving {
                 state.displayState.error = .error(DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving))
             } else {
                 state.displayState.error = .error(DisplayError(error: error))

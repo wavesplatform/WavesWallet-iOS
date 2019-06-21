@@ -9,6 +9,8 @@
 import UIKit
 import WavesSDKExtension
 import WavesSDK
+import Extensions
+import DomainLayer
 
 private enum Constants {
     static let paymentBottomOffset: CGFloat = 14
@@ -47,7 +49,7 @@ extension TransactionCardInvokeScriptCell: ViewConfiguration {
         guard let payment = model.payment else { return }
         
         let assetName = model.payment?.asset?.displayName ?? ""
-        let ticker = model.payment?.asset == nil ? WavesSDKCryptoConstants.wavesAssetId : nil
+        let ticker = model.payment?.asset == nil ? WavesSDKConstants.wavesAssetId : nil
         
         let balance = Balance(currency: Balance.Currency(title: assetName, ticker: ticker), money: payment.amount)
         let style = BalanceLabel.Model(balance: balance,

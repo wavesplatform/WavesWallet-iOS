@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Extensions
+import DomainLayer
 
 protocol ChooseAccountCoordinatorDelegate: AnyObject {
     func userChooseCompleted(wallet: DomainLayer.DTO.Wallet)

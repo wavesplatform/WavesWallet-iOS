@@ -7,8 +7,9 @@
 //
 
 import Foundation
-
 import WavesSDK
+import DomainLayer
+import Extensions
 
 enum PasscodeTypes {
     enum DTO { }
@@ -58,7 +59,7 @@ extension PasscodeTypes {
                 
             }
 
-        case let authError as AuthorizationInteractorError:
+        case let authError as AuthorizationUseCaseError:
             switch authError {
             case .attemptsEnded:
                 if case .logIn = kind {

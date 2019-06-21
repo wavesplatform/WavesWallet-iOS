@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import RxCocoa
 import WavesSDKExtension
+import Extensions
+import DomainLayer
 
 enum WalletTypes {}
 
@@ -71,7 +73,6 @@ extension WalletTypes {
         var isShowCleanWalletBanner: Bool
         var isNeedCleanWalletBanner: Bool
         var isHasAppUpdate: Bool
-        var isNeedRunQueryCheckCleanWalletBanner: Bool
         var action: Action
     }
 

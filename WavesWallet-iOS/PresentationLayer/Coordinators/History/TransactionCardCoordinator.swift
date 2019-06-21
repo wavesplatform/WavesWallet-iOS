@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 import RxSwift
+import DomainLayer
+import Extensions
 
 private struct Constants {
     static let wavesExplorerTransactionUrl = "https://wavesexplorer.com/tx/"
@@ -16,8 +18,13 @@ private struct Constants {
 }
 
 protocol TransactionCardCoordinatorDelegate: AnyObject {
-
     func transactionCardCoordinatorCanceledOrder(_ order: DomainLayer.DTO.Dex.MyOrder)
+    func transactionCardCoordinatorCanceledLeasing()
+}
+
+extension TransactionCardCoordinatorDelegate {
+    func transactionCardCoordinatorCanceledOrder(_ order: DomainLayer.DTO.Dex.MyOrder) {}
+    func transactionCardCoordinatorCanceledLeasing() {}
 }
 
 final class TransactionCardCoordinator: Coordinator {
@@ -82,6 +89,13 @@ extension TransactionCardCoordinator: StartLeasingModuleOutput {
 
     func startLeasingDidSuccess(transaction: DomainLayer.DTO.SmartTransaction, kind: StartLeasingTypes.Kind) {
         
+        switch kind {
+        case .cancel(let tx):
+            delegate?.transactionCardCoordinatorCanceledLeasing()
+            transactionCardViewDismissCard()
+        default:
+            break
+        }
     }
 }
 

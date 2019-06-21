@@ -8,6 +8,8 @@
 
 import Foundation
 import RxSwift
+import Extensions
+import DomainLayer
 
 private enum Constants {
     static let timeStart = "timeStart"
@@ -17,8 +19,8 @@ private enum Constants {
 
 final class DexChartInteractor: DexChartInteractorProtocol {
     
-    private let candlesReposotiry = FactoryRepositories.instance.candlesRepository
-    private let auth = FactoryInteractors.instance.authorization
+    private let candlesReposotiry = UseCasesFactory.instance.repositories.candlesRepository
+    private let auth = UseCasesFactory.instance.authorization
     
     var pair: DexTraderContainer.DTO.Pair!
     

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import DomainLayer
 
 enum ReceiveInvoice {
     enum DTO {}

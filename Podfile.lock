@@ -13,8 +13,53 @@ PODS:
   - CryptoSwift (1.0.0)
   - CSV.swift (2.4.0)
   - Curve25519 (2.0.3)
+  - DataLayer (0.1):
+    - Amplitude-iOS
+    - AppsFlyerFramework
+    - Crashlytics
+    - CSV.swift
+    - DomainLayer
+    - Extensions
+    - Fabric
+    - Firebase
+    - Firebase/Auth
+    - Firebase/Core
+    - Firebase/Database
+    - Firebase/InAppMessagingDisplay
+    - Moya/RxSwift
+    - RealmSwift
+    - RxOptional
+    - RxRealm
+    - RxSwift
+    - RxSwiftExt
+    - Sentry
+    - WavesSDK
+    - WavesSDKCrypto
+    - WavesSDKExtension
   - DeviceKit (1.13.0)
+  - DomainLayer (0.1):
+    - Extensions
+    - KeychainAccess
+    - RealmSwift
+    - RxOptional
+    - RxReachability
+    - RxRealm
+    - RxSwift
+    - RxSwiftExt
+    - WavesSDK
+    - WavesSDKCrypto
+    - WavesSDKExtension
+  - Extensions (0.1):
+    - DeviceKit
+    - RxOptional
+    - RxSwift
+    - RxSwiftExt
+    - WavesSDK
+    - WavesSDKCrypto
+    - WavesSDKExtension
   - Fabric (1.10.1)
+  - Firebase (6.0.0):
+    - Firebase/Core (= 6.0.0)
   - Firebase/Auth (6.0.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.0.0)
@@ -123,11 +168,6 @@ PODS:
     - Realm (= 3.15.0)
   - RESideMenu (4.0.7)
   - Result (4.1.0)
-  - RxAlamofire (4.4.1):
-    - RxAlamofire/Core (= 4.4.1)
-  - RxAlamofire/Core (4.4.1):
-    - Alamofire (~> 4.8)
-    - RxSwift (~> 4.5)
   - RxCocoa (4.5.0):
     - RxSwift (>= 4.4.2, ~> 4.4)
   - RxFeedback (2.0.0):
@@ -191,7 +231,10 @@ DEPENDENCIES:
   - Charts
   - Crashlytics
   - CSV.swift
-  - DeviceKit (~> 1.3)
+  - DataLayer (from `.`)
+  - DeviceKit
+  - DomainLayer (from `.`)
+  - Extensions (from `.`)
   - Fabric
   - Firebase/Auth
   - Firebase/Core
@@ -204,12 +247,10 @@ DEPENDENCIES:
   - Kingfisher
   - Koloda
   - MGSwipeTableCell
-  - Moya/RxSwift
   - QRCode
   - QRCodeReader.swift (~> 9.0.1)
   - RealmSwift
   - RESideMenu (from `https://github.com/wavesplatform/RESideMenu.git`)
-  - RxAlamofire
   - RxCocoa
   - RxFeedback
   - RxGesture
@@ -218,7 +259,7 @@ DEPENDENCIES:
   - RxRealm
   - RxSwift
   - RxSwiftExt
-  - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`)
+  - Sentry
   - Skeleton
   - SwiftDate
   - SwiftGen (~> 5.3.0)
@@ -229,9 +270,9 @@ DEPENDENCIES:
   - TTTAttributedLabel
   - "UITextView+Placeholder"
   - UPCarouselFlowLayout
-  - WavesSDK (from `/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS`)
-  - WavesSDKCrypto (from `/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS`)
-  - WavesSDKExtension (from `/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS`)
+  - WavesSDK (from `https://github.com/wavesplatform/WavesSDK-iOS.git`, branch `develop`)
+  - WavesSDKCrypto (from `https://github.com/wavesplatform/WavesSDK-iOS.git`, branch `develop`)
+  - WavesSDKExtension (from `https://github.com/wavesplatform/WavesSDK-iOS.git`, branch `develop`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -273,7 +314,6 @@ SPEC REPOS:
     - Realm
     - RealmSwift
     - Result
-    - RxAlamofire
     - RxCocoa
     - RxFeedback
     - RxGesture
@@ -282,6 +322,7 @@ SPEC REPOS:
     - RxRealm
     - RxSwift
     - RxSwiftExt
+    - Sentry
     - Skeleton
     - SwiftDate
     - SwiftGen
@@ -300,19 +341,26 @@ SPEC REPOS:
     - Keccak
 
 EXTERNAL SOURCES:
+  DataLayer:
+    :path: "."
+  DomainLayer:
+    :path: "."
+  Extensions:
+    :path: "."
   InfiniteCollectionView:
     :branch: swift5
     :git: https://github.com/wavesplatform/InfiniteCollectionView.git
   RESideMenu:
     :git: https://github.com/wavesplatform/RESideMenu.git
-  Sentry:
-    :git: https://github.com/getsentry/sentry-cocoa.git
   WavesSDK:
-    :path: "/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS"
+    :branch: develop
+    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
   WavesSDKCrypto:
-    :path: "/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS"
+    :branch: develop
+    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
   WavesSDKExtension:
-    :path: "/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS"
+    :branch: develop
+    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
 
 CHECKOUT OPTIONS:
   InfiniteCollectionView:
@@ -321,9 +369,15 @@ CHECKOUT OPTIONS:
   RESideMenu:
     :commit: c4870be8caf988b3c164bbf5675a717a905e9952
     :git: https://github.com/wavesplatform/RESideMenu.git
-  Sentry:
-    :commit: 6f1524afd64433c0230932d3b78b52570c362011
-    :git: https://github.com/getsentry/sentry-cocoa.git
+  WavesSDK:
+    :commit: 7f3a34e09c17171c0c27d7f4c77530ceace1ec92
+    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
+  WavesSDKCrypto:
+    :commit: 7f3a34e09c17171c0c27d7f4c77530ceace1ec92
+    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
+  WavesSDKExtension:
+    :commit: 7f3a34e09c17171c0c27d7f4c77530ceace1ec92
+    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
@@ -337,7 +391,10 @@ SPEC CHECKSUMS:
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   CSV.swift: 947283699fe698d08a4d675d9e642c2bf32418a8
   Curve25519: 4c9483171010b27488a3bac6ee327588a1182fb4
+  DataLayer: 4a49ab95fff9e8db87e0123a07a6e09a0b7d4a2d
   DeviceKit: 5a4accdb2918ce0b69e62dc3bef6e4d2cc06e2e4
+  DomainLayer: 25858bba49dd480a61adb36b89bba68f27087c11
+  Extensions: 5f1848be75374fd1a579d1423fe85a88438e69f1
   Fabric: f6f21452846788bb44595d73e9909d79d328e617
   Firebase: fa80b9d987ca014a1ba9357496ef2a0178b28b12
   FirebaseAnalytics: 1743c5f4de3687d0745709dfdc4b1dea1484f44c
@@ -371,7 +428,6 @@ SPEC CHECKSUMS:
   RealmSwift: 8a41886f8ab6efef9eb8df97de2f2bb911561a79
   RESideMenu: 4003aa053ff48d4152d464e512f1844aa82e807c
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
-  RxAlamofire: ed65f451f5a9a59419b0b9e705043dc01410edd9
   RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
   RxFeedback: 49bb931caf6d05e315d5b5366c0991ad1474ea36
   RxGesture: c1b7bf17166b0ef9d642a9510f8bac5785f18990
@@ -392,9 +448,9 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
   WavesSDK: 25ce6d414f09a852c3e8bd92d5ee5c13b3db9ae8
-  WavesSDKCrypto: efbe49381abb54d2d9fe249056d12009be3bd79c
+  WavesSDKCrypto: 13726c6c30ba60723d56bad89e36c40749e87120
   WavesSDKExtension: 6fc665d55211805012f28c21ef1803310c4f940b
 
-PODFILE CHECKSUM: 7c9a4421e9f4eaf841ad3276f346c229b9722d97
+PODFILE CHECKSUM: 25f9b9d6735dcb3ff23c3df5a3d5e0d407ce5694
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.7.2

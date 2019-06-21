@@ -8,11 +8,12 @@
 
 import Foundation
 import WavesSDK
+import Extensions
 
 enum UIGlobalConstants {
 
-    static let WavesTransactionFee = Money(WavesSDKCryptoConstants.WavesTransactionFeeAmount,
-                                           WavesSDKCryptoConstants.WavesDecimals)
+    static let WavesTransactionFee = Money(WavesSDKConstants.WavesTransactionFeeAmount,
+                                           WavesSDKConstants.WavesDecimals)
 
     #if DEBUG
     static let accountNameMinLimitSymbols: Int = 2

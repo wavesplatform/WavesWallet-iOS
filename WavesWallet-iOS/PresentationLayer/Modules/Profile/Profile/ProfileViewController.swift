@@ -10,6 +10,8 @@ import UIKit
 import RxFeedback
 import RxSwift
 import RxCocoa
+import Extensions
+import DomainLayer
 
 private enum Constants {
     static let contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 24, right: 0)

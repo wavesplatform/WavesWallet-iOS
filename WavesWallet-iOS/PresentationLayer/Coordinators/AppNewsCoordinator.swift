@@ -11,6 +11,8 @@ import RxSwift
 import RxCocoa
 import Kingfisher
 import WavesSDKExtension
+import DomainLayer
+import Extensions
 
 private struct ApplicationNewsSettings: TSUD, Codable, Mutating {
 
@@ -42,7 +44,7 @@ final class AppNewsCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private let notificationNewsRepository: NotificationNewsRepositoryProtocol = FactoryRepositories.instance.notificationNewsRepository
+    private let notificationNewsRepository: NotificationNewsRepositoryProtocol = UseCasesFactory.instance.repositories.notificationNewsRepository
 
     private let disposeBag: DisposeBag = DisposeBag()
 

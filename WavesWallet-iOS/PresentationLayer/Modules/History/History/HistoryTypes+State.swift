@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import DomainLayer
 // MARK: Set Methods
 
 extension HistoryTypes.State {

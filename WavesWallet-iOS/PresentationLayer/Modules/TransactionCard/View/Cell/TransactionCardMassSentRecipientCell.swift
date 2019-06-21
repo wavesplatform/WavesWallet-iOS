@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import DomainLayer
 
 final class TransactionCardMassSentRecipientCell: UITableViewCell, Reusable {
 

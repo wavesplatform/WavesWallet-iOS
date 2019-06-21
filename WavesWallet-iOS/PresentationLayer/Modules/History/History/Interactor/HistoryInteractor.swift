@@ -8,6 +8,8 @@
 
 import Foundation
 import RxSwift
+import Extensions
+import DomainLayer
 
 fileprivate enum Constants {
     static let limitTransactions = 10000
@@ -19,8 +21,8 @@ protocol HistoryInteractorProtocol {
 
 final class HistoryInteractor: HistoryInteractorProtocol {
 
-    private let transactionsInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
-    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let transactionsInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
+    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
 
     func transactions(input: HistoryModuleInput) -> Observable<Sync<[DomainLayer.DTO.SmartTransaction]>> {
 

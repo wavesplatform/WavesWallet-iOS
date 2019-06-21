@@ -10,12 +10,14 @@ import Foundation
 import RxSwift
 import WavesSDKExtension
 import WavesSDK
+import DomainLayer
+import Extensions
 
 final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
  
-    private let auth = FactoryInteractors.instance.authorization
-    private let coinomatRepository = FactoryRepositories.instance.coinomatRepository
-    private let accountBalance = FactoryInteractors.instance.accountBalance
+    private let auth = UseCasesFactory.instance.authorization
+    private let coinomatRepository = UseCasesFactory.instance.repositories.coinomatRepository
+    private let accountBalance = UseCasesFactory.instance.accountBalance
 
     func getInfo(fiatType: ReceiveCard.DTO.FiatType) -> Observable<ResponseType<ReceiveCard.DTO.Info>> {
     
@@ -39,7 +41,7 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
     
     func getWavesAmount(fiatAmount: Money, fiatType: ReceiveCard.DTO.FiatType) -> Observable<ResponseType<Money>> {
         
-        let authAccount = FactoryInteractors.instance.authorization
+        let authAccount = UseCasesFactory.instance.authorization
         return authAccount
             .authorizedWallet()
             .flatMap({ [weak self] (wallet) -> Observable<ResponseType<Money>> in
@@ -64,7 +66,7 @@ private extension ReceiveCardInteractor {
         
         //TODO: need optimize 
         return accountBalance.balances().flatMap({ balances -> Observable<DomainLayer.DTO.SmartAssetBalance> in
-            guard let wavesAsset = balances.first(where: {$0.asset.wavesId == WavesSDKCryptoConstants.wavesAssetId}) else {
+            guard let wavesAsset = balances.first(where: {$0.asset.wavesId == WavesSDKConstants.wavesAssetId}) else {
                 return Observable.empty()
             }
             return Observable.just(wavesAsset)

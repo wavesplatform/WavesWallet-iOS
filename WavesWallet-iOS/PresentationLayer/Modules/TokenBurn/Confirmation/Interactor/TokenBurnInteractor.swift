@@ -9,6 +9,8 @@
 import Foundation
 import RxSwift
 import WavesSDK
+import Extensions
+import DomainLayer
 
 protocol TokenBurnInteractorProtocol {
     func getWavesBalance() -> Observable<Money>
@@ -17,14 +19,14 @@ protocol TokenBurnInteractorProtocol {
 
 final class TokenBurnInteractor: TokenBurnInteractorProtocol {
 
-    private let account = FactoryInteractors.instance.accountBalance
-    private let auth = FactoryInteractors.instance.authorization
-    private let transactionInteractor = FactoryInteractors.instance.transactions
+    private let account = UseCasesFactory.instance.accountBalance
+    private let auth = UseCasesFactory.instance.authorization
+    private let transactionInteractor = UseCasesFactory.instance.transactions
 
     func getWavesBalance() -> Observable<Money> {
         return account.balances().flatMap({ (balances) -> Observable<Money> in
 
-            if let wavesBalance = balances.first(where: {$0.assetId == WavesSDKCryptoConstants.wavesAssetId }) {
+            if let wavesBalance = balances.first(where: {$0.assetId == WavesSDKConstants.wavesAssetId }) {
                 return Observable.just(Money(wavesBalance.availableBalance, wavesBalance.asset.precision))
             }
             return Observable.empty()

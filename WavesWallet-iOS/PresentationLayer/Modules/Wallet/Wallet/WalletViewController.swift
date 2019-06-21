@@ -10,6 +10,8 @@ import RxCocoa
 import RxFeedback
 import RxSwift
 import UIKit
+import Extensions
+import DomainLayer
 
 private extension WalletTypes.DisplayState.Kind {
 

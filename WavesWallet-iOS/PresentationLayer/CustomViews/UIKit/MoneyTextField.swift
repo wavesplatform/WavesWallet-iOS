@@ -8,6 +8,7 @@
 
 import UIKit
 import AudioToolbox
+import Extensions
 
 private enum Constants {
     static let locale = Locale(identifier: "en_US")
