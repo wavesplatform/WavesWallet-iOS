@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import WavesSDKExtension
+import Extensions
 
 private enum Constants {
     static let height: CGFloat = 258

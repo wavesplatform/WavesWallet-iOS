@@ -10,7 +10,8 @@ import UIKit
 import Crashlytics
 import RxSwift
 import WavesSDKExtension
-import WavesSDKCrypto
+import Extensions
+import DomainLayer
 
 protocol SupportViewControllerDelegate: AnyObject {
     func closeSupportView(isTestNet: Bool)
@@ -27,13 +28,15 @@ final class SupportViewController: UIViewController {
     
     
     weak var delegate: SupportViewControllerDelegate?
-    private let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let transactions: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
+    private let auth: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
+    private let transactions: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
+    
+//    private let enviroment: EnvironmentRepository = EnvironmentRepository()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        testNetSwitch.setOn(Environment.isTestNet, animated: true)
+        testNetSwitch.setOn(WalletEnvironment.isTestNet, animated: true)
         versionLabel.text = version()
         buildVersionLabel.text = buildVersion()
         enableStageSwitch.isOn = ApplicationDebugSettings.isEnableStage
@@ -54,30 +57,33 @@ final class SupportViewController: UIViewController {
         ApplicationDebugSettings.setupIsEnableStage(isEnable: enableStageSwitch.isOn)
     }
     
-    @IBAction private func switchEnableNotificationsSettingDevChange(_ sender: Any) {
-        ApplicationDebugSettings.setEnableNotificationsSettingDev(isEnable: enableNotificationsSettingDevSwitch.isOn)
-    }
-    
-    static let image = "test"
-
-    private let popoverViewControllerTransitioning = ModalViewControllerTransitioning {
-
-    }
-
     @IBAction private func actionCrash(_ sender: Any) {
         
+    }
+    
+    static var number: Int = 0
+    @IBAction private func actionAnyButton(_ sender: Any) {
+        
+//        enviroment
+//            .servicesEnvironment()
+//            .subscribe(onNext: { (walletEnvi) in
+//                print("walletEnvi")
+//            })
+        
+        SupportViewController.number = SupportViewController.number + 1
     }
 
 
     @IBAction func actionClean(_ sender: Any) {
-        let auth = FactoryInteractors.instance.authorization
-        auth.authorizedWallet().flatMap { (wallet) -> Observable<Bool> in
-            let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address)
-            try? realm?.write {
-                realm?.deleteAll()
-            }
-            return Observable.just(true)
-        }.subscribe().dispose()
+        //TODO: Libr
+//        let auth = UseCasesFactory.instance.authorization
+//        auth.authorizedWallet().flatMap { (wallet) -> Observable<Bool> in
+//            let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address)
+//            try? realm?.write {
+//                realm?.deleteAll()
+//            }
+//            return Observable.just(true)
+//        }.subscribe().dispose()
     }
 
     @IBAction func actionShowErrorSnack(_ sender: Any) {
@@ -105,14 +111,21 @@ final class SupportViewController: UIViewController {
             print("ฅ(⌯͒•̩̩̩́ ˑ̫ •̩̩̩̀⌯͒)ฅ")
         }
     }
+}
 
 
+extension SupportViewController {
+    
+}
+
+extension SupportViewController {
+    
     private func version() -> String {
         let dictionary = Bundle.main.infoDictionary
         let version = dictionary?["CFBundleShortVersionString"] as? String
         return version ?? ""
     }
-
+    
     private func buildVersion() -> String {
         let dictionary = Bundle.main.infoDictionary
         let build = dictionary?["CFBundleVersion"] as? String

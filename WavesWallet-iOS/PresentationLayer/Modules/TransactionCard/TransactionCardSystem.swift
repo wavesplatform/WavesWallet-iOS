@@ -12,7 +12,9 @@ import RxSwift
 import RxSwiftExt
 import RxCocoa
 import WavesSDKExtension
-import WavesSDKCrypto
+import WavesSDK
+import Extensions
+import DomainLayer
 
 private struct Constants {
     static let shiftIndexInLenght: Int = 1
@@ -34,10 +36,10 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
 
     private let kind: TransactionCard.Kind
 
-    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let transactionsInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
-    private let assetsInteractor: AssetsInteractorProtocol = FactoryInteractors.instance.assetsInteractor
-    private let dexOrderBookRepository: DexOrderBookRepositoryProtocol = FactoryRepositories.instance.dexOrderBookRepository
+    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
+    private let transactionsInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
+    private let assetsInteractor: AssetsUseCaseProtocol = UseCasesFactory.instance.assets
+    private let dexOrderBookRepository: DexOrderBookRepositoryProtocol = UseCasesFactory.instance.repositories.dexOrderBookRepository
 
 
     init(kind: TransactionCard.Kind) {
@@ -355,7 +357,7 @@ fileprivate extension TransactionCardSystem {
                 guard let self = self else { return Observable.empty() }
                 return  self
                     .assetsInteractor
-                    .assets(by: [WavesSDKCryptoConstants.wavesAssetId],
+                    .assets(by: [WavesSDKConstants.wavesAssetId],
                             accountAddress: wallet.address)
                     .map { $0.first }
                     .filterNil()

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Extensions
 
 protocol ShortInfoPageViewDelegate: class {
     

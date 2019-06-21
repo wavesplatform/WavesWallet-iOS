@@ -8,14 +8,16 @@
 
 import Foundation
 import RxSwift
+import Extensions
+import DomainLayer
 
 final class AddressBookInteractor: AddressBookInteractorProtocol {
 
-    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
 
     private let searchString: BehaviorSubject<String> = BehaviorSubject<String>(value: "")
     private var _users: [DomainLayer.DTO.Contact] = []
-    private let repository = AddressBookRepository()
+    private let repository: AddressBookRepositoryProtocol = UseCasesFactory.instance.repositories.addressBookRepository
     
     func users() -> Observable<[DomainLayer.DTO.Contact]> {
 

@@ -9,6 +9,8 @@
 import Foundation
 import RxSwift
 import WavesSDKExtension
+import DomainLayer
+import Extensions
 
 private struct Leasing {
     let balance: DomainLayer.DTO.SmartAssetBalance
@@ -18,17 +20,18 @@ private struct Leasing {
 
 final class WalletInteractor: WalletInteractorProtocol {
   
-    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
-    private let accountSettingsRepository: AccountSettingsRepositoryProtocol = FactoryRepositories.instance.accountSettingsRepository
-
-    private let leasingInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
+    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
+    private let accountBalanceInteractor: AccountBalanceUseCaseProtocol = UseCasesFactory.instance.accountBalance
+    private let accountSettingsRepository: AccountSettingsRepositoryProtocol = UseCasesFactory.instance.repositories.accountSettingsRepository
+    private let applicationVersionUseCase: ApplicationVersionUseCase = UseCasesFactory.instance.applicationVersionUseCase
+    
+    private let leasingInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
     
     private let disposeBag: DisposeBag = DisposeBag()
-    private let walletsRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
+    private let walletsRepository: WalletsRepositoryProtocol = UseCasesFactory.instance.repositories.walletsRepositoryLocal
 
     func isHasAppUpdate() -> Observable<Bool> {
-        return ApplicationVersionUseCase().isHasNewVersion()
+        return applicationVersionUseCase.isHasNewVersion()
     }
     
     func setCleanWalletBanner() -> Observable<Bool> {
@@ -62,6 +65,7 @@ final class WalletInteractor: WalletInteractorProtocol {
                 
                 let assets = self.accountBalanceInteractor.balances(by: wallet)
                 let settings = self.accountSettingsRepository.accountSettings(accountAddress: wallet.address)
+                    
                 return Observable.zip(assets, settings)
                     .map({ (assets, settings) -> [DomainLayer.DTO.SmartAssetBalance] in
                         

@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 import RxSwift
+import Extensions
+import DomainLayer
 
 private typealias Types = TransactionCard
 
@@ -173,8 +175,7 @@ final class TransactionCardViewController: ModalScrollViewController, DataSource
         var inset: CGFloat = 0
 
         let localInset = self.layoutInsets.top
-
-        //TODO: How fix it code?
+        
         if let vc = presentingViewController as? SlideMenuProtocol {
 
             if let tabBarVc = vc.mainViewController as? UITabBarController,

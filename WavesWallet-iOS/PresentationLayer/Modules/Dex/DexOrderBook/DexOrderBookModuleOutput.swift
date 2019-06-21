@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Extensions
+import DomainLayer
 
 protocol DexOrderBookModuleOutput: AnyObject {
     

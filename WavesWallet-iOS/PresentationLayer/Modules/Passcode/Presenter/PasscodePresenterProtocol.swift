@@ -12,7 +12,7 @@ import Foundation
 import RxCocoa
 import RxFeedback
 import RxSwift
-
+import DomainLayer
 
 protocol PasscodeModuleOutput: AnyObject {
 

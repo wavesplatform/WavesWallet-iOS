@@ -8,6 +8,8 @@
 
 import Foundation
 import RxSwift
+import Extensions
+import DomainLayer
 
 protocol SendFeeInteractorProtocol {
     func assets() -> Observable<[DomainLayer.DTO.SmartAssetBalance]>

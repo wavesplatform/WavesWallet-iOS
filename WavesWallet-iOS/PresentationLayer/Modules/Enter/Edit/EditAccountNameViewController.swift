@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import IdentityImg
+import DomainLayer
 
 final class EditAccountNameViewController: UIViewController {
     
@@ -25,7 +26,7 @@ final class EditAccountNameViewController: UIViewController {
     
     @IBOutlet private weak var saveButtonBottomConstraint: NSLayoutConstraint!
 
-    private let authorization: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let authorization: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let disposeBag: DisposeBag = DisposeBag()
 
     var wallet: DomainLayer.DTO.Wallet!

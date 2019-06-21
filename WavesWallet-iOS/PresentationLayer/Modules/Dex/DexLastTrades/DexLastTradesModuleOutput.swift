@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Extensions
+import DomainLayer
 
 protocol DexLastTradesModuleOutput: AnyObject {
     func didCreateOrder(_ trade: DexLastTrades.DTO.SellBuyTrade,

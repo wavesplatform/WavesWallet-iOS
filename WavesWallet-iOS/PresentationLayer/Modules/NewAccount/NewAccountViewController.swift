@@ -10,7 +10,7 @@ import UIKit
 import IdentityImg
 import IQKeyboardManagerSwift
 import WavesSDKExtension
-import WavesSDKCrypto
+import DomainLayer
 
 private struct Avatar {
     let address: String

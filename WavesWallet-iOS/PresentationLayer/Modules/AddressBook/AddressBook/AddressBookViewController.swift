@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxFeedback
+import DomainLayer
 
 final class AddressBookViewController: UIViewController {
 

@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 import RxFeedback
+import Extensions
 
 final class AssetListPresenter: AssetListPresenterProtocol {
     

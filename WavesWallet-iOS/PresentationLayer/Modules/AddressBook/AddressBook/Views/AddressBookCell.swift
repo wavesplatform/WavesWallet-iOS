@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DomainLayer
 
 protocol AddressBookCellDelegate: AnyObject {
     func addressBookCellDidTapEdit(_ cell: AddressBookCell)

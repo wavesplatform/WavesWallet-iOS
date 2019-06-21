@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import RxFeedback
 import RxCocoa
-
+import DomainLayer
 
 final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
     
@@ -113,7 +113,7 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
         case .didTapBid(let bid, let inputMaxSum):
             
             if !inputMaxSum {
-                AnalyticManager.trackEvent(.dex(.sellTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
+                UseCasesFactory.instance.analyticManager.trackEvent(.dex(.sellTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
             }
             
             moduleOutput?.didCreateOrder(bid, amountAsset: amountAsset, priceAsset: priceAsset,
@@ -129,7 +129,7 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             return state.changeAction(.none)
             
         case .didTapEmptyBid:
-            AnalyticManager.trackEvent(.dex(.sellTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
+            UseCasesFactory.instance.analyticManager.trackEvent(.dex(.sellTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
 
             moduleOutput?.didCreateEmptyOrder(amountAsset: amountAsset, priceAsset: priceAsset,
                                               orderType: .sell,
@@ -146,7 +146,7 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
         case .didTapAsk(let ask, let inputMaxSum):
             
             if !inputMaxSum {
-                AnalyticManager.trackEvent(.dex(.buyTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
+                UseCasesFactory.instance.analyticManager.trackEvent(.dex(.buyTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
             }
 
             moduleOutput?.didCreateOrder(ask, amountAsset: amountAsset, priceAsset: priceAsset,
@@ -162,7 +162,7 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             return state.changeAction(.none)
             
         case .didTamEmptyAsk:
-            AnalyticManager.trackEvent(.dex(.buyTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
+            UseCasesFactory.instance.analyticManager.trackEvent(.dex(.buyTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
 
             moduleOutput?.didCreateEmptyOrder(amountAsset: amountAsset, priceAsset: priceAsset,
                                               orderType: .buy,

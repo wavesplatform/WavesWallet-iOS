@@ -7,7 +7,9 @@
 //
 
 import Foundation
-import WavesSDKCrypto
+import WavesSDK
+import DomainLayer
+import Extensions
 
 enum PasscodeTypes {
     enum DTO { }
@@ -43,7 +45,7 @@ extension PasscodeTypes {
             case .internetNotWorking:
                 return .internetNotWorking
 
-            case .notFound:
+            case .notFound, .none:
                 return .notFound
 
             case .serverError:
@@ -57,7 +59,7 @@ extension PasscodeTypes {
                 
             }
 
-        case let authError as AuthorizationInteractorError:
+        case let authError as AuthorizationUseCaseError:
             switch authError {
             case .attemptsEnded:
                 if case .logIn = kind {

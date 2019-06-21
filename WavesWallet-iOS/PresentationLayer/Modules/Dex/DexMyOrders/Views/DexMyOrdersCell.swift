@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DomainLayer
 
 private enum Constants {
     static let cancelAlpha: CGFloat = 0.45

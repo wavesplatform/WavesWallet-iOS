@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WavesSDK
 
 private enum Constants {
     static let withoutInternetSnackAlpha: CGFloat = 0.74
@@ -38,7 +39,7 @@ extension UIViewController {
         case .serverError:
             return showErrorSnackWithoutAction(title: Localizable.Waves.General.Error.Title.notfound)
         
-        case .notFound:
+        case .notFound, .none:
             return showErrorNotFoundSnackWithoutAction()
         
         case .scriptError:

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import DomainLayer
 
 extension HistoryTypes.ViewModel {
     struct Section {

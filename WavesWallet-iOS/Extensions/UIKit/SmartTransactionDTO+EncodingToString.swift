@@ -8,6 +8,8 @@
 
 import Foundation
 import WavesSDKExtension
+import Extensions
+import DomainLayer
 
 extension DomainLayer.DTO.SmartTransaction {
 

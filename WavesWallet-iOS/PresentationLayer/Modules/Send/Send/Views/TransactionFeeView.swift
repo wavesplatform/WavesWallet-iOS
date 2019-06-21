@@ -8,7 +8,8 @@
 
 import UIKit
 import WavesSDKExtension
-import WavesSDKCrypto
+import WavesSDK
+import Extensions
 
 private enum Constants {
     static let smallRightOffset: CGFloat = 14
@@ -94,7 +95,7 @@ extension TransactionFeeView: ViewConfiguration {
     func update(with model: Model) {
         labelFee.text = model.fee.displayText
         
-        isCustomTicker = model.assetName != nil && model.assetName != WavesSDKCryptoConstants.wavesAssetId
+        isCustomTicker = model.assetName != nil && model.assetName != WavesSDKConstants.wavesAssetId
         updateUI()
 
         labelTickerCustom.text = model.assetName

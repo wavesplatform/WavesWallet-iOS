@@ -33,7 +33,7 @@ final class TransactionCardActionsCell: UITableViewCell, Reusable {
     var tapOnButton: ((Model.Button) -> Void)?
 }
 
-// TODO: ViewConfiguration
+// MARK: ViewConfiguration
 
 extension TransactionCardActionsCell: ViewConfiguration {
 

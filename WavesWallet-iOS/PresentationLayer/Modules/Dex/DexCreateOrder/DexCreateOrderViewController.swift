@@ -10,7 +10,10 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxFeedback
-import WavesSDKCrypto
+import WavesSDKExtension
+import WavesSDK
+import Extensions
+import DomainLayer
 
 private enum Constants {
     static let percent50 = 50
@@ -175,14 +178,14 @@ private extension DexCreateOrderViewController {
             return true
         }
         
-        if order.amountAsset.id == WavesSDKCryptoConstants.wavesAssetId && order.type == .buy {
+        if order.amountAsset.id == WavesSDKConstants.wavesAssetId && order.type == .buy {
             
             if order.amount.isZero {
                 return isValidPriceAssetBalance
             }
             return order.amount.amount > order.fee
         }
-        else if order.priceAsset.id == WavesSDKCryptoConstants.wavesAssetId && order.type == .sell {
+        else if order.priceAsset.id == WavesSDKConstants.wavesAssetId && order.type == .sell {
             if order.total.isZero {
                 return isValidAmountAssetBalance
             }
@@ -203,7 +206,7 @@ private extension DexCreateOrderViewController {
     }
     
     var availableAmountAssetBalance: Money {
-        if order.amountAsset.id == WavesSDKCryptoConstants.wavesAssetId {
+        if order.amountAsset.id == WavesSDKConstants.wavesAssetId {
             let amount = input.availableAmountAssetBalance.amount - Int64(order.fee)
             return Money(amount < 0 ? 0 : amount, input.availableAmountAssetBalance.decimals)
         }
@@ -211,7 +214,7 @@ private extension DexCreateOrderViewController {
     }
     
     var availablePriceAssetBalance: Money {
-        if order.priceAsset.id == WavesSDKCryptoConstants.wavesAssetId {
+        if order.priceAsset.id == WavesSDKConstants.wavesAssetId {
             let amount = input.availablePriceAssetBalance.amount - Int64(order.fee)
             return Money(amount < 0 ? 0 : amount, input.availablePriceAssetBalance.decimals)
         }
@@ -638,7 +641,7 @@ private extension DexCreateOrderViewController {
                     self.sendEvent.accept(.refreshFee)
                 })
                 
-            case .notFound, .scriptError:
+            case .none, .scriptError:
                 errorSnackKey = showErrorNotFoundSnack(didTap: { [weak self] in
                     guard let self = self else { return }
                     self.sendEvent.accept(.refreshFee)

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import WavesSDKCrypto
+import DomainLayer
 
 enum NewAccountTypes {
     enum DTO { }

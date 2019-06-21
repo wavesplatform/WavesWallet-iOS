@@ -10,6 +10,8 @@ import Foundation
 import RxCocoa
 import RxFeedback
 import RxSwift
+import DomainLayer
+import Extensions
 
 private enum ReactQuery {
     case new

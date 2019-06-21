@@ -8,6 +8,8 @@
 
 import Foundation
 import RxSwift
+import Extensions
+import DomainLayer
 
 fileprivate enum Constants {
     static let transactionLimit: Int = 10
@@ -15,12 +17,12 @@ fileprivate enum Constants {
 
 final class AssetDetailInteractor: AssetDetailInteractorProtocol {
 
-    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
+    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
+    private let accountBalanceInteractor: AccountBalanceUseCaseProtocol = UseCasesFactory.instance.accountBalance
 
-    private let transactionsInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
+    private let transactionsInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
 
-    private let assetsBalanceSettings: AssetsBalanceSettingsInteractorProtocol = FactoryInteractors.instance.assetsBalanceSettings
+    private let assetsBalanceSettings: AssetsBalanceSettingsUseCaseProtocol = UseCasesFactory.instance.assetsBalanceSettings
 
     private let refreshAssetsSubject: PublishSubject<[AssetDetailTypes.DTO.Asset]> = PublishSubject<[AssetDetailTypes.DTO.Asset]>()
     private let disposeBag: DisposeBag = DisposeBag()
@@ -40,6 +42,7 @@ final class AssetDetailInteractor: AssetDetailInteractorProtocol {
 
                 owner.accountBalanceInteractor
                     .balances(by: wallet)
+                    .sweetDebugWithoutResponse("Assets")
                     .take(1)
                     .map {
                         $0.filter { asset -> Bool in

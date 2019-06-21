@@ -10,15 +10,16 @@ import Foundation
 import RxSwift
 import RxFeedback
 import RxCocoa
-import WavesSDKExtension
-import WavesSDKCrypto
+import WavesSDK
+import Extensions
+import DomainLayer
 
 final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
     
     var interactor: ReceiveCardInteractorProtocol!
     private let disposeBag = DisposeBag()
     
-    private let coinomateRepository = FactoryRepositories.instance.coinomatRepository
+    private let coinomateRepository = UseCasesFactory.instance.repositories.coinomatRepository
     
     func system(feedbacks: [ReceiveCardPresenter.Feedback]) {
         var newFeedbacks = feedbacks
@@ -43,7 +44,7 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
             guard let self = self else { return Signal.empty() }
             
             let emptyAmount: Signal<ReceiveCard.Event> = Signal.just(.didGetPriceInfo(
-                ResponseType(output: Money(0, WavesSDKCryptoConstants.WavesDecimals), error: nil)))
+                ResponseType(output: Money(0, WavesSDKConstants.WavesDecimals), error: nil)))
                 .asSignal(onErrorSignalWith: Signal.empty())
             
             guard let amount = state.amount else { return emptyAmount }

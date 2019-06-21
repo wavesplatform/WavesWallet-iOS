@@ -9,11 +9,13 @@
 import Foundation
 import RxSwift
 import WavesSDKExtension
+import Extensions
+import DomainLayer
 
 final class TokenBurnSendInteractor: TokenBurnSendInteractorProtocol {
 
-    private let transactions = FactoryInteractors.instance.transactions
-    private let authorization = FactoryInteractors.instance.authorization
+    private let transactions = UseCasesFactory.instance.transactions
+    private let authorization = UseCasesFactory.instance.authorization
 
     func burnAsset(asset: DomainLayer.DTO.SmartAssetBalance, fee: Money, quiantity: Money) -> Observable<TokenBurnTypes.TransactionStatus> {
 
