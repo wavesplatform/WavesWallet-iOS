@@ -60,7 +60,7 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     private let disposeBag = DisposeBag()
-    private let assetInteractor = UseCasesFactory.instance.assetsInteractor
+    private let assetInteractor = UseCasesFactory.instance.assets
     private let assetsRepositoryLocal = UseCasesFactory.instance.repositories.assetsRepositoryLocal
     private let auth = UseCasesFactory.instance.authorization
 
