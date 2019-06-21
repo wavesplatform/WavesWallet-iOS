@@ -15,11 +15,6 @@ import WavesSDK
 import DomainLayer
 import Extensions
 
-//TODO: move to SDK or change mapping assets
-private enum Constants {
-    static let vostokAssetId = "4LHHvYGNKJUg5hj65aGD5vgScvCBmLpdRFtjokvCjSL8"
-}
-
 final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     
     private let spamProvider: MoyaProvider<Spam.Service.Assets> = .anyMoyaProvider()
@@ -68,13 +63,15 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                 .map({ (assets, spamAssets) -> [DomainLayer.DTO.Asset] in
                     
                     let map = walletEnviroment.hashMapAssets()
+                    let mapGeneralAssets = walletEnviroment.hashMapGeneralAssets()
                     
                     let spamIds = spamAssets.reduce(into: [String: Bool](), {$0[$1] = true })
 
                     return assets.map { DomainLayer.DTO.Asset(asset: $0,
                                                               info: map[$0.id],
                                                               isSpam: spamIds[$0.id] == true,
-                                                              isMyWavesToken: $0.sender == accountAddress) }
+                                                              isMyWavesToken: $0.sender == accountAddress,
+                                                              isGeneral: mapGeneralAssets[$0.id] != nil) }
                 })
         })
     }
@@ -124,18 +121,26 @@ fileprivate extension WalletEnvironment {
             return new
         })
     }
+    
+    func hashMapGeneralAssets() -> [String: WalletEnvironment.AssetInfo] {
+        
+        var allAssets = generalAssets
+        
+        return allAssets.reduce([String: WalletEnvironment.AssetInfo](), { map, info -> [String: WalletEnvironment.AssetInfo] in
+            var new = map
+            new[info.assetId] = info
+            return new
+        })
+    }
 }
 
 fileprivate extension DomainLayer.DTO.Asset {
 
-    init(asset: DataService.DTO.Asset, info: WalletEnvironment.AssetInfo?, isSpam: Bool, isMyWavesToken: Bool) {
-        
-        var isGeneral = false
+    init(asset: DataService.DTO.Asset, info: WalletEnvironment.AssetInfo?, isSpam: Bool, isMyWavesToken: Bool, isGeneral: Bool) {
         var isWaves = false
-        var isVostok = false
         var isFiat = false
         let isGateway = info?.isGateway ?? false
-        let isWavesToken = isFiat == false && isGateway == false && isWaves == false && isVostok == false
+        let isWavesToken = isFiat == false && isGateway == false && isWaves == false
         var name = asset.name
         
         //TODO: Current code need move to AssetsInteractor!
@@ -144,11 +149,6 @@ fileprivate extension DomainLayer.DTO.Asset {
                 isWaves = true
             }
             
-            if info.assetId == Constants.vostokAssetId {
-                isVostok = true
-            }
-            
-            isGeneral = info.isGateway || isWaves || isVostok
             name = info.displayName
             isFiat = info.isFiat
         }
