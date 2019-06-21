@@ -12,8 +12,8 @@ import DomainLayer
 
 final class DexMyOrdersInteractor: DexMyOrdersInteractorProtocol {
     
-    private let auth = FactoryInteractors.instance.authorization
-    private let repository = FactoryInteractors.instance.repositories.dexOrderBookRepository
+    private let auth = UseCasesFactory.instance.authorization
+    private let repository = UseCasesFactory.instance.repositories.dexOrderBookRepository
     
     var pair: DexTraderContainer.DTO.Pair!
     

@@ -39,7 +39,7 @@ final class ChangePasswordPresenter: ChangePasswordPresenterProtocol {
     weak var moduleOutput: ChangePasswordModuleOutput?
     var input: ChangePasswordModuleInput!
 
-    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let disposeBag: DisposeBag = DisposeBag()
 
     init(input: ChangePasswordModuleInput) {
@@ -91,7 +91,7 @@ final class ChangePasswordPresenter: ChangePasswordPresenterProtocol {
                 })
                 .map { _ in Types.Event.successOldPassword }
                 .asSignal(onErrorRecover: { error -> Signal<Types.Event> in
-                    guard let error = error as? AuthorizationInteractorError else {
+                    guard let error = error as? AuthorizationUseCaseError else {
                         return Signal.empty()
                     }
 

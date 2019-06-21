@@ -1,5 +1,5 @@
 //
-//  TransactionsInteractor.swift
+//  TransactionsUseCase.swift
 //  WavesWallet-iOS
 //
 //  Created by mefilt on 04.09.2018.
@@ -7,37 +7,10 @@
 //
 
 import Foundation
-import Moya
 import RxSwift
 import WavesSDKExtension
 import WavesSDK
 import Extensions
-
-public enum TransactionsInteractorError: Error {
-    case invalid
-    case commissionReceiving
-}
-
-public extension DomainLayer.Query {
-    public enum TransactionSpecificationType {
-        case createAlias
-        case lease
-        case burn(assetID: String)
-        case cancelLease
-        case sendTransaction(assetID: String)
-        case createOrder(amountAsset: String, priceAsset: String)
-    }
-}
-
-public let TransactionFeeDefaultRule: String = "default"
-
-public protocol TransactionsInteractorProtocol {
-
-    func send(by specifications: TransactionSenderSpecifications, wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.SmartTransaction>
-    func transactionsSync(by accountAddress: String, specifications: TransactionsSpecifications) -> SyncObservable<[DomainLayer.DTO.SmartTransaction]>
-    func activeLeasingTransactionsSync(by accountAddress: String) -> SyncObservable<[DomainLayer.DTO.SmartTransaction]>
-    func calculateFee(by transactionSpecs: DomainLayer.Query.TransactionSpecificationType, accountAddress: String) -> Observable<Money>
-}
 
 fileprivate enum Constants {
     static let durationInseconds: Double = 15
@@ -101,14 +74,14 @@ private typealias RemoteActiveLeasingResult = (txs: [DomainLayer.DTO.LeaseTransa
 private typealias AnyTransactionsObservable = Observable<[DomainLayer.DTO.AnyTransaction]>
 fileprivate typealias AnyTransactionsSyncQuery = (address: DomainLayer.DTO.Address, specifications: TransactionsSpecifications, remoteError: Error?)
 
-final class TransactionsInteractor: TransactionsInteractorProtocol {
+final class TransactionsUseCase: TransactionsUseCaseProtocol {
 
     typealias SmartTransactionsSyncObservable = SyncObservable<[DomainLayer.DTO.SmartTransaction]>
 
     private var transactionsRepositoryLocal: TransactionsRepositoryProtocol
     private var transactionsRepositoryRemote: TransactionsRepositoryProtocol
 
-    private var assetsInteractors: AssetsInteractorProtocol
+    private var assetsInteractors: AssetsUseCaseProtocol
     private var addressInteractors: AddressInteractorProtocol
 
     private var addressRepository: AddressRepositoryProtocol
@@ -120,7 +93,7 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
     
     init(transactionsRepositoryLocal: TransactionsRepositoryProtocol,
          transactionsRepositoryRemote: TransactionsRepositoryProtocol,
-         assetsInteractors: AssetsInteractorProtocol,
+         assetsInteractors: AssetsUseCaseProtocol,
          addressInteractors: AddressInteractorProtocol,
          addressRepository: AddressRepositoryProtocol,
          assetsRepositoryRemote: AssetsRepositoryProtocol,
@@ -152,7 +125,7 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
                 } else if let error =  asset.error {
                     return Observable.error(error)
                 } else {
-                    return Observable.error(TransactionsInteractorError.invalid)
+                    return Observable.error(TransactionsUseCaseError.invalid)
                 }
             }.sweetDebug("assetsSync")
 
@@ -194,12 +167,12 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
                 case let error as NetworkError:
                     switch error {
                     case .notFound:
-                        return Observable.error(TransactionsInteractorError.commissionReceiving)
+                        return Observable.error(TransactionsUseCaseError.commissionReceiving)
                     default:
                         return Observable.error(error)
                     }
                 default:
-                    return Observable.error(TransactionsInteractorError.commissionReceiving)
+                    return Observable.error(TransactionsUseCaseError.commissionReceiving)
                 }
             })
     }
@@ -226,7 +199,7 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
                             return ts.resultIngoreError ?? []
                         })
                         .flatMap({ txs -> Observable<DomainLayer.DTO.SmartTransaction> in
-                            guard let tx = txs.first else { return Observable.error(TransactionsInteractorError.invalid) }
+                            guard let tx = txs.first else { return Observable.error(TransactionsUseCaseError.invalid) }
                             return Observable.just(tx)
                         })
                 })
@@ -289,7 +262,7 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
                     if let error = sync.error {
                         return Observable.error(error)
                     } else {
-                        return  Observable.error(TransactionsInteractorError.invalid)
+                        return  Observable.error(TransactionsUseCaseError.invalid)
                     }
                 }
 
@@ -322,7 +295,7 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
 
 // MARK: - - Main Logic sync download/save transactions
 
-fileprivate extension TransactionsInteractor {
+fileprivate extension TransactionsUseCase {
 
     private func initialLoadingTransactionSync(query: InitialTransactionsQuery) -> SmartTransactionsSyncObservable {
 
@@ -609,7 +582,7 @@ fileprivate extension TransactionsInteractor {
                         }
                     }
                     
-                    return SmartTransactionsSyncObservable.just(.error(TransactionsInteractorError.invalid))
+                    return SmartTransactionsSyncObservable.just(.error(TransactionsUseCaseError.invalid))
                 }
 
                 guard let accounts = data.accounts.resultIngoreError else {
@@ -621,7 +594,7 @@ fileprivate extension TransactionsInteractor {
                         }
                     }
 
-                    return SmartTransactionsSyncObservable.just(.error(TransactionsInteractorError.invalid))
+                    return SmartTransactionsSyncObservable.just(.error(TransactionsUseCaseError.invalid))
                 }
 
                 let assetsMap = assets.reduce(into: [String: DomainLayer.DTO.Asset](), { $0[$1.id] = $1 })
@@ -668,7 +641,7 @@ fileprivate extension TransactionsInteractor {
 
 // MARK: - - Assistants method
 
-fileprivate extension TransactionsInteractor {
+fileprivate extension TransactionsUseCase {
 
     private func isHasTransactionsSync(_ query: IsHasTransactionsSyncQuery) -> Observable<IsHasTransactionsSyncResult> {
 

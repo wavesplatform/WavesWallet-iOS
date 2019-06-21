@@ -15,9 +15,9 @@ import Extensions
 
 final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
  
-    private let auth = FactoryInteractors.instance.authorization
-    private let coinomatRepository = FactoryInteractors.instance.repositories.coinomatRepository
-    private let accountBalance = FactoryInteractors.instance.accountBalance
+    private let auth = UseCasesFactory.instance.authorization
+    private let coinomatRepository = UseCasesFactory.instance.repositories.coinomatRepository
+    private let accountBalance = UseCasesFactory.instance.accountBalance
 
     func getInfo(fiatType: ReceiveCard.DTO.FiatType) -> Observable<ResponseType<ReceiveCard.DTO.Info>> {
     
@@ -41,7 +41,7 @@ final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
     
     func getWavesAmount(fiatAmount: Money, fiatType: ReceiveCard.DTO.FiatType) -> Observable<ResponseType<Money>> {
         
-        let authAccount = FactoryInteractors.instance.authorization
+        let authAccount = UseCasesFactory.instance.authorization
         return authAccount
             .authorizedWallet()
             .flatMap({ [weak self] (wallet) -> Observable<ResponseType<Money>> in

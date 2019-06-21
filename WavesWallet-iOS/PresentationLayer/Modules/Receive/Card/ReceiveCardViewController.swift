@@ -64,7 +64,7 @@ final class ReceiveCardViewController: UIViewController {
         let vc = StoryboardScene.Receive.receiveCardCompleteViewController.instantiate()
         navigationController?.pushViewController(vc, animated: false)
         
-        FactoryInteractors.instance.analyticManager.trackEvent(.walletAsset(.cardReceiveTap))
+        UseCasesFactory.instance.analyticManager.trackEvent(.walletAsset(.cardReceiveTap))
     }
     
     @IBAction private func changeCurrency(_ sender: Any) {

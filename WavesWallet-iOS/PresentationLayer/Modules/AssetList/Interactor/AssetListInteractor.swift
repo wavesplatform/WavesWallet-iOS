@@ -12,8 +12,8 @@ import DomainLayer
 
 final class AssetListInteractor: AssetListInteractorProtocol {
     
-    private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
-    private let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let accountBalanceInteractor: AccountBalanceUseCaseProtocol = UseCasesFactory.instance.accountBalance
+    private let auth: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
 
     private let searchString: BehaviorSubject<String> = BehaviorSubject<String>(value: "")
     private var filteredAssets: [DomainLayer.DTO.SmartAssetBalance] = []

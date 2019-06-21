@@ -87,7 +87,7 @@ final class SendConfirmationViewController: UIViewController {
         vc.input = input
         navigationController?.pushViewController(vc, animated: true)
         
-        FactoryInteractors.instance.analyticManager.trackEvent(.walletAsset(.sendConfirm(assetName: input.asset.displayName)))
+        UseCasesFactory.instance.analyticManager.trackEvent(.walletAsset(.sendConfirm(assetName: input.asset.displayName)))
 
     }
     

@@ -18,8 +18,8 @@ final class StartLeasingLoadingViewController: UIViewController {
     var input: StartLeasingTypes.Input!
     
     private let startLeasingInteractor: StartLeasingInteractorProtocol = StartLeasingInteractor()
-    private let transactions = FactoryInteractors.instance.transactions
-    private let authorization = FactoryInteractors.instance.authorization
+    private let transactions = UseCasesFactory.instance.transactions
+    private let authorization = UseCasesFactory.instance.authorization
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {

@@ -1,5 +1,5 @@
 //
-//  FactoryInteractors.swift
+//  UseCasesFactory.swift
 //  WavesWallet-iOS
 //
 //  Created by mefilt on 06.08.2018.
@@ -8,31 +8,31 @@
 
 import Foundation
 
-public final class FactoryInteractors: FactoryInteractorsProtocol {
+public final class UseCasesFactory: UseCasesFactoryProtocol {
 
-    public static var instance: FactoryInteractors!
+    public static var instance: UseCasesFactory!
     
-    public let repositories: FactoryRepositoriesProtocol
+    public let repositories: RepositoriesFactoryProtocol
     
     public let authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol
 
-    public private(set) lazy var accountBalance: AccountBalanceInteractorProtocol = {
+    public private(set) lazy var accountBalance: AccountBalanceUseCaseProtocol = {
         
-        let interactor = AccountBalanceInteractor(authorizationInteractor: self.authorization,
+        let interactor = AccountBalanceUseCase(authorizationInteractor: self.authorization,
                                                   balanceRepositoryRemote: repositories.accountBalanceRepositoryRemote,
                                                   environmentRepository: repositories.environmentRepository,
-                                                  assetsInteractor: self.assetsInteractor,
+                                                  assetsInteractor: self.assets,
                                                   assetsBalanceSettings: self.assetsBalanceSettings,
                                                   transactionsInteractor: self.transactions,
                                                   assetsBalanceSettingsRepository: repositories.assetsBalanceSettingsRepositoryLocal)
         return interactor
     }()
 
-    public private(set) lazy var transactions: TransactionsInteractorProtocol = {
+    public private(set) lazy var transactions: TransactionsUseCaseProtocol = {
         
-        let interactor = TransactionsInteractor(transactionsRepositoryLocal: repositories.transactionsRepositoryLocal,
+        let interactor = TransactionsUseCase(transactionsRepositoryLocal: repositories.transactionsRepositoryLocal,
                                                 transactionsRepositoryRemote: repositories.transactionsRepositoryRemote,
-                                                assetsInteractors: self.assetsInteractor,
+                                                assetsInteractors: self.assets,
                                                 addressInteractors: self.address,
                                                 addressRepository: repositories.addressRepository,
                                                 assetsRepositoryRemote: repositories.assetsRepositoryRemote,
@@ -43,14 +43,14 @@ public final class FactoryInteractors: FactoryInteractorsProtocol {
 
     public private(set) lazy var address: AddressInteractorProtocol = {
         
-        let interactor = AddressInteractor(addressBookRepository: repositories.addressBookRepository,
+        let interactor = AddressUseCase(addressBookRepository: repositories.addressBookRepository,
                                             aliasesInteractor: self.aliases)
         return interactor
     }()
 
-    public private(set) lazy var authorization: AuthorizationInteractorProtocol = {
+    public private(set) lazy var authorization: AuthorizationUseCaseProtocol = {
 
-        let interactor = AuthorizationInteractor(localWalletRepository: repositories.walletsRepositoryLocal,
+        let interactor = AuthorizationUseCase(localWalletRepository: repositories.walletsRepositoryLocal,
                                                  localWalletSeedRepository: repositories.walletSeedRepositoryLocal,
                                                  remoteAuthenticationRepository: repositories.authenticationRepositoryRemote,
                                                  accountSettingsRepository: repositories.accountSettingsRepository,
@@ -59,45 +59,45 @@ public final class FactoryInteractors: FactoryInteractorsProtocol {
         return interactor
     }()
 
-    public private(set) lazy var aliases: AliasesInteractorProtocol = {
+    public private(set) lazy var aliases: AliasesUseCaseProtocol = {
 
-        let interactor = AliasesInteractor(aliasesRepositoryRemote: repositories.aliasesRepositoryRemote,
+        let interactor = AliasesUseCase(aliasesRepositoryRemote: repositories.aliasesRepositoryRemote,
                                            aliasesRepositoryLocal: repositories.aliasesRepositoryLocal)
 
         return interactor
     }()
 
-    public private(set) lazy var assetsBalanceSettings: AssetsBalanceSettingsInteractorProtocol = {
+    public private(set) lazy var assetsBalanceSettings: AssetsBalanceSettingsUseCaseProtocol = {
         
-        let interactor = AssetsBalanceSettingsInteractor(assetsBalanceSettingsRepositoryLocal: repositories.assetsBalanceSettingsRepositoryLocal,
+        let interactor = AssetsBalanceSettingsUseCase(assetsBalanceSettingsRepositoryLocal: repositories.assetsBalanceSettingsRepositoryLocal,
                                                          environmentRepository: repositories.environmentRepository,
                                                          authorizationInteractor: authorization)
 
         return interactor
     }()
 
-    public private(set) lazy var migrationInteractor: MigrationInteractor = {
+    public private(set) lazy var migration: MigrationUseCaseProtocol = {
         
-        return MigrationInteractor(walletsRepository: repositories.walletsRepositoryLocal)
+        return MigrationUseCase(walletsRepository: repositories.walletsRepositoryLocal)
     }()
     
     public private(set) lazy var applicationVersionUseCase: ApplicationVersionUseCase = ApplicationVersionUseCase(applicationVersionRepository: repositories.applicationVersionRepository)
     
-    public private(set) lazy var assetsInteractor: AssetsInteractorProtocol = {
+    public private(set) lazy var assets: AssetsUseCaseProtocol = {
         
-        let interactor = AssetsInteractor(assetsRepositoryLocal: repositories.assetsRepositoryLocal,
-                                          assetsRepositoryRemote: repositories.assetsRepositoryRemote)
-        
+        let interactor = AssetsUseCase(assetsRepositoryLocal: repositories.assetsRepositoryLocal,
+                                       assetsRepositoryRemote: repositories.assetsRepositoryRemote)
+    
         return interactor
     }()
     
-    init(repositories: FactoryRepositoriesProtocol, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
+    init(repositories: RepositoriesFactoryProtocol, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
         self.repositories = repositories
         self.authorizationInteractorLocalizable = authorizationInteractorLocalizable
     }
     
-    public class func initialization(repositories: FactoryRepositoriesProtocol, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
-        self.instance = FactoryInteractors(repositories: repositories, authorizationInteractorLocalizable: authorizationInteractorLocalizable)
+    public class func initialization(repositories: RepositoriesFactoryProtocol, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
+        self.instance = UseCasesFactory(repositories: repositories, authorizationInteractorLocalizable: authorizationInteractorLocalizable)
     }
     
     public private(set) lazy var analyticManager: AnalyticManagerProtocol = {

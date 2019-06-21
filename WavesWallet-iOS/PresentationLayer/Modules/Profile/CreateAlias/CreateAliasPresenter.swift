@@ -34,9 +34,9 @@ final class CreateAliasPresenter: CreateAliasPresenterProtocol {
     fileprivate typealias Types = CreateAliasTypes
 
     private let disposeBag: DisposeBag = DisposeBag()
-    private let aliasesRepository: AliasesRepositoryProtocol = FactoryInteractors.instance.repositories.aliasesRepositoryRemote
-    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let transactionsInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
+    private let aliasesRepository: AliasesRepositoryProtocol = UseCasesFactory.instance.repositories.aliasesRepositoryRemote
+    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
+    private let transactionsInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
 
     weak var moduleOutput: CreateAliasModuleOutput?
 

@@ -69,7 +69,7 @@ final class TokenBurnViewController: UIViewController {
         vc.input = .init(asset: asset, amount: amount, fee: fee, delegate: delegate, errorDelegate: self)
         navigationController?.pushViewController(vc, animated: true)
         
-        FactoryInteractors.instance.analyticManager.trackEvent(.tokenBurn(.continueTap))
+        UseCasesFactory.instance.analyticManager.trackEvent(.tokenBurn(.continueTap))
     }
 }
 
@@ -172,7 +172,7 @@ private extension TokenBurnViewController {
                 self.updateFee(fee)
             }, onError: { [weak self] (error) in
                 guard let self = self else { return }
-                if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
+                if let error = error as? TransactionsUseCaseError, error == .commissionReceiving {
                     self.showFeeError(DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving))
                 } else {
                     self.showFeeError(DisplayError(error: error))

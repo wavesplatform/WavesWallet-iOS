@@ -43,8 +43,8 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
     private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
     private let disposeBag = DisposeBag()
 
-    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let walletsRepository: WalletsRepositoryProtocol = FactoryInteractors.instance.repositories.walletsRepositoryLocal
+    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
+    private let walletsRepository: WalletsRepositoryProtocol = UseCasesFactory.instance.repositories.walletsRepositoryLocal
 
     private let navigationRouterWallet: NavigationRouter = {
 

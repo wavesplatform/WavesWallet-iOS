@@ -43,7 +43,7 @@ enum UITest {
     var window: UIWindow?
 
     var appCoordinator: AppCoordinator!
-    lazy var migrationInteractor: MigrationInteractor = FactoryInteractors.instance.migrationInteractor
+    lazy var migrationInteractor: MigrationUseCaseProtocol = UseCasesFactory.instance.migrationInteractor
     
     #if DEBUG 
     var paws: MonkeyPaws?
@@ -68,13 +68,13 @@ enum UITest {
             return false
         }
         
-        let resourses = FactoryRepositories.Resources(googleServiceInfo: googleServiceInfoPath,
+        let resourses = RepositoriesFactory.Resources(googleServiceInfo: googleServiceInfoPath,
                                                       appsflyerInfo: appsflyerInfoPath,
                                                       amplitudeInfo: amplitudeInfoPath,
                                                       sentryIoInfoPath: sentryIoInfoPath)
-        let repositories = FactoryRepositories(resources: resourses)
+        let repositories = RepositoriesFactory(resources: resourses)
         
-        FactoryInteractors.initialization(repositories: repositories,
+        UseCasesFactory.initialization(repositories: repositories,
                                           authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp())
         
         setupUI()

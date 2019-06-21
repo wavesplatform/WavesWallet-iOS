@@ -7,16 +7,10 @@
 //
 
 import Foundation
-import Moya
 import RxSwift
 import Extensions
 
-public protocol AssetsInteractorProtocol {
-    func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]>
-    func assetsSync(by ids: [String], accountAddress: String) -> SyncObservable<[DomainLayer.DTO.Asset]>
-}
-
-final class AssetsInteractor: AssetsInteractorProtocol {
+final class AssetsUseCase: AssetsUseCaseProtocol {
 
     private let repositoryLocal: AssetsRepositoryProtocol
     private let repositoryRemote: AssetsRepositoryProtocol

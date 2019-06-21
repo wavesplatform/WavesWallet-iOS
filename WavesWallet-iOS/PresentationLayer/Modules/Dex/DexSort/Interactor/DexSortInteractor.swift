@@ -12,8 +12,8 @@ import DomainLayer
 
 final class DexSortInteractor: DexSortInteractorProtocol {
     
-    private let reposity = FactoryInteractors.instance.repositories.dexRealmRepository
-    private let auth = FactoryInteractors.instance.authorization
+    private let reposity = UseCasesFactory.instance.repositories.dexRealmRepository
+    private let auth = UseCasesFactory.instance.authorization
     private let disposeBag = DisposeBag()
     
     func models() -> Observable<[DexSort.DTO.DexSortModel]> {

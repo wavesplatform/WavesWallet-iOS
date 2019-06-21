@@ -37,7 +37,7 @@ final class UseTouchIDViewController: UIViewController {
     var input: UseTouchIDModuleInput?
 
     private var disposeBag: DisposeBag = DisposeBag()
-    private var authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private var authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,7 +101,7 @@ final class UseTouchIDViewController: UIViewController {
             }
         }, onError: { [weak self] error in
             guard let self = self else { return }
-            if let error = error as? AuthorizationInteractorError, error == .biometricLockout {
+            if let error = error as? AuthorizationUseCaseError, error == .biometricLockout {
                 self.showErrorSnackWithoutAction(title: Localizable.Waves.Biometric.Manyattempts.title,
                                                   subtitle: Localizable.Waves.Biometric.Manyattempts.subtitle)
             }

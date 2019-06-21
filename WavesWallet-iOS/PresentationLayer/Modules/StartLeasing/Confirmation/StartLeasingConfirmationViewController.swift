@@ -60,7 +60,7 @@ final class StartLeasingConfirmationViewController: UIViewController {
         vc.input = .init(kind: .send(order), errorDelegate: errorDelegate, output: output)
         navigationController?.pushViewController(vc, animated: true)
         
-        FactoryInteractors.instance.analyticManager.trackEvent(.leasing(.leasingConfirmTap))
+        UseCasesFactory.instance.analyticManager.trackEvent(.leasing(.leasingConfirmTap))
     }
     
     private func setupData() {

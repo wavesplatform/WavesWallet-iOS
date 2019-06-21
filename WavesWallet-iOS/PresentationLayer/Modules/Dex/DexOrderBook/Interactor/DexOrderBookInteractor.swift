@@ -19,12 +19,12 @@ private enum Constants {
 
 final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
  
-    private let account = FactoryInteractors.instance.accountBalance
-    private let orderBookRepository = FactoryInteractors.instance.repositories.dexOrderBookRepository
-    private let lastTradesRepository = FactoryInteractors.instance.repositories.lastTradesRespository
-    private let auth = FactoryInteractors.instance.authorization
-    private let assetsInteractor = FactoryInteractors.instance.assetsInteractor
-    private let assetsRepositoryLocal = FactoryInteractors.instance.repositories.assetsRepositoryLocal
+    private let account = UseCasesFactory.instance.accountBalance
+    private let orderBookRepository = UseCasesFactory.instance.repositories.dexOrderBookRepository
+    private let lastTradesRepository = UseCasesFactory.instance.repositories.lastTradesRespository
+    private let auth = UseCasesFactory.instance.authorization
+    private let assetsInteractor = UseCasesFactory.instance.assetsInteractor
+    private let assetsRepositoryLocal = UseCasesFactory.instance.repositories.assetsRepositoryLocal
     
     var pair: DexTraderContainer.DTO.Pair!
     

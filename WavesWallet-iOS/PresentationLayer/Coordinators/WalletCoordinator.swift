@@ -33,8 +33,8 @@ final class WalletCoordinator: Coordinator {
     private var currentPopup: PopupViewController? = nil
 
     private let disposeBag: DisposeBag = DisposeBag()
-    private let authorization: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let walletsRepository: WalletsRepositoryProtocol = FactoryInteractors.instance.repositories.walletsRepositoryLocal
+    private let authorization: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
+    private let walletsRepository: WalletsRepositoryProtocol = UseCasesFactory.instance.repositories.walletsRepositoryLocal
 
     init(navigationRouter: NavigationRouter){
         self.navigationRouter = navigationRouter
@@ -139,7 +139,7 @@ extension WalletCoordinator: WalletModuleOutput {
         let controller = StartLeasingModuleBuilder(output: self).build(input: availableMoney)
         navigationRouter.pushViewController(controller)
         
-        FactoryInteractors.instance.analyticManager.trackEvent(.leasing(.leasingStartTap))
+        UseCasesFactory.instance.analyticManager.trackEvent(.leasing(.leasingStartTap))
     }
 
     func showLeasingTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
@@ -204,7 +204,7 @@ extension WalletCoordinator: AssetDetailModuleOutput {
         vc.delegate = delegate
         navigationRouter.pushViewController(vc)
         
-        FactoryInteractors.instance.analyticManager.trackEvent(.tokenBurn(.tap))
+        UseCasesFactory.instance.analyticManager.trackEvent(.tokenBurn(.tap))
     }
 }
 
@@ -284,7 +284,7 @@ extension WalletCoordinator: AliasesModuleOutput {
             let vc = CreateAliasModuleBuilder(output: self).build()
             self.navigationRouter.pushViewController(vc)
             
-            FactoryInteractors.instance.analyticManager.trackEvent(.createAlias(.aliasCreateVcard))
+            UseCasesFactory.instance.analyticManager.trackEvent(.createAlias(.aliasCreateVcard))
         }
     }
 }
@@ -299,7 +299,7 @@ extension WalletCoordinator: AliasWithoutViewControllerDelegate {
             let vc = CreateAliasModuleBuilder(output: self).build()
             self.navigationRouter.pushViewController(vc)
             
-            FactoryInteractors.instance.analyticManager.trackEvent(.createAlias(.aliasCreateVcard))
+            UseCasesFactory.instance.analyticManager.trackEvent(.createAlias(.aliasCreateVcard))
         }
     }
 }

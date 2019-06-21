@@ -127,7 +127,7 @@ private extension AliasesPresenter {
         case .handlerFeeError(let error):
             state.query = nil
 
-            if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
+            if let error = error as? TransactionsUseCaseError, error == .commissionReceiving {
                 state.displayState.error = .error(DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving))
             } else {
                 state.displayState.error = .error(DisplayError(error: error))

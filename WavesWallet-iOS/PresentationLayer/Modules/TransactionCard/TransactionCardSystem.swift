@@ -36,10 +36,10 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
 
     private let kind: TransactionCard.Kind
 
-    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let transactionsInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
-    private let assetsInteractor: AssetsInteractorProtocol = FactoryInteractors.instance.assetsInteractor
-    private let dexOrderBookRepository: DexOrderBookRepositoryProtocol = FactoryInteractors.instance.repositories.dexOrderBookRepository
+    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
+    private let transactionsInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
+    private let assetsInteractor: AssetsUseCaseProtocol = UseCasesFactory.instance.assetsInteractor
+    private let dexOrderBookRepository: DexOrderBookRepositoryProtocol = UseCasesFactory.instance.repositories.dexOrderBookRepository
 
 
     init(kind: TransactionCard.Kind) {

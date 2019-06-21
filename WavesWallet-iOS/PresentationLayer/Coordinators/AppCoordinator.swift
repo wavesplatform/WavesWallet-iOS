@@ -53,7 +53,7 @@ final class AppCoordinator: Coordinator {
 
     private let windowRouter: WindowRouter
 
-    private let authoAuthorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let authoAuthorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let disposeBag: DisposeBag = DisposeBag()
     private var isActiveApp: Bool = false
     

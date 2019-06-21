@@ -23,12 +23,12 @@ final class DexLastTradesInteractor: DexLastTradesInteractorProtocol {
         let buy: DexLastTrades.DTO.SellBuyTrade?
     }
     
-    private let account = FactoryInteractors.instance.accountBalance
-    private let lastTradesRepository = FactoryInteractors.instance.repositories.lastTradesRespository
-    private let orderBookRepository = FactoryInteractors.instance.repositories.dexOrderBookRepository
-    private let auth = FactoryInteractors.instance.authorization
-    private let assetsRepositoryLocal = FactoryInteractors.instance.repositories.assetsRepositoryLocal
-    private let assetsInteractor = FactoryInteractors.instance.assetsInteractor
+    private let account = UseCasesFactory.instance.accountBalance
+    private let lastTradesRepository = UseCasesFactory.instance.repositories.lastTradesRespository
+    private let orderBookRepository = UseCasesFactory.instance.repositories.dexOrderBookRepository
+    private let auth = UseCasesFactory.instance.authorization
+    private let assetsRepositoryLocal = UseCasesFactory.instance.repositories.assetsRepositoryLocal
+    private let assetsInteractor = UseCasesFactory.instance.assetsInteractor
 
     var pair: DexTraderContainer.DTO.Pair!
 

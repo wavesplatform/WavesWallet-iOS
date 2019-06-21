@@ -1,5 +1,5 @@
 //
-//  FactoryInteractors.instance.analyticManagerswift
+//  UseCasesFactory.instance.analyticManagerswift
 //  WavesWallet-iOS
 //
 //  Created by Pavel Gubin on 3/22/19.

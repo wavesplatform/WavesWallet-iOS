@@ -16,13 +16,13 @@ public protocol AddressInteractorProtocol {
     func addressSync(by ids: [String], myAddress: String) -> SyncObservable<[DomainLayer.DTO.Address]>
 }
 
-final class AddressInteractor: AddressInteractorProtocol {
+final class AddressUseCase: AddressInteractorProtocol {
 
     private let addressBookRepository: AddressBookRepositoryProtocol
-    private let aliasesInteractor: AliasesInteractorProtocol
+    private let aliasesInteractor: AliasesUseCaseProtocol
 
     init(addressBookRepository: AddressBookRepositoryProtocol,
-         aliasesInteractor: AliasesInteractorProtocol) {
+         aliasesInteractor: AliasesUseCaseProtocol) {
 
         self.addressBookRepository = addressBookRepository
         self.aliasesInteractor = aliasesInteractor

@@ -33,8 +33,8 @@ final class StartLeasingCancelConfirmationViewController: UIViewController {
     weak var output: StartLeasingModuleOutput?
 
     private var fee: Money?
-    private let transactionInteractor = FactoryInteractors.instance.transactions
-    private let auth = FactoryInteractors.instance.authorization
+    private let transactionInteractor = UseCasesFactory.instance.transactions
+    private let auth = UseCasesFactory.instance.authorization
     private var disposeBag = DisposeBag()
     
     private var errorSnackKey: String?
@@ -129,7 +129,7 @@ private extension StartLeasingCancelConfirmationViewController {
                 self.updateFee(fee)
             }, onError: { [weak self] (error) in
 
-                if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
+                if let error = error as? TransactionsUseCaseError, error == .commissionReceiving {
                     self?.showFeeError(DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving))
                 } else {
                     self?.showFeeError(DisplayError(error: error))
