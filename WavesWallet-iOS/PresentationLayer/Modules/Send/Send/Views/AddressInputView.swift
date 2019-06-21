@@ -60,9 +60,9 @@ final class AddressInputView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     private let disposeBag = DisposeBag()
-    private let assetInteractor = FactoryInteractors.instance.assetsInteractor
-    private let assetsRepositoryLocal = FactoryInteractors.instance.repositories.assetsRepositoryLocal
-    private let auth = FactoryInteractors.instance.authorization
+    private let assetInteractor = UseCasesFactory.instance.assetsInteractor
+    private let assetsRepositoryLocal = UseCasesFactory.instance.repositories.assetsRepositoryLocal
+    private let auth = UseCasesFactory.instance.authorization
 
     weak var delegate: AddressInputViewDelegate?
     var decimals: Int = 0

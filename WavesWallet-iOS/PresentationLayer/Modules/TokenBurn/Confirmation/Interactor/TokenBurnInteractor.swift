@@ -19,9 +19,9 @@ protocol TokenBurnInteractorProtocol {
 
 final class TokenBurnInteractor: TokenBurnInteractorProtocol {
 
-    private let account = FactoryInteractors.instance.accountBalance
-    private let auth = FactoryInteractors.instance.authorization
-    private let transactionInteractor = FactoryInteractors.instance.transactions
+    private let account = UseCasesFactory.instance.accountBalance
+    private let auth = UseCasesFactory.instance.authorization
+    private let transactionInteractor = UseCasesFactory.instance.transactions
 
     func getWavesBalance() -> Observable<Money> {
         return account.balances().flatMap({ (balances) -> Observable<Money> in

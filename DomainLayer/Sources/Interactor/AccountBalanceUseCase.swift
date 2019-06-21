@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Moya
 import RxSwift
 import RxSwiftExt
 import WavesSDK
@@ -18,37 +17,25 @@ fileprivate enum Constants {
     static let durationInseconds: Double = 0
 }
 
-public enum AccountBalanceInteractorError: Error {
-    case fail
-}
-
-public protocol AccountBalanceInteractorProtocol {
-    func balances() -> Observable<[DomainLayer.DTO.SmartAssetBalance]>
-    func balances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.SmartAssetBalance]>
-    func balance(by assetId: String,
-                 wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.SmartAssetBalance>
-    func balance(by assetId: String) -> Observable<DomainLayer.DTO.SmartAssetBalance>
-}
-
-final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
+final class AccountBalanceUseCase: AccountBalanceUseCaseProtocol {
     
-    private let authorizationInteractor: AuthorizationInteractorProtocol
+    private let authorizationInteractor: AuthorizationUseCaseProtocol
     private let balanceRepositoryRemote: AccountBalanceRepositoryProtocol
     private let environmentRepository: EnvironmentRepositoryProtocol
 
-    private let assetsInteractor: AssetsInteractorProtocol
-    private let assetsBalanceSettings: AssetsBalanceSettingsInteractorProtocol
-    private let leasingInteractor: TransactionsInteractorProtocol
+    private let assetsInteractor: AssetsUseCaseProtocol
+    private let assetsBalanceSettings: AssetsBalanceSettingsUseCaseProtocol
+    private let leasingInteractor: TransactionsUseCaseProtocol
     private let assetsBalanceSettingsRepository: AssetsBalanceSettingsRepositoryProtocol
 
     private let disposeBag: DisposeBag = DisposeBag()
 
-    init(authorizationInteractor: AuthorizationInteractorProtocol,
+    init(authorizationInteractor: AuthorizationUseCaseProtocol,
          balanceRepositoryRemote: AccountBalanceRepositoryProtocol,
          environmentRepository: EnvironmentRepositoryProtocol,
-         assetsInteractor: AssetsInteractorProtocol,
-         assetsBalanceSettings: AssetsBalanceSettingsInteractorProtocol,
-         transactionsInteractor: TransactionsInteractorProtocol,
+         assetsInteractor: AssetsUseCaseProtocol,
+         assetsBalanceSettings: AssetsBalanceSettingsUseCaseProtocol,
+         transactionsInteractor: TransactionsUseCaseProtocol,
          assetsBalanceSettingsRepository: AssetsBalanceSettingsRepositoryProtocol) {
 
         self.authorizationInteractor = authorizationInteractor
@@ -100,7 +87,7 @@ final class AccountBalanceInteractor: AccountBalanceInteractorProtocol {
 
 // MARK: Privet methods
 
-private extension AccountBalanceInteractor {
+private extension AccountBalanceUseCase {
 
     private func assetBalances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.AssetBalance]> {
 
@@ -281,7 +268,7 @@ private extension AccountBalanceInteractor {
         return remoteBalances(by: wallet, assetBalances: assetBalance)
             .flatMap({ (balances) -> Observable<DomainLayer.DTO.SmartAssetBalance> in
                 guard let first = balances.first else {
-                    return Observable.error(AccountBalanceInteractorError.fail)
+                    return Observable.error(AccountBalanceUseCaseError.fail)
                 }
 
                 return Observable.just(first)

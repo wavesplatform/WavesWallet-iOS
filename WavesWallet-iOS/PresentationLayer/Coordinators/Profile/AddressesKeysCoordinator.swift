@@ -23,7 +23,7 @@ final class AddressesKeysCoordinator: Coordinator {
     private let wallet: DomainLayer.DTO.Wallet    
     private var rootViewController: UIViewController?
 
-    private let authorization = FactoryInteractors.instance.authorization
+    private let authorization = UseCasesFactory.instance.authorization
     private let disposeBag: DisposeBag = DisposeBag()
     private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
     private var currentPopup: PopupViewController?
@@ -84,7 +84,7 @@ extension AddressesKeysCoordinator: AliasesModuleOutput {
         self.currentPopup?.dismissPopup {
             let vc = CreateAliasModuleBuilder(output: self).build()
             self.navigationRouter.pushViewController(vc)
-            FactoryInteractors.instance.analyticManager.trackEvent(.createAlias(.createProfile))
+            UseCasesFactory.instance.analyticManager.trackEvent(.createAlias(.createProfile))
         }
     }
 }
@@ -96,7 +96,7 @@ extension AddressesKeysCoordinator: AliasWithoutViewControllerDelegate {
         self.currentPopup?.dismissPopup {
             let vc = CreateAliasModuleBuilder(output: self).build()
             self.navigationRouter.pushViewController(vc, animated: true)
-            FactoryInteractors.instance.analyticManager.trackEvent(.createAlias(.createProfile))
+            UseCasesFactory.instance.analyticManager.trackEvent(.createAlias(.createProfile))
         }
     }
 }

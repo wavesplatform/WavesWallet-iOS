@@ -9,29 +9,21 @@
 import Foundation
 import RxSwift
 import WavesSDKExtension
-import DomainLayer
 
 private enum Constants {
     static let sortLevelNotFound: Float = -1
 }
 
-public protocol AssetsBalanceSettingsInteractorProtocol {
-
-    func settings(by accountAddress: String, assets: [DomainLayer.DTO.Asset]) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]>
-    func setFavorite(by accountAddress: String, assetId: String, isFavorite: Bool) -> Observable<Bool>
-    func updateAssetsSettings(by accountAddress: String, settings: [DomainLayer.DTO.AssetBalanceSettings]) -> Observable<Bool>
-}
-
-final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProtocol {
+final class AssetsBalanceSettingsUseCase: AssetsBalanceSettingsUseCaseProtocol {
     
 
     private let assetsBalanceSettingsRepository: AssetsBalanceSettingsRepositoryProtocol
     private let environmentRepository: EnvironmentRepositoryProtocol
-    private let authorizationInteractor: AuthorizationInteractorProtocol
+    private let authorizationInteractor: AuthorizationUseCaseProtocol
 
     init(assetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositoryProtocol,
          environmentRepository: EnvironmentRepositoryProtocol,
-         authorizationInteractor: AuthorizationInteractorProtocol) {
+         authorizationInteractor: AuthorizationUseCaseProtocol) {
         
         self.assetsBalanceSettingsRepository = assetsBalanceSettingsRepositoryLocal
         self.environmentRepository = environmentRepository
@@ -117,8 +109,7 @@ final class AssetsBalanceSettingsInteractor: AssetsBalanceSettingsInteractorProt
     
 }
 
-
-private extension AssetsBalanceSettingsInteractor {
+private extension AssetsBalanceSettingsUseCase {
     
     //TODO: Refactor method
     func assetSettings(assets: [DomainLayer.DTO.Asset], ids: [String], accountAddress: String, environment: WalletEnvironment) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> {

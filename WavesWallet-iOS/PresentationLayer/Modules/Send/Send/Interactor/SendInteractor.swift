@@ -15,13 +15,13 @@ import DomainLayer
 
 final class SendInteractor: SendInteractorProtocol {
     
-    private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
-    private let assetInteractor = FactoryInteractors.instance.assetsInteractor
-    private let auth = FactoryInteractors.instance.authorization
-    private let coinomatRepository = FactoryInteractors.instance.repositories.coinomatRepository
-    private let aliasRepository = FactoryInteractors.instance.repositories.aliasesRepositoryRemote
-    private let transactionInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
-    private let accountBalance = FactoryInteractors.instance.accountBalance
+    private let accountBalanceInteractor: AccountBalanceUseCaseProtocol = UseCasesFactory.instance.accountBalance
+    private let assetInteractor = UseCasesFactory.instance.assetsInteractor
+    private let auth = UseCasesFactory.instance.authorization
+    private let coinomatRepository = UseCasesFactory.instance.repositories.coinomatRepository
+    private let aliasRepository = UseCasesFactory.instance.repositories.aliasesRepositoryRemote
+    private let transactionInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
+    private let accountBalance = UseCasesFactory.instance.accountBalance
 
     func assetBalance(by assetID: String) -> Observable<DomainLayer.DTO.SmartAssetBalance?> {
         return accountBalanceInteractor.balances().flatMap({ [weak self] (balances) -> Observable<DomainLayer.DTO.SmartAssetBalance?>  in

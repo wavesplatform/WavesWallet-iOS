@@ -10,11 +10,11 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
     private let searchPairsSubject: PublishSubject<[DomainLayer.DTO.Dex.SmartPair]> = PublishSubject<[DomainLayer.DTO.Dex.SmartPair]>()
     private let disposeBag: DisposeBag = DisposeBag()
 
-    private let dexRealmRepository: DexRealmRepositoryProtocol = FactoryInteractors.instance.repositories.dexRealmRepository
-    private let auth = FactoryInteractors.instance.authorization
+    private let dexRealmRepository: DexRealmRepositoryProtocol = UseCasesFactory.instance.repositories.dexRealmRepository
+    private let auth = UseCasesFactory.instance.authorization
     
-    private let environment = FactoryInteractors.instance.repositories.environmentRepository
-    private let orderBookRepository = FactoryInteractors.instance.repositories.dexOrderBookRepository
+    private let environment = UseCasesFactory.instance.repositories.environmentRepository
+    private let orderBookRepository = UseCasesFactory.instance.repositories.dexOrderBookRepository
 
     func pairs() -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
 

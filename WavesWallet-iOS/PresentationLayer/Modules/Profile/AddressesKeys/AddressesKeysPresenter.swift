@@ -35,8 +35,8 @@ final class AddressesKeysPresenter: AddressesKeysPresenterProtocol {
     fileprivate typealias Types = AddressesKeysTypes
 
     private let disposeBag: DisposeBag = DisposeBag()
-    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let aliasesRepository: AliasesRepositoryProtocol = FactoryInteractors.instance.repositories.aliasesRepositoryRemote
+    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
+    private let aliasesRepository: AliasesRepositoryProtocol = UseCasesFactory.instance.repositories.aliasesRepositoryRemote
 
     var moduleInput: AddressesKeysModuleInput!
     weak var moduleOutput: AddressesKeysModuleOutput?

@@ -50,7 +50,7 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
     
     
     private let disposeBag: DisposeBag = DisposeBag()
-    private let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let auth: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
 
     private let identity: Identity = Identity(options: Identity.defaultOptions)
     

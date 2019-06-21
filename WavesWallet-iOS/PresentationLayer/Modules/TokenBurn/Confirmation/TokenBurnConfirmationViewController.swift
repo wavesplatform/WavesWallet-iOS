@@ -70,7 +70,7 @@ final class TokenBurnConfirmationViewController: UIViewController {
         vc.input = input
         navigationController?.pushViewController(vc, animated: true)
         
-        FactoryInteractors.instance.analyticManager.trackEvent(.tokenBurn(.confirmTap))
+        UseCasesFactory.instance.analyticManager.trackEvent(.tokenBurn(.confirmTap))
     }
 }
 

@@ -190,7 +190,7 @@ final class InfoPagesViewController: UIViewController {
         } else {
             guard isActiveConfirm else { return }
             output?.userFinishedReadPages()
-            FactoryInteractors.instance.analyticManager.trackEvent(.newUser(.confirm))
+            UseCasesFactory.instance.analyticManager.trackEvent(.newUser(.confirm))
         }
         
     }

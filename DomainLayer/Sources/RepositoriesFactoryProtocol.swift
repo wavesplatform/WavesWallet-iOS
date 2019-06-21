@@ -8,8 +8,7 @@
 
 import Foundation
 
-//TODO: RENAME
-public protocol FactoryRepositoriesProtocol {
+public protocol RepositoriesFactoryProtocol {
 
     var assetsRepositoryLocal: AssetsRepositoryProtocol { get }
     var assetsRepositoryRemote: AssetsRepositoryProtocol { get }

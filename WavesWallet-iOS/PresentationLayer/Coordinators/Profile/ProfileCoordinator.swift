@@ -23,7 +23,7 @@ final class ProfileCoordinator: Coordinator {
     weak var parent: Coordinator?
     private weak var applicationCoordinator: ApplicationCoordinatorProtocol?
 
-    private let authorization = FactoryInteractors.instance.authorization
+    private let authorization = UseCasesFactory.instance.authorization
 
     private let navigationRouter: NavigationRouter
     private let disposeBag: DisposeBag = DisposeBag()

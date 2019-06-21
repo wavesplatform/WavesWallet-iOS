@@ -29,8 +29,8 @@ final class MyAddressPresenter: MyAddressPresenterProtocol {
     fileprivate typealias Types = MyAddressTypes
 
     private let disposeBag: DisposeBag = DisposeBag()
-    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let aliasesRepository: AliasesRepositoryProtocol = FactoryInteractors.instance.repositories.aliasesRepositoryRemote
+    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
+    private let aliasesRepository: AliasesRepositoryProtocol = UseCasesFactory.instance.repositories.aliasesRepositoryRemote
 
     weak var moduleOutput: MyAddressModuleOutput?
 

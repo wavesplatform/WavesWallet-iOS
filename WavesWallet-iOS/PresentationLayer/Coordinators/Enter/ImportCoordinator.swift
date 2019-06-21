@@ -25,7 +25,7 @@ final class ImportCoordinator: Coordinator {
     private let completed: ((ImportTypes.DTO.Account) -> Void)
 
     private let disposeBag: DisposeBag = DisposeBag()
-    private let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let auth: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private var currentPrivateKeyAccount: PrivateKeyAccount?
     
 

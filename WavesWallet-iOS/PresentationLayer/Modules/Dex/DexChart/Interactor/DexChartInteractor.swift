@@ -19,8 +19,8 @@ private enum Constants {
 
 final class DexChartInteractor: DexChartInteractorProtocol {
     
-    private let candlesReposotiry = FactoryInteractors.instance.repositories.candlesRepository
-    private let auth = FactoryInteractors.instance.authorization
+    private let candlesReposotiry = UseCasesFactory.instance.repositories.candlesRepository
+    private let auth = UseCasesFactory.instance.authorization
     
     var pair: DexTraderContainer.DTO.Pair!
     

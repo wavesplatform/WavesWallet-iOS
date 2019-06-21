@@ -12,11 +12,7 @@ import RxCocoa
 import Extensions
 import DomainLayer
 
-public protocol AliasesInteractorProtocol {
-    func aliases(by accountAddress: String) -> SyncObservable<[DomainLayer.DTO.Alias]>
-}
-
-final class AliasesInteractor: AliasesInteractorProtocol {
+final class AliasesUseCase: AliasesUseCaseProtocol {
 
     private let aliasesRepository: AliasesRepositoryProtocol
     private let aliasesRepositoryLocal: AliasesRepositoryProtocol

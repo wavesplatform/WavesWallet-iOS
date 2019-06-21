@@ -55,7 +55,7 @@ final class ReceiveCryptocurrencyViewController: UIViewController {
         let vc = ReceiveGenerateAddressModuleBuilder().build(input: .cryptoCurrency(info))
         navigationController?.pushViewController(vc, animated: true)
         
-        FactoryInteractors.instance.analyticManager.trackEvent(.walletAsset(.receiveTap(assetName: info.assetName)))
+        UseCasesFactory.instance.analyticManager.trackEvent(.walletAsset(.receiveTap(assetName: info.assetName)))
 
     }
     

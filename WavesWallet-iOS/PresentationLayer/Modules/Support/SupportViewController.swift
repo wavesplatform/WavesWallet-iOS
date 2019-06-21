@@ -28,8 +28,8 @@ final class SupportViewController: UIViewController {
     
     
     weak var delegate: SupportViewControllerDelegate?
-    private let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
-    private let transactions: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
+    private let auth: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
+    private let transactions: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
     
 //    private let enviroment: EnvironmentRepository = EnvironmentRepository()
 
@@ -76,7 +76,7 @@ final class SupportViewController: UIViewController {
 
     @IBAction func actionClean(_ sender: Any) {
         //TODO: Libr
-//        let auth = FactoryInteractors.instance.authorization
+//        let auth = UseCasesFactory.instance.authorization
 //        auth.authorizedWallet().flatMap { (wallet) -> Observable<Bool> in
 //            let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address)
 //            try? realm?.write {

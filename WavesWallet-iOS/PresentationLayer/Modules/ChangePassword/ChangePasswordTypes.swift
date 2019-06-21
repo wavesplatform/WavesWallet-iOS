@@ -38,7 +38,7 @@ extension ChangePasswordTypes {
     enum Event {
         case readyView
         case input(FieldKind, String?)
-        case handlerError(AuthorizationInteractorError)
+        case handlerError(AuthorizationUseCaseError)
         case successOldPassword
         case tapContinue
         case completedQuery

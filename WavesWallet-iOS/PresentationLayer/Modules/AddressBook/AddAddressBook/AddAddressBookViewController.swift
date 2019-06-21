@@ -28,8 +28,8 @@ final class AddAddressBookViewController: UIViewController {
     @IBOutlet private weak var buttonDelete: UIButton!
     @IBOutlet private weak var buttonSaveBottomOffset: NSLayoutConstraint!
     
-    private let repository = FactoryInteractors.instance.repositories.addressBookRepository
-    private let authorizationInteractor = FactoryInteractors.instance.authorization
+    private let repository = UseCasesFactory.instance.repositories.addressBookRepository
+    private let authorizationInteractor = UseCasesFactory.instance.authorization
     private let disposeBag: DisposeBag = DisposeBag()
 
     weak var delegate: AddAddressBookModuleOutput?

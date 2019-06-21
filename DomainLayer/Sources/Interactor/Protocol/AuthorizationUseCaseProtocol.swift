@@ -1,5 +1,5 @@
 //
-//  AuthorizationInteractorProtocol.swift
+//  AuthorizationUseCaseProtocol.swift
 //  WavesWallet-iOS
 //
 //  Created by Prokofev Ruslan on 09/10/2018.
@@ -16,7 +16,7 @@ public enum AuthorizationType {
     case biometric
 }
 
-public enum AuthorizationInteractorError: Error {
+public enum AuthorizationUseCaseError: Error {
     case fail
     case walletAlreadyExist
     case walletNotFound
@@ -43,7 +43,14 @@ public enum AuthorizationVerifyAccessStatus {
     case completed(DomainLayer.DTO.SignedWallet)
 }
 
-public protocol AuthorizationInteractorProtocol {
+public protocol AuthorizationInteractorLocalizableProtocol {
+    var fallbackTitle: String { get }
+    var cancelTitle: String { get }
+    var readFromkeychain: String { get }
+    var saveInkeychain: String { get }
+}
+
+public protocol AuthorizationUseCaseProtocol {
 
     func existWallet(by publicKey: String) -> Observable<DomainLayer.DTO.Wallet>
     func wallets() -> Observable<[DomainLayer.DTO.Wallet]>
@@ -57,11 +64,11 @@ public protocol AuthorizationInteractorProtocol {
     //passcodeNotCreated or permissionDenied
     func hasPermissionToLoggedIn(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
 
-    // Return AuthorizationInteractorError permissionDenied
+    // Return AuthorizationUseCaseError permissionDenied
     func authorizedWallet() -> Observable<DomainLayer.DTO.SignedWallet>
     func isAuthorizedWallet(_ wallet: DomainLayer.DTO.Wallet) -> Observable<Bool>
 
-    // Return AuthorizationInteractorError
+    // Return AuthorizationUseCaseError
     func auth(type: AuthorizationType, wallet: DomainLayer.DTO.Wallet) -> Observable<AuthorizationAuthStatus>
     func verifyAccess(type: AuthorizationType, wallet: DomainLayer.DTO.Wallet) -> Observable<AuthorizationVerifyAccessStatus>
 

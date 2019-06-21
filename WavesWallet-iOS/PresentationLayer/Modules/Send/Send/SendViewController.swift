@@ -223,7 +223,7 @@ final class SendViewController: UIViewController {
         
         navigationController?.pushViewController(vc, animated: true)
         
-        FactoryInteractors.instance.analyticManager.trackEvent(.walletAsset(.sendTap(assetName: asset.displayName)))
+        UseCasesFactory.instance.analyticManager.trackEvent(.walletAsset(.sendTap(assetName: asset.displayName)))
     }
     
     @IBAction private func continueTapped(_ sender: Any) {

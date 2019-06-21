@@ -21,7 +21,7 @@ import Amplitude_iOS
 //TODO: Rename Local Repository and protocol
 typealias EnvironmentRepositoryProtocols = EnvironmentRepositoryProtocol & ServicesEnvironmentRepositoryProtocol
 
-public final class FactoryRepositories: FactoryRepositoriesProtocol {
+public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     
     private lazy var environmentRepositoryInternal: EnvironmentRepository = EnvironmentRepository()
     

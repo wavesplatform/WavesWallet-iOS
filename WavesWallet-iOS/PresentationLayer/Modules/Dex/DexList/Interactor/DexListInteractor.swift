@@ -13,9 +13,9 @@ import DomainLayer
 
 final class DexListInteractor: DexListInteractorProtocol {
    
-    private let dexRealmRepository = FactoryInteractors.instance.repositories.dexRealmRepository
-    private let dexListRepository = FactoryInteractors.instance.repositories.dexPairsPriceRepository
-    private let auth = FactoryInteractors.instance.authorization
+    private let dexRealmRepository = UseCasesFactory.instance.repositories.dexRealmRepository
+    private let dexListRepository = UseCasesFactory.instance.repositories.dexPairsPriceRepository
+    private let auth = UseCasesFactory.instance.authorization
     
     func localPairs() -> Observable<DexList.DTO.LocalDisplayInfo> {
         

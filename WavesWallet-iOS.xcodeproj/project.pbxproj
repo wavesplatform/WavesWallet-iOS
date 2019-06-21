@@ -356,6 +356,10 @@
 		7B3902AD2237D31900AAFDB8 /* TransactionCardShowAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3902AC2237D31900AAFDB8 /* TransactionCardShowAllCell.swift */; };
 		7B3902B02237D8FA00AAFDB8 /* TransactionCardExchangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3902AF2237D8FA00AAFDB8 /* TransactionCardExchangeCell.swift */; };
 		7B3A51A8223AA08F00C3BF38 /* TransactionCardAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3A51A7223AA08F00C3BF38 /* TransactionCardAssetCell.swift */; };
+		7B431A7E22BCFF3800DE73B9 /* AssetsUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B431A7C22BCFE8A00DE73B9 /* AssetsUseCaseProtocol.swift */; };
+		7B431A8122BCFF7100DE73B9 /* AssetsBalanceSettingsUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B431A7F22BCFF5700DE73B9 /* AssetsBalanceSettingsUseCaseProtocol.swift */; };
+		7B431A8322BCFFA900DE73B9 /* TransactionsUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B431A8222BCFFA900DE73B9 /* TransactionsUseCaseProtocol.swift */; };
+		7B431A8622BD030600DE73B9 /* AddressUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B431A8422BD02E700DE73B9 /* AddressUseCaseProtocol.swift */; };
 		7B5E7465223907AA00746ADD /* TransactionCardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */; };
 		7B5E74672239088800746ADD /* TransactionCardHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */; };
 		7B5E746922390B8200746ADD /* TransactionCardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E746822390B8200746ADD /* TransactionCardBuilder.swift */; };
@@ -365,8 +369,8 @@
 		7B5EDEC622536269009C2B3B /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5EDEC522536268009C2B3B /* AccessibilityIdentifiers.swift */; };
 		7B5FA9FB22BBCFBA00621A44 /* BiometricManager+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FA9FA22BBCFBA00621A44 /* BiometricManager+String.swift */; };
 		7B5FA9FF22BBDB9300621A44 /* AuthorizationInteractorLocalizableImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FA9FE22BBDB9300621A44 /* AuthorizationInteractorLocalizableImp.swift */; };
-		7B5FAA6922BBE3EC00621A44 /* FactoryInteractorsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA0522BBE3EB00621A44 /* FactoryInteractorsProtocol.swift */; };
-		7B5FAA6A22BBE3EC00621A44 /* FactoryRepositoriesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA0622BBE3EB00621A44 /* FactoryRepositoriesProtocol.swift */; };
+		7B5FAA6922BBE3EC00621A44 /* UseCasesFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA0522BBE3EB00621A44 /* UseCasesFactoryProtocol.swift */; };
+		7B5FAA6A22BBE3EC00621A44 /* RepositoriesFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA0622BBE3EB00621A44 /* RepositoriesFactoryProtocol.swift */; };
 		7B5FAA6B22BBE3EC00621A44 /* TransactionDomainDTO+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA0822BBE3EB00621A44 /* TransactionDomainDTO+Mapper.swift */; };
 		7B5FAA6C22BBE3EC00621A44 /* Asset+Assistants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA0922BBE3EB00621A44 /* Asset+Assistants.swift */; };
 		7B5FAA6D22BBE3EC00621A44 /* DomainDexQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA0B22BBE3EB00621A44 /* DomainDexQueries.swift */; };
@@ -425,22 +429,22 @@
 		7B5FAAA222BBE3EC00621A44 /* AccountSettingsDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA4422BBE3EC00621A44 /* AccountSettingsDomainDTO.swift */; };
 		7B5FAAA322BBE3EC00621A44 /* ResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA4522BBE3EC00621A44 /* ResponseType.swift */; };
 		7B5FAAA422BBE3EC00621A44 /* WalletEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA4622BBE3EC00621A44 /* WalletEnvironment.swift */; };
-		7B5FAAA522BBE3EC00621A44 /* FactoryInteractors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA4722BBE3EC00621A44 /* FactoryInteractors.swift */; };
+		7B5FAAA522BBE3EC00621A44 /* UseCasesFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA4722BBE3EC00621A44 /* UseCasesFactory.swift */; };
 		7B5FAAA722BBE3EC00621A44 /* AnalyticManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA4A22BBE3EC00621A44 /* AnalyticManagerProtocol.swift */; };
 		7B5FAAA822BBE3EC00621A44 /* AnalyticAssetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA4B22BBE3EC00621A44 /* AnalyticAssetManager.swift */; };
 		7B5FAAA922BBE3EC00621A44 /* AnalyticManager+WalletAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA4C22BBE3EC00621A44 /* AnalyticManager+WalletAsset.swift */; };
 		7B5FAAAA22BBE3EC00621A44 /* AnalyticManager+WalletStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA4D22BBE3EC00621A44 /* AnalyticManager+WalletStart.swift */; };
 		7B5FAAAB22BBE3EC00621A44 /* AnalyticManager+Dex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA4E22BBE3EC00621A44 /* AnalyticManager+Dex.swift */; };
-		7B5FAAAC22BBE3EC00621A44 /* AccountBalanceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5022BBE3EC00621A44 /* AccountBalanceInteractor.swift */; };
-		7B5FAAAD22BBE3EC00621A44 /* AuthorizationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5122BBE3EC00621A44 /* AuthorizationInteractor.swift */; };
-		7B5FAAAE22BBE3EC00621A44 /* AuthorizationInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5222BBE3EC00621A44 /* AuthorizationInteractorProtocol.swift */; };
-		7B5FAAAF22BBE3EC00621A44 /* AliasesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5322BBE3EC00621A44 /* AliasesInteractor.swift */; };
-		7B5FAAB022BBE3EC00621A44 /* MigrationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5422BBE3EC00621A44 /* MigrationInteractor.swift */; };
-		7B5FAAB122BBE3EC00621A44 /* AddressInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5522BBE3EC00621A44 /* AddressInteractor.swift */; };
-		7B5FAAB222BBE3EC00621A44 /* AssetsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5622BBE3EC00621A44 /* AssetsInteractor.swift */; };
+		7B5FAAAC22BBE3EC00621A44 /* AccountBalanceUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5022BBE3EC00621A44 /* AccountBalanceUseCase.swift */; };
+		7B5FAAAD22BBE3EC00621A44 /* AuthorizationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5122BBE3EC00621A44 /* AuthorizationUseCase.swift */; };
+		7B5FAAAE22BBE3EC00621A44 /* AuthorizationUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5222BBE3EC00621A44 /* AuthorizationUseCaseProtocol.swift */; };
+		7B5FAAAF22BBE3EC00621A44 /* AliasesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5322BBE3EC00621A44 /* AliasesUseCase.swift */; };
+		7B5FAAB022BBE3EC00621A44 /* MigrationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5422BBE3EC00621A44 /* MigrationUseCase.swift */; };
+		7B5FAAB122BBE3EC00621A44 /* AddressUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5522BBE3EC00621A44 /* AddressUseCase.swift */; };
+		7B5FAAB222BBE3EC00621A44 /* AssetsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5622BBE3EC00621A44 /* AssetsUseCase.swift */; };
 		7B5FAAB322BBE3EC00621A44 /* ApplicationVersionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5722BBE3EC00621A44 /* ApplicationVersionUseCase.swift */; };
-		7B5FAAB422BBE3EC00621A44 /* TransactionsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5822BBE3EC00621A44 /* TransactionsInteractor.swift */; };
-		7B5FAAB522BBE3EC00621A44 /* AssetsBalanceSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5922BBE3EC00621A44 /* AssetsBalanceSettingsInteractor.swift */; };
+		7B5FAAB422BBE3EC00621A44 /* TransactionsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5822BBE3EC00621A44 /* TransactionsUseCase.swift */; };
+		7B5FAAB522BBE3EC00621A44 /* AssetsBalanceSettingsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5922BBE3EC00621A44 /* AssetsBalanceSettingsUseCase.swift */; };
 		7B5FAAB622BBE3EC00621A44 /* ApplicationDebugSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5B22BBE3EC00621A44 /* ApplicationDebugSettings.swift */; };
 		7B5FAAB722BBE3EC00621A44 /* CleanerWalletManagerBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5C22BBE3EC00621A44 /* CleanerWalletManagerBanner.swift */; };
 		7B5FAAB822BBE3EC00621A44 /* SmartTransactionDomain+Assistants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA5D22BBE3EC00621A44 /* SmartTransactionDomain+Assistants.swift */; };
@@ -458,6 +462,9 @@
 		7B5FAAC522BC2C0300621A44 /* SweetLoggerSentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951124225CD6D80030390C /* SweetLoggerSentry.swift */; };
 		7B5FAAC722BC311800621A44 /* SentryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66866722B51E250029E6F1 /* SentryManager.swift */; };
 		7B5FAAC822BCD67900621A44 /* AnalyticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA4922BBE3EC00621A44 /* AnalyticManager.swift */; };
+		7B5FAACF22BCEA3500621A44 /* AliasesUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAACB22BCE8D800621A44 /* AliasesUseCaseProtocol.swift */; };
+		7B5FAADB22BCEA4200621A44 /* AccountBalanceUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAAC922BCE71400621A44 /* AccountBalanceUseCaseProtocol.swift */; };
+		7B5FAADC22BCEA4200621A44 /* MigrationUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAACD22BCE98F00621A44 /* MigrationUseCaseProtocol.swift */; };
 		7B601B2A2240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B601B292240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift */; };
 		7B66860422B3F70E0029E6F1 /* DomainLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B66860222B3F70E0029E6F1 /* DomainLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6686F222B7C5120029E6F1 /* Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6686F022B7C5120029E6F1 /* Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -558,7 +565,7 @@
 		7B6688C522B7E6C90029E6F1 /* NodePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66886B22B7E6C80029E6F1 /* NodePlugin.swift */; };
 		7B6688C622B7E6C90029E6F1 /* MoyaProvider+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66886C22B7E6C80029E6F1 /* MoyaProvider+Helper.swift */; };
 		7B6688C722B7E6C90029E6F1 /* String+NormalizeAssetId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66886D22B7E6C80029E6F1 /* String+NormalizeAssetId.swift */; };
-		7B6688C922B7E7610029E6F1 /* FactoryRepositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66865322B51E250029E6F1 /* FactoryRepositories.swift */; };
+		7B6688C922B7E7610029E6F1 /* RepositoriesFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66865322B51E250029E6F1 /* RepositoriesFactory.swift */; };
 		7B6688CA22B942EF0029E6F1 /* RunLoopThreadScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B95111D225CD6140030390C /* RunLoopThreadScheduler.swift */; };
 		7B6688CB22B945330029E6F1 /* DatabaseReference+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951117225CD5850030390C /* DatabaseReference+Rx.swift */; };
 		7B6688CD22BA37B10029E6F1 /* Results+Limit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B95111B225CD5EE0030390C /* Results+Limit.swift */; };
@@ -1308,6 +1315,10 @@
 		7B3902AC2237D31900AAFDB8 /* TransactionCardShowAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardShowAllCell.swift; sourceTree = "<group>"; };
 		7B3902AF2237D8FA00AAFDB8 /* TransactionCardExchangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardExchangeCell.swift; sourceTree = "<group>"; };
 		7B3A51A7223AA08F00C3BF38 /* TransactionCardAssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardAssetCell.swift; sourceTree = "<group>"; };
+		7B431A7C22BCFE8A00DE73B9 /* AssetsUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsUseCaseProtocol.swift; sourceTree = "<group>"; };
+		7B431A7F22BCFF5700DE73B9 /* AssetsBalanceSettingsUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsBalanceSettingsUseCaseProtocol.swift; sourceTree = "<group>"; };
+		7B431A8222BCFFA900DE73B9 /* TransactionsUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsUseCaseProtocol.swift; sourceTree = "<group>"; };
+		7B431A8422BD02E700DE73B9 /* AddressUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressUseCaseProtocol.swift; sourceTree = "<group>"; };
 		7B5E7464223907AA00746ADD /* TransactionCardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardHeaderView.swift; sourceTree = "<group>"; };
 		7B5E74662239088800746ADD /* TransactionCardHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCardHeaderView.xib; sourceTree = "<group>"; };
 		7B5E746822390B8200746ADD /* TransactionCardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardBuilder.swift; sourceTree = "<group>"; };
@@ -1317,8 +1328,8 @@
 		7B5EDEC522536268009C2B3B /* AccessibilityIdentifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityIdentifiers.swift; sourceTree = "<group>"; };
 		7B5FA9FA22BBCFBA00621A44 /* BiometricManager+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BiometricManager+String.swift"; sourceTree = "<group>"; };
 		7B5FA9FE22BBDB9300621A44 /* AuthorizationInteractorLocalizableImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationInteractorLocalizableImp.swift; sourceTree = "<group>"; };
-		7B5FAA0522BBE3EB00621A44 /* FactoryInteractorsProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryInteractorsProtocol.swift; sourceTree = "<group>"; };
-		7B5FAA0622BBE3EB00621A44 /* FactoryRepositoriesProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryRepositoriesProtocol.swift; sourceTree = "<group>"; };
+		7B5FAA0522BBE3EB00621A44 /* UseCasesFactoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseCasesFactoryProtocol.swift; sourceTree = "<group>"; };
+		7B5FAA0622BBE3EB00621A44 /* RepositoriesFactoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoriesFactoryProtocol.swift; sourceTree = "<group>"; };
 		7B5FAA0822BBE3EB00621A44 /* TransactionDomainDTO+Mapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TransactionDomainDTO+Mapper.swift"; sourceTree = "<group>"; };
 		7B5FAA0922BBE3EB00621A44 /* Asset+Assistants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Asset+Assistants.swift"; sourceTree = "<group>"; };
 		7B5FAA0B22BBE3EB00621A44 /* DomainDexQueries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DomainDexQueries.swift; sourceTree = "<group>"; };
@@ -1377,23 +1388,23 @@
 		7B5FAA4422BBE3EC00621A44 /* AccountSettingsDomainDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingsDomainDTO.swift; sourceTree = "<group>"; };
 		7B5FAA4522BBE3EC00621A44 /* ResponseType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseType.swift; sourceTree = "<group>"; };
 		7B5FAA4622BBE3EC00621A44 /* WalletEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletEnvironment.swift; sourceTree = "<group>"; };
-		7B5FAA4722BBE3EC00621A44 /* FactoryInteractors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryInteractors.swift; sourceTree = "<group>"; };
+		7B5FAA4722BBE3EC00621A44 /* UseCasesFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseCasesFactory.swift; sourceTree = "<group>"; };
 		7B5FAA4922BBE3EC00621A44 /* AnalyticManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticManager.swift; sourceTree = "<group>"; };
 		7B5FAA4A22BBE3EC00621A44 /* AnalyticManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticManagerProtocol.swift; sourceTree = "<group>"; };
 		7B5FAA4B22BBE3EC00621A44 /* AnalyticAssetManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticAssetManager.swift; sourceTree = "<group>"; };
 		7B5FAA4C22BBE3EC00621A44 /* AnalyticManager+WalletAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AnalyticManager+WalletAsset.swift"; sourceTree = "<group>"; };
 		7B5FAA4D22BBE3EC00621A44 /* AnalyticManager+WalletStart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AnalyticManager+WalletStart.swift"; sourceTree = "<group>"; };
 		7B5FAA4E22BBE3EC00621A44 /* AnalyticManager+Dex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AnalyticManager+Dex.swift"; sourceTree = "<group>"; };
-		7B5FAA5022BBE3EC00621A44 /* AccountBalanceInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountBalanceInteractor.swift; sourceTree = "<group>"; };
-		7B5FAA5122BBE3EC00621A44 /* AuthorizationInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationInteractor.swift; sourceTree = "<group>"; };
-		7B5FAA5222BBE3EC00621A44 /* AuthorizationInteractorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationInteractorProtocol.swift; sourceTree = "<group>"; };
-		7B5FAA5322BBE3EC00621A44 /* AliasesInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliasesInteractor.swift; sourceTree = "<group>"; };
-		7B5FAA5422BBE3EC00621A44 /* MigrationInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MigrationInteractor.swift; sourceTree = "<group>"; };
-		7B5FAA5522BBE3EC00621A44 /* AddressInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressInteractor.swift; sourceTree = "<group>"; };
-		7B5FAA5622BBE3EC00621A44 /* AssetsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsInteractor.swift; sourceTree = "<group>"; };
+		7B5FAA5022BBE3EC00621A44 /* AccountBalanceUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountBalanceUseCase.swift; sourceTree = "<group>"; };
+		7B5FAA5122BBE3EC00621A44 /* AuthorizationUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationUseCase.swift; sourceTree = "<group>"; };
+		7B5FAA5222BBE3EC00621A44 /* AuthorizationUseCaseProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationUseCaseProtocol.swift; sourceTree = "<group>"; };
+		7B5FAA5322BBE3EC00621A44 /* AliasesUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AliasesUseCase.swift; sourceTree = "<group>"; };
+		7B5FAA5422BBE3EC00621A44 /* MigrationUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MigrationUseCase.swift; sourceTree = "<group>"; };
+		7B5FAA5522BBE3EC00621A44 /* AddressUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressUseCase.swift; sourceTree = "<group>"; };
+		7B5FAA5622BBE3EC00621A44 /* AssetsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsUseCase.swift; sourceTree = "<group>"; };
 		7B5FAA5722BBE3EC00621A44 /* ApplicationVersionUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationVersionUseCase.swift; sourceTree = "<group>"; };
-		7B5FAA5822BBE3EC00621A44 /* TransactionsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsInteractor.swift; sourceTree = "<group>"; };
-		7B5FAA5922BBE3EC00621A44 /* AssetsBalanceSettingsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsBalanceSettingsInteractor.swift; sourceTree = "<group>"; };
+		7B5FAA5822BBE3EC00621A44 /* TransactionsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsUseCase.swift; sourceTree = "<group>"; };
+		7B5FAA5922BBE3EC00621A44 /* AssetsBalanceSettingsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsBalanceSettingsUseCase.swift; sourceTree = "<group>"; };
 		7B5FAA5B22BBE3EC00621A44 /* ApplicationDebugSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationDebugSettings.swift; sourceTree = "<group>"; };
 		7B5FAA5C22BBE3EC00621A44 /* CleanerWalletManagerBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CleanerWalletManagerBanner.swift; sourceTree = "<group>"; };
 		7B5FAA5D22BBE3EC00621A44 /* SmartTransactionDomain+Assistants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SmartTransactionDomain+Assistants.swift"; sourceTree = "<group>"; };
@@ -1407,11 +1418,14 @@
 		7B5FAA6622BBE3EC00621A44 /* RXCrypto+SHA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RXCrypto+SHA.swift"; sourceTree = "<group>"; };
 		7B5FAA6722BBE3EC00621A44 /* Data+AES.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+AES.swift"; sourceTree = "<group>"; };
 		7B5FAA6822BBE3EC00621A44 /* BiometricManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiometricManager.swift; sourceTree = "<group>"; };
+		7B5FAAC922BCE71400621A44 /* AccountBalanceUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceUseCaseProtocol.swift; sourceTree = "<group>"; };
+		7B5FAACB22BCE8D800621A44 /* AliasesUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesUseCaseProtocol.swift; sourceTree = "<group>"; };
+		7B5FAACD22BCE98F00621A44 /* MigrationUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationUseCaseProtocol.swift; sourceTree = "<group>"; };
 		7B601B292240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SmartTransactionDTO+EncodingToString.swift"; sourceTree = "<group>"; };
 		7B66860022B3F70D0029E6F1 /* InternalDomainLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = InternalDomainLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B66860222B3F70E0029E6F1 /* DomainLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainLayer.h; sourceTree = "<group>"; };
 		7B66860322B3F70E0029E6F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7B66865322B51E250029E6F1 /* FactoryRepositories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryRepositories.swift; sourceTree = "<group>"; };
+		7B66865322B51E250029E6F1 /* RepositoriesFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoriesFactory.swift; sourceTree = "<group>"; };
 		7B66866722B51E250029E6F1 /* SentryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentryManager.swift; sourceTree = "<group>"; };
 		7B6686EE22B7C5120029E6F1 /* InternalExtensions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = InternalExtensions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B6686F022B7C5120029E6F1 /* Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Extensions.h; sourceTree = "<group>"; };
@@ -3023,20 +3037,35 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		7B431A8722BD037C00DE73B9 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				7B5FAAC922BCE71400621A44 /* AccountBalanceUseCaseProtocol.swift */,
+				7B5FAACB22BCE8D800621A44 /* AliasesUseCaseProtocol.swift */,
+				7B431A7C22BCFE8A00DE73B9 /* AssetsUseCaseProtocol.swift */,
+				7B5FAA5222BBE3EC00621A44 /* AuthorizationUseCaseProtocol.swift */,
+				7B5FAACD22BCE98F00621A44 /* MigrationUseCaseProtocol.swift */,
+				7B431A7F22BCFF5700DE73B9 /* AssetsBalanceSettingsUseCaseProtocol.swift */,
+				7B431A8222BCFFA900DE73B9 /* TransactionsUseCaseProtocol.swift */,
+				7B431A8422BD02E700DE73B9 /* AddressUseCaseProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		7B5FAA0422BBE3EB00621A44 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				7B5FAA0522BBE3EB00621A44 /* FactoryInteractorsProtocol.swift */,
-				7B5FAA0622BBE3EB00621A44 /* FactoryRepositoriesProtocol.swift */,
+				7B5FAA2422BBE3EB00621A44 /* DomainLayerTypes.swift */,
+				7B5FAA4722BBE3EC00621A44 /* UseCasesFactory.swift */,
+				7B5FAA0522BBE3EB00621A44 /* UseCasesFactoryProtocol.swift */,
+				7B5FAA0622BBE3EB00621A44 /* RepositoriesFactoryProtocol.swift */,
+				7B5FAA4822BBE3EC00621A44 /* AnalyticManager */,
+				7B5FAA5A22BBE3EC00621A44 /* Assisstants */,
+				7B5FAA4F22BBE3EC00621A44 /* Interactor */,
 				7B5FAA0722BBE3EB00621A44 /* Mapper */,
+				7B5FAA2522BBE3EB00621A44 /* Models */,
 				7B5FAA0A22BBE3EB00621A44 /* Queries */,
 				7B5FAA0C22BBE3EB00621A44 /* Repositories */,
-				7B5FAA2422BBE3EB00621A44 /* DomainLayerTypes.swift */,
-				7B5FAA2522BBE3EB00621A44 /* Models */,
-				7B5FAA4722BBE3EC00621A44 /* FactoryInteractors.swift */,
-				7B5FAA4822BBE3EC00621A44 /* AnalyticManager */,
-				7B5FAA4F22BBE3EC00621A44 /* Interactor */,
-				7B5FAA5A22BBE3EC00621A44 /* Assisstants */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -3157,16 +3186,16 @@
 		7B5FAA4F22BBE3EC00621A44 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
-				7B5FAA5022BBE3EC00621A44 /* AccountBalanceInteractor.swift */,
-				7B5FAA5122BBE3EC00621A44 /* AuthorizationInteractor.swift */,
-				7B5FAA5222BBE3EC00621A44 /* AuthorizationInteractorProtocol.swift */,
-				7B5FAA5322BBE3EC00621A44 /* AliasesInteractor.swift */,
-				7B5FAA5422BBE3EC00621A44 /* MigrationInteractor.swift */,
-				7B5FAA5522BBE3EC00621A44 /* AddressInteractor.swift */,
-				7B5FAA5622BBE3EC00621A44 /* AssetsInteractor.swift */,
+				7B5FAA5022BBE3EC00621A44 /* AccountBalanceUseCase.swift */,
+				7B5FAA5522BBE3EC00621A44 /* AddressUseCase.swift */,
+				7B5FAA5322BBE3EC00621A44 /* AliasesUseCase.swift */,
 				7B5FAA5722BBE3EC00621A44 /* ApplicationVersionUseCase.swift */,
-				7B5FAA5822BBE3EC00621A44 /* TransactionsInteractor.swift */,
-				7B5FAA5922BBE3EC00621A44 /* AssetsBalanceSettingsInteractor.swift */,
+				7B5FAA5922BBE3EC00621A44 /* AssetsBalanceSettingsUseCase.swift */,
+				7B5FAA5622BBE3EC00621A44 /* AssetsUseCase.swift */,
+				7B5FAA5122BBE3EC00621A44 /* AuthorizationUseCase.swift */,
+				7B5FAA5422BBE3EC00621A44 /* MigrationUseCase.swift */,
+				7B5FAA5822BBE3EC00621A44 /* TransactionsUseCase.swift */,
+				7B431A8722BD037C00DE73B9 /* Protocol */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -3393,7 +3422,7 @@
 		7B66883B22B7E6C80029E6F1 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				7B66865322B51E250029E6F1 /* FactoryRepositories.swift */,
+				7B66865322B51E250029E6F1 /* RepositoriesFactory.swift */,
 				7B66883F22B7E6C80029E6F1 /* AccountSettingsRepository.swift */,
 				7B66884222B7E6C80029E6F1 /* AddressRepositoryRemote.swift */,
 				7B66883E22B7E6C80029E6F1 /* ApplicationVersionRepository.swift */,
@@ -5435,26 +5464,27 @@
 				7B5FAAB722BBE3EC00621A44 /* CleanerWalletManagerBanner.swift in Sources */,
 				7B5FAAB322BBE3EC00621A44 /* ApplicationVersionUseCase.swift in Sources */,
 				7B5FAAA322BBE3EC00621A44 /* ResponseType.swift in Sources */,
-				7B5FAA6A22BBE3EC00621A44 /* FactoryRepositoriesProtocol.swift in Sources */,
-				7B5FAAB422BBE3EC00621A44 /* TransactionsInteractor.swift in Sources */,
+				7B5FAA6A22BBE3EC00621A44 /* RepositoriesFactoryProtocol.swift in Sources */,
+				7B5FAAB422BBE3EC00621A44 /* TransactionsUseCase.swift in Sources */,
 				7B5FAABC22BBE3EC00621A44 /* Hash.swift in Sources */,
 				7B5FAA7722BBE3EC00621A44 /* DexPairsPriceRepositoryProtocol.swift in Sources */,
-				7B5FAAB122BBE3EC00621A44 /* AddressInteractor.swift in Sources */,
+				7B5FAAB122BBE3EC00621A44 /* AddressUseCase.swift in Sources */,
 				7B5FAABE22BBE3EC00621A44 /* PublicKeyAccount.swift in Sources */,
 				7B5FAAC122BBE3EC00621A44 /* Data+AES.swift in Sources */,
 				7B5FAA9222BBE3EC00621A44 /* LeaseCancelTransactionDomainDTO.swift in Sources */,
-				7B5FAAB522BBE3EC00621A44 /* AssetsBalanceSettingsInteractor.swift in Sources */,
+				7B5FAAB522BBE3EC00621A44 /* AssetsBalanceSettingsUseCase.swift in Sources */,
 				7B5FAA7522BBE3EC00621A44 /* NotificationNewsRepositoryProtocol.swift in Sources */,
-				7B5FAAA522BBE3EC00621A44 /* FactoryInteractors.swift in Sources */,
-				7B5FAAAE22BBE3EC00621A44 /* AuthorizationInteractorProtocol.swift in Sources */,
+				7B5FAAA522BBE3EC00621A44 /* UseCasesFactory.swift in Sources */,
+				7B5FAAAE22BBE3EC00621A44 /* AuthorizationUseCaseProtocol.swift in Sources */,
 				7B5FAA9522BBE3EC00621A44 /* AnyTransactionDomainDTO.swift in Sources */,
 				7B5FAA8522BBE3EC00621A44 /* DomainLayerTypes.swift in Sources */,
-				7B5FAAAF22BBE3EC00621A44 /* AliasesInteractor.swift in Sources */,
+				7B5FAAAF22BBE3EC00621A44 /* AliasesUseCase.swift in Sources */,
 				7B5FAA7D22BBE3EC00621A44 /* AssetsRepositoryProtocol.swift in Sources */,
 				7B5FAABA22BBE3EC00621A44 /* SigningWalletsProtocol.swift in Sources */,
 				7B5FAA7622BBE3EC00621A44 /* ApplicationVersionRepositoryProtocol.swift in Sources */,
 				7B5FAA8C22BBE3EC00621A44 /* SponsorshipTransactionDomainDTO.swift in Sources */,
 				7B5FAAA922BBE3EC00621A44 /* AnalyticManager+WalletAsset.swift in Sources */,
+				7B5FAACF22BCEA3500621A44 /* AliasesUseCaseProtocol.swift in Sources */,
 				7B5FAABD22BBE3EC00621A44 /* Address.swift in Sources */,
 				7B5FAA6F22BBE3EC00621A44 /* AccountSettingsRepositoryProtocol.swift in Sources */,
 				7B5FAAB622BBE3EC00621A44 /* ApplicationDebugSettings.swift in Sources */,
@@ -5468,22 +5498,25 @@
 				7B5FAA9122BBE3EC00621A44 /* SmartTransactionDomainDTO.swift in Sources */,
 				7B5FAA9922BBE3EC00621A44 /* ExchangeTransactionDomainDTO.swift in Sources */,
 				7B5FAA6C22BBE3EC00621A44 /* Asset+Assistants.swift in Sources */,
-				7B5FAAAC22BBE3EC00621A44 /* AccountBalanceInteractor.swift in Sources */,
-				7B5FAAAD22BBE3EC00621A44 /* AuthorizationInteractor.swift in Sources */,
+				7B5FAAAC22BBE3EC00621A44 /* AccountBalanceUseCase.swift in Sources */,
+				7B5FAAAD22BBE3EC00621A44 /* AuthorizationUseCase.swift in Sources */,
 				7B5FAAA422BBE3EC00621A44 /* WalletEnvironment.swift in Sources */,
 				7B5FAAC022BBE3EC00621A44 /* RXCrypto+SHA.swift in Sources */,
 				7B5FAA8D22BBE3EC00621A44 /* AddressDomainDTO.swift in Sources */,
 				7B5FAABF22BBE3EC00621A44 /* PrivateKeyAccount.swift in Sources */,
 				7B5FAAA122BBE3EC00621A44 /* ContactDomainDTO.swift in Sources */,
+				7B431A8322BCFFA900DE73B9 /* TransactionsUseCaseProtocol.swift in Sources */,
 				7B5FAAA022BBE3EC00621A44 /* CoinomatDomainDTO.swift in Sources */,
 				7B5FAA8F22BBE3EC00621A44 /* DataTransactionDomainDTO.swift in Sources */,
+				7B431A8622BD030600DE73B9 /* AddressUseCaseProtocol.swift in Sources */,
 				7B5FAA6D22BBE3EC00621A44 /* DomainDexQueries.swift in Sources */,
 				7B5FAAB822BBE3EC00621A44 /* SmartTransactionDomain+Assistants.swift in Sources */,
-				7B5FAAB022BBE3EC00621A44 /* MigrationInteractor.swift in Sources */,
+				7B5FAAB022BBE3EC00621A44 /* MigrationUseCase.swift in Sources */,
 				7B5FAA8B22BBE3EC00621A44 /* AliasDomainDTO.swift in Sources */,
 				7B5FAAA822BBE3EC00621A44 /* AnalyticAssetManager.swift in Sources */,
 				7B5FAA6B22BBE3EC00621A44 /* TransactionDomainDTO+Mapper.swift in Sources */,
 				7B5FAA7822BBE3EC00621A44 /* AddressBookRepositoryProtocol.swift in Sources */,
+				7B5FAADB22BCEA4200621A44 /* AccountBalanceUseCaseProtocol.swift in Sources */,
 				7B5FAA7B22BBE3EC00621A44 /* TransactionsRepositoryProtocol.swift in Sources */,
 				7B5FAA8E22BBE3EC00621A44 /* InvokeScriptTransactionDomainDTO.swift in Sources */,
 				7B5FAAAB22BBE3EC00621A44 /* AnalyticManager+Dex.swift in Sources */,
@@ -5492,9 +5525,11 @@
 				7B5FAA8322BBE3EC00621A44 /* EnvironmentRepositoryProtocol.swift in Sources */,
 				7B5FAA9F22BBE3EC00621A44 /* AssetDomainDTO.swift in Sources */,
 				7B5FAA6E22BBE3EC00621A44 /* WalletsRepositoryProtocol.swift in Sources */,
-				7B5FAAB222BBE3EC00621A44 /* AssetsInteractor.swift in Sources */,
+				7B5FAAB222BBE3EC00621A44 /* AssetsUseCase.swift in Sources */,
+				7B431A7E22BCFF3800DE73B9 /* AssetsUseCaseProtocol.swift in Sources */,
 				7B5FAA9822BBE3EC00621A44 /* TransferTransactionDomainDTO.swift in Sources */,
 				7B5FAA7F22BBE3EC00621A44 /* AliasesRepositoryProtocol.swift in Sources */,
+				7B5FAADC22BCEA4200621A44 /* MigrationUseCaseProtocol.swift in Sources */,
 				7B5FAA7E22BBE3EC00621A44 /* BlockRepositoryProtocol.swift in Sources */,
 				7B5FAA7022BBE3EC00621A44 /* CoinomatRepositoryProtocol.swift in Sources */,
 				7B5FAA9322BBE3EC00621A44 /* MassTransferTransactionDomainDTO.swift in Sources */,
@@ -5502,7 +5537,7 @@
 				7B5FAA8822BBE3EC00621A44 /* AssetBalanceDomainDTO.swift in Sources */,
 				7B5FAA9A22BBE3EC00621A44 /* ReissueTransactionDomainDTO.swift in Sources */,
 				7B5FAA9022BBE3EC00621A44 /* AssetScriptTransactionDomainDTO.swift in Sources */,
-				7B5FAA6922BBE3EC00621A44 /* FactoryInteractorsProtocol.swift in Sources */,
+				7B5FAA6922BBE3EC00621A44 /* UseCasesFactoryProtocol.swift in Sources */,
 				7B5FAA9B22BBE3EC00621A44 /* BurnTransactionDomainDTO.swift in Sources */,
 				7B5FAA7922BBE3EC00621A44 /* WalletSeedRepositoryProtocol.swift in Sources */,
 				7B5FAAAA22BBE3EC00621A44 /* AnalyticManager+WalletStart.swift in Sources */,
@@ -5511,6 +5546,7 @@
 				7B5FAA8A22BBE3EC00621A44 /* WalletDomainDTO.swift in Sources */,
 				7B5FAA7122BBE3EC00621A44 /* AddressRepositoryProtocol.swift in Sources */,
 				7B5FAAA722BBE3EC00621A44 /* AnalyticManagerProtocol.swift in Sources */,
+				7B431A8122BCFF7100DE73B9 /* AssetsBalanceSettingsUseCaseProtocol.swift in Sources */,
 				7B5FAAB922BBE3EC00621A44 /* CleanerWalletManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5547,7 +5583,7 @@
 				7B6688B622B7E6C90029E6F1 /* WalletSeedRepositoryLocal.swift in Sources */,
 				7B6688A522B7E6C90029E6F1 /* ApplicationVersionRepository.swift in Sources */,
 				7B66888A22B7E6C90029E6F1 /* AccountEnvironment.swift in Sources */,
-				7B6688C922B7E7610029E6F1 /* FactoryRepositories.swift in Sources */,
+				7B6688C922B7E7610029E6F1 /* RepositoriesFactory.swift in Sources */,
 				7B66889222B7E6C90029E6F1 /* InvokeScriptTransaction+Mapper.swift in Sources */,
 				7B66887522B7E6C90029E6F1 /* IssueTransaction.swift in Sources */,
 				7B66887E22B7E6C90029E6F1 /* ExchangeTransaction.swift in Sources */,

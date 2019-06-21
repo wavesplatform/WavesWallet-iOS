@@ -25,7 +25,7 @@ protocol AccountPasswordInteractorProtocol {
 
 final class AccountPasswordInteractor: AccountPasswordInteractorProtocol {
 
-    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
 
     func logIn(wallet: DomainLayer.DTO.Wallet, password: String) -> Observable<DomainLayer.DTO.Wallet> {
 

@@ -20,12 +20,12 @@ private enum Constants {
 
 final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     
-    private let auth = FactoryInteractors.instance.authorization
-    private let matcherRepository = FactoryInteractors.instance.repositories.matcherRepository
-    private let orderBookRepository = FactoryInteractors.instance.repositories.dexOrderBookRepository
-    private let transactionInteractor = FactoryInteractors.instance.transactions
+    private let auth = UseCasesFactory.instance.authorization
+    private let matcherRepository = UseCasesFactory.instance.repositories.matcherRepository
+    private let orderBookRepository = UseCasesFactory.instance.repositories.dexOrderBookRepository
+    private let transactionInteractor = UseCasesFactory.instance.transactions
     
-    private let environmentRepository = FactoryInteractors.instance.repositories.environmentRepository
+    private let environmentRepository = UseCasesFactory.instance.repositories.environmentRepository
     
     func createOrder(order: DexCreateOrder.DTO.Order) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
         

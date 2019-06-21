@@ -44,7 +44,7 @@ final class AppNewsCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     weak var parent: Coordinator?
 
-    private let notificationNewsRepository: NotificationNewsRepositoryProtocol = FactoryInteractors.instance.repositories.notificationNewsRepository
+    private let notificationNewsRepository: NotificationNewsRepositoryProtocol = UseCasesFactory.instance.repositories.notificationNewsRepository
 
     private let disposeBag: DisposeBag = DisposeBag()
 

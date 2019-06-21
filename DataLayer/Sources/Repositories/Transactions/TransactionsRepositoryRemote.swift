@@ -142,7 +142,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                     signature = try wallet.sign(input: signature, kind: [.none])
                 } catch let e {
                     SweetLogger.error(e)
-                    return Observable.error(TransactionsInteractorError.invalid)
+                    return Observable.error(TransactionsRepositoryError.fail)
                 }
 
                 let proofs = [Base58.encode(signature)]

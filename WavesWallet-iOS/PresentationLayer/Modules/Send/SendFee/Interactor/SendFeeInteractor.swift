@@ -13,9 +13,9 @@ import Extensions
 
 final class SendFeeInteractor: SendFeeInteractorProtocol {
     
-    private let balance = FactoryInteractors.instance.accountBalance
-    private let auth = FactoryInteractors.instance.authorization
-    private let transactions = FactoryInteractors.instance.transactions
+    private let balance = UseCasesFactory.instance.accountBalance
+    private let auth = UseCasesFactory.instance.authorization
+    private let transactions = UseCasesFactory.instance.transactions
     
     func assets() -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
         return balance.balances().map({ (smartAssets) -> [DomainLayer.DTO.SmartAssetBalance] in

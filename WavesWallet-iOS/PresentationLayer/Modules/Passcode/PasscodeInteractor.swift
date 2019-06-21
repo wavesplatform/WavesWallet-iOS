@@ -32,7 +32,7 @@ protocol PasscodeInteractorProtocol {
 final class PasscodeInteractor: PasscodeInteractorProtocol {
 
 
-    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
 
     func changePassword(wallet: DomainLayer.DTO.Wallet, passcode: String, oldPassword: String, newPassword: String) -> Observable<DomainLayer.DTO.Wallet> {
         return authorizationInteractor

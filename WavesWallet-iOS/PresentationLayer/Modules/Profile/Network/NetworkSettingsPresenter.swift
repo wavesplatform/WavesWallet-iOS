@@ -34,9 +34,9 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
     weak var moduleOutput: NetworkSettingsModuleOutput?
     var input: NetworkSettingsModuleInput!
 
-    private var accountSettingsRepository: AccountSettingsRepositoryProtocol = FactoryInteractors.instance.repositories.accountSettingsRepository
+    private var accountSettingsRepository: AccountSettingsRepositoryProtocol = UseCasesFactory.instance.repositories.accountSettingsRepository
     
-    private var environmentRepository: EnvironmentRepositoryProtocol = FactoryInteractors.instance.repositories.environmentRepository
+    private var environmentRepository: EnvironmentRepositoryProtocol = UseCasesFactory.instance.repositories.environmentRepository
 
     private let disposeBag: DisposeBag = DisposeBag()
 

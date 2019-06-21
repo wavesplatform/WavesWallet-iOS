@@ -82,7 +82,7 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
             return state.mutate {
                 $0.isNeedGetFee = false
                 $0.isDisabledSellBuyButton = true
-                if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
+                if let error = error as? TransactionsUseCaseError, error == .commissionReceiving {
                     $0.displayFeeErrorState = .error(DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving))
                 } else {
                     $0.displayFeeErrorState = .error(DisplayError(error: error))
@@ -102,11 +102,11 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
         case .createOrder:
             
             if state.order?.type == .buy {
-                FactoryInteractors.instance.analyticManager.trackEvent(.dex(.buyOrderSuccess(amountAsset: pair.amountAsset.name,
+                UseCasesFactory.instance.analyticManager.trackEvent(.dex(.buyOrderSuccess(amountAsset: pair.amountAsset.name,
                                                                  priceAsset: pair.priceAsset.name)))
             }
             else {
-                FactoryInteractors.instance.analyticManager.trackEvent(.dex(.sellOrderSuccess(amountAsset: pair.amountAsset.name,
+                UseCasesFactory.instance.analyticManager.trackEvent(.dex(.sellOrderSuccess(amountAsset: pair.amountAsset.name,
                                                                  priceAsset: pair.priceAsset.name)))
             }
             
