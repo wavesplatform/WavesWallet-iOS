@@ -43,7 +43,7 @@ enum UITest {
     var window: UIWindow?
 
     var appCoordinator: AppCoordinator!
-    lazy var migrationInteractor: MigrationUseCaseProtocol = UseCasesFactory.instance.migrationInteractor
+    lazy var migrationInteractor: MigrationUseCaseProtocol = UseCasesFactory.instance.migration
     
     #if DEBUG 
     var paws: MonkeyPaws?
@@ -105,7 +105,7 @@ enum UITest {
     func applicationWillEnterForeground(_ application: UIApplication) {}
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        appCoordinator.applicationDidBecomeActive()
+        appCoordinator.applicationDidBecomeActive()        
         AppsFlyerTracker.shared().trackAppLaunch()
     }
 

@@ -35,8 +35,8 @@ final class AliasesPresenter: AliasesPresenterProtocol {
 
     private let disposeBag: DisposeBag = DisposeBag()
 
-    private let transactionsInteractor = FactoryInteractors.instance.transactions
-    private let authorizationInteractor = FactoryInteractors.instance.authorization
+    private let transactionsInteractor = UseCasesFactory.instance.transactions
+    private let authorizationInteractor = UseCasesFactory.instance.authorization
 
     var moduleInput: AliasesModuleInput!
     weak var moduleOutput: AliasesModuleOutput?

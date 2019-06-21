@@ -16,7 +16,7 @@ import DomainLayer
 final class SendInteractor: SendInteractorProtocol {
     
     private let accountBalanceInteractor: AccountBalanceUseCaseProtocol = UseCasesFactory.instance.accountBalance
-    private let assetInteractor = UseCasesFactory.instance.assetsInteractor
+    private let assetInteractor = UseCasesFactory.instance.assets
     private let auth = UseCasesFactory.instance.authorization
     private let coinomatRepository = UseCasesFactory.instance.repositories.coinomatRepository
     private let aliasRepository = UseCasesFactory.instance.repositories.aliasesRepositoryRemote
