@@ -21,6 +21,7 @@ PODS:
     - DomainLayer
     - Extensions
     - Fabric
+    - Firebase
     - Firebase/Auth
     - Firebase/Core
     - Firebase/Database
@@ -57,6 +58,8 @@ PODS:
     - WavesSDKCrypto
     - WavesSDKExtension
   - Fabric (1.10.1)
+  - Firebase (6.0.0):
+    - Firebase/Core (= 6.0.0)
   - Firebase/Auth (6.0.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.0.0)
@@ -267,9 +270,9 @@ DEPENDENCIES:
   - TTTAttributedLabel
   - "UITextView+Placeholder"
   - UPCarouselFlowLayout
-  - WavesSDK (from `/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS`)
-  - WavesSDKCrypto (from `/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS`)
-  - WavesSDKExtension (from `/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS`)
+  - WavesSDK (from `https://github.com/wavesplatform/WavesSDK-iOS.git`, branch `feature/IOS-564`)
+  - WavesSDKCrypto (from `https://github.com/wavesplatform/WavesSDK-iOS.git`, branch `feature/IOS-564`)
+  - WavesSDKExtension (from `https://github.com/wavesplatform/WavesSDK-iOS.git`, branch `feature/IOS-564`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -350,11 +353,14 @@ EXTERNAL SOURCES:
   RESideMenu:
     :git: https://github.com/wavesplatform/RESideMenu.git
   WavesSDK:
-    :path: "/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS"
+    :branch: feature/IOS-564
+    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
   WavesSDKCrypto:
-    :path: "/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS"
+    :branch: feature/IOS-564
+    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
   WavesSDKExtension:
-    :path: "/Users/rprokofev/Works/Waves/Vendors/WavesSDK-iOS"
+    :branch: feature/IOS-564
+    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
 
 CHECKOUT OPTIONS:
   InfiniteCollectionView:
@@ -363,6 +369,15 @@ CHECKOUT OPTIONS:
   RESideMenu:
     :commit: c4870be8caf988b3c164bbf5675a717a905e9952
     :git: https://github.com/wavesplatform/RESideMenu.git
+  WavesSDK:
+    :commit: 58208a52f94c93d420a144f02e9f6134b349cae6
+    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
+  WavesSDKCrypto:
+    :commit: 58208a52f94c93d420a144f02e9f6134b349cae6
+    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
+  WavesSDKExtension:
+    :commit: 58208a52f94c93d420a144f02e9f6134b349cae6
+    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
@@ -376,7 +391,7 @@ SPEC CHECKSUMS:
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   CSV.swift: 947283699fe698d08a4d675d9e642c2bf32418a8
   Curve25519: 4c9483171010b27488a3bac6ee327588a1182fb4
-  DataLayer: 7c2968c0c876888d236bd2797d90157c1fe4f22d
+  DataLayer: 4a49ab95fff9e8db87e0123a07a6e09a0b7d4a2d
   DeviceKit: 5a4accdb2918ce0b69e62dc3bef6e4d2cc06e2e4
   DomainLayer: 25858bba49dd480a61adb36b89bba68f27087c11
   Extensions: 5f1848be75374fd1a579d1423fe85a88438e69f1
@@ -436,6 +451,6 @@ SPEC CHECKSUMS:
   WavesSDKCrypto: 13726c6c30ba60723d56bad89e36c40749e87120
   WavesSDKExtension: 6fc665d55211805012f28c21ef1803310c4f940b
 
-PODFILE CHECKSUM: bb94ecb7903a7e3c5a5620be45d90c80d3fd52aa
+PODFILE CHECKSUM: 6dc080e00f53d61743023701139cad71e728d4b9
 
 COCOAPODS: 1.7.2

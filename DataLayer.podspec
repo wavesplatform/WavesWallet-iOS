@@ -17,6 +17,8 @@ Pod::Spec.new do |spec|
   spec.static_framework = true
   
   # External Service
+  spec.dependency 'Firebase'
+
   spec.dependency 'Firebase/Core'
   spec.dependency 'Firebase/Database'
   spec.dependency 'Firebase/Auth'

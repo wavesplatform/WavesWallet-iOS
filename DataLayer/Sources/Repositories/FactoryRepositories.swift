@@ -77,6 +77,9 @@ public final class FactoryRepositories: FactoryRepositoriesProtocol {
     
     public private(set) lazy var applicationVersionRepository: ApplicationVersionRepositoryProtocol = ApplicationVersionRepository()
     
+    public private(set) lazy var analyticManager: AnalyticManagerProtocol = {
+        return AnalyticManager()
+    }()
     
     public struct Resources {
         

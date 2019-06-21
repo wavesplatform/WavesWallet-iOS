@@ -457,6 +457,7 @@
 		7B5FAAC422BC2C0300621A44 /* SentryNetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951122225CD6AD0030390C /* SentryNetworkLoggerPlugin.swift */; };
 		7B5FAAC522BC2C0300621A44 /* SweetLoggerSentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951124225CD6D80030390C /* SweetLoggerSentry.swift */; };
 		7B5FAAC722BC311800621A44 /* SentryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B66866722B51E250029E6F1 /* SentryManager.swift */; };
+		7B5FAAC822BCD67900621A44 /* AnalyticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAA4922BBE3EC00621A44 /* AnalyticManager.swift */; };
 		7B601B2A2240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B601B292240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift */; };
 		7B66860422B3F70E0029E6F1 /* DomainLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B66860222B3F70E0029E6F1 /* DomainLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6686F222B7C5120029E6F1 /* Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6686F022B7C5120029E6F1 /* Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3144,7 +3145,6 @@
 		7B5FAA4822BBE3EC00621A44 /* AnalyticManager */ = {
 			isa = PBXGroup;
 			children = (
-				7B5FAA4922BBE3EC00621A44 /* AnalyticManager.swift */,
 				7B5FAA4A22BBE3EC00621A44 /* AnalyticManagerProtocol.swift */,
 				7B5FAA4B22BBE3EC00621A44 /* AnalyticAssetManager.swift */,
 				7B5FAA4C22BBE3EC00621A44 /* AnalyticManager+WalletAsset.swift */,
@@ -3519,6 +3519,7 @@
 		7B66886622B7E6C80029E6F1 /* Assisstants */ = {
 			isa = PBXGroup;
 			children = (
+				7B5FAA4922BBE3EC00621A44 /* AnalyticManager.swift */,
 				7B66866722B51E250029E6F1 /* SentryManager.swift */,
 				7B951122225CD6AD0030390C /* SentryNetworkLoggerPlugin.swift */,
 				7B951124225CD6D80030390C /* SweetLoggerSentry.swift */,
@@ -5598,6 +5599,7 @@
 				7B66887322B7E6C90029E6F1 /* LeaseTransaction.swift in Sources */,
 				7B66888322B7E6C90029E6F1 /* DataTransaction.swift in Sources */,
 				7B6688CD22BA37B10029E6F1 /* Results+Limit.swift in Sources */,
+				7B5FAAC822BCD67900621A44 /* AnalyticManager.swift in Sources */,
 				7B6688AD22B7E6C90029E6F1 /* AccountBalanceRepositoryRemote.swift in Sources */,
 				7B6688C522B7E6C90029E6F1 /* NodePlugin.swift in Sources */,
 				7B6688B422B7E6C90029E6F1 /* DexPairsPriceRepositoryRemote.swift in Sources */,
