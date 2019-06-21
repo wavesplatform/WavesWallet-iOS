@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DomainLayer
 
 private enum Constants {
     static let height: CGFloat = 56

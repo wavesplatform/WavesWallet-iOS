@@ -10,6 +10,7 @@ import Foundation
 import RxFeedback
 import RxCocoa
 import RxSwift
+import DomainLayer
 
 protocol WalletSearchPresenterProtocol {
     typealias Feedback = (Driver<WalletSearch.State>) -> Signal<WalletSearch.Event>
@@ -55,7 +56,7 @@ final class WalletSearchPresenter: WalletSearchPresenterProtocol {
             
         case .search(let searchString):
             state.action = .refresh
-            state.sections = WalletSearch.ViewModel.Section.map(from: assets, searchString: searchString)
+            state.sections = WalletSearch.ViewModel.Section.map(from: assets, searchString: searchString, includeSpam: true)
         }
         
     }
@@ -67,7 +68,7 @@ private extension WalletSearch.State {
     static func initialState(assets: [DomainLayer.DTO.SmartAssetBalance]) -> WalletSearch.State {
         
         return WalletSearch.State(assets: assets,
-                                  sections: WalletSearch.ViewModel.Section.map(from: assets),
+                                  sections: WalletSearch.ViewModel.Section.map(from: assets, searchString: "", includeSpam: false),
                                   action: .none)
     }
 
@@ -75,30 +76,33 @@ private extension WalletSearch.State {
 
 extension WalletSearch.ViewModel.Section {
     
-    static func map(from assets: [DomainLayer.DTO.SmartAssetBalance], searchString: String) -> [WalletSearch.ViewModel.Section] {
-       
+    static func map(from assets: [DomainLayer.DTO.SmartAssetBalance], searchString: String, includeSpam: Bool) -> [WalletSearch.ViewModel.Section] {
+        
+        var currentAssets: [DomainLayer.DTO.SmartAssetBalance] = []
+        
         if searchString.count == 0 {
-            return map(from: assets)
+            currentAssets = assets
+        }
+        else {
+            currentAssets = assets.filter { (smartAsset) -> Bool in
+                let asset = smartAsset.asset
+                let searchText = searchString.lowercased()
+                
+                return asset.displayName.lowercased().contains(searchText) ||
+                    asset.id.lowercased() == searchText.replacingOccurrences(of: " ", with: "") ||
+                    asset.ticker?.lowercased().contains(searchText) == true
+            }
         }
         
-        let searchAssets = assets.filter { (smartAsset) -> Bool in
-            let asset = smartAsset.asset
-            let searchText = searchString.lowercased()
-            
-            return asset.displayName.lowercased().contains(searchText) ||
-                asset.id.lowercased() == searchText.replacingOccurrences(of: " ", with: "") ||
-                asset.ticker?.lowercased().contains(searchText) == true
-        }
-        
-        let generalItems = searchAssets
+        let generalItems = currentAssets
             .filter { $0.asset.isSpam != true && $0.settings.isHidden != true }
             .map { WalletSearch.ViewModel.Row.asset($0) }
         
-        var hiddenItems = searchAssets
+        var hiddenItems = currentAssets
             .filter { $0.settings.isHidden == true }
             .map { WalletSearch.ViewModel.Row.asset($0) }
 
-        var spamItems = searchAssets
+        var spamItems = currentAssets
             .filter { $0.asset.isSpam == true }
             .map { WalletSearch.ViewModel.Row.asset($0) }
         
@@ -118,7 +122,7 @@ extension WalletSearch.ViewModel.Section {
             sections.append(hiddenSection)
         }
 
-        if spamItems.count > 0 {
+        if spamItems.count > 0 && includeSpam {
             
             spamItems.insert(.header(.spam), at: 0)
             let spamSection: WalletSearch.ViewModel.Section = .init(kind: .spam,
@@ -127,14 +131,5 @@ extension WalletSearch.ViewModel.Section {
         }
         
         return sections
-    }
-    
-    static func map(from assets: [DomainLayer.DTO.SmartAssetBalance]) -> [WalletSearch.ViewModel.Section] {
-        
-        let generalItems = assets
-            .filter { $0.asset.isSpam != true && $0.settings.isHidden != true }
-            .map { WalletSearch.ViewModel.Row.asset($0) }
-
-        return [.init(kind: .assets,  items: generalItems)]
     }
 }

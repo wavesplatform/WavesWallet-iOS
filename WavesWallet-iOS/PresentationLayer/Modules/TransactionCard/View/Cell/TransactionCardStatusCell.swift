@@ -38,7 +38,7 @@ final class TransactionCardStatusCell: UITableViewCell, Reusable {
     }
 }
 
-// TODO: ViewConfiguration
+// MARK: ViewConfiguration
 
 extension TransactionCardStatusCell: ViewConfiguration {
 

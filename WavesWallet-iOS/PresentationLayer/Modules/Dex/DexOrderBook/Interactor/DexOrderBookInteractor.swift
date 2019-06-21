@@ -8,9 +8,10 @@
 
 import Foundation
 import RxSwift
-import Moya
 import WavesSDKExtension
 import WavesSDK
+import DomainLayer
+import Extensions
 
 private enum Constants {
     static let maxPercent: Float = 99.99
@@ -18,12 +19,12 @@ private enum Constants {
 
 final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
  
-    private let account = FactoryInteractors.instance.accountBalance
-    private let orderBookRepository = FactoryRepositories.instance.dexOrderBookRepository
-    private let lastTradesRepository = FactoryRepositories.instance.lastTradesRespository
-    private let auth = FactoryInteractors.instance.authorization
-    private let assetsInteractor = FactoryInteractors.instance.assetsInteractor
-    private let assetsRepositoryLocal = FactoryRepositories.instance.assetsRepositoryLocal
+    private let account = UseCasesFactory.instance.accountBalance
+    private let orderBookRepository = UseCasesFactory.instance.repositories.dexOrderBookRepository
+    private let lastTradesRepository = UseCasesFactory.instance.repositories.lastTradesRespository
+    private let auth = UseCasesFactory.instance.authorization
+    private let assetsInteractor = UseCasesFactory.instance.assets
+    private let assetsRepositoryLocal = UseCasesFactory.instance.repositories.assetsRepositoryLocal
     
     var pair: DexTraderContainer.DTO.Pair!
     
@@ -39,7 +40,7 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
                                               header: header,
                                               availablePriceAssetBalance: Money(0, self.pair.priceAsset.decimals),
                                               availableAmountAssetBalance: Money(0, self.pair.amountAsset.decimals),
-                                              availableWavesBalance: Money(0, WavesSDKCryptoConstants.WavesDecimals),
+                                              availableWavesBalance: Money(0, WavesSDKConstants.WavesDecimals),
                                               scriptedAssets: [])
         
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DexOrderBook.DTO.DisplayData> in
@@ -152,7 +153,7 @@ private extension DexOrderBookInteractor {
         
         var amountAssetBalance =  Money(0, pair.amountAsset.decimals)
         var priceAssetBalance =  Money(0, pair.priceAsset.decimals)
-        var wavesBalance = Money(0, WavesSDKCryptoConstants.WavesDecimals)
+        var wavesBalance = Money(0, WavesSDKConstants.WavesDecimals)
         
         if let amountAsset = balances.first(where: {$0.assetId == pair.amountAsset.id}) {
             amountAssetBalance = Money(amountAsset.availableBalance, amountAsset.asset.precision)

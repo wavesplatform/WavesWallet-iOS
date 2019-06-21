@@ -28,7 +28,7 @@ final class TransactionCardSponsorshipDetailCell: UITableViewCell, Reusable {
     }
 }
 
-// TODO: ViewConfiguration
+// MARK: ViewConfiguration
 
 extension TransactionCardSponsorshipDetailCell: ViewConfiguration {
 

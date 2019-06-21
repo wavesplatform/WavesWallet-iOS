@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import DomainLayer
+import Extensions
 
 private struct Constants {
     static let maxVisibleRecipients: Int = 3    
@@ -296,7 +298,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         return [section]
     }
 
-    //todo - invokescript
+    //MARK - invokescript
     func invokeScriptSection(tx: DomainLayer.DTO.SmartTransaction.InvokeScript, title: String, subTitle: String) -> [Types.Section] {
         var rows: [Types.Row] = .init()
         
@@ -508,8 +510,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
         var buttonsActions: [TransactionCardActionsCell.Model.Button] = .init()
 
-        if needCancelLeasing && self.status == .activeNow {
-            //TODO: cancelLeasing
+        if needCancelLeasing && self.status == .activeNow {            
             buttonsActions.append(.cancelLeasing)
         }
 

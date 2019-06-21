@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import DomainLayer
 
 extension Coordinator {
 
@@ -54,7 +55,7 @@ final class BackupTostCoordinator: Coordinator {
     weak var parent: Coordinator?
 
     private let disposeBag: DisposeBag = DisposeBag()
-    private let authorization: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let authorization: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let navigationRouter: NavigationRouter
     private var snackBackupSeedKey: String?
 
@@ -116,7 +117,7 @@ final private class BackupContainer: Coordinator {
     weak var parent: Coordinator?
 
     private let disposeBag: DisposeBag = DisposeBag()
-    private let authorization: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let authorization: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let signedWallet: DomainLayer.DTO.SignedWallet
     private let navigationRouter: NavigationRouter
 

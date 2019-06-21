@@ -10,7 +10,7 @@ import Foundation
 import RxCocoa
 import RxFeedback
 import RxSwift
-
+import DomainLayer
 
 protocol NetworkSettingsModuleOutput: AnyObject {
     func networkSettingSavedSetting()
@@ -34,9 +34,9 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
     weak var moduleOutput: NetworkSettingsModuleOutput?
     var input: NetworkSettingsModuleInput!
 
-    private var accountSettingsRepository: AccountSettingsRepositoryProtocol = FactoryRepositories.instance.accountSettingsRepository
+    private var accountSettingsRepository: AccountSettingsRepositoryProtocol = UseCasesFactory.instance.repositories.accountSettingsRepository
     
-    private var environmentRepository: EnvironmentRepositoryProtocol = FactoryRepositories.instance.environmentRepository
+    private var environmentRepository: EnvironmentRepositoryProtocol = UseCasesFactory.instance.repositories.environmentRepository
 
     private let disposeBag: DisposeBag = DisposeBag()
 

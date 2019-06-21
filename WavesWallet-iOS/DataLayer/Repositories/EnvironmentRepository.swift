@@ -12,305 +12,290 @@ import RealmSwift
 import RxRealm
 import RxSwift
 import WavesSDKExtension
-import WavesSDK
+import WavesSDKCrypto
 
 private enum Constants {
     static let minServerTimestampDiff: Int64 = 1000 * 30
 }
 
 private struct EnvironmentKey: Hashable {
+    let accountAddress: String
     let isTestNet: Bool
 }
 
-public final class ApplicationEnviroment: ApplicationEnvironmentProtocol {
-    
-    public let wavesServices: WavesServicesProtocol
-    public private(set) var walletEnvironment: WalletEnvironment
-    public private(set) var timestampServerDiff: Int64
-    
-    init(wavesServices: WavesServicesProtocol, walletEnvironment: WalletEnvironment, timestampServerDiff: Int64) {
-        self.wavesServices = wavesServices
-        self.timestampServerDiff = timestampServerDiff
-        self.walletEnvironment = walletEnvironment
-    }
-}
+final class EnvironmentRepository: EnvironmentRepositoryProtocol {
 
-protocol ServicesEnvironmentRepositoryProtocol {
-    func servicesEnvironment() -> Observable<ApplicationEnviroment>
-}
+    private var isValidServerTimestampDiff = false
+    private let environmentRepository: MoyaProvider<GitHub.Service.Environment> = .nodeMoyaProvider()
+    private let spamProvider: MoyaProvider<Spam.Service.Assets> = .nodeMoyaProvider()
 
-final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnvironmentRepositoryProtocol {
+    private var localEnvironments: BehaviorSubject<[EnvironmentKey: Environment]> = BehaviorSubject<[EnvironmentKey: Environment]>(value: [:])
 
-    private var internalServerTimestampDiff: Int64? = nil
-    
-    private var serverTimestampDiff: Int64? {
-        
-        get {
-            objc_sync_enter(self)
-            defer { objc_sync_exit(self) }
-            return internalServerTimestampDiff
-        }
-        
-        set {
-            objc_sync_enter(self)
-            defer { objc_sync_exit(self) }
-            internalServerTimestampDiff = newValue
-        }
-    }
+    private let utilsProvider: MoyaProvider<Node.Service.Utils> = .nodeMoyaProvider()
 
-    private let environmentRepository: MoyaProvider<GitHub.Service.Environment> = .anyMoyaProvider()
-    private let spamProvider: MoyaProvider<Spam.Service.Assets> = .anyMoyaProvider()
-    
-    private lazy var remoteAccountEnvironmentShare: Observable<WalletEnvironment> = {
-        return remoteEnvironment().share()
-    }()
-    
-    private lazy var setupServicesEnviromentShare: Observable<ApplicationEnviroment>  = self.setupServicesEnviroment().share()
-    
-    private var localEnvironments: BehaviorSubject<[EnvironmentKey: WalletEnvironment]> = BehaviorSubject<[EnvironmentKey: WalletEnvironment]>(value: [:])
-    
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(timeDidChange), name: UIApplication.significantTimeChangeNotification, object: nil)
     }
     
-    func deffaultEnvironment(accountAddress: String) -> Observable<WalletEnvironment> {
-        return remoteAccountEnvironmentShare
+    func deffaultEnvironment(accountAddress: String) -> Observable<Environment> {
+        return remoteEnvironment(accountAddress: accountAddress)
     }
 
-    func accountEnvironment(accountAddress: String) -> Observable<WalletEnvironment> {
-        return setupServicesEnviromentShare.map { $0.walletEnvironment }
-    }
-//<<<<<<< HEAD
-    
-    func applicationEnvironment() -> Observable<ApplicationEnvironmentProtocol> {
-        return setupServicesEnviromentShare.map { $0 as ApplicationEnvironmentProtocol }
-    }
-//=======
-//
-//    private func remoteEnvironment(accountAddress: String) -> Observable<Environment> {
-//
-//        //TODO: function call 6 times, after user input passcode
-//        return environmentRepository
-//            .rx
-//            .request(.get(isTestNet: Environment.isTestNet, hasProxy: true))
-//            .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
-//                guard let self = self else { return Single.never() }
-//                return self
-//                    .environmentRepository
-//                    .rx
-//                    .request(.get(isTestNet: Environment.isTestNet, hasProxy: false))
-//            })
-//            .map(Environment.self)
-//            .catchError { error -> Single<Environment> in
-//                return Single.just(Environment.current)
-//            }
-//            .asObservable()
-//            .flatMap({ [weak self] (environment) -> Observable<Environment> in
-//                guard let self = self else { return Observable.empty() }
-//                return self.updateTimestampServerDiff(environment: environment)
-//            })
-//>>>>>>> develop
-//    }
-    
-    func setSpamURL(_ url: String, by accountAddress: String) -> Observable<Bool> {
-        //Method move to AccountSettingsRepository
-        return Observable.never()
-    }
-    
-    func servicesEnvironment() -> Observable<ApplicationEnviroment> {
-        return setupServicesEnviromentShare.sweetDebug("id-\(NSUUID.init().uuidString)")
-    }
-}
+    func accountEnvironment(accountAddress: String) -> Observable<Environment> {
 
-private extension EnvironmentRepository {
-    
-    private func setupServicesEnviroment() -> Observable<ApplicationEnviroment> {
-        
-        return self.ifNeedRemoteEnvironment()
-            .flatMap { [weak self] (enviroment) -> Observable<WalletEnvironment> in
-                
-                guard let self = self else {
-                    return Observable.never()
-                }
-                return self.saveEnvironmentToMemory(environment: enviroment)
-            }
-            .flatMap { [weak self] (enviroment) -> Observable<ApplicationEnviroment> in
-                
-                guard let self = self else {
-                    return Observable.never()
-                }
-                
-                return self.initializationService(environment: enviroment)
-                    .map { services in ApplicationEnviroment(wavesServices: services,
-                                                             walletEnvironment: enviroment,
-                                                             timestampServerDiff: 0) }
-            }
-            .flatMap { [weak self] (servicesEnviroment) -> Observable<ApplicationEnviroment> in
-                
-                guard let self = self else {
-                    return Observable.never()
-                }
-                
-                if let serverTimestampDiff = self.serverTimestampDiff {
-                    return Observable.just(ApplicationEnviroment(wavesServices: servicesEnviroment.wavesServices,
-                                                                 walletEnvironment: servicesEnviroment.walletEnvironment,
-                                                                 timestampServerDiff: serverTimestampDiff))
-                } else {
-                    return self.timestampServerDiff(wavesServices: servicesEnviroment.wavesServices)
-                        .do(onNext: { [weak self] (serverTimestampDiff) in
-                            guard let self = self else {
-                                return
-                            }
-                            self.serverTimestampDiff = serverTimestampDiff
-                        })
-                        .map { time in
-                            return ApplicationEnviroment(wavesServices: servicesEnviroment.wavesServices,
-                                                         walletEnvironment: servicesEnviroment.walletEnvironment,
-                                                         timestampServerDiff: time)
-                    }
-                }
-            }
-            .flatMap({ (enviroment) -> Observable<ApplicationEnviroment> in
-                
-                var enviromentService = WavesSDK.shared.enviroment
-                enviromentService.timestampServerDiff = enviroment.timestampServerDiff
-                WavesSDK.shared.enviroment = enviromentService
-                
-                return Observable.just(enviroment)
+        var deffaultEnvironment: Observable<Environment>!
+
+        if let enviroment = localEnvironment(by: .init(accountAddress: accountAddress, isTestNet: Environment.isTestNet)),
+            isValidServerTimestampDiff {
+            deffaultEnvironment = Observable.just(enviroment)
+        } else {
+            deffaultEnvironment = remoteEnvironment(accountAddress: accountAddress)
+        }
+
+        let accountEnvironment = self.localAccountEnvironment(accountAddress: accountAddress)
+
+        return Observable
+            .zip(deffaultEnvironment, accountEnvironment)
+            .flatMap(weak: self, selector: { (owner, environments) -> Observable<Environment> in
+
+                let environment: Environment = owner.merge(environment: environments.0, with: environments.1)
+                return Observable.just(environment)
             })
-        
-    }
-    
-    private func initializationService(environment: WalletEnvironment) -> Observable<WavesServicesProtocol> {
-        
-        return Observable.create { (observer) -> Disposable in
-            
-            
-            let server: Enviroment.Server = .custom(node: environment.servers.nodeUrl,
-                                                    matcher: environment.servers.matcherUrl,
-                                                    data: environment.servers.dataUrl,
-                                                    scheme: environment.scheme)
-            if WavesSDK.isInitialized() {
-                
-                var enviromentService = WavesSDK.shared.enviroment
-                enviromentService.server = server
-                    
-                WavesSDK.shared.enviroment = enviromentService
+            .do(onNext: { [weak self] environment in
 
-                observer.onNext(WavesSDK.shared.services)
-                observer.onCompleted()
-                return Disposables.create()
-            }
-            
-            WavesSDK.initialization(servicesPlugins: .init(data: [SentryNetworkLoggerPlugin()],
-                                                           node: [SentryNetworkLoggerPlugin(),
-                                                                  NodePlugin()],
-                                                           matcher: [SentryNetworkLoggerPlugin()]),
-                                    enviroment: .init(server: server, timestampServerDiff: 0))
-            observer.onNext(WavesSDK.shared.services)
-            observer.onCompleted()
-            
-            return Disposables.create()
-        }
-    }
-    
-    private func saveEnvironmentToMemory(environment: WalletEnvironment) -> Observable<WalletEnvironment> {
-        return Observable.create { [weak self] (observer) -> Disposable in
-            
-            guard let self = self else {
-                return Disposables.create()
-            }
-            
-            let key = EnvironmentKey(isTestNet: WalletEnvironment.isTestNet)
-            
-            //TODO: mutex
-            if let value = try? self.localEnvironments.value() {
-                var newValue = value
-                newValue[key] = environment
-                self.localEnvironments.onNext(newValue)
-            } else {
-                self.localEnvironments.onNext([key: environment])
-            }
-            
-            observer.onNext(environment)
-            observer.onCompleted()
-            
-            return Disposables.create()
-        }
-    }
-    
-    private func ifNeedRemoteEnvironment() -> Observable<WalletEnvironment> {
-        
-        return Observable<WalletEnvironment>.create({ [weak self] (observer) -> Disposable in
-            
-            guard let self = self else {
-                return Disposables.create()
-            }
-            
-            let key = EnvironmentKey(isTestNet: WalletEnvironment.isTestNet)
-            
-            var disposables: [Disposable] = .init()
-            
-            if let enviroment = self.localEnvironment(by: key) {
-                observer.onNext(enviroment)
-                observer.onCompleted()
-            } else {
-                let disposable = self.remoteAccountEnvironmentShare.bind(to: observer)
-                disposables.append(disposable)
-            }
-            
-            return Disposables.create(disposables)
-        })
-    }
-    
-    private func remoteEnvironment() -> Observable<WalletEnvironment> {
+                guard let self = self else {
+                    return
+                }
 
+                let key = EnvironmentKey(accountAddress: accountAddress, isTestNet: Environment.isTestNet)
+
+                if let value = try? self.localEnvironments.value() {
+                    var newValue = value
+                    newValue[key] = environment
+                    self.localEnvironments.onNext(newValue)
+                } else {
+                    self.localEnvironments.onNext([key: environment])
+                }
+            })
+    }
+
+    private func remoteEnvironment(accountAddress: String) -> Observable<Environment> {
+
+        //TODO: function call 6 times, after user input passcode
         return environmentRepository
             .rx
-            .request(.get(isTestNet: WalletEnvironment.isTestNet, hasProxy: true))
+            .request(.get(isTestNet: Environment.isTestNet, hasProxy: true))            
             .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
                 guard let self = self else { return Single.never() }
                 return self
                     .environmentRepository
                     .rx
-                    .request(.get(isTestNet: WalletEnvironment.isTestNet, hasProxy: false))
+                    .request(.get(isTestNet: Environment.isTestNet, hasProxy: false))
             })
-            .map(WalletEnvironment.self)
-            .catchError { error -> Single<WalletEnvironment> in
-                return Single.just(WalletEnvironment.current)
+            .map(Environment.self)
+            .catchError { error -> Single<Environment> in
+                return Single.just(Environment.current)
             }
             .asObservable()
+            .flatMap({ [weak self] (environment) -> Observable<Environment> in
+                guard let self = self else { return Observable.empty() }
+                return self.updateTimestampServerDiff(environment: environment)
+            })
     }
-    
-    private func localEnvironment(by key: EnvironmentKey) -> WalletEnvironment? {
-        
+
+    func setSpamURL(_ url: String, by accountAddress: String) -> Observable<Bool> {
+        return Observable.create({ [weak self] (observer) -> Disposable in
+
+            guard let self = self else {
+                return Disposables.create()
+            }
+
+            guard url.isValidUrl else {
+                observer.onError(EnvironmentRepositoryError.invalidURL)
+                return Disposables.create()
+            }
+
+            guard let link = URL(string: url) else {
+                observer.onError(EnvironmentRepositoryError.invalidURL)
+                return Disposables.create()
+            }
+
+            let disposable = self.spamProvider
+                .rx
+                .request(.getSpamList(hasProxy: true))
+                .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
+                    guard let self = self else { return Single.never() }
+                    return self.spamProvider
+                        .rx
+                        .request(.getSpamListByUrl(url: link))
+                })
+                .flatMap({ response -> Single<Bool> in
+
+                    do {
+                        _ = try SpamCVC.addresses(from: response.data)
+                        return Single.just(true)
+                    } catch _ {
+                        return Single.error(EnvironmentRepositoryError.invalidResponse)
+                    }
+                })
+                .asObservable()
+                .flatMap({ [weak self] _ -> Observable<DomainLayer.DTO.AccountEnvironment?> in
+
+                    guard let self = self else {
+                        return Observable.never()
+                    }
+                    return self.localAccountEnvironment(accountAddress: accountAddress)
+                })
+                .flatMap({ [weak self] account -> Observable<Bool> in
+
+                    guard let self = self else {
+                        return Observable.never()
+                    }
+
+                    var newAccount = account ?? DomainLayer.DTO.AccountEnvironment()
+                    newAccount.spamUrl = url
+
+                    return self.saveAccountEnvironment(newAccount, accountAddress: accountAddress)
+                })
+                .subscribe(observer)
+
+            return Disposables.create([disposable])
+        })
+        .sweetDebug("setURL")
+    }
+
+    private func localEnvironment(by key: EnvironmentKey) -> Environment? {
+
         if let value = try? localEnvironments.value() {
             return value[key]
         }
-        
+
         return nil
-    }    
+    }
+
+    private func localAccountEnvironment(accountAddress: String) -> Observable<DomainLayer.DTO.AccountEnvironment?> {
+        return Observable.create { observer -> Disposable in
+            
+            //TODO: Error
+            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
+
+            let result = realm.objects(AccountEnvironment.self)
+
+            guard let environment = result.toArray().first else {
+                observer.onNext(nil)
+                observer.onCompleted()
+                return Disposables.create()
+            }
+
+            observer.onNext(.init(nodeUrl: environment.nodeUrl,
+                                  dataUrl: environment.dataUrl,
+                                  spamUrl: environment.spamUrl,
+                                  matcherUrl: environment.matcherUrl))
+            observer.onCompleted()
+
+            return Disposables.create()
+        }
+    }
+
+    private func saveAccountEnvironment(_ accountEnvironment: DomainLayer.DTO.AccountEnvironment, accountAddress: String) -> Observable<Bool> {
+        return Observable.create { observer -> Disposable in
+            
+            //TODO: Error
+            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
+
+            try? realm.write {
+                realm
+                    .objects(AccountEnvironment.self)
+                    .toArray()
+                    .forEach({ account in
+                        account.realm?.delete(account)
+                    })
+                let environment = AccountEnvironment()
+                environment.dataUrl = accountEnvironment.dataUrl
+                environment.matcherUrl = accountEnvironment.matcherUrl
+                environment.nodeUrl = accountEnvironment.nodeUrl
+                environment.spamUrl = accountEnvironment.spamUrl
+                realm.add(environment, update: false)
+            }
+            observer.onNext(true)
+            observer.onCompleted()
+
+            return Disposables.create()
+        }
+    }
+
+    func merge(environment: Environment, with accountEnvironment: DomainLayer.DTO.AccountEnvironment?) -> Environment {
+
+        var servers: Environment.Servers!
+
+        if let accountEnvironmet = accountEnvironment {
+
+            var dataUrl: URL!
+            var matcherUrl: URL!
+            var nodeUrl: URL!
+            var spamUrl: URL!
+
+            if let data = accountEnvironmet.dataUrl {
+                dataUrl = URL(string: data)
+            }
+
+            if let matcher = accountEnvironmet.matcherUrl {
+                matcherUrl = URL(string: matcher)
+            }
+
+            if let node = accountEnvironmet.nodeUrl {
+                nodeUrl = URL(string: node)
+            }
+
+            if let spam = accountEnvironmet.spamUrl {
+                spamUrl = URL(string: spam)
+            }
+
+            dataUrl = dataUrl ?? environment.servers.dataUrl
+            matcherUrl = matcherUrl ?? environment.servers.matcherUrl
+            nodeUrl = nodeUrl ?? environment.servers.nodeUrl
+            spamUrl = spamUrl ?? environment.servers.spamUrl
+
+            servers = .init(nodeUrl: nodeUrl,
+                            dataUrl: dataUrl,
+                            spamUrl: spamUrl,
+                            matcherUrl: matcherUrl)
+        } else {
+            servers = environment.servers
+        }
+
+        return Environment(name: environment.name,
+                           servers: servers,
+                           scheme: environment.scheme,
+                           generalAssets: environment.generalAssets,
+                           assets: environment.assets)
+    }
 }
 
 private extension EnvironmentRepository {
     
     @objc func timeDidChange() {
-        serverTimestampDiff = nil
+        isValidServerTimestampDiff = false
     }
     
-    func timestampServerDiff(wavesServices: WavesServicesProtocol) -> Observable<Int64> {
+    func updateTimestampServerDiff(environment: Environment) -> Observable<Environment> {
 
-        return wavesServices
-            .nodeServices
-            .utilsNodeService
-            .time()
-            .flatMap({ [weak self] (time) -> Observable<Int64> in
-                
-                let localTimestamp = Int64(Date().timeIntervalSince1970 * 1000)
-                let diff = localTimestamp - time.NTP
-                let timestamp = abs(diff) > Constants.minServerTimestampDiff ? diff : 0
-                
-                return Observable.just(timestamp)
-            })
+        return utilsProvider.rx.request(.init(environment: environment, kind: .time),
+                                        callbackQueue: DispatchQueue.global(qos: .userInteractive))
+        .map(Node.DTO.Utils.Time.self)
+        .asObservable()
+        .flatMap({ [weak self] (time) -> Observable<Environment> in
+            
+            guard let self = self else { return Observable.empty() }
+            self.isValidServerTimestampDiff = true
+            
+            let localTimestamp = Int64(Date().timeIntervalSince1970 * 1000)
+            let diff = localTimestamp - time.NTP
+            let timestamp = abs(diff) > Constants.minServerTimestampDiff ? diff : 0
+            
+            Environment.updateTimestampServerDiff(timestamp)
+
+            return Observable.just(environment)
+        })
     }
 }

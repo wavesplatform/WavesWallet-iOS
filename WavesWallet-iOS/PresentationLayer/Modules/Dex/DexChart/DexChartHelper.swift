@@ -8,6 +8,7 @@
 
 import Foundation
 import Charts
+import DomainLayer
 
 private enum Constants {    
     typealias ChartContants = DexChart.ChartConstants

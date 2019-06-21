@@ -11,8 +11,9 @@ import RxSwift
 import RxCocoa
 import RxFeedback
 import WavesSDKExtension
-
 import WavesSDK
+import Extensions
+import DomainLayer
 
 private enum Constants {
     static let borderWidth: CGFloat = 0.5
@@ -84,7 +85,7 @@ final class StartLeasingViewController: UIViewController {
         let vc = StartLeasingConfirmModuleBuilder(output: output, errorDelegate: self).build(input: .send(order))
         navigationController?.pushViewController(vc, animated: true)
         
-        AnalyticManager.trackEvent(.leasing(.leasingSendTap))
+        UseCasesFactory.instance.analyticManager.trackEvent(.leasing(.leasingSendTap))
     }
 }
 
@@ -117,7 +118,7 @@ private extension StartLeasingViewController {
                 self.setupData()
             }, onError: { [weak self] (error) in
                 guard let self = self else { return }
-                if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
+                if let error = error as? TransactionsUseCaseError, error == .commissionReceiving {
                     self.showFeeError(DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving))
                 } else {
                     self.showFeeError(DisplayError(error: error))

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import DomainLayer
 
 protocol AddressBookModuleOutput: AnyObject {
     func addressBookDidSelectContact(_ contact: DomainLayer.DTO.Contact)

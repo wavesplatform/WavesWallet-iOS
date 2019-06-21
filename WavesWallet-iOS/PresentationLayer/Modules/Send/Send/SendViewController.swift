@@ -11,8 +11,9 @@ import RxSwift
 import RxFeedback
 import RxCocoa
 import WavesSDKExtension
-
 import WavesSDK
+import Extensions
+import DomainLayer
 
 protocol SendResultDelegate: AnyObject {
     func sendResultDidFail(_ error: NetworkError)
@@ -53,7 +54,7 @@ final class SendViewController: UIViewController {
     private var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
     private var amount: Money?
     private var wavesFee: Money?
-    private var feeAssetID = WavesSDKCryptoConstants.wavesAssetId
+    private var feeAssetID = WavesSDKConstants.wavesAssetId
     private var feeAssetBalance: DomainLayer.DTO.SmartAssetBalance?
     private var currentFee: Money?
     
@@ -79,7 +80,7 @@ final class SendViewController: UIViewController {
         else {
             if feeAssetID == asset.assetId {
                 if asset.asset.isWaves {
-                    balance = asset.availableBalance - (currentFee?.amount ?? WavesSDKCryptoConstants.WavesTransactionFeeAmount)
+                    balance = asset.availableBalance - (currentFee?.amount ?? WavesSDKConstants.WavesTransactionFeeAmount)
                 }
                 else {
                     balance = asset.availableBalance - (currentFee?.amount ?? 0)
@@ -190,7 +191,7 @@ final class SendViewController: UIViewController {
         guard let asset = selectedAsset?.asset else { return }
         guard let fee = currentFee else { return }
         
-        let feeName = feeAssetID == WavesSDKCryptoConstants.wavesAssetId ? "WAVES" : (feeAssetBalance?.asset.displayName ?? "")
+        let feeName = feeAssetID == WavesSDKConstants.wavesAssetId ? "WAVES" : (feeAssetBalance?.asset.displayName ?? "")
         var address = recipientAddressView.text
         var amount = amountWithoutFee
         var isGateway = false
@@ -222,7 +223,7 @@ final class SendViewController: UIViewController {
         
         navigationController?.pushViewController(vc, animated: true)
         
-        AnalyticManager.trackEvent(.walletAsset(.sendTap(assetName: asset.displayName)))
+        UseCasesFactory.instance.analyticManager.trackEvent(.walletAsset(.sendTap(assetName: asset.displayName)))
     }
     
     @IBAction private func continueTapped(_ sender: Any) {
@@ -500,7 +501,7 @@ private extension SendViewController {
         }
 
         wavesFee = fee
-        if feeAssetID != WavesSDKCryptoConstants.wavesAssetId, let asset = feeAssetBalance?.asset {
+        if feeAssetID != WavesSDKConstants.wavesAssetId, let asset = feeAssetBalance?.asset {
             currentFee = SendFee.DTO.calculateSponsoredFee(by: asset, wavesFee: fee)
         }
         else {
@@ -513,7 +514,7 @@ private extension SendViewController {
     }
     
     func updateActualFee() {
-        if feeAssetID == WavesSDKCryptoConstants.wavesAssetId {
+        if feeAssetID == WavesSDKConstants.wavesAssetId {
             let fee = currentFee ?? UIGlobalConstants.WavesTransactionFee
             viewFee.update(with: .init(fee: fee, assetName: nil))
         }
@@ -569,7 +570,7 @@ private extension SendViewController {
             var feeText: String = ""
             let currentFeeText = currentFee?.displayText ?? ""
             
-            if feeAssetID == WavesSDKCryptoConstants.wavesAssetId {
+            if feeAssetID == WavesSDKConstants.wavesAssetId {
                 feeText = currentFeeText + " " + "WAVES"
             }
             else {

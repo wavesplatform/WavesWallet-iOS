@@ -10,6 +10,7 @@ import Foundation
 import RxCocoa
 import RxFeedback
 import RxSwift
+import DomainLayer
 
 protocol ChooseAccountModuleOutput: AnyObject {
     func userChooseAccount(wallet: DomainLayer.DTO.Wallet, passcodeNotCreated: Bool) -> Void
@@ -40,7 +41,7 @@ final class ChooseAccountPresenter: ChooseAccountPresenterProtocol {
     var input: ChooseAccountModuleInput!
     weak var moduleOutput: ChooseAccountModuleOutput?
 
-    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
 
     private let disposeBag: DisposeBag = DisposeBag()
 
@@ -109,7 +110,7 @@ final class ChooseAccountPresenter: ChooseAccountPresenterProtocol {
                 .hasPermissionToLoggedIn(wallet)
                 .map { _ in Types.Event.openWallet(wallet, passcodeNotCreated: false) }
                 .asSignal(onErrorRecover: { error -> Signal<Types.Event> in
-                    if case AuthorizationInteractorError.passcodeNotCreated? = error as? AuthorizationInteractorError {
+                    if case AuthorizationUseCaseError.passcodeNotCreated? = error as? AuthorizationUseCaseError {
                         return Signal.just(Types.Event.openWallet(wallet, passcodeNotCreated: true))
                     }
                     return Signal.never()

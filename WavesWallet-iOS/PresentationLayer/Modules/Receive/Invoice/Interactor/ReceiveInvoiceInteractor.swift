@@ -9,6 +9,8 @@
 import Foundation
 import RxSwift
 import WavesSDKExtension
+import DomainLayer
+import Extensions
 
 private enum Constancts {
     static let baseUrl = "https://client.wavesplatform.com/"
@@ -19,7 +21,7 @@ final class ReceiveInvoiceInteractor: ReceiveInvoiceInteractorProtocol {
  
     func displayInfo(asset: DomainLayer.DTO.Asset, amount: Money) -> Observable<ReceiveInvoice.DTO.DisplayInfo> {
 
-        let authAccount = FactoryInteractors.instance.authorization
+        let authAccount = UseCasesFactory.instance.authorization
         return authAccount.authorizedWallet()
         .flatMap({ signedWallet -> Observable<ReceiveInvoice.DTO.DisplayInfo> in
             

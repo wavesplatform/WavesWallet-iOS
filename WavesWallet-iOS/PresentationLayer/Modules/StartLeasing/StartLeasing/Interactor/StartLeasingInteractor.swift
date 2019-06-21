@@ -8,11 +8,13 @@
 
 import Foundation
 import RxSwift
+import Extensions
+import DomainLayer
 
 final class StartLeasingInteractor: StartLeasingInteractorProtocol {
 
-    private let transactionInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
-    private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
+    private let transactionInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
+    private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
 
     func createOrder(order: StartLeasingTypes.DTO.Order) -> Observable<DomainLayer.DTO.SmartTransaction> {
 

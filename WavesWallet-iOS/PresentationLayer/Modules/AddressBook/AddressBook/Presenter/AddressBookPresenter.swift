@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxFeedback
 import RxCocoa
+import Extensions
 
 final class AddressBookPresenter: AddressBookPresenterProtocol {
     

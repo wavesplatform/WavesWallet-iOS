@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import RxFeedback
 import RxCocoa
-
+import DomainLayer
 
 final class SendPresenter: SendPresenterProtocol {
     
@@ -112,7 +112,7 @@ final class SendPresenter: SendPresenterProtocol {
 
             return state.mutate {
                 $0.isNeedLoadWavesFee = false
-                if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
+                if let error = error as? TransactionsUseCaseError, error == .commissionReceiving {
                     $0.action = .didHandleFeeError(.message(Localizable.Waves.Transaction.Error.Commission.receiving))
                 } else {
                     $0.action = .didHandleFeeError(DisplayError(error: error))

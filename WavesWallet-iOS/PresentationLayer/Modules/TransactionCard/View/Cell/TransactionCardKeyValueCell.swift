@@ -64,7 +64,7 @@ final class TransactionCardKeyValueCell: UITableViewCell, Reusable {
     }
 }
 
-// TODO: ViewConfiguration
+// MARK: ViewConfiguration
 
 extension TransactionCardKeyValueCell: ViewConfiguration {
 

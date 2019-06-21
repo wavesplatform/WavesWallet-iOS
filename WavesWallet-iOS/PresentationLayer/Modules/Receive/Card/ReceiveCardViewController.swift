@@ -11,8 +11,9 @@ import RxSwift
 import RxCocoa
 import RxFeedback
 import WavesSDKExtension
-
 import WavesSDK
+import DomainLayer
+import Extensions
 
 final class ReceiveCardViewController: UIViewController {
 
@@ -37,7 +38,7 @@ final class ReceiveCardViewController: UIViewController {
     private var amountUSDInfo: ReceiveCard.DTO.AmountInfo?
     private var amountEURInfo: ReceiveCard.DTO.AmountInfo?
     private var asset: DomainLayer.DTO.SmartAssetBalance?
-    private var amount: Money = Money(0, WavesSDKCryptoConstants.FiatDecimals)
+    private var amount: Money = Money(0, WavesSDKConstants.FiatDecimals)
     private var urlLink = ""
     
     override func viewDidLoad() {
@@ -63,7 +64,7 @@ final class ReceiveCardViewController: UIViewController {
         let vc = StoryboardScene.Receive.receiveCardCompleteViewController.instantiate()
         navigationController?.pushViewController(vc, animated: false)
         
-        AnalyticManager.trackEvent(.walletAsset(.cardReceiveTap))
+        UseCasesFactory.instance.analyticManager.trackEvent(.walletAsset(.cardReceiveTap))
     }
     
     @IBAction private func changeCurrency(_ sender: Any) {

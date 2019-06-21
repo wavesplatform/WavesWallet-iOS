@@ -10,6 +10,8 @@ import Foundation
 import RxCocoa
 import RxFeedback
 import RxSwift
+import DomainLayer
+import Extensions
 
 private enum ReactQuery {
     case new
@@ -74,7 +76,7 @@ final class WalletPresenter: WalletPresenterProtocol {
     
     private func queryCleanWallet() -> Feedback {
         return react(request: { (state) -> Bool? in
-            return state.assets.count > 0 && state.isNeedRunQueryCheckCleanWalletBanner ? true : nil
+            return true
             
         }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
             
@@ -291,13 +293,7 @@ final class WalletPresenter: WalletPresenterProtocol {
 
         case .setAssets(let response):
             
-            if state.isNeedRunQueryCheckCleanWalletBanner {
-                state.action = .none
-            }
-            else {
-                state.action = .update
-            }
-
+            state.action = .update
             let sections = WalletTypes.ViewModel.Section.map(from: response)
             state.displayState = state.displayState.updateDisplay(kind: .assets,
                                                                   sections: sections)
@@ -345,18 +341,7 @@ final class WalletPresenter: WalletPresenterProtocol {
 
         case .isShowCleanWalletBanner(let isShowCleanWalletBanner):
             state.isShowCleanWalletBanner = isShowCleanWalletBanner
-
-            if state.isNeedRunQueryCheckCleanWalletBanner {
-                state.isNeedRunQueryCheckCleanWalletBanner = false
-                
-                var currentDisplay = state.displayState.currentDisplay
-                currentDisplay.animateType = .refresh(animated: false)
-                state.displayState.currentDisplay = currentDisplay
-                state.action = .update
-            }
-            else {
-                state.action = .none
-            }
+            state.action = .none
             
         case .setCleanWalletBanner:
             state.isNeedCleanWalletBanner = true

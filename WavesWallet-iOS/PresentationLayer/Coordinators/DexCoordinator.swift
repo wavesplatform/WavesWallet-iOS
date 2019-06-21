@@ -9,6 +9,8 @@
 import UIKit
 import RxSwift
 import WavesSDKExtension
+import Extensions
+import DomainLayer
 
 private struct SettingsScriptPair: TSUD, Codable, Mutating  {
     
@@ -63,7 +65,7 @@ private struct SettingsScriptPair: TSUD, Codable, Mutating  {
 
 final class DexCoordinator: Coordinator {
 
-    private let auth = FactoryInteractors.instance.authorization
+    private let auth = UseCasesFactory.instance.authorization
     private let dispose = DisposeBag()
     
     var childCoordinators: [Coordinator] = []

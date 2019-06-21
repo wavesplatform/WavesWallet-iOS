@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import WavesSDK
+import DomainLayer
 
 final class StartLeasingLoadingViewController: UIViewController {
 
@@ -17,8 +18,8 @@ final class StartLeasingLoadingViewController: UIViewController {
     var input: StartLeasingTypes.Input!
     
     private let startLeasingInteractor: StartLeasingInteractorProtocol = StartLeasingInteractor()
-    private let transactions = FactoryInteractors.instance.transactions
-    private let authorization = FactoryInteractors.instance.authorization
+    private let transactions = UseCasesFactory.instance.transactions
+    private let authorization = UseCasesFactory.instance.authorization
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -56,8 +57,9 @@ final class StartLeasingLoadingViewController: UIViewController {
 
                 let vc = StoryboardScene.StartLeasing.startLeasingCompleteViewController.instantiate()
                 vc.kind = self.input.kind
+                vc.output = self.input.output
+                vc.transaction = transaction
                 self.navigationController?.pushViewController(vc, animated: true)
-                self.input.output?.startLeasingDidSuccess(transaction: transaction, kind: self.input.kind)
 
             }, onError: { [weak self] (error) in
 
@@ -79,8 +81,9 @@ final class StartLeasingLoadingViewController: UIViewController {
 
                 let vc = StoryboardScene.StartLeasing.startLeasingCompleteViewController.instantiate()
                 vc.kind = self.input.kind
+                vc.output = self.input.output
+                vc.transaction = transaction
                 self.navigationController?.pushViewController(vc, animated: true)
-                self.input.output?.startLeasingDidSuccess(transaction: transaction, kind: self.input.kind)
 
             }, onError: { [weak self] (error) in
                 guard let self = self else { return }

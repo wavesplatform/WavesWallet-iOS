@@ -8,6 +8,7 @@
 
 import Foundation
 import RxCocoa
+import DomainLayer
 
 protocol DexLastTradesPresenterProtocol {
     typealias Feedback = (Driver<DexLastTrades.State>) -> Signal<DexLastTrades.Event>

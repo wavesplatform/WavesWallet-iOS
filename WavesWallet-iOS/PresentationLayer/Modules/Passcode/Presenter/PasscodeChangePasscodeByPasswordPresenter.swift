@@ -10,6 +10,7 @@ import Foundation
 import RxCocoa
 import RxFeedback
 import RxSwift
+import DomainLayer
 
 private struct ChangePasscodeByPasswordQuery: Hashable {
     let wallet: DomainLayer.DTO.Wallet

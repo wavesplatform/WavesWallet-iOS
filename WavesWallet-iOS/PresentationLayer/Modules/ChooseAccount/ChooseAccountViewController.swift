@@ -12,6 +12,7 @@ import RxCocoa
 import RxSwift
 import RxFeedback
 import MGSwipeTableCell
+import DomainLayer
 
 private enum Constants {
     static let swipeButtonWidth: CGFloat = 72

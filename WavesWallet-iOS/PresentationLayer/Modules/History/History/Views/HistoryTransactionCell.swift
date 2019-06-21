@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DomainLayer
 
 private enum Constansts {
     static let height: CGFloat = 76

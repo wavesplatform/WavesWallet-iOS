@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import Kingfisher
+import DomainLayer
 
 enum AssetLogo: String {
     case waves = "waves"

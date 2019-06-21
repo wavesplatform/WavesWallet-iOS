@@ -8,6 +8,8 @@
 
 import Foundation
 import WavesSDK
+import DomainLayer
+import Extensions
 
 private enum Constants {
     static let wavesMinFee: Decimal = 0.001

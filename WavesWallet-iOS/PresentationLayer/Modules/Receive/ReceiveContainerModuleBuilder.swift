@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DomainLayer
 
 struct ReceiveContainerModuleBuilder: ModuleBuilder {
     
