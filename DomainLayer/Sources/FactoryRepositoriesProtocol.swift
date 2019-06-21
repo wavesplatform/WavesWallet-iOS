@@ -57,6 +57,8 @@ public protocol FactoryRepositoriesProtocol {
     var notificationNewsRepository: NotificationNewsRepositoryProtocol { get }
 
     var applicationVersionRepository: ApplicationVersionRepositoryProtocol { get }
+    
+    var analyticManager: AnalyticManagerProtocol { get }
 }
 
 protocol RepositoryCache {

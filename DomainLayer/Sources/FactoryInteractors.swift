@@ -101,6 +101,6 @@ public final class FactoryInteractors: FactoryInteractorsProtocol {
     }
     
     public private(set) lazy var analyticManager: AnalyticManagerProtocol = {
-        return AnalyticManager()
+        return repositories.analyticManager
     }()
 }
