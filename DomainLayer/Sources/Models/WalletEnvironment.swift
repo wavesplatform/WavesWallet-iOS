@@ -13,6 +13,9 @@ private enum Constants {
     static let alias = "alias"
     fileprivate static let main = "environment_mainnet"
     fileprivate static let test = "environment_testnet"
+    
+    static let vostokMainNetScheme = "V"
+    static let vostokTestNetScheme = "F"
 }
 
 public struct WalletEnvironment: Decodable {
@@ -105,6 +108,10 @@ public extension WalletEnvironment {
     
     public var aliasScheme: String {
         return Constants.alias + ":" + scheme + ":"
+    }
+    
+    public var vostokScheme: String {
+        return WalletEnvironment.isTestNet ? Constants.vostokTestNetScheme : Constants.vostokMainNetScheme
     }
 }
 

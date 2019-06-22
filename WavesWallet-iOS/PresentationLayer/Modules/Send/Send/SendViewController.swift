@@ -995,6 +995,9 @@ private extension SendViewController {
                 selectedAsset?.asset.isFiat == false &&
                 isValidLocalAddress == false
         }
+        else if selectedAsset?.asset.isVostok == true {
+            return Address.isValidVostokAddress(address: address)
+        }
         return false
     }
 
@@ -1028,7 +1031,7 @@ private extension SendViewController {
     }
     
     func isCryptoCurrencyAsset(_ asset: DomainLayer.DTO.Asset) -> Bool {
-        return asset.isGateway && !asset.isFiat
+        return asset.gatewayType != nil && !asset.isFiat
     }
     
     func addressNotRequireMinimumLength(_ address: String) -> Bool {
