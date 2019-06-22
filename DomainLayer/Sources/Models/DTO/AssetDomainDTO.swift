@@ -10,11 +10,6 @@ import Foundation
 import Extensions
 
 public extension DomainLayer.DTO {
-
-    public enum GatewayType: String {
-        case coinomat
-        case gateway
-    }
     
     public struct Asset: Mutating, Equatable {
         
@@ -54,7 +49,7 @@ public extension DomainLayer.DTO {
         public let iconLogoUrl: String?
         public let hasScript: Bool
         public var minSponsoredFee: Int64
-        public let gatewayType: GatewayType?
+        public let gatewayType: DomainLayer.DTO.GatewayType?
         
         public init(id: String, gatewayId: String?, wavesId: String?, displayName: String, precision: Int, description: String, height: Int64, timestamp: Date, sender: String, quantity: Int64, ticker: String?, isReusable: Bool, isSpam: Bool, isFiat: Bool, isGeneral: Bool, isMyWavesToken: Bool, isWavesToken: Bool, isGateway: Bool, isWaves: Bool, modified: Date, addressRegEx: String, iconLogoUrl: String?, hasScript: Bool, minSponsoredFee: Int64, gatewayType: String?) {
             
@@ -82,7 +77,7 @@ public extension DomainLayer.DTO {
             self.iconLogoUrl = iconLogoUrl
             self.hasScript = hasScript
             self.minSponsoredFee = minSponsoredFee
-            self.gatewayType = GatewayType(rawValue: gatewayType ?? "")
+            self.gatewayType = DomainLayer.DTO.GatewayType(rawValue: gatewayType ?? "")
         }
     }
 }

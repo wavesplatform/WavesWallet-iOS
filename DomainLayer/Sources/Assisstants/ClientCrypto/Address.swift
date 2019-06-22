@@ -37,19 +37,26 @@ public class Address {
             alias.count >= WavesSDKConstants.aliasNameMinLimitSymbols &&
             alias.count <= WavesSDKConstants.aliasNameMaxLimitSymbols
     }
-    
-    public class func isValidAddress(address: String?) -> Bool {
+    private class func isValidAddress(address: String?, schemeBytes: UInt8) -> Bool {
         guard let address = address else { return false }
         
         let bytes = Base58.decode(address)
         if bytes.count == AddressLength
             && bytes[0] == AddressVersion
-            && bytes[1] == getSchemeByte() {
+            && bytes[1] == schemeBytes {
             let checkSum = Array(bytes[bytes.count - ChecksumLength..<bytes.count])
             let checkSumGenerated = calcCheckSum(Array(bytes[0..<bytes.count - ChecksumLength]))
             return checkSum == checkSumGenerated
         }
         return false
+    }
+    
+    public class func isValidAddress(address: String?) -> Bool {
+        return isValidAddress(address: address, schemeBytes: getSchemeByte())
+    }
+    
+    public class func isValidVostokAddress(address: String?) -> Bool {
+        return isValidAddress(address: address, schemeBytes: WalletEnvironment.current.vostokScheme.utf8.first!)
     }
     
     public class func scheme(from publicKey: String) -> String? {
