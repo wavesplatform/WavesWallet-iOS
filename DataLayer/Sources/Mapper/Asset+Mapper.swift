@@ -67,6 +67,7 @@ extension DomainLayer.DTO.Asset {
                   addressRegEx: asset.addressRegEx,
                   iconLogoUrl: asset.iconLogoUrl,
                   hasScript: asset.hasScript,
-                  minSponsoredFee: asset.minSponsoredFee)            
+                  minSponsoredFee: asset.minSponsoredFee,
+                  gatewayType: asset.gatewayType)            
     }
 }
