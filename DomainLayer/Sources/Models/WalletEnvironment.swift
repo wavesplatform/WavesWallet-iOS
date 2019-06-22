@@ -31,6 +31,7 @@ public struct WalletEnvironment: Decodable {
         public let gatewayId: String
         public let addressRegEx: String
         public let iconUrls: Icon?
+        public let gatewayType: String?
     }
     
     public struct Servers: Decodable {
