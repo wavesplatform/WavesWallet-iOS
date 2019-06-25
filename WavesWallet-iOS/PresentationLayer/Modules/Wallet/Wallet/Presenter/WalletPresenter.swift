@@ -101,7 +101,6 @@ final class WalletPresenter: WalletPresenterProtocol {
                 .interactor
                 .assets()                
                 .map { .setAssets($0) }
-                .share()
                 .asSignal(onErrorRecover: { Signal<WalletTypes.Event>.just(.handlerError($0)) })
 
             self.assetListener = signal
@@ -155,8 +154,7 @@ final class WalletPresenter: WalletPresenterProtocol {
             guard let self = self else { return Signal.empty() }
             let listener = self
                 .interactor
-                .leasing()
-                .share()
+                .leasing()                
                 .map { .setLeasing($0) }
                 .asSignal(onErrorRecover: { Signal<WalletTypes.Event>.just(.handlerError($0)) })
 

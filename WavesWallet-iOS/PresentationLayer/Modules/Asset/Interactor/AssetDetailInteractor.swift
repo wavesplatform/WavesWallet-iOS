@@ -35,14 +35,13 @@ final class AssetDetailInteractor: AssetDetailInteractorProtocol {
     }
 
     private func assets(by ids: [String], isNeedUpdate: Bool) -> Observable<[AssetDetailTypes.DTO.Asset]> {
-
+                
         return authorizationInteractor
             .authorizedWallet()
             .flatMap(weak: self) { owner, wallet -> Observable<[AssetDetailTypes.DTO.Asset]> in
 
                 owner.accountBalanceInteractor
-                    .balances(by: wallet)
-                    .sweetDebugWithoutResponse("Assets")
+                    .balances(by: wallet)                    
                     .take(1)
                     .map {
                         $0.filter { asset -> Bool in

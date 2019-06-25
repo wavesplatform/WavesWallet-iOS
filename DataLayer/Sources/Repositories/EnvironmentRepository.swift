@@ -93,7 +93,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
     }
     
     func servicesEnvironment() -> Observable<ApplicationEnviroment> {
-        return setupServicesEnviromentShare.sweetDebug("id-\(NSUUID.init().uuidString)")
+        return setupServicesEnviromentShare
     }
 }
 

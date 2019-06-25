@@ -59,8 +59,7 @@ final class AccountBalanceUseCase: AccountBalanceUseCaseProtocol {
     
     func balances(by wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
         return self
-            .remoteBalances(by: wallet)
-            .share()
+            .remoteBalances(by: wallet)            
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .userInteractive)))
     }
 
@@ -79,8 +78,7 @@ final class AccountBalanceUseCase: AccountBalanceUseCaseProtocol {
                  wallet: DomainLayer.DTO.SignedWallet) -> Observable<DomainLayer.DTO.SmartAssetBalance> {
         return self
             .remoteBalance(by: wallet,
-                           assetId: assetId)
-            .share()
+                           assetId: assetId)            
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .userInteractive)))
     }
 }

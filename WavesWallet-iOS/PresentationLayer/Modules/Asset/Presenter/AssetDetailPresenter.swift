@@ -58,7 +58,7 @@ final class AssetDetailPresenter: AssetDetailPresenterProtocol {
 
             return self
                 .interactor
-                .assets(by: ids)
+                .assets(by: ids)                
                 .map { AssetDetailTypes.Event.setAssets($0) }
                 .asSignal(onErrorSignalWith: Signal.empty())
         })
@@ -86,7 +86,7 @@ final class AssetDetailPresenter: AssetDetailPresenterProtocol {
                 .map { AssetDetailTypes.Event.setTransactions($0) }
                 .asSignal(onErrorSignalWith: Signal.empty())
         })
-    }
+    }    
 }
 
 // MARK: Core State
