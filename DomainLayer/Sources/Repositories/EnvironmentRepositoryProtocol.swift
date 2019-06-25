@@ -25,6 +25,6 @@ public protocol EnvironmentRepositoryProtocol {
     
     func applicationEnvironment() -> Observable<ApplicationEnvironmentProtocol>
     
-    func accountEnvironment() -> Observable<WalletEnvironment>
+    func walletEnvironment() -> Observable<WalletEnvironment>
     func deffaultEnvironment() -> Observable<WalletEnvironment>
 }

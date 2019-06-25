@@ -34,7 +34,7 @@ extension NetworkSettingsTypes {
 
     enum Event {
         case readyView
-        case setEnvironmets(WalletEnvironment, DomainLayer.DTO.AccountSettings?)
+        case setEnvironmets(WalletEnvironment, DomainLayer.DTO.AccountSettings?, DomainLayer.DTO.AccountEnvironment?)
         case setDeffaultEnvironmet(WalletEnvironment)
         case handlerError(Error)
         case inputSpam(String?)

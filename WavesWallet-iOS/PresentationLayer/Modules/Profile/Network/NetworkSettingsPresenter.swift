@@ -102,13 +102,15 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
 
             let environment = self
                 .environmentRepository
-                .accountEnvironment()
+                .walletEnvironment()
 
             let accountSettings = self.accountSettingsRepository
-                .accountSettings(accountAddress: address)                
+                .accountSettings(accountAddress: address)
+            
+            let accountEnvironment = self.accountSettingsRepository.accountEnvironment(accountAddress: address)
 
-            return Observable.zip(environment, accountSettings)
-                .map { Types.Event.setEnvironmets($0.0, $0.1) }
+            return Observable.zip(environment, accountSettings, accountEnvironment)
+                .map { Types.Event.setEnvironmets($0.0, $0.1, $0.2) }
                 .asSignal(onErrorRecover: { error in
                     return Signal.just(Types.Event.handlerError(error))
                 })
@@ -207,7 +209,7 @@ private extension NetworkSettingsPresenter {
         case .readyView:
             state.displayState.isAppeared = true
 
-        case .setEnvironmets(let environment, let accountSettings):
+        case .setEnvironmets(let environment, let accountSettings, let accountEnvironment):
             state.environment = environment
             state.accountSettings = accountSettings
             state.displayState.spamUrl = environment.servers.spamUrl.absoluteString
