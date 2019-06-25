@@ -78,7 +78,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
         return remoteAccountEnvironmentShare
     }
 
-    func accountEnvironment() -> Observable<WalletEnvironment> {
+    func walletEnvironment() -> Observable<WalletEnvironment> {
         return setupServicesEnviromentShare.map { $0.walletEnvironment }
     }
 

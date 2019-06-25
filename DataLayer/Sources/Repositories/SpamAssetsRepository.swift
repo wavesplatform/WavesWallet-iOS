@@ -53,7 +53,7 @@ final class SpamAssetsRepository: SpamAssetsRepositoryProtocol {
     
     private func downloadDeffaultSpamAssets() -> Observable<[SpamAssetId]> {
         
-        return environmentRepository.accountEnvironment()
+        return environmentRepository.walletEnvironment()
             .flatMap({ [weak self] (environment) -> Observable<[String]> in
                 
                 guard let self = self else { return Observable.empty() }
@@ -73,7 +73,7 @@ final class SpamAssetsRepository: SpamAssetsRepositoryProtocol {
 
     private func downloadSpamAssets(by url: URL) -> Observable<[SpamAssetId]> {
         
-        return environmentRepository.accountEnvironment()
+        return environmentRepository.walletEnvironment()
             .flatMap({ [weak self] (environment) -> Observable<[String]> in
                 guard let self = self else { return Observable.empty() }
                 return self.spamService.spamAssets(by: url)
