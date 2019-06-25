@@ -102,11 +102,10 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
 
             let environment = self
                 .environmentRepository
-                .accountEnvironment(accountAddress: address)
+                .accountEnvironment()
 
             let accountSettings = self.accountSettingsRepository
-                .accountSettings(accountAddress: address)
-                .sweetDebug("accountSettings")
+                .accountSettings(accountAddress: address)                
 
             return Observable.zip(environment, accountSettings)
                 .map { Types.Event.setEnvironmets($0.0, $0.1) }
@@ -132,7 +131,7 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
 
             let environment = self
                 .environmentRepository
-                .deffaultEnvironment(accountAddress: address)
+                .deffaultEnvironment()
 
             return environment
                 .map { Types.Event.setDeffaultEnvironmet($0) }
@@ -170,9 +169,9 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
             guard let self = self else { return Signal.empty() }
-
+            
             let environment = self
-                .environmentRepository
+                .accountSettingsRepository
                 .setSpamURL(query.url, by: query.accountAddress)
 
             let accountSettings = query.accountSettings
@@ -181,7 +180,8 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
                 .accountSettingsRepository
                 .saveAccountSettings(accountAddress: query.accountAddress,
                                      settings: accountSettings)
-
+            
+            
             return Observable.zip(environment, saveAccountSettings)
                 .map { _ in Types.Event.successSave }
                 .asSignal(onErrorRecover: { error in

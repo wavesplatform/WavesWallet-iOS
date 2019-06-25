@@ -84,6 +84,19 @@ target 'WavesWallet-iOS' do
     # pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git'
 end
 
+
+target 'DomainLayerTests' do
+
+    inherit! :search_paths
+    pod 'DomainLayer', :path => '.'    
+end
+
+target 'DataLayerTests' do
+
+    inherit! :search_paths
+    pod 'DataLayer', :path => '.'    
+end
+
 target 'InternalDomainLayer' do
 
     inherit! :search_paths

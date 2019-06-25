@@ -28,7 +28,6 @@ final class AssetsUseCase: AssetsUseCaseProtocol {
             .map({ assets in
                 return .remote(assets)
             })
-            .sweetDebugWithoutResponse("Alax")
             .catchError { [weak self] remoteError -> SyncObservable<[DomainLayer.DTO.Asset]> in
 
                 guard let self = self else { return Observable.never() }
@@ -47,7 +46,6 @@ final class AssetsUseCase: AssetsUseCaseProtocol {
                     })
             }
             .take(1)
-            .share()
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .userInteractive)))
     }
 
@@ -89,8 +87,7 @@ final class AssetsUseCase: AssetsUseCaseProtocol {
                 case .error(let error):
                     return Observable.error(error)
                 }
-            })
-            .share()
+            })            
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .userInteractive)))
     }
 }
