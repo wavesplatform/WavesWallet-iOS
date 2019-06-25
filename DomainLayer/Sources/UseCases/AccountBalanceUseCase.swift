@@ -93,7 +93,7 @@ private extension AccountBalanceUseCase {
             .balances(by: wallet)
         
         let environment = environmentRepository
-            .accountEnvironment(accountAddress: wallet.address)
+            .accountEnvironment()
 
         return Observable.zip(balances, environment)
             .map { (arg) -> [DomainLayer.DTO.AssetBalance] in

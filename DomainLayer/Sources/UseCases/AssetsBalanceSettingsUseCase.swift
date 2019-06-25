@@ -37,7 +37,7 @@ final class AssetsBalanceSettingsUseCase: AssetsBalanceSettingsUseCaseProtocol {
                
                 guard let self = self else { return Observable.empty() }
                 
-                return self.environmentRepository.accountEnvironment(accountAddress: wallet.address)
+                return self.environmentRepository.accountEnvironment()
                     .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.AssetBalanceSettings]> in
                        
                         guard let self = self else { return Observable.empty() }

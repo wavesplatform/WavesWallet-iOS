@@ -7,3 +7,12 @@
 //
 
 import Foundation
+import Moya
+import RxSwift
+
+public typealias SpamAssetId = String
+
+public protocol SpamAssetsRepositoryProtocol {
+    
+    func spamAssets(accountAddress: String) -> Observable<[SpamAssetId]>
+}
