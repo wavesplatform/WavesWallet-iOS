@@ -57,7 +57,10 @@ public protocol RepositoriesFactoryProtocol {
 
     var applicationVersionRepository: ApplicationVersionRepositoryProtocol { get }
     
+    //TODO: Rename
     var analyticManager: AnalyticManagerProtocol { get }
+    
+    var spamAssets: SpamAssetsRepositoryProtocol { get }
 }
 
 protocol RepositoryCache {

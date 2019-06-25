@@ -17,14 +17,16 @@ import Extensions
 
 final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     
-    private let spamProvider: MoyaProvider<Spam.Service.Assets> = .anyMoyaProvider()
-
     private let environmentRepository: EnvironmentRepositoryProtocols
     
-    init(environmentRepository: EnvironmentRepositoryProtocols) {
+    private let spamAssetsRepository: SpamAssetsRepositoryProtocol
+    
+    init(environmentRepository: EnvironmentRepositoryProtocols,
+         spamAssetsRepository: SpamAssetsRepositoryProtocol) {
         self.environmentRepository = environmentRepository
+        self.spamAssetsRepository = spamAssetsRepository
     }
-
+    
     func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
 
         return environmentRepository
@@ -35,23 +37,9 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
             
             let walletEnviroment = servicesEnvironment.walletEnvironment
 
-            let spamAssets = self.spamProvider.rx
-                            .request(.getSpamList(hasProxy: true),
-                                     callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                            .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
-                                guard let self = self else { return Single.never() }
-                                return self.spamProvider
-                                    .rx
-                                    .request(.getSpamList(hasProxy: false))
-                            })
-                            .filterSuccessfulStatusAndRedirectCodes()
-                            .asObservable()
-                            .catchError({ (error) -> Observable<Response> in
-                                return Observable.error(NetworkError.error(by: error))
-                            })
-                            .map { response -> [String] in
-                                return (try? SpamCVC.addresses(from: response.data)) ?? []
-                            }
+            let spamAssets = self
+                .spamAssetsRepository
+                .spamAssets(accountAddress: accountAddress)
 
             let assetsList = servicesEnvironment
                 .wavesServices
