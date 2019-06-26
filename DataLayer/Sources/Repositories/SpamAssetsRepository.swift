@@ -13,9 +13,8 @@ import RxSwift
 
 private enum Constants {
     
-    static let urlSpam: URL = URL(string:        "https://raw.githubusercontent.com/wavesplatform/waves-community/master/Scam%20tokens%20according%20to%20the%20opinion%20of%20Waves%20Community.csv")!
-    
-    static let urlSpamProxy: URL = URL(string:        "https://github-proxy.wvservices.com/wavesplatform/waves-community/master/Scam%20tokens%20according%20to%20the%20opinion%20of%20Waves%20Community.csv")!
+    static let urlSpam: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-community/master/Scam%20tokens%20according%20to%20the%20opinion%20of%20Waves%20Community.csv")!    
+    static let urlSpamProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-community/master/Scam%20tokens%20according%20to%20the%20opinion%20of%20Waves%20Community.csv")!
 }
 
 
