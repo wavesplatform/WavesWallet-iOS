@@ -303,10 +303,7 @@ extension AppCoordinator: SupportViewControllerDelegate  {
     
     func closeSupportView(isTestNet: Bool) {
 
-//        var vc = self.windowRouter.window.rootViewController
-        
-//        logInApplication()
-        
+        // MARK: 
         self.windowRouter.window.rootViewController?.dismiss(animated: true, completion: {
         
             if WalletEnvironment.isTestNet != isTestNet {

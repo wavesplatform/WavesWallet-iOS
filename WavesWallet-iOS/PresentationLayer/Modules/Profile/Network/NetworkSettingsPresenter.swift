@@ -212,7 +212,7 @@ private extension NetworkSettingsPresenter {
         case .setEnvironmets(let environment, let accountSettings, let accountEnvironment):
             state.environment = environment
             state.accountSettings = accountSettings
-            state.displayState.spamUrl = environment.servers.spamUrl.absoluteString
+            state.displayState.spamUrl = accountEnvironment?.spamUrl ?? environment.servers.spamUrl.absoluteString
             state.displayState.isSpam = accountSettings?.isEnabledSpam ?? false
             state.displayState.isEnabledSaveButton = true
             state.displayState.isEnabledSetDeffaultButton = true
