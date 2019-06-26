@@ -8,7 +8,6 @@
 
 import Foundation
 import Extensions
-import DomainLayer
 
 public extension DomainLayer.DTO {
 

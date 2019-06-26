@@ -20,8 +20,10 @@ private enum Contants {
     #if DEBUG
     static let delay: TimeInterval = 1000
     static let developBuild: Bool = false
+    static let isNeedSupportDisplayLaunch: Bool = false
     #else
     static let delay: TimeInterval = 10
+    static let isNeedSupportDisplayLaunch: Bool = false
     #endif
 }
 
@@ -64,9 +66,12 @@ final class AppCoordinator: Coordinator {
     func start() {
         self.isActiveApp = true
 
-        logInApplication()
-//        showSupport()
-
+        if Contants.isNeedSupportDisplayLaunch {
+            showSupport()
+        } else {
+            logInApplication()
+        }
+        
         #if DEBUG || TEST
             addTapGestureForSupportDisplay()
         #endif
@@ -293,12 +298,14 @@ private extension AppCoordinator {
 extension AppCoordinator: SupportViewControllerDelegate  {
 
     func relaunchApp() {
-        showDisplay(.enter)
+        logInApplication()
     }
     
     func closeSupportView(isTestNet: Bool) {
 
+        // MARK: 
         self.windowRouter.window.rootViewController?.dismiss(animated: true, completion: {
+        
             if WalletEnvironment.isTestNet != isTestNet {
 
                 self.authoAuthorizationInteractor
