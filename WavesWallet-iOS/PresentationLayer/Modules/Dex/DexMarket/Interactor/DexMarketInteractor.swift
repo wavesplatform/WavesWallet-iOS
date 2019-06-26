@@ -22,7 +22,7 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
             
             guard let self = self else { return Observable.empty() }
             
-            return self.environment.accountEnvironment(accountAddress: wallet.address).flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
+            return self.environment.walletEnvironment().flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                 
                 guard let self = self else { return Observable.empty() }
                 return self.pairs(wallet: wallet,

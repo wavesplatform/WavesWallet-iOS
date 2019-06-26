@@ -15,13 +15,15 @@ import DomainLayer
 import Extensions
 
 final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
-
-    private let spamProvider: MoyaProvider<Spam.Service.Assets> = MoyaProvider<Spam.Service.Assets>()
-    
+        
     private let environmentRepository: EnvironmentRepositoryProtocols
     
-    init(environmentRepository: EnvironmentRepositoryProtocols) {
+    private let spamAssetsRepository: SpamAssetsRepositoryProtocol
+    
+    init(environmentRepository: EnvironmentRepositoryProtocols,
+         spamAssetsRepository: SpamAssetsRepositoryProtocol) {
         self.environmentRepository = environmentRepository
+        self.spamAssetsRepository = spamAssetsRepository
     }
         
     func orderBook(wallet: DomainLayer.DTO.SignedWallet,
@@ -204,28 +206,9 @@ private extension DexOrderBookRepositoryRemote {
     
     func spamList(accountAddress: String) -> Observable<[String]> {
         
-        return environmentRepository.accountEnvironment(accountAddress: accountAddress)
-            .flatMap({ [weak self] (environment) -> Observable<[String]> in
-                guard let self = self else { return Observable.empty() }
-                
-                return self.spamProvider.rx
-                    .request(.getSpamList(hasProxy: true),
-                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
-                    .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
-                        guard let self = self else { return Single.never() }
-                        return self.spamProvider
-                            .rx
-                            .request(.getSpamList(hasProxy: false))
-                    })
-                    .filterSuccessfulStatusAndRedirectCodes()
-                    .asObservable()
-                    .map({ (response) -> [String] in
-                        return (try? SpamCVC.addresses(from: response.data)) ?? []
-                    })
-                    .catchError({ (error) -> Observable<[String]> in
-                        return Observable.just([])
-                    })
-            })
+        return self
+            .spamAssetsRepository
+            .spamAssets(accountAddress: accountAddress)
     }
 }
 

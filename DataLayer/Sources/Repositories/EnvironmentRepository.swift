@@ -61,13 +61,12 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
     }
 
     private let environmentRepository: MoyaProvider<GitHub.Service.Environment> = .anyMoyaProvider()
-    private let spamProvider: MoyaProvider<Spam.Service.Assets> = .anyMoyaProvider()
     
     private lazy var remoteAccountEnvironmentShare: Observable<WalletEnvironment> = {
-        return remoteEnvironment().share()
+        return remoteEnvironment().share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
     }()
     
-    private lazy var setupServicesEnviromentShare: Observable<ApplicationEnviroment>  = self.setupServicesEnviroment().share()
+    private lazy var setupServicesEnviromentShare: Observable<ApplicationEnviroment>  = self.setupServicesEnviroment().share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
     
     private var localEnvironments: BehaviorSubject<[EnvironmentKey: WalletEnvironment]> = BehaviorSubject<[EnvironmentKey: WalletEnvironment]>(value: [:])
     
@@ -75,11 +74,11 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
         NotificationCenter.default.addObserver(self, selector: #selector(timeDidChange), name: UIApplication.significantTimeChangeNotification, object: nil)
     }
     
-    func deffaultEnvironment(accountAddress: String) -> Observable<WalletEnvironment> {
+    func deffaultEnvironment() -> Observable<WalletEnvironment> {
         return remoteAccountEnvironmentShare
     }
 
-    func accountEnvironment(accountAddress: String) -> Observable<WalletEnvironment> {
+    func walletEnvironment() -> Observable<WalletEnvironment> {
         return setupServicesEnviromentShare.map { $0.walletEnvironment }
     }
 
@@ -87,13 +86,8 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
         return setupServicesEnviromentShare.map { $0 as ApplicationEnvironmentProtocol }
     }
     
-    func setSpamURL(_ url: String, by accountAddress: String) -> Observable<Bool> {
-        //Method move to AccountSettingsRepository
-        return Observable.never()
-    }
-    
     func servicesEnvironment() -> Observable<ApplicationEnviroment> {
-        return setupServicesEnviromentShare.sweetDebug("id-\(NSUUID.init().uuidString)")
+        return setupServicesEnviromentShare
     }
 }
 

@@ -27,6 +27,40 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <Testables>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES"
+            testExecutionOrdering = "random">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7BF89E9522272A5E00853F9D"
+               BuildableName = "MonkeyTest.xctest"
+               BlueprintName = "MonkeyTest"
+               ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7B431A8B22BD176D00DE73B9"
+               BuildableName = "DomainLayerTests.xctest"
+               BlueprintName = "DomainLayerTests"
+               ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7B431A9B22BD185A00DE73B9"
+               BuildableName = "DataLayerTests.xctest"
+               BlueprintName = "DataLayerTests"
+               ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -43,20 +77,6 @@
             isEnabled = "YES">
          </AdditionalOption>
       </AdditionalOptions>
-      <Testables>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES"
-            testExecutionOrdering = "random">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7BF89E9522272A5E00853F9D"
-               BuildableName = "MonkeyTest.xctest"
-               BlueprintName = "MonkeyTest"
-               ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -85,6 +105,8 @@
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Debug"

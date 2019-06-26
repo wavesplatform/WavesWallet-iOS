@@ -112,7 +112,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
 
     func calculateFee(by transactionSpecs: DomainLayer.Query.TransactionSpecificationType, accountAddress: String) -> Observable<Money> {
 
-        let isSmartAccount = addressRepository.isSmartAddress(accountAddress: accountAddress).sweetDebug("isSmartAddress")
+        let isSmartAccount = addressRepository.isSmartAddress(accountAddress: accountAddress)
         let wavesAsset = assetsInteractors.assetsSync(by: [WavesSDKConstants.wavesAssetId], accountAddress: accountAddress)
             .flatMap { (asset) -> Observable<DomainLayer.DTO.Asset> in
 
@@ -127,7 +127,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
                 } else {
                     return Observable.error(TransactionsUseCaseError.invalid)
                 }
-            }.sweetDebug("assetsSync")
+            }
 
         let isSmartAssets = transactionSpecs.assetIds.reduce(into: [Observable<(String,Bool)>]()) { (result, assetId) in
 
@@ -142,9 +142,9 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
 
         let isSmartAssetsObservable = Observable.combineLatest(isSmartAssets).ifEmpty(default: [])
 
-        let rules = transactionsRepositoryRemote.feeRules().sweetDebug("feeRules")
+        let rules = transactionsRepositoryRemote.feeRules()
 
-        return Observable.zip(isSmartAccount, wavesAsset, rules, isSmartAssetsObservable.sweetDebug("isSmartAssets"))
+        return Observable.zip(isSmartAccount, wavesAsset, rules, isSmartAssetsObservable)
             .flatMap { [weak self] (isSmartAccount, wavesAsset, rules, isSmartAssets) -> Observable<Money> in
 
                 guard let self = self else { return Observable.never() }

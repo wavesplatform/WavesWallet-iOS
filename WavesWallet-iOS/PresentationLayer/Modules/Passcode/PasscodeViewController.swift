@@ -92,8 +92,7 @@ private extension PasscodeViewController {
                     let isAppeared = (try? self.isAppeared.value()) ?? false
                     return Observable.just(isAppeared)
                 })
-                .ignoreWhen({ $0 == false })
-                .sweetDebug("UIApplicationWillEnterForeground")
+                .ignoreWhen({ $0 == false })                
 
             return Observable<Bool>.merge([self.rx.viewDidAppear.asObservable(),
                                            applicationWillEnterForeground])

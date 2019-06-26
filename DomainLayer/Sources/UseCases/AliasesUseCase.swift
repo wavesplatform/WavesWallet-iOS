@@ -10,7 +10,6 @@ import Foundation
 import RxSwift
 import RxCocoa
 import Extensions
-import DomainLayer
 
 final class AliasesUseCase: AliasesUseCaseProtocol {
 

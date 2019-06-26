@@ -29,7 +29,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     
     public private(set) lazy var assetsRepositoryLocal: AssetsRepositoryProtocol = AssetsRepositoryLocal()
     
-    public private(set) lazy var assetsRepositoryRemote: AssetsRepositoryProtocol = AssetsRepositoryRemote(environmentRepository: environmentRepositoryInternal)
+    public private(set) lazy var assetsRepositoryRemote: AssetsRepositoryProtocol = AssetsRepositoryRemote(environmentRepository: environmentRepositoryInternal, spamAssetsRepository: spamAssets)
     
     public private(set) lazy var accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol = AccountBalanceRepositoryLocal()
     
@@ -55,7 +55,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     
     public private(set) lazy var dexPairsPriceRepository: DexPairsPriceRepositoryProtocol = DexPairsPriceRepositoryRemote(environmentRepository: environmentRepositoryInternal)
     
-    public private(set) lazy var dexOrderBookRepository: DexOrderBookRepositoryProtocol = DexOrderBookRepositoryRemote(environmentRepository: environmentRepositoryInternal)
+    public private(set) lazy var dexOrderBookRepository: DexOrderBookRepositoryProtocol = DexOrderBookRepositoryRemote(environmentRepository: environmentRepositoryInternal, spamAssetsRepository: spamAssets)
     
     public private(set) lazy var aliasesRepositoryRemote: AliasesRepositoryProtocol = AliasesRepository(environmentRepository: environmentRepositoryInternal)
 
@@ -79,6 +79,11 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     
     public private(set) lazy var analyticManager: AnalyticManagerProtocol = {
         return AnalyticManager()
+    }()
+    
+    public private(set) lazy var spamAssets: SpamAssetsRepositoryProtocol = {
+        return SpamAssetsRepository(environmentRepository: environmentRepositoryInternal,
+                                    accountSettingsRepository: accountSettingsRepository)
     }()
     
     public struct Resources {

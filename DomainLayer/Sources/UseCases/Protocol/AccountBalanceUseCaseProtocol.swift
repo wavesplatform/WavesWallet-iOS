@@ -8,7 +8,6 @@
 
 import Foundation
 import RxSwift
-import DomainLayer
 
 public enum AccountBalanceUseCaseError: Error {
     case fail

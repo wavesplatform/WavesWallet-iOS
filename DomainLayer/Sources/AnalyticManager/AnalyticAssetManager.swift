@@ -8,7 +8,6 @@
 
 import Foundation
 import WavesSDKExtension
-import DomainLayer
 import Extensions
 
 struct AnalyticAssetManager: TSUD, Codable, Mutating  {

@@ -27,15 +27,6 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F7E954E31EA8FE0700A804DE"
-            BuildableName = "WavesWallet-iOS.app"
-            BlueprintName = "WavesWallet-iOS"
-            ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -47,7 +38,38 @@
                ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7B431A8B22BD176D00DE73B9"
+               BuildableName = "DomainLayerTests.xctest"
+               BlueprintName = "DomainLayerTests"
+               ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7B431A9B22BD185A00DE73B9"
+               BuildableName = "DataLayerTests.xctest"
+               BlueprintName = "DataLayerTests"
+               ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "F7E954E31EA8FE0700A804DE"
+            BuildableName = "WavesWallet-iOS.app"
+            BlueprintName = "WavesWallet-iOS"
+            ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -69,6 +91,8 @@
             ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
