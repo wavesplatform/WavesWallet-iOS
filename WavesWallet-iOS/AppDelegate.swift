@@ -141,7 +141,7 @@ extension AppDelegate {
     func setupServices() {
         #if DEBUG || TEST
         
-        SweetLogger.current.add(plugin: SweetLoggerConsole(visibleLevels: [.warning, .debug, .error],
+        SweetLogger.current.add(plugin: SweetLoggerConsole(visibleLevels: [.warning, .debug, .error, .network],
                                                            isShortLog: true))
         SweetLogger.current.visibleLevels = []
         
@@ -153,6 +153,7 @@ extension AppDelegate {
             AppSpector.run(with: config)
         }
         
+
         #else
         SweetLogger.current.add(plugin: SweetLoggerSentry(visibleLevels: [.error]))
         SweetLogger.current.visibleLevels = [.warning, .debug, .error]

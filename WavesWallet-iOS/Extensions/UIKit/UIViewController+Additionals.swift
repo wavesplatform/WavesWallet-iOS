@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import DomainLayer
 
 private enum Constants {
     static let smallNavBarHeight: CGFloat = 44
@@ -36,6 +37,12 @@ extension UIViewController {
     }
 
     @objc func menuTapped() {
+        
+        UseCasesFactory
+            .instance
+            .analyticManager
+            .trackEvent(.menu(.wavesMenuPage))
+        
         let menu = AppDelegate.shared().menuController
         menu.presentLeftMenuViewController()
     }

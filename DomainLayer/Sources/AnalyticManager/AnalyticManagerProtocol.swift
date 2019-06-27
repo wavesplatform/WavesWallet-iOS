@@ -9,18 +9,27 @@
 import Foundation
 
 public enum AnalyticManagerEvent {
-    case leasing(Leasing)
-    case createAlias(CreateAlias)
-    case dex(Dex)
-    case walletAsset(WalletAsset)
+    
+    case createANewAccount(CreateANewAccount)
+    case importAccount(ImportAccount)
+    case singIn(SingIn)
+    case walletHome(WalletHome)
+    case walletLeasing(WalletLeasing)
     case tokenBurn(TokenBurn)
-    case walletStart(WalletStart)
-    case newUser(NewUser)
+    case alias(Alias)
+    case dex(Dex)
+    case send(Send)
+    case receive(Receive)
+    case wavesQuickAction(WavesQuickAction)
+    case profile(Profile)
+    case addressBook(AddressBook)
+    case menu(Menu)
+    case widgets(Widgets)
 }
 
 public protocol AnalyticManagerEventInfo {
     var name: String { get }
-    var params: String { get }
+    var params: [String : String] { get }
 }
 
 public protocol AnalyticManagerProtocol {
@@ -28,98 +37,103 @@ public protocol AnalyticManagerProtocol {
 }
 
 //MARK - Event params
-public extension AnalyticManagerEvent {
+extension AnalyticManagerEvent: AnalyticManagerEventInfo {
     
-    var name: String {
+    public var name: String {
         switch self {
-        case .leasing(let leasing):
-            return leasing.rawValue
+        case .createANewAccount(let model):
+            return model.name
             
-        case .createAlias(let alias):
-            return alias.rawValue
+        case .importAccount(let model):
+            return model.name
             
-        case .dex(let dex):
-            return dex.name
+        case .singIn(let model):
+            return model.name
             
-        case .walletAsset(let walletAsset):
-            return walletAsset.name
+        case .walletHome(let model):
+            return model.name
             
-        case .tokenBurn(let tokenBurn):
-            return tokenBurn.rawValue
+        case .walletLeasing(let model):
+            return model.rawValue
             
-        case .walletStart(let walletStart):
-            return walletStart.name
+        case .tokenBurn(let model):
+            return model.rawValue
             
-        case .newUser(let user):
-            return user.rawValue
+        case .alias(let model):
+            return model.rawValue
+            
+        case .dex(let model):
+            return model.name
+            
+        case .send(let model):
+            return model.name
+            
+        case .receive(let model):
+            return model.name
+            
+        case .wavesQuickAction(let model):
+            return model.name
+            
+        case .profile(let model):
+            return model.name
+            
+        case .addressBook(let model):
+            return model.name
+            
+        case .menu(let model):
+            return model.name
+            
+        case .widgets(let model):
+            return model.name
         }
     }
     
-    var params: [String : String] {
+    public var params: [String : String] {
         switch self {
+        case .createANewAccount(let model):
+            return model.params
             
-        case .dex(let dex):
-            return dex.params
+        case .importAccount(let model):
+            return model.params
             
-        case .walletAsset(let walletAsset):
-            return walletAsset.params
+        case .singIn(let model):
+            return model.params
             
-        case .walletStart(let walletStart):
-            return walletStart.params
+        case .walletHome(let model):
+            return model.params
             
-        default:
+        case .walletLeasing(let model):
             return [:]
+            
+        case .tokenBurn(let model):
+            return [:]
+            
+        case .alias(let model):
+            return [:]
+            
+        case .dex(let model):
+            return model.params
+            
+        case .send(let model):
+            return model.params
+            
+        case .receive(let model):
+            return model.params
+            
+        case .wavesQuickAction(let model):
+            return model.params
+            
+        case .profile(let model):
+            return model.params
+        
+        case .addressBook(let model):
+            return model.params
+            
+        case .menu(let model):
+            return model.params
+            
+        case .widgets(let model):
+            return model.params
         }
-    }
-}
-
-//MARK: - Leasing
-public extension AnalyticManagerEvent {
-    public enum Leasing: String {
-        
-        /* Нажата кнопка «Start Lease» на экране Wallet. */
-        case leasingStartTap = "Leasing Start Tap"
-        
-        /* Нажата кнопка «Start Lease» на экране с заполненными полями. */
-        case leasingSendTap = "Leasing Send Tap"
-        
-        /* Нажата кнопка «Confirm» на экране подтверждения лизинга. */
-        case leasingConfirmTap = "Leasing Confirm Tap"
-    }
-}
-
-//MARK: - CreateAlias
-public extension AnalyticManagerEvent {
-    public enum CreateAlias: String {
-        
-        /* Нажата кнопка «Create a new alias» на экране профайла. */
-        case createProfile = "Alias Create Profile"
-        
-        /* Нажата кнопка «Create a new alias» на экране визитки. */
-        case aliasCreateVcard = "Alias Create Vcard"
-    }
-}
-
-//MARK: - TokenBurn
-public extension AnalyticManagerEvent {
-    public enum TokenBurn: String {
-        
-        /* Нажата кнопка «Token Burn» на экране ассета. */
-        case tap = "Burn Token Tap"
-        
-        /* Нажата кнопка «Burn» на экране с заполненными полями. */
-        case continueTap = "Burn Token Continue Tap"
-        
-        /* Нажата кнопка «Burn» на экране подтверждения. */
-        case confirmTap = "Burn Token Confirm Tap"
-    }
-}
-
-//MARK: - NewUser
-public extension AnalyticManagerEvent {
-    public enum NewUser: String {
-        
-        /* Проставлены 3 чекбокса с условиями использования и нажата кнопка "Begin". */
-        case confirm = "New User Confirm"
     }
 }
