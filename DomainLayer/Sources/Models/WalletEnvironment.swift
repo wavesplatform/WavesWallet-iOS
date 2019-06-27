@@ -42,16 +42,19 @@ public struct WalletEnvironment: Decodable {
         public let dataUrl: URL
         public let spamUrl: URL
         public let matcherUrl: URL
+        public let gatewayUrl: URL
         
         public init(nodeUrl: URL,
                     dataUrl: URL,
                     spamUrl: URL,
-                    matcherUrl: URL) {
+                    matcherUrl: URL,
+                    gatewayUrl: URL) {
             
             self.nodeUrl = nodeUrl
             self.dataUrl = dataUrl
             self.spamUrl = spamUrl
             self.matcherUrl = matcherUrl
+            self.gatewayUrl = gatewayUrl
         }
     }
     
