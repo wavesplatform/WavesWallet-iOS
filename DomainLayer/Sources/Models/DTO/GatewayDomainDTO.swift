@@ -32,5 +32,17 @@ public extension DomainLayer.DTO {
                 self.processId = processId
             }
         }
+        
+        public struct InitDepositProcess {
+            public let address: String
+            public let minAmount: Money
+            public let maxAmount: Money
+            
+            public init(address: String, minAmount: Money, maxAmount: Money) {
+                self.address = address
+                self.minAmount = minAmount
+                self.maxAmount = maxAmount
+            }
+        }
     }
 }

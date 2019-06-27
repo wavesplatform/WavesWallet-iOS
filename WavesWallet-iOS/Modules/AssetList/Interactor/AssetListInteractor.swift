@@ -119,7 +119,7 @@ private extension AssetListInteractor {
                     
                     return asset.isFiat == false &&
                         asset.isWavesToken == false &&
-                        asset.isGateway == true &&
+                        (asset.isGateway == true || asset.isVostok) &&
                         asset.isWaves == false}))
         }
         

@@ -16,13 +16,20 @@ private enum Constants {
 
 enum Gateway {
     enum Service {
-        case initProcess(InitProcess)
+        case initWithdrawProcess(InitProcess)
+        case initDepositProcess(InitProcess)
     }
     
     enum DTO {}
 }
 
 extension Gateway.DTO {
+    
+    struct Deposit: Decodable {
+        let address: String
+        let minAmount: Int64
+        let maxAmount: Int64
+    }
     
     struct Withdraw: Decodable {
         let recipientAddress: String
@@ -31,6 +38,7 @@ extension Gateway.DTO {
         let fee: Int64
         let processId: String
     }
+    
 }
 
 extension Gateway.Service {
@@ -53,8 +61,11 @@ extension Gateway.Service: TargetType {
     
     var path: String {
         switch self {
-        case .initProcess:
+        case .initWithdrawProcess:
             return "v1/external/withdraw"
+            
+        case .initDepositProcess:
+            return "v1/external/deposit"
         }
     }
     
@@ -68,8 +79,12 @@ extension Gateway.Service: TargetType {
     
     var task: Task {
         switch self {
-        case .initProcess(let initProcess):
+        case .initWithdrawProcess(let initProcess):
             return .requestParameters(parameters: initProcess.dictionary, encoding: JSONEncoding.default)
+
+        case .initDepositProcess(let initProcess):
+            return .requestParameters(parameters: initProcess.dictionary, encoding: JSONEncoding.default)
+            
         }
     }
 }

@@ -11,7 +11,9 @@ import RxSwift
 
 public protocol GatewayRepositoryProtocol {
     
-    func initWithdrawProcess(by address: String, asset: DomainLayer.DTO.Asset, accountAddress: String) -> Observable<DomainLayer.DTO.Gateway.InitWithdrawProcess>
+    func initWithdrawProcess(address: String, asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.Gateway.InitWithdrawProcess>
+    func initDepositProcess(address: String, asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.Gateway.InitDepositProcess>
+
     func sendWithdraw() -> Observable<Bool>
     
 }
