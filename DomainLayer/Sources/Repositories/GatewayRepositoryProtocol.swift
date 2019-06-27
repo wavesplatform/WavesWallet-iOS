@@ -11,5 +11,6 @@ import RxSwift
 
 public protocol GatewayRepositoryProtocol {
     
-    func withdrawProcess(by address: String, assetId: String) -> Observable<Bool>
+    func initWithdrawProcess(by address: String, assetId: String) -> Observable<Bool>
+    func sendWithdraw() -> Observable<Bool>
 }

@@ -10,15 +10,20 @@ import Foundation
 import RxSwift
 import DomainLayer
 
-final class GatewayRepository: GatewayRepositoryProtocol {
+final class GatewayRepository: GatewayRepositoryProtocol {    
     
     private let environmentRepository: EnvironmentRepositoryProtocols
-
+    
     init(environmentRepository: EnvironmentRepositoryProtocols) {
         self.environmentRepository = environmentRepository
     }
     
-    func withdrawProcess(by address: String, assetId: String) -> Observable<Bool> {
+    func initWithdrawProcess(by address: String, assetId: String) -> Observable<Bool> {
         return Observable.empty()
     }
+    
+    func sendWithdraw() -> Observable<Bool> {
+        return Observable.empty()
+    }
+    
 }
