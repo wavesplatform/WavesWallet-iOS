@@ -137,22 +137,19 @@ private extension SendInteractor {
     func gateWayInfo(asset: DomainLayer.DTO.Asset, address: String, moneroPaymentID: String?) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
         
         if asset.isVostok {
-            return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<Send.DTO.GatewayInfo>> in
-                guard let self = self else { return Observable.empty() }
-                return self.gatewayRepository
-                    .initWithdrawProcess(by: address, asset: asset, accountAddress: wallet.address)
-                    .map({ (initProcessInfo) -> ResponseType<Send.DTO.GatewayInfo> in
-                        
-                        let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,
-                                                               assetShortName: asset.gatewayId ?? "",
-                                                               minAmount: initProcessInfo.minAmount,
-                                                               maxAmount: initProcessInfo.maxAmount,
-                                                               fee: initProcessInfo.fee,
-                                                               address: initProcessInfo.recipientAddress,
-                                                               attachment: "")
-                        return ResponseType(output: gatewayInfo, error: nil)
-                    })
-            })
+            return gatewayRepository
+                .initWithdrawProcess(address: address, asset: asset)
+                .map({ (initProcessInfo) -> ResponseType<Send.DTO.GatewayInfo> in
+                    
+                    let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,
+                                                           assetShortName: asset.gatewayId ?? "",
+                                                           minAmount: initProcessInfo.minAmount,
+                                                           maxAmount: initProcessInfo.maxAmount,
+                                                           fee: initProcessInfo.fee,
+                                                           address: initProcessInfo.recipientAddress,
+                                                           attachment: "")
+                    return ResponseType(output: gatewayInfo, error: nil)
+                })
             .catchError({ (error) -> Observable<ResponseType<Send.DTO.GatewayInfo>> in
                 if let networkError = error as? NetworkError {
                     return Observable.just(ResponseType(output: nil, error: networkError))

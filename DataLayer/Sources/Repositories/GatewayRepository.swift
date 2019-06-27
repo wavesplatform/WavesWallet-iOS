@@ -12,15 +12,15 @@ import DomainLayer
 import Moya
 import Extensions
 
-final class GatewayRepository: GatewayRepositoryProtocol {    
-    
+final class GatewayRepository: GatewayRepositoryProtocol {
+   
     private let gatewayProvider: MoyaProvider<Gateway.Service> = .anyMoyaProvider()
     
-    func initWithdrawProcess(by address: String, asset: DomainLayer.DTO.Asset, accountAddress: String) -> Observable<DomainLayer.DTO.Gateway.InitWithdrawProcess> {
+    func initWithdrawProcess(address: String, asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.Gateway.InitWithdrawProcess> {
         
-        let initWithdraw = Gateway.Service.InitProcess(userAddress: address, assetId: asset.id)
+        let initProcess = Gateway.Service.InitProcess(userAddress: address, assetId: asset.id)
         return gatewayProvider.rx
-            .request(.initProcess(initWithdraw), callbackQueue:  DispatchQueue.global(qos: .userInteractive))
+            .request(.initWithdrawProcess(initProcess), callbackQueue:  DispatchQueue.global(qos: .userInteractive))
             .filterSuccessfulStatusAndRedirectCodes()
             .map(Gateway.DTO.Withdraw.self)
             .asObservable()
@@ -34,8 +34,26 @@ final class GatewayRepository: GatewayRepositoryProtocol {
                 
             })
     }
+
+    func initDepositProcess(address: String, asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.Gateway.InitDepositProcess> {
+        let initProcess = Gateway.Service.InitProcess(userAddress: address, assetId: asset.id)
+        return gatewayProvider.rx
+            .request(.initDepositProcess(initProcess), callbackQueue: DispatchQueue.global(qos: .userInteractive))
+            .filterSuccessfulStatusAndRedirectCodes()
+            .map(Gateway.DTO.Deposit.self)
+            .asObservable()
+            .map({ (initDeposit) -> DomainLayer.DTO.Gateway.InitDepositProcess in
+                
+                return DomainLayer.DTO.Gateway.InitDepositProcess(
+                    address: initDeposit.address,
+                    minAmount: Money(initDeposit.minAmount, asset.precision),
+                    maxAmount: Money(initDeposit.maxAmount, asset.precision))
+            })
+    }
+    
     
     func sendWithdraw() -> Observable<Bool> {
+        
         return Observable.empty()
     }
     
