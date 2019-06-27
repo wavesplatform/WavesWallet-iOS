@@ -52,7 +52,7 @@ struct AnalyticAssetManager: TSUD, Codable, Mutating  {
                 setting.assetsIds.insert(assetId)
                 hasChanges = true
                 
-                UseCasesFactory.instance.analyticManager.trackEvent(.walletStart(.balanceFromZero(assetName: asset.asset.displayName)))
+                UseCasesFactory.instance.analyticManager.trackEvent(.walletHome(.startBalanceFromZero(assetName: asset.asset.displayName)))
             }
         }
         
