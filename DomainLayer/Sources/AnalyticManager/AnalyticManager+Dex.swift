@@ -10,7 +10,7 @@ import Foundation
 
 public extension AnalyticManagerEvent {
     
-    public  enum Dex {
+    enum Dex: AnalyticManagerEventInfo {
         
         private static let key = "Pair"
         
@@ -26,7 +26,7 @@ public extension AnalyticManagerEvent {
         /* Нажата кнопка «Okay» на экране созданного ордера. */
         case sellOrderSuccess(amountAsset: String, priceAsset: String)
         
-        var name: String {
+        public var name: String {
             switch self {
             case .buyTap:
                 return "DEX Buy Tap"
@@ -42,7 +42,7 @@ public extension AnalyticManagerEvent {
             }
         }
         
-        var params: [String : String] {
+        public var params: [String : String] {
             switch self {
             case .buyTap(let amountAsset, let priceAsset):
                 return [Dex.key: amountAsset + "/" + priceAsset]
