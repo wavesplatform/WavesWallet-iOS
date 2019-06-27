@@ -39,7 +39,7 @@ default_platform(:ios)
 
 def get_version_and_build   
   ENV['BUILD_NUMBER'] = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'").gsub!(/[^0-9A-Za-z]/, '')
-  ENV['VERSION'] = get_version_number(xcodeproj: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj")      
+  ENV['VERSION'] = get_version_number(xcodeproj: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj", target: "WavesWallet-iOS")      
 end
 
 before_all do

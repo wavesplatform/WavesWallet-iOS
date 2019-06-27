@@ -99,7 +99,7 @@ private extension AccountBalanceRepositoryRemote {
 
     func matcherBalances(by walletAddress: String,
                          wallet: DomainLayer.DTO.SignedWallet) -> Observable<[String: Int64]> {
-
+        
         return environmentRepository
             .servicesEnvironment()
             .flatMap({ (servicesEnvironment) -> Observable<[String: Int64]> in
