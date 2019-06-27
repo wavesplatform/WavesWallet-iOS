@@ -22,7 +22,8 @@ final class SendInteractor: SendInteractorProtocol {
     private let aliasRepository = UseCasesFactory.instance.repositories.aliasesRepositoryRemote
     private let transactionInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
     private let accountBalance = UseCasesFactory.instance.accountBalance
-
+    private let gatewayRepository = UseCasesFactory.instance.repositories.gatewayRepository
+    
     func assetBalance(by assetID: String) -> Observable<DomainLayer.DTO.SmartAssetBalance?> {
         return accountBalanceInteractor.balances().flatMap({ [weak self] (balances) -> Observable<DomainLayer.DTO.SmartAssetBalance?>  in
             
@@ -134,6 +135,32 @@ final class SendInteractor: SendInteractorProtocol {
 private extension SendInteractor {
     
     func gateWayInfo(asset: DomainLayer.DTO.Asset, address: String, moneroPaymentID: String?) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
+        
+        if asset.isVostok {
+            return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<Send.DTO.GatewayInfo>> in
+                guard let self = self else { return Observable.empty() }
+                return self.gatewayRepository
+                    .initWithdrawProcess(by: address, asset: asset, accountAddress: wallet.address)
+                    .map({ (initProcessInfo) -> ResponseType<Send.DTO.GatewayInfo> in
+                        
+                        let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,
+                                                               assetShortName: asset.gatewayId ?? "",
+                                                               minAmount: initProcessInfo.minAmount,
+                                                               maxAmount: initProcessInfo.maxAmount,
+                                                               fee: initProcessInfo.fee,
+                                                               address: initProcessInfo.recipientAddress,
+                                                               attachment: "")
+                        return ResponseType(output: gatewayInfo, error: nil)
+                    })
+            })
+            .catchError({ (error) -> Observable<ResponseType<Send.DTO.GatewayInfo>> in
+                if let networkError = error as? NetworkError {
+                    return Observable.just(ResponseType(output: nil, error: networkError))
+                }
+                
+                return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
+            })
+        }
         
         guard let currencyFrom = asset.wavesId,
             let currencyTo = asset.gatewayId else { return Observable.empty() }

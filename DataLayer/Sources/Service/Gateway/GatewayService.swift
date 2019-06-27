@@ -10,8 +10,15 @@ import Foundation
 import Moya
 import WavesSDK
 
+private enum Constants {
+    static let url = "https://gw.wavesplatform.com/api/"
+}
+
 enum Gateway {
-    enum Service {}
+    enum Service {
+        case initProcess(InitProcess)
+    }
+    
     enum DTO {}
 }
 
@@ -19,20 +26,21 @@ extension Gateway.DTO {
     
     struct Withdraw: Decodable {
         let recipientAddress: String
-        let minAmount: Double
-        let maxAmount: Double
-        let fee: Double
+        let minAmount: Int64
+        let maxAmount: Int64
+        let fee: Int64
         let processId: String
     }
 }
 
-extension Coinomat.Service {
+extension Gateway.Service {
     
-    struct InitWithdraw: Codable {
+    struct InitProcess: Codable {
         let userAddress: String
         let assetId: String
     }
 }
+
 extension Gateway.Service: TargetType {
     
     var sampleData: Data {
@@ -40,27 +48,14 @@ extension Gateway.Service: TargetType {
     }
     
     var baseURL: URL {
-        return URL(string: "https://gw.wavesplatform.com/api/v1/external/withdraw")!
+        return URL(string: Constants.url)!
     }
     
     var path: String {
-        return ""
-//        switch self {
-//        case .getRate(let rate):
-//            return rate.path
-//
-//        case .cardLimit(let limit):
-//            return limit.path
-//
-//        case .createTunnel(let tunnel):
-//            return tunnel.path
-//
-//        case .getTunnel(let tunnel):
-//            return tunnel.path
-//
-//        case .getPrice(let price):
-//            return price.path
-//        }
+        switch self {
+        case .initProcess:
+            return "v1/external/withdraw"
+        }
     }
     
     var headers: [String: String]? {
@@ -68,28 +63,13 @@ extension Gateway.Service: TargetType {
     }
     
     var method: Moya.Method {
-        return .get
+        return .post
     }
     
     var task: Task {
-        
-        return .requestParameters(parameters: [:], encoding: URLEncoding.default)
-        
-//        switch self {
-//        case .getRate(let rate):
-//            return .requestParameters(parameters: rate.dictionary, encoding: URLEncoding.default)
-//            
-//        case .cardLimit(let limit):
-//            return .requestParameters(parameters: limit.dictionary, encoding: URLEncoding.default)
-//            
-//        case .createTunnel(let tunnel):
-//            return .requestParameters(parameters: tunnel.dictionary, encoding: URLEncoding.default)
-//            
-//        case .getTunnel(let tunnel):
-//            return .requestParameters(parameters: tunnel.dictionary, encoding: URLEncoding.default)
-//            
-//        case .getPrice(let price):
-//            return .requestParameters(parameters: price.dictionary, encoding: URLEncoding.default)
-//        }
+        switch self {
+        case .initProcess(let initProcess):
+            return .requestParameters(parameters: initProcess.dictionary, encoding: JSONEncoding.default)
+        }
     }
 }
