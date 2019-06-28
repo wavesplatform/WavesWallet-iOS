@@ -11,13 +11,23 @@ import Moya
 import WavesSDK
 
 private enum Constants {
-    static let url = "https://gw.wavesplatform.com/api/"
+    
+    enum Keys {
+        static let sender = "sender"
+    }
+    
+    enum Path {
+        static let withdrawProcess = "v1/external/withdraw"
+        static let depositProcess = "v1/external/deposit"
+        static let send = "v1/external/send"
+    }
 }
 
 enum Gateway {
     enum Service {
-        case initWithdrawProcess(InitProcess)
-        case initDepositProcess(InitProcess)
+        case initWithdrawProcess(baseURL: URL, withdrawProcess: InitProcess)
+        case initDepositProcess(baseURL: URL, depositProcess: InitProcess)
+        case send(baseURL: URL, broadcast: NodeService.Query.Broadcast, accountAddress: String)
     }
     
     enum DTO {}
@@ -56,16 +66,29 @@ extension Gateway.Service: TargetType {
     }
     
     var baseURL: URL {
-        return URL(string: Constants.url)!
+        
+        switch self {
+        case .initDepositProcess(let initProcess):
+            return initProcess.baseURL
+
+        case .initWithdrawProcess(let initProcess):
+            return initProcess.baseURL
+            
+        case .send(let send):
+            return send.baseURL
+        }
     }
     
     var path: String {
         switch self {
         case .initWithdrawProcess:
-            return "v1/external/withdraw"
-            
+            return Constants.Path.withdrawProcess
+
         case .initDepositProcess:
-            return "v1/external/deposit"
+            return Constants.Path.depositProcess
+            
+        case .send:
+            return Constants.Path.send
         }
     }
     
@@ -80,11 +103,17 @@ extension Gateway.Service: TargetType {
     var task: Task {
         switch self {
         case .initWithdrawProcess(let initProcess):
-            return .requestParameters(parameters: initProcess.dictionary, encoding: JSONEncoding.default)
+            return .requestParameters(parameters: initProcess.withdrawProcess.dictionary, encoding: JSONEncoding.default)
 
         case .initDepositProcess(let initProcess):
-            return .requestParameters(parameters: initProcess.dictionary, encoding: JSONEncoding.default)
+            return .requestParameters(parameters: initProcess.depositProcess.dictionary, encoding: JSONEncoding.default)
             
+        case .send(let send):
+            
+            var params = send.broadcast.params
+            params[Constants.Keys.sender] = send.accountAddress
+            
+            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         }
     }
 }

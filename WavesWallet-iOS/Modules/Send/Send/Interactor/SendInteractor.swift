@@ -107,10 +107,12 @@ final class SendInteractor: SendInteractorProtocol {
             })
     }
     
-    func send(fee: Money, recipient: String, assetId: String, amount: Money, attachment: String, feeAssetID: String) -> Observable<Send.TransactionStatus> {
+    func send(fee: Money, recipient: String, asset: DomainLayer.DTO.Asset, amount: Money, attachment: String, feeAssetID: String, isGatewayTransaction: Bool) -> Observable<Send.TransactionStatus> {
         
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<Send.TransactionStatus> in
             guard let self = self else { return Observable.empty() }
+
+            let assetId = asset.isWaves ? "" : asset.id
 
             let sender = SendTransactionSender(recipient: recipient,
                                                assetId: assetId,
@@ -118,6 +120,14 @@ final class SendInteractor: SendInteractorProtocol {
                                                fee: fee.amount,
                                                attachment: attachment,
                                                feeAssetID: feeAssetID)
+            
+            if asset.isVostok && isGatewayTransaction {
+                return self.gatewayRepository.send(by: TransactionSenderSpecifications.send(sender), wallet: wallet)
+                    .flatMap({ (transaction) -> Observable<Send.TransactionStatus> in
+                        return Observable.just(.success)
+                    })
+            }
+            
             return self.transactionInteractor.send(by: TransactionSenderSpecifications.send(sender), wallet: wallet)
                 .flatMap({ (transaction) -> Observable<Send.TransactionStatus>  in
                     return Observable.just(.success)
@@ -142,12 +152,12 @@ private extension SendInteractor {
                 .map({ (initProcessInfo) -> ResponseType<Send.DTO.GatewayInfo> in
                     
                     let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,
-                                                           assetShortName: asset.gatewayId ?? "",
+                                                           assetShortName: asset.ticker ?? "",
                                                            minAmount: initProcessInfo.minAmount,
                                                            maxAmount: initProcessInfo.maxAmount,
                                                            fee: initProcessInfo.fee,
                                                            address: initProcessInfo.recipientAddress,
-                                                           attachment: "")
+                                                           attachment: initProcessInfo.processId)
                     return ResponseType(output: gatewayInfo, error: nil)
                 })
             .catchError({ (error) -> Observable<ResponseType<Send.DTO.GatewayInfo>> in

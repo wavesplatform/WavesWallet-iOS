@@ -131,26 +131,14 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
             .flatMapLatest({ (servicesEnvironment) -> Observable<DomainLayer.DTO.AnyTransaction> in
                 
                 let walletEnvironment = servicesEnvironment.walletEnvironment
-                let timestampServerDiff = servicesEnvironment.timestampServerDiff
                 
-                let timestamp = Date().millisecondsSince1970(timestampDiff: timestampServerDiff)
-                var signature = specifications.signature(timestamp: timestamp,
-                                                         scheme: walletEnvironment.scheme,
-                                                         publicKey: wallet.publicKey.publicKey)
+                let specs = specifications.broadcastSpecification(servicesEnvironment: servicesEnvironment,
+                                                                                   wallet: wallet,
+                                                                                   scheme: walletEnvironment.scheme,
+                                                                                   specifications: specifications)
                 
-                do {
-                    signature = try wallet.sign(input: signature, kind: [.none])
-                } catch let e {
-                    SweetLogger.error(e)
-                    return Observable.error(TransactionsRepositoryError.fail)
-                }
-
-                let proofs = [Base58.encode(signature)]
-
-                let broadcastSpecification = specifications.broadcastSpecification(timestamp: timestamp,
-                                                                                   environment: walletEnvironment,
-                                                                                   publicKey: wallet.publicKey.getPublicKeyStr(),
-                                                                                   proofs: proofs)
+                guard let broadcastSpecification = specs else { return Observable.empty() }
+                
                 return servicesEnvironment
                     .wavesServices
                     .nodeServices
@@ -255,12 +243,41 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
 
 
 
-fileprivate extension TransactionSenderSpecifications {
+ extension TransactionSenderSpecifications {
 
-    func broadcastSpecification(timestamp: Int64,
-                                environment: WalletEnvironment,
-                                publicKey: String,
-                                proofs: [String]) -> NodeService.Query.Broadcast {
+    func broadcastSpecification(servicesEnvironment: ApplicationEnviroment,
+                                wallet: DomainLayer.DTO.SignedWallet,
+                                scheme: String,
+                                specifications: TransactionSenderSpecifications) -> NodeService.Query.Broadcast? {
+    
+        let walletEnvironment = servicesEnvironment.walletEnvironment
+        let timestampServerDiff = servicesEnvironment.timestampServerDiff
+        
+        let timestamp = Date().millisecondsSince1970(timestampDiff: timestampServerDiff)
+        var signature = self.signature(timestamp: timestamp,
+                                       scheme: scheme,
+                                       publicKey: wallet.publicKey.publicKey)
+        
+        do {
+            signature = try wallet.sign(input: signature, kind: [.none])
+        } catch let e {
+            SweetLogger.error(e)
+            return nil
+        }
+        
+        let proofs = [Base58.encode(signature)]
+        
+        let broadcastSpecification = self.continueBroadcastSpecification(timestamp: timestamp,
+                                                                         environment: walletEnvironment,
+                                                                         publicKey: wallet.publicKey.getPublicKeyStr(),
+                                                                         proofs: proofs)
+        return broadcastSpecification
+    }
+    
+    private func continueBroadcastSpecification(timestamp: Int64,
+                                                environment: WalletEnvironment,
+                                                publicKey: String,
+                                                proofs: [String]) -> NodeService.Query.Broadcast {
 
         switch self {
             
@@ -348,7 +365,7 @@ fileprivate extension TransactionSenderSpecifications {
 
     }
 
-    func signature(timestamp: Int64, scheme: String, publicKey: [UInt8]) -> [UInt8] {
+    public func signature(timestamp: Int64, scheme: String, publicKey: [UInt8]) -> [UInt8] {
 
         switch self {
 
