@@ -86,7 +86,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
                                     accountSettingsRepository: accountSettingsRepository)
     }()
     
-    public private(set) lazy var gatewayRepository: GatewayRepositoryProtocol = GatewayRepository()
+    public private(set) lazy var gatewayRepository: GatewayRepositoryProtocol = GatewayRepository(environmentRepository: environmentRepositoryInternal)
 
     public struct Resources {
         

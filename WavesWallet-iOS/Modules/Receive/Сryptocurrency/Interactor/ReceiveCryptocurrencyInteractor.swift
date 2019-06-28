@@ -20,9 +20,6 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
 
     func generateAddress(asset: DomainLayer.DTO.Asset) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> {
         
-//        guard let currencyFrom = asset.gatewayId,
-//            let currencyTo = asset.wavesId else { return Observable.empty() }
-
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
           
             guard let self = self else { return Observable.empty() }
@@ -33,7 +30,7 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                         
                         let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(address: initDeposit.address,
                                                                                 assetName: asset.displayName,
-                                                                                assetShort: asset.gatewayId ?? "",
+                                                                                assetShort: asset.ticker ?? "",
                                                                                 minAmount: initDeposit.minAmount,
                                                                                 icon: asset.iconLogo)
 

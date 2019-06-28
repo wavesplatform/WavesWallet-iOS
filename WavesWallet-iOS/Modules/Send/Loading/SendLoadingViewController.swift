@@ -50,9 +50,8 @@ final class SendLoadingViewController: UIViewController {
     
     private func send() {
       
-        let assetId = input.asset.isWaves ? "" : input.asset.id
         interactor
-            .send(fee: input.fee, recipient: input.address, assetId: assetId, amount: input.amount, attachment: input.attachment, feeAssetID: input.feeAssetID)
+            .send(fee: input.fee, recipient: input.address, asset: input.asset, amount: input.amount, attachment: input.attachment, feeAssetID: input.feeAssetID, isGatewayTransaction: input.isGateway)
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] status in
                 guard let self = self else { return }
