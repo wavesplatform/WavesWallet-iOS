@@ -727,12 +727,15 @@ private extension SendViewController {
         let min = info.minAmount.displayText + " " + info.assetShortName
         let max = info.maxAmount.displayText + " " + info.assetShortName
 
-        if selectedAsset?.asset.isVostok == true {
-            labelWarningSubtitle.text = Localizable.Waves.Send.Label.Warning.Vostok.subtitle(info.assetName, min, max)
-        }
-        else {
+        guard let gateWayType = selectedAsset?.asset.gatewayType else { return }
+        switch gateWayType {
+        case .gateway:
+            labelWarningSubtitle.text = Localizable.Waves.Send.Label.Warning.Gateway.subtitle(info.assetName, min, max)
+
+        case .coinomat:
             labelWarningSubtitle.text = Localizable.Waves.Send.Label.Warning.subtitle(info.assetName, min, max)
         }
+        
         labelWarningDescription.text = Localizable.Waves.Send.Label.Warning.description(info.assetName)
         
         viewWarning.isHidden = false

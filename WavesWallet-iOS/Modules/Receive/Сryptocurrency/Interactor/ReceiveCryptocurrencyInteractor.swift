@@ -22,9 +22,10 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
         
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
           
-            guard let self = self else { return Observable.empty() }
+            guard let self = self, let gatewayType = asset.gatewayType else { return Observable.empty() }
             
-            if asset.isVostok {
+            switch gatewayType {
+            case .gateway:
                 return self.gatewayRepository.initDepositProcess(address: wallet.address, asset: asset)
                     .map({ (initDeposit) -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
                         
@@ -33,11 +34,11 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                                                                                 assetShort: asset.ticker ?? "",
                                                                                 minAmount: initDeposit.minAmount,
                                                                                 icon: asset.iconLogo)
-
+                        
                         return ResponseType(output: displayInfo, error: nil)
                     })
-            }
-            else {
+                
+            case .coinomat:
                 guard let currencyFrom = asset.gatewayId,
                     let currencyTo = asset.wavesId else { return Observable.empty() }
                 

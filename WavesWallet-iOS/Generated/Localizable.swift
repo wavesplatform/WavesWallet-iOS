@@ -2433,10 +2433,10 @@ internal enum Localizable {
             return Localizable.tr("Waves", "Send.Label.Warning.subtitle", p1, p2, p3)
           }
 
-          internal enum Vostok {
+          internal enum Gateway {
             /// Мы определили что введенный адрес поределен как %@-адрес, ваши средства будут отправлены на него через шлюз. Minimum amount is %@, maximum amount is %@.
             internal static func subtitle(_ p1: String, _ p2: String, _ p3: String) -> String {
-              return Localizable.tr("Waves", "Send.Label.Warning.vostok.subtitle", p1, p2, p3)
+              return Localizable.tr("Waves", "Send.Label.Warning.gateway.subtitle", p1, p2, p3)
             }
           }
         }
