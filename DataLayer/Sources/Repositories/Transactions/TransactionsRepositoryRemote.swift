@@ -365,7 +365,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
 
     }
 
-    public func signature(timestamp: Int64, scheme: String, publicKey: [UInt8]) -> [UInt8] {
+    private func signature(timestamp: Int64, scheme: String, publicKey: [UInt8]) -> [UInt8] {
 
         switch self {
 
