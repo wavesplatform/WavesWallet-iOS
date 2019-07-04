@@ -270,9 +270,9 @@ DEPENDENCIES:
   - TTTAttributedLabel
   - "UITextView+Placeholder"
   - UPCarouselFlowLayout
-  - WavesSDK (from `https://github.com/wavesplatform/WavesSDK-iOS.git`, branch `develop`)
-  - WavesSDKCrypto (from `https://github.com/wavesplatform/WavesSDK-iOS.git`, branch `develop`)
-  - WavesSDKExtension (from `https://github.com/wavesplatform/WavesSDK-iOS.git`, branch `develop`)
+  - WavesSDK (from `https://github.com/wavesplatform/WavesSDK-iOS.git`, commit `7f3a34e09c17171c0c27d7f4c77530ceace1ec92`)
+  - WavesSDKCrypto (from `https://github.com/wavesplatform/WavesSDK-iOS.git`, commit `7f3a34e09c17171c0c27d7f4c77530ceace1ec92`)
+  - WavesSDKExtension (from `https://github.com/wavesplatform/WavesSDK-iOS.git`, commit `7f3a34e09c17171c0c27d7f4c77530ceace1ec92`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -353,13 +353,13 @@ EXTERNAL SOURCES:
   RESideMenu:
     :git: https://github.com/wavesplatform/RESideMenu.git
   WavesSDK:
-    :branch: develop
+    :commit: 7f3a34e09c17171c0c27d7f4c77530ceace1ec92
     :git: https://github.com/wavesplatform/WavesSDK-iOS.git
   WavesSDKCrypto:
-    :branch: develop
+    :commit: 7f3a34e09c17171c0c27d7f4c77530ceace1ec92
     :git: https://github.com/wavesplatform/WavesSDK-iOS.git
   WavesSDKExtension:
-    :branch: develop
+    :commit: 7f3a34e09c17171c0c27d7f4c77530ceace1ec92
     :git: https://github.com/wavesplatform/WavesSDK-iOS.git
 
 CHECKOUT OPTIONS:
@@ -451,6 +451,6 @@ SPEC CHECKSUMS:
   WavesSDKCrypto: 13726c6c30ba60723d56bad89e36c40749e87120
   WavesSDKExtension: 6fc665d55211805012f28c21ef1803310c4f940b
 
-PODFILE CHECKSUM: 1128cdc2d229930fb3be93db40db6edd81eee839
+PODFILE CHECKSUM: bd5d4bbab04babc0247042f3ad3a963fc9568fd0
 
 COCOAPODS: 1.7.2

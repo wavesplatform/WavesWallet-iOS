@@ -21,9 +21,9 @@ end
 
 
 def wavesSDKPod
-    pod 'WavesSDKExtension', :git => 'https://github.com/wavesplatform/WavesSDK-iOS.git', :branch => 'develop'
-    pod 'WavesSDK', :git => 'https://github.com/wavesplatform/WavesSDK-iOS.git', :branch => 'develop'
-    pod 'WavesSDKCrypto', :git => 'https://github.com/wavesplatform/WavesSDK-iOS.git', :branch => 'develop'
+    pod 'WavesSDKExtension', :git => 'https://github.com/wavesplatform/WavesSDK-iOS.git', :commit => '7f3a34e09c17171c0c27d7f4c77530ceace1ec92'
+    pod 'WavesSDK', :git => 'https://github.com/wavesplatform/WavesSDK-iOS.git',  :commit => '7f3a34e09c17171c0c27d7f4c77530ceace1ec92'
+    pod 'WavesSDKCrypto', :git => 'https://github.com/wavesplatform/WavesSDK-iOS.git',  :commit => '7f3a34e09c17171c0c27d7f4c77530ceace1ec92'
 end
 
 
