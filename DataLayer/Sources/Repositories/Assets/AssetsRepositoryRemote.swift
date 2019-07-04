@@ -128,7 +128,7 @@ fileprivate extension DomainLayer.DTO.Asset {
         var isWaves = false
         var isFiat = false
         let isGateway = info?.isGateway ?? false
-        let isWavesToken = isFiat == false && isGateway == false && isWaves == false && info?.gatewayType == nil
+        let isWavesToken = isFiat == false && isGateway == false && isWaves == false
         var name = asset.name
         
         //TODO: Current code need move to AssetsInteractor!

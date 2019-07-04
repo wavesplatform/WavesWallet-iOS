@@ -1031,7 +1031,7 @@ private extension SendViewController {
     }
     
     func isCryptoCurrencyAsset(_ asset: DomainLayer.DTO.Asset) -> Bool {
-        return asset.gatewayType != nil && !asset.isFiat
+        return asset.isGateway && !asset.isFiat
     }
     
     func addressNotRequireMinimumLength(_ address: String) -> Bool {
