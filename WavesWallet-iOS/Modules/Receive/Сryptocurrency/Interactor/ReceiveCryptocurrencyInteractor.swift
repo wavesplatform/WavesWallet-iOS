@@ -26,13 +26,13 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
             
             switch gatewayType {
             case .gateway:
-                return self.gatewayRepository.initDepositProcess(address: wallet.address, asset: asset)
-                    .map({ (initDeposit) -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
+                return self.gatewayRepository.startDepositProcess(address: wallet.address, asset: asset)
+                    .map({ (startDeposit) -> ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo> in
                         
-                        let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(address: initDeposit.address,
+                        let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(address: startDeposit.address,
                                                                                 assetName: asset.displayName,
                                                                                 assetShort: asset.ticker ?? "",
-                                                                                minAmount: initDeposit.minAmount,
+                                                                                minAmount: startDeposit.minAmount,
                                                                                 icon: asset.iconLogo)
                         
                         return ResponseType(output: displayInfo, error: nil)

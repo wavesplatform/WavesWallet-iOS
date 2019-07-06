@@ -25,8 +25,8 @@ private enum Constants {
 
 enum Gateway {
     enum Service {
-        case initWithdrawProcess(baseURL: URL, withdrawProcess: InitProcess)
-        case initDepositProcess(baseURL: URL, depositProcess: InitProcess)
+        case startWithdrawProcess(baseURL: URL, withdrawProcess: StartProcess)
+        case startDepositProcess(baseURL: URL, depositProcess: StartProcess)
         case send(baseURL: URL, broadcast: NodeService.Query.Broadcast, accountAddress: String)
     }
     
@@ -53,7 +53,7 @@ extension Gateway.DTO {
 
 extension Gateway.Service {
     
-    struct InitProcess: Codable {
+    struct StartProcess: Codable {
         let userAddress: String
         let assetId: String
     }
@@ -68,10 +68,10 @@ extension Gateway.Service: TargetType {
     var baseURL: URL {
         
         switch self {
-        case .initDepositProcess(let initProcess):
+        case .startDepositProcess(let initProcess):
             return initProcess.baseURL
 
-        case .initWithdrawProcess(let initProcess):
+        case .startWithdrawProcess(let initProcess):
             return initProcess.baseURL
             
         case .send(let send):
@@ -81,10 +81,10 @@ extension Gateway.Service: TargetType {
     
     var path: String {
         switch self {
-        case .initWithdrawProcess:
+        case .startWithdrawProcess:
             return Constants.Path.withdrawProcess
 
-        case .initDepositProcess:
+        case .startDepositProcess:
             return Constants.Path.depositProcess
             
         case .send:
@@ -102,10 +102,10 @@ extension Gateway.Service: TargetType {
     
     var task: Task {
         switch self {
-        case .initWithdrawProcess(let initProcess):
+        case .startWithdrawProcess(let initProcess):
             return .requestParameters(parameters: initProcess.withdrawProcess.dictionary, encoding: JSONEncoding.default)
 
-        case .initDepositProcess(let initProcess):
+        case .startDepositProcess(let initProcess):
             return .requestParameters(parameters: initProcess.depositProcess.dictionary, encoding: JSONEncoding.default)
             
         case .send(let send):

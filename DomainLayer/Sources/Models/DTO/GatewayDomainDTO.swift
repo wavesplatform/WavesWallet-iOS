@@ -17,7 +17,7 @@ public extension DomainLayer.DTO {
     }
     
     public enum Gateway {
-        public struct InitWithdrawProcess {
+        public struct StartWithdrawProcess {
             public let recipientAddress: String
             public let minAmount: Money
             public let maxAmount: Money
@@ -33,7 +33,7 @@ public extension DomainLayer.DTO {
             }
         }
         
-        public struct InitDepositProcess {
+        public struct StartDepositProcess {
             public let address: String
             public let minAmount: Money
             public let maxAmount: Money
