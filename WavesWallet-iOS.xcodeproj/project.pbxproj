@@ -849,6 +849,7 @@
 		E9B12DB6219DD6E000128EFE /* AssetBalanceSpamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B12DB4219DD6E000128EFE /* AssetBalanceSpamCell.xib */; };
 		E9B12DB9219E2D3900128EFE /* AssetBurnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B12DB7219E2D3900128EFE /* AssetBurnCell.swift */; };
 		E9B12DBA219E2D3900128EFE /* AssetBurnCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B12DB8219E2D3900128EFE /* AssetBurnCell.xib */; };
+		E9B38F5C22D0DE8900D8CCC8 /* TransactionSenderAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B38F5B22D0DE8900D8CCC8 /* TransactionSenderAssistant.swift */; };
 		E9BB2D852260DEB000366278 /* TransactionCardInvokeScriptCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB2D842260DEB000366278 /* TransactionCardInvokeScriptCell.swift */; };
 		E9C0B49C2176C46E00669D1D /* SendPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B49B2176C46E00669D1D /* SendPresenterProtocol.swift */; };
 		E9C0B49E2176C48300669D1D /* SendPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B49D2176C48300669D1D /* SendPresenter.swift */; };
@@ -1896,6 +1897,7 @@
 		E9B12DB4219DD6E000128EFE /* AssetBalanceSpamCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetBalanceSpamCell.xib; sourceTree = "<group>"; };
 		E9B12DB7219E2D3900128EFE /* AssetBurnCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBurnCell.swift; sourceTree = "<group>"; };
 		E9B12DB8219E2D3900128EFE /* AssetBurnCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetBurnCell.xib; sourceTree = "<group>"; };
+		E9B38F5B22D0DE8900D8CCC8 /* TransactionSenderAssistant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionSenderAssistant.swift; sourceTree = "<group>"; };
 		E9BB2D842260DEB000366278 /* TransactionCardInvokeScriptCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardInvokeScriptCell.swift; sourceTree = "<group>"; };
 		E9C0B49B2176C46E00669D1D /* SendPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPresenterProtocol.swift; sourceTree = "<group>"; };
 		E9C0B49D2176C48300669D1D /* SendPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPresenter.swift; sourceTree = "<group>"; };
@@ -3672,6 +3674,7 @@
 				7B95111B225CD5EE0030390C /* Results+Limit.swift */,
 				7B951117225CD5850030390C /* DatabaseReference+Rx.swift */,
 				7B66886722B7E6C80029E6F1 /* SpamCSV+Assisstants.swift */,
+				E9B38F5B22D0DE8900D8CCC8 /* TransactionSenderAssistant.swift */,
 				7B66886822B7E6C80029E6F1 /* Types */,
 				7B66886B22B7E6C80029E6F1 /* NodePlugin.swift */,
 				7B66886C22B7E6C80029E6F1 /* MoyaProvider+Helper.swift */,
@@ -5943,6 +5946,7 @@
 				7B6688CB22B945330029E6F1 /* DatabaseReference+Rx.swift in Sources */,
 				7B66889922B7E6C90029E6F1 /* SponsorshipTransaction+Mapper.swift in Sources */,
 				7B6688AB22B7E6C90029E6F1 /* TransactionsRepositoryLocal.swift in Sources */,
+				E9B38F5C22D0DE8900D8CCC8 /* TransactionSenderAssistant.swift in Sources */,
 				7B66888D22B7E6C90029E6F1 /* WalletEncryption.swift in Sources */,
 				7B6688A222B7E6C90029E6F1 /* Asset+Mapper.swift in Sources */,
 				7B66887422B7E6C90029E6F1 /* ScriptTransaction.swift in Sources */,
