@@ -162,16 +162,16 @@ private extension SendInteractor {
         switch gateWayType {
         case .gateway:
             return gatewayRepository
-                .initWithdrawProcess(address: address, asset: asset)
-                .map({ (initProcessInfo) -> ResponseType<Send.DTO.GatewayInfo> in
+                .startWithdrawProcess(address: address, asset: asset)
+                .map({ (startProcessInfo) -> ResponseType<Send.DTO.GatewayInfo> in
                     
                     let gatewayInfo = Send.DTO.GatewayInfo(assetName: asset.displayName,
                                                            assetShortName: asset.ticker ?? "",
-                                                           minAmount: initProcessInfo.minAmount,
-                                                           maxAmount: initProcessInfo.maxAmount,
-                                                           fee: initProcessInfo.fee,
-                                                           address: initProcessInfo.recipientAddress,
-                                                           attachment: initProcessInfo.processId)
+                                                           minAmount: startProcessInfo.minAmount,
+                                                           maxAmount: startProcessInfo.maxAmount,
+                                                           fee: startProcessInfo.fee,
+                                                           address: startProcessInfo.recipientAddress,
+                                                           attachment: startProcessInfo.processId)
                     return ResponseType(output: gatewayInfo, error: nil)
                 })
                 .catchError({ (error) -> Observable<ResponseType<Send.DTO.GatewayInfo>> in

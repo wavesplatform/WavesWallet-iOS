@@ -24,55 +24,55 @@ final class GatewayRepository: GatewayRepositoryProtocol {
         self.environmentRepository = environmentRepository
     }
     
-    func initWithdrawProcess(address: String, asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.Gateway.InitWithdrawProcess> {
+    func startWithdrawProcess(address: String, asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.Gateway.StartWithdrawProcess> {
         
-        let initProcess = Gateway.Service.InitProcess(userAddress: address, assetId: asset.id)
+        let startProcess = Gateway.Service.StartProcess(userAddress: address, assetId: asset.id)
        
         return environmentRepository.servicesEnvironment()
-            .flatMap({ [weak self] (servicesEnvironment) -> Observable<DomainLayer.DTO.Gateway.InitWithdrawProcess> in
+            .flatMap({ [weak self] (servicesEnvironment) -> Observable<DomainLayer.DTO.Gateway.StartWithdrawProcess> in
                 guard let self = self else { return Observable.empty() }
                 
                 let url = servicesEnvironment.walletEnvironment.servers.gatewayUrl
 
                 return self.gatewayProvider.rx
-                .request(.initWithdrawProcess(baseURL: url, withdrawProcess: initProcess),
+                .request(.startWithdrawProcess(baseURL: url, withdrawProcess: startProcess),
                          callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()
                     .map(Gateway.DTO.Withdraw.self)
                     .asObservable()
-                    .map({ (initWithdraw) -> DomainLayer.DTO.Gateway.InitWithdrawProcess in
-                        return DomainLayer.DTO.Gateway.InitWithdrawProcess(
-                            recipientAddress: initWithdraw.recipientAddress,
-                            minAmount: Money(initWithdraw.minAmount, asset.precision),
-                            maxAmount:  Money(initWithdraw.maxAmount, asset.precision),
-                            fee:  Money(initWithdraw.fee, asset.precision),
-                            processId: initWithdraw.processId)
+                    .map({ (startWithdraw) -> DomainLayer.DTO.Gateway.StartWithdrawProcess in
+                        return DomainLayer.DTO.Gateway.StartWithdrawProcess(
+                            recipientAddress: startWithdraw.recipientAddress,
+                            minAmount: Money(startWithdraw.minAmount, asset.precision),
+                            maxAmount:  Money(startWithdraw.maxAmount, asset.precision),
+                            fee:  Money(startWithdraw.fee, asset.precision),
+                            processId: startWithdraw.processId)
                         
                     })
             })
     }
 
-    func initDepositProcess(address: String, asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.Gateway.InitDepositProcess> {
-        let initProcess = Gateway.Service.InitProcess(userAddress: address, assetId: asset.id)
+    func startDepositProcess(address: String, asset: DomainLayer.DTO.Asset) -> Observable<DomainLayer.DTO.Gateway.StartDepositProcess> {
+        let startProcess = Gateway.Service.StartProcess(userAddress: address, assetId: asset.id)
         
         return environmentRepository.servicesEnvironment()
-            .flatMap({ [weak self] (servicesEnvironment) ->  Observable<DomainLayer.DTO.Gateway.InitDepositProcess> in
+            .flatMap({ [weak self] (servicesEnvironment) ->  Observable<DomainLayer.DTO.Gateway.StartDepositProcess> in
                 guard let self = self else { return Observable.empty() }
                 
                 let url = servicesEnvironment.walletEnvironment.servers.gatewayUrl
 
                 return self.gatewayProvider.rx
-                .request(.initDepositProcess(baseURL: url, depositProcess: initProcess),
+                .request(.startDepositProcess(baseURL: url, depositProcess: startProcess),
                          callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()
                     .map(Gateway.DTO.Deposit.self)
                     .asObservable()
-                    .map({ (initDeposit) -> DomainLayer.DTO.Gateway.InitDepositProcess in
+                    .map({ (startDeposit) -> DomainLayer.DTO.Gateway.StartDepositProcess in
                         
-                        return DomainLayer.DTO.Gateway.InitDepositProcess(
-                            address: initDeposit.address,
-                            minAmount: Money(initDeposit.minAmount, asset.precision),
-                            maxAmount: Money(initDeposit.maxAmount, asset.precision))
+                        return DomainLayer.DTO.Gateway.StartDepositProcess(
+                            address: startDeposit.address,
+                            minAmount: Money(startDeposit.minAmount, asset.precision),
+                            maxAmount: Money(startDeposit.maxAmount, asset.precision))
                     })
         })
     }
@@ -86,6 +86,7 @@ final class GatewayRepository: GatewayRepositoryProtocol {
                 
                 let url = servicesEnvironment.walletEnvironment.servers.gatewayUrl
 
+                //TODO: - remove vostok scheme
                 let specs = specifications.broadcastSpecification(servicesEnvironment: servicesEnvironment,
                                                                   wallet: wallet,
                                                                   scheme: servicesEnvironment.walletEnvironment.vostokScheme,
