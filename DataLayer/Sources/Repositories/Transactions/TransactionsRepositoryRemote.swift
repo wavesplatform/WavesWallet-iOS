@@ -134,7 +134,6 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                 
                 let specs = specifications.broadcastSpecification(servicesEnvironment: servicesEnvironment,
                                                                                    wallet: wallet,
-                                                                                   scheme: walletEnvironment.scheme,
                                                                                    specifications: specifications)
                 
                 guard let broadcastSpecification = specs else { return Observable.empty() }

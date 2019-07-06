@@ -89,7 +89,6 @@ final class GatewayRepository: GatewayRepositoryProtocol {
                 //TODO: - remove vostok scheme
                 let specs = specifications.broadcastSpecification(servicesEnvironment: servicesEnvironment,
                                                                   wallet: wallet,
-                                                                  scheme: servicesEnvironment.walletEnvironment.vostokScheme,
                                                                   specifications: specifications)
                 
                 guard let broadcastSpecification = specs else { return Observable.empty() }
