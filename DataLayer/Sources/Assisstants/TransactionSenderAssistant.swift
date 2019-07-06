@@ -15,7 +15,6 @@ extension TransactionSenderSpecifications {
     
     func broadcastSpecification(servicesEnvironment: ApplicationEnviroment,
                                 wallet: DomainLayer.DTO.SignedWallet,
-                                scheme: String,
                                 specifications: TransactionSenderSpecifications) -> NodeService.Query.Broadcast? {
         
         let walletEnvironment = servicesEnvironment.walletEnvironment
@@ -23,7 +22,7 @@ extension TransactionSenderSpecifications {
         
         let timestamp = Date().millisecondsSince1970(timestampDiff: timestampServerDiff)
         var signature = self.signature(timestamp: timestamp,
-                                       scheme: scheme,
+                                       scheme: servicesEnvironment.walletEnvironment.scheme,
                                        publicKey: wallet.publicKey.publicKey)
         
         do {
