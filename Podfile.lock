@@ -386,7 +386,7 @@ SPEC CHECKSUMS:
   AppSpectorSDK: cc49a0fcfa01200cb273782ae4e294c5aebc5fd2
   Base58: 419d6be274b8bb6ae4649e492bee67a0c1c09230
   Blake2: 682a2367efad6a4c85ecc691acfa3f9dfceeceb0
-  Charts: e0dd4cd8f257bccf98407b58183ddca8e8d5b578
+  Charts: ec1f57f9340054155691e84d4544a1d239d382c5
   Crashlytics: 5aa8e90dcbf2f34898b4f5a0037787531246cca0
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   CSV.swift: 947283699fe698d08a4d675d9e642c2bf32418a8

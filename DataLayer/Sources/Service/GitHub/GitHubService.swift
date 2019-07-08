@@ -19,29 +19,29 @@ extension GitHub {
 private enum Constants {
 
     
-    static let urlEnvironmentMainNet: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.3/environment_mainnet.json")!
+    static let urlEnvironmentMainNet: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.5/environment_mainnet.json")!
     
     static let urlEnvironmentTestNet: URL = URL(string:
-        "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.3/environment_testnet.json")!
+        "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.5/environment_testnet.json")!
     
     static let urlTransactionFee: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/master/fee.json")!
     
-    static let urlApplicationNews: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.3/notifications_ios.json")!
+    static let urlApplicationNews: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.5/notifications_ios.json")!
     
     static let urlVersionIos: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/master/version_ios.json")!
         
-    static let urlEnvironmentMainNetProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/mobile/v2.3/environment_mainnet.json")!
+    static let urlEnvironmentMainNetProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/mobile/v2.5/environment_mainnet.json")!
     
     static let urlEnvironmentTestNetProxy: URL = URL(string:
-        "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/mobile/v2.3/environment_testnet.json")!
+        "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/mobile/v2.5/environment_testnet.json")!
     
     static let urlTransactionFeeProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/master/fee.json")!
     
-    static let urlApplicationNewsProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/mobile/v2.3/notifications_ios.json")!
+    static let urlApplicationNewsProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/mobile/v2.5/notifications_ios.json")!
     
     static let urlVersionIosProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/master/version_ios.json")!
 
-    static let urlApplicationNewsDebug: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.3/notifications_test_ios.json")!
+    static let urlApplicationNewsDebug: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.5/notifications_test_ios.json")!
 }
 
 extension GitHub.Service {
