@@ -8,6 +8,8 @@
 
 import UIKit
 import RxSwift
+import WavesSDKExtension
+import WavesSDKCrypto
 
 private enum Constants {
     static let duration: TimeInterval = 3
@@ -46,7 +48,7 @@ final class ImportCoordinator: Coordinator {
     // MARK: - Child Controllers
     
     func scannedSeed(_ seed: String) {
-        guard seed.utf8.count >= GlobalConstants.minimumSeedLength else {
+        guard seed.utf8.count >= UIGlobalConstants.minimumSeedLength else {
             navigationRouter.navigationController.topViewController?.showMessageSnack(title: Localizable.Waves.Enter.Button.Importaccount.Error.insecureSeed)
             return
         }

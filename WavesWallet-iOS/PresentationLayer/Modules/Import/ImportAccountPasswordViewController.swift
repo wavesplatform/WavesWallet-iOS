@@ -9,7 +9,7 @@
 import UIKit
 import IQKeyboardManagerSwift
 import IdentityImg
-
+import WavesSDKExtension
 
 protocol ImportAccountPasswordViewControllerDelegate: AnyObject  {
     func userCompletedInputAccountData(password: String, name: String)
@@ -104,11 +104,11 @@ extension ImportAccountPasswordViewController {
         accountTextField.valueValidator = { value in
             let count = value?.trimmingCharacters(in: .whitespaces).count ?? 0
 
-            if count < GlobalConstants.accountNameMinLimitSymbols {
-                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
+            if count < UIGlobalConstants.accountNameMinLimitSymbols {
+                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(UIGlobalConstants.accountNameMinLimitSymbols)
             }
-            else if count > GlobalConstants.accountNameMaxLimitSymbols {
-                return Localizable.Waves.Newaccount.Textfield.Error.maximumcharacters(GlobalConstants.accountNameMaxLimitSymbols)
+            else if count > UIGlobalConstants.accountNameMaxLimitSymbols {
+                return Localizable.Waves.Newaccount.Textfield.Error.maximumcharacters(UIGlobalConstants.accountNameMaxLimitSymbols)
             }
             else {
                 return nil
@@ -116,8 +116,8 @@ extension ImportAccountPasswordViewController {
         }
 
         passwordTextField.valueValidator = { value in
-            if (value?.count ?? 0) < GlobalConstants.minLengthPassword {
-                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(GlobalConstants.minLengthPassword)
+            if (value?.count ?? 0) < UIGlobalConstants.minLengthPassword {
+                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(UIGlobalConstants.minLengthPassword)
             } else {
                 return nil
             }

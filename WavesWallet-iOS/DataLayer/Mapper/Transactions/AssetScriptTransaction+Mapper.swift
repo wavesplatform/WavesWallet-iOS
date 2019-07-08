@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import WavesSDKExtension
+import WavesSDKCrypto
 
 extension AssetScriptTransaction {
 
@@ -24,6 +26,9 @@ extension AssetScriptTransaction {
         script = transaction.script
         assetId = transaction.assetId
 
+        if let proofs = transaction.proofs {
+            self.proofs.append(objectsIn: proofs)
+        }
         modified = transaction.modified
         status = transaction.status.rawValue
     }

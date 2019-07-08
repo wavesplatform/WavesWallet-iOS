@@ -8,6 +8,8 @@
 
 import Foundation
 import RxSwift
+import WavesSDKExtension
+import WavesSDKCrypto
 
 protocol MatcherRepositoryProtocol {
     

@@ -17,4 +17,6 @@ protocol FactoryInteractorsProtocol {
     var aliases: AliasesInteractorProtocol { get }
     var assetsBalanceSettings: AssetsBalanceSettingsInteractorProtocol { get }
     var migrationInteractor: MigrationInteractor { get }
+    
+    var applicationVersionUseCase: ApplicationVersionUseCase { get }
 }

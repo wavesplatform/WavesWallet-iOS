@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import WavesSDKExtension
 
 private enum Constants {
     static var notFoundCode = 404

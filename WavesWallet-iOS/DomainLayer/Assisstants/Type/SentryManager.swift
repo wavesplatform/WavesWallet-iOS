@@ -8,6 +8,7 @@
 
 import Foundation
 import Sentry
+import WavesSDKExtension
 
 public class SentryManager {
     

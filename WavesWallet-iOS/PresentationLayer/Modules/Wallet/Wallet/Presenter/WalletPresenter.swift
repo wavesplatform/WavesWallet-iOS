@@ -35,6 +35,9 @@ final class WalletPresenter: WalletPresenterProtocol {
         newFeedbacks.append(queryAssetsListener())
         newFeedbacks.append(queryLeasing())
         newFeedbacks.append(queryLeasingListener())
+        newFeedbacks.append(queryCleanWallet())
+        newFeedbacks.append(queryCleanWalletBanner())
+        newFeedbacks.append(queryAppUpdate())
 
         Driver
             .system(initialState: WalletPresenter.initialState(),
@@ -47,6 +50,39 @@ final class WalletPresenter: WalletPresenterProtocol {
             .disposed(by: disposeBag)
     }
 
+    private func queryAppUpdate() -> Feedback {
+        return react(request: { (state) -> Bool? in
+            return true
+            
+        }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
+            
+            guard let self = self else { return Signal.empty() }
+            return self.interactor.isHasAppUpdate().map {.isHasAppUpdate($0)}.asSignal(onErrorSignalWith: Signal.empty())
+        })
+    }
+    
+    private func queryCleanWalletBanner() -> Feedback {
+        return react(request: { (state) -> Bool? in
+            return state.isNeedCleanWalletBanner ? true : nil
+            
+        }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
+            
+            guard let self = self else { return Signal.empty() }
+            return self.interactor.setCleanWalletBanner().map{ .completeCleanWalletBanner($0)}.asSignal(onErrorSignalWith: Signal.empty())
+        })
+    }
+    
+    private func queryCleanWallet() -> Feedback {
+        return react(request: { (state) -> Bool? in
+            return true
+            
+        }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
+            
+            guard let self = self else { return Signal.empty() }
+            return self.interactor.isShowCleanWalletBanner().map{ .isShowCleanWalletBanner($0) }.asSignal(onErrorSignalWith: Signal.empty())
+        })
+    }
+    
     private func queryAssets() -> Feedback {
         return react(request: { (state) -> Types.DisplayState.RefreshData? in
 
@@ -106,7 +142,7 @@ final class WalletPresenter: WalletPresenterProtocol {
     private func queryLeasing() -> Feedback {
         return react(request: { (state) -> Types.DisplayState.RefreshData? in
 
-            if state.displayState.kind == .leasing {
+            if state.displayState.kind == .leasing && state.displayState.refreshData != .none {
                 return state.displayState.refreshData
             } else {
                 return nil
@@ -150,52 +186,41 @@ final class WalletPresenter: WalletPresenterProtocol {
             state.displayState.isAppeared = true
             state.displayState.refreshData = .refresh
 
-            var hasData = false
-
-            switch state.displayState.kind {
-            case .assets:
-                hasData = state.assets.count > 0
-
-            case .leasing:
-                hasData = state.leasing != nil
-            }
-            if hasData == false {
+            if state.hasData == false {
                 var currentDisplay = state.displayState.currentDisplay
                 currentDisplay.animateType = .refresh(animated: false)
                 state.displayState.currentDisplay = currentDisplay
+                state.action = .update
             }
-
+            else {
+                state.action = .none
+            }
+            
         case .viewDidDisappear:
             state.displayState.isAppeared = false
             state.displayState.leasing.animateType = .none
             state.displayState.assets.animateType = .none
             state.displayState.refreshData = .none
+            state.action = .none
 
         case .handlerError(let error):
             state.displayState = state.displayState.setIsRefreshing(isRefreshing: false)
             state.displayState.refreshData = .none
 
-            var hasData = false
-
-            switch state.displayState.kind {
-            case .assets:
-                hasData = state.assets.count > 0
-
-            case .leasing:
-                hasData = state.leasing != nil
-            }
-
-            let errorStatus = DisplayErrorState.displayErrorState(hasData: hasData, error: error)
+            let errorStatus = DisplayErrorState.displayErrorState(hasData: state.hasData, error: error)
             var currentDisplay = state.displayState.currentDisplay
             currentDisplay.errorState = errorStatus
             currentDisplay.animateType = .refreshOnlyError
             state.displayState.currentDisplay = currentDisplay
+            state.action = .update
 
         case .tapSortButton:
             moduleOutput?.showWalletSort(balances: state.assets)
+            state.action = .none
 
         case .tapAddressButton:
             moduleOutput?.showMyAddress()
+            state.action = .none
 
         case .refresh:
             if state.displayState.refreshData == .update {
@@ -203,29 +228,23 @@ final class WalletPresenter: WalletPresenterProtocol {
             } else {
                 state.displayState.refreshData = .update
             }
-
-
-            var hasData = false
-
-            switch state.displayState.kind {
-            case .assets:
-                hasData = state.assets.count > 0
-
-            case .leasing:
-                hasData = state.leasing != nil
-            }
-
+            
             var currentDisplay = state.displayState.currentDisplay
 
-            if hasData == false {
+            if state.hasData == false {
                 currentDisplay.sections = WalletTypes.DisplayState.Display.skeletonSections(kind: state.displayState.kind)
                 currentDisplay.errorState = .none
                 currentDisplay.animateType = .refresh(animated: false)
+                state.action = .update
+            }
+            else {
+                state.action = .none
             }
             currentDisplay.isRefreshing = true
             state.displayState.currentDisplay = currentDisplay
 
         case .tapRow(let indexPath):
+            state.action = .none
 
             let section = state.displayState.currentDisplay.visibleSections[indexPath.section]
 
@@ -259,15 +278,20 @@ final class WalletPresenter: WalletPresenterProtocol {
 
         case .tapSection(let section):
             state.displayState = state.displayState.toggleCollapse(index: section)
+            state.action = .update
 
         case .changeDisplay(let kind):
             state.changeDisplay(state: &state, kind: kind)
             var currentDisplay = state.displayState.currentDisplay
             currentDisplay.isRefreshing = false
-            state.displayState.currentDisplay = currentDisplay
+            state.displayState.currentDisplay = currentDisplay            
+            state.displayState.refreshData = state.hasData ? .none : .refresh
+            
+            state.action = .none
 
         case .setAssets(let response):
-
+            
+            state.action = .update
             let sections = WalletTypes.ViewModel.Section.map(from: response)
             state.displayState = state.displayState.updateDisplay(kind: .assets,
                                                                   sections: sections)
@@ -285,6 +309,7 @@ final class WalletPresenter: WalletPresenterProtocol {
             }
 
         case .setLeasing(let response):
+            state.action = .update
 
             let sections = WalletTypes.ViewModel.Section.map(from: response)
             state.displayState = state.displayState.updateDisplay(kind: .leasing,
@@ -302,6 +327,32 @@ final class WalletPresenter: WalletPresenterProtocol {
 
         case .showStartLease(let money):
             moduleOutput?.showStartLease(availableMoney: money)
+            state.action = .none
+
+        case .presentSearch(let startPoint):
+            moduleOutput?.presentSearchScreen(from: startPoint, assets: state.assets)
+            state.action = .none
+
+        case .updateApp:
+            moduleOutput?.openAppStore()
+            state.action = .none
+
+        case .isShowCleanWalletBanner(let isShowCleanWalletBanner):
+            state.isShowCleanWalletBanner = isShowCleanWalletBanner
+            state.action = .none
+            
+        case .setCleanWalletBanner:
+            state.isNeedCleanWalletBanner = true
+            state.action = .none
+
+        case .completeCleanWalletBanner:
+            state.isShowCleanWalletBanner = false
+            state.isNeedCleanWalletBanner = false
+            state.action = .none
+
+        case .isHasAppUpdate(let isHasAppUpdate):
+            state.isHasAppUpdate = isHasAppUpdate
+            state.action = .none
         }
     }
 

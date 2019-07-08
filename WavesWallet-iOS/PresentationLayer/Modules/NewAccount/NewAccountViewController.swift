@@ -9,6 +9,8 @@
 import UIKit
 import IdentityImg
 import IQKeyboardManagerSwift
+import WavesSDKExtension
+import WavesSDKCrypto
 
 private struct Avatar {
     let address: String
@@ -90,18 +92,18 @@ final class NewAccountViewController: UIViewController {
 
         accountNameInput.valueValidator = { value in
             let count = value?.trimmingCharacters(in: .whitespaces).count ?? 0
-            if count < GlobalConstants.accountNameMinLimitSymbols {
-                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
-            } else if count > GlobalConstants.accountNameMaxLimitSymbols {
-                return Localizable.Waves.Newaccount.Textfield.Error.maximumcharacters(GlobalConstants.accountNameMaxLimitSymbols)
+            if count < UIGlobalConstants.accountNameMinLimitSymbols {
+                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(UIGlobalConstants.accountNameMinLimitSymbols)
+            } else if count > UIGlobalConstants.accountNameMaxLimitSymbols {
+                return Localizable.Waves.Newaccount.Textfield.Error.maximumcharacters(UIGlobalConstants.accountNameMaxLimitSymbols)
             } else {
                 return nil
             }
         }
 
         passwordInput.valueValidator = { value in
-            if (value?.count ?? 0) < GlobalConstants.minLengthPassword {
-                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(GlobalConstants.minLengthPassword)
+            if (value?.count ?? 0) < UIGlobalConstants.minLengthPassword {
+                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(UIGlobalConstants.minLengthPassword)
             } else {
                 return nil
             }

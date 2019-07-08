@@ -109,6 +109,15 @@ extension DomainLayer.DTO {
             let prettyJSON: String
         }
 
+        struct InvokeScript: Equatable {
+            struct Payment: Equatable {
+                let amount: Money
+                let asset: Asset?
+            }
+            let payment: Payment?
+            let scriptAddress: String
+        }
+        
         enum Kind: Equatable {
             case receive(Transfer)
             case sent(Transfer)
@@ -137,7 +146,7 @@ extension DomainLayer.DTO {
             case script(isHasScript: Bool)
             case assetScript(Asset)
             case sponsorship(isEnabled: Bool, asset: Asset)
-
+            case invokeScript(InvokeScript)
         }
 
         let id: String

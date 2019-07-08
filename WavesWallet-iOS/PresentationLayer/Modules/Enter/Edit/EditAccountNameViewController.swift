@@ -88,10 +88,10 @@ final class EditAccountNameViewController: UIViewController {
         
         accountNameInput.valueValidator = { value in
             let trimmedValue = value?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
-            if trimmedValue.count < GlobalConstants.accountNameMinLimitSymbols {
-                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(GlobalConstants.accountNameMinLimitSymbols)
-            } else if trimmedValue.count > GlobalConstants.accountNameMaxLimitSymbols {
-                return Localizable.Waves.Newaccount.Textfield.Error.charactersmaximum(GlobalConstants.accountNameMaxLimitSymbols)
+            if trimmedValue.count < UIGlobalConstants.accountNameMinLimitSymbols {
+                return Localizable.Waves.Newaccount.Textfield.Error.atleastcharacters(UIGlobalConstants.accountNameMinLimitSymbols)
+            } else if trimmedValue.count > UIGlobalConstants.accountNameMaxLimitSymbols {
+                return Localizable.Waves.Newaccount.Textfield.Error.charactersmaximum(UIGlobalConstants.accountNameMaxLimitSymbols)
             } else {
                 return nil
             }

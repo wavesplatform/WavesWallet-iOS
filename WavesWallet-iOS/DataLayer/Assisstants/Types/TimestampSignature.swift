@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import WavesSDKExtension
+import WavesSDKCrypto
 
 fileprivate enum Constants {
     static let timestamp = "timestamp"
@@ -26,6 +28,7 @@ struct TimestampSignature: SignatureProtocol {
 
 extension TimestampSignature {
     init(signedWallet: DomainLayer.DTO.SignedWallet, environment: Environment) {
-        self.init(signedWallet: signedWallet, variable: Date().millisecondsSince1970(timestampDiff: environment.timestampServerDiff))        
+        self.init(signedWallet: signedWallet,
+                  variable: Date().millisecondsSince1970(timestampDiff: environment.timestampServerDiff))
     }
 }

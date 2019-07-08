@@ -10,6 +10,9 @@ import Foundation
 import RxSwift
 import Realm
 import RealmSwift
+import Base58
+import WavesSDKExtension
+import WavesSDKCrypto
 
 fileprivate struct ApplicationVersion: Codable, TSUD {
 
@@ -98,7 +101,8 @@ final class MigrationInteractor {
                                                   isLoggedIn: false,
                                                   isBackedUp: wallet.isBackedUp,
                                                   hasBiometricEntrance: false,
-                                                  id: id)
+                                                  id: id,
+                                                  isNeedShowWalletCleanBanner: wallet.isNeedShowWalletCleanBanner)
                 })
 
                 return Observable.just(newWallets)

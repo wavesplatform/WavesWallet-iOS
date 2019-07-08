@@ -1,9 +1,9 @@
 //
-//  WalletSortTypes.swift
+//  NewWalletSortTypes.swift
 //  WavesWallet-iOS
 //
-//  Created by mefilt on 24.07.2018.
-//  Copyright © 2018 Waves Platform. All rights reserved.
+//  Created by Pavel Gubin on 4/17/19.
+//  Copyright © 2019 Waves Platform. All rights reserved.
 //
 
 import Foundation
@@ -11,58 +11,71 @@ import Foundation
 enum WalletSort {
     enum DTO {}
     enum ViewModel {}
-
-    enum Direction {
-        case top
-        case down
-    }
-
+  
     enum Event {
         case readyView
-        case setStatus(State.Status)
-        case tapFavoriteButton(IndexPath)
-        case tapHidden(IndexPath)
-        case dragAsset(sourceIndexPath: IndexPath, destinationIndexPath: IndexPath)
-        case setAssets([DTO.Asset])
+        case setStatus(Status)
+        case setFavoriteAt(IndexPath)
+        case setHiddenAt(IndexPath)
+        case moveAsset(from: IndexPath, to: IndexPath)
     }
-
+    
+    enum Status {
+        case position
+        case visibility
+    }
+    
     struct State: Mutating {
-
+       
         enum Action {
             case none
             case refresh
+            case refreshWithAnimation
+            case move(at: IndexPath, to: IndexPath, delete: IndexPath?, insert: IndexPath?)
+            case updateMoveAction(insertAt: IndexPath?, deleteAt: IndexPath?, movedRowAt: IndexPath)
+            case finishUpdateMoveAction(movedRowAt: IndexPath)
         }
-
-        enum Status {
-            case position
-            case visibility
-        }
-
-        var isNeedRefreshing: Bool
+        
+        var assets: [WalletSort.DTO.Asset]
         var status: Status
-        var sections: [WalletSort.ViewModel.Section]
+        var sections: [ViewModel.Section]
         var action: Action
     }
 }
 
 extension WalletSort.ViewModel {
+    
     struct Section: Mutating {
         enum Kind {
+            case top
             case favorities
-            case all
+            case list
+            case hidden
         }
-
+        
         let kind: Kind
         var items: [Row]
     }
-
-    enum Row {        
+    
+    enum AssetType {
+        case favourite
+        case list
+        case hidden
+    }
+    
+    enum Row {
+        case top
         case favorityAsset(WalletSort.DTO.Asset)
-        case asset(WalletSort.DTO.Asset)
+        case list(WalletSort.DTO.Asset)
+        case hidden(WalletSort.DTO.Asset)
+        case emptyAssets(WalletSort.ViewModel.AssetType)
+        case separator(isShowHiddenTitle: Bool)
     }
 }
 
+
 extension WalletSort.DTO {
+    
     struct Asset: Mutating {
         let id: String
         let name: String
@@ -76,3 +89,39 @@ extension WalletSort.DTO {
         let hasScript: Bool
     }
 }
+
+extension WalletSort.ViewModel.Row {
+    
+    var asset: WalletSort.DTO.Asset? {
+        switch self {
+        case .favorityAsset(let asset):
+            return asset
+            
+        case .list(let asset):
+            return asset
+            
+        case .hidden(let asset):
+            return asset
+            
+        default:
+            return nil
+        }
+    }
+    
+    var isMovable: Bool {
+        switch self {
+        case .favorityAsset:
+            return true
+            
+        case .list:
+            return true
+            
+        case .hidden:
+            return true
+            
+        default:
+            return false
+        }
+    }
+}
+

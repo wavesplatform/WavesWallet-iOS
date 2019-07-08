@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import AppsFlyerLib
 import FirebaseAnalytics
+import WavesSDKExtension
 
 private enum Constants {
     static let popoverHeight: CGFloat = 378
@@ -93,6 +94,19 @@ final class WalletCoordinator: Coordinator {
 // MARK: WalletModuleOutput
 
 extension WalletCoordinator: WalletModuleOutput {
+    func openAppStore() {
+        RateApp.show()
+    }
+    
+    func presentSearchScreen(from startPoint: CGFloat, assets: [DomainLayer.DTO.SmartAssetBalance]) {
+        
+        if let vc = WalletSearchModuleBuilder(output: self).build(input: assets) as? WalletSearchViewController {
+            vc.modalPresentationStyle = .custom
+            navigationRouter.present(vc, animated: false) {
+                vc.showWithAnimation(fromStartPosition: startPoint)
+            }
+        }
+    }
 
     func showWalletSort(balances: [DomainLayer.DTO.SmartAssetBalance]) {
         let vc = WalletSortModuleBuilder().build(input: balances)
@@ -132,9 +146,26 @@ extension WalletCoordinator: WalletModuleOutput {
 
         let coordinator = TransactionCardCoordinator(transaction: transactions[index],
                                                      router: navigationRouter)
-
+        coordinator.delegate = self
 
         addChildCoordinatorAndStart(childCoordinator: coordinator)
+    }
+}
+
+//MARK: - WalletSearchViewControllerDelegate
+extension WalletCoordinator: WalletSearchViewControllerDelegate {
+    
+    func walletSearchViewControllerDidTapCancel(_ searchController: WalletSearchViewController) {
+        searchController.dismiss()
+    }
+    
+    func walletSearchViewControllerDidSelectAsset(_ asset: DomainLayer.DTO.SmartAssetBalance, assets: [DomainLayer.DTO.SmartAssetBalance]) {
+        
+        navigationRouter.dismiss(animated: false, completion: nil)
+        let vc = AssetDetailModuleBuilder(output: self)
+            .build(input: .init(assets: assets, currentAsset: asset))
+        
+        navigationRouter.pushViewController(vc)
     }
 }
 
@@ -177,6 +208,12 @@ extension WalletCoordinator: AssetDetailModuleOutput {
     }
 }
 
+//MARK: - TransactionCardCoordinatorDelegate
+extension WalletCoordinator: TransactionCardCoordinatorDelegate {
+    func transactionCardCoordinatorCanceledLeasing() {
+        walletViewContoller.viewWillAppear(false)
+    }
+}
 // MARK: - StartLeasingModuleOutput
 
 extension WalletCoordinator: StartLeasingModuleOutput {

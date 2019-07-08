@@ -8,7 +8,7 @@
 
 import UIKit
 import RxSwift
-
+import WavesSDKExtension
 
 private struct SettingsScriptPair: TSUD, Codable, Mutating  {
     

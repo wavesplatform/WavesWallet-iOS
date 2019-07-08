@@ -7,7 +7,6 @@ import Moya
 final class DexMarketInteractor: DexMarketInteractorProtocol {
     
     private static var allPairs: [DomainLayer.DTO.Dex.SmartPair] = []
-    private static var isEnableSpam = false
     private static var spamURL = ""
 
     private let searchPairsSubject: PublishSubject<[DomainLayer.DTO.Dex.SmartPair]> = PublishSubject<[DomainLayer.DTO.Dex.SmartPair]>()
@@ -15,7 +14,6 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
 
     private let dexRealmRepository: DexRealmRepositoryProtocol = FactoryRepositories.instance.dexRealmRepository
     private let auth = FactoryInteractors.instance.authorization
-    private let accountSettings: AccountSettingsRepositoryProtocol = FactoryRepositories.instance.accountSettingsRepository
     private let environment = FactoryRepositories.instance.environmentRepository
     private let orderBookRepository = FactoryRepositories.instance.dexOrderBookRepository
 
@@ -24,18 +22,12 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
             
             guard let self = self else { return Observable.empty() }
-            return self.accountSettings.accountSettings(accountAddress: wallet.address).flatMap({ [weak self] (accountSettings) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
+            
+            return self.environment.accountEnvironment(accountAddress: wallet.address).flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                 
                 guard let self = self else { return Observable.empty() }
-                let isEnableSpam = accountSettings?.isEnabledSpam ?? DexMarketInteractor.isEnableSpam
-
-                return self.environment.accountEnvironment(accountAddress: wallet.address).flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
-                    
-                    guard let self = self else { return Observable.empty() }
-                    return self.pairs(wallet: wallet,
-                                      isEnableSpam: isEnableSpam,
-                                      spamURL: environment.servers.spamUrl.relativeString)
-                })
+                return self.pairs(wallet: wallet,
+                                  spamURL: environment.servers.spamUrl.relativeString)
             })
         })
     }
@@ -139,19 +131,17 @@ private extension DexMarketInteractor {
 //MARK: - Load data
 private extension DexMarketInteractor {
     
-    func pairs(wallet: DomainLayer.DTO.SignedWallet, isEnableSpam: Bool, spamURL: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
+    func pairs(wallet: DomainLayer.DTO.SignedWallet, spamURL: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
         
         if DexMarketInteractor.allPairs.count > 0 &&
-            isEnableSpam == DexMarketInteractor.isEnableSpam &&
             spamURL == DexMarketInteractor.spamURL {
             return dexRealmRepository.checkmark(pairs: DexMarketInteractor.allPairs, accountAddress: wallet.address)
         }
         
-        return orderBookRepository.markets(wallet: wallet, isEnableSpam: isEnableSpam)
+        return orderBookRepository.markets(wallet: wallet)
             .map({ (pairs) -> [DomainLayer.DTO.Dex.SmartPair] in
                 
                 DexMarketInteractor.allPairs = pairs
-                DexMarketInteractor.isEnableSpam = isEnableSpam
                 DexMarketInteractor.spamURL = spamURL
                 
                 return pairs

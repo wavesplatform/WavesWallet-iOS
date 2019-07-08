@@ -10,6 +10,8 @@ import Foundation
 import RxSwift
 import Moya
 import CSV
+import WavesSDKExtension
+import WavesSDKCrypto
 
 final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     
@@ -30,8 +32,14 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                 guard let self = self else { return Observable.empty() }
                 
                 let spamAssets = self.spamProvider.rx
-                                .request(.getSpamList(url: environment.servers.spamUrl),
+                                .request(.getSpamList(hasProxy: true),
                                          callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                                .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
+                                    guard let self = self else { return Single.never() }
+                                    return self.spamProvider
+                                        .rx
+                                        .request(.getSpamList(hasProxy: false))
+                                })
                                 .filterSuccessfulStatusAndRedirectCodes()
                                 .asObservable()
                                 .catchError({ (error) -> Observable<Response> in
@@ -57,17 +65,20 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                                 .map(API.Response<[API.Response<API.DTO.Asset>]>.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
                                 .map { $0.data.map { $0.data } }
                 
+                
                 return Observable.zip(assetsList, spamAssets)
                     .map({ (assets, spamAssets) -> [DomainLayer.DTO.Asset] in
                         
                         let map = environment.hashMapAssets()
+                        let mapGeneralAssets = environment.hashMapGeneralAssets()
                         
                         let spamIds = spamAssets.reduce(into: [String: Bool](), {$0[$1] = true })
 
                         return assets.map { DomainLayer.DTO.Asset(asset: $0,
                                                                   info: map[$0.id],
                                                                   isSpam: spamIds[$0.id] == true,
-                                                                  isMyWavesToken: $0.sender == accountAddress) }
+                                                                  isMyWavesToken: $0.sender == accountAddress,
+                                                                  isGeneral: mapGeneralAssets[$0.id] != nil) }
                     })
             })
     }
@@ -84,7 +95,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
 
     func isSmartAsset(_ assetId: String, by accountAddress: String) -> Observable<Bool> {
 
-        if assetId == GlobalConstants.wavesAssetId {
+        if assetId == WavesSDKCryptoConstants.wavesAssetId {
             return Observable.just(false)
         }
 
@@ -124,11 +135,22 @@ fileprivate extension Environment {
             return new
         })
     }
+    
+    func hashMapGeneralAssets() -> [String: Environment.AssetInfo] {
+        
+        var allAssets = generalAssets
+        
+        return allAssets.reduce([String: Environment.AssetInfo](), { map, info -> [String: Environment.AssetInfo] in
+            var new = map
+            new[info.assetId] = info
+            return new
+        })
+    }
 }
 
 fileprivate extension DomainLayer.DTO.Asset {
 
-    init(asset: API.DTO.Asset, info: Environment.AssetInfo?, isSpam: Bool, isMyWavesToken: Bool) {
+    init(asset: API.DTO.Asset, info: Environment.AssetInfo?, isSpam: Bool, isMyWavesToken: Bool, isGeneral: Bool) {
         self.ticker = asset.ticker
         self.id = asset.id
         self.wavesId = info?.wavesId
@@ -142,8 +164,7 @@ fileprivate extension DomainLayer.DTO.Asset {
         self.isReusable = asset.reissuable
         self.isSpam = isSpam
         self.isMyWavesToken = isMyWavesToken
-        self.modified = Date()
-        var isGeneral = false
+        self.modified = Date()        
         var isWaves = false
         var isFiat = false
         let isGateway = info?.isGateway ?? false
@@ -151,10 +172,10 @@ fileprivate extension DomainLayer.DTO.Asset {
         
         //TODO: Current code need move to AssetsInteractor!
         if let info = info {
-            if info.assetId == GlobalConstants.wavesAssetId {
+            if info.assetId == WavesSDKCryptoConstants.wavesAssetId {
                 isWaves = true
             }
-            isGeneral = info.isGateway || isWaves
+            
             name = info.displayName
             isFiat = info.isFiat
         }

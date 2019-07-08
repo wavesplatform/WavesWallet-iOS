@@ -7,15 +7,17 @@
 //
 
 import Foundation
+import WavesSDKExtension
 
 struct ApplicationDebugSettings: TSUD, Codable, Mutating {
     
     private static let key: String = "com.waves.debug.settings"
 
     private var isEnableStage: Bool = false
+    private var isEnableNotificationsSettingDev: Bool = false
     
     static var defaultValue: ApplicationDebugSettings {
-        return ApplicationDebugSettings(isEnableStage: false)
+        return ApplicationDebugSettings(isEnableStage: false, isEnableNotificationsSettingDev: false)
     }
     
     static var stringKey: String {
@@ -29,6 +31,16 @@ struct ApplicationDebugSettings: TSUD, Codable, Mutating {
     static func setupIsEnableStage(isEnable: Bool) {
         var settings = ApplicationDebugSettings.get()
         settings.isEnableStage = isEnable
+        ApplicationDebugSettings.set(settings)
+    }
+    
+    static var isEnableNotificationsSettingDev: Bool {
+        return ApplicationDebugSettings.get().isEnableNotificationsSettingDev
+    }
+    
+    static func setEnableNotificationsSettingDev(isEnable: Bool) {
+        var settings = ApplicationDebugSettings.get()
+        settings.isEnableNotificationsSettingDev = isEnable
         ApplicationDebugSettings.set(settings)
     }
 }

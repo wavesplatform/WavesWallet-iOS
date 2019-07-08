@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol WalletModuleOutput: AnyObject {
     func showWalletSort(balances: [DomainLayer.DTO.SmartAssetBalance])
@@ -15,4 +16,6 @@ protocol WalletModuleOutput: AnyObject {
     func showAsset(with currentAsset: DomainLayer.DTO.SmartAssetBalance, assets: [DomainLayer.DTO.SmartAssetBalance])
     func showStartLease(availableMoney: Money)
     func showLeasingTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int)
+    func presentSearchScreen(from startPoint: CGFloat, assets: [DomainLayer.DTO.SmartAssetBalance])
+    func openAppStore()
 }

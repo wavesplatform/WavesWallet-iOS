@@ -75,7 +75,7 @@ final class AccountPasswordViewController: UIViewController {
         let changedValue: ((Bool,String?) -> Void) = { [weak self] isValidValue, value in
             guard let self = self else { return }
             self.passwordTextField.error = nil
-            self.buttonSignIn.isEnabled = (value?.trimmingCharacters(in: CharacterSet.whitespaces).count ?? 0) >= GlobalConstants.minLengthPassword
+            self.buttonSignIn.isEnabled = (value?.trimmingCharacters(in: CharacterSet.whitespaces).count ?? 0) >= UIGlobalConstants.minLengthPassword
         }
 
         passwordTextField.changedValue = changedValue

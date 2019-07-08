@@ -9,6 +9,8 @@
 import Foundation
 import RxSwift
 import Moya
+import WavesSDKExtension
+import WavesSDKCrypto
 
 private enum Constants {
     static let maxPercent: Float = 99.99
@@ -37,13 +39,12 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
                                               header: header,
                                               availablePriceAssetBalance: Money(0, self.pair.priceAsset.decimals),
                                               availableAmountAssetBalance: Money(0, self.pair.amountAsset.decimals),
-                                              availableWavesBalance: Money(0, GlobalConstants.WavesDecimals),
+                                              availableWavesBalance: Money(0, WavesSDKCryptoConstants.WavesDecimals),
                                               scriptedAssets: [])
         
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DexOrderBook.DTO.DisplayData> in
 
             guard let self = self else { return Observable.empty() }
-            
 
             return Observable.zip(self.account.balances(),
                                   self.getLastTransactionInfo(),
@@ -151,7 +152,7 @@ private extension DexOrderBookInteractor {
         
         var amountAssetBalance =  Money(0, pair.amountAsset.decimals)
         var priceAssetBalance =  Money(0, pair.priceAsset.decimals)
-        var wavesBalance = Money(0, GlobalConstants.WavesDecimals)
+        var wavesBalance = Money(0, WavesSDKCryptoConstants.WavesDecimals)
         
         if let amountAsset = balances.first(where: {$0.assetId == pair.amountAsset.id}) {
             amountAssetBalance = Money(amountAsset.availableBalance, amountAsset.asset.precision)

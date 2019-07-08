@@ -26,15 +26,12 @@ final class AssetsInteractor: AssetsInteractorProtocol {
 
     private let repositoryLocal: AssetsRepositoryProtocol
     private let repositoryRemote: AssetsRepositoryProtocol
-    private let accountSettingsRepository: AccountSettingsRepositoryProtocol
 
     init(assetsRepositoryLocal: AssetsRepositoryProtocol,
-         assetsRepositoryRemote: AssetsRepositoryProtocol,
-         accountSettingsRepository: AccountSettingsRepositoryProtocol) {
+         assetsRepositoryRemote: AssetsRepositoryProtocol) {
 
         self.repositoryLocal = assetsRepositoryLocal
         self.repositoryRemote = assetsRepositoryRemote
-        self.accountSettingsRepository = accountSettingsRepository
     }
 
     func assetsSync(by ids: [String], accountAddress: String) -> SyncObservable<[DomainLayer.DTO.Asset]> {
@@ -77,34 +74,11 @@ final class AssetsInteractor: AssetsInteractorProtocol {
                     return assets
                 })
         })
-        .flatMapLatest({ [weak self] assets -> Observable<[DomainLayer.DTO.Asset]> in
-            guard let self = self else { return Observable.never() }
-            return self.mutableResponce(assets: assets, accountAddress: accountAddress)
-        })
     }
 
     private func localeAssets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
         return repositoryLocal
             .assets(by: ids, accountAddress: accountAddress)
-            .flatMapLatest({ [weak self] assets -> Observable<[DomainLayer.DTO.Asset]> in
-                guard let self = self else { return Observable.never() }
-                return self.mutableResponce(assets: assets, accountAddress: accountAddress)
-            })
-    }
-
-    private func mutableResponce(assets: [DomainLayer.DTO.Asset], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
-        return self
-            .accountSettingsRepository
-            .accountSettings(accountAddress: accountAddress)
-            .map({ settings -> [DomainLayer.DTO.Asset] in
-                if let settings = settings, settings.isEnabledSpam == false {
-                    return assets.mutate(transform: { asset in
-                        asset.isSpam = false
-                    })
-                } else {
-                    return assets
-                }
-            })
     }
 
     func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {

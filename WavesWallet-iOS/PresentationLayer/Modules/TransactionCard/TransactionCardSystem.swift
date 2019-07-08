@@ -11,6 +11,8 @@ import RxFeedback
 import RxSwift
 import RxSwiftExt
 import RxCocoa
+import WavesSDKExtension
+import WavesSDKCrypto
 
 private struct Constants {
     static let shiftIndexInLenght: Int = 1
@@ -353,7 +355,7 @@ fileprivate extension TransactionCardSystem {
                 guard let self = self else { return Observable.empty() }
                 return  self
                     .assetsInteractor
-                    .assets(by: [GlobalConstants.wavesAssetId],
+                    .assets(by: [WavesSDKCryptoConstants.wavesAssetId],
                             accountAddress: wallet.address)
                     .map { $0.first }
                     .filterNil()

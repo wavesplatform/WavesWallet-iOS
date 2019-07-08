@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import WavesSDKExtension
 
 private struct Leasing {
     let balance: DomainLayer.DTO.SmartAssetBalance
@@ -16,20 +17,60 @@ private struct Leasing {
 }
 
 final class WalletInteractor: WalletInteractorProtocol {
-
+  
     private let authorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
+    private let accountSettingsRepository: AccountSettingsRepositoryProtocol = FactoryRepositories.instance.accountSettingsRepository
 
     private let leasingInteractor: TransactionsInteractorProtocol = FactoryInteractors.instance.transactions
-
+    
     private let disposeBag: DisposeBag = DisposeBag()
+    private let walletsRepository: WalletsRepositoryProtocol = FactoryRepositories.instance.walletsRepositoryLocal
 
+    func isHasAppUpdate() -> Observable<Bool> {
+        return ApplicationVersionUseCase().isHasNewVersion()
+    }
+    
+    func setCleanWalletBanner() -> Observable<Bool> {
+        return authorizationInteractor.authorizedWallet()
+            .flatMap({ [weak self] (signedWallet) -> Observable<Bool> in
+                guard let self = self else { return Observable.empty() }
+                return self.walletsRepository.wallet(by: signedWallet.wallet.publicKey)
+                    .flatMap{  [weak self] (wallet) -> Observable<Bool> in
+                        guard let self = self else { return Observable.empty() }
+
+                        var newWallet = wallet
+                        newWallet.isNeedShowWalletCleanBanner = false
+                        return self.walletsRepository.saveWallet(newWallet)
+                            .flatMap({ (_) -> Observable<Bool> in
+                                return Observable.just(true)
+                            })
+                    }
+            })
+    }
+    
+    func isShowCleanWalletBanner() -> Observable<Bool> {
+        return authorizationInteractor.authorizedWallet()
+            .map { $0.wallet.isNeedShowWalletCleanBanner }
+    }
+    
     func assets() -> Observable<[DomainLayer.DTO.SmartAssetBalance]> {
         return authorizationInteractor
             .authorizedWallet()
             .flatMap({ [weak self] wallet -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
                 guard let self = self else { return Observable.never() }
-                return self.accountBalanceInteractor.balances(by: wallet)
+                
+                let assets = self.accountBalanceInteractor.balances(by: wallet)
+                let settings = self.accountSettingsRepository.accountSettings(accountAddress: wallet.address)
+                return Observable.zip(assets, settings)
+                    .map({ (assets, settings) -> [DomainLayer.DTO.SmartAssetBalance] in
+                        
+                        if let settings = settings, settings.isEnabledSpam {
+                            return assets.filter { $0.asset.isSpam == false }
+                        }
+
+                        return assets
+                    })
             })
     }
 

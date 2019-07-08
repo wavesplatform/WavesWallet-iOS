@@ -158,7 +158,7 @@ extension HistoryTransactionView: ViewConfiguration {
             update(with: tx.asset, balance: tx.myTotal, sign: .plus)
 
         case .data:
-            labelValue.text = Localizable.Waves.History.Transaction.Value.data
+            labelValue.text = Localizable.Waves.History.Transaction.Title.data
 
         case .script(let isHasScript):
 
@@ -173,6 +173,9 @@ extension HistoryTransactionView: ViewConfiguration {
 
         case .sponsorship(_, let tx):
             labelValue.text = tx.displayName
+            
+        case .invokeScript:
+            labelValue.text = Localizable.Waves.History.Transaction.Value.scriptInvocation
         }
     }
 }
@@ -243,13 +246,13 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
            return Localizable.Waves.History.Transaction.Title.received
 
         case .data:
-            return Localizable.Waves.History.Transaction.Title.data
+            return Localizable.Waves.History.Transaction.Title.entryInBlockchain
 
         case .script:
-            return Localizable.Waves.History.Transaction.Title.setScript
+            return Localizable.Waves.History.Transaction.Title.entryInBlockchain
 
         case .assetScript:
-            return Localizable.Waves.History.Transaction.Title.setAssetScript
+            return Localizable.Waves.History.Transaction.Title.entryInBlockchain
 
         case .sponsorship(let isEnabled, _):
             if isEnabled {
@@ -257,6 +260,9 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
             } else {
                 return Localizable.Waves.History.Transaction.Value.Setsponsorship.cancel
             }
+            
+        case .invokeScript:
+            return Localizable.Waves.History.Transaction.Title.entryInBlockchain
         }
     }
 

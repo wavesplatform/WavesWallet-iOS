@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import WavesSDKExtension
+import WavesSDKCrypto
 
 extension MassTransferTransaction {
 
@@ -47,7 +49,9 @@ extension MassTransferTransaction {
 
 extension DomainLayer.DTO.MassTransferTransaction {
 
-    init(transaction: Node.DTO.MassTransferTransaction, status: DomainLayer.DTO.TransactionStatus, environment: Environment) {
+    init(transaction: Node.DTO.MassTransferTransaction,
+         status: DomainLayer.DTO.TransactionStatus,
+         environment: Environment) {
 
         type = transaction.type
         id = transaction.id

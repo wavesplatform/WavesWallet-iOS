@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 import Kingfisher
+import WavesSDKExtension
 
 private struct ApplicationNewsSettings: TSUD, Codable, Mutating {
 

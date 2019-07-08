@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import WavesSDKExtension
+import WavesSDKCrypto
 
 private enum Constants {
     static let cornerRadius: CGFloat = 2
@@ -62,10 +64,10 @@ final class StartLeasingConfirmationViewController: UIViewController {
     }
     
     private func setupData() {
-        tickerView.update(with: .init(text: GlobalConstants.wavesAssetId, style: .soft))
+        tickerView.update(with: .init(text: WavesSDKCryptoConstants.wavesAssetId, style: .soft))
         labelAmount.text = order.amount.displayText
         labelNodeAddress.text = order.recipient
-        labelFee.text = order.fee.displayText
+        labelFee.text = order.fee.displayText + " " + WavesSDKCryptoConstants.wavesAssetId
     }
     
     private func setupLocalization() {

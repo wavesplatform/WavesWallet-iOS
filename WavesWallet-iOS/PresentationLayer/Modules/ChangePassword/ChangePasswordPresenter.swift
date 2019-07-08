@@ -127,7 +127,7 @@ final class ChangePasswordPresenter: ChangePasswordPresenterProtocol {
 private extension ChangePasswordPresenter {
 
     static func isInValidPassword(_ password: String?) -> Bool {
-        return (password?.count ?? 0) < GlobalConstants.minLengthPassword
+        return (password?.count ?? 0) < UIGlobalConstants.minLengthPassword
     }
 
     static func reduce(state: Types.State, event: Types.Event) -> Types.State {
@@ -157,7 +157,7 @@ private extension ChangePasswordPresenter {
                 var confirmPasswordTextField = state.displayState.textFields[.confirmPassword]
 
                 if isInValidPassword(value) {
-                    textfield?.error = Localizable.Waves.Changepassword.Textfield.Error.atleastcharacters(GlobalConstants.minLengthPassword)
+                    textfield?.error = Localizable.Waves.Changepassword.Textfield.Error.atleastcharacters(UIGlobalConstants.minLengthPassword)
                     state.isValidConfirmPassword = false
                 } else {
                     textfield?.error = nil
@@ -176,7 +176,7 @@ private extension ChangePasswordPresenter {
             case .confirmPassword:
 
                 if isInValidPassword(value) {
-                    textfield?.error = Localizable.Waves.Changepassword.Textfield.Error.atleastcharacters(GlobalConstants.minLengthPassword)
+                    textfield?.error = Localizable.Waves.Changepassword.Textfield.Error.atleastcharacters(UIGlobalConstants.minLengthPassword)
                     state.isValidConfirmPassword = false
                 } else if let newPassword = state.textFields[.newPassword],
                     let confirmPassword = value, confirmPassword != newPassword {

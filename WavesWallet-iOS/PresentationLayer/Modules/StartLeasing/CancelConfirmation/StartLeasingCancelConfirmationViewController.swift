@@ -8,6 +8,8 @@
 
 import UIKit
 import RxSwift
+import WavesSDKExtension
+import WavesSDKCrypto
 
 private enum Constants {
     static let cornerRadius: CGFloat = 2
@@ -70,16 +72,16 @@ final class StartLeasingCancelConfirmationViewController: UIViewController {
     }
     
     private func setupData() {
-        tickerView.update(with: .init(text: GlobalConstants.wavesAssetId, style: .soft))
+        tickerView.update(with: .init(text: WavesSDKCryptoConstants.wavesAssetId, style: .soft))
         labelAmount.text = cancelOrder.amount.displayText
         labelLeasingTx.text = cancelOrder.leasingTX
-        labelFee.text = cancelOrder.fee.displayText
+        labelFee.text = cancelOrder.fee.displayText + " " + WavesSDKCryptoConstants.wavesAssetId
     }
     
     private func setupLocalization() {
         title = Localizable.Waves.Startleasingconfirmation.Label.confirmation
         labelLeasingTxTitle.text = Localizable.Waves.Startleasingconfirmation.Label.leasingTX
-        labelFeeTitle.text = Localizable.Waves.Startleasingconfirmation.Label.fee + " " + "WAVES"
+        labelFeeTitle.text = Localizable.Waves.Startleasingconfirmation.Label.fee
         buttonCancel.setTitle(Localizable.Waves.Startleasingconfirmation.Button.cancelLeasing, for: .normal)
     }
     
@@ -172,7 +174,7 @@ private extension StartLeasingCancelConfirmationViewController {
         }
         
         cancelOrder.fee = fee
-        labelFee.text = cancelOrder.fee.displayText
+        labelFee.text = cancelOrder.fee.displayText + " " + WavesSDKCryptoConstants.wavesAssetId
         labelFee.isHidden = false
         setupButtonCancel()
         activityIndicatorFee.stopAnimating()

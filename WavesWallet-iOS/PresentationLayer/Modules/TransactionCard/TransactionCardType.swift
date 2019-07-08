@@ -10,6 +10,10 @@ import Foundation
 
 enum TransactionCard {
 
+    enum Constants {
+        static let transactionCardDateFormatterKey: String = "transactionCardDateFormatterKey"
+    }
+
     struct State {
 
         struct UI {
@@ -108,5 +112,7 @@ enum TransactionCard {
         case asset(TransactionCardAssetCell.Model)
         case sponsorshipDetail(TransactionCardSponsorshipDetailCell.Model)
         case keyLoading(TransactionCardKeyLoadingCell.Model)
+        case invokeScript(DomainLayer.DTO.SmartTransaction.InvokeScript)
+        case orderFilled(TransactionCardOrderFilledCell.Model)
     }
 }

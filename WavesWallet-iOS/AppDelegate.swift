@@ -20,6 +20,7 @@ import Crashlytics
 import AppsFlyerLib
 import Kingfisher
 import Amplitude_iOS
+import WavesSDKExtension
 
 #if DEBUG || TEST
 import AppSpectorSDK
@@ -73,6 +74,7 @@ enum UITest {
         if let path = Bundle.main.path(forResource: "Amplitude-Info", ofType: "plist"),
             let apiKey = NSDictionary(contentsOfFile: path)?["API_KEY"] as? String {
             Amplitude.instance()?.initializeApiKey(apiKey)
+            Amplitude.instance()?.setDeviceId(UIDevice.uuid)
         }
         
         IQKeyboardManager.shared.enable = true
@@ -124,7 +126,7 @@ enum UITest {
                 self.appCoordinator.start()
             })
             .disposed(by: disposeBag)
-
+    
         return true
     }
 

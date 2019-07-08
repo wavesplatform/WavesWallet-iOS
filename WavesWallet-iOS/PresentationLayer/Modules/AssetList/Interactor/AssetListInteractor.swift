@@ -12,7 +12,6 @@ import RxSwift
 final class AssetListInteractor: AssetListInteractorProtocol {
     
     private let accountBalanceInteractor: AccountBalanceInteractorProtocol = FactoryInteractors.instance.accountBalance
-    private let accountSettings: AccountSettingsRepositoryProtocol = FactoryRepositories.instance.accountSettingsRepository
     private let auth: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
 
     private let searchString: BehaviorSubject<String> = BehaviorSubject<String>(value: "")
@@ -28,31 +27,22 @@ final class AssetListInteractor: AssetListInteractorProtocol {
             self.isMyList = isMyList
             
             let assets = self.getCachedAssets()
-            let accountSettings = self.accountSettings.accountSettings(accountAddress: wallet.address)
-            
-            let merge = Observable.zip(assets, accountSettings).map({ [weak self] (assets, settings) -> [DomainLayer.DTO.SmartAssetBalance] in
-                
-                guard let self = self else { return [] }
-                self.cachedAssets = assets
-                
-                let isEnableSpam = settings?.isEnabledSpam ?? false
-                
-                if filters.contains(.all) {
+                .map({ [weak self] (assets) -> [DomainLayer.DTO.SmartAssetBalance] in
                     
-                    if isEnableSpam {
-                        self.filteredAssets = assets.filter({$0.asset.isSpam == false})
+                    guard let self = self else { return [] }
+                    
+                    let filteredSpamAssets = assets.filter{ $0.asset.isSpam == false }
+                    
+                    if filters.contains(.all) {
+                        self.filteredAssets = filteredSpamAssets
                     }
                     else {
-                        self.filteredAssets = assets
+                        self.filterAssets(filters: filters, assets: filteredSpamAssets)
                     }
-                }
-                else {
-                    self.filterAssets(filters: filters, assets: assets, isEnableSpam: isEnableSpam)
-                }
-                
-                return self.filterIsMyAsset(self.filteredAssets)
-            })
-            
+                    
+                    return self.filterIsMyAsset(self.filteredAssets)
+                })
+
             let search = self.searchString
                 .asObserver().skip(1)
                 .map { [weak self] searchString -> [DomainLayer.DTO.SmartAssetBalance] in
@@ -62,7 +52,7 @@ final class AssetListInteractor: AssetListInteractorProtocol {
             }
             
             return Observable
-                .merge([merge, search])
+                .merge([assets, search])
                 .map { [weak self] assets -> [DomainLayer.DTO.SmartAssetBalance] in
                     
                     guard let self = self else { return [] }
@@ -95,13 +85,18 @@ private extension AssetListInteractor {
             return Observable.just(cachedAssets)
         }
         return accountBalanceInteractor.balances()
+            .flatMap( { [weak self] (assets) -> Observable<[DomainLayer.DTO.SmartAssetBalance]> in
+                guard let self = self else { return Observable.empty() }
+                self.cachedAssets = assets
+                return Observable.just(assets)
+        })
     }
     
     func filterIsMyAsset(_ assets: [DomainLayer.DTO.SmartAssetBalance]) -> [DomainLayer.DTO.SmartAssetBalance] {
         return isMyList ? assets.filter({$0.availableBalance > 0 }) : assets
     }
     
-    func filterAssets(filters: [AssetList.DTO.Filter], assets: [DomainLayer.DTO.SmartAssetBalance], isEnableSpam: Bool) {
+    func filterAssets(filters: [AssetList.DTO.Filter], assets: [DomainLayer.DTO.SmartAssetBalance]) {
         
         var filterAssets: [DomainLayer.DTO.SmartAssetBalance] = []
                 
@@ -148,14 +143,6 @@ private extension AssetListInteractor {
                         asset.isGateway == false &&
                         asset.isWaves == false &&
                         asset.isSpam == false }))
-        }
-        
-        if filters.contains(.spam) && !isEnableSpam {
-            
-            filterAssets.append(contentsOf: assets.filter({
-                let asset = $0.asset
-                
-                return asset.isSpam == true }))
         }
         
         filteredAssets.removeAll()

@@ -5,7 +5,6 @@
 //  Created by Prokofev Ruslan on 28/09/2018.
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
-
 import Foundation
 import FirebaseAuth
 import FirebaseCore
@@ -35,11 +34,11 @@ extension Reactive where Base: DatabaseReference {
             }
 
             return Disposables.create()
-        }
-        .amb(Observable.error(NSError(domain: NSURLErrorDomain,
-                                      code: NSURLErrorTimedOut,
-                                      userInfo: nil))
-        .delaySubscription(Constants.timeoutInterval, scheduler: MainScheduler.asyncInstance))        
+            }
+            .amb(Observable.error(NSError(domain: NSURLErrorDomain,
+                                          code: NSURLErrorTimedOut,
+                                          userInfo: nil))
+                .delaySubscription(Constants.timeoutInterval, scheduler: MainScheduler.asyncInstance))
     }
 
     func setValue(_ value: Any?) -> Observable<DatabaseReference> {
@@ -58,11 +57,11 @@ extension Reactive where Base: DatabaseReference {
             }
 
             return Disposables.create()
-        }
-        .amb(Observable.error(NSError(domain: NSURLErrorDomain,
-                                      code: NSURLErrorTimedOut,
-                                      userInfo: nil))
-        .delaySubscription(Constants.timeoutInterval, scheduler: ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global())))
+            }
+            .amb(Observable.error(NSError(domain: NSURLErrorDomain,
+                                          code: NSURLErrorTimedOut,
+                                          userInfo: nil))
+                .delaySubscription(Constants.timeoutInterval, scheduler: ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global())))
     }
 
     var value: Observable<Any?> {
@@ -78,11 +77,11 @@ extension Reactive where Base: DatabaseReference {
                 })
             }
             return Disposables.create()
-        }
-        .amb(Observable.error(NSError(domain: NSURLErrorDomain,
-                                        code: NSURLErrorTimedOut,
-                                        userInfo: nil))
-        .delaySubscription(Constants.timeoutInterval, scheduler: ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global())))
+            }
+            .amb(Observable.error(NSError(domain: NSURLErrorDomain,
+                                          code: NSURLErrorTimedOut,
+                                          userInfo: nil))
+                .delaySubscription(Constants.timeoutInterval, scheduler: ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global())))
     }
 
 }

@@ -9,8 +9,9 @@
 import Foundation
 import UIKit
 
-final class WalletHistorySkeletonCell: SkeletonTableCell, Reusable {
-    @IBOutlet var viewContent: UIView!
+final class WalletHistorySkeletonCell: SkeletonTableCell, NibReusable {
+    
+    @IBOutlet private weak var viewContent: UIView!
 
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -10,6 +10,7 @@ import UIKit
 
 fileprivate enum Constants {
     static let issueDateFormat = "dd.MM.yyyy 'at' HH:mm"
+    static let issueDateFormatterKey = "issueDateFormatterKey"
     static let pictureSize: CGFloat = 40
     static let pictureLeftPadding: CGFloat = 4
     static let padding: CGFloat = 16
@@ -115,7 +116,7 @@ extension AssetDetailCell: ViewConfiguration {
         let totalAmount = Money(model.assetBalance.asset.quantity, decimals)
         labelTotalAmount.text = totalAmount.displayText
 
-        let dateFormatter = DateFormatter.sharedFormatter
+        let dateFormatter = DateFormatter.uiSharedFormatter(key: Constants.issueDateFormatterKey)
         dateFormatter.dateFormat  = Constants.issueDateFormat
         dateLabel.text = dateFormatter.string(from: model.issueDate)
 

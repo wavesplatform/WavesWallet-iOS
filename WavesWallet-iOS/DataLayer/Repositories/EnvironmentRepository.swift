@@ -11,6 +11,8 @@ import Moya
 import RealmSwift
 import RxRealm
 import RxSwift
+import WavesSDKExtension
+import WavesSDKCrypto
 
 private enum Constants {
     static let minServerTimestampDiff: Int64 = 1000 * 30
@@ -82,7 +84,14 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
         //TODO: function call 6 times, after user input passcode
         return environmentRepository
             .rx
-            .request(.get(isTestNet: Environment.isTestNet))
+            .request(.get(isTestNet: Environment.isTestNet, hasProxy: true))            
+            .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
+                guard let self = self else { return Single.never() }
+                return self
+                    .environmentRepository
+                    .rx
+                    .request(.get(isTestNet: Environment.isTestNet, hasProxy: false))
+            })
             .map(Environment.self)
             .catchError { error -> Single<Environment> in
                 return Single.just(Environment.current)
@@ -113,7 +122,13 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol {
 
             let disposable = self.spamProvider
                 .rx
-                .request(.getSpamList(url: link))
+                .request(.getSpamList(hasProxy: true))
+                .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
+                    guard let self = self else { return Single.never() }
+                    return self.spamProvider
+                        .rx
+                        .request(.getSpamListByUrl(url: link))
+                })
                 .flatMap({ response -> Single<Bool> in
 
                     do {

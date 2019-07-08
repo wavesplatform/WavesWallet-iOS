@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WavesSDKExtension
 
 final class NewAccountCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []

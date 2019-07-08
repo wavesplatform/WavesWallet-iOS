@@ -8,7 +8,7 @@
 
 import Foundation
 import RxSwift
-
+import WavesSDKCrypto
 
 final class ReceiveCardInteractor: ReceiveCardInteractorProtocol {
  
@@ -63,7 +63,7 @@ private extension ReceiveCardInteractor {
         
         //TODO: need optimize 
         return accountBalance.balances().flatMap({ balances -> Observable<DomainLayer.DTO.SmartAssetBalance> in
-            guard let wavesAsset = balances.first(where: {$0.asset.wavesId == GlobalConstants.wavesAssetId}) else {
+            guard let wavesAsset = balances.first(where: {$0.asset.wavesId == WavesSDKCryptoConstants.wavesAssetId}) else {
                 return Observable.empty()
             }
             return Observable.just(wavesAsset)

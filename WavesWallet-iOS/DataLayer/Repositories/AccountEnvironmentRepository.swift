@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxRealm
 import RealmSwift
+import WavesSDKExtension
 
 final class AccountSettingsRepository: AccountSettingsRepositoryProtocol {
 
