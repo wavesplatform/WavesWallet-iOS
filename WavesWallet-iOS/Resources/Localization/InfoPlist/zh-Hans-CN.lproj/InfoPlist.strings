@@ -1,0 +1,3 @@
+"NSCameraUsageDescription" = "需要扫描二维码";
+"NSFaceIDUsageDescription" = "进入钱包";
+"NSPhotoLibraryAddUsageDescription" = "需要扫描二维码";

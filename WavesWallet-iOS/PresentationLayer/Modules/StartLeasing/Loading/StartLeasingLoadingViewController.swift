@@ -52,17 +52,19 @@ final class StartLeasingLoadingViewController: UIViewController {
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (transaction) in
             
-                guard let owner = self else { return }
+                guard let self = self else { return }
 
                 let vc = StoryboardScene.StartLeasing.startLeasingCompleteViewController.instantiate()
-                vc.kind = owner.input.kind
-                owner.navigationController?.pushViewController(vc, animated: true)
-                owner.input.output?.startLeasingDidSuccess(transaction: transaction, kind: owner.input.kind)
+                vc.kind = self.input.kind
+                self.navigationController?.pushViewController(vc, animated: true)
+                self.input.output?.startLeasingDidSuccess(transaction: transaction, kind: self.input.kind)
 
             }, onError: { [weak self] (error) in
-                
+
+                guard let self = self else { return }
+
                 guard let error = error as? NetworkError else { return }
-                self?.popBackWithFail(error: error)
+                self.popBackWithFail(error: error)
             })
             .disposed(by: disposeBag)
     }
@@ -73,16 +75,17 @@ final class StartLeasingLoadingViewController: UIViewController {
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (transaction) in
             
-                guard let owner = self else { return }
+                guard let self = self else { return }
 
                 let vc = StoryboardScene.StartLeasing.startLeasingCompleteViewController.instantiate()
-                vc.kind = owner.input.kind
-                owner.navigationController?.pushViewController(vc, animated: true)
-                owner.input.output?.startLeasingDidSuccess(transaction: transaction, kind: owner.input.kind)
+                vc.kind = self.input.kind
+                self.navigationController?.pushViewController(vc, animated: true)
+                self.input.output?.startLeasingDidSuccess(transaction: transaction, kind: self.input.kind)
 
             }, onError: { [weak self] (error) in
+                guard let self = self else { return }
                 guard let error = error as? NetworkError else { return }
-                self?.popBackWithFail(error: error)
+                self.popBackWithFail(error: error)
             })
             .disposed(by: disposeBag)
     }
@@ -106,9 +109,9 @@ final class StartLeasingLoadingViewController: UIViewController {
             .authorizedWallet()
             .flatMap({ [weak self] (wallet) -> Observable<DomainLayer.DTO.SmartTransaction> in
 
-                guard let owner = self else { return Observable.empty() }
+                guard let self = self else { return Observable.empty() }
                 let specific = CancelLeaseTransactionSender(leaseId: cancelOrder.leasingTX, fee: cancelOrder.fee.amount)
-                return owner
+                return self
                     .transactions
                     .send(by: .cancelLease(specific), wallet: wallet)
             })

@@ -44,36 +44,9 @@ internal struct ColorAsset {
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Images {
-  internal enum Checkbox {
-    internal static let checkboxOff = ImageAsset(name: "checkbox-off")
-    internal static let checkboxOn = ImageAsset(name: "checkbox-on")
-  }
-  internal enum Enter {
-    internal static let blockchain80 = ImageAsset(name: "blockchain80")
-    internal static let dex80 = ImageAsset(name: "dex80")
-    internal static let token80 = ImageAsset(name: "token80")
-    internal static let wallet80 = ImageAsset(name: "wallet80")
-  }
   internal static let image = ImageAsset(name: "Image")
-  internal enum TabBar {
-    internal static let tabBarDex = ImageAsset(name: "tab_bar_dex")
-    internal static let tabBarDexActive = ImageAsset(name: "tab_bar_dex_active")
-    internal static let tabBarHistory = ImageAsset(name: "tab_bar_history")
-    internal static let tabBarHistoryActive = ImageAsset(name: "tab_bar_history_active")
-    internal static let tabBarPlus = ImageAsset(name: "tab_bar_plus")
-    internal static let tabBarPlusActive = ImageAsset(name: "tab_bar_plus_active")
-    internal static let tabBarProfile = ImageAsset(name: "tab_bar_profile")
-    internal static let tabBarProfileActive = ImageAsset(name: "tab_bar_profile_active")
-    internal static let tabBarWallet = ImageAsset(name: "tab_bar_wallet")
-    internal static let tabBarWalletActive = ImageAsset(name: "tab_bar_wallet_active")
-  }
-  internal enum Wallet {
-    internal static let walletArrowGreen = ImageAsset(name: "wallet_arrow_green")
-    internal static let walletArrowHeader = ImageAsset(name: "wallet_arrow_header")
-    internal static let walletScanner = ImageAsset(name: "wallet_scanner")
-    internal static let walletSort = ImageAsset(name: "wallet_sort")
-  }
   internal static let addAddressIcon = ImageAsset(name: "add_address_icon")
+  internal static let addaddress24Submit200 = ImageAsset(name: "addaddress24Submit200")
   internal static let addaddress24Submit300 = ImageAsset(name: "addaddress24Submit300")
   internal static let arrowGreen = ImageAsset(name: "arrow_green")
   internal static let arrowLeft = ImageAsset(name: "arrow_left")
@@ -81,6 +54,7 @@ internal enum Images {
   internal static let arrowRight = ImageAsset(name: "arrow_right")
   internal static let arrowTransfer = ImageAsset(name: "arrow_transfer")
   internal static let arrowdown14Basic300 = ImageAsset(name: "arrowdown14Basic300")
+  internal static let arrowdown24Black = ImageAsset(name: "arrowdown24Black")
   internal static let arrowright14Basic200 = ImageAsset(name: "arrowright14Basic200")
   internal static let arrowup14Basic300 = ImageAsset(name: "arrowup14Basic300")
   internal static let assetChangeArrows = ImageAsset(name: "asset_change_arrows")
@@ -95,6 +69,7 @@ internal enum Images {
   internal static let bgIphonex = ImageAsset(name: "bg-iphonex")
   internal static let bgIphonexr = ImageAsset(name: "bg-iphonexr")
   internal static let bgIphonexsmax = ImageAsset(name: "bg-iphonexsmax")
+  internal static let blockchain80 = ImageAsset(name: "blockchain80")
   internal static let btnBack = ImageAsset(name: "btn_back")
   internal static let btnBars = ImageAsset(name: "btn_bars")
   internal static let btnOrder = ImageAsset(name: "btn_order")
@@ -108,10 +83,8 @@ internal enum Images {
   internal static let check18Success400 = ImageAsset(name: "check18Success400")
   internal static let checkMark = ImageAsset(name: "check_mark")
   internal static let checkSuccess = ImageAsset(name: "check_success")
-  internal static let checkmarkEmpty = ImageAsset(name: "checkmark_empty")
-  internal static let checkmarkEmptyGray = ImageAsset(name: "checkmark_empty_gray")
-  internal static let checkmarkFill = ImageAsset(name: "checkmark_fill")
-  internal static let checkmarkFillGray = ImageAsset(name: "checkmark_fill_gray")
+  internal static let checkboxOff = ImageAsset(name: "checkbox-off")
+  internal static let checkboxOn = ImageAsset(name: "checkbox-on")
   internal static let close = ImageAsset(name: "close")
   internal static let closeLeaseIcon = ImageAsset(name: "close_lease_icon")
   internal static let copy18Black = ImageAsset(name: "copy18Black")
@@ -122,6 +95,7 @@ internal enum Images {
   internal static let delete = ImageAsset(name: "delete")
   internal static let delete22Error500 = ImageAsset(name: "delete22Error500")
   internal static let dex = ImageAsset(name: "dex")
+  internal static let dex80 = ImageAsset(name: "dex80")
   internal static let disclosure = ImageAsset(name: "disclosure")
   internal static let doneBtn = ImageAsset(name: "done_btn")
   internal static let downChevron = ImageAsset(name: "down-chevron")
@@ -129,6 +103,7 @@ internal enum Images {
   internal static let dragElem = ImageAsset(name: "dragElem")
   internal static let draglock22Disabled400 = ImageAsset(name: "draglock22Disabled400")
   internal static let editAddressIcon = ImageAsset(name: "edit_address_icon")
+  internal static let editaddress24Submit200 = ImageAsset(name: "editaddress24Submit200")
   internal static let editaddress24Submit300 = ImageAsset(name: "editaddress24Submit300")
   internal static let eyeclsoe24Basic500 = ImageAsset(name: "eyeclsoe24Basic500")
   internal static let eyeopen24Basic500 = ImageAsset(name: "eyeopen24Basic500")
@@ -142,6 +117,7 @@ internal enum Images {
   internal static let flag18Germany = ImageAsset(name: "flag18Germany")
   internal static let flag18Hindi = ImageAsset(name: "flag18Hindi")
   internal static let flag18Indonesia = ImageAsset(name: "flag18Indonesia")
+  internal static let flag18Italiano = ImageAsset(name: "flag18Italiano")
   internal static let flag18Japan = ImageAsset(name: "flag18Japan")
   internal static let flag18Korea = ImageAsset(name: "flag18Korea")
   internal static let flag18Nederland = ImageAsset(name: "flag18Nederland")
@@ -224,6 +200,7 @@ internal enum Images {
   internal static let repeatBtn = ImageAsset(name: "repeat_btn")
   internal static let resendIcon = ImageAsset(name: "resend_icon")
   internal static let sReddit28 = ImageAsset(name: "sReddit28")
+  internal static let scriptasset18White = ImageAsset(name: "scriptasset18White")
   internal static let search = ImageAsset(name: "search")
   internal static let search24Basic500 = ImageAsset(name: "search24Basic500")
   internal static let send = ImageAsset(name: "send")
@@ -238,12 +215,14 @@ internal enum Images {
   internal static let swipeLeft = ImageAsset(name: "swipe_left")
   internal static let swipeRight = ImageAsset(name: "swipe_right")
   internal static let tAlias48 = ImageAsset(name: "tAlias48")
+  internal static let tCloselease18 = ImageAsset(name: "tCloselease18")
   internal static let tCloselease48 = ImageAsset(name: "tCloselease48")
   internal static let tData48 = ImageAsset(name: "tData48")
   internal static let tExchange48 = ImageAsset(name: "tExchange48")
   internal static let tIncominglease48 = ImageAsset(name: "tIncominglease48")
   internal static let tMassreceived48 = ImageAsset(name: "tMassreceived48")
   internal static let tMasstransfer48 = ImageAsset(name: "tMasstransfer48")
+  internal static let tResend18 = ImageAsset(name: "tResend18")
   internal static let tSelftrans48 = ImageAsset(name: "tSelftrans48")
   internal static let tSend48 = ImageAsset(name: "tSend48")
   internal static let tSetassetscript48 = ImageAsset(name: "tSetassetscript48")
@@ -262,8 +241,19 @@ internal enum Images {
   internal static let tTokengen48 = ImageAsset(name: "tTokengen48")
   internal static let tTokenreis48 = ImageAsset(name: "tTokenreis48")
   internal static let tUndefined48 = ImageAsset(name: "tUndefined48")
+  internal static let tabBarDex = ImageAsset(name: "tab_bar_dex")
+  internal static let tabBarDexActive = ImageAsset(name: "tab_bar_dex_active")
+  internal static let tabBarHistory = ImageAsset(name: "tab_bar_history")
+  internal static let tabBarHistoryActive = ImageAsset(name: "tab_bar_history_active")
+  internal static let tabBarPlus = ImageAsset(name: "tab_bar_plus")
+  internal static let tabBarPlusActive = ImageAsset(name: "tab_bar_plus_active")
+  internal static let tabBarProfile = ImageAsset(name: "tab_bar_profile")
+  internal static let tabBarProfileActive = ImageAsset(name: "tab_bar_profile_active")
+  internal static let tabBarWallet = ImageAsset(name: "tab_bar_wallet")
+  internal static let tabBarWalletActive = ImageAsset(name: "tab_bar_wallet_active")
   internal static let tabbarWavesActive = ImageAsset(name: "tabbarWavesActive")
   internal static let tabbarWavesDefault = ImageAsset(name: "tabbarWavesDefault")
+  internal static let token80 = ImageAsset(name: "token80")
   internal static let topbarAddaddress = ImageAsset(name: "topbarAddaddress")
   internal static let topbarAddmarkets = ImageAsset(name: "topbarAddmarkets")
   internal static let topbarBackwhite = ImageAsset(name: "topbarBackwhite")
@@ -281,7 +271,7 @@ internal enum Images {
   internal static let touchid48Submit300 = ImageAsset(name: "touchid48Submit300")
   internal static let unhide = ImageAsset(name: "unhide")
   internal static let upChevron = ImageAsset(name: "up-chevron@")
-  internal static let userimgBackupmoney80Submit400 = ImageAsset(name: "userimgBackupmoney80Submit400")
+  internal static let userimgBackup100 = ImageAsset(name: "userimgBackup100")
   internal static let userimgBlockchain80 = ImageAsset(name: "userimgBlockchain80")
   internal static let userimgBlockchain80White = ImageAsset(name: "userimgBlockchain80White")
   internal static let userimgDex80 = ImageAsset(name: "userimgDex80")
@@ -298,10 +288,16 @@ internal enum Images {
   internal static let verification28Error500 = ImageAsset(name: "verification28Error500")
   internal static let verification28Success400 = ImageAsset(name: "verification28Success400")
   internal static let verified = ImageAsset(name: "verified")
+  internal static let viewexplorer18Black = ImageAsset(name: "viewexplorer18Black")
+  internal static let wallet80 = ImageAsset(name: "wallet80")
+  internal static let walletArrowGreen = ImageAsset(name: "wallet_arrow_green")
+  internal static let walletArrowHeader = ImageAsset(name: "wallet_arrow_header")
   internal static let walletArrowRight = ImageAsset(name: "wallet_arrow_right")
   internal static let walletIconFav = ImageAsset(name: "wallet_icon_fav")
   internal static let walletInfo = ImageAsset(name: "wallet_info")
   internal static let walletQuickNote = ImageAsset(name: "wallet_quick_note")
+  internal static let walletScanner = ImageAsset(name: "wallet_scanner")
+  internal static let walletSort = ImageAsset(name: "wallet_sort")
   internal static let walletStartLease = ImageAsset(name: "wallet_start_lease")
   internal static let warning18Black = ImageAsset(name: "warning18Black")
   internal static let warning18Disabled500 = ImageAsset(name: "warning18Disabled500")
@@ -313,28 +309,9 @@ internal enum Images {
   internal static let allColors: [ColorAsset] = [
   ]
   internal static let allImages: [ImageAsset] = [
-    Checkbox.checkboxOff,
-    Checkbox.checkboxOn,
-    Enter.blockchain80,
-    Enter.dex80,
-    Enter.token80,
-    Enter.wallet80,
     image,
-    TabBar.tabBarDex,
-    TabBar.tabBarDexActive,
-    TabBar.tabBarHistory,
-    TabBar.tabBarHistoryActive,
-    TabBar.tabBarPlus,
-    TabBar.tabBarPlusActive,
-    TabBar.tabBarProfile,
-    TabBar.tabBarProfileActive,
-    TabBar.tabBarWallet,
-    TabBar.tabBarWalletActive,
-    Wallet.walletArrowGreen,
-    Wallet.walletArrowHeader,
-    Wallet.walletScanner,
-    Wallet.walletSort,
     addAddressIcon,
+    addaddress24Submit200,
     addaddress24Submit300,
     arrowGreen,
     arrowLeft,
@@ -342,6 +319,7 @@ internal enum Images {
     arrowRight,
     arrowTransfer,
     arrowdown14Basic300,
+    arrowdown24Black,
     arrowright14Basic200,
     arrowup14Basic300,
     assetChangeArrows,
@@ -356,6 +334,7 @@ internal enum Images {
     bgIphonex,
     bgIphonexr,
     bgIphonexsmax,
+    blockchain80,
     btnBack,
     btnBars,
     btnOrder,
@@ -369,10 +348,8 @@ internal enum Images {
     check18Success400,
     checkMark,
     checkSuccess,
-    checkmarkEmpty,
-    checkmarkEmptyGray,
-    checkmarkFill,
-    checkmarkFillGray,
+    checkboxOff,
+    checkboxOn,
     close,
     closeLeaseIcon,
     copy18Black,
@@ -383,6 +360,7 @@ internal enum Images {
     delete,
     delete22Error500,
     dex,
+    dex80,
     disclosure,
     doneBtn,
     downChevron,
@@ -390,6 +368,7 @@ internal enum Images {
     dragElem,
     draglock22Disabled400,
     editAddressIcon,
+    editaddress24Submit200,
     editaddress24Submit300,
     eyeclsoe24Basic500,
     eyeopen24Basic500,
@@ -403,6 +382,7 @@ internal enum Images {
     flag18Germany,
     flag18Hindi,
     flag18Indonesia,
+    flag18Italiano,
     flag18Japan,
     flag18Korea,
     flag18Nederland,
@@ -485,6 +465,7 @@ internal enum Images {
     repeatBtn,
     resendIcon,
     sReddit28,
+    scriptasset18White,
     search,
     search24Basic500,
     send,
@@ -499,12 +480,14 @@ internal enum Images {
     swipeLeft,
     swipeRight,
     tAlias48,
+    tCloselease18,
     tCloselease48,
     tData48,
     tExchange48,
     tIncominglease48,
     tMassreceived48,
     tMasstransfer48,
+    tResend18,
     tSelftrans48,
     tSend48,
     tSetassetscript48,
@@ -523,8 +506,19 @@ internal enum Images {
     tTokengen48,
     tTokenreis48,
     tUndefined48,
+    tabBarDex,
+    tabBarDexActive,
+    tabBarHistory,
+    tabBarHistoryActive,
+    tabBarPlus,
+    tabBarPlusActive,
+    tabBarProfile,
+    tabBarProfileActive,
+    tabBarWallet,
+    tabBarWalletActive,
     tabbarWavesActive,
     tabbarWavesDefault,
+    token80,
     topbarAddaddress,
     topbarAddmarkets,
     topbarBackwhite,
@@ -542,7 +536,7 @@ internal enum Images {
     touchid48Submit300,
     unhide,
     upChevron,
-    userimgBackupmoney80Submit400,
+    userimgBackup100,
     userimgBlockchain80,
     userimgBlockchain80White,
     userimgDex80,
@@ -559,10 +553,16 @@ internal enum Images {
     verification28Error500,
     verification28Success400,
     verified,
+    viewexplorer18Black,
+    wallet80,
+    walletArrowGreen,
+    walletArrowHeader,
     walletArrowRight,
     walletIconFav,
     walletInfo,
     walletQuickNote,
+    walletScanner,
+    walletSort,
     walletStartLease,
     warning18Black,
     warning18Disabled500,

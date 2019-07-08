@@ -25,7 +25,7 @@ protocol ModalScrollViewRootView: AnyObject {
     func scrollViewDidScroll(_ scrollView: UIScrollView)
 }
 
-class ModalScrollViewController: UIViewController {
+class ModalScrollViewController: UIViewController, ModalScrollViewContext {
 
     private var needUpdateInsets: Bool = true
 
@@ -37,26 +37,22 @@ class ModalScrollViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        if needUpdateInsets {
-            setupInsets()
-            view.layoutIfNeeded()
-        }
+        setNeedUpdateInset()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        setupScrollView()
+        setupScrollView()        
         needUpdateInsets = false
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
-        scrollView.contentInset.top = -scrollView.contentOffset.y
-        scrollView.contentOffset.y = -scrollView.contentInset.top
-        scrollView.showsVerticalScrollIndicator = false
     }
-
 
     //MARK: Need overriding
     var scrollView: UIScrollView {
@@ -69,14 +65,27 @@ class ModalScrollViewController: UIViewController {
         assertMethodNeedOverriding()
         return 0.0
     }
+
+    func bottomScrollInset(for size: CGSize) -> CGFloat {
+        return 0.0
+    }
 }
 
 // MARK: Setup methods
 
 extension ModalScrollViewController  {
 
+    private func setNeedUpdateInset() {
+        if needUpdateInsets {
+            setupInsets()
+            view.layoutIfNeeded()
+        }
+    }
+
     private func setupInsets() {
-        let top = scrollView.frame.height - visibleScrollViewHeight(for: view.frame.size)
+
+        let top = scrollView.frame.height - visibleScrollViewHeight(for: scrollView.frame.size)
+        scrollView.contentInset.bottom = bottomScrollInset(for: scrollView.frame.size)
         scrollView.contentInset.top = top
         scrollView.scrollIndicatorInsets.top = top
         scrollView.contentOffset.y = -top
@@ -86,15 +95,23 @@ extension ModalScrollViewController  {
 
         var currentView: UIView? = scrollView
 
-        repeat {
+        repeat {            
             currentView?.shouldPassthroughTouch = true
-            currentView?.isEnabledPassthroughSubviews = true
+            currentView?.isEnabledPassthroughSubviews = true            
             currentView = currentView?.superview
         } while currentView != view.superview
     }
 }
 
-extension ModalScrollViewController: ModalScrollViewContext {
+extension ModalScrollViewController: ModalPresentationAnimatorContext {
+
+    func hideBoundaries(for size: CGSize) -> CGRect {
+
+        return CGRect(x: 0,
+                      y: 0,
+                      width: size.width,
+                      height: scrollView.contentInset.top - (scrollView.contentOffset.y + scrollView.contentInset.top))
+    }
 
     func appearingContentHeight(for size:  CGSize) -> CGFloat {
         return 0
@@ -139,5 +156,7 @@ extension ModalScrollViewController: UIScrollViewDelegate {
         if let view = self.view as? ModalScrollViewRootView {
             view.scrollViewDidScroll(scrollView)
         }
+
+        setupScrollView()
     }
 }

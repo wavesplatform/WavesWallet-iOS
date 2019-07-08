@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>DSN_URL</key>
-	<string>https://ce26e6056c36496db5aa6cc9a13687b0@sentry.io/1387317</string>
-</dict>
-</plist>

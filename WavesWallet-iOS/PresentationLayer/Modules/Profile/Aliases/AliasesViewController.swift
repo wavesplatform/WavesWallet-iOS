@@ -115,9 +115,9 @@ private extension AliasesViewController {
         }
 
         let readyViewFeedback: AliasesPresenterProtocol.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf.rx.viewWillAppear.asObservable()
+            return self.rx.viewWillAppear.asObservable()
                 .throttle(1, scheduler: MainScheduler.asyncInstance)
                 .asSignal(onErrorSignalWith: Signal.empty())
                 .map { _ in Types.Event.viewWillAppear }
@@ -134,9 +134,9 @@ private extension AliasesViewController {
 
         let subscriptionSections = state.drive(onNext: { [weak self] state in
 
-            guard let strongSelf = self else { return }
+            guard let self = self else { return }
 
-            strongSelf.updateView(with: state.displayState)
+            self.updateView(with: state.displayState)
         })
 
         return [subscriptionSections]

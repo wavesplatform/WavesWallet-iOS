@@ -31,12 +31,15 @@ extension DomainLayer.DTO {
         struct Transfer: Equatable {
             let balance: Balance
             let asset: Asset
+
+            //It is for sent too (sender)
             let recipient: Account
             let attachment: String?
             let hasSponsorship: Bool
             var isGatewayAddress: Bool {
                 return CoinomatService.addresses.contains(recipient.address)
             }
+            let myAccount: Account
         }
 
         struct Exchange: Equatable {
@@ -70,6 +73,7 @@ extension DomainLayer.DTO {
             let asset: Asset
             let balance: Balance
             let account: Account
+            let myAccount: Account
         }
 
         struct Issue: Equatable {
@@ -137,9 +141,11 @@ extension DomainLayer.DTO {
         }
 
         let id: String
+        let type: Int
         let kind: Kind
         let timestamp: Date
         let totalFee: Balance
+        let feeAsset: Asset
         let height: Int64?
         let confirmationHeight: Int64
         let sender: Account

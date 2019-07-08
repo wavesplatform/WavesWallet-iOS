@@ -92,17 +92,18 @@ final class UseTouchIDViewController: UIViewController {
         .registerBiometric(wallet: input.wallet, passcode: input.passcode)
         .observeOn(MainScheduler.asyncInstance)
         .subscribe(onNext: { [weak self] status in
-
+            guard let self = self else { return }
             if case .completed(let wallet) = status {
-                self?.stopIndicator()
-                self?.moduleOutput?.userRegisteredBiometric(wallet: wallet)
+                self.stopIndicator()
+                self.moduleOutput?.userRegisteredBiometric(wallet: wallet)
             }
         }, onError: { [weak self] error in
+            guard let self = self else { return }
             if let error = error as? AuthorizationInteractorError, error == .biometricLockout {
-                self?.showErrorSnackWithoutAction(title: Localizable.Waves.Biometric.Manyattempts.title,
+                self.showErrorSnackWithoutAction(title: Localizable.Waves.Biometric.Manyattempts.title,
                                                   subtitle: Localizable.Waves.Biometric.Manyattempts.subtitle)
             }
-            self?.stopIndicator()
+            self.stopIndicator()
         })
         .disposed(by: disposeBag)
     }

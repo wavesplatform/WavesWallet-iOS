@@ -46,14 +46,20 @@ final class WalletCoordinator: Coordinator {
 
     private func setupLifeCycleTost() {
         walletViewContoller.rx.viewDidAppear.asObservable().subscribe(onNext: { [weak self] _ in
-            self?.showLegalOrBackupIfNeed()
+            guard let self = self else { return }
+            self.showLegalOrBackupIfNeed()
         }).disposed(by: disposeBag)
 
         walletViewContoller.rx.viewDidDisappear.asObservable().subscribe(onNext: { [weak self] _ in
-            self?.childCoordinators.first(where: { (coordinator) -> Bool in
-                return coordinator is BackupTostCoordinator
-            })?.removeFromParentCoordinator()
-        }).disposed(by: disposeBag)
+            guard let self = self else { return }
+
+            self.childCoordinators
+                .first(where: { (coordinator) -> Bool in
+                    return coordinator is BackupTostCoordinator
+                })?
+            .removeFromParentCoordinator()
+        })
+        .disposed(by: disposeBag)
     }
 
     private func showBackupTost() {        
@@ -77,15 +83,8 @@ final class WalletCoordinator: Coordinator {
             .authorizedWallet()
             .take(1)
             .subscribe(onNext: { [weak self] wallet in
-                guard let owner = self else { return }
-                guard wallet.wallet.isAlreadyShowLegalDisplay == false else {
-                    owner.showNewsAndBackupTost()
-                    return
-                }
-
-                let legal = LegalCoordinator(viewController: owner.walletViewContoller)
-                legal.delegate = owner
-                owner.addChildCoordinatorAndStart(childCoordinator: legal)
+                guard let self = self else { return }
+                self.showNewsAndBackupTost()
             })
             .disposed(by: self.disposeBag)
     }
@@ -125,13 +124,16 @@ extension WalletCoordinator: WalletModuleOutput {
         
         let controller = StartLeasingModuleBuilder(output: self).build(input: availableMoney)
         navigationRouter.pushViewController(controller)
+        
+        AnalyticManager.trackEvent(.leasing(.leasingStartTap))
     }
 
     func showLeasingTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
 
-        let coordinator = TransactionHistoryCoordinator(transactions: transactions,
-                                                        currentIndex: index,
-                                                        router: navigationRouter)
+        let coordinator = TransactionCardCoordinator(transaction: transactions[index],
+                                                     router: navigationRouter)
+
+
         addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
 }
@@ -157,9 +159,10 @@ extension WalletCoordinator: AssetDetailModuleOutput {
 
     func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
 
-        let coordinator = TransactionHistoryCoordinator(transactions: transactions,
-                                                        currentIndex: index,
-                                                        router: navigationRouter)
+        let coordinator = TransactionCardCoordinator(transaction: transactions[index],
+                                                     router: navigationRouter)
+
+
         addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
     
@@ -169,6 +172,8 @@ extension WalletCoordinator: AssetDetailModuleOutput {
         vc.asset = asset
         vc.delegate = delegate
         navigationRouter.pushViewController(vc)
+        
+        AnalyticManager.trackEvent(.tokenBurn(.tap))
     }
 }
 
@@ -248,10 +253,12 @@ extension WalletCoordinator: AliasesModuleOutput {
     func aliasesCreateAlias() {
 
         self.currentPopup?.dismissPopup { [weak self] in
-            guard let owner = self else { return }
+            guard let self = self else { return }
 
-            let vc = CreateAliasModuleBuilder(output: owner).build()
-            self?.navigationRouter.pushViewController(vc)
+            let vc = CreateAliasModuleBuilder(output: self).build()
+            self.navigationRouter.pushViewController(vc)
+            
+            AnalyticManager.trackEvent(.createAlias(.aliasCreateVcard))
         }
     }
 }
@@ -261,10 +268,12 @@ extension WalletCoordinator: AliasesModuleOutput {
 extension WalletCoordinator: AliasWithoutViewControllerDelegate {
     func aliasWithoutUserTapCreateNewAlias() {
         self.currentPopup?.dismissPopup { [weak self] in
-            guard let owner = self else { return }
+            guard let self = self else { return }
 
-            let vc = CreateAliasModuleBuilder(output: owner).build()
-            self?.navigationRouter.pushViewController(vc)
+            let vc = CreateAliasModuleBuilder(output: self).build()
+            self.navigationRouter.pushViewController(vc)
+            
+            AnalyticManager.trackEvent(.createAlias(.aliasCreateVcard))
         }
     }
 }
@@ -276,39 +285,5 @@ extension WalletCoordinator: CreateAliasModuleOutput {
         if let myAddressVC = self.myAddressVC {
             navigationRouter.popToViewController(myAddressVC)
         }
-    }
-}
-
-// MARK: LegalCoordinatorDelegate
-
-extension WalletCoordinator: LegalCoordinatorDelegate {
-
-    func legalConfirm() {
-        
-        authorization
-            .authorizedWallet()
-            .flatMap({ [weak self] (wallet) -> Observable<Void> in
-                guard let owner = self else { return Observable.never() }
-
-                owner.showNewsAndBackupTost()
-
-                var newWallet = wallet.wallet
-                newWallet.isAlreadyShowLegalDisplay = true
-                owner.sendAnalytics()
-                return owner.authorization.changeWallet(newWallet).map { _ in }
-            })
-            .subscribe()
-            .disposed(by: disposeBag)
-    }
-
-    private func sendAnalytics() {
-
-        walletsRepository
-            .wallets()
-            .subscribe(onNext: { (wallets) in
-                AppsFlyerTracker.shared().trackEvent("new_wallet", withValues: ["wallets_count": wallets.count]);
-                Analytics.logEvent("new_wallet", parameters: ["wallets_count": wallets.count])
-        })
-        .disposed(by: disposeBag)
     }
 }

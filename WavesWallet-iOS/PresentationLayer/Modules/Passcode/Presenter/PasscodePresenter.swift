@@ -82,9 +82,9 @@ final class PasscodePresenter: PasscodePresenterProtocol {
 
         let system = Driver.system(initialState: initialState,
                                    reduce: { [weak self] state, event -> Types.State in
-                                       self?.reduce(state: state, event: event) ?? state
-                                   },
-                                   feedback: newFeedbacks)
+                                    guard let self = self else { return state }
+                                    return self.reduce(state: state, event: event)
+            }, feedback: newFeedbacks)
 
         system
             .drive()
@@ -109,9 +109,9 @@ extension PasscodePresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor
                 .changePassword(wallet: query.wallet, passcode: query.passcode, oldPassword: query.oldPassword, newPassword: query.newPassword)
                 .map { .completedChangePassword($0) }
@@ -133,9 +133,9 @@ extension PasscodePresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor
                 .changePasscodeByPassword(wallet: query.wallet,
                                           passcode: query.passcode,
@@ -158,9 +158,9 @@ extension PasscodePresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor
                 .changePasscode(wallet: query.wallet,
                                 oldPasscode: query.oldPasscode,
@@ -183,9 +183,9 @@ extension PasscodePresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor
                 .registrationAccount(query.account,
                                      passcode: query.passcode)
@@ -209,9 +209,9 @@ extension PasscodePresenter {
 
         }, effects: { [weak self] wallet -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor
                 .disabledBiometricUsingBiometric(wallet: wallet)
                 .sweetDebug("Biometric")
@@ -234,9 +234,9 @@ extension PasscodePresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor
                 .setEnableBiometric(wallet: query.wallet, passcode: query.passcode, isOn: query.isOn)
                 .sweetDebug("Biometric")
@@ -258,9 +258,9 @@ extension PasscodePresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor
                 .logInBiometric(wallet: query.wallet)
                 .sweetDebug("Biometric")
@@ -287,9 +287,9 @@ extension PasscodePresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor
                 .verifyAccess(wallet: query.wallet, passcode: query.passcode)
                 .map { Types.Event.completedVerifyAccess($0) }
@@ -312,9 +312,9 @@ extension PasscodePresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor
                 .verifyAccessUsingBiometric(wallet: query.wallet)
                 .map { Types.Event.completedVerifyAccess($0) }
@@ -337,9 +337,9 @@ extension PasscodePresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor
                 .logIn(wallet: query.wallet, passcode: query.passcode)
                 .sweetDebug("Passcode")
@@ -365,9 +365,9 @@ extension PasscodePresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor.logout(wallet: query.wallet)
                 .map { _ in .completedLogout }
                 .asSignal { (error) -> Signal<Types.Event> in

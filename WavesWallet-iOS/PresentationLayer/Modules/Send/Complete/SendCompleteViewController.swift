@@ -69,13 +69,15 @@ final class SendCompleteViewController: UIViewController {
         labelSubtitle.text = Localizable.Waves.Sendcomplete.Label.youHaveSent + " " + amountText
         
         let addressBook: AddressBookInteractorProtocol = AddressBookInteractor()
-        addressBook.users().subscribe(onNext: { [weak self] contacts in
+        addressBook
+            .users()
+            .subscribe(onNext: { [weak self] contacts in
             
-            guard let strongSelf = self else { return }
-            let isExistContact = contacts.filter({$0.address == strongSelf.input.address }).count > 0
-            strongSelf.viewSaveAddress.isHidden = isExistContact
-            
-        }).disposed(by: disposeBag)
+                guard let self = self else { return }
+                let isExistContact = contacts.filter({$0.address == self.input.address }).count > 0
+                self.viewSaveAddress.isHidden = isExistContact
+            })
+            .disposed(by: disposeBag)
     }
     
     private func setupLocalization() {

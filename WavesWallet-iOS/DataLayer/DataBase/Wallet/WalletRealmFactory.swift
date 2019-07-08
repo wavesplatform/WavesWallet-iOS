@@ -18,8 +18,11 @@ fileprivate enum SchemaVersions: UInt64 {
     case version_2_0_2 = 7 // v2.0.2
     case version_2_1 = 8 // v2.1
     case version_2_2 = 11 // v2.2
+    case version_2_3 = 12 // v2.3
 
-    static let currentVersion: SchemaVersions = .version_2_2
+    static let currentVersion: SchemaVersions = .version_2_3
+
+    static let schemaWalletsVersion: UInt64 = 6
 }
 
 fileprivate enum Constants {
@@ -136,6 +139,10 @@ enum WalletRealmFactory {
                 removeTransaction(migration: migration)
                 removeAsset(migration: migration)
             }
+            
+            if oldSchemaVersion < SchemaVersions.version_2_3.rawValue {
+                removeTransaction(migration: migration)
+            }
         }
 
         return config
@@ -194,6 +201,33 @@ extension Migration {
     func renamePropertyIfExists(onType typeName: String, from oldName: String, to newName: String) {
         if (hadProperty(onType: typeName, property: oldName)) {
             renameProperty(onType: typeName, from: oldName, to: newName)
+        }
+    }
+}
+
+extension WalletRealmFactory {
+    
+    enum Configuration {
+        static var walletsConfig: Realm.Configuration? {
+            
+            var config = Realm.Configuration()
+            config.objectTypes = [WalletEncryption.self, WalletItem.self]
+            config.schemaVersion = UInt64(SchemaVersions.schemaWalletsVersion)
+            
+            guard let fileURL = config.fileURL else {
+                SweetLogger.error("File Realm is nil")
+                return nil
+            }
+            
+            config.fileURL = fileURL
+                .deletingLastPathComponent()
+                .appendingPathComponent("wallets_\(Environment.current.scheme).realm")
+            
+            config.migrationBlock = { _, oldSchemaVersion in
+                SweetLogger.debug("Migration!!! \(oldSchemaVersion)")
+            }
+            
+            return config
         }
     }
 }

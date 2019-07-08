@@ -33,18 +33,18 @@ final class TokenBurnLoadingViewController: UIViewController {
             .burnAsset(asset: input.asset, fee: input.fee, quiantity: input.amount)
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (status) in
-                
+                guard let self = self else { return }
                 switch status {
                 case .success:
-                    self?.showCompleteScreen()
+                    self.showCompleteScreen()
                     
                 case .error(let error):
-                    self?.input.errorDelegate?.tokenBurnLoadingViewControllerDidFail(error: error)
+                    self.input.errorDelegate?.tokenBurnLoadingViewControllerDidFail(error: error)
                     //TODO: Coordinator
-                    if let vc = self?.navigationController?.viewControllers.first(where: { (vc) -> Bool in
+                    if let vc = self.navigationController?.viewControllers.first(where: { (vc) -> Bool in
                         return vc is TokenBurnViewController
                     }) {
-                        self?.navigationController?.popToViewController(vc, animated: true)
+                        self.navigationController?.popToViewController(vc, animated: true)
                     }
                 }
                 

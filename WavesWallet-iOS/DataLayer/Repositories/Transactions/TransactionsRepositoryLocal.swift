@@ -153,7 +153,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
         return Observable.create { [weak self] (observer) -> Disposable in
 
-            guard let owner = self else {
+            guard let self = self else {
                 observer.onError(AccountBalanceRepositoryError.fail)
                 return Disposables.create()
             }
@@ -164,11 +164,11 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
             }
 
 
-            let result = owner.transactionsResultFromRealm(by: address,
+            let result = self.transactionsResultFromRealm(by: address,
                                                            specifications: specifications,
                                                            realm: realm)
 
-            let transactions = owner.mapping(result: result, by: specifications)
+            let transactions = self.mapping(result: result, by: specifications)
 
             observer.onNext(transactions)
             observer.onCompleted()
@@ -233,7 +233,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
 
         return Observable.create { [weak self] (observer) -> Disposable in
 
-            guard let owner = self else {
+            guard let self = self else {
                 observer.onError(AccountBalanceRepositoryError.fail)
                 return Disposables.create()
             }
@@ -243,7 +243,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                 return Disposables.create()
             }
 
-            let txsResult = owner.transactionsResultFromRealm(by: address,
+            let txsResult = self.transactionsResultFromRealm(by: address,
                                                         specifications: specifications,
                                                         realm: realm)
 
@@ -251,7 +251,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                 .arrayWithChangeset(from: txsResult)
                 .flatMap({ [weak self] (list, changeSet) -> Observable<[DomainLayer.DTO.AnyTransaction]> in
 
-                    guard let owner = self else {
+                    guard let self = self else {
                         return Observable.never()
                     }
 
@@ -259,7 +259,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                     let txs = changeset.inserted.reduce(into: [AnyTransaction](), { (result, index) in
                         result.append(list[index])
                     })
-                    let transactions = owner.mapping(txs: txs, by: specifications)
+                    let transactions = self.mapping(txs: txs, by: specifications)
                     return Observable.just(transactions)
                 })
                 .bind(to: observer)

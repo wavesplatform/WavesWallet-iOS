@@ -57,7 +57,8 @@ final class SegmentedControl: UIControl, NibOwnerLoadable {
         super.awakeFromNib()
         scrollView.backgroundColor = .basic50
         scrollView.changedValue = { [weak self] _ in
-            self?.sendActions(for: .valueChanged)
+            guard let self = self else { return }
+            self.sendActions(for: .valueChanged)
             
         }
     }

@@ -24,8 +24,9 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
         
         Driver.system(initialState: DexMyOrders.State.initialState,
                       reduce: { [weak self] state, event -> DexMyOrders.State in
-                        return self?.reduce(state: state, event: event) ?? state },
-                      feedback: newFeedbacks)
+                        guard let self = self else { return state }
+                        return self.reduce(state: state, event: event) }
+            , feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
         
@@ -34,16 +35,12 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
     private func modelsQuery() -> Feedback {
         
         return react(request: { state -> DexMyOrders.State? in
-            return state.isNeedLoadOrders || state.isNeedCancelOrder ? state : nil
+            return state.isNeedLoadOrders ? state : nil
         }, effects: { [weak self] state -> Signal<DexMyOrders.Event> in
             
-            guard let strongSelf = self else { return Signal.empty() }
-
-            if let order = state.canceledOrder, state.isNeedCancelOrder {
-                return strongSelf.interactor.cancelOrder(order: order).map {.orderDidFinishCancel($0)}.asSignal(onErrorSignalWith: Signal.empty())
-            }
+            guard let self = self else { return Signal.empty() }
             
-            return strongSelf.interactor.myOrders().map {.setOrders($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            return self.interactor.myOrders().map {.setOrders($0)}.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     
@@ -64,7 +61,6 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
           
             return state.mutate {
                 
-                $0.isNeedCancelOrder = false
                 $0.isNeedLoadOrders = false
 
                 $0.section.items.removeAll()
@@ -72,47 +68,7 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
                     $0.section.items.append(DexMyOrders.ViewModel.Row.order(order))
                 }                
             }.changeAction(.update)
-            
-        case .orderDidFinishCancel(let response):
-            return state.mutate {
-                $0.isNeedCancelOrder = false
-                $0.isNeedLoadOrders = false
-
-                switch response.result {
-                
-                case .success:
-                    $0.action = .orderDidFinishCancel
-                    
-                case .error(let error):
-                    if let order = state.canceledOrder, let index = $0.section.items.index(where: {$0.order?.id == order.id}) {
-                        $0.section.items[index] = DexMyOrders.ViewModel.Row.order(order)
-                    }
-                    $0.action = .orderDidFailCancel(error)
-                }
-
-            }
-            
-        case .cancelOrder(let indexPath):
-            
-            return state.mutate {
-                
-                $0.isNeedLoadOrders = false
-
-                if let order = state.section.items[indexPath.row].order {
-
-                    $0.canceledOrder = order
-                    $0.isNeedCancelOrder = true
-                    
-                    var newOrder = order
-                    newOrder.status = .cancelled
-                    
-                    $0.section.items[indexPath.row] = DexMyOrders.ViewModel.Row.order(newOrder)
-                    $0.action = .update
-                }
-                else {
-                    $0.action = .none
-                }
-            }
+    
         }
     }
 }
@@ -130,6 +86,6 @@ fileprivate extension DexMyOrders.State {
 fileprivate extension DexMyOrders.State {
     static var initialState: DexMyOrders.State {
         let section = DexMyOrders.ViewModel.Section(items: [])
-        return DexMyOrders.State(action: .none, section: section, isNeedLoadOrders: false, isNeedCancelOrder: false, canceledOrder: nil)
+        return DexMyOrders.State(action: .none, section: section, isNeedLoadOrders: false)
     }
 }

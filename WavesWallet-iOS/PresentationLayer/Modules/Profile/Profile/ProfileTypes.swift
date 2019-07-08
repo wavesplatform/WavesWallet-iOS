@@ -85,7 +85,7 @@ extension ProfileTypes.ViewModel {
         case info(version: String, height: String?, isBackedUp: Bool)
     }
 
-    struct Section: SectionBase, Mutating {
+    struct Section: SectionProtocol, Mutating {
 
         enum Kind {
             case general

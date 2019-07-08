@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,14 +21,14 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="touchid48Submit300" translatesAutoresizingMaskIntoConstraints="NO" id="8Hl-X7-TVG">
                                 <rect key="frame" x="163.5" y="196" width="48" height="48"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Touch ID to sign in?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xiI-Kx-zwM">
-                                <rect key="frame" x="92.5" y="284" width="190.5" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Touch ID to sign in?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xiI-Kx-zwM">
+                                <rect key="frame" x="24" y="284" width="327" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use your Touch ID for faster, easier access to your account" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mr8-iN-y2Y">
-                                <rect key="frame" x="24" y="313" width="327" height="31.5"/>
+                                <rect key="frame" x="24" y="312.5" width="327" height="31.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -70,16 +70,18 @@
                                     <action selector="notNowTapped:" destination="0Pb-XP-PBS" eventType="touchUpInside" id="eSU-nJ-PnJ"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="cuD-QS-q9R">
-                                <rect key="frame" x="184" y="537" width="20" height="20"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="cuD-QS-q9R">
+                                <rect key="frame" x="177.5" y="537" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="V9j-9K-bED" firstAttribute="leading" secondItem="W7g-Bz-dil" secondAttribute="leading" constant="16" id="4JR-Y3-BpZ"/>
                             <constraint firstItem="cuD-QS-q9R" firstAttribute="centerX" secondItem="V9j-9K-bED" secondAttribute="centerX" id="5js-oL-1jr"/>
+                            <constraint firstItem="xiI-Kx-zwM" firstAttribute="trailing" secondItem="Mr8-iN-y2Y" secondAttribute="trailing" id="95K-2k-zXO"/>
                             <constraint firstAttribute="trailing" secondItem="HtR-Tw-vMq" secondAttribute="trailing" constant="16" id="AwH-gk-EK9"/>
                             <constraint firstItem="HtR-Tw-vMq" firstAttribute="top" secondItem="V9j-9K-bED" secondAttribute="bottom" constant="24" id="Bb7-uf-Azx"/>
+                            <constraint firstItem="xiI-Kx-zwM" firstAttribute="leading" secondItem="Mr8-iN-y2Y" secondAttribute="leading" id="GZd-ev-ZJH"/>
                             <constraint firstItem="8Hl-X7-TVG" firstAttribute="top" secondItem="W7g-Bz-dil" secondAttribute="top" constant="176" id="Qtg-94-Se3"/>
                             <constraint firstItem="W7g-Bz-dil" firstAttribute="bottom" secondItem="HtR-Tw-vMq" secondAttribute="bottom" constant="24" id="WRR-cU-c4l"/>
                             <constraint firstItem="xiI-Kx-zwM" firstAttribute="top" secondItem="8Hl-X7-TVG" secondAttribute="bottom" constant="40" id="YUv-pV-8Lk"/>

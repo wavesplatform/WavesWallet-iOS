@@ -38,8 +38,8 @@ final class CreateAliasInputCell: UITableViewCell, Reusable {
     lazy var textFieldShouldReturn: Observable<Void> = {
 
         return Observable.create({ [weak self] observer -> Disposable in
-            guard let owner = self else { return Disposables.create() }
-            owner.inputTextField.textFieldShouldReturn = { [weak self] _ in
+            guard let self = self else { return Disposables.create() }
+            self.inputTextField.textFieldShouldReturn = { [weak self] _ in
                 observer.onNext(())
             }
             return Disposables.create()
@@ -49,8 +49,8 @@ final class CreateAliasInputCell: UITableViewCell, Reusable {
     lazy var textFieldChangedValue: Observable<String?> = {
 
         return Observable.create({ [weak self] observer -> Disposable in
-            guard let owner = self else { return Disposables.create() }
-            owner.inputTextField.changedValue = { [weak self] isValidData, text in
+            guard let self = self else { return Disposables.create() }
+            self.inputTextField.changedValue = { [weak self] isValidData, text in
                 observer.onNext(text)
             }
             return Disposables.create()

@@ -15,7 +15,7 @@ extension DomainLayer.DTO {
         let sender: String
         let senderPublicKey: String
         let fee: Int64
-        let timestamp: Int64
+        let timestamp: Date
         let height: Int64
         let modified: Date
         var status: TransactionStatus

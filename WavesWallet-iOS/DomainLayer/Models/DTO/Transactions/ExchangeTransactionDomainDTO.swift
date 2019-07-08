@@ -27,7 +27,7 @@ extension DomainLayer.DTO {
             let orderType: Kind
             let price: Int64
             let amount: Int64
-            let timestamp: Int64
+            let timestamp: Date
             let expiration: Int64
             let matcherFee: Int64
             let signature: String?
@@ -43,7 +43,7 @@ extension DomainLayer.DTO {
         let sender: String
         let senderPublicKey: String
         let fee: Int64
-        let timestamp: Int64
+        let timestamp: Date
         let height: Int64
 
         let signature: String?

@@ -41,9 +41,10 @@ final class PasscodeVerifyAccessPresenter: PasscodePresenterProtocol {
 
         let system = Driver.system(initialState: initialState,
                                    reduce: { [weak self] state, event -> Types.State in
-                                    self?.reduce(state: state, event: event) ?? state
-            },
-                                   feedback: newFeedbacks)
+                                    guard let self = self else { return state }
+                                    return self.reduce(state: state, event: event)
+
+            }, feedback: newFeedbacks)
 
         system
             .drive()
@@ -71,9 +72,9 @@ extension PasscodeVerifyAccessPresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor
                 .verifyAccess(wallet: query.wallet, passcode: query.passcode)
                 .map { Types.Event.completedVerifyAccess($0) }
@@ -96,9 +97,9 @@ extension PasscodeVerifyAccessPresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor
                 .verifyAccessUsingBiometric(wallet: query.wallet)
                 .map { Types.Event.completedVerifyAccess($0) }
@@ -124,9 +125,9 @@ extension PasscodeVerifyAccessPresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .interactor.logout(wallet: query.wallet)
                 .map { _ in .completedLogout }
                 .asSignal { (error) -> Signal<Types.Event> in

@@ -26,7 +26,8 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
 
         Driver.system(initialState: DexMarket.State.initialState,
                       reduce: { [weak self] state, event -> DexMarket.State in
-                        return self?.reduce(state: state, event: event) ?? state },
+                        guard let self = self else { return state }
+                        return self.reduce(state: state, event: event) },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
@@ -37,8 +38,8 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
             return true
         }, effects: { [weak self] _ -> Signal<DexMarket.Event> in
             
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.interactor.pairs().map { .setPairs($0) }.asSignal(onErrorSignalWith: Signal.empty())
+            guard let self = self else { return Signal.empty() }
+            return self.interactor.pairs().map { .setPairs($0) }.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     
@@ -47,8 +48,8 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
             return true
         }, effects: { [weak self] _ -> Signal<DexMarket.Event> in
             
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.interactor.searchPairs().map { .setPairs($0) }.asSignal(onErrorSignalWith: Signal.empty())
+            guard let self = self else { return Signal.empty() }
+            return self.interactor.searchPairs().map { .setPairs($0) }.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     

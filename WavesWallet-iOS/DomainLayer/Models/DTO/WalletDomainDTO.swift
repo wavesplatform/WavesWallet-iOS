@@ -16,7 +16,6 @@ extension DomainLayer.DTO {
         var isLoggedIn: Bool
         var isBackedUp: Bool
         var hasBiometricEntrance: Bool
-        var isAlreadyShowLegalDisplay: Bool
         let id: String
     }
 

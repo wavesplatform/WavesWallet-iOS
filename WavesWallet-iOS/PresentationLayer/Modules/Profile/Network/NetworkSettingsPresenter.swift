@@ -96,13 +96,13 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
 
         }, effects: { [weak self] address -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            let environment = strongSelf
+            let environment = self
                 .environmentRepository
                 .accountEnvironment(accountAddress: address)
 
-            let accountSettings = strongSelf.accountSettingsRepository
+            let accountSettings = self.accountSettingsRepository
                 .accountSettings(accountAddress: address)
                 .sweetDebug("accountSettings")
 
@@ -126,9 +126,9 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
 
         }, effects: { [weak self] address -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            let environment = strongSelf
+            let environment = self
                 .environmentRepository
                 .deffaultEnvironment(accountAddress: address)
 
@@ -167,15 +167,15 @@ final class NetworkSettingsPresenter: NetworkSettingsPresenterProtocol {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            let environment = strongSelf
+            let environment = self
                 .environmentRepository
                 .setSpamURL(query.url, by: query.accountAddress)
 
             let accountSettings = query.accountSettings
 
-            let saveAccountSettings = strongSelf
+            let saveAccountSettings = self
                 .accountSettingsRepository
                 .saveAccountSettings(accountAddress: query.accountAddress,
                                      settings: accountSettings)

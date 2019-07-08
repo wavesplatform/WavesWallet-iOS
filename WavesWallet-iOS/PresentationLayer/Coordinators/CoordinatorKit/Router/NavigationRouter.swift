@@ -88,4 +88,12 @@ extension NavigationRouter: Router {
     var viewController: UIViewController {
         return navigationController
     }
+
+    func present(_ viewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
+        navigationController.topViewController?.present(viewController, animated: animated, completion: completion)
+    }
+
+    func dismiss(animated: Bool, completion: (() -> Void)?) {
+        navigationController.topViewController?.dismiss(animated: animated, completion: completion)
+    }
 }

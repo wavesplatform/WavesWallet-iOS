@@ -37,7 +37,8 @@ final class AddressesKeysCoordinator: Coordinator {
         let vc = AddressesKeysModuleBuilder(output: self).build(input: .init(wallet: wallet))
         self.rootViewController = vc
         self.navigationRouter.pushViewController(vc, animated: true) { [weak self] in
-            self?.removeFromParentCoordinator()
+            guard let self = self else { return }
+            self.removeFromParentCoordinator()
         }
     }
 }
@@ -82,6 +83,7 @@ extension AddressesKeysCoordinator: AliasesModuleOutput {
         self.currentPopup?.dismissPopup {
             let vc = CreateAliasModuleBuilder(output: self).build()
             self.navigationRouter.pushViewController(vc)
+            AnalyticManager.trackEvent(.createAlias(.createProfile))
         }
     }
 }
@@ -93,6 +95,7 @@ extension AddressesKeysCoordinator: AliasWithoutViewControllerDelegate {
         self.currentPopup?.dismissPopup {
             let vc = CreateAliasModuleBuilder(output: self).build()
             self.navigationRouter.pushViewController(vc, animated: true)
+            AnalyticManager.trackEvent(.createAlias(.createProfile))
         }
     }
 }

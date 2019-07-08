@@ -158,6 +158,7 @@ final class SendViewController: UIViewController {
     }
     
     private func setupAssetInfo(_ assetBalance: DomainLayer.DTO.SmartAssetBalance) {
+
         gateWayInfo = nil
         wavesFee = nil
         currentFee = nil
@@ -217,6 +218,8 @@ final class SendViewController: UIViewController {
                          isGateway: isGateway)
         
         navigationController?.pushViewController(vc, animated: true)
+        
+        AnalyticManager.trackEvent(.walletAsset(.sendTap(assetName: asset.displayName)))
     }
     
     @IBAction private func continueTapped(_ sender: Any) {
@@ -240,6 +243,7 @@ extension SendViewController: TransactionFeeViewDelegate {
         
         let vc = SendFeeModuleBuilder(output: self).build(input: .init(wavesFee: wavesFee,
                                                                        assetID: assetID,
+
                                                                        feeAssetID: feeAssetID))
         vc.modalPresentationStyle = .custom
         vc.transitioningDelegate = popoverViewControllerTransitioning
@@ -299,7 +303,7 @@ private extension SendViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
                 
-                guard let owner = self else { return }
+                guard let self = self else { return }
                 switch state.action {
                 case .none:
                     return
@@ -310,61 +314,68 @@ private extension SendViewController {
                 switch state.action {
                 
                 case .didGetWavesFee(let fee):
-                    owner.updateWavesFee(fee: fee)
-                    owner.updateAmountData()
+                    self.updateWavesFee(fee: fee)
+                    self.updateAmountData()
 
                 case .didHandleFeeError(let error):
-                    owner.showFeeError(error)
+                    self.showFeeError(error)
                     
                 case .didGetAssetBalance(let assetBalance):
                     
-                    owner.hideLoadingAssetState(isLoadAsset: assetBalance != nil)
+                    if self.isLoadingAssetBalanceAfterScan && assetBalance == nil {
+                        self.showErrorSnackWithoutAction(title: Localizable.Waves.Send.Label.Error.assetIsNotValid)
+                    }
+                    else if assetBalance?.asset.isSpam == true {
+                        self.showErrorSnackWithoutAction(title: Localizable.Waves.Send.Label.Error.sendingToSpamAsset)
+                    }
+                    
+                    self.hideLoadingAssetState(isLoadAsset: assetBalance != nil)
                     
                     if let asset = assetBalance {
-                        owner.setupAssetInfo(asset)
-                        owner.amountView.setDecimals(asset.asset.precision, forceUpdateMoney: true)
+                        self.setupAssetInfo(asset)
+                        self.amountView.setDecimals(asset.asset.precision, forceUpdateMoney: true)
                     }
-                    owner.updateAmountData()
+                    self.updateAmountData()
 
                     
                 case .didFailInfo(let error):
                     
                     switch error {
                     case .internetNotWorking:
-                        owner.hideCoinomatError(animation: true)
-                        owner.showNetworkErrorSnack(error: error)
+                        self.hideCoinomatError(animation: true)
+                        self.showNetworkErrorSnack(error: error)
 
                     default:
-                        owner.showCoinomatError()
+                        self.showCoinomatError()
                     }
-                    owner.hideGatewayInfo(animation: true)
+                    self.hideGatewayInfo(animation: true)
                     
                 case .didGetInfo(let info):
-                    owner.showGatewayInfo(info: info)
-                    owner.updateAmountData()
+                    self.showGatewayInfo(info: info)
+                    self.updateAmountData()
                     
                 case .aliasDidFinishCheckValidation(let isValidAlias):
-                    owner.hideCheckingAliasState(isValidAlias: isValidAlias)
-                    owner.setupButtonState()
+                    self.hideCheckingAliasState(isValidAlias: isValidAlias)
+                    self.setupButtonState()
 
                 case .didGetWavesAsset(let asset):
-                    owner.feeAssetBalance = asset
-                    owner.updateAmountError(animation: true)
-                    owner.updateAmountData()
+                    self.feeAssetBalance = asset
+                    self.updateAmountError(animation: true)
+                    self.updateAmountData()
                     
                 case .didFailGenerateMoneroAddress(let error):
                     
-                    owner.showNetworkErrorSnack(error: error)
-                    owner.hideButtonLoadingButtonsState()
-                    owner.moneroPaymentIdView.showErrorFromServer()
-                    owner.setupButtonState()
+                    self.showNetworkErrorSnack(error: error)
+                    self.hideButtonLoadingButtonsState()
+                    self.moneroPaymentIdView.showErrorFromServer()
+                    self.setupButtonState()
 
                 case .didGenerateMoneroAddress(let info):
-                    owner.moneroAddress = info.address
-                    owner.gateWayInfo = info
-                    owner.hideButtonLoadingButtonsState()
-                    owner.setupButtonState()
-                    owner.showConfirmScreen()
+                    self.moneroAddress = info.address
+                    self.gateWayInfo = info
+                    self.hideButtonLoadingButtonsState()
+                    self.setupButtonState()
+                    self.showConfirmScreen()
                     
                 default:
                     break
@@ -630,7 +641,8 @@ private extension SendViewController {
             isValidMinMaxGatewayAmount &&
             isValidPaymentMoneroID &&
             !isLoadingAssetBalanceAfterScan &&
-            currentFee != nil
+            currentFee != nil &&
+            selectedAsset?.asset.isSpam == false
         
         buttonContinue.isUserInteractionEnabled = canContinueAction
         buttonContinue.backgroundColor = canContinueAction ? .submit400 : .submit200
@@ -976,7 +988,8 @@ private extension SendViewController {
         if let regExp = selectedAsset?.asset.addressRegEx, regExp.count > 0 {
             return NSPredicate(format: "SELF MATCHES %@", regExp).evaluate(with: address) &&
                 selectedAsset?.asset.isGateway == true &&
-                selectedAsset?.asset.isFiat == false
+                selectedAsset?.asset.isFiat == false &&
+                isValidLocalAddress == false
         }
         return false
     }

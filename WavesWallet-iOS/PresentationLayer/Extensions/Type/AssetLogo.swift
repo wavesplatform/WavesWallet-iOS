@@ -67,23 +67,25 @@ extension AssetLogo {
             let width: CGFloat
             let color: UIColor
         }
+        
+        struct Specifications: Hashable {
+            let isSponsored: Bool
+            let hasScript: Bool
+            let size: CGSize
+        }
 
         let size: CGSize
-        let sponsoredSize: CGSize?
         let font: UIFont
-        let border: Border?
-
+        let specs: Specifications
+        
         var key: String {
             var key = "\(size.width)_\(size.height)"
             key += "\(font.familyName)_\(font.lineHeight)"
-
-            if let border = border {
-                key += "\(border.width)_\(border.color.toHexString())"
-            }
             
-            if let sponsoredSize = sponsoredSize {
-                key += "\(sponsoredSize.width)_\(sponsoredSize.height)"
+            if specs.isSponsored || specs.hasScript {
+                key += "\(specs.size.width)_\(specs.size.height)"
             }
+
             return key
         }
     }
@@ -121,8 +123,6 @@ extension AssetLogo {
                     }
                 }
             })
-            .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global(qos: .userInteractive)))
-            .observeOn(MainScheduler.asyncInstance)
     }
 
     private static func remoteLogo(icon: DomainLayer.DTO.Asset.Icon,
@@ -252,21 +252,13 @@ extension AssetLogo {
                                       context: nil)
             }
         }
-
-        if let border = style.border {
-            context.addArc(center: CGPoint(x: size.width * 0.5, y: size.height * 0.5), radius: size.height * 0.5, startAngle: 0, endAngle: CGFloat.pi * 2, clockwise: false)
-            context.setLineWidth(border.width)
-            context.setStrokeColor(border.color.cgColor)
-            context.strokePath()
-        }
         
-        
-        if let sponsoredSize = style.sponsoredSize {
+        if style.specs.isSponsored || style.specs.hasScript {
 
-            let rect = CGRect(x: size.width - sponsoredSize.width,
-                              y: size.height - sponsoredSize.height,
-                              width: sponsoredSize.width,
-                              height: sponsoredSize.height)
+            let rect = CGRect(x: size.width - style.specs.size.width,
+                              y: size.height - style.specs.size.height,
+                              width: style.specs.size.width,
+                              height: style.specs.size.height)
 
             context.resetClip()
             context.addPath(UIBezierPath(roundedRect: rect, cornerRadius: rect.height * 0.5).cgPath)
@@ -276,7 +268,7 @@ extension AssetLogo {
             context.setFillColor(color.cgColor)
             context.fill(rect)
 
-            let image = Images.sponsoritem18White.image
+            let image = style.specs.isSponsored ? Images.sponsoritem18White.image : Images.scriptasset18White.image
             image.draw(in: rect)
         }
         

@@ -22,8 +22,8 @@ final class WalletSortInteractor: WalletSortInteractorProtocol {
         return authorizationInteractor
             .authorizedWallet()
             .flatMap({ [weak self] wallet -> Observable<Bool> in
-                guard let owner = self else { return Observable.never() }
-                return owner.assetsBalanceSettings.move(by: wallet.address, assetId: asset.id, underAssetId: underAsset.id)
+                guard let self = self else { return Observable.never() }
+                return self.assetsBalanceSettings.move(by: wallet.address, assetId: asset.id, underAssetId: underAsset.id)
             })
             .subscribe()
             .disposed(by: disposeBag)
@@ -33,8 +33,8 @@ final class WalletSortInteractor: WalletSortInteractorProtocol {
         return authorizationInteractor
             .authorizedWallet()
             .flatMap({ [weak self] wallet -> Observable<Bool> in
-                guard let owner = self else { return Observable.never() }
-                return owner.assetsBalanceSettings.move(by: wallet.address, assetId: asset.id, overAssetId: overAsset.id)
+                guard let self = self else { return Observable.never() }
+                return self.assetsBalanceSettings.move(by: wallet.address, assetId: asset.id, overAssetId: overAsset.id)
             })
             .subscribe()
             .disposed(by: disposeBag)
@@ -44,8 +44,8 @@ final class WalletSortInteractor: WalletSortInteractorProtocol {
         return authorizationInteractor
             .authorizedWallet()
             .flatMap({ [weak self] wallet -> Observable<Bool> in
-                guard let owner = self else { return Observable.never() }
-                return owner.assetsBalanceSettings.setFavorite(by: wallet.address, assetId: assetId, isFavorite: isFavorite)
+                guard let self = self else { return Observable.never() }
+                return self.assetsBalanceSettings.setFavorite(by: wallet.address, assetId: assetId, isFavorite: isFavorite)
             })
             .subscribe()
             .disposed(by: disposeBag)
@@ -55,8 +55,8 @@ final class WalletSortInteractor: WalletSortInteractorProtocol {
         return authorizationInteractor
             .authorizedWallet()
             .flatMap({ [weak self] wallet -> Observable<Bool> in
-                guard let owner = self else { return Observable.never() }
-                return owner.assetsBalanceSettings.setHidden(by: wallet.address, assetId: assetId, isHidden: isHidden)
+                guard let self = self else { return Observable.never() }
+                return self.assetsBalanceSettings.setHidden(by: wallet.address, assetId: assetId, isHidden: isHidden)
             })
             .subscribe()
             .disposed(by: disposeBag)

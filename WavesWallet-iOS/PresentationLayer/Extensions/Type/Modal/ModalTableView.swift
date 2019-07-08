@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-final class ModalTableView: UITableView {
+class ModalTableView: UITableView {
 
     private(set) lazy var backgroundModalView: UIView = {
         let view = UIView()

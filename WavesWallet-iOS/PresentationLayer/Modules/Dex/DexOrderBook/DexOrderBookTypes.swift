@@ -15,9 +15,9 @@ enum DexOrderBook {
     enum Event {
         case readyView
         case setDisplayData(DTO.DisplayData)
-        case didTapBid(DTO.BidAsk, inputMaxAmount: Bool)
+        case didTapBid(DTO.BidAsk, inputMaxSum: Bool)
         case didTapEmptyBid
-        case didTapAsk(DTO.BidAsk, inputMaxAmount: Bool)
+        case didTapAsk(DTO.BidAsk, inputMaxSum: Bool)
         case didTamEmptyAsk
         case updateData
     }
@@ -37,6 +37,8 @@ enum DexOrderBook {
         var availablePriceAssetBalance: Money
         var availableAmountAssetBalance: Money
         var availableWavesBalance: Money
+        var scriptedAssets: [DomainLayer.DTO.Asset]
+
     }
 }
 
@@ -76,7 +78,7 @@ extension DexOrderBook.DTO {
         let percentAmount: Float
     }
     
-    struct DisplayData {
+    struct Data {
         let asks: [BidAsk]
         let lastPrice: LastPrice
         let bids: [BidAsk]
@@ -84,6 +86,12 @@ extension DexOrderBook.DTO {
         let availablePriceAssetBalance: Money
         let availableAmountAssetBalance: Money
         let availableWavesBalance: Money
+        let scriptedAssets: [DomainLayer.DTO.Asset]
+    }
+    
+    struct DisplayData {
+        let data: Data
+        let authWalletError: Bool
     }
 }
 
@@ -134,7 +142,8 @@ extension DexOrderBook.State {
         return DexOrderBook.State(action: .none, sections: [], header: header, hasFirstTimeLoad: false, isNeedRefreshing: false,
                                   availablePriceAssetBalance: Money(0, 0),
                                   availableAmountAssetBalance: Money(0, 0),
-                                  availableWavesBalance: Money (0, 0))
+                                  availableWavesBalance: Money (0, 0),
+                                  scriptedAssets: [])
     }
     
     var lastBid: DexOrderBook.DTO.BidAsk? {

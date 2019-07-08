@@ -8,6 +8,11 @@
 
 import UIKit
 
+private enum Constants {
+    static let cancelAlpha: CGFloat = 0.45
+    static let defaultAlpha: CGFloat = 1
+}
+
 final class DexMyOrdersCell: UITableViewCell, Reusable {
 
     @IBOutlet private weak var labelDate: UILabel!
@@ -15,43 +20,31 @@ final class DexMyOrdersCell: UITableViewCell, Reusable {
     @IBOutlet private weak var labelStatus: UILabel!
     @IBOutlet private weak var labelSide: UILabel!
     @IBOutlet private weak var labelPrice: UILabel!
-    @IBOutlet private weak var labelAmount: UILabel!
-    @IBOutlet private weak var labelSum: UILabel!
     @IBOutlet private weak var labelFilled: UILabel!
-    @IBOutlet private weak var buttonDelete: UIButton!
     @IBOutlet private weak var viewSeparate: UIView!
-    
-    var buttonDeleteDidTap: (() -> Void)?
+
 }
 
 extension DexMyOrdersCell: ViewConfiguration {
     
     func update(with model: DomainLayer.DTO.Dex.MyOrder) {
-        
+                
         labelDate.text = DexMyOrders.ViewModel.dateFormatterDate.string(from: model.time)
         labelTime.text = DexMyOrders.ViewModel.dateFormatterTime.string(from: model.time)
         labelStatus.text = model.statusText
-        labelAmount.text = model.amount.displayText
         labelPrice.text = model.price.displayText
+        labelFilled.text = String(model.percentFilled) + "%"
         labelSide.text = model.type == .sell ? Localizable.Waves.Dexmyorders.Label.sell : Localizable.Waves.Dexmyorders.Label.buy
+        
         labelSide.textColor = model.type == .sell ? UIColor.error500 : UIColor.submit400
         labelPrice.textColor = model.type == .sell ? UIColor.error500 : UIColor.submit400
-        labelFilled.text = model.filled.displayText
 
-        let sum = Money(value: model.price.decimalValue * model.amount.decimalValue, model.price.decimals)
-        labelSum.text = sum.displayText
-        
-        buttonDelete.isHidden = model.status == .filled || model.status == .cancelled
-        viewSeparate.isHidden = buttonDelete.isHidden
-    }
-    
-}
-
-//MARK: - Actions
-private extension DexMyOrdersCell {
-   
-    @IBAction func deleteTapped(_ sender: Any) {
-        buttonDeleteDidTap?()
+        labelDate.alpha = model.status == .cancelled ? Constants.cancelAlpha : Constants.defaultAlpha
+        labelTime.alpha = model.status == .cancelled ? Constants.cancelAlpha : Constants.defaultAlpha
+        labelStatus.alpha = model.status == .cancelled ? Constants.cancelAlpha : Constants.defaultAlpha
+        labelSide.alpha = model.status == .cancelled ? Constants.cancelAlpha : Constants.defaultAlpha
+        labelPrice.alpha = model.status == .cancelled ? Constants.cancelAlpha : Constants.defaultAlpha
+        labelFilled.alpha = model.status == .cancelled ? Constants.cancelAlpha : Constants.defaultAlpha
     }
 }
 

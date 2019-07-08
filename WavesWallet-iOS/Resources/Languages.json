@@ -17,17 +17,25 @@
   {
       "title": "中文(简体)",
       "icon": "flag18China",
-      "code": "zh-Hant"
+      "code": "zh-Hans-CN",
+      "titleCode": "ZH"
+  },
+  {
+      "title": "Türkçe",
+      "icon": "flag18Turkey",
+      "code": "tr"
   },
   {
       "title": "Nederlands",
       "icon": "flag18Nederland",
-      "code": "nl"
+      "code": "nl-NL",
+      "titleCode": "NL"
   },
   {
       "title": "हिन्दी",
       "icon": "flag18Hindi",
-      "code": "hi"
+      "code": "hi-IN",
+      "titleCode": "HI"
   },
   {
       "title": "Español",
@@ -35,9 +43,26 @@
       "code": "es"
   },
   {
-      "title": "Indonesia",
-      "icon": "flag18Indonesia",
-      "code": "id"
+      "title": "Português",
+      "icon": "flag18Portugal",
+      "code": "pt-PT",
+      "titleCode": "PT"
+  },
+  {
+      "title": "Português do Brasil",
+      "icon": "flag18Brazil",
+      "code": "pt-BR",
+      "titleCode": "BR"
+  },
+  {
+      "title": "Polszczyzna",
+      "icon": "flag18Polszczyzna",
+      "code": "pl"
+  },
+  {
+      "title": "Italiano",
+      "icon": "flag18Italiano",
+      "code": "it"
   },
   {
       "title": "Deutsch",
@@ -45,24 +70,13 @@
       "code": "de"
   },
   {
+      "title": "Indonesia",
+      "icon": "flag18Indonesia",
+      "code": "id"
+  },
+  {
       "title": "日本語",
       "icon": "flag18Japan",
       "code": "ja"
-  },
-    {
-      "title": "Português do Brasil",
-      "icon": "flag18Brazil",
-      "code": "pt-BR"
-  },
-    {	
-      "title": "Türkçe",
-      "icon": "flag18Turkey",
-      "code": "tr"
-  },
-    {
-        "title": "Português",
-        "icon": "flag18Portugal",
-        "code": "pt-PT"
-    }
-  
+  }
 ]

@@ -1,0 +1,3 @@
+"NSCameraUsageDescription" = "Per la scansione del codice QR è necessaria la fotocamera";
+"NSFaceIDUsageDescription" = "Accedi al tuo wallet";
+"NSPhotoLibraryAddUsageDescription" = "Per la scansione del codice QR è necessaria la fotocamera";

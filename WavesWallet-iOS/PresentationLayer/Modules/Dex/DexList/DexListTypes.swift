@@ -14,7 +14,7 @@ enum DexList {
 
     enum Event {
         case readyView
-        case setModels(ResponseType<[DTO.Pair]>)
+        case setDisplayInfo(ResponseType<DTO.DisplayInfo>)
         case tapSortButton(DexListRefreshOutput)
         case tapAddButton(DexListRefreshOutput)
         case refresh
@@ -36,6 +36,7 @@ enum DexList {
         var isFirstLoadingData: Bool
         var lastUpdate: Date
         var errorState: DisplayErrorState
+        var authWalletError: Bool
     }
 }
 
@@ -61,6 +62,11 @@ extension DexList.ViewModel {
 }
 
 extension DexList.DTO {
+    
+    struct DisplayInfo {
+        let pairs: [Pair]
+        let authWalletError: Bool
+    }
     
     struct Pair: Mutating {        
         var firstPrice: Money

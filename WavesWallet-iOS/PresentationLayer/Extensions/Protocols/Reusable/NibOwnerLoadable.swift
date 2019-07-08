@@ -17,7 +17,8 @@ public extension NibOwnerLoadable where Self: UIView {
     func loadNibContent() {
         let views = Self._nib.instantiate(withOwner: self, options: nil)
         if let view = views.first(where: { $0 is UIView }) as? UIView {
-            addSubview(view)
+            addSubview(view)            
+            backgroundColor = view.backgroundColor
             view.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
                 view.topAnchor.constraint(equalTo: topAnchor),

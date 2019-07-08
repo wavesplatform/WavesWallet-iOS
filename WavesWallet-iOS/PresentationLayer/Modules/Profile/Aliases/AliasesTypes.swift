@@ -64,7 +64,7 @@ extension AliasesTypes.ViewModel {
         case head
     }
 
-    struct Section: SectionBase, Mutating {
+    struct Section: SectionProtocol, Mutating {
         var rows: [Row]
     }
 }

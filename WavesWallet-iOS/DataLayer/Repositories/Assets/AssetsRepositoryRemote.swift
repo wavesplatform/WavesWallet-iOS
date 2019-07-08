@@ -25,55 +25,51 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
 
     func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
 
-        let environment = environmentRepository.accountEnvironment(accountAddress: accountAddress)
+        return environmentRepository.accountEnvironment(accountAddress: accountAddress)
+            .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Asset]> in
+                guard let self = self else { return Observable.empty() }
+                
+                let spamAssets = self.spamProvider.rx
+                                .request(.getSpamList(url: environment.servers.spamUrl),
+                                         callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                                .filterSuccessfulStatusAndRedirectCodes()
+                                .asObservable()
+                                .catchError({ (error) -> Observable<Response> in
+                                    return Observable.error(NetworkError.error(by: error))
+                                })
+                                .map { response -> [String] in
+                                    return (try? SpamCVC.addresses(from: response.data)) ?? []
+                                }
 
-        let spamAssets = environment
-            .flatMap { [weak self] environment -> Single<Response> in
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .custom { decoder in
+                    return Date(isoDecoder: decoder, timestampDiff: environment.timestampServerDiff)
+                }
+                
+                let assetsList = self.apiProvider.rx
+                                .request(.init(kind: .getAssets(ids: ids), environment: environment),
+                                        callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                                .filterSuccessfulStatusAndRedirectCodes()
+                                .asObservable()
+                                .catchError({ (error) -> Observable<Response> in
+                                    return Observable.error(NetworkError.error(by: error))
+                                })
+                                .map(API.Response<[API.Response<API.DTO.Asset>]>.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
+                                .map { $0.data.map { $0.data } }
+                
+                return Observable.zip(assetsList, spamAssets)
+                    .map({ (assets, spamAssets) -> [DomainLayer.DTO.Asset] in
+                        
+                        let map = environment.hashMapAssets()
+                        
+                        let spamIds = spamAssets.reduce(into: [String: Bool](), {$0[$1] = true })
 
-                guard let owner = self else { return Single.never() }
-                return owner
-                    .spamProvider
-                    .rx
-                    .request(.getSpamList(url: environment.servers.spamUrl),
-                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
-            }
-            .filterSuccessfulStatusAndRedirectCodes()
-            .catchError({ (error) -> Observable<Response> in
-                return Observable.error(NetworkError.error(by: error))
+                        return assets.map { DomainLayer.DTO.Asset(asset: $0,
+                                                                  info: map[$0.id],
+                                                                  isSpam: spamIds[$0.id] == true,
+                                                                  isMyWavesToken: $0.sender == accountAddress) }
+                    })
             })
-            .map { response -> [String] in
-                return (try? SpamCVC.addresses(from: response.data)) ?? []
-            }
-
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(DateFormatter.iso())
-
-        let assetsList = environment
-            .flatMap { [weak self] environment -> Single<Response> in
-
-                guard let owner = self else { return Single.never() }
-                return owner
-                    .apiProvider
-                    .rx
-                    .request(.init(kind: .getAssets(ids: ids), environment: environment),
-                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
-            }
-            .filterSuccessfulStatusAndRedirectCodes()
-            .catchError({ (error) -> Observable<Response> in
-                return Observable.error(NetworkError.error(by: error))
-            })
-            .map(API.Response<[API.Response<API.DTO.Asset>]>.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
-            .map { $0.data.map { $0.data } }
-
-        return Observable.zip(assetsList, spamAssets, environment)
-            .map { assets, spamAssets, environment in
-
-                let map = environment.hashMapGeneralAssets()
-                return assets.map { DomainLayer.DTO.Asset(asset: $0,
-                                                          info: map[$0.id],
-                                                          isSpam: spamAssets.contains($0.id),
-                                                          isMyWavesToken: $0.sender == accountAddress) }
-            }
     }
 
     func saveAssets(_ assets:[DomainLayer.DTO.Asset], by accountAddress: String) -> Observable<Bool> {
@@ -97,8 +93,8 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
         return environment
             .flatMap { [weak self] environment -> Single<Response> in
 
-                guard let owner = self else { return Single.never() }
-                return owner
+                guard let self = self else { return Single.never() }
+                return self
                     .assetNodeProvider
                     .rx
                     .request(.init(kind: .details(assetId: assetId), environment: environment),
@@ -115,8 +111,14 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
 
 fileprivate extension Environment {
 
-    func hashMapGeneralAssets() -> [String: Environment.AssetInfo] {
-        return generalAssetIds.reduce([String: Environment.AssetInfo](), { map, info -> [String: Environment.AssetInfo] in
+    func hashMapAssets() -> [String: Environment.AssetInfo] {
+        
+        var allAssets = generalAssets
+        if let additionalAssets = assets {
+            allAssets.append(contentsOf: additionalAssets)
+        }
+        
+        return allAssets.reduce([String: Environment.AssetInfo](), { map, info -> [String: Environment.AssetInfo] in
             var new = map
             new[info.assetId] = info
             return new
@@ -149,10 +151,10 @@ fileprivate extension DomainLayer.DTO.Asset {
         
         //TODO: Current code need move to AssetsInteractor!
         if let info = info {
-            isGeneral = true
             if info.assetId == GlobalConstants.wavesAssetId {
                 isWaves = true
             }
+            isGeneral = info.isGateway || isWaves
             name = info.displayName
             isFiat = info.isFiat
         }

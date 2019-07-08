@@ -29,7 +29,7 @@ target 'WavesWallet-iOS' do
     pod 'MGSwipeTableCell'
 
     pod 'UPCarouselFlowLayout'
-    pod 'InfiniteCollectionView', :git => 'git@github.com:wavesplatform/InfiniteCollectionView.git'
+    pod 'InfiniteCollectionView', :git => 'https://github.com/wavesplatform/InfiniteCollectionView.git', :branch => 'swift5'
     pod 'RESideMenu', :git => 'https://github.com/wavesplatform/RESideMenu.git'
 
     pod 'Skeleton'
@@ -53,14 +53,16 @@ target 'WavesWallet-iOS' do
     pod 'Firebase/Auth'
     pod 'Firebase/InAppMessagingDisplay'
 
+    pod 'Amplitude-iOS'
+
     pod 'AppsFlyerFramework'
 
     # Helperrs
-    pod 'IdentityImg', :git => 'git@github.com:wavesplatform/identity-img-swift.git'
-    pod '25519', :git => 'git@github.com:wavesplatform/25519.git'
-    pod 'Base58', :git => 'git@github.com:wavesplatform/Base58.git'
-    pod 'Keccak', :git => 'git@github.com:wavesplatform/Keccak.git'
-    pod 'Blake2', :git => 'git@github.com:wavesplatform/Blake2.git'
+    pod 'IdentityImg', :git => 'https://github.com/wavesplatform/identity-img-swift.git'
+    pod 'Curve25519', :git => 'https://github.com/wavesplatform/Curve25519.git'
+    pod 'Base58', :git => 'https://github.com/wavesplatform/Base58.git'
+    pod 'Keccak', :git => 'https://github.com/wavesplatform/Keccak.git'
+    pod 'Blake2', :git => 'https://github.com/wavesplatform/Blake2.git'
     pod 'CryptoSwift'
     pod 'KeychainAccess'
     pod 'QRCode'
@@ -86,7 +88,7 @@ target 'WavesWallet-iOS' do
     pod 'SwiftGen', '~> 5.3.0'
 
     # Debug
-    pod 'Reveal-SDK', :configurations => ['Debug', 'Test']
+    pod 'Reveal-SDK', :configurations => ['Debug']
     pod 'AppSpectorSDK', :configurations => ['Debug', 'Test']
 
     pod 'SwiftMonkeyPaws', :configurations => ['Debug']
@@ -97,20 +99,15 @@ target 'WavesWallet-iOS' do
 end
 
 post_install do |installer|
+
     installer.pods_project.targets.each do |target|
         
         target.build_configurations.each do |config|
 
             config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = "YES"
 
-            swift3_2pods = [
-            'InfiniteCollectionView'
-            ]
-
-            if swift3_2pods.include? target.name
-                config.build_settings['SWIFT_VERSION'] = '3.2'
-            end
-        end
-        
+            config.build_settings['SWIFT_VERSION'] = '4.2'
+            
+        end        
     end
 end

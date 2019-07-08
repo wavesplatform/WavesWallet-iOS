@@ -23,15 +23,16 @@ final class ReceiveInvoiceInteractor: ReceiveInvoiceInteractorProtocol {
         .flatMap({ signedWallet -> Observable<ReceiveInvoice.DTO.DisplayInfo> in
             
             let params = ["recipient" : signedWallet.address,
-                          "amount" : String(amount.doubleValue)]
-            
+                          "amount" : NSDecimalNumber(decimal: amount.decimalValue).stringValue]
+
             let url = (Constancts.baseUrl + Constancts.apiPath + asset.id).urlByAdding(params: params)
                         
             let info = ReceiveInvoice.DTO.DisplayInfo(address: signedWallet.address,
                                                       invoiceLink: url,
                                                       assetName: asset.displayName,
                                                       icon: asset.iconLogo,
-                                                      isSponsored: asset.isSponsored)
+                                                      isSponsored: asset.isSponsored,
+                                                      hasScript: asset.hasScript)
             
             return Observable.just(info)
         })

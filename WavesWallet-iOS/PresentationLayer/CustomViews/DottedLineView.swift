@@ -2,13 +2,12 @@
 //  DotLineView.swift
 //  DotLineView
 //
-//  Created by Kenji Abe on 2016/06/28.
-//  Copyright © 2016年 Kenji Abe. All rights reserved.
 //
 
 import UIKit
 
 @IBDesignable
+//TODO: May be merging DottedLineView with SeparatorLine
 public class DottedLineView: UIView {
     
     let lineColor: UIColor = UIColor.accent100

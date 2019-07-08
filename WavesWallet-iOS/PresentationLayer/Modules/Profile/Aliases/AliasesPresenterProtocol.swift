@@ -88,14 +88,14 @@ fileprivate extension AliasesPresenter {
 
         }, effects: { [weak self] _ -> Signal<Types.Event> in
 
-            guard let owner = self else { return Signal.never() }
+            guard let self = self else { return Signal.never() }
 
-            return owner
+            return self
                 .authorizationInteractor
                 .authorizedWallet()
                 .flatMap({ [weak self] (wallet) -> Observable<Money> in
-                    guard let owner = self else { return Observable.never() }
-                    return owner.transactionsInteractor.calculateFee(by: .createAlias, accountAddress: wallet.address)
+                    guard let self = self else { return Observable.never() }
+                    return self.transactionsInteractor.calculateFee(by: .createAlias, accountAddress: wallet.address)
                 })
                 .map { .setFee($0) }
                 .asSignal(onErrorRecover: { Signal.just(.handlerFeeError($0)) })

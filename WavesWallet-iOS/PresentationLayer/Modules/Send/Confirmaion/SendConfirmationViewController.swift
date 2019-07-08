@@ -84,6 +84,9 @@ final class SendConfirmationViewController: UIViewController {
         vc.delegate = resultDelegate
         vc.input = input
         navigationController?.pushViewController(vc, animated: true)
+        
+        AnalyticManager.trackEvent(.walletAsset(.sendConfirm(assetName: input.asset.displayName)))
+
     }
     
     @IBAction private func descriptionDidChange(_ sender: Any) {
@@ -157,14 +160,14 @@ private extension SendConfirmationViewController {
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] contacts in
 
-            guard let strongSelf = self else { return }
+            guard let self = self else { return }
             
-            if let contact = contacts.first(where: {$0.address == strongSelf.input.displayAddress}) {
-                strongSelf.viewRecipient.update(with: .init(name: contact.name, address: strongSelf.input.displayAddress))
+            if let contact = contacts.first(where: {$0.address == self.input.displayAddress}) {
+                self.viewRecipient.update(with: .init(name: contact.name, address: self.input.displayAddress))
 
             }
             else {
-                strongSelf.viewRecipient.update(with: .init(name: nil, address: strongSelf.input.displayAddress))
+                self.viewRecipient.update(with: .init(name: nil, address: self.input.displayAddress))
             }
 
         }).disposed(by: disposeBag)

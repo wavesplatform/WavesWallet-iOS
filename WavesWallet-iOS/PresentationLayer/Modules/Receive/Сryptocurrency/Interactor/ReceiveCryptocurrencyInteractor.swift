@@ -21,20 +21,21 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
 
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
           
-            guard let owner = self else { return Observable.empty() }
+            guard let self = self else { return Observable.empty() }
             
-            let tunnel = owner.coinomatRepository.tunnelInfo(currencyFrom: currencyFrom,
+            let tunnel = self.coinomatRepository.tunnelInfo(asset: asset,
+                                                             currencyFrom: currencyFrom,
                                                              currencyTo: currencyTo,
                                                              walletTo: wallet.address,
                                                              moneroPaymentID: nil)
-            let rate = owner.coinomatRepository.getRate(asset: asset)
+            let rate = self.coinomatRepository.getRate(asset: asset)
             return Observable.zip(tunnel, rate)
                 .flatMap({ (tunnel, rate) ->  Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in
                 
                     let displayInfo = ReceiveCryptocurrency.DTO.DisplayInfo(address: tunnel.address,
                                                                             assetName: asset.displayName,
                                                                             assetShort: currencyFrom,
-                                                                            minAmount: rate.min,
+                                                                            minAmount: tunnel.min,
                                                                             icon: asset.iconLogo)
                     return Observable.just(ResponseType(output: displayInfo, error: nil))
             })

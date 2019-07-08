@@ -76,7 +76,8 @@ final class PasscodeLogInCoordinator: Coordinator {
                                     hasBackButton: true))
 
             passcodeNavigationRouter.pushViewController(vc, animated: true) { [weak self] in
-                self?.removeFromParentCoordinator()
+                guard let self = self else { return }
+                self.removeFromParentCoordinator()
             }
         }
     }
@@ -89,7 +90,8 @@ final class PasscodeLogInCoordinator: Coordinator {
             guard let windowRouter = self.windowRouter else { break }
 
             windowRouter.dissmissWindow(animated: nil, completed: { [weak self] in
-                self?.removeFromParentCoordinator()
+                guard let self = self else { return }
+                self.removeFromParentCoordinator()
             })
 
         case .navigation:

@@ -99,15 +99,16 @@ private extension AccountBalanceRepositoryRemote {
 
     func matcherBalances(by walletAddress: String, wallet: DomainLayer.DTO.SignedWallet) -> Observable<[String: Int64]> {
 
-        let signature = TimestampSignature(signedWallet: wallet)
-
         return environmentRepository
             .accountEnvironment(accountAddress: wallet.address)
             .flatMap { [weak self] environment -> Single<Response> in
 
-                guard let owner = self else { return Single.never() }
+                guard let self = self else { return Single.never() }
 
-                return owner
+                let signature = TimestampSignature(signedWallet: wallet,
+                                                   environment: environment)
+
+                return self
                     .matcherBalanceProvider
                     .rx
                     .request(.init(kind: .getReservedBalances(signature),
@@ -128,8 +129,8 @@ private extension AccountBalanceRepositoryRemote {
             .accountEnvironment(accountAddress: walletAddress)
             .flatMap { [weak self] environment -> Single<Response> in
 
-                guard let owner = self else { return Single.never() }
-                return owner
+                guard let self = self else { return Single.never() }
+                return self
                     .assetsProvider
                     .rx
                     .request(.init(kind: .getAssetsBalance(address: walletAddress, assetId: assetId),
@@ -151,9 +152,9 @@ private extension AccountBalanceRepositoryRemote {
                            walletAddress: walletAddress)
             .flatMap { [weak self] (detail) -> Observable<SponsoredAssetDetail> in
 
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
                 
-                return owner.balance(for: detail.issuer,
+                return self.balance(for: detail.issuer,
                                      myWalletAddress: walletAddress)
                     .map({ (balance) -> SponsoredAssetDetail in
                         return SponsoredAssetDetail(minSponsoredAssetFee: detail.minSponsoredAssetFee,
@@ -168,8 +169,8 @@ private extension AccountBalanceRepositoryRemote {
             .accountEnvironment(accountAddress: walletAddress)
             .flatMap { [weak self] environment -> Single<Response> in
 
-                guard let owner = self else { return Single.never() }
-                return owner
+                guard let self = self else { return Single.never() }
+                return self
                     .assetsProvider
                     .rx
                     .request(.init(kind: .details(assetId: assetId),
@@ -190,8 +191,8 @@ private extension AccountBalanceRepositoryRemote {
             .accountEnvironment(accountAddress: myWalletAddress)
             .flatMap { [weak self] environment -> Single<Response> in
 
-                guard let owner = self else { return Single.never() }
-                return owner
+                guard let self = self else { return Single.never() }
+                return self
                     .addressesProvider
                     .rx
                     .request(.init(kind: .getAccountBalance(id: walletAddress),
@@ -208,24 +209,28 @@ private extension AccountBalanceRepositoryRemote {
 
     func assetsBalance(by walletAddress: String) -> Observable<Node.DTO.AccountAssetsBalance> {
 
-        return environmentRepository
-            .accountEnvironment(accountAddress: walletAddress)
-            .flatMap { [weak self] environment -> Single<Response> in
+        return environmentRepository.accountEnvironment(accountAddress: walletAddress)
+            .flatMap({ [weak self] (environment) -> Observable<Node.DTO.AccountAssetsBalance> in
+                guard let self = self else { return Observable.empty() }
+                
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .custom({ (decoder) -> Date in
+                    return Date(timestampDecoder: decoder, timestampDiff: environment.timestampServerDiff)
+                })
 
-                guard let owner = self else { return Single.never() }
-                return owner
+                return self
                     .assetsProvider
                     .rx
                     .request(.init(kind: .getAssetsBalances(walletAddress: walletAddress),
                                    environment: environment),
                              callbackQueue: DispatchQueue.global(qos: .userInteractive))
-            }
-            .filterSuccessfulStatusAndRedirectCodes()
-            .catchError({ (error) -> Observable<Response> in
-                return Observable.error(NetworkError.error(by: error))
+                    .filterSuccessfulStatusAndRedirectCodes()
+                    .asObservable()
+                    .catchError({ (error) -> Observable<Response> in
+                        return Observable.error(NetworkError.error(by: error))
+                    })
+                    .map(Node.DTO.AccountAssetsBalance.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
             })
-            .map(Node.DTO.AccountAssetsBalance.self)
-            .asObservable()
     }
 
     func accountBalance(by walletAddress: String) -> Observable<Node.DTO.AccountBalance> {
@@ -233,8 +238,8 @@ private extension AccountBalanceRepositoryRemote {
         return environmentRepository
             .accountEnvironment(accountAddress: walletAddress)
             .flatMap { [weak self] environment -> Single<Response> in
-                guard let owner = self else { return Single.never() }
-                return owner
+                guard let self = self else { return Single.never() }
+                return self
                     .addressesProvider
                     .rx
                     .request(.init(kind: .getAccountBalance(id: walletAddress),

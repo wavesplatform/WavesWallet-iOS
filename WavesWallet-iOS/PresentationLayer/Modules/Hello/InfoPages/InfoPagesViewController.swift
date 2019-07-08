@@ -31,30 +31,63 @@ final class InfoPagesViewController: UIViewController {
     // for fixing back when scrollingBackwards
     fileprivate(set) var prevOffsetX: CGFloat = 0
     
+    private var isActiveConfirm: Bool = false
+    
     weak var output: InfoPagesViewModuleOutput?
     
     private lazy var pageViews: [UIView] = {
         
-        let welcomeView = ShortInfoPageView.loadView() as! ShortInfoPageView
-        let needToKnowView = ShortInfoPageView.loadView() as! ShortInfoPageView
-        let needToKnowLongView = LongInfoPageView.loadView() as! LongInfoPageView
-        let protectView = ShortInfoPageView.loadView() as! ShortInfoPageView
-        let protectLongView = LongInfoPageView.loadView() as! LongInfoPageView
-
-        return [welcomeView, needToKnowView, needToKnowLongView, protectView, protectLongView]
+        let welcomeView = ShortInfoPageView.loadView()
+        let needToKnowView = ShortInfoPageView.loadView()
+        let needToKnowLongView = LongInfoPageView.loadView()
+        let protectView = ShortInfoPageView.loadView()
+        let protectLongView = LongInfoPageView.loadView()
+        let confirmView = InfoPageConfirmView.loadView()
+        
+        return [welcomeView, needToKnowView, needToKnowLongView, protectView, protectLongView, confirmView]
     }()
     
     private lazy var pageModels: [Any] = {
         
-        let welcome = ShortInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.First.title, detail: Localizable.Waves.Hello.Page.Info.First.detail, firstImage: nil, secondImage: nil, thirdImage: nil, fourthImage: nil)
+        let welcome = ShortInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.First.title,
+                                              detail: Localizable.Waves.Hello.Page.Info.First.detail,
+                                              firstImage: nil, secondImage: nil,
+                                              thirdImage: nil,
+                                              fourthImage: nil)
         
-        let needToKnow = ShortInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.Second.title, detail: Localizable.Waves.Hello.Page.Info.Second.detail, firstImage: Images.iAnonim42Submit400.image, secondImage: Images.iPassbrowser42Submit400.image, thirdImage: Images.iBackup42Submit400.image, fourthImage: Images.iShredder42Submit400.image)
+        let needToKnow = ShortInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.Second.title,
+                                                 detail: Localizable.Waves.Hello.Page.Info.Second.detail,
+                                                 firstImage: Images.iAnonim42Submit400.image,
+                                                 secondImage: Images.iPassbrowser42Submit400.image,
+                                                 thirdImage: Images.iBackup42Submit400.image,
+                                                 fourthImage: Images.iShredder42Submit400.image)
         
-        let needToKnowLong = LongInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.Third.title, firstDetail: Localizable.Waves.Hello.Page.Info.Third.Detail.first, secondDetail: Localizable.Waves.Hello.Page.Info.Third.Detail.second, thirdDetail: Localizable.Waves.Hello.Page.Info.Third.Detail.third, fourthDetail: Localizable.Waves.Hello.Page.Info.Third.Detail.fourth, firstImage: Images.iAnonim42Submit400.image, secondImage: Images.iPassbrowser42Submit400.image, thirdImage: Images.iBackup42Submit400.image, fourthImage: Images.iShredder42Submit400.image)
+        let needToKnowLong = LongInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.Third.title,
+                                                    firstDetail: Localizable.Waves.Hello.Page.Info.Third.Detail.first,
+                                                    secondDetail: Localizable.Waves.Hello.Page.Info.Third.Detail.second,
+                                                    thirdDetail: Localizable.Waves.Hello.Page.Info.Third.Detail.third,
+                                                    fourthDetail: Localizable.Waves.Hello.Page.Info.Third.Detail.fourth,
+                                                    firstImage: Images.iAnonim42Submit400.image,
+                                                    secondImage: Images.iPassbrowser42Submit400.image,
+                                                    thirdImage: Images.iBackup42Submit400.image,
+                                                    fourthImage: Images.iShredder42Submit400.image)
         
-        let protect = ShortInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.Fourth.title, detail: Localizable.Waves.Hello.Page.Info.Fourth.detail, firstImage: Images.iMailopen42Submit400.image, secondImage: Images.iRefreshbrowser42Submit400.image, thirdImage: Images.iOs42Submit400.image, fourthImage: Images.iWifi42Submit400.image)
+        let protect = ShortInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.Fourth.title,
+                                              detail: Localizable.Waves.Hello.Page.Info.Fourth.detail,
+                                              firstImage: Images.iMailopen42Submit400.image,
+                                              secondImage: Images.iRefreshbrowser42Submit400.image,
+                                              thirdImage: Images.iOs42Submit400.image,
+                                              fourthImage: Images.iWifi42Submit400.image)
         
-        let protectLong = LongInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.Fifth.title, firstDetail: Localizable.Waves.Hello.Page.Info.Fifth.Detail.first, secondDetail: Localizable.Waves.Hello.Page.Info.Fifth.Detail.second, thirdDetail: Localizable.Waves.Hello.Page.Info.Fifth.Detail.third, fourthDetail: Localizable.Waves.Hello.Page.Info.Fifth.Detail.fourth, firstImage: Images.iMailopen42Submit400.image, secondImage: Images.iRefreshbrowser42Submit400.image, thirdImage: Images.iOs42Submit400.image, fourthImage: Images.iWifi42Submit400.image)
+        let protectLong = LongInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.Fifth.title,
+                                                 firstDetail: Localizable.Waves.Hello.Page.Info.Fifth.Detail.first,
+                                                 secondDetail: Localizable.Waves.Hello.Page.Info.Fifth.Detail.second,
+                                                 thirdDetail: Localizable.Waves.Hello.Page.Info.Fifth.Detail.third,
+                                                 fourthDetail: Localizable.Waves.Hello.Page.Info.Fifth.Detail.fourth,
+                                                 firstImage: Images.iMailopen42Submit400.image,
+                                                 secondImage: Images.iRefreshbrowser42Submit400.image,
+                                                 thirdImage: Images.iOs42Submit400.image,
+                                                 fourthImage: Images.iWifi42Submit400.image)
         
         return [welcome, needToKnow, needToKnowLong, protect, protectLong]
         
@@ -64,6 +97,8 @@ final class InfoPagesViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .basic50
+
+//        self.nextControl.accessibilityIdentifier = AccessibilityIdentifiers.Viewcontroller.Infopagesviewcontroller.Button.next
 
         navigationItem.isNavigationBarHidden = true
 
@@ -139,7 +174,7 @@ final class InfoPagesViewController: UIViewController {
         let currentPage = pageControl.currentPage
         
         if currentPage == pageViews.count - 1 {
-            toolbarLabel.text = Constants.buttonUnderstand
+            toolbarLabel.text = Constants.buttonBegin
         } else {
             toolbarLabel.text = Constants.buttonNext
         }
@@ -152,6 +187,7 @@ final class InfoPagesViewController: UIViewController {
             collectionView.scrollToItem(at: IndexPath(item: page, section: 0), at: .left, animated: true)
         } else {
             output?.userFinishedReadPages()
+            AnalyticManager.trackEvent(.newUser(.confirm))
         }
         
     }
@@ -160,15 +196,19 @@ final class InfoPagesViewController: UIViewController {
         setupButtonTitle()
         
         let currentPage = pageControl.currentPage
-        
-        if let currentModel = pageModels[currentPage] as? LongInfoPageView.Model {
-            nextControl.isEnabled = currentModel.scrolledToBottom
-            toolbarLabel.alpha = currentModel.scrolledToBottom ? 1 : 0.5
-        } else if let currentModel = pageModels[currentPage] as? ShortInfoPageView.Model {
-            nextControl.isEnabled = currentModel.scrolledToBottom
-            toolbarLabel.alpha = currentModel.scrolledToBottom ? 1 : 0.5
+        if currentPage < pageModels.count {
+            if let currentModel = pageModels[currentPage] as? LongInfoPageView.Model {
+                nextControl.isEnabled = currentModel.scrolledToBottom
+                toolbarLabel.alpha = currentModel.scrolledToBottom ? 1 : 0.5
+            } else if let currentModel = pageModels[currentPage] as? ShortInfoPageView.Model {
+                nextControl.isEnabled = currentModel.scrolledToBottom
+                toolbarLabel.alpha = currentModel.scrolledToBottom ? 1 : 0.5
+            }
         }
-        
+        else {
+            nextControl.isEnabled = isActiveConfirm
+            toolbarLabel.alpha = isActiveConfirm ? 1 : 0.5
+        }
     }
     
 }
@@ -180,7 +220,6 @@ extension InfoPagesViewController {
     @IBAction func nextPageTap(_ sender: Any) {
         nextPage()
     }
-    
 }
 
 // MARK: - Collection
@@ -188,28 +227,29 @@ extension InfoPagesViewController {
 extension InfoPagesViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return pageViews.count
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: InfoPagesCell = collectionView.dequeueAndRegisterCell(indexPath: indexPath)
         
         let pageView = pageViews[indexPath.item]
-        let pageModel = pageModels[indexPath.item]
         
         if let pageView = pageView as? ShortInfoPageView {
+            let pageModel = pageModels[indexPath.item]
             
             pageView.delegate = self
             pageView.update(with: pageModel as! ShortInfoPageView.Model)
             
         } else if let pageView = pageView as? LongInfoPageView {
-            
+            let pageModel = pageModels[indexPath.item]
+
             pageView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: view.bounds.height - toolbarView.frame.minY, right: 0)
             pageView.delegate = self
             pageView.update(with: pageModel as! LongInfoPageView.Model)
-            
+        }
+        else if let pageView = pageView as? InfoPageConfirmView {
+            pageView.delegate = self
         }
         
         pageView.backgroundColor = .basic50
@@ -217,7 +257,6 @@ extension InfoPagesViewController: UICollectionViewDataSource {
         
         return cell
     }
-    
 }
 
 extension InfoPagesViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
@@ -233,13 +272,10 @@ extension InfoPagesViewController: UICollectionViewDelegateFlowLayout, UICollect
         if let pageView = pageView as? ShortInfoPageView {
             pageView.updateOnScroll()
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         return collectionView.bounds.size
-        
     }
     
 }
@@ -269,9 +305,22 @@ extension InfoPagesViewController: UIScrollViewDelegate {
             prevOffsetX = scrollView.contentOffset.x
  
         } 
-        
+    }
+}
+
+extension InfoPagesViewController: InfoPageConfirmViewDelegate {
+    
+    func infoPageConfirmView(isActive: Bool) {
+        isActiveConfirm = isActive
+        changedPage()
     }
     
+    func infoPageContirmViewDidTapURL(_ url: URL) {
+        let vc = BrowserViewController(url: url)
+        
+        let nav = CustomNavigationController(rootViewController: vc)
+        present(nav, animated: true, completion: nil)
+    }
 }
 
 extension InfoPagesViewController: LongInfoPageViewDelegate {
@@ -369,5 +418,5 @@ enum InfoPagesViewControllerConstants {
 
 private enum Constants {
     static let buttonNext = Localizable.Waves.Hello.Button.next
-    static let buttonUnderstand = Localizable.Waves.Hello.Button.understand
+    static let buttonBegin = Localizable.Waves.Hello.Button.begin
 }

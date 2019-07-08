@@ -25,7 +25,8 @@ final class DexListPresenter: DexListPresenterProtocol {
         
         Driver.system(initialState: DexList.State.initialState,
                       reduce: { [weak self] state, event -> DexList.State in
-                        return self?.reduce(state: state, event: event) ?? state },
+                        guard let self = self else { return state }
+                        return self.reduce(state: state, event: event) },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
@@ -37,8 +38,11 @@ final class DexListPresenter: DexListPresenterProtocol {
             return (state.isAppear || state.isNeedRefreshing) ? state : nil
         }, effects: { [weak self] _ -> Signal<DexList.Event> in
             
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.interactor.pairs().map { .setModels($0) }.asSignal(onErrorSignalWith: Signal.empty())
+            guard let self = self else { return Signal.empty() }
+            return self.interactor
+                .pairs()
+                .map { .setDisplayInfo($0) }
+                .asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     
@@ -51,13 +55,17 @@ final class DexListPresenter: DexListPresenterProtocol {
                 $0.isAppear = true
                 }.changeAction(.update)
             
-        case .setModels(let response):
+        case .setDisplayInfo(let response):
             
             switch response.result {
             
-            case .success(let models):
+            case .success(let data):
+                
+                let models = data.pairs
+                
                 return state.mutate { state in
                     
+                    state.authWalletError = data.authWalletError
                     state.isAppear = false
                     state.isFirstLoadingData = false
                     state.isNeedRefreshing = false
@@ -80,6 +88,7 @@ final class DexListPresenter: DexListPresenterProtocol {
                 
             case .error(let error):
                 return state.mutate {
+                    $0.authWalletError = false
                     $0.isAppear = false
                     $0.isNeedRefreshing = false
                     $0.action = .didFailGetModels(error)
@@ -120,7 +129,8 @@ fileprivate extension DexList.State {
                              sections: [section],
                              isFirstLoadingData: true,
                              lastUpdate: Date(),
-                             errorState: .none)
+                             errorState: .none,
+                             authWalletError: false)
     }
     
     func changeAction(_ action: DexList.State.Action) -> DexList.State {

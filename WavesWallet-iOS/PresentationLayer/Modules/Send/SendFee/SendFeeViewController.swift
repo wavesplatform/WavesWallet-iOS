@@ -68,17 +68,17 @@ private extension SendFeeViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
                 
-                guard let owner = self else { return }
+                guard let self = self else { return }
                 switch state.action {
                 case .none:
                     return
                 
                 case .update:
-                    owner.sections = state.sections
-                    owner.tableView.reloadData()
+                    self.sections = state.sections
+                    self.tableView.reloadData()
                     
                 case .handleError(let error):
-                    owner.showNetworkErrorSnack(error: error)
+                    self.showNetworkErrorSnack(error: error)
                 }
             })
         

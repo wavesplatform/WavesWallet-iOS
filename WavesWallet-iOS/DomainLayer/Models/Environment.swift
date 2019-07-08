@@ -9,6 +9,9 @@
 import Foundation
 
 struct Environment: Decodable {
+    
+    private static var timestampServerDiff: Int64 = 0
+    private static let timestampQueue = DispatchQueue(label: "timestampServerQueue.diff")
 
     enum Constants {
         static let alias = "alias"
@@ -42,8 +45,9 @@ struct Environment: Decodable {
     let name: String
     let servers: Servers
     let scheme: String
-    let generalAssetIds: [AssetInfo]
-
+    let generalAssets: [AssetInfo]
+    let assets: [AssetInfo]?
+    
     private static let Testnet: Environment = parseJSON(json: Constants.test)!
     private static let Mainnet: Environment = parseJSON(json: Constants.main)!
 
@@ -77,5 +81,25 @@ extension Environment {
 
     var aliasScheme: String {
         return Constants.alias + ":" + scheme + ":"
+    }
+}
+
+extension Environment {
+
+    static func updateTimestampServerDiff(_ timestamp: Int64) {
+        
+        Environment.timestampQueue.async(flags: .barrier) {
+            Environment.timestampServerDiff = timestamp
+        }
+    }
+    
+    var timestampServerDiff: Int64 {
+
+        var timeDiff: Int64 = 0
+
+        Environment.timestampQueue.sync {
+            timeDiff = Environment.timestampServerDiff
+        }
+        return timeDiff
     }
 }

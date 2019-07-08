@@ -73,14 +73,16 @@ final class AccountPasswordViewController: UIViewController {
                                              placeholder: Localizable.Waves.Accountpassword.Textfield.Password.placeholder))
 
         let changedValue: ((Bool,String?) -> Void) = { [weak self] isValidValue, value in
-            self?.passwordTextField.error = nil
-            self?.buttonSignIn.isEnabled = (value?.trimmingCharacters(in: CharacterSet.whitespaces).count ?? 0) >= GlobalConstants.minLengthPassword
+            guard let self = self else { return }
+            self.passwordTextField.error = nil
+            self.buttonSignIn.isEnabled = (value?.trimmingCharacters(in: CharacterSet.whitespaces).count ?? 0) >= GlobalConstants.minLengthPassword
         }
 
         passwordTextField.changedValue = changedValue
 
         passwordTextField.textFieldShouldReturn = { [weak self] _ in
-            self?.completedInput()
+            guard let self = self else { return }
+            self.completedInput()
         }
     }
 }
@@ -106,9 +108,8 @@ private extension AccountPasswordViewController {
 
         let subscriptionSections = state.drive(onNext: { [weak self] state in
 
-            guard let strongSelf = self else { return }
-
-            strongSelf.updateView(with: state.displayState)
+            guard let self = self else { return }
+            self.updateView(with: state.displayState)
         })
 
         return [subscriptionSections]

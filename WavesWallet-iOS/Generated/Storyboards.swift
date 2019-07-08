@@ -86,8 +86,6 @@ internal enum StoryboardScene {
   internal enum Backup: StoryboardType {
     internal static let storyboardName = "Backup"
 
-    internal static let backupInfoViewController = SceneType<WavesWallet_iOS.BackupInfoViewController>(storyboard: Backup.self, identifier: "BackupInfoViewController")
-
     internal static let confirmBackupViewController = SceneType<WavesWallet_iOS.ConfirmBackupViewController>(storyboard: Backup.self, identifier: "ConfirmBackupViewController")
 
     internal static let needBackupViewController = SceneType<WavesWallet_iOS.NeedBackupViewController>(storyboard: Backup.self, identifier: "NeedBackupViewController")
@@ -124,6 +122,8 @@ internal enum StoryboardScene {
     internal static let dexMyOrdersViewController = SceneType<WavesWallet_iOS.DexMyOrdersViewController>(storyboard: Dex.self, identifier: "DexMyOrdersViewController")
 
     internal static let dexOrderBookViewController = SceneType<WavesWallet_iOS.DexOrderBookViewController>(storyboard: Dex.self, identifier: "DexOrderBookViewController")
+
+    internal static let dexScriptAssetMessageViewController = SceneType<WavesWallet_iOS.DexScriptAssetMessageViewController>(storyboard: Dex.self, identifier: "DexScriptAssetMessageViewController")
 
     internal static let dexSortViewController = SceneType<WavesWallet_iOS.DexSortViewController>(storyboard: Dex.self, identifier: "DexSortViewController")
 
@@ -175,11 +175,6 @@ internal enum StoryboardScene {
     internal static let storyboardName = "LaunchScreen"
 
     internal static let initialScene = InitialSceneType<UIViewController>(storyboard: LaunchScreen.self)
-  }
-  internal enum Legal: StoryboardType {
-    internal static let storyboardName = "Legal"
-
-    internal static let legalViewController = SceneType<WavesWallet_iOS.LegalViewController>(storyboard: Legal.self, identifier: "LegalViewController")
   }
   internal enum Main: StoryboardType {
     internal static let storyboardName = "Main"
@@ -270,10 +265,10 @@ internal enum StoryboardScene {
 
     internal static let testViewController = SceneType<WavesWallet_iOS.TestViewController>(storyboard: Support.self, identifier: "TestViewController")
   }
-  internal enum TransactionHistory: StoryboardType {
-    internal static let storyboardName = "TransactionHistory"
+  internal enum TransactionCard: StoryboardType {
+    internal static let storyboardName = "TransactionCard"
 
-    internal static let transactionHistoryViewController = SceneType<WavesWallet_iOS.TransactionHistoryViewController>(storyboard: TransactionHistory.self, identifier: "TransactionHistoryViewController")
+    internal static let transactionCardViewController = SceneType<WavesWallet_iOS.TransactionCardViewController>(storyboard: TransactionCard.self, identifier: "TransactionCardViewController")
   }
   internal enum UseTouchID: StoryboardType {
     internal static let storyboardName = "UseTouchID"

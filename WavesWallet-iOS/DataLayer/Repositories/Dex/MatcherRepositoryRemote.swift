@@ -23,9 +23,9 @@ final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
         
         return environmentRepository.accountEnvironment(accountAddress: accountAddress)
             .flatMap({ [weak self] (environment) -> Observable<PublicKeyAccount> in
-                guard let owner = self else { return Observable.empty() }
+                guard let self = self else { return Observable.empty() }
                 
-                return owner.matcherProvider.rx
+                return self.matcherProvider.rx
                     .request(.init(environment: environment),
                              callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()

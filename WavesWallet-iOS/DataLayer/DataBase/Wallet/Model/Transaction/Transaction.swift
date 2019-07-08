@@ -10,7 +10,7 @@ public class Transaction: Object {
     @objc dynamic var sender: String = ""
     @objc dynamic var senderPublicKey: String = ""
     @objc dynamic var fee: Int64 = 0
-    @objc dynamic var timestamp: Int64 = 0
+    @objc dynamic var timestamp: Date = Date()
     @objc dynamic var height: Int64 = 0
     @objc dynamic var version: Int = 0
     @objc dynamic var status: Int = 0

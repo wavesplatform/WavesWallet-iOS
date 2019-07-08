@@ -28,7 +28,8 @@ private extension DomainLayer.DTO.SmartAssetBalance {
                                     isHidden: isHidden,
                                     sortLevel: sortLevel,
                                     icon: balance.asset.iconLogo,
-                                    isSponsored: balance.asset.isSponsored)
+                                    isSponsored: balance.asset.isSponsored,
+                                    hasScript: balance.asset.hasScript)
     }
 }
 
@@ -51,7 +52,8 @@ final class WalletSortPresenter: WalletSortPresenterProtocol {
 
         Driver.system(initialState: WalletSort.State.initialState(assets: assets),
                       reduce: { [weak self] state, event in
-                        return self?.reduce(state: state, event: event) ?? state
+                        guard let self = self else { return state }
+                        return self.reduce(state: state, event: event)
                      },
                       feedback: newFeedbacks)
             .drive()

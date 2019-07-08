@@ -28,8 +28,8 @@ final class AliasesRepository: AliasesRepositoryProtocol {
         return environmentRepository
             .accountEnvironment(accountAddress: accountAddress)
             .flatMap({ [weak self] environment -> Observable<(aliases: [API.DTO.Alias], environment: Environment)> in
-                guard let owner = self else { return Observable.never() }
-                return owner
+                guard let self = self else { return Observable.never() }
+                return self
                     .aliasApi
                     .rx
                     .request(API.Service.Alias(environment: environment,
@@ -61,8 +61,8 @@ final class AliasesRepository: AliasesRepositoryProtocol {
     func alias(by name: String, accountAddress: String) -> Observable<String> {
         return environmentRepository.accountEnvironment(accountAddress: accountAddress)
             .flatMap({ [weak self] (environment) -> Observable<String> in
-                guard let owner = self else { return Observable.empty() }
-                return owner.aliasApi.rx.request(API.Service.Alias(environment: environment,
+                guard let self = self else { return Observable.empty() }
+                return self.aliasApi.rx.request(API.Service.Alias(environment: environment,
                                                                    kind: .alias(name: name)))
                 .filterSuccessfulStatusAndRedirectCodes()
                 .map(API.Response<API.DTO.Alias>.self)

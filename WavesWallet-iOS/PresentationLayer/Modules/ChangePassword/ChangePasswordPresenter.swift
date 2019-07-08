@@ -77,8 +77,8 @@ final class ChangePasswordPresenter: ChangePasswordPresenterProtocol {
             return nil
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf
+            guard let self = self else { return Signal.empty() }
+            return self
                 .authorizationInteractor
                 .verifyAccess(type: .password(query.password), wallet: query.wallet)
                 .filter({ status -> Bool in
@@ -111,8 +111,10 @@ final class ChangePasswordPresenter: ChangePasswordPresenterProtocol {
             return nil
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
+            guard let self = self else { return Signal.never() }
+
             if case .confirmPassword(let wallet, let old, let new) = query {
-                self?.moduleOutput?.changePasswordCompleted(wallet: wallet, newPassword: new, oldPassword: old)
+                self.moduleOutput?.changePasswordCompleted(wallet: wallet, newPassword: new, oldPassword: old)
             }
 
             return Signal.just(.completedQuery)

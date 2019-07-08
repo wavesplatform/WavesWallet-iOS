@@ -36,7 +36,8 @@ final class ProfileCoordinator: Coordinator {
         let vc = ProfileModuleBuilder(output: self).build()
 
         self.navigationRouter.pushViewController(vc, animated: true) { [weak self] in
-            self?.removeFromParentCoordinator()
+            guard let self = self else { return }
+            self.removeFromParentCoordinator()
         }
         setupBackupTost(target: vc, navigationRouter: navigationRouter, disposeBag: disposeBag)
     }
@@ -53,23 +54,23 @@ extension ProfileCoordinator: ProfileModuleOutput {
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (signedWallet) in
 
-                guard let owner = self else { return }
+                guard let self = self else { return }
 
                 let seed = signedWallet.seedWords
 
                 if wallet.isBackedUp == false {
                     
                     let backup = BackupCoordinator(seed: seed,
-                                                   behaviorPresentation: .push(owner.navigationRouter),
+                                                   behaviorPresentation: .push(self.navigationRouter),
                                                    hasShowNeedBackupView: false,
                                                    completed: { isSkipBackup in
                         saveBackedUp(!isSkipBackup)
                     })
-                    owner.addChildCoordinatorAndStart(childCoordinator: backup)
+                    self.addChildCoordinatorAndStart(childCoordinator: backup)
                 } else {
                     let vc = StoryboardScene.Backup.saveBackupPhraseViewController.instantiate()
                     vc.input = .init(seed: seed, isReadOnly: true)
-                    owner.navigationRouter.pushViewController(vc)
+                    self.navigationRouter.pushViewController(vc)
                 }
             })
             .disposed(by: disposeBag)

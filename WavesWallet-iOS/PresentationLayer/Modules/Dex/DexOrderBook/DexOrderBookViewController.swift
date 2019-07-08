@@ -14,7 +14,7 @@ import RxFeedback
 private enum Constansts {
     static let emptyButtonsTitle: String = "0.000"
     static let loadingButtonsTitle: String = "—"
-    static let updateTime: RxTimeInterval = 20
+    static let updateTime: RxTimeInterval = 5
 }
 
 final class DexOrderBookViewController: UIViewController {
@@ -48,10 +48,17 @@ final class DexOrderBookViewController: UIViewController {
 extension DexOrderBookViewController: DexTraderContainerProcotol {
     
     func controllerWillAppear() {
+
         sendEvent.accept(.updateData)
-        Observable<Int>.interval(Constansts.updateTime, scheduler: MainScheduler.asyncInstance).subscribe(onNext: { [weak self] (value) in
-            self?.sendEvent.accept(.updateData)
-        }).disposed(by: disposeBag)
+
+        Observable<Int>
+            .interval(Constansts.updateTime,
+                      scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (value) in
+                guard let self = self else { return }
+                self.sendEvent.accept(.updateData)
+            })
+            .disposed(by: disposeBag)
     }
     
     func controllerWillDissapear() {
@@ -83,8 +90,8 @@ fileprivate extension DexOrderBookViewController {
         }
         
         let readyViewFeedback: DexOrderBookPresenter.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.rx.viewWillAppear.take(1).map { _ in DexOrderBook.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
+            guard let self = self else { return Signal.empty() }
+            return self.rx.viewWillAppear.take(1).map { _ in DexOrderBook.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
         }
         presenter.system(feedbacks: [feedback, readyViewFeedback])
     }
@@ -97,13 +104,13 @@ fileprivate extension DexOrderBookViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
                                 
-                guard let strongSelf = self else { return }
+                guard let self = self else { return }
                 guard state.action != .none else { return }
                 
-                strongSelf.state = state
-                strongSelf.tableView.reloadData()
-                strongSelf.setupSellBuyButtons()
-                strongSelf.setupDefaultState(state: state)
+                self.state = state
+                self.tableView.reloadData()
+                self.setupSellBuyButtons()
+                self.setupDefaultState(state: state)
             })
         
         return [subscriptionSections]
@@ -115,7 +122,7 @@ private extension DexOrderBookViewController {
     
     @IBAction func sellTapped(_ sender: Any) {
         if let bid = state.lastBid {
-            sendEvent.accept(.didTapBid(bid, inputMaxAmount: false))
+            sendEvent.accept(.didTapBid(bid, inputMaxSum: false))
         }
         else if state.hasFirstTimeLoad {
             sendEvent.accept(.didTapEmptyBid)
@@ -124,7 +131,7 @@ private extension DexOrderBookViewController {
     
     @IBAction func buyTapped(_ sender: Any) {
         if let ask = state.lastAsk {
-            sendEvent.accept(.didTapAsk(ask, inputMaxAmount: false))
+            sendEvent.accept(.didTapAsk(ask, inputMaxSum: false))
         }
         else if state.hasFirstTimeLoad {
             sendEvent.accept(.didTamEmptyAsk)
@@ -138,10 +145,10 @@ extension DexOrderBookViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = state.sections[indexPath.section].items[indexPath.row]
         if let bid = row.bid {
-            sendEvent.accept(.didTapBid(bid, inputMaxAmount: true))
+            sendEvent.accept(.didTapBid(bid, inputMaxSum: true))
         }
         else if let ask = row.ask {
-            sendEvent.accept(.didTapAsk(ask, inputMaxAmount: true))
+            sendEvent.accept(.didTapAsk(ask, inputMaxSum: true))
         }
     }
 }

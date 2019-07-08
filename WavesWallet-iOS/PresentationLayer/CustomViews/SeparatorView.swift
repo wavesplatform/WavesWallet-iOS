@@ -14,7 +14,7 @@ enum SeparatorLineStyle: Int {
     case vertical = 1
 }
 
-private final class SeparatorLineView: UIView {
+private final class LineView: UIView {
 
     override class var layerClass: AnyClass {
         get {
@@ -114,7 +114,7 @@ private final class SeparatorLineView: UIView {
 
 final class SeparatorView: UIView {
 
-    private lazy var lineView = SeparatorLineView()
+    private lazy var lineView = LineView()
 
     private var lineSize: CGFloat {
         return 1.0 / UIScreen.main.scale

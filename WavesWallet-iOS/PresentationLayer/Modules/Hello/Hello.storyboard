@@ -25,7 +25,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cnz-4S-XbC">
                                 <rect key="frame" x="8" y="605" width="359" height="48"/>
                                 <subviews>
-                                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="lHc-Fv-d8m">
+                                    <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="lHc-Fv-d8m">
                                         <rect key="frame" x="14" y="21" width="39" height="6"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="6" id="YlC-Yn-rbs"/>

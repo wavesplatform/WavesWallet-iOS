@@ -44,6 +44,8 @@ final class ReceiveInvoiceViewController: UIViewController {
         
         let vc = ReceiveGenerateAddressModuleBuilder().build(input: .invoice(info))
         navigationController?.pushViewController(vc, animated: true)
+        
+        AnalyticManager.trackEvent(.walletAsset(.receiveTap(assetName: info.assetName)))
     }
     
     private func setupInfo(asset: DomainLayer.DTO.SmartAssetBalance) {
@@ -61,9 +63,9 @@ final class ReceiveInvoiceViewController: UIViewController {
 
         interator.displayInfo(asset: asset, amount: money).subscribe(onNext: { [weak self] displayInfo in
             
-            guard let strongSelf = self else { return }
-            strongSelf.displayInfo = displayInfo
-            strongSelf.setupButtonState()
+            guard let self = self else { return }
+            self.displayInfo = displayInfo
+            self.setupButtonState()
 
         }).dispose()
     }

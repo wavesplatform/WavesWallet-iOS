@@ -76,7 +76,8 @@ final class BackupCoordinator: Coordinator {
 
         case .push:
             mainNavigationRouter.pushViewController(firstViewController, animated: true) { [weak self] in
-                self?.removeFromParentCoordinator()
+                guard let self = self else { return }
+                self.removeFromParentCoordinator()
             }
         }
     }
@@ -103,7 +104,6 @@ extension BackupCoordinator: PresentationCoordinator {
     enum Display {
         case confirmBackup
         case saveBackupPhrase
-        case startBackup
     }
 
     func showDisplay(_ display: Display) {
@@ -120,11 +120,6 @@ extension BackupCoordinator: PresentationCoordinator {
             vc.input = .init(seed: seed, isReadOnly: false)
             vc.output = self
             mainNavigationRouter.pushViewController(vc)
-
-        case .startBackup:
-            let vc = StoryboardScene.Backup.backupInfoViewController.instantiate()
-            vc.output = self
-            mainNavigationRouter.pushViewController(vc)
         }
     }
 
@@ -139,16 +134,8 @@ extension BackupCoordinator: NeedBackupModuleOutput {
         if skipBackup {
             completedBackup(isSkipBackup: true)
         } else {
-            showDisplay(.startBackup)
+            showDisplay(.saveBackupPhrase)
         }
-    }
-}
-
-// MARK: BackupInfoViewModuleOutput
-
-extension BackupCoordinator: BackupInfoViewModuleOutput {
-    func userReadedBackupInfo() {
-        showDisplay(.saveBackupPhrase)
     }
 }
 

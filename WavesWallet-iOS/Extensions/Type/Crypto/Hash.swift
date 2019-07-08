@@ -9,7 +9,7 @@
 import Foundation
 import Keccak
 import Blake2
-import _25519
+import Curve25519
 
 class Hash {
     static func secureHash(_ input: [UInt8]) -> [UInt8] {

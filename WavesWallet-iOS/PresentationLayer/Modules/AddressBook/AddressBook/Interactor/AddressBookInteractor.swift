@@ -23,29 +23,39 @@ final class AddressBookInteractor: AddressBookInteractorProtocol {
             .authorizedWallet()
             .flatMap { [weak self] wallet -> Observable<[DomainLayer.DTO.Contact]> in
 
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
-                return Observable.merge([owner.repository.list(by: wallet.address),
-                                         owner.repository.listListener(by: wallet.address)])
+                return Observable.merge([self.repository.list(by: wallet.address),
+                                         self.repository.listListener(by: wallet.address)])
             }
             .do(onNext: { [weak self] users in
-                self?._users = users
+
+                guard let self = self else { return }
+
+                //TODO: Need Mutex ALARM
+                self._users = users
             })
         
         let search = searchString
             .asObserver().skip(1)
             .map { [weak self] searchString -> [DomainLayer.DTO.Contact] in
-                return self?._users ?? []
+
+                guard let self = self else { return [] }
+
+                //TODO: Need Mutex ALARM
+                return self._users
             }
         
         return Observable
             .merge([merge, search])
             .map { [weak self] users -> [DomainLayer.DTO.Contact] in
-                
-                let searchText = (try? self?.searchString.value() ?? "") ?? ""
+
+                guard let self = self else { return [] }
+
+                let searchText = (try? self.searchString.value()) ?? ""
                 
                 let newUsers = users.filter {
-                    self?.isValidSearch(userName: $0.name, searchText: searchText) ?? false
+                    self.isValidSearch(userName: $0.name, searchText: searchText)
                 }
                 return newUsers
             }

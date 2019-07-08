@@ -15,7 +15,8 @@ import RxOptional
 private enum Contants {
 
     #if DEBUG
-    static let delay: TimeInterval = 0
+    static let delay: TimeInterval = 1000
+    static let developBuild: Bool = false
     #else
     static let delay: TimeInterval = 10
     #endif
@@ -52,7 +53,7 @@ final class AppCoordinator: Coordinator {
     private let authoAuthorizationInteractor: AuthorizationInteractorProtocol = FactoryInteractors.instance.authorization
     private let disposeBag: DisposeBag = DisposeBag()
     private var isActiveApp: Bool = false
-
+    
     init(_ windowRouter: WindowRouter) {
         self.windowRouter = windowRouter
     }
@@ -101,7 +102,7 @@ extension AppCoordinator: PresentationCoordinator {
             addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
 
         case .slide(let wallet):
-
+            
             guard isHasCoordinator(type: SlideCoordinator.self) != true else { return }
 
             let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: wallet)
@@ -173,20 +174,20 @@ extension AppCoordinator  {
             .delay(Contants.delay, scheduler: MainScheduler.asyncInstance)
             .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet?> in
 
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
-                if owner.isActiveApp == true {
+                if self.isActiveApp == true {
                     return Observable.never()
                 }
 
                 return
-                    owner
+                    self
                         .authoAuthorizationInteractor
                         .revokeAuth()
                         .flatMap({ [weak self] (_) -> Observable<DomainLayer.DTO.Wallet?> in
-                            guard let owner = self else { return Observable.never() }
+                            guard let self = self else { return Observable.never() }
 
-                            return owner.authoAuthorizationInteractor
+                            return self.authoAuthorizationInteractor
                                 .lastWalletLoggedIn()
                                 .take(1)
                         })
@@ -293,8 +294,9 @@ extension AppCoordinator: SupportViewControllerDelegate  {
                 self.authoAuthorizationInteractor
                     .logout()
                     .subscribe(onCompleted: { [weak self] in
+                        guard let self = self else { return }
                         Environment.isTestNet = isTestNet
-                        self?.showDisplay(.enter)
+                        self.showDisplay(.enter)
                     })
                     .disposed(by: self.disposeBag)
             }

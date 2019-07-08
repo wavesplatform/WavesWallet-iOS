@@ -65,6 +65,8 @@ final class TokenBurnViewController: UIViewController {
         let vc = StoryboardScene.Asset.tokenBurnConfirmationViewController.instantiate()
         vc.input = .init(asset: asset, amount: amount, fee: fee, delegate: delegate, errorDelegate: self)
         navigationController?.pushViewController(vc, animated: true)
+        
+        AnalyticManager.trackEvent(.tokenBurn(.continueTap))
     }
 }
 
@@ -95,17 +97,20 @@ private extension TokenBurnViewController {
     
     func loadWavesBalance() {
         
-        interactor.getWavesBalance().asDriver { (error) -> SharedSequence<DriverSharingStrategy, Money> in
+        interactor
+            .getWavesBalance()
+            .asDriver { (error) -> SharedSequence<DriverSharingStrategy, Money> in
                 return SharedSequence.just(Money(0, 0))
             }.drive(onNext: { [weak self] (wavesBalance) in
                 
-                guard let owner = self else { return }
-                owner.wavesBalance = wavesBalance
-                owner.setupButtonContinue()
-                owner.activityIndicator.stopAnimating()
-                owner.updateFeeError()
+                guard let self = self else { return }
+                self.wavesBalance = wavesBalance
+                self.setupButtonContinue()
+                self.activityIndicator.stopAnimating()
+                self.updateFeeError()
                 
-            }).disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
     }
     
     var input: [Money] {
@@ -155,18 +160,22 @@ private extension TokenBurnViewController {
     
     func loadFee() {
         viewFee.showLoadingState()
-        interactor.getFee(assetID: asset.assetId)
-        .observeOn(MainScheduler.asyncInstance)
-        .subscribe(onNext: { [weak self] (fee) in
-            self?.updateFee(fee)
-        }, onError: { [weak self] (error) in
-            
-            if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
-                self?.showFeeError(DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving))
-            } else {
-                self?.showFeeError(DisplayError(error: error))
-            }
-        }).disposed(by: disposeBag)
+
+        interactor
+            .getFee(assetID: asset.assetId)
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (fee) in
+                guard let self = self else { return }
+                self.updateFee(fee)
+            }, onError: { [weak self] (error) in
+                guard let self = self else { return }
+                if let error = error as? TransactionsInteractorError, error == .commissionReceiving {
+                    self.showFeeError(DisplayError.message(Localizable.Waves.Transaction.Error.Commission.receiving))
+                } else {
+                    self.showFeeError(DisplayError(error: error))
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     func showFeeError(_ error: DisplayError) {

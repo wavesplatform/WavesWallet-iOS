@@ -10,95 +10,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Backup Info View Controller-->
-        <scene sceneID="fCK-bO-OA2">
-            <objects>
-                <viewController storyboardIdentifier="BackupInfoViewController" id="aMH-KP-qj8" customClass="BackupInfoViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="915-ua-6aQ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d0d-X9-f0w">
-                                <rect key="frame" x="0.0" y="149" width="375" height="309.5"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgSeed80Submit400" translatesAutoresizingMaskIntoConstraints="NO" id="BYb-Vo-YTK">
-                                        <rect key="frame" x="147.5" y="0.0" width="80" height="80"/>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Treat your backup phrase with care!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnh-Nd-CfI">
-                                        <rect key="frame" x="24" y="104" width="327" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xqQ-dN-ozw">
-                                        <rect key="frame" x="24" y="138.5" width="327" height="171"/>
-                                        <string key="text">Waves Platform would like to warn you about the increased frequency of scam and phishing attacks over the last month. Fraudsters are hiding their malware in their own versions of the Waves client and promising bonuses and discounts to lure in users.
-
-Please be careful and never input your SEED into these 'clients', because your account will be compromised and you will lose all of your funds.
-
-You should ONLY use the official Waves client.</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="xqQ-dN-ozw" firstAttribute="leading" secondItem="d0d-X9-f0w" secondAttribute="leading" constant="24" id="1YU-Rt-nHr"/>
-                                    <constraint firstAttribute="bottom" secondItem="xqQ-dN-ozw" secondAttribute="bottom" id="6gx-Je-BNQ"/>
-                                    <constraint firstItem="BYb-Vo-YTK" firstAttribute="centerX" secondItem="d0d-X9-f0w" secondAttribute="centerX" id="L85-5T-KL8"/>
-                                    <constraint firstItem="BYb-Vo-YTK" firstAttribute="top" secondItem="d0d-X9-f0w" secondAttribute="top" id="O3u-IC-W6I"/>
-                                    <constraint firstAttribute="trailing" secondItem="cnh-Nd-CfI" secondAttribute="trailing" constant="24" id="SYl-cH-KZr"/>
-                                    <constraint firstAttribute="trailing" secondItem="xqQ-dN-ozw" secondAttribute="trailing" constant="24" id="Tzs-Xc-iiM"/>
-                                    <constraint firstItem="cnh-Nd-CfI" firstAttribute="top" secondItem="BYb-Vo-YTK" secondAttribute="bottom" constant="24" id="eXj-Me-Lfg"/>
-                                    <constraint firstItem="cnh-Nd-CfI" firstAttribute="leading" secondItem="d0d-X9-f0w" secondAttribute="leading" constant="24" id="ghg-Lc-YEs"/>
-                                    <constraint firstItem="xqQ-dN-ozw" firstAttribute="top" secondItem="cnh-Nd-CfI" secondAttribute="bottom" constant="14" id="v1h-YM-2o2"/>
-                                </constraints>
-                            </view>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qra-6C-xGo">
-                                <rect key="frame" x="16" y="603" width="343" height="48"/>
-                                <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="p9g-cz-ISY"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
-                                <state key="normal" title="I understand">
-                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="3"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="understandTapped:" destination="aMH-KP-qj8" eventType="touchUpInside" id="Qi2-Bs-2p2"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="d0d-X9-f0w" firstAttribute="centerX" secondItem="n3B-qW-Yjo" secondAttribute="centerX" id="JEO-5A-CnX"/>
-                            <constraint firstItem="qra-6C-xGo" firstAttribute="leading" secondItem="915-ua-6aQ" secondAttribute="leading" constant="16" id="KnO-Pb-XKu"/>
-                            <constraint firstItem="d0d-X9-f0w" firstAttribute="centerY" secondItem="n3B-qW-Yjo" secondAttribute="centerY" constant="-40" id="UBD-WM-4Uw"/>
-                            <constraint firstItem="n3B-qW-Yjo" firstAttribute="bottom" secondItem="qra-6C-xGo" secondAttribute="bottom" constant="16" id="j6N-XD-tvF"/>
-                            <constraint firstAttribute="trailing" secondItem="d0d-X9-f0w" secondAttribute="trailing" id="m4o-X4-U7A"/>
-                            <constraint firstAttribute="trailing" secondItem="qra-6C-xGo" secondAttribute="trailing" constant="16" id="mJq-ba-Iep"/>
-                            <constraint firstItem="qra-6C-xGo" firstAttribute="top" relation="greaterThanOrEqual" secondItem="d0d-X9-f0w" secondAttribute="bottom" constant="10" id="tPw-VZ-5wn"/>
-                            <constraint firstItem="d0d-X9-f0w" firstAttribute="leading" secondItem="915-ua-6aQ" secondAttribute="leading" id="tei-cO-UPd"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="n3B-qW-Yjo"/>
-                    </view>
-                    <connections>
-                        <outlet property="detailLabel" destination="xqQ-dN-ozw" id="rE6-qk-fg8"/>
-                        <outlet property="iUnderstandButton" destination="qra-6C-xGo" id="WbL-6a-arz"/>
-                        <outlet property="titleLabel" destination="cnh-Nd-CfI" id="lLJ-Yp-sNo"/>
-                        <outlet property="topLogoOffset" destination="O3u-IC-W6I" id="hix-Qq-u5o"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PEN-OC-hPi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1352" y="1445"/>
-        </scene>
         <!--Need Backup View Controller-->
         <scene sceneID="Loq-YD-DFd">
             <objects>
@@ -107,17 +18,17 @@ You should ONLY use the official Waves client.</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgBackupmoney80Submit400" translatesAutoresizingMaskIntoConstraints="NO" id="mNI-YG-uNX">
-                                <rect key="frame" x="147.5" y="180" width="80" height="80"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgBackup100" translatesAutoresizingMaskIntoConstraints="NO" id="mNI-YG-uNX">
+                                <rect key="frame" x="127.5" y="180" width="120" height="100"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Backup, No Money" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="neh-fX-cUY">
-                                <rect key="frame" x="102" y="284" width="171" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Backup, No Money" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="neh-fX-cUY">
+                                <rect key="frame" x="24" y="304" width="327" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You must save the secret phrase. It is crucial for accessing your account." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N86-FQ-Nvx">
-                                <rect key="frame" x="24" y="313" width="327" height="31.5"/>
+                                <rect key="frame" x="24" y="332.5" width="327" height="31.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -165,6 +76,7 @@ You should ONLY use the official Waves client.</string>
                             <constraint firstItem="1X4-iy-CLR" firstAttribute="trailing" secondItem="ANh-Pw-lW6" secondAttribute="trailing" constant="16" id="0SU-pI-NSp"/>
                             <constraint firstItem="ANh-Pw-lW6" firstAttribute="top" secondItem="On5-B9-Zos" secondAttribute="bottom" constant="24" id="0xW-tK-wSM"/>
                             <constraint firstItem="mNI-YG-uNX" firstAttribute="top" secondItem="1X4-iy-CLR" secondAttribute="top" constant="160" id="38e-xv-c7V"/>
+                            <constraint firstItem="neh-fX-cUY" firstAttribute="leading" secondItem="N86-FQ-Nvx" secondAttribute="leading" id="3iv-r4-IAS"/>
                             <constraint firstAttribute="trailing" secondItem="N86-FQ-Nvx" secondAttribute="trailing" constant="24" id="5Fv-Pi-7aQ"/>
                             <constraint firstItem="N86-FQ-Nvx" firstAttribute="top" secondItem="neh-fX-cUY" secondAttribute="bottom" constant="8" id="8Ws-ZR-ZT1"/>
                             <constraint firstItem="1X4-iy-CLR" firstAttribute="trailing" secondItem="On5-B9-Zos" secondAttribute="trailing" constant="16" id="AV6-6c-QWL"/>
@@ -175,6 +87,7 @@ You should ONLY use the official Waves client.</string>
                             <constraint firstItem="ANh-Pw-lW6" firstAttribute="leading" secondItem="10B-zW-0Qv" secondAttribute="leading" constant="16" id="PLM-dD-sMo"/>
                             <constraint firstItem="neh-fX-cUY" firstAttribute="centerX" secondItem="10B-zW-0Qv" secondAttribute="centerX" id="Pe1-jp-WgI"/>
                             <constraint firstItem="On5-B9-Zos" firstAttribute="leading" secondItem="10B-zW-0Qv" secondAttribute="leading" constant="16" id="VRw-ot-MAc"/>
+                            <constraint firstItem="neh-fX-cUY" firstAttribute="trailing" secondItem="N86-FQ-Nvx" secondAttribute="trailing" id="XUu-kY-bwu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1X4-iy-CLR"/>
                     </view>
@@ -388,7 +301,6 @@ You should ONLY use the official Waves client.</string>
     </scenes>
     <resources>
         <image name="copy_address" width="18" height="18"/>
-        <image name="userimgBackupmoney80Submit400" width="80" height="80"/>
-        <image name="userimgSeed80Submit400" width="80" height="80"/>
+        <image name="userimgBackup100" width="120" height="100"/>
     </resources>
 </document>

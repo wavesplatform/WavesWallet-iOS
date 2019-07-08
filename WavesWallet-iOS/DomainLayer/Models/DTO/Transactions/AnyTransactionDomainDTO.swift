@@ -151,7 +151,7 @@ extension DomainLayer.DTO.AnyTransaction {
         }
     }
 
-    var timestamp: Int64 {
+    var timestamp: Date {
         switch self {
         case .unrecognised(let tx):
             return tx.timestamp

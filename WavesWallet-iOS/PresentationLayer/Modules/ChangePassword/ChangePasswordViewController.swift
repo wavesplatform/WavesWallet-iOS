@@ -67,25 +67,35 @@ final class ChangePasswordViewController: UIViewController {
         confirmPasswordInput.returnKey = .done
 
         oldPasswordInput.textFieldShouldReturn = { [weak self] _ in
-            self?.passwordInput.becomeFirstResponder()
+
+            guard let self = self else { return }
+
+            self.passwordInput.becomeFirstResponder()
         }
 
         passwordInput.textFieldShouldReturn = { [weak self] _ in
-            self?.confirmPasswordInput.becomeFirstResponder()
+
+            guard let self = self else { return }
+            self.confirmPasswordInput.becomeFirstResponder()
         }
 
         confirmPasswordInput.textFieldShouldReturn = { [weak self] _ in
-            self?.continueChangePassword()
+
+            guard let self = self else { return }
+            self.continueChangePassword()
         }
 
         oldPasswordInput.changedValue = { [weak self] isValidData, text in
-            self?.eventInput.onNext(.input(.oldPassword, text))
+            guard let self = self else { return }
+            self.eventInput.onNext(.input(.oldPassword, text))
         }
         passwordInput.changedValue = { [weak self] isValidData, text in
-            self?.eventInput.onNext(.input(.newPassword, text))
+            guard let self = self else { return }
+            self.eventInput.onNext(.input(.newPassword, text))
         }
         confirmPasswordInput.changedValue = { [weak self] isValidData, text in
-            self?.eventInput.onNext(.input(.confirmPassword, text))
+            guard let self = self else { return }
+            self.eventInput.onNext(.input(.confirmPassword, text))
         }
     }
 
@@ -109,9 +119,9 @@ private extension ChangePasswordViewController {
         }
 
         let readyViewFeedback: ChangePasswordPresenterProtocol.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf
+            return self
                 .rx
                 .viewWillAppear
                 .asObservable()
@@ -130,9 +140,9 @@ private extension ChangePasswordViewController {
 
         let subscriptionSections = state.drive(onNext: { [weak self] state in
 
-            guard let strongSelf = self else { return }
+            guard let self = self else { return }
 
-            strongSelf.updateView(with: state.displayState)
+            self.updateView(with: state.displayState)
         })
 
         return [subscriptionSections]

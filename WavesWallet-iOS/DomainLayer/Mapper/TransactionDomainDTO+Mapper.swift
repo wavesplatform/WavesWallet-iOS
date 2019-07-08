@@ -78,9 +78,11 @@ extension DomainLayer.DTO.UnrecognisedTransaction {
         let feeBalance = wavesAsset.balance(fee)
 
         return .init(id: id,
+                     type: type,
                      kind: .unrecognisedTransaction,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
+                     feeAsset: wavesAsset,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
                      sender: sender,
@@ -111,9 +113,11 @@ extension DomainLayer.DTO.IssueTransaction {
         let feeBalance = wavesAsset.balance(fee)
 
         return .init(id: id,
+                     type: type,
                      kind: .tokenGeneration(.init(asset: asset, balance: balance, description: nil)),
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
+                     feeAsset: wavesAsset,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
                      sender: sender,
@@ -174,7 +178,8 @@ extension DomainLayer.DTO.TransferTransaction {
                                                                         asset: transferAsset,
                                                                         recipient: transactionDirection == .receive ? sender : recipient,
                                                                         attachment: decodedString(attachment),
-                                                                        hasSponsorship: hasSponsorship)
+                                                                        hasSponsorship: hasSponsorship,
+                                                                        myAccount: metaData.account)
 
 
         var kind: DomainLayer.DTO.SmartTransaction.Kind!
@@ -196,19 +201,15 @@ extension DomainLayer.DTO.TransferTransaction {
             SweetLogger.error("TransferTransaction Not found Waves ID")
             return nil
         }
-        
-        var feeBalance: Balance!
-        if feeAssetId.count > 0 {
-            feeBalance = feeAsset.balance(fee)
-        }
-        else {
-            feeBalance = wavesAsset.balance(fee)
-        }
+
+        let feeBalance: Balance = feeAsset.balance(fee)
 
         return .init(id: id,
+                     type: type,
                      kind: kind,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
+                     feeAsset: feeAsset,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
                      sender: sender,
@@ -240,11 +241,13 @@ extension DomainLayer.DTO.ReissueTransaction {
         let feeBalance = wavesAsset.balance(fee)
 
         return .init(id: id,
+                     type: type,
                      kind: .tokenReissue(.init(asset: asset,
                                                balance: balance,
                                                description: nil)),
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
+                     feeAsset: wavesAsset,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
                      sender: sender,
@@ -278,11 +281,13 @@ extension DomainLayer.DTO.BurnTransaction {
         let feeBalance = wavesAsset.balance(fee)
 
         return .init(id: id,
+                     type: type,
                      kind: .tokenBurn(.init(asset: asset,
                                             balance: balance,
                                             description: nil)),
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
+                     feeAsset: wavesAsset,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
                      sender: sender,
@@ -349,9 +354,11 @@ extension DomainLayer.DTO.ExchangeTransaction {
         }
 
         return .init(id: id,
+                     type: type,
                      kind: kind,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
+                     feeAsset: wavesAsset,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
                      sender: sender,
@@ -380,12 +387,14 @@ extension DomainLayer.DTO.LeaseTransaction {
             guard let recipient = accounts[self.recipient] else { return nil }
             kind = .startedLeasing(.init(asset: wavesAsset,
                                          balance: balance,
-                                         account: recipient))
+                                         account: recipient,
+                                         myAccount: metaData.account))
         } else {
             guard let sender = accounts[self.sender] else { return nil }
             kind = .incomingLeasing(.init(asset: wavesAsset,
                                           balance: balance,
-                                          account: sender))
+                                          account: sender,
+                                          myAccount: metaData.account))
         }
 
         let feeBalance = wavesAsset.balance(fee)
@@ -393,9 +402,11 @@ extension DomainLayer.DTO.LeaseTransaction {
         guard let sender = accounts[self.sender] else { return nil }
 
         return .init(id: id,
+                     type: type,
                      kind: kind,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
+                     feeAsset: wavesAsset,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
                      sender: sender,
@@ -436,14 +447,17 @@ extension DomainLayer.DTO.LeaseCancelTransaction {
 
         let kind: DomainLayer.DTO.SmartTransaction.Kind = .canceledLeasing(.init(asset: wavesAsset,
                                                                                  balance: balance,
-                                                                                 account: recipient))
+                                                                                 account: recipient,
+                                                                                 myAccount: metaData.account))
 
         let feeBalance = wavesAsset.balance(fee)
 
         return .init(id: id,
+                     type: type,
                      kind: kind,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
+                     feeAsset: wavesAsset,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
                      sender: sender,
@@ -468,9 +482,11 @@ extension DomainLayer.DTO.AliasTransaction {
         let feeBalance = wavesAsset.balance(fee)
         
         return .init(id: id,
+                     type: type,
                      kind: kind,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
+                     feeAsset: wavesAsset,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
                      sender: sender,
@@ -495,9 +511,11 @@ extension DomainLayer.DTO.ScriptTransaction {
         let feeBalance = wavesAsset.balance(fee)
 
         return .init(id: id,
+                     type: type,
                      kind: kind,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
+                     feeAsset: wavesAsset,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
                      sender: sender,
@@ -523,9 +541,11 @@ extension DomainLayer.DTO.AssetScriptTransaction {
         let feeBalance = wavesAsset.balance(fee)
 
         return .init(id: id,
+                     type: type,
                      kind: kind,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
+                     feeAsset: wavesAsset,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
                      sender: sender,
@@ -553,9 +573,11 @@ extension DomainLayer.DTO.SponsorshipTransaction {
         let feeBalance = wavesAsset.balance(fee)
 
         return .init(id: id,
+                     type: type,
                      kind: kind,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
+                     feeAsset: wavesAsset,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
                      sender: sender,
@@ -646,9 +668,11 @@ extension DomainLayer.DTO.MassTransferTransaction {
         let feeBalance = wavesAsset.balance(fee)
 
         return .init(id: id,
+                     type: type,
                      kind: kind,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
+                     feeAsset: wavesAsset,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
                      sender: sender,
@@ -682,9 +706,11 @@ extension DomainLayer.DTO.DataTransaction {
         let feeBalance = wavesAsset.balance(fee)
 
         return .init(id: id,
+                     type: type,
                      kind: kind,
-                     timestamp: Date(milliseconds: timestamp),
+                     timestamp: timestamp,
                      totalFee: feeBalance,
+                     feeAsset: wavesAsset,
                      height: height,
                      confirmationHeight: totalHeight.confirmationHeight(txHeight: height),
                      sender: sender,
@@ -803,10 +829,11 @@ extension DomainLayer.DTO.ExchangeTransaction.Order {
         let kind: DomainLayer.DTO.SmartTransaction.Exchange.Order.Kind = orderType == .sell ? .sell : .buy
         let amount = assetPair.amountBalance(self.amount)
         let price = assetPair.priceBalance(self.price)
+        //TODO: Is Correct?не
         let total = assetPair.totalBalance(priceAmount: self.amount,
                                            assetAmount: self.price)
 
-        return .init(timestamp: Date(milliseconds: timestamp),
+        return .init(timestamp: timestamp,
                      expiration: Date(milliseconds: expiration),
                      sender: sender,
                      kind: kind,

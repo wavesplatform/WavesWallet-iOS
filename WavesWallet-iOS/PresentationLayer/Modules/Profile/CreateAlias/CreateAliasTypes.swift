@@ -61,7 +61,7 @@ extension CreateAliasTypes.ViewModel {
         case input(String?, error: String?)
     }
 
-    struct Section: SectionBase, Mutating {
+    struct Section: SectionProtocol, Mutating {
         var rows: [Row]
     }
 }

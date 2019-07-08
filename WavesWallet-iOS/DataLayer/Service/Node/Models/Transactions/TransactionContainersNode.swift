@@ -110,9 +110,9 @@ extension Node.DTO {
     }
 
     struct TransactionContainers: Decodable {
-
+        
         let transactions: [Transaction]
-
+        
         init(from decoder: Decoder) throws {
 
             var transactions: [Transaction] = []

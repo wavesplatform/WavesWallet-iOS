@@ -38,7 +38,7 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
             return state.isNeedLoadPriceInfo ? state : nil
         }, effects: { [weak self] state -> Signal<ReceiveCard.Event> in
             
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
             
             let emptyAmount: Signal<ReceiveCard.Event> = Signal.just(.didGetPriceInfo(
                 ResponseType(output: Money(0, GlobalConstants.WavesDecimals), error: nil)))
@@ -47,7 +47,7 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
             guard let amount = state.amount else { return emptyAmount }
 
             if amount.amount > 0 {
-                return strongSelf.interactor.getWavesAmount(fiatAmount: amount, fiatType: state.fiatType)
+                return self.interactor.getWavesAmount(fiatAmount: amount, fiatType: state.fiatType)
                     .map {.didGetPriceInfo($0)}.asSignal(onErrorSignalWith: Signal.empty())
             }
             return emptyAmount
@@ -60,8 +60,8 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
             return state.isNeedLoadInfo ? state : nil
         }, effects: { [weak self] state -> Signal<ReceiveCard.Event> in
             
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.interactor.getInfo(fiatType: state.fiatType).map {.didGetInfo($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            guard let self = self else { return Signal.empty() }
+            return self.interactor.getInfo(fiatType: state.fiatType).map {.didGetInfo($0)}.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
 
@@ -71,10 +71,10 @@ final class ReceiveCardPresenter: ReceiveCardPresenterProtocol {
             return state.isNeedLoadPriceInfo ? state : nil
         }, effects: { [weak self] state -> Signal<ReceiveCard.Event> in
             
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
             guard let amount = state.amount else { return Signal.empty() }
             
-            return strongSelf.coinomateRepository.generateBuyLink(address: state.address,
+            return self.coinomateRepository.generateBuyLink(address: state.address,
                                                                   amount: amount.doubleValue,
                                                                   fiat: state.fiatType.id)
             .map({.linkDidGenerate($0)}).asSignal(onErrorSignalWith: Signal.empty())

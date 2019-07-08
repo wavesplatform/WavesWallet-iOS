@@ -30,7 +30,8 @@ final class ChooseAccountCoordinator: Coordinator {
         let vc = ChooseAccountModuleBuilder(output: self)
             .build(input: .init())
         navigationRouter.pushViewController(vc, animated: true, completion: { [weak self] in
-            self?.removeFromParentCoordinator()
+            guard let self = self else { return }
+            self.removeFromParentCoordinator()
         })
     }
 

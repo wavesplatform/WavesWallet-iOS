@@ -23,6 +23,7 @@ private enum Response {
         struct Tunnel: Decodable {
             let wallet_from: String
             let attachment: String
+            let in_min: Double
         }
         
         let tunnel: Tunnel
@@ -45,7 +46,7 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
     
     private let coinomatProvider: MoyaProvider<Coinomat.Service> = .nodeMoyaProvider()
 
-    func tunnelInfo(currencyFrom: String, currencyTo: String, walletTo: String, moneroPaymentID: String?) -> Observable<DomainLayer.DTO.Coinomat.TunnelInfo> {
+    func tunnelInfo(asset: DomainLayer.DTO.Asset, currencyFrom: String, currencyTo: String, walletTo: String, moneroPaymentID: String?) -> Observable<DomainLayer.DTO.Coinomat.TunnelInfo> {
         
         let tunnel = Coinomat.Service.CreateTunnel(currency_from: currencyFrom,
                                                    currency_to: currencyTo,
@@ -58,19 +59,21 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
         .map(Response.CreateTunnel.self)
         .asObservable()
         .flatMap({ [weak self] (model) -> Observable<DomainLayer.DTO.Coinomat.TunnelInfo> in
-            guard let owner = self else { return Observable.empty() }
+            guard let self = self else { return Observable.empty() }
 
             let tunnel = Coinomat.Service.GetTunnel(xt_id: model.tunnel_id,
                                                     k1: model.k1,
                                                     k2: model.k2)
-            return owner.coinomatProvider.rx
+            return self.coinomatProvider.rx
             .request(.getTunnel(tunnel), callbackQueue:  DispatchQueue.global(qos: .userInteractive))
             .filterSuccessfulStatusAndRedirectCodes()
             .map(Response.GetTunnel.self)
             .asObservable()
             .map({ (model) -> DomainLayer.DTO.Coinomat.TunnelInfo in
+                let min = Money(value: Decimal(model.tunnel.in_min), asset.precision)
                 return DomainLayer.DTO.Coinomat.TunnelInfo(address: model.tunnel.wallet_from,
-                                                           attachment: model.tunnel.attachment)
+                                                           attachment: model.tunnel.attachment,
+                                                           min: min)
             })
         })
     }
@@ -87,7 +90,7 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
             .asObservable()
             .map({ (model) -> DomainLayer.DTO.Coinomat.Rate in
                 
-                let fee = Money(value: Decimal(model.fee_in + model.fee_out), asset.precision)
+                let fee = Money(value: Decimal(model.fee_out), asset.precision)
                 let min = Money(value: Decimal(model.in_min), asset.precision)
                 let max = Money(value: Decimal(model.in_max), asset.precision)
                 return DomainLayer.DTO.Coinomat.Rate(fee: fee, min: min, max: max)

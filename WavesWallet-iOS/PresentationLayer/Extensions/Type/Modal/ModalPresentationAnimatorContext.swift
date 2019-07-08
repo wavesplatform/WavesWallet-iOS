@@ -16,6 +16,8 @@ protocol ModalPresentationAnimatorContext {
     func appearingContentHeight(for size:  CGSize) -> CGFloat
 
     func disappearingContentHeight(for size:  CGSize) -> CGFloat
+
+    func hideBoundaries(for size:  CGSize) -> CGRect
 }
 
 protocol ModalPresentationAnimatorSimpleContext: ModalPresentationAnimatorContext {}
@@ -31,4 +33,3 @@ extension ModalPresentationAnimatorSimpleContext {
         return size.height
     }
 }
-

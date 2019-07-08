@@ -58,15 +58,15 @@ final class WalletPresenter: WalletPresenterProtocol {
 
         }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
-            let signal = strongSelf
+            guard let self = self else { return Signal.empty() }
+            let signal = self
                 .interactor
                 .assets()                
                 .map { .setAssets($0) }
                 .share()
                 .asSignal(onErrorRecover: { Signal<WalletTypes.Event>.just(.handlerError($0)) })
 
-            strongSelf.assetListener = signal
+            self.assetListener = signal
             return signal
         })
     }
@@ -82,8 +82,8 @@ final class WalletPresenter: WalletPresenterProtocol {
 
         }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.assetListener?.skip(1) ?? Signal.never()
+            guard let self = self else { return Signal.empty() }
+            return self.assetListener?.skip(1) ?? Signal.never()
         })
     }
 
@@ -98,8 +98,8 @@ final class WalletPresenter: WalletPresenterProtocol {
 
         }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.leasingListener?.skip(1) ?? Signal.never()
+            guard let self = self else { return Signal.empty() }
+            return self.leasingListener?.skip(1) ?? Signal.never()
         })
     }
 
@@ -114,15 +114,15 @@ final class WalletPresenter: WalletPresenterProtocol {
 
         }, effects: { [weak self] _ -> Signal<WalletTypes.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
-            let listener = strongSelf
+            guard let self = self else { return Signal.empty() }
+            let listener = self
                 .interactor
                 .leasing()
                 .share()
                 .map { .setLeasing($0) }
                 .asSignal(onErrorRecover: { Signal<WalletTypes.Event>.just(.handlerError($0)) })
 
-            strongSelf.leasingListener = listener
+            self.leasingListener = listener
             return listener
         })
     }

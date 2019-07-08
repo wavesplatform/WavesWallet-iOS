@@ -54,7 +54,8 @@ final class AppNewsCoordinator: Coordinator {
             .asDriver(onErrorJustReturn: [])
             .asObservable()
             .subscribe(onNext: { [weak self] (news) in
-                self?.showNews(news)
+                guard let self = self else { return }
+                self.showNews(news)
             })
             .disposed(by: disposeBag)
     }
@@ -94,12 +95,16 @@ final class AppNewsCoordinator: Coordinator {
         retrieveOrDonwloadImage(key: first.logoUrl, url: first.logoUrl)
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (image) in
+
+                guard let self = self else { return }
+
                 if let image = image {
                      let news = AppNewsView.show(model: .init(title: titleValue,
                                                               subtitle: subTitleValue,
                                                               image: image))
                     news.tapDismiss = { [weak self] in
-                        self?.closeCoordinator()
+                        guard let self = self else { return }
+                        self.closeCoordinator()
                     }
 
                     var showIdSet = settings.showIdSet
@@ -109,7 +114,7 @@ final class AppNewsCoordinator: Coordinator {
                     ApplicationNewsSettings.set(settings)
 
                 } else {
-                    self?.closeCoordinator()
+                    self.closeCoordinator()
                 }
             })
             .disposed(by: disposeBag)

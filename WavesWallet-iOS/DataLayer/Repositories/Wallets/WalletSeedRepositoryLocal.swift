@@ -20,8 +20,13 @@ final class WalletSeedRepositoryLocal: WalletSeedRepositoryProtocol {
 
         return Observable.create({ [weak self] (observer) -> Disposable in
 
+            guard let self = self else {
+                observer.onError(RepositoryError.fail)
+                return Disposables.create()
+            }
+
             do {
-                guard let realm = try self?.realm(address: address, seedId: seedId, password: password) else {
+                guard let realm = try self.realm(address: address, seedId: seedId, password: password) else {
                     observer.onError(WalletSeedRepositoryError.fail)
                     return Disposables.create()
                 }
@@ -47,8 +52,13 @@ final class WalletSeedRepositoryLocal: WalletSeedRepositoryProtocol {
 
         return Observable.create({ [weak self] (observer) -> Disposable in
 
+            guard let self = self else {
+                observer.onError(RepositoryError.fail)
+                return Disposables.create()
+            }
+
             do {
-                guard let realm = try self?.realm(address: walletSeed.address, seedId: seedId, password: password) else {
+                guard let realm = try self.realm(address: walletSeed.address, seedId: seedId, password: password) else {
                     observer.onError(WalletSeedRepositoryError.fail)
                     return Disposables.create()
                 }
@@ -75,7 +85,12 @@ final class WalletSeedRepositoryLocal: WalletSeedRepositoryProtocol {
     func deleteSeed(for address: String, seedId: String) -> Observable<Bool> {
         return Observable.create({ [weak self] (observer) -> Disposable in
 
-            if self?.removeDB(address: address, seedId: seedId) ?? false {
+            guard let self = self else {
+                observer.onError(RepositoryError.fail)
+                return Disposables.create()
+            }
+
+            if self.removeDB(address: address, seedId: seedId) {
                 observer.onNext(true)
                 observer.onCompleted()
             } else {

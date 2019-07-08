@@ -91,11 +91,12 @@ private extension AddAddressBookViewController {
                 self.authorizationInteractor
                     .authorizedWallet()
                     .flatMap { [weak self] wallet -> Observable<Bool> in
-                        guard let owner = self else { return Observable.never() }
-                        return owner.repository.delete(contact: contact, accountAddress: wallet.address)
+                        guard let self = self else { return Observable.never() }
+                        return self.repository.delete(contact: contact, accountAddress: wallet.address)
                     }
                     .subscribe()
                     .disposed(by: self.disposeBag)
+
                 self.delegate?.addAddressBookDidDelete(contact: contact)
                 //TODO: Move code to coordinator
                 self.navigationController?.popViewController(animated: true)
@@ -120,10 +121,10 @@ private extension AddAddressBookViewController {
         authorizationInteractor
             .authorizedWallet()
             .flatMap({ [weak self] (wallet) -> Observable<DomainLayer.DTO.Wallet>  in
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
-                if self?.input.isAdd == true {
-                    return owner
+                if self.input.isAdd == true {
+                    return self
                         .repository
                         .contact(by: newContact.address, accountAddress: wallet.address)
                         .flatMap({ contact -> Observable<DomainLayer.DTO.Wallet> in
@@ -139,30 +140,31 @@ private extension AddAddressBookViewController {
             })
             .flatMap { [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
 
-                guard let owner = self else { return Observable.never() }
-                return owner.repository.save(contact: newContact, accountAddress: wallet.address)
+                guard let self = self else { return Observable.never() }
+                return self.repository.save(contact: newContact, accountAddress: wallet.address)
                     .map { _ in wallet }
             }
             .flatMap({ [weak self] wallet  -> Observable<Bool> in
-                guard let owner = self else { return Observable.never() }
-                if let contact = owner.input.contact,
-                    self?.input.isAdd == false && contact.address != newContact.address {
-                    return owner.repository.delete(contact: contact, accountAddress: wallet.address)
+                guard let self = self else { return Observable.never() }
+                if let contact = self.input.contact,
+                    self.input.isAdd == false && contact.address != newContact.address {
+                    return self.repository.delete(contact: contact, accountAddress: wallet.address)
                 }
 
                 return Observable.just(true)
             })
             .subscribe(onNext: { [weak self] _ in
-
-                if let contact = self?.input.contact, self?.input.isAdd == false {
-                    self?.delegate?.addAddressBookDidEdit(contact: contact, newContact: newContact)
+                guard let self = self else { return }
+                if let contact = self.input.contact, self.input.isAdd == false {
+                    self.delegate?.addAddressBookDidEdit(contact: contact, newContact: newContact)
                 } else {
-                    self?.delegate?.addAddressBookDidCreate(contact: newContact)
+                    self.delegate?.addAddressBookDidCreate(contact: newContact)
                 }
                 //TODO: Move code to coordinator
-                self?.navigationController?.popViewController(animated: true)
+                self.navigationController?.popViewController(animated: true)
             }, onError: { [weak self] error in
-                self?.textFieldAddress.error = Localizable.Waves.Addaddressbook.Textfield.Address.Error.addressexist
+                guard let self = self else { return }
+                self.textFieldAddress.error = Localizable.Waves.Addaddressbook.Textfield.Address.Error.addressexist
             })
             .disposed(by: disposeBag)
     }
@@ -199,15 +201,20 @@ private extension AddAddressBookViewController {
                                          placeholder: Localizable.Waves.Addaddressbook.Label.name))
 
         textFieldName.textFieldShouldReturn = { [weak self] _ in
-            self?.saveAddressBook()
+            guard let self = self else { return }
+            self.saveAddressBook()
         }
         
         textFieldName.changedValue = { [weak self] isValidData, text in
-            self?.setupButtonSaveState()
+            guard let self = self else { return }
+            self.setupButtonSaveState()
         }
       
         textFieldName.valueValidator = { [weak self] _ in
-            guard let text = self?.textFieldName.trimmingText else { return nil }
+            guard let self = self else { return nil }
+
+            let text = self.textFieldName.trimmingText
+            
             if text.count > Constants.maxNameLength {
                 return Localizable.Waves.Addaddressbook.Error.charactersMaximum(Constants.maxNameLength)
             }

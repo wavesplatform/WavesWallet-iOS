@@ -28,7 +28,10 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
         
         Driver.system(initialState: DexOrderBook.State.initialState,
                       reduce: { [weak self] state, event -> DexOrderBook.State in
-                        return self?.reduce(state: state, event: event) ?? state },
+
+                        guard let self = self else { return state }
+
+                        return self.reduce(state: state, event: event) },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
@@ -42,9 +45,9 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
             
         }, effects: { [weak self] ss -> Signal<DexOrderBook.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf.interactor.displayInfo().map {.setDisplayData($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            return self.interactor.displayInfo().map {.setDisplayData($0)}.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     
@@ -61,14 +64,24 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                 $0.isNeedRefreshing = true
             }.changeAction(.none)
             
-        case .setDisplayData(let displayData):
+        case .setDisplayData(let data):
+            
+            if data.authWalletError {
+                return state.mutate {
+                    $0.isNeedRefreshing = false
+                    $0.action = .none
+                }
+            }
             
             return state.mutate {
+                
+                let displayData = data.data
                 
                 $0.isNeedRefreshing = false
                 $0.availableAmountAssetBalance = displayData.availableAmountAssetBalance
                 $0.availablePriceAssetBalance = displayData.availablePriceAssetBalance
                 $0.availableWavesBalance = displayData.availableWavesBalance
+                $0.scriptedAssets = displayData.scriptedAssets
                 
                 let sectionAsks = DexOrderBook.ViewModel.Section(items: displayData.asks.map {
                     DexOrderBook.ViewModel.Row.ask($0)})
@@ -97,7 +110,11 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                 }
             }
             
-        case .didTapBid(let bid, let inputMaxAmount):
+        case .didTapBid(let bid, let inputMaxSum):
+            
+            if !inputMaxSum {
+                AnalyticManager.trackEvent(.dex(.sellTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
+            }
             
             moduleOutput?.didCreateOrder(bid, amountAsset: amountAsset, priceAsset: priceAsset,
                                          ask: state.lastAsk?.price,
@@ -106,10 +123,14 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
                                          availablePriceAssetBalance: state.availablePriceAssetBalance,
                                          availableWavesBalance: state.availableWavesBalance,
-                                         inputMaxAmount: inputMaxAmount)
+                                         inputMaxSum: inputMaxSum,
+                                         scriptedAssets: state.scriptedAssets)
+
             return state.changeAction(.none)
             
         case .didTapEmptyBid:
+            AnalyticManager.trackEvent(.dex(.sellTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
+
             moduleOutput?.didCreateEmptyOrder(amountAsset: amountAsset, priceAsset: priceAsset,
                                               orderType: .sell,
                                               ask: state.lastAsk?.price,
@@ -117,10 +138,17 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                               last: state.lastPrice?.price,
                                               availableAmountAssetBalance: state.availableAmountAssetBalance,
                                               availablePriceAssetBalance: state.availablePriceAssetBalance,
-                                              availableWavesBalance: state.availableWavesBalance)
+                                              availableWavesBalance: state.availableWavesBalance,
+                                              scriptedAssets: state.scriptedAssets)
+         
             return state.changeAction(.none)
             
-        case .didTapAsk(let ask, let inputMaxAmount):
+        case .didTapAsk(let ask, let inputMaxSum):
+            
+            if !inputMaxSum {
+                AnalyticManager.trackEvent(.dex(.buyTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
+            }
+
             moduleOutput?.didCreateOrder(ask, amountAsset: amountAsset, priceAsset: priceAsset,
                                          ask: state.lastAsk?.price,
                                          bid: state.lastBid?.price,
@@ -128,11 +156,14 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
                                          availablePriceAssetBalance: state.availablePriceAssetBalance,
                                          availableWavesBalance: state.availableWavesBalance,
-                                         inputMaxAmount: inputMaxAmount)
+                                         inputMaxSum: inputMaxSum,
+                                         scriptedAssets: state.scriptedAssets)
+
             return state.changeAction(.none)
             
         case .didTamEmptyAsk:
-            
+            AnalyticManager.trackEvent(.dex(.buyTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
+
             moduleOutput?.didCreateEmptyOrder(amountAsset: amountAsset, priceAsset: priceAsset,
                                               orderType: .buy,
                                               ask: state.lastAsk?.price,
@@ -140,7 +171,9 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                                               last: state.lastPrice?.price,
                                               availableAmountAssetBalance: state.availableAmountAssetBalance,
                                               availablePriceAssetBalance: state.availablePriceAssetBalance,
-                                              availableWavesBalance: state.availableWavesBalance)
+                                              availableWavesBalance: state.availableWavesBalance,
+                                              scriptedAssets: state.scriptedAssets)
+
             return state.changeAction(.none)
         }
     }

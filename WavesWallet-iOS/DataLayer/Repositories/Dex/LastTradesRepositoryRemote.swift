@@ -23,11 +23,12 @@ final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
 
         return environmentRepository.accountEnvironment(accountAddress: accountAddress)
             .flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.LastTrade]>  in
-                guard let owner = self else { return Observable.empty() }
+                guard let self = self else { return Observable.empty() }
                 
                 let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .formatted(DateFormatter.iso())
-                
+                decoder.dateDecodingStrategy = .custom { decoder in
+                    return Date(isoDecoder: decoder, timestampDiff: environment.timestampServerDiff)
+                }
                 let filters = API.Query.ExchangeFilters(matcher: nil,
                                                         sender: nil,
                                                         timeStart: nil,
@@ -37,8 +38,12 @@ final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
                                                         after: nil,
                                                         limit: limit)
                 
-                return owner.apiProvider.rx.request(.init(kind: .getExchangeWithFilters(filters), environment: environment),
-                                                    callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                return self
+                    .apiProvider
+                    .rx
+                    .request(.init(kind: .getExchangeWithFilters(filters),
+                                   environment: environment),
+                             callbackQueue: DispatchQueue.global(qos: .userInteractive))
                     .filterSuccessfulStatusAndRedirectCodes()
                     .asObservable()
                     .map(API.Response<[API.Response<API.DTO.ExchangeTransaction>]>.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)

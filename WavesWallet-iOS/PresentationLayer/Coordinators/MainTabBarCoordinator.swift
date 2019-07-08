@@ -49,9 +49,9 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
 
         let navigation = CustomNavigationController()
 
-        navigation.tabBarItem.image = Images.TabBar.tabBarWallet.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.image = Images.tabBarWallet.image.withRenderingMode(.alwaysOriginal)
         navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
-        navigation.tabBarItem.selectedImage = Images.TabBar.tabBarWalletActive.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.selectedImage = Images.tabBarWalletActive.image.withRenderingMode(.alwaysOriginal)
 
         return NavigationRouter(navigationController: navigation)
     }()
@@ -60,8 +60,8 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
 
         let navigation = CustomNavigationController()
 
-        navigation.tabBarItem.image = Images.TabBar.tabBarHistory.image.withRenderingMode(.alwaysOriginal)
-        navigation.tabBarItem.selectedImage = Images.TabBar.tabBarHistoryActive.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.image = Images.tabBarHistory.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.selectedImage = Images.tabBarHistoryActive.image.withRenderingMode(.alwaysOriginal)
         navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
         return NavigationRouter(navigationController: navigation)
@@ -71,8 +71,8 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
 
         let navigation = CustomNavigationController()
 
-        navigation.tabBarItem.image = Images.TabBar.tabBarDex.image.withRenderingMode(.alwaysOriginal)
-        navigation.tabBarItem.selectedImage = Images.TabBar.tabBarDexActive.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.image = Images.tabBarDex.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.selectedImage = Images.tabBarDexActive.image.withRenderingMode(.alwaysOriginal)
         navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
         return NavigationRouter(navigationController: navigation)
@@ -82,8 +82,8 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
 
         let navigation = CustomNavigationController()
 
-        navigation.tabBarItem.image = Images.TabBar.tabBarProfile.image.withRenderingMode(.alwaysOriginal)
-        navigation.tabBarItem.selectedImage = Images.TabBar.tabBarProfileActive.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.image = Images.tabBarProfile.image.withRenderingMode(.alwaysOriginal)
+        navigation.tabBarItem.selectedImage = Images.tabBarProfileActive.image.withRenderingMode(.alwaysOriginal)
         navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset
 
         return NavigationRouter(navigationController: navigation)
@@ -156,18 +156,18 @@ private extension MainTabBarCoordinator {
         authorizationInteractor
             .authorizedWallet()
             .flatMap({ [weak self] wallet -> Observable<DomainLayer.DTO.Wallet> in
-                guard let strongSelf = self else { return Observable.empty() }
-                return strongSelf.walletsRepository.listenerWallet(by: wallet.wallet.publicKey)
+                guard let self = self else { return Observable.empty() }
+                return self.walletsRepository.listenerWallet(by: wallet.wallet.publicKey)
             })
             .asDriver(onErrorRecover: { _ in Driver.empty() })
             .drive(onNext: { [weak self] wallet in
 
-                guard let strongSelf = self else { return }
+                guard let self = self else { return }
 
                 if wallet.isBackedUp {
-                    strongSelf.removeTabBarBadge()
+                    self.removeTabBarBadge()
                 } else {
-                    strongSelf.addTabBarBadge()
+                    self.addTabBarBadge()
                 }
             })
             .disposed(by: disposeBag)

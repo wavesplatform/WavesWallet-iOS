@@ -20,4 +20,20 @@ extension DomainLayer.DTO.SmartTransaction.Exchange {
             return order1.timestamp > order2.timestamp ? order1 : order2
         }
     }
+
+    var sell: Order {
+        if order1.kind == .sell {
+            return order1
+        } else {
+            return order2
+        }
+    }
+
+    var buy: Order {
+        if order1.kind == .buy {
+            return order1
+        } else {
+            return order2
+        }
+    }
 }

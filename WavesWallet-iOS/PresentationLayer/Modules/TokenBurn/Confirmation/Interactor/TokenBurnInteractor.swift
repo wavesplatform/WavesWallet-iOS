@@ -32,8 +32,8 @@ final class TokenBurnInteractor: TokenBurnInteractorProtocol {
     
     func getFee(assetID: String) -> Observable<Money> {
         return auth.authorizedWallet().flatMap { [weak self] (wallet) -> Observable<Money>  in
-            guard let owner = self else { return Observable.empty() }
-            return owner.transactionInteractor.calculateFee(by: .burn(assetID: assetID), accountAddress: wallet.address)
+            guard let self = self else { return Observable.empty() }
+            return self.transactionInteractor.calculateFee(by: .burn(assetID: assetID), accountAddress: wallet.address)
         }
     }
 

@@ -26,7 +26,8 @@ final class SendPresenter: SendPresenterProtocol {
         
         Driver.system(initialState: Send.State.initialState,
                       reduce: { [weak self] state, event -> Send.State in
-                        return self?.reduce(state: state, event: event) ?? state },
+                        guard let self = self else { return state }
+                        return self.reduce(state: state, event: event) },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
@@ -37,10 +38,10 @@ final class SendPresenter: SendPresenterProtocol {
             return state.isNeedLoadWavesFee ? state : nil
             
         }, effects: {[weak self] state -> Signal<Send.Event> in
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
             guard let assetID = state.selectedAsset?.assetId else { return Signal.empty() }
             
-            return strongSelf.interactor.calculateFee(assetID: assetID)
+            return self.interactor.calculateFee(assetID: assetID)
                 .map{ .didGetWavesFee($0)}
                 .asSignal(onErrorRecover: { Signal.just(.handleFeeError($0)) } )
         })
@@ -52,9 +53,9 @@ final class SendPresenter: SendPresenterProtocol {
             return state.scanningAssetID != nil ? state : nil
             
         }, effects: {[weak self] state -> Signal<Send.Event> in
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
             guard let assetID = state.scanningAssetID, assetID.count > 0 else { return Signal.empty() }
-            return strongSelf.interactor.assetBalance(by: assetID).map { .didGetAssetBalance($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            return self.interactor.assetBalance(by: assetID).map { .didGetAssetBalance($0)}.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     
@@ -62,9 +63,9 @@ final class SendPresenter: SendPresenterProtocol {
         return react(request: { state -> Bool? in
             return state.isNeedLoadWaves ? true : nil
         }, effects: {[weak self] state -> Signal<Send.Event> in
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
 
-            return strongSelf.interactor.getWavesBalance().map {.didGetWavesAsset($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            return self.interactor.getWavesBalance().map {.didGetWavesAsset($0)}.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     
@@ -76,20 +77,20 @@ final class SendPresenter: SendPresenterProtocol {
             
         }, effects: { [weak self] state -> Signal<Send.Event> in
             
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.empty() }
            
             if state.isNeedValidateAliase {
-                return strongSelf.interactor.validateAlis(alias: state.recipient).map {.validationAliasDidComplete($0)}.asSignal(onErrorSignalWith: Signal.empty())
+                return self.interactor.validateAlis(alias: state.recipient).map {.validationAliasDidComplete($0)}.asSignal(onErrorSignalWith: Signal.empty())
             }
             
             guard let asset = state.selectedAsset else { return Signal.empty() }
     
             if state.isNeedLoadGateWayInfo {
-                return strongSelf.interactor.gateWayInfo(asset: asset, address: state.recipient)
+                return self.interactor.gateWayInfo(asset: asset, address: state.recipient)
                     .map {.didGetGatewayInfo($0)}.asSignal(onErrorSignalWith: Signal.empty())
             }
             else if state.isNeedGenerateMoneroAddress {
-                return strongSelf.interactor.generateMoneroAddress(asset: asset, address: state.recipient, paymentID: state.moneroPaymentID)
+                return self.interactor.generateMoneroAddress(asset: asset, address: state.recipient, paymentID: state.moneroPaymentID)
                     .map {.moneroAddressDidGenerate($0)}.asSignal(onErrorSignalWith: Signal.empty())
             }
            

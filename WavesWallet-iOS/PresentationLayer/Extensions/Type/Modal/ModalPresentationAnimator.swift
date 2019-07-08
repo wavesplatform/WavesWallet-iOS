@@ -40,11 +40,13 @@ extension ModalPresentationAnimator: UIViewControllerAnimatedTransitioning {
         guard let controller = transitionContext.viewController(forKey: key) else { return }
 
         if isPresentation {
+
             transitionContext.containerView.addSubview(controller.view)
         }
 
         let parentFrame = transitionContext.finalFrame(for: parentController)
 
+        
         let maxHeight = parentFrame.inset(by: UIEdgeInsets(top: 0,
                                                             left: 0,
                                                             bottom: 0,

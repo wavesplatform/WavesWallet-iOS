@@ -8,13 +8,13 @@
 
 import Foundation
 
-protocol SectionBase {
+protocol SectionProtocol {
     associatedtype Row
     var rows: [Row] { get set }
 }
 
 protocol DataSourceProtocol {
-    associatedtype Section: SectionBase
+    associatedtype Section: SectionProtocol
     var sections: [Section] { get set }
 }
 
@@ -24,13 +24,13 @@ extension DataSourceProtocol {
     }
 }
 
-extension SectionBase {
+extension SectionProtocol {
     subscript(index: Int) -> Row {
         return rows[index]
     }
 }
 
-extension Array where Element: SectionBase {
+extension Array where Element: SectionProtocol {
 
     subscript(indexPath: IndexPath) -> Element.Row {
         return self[indexPath.section][indexPath.row]

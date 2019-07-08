@@ -67,8 +67,8 @@ final class ChooseAccountPresenter: ChooseAccountPresenterProtocol {
             state.isAppeared == true ? true : nil
         }, effects: { [weak self] _ -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf
+            guard let self = self else { return Signal.empty() }
+            return self
                 .authorizationInteractor
                 .wallets()
                 .map { Types.Event.setWallets($0) }
@@ -85,8 +85,8 @@ final class ChooseAccountPresenter: ChooseAccountPresenterProtocol {
             return nil
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf
+            guard let self = self else { return Signal.empty() }
+            return self
                 .authorizationInteractor
                 .deleteWallet(query.wallet)
                 .map { _ in Types.Event.completedDeleteWallet(indexPath: query.indexPath) }
@@ -103,8 +103,8 @@ final class ChooseAccountPresenter: ChooseAccountPresenterProtocol {
             return nil
         }, effects: { [weak self] wallet -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf
+            guard let self = self else { return Signal.empty() }
+            return self
                 .authorizationInteractor
                 .hasPermissionToLoggedIn(wallet)
                 .map { _ in Types.Event.openWallet(wallet, passcodeNotCreated: false) }

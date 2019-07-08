@@ -11,8 +11,6 @@ import UIKit
 
 final class ModalViewControllerTransitioning: NSObject {
 
-    private var animator = ModalPresentationAnimator(isPresentation: false)
-
     private let dismiss: ModalPresentationController.DismissCompleted?
 
     init(dismiss: ModalPresentationController.DismissCompleted?) {
@@ -32,7 +30,8 @@ extension ModalViewControllerTransitioning: UIViewControllerTransitioningDelegat
 
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController?  {
         return ModalPresentationController(presentedViewController: presented, presenting: presenting, dismiss: { [weak self] in
-            self?.dismiss?()
+            guard let self = self else { return }
+            self.dismiss?()
         })
     }
 }

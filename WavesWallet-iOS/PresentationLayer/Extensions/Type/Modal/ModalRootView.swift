@@ -20,7 +20,7 @@ protocol ModalRootViewDelegate {
     func modalHeaderHeight() -> CGFloat
 }
 
-final class ModalRootView: UIView, ModalScrollViewRootView {
+class ModalRootView: UIView, ModalScrollViewRootView {
 
     @IBOutlet private(set) var tableView: ModalTableView!
 
@@ -37,6 +37,7 @@ final class ModalRootView: UIView, ModalScrollViewRootView {
     override func awakeFromNib() {
         super.awakeFromNib()
         tableView.layer.cornerRadius = Constants.cornerRadius
+        tableView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
 
     override func layoutSubviews() {
@@ -60,6 +61,7 @@ final class ModalRootView: UIView, ModalScrollViewRootView {
         guard let headerView = self.delegate?.modalHeaderView() else { return }
         self.headerHeight = self.delegate?.modalHeaderHeight() ?? 0
         self.headerView = headerView
+        self.headerView?.translatesAutoresizingMaskIntoConstraints = true
 
         let fakeHeaderView: UIView = {
             let view = UIView()
@@ -79,4 +81,5 @@ final class ModalRootView: UIView, ModalScrollViewRootView {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setNeedsLayout()
     }
+    
 }

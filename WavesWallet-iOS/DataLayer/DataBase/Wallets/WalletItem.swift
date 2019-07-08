@@ -16,7 +16,6 @@ class WalletItem: Object {
     @objc dynamic var isBackedUp: Bool = false
     @objc dynamic var address: String = ""
     @objc dynamic var hasBiometricEntrance: Bool = false
-    @objc dynamic var isAlreadyShowLegalDisplay: Bool = false
     @objc dynamic var id: String = ""
 
     override static func primaryKey() -> String? {

@@ -27,7 +27,11 @@ final class AssetListPresenter: AssetListPresenterProtocol {
         
         Driver.system(initialState: AssetList.State.initialState(isMyList: isMyList),
                       reduce: { [weak self] state, event -> AssetList.State in
-                        return self?.reduce(state: state, event: event) ?? state },
+
+                        guard let self = self else { return state }
+
+                        return self.reduce(state: state, event: event)
+                    },
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
@@ -38,8 +42,12 @@ final class AssetListPresenter: AssetListPresenterProtocol {
             return state.isAppeared ? state : nil
         }, effects: { [weak self] state -> Signal<AssetList.Event> in
             
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.interactor.assets(filters: strongSelf.filters, isMyList: state.isMyList).map {.setAssets($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            guard let self = self else { return Signal.empty() }
+            return self.interactor
+                .assets(filters: self.filters,
+                        isMyList: state.isMyList)
+                .map {.setAssets($0)}
+                .asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     

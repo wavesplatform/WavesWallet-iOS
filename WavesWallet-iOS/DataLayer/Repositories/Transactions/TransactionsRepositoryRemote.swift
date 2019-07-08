@@ -80,11 +80,16 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
             .accountEnvironment(accountAddress: address.address)
             .flatMap { [weak self] environment -> Observable<[DomainLayer.DTO.AnyTransaction]> in
 
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
                 let limit = min(Constants.maxLimit, offset + limit)
-
-                return owner
+                
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .custom { decoder in
+                    return Date(timestampDecoder: decoder, timestampDiff: environment.timestampServerDiff)
+                }
+                
+                return self
                     .transactions
                     .rx
                     .request(.init(kind: .list(accountAddress: address.address,
@@ -95,7 +100,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                     .catchError({ (error) -> Single<Response> in
                         return Single.error(NetworkError.error(by: error))
                     })
-                    .map(Node.DTO.TransactionContainers.self)
+                    .map(Node.DTO.TransactionContainers.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
                     .map { $0.anyTransactions(status: .completed, environment: environment) }
                     .asObservable()
             }
@@ -107,8 +112,14 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
             .accountEnvironment(accountAddress: accountAddress)
             .flatMap { [weak self] environment -> Observable<[DomainLayer.DTO.LeaseTransaction]> in
 
-                guard let owner = self else { return Observable.never() }
-                return owner
+                guard let self = self else { return Observable.never() }
+                
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .custom { decoder in
+                    return Date(timestampDecoder: decoder, timestampDiff: environment.timestampServerDiff)
+                }
+                
+                return self
                     .leasingProvider
                     .rx
                     .request(.init(kind: .getActive(accountAddress: accountAddress),
@@ -118,7 +129,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                     .catchError({ (error) -> Single<Response> in
                         return Single.error(NetworkError.error(by: error))
                     })
-                    .map([Node.DTO.LeaseTransaction].self)
+                    .map([Node.DTO.LeaseTransaction].self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
                     .map { $0.map { tx in
                         return DomainLayer.DTO.LeaseTransaction(transaction: tx, status: .activeNow, environment: environment)
                         }
@@ -133,7 +144,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
             .accountEnvironment(accountAddress: wallet.address)
             .flatMap { [weak self] environment -> Observable<DomainLayer.DTO.AnyTransaction> in
 
-                let timestamp = Int64(Date().millisecondsSince1970)
+                let timestamp = Date().millisecondsSince1970(timestampDiff: environment.timestampServerDiff)
                 var signature = specifications.signature(timestamp: timestamp,
                                                          scheme: environment.scheme,
                                                          publicKey: wallet.publicKey.publicKey)
@@ -151,9 +162,14 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                                                                                    environment: environment,
                                                                                    publicKey: wallet.publicKey.getPublicKeyStr(),
                                                                                    proofs: proofs)
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
                 
-                return owner
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .custom { decoder in
+                    return Date(timestampDecoder: decoder, timestampDiff: environment.timestampServerDiff)
+                }
+
+                return self
                     .transactions
                     .rx
                     .request(.init(kind: .broadcast(broadcastSpecification),
@@ -163,7 +179,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                     .catchError({ (error) -> Single<Response> in
                         return Single.error(NetworkError.error(by: error))
                     })
-                    .map(Node.DTO.Transaction.self)
+                    .map(Node.DTO.Transaction.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)
                     .map({ $0.anyTransaction(status: .unconfirmed, environment: environment) })
                     .asObservable()
             }

@@ -19,9 +19,9 @@ final class TokenBurnSendInteractor: TokenBurnSendInteractorProtocol {
         return authorization
             .authorizedWallet()
             .flatMap { [weak self] (wallet) -> Observable<TokenBurnTypes.TransactionStatus> in
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
-                return owner.transactions
+                return self.transactions
                     .send(by: .burn(BurnTransactionSender.init(assetID: asset.assetId,
                                                                quantity: quiantity.amount,
                                                                fee: fee.amount)),
@@ -33,8 +33,8 @@ final class TokenBurnSendInteractor: TokenBurnSendInteractorProtocol {
     
     func getFee(assetID: String) -> Observable<Money> {
         return authorization.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<Money> in
-            guard let owner = self else { return Observable.empty() }
-            return owner.transactions.calculateFee(by: .burn(assetID: assetID), accountAddress: wallet.address)
+            guard let self = self else { return Observable.empty() }
+            return self.transactions.calculateFee(by: .burn(assetID: assetID), accountAddress: wallet.address)
         })
     }
 }

@@ -74,8 +74,8 @@ final class PasscodeInteractor: PasscodeInteractorProtocol {
 
         return authorizationInteractor.registerWallet(query)
             .flatMap({ [weak self] wallet -> Observable<AuthorizationAuthStatus> in
-                guard let owner = self else {  return Observable.empty() }
-                return owner.authorizationInteractor.auth(type: .passcode(passcode), wallet: wallet)
+                guard let self = self else {  return Observable.empty() }
+                return self.authorizationInteractor.auth(type: .passcode(passcode), wallet: wallet)
             })
             .catchError(weak: self, handler: { (owner, error) -> Observable<AuthorizationAuthStatus> in
                 return Observable.error(owner.handlerError(error))

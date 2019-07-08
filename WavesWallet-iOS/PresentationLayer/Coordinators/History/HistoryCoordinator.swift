@@ -24,7 +24,9 @@ final class HistoryCoordinator: Coordinator {
         let historyViewController = HistoryModuleBuilder(output: self)
             .build(input: HistoryInput(inputType: historyType))
 
-        navigationRouter.pushViewController(historyViewController)
+        navigationRouter.pushViewController(historyViewController, animated: true) { [weak self] in
+            self?.removeFromParentCoordinator()
+        }
         setupBackupTost(target: historyViewController, navigationRouter: navigationRouter, disposeBag: disposeBag)
     }
 
@@ -37,10 +39,12 @@ final class HistoryCoordinator: Coordinator {
 
 
 extension HistoryCoordinator: HistoryModuleOutput {
+
+    //TODO: Remove array
     func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
-        let coordinator = TransactionHistoryCoordinator(transactions: transactions,
-                                                        currentIndex: index,
-                                                        router: navigationRouter)
+        let coordinator = TransactionCardCoordinator(transaction: transactions[index],
+                                                     router: navigationRouter)
+
 
         addChildCoordinatorAndStart(childCoordinator: coordinator)
     }

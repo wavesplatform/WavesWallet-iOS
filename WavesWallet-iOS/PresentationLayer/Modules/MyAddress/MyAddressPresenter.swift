@@ -68,9 +68,9 @@ fileprivate extension MyAddressPresenter {
 
         }, effects: { [weak self] _ -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.never() }
 
-            return strongSelf
+            return self
                 .authorizationInteractor
                 .authorizedWallet()
                 .map { Types.Event.setWallet($0.wallet) }
@@ -93,9 +93,9 @@ fileprivate extension MyAddressPresenter {
 
         }, effects: { [weak self] accountAddress -> Signal<Types.Event> in
 
-            guard let strongSelf = self else { return Signal.empty() }
+            guard let self = self else { return Signal.never() }
 
-            return strongSelf
+            return self
                 .aliasesRepository
                 .aliases(accountAddress: accountAddress)
                 .map { Types.Event.setAliases($0) }
@@ -118,8 +118,10 @@ fileprivate extension MyAddressPresenter {
 
         }, effects: { [weak self] query -> Signal<Types.Event> in
 
+            guard let self = self else { return Signal.never() }
+
             if case .showInfo(let aliases) = query {
-                self?.moduleOutput?.myAddressShowAliases(aliases)
+                self.moduleOutput?.myAddressShowAliases(aliases)
             }
 
             return Signal.just(.completedQuery)

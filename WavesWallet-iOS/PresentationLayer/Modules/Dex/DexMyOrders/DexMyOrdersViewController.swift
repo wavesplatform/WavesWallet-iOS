@@ -21,7 +21,6 @@ final class DexMyOrdersViewController: UIViewController {
     @IBOutlet private weak var viewTopCorners: UIView!
     @IBOutlet private weak var labelDate: UILabel!
     @IBOutlet private weak var labelSidePrice: UILabel!
-    @IBOutlet private weak var labelAmountSum: UILabel!
     @IBOutlet private weak var labelStatus: UILabel!
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var headerView: UIView!
@@ -34,7 +33,10 @@ final class DexMyOrdersViewController: UIViewController {
     
     private var section = DexMyOrders.ViewModel.Section(items: [])
     private let sendEvent: PublishRelay<DexMyOrders.Event> = PublishRelay<DexMyOrders.Event>()
-    
+
+    private var transactionCardCoordinator: TransactionCardCoordinator?
+    private var navigationRouter: NavigationRouter?
+
     var presenter: DexMyOrdersPresenterProtocol!
     weak var output: DexMyOrdersModuleOutput?
 
@@ -48,9 +50,21 @@ final class DexMyOrdersViewController: UIViewController {
         setupRefreshControl()
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         viewTopCorners.createTopCorners(radius: Constants.cornerTableRadius)
+    }
+  
+    private func showDetailScreen(order: DomainLayer.DTO.Dex.MyOrder) {
+        guard let navigationController = self.navigationController else { return }
+        let nav = NavigationRouter(navigationController: navigationController)
+        let coordinator = TransactionCardCoordinator(kind: .order(order), router: nav)
+
+        //TODO: Fix
+        self.navigationRouter = nav
+        self.transactionCardCoordinator = coordinator
+        coordinator.delegate = self
+        coordinator.start()
     }
 }
 
@@ -73,8 +87,8 @@ fileprivate extension DexMyOrdersViewController {
         }
         
         let readyViewFeedback: DexMyOrdersPresenter.Feedback = { [weak self] _ in
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.rx.viewWillAppear.take(1).map { _ in DexMyOrders.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
+            guard let self = self else { return Signal.empty() }
+            return self.rx.viewWillAppear.take(1).map { _ in DexMyOrders.Event.readyView }.asSignal(onErrorSignalWith: Signal.empty())
         }
         presenter.system(feedbacks: [feedback, readyViewFeedback])
     }
@@ -89,7 +103,7 @@ fileprivate extension DexMyOrdersViewController {
         let subscriptionSections = state
             .drive(onNext: { [weak self] state in
                 
-                guard let strongSelf = self else { return }
+                guard let self = self else { return }
                 switch state.action {
                 case .none:
                     return
@@ -97,21 +111,13 @@ fileprivate extension DexMyOrdersViewController {
                     break
                 }
                 
-                strongSelf.section = state.section
+                self.section = state.section
 
                 switch state.action {
                 case .update:
-                    strongSelf.tableView.reloadData()
-                    strongSelf.setupDefaultState()
-                    strongSelf.refreshControl.endRefreshing()
-                    
-                case .orderDidFailCancel(let error):
-                    
-                    strongSelf.showNetworkErrorSnack(error: error)
-                    strongSelf.tableView.reloadData()
-                
-                case .orderDidFinishCancel:
-                    strongSelf.output?.myOrderDidCancel()
+                    self.tableView.reloadData()
+                    self.setupDefaultState()
+                    self.refreshControl.endRefreshing()
                     
                 default:
                     break
@@ -137,6 +143,20 @@ private extension DexMyOrdersViewController {
     }
 }
 
+//MARK: - UITableViewDelegate
+extension DexMyOrdersViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let row = section.items[indexPath.row]
+        
+        switch row {
+        case .order(let order):
+            showDetailScreen(order: order)
+        }
+    }
+}
+
 //MARK: - UITableViewDataSource
 extension DexMyOrdersViewController: UITableViewDataSource {
 
@@ -152,10 +172,6 @@ extension DexMyOrdersViewController: UITableViewDataSource {
         case .order(let myOrder):
             let cell = tableView.dequeueCell() as DexMyOrdersCell
             cell.update(with: myOrder)
-            
-            cell.buttonDeleteDidTap = { [weak self] in
-                self?.sendEvent.accept(.cancelOrder(indexPath))
-            }
             return cell
         }
     }
@@ -188,9 +204,18 @@ private extension DexMyOrdersViewController {
     func setupLocalization() {
         labelEmptyData.text = Localizable.Waves.Dexmyorders.Label.emptyData
         labelLoadingData.text = Localizable.Waves.Dexmyorders.Label.loadingLastTrades
-        labelDate.text = Localizable.Waves.Dexmyorders.Label.date
-        labelSidePrice.text = Localizable.Waves.Dexmyorders.Label.side + "/" + Localizable.Waves.Dexmyorders.Label.price
-        labelAmountSum.text = Localizable.Waves.Dexmyorders.Label.amount + "/" + Localizable.Waves.Dexmyorders.Label.sum
+        labelDate.text = Localizable.Waves.Dexmyorders.Label.time
+        labelSidePrice.text = Localizable.Waves.Dexmyorders.Label.type + "/" + Localizable.Waves.Dexmyorders.Label.price
         labelStatus.text = Localizable.Waves.Dexmyorders.Label.status
+    }
+}
+
+//MARK: - TransactionCardCoordinator
+
+extension DexMyOrdersViewController: TransactionCardCoordinatorDelegate {
+
+    func transactionCardCoordinatorCanceledOrder(_ order: DomainLayer.DTO.Dex.MyOrder) {
+        sendEvent.accept(.refresh)
+        output?.myOrderDidCancel()
     }
 }

@@ -29,8 +29,9 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
         
         Driver.system(initialState: DexLastTrades.State.initialState,
                       reduce: { [weak self] state, event -> DexLastTrades.State in
-                        return self?.reduce(state: state, event: event) ?? state },
-                      feedback: newFeedbacks)
+                        guard let self = self else { return state }
+                        return self.reduce(state: state, event: event)
+            }, feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
     }
@@ -42,8 +43,12 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
             
         }, effects: { [weak self] ss -> Signal<DexLastTrades.Event> in
             
-            guard let strongSelf = self else { return Signal.empty() }
-            return strongSelf.interactor.displayInfo().map {.setDisplayData($0)}.asSignal(onErrorSignalWith: Signal.empty())
+            guard let self = self else { return Signal.empty() }
+            return self
+                .interactor
+                .displayInfo()
+                .map {.setDisplayData($0) }
+                .asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     
@@ -70,44 +75,53 @@ final class DexLastTradesPresenter: DexLastTradesPresenterProtocol {
                 $0.availableAmountAssetBalance = displayData.availableAmountAssetBalance
                 $0.availablePriceAssetBalance = displayData.availablePriceAssetBalance
                 $0.availableWavesBalance = displayData.availableWavesBalance
+                $0.scriptedAssets = displayData.scriptedAssets
                 
                 let items = displayData.trades.map {DexLastTrades.ViewModel.Row.trade($0)}
                 $0.section = DexLastTrades.ViewModel.Section(items: items)
             }.changeAction(.update)
         
         case .didTapBuy(let buy):
-            
+            AnalyticManager.trackEvent(.dex(.buyTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
+
             moduleOutput?.didCreateOrder(buy, amountAsset: amountAsset, priceAsset: priceAsset,
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
                                          availablePriceAssetBalance: state.availablePriceAssetBalance,
-                                         availableWavesBalance: state.availableWavesBalance)
+                                         availableWavesBalance: state.availableWavesBalance,
+                                         scriptedAssets: state.scriptedAssets)
             return state.changeAction(.none)
         
         case .didTapEmptyBuy:
-            
+            AnalyticManager.trackEvent(.dex(.buyTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
+
             moduleOutput?.didCreateEmptyOrder(amountAsset: amountAsset, priceAsset: priceAsset,
                                               orderType: .buy,
                                               availableAmountAssetBalance: state.availableAmountAssetBalance,
                                               availablePriceAssetBalance: state.availablePriceAssetBalance,
-                                              availableWavesBalance: state.availableWavesBalance)
+                                              availableWavesBalance: state.availableWavesBalance,
+                                              scriptedAssets: state.scriptedAssets)
             return state.changeAction(.none)
             
         case .didTapSell(let sell):
-            
+            AnalyticManager.trackEvent(.dex(.sellTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
+
             moduleOutput?.didCreateOrder(sell, amountAsset: amountAsset, priceAsset: priceAsset,
                                          availableAmountAssetBalance: state.availableAmountAssetBalance,
                                          availablePriceAssetBalance: state.availablePriceAssetBalance,
-                                         availableWavesBalance: state.availableWavesBalance)
+                                         availableWavesBalance: state.availableWavesBalance,
+                                         scriptedAssets: state.scriptedAssets)
 
             return state.changeAction(.none)
             
         case .didTapEmptySell:
+            AnalyticManager.trackEvent(.dex(.sellTap(amountAsset: amountAsset.name, priceAsset: priceAsset.name)))
 
             moduleOutput?.didCreateEmptyOrder(amountAsset: amountAsset, priceAsset: priceAsset,
                                               orderType: .sell,
                                               availableAmountAssetBalance: state.availableAmountAssetBalance,
                                               availablePriceAssetBalance: state.availablePriceAssetBalance,
-                                              availableWavesBalance: state.availableWavesBalance)
+                                              availableWavesBalance: state.availableWavesBalance,
+                                              scriptedAssets: state.scriptedAssets)
 
             return state.changeAction(.none)
         }

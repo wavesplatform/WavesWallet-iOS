@@ -166,13 +166,13 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
         return Observable.zip(isSmartAccount, wavesAsset, rules, isSmartAssetsObservable.sweetDebug("isSmartAssets"))
             .flatMap { [weak self] (isSmartAccount, wavesAsset, rules, isSmartAssets) -> Observable<Money> in
 
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
                 let mapSmartAssets = isSmartAssets.reduce(into: [String:Bool](), { (result, isSmartAsset) in
                     result[isSmartAsset.0] = isSmartAsset.1
                 })
 
-                let money = owner.calculateFee(isSmartAddress: isSmartAccount,
+                let money = self.calculateFee(isSmartAddress: isSmartAccount,
                                                 wavesAsset: wavesAsset,
                                                 rules: rules,
                                                 isSmartAssets: mapSmartAssets,
@@ -201,12 +201,12 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
         return transactionsRepositoryRemote
                 .send(by: specifications, wallet: wallet)                
                 .flatMap({ [weak self] transaction -> Observable<DomainLayer.DTO.AnyTransaction> in
-                    guard let owner = self else { return Observable.never() }
-                    return owner.saveTransactions([transaction], accountAddress: wallet.address).map { _ in transaction }
+                    guard let self = self else { return Observable.never() }
+                    return self.saveTransactions([transaction], accountAddress: wallet.address).map { _ in transaction }
                 })
                 .flatMap({ [weak self] tx -> Observable<DomainLayer.DTO.SmartTransaction> in
-                    guard let owner = self else { return Observable.never() }
-                    return owner.smartTransactionsSync(SmartTransactionsSyncQuery(address: DomainLayer.DTO.Address(address: wallet.address,
+                    guard let self = self else { return Observable.never() }
+                    return self.smartTransactionsSync(SmartTransactionsSyncQuery(address: DomainLayer.DTO.Address(address: wallet.address,
                                                                                                                   contact: nil,
                                                                                                                   isMyAccount: true,
                                                                                                                   aliases: []),
@@ -235,20 +235,20 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
                 return Observable.just(RemoteActiveLeasingResult(txs: [], error: error))
             })
             .flatMap({ [weak self] result -> Observable<RemoteActiveLeasingResult> in
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
                 let anyTxs = result.txs.map { DomainLayer.DTO.AnyTransaction.lease($0) }
 
-                return owner
+                return self
                     .saveTransactions(anyTxs, accountAddress: accountAddress)
                     .map { _ in result}
             })
             .flatMap({ [weak self] result -> SmartTransactionsSyncObservable in
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
                 let anyTxs = result.txs.map { DomainLayer.DTO.AnyTransaction.lease($0) }
 
-                return owner.smartTransactionsSync(SmartTransactionsSyncQuery(address: DomainLayer.DTO.Address(address: accountAddress,
+                return self.smartTransactionsSync(SmartTransactionsSyncQuery(address: DomainLayer.DTO.Address(address: accountAddress,
                                                                                                                contact: nil,
                                                                                                                isMyAccount: true,
                                                                                                                aliases: []),
@@ -275,7 +275,7 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
             .addressSync(by: [accountAddress], myAddress: accountAddress)
             .flatMap({ [weak self] (sync) -> Observable<AnyTransactionsAndAddress> in
 
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
                 guard let address = sync.resultIngoreError?.first else {
                     if let error = sync.error {
@@ -285,7 +285,7 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
                     }
                 }
 
-                return owner.transactionsRepositoryLocal
+                return self.transactionsRepositoryLocal
                     .transactions(by: address,
                                   specifications: TransactionsSpecifications.init(page: .init(offset: 0, limit: Constants.maxLimit),
                                                                                   assets: [],
@@ -311,7 +311,6 @@ final class TransactionsInteractor: TransactionsInteractorProtocol {
             .share()
     }
 }
-
 
 // MARK: - - Main Logic sync download/save transactions
 
@@ -344,12 +343,12 @@ fileprivate extension TransactionsInteractor {
                 return Observable.just(RemoteResult(txs: [], error: error))
             })
             .flatMap({ [weak self] result -> Observable<RemoteResult> in
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
                 if result.txs.count == 0 {
                     return Observable.just(result)
                 }
-                return owner
+                return self
                     .saveTransactions(result.txs, accountAddress: address.address)
                     .map { _ in result }
             })
@@ -359,7 +358,6 @@ fileprivate extension TransactionsInteractor {
                 return SmartTransactionsSyncObservable.just(.error(error))
             })
     }
-
 
     private func ifNeededLoadNextTransactionsSync(_ query: IfNeededLoadNextTransactionsQuery) -> SmartTransactionsSyncObservable {
 
@@ -399,8 +397,8 @@ fileprivate extension TransactionsInteractor {
         if query.isHasTransactions {
             return saveTransactions(query.transactions, accountAddress: query.address.address)
                 .flatMap({ [weak self] _ -> SmartTransactionsSyncObservable in
-                    guard let owner = self else { return Observable.never() }
-                    return owner.smartTransactionsFromAnyTransactionsSync(AnyTransactionsSyncQuery(address: query.address,
+                    guard let self = self else { return Observable.never() }
+                    return self.smartTransactionsFromAnyTransactionsSync(AnyTransactionsSyncQuery(address: query.address,
                                                                                                    specifications: query.specifications,
                                                                                                    remoteError: query.remoteError))
                 })
@@ -449,8 +447,8 @@ fileprivate extension TransactionsInteractor {
     private func smartTransactionsSync(_ query: SmartTransactionsSyncQuery) -> SmartTransactionsSyncObservable {
         return prepareTransactionsForSyncQuery(query)
             .flatMap({ [weak self] (query) -> SmartTransactionsSyncObservable in
-                guard let owner = self else { return Observable.never() }
-                return owner.mapToSmartTransactionsSync(query)
+                guard let self = self else { return Observable.never() }
+                return self.mapToSmartTransactionsSync(query)
             })
     }
 
@@ -487,8 +485,8 @@ fileprivate extension TransactionsInteractor {
                                                   remoteError: query.remoteError)
             })
             .flatMap({ [weak self] (query) -> Observable<SmartTransactionsSyncQuery> in
-                guard let owner = self else { return Observable.never() }
-                return owner.prepareTransactionsForSenderSpecifications(query: query)
+                guard let self = self else { return Observable.never() }
+                return self.prepareTransactionsForSenderSpecifications(query: query)
             })
     }
 
@@ -588,7 +586,7 @@ fileprivate extension TransactionsInteractor {
             }
             .flatMap { [weak self] (data) -> SmartTransactionsSyncObservable in
 
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
 
                 guard let assets = data.assets.resultIngoreError else {
                     if let error = data.assets.error {
@@ -618,12 +616,12 @@ fileprivate extension TransactionsInteractor {
                 let accountsMap = accounts.reduce(into: [String: DomainLayer.DTO.Address](), { $0[$1.address] = $1 })
                 let leaseTxsMap = data.leaseTxs.reduce(into: [String: DomainLayer.DTO.LeaseTransaction](), { $0[$1.id] = $1 })
 
-                let txs = owner.mapToSmartTransactions(by: accountAddress,
-                                                       txs: data.transaction,
-                                                       assets: assetsMap,
-                                                       accounts: accountsMap,
-                                                       block: data.block,
-                                                       leaseTxs: leaseTxsMap)
+                let txs = self.mapToSmartTransactions(by: accountAddress,
+                                                      txs: data.transaction,
+                                                      assets: assetsMap,
+                                                      accounts: accountsMap,
+                                                      block: data.block,
+                                                      leaseTxs: leaseTxsMap)
 
                 if let error = query.remoteError {
                     return .just(.local(txs, error: error))
@@ -649,6 +647,7 @@ fileprivate extension TransactionsInteractor {
                                   mapTxs: [:])
         })
         .compactMap { $0 }
+        .filter { $0.isCanceledLeasingBySender == false }
     }
 }
 
@@ -676,8 +675,7 @@ fileprivate extension TransactionsInteractor {
     private func assets(by ids: [String], accountAddress: String) -> Observable<[String: DomainLayer.DTO.Asset]> {
         let assets = assetsInteractors
             .assets(by: ids,
-                    accountAddress: accountAddress,
-                    isNeedUpdated: false)
+                    accountAddress: accountAddress)
             .map { $0.reduce(into: [String: DomainLayer.DTO.Asset](), { list, asset in
                 list[asset.id] = asset
             })
@@ -936,4 +934,17 @@ private extension DomainLayer.Query.TransactionSpecificationType {
         }
     }
 
+}
+
+fileprivate extension DomainLayer.DTO.SmartTransaction {
+    
+    var isCanceledLeasingBySender: Bool {
+        
+        switch kind {
+        case .canceledLeasing:
+            return sender.isMyAccount ? false : true
+        default:
+            return false
+        }
+    }
 }

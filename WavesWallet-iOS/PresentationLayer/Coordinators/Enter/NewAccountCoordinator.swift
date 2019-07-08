@@ -26,7 +26,8 @@ final class NewAccountCoordinator: Coordinator {
         let vc = StoryboardScene.NewAccount.newAccountViewController.instantiate()
         vc.output = self
         self.navigationRouter.pushViewController(vc, animated: true) { [weak self] in
-            self?.removeFromParentCoordinator()
+            guard let self = self else { return }
+            self.removeFromParentCoordinator()
         }
     }
 }
@@ -71,7 +72,8 @@ private extension NewAccountCoordinator {
                                        behaviorPresentation: .modal(navigationRouter),
                                        hasShowNeedBackupView: true,
                                        completed: { [weak self] isSkipBackup in
-            self?.beginRegistration(isSkipBackup: isSkipBackup)
+                                        guard let self = self else { return }
+                                        self.beginRegistration(isSkipBackup: isSkipBackup)
         })
         addChildCoordinatorAndStart(childCoordinator: backup)
     }

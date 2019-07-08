@@ -56,9 +56,9 @@ final class AssetDetailInteractor: AssetDetailInteractorProtocol {
             .authorizedWallet()
             .flatMap { [weak self] wallet -> Observable<[DomainLayer.DTO.SmartTransaction]> in
 
-                guard let owner = self else { return Observable.never() }
+                guard let self = self else { return Observable.never() }
                 
-                return owner.transactionsInteractor.transactionsSync(by: wallet.address,
+                return self.transactionsInteractor.transactionsSync(by: wallet.address,
                                                                      specifications: .init(page: .init(offset: 0,
                                                                                                    limit: Constants.transactionLimit),
                                                                                        assets: [assetId],
@@ -85,8 +85,8 @@ final class AssetDetailInteractor: AssetDetailInteractorProtocol {
         return authorizationInteractor
             .authorizedWallet()
             .flatMap { [weak self] wallet -> Observable<Bool> in
-                guard let owner = self else { return Observable.never() }
-                return owner.assetsBalanceSettings.setFavorite(by: wallet.address, assetId: id, isFavorite: isFavorite)
+                guard let self = self else { return Observable.never() }
+                return self.assetsBalanceSettings.setFavorite(by: wallet.address, assetId: id, isFavorite: isFavorite)
             }
             .subscribe()
             .disposed(by: disposeBag)

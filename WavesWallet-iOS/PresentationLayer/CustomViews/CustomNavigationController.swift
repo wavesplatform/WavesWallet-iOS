@@ -371,13 +371,15 @@ extension CustomNavigationController: UINavigationControllerDelegate {
         }
 
         self.transitionCoordinator?.notifyWhenInteractionEnds({ [weak self] context in
+            guard let self = self else { return }
             guard context.isCancelled else { return }
             guard let fromViewController = context.viewController(forKey: .from) else { return }
-            self?.navigationController(navigationController, willShow: fromViewController, animated: animated)
+            self.navigationController(navigationController, willShow: fromViewController, animated: animated)
 
             let animationCompletion = context.transitionDuration * Double(context.percentComplete)
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + animationCompletion, execute: {
-                self?.navigationController(navigationController, didShow: fromViewController, animated: animated)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + animationCompletion, execute: { [weak self] in
+                guard let self = self else { return }
+                self.navigationController(navigationController, didShow: fromViewController, animated: animated)
             })
         })
     }

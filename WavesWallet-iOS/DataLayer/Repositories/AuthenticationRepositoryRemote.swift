@@ -89,8 +89,8 @@ final class AuthenticationRepositoryRemote: AuthenticationRepositoryProtocol {
     func changePasscode(with id: String, oldPasscode: String, passcode: String) -> Observable<Bool> {
         return auth(with: id, passcode: oldPasscode)
             .flatMap { [weak self] keyForPassword -> Observable<Bool> in
-                guard let owner = self else { return Observable.empty() }
-                return owner.registration(with: id, keyForPassword: keyForPassword, passcode: passcode)
+                guard let self = self else { return Observable.empty() }
+                return self.registration(with: id, keyForPassword: keyForPassword, passcode: passcode)
             }
     }
 

@@ -14,6 +14,7 @@ extension DomainLayer.DTO {
         struct TunnelInfo {
             let address: String
             let attachment: String
+            let min: Money
         }
         
         struct Rate {
