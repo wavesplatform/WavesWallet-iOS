@@ -250,6 +250,7 @@ extension InfoPagesViewController: UICollectionViewDataSource {
         }
         else if let pageView = pageView as? InfoPageConfirmView {
             pageView.delegate = self
+            pageView.setupContentInset(UIEdgeInsets(top: 0, left: 0, bottom: view.bounds.height - toolbarView.frame.minY, right: 0))
         }
         
         pageView.backgroundColor = .basic50
