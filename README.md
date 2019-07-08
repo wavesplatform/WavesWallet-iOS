@@ -9,8 +9,8 @@
 <a href="https://itunes.apple.com/us/app/waves-wallet/id1233158971?mt=8" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Available_on_the_App_Store_%28black%29.png/320px-Available_on_the_App_Store_%28black%29.png" width="128" height="38" border="0" /></a>
 
 ## Easy start with WavesSDK
-* [Waves SDK Android](https://github.com/wavesplatform/WavesSDK-android/wiki/Get-started-with-WavesSDK-for-Android)
-* [Waves SDK iOS](https://github.com/wavesplatform/WavesSDK-iOS/wiki/Get-started-with-WavesSDK-for-iOS)
+* [Waves SDK for Android](https://github.com/wavesplatform/WavesSDK-android/wiki/Get-started-with-WavesSDK-for-Android)
+* [Waves SDK for iOS](https://github.com/wavesplatform/WavesSDK-iOS/wiki/Get-started-with-WavesSDK-for-iOS)
 
 ## Blockchain for the people
 
