@@ -61,6 +61,8 @@ public protocol RepositoriesFactoryProtocol {
     var analyticManager: AnalyticManagerProtocol { get }
     
     var spamAssets: SpamAssetsRepositoryProtocol { get }
+    
+    var gatewayRepository: GatewayRepositoryProtocol { get }
 }
 
 protocol RepositoryCache {
