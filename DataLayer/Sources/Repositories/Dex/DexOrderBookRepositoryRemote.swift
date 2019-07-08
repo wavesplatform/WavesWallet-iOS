@@ -14,6 +14,11 @@ import WavesSDK
 import DomainLayer
 import Extensions
 
+private enum Constants {
+    static let baseFee: Int64 = 300000
+    static let WavesRate: Double = 1
+}
+
 final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
         
     private let environmentRepository: EnvironmentRepositoryProtocols
@@ -198,6 +203,34 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                                               expirationTimestamp: expirationTimestamp,
                                               proofs: [createOrderSignature.signature()]))
         })
+    }
+
+    func orderSettingsFee() -> Observable<DomainLayer.DTO.Dex.SettingsOrderFee> {
+        
+        return environmentRepository
+        .servicesEnvironment()
+            .flatMap({ (appEnvironment) -> Observable<DomainLayer.DTO.Dex.SettingsOrderFee> in
+                return appEnvironment
+                    .wavesServices
+                    .matcherServices
+                    .orderBookMatcherService
+                    .orderRatesFee()
+                    .map({ (ratesFee) -> DomainLayer.DTO.Dex.SettingsOrderFee in
+                        
+                        let assets = ratesFee.map{ DomainLayer.DTO.Dex.SettingsOrderFee.Asset(assetId: $0.assetId, rate: $0.rate) }
+                            
+                        return DomainLayer.DTO.Dex.SettingsOrderFee(baseFee: Constants.baseFee, feeAssets: assets)
+                    })
+            })
+            .catchError({ (error) -> Observable<DomainLayer.DTO.Dex.SettingsOrderFee> in
+                
+                //TODO: remove code after MainNet will be support custom fee at matcher
+                
+                let wavesAsset = DomainLayer.DTO.Dex.SettingsOrderFee.Asset(assetId: WavesSDKConstants.wavesAssetId,
+                                                                            rate: Constants.WavesRate)
+                let settings = DomainLayer.DTO.Dex.SettingsOrderFee(baseFee: Constants.baseFee, feeAssets: [wavesAsset])
+                return Observable.just(settings)
+            })
     }
 }
 

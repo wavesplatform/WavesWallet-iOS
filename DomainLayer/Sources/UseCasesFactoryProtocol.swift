@@ -20,4 +20,6 @@ public protocol UseCasesFactoryProtocol {
     
     var applicationVersionUseCase: ApplicationVersionUseCase { get }
     var analyticManager: AnalyticManagerProtocol { get }
+    
+    var oderbook: OrderBookUseCaseProtocol { get }
 }

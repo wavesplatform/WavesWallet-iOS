@@ -20,4 +20,7 @@ public protocol DexOrderBookRepositoryProtocol {
     func cancelOrder(wallet: DomainLayer.DTO.SignedWallet, orderId: String, amountAsset: String, priceAsset: String) -> Observable<Bool>
 
     func createOrder(wallet: DomainLayer.DTO.SignedWallet, order: DomainLayer.Query.Dex.CreateOrder) -> Observable<Bool>
+
+    func orderSettingsFee() -> Observable<DomainLayer.DTO.Dex.SettingsOrderFee>
+    
 }

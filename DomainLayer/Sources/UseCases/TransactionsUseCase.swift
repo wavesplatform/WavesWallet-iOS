@@ -91,6 +91,8 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
 
     private var accountSettingsRepository: AccountSettingsRepositoryProtocol
     
+    private var orderBookRepository: DexOrderBookRepositoryProtocol
+    
     init(transactionsRepositoryLocal: TransactionsRepositoryProtocol,
          transactionsRepositoryRemote: TransactionsRepositoryProtocol,
          assetsInteractors: AssetsUseCaseProtocol,
@@ -98,7 +100,8 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
          addressRepository: AddressRepositoryProtocol,
          assetsRepositoryRemote: AssetsRepositoryProtocol,
          blockRepositoryRemote: BlockRepositoryProtocol,
-         accountSettingsRepository: AccountSettingsRepositoryProtocol) {
+         accountSettingsRepository: AccountSettingsRepositoryProtocol,
+         orderBookRepository: DexOrderBookRepositoryProtocol) {
 
         self.transactionsRepositoryLocal = transactionsRepositoryLocal
         self.transactionsRepositoryRemote = transactionsRepositoryRemote
@@ -108,6 +111,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
         self.assetsRepository = assetsRepositoryRemote
         self.blockRepositoryRemote = blockRepositoryRemote
         self.accountSettingsRepository = accountSettingsRepository
+        self.orderBookRepository = orderBookRepository
     }
 
     func calculateFee(by transactionSpecs: DomainLayer.Query.TransactionSpecificationType, accountAddress: String) -> Observable<Money> {
@@ -144,6 +148,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
 
         let rules = transactionsRepositoryRemote.feeRules()
 
+      
         return Observable.zip(isSmartAccount, wavesAsset, rules, isSmartAssetsObservable)
             .flatMap { [weak self] (isSmartAccount, wavesAsset, rules, isSmartAssets) -> Observable<Money> in
 
@@ -698,7 +703,7 @@ fileprivate extension TransactionsUseCase {
         }
 
         var fee: Int64 = rule.fee
-
+        
         if rule.addSmartAccountFee && isSmartAddress {
             fee += rules.smartAccountExtraFee
         }
@@ -717,14 +722,33 @@ fileprivate extension TransactionsUseCase {
                 fee += rules.smartAssetExtraFee
             }
 
-        case .createOrder(let amountAssetId, let priceAssetId):
-            if rule.addSmartAssetFee && isSmartAssets[amountAssetId] == true {
-                fee += rules.smartAssetExtraFee
+        case .createOrder(let amountAssetId, let priceAssetId, let settingsOrderFee, let feeAssetId):
+            
+            var n: Int64 = 0
+            
+            if isSmartAssets[amountAssetId] == true {
+                n += 1
             }
 
-            if rule.addSmartAssetFee && isSmartAssets[priceAssetId] == true {
-                fee += rules.smartAssetExtraFee
+            if isSmartAssets[priceAssetId] == true {
+                n += 1
             }
+            
+            if let matcherFeeAssetId = feeAssetId, isSmartAssets[matcherFeeAssetId] == true &&
+                matcherFeeAssetId != amountAssetId &&
+                matcherFeeAssetId != priceAssetId {
+                n += 1
+            }
+
+            if isSmartAddress {
+                n += 1
+            }
+           
+            var assetRate = settingsOrderFee.feeAssets.first(where: {$0.asset.id == feeAssetId})?.rate ?? 0
+            let assetDecimal = settingsOrderFee.feeAssets.first(where: {$0.asset.id == feeAssetId})?.asset.decimals ?? 0
+            let assetFee = assetRate * Double(settingsOrderFee.baseFee + Int64(400000) * n)
+            
+            return Money(Int64(assetFee), assetDecimal)
         }
 
         return Money(fee, wavesAsset.precision)
@@ -905,7 +929,10 @@ private extension DomainLayer.Query.TransactionSpecificationType {
         case .sendTransaction(let assetId):
             return [assetId]
 
-        case .createOrder(let amountAssetId, let priceAssetId):
+        case .createOrder(let amountAssetId, let priceAssetId, _, let feeAssetId):
+            if let feeAssetId = feeAssetId {
+                return [amountAssetId, priceAssetId, feeAssetId]
+            }
             return [amountAssetId, priceAssetId]
         }
     }

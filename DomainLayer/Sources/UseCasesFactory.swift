@@ -37,7 +37,8 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
                                                 addressRepository: repositories.addressRepository,
                                                 assetsRepositoryRemote: repositories.assetsRepositoryRemote,
                                                 blockRepositoryRemote: repositories.blockRemote,
-                                                accountSettingsRepository: repositories.accountSettingsRepository)
+                                                accountSettingsRepository: repositories.accountSettingsRepository,
+                                                orderBookRepository: repositories.dexOrderBookRepository)
         return interactor
     }()
 
@@ -103,4 +104,13 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
     public private(set) lazy var analyticManager: AnalyticManagerProtocol = {
         return repositories.analyticManager
     }()
+    
+    public private(set) lazy var oderbook: OrderBookUseCaseProtocol = {
+        
+        let interactor = OrderBookUseCase(orderBookRepository: repositories.dexOrderBookRepository,
+                                          assetsInteractor: assets,
+                                          authorizationInteractor: authorization)
+        return interactor
+    }()
+
 }
