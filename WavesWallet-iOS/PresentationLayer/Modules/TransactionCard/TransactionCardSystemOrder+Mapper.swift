@@ -159,7 +159,7 @@ fileprivate extension DomainLayer.DTO.Dex.MyOrder {
     }
 
     var filledPercent: Int64 {
-        return max(min(self.filled.amount / self.amount.amount, 100), 0)
+        return filled.amount * 100 / amount.amount
     }
 
     var rowFeeLoadingModel: TransactionCardKeyLoadingCell.Model {
