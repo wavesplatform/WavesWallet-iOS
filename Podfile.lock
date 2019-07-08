@@ -270,9 +270,9 @@ DEPENDENCIES:
   - TTTAttributedLabel
   - "UITextView+Placeholder"
   - UPCarouselFlowLayout
-  - WavesSDK (from `https://github.com/wavesplatform/WavesSDK-iOS.git`, branch `develop`)
-  - WavesSDKCrypto (from `https://github.com/wavesplatform/WavesSDK-iOS.git`, branch `develop`)
-  - WavesSDKExtension (from `https://github.com/wavesplatform/WavesSDK-iOS.git`, branch `develop`)
+  - WavesSDK (from `/Users/pavel/Documents/IOSWorkProjects/WavesSDK-iOS/`)
+  - WavesSDKCrypto (from `/Users/pavel/Documents/IOSWorkProjects/WavesSDK-iOS/`)
+  - WavesSDKExtension (from `/Users/pavel/Documents/IOSWorkProjects/WavesSDK-iOS/`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -353,14 +353,11 @@ EXTERNAL SOURCES:
   RESideMenu:
     :git: https://github.com/wavesplatform/RESideMenu.git
   WavesSDK:
-    :branch: develop
-    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
+    :path: "/Users/pavel/Documents/IOSWorkProjects/WavesSDK-iOS/"
   WavesSDKCrypto:
-    :branch: develop
-    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
+    :path: "/Users/pavel/Documents/IOSWorkProjects/WavesSDK-iOS/"
   WavesSDKExtension:
-    :branch: develop
-    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
+    :path: "/Users/pavel/Documents/IOSWorkProjects/WavesSDK-iOS/"
 
 CHECKOUT OPTIONS:
   InfiniteCollectionView:
@@ -369,15 +366,6 @@ CHECKOUT OPTIONS:
   RESideMenu:
     :commit: c4870be8caf988b3c164bbf5675a717a905e9952
     :git: https://github.com/wavesplatform/RESideMenu.git
-  WavesSDK:
-    :commit: 7f3a34e09c17171c0c27d7f4c77530ceace1ec92
-    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
-  WavesSDKCrypto:
-    :commit: 7f3a34e09c17171c0c27d7f4c77530ceace1ec92
-    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
-  WavesSDKExtension:
-    :commit: 7f3a34e09c17171c0c27d7f4c77530ceace1ec92
-    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
@@ -386,7 +374,7 @@ SPEC CHECKSUMS:
   AppSpectorSDK: cc49a0fcfa01200cb273782ae4e294c5aebc5fd2
   Base58: 419d6be274b8bb6ae4649e492bee67a0c1c09230
   Blake2: 682a2367efad6a4c85ecc691acfa3f9dfceeceb0
-  Charts: e0dd4cd8f257bccf98407b58183ddca8e8d5b578
+  Charts: ec1f57f9340054155691e84d4544a1d239d382c5
   Crashlytics: 5aa8e90dcbf2f34898b4f5a0037787531246cca0
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   CSV.swift: 947283699fe698d08a4d675d9e642c2bf32418a8
@@ -451,6 +439,6 @@ SPEC CHECKSUMS:
   WavesSDKCrypto: 13726c6c30ba60723d56bad89e36c40749e87120
   WavesSDKExtension: 6fc665d55211805012f28c21ef1803310c4f940b
 
-PODFILE CHECKSUM: 1128cdc2d229930fb3be93db40db6edd81eee839
+PODFILE CHECKSUM: e798696887ef235808fb6b510652ef0402db7c04
 
 COCOAPODS: 1.7.2

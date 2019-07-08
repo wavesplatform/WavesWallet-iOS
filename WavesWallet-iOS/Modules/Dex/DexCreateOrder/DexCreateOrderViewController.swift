@@ -34,7 +34,8 @@ final class DexCreateOrderViewController: UIViewController {
                                              price: input.price ?? Money(0, input.priceAsset.decimals),
                                              total: Money(0, input.priceAsset.decimals),
                                              expiration: DexCreateOrder.DTO.Expiration.expiration29d,
-                                             fee: 0)
+                                             fee: 0,
+                                             feeAssetId: WavesSDKConstants.wavesAssetId)
         }
     }
     
@@ -115,7 +116,7 @@ private extension DexCreateOrderViewController {
             return Bindings(subscriptions: owner.subscriptions(state: state), events: owner.events())
         }
         
-        presenter.system(feedbacks: [feedback])
+        presenter.system(feedbacks: [feedback], feeAssetId: order.feeAssetId)
     }
     
     func events() -> [Signal<DexCreateOrder.Event>] {
