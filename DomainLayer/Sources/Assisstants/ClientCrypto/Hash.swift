@@ -7,9 +7,7 @@
 //
 
 import Foundation
-import Keccak
-import Blake2
-import Curve25519
+import WavesSDKCrypto
 import CommonCrypto
 
 public class Hash {

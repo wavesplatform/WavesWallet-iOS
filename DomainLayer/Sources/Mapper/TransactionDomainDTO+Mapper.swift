@@ -7,9 +7,9 @@
 //
 
 import Foundation
-import Base58
+import WavesSDKCrypto
 import WavesSDK
-import WavesSDKExtension
+import WavesSDKExtensions
 import Extensions
 
 fileprivate enum TransactionDirection {
@@ -59,7 +59,7 @@ struct SmartTransactionMetaData {
 private func decodedString(_ string: String?) -> String? {
     
     if let string = string {
-        return Base58.decodeToStr(string)
+        return Base58Encoder.decodeToStr(string)
     }
     return nil
 }

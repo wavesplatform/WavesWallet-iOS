@@ -11,7 +11,7 @@ import RxSwift
 import Moya
 import CryptoSwift
 import Base58
-import WavesSDKExtension
+import WavesSDKExtensions
 import WavesSDKCrypto
 import WavesSDK
 import DomainLayer

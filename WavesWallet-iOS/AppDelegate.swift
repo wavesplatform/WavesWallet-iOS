@@ -13,7 +13,7 @@ import UIKit
 
 import AppsFlyerLib
 
-import WavesSDKExtension
+import WavesSDKExtensions
 import WavesSDK
 
 import Extensions

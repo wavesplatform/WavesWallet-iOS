@@ -7,7 +7,7 @@
 //
 
 import RxSwift
-import WavesSDKExtension
+import WavesSDKExtensions
 
 public extension Reactive where Base: TSUD {
     

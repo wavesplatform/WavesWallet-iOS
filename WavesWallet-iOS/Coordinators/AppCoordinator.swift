@@ -11,7 +11,7 @@ import UIKit
 import RxSwift
 import RESideMenu
 import RxOptional
-import WavesSDKExtension
+import WavesSDKExtensions
 import Extensions
 import DomainLayer
 

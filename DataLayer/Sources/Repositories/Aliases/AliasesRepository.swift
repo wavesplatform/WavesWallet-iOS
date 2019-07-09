@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 import Moya
-import WavesSDKExtension
+import WavesSDKExtensions
 import WavesSDK
 import DomainLayer
 

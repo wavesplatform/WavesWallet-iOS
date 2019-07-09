@@ -8,7 +8,7 @@
 
 import Foundation
 import RxSwift
-import WavesSDKExtension
+import WavesSDKExtensions
 
 private enum Constants {
     static let sortLevelNotFound: Float = -1

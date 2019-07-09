@@ -12,7 +12,7 @@ import RxRealm
 import RxSwift
 import RxOptional
 import WavesSDK
-import WavesSDKExtension
+import WavesSDKExtensions
 import DomainLayer
 import Extensions
 
