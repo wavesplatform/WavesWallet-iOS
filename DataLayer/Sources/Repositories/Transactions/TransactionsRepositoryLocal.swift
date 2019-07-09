@@ -28,7 +28,7 @@ extension Realm {
 }
 
 fileprivate extension TransactionType {
-    // The types using only wa ves assetId
+    // The types using only waves assetId
     static var waves: [TransactionType] {
         return [.createLease,
                 .cancelLease,
