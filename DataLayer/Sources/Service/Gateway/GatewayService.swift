@@ -27,7 +27,7 @@ enum Gateway {
     enum Service {
         case startWithdrawProcess(baseURL: URL, withdrawProcess: StartProcess)
         case startDepositProcess(baseURL: URL, depositProcess: StartProcess)
-        case send(baseURL: URL, broadcast: NodeService.Query.Broadcast, accountAddress: String)
+        case send(baseURL: URL, transaction: NodeService.Query.Transaction, accountAddress: String)
     }
     
     enum DTO {}
@@ -110,7 +110,7 @@ extension Gateway.Service: TargetType {
             
         case .send(let send):
             
-            var params = send.broadcast.params
+            var params = send.transaction.params
             params[Constants.Keys.sender] = send.accountAddress
             
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)

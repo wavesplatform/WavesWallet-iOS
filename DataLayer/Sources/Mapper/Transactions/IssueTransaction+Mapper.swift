@@ -51,7 +51,7 @@ extension DomainLayer.DTO.IssueTransaction {
                   fee: transaction.fee,
                   timestamp: transaction.timestamp,
                   version: transaction.version,
-                  height: transaction.height,
+                  height: transaction.height ?? 0,
                   chainId: nil,
                   signature: transaction.signature,
                   proofs: transaction.proofs,

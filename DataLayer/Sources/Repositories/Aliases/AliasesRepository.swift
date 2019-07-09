@@ -31,7 +31,7 @@ final class AliasesRepository: AliasesRepositoryProtocol {
                     .wavesServices
                     .dataServices
                     .aliasDataService
-                    .list(address: accountAddress)
+                    .aliases(address: accountAddress)
                     .map { (aliases: $0, environment: servicesEnvironment.walletEnvironment) }
             })
             .map({ data -> [DomainLayer.DTO.Alias] in

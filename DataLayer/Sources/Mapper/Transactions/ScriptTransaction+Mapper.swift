@@ -36,7 +36,7 @@ extension ScriptTransaction {
 
 extension DomainLayer.DTO.ScriptTransaction {
 
-    init(transaction: NodeService.DTO.ScriptTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
+    init(transaction: NodeService.DTO.SetScriptTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
         
         self.init(type: transaction.type,
                   id: transaction.id,
