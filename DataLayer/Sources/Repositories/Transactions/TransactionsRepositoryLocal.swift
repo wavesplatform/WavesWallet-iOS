@@ -12,7 +12,7 @@ import RxRealm
 import RxSwift
 import RxOptional
 import WavesSDK
-import WavesSDKExtension
+import WavesSDKExtensions
 import DomainLayer
 import Extensions
 
@@ -28,11 +28,11 @@ extension Realm {
 }
 
 fileprivate extension TransactionType {
-    // The types using only waves assetId
+    // The types using only wa ves assetId
     static var waves: [TransactionType] {
-        return [.lease,
-                .leaseCancel,
-                .alias,
+        return [.createLease,
+                .cancelLease,
+                .createAlias,
                 .data,
                 .script]
     }
@@ -40,7 +40,7 @@ fileprivate extension TransactionType {
     func predicate(from specifications: TransactionsSpecifications, myAddress: DomainLayer.DTO.Address) -> NSPredicate {
 
         switch self {
-        case .alias:
+        case .createAlias:
             return AliasTransaction.predicate(specifications, myAddress: myAddress)
 
         case .issue:
@@ -58,10 +58,10 @@ fileprivate extension TransactionType {
         case .exchange:
             return ExchangeTransaction.predicate(specifications, myAddress: myAddress)
 
-        case .lease:
+        case .createLease:
             return LeaseTransaction.predicate(specifications, myAddress: myAddress)
 
-        case .leaseCancel:
+        case .cancelLease:
             return LeaseCancelTransaction.predicate(specifications, myAddress: myAddress)
 
         case .massTransfer:
@@ -90,7 +90,7 @@ fileprivate extension TransactionType {
     func anyTransaction(from transaction: AnyTransaction) -> DomainLayer.DTO.AnyTransaction? {
 
         switch self {
-        case .alias:
+        case .createAlias:
             guard let aliasTransaction = transaction.aliasTransaction else { return nil }
             return .alias(.init(transaction: aliasTransaction))
 
@@ -114,11 +114,11 @@ fileprivate extension TransactionType {
             guard let exchangeTransaction = transaction.exchangeTransaction else { return nil }
             return .exchange(.init(transaction: exchangeTransaction))
 
-        case .lease:
+        case .createLease:
             guard let leaseTransaction = transaction.leaseTransaction else { return nil }
             return .lease(.init(transaction: leaseTransaction))
 
-        case .leaseCancel:
+        case .cancelLease:
             guard let leaseCancelTransaction = transaction.leaseCancelTransaction else { return nil }
             return .leaseCancel(.init(transaction: leaseCancelTransaction))
 
@@ -231,7 +231,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
         var transactions = [DomainLayer.DTO.AnyTransaction]()
 
         for any in txs {
-            guard let type = TransactionType(rawValue: any.type) else { continue }
+            guard let type = TransactionType(rawValue: Int8(any.type)) else { continue }
             guard let tx = type.anyTransaction(from: any) else { continue }
             transactions.append(tx)
         }
@@ -288,7 +288,7 @@ final class TransactionsRepositoryLocal: TransactionsRepositoryProtocol {
                                  specifications: TransactionsSpecifications(page: nil,
                                                                             assets: .init(),
                                                                             senders: .init(),
-                                                                            types: [TransactionType.lease]))
+                                                                            types: [TransactionType.createLease]))
             .map({ txs -> [DomainLayer.DTO.LeaseTransaction] in
                 return txs.map({ tx -> DomainLayer.DTO.LeaseTransaction? in
                     if case .lease(let leaseTx) = tx {

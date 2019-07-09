@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import WavesSDKExtension
+import WavesSDKExtensions
 import WavesSDK
 import DomainLayer
 
@@ -66,7 +66,7 @@ extension DomainLayer.DTO.MassTransferTransaction {
                   fee: transaction.fee,
                   timestamp: transaction.timestamp,
                   version: transaction.version,
-                  height: transaction.height,
+                  height: transaction.height ?? 0,
                   proofs: transaction.proofs,
                   assetId: transaction.assetId.normalizeAssetId,
                   attachment: transaction.attachment,

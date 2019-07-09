@@ -46,7 +46,7 @@ extension DomainLayer.DTO.ReissueTransaction {
                   fee: transaction.fee,
                   timestamp: transaction.timestamp,
                   version: transaction.version,
-                  height: transaction.height,
+                  height: transaction.height ?? 0,
                   signature: transaction.signature,
                   proofs: transaction.proofs,
                   chainId: transaction.chainId,

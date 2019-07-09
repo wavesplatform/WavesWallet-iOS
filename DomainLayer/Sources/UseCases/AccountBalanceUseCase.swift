@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import RxSwiftExt
 import WavesSDK
-import WavesSDKExtension
+import WavesSDKExtensions
 import Extensions
 
 fileprivate enum Constants {

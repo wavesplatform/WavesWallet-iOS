@@ -8,7 +8,7 @@
 
 import Foundation
 import RxSwift
-import WavesSDKExtension
+import WavesSDKExtensions
 import WavesSDK
 import Extensions
 import DomainLayer

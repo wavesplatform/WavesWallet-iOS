@@ -11,7 +11,6 @@ import RxSwift
 import DomainLayer
 import Moya
 import Extensions
-import Base58
 import WavesSDK
 
 final class GatewayRepository: GatewayRepositoryProtocol {
@@ -94,7 +93,7 @@ final class GatewayRepository: GatewayRepositoryProtocol {
                 guard let broadcastSpecification = specs else { return Observable.empty() }
                 
                 return self.gatewayProvider.rx
-                    .request(.send(baseURL: url ,broadcast: broadcastSpecification, accountAddress: wallet.address),
+                    .request(.send(baseURL: url, transaction: broadcastSpecification, accountAddress: wallet.address),
                              callbackQueue: DispatchQueue.global(qos: .userInteractive))
                 .filterSuccessfulStatusAndRedirectCodes()
                 .asObservable()
