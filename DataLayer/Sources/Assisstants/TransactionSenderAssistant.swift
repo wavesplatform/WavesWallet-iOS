@@ -9,7 +9,7 @@ import Foundation
 import DomainLayer
 import WavesSDK
 import WavesSDKExtensions
-import Base58
+import WavesSDKCrypto
 
 extension TransactionSenderSpecifications {
     
@@ -32,7 +32,7 @@ extension TransactionSenderSpecifications {
             return nil
         }
         
-        let proofs = [Base58.encode(signature)]
+        let proofs = [Base58Encoder.encode(signature)]
         
         let broadcastSpecification = self.continueBroadcastSpecification(timestamp: timestamp,
                                                                          environment: walletEnvironment,
@@ -122,7 +122,7 @@ extension TransactionSenderSpecifications {
                                                           assetId: model.assetId,
                                                           amount: model.amount,
                                                           fee: model.fee,
-                                                          attachment: Base58.encode(Array(model.attachment.utf8)),
+                                                          attachment: Base58Encoder.encode(Array(model.attachment.utf8)),
                                                           feeAssetId: model.getFeeAssetID,
                                                           feeAsset: model.getFeeAssetID,
                                                           timestamp: timestamp,
@@ -141,7 +141,7 @@ extension TransactionSenderSpecifications {
             let bytes = TransactionSignatureV2.data(.init(fee: model.fee,
                                                           data: model.dataForSignature,
                                                           scheme: scheme,
-                                                          senderPublicKey: Base58.encode(publicKey),
+                                                          senderPublicKey: Base58Encoder.encode(publicKey),
                                                           timestamp: timestamp)).bytesStructure
             
             return bytes
@@ -152,7 +152,7 @@ extension TransactionSenderSpecifications {
                                                           quantity: model.quantity,
                                                           fee: model.fee,
                                                           scheme: scheme,
-                                                          senderPublicKey: Base58.encode(publicKey),
+                                                          senderPublicKey: Base58Encoder.encode(publicKey),
                                                           timestamp: timestamp)).bytesStructure
             
             return bytes
@@ -162,7 +162,7 @@ extension TransactionSenderSpecifications {
             let bytes = TransactionSignatureV2.cancelLease(.init(leaseId: model.leaseId,
                                                                  fee: model.fee,
                                                                  scheme: scheme,
-                                                                 senderPublicKey: Base58.encode(publicKey),
+                                                                 senderPublicKey: Base58Encoder.encode(publicKey),
                                                                  timestamp: timestamp)).bytesStructure
             
             return bytes
@@ -173,7 +173,7 @@ extension TransactionSenderSpecifications {
             let bytes = TransactionSignatureV2.createAlias(.init(alias: model.alias,
                                                                  fee: model.fee,
                                                                  scheme: scheme,
-                                                                 senderPublicKey: Base58.encode(publicKey),
+                                                                 senderPublicKey: Base58Encoder.encode(publicKey),
                                                                  timestamp: timestamp)).bytesStructure
             
             return bytes
@@ -184,14 +184,14 @@ extension TransactionSenderSpecifications {
                                                                 amount: model.amount,
                                                                 fee: model.fee,
                                                                 scheme: scheme,
-                                                                senderPublicKey: Base58.encode(publicKey),
+                                                                senderPublicKey: Base58Encoder.encode(publicKey),
                                                                 timestamp: timestamp)).bytesStructure
             
             return bytes
             
         case .send(let model):
             
-            let bytes = TransactionSignatureV2.transfer(.init(senderPublicKey: Base58.encode(publicKey),
+            let bytes = TransactionSignatureV2.transfer(.init(senderPublicKey: Base58Encoder.encode(publicKey),
                                                               recipient: model.recipient,
                                                               assetId: model.assetId,
                                                               amount: model.amount,

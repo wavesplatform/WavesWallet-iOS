@@ -11,7 +11,6 @@ import RxSwift
 import DomainLayer
 import Moya
 import Extensions
-import Base58
 import WavesSDK
 
 final class GatewayRepository: GatewayRepositoryProtocol {

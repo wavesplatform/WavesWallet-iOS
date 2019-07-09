@@ -205,15 +205,15 @@ PODS:
   - TTTAttributedLabel (2.0.0)
   - "UITextView+Placeholder (1.2.1)"
   - UPCarouselFlowLayout (1.1.2)
-  - WavesSDK (0.1.5):
+  - WavesSDK (0.1.6):
     - Moya (~> 12.0.1)
     - Moya/RxSwift (~> 12.0.1)
     - RxSwift (~> 4.0)
     - WavesSDKCrypto
     - WavesSDKExtensions
-  - WavesSDKCrypto (0.1.5):
+  - WavesSDKCrypto (0.1.6):
     - WavesSDKExtensions
-  - WavesSDKExtensions (0.1.5):
+  - WavesSDKExtensions (0.1.6):
     - RxSwift (~> 4.0)
 
 DEPENDENCIES:
@@ -263,9 +263,9 @@ DEPENDENCIES:
   - TTTAttributedLabel
   - "UITextView+Placeholder"
   - UPCarouselFlowLayout
-  - WavesSDK
-  - WavesSDKCrypto
-  - WavesSDKExtensions
+  - WavesSDK (from `https://github.com/wavesplatform/WavesSDK-iOS`)
+  - WavesSDKCrypto (from `https://github.com/wavesplatform/WavesSDK-iOS`)
+  - WavesSDKExtensions (from `https://github.com/wavesplatform/WavesSDK-iOS`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -326,9 +326,6 @@ SPEC REPOS:
     - TTTAttributedLabel
     - "UITextView+Placeholder"
     - UPCarouselFlowLayout
-    - WavesSDK
-    - WavesSDKCrypto
-    - WavesSDKExtensions
 
 EXTERNAL SOURCES:
   DataLayer:
@@ -344,6 +341,12 @@ EXTERNAL SOURCES:
     :git: https://github.com/wavesplatform/InfiniteCollectionView.git
   RESideMenu:
     :git: https://github.com/wavesplatform/RESideMenu.git
+  WavesSDK:
+    :git: https://github.com/wavesplatform/WavesSDK-iOS
+  WavesSDKCrypto:
+    :git: https://github.com/wavesplatform/WavesSDK-iOS
+  WavesSDKExtensions:
+    :git: https://github.com/wavesplatform/WavesSDK-iOS
 
 CHECKOUT OPTIONS:
   IdentityImg:
@@ -355,6 +358,15 @@ CHECKOUT OPTIONS:
   RESideMenu:
     :commit: c4870be8caf988b3c164bbf5675a717a905e9952
     :git: https://github.com/wavesplatform/RESideMenu.git
+  WavesSDK:
+    :commit: 1d2621ce6bd99c5120b993b9ac4cfcefada92e74
+    :git: https://github.com/wavesplatform/WavesSDK-iOS
+  WavesSDKCrypto:
+    :commit: 1d2621ce6bd99c5120b993b9ac4cfcefada92e74
+    :git: https://github.com/wavesplatform/WavesSDK-iOS
+  WavesSDKExtensions:
+    :commit: 1d2621ce6bd99c5120b993b9ac4cfcefada92e74
+    :git: https://github.com/wavesplatform/WavesSDK-iOS
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
@@ -420,10 +432,10 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
-  WavesSDK: 87237ccc0d06ce25f397c49f898ff46b244c0c9c
-  WavesSDKCrypto: 5b3a83fb84cfdb495d2635fae90afd8682833f21
-  WavesSDKExtensions: fb8f09b3b237f7fa3f5827e6b933ec9efc1f8b68
+  WavesSDK: 8b3cf3b9b75154085c9781c6417d7d7c2471d853
+  WavesSDKCrypto: c7dc339bce357a2ee3c498821d4c0dc17b504d91
+  WavesSDKExtensions: 047216f7d0d336895569bf38706a0fe48eb74089
 
-PODFILE CHECKSUM: d71e98747e398d30a67a16f774deed9a04efb473
+PODFILE CHECKSUM: 0767e4dd73807c2142b3206a99aa44f7ed0da9d7
 
 COCOAPODS: 1.7.3
