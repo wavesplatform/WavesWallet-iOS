@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import WavesSDKExtension
+import WavesSDKExtensions
 import WavesSDK
 import DomainLayer
 import Extensions
@@ -38,7 +38,7 @@ extension AssetScriptTransaction {
 
 extension DomainLayer.DTO.AssetScriptTransaction {
 
-    init(transaction: NodeService.DTO.AssetScriptTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
+    init(transaction: NodeService.DTO.SetAssetScriptTransaction, status: DomainLayer.DTO.TransactionStatus, environment: WalletEnvironment) {
         
         self.init(type: transaction.type,
                   id: transaction.id,

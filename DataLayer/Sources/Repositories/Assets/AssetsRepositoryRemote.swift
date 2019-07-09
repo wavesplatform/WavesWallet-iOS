@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import Moya
 import CSV
-import WavesSDKExtension
+import WavesSDKExtensions
 import WavesSDK
 import DomainLayer
 import Extensions

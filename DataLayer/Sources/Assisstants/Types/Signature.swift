@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import WavesSDKExtension
-import Base58
+import WavesSDKExtensions
+import WavesSDKCrypto
 import DomainLayer
 import Extensions
 
@@ -35,6 +35,6 @@ extension SignatureProtocol {
     }
     
     func signature() -> String {
-        return Base58.encode(signature())
+        return Base58Encoder.encode(signature())
     }
 }

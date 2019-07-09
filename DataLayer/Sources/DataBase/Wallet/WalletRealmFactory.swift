@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 import WavesSDK
-import WavesSDKExtension
+import WavesSDKExtensions
 import DomainLayer
 
 fileprivate enum SchemaVersions: UInt64 {

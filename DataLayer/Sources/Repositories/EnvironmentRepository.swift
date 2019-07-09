@@ -11,7 +11,7 @@ import Moya
 import RealmSwift
 import RxRealm
 import RxSwift
-import WavesSDKExtension
+import WavesSDKExtensions
 import WavesSDK
 import DomainLayer
 import Extensions
