@@ -9,7 +9,7 @@
 import UIKit
 import IQKeyboardManagerSwift
 import IdentityImg
-import WavesSDKExtension
+import WavesSDKExtensions
 
 protocol ImportAccountPasswordViewControllerDelegate: AnyObject  {
     func userCompletedInputAccountData(password: String, name: String)

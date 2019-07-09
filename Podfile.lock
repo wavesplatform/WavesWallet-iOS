@@ -3,8 +3,6 @@ PODS:
   - Amplitude-iOS (4.6.0)
   - AppsFlyerFramework (4.10.0)
   - AppSpectorSDK (1.2.1)
-  - Base58 (0.3)
-  - Blake2 (0.1)
   - Charts (3.3.0):
     - Charts/Core (= 3.3.0)
   - Charts/Core (3.3.0)
@@ -12,7 +10,6 @@ PODS:
     - Fabric (~> 1.10.1)
   - CryptoSwift (1.0.0)
   - CSV.swift (2.4.0)
-  - Curve25519 (2.0.3)
   - DataLayer (0.1):
     - Amplitude-iOS
     - AppsFlyerFramework
@@ -35,9 +32,10 @@ PODS:
     - Sentry
     - WavesSDK
     - WavesSDKCrypto
-    - WavesSDKExtension
+    - WavesSDKExtensions
   - DeviceKit (1.13.0)
   - DomainLayer (0.1):
+    - CryptoSwift
     - Extensions
     - KeychainAccess
     - RealmSwift
@@ -48,7 +46,7 @@ PODS:
     - RxSwiftExt
     - WavesSDK
     - WavesSDKCrypto
-    - WavesSDKExtension
+    - WavesSDKExtensions
   - Extensions (0.1):
     - DeviceKit
     - RxOptional
@@ -56,7 +54,7 @@ PODS:
     - RxSwiftExt
     - WavesSDK
     - WavesSDKCrypto
-    - WavesSDKExtension
+    - WavesSDKExtensions
   - Fabric (1.10.1)
   - Firebase (6.0.0):
     - Firebase/Core (= 6.0.0)
@@ -137,7 +135,6 @@ PODS:
   - IdentityImg (0.2)
   - InfiniteCollectionView (1.3.2)
   - IQKeyboardManagerSwift (6.3.0)
-  - Keccak (0.2)
   - KeychainAccess (3.2.0)
   - Kingfisher (5.5.0)
   - Koloda (5.0):
@@ -208,20 +205,15 @@ PODS:
   - TTTAttributedLabel (2.0.0)
   - "UITextView+Placeholder (1.2.1)"
   - UPCarouselFlowLayout (1.1.2)
-  - WavesSDK (0.1.1):
+  - WavesSDK (0.1.7):
     - Moya (~> 12.0.1)
     - Moya/RxSwift (~> 12.0.1)
     - RxSwift (~> 4.0)
     - WavesSDKCrypto
-    - WavesSDKExtension
-  - WavesSDKCrypto (0.1.3):
-    - Base58
-    - Blake2
-    - CryptoSwift
-    - Curve25519
-    - Keccak
-    - WavesSDKExtension
-  - WavesSDKExtension (0.1.3):
+    - WavesSDKExtensions
+  - WavesSDKCrypto (0.1.7):
+    - WavesSDKExtensions
+  - WavesSDKExtensions (0.1.7):
     - RxSwift (~> 4.0)
 
 DEPENDENCIES:
@@ -230,6 +222,7 @@ DEPENDENCIES:
   - AppSpectorSDK
   - Charts
   - Crashlytics
+  - CryptoSwift
   - CSV.swift
   - DataLayer (from `.`)
   - DeviceKit
@@ -240,7 +233,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/InAppMessagingDisplay
-  - IdentityImg
+  - IdentityImg (from `https://github.com/wavesplatform/identity-img-swift.git`)
   - InfiniteCollectionView (from `https://github.com/wavesplatform/InfiniteCollectionView.git`, branch `swift5`)
   - IQKeyboardManagerSwift
   - KeychainAccess
@@ -270,9 +263,9 @@ DEPENDENCIES:
   - TTTAttributedLabel
   - "UITextView+Placeholder"
   - UPCarouselFlowLayout
-  - WavesSDK (from `https://github.com/wavesplatform/WavesSDK-iOS.git`, commit `7f3a34e09c17171c0c27d7f4c77530ceace1ec92`)
-  - WavesSDKCrypto (from `https://github.com/wavesplatform/WavesSDK-iOS.git`, commit `7f3a34e09c17171c0c27d7f4c77530ceace1ec92`)
-  - WavesSDKExtension (from `https://github.com/wavesplatform/WavesSDK-iOS.git`, commit `7f3a34e09c17171c0c27d7f4c77530ceace1ec92`)
+  - WavesSDK (from `https://github.com/wavesplatform/WavesSDK-iOS`)
+  - WavesSDKCrypto (from `https://github.com/wavesplatform/WavesSDK-iOS`)
+  - WavesSDKExtensions (from `https://github.com/wavesplatform/WavesSDK-iOS`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -333,12 +326,6 @@ SPEC REPOS:
     - TTTAttributedLabel
     - "UITextView+Placeholder"
     - UPCarouselFlowLayout
-  https://github.com/wavesplatform/Specs.git:
-    - Base58
-    - Blake2
-    - Curve25519
-    - IdentityImg
-    - Keccak
 
 EXTERNAL SOURCES:
   DataLayer:
@@ -347,22 +334,24 @@ EXTERNAL SOURCES:
     :path: "."
   Extensions:
     :path: "."
+  IdentityImg:
+    :git: https://github.com/wavesplatform/identity-img-swift.git
   InfiniteCollectionView:
     :branch: swift5
     :git: https://github.com/wavesplatform/InfiniteCollectionView.git
   RESideMenu:
     :git: https://github.com/wavesplatform/RESideMenu.git
   WavesSDK:
-    :commit: 7f3a34e09c17171c0c27d7f4c77530ceace1ec92
-    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
+    :git: https://github.com/wavesplatform/WavesSDK-iOS
   WavesSDKCrypto:
-    :commit: 7f3a34e09c17171c0c27d7f4c77530ceace1ec92
-    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
-  WavesSDKExtension:
-    :commit: 7f3a34e09c17171c0c27d7f4c77530ceace1ec92
-    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
+    :git: https://github.com/wavesplatform/WavesSDK-iOS
+  WavesSDKExtensions:
+    :git: https://github.com/wavesplatform/WavesSDK-iOS
 
 CHECKOUT OPTIONS:
+  IdentityImg:
+    :commit: 225bfa9f534eb09c3ac0e0dbd77e0a4d99a287f1
+    :git: https://github.com/wavesplatform/identity-img-swift.git
   InfiniteCollectionView:
     :commit: 0ea9140787e243a76b511ffc04c62e623262ef31
     :git: https://github.com/wavesplatform/InfiniteCollectionView.git
@@ -370,31 +359,28 @@ CHECKOUT OPTIONS:
     :commit: c4870be8caf988b3c164bbf5675a717a905e9952
     :git: https://github.com/wavesplatform/RESideMenu.git
   WavesSDK:
-    :commit: 7f3a34e09c17171c0c27d7f4c77530ceace1ec92
-    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
+    :commit: b00973467274d76e40fddeef55b360a246988b20
+    :git: https://github.com/wavesplatform/WavesSDK-iOS
   WavesSDKCrypto:
-    :commit: 7f3a34e09c17171c0c27d7f4c77530ceace1ec92
-    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
-  WavesSDKExtension:
-    :commit: 7f3a34e09c17171c0c27d7f4c77530ceace1ec92
-    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
+    :commit: b00973467274d76e40fddeef55b360a246988b20
+    :git: https://github.com/wavesplatform/WavesSDK-iOS
+  WavesSDKExtensions:
+    :commit: b00973467274d76e40fddeef55b360a246988b20
+    :git: https://github.com/wavesplatform/WavesSDK-iOS
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   Amplitude-iOS: ac1715ae68104b7a51723209ad574f60ab22ae5f
   AppsFlyerFramework: d356c24fa0653bfa518b09613f6b46e980600e90
   AppSpectorSDK: cc49a0fcfa01200cb273782ae4e294c5aebc5fd2
-  Base58: 419d6be274b8bb6ae4649e492bee67a0c1c09230
-  Blake2: 682a2367efad6a4c85ecc691acfa3f9dfceeceb0
   Charts: e0dd4cd8f257bccf98407b58183ddca8e8d5b578
   Crashlytics: 5aa8e90dcbf2f34898b4f5a0037787531246cca0
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   CSV.swift: 947283699fe698d08a4d675d9e642c2bf32418a8
-  Curve25519: 4c9483171010b27488a3bac6ee327588a1182fb4
-  DataLayer: 4a49ab95fff9e8db87e0123a07a6e09a0b7d4a2d
+  DataLayer: 34e6bb6c9a7bcd8d5c2964486012c7a29f6883c0
   DeviceKit: 5a4accdb2918ce0b69e62dc3bef6e4d2cc06e2e4
-  DomainLayer: 25858bba49dd480a61adb36b89bba68f27087c11
-  Extensions: 5f1848be75374fd1a579d1423fe85a88438e69f1
+  DomainLayer: f30ec40e9ebd54fb9d84e39967bd5962d62e2f20
+  Extensions: 02564a21a50066437f02610f7bcac62eeb537846
   Fabric: f6f21452846788bb44595d73e9909d79d328e617
   Firebase: fa80b9d987ca014a1ba9357496ef2a0178b28b12
   FirebaseAnalytics: 1743c5f4de3687d0745709dfdc4b1dea1484f44c
@@ -409,10 +395,9 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 7f028ea162b72c8f326daec74afc95d94f7a47d6
   GoogleUtilities: 84df567c76ca84f67b7bb40e769fdd4acc746a10
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
-  IdentityImg: 9012dceefa148c3aac55c61ff2170a0e3a1a869a
+  IdentityImg: 4c81857fc8a80294e6c480b4f72cb3e22cd360c2
   InfiniteCollectionView: 49a7639a04c7cb21164de3840245f084fda257d0
   IQKeyboardManagerSwift: a8228c257614af98743b4cd8584637025f36358f
-  Keccak: 746b8f26ac04386f165f55998ca7c81666b8721d
   KeychainAccess: 3b1bf8a77eb4c6ea1ce9404c292e48f948954c6b
   Kingfisher: 6fe5e67a90fd335e49b0f5c075ff55ac5ebedd94
   Koloda: 75302d21882cc3e274c1561b1155805ea5919dab
@@ -447,10 +432,10 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
-  WavesSDK: 25ce6d414f09a852c3e8bd92d5ee5c13b3db9ae8
-  WavesSDKCrypto: 13726c6c30ba60723d56bad89e36c40749e87120
-  WavesSDKExtension: 6fc665d55211805012f28c21ef1803310c4f940b
+  WavesSDK: c10f119e155e1881f50e973628c75725a5b84fc8
+  WavesSDKCrypto: 9d8010b2f2289167a53351703b644322346bd351
+  WavesSDKExtensions: ef86e47b11766b9fd8084b0964f55cfc00c66532
 
-PODFILE CHECKSUM: bd5d4bbab04babc0247042f3ad3a963fc9568fd0
+PODFILE CHECKSUM: 0767e4dd73807c2142b3206a99aa44f7ed0da9d7
 
 COCOAPODS: 1.7.3

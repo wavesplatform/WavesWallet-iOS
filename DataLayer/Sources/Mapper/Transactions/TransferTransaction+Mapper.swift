@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import WavesSDKExtension
+import WavesSDKExtensions
 import WavesSDK
 import DomainLayer
 import Extensions
@@ -57,7 +57,7 @@ extension DomainLayer.DTO.TransferTransaction {
                   recipient: transaction.recipient.normalizeAddress(environment: environment),
                   assetId: transaction.assetId.normalizeAssetId,
                   feeAssetId: transaction.feeAssetId.normalizeAssetId,
-                  feeAsset: transaction.feeAsset,
+                  feeAsset: transaction.feeAssetId,
                   amount: transaction.amount,
                   attachment: transaction.attachment,
                   modified: Date(),

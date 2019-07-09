@@ -9,7 +9,7 @@
 import UIKit
 import Crashlytics
 import RxSwift
-import WavesSDKExtension
+import WavesSDKExtensions
 import Extensions
 import DomainLayer
 

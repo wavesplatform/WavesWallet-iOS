@@ -8,7 +8,7 @@
 
 import Foundation
 import RxSwift
-import WavesSDKExtension
+import WavesSDKExtensions
 import WavesSDK
 import Extensions
 
@@ -484,7 +484,7 @@ fileprivate extension TransactionsUseCase {
             .transactions(by: query.address, specifications: TransactionsSpecifications(page: nil,
                                                                                         assets: [],
                                                                                         senders: [],
-                                                                                        types: [TransactionType.lease]))
+                                                                                        types: [TransactionType.createLease]))
             .flatMap { (txs) -> Observable<[String: DomainLayer.DTO.AnyTransaction]> in
                 let map = txs.reduce(into: [String: DomainLayer.DTO.AnyTransaction].init(), { (result, tx) in
                     result[tx.id] = tx
@@ -913,13 +913,13 @@ private extension DomainLayer.Query.TransactionSpecificationType {
     var transactionType: TransactionType? {
         switch self {
         case .createAlias:
-            return TransactionType.alias
+            return TransactionType.createAlias
 
         case .lease:
-            return TransactionType.lease
+            return TransactionType.createLease
 
         case .cancelLease:
-            return TransactionType.leaseCancel
+            return TransactionType.cancelLease
 
         case .burn:
             return TransactionType.burn

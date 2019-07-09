@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import WavesSDKExtension
+import WavesSDKExtensions
 import Extensions
 
 private enum Constants {

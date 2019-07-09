@@ -10,8 +10,8 @@ import Foundation
 import RxSwift
 import Realm
 import RealmSwift
-import Base58
-import WavesSDKExtension
+import WavesSDKCrypto
+import WavesSDKExtensions
 import Extensions
 
 fileprivate struct ApplicationVersion: Codable, TSUD {
@@ -94,7 +94,7 @@ public final class MigrationUseCase: MigrationUseCaseProtocol {
 
                 let newWallets = wallets.map({ wallet -> DomainLayer.DTO.Wallet in
                     let id = UUID().uuidString
-                    let address = PublicKeyAccount(publicKey: Base58.decode(wallet.publicKey)).address
+                    let address = PublicKeyAccount(publicKey: Base58Encoder.decode(wallet.publicKey)).address
                     return DomainLayer.DTO.Wallet(name: wallet.name,
                                                   address: address,
                                                   publicKey: wallet.publicKey,

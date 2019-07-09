@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 import Kingfisher
-import WavesSDKExtension
+import WavesSDKExtensions
 import DomainLayer
 import Extensions
 

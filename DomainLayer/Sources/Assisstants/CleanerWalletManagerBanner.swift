@@ -8,7 +8,7 @@
 
 import Foundation
 import RxSwift
-import WavesSDKExtension
+import WavesSDKExtensions
 import Extensions
 
 extension CleanerWalletManagerBanner: ReactiveCompatible {}
