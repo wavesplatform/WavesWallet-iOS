@@ -111,7 +111,7 @@ private extension AccountBalanceRepositoryRemote {
                     .wavesServices
                     .matcherServices
                     .balanceMatcherService
-                    .reservedBalances(query: .init(senderPublicKey: wallet.publicKey.getPublicKeyStr(),
+                    .balanceReserved(query: .init(senderPublicKey: wallet.publicKey.getPublicKeyStr(),
                                                    signature: Base58Encoder.encode(signature.signature()),
                                                    timestamp: signature.timestamp))
             })

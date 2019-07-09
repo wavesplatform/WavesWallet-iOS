@@ -43,7 +43,7 @@ final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
                 .wavesServices
                 .dataServices
                 .transactionsDataService
-                .exchangeFilters(query: query)
+                .transactionsExchange(query: query)
                 .flatMap({ (transactions) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> in
                     
                     var trades: [DomainLayer.DTO.Dex.LastTrade] = []

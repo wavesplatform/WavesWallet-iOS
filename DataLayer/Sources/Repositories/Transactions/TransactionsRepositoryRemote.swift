@@ -45,16 +45,16 @@ extension TransactionSenderSpecifications {
     var type: TransactionType {
         switch self {
         case .createAlias:
-            return TransactionType.alias
+            return TransactionType.createAlias
 
         case .lease:
-            return TransactionType.lease
+            return TransactionType.createLease
             
         case .burn:
             return TransactionType.burn
 
         case .cancelLease:
-            return TransactionType.leaseCancel
+            return TransactionType.cancelLease
 
         case .data:
             return TransactionType.data
@@ -91,7 +91,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                     .wavesServices
                     .nodeServices
                     .transactionNodeService
-                    .list(address: address.address,
+                    .transactions(by: address.address,
                           offset: 0,
                           limit: limit)
                     .map { $0.anyTransactions(status: .completed, environment: servicesEnvironment.walletEnvironment) }
@@ -110,7 +110,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                     .wavesServices
                     .nodeServices
                     .leasingNodeService
-                    .activeLeasingTransactions(by: accountAddress)
+                    .leasingActiveTransactions(by: accountAddress)
                     .map { $0.map { tx in
                         return DomainLayer.DTO.LeaseTransaction(transaction: tx,
                                                                 status: .activeNow,
@@ -140,7 +140,7 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
                     .wavesServices
                     .nodeServices
                     .transactionNodeService
-                    .broadcast(query: broadcastSpecification)
+                    .transactions(query: broadcastSpecification)
                     .map({ $0.anyTransaction(status: .unconfirmed, environment: walletEnvironment) })
                     .asObservable()
             })

@@ -56,7 +56,7 @@ extension DomainLayer.DTO.InvokeScriptTransaction {
                   version: transaction.version,
                   dappAddress: transaction.dApp,
                   payment: transaction.payment.first.map { .init(amount: $0.amount, assetId: $0.assetId) },
-                  height: transaction.height,
+                  height: transaction.height ?? 0,
                   modified: Date(),
                   status: status)
     }
