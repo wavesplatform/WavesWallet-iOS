@@ -263,9 +263,9 @@ DEPENDENCIES:
   - TTTAttributedLabel
   - "UITextView+Placeholder"
   - UPCarouselFlowLayout
-  - WavesSDK (from `https://github.com/wavesplatform/WavesSDK-iOS.git`)
-  - WavesSDKCrypto (from `https://github.com/wavesplatform/WavesSDK-iOS.git`)
-  - WavesSDKExtensions (from `https://github.com/wavesplatform/WavesSDK-iOS.git`)
+  - WavesSDK (from `./Vendors/WavesSDK`)
+  - WavesSDKCrypto (from `./Vendors/WavesSDK`)
+  - WavesSDKExtensions (from `./Vendors/WavesSDK`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -342,11 +342,11 @@ EXTERNAL SOURCES:
   RESideMenu:
     :git: https://github.com/wavesplatform/RESideMenu.git
   WavesSDK:
-    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
+    :path: "./Vendors/WavesSDK"
   WavesSDKCrypto:
-    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
+    :path: "./Vendors/WavesSDK"
   WavesSDKExtensions:
-    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
+    :path: "./Vendors/WavesSDK"
 
 CHECKOUT OPTIONS:
   IdentityImg:
@@ -358,15 +358,6 @@ CHECKOUT OPTIONS:
   RESideMenu:
     :commit: c4870be8caf988b3c164bbf5675a717a905e9952
     :git: https://github.com/wavesplatform/RESideMenu.git
-  WavesSDK:
-    :commit: 577234c23b6cf46652283e315b795795cf43132d
-    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
-  WavesSDKCrypto:
-    :commit: 577234c23b6cf46652283e315b795795cf43132d
-    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
-  WavesSDKExtensions:
-    :commit: 577234c23b6cf46652283e315b795795cf43132d
-    :git: https://github.com/wavesplatform/WavesSDK-iOS.git
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
@@ -436,6 +427,6 @@ SPEC CHECKSUMS:
   WavesSDKCrypto: 9d8010b2f2289167a53351703b644322346bd351
   WavesSDKExtensions: ef86e47b11766b9fd8084b0964f55cfc00c66532
 
-PODFILE CHECKSUM: 684a963a3d174fc98a515a8c7b26b33650f6200b
+PODFILE CHECKSUM: f7e46340b41629067500e3a0a47e9c016b010518
 
 COCOAPODS: 1.7.2
