@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import Extensions
 import DomainLayer
+import WavesSDK
 
 fileprivate enum Constants {
     static let limitTransactions = 10000
@@ -43,7 +44,7 @@ final class HistoryInteractor: HistoryInteractorProtocol {
             specifications = TransactionsSpecifications.init(page: .init(offset: 0, limit: Constants.limitTransactions),
                                                assets: [],
                                                senders: [],
-                                               types: [.lease, .leaseCancel])
+                                               types: [.createLease, .cancelLease])
         }
         
         return loadingTransactions(specifications: specifications)

@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import WavesSDK
 
 public enum TransactionsRepositoryError: Error {
     case fail
@@ -19,26 +20,7 @@ public enum TransactionStatus: Int, Decodable {
     case unconfirmed
 }
 
-public enum TransactionType: Int {
-    case issue = 3
-    case transfer = 4
-    case reissue = 5
-    case burn = 6
-    case exchange = 7
-    case lease = 8
-    case leaseCancel = 9
-    case alias = 10
-    case massTransfer = 11
-    case data = 12
-    case script = 13
-    case sponsorship = 14
-    case assetScript = 15
-    case invokeScript = 16
-    case any_17 = 17
-    case any_18 = 18
-    case any_19 = 19
-    case any_20 = 20
-    case any_21 = 21
+public extension TransactionType {
 
     public static var all: [TransactionType] {
         return [.issue,
@@ -46,20 +28,15 @@ public enum TransactionType: Int {
                 .reissue,
                 .burn,
                 .exchange,
-                .lease,
-                .leaseCancel,
-                .alias,
+                .createLease,
+                .cancelLease,
+                .createAlias,
                 .massTransfer,
                 .data,
                 .script,
                 .sponsorship,
                 .assetScript,
-                .invokeScript,
-                .any_17,
-                .any_18,
-                .any_19,
-                .any_20,
-                .any_21]
+                .invokeScript]
     }
 }
 

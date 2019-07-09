@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import WavesSDKExtension
+import WavesSDKExtensions
 
 private enum Constants {
     static let deltaButtonWidth: CGFloat = 50

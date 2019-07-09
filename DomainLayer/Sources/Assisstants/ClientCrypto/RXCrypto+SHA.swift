@@ -7,8 +7,9 @@
 //
 
 import Foundation
-import CryptoSwift
+import WavesSDKCrypto
 import RxSwift
+import WavesSDKExtensions
 
 public enum Crypto {}
 extension Crypto: ReactiveCompatible {}

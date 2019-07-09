@@ -6,9 +6,8 @@
 //
 
 import Foundation
-import Curve25519
-import Base58
 import WavesSDK
+import WavesSDKCrypto
 
 public class Address {
     static let AddressVersion: UInt8 = 1
@@ -23,7 +22,7 @@ public class Address {
     public class func addressFromPublicKey(publicKey: [UInt8]) -> String {
         let publicKeyHash = Hash.secureHash(publicKey)[0..<HashLength]
         let withoutChecksum: [UInt8] = [AddressVersion, getSchemeByte()] + publicKeyHash
-        return Base58.encode(withoutChecksum + calcCheckSum(withoutChecksum))
+        return Base58Encoder.encode(withoutChecksum + calcCheckSum(withoutChecksum))
     }
     
     public class func calcCheckSum(_ withoutChecksum: [UInt8]) -> [UInt8] {
@@ -40,7 +39,7 @@ public class Address {
     private class func isValidAddress(address: String?, schemeBytes: UInt8) -> Bool {
         guard let address = address else { return false }
         
-        let bytes = Base58.decode(address)
+        let bytes = Base58Encoder.decode(address)
         if bytes.count == AddressLength
             && bytes[0] == AddressVersion
             && bytes[1] == schemeBytes {
@@ -62,7 +61,7 @@ public class Address {
     public class func scheme(from publicKey: String) -> String? {
         
         let address = Address.addressFromPublicKey(publicKey: publicKey.bytes)
-        let bytes = Base58.decode(address)
+        let bytes = Base58Encoder.decode(address)
         guard bytes.count == AddressLength else { return nil }
         guard bytes[0] == AddressVersion else { return nil }
         let schemeBytes = bytes[1]

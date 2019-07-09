@@ -7,7 +7,7 @@
 //
 import Foundation
 import Sentry
-import WavesSDKExtension
+import WavesSDKExtensions
 
 public final class SweetLoggerSentry: SweetLoggerProtocol {
 

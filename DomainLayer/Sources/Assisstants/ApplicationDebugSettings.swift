@@ -8,7 +8,7 @@
 
 import Foundation
 import Extensions
-import WavesSDKExtension
+import WavesSDKExtensions
 
 
 public struct ApplicationDebugSettings: TSUD, Codable, Mutating {

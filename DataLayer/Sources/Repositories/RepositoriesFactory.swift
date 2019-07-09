@@ -8,7 +8,7 @@
 
 import Foundation
 import DomainLayer
-import WavesSDKExtension
+import WavesSDKExtensions
 
 import FirebaseCore
 import FirebaseDatabase

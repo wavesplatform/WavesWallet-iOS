@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 import RealmSwift
-import WavesSDKExtension
+import WavesSDKExtensions
 import DomainLayer
 
 final class WalletsRepositoryLocal: WalletsRepositoryProtocol {

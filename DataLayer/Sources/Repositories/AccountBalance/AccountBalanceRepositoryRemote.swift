@@ -9,9 +9,9 @@
 import Foundation
 import Moya
 import RxSwift
-import WavesSDKExtension
+import WavesSDKExtensions
 import WavesSDK
-import Base58
+import WavesSDKCrypto
 import DomainLayer
 
 private struct SponsoredAssetDetail {
@@ -111,8 +111,8 @@ private extension AccountBalanceRepositoryRemote {
                     .wavesServices
                     .matcherServices
                     .balanceMatcherService
-                    .reservedBalances(query: .init(senderPublicKey: wallet.publicKey.getPublicKeyStr(),
-                                                   signature: Base58.encode(signature.signature()),
+                    .balanceReserved(query: .init(senderPublicKey: wallet.publicKey.getPublicKeyStr(),
+                                                   signature: Base58Encoder.encode(signature.signature()),
                                                    timestamp: signature.timestamp))
             })
     }

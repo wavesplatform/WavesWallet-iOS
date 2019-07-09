@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxFeedback
 import RxCocoa
-import WavesSDKExtension
+import WavesSDKExtensions
 import WavesSDK
 import Extensions
 import DomainLayer
