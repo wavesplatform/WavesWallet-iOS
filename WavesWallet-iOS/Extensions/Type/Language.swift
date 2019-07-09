@@ -6,7 +6,7 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 import Foundation
-import WavesSDKExtension
+import WavesSDKExtensions
 
 struct Language: Codable {
     let title: String

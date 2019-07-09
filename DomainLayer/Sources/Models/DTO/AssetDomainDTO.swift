@@ -10,9 +10,9 @@ import Foundation
 import Extensions
 
 public extension DomainLayer.DTO {
-
+    
     public struct Asset: Mutating, Equatable {
-
+        
         public struct Icon: Equatable {
             public let assetId: String
             public let name: String
@@ -49,8 +49,10 @@ public extension DomainLayer.DTO {
         public let iconLogoUrl: String?
         public let hasScript: Bool
         public var minSponsoredFee: Int64
-
-        public init(id: String, gatewayId: String?, wavesId: String?, displayName: String, precision: Int, description: String, height: Int64, timestamp: Date, sender: String, quantity: Int64, ticker: String?, isReusable: Bool, isSpam: Bool, isFiat: Bool, isGeneral: Bool, isMyWavesToken: Bool, isWavesToken: Bool, isGateway: Bool, isWaves: Bool, modified: Date, addressRegEx: String, iconLogoUrl: String?, hasScript: Bool, minSponsoredFee: Int64) {
+        public let gatewayType: DomainLayer.DTO.GatewayType?
+        
+        public init(id: String, gatewayId: String?, wavesId: String?, displayName: String, precision: Int, description: String, height: Int64, timestamp: Date, sender: String, quantity: Int64, ticker: String?, isReusable: Bool, isSpam: Bool, isFiat: Bool, isGeneral: Bool, isMyWavesToken: Bool, isWavesToken: Bool, isGateway: Bool, isWaves: Bool, modified: Date, addressRegEx: String, iconLogoUrl: String?, hasScript: Bool, minSponsoredFee: Int64, gatewayType: String?) {
+            
             self.id = id
             self.gatewayId = gatewayId
             self.wavesId = wavesId
@@ -75,6 +77,7 @@ public extension DomainLayer.DTO {
             self.iconLogoUrl = iconLogoUrl
             self.hasScript = hasScript
             self.minSponsoredFee = minSponsoredFee
+            self.gatewayType = DomainLayer.DTO.GatewayType(rawValue: gatewayType ?? "")
         }
     }
 }
@@ -100,6 +103,10 @@ public extension DomainLayer.DTO.Asset {
     
     public var isEthereum: Bool {
         return gatewayId == "ETH"
+    }
+    
+    public var isVostok: Bool {
+        return gatewayId == "Vostok"
     }
     
     public var isSponsored: Bool {

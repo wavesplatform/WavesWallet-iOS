@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 import Moya
-import Base58
+import WavesSDKCrypto
 import WavesSDK
 import DomainLayer
 import Extensions
@@ -34,7 +34,7 @@ final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
                     .publicKeyMatcherService
                     .publicKey()                                        
                     .map {
-                        return PublicKeyAccount(publicKey: Base58.decode($0))
+                        return PublicKeyAccount(publicKey: Base58Encoder.decode($0))
                     }
             })
     }

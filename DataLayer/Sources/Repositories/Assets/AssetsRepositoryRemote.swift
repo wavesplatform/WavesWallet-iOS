@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import Moya
 import CSV
-import WavesSDKExtension
+import WavesSDKExtensions
 import WavesSDK
 import DomainLayer
 import Extensions
@@ -164,6 +164,7 @@ fileprivate extension DomainLayer.DTO.Asset {
                   addressRegEx: info?.addressRegEx ?? "",
                   iconLogoUrl: info?.iconUrls?.default,
                   hasScript: asset.hasScript,
-                  minSponsoredFee: asset.minSponsoredFee ?? 0)
+                  minSponsoredFee: asset.minSponsoredFee ?? 0,
+                  gatewayType: info?.gatewayType)
     }
 }

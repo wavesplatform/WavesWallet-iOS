@@ -8,7 +8,7 @@
 
 import UIKit
 import RxSwift
-import WavesSDKExtension
+import WavesSDKExtensions
 import DomainLayer
 import Extensions
 

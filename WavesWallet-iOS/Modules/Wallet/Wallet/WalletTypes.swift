@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import RxCocoa
-import WavesSDKExtension
+import WavesSDKExtensions
 import Extensions
 import DomainLayer
 

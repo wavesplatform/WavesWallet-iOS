@@ -6,8 +6,7 @@
 //
 
 import Foundation
-import Curve25519
-import Base58
+import WavesSDKCrypto
 
 public class PublicKeyAccount: Hashable {
     
@@ -20,11 +19,11 @@ public class PublicKeyAccount: Hashable {
     }
     
     public convenience init(publicKey: String) {
-        self.init(publicKey: Base58.decode(publicKey))
+        self.init(publicKey: Base58Encoder.decode(publicKey))
     }
     
     public func getPublicKeyStr() -> String {
-        return Base58.encode(publicKey)
+        return Base58Encoder.encode(publicKey)
     }
     
     public var hashValue: Int {

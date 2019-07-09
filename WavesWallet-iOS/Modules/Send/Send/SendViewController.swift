@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxFeedback
 import RxCocoa
-import WavesSDKExtension
+import WavesSDKExtensions
 import WavesSDK
 import Extensions
 import DomainLayer
@@ -727,7 +727,7 @@ private extension SendViewController {
         let min = info.minAmount.displayText + " " + info.assetShortName
         let max = info.maxAmount.displayText + " " + info.assetShortName
 
-        labelWarningSubtitle.text = Localizable.Waves.Send.Label.Warning.subtitle(info.assetName, min, max)
+        labelWarningSubtitle.text = Localizable.Waves.Send.Label.Warning.subtitle(info.assetName, min, max)        
         labelWarningDescription.text = Localizable.Waves.Send.Label.Warning.description(info.assetName)
         
         viewWarning.isHidden = false
@@ -994,6 +994,9 @@ private extension SendViewController {
                 selectedAsset?.asset.isGateway == true &&
                 selectedAsset?.asset.isFiat == false &&
                 isValidLocalAddress == false
+        }
+        else if selectedAsset?.asset.isVostok == true {
+            return Address.isValidVostokAddress(address: address)
         }
         return false
     }

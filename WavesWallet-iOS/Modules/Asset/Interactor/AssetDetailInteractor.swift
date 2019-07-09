@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import Extensions
 import DomainLayer
+import WavesSDK
 
 fileprivate enum Constants {
     static let transactionLimit: Int = 10

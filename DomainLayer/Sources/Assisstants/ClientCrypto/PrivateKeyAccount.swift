@@ -7,8 +7,7 @@
 //
 
 import Foundation
-import Curve25519
-import Base58
+import WavesSDKCrypto
 
 public class PrivateKeyAccount: PublicKeyAccount {
     
@@ -25,7 +24,7 @@ public class PrivateKeyAccount: PublicKeyAccount {
     }
 
     public var privateKeyStr: String {
-        return Base58.encode(privateKey)
+        return Base58Encoder.encode(privateKey)
     }
 
     public var words: [String] {
