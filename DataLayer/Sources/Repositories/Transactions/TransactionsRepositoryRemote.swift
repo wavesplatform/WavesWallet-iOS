@@ -10,9 +10,7 @@ import Foundation
 import RxSwift
 import Moya
 import CryptoSwift
-import Base58
 import WavesSDKExtensions
-import WavesSDKCrypto
 import WavesSDK
 import DomainLayer
 

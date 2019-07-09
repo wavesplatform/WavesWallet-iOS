@@ -8,7 +8,7 @@
 
 import Foundation
 import RealmSwift
-import Base58
+import WavesSDKCrypto
 import WavesSDKExtensions
 import DomainLayer
 import Extensions
@@ -26,6 +26,6 @@ class SeedItem: Object {
     }
 
     var publicKeyAccount: PublicKeyAccount {
-        return PublicKeyAccount(publicKey: Base58.decode(publicKey))
+        return PublicKeyAccount(publicKey: Base58Encoder.decode(publicKey))
     }
 }

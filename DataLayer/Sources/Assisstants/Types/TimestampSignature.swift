@@ -9,7 +9,7 @@
 import Foundation
 import WavesSDKExtensions
 import WavesSDK
-import Base58
+import WavesSDKCrypto
 import DomainLayer
 import Extensions
 
@@ -52,7 +52,7 @@ struct CreateOrderSignature: SignatureProtocol {
         let amountAssetId: String
         
         func assetIdBytes(_ id: String) -> [UInt8] {
-            return (id == WavesSDKConstants.wavesAssetId) ? [UInt8(0)] : ([UInt8(1)] + Base58.decode(id))
+            return (id == WavesSDKConstants.wavesAssetId) ? [UInt8(0)] : ([UInt8(1)] + Base58Encoder.decode(id))
         }
         
         var bytes: [UInt8] {
@@ -112,7 +112,7 @@ struct CancelOrderSignature: SignatureProtocol {
     
     var toSign: [UInt8] {
         let s1 = signedWallet.publicKey.publicKey
-        let s2 = Base58.decode(orderId)
+        let s2 = Base58Encoder.decode(orderId)
         return s1 + s2
     }
 }
