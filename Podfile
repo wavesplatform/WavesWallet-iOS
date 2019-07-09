@@ -1,5 +1,3 @@
-source 'https://github.com/wavesplatform/Specs.git'
-source 'https://github.com/CocoaPods/Specs.git'
 
 # Uncomment the next line to define a global platform for your project
 platform :ios, '11.0'
@@ -21,9 +19,9 @@ end
 
 
 def wavesSDKPod
-    pod 'WavesSDKExtension', :path => '/Users/pavel/Documents/IOSWorkProjects/WavesSDK-iOS/'
-    pod 'WavesSDK', :path => '/Users/pavel/Documents/IOSWorkProjects/WavesSDK-iOS/'
-    pod 'WavesSDKCrypto', :path => '/Users/pavel/Documents/IOSWorkProjects/WavesSDK-iOS/'
+    pod 'WavesSDKExtensions', :git => 'https://github.com/wavesplatform/WavesSDK-iOS'
+    pod 'WavesSDK', :git => 'https://github.com/wavesplatform/WavesSDK-iOS'
+    pod 'WavesSDKCrypto', :git => 'https://github.com/wavesplatform/WavesSDK-iOS'
 end
 
 
@@ -59,7 +57,7 @@ target 'WavesWallet-iOS' do
     pod 'RxGesture'
     pod 'RxFeedback'    
 
-    pod 'IdentityImg'
+    pod 'IdentityImg', :git => 'https://github.com/wavesplatform/identity-img-swift.git'
     pod 'QRCode'
     pod 'QRCodeReader.swift', '~> 9.0.1'    
     pod 'SwiftDate'
@@ -115,7 +113,9 @@ target 'InternalDomainLayer' do
 
     # Waves    
     wavesSDKPod
-    pod 'Extensions', :path => '.'   
+    pod 'Extensions', :path => '.'
+    
+    pod 'CryptoSwift'
 end
 
 target 'InternalExtensions' do
@@ -163,7 +163,6 @@ target 'InternalDataLayer' do
     wavesSDKPod
     pod 'Extensions', :path => '.'   
     pod 'DataLayer', :path => '.'   
-
 end
 
 post_install do |installer|

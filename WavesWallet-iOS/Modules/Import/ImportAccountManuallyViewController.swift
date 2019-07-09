@@ -10,7 +10,7 @@ import UIKit
 import IdentityImg
 import IQKeyboardManagerSwift
 import RxSwift
-import WavesSDKExtension
+import WavesSDKExtensions
 import Extensions
 import DomainLayer
 

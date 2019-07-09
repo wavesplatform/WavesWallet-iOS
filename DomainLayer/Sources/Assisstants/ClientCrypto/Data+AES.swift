@@ -6,9 +6,9 @@
 //  Copyright © 2018 Waves Platform. All rights reserved.
 //
 
-import CryptoSwift
+import WavesSDKCrypto
 import Foundation
-import Base58
+import CryptoSwift
 
 fileprivate enum Constants {
     static let iterations: Int = 5000
@@ -33,7 +33,7 @@ public extension Data {
             var combine = [UInt8]()
             combine.append(contentsOf: iv)
             combine.append(contentsOf: encrypt)
-            return Base58.encode(combine).data(using: .utf8)
+            return Base58Encoder.encode(combine).data(using: .utf8)
         } catch _ {
             return nil
         }
@@ -43,7 +43,7 @@ public extension Data {
 
         guard let stringFromData =  String(data: self, encoding: .utf8) else { return nil }
 
-        let dataBase58 =  Base58.decode(stringFromData)
+        let dataBase58 =  Base58Encoder.decode(stringFromData)
 
         let iv: Array<UInt8> = Array(dataBase58[0..<AES.blockSize])
 

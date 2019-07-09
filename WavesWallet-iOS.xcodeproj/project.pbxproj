@@ -717,6 +717,10 @@
 		E991BB2E2202DD420022E27D /* SendFeeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991BB2D2202DD420022E27D /* SendFeeHeaderView.swift */; };
 		E9939B4522302E3800B50E67 /* InfoPageConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9939B4422302E3800B50E67 /* InfoPageConfirmView.swift */; };
 		E9939B4722302E6100B50E67 /* InfoPageConfirmView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9939B4622302E6100B50E67 /* InfoPageConfirmView.xib */; };
+		E99A3B7522BE5CEB0070AC76 /* GatewayRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99A3B7422BE5CEB0070AC76 /* GatewayRepositoryProtocol.swift */; };
+		E99A3B7722BE5DB70070AC76 /* GatewayDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99A3B7622BE5DB70070AC76 /* GatewayDomainDTO.swift */; };
+		E99A3B7922BE60470070AC76 /* GatewayRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99A3B7822BE60470070AC76 /* GatewayRepository.swift */; };
+		E99A3B7C22BE64FE0070AC76 /* GatewayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99A3B7B22BE64FE0070AC76 /* GatewayService.swift */; };
 		E9A05C5820E9264300B0E0FA /* UseTouchIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */; };
 		E9A3AFAE222DEECB009FB45A /* DexScriptAssetMessageModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A3AFAD222DEECB009FB45A /* DexScriptAssetMessageModuleBuilder.swift */; };
 		E9A4812F20D8DDBB00272C6D /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */; };
@@ -847,6 +851,7 @@
 		E9B12DB6219DD6E000128EFE /* AssetBalanceSpamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B12DB4219DD6E000128EFE /* AssetBalanceSpamCell.xib */; };
 		E9B12DB9219E2D3900128EFE /* AssetBurnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B12DB7219E2D3900128EFE /* AssetBurnCell.swift */; };
 		E9B12DBA219E2D3900128EFE /* AssetBurnCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B12DB8219E2D3900128EFE /* AssetBurnCell.xib */; };
+		E9B38F5C22D0DE8900D8CCC8 /* TransactionSenderAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B38F5B22D0DE8900D8CCC8 /* TransactionSenderAssistant.swift */; };
 		E9BB2D852260DEB000366278 /* TransactionCardInvokeScriptCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB2D842260DEB000366278 /* TransactionCardInvokeScriptCell.swift */; };
 		E9C0B49C2176C46E00669D1D /* SendPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B49B2176C46E00669D1D /* SendPresenterProtocol.swift */; };
 		E9C0B49E2176C48300669D1D /* SendPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B49D2176C48300669D1D /* SendPresenter.swift */; };
@@ -1761,6 +1766,10 @@
 		E991BB2D2202DD420022E27D /* SendFeeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeHeaderView.swift; sourceTree = "<group>"; };
 		E9939B4422302E3800B50E67 /* InfoPageConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPageConfirmView.swift; sourceTree = "<group>"; };
 		E9939B4622302E6100B50E67 /* InfoPageConfirmView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoPageConfirmView.xib; sourceTree = "<group>"; };
+		E99A3B7422BE5CEB0070AC76 /* GatewayRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayRepositoryProtocol.swift; sourceTree = "<group>"; };
+		E99A3B7622BE5DB70070AC76 /* GatewayDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayDomainDTO.swift; sourceTree = "<group>"; };
+		E99A3B7822BE60470070AC76 /* GatewayRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayRepository.swift; sourceTree = "<group>"; };
+		E99A3B7B22BE64FE0070AC76 /* GatewayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayService.swift; sourceTree = "<group>"; };
 		E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseTouchIDViewController.swift; sourceTree = "<group>"; };
 		E9A3AFAD222DEECB009FB45A /* DexScriptAssetMessageModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexScriptAssetMessageModuleBuilder.swift; sourceTree = "<group>"; };
 		E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
@@ -1892,6 +1901,7 @@
 		E9B12DB4219DD6E000128EFE /* AssetBalanceSpamCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetBalanceSpamCell.xib; sourceTree = "<group>"; };
 		E9B12DB7219E2D3900128EFE /* AssetBurnCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBurnCell.swift; sourceTree = "<group>"; };
 		E9B12DB8219E2D3900128EFE /* AssetBurnCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetBurnCell.xib; sourceTree = "<group>"; };
+		E9B38F5B22D0DE8900D8CCC8 /* TransactionSenderAssistant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionSenderAssistant.swift; sourceTree = "<group>"; };
 		E9BB2D842260DEB000366278 /* TransactionCardInvokeScriptCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardInvokeScriptCell.swift; sourceTree = "<group>"; };
 		E9C0B49B2176C46E00669D1D /* SendPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPresenterProtocol.swift; sourceTree = "<group>"; };
 		E9C0B49D2176C48300669D1D /* SendPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPresenter.swift; sourceTree = "<group>"; };
@@ -3206,6 +3216,7 @@
 				7B5FAA1422BBE3EB00621A44 /* NotificationNewsRepositoryProtocol.swift */,
 				7B5FAA1A22BBE3EB00621A44 /* TransactionsRepositoryProtocol.swift */,
 				7B5FAA2322BBE3EB00621A44 /* UtilsRepositoryProtocol.swift */,
+				E99A3B7422BE5CEB0070AC76 /* GatewayRepositoryProtocol.swift */,
 				7B5FAA1822BBE3EB00621A44 /* WalletSeedRepositoryProtocol.swift */,
 				7B5FAA0D22BBE3EB00621A44 /* WalletsRepositoryProtocol.swift */,
 			);
@@ -3237,6 +3248,7 @@
 				7B5FAA4222BBE3EC00621A44 /* CoinomatDomainDTO.swift */,
 				7B5FAA4322BBE3EC00621A44 /* ContactDomainDTO.swift */,
 				7B5FAA4422BBE3EC00621A44 /* AccountSettingsDomainDTO.swift */,
+				E99A3B7622BE5DB70070AC76 /* GatewayDomainDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -3542,6 +3554,7 @@
 				7B66884022B7E6C80029E6F1 /* CoinomatRepository.swift */,
 				7B66885C22B7E6C80029E6F1 /* EnvironmentRepository.swift */,
 				7B66883C22B7E6C80029E6F1 /* NotificationNewsRepository.swift */,
+				E99A3B7822BE60470070AC76 /* GatewayRepository.swift */,
 				7B66884822B7E6C80029E6F1 /* AccountBalance */,
 				7B66884622B7E6C80029E6F1 /* AddressBook */,
 				7B66885522B7E6C80029E6F1 /* Aliases */,
@@ -3623,6 +3636,7 @@
 		7B66885D22B7E6C80029E6F1 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				E99A3B7A22BE64E80070AC76 /* Gateway */,
 				7B66885E22B7E6C80029E6F1 /* Spam */,
 				7B66886122B7E6C80029E6F1 /* GitHub */,
 				7B66886422B7E6C80029E6F1 /* Coinomat */,
@@ -3666,6 +3680,7 @@
 				7B95111B225CD5EE0030390C /* Results+Limit.swift */,
 				7B951117225CD5850030390C /* DatabaseReference+Rx.swift */,
 				7B66886722B7E6C80029E6F1 /* SpamCSV+Assisstants.swift */,
+				E9B38F5B22D0DE8900D8CCC8 /* TransactionSenderAssistant.swift */,
 				7B66886822B7E6C80029E6F1 /* Types */,
 				7B66886B22B7E6C80029E6F1 /* NodePlugin.swift */,
 				7B66886C22B7E6C80029E6F1 /* MoyaProvider+Helper.swift */,
@@ -4141,6 +4156,14 @@
 				E991BB252202D58C0022E27D /* SendFeePresenter.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		E99A3B7A22BE64E80070AC76 /* Gateway */ = {
+			isa = PBXGroup;
+			children = (
+				E99A3B7B22BE64FE0070AC76 /* GatewayService.swift */,
+			);
+			path = Gateway;
 			sourceTree = "<group>";
 		};
 		E9A2268B2159666E006E0CE1 /* UIKit */ = {
@@ -5764,6 +5787,7 @@
 				7B5FAA9D22BBE3EC00621A44 /* AliasTransactionDomainDTO.swift in Sources */,
 				7B5FAA9422BBE3EC00621A44 /* ScriptTransactionDomainDTO.swift in Sources */,
 				7B5FAA8222BBE3EC00621A44 /* AuthenticationRepositoryProtocol.swift in Sources */,
+				E99A3B7722BE5DB70070AC76 /* GatewayDomainDTO.swift in Sources */,
 				7B5FAA9622BBE3EC00621A44 /* UnrecognisedTransactionDomainDTO.swift in Sources */,
 				7BDC6D5022C396FD00614E6B /* AnalyticManagerEvent+WavesQuickAction.swift in Sources */,
 				7B5FAA9722BBE3EC00621A44 /* IssueTransactionDomainDTO.swift in Sources */,
@@ -5861,6 +5885,7 @@
 				7B5FAA7922BBE3EC00621A44 /* WalletSeedRepositoryProtocol.swift in Sources */,
 				7B5FAA8022BBE3EC00621A44 /* AccountBalanceRepositoryProtocol.swift in Sources */,
 				7B5FAA9E22BBE3EC00621A44 /* NotificationNewsDomainDTO.swift in Sources */,
+				E99A3B7522BE5CEB0070AC76 /* GatewayRepositoryProtocol.swift in Sources */,
 				7B5FAA8A22BBE3EC00621A44 /* WalletDomainDTO.swift in Sources */,
 				7B5FAA7122BBE3EC00621A44 /* AddressRepositoryProtocol.swift in Sources */,
 				7BDC6D4122C3961F00614E6B /* AnalyticManagerEvent+CreateANewAccount.swift in Sources */,
@@ -5929,6 +5954,7 @@
 				7B6688CB22B945330029E6F1 /* DatabaseReference+Rx.swift in Sources */,
 				7B66889922B7E6C90029E6F1 /* SponsorshipTransaction+Mapper.swift in Sources */,
 				7B6688AB22B7E6C90029E6F1 /* TransactionsRepositoryLocal.swift in Sources */,
+				E9B38F5C22D0DE8900D8CCC8 /* TransactionSenderAssistant.swift in Sources */,
 				7B66888D22B7E6C90029E6F1 /* WalletEncryption.swift in Sources */,
 				7B6688A222B7E6C90029E6F1 /* Asset+Mapper.swift in Sources */,
 				7B66887422B7E6C90029E6F1 /* ScriptTransaction.swift in Sources */,
@@ -5943,6 +5969,7 @@
 				7B6688C422B7E6C90029E6F1 /* Signature.swift in Sources */,
 				7B6688BE22B7E6C90029E6F1 /* AssetsSpamService.swift in Sources */,
 				7B66888F22B7E6C90029E6F1 /* DexMyOrders+Mapper.swift in Sources */,
+				E99A3B7C22BE64FE0070AC76 /* GatewayService.swift in Sources */,
 				7B66889C22B7E6C90029E6F1 /* MassTransferTransaction+Mapper.swift in Sources */,
 				7B6688C622B7E6C90029E6F1 /* MoyaProvider+Helper.swift in Sources */,
 				7B66889D22B7E6C90029E6F1 /* BurnTransaction+Mapper.swift in Sources */,
@@ -5970,6 +5997,7 @@
 				7BDC6D3322C23C2F00614E6B /* SpamAssetsRepository.swift in Sources */,
 				7B66887622B7E6C90029E6F1 /* AssetScriptTransaction.swift in Sources */,
 				7B6688A722B7E6C90029E6F1 /* CoinomatRepository.swift in Sources */,
+				E99A3B7922BE60470070AC76 /* GatewayRepository.swift in Sources */,
 				7B66888222B7E6C90029E6F1 /* AnyTransaction.swift in Sources */,
 				7B6688C322B7E6C90029E6F1 /* TimestampSignature.swift in Sources */,
 				7B5FAAC522BC2C0300621A44 /* SweetLoggerSentry.swift in Sources */,
@@ -6724,6 +6752,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.test;
 				PRODUCT_MODULE_NAME = WavesWallet_iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6812,6 +6841,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.test;
 				PRODUCT_MODULE_NAME = WavesWallet_iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7653,155 +7683,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-l\"c++\"",
-					"-l\"icucore\"",
-					"-l\"sqlite3\"",
-					"-l\"sqlite3.0\"",
-					"-l\"z\"",
-					"-framework",
-					"\"AVFoundation\"",
-					"-framework",
-					"\"Accelerate\"",
-					"-framework",
-					"\"AdSupport\"",
-					"-framework",
-					"\"Alamofire\"",
-					"-framework",
-					"\"Amplitude_iOS\"",
-					"-framework",
-					"\"AppSpectorSDK\"",
-					"-framework",
-					"\"AppsFlyerLib\"",
-					"-framework",
-					"\"Base58\"",
-					"-framework",
-					"\"Blake2\"",
-					"-framework",
-					"\"CFNetwork\"",
-					"-framework",
-					"\"CSV\"",
-					"-framework",
-					"\"Charts\"",
-					"-framework",
-					"\"CoreGraphics\"",
-					"-framework",
-					"\"CoreTelephony\"",
-					"-framework",
-					"\"CoreText\"",
-					"-framework",
-					"\"Crashlytics\"",
-					"-framework",
-					"\"CryptoSwift\"",
-					"-framework",
-					"\"Curve25519\"",
-					"-framework",
-					"\"DeviceKit\"",
-					"-framework",
-					"\"Fabric\"",
-					"-framework",
-					"\"Foundation\"",
-					"-framework",
-					"\"GTMSessionFetcher\"",
-					"-framework",
-					"\"GoogleAppMeasurement\"",
-					"-framework",
-					"\"GoogleUtilities\"",
-					"-framework",
-					"\"IQKeyboardManagerSwift\"",
-					"-framework",
-					"\"IdentityImg\"",
-					"-framework",
-					"\"InfiniteCollectionView\"",
-					"-framework",
-					"\"Keccak\"",
-					"-framework",
-					"\"KeychainAccess\"",
-					"-framework",
-					"\"Kingfisher\"",
-					"-framework",
-					"\"Koloda\"",
-					"-framework",
-					"\"MGSwipeTableCell\"",
-					"-framework",
-					"\"Moya\"",
-					"-framework",
-					"\"QRCode\"",
-					"-framework",
-					"\"QRCodeReader\"",
-					"-framework",
-					"\"QuartzCore\"",
-					"-framework",
-					"\"RESideMenu\"",
-					"-framework",
-					"\"Reachability\"",
-					"-framework",
-					"\"Realm\"",
-					"-framework",
-					"\"RealmSwift\"",
-					"-framework",
-					"\"Result\"",
-					"-framework",
-					"\"RxCocoa\"",
-					"-framework",
-					"\"RxFeedback\"",
-					"-framework",
-					"\"RxGesture\"",
-					"-framework",
-					"\"RxOptional\"",
-					"-framework",
-					"\"RxReachability\"",
-					"-framework",
-					"\"RxRealm\"",
-					"-framework",
-					"\"RxSwift\"",
-					"-framework",
-					"\"RxSwiftExt\"",
-					"-framework",
-					"\"SafariServices\"",
-					"-framework",
-					"\"Security\"",
-					"-framework",
-					"\"Sentry\"",
-					"-framework",
-					"\"Skeleton\"",
-					"-framework",
-					"\"StoreKit\"",
-					"-framework",
-					"\"SwiftDate\"",
-					"-framework",
-					"\"SwiftMonkeyPaws\"",
-					"-framework",
-					"\"SwipeView\"",
-					"-framework",
-					"\"SystemConfiguration\"",
-					"-framework",
-					"\"TPKeyboardAvoiding\"",
-					"-framework",
-					"\"TTTAttributedLabel\"",
-					"-framework",
-					"\"UIKit\"",
-					"-framework",
-					"\"UITextView_Placeholder\"",
-					"-framework",
-					"\"UPCarouselFlowLayout\"",
-					"-framework",
-					"\"WavesSDK\"",
-					"-framework",
-					"\"WavesSDKCrypto\"",
-					"-framework",
-					"\"WavesSDKExtension\"",
-					"-framework",
-					"\"iAd\"",
-					"-framework",
-					"\"leveldb\"",
-					"-framework",
-					"\"nanopb\"",
-					"-framework",
-					"\"pop\"",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -warn-long-function-bodies=200 -Xfrontend -warn-long-expression-type-checking=200";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.dev;
 				PRODUCT_MODULE_NAME = WavesWallet_iOS;
@@ -7835,6 +7717,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet;
 				PRODUCT_MODULE_NAME = WavesWallet_iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";

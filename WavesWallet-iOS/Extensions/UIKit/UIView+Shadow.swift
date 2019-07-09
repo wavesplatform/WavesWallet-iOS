@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import WavesSDKExtension
+import WavesSDKExtensions
 
 fileprivate enum Constants {
     static let deffaultValue: Float = -1

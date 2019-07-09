@@ -70,7 +70,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                     .wavesServices
                     .matcherServices
                     .orderBookMatcherService
-                    .market()
+                    .orderbook()
                     .map { $0.markets }
             
                 return Observable.zip(markets, self.spamList(accountAddress: wallet.address))
