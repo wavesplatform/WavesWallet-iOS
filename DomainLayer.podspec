@@ -29,7 +29,7 @@ Pod::Spec.new do |spec|
   spec.dependency 'KeychainAccess'    
   
   # Waves
-  spec.dependency 'WavesSDKExtension'
+  spec.dependency 'WavesSDKExtensions'
   spec.dependency 'WavesSDK'
   spec.dependency 'WavesSDKCrypto'
   spec.dependency 'Extensions'

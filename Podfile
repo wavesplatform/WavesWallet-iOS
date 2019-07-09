@@ -1,5 +1,3 @@
-source 'https://github.com/wavesplatform/Specs.git'
-source 'https://github.com/CocoaPods/Specs.git'
 
 # Uncomment the next line to define a global platform for your project
 platform :ios, '11.0'
@@ -21,9 +19,9 @@ end
 
 
 def wavesSDKPod
-    pod 'WavesSDKExtension', :git => 'https://github.com/wavesplatform/WavesSDK-iOS.git', :commit => '7f3a34e09c17171c0c27d7f4c77530ceace1ec92'
-    pod 'WavesSDK', :git => 'https://github.com/wavesplatform/WavesSDK-iOS.git',  :commit => '7f3a34e09c17171c0c27d7f4c77530ceace1ec92'
-    pod 'WavesSDKCrypto', :git => 'https://github.com/wavesplatform/WavesSDK-iOS.git',  :commit => '7f3a34e09c17171c0c27d7f4c77530ceace1ec92'
+    pod 'WavesSDKExtensions'
+    pod 'WavesSDK'
+    pod 'WavesSDKCrypto'
 end
 
 
