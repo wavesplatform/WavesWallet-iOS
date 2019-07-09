@@ -9,7 +9,7 @@
 import UIKit
 import IdentityImg
 import IQKeyboardManagerSwift
-import WavesSDKExtension
+import WavesSDKExtensions
 import DomainLayer
 
 private struct Avatar {

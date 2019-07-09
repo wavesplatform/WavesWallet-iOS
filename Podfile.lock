@@ -8,6 +8,7 @@ PODS:
   - Charts/Core (3.3.0)
   - Crashlytics (3.13.1):
     - Fabric (~> 1.10.1)
+  - CryptoSwift (1.0.0)
   - CSV.swift (2.4.0)
   - DataLayer (0.1):
     - Amplitude-iOS
@@ -34,6 +35,7 @@ PODS:
     - WavesSDKExtensions
   - DeviceKit (1.13.0)
   - DomainLayer (0.1):
+    - CryptoSwift
     - Extensions
     - KeychainAccess
     - RealmSwift
@@ -220,6 +222,7 @@ DEPENDENCIES:
   - AppSpectorSDK
   - Charts
   - Crashlytics
+  - CryptoSwift
   - CSV.swift
   - DataLayer (from `.`)
   - DeviceKit
@@ -230,7 +233,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/InAppMessagingDisplay
-  - IdentityImg
+  - IdentityImg (from `https://github.com/wavesplatform/identity-img-swift.git`)
   - InfiniteCollectionView (from `https://github.com/wavesplatform/InfiniteCollectionView.git`, branch `swift5`)
   - IQKeyboardManagerSwift
   - KeychainAccess
@@ -272,6 +275,7 @@ SPEC REPOS:
     - AppSpectorSDK
     - Charts
     - Crashlytics
+    - CryptoSwift
     - CSV.swift
     - DeviceKit
     - Fabric
@@ -325,8 +329,6 @@ SPEC REPOS:
     - WavesSDK
     - WavesSDKCrypto
     - WavesSDKExtensions
-  https://github.com/wavesplatform/Specs.git:
-    - IdentityImg
 
 EXTERNAL SOURCES:
   DataLayer:
@@ -335,6 +337,8 @@ EXTERNAL SOURCES:
     :path: "."
   Extensions:
     :path: "."
+  IdentityImg:
+    :git: https://github.com/wavesplatform/identity-img-swift.git
   InfiniteCollectionView:
     :branch: swift5
     :git: https://github.com/wavesplatform/InfiniteCollectionView.git
@@ -342,6 +346,9 @@ EXTERNAL SOURCES:
     :git: https://github.com/wavesplatform/RESideMenu.git
 
 CHECKOUT OPTIONS:
+  IdentityImg:
+    :commit: 225bfa9f534eb09c3ac0e0dbd77e0a4d99a287f1
+    :git: https://github.com/wavesplatform/identity-img-swift.git
   InfiniteCollectionView:
     :commit: 0ea9140787e243a76b511ffc04c62e623262ef31
     :git: https://github.com/wavesplatform/InfiniteCollectionView.git
@@ -356,10 +363,11 @@ SPEC CHECKSUMS:
   AppSpectorSDK: cc49a0fcfa01200cb273782ae4e294c5aebc5fd2
   Charts: e0dd4cd8f257bccf98407b58183ddca8e8d5b578
   Crashlytics: 5aa8e90dcbf2f34898b4f5a0037787531246cca0
+  CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   CSV.swift: 947283699fe698d08a4d675d9e642c2bf32418a8
   DataLayer: 34e6bb6c9a7bcd8d5c2964486012c7a29f6883c0
   DeviceKit: 5a4accdb2918ce0b69e62dc3bef6e4d2cc06e2e4
-  DomainLayer: 1ca7f2d2833cd4bb4ac0762032bcc77aae99a68d
+  DomainLayer: f30ec40e9ebd54fb9d84e39967bd5962d62e2f20
   Extensions: 02564a21a50066437f02610f7bcac62eeb537846
   Fabric: f6f21452846788bb44595d73e9909d79d328e617
   Firebase: fa80b9d987ca014a1ba9357496ef2a0178b28b12
@@ -375,7 +383,7 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 7f028ea162b72c8f326daec74afc95d94f7a47d6
   GoogleUtilities: 84df567c76ca84f67b7bb40e769fdd4acc746a10
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
-  IdentityImg: 9012dceefa148c3aac55c61ff2170a0e3a1a869a
+  IdentityImg: 4c81857fc8a80294e6c480b4f72cb3e22cd360c2
   InfiniteCollectionView: 49a7639a04c7cb21164de3840245f084fda257d0
   IQKeyboardManagerSwift: a8228c257614af98743b4cd8584637025f36358f
   KeychainAccess: 3b1bf8a77eb4c6ea1ce9404c292e48f948954c6b
@@ -416,6 +424,6 @@ SPEC CHECKSUMS:
   WavesSDKCrypto: 5b3a83fb84cfdb495d2635fae90afd8682833f21
   WavesSDKExtensions: fb8f09b3b237f7fa3f5827e6b933ec9efc1f8b68
 
-PODFILE CHECKSUM: 08cd7e59e4cd9468905a80bc918f3909aaff8a0b
+PODFILE CHECKSUM: d71e98747e398d30a67a16f774deed9a04efb473
 
 COCOAPODS: 1.7.3

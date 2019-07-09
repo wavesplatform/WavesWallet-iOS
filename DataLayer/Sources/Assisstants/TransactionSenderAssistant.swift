@@ -8,7 +8,7 @@
 import Foundation
 import DomainLayer
 import WavesSDK
-import WavesSDKExtension
+import WavesSDKExtensions
 import Base58
 
 extension TransactionSenderSpecifications {

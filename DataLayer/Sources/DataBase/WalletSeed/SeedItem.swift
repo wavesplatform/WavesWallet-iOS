@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 import Base58
-import WavesSDKExtension
+import WavesSDKExtensions
 import DomainLayer
 import Extensions
 

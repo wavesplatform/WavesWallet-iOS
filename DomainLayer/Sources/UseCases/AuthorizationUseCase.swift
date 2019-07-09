@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import KeychainAccess
 import LocalAuthentication
-import WavesSDKExtension
+import WavesSDKExtensions
 import Extensions
 
 private enum Constants {
