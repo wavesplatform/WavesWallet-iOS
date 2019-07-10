@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="BQl-yc-MKO" customClass="DexCreateOrderInvalidPriceView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FiI-d1-AFc">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <color key="backgroundColor" red="0.0" green="0.1019607843" blue="0.22352941179999999" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q0k-fa-6RA">
+                    <rect key="frame" x="16" y="509" width="382" height="329"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bigwarning48" translatesAutoresizingMaskIntoConstraints="NO" id="MRV-Al-e00">
+                            <rect key="frame" x="167" y="24" width="48" height="48"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your order price is 5% lower than the latest market price" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhO-um-82G">
+                            <rect key="frame" x="24" y="86" width="334" height="41"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you want to proceed?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLR-T8-LiT">
+                            <rect key="frame" x="24" y="135" width="334" height="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1gO-Vg-W6o" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                            <rect key="frame" x="24" y="257" width="334" height="48"/>
+                            <color key="backgroundColor" red="0.92941176470588238" green="0.94117647058823528" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="mtW-7r-cgJ"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                            <state key="normal" title="Cancel">
+                                <color key="titleColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="highlightedBackground">
+                                    <color key="value" red="0.92941176470588238" green="0.94117647058823528" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="cancelButtonAction:" destination="BQl-yc-MKO" eventType="touchUpInside" id="lqe-fA-du5"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Hc-Qx-dJV" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                            <rect key="frame" x="24" y="195" width="334" height="48"/>
+                            <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="zH0-ln-biS"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                            <state key="normal" title="Place order"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="highlightedBackground">
+                                    <color key="value" red="0.35294117650000001" green="0.50588235290000005" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="successButtonAction:" destination="BQl-yc-MKO" eventType="touchUpInside" id="UC3-oL-lAZ"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="2Hc-Qx-dJV" firstAttribute="leading" secondItem="q0k-fa-6RA" secondAttribute="leading" constant="24" id="61n-tf-3uG"/>
+                        <constraint firstItem="MRV-Al-e00" firstAttribute="top" secondItem="q0k-fa-6RA" secondAttribute="top" constant="24" id="Agi-nm-F5B"/>
+                        <constraint firstItem="1gO-Vg-W6o" firstAttribute="leading" secondItem="q0k-fa-6RA" secondAttribute="leading" constant="24" id="PGx-ai-0Oa"/>
+                        <constraint firstItem="MRV-Al-e00" firstAttribute="centerX" secondItem="q0k-fa-6RA" secondAttribute="centerX" id="QuE-hG-osY"/>
+                        <constraint firstItem="1gO-Vg-W6o" firstAttribute="top" secondItem="2Hc-Qx-dJV" secondAttribute="bottom" constant="14" id="RFD-4v-UZc"/>
+                        <constraint firstItem="2Hc-Qx-dJV" firstAttribute="top" secondItem="KLR-T8-LiT" secondAttribute="bottom" constant="44" id="RUN-R4-FxV"/>
+                        <constraint firstItem="rhO-um-82G" firstAttribute="leading" secondItem="q0k-fa-6RA" secondAttribute="leading" constant="24" id="U9i-65-d9s"/>
+                        <constraint firstAttribute="trailing" secondItem="rhO-um-82G" secondAttribute="trailing" constant="24" id="Vll-0N-Ma1"/>
+                        <constraint firstItem="rhO-um-82G" firstAttribute="top" secondItem="MRV-Al-e00" secondAttribute="bottom" constant="14" id="XP5-e3-PaB"/>
+                        <constraint firstAttribute="trailing" secondItem="2Hc-Qx-dJV" secondAttribute="trailing" constant="24" id="aK0-aq-iE6"/>
+                        <constraint firstItem="KLR-T8-LiT" firstAttribute="top" secondItem="rhO-um-82G" secondAttribute="bottom" constant="8" id="eSr-EX-bvX"/>
+                        <constraint firstItem="KLR-T8-LiT" firstAttribute="trailing" secondItem="rhO-um-82G" secondAttribute="trailing" id="rhm-fb-rsn"/>
+                        <constraint firstAttribute="bottom" secondItem="1gO-Vg-W6o" secondAttribute="bottom" constant="24" id="vwl-H3-c37"/>
+                        <constraint firstAttribute="trailing" secondItem="1gO-Vg-W6o" secondAttribute="trailing" constant="24" id="wa9-Go-gLi"/>
+                        <constraint firstItem="KLR-T8-LiT" firstAttribute="leading" secondItem="rhO-um-82G" secondAttribute="leading" id="yWJ-Nw-fJF"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="FiI-d1-AFc" firstAttribute="top" secondItem="BQl-yc-MKO" secondAttribute="top" id="I6X-9Q-iMw"/>
+                <constraint firstItem="vct-KN-zYB" firstAttribute="bottom" secondItem="q0k-fa-6RA" secondAttribute="bottom" constant="24" id="Q2i-vR-HdV"/>
+                <constraint firstItem="FiI-d1-AFc" firstAttribute="leading" secondItem="vct-KN-zYB" secondAttribute="leading" id="T3q-AJ-8gN"/>
+                <constraint firstAttribute="bottom" secondItem="FiI-d1-AFc" secondAttribute="bottom" id="eXV-nl-xYE"/>
+                <constraint firstItem="vct-KN-zYB" firstAttribute="trailing" secondItem="q0k-fa-6RA" secondAttribute="trailing" constant="16" id="qnD-oE-Y5c"/>
+                <constraint firstItem="q0k-fa-6RA" firstAttribute="leading" secondItem="vct-KN-zYB" secondAttribute="leading" constant="16" id="qqc-u4-v8O"/>
+                <constraint firstItem="vct-KN-zYB" firstAttribute="trailing" secondItem="FiI-d1-AFc" secondAttribute="trailing" id="zf7-RM-dZA"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vct-KN-zYB"/>
+            <connections>
+                <outlet property="bottomOffset" destination="Q2i-vR-HdV" id="NDH-Gi-9Il"/>
+                <outlet property="buttonCancel" destination="1gO-Vg-W6o" id="dNW-5f-UJN"/>
+                <outlet property="placeOrderButton" destination="2Hc-Qx-dJV" id="oVK-oe-BQ3"/>
+                <outlet property="subtitleTitleLabel" destination="KLR-T8-LiT" id="YZ1-Z2-cud"/>
+                <outlet property="titleLabel" destination="rhO-um-82G" id="owD-GK-5Gv"/>
+                <outlet property="viewBackground" destination="FiI-d1-AFc" id="gfz-Qk-hBq"/>
+                <outlet property="viewContainer" destination="q0k-fa-6RA" id="AEr-dq-f8c"/>
+            </connections>
+            <point key="canvasLocation" x="23.188405797101453" y="299.33035714285711"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="bigwarning48" width="48" height="48"/>
+    </resources>
+</document>

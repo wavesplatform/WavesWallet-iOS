@@ -9,7 +9,10 @@
 import Foundation
 
 protocol DexCreateOrderModuleOutput: AnyObject {
+    
     func dexCreateOrderDidCreate(output: DexCreateOrder.DTO.Output)
+    
+    func dexCreateOrderWarningForPrice(isPriceHigherMarket: Bool, callback: @escaping ((_ isSuccess: Bool) -> Void))
 }
 
 protocol DexCreateOrderProtocol {

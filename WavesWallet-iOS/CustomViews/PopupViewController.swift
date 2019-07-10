@@ -102,6 +102,7 @@ final class PopupViewController: UIViewController {
             self.view.removeFromSuperview()
             self.willMove(toParent: nil)
             self.removeFromParent()
+            self.children.forEach { $0.removeFromParent() }
         }
     }
     

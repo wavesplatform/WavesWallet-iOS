@@ -77,7 +77,10 @@ final class DexCoordinator: Coordinator {
     private lazy var dexListViewContoller: UIViewController = {
         return DexListModuleBuilder(output: self).build()
     }()
-
+    
+    private lazy var dexCreateOrderPopup = PopupViewController()
+    
+    
     private var navigationRouter: NavigationRouter
 
     init(navigationRouter: NavigationRouter) {
@@ -235,8 +238,7 @@ private extension DexCoordinator {
                 }
                 else {
                     let controller = DexCreateOrderModuleBuilder(output: self).build(input: input)
-                    let popup = PopupViewController()
-                    popup.present(contentViewController: controller)
+                    self.dexCreateOrderPopup.present(contentViewController: controller)
                 }
             })
             .disposed(by: disposeBag)
@@ -245,8 +247,22 @@ private extension DexCoordinator {
 
 //MARK: - DexCreateOrderModuleOutput
 extension DexCoordinator: DexCreateOrderModuleOutput {
+    
+    func dexCreateOrderWarningForPrice(isPriceHigherMarket: Bool, callback: @escaping ((_ isSuccess: Bool) -> Void)) {
+        
+        let priceView = DexCreateOrderInvalidPriceView
+            .show(model: .init(pricePercent: UIGlobalConstants.limitPriceOrderPercent,
+                               isPriceHigherMarket: isPriceHigherMarket))
+        
+        priceView.buttonDidTap = { isSuccess in
+            callback(isSuccess)
+        }
+    }
+    
     func dexCreateOrderDidCreate(output: DexCreateOrder.DTO.Output) {
-
+        
+        self.dexCreateOrderPopup.dismissPopup()
+        
         let controller = DexCompleteOrderModuleBuilder().build(input: output)
         navigationRouter.pushViewController(controller)
    

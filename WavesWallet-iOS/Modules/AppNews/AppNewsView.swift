@@ -5,10 +5,10 @@
 //  Created by Pavel Gubin on 2/15/19.
 //  Copyright © 2019 Waves Platform. All rights reserved.
 //
-
+import Foundation
 import UIKit
 
-final class AppNewsView: PopupActionView, NibLoadable {
+final class AppNewsView: PopupActionView<AppNewsView.Model> {
 
     struct Model {
         let title: String
@@ -28,33 +28,16 @@ final class AppNewsView: PopupActionView, NibLoadable {
         buttonOkey.setTitle(Localizable.Waves.Appnews.Button.okey, for: .normal)
         
     }
-    
+        
     @IBAction private func okeyTapped(_ sender: Any) {
         tapDismiss?()
         dismiss()
     }
-}
-
-extension AppNewsView: ViewConfiguration {
     
-    func update(with model: Model) {
+    override func update(with model: Model) {
         
         labelTitle.text = model.title
         labelSubtitle.text = model.subtitle
         imageView.image = model.image
-        
-        frame = UIScreen.main.bounds
-        layoutIfNeeded()
-    }
-}
-
-extension AppNewsView {
-    
-    class func show(model: Model) -> AppNewsView {
-        let view = AppNewsView.loadFromNib()
-        view.update(with: model)
-        AppDelegate.shared().window?.addSubview(view)
-        view.setupInitialAnimationPoition()
-        return view
     }
 }
