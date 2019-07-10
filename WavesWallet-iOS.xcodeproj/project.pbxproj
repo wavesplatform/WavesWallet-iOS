@@ -573,6 +573,8 @@
 		7B6688CE22BA6FD70029E6F1 /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951128225CD7350030390C /* Platform.swift */; };
 		7B6688D022BA70930029E6F1 /* Mutating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6688CF22BA70930029E6F1 /* Mutating.swift */; };
 		7B6922C6223BA1730056DA67 /* TransactionCardSystemTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6922C5223BA1730056DA67 /* TransactionCardSystemTransaction+Mapper.swift */; };
+		7B7A4B7C22D6258C00E0A8CD /* DexCreateOrderInvalidPriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A4B7B22D6258C00E0A8CD /* DexCreateOrderInvalidPriceView.swift */; };
+		7B7A4B7E22D625B300E0A8CD /* DexCreateOrderInvalidPriceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B7A4B7D22D625B300E0A8CD /* DexCreateOrderInvalidPriceView.xib */; };
 		7B95111A225CD5B70030390C /* BiometricType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951119225CD5B70030390C /* BiometricType.swift */; };
 		7B951121225CD6790030390C /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951120225CD6790030390C /* Language.swift */; };
 		7B951127225CD7160030390C /* QRCodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951126225CD7160030390C /* QRCodeParser.swift */; };
@@ -1569,6 +1571,8 @@
 		7B66886D22B7E6C80029E6F1 /* String+NormalizeAssetId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+NormalizeAssetId.swift"; sourceTree = "<group>"; };
 		7B6688CF22BA70930029E6F1 /* Mutating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mutating.swift; sourceTree = "<group>"; };
 		7B6922C5223BA1730056DA67 /* TransactionCardSystemTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionCardSystemTransaction+Mapper.swift"; sourceTree = "<group>"; };
+		7B7A4B7B22D6258C00E0A8CD /* DexCreateOrderInvalidPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexCreateOrderInvalidPriceView.swift; sourceTree = "<group>"; };
+		7B7A4B7D22D625B300E0A8CD /* DexCreateOrderInvalidPriceView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DexCreateOrderInvalidPriceView.xib; sourceTree = "<group>"; };
 		7B95110E225CC2CF0030390C /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		7B95110F225CC2CF0030390C /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/Waves.strings"; sourceTree = "<group>"; };
 		7B951110225CC2E60030390C /* hi-IN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "hi-IN"; path = "hi-IN.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -2796,7 +2800,6 @@
 		0AF58F8B2191909200C8A4B3 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				7BDA6AD3222D8AEA001DE71C /* TransactionCard */,
 				0A071E3D215AEF03007D9750 /* AccountPassword */,
 				E9B086902163882F00937644 /* AddressBook */,
 				E9236F192216F2FE00A12FD5 /* AppNews */,
@@ -2822,6 +2825,7 @@
 				E95B47D421638B11004D4E39 /* StartLeasing */,
 				0A762D9E2163ACE80019D447 /* Support */,
 				E95B6B08219B3ADF00A85B5D /* TokenBurn */,
+				7BDA6AD3222D8AEA001DE71C /* TransactionCard */,
 				0A071E62215C65BC007D9750 /* UseTouchID */,
 				0A97975E2108A10400407F67 /* Wallet */,
 				0A6E2C8521CBBCBE006F4073 /* WavesPopup */,
@@ -4456,13 +4460,15 @@
 		E9B087282163886800937644 /* DexCreateOrder */ = {
 			isa = PBXGroup;
 			children = (
-				E9B087292163886800937644 /* DexCreateOrderModuleOutput.swift */,
-				E9B0872C2163886800937644 /* DexCreateOrderViewController.swift */,
-				E9B0872D2163886800937644 /* Presenter */,
-				E9B087302163886800937644 /* DexCreateOrderTypes.swift */,
 				E9B087332163886800937644 /* DexCreateOrderModuleBuilder.swift */,
-				E9B087342163886800937644 /* Views */,
+				E9B087292163886800937644 /* DexCreateOrderModuleOutput.swift */,
+				E9B087302163886800937644 /* DexCreateOrderTypes.swift */,
+				E9B0872C2163886800937644 /* DexCreateOrderViewController.swift */,
 				E9B0873A2163886800937644 /* Interactor */,
+				E9B0872D2163886800937644 /* Presenter */,
+				E9B087342163886800937644 /* Views */,
+				7B7A4B7B22D6258C00E0A8CD /* DexCreateOrderInvalidPriceView.swift */,
+				7B7A4B7D22D625B300E0A8CD /* DexCreateOrderInvalidPriceView.xib */,
 			);
 			path = DexCreateOrder;
 			sourceTree = "<group>";
@@ -5407,6 +5413,7 @@
 				E9B087E72163886800937644 /* DexCreateOrderSegmentedControl.xib in Resources */,
 				E9B0879E2163886800937644 /* DexChartCandlePriceView.xib in Resources */,
 				E95B47EF21638B11004D4E39 /* StartLeasing.storyboard in Resources */,
+				7B7A4B7E22D625B300E0A8CD /* DexCreateOrderInvalidPriceView.xib in Resources */,
 				E9EC5C102175F35900E5C29A /* AddressInputView.xib in Resources */,
 				E9B087C62163886800937644 /* DexTraderContainerSegmentedControl.xib in Resources */,
 				E95E14F3229FF31A003552B8 /* WalletLeasingBalanceCell.xib in Resources */,
@@ -6330,6 +6337,7 @@
 				E9D36DE82175C755001E6DF0 /* AssetSelectView.swift in Sources */,
 				0ADC179E2204A23000472130 /* ModalRootView.swift in Sources */,
 				E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */,
+				7B7A4B7C22D6258C00E0A8CD /* DexCreateOrderInvalidPriceView.swift in Sources */,
 				E9B087D12163886800937644 /* DexListSkeletonCell.swift in Sources */,
 				E9B087C82163886800937644 /* DexTraderContainerButton.swift in Sources */,
 				0AF6AD25218A54840004F107 /* CopyableImageView.swift in Sources */,

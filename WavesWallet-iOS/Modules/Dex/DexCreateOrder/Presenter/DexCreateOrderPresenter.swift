@@ -19,14 +19,13 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
     var interactor: DexCreateOrderInteractorProtocol!
     private let disposeBag = DisposeBag()
     
-    weak var moduleOutput: DexCreateOrderModuleOutput?
-    
     var pair: DomainLayer.DTO.Dex.Pair!
     
     func system(feedbacks: [DexCreateOrderPresenter.Feedback]) {
         var newFeedbacks = feedbacks
         newFeedbacks.append(modelsQuery())
         newFeedbacks.append(feeQuery())
+        newFeedbacks.append(isValidOrderQuery())
 
         Driver.system(initialState: DexCreateOrder.State.initialState,
                       reduce: { [weak self] state, event -> DexCreateOrder.State in
@@ -64,6 +63,29 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
             guard let order = ss.order else { return Signal.empty() }
 
             return self.interactor.createOrder(order: order).map { .orderDidCreate($0) }.asSignal(onErrorSignalWith: Signal.empty())
+        })
+    }
+    
+    private func isValidOrderQuery() -> Feedback {
+        
+        return react(request: { state -> DexCreateOrder.State? in
+            return state.isNeedCheckValidOrder ? state : nil
+        }, effects: { [weak self] ss -> Signal<DexCreateOrder.Event> in
+            
+            guard let self = self else { return Signal.empty() }
+            guard let order = ss.order else { return Signal.empty() }
+            
+            return self
+                .interactor
+                .isValidOrder(order: order)
+                .map { $0 == true ? .sendOrder : .orderNotValid(.invalid) }
+                .asSignal(onErrorRecover: { (error) -> Signal<DexCreateOrder.Event> in
+                    if let error = error as? DexCreateOrder.CreateOrderError {
+                        return Signal.just(.orderNotValid(error))
+                    } else {
+                        return Signal.just(.orderNotValid(.invalid))
+                    }
+                })
         })
     }
     
@@ -111,8 +133,34 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
             }
             
             return state.mutate {
+                $0.isNeedCreateOrder = false
+                $0.isNeedCheckValidOrder = true
+            }
+            .changeAction(.showCreatingOrderState)
+            
+        case .cancelCreateOrder:
+           
+            return state.mutate {
+                $0.isNeedCreateOrder = false
+                $0.isNeedCheckValidOrder = false
+            }
+            .changeAction(.showDeffaultOrderState)
+        
+        case .sendOrder:
+            
+            return state.mutate {
                 $0.isNeedCreateOrder = true
-            }.changeAction(.showCreatingOrderState)
+                $0.isNeedCheckValidOrder = false
+            }
+            .changeAction(.showCreatingOrderState)
+            
+        case .orderNotValid(let error):
+            
+            return state.mutate {
+                $0.isNeedCreateOrder = false
+                $0.isNeedCheckValidOrder = false
+            }
+            .changeAction(.orderNotValid(error))
             
         case .orderDidCreate(let responce):
             
@@ -125,8 +173,7 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
                         $0.action = .orderDidFailCreate(error)
                     
                     case .success(let output):
-                        moduleOutput?.dexCreateOrderDidCreate(output: output)
-                        $0.action = .orderDidCreate
+                        $0.action = .orderDidCreate(output)
                 }
             }
 
@@ -154,6 +201,7 @@ fileprivate extension DexCreateOrder.State {
 fileprivate extension DexCreateOrder.State {
     static var initialState: DexCreateOrder.State {
         return DexCreateOrder.State(isNeedCreateOrder: false,
+                                    isNeedCheckValidOrder: false,
                                     isNeedGetFee: true,
                                     order: nil,
                                     action: .none,
