@@ -102,7 +102,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                         let price = order.price.decimalValue
                         let lastPrice = trade.first?.price.decimalValue ?? price
                         
-                        let percent = (min(lastPrice, price) / max(lastPrice, price) * 100).rounded().int64Value
+                        let percent = (price / lastPrice * 100).rounded().int64Value
                         
                         if percent > UIGlobalConstants.limitPriceOrderPercent {
                             if lastPrice > price {
