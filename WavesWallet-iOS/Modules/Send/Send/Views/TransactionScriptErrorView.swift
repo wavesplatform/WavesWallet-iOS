@@ -8,8 +8,9 @@
 
 import UIKit
 
-final class TransactionScriptErrorView: PopupActionView, NibLoadable {
-
+final class TransactionScriptErrorView: PopupActionView<Void> {
+    
+    
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var labelSubtitle: UILabel!
     @IBOutlet private weak var buttonOkey: HighlightedButton!
@@ -30,22 +31,5 @@ final class TransactionScriptErrorView: PopupActionView, NibLoadable {
         labelTitle.text = Localizable.Waves.Transactionscript.Label.title
         labelSubtitle.text = Localizable.Waves.Transactionscript.Label.subtitle
         buttonOkey.setTitle(Localizable.Waves.Transactionscript.Button.okey, for: .normal)
-    }
-    
-    func update() {
-        frame = UIScreen.main.bounds
-        layoutIfNeeded()
-    }
-}
-
-
-extension TransactionScriptErrorView {
-    
-    class func show() {
-        
-        let view = TransactionScriptErrorView.loadFromNib()
-        view.update()
-        AppDelegate.shared().window?.addSubview(view)
-        view.setupInitialAnimationPoition()
     }
 }

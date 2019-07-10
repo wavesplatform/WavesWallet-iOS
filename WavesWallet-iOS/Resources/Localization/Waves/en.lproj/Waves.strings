@@ -654,3 +654,11 @@
 "wallet.updateApp.label.subtitle" = "We are constantly working to make Waves Wallet better and more useful. Please update your app to gain access to new features.";
 "wallet.clearAssets.label.title" = "No more mess!";
 "wallet.clearAssets.label.subtitle" = "We have redesigned the display of assets to allow you to keep your wallet clean and tidy. You can customise your asset list however you want!";
+
+"dexcreateorder.invalidPricePopup.title.loverPrice" = "Your order price is %d%% lower than the latest market price";
+
+"dexcreateorder.invalidPricePopup.title.higherPrice" = "You order price is %d%% higher than the latest market price";
+
+"dexcreateorder.invalidPricePopup.subtitle" = "Do you want to proceed?";
+"dexcreateorder.invalidPricePopup.button.placeOrder" = "Place Order";
+"dexcreateorder.invalidPricePopup.button.cancel" = "Cancel";

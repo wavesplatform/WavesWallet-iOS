@@ -24,6 +24,8 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     private let matcherRepository = UseCasesFactory.instance.repositories.matcherRepository
     private let orderBookRepository = UseCasesFactory.instance.repositories.dexOrderBookRepository
     private let transactionInteractor = UseCasesFactory.instance.transactions
+    private let lastTradesRespository = UseCasesFactory.instance.repositories.lastTradesRespository
+    
     
     private let environmentRepository = UseCasesFactory.instance.repositories.environmentRepository
     
@@ -81,4 +83,37 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                                                             accountAddress: wallet.address)
         })
     }
+    
+    func isValidOrder(order: DexCreateOrder.DTO.Order) -> Observable<Bool> {
+        
+        return auth
+            .authorizedWallet()
+            .flatMap({ [weak self] (wallet) -> Observable<Bool> in
+            
+                guard let self = self else { return Observable.empty() }
+                
+                return self.lastTradesRespository
+                    .lastTrades(accountAddress: wallet.address,
+                                amountAsset: order.amountAsset,
+                                priceAsset: order.priceAsset,
+                                limit: 1)
+                    .flatMap({ (trade) -> Observable<Bool> in
+                        
+                        let price = order.price.decimalValue
+                        let lastPrice = trade.first?.price.decimalValue ?? price
+                        
+                        let percent = (min(lastPrice, price) / max(lastPrice, price) * 100).rounded().int64Value
+                        
+                        if percent > UIGlobalConstants.limitPriceOrderPercent {
+                            if lastPrice > price {
+                                return Observable.error(DexCreateOrder.CreateOrderError.priceLowerMarket)
+                            } else {
+                                return Observable.error(DexCreateOrder.CreateOrderError.priceHigherMarket)
+                            }
+                        }
+                        
+                        return Observable.just(true)
+                    })
+            })
+        }
 }
