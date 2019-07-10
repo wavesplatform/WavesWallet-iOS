@@ -20,8 +20,8 @@ private enum Constants {
 }
 
 
-class PopupActionView: UIView {
-
+class PopupActionView<Model>: UIView, NibLoadable, ViewConfiguration {
+    
     @IBOutlet private weak var viewBackground: UIView!
     @IBOutlet private weak var viewContainer: UIView!
     @IBOutlet private weak var bottomOffset: NSLayoutConstraint!
@@ -63,5 +63,24 @@ class PopupActionView: UIView {
         }) { (complete) in
             self.removeFromSuperview()
         }
+    }
+    
+    func update(with model: Model) {}
+    
+    class func show(model: Model) -> Self {
+        let view = self.loadFromNib()
+        view.update(with: model)
+        view.frame = UIScreen.main.bounds
+        view.layoutIfNeeded()
+        AppDelegate.shared().window?.addSubview(view)
+        view.setupInitialAnimationPoition()
+        return view
+    }
+}
+
+extension PopupActionView where Model == Void {
+    
+    class func show() -> Self {
+        return self.show(model: ())
     }
 }

@@ -69,6 +69,7 @@ internal enum Images {
   internal static let bgIphonex = ImageAsset(name: "bg-iphonex")
   internal static let bgIphonexr = ImageAsset(name: "bg-iphonexr")
   internal static let bgIphonexsmax = ImageAsset(name: "bg-iphonexsmax")
+  internal static let bigwarning48 = ImageAsset(name: "bigwarning48")
   internal static let blockchain80 = ImageAsset(name: "blockchain80")
   internal static let btnBack = ImageAsset(name: "btn_back")
   internal static let btnBars = ImageAsset(name: "btn_bars")
@@ -342,6 +343,7 @@ internal enum Images {
     bgIphonex,
     bgIphonexr,
     bgIphonexsmax,
+    bigwarning48,
     blockchain80,
     btnBack,
     btnBars,
