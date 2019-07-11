@@ -19,13 +19,13 @@ struct DexCreateOrderModuleBuilder: ModuleBuilderOutput {
         
         var presenter: DexCreateOrderPresenterProtocol = DexCreateOrderPresenter()
         presenter.interactor = interactor
-        presenter.moduleOutput = output
         presenter.pair = DomainLayer.DTO.Dex.Pair(amountAsset: input.amountAsset,
                                                   priceAsset: input.priceAsset)
         
         let vc = StoryboardScene.Dex.dexCreateOrderViewController.instantiate()
         vc.input = input
         vc.presenter = presenter
+        vc.moduleOutput = output
         
         return vc
     }

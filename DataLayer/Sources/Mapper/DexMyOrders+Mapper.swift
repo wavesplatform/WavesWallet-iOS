@@ -55,3 +55,4 @@ extension DomainLayer.DTO.Dex.MyOrder {
                   percentFilled: percentFilled)
     }
 }
+    

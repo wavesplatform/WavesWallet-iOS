@@ -786,6 +786,32 @@ internal enum Localizable {
         internal static var weekKey: String { return "dexcreateorder.button.week" }
       }
 
+      internal enum Invalidpricepopup {
+        /// Do you want to proceed?
+        internal static var subtitle: String { return Localizable.tr("Waves", "dexcreateorder.invalidPricePopup.subtitle") }
+        internal static var subtitleKey: String { return "dexcreateorder.invalidPricePopup.subtitle" }
+
+        internal enum Button {
+          /// Cancel
+          internal static var cancel: String { return Localizable.tr("Waves", "dexcreateorder.invalidPricePopup.button.cancel") }
+          internal static var cancelKey: String { return "dexcreateorder.invalidPricePopup.button.cancel" }
+          /// Place Order
+          internal static var placeOrder: String { return Localizable.tr("Waves", "dexcreateorder.invalidPricePopup.button.placeOrder") }
+          internal static var placeOrderKey: String { return "dexcreateorder.invalidPricePopup.button.placeOrder" }
+        }
+
+        internal enum Title {
+          /// You order price is %d%% higher than the latest market price
+          internal static func higherPrice(_ p1: Int) -> String {
+            return Localizable.tr("Waves", "dexcreateorder.invalidPricePopup.title.higherPrice", p1)
+          }
+          /// Your order price is %d%% lower than the latest market price
+          internal static func loverPrice(_ p1: Int) -> String {
+            return Localizable.tr("Waves", "dexcreateorder.invalidPricePopup.title.loverPrice", p1)
+          }
+        }
+      }
+
       internal enum Label {
         /// Amount in
         internal static var amountIn: String { return Localizable.tr("Waves", "dexcreateorder.label.amountIn") }
