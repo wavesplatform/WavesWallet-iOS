@@ -36,6 +36,11 @@ final class DexCreateOrderViewController: UIViewController {
                                              expiration: DexCreateOrder.DTO.Expiration.expiration29d,
                                              fee: 0,
                                              feeAssetId: WavesSDKConstants.wavesAssetId)
+            
+            feeAssets = [DomainLayer.DTO.Dex.Asset(id: WavesSDKConstants.wavesAssetId,
+                                                   name: WavesSDKConstants.wavesAssetId,
+                                                   shortName: WavesSDKConstants.wavesAssetId,
+                                                   decimals: WavesSDKConstants.WavesDecimals)]
         }
     }
     
@@ -59,11 +64,13 @@ final class DexCreateOrderViewController: UIViewController {
     @IBOutlet private weak var labelErrorFee: UILabel!
     @IBOutlet private weak var labelFee: UILabel!
     @IBOutlet private weak var activityIndicatorViewFee: UIActivityIndicatorView!
+    @IBOutlet private weak var iconArrowCustomFee: UIImageView!
     
     private var order: DexCreateOrder.DTO.Order!
     private var isCreatingOrderState: Bool = false
     private var isDisabledBuySellButton: Bool = false
     private var errorSnackKey: String?
+    private var feeAssets: [DomainLayer.DTO.Dex.Asset] = []
     
     var presenter: DexCreateOrderPresenterProtocol!
     private let sendEvent: PublishRelay<DexCreateOrder.Event> = PublishRelay<DexCreateOrder.Event>()
@@ -78,7 +85,9 @@ final class DexCreateOrderViewController: UIViewController {
         setupButtonSellBuy()
         setupUIForIPhone5IfNeed()
         labelFee.isHidden = true
+        iconArrowCustomFee.isHidden = true
     }
+    
 }
 
 //MARK: - UI State
@@ -87,7 +96,10 @@ private extension DexCreateOrderViewController {
     func showFee(fee: Money) {
         activityIndicatorViewFee.stopAnimating()
         labelFee.isHidden = false
-        labelFee.text = fee.displayText + " " + "WAVES"
+        
+        let feeAssetName = feeAssets.first(where: {$0.id == order.feeAssetId})?.shortName ?? ""
+        labelFee.text = fee.displayText + " " + feeAssetName
+        iconArrowCustomFee.isHidden = feeAssets.count <= 1
     }
     
     func setupCreatingOrderState() {
@@ -151,10 +163,11 @@ private extension DexCreateOrderViewController {
                 case .orderDidCreate:
                     self.dismissController()
                     
-                case .didGetFee(let fee):
+                case .didGetFee(let feeSettings):
 
-                    self.showFee(fee: fee)
-                    self.order.fee = fee.amount
+                    self.feeAssets = feeSettings.feeAssets.map{ $0.asset }
+                    self.showFee(fee: feeSettings.fee)
+                    self.order.fee = feeSettings.fee.amount
                     self.updateInputDataFields()
                     self.sendEvent.accept(.updateInputOrder(self.order))
                     self.setupValidationErrors()
@@ -241,6 +254,36 @@ private extension DexCreateOrderViewController {
 //MARK: - Actions
 private extension DexCreateOrderViewController {
 
+    @IBAction func customFeeTapped(_ sender: Any) {
+
+        guard feeAssets.count > 1 else { return }
+        
+        let vc = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        for asset in feeAssets {
+            let action = UIAlertAction(title: asset.shortName, style: .default) { (action) in
+                
+                if self.order.feeAssetId != asset.id {
+                    self.order.feeAssetId = asset.id
+                    self.sendEvent.accept(.feeAssetNeedUpdate(asset.id))
+                
+                    self.feeAssets = []
+                    self.order.fee = 0
+                    self.activityIndicatorViewFee.isHidden = false
+                    self.activityIndicatorViewFee.startAnimating()
+                    self.labelFee.isHidden = true
+                    self.iconArrowCustomFee.isHidden = true
+                    self.setupButtonSellBuy()
+                }
+            }
+            vc.addAction(action)
+        }
+        
+        let cancel = UIAlertAction(title: Localizable.Waves.Dexcreateorder.Button.cancel,
+                                   style: .cancel, handler: nil)
+        vc.addAction(cancel)
+        present(vc, animated: true, completion: nil)
+    }
+    
     func dismissController() {
         if let parent = self.parent as? PopupViewController {
             parent.dismissPopup()

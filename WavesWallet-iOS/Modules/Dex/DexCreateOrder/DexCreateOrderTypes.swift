@@ -22,6 +22,7 @@ enum DexCreateOrder {
         case didGetFee(DTO.FeeSettings)
         case handlerFeeError(Error)
         case refreshFee
+        case feeAssetNeedUpdate(String)
     }
     
     struct State: Mutating {
@@ -30,7 +31,7 @@ enum DexCreateOrder {
             case showCreatingOrderState
             case orderDidFailCreate(NetworkError)
             case orderDidCreate
-            case didGetFee(Money)
+            case didGetFee(DTO.FeeSettings)
         }
         
         var isNeedCreateOrder: Bool

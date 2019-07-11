@@ -744,11 +744,11 @@ fileprivate extension TransactionsUseCase {
                 n += 1
             }
            
-            var assetRate = settingsOrderFee.feeAssets.first(where: {$0.asset.id == feeAssetId})?.rate ?? 0
+            let assetRate = settingsOrderFee.feeAssets.first(where: {$0.asset.id == feeAssetId})?.rate ?? 0
             let assetDecimal = settingsOrderFee.feeAssets.first(where: {$0.asset.id == feeAssetId})?.asset.decimals ?? 0
             let assetFee = assetRate * Double(settingsOrderFee.baseFee + Int64(400000) * n)
             
-            return Money(Int64(assetFee), assetDecimal)
+            return Money(Int64(ceil(assetFee)), assetDecimal)
         }
 
         return Money(fee, wavesAsset.precision)

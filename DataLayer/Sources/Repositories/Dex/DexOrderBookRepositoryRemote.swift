@@ -186,7 +186,8 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                                                                 price: order.price,
                                                                 amount: order.amount,
                                                                 expiration: expirationTimestamp,
-                                                                matcherFee: order.matcherFee)
+                                                                matcherFee: order.matcherFee,
+                                                                matcherFeeAsset: order.matcherFeeAsset)
                 
                 return servicesEnvironment
                     .wavesServices
@@ -201,7 +202,8 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                                               matcherFee: order.matcherFee,
                                               timestamp: timestamp,
                                               expirationTimestamp: expirationTimestamp,
-                                              proofs: [createOrderSignature.signature()]))
+                                              proofs: [createOrderSignature.signature()],
+                                              matcherFeeAsset: order.matcherFeeAsset))
         })
     }
 

@@ -91,8 +91,13 @@ struct CreateOrderSignature: SignatureProtocol {
     
     private(set) var matcherFee: Int64
     
+    private(set) var matcherFeeAsset: String
+    
     var toSign: [UInt8] {
-        let s1 = toByteArray(UInt8(2)) + signedWallet.publicKey.publicKey + matcherPublicKey.publicKey
+        
+        let matcherFeeAssetBytes = WavesCrypto.shared.base58decode(input: matcherFeeAsset) ?? []
+        
+        let s1 = toByteArray(UInt8(3)) + matcherFeeAssetBytes + signedWallet.publicKey.publicKey + matcherPublicKey.publicKey
         let s2 = assetPair.bytes + orderType.bytes
         let s3 = toByteArray(price) + toByteArray(amount)
         let s4 = toByteArray(timestamp) + toByteArray(expiration) + toByteArray(matcherFee)
