@@ -49,9 +49,8 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
 
             return Observable.zip(self.account.balances(),
                                   self.getLastTransactionInfo(),
-                                  self.orderBookRepository.orderBook(wallet: wallet,
-                                                                      amountAsset: self.pair.amountAsset.id,
-                                                                      priceAsset: self.pair.priceAsset.id),
+                                  self.orderBookRepository.orderBook(amountAsset: self.pair.amountAsset.id,
+                                                                     priceAsset: self.pair.priceAsset.id),
                                   self.getScriptedAssets())
                 .flatMap({ [weak self] (
                     balances,

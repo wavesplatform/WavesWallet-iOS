@@ -92,16 +92,18 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
             
                 guard let self = self else { return Observable.empty() }
                 
-                return self.lastTradesRespository
-                    .lastTrades(accountAddress: wallet.address,
-                                amountAsset: order.amountAsset,
-                                priceAsset: order.priceAsset,
-                                limit: 1)
+                return self.orderBookRepository.orderBook(amountAsset: order.amountAsset.id,
+                                                          priceAsset: order.priceAsset.id)
                     .flatMap({ (trade) -> Observable<Bool> in
-                        
+                                                
                         let price = order.price.decimalValue
-                        let lastPrice = trade.first?.price.decimalValue ?? price
                         
+                        let isBuy = order.type == .buy
+                        
+                        let lastPriceTrade = (isBuy == true ? trade.asks.first?.price : trade.bids.first?.price) ?? order.price.amount
+                        let lastPrice = Money(lastPriceTrade, order.price.decimals).decimalValue
+                        
+
                         let percent = (price / lastPrice * 100).rounded().int64Value
                         
                         if percent > UIGlobalConstants.limitPriceOrderPercent {
