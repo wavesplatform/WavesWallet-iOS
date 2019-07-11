@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import WavesSDK
 
 final class OrderBookUseCase: OrderBookUseCaseProtocol {
     
@@ -37,7 +38,16 @@ final class OrderBookUseCase: OrderBookUseCaseProtocol {
                                                             accountAddress: wallet.address)
                             .map({ (assets) -> DomainLayer.DTO.Dex.SmartSettingsOrderFee in
                                 
-                                let feeAssets = assets.map({ (asset) -> DomainLayer.DTO.Dex.SmartSettingsOrderFee.Asset in
+                                var sortedAssets = assets.sorted(by: {$0.displayName < $1.displayName})
+                                
+                                if let index = sortedAssets.firstIndex(where: {$0.id == WavesSDKConstants.wavesAssetId}) {
+                                    
+                                    let wavesAsset = sortedAssets[index]
+                                    sortedAssets.remove(at: index)
+                                    sortedAssets.insert(wavesAsset, at: 0)
+                                }
+                                
+                                let feeAssets = sortedAssets.map({ (asset) -> DomainLayer.DTO.Dex.SmartSettingsOrderFee.Asset in
                                     
                                     let dexAsset = DomainLayer.DTO.Dex.Asset.init(id: asset.id,
                                                                                  name: asset.displayName,

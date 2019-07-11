@@ -56,7 +56,8 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                                                                        orderType: order.type,
                                                                        matcherFee: order.fee,
                                                                        timestamp: Date().millisecondsSince1970,
-                                                                       expiration: Int64(order.expiration.rawValue))
+                                                                       expiration: Int64(order.expiration.rawValue),
+                                                                       matcherFeeAsset: order.feeAssetId)
                     
                     
                     return self

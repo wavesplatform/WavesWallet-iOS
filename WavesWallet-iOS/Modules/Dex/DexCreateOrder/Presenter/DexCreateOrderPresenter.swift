@@ -77,6 +77,13 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
             }
             .changeAction(.none)
 
+        case .feeAssetNeedUpdate(let feeAssetId):
+            
+            return state.mutate {
+                $0.feeAssetId = feeAssetId
+                $0.isNeedGetFee = true
+            }.changeAction(.none)
+            
         case .handlerFeeError(let error):
 
             return state.mutate {
@@ -97,7 +104,7 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
                 $0.displayFeeErrorState = .none
                 $0.order?.fee = feeSettings.fee.amount
             }
-            .changeAction(.didGetFee(feeSettings.fee))
+            .changeAction(.didGetFee(feeSettings))
             
         case .createOrder:
             
