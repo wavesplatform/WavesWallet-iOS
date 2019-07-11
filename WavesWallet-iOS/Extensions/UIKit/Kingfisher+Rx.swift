@@ -69,7 +69,8 @@ extension Reactive where Base == ImageDownloader {
                                                     completionHandler:
                 { (result) in
                     isFinish = true
-                    if let pic = result.value?.image {
+                    
+                    if let pic = try? result.get().image {
                         observer.onNext(pic)
                         observer.onCompleted()
                     } else {
