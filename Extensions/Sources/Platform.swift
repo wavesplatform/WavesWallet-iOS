@@ -6,7 +6,7 @@ public struct Platform {
 
     public static let ScreenWidth = UIScreen.main.bounds.width
 
-    private static let device = Device()
+    private static let device = Device.current
 
     public static let isIphone5: Bool = {
         return device.isOneOf([.iPhone5, .simulator(.iPhone5),
@@ -25,9 +25,9 @@ public struct Platform {
 
     public static let isIphoneXSeries: Bool = {
         return device.isOneOf([.iPhoneX, .simulator(.iPhoneX),
-                               .iPhoneXr, .simulator(.iPhoneXr),
-                               .iPhoneXs, .simulator(.iPhoneXs),
-                               .iPhoneXsMax, .simulator(.iPhoneXsMax)])
+                               .iPhoneXR, .simulator(.iPhoneXR),
+                               .iPhoneXS, .simulator(.iPhoneXS),
+                               .iPhoneXSMax, .simulator(.iPhoneXSMax)])
     }()
         
     public static let isIphonePlus: Bool = {
@@ -41,17 +41,17 @@ public struct Platform {
     public static let isIphoneX: Bool = {
         
         return device.isOneOf([.iPhoneX, .simulator(.iPhoneX),
-                               .iPhoneXs, .simulator(.iPhoneXs)])
+                               .iPhoneXS, .simulator(.iPhoneXS)])
     }()
     
     public static let isIphoneXMax: Bool = {
         
-        return device.isOneOf([.iPhoneXsMax, .simulator(.iPhoneXsMax)])
+        return device.isOneOf([.iPhoneXSMax, .simulator(.iPhoneXSMax)])
     }()
     
     public static let isIphoneXR: Bool = {
         
-        return device.isOneOf([.iPhoneXr, .simulator(.iPhoneXr)])
+        return device.isOneOf([.iPhoneXR, .simulator(.iPhoneXR)])
     }()
     
     public static let isSupportFaceID: Bool = {
