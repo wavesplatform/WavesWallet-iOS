@@ -9,6 +9,11 @@ import Foundation
 import Result
 import Moya
 
+private struct Cosntants {
+    
+    static let notFoundHTTPError: Int = 404
+}
+
 public final class SentryNetworkLoggerPlugin: PluginType {
 
     public func willSend(_ request: RequestType, target: TargetType) {}
@@ -29,7 +34,7 @@ public final class SentryNetworkLoggerPlugin: PluginType {
             statusCode = error.statusCode
         case .success(let value):
             if let statusCode = value.response?.statusCode,
-                statusCode < 300 {
+                (statusCode < 300 || statusCode == Cosntants.notFoundHTTPError) {
                 return
             }
 

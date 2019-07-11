@@ -73,6 +73,8 @@ final class DexCreateOrderViewController: UIViewController {
     private var feeAssets: [DomainLayer.DTO.Dex.Asset] = []
     
     var presenter: DexCreateOrderPresenterProtocol!
+    weak var moduleOutput: DexCreateOrderModuleOutput?
+    
     private let sendEvent: PublishRelay<DexCreateOrder.Event> = PublishRelay<DexCreateOrder.Event>()
 
     override func viewDidLoad() {
@@ -140,51 +142,82 @@ private extension DexCreateOrderViewController {
             .drive(onNext: { [weak self] state in
                 
                 guard let self = self else { return }
-
-                self.isDisabledBuySellButton = state.isDisabledSellBuyButton
-                self.setupFeeError(error: state.displayFeeErrorState)
-
-                switch state.action {
-                case .none:
-                    return
-                default:
-                    break
-                }
-                
-                switch state.action {
-                case .showCreatingOrderState:
-                    self.setupCreatingOrderState()
-                    
-                case .orderDidFailCreate(let error):
-                    
-                    self.showNetworkErrorSnack(error: error)
-                    self.setupDefaultState()
-                    
-                case .orderDidCreate:
-                    self.dismissController()
-                    
-                case .didGetFee(let feeSettings):
-
-                    self.feeAssets = feeSettings.feeAssets.map{ $0.asset }
-                    self.showFee(fee: feeSettings.fee)
-                    self.order.fee = feeSettings.fee.amount
-                    self.updateInputDataFields()
-                    self.sendEvent.accept(.updateInputOrder(self.order))
-                    self.setupValidationErrors()
-                    self.setupButtonSellBuy()
-                    self.setupInputAmountData()
-                    self.setupInputTotalData()
-                    
-                default:
-                    break
-                }
+                self.updateState(state)
             })
         
         return [subscriptionSections]
     }
+    
+    func updateState(_ state: DexCreateOrder.State) {
+    
+        self.isDisabledBuySellButton = state.isDisabledSellBuyButton
+        self.setupFeeError(error: state.displayFeeErrorState)
+        
+        switch state.action {
+        case .none:
+            return
+        default:
+            break
+        }
+        
+        switch state.action {
+        case .showCreatingOrderState:
+            self.setupCreatingOrderState()
+            
+        case .orderDidFailCreate(let error):
+            
+            self.showNetworkErrorSnack(error: error)
+            self.setupDefaultState()
+            
+        case .orderDidCreate(let output):
+            
+            moduleOutput?.dexCreateOrderDidCreate(output: output)
+
+        case .orderNotValid(let error):
+            
+            let callback: ((_ isSuccess: Bool) -> Void) = { [weak self] isSuccess in
+                if isSuccess {
+                    self?.sendEvent.accept(.sendOrder)
+                } else {
+                    self?.sendEvent.accept(.cancelCreateOrder)
+                }
+            }
+            
+            switch error {
+            case .invalid:
+                break
+                
+            case .priceHigherMarket:
+                moduleOutput?.dexCreateOrderWarningForPrice(isPriceHigherMarket: true, callback: callback)
+                
+            case .priceLowerMarket:
+                moduleOutput?.dexCreateOrderWarningForPrice(isPriceHigherMarket: false, callback: callback)
+            }
+            
+        case .didGetFee(let feeSettings):
+            
+            self.feeAssets = feeSettings.feeAssets.map{ $0.asset }
+            self.showFee(fee: feeSettings.fee)
+            self.order.fee = feeSettings.fee.amount
+            self.updateInputDataFields()
+            self.sendEvent.accept(.updateInputOrder(self.order))
+            self.setupValidationErrors()
+            self.setupButtonSellBuy()
+            self.setupInputAmountData()
+            self.setupInputTotalData()
+           
+        case .showDeffaultOrderState:
+            setupDefaultState()
+        
+        case .none:
+            break
+        }
+    }
+    
 }
 
-//MARK: - Validation
+// MARK: - Validation
+
 private extension DexCreateOrderViewController {
     
     var isValidWavesFee: Bool {

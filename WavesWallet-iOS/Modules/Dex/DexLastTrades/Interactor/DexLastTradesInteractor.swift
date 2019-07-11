@@ -110,9 +110,8 @@ extension DexLastTradesInteractor {
             guard let self = self else { return Observable.empty() }
 
 
-            return self.orderBookRepository.orderBook(wallet: wallet,
-                                                       amountAsset: self.pair.amountAsset.id,
-                                                       priceAsset: self.pair.priceAsset.id)
+            return self.orderBookRepository.orderBook(amountAsset: self.pair.amountAsset.id,
+                                                      priceAsset: self.pair.priceAsset.id)
                 .flatMap({ [weak self] (orderbook) -> Observable<LastSellBuy> in
                     
                     guard let self = self else { return Observable.empty() }

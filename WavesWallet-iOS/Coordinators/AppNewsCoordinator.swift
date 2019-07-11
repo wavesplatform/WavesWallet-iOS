@@ -102,9 +102,10 @@ final class AppNewsCoordinator: Coordinator {
                 guard let self = self else { return }
 
                 if let image = image {
-                     let news = AppNewsView.show(model: .init(title: titleValue,
-                                                              subtitle: subTitleValue,
-                                                              image: image))
+                    
+                     let news = AppNewsView.show(model: AppNewsView.Model(title: titleValue,
+                                                                          subtitle: subTitleValue,
+                                                                          image: image))
                     news.tapDismiss = { [weak self] in
                         guard let self = self else { return }
                         self.closeCoordinator()

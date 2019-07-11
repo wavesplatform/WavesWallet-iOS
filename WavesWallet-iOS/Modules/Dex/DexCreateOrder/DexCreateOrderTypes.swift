@@ -17,24 +17,36 @@ enum DexCreateOrder {
     
     enum Event {
         case createOrder
+        case sendOrder
+        case cancelCreateOrder
         case orderDidCreate(ResponseType<DTO.Output>)
         case updateInputOrder(DTO.Order)
-        case didGetFee(DTO.FeeSettings)
+        case didGetFee(Money)
+        case orderNotValid(DexCreateOrder.CreateOrderError)
         case handlerFeeError(Error)
         case refreshFee
         case feeAssetNeedUpdate(String)
     }
     
+    enum CreateOrderError: Error {
+        case invalid
+        case priceLowerMarket
+        case priceHigherMarket
+    }
+    
     struct State: Mutating {
         enum Action {
             case none
+            case showDeffaultOrderState
             case showCreatingOrderState
             case orderDidFailCreate(NetworkError)
-            case orderDidCreate
-            case didGetFee(DTO.FeeSettings)
+            case orderNotValid(DexCreateOrder.CreateOrderError)
+            case orderDidCreate(DexCreateOrder.DTO.Output)
+            case didGetFee(Money)
         }
         
         var isNeedCreateOrder: Bool
+        var isNeedCheckValidOrder: Bool
         var isNeedGetFee: Bool
         var order: DTO.Order?
         var action: Action

@@ -15,6 +15,9 @@ enum UIGlobalConstants {
     static let WavesTransactionFee = Money(WavesSDKConstants.WavesTransactionFeeAmount,
                                            WavesSDKConstants.WavesDecimals)
 
+    
+    static let limitPriceOrderPercent: Int = 5
+    
     #if DEBUG
     static let accountNameMinLimitSymbols: Int = 2
     static let accountNameMaxLimitSymbols: Int = 24

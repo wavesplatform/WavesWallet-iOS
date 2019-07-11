@@ -18,6 +18,6 @@ protocol DexCreateOrderPresenterProtocol {
     func system(feedbacks: [DexCreateOrderPresenter.Feedback], feeAssetId: String)
     
     var moduleOutput: DexCreateOrderModuleOutput? { get set }
-    
+
     var pair: DomainLayer.DTO.Dex.Pair! { get set }
 }
