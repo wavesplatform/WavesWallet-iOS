@@ -11,7 +11,7 @@ import RxSwift
 
 public protocol DexOrderBookRepositoryProtocol {
     
-    func orderBook(wallet: DomainLayer.DTO.SignedWallet, amountAsset: String, priceAsset: String) -> Observable<DomainLayer.DTO.Dex.OrderBook>
+    func orderBook(amountAsset: String, priceAsset: String) -> Observable<DomainLayer.DTO.Dex.OrderBook>
     
     func markets(wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.Dex.SmartPair]>
 

@@ -26,8 +26,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
         self.spamAssetsRepository = spamAssetsRepository
     }
         
-    func orderBook(wallet: DomainLayer.DTO.SignedWallet,
-                   amountAsset: String,
+    func orderBook(amountAsset: String,
                    priceAsset: String) -> Observable<DomainLayer.DTO.Dex.OrderBook> {
 
         return environmentRepository
