@@ -21,7 +21,7 @@ enum DexCreateOrder {
         case cancelCreateOrder
         case orderDidCreate(ResponseType<DTO.Output>)
         case updateInputOrder(DTO.Order)
-        case didGetFee(Money)
+        case didGetFee(DTO.FeeSettings)
         case orderNotValid(DexCreateOrder.CreateOrderError)
         case handlerFeeError(Error)
         case refreshFee
@@ -42,7 +42,7 @@ enum DexCreateOrder {
             case orderDidFailCreate(NetworkError)
             case orderNotValid(DexCreateOrder.CreateOrderError)
             case orderDidCreate(DexCreateOrder.DTO.Output)
-            case didGetFee(Money)
+            case didGetFee(DTO.FeeSettings)
         }
         
         var isNeedCreateOrder: Bool

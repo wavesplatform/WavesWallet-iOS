@@ -15,9 +15,7 @@ protocol DexCreateOrderPresenterProtocol {
     
     typealias Feedback = (Driver<DexCreateOrder.State>) -> Signal<DexCreateOrder.Event>
     var interactor: DexCreateOrderInteractorProtocol! { get set }
-    func system(feedbacks: [DexCreateOrderPresenter.Feedback], feeAssetId: String)
+    func system(feedbacks: [Feedback], feeAssetId: String)
     
-    var moduleOutput: DexCreateOrderModuleOutput? { get set }
-
     var pair: DomainLayer.DTO.Dex.Pair! { get set }
 }
