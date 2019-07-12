@@ -176,6 +176,8 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                 
                 let expirationTimestamp = timestamp + order.expiration * 60 * 1000
                 
+                let isWavesFee = order.matcherFeeAsset == WavesSDKConstants.wavesAssetId
+
                 let createOrderSignature = CreateOrderSignature(signedWallet: wallet,
                                                                 timestamp: timestamp,
                                                                 matcherPublicKey: order.matcherPublicKey,
@@ -186,7 +188,8 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                                                                 amount: order.amount,
                                                                 expiration: expirationTimestamp,
                                                                 matcherFee: order.matcherFee,
-                                                                matcherFeeAsset: order.matcherFeeAsset)
+                                                                matcherFeeAsset: order.matcherFeeAsset,
+                                                                version: isWavesFee ? .V2 : .V3)
                 
                 return servicesEnvironment
                     .wavesServices
@@ -202,7 +205,8 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                                               timestamp: timestamp,
                                               expirationTimestamp: expirationTimestamp,
                                               proofs: [createOrderSignature.signature()],
-                                              matcherFeeAsset: order.matcherFeeAsset))
+                                              matcherFeeAsset: order.matcherFeeAsset,
+                                              version: isWavesFee ? .V2 : .V3))
         })
     }
 
