@@ -152,7 +152,8 @@ extension DomainLayer.DTO.ExchangeTransaction.Order {
                   timestamp: order.timestamp,
                   expiration: order.expiration,
                   matcherFee: order.matcherFee,
-                  signature: order.signature)
+                  signature: order.signature,
+                  matcherFeeAssetId: order.matcherFeeAssetId)
     }
 
     init(order: ExchangeTransactionOrder) {
@@ -174,7 +175,8 @@ extension DomainLayer.DTO.ExchangeTransaction.Order {
                   timestamp: order.timestamp,
                   expiration: order.expiration,
                   matcherFee: order.matcherFee,
-                  signature: order.signature)    
+                  signature: order.signature,
+                  matcherFeeAssetId: order.matcherFeeAssetId)
 
     }
 }

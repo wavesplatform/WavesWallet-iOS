@@ -32,8 +32,9 @@ public extension DomainLayer.DTO {
             public let expiration: Int64
             public let matcherFee: Int64
             public let signature: String?
-
-            public init(id: String, sender: String, senderPublicKey: String, matcherPublicKey: String, assetPair: AssetPair, orderType: Kind, price: Int64, amount: Int64, timestamp: Date, expiration: Int64, matcherFee: Int64, signature: String?) {
+            public let matcherFeeAssetId: String?
+        
+            public init(id: String, sender: String, senderPublicKey: String, matcherPublicKey: String, assetPair: AssetPair, orderType: Kind, price: Int64, amount: Int64, timestamp: Date, expiration: Int64, matcherFee: Int64, signature: String?, matcherFeeAssetId: String?) {
                 self.id = id
                 self.sender = sender
                 self.senderPublicKey = senderPublicKey
@@ -46,6 +47,7 @@ public extension DomainLayer.DTO {
                 self.expiration = expiration
                 self.matcherFee = matcherFee
                 self.signature = signature
+                self.matcherFeeAssetId = matcherFeeAssetId
             }
         }
 
