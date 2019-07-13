@@ -205,8 +205,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                                               timestamp: timestamp,
                                               expirationTimestamp: expirationTimestamp,
                                               proofs: [createOrderSignature.signature()],
-                                              matcherFeeAsset: order.matcherFeeAsset,
-                                              version: isWavesFee ? .V2 : .V3))
+                                              matcherFeeAsset: order.matcherFeeAsset))
         })
     }
 
