@@ -67,103 +67,110 @@ target 'WavesWallet-iOS' do
     wavesSDKPod
 
     # Waves Internal
-    pod 'DomainLayer', :path => '.'
-    pod 'DataLayer', :path => '.'
-    pod 'Extensions', :path => '.'
+    # pod 'DomainLayer', :path => '.'
+    # pod 'DataLayer', :path => '.'
+    # pod 'Extensions', :path => '.'
  
     # Code Gen
     pod 'SwiftGen', '~> 5.3.0'
 
     # Debug
     # pod 'Reveal-SDK', :configurations => ['Debug']
-    pod 'AppSpectorSDK', :configurations => ['Debug', 'Test']
-    pod 'SwiftMonkeyPaws', :configurations => ['Debug']
+    pod 'AppSpectorSDK', :configurations => ['dev-debug', 'dev-adhoc', 'test-dev']
+    pod 'SwiftMonkeyPaws', :configurations => ['dev-debug', 'dev-adhoc']
         
     # pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git'
-end
 
 
-target 'DomainLayerTests' do
+    target 'DomainLayer' do
 
-    inherit! :search_paths
-    pod 'DomainLayer', :path => '.'    
-end
-
-target 'DataLayerTests' do
-
-    inherit! :search_paths
-    pod 'DataLayer', :path => '.'    
-end
-
-target 'InternalDomainLayer' do
-
-    inherit! :search_paths
-
-    # DB
-    pod 'RealmSwift'
-    pod 'RxRealm'
-
-    # Assisstant
-    pod 'RxSwift'
-    pod 'RxSwiftExt'
-    pod 'RxOptional'        
-    pod 'RxReachability'
-
-    pod 'KeychainAccess'        
-
-    # Waves    
-    wavesSDKPod
-    pod 'Extensions', :path => '.'
+        inherit! :search_paths
     
-    pod 'CryptoSwift'
+        # DB
+        pod 'RealmSwift'
+        pod 'RxRealm'
+    
+        # Assisstant
+        pod 'RxSwift'
+        pod 'RxSwiftExt'
+        pod 'RxOptional'        
+        pod 'RxReachability'
+    
+        pod 'KeychainAccess'        
+    
+        # Waves    
+        wavesSDKPod
+        # pod 'Extensions', :path => '.'
+        
+        pod 'CryptoSwift'
+    end
+    
+    target 'Extensions' do
+    
+        inherit! :search_paths
+    
+        # Assisstant
+        pod 'RxSwift'
+        pod 'RxSwiftExt'
+        pod 'RxOptional'
+        pod 'DeviceKit'
+    
+        # Waves
+        wavesSDKPod
+    
+    end
+    
+    target 'DataLayer' do
+    
+        inherit! :search_paths
+    
+        # External Service
+        pod 'Firebase/Core'
+        pod 'Firebase/Database'
+        pod 'Firebase/Auth'
+        pod 'Firebase/InAppMessagingDisplay'
+    
+        pod 'Fabric'
+        pod 'Crashlytics'
+        pod 'Amplitude-iOS'
+        pod 'AppsFlyerFramework'
+        pod 'Sentry'
+    
+        # DB
+        pod 'RealmSwift'
+        pod 'RxRealm'
+    
+        # Assisstant
+        pod 'RxSwift'
+        pod 'RxSwiftExt'
+        pod 'RxOptional'
+        pod 'CSV.swift'
+    
+        pod 'CryptoSwift'
+        pod 'DeviceKit'
+        pod 'KeychainAccess'
+    
+        # Waves
+        wavesSDKPod
+        # pod 'Extensions', :path => '.'   
+        # pod 'DataLayer', :path => '.'   
+    end
+
+
+    target 'DomainLayerTests' do
+
+        inherit! :search_paths
+        # pod 'DomainLayer', :path => '.'    
+    end
+
+    target 'DataLayerTests' do
+
+        inherit! :search_paths
+        # pod 'DataLayer', :path => '.'    
+    end
+
 end
 
-target 'InternalExtensions' do
-
-    inherit! :search_paths
-
-    # Assisstant
-    pod 'RxSwift'
-    pod 'RxSwiftExt'
-    pod 'RxOptional'
-    pod 'DeviceKit'
-
-    # Waves
-    wavesSDKPod
-
-end
-
-target 'InternalDataLayer' do
-
-    inherit! :search_paths
-
-    # External Service
-    pod 'Firebase/Core'
-    pod 'Firebase/Database'
-    pod 'Firebase/Auth'
-    pod 'Firebase/InAppMessagingDisplay'
-
-    pod 'Fabric'
-    pod 'Crashlytics'
-    pod 'Amplitude-iOS'
-    pod 'AppsFlyerFramework'
-    pod 'Sentry'
-
-    # DB
-    pod 'RealmSwift'
-    pod 'RxRealm'
-
-    # Assisstant
-    pod 'RxSwift'
-    pod 'RxSwiftExt'
-    pod 'RxOptional'
-    pod 'CSV.swift'
-
-    # Waves
-    wavesSDKPod
-    pod 'Extensions', :path => '.'   
-    pod 'DataLayer', :path => '.'   
-end
 
 post_install do |installer|
 
