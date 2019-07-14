@@ -259,7 +259,7 @@ jobs:
           command: bundle exec fastlane download_bundle_enviroments --verbose 
       - run:
           name: Fastlane Build
-          command: bundle exec fastlane prod_build_projet --verbose
+          command: bundle exec fastlane dev_build_projet --verbose
           no_output_timeout: 60m      
       - store_artifacts:
           path: ~/Waves/iOS/Output

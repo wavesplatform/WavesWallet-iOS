@@ -10,54 +10,8 @@ PODS:
     - Fabric (~> 1.10.2)
   - CryptoSwift (1.0.0)
   - CSV.swift (2.4.1)
-  - DataLayer (0.1):
-    - Amplitude-iOS
-    - AppsFlyerFramework
-    - Crashlytics
-    - CSV.swift
-    - DomainLayer
-    - Extensions
-    - Fabric
-    - Firebase
-    - Firebase/Auth
-    - Firebase/Core
-    - Firebase/Database
-    - Firebase/InAppMessagingDisplay
-    - Moya/RxSwift
-    - RealmSwift
-    - RxOptional
-    - RxRealm
-    - RxSwift
-    - RxSwiftExt
-    - Sentry
-    - WavesSDK
-    - WavesSDKCrypto
-    - WavesSDKExtensions
   - DeviceKit (2.0.0)
-  - DomainLayer (0.1):
-    - CryptoSwift
-    - Extensions
-    - KeychainAccess
-    - RealmSwift
-    - RxOptional
-    - RxReachability
-    - RxRealm
-    - RxSwift
-    - RxSwiftExt
-    - WavesSDK
-    - WavesSDKCrypto
-    - WavesSDKExtensions
-  - Extensions (0.1):
-    - DeviceKit
-    - RxOptional
-    - RxSwift
-    - RxSwiftExt
-    - WavesSDK
-    - WavesSDKCrypto
-    - WavesSDKExtensions
   - Fabric (1.10.2)
-  - Firebase (6.4.0):
-    - Firebase/Core (= 6.4.0)
   - Firebase/Auth (6.4.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.2.0)
@@ -224,10 +178,7 @@ DEPENDENCIES:
   - Crashlytics
   - CryptoSwift
   - CSV.swift
-  - DataLayer (from `.`)
   - DeviceKit
-  - DomainLayer (from `.`)
-  - Extensions (from `.`)
   - Fabric
   - Firebase/Auth
   - Firebase/Core
@@ -328,12 +279,6 @@ SPEC REPOS:
     - UPCarouselFlowLayout
 
 EXTERNAL SOURCES:
-  DataLayer:
-    :path: "."
-  DomainLayer:
-    :path: "."
-  Extensions:
-    :path: "."
   IdentityImg:
     :git: https://github.com/wavesplatform/identity-img-swift.git
   InfiniteCollectionView:
@@ -377,10 +322,7 @@ SPEC CHECKSUMS:
   Crashlytics: 2aa08cd61fb1d62718c4e653169461d1d7377de2
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   CSV.swift: f31c4e4d06b3f20b2380f4a4754108c8f36528a8
-  DataLayer: 34e6bb6c9a7bcd8d5c2964486012c7a29f6883c0
   DeviceKit: 72d36709552d4b3582abd76a53949148acad9811
-  DomainLayer: f30ec40e9ebd54fb9d84e39967bd5962d62e2f20
-  Extensions: 02564a21a50066437f02610f7bcac62eeb537846
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   Firebase: 9445469655a98e9010737f4bc4720e5bda465873
   FirebaseAnalytics: 69fe25866d2ec87c6f02d72c3c9a82bce9c065a0
@@ -436,6 +378,6 @@ SPEC CHECKSUMS:
   WavesSDKCrypto: 9d8010b2f2289167a53351703b644322346bd351
   WavesSDKExtensions: ef86e47b11766b9fd8084b0964f55cfc00c66532
 
-PODFILE CHECKSUM: 0767e4dd73807c2142b3206a99aa44f7ed0da9d7
+PODFILE CHECKSUM: 75670420bb37c569d81e5894d986d01383bf5383
 
-COCOAPODS: 1.7.2
+COCOAPODS: 1.7.4
