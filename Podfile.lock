@@ -6,58 +6,12 @@ PODS:
   - Charts (3.3.0):
     - Charts/Core (= 3.3.0)
   - Charts/Core (3.3.0)
-  - Crashlytics (3.13.3):
+  - Crashlytics (3.13.4):
     - Fabric (~> 1.10.2)
   - CryptoSwift (1.0.0)
-  - CSV.swift (2.4.1)
-  - DataLayer (0.1):
-    - Amplitude-iOS
-    - AppsFlyerFramework
-    - Crashlytics
-    - CSV.swift
-    - DomainLayer
-    - Extensions
-    - Fabric
-    - Firebase
-    - Firebase/Auth
-    - Firebase/Core
-    - Firebase/Database
-    - Firebase/InAppMessagingDisplay
-    - Moya/RxSwift
-    - RealmSwift
-    - RxOptional
-    - RxRealm
-    - RxSwift
-    - RxSwiftExt
-    - Sentry
-    - WavesSDK
-    - WavesSDKCrypto
-    - WavesSDKExtensions
+  - CSV.swift (2.4.2)
   - DeviceKit (2.0.0)
-  - DomainLayer (0.1):
-    - CryptoSwift
-    - Extensions
-    - KeychainAccess
-    - RealmSwift
-    - RxOptional
-    - RxReachability
-    - RxRealm
-    - RxSwift
-    - RxSwiftExt
-    - WavesSDK
-    - WavesSDKCrypto
-    - WavesSDKExtensions
-  - Extensions (0.1):
-    - DeviceKit
-    - RxOptional
-    - RxSwift
-    - RxSwiftExt
-    - WavesSDK
-    - WavesSDKCrypto
-    - WavesSDKExtensions
   - Fabric (1.10.2)
-  - Firebase (6.4.0):
-    - Firebase/Core (= 6.4.0)
   - Firebase/Auth (6.4.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.2.0)
@@ -113,23 +67,23 @@ PODS:
     - GoogleUtilities/Network (~> 6.0)
     - "GoogleUtilities/NSData+zlib (~> 6.0)"
     - nanopb (~> 0.3)
-  - GoogleUtilities/AppDelegateSwizzler (6.2.1):
+  - GoogleUtilities/AppDelegateSwizzler (6.2.3):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (6.2.1)
-  - GoogleUtilities/Logger (6.2.1):
+  - GoogleUtilities/Environment (6.2.3)
+  - GoogleUtilities/Logger (6.2.3):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (6.2.1):
+  - GoogleUtilities/MethodSwizzler (6.2.3):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (6.2.1):
+  - GoogleUtilities/Network (6.2.3):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (6.2.1)"
-  - GoogleUtilities/Reachability (6.2.1):
+  - "GoogleUtilities/NSData+zlib (6.2.3)"
+  - GoogleUtilities/Reachability (6.2.3):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (6.2.1):
+  - GoogleUtilities/UserDefaults (6.2.3):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.2)
   - IdentityImg (0.2)
@@ -141,12 +95,12 @@ PODS:
     - pop (~> 1.0)
   - leveldb-library (1.20)
   - MGSwipeTableCell (1.6.8)
-  - Moya (12.0.1):
-    - Moya/Core (= 12.0.1)
-  - Moya/Core (12.0.1):
+  - Moya (13.0.1):
+    - Moya/Core (= 13.0.1)
+  - Moya/Core (13.0.1):
     - Alamofire (~> 4.1)
-    - Result (~> 4.0)
-  - Moya/RxSwift (12.0.1):
+    - Result (~> 4.1)
+  - Moya/RxSwift (13.0.1):
     - Moya/Core
     - RxSwift (~> 4.0)
   - nanopb (0.3.901):
@@ -205,16 +159,6 @@ PODS:
   - TTTAttributedLabel (2.0.0)
   - "UITextView+Placeholder (1.2.1)"
   - UPCarouselFlowLayout (1.1.2)
-  - WavesSDK (0.1.7):
-    - Moya (~> 12.0.1)
-    - Moya/RxSwift (~> 12.0.1)
-    - RxSwift (~> 4.0)
-    - WavesSDKCrypto
-    - WavesSDKExtensions
-  - WavesSDKCrypto (0.1.7):
-    - WavesSDKExtensions
-  - WavesSDKExtensions (0.1.7):
-    - RxSwift (~> 4.0)
 
 DEPENDENCIES:
   - Amplitude-iOS
@@ -224,10 +168,7 @@ DEPENDENCIES:
   - Crashlytics
   - CryptoSwift
   - CSV.swift
-  - DataLayer (from `.`)
   - DeviceKit
-  - DomainLayer (from `.`)
-  - Extensions (from `.`)
   - Fabric
   - Firebase/Auth
   - Firebase/Core
@@ -240,6 +181,8 @@ DEPENDENCIES:
   - Kingfisher
   - Koloda
   - MGSwipeTableCell
+  - Moya
+  - Moya/RxSwift
   - QRCode
   - QRCodeReader.swift (~> 9.0.1)
   - RealmSwift
@@ -263,9 +206,6 @@ DEPENDENCIES:
   - TTTAttributedLabel
   - "UITextView+Placeholder"
   - UPCarouselFlowLayout
-  - WavesSDK (from `/Users/pavel/Documents/IOSWorkProjects/WavesWallet-iOS/Vendors/WavesSDK`)
-  - WavesSDKCrypto (from `/Users/pavel/Documents/IOSWorkProjects/WavesWallet-iOS/Vendors/WavesSDK`)
-  - WavesSDKExtensions (from `/Users/pavel/Documents/IOSWorkProjects/WavesWallet-iOS/Vendors/WavesSDK`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -328,12 +268,6 @@ SPEC REPOS:
     - UPCarouselFlowLayout
 
 EXTERNAL SOURCES:
-  DataLayer:
-    :path: "."
-  DomainLayer:
-    :path: "."
-  Extensions:
-    :path: "."
   IdentityImg:
     :git: https://github.com/wavesplatform/identity-img-swift.git
   InfiniteCollectionView:
@@ -341,12 +275,6 @@ EXTERNAL SOURCES:
     :git: https://github.com/wavesplatform/InfiniteCollectionView.git
   RESideMenu:
     :git: https://github.com/wavesplatform/RESideMenu.git
-  WavesSDK:
-    :path: "/Users/pavel/Documents/IOSWorkProjects/WavesWallet-iOS/Vendors/WavesSDK"
-  WavesSDKCrypto:
-    :path: "/Users/pavel/Documents/IOSWorkProjects/WavesWallet-iOS/Vendors/WavesSDK"
-  WavesSDKExtensions:
-    :path: "/Users/pavel/Documents/IOSWorkProjects/WavesWallet-iOS/Vendors/WavesSDK"
 
 CHECKOUT OPTIONS:
   IdentityImg:
@@ -365,13 +293,10 @@ SPEC CHECKSUMS:
   AppsFlyerFramework: 417e0ceeb58cb60d762f25808095eb4801e3132b
   AppSpectorSDK: 6c32df6d66156daa2c1de6e028a74b9c7379753a
   Charts: e0dd4cd8f257bccf98407b58183ddca8e8d5b578
-  Crashlytics: 2aa08cd61fb1d62718c4e653169461d1d7377de2
+  Crashlytics: 2dfd686bcb918dc10ee0e76f7f853fe42c7bd552
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
-  CSV.swift: f31c4e4d06b3f20b2380f4a4754108c8f36528a8
-  DataLayer: 34e6bb6c9a7bcd8d5c2964486012c7a29f6883c0
+  CSV.swift: 9670cc1b3e3f01e9eebb1aeb603b17b4459e7493
   DeviceKit: 72d36709552d4b3582abd76a53949148acad9811
-  DomainLayer: f30ec40e9ebd54fb9d84e39967bd5962d62e2f20
-  Extensions: 02564a21a50066437f02610f7bcac62eeb537846
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   Firebase: 9445469655a98e9010737f4bc4720e5bda465873
   FirebaseAnalytics: 69fe25866d2ec87c6f02d72c3c9a82bce9c065a0
@@ -384,7 +309,7 @@ SPEC CHECKSUMS:
   FirebaseInAppMessagingDisplay: ad5a13dfd7c15280b1c4a26e120fcf5fe91e39ae
   FirebaseInstanceID: 9782fcfb89e4d7da76cc28eac4b8543dc7be4a4b
   GoogleAppMeasurement: 1e45fa601e6280c180880d57010390f6679cd971
-  GoogleUtilities: c7a0b08bda3bf808be823ed151f0e28ac6866e71
+  GoogleUtilities: d2b0e277a95962e09bb27f5cd42f5f0b6a506c7d
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
   IdentityImg: 4c81857fc8a80294e6c480b4f72cb3e22cd360c2
   InfiniteCollectionView: 49a7639a04c7cb21164de3840245f084fda257d0
@@ -394,7 +319,7 @@ SPEC CHECKSUMS:
   Koloda: 75302d21882cc3e274c1561b1155805ea5919dab
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   MGSwipeTableCell: dc4eca3212ed38a563b27d6aa7b3c01ce656c1e2
-  Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
+  Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
@@ -423,10 +348,7 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
-  WavesSDK: c10f119e155e1881f50e973628c75725a5b84fc8
-  WavesSDKCrypto: 9d8010b2f2289167a53351703b644322346bd351
-  WavesSDKExtensions: ef86e47b11766b9fd8084b0964f55cfc00c66532
 
-PODFILE CHECKSUM: 396974fcfc32d3d57985ebb2a0f1b00e589a246f
+PODFILE CHECKSUM: ad5521053e53336bb7a9ed1fc460cd70ac9f9df1
 
-COCOAPODS: 1.7.3
+COCOAPODS: 1.7.4
