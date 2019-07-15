@@ -79,8 +79,9 @@ public extension DomainLayer.DTO {
         public let sellMatcherFee: Int64
         public var modified: Date
         public var status: TransactionStatus
-
-        public init(type: Int, id: String, sender: String, senderPublicKey: String, fee: Int64, timestamp: Date, height: Int64, signature: String?, proofs: [String]?, order1: Order, order2: Order, price: Int64, amount: Int64, buyMatcherFee: Int64, sellMatcherFee: Int64, modified: Date, status: TransactionStatus) {
+        public let version: Int
+        
+        public init(type: Int, id: String, sender: String, senderPublicKey: String, fee: Int64, timestamp: Date, height: Int64, signature: String?, proofs: [String]?, order1: Order, order2: Order, price: Int64, amount: Int64, buyMatcherFee: Int64, sellMatcherFee: Int64, modified: Date, status: TransactionStatus, version: Int) {
             self.type = type
             self.id = id
             self.sender = sender
@@ -98,6 +99,7 @@ public extension DomainLayer.DTO {
             self.sellMatcherFee = sellMatcherFee
             self.modified = modified
             self.status = status
+            self.version = version
         }
     }
 }

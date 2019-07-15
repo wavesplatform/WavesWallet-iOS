@@ -328,8 +328,38 @@ extension DomainLayer.DTO.ExchangeTransaction {
         let total = assetPair.totalBalance(priceAmount: self.price,
                                            assetAmount: self.amount)
 
-        let buyMatcherFee = wavesAsset.balance(self.buyMatcherFee)
-        let sellMatcherFee = wavesAsset.balance(self.sellMatcherFee)
+        var buyMatcherFee: Balance!
+        var sellMatcherFee: Balance!
+        
+        if let matcherFeeAssetId = order1.matcherFeeAssetId {
+            guard let matcherFeeAsset = assets[matcherFeeAssetId] else { return nil }
+
+            if self.sellMatcherFee == order1.matcherFee {
+                sellMatcherFee = matcherFeeAsset.balance(self.sellMatcherFee)
+            }
+            else if self.buyMatcherFee == order1.matcherFee {
+                buyMatcherFee = matcherFeeAsset.balance(self.buyMatcherFee)
+            }
+        }
+        
+        if let matcherFeeAssetId = order2.matcherFeeAssetId {
+            guard let matcherFeeAsset = assets[matcherFeeAssetId] else { return nil }
+            
+            if self.sellMatcherFee == order2.matcherFee {
+                sellMatcherFee = matcherFeeAsset.balance(self.sellMatcherFee)
+            }
+            else if self.buyMatcherFee == order2.matcherFee {
+                buyMatcherFee = matcherFeeAsset.balance(self.buyMatcherFee)
+            }
+        }
+        
+        if buyMatcherFee == nil {
+            buyMatcherFee = wavesAsset.balance(self.buyMatcherFee)
+        }
+        
+        if sellMatcherFee == nil {
+            sellMatcherFee = wavesAsset.balance(self.sellMatcherFee)
+        }
 
         guard let order1 = order1.exchangeOrder(assetPair: assetPair,
                                                 accounts: accounts)
