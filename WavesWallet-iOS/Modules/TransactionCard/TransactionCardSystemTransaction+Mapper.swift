@@ -458,7 +458,6 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         
         rows.append(contentsOf:[.keyValue(self.rowBlockModel(isLargePadding: true)),
                                 .keyValue(self.rowConfirmationsModel),
-//                                .keyBalance(self.rowFeeModel),
                                 .exchangeFee(self.rowExchangeFeeModel(tx: transfer)),
                                 .keyValue(self.rowTimestampModel),
                                 .status(self.rowStatusModel),
