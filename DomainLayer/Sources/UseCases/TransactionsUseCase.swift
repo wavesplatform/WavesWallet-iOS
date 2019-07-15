@@ -808,8 +808,16 @@ private extension DomainLayer.DTO.AnyTransaction {
             return [tx.assetId, WavesSDKConstants.wavesAssetId]
 
         case .exchange(let tx):
-            return [tx.order1.assetPair.amountAsset, tx.order1.assetPair.priceAsset]
-
+            
+            var ids = [tx.order1.assetPair.amountAsset, tx.order1.assetPair.priceAsset]
+            if let matcherFeeAssetId = tx.order1.matcherFeeAssetId {
+                ids.append(matcherFeeAssetId)
+            }
+            if let matcherFeeAssetId = tx.order2.matcherFeeAssetId {
+                ids.append(matcherFeeAssetId)
+            }
+            return ids
+            
         case .lease:
             return [WavesSDKConstants.wavesAssetId]
 
