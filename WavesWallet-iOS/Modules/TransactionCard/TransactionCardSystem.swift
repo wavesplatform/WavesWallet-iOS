@@ -346,10 +346,12 @@ fileprivate extension TransactionCardSystem {
                     .flatMap({ [weak self] (orderSettingsFee) ->  Observable<Money> in
                         guard let self = self else { return Observable.empty() }
                         return self.transactionsInteractor
+                            
+                            //TODO: need update feeAssetId to correct calculation when api will be available for matcher
                             .calculateFee(by: .createOrder(amountAsset: amountAsset,
                                                            priceAsset: priceAsset,
                                                            settingsOrderFee: orderSettingsFee,
-                                                           feeAssetId: nil),
+                                                           feeAssetId: WavesSDKConstants.wavesAssetId),
                                           accountAddress: wallet.address)
                     })
             })

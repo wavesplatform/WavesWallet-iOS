@@ -653,6 +653,7 @@
 		E9443012226E64E900EB6257 /* WalletSortInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9443011226E64E900EB6257 /* WalletSortInteractor.swift */; };
 		E9443014226E64F600EB6257 /* WalletSortInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9443013226E64F600EB6257 /* WalletSortInteractorProtocol.swift */; };
 		E9443018226E757E00EB6257 /* WalletSort+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9443017226E757E00EB6257 /* WalletSort+Mapper.swift */; };
+		E9443BA822DCCC2B00AFF151 /* TransactionCardExchangeFeeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9443BA722DCCC2B00AFF151 /* TransactionCardExchangeFeeCell.swift */; };
 		E944AA6F22444B780009F494 /* Amplitude-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E944AA6E22444B780009F494 /* Amplitude-Info.plist */; };
 		E95438F8217F91BA001A7860 /* SendLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95438F7217F91BA001A7860 /* SendLoadingViewController.swift */; };
 		E9543902217FF9EC001A7860 /* SendCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9543901217FF9EC001A7860 /* SendCompleteViewController.swift */; };
@@ -1698,6 +1699,7 @@
 		E9443011226E64E900EB6257 /* WalletSortInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortInteractor.swift; sourceTree = "<group>"; };
 		E9443013226E64F600EB6257 /* WalletSortInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortInteractorProtocol.swift; sourceTree = "<group>"; };
 		E9443017226E757E00EB6257 /* WalletSort+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletSort+Mapper.swift"; sourceTree = "<group>"; };
+		E9443BA722DCCC2B00AFF151 /* TransactionCardExchangeFeeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardExchangeFeeCell.swift; sourceTree = "<group>"; };
 		E944AA6E22444B780009F494 /* Amplitude-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Amplitude-Info.plist"; sourceTree = "<group>"; };
 		E945B19E20F75B420081F4D2 /* ConfirmBackupStackInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackInputView.swift; sourceTree = "<group>"; };
 		E95438F7217F91BA001A7860 /* SendLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendLoadingViewController.swift; sourceTree = "<group>"; };
@@ -3122,6 +3124,7 @@
 				7B39029C2236ABFF00AAFDB8 /* TransactionCardStatusCell.swift */,
 				E9BB2D842260DEB000366278 /* TransactionCardInvokeScriptCell.swift */,
 				E97667CD227F0F8B0050E0D6 /* TransactionCardOrderFilledCell.swift */,
+				E9443BA722DCCC2B00AFF151 /* TransactionCardExchangeFeeCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -6475,6 +6478,7 @@
 				7B39029522366B8E00AAFDB8 /* TransactionCardAddressCell.swift in Sources */,
 				E9D36DDA2175C755001E6DF0 /* ReceiveTypes.swift in Sources */,
 				E991BB2C2202D6560022E27D /* SendFeeTypes.swift in Sources */,
+				E9443BA822DCCC2B00AFF151 /* TransactionCardExchangeFeeCell.swift in Sources */,
 				0AF921F4212E07B3003BA067 /* AssetChartCell.swift in Sources */,
 				E9B087C12163886800937644 /* DexTraderContainerTypes.swift in Sources */,
 				7B5EDEC022522655009C2B3B /* TransactionCardKeyLoadingCell.swift in Sources */,

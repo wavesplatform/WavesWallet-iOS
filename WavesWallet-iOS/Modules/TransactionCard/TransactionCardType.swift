@@ -117,5 +117,6 @@ enum TransactionCard {
         case keyLoading(TransactionCardKeyLoadingCell.Model)
         case invokeScript(DomainLayer.DTO.SmartTransaction.InvokeScript)
         case orderFilled(TransactionCardOrderFilledCell.Model)
+        case exchangeFee(TransactionCardExchangeFeeCell.Model)
     }
 }
