@@ -334,10 +334,10 @@ extension DomainLayer.DTO.ExchangeTransaction {
         if let matcherFeeAssetId = order1.matcherFeeAssetId {
             guard let matcherFeeAsset = assets[matcherFeeAssetId] else { return nil }
 
-            if self.sellMatcherFee == order1.matcherFee {
+            if order1.orderType == .sell {
                 sellMatcherFee = matcherFeeAsset.balance(self.sellMatcherFee)
             }
-            else if self.buyMatcherFee == order1.matcherFee {
+            else {
                 buyMatcherFee = matcherFeeAsset.balance(self.buyMatcherFee)
             }
         }
@@ -345,10 +345,10 @@ extension DomainLayer.DTO.ExchangeTransaction {
         if let matcherFeeAssetId = order2.matcherFeeAssetId {
             guard let matcherFeeAsset = assets[matcherFeeAssetId] else { return nil }
             
-            if self.sellMatcherFee == order2.matcherFee {
+            if order2.orderType == .sell {
                 sellMatcherFee = matcherFeeAsset.balance(self.sellMatcherFee)
             }
-            else if self.buyMatcherFee == order2.matcherFee {
+            else {
                 buyMatcherFee = matcherFeeAsset.balance(self.buyMatcherFee)
             }
         }
