@@ -124,7 +124,7 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
                                addressTitle: Localizable.Waves.Transactioncard.Title.sentTo,
                                balanceSign: .minus,
                                core: core,
-                               needSendAgain: true)
+                               needSendAgain: transfer.asset.isGateway == false)
     }
 
     // MARK: - Receive Sections
