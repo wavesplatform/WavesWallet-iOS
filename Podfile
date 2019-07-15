@@ -19,16 +19,26 @@ end
 
 
 def wavesSDKPod
-    pod 'WavesSDKExtensions', :git => 'https://github.com/wavesplatform/WavesSDK-iOS'
-    pod 'WavesSDK', :git => 'https://github.com/wavesplatform/WavesSDK-iOS'
-    pod 'WavesSDKCrypto', :git => 'https://github.com/wavesplatform/WavesSDK-iOS'
+    # pod 'WavesSDKExtensions', :git => 'https://github.com/wavesplatform/WavesSDK-iOS'
+    # pod 'WavesSDK', :git => 'https://github.com/wavesplatform/WavesSDK-iOS'
+    # pod 'WavesSDKCrypto', :git => 'https://github.com/wavesplatform/WavesSDK-iOS'
 end
 
+# load './Vendors/WavesSDK/Podfile'
+    
+workspace 'WavesWallet-iOS.xcworkspace'
+project 'Vendors/WavesSDK/WavesSDK.xcodeproj'
+project 'WavesWallet-iOS.xcodeproj'
+
+
+abstract_target 'example' do
+    
+end
 
 # Pods for WavesWallet-iOS
 target 'WavesWallet-iOS' do
 
-    inherit! :search_paths
+    project 'WavesWallet-iOS.xcodeproj'    
 
     # UI
     pod 'RxCocoa'
@@ -67,37 +77,24 @@ target 'WavesWallet-iOS' do
     wavesSDKPod
 
     # Waves Internal
-    pod 'DomainLayer', :path => '.'
-    pod 'DataLayer', :path => '.'
-    pod 'Extensions', :path => '.'
+    # pod 'DomainLayer', :path => '.'
+    # pod 'DataLayer', :path => '.'
+    # pod 'Extensions', :path => '.'
  
     # Code Gen
     pod 'SwiftGen', '~> 5.3.0'
 
     # Debug
     # pod 'Reveal-SDK', :configurations => ['Debug']
-    pod 'AppSpectorSDK', :configurations => ['Debug', 'Test']
-    pod 'SwiftMonkeyPaws', :configurations => ['Debug']
+    pod 'AppSpectorSDK', :configurations => ['dev-debug', 'dev-adhoc', 'test-dev']
+    pod 'SwiftMonkeyPaws', :configurations => ['dev-debug', 'dev-adhoc']
         
     # pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git'
+
 end
 
-
-target 'DomainLayerTests' do
-
-    inherit! :search_paths
-    pod 'DomainLayer', :path => '.'    
-end
-
-target 'DataLayerTests' do
-
-    inherit! :search_paths
-    pod 'DataLayer', :path => '.'    
-end
-
-target 'InternalDomainLayer' do
-
-    inherit! :search_paths
+target 'DomainLayer' do
+    project 'WavesWallet-iOS.xcodeproj'
 
     # DB
     pod 'RealmSwift'
@@ -113,14 +110,13 @@ target 'InternalDomainLayer' do
 
     # Waves    
     wavesSDKPod
-    pod 'Extensions', :path => '.'
+    # pod 'Extensions', :path => '.'
     
     pod 'CryptoSwift'
 end
 
-target 'InternalExtensions' do
-
-    inherit! :search_paths
+target 'Extensions' do
+    project 'WavesWallet-iOS.xcodeproj'    
 
     # Assisstant
     pod 'RxSwift'
@@ -130,13 +126,12 @@ target 'InternalExtensions' do
 
     # Waves
     wavesSDKPod
-
 end
 
-target 'InternalDataLayer' do
 
-    inherit! :search_paths
-
+target 'DataLayer' do
+    project 'WavesWallet-iOS.xcodeproj'
+    
     # External Service
     pod 'Firebase/Core'
     pod 'Firebase/Database'
@@ -159,10 +154,43 @@ target 'InternalDataLayer' do
     pod 'RxOptional'
     pod 'CSV.swift'
 
-    # Waves
-    wavesSDKPod
-    pod 'Extensions', :path => '.'   
-    pod 'DataLayer', :path => '.'   
+    pod 'CryptoSwift'
+    pod 'DeviceKit'
+    pod 'KeychainAccess'
+
+    pod 'RxSwift'
+    pod 'Moya'
+    pod 'Moya/RxSwift'
+end
+
+target 'DomainLayerTests' do
+    project 'WavesWallet-iOS.xcodeproj'
+    inherit! :search_paths         
+end
+
+target 'DataLayerTests' do
+    project 'WavesWallet-iOS.xcodeproj'    
+end
+
+target 'WavesSDK' do    
+    project 'Vendors/WavesSDK/WavesSDK.xcodeproj'
+    pod 'RxSwift'
+    pod 'Moya'
+    pod 'Moya/RxSwift'
+end
+
+target 'WavesSDKExtensions' do    
+    project 'Vendors/WavesSDK/WavesSDK.xcodeproj'
+    pod 'RxSwift'
+    pod 'Moya'
+    pod 'Moya/RxSwift'
+end
+
+target 'WavesSDKCrypto' do    
+    project 'Vendors/WavesSDK/WavesSDK.xcodeproj'
+    pod 'RxSwift'
+    pod 'Moya'
+    pod 'Moya/RxSwift'
 end
 
 post_install do |installer|
