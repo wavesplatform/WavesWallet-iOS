@@ -10,7 +10,7 @@ import Foundation
 
 public extension DomainLayer.DTO {
 
-    public struct AssetScriptTransaction {
+    struct AssetScriptTransaction {
 
         public let type: Int
         public let id: String

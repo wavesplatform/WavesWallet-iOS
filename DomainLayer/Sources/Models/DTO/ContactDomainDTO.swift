@@ -9,7 +9,7 @@
 import Foundation
 
 public extension DomainLayer.DTO {
-    public struct Contact: Hashable {
+    struct Contact: Hashable {
         public let name: String
         public let address: String
 

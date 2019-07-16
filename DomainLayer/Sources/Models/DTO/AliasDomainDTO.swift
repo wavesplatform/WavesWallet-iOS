@@ -12,7 +12,7 @@ public extension DomainLayer.DTO {
 
     //TODO: need update to correct model from API
     
-    public struct Alias: Hashable {
+    struct Alias: Hashable {
         public let name: String
         public let originalName: String
 

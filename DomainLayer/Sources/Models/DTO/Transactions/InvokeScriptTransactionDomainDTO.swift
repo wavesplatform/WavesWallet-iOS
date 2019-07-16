@@ -10,7 +10,7 @@ import Foundation
 
 public extension DomainLayer.DTO {
     
-    public struct InvokeScriptTransaction {
+    struct InvokeScriptTransaction {
         
         public struct Payment {
             public let amount: Int64

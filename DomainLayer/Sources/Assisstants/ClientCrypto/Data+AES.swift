@@ -17,7 +17,7 @@ fileprivate enum Constants {
 
 public extension Data {
 
-    public func aesEncrypt(withKey key: String) -> Data? {
+    func aesEncrypt(withKey key: String) -> Data? {
 
         let iv: Array<UInt8> = AES.randomIV(AES.blockSize)
         let keyBytes = try! PKCS5.PBKDF2(password: key.bytes,
@@ -39,7 +39,7 @@ public extension Data {
         }
     }
 
-    public func aesDecrypt(withKey key: String) -> Data? {
+    func aesDecrypt(withKey key: String) -> Data? {
 
         guard let stringFromData =  String(data: self, encoding: .utf8) else { return nil }
 
@@ -70,14 +70,14 @@ public extension Data {
 
 public extension String {
 
-    public func aesEncrypt(withKey key: String) -> String? {
+    func aesEncrypt(withKey key: String) -> String? {
         guard let data = self.data(using: .utf8) else { return nil }
         guard let  encrypt = data.aesEncrypt(withKey: key) else { return nil }
 
         return String(data: encrypt, encoding: .utf8)
     }
 
-    public func aesDecrypt(withKey key: String) -> String? {
+    func aesDecrypt(withKey key: String) -> String? {
         guard let data = self.data(using: .utf8) else { return nil }
         guard let  decrypt = data.aesDecrypt(withKey: key) else { return nil }
 

@@ -101,7 +101,7 @@ final class AccountSettingsRepository: AccountSettingsRepositoryProtocol {
                         return Observable.never()
                     }
                     
-                    var newAccount = account ?? DomainLayer.DTO.AccountEnvironment(nodeUrl: "",
+                    let newAccount = account ?? DomainLayer.DTO.AccountEnvironment(nodeUrl: "",
                                                                                    dataUrl: "",
                                                                                    spamUrl: url,
                                                                                    matcherUrl: "")

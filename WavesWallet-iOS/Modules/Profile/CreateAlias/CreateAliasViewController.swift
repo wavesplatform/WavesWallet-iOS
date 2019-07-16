@@ -167,7 +167,7 @@ private extension CreateAliasViewController {
                 errorSnackKey = showErrorNotFoundSnackWithoutAction()
 
             case .scriptError:
-                TransactionScriptErrorView.show()
+                _ = TransactionScriptErrorView.show()
             }
 
         case .none:
