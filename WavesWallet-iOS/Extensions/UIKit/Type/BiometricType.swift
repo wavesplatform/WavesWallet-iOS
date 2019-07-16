@@ -10,7 +10,7 @@ import DomainLayer
 
 public extension BiometricType {
 
-    public var title: String? {
+    var title: String? {
         switch self {
         case .none:
             return nil
@@ -23,7 +23,7 @@ public extension BiometricType {
         }
     }
 
-    public var icon: UIImage? {
+    var icon: UIImage? {
 
         switch self {
         case .none:

@@ -329,6 +329,8 @@ extension SweetSnackbar: UIGestureRecognizerDelegate {
             break
         case .failed:
             break
+        @unknown default:
+            break
         }
     }
 

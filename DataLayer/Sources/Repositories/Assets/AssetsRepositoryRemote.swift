@@ -112,7 +112,7 @@ fileprivate extension WalletEnvironment {
     
     func hashMapGeneralAssets() -> [String: WalletEnvironment.AssetInfo] {
         
-        var allAssets = generalAssets
+        let allAssets = generalAssets
         
         return allAssets.reduce([String: WalletEnvironment.AssetInfo](), { map, info -> [String: WalletEnvironment.AssetInfo] in
             var new = map

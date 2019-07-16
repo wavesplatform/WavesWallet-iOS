@@ -10,7 +10,7 @@ import Foundation
 
 public extension DomainLayer.DTO {
    
-    public struct Candle {
+    struct Candle {
         public let close: Double
         public let high: Double
         public let low: Double
@@ -30,7 +30,7 @@ public extension DomainLayer.DTO {
 }
 
 public extension DomainLayer.DTO.Candle {
-    public enum TimeFrameType: Int {
+    enum TimeFrameType: Int {
         case m5 = 5
         case m15 = 15
         case m30 = 30

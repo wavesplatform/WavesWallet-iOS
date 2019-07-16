@@ -15,7 +15,7 @@ public enum DexTraderContainer {
 
 public extension DexTraderContainer.DTO {
     
-    public struct Pair {
+    struct Pair {
         public let amountAsset: DomainLayer.DTO.Dex.Asset
         public let priceAsset: DomainLayer.DTO.Dex.Asset
         public let isGeneral: Bool

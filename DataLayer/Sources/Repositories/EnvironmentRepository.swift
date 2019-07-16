@@ -272,7 +272,7 @@ private extension EnvironmentRepository {
             .nodeServices
             .utilsNodeService
             .time()
-            .flatMap({ [weak self] (time) -> Observable<Int64> in
+            .flatMap({ (time) -> Observable<Int64> in
                 
                 let localTimestamp = Int64(Date().timeIntervalSince1970 * 1000)
                 let diff = localTimestamp - time.NTP

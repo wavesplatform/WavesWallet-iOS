@@ -11,7 +11,7 @@ import Extensions
 
 public extension DomainLayer.DTO {
 
-    public struct AssetPair: Equatable {
+    struct AssetPair: Equatable {
         public var amountAsset: Asset
         public var priceAsset: Asset
 
@@ -21,7 +21,7 @@ public extension DomainLayer.DTO {
         }
     }
 
-    public struct SmartTransaction: Equatable {
+    struct SmartTransaction: Equatable {
 
         public typealias Asset = DomainLayer.DTO.Asset
         public typealias Account = DomainLayer.DTO.Address

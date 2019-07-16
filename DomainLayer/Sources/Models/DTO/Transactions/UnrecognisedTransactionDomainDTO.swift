@@ -9,7 +9,7 @@
 import Foundation
 
 public extension DomainLayer.DTO {
-    public struct UnrecognisedTransaction {
+    struct UnrecognisedTransaction {
         public let type: Int
         public let id: String
         public let sender: String

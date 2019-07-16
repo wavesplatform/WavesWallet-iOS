@@ -9,7 +9,7 @@
 import Foundation
 
 public extension DomainLayer.DTO.SmartTransaction.Exchange {
-    public var myOrder: Order {
+    var myOrder: Order {
         if order1.sender.isMyAccount && order2.sender.isMyAccount {
             return order1.timestamp > order2.timestamp ? order1 : order2
         } else if order1.sender.isMyAccount {
@@ -21,7 +21,7 @@ public extension DomainLayer.DTO.SmartTransaction.Exchange {
         }
     }
 
-    public var sell: Order {
+    var sell: Order {
         if order1.kind == .sell {
             return order1
         } else {
@@ -29,7 +29,7 @@ public extension DomainLayer.DTO.SmartTransaction.Exchange {
         }
     }
 
-    public var buy: Order {
+    var buy: Order {
         if order1.kind == .buy {
             return order1
         } else {

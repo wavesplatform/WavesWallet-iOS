@@ -18,7 +18,7 @@ public enum BiometricType {
 
 public extension BiometricType {
 
-    public static var biometricByDevice: BiometricType {
+    static var biometricByDevice: BiometricType {
         get {
             let current = self.enabledBiometric
             if current == .none {
@@ -34,7 +34,7 @@ public extension BiometricType {
         }
     }
 
-    public static var enabledBiometric: BiometricType {
+    static var enabledBiometric: BiometricType {
         get {
             let context = LAContext()
 
@@ -49,6 +49,8 @@ public extension BiometricType {
                     return .touchID
                 case .faceID:
                     return .faceID
+                @unknown default:
+                    return .none
                 }
             } else {
                 return result ? .touchID : .none

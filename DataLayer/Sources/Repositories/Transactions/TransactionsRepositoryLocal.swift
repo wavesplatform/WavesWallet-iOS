@@ -81,9 +81,6 @@ fileprivate extension TransactionType {
 
         case .invokeScript:
             return InvokeScriptTransaction.predicate(specifications, myAddress: myAddress)
-            
-        default:
-            return UnrecognisedTransaction.predicate(specifications, myAddress: myAddress)
         }
     }
 
@@ -145,10 +142,6 @@ fileprivate extension TransactionType {
         case .invokeScript:
             guard let invokeScriptTransaction = transaction.invokeScriptTransaction else { return nil }
             return .invokeScript(.init(transaction: invokeScriptTransaction))
-
-        default:
-            guard let unrecognisedTransaction = transaction.unrecognisedTransaction else { return nil }
-            return .unrecognised(.init(transaction: unrecognisedTransaction))
         }
     }
 }
