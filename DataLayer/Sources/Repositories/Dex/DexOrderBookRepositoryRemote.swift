@@ -218,7 +218,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                     .wavesServices
                     .matcherServices
                     .orderBookMatcherService
-                    .orderRatesFee()
+                    .settingsRatesFee()
                     .map({ (ratesFee) -> DomainLayer.DTO.Dex.SettingsOrderFee in
                         
                         let assets = ratesFee.map{ DomainLayer.DTO.Dex.SettingsOrderFee.Asset(assetId: $0.assetId, rate: $0.rate) }
