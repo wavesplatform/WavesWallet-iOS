@@ -734,9 +734,9 @@ fileprivate extension TransactionsUseCase {
                 n += 1
             }
             
-            if let matcherFeeAssetId = feeAssetId, isSmartAssets[matcherFeeAssetId] == true &&
-                matcherFeeAssetId != amountAssetId &&
-                matcherFeeAssetId != priceAssetId {
+            if isSmartAssets[feeAssetId] == true &&
+                feeAssetId != amountAssetId &&
+                feeAssetId != priceAssetId {
                 n += 1
             }
 
