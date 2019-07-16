@@ -12,7 +12,7 @@ import Extensions
 
 public extension DomainLayer.Query {
     
-    public enum Dex {
+    enum Dex {
         
         public struct CreateOrder {
             public let wallet: DomainLayer.DTO.SignedWallet

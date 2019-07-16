@@ -16,7 +16,7 @@ public enum TransactionsUseCaseError: Error {
 }
 
 public extension DomainLayer.Query {
-    public enum TransactionSpecificationType {
+    enum TransactionSpecificationType {
         case createAlias
         case lease
         case burn(assetID: String)

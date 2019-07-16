@@ -11,7 +11,7 @@ import Extensions
 
 public extension DomainLayer.DTO {
     
-    public struct Asset: Mutating, Equatable {
+    struct Asset: Mutating, Equatable {
         
         public struct Icon: Equatable {
             public let assetId: String
@@ -84,11 +84,11 @@ public extension DomainLayer.DTO {
 
 public extension DomainLayer.DTO.Asset {
 
-    public var iconLogo: DomainLayer.DTO.Asset.Icon {
+    var iconLogo: DomainLayer.DTO.Asset.Icon {
         return DomainLayer.DTO.Asset.Icon(assetId: id, name: icon, url: iconLogoUrl)
     }
 
-    public var icon: String {
+    var icon: String {
 
         if let gatewayId = gatewayId, gatewayId.count > 0 {
             return gatewayId
@@ -97,19 +97,19 @@ public extension DomainLayer.DTO.Asset {
         return displayName
     }
     
-    public var isMonero: Bool {
+    var isMonero: Bool {
         return gatewayId == "XMR"
     }
     
-    public var isEthereum: Bool {
+    var isEthereum: Bool {
         return gatewayId == "ETH"
     }
     
-    public var isVostok: Bool {
+    var isVostok: Bool {
         return gatewayId == "Vostok"
     }
     
-    public var isSponsored: Bool {
+    var isSponsored: Bool {
         return minSponsoredFee > 0
     }
 }

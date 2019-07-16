@@ -279,7 +279,7 @@ extension SendViewController: SendResultDelegate {
         
         switch error {
         case .scriptError:
-            TransactionScriptErrorView.show()
+        _ = TransactionScriptErrorView.show()
 
         default:
             showNetworkErrorSnack(error: error)
