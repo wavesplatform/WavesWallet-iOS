@@ -12,7 +12,7 @@ import Extensions
 
 public extension DomainLayer.DTO {
 
-    public struct Wallet: Mutating, Hashable {
+    struct Wallet: Mutating, Hashable {
         public var name: String
         public let address: String
         public let publicKey: String
@@ -34,7 +34,7 @@ public extension DomainLayer.DTO {
         }
     }
 
-    public struct WalletEncryption: Mutating {
+    struct WalletEncryption: Mutating {
 
         public enum Kind {
             case passcode(secret: String)
@@ -61,7 +61,7 @@ public extension DomainLayer.DTO {
         }
     }
 
-    public struct WalletSeed {
+    struct WalletSeed {
         public let publicKey: String
         public let seed: String
         public let address: String
@@ -73,7 +73,7 @@ public extension DomainLayer.DTO {
         }
     }
 
-    public struct WalletRegistation {
+    struct WalletRegistation {
         public let name: String
         public let address: String
         public let privateKey: PrivateKeyAccount
@@ -91,7 +91,7 @@ public extension DomainLayer.DTO {
         }
     }
 
-    public final class SignedWallet {
+    final class SignedWallet {
 
         public let wallet: DomainLayer.DTO.Wallet
         public let publicKey: PublicKeyAccount

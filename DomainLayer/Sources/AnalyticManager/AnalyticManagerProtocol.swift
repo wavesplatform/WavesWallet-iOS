@@ -102,13 +102,13 @@ extension AnalyticManagerEvent: AnalyticManagerEventInfo {
         case .walletHome(let model):
             return model.params
             
-        case .walletLeasing(let model):
+        case .walletLeasing( _):
             return [:]
             
-        case .tokenBurn(let model):
+        case .tokenBurn( _):
             return [:]
             
-        case .alias(let model):
+        case .alias( _):
             return [:]
             
         case .dex(let model):

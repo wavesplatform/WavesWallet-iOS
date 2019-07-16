@@ -10,7 +10,7 @@ import Foundation
 import Extensions
 
 public extension DomainLayer.DTO {
-    public struct TransferTransaction: Decodable, Mutating {
+    struct TransferTransaction: Decodable, Mutating {
         public let type: Int
         public let id: String
         public let sender: String

@@ -21,7 +21,7 @@ public extension Mutating {
 
 public extension Array where Element: Mutating {
 
-    public func mutate(transform: (inout Element) -> ()) -> [Element] {
+    func mutate(transform: (inout Element) -> ()) -> [Element] {
         return self.map({ element -> Element in
             return element.mutate(transform: { ref in
                 transform(&ref)

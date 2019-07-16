@@ -11,12 +11,12 @@ import Extensions
 
 public extension DomainLayer.DTO {
     
-    public enum GatewayType: String {
+    enum GatewayType: String {
         case coinomat
         case gateway
     }
     
-    public enum Gateway {
+    enum Gateway {
         public struct StartWithdrawProcess {
             public let recipientAddress: String
             public let minAmount: Money

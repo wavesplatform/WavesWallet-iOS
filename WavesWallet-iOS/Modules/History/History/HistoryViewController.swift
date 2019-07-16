@@ -326,7 +326,7 @@ extension HistoryViewController {
     }
     
     func changeFilter(_ filter: HistoryTypes.Filter) {
-        segmentedControl.segmentedControl.selectedIndex = filters.index(of: filter) ?? 0
+        segmentedControl.segmentedControl.selectedIndex = filters.firstIndex(of: filter) ?? 0
     }
     
     func setupRefreshControl() {

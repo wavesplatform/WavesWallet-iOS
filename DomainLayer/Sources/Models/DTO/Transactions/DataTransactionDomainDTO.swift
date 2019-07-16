@@ -10,7 +10,7 @@ import Foundation
 
 public extension DomainLayer.DTO {
 
-    public struct DataTransaction {
+    struct DataTransaction {
         public struct Data {
             public enum Value {
                 case bool(Bool)

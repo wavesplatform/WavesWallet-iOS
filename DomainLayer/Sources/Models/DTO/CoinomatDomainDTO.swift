@@ -10,7 +10,7 @@ import Foundation
 import Extensions
 
 public extension DomainLayer.DTO {
-    public enum Coinomat {
+    enum Coinomat {
         
         public struct TunnelInfo {
             public let address: String

@@ -11,7 +11,7 @@ import Extensions
 
 public extension DomainLayer.DTO {
 
-    public struct AccountEnvironment: Equatable, Mutating {
+    struct AccountEnvironment: Equatable, Mutating {
         public var nodeUrl: String?
         public var dataUrl: String?
         public var spamUrl: String?

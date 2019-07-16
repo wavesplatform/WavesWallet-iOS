@@ -37,9 +37,6 @@ public extension AnalyticManagerEvent {
                 
             case .sendConfirm(let assetName):
                 return [Send.key: assetName]
-                
-            default:
-                return [:]
             }
         }
     }

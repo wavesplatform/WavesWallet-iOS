@@ -45,7 +45,7 @@ public extension Decimal {
 //        }
 //    }
     
-    public func rounded() -> Decimal {
+    func rounded() -> Decimal {
         
         let behavior = NSDecimalNumberHandler(roundingMode: .down,
                                               scale: 0,
@@ -58,15 +58,15 @@ public extension Decimal {
         return number.rounding(accordingToBehavior: behavior).decimalValue
     }
     
-    public var doubleValue:Double {
+    var doubleValue:Double {
         return NSDecimalNumber(decimal:self).doubleValue
     }
 
-    public var floatValue: Float {
+    var floatValue: Float {
         return NSDecimalNumber(decimal: self).floatValue
     }
 
-    public var int64Value: Int64 {
+    var int64Value: Int64 {
         return NSDecimalNumber(decimal: self).int64Value
     }
 }
