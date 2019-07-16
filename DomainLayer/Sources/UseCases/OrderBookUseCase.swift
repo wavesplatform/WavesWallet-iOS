@@ -36,32 +36,41 @@ final class OrderBookUseCase: OrderBookUseCaseProtocol {
                        
                         return self.assetsInteractor.assets(by: baseSettings.feeAssets.map{$0.assetId},
                                                             accountAddress: wallet.address)
-                            .map({ (assets) -> DomainLayer.DTO.Dex.SmartSettingsOrderFee in
+                            .map({ [weak self] (assets) -> DomainLayer.DTO.Dex.SmartSettingsOrderFee in
                                 
-                                var sortedAssets = assets.sorted(by: {$0.displayName < $1.displayName})
-                                
-                                if let index = sortedAssets.firstIndex(where: {$0.id == WavesSDKConstants.wavesAssetId}) {
-                                    
-                                    let wavesAsset = sortedAssets[index]
-                                    sortedAssets.remove(at: index)
-                                    sortedAssets.insert(wavesAsset, at: 0)
+                                guard let self = self else {
+                                    return DomainLayer.DTO.Dex.SmartSettingsOrderFee(baseFee: 0, feeAssets: [])
                                 }
-                                
-                                let feeAssets = sortedAssets.map({ (asset) -> DomainLayer.DTO.Dex.SmartSettingsOrderFee.Asset in
-                                    
-                                    let dexAsset = DomainLayer.DTO.Dex.Asset.init(id: asset.id,
-                                                                                 name: asset.displayName,
-                                                                                 shortName: asset.ticker ?? asset.displayName,
-                                                                                 decimals: asset.precision)
-                                    
-                                    let rate = baseSettings.feeAssets.first(where: {$0.assetId == asset.id})?.rate ?? 0
-                                    return DomainLayer.DTO.Dex.SmartSettingsOrderFee.Asset(rate: rate, asset: dexAsset)
-                                })
-                                
-                                
-                                return DomainLayer.DTO.Dex.SmartSettingsOrderFee(baseFee: baseSettings.baseFee, feeAssets: feeAssets)
+                                return self.mapAssetsToSmartSettings(assets: assets, baseSettings: baseSettings)
                             })
                     })
             })
+    }
+    
+    private func mapAssetsToSmartSettings(assets: [DomainLayer.DTO.Asset],
+                                          baseSettings: DomainLayer.DTO.Dex.SettingsOrderFee) -> DomainLayer.DTO.Dex.SmartSettingsOrderFee {
+        
+        var sortedAssets = assets.sorted(by: {$0.displayName < $1.displayName})
+        
+        if let index = sortedAssets.firstIndex(where: {$0.id == WavesSDKConstants.wavesAssetId}) {
+            
+            let wavesAsset = sortedAssets[index]
+            sortedAssets.remove(at: index)
+            sortedAssets.insert(wavesAsset, at: 0)
+        }
+        
+        let feeAssets = sortedAssets.map({ (asset) -> DomainLayer.DTO.Dex.SmartSettingsOrderFee.Asset in
+            
+            let dexAsset = DomainLayer.DTO.Dex.Asset.init(id: asset.id,
+                                                          name: asset.displayName,
+                                                          shortName: asset.ticker ?? asset.displayName,
+                                                          decimals: asset.precision)
+            
+            let rate = baseSettings.feeAssets.first(where: {$0.assetId == asset.id})?.rate ?? 0
+            return DomainLayer.DTO.Dex.SmartSettingsOrderFee.Asset(rate: rate, asset: dexAsset)
+        })
+        
+        
+        return DomainLayer.DTO.Dex.SmartSettingsOrderFee(baseFee: baseSettings.baseFee, feeAssets: feeAssets)
     }
 }

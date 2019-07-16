@@ -16,6 +16,7 @@ fileprivate enum Constants {
     static let durationInseconds: Double = 15
     static let maxLimit: Int = 1000
     static let offset: Int = 50
+    static let rateSmart: Int64 = 400000
 }
 
 fileprivate typealias IfNeededLoadNextTransactionsQuery =
@@ -746,7 +747,7 @@ fileprivate extension TransactionsUseCase {
            
             let assetRate = settingsOrderFee.feeAssets.first(where: {$0.asset.id == feeAssetId})?.rate ?? 0
             let assetDecimal = settingsOrderFee.feeAssets.first(where: {$0.asset.id == feeAssetId})?.asset.decimals ?? 0
-            let assetFee = assetRate * Double(settingsOrderFee.baseFee + Int64(400000) * n)
+            let assetFee = assetRate * Double(settingsOrderFee.baseFee + Constants.rateSmart * n)
             
             return Money(Int64(ceil(assetFee)), assetDecimal)
         }
@@ -938,10 +939,7 @@ private extension DomainLayer.Query.TransactionSpecificationType {
             return [assetId]
 
         case .createOrder(let amountAssetId, let priceAssetId, _, let feeAssetId):
-            if let feeAssetId = feeAssetId {
-                return [amountAssetId, priceAssetId, feeAssetId]
-            }
-            return [amountAssetId, priceAssetId]
+            return [amountAssetId, priceAssetId, feeAssetId]
         }
     }
 
