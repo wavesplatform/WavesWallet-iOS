@@ -16,7 +16,7 @@ public extension DomainLayer.DTO {
 //MARK: Asset
 public extension DomainLayer.DTO.Dex {
     
-    public struct Asset {
+    struct Asset {
         public let id: String
         public let name: String
         public let shortName: String
@@ -30,7 +30,7 @@ public extension DomainLayer.DTO.Dex {
         }
     }
     
-    public enum OrderType: String {
+    enum OrderType: String {
         case sell
         case buy
     }
@@ -39,7 +39,7 @@ public extension DomainLayer.DTO.Dex {
 //MARK: LastTrade
 public extension DomainLayer.DTO.Dex {
     
-    public struct LastTrade {
+    struct LastTrade {
         public let time: Date
         public let price: Money
         public let amount: Money
@@ -59,7 +59,7 @@ public extension DomainLayer.DTO.Dex {
 //MARK: - SmartPair
 public extension DomainLayer.DTO.Dex {
     
-    public struct SmartPair: Mutating {
+    struct SmartPair: Mutating {
         public let id: String
         public let amountAsset: Asset
         public let priceAsset: Asset
@@ -81,7 +81,7 @@ public extension DomainLayer.DTO.Dex {
 //MARK: - Pair
 public extension DomainLayer.DTO.Dex {
     
-    public struct Pair {
+    struct Pair {
         public let amountAsset: Asset
         public let priceAsset: Asset
 
@@ -94,7 +94,7 @@ public extension DomainLayer.DTO.Dex {
 
 //MARK: - PairPrice
 public extension DomainLayer.DTO.Dex {
-    public struct PairPrice {
+    struct PairPrice {
         public let firstPrice: Money
         public let lastPrice: Money
         public let amountAsset: Asset
@@ -113,7 +113,7 @@ public extension DomainLayer.DTO.Dex {
 
 public extension DomainLayer.DTO.Dex {
     
-    public struct MyOrder {
+    struct MyOrder {
         
         public enum Status {
             case accepted
@@ -151,7 +151,7 @@ public extension DomainLayer.DTO.Dex {
 //MARK: - OrderBook
 public extension DomainLayer.DTO.Dex {
     
-    public struct OrderBook {
+    struct OrderBook {
         
         public struct Value {
             public let amount: Int64

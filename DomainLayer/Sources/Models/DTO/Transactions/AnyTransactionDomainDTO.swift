@@ -10,7 +10,7 @@ import Foundation
 
 public extension DomainLayer.DTO {
 
-    public enum TransactionStatus: Int, Decodable {
+    enum TransactionStatus: Int, Decodable {
         case activeNow
         case completed
         case unconfirmed
@@ -38,7 +38,7 @@ public extension DomainLayer.DTO {
 //TODO: Protocol
 public extension DomainLayer.DTO.AnyTransaction {
 
-    public var status: DomainLayer.DTO.TransactionStatus {
+    var status: DomainLayer.DTO.TransactionStatus {
         switch self {
         case .unrecognised(let tx):
             return tx.status
@@ -87,7 +87,7 @@ public extension DomainLayer.DTO.AnyTransaction {
         }
     }
 
-    public var isLease: Bool {
+    var isLease: Bool {
         switch self {
         case .lease:
             return true
@@ -97,7 +97,7 @@ public extension DomainLayer.DTO.AnyTransaction {
         }
     }
 
-    public var isLeaseCancel: Bool {
+    var isLeaseCancel: Bool {
         switch self {
         case .leaseCancel:
             return true
@@ -107,7 +107,7 @@ public extension DomainLayer.DTO.AnyTransaction {
         }
     }
 
-    public var id: String {
+    var id: String {
         switch self {
         case .unrecognised(let tx):
             return tx.id
@@ -156,7 +156,7 @@ public extension DomainLayer.DTO.AnyTransaction {
         }
     }
 
-    public var timestamp: Date {
+    var timestamp: Date {
         switch self {
         case .unrecognised(let tx):
             return tx.timestamp
@@ -205,7 +205,7 @@ public extension DomainLayer.DTO.AnyTransaction {
         }
     }
 
-    public var modified: Date {
+    var modified: Date {
         switch self {
         case .unrecognised(let tx):
             return tx.modified

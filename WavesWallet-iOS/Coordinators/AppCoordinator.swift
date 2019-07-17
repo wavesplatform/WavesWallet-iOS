@@ -66,14 +66,16 @@ final class AppCoordinator: Coordinator {
     func start() {
         self.isActiveApp = true
 
+        
+        #if DEBUG || TEST
         if Contants.isNeedSupportDisplayLaunch {
             showSupport()
         } else {
             logInApplication()
         }
-        
-        #if DEBUG || TEST
-            addTapGestureForSupportDisplay()
+        addTapGestureForSupportDisplay()
+        #else        
+        logInApplication()
         #endif
     }
 

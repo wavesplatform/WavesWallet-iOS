@@ -201,7 +201,7 @@ extension DomainLayer.DTO.TransferTransaction {
             }
         }
 
-        guard let wavesAsset = assets[WavesSDKConstants.wavesAssetId] else {
+        guard assets[WavesSDKConstants.wavesAssetId] != nil else {
             SweetLogger.error("TransferTransaction Not found Waves ID")
             return nil
         }

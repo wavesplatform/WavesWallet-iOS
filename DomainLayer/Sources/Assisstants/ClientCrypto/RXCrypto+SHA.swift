@@ -16,7 +16,7 @@ extension Crypto: ReactiveCompatible {}
 
 public extension Reactive where Base == Crypto {
 
-    public static func sha256(_ string: String) -> Observable<String> {
+    static func sha256(_ string: String) -> Observable<String> {
         return Observable.create({ observer -> Disposable in
 
             observer.onNext(string.sha256())
@@ -26,7 +26,7 @@ public extension Reactive where Base == Crypto {
         })
     }
 
-    public static func sha512(_ string: String) -> Observable<String> {
+    static func sha512(_ string: String) -> Observable<String> {
         return Observable.create({ observer -> Disposable in
 
             observer.onNext(string.sha512())

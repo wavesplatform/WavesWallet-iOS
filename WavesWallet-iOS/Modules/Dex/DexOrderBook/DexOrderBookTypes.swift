@@ -171,7 +171,7 @@ extension DexOrderBook.State {
     }
     
     var lastPriceSection: Int? {
-        return sections.index(where: {$0.items.filter({$0.lastPrice != nil}).count > 0})
+        return sections.firstIndex(where: {$0.items.filter({$0.lastPrice != nil}).count > 0})
     }
 }
 

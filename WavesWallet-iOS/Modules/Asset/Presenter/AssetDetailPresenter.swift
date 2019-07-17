@@ -177,7 +177,7 @@ private extension AssetDetailPresenter {
 
                 var newAssets = assets
                 
-                let currentAssetIndex = state.displayState.assets.index(where: {$0.id == state.displayState.currentAsset.id})
+                let currentAssetIndex = state.displayState.assets.firstIndex(where: {$0.id == state.displayState.currentAsset.id})
                 
                 var asset = newAssets.first(where: { asset -> Bool in
                     return asset.info.id == state.displayState.currentAsset.id
@@ -220,7 +220,7 @@ private extension AssetDetailPresenter {
 
             return state.mutate {
                 
-                if let index = state.assets.index(where: {$0.info.id == state.displayState.currentAsset.id}) {
+                if let index = state.assets.firstIndex(where: {$0.info.id == state.displayState.currentAsset.id}) {
                     $0.assets[index].info.isFavorite = on
                 }
                 

@@ -10,7 +10,7 @@ import Foundation
 import Extensions
 
 public extension DomainLayer.DTO {
-    public struct MassTransferTransaction: Mutating {
+    struct MassTransferTransaction: Mutating {
 
        public struct Transfer {
             public let recipient: String

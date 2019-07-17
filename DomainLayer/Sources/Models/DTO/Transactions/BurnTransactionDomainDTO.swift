@@ -9,7 +9,7 @@
 import Foundation
 
 public extension DomainLayer.DTO {
-    public struct BurnTransaction: Decodable {
+    struct BurnTransaction: Decodable {
         public let type: Int
         public let id: String
         public let sender: String

@@ -10,7 +10,7 @@ import RealmSwift
 
 public extension Results {
 
-    public func get<T: Object>(offset: Int, limit: Int) -> Array<T> {
+    func get<T: Object>(offset: Int, limit: Int) -> Array<T> {
 
         var lim = 0
         var off = 0

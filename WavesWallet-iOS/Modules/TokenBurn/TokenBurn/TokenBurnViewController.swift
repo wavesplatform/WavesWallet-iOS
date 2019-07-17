@@ -83,7 +83,7 @@ extension TokenBurnViewController: TokenBurnLoadingViewControllerDelegate {
         case let error as NetworkError:
             switch error {
             case .scriptError:
-                TransactionScriptErrorView.show()
+                _ = TransactionScriptErrorView.show()
             default:
                 showNetworkErrorSnack(error: error)
             }

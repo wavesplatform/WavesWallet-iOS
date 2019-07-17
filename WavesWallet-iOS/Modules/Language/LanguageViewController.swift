@@ -28,7 +28,7 @@ final class LanguageViewController: UIViewController {
 
     private lazy var selectedIndex: Int = {
         let current = Language.currentLanguage
-        return self.languages.index(where: { $0.code == current.code }) ?? 0
+        return self.languages.firstIndex(where: { $0.code == current.code }) ?? 0
     }()
 
     weak var delegate: LanguageViewControllerDelegate?
