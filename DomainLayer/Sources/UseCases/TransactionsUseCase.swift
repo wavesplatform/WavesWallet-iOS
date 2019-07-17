@@ -16,6 +16,7 @@ fileprivate enum Constants {
     static let durationInseconds: Double = 15
     static let maxLimit: Int = 1000
     static let offset: Int = 50
+    static let rateSmart: Int64 = 400000
 }
 
 fileprivate typealias IfNeededLoadNextTransactionsQuery =
@@ -91,6 +92,8 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
 
     private var accountSettingsRepository: AccountSettingsRepositoryProtocol
     
+    private var orderBookRepository: DexOrderBookRepositoryProtocol
+    
     init(transactionsRepositoryLocal: TransactionsRepositoryProtocol,
          transactionsRepositoryRemote: TransactionsRepositoryProtocol,
          assetsInteractors: AssetsUseCaseProtocol,
@@ -98,7 +101,8 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
          addressRepository: AddressRepositoryProtocol,
          assetsRepositoryRemote: AssetsRepositoryProtocol,
          blockRepositoryRemote: BlockRepositoryProtocol,
-         accountSettingsRepository: AccountSettingsRepositoryProtocol) {
+         accountSettingsRepository: AccountSettingsRepositoryProtocol,
+         orderBookRepository: DexOrderBookRepositoryProtocol) {
 
         self.transactionsRepositoryLocal = transactionsRepositoryLocal
         self.transactionsRepositoryRemote = transactionsRepositoryRemote
@@ -108,6 +112,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
         self.assetsRepository = assetsRepositoryRemote
         self.blockRepositoryRemote = blockRepositoryRemote
         self.accountSettingsRepository = accountSettingsRepository
+        self.orderBookRepository = orderBookRepository
     }
 
     func calculateFee(by transactionSpecs: DomainLayer.Query.TransactionSpecificationType, accountAddress: String) -> Observable<Money> {
@@ -144,6 +149,7 @@ final class TransactionsUseCase: TransactionsUseCaseProtocol {
 
         let rules = transactionsRepositoryRemote.feeRules()
 
+      
         return Observable.zip(isSmartAccount, wavesAsset, rules, isSmartAssetsObservable)
             .flatMap { [weak self] (isSmartAccount, wavesAsset, rules, isSmartAssets) -> Observable<Money> in
 
@@ -698,7 +704,7 @@ fileprivate extension TransactionsUseCase {
         }
 
         var fee: Int64 = rule.fee
-
+        
         if rule.addSmartAccountFee && isSmartAddress {
             fee += rules.smartAccountExtraFee
         }
@@ -717,14 +723,33 @@ fileprivate extension TransactionsUseCase {
                 fee += rules.smartAssetExtraFee
             }
 
-        case .createOrder(let amountAssetId, let priceAssetId):
-            if rule.addSmartAssetFee && isSmartAssets[amountAssetId] == true {
-                fee += rules.smartAssetExtraFee
+        case .createOrder(let amountAssetId, let priceAssetId, let settingsOrderFee, let feeAssetId):
+            
+            var n: Int64 = 0
+            
+            if isSmartAssets[amountAssetId] == true {
+                n += 1
             }
 
-            if rule.addSmartAssetFee && isSmartAssets[priceAssetId] == true {
-                fee += rules.smartAssetExtraFee
+            if isSmartAssets[priceAssetId] == true {
+                n += 1
             }
+            
+            if isSmartAssets[feeAssetId] == true &&
+                feeAssetId != amountAssetId &&
+                feeAssetId != priceAssetId {
+                n += 1
+            }
+
+            if isSmartAddress {
+                n += 1
+            }
+           
+            let assetRate = settingsOrderFee.feeAssets.first(where: {$0.asset.id == feeAssetId})?.rate ?? 0
+            let assetDecimal = settingsOrderFee.feeAssets.first(where: {$0.asset.id == feeAssetId})?.asset.decimals ?? 0
+            let assetFee = assetRate * Double(settingsOrderFee.baseFee + Constants.rateSmart * n)
+            
+            return Money(Int64(ceil(assetFee)), assetDecimal)
         }
 
         return Money(fee, wavesAsset.precision)
@@ -784,8 +809,16 @@ private extension DomainLayer.DTO.AnyTransaction {
             return [tx.assetId, WavesSDKConstants.wavesAssetId]
 
         case .exchange(let tx):
-            return [tx.order1.assetPair.amountAsset, tx.order1.assetPair.priceAsset]
-
+            
+            var ids = [tx.order1.assetPair.amountAsset, tx.order1.assetPair.priceAsset]
+            if let matcherFeeAssetId = tx.order1.matcherFeeAssetId {
+                ids.append(matcherFeeAssetId)
+            }
+            if let matcherFeeAssetId = tx.order2.matcherFeeAssetId {
+                ids.append(matcherFeeAssetId)
+            }
+            return ids
+            
         case .lease:
             return [WavesSDKConstants.wavesAssetId]
 
@@ -905,8 +938,8 @@ private extension DomainLayer.Query.TransactionSpecificationType {
         case .sendTransaction(let assetId):
             return [assetId]
 
-        case .createOrder(let amountAssetId, let priceAssetId):
-            return [amountAssetId, priceAssetId]
+        case .createOrder(let amountAssetId, let priceAssetId, _, let feeAssetId):
+            return [amountAssetId, priceAssetId, feeAssetId]
         }
     }
 

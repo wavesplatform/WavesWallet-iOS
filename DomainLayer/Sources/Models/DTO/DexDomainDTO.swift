@@ -172,3 +172,51 @@ public extension DomainLayer.DTO.Dex {
         }
     }
 }
+
+
+//MARK: - SettingsOrderFee
+
+public extension DomainLayer.DTO.Dex {
+
+    public struct SettingsOrderFee {
+        
+        public struct Asset {
+            public let assetId: String
+            public let rate: Double
+            
+            public init(assetId: String, rate: Double) {
+                self.assetId = assetId
+                self.rate = rate
+            }
+        }
+        
+        public let baseFee: Int64
+        public let feeAssets: [Asset]
+        
+        public init(baseFee: Int64, feeAssets: [Asset]) {
+            self.baseFee = baseFee
+            self.feeAssets = feeAssets
+        }
+    }
+}
+
+//MARK: - SmartSettingsOrderFee
+
+public extension DomainLayer.DTO.Dex {
+    
+    public struct SmartSettingsOrderFee {
+        
+        public struct Asset {
+            public let rate: Double
+            public let asset: DomainLayer.DTO.Dex.Asset
+            
+            public init(rate: Double, asset: DomainLayer.DTO.Dex.Asset) {
+                self.rate = rate
+                self.asset = asset
+            }
+        }
+        
+        public let baseFee: Int64
+        public let feeAssets: [Asset]
+    }
+}

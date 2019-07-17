@@ -32,8 +32,9 @@ public extension DomainLayer.DTO {
             public let expiration: Int64
             public let matcherFee: Int64
             public let signature: String?
-
-            public init(id: String, sender: String, senderPublicKey: String, matcherPublicKey: String, assetPair: AssetPair, orderType: Kind, price: Int64, amount: Int64, timestamp: Date, expiration: Int64, matcherFee: Int64, signature: String?) {
+            public let matcherFeeAssetId: String?
+        
+            public init(id: String, sender: String, senderPublicKey: String, matcherPublicKey: String, assetPair: AssetPair, orderType: Kind, price: Int64, amount: Int64, timestamp: Date, expiration: Int64, matcherFee: Int64, signature: String?, matcherFeeAssetId: String?) {
                 self.id = id
                 self.sender = sender
                 self.senderPublicKey = senderPublicKey
@@ -46,6 +47,7 @@ public extension DomainLayer.DTO {
                 self.expiration = expiration
                 self.matcherFee = matcherFee
                 self.signature = signature
+                self.matcherFeeAssetId = matcherFeeAssetId
             }
         }
 
@@ -77,8 +79,9 @@ public extension DomainLayer.DTO {
         public let sellMatcherFee: Int64
         public var modified: Date
         public var status: TransactionStatus
-
-        public init(type: Int, id: String, sender: String, senderPublicKey: String, fee: Int64, timestamp: Date, height: Int64, signature: String?, proofs: [String]?, order1: Order, order2: Order, price: Int64, amount: Int64, buyMatcherFee: Int64, sellMatcherFee: Int64, modified: Date, status: TransactionStatus) {
+        public let version: Int
+        
+        public init(type: Int, id: String, sender: String, senderPublicKey: String, fee: Int64, timestamp: Date, height: Int64, signature: String?, proofs: [String]?, order1: Order, order2: Order, price: Int64, amount: Int64, buyMatcherFee: Int64, sellMatcherFee: Int64, modified: Date, status: TransactionStatus, version: Int) {
             self.type = type
             self.id = id
             self.sender = sender
@@ -96,6 +99,7 @@ public extension DomainLayer.DTO {
             self.sellMatcherFee = sellMatcherFee
             self.modified = modified
             self.status = status
+            self.version = version
         }
     }
 }

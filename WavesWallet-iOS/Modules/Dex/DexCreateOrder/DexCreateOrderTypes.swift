@@ -21,10 +21,11 @@ enum DexCreateOrder {
         case cancelCreateOrder
         case orderDidCreate(ResponseType<DTO.Output>)
         case updateInputOrder(DTO.Order)
-        case didGetFee(Money)
+        case didGetFee(DTO.FeeSettings)
         case orderNotValid(DexCreateOrder.CreateOrderError)
         case handlerFeeError(Error)
         case refreshFee
+        case feeAssetNeedUpdate(String)
     }
     
     enum CreateOrderError: Error {
@@ -41,7 +42,7 @@ enum DexCreateOrder {
             case orderDidFailCreate(NetworkError)
             case orderNotValid(DexCreateOrder.CreateOrderError)
             case orderDidCreate(DexCreateOrder.DTO.Output)
-            case didGetFee(Money)
+            case didGetFee(DTO.FeeSettings)
         }
         
         var isNeedCreateOrder: Bool
@@ -51,6 +52,7 @@ enum DexCreateOrder {
         var action: Action
         var displayFeeErrorState: DisplayErrorState
         var isDisabledSellBuyButton: Bool
+        var feeAssetId: String
     }
 }
 
@@ -88,8 +90,9 @@ extension DexCreateOrder.DTO {
         var total: Money
         var expiration: Expiration
         var fee: Int64
+        var feeAssetId: String
         
-        init(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, type: DomainLayer.DTO.Dex.OrderType, amount: Money, price: Money, total: Money, expiration: Expiration, fee: Int64) {
+        init(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, type: DomainLayer.DTO.Dex.OrderType, amount: Money, price: Money, total: Money, expiration: Expiration, fee: Int64, feeAssetId: String) {
             
             self.amountAsset = amountAsset
             self.priceAsset = priceAsset
@@ -99,6 +102,7 @@ extension DexCreateOrder.DTO {
             self.total = total
             self.expiration = expiration
             self.fee = fee
+            self.feeAssetId = feeAssetId
         }
     }
     
@@ -107,6 +111,11 @@ extension DexCreateOrder.DTO {
         let orderType: DomainLayer.DTO.Dex.OrderType
         let price: Money
         let amount: Money
+    }
+    
+    struct FeeSettings {
+        let fee: Money
+        let feeAssets: [DomainLayer.DTO.Dex.SmartSettingsOrderFee.Asset]
     }
 }
 

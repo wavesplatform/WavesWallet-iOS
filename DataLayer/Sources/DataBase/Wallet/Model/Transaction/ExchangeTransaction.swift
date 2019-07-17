@@ -32,6 +32,7 @@ final class ExchangeTransactionOrder: Object {
     @objc dynamic var expiration: Int64 = 0
     @objc dynamic var matcherFee: Int64 = 0
     @objc dynamic var signature: String? = nil
+    @objc dynamic var matcherFeeAssetId: String? = nil
 }
 
 final class ExchangeTransactionAssetPair: Object {

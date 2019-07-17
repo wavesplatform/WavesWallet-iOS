@@ -481,6 +481,11 @@ extension TransactionCardViewController: UITableViewDataSource {
             let cell: TransactionCardOrderFilledCell = tableView.dequeueCell()
             cell.update(with: model)
             return cell
+            
+        case .exchangeFee(let model):
+            let cell: TransactionCardExchangeFeeCell = tableView.dequeueCell()
+            cell.update(with: model)
+            return cell
         }
     }
 }
