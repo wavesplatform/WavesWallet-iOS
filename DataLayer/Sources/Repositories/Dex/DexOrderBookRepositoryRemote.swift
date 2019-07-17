@@ -14,6 +14,11 @@ import WavesSDK
 import DomainLayer
 import Extensions
 
+private enum Constants {
+    static let baseFee: Int64 = 300000
+    static let WavesRate: Double = 1
+}
+
 final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
         
     private let environmentRepository: EnvironmentRepositoryProtocols
@@ -171,6 +176,8 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                 
                 let expirationTimestamp = timestamp + order.expiration * 60 * 1000
                 
+                let isWavesFee = order.matcherFeeAsset == WavesSDKConstants.wavesAssetId
+
                 let createOrderSignature = CreateOrderSignature(signedWallet: wallet,
                                                                 timestamp: timestamp,
                                                                 matcherPublicKey: order.matcherPublicKey,
@@ -180,7 +187,9 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                                                                 price: order.price,
                                                                 amount: order.amount,
                                                                 expiration: expirationTimestamp,
-                                                                matcherFee: order.matcherFee)
+                                                                matcherFee: order.matcherFee,
+                                                                matcherFeeAsset: order.matcherFeeAsset,
+                                                                version: isWavesFee ? .V2 : .V3)
                 
                 return servicesEnvironment
                     .wavesServices
@@ -195,8 +204,37 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                                               matcherFee: order.matcherFee,
                                               timestamp: timestamp,
                                               expirationTimestamp: expirationTimestamp,
-                                              proofs: [createOrderSignature.signature()]))
+                                              proofs: [createOrderSignature.signature()],
+                                              matcherFeeAsset: order.matcherFeeAsset))
         })
+    }
+
+    func orderSettingsFee() -> Observable<DomainLayer.DTO.Dex.SettingsOrderFee> {
+        
+        return environmentRepository
+        .servicesEnvironment()
+            .flatMap({ (appEnvironment) -> Observable<DomainLayer.DTO.Dex.SettingsOrderFee> in
+                return appEnvironment
+                    .wavesServices
+                    .matcherServices
+                    .orderBookMatcherService
+                    .settingsRatesFee()
+                    .map({ (ratesFee) -> DomainLayer.DTO.Dex.SettingsOrderFee in
+                        
+                        let assets = ratesFee.map{ DomainLayer.DTO.Dex.SettingsOrderFee.Asset(assetId: $0.assetId, rate: $0.rate) }
+                            
+                        return DomainLayer.DTO.Dex.SettingsOrderFee(baseFee: Constants.baseFee, feeAssets: assets)
+                    })
+            })
+            .catchError({ (error) -> Observable<DomainLayer.DTO.Dex.SettingsOrderFee> in
+                
+                //TODO: remove code after MainNet will be support custom fee at matcher
+                
+                let wavesAsset = DomainLayer.DTO.Dex.SettingsOrderFee.Asset(assetId: WavesSDKConstants.wavesAssetId,
+                                                                            rate: Constants.WavesRate)
+                let settings = DomainLayer.DTO.Dex.SettingsOrderFee(baseFee: Constants.baseFee, feeAssets: [wavesAsset])
+                return Observable.just(settings)
+            })
     }
 }
 

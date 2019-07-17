@@ -942,6 +942,48 @@
                                             <outlet property="labelTitle" destination="BZD-HX-2yX" id="HEH-Db-vL7"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCardExchangeFeeCell" rowHeight="100" id="eK5-Vb-SkR" customClass="TransactionCardExchangeFeeCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="2802" width="375" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eK5-Vb-SkR" id="tHw-fD-HdG">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Fee" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UWt-U3-DDs">
+                                                    <rect key="frame" x="24" y="14" width="22.5" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="bottom" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="RjB-UZ-cIm">
+                                                    <rect key="frame" x="251" y="14" width="100" height="82"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="25.5" translatesAutoresizingMaskIntoConstraints="NO" id="5e6-aw-vFg" customClass="BalanceLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="100" height="36"/>
+                                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="25.5" translatesAutoresizingMaskIntoConstraints="NO" id="Hmg-8g-NA7" customClass="BalanceLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="46" width="100" height="36"/>
+                                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </view>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="RjB-UZ-cIm" secondAttribute="bottom" constant="4" id="1ft-CV-hom"/>
+                                                <constraint firstItem="UWt-U3-DDs" firstAttribute="leading" secondItem="tHw-fD-HdG" secondAttribute="leading" constant="24" id="5VD-8J-13Y"/>
+                                                <constraint firstItem="UWt-U3-DDs" firstAttribute="top" secondItem="tHw-fD-HdG" secondAttribute="top" constant="14" id="A5R-jr-3Dr"/>
+                                                <constraint firstItem="RjB-UZ-cIm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UWt-U3-DDs" secondAttribute="trailing" constant="10" id="uOM-Kt-kNh"/>
+                                                <constraint firstAttribute="trailing" secondItem="RjB-UZ-cIm" secondAttribute="trailing" constant="24" id="vlu-h5-Iua"/>
+                                                <constraint firstItem="RjB-UZ-cIm" firstAttribute="top" secondItem="tHw-fD-HdG" secondAttribute="top" constant="14" id="wfp-mX-Qae"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="fee1" destination="5e6-aw-vFg" id="G3J-5d-PZn"/>
+                                            <outlet property="fee2" destination="Hmg-8g-NA7" id="O78-xb-WtQ"/>
+                                            <outlet property="labelFee" destination="UWt-U3-DDs" id="FCv-fd-c2m"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="IB0-EP-XWg" id="n3U-lb-O8m"/>

@@ -73,6 +73,11 @@ struct CreateOrderSignature: SignatureProtocol {
         }
     }
     
+    enum Version: Int {
+        case V2 = 2
+        case V3 = 3
+    }
+    
     private(set) var signedWallet: DomainLayer.DTO.SignedWallet
     
     private(set) var timestamp: Int64
@@ -91,12 +96,24 @@ struct CreateOrderSignature: SignatureProtocol {
     
     private(set) var matcherFee: Int64
     
+    private(set) var matcherFeeAsset: String
+
+    private(set) var version: Version
+
     var toSign: [UInt8] {
-        let s1 = toByteArray(UInt8(2)) + signedWallet.publicKey.publicKey + matcherPublicKey.publicKey
+                
+        let s1 = toByteArray(UInt8(version.rawValue)) + signedWallet.publicKey.publicKey + matcherPublicKey.publicKey
         let s2 = assetPair.bytes + orderType.bytes
         let s3 = toByteArray(price) + toByteArray(amount)
         let s4 = toByteArray(timestamp) + toByteArray(expiration) + toByteArray(matcherFee)
-        return s1 + s2 + s3 + s4
+        
+        var result = s1 + s2 + s3 + s4
+        
+        if version == .V3 {
+            result += [UInt8(1)] + (WavesCrypto.shared.base58decode(input: matcherFeeAsset) ?? [])
+        }
+        
+        return result
     }
     
     private var id: [UInt8] {

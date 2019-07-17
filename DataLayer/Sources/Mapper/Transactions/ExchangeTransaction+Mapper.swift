@@ -20,7 +20,7 @@ extension ExchangeTransaction {
         senderPublicKey = transaction.sender
         fee = transaction.fee
         timestamp = transaction.timestamp
-        version = 1
+        version = transaction.version
         height = transaction.height
         modified = transaction.modified
 
@@ -63,7 +63,8 @@ extension DomainLayer.DTO.ExchangeTransaction {
                   buyMatcherFee: transaction.buyMatcherFee,
                   sellMatcherFee: transaction.sellMatcherFee,
                   modified: Date(),
-                  status: status)
+                  status: status,
+                  version: transaction.version)
     }
 
     init(transaction: ExchangeTransaction) {
@@ -87,7 +88,8 @@ extension DomainLayer.DTO.ExchangeTransaction {
                   buyMatcherFee: transaction.buyMatcherFee,
                   sellMatcherFee: transaction.sellMatcherFee,
                   modified: transaction.modified,
-                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
+                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed,
+                  version: transaction.version)
     }
 }
 
@@ -132,6 +134,7 @@ extension ExchangeTransactionOrder {
         assetPair.amountAsset = order.assetPair.amountAsset
         assetPair.priceAsset = order.assetPair.priceAsset
         self.assetPair = assetPair
+        matcherFeeAssetId = order.matcherFeeAssetId
     }
 }
 
@@ -152,7 +155,8 @@ extension DomainLayer.DTO.ExchangeTransaction.Order {
                   timestamp: order.timestamp,
                   expiration: order.expiration,
                   matcherFee: order.matcherFee,
-                  signature: order.signature)
+                  signature: order.signature,
+                  matcherFeeAssetId: order.matcherFeeAssetId)
     }
 
     init(order: ExchangeTransactionOrder) {
@@ -174,7 +178,8 @@ extension DomainLayer.DTO.ExchangeTransaction.Order {
                   timestamp: order.timestamp,
                   expiration: order.expiration,
                   matcherFee: order.matcherFee,
-                  signature: order.signature)    
+                  signature: order.signature,
+                  matcherFeeAssetId: order.matcherFeeAssetId)
 
     }
 }

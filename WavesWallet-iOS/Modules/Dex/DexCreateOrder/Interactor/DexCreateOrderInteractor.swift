@@ -14,7 +14,6 @@ import Extensions
 import DomainLayer
 
 private enum Constants {
-    static let minimumOrderFee: Int64 = 300000
     static let numberForConveringDecimals = 8
 }
 
@@ -24,10 +23,11 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     private let matcherRepository = UseCasesFactory.instance.repositories.matcherRepository
     private let orderBookRepository = UseCasesFactory.instance.repositories.dexOrderBookRepository
     private let transactionInteractor = UseCasesFactory.instance.transactions
-    private let lastTradesRespository = UseCasesFactory.instance.repositories.lastTradesRespository
-    
-    
+    private let assetsInteractor = UseCasesFactory.instance.assets
+    private let orderBookInteractor = UseCasesFactory.instance.oderbook
+    private let lastTradesRespository = UseCasesFactory.instance.repositories.lastTradesRespository    
     private let environmentRepository = UseCasesFactory.instance.repositories.environmentRepository
+    
     
     func createOrder(order: DexCreateOrder.DTO.Order) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
         
@@ -56,7 +56,8 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                                                                        orderType: order.type,
                                                                        matcherFee: order.fee,
                                                                        timestamp: Date().millisecondsSince1970,
-                                                                       expiration: Int64(order.expiration.rawValue))
+                                                                       expiration: Int64(order.expiration.rawValue),
+                                                                       matcherFeeAsset: order.feeAssetId)
                     
                     
                     return self
@@ -76,11 +77,25 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
         })
     }
     
-    func getFee(amountAsset: String, priceAsset: String) -> Observable<Money> {
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) ->  Observable<Money> in
+    func getFee(amountAsset: String, priceAsset: String, feeAssetId: String) -> Observable<DexCreateOrder.DTO.FeeSettings> {
+        
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DexCreateOrder.DTO.FeeSettings>  in
             guard let self = self else { return Observable.empty() }
-            return self.transactionInteractor.calculateFee(by: .createOrder(amountAsset: amountAsset, priceAsset: priceAsset),
-                                                            accountAddress: wallet.address)
+            
+            return self.orderBookInteractor.orderSettingsFee()
+                .flatMap({ [weak self] (smartSettings) -> Observable<DexCreateOrder.DTO.FeeSettings> in
+                    
+                    guard let self = self else { return Observable.empty() }
+                                                                      
+                    return self.transactionInteractor.calculateFee(by: .createOrder(amountAsset: amountAsset,
+                                                                                    priceAsset: priceAsset,
+                                                                                    settingsOrderFee: smartSettings,
+                                                                                    feeAssetId: feeAssetId),
+                                                                   accountAddress: wallet.address)
+                        .map({ (fee) -> DexCreateOrder.DTO.FeeSettings in
+                            return DexCreateOrder.DTO.FeeSettings(fee: fee, feeAssets: smartSettings.feeAssets)
+                        })
+                })
         })
     }
     

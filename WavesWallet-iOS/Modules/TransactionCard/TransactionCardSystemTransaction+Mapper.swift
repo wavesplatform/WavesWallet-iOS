@@ -455,12 +455,10 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
 
 
         let rowActionsModel = TransactionCardActionsCell.Model(buttons: buttonsActions)
-
-
-
+        
         rows.append(contentsOf:[.keyValue(self.rowBlockModel(isLargePadding: true)),
                                 .keyValue(self.rowConfirmationsModel),
-                                .keyBalance(self.rowFeeModel),
+                                .exchangeFee(self.rowExchangeFeeModel(tx: transfer)),
                                 .keyValue(self.rowTimestampModel),
                                 .status(self.rowStatusModel),
                                 .dashedLine(.topPadding),
@@ -472,6 +470,26 @@ fileprivate extension DomainLayer.DTO.SmartTransaction {
         return [section]
     }
 
+    func rowExchangeFeeModel(tx:  DomainLayer.DTO.SmartTransaction.Exchange) -> TransactionCardExchangeFeeCell.Model {
+        var fee1: BalanceLabel.Model!
+        var fee2: BalanceLabel.Model?
+        
+        if tx.order1.sender == tx.order2.sender {
+            fee1 = BalanceLabel.Model(balance: tx.sellMatcherFee, sign: nil, style: .small)
+            fee2 = BalanceLabel.Model(balance: tx.buyMatcherFee, sign: nil, style: .small)
+        }
+        else {
+            if tx.myOrder.kind == .sell {
+                fee1 = BalanceLabel.Model(balance: tx.sellMatcherFee, sign: nil, style: .small)
+            }
+            else {
+                fee1 = BalanceLabel.Model(balance: tx.buyMatcherFee, sign: nil, style: .small)
+            }
+        }
+        
+        return .init(fee1: fee1, fee2: fee2)
+    }
+    
     // MARK: - Leasing Sections
     func leasingSection(transfer: DomainLayer.DTO.SmartTransaction.Leasing,
                         title: String,
