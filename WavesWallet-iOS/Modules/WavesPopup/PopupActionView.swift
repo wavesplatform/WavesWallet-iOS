@@ -13,7 +13,7 @@ private enum Constants {
     static let defaultBottomOffset: CGFloat = 24
     
     enum Shadow {
-        static let offset = CGSize(width: 0, height: 4)
+        static let offset = CGSize(width: 0, height: 4) 
         static let opacity: Float = 0.2
         static let shadowRadius: Float = 4
     }
