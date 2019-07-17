@@ -1148,6 +1148,7 @@
 		0A6AC3D821839F4E005D2525 /* AddressesKeysValueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressesKeysValueCell.swift; sourceTree = "<group>"; };
 		0A6AC3DD2183CEFF005D2525 /* AddressesKeysSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesKeysSkeletonCell.swift; sourceTree = "<group>"; };
 		0A6AC3DF21847F8D005D2525 /* AddressesKeysModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressesKeysModuleBuilder.swift; sourceTree = "<group>"; };
+		0A726C1F32E83F25EFDA5B95 /* Pods-DomainLayer.test-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DomainLayer.test-prod.xcconfig"; path = "Target Support Files/Pods-DomainLayer/Pods-DomainLayer.test-prod.xcconfig"; sourceTree = "<group>"; };
 		0A751D37221715F80024D523 /* AppNewsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNewsCoordinator.swift; sourceTree = "<group>"; };
 		0A751D3922171ABA0024D523 /* Kingfisher+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Kingfisher+Rx.swift"; sourceTree = "<group>"; };
 		0A762D10214FDFA100BE9204 /* NewAccountAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountAvatarView.swift; sourceTree = "<group>"; };
@@ -5797,21 +5798,15 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-DomainLayer-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C13ECCA3BEFCD6283619DF06 /* [CP] Check Pods Manifest.lock */ = {
