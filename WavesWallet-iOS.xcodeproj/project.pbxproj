@@ -679,6 +679,7 @@
 		E9443012226E64E900EB6257 /* WalletSortInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9443011226E64E900EB6257 /* WalletSortInteractor.swift */; };
 		E9443014226E64F600EB6257 /* WalletSortInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9443013226E64F600EB6257 /* WalletSortInteractorProtocol.swift */; };
 		E9443018226E757E00EB6257 /* WalletSort+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9443017226E757E00EB6257 /* WalletSort+Mapper.swift */; };
+		E9443BA822DCCC2B00AFF151 /* TransactionCardExchangeFeeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9443BA722DCCC2B00AFF151 /* TransactionCardExchangeFeeCell.swift */; };
 		E944AA6F22444B780009F494 /* Amplitude-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E944AA6E22444B780009F494 /* Amplitude-Info.plist */; };
 		E95438F8217F91BA001A7860 /* SendLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95438F7217F91BA001A7860 /* SendLoadingViewController.swift */; };
 		E9543902217FF9EC001A7860 /* SendCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9543901217FF9EC001A7860 /* SendCompleteViewController.swift */; };
@@ -724,6 +725,8 @@
 		E96FEA29226F27BC00C0EE22 /* WalletSortCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96FEA27226F27BC00C0EE22 /* WalletSortCell.swift */; };
 		E96FEA2A226F27BC00C0EE22 /* WalletSortCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E96FEA28226F27BC00C0EE22 /* WalletSortCell.xib */; };
 		E97667CE227F0F8C0050E0D6 /* TransactionCardOrderFilledCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97667CD227F0F8B0050E0D6 /* TransactionCardOrderFilledCell.swift */; };
+		E97A74A522D3BAA200777C39 /* OrderBookUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97A74A422D3BAA200777C39 /* OrderBookUseCaseProtocol.swift */; };
+		E97A74A722D3BAD400777C39 /* OrderBookUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97A74A622D3BAD400777C39 /* OrderBookUseCase.swift */; };
 		E97EC83F20E67BE900AB006B /* NewAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */; };
 		E97EC84320E689A800AB006B /* ImportAccountPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */; };
 		E98092A922A85EE700914CF1 /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98092A822A85EE700914CF1 /* WalletViewController.swift */; };
@@ -956,9 +959,11 @@
 		E9FB6E382178265100FA13C1 /* SendInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B4A12176C4A800669D1D /* SendInteractor.swift */; };
 		E9FE4D7820EA767B00208F29 /* SaveBackupPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE4D7720EA767B00208F29 /* SaveBackupPhraseViewController.swift */; };
 		E9FE4D7A20EA7F8500208F29 /* ConfirmBackupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE4D7920EA7F8500208F29 /* ConfirmBackupViewController.swift */; };
+		EE024A866F51D14C39776252 /* Pods_DomainLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A6683F6BFAF14241B36FE4 /* Pods_DomainLayer.framework */; };
 		F74240C91EAB8EC800C3B84D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F74240C81EAB8EC800C3B84D /* Main.storyboard */; };
 		F7C683BE1EA93C5800C87DAF /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C683BA1EA93C5800C87DAF /* CustomNavigationController.swift */; };
 		F7E954E81EA8FE0700A804DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E954E71EA8FE0700A804DE /* AppDelegate.swift */; };
+		F888EDFB0DC38F2CEFE8301F /* Pods_DomainLayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CC78D4644A125146702C788 /* Pods_DomainLayerTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1794,6 +1799,7 @@
 		E9443011226E64E900EB6257 /* WalletSortInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortInteractor.swift; sourceTree = "<group>"; };
 		E9443013226E64F600EB6257 /* WalletSortInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortInteractorProtocol.swift; sourceTree = "<group>"; };
 		E9443017226E757E00EB6257 /* WalletSort+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletSort+Mapper.swift"; sourceTree = "<group>"; };
+		E9443BA722DCCC2B00AFF151 /* TransactionCardExchangeFeeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardExchangeFeeCell.swift; sourceTree = "<group>"; };
 		E944AA6E22444B780009F494 /* Amplitude-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Amplitude-Info.plist"; sourceTree = "<group>"; };
 		E945B19E20F75B420081F4D2 /* ConfirmBackupStackInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackInputView.swift; sourceTree = "<group>"; };
 		E95438F7217F91BA001A7860 /* SendLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendLoadingViewController.swift; sourceTree = "<group>"; };
@@ -1845,6 +1851,8 @@
 		E96FEA27226F27BC00C0EE22 /* WalletSortCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortCell.swift; sourceTree = "<group>"; };
 		E96FEA28226F27BC00C0EE22 /* WalletSortCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSortCell.xib; sourceTree = "<group>"; };
 		E97667CD227F0F8B0050E0D6 /* TransactionCardOrderFilledCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderFilledCell.swift; sourceTree = "<group>"; };
+		E97A74A422D3BAA200777C39 /* OrderBookUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookUseCaseProtocol.swift; sourceTree = "<group>"; };
+		E97A74A622D3BAD400777C39 /* OrderBookUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookUseCase.swift; sourceTree = "<group>"; };
 		E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountViewController.swift; sourceTree = "<group>"; };
 		E97EC84220E689A800AB006B /* ImportAccountPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAccountPasswordViewController.swift; sourceTree = "<group>"; };
 		E98092A822A85EE700914CF1 /* WalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
@@ -3275,6 +3283,7 @@
 				7B39029C2236ABFF00AAFDB8 /* TransactionCardStatusCell.swift */,
 				E9BB2D842260DEB000366278 /* TransactionCardInvokeScriptCell.swift */,
 				E97667CD227F0F8B0050E0D6 /* TransactionCardOrderFilledCell.swift */,
+				E9443BA722DCCC2B00AFF151 /* TransactionCardExchangeFeeCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -3290,6 +3299,7 @@
 				7B431A7F22BCFF5700DE73B9 /* AssetsBalanceSettingsUseCaseProtocol.swift */,
 				7B431A8222BCFFA900DE73B9 /* TransactionsUseCaseProtocol.swift */,
 				7B431A8422BD02E700DE73B9 /* AddressUseCaseProtocol.swift */,
+				E97A74A422D3BAA200777C39 /* OrderBookUseCaseProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -3470,6 +3480,7 @@
 				7B5FAA5122BBE3EC00621A44 /* AuthorizationUseCase.swift */,
 				7B5FAA5422BBE3EC00621A44 /* MigrationUseCase.swift */,
 				7B5FAA5822BBE3EC00621A44 /* TransactionsUseCase.swift */,
+				E97A74A622D3BAD400777C39 /* OrderBookUseCase.swift */,
 				7B431A8722BD037C00DE73B9 /* Protocol */,
 			);
 			path = UseCases;
@@ -5640,6 +5651,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		06104EDD3E9AD6AAECB72AEA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MonkeyTest-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		0A218B93215549BB00B989A1 /* Fabric run */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -5688,21 +5721,15 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-DomainLayerTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2F245D6C423EC5A511A2764F /* [CP] Check Pods Manifest.lock */ = {
@@ -5883,6 +5910,7 @@
 				7B5FAAC222BBE3EC00621A44 /* BiometricManager.swift in Sources */,
 				7B5FAAB722BBE3EC00621A44 /* CleanerWalletManagerBanner.swift in Sources */,
 				7B5FAAB322BBE3EC00621A44 /* ApplicationVersionUseCase.swift in Sources */,
+				E97A74A522D3BAA200777C39 /* OrderBookUseCaseProtocol.swift in Sources */,
 				7B5FAAA322BBE3EC00621A44 /* ResponseType.swift in Sources */,
 				7B5FAA6A22BBE3EC00621A44 /* RepositoriesFactoryProtocol.swift in Sources */,
 				7B5FAAB422BBE3EC00621A44 /* TransactionsUseCase.swift in Sources */,
@@ -5968,6 +5996,7 @@
 				7B5FAA9022BBE3EC00621A44 /* AssetScriptTransactionDomainDTO.swift in Sources */,
 				7B5FAA6922BBE3EC00621A44 /* UseCasesFactoryProtocol.swift in Sources */,
 				7B5FAA9B22BBE3EC00621A44 /* BurnTransactionDomainDTO.swift in Sources */,
+				E97A74A722D3BAD400777C39 /* OrderBookUseCase.swift in Sources */,
 				7BDC6D5622C3975D00614E6B /* AnalyticManagerEvent+WalletHome.swift in Sources */,
 				7B5FAA7922BBE3EC00621A44 /* WalletSeedRepositoryProtocol.swift in Sources */,
 				7B5FAA8022BBE3EC00621A44 /* AccountBalanceRepositoryProtocol.swift in Sources */,
@@ -6564,6 +6593,7 @@
 				7B39029522366B8E00AAFDB8 /* TransactionCardAddressCell.swift in Sources */,
 				E9D36DDA2175C755001E6DF0 /* ReceiveTypes.swift in Sources */,
 				E991BB2C2202D6560022E27D /* SendFeeTypes.swift in Sources */,
+				E9443BA822DCCC2B00AFF151 /* TransactionCardExchangeFeeCell.swift in Sources */,
 				0AF921F4212E07B3003BA067 /* AssetChartCell.swift in Sources */,
 				E9B087C12163886800937644 /* DexTraderContainerTypes.swift in Sources */,
 				7B5EDEC022522655009C2B3B /* TransactionCardKeyLoadingCell.swift in Sources */,

@@ -157,6 +157,7 @@ enum WalletRealmFactory {
             
             if oldSchemaVersion < SchemaVersions.version_2_5.rawValue {
                 removeAsset(migration: migration)
+                removeTransaction(migration: migration)
             }
         }
 

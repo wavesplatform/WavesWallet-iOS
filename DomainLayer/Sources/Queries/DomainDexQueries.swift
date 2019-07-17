@@ -25,8 +25,9 @@ public extension DomainLayer.Query {
             public let matcherFee: Int64
             public let timestamp: Int64
             public let expiration: Int64
-
-            public init(wallet: DomainLayer.DTO.SignedWallet, matcherPublicKey: PublicKeyAccount, amountAsset: String, priceAsset: String, amount: Int64, price: Int64, orderType: DomainLayer.DTO.Dex.OrderType, matcherFee: Int64, timestamp: Int64, expiration: Int64) {
+            public let matcherFeeAsset: String
+            
+            public init(wallet: DomainLayer.DTO.SignedWallet, matcherPublicKey: PublicKeyAccount, amountAsset: String, priceAsset: String, amount: Int64, price: Int64, orderType: DomainLayer.DTO.Dex.OrderType, matcherFee: Int64, timestamp: Int64, expiration: Int64, matcherFeeAsset: String) {
                 self.wallet = wallet
                 self.matcherPublicKey = matcherPublicKey
                 self.amountAsset = amountAsset
@@ -37,6 +38,7 @@ public extension DomainLayer.Query {
                 self.matcherFee = matcherFee
                 self.timestamp = timestamp
                 self.expiration = expiration
+                self.matcherFeeAsset = matcherFeeAsset
             }
         }
         
