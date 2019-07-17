@@ -40,7 +40,7 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
     private let transactionsInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
     private let assetsInteractor: AssetsUseCaseProtocol = UseCasesFactory.instance.assets
     private let dexOrderBookRepository: DexOrderBookRepositoryProtocol = UseCasesFactory.instance.repositories.dexOrderBookRepository
-
+    private let orderbookInteractor = UseCasesFactory.instance.oderbook
 
     init(kind: TransactionCard.Kind) {
         self.kind = kind
@@ -342,11 +342,18 @@ fileprivate extension TransactionCardSystem {
             .authorizedWallet()
             .flatMap({ [weak self] (wallet) -> Observable<Money> in
                 guard let self = self else { return Observable.empty() }
-                return  self
-                    .transactionsInteractor
-                    .calculateFee(by: .createOrder(amountAsset: amountAsset,
-                                                   priceAsset: priceAsset),
-                                  accountAddress: wallet.address)
+                return self.orderbookInteractor.orderSettingsFee()
+                    .flatMap({ [weak self] (orderSettingsFee) ->  Observable<Money> in
+                        guard let self = self else { return Observable.empty() }
+                        return self.transactionsInteractor
+                            
+                            //TODO: need update feeAssetId to correct calculation when api will be available for matcher
+                            .calculateFee(by: .createOrder(amountAsset: amountAsset,
+                                                           priceAsset: priceAsset,
+                                                           settingsOrderFee: orderSettingsFee,
+                                                           feeAssetId: WavesSDKConstants.wavesAssetId),
+                                          accountAddress: wallet.address)
+                    })
             })
     }
 
