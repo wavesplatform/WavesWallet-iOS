@@ -109,11 +109,11 @@ public struct WalletEnvironment: Decodable {
 
 public extension WalletEnvironment {
     
-    public var aliasScheme: String {
+    var aliasScheme: String {
         return Constants.alias + ":" + scheme + ":"
     }
     
-    public var vostokScheme: String {
+    var vostokScheme: String {
         return WalletEnvironment.isTestNet ? Constants.vostokTestNetScheme : Constants.vostokMainNetScheme
     }
 }

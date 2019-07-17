@@ -11,7 +11,7 @@ import Extensions
 
 public extension DomainLayer.DTO {
 
-    public struct ExchangeTransaction: Mutating {
+    struct ExchangeTransaction: Mutating {
 
        public struct Order: Mutating {
 

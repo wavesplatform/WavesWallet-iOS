@@ -12,7 +12,7 @@ import Extensions
 
 public extension DomainLayer.DTO {
 
-    public struct SmartAssetBalance: Mutating {
+    struct SmartAssetBalance: Mutating {
         public let assetId: String
         public var totalBalance: Int64
         public var leasedBalance: Int64
@@ -34,7 +34,7 @@ public extension DomainLayer.DTO {
         }
     }
 
-    public struct AssetBalance: Mutating {
+    struct AssetBalance: Mutating {
 
         public let assetId: String
         public var totalBalance: Int64
@@ -55,7 +55,7 @@ public extension DomainLayer.DTO {
         }
     }
 
-    public struct AssetBalanceSettings: Mutating {
+    struct AssetBalanceSettings: Mutating {
         public let assetId: String
         public var sortLevel: Float
         public var isHidden: Bool
@@ -72,7 +72,7 @@ public extension DomainLayer.DTO {
 
 public extension DomainLayer.DTO.SmartAssetBalance {
 
-    public var availableBalance: Int64 {
+    var availableBalance: Int64 {
         return max(totalBalance - leasedBalance - inOrderBalance, 0)
     }
 }

@@ -22,7 +22,7 @@ public enum TransactionStatus: Int, Decodable {
 
 public extension TransactionType {
 
-    public static var all: [TransactionType] {
+    static var all: [TransactionType] {
         return [.issue,
                 .transfer,
                 .reissue,

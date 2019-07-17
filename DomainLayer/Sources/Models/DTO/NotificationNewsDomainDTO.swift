@@ -9,7 +9,7 @@
 import Foundation
 
 public extension DomainLayer.DTO {
-    public struct NotificationNews {
+    struct NotificationNews {
         public let startDate: Date
         public let endDate: Date
         public let logoUrl: String

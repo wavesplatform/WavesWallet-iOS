@@ -11,7 +11,7 @@ import WavesSDKExtensions
 
 public extension Reactive where Base: TSUD {
     
-    public static func get(_ nsud: UserDefaults = .standard) -> Observable<Base.ValueType> {
+    static func get(_ nsud: UserDefaults = .standard) -> Observable<Base.ValueType> {
         
         return Observable.create({ (subscribe) -> Disposable in
           
@@ -21,7 +21,7 @@ public extension Reactive where Base: TSUD {
         })
     }
     
-    public static func set(_ value: Base.ValueType, _ nsud: UserDefaults = .standard) -> Observable<Bool>{
+    static func set(_ value: Base.ValueType, _ nsud: UserDefaults = .standard) -> Observable<Bool>{
         
         return Observable.create({ (subscribe) -> Disposable in
             
