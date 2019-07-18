@@ -192,7 +192,7 @@ extension TransactionSenderSpecifications {
                                                               assetId: model.assetId,
                                                               amount: model.amount,
                                                               fee: model.fee,
-                                                              attachment: model.attachment,
+                                                              attachment: Base58Encoder.encode(Array(model.attachment.utf8)),
                                                               feeAssetID: model.feeAssetID,
                                                               chainId: scheme,
                                                               timestamp: timestamp))
