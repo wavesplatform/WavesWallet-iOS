@@ -1,7 +1,7 @@
 "Receivecard.Label.minimunAmountInfo" = "Het minimum is %@, het maximum is %@";
 "Send.Label.Error.notFundsFeeGateway" = "U heeft onvoldoende funds om de transactiekosten te betalen. U dient %@ transactiekosten en %@ gateway kosten te betalen.";
 "Send.Label.Warning.description" = "Neem geen %@ op naar een ICO. We crediteren uw account niet met tokens van deze verkoop.";
-"Send.Label.Warning.subtitle" = "We hebben een %@ adres gedecteerd en sturen uw geld via de Coinomat gateway naar dat adres. Minimale hoeveelheid is %@, maximale hoeveelheid is %@.";
+"Send.Label.Warning.subtitle" = "We hebben een %@ adres gedecteerd en sturen uw geld via de gateway naar dat adres. Minimale hoeveelheid is %@, maximale hoeveelheid is %@.";
 "accountpassword.button.signIn.title" = "Aanmelden";
 "accountpassword.error.wrongpassword" = "Verkeerd wachtwoord";
 "accountpassword.textfield.error.atleastcharacters" = "Minimaal %d karakters";
@@ -105,7 +105,7 @@
 "chooseaccount.alert.delete.title" = "Account verwijderen";
 "chooseaccount.label.nothingWallets" = "Niets hier…\nU heeft geen opgeslagen accounts";
 "chooseaccount.navigation.title" = "Kies een account";
-"coinomat.temporarilyUnavailable" = "Coinomat Service is tijdelijk niet beschikbaar";
+"coinomat.temporarilyUnavailable" = "Service is tijdelijk niet beschikbaar";
 "coinomat.tryAgain" = "Probeer later opnieuw";
 "createalias.button.create.title" = "Creëren";
 "createalias.cell.input.textfiled.input.placeholder" = "Symbolische naam";
@@ -653,3 +653,8 @@
 "wallet.updateApp.label.subtitle" = "We werken er voortdurend aan om Waves Wallet beter en nuttiger te maken. Update uw app om toegang te krijgen tot nieuwe functies.";
 "wallet.clearAssets.label.title" = "Geen rommel meer!";
 "wallet.clearAssets.label.subtitle" = "We hebben de weergave van items opnieuw vormgeven om uw wallet schoon en opgeruimd te houden. U kunt uw lijst met tokens aanpassen zoals u dat wilt!";
+"dexcreateorder.invalidPricePopup.title.loverPrice" = "Uw order prijs is %d%% hoger dan de laatste marktprijs";
+"dexcreateorder.invalidPricePopup.title.higherPrice" = "Uw order prijs is %d%% hoger dan de laatste marktprijs";
+"dexcreateorder.invalidPricePopup.subtitle" = "Wilt u doorgaan?";
+"dexcreateorder.invalidPricePopup.button.placeOrder" = "Plaats order";
+"dexcreateorder.invalidPricePopup.button.cancel" = "Annuleer";

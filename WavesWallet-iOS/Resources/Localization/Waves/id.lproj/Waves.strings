@@ -1,7 +1,7 @@
 "Receivecard.Label.minimunAmountInfo" = "Minimumnya %@, maksimumnya %@";
 "Send.Label.Error.notFundsFeeGateway" = "Anda tidak memiliki cukup dana untuk membayar biaya yang diperlukan. Anda harus membayar %@ biaya transaksi dan %@ biaya gateway.";
 "Send.Label.Warning.description" = "Jangan tarik %@ ke ICO. Kami tidak akan mengkredit akun Anda dengan token dari penjualan itu.";
-"Send.Label.Warning.subtitle" = "Kami mendeteksi alamat %@ dan akan mengirim uang Anda melalui gateway Coinomat ke alamat itu. Jumlah minimum adalah %@, jumlah maksimum adalah %@.";
+"Send.Label.Warning.subtitle" = "Kami mendeteksi %@ alamat dan akan mengirim uang Anda melalui gateway ke alamat itu. Jumlah minimum adalah %@, jumlah maksimum adalah %@.";
 "accountpassword.button.signIn.title" = "Masuk";
 "accountpassword.error.wrongpassword" = "Kata sandi salah";
 "accountpassword.textfield.error.atleastcharacters" = "Minimum %d karakter";
@@ -105,7 +105,7 @@
 "chooseaccount.alert.delete.title" = "Hapus akun";
 "chooseaccount.label.nothingWallets" = "Tidak ada apapun disini…\nAnda tidak memiliki akun yang disimpan";
 "chooseaccount.navigation.title" = "Pilih akun";
-"coinomat.temporarilyUnavailable" = "Layanan Coinomat sementara tidak tersedia";
+"coinomat.temporarilyUnavailable" = "Layanan sementara tidak tersedia";
 "coinomat.tryAgain" = "Coba lagi nanti";
 "createalias.button.create.title" = "Buat";
 "createalias.cell.input.textfiled.input.placeholder" = "Nama simbolis";
@@ -653,3 +653,8 @@
 "wallet.updateApp.label.subtitle" = "Kami terus berupaya menjadikan Waves Wallet lebih baik dan lebih bermanfaat. Perbarui aplikasi Anda untuk mendapatkan akses ke fitur baru.";
 "wallet.clearAssets.label.title" = "Tidak ada lagi kekacauan!";
 "wallet.clearAssets.label.subtitle" = "Kami telah mendesain ulang tampilan token untuk memungkinkan Anda menjaga dompet Anda bersih dan rapi. Anda dapat menyesuaikan daftar token Anda sesuka Anda!";
+"dexcreateorder.invalidPricePopup.title.loverPrice" = "Harga pesanan Anda %d%% lebih rendah dari harga pasar terbaru";
+"dexcreateorder.invalidPricePopup.title.higherPrice" = "Harga pesanan Anda %d%% lebih tinggi dari harga pasar terbaru";
+"dexcreateorder.invalidPricePopup.subtitle" = "Apakah Anda ingin melanjutkan?";
+"dexcreateorder.invalidPricePopup.button.placeOrder" = "Tempatkan Order";
+"dexcreateorder.invalidPricePopup.button.cancel" = "Batalkan";
