@@ -105,7 +105,7 @@
 "chooseaccount.alert.delete.title" = "खाता मिटा दो";
 "chooseaccount.label.nothingWallets" = "यहां कुछ नहीं…\nआपके पास सेव्ड खाते नहीं हैं";
 "chooseaccount.navigation.title" = "खाता चुनें";
-"coinomat.temporarilyUnavailable" = "कोइनोमाट सेवा अस्थायी रूप से अनुपलब्ध है";
+"coinomat.temporarilyUnavailable" = "सेवा अस्थायी रूप से अनुपलब्ध हैं";
 "coinomat.tryAgain" = "बाद में पुन: प्रयास करें";
 "createalias.button.create.title" = "निर्माण करना";
 "createalias.cell.input.textfiled.input.placeholder" = "प्रतीकात्मक नाम";
@@ -170,7 +170,7 @@
 "dexlist.label.price" = "मूल्य";
 "dexlist.label.today" = "आज";
 "dexlist.label.yesterday" = "कल";
-"dexlist.navigationBar.title" = "डेक्स";
+"dexlist.navigationBar.title" = "DEX";
 "dexmarket.label.loadingMarkets" = "बाजार लोड हो रहा है…";
 "dexmarket.navigationBar.title" = "बाजार";
 "dexmarket.searchBar.placeholder" = "खोज";
@@ -225,7 +225,7 @@
 "general.error.title.noconnectiontotheinternet" = "इंटरनेट से कोई कनेक्शन नहीं";
 "general.error.title.notfound" = "ओह… यह सब टूट गया है!";
 "general.label.title.myasset" = "/ मेरी टोकन";
-"general.tabbar.title.dex" = "डेक्स";
+"general.tabbar.title.dex" = "DEX";
 "general.tabbar.title.history" = "इतिहास";
 "general.tabbar.title.profile" = "प्रोफाइल";
 "general.tabbar.title.wallet" = "वॉलेट";
@@ -653,3 +653,8 @@
 "wallet.updateApp.label.subtitle" = "हम लगातार वेव्स वॉलेट को बेहतर और अधिक उपयोगी बनाने के लिए काम कर रहे हैं। नई सुविधाओं तक पहुँच प्राप्त करने के लिए कृपया अपने ऐप को अपडेट करें।";
 "wallet.clearAssets.label.title" = "और कोई गड़बड़ नहीं!";
 "wallet.clearAssets.label.subtitle" = "हमने आपको अपने बटुए को साफ सुथरा रखने के लिए टोकन के प्रदर्शन को फिर से डिज़ाइन किया है। आप चाहे तो अपनी टोकन सूची को अनुकूलित कर सकते हैं!";
+"dexcreateorder.invalidPricePopup.title.loverPrice" = "आपके ऑर्डर की कीमत नवीनतम बाजार मूल्य की तुलना में %d%% कम है";
+"dexcreateorder.invalidPricePopup.title.higherPrice" = "आपके ऑर्डर का मूल्य नवीनतम बाजार मूल्य की तुलना में %d%% अधिक है";
+"dexcreateorder.invalidPricePopup.subtitle" = "क्या आप आगे बढ़ना चाहते हैं?";
+"dexcreateorder.invalidPricePopup.button.placeOrder" = "ऑर्डर देना";
+"dexcreateorder.invalidPricePopup.button.cancel" = "रद्द करना";
