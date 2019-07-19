@@ -59,6 +59,16 @@ final class AppCoordinator: Coordinator {
     private let disposeBag: DisposeBag = DisposeBag()
     private var isActiveApp: Bool = false
     
+    #if DEBUG || TEST
+    private let ticker: UIView = {
+        let v = UIView()
+        v.backgroundColor = .green
+        v.layer.cornerRadius = 25
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    #endif
+    
     init(_ windowRouter: WindowRouter) {
         self.windowRouter = windowRouter
     }
@@ -73,6 +83,22 @@ final class AppCoordinator: Coordinator {
         } else {
             logInApplication()
         }
+        
+        self.windowRouter.window.addSubview(ticker)
+        
+        ticker.topAnchor.constraint(equalToSystemSpacingBelow: self.windowRouter.window.topAnchor, multiplier: 1).isActive = true
+        ticker.centerXAnchor.constraint(equalToSystemSpacingAfter: self.windowRouter.window.centerXAnchor, multiplier: 1).isActive = true
+        ticker.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        ticker.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        ticker.layer.zPosition = 666
+        
+        if WalletEnvironment.isTestNet {
+            ticker.backgroundColor = .green
+        } else {
+            ticker.backgroundColor = .red
+        }
+        
+        
         addTapGestureForSupportDisplay()
         #else        
         logInApplication()
@@ -310,12 +336,20 @@ extension AppCoordinator: SupportViewControllerDelegate  {
         
             if WalletEnvironment.isTestNet != isTestNet {
 
+          
+                
                 self.authoAuthorizationInteractor
                     .logout()
                     .subscribe(onCompleted: { [weak self] in
                         guard let self = self else { return }
                         WalletEnvironment.isTestNet = isTestNet
                         self.showDisplay(.enter)
+                        
+                        if WalletEnvironment.isTestNet {
+                            self.ticker.backgroundColor = .green
+                        } else {
+                            self.ticker.backgroundColor = .red
+                        }
                     })
                     .disposed(by: self.disposeBag)
             }
