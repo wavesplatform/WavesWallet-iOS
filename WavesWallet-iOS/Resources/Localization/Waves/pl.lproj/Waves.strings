@@ -1,7 +1,7 @@
 "Receivecard.Label.minimunAmountInfo" = "Minimalna wartość to %@, maksymalna to %@";
 "Send.Label.Error.notFundsFeeGateway" = "Nie masz wystarczających środków na opłacenie wymaganych opłat. Musisz zapłacić %@ opłaty transakcyjnej i %@ opłaty bramy płatniczej.";
 "Send.Label.Warning.description" = "Nie wypłacaj %@ do ICO. Nie zasilimy Twojego konta tokenami z takiej zewnętrznej dystrybucji tokenów.";
-"Send.Label.Warning.subtitle" = "Wykryliśmy adres %@ i wyślemy twoje środki przez bramkę Coinomat na ten adres. Minimalna kwota to %@, maksymalna kwota to %@.";
+"Send.Label.Warning.subtitle" = "Wykryliśmy adres %@ i wyślemy twoje pieniądze przez bramę na ten adres. Minimalna kwota to %@, maksymalna kwota to %@.";
 "accountpassword.button.signIn.title" = "Zaloguj się";
 "accountpassword.error.wrongpassword" = "Złe hasło";
 "accountpassword.textfield.error.atleastcharacters" = "Minimum %d znaków";
@@ -105,7 +105,7 @@
 "chooseaccount.alert.delete.title" = "Usuń konto";
 "chooseaccount.label.nothingWallets" = "Nic tutaj…\nNie masz zapisanych kont";
 "chooseaccount.navigation.title" = "Wybierz konto";
-"coinomat.temporarilyUnavailable" = "Usługa Coinomat jest chwilowo niedostępna";
+"coinomat.temporarilyUnavailable" = "Usługa jest chwilowo niedostępna";
 "coinomat.tryAgain" = "Spróbuj ponownie później";
 "createalias.button.create.title" = "Utwórz";
 "createalias.cell.input.textfiled.input.placeholder" = "Nazwa symboliczna";
@@ -653,3 +653,8 @@
 "wallet.updateApp.label.subtitle" = "Nieustannie pracujemy nad tym, aby Waves Wallet był lepszy i bardziej przydatny. Zaktualizuj swoją aplikację, aby uzyskać dostęp do nowych funkcji.";
 "wallet.clearAssets.label.title" = "Nigdy więcej bałaganu!";
 "wallet.clearAssets.label.subtitle" = "Przeprojektowaliśmy wyświetlanie tokenów, aby zapewnić czystość i porządek w portfelu. Możesz dostosować swoją listę tokenów, jak chcesz!";
+"dexcreateorder.invalidPricePopup.title.loverPrice" = "Twoja cena zlecenia jest %d%% niższa od ostatniej ceny rynkowej";
+"dexcreateorder.invalidPricePopup.title.higherPrice" = "Twoja cena zlecenia jest %d%% wyższa niż ostatnia cena rynkowa";
+"dexcreateorder.invalidPricePopup.subtitle" = "Chcesz procedować?";
+"dexcreateorder.invalidPricePopup.button.placeOrder" = "Wstaw zlecenie";
+"dexcreateorder.invalidPricePopup.button.cancel" = "Anuluj";
