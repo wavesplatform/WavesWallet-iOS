@@ -9,3 +9,4 @@ gem 'json'
 gem 'bigdecimal'
 gem 'pry'
 gem 'versionomy'
+gem "mini_magick", ">= 4.9.4"
