@@ -22,19 +22,24 @@ final class AccountSettingsRepository: AccountSettingsRepositoryProtocol {
     func accountSettings(accountAddress: String) -> Observable<DomainLayer.DTO.AccountSettings?> {
         return Observable.create({ observer -> Disposable in
 
-            //TODO: Error                  
-            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
-            let result = realm.objects(AccountSettings.self)
-
-            if let settings = result.toArray().first {
-                observer.onNext(DomainLayer.DTO.AccountSettings(settings))
-                observer.onCompleted()
-            } else {
-                observer.onNext(nil)
-                observer.onCompleted()
+            do {
+                let realm = try WalletRealmFactory.realm(accountAddress: accountAddress)
+                let result = realm.objects(AccountSettings.self)
+                
+                if let settings = result.toArray().first {
+                    observer.onNext(DomainLayer.DTO.AccountSettings(settings))
+                    observer.onCompleted()
+                } else {
+                    observer.onNext(nil)
+                    observer.onCompleted()
+                }
+                
+                return Disposables.create()
+            } catch let e {
+                SweetLogger.debug(e)
+                observer.onError(AccountSettingsRepositoryError.invalid)
+                return Disposables.create()
             }
-
-            return Disposables.create()
         })
     }
 
