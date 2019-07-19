@@ -1,7 +1,7 @@
 "Receivecard.Label.minimunAmountInfo" = "O valor mínimo é de %@ e máximo de %@";
 "Send.Label.Error.notFundsFeeGateway" = "Não tens fundos suficientes para pagar as taxas de transação. Precisas de %@ para a taxa em blockchain e %@ para taxa do Gateway.";
 "Send.Label.Warning.description" = "Não transfiras os %@ para uma ICO. Não teremos forma de creditar a tua conta com os tokens resultantes dessa compra.";
-"Send.Label.Warning.subtitle" = "Estás a enviar fundos para um endereço de %@, que vamos processar através do gateway da Coinomat. O valor mínimo é de %@ e o máximo é de %@.";
+"Send.Label.Warning.subtitle" = "O endereço %@ para onde queres enviar os fundos vai usar um Gateway. O valor mínimo é de %@ e o máximo é de %@.";
 "accountpassword.button.signIn.title" = "Iniciar a sessão";
 "accountpassword.error.wrongpassword" = "A senha está errada";
 "accountpassword.textfield.error.atleastcharacters" = "Mínimo de %d caracteres";
@@ -105,7 +105,7 @@
 "chooseaccount.alert.delete.title" = "Apagar a conta";
 "chooseaccount.label.nothingWallets" = "Ainda não há nada aqui…\nNão existem contas criadas";
 "chooseaccount.navigation.title" = "Escolhe uma conta";
-"coinomat.temporarilyUnavailable" = "O serviços da Coinomat estão temporariamente indisponíveis";
+"coinomat.temporarilyUnavailable" = "Os serviços estão temporariamente indisponíveis";
 "coinomat.tryAgain" = "Tenta novamente mais tarde";
 "createalias.button.create.title" = "Criar um pseudónimo";
 "createalias.cell.input.textfiled.input.placeholder" = "Pseudónimo";
@@ -653,3 +653,8 @@
 "wallet.updateApp.label.subtitle" = "Estamos a trabalhar para melhorar a Carteira Waves. Por favor, atualiza a tua aplicação para aceder às novas funcionalidades.";
 "wallet.clearAssets.label.title" = "Acabámos com a confusão!";
 "wallet.clearAssets.label.subtitle" = "Mudámos a forma de apresentação da lista de Tokens para tornar a aplicação simples e fácil de usar. Se preferires podes sempre customizar a lista de ativos que pretendes ver carregados no ecrã.";
+"dexcreateorder.invalidPricePopup.title.loverPrice" = "A tua ordem está %d%% abaixo do valor de mercado";
+"dexcreateorder.invalidPricePopup.title.higherPrice" = "A tua ordem está %d%% acima do valor de mercado";
+"dexcreateorder.invalidPricePopup.subtitle" = "Tens a certeza que queres continuar?";
+"dexcreateorder.invalidPricePopup.button.placeOrder" = "Colocar Ordem";
+"dexcreateorder.invalidPricePopup.button.cancel" = "Cancelar";

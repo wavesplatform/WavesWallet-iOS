@@ -1,7 +1,7 @@
 "Receivecard.Label.minimunAmountInfo" = "Минимум %@, максимум %@";
 "Send.Label.Error.notFundsFeeGateway" = "У вас недостаточно средств для отправки транзакции. Вы должны оплатить комиссию %@ и %@ gateway комиссию.";
 "Send.Label.Warning.description" = "Не выводите %@ на адреса ICO, так как мы не зачислим вам токены полученные после окончания распродажи.";
-"Send.Label.Warning.subtitle" = "Введенный адрес определен как %@, ваши средства будут отправлены на него через шлюз Coinomat. Минимальная сумма перевода — %@, максимальная — %@.";
+"Send.Label.Warning.subtitle" = "Введенный адрес определен как %@, ваши средства будут отправлены на него через шлюз. Минимальная сумма перевода — %@, максимальная — %@.";
 "accountpassword.button.signIn.title" = "Войти";
 "accountpassword.error.wrongpassword" = "Неправильный пароль";
 "accountpassword.textfield.error.atleastcharacters" = "Минимум %d символов";
@@ -105,7 +105,7 @@
 "chooseaccount.alert.delete.title" = "Удалить аккаунт";
 "chooseaccount.label.nothingWallets" = "Пока ничего нет…\nВы не сохраняли аккаунты";
 "chooseaccount.navigation.title" = "Выбор аккаунта";
-"coinomat.temporarilyUnavailable" = "Сервис Coinomat временно недоступен";
+"coinomat.temporarilyUnavailable" = "Сервис временно недоступен";
 "coinomat.tryAgain" = "Попробуйте позже";
 "createalias.button.create.title" = "Создать";
 "createalias.cell.input.textfiled.input.placeholder" = "Символическое имя";
@@ -653,3 +653,8 @@
 "wallet.updateApp.label.subtitle" = "Мы постоянно работаем над тем, чтобы сделать Waves Wallet лучше и полезнее. Пожалуйста, обновите приложение и получите доступ к новым функциям.";
 "wallet.clearAssets.label.title" = "Теперь ничего лишнего!";
 "wallet.clearAssets.label.subtitle" = "Мы переработали экран сортировки токенов и привели в порядок ваш кошелек. Вы можете настроить список токенов так, как захотите!";
+"dexcreateorder.invalidPricePopup.title.loverPrice" = "Цена в вашем ордере на %d%% ниже рыночной цены";
+"dexcreateorder.invalidPricePopup.title.higherPrice" = "Цена в вашем ордере на %d%% выше рыночной цены";
+"dexcreateorder.invalidPricePopup.subtitle" = "Вы действительно хотите продолжить?";
+"dexcreateorder.invalidPricePopup.button.placeOrder" = "Поставить ордер";
+"dexcreateorder.invalidPricePopup.button.cancel" = "Отмена";

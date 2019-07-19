@@ -1,8 +1,7 @@
 "Receivecard.Label.minimunAmountInfo" = "The minimum is %@, the maximum is %@";
 "Send.Label.Error.notFundsFeeGateway" = "You don't have enough funds to pay the required fees. You must pay %@ transaction fee and %@ gateway fee.";
 "Send.Label.Warning.description" = "Do not withdraw %@ to an ICO. We will not credit your account with tokens from that sale.";
-"Send.Label.Warning.subtitle" = "We detected %@ address and will send your money through Coinomat gateway to that address. Minimum amount is %@, maximum amount is %@.";
-
+"Send.Label.Warning.subtitle" = "We detected %@ address and will send your money through gateway to that address. Minimum amount is %@, maximum amount is %@.";
 "accountpassword.button.signIn.title" = "Sign In";
 "accountpassword.error.wrongpassword" = "Wrong password";
 "accountpassword.textfield.error.atleastcharacters" = "Minimum %d characters";
@@ -106,7 +105,7 @@
 "chooseaccount.alert.delete.title" = "Delete account";
 "chooseaccount.label.nothingWallets" = "Nothing Here…\nYou do not have saved accounts";
 "chooseaccount.navigation.title" = "Choose account";
-"coinomat.temporarilyUnavailable" = "Service Coinomat temporarily unavailable";
+"coinomat.temporarilyUnavailable" = "Service temporarily unavailable";
 "coinomat.tryAgain" = "Try again later";
 "createalias.button.create.title" = "Create";
 "createalias.cell.input.textfiled.input.placeholder" = "Symbolic name";
@@ -654,11 +653,8 @@
 "wallet.updateApp.label.subtitle" = "We are constantly working to make Waves Wallet better and more useful. Please update your app to gain access to new features.";
 "wallet.clearAssets.label.title" = "No more mess!";
 "wallet.clearAssets.label.subtitle" = "We have redesigned the display of assets to allow you to keep your wallet clean and tidy. You can customise your asset list however you want!";
-
 "dexcreateorder.invalidPricePopup.title.loverPrice" = "Your order price is %d%% lower than the latest market price";
-
 "dexcreateorder.invalidPricePopup.title.higherPrice" = "You order price is %d%% higher than the latest market price";
-
 "dexcreateorder.invalidPricePopup.subtitle" = "Do you want to proceed?";
 "dexcreateorder.invalidPricePopup.button.placeOrder" = "Place Order";
 "dexcreateorder.invalidPricePopup.button.cancel" = "Cancel";
