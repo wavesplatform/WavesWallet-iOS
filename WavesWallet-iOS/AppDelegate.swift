@@ -36,8 +36,7 @@ enum UITest {
 }
 #endif
 
-@UIApplicationMain
-    class AppDelegate: UIResponder, UIApplicationDelegate {
+@UIApplicationMain class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var disposeBag: DisposeBag = DisposeBag()
     var window: UIWindow?
@@ -80,7 +79,9 @@ enum UITest {
         setupUI()
         setupServices()
         
-        appCoordinator = AppCoordinator(WindowRouter(window: self.window!))
+        let router = WindowRouter.windowFactory(window: self.window!)
+        
+        appCoordinator = AppCoordinator(router)
 
         migrationInteractor
             .migration()
