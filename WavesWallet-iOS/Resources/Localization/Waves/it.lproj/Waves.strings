@@ -653,3 +653,8 @@
 "wallet.updateApp.label.subtitle" = "Lavoriamo costantemente per rendere il Portafoglio Waves migliore e più utile. Aggiorna la tua app per accedere a nuove funzioni.";
 "wallet.clearAssets.label.title" = "Niente più disordine!";
 "wallet.clearAssets.label.subtitle" = "Abbiamo ridisegnato la visualizzazione dei token per permetterti di mantenere il tuo wallet pulito e in ordine. Puoi personalizzare la lista dei tuoi Token come preferisci!";
+"dexcreateorder.invalidPricePopup.title.loverPrice" = "Il tuo ordine è inferiore del %d%% rispetto al più recente prezzo di mercato";
+"dexcreateorder.invalidPricePopup.title.higherPrice" = "Il tuo ordine è superiore del %d%% rispetto al più recente prezzo di mercato";
+"dexcreateorder.invalidPricePopup.subtitle" = "Vuoi procedere?";
+"dexcreateorder.invalidPricePopup.button.placeOrder" = "Conferma ordine";
+"dexcreateorder.invalidPricePopup.button.cancel" = "Annulla";

@@ -1,7 +1,7 @@
 "Receivecard.Label.minimunAmountInfo" = "최소 수량 %@, 최대 수량 %@";
 "Send.Label.Error.notFundsFeeGateway" = "필요한 수수료를 지불하기 위한 충분한 자금이 없습니다. %@ 트랜잭션 수수료와 %@ 게이트웨이 수수료를 지불해야 합니다.";
 "Send.Label.Warning.description" = "ICO로 %@ 를 출금하지 마세요. 해당 판매의 토큰을 귀하의 계정에 크레딧 하지 않을 것입니다.";
-"Send.Label.Warning.subtitle" = "%@ 주소를 감지했으며 해당 주소로 Coinomat 게이트웨이를 통해 자산을 송금할 것입니다. 최소 수량은 %@ 이며, 최대 수량은 %@ 입니다.";
+"Send.Label.Warning.subtitle" = "%@ 주소를 감지했으며 해당 주소로 게이트웨이를 통해 자산을 송금할 것입니다. 최소 수량은 %@ 이며, 최대 수량은 %@ 입니다.";
 "accountpassword.button.signIn.title" = "로그인";
 "accountpassword.error.wrongpassword" = "잘못된 비밀번호";
 "accountpassword.textfield.error.atleastcharacters" = "최소 %d 자";
@@ -105,7 +105,7 @@
 "chooseaccount.alert.delete.title" = "계정 삭제";
 "chooseaccount.label.nothingWallets" = "아무것도 없습니다…\n저장된 계정이 없습니다";
 "chooseaccount.navigation.title" = "계정 선택";
-"coinomat.temporarilyUnavailable" = "Coinomat 서비스를 일시적으로 사용할 수 없습니다";
+"coinomat.temporarilyUnavailable" = "서비스를 일시적으로 사용할 수 없습니다";
 "coinomat.tryAgain" = "잠시후 다시 시도하세요";
 "createalias.button.create.title" = "생성";
 "createalias.cell.input.textfiled.input.placeholder" = "상징적인 이름";
@@ -652,4 +652,9 @@
 "wallet.updateApp.label.title" = "앱을 업데이트 할 시간입니다!";
 "wallet.updateApp.label.subtitle" = "Waves 지갑을 보다 유용하게 만들기 위해 끊임없이 노력하고 있습니다. 새로운 기능에 액세스하려면 앱을 업데이트하십시오.";
 "wallet.clearAssets.label.title" = "깨끗하게 유지하세요!";
-"wallet.clearAssets.label.subtitle" = "귀하의 지갑을 깨끗하고 깔끔하게 유지할 수 있도록 토큰 디스플레이를 재설계하였습니다. 토큰 목록은 사용자가 원하는 데로 직접 편집할 수 있습니다.";
+"wallet.clearAssets.label.subtitle" = "귀하의 지갑을 깨끗하고 깔끔하게 유지할 수 있도록 토큰 디스플레이를 재설계하였습니다. 토큰 목록은 사용자가 원하는 대로 직접 편집할 수 있습니다.";
+"dexcreateorder.invalidPricePopup.title.loverPrice" = "귀하의 주문가는 시장가보다 %d%% 낮습니다";
+"dexcreateorder.invalidPricePopup.title.higherPrice" = "귀하의 주문가는 시장가보다 %d%% 높습니다";
+"dexcreateorder.invalidPricePopup.subtitle" = "계속 진행하시겠습니까?";
+"dexcreateorder.invalidPricePopup.button.placeOrder" = "주문 등록";
+"dexcreateorder.invalidPricePopup.button.cancel" = "취소";
