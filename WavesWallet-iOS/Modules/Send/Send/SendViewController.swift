@@ -338,6 +338,9 @@ private extension SendViewController {
                     if let asset = assetBalance {
                         self.setupAssetInfo(asset)
                         self.amountView.setDecimals(asset.asset.precision, forceUpdateMoney: true)
+                        if !self.isValidAddress(self.recipientAddressView.text) {
+                            self.validateAddress()
+                        }
                     }
                     self.updateAmountData()
 

@@ -1,7 +1,7 @@
 "Receivecard.Label.minimunAmountInfo" = "最小額は %@です。最大額は %@ です。";
 "Send.Label.Error.notFundsFeeGateway" = "必要な手数料を支払うための資金が足りません。取引手数料%@とゲートウェイ手数料 %@ を支払う必要があります。";
 "Send.Label.Warning.description" = "%@ をICOの為に引き出さないで下さい。そのセールに関するトークンを私達はデポジットしません。";
-"Send.Label.Warning.subtitle" = "私たちは、%@ のアドレスを検出し、そのアドレスにCoinomatゲートウェイを経由してあなたのお金を送信します。最少額は %@、最大額は%@です。";
+"Send.Label.Warning.subtitle" = "私たちは、%@ のアドレスを検出し、そのアドレスにゲートウェイを経由してあなたのお金を送信します。最少額は %@、最大額は%@です。";
 "accountpassword.button.signIn.title" = "サインイン";
 "accountpassword.error.wrongpassword" = "パスワードが間違っています";
 "accountpassword.textfield.error.atleastcharacters" = "最低 %d 文字";
@@ -105,7 +105,7 @@
 "chooseaccount.alert.delete.title" = "アドレスを削除";
 "chooseaccount.label.nothingWallets" = "表示するデータがありません…\n保存されたアカウントがありません";
 "chooseaccount.navigation.title" = "アカウントを選択";
-"coinomat.temporarilyUnavailable" = "Coinomatのサービスは一時的にご利用いただけません";
+"coinomat.temporarilyUnavailable" = "サービスは現在利用することができません";
 "coinomat.tryAgain" = "再度お試しください";
 "createalias.button.create.title" = "作成";
 "createalias.cell.input.textfiled.input.placeholder" = "シンボル名";
@@ -653,3 +653,8 @@
 "wallet.updateApp.label.subtitle" = "私たちは常にWavesウォレットをより良く、そしてより便利にするために改善を繰り返しています。新しい機能にアクセスするためにアプリを更新してください。";
 "wallet.clearAssets.label.title" = "もう整頓に困ることはありません。";
 "wallet.clearAssets.label.subtitle" = "あなたがウォレットをクリーンで整頓することを可能にするためにトークンの表示方法を再設計しました。あなたは望むようにトークンリストをカスタマイズすることができます！";
+"dexcreateorder.invalidPricePopup.title.loverPrice" = "あなたの注文価格は %d%% 市場価格よりも安いです";
+"dexcreateorder.invalidPricePopup.title.higherPrice" = "あなたの注文価格は %d%% 市場価格よりも高いです";
+"dexcreateorder.invalidPricePopup.subtitle" = "次へ進みますか？";
+"dexcreateorder.invalidPricePopup.button.placeOrder" = "注文する";
+"dexcreateorder.invalidPricePopup.button.cancel" = "キャンセル";
