@@ -878,6 +878,7 @@
 		E9B12DB6219DD6E000128EFE /* AssetBalanceSpamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B12DB4219DD6E000128EFE /* AssetBalanceSpamCell.xib */; };
 		E9B12DB9219E2D3900128EFE /* AssetBurnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B12DB7219E2D3900128EFE /* AssetBurnCell.swift */; };
 		E9B12DBA219E2D3900128EFE /* AssetBurnCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B12DB8219E2D3900128EFE /* AssetBurnCell.xib */; };
+		E9B190A222E7C523008220B7 /* DexChartSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B190A122E7C523008220B7 /* DexChartSettings.swift */; };
 		E9BB2D852260DEB000366278 /* TransactionCardInvokeScriptCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB2D842260DEB000366278 /* TransactionCardInvokeScriptCell.swift */; };
 		E9C0B49C2176C46E00669D1D /* SendPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B49B2176C46E00669D1D /* SendPresenterProtocol.swift */; };
 		E9C0B49E2176C48300669D1D /* SendPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B49D2176C48300669D1D /* SendPresenter.swift */; };
@@ -2004,6 +2005,7 @@
 		E9B12DB4219DD6E000128EFE /* AssetBalanceSpamCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetBalanceSpamCell.xib; sourceTree = "<group>"; };
 		E9B12DB7219E2D3900128EFE /* AssetBurnCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBurnCell.swift; sourceTree = "<group>"; };
 		E9B12DB8219E2D3900128EFE /* AssetBurnCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetBurnCell.xib; sourceTree = "<group>"; };
+		E9B190A122E7C523008220B7 /* DexChartSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexChartSettings.swift; sourceTree = "<group>"; };
 		E9BB2D842260DEB000366278 /* TransactionCardInvokeScriptCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardInvokeScriptCell.swift; sourceTree = "<group>"; };
 		E9C0B49B2176C46E00669D1D /* SendPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPresenterProtocol.swift; sourceTree = "<group>"; };
 		E9C0B49D2176C48300669D1D /* SendPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPresenter.swift; sourceTree = "<group>"; };
@@ -4410,6 +4412,7 @@
 				E9B086C42163886800937644 /* DexChartConstants.swift */,
 				E9B086C52163886800937644 /* Presenter */,
 				E9B086C82163886800937644 /* DexChartHelper.swift */,
+				E9B190A122E7C523008220B7 /* DexChartSettings.swift */,
 				E9B086C92163886800937644 /* Models */,
 				E9B086CC2163886800937644 /* DexChartModuleBuilder.swift */,
 				E9B086CE2163886800937644 /* DexChartViewController.swift */,
@@ -6318,6 +6321,7 @@
 				0AF922ED212E1234003BA067 /* AssetsSegmentedControl.swift in Sources */,
 				E9CBE6C22094C0E7008C8F44 /* MenuViewController.swift in Sources */,
 				0AF922FE212E1234003BA067 /* GradientView.swift in Sources */,
+				E9B190A222E7C523008220B7 /* DexChartSettings.swift in Sources */,
 				0AF922F3212E1234003BA067 /* SeparatorView.swift in Sources */,
 				E9B0881D2163886800937644 /* DexSortCell.swift in Sources */,
 				7BDA6AE822313E59001DE71C /* TransactionImageView.swift in Sources */,
