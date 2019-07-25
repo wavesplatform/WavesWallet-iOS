@@ -35,7 +35,7 @@ public extension DomainLayer.DTO.Candle {
         case m15 = 15
         case m30 = 30
         case h1 = 60
-        case h4 = 240
+        case h3 = 180
         case h24 = 1440
     }
 }
