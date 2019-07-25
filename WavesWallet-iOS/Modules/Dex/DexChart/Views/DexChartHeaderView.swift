@@ -69,7 +69,7 @@ private extension DexChartHeaderView {
         let cancel = UIAlertAction(title: Localizable.Waves.Dexchart.Button.cancel, style: .cancel, handler: nil)
         controller.addAction(cancel)
 
-        let types: [DomainLayer.DTO.Candle.TimeFrameType] = [.m5, .m15, .m30, .h1, .h4, .h24]
+        let types: [DomainLayer.DTO.Candle.TimeFrameType] = [.m5, .m15, .m30, .h1, .h3, .h24]
         
         for type in types {
             let action = UIAlertAction(title: type.text, style: .default) { (action) in

@@ -13,6 +13,33 @@ import WavesSDK
 import DomainLayer
 import Extensions
 
+
+private extension DomainLayer.DTO.Candle.TimeFrameType {
+    
+    var value: String {
+        switch self {
+        case .m5:
+            return "5m"
+            
+        case .m15:
+            return "15m"
+            
+        case .m30:
+            return "30m"
+            
+        case .h1:
+            return "1h"
+            
+        case .h3:
+            return "3h"
+            
+        case .h24:
+            return "1d"
+        }
+    }
+}
+
+
 final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
     
     private let environmentRepository: EnvironmentRepositoryProtocols
@@ -41,7 +68,7 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                                                               priceAsset: priceAsset,
                                                               timeStart: timeStart.millisecondsSince1970(timestampDiff: timestampServerDiff),
                                                               timeEnd: timeEnd.millisecondsSince1970(timestampDiff: timestampServerDiff),
-                                                              interval: String(timeFrame.rawValue) + "m")
+                                                              interval: timeFrame.value)
                 return servicesEnvironment
                     .wavesServices
                     .dataServices
@@ -62,7 +89,7 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                             }
                             
                             if volume > 0 {
-                                let timestamp = self.convertTimestamp(model.time, timeFrame: timeFrame)
+                                let timestamp = self.convertTimestamp(Int64(model.time.timeIntervalSince1970 * 1000), timeFrame: timeFrame)
                                 
                                 let model = DomainLayer.DTO.Candle(close: close,
                                                                    high: high,
