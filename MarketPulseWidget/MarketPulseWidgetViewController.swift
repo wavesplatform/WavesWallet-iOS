@@ -18,7 +18,7 @@ import WavesSDK
 //3. Сделать чтобы пары брались из БД
 //4. Кнопку настройки сделать
 //5. Загрузку лого
-//6. Обновление данных
+//6. Обновление данных по интервалу
 
 private enum Constants {
     static let bottomViewHeight: CGFloat = 34
