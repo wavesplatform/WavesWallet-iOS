@@ -56,10 +56,11 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
                                amountAsset: "HZk1mbfuJpmxU1Fs4AX5MWLVYtctsNcg6e2C6VKqK8zk",
                                priceAsset: "WAVES"))
         
-        initPairs.append(.init(id: MarketPulse.eurAssetId, name: "WavesEUR", amountAsset: "WAVES", priceAsset: MarketPulse.eurAssetId))
+        initPairs.append(.init(id: "WAVES", name: "WAVES", amountAsset: "WAVES", priceAsset: MarketPulse.eurAssetId))
         
-        initPairs.append(.init(id: MarketPulse.usdAssetId, name: "WavesUSD", amountAsset: "WAVES", priceAsset: MarketPulse.usdAssetId))
         
+        initPairs.append(.init(id: MarketPulse.eurAssetId, name: "", amountAsset: WavesSDKConstants.wavesAssetId, priceAsset: MarketPulse.eurAssetId))
+        initPairs.append(.init(id: MarketPulse.usdAssetId, name: "", amountAsset: WavesSDKConstants.wavesAssetId, priceAsset: MarketPulse.usdAssetId))
         
         return WavesSDK.shared.services
                 .dataServices

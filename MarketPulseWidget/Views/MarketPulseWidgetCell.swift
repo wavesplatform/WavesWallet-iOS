@@ -26,16 +26,6 @@ final class MarketPulseWidgetCell: UITableViewCell, Reusable {
     @IBOutlet private weak var labelPrice: UILabel!
     @IBOutlet private weak var tickerRightOffset: NSLayoutConstraint!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-    }
-    
     private static let numberFormatter: NumberFormatter = {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
@@ -56,7 +46,7 @@ extension MarketPulseWidgetCell: ViewConfiguration {
         let numberFormatter = MarketPulseWidgetCell.numberFormatter
         let price = model.currency.ticker + (numberFormatter.string(from: NSNumber(value: model.price)) ?? "")
         
-        let attr = NSMutableAttributedString.init(string: price, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)])
+        let attr = NSMutableAttributedString(string: price, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)])
       
         let separatorRange = (price as NSString).range(of: numberFormatter.decimalSeparator)
         attr.addAttributes([NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16, weight: .semibold)],
