@@ -10,6 +10,7 @@ import Foundation
 import RxCocoa
 import RxSwift
 import RxFeedback
+import WavesSDK
 
 protocol MarketPulseWidgetPresenterProtocol {
     typealias Feedback = (Driver<MarketPulse.State>) -> Signal<MarketPulse.Event>
@@ -85,12 +86,25 @@ private extension MarketPulseWidgetPresenter {
         
         let wavesPrice = settings.currency == .usd ? wavesUSDAsset.lastPrice : wavesEURAsset.lastPrice
         
-        return assets.map { asset in
+        let filteredAsset = assets.filter {$0.id != MarketPulse.eurAssetId && $0.id != MarketPulse.usdAssetId }
+        
+        return filteredAsset.map { asset in
             
-            let deltaPercent = (asset.lastPrice - asset.firstPrice) * 100
-            let percent = deltaPercent != 0 ? deltaPercent / asset.lastPrice : 0
-
-            let price = asset.volumeWaves / asset.volume * wavesPrice
+            var price: Double = 0
+            var percent: Double = 0
+            
+            if asset.id == WavesSDKConstants.wavesAssetId {
+                let wavesAsset = settings.currency == .usd ? wavesUSDAsset : wavesEURAsset
+                let deltaPercent = (wavesAsset.lastPrice - wavesAsset.firstPrice) * 100
+                percent = deltaPercent != 0 ? deltaPercent / wavesAsset.lastPrice : 0
+                price = wavesPrice
+            }
+            else {
+                let deltaPercent = (asset.lastPrice - asset.firstPrice) * 100
+                percent = deltaPercent != 0 ? deltaPercent / asset.lastPrice : 0
+                price = asset.volumeWaves / asset.volume * wavesPrice
+            }
+            
             return MarketPulse.ViewModel.Row.model(MarketPulse.DTO.UIAsset(name: asset.name,
                                                                            price: price,
                                                                            percent: percent,

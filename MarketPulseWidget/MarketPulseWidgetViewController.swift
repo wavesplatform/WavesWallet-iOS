@@ -13,9 +13,19 @@ import RxCocoa
 import RxFeedback
 import WavesSDK
 
+//1. Показ ошибки, в таргет нужно добавлять файлы локализации
+//2. Кешировать респонс в БД и сначала отображать данные из кеша а потом из сети
+//3. Сделать чтобы пары брались из БД
+//4. Кнопку настройки сделать
+//5. Загрузку лого
+//6. Обновление данных
+
 private enum Constants {
     static let bottomViewHeight: CGFloat = 34
     static let buttonUpdateOffset: CGFloat = 40
+    
+    static let animationKey = "rotation"
+    static let animationDuration: TimeInterval = 1
 }
 
 final class MarketPulseWidgetViewController: UIViewController {
@@ -29,6 +39,8 @@ final class MarketPulseWidgetViewController: UIViewController {
     
     private var currency = MarketPulse.Currency.usd
     private var isDarkMode: Bool = false
+    private var isUpdating = true
+
     private var presenter: MarketPulseWidgetPresenterProtocol!
     private let sendEvent: PublishRelay<MarketPulse.Event> = PublishRelay<MarketPulse.Event>()
     private var items: [MarketPulse.ViewModel.Row] = []
@@ -43,18 +55,14 @@ final class MarketPulseWidgetViewController: UIViewController {
         setupDarkMode()
         setupCurrencyTitle()
         setupButtonUpdateSize()
+        showUpdateAnimation()
         
-//        let interactor = MarketPulseWidgetInteractor()
-//        interactor.pairs().subscribe(onNext: { (assets) in
-//            print(assets)
-//        }, onError: { (error) in
-//          print(error)
-//        })
 //        let fileURL = FileManager.default
 //            .containerURL(forSecurityApplicationGroupIdentifier: "group.io.realm.app_group")!
 //            .appendingPathComponent("default.realm")
 //        let config = Realm.Configuration(fileURL: fileURL)
 //        let realm = try Realm(configuration: config)
+        
     }
    
     @IBAction private func settingsTapped(_ sender: Any) {
@@ -63,6 +71,7 @@ final class MarketPulseWidgetViewController: UIViewController {
     
     @IBAction private func updateTapped(_ sender: Any) {
         sendEvent.accept(.refresh)
+        showUpdateAnimation()
     }
     
     @IBAction private func changeCurrency(_ sender: Any) {
@@ -123,6 +132,10 @@ extension MarketPulseWidgetViewController {
                     self.items = state.models
                     self.tableView.reloadData()
                     self.updateBigPrefferedSize()
+                    self.hideUpdateAnimation()
+                    
+                case .didFailUpdate(let error):
+                    self.hideUpdateAnimation()
                     
                 default:
                     break
@@ -135,6 +148,23 @@ extension MarketPulseWidgetViewController {
 
 //MARK: - UI
 private extension MarketPulseWidgetViewController {
+    
+    func showUpdateAnimation() {
+        if buttonUpdate.imageView?.layer.animation(forKey: Constants.animationKey) == nil {
+            let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+            
+            rotationAnimation.fromValue = 0.0
+            rotationAnimation.toValue =  Float.pi * 2.0
+            rotationAnimation.duration = Constants.animationDuration
+            rotationAnimation.repeatCount = Float.infinity
+            
+            buttonUpdate.imageView?.layer.add(rotationAnimation, forKey: Constants.animationKey)
+        }
+    }
+    
+    func hideUpdateAnimation() {
+        buttonUpdate.imageView?.layer.removeAnimation(forKey: Constants.animationKey)
+    }
     
     var titleTextColor: UIColor {
         return isDarkMode ? .disabled700 : .basic700
