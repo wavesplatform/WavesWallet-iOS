@@ -19,6 +19,7 @@ import WavesSDK
 //4. Кнопку настройки сделать
 //5. Загрузку лого
 //6. Обновление данных по интервалу
+//7. Добавить локализацию
 
 private enum Constants {
     static let bottomViewHeight: CGFloat = 34
