@@ -168,14 +168,13 @@ platform :ios do
   end
 
   lane :dev_build_projet do
-    dev_enviroment
-    # increment_build_number_and_commit_push
+    dev_enviroment    
     build_projet
   end
 
   lane :dev_add_new_devices do
     dev_enviroment
-    add_new_devices
+    updateMatch
   end
 
   lane :dev_install do
@@ -289,8 +288,21 @@ platform :ios do
     sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_BUNDLE_ENV']} >> #{Dir.pwd}/../.env")
   end
 
-  lane :add_new_devices do
-    
+  lane :updateProvision do
+
+    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.test,com.wavesplatform.WavesWallet,com.wavesplatform.waveswallet.dev"
+    ENV['MATCH_TYPE'] = "adhoc"
+    updateMatch
+
+    ENV['MATCH_TYPE'] = "appstore"
+    updateMatch
+          
+    ENV['MATCH_TYPE'] = "development"
+    updateMatch
+          
+  end
+
+  lane :updateMatch do        
     match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'].split(","),
           git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
           username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
