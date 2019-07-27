@@ -105,7 +105,10 @@ private extension MarketPulseWidgetPresenter {
                 price = asset.volumeWaves / asset.volume * wavesPrice
             }
             
-            return MarketPulse.ViewModel.Row.model(MarketPulse.DTO.UIAsset(name: asset.name,
+            return MarketPulse.ViewModel.Row.model(MarketPulse.DTO.UIAsset(icon: asset.icon,
+                                                                           hasScript: asset.hasScript,
+                                                                           isSponsored: asset.isSponsored,
+                                                                           name: asset.name,
                                                                            price: price,
                                                                            percent: percent,
                                                                            currency: settings.currency,
