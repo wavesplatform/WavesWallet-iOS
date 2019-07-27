@@ -279,16 +279,27 @@ fileprivate extension TransactionCardSystem {
 
             guard let self = self else { return Signal.empty() }
 
-            let waves = self.getWaves()
-            let fee = self.getFee(amountAsset: query.order.amountAsset.id,
-                                  priceAsset: query.order.priceAsset.id)
-
-            let balance = Observable.zip(waves, fee)
-                .flatMap({ (asset, fee) -> Observable<Balance> in
-
-                    return Observable.just(Balance(currency: .init(title: asset.displayName,
-                                                                   ticker: asset.ticker),
-                                                   money: fee))
+            let feeAssetId = query.order.feeAsset ?? WavesSDKConstants.wavesAssetId
+            
+            let balance = self.getAsset(feeAssetId)
+                .flatMap({ [weak self] (asset) -> Observable<Balance> in
+                    
+                    guard let self = self else { return Observable.empty() }
+                    
+                    let fee: Observable<Balance> = { () -> Observable<Money> in
+                        if let fee = query.order.fee {
+                            return Observable.just(Money(fee, asset.precision))
+                        } else {
+                            return self.getFee(amountAsset: query.order.amountAsset.id,
+                                                  priceAsset: query.order.priceAsset.id,
+                                                  feeAsset: feeAssetId)
+                        }
+                    }()
+                    .map { Balance(currency: .init(title: asset.displayName,
+                                                   ticker: asset.ticker),
+                                   money: $0) }
+                    
+                    return fee
                 })
                 .map { Types.Event.updateFeeByOrder(fee: $0) }
 
@@ -337,7 +348,8 @@ fileprivate extension TransactionCardSystem {
     }
 
     private func getFee(amountAsset: String,
-                        priceAsset: String) -> Observable<Money> {
+                        priceAsset: String,
+                        feeAsset: String) -> Observable<Money> {
         return authorizationInteractor
             .authorizedWallet()
             .flatMap({ [weak self] (wallet) -> Observable<Money> in
@@ -351,20 +363,20 @@ fileprivate extension TransactionCardSystem {
                             .calculateFee(by: .createOrder(amountAsset: amountAsset,
                                                            priceAsset: priceAsset,
                                                            settingsOrderFee: orderSettingsFee,
-                                                           feeAssetId: WavesSDKConstants.wavesAssetId),
+                                                           feeAssetId: feeAsset),
                                           accountAddress: wallet.address)
                     })
             })
     }
 
-    private func getWaves() -> Observable<DomainLayer.DTO.Asset> {
+    private func getAsset(_ assetID: String) -> Observable<DomainLayer.DTO.Asset> {
         return authorizationInteractor
             .authorizedWallet()
             .flatMap({ [weak self] (wallet) ->  Observable<DomainLayer.DTO.Asset> in
                 guard let self = self else { return Observable.empty() }
                 return  self
                     .assetsInteractor
-                    .assets(by: [WavesSDKConstants.wavesAssetId],
+                    .assets(by: [assetID],
                             accountAddress: wallet.address)
                     .map { $0.first }
                     .filterNil()
