@@ -1,7 +1,7 @@
 "Receivecard.Label.minimunAmountInfo" = "Minimum %@, Maksimum %@";
 "Send.Label.Error.notFundsFeeGateway" = "Komisyonları ödemek için yeterli bakiyeniz bulunmamaktadır. İşlem için %@ komisyon ödemeniz ve geçit için %@ komisyon ödemeniz gerekmektedir.";
 "Send.Label.Warning.description" = "Herhangi bir ICO'ya katılmak için %@ çekmeyin. ICO'dan elde edeceğiniz kripto paraları hesabınıza tanımlayamayız.";
-"Send.Label.Warning.subtitle" = "%@ Adresini tespit ettik. Bu adrese gönderimler Coinomat geçidi tarafından yapılacaktır. Minimum %@, Maksimum %@.";
+"Send.Label.Warning.subtitle" = "%@ Adresini tespit ettik. Bu adrese gönderimler geçit tarafından yapılacaktır. Minimum %@, Maksimum %@.";
 "accountpassword.button.signIn.title" = "Giriş Yap";
 "accountpassword.error.wrongpassword" = "Hatalı Parola";
 "accountpassword.textfield.error.atleastcharacters" = "Minimum %d karakter";
@@ -105,7 +105,7 @@
 "chooseaccount.alert.delete.title" = "Hesabı sil";
 "chooseaccount.label.nothingWallets" = "Burada bir şey yok…\nKayıtlı hesabınız bulunmamaktadır.";
 "chooseaccount.navigation.title" = "Hesabı seç";
-"coinomat.temporarilyUnavailable" = "Coinomat geçici olarak servis dışıdır.";
+"coinomat.temporarilyUnavailable" = "Hizmet geçici olarak kullanılamıyor";
 "coinomat.tryAgain" = "Daha sonra tekrar deneyiniz.";
 "createalias.button.create.title" = "Oluştur";
 "createalias.cell.input.textfiled.input.placeholder" = "Sembolik isim";
@@ -653,3 +653,8 @@
 "wallet.updateApp.label.subtitle" = "Waves cüzdanını daha iyi ve daha kullaşılı yapmak için çalışıyoruz. Yeni özellikler için uygulamayı güncelleyin.";
 "wallet.clearAssets.label.title" = "Daha fazla karışıklık yok!";
 "wallet.clearAssets.label.subtitle" = "Cüzdanınızı temiz ve düzenli tutmanız için tokenlerinizin gösterimini yeniden tasarladık! Tokenlerinizi istediğiniz gibi özelleştirebilirsiniz.";
+"dexcreateorder.invalidPricePopup.title.loverPrice" = "Emir fiyatınız son pazar fiyatından %d%% daha düşük";
+"dexcreateorder.invalidPricePopup.title.higherPrice" = "Emir fiyatınız son pazar fiyatından %d%% daha yüksek";
+"dexcreateorder.invalidPricePopup.subtitle" = "Devam etmek istiyor musunuz?";
+"dexcreateorder.invalidPricePopup.button.placeOrder" = "Emri gir";
+"dexcreateorder.invalidPricePopup.button.cancel" = "İptal";
