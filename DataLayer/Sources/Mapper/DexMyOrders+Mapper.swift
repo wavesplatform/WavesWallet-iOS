@@ -52,7 +52,9 @@ extension DomainLayer.DTO.Dex.MyOrder {
                   type: type,
                   amountAsset: amountAsset,
                   priceAsset: priceAsset,
-                  percentFilled: percentFilled)
+                  percentFilled: percentFilled,
+                  fee: model.fee,
+                  feeAsset: model.feeAsset)
     }
 }
     

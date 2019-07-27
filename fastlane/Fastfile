@@ -215,7 +215,7 @@ platform :ios do
     
     ENV['FL_BUILD_NUMBER_PROJECT'] = "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj"
     build_number = sh("/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' '#{Dir.pwd}/../WavesWallet-iOS/Info.plist'")
-    version = get_version_number(xcodeproj: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj")
+    version = ENV['VERSION'] 
     commit = last_git_commit
     author = commit[:author] # author of the commit
     author_email = commit[:author_email] # email of the author of the commit

@@ -1,7 +1,7 @@
 "Receivecard.Label.minimunAmountInfo" = "Das minimum ist %@, das maximum ist %@";
 "Send.Label.Error.notFundsFeeGateway" = "Sie haben nicht genug Geld, um die erforderlichen Gebühren zu zahlen. Sie müssen %@ Transaktionsgebühr und %@ Gateway-Gebühr bezahlen.";
 "Send.Label.Warning.description" = "Transferieren Sie nicht %@ an ein ICO. Tokens aus diesem Verkauf werden Ihrem Account nicht gutgeschrieben.";
-"Send.Label.Warning.subtitle" = "Wir haben %@ Addresse erkannt und senden Ihr Geld über das Coinomat Gateway an diese Adresse. Mindestbetrag ist %@, Maximalbetrag ist %@.";
+"Send.Label.Warning.subtitle" = "Wir haben %@ Addresse erkannt und senden Ihr Geld über das Gateway an diese Adresse. Mindestbetrag ist %@, Maximalbetrag ist %@.";
 "accountpassword.button.signIn.title" = "Anmelden";
 "accountpassword.error.wrongpassword" = "Falsches Passwort";
 "accountpassword.textfield.error.atleastcharacters" = "Mindestens %d zeichen";
@@ -105,7 +105,7 @@
 "chooseaccount.alert.delete.title" = "Konto löschen";
 "chooseaccount.label.nothingWallets" = "Nichts hier…\nSie haben keine Konten gespeichert";
 "chooseaccount.navigation.title" = "Wählen Sie ein Konto";
-"coinomat.temporarilyUnavailable" = "Der Coinomat Service ist vorübergehend nicht verfügbar";
+"coinomat.temporarilyUnavailable" = "Der Service ist vorübergehend nicht verfügbar";
 "coinomat.tryAgain" = "Versuchen Sie es später noch einmal";
 "createalias.button.create.title" = "Erstellen";
 "createalias.cell.input.textfiled.input.placeholder" = "Symbolischer Name";
@@ -653,3 +653,8 @@
 "wallet.updateApp.label.subtitle" = "Wir arbeiten ständig daran, die Waves Wallet besser und nützlicher zu machen. Bitte aktualisieren Sie Ihre App, um auf neue Funktionen zugreifen zu können.";
 "wallet.clearAssets.label.title" = "Keine Unordnung mehr!";
 "wallet.clearAssets.label.subtitle" = "Wir haben die Anzeige der Tokens neu gestaltet, damit Sie Ihre Wallet sauber und aufgeräumt halten können. Sie können Ihre Bestandsliste beliebig anpassen!";
+"dexcreateorder.invalidPricePopup.title.loverPrice" = "Der Preis Ihrer Bestellung liegt %d%% unter dem aktuellen Marktpreis";
+"dexcreateorder.invalidPricePopup.title.higherPrice" = "Der Preis Ihrer Bestellung liegt %d%% über dem aktuellen Marktpreis";
+"dexcreateorder.invalidPricePopup.subtitle" = "Möchten Sie fortfahren?";
+"dexcreateorder.invalidPricePopup.button.placeOrder" = "Bestellung aufgeben";
+"dexcreateorder.invalidPricePopup.button.cancel" = "Abbrechen";

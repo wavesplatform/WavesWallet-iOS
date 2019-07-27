@@ -1,7 +1,7 @@
 "Receivecard.Label.minimunAmountInfo" = "最少 %@，最大 %@";
 "Send.Label.Error.notFundsFeeGateway" = "你没有足够的资金支付需要的费用。你需要支付 %@ 的交易费用和 %@ 网关费用。";
 "Send.Label.Warning.description" = "请不要将你资金的 %@ 投入一个ICO。我们不支持此项业务。";
-"Send.Label.Warning.subtitle" = "我们一直知道了 %@ 地址，将通过Coinomat网关发送货币到这个地址。最少金额是 %@ ,最多金额是 %@。";
+"Send.Label.Warning.subtitle" = "我们检测到%@地址，并将通过网关将您的钱发送到该地址。最小金额为%@ ，最大金额为%@ 。";
 "accountpassword.button.signIn.title" = "登录";
 "accountpassword.error.wrongpassword" = "密码错误";
 "accountpassword.textfield.error.atleastcharacters" = "至少 %d 个字符";
@@ -105,7 +105,7 @@
 "chooseaccount.alert.delete.title" = "删除账户";
 "chooseaccount.label.nothingWallets" = "没有信息…\n你没有已保持的账户";
 "chooseaccount.navigation.title" = "选择账户";
-"coinomat.temporarilyUnavailable" = "Coinomat服务暂时无法使用";
+"coinomat.temporarilyUnavailable" = "服务暂时不可用";
 "coinomat.tryAgain" = "稍后再试";
 "createalias.button.create.title" = "创建";
 "createalias.cell.input.textfiled.input.placeholder" = "符合名称";
@@ -653,3 +653,8 @@
 "wallet.updateApp.label.subtitle" = "我们一直致力于使Waves Wallet变得更好，更实用。请更新您的应用以获取对新功能的访问权限。";
 "wallet.clearAssets.label.title" = "請不要更混乱！";
 "wallet.clearAssets.label.subtitle" = "我们重新设计了代币的显示，让您保持钱包干净整洁。您可以根据需要自定义令牌列表！";
+"dexcreateorder.invalidPricePopup.title.loverPrice" = "您的订单价格比最新市场价格低 %d%%";
+"dexcreateorder.invalidPricePopup.title.higherPrice" = "您的订单价格比最新市场价格高 %d%%";
+"dexcreateorder.invalidPricePopup.subtitle" = "你想继续吗？";
+"dexcreateorder.invalidPricePopup.button.placeOrder" = "下订单";
+"dexcreateorder.invalidPricePopup.button.cancel" = "取消";

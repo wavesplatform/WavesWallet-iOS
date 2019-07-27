@@ -132,8 +132,12 @@ public extension DomainLayer.DTO.Dex {
         public let amountAsset: Asset
         public let priceAsset: Asset
         public let percentFilled: Int
+        public let fee: Int64?
+        public let feeAsset: String?
 
-        public init(id: String, time: Date, status: Status, price: Money, amount: Money, filled: Money, type: OrderType, amountAsset: Asset, priceAsset: Asset, percentFilled: Int) {
+        public init(id: String, time: Date, status: Status, price: Money, amount: Money, filled: Money, type: OrderType, amountAsset: Asset, priceAsset: Asset, percentFilled: Int, fee: Int64?, feeAsset: String?) {
+            self.fee = fee
+            self.feeAsset = feeAsset
             self.id = id
             self.time = time
             self.status = status
@@ -178,7 +182,7 @@ public extension DomainLayer.DTO.Dex {
 
 public extension DomainLayer.DTO.Dex {
 
-    public struct SettingsOrderFee {
+    struct SettingsOrderFee {
         
         public struct Asset {
             public let assetId: String
@@ -204,7 +208,7 @@ public extension DomainLayer.DTO.Dex {
 
 public extension DomainLayer.DTO.Dex {
     
-    public struct SmartSettingsOrderFee {
+    struct SmartSettingsOrderFee {
         
         public struct Asset {
             public let rate: Double
