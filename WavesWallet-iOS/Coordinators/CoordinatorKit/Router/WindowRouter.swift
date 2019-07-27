@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import DomainLayer
 
 private enum Constants {
     static let animationDuration: TimeInterval = 0.24
 }
 
-final class WindowRouter: NSObject {
+//TODO: Router protocol
+class WindowRouter: NSObject {
 
     enum AnimateKind {
         case crossDissolve
@@ -31,17 +33,24 @@ final class WindowRouter: NSObject {
             case .crossDissolve:
                 if let view = window.rootViewController?.view {
                     UIView.transition(from: view, to: viewController.view, duration: Constants.animationDuration, options: [.transitionCrossDissolve], completion: { _ in
-                        self.window.rootViewController = viewController
+                        self.windowAddRootVC(viewController)
                     })
                 } else {
-                    self.window.rootViewController = viewController
+                    windowAddRootVC(viewController)
                 }
             }
         } else {
-            self.window.rootViewController = viewController
+            windowAddRootVC(viewController)
         }
+        
         window.makeKeyAndVisible()
 	}
+    
+    private func windowAddRootVC(_ rootViewController: UIViewController) {
+        self.window.rootViewController = rootViewController
+        self.windowDidAppear()
+    }
+    
 
     public func dissmissWindow(animated: AnimateKind? = nil, completed: (() -> Void)? = nil) {
 
@@ -55,4 +64,6 @@ final class WindowRouter: NSObject {
         }
 
     }
+    
+    func windowDidAppear() {}
 }

@@ -503,8 +503,17 @@
 		7B951135225CDAA90030390C /* CGSize+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951134225CDAA80030390C /* CGSize+Hashable.swift */; };
 		7B951137225CF7A00030390C /* Reachability+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B951136225CF7A00030390C /* Reachability+Shared.swift */; };
 		7B95115F225F7BA80030390C /* DateFormatter+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B95115E225F7BA80030390C /* DateFormatter+UI.swift */; };
+		7B9B326122E6004700DB1C59 /* DebugRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B326022E6004700DB1C59 /* DebugRootView.swift */; };
 		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
 		7BD2FD35223C5E1F0098CFB9 /* TransactionCardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */; };
+		7BD6E0FE22E228DC00BAAFC8 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E0FD22E228DC00BAAFC8 /* DebugView.swift */; };
+		7BD6E10022E228F000BAAFC8 /* DebugView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD6E0FF22E228F000BAAFC8 /* DebugView.xib */; };
+		7BD6E10222E50EB200BAAFC8 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E10122E50EB200BAAFC8 /* DebugViewController.swift */; };
+		7BD6E10522E5AE0200BAAFC8 /* DebugHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E10422E5AE0200BAAFC8 /* DebugHeaderView.swift */; };
+		7BD6E10822E5AE7000BAAFC8 /* DebugInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E10722E5AE7000BAAFC8 /* DebugInfoCell.swift */; };
+		7BD6E10A22E5AEEB00BAAFC8 /* DebugHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD6E10922E5AEEB00BAAFC8 /* DebugHeaderView.xib */; };
+		7BD6E10C22E5B6D700BAAFC8 /* DebugSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E10B22E5B6D700BAAFC8 /* DebugSwitchCell.swift */; };
+		7BD6E10E22E5CD5E00BAAFC8 /* DebugEnviromentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E10D22E5CD5E00BAAFC8 /* DebugEnviromentsCell.swift */; };
 		7BDA6AD5222D8C82001DE71C /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6AD4222D8C81001DE71C /* System.swift */; };
 		7BDA6AD7222D8CA1001DE71C /* TransactionCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6AD6222D8CA1001DE71C /* TransactionCardViewController.swift */; };
 		7BDA6AD9222D8D0A001DE71C /* TransactionCardSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDA6AD8222D8D0A001DE71C /* TransactionCardSystem.swift */; };
@@ -1637,8 +1646,17 @@
 		7B951134225CDAA80030390C /* CGSize+Hashable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Hashable.swift"; sourceTree = "<group>"; };
 		7B951136225CF7A00030390C /* Reachability+Shared.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Reachability+Shared.swift"; sourceTree = "<group>"; };
 		7B95115E225F7BA80030390C /* DateFormatter+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+UI.swift"; sourceTree = "<group>"; };
+		7B9B326022E6004700DB1C59 /* DebugRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRootView.swift; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
 		7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardCoordinator.swift; sourceTree = "<group>"; };
+		7BD6E0FD22E228DC00BAAFC8 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
+		7BD6E0FF22E228F000BAAFC8 /* DebugView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DebugView.xib; sourceTree = "<group>"; };
+		7BD6E10122E50EB200BAAFC8 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
+		7BD6E10422E5AE0200BAAFC8 /* DebugHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugHeaderView.swift; sourceTree = "<group>"; };
+		7BD6E10722E5AE7000BAAFC8 /* DebugInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugInfoCell.swift; sourceTree = "<group>"; };
+		7BD6E10922E5AEEB00BAAFC8 /* DebugHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DebugHeaderView.xib; sourceTree = "<group>"; };
+		7BD6E10B22E5B6D700BAAFC8 /* DebugSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugSwitchCell.swift; sourceTree = "<group>"; };
+		7BD6E10D22E5CD5E00BAAFC8 /* DebugEnviromentsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugEnviromentsCell.swift; sourceTree = "<group>"; };
 		7BDA6AD4222D8C81001DE71C /* System.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		7BDA6AD6222D8CA1001DE71C /* TransactionCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardViewController.swift; sourceTree = "<group>"; };
 		7BDA6AD8222D8D0A001DE71C /* TransactionCardSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardSystem.swift; sourceTree = "<group>"; };
@@ -2619,14 +2637,16 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		0A762D9E2163ACE80019D447 /* Support */ = {
+		0A762D9E2163ACE80019D447 /* DebugViewController */ = {
 			isa = PBXGroup;
 			children = (
+				7BD6E10322E5ACE000BAAFC8 /* View */,
 				0AFB593F2209AD56001F0DD8 /* TestViewController.swift */,
 				0A762D9F2163AD0F0019D447 /* Support.storyboard */,
 				0A762DA12163AD1A0019D447 /* SupportViewController.swift */,
+				7BD6E10122E50EB200BAAFC8 /* DebugViewController.swift */,
 			);
-			path = Support;
+			path = DebugViewController;
 			sourceTree = "<group>";
 		};
 		0A762DA321650DA80019D447 /* Profile */ = {
@@ -2903,6 +2923,7 @@
 				0ADD800021F22FFA0075FC59 /* Router.swift */,
 				0ADD800121F22FFA0075FC59 /* TabBarRouter.swift */,
 				0ADD800221F22FFA0075FC59 /* SlideMenuRouter.swift */,
+				7B9B326022E6004700DB1C59 /* DebugRootView.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -3010,7 +3031,7 @@
 				E9D36D6B2175C754001E6DF0 /* Receive */,
 				E9EC5B352175F35800E5C29A /* Send */,
 				E95B47D421638B11004D4E39 /* StartLeasing */,
-				0A762D9E2163ACE80019D447 /* Support */,
+				0A762D9E2163ACE80019D447 /* DebugViewController */,
 				E95B6B08219B3ADF00A85B5D /* TokenBurn */,
 				7BDA6AD3222D8AEA001DE71C /* TransactionCard */,
 				0A071E62215C65BC007D9750 /* UseTouchID */,
@@ -3170,50 +3191,52 @@
 		0AF92281212E1234003BA067 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
-				7BDC6D7822C3CD8400614E6B /* InputScrollButtonsView.swift */,
-				E9F78A3E229E990D0065324B /* ScrolledContainerView.swift */,
-				E9F78A3C229E98B40065324B /* NewSegmentedControl.swift */,
-				7BDA6AE722313E59001DE71C /* TransactionImageView.swift */,
-				7BDA6AE922313E85001DE71C /* TransactionImageView.xib */,
-				7BDA6AF122315024001DE71C /* ContactDetailView.swift */,
-				7BDA6AF322315466001DE71C /* ContactDetailView.xib */,
-				7B39029622366D0100AAFDB8 /* AddressBookButton.swift */,
 				7B3902A62237A74900AAFDB8 /* ActionsControl.swift */,
 				7B3902A82237A75600AAFDB8 /* ActionsControl.xib */,
+				7B39029622366D0100AAFDB8 /* AddressBookButton.swift */,
+				0AF9228D212E1234003BA067 /* AssetSegmented */,
+				7BDA6AE5223028DC001DE71C /* BalanceLabel.swift */,
+				7BDA6AE1223025AD001DE71C /* BalanceLabel.xib */,
 				E9310D1C217942C8008BF3EE /* BlueBgView.swift */,
 				0AF922A2212E1234003BA067 /* BorderButtView.swift */,
 				0AF922A1212E1234003BA067 /* CenteringContentButton.swift */,
+				7BDA6AF122315024001DE71C /* ContactDetailView.swift */,
+				7BDA6AF322315466001DE71C /* ContactDetailView.xib */,
 				0AF6AD24218A54840004F107 /* CopyableImageView.swift */,
 				0AF92295212E1234003BA067 /* CopyableLabel.swift */,
 				04831F8321697A4F006D1ED6 /* CustomGradientView.swift */,
-				F7C683BA1EA93C5800C87DAF /* CustomNavigationController.swift */,
 				E95E150E22A18B66003552B8 /* CustomNavigationBar.swift */,
+				F7C683BA1EA93C5800C87DAF /* CustomNavigationController.swift */,
+				7BD6E0FD22E228DC00BAAFC8 /* DebugView.swift */,
+				7BD6E0FF22E228F000BAAFC8 /* DebugView.xib */,
 				0AF9228C212E1234003BA067 /* DottedLineView.swift */,
 				E9C4134B20E826E300AA044F /* DottedRoundView.swift */,
 				0ACC0232217E2BA1000E3EE0 /* DynamicHeaderTableView.swift */,
 				0AF92288212E1234003BA067 /* EmptyCell.swift */,
+				0AF9228A212E1234003BA067 /* EmptyCell.xib */,
 				0AF0C67A21AACA4F00602197 /* GlobalErrorView.swift */,
+				0AF0C67C21AACB3700602197 /* GlobalErrorView.xib */,
 				0AF922A3212E1234003BA067 /* GradientView.swift */,
+				0AF92283212E1234003BA067 /* HalfModalPresentationController */,
+				7BDC6D7822C3CD8400614E6B /* InputScrollButtonsView.swift */,
 				0AF922A5212E1234003BA067 /* NavigationAccessoryView.swift */,
+				E9F78A3C229E98B40065324B /* NewSegmentedControl.swift */,
+				0A96F1CF2151B6A9005E148F /* Passcode */,
 				0ADD7F3B21F22FB60075FC59 /* PasteboardButton.swift */,
 				E904525920B4EF4200A490E5 /* PopupViewController.swift */,
 				E980EACD20A9F5BF001834DB /* ScannerCustomView.swift */,
+				E9F78A3E229E990D0065324B /* ScrolledContainerView.swift */,
+				0AF92298212E1234003BA067 /* SegmentedControl */,
 				0AF92296212E1234003BA067 /* SeparatorView.swift */,
 				0A43996821504CF60032E608 /* SideMenu.swift */,
-				0AF92297212E1234003BA067 /* TickerView.swift */,
-				0A762D9621639FCC0019D447 /* WavesButton.swift */,
-				7BDA6AE5223028DC001DE71C /* BalanceLabel.swift */,
-				7BDA6AE1223025AD001DE71C /* BalanceLabel.xib */,
-				0AF9228A212E1234003BA067 /* EmptyCell.xib */,
-				0AF0C67C21AACB3700602197 /* GlobalErrorView.xib */,
-				0AF92282212E1234003BA067 /* TickerView.xib */,
-				0AF9228D212E1234003BA067 /* AssetSegmented */,
-				0AF92283212E1234003BA067 /* HalfModalPresentationController */,
-				0A96F1CF2151B6A9005E148F /* Passcode */,
-				0AF92298212E1234003BA067 /* SegmentedControl */,
 				0AF92292212E1234003BA067 /* Skeleton */,
 				0AACD59721A59E6300B30815 /* SweetSnackbar */,
+				0AF92297212E1234003BA067 /* TickerView.swift */,
+				0AF92282212E1234003BA067 /* TickerView.xib */,
+				7BDA6AE722313E59001DE71C /* TransactionImageView.swift */,
+				7BDA6AE922313E85001DE71C /* TransactionImageView.xib */,
 				E9A2268B2159666E006E0CE1 /* UIKit */,
+				0A762D9621639FCC0019D447 /* WavesButton.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -3744,6 +3767,18 @@
 				7B951126225CD7160030390C /* QRCodeParser.swift */,
 			);
 			path = Type;
+			sourceTree = "<group>";
+		};
+		7BD6E10322E5ACE000BAAFC8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7BD6E10422E5AE0200BAAFC8 /* DebugHeaderView.swift */,
+				7BD6E10722E5AE7000BAAFC8 /* DebugInfoCell.swift */,
+				7BD6E10922E5AEEB00BAAFC8 /* DebugHeaderView.xib */,
+				7BD6E10B22E5B6D700BAAFC8 /* DebugSwitchCell.swift */,
+				7BD6E10D22E5CD5E00BAAFC8 /* DebugEnviromentsCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		7BDA6AD3222D8AEA001DE71C /* TransactionCard */ = {
@@ -5773,6 +5808,7 @@
 				0AF92204212E07B3003BA067 /* AssetHeaderSkeletonView.xib in Resources */,
 				E98F1D2F22A5E2F200B4A8C4 /* WalletUpdateAppView.xib in Resources */,
 				0A4140EB2174F09C00B1310E /* ChangePassword.storyboard in Resources */,
+				7BD6E10022E228F000BAAFC8 /* DebugView.xib in Resources */,
 				0A2B7D34216037FD0098438D /* AssetViewHistoryCell.xib in Resources */,
 				044D6C8B21978C9C003861A2 /* EditAccountName.storyboard in Resources */,
 				E983666121F5973900178A8A /* TransactionScriptErrorView.xib in Resources */,
@@ -5788,6 +5824,7 @@
 				E9193B8320D7E28400F5D983 /* Profile.storyboard in Resources */,
 				04E1C358212615CA00C702BA /* HeaderSkeletonView.xib in Resources */,
 				0A762D13214FE23E00BE9204 /* NewAccountAvatarView.xib in Resources */,
+				7BD6E10A22E5AEEB00BAAFC8 /* DebugHeaderView.xib in Resources */,
 				E9B087B02163886800937644 /* DexOrderBookHeaderView.xib in Resources */,
 				E9B087E32163886800937644 /* DexCreateOrderInputView.xib in Resources */,
 				E9D36DE92175C755001E6DF0 /* AssetSelectView.xib in Resources */,
@@ -6449,6 +6486,7 @@
 				E9B0880D2163886800937644 /* DexMarketPresenterProtocol.swift in Sources */,
 				E9B086BC2163883000937644 /* AddressBookInteractorProtocol.swift in Sources */,
 				04831F6421691429006D1ED6 /* SuccessSystemMessageView.swift in Sources */,
+				7B9B326122E6004700DB1C59 /* DebugRootView.swift in Sources */,
 				0ADD7FA821F22FB60075FC59 /* UIImage+Color.swift in Sources */,
 				E9B087CE2163886800937644 /* DexListTypes.swift in Sources */,
 				0A5933162183604F0059A77A /* AddressesKeysPresenter.swift in Sources */,
@@ -6540,6 +6578,7 @@
 				0A6AC3E021847F8D005D2525 /* AddressesKeysModuleBuilder.swift in Sources */,
 				E9443014226E64F600EB6257 /* WalletSortInteractorProtocol.swift in Sources */,
 				0A97975C210888B600407F67 /* Localizable.swift in Sources */,
+				7BD6E10522E5AE0200BAAFC8 /* DebugHeaderView.swift in Sources */,
 				0AF58F9F2192056400C8A4B3 /* PasscodeChangePasswordPresenter.swift in Sources */,
 				0AF922ED212E1234003BA067 /* AssetsSegmentedControl.swift in Sources */,
 				E9CBE6C22094C0E7008C8F44 /* MenuViewController.swift in Sources */,
@@ -6622,7 +6661,9 @@
 				0ADD7F9021F22FB60075FC59 /* ControlEvent+ScrollView.swift in Sources */,
 				E9B087F92163886800937644 /* DexMyOrdersPresenterProtocol.swift in Sources */,
 				0AF922F0212E1234003BA067 /* SkeletonTableHeaderFooterView.swift in Sources */,
+				7BD6E10222E50EB200BAAFC8 /* DebugViewController.swift in Sources */,
 				048310842119675300509CED /* HistoryModuleBuilder.swift in Sources */,
+				7BD6E0FE22E228DC00BAAFC8 /* DebugView.swift in Sources */,
 				0AF922E5212E1234003BA067 /* HalfModalTransitionAnimator.swift in Sources */,
 				E9B087A92163886800937644 /* DexOrderBookPresenterProtocol.swift in Sources */,
 				E9B087E42163886800937644 /* DexCreateOrderSegmentedControl.swift in Sources */,
@@ -6729,6 +6770,7 @@
 				E9D36DCB2175C755001E6DF0 /* ReceiveCryptocurrencyPresenter.swift in Sources */,
 				0ADD802621F22FFA0075FC59 /* AppCoordinator.swift in Sources */,
 				E9B0880F2163886800937644 /* DexMarketModuleOutput.swift in Sources */,
+				7BD6E10822E5AE7000BAAFC8 /* DebugInfoCell.swift in Sources */,
 				E9443008226E62A600EB6257 /* WalletSortViewController.swift in Sources */,
 				E9F69B9222A5217200CDBD00 /* WalletSearchTypes.swift in Sources */,
 				E911300C21BC028400588430 /* AssetSelectSkeletonView.swift in Sources */,
@@ -6832,6 +6874,7 @@
 				7B390299223698D300AAFDB8 /* TransactionCardKeyValueCell.swift in Sources */,
 				7B5E746922390B8200746ADD /* TransactionCardBuilder.swift in Sources */,
 				E9D36DD12175C755001E6DF0 /* ReceiveCardTypes.swift in Sources */,
+				7BD6E10E22E5CD5E00BAAFC8 /* DebugEnviromentsCell.swift in Sources */,
 				0ADD7FA621F22FB60075FC59 /* UIView+TouchInset.swift in Sources */,
 				E9D36DCE2175C755001E6DF0 /* ReceiveCryptocurrencyInteractor.swift in Sources */,
 				0A88CBFE2177FE130083874C /* ChangePasswordTypes.swift in Sources */,
@@ -6884,6 +6927,7 @@
 				E9C0B49E2176C48300669D1D /* SendPresenter.swift in Sources */,
 				E9D36DDE2175C755001E6DF0 /* ReceiveContainerViewController.swift in Sources */,
 				E9B087992163886800937644 /* DexChartPresenter.swift in Sources */,
+				7BD6E10C22E5B6D700BAAFC8 /* DebugSwitchCell.swift in Sources */,
 				7BDA6AE6223028DC001DE71C /* BalanceLabel.swift in Sources */,
 				E96DAB73228EEC87005ED12B /* WalletSortSegmentedControl.swift in Sources */,
 				E97EC84320E689A800AB006B /* ImportAccountPasswordViewController.swift in Sources */,
@@ -7145,7 +7189,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3857;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -7237,7 +7281,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3857;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -7251,7 +7295,7 @@
 				PRODUCT_MODULE_NAME = WavesWallet_iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.wavesplatform.waveswallet.test";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.wavesplatform.waveswallet.test";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = TEST;
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_INCLUDE_PATHS = "$(inherited) \"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\" \"${PODS_CONFIGURATION_BUILD_DIR}/Charts\" \"${PODS_CONFIGURATION_BUILD_DIR}/Differentiator\" \"${PODS_CONFIGURATION_BUILD_DIR}/Gloss\" \"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardManagerSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/KeychainAccess\" \"${PODS_CONFIGURATION_BUILD_DIR}/Koloda\" \"${PODS_CONFIGURATION_BUILD_DIR}/Moya\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCode\" \"${PODS_CONFIGURATION_BUILD_DIR}/QRCodeReader.swift\" \"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/Result\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxDataSources\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxGesture\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxRealm\" \"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift\" \"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\" \"${PODS_CONFIGURATION_BUILD_DIR}/UPCarouselFlowLayout\" \"${PODS_ROOT}/Headers/Public\"/**";
@@ -7482,11 +7526,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3907;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -7521,11 +7565,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3907;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DomainLayer/Info.plist;
@@ -7555,11 +7599,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3907;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DomainLayer/Info.plist;
@@ -7589,11 +7633,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3907;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DomainLayer/Info.plist;
@@ -7623,11 +7667,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3907;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -7665,11 +7709,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3907;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -7702,11 +7746,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3907;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -7739,11 +7783,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3907;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -7776,11 +7820,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3907;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -7815,11 +7859,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3907;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DataLayer/Info.plist;
@@ -7849,11 +7893,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3907;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DataLayer/Info.plist;
@@ -7883,11 +7927,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3907;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DataLayer/Info.plist;
@@ -8364,7 +8408,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3857;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -8428,11 +8472,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3907;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -8467,11 +8511,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3907;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -8509,11 +8553,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3907;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -8664,7 +8708,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3857;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -8721,11 +8765,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3907;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DomainLayer/Info.plist;
@@ -8755,11 +8799,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3907;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -8792,11 +8836,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3907;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DataLayer/Info.plist;
@@ -9495,7 +9539,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3857;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -9532,7 +9576,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3857;
+				CURRENT_PROJECT_VERSION = 3907;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";

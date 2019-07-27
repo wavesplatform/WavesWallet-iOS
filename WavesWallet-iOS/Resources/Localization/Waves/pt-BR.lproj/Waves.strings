@@ -1,7 +1,7 @@
 "Receivecard.Label.minimunAmountInfo" = "O mínimo é %@ e o máximo é %@";
 "Send.Label.Error.notFundsFeeGateway" = "Você não tem saldo suficiente para pagar as taxas exigidas. Você deve pagar uma %@ taxa de transação de %@ pela taxa do gateway.";
 "Send.Label.Warning.description" = "Não saque %@ para uma ICO. Não creditaremos sua conta com tokens dessa venda.";
-"Send.Label.Warning.subtitle" = "Identificamos o endereço %@ e enviaremos seu dinheiro através do gateway Coinomat para esse endereço. A quantidade mínima é %@ e a quantidade máxima é %@.";
+"Send.Label.Warning.subtitle" = "Identificamos o endereço %@ e enviaremos seu dinheiro através do gateway para esse endereço. A quantidade mínima é %@ e a quantidade máxima é %@.";
 "accountpassword.button.signIn.title" = "Entrar";
 "accountpassword.error.wrongpassword" = "Senha incorreta";
 "accountpassword.textfield.error.atleastcharacters" = "Mínimo de %d caracteres";
@@ -105,7 +105,7 @@
 "chooseaccount.alert.delete.title" = "Excluir conta";
 "chooseaccount.label.nothingWallets" = "Não há nada aqui…\nVocê não tem contas salvas";
 "chooseaccount.navigation.title" = "Escolha uma conta";
-"coinomat.temporarilyUnavailable" = "O Serviço da Coinomat está temporariamente indisponível";
+"coinomat.temporarilyUnavailable" = "O serviço está temporariamente indisponível";
 "coinomat.tryAgain" = "Tente novamente mais tarde";
 "createalias.button.create.title" = "Criar";
 "createalias.cell.input.textfiled.input.placeholder" = "Nome simbólico";
@@ -653,3 +653,8 @@
 "wallet.updateApp.label.subtitle" = "Estamos aperfeiçoando constantemente a Waves Wallet. Por favor, atualize o seu aplicativo para obter acesso a novos recursos.";
 "wallet.clearAssets.label.title" = "Acabou a bagunça!";
 "wallet.clearAssets.label.subtitle" = "Nós redesenhamos a exibição dos tokens para permitir que você mantenha a sua carteira limpa e organizada. Você pode personalizar sua lista de tokens da forma que quiser!";
+"dexcreateorder.invalidPricePopup.title.loverPrice" = "Sua ordem é %d%% inferior ao último preço de mercado";
+"dexcreateorder.invalidPricePopup.title.higherPrice" = "Sua ordem é %d%% superior ao último preço de mercado";
+"dexcreateorder.invalidPricePopup.subtitle" = "Você deseja continuar?";
+"dexcreateorder.invalidPricePopup.button.placeOrder" = "Criar Ordem";
+"dexcreateorder.invalidPricePopup.button.cancel" = "Cancelar";

@@ -261,6 +261,8 @@ internal enum StoryboardScene {
   internal enum Support: StoryboardType {
     internal static let storyboardName = "Support"
 
+    internal static let debugViewController = SceneType<WavesWallet_iOS.DebugViewController>(storyboard: Support.self, identifier: "DebugViewController")
+
     internal static let supportViewController = SceneType<WavesWallet_iOS.SupportViewController>(storyboard: Support.self, identifier: "SupportViewController")
 
     internal static let testViewController = SceneType<WavesWallet_iOS.TestViewController>(storyboard: Support.self, identifier: "TestViewController")

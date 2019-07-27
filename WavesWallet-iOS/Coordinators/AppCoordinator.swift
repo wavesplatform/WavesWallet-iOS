@@ -19,11 +19,8 @@ private enum Contants {
 
     #if DEBUG
     static let delay: TimeInterval = 1000
-    static let developBuild: Bool = false
-    static let isNeedSupportDisplayLaunch: Bool = false
     #else
     static let delay: TimeInterval = 10
-    static let isNeedSupportDisplayLaunch: Bool = false
     #endif
 }
 
@@ -59,24 +56,21 @@ final class AppCoordinator: Coordinator {
     private let disposeBag: DisposeBag = DisposeBag()
     private var isActiveApp: Bool = false
     
+#if DEBUG || TEST
+    init(_ debugWindowRouter: DebugWindowRouter) {
+        self.windowRouter = debugWindowRouter
+        debugWindowRouter.delegate = self
+    }
+#else
     init(_ windowRouter: WindowRouter) {
         self.windowRouter = windowRouter
     }
+#endif
 
     func start() {
         self.isActiveApp = true
-
         
-        #if DEBUG || TEST
-        if Contants.isNeedSupportDisplayLaunch {
-            showSupport()
-        } else {
-            logInApplication()
-        }
-        addTapGestureForSupportDisplay()
-        #else        
         logInApplication()
-        #endif
     }
 
     private var isMainTabDisplayed: Bool {
@@ -264,62 +258,19 @@ extension AppCoordinator {
 
 #if DEBUG || TEST
 
-// MARK: Support
-private extension AppCoordinator {
+// MARK: DebugWindowRouterDelegate
 
-    func addTapGestureForSupportDisplay() {
-
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGesture(tap:)))
-        tapGesture.numberOfTouchesRequired = 2
-        tapGesture.numberOfTapsRequired = 2
-        self.windowRouter.window.addGestureRecognizer(tapGesture)
-    }
-
-    @objc func tapGesture(tap: UITapGestureRecognizer) {
-        showSupport()
-    }
-
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-
-    private func showSupport() {
-        let vc = StoryboardScene.Support.supportViewController.instantiate()
-        vc.delegate = self
-        
-        if self.windowRouter.window.rootViewController == nil {
-            self.windowRouter.window.rootViewController = vc
-            self.windowRouter.window.makeKeyAndVisible()
-        } else {
-            self.windowRouter.window.rootViewController?.present(vc, animated: true, completion: nil)
-        }
-    }
-}
-
-// MARK: SupportViewControllerDelegate
-extension AppCoordinator: SupportViewControllerDelegate  {
-
-    func relaunchApp() {
-        logInApplication()
-    }
+extension AppCoordinator: DebugWindowRouterDelegate  {
     
-    func closeSupportView(isTestNet: Bool) {
+    func relaunchApplication() {
 
-        // MARK: 
-        self.windowRouter.window.rootViewController?.dismiss(animated: true, completion: {
-        
-            if WalletEnvironment.isTestNet != isTestNet {
-
-                self.authoAuthorizationInteractor
-                    .logout()
-                    .subscribe(onCompleted: { [weak self] in
-                        guard let self = self else { return }
-                        WalletEnvironment.isTestNet = isTestNet
-                        self.showDisplay(.enter)
-                    })
-                    .disposed(by: self.disposeBag)
-            }
-        })
+        self.authoAuthorizationInteractor
+            .logout()
+            .subscribe(onCompleted: { [weak self] in
+                guard let self = self else { return }
+                self.showDisplay(.enter)
+            })
+            .disposed(by: self.disposeBag)
     }
 }
 

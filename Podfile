@@ -80,7 +80,7 @@ abstract_target 'Shows' do
 
         # Debug
         # pod 'Reveal-SDK', :configurations => ['Debug']
-        pod 'AppSpectorSDK', :configurations => ['dev-debug', 'dev-adhoc', 'test-dev']
+        pod 'AppSpectorSDK', :configurations => ['dev-debug', 'dev-adhoc', 'test-dev', 'test-prod']
         pod 'SwiftMonkeyPaws', :configurations => ['dev-debug', 'dev-adhoc']
             
         # pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git'    

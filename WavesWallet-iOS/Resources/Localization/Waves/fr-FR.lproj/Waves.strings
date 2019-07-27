@@ -1,7 +1,7 @@
 "Receivecard.Label.minimunAmountInfo" = "Le minimum est %@, le maximum est %@";
 "Send.Label.Error.notFundsFeeGateway" = "Vous n'avez pas assez de fonds pour payer les frais requis. Vous devez payer %@ frais de transaction et %@ frais de portail.";
 "Send.Label.Warning.description" = "Ne retirez pas %@ vers une ICO. Nous ne créditerons pas votre compte avec les jetons de cette vente.";
-"Send.Label.Warning.subtitle" = "Nous avons détecté l'adresse %@ et enverrons votre argent via le portail Coinomat à cette adresse. Le montant minimum est %@, le montant maximum est %@.";
+"Send.Label.Warning.subtitle" = "Nous avons détecté l'adresse %@ et enverrons votre argent via le portail à cette adresse. Le montant minimum est %@, le montant maximum est %@.";
 "accountpassword.button.signIn.title" = "Connexion";
 "accountpassword.error.wrongpassword" = "Mot de passe erroné";
 "accountpassword.textfield.error.atleastcharacters" = "Minimum %d caractères";
@@ -105,7 +105,7 @@
 "chooseaccount.alert.delete.title" = "Supprimer le compte";
 "chooseaccount.label.nothingWallets" = "Rien ici…\nVous n'avez pas de comptes enregistrés";
 "chooseaccount.navigation.title" = "Choisir un compte";
-"coinomat.temporarilyUnavailable" = "Service Coinomat temporairement indisponible";
+"coinomat.temporarilyUnavailable" = "Service temporairement indisponible";
 "coinomat.tryAgain" = "Réessayez plus tard";
 "createalias.button.create.title" = "Créer";
 "createalias.cell.input.textfiled.input.placeholder" = "Nom symbolique";
@@ -170,7 +170,7 @@
 "dexlist.label.price" = "Prix";
 "dexlist.label.today" = "Aujourd'hui";
 "dexlist.label.yesterday" = "Hier";
-"dexlist.navigationBar.title" = "Plateforme d'échange décentralisée";
+"dexlist.navigationBar.title" = "DEX";
 "dexmarket.label.loadingMarkets" = "Chargement des marchés…";
 "dexmarket.navigationBar.title" = "Marchés";
 "dexmarket.searchBar.placeholder" = "Rechercher";
@@ -225,7 +225,7 @@
 "general.error.title.noconnectiontotheinternet" = "Pas de connexion à Internet";
 "general.error.title.notfound" = "Oh… Tout est cassé!";
 "general.label.title.myasset" = "/ Mon jeton";
-"general.tabbar.title.dex" = "Plateforme d'échange décentralisée";
+"general.tabbar.title.dex" = "DEX";
 "general.tabbar.title.history" = "Historique";
 "general.tabbar.title.profile" = "Profil";
 "general.tabbar.title.wallet" = "Portefeuille";
@@ -653,3 +653,8 @@
 "wallet.updateApp.label.subtitle" = "Nous travaillons sans cesse pour améliorer le portefeuille Waves et le rendre plus pratique. Veuillez mettre votre application à jour pour accéder aux nouvelles fonctionnalités.";
 "wallet.clearAssets.label.title" = "Plus de désordre!";
 "wallet.clearAssets.label.subtitle" = "Nous avons repensé l'affichage des jetons pour vous permettre de garder votre portefeuille propre et rangé. Vous pouvez personnaliser votre liste de jetons comme vous le souhaitez!";
+"dexcreateorder.invalidPricePopup.title.loverPrice" = "Le prix de votre ordre est %d%% plus élevé que le dernier prix du marché";
+"dexcreateorder.invalidPricePopup.title.higherPrice" = "Le prix de votre ordre est %d%% plus élevé que le dernier prix du marché";
+"dexcreateorder.invalidPricePopup.subtitle" = "Voulez-vous continuer?";
+"dexcreateorder.invalidPricePopup.button.placeOrder" = "Placer un ordre";
+"dexcreateorder.invalidPricePopup.button.cancel" = "Annuler";
