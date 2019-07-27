@@ -9,6 +9,7 @@
 import Foundation
 import Extensions
 import WavesSDK
+import DomainLayer
 
 enum MarketPulse {
     
@@ -71,6 +72,9 @@ extension MarketPulse.DTO {
     struct Asset {
         let id: String
         let name: String
+        let icon: DomainLayer.DTO.Asset.Icon
+        let hasScript: Bool
+        let isSponsored: Bool
         let firstPrice: Double
         let lastPrice: Double
         let volume: Double
@@ -78,7 +82,9 @@ extension MarketPulse.DTO {
     }
     
     struct UIAsset {
-//        let icon: DomainLayer.DTO.Asset.Icon
+        let icon: DomainLayer.DTO.Asset.Icon
+        let hasScript: Bool
+        let isSponsored: Bool
         let name: String
         let price: Double
         let percent: Double

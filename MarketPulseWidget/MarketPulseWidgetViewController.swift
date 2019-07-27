@@ -21,6 +21,9 @@ import WavesSDK
 //6. Обновление данных по интервалу
 //7. Добавить локализацию
 
+//Разбить групу папку на Source / Resource
+//Использовать один и тотже способ инициализации SDK в клиенте и Widget
+
 private enum Constants {
     static let bottomViewHeight: CGFloat = 34
     static let buttonUpdateOffset: CGFloat = 40
@@ -40,7 +43,6 @@ final class MarketPulseWidgetViewController: UIViewController {
     
     private var currency = MarketPulse.Currency.usd
     private var isDarkMode: Bool = false
-    private var isUpdating = true
 
     private var presenter: MarketPulseWidgetPresenterProtocol!
     private let sendEvent: PublishRelay<MarketPulse.Event> = PublishRelay<MarketPulse.Event>()
@@ -63,7 +65,6 @@ final class MarketPulseWidgetViewController: UIViewController {
 //            .appendingPathComponent("default.realm")
 //        let config = Realm.Configuration(fileURL: fileURL)
 //        let realm = try Realm(configuration: config)
-        
     }
    
     @IBAction private func settingsTapped(_ sender: Any) {
