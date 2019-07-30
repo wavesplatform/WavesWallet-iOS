@@ -169,6 +169,10 @@ GEM
       declarative (< 0.1.0)
       declarative-option (< 0.2.0)
       uber (< 0.2.0)
+    rest-client (2.0.2)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     retriable (3.1.2)
     rouge (2.0.7)
     ruby-macho (1.4.0)
@@ -224,6 +228,7 @@ DEPENDENCIES
   json
   mini_magick (>= 4.9.4)
   pry
+  rest-client
   versionomy
 
 BUNDLED WITH
