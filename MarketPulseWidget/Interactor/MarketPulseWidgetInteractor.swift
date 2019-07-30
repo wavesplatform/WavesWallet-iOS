@@ -19,6 +19,8 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
         
     func pairs() -> Observable<[MarketPulse.DTO.Asset]> {
         
+        return Observable.empty()
+        
         struct Asset {
             struct IconStyle {
                 let icon: DomainLayer.DTO.Asset.Icon

@@ -16,8 +16,7 @@ import WavesSDK
 //1. Показ ошибки, в таргет нужно добавлять файлы локализации
 //2. Кешировать респонс в БД и сначала отображать данные из кеша а потом из сети
 //3. Сделать чтобы пары брались из БД
-//4. Кнопку настройки сделать
-//5. Загрузку лого
+//4. Сделать настройки чтобы из репозитория брались
 //6. Обновление данных по интервалу
 //7. Добавить локализацию
 
@@ -66,9 +65,17 @@ final class MarketPulseWidgetViewController: UIViewController {
 //        let config = Realm.Configuration(fileURL: fileURL)
 //        let realm = try Realm(configuration: config)
     }
-   
+    
+    func initPresenter() {
+        presenter = MarketPulseWidgetPresenter()
+        presenter.interactor = MarketPulseWidgetInteractor()
+    }
+    
     @IBAction private func settingsTapped(_ sender: Any) {
         
+        if let url = URL(string: "waves://") {
+            extensionContext?.open(url, completionHandler: nil)
+        }
     }
     
     @IBAction private func updateTapped(_ sender: Any) {
@@ -85,11 +92,6 @@ final class MarketPulseWidgetViewController: UIViewController {
         }
         setupCurrencyTitle()
         sendEvent.accept(.changeCurrency(currency))
-    }
-    
-    func initPresenter() {
-        presenter = MarketPulseWidgetPresenter()
-        presenter.interactor = MarketPulseWidgetInteractor()
     }
     
     private func initSDK() {
