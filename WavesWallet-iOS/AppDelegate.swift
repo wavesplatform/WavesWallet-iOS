@@ -96,6 +96,17 @@ enum UITest {
         return true
     }
 
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        let sourceApplication: String? = options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
+
+        if sourceApplication == "com.wavesplatform.waveswallet.dev.MarketPulseWidget" {
+            print("todo")
+        }
+        
+        return true
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {}
 
     func applicationDidEnterBackground(_ application: UIApplication) {
