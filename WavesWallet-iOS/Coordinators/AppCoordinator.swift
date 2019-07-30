@@ -70,7 +70,16 @@ final class AppCoordinator: Coordinator {
     func start() {
         self.isActiveApp = true
         
-        logInApplication()
+        #if DEBUG || TEST      
+            if CommandLine.arguments.contains("UI-Develop") {
+                addChildCoordinatorAndStart(childCoordinator: UIDeveloperCoordinator(windowRouter: windowRouter))
+            } else {
+                logInApplication()
+            }
+        #else
+            logInApplication()
+        #endif
+        
     }
 
     private var isMainTabDisplayed: Bool {
