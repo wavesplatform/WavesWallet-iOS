@@ -21,6 +21,10 @@ extension UIView {
         self.cornerRadius = 4
     }
     
+    func removeTableCellShadowStyle() {        
+        removeShadow()
+    }
+    
     class func loadView() -> UIView {
         let clsName = String(describing: self)
         return Bundle.main.loadNibNamed(clsName, owner: nil, options: nil)!.last! as! UIView

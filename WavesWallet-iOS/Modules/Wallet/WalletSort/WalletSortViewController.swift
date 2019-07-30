@@ -171,9 +171,9 @@ extension WalletSortViewController: UIScrollViewDelegate {
     }
 }
 
-//MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
+
 extension WalletSortViewController: UITableViewDelegate {
-    
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         sendEvent.accept(.moveAsset(from: sourceIndexPath, to: destinationIndexPath))
