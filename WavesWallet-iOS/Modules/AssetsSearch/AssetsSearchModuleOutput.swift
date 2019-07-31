@@ -1,5 +1,5 @@
 //
-//  WidgetSettingsHeader.swift
+//  WidgetSettingsModuleOutput.swift
 //  WavesWallet-iOS
 //
 //  Created by rprokofev on 29.07.2019.
@@ -7,3 +7,5 @@
 //
 
 import Foundation
+
+protocol WidgetSettingsModuleOutput: AnyObject {}

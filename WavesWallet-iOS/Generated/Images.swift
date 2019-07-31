@@ -313,6 +313,10 @@ internal enum Images {
   internal static let warning18White = ImageAsset(name: "warning18White")
   internal static let warningAddress = ImageAsset(name: "warning_address")
   internal static let wavesLogo = ImageAsset(name: "waves_logo")
+  internal static let widgetAddtoken22 = ImageAsset(name: "widgetAddtoken22")
+  internal static let widgetInterval22 = ImageAsset(name: "widgetInterval22")
+  internal static let widgetMaxtoken22 = ImageAsset(name: "widgetMaxtoken22")
+  internal static let widgetStyle22 = ImageAsset(name: "widgetStyle22")
 
   // swiftlint:disable trailing_comma
   internal static let allColors: [ColorAsset] = [
@@ -587,6 +591,10 @@ internal enum Images {
     warning18White,
     warningAddress,
     wavesLogo,
+    widgetAddtoken22,
+    widgetInterval22,
+    widgetMaxtoken22,
+    widgetStyle22,
   ]
   // swiftlint:enable trailing_comma
   @available(*, deprecated, renamed: "allImages")

@@ -29,9 +29,15 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        navigationItem.isNavigationBarHidden = false
         navigationItem.shadowImage = UIImage()
+        
         navigationItem.title = "Market pulse"
+//        navigationController?.setNavigationBarHidden(false, animated: true)
+        
         navigationItem.backgroundImage = UIColor.basic50.image
+//        navigationController?.navigationBar.barTintColor = UIColor.basic50
+//        setupTopBarLine()
         self.tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 12, right: 0)
         
         self.tableView.isEditing = true
@@ -109,7 +115,7 @@ extension WidgetSettingsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
+//        fileprivate let cardHeaderView: TransactionCardHeaderView = TransactionCardHeaderView.loadView() as! TransactionCardHeaderView
         let headerView: WidgetSettingsHeaderView = tableView.dequeueAndRegisterHeaderFooter()
         
         return headerView
@@ -138,7 +144,7 @@ extension WidgetSettingsViewController: UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        system.send(.moveAsset(from: sourceIndexPath, to: destinationIndexPath))
+        
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -173,6 +179,8 @@ extension WidgetSettingsViewController: UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        
+//        let row = sections[indexPath.section].items[indexPath.row]
         return true
     }
 }

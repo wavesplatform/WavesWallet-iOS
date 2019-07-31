@@ -15,7 +15,7 @@ private enum Constants {
     static let movedRowAlpha: CGFloat = 0.9
 }
 
-final class WidgetSettingsAssetCell: UITableViewCell, Reusable {
+final class AssetsSearchAssetCell: UITableViewCell, Reusable {
     
     struct Model {
         let asset: DomainLayer.DTO.Asset

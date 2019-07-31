@@ -41,10 +41,8 @@ enum WidgetSettings {
     
     enum Event {
         case viewDidAppear
-        case assetDelete(indexPath: IndexPath)
-        case assetDeleted(indexPath: IndexPath, asset: DomainLayer.DTO.Asset)
+        case deleteAsset(indexPath: IndexPath)
         case addAsset(_ asset: DomainLayer.DTO.Asset)
-        case moveAsset(from: IndexPath, to: IndexPath)
         case handlerError(_ error: Error)
     }
     
