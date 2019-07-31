@@ -332,11 +332,11 @@ platform :ios do
                    build_number: "#{ENV['BUILD_NUMBER']}")
     upload_symbols_to_crashlytics(gsp_path: "#{Dir.pwd}/../WavesWallet-iOS/Resources/GoogleService-Info.plist")    
 
-    sentry_upload_dsym(
-      auth_token: "#{ENV['SENTRY_AUTH_TOKEN']}",
-      org_slug: "#{ENV['SENTRY_ORG_SLUG']}",
-      project_slug: "#{ENV['SENTRY_PROJECT_SLUG']}"
-    )
+    # sentry_upload_dsym(
+    #   auth_token: "#{ENV['SENTRY_AUTH_TOKEN']}",
+    #   org_slug: "#{ENV['SENTRY_ORG_SLUG']}",
+    #   project_slug: "#{ENV['SENTRY_PROJECT_SLUG']}"
+    # )
   end
 
   lane :send_to_slack_artifacts  do
