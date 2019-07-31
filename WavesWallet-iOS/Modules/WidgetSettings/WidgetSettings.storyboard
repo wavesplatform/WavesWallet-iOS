@@ -25,42 +25,42 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WidgetSettingsAssetCell" rowHeight="187" id="MD4-at-EXc" customClass="WidgetSettingsAssetCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="382" height="187"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MD4-at-EXc" id="hMp-cT-15T">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MD4-at-EXc" id="hMp-cT-15T">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="187"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dEc-iG-Yim">
-                                                    <rect key="frame" x="0.0" y="4" width="382" height="128"/>
+                                                    <rect key="frame" x="0.0" y="4" width="382" height="48"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nH8-Ek-kTE">
-                                                            <rect key="frame" x="0.0" y="0.0" width="382" height="128"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="382" height="48"/>
                                                             <subviews>
-                                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MOK-M7-cS0">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="33.5" height="128"/>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MOK-M7-cS0">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="36" height="48"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="68" id="1DD-pE-ObY"/>
+                                                                        <constraint firstAttribute="width" constant="36" id="1DD-pE-ObY"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hQ3-Wx-oMO">
-                                                                    <rect key="frame" x="33.5" y="0.0" width="36" height="128"/>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hQ3-Wx-oMO">
+                                                                    <rect key="frame" x="36" y="0.0" width="50" height="48"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="draglock22Disabled400" translatesAutoresizingMaskIntoConstraints="NO" id="6FT-Xc-0Om">
-                                                                            <rect key="frame" x="14" y="53" width="22" height="22"/>
+                                                                            <rect key="frame" x="16" y="13" width="34" height="22"/>
                                                                         </imageView>
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstItem="6FT-Xc-0Om" firstAttribute="centerY" secondItem="hQ3-Wx-oMO" secondAttribute="centerY" id="FCL-BI-984"/>
                                                                         <constraint firstAttribute="trailing" secondItem="6FT-Xc-0Om" secondAttribute="trailing" id="S0i-vn-ItO"/>
-                                                                        <constraint firstItem="6FT-Xc-0Om" firstAttribute="leading" secondItem="hQ3-Wx-oMO" secondAttribute="leading" constant="14" id="ZVr-Vm-aTH"/>
+                                                                        <constraint firstItem="6FT-Xc-0Om" firstAttribute="leading" secondItem="hQ3-Wx-oMO" secondAttribute="leading" constant="16" id="ZVr-Vm-aTH"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EsM-p4-u5R">
-                                                                    <rect key="frame" x="69.5" y="0.0" width="56" height="128"/>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EsM-p4-u5R">
+                                                                    <rect key="frame" x="86" y="0.0" width="56" height="48"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fy1-Xt-vGX">
-                                                                            <rect key="frame" x="14" y="0.0" width="42" height="128"/>
+                                                                            <rect key="frame" x="14" y="0.0" width="42" height="48"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -74,11 +74,11 @@
                                                                         <constraint firstItem="fy1-Xt-vGX" firstAttribute="leading" secondItem="EsM-p4-u5R" secondAttribute="leading" constant="14" id="iyW-i9-GiS"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bmW-TL-WBj">
-                                                                    <rect key="frame" x="125.5" y="0.0" width="256.5" height="128"/>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bmW-TL-WBj">
+                                                                    <rect key="frame" x="142" y="0.0" width="240" height="48"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="68" id="T6A-JU-dlp"/>
+                                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="68" id="T6A-JU-dlp"/>
                                                                     </constraints>
                                                                 </view>
                                                             </subviews>
@@ -94,7 +94,7 @@
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="2"/>
+                                                            <real key="value" value="4"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
@@ -114,6 +114,7 @@
                                             <outlet property="containerView" destination="dEc-iG-Yim" id="x4F-PZ-Acp"/>
                                             <outlet property="iconImageContainerView" destination="hQ3-Wx-oMO" id="mQY-7k-4Rx"/>
                                             <outlet property="iconImageView" destination="6FT-Xc-0Om" id="D8l-Sw-pyz"/>
+                                            <outlet property="leftPaddingView" destination="MOK-M7-cS0" id="W0w-Ec-iFR"/>
                                             <outlet property="nameLabel" destination="fy1-Xt-vGX" id="o3M-DO-DLF"/>
                                         </connections>
                                     </tableViewCell>
@@ -138,17 +139,41 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Vc4-tA-rhV">
                                 <rect key="frame" x="0.0" y="804" width="414" height="58"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uF6-7m-wlc">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uF6-7m-wlc" customClass="CenteringContentButton" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="138" height="58"/>
-                                        <state key="normal" title="Бей"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <state key="normal" title="Interval" image="widgetInterval22">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleTopPadding">
+                                                <real key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pcw-dB-GRi">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pcw-dB-GRi" customClass="CenteringContentButton" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="138" y="0.0" width="138" height="58"/>
-                                        <state key="normal" title="Макса"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <state key="normal" title="Add token" image="widgetAddtoken22">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleTopPadding">
+                                                <real key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ELP-lr-xTm">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ELP-lr-xTm" customClass="CenteringContentButton" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="276" y="0.0" width="138" height="58"/>
-                                        <state key="normal" title="По лицу"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <state key="normal" title="Style" image="widgetStyle22">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleTopPadding">
+                                                <real key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -182,5 +207,8 @@
     </scenes>
     <resources>
         <image name="draglock22Disabled400" width="22" height="22"/>
+        <image name="widgetAddtoken22" width="22" height="22"/>
+        <image name="widgetInterval22" width="22" height="22"/>
+        <image name="widgetStyle22" width="22" height="22"/>
     </resources>
 </document>
