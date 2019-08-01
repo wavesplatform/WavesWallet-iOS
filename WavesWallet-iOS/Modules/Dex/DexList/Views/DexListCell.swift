@@ -41,7 +41,7 @@ extension DexListCell: ViewConfiguration {
         labelValue.text = model.lastPrice.displayText
         
         let deltaPercent = (lastPrice - firstPrice) * 100
-        let percent = deltaPercent != 0 ? deltaPercent / lastPrice : 0
+        let percent = lastPrice != 0 ? deltaPercent / lastPrice : 0
 
         if percent == 0 {
             iconArrow.image = Images.chartarrow22Accent100.image

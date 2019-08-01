@@ -87,7 +87,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     }()
     
     public private(set) lazy var gatewayRepository: GatewayRepositoryProtocol = GatewayRepository(environmentRepository: environmentRepositoryInternal)
-
+    
     public struct Resources {
         
         public typealias PathForFile = String
