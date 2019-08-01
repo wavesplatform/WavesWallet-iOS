@@ -12,6 +12,13 @@ public extension DomainLayer.DTO {
     
     public struct MarketPulseSettings {
         
+        public enum Interval: Int {
+            case m1 = 1
+            case m5 = 5
+            case m10 = 10
+            case manually = 0
+        }
+        
         public struct Asset {
             
             public struct IconStyle {
@@ -42,10 +49,10 @@ public extension DomainLayer.DTO {
         }
         
         public let isDarkStyle: Bool
-        public let interval: Int
+        public let interval: Interval
         public let assets: [Asset]
         
-        public init(isDarkStyle: Bool, interval: Int, assets: [Asset]) {
+        public init(isDarkStyle: Bool, interval: Interval, assets: [Asset]) {
             self.isDarkStyle = isDarkStyle
             self.interval = interval
             self.assets = assets

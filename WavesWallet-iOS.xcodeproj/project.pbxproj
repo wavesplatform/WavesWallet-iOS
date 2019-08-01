@@ -707,6 +707,8 @@
 		E9543902217FF9EC001A7860 /* SendCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9543901217FF9EC001A7860 /* SendCompleteViewController.swift */; };
 		E958571022F2DE4E007A0178 /* MarketPulseWidgetSettingsRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958570F22F2DE4E007A0178 /* MarketPulseWidgetSettingsRepositoryMock.swift */; };
 		E958571322F2E73D007A0178 /* WidgetSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958571222F2E73D007A0178 /* WidgetSettings.swift */; };
+		E958571722F35C61007A0178 /* MarketPulseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958571622F35C61007A0178 /* MarketPulseRepository.swift */; };
+		E958571B22F35CCA007A0178 /* MarketPulseRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958571A22F35CCA007A0178 /* MarketPulseRepositoryProtocol.swift */; };
 		E95B47C021638A9F004D4E39 /* Hello.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E95B47A821638A9F004D4E39 /* Hello.storyboard */; };
 		E95B47C221638A9F004D4E39 /* HelloLanguagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47AB21638A9F004D4E39 /* HelloLanguagesViewController.swift */; };
 		E95B47C721638A9F004D4E39 /* LongInfoPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B47B321638A9F004D4E39 /* LongInfoPageView.xib */; };
@@ -775,7 +777,6 @@
 		E991F8F322E8AB23008D1AE4 /* ViewCalculate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F8621F22FB60075FC59 /* ViewCalculate.swift */; };
 		E991F8F422E8AC54008D1AE4 /* UIColor+Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD7F3121F22FB60075FC59 /* UIColor+Colors.swift */; };
 		E991F8F522E8B0DA008D1AE4 /* String+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B32A8EB22981B82004789E7 /* String+Size.swift */; };
-		E991F8FA22E8BAB2008D1AE4 /* MarketPulseAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991F8F922E8BAB2008D1AE4 /* MarketPulseAsset.swift */; };
 		E991F8FF22E8CFC1008D1AE4 /* MarketPulseWidgetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991F8FE22E8CFC1008D1AE4 /* MarketPulseWidgetInteractor.swift */; };
 		E991F90122E8CFD3008D1AE4 /* MarketPulseWidgetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E991F90022E8CFD3008D1AE4 /* MarketPulseWidgetPresenter.swift */; };
 		E9939B4522302E3800B50E67 /* InfoPageConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9939B4422302E3800B50E67 /* InfoPageConfirmView.swift */; };
@@ -1892,6 +1893,8 @@
 		E9543901217FF9EC001A7860 /* SendCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCompleteViewController.swift; sourceTree = "<group>"; };
 		E958570F22F2DE4E007A0178 /* MarketPulseWidgetSettingsRepositoryMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarketPulseWidgetSettingsRepositoryMock.swift; sourceTree = "<group>"; };
 		E958571222F2E73D007A0178 /* WidgetSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettings.swift; sourceTree = "<group>"; };
+		E958571622F35C61007A0178 /* MarketPulseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPulseRepository.swift; sourceTree = "<group>"; };
+		E958571A22F35CCA007A0178 /* MarketPulseRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPulseRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E95B47A821638A9F004D4E39 /* Hello.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Hello.storyboard; sourceTree = "<group>"; };
 		E95B47AB21638A9F004D4E39 /* HelloLanguagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelloLanguagesViewController.swift; sourceTree = "<group>"; };
 		E95B47B321638A9F004D4E39 /* LongInfoPageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LongInfoPageView.xib; sourceTree = "<group>"; };
@@ -1960,7 +1963,6 @@
 		E991BB292202D5E00022E27D /* SendFeeInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeInteractorProtocol.swift; sourceTree = "<group>"; };
 		E991BB2B2202D6560022E27D /* SendFeeTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeTypes.swift; sourceTree = "<group>"; };
 		E991BB2D2202DD420022E27D /* SendFeeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendFeeHeaderView.swift; sourceTree = "<group>"; };
-		E991F8F922E8BAB2008D1AE4 /* MarketPulseAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPulseAsset.swift; sourceTree = "<group>"; };
 		E991F8FB22E8BC41008D1AE4 /* MarketPulseWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MarketPulseWidget.entitlements; sourceTree = "<group>"; };
 		E991F8FE22E8CFC1008D1AE4 /* MarketPulseWidgetInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPulseWidgetInteractor.swift; sourceTree = "<group>"; };
 		E991F90022E8CFD3008D1AE4 /* MarketPulseWidgetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPulseWidgetPresenter.swift; sourceTree = "<group>"; };
@@ -3834,7 +3836,6 @@
 		7BF509F122D8B95300582783 /* DataBase */ = {
 			isa = PBXGroup;
 			children = (
-				E991F8F622E8BA3A008D1AE4 /* Widget */,
 				7BF509F222D8B95300582783 /* WalletSeed */,
 				7BF509F422D8B95300582783 /* Wallet */,
 				7BF50A1122D8B95300582783 /* Wallets */,
@@ -4222,6 +4223,47 @@
 			path = Complete;
 			sourceTree = "<group>";
 		};
+		E958571422F35BBD007A0178 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				E958571922F35C90007A0178 /* DataBase */,
+				E958571822F35C87007A0178 /* Repositories */,
+				E991F8FD22E8CF9D008D1AE4 /* Presenter */,
+				E991F8FC22E8CF94008D1AE4 /* Interactor */,
+				E95310B122E8502F00F72809 /* Views */,
+				E9B190AB22E7CD99008220B7 /* MarketPulseWidgetViewController.swift */,
+				E958570F22F2DE4E007A0178 /* MarketPulseWidgetSettingsRepositoryMock.swift */,
+				E95310BB22E85FEE00F72809 /* MarketPulseTypes.swift */,
+				E958571222F2E73D007A0178 /* WidgetSettings.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		E958571522F35BCB007A0178 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E95310BD22E8A43000F72809 /* WidgetAssets.xcassets */,
+				E991F8FB22E8BC41008D1AE4 /* MarketPulseWidget.entitlements */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		E958571822F35C87007A0178 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				E958571622F35C61007A0178 /* MarketPulseRepository.swift */,
+				E958571A22F35CCA007A0178 /* MarketPulseRepositoryProtocol.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		E958571922F35C90007A0178 /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DataBase;
+			sourceTree = "<group>";
+		};
 		E95B47A521638A9F004D4E39 /* Hello */ = {
 			isa = PBXGroup;
 			children = (
@@ -4432,14 +4474,6 @@
 				E991BB252202D58C0022E27D /* SendFeePresenter.swift */,
 			);
 			path = Presenter;
-			sourceTree = "<group>";
-		};
-		E991F8F622E8BA3A008D1AE4 /* Widget */ = {
-			isa = PBXGroup;
-			children = (
-				E991F8F922E8BAB2008D1AE4 /* MarketPulseAsset.swift */,
-			);
-			path = Widget;
 			sourceTree = "<group>";
 		};
 		E991F8FC22E8CF94008D1AE4 /* Interactor */ = {
@@ -4979,17 +5013,10 @@
 		E9B190AA22E7CD99008220B7 /* MarketPulseWidget */ = {
 			isa = PBXGroup;
 			children = (
-				E991F8FB22E8BC41008D1AE4 /* MarketPulseWidget.entitlements */,
-				E991F8FD22E8CF9D008D1AE4 /* Presenter */,
-				E991F8FC22E8CF94008D1AE4 /* Interactor */,
-				E95310B122E8502F00F72809 /* Views */,
-				E9B190AB22E7CD99008220B7 /* MarketPulseWidgetViewController.swift */,
-				E958570F22F2DE4E007A0178 /* MarketPulseWidgetSettingsRepositoryMock.swift */,
-				E95310BB22E85FEE00F72809 /* MarketPulseTypes.swift */,
-				E958571222F2E73D007A0178 /* WidgetSettings.swift */,
-				E9B190AD22E7CD99008220B7 /* MainInterface.storyboard */,
 				E9B190B022E7CD99008220B7 /* Info.plist */,
-				E95310BD22E8A43000F72809 /* WidgetAssets.xcassets */,
+				E9B190AD22E7CD99008220B7 /* MainInterface.storyboard */,
+				E958571422F35BBD007A0178 /* Sources */,
+				E958571522F35BCB007A0178 /* Resources */,
 			);
 			path = MarketPulseWidget;
 			sourceTree = "<group>";
@@ -6294,7 +6321,6 @@
 				7BF50AA922D8B95400582783 /* AddressBookRepository.swift in Sources */,
 				7BF50A7622D8B95400582783 /* Transaction.swift in Sources */,
 				7BF50AB522D8B95400582783 /* AliasesRepositoryLocal.swift in Sources */,
-				E991F8FA22E8BAB2008D1AE4 /* MarketPulseAsset.swift in Sources */,
 				7BF50A6E22D8B95400582783 /* ScriptTransaction.swift in Sources */,
 				7BF50A6C22D8B95400582783 /* WalletRealmFactory.swift in Sources */,
 				7BF50A7922D8B95400582783 /* AliasTransaction.swift in Sources */,
@@ -6394,6 +6420,7 @@
 				E953CE4622EC6E76001D5800 /* CGSize+Hashable.swift in Sources */,
 				E953CE4522EC5274001D5800 /* AssetLogo.swift in Sources */,
 				E953CE4422EB4955001D5800 /* UIColor+Hex.swift in Sources */,
+				E958571722F35C61007A0178 /* MarketPulseRepository.swift in Sources */,
 				E953CE4322EB4803001D5800 /* UIColor+Asset.swift in Sources */,
 				E953CE4222EB4782001D5800 /* Kingfisher+Rx.swift in Sources */,
 				E953CE4122EB4760001D5800 /* Images.swift in Sources */,
@@ -6408,6 +6435,7 @@
 				E958571322F2E73D007A0178 /* WidgetSettings.swift in Sources */,
 				E95310B922E8530000F72809 /* UITableView+Reusable.swift in Sources */,
 				E95310B522E8529D00F72809 /* NibLoadable.swift in Sources */,
+				E958571B22F35CCA007A0178 /* MarketPulseRepositoryProtocol.swift in Sources */,
 				E95310B622E8529D00F72809 /* NibOwnerLoadable.swift in Sources */,
 				E95310B422E8523E00F72809 /* ViewConfiguration.swift in Sources */,
 				E991F90122E8CFD3008D1AE4 /* MarketPulseWidgetPresenter.swift in Sources */,
