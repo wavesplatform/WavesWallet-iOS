@@ -26,13 +26,10 @@ final class UIDeveloperCoordinator: Coordinator {
     
     func start() {
         
-        let vc = WidgetSettingsModuleBuilder.init(output: .init()).build(input: .init())
-
-        self.navigationRouter.pushViewController(vc, animated: true) { [weak self] in
-            guard let self = self else { return }
-            self.removeFromParentCoordinator()
-        }
+        let coordinator = WidgetSettingsCoordinator.init(navigationRouter: navigationRouter)
         
+        addChildCoordinatorAndStart(childCoordinator: coordinator)
+                
         self.windowRouter.setRootViewController(self.navigationRouter.navigationController)
     }
 }

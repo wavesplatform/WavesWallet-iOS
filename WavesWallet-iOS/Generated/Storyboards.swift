@@ -85,6 +85,8 @@ internal enum StoryboardScene {
   }
   internal enum AssetsSearch: StoryboardType {
     internal static let storyboardName = "AssetsSearch"
+
+    internal static let widgetSettingsViewController = SceneType<WavesWallet_iOS.WidgetSettingsViewController>(storyboard: AssetsSearch.self, identifier: "WidgetSettingsViewController")
   }
   internal enum Backup: StoryboardType {
     internal static let storyboardName = "Backup"

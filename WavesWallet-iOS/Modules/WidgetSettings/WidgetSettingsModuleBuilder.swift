@@ -10,25 +10,15 @@ import UIKit
 
 struct WidgetSettingsModuleBuilder: ModuleBuilderOutput {
     
-    struct Input {
-        
-    }
+    typealias Input = Void
     
-    struct Output {
-        
-    }
-    
-    var output: Output
+    let output: WidgetSettingsModuleOutput
     
     func build(input: WidgetSettingsModuleBuilder.Input) -> UIViewController {
         
         let vc = StoryboardScene.WidgetSettings.widgetSettingsViewController.instantiate()
-//        let presenter = WidgetSettingsModuleBuilder
         vc.system = WidgetSettingsCardSystem()
-//        presenter.moduleOutput = output
-//        presenter.input = input
-//        vc.presenter = presenter
+        vc.moduleOutput = output
         return vc
     }
 }
-

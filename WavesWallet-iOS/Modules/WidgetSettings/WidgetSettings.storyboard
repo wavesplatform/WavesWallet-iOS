@@ -150,6 +150,9 @@
                                                 <real key="value" value="4"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="handlerTouchForIntervalButton:" destination="i6t-Xp-S9F" eventType="touchUpInside" id="6Uj-Sc-nQN"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pcw-dB-GRi" customClass="CenteringContentButton" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="138" y="0.0" width="138" height="58"/>
@@ -162,6 +165,9 @@
                                                 <real key="value" value="4"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="handlerTouchForAddTokenButton:" destination="i6t-Xp-S9F" eventType="touchUpInside" id="0RY-qc-agw"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ELP-lr-xTm" customClass="CenteringContentButton" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="276" y="0.0" width="138" height="58"/>
@@ -174,6 +180,9 @@
                                                 <real key="value" value="4"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="handlerTouchForStyleButton:" destination="i6t-Xp-S9F" eventType="touchUpInside" id="T1f-U2-mue"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -197,6 +206,9 @@
                         <viewLayoutGuide key="safeArea" id="4cr-H6-Wqv"/>
                     </view>
                     <connections>
+                        <outlet property="addTokenButton" destination="Pcw-dB-GRi" id="ad8-X5-glc"/>
+                        <outlet property="intervalButton" destination="uF6-7m-wlc" id="mfs-1R-Sld"/>
+                        <outlet property="styleButton" destination="ELP-lr-xTm" id="AjP-t8-cX5"/>
                         <outlet property="tableView" destination="wAj-Sa-xmI" id="XzT-2w-0I2"/>
                     </connections>
                 </viewController>
