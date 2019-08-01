@@ -38,6 +38,7 @@ final class MarketPulseWidgetCell: UITableViewCell, Reusable {
         numberFormatter.usesGroupingSeparator = true
         numberFormatter.groupingSeparator = " "
         numberFormatter.minimumFractionDigits = 2
+        numberFormatter.maximumFractionDigits = 2
         return numberFormatter
     }()
     

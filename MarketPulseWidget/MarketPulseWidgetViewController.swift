@@ -40,7 +40,7 @@ final class MarketPulseWidgetViewController: UIViewController {
     @IBOutlet private weak var buttonUpdateWidth: NSLayoutConstraint!
     @IBOutlet private weak var viewDarkMode: UIView!
     
-    private var currency = MarketPulse.Currency.usd
+    private var currency: MarketPulse.Currency!
     private var isDarkMode: Bool = false
 
     private var presenter: MarketPulseWidgetPresenterProtocol!
@@ -54,8 +54,6 @@ final class MarketPulseWidgetViewController: UIViewController {
         initPresenter()
         initSDK()
         setupFeedBack()
-        setupDarkMode()
-        setupCurrencyTitle()
         setupButtonUpdateSize()
         showUpdateAnimation()
         
@@ -120,8 +118,7 @@ extension MarketPulseWidgetViewController {
                             events: [owner.sendEvent.asSignal()])
         }
         
-        presenter.system(feedbacks: [feedback, readyViewFeedback],
-                         settings: .init(currency: currency, isDarkMode: isDarkMode))
+        presenter.system(feedbacks: [feedback, readyViewFeedback])
     }
     
     func subscriptions(state: Driver<MarketPulse.State>) -> [Disposable] {
@@ -137,7 +134,11 @@ extension MarketPulseWidgetViewController {
                     self.tableView.reloadData()
                     self.updateBigPrefferedSize()
                     self.hideUpdateAnimation()
-                    
+                    self.currency = state.currency
+                    self.isDarkMode = state.isDarkMode
+                    self.setupDarkMode()
+                    self.setupCurrencyTitle()
+
                 case .didFailUpdate(let error):
                     self.hideUpdateAnimation()
                     

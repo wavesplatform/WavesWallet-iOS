@@ -16,7 +16,7 @@ enum MarketPulse {
     static let usdAssetId = "Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck"
     static let eurAssetId = "Gtb1WRznfchDnTh37ezoDTJ4wcoKaRsKqKjJjy7nm2zU"
         
-    enum Currency {
+    enum Currency: String {
         case usd
         case eur
         
@@ -49,6 +49,8 @@ enum MarketPulse {
         case refresh
         case changeCurrency(Currency)
         case setAssets([DTO.Asset])
+        case setSettings(DTO.Settings)
+        case setChachedAssets([DTO.Asset])
     }
     
     struct State: Mutating {
@@ -58,6 +60,8 @@ enum MarketPulse {
             case didFailUpdate(NetworkError)
         }
         
+        var hasLoadSettings: Bool
+        var hasLoadChachedAsset: Bool
         var isNeedRefreshing: Bool
         var action: Action
         var models: [ViewModel.Row]
@@ -79,6 +83,8 @@ extension MarketPulse.DTO {
         let lastPrice: Double
         let volume: Double
         let volumeWaves: Double
+        let quoteVolume: Double
+        let amountAsset: String
     }
     
     struct UIAsset {
@@ -107,6 +113,8 @@ extension MarketPulse.ViewModel {
 
 extension MarketPulse.State: Equatable {
     static func == (lhs: MarketPulse.State, rhs: MarketPulse.State) -> Bool {
-        return lhs.isNeedRefreshing == rhs.isNeedRefreshing
+        return lhs.isNeedRefreshing == rhs.isNeedRefreshing &&
+            lhs.hasLoadSettings == rhs.hasLoadSettings &&
+            lhs.hasLoadChachedAsset == rhs.hasLoadChachedAsset
     }
 }

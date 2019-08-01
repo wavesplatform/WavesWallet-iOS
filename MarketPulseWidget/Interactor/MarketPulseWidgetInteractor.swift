@@ -10,16 +10,39 @@ import Foundation
 import RxSwift
 import WavesSDK
 import DomainLayer
+import DataLayer
+import WavesSDKExtensions
+import Extensions
 
 protocol MarketPulseWidgetInteractorProtocol {
-    func pairs() -> Observable<[MarketPulse.DTO.Asset]>
+    func assets() -> Observable<[MarketPulse.DTO.Asset]>
+    func chachedAssets() -> Observable<[MarketPulse.DTO.Asset]>
+    func settings() -> Observable<MarketPulse.DTO.Settings>
 }
 
 final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
+  
+    private let widgetSettingsRepository: MarketPulseWidgetSettingsRepositoryProtocol = MarketPulseWidgetSettingsRepositoryMock()
+    
+    func settings() -> Observable<MarketPulse.DTO.Settings> {
         
-    func pairs() -> Observable<[MarketPulse.DTO.Asset]> {
+        return Observable.zip(WidgetSettings.rx.currency(),
+        widgetSettingsRepository.settings())
+            .flatMap({ (currency, marketPulseSettings) -> Observable<MarketPulse.DTO.Settings> in
+                return Observable.just(MarketPulse.DTO.Settings(currency: currency, isDarkMode: marketPulseSettings.isDarkStyle))
+            })
+    }
+    
+    func chachedAssets() -> Observable<[MarketPulse.DTO.Asset]> {
+        
         
         return Observable.empty()
+    }
+    
+    
+    func assets() -> Observable<[MarketPulse.DTO.Asset]> {
+        
+//        return Observable.empty()
         
         struct Asset {
             struct IconStyle {
@@ -84,15 +107,22 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
                                                     url: "https://d1jh0rcszsaxik.cloudfront.net/assset_icons/logo_waves_48.png"),
                                         isSponsored: false,
                                         hasScript: false)
-        
-        
+
         
         initAssets.append(.init(id: "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS",
-                               name: "Bitcoin",
-                               iconStyle: btcIcon,
-                               amountAsset: "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS",
-                               priceAsset: "Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck"))
-        
+                                name: "Bitcoin",
+                                iconStyle: btcIcon,
+                                amountAsset: "WAVES",
+                                priceAsset: "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS"))
+
+//
+//        initAssets.append(.init(id: "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS",
+//                               name: "Bitcoin",
+//                               iconStyle: btcIcon,
+//                               amountAsset: "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS",
+//                               priceAsset: "Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck"))
+
+
         initAssets.append(.init(id: "474jTeYx2r2Va35794tCScAXWJG9hU2HcgxzMowaZUnu",
                                name: "Ethereum",
                                iconStyle: ethIcon,
@@ -162,7 +192,9 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
                                                            firstPrice: model.firstPrice,
                                                            lastPrice: model.lastPrice,
                                                            volume: model.volume,
-                                                           volumeWaves: model.volumeWaves ?? 0))
+                                                           volumeWaves: model.volumeWaves ?? 0,
+                                                           quoteVolume: model.quoteVolume ?? 0,
+                                                           amountAsset: asset.amountAsset))
                     }
                     
                     return pairs
