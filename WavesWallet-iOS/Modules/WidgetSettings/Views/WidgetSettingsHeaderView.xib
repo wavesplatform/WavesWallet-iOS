@@ -40,6 +40,10 @@
                 <constraint firstItem="e6E-nH-a2l" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="gKu-Ck-aJL"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="labelAmount" destination="e6E-nH-a2l" id="bSX-fo-iez"/>
+                <outlet property="labelTitle" destination="vAa-34-GWQ" id="HoT-uY-5Cb"/>
+            </connections>
         </view>
     </objects>
 </document>

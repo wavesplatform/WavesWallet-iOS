@@ -8,8 +8,16 @@
 
 import Foundation
 import DomainLayer
+import RxFeedback
+import RxSwift
+import RxCocoa
 
 private typealias Types = WidgetSettings
+
+protocol MagicRepository {
+    func saveSettings() -> Observable<Bool>
+    func addAsset()
+}
 
 final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSettings.Event> {
 
@@ -18,15 +26,113 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
     }
     
     override func internalFeedbacks() -> [Feedback] {        
-        return []
+        return [deleteAsset, changeInterval, changeStyle]
     }
+        
+    let deleteAsset: Feedback = {
+        
+        return react(request: { (state) -> DomainLayer.DTO.Asset? in
+            
+            if case .deleteAsset(let asset) = state.core.action {
+                return asset
+            }
+            
+            return nil
+            
+        }, effects: { (_) -> Signal<Event> in
+            
+            return Signal.never()
+        })
+    }()
+    
+    
+    let changeInterval: Feedback = {
+        
+        return react(request: { (state) -> WidgetSettings.DTO.Interval? in
+            
+            if case .changeInterval(let interval) = state.core.action {
+                return interval
+            }
+            
+            return nil
+            
+        }, effects: { (_) -> Signal<Event> in
+            
+            return Signal.never()
+        })
+    }()
+    
+    
+    let changeStyle: Feedback = {
+        
+        return react(request: { (state) -> WidgetSettings.DTO.Style? in
+            
+            if case .changeStyle(let style) = state.core.action {
+                return style
+            }
+            
+            return nil
+            
+        }, effects: { (_) -> Signal<Event> in
+            
+            return Signal.never()
+        })
+    }()
+    
+    /*
+     UI Send event -> Delete
+     Core -> Delete BD
+     
+     Если я буду отправлять сообщение напрямую то что ?
+     
+     UI -> System
+     
+     System -> Core
+     
+     Core -> System
+     
+     System -> UI
+ 
+ */
     
     override func reduce(event: Event, state: inout State) {
+        
         switch event {
         case .handlerError(let error):
-            <#code#>
+            break
+            
+        case .rowDelete(let indexPath):
+            
+            let row = state
+                .ui
+                .sections[indexPath.section]
+                .rows
+                .remove(at: indexPath.row)
+            guard let asset = row.asset else { return }
+            
+            state.core.action = .deleteAsset(asset)
+            state.ui.action = .deleteRow(indexPath: indexPath)
+            
+        case .moveRow(let from, let to):
+            
+            state.core.action = .none
+            state.ui.action = .none
+            
+        case .addAsset(let asset):
+            
+            state.core.action = .addAsset(asset)
+            state.ui.action = .none
+            
+        case .changeInterval(let interval):
+            state.core.action = .changeInterval(interval)
+            state.ui.action = .none
+            
+        case .changeStyle(let style):
+            state.core.action = .changeStyle(style)
+            state.ui.action = .none
+            
         default:
-            <#code#>
+            break
         }
     }
     
@@ -46,7 +152,6 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
         
         let model2 = WidgetSettingsAssetCell.Model(asset: DomainLayer.DTO.Asset.mockBTC(), isLock: false)
         
-        
         return [Types.Section(rows: [.asset(model),
                                      .asset(model2),
                                      .asset(model),
@@ -59,9 +164,7 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
                                      .asset(model),
                                      .asset(model2),
                                      .asset(model),
-                                     .asset(model)])]
+                                     .asset(model)],
+                                limitAssets: 9)]
     }
-    
-//    WidgetSettingsAssetCell
-
 }

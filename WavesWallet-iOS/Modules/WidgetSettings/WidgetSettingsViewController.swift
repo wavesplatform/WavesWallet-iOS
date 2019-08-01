@@ -12,6 +12,10 @@ import RxSwift
 import Extensions
 import DomainLayer
 
+private struct Constants {
+    
+}
+
 private typealias Types = WidgetSettings
 
 final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
@@ -20,9 +24,13 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
     
     var system: System<WidgetSettings.State, WidgetSettings.Event>!
     
-    weak var delegate: WidgetSettingsModuleOutput?
+    weak var moduleOutput: WidgetSettingsModuleOutput?
 
     @IBOutlet var tableView: UITableView!
+    
+    @IBOutlet var intervalButton: UIButton!
+    @IBOutlet var addTokenButton: UIButton!
+    @IBOutlet var styleButton: UIButton!
     
     var sections: [WidgetSettings.Section] = .init()
     
@@ -30,6 +38,7 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
         super.viewDidLoad()
         
         navigationItem.shadowImage = UIImage()
+        //TODO: Localization
         navigationItem.title = "Market pulse"
         navigationItem.backgroundImage = UIColor.basic50.image
         self.tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 12, right: 0)
@@ -53,11 +62,29 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
+    
+    @IBAction private func handlerTouchForIntervalButton(_ sender: UIButton) {
+        moduleOutput?.widgetSettingsChangeInterval(callback: { [weak self] (interval) in
+            self?.system.send(.changeInterval(interval))
+        })
+    }
+    
+    @IBAction private func handlerTouchForAddTokenButton(_ sender: UIButton) {
+        moduleOutput?.widgetSettingsAddAsset(callback: { [weak self] (asset) in
+            self?.system.send(.addAsset(asset))
+        })
+    }
+    
+    @IBAction private func handlerTouchForStyleButton(_ sender: UIButton) {
+        moduleOutput?.widgetSettingsChangeStyle(callback: { [weak self] (style) in
+            self?.system.send(.changeStyle(style))
+        })
+    }
 }
 
 // MARK: Private
 
-extension WidgetSettingsViewController {
+private extension WidgetSettingsViewController {
     
     private func update(state: Types.State.Core) {
         
@@ -65,14 +92,23 @@ extension WidgetSettingsViewController {
     
     private func update(state: Types.State.UI) {
         
+        self.sections = state.sections
+        
         switch state.action {
         case .update:
-            
-            self.sections = state.sections
             tableView.reloadData()
+        
+        case .deleteRow(let indexPath):
             
-//        case .error(let error):
-//            showNetworkErrorSnack(error: error)
+            tableView.beginUpdates()
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            if let headerView = tableView.headerView(forSection: 0) as? WidgetSettingsHeaderView {
+                let section = state.sections[0]
+                headerView.update(with: .init(amountMax: section.limitAssets, amount: section.rows.count))
+            }
+            
+            tableView.endUpdates()
             
         default:
             break
@@ -110,8 +146,10 @@ extension WidgetSettingsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
+        let section = self[section]
+    
         let headerView: WidgetSettingsHeaderView = tableView.dequeueAndRegisterHeaderFooter()
-        
+        headerView.update(with: .init(amountMax: section.limitAssets, amount: section.rows.count))
         return headerView
     }
 }
@@ -136,9 +174,8 @@ extension WidgetSettingsViewController: UITableViewDelegate {
         return CGFloat.minValue
     }
     
-    
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        system.send(.moveAsset(from: sourceIndexPath, to: destinationIndexPath))
+        system.send(.moveRow(from: sourceIndexPath, to: destinationIndexPath))
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -150,8 +187,19 @@ extension WidgetSettingsViewController: UITableViewDelegate {
             return .none
             
         default:
+            
             return .delete
         }
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        //TODO: Localization
+        let editAction = UITableViewRowAction.init(style: .destructive, title: "Delete") { [weak self] (action, indexPath) in
+            self?.system.send(.rowDelete(indexPath: indexPath))
+        }
+
+        return [editAction]
     }
     
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
@@ -159,15 +207,6 @@ extension WidgetSettingsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-        
-//        if proposedDestinationIndexPath.section == sections.firstIndex(where: {$0.kind == .top}) {
-//            if let favSectionIndex = sections.firstIndex(where: {$0.kind == .favorities}) {
-//                return IndexPath(row: 0, section: favSectionIndex)
-//            }
-//        }
-//        else if isEmptySection(at: proposedDestinationIndexPath) {
-//            return IndexPath(row: 0, section: proposedDestinationIndexPath.section)
-//        }
         return proposedDestinationIndexPath
     }
     

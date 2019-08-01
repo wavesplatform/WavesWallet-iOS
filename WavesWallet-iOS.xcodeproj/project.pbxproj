@@ -514,6 +514,7 @@
 		7BB03E4A22EF2C84008F179D /* WidgetSettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */; };
 		7BB03E4C22EF2DAB008F179D /* WidgetSettingsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */; };
 		7BB03E4F22EF4FDF008F179D /* AssetsRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB03E4E22EF4FDF008F179D /* AssetsRepositoryMock.swift */; };
+		7BBDFD7422F339AA001CEF04 /* WidgetSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBDFD7322F339AA001CEF04 /* WidgetSettingsCoordinator.swift */; };
 		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
 		7BD2FD35223C5E1F0098CFB9 /* TransactionCardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */; };
 		7BD6E0FE22E228DC00BAAFC8 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E0FD22E228DC00BAAFC8 /* DebugView.swift */; };
@@ -1676,6 +1677,7 @@
 		7BBDFD6522F1E443001CEF04 /* AssetsSearchHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetsSearchHeaderView.xib; sourceTree = "<group>"; };
 		7BBDFD6622F1E443001CEF04 /* AssetsSearchHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsSearchHeaderView.swift; sourceTree = "<group>"; };
 		7BBDFD6722F1E443001CEF04 /* AssetsSearch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AssetsSearch.storyboard; sourceTree = "<group>"; };
+		7BBDFD7322F339AA001CEF04 /* WidgetSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WidgetSettingsCoordinator.swift; path = "../../../../../../../System/Volumes/Data/Users/rprokofev/Works/Waves/waveswallet-ios_dex/WavesWallet-iOS/Coordinators/WidgetSettingsCoordinator.swift"; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
 		7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardCoordinator.swift; sourceTree = "<group>"; };
 		7BD6E0FD22E228DC00BAAFC8 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
@@ -2931,6 +2933,7 @@
 				0ADD801521F22FFA0075FC59 /* Passcode */,
 				0ADD800F21F22FFA0075FC59 /* Profile */,
 				0A751D37221715F80024D523 /* AppNewsCoordinator.swift */,
+				7BBDFD7322F339AA001CEF04 /* WidgetSettingsCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -3393,6 +3396,7 @@
 		7B26A87B22ED127600E7B024 /* WidgetSettings */ = {
 			isa = PBXGroup;
 			children = (
+				7BBDFD7122F2FECC001CEF04 /* UpdateInterval */,
 				7BB03E4822EF2C6D008F179D /* Views */,
 				7B26A87C22ED129300E7B024 /* WidgetSettings.storyboard */,
 				7B26A87E22ED13F300E7B024 /* WidgetSettingsViewController.swift */,
@@ -3871,6 +3875,13 @@
 				7BBDFD6422F1E443001CEF04 /* AssetsSearchAssetCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		7BBDFD7122F2FECC001CEF04 /* UpdateInterval */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UpdateInterval;
 			sourceTree = "<group>";
 		};
 		7BD6E10322E5ACE000BAAFC8 /* View */ = {
@@ -6828,6 +6839,7 @@
 				0ADC179E2204A23000472130 /* ModalRootView.swift in Sources */,
 				E9C4134C20E826E300AA044F /* DottedRoundView.swift in Sources */,
 				E9B087D12163886800937644 /* DexListSkeletonCell.swift in Sources */,
+				7BBDFD7422F339AA001CEF04 /* WidgetSettingsCoordinator.swift in Sources */,
 				E9B087C82163886800937644 /* DexTraderContainerButton.swift in Sources */,
 				0AF6AD25218A54840004F107 /* CopyableImageView.swift in Sources */,
 				0A762D17214FF1CD00BE9204 /* InputTextField.swift in Sources */,
