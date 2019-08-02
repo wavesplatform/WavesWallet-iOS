@@ -27,7 +27,9 @@ final class MarketPulseWidgetPresenter: MarketPulseWidgetPresenterProtocol {
     func system(feedbacks: [MarketPulseWidgetPresenter.Feedback]) {
         var newFeedbacks = feedbacks
         newFeedbacks.append(queryAssets())
-        
+        newFeedbacks.append(querySettings())
+        newFeedbacks.append(queryChachedAsset())
+
         Driver.system(initialState: MarketPulse.State.initialState,
                       reduce: MarketPulseWidgetPresenter.reduce,
                       feedback: newFeedbacks)
@@ -83,7 +85,8 @@ final class MarketPulseWidgetPresenter: MarketPulseWidgetPresenterProtocol {
             
             state.currency = currency
             state.models = mapAssetModels(assets: state.assets, settings: .init(currency: currency,
-                                                                                isDarkMode: state.isDarkMode))
+                                                                                isDarkMode: state.isDarkMode,
+                                                                                inverval: state.updateInterval))
             state.action = .update
             
         case .setAssets(let assets):
@@ -91,7 +94,8 @@ final class MarketPulseWidgetPresenter: MarketPulseWidgetPresenterProtocol {
             
             state.assets = assets
             state.models = mapAssetModels(assets: assets, settings: .init(currency: state.currency,
-                                                                                    isDarkMode: state.isDarkMode))
+                                                                                    isDarkMode: state.isDarkMode,
+                                                                                    inverval: state.updateInterval))
             state.action = .update
             
         case .setSettings(let settings):
@@ -104,7 +108,8 @@ final class MarketPulseWidgetPresenter: MarketPulseWidgetPresenterProtocol {
             state.assets = chachedAssets
             state.hasLoadChachedAsset = true
             state.models = mapAssetModels(assets: chachedAssets, settings: .init(currency: state.currency,
-                                                                          isDarkMode: state.isDarkMode))
+                                                                          isDarkMode: state.isDarkMode,
+                                                                          inverval: state.updateInterval))
             state.action = .update
         }
     }
@@ -164,6 +169,7 @@ fileprivate extension MarketPulse.State {
                                  models: [],
                                  assets: [],
                                  currency: .usd,
-                                 isDarkMode: false)
+                                 isDarkMode: false,
+                                 updateInterval: .m1)
     }
 }
