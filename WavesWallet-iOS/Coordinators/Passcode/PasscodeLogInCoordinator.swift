@@ -43,7 +43,7 @@ final class PasscodeLogInCoordinator: Coordinator {
 
             let window = UIWindow()
             window.windowLevel = UIWindow.Level.normal
-            self.windowRouter = WindowRouter(window: window)
+            self.windowRouter = WindowRouter.windowFactory(window: window)
             self.passcodeNavigationRouter = NavigationRouter(navigationController: CustomNavigationController())
 
         case .navigation(let navRouter):

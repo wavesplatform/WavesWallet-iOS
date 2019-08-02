@@ -13,21 +13,29 @@ private enum Constants {
     static let addressKeyScan = "recipient"
     static let amountKeyScan = "amount"
 
-    static let sendStartUrl = "client.wavesplatform.com/#send/"
+    static let sendStartUrl1 = "client.wavesplatform.com/#send/"
+    static let sendStartUrl2 = "dex.wavesplatform.com/#send/"
 }
 
 final class QRCodeParser {
 
     static func parseAssetID(_ string: String) -> String? {
 
-        let rangeStart = (string.lowercased() as NSString).range(of: Constants.sendStartUrl)
-        if rangeStart.location != NSNotFound && (string as NSString).range(of: "?").location != NSNotFound {
-            let start = (string as NSString).substring(from: rangeStart.location + rangeStart.length)
-            return (start as NSString).substring(to: (start as NSString).range(of: "?").location)
+        let isValidAssetIdQuery = (string as NSString).range(of: "?").location != NSNotFound
+        let firstRange = (string.lowercased() as NSString).range(of: Constants.sendStartUrl1)
+        let secondRange = (string.lowercased() as NSString).range(of: Constants.sendStartUrl2)
+        
+        if firstRange.location != NSNotFound && isValidAssetIdQuery {
+            return parseAssetIDFromStartRange(startRange: firstRange, assetId: string)
         }
+        
+        if secondRange.location != NSNotFound && isValidAssetIdQuery {
+            return parseAssetIDFromStartRange(startRange: secondRange, assetId: string)
+        }
+
         return nil
     }
-
+    
     static func parseAddress(_ string: String) -> String {
         if let address = urlValues(string)[Constants.addressKeyScan] {
             return address
@@ -55,7 +63,12 @@ final class QRCodeParser {
 }
 
 private extension QRCodeParser {
-
+    
+    static func parseAssetIDFromStartRange(startRange: NSRange, assetId: String) -> String? {
+        let start = (assetId as NSString).substring(from: startRange.location + startRange.length)
+        return (start as NSString).substring(to: (start as NSString).range(of: "?").location)
+    }
+    
     static func urlValues(_ string: String) -> [String : String] {
 
         var values: [String : String] = [:]

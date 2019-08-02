@@ -22,6 +22,10 @@ extension DataSourceProtocol {
     subscript(indexPath: IndexPath) -> Section.Row {
         return sections[indexPath.section].rows[indexPath.row]
     }
+    
+    subscript(section: Int) -> Section {
+        return sections[section]
+    }
 }
 
 extension SectionProtocol {
