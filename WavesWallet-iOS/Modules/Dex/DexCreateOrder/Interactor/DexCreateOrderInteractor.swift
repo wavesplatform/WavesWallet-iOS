@@ -119,18 +119,13 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                         let lastPrice = Money(lastPriceTrade, order.price.decimals).decimalValue
                         
                         let percent = (price / lastPrice * 100).rounded().int64Value
-                        
-                        
-                        if percent < UIGlobalConstants.limitPriceOrderPercent {
-                            return Observable.just(true)
-                        }
-
+                                                
                         if isBuy {
-                            if lastPrice < price {
+                            if lastPrice < price && percent >= (100 + UIGlobalConstants.limitPriceOrderPercent) {
                                 return Observable.error(DexCreateOrder.CreateOrderError.priceHigherMarket)
                             }
                         } else {
-                            if lastPrice > price {
+                            if lastPrice > price && percent <= (100 - UIGlobalConstants.limitPriceOrderPercent) {
                                 return Observable.error(DexCreateOrder.CreateOrderError.priceLowerMarket)
                             }
                         }

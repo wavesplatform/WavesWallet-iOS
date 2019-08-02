@@ -614,7 +614,7 @@ internal enum Localizable {
     }
 
     internal enum Coinomat {
-      /// Service Coinomat temporarily unavailable
+      /// Service temporarily unavailable
       internal static var temporarilyUnavailable: String { return Localizable.tr("Waves", "coinomat.temporarilyUnavailable") }
       internal static var temporarilyUnavailableKey: String { return "coinomat.temporarilyUnavailable" }
       /// Try again later
@@ -2454,7 +2454,7 @@ internal enum Localizable {
           internal static func description(_ p1: String) -> String {
             return Localizable.tr("Waves", "Send.Label.Warning.description", p1)
           }
-          /// We detected %@ address and will send your money through Coinomat gateway to that address. Minimum amount is %@, maximum amount is %@.
+          /// We detected %@ address and will send your money through gateway to that address. Minimum amount is %@, maximum amount is %@.
           internal static func subtitle(_ p1: String, _ p2: String, _ p3: String) -> String {
             return Localizable.tr("Waves", "Send.Label.Warning.subtitle", p1, p2, p3)
           }
