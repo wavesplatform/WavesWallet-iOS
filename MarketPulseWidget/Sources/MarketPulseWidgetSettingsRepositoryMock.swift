@@ -116,6 +116,6 @@ final class MarketPulseWidgetSettingsRepositoryMock: MarketPulseWidgetSettingsRe
                                 amountAsset: WavesSDKConstants.wavesAssetId,
                                 priceAsset: MarketPulse.usdAssetId))
         
-        return Observable.just(.init(isDarkStyle: false, interval: 10, assets: initAssets))
+        return Observable.just(.init(isDarkStyle: false, interval: .m1, assets: initAssets))
     }
 }

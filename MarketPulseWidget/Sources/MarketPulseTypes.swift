@@ -68,6 +68,7 @@ enum MarketPulse {
         var assets: [DTO.Asset]
         var currency: Currency
         var isDarkMode: Bool
+        var updateInterval: DomainLayer.DTO.MarketPulseSettings.Interval
     }
 }
 
@@ -101,6 +102,7 @@ extension MarketPulse.DTO {
     struct Settings {
         let currency: MarketPulse.Currency
         let isDarkMode: Bool
+        let inverval: DomainLayer.DTO.MarketPulseSettings.Interval
     }
 }
 

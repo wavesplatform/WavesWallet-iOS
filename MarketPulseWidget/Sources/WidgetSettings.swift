@@ -32,15 +32,7 @@ struct WidgetSettings: TSUD, Codable, Mutating {
     static var stringKey: String {
         return key
     }
-    
-    static var currency: MarketPulse.Currency {
-        
-        guard let currency = MarketPulse.Currency(rawValue: WidgetSettings.get().currency) else {
-            return .usd
-        }
-        return currency
-    }
-    
+  
     static func setCurrency(currency: MarketPulse.Currency) {
         var settings = WidgetSettings.get()
         settings.currency = currency.rawValue

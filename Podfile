@@ -97,7 +97,9 @@ target 'MarketPulseWidget' do
     pod 'RxCocoa'
     pod 'Moya'
     pod 'Moya/RxSwift'
-    
+    pod 'RealmSwift'
+    pod 'RxRealm'
+
     pod 'Kingfisher'
 
 end

@@ -12,12 +12,9 @@ import RxSwift
 import RxCocoa
 import RxFeedback
 import WavesSDK
+import DomainLayer
 
 //1. Показ ошибки, в таргет нужно добавлять файлы локализации
-//2. Кешировать респонс в БД и сначала отображать данные из кеша а потом из сети
-//3. Сделать чтобы пары брались из БД
-//4. Сделать настройки чтобы из репозитория брались
-//6. Обновление данных по интервалу
 //7. Добавить локализацию
 
 //Использовать один и тотже способ инициализации SDK в клиенте и Widget
@@ -28,6 +25,8 @@ private enum Constants {
     
     static let animationKey = "rotation"
     static let animationDuration: TimeInterval = 1
+    
+    static let openScheme = "waves://"
 }
 
 final class MarketPulseWidgetViewController: UIViewController {
@@ -41,10 +40,12 @@ final class MarketPulseWidgetViewController: UIViewController {
     
     private var currency: MarketPulse.Currency!
     private var isDarkMode: Bool = false
-
+    private var updateInverval: DomainLayer.DTO.MarketPulseSettings.Interval?
+    
     private var presenter: MarketPulseWidgetPresenterProtocol!
     private let sendEvent: PublishRelay<MarketPulse.Event> = PublishRelay<MarketPulse.Event>()
     private var items: [MarketPulse.ViewModel.Row] = []
+    private var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,22 +56,45 @@ final class MarketPulseWidgetViewController: UIViewController {
         setupFeedBack()
         setupButtonUpdateSize()
         showUpdateAnimation()
-        
-//        let fileURL = FileManager.default
-//            .containerURL(forSecurityApplicationGroupIdentifier: "group.io.realm.app_group")!
-//            .appendingPathComponent("default.realm")
-//        let config = Realm.Configuration(fileURL: fileURL)
-//        let realm = try Realm(configuration: config)
     }
     
-    func initPresenter() {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        disposeBag = DisposeBag()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        setupUpdateTimer()
+    }
+    
+    private func setupUpdateTimer() {
+        
+        guard let inverval = updateInverval else { return }
+        
+        disposeBag = DisposeBag()
+
+        if inverval != .manually {
+            
+            Observable<Int>
+                .interval(RxTimeInterval(inverval.rawValue), scheduler: MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] (value) in
+                    guard let self = self else { return }
+                    self.sendEvent.accept(.refresh)
+                })
+                .disposed(by: disposeBag)
+        }
+    }
+    
+    private func initPresenter() {
         presenter = MarketPulseWidgetPresenter()
         presenter.interactor = MarketPulseWidgetInteractor()
     }
     
     @IBAction private func settingsTapped(_ sender: Any) {
         
-        if let url = URL(string: "waves://") {
+        if let url = URL(string: Constants.openScheme) {
             extensionContext?.open(url, completionHandler: nil)
         }
     }
@@ -130,14 +154,12 @@ extension MarketPulseWidgetViewController {
                     
                 case .update:
                     self.items = state.models
-                    self.tableView.reloadData()
-                    self.updateBigPrefferedSize()
-                    self.hideUpdateAnimation()
                     self.currency = state.currency
                     self.isDarkMode = state.isDarkMode
-                    self.setupDarkMode()
-                    self.setupCurrencyTitle()
-
+                    self.updateInverval = state.updateInterval
+                    self.updateUI()
+                    self.setupUpdateTimer()
+                    print("Update")
                 case .didFailUpdate(let error):
                     self.hideUpdateAnimation()
                     
@@ -152,6 +174,14 @@ extension MarketPulseWidgetViewController {
 
 //MARK: - UI
 private extension MarketPulseWidgetViewController {
+    
+    func updateUI() {
+        tableView.reloadData()
+        updateBigPrefferedSize()
+        hideUpdateAnimation()
+        setupDarkMode()
+        setupCurrencyTitle()
+    }
     
     func showUpdateAnimation() {
         if buttonUpdate.imageView?.layer.animation(forKey: Constants.animationKey) == nil {
