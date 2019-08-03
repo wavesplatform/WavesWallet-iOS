@@ -37,6 +37,7 @@ final class MarketPulseWidgetViewController: UIViewController {
     @IBOutlet private weak var buttonSettings: UIButton!
     @IBOutlet private weak var buttonUpdateWidth: NSLayoutConstraint!
     @IBOutlet private weak var viewDarkMode: UIView!
+    @IBOutlet private weak var labelError: UILabel!
     
     private var currency: MarketPulse.Currency!
     private var isDarkMode: Bool = false
@@ -56,6 +57,7 @@ final class MarketPulseWidgetViewController: UIViewController {
         setupFeedBack()
         setupButtonUpdateSize()
         showUpdateAnimation()
+        hideError()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -159,9 +161,11 @@ extension MarketPulseWidgetViewController {
                     self.updateInverval = state.updateInterval
                     self.updateUI()
                     self.setupUpdateTimer()
+                    self.hideError()
 
                 case .didFailUpdate(let error):
                     self.hideUpdateAnimation()
+                    self.showError(error)
                     
                 default:
                     break
@@ -174,6 +178,25 @@ extension MarketPulseWidgetViewController {
 
 //MARK: - UI
 private extension MarketPulseWidgetViewController {
+    
+    func hideError() {
+        labelError.isHidden = true
+        tableView.isHidden = false
+        buttonUpdate.isHidden = false
+        buttonCurrency.isHidden = false
+        buttonSettings.isHidden = false
+    }
+    
+    func showError(_ error: NetworkError) {
+        labelError.isHidden = false
+        tableView.isHidden = true
+        buttonUpdate.isHidden = true
+        buttonCurrency.isHidden = true
+        buttonSettings.isHidden = true
+        
+        //TODO: - change error message
+        labelError.text = error.localizedDescription
+    }
     
     func updateUI() {
         tableView.reloadData()
@@ -208,6 +231,7 @@ private extension MarketPulseWidgetViewController {
         buttonSettings.tintColor = titleTextColor
         buttonUpdate.tintColor = titleTextColor
         viewDarkMode.isHidden = !isDarkMode
+        labelError.textColor = isDarkMode ? .white : .black
     }
     
     func setupButtonUpdateSize() {
