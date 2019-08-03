@@ -159,7 +159,7 @@ extension MarketPulseWidgetViewController {
                     self.updateInverval = state.updateInterval
                     self.updateUI()
                     self.setupUpdateTimer()
-                    print("Update")
+
                 case .didFailUpdate(let error):
                     self.hideUpdateAnimation()
                     

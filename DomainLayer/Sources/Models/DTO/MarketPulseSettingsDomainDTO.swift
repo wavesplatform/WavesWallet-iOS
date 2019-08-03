@@ -13,9 +13,9 @@ public extension DomainLayer.DTO {
     public struct MarketPulseSettings {
         
         public enum Interval: Int {
-            case m1 = 1
-            case m5 = 5
-            case m10 = 10
+            case m1 = 60
+            case m5 = 300
+            case m10 = 600
             case manually = 0
         }
         
