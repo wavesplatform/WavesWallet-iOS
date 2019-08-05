@@ -113,7 +113,6 @@ final class MarketPulseWidgetViewController: UIViewController {
         else {
             currency = .usd
         }
-        setupCurrencyTitle()
         sendEvent.accept(.changeCurrency(currency))
     }
     
