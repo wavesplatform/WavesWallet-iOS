@@ -28,7 +28,7 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
     override func internalFeedbacks() -> [Feedback] {        
         return [deleteAsset, changeInterval, changeStyle]
     }
-        
+    
     let deleteAsset: Feedback = {
         
         return react(request: { (state) -> DomainLayer.DTO.Asset? in
@@ -125,10 +125,12 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
             
         case .changeInterval(let interval):
             state.core.action = .changeInterval(interval)
+            state.core.interval = interval
             state.ui.action = .none
             
         case .changeStyle(let style):
             state.core.action = .changeStyle(style)
+            state.core.style = style
             state.ui.action = .none
             
         default:
@@ -141,7 +143,9 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
     }
     
     private func coreState() -> State.Core! {
-        return WidgetSettings.State.Core(action: .none)
+        return WidgetSettings.State.Core(action: .none,
+                                         interval: .m1,
+                                         style: .classic)
     }
     
     private func sections() -> [Types.Section] {

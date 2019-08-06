@@ -52,6 +52,8 @@ enum WidgetSettings {
             }
             
             var action: Action
+            var interval: WidgetSettings.DTO.Interval
+            var style: WidgetSettings.DTO.Style
         }
         
         var ui: UI

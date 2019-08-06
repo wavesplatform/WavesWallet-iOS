@@ -63,6 +63,35 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                 })
         })
     }
+    
+    func searchAssets(search: String) -> Observable<[DomainLayer.DTO.Asset]> {
+        
+        return environmentRepository
+            .servicesEnvironment()
+            .flatMap({ [weak self] (servicesEnvironment) -> Observable<[DomainLayer.DTO.Asset]> in
+                
+                let walletEnviroment = servicesEnvironment.walletEnvironment
+                
+                let assetsList = servicesEnvironment
+                    .wavesServices
+                    .dataServices
+                    .assetsDataService
+                    .searchAssets(search: search)
+                
+                return assetsList
+                    .map({ (assets) -> [DomainLayer.DTO.Asset] in
+                        
+                        let map = walletEnviroment.hashMapAssets()
+                        let mapGeneralAssets = walletEnviroment.hashMapGeneralAssets()
+                        
+                        return assets.map { DomainLayer.DTO.Asset(asset: $0,
+                                                                  info: map[$0.id],
+                                                                  isSpam: false,
+                                                                  isMyWavesToken: false,
+                                                                  isGeneral: mapGeneralAssets[$0.id] != nil) }
+                    })
+            })
+    }
 
     func saveAssets(_ assets:[DomainLayer.DTO.Asset], by accountAddress: String) -> Observable<Bool> {
         assertMethodDontSupported()

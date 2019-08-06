@@ -55,18 +55,19 @@ class ModalScrollViewController: UIViewController, ModalScrollViewContext {
         super.viewWillDisappear(animated)
     }
 
-    //MARK: Need overriding
+    // MARK: Need overriding
     var scrollView: UIScrollView {
         assertMethodNeedOverriding()
         return UIScrollView()
     }
 
-    //MARK: Need overriding
+    // MARK: Need overriding
     func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
         assertMethodNeedOverriding()
         return 0.0
     }
 
+    // MARK: Need overriding
     func bottomScrollInset(for size: CGSize) -> CGFloat {
         return 0.0
     }
@@ -89,7 +90,7 @@ extension ModalScrollViewController  {
         scrollView.contentInset.bottom = bottomScrollInset(for: scrollView.frame.size)
         scrollView.contentInset.top = top
         scrollView.scrollIndicatorInsets.top = top
-        scrollView.contentOffset.y = -top
+        scrollView.contentOffset.y = -(top - scrollView.contentInset.bottom)
     }
 
     private func setupScrollView() {

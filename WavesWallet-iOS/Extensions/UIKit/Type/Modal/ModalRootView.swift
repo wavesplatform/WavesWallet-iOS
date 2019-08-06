@@ -81,5 +81,4 @@ class ModalRootView: UIView, ModalScrollViewRootView {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setNeedsLayout()
     }
-    
 }

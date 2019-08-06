@@ -16,6 +16,10 @@ protocol SearchBarViewDelegate: AnyObject {
 final class SearchBarView: UIView, NibOwnerLoadable {
 
     @IBOutlet private weak var textField: UITextField!
+    
+    @IBOutlet private weak var iconImageView: UIImageView!
+    
+    @IBOutlet private weak var indicatorView: UIActivityIndicatorView!
 
     weak var delegate: SearchBarViewDelegate?
     
@@ -42,10 +46,33 @@ final class SearchBarView: UIView, NibOwnerLoadable {
         textField.attributedPlaceholder = NSAttributedString(string: Localizable.Waves.Dexmarket.Searchbar.placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.basic500])
     }
     
+    override func becomeFirstResponder() -> Bool {
+        return textField.becomeFirstResponder()
+    }
+    
+    func startLoading() {
+        iconImageView.isHidden = true
+        indicatorView.startAnimating()
+    }
+    
+    func stopLoading() {
+        iconImageView.isHidden = false
+        indicatorView.stopAnimating()
+    }
+    
 }
 
 //MARK: UITextFieldDelegate
 extension SearchBarView: UITextFieldDelegate {
+    
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        iconImageView.image = Images.search24Black.image
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        iconImageView.image = Images.search24Basic500.image
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
