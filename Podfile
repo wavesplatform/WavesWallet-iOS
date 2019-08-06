@@ -87,6 +87,23 @@ abstract_target 'Shows' do
     end
 end
 
+target 'MarketPulseWidget' do
+    project 'WavesWallet-iOS.xcodeproj'
+
+    pod 'RxSwift'
+    pod 'RxSwiftExt'
+    pod 'RxOptional'
+    pod 'RxFeedback'
+    pod 'RxCocoa'
+    pod 'Moya'
+    pod 'Moya/RxSwift'
+    pod 'RealmSwift'
+    pod 'RxRealm'
+
+    pod 'Kingfisher'
+
+end
+
 target 'DataLayer' do
     inherit! :search_paths  
     project 'WavesWallet-iOS.xcodeproj'
