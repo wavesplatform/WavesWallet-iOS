@@ -137,7 +137,7 @@ extension DexChart.State {
     
     static var initialState: DexChart.State {
         
-        let timeFrame = DomainLayer.DTO.Candle.TimeFrameType.m15
+        let timeFrame: DomainLayer.DTO.Candle.TimeFrameType = DexChartSettings.timeFrame
         let dateTo = initialDateTo()
         let dateFrom = additionalDate(start: dateTo, timeFrame: timeFrame)
         
