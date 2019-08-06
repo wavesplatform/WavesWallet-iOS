@@ -42,6 +42,8 @@ final class AssetsSearchHeaderView: UIView, NibLoadable {
         layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         topBackgroundView.layer.cornerRadius = Constants.cornerRadius
         topBackgroundView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
+        searchBarView.textField.inputAccessoryView = KeyboardControl.loadFromNib()
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView?

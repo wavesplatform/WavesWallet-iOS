@@ -19,6 +19,10 @@ protocol MagicRepository {
     func addAsset()
 }
 
+private struct Constants {
+//    let localLogo
+}
+
 final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSettings.Event> {
 
     override func initialState() -> State! {
@@ -78,23 +82,7 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
             return Signal.never()
         })
     }()
-    
-    /*
-     UI Send event -> Delete
-     Core -> Delete BD
-     
-     Если я буду отправлять сообщение напрямую то что ?
-     
-     UI -> System
-     
-     System -> Core
-     
-     Core -> System
-     
-     System -> UI
- 
- */
-    
+        
     override func reduce(event: Event, state: inout State) {
         
         switch event {
@@ -118,10 +106,10 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
             state.core.action = .none
             state.ui.action = .none
             
-        case .addAsset(let asset):
-            
-            state.core.action = .addAsset(asset)
-            state.ui.action = .none
+        case .syncAssets(let assets):
+                        
+            state.ui.sections = sections(assets: assets)
+            state.ui.action = .update
             
         case .changeInterval(let interval):
             state.core.action = .changeInterval(interval)
@@ -139,7 +127,7 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
     }
     
     private func uiState() -> State.UI! {
-        return WidgetSettings.State.UI(sections: sections(), action: .update)
+        return WidgetSettings.State.UI(sections: sections(assets: []), action: .update)
     }
     
     private func coreState() -> State.Core! {
@@ -148,27 +136,12 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
                                          style: .classic)
     }
     
-    private func sections() -> [Types.Section] {
+    private func sections(assets: [DomainLayer.DTO.Asset]) -> [Types.Section] {
         
         let assetWaves = DomainLayer.DTO.Asset.mockWaves()
         
-        let model = WidgetSettingsAssetCell.Model(asset: assetWaves, isLock: true)
+        let rows = assets.map { Types.Row.asset(.init(asset: $0, isLock: false)) }
         
-        let model2 = WidgetSettingsAssetCell.Model(asset: DomainLayer.DTO.Asset.mockBTC(), isLock: false)
-        
-        return [Types.Section(rows: [.asset(model),
-                                     .asset(model2),
-                                     .asset(model),
-                                     .asset(model),
-                                     .asset(model2),
-                                     .asset(model),
-                                     .asset(model),
-                                     .asset(model2),
-                                     .asset(model),
-                                     .asset(model),
-                                     .asset(model2),
-                                     .asset(model),
-                                     .asset(model)],
-                                limitAssets: 9)]
+        return [Types.Section(rows: rows, limitAssets: 9)]
     }
 }

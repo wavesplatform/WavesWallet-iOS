@@ -11,55 +11,7 @@ import RxSwift
 import Kingfisher
 import DomainLayer
 
-enum AssetLogo: String {
-    case waves = "waves"
-    case usd = "usd"
-    case monero = "xmr"
-    case litecoin = "ltc"
-    case lira = "try"
-    case eur = "eur"
-    case eth = "eth"
-    case dash = "dash"
-    case bitcoinCash = "bch"
-    case bitcoin = "btc"
-    case zcash = "zec"
-    case wct = "wavescommunity"
-    case bsv = "bsv"
-}
-
-extension AssetLogo {
-    
-    var image48: UIImage {
-        switch self {
-        case .waves:
-            return Images.logoWaves48.image
-        case .usd:
-            return Images.logoUsd48.image
-        case .monero:
-            return Images.logoMonero48.image
-        case .litecoin:
-            return Images.logoLtc48.image
-        case .lira:
-            return Images.logoLira48.image
-        case .eur:
-            return Images.logoEuro48.image
-        case .eth:
-            return Images.logoEthereum48.image
-        case .dash:
-            return Images.logoDash48.image
-        case .bitcoin:
-            return Images.logoBitcoin48.image
-        case .bitcoinCash:
-            return Images.logoBitcoincash48.image
-        case .zcash:
-            return Images.logoZec48.image
-        case .wct:
-            return Images.logoWct48.image
-        case .bsv:
-            return Images.logoWct48.image
-        }
-    }
-}
+enum AssetLogo {}
 
 extension AssetLogo {
 
@@ -93,7 +45,7 @@ extension AssetLogo {
 
     private static func cacheKeyForRemoteLogo(icon: DomainLayer.DTO.Asset.Icon,
                                               style: Style) -> String {
-        return "com.wavesplatform.asset.logo.v2.\(icon.name).\(icon.assetId).\(style.key)"
+        return "com.wavesplatform.asset.logo.v3.\(icon.name).\(icon.assetId).\(style.key)"
     }
 
     private static func cacheKeyForLocalLogo(icon: DomainLayer.DTO.Asset.Icon,
@@ -178,9 +130,8 @@ extension AssetLogo {
                 if let image = image {
                     return Observable.just(image)
                 } else {
-                    let logo = AssetLogo(rawValue: icon.name.lowercased())?.image48
                     let image = rxCreateLogo(icon: icon,
-                                             image: logo,
+                                             image: nil,
                                              style: style)
                     
                     return image

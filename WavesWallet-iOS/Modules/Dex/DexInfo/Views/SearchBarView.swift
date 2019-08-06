@@ -15,7 +15,7 @@ protocol SearchBarViewDelegate: AnyObject {
 
 final class SearchBarView: UIView, NibOwnerLoadable {
 
-    @IBOutlet private weak var textField: UITextField!
+    @IBOutlet private(set) weak var textField: UITextField!
     
     @IBOutlet private weak var iconImageView: UIImageView!
     

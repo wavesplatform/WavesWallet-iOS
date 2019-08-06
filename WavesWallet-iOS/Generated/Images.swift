@@ -133,6 +133,7 @@ internal enum Images {
   internal static let flag18Turkey = ImageAsset(name: "flag18Turkey")
   internal static let forwardChevron = ImageAsset(name: "forward-chevron")
   internal static let hide = ImageAsset(name: "hide")
+  internal static let hidekeyboard24Multy = ImageAsset(name: "hidekeyboard24Multy")
   internal static let history = ImageAsset(name: "history")
   internal static let iAnonim42Submit400 = ImageAsset(name: "iAnonim42Submit400")
   internal static let iBackup42Submit400 = ImageAsset(name: "iBackup42Submit400")
@@ -158,6 +159,7 @@ internal enum Images {
   internal static let info18Error500 = ImageAsset(name: "info18Error500")
   internal static let info18Warning600 = ImageAsset(name: "info18Warning600")
   internal static let information22Multy = ImageAsset(name: "information22Multy")
+  internal static let information24Multy = ImageAsset(name: "information24Multy")
   internal static let launcher34 = ImageAsset(name: "launcher34")
   internal static let logoBitcoin48 = ImageAsset(name: "logoBitcoin48")
   internal static let logoBitcoincash48 = ImageAsset(name: "logoBitcoincash48")
@@ -411,6 +413,7 @@ internal enum Images {
     flag18Turkey,
     forwardChevron,
     hide,
+    hidekeyboard24Multy,
     history,
     iAnonim42Submit400,
     iBackup42Submit400,
@@ -436,6 +439,7 @@ internal enum Images {
     info18Error500,
     info18Warning600,
     information22Multy,
+    information24Multy,
     launcher34,
     logoBitcoin48,
     logoBitcoincash48,

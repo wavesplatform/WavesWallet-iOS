@@ -8,8 +8,10 @@
 
 import Foundation
 import DomainLayer
+import RxCocoa
+import RxSwift
 
-protocol AssetsSearchModuleOutput: AnyObject {
+protocol AssetsSearchModuleOutput {
     
     func assetsSearchSelectedAssets(_ assets: [DomainLayer.DTO.Asset])
 }
