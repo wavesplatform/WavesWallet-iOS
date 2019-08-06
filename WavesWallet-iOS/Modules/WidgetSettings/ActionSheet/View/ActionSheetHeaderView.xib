@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uxb-vZ-Z34">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dragElem" translatesAutoresizingMaskIntoConstraints="NO" id="Ogn-zT-fNY">
@@ -44,7 +44,7 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="zmT-fr-LSE" firstAttribute="top" secondItem="uxb-vZ-Z34" secondAttribute="top" constant="20" id="1gp-Gi-M3D"/>
+                <constraint firstItem="zmT-fr-LSE" firstAttribute="top" secondItem="uxb-vZ-Z34" secondAttribute="top" id="1gp-Gi-M3D"/>
                 <constraint firstItem="Ogn-zT-fNY" firstAttribute="top" secondItem="zmT-fr-LSE" secondAttribute="top" constant="6" id="6hd-1H-Skl"/>
                 <constraint firstItem="zmT-fr-LSE" firstAttribute="bottom" secondItem="bB4-wJ-Isd" secondAttribute="bottom" id="B4x-Yw-tr8"/>
                 <constraint firstItem="Ogn-zT-fNY" firstAttribute="centerX" secondItem="rz5-x2-7cS" secondAttribute="centerX" id="GDd-RT-Stm"/>

@@ -8,11 +8,13 @@
 
 import Foundation
 import DomainLayer
+import RxSwift
 
 protocol WidgetSettingsModuleOutput: AnyObject {
     
-    func widgetSettingsAddAsset(callback: @escaping (_ asset: DomainLayer.DTO.Asset) -> Void)
+    func widgetSettingsSyncAssets(current: [DomainLayer.DTO.Asset], callback: @escaping (([DomainLayer.DTO.Asset]) -> Void))
     func widgetSettingsChangeInterval(_ selected: WidgetSettings.DTO.Interval?, callback: @escaping (_ interval: WidgetSettings.DTO.Interval) -> Void)
     func widgetSettingsChangeStyle(_ selected: WidgetSettings.DTO.Style?, callback: @escaping (_ style: WidgetSettings.DTO.Style) -> Void)
     
 }
+

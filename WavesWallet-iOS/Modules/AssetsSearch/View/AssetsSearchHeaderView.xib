@@ -17,14 +17,14 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jP4-rq-YYf">
-                    <rect key="frame" x="0.0" y="-6" width="375" height="639"/>
+                    <rect key="frame" x="0.0" y="38" width="375" height="595"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dragElem" translatesAutoresizingMaskIntoConstraints="NO" id="8oY-rC-qAi">
-                    <rect key="frame" x="169.5" y="6" width="36" height="4"/>
+                    <rect key="frame" x="169.5" y="44" width="36" height="4"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UIP-B9-SO4" customClass="SearchBarView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                    <rect key="frame" x="16" y="24" width="343" height="36"/>
+                    <rect key="frame" x="16" y="62" width="343" height="36"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="36" id="slc-tw-SFW"/>
@@ -52,11 +52,11 @@
                 <constraint firstItem="UIP-B9-SO4" firstAttribute="leading" secondItem="lwe-sP-Q6b" secondAttribute="leading" constant="16" id="OJ5-b3-IEm"/>
                 <constraint firstItem="lwe-sP-Q6b" firstAttribute="trailing" secondItem="UIP-B9-SO4" secondAttribute="trailing" constant="16" id="R2X-4j-ZjD"/>
                 <constraint firstItem="UIP-B9-SO4" firstAttribute="top" secondItem="8oY-rC-qAi" secondAttribute="bottom" constant="14" id="Rw9-cj-cGo"/>
-                <constraint firstItem="8oY-rC-qAi" firstAttribute="top" secondItem="8Wj-IL-cUg" secondAttribute="top" constant="6" id="SKa-qW-g9z"/>
                 <constraint firstItem="lwe-sP-Q6b" firstAttribute="trailing" secondItem="6rV-07-l6Z" secondAttribute="trailing" id="bbj-HD-b2r"/>
                 <constraint firstItem="lwe-sP-Q6b" firstAttribute="trailing" secondItem="jP4-rq-YYf" secondAttribute="trailing" id="cgv-qN-B1O"/>
                 <constraint firstItem="jP4-rq-YYf" firstAttribute="leading" secondItem="8Wj-IL-cUg" secondAttribute="leading" id="dcD-Ul-cYn"/>
-                <constraint firstAttribute="top" secondItem="jP4-rq-YYf" secondAttribute="top" constant="6" id="wam-NS-Jjj"/>
+                <constraint firstItem="8oY-rC-qAi" firstAttribute="top" secondItem="jP4-rq-YYf" secondAttribute="top" constant="6" id="dia-Ko-kUh"/>
+                <constraint firstItem="lwe-sP-Q6b" firstAttribute="top" secondItem="jP4-rq-YYf" secondAttribute="top" constant="6" id="wam-NS-Jjj"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

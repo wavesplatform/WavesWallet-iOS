@@ -481,6 +481,9 @@
 		7B5FAADB22BCEA4200621A44 /* AccountBalanceUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAAC922BCE71400621A44 /* AccountBalanceUseCaseProtocol.swift */; };
 		7B5FAADC22BCEA4200621A44 /* MigrationUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAACD22BCE98F00621A44 /* MigrationUseCaseProtocol.swift */; };
 		7B601B2A2240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B601B292240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift */; };
+		7B65B6F322F9D03E007D5C53 /* WidgetSettingsSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B65B6F222F9D03E007D5C53 /* WidgetSettingsSkeletonCell.swift */; };
+		7B65B6F522F9D63D007D5C53 /* KeyboardControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B65B6F422F9D63D007D5C53 /* KeyboardControl.swift */; };
+		7B65B6F722F9D647007D5C53 /* KeyboardControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B65B6F622F9D647007D5C53 /* KeyboardControl.xib */; };
 		7B66860422B3F70E0029E6F1 /* DomainLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B66860222B3F70E0029E6F1 /* DomainLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6686F222B7C5120029E6F1 /* Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6686F022B7C5120029E6F1 /* Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6686FD22B7C5730029E6F1 /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B95112A225CDA860030390C /* Balance.swift */; };
@@ -1087,13 +1090,6 @@
 			remoteGlobalIDString = F7E954E31EA8FE0700A804DE;
 			remoteInfo = "WavesWallet-iOS";
 		};
-		E9B190B122E7CD99008220B7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F7E954DC1EA8FE0600A804DE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E9B190A622E7CD99008220B7;
-			remoteInfo = MarketPulseWidget;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1651,6 +1647,9 @@
 		7B5FAACB22BCE8D800621A44 /* AliasesUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesUseCaseProtocol.swift; sourceTree = "<group>"; };
 		7B5FAACD22BCE98F00621A44 /* MigrationUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationUseCaseProtocol.swift; sourceTree = "<group>"; };
 		7B601B292240C4B80040975C /* SmartTransactionDTO+EncodingToString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SmartTransactionDTO+EncodingToString.swift"; sourceTree = "<group>"; };
+		7B65B6F222F9D03E007D5C53 /* WidgetSettingsSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsSkeletonCell.swift; sourceTree = "<group>"; };
+		7B65B6F422F9D63D007D5C53 /* KeyboardControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardControl.swift; sourceTree = "<group>"; };
+		7B65B6F622F9D647007D5C53 /* KeyboardControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KeyboardControl.xib; sourceTree = "<group>"; };
 		7B66860022B3F70D0029E6F1 /* DomainLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DomainLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B66860222B3F70E0029E6F1 /* DomainLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainLayer.h; sourceTree = "<group>"; };
 		7B66860322B3F70E0029E6F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -3451,6 +3450,7 @@
 			isa = PBXGroup;
 			children = (
 				7B26A88F22EEECC200E7B024 /* WidgetSettingsAssetCell.swift */,
+				7B65B6F222F9D03E007D5C53 /* WidgetSettingsSkeletonCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -3536,6 +3536,8 @@
 		7B49911822F874CC005B7123 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7B65B6F622F9D647007D5C53 /* KeyboardControl.xib */,
+				7B65B6F422F9D63D007D5C53 /* KeyboardControl.swift */,
 				7B49911922F874DD005B7123 /* AssetsSearchAssetCell.swift */,
 				7B49912122F876AA005B7123 /* AssetsSearchHeaderView.swift */,
 				7B49912522F876E1005B7123 /* AssetsSearchHeaderView.xib */,
@@ -5700,7 +5702,6 @@
 				7B16BCDE22DBE39000540418 /* PBXTargetDependency */,
 				7B16BCE022DBE39000540418 /* PBXTargetDependency */,
 				7B16BCE222DBE39000540418 /* PBXTargetDependency */,
-				E9B190B222E7CD99008220B7 /* PBXTargetDependency */,
 			);
 			name = "WavesWallet-iOS";
 			productName = "WavesWallet-iOS";
@@ -5914,6 +5915,7 @@
 				04A2CFA5211213BE00784FEC /* History.storyboard in Resources */,
 				E95E14F5229FF63B003552B8 /* WalletQuickNoteCell.xib in Resources */,
 				0AFBCA852113173300285BCB /* InfoPlist.strings in Resources */,
+				7B65B6F722F9D647007D5C53 /* KeyboardControl.xib in Resources */,
 				7B5E74672239088800746ADD /* TransactionCardHeaderView.xib in Resources */,
 				0AF922E9212E1234003BA067 /* EmptyCell.xib in Resources */,
 				0AF922EF212E1234003BA067 /* AssetsSegmentedCell.xib in Resources */,
@@ -6755,6 +6757,7 @@
 				0A4E7DED22018C5F007BBA39 /* ModalViewControllerTransitioning.swift in Sources */,
 				E9B088072163886800937644 /* DexCompleteOrderModuleBuilder.swift in Sources */,
 				E9B086B22163883000937644 /* AddAddressBookModuleOutput.swift in Sources */,
+				7B65B6F322F9D03E007D5C53 /* WidgetSettingsSkeletonCell.swift in Sources */,
 				E9D36DF82175C755001E6DF0 /* AssetListInteractorProtocol.swift in Sources */,
 				E9B087F22163886800937644 /* DexLastTradesCell.swift in Sources */,
 				0AF9222B212E0F1F003BA067 /* WalletLeasingCell.swift in Sources */,
@@ -6969,6 +6972,7 @@
 				7B5E7465223907AA00746ADD /* TransactionCardHeaderView.swift in Sources */,
 				E923A768219D714E000DD9F6 /* TokenBurnLoadingViewController.swift in Sources */,
 				E9443018226E757E00EB6257 /* WalletSort+Mapper.swift in Sources */,
+				7B65B6F522F9D63D007D5C53 /* KeyboardControl.swift in Sources */,
 				04831F6321691429006D1ED6 /* MoneyTextField.swift in Sources */,
 				0AF922F4212E1234003BA067 /* TickerView.swift in Sources */,
 				0AF92226212E0F1F003BA067 /* WalletHistoryCell.swift in Sources */,
@@ -7216,11 +7220,6 @@
 			isa = PBXTargetDependency;
 			target = F7E954E31EA8FE0700A804DE /* WavesWallet-iOS */;
 			targetProxy = 7BF89E9B22272A5E00853F9D /* PBXContainerItemProxy */;
-		};
-		E9B190B222E7CD99008220B7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E9B190A622E7CD99008220B7 /* MarketPulseWidget */;
-			targetProxy = E9B190B122E7CD99008220B7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

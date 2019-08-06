@@ -102,7 +102,7 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
                                                                     isSelected: !isSelect))
             
             state.ui.action = .update
-            state.core.action = .selected(state.core.selectAssets.map { $0.element })
+            state.core.action = .selected(state.core.selectAssets.map { $0.value })
         
         default:
             break

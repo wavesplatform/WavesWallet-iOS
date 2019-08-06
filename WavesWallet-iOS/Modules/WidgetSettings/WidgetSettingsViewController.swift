@@ -72,9 +72,12 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
     }
     
     @IBAction private func handlerTouchForAddTokenButton(_ sender: UIButton) {
-        moduleOutput?.widgetSettingsAddAsset(callback: { [weak self] (asset) in
-            self?.system.send(.addAsset(asset))
+        
+        //TODO: assets
+        self.moduleOutput?.widgetSettingsSyncAssets(current: [], callback: { [weak self] (assets) in
+            self?.system.send(.syncAssets(assets))
         })
+
     }
     
     @IBAction private func handlerTouchForStyleButton(_ sender: UIButton) {

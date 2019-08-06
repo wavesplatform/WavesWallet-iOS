@@ -52,6 +52,7 @@ enum WidgetSettings {
             }
             
             var action: Action
+//            var assets: [DomainLayer.DTO.Asset]
             var interval: WidgetSettings.DTO.Interval
             var style: WidgetSettings.DTO.Style
         }
@@ -68,7 +69,7 @@ enum WidgetSettings {
         case rowDelete(indexPath: IndexPath)
         case moveRow(from: IndexPath, to: IndexPath)
                 
-        case addAsset(_ asset: DomainLayer.DTO.Asset)
+        case syncAssets(_ assets: [DomainLayer.DTO.Asset])
         case changeInterval(_ interval: WidgetSettings.DTO.Interval)
         case changeStyle(_ style: WidgetSettings.DTO.Style)        
     }
@@ -88,9 +89,7 @@ extension WidgetSettings.Row {
     var asset: DomainLayer.DTO.Asset? {
         switch self {
         case .asset(let model):
-            return model.asset
-        default:
-            return nil
+            return model.asset        
         }
     }
 }

@@ -12,6 +12,17 @@ import WavesSDKExtensions
 import DomainLayer
 import Extensions
 
+private enum StatePopover {
+    
+    case none
+    case syncAssets([DomainLayer.DTO.Asset])
+}
+
+private enum WidgetState {
+    case none
+    case callback((([DomainLayer.DTO.Asset]) -> Void))
+}
+
 final class WidgetSettingsCoordinator: Coordinator {
     
     var childCoordinators: [Coordinator] = []
@@ -22,8 +33,22 @@ final class WidgetSettingsCoordinator: Coordinator {
     
     private let disposeBag: DisposeBag = DisposeBag()
     
+    private var statePopover: StatePopover = .none
+    
+    private var widgetState: WidgetState = .none
+    
     private lazy var popoverViewControllerTransitioning = ModalViewControllerTransitioning { [weak self] in
         guard let self = self else { return }
+        
+        switch self.statePopover {
+        case .syncAssets(let assets):
+            if case .callback(let callback) = self.widgetState {
+                callback(assets)
+            }            
+            
+        default:
+            break
+        }
     }
 
     init(navigationRouter: NavigationRouter){
@@ -41,17 +66,28 @@ final class WidgetSettingsCoordinator: Coordinator {
     }
 }
 
+// MARK: AssetsSearchModuleOutput
+
+extension WidgetSettingsCoordinator: AssetsSearchModuleOutput {
+    
+    func assetsSearchSelectedAssets(_ assets: [DomainLayer.DTO.Asset]) {
+        self.statePopover = .syncAssets(assets)
+    }
+}
+
+// MARK: WidgetSettingsModuleOutput
+
 extension WidgetSettingsCoordinator: WidgetSettingsModuleOutput {
     
-    func widgetSettingsAddAsset(callback: @escaping (_ asset: DomainLayer.DTO.Asset) -> Void) {
+    func widgetSettingsSyncAssets(current: [DomainLayer.DTO.Asset], callback: @escaping (([DomainLayer.DTO.Asset]) -> Void)) {
         
-        let vc = AssetsSearchViewBuilder.init { (_) in
-            
-        }
-        .build()
+        let vc = AssetsSearchViewBuilder(output: self)
+        .build(input: current)
         
         vc.modalPresentationStyle = .custom
         vc.transitioningDelegate = popoverViewControllerTransitioning
+        
+        self.widgetState = .callback(callback)
         
         self.navigationRouter.present(vc, animated: true) {
             
