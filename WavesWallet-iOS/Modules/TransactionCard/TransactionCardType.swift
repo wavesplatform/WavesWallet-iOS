@@ -82,8 +82,7 @@ enum TransactionCard {
         }
     }
 
-    enum Event {
-        case viewDidAppear
+    enum Event {        
         case showAllRecipients
         case updateFeeByOrder(fee: Balance)
         case addContact(contact: DomainLayer.DTO.Contact)

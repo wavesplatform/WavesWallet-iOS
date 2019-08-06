@@ -28,6 +28,10 @@ final class AssetsRepositoryMock: AssetsRepositoryProtocol {
     func isSmartAsset(_ assetId: String, by accountAddress: String) -> Observable<Bool> {
         return Observable.never()
     }
+    
+    func searchAssets(search: String) -> Observable<[DomainLayer.DTO.Asset]> {
+        return Observable.never()
+    }
 }
 
 

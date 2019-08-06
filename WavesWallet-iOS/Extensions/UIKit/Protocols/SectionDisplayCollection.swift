@@ -20,17 +20,34 @@ protocol DataSourceProtocol {
 
 extension DataSourceProtocol {
     subscript(indexPath: IndexPath) -> Section.Row {
-        return sections[indexPath.section].rows[indexPath.row]
+        get {
+            return sections[indexPath.section].rows[indexPath.row]
+        }
+        
+        set {
+            sections[indexPath.section].rows[indexPath.row] = newValue
+        }
     }
     
     subscript(section: Int) -> Section {
-        return sections[section]
+        get {
+            return sections[section]
+        }
+        
+        set {
+            sections[section] = newValue
+        }
     }
 }
 
 extension SectionProtocol {
     subscript(index: Int) -> Row {
-        return rows[index]
+        get {
+            return rows[index]
+        }
+        set {
+            rows[index] = newValue
+        }
     }
 }
 

@@ -22,7 +22,12 @@ final class WidgetSettingsHeaderView: UITableViewHeaderFooterView, NibReusable {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        backgroundColor = .clear
+        backgroundView = {
+           
+            let view = UIView()
+            view.backgroundColor = .basic50
+            return view
+        }()
     }
 }
 

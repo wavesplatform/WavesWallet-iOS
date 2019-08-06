@@ -13,7 +13,7 @@ import Extensions
 import DomainLayer
 
 private struct Constants {
-    
+    static let headerHeight: CGFloat = 42
 }
 
 private typealias Types = WidgetSettings
@@ -27,12 +27,14 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
     weak var moduleOutput: WidgetSettingsModuleOutput?
 
     @IBOutlet var tableView: UITableView!
-    
     @IBOutlet var intervalButton: UIButton!
     @IBOutlet var addTokenButton: UIButton!
     @IBOutlet var styleButton: UIButton!
     
     var sections: [WidgetSettings.Section] = .init()
+    
+    private var interval: WidgetSettings.DTO.Interval?
+    private var style: WidgetSettings.DTO.Style?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +66,7 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
     }
     
     @IBAction private func handlerTouchForIntervalButton(_ sender: UIButton) {
-        moduleOutput?.widgetSettingsChangeInterval(callback: { [weak self] (interval) in
+        moduleOutput?.widgetSettingsChangeInterval(interval, callback: { [weak self] (interval) in
             self?.system.send(.changeInterval(interval))
         })
     }
@@ -76,18 +78,19 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
     }
     
     @IBAction private func handlerTouchForStyleButton(_ sender: UIButton) {
-        moduleOutput?.widgetSettingsChangeStyle(callback: { [weak self] (style) in
+        moduleOutput?.widgetSettingsChangeStyle(style, callback: { [weak self] (style) in
             self?.system.send(.changeStyle(style))
         })
     }
 }
 
-// MARK: Private
+// MARK: System
 
 private extension WidgetSettingsViewController {
     
     private func update(state: Types.State.Core) {
-        
+        self.interval = state.interval
+        self.style = state.style
     }
     
     private func update(state: Types.State.UI) {
@@ -141,7 +144,7 @@ extension WidgetSettingsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 42
+        return Constants.headerHeight
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -187,7 +190,6 @@ extension WidgetSettingsViewController: UITableViewDelegate {
             return .none
             
         default:
-            
             return .delete
         }
     }
@@ -209,7 +211,6 @@ extension WidgetSettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
         return proposedDestinationIndexPath
     }
-    
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true

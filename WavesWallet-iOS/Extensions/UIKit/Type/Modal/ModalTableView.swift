@@ -33,7 +33,7 @@ class ModalTableView: UITableView {
         if let tableHeaderView = tableHeaderView {
             let headerViewFrame = tableHeaderView.convert(tableHeaderView.frame, to: self)
 
-            if  headerViewFrame.contains(point) {
+            if headerViewFrame.contains(point) {
                 return self
             }
         }

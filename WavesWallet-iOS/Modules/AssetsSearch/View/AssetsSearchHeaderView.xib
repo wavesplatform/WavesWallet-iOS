@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="8Wj-IL-cUg" customClass="AssetsSearchHeaderView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jP4-rq-YYf">
+                    <rect key="frame" x="0.0" y="-6" width="375" height="639"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dragElem" translatesAutoresizingMaskIntoConstraints="NO" id="8oY-rC-qAi">
+                    <rect key="frame" x="169.5" y="6" width="36" height="4"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UIP-B9-SO4" customClass="SearchBarView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <rect key="frame" x="16" y="24" width="343" height="36"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="36" id="slc-tw-SFW"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6rV-07-l6Z" customClass="SeparatorView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="632" width="375" height="1"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Yv9-HI-CPb"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                            <color key="value" red="0.80784313730000001" green="0.81568627449999997" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="6rV-07-l6Z" firstAttribute="leading" secondItem="lwe-sP-Q6b" secondAttribute="leading" id="1Kf-7S-Tmr"/>
+                <constraint firstItem="lwe-sP-Q6b" firstAttribute="bottom" secondItem="6rV-07-l6Z" secondAttribute="bottom" id="7oj-Kl-vfw"/>
+                <constraint firstItem="lwe-sP-Q6b" firstAttribute="bottom" secondItem="jP4-rq-YYf" secondAttribute="bottom" id="EM5-4V-BJg"/>
+                <constraint firstItem="8oY-rC-qAi" firstAttribute="centerX" secondItem="8Wj-IL-cUg" secondAttribute="centerX" id="FB7-ZF-dE7"/>
+                <constraint firstItem="UIP-B9-SO4" firstAttribute="leading" secondItem="lwe-sP-Q6b" secondAttribute="leading" constant="16" id="OJ5-b3-IEm"/>
+                <constraint firstItem="lwe-sP-Q6b" firstAttribute="trailing" secondItem="UIP-B9-SO4" secondAttribute="trailing" constant="16" id="R2X-4j-ZjD"/>
+                <constraint firstItem="UIP-B9-SO4" firstAttribute="top" secondItem="8oY-rC-qAi" secondAttribute="bottom" constant="14" id="Rw9-cj-cGo"/>
+                <constraint firstItem="8oY-rC-qAi" firstAttribute="top" secondItem="8Wj-IL-cUg" secondAttribute="top" constant="6" id="SKa-qW-g9z"/>
+                <constraint firstItem="lwe-sP-Q6b" firstAttribute="trailing" secondItem="6rV-07-l6Z" secondAttribute="trailing" id="bbj-HD-b2r"/>
+                <constraint firstItem="lwe-sP-Q6b" firstAttribute="trailing" secondItem="jP4-rq-YYf" secondAttribute="trailing" id="cgv-qN-B1O"/>
+                <constraint firstItem="jP4-rq-YYf" firstAttribute="leading" secondItem="8Wj-IL-cUg" secondAttribute="leading" id="dcD-Ul-cYn"/>
+                <constraint firstAttribute="top" secondItem="jP4-rq-YYf" secondAttribute="top" constant="6" id="wam-NS-Jjj"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="lwe-sP-Q6b"/>
+            <connections>
+                <outlet property="searchBarView" destination="UIP-B9-SO4" id="inA-TR-OES"/>
+                <outlet property="separatorView" destination="6rV-07-l6Z" id="ElH-7v-rlo"/>
+                <outlet property="topBackgroundView" destination="jP4-rq-YYf" id="ujB-dd-AsY"/>
+            </connections>
+            <point key="canvasLocation" x="-213" y="67"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="dragElem" width="36" height="4"/>
+    </resources>
+</document>

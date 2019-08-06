@@ -1,8 +1,8 @@
 //
-//  WidgetSettingsType.swift
+//  AssetsSearch.swift
 //  WavesWallet-iOS
 //
-//  Created by rprokofev on 28.07.2019.
+//  Created by rprokofev on 05.08.2019.
 //  Copyright © 2019 Waves Platform. All rights reserved.
 //
 
@@ -11,14 +11,15 @@ import WavesSDK
 import Extensions
 import DomainLayer
 
-enum WidgetSettings {
-        
+enum AssetsSearch {
+    
     struct State {
         
-        struct UI {
+        struct UI: DataSourceProtocol {
             
             enum Action {
                 case none
+                case loading
                 case update
             }
             
@@ -30,9 +31,12 @@ enum WidgetSettings {
             
             enum Action {
                 case none
+                case search(String)
+                case selected([DomainLayer.DTO.Asset])
             }
             
             var action: Action
+            var selectAssets: [String: DomainLayer.DTO.Asset]
         }
         
         var ui: UI
@@ -41,17 +45,30 @@ enum WidgetSettings {
     
     enum Event {
         case viewDidAppear
-        case deleteAsset(indexPath: IndexPath)
-        case addAsset(_ asset: DomainLayer.DTO.Asset)
-        case handlerError(_ error: Error)
+        case search(String)
+        case select(IndexPath)
+        case assets([DomainLayer.DTO.Asset])
+        case empty
     }
     
     struct Section: SectionProtocol {
         var rows: [Row]
-//        var maxAmountAssets: Int
     }
     
     enum Row {
-        case asset(WidgetSettingsAssetCell.Model)
+        case asset(AssetsSearchAssetCell.Model)
+        case empty
+    }
+}
+
+extension AssetsSearch.Row {
+    
+    var asset: DomainLayer.DTO.Asset? {
+        switch self {
+        case .asset(let model):
+            return model.asset
+        default:
+            return nil
+        }
     }
 }

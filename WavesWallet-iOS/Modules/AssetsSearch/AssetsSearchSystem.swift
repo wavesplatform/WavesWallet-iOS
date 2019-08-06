@@ -1,67 +1,130 @@
 //
-//  WidgetSettingsSystem.swift
+//  AssetsSearchSystem.swift
 //  WavesWallet-iOS
 //
-//  Created by rprokofev on 28.07.2019.
+//  Created by rprokofev on 05.08.2019.
 //  Copyright © 2019 Waves Platform. All rights reserved.
 //
 
 import Foundation
 import DomainLayer
+import RxFeedback
+import RxSwift
+import RxCocoa
 
-private typealias Types = WidgetSettings
+//TODO: Waves logo не парвильно
+//TODO: Spam лист
 
-final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSettings.Event> {
+private typealias Types = AssetsSearch
 
+final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
+    
+    private let assetsRepository: AssetsRepositoryProtocol = UseCasesFactory.instance.repositories.assetsRepositoryRemote
+    
     override func initialState() -> State! {
-        return WidgetSettings.State(ui: uiState(), core: coreState())
+        
+        return AssetsSearch.State(ui: uiState(), core: coreState())
     }
     
-    override func internalFeedbacks() -> [Feedback] {        
-        return []
+    override func internalFeedbacks() -> [Feedback] {
+        return [searchAsset()]
     }
     
+    private func searchAsset() -> Feedback {
+        
+        return react(request: { (state) -> String? in
+            
+            if case .search(let text) = state.core.action {
+                return text
+            }
+
+            return nil
+            
+        }, effects: { [weak self] (search) -> Signal<Event> in
+            
+            guard let self = self else { return Signal.never() }
+            
+            return Signal<Int>.timer(0.25, period: 1)
+                .flatMap({ [weak self] _ -> Signal<Event> in
+                    guard let self = self else { return Signal.never() }
+                    return self.assetsRepository
+                        .searchAssets(search: search)
+                        .map { $0.count > 0 ? Event.assets($0) : Event.empty }
+                        .asSignal(onErrorRecover: { _ -> Signal<Event> in
+                            return Signal.just(Event.empty)
+                        })
+                })
+        })
+    }
+
     override func reduce(event: Event, state: inout State) {
+        
         switch event {
-        case .handlerError(let error):
-            <#code#>
+
+        case .empty:
+            
+            state.ui.sections = [Types.Section(rows: [.empty])]
+            state.ui.action = .update
+            state.core.action = .none
+        
+        case .assets(let assets):
+            
+            state.ui.sections = sections(assets: assets,
+                                        selectedAssets: state.core.selectAssets)
+            state.core.action = .none
+            state.ui.action = .update
+            
+        case .search(let string):
+            
+            if string.isEmpty {
+                state.ui.sections = []
+                state.ui.action = .update
+                state.core.action = .none
+            } else {
+                state.core.action = .search(string)
+                state.ui.action = .loading
+            }
+            
+        case .select(let indexPath):
+            let row = state.ui[indexPath]
+            guard let asset = row.asset else { return }
+            
+            let isSelect = state.core.selectAssets[asset.id] != nil
+            
+            if isSelect {
+                state.core.selectAssets[asset.id] = nil
+            } else {
+                state.core.selectAssets[asset.id] = asset
+            }
+            
+            state
+                .ui[indexPath] = .asset(AssetsSearchAssetCell.Model(asset: asset,
+                                                                    isSelected: !isSelect))
+            
+            state.ui.action = .update
+            state.core.action = .selected(state.core.selectAssets.map { $0.element })
+        
         default:
-            <#code#>
+            break
         }
     }
     
     private func uiState() -> State.UI! {
-        return WidgetSettings.State.UI(sections: sections(), action: .update)
+        return AssetsSearch.State.UI(sections: sections(assets: [], selectedAssets: .init()), action: .update)
     }
     
     private func coreState() -> State.Core! {
-        return WidgetSettings.State.Core(action: .none)
+        return AssetsSearch.State.Core(action: .none, selectAssets: .init())
     }
     
-    private func sections() -> [Types.Section] {
+    private func sections(assets: [DomainLayer.DTO.Asset], selectedAssets: [String: DomainLayer.DTO.Asset]) -> [Types.Section] {
         
-        let assetWaves = DomainLayer.DTO.Asset.mockWaves()
+        let rows = assets.map { (asset) -> Types.Row in
+            let isSelected = selectedAssets[asset.id] != nil
+            return Types.Row.asset(AssetsSearchAssetCell.Model(asset: asset, isSelected: isSelected))
+        }
         
-        let model = WidgetSettingsAssetCell.Model(asset: assetWaves, isLock: true)
-        
-        let model2 = WidgetSettingsAssetCell.Model(asset: DomainLayer.DTO.Asset.mockBTC(), isLock: false)
-        
-        
-        return [Types.Section(rows: [.asset(model),
-                                     .asset(model2),
-                                     .asset(model),
-                                     .asset(model),
-                                     .asset(model2),
-                                     .asset(model),
-                                     .asset(model),
-                                     .asset(model2),
-                                     .asset(model),
-                                     .asset(model),
-                                     .asset(model2),
-                                     .asset(model),
-                                     .asset(model)])]
+        return [Types.Section(rows: rows)]
     }
-    
-//    WidgetSettingsAssetCell
-
 }
+

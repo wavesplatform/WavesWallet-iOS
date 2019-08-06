@@ -68,8 +68,6 @@ final class TransactionCardSystem: System<TransactionCard.State, TransactionCard
     override func reduce(event: Event, state: inout State) {
 
         switch event {
-        case .viewDidAppear:
-            break
 
         case .showAllRecipients:
 

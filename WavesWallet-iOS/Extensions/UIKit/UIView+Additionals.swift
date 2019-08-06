@@ -25,9 +25,14 @@ extension UIView {
         removeShadow()
     }
     
-    class func loadView() -> UIView {
+//    class func loadView() -> UIView {
+//        let clsName = String(describing: self)
+//        return Bundle.main.loadNibNamed(clsName, owner: nil, options: nil)!.last! as! UIView
+//    }
+    
+    class func loadView<View>() -> View where View : UIView {
         let clsName = String(describing: self)
-        return Bundle.main.loadNibNamed(clsName, owner: nil, options: nil)!.last! as! UIView
+        return Bundle.main.loadNibNamed(clsName, owner: nil, options: nil)!.last! as! View
     }
     
     func shakeView() {

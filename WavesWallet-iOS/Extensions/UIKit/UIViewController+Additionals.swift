@@ -109,4 +109,19 @@ extension UIViewController {
         let offset = -(Constants.bigNavBarHeight + navBarY + tableView.contentInset.top)
         return CGPoint(x: 0, y: offset)
     }
+    
+    func findNavigationController() -> UINavigationController? {
+        var current: UIResponder? = self
+        
+        while (current != nil) {
+            
+            if let nav = current as? UINavigationController {
+                return nav
+            }
+            
+            current = current?.next
+        }
+        
+        return nil
+    }
 }
