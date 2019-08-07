@@ -21,6 +21,14 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
     
     private let assetsRepository: AssetsRepositoryProtocol = UseCasesFactory.instance.repositories.assetsRepositoryRemote
     
+    private let assets: [DomainLayer.DTO.Asset]
+    private let limit: Int
+    
+    init(assets: [DomainLayer.DTO.Asset], limit: Int) {
+        self.assets = assets
+        self.limit = limit
+    }
+    
     override func initialState() -> State! {
         
         return AssetsSearch.State(ui: uiState(), core: coreState())
@@ -89,18 +97,25 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
             let row = state.ui[indexPath]
             guard let asset = row.asset else { return }
             
+            
             let isSelect = state.core.selectAssets[asset.id] != nil
             
+           
             if isSelect {
                 state.core.selectAssets[asset.id] = nil
             } else {
-                state.core.selectAssets[asset.id] = asset
+                if (state.core.selectAssets.count) < state.core.limit {
+                    state.core.selectAssets[asset.id] = asset
+                }
+                
+                
             }
             
             state
                 .ui[indexPath] = .asset(AssetsSearchAssetCell.Model(asset: asset,
                                                                     isSelected: !isSelect))
             
+            state.ui.countSelectedAssets = state.core.selectAssets.count
             state.ui.action = .update
             state.core.action = .selected(state.core.selectAssets.map { $0.value })
         
@@ -110,11 +125,23 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
     }
     
     private func uiState() -> State.UI! {
-        return AssetsSearch.State.UI(sections: sections(assets: [], selectedAssets: .init()), action: .update)
+        
+        let selectedAssets = assets.reduce(into: [String: DomainLayer.DTO.Asset](), { $0[$1.id] = $1 })
+        
+        return AssetsSearch.State.UI(sections: sections(assets: [],
+                                                        selectedAssets: selectedAssets),
+                                     action: .update,
+                                     limitSelectAssets: limit,
+                                     countSelectedAssets: assets.count)
     }
     
     private func coreState() -> State.Core! {
-        return AssetsSearch.State.Core(action: .none, selectAssets: .init())
+        
+        let assets = self.assets.reduce(into: [String: DomainLayer.DTO.Asset].init()) { (result, asset) in
+            result[asset.id] = asset
+        }
+        
+        return AssetsSearch.State.Core(action: .none, selectAssets: assets, limit: self.limit)
     }
     
     private func sections(assets: [DomainLayer.DTO.Asset], selectedAssets: [String: DomainLayer.DTO.Asset]) -> [Types.Section] {

@@ -50,6 +50,10 @@ final class SearchBarView: UIView, NibOwnerLoadable {
         return textField.becomeFirstResponder()
     }
     
+    override func resignFirstResponder() -> Bool {
+        return textField.resignFirstResponder()
+    }
+    
     func startLoading() {
         iconImageView.isHidden = true
         indicatorView.startAnimating()

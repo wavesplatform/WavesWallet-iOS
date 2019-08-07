@@ -7,20 +7,33 @@
 //
 import UIKit
 
+protocol KeyboardControlDelegate: AnyObject {
+    
+    func keyboardControlDidTapDissmiss()
+}
+
 final class KeyboardControl: UIView, NibLoadable {
     
     struct Model {
         let title: String
     }
     
-            
+    @IBOutlet private var titleLabel: UILabel!
+    
+    var delegate: KeyboardControlDelegate?
+    
     override func awakeFromNib() {
-        super.awakeFromNib()
-        backgroundColor = .clear
-//        layer.cornerRadius = Constants.cornerRadius
-        layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-//        topBackgroundView.layer.cornerRadius = Constants.cornerRadius
-//        topBackgroundView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        
+        super.awakeFromNib()        
+    }
+    
+    @objc @IBAction func handlerDissmissButton() {
+        delegate?.keyboardControlDidTapDissmiss()
+    }
+}
+
+extension KeyboardControl: ViewConfiguration {
+    
+    func update(with model: KeyboardControl.Model) {
+        titleLabel.text = model.title
     }
 }

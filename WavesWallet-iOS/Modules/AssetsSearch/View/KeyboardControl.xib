@@ -10,15 +10,18 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KeyboardControl" customModule="WavesWallet_iOS" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="KeyboardControl" customModule="WavesWallet_iOS" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rw1-18-Pxn">
                     <rect key="frame" x="14" y="8" width="48.5" height="28"/>
                     <state key="normal" image="hidekeyboard24Multy"/>
+                    <connections>
+                        <action selector="handlerDissmissButton" destination="iN0-l3-epB" eventType="touchUpInside" id="hd8-q2-hpS"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hgw-AR-02B">
                     <rect key="frame" x="76.5" y="0.0" width="323.5" height="44"/>
@@ -50,19 +53,37 @@
                         <constraint firstAttribute="trailing" secondItem="4Ni-K6-Y7x" secondAttribute="trailing" id="yCp-Zf-bGh"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rAw-lD-cJR" customClass="SeparatorView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="g8F-Jc-oTi"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                            <color key="value" red="0.80784313725490198" green="0.81568627450980391" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="Hgw-AR-02B" firstAttribute="leading" secondItem="rw1-18-Pxn" secondAttribute="trailing" constant="14" id="4Q0-Sn-02Z"/>
                 <constraint firstItem="rw1-18-Pxn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="8Rs-S8-cuu"/>
+                <constraint firstItem="rAw-lD-cJR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="BNJ-rO-YKU"/>
                 <constraint firstAttribute="bottom" secondItem="rw1-18-Pxn" secondAttribute="bottom" constant="8" id="FUx-yh-IYX"/>
                 <constraint firstItem="rw1-18-Pxn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="14" id="HWv-tO-LPs"/>
                 <constraint firstItem="Hgw-AR-02B" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Izp-lE-S8y"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Hgw-AR-02B" secondAttribute="trailing" constant="14" id="Nul-Sh-h73"/>
+                <constraint firstItem="rAw-lD-cJR" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="S0l-kb-xqp"/>
                 <constraint firstAttribute="bottom" secondItem="Hgw-AR-02B" secondAttribute="bottom" id="dDt-rc-9dc"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="rAw-lD-cJR" secondAttribute="trailing" id="xCk-tp-hhq"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="titleLabel" destination="Lks-Ib-tpY" id="KWa-lw-4AW"/>
+            </connections>
         </view>
     </objects>
     <resources>
