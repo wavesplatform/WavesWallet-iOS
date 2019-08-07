@@ -90,7 +90,7 @@ extension ModalScrollViewController  {
         scrollView.contentInset.bottom = bottomScrollInset(for: scrollView.frame.size)
         scrollView.contentInset.top = top
         scrollView.scrollIndicatorInsets.top = top
-        scrollView.contentOffset.y = -(top - scrollView.contentInset.bottom)
+        scrollView.contentOffset.y = -(top)
     }
 
     private func setupScrollView() {

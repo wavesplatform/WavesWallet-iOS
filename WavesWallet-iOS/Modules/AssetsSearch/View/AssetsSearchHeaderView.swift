@@ -26,8 +26,8 @@ final class AssetsSearchHeaderView: UIView, NibLoadable {
     @IBOutlet private weak var separatorView: UIView!
     
     @IBOutlet private(set) weak var searchBarView: SearchBarView!
-    let keyboardControl: KeyboardControl = KeyboardControl.loadFromNib()
     
+
     var isHiddenSepatator: Bool = true {
         didSet {
             self.separatorView.isHidden = self.isHiddenSepatator
@@ -43,14 +43,14 @@ final class AssetsSearchHeaderView: UIView, NibLoadable {
         topBackgroundView.layer.cornerRadius = Constants.cornerRadius
         topBackgroundView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
-        keyboardControl.delegate = self
-        searchBarView.textField.inputAccessoryView = keyboardControl
+//        keyboardControl.delegate = self
+//        searchBarView.textField.inputAccessoryView = keyboardControl
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView?
     {
         if let searchBarView = searchBarView {
-            let searchBarFrame = searchBarView.convert(searchBarView.frame, to: self)
+            let searchBarFrame = searchBarView.convert(searchBarView.frame.inset(by: .init(top: 10, left: 0, bottom: 10, right: 0)), to: self)
             
             if searchBarFrame.contains(point) {
                 return self
@@ -67,12 +67,4 @@ extension AssetsSearchHeaderView: ViewConfiguration {
         self.labelTitle.text = model.title
     }
 }
-
-extension AssetsSearchHeaderView: KeyboardControlDelegate {
-    
-    func keyboardControlDidTapDissmiss() {
-        searchBarView.resignFirstResponder()
-    }
-}
-
 

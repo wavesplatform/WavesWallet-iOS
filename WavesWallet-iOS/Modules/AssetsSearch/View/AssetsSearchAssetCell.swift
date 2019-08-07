@@ -18,8 +18,15 @@ private enum Constants {
 final class AssetsSearchAssetCell: UITableViewCell, Reusable {
     
     struct Model {
+        
+        enum State {
+            case lock
+            case selected
+            case unselected
+        }
+        
         let asset: DomainLayer.DTO.Asset
-        let isSelected: Bool
+        let state: State
     }
     
     @IBOutlet private var titleLabel: UILabel!
@@ -41,9 +48,14 @@ extension AssetsSearchAssetCell: ViewConfiguration {
         
         titleLabel.text = model.asset.displayName
         
-        if model.isSelected {
+        switch model.state {
+        case .lock:
+            iconImageView.image = Images.draglock22Disabled400.image
+            
+        case .selected:
             iconImageView.image = Images.on.image
-        } else {
+            
+        case .unselected:
             iconImageView.image = Images.off.image
         }
         

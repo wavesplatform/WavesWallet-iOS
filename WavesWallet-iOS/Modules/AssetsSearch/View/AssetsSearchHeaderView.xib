@@ -29,6 +29,11 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="36" id="slc-tw-SFW"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="touchInsets">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6rV-07-l6Z" customClass="SeparatorView" customModule="WavesWallet_iOS" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="632" width="375" height="1"/>
