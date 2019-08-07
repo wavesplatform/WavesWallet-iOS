@@ -11,13 +11,16 @@ import DomainLayer
 
 struct AssetsSearchViewBuilder: ModuleBuilderOutput {
     
-    typealias Input = [DomainLayer.DTO.Asset]
+    struct Input {
+        let assets: [DomainLayer.DTO.Asset]
+        let limit: Int
+    }
     
     var output: AssetsSearchModuleOutput
     
     func build(input: Input) -> UIViewController {
         let vc = StoryboardScene.AssetsSearch.assetsSearchViewController.instantiate()
-        vc.system = AssetsSearchSystem()
+        vc.system = AssetsSearchSystem(assets: input.assets, limit: input.limit)
         vc.moduleOuput = output
         return vc
     }

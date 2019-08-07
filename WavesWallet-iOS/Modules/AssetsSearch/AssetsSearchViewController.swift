@@ -97,6 +97,8 @@ private extension AssetsSearchViewController {
         case .update:
             tableView.reloadData()
             
+            headerView.keyboardControl.update(with: .init(title: "\(state.countSelectedAssets) \\ \(state.limitSelectAssets)"))
+            
         case .loading:
             headerView.searchBarView.startLoading()
             

@@ -25,6 +25,8 @@ enum AssetsSearch {
             
             var sections: [Section]
             var action: Action
+            var limitSelectAssets: Int
+            var countSelectedAssets: Int
         }
         
         struct Core {
@@ -37,6 +39,7 @@ enum AssetsSearch {
             
             var action: Action
             var selectAssets: [String: DomainLayer.DTO.Asset]
+            var limit: Int
         }
         
         var ui: UI

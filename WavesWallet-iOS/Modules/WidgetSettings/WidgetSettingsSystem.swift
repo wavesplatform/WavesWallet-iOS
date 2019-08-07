@@ -20,7 +20,7 @@ protocol MagicRepository {
 }
 
 private struct Constants {
-//    let localLogo
+    static let maxCountAssets: Int = 9
 }
 
 final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSettings.Event> {
@@ -132,16 +132,17 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
     
     private func coreState() -> State.Core! {
         return WidgetSettings.State.Core(action: .none,
+                                            maxCountAssets: Constants.maxCountAssets,
                                          interval: .m1,
                                          style: .classic)
     }
     
     private func sections(assets: [DomainLayer.DTO.Asset]) -> [Types.Section] {
         
-        let assetWaves = DomainLayer.DTO.Asset.mockWaves()
+//        let assetWaves = DomainLayer.DTO.Asset.mockWaves()
         
         let rows = assets.map { Types.Row.asset(.init(asset: $0, isLock: false)) }
         
-        return [Types.Section(rows: rows, limitAssets: 9)]
+        return [Types.Section(rows: rows, limitAssets: Constants.maxCountAssets)]
     }
 }

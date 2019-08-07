@@ -25,8 +25,8 @@ final class AssetsSearchHeaderView: UIView, NibLoadable {
     @IBOutlet private weak var topBackgroundView: UIView!
     @IBOutlet private weak var separatorView: UIView!
     
-    // TODO: Change icon to black
     @IBOutlet private(set) weak var searchBarView: SearchBarView!
+    let keyboardControl: KeyboardControl = KeyboardControl.loadFromNib()
     
     var isHiddenSepatator: Bool = true {
         didSet {
@@ -43,7 +43,8 @@ final class AssetsSearchHeaderView: UIView, NibLoadable {
         topBackgroundView.layer.cornerRadius = Constants.cornerRadius
         topBackgroundView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
-        searchBarView.textField.inputAccessoryView = KeyboardControl.loadFromNib()
+        keyboardControl.delegate = self
+        searchBarView.textField.inputAccessoryView = keyboardControl
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView?
@@ -64,6 +65,13 @@ extension AssetsSearchHeaderView: ViewConfiguration {
     
     func update(with model: AssetsSearchHeaderView.Model) {
         self.labelTitle.text = model.title
+    }
+}
+
+extension AssetsSearchHeaderView: KeyboardControlDelegate {
+    
+    func keyboardControlDidTapDissmiss() {
+        searchBarView.resignFirstResponder()
     }
 }
 

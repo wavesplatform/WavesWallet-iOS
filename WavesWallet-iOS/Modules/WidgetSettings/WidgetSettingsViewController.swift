@@ -35,6 +35,7 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
     
     private var interval: WidgetSettings.DTO.Interval?
     private var style: WidgetSettings.DTO.Style?
+    private var maxCountAssets: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +75,7 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
     @IBAction private func handlerTouchForAddTokenButton(_ sender: UIButton) {
         
         //TODO: assets
-        self.moduleOutput?.widgetSettingsSyncAssets(current: [], callback: { [weak self] (assets) in
+        self.moduleOutput?.widgetSettingsSyncAssets([], maxCountAssets: maxCountAssets, callback: { [weak self] (assets) in
             self?.system.send(.syncAssets(assets))
         })
 
@@ -94,6 +95,7 @@ private extension WidgetSettingsViewController {
     private func update(state: Types.State.Core) {
         self.interval = state.interval
         self.style = state.style
+        self.maxCountAssets = state.maxCountAssets
     }
     
     private func update(state: Types.State.UI) {

@@ -79,10 +79,10 @@ extension WidgetSettingsCoordinator: AssetsSearchModuleOutput {
 
 extension WidgetSettingsCoordinator: WidgetSettingsModuleOutput {
     
-    func widgetSettingsSyncAssets(current: [DomainLayer.DTO.Asset], callback: @escaping (([DomainLayer.DTO.Asset]) -> Void)) {
+    func widgetSettingsSyncAssets(_ current: [DomainLayer.DTO.Asset], maxCountAssets: Int, callback: @escaping (([DomainLayer.DTO.Asset]) -> Void)) {
         
         let vc = AssetsSearchViewBuilder(output: self)
-        .build(input: current)
+            .build(input: .init(assets: current, limit: maxCountAssets))
         
         vc.modalPresentationStyle = .custom
         vc.transitioningDelegate = popoverViewControllerTransitioning

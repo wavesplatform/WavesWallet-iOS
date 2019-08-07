@@ -53,6 +53,7 @@ enum WidgetSettings {
             
             var action: Action
 //            var assets: [DomainLayer.DTO.Asset]
+            var maxCountAssets: Int
             var interval: WidgetSettings.DTO.Interval
             var style: WidgetSettings.DTO.Style
         }
