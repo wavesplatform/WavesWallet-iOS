@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import RxSwift
 
 private enum Constants {
     static let height: CGFloat = 38
-    
+    static let sponsoredIcon = CGSize(width: 12, height: 12)
+
     static let redTickerColor: UIColor = .error500
     static let greenTickerColor: UIColor = .successLime
     static let tickerRightOffsetDefault: CGFloat = 10
@@ -26,6 +28,9 @@ final class MarketPulseWidgetCell: UITableViewCell, Reusable {
     @IBOutlet private weak var labelPrice: UILabel!
     @IBOutlet private weak var tickerRightOffset: NSLayoutConstraint!
     
+    private var disposeBag: DisposeBag = DisposeBag()
+
+    
     private static let numberFormatter: NumberFormatter = {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
@@ -33,13 +38,30 @@ final class MarketPulseWidgetCell: UITableViewCell, Reusable {
         numberFormatter.usesGroupingSeparator = true
         numberFormatter.groupingSeparator = " "
         numberFormatter.minimumFractionDigits = 2
+        numberFormatter.maximumFractionDigits = 2
         return numberFormatter
     }()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        iconLogo.image = nil
+        disposeBag = DisposeBag()
+    }
 }
 
 extension MarketPulseWidgetCell: ViewConfiguration {
     
     func update(with model: MarketPulse.DTO.UIAsset) {
+        
+        AssetLogo.logo(icon: model.icon,
+                       style: AssetLogo.Style(size: iconLogo.frame.size,
+                                              font: UIFont.systemFont(ofSize: 13),
+                                              specs: .init(isSponsored: model.isSponsored,
+                                                           hasScript: model.hasScript,
+                                                           size: Constants.sponsoredIcon)))
+            .observeOn(MainScheduler.instance)
+            .bind(to: iconLogo.rx.image)
+            .disposed(by: disposeBag)
         
         labelTitle.text = model.name
         

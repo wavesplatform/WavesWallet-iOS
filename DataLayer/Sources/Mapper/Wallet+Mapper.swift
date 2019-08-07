@@ -22,12 +22,10 @@ extension DomainLayer.DTO.WalletEncryption {
 
     init(wallet: WalletEncryption) {
         
-        var kind: DomainLayer.DTO.WalletEncryption.Kind! = nil
+        var kind: DomainLayer.DTO.WalletEncryption.Kind = .none
         
         if let secret = wallet.secret {
             kind = .passcode(secret: secret)
-        } else {
-            kind = .none
         }
         
         self.init(publicKey: wallet.publicKey,
