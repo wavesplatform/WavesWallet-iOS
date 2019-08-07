@@ -38,6 +38,7 @@ enum AssetsSearch {
             }
             
             var action: Action
+            var assets: [DomainLayer.DTO.Asset]
             var selectAssets: [String: DomainLayer.DTO.Asset]
             var limit: Int
         }

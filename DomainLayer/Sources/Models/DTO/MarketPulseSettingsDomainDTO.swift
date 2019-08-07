@@ -10,7 +10,7 @@ import Foundation
 
 public extension DomainLayer.DTO {
     
-    public struct MarketPulseSettings {
+    struct MarketPulseSettings {
         
         public enum Interval: Int {
             case m1 = 60

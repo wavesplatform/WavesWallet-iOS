@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="n7R-hW-Zcb" customClass="ModalTableView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AssetsSearchEmptyCell" rowHeight="626" id="P1n-cy-YKx" customClass="AssetsSearchEmptyCell" customModule="WavesWallet_iOS" customModuleProvider="target">
@@ -56,7 +56,7 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AssetsSearchAssetCell" rowHeight="237" id="Zjc-g8-YQU" customClass="AssetsSearchAssetCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="654" width="414" height="237"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zjc-g8-YQU" id="rgg-Ii-NVg">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zjc-g8-YQU" id="rgg-Ii-NVg">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="237"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -83,10 +83,9 @@
                                                 <constraint firstItem="eHZ-Om-7O8" firstAttribute="top" secondItem="rgg-Ii-NVg" secondAttribute="top" constant="14" id="6mL-U7-iO5"/>
                                                 <constraint firstItem="eHZ-Om-7O8" firstAttribute="leading" secondItem="rgg-Ii-NVg" secondAttribute="leading" constant="16" id="LTq-cg-fLu"/>
                                                 <constraint firstItem="Ikl-Ba-eNh" firstAttribute="centerY" secondItem="ko8-UT-dH5" secondAttribute="centerY" id="WGT-wd-E9Y"/>
+                                                <constraint firstItem="ko8-UT-dH5" firstAttribute="centerY" secondItem="eHZ-Om-7O8" secondAttribute="centerY" id="cWP-YY-zie"/>
                                                 <constraint firstItem="Ikl-Ba-eNh" firstAttribute="leading" secondItem="ko8-UT-dH5" secondAttribute="trailing" constant="16" id="dhj-TD-TaN"/>
-                                                <constraint firstItem="ko8-UT-dH5" firstAttribute="top" secondItem="rgg-Ii-NVg" secondAttribute="top" constant="18" id="giP-B7-YRi"/>
                                                 <constraint firstAttribute="trailing" secondItem="Ikl-Ba-eNh" secondAttribute="trailing" constant="16" id="iUF-MT-uzU"/>
-                                                <constraint firstAttribute="bottom" secondItem="ko8-UT-dH5" secondAttribute="bottom" constant="26" id="wWG-sp-Fl9"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -101,13 +100,31 @@
                                     <outlet property="delegate" destination="DlP-PL-iPZ" id="5Rr-HW-p6d"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aJW-jQ-UDL">
+                                <rect key="frame" x="0.0" y="862" width="414" height="34"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2To-Ys-4aJ" customClass="KeyboardControl" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="820" width="414" height="42"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="ucU-v3-eU8"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="n7R-hW-Zcb" firstAttribute="leading" secondItem="uW4-Jf-z3n" secondAttribute="leading" id="0n3-bu-GI7"/>
+                            <constraint firstAttribute="bottom" secondItem="aJW-jQ-UDL" secondAttribute="bottom" id="EO0-nL-acm"/>
+                            <constraint firstItem="uW4-Jf-z3n" firstAttribute="trailing" secondItem="2To-Ys-4aJ" secondAttribute="trailing" id="JI2-v9-g0w"/>
                             <constraint firstItem="uW4-Jf-z3n" firstAttribute="trailing" secondItem="n7R-hW-Zcb" secondAttribute="trailing" id="Lwr-cJ-sZ3"/>
+                            <constraint firstItem="2To-Ys-4aJ" firstAttribute="leading" secondItem="uW4-Jf-z3n" secondAttribute="leading" id="PBN-K0-oMA"/>
                             <constraint firstItem="n7R-hW-Zcb" firstAttribute="top" secondItem="uW4-Jf-z3n" secondAttribute="top" id="SJF-eM-QR6"/>
-                            <constraint firstItem="uW4-Jf-z3n" firstAttribute="bottom" secondItem="n7R-hW-Zcb" secondAttribute="bottom" id="l1R-Za-qNG"/>
+                            <constraint firstItem="aJW-jQ-UDL" firstAttribute="top" secondItem="uW4-Jf-z3n" secondAttribute="bottom" id="g80-za-I35"/>
+                            <constraint firstItem="aJW-jQ-UDL" firstAttribute="leading" secondItem="uW4-Jf-z3n" secondAttribute="leading" id="icC-6D-HJq"/>
+                            <constraint firstAttribute="bottom" secondItem="n7R-hW-Zcb" secondAttribute="bottom" id="l1R-Za-qNG"/>
+                            <constraint firstItem="uW4-Jf-z3n" firstAttribute="trailing" secondItem="aJW-jQ-UDL" secondAttribute="trailing" id="m9E-ea-GUx"/>
+                            <constraint firstItem="uW4-Jf-z3n" firstAttribute="bottom" secondItem="2To-Ys-4aJ" secondAttribute="bottom" id="qw6-Ul-tGO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uW4-Jf-z3n"/>
                         <connections>
@@ -115,10 +132,20 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="keyboardControl" destination="2To-Ys-4aJ" id="8AS-8d-5xs"/>
+                        <outlet property="keyboardControlAccessoryView" destination="xNR-Wp-LvR" id="vGy-5T-ovA"/>
                         <outlet property="tableView" destination="n7R-hW-Zcb" id="ujV-fP-w9c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="elm-lh-12n" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xNR-Wp-LvR" customClass="KeyboardControl" customModule="WavesWallet_iOS" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="42"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="42" id="Oxx-cN-nkc"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="HLo-8l-Dcu"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="1017.3913043478261" y="-203.57142857142856"/>
         </scene>

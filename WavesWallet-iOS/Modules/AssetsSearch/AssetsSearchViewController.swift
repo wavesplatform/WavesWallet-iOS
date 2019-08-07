@@ -35,6 +35,11 @@ final class AssetsSearchViewController: ModalScrollViewController {
     
     private var selectedElementsMap: [String: ActionSheet.DTO.Element] = .init()
     
+    @IBOutlet fileprivate var keyboardControlAccessoryView: KeyboardControl!
+    @IBOutlet fileprivate var keyboardControl: KeyboardControl!
+    
+    private var keyboardControlTransfromation: Bool = false
+    
     var elementDidSelect: ((ActionSheet.DTO.Element) -> Void)?
     
     var system: System<AssetsSearch.State, AssetsSearch.Event>!
@@ -45,8 +50,19 @@ final class AssetsSearchViewController: ModalScrollViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         rootView.delegate = self
+        
         headerView.searchBarView.delegate = self
+        headerView.searchBarView.textField.inputAccessoryView = keyboardControlAccessoryView
+        
+        keyboardControlAccessoryView.delegate = self
+        keyboardControl.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
         system
             .start()
             .drive(onNext: { [weak self] (state) in
@@ -57,19 +73,98 @@ final class AssetsSearchViewController: ModalScrollViewController {
             .disposed(by: disposeBag)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        _ = headerView.searchBarView.becomeFirstResponder()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         system.send(.viewDidAppear)
-        _ = headerView.searchBarView.becomeFirstResponder()                                
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        _ = headerView.searchBarView.resignFirstResponder()
     }
     
     override func visibleScrollViewHeight(for size: CGSize) -> CGFloat {
-        
-        return size.height - (findNavigationController()?.topViewController?.layoutInsets.top ?? 0)
+        let layoutInsets = (findNavigationController()?.layoutInsets.top ?? 0)
+        return size.height - layoutInsets
     }
     
     override func bottomScrollInset(for size: CGSize) -> CGFloat {
         return Constants.bottomInset
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        
+        keyboardControlAccessoryView.hasDissmissKeyboardButton = true
+        keyboardControl.hasDissmissKeyboardButton = true
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        
+        keyboardControlAccessoryView.hasDissmissKeyboardButton = false
+        keyboardControl.hasDissmissKeyboardButton = false
+        
+        if keyboardControlTransfromation == true {
+            return
+        }
+        keyboardControlTransfromation = true
+        
+        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else { return }
+        guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int else { return }
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        let options = UIView.AnimationOptions(rawValue: UInt(curve) << 16 | UIView.AnimationOptions.beginFromCurrentState.rawValue)
+        
+        // KeyboardControl remove from inputAccessoryView.
+        DispatchQueue.main.async {
+            self.headerView.searchBarView.textField.inputAccessoryView = nil
+            self.headerView.searchBarView.textField.reloadInputViews()
+            self.keyboardControlAccessoryView.removeFromSuperview()
+            self.keyboardControlAccessoryView.layer.removeAllAnimations()
+        }
+        
+        // Initial state
+        var frame = keyboardControlAccessoryView.frame
+        frame.origin.y = view.frame.height - keyboardRectangle.height
+        keyboardControlAccessoryView.frame = frame
+        keyboardControlAccessoryView.translatesAutoresizingMaskIntoConstraints = true
+        self.view.addSubview(keyboardControlAccessoryView)
+        self.keyboardControl.alpha = 0
+        
+        UIView.animate(withDuration: duration, delay: 0, options: options, animations: {
+            
+            var frame = self.keyboardControlAccessoryView.frame
+            frame.origin.y = 0
+            self.keyboardControlAccessoryView.frame = self.keyboardControl.frame
+        }) { (animated) in
+            self.keyboardControl.alpha = 1
+            self.keyboardControlAccessoryView.translatesAutoresizingMaskIntoConstraints = false
+            self.keyboardControlAccessoryView.removeFromSuperview()
+            self.headerView.searchBarView.textField.inputAccessoryView = self.keyboardControlAccessoryView
+            self.headerView.searchBarView.textField.reloadInputViews()
+            self.keyboardControlTransfromation = false
+        }
+    }
+}
+
+// MARK: KeyboardControlDelegate
+
+extension AssetsSearchViewController: KeyboardControlDelegate {
+    
+    func keyboardControlDidTapKeyboardButton(hasDissmissKeyboardButton: Bool) {
+        
+        if hasDissmissKeyboardButton {
+            _ = headerView.searchBarView.resignFirstResponder()
+            view.endEditing(true)
+        } else {
+            _ = headerView.searchBarView.becomeFirstResponder()
+        }
+        
     }
 }
 
@@ -96,8 +191,8 @@ private extension AssetsSearchViewController {
         switch state.action {
         case .update:
             tableView.reloadData()
-            
-            headerView.keyboardControl.update(with: .init(title: "\(state.countSelectedAssets) \\ \(state.limitSelectAssets)"))
+            keyboardControl.update(with: .init(title: "\(state.countSelectedAssets) / \(state.limitSelectAssets)"))
+            keyboardControlAccessoryView.update(with: .init(title: "\(state.countSelectedAssets) / \(state.limitSelectAssets)"))
             
         case .loading:
             headerView.searchBarView.startLoading()

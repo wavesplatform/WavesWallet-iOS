@@ -14,6 +14,8 @@ import RxCocoa
 
 //TODO: Waves logo не парвильно
 //TODO: Spam лист
+//TODO: Область скрытие не работает
+//TODO: Ofsset клавиатуры
 
 private typealias Types = AssetsSearch
 
@@ -31,7 +33,7 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
     
     override func initialState() -> State! {
         
-        return AssetsSearch.State(ui: uiState(), core: coreState())
+        return AssetsSearch.State(ui: uiState(assets: self.assets), core: coreState(assets: self.assets))
     }
     
     override func internalFeedbacks() -> [Feedback] {
@@ -78,7 +80,9 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
         case .assets(let assets):
             
             state.ui.sections = sections(assets: assets,
-                                        selectedAssets: state.core.selectAssets)
+                                         selectedAssets: state.core.selectAssets,
+                                         limitSelectAssets: state.core.limit)
+            state.core.assets = assets
             state.core.action = .none
             state.ui.action = .update
             
@@ -97,58 +101,87 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
             let row = state.ui[indexPath]
             guard let asset = row.asset else { return }
             
-            
             let isSelect = state.core.selectAssets[asset.id] != nil
+            let isLocked = (state.core.selectAssets.count) == state.core.limit
             
-           
+            if isSelect == false && isLocked {
+                return
+            }
+                       
             if isSelect {
-                state.core.selectAssets[asset.id] = nil
+                state.core.selectAssets.removeValue(forKey: asset.id)
             } else {
-                if (state.core.selectAssets.count) < state.core.limit {
-                    state.core.selectAssets[asset.id] = asset
-                }
-                
-                
+                state.core.selectAssets[asset.id] = asset
             }
             
             state
                 .ui[indexPath] = .asset(AssetsSearchAssetCell.Model(asset: asset,
-                                                                    isSelected: !isSelect))
+                                                                    state: isSelect == true ? .unselected : .selected ))
+            
+            state.core.action = .selected(state.core.selectAssets.map { $0.value })
             
             state.ui.countSelectedAssets = state.core.selectAssets.count
             state.ui.action = .update
-            state.core.action = .selected(state.core.selectAssets.map { $0.value })
+        
+            let isLockedToo = (state.core.selectAssets.count) == state.core.limit
+            
+            if isLockedToo != isLocked  {
+                state.ui.sections = sections(assets: state.core.assets,
+                                             selectedAssets: state.core.selectAssets,
+                                             limitSelectAssets: state.core.limit)
+            }
         
         default:
             break
         }
     }
     
-    private func uiState() -> State.UI! {
+    private func uiState(assets: [DomainLayer.DTO.Asset]) -> State.UI! {
         
         let selectedAssets = assets.reduce(into: [String: DomainLayer.DTO.Asset](), { $0[$1.id] = $1 })
         
         return AssetsSearch.State.UI(sections: sections(assets: [],
-                                                        selectedAssets: selectedAssets),
+                                                        selectedAssets: selectedAssets,
+                                                        limitSelectAssets: limit),
                                      action: .update,
                                      limitSelectAssets: limit,
                                      countSelectedAssets: assets.count)
     }
     
-    private func coreState() -> State.Core! {
+    private func coreState(assets: [DomainLayer.DTO.Asset]) -> State.Core! {
         
-        let assets = self.assets.reduce(into: [String: DomainLayer.DTO.Asset].init()) { (result, asset) in
+        let selectAssets = assets.reduce(into: [String: DomainLayer.DTO.Asset].init()) { (result, asset) in
             result[asset.id] = asset
         }
         
-        return AssetsSearch.State.Core(action: .none, selectAssets: assets, limit: self.limit)
+        return AssetsSearch.State.Core(action: .none,
+                                       assets: assets,
+                                       selectAssets: selectAssets,
+                                       limit: self.limit)
     }
     
-    private func sections(assets: [DomainLayer.DTO.Asset], selectedAssets: [String: DomainLayer.DTO.Asset]) -> [Types.Section] {
+    private func sections(assets: [DomainLayer.DTO.Asset],
+                          selectedAssets: [String: DomainLayer.DTO.Asset],
+                          limitSelectAssets: Int) -> [Types.Section] {
+        
+        let isLocked = selectedAssets.count == limitSelectAssets
         
         let rows = assets.map { (asset) -> Types.Row in
             let isSelected = selectedAssets[asset.id] != nil
-            return Types.Row.asset(AssetsSearchAssetCell.Model(asset: asset, isSelected: isSelected))
+            
+            var state: AssetsSearchAssetCell.Model.State = .unselected
+            
+            if isSelected {
+                state = .selected
+            } else {
+                if isLocked {
+                    state = .lock
+                } else {
+                    state = .unselected
+                }
+            }
+            
+            return Types.Row.asset(AssetsSearchAssetCell.Model(asset: asset, state: state))
         }
         
         return [Types.Section(rows: rows)]
