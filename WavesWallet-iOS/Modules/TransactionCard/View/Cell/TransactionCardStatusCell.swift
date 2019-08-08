@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Extensions
 
 private enum Constants {
     static let okBackgroundColor = UIColor(red: 74 / 255, green: 173 / 255, blue: 2 / 255, alpha: 0.1)

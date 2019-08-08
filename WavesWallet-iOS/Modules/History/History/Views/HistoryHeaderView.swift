@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Extensions
 
 final class HistoryHeaderView: UITableViewHeaderFooterView, NibReusable {
     @IBOutlet private var labelTitle: UILabel!

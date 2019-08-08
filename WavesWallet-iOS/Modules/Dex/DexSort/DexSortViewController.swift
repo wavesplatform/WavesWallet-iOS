@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxFeedback
 import RxSwift
-
+import Extensions
 
 fileprivate enum Constants {
     static let contentInset = UIEdgeInsets.init(top: 4, left: 0, bottom: 4, right: 0)

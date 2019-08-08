@@ -6,6 +6,7 @@
 //  Copyright © 2019 Waves Platform. All rights reserved.
 //
 import UIKit
+import Extensions
 
 protocol KeyboardControlDelegate: AnyObject {
     

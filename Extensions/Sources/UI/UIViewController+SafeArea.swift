@@ -29,7 +29,7 @@ extension UIViewController: LayoutInsetsProvider {
         }
     }
 
-    var layoutInsetsKey: String {
+    public var layoutInsetsKey: String {
         if #available(iOS 11.0, *) {
             return "view.safeAreaInsets"
         } else {

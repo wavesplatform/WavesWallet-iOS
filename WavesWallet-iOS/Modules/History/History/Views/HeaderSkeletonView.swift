@@ -8,6 +8,7 @@
 
 import UIKit
 import Skeleton
+import Extensions
 
 final class HeaderSkeletonView: UITableViewHeaderFooterView, SkeletonAnimatable, NibReusable {
     

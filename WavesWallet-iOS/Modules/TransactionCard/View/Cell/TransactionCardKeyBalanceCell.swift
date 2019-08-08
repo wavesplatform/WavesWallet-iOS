@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+import Extensions
 
 private struct Constants {
     static let topPaddingLarge: CGFloat = 24

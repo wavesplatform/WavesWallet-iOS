@@ -8,6 +8,7 @@
 
 import UIKit
 import DomainLayer
+import Extensions
 
 final class WalletLeasingCell: UITableViewCell, NibReusable {
     @IBOutlet var labelTitle: UILabel!

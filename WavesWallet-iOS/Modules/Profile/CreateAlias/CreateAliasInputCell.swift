@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import Extensions
 
 private enum Constants {
     static let height: CGFloat = 62

@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-//import DomainLayer
+import DomainLayer
 
 private enum Constants {
     static let smallNavBarHeight: CGFloat = 44
@@ -30,19 +30,18 @@ extension UIViewController {
         let item = UIBarButtonItem(image: UIImage(named: "icon_menu"), style: .done, target: self, action: #selector(menuTapped))
 
         if isWhite {
-            item.tintColor = .white
+            item.tintColor = UIColor.white
         }
 
         navigationItem.leftBarButtonItem = item
     }
 
     @objc func menuTapped() {
-
-        //TODO: ALARM
-//        UseCasesFactory
-//            .instance
-//            .analyticManager
-//            .trackEvent(.menu(.wavesMenuPage))
+        
+        UseCasesFactory
+            .instance
+            .analyticManager
+            .trackEvent(.menu(.wavesMenuPage))
         
         let menu = AppDelegate.shared().menuController
         menu.presentLeftMenuViewController()

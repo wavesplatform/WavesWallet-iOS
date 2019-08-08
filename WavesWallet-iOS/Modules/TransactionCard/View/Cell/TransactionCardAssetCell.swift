@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import RxSwift
 import DomainLayer
+import Extensions
 
 private enum Constants {
     static let icon = CGSize(width: 48, height: 48)

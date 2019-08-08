@@ -8,6 +8,7 @@
 
 import UIKit
 import QRCodeReader
+import Extensions
 
 private enum Constants {
     static let paymentIdLength = 64

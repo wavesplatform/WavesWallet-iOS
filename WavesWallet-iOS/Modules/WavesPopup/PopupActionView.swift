@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Extensions
 
 private enum Constants {
     static let animationDuration: TimeInterval = 0.3
@@ -65,7 +66,7 @@ class PopupActionView<Model>: UIView, NibLoadable, ViewConfiguration {
         }
     }
     
-    func update(with model: Model) {}
+    open func update(with model: Model) {}
     
     class func show(model: Model) -> Self {
         let view = self.loadFromNib()

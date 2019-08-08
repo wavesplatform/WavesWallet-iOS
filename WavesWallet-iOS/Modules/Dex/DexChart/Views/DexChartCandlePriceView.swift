@@ -8,6 +8,7 @@
 
 import UIKit
 import DomainLayer
+import Extensions
 
 private enum Constants {
     static let additionalDeltaWidth: CGFloat = 7

@@ -11,6 +11,7 @@ import DomainLayer
 import RxFeedback
 import RxSwift
 import RxCocoa
+import Extensions
 
 private typealias Types = WidgetSettings
 

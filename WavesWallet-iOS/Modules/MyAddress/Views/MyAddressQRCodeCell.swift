@@ -8,6 +8,7 @@
 import UIKit
 import QRCode
 import CoreImage
+import Extensions
 
 private enum Constants {
     static let height: CGFloat = 228

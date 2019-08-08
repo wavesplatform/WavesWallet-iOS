@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Extensions
 
 final class AssetEmptyHistoryCell: UITableViewCell, Reusable {
 

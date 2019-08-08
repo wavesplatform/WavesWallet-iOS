@@ -9,6 +9,7 @@
 import UIKit
 import DomainLayer
 import RxSwift
+import Extensions
 
 private enum Constants {
     static let sizeLogo = CGSize(width: 28, height: 28)

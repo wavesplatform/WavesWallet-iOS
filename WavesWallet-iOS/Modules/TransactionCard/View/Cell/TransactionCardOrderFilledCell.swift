@@ -8,6 +8,7 @@
 
 import UIKit
 import WavesSDKExtensions
+import Extensions
 
 final class TransactionCardOrderFilledCell: UITableViewCell, Reusable {
 
