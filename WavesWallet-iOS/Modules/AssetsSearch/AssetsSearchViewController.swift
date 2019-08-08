@@ -191,8 +191,8 @@ private extension AssetsSearchViewController {
         switch state.action {
         case .update:
             tableView.reloadData()
-            keyboardControl.update(with: .init(title: "\(state.countSelectedAssets) / \(state.limitSelectAssets)"))
-            keyboardControlAccessoryView.update(with: .init(title: "\(state.countSelectedAssets) / \(state.limitSelectAssets)"))
+            keyboardControl.update(with: .init(title: "\(state.countSelectedAssets) / \(state.maxSelectAssets)"))
+            keyboardControlAccessoryView.update(with: .init(title: "\(state.countSelectedAssets) / \(state.maxSelectAssets)"))
             
         case .loading:
             headerView.searchBarView.startLoading()

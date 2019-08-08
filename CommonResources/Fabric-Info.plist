@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>532ed93ff155abe216f69842dbea9997d5ebb665</string>
+		<key>BuildSecret</key>
+		<string>a938eca2de89989b93e60adfc4846360bc34f8cbb0ae352fc500d454d9771937</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
+</dict>
+</plist>

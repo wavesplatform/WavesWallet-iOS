@@ -25,6 +25,8 @@ private struct Constants {
 
 final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSettings.Event> {
 
+    private let marketPulseStorage: MarketPulseWidgetSettingsRepositoryProtocol = UseCasesFactory.instance.repositories.marketPulseWidgetSettingsStorage
+    
     override func initialState() -> State! {
         return WidgetSettings.State(ui: uiState(), core: coreState())
     }
@@ -49,7 +51,6 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
         })
     }()
     
-    
     let changeInterval: Feedback = {
         
         return react(request: { (state) -> WidgetSettings.DTO.Interval? in
@@ -66,7 +67,6 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
         })
     }()
     
-    
     let changeStyle: Feedback = {
         
         return react(request: { (state) -> WidgetSettings.DTO.Style? in
@@ -82,7 +82,18 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
             return Signal.never()
         })
     }()
-        
+    
+/*
+    2 asset default
+    
+    2 запроса
+    Assets получение assets
+    Получение пары к Waves
+    
+    А
+ 
+*/
+    
     override func reduce(event: Event, state: inout State) {
         
         switch event {
