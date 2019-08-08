@@ -10,7 +10,7 @@ import UIKit
 
 public final class TableViewNoShadow: UITableView {
     
-    override func didAddSubview(_ subview: UIView) {
+    override public func didAddSubview(_ subview: UIView) {
         super.didAddSubview(subview)
         if "\(type(of: subview))" == "UIShadowView" {
             subview.removeFromSuperview()

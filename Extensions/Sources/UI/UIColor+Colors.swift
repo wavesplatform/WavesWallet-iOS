@@ -14,13 +14,13 @@ public extension UIColor {
         return UIColor(red: 0.0, green: 26.0 / 255.0, blue: 57.0 / 255.0, alpha: 0.2)
     }
     
-    @nonobjc class var white: UIColor {
-        return UIColor(white: 1.0, alpha: 1.0)
-    }
+//    @nonobjc class var white: UIColor {
+//        return UIColor(white: 1.0, alpha: 1.0)
+//    }
     
-    @nonobjc class var black: UIColor {
-        return UIColor(white: 0.0, alpha: 1.0)
-    }
+//    @nonobjc class var black: UIColor {
+//        return UIColor(white: 0.0, alpha: 1.0)
+//    }
 
     @nonobjc class var disabled666: UIColor {
         return UIColor(red: 0.0 / 255.0, green: 26.0 / 255.0, blue: 57 / 255.0, alpha: 1.0)

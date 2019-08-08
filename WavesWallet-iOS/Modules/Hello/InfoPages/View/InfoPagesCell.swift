@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Extensions
 
-class InfoPagesCell: UICollectionViewCell, Reusable {
+final class InfoPagesCell: UICollectionViewCell, Reusable {
     
     fileprivate var infoView: UIView?
     

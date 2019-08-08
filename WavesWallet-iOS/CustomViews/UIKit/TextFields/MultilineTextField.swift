@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Extensions
 
 protocol MultilineTextFieldDelegate: class {
     func multilineTextField(textField: MultilineTextField, errorTextForValue value: String) -> String?

@@ -10,6 +10,7 @@ import UIKit
 import RxFeedback
 import RxCocoa
 import RxSwift
+import Extensions
 
 private enum Constants {
     static let contentHeight: CGFloat = 288

@@ -12,16 +12,18 @@ import RxCocoa
 import RxFeedback
 import WavesSDKExtensions
 
-public class System<S, E> {
+open class System<S, E> {
 
-    typealias State = S
+    public typealias State = S
 
-    typealias Event = E
+    public typealias Event = E
 
-    typealias Feedback = (Driver<State>) -> Signal<Event>
+    public typealias Feedback = (Driver<State>) -> Signal<Event>
 
     private let inputEvent: PublishSubject<Event> = .init()
 
+    public init() {}
+        
     public func start(sideEffects: [Feedback]) -> Driver<State> {
 
         var newSideEffects = sideEffects
@@ -55,17 +57,17 @@ public class System<S, E> {
         inputEvent.onNext(event)
     }
 
-    public func initialState() -> State! {
+    open func initialState() -> State! {
         assertMethodNeedOverriding()
         return nil
     }
 
-    public func internalFeedbacks() -> [Feedback] {
+    open func internalFeedbacks() -> [Feedback] {
         assertMethodNeedOverriding()
         return []
     }
 
-    public func reduce(event: Event, state: inout State) {
+    open func reduce(event: Event, state: inout State) {
         assertMethodNeedOverriding()
     }
 }

@@ -9,11 +9,19 @@
 import UIKit
 
 public struct ShadowOptions {
-    let offset: CGSize
-    let color: UIColor
-    let opacity: Float
-    let shadowRadius: Float
-    let shouldRasterize: Bool
+    public let offset: CGSize
+    public let color: UIColor
+    public let opacity: Float
+    public let shadowRadius: Float
+    public let shouldRasterize: Bool
+
+    public init(offset: CGSize, color: UIColor, opacity: Float, shadowRadius: Float, shouldRasterize: Bool) {
+        self.offset = offset
+        self.color = color
+        self.opacity = opacity
+        self.shadowRadius = shadowRadius
+        self.shouldRasterize = shouldRasterize
+    }
 }
 
 public extension CALayer {

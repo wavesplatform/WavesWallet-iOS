@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Extensions
 
 private enum Constants {
     static let borderWith: CGFloat = 0.5

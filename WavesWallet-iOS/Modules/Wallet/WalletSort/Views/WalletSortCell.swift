@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import DomainLayer
+import Extensions
 
 fileprivate enum Constants {
     static let height: CGFloat = 56

@@ -10,12 +10,12 @@ import Foundation
 
 public protocol SectionProtocol {
     associatedtype Row
-    public var rows: [Row] { get set }
+    var rows: [Row] { get set }
 }
 
 public protocol DataSourceProtocol {
     associatedtype Section: SectionProtocol
-    public var sections: [Section] { get set }
+    var sections: [Section] { get set }
 }
 
 public extension DataSourceProtocol {

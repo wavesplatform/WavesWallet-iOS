@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UICollectionView {
+public extension UICollectionView {
 
     enum SupplementaryViewKind {
         case header

@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import RxSwift
 import DomainLayer
+import Extensions
 
 private enum Constants {
     static let movedRowAlpha: CGFloat = 0.9

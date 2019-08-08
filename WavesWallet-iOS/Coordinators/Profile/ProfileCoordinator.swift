@@ -11,6 +11,7 @@ import RxSwift
 import StoreKit
 import MessageUI
 import DomainLayer
+import Extensions
 
 private enum Constants {
     static let supporURL = URL(string: "https://support.wavesplatform.com/")!

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Extensions
 
 private enum Constans {
     static let animationDuration: TimeInterval = 0.24

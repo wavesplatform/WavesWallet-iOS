@@ -11,6 +11,7 @@ import DomainLayer
 import RxFeedback
 import RxSwift
 import RxCocoa
+import Extensions
 
 //TODO: Spam лист
 //TODO: Отступ снизу от keyboardcontrol

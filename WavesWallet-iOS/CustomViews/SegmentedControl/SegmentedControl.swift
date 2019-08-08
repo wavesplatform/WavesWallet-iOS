@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Extensions
 
 fileprivate enum Constants {
     static let imageEdgeInsetsForButtonWithIcon = UIEdgeInsets.init(top: 0, left: -8, bottom: 0, right: 8)

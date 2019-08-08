@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Extensions
 
 fileprivate enum Constants {
     static let maxCount = 3

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Extensions
 
 final class TransactionCardOrderCell: UITableViewCell, Reusable {
 

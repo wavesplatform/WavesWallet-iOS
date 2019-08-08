@@ -10,8 +10,9 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-public extension ControlEvent {
-    public func asSignal() -> Signal<E> {
-        return self.asObservable().asSignal(onErrorSignalWith: .empty())
-    }
-}
+//TODO: WTF
+//public extension ControlEvent {
+//    public func asSignal() -> Signal<E> {
+//        return self.asObservable().asSignal(onErrorSignalWith: .empty())
+//    }
+//}

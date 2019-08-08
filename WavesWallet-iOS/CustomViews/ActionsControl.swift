@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Extensions
 
 private struct Constants {
     static let spacingBetweenButtons: CGFloat = 8
