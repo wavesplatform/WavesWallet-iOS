@@ -52,16 +52,17 @@ final class MarketPulseWidgetCell: UITableViewCell, Reusable {
 extension MarketPulseWidgetCell: ViewConfiguration {
     
     func update(with model: MarketPulse.DTO.UIAsset) {
-        
-        AssetLogo.logo(icon: model.icon,
-                       style: AssetLogo.Style(size: iconLogo.frame.size,
-                                              font: UIFont.systemFont(ofSize: 13),
-                                              specs: .init(isSponsored: model.isSponsored,
-                                                           hasScript: model.hasScript,
-                                                           size: Constants.sponsoredIcon)))
-            .observeOn(MainScheduler.instance)
-            .bind(to: iconLogo.rx.image)
-            .disposed(by: disposeBag)
+
+        //TODO: ALARM
+//        AssetLogo.logo(icon: model.icon,
+//                       style: AssetLogo.Style(size: iconLogo.frame.size,
+//                                              font: UIFont.systemFont(ofSize: 13),
+//                                              specs: .init(isSponsored: model.isSponsored,
+//                                                           hasScript: model.hasScript,
+//                                                           size: Constants.sponsoredIcon)))
+//            .observeOn(MainScheduler.instance)
+//            .bind(to: iconLogo.rx.image)
+//            .disposed(by: disposeBag)
         
         labelTitle.text = model.name
         

@@ -221,8 +221,9 @@ extension AssetLogo {
             context.setFillColor(color.cgColor)
             context.fill(rect)
 
-            let image = style.specs.isSponsored ? Images.sponsoritem18White.image : Images.scriptasset18White.image
-            image.draw(in: rect)
+            //TODO:
+//            let image = style.specs.isSponsored ? Images.sponsoritem18White.image : Images.scriptasset18White.image
+//            image.draw(in: rect)
         }
         
         let image = UIGraphicsGetImageFromCurrentImageContext()
