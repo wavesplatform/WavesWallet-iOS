@@ -10,6 +10,7 @@ import UIKit
 import RxFeedback
 import RxCocoa
 import RxSwift
+import Extensions
 
 final class NetworkSettingsViewController: UIViewController {
 
