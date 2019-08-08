@@ -8,6 +8,7 @@
 
 import UIKit
 import IdentityImg
+import Extensions
 
 private enum Constants {
     static let height: CGFloat = 179

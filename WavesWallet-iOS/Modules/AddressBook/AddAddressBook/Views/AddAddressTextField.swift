@@ -8,7 +8,7 @@
 
 import UIKit
 import QRCodeReader
-
+import Extensions
 
 private enum Constansts {
     static let rightButtonOffset: CGFloat = 45

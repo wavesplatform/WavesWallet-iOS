@@ -11,6 +11,7 @@ import UIKit
 import UPCarouselFlowLayout
 import InfiniteCollectionView
 import DomainLayer
+import Extensions
 
 fileprivate enum Constants {
     static let spacing: CGFloat = 24
@@ -93,7 +94,7 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
         let layout = collectionView.collectionViewLayout as! UPCarouselFlowLayout
         layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: Constants.spacing)
         layout.sideItemScale = Constants.scaleCell
-
+        
         collectionView.registerCell(type: AssetsSegmentedCell.self)
     }
 

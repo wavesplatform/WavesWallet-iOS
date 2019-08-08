@@ -10,6 +10,7 @@ import Foundation
 import RxCocoa
 import RxSwift
 import UIKit
+import Extensions
 
 final class WalletSegmentedControl: UIView {
     @IBOutlet var segmentedControl: SegmentedControl!

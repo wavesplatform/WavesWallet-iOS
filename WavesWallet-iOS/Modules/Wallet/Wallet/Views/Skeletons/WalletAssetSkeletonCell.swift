@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Extensions
 
 final class WalletAssetSkeletonCell: SkeletonTableCell, NibReusable {
     @IBOutlet private weak var viewContent: UIView!

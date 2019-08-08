@@ -33,7 +33,7 @@ public extension NibLoadable {
 }
 
 public extension NibLoadable where Self: Reusable {
-    static var nibName: String {
+    public static var nibName: String {
         return reuseIdentifier
     }
 }

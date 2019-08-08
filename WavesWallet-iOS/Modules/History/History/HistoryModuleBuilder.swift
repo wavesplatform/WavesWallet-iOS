@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Extensions
 
 struct HistoryModuleBuilder: ModuleBuilderOutput {
     

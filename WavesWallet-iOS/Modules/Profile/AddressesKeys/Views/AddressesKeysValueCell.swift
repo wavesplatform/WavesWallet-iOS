@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Extensions
 
 private enum Constants {
     static let topPadding: CGFloat = 24

@@ -8,6 +8,7 @@
 
 import UIKit
 import DomainLayer
+import Extensions
 
 protocol DexChartHeaderViewDelegate: AnyObject {
 

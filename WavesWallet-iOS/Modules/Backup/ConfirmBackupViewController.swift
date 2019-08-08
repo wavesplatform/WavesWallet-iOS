@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Extensions
 
 protocol ConfirmBackupOutput: AnyObject {
     func userConfirmBackup()

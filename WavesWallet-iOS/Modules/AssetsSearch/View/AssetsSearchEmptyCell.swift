@@ -8,7 +8,9 @@
 
 import UIKit
 import DomainLayer
+import Extensions
 import RxSwift
+
 
 final class AssetsSearchEmptyCell: UITableViewCell, Reusable {
     
