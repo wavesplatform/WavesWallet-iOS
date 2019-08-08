@@ -221,7 +221,7 @@ extension AssetLogo {
             context.setFillColor(color.cgColor)
             context.fill(rect)
 
-            //TODO:
+            //TODO: ALARM
 //            let image = style.specs.isSponsored ? Images.sponsoritem18White.image : Images.scriptasset18White.image
 //            image.draw(in: rect)
         }
