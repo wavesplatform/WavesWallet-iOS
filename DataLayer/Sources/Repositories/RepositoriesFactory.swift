@@ -88,6 +88,8 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     
     public private(set) lazy var gatewayRepository: GatewayRepositoryProtocol = GatewayRepository(environmentRepository: environmentRepositoryInternal)
     
+    public private(set) lazy var marketPulseWidgetSettingsStorage: MarketPulseWidgetSettingsRepositoryProtocol = MarketPulseWidgetSettingsRepositoryStorage()
+    
     public struct Resources {
         
         public typealias PathForFile = String

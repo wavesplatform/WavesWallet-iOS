@@ -12,10 +12,10 @@ import RxFeedback
 import RxSwift
 import RxCocoa
 
-//TODO: Waves logo не парвильно
 //TODO: Spam лист
-//TODO: Область скрытие не работает
-//TODO: Ofsset клавиатуры
+//TODO: Отступ снизу от keyboardcontrol
+//TODO: minSelect
+//TODO: Замочки на минимум
 
 private typealias Types = AssetsSearch
 
@@ -24,11 +24,13 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
     private let assetsRepository: AssetsRepositoryProtocol = UseCasesFactory.instance.repositories.assetsRepositoryRemote
     
     private let assets: [DomainLayer.DTO.Asset]
-    private let limit: Int
+    private let maxSelectAssets: Int
+    private let minSelectAssets: Int = 2
+    
     
     init(assets: [DomainLayer.DTO.Asset], limit: Int) {
         self.assets = assets
-        self.limit = limit
+        self.maxSelectAssets = limit
     }
     
     override func initialState() -> State! {
@@ -81,7 +83,8 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
             
             state.ui.sections = sections(assets: assets,
                                          selectedAssets: state.core.selectAssets,
-                                         limitSelectAssets: state.core.limit)
+                                         minSelectAssets: minSelectAssets,
+                                         maxSelectAssets: state.core.maxSelectAssets)
             state.core.assets = assets
             state.core.action = .none
             state.ui.action = .update
@@ -101,13 +104,19 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
             let row = state.ui[indexPath]
             guard let asset = row.asset else { return }
             
+            let currentCount = state.core.selectAssets.count
             let isSelect = state.core.selectAssets[asset.id] != nil
-            let isLocked = (state.core.selectAssets.count) == state.core.limit
+            let isLockForSelect = currentCount == state.core.maxSelectAssets
+            let isLockForUnselect = currentCount == minSelectAssets
             
-            if isSelect == false && isLocked {
+            if isSelect == false && isLockForSelect {
                 return
             }
-                       
+            
+            if isSelect == true && isLockForUnselect {
+                return
+            }
+                                   
             if isSelect {
                 state.core.selectAssets.removeValue(forKey: asset.id)
             } else {
@@ -123,12 +132,16 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
             state.ui.countSelectedAssets = state.core.selectAssets.count
             state.ui.action = .update
         
-            let isLockedToo = (state.core.selectAssets.count) == state.core.limit
             
-            if isLockedToo != isLocked  {
+            let countAfterUpdate = state.core.selectAssets.count
+            
+            let isLockedAfterUpdate = countAfterUpdate == state.core.maxSelectAssets || countAfterUpdate == minSelectAssets
+            
+            if isLockedAfterUpdate != isLockForSelect  {
                 state.ui.sections = sections(assets: state.core.assets,
                                              selectedAssets: state.core.selectAssets,
-                                             limitSelectAssets: state.core.limit)
+                                             minSelectAssets: minSelectAssets,
+                                             maxSelectAssets: state.core.maxSelectAssets)
             }
         
         default:
@@ -142,9 +155,10 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
         
         return AssetsSearch.State.UI(sections: sections(assets: [],
                                                         selectedAssets: selectedAssets,
-                                                        limitSelectAssets: limit),
+                                                        minSelectAssets: minSelectAssets,
+                                                        maxSelectAssets: maxSelectAssets),
                                      action: .update,
-                                     limitSelectAssets: limit,
+                                     maxSelectAssets: maxSelectAssets,
                                      countSelectedAssets: assets.count)
     }
     
@@ -157,14 +171,16 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
         return AssetsSearch.State.Core(action: .none,
                                        assets: assets,
                                        selectAssets: selectAssets,
-                                       limit: self.limit)
+                                       minSelectAssets: self.minSelectAssets,
+                                       maxSelectAssets: self.maxSelectAssets)
     }
     
     private func sections(assets: [DomainLayer.DTO.Asset],
                           selectedAssets: [String: DomainLayer.DTO.Asset],
-                          limitSelectAssets: Int) -> [Types.Section] {
+                          minSelectAssets: Int,
+                          maxSelectAssets: Int) -> [Types.Section] {
         
-        let isLocked = selectedAssets.count == limitSelectAssets
+        let isLocked = selectedAssets.count == maxSelectAssets
         
         let rows = assets.map { (asset) -> Types.Row in
             let isSelected = selectedAssets[asset.id] != nil

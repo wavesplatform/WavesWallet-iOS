@@ -63,31 +63,6 @@ public protocol RepositoriesFactoryProtocol {
     var spamAssets: SpamAssetsRepositoryProtocol { get }
     
     var gatewayRepository: GatewayRepositoryProtocol { get }
-}
-
-protocol RepositoryCache {
-
-    func isCache<R>(local: R, remote: R) -> Bool
-    var isInvalid: Bool { get set }
-}
-
-final class RepositoriesDuplex<R> {
-
-    private let local: R
-    private let remote: R
-    let cache: RepositoryCache
-
-    init(local: R, remote: R, cache: RepositoryCache) {
-        self.local = local
-        self.remote = remote
-        self.cache = cache
-    }
-
-    var repository: R {
-        if cache.isCache(local: local, remote: remote) {
-            return local
-        } else {
-            return remote
-        }
-    }
+    
+    var marketPulseWidgetSettingsStorage: MarketPulseWidgetSettingsRepositoryProtocol { get }
 }

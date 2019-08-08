@@ -23,6 +23,7 @@ protocol MarketPulseWidgetInteractorProtocol {
 final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
   
     private let widgetSettingsRepository: MarketPulseWidgetSettingsRepositoryProtocol = MarketPulseWidgetSettingsRepositoryMock()
+    
     private let dbRepository: MarketPulseDataBaseRepositoryProtocol = MarketPulseDataBaseRepository()
     
     func settings() -> Observable<MarketPulse.DTO.Settings> {
