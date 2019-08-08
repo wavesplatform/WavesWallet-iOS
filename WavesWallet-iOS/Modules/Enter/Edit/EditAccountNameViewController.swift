@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import IdentityImg
 import DomainLayer
+import Extensions
 
 final class EditAccountNameViewController: UIViewController {
     
