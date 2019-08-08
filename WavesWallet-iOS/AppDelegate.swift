@@ -36,6 +36,7 @@ enum UITest {
 }
 #endif
 
+//TODO: Rename WavesWallet
 @UIApplicationMain class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var disposeBag: DisposeBag = DisposeBag()
@@ -51,30 +52,7 @@ enum UITest {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         
-        guard let googleServiceInfoPath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") else {
-            return false
-        }
-        
-        guard let appsflyerInfoPath = Bundle.main.path(forResource: "Appsflyer-Info", ofType: "plist") else {
-            return false
-        }
-        
-        guard let amplitudeInfoPath = Bundle.main.path(forResource: "Amplitude-Info", ofType: "plist") else {
-            return false
-        }
-        
-        guard let sentryIoInfoPath = Bundle.main.path(forResource: "Sentry-io-Info", ofType: "plist") else {
-            return false
-        }
-        
-        let resourses = RepositoriesFactory.Resources(googleServiceInfo: googleServiceInfoPath,
-                                                      appsflyerInfo: appsflyerInfoPath,
-                                                      amplitudeInfo: amplitudeInfoPath,
-                                                      sentryIoInfoPath: sentryIoInfoPath)
-        let repositories = RepositoriesFactory(resources: resourses)
-        
-        UseCasesFactory.initialization(repositories: repositories,
-                                          authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp())
+        guard setupLayers() else { return false }
         
         setupUI()
         setupServices()
@@ -150,6 +128,36 @@ extension AppDelegate {
         Language.load()
     }
     
+    func setupLayers() -> Bool {
+        
+        guard let googleServiceInfoPath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") else {
+            return false
+        }
+        
+        guard let appsflyerInfoPath = Bundle.main.path(forResource: "Appsflyer-Info", ofType: "plist") else {
+            return false
+        }
+        
+        guard let amplitudeInfoPath = Bundle.main.path(forResource: "Amplitude-Info", ofType: "plist") else {
+            return false
+        }
+        
+        guard let sentryIoInfoPath = Bundle.main.path(forResource: "Sentry-io-Info", ofType: "plist") else {
+            return false
+        }
+        
+        let resourses = RepositoriesFactory.Resources(googleServiceInfo: googleServiceInfoPath,
+                                                      appsflyerInfo: appsflyerInfoPath,
+                                                      amplitudeInfo: amplitudeInfoPath,
+                                                      sentryIoInfoPath: sentryIoInfoPath)
+        let repositories = RepositoriesFactory(resources: resourses)
+        
+        UseCasesFactory.initialization(repositories: repositories,
+                                       authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp())
+        
+        return true
+    }
+    
     func setupServices() {
         #if DEBUG || TEST
         
@@ -164,7 +172,6 @@ extension AppDelegate {
             let config = AppSpectorConfig(apiKey: apiKey)
             AppSpector.run(with: config)
         }
-        
 
         #else
         SweetLogger.current.add(plugin: SweetLoggerSentry(visibleLevels: [.error]))

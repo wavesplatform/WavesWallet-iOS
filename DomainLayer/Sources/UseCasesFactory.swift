@@ -12,6 +12,19 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
 
     public static var instance: UseCasesFactory!
     
+    init(repositories: RepositoriesFactoryProtocol, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
+        self.repositories = repositories
+        self.authorizationInteractorLocalizable = authorizationInteractorLocalizable
+    }
+    
+    public class func initialization(repositories: RepositoriesFactoryProtocol, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
+        self.instance = UseCasesFactory(repositories: repositories, authorizationInteractorLocalizable: authorizationInteractorLocalizable)
+    }
+    
+    public private(set) lazy var analyticManager: AnalyticManagerProtocol = {
+        return repositories.analyticManager
+    }()
+    
     public let repositories: RepositoriesFactoryProtocol
     
     public let authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol
@@ -92,19 +105,6 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
         return interactor
     }()
     
-    init(repositories: RepositoriesFactoryProtocol, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
-        self.repositories = repositories
-        self.authorizationInteractorLocalizable = authorizationInteractorLocalizable
-    }
-    
-    public class func initialization(repositories: RepositoriesFactoryProtocol, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
-        self.instance = UseCasesFactory(repositories: repositories, authorizationInteractorLocalizable: authorizationInteractorLocalizable)
-    }
-    
-    public private(set) lazy var analyticManager: AnalyticManagerProtocol = {
-        return repositories.analyticManager
-    }()
-    
     public private(set) lazy var oderbook: OrderBookUseCaseProtocol = {
         
         let interactor = OrderBookUseCase(orderBookRepository: repositories.dexOrderBookRepository,
@@ -112,5 +112,4 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
                                           authorizationInteractor: authorization)
         return interactor
     }()
-
 }

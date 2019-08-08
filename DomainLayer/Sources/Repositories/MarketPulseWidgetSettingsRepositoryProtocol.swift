@@ -11,4 +11,5 @@ import RxSwift
 
 public protocol MarketPulseWidgetSettingsRepositoryProtocol {
     func settings() -> Observable<DomainLayer.DTO.MarketPulseSettings>
+    
 }

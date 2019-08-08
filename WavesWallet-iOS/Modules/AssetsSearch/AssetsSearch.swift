@@ -25,7 +25,7 @@ enum AssetsSearch {
             
             var sections: [Section]
             var action: Action
-            var limitSelectAssets: Int
+            var maxSelectAssets: Int
             var countSelectedAssets: Int
         }
         
@@ -40,7 +40,8 @@ enum AssetsSearch {
             var action: Action
             var assets: [DomainLayer.DTO.Asset]
             var selectAssets: [String: DomainLayer.DTO.Asset]
-            var limit: Int
+            var minSelectAssets: Int
+            var maxSelectAssets: Int
         }
         
         var ui: UI
