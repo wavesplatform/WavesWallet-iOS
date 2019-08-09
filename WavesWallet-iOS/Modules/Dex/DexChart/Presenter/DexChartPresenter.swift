@@ -77,6 +77,8 @@ final class DexChartPresenter: DexChartPresenterProtocol {
                 $0.timeEnd = DexChart.State.initialDateTo()
                 $0.timeStart = DexChart.State.additionalDate(start:$0.timeEnd, timeFrame: timeFrame)
                 
+                DexChartSettings.setTimeFrame(timeFrame: timeFrame)
+                
             }.changeAction(.changeTimeFrame)
         
         case .preloading:
