@@ -9,6 +9,7 @@
 import UIKit
 import QRCode
 import RxSwift
+import DataLayer
 
 private enum Constants {
     static let icon = CGSize(width: 48, height: 48)
@@ -75,9 +76,13 @@ final class ReceiveAddressViewController: UIViewController {
     }
     
     private func setupInfo() {
+        
         title = Localizable.Waves.Receiveaddress.Label.yourAddress(input.assetName)
         labelAddress.text = input.address
-
+       
+//        let image = style.specs.isSponsored ? Images.sponsoritem18White.image : Images.scriptasset18White.image
+        
+        
         AssetLogo.logo(icon: input.icon,
                        style: AssetLogo.Style(size: Constants.icon,
                                               font: UIFont.systemFont(ofSize: 22),

@@ -1,4 +1,4 @@
-//
+
 //  AuthorizationInteractorLocalizableImp.swift
 //  WavesWallet-iOS
 //
@@ -7,23 +7,24 @@
 //
 
 import Foundation
-import DomainLayer
 
 struct AuthorizationInteractorLocalizableImp: AuthorizationInteractorLocalizableProtocol {
     
+    init() {}
+    
     var fallbackTitle: String {
-        return Localizable.Waves.Biometric.localizedFallbackTitle
+        return Localizable.Biometric.localizedFallbackTitle
     }
     
     var cancelTitle: String {
-        return Localizable.Waves.Biometric.localizedCancelTitle
+        return Localizable.Biometric.localizedCancelTitle
     }
     
     var readFromkeychain: String {
-        return Localizable.Waves.Biometric.readfromkeychain
+        return Localizable.Biometric.readfromkeychain
     }
     
     var saveInkeychain: String {
-        return Localizable.Waves.Biometric.saveinkeychain
+        return Localizable.Biometric.saveinkeychain
     }
 }

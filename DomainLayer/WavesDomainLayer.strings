@@ -1,0 +1,14 @@
+/* 
+  DomainLayer.strings
+  WavesWallet-iOS
+
+  Created by rprokofev on 08.08.2019.
+  Copyright © 2019 Waves Platform. All rights reserved.
+*/
+
+"biometric.localizedCancelTitle" = "Cancelbla";
+"biometric.localizedFallbackTitle" = "Enter Passcode";
+"biometric.manyattempts.subtitle" = "To unlock biometric, sign in with your account password";
+"biometric.manyattempts.title" = "Too many attempts";
+"biometric.readfromkeychain" = "Access to your wallet";
+"biometric.saveinkeychain" = "Access to your wallet";

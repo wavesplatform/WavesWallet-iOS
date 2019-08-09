@@ -10,7 +10,7 @@ import Foundation
 import Kingfisher
 import RxSwift
 
-func retrieveOrDonwloadImage(key: String, url: String) -> Observable<UIImage?> {
+public func retrieveOrDonwloadImage(key: String, url: String) -> Observable<UIImage?> {
 
     return retrieveImage(key: key)
         .flatMap({ (image) -> Observable<UIImage?> in
@@ -29,28 +29,28 @@ func retrieveOrDonwloadImage(key: String, url: String) -> Observable<UIImage?> {
         })
 }
 
-func saveImage(key: String, image: UIImage) -> Observable<UIImage> {
+public func saveImage(key: String, image: UIImage) -> Observable<UIImage> {
    return ImageCache.default.rx.saveImage(key: key, image: image)
 }
 
-func retrieveImage(key: String) -> Observable<UIImage?> {
+public func retrieveImage(key: String) -> Observable<UIImage?> {
     return ImageCache.default.rx.retrieveImage(key: key)
 }
 
-func clearImageCache() {
+public func clearImageCache() {
     ImageCache.default.clearDiskCache()
     ImageCache.default.clearMemoryCache()
     ImageCache.default.cleanExpiredDiskCache()
     ImageCache.default.cleanExpiredMemoryCache()
 }
 
-func downloadImage(path: String) -> Observable<UIImage?> {
+public func downloadImage(path: String) -> Observable<UIImage?> {
     return ImageDownloader.default.rx.downloadImage(path: path)
 }
 
-extension Reactive where Base == ImageDownloader {
+public extension Reactive where Base == ImageDownloader {
     
-    func downloadImage(path: String) -> Observable<UIImage?> {
+    public func downloadImage(path: String) -> Observable<UIImage?> {
         
         return Observable.create({ [base] (observer) -> Disposable in
             
@@ -96,9 +96,9 @@ extension ImageDownloader: ReactiveCompatible {
     }
 }
 
-extension Reactive where Base == ImageCache {
+public extension Reactive where Base == ImageCache {
     
-    func saveImage(key: String, image: UIImage) -> Observable<UIImage> {
+    public func saveImage(key: String, image: UIImage) -> Observable<UIImage> {
         
         return Observable.create({ [base] (observer) -> Disposable in
             
@@ -111,7 +111,7 @@ extension Reactive where Base == ImageCache {
         })
     }
     
-    func retrieveImage(key: String) -> Observable<UIImage?> {
+    public func retrieveImage(key: String) -> Observable<UIImage?> {
         
       return Observable.create({ [base] (observer) -> Disposable in
 
