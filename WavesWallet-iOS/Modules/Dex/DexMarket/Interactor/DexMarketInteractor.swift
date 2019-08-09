@@ -2,6 +2,10 @@ import Foundation
 import RxSwift
 import DomainLayer
 
+private enum Constants {
+    static let maxGeneralAssets = 4
+}
+
 final class DexMarketInteractor: DexMarketInteractorProtocol {
     
     private static var allPairs: [DomainLayer.DTO.Dex.SmartPair] = []
@@ -16,6 +20,10 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
     private let environment = UseCasesFactory.instance.repositories.environmentRepository
     private let orderBookRepository = UseCasesFactory.instance.repositories.dexOrderBookRepository
 
+    private let dexRepository = UseCasesFactory.instance.repositories.dexPairsPriceRepository
+    private let assetsInteractor = UseCasesFactory.instance.assets
+    
+    
     func pairs() -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
 
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
@@ -25,8 +33,7 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
             return self.environment.walletEnvironment().flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                 
                 guard let self = self else { return Observable.empty() }
-                return self.pairs(wallet: wallet,
-                                  spamURL: environment.servers.spamUrl.relativeString)
+                return self.pairs(wallet: wallet, environment: environment)
             })
         })
     }
@@ -130,7 +137,67 @@ private extension DexMarketInteractor {
 //MARK: - Load data
 private extension DexMarketInteractor {
     
-    func pairs(wallet: DomainLayer.DTO.SignedWallet, spamURL: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
+    func pairs(wallet: DomainLayer.DTO.SignedWallet, environment: WalletEnvironment) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
+        
+        let spamURL = environment.servers.spamUrl.relativeString
+        let firstGeneralAssets = environment.generalAssets.prefix(Constants.maxGeneralAssets)
+        
+        print(firstGeneralAssets.map {$0.displayName})
+
+        struct Pair {
+            let amountAsset: String
+            let priceAsset: String
+        }
+        
+        
+        var pairs: [Pair] = []
+        
+        for asset in firstGeneralAssets {
+            for nextAsset in firstGeneralAssets {
+                if asset.assetId != nextAsset.assetId {
+                    pairs.append(.init(amountAsset: asset.assetId, priceAsset: nextAsset.assetId))
+                }
+            }
+        }
+        
+        
+        return assetsInteractor.assets(by: firstGeneralAssets.map { $0.assetId }, accountAddress: wallet.address)
+            .flatMap({ [weak self] (assets) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
+                guard let self = self else { return Observable.empty() }
+                
+                var domainPairs: [DomainLayer.DTO.Dex.Pair] = []
+                for pair in pairs {
+                    
+                    if let amountAsset = assets.first(where: {$0.id == pair.amountAsset}),
+                        let priceAsset = assets.first(where: {$0.id == pair.priceAsset}) {
+                        
+                        let dexAmountAsset = DomainLayer.DTO.Dex.Asset(id: amountAsset.id,
+                                                                       name: amountAsset.displayName,
+                                                                       shortName: amountAsset.ticker ?? amountAsset.displayName,
+                                                                       decimals: amountAsset.precision)
+                        
+                        let dexPriceAsset = DomainLayer.DTO.Dex.Asset(id: priceAsset.id,
+                                                                      name: priceAsset.displayName,
+                                                                      shortName: priceAsset.ticker ?? priceAsset.displayName,
+                                                                      decimals: priceAsset.precision)
+                        
+                        
+                        domainPairs.append(.init(amountAsset: dexAmountAsset, priceAsset: dexPriceAsset))
+                    }
+                }
+                
+                return self.dexRepository.list(by: wallet.address, pairs: domainPairs)
+                    .map({ (pairsPrice) -> [DomainLayer.DTO.Dex.SmartPair] in
+                        
+                        print(pairsPrice)
+//                        for pair in pairsPrice {
+//                            
+//                        }
+                        return []
+                    })
+            })
+        
+//        print(pairs.map {$0.amountName + " / " + $0.priceName})
         
         if DexMarketInteractor.allPairs.count > 0 &&
             spamURL == DexMarketInteractor.spamURL {
