@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import DomainLayer
 import Extensions
+import DataLayer
 
 private enum Constants {
     static let icon = CGSize(width: 24, height: 24)
@@ -33,7 +34,6 @@ final class AssetListTableViewCell: UITableViewCell, NibReusable {
         iconAsset.image = nil
         disposeBag = DisposeBag()
     }
-    
 }
 
 extension AssetListTableViewCell: ViewConfiguration {

@@ -137,6 +137,7 @@ target 'DataLayer' do
     pod 'RxSwift'
     pod 'Moya'
     pod 'Moya/RxSwift'
+    pod 'Kingfisher'
 end
 
 target 'DomainLayer' do
@@ -152,7 +153,7 @@ target 'DomainLayer' do
     pod 'RxSwiftExt'
     pod 'RxOptional'        
     pod 'RxReachability'
-
+  
     pod 'KeychainAccess'        
 
     # Waves    
@@ -172,6 +173,8 @@ target 'Extensions' do
     pod 'RxOptional'
     pod 'DeviceKit'
     pod 'RxFeedback'
+    pod 'RxReachability'    
+    pod 'Kingfisher'
 
     # Waves
     wavesSDKPod

@@ -28,11 +28,11 @@ final class GlobalErrorView: UIView, NibOwnerLoadable {
     }
 
     @IBAction func handlerActionRetry() {
-        //TODO: Alarm
-//        let instance = ReachabilityService.instance
-//        if instance.connection != .none {
-//            retryDidTap?()
-//        }
+
+        let instance = ReachabilityService.instance
+        if instance.connection != .none {
+            retryDidTap?()
+        }
     }
 
     @IBAction func handlerActionSendReport() {
