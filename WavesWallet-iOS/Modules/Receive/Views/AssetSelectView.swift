@@ -11,6 +11,7 @@ import RxSwift
 import WavesSDK
 import Extensions
 import DomainLayer
+import DataLayer
 
 private enum Constants {
     static let borderRadius: CGFloat = 2

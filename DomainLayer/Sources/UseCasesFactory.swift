@@ -10,25 +10,27 @@ import Foundation
 
 public final class UseCasesFactory: UseCasesFactoryProtocol {
 
+    public let repositories: RepositoriesFactoryProtocol
+    
+    public let authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol
+    
     public static var instance: UseCasesFactory!
     
-    init(repositories: RepositoriesFactoryProtocol, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
+    init(repositories: RepositoriesFactoryProtocol) {
         self.repositories = repositories
-        self.authorizationInteractorLocalizable = authorizationInteractorLocalizable
+        self.authorizationInteractorLocalizable = AuthorizationInteractorLocalizableImp()
+        
+        AuthorizationInteractorLocalizableImp().cancelTitle
     }
     
-    public class func initialization(repositories: RepositoriesFactoryProtocol, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
-        self.instance = UseCasesFactory(repositories: repositories, authorizationInteractorLocalizable: authorizationInteractorLocalizable)
+    public class func initialization(repositories: RepositoriesFactoryProtocol) {
+        self.instance = UseCasesFactory(repositories: repositories)
     }
     
     public private(set) lazy var analyticManager: AnalyticManagerProtocol = {
         return repositories.analyticManager
     }()
     
-    public let repositories: RepositoriesFactoryProtocol
-    
-    public let authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol
-
     public private(set) lazy var accountBalance: AccountBalanceUseCaseProtocol = {
         
         let interactor = AccountBalanceUseCase(authorizationInteractor: self.authorization,

@@ -152,8 +152,7 @@ extension AppDelegate {
                                                       sentryIoInfoPath: sentryIoInfoPath)
         let repositories = RepositoriesFactory(resources: resourses)
         
-        UseCasesFactory.initialization(repositories: repositories,
-                                       authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp())
+        UseCasesFactory.initialization(repositories: repositories)
         
         return true
     }
