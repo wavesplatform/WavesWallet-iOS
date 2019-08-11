@@ -21,6 +21,59 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
         self.environmentRepository = environmentRepository
     }
     
+    func search(by accountAddress: String, searchText: String) -> Observable<[DomainLayer.DTO.Dex.SimplePair]> {
+        
+        if searchText.count == 0 {
+            return Observable.just([])
+        }
+        
+        var kind: DataService.Query.PairsPriceSearch.Kind!
+
+        let searchCompoments = searchText.components(separatedBy: "/")
+        
+        if searchCompoments.count == 1 {
+            let searchWords = searchCompoments[0].components(separatedBy: " ").filter {$0.count > 0}
+            if searchWords.count > 0 {
+                kind = .byAsset(searchWords[0])
+            }
+            else {
+                return Observable.just([])
+            }
+        }
+        else if searchCompoments.count >= 2 {
+            let searchAmountWords = searchCompoments[0].components(separatedBy: " ").filter {$0.count > 0}
+            let searchPriceWords = searchCompoments[1].components(separatedBy: " ").filter {$0.count > 0}
+            
+            if searchAmountWords.count > 0 && searchPriceWords.count > 0 {
+                kind = .byAssets(firstName: searchAmountWords[0], secondName: searchPriceWords[0])
+            }
+            else if searchAmountWords.count > 0 {
+                kind = .byAsset(searchAmountWords[0])
+            }
+            else if searchPriceWords.count > 0 {
+                kind = .byAsset(searchPriceWords[0])
+            }
+            else {
+                return Observable.just([])
+            }
+        }
+
+        return environmentRepository
+        .servicesEnvironment()
+            .flatMap({ (servicesEnvironment) -> Observable<[DomainLayer.DTO.Dex.SimplePair]> in
+                return servicesEnvironment
+                .wavesServices
+                .dataServices
+                .pairsPriceDataService
+                .searchByAsset(query: .init(kind: kind))
+                    .map({ (pairs) -> [DomainLayer.DTO.Dex.SimplePair] in
+                        
+                        return pairs.map { DomainLayer.DTO.Dex.SimplePair(amountAsset: $0.amountAsset,
+                                                                          priceAsset: $0.priceAsset)}
+                    })
+            })
+    }
+    
     func list(by accountAddress: String,
               pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
 

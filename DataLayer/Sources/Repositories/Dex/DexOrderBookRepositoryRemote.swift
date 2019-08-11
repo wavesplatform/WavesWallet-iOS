@@ -65,36 +65,29 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                 guard let self = self else { return Observable.empty() }
                 
                 let queryPairs = pairs.map {DataService.Query.PairsPrice.Pair(amountAssetId: $0.amountAsset.id, priceAssetId: $0.priceAsset.id)}
-                let pairsPrice = appEnvironment
-                                .wavesServices
-                                .dataServices
-                                .pairsPriceDataService
-                                .pairsPrice(query: .init(pairs: queryPairs))
-                
-                return Observable.zip(pairsPrice, self.spamList(accountAddress: wallet.address))
-                    .map({ [weak self] (pairsPrice, spamList) -> [DomainLayer.DTO.Dex.SmartPair] in
+                return appEnvironment
+                        .wavesServices
+                        .dataServices
+                        .pairsPriceDataService
+                        .pairsPrice(query: .init(pairs: queryPairs))
+                    .map({ [weak self] (pairsPrice) -> [DomainLayer.DTO.Dex.SmartPair] in
                         
                         guard let self = self, let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address) else {
                             return []
                         }
                         
-                        let spamListKeys = spamList.reduce(into:  [String : String](), { $0[$1] = $1})
                         var smartPairs: [DomainLayer.DTO.Dex.SmartPair] = []
                         
                         for (index, pair) in pairsPrice.enumerated() {
                             if pair != nil {
                                 let amountAsset = pairs[index].amountAsset
                                 let priceAsset = pairs[index].priceAsset
-                             
-                                if spamListKeys[amountAsset.id] == nil &&
-                                    spamListKeys[priceAsset.id] == nil {
-                                    
-                                    smartPairs.append(.init(amountAsset: amountAsset, priceAsset: priceAsset, realm: realm))
-                                }
+                                smartPairs.append(.init(amountAsset: amountAsset, priceAsset: priceAsset, realm: realm))
                             }
                         }
                         return self.sort(pairs: smartPairs, realm: realm)
                     })
+
             })
     }
     
@@ -228,18 +221,6 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
             })
     }
 }
-
-//MARK: - SpamList
-private extension DexOrderBookRepositoryRemote {
-    
-    func spamList(accountAddress: String) -> Observable<[String]> {
-        
-        return self
-            .spamAssetsRepository
-            .spamAssets(accountAddress: accountAddress)
-    }
-}
-
 
 //MARK: - Markets Sort
 private extension DexOrderBookRepositoryRemote {

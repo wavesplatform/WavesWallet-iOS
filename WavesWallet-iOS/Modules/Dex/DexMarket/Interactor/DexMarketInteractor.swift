@@ -1,9 +1,11 @@
 import Foundation
 import RxSwift
 import DomainLayer
+import DataLayer
+import Extensions
 
 private enum Constants {
-    static let maxGeneralAssets = 5
+    static let maxGeneralAssets = 4
 }
 
 final class DexMarketInteractor: DexMarketInteractorProtocol {
@@ -11,7 +13,6 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
     private static var allPairs: [DomainLayer.DTO.Dex.SmartPair] = []
     private static var spamURL = ""
 
-    private let searchPairsSubject: PublishSubject<[DomainLayer.DTO.Dex.SmartPair]> = PublishSubject<[DomainLayer.DTO.Dex.SmartPair]>()
     private let disposeBag: DisposeBag = DisposeBag()
 
     private let dexRealmRepository: DexRealmRepositoryProtocol = UseCasesFactory.instance.repositories.dexRealmRepository
@@ -20,9 +21,8 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
     private let environment = UseCasesFactory.instance.repositories.environmentRepository
     private let orderBookRepository = UseCasesFactory.instance.repositories.dexOrderBookRepository
 
-    private let dexRepository = UseCasesFactory.instance.repositories.dexPairsPriceRepository
+    private let dexPairsPriceRepository = UseCasesFactory.instance.repositories.dexPairsPriceRepository
     private let assetsInteractor = UseCasesFactory.instance.assets
-    
     
     func pairs() -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
 
@@ -33,13 +33,59 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
             return self.environment.walletEnvironment().flatMap({ [weak self] (environment) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                 
                 guard let self = self else { return Observable.empty() }
-                return self.pairs(wallet: wallet, environment: environment)
+                return self.defaultPairs(wallet: wallet, environment: environment)
             })
         })
     }
     
-    func searchPairs() -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
-        return searchPairsSubject.asObserver()
+    func searchPairs(searchWord: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
+        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.Dex.SmartPair]>  in
+            guard let self = self else { return Observable.empty() }
+            return self.dexPairsPriceRepository.search(by: wallet.address, searchText: searchWord)
+                .flatMap({ [weak self] (pairs) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
+                    
+                    guard let self = self else { return Observable.empty() }
+                    
+                    var assetsIds: [String] = []
+                    for pair in pairs {
+                        if !assetsIds.contains(pair.amountAsset) {
+                            assetsIds.append(pair.amountAsset)
+                        }
+                        
+                        if !assetsIds.contains(pair.priceAsset) {
+                            assetsIds.append(pair.priceAsset)
+                        }
+                    }
+                    
+                    return self.assetsInteractor.assets(by: assetsIds, accountAddress: wallet.address)
+                        .flatMap({ (assets) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
+                            
+                            var dexPairs: [DomainLayer.DTO.Dex.Pair] = []
+                            
+                            for pair in pairs {
+                                if let amountAsset = assets.first(where: {$0.id == pair.amountAsset}),
+                                    let priceAsset = assets.first(where: {$0.id == pair.priceAsset}) {
+                                    
+                                    let dexAmountAsset = DomainLayer.DTO.Dex.Asset(id: amountAsset.id,
+                                                                                   name: amountAsset.displayName,
+                                                                                   shortName: amountAsset.ticker ?? amountAsset.displayName,
+                                                                                   decimals: amountAsset.precision)
+                                    
+                                    let dexPriceAsset = DomainLayer.DTO.Dex.Asset(id: priceAsset.id,
+                                                                                  name: priceAsset.displayName,
+                                                                                  shortName: priceAsset.ticker ?? priceAsset.displayName,
+                                                                                  decimals: priceAsset.precision)
+                                    dexPairs.append(.init(amountAsset: dexAmountAsset, priceAsset: dexPriceAsset))
+                                }
+                            }
+                            
+                            return self.orderBookRepository.markets(wallet: wallet, pairs: dexPairs)
+                        })
+                })
+        })
+        .catchError({ _ -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
+            return Observable.just([])
+        })
     }
     
     func checkMark(pair: DomainLayer.DTO.Dex.SmartPair) {
@@ -66,78 +112,12 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
             }
         }
     }
-    
-    func searchPair(searchText: String) {
-        
-        if searchText.count > 0 {
-            
-            let searchPairs = DexMarketInteractor.allPairs.filter {
-                searchPair(amountName: $0.amountAsset.name,
-                           priceName: $0.priceAsset.name,
-                           amountShortName: $0.amountAsset.shortName,
-                           priceShortName: $0.priceAsset.shortName,
-                           searchText: searchText)
-            }
-            
-            searchPairsSubject.onNext(searchPairs)
-        }
-        else {
-            searchPairsSubject.onNext(DexMarketInteractor.allPairs)
-        }
-    }
-    
-}
-
-//MARK: - Search
-
-private extension DexMarketInteractor {
-    
-    func searchPair(amountName: String, priceName: String, amountShortName: String, priceShortName: String, searchText: String) -> Bool {
-        
-        let searchCompoments = searchText.components(separatedBy: "/")
-        if searchCompoments.count == 1 {
-            
-            let searchWords = searchCompoments[0].components(separatedBy: " ").filter {$0.count > 0}
-            
-            return isValidSearchAsset(name: amountName, shortName: amountShortName, searchWords: searchWords) ||
-                isValidSearchAsset(name: priceName, shortName: priceShortName, searchWords: searchWords)
-        }
-        else if searchCompoments.count >= 2 {
-            
-            let searchAmountWords = searchCompoments[0].components(separatedBy: " ").filter {$0.count > 0}
-            let searchPriceWords = searchCompoments[1].components(separatedBy: " ").filter {$0.count > 0}
-
-            if searchPriceWords.count > 0 {
-                return isValidSearchAsset(name: amountName, shortName: amountShortName, searchWords: searchAmountWords) &&
-                    isValidSearchAsset(name: priceName, shortName: priceShortName, searchWords: searchPriceWords)
-            }
-            return isValidSearchAsset(name: amountName, shortName: amountShortName, searchWords: searchAmountWords)
-        }
-        
-        return false
-    }
-    
-    func isValidSearchAsset(name: String, shortName: String, searchWords: [String]) -> Bool {
-        
-        for word in searchWords {
-            let isValid = isValidSearch(inputText: name, searchText: word) ||
-                isValidSearch(inputText: shortName, searchText: word)
-            if !isValid {
-                return false
-            }
-        }
-        return true
-    }
-    
-    func isValidSearch(inputText: String, searchText: String) -> Bool {
-        return (inputText.lowercased() as NSString).range(of: searchText.lowercased()).location != NSNotFound
-    }
 }
 
 //MARK: - Load data
 private extension DexMarketInteractor {
     
-    func pairs(wallet: DomainLayer.DTO.SignedWallet, environment: WalletEnvironment) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
+    func defaultPairs(wallet: DomainLayer.DTO.SignedWallet, environment: WalletEnvironment) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
         
         let spamURL = environment.servers.spamUrl.relativeString
 
@@ -148,12 +128,7 @@ private extension DexMarketInteractor {
         
         let firstGeneralAssets = environment.generalAssets.prefix(Constants.maxGeneralAssets)
 
-        struct Pair {
-            let amountAsset: String
-            let priceAsset: String
-        }
-
-        var searchPairs: [Pair] = []
+        var searchPairs: [DomainLayer.DTO.Dex.SimplePair] = []
 
         for asset in firstGeneralAssets {
             for nextAsset in firstGeneralAssets {

@@ -59,8 +59,8 @@ final class DexListInteractor: DexListInteractorProtocol {
                                     let pair = DexList.DTO.Pair(id: localPair.id,
                                                                 firstPrice: pair.firstPrice,
                                                                 lastPrice: pair.lastPrice,
-                                                                amountAsset: pair.amountAsset,
-                                                                priceAsset: pair.priceAsset,
+                                                                amountAsset: localPair.amountAsset,
+                                                                priceAsset: localPair.priceAsset,
                                                                 isGeneral: localPair.isGeneral,
                                                                 sortLevel: localPair.sortLevel)
                                     listPairs.append(pair)
