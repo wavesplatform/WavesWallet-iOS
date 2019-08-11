@@ -68,8 +68,13 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
                 .searchByAsset(query: .init(kind: kind))
                     .map({ (pairs) -> [DomainLayer.DTO.Dex.SimplePair] in
                         
-                        return pairs.map { DomainLayer.DTO.Dex.SimplePair(amountAsset: $0.amountAsset,
-                                                                          priceAsset: $0.priceAsset)}
+                        var simplePairs: [DomainLayer.DTO.Dex.SimplePair] = []
+                        for pair in pairs {
+                            if !simplePairs.contains(where: {$0.amountAsset == pair.amountAsset && $0.priceAsset == pair.priceAsset}) {
+                                simplePairs.append(.init(amountAsset: pair.amountAsset, priceAsset: pair.priceAsset))
+                            }
+                        }
+                        return simplePairs
                     })
             })
     }
