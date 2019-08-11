@@ -727,6 +727,7 @@
 		E9310D1B21792D14008BF3EE /* SendConfirmationRecipientView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9310D1A21792D13008BF3EE /* SendConfirmationRecipientView.xib */; };
 		E9310D1D217942C8008BF3EE /* BlueBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9310D1C217942C8008BF3EE /* BlueBgView.swift */; };
 		E938356F20A472B4001A2509 /* HistoryTransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */; };
+		E9413AC222FA3D9C002C4A97 /* DexChartSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9413AC122FA3D9C002C4A97 /* DexChartSettings.swift */; };
 		E94231F022A40FA80087F82F /* WalletSearchModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94231EF22A40FA80087F82F /* WalletSearchModuleBuilder.swift */; };
 		E9443008226E62A600EB6257 /* WalletSortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9443007226E62A600EB6257 /* WalletSortViewController.swift */; };
 		E944300A226E641E00EB6257 /* WalletSortTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9443009226E641E00EB6257 /* WalletSortTypes.swift */; };
@@ -1966,6 +1967,7 @@
 		E9310D1A21792D13008BF3EE /* SendConfirmationRecipientView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SendConfirmationRecipientView.xib; sourceTree = "<group>"; };
 		E9310D1C217942C8008BF3EE /* BlueBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueBgView.swift; sourceTree = "<group>"; };
 		E938356E20A472B4001A2509 /* HistoryTransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionCell.swift; sourceTree = "<group>"; };
+		E9413AC122FA3D9C002C4A97 /* DexChartSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexChartSettings.swift; sourceTree = "<group>"; };
 		E94231EF22A40FA80087F82F /* WalletSearchModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSearchModuleBuilder.swift; sourceTree = "<group>"; };
 		E9443007226E62A600EB6257 /* WalletSortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortViewController.swift; sourceTree = "<group>"; };
 		E9443009226E641E00EB6257 /* WalletSortTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortTypes.swift; sourceTree = "<group>"; };
@@ -4847,6 +4849,7 @@
 			isa = PBXGroup;
 			children = (
 				E9B086C32163886800937644 /* DexChartTypes.swift */,
+				E9413AC122FA3D9C002C4A97 /* DexChartSettings.swift */,
 				E9B086C42163886800937644 /* DexChartConstants.swift */,
 				E9B086C52163886800937644 /* Presenter */,
 				E9B086C82163886800937644 /* DexChartHelper.swift */,
@@ -7324,6 +7327,7 @@
 				E9D36DD72175C755001E6DF0 /* ReceiveCardInteractorProtocol.swift in Sources */,
 				E9D36DE72175C755001E6DF0 /* ReceiveGenerateAddressViewController.swift in Sources */,
 				0A762D11214FDFA100BE9204 /* NewAccountAvatarView.swift in Sources */,
+				E9413AC222FA3D9C002C4A97 /* DexChartSettings.swift in Sources */,
 				0ADD801E21F22FFA0075FC59 /* PresentationCoordinator.swift in Sources */,
 				E9B087EF2163886800937644 /* DexLastTradesTypes.swift in Sources */,
 				F7C683BE1EA93C5800C87DAF /* CustomNavigationController.swift in Sources */,
