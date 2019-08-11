@@ -79,7 +79,7 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
                                 }
                             }
                             
-                            return self.orderBookRepository.markets(wallet: wallet, pairs: dexPairs)
+                            return self.dexPairsPriceRepository.mapPairs(by: wallet.address, pairs: dexPairs)
                         })
                 })
         })
