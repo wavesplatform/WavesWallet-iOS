@@ -13,8 +13,9 @@ import RxCocoa
 import RxFeedback
 import WavesSDK
 import DomainLayer
+import Extensions
 
-//1. Показ ошибки, в таргет нужно добавлять файлы локализации
+//TODO: 1. Показ ошибки, в таргет нужно добавлять файлы локализации
 //7. Добавить локализацию
 
 //Использовать один и тотже способ инициализации SDK в клиенте и Widget
@@ -53,7 +54,7 @@ final class MarketPulseWidgetViewController: UIViewController {
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         
         initPresenter()
-        initSDK()
+//        initSDK()
         setupFeedBack()
         setupButtonUpdateSize()
         showUpdateAnimation()
@@ -117,6 +118,7 @@ final class MarketPulseWidgetViewController: UIViewController {
     }
     
     private func initSDK() {
+        
         WavesSDK.initialization(servicesPlugins: .init(data: [],
                                                        node: [],
                                                        matcher: []),
@@ -124,6 +126,7 @@ final class MarketPulseWidgetViewController: UIViewController {
         
     }
 }
+
 
 //MARK: - FeedBack
 

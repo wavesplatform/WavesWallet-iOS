@@ -9,62 +9,116 @@
 import Foundation
 import RxSwift
 import Kingfisher
-import DomainLayer
 
-enum AssetLogo {}
-
-extension AssetLogo {
-
-    struct Style: Hashable {
-        struct Border: Hashable {
-            let width: CGFloat
-            let color: UIColor
-        }
+public enum AssetLogo {
+    
+    public struct Icon: Equatable {
+        public let assetId: String
+        public let name: String
+        public let url: String?
+        public let isSponsored: Bool
+        public let hasScript: Bool
         
-        struct Specifications: Hashable {
-            let isSponsored: Bool
-            let hasScript: Bool
-            let size: CGSize
+        public init(assetId: String,
+                    name: String,
+                    url: String?,
+                    isSponsored: Bool,
+                    hasScript: Bool) {
+            
+            self.assetId = assetId
+            self.name = name
+            self.url = url
+            self.isSponsored = isSponsored
+            self.hasScript = hasScript
         }
-
-        let size: CGSize
-        let font: UIFont
-        let specs: Specifications
         
         var key: String {
-            var key = "\(size.width)_\(size.height)"
-            key += "\(font.familyName)_\(font.lineHeight)"
+
+            var keys: [String] = .init()
             
-            if specs.isSponsored || specs.hasScript {
-                key += "\(specs.size.width)_\(specs.size.height)_\(specs.isSponsored)_\(specs.hasScript)"
+            keys.append(assetId)
+            keys.append(name)
+            keys.append("\(isSponsored)")
+            keys.append("\(hasScript)")
+            
+            if let url = url {
+                keys.append(url)
             }
             
-            return key
+            return keys.reduce(into: "", { $0 = $0 + "." + $1 })
         }
     }
-
-    private static func cacheKeyForRemoteLogo(icon: DomainLayer.DTO.Asset.Icon,
-                                              style: Style) -> String {
-        return "com.wavesplatform.asset.logo.v3.\(icon.name).\(icon.assetId).\(style.key)"
+    
+    public struct Style: Hashable {
+        public struct Border: Hashable {
+            public let width: CGFloat
+            public let color: UIColor
+            
+            public init(width: CGFloat,
+                        color: UIColor) {
+                self.width = width
+                self.color = color
+            }
+        }
+        
+        public struct Specifications: Hashable {
+            
+            public let sponsoredImage: UIImage
+            public let scriptImage: UIImage
+            public let size: CGSize
+            
+            public init(sponsoredImage: UIImage,
+                        scriptImage: UIImage,
+                        size: CGSize) {
+                self.sponsoredImage = sponsoredImage
+                self.scriptImage = scriptImage
+                self.size = size
+            }
+        }
+        
+        public let size: CGSize
+        public let font: UIFont
+        public let specs: Specifications
+        
+        public init(size: CGSize,
+                    font: UIFont,
+                    specs: Specifications) {
+            self.size = size
+            self.font = font
+            self.specs = specs
+        }
+        
+        var key: String {
+            
+            var keys: [String] = .init()
+            
+            keys.append("\(size.width)")
+            keys.append("\(size.height)")
+            keys.append("\(font.familyName)")
+            keys.append("\(font.lineHeight)")
+            keys.append("\(specs.size.width)")
+            keys.append("\(specs.size.height)")
+            
+            
+            return keys.reduce(into: "", { $0 = $0 + "." + $1 })
+        }
     }
+}
 
-    private static func cacheKeyForLocalLogo(icon: DomainLayer.DTO.Asset.Icon,
-                                             style: Style) -> String {
-        return "\(cacheKeyForRemoteLogo(icon: icon, style: style)).local"
-    }
+public extension AssetLogo {
 
-    static func logo(icon: DomainLayer.DTO.Asset.Icon,
+    static func logo(icon: AssetLogo.Icon,
                      style: Style) -> Observable<UIImage> {
-
+        
         let key = cacheKeyForRemoteLogo(icon: icon, style: style)
-
+        
         return retrieveImage(key: key)
             .flatMap({ (image) -> Observable<UIImage> in
                 if let image = image {
                     return Observable.just(image)
                 } else {
                     if let url = icon.url {
-
+                        
                         return Observable.merge(localLogo(icon: icon,
                                                           style: style),
                                                 remoteLogo(icon: icon,
@@ -77,8 +131,22 @@ extension AssetLogo {
                 }
             })
     }
+}
 
-    private static func remoteLogo(icon: DomainLayer.DTO.Asset.Icon,
+public extension AssetLogo {
+    
+    private static func cacheKeyForRemoteLogo(icon: AssetLogo.Icon,
+                                              style: Style) -> String {
+        return "com.wavesplatform.asset.logo.v3.\(icon.key).\(style.key)"
+    }
+
+    private static func cacheKeyForLocalLogo(icon: AssetLogo.Icon,
+                                             style: Style) -> String {
+        return "\(cacheKeyForRemoteLogo(icon: icon, style: style)).local"
+    }
+
+
+    private static func remoteLogo(icon: AssetLogo.Icon,
                            style: Style,
                            url: String) -> Observable<UIImage> {
 
@@ -104,9 +172,9 @@ extension AssetLogo {
             })
     }
 
-    private static func prepareRemoteLogo(icon: DomainLayer.DTO.Asset.Icon,
-                                  style: Style,
-                                  image: UIImage) -> Observable<UIImage> {
+    private static func prepareRemoteLogo(icon: AssetLogo.Icon,
+                                          style: Style,
+                                          image: UIImage) -> Observable<UIImage> {
 
         let image = rxCreateLogo(icon: icon,
                                  image: image,
@@ -121,7 +189,7 @@ extension AssetLogo {
             })
     }
 
-    private static func localLogo(icon: DomainLayer.DTO.Asset.Icon,
+    private static func localLogo(icon: AssetLogo.Icon,
                                   style: Style) -> Observable<UIImage> {
 
         let localKey = cacheKeyForLocalLogo(icon: icon, style: style)
@@ -142,7 +210,7 @@ extension AssetLogo {
             })
     }
     
-    private static func rxCreateLogo(icon: DomainLayer.DTO.Asset.Icon,
+    private static func rxCreateLogo(icon: AssetLogo.Icon,
                                      image: UIImage?,
                                      style: Style) -> Observable<UIImage?> {
         
@@ -157,7 +225,7 @@ extension AssetLogo {
         .observeOn(MainScheduler.asyncInstance)
     }
 
-    private static func createLogo(icon: DomainLayer.DTO.Asset.Icon,
+    private static func createLogo(icon: AssetLogo.Icon,
                                    image: UIImage?,
                                    style: Style) -> UIImage? {
 
@@ -206,7 +274,7 @@ extension AssetLogo {
             }
         }
         
-        if style.specs.isSponsored || style.specs.hasScript {
+        if icon.hasScript || icon.isSponsored {
 
             let rect = CGRect(x: size.width - style.specs.size.width,
                               y: size.height - style.specs.size.height,
@@ -221,9 +289,14 @@ extension AssetLogo {
             context.setFillColor(color.cgColor)
             context.fill(rect)
 
-            //TODO: ALARM
-//            let image = style.specs.isSponsored ? Images.sponsoritem18White.image : Images.scriptasset18White.image
-//            image.draw(in: rect)
+            
+            if icon.hasScript {
+                style.specs.scriptImage.draw(in: rect)
+            }
+            
+            if icon.isSponsored {
+                style.specs.sponsoredImage.draw(in: rect)
+            }
         }
         
         let image = UIGraphicsGetImageFromCurrentImageContext()

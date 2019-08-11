@@ -8,10 +8,10 @@
 
 import UIKit
 import RxSwift
+import Extensions
 
 private enum Constants {
     static let height: CGFloat = 38
-    static let sponsoredIcon = CGSize(width: 12, height: 12)
 
     static let redTickerColor: UIColor = .error500
     static let greenTickerColor: UIColor = .successLime
@@ -53,7 +53,7 @@ extension MarketPulseWidgetCell: ViewConfiguration {
     
     func update(with model: MarketPulse.DTO.UIAsset) {
 
-        //TODO: ALARM
+//        TODO: ALARM
 //        AssetLogo.logo(icon: model.icon,
 //                       style: AssetLogo.Style(size: iconLogo.frame.size,
 //                                              font: UIFont.systemFont(ofSize: 13),

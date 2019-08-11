@@ -129,11 +129,6 @@
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
-            key = "UI-Develop"
-            value = "YES"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-         <EnvironmentVariable
             key = "NSZombieEnabled"
             value = "YES"
             isEnabled = "YES">

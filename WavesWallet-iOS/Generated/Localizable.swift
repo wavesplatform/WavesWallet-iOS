@@ -484,18 +484,6 @@ internal enum Localizable {
     }
 
     internal enum Biometric {
-      /// Cancel
-      internal static var localizedCancelTitle: String { return Localizable.tr("Waves", "biometric.localizedCancelTitle") }
-      internal static var localizedCancelTitleKey: String { return "biometric.localizedCancelTitle" }
-      /// Enter Passcode
-      internal static var localizedFallbackTitle: String { return Localizable.tr("Waves", "biometric.localizedFallbackTitle") }
-      internal static var localizedFallbackTitleKey: String { return "biometric.localizedFallbackTitle" }
-      /// Access to your wallet
-      internal static var readfromkeychain: String { return Localizable.tr("Waves", "biometric.readfromkeychain") }
-      internal static var readfromkeychainKey: String { return "biometric.readfromkeychain" }
-      /// Access to your wallet
-      internal static var saveinkeychain: String { return Localizable.tr("Waves", "biometric.saveinkeychain") }
-      internal static var saveinkeychainKey: String { return "biometric.saveinkeychain" }
 
       internal enum Manyattempts {
         /// To unlock biometric, sign in with your account password

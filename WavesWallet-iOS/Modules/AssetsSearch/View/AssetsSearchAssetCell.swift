@@ -11,11 +11,6 @@ import DomainLayer
 import RxSwift
 import Extensions
 
-private enum Constants {
-    static let sizeLogo = CGSize(width: 28, height: 28)
-    static let sponsoredIcon = CGSize(width: 12, height: 12)
-}
-
 final class AssetsSearchAssetCell: UITableViewCell, Reusable {
     
     struct Model {
@@ -61,11 +56,7 @@ extension AssetsSearchAssetCell: ViewConfiguration {
         }
         
         AssetLogo.logo(icon: model.asset.iconLogo,
-                       style: AssetLogo.Style(size: Constants.sizeLogo,
-                                              font: UIFont.systemFont(ofSize: 15),
-                                              specs: .init(isSponsored: model.asset.isSponsored,
-                                                           hasScript: model.asset.hasScript,
-                                                           size: Constants.sponsoredIcon)))
+                       style: .medium)
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (image) in
                 guard let self = self else { return }

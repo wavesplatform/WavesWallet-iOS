@@ -8,7 +8,6 @@
 
 "biometric.localizedCancelTitle" = "Cancelbla";
 "biometric.localizedFallbackTitle" = "Enter Passcode";
-"biometric.manyattempts.subtitle" = "To unlock biometric, sign in with your account password";
-"biometric.manyattempts.title" = "Too many attempts";
 "biometric.readfromkeychain" = "Access to your wallet";
 "biometric.saveinkeychain" = "Access to your wallet";
+

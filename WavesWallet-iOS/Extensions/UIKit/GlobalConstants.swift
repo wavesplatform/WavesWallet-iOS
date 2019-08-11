@@ -30,3 +30,4 @@ enum UIGlobalConstants {
     static let minimumSeedLength = 25
     #endif
 }
+

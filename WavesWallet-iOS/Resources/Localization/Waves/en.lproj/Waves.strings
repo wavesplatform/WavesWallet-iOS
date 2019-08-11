@@ -81,12 +81,10 @@
 "backup.savebackup.navigation.title" = "Save backup phrase";
 "backup.savebackup.next.button.title" = "I've written it down";
 "backup.savebackup.next.label.title" = "You will confirm this phrase on the next screen";
-"biometric.localizedCancelTitle" = "Cancel";
-"biometric.localizedFallbackTitle" = "Enter Passcode";
+
 "biometric.manyattempts.subtitle" = "To unlock biometric, sign in with your account password";
 "biometric.manyattempts.title" = "Too many attempts";
-"biometric.readfromkeychain" = "Access to your wallet";
-"biometric.saveinkeychain" = "Access to your wallet";
+
 "cameraAccess.alert.allow" = "Allow Camera";
 "cameraAccess.alert.cancel" = "Cancel";
 "cameraAccess.alert.message" = "Camera access is required to make full use of this app";

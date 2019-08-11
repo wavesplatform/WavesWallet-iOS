@@ -21,15 +21,6 @@ internal enum Localizable {
     /// Access to your wallet
     internal static var saveinkeychain: String { return Localizable.tr("WavesDomainLayer", "biometric.saveinkeychain") }
     internal static var saveinkeychainKey: String { return "biometric.saveinkeychain" }
-
-    internal enum Manyattempts {
-      /// To unlock biometric, sign in with your account password
-      internal static var subtitle: String { return Localizable.tr("WavesDomainLayer", "biometric.manyattempts.subtitle") }
-      internal static var subtitleKey: String { return "biometric.manyattempts.subtitle" }
-      /// Too many attempts
-      internal static var title: String { return Localizable.tr("WavesDomainLayer", "biometric.manyattempts.title") }
-      internal static var titleKey: String { return "biometric.manyattempts.title" }
-    }
   }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length nesting type_body_length type_name

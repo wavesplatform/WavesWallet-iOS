@@ -10,10 +10,9 @@ import UIKit
 import QRCode
 import RxSwift
 import DataLayer
+import Extensions
 
 private enum Constants {
-    static let icon = CGSize(width: 48, height: 48)
-    static let sponsoredIcon = CGSize(width: 18, height: 18)
     static let copyDuration: TimeInterval = 2
 }
 
@@ -79,16 +78,9 @@ final class ReceiveAddressViewController: UIViewController {
         
         title = Localizable.Waves.Receiveaddress.Label.yourAddress(input.assetName)
         labelAddress.text = input.address
-       
-//        let image = style.specs.isSponsored ? Images.sponsoritem18White.image : Images.scriptasset18White.image
-        
         
         AssetLogo.logo(icon: input.icon,
-                       style: AssetLogo.Style(size: Constants.icon,
-                                              font: UIFont.systemFont(ofSize: 22),
-                                              specs: .init(isSponsored: input.isSponsored,
-                                                           hasScript: input.hasScript,
-                                                           size: Constants.sponsoredIcon)))
+                       style: .large)
             .observeOn(MainScheduler.instance)
             .bind(to: iconAsset.rx.image)
             .disposed(by: disposeBag)

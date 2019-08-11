@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RealmSwift
 import DomainLayer
+import Extensions
 
 final class MarketPulseDataBaseRepository: MarketPulseDataBaseRepositoryProtocol {
     
@@ -81,7 +82,11 @@ private extension MarketPulse.DTO.Asset {
     init(asset: MarketPulseAsset) {
         id = asset.id
         name = asset.name
-        icon = DomainLayer.DTO.Asset.Icon(assetId: id, name: name, url: asset.iconUrl)
+        icon = AssetLogo.Icon(assetId: id,
+                              name: name,
+                              url: asset.iconUrl,
+                              isSponsored: false,
+                              hasScript: false)
         hasScript = asset.hasScript
         isSponsored = asset.isSponsored
         firstPrice = asset.firstPrice

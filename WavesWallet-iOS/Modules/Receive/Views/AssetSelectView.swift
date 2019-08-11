@@ -18,8 +18,6 @@ private enum Constants {
     static let borderWidth: CGFloat = 0.5
     static let assetRightOffsetSelectedMode: CGFloat = 36
     static let assetRightOffsetNotSelectedMode: CGFloat = 14
-    static let icon = CGSize(width: 24, height: 24)
-    static let sponsoredIcon = CGSize(width: 10, height: 10)
 }
 
 protocol AssetSelectViewDelegate: AnyObject {
@@ -81,7 +79,9 @@ final class AssetSelectView: UIView, NibOwnerLoadable {
         //TODO: mb get url from enviromnets
         loadIcon(icon: .init(assetId: WavesSDKConstants.wavesAssetId,
                              name: WavesSDKConstants.wavesAssetId,
-                             url: nil), isSponsored: false, hasScript: false)
+                             url: nil,
+                             isSponsored: false,
+                             hasScript: false), isSponsored: false, hasScript: false)
     }
     
     func showLoadingState() {
@@ -137,16 +137,12 @@ extension AssetSelectView: ViewConfiguration {
         labelAmount.text = money.displayText
     }
     
-    private func loadIcon(icon: DomainLayer.DTO.Asset.Icon, isSponsored: Bool, hasScript: Bool) {
+    private func loadIcon(icon: AssetLogo.Icon, isSponsored: Bool, hasScript: Bool) {
 
         disposeBag = DisposeBag()
 
         AssetLogo.logo(icon: icon,
-                       style: AssetLogo.Style(size: Constants.icon,
-                                              font: UIFont.systemFont(ofSize: 15),
-                                              specs: .init(isSponsored: isSponsored,
-                                                           hasScript: hasScript,
-                                                           size: Constants.sponsoredIcon)))
+                       style: AssetLogo.Style.litle)
             .observeOn(MainScheduler.instance)
             .bind(to: iconAssetLogo.rx.image)
             .disposed(by: disposeBag)
