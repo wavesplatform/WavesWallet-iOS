@@ -34,8 +34,8 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
     }
     
     private func modelsQuery() -> Feedback {
-        return react(request: { state -> Bool? in
-            return true
+        return react(request: { state -> DexMarket.State? in
+            return state.isNeedLoadDefaultPairs ? state : nil
         }, effects: { [weak self] _ -> Signal<DexMarket.Event> in
             
             guard let self = self else { return Signal.empty() }
@@ -44,12 +44,13 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
     }
     
     private func searchModelsQuery() -> Feedback {
-        return react(request: { state -> Bool? in
-            return true
-        }, effects: { [weak self] _ -> Signal<DexMarket.Event> in
+        return react(request: { state -> DexMarket.State? in
+            return state.isNeedSearching ? state : nil
+        }, effects: { [weak self] state -> Signal<DexMarket.Event> in
             
             guard let self = self else { return Signal.empty() }
-            return self.interactor.searchPairs().map { .setPairs($0) }.asSignal(onErrorSignalWith: Signal.empty())
+            return self.interactor.searchPairs(searchWord: state.searchKey)
+                .map { .setPairs($0) }.asSignal(onErrorSignalWith: Signal.empty())
         })
     }
     
@@ -66,7 +67,8 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
                 let items = pairs.map { DexMarket.ViewModel.Row.pair($0) }
                 let section = DexMarket.ViewModel.Section(items: items)
                 state.section = section
-                
+                state.isNeedSearching = false
+                state.isNeedLoadDefaultPairs = false
             }.changeAction(.update)
         
         case .tapCheckMark(let index):
@@ -91,9 +93,11 @@ final class DexMarketPresenter: DexMarketPresenterProtocol {
             return state.changeAction(.none)
             
         case .searchTextChange(let text):
-            
-            interactor.searchPair(searchText: text)
-            return state.changeAction(.none)
+            return state.mutate {
+                $0.isNeedSearching = text.count > 0
+                $0.isNeedLoadDefaultPairs = text.count == 0
+                $0.searchKey = text
+            }.changeAction(.none)
         }
     }
 }
@@ -111,7 +115,11 @@ fileprivate extension DexMarket.ViewModel.Row {
 fileprivate extension DexMarket.State {
     static var initialState: DexMarket.State {
         let section = DexMarket.ViewModel.Section(items: [])
-        return DexMarket.State(action: .none, section: section)
+        return DexMarket.State(action: .none,
+                               section: section,
+                               searchKey: "",
+                               isNeedSearching: false,
+                               isNeedLoadDefaultPairs: true)
     }
     
     func changeAction(_ action: DexMarket.State.Action) -> DexMarket.State {
