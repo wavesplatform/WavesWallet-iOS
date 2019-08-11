@@ -3737,6 +3737,7 @@
 		7B6686EF22B7C5120029E6F1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				7B97B06B22FC784F008BA3F4 /* Balance.swift */,
 				7B6686F022B7C5120029E6F1 /* Extensions.h */,
 				7B6686F122B7C5120029E6F1 /* Info.plist */,
 				7B66871D22B7E6550029E6F1 /* Sources */,
@@ -3888,7 +3889,6 @@
 		7B97B06722FC784F008BA3F4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				7B97B06B22FC784F008BA3F4 /* Balance.swift */,
 				7B97B06A22FC784F008BA3F4 /* Decimal+Assisstants.swift */,
 				7BFB47DE22FC742D002B19F8 /* Kingfisher+Rx.swift */,
 				7B97B06C22FC784F008BA3F4 /* Money.swift */,

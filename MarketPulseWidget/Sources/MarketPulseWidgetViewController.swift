@@ -54,7 +54,6 @@ final class MarketPulseWidgetViewController: UIViewController {
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         
         initPresenter()
-//        initSDK()
         setupFeedBack()
         setupButtonUpdateSize()
         showUpdateAnimation()
@@ -115,15 +114,6 @@ final class MarketPulseWidgetViewController: UIViewController {
             currency = .usd
         }
         sendEvent.accept(.changeCurrency(currency))
-    }
-    
-    private func initSDK() {
-        
-        WavesSDK.initialization(servicesPlugins: .init(data: [],
-                                                       node: [],
-                                                       matcher: []),
-                                enviroment: .init(server: .mainNet, timestampServerDiff: 0))
-        
     }
 }
 
