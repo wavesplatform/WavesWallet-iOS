@@ -24,6 +24,8 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
   
     private let widgetSettingsRepository: MarketPulseWidgetSettingsRepositoryProtocol = MarketPulseWidgetSettingsRepositoryMock()
     
+    private let dexPairsPriceRepository = UseCasesFactory.instance.repositories.dexPairsPriceRepository
+    
     private let dbRepository: MarketPulseDataBaseRepositoryProtocol = MarketPulseDataBaseRepository()
     
     init() {
@@ -113,7 +115,9 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
       
         return Observable.never()
         
-        UseCasesFactory.instance.repositories.dexPairsPriceRepository
+//        UseCasesFactory.instance.repositories.dexPairsPriceRepository
+        
+        dexPairsPriceRepository.list(by: <#T##String#>, pairs: <#T##[DomainLayer.DTO.Dex.Pair]#>)
         
         return WavesSDK.shared.services
             .dataServices
