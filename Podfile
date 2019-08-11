@@ -87,22 +87,22 @@ abstract_target 'Shows' do
     end
 end
 
-# target 'MarketPulseWidget' do
-#     project 'WavesWallet-iOS.xcodeproj'
+target 'MarketPulseWidget' do
+    project 'WavesWallet-iOS.xcodeproj'
 
-#     pod 'RxSwift'
-#     pod 'RxSwiftExt'
-#     pod 'RxOptional'
-#     pod 'RxFeedback'
-#     pod 'RxCocoa'
-#     pod 'Moya'
-#     pod 'Moya/RxSwift'
-#     pod 'RealmSwift'
-#     pod 'RxRealm'
+    pod 'RxSwift'
+    pod 'RxSwiftExt'
+    pod 'RxOptional'
+    pod 'RxFeedback'
+    pod 'RxCocoa'
+    pod 'Moya'
+    pod 'Moya/RxSwift'
+    pod 'RealmSwift'
+    pod 'RxRealm'
 
-#     pod 'Kingfisher'
+    pod 'Kingfisher'
 
-# end
+end
 
 target 'DataLayer' do
     inherit! :search_paths  
@@ -136,8 +136,7 @@ target 'DataLayer' do
 
     pod 'RxSwift'
     pod 'Moya'
-    pod 'Moya/RxSwift'
-    pod 'Kingfisher'
+    pod 'Moya/RxSwift'    
 end
 
 target 'DomainLayer' do

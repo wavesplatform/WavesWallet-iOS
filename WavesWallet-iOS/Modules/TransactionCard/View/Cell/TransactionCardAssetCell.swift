@@ -12,11 +12,6 @@ import RxSwift
 import DomainLayer
 import Extensions
 
-private enum Constants {
-    static let icon = CGSize(width: 48, height: 48)
-    static let sponsoredIcon = CGSize(width: 18, height: 18)
-}
-
 final class TransactionCardAssetCell: UITableViewCell, Reusable {
 
     struct Model {
@@ -45,11 +40,7 @@ final class TransactionCardAssetCell: UITableViewCell, Reusable {
         disposeBag = DisposeBag()
 
         AssetLogo.logo(icon: asset.iconLogo,
-                       style: AssetLogo.Style(size: Constants.icon,                                              
-                                              font: UIFont.systemFont(ofSize: 15),
-                                              specs: .init(isSponsored: asset.isSponsored,
-                                                           hasScript: asset.hasScript,
-                                                           size: Constants.sponsoredIcon)))
+                       style: .large)
             .observeOn(MainScheduler.asyncInstance)
             .bind(to: iconImageView.rx.image)
             .disposed(by: disposeBag)

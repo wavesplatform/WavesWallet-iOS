@@ -13,18 +13,6 @@ public extension DomainLayer.DTO {
     
     struct Asset: Mutating, Equatable {
         
-        public struct Icon: Equatable {
-            public let assetId: String
-            public let name: String
-            public let url: String?
-
-            public init(assetId: String, name: String, url: String?) {
-                self.assetId = assetId
-                self.name = name
-                self.url = url
-            }
-        }
-
         public let id: String
         public let gatewayId: String?
         public let wavesId: String?
@@ -84,8 +72,13 @@ public extension DomainLayer.DTO {
 
 public extension DomainLayer.DTO.Asset {
 
-    var iconLogo: DomainLayer.DTO.Asset.Icon {
-        return DomainLayer.DTO.Asset.Icon(assetId: id, name: icon, url: iconLogoUrl)
+    var iconLogo: AssetLogo.Icon {
+        return AssetLogo.Icon(assetId: id,
+                              name: icon,
+                              url: iconLogoUrl,
+                              isSponsored: isSponsored,
+                              hasScript: hasScript) 
+                                
     }
 
     var icon: String {

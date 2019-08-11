@@ -13,8 +13,6 @@ import Extensions
 
 fileprivate enum Constants {
     static let height: CGFloat = 56
-    static let icon: CGSize = CGSize(width: 28, height: 28)
-    static let sponsoredIcon = CGSize(width: 12, height: 12)
     static let delaySwitch: TimeInterval = 0.2
     static let animationDuration: TimeInterval = 0.3
     static let movedRowAlpha: CGFloat = 0.9
@@ -196,7 +194,7 @@ extension WalletSortCell: ViewConfiguration {
         let isHidden: Bool
         let isFavorite: Bool
         let isGateway: Bool
-        let icon: DomainLayer.DTO.Asset.Icon
+        let icon: AssetLogo.Icon
         let isSponsored: Bool
         let hasScript: Bool
         let type: AssetType
@@ -220,11 +218,7 @@ extension WalletSortCell: ViewConfiguration {
         updateBackground()
         
         AssetLogo.logo(icon: model.icon,
-                       style: AssetLogo.Style(size: Constants.icon,
-                                              font: UIFont.systemFont(ofSize: 15),
-                                              specs: .init(isSponsored: model.isSponsored,
-                                                           hasScript: model.hasScript,
-                                                           size: Constants.sponsoredIcon)))
+                       style: .medium)
             .observeOn(MainScheduler.instance)
             .bind(to: imageIcon.rx.image)
             .disposed(by: disposeBag)

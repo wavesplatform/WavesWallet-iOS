@@ -77,7 +77,7 @@ extension MarketPulse.DTO {
     struct Asset {
         let id: String
         let name: String
-        let icon: DomainLayer.DTO.Asset.Icon
+        let icon: AssetLogo.Icon
         let hasScript: Bool
         let isSponsored: Bool
         let firstPrice: Double
@@ -89,7 +89,7 @@ extension MarketPulse.DTO {
     }
     
     struct UIAsset {
-        let icon: DomainLayer.DTO.Asset.Icon
+        let icon: AssetLogo.Icon
         let hasScript: Bool
         let isSponsored: Bool
         let name: String

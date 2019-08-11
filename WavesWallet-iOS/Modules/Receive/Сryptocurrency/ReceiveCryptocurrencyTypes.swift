@@ -40,6 +40,6 @@ extension ReceiveCryptocurrency.DTO {
         let assetName: String
         let assetShort: String
         let minAmount: Money
-        let icon: DomainLayer.DTO.Asset.Icon
+        let icon: AssetLogo.Icon
     }
 }
