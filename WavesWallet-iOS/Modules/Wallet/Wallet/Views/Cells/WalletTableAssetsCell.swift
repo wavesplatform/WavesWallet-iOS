@@ -12,9 +12,7 @@ import Extensions
 import DomainLayer
 
 fileprivate enum Constants {
-    static let height: CGFloat = 76    
-    static let icon: CGSize = CGSize(width: 48, height: 48)
-    static let sponsoredIcon = CGSize(width: 18, height: 18)
+    static let height: CGFloat = 76
 }
 
 final class WalletTableAssetsCell: UITableViewCell, NibReusable {
@@ -63,11 +61,7 @@ extension WalletTableAssetsCell: ViewConfiguration {
         labelSubtitle.attributedText = NSAttributedString.styleForBalance(text: text, font: labelSubtitle.font)
         
         AssetLogo.logo(icon: model.asset.iconLogo,
-                       style: AssetLogo.Style(size: Constants.icon,
-                                              font: UIFont.systemFont(ofSize: 22),
-                                              specs: .init(isSponsored: model.asset.isSponsored,
-                                                           hasScript: model.asset.hasScript,
-                                                           size: Constants.sponsoredIcon)))
+                       style: .large)
             .observeOn(MainScheduler.instance)
             .bind(to: imageIcon.rx.image)
             .disposed(by: disposeBag)

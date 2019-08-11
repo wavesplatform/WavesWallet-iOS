@@ -14,8 +14,6 @@ import DomainLayer
 private enum Constants {
     static let buttonDeltaWidth: CGFloat = 70
     static let spaceAssets: CGFloat = 24
-    static let icon: CGSize = CGSize(width: 48, height: 48)
-    static let sponsoredIcon = CGSize(width: 18, height: 18)
 }
 
 final class DexScriptAssetMessageViewController: UIViewController {
@@ -102,11 +100,7 @@ private extension DexScriptAssetMessageViewController {
     func setup(imageViewIcon: UIImageView, asset: DomainLayer.DTO.Asset) {
         
         AssetLogo.logo(icon: asset.iconLogo,
-                       style: AssetLogo.Style(size: Constants.icon,
-                                              font: UIFont.systemFont(ofSize: 15),
-                                              specs: .init(isSponsored: asset.isSponsored,
-                                                           hasScript: asset.hasScript,
-                                                           size: Constants.sponsoredIcon)))
+                       style: .large)
             .observeOn(MainScheduler.instance)
             .bind(to: imageViewIcon.rx.image)
             .disposed(by: disposeBag)

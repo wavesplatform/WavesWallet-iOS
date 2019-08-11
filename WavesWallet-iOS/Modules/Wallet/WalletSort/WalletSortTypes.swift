@@ -86,7 +86,7 @@ extension WalletSort.DTO {
         let isGateway: Bool
         var isHidden: Bool
         var sortLevel: Float
-        let icon: DomainLayer.DTO.Asset.Icon
+        let icon: AssetLogo.Icon
         let isSponsored: Bool
         let hasScript: Bool
     }

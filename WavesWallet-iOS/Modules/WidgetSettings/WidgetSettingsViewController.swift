@@ -75,6 +75,7 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
     @IBAction private func handlerTouchForAddTokenButton(_ sender: UIButton) {
         
         //TODO: assets
+        
         self.moduleOutput?.widgetSettingsSyncAssets([], maxCountAssets: maxCountAssets, callback: { [weak self] (assets) in
             self?.system.send(.syncAssets(assets))
         })

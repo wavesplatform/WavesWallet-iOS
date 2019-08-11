@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Extensions
 
 public extension DomainLayer.DTO {
     
@@ -22,11 +23,11 @@ public extension DomainLayer.DTO {
         public struct Asset {
             
             public struct IconStyle {
-                public let icon: DomainLayer.DTO.Asset.Icon
+                public let icon: AssetLogo.Icon
                 public let isSponsored: Bool
                 public let hasScript: Bool
                 
-                public init(icon: DomainLayer.DTO.Asset.Icon, isSponsored: Bool, hasScript: Bool) {
+                public init(icon: AssetLogo.Icon, isSponsored: Bool, hasScript: Bool) {
                     self.icon = icon
                     self.isSponsored = isSponsored
                     self.hasScript = hasScript

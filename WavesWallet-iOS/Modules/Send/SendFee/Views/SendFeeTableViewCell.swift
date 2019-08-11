@@ -12,8 +12,6 @@ import Extensions
 
 private enum Constants {
     static let height: CGFloat = 56
-    static let icon = CGSize(width: 28, height: 28)
-    static let sponsoredIcon = CGSize(width: 12, height: 12)
     static let noneActiveAlpha: CGFloat = 0.3
 }
 
@@ -39,14 +37,8 @@ extension SendFeeTableViewCell: ViewConfiguration {
 
         labelTitle.text = model.assetBalance.asset.displayName
         
-        let style = AssetLogo.Style(size: Constants.icon,
-                                    font: UIFont.systemFont(ofSize: 15),
-                                    specs: .init(isSponsored: model.assetBalance.asset.isSponsored,
-                                                 hasScript: model.assetBalance.asset.hasScript,
-                                                 size: Constants.sponsoredIcon))
-
         AssetLogo.logo(icon: model.assetBalance.asset.iconLogo,
-                       style: style)
+                       style: .medium)
             .observeOn(MainScheduler.instance)
             .bind(to: iconLogo.rx.image)
             .disposed(by: disposeBag)

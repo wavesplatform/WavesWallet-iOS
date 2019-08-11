@@ -26,6 +26,41 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
     
     private let dbRepository: MarketPulseDataBaseRepositoryProtocol = MarketPulseDataBaseRepository()
     
+    init() {
+        setupLayers()
+    }
+    
+    
+    private func setupLayers() -> Bool {
+        
+        guard let googleServiceInfoPath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") else {
+            return false
+        }
+        
+        guard let appsflyerInfoPath = Bundle.main.path(forResource: "Appsflyer-Info", ofType: "plist") else {
+            return false
+        }
+        
+        guard let amplitudeInfoPath = Bundle.main.path(forResource: "Amplitude-Info", ofType: "plist") else {
+            return false
+        }
+        
+        guard let sentryIoInfoPath = Bundle.main.path(forResource: "Sentry-io-Info", ofType: "plist") else {
+            return false
+        }
+        
+        let resourses = RepositoriesFactory.Resources(googleServiceInfo: googleServiceInfoPath,
+                                                      appsflyerInfo: appsflyerInfoPath,
+                                                      amplitudeInfo: amplitudeInfoPath,
+                                                      sentryIoInfoPath: sentryIoInfoPath)
+        let repositories = RepositoriesFactory(resources: resourses)
+        
+        UseCasesFactory.initialization(repositories: repositories)
+        
+        return true
+    }
+    
+    
     func settings() -> Observable<MarketPulse.DTO.Settings> {
         
         return Observable.zip(WidgetSettings.rx.currency(),
@@ -52,7 +87,9 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
                 
                 let iconStyle = DomainLayer.DTO.MarketPulseSettings.Asset.IconStyle(icon: .init(assetId: "",
                                                                                                 name: "",
-                                                                                                url: nil),
+                                                                                                url: nil,
+                                                                                                isSponsored: false,
+                                                                                                hasScript: false),
                                                                                     isSponsored: false,
                                                                                     hasScript: false)
                 
@@ -74,6 +111,10 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
     
     private func loadAssets(assets: [DomainLayer.DTO.MarketPulseSettings.Asset]) -> Observable<[MarketPulse.DTO.Asset]> {
       
+        return Observable.never()
+        
+        UseCasesFactory.instance.repositories.dexPairsPriceRepository
+        
         return WavesSDK.shared.services
             .dataServices
             .pairsPriceDataService
