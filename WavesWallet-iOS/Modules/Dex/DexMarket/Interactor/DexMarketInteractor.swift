@@ -78,7 +78,7 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
                                     dexPairs.append(.init(amountAsset: dexAmountAsset, priceAsset: dexPriceAsset))
                                 }
                             }
-                            
+                            //TODO: move to another repository?
                             return self.dexPairsPriceRepository.mapPairs(by: wallet.address, pairs: dexPairs)
                         })
                 })
