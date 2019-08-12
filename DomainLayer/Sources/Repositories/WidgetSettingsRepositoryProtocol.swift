@@ -9,7 +9,9 @@
 import Foundation
 import RxSwift
 
-public protocol MarketPulseWidgetSettingsRepositoryProtocol {
+public protocol WidgetSettingsRepositoryProtocol {
+    
     func settings() -> Observable<DomainLayer.DTO.MarketPulseSettings>
     
+    func saveSettings(_ settings: DomainLayer.DTO.MarketPulseSettings) -> Observable<DomainLayer.DTO.MarketPulseSettings>
 }
