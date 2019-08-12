@@ -10,9 +10,13 @@ import Foundation
 import DomainLayer
 import RxSwift
 
-final class MarketPulseWidgetSettingsRepositoryStorage: MarketPulseWidgetSettingsRepositoryProtocol {
+final class MarketPulseWidgetSettingsRepositoryStorage: WidgetSettingsRepositoryProtocol {
     
     func settings() -> Observable<DomainLayer.DTO.MarketPulseSettings> {
+        return Observable.just(DomainLayer.DTO.MarketPulseSettings.init(isDarkStyle: true, interval: .m1, assets: []))
+    }
+ 
+    func saveSettings(_ settings: DomainLayer.DTO.MarketPulseSettings) -> Observable<DomainLayer.DTO.MarketPulseSettings> {
         return Observable.never()
     }
 }
