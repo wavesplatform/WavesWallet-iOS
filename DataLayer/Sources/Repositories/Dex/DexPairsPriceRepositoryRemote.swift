@@ -25,7 +25,11 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
         
         var kind: DataService.Query.PairsPriceSearch.Kind!
 
-        let searchCompoments = searchText.components(separatedBy: "/")
+        var searchCompoments = searchText.components(separatedBy: "/")
+        if searchCompoments.count == 1 {
+            searchCompoments = searchText.components(separatedBy: "\\")
+        }
+        print(searchCompoments)
         
         if searchCompoments.count == 1 {
             let searchWords = searchCompoments[0].components(separatedBy: " ").filter {$0.count > 0}
