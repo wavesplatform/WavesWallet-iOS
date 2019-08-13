@@ -22,7 +22,7 @@ final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
         self.environmentRepository = environmentRepository
     }
     
-    func matcherPublicKey(accountAddress: String) -> Observable<PublicKeyAccount> {
+    func matcherPublicKey() -> Observable<PublicKeyAccount> {
         
         return environmentRepository
             .servicesEnvironment()
@@ -35,6 +35,23 @@ final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
                     .publicKey()                                        
                     .map {
                         return PublicKeyAccount(publicKey: Base58Encoder.decode($0))
+                    }
+            })
+    }
+    
+    func settingsPricePairs() -> Observable<[String]> {
+     
+        return environmentRepository
+            .servicesEnvironment()
+            .flatMapLatest({ (servicesEnvironment) -> Observable<[String]> in
+                
+                return servicesEnvironment
+                    .wavesServices
+                    .matcherServices
+                    .orderBookMatcherService
+                    .settings()
+                    .map {
+                        return $0.priceAssets
                     }
             })
     }

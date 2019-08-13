@@ -19,8 +19,6 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
     init(repositories: RepositoriesFactoryProtocol) {
         self.repositories = repositories
         self.authorizationInteractorLocalizable = AuthorizationInteractorLocalizableImp()
-        
-        AuthorizationInteractorLocalizableImp().cancelTitle
     }
     
     public class func initialization(repositories: RepositoriesFactoryProtocol) {
@@ -114,4 +112,22 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
                                           authorizationInteractor: authorization)
         return interactor
     }()
+    
+    public private(set) lazy var widgetSettings: WidgetSettingsUseCaseProtocol = {
+        
+        let useCase = WidgetSettingsUseCase(repositories: repositories, useCases: self)
+        return useCase
+    }()
+    
+    public private(set) lazy var widgetSettingsInizialization: WidgetSettingsInizializationUseCaseProtocol = {
+        
+        let useCase = WidgetSettingsInizializationUseCase(repositories: repositories, useCases: self)
+        return useCase
+    }()
+    
+    public private(set) lazy var correctionPairsUseCase: CorrectionPairsUseCaseProtocol = {
+        
+        let useCase = CorrectionPairsUseCase(repositories: repositories, useCases: self)
+        return useCase
+    }()        
 }

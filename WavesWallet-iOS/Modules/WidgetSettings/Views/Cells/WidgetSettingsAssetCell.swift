@@ -33,9 +33,8 @@ final class WidgetSettingsAssetCell: UITableViewCell, Reusable {
         super.awakeFromNib()
         selectedBackgroundView = UIView()
         selectionStyle = .none
-        backgroundColor = .basic50
-        contentView.backgroundColor = .basic50
-        containerView.addTableCellShadowStyle()
+
+        containerView.addTableCellShadowStyle(offset: CGSize(width: 0, height: 2))
     }
     
     override func prepareForReuse() {
@@ -48,7 +47,7 @@ final class WidgetSettingsAssetCell: UITableViewCell, Reusable {
         if alpha <= Constants.movedRowAlpha {
             containerView.removeShadow()
         } else {
-            containerView.addTableCellShadowStyle()
+            containerView.addTableCellShadowStyle(offset: CGSize(width: 0, height: 2))
         }
     }
 }

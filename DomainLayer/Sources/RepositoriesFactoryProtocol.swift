@@ -64,5 +64,5 @@ public protocol RepositoriesFactoryProtocol {
     
     var gatewayRepository: GatewayRepositoryProtocol { get }
     
-    var marketPulseWidgetSettingsStorage: MarketPulseWidgetSettingsRepositoryProtocol { get }
+    var widgetSettingsStorage: WidgetSettingsRepositoryProtocol { get }
 }

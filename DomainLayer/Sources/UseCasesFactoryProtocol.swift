@@ -22,4 +22,9 @@ public protocol UseCasesFactoryProtocol {
     var analyticManager: AnalyticManagerProtocol { get }
     
     var oderbook: OrderBookUseCaseProtocol { get }
+    
+    var widgetSettings: WidgetSettingsUseCaseProtocol { get }
+    var widgetSettingsInizialization: WidgetSettingsInizializationUseCaseProtocol { get }
+    
+    var correctionPairsUseCase: CorrectionPairsUseCaseProtocol { get }        
 }
