@@ -20,22 +20,18 @@ private enum Constants {
 final class DexChartInteractor: DexChartInteractorProtocol {
     
     private let candlesReposotiry = UseCasesFactory.instance.repositories.candlesRepository
-    private let auth = UseCasesFactory.instance.authorization
     
     var pair: DexTraderContainer.DTO.Pair!
     
     func candles(timeFrame: DomainLayer.DTO.Candle.TimeFrameType, timeStart: Date, timeEnd: Date) -> Observable<[DomainLayer.DTO.Candle]> {
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.Candle]> in
-            guard let self = self else { return Observable.empty() }
-            return self.candlesReposotiry.candles(accountAddress: wallet.address,
-                                                   amountAsset: self.pair.amountAsset.id,
-                                                   priceAsset: self.pair.priceAsset.id,
-                                                   timeStart: timeStart,
-                                                   timeEnd: timeEnd,
-                                                   timeFrame: timeFrame)
+        
+        return candlesReposotiry.candles(amountAsset: pair.amountAsset.id,
+                                         priceAsset: pair.priceAsset.id,
+                                         timeStart: timeStart,
+                                         timeEnd: timeEnd,
+                                         timeFrame: timeFrame)
                 .catchError({ (error) -> Observable<[DomainLayer.DTO.Candle]> in
                     return Observable.just([])
                 })
-        })
     }
 }
