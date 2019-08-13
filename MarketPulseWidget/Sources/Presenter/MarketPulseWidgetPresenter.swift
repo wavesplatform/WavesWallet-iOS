@@ -149,8 +149,6 @@ private extension MarketPulseWidgetPresenter {
             }
             
             return MarketPulse.ViewModel.Row.model(MarketPulse.DTO.UIAsset(icon: asset.icon,
-                                                                           hasScript: asset.hasScript,
-                                                                           isSponsored: asset.isSponsored,
                                                                            name: asset.name,
                                                                            price: lastPrice,
                                                                            percent: percent,

@@ -55,5 +55,32 @@ public extension DomainLayer.Query {
                 self.priceAsset = priceAsset
             }
         }
+        
+        
+        public struct SearchPairs {
+            
+            public struct Pair {
+                public let amountAsset: String
+                public let priceAsset: String
+                
+                public init(amountAsset: String,
+                            priceAsset: String) {
+                    self.amountAsset = amountAsset
+                    self.priceAsset = priceAsset
+                }                
+            }
+            
+            public enum Kind {
+                case pairs([Pair])
+                case searchByAsset(String)
+                case searchByAssets(String)
+            }
+            
+            public let kind: Kind
+            
+            public init(kind: Kind) {
+                self.kind = kind
+            }
+        }
     }
 }

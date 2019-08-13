@@ -21,8 +21,8 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
         self.environmentRepository = environmentRepository
     }
     
-    func list(by accountAddress: String,
-              pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
+    
+    func list(pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
 
         return environmentRepository
             .servicesEnvironment()
@@ -42,22 +42,75 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
                         
                         var listPairs: [DomainLayer.DTO.Dex.PairPrice] = []
                         
-                        for (index, pair) in list.enumerated() {
+                        for (index, pairElement) in list.enumerated() {
+                            
+                            //TODO: Check valid 
+                            guard let pair = pairElement else { continue }
+                            
                             let localPair = pairs[index]
                             
                             let priceAsset = localPair.priceAsset
                             let firstPrice = Money(value: Decimal(pair.firstPrice), priceAsset.decimals)
                             let lastPrice = Money(value: Decimal(pair.lastPrice), priceAsset.decimals)
                             
-                            let pair = DomainLayer.DTO.Dex.PairPrice(firstPrice: firstPrice,
+                            let pairPrice = DomainLayer.DTO.Dex.PairPrice(firstPrice: firstPrice,
                                                                      lastPrice: lastPrice,
                                                                      amountAsset: localPair.amountAsset,
                                                                      priceAsset: priceAsset)
-                            listPairs.append(pair)
+                            listPairs.append(pairPrice)
                         }
                         
                         return listPairs
                     })
             })
+    }
+    
+    func searchPairs(_ query: DomainLayer.Query.Dex.SearchPairs) -> Observable<DomainLayer.DTO.Dex.PairsSearch> {
+        
+        return environmentRepository
+            .servicesEnvironment()
+            .flatMapLatest({ (servicesEnvironment) -> Observable<DomainLayer.DTO.Dex.PairsSearch> in
+                
+                //TODO: Others type kinds
+                guard case let .pairs(pairs) = query.kind else { return Observable.never() }
+                
+                
+                let pairsForQuery = pairs.map { DataService.Query.PairsPrice.Pair(amountAssetId: $0.amountAsset,
+                                                                                  priceAssetId: $0.priceAsset) }
+                
+                let query = DataService.Query.PairsPrice(pairs: pairsForQuery)
+                
+                return servicesEnvironment
+                    .wavesServices
+                    .dataServices
+                    .pairsPriceDataService
+                    .pairsPrice(query: query)
+                    .map({ (pairsSearch) -> DomainLayer.DTO.Dex.PairsSearch in
+                        
+                        
+                        let pairs = pairsSearch.map({ (pairPrice) -> DomainLayer
+                            .DTO
+                            .Dex
+                            .PairsSearch
+                            .Pair? in
+                            
+                            guard let pairPrice = pairPrice else { return nil }
+                            
+                            return DomainLayer
+                                .DTO
+                                .Dex
+                                .PairsSearch
+                                .Pair.init(firstPrice: pairPrice.firstPrice,
+                                           lastPrice: pairPrice.lastPrice,
+                                           volume: pairPrice.volume,
+                                           volumeWaves: pairPrice.volumeWaves,
+                                           quoteVolume: pairPrice.quoteVolume)
+                        })
+                        
+                        
+                        
+                       return DomainLayer.DTO.Dex.PairsSearch(pairs: pairs)
+                    })
+        })
     }
 }

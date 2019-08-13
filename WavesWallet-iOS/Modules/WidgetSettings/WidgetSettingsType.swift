@@ -12,20 +12,6 @@ import Extensions
 import DomainLayer
 
 enum WidgetSettings {
-
-    enum DTO {
-        enum Interval {
-            case m1
-            case m5
-            case m10
-            case manually
-        }
-        
-        enum Style {
-            case classic
-            case dark
-        }
-    }
     
     struct State {
         
@@ -39,23 +25,29 @@ enum WidgetSettings {
             
             var sections: [Section]
             var action: Action
+            var isEditing: Bool
         }
         
         struct Core {
             
             enum Action {
                 case none
+                case settings
+                case updateSettings
                 case deleteAsset(_ asset: DomainLayer.DTO.Asset)
-                case addAsset(_ asset: DomainLayer.DTO.Asset)
-                case changeInterval(_ internal: WidgetSettings.DTO.Interval)
-                case changeStyle(_ style: WidgetSettings.DTO.Style)
+                case changeInterval(_ internal: DomainLayer.DTO.Widget.Interval)
+                case changeStyle(_ style: DomainLayer.DTO.Widget.Style)
+                case sortAssets(_ sortMap: [String: Int])
             }
             
             var action: Action
-//            var assets: [DomainLayer.DTO.Asset]
+            var assets: [DomainLayer.DTO.Asset]
+            var minCountAssets: Int
             var maxCountAssets: Int
-            var interval: WidgetSettings.DTO.Interval
-            var style: WidgetSettings.DTO.Style
+            var interval: DomainLayer.DTO.Widget.Interval
+            var style: DomainLayer.DTO.Widget.Style
+            var sortMap: [String: Int]
+            var isInitial: Bool
         }
         
         var ui: UI
@@ -63,16 +55,18 @@ enum WidgetSettings {
     }
     
     enum Event {
+        case none
         case viewDidAppear
         
         case handlerError(_ error: Error)
         
         case rowDelete(indexPath: IndexPath)
         case moveRow(from: IndexPath, to: IndexPath)
-                
+        
+        case settings(_ settings: DomainLayer.DTO.Widget.Settings)
         case syncAssets(_ assets: [DomainLayer.DTO.Asset])
-        case changeInterval(_ interval: WidgetSettings.DTO.Interval)
-        case changeStyle(_ style: WidgetSettings.DTO.Style)        
+        case changeInterval(_ interval: DomainLayer.DTO.Widget.Interval)
+        case changeStyle(_ style: DomainLayer.DTO.Widget.Style)
     }
     
     struct Section: SectionProtocol {
@@ -82,6 +76,7 @@ enum WidgetSettings {
     
     enum Row {
         case asset(WidgetSettingsAssetCell.Model)
+        case skeleton
     }
 }
 
@@ -90,7 +85,9 @@ extension WidgetSettings.Row {
     var asset: DomainLayer.DTO.Asset? {
         switch self {
         case .asset(let model):
-            return model.asset        
+            return model.asset
+        default:
+            return nil
         }
     }
 }

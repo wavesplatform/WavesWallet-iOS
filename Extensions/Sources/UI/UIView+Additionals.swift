@@ -11,9 +11,9 @@ import UIKit
 
 public extension UIView {
 
-    public func addTableCellShadowStyle() {
+    func addTableCellShadowStyle(offset: CGSize = CGSize(width: 0, height: 4)) {
 
-        setupShadow(options: .init(offset: CGSize(width: 0, height: 4),
+        setupShadow(options: .init(offset: offset,
                                    color: .black,
                                    opacity: 0.10,
                                    shadowRadius: 2,
@@ -21,16 +21,16 @@ public extension UIView {
         self.cornerRadius = 4
     }
     
-    public func removeTableCellShadowStyle() {
+    func removeTableCellShadowStyle() {
         removeShadow()
     }
     
-    public class func loadView<View>() -> View where View : UIView {
+    class func loadView<View>() -> View where View : UIView {
         let clsName = String(describing: self)
         return Bundle.main.loadNibNamed(clsName, owner: nil, options: nil)!.last! as! View
     }
     
-    public func shakeView() {
+    func shakeView() {
         let anim = CAKeyframeAnimation.init(keyPath: "transform")
         anim.values = [NSValue.init(caTransform3D: CATransform3DMakeTranslation(-7.0, 0.0, 0.0)),
                        NSValue.init(caTransform3D:CATransform3DMakeTranslation(7.0, 0.0, 0.0))]
@@ -41,7 +41,7 @@ public extension UIView {
     }
     
     
-    public func addBounceStartAnimation() {
+    func addBounceStartAnimation() {
     
         alpha = 0;
         UIView.animate(withDuration: 0.1) {
@@ -58,7 +58,7 @@ public extension UIView {
         layer.transform = CATransform3DIdentity
     }
     
-    public func addBounceEndAnimation() {
+    func addBounceEndAnimation() {
         layer.transform = CATransform3DMakeScale(0.5, 0.5, 1.0)
     
         let bounceAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
@@ -69,7 +69,7 @@ public extension UIView {
         layer.transform = CATransform3DIdentity
     }
 
-    public func firstAvailableViewController() -> UIViewController {
+    func firstAvailableViewController() -> UIViewController {
         
         if let nextResponder = next {
             if let controller = nextResponder as? UIViewController {
@@ -82,17 +82,17 @@ public extension UIView {
         return UIViewController()
     }
 
-    public func setupButtonActiveState() {
+    func setupButtonActiveState() {
         backgroundColor = .submit400
         isUserInteractionEnabled = true
     }
    
-    public func setupButtonDeactivateState() {
+    func setupButtonDeactivateState() {
         isUserInteractionEnabled = false
         backgroundColor = .submit200
     }
     
-    public func createTopCorners(radius: CGFloat) {
+    func createTopCorners(radius: CGFloat) {
         let shadowPath = UIBezierPath(roundedRect: bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: radius, height: radius))
         let maskLayer = CAShapeLayer()
         maskLayer.path = shadowPath.cgPath
