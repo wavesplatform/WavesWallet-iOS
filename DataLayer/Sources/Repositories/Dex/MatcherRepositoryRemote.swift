@@ -22,7 +22,7 @@ final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
         self.environmentRepository = environmentRepository
     }
     
-    func matcherPublicKey(accountAddress: String) -> Observable<PublicKeyAccount> {
+    func matcherPublicKey() -> Observable<PublicKeyAccount> {
         
         return environmentRepository
             .servicesEnvironment()

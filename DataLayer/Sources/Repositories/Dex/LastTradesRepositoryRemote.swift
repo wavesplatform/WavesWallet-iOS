@@ -23,12 +23,11 @@ final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
         self.matcherRepository = matcherRepository
     }
     
-    func lastTrades(accountAddress: String,
-                    amountAsset: DomainLayer.DTO.Dex.Asset,
+    func lastTrades(amountAsset: DomainLayer.DTO.Dex.Asset,
                     priceAsset: DomainLayer.DTO.Dex.Asset,
                     limit: Int) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> {
 
-        return Observable.zip(environmentRepository.servicesEnvironment(), matcherRepository.matcherPublicKey(accountAddress: accountAddress))
+        return Observable.zip(environmentRepository.servicesEnvironment(), matcherRepository.matcherPublicKey())
             .flatMap({ (servicesEnvironment, publicKeyAccount) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> in
                 
                 let query = DataService.Query.ExchangeFilters(matcher: publicKeyAccount.address,

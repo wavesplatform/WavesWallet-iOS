@@ -43,35 +43,28 @@ final class DexOrderBookInteractor: DexOrderBookInteractorProtocol {
                                               availableWavesBalance: Money(0, WavesSDKConstants.WavesDecimals),
                                               scriptedAssets: [])
         
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DexOrderBook.DTO.DisplayData> in
 
-            guard let self = self else { return Observable.empty() }
-
-            return Observable.zip(self.account.balances(),
-                                  self.getLastTransactionInfo(),
-                                  self.orderBookRepository.orderBook(amountAsset: self.pair.amountAsset.id,
-                                                                     priceAsset: self.pair.priceAsset.id),
-                                  self.getScriptedAssets())
-                .flatMap({ [weak self] (
-                    balances,
-                    lastTransaction,
-                    orderBook,
-                    scriptedAssets) -> Observable<DexOrderBook.DTO.DisplayData> in
-                    
-                    guard let self = self else { return Observable.empty() }
-                    return Observable.just(self.getDisplayData(info: orderBook,
-                                                               lastTransactionInfo: lastTransaction,
-                                                               header: header,
-                                                               balances: balances,
-                                                               scriptedAssets: scriptedAssets))
-                })
-                .catchError({ (error) -> Observable<DexOrderBook.DTO.DisplayData> in
-                    return Observable.just(DexOrderBook.DTO.DisplayData(data: emptyData, authWalletError: false))
-                })
-        })
-        .catchError({ (error) -> Observable<DexOrderBook.DTO.DisplayData> in
-            return Observable.just(DexOrderBook.DTO.DisplayData(data: emptyData, authWalletError: true))
-        })
+        return Observable.zip(self.account.balances(),
+                              self.getLastTransactionInfo(),
+                              self.orderBookRepository.orderBook(amountAsset: self.pair.amountAsset.id,
+                                                                 priceAsset: self.pair.priceAsset.id),
+                              self.getScriptedAssets())
+            .flatMap({ [weak self] (
+                balances,
+                lastTransaction,
+                orderBook,
+                scriptedAssets) -> Observable<DexOrderBook.DTO.DisplayData> in
+                
+                guard let self = self else { return Observable.empty() }
+                return Observable.just(self.getDisplayData(info: orderBook,
+                                                           lastTransactionInfo: lastTransaction,
+                                                           header: header,
+                                                           balances: balances,
+                                                           scriptedAssets: scriptedAssets))
+            })
+            .catchError({ (error) -> Observable<DexOrderBook.DTO.DisplayData> in
+                return Observable.just(DexOrderBook.DTO.DisplayData(data: emptyData, authWalletError: false))
+            })
     }
 }
 
@@ -177,16 +170,12 @@ private extension DexOrderBookInteractor {
     
     func getLastTransactionInfo() -> Observable<DomainLayer.DTO.Dex.LastTrade?> {
         
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<DomainLayer.DTO.Dex.LastTrade?> in
-            guard let self = self else { return Observable.empty() }
-            return self.lastTradesRepository.lastTrades(accountAddress: wallet.address,
-                                                         amountAsset: self.pair.amountAsset,
-                                                         priceAsset: self.pair.priceAsset,
-                                                         limit: 1)
+        return lastTradesRepository.lastTrades(amountAsset: pair.amountAsset,
+                                               priceAsset: pair.priceAsset,
+                                               limit: 1)
                 .flatMap({ (lastTrades) ->  Observable<DomainLayer.DTO.Dex.LastTrade?> in
                     return Observable.just(lastTrades.first)
                 })
-        })
     }
     
     func getScriptedAssets() -> Observable<[DomainLayer.DTO.Asset]> {

@@ -50,15 +50,14 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
         self.matcherRepository = matcherRepository
     }
     
-    func candles(accountAddress: String,
-                 amountAsset: String,
+    func candles(amountAsset: String,
                  priceAsset: String,
                  timeStart: Date,
                  timeEnd: Date,
                  timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> Observable<[DomainLayer.DTO.Candle]> {
  
         
-        return Observable.zip(environmentRepository.servicesEnvironment(), matcherRepository.matcherPublicKey(accountAddress: accountAddress))
+        return Observable.zip(environmentRepository.servicesEnvironment(), matcherRepository.matcherPublicKey())
             .flatMap({ [weak self] (servicesEnvironment, publicKeyAccount) -> Observable<[DomainLayer.DTO.Candle]> in
                 guard let self = self else { return Observable.empty() }
 
