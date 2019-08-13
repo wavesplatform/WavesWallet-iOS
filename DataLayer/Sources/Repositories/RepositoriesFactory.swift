@@ -88,7 +88,8 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     
     public private(set) lazy var gatewayRepository: GatewayRepositoryProtocol = GatewayRepository(environmentRepository: environmentRepositoryInternal)
     
-    public private(set) lazy var marketPulseWidgetSettingsStorage: MarketPulseWidgetSettingsRepositoryProtocol = MarketPulseWidgetSettingsRepositoryStorage()
+    public private(set) lazy var widgetSettingsStorage: WidgetSettingsRepositoryProtocol = WidgetSettingsRepositoryStorage()
+        
     
     public struct Resources {
         

@@ -25,9 +25,7 @@ fileprivate enum SchemaVersions: UInt64 {
     case version_2_4 = 13 // v2.4
     case version_2_5 = 14 // v2.5
 
-    static let currentVersion: SchemaVersions = .version_2_5
-
-    static let schemaWalletsVersion: UInt64 = 7
+    static let currentVersion: SchemaVersions = .version_2_5    
 }
 
 fileprivate enum Constants {
@@ -42,9 +40,11 @@ fileprivate enum Constants {
 
 enum WalletRealmFactory {
 
-    fileprivate static func create(accountAddress: String) -> Realm.Configuration {
+    static func create(accountAddress: String) -> Realm.Configuration {
         var config = Realm.Configuration()
-        config.fileURL = config.fileURL!.deletingLastPathComponent()
+        
+        config.fileURL = config.fileURL?.deletingLastPathComponent()
+            
             .appendingPathComponent("\(accountAddress).realm")
         config.schemaVersion = SchemaVersions.currentVersion.rawValue
         config.objectTypes = [Transaction.self,
@@ -163,6 +163,12 @@ enum WalletRealmFactory {
 
         return config
     }
+
+    static func realm(accountAddress: String) throws -> Realm {
+        let config = create(accountAddress: accountAddress)
+        return try Realm(configuration: config)
+    }
+
     static func resetAssetSort(migration: Migration) {
         migration.enumerateObjects(ofType: AssetBalanceSettings.className()) { oldObject, newObject in
             newObject?[Constants.sortLevel] = Constants.sortLevelNotFound
@@ -216,45 +222,3 @@ extension Migration {
         }
     }
 }
-
-extension WalletRealmFactory {
-    enum Configuration {}
-}
-
-extension WalletRealmFactory.Configuration {
-    
-    static func wallet(accountAddress: String) throws -> Realm {
-        let config = create(accountAddress: accountAddress)
-        return try Realm(configuration: config)
-    }
-    
-    
-    static var walletsConfig: Realm.Configuration? {
-        
-        var config = Realm.Configuration()
-        config.objectTypes = [WalletEncryption.self, WalletItem.self]
-        config.schemaVersion = UInt64(SchemaVersions.schemaWalletsVersion)
-        
-        guard let fileURL = config.fileURL else {
-            SweetLogger.error("File Realm is nil")
-            return nil
-        }
-        
-        config.fileURL = fileURL
-            .deletingLastPathComponent()
-            .appendingPathComponent("wallets_\(WalletEnvironment.current.scheme).realm")
-        
-        config.migrationBlock = { migration, oldSchemaVersion in
-            
-            migration.enumerateObjects(ofType: WalletItem.className()) { _ , newObject in
-                
-                newObject?[WalletItem.isNeedShowWalletCleanBannerKey] = true
-            }
-            
-            SweetLogger.debug("Migration!!! \(oldSchemaVersion)")
-        }
-        
-        return config
-    }
-}
-

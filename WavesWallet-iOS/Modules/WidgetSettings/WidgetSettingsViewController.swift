@@ -33,8 +33,9 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
     
     var sections: [WidgetSettings.Section] = .init()
     
-    private var interval: WidgetSettings.DTO.Interval?
-    private var style: WidgetSettings.DTO.Style?
+    private var interval: DomainLayer.DTO.Widget.Interval?
+    private var style: DomainLayer.DTO.Widget.Style?
+    private var assets: [DomainLayer.DTO.Asset] = []
     private var maxCountAssets: Int = 0
     
     override func viewDidLoad() {
@@ -45,9 +46,7 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
         navigationItem.title = "Market pulse"
         navigationItem.backgroundImage = UIColor.basic50.image
         self.tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 12, right: 0)
-        
-        self.tableView.isEditing = true
-        
+                        
         system
             .start()
             .drive(onNext: { [weak self] (state) in
@@ -64,6 +63,7 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        system.send(.viewDidAppear)
     }
     
     @IBAction private func handlerTouchForIntervalButton(_ sender: UIButton) {
@@ -74,9 +74,7 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
     
     @IBAction private func handlerTouchForAddTokenButton(_ sender: UIButton) {
         
-        //TODO: assets
-        
-        self.moduleOutput?.widgetSettingsSyncAssets([], maxCountAssets: maxCountAssets, callback: { [weak self] (assets) in
+        self.moduleOutput?.widgetSettingsSyncAssets(self.assets, maxCountAssets: maxCountAssets, callback: { [weak self] (assets) in
             self?.system.send(.syncAssets(assets))
         })
 
@@ -96,13 +94,14 @@ private extension WidgetSettingsViewController {
     private func update(state: Types.State.Core) {
         self.interval = state.interval
         self.style = state.style
+        self.assets = state.assets
         self.maxCountAssets = state.maxCountAssets
     }
     
     private func update(state: Types.State.UI) {
         
         self.sections = state.sections
-        
+        self.tableView.isEditing = state.isEditing
         switch state.action {
         case .update:
             tableView.reloadData()
@@ -114,7 +113,8 @@ private extension WidgetSettingsViewController {
             
             if let headerView = tableView.headerView(forSection: 0) as? WidgetSettingsHeaderView {
                 let section = state.sections[0]
-                headerView.update(with: .init(amountMax: section.limitAssets, amount: section.rows.count))
+                let rows = section.rows.filter { $0.asset != nil }
+                headerView.update(with: .init(amountMax: section.limitAssets, amount: rows.count))
             }
             
             tableView.endUpdates()
@@ -146,6 +146,11 @@ extension WidgetSettingsViewController: UITableViewDataSource {
             let cell: WidgetSettingsAssetCell = tableView.dequeueCellForIndexPath(indexPath: indexPath)
             cell.update(with: model)
             return cell
+            
+        case .skeleton:
+            let cell: WidgetSettingsSkeletonCell = tableView.dequeueCellForIndexPath(indexPath: indexPath)
+            cell.startAnimation()
+            return cell
         }
     }
     
@@ -158,7 +163,8 @@ extension WidgetSettingsViewController: UITableViewDataSource {
         let section = self[section]
     
         let headerView: WidgetSettingsHeaderView = tableView.dequeueAndRegisterHeaderFooter()
-        headerView.update(with: .init(amountMax: section.limitAssets, amount: section.rows.count))
+        let rows = section.rows.filter { $0.asset != nil }
+        headerView.update(with: .init(amountMax: section.limitAssets, amount: rows.count))
         return headerView
     }
 }
@@ -193,6 +199,9 @@ extension WidgetSettingsViewController: UITableViewDelegate {
         
         switch row {
         case .asset(let model) where model.isLock == true:
+            return .none
+            
+        case .skeleton:
             return .none
             
         default:

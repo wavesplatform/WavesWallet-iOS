@@ -65,8 +65,8 @@ private extension MarketPulseAsset {
         id = asset.id
         name = asset.name
         iconUrl = asset.icon.url
-        hasScript = asset.hasScript
-        isSponsored = asset.isSponsored
+        hasScript = asset.icon.hasScript
+        isSponsored = asset.icon.isSponsored
         firstPrice = asset.firstPrice
         lastPrice = asset.lastPrice
         volume = asset.volume
@@ -85,10 +85,8 @@ private extension MarketPulse.DTO.Asset {
         icon = AssetLogo.Icon(assetId: id,
                               name: name,
                               url: asset.iconUrl,
-                              isSponsored: false,
-                              hasScript: false)
-        hasScript = asset.hasScript
-        isSponsored = asset.isSponsored
+                              isSponsored: asset.isSponsored,
+                              hasScript: asset.hasScript)
         firstPrice = asset.firstPrice
         lastPrice = asset.lastPrice
         volume = asset.volume

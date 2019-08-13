@@ -53,16 +53,11 @@ extension MarketPulseWidgetCell: ViewConfiguration {
     
     func update(with model: MarketPulse.DTO.UIAsset) {
 
-//        TODO: ALARM
-//        AssetLogo.logo(icon: model.icon,
-//                       style: AssetLogo.Style(size: iconLogo.frame.size,
-//                                              font: UIFont.systemFont(ofSize: 13),
-//                                              specs: .init(isSponsored: model.isSponsored,
-//                                                           hasScript: model.hasScript,
-//                                                           size: Constants.sponsoredIcon)))
-//            .observeOn(MainScheduler.instance)
-//            .bind(to: iconLogo.rx.image)
-//            .disposed(by: disposeBag)
+        AssetLogo.logo(icon: model.icon,
+                       style: .litle)
+            .observeOn(MainScheduler.instance)
+            .bind(to: iconLogo.rx.image)
+            .disposed(by: disposeBag)
         
         labelTitle.text = model.name
         
@@ -126,4 +121,16 @@ extension MarketPulseWidgetCell: ViewHeight {
     static func viewHeight() -> CGFloat {
         return Constants.height
     }
+}
+
+extension AssetLogo.Style {
+        
+    static var litle: AssetLogo.Style = {
+        return AssetLogo.Style.init(size: CGSize(width: 20, height: 20),
+                                    font: UIFont.systemFont(ofSize: 13),
+                                    specs: .init(sponsoredImage: Images.sponsoritem18White.image,
+                                                 scriptImage: Images.scriptasset18White.image,
+                                                 size: CGSize(width: 8,
+                                                              height: 8)))
+    }()
 }

@@ -94,9 +94,9 @@ extension WidgetSettingsCoordinator: WidgetSettingsModuleOutput {
         }
     }
     
-    func widgetSettingsChangeInterval(_ selected: WidgetSettings.DTO.Interval?, callback: @escaping (_ asset: WidgetSettings.DTO.Interval) -> Void) {
+    func widgetSettingsChangeInterval(_ selected: DomainLayer.DTO.Widget.Interval?, callback: @escaping (_ asset: DomainLayer.DTO.Widget.Interval) -> Void) {
         
-        let all = WidgetSettings.DTO.Interval.all
+        let all = DomainLayer.DTO.Widget.Interval.all
         
         let elements: [ActionSheet.DTO.Element] = all.map { .init(title: $0.title) }
         
@@ -123,9 +123,9 @@ extension WidgetSettingsCoordinator: WidgetSettingsModuleOutput {
         }
     }
     
-    func widgetSettingsChangeStyle(_ selected: WidgetSettings.DTO.Style?, callback: @escaping (_ style: WidgetSettings.DTO.Style) -> Void) {
+    func widgetSettingsChangeStyle(_ selected: DomainLayer.DTO.Widget.Style?, callback: @escaping (_ style: DomainLayer.DTO.Widget.Style) -> Void) {
     
-        let all = WidgetSettings.DTO.Style.all
+        let all = DomainLayer.DTO.Widget.Style.all
         
         let elements: [ActionSheet.DTO.Element] = all.map { .init(title: $0.title) }
         
@@ -155,7 +155,7 @@ extension WidgetSettingsCoordinator: WidgetSettingsModuleOutput {
 
 // TODO: Localization
 
-private extension WidgetSettings.DTO.Interval {
+private extension DomainLayer.DTO.Widget.Interval {
     
     var title: String {
         switch self {
@@ -173,12 +173,12 @@ private extension WidgetSettings.DTO.Interval {
         }
     }
     
-    static var all: [WidgetSettings.DTO.Interval] {
+    static var all: [DomainLayer.DTO.Widget.Interval] {
         return [.m1, .m5, .m10, .manually]
     }
 }
 
-private extension WidgetSettings.DTO.Style {
+private extension DomainLayer.DTO.Widget.Style {
     
     var title: String {
         switch self {
@@ -190,7 +190,7 @@ private extension WidgetSettings.DTO.Style {
         }
     }
     
-    static var all: [WidgetSettings.DTO.Style] {
+    static var all: [DomainLayer.DTO.Widget.Style] {
         return [.classic, .dark]
     }
 }

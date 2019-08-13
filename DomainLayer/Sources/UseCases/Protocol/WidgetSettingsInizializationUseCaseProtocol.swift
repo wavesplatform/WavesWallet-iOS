@@ -9,6 +9,6 @@
 import Foundation
 import RxSwift
 
-public protocol MarketPulseWidgetUseCaseProtocol {
+public protocol WidgetSettingsInizializationUseCaseProtocol {
     func settings() -> Observable<DomainLayer.DTO.MarketPulseSettings>
 }
