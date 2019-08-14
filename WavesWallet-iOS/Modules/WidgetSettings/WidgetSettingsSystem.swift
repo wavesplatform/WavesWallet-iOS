@@ -16,8 +16,13 @@ import Extensions
 private typealias Types = WidgetSettings
 
 //TODO: Alarm
-//TODO: Тени пошшли по пизде
 //TODO: Вывод Ошибки
+//TODO: Добавить локализацию
+//TODO: CI
+//TODO: Передача локазилации
+//TODO: При удаление ассета баг!
+//TODO: Отступ снизу от keyboardcontrol
+//TODO: Замочки на минимум
 
 private struct Constants {
 }

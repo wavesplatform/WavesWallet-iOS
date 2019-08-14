@@ -13,10 +13,6 @@ import RxSwift
 import RxCocoa
 import Extensions
 
-//TODO: Spam лист
-//TODO: Отступ снизу от keyboardcontrol
-//TODO: minSelect
-//TODO: Замочки на минимум
 
 private typealias Types = AssetsSearch
 
@@ -26,12 +22,13 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
     
     private let assets: [DomainLayer.DTO.Asset]
     private let maxSelectAssets: Int
-    private let minSelectAssets: Int = 2
+    private let minSelectAssets: Int
     
     
-    init(assets: [DomainLayer.DTO.Asset], limit: Int) {
+    init(assets: [DomainLayer.DTO.Asset], minCountAssets: Int, maxCountAssets: Int) {
         self.assets = assets
-        self.maxSelectAssets = limit
+        self.minSelectAssets = minCountAssets
+        self.maxSelectAssets = maxCountAssets
     }
     
     override func initialState() -> State! {

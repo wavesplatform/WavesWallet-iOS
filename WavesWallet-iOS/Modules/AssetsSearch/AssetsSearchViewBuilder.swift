@@ -14,14 +14,15 @@ struct AssetsSearchViewBuilder: ModuleBuilderOutput {
     
     struct Input {
         let assets: [DomainLayer.DTO.Asset]
-        let limit: Int
+        let minCountAssets: Int
+        let maxCountAssets: Int
     }
     
     var output: AssetsSearchModuleOutput
     
     func build(input: Input) -> UIViewController {
         let vc = StoryboardScene.AssetsSearch.assetsSearchViewController.instantiate()
-        vc.system = AssetsSearchSystem(assets: input.assets, limit: input.limit)
+        vc.system = AssetsSearchSystem(assets: input.assets, minCountAssets: input.minCountAssets, maxCountAssets: input.maxCountAssets)
         vc.moduleOuput = output
         return vc
     }

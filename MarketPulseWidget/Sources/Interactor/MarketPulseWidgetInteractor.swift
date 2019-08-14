@@ -123,9 +123,6 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
                     for (index, model) in searchResult.pairs.enumerated() {
                         let asset = assets[index]
                         
-                        //TODO: it ok?
-//                        guard let model = model else { continue }
-                        
                         pairs.append(MarketPulse.DTO.Asset(id: asset.id,
                                                            name: asset.name,
                                                            icon: asset.icon,
