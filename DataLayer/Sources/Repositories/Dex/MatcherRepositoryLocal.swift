@@ -22,8 +22,6 @@ final class MatcherRepositoryLocal: MatcherRepositoryProtocol {
     func matcherPublicKey() -> Observable<PublicKeyAccount> {
         
         if let publicKey = publicKeyAccount {
-            objc_sync_enter(self)
-            defer { objc_sync_exit(self) }
             return Observable.just(publicKey)
             
         }
