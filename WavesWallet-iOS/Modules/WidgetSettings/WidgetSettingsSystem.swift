@@ -22,14 +22,9 @@ private typealias Types = WidgetSettings
 //TODO: Sign in Widget
 //TODO: Memory warning (?)
 //TODO: Некрасиво закрываются Карточки
-//TODO: При тапе на “Add token” мы открываем bottomSheet + клавиатура, на котором показываем заранее наш большой general list и одобренные токены (которые так же есть в нашем списке)
-//TODO: Сразу продублирую работу добавления токена:
-// При поиске токена, мы должны отображать в списке уже выбранные токены помеченые чеком (например: при старте мы видим что vostok у нас добавлен, вбиваем vostok - мы должны увидеть его в списке вместе с другими найдеными токенами)
+//TODO: URL Scheme
+//TODO: Кнопка закрытия
 
-
-
-private struct Constants {
-}
 
 final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSettings.Event> {
 

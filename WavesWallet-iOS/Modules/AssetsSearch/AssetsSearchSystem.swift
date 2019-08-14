@@ -20,6 +20,8 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
     
     private let assetsRepository: AssetsRepositoryProtocol = UseCasesFactory.instance.repositories.assetsRepositoryRemote
     
+    private let environmentRepository: EnvironmentRepositoryProtocol = UseCasesFactory.instance.repositories.environmentRepository
+    
     private let assets: [DomainLayer.DTO.Asset]
     private let maxSelectAssets: Int
     private let minSelectAssets: Int
@@ -37,7 +39,7 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
     }
     
     override func internalFeedbacks() -> [Feedback] {
-        return [searchAsset()]
+        return [searchAsset(), initialAssets()]
     }
     
     private func searchAsset() -> Feedback {
@@ -66,11 +68,54 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
                 })
         })
     }
+    
+    private func initialAssets() -> Feedback {
+        
+        return react(request: { (state) -> Bool? in
+            
+            if case .initialAssets = state.core.action {
+                return true
+            }
+            
+            return nil
+            
+        }, effects: { [weak self] (search) -> Signal<Event> in
+            
+            guard let self = self else { return Signal.never() }
+            
+            return self.environmentRepository
+                .applicationEnvironment()
+                .flatMap({ [weak self] (enviroment) -> Observable<Event> in
+                    
+                    guard let self = self else { return Observable.never() }
+                    
+                    let assetsId = enviroment.walletEnvironment
+                        .generalAssets
+                        .map { $0.assetId }
+                  
+                    return self
+                        .assetsRepository
+                        .assets(by: assetsId, accountAddress: "")
+                        .map { $0.count > 0 ? Event.assets($0) : Event.empty }
+                })
+                .asSignal(onErrorRecover: { _ -> Signal<Event> in
+                    return Signal.just(Event.empty)
+                })
+        })
+    }
 
     override func reduce(event: Event, state: inout State) {
         
         switch event {
-
+        
+        case .viewDidAppear:
+            
+            guard state.core.isInitial == false else { return }
+            state.core.isInitial = true
+            state.core.action = .initialAssets
+            state.ui.sections = []
+            state.ui.action = .update
+            
         case .empty:
             
             state.ui.sections = [Types.Section(rows: [.empty])]
@@ -143,9 +188,6 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
                                              minSelectAssets: minSelectAssets,
                                              maxSelectAssets: state.core.maxSelectAssets)
             }
-        
-        default:
-            break
         }
     }
     
@@ -172,7 +214,8 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
                                        assets: assets,
                                        selectAssets: selectAssets,
                                        minSelectAssets: self.minSelectAssets,
-                                       maxSelectAssets: self.maxSelectAssets)
+                                       maxSelectAssets: self.maxSelectAssets,
+                                       isInitial: false)
     }
     
     private func sections(assets: [DomainLayer.DTO.Asset],

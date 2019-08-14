@@ -77,7 +77,7 @@ platform :ios do
     ENV['SCHEME_PROJECT'] ="WavesWallet-Dev"
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.dev"
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.dev"
-    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.dev"
+    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.dev,com.wavesplatform.waveswallet.widget.marketpulse.dev"
     ENV['PROD_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
 
     ENV['APPSTORECONNECT_APP_APPLE_ID'] = ""
@@ -100,7 +100,7 @@ platform :ios do
     ENV['SCHEME_PROJECT'] ="WavesWallet-Release"
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.WavesWallet"
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.WavesWallet"
-    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
+    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet,com.wavesplatform.waveswallet.widget.marketpulse.dev"
     ENV['PROD_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
 
     ENV['APPSTORECONNECT_APP_APPLE_ID'] = "1233158971"
@@ -123,7 +123,7 @@ platform :ios do
     ENV['SCHEME_PROJECT'] ="WavesWallet-Test"
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.waveswallet.test"
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.waveswallet.test"
-    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.test"    
+    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.test,com.wavesplatform.waveswallet.widget.marketpulse.test"    
     ENV['PROD_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
 
     ENV['APPSTORECONNECT_APP_APPLE_ID'] = "1438015790"
@@ -290,7 +290,13 @@ platform :ios do
 
   lane :updateProvision do
 
-    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet.test,com.wavesplatform.WavesWallet,com.wavesplatform.waveswallet.dev"
+    ENV['MATCH_APP_IDENTIFIERS'] = ["com.wavesplatform.waveswallet.test",
+      "com.wavesplatform.WavesWallet",
+      "com.wavesplatform.waveswallet.dev",
+      "com.wavesplatform.waveswallet.widget.marketpulse",
+      "com.wavesplatform.waveswallet.widget.marketpulse.dev",
+      "com.wavesplatform.waveswallet.widget.marketpulse.test"].join(",")
+    
     ENV['MATCH_TYPE'] = "adhoc"
     updateMatch
 

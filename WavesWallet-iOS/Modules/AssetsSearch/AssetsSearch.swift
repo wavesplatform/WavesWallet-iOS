@@ -33,6 +33,7 @@ enum AssetsSearch {
             
             enum Action {
                 case none
+                case initialAssets
                 case search(String)
                 case selected([DomainLayer.DTO.Asset])
             }
@@ -42,6 +43,7 @@ enum AssetsSearch {
             var selectAssets: [String: DomainLayer.DTO.Asset]
             var minSelectAssets: Int
             var maxSelectAssets: Int
+            var isInitial: Bool
         }
         
         var ui: UI
