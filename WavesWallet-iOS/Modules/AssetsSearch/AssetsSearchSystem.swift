@@ -62,8 +62,8 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
                     return self.assetsRepository
                         .searchAssets(search: search)
                         .map { $0.count > 0 ? Event.assets($0) : Event.empty }
-                        .asSignal(onErrorRecover: { _ -> Signal<Event> in
-                            return Signal.just(Event.empty)
+                        .asSignal(onErrorRecover: { error -> Signal<Event> in
+                            return Signal.just(.handlerError(error))
                         })
                 })
         })
@@ -98,8 +98,8 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
                         .assets(by: assetsId, accountAddress: "")
                         .map { $0.count > 0 ? Event.assets($0) : Event.empty }
                 })
-                .asSignal(onErrorRecover: { _ -> Signal<Event> in
-                    return Signal.just(Event.empty)
+                .asSignal(onErrorRecover: { error -> Signal<Event> in
+                    return Signal.just(.handlerError(error))
                 })
         })
     }
@@ -115,6 +115,24 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
             state.core.action = .initialAssets
             state.ui.sections = []
             state.ui.action = .update
+            
+        case .refresh:
+            
+            if let action = state.core.invalidAction {
+                state.ui.action = .loading
+                state.core.action = action
+            } else {
+                state.ui.action = .none
+                state.core.action = .none
+            }
+            state.core.invalidAction = nil
+            
+        case .handlerError(let error):
+            
+            let displayError = DisplayError(error: error)
+            state.ui.action = .error(displayError)
+            state.core.invalidAction = state.core.action
+            state.core.action = .none
             
         case .empty:
             
@@ -211,6 +229,7 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
         }
         
         return AssetsSearch.State.Core(action: .none,
+                                       invalidAction: nil,
                                        assets: assets,
                                        selectAssets: selectAssets,
                                        minSelectAssets: self.minSelectAssets,
