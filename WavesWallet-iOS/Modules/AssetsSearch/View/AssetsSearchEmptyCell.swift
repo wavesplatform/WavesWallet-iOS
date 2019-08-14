@@ -11,7 +11,6 @@ import DomainLayer
 import Extensions
 import RxSwift
 
-
 final class AssetsSearchEmptyCell: UITableViewCell, Reusable {
     
     @IBOutlet private var titleLabel: UILabel!
@@ -22,9 +21,7 @@ final class AssetsSearchEmptyCell: UITableViewCell, Reusable {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        //TODO: Localization
-        titleLabel.text = "No tokens matching your search"
+        
+        titleLabel.text = Localizable.Waves.Assetsearch.Cell.Empty.title
     }
 }
-
-

@@ -10,8 +10,7 @@ import Foundation
 import Extensions
 
 extension AssetLogo.Style {
-    
-    //TODO: ALARM!!
+        
     static var litle: AssetLogo.Style = {
         return AssetLogo.Style.init(size: CGSize(width: 24, height: 24),
                                     font: UIFont.systemFont(ofSize: 15),

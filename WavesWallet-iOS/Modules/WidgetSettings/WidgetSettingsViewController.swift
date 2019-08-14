@@ -36,14 +36,15 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
     private var interval: DomainLayer.DTO.Widget.Interval?
     private var style: DomainLayer.DTO.Widget.Style?
     private var assets: [DomainLayer.DTO.Asset] = []
+    
+    private var minCountAssets: Int = 0
     private var maxCountAssets: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.shadowImage = UIImage()
-        //TODO: Localization
-        navigationItem.title = "Market pulse"
+        navigationItem.shadowImage = UIImage()        
+        navigationItem.title = Localizable.Waves.Widgetsettings.Navigation.title
         navigationItem.backgroundImage = UIColor.basic50.image
         self.tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 12, right: 0)
                         
@@ -74,7 +75,7 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
     
     @IBAction private func handlerTouchForAddTokenButton(_ sender: UIButton) {
         
-        self.moduleOutput?.widgetSettingsSyncAssets(self.assets, maxCountAssets: maxCountAssets, callback: { [weak self] (assets) in
+        self.moduleOutput?.widgetSettingsSyncAssets(self.assets, minCountAssets: minCountAssets, maxCountAssets: maxCountAssets, callback: { [weak self] (assets) in
             self?.system.send(.syncAssets(assets))
         })
 
@@ -96,6 +97,7 @@ private extension WidgetSettingsViewController {
         self.style = state.style
         self.assets = state.assets
         self.maxCountAssets = state.maxCountAssets
+        self.minCountAssets = state.minCountAssets
     }
     
     private func update(state: Types.State.UI) {
@@ -211,8 +213,8 @@ extension WidgetSettingsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        //TODO: Localization
-        let editAction = UITableViewRowAction.init(style: .destructive, title: "Delete") { [weak self] (action, indexPath) in
+        let title = Localizable.Waves.Widgetsettings.Tableview.Editmode.delete
+        let editAction = UITableViewRowAction.init(style: .destructive, title: title) { [weak self] (action, indexPath) in
             self?.system.send(.rowDelete(indexPath: indexPath))
         }
 

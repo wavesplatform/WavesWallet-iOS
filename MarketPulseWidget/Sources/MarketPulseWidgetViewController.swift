@@ -15,10 +15,6 @@ import WavesSDK
 import DomainLayer
 import Extensions
 
-//TODO: 1. Показ ошибки, в таргет нужно добавлять файлы локализации
-//7. Добавить локализацию
-
-//Использовать один и тотже способ инициализации SDK в клиенте и Widget
 
 private enum Constants {
     static let bottomViewHeight: CGFloat = 34
@@ -53,6 +49,7 @@ final class MarketPulseWidgetViewController: UIViewController {
         super.viewDidLoad()
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         
+        buttonUpdate.setTitle(Localizable.Marketpulsewidget.Button.Update.title, for: .normal)
         initPresenter()
         setupFeedBack()
         setupButtonUpdateSize()
