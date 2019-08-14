@@ -85,8 +85,8 @@ public class WidgetSettingsInizializationUseCase: WidgetSettingsInizializationUs
                                              priceAsset: pair.priceAsset)
                                 
                         })
-                        return DomainLayer.DTO.MarketPulseSettings(isDarkStyle: true,
-                                                                   interval: .m5,
+                        return DomainLayer.DTO.MarketPulseSettings(isDarkStyle: false,
+                                                                   interval: .m10,
                                                                    assets: marketPulseAssets)
                     })
             }

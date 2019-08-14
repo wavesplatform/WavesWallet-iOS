@@ -98,7 +98,21 @@ private extension WidgetSettingsViewController {
         self.maxCountAssets = state.maxCountAssets
         self.minCountAssets = state.minCountAssets
         
-        self.intervalButton.setTitle(state.interval.title, for: .normal)
+        let title = { () -> String in
+           
+            switch state.interval {
+            case .m1:
+                return Localizable.Waves.Widgetsettings.Changeinterval.Button.m1
+            case .m5:
+                return Localizable.Waves.Widgetsettings.Changeinterval.Button.m5
+            case .m10:
+                return Localizable.Waves.Widgetsettings.Changeinterval.Button.m10
+            case .manually:
+                return Localizable.Waves.Widgetsettings.Changeinterval.Button.manually
+            }
+        }()
+        
+        self.intervalButton.setTitle(title, for: .normal)
         self.styleButton.setTitle(state.style.title, for: .normal)
     }
     
