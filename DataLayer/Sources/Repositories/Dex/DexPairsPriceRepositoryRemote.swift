@@ -29,7 +29,6 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
         if searchCompoments.count == 1 {
             searchCompoments = searchText.components(separatedBy: "\\")
         }
-        print(searchCompoments)
         
         if searchCompoments.count == 1 {
             let searchWords = searchCompoments[0].components(separatedBy: " ").filter {$0.count > 0}
