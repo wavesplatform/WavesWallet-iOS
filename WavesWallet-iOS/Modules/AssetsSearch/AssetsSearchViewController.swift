@@ -96,7 +96,7 @@ final class AssetsSearchViewController: ModalScrollViewController {
     }
     
     override func bottomScrollInset(for size: CGSize) -> CGFloat {
-        return Constants.bottomInset
+        return Constants.bottomInset + layoutInsets.bottom
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {

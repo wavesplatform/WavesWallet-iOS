@@ -59,11 +59,19 @@
                                     <outlet property="delegate" destination="9ps-TH-h3n" id="Lte-jo-lNF"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EHf-7I-A7E">
+                                <rect key="frame" x="0.0" y="862" width="414" height="34"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="DUq-5f-bKW" firstAttribute="bottom" secondItem="4e3-pN-wPO" secondAttribute="bottom" id="CNe-xw-lKy"/>
+                            <constraint firstItem="EHf-7I-A7E" firstAttribute="top" secondItem="DUq-5f-bKW" secondAttribute="bottom" id="Fhd-Oy-S8N"/>
                             <constraint firstItem="DUq-5f-bKW" firstAttribute="trailing" secondItem="4e3-pN-wPO" secondAttribute="trailing" id="HxD-62-hUP"/>
+                            <constraint firstAttribute="bottom" secondItem="EHf-7I-A7E" secondAttribute="bottom" id="XZZ-Dw-Mya"/>
+                            <constraint firstItem="EHf-7I-A7E" firstAttribute="leading" secondItem="DUq-5f-bKW" secondAttribute="leading" id="gAM-DS-REJ"/>
+                            <constraint firstItem="DUq-5f-bKW" firstAttribute="trailing" secondItem="EHf-7I-A7E" secondAttribute="trailing" id="hkd-nO-Hgh"/>
                             <constraint firstItem="4e3-pN-wPO" firstAttribute="leading" secondItem="DUq-5f-bKW" secondAttribute="leading" id="lD9-9k-p7n"/>
                             <constraint firstItem="4e3-pN-wPO" firstAttribute="top" secondItem="DUq-5f-bKW" secondAttribute="top" id="rcK-NY-Ccy"/>
                         </constraints>
