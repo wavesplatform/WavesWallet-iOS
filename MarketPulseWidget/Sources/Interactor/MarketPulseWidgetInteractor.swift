@@ -56,7 +56,7 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
                                                       sentryIoInfoPath: sentryIoInfoPath)
         let repositories = RepositoriesFactory(resources: resourses)
         
-        UseCasesFactory.initialization(repositories: repositories)
+        UseCasesFactory.initialization(repositories: repositories, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp())
         
         return true
     }
@@ -141,3 +141,23 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
         }
     }
 }
+
+private struct AuthorizationInteractorLocalizableImp: AuthorizationInteractorLocalizableProtocol {
+    
+    var fallbackTitle: String {
+        return ""
+    }
+    
+    var cancelTitle: String {
+        return ""
+    }
+    
+    var readFromkeychain: String {
+        return ""
+    }
+    
+    var saveInkeychain: String {
+        return ""
+    }
+}
+

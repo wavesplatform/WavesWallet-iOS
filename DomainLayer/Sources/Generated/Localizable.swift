@@ -9,7 +9,7 @@ import Foundation
 internal enum Localizable {
 
   internal enum Biometric {
-    /// Cancelbla
+    /// Cancel
     internal static var localizedCancelTitle: String { return Localizable.tr("WavesDomainLayer", "biometric.localizedCancelTitle") }
     internal static var localizedCancelTitleKey: String { return "biometric.localizedCancelTitle" }
     /// Enter Passcode

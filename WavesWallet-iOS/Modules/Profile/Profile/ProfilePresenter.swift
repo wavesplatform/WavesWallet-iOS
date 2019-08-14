@@ -11,6 +11,7 @@ import RxFeedback
 import RxSwift
 import RxCocoa
 import DomainLayer
+import Extensions
 
 protocol ProfileModuleOutput: AnyObject {
 
