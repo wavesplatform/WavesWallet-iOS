@@ -17,7 +17,10 @@ import WavesSDKExtensions
 private typealias Types = WidgetSettings
 
 //TODO: Вывод Ошибки
-//TODO: CI
+//TODO: CI (Resource Path)
+//TODO: Auto Create Provision Profile
+//TODO: Sign in Widget
+//TODO: Memory warning (?)
 //TODO: Некрасиво закрываются Карточки
 //TODO: При тапе на “Add token” мы открываем bottomSheet + клавиатура, на котором показываем заранее наш большой general list и одобренные токены (которые так же есть в нашем списке)
 //TODO: Сразу продублирую работу добавления токена:
