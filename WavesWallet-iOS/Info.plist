@@ -24,10 +24,30 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.wavesplatform.WavesWallet-iOS</string>
+			<string>com.wavesplatform.waveswallet</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>waves</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.wavesplatform.waveswallet.dev</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>waves-dev</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.wavesplatform.waveswallet.test</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>waves-test</string>
 			</array>
 		</dict>
 	</array>
