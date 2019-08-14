@@ -12,26 +12,19 @@ import RxFeedback
 import RxSwift
 import RxCocoa
 import Extensions
+import WavesSDKExtensions
 
 private typealias Types = WidgetSettings
 
 //TODO: Вывод Ошибки
 //TODO: CI
-
-//TODO: При удаление ассета баг!
-//TODO: Отступ снизу от keyboardcontrol
-
-//TODO:
-/*
- Из разных мест поступила обратная связь что непонятно текущее состояние настроек виджета, эту боль я поддерживаю.
- Внес лайт изменения, теперь в TabBar будем показывать статус выбранных настроек
- Формат для интервала: X min / Manually
- Формат для стиля: Dark / Classic
- Настройки по умолчанию: Интервал - 5 min, Стиль - Classic
- Сразу продублирую работу добавления токена:
- При тапе на “Add token” мы открываем bottomSheet + клавиатура, на котором показываем заранее наш большой general list и одобренные токены (которые так же есть в нашем списке)
- При поиске токена, мы должны отображать в списке уже выбранные токены помеченые чеком (например: при старте мы видим что vostok у нас добавлен, вбиваем vostok - мы должны увидеть его в списке вместе с другими найдеными токенами)
-*/
+//TODO: Некрасиво закрываются Карточки
+//TODO: Формат для интервала: X min / Manually
+//TODO: Формат для стиля: Dark / Classic
+//TODO: Настройки по умолчанию: Интервал - 5 min, Стиль - Classic
+//TODO: При тапе на “Add token” мы открываем bottomSheet + клавиатура, на котором показываем заранее наш большой general list и одобренные токены (которые так же есть в нашем списке)
+//TODO: Сразу продублирую работу добавления токена:
+// При поиске токена, мы должны отображать в списке уже выбранные токены помеченые чеком (например: при старте мы видим что vostok у нас добавлен, вбиваем vostok - мы должны увидеть его в списке вместе с другими найдеными токенами)
 
 //TODO: Крутить обновление когда открывать виджет
 //TODO: Убирать кнопку больше или меньше когда два элемента
@@ -196,6 +189,7 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
         return react(request: { (state) -> Bool? in
             
             if case .settings = state.core.action {
+                print("state.core.action \(state.core.action)")
                 return true
             }
             
@@ -257,6 +251,7 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
             guard let asset = row.asset else { return }
 
             state.core.assets.removeAll(where: { $0.id == asset.id } )
+            state.core.action = .deleteAsset(asset)
             
             if state.core.assets.count > state.core.minCountAssets {
                 state.ui.action = .deleteRow(indexPath: indexPath)
@@ -281,6 +276,11 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
             state.ui.action = .none
             
         case .syncAssets(let assets):
+            
+            if state.core.assets.elementsEqual(assets, by: { $0.id == $1.id }) {
+                state.core.action = .none
+                return
+            }
             
             state.ui.sections = skeletonSections(maxCountAssets: state.core.maxCountAssets)
             state.ui.isEditing = false

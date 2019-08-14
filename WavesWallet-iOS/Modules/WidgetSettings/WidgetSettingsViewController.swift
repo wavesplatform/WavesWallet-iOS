@@ -78,7 +78,6 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
         self.moduleOutput?.widgetSettingsSyncAssets(self.assets, minCountAssets: minCountAssets, maxCountAssets: maxCountAssets, callback: { [weak self] (assets) in
             self?.system.send(.syncAssets(assets))
         })
-
     }
     
     @IBAction private func handlerTouchForStyleButton(_ sender: UIButton) {
@@ -98,12 +97,17 @@ private extension WidgetSettingsViewController {
         self.assets = state.assets
         self.maxCountAssets = state.maxCountAssets
         self.minCountAssets = state.minCountAssets
+        
+        self.intervalButton.setTitle(state.interval.title, for: .normal)
+        self.styleButton.setTitle(state.style.title, for: .normal)
     }
     
     private func update(state: Types.State.UI) {
         
         self.sections = state.sections
         self.tableView.isEditing = state.isEditing
+        
+        
         switch state.action {
         case .update:
             tableView.reloadData()
