@@ -10,12 +10,12 @@ import Foundation
 
 public extension DateFormatter {
 
-    public static func uiSharedFormatter(key: String) -> DateFormatter {
+    static func uiSharedFormatter(key: String) -> DateFormatter {
         let formatter = Thread
             .threadSharedObject(key: key,
                                 create: { return DateFormatter() })
 
-        formatter.locale = Localizable.current.locale
+        formatter.locale = Localizable.locale
         return formatter
     }
 }

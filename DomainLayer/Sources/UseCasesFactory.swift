@@ -16,13 +16,13 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
     
     public static var instance: UseCasesFactory!
     
-    init(repositories: RepositoriesFactoryProtocol) {
+    init(repositories: RepositoriesFactoryProtocol, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
         self.repositories = repositories
-        self.authorizationInteractorLocalizable = AuthorizationInteractorLocalizableImp()
+        self.authorizationInteractorLocalizable = authorizationInteractorLocalizable
     }
     
-    public class func initialization(repositories: RepositoriesFactoryProtocol) {
-        self.instance = UseCasesFactory(repositories: repositories)
+    public class func initialization(repositories: RepositoriesFactoryProtocol, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
+        self.instance = UseCasesFactory(repositories: repositories, authorizationInteractorLocalizable: authorizationInteractorLocalizable)
     }
     
     public private(set) lazy var analyticManager: AnalyticManagerProtocol = {

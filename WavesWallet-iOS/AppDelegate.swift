@@ -125,9 +125,9 @@ extension AppDelegate {
         
         IQKeyboardManager.shared.enable = true
         UIBarButtonItem.appearance().tintColor = UIColor.black
-        Language.load()
+        Language.load(localizable: Localizable.self, languages: Language.list)
     }
-    
+            
     func setupLayers() -> Bool {
         
         guard let googleServiceInfoPath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") else {
@@ -152,7 +152,7 @@ extension AppDelegate {
                                                       sentryIoInfoPath: sentryIoInfoPath)
         let repositories = RepositoriesFactory(resources: resourses)
         
-        UseCasesFactory.initialization(repositories: repositories)
+        UseCasesFactory.initialization(repositories: repositories, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp())
         
         return true
     }

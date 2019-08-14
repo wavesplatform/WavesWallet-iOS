@@ -98,22 +98,32 @@
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release-Prod"
+      buildConfiguration = "Dev-Debug"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES"
       launchAutomaticallySubstyle = "2">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.springboard">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F7E954E31EA8FE0700A804DE"
-            BuildableName = "WavesWallet-iOS.app"
-            BlueprintName = "WavesWallet-iOS"
+            BlueprintIdentifier = "E9B190A622E7CD99008220B7"
+            BuildableName = "MarketPulseWidget.appex"
+            BlueprintName = "MarketPulseWidget"
             ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "E9B190A622E7CD99008220B7"
+            BuildableName = "MarketPulseWidget.appex"
+            BlueprintName = "MarketPulseWidget"
+            ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Dev-Debug">

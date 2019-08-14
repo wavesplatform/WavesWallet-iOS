@@ -79,10 +79,10 @@ extension WidgetSettingsCoordinator: AssetsSearchModuleOutput {
 
 extension WidgetSettingsCoordinator: WidgetSettingsModuleOutput {
     
-    func widgetSettingsSyncAssets(_ current: [DomainLayer.DTO.Asset], maxCountAssets: Int, callback: @escaping (([DomainLayer.DTO.Asset]) -> Void)) {
+    func widgetSettingsSyncAssets(_ current: [DomainLayer.DTO.Asset], minCountAssets: Int, maxCountAssets: Int, callback: @escaping (([DomainLayer.DTO.Asset]) -> Void)) {
         
         let vc = AssetsSearchViewBuilder(output: self)
-            .build(input: .init(assets: current, limit: maxCountAssets))
+            .build(input: .init(assets: current, minCountAssets: minCountAssets, maxCountAssets: maxCountAssets))
         
         vc.modalPresentationStyle = .custom
         vc.transitioningDelegate = popoverViewControllerTransitioning
@@ -102,7 +102,7 @@ extension WidgetSettingsCoordinator: WidgetSettingsModuleOutput {
         
         let selectedElement = elements.first(where: { $0.title == (selected?.title ?? "") })
         
-        let data = ActionSheet.DTO.Data.init(title: "Update interval",
+        let data = ActionSheet.DTO.Data.init(title: Localizable.Waves.Widgetsettings.Actionsheet.Changeinterval.title,
                                              elements: elements,
                                              selectedElement: selectedElement)
             
@@ -131,7 +131,7 @@ extension WidgetSettingsCoordinator: WidgetSettingsModuleOutput {
         
         let selectedElement = elements.first(where: { $0.title == (selected?.title ?? "") })
         
-        let data = ActionSheet.DTO.Data.init(title: "Widget style",
+        let data = ActionSheet.DTO.Data.init(title: Localizable.Waves.Widgetsettings.Actionsheet.Changestyle.title,
                                              elements: elements,
                                              selectedElement: selectedElement)
         
@@ -153,23 +153,21 @@ extension WidgetSettingsCoordinator: WidgetSettingsModuleOutput {
     }
 }
 
-// TODO: Localization
-
 private extension DomainLayer.DTO.Widget.Interval {
     
     var title: String {
         switch self {
         case .m1:
-            return "1 minute"
+            return Localizable.Waves.Widgetsettings.Actionsheet.Changeinterval.Element.m1
             
         case .m5:
-            return "5 minute"
+            return Localizable.Waves.Widgetsettings.Actionsheet.Changeinterval.Element.m5
             
         case .m10:
-            return "10 minute"
+            return Localizable.Waves.Widgetsettings.Actionsheet.Changeinterval.Element.m10
             
         case .manually:
-            return "Update manually"
+            return Localizable.Waves.Widgetsettings.Actionsheet.Changeinterval.Element.manually
         }
     }
     
@@ -183,10 +181,10 @@ private extension DomainLayer.DTO.Widget.Style {
     var title: String {
         switch self {
         case .dark:
-            return "Dark"
+            return Localizable.Waves.Widgetsettings.Actionsheet.Changestyle.Element.dark
             
         case .classic:
-            return "Classic"
+            return  Localizable.Waves.Widgetsettings.Actionsheet.Changestyle.Element.classic
         }
     }
     

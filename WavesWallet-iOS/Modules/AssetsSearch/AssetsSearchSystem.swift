@@ -135,7 +135,7 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
             
             let isLockedAfterUpdate = countAfterUpdate == state.core.maxSelectAssets || countAfterUpdate == minSelectAssets
             
-            if isLockedAfterUpdate != isLockForSelect  {
+            if isLockedAfterUpdate != isLockForSelect || isLockedAfterUpdate != isLockForUnselect {
                 state.ui.sections = sections(assets: state.core.assets,
                                              selectedAssets: state.core.selectAssets,
                                              minSelectAssets: minSelectAssets,
@@ -178,7 +178,8 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
                           minSelectAssets: Int,
                           maxSelectAssets: Int) -> [Types.Section] {
         
-        let isLocked = selectedAssets.count == maxSelectAssets
+        let isLockedMax = selectedAssets.count == maxSelectAssets
+        let isLockedMin = selectedAssets.count == minSelectAssets
         
         let rows = assets.map { (asset) -> Types.Row in
             let isSelected = selectedAssets[asset.id] != nil
@@ -186,9 +187,14 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
             var state: AssetsSearchAssetCell.Model.State = .unselected
             
             if isSelected {
-                state = .selected
+                if isLockedMin {
+                    state = .lock
+                } else {
+                    state = .selected
+                }
+                
             } else {
-                if isLocked {
+                if isLockedMax {
                     state = .lock
                 } else {
                     state = .unselected

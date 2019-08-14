@@ -15,7 +15,6 @@ import WavesSDK
 import DomainLayer
 import Extensions
 
-
 private enum Constants {
     static let bottomViewHeight: CGFloat = 34
     static let buttonUpdateOffset: CGFloat = 40
@@ -45,9 +44,16 @@ final class MarketPulseWidgetViewController: UIViewController {
     private var items: [MarketPulse.ViewModel.Row] = []
     private var disposeBag = DisposeBag()
     
+    private var languages: [Language] {
+        let list: [Language] = JSONDecoder.decode(json: "Languages") ?? []
+        return list
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+        
+        Language.load(localizable: Localizable.self, languages: languages)
         
         buttonUpdate.setTitle(Localizable.Marketpulsewidget.Button.Update.title, for: .normal)
         initPresenter()

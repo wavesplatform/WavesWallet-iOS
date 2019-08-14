@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Extensions
 
 protocol HelloCoordinatorDelegate: AnyObject {
     func userFinishedGreet()
