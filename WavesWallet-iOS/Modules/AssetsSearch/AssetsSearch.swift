@@ -21,6 +21,7 @@ enum AssetsSearch {
                 case none
                 case loading
                 case update
+                case error(DisplayError)
             }
             
             var sections: [Section]
@@ -39,6 +40,7 @@ enum AssetsSearch {
             }
             
             var action: Action
+            var invalidAction: Action?
             var assets: [DomainLayer.DTO.Asset]
             var selectAssets: [String: DomainLayer.DTO.Asset]
             var minSelectAssets: Int
@@ -55,7 +57,9 @@ enum AssetsSearch {
         case search(String)
         case select(IndexPath)
         case assets([DomainLayer.DTO.Asset])
+        case handlerError(Error)
         case empty
+        case refresh
     }
     
     struct Section: SectionProtocol {
