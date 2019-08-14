@@ -1,6 +1,7 @@
 // Generated using SwiftGen, by O.Halligon — https://github.com/SwiftGen/SwiftGen
 
 import Foundation
+import Extensions
 
 // swiftlint:disable superfluous_disable_command
 // swiftlint:disable file_length
@@ -43,7 +44,7 @@ internal enum AccessibilityIdentifiers {
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 
-extension AccessibilityIdentifiers {
+extension AccessibilityIdentifiers: LocalizableProtocol {
 
     struct Current {
         var locale: Locale
@@ -52,12 +53,13 @@ extension AccessibilityIdentifiers {
 
     private static let english: Localizable.Current = Localizable.Current(locale: Locale(identifier: "en"), bundle: Bundle(for: BundleToken.self))
 
-    static var current: Localizable.Current = Localizable.Current(locale: Locale.current, bundle: Bundle(for: BundleToken.self))
+    static var locale: Locale = Locale.current
+    static var bundle: Bundle = Bundle(for: BundleToken.self)
 
     private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
-        let format = NSLocalizedString(key, tableName: table, bundle: current.bundle, comment: "")
+        let format = NSLocalizedString(key, tableName: table, bundle: bundle, comment: "")
 
-        let value = String(format: format, locale: current.locale, arguments: args)
+        let value = String(format: format, locale: locale, arguments: args)
 
         if value.localizedLowercase == key.localizedLowercase {
             let format = NSLocalizedString(key, tableName: table, bundle: english.bundle, comment: "")

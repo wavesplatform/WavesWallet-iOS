@@ -671,3 +671,8 @@
 "widgetsettings.actionsheet.changestyle.element.classic" = "Classic";
 "widgetsettings.actionsheet.changestyle.element.dark" = "Dark";
 
+
+"biometric.localizedCancelTitle" = "Cancel";
+"biometric.localizedFallbackTitle" = "Enter Passcode";
+"biometric.readfromkeychain" = "Access to your wallet";
+"biometric.saveinkeychain" = "Access to your wallet";
