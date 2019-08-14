@@ -3343,6 +3343,24 @@ internal enum Localizable {
         }
       }
 
+      internal enum Changeinterval {
+
+        internal enum Button {
+          /// 1 minute
+          internal static var m1: String { return Localizable.tr("Waves", "widgetsettings.changeinterval.button.m1") }
+          internal static var m1Key: String { return "widgetsettings.changeinterval.button.m1" }
+          /// 10 minute
+          internal static var m10: String { return Localizable.tr("Waves", "widgetsettings.changeinterval.button.m10") }
+          internal static var m10Key: String { return "widgetsettings.changeinterval.button.m10" }
+          /// 5 minute
+          internal static var m5: String { return Localizable.tr("Waves", "widgetsettings.changeinterval.button.m5") }
+          internal static var m5Key: String { return "widgetsettings.changeinterval.button.m5" }
+          /// Update manually
+          internal static var manually: String { return Localizable.tr("Waves", "widgetsettings.changeinterval.button.manually") }
+          internal static var manuallyKey: String { return "widgetsettings.changeinterval.button.manually" }
+        }
+      }
+
       internal enum Navigation {
         /// Market pulse
         internal static var title: String { return Localizable.tr("Waves", "widgetsettings.navigation.title") }
