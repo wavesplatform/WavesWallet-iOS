@@ -48,6 +48,7 @@ final class AssetsSearchViewController: ModalScrollViewController {
     var moduleOuput: AssetsSearchModuleOutput?
     
     fileprivate var state: AssetsSearch.State.UI?
+    fileprivate var snackError: String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,6 +152,42 @@ final class AssetsSearchViewController: ModalScrollViewController {
             self.keyboardControlTransfromation = false
         }
     }
+    
+    private func showErrorView(with error: DisplayError) {
+        
+        switch error {
+        case .globalError:
+            snackError = showWithoutInternetSnack()
+            
+        case .internetNotWorking:
+            snackError = showWithoutInternetSnack()
+            
+        case .message(let message):
+            snackError = showErrorSnack(message)
+            
+        default:
+            snackError = showErrorNotFoundSnack()
+            
+        }
+    }
+    
+    private func showWithoutInternetSnack() -> String {
+        return showWithoutInternetSnack { [weak self] in
+            self?.system.send(.refresh)
+        }
+    }
+    
+    private func showErrorSnack(_ message: (String)) -> String {
+        return showErrorSnack(title: message, didTap: { [weak self] in
+            self?.system.send(.refresh)
+        })
+    }
+    
+    private func showErrorNotFoundSnack() -> String {
+        return showErrorNotFoundSnack() { [weak self] in
+            self?.system.send(.refresh)
+        }
+    }
 }
 
 // MARK: KeyboardControlDelegate
@@ -197,6 +234,9 @@ private extension AssetsSearchViewController {
             
         case .loading:
             headerView.searchBarView.startLoading()
+            
+        case .error(let error):
+            showErrorView(with: error)
             
         default:
             break
