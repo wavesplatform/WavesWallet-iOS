@@ -42,6 +42,22 @@ extension DomainLayer.DTO.Dex.SmartPair {
     }
 }
 
+public extension DomainLayer.DTO.Dex.SmartPair {
+    
+    init(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, isChecked: Bool, isGeneral: Bool, sortLevel: Int) {
+        
+        let id = amountAsset.id + priceAsset.id
+
+        self.init(id: id,
+                  amountAsset: amountAsset,
+                  priceAsset: priceAsset,
+                  isChecked: isChecked,
+                  isGeneral: isGeneral,
+                  sortLevel: sortLevel)
+    }
+    
+}
+
 extension DomainLayer.DTO.Dex.SmartPair {
     
     init(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, realm: Realm) {

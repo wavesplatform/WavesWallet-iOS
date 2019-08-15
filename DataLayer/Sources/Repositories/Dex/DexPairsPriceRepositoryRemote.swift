@@ -117,19 +117,4 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
                     })
             })
     }
-    
-    func mapPairs(by accountAddress: String, pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
-        guard let realm = try? WalletRealmFactory.realm(accountAddress: accountAddress) else {
-            return Observable.empty()
-        }
-        
-        var smartPairs: [DomainLayer.DTO.Dex.SmartPair] = []
-        
-        for pair in pairs {
-            smartPairs.append(.init(amountAsset: pair.amountAsset, priceAsset: pair.priceAsset, realm: realm))
-        }
-        
-        return Observable.just(smartPairs)
-    }
-    
 }
