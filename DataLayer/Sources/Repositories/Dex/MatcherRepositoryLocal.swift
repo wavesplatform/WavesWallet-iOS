@@ -12,7 +12,22 @@ import RxSwift
 
 final class MatcherRepositoryLocal: MatcherRepositoryProtocol {
     
-    private var publicKeyAccount: PublicKeyAccount?
+    private var internalPublicKeyAccount: PublicKeyAccount?
+    
+    private var publicKeyAccount: PublicKeyAccount? {
+        get {
+            objc_sync_enter(self)
+            defer { objc_sync_exit(self) }
+            return internalPublicKeyAccount
+        }
+        
+        set {
+            objc_sync_enter(self)
+            defer { objc_sync_exit(self) }
+            internalPublicKeyAccount = newValue
+        }
+    }
+    
     private let matcherRepositoryRemote: MatcherRepositoryProtocol
 
     init(matcherRepositoryRemote: MatcherRepositoryProtocol) {
@@ -23,16 +38,19 @@ final class MatcherRepositoryLocal: MatcherRepositoryProtocol {
         
         if let publicKey = publicKeyAccount {
             return Observable.just(publicKey)
-            
         }
-        return matcherRepositoryRemote.matcherPublicKey().share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
+
+        return matcherPublicKeyShare
             .flatMap({ [weak self] (publicKey) -> Observable<PublicKeyAccount> in
                 guard let self = self else { return Observable.empty() }
-                
-                objc_sync_enter(self)
-                defer { objc_sync_exit(self) }
+
                 self.publicKeyAccount = publicKey
                 return Observable.just(publicKey)
             })
     }
+    
+    private lazy var matcherPublicKeyShare: Observable<PublicKeyAccount> = {
+        return matcherRepositoryRemote.matcherPublicKey()
+            .share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
+    }()
 }
