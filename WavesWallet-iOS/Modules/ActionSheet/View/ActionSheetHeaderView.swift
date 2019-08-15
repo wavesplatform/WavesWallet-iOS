@@ -40,8 +40,7 @@ final class ActionSheetHeaderView: UIView, NibLoadable {
         layer.cornerRadius = Constants.cornerRadius
         layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         topBackgroundView.layer.cornerRadius = Constants.cornerRadius
-        topBackgroundView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        //TODO: Localize
+        topBackgroundView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]        
     }
 }
 
