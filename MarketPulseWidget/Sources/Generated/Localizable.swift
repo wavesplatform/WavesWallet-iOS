@@ -15,7 +15,7 @@ internal enum Localizable {
 
       internal enum Update {
         /// Update
-        internal static var title: String { return Localizable.tr("WavesMarketPulce", "marketpulsewidget.button.update.title") }
+        internal static var title: String { return Localizable.tr("WavesMarketPulse", "marketpulsewidget.button.update.title") }
         internal static var titleKey: String { return "marketpulsewidget.button.update.title" }
       }
     }

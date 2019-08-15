@@ -8,6 +8,23 @@
 
 import Foundation
 
-struct DeepLink {
+public enum DeepLink {}
+
+public extension DeepLink {
     
+    #if DEBUG
+    static let scheme: String = "waves://"
+    #elseif TEST
+    static let scheme: String = "waves-test://"
+    #else
+    static let scheme: String = "waves-dev://"
+    #endif
+    
+//    com.wavesplatform.waveswallet.dev.widget.marketpulse
+    
+    static let widgetSettings: String = "\(DeepLink.scheme)widgetsettings"
 }
+
+
+//waves://app
+

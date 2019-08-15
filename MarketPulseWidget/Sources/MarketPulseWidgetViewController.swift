@@ -20,9 +20,7 @@ private enum Constants {
     static let buttonUpdateOffset: CGFloat = 40
     
     static let animationKey = "rotation"
-    static let animationDuration: TimeInterval = 1
-    
-    static let openScheme = "waves://"
+    static let animationDuration: TimeInterval = 1        
 }
 
 final class MarketPulseWidgetViewController: UIViewController {
@@ -99,7 +97,7 @@ final class MarketPulseWidgetViewController: UIViewController {
     
     @IBAction private func settingsTapped(_ sender: Any) {
         
-        if let url = URL(string: Constants.openScheme) {
+        if let url = URL(string: DeepLink.widgetSettings) {
             extensionContext?.open(url, completionHandler: nil)
         }
     }
