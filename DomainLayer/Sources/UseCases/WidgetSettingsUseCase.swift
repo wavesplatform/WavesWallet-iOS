@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import WavesSDK
 
 public class WidgetSettingsUseCase: WidgetSettingsUseCaseProtocol {
     
@@ -19,6 +20,7 @@ public class WidgetSettingsUseCase: WidgetSettingsUseCaseProtocol {
         self.useCases = useCases
     }
     
+    //TODO: Remove Loading Assets
     public func settings() -> Observable<DomainLayer.DTO.Widget.Settings> {
         
         return useCases
@@ -107,7 +109,7 @@ public class WidgetSettingsUseCase: WidgetSettingsUseCaseProtocol {
             .correctionPairsUseCase
             .correction(pairs: settings
                 .assets
-                .map { .init(amountAsset: $0.id, priceAsset: "WAVES") })
+                .map { .init(amountAsset: $0.id, priceAsset: WavesSDKConstants.wavesAssetId) })
             .map({ (pairs) -> DomainLayer.DTO.MarketPulseSettings in
              
                 let assets: [DomainLayer.DTO.MarketPulseSettings.Asset] = settings
