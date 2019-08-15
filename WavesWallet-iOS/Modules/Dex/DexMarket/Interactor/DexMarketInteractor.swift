@@ -78,8 +78,30 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
                                     dexPairs.append(.init(amountAsset: dexAmountAsset, priceAsset: dexPriceAsset))
                                 }
                             }
-                            //TODO: move to another repository?
-                            return self.dexPairsPriceRepository.mapPairs(by: wallet.address, pairs: dexPairs)
+                            
+                            return self.dexRealmRepository.list(by: wallet.address)
+                                .map({ (localSmartPairs) -> [DomainLayer.DTO.Dex.SmartPair] in
+                                    
+                                    var newSmartPairs: [DomainLayer.DTO.Dex.SmartPair] = []
+                                    
+                                    for pair in dexPairs {
+                                        
+                                        let localPair = localSmartPairs.first(where: {$0.amountAsset.id == pair.amountAsset.id &&
+                                            $0.priceAsset.id == pair.priceAsset.id})
+                                        
+                                        let isGeneralAmount = assets.first(where: {$0.id == pair.amountAsset.id})?.isGeneral ?? false
+                                        let isGeneralPrice = assets.first(where: {$0.id == pair.priceAsset.id})?.isGeneral ?? false
+                                        let isGeneral = isGeneralAmount && isGeneralPrice
+
+                                        newSmartPairs.append(.init(amountAsset: pair.amountAsset,
+                                                                   priceAsset: pair.priceAsset,
+                                                                   isChecked: localPair?.isChecked ?? false,
+                                                                   isGeneral: isGeneral,
+                                                                   sortLevel: localPair?.sortLevel ?? 0))
+                                    }
+                                    
+                                    return newSmartPairs
+                                })
                         })
                 })
         })
