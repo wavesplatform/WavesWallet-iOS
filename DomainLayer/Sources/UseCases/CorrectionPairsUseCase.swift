@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import WavesSDKCrypto
 
+//TODO: Testing!
 final class CorrectionPairsUseCase: CorrectionPairsUseCaseProtocol {
     
     private let repositories: RepositoriesFactoryProtocol
@@ -72,16 +73,3 @@ final class CorrectionPairsUseCase: CorrectionPairsUseCaseProtocol {
         return pairs
     }
 }
-
-
-/*
- 
-    A > B
-        A
-    A < B
-        B
-    A.L > B.L
- 
- 
- 
- */

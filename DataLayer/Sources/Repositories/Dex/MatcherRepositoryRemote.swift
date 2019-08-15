@@ -39,6 +39,7 @@ final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
             })
     }
     
+    //TODO: settingsIdsPairs
     func settingsPricePairs() -> Observable<[String]> {
      
         return environmentRepository
