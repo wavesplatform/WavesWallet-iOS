@@ -94,52 +94,42 @@ extension DexLastTradesInteractor {
     
     private func getLastTrades() -> Observable<[DomainLayer.DTO.Dex.LastTrade]> {
 
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<[DomainLayer.DTO.Dex.LastTrade]> in
-            guard let self = self else { return Observable.empty() }
-            return self.lastTradesRepository.lastTrades(accountAddress: wallet.address,
-                                                         amountAsset: self.pair.amountAsset,
-                                                         priceAsset: self.pair.priceAsset,
-                                                         limit: Constants.limit)
-        })
-      
+        return lastTradesRepository.lastTrades(amountAsset: pair.amountAsset,
+                                               priceAsset: pair.priceAsset,
+                                               limit: Constants.limit)
     }
     
     private func getLastSellBuy() -> Observable<LastSellBuy> {
         
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<LastSellBuy> in
-            guard let self = self else { return Observable.empty() }
-
-
-            return self.orderBookRepository.orderBook(amountAsset: self.pair.amountAsset.id,
-                                                      priceAsset: self.pair.priceAsset.id)
-                .flatMap({ [weak self] (orderbook) -> Observable<LastSellBuy> in
+        return self.orderBookRepository.orderBook(amountAsset: self.pair.amountAsset.id,
+                                                  priceAsset: self.pair.priceAsset.id)
+            .flatMap({ [weak self] (orderbook) -> Observable<LastSellBuy> in
+                
+                guard let self = self else { return Observable.empty() }
+                
+                var sell: DexLastTrades.DTO.SellBuyTrade?
+                var buy: DexLastTrades.DTO.SellBuyTrade?
+                
+                if let bid = orderbook.bids.first {
                     
-                    guard let self = self else { return Observable.empty() }
+                    let price = Money.price(amount: bid.price,
+                                            amountDecimals: self.pair.amountAsset.decimals,
+                                            priceDecimals: self.pair.priceAsset.decimals)
                     
-                    var sell: DexLastTrades.DTO.SellBuyTrade?
-                    var buy: DexLastTrades.DTO.SellBuyTrade?
+                    sell = DexLastTrades.DTO.SellBuyTrade(price: price, type: .sell)
+                }
+                
+                if let ask = orderbook.asks.first {
                     
-                    if let bid = orderbook.bids.first {
-                        
-                        let price = Money.price(amount: bid.price,
-                                                amountDecimals: self.pair.amountAsset.decimals,
-                                                priceDecimals: self.pair.priceAsset.decimals)
-                        
-                        sell = DexLastTrades.DTO.SellBuyTrade(price: price, type: .sell)
-                    }
+                    let price = Money.price(amount: ask.price,
+                                            amountDecimals: self.pair.amountAsset.decimals,
+                                            priceDecimals: self.pair.priceAsset.decimals)
                     
-                    if let ask = orderbook.asks.first {
-                        
-                        let price = Money.price(amount: ask.price,
-                                                amountDecimals: self.pair.amountAsset.decimals,
-                                                priceDecimals: self.pair.priceAsset.decimals)
-                        
-                        buy = DexLastTrades.DTO.SellBuyTrade(price: price, type: .buy)
-                    }
-                    
-                    return Observable.just(LastSellBuy(sell: sell, buy: buy))
-                })
-        })
+                    buy = DexLastTrades.DTO.SellBuyTrade(price: price, type: .buy)
+                }
+                
+                return Observable.just(LastSellBuy(sell: sell, buy: buy))
+            })
         
     }
     

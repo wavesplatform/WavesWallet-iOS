@@ -63,14 +63,12 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
 
     public private(set) lazy var assetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositoryProtocol = AssetsBalanceSettingsRepositoryLocal()
 
-    public private(set) lazy var candlesRepository: CandlesRepositoryProtocol = CandlesRepositoryRemote(environmentRepository: environmentRepositoryInternal)
+    public private(set) lazy var candlesRepository: CandlesRepositoryProtocol = CandlesRepositoryRemote(environmentRepository: environmentRepositoryInternal, matcherRepository: matcherRepository)
     
-    public private(set) lazy var lastTradesRespository: LastTradesRepositoryProtocol = LastTradesRepositoryRemote(environmentRepository: environmentRepositoryInternal)
+    public private(set) lazy var lastTradesRespository: LastTradesRepositoryProtocol = LastTradesRepositoryRemote(environmentRepository: environmentRepositoryInternal, matcherRepository: matcherRepository)
     
     public private(set) lazy var coinomatRepository: CoinomatRepositoryProtocol = CoinomatRepository()
     
-    public private(set) lazy var matcherRepository: MatcherRepositoryProtocol = MatcherRepositoryRemote(environmentRepository: environmentRepositoryInternal)
-
     public private(set) lazy var addressRepository: AddressRepositoryProtocol = AddressRepositoryRemote(environmentRepository: environmentRepositoryInternal)
 
     public private(set) lazy var notificationNewsRepository: NotificationNewsRepositoryProtocol = NotificationNewsRepository()
@@ -87,6 +85,10 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     }()
     
     public private(set) lazy var gatewayRepository: GatewayRepositoryProtocol = GatewayRepository(environmentRepository: environmentRepositoryInternal)
+    
+    public private(set) lazy var matcherRepository: MatcherRepositoryProtocol = MatcherRepositoryLocal(matcherRepositoryRemote: matcherRepositoryRemote)
+        
+    private lazy var matcherRepositoryRemote: MatcherRepositoryProtocol = MatcherRepositoryRemote(environmentRepository: environmentRepositoryInternal)
     
     public struct Resources {
         
