@@ -81,10 +81,12 @@
 "backup.savebackup.navigation.title" = "Save backup phrase";
 "backup.savebackup.next.button.title" = "I've written it down";
 "backup.savebackup.next.label.title" = "You will confirm this phrase on the next screen";
-
+"biometric.localizedCancelTitle" = "Cancel";
+"biometric.localizedFallbackTitle" = "Enter Passcode";
 "biometric.manyattempts.subtitle" = "To unlock biometric, sign in with your account password";
 "biometric.manyattempts.title" = "Too many attempts";
-
+"biometric.readfromkeychain" = "Access to your wallet";
+"biometric.saveinkeychain" = "Access to your wallet";
 "cameraAccess.alert.allow" = "Allow Camera";
 "cameraAccess.alert.cancel" = "Cancel";
 "cameraAccess.alert.message" = "Camera access is required to make full use of this app";
@@ -656,28 +658,18 @@
 "dexcreateorder.invalidPricePopup.subtitle" = "Do you want to proceed?";
 "dexcreateorder.invalidPricePopup.button.placeOrder" = "Place Order";
 "dexcreateorder.invalidPricePopup.button.cancel" = "Cancel";
-
 "widgetsettings.navigation.title" = "Market pulse";
 "assetsearch.cell.empty.title" = "No tokens matching your search";
 "widgetsettings.tableview.editmode.delete" = "Delete";
 "widgetsettings.actionsheet.changeinterval.title" = "Update interval";
-
 "widgetsettings.actionsheet.changeinterval.element.m1" = "1 minute";
 "widgetsettings.actionsheet.changeinterval.element.m5" = "5 minute";
 "widgetsettings.actionsheet.changeinterval.element.m10" = "10 minute";
 "widgetsettings.actionsheet.changeinterval.element.manually" = "Update manually";
-
 "widgetsettings.changeinterval.button.m1" = "1 minute";
-"widgetsettings.changeinterval.button.m5" = "5 minute";
 "widgetsettings.changeinterval.button.m10" = "10 minute";
+"widgetsettings.changeinterval.button.m5" = "5 minute";
 "widgetsettings.changeinterval.button.manually" = "Update manually";
-
 "widgetsettings.actionsheet.changestyle.title" = "Widget style";
 "widgetsettings.actionsheet.changestyle.element.classic" = "Classic";
 "widgetsettings.actionsheet.changestyle.element.dark" = "Dark";
-
-
-"biometric.localizedCancelTitle" = "Cancel";
-"biometric.localizedFallbackTitle" = "Enter Passcode";
-"biometric.readfromkeychain" = "Access to your wallet";
-"biometric.saveinkeychain" = "Access to your wallet";
