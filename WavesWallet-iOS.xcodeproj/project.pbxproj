@@ -449,6 +449,13 @@
 		7B8818602304474E00AB0549 /* AuthorizationInteractorLocalizableImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47F822FC742E002B19F8 /* AuthorizationInteractorLocalizableImp.swift */; };
 		7B88186223044B7F00AB0549 /* Language+List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B88186123044B7F00AB0549 /* Language+List.swift */; };
 		7B88186423044FCC00AB0549 /* Languages.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B88186323044FCC00AB0549 /* Languages.json */; };
+		7B88186E2305639600AB0549 /* ActionSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8818662305639600AB0549 /* ActionSheetViewController.swift */; };
+		7B88186F2305639600AB0549 /* ActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8818672305639600AB0549 /* ActionSheet.swift */; };
+		7B8818702305639600AB0549 /* ActionSheetElementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8818692305639600AB0549 /* ActionSheetElementCell.swift */; };
+		7B8818712305639600AB0549 /* ActionSheetHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B88186A2305639600AB0549 /* ActionSheetHeaderView.xib */; };
+		7B8818722305639600AB0549 /* ActionSheetHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B88186B2305639600AB0549 /* ActionSheetHeaderView.swift */; };
+		7B8818732305639700AB0549 /* ActionSheetViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B88186C2305639600AB0549 /* ActionSheetViewBuilder.swift */; };
+		7B8818742305639700AB0549 /* ActionSheet.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B88186D2305639600AB0549 /* ActionSheet.storyboard */; };
 		7B9393C622DF5827006634A6 /* WavesSDKExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC624F22DCB04F0029DA37 /* WavesSDKExtensions.framework */; };
 		7B9393C722DF5827006634A6 /* WavesSDKExtensions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC624F22DCB04F0029DA37 /* WavesSDKExtensions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7B9393C822DF5827006634A6 /* WavesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BDC624722DC973E0029DA37 /* WavesSDK.framework */; };
@@ -525,13 +532,6 @@
 		7BB03E4A22EF2C84008F179D /* WidgetSettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */; };
 		7BB03E4C22EF2DAB008F179D /* WidgetSettingsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */; };
 		7BBDFD7422F339AA001CEF04 /* WidgetSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBDFD7322F339AA001CEF04 /* WidgetSettingsCoordinator.swift */; };
-		7BBDFD7822F36EB9001CEF04 /* ActionSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBDFD7722F36EB9001CEF04 /* ActionSheetViewController.swift */; };
-		7BBDFD7F22F445F2001CEF04 /* ActionSheetHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBDFD7D22F445F2001CEF04 /* ActionSheetHeaderView.swift */; };
-		7BBDFD8022F445F2001CEF04 /* ActionSheetHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BBDFD7E22F445F2001CEF04 /* ActionSheetHeaderView.xib */; };
-		7BBDFD8322F47179001CEF04 /* ActionSheet.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BBDFD8222F47179001CEF04 /* ActionSheet.storyboard */; };
-		7BBDFD8822F47475001CEF04 /* ActionSheetElementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBDFD8722F47475001CEF04 /* ActionSheetElementCell.swift */; };
-		7BBDFD8A22F474F3001CEF04 /* ActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBDFD8922F474F3001CEF04 /* ActionSheet.swift */; };
-		7BBDFD8C22F47507001CEF04 /* ActionSheetViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBDFD8B22F47507001CEF04 /* ActionSheetViewBuilder.swift */; };
 		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
 		7BD2FD35223C5E1F0098CFB9 /* TransactionCardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */; };
 		7BD6E0FE22E228DC00BAAFC8 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E0FD22E228DC00BAAFC8 /* DebugView.swift */; };
@@ -1683,6 +1683,13 @@
 		7B848AA02304073B0092AD18 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/WavesMarketPulce.strings"; sourceTree = "<group>"; };
 		7B88186123044B7F00AB0549 /* Language+List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Language+List.swift"; sourceTree = "<group>"; };
 		7B88186323044FCC00AB0549 /* Languages.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Languages.json; sourceTree = "<group>"; };
+		7B8818662305639600AB0549 /* ActionSheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetViewController.swift; sourceTree = "<group>"; };
+		7B8818672305639600AB0549 /* ActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheet.swift; sourceTree = "<group>"; };
+		7B8818692305639600AB0549 /* ActionSheetElementCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetElementCell.swift; sourceTree = "<group>"; };
+		7B88186A2305639600AB0549 /* ActionSheetHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionSheetHeaderView.xib; sourceTree = "<group>"; };
+		7B88186B2305639600AB0549 /* ActionSheetHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetHeaderView.swift; sourceTree = "<group>"; };
+		7B88186C2305639600AB0549 /* ActionSheetViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetViewBuilder.swift; sourceTree = "<group>"; };
+		7B88186D2305639600AB0549 /* ActionSheet.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ActionSheet.storyboard; sourceTree = "<group>"; };
 		7B95110E225CC2CF0030390C /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		7B95110F225CC2CF0030390C /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/Waves.strings"; sourceTree = "<group>"; };
 		7B951110225CC2E60030390C /* hi-IN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "hi-IN"; path = "hi-IN.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -1750,13 +1757,6 @@
 		7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsHeaderView.swift; sourceTree = "<group>"; };
 		7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WidgetSettingsHeaderView.xib; sourceTree = "<group>"; };
 		7BBDFD7322F339AA001CEF04 /* WidgetSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WidgetSettingsCoordinator.swift; path = "../../../../../../../System/Volumes/Data/Users/rprokofev/Works/Waves/waveswallet-ios_dex/WavesWallet-iOS/Coordinators/WidgetSettingsCoordinator.swift"; sourceTree = "<group>"; };
-		7BBDFD7722F36EB9001CEF04 /* ActionSheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetViewController.swift; sourceTree = "<group>"; };
-		7BBDFD7D22F445F2001CEF04 /* ActionSheetHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetHeaderView.swift; sourceTree = "<group>"; };
-		7BBDFD7E22F445F2001CEF04 /* ActionSheetHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionSheetHeaderView.xib; sourceTree = "<group>"; };
-		7BBDFD8222F47179001CEF04 /* ActionSheet.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ActionSheet.storyboard; path = "../../../../../../../../../System/Volumes/Data/Users/rprokofev/Works/Waves/waveswallet-ios_dex/WavesWallet-iOS/Modules/WidgetSettings/ActionSheet/ActionSheet.storyboard"; sourceTree = "<group>"; };
-		7BBDFD8722F47475001CEF04 /* ActionSheetElementCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetElementCell.swift; sourceTree = "<group>"; };
-		7BBDFD8922F474F3001CEF04 /* ActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActionSheet.swift; path = "../../../../../../../../../System/Volumes/Data/Users/rprokofev/Works/Waves/waveswallet-ios_dex/WavesWallet-iOS/Modules/WidgetSettings/ActionSheet/ActionSheet.swift"; sourceTree = "<group>"; };
-		7BBDFD8B22F47507001CEF04 /* ActionSheetViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActionSheetViewBuilder.swift; path = "../../../../../../../../../System/Volumes/Data/Users/rprokofev/Works/Waves/waveswallet-ios_dex/WavesWallet-iOS/Modules/WidgetSettings/ActionSheet/ActionSheetViewBuilder.swift"; sourceTree = "<group>"; };
 		7BC870FE25FDFEDF7730F56D /* Pods-DataLayer.dev-debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataLayer.dev-debug.xcconfig"; path = "Target Support Files/Pods-DataLayer/Pods-DataLayer.dev-debug.xcconfig"; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
 		7BD2FD34223C5E1F0098CFB9 /* TransactionCardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardCoordinator.swift; sourceTree = "<group>"; };
@@ -3087,16 +3087,17 @@
 		0AF58F8B2191909200C8A4B3 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				7B26A88422ED16A400E7B024 /* AssetsSearch */,
-				7B26A87B22ED127600E7B024 /* WidgetSettings */,
 				0A071E3D215AEF03007D9750 /* AccountPassword */,
+				7B8818652305639600AB0549 /* ActionSheet */,
 				E9B086902163882F00937644 /* AddressBook */,
 				E9236F192216F2FE00A12FD5 /* AppNews */,
 				0AF921BE212E07B2003BA067 /* Asset */,
 				E9D36DB52175C754001E6DF0 /* AssetList */,
+				7B26A88422ED16A400E7B024 /* AssetsSearch */,
 				0A4399672150470E0032E608 /* Backup */,
 				0A4140E72174F08600B1310E /* ChangePassword */,
 				0A071E78215DB084007D9750 /* ChooseAccount */,
+				0A762D9E2163ACE80019D447 /* DebugViewController */,
 				E9B086BF2163886800937644 /* Dex */,
 				E9F984A720E5266800D2CB4D /* Enter */,
 				E95B47A521638A9F004D4E39 /* Hello */,
@@ -3112,13 +3113,13 @@
 				E9D36D6B2175C754001E6DF0 /* Receive */,
 				E9EC5B352175F35800E5C29A /* Send */,
 				E95B47D421638B11004D4E39 /* StartLeasing */,
-				0A762D9E2163ACE80019D447 /* DebugViewController */,
 				E95B6B08219B3ADF00A85B5D /* TokenBurn */,
 				7BDA6AD3222D8AEA001DE71C /* TransactionCard */,
 				0A071E62215C65BC007D9750 /* UseTouchID */,
 				0A97975E2108A10400407F67 /* Wallet */,
 				0A6E2C8521CBBCBE006F4073 /* WavesPopup */,
 				0AFA0C732174A2300003FE3B /* WebView */,
+				7B26A87B22ED127600E7B024 /* WidgetSettings */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -3442,7 +3443,6 @@
 		7B26A87B22ED127600E7B024 /* WidgetSettings */ = {
 			isa = PBXGroup;
 			children = (
-				7BBDFD7122F2FECC001CEF04 /* ActionSheet */,
 				7BB03E4822EF2C6D008F179D /* Views */,
 				7B26A87C22ED129300E7B024 /* WidgetSettings.storyboard */,
 				7B26A87E22ED13F300E7B024 /* WidgetSettingsViewController.swift */,
@@ -3546,16 +3546,6 @@
 				7B431AA022BD185B00DE73B9 /* Info.plist */,
 			);
 			path = DataLayerTests;
-			sourceTree = "<group>";
-		};
-		7B49911522F87487005B7123 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				7BBDFD8722F47475001CEF04 /* ActionSheetElementCell.swift */,
-				7BBDFD7D22F445F2001CEF04 /* ActionSheetHeaderView.swift */,
-				7BBDFD7E22F445F2001CEF04 /* ActionSheetHeaderView.xib */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		7B49911822F874CC005B7123 /* View */ = {
@@ -3902,6 +3892,28 @@
 			path = Localization;
 			sourceTree = "<group>";
 		};
+		7B8818652305639600AB0549 /* ActionSheet */ = {
+			isa = PBXGroup;
+			children = (
+				7B8818662305639600AB0549 /* ActionSheetViewController.swift */,
+				7B8818672305639600AB0549 /* ActionSheet.swift */,
+				7B8818682305639600AB0549 /* View */,
+				7B88186C2305639600AB0549 /* ActionSheetViewBuilder.swift */,
+				7B88186D2305639600AB0549 /* ActionSheet.storyboard */,
+			);
+			path = ActionSheet;
+			sourceTree = "<group>";
+		};
+		7B8818682305639600AB0549 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7B8818692305639600AB0549 /* ActionSheetElementCell.swift */,
+				7B88186A2305639600AB0549 /* ActionSheetHeaderView.xib */,
+				7B88186B2305639600AB0549 /* ActionSheetHeaderView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		7B97B03722FC784F008BA3F4 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -4010,18 +4022,6 @@
 				7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		7BBDFD7122F2FECC001CEF04 /* ActionSheet */ = {
-			isa = PBXGroup;
-			children = (
-				7B49911522F87487005B7123 /* View */,
-				7BBDFD7722F36EB9001CEF04 /* ActionSheetViewController.swift */,
-				7BBDFD8222F47179001CEF04 /* ActionSheet.storyboard */,
-				7BBDFD8922F474F3001CEF04 /* ActionSheet.swift */,
-				7BBDFD8B22F47507001CEF04 /* ActionSheetViewBuilder.swift */,
-			);
-			path = ActionSheet;
 			sourceTree = "<group>";
 		};
 		7BD6E10322E5ACE000BAAFC8 /* View */ = {
@@ -6128,7 +6128,6 @@
 				E9B12DBA219E2D3900128EFE /* AssetBurnCell.xib in Resources */,
 				0AF9222A212E0F1F003BA067 /* WalletLeasingCell.xib in Resources */,
 				0A762DA02163AD0F0019D447 /* Support.storyboard in Resources */,
-				7BBDFD8322F47179001CEF04 /* ActionSheet.storyboard in Resources */,
 				7BB03E4C22EF2DAB008F179D /* WidgetSettingsHeaderView.xib in Resources */,
 				0AF92231212E0F1F003BA067 /* WalletHeaderView.xib in Resources */,
 				7BFB475822FC5AD0002B19F8 /* Appsflyer-Info.plist in Resources */,
@@ -6172,7 +6171,6 @@
 				7B49912622F876E1005B7123 /* AssetsSearchHeaderView.xib in Resources */,
 				7BDA6AEA22313E85001DE71C /* TransactionImageView.xib in Resources */,
 				E92FAD0F226F6C050054D4AA /* WalletSortSeparatorCell.xib in Resources */,
-				7BBDFD8022F445F2001CEF04 /* ActionSheetHeaderView.xib in Resources */,
 				0AF92229212E0F1F003BA067 /* WalletHistoryCell.xib in Resources */,
 				E95E14F7229FF7A6003552B8 /* WalletAssetSkeletonCell.xib in Resources */,
 				7BFB475A22FC5AD0002B19F8 /* environment_testnet.json in Resources */,
@@ -6190,6 +6188,7 @@
 				E9B087C62163886800937644 /* DexTraderContainerSegmentedControl.xib in Resources */,
 				E95E14F3229FF31A003552B8 /* WalletLeasingBalanceCell.xib in Resources */,
 				0AF92204212E07B3003BA067 /* AssetHeaderSkeletonView.xib in Resources */,
+				7B8818742305639700AB0549 /* ActionSheet.storyboard in Resources */,
 				E98F1D2F22A5E2F200B4A8C4 /* WalletUpdateAppView.xib in Resources */,
 				0A4140EB2174F09C00B1310E /* ChangePassword.storyboard in Resources */,
 				7BD6E10022E228F000BAAFC8 /* DebugView.xib in Resources */,
@@ -6245,6 +6244,7 @@
 				0AF922EC212E1234003BA067 /* AssetsSegmentedControl.xib in Resources */,
 				E9F984A920E526DA00D2CB4D /* Enter.storyboard in Resources */,
 				E95B47C721638A9F004D4E39 /* LongInfoPageView.xib in Resources */,
+				7B8818712305639600AB0549 /* ActionSheetHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6920,6 +6920,7 @@
 				7BFB480422FC742F002B19F8 /* UIAlertController+Factory.swift in Sources */,
 				04831F7C2169210B006D1ED6 /* PasscodeViewController.swift in Sources */,
 				E95B47D321638AF2004D4E39 /* AccountPasswordViewController.swift in Sources */,
+				7B8818722305639600AB0549 /* ActionSheetHeaderView.swift in Sources */,
 				7B5EDEC622536269009C2B3B /* AccessibilityIdentifiers.swift in Sources */,
 				0A7CCDB1218A138D005D372B /* MyAddressModuleBuilder.swift in Sources */,
 				7BFB481122FC742F002B19F8 /* ModalPresentationAnimator.swift in Sources */,
@@ -6943,7 +6944,6 @@
 				0AF58F9B2191D6D000C8A4B3 /* PasscodeChangePasscodeByPasswordPresenter.swift in Sources */,
 				7B97B0A822FC78EA008BA3F4 /* DateFormatter+UI.swift in Sources */,
 				0ADD801F21F22FFA0075FC59 /* RoutingCoordinator.swift in Sources */,
-				7BBDFD8C22F47507001CEF04 /* ActionSheetViewBuilder.swift in Sources */,
 				7BFB481322FC742F002B19F8 /* ModalTableView.swift in Sources */,
 				0A7CCDAD218A138D005D372B /* MyAddressTypes.swift in Sources */,
 				7B5EDEC222522837009C2B3B /* TransactionCardSystemOrder+Mapper.swift in Sources */,
@@ -6976,12 +6976,13 @@
 				0A762DAA21661AC40019D447 /* ProfileModuleBuilder.swift in Sources */,
 				0A071E7E215DB158007D9750 /* ChooseAccountPresenter.swift in Sources */,
 				E9D36DD82175C755001E6DF0 /* ReceiveCardInteractor.swift in Sources */,
-				7BBDFD7822F36EB9001CEF04 /* ActionSheetViewController.swift in Sources */,
 				0A4E71962216E98200A46613 /* SendFeeIndicatorCell.swift in Sources */,
 				E9B087BE2163886800937644 /* SearchBarView.swift in Sources */,
 				7BFB481B22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift in Sources */,
+				7B88186F2305639600AB0549 /* ActionSheet.swift in Sources */,
 				04831F87216A363F006D1ED6 /* LanguageTableCell.swift in Sources */,
 				E9B087CD2163886800937644 /* DexListPresenter.swift in Sources */,
+				7B88186E2305639600AB0549 /* ActionSheetViewController.swift in Sources */,
 				0ADD803521F22FFB0075FC59 /* PasscodeCoordinator.swift in Sources */,
 				E9310D1D217942C8008BF3EE /* BlueBgView.swift in Sources */,
 				7B3902A52237A5A900AAFDB8 /* TransactionCardDashedLineCell.swift in Sources */,
@@ -7167,7 +7168,6 @@
 				0AF922F1212E1234003BA067 /* SkeletonTableCell.swift in Sources */,
 				04D882BF21706FEF00EAAB90 /* InfoPagesCell.swift in Sources */,
 				E9F984AB20E52D8E00D2CB4D /* EnterStartViewController.swift in Sources */,
-				7BBDFD7F22F445F2001CEF04 /* ActionSheetHeaderView.swift in Sources */,
 				E9B087AF2163886800937644 /* DexOrderBookHeaderView.swift in Sources */,
 				E9B087982163886800937644 /* DexChartPresenterProtocol.swift in Sources */,
 				E9D36DC92175C755001E6DF0 /* ReceiveCryptocurrencyModuleBuilder.swift in Sources */,
@@ -7240,7 +7240,6 @@
 				0ADD802B21F22FFA0075FC59 /* ChooseAccountCoordinator.swift in Sources */,
 				E9B12DAF219DCDD300128EFE /* TokenBurnTypes.swift in Sources */,
 				0AAB15CA21655EB000F1F7BC /* ProfileViewController.swift in Sources */,
-				7BBDFD8822F47475001CEF04 /* ActionSheetElementCell.swift in Sources */,
 				0AF922E6212E1234003BA067 /* HalfModalTransitioningDelegate.swift in Sources */,
 				E9FE4D7820EA767B00208F29 /* SaveBackupPhraseViewController.swift in Sources */,
 				0AF921FA212E07B3003BA067 /* AssetBalanceMoneyInfoView.swift in Sources */,
@@ -7299,6 +7298,7 @@
 				E9B087A42163886800937644 /* DexChartInteractorProtocol.swift in Sources */,
 				0AD83614217DDDAC004413E9 /* NetworkSettingsPresenter.swift in Sources */,
 				E9B087F62163886800937644 /* DexLastTradesInteractorProtocol.swift in Sources */,
+				7B8818732305639700AB0549 /* ActionSheetViewBuilder.swift in Sources */,
 				0ADD802D21F22FFB0075FC59 /* ImportCoordinator.swift in Sources */,
 				E9B087BD2163886800937644 /* DexInfoTypes.swift in Sources */,
 				7B39029522366B8E00AAFDB8 /* TransactionCardAddressCell.swift in Sources */,
@@ -7368,9 +7368,9 @@
 				0AF9222C212E0F1F003BA067 /* WalletQuickNoteCell.swift in Sources */,
 				E9D36DD42175C755001E6DF0 /* ReceiveCardPresenterProtocol.swift in Sources */,
 				E9B086B82163883000937644 /* AddressBookModuleBuilder.swift in Sources */,
-				7BBDFD8A22F474F3001CEF04 /* ActionSheet.swift in Sources */,
 				E9D36DEB2175C755001E6DF0 /* ReceiveInvoiceViewController.swift in Sources */,
 				E9B087AD2163886800937644 /* DexOrderBookLastPriceCell.swift in Sources */,
+				7B8818702305639600AB0549 /* ActionSheetElementCell.swift in Sources */,
 				7B49912822F87C7A005B7123 /* AssetsSearchSystem.swift in Sources */,
 				0AF92208212E07B3003BA067 /* AssetHeaderView.swift in Sources */,
 				E9B087D32163886800937644 /* DexListModuleBuilder.swift in Sources */,

@@ -18,8 +18,6 @@ private typealias Types = WidgetSettings
 
 //TODO: Вывод Ошибки
 //TODO: CI (Resource Path)
-//TODO: Auto Create Provision Profile
-//TODO: Sign in Widget
 //TODO: Memory warning (?)
 //TODO: Некрасиво закрываются Карточки
 //TODO: URL Scheme
