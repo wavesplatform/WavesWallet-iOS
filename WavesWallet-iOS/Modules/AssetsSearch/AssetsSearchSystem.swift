@@ -114,7 +114,7 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
             state.core.isInitial = true
             state.core.action = .initialAssets
             state.ui.sections = []
-            state.ui.action = .update
+            state.ui.action = .loading
             
         case .refresh:
             
