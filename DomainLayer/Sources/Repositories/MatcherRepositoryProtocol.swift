@@ -14,6 +14,6 @@ import Extensions
 public protocol MatcherRepositoryProtocol {
     
     func matcherPublicKey() -> Observable<PublicKeyAccount>
-    
+
     func settingsIdsPairs() -> Observable<[String]>
 }

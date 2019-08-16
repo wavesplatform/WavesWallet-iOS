@@ -14,13 +14,69 @@ import DomainLayer
 import Extensions
 
 final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
-            
+  
     private let environmentRepository: EnvironmentRepositoryProtocols
     
     init(environmentRepository: EnvironmentRepositoryProtocols) {
         self.environmentRepository = environmentRepository
     }
     
+    func search(by accountAddress: String, searchText: String) -> Observable<[DomainLayer.DTO.Dex.SimplePair]> {
+        
+        var kind: DataService.Query.PairsPriceSearch.Kind!
+
+        var searchCompoments = searchText.components(separatedBy: "/")
+        if searchCompoments.count == 1 {
+            searchCompoments = searchText.components(separatedBy: "\\")
+        }
+        
+        if searchCompoments.count == 1 {
+            let searchWords = searchCompoments[0].components(separatedBy: " ").filter {$0.count > 0}
+            if searchWords.count > 0 {
+                kind = .byAsset(searchWords[0])
+            }
+            else {
+                return Observable.just([])
+            }
+        }
+        else if searchCompoments.count >= 2 {
+            let searchAmountWords = searchCompoments[0].components(separatedBy: " ").filter {$0.count > 0}
+            let searchPriceWords = searchCompoments[1].components(separatedBy: " ").filter {$0.count > 0}
+            
+            if searchAmountWords.count > 0 && searchPriceWords.count > 0 {
+                kind = .byAssets(firstName: searchAmountWords[0], secondName: searchPriceWords[0])
+            }
+            else if searchAmountWords.count > 0 {
+                kind = .byAsset(searchAmountWords[0])
+            }
+            else if searchPriceWords.count > 0 {
+                kind = .byAsset(searchPriceWords[0])
+            }
+            else {
+                return Observable.just([])
+            }
+        }
+
+        return environmentRepository
+        .servicesEnvironment()
+            .flatMap({ (servicesEnvironment) -> Observable<[DomainLayer.DTO.Dex.SimplePair]> in
+                return servicesEnvironment
+                .wavesServices
+                .dataServices
+                .pairsPriceDataService
+                .searchByAsset(query: .init(kind: kind))
+                    .map({ (pairs) -> [DomainLayer.DTO.Dex.SimplePair] in
+                        
+                        var simplePairs: [DomainLayer.DTO.Dex.SimplePair] = []
+                        for pair in pairs {
+                            if !simplePairs.contains(where: {$0.amountAsset == pair.amountAsset && $0.priceAsset == pair.priceAsset}) {
+                                simplePairs.append(.init(amountAsset: pair.amountAsset, priceAsset: pair.priceAsset))
+                            }
+                        }
+                        return simplePairs
+                    })
+            })
+    }
     
     func list(pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
 

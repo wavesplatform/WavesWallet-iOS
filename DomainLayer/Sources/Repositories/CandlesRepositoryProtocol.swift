@@ -10,5 +10,5 @@ import Foundation
 import RxSwift
 
 public protocol CandlesRepositoryProtocol {
-    func candles(accountAddress: String, amountAsset: String, priceAsset: String, timeStart: Date, timeEnd: Date, timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> Observable<[DomainLayer.DTO.Candle]>
+    func candles(amountAsset: String, priceAsset: String, timeStart: Date, timeEnd: Date, timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> Observable<[DomainLayer.DTO.Candle]>
 }

@@ -43,66 +43,66 @@ private extension DomainLayer.DTO.Candle.TimeFrameType {
 final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
     
     private let environmentRepository: EnvironmentRepositoryProtocols
+    private let matcherRepository: MatcherRepositoryProtocol
     
-    init(environmentRepository: EnvironmentRepositoryProtocols) {
+    init(environmentRepository: EnvironmentRepositoryProtocols, matcherRepository: MatcherRepositoryProtocol) {
         self.environmentRepository = environmentRepository
+        self.matcherRepository = matcherRepository
     }
     
-    func candles(accountAddress: String,
-                 amountAsset: String,
+    func candles(amountAsset: String,
                  priceAsset: String,
                  timeStart: Date,
                  timeEnd: Date,
                  timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> Observable<[DomainLayer.DTO.Candle]> {
  
-        return environmentRepository
-            .servicesEnvironment()
-            .flatMapLatest({ [weak self] (servicesEnvironment) -> Observable<[DomainLayer.DTO.Candle]> in
-                
+        
+        return Observable.zip(environmentRepository.servicesEnvironment(), matcherRepository.matcherPublicKey())
+            .flatMap({ [weak self] (servicesEnvironment, publicKeyAccount) -> Observable<[DomainLayer.DTO.Candle]> in
                 guard let self = self else { return Observable.empty() }
+
                 
-                                
                 let timestampServerDiff = servicesEnvironment.timestampServerDiff
                 
                 let candles = DataService.Query.CandleFilters(amountAsset: amountAsset,
                                                               priceAsset: priceAsset,
                                                               timeStart: timeStart.millisecondsSince1970(timestampDiff: timestampServerDiff),
                                                               timeEnd: timeEnd.millisecondsSince1970(timestampDiff: timestampServerDiff),
-                                                              interval: timeFrame.value)
+                                                              interval: timeFrame.value,
+                                                              matcher: publicKeyAccount.address)
                 return servicesEnvironment
-                    .wavesServices
-                    .dataServices
-                    .candlesDataService
-                    .candles(query: candles)
-                    .map({ (chart) -> [DomainLayer.DTO.Candle] in
+                .wavesServices
+                .dataServices
+                .candlesDataService
+                .candles(query: candles)
+                .map({ (chart) -> [DomainLayer.DTO.Candle] in
+                    var models: [DomainLayer.DTO.Candle] = []
+                    
+                    for model in chart.candles {
                         
-                        var models: [DomainLayer.DTO.Candle] = []
-                        
-                        for model in chart.candles {
-                            
-                            guard let volume = model.volume,
+                        guard let volume = model.volume,
                             let high = model.high,
                             let low = model.low,
                             let open = model.open,
                             let close = model.close else {
                                 continue
-                            }
-                            
-                            if volume > 0 {
-                                let timestamp = self.convertTimestamp(Int64(model.time.timeIntervalSince1970 * 1000), timeFrame: timeFrame)
-                                
-                                let model = DomainLayer.DTO.Candle(close: close,
-                                                                   high: high,
-                                                                   low: low,
-                                                                   open: open,
-                                                                   timestamp: timestamp,
-                                                                   volume: volume)
-                                models.append(model)
-                            }
                         }
                         
-                        return models
-                    })
+                        if volume > 0 {
+                            let timestamp = self.convertTimestamp(Int64(model.time.timeIntervalSince1970 * 1000), timeFrame: timeFrame)
+                            
+                            let model = DomainLayer.DTO.Candle(close: close,
+                                                               high: high,
+                                                               low: low,
+                                                               open: open,
+                                                               timestamp: timestamp,
+                                                               volume: volume)
+                            models.append(model)
+                        }
+                    }
+                    
+                    return models
+                })
             })
     }
 }
