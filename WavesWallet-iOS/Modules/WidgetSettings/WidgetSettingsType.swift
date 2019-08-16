@@ -62,6 +62,7 @@ enum WidgetSettings {
                 case none
                 case update
                 case deleteRow(indexPath: IndexPath)
+                case error(DisplayError)
             }
             
             var sections: [Section]
@@ -82,6 +83,7 @@ enum WidgetSettings {
             }
             
             var action: Action
+            var invalidAction: Action?
             var assets: [DomainLayer.DTO.Asset]
             var minCountAssets: Int
             var maxCountAssets: Int
@@ -98,6 +100,7 @@ enum WidgetSettings {
     enum Event {
         case none
         case viewDidAppear
+        case refresh
         
         case handlerError(_ error: Error)
         

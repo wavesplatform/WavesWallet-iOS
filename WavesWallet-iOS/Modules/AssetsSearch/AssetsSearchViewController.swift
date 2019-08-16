@@ -225,6 +225,9 @@ private extension AssetsSearchViewController {
         self.state = state
         
         headerView.searchBarView.stopLoading()
+        if let snackError = self.snackError {
+            hideSnack(key: snackError)
+        }
         
         switch state.action {
         case .update:
@@ -236,6 +239,7 @@ private extension AssetsSearchViewController {
             headerView.searchBarView.startLoading()
             
         case .error(let error):
+            self.view.endEditing(true)
             showErrorView(with: error)
             
         default:

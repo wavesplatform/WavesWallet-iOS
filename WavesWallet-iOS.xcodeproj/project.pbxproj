@@ -487,7 +487,6 @@
 		7B97B07F22FC784F008BA3F4 /* String+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97B04522FC784F008BA3F4 /* String+Size.swift */; };
 		7B97B08022FC784F008BA3F4 /* UIApplication+OpenURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97B04622FC784F008BA3F4 /* UIApplication+OpenURL.swift */; };
 		7B97B08222FC784F008BA3F4 /* UIColor+Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97B04822FC784F008BA3F4 /* UIColor+Colors.swift */; };
-		7B97B08322FC784F008BA3F4 /* ControlEvent+Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97B04922FC784F008BA3F4 /* ControlEvent+Signal.swift */; };
 		7B97B08422FC784F008BA3F4 /* UIView+SafeArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97B04A22FC784F008BA3F4 /* UIView+SafeArea.swift */; };
 		7B97B08522FC784F008BA3F4 /* UINavigationController+Additionals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97B04B22FC784F008BA3F4 /* UINavigationController+Additionals.swift */; };
 		7B97B08622FC784F008BA3F4 /* TableViewNoShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97B04C22FC784F008BA3F4 /* TableViewNoShadow.swift */; };
@@ -1717,7 +1716,6 @@
 		7B97B04622FC784F008BA3F4 /* UIApplication+OpenURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+OpenURL.swift"; sourceTree = "<group>"; };
 		7B97B04722FC784F008BA3F4 /* UIViewController+Additionals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additionals.swift"; sourceTree = "<group>"; };
 		7B97B04822FC784F008BA3F4 /* UIColor+Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Colors.swift"; sourceTree = "<group>"; };
-		7B97B04922FC784F008BA3F4 /* ControlEvent+Signal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ControlEvent+Signal.swift"; sourceTree = "<group>"; };
 		7B97B04A22FC784F008BA3F4 /* UIView+SafeArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+SafeArea.swift"; sourceTree = "<group>"; };
 		7B97B04B22FC784F008BA3F4 /* UINavigationController+Additionals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Additionals.swift"; sourceTree = "<group>"; };
 		7B97B04C22FC784F008BA3F4 /* TableViewNoShadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewNoShadow.swift; sourceTree = "<group>"; };
@@ -3927,7 +3925,6 @@
 				7B97B03A22FC784F008BA3F4 /* CGFloat+Min.swift */,
 				7B97B05122FC784F008BA3F4 /* CGSize+Hashable.swift */,
 				7B97B03922FC784F008BA3F4 /* ControlEvent+ScrollView.swift */,
-				7B97B04922FC784F008BA3F4 /* ControlEvent+Signal.swift */,
 				7B97B04522FC784F008BA3F4 /* String+Size.swift */,
 				7B97B04C22FC784F008BA3F4 /* TableViewNoShadow.swift */,
 				7B97B05822FC784F008BA3F4 /* TimingFunction.swift */,
@@ -6731,7 +6728,6 @@
 				7B97B08222FC784F008BA3F4 /* UIColor+Colors.swift in Sources */,
 				7B881876230590BB00AB0549 /* DeepLink.swift in Sources */,
 				7B97B07522FC784F008BA3F4 /* UIButton+WithoutAnimation.swift in Sources */,
-				7B97B08322FC784F008BA3F4 /* ControlEvent+Signal.swift in Sources */,
 				7B97B0B822FCBF56008BA3F4 /* Kingfisher+Rx.swift in Sources */,
 				7B97B0A122FC784F008BA3F4 /* Balance.swift in Sources */,
 				7B97B07C22FC784F008BA3F4 /* UITableView+HeaderView.swift in Sources */,

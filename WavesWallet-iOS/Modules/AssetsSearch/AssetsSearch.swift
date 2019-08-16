@@ -52,7 +52,7 @@ enum AssetsSearch {
         var core: Core
     }
     
-    enum Event {
+    enum Event {        
         case viewDidAppear
         case search(String)
         case select(IndexPath)

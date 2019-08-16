@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import WavesSDK
 
 public class WidgetSettingsInizializationUseCase: WidgetSettingsInizializationUseCaseProtocol {
     
@@ -55,7 +56,7 @@ public class WidgetSettingsInizializationUseCase: WidgetSettingsInizializationUs
                     .useCases
                     .correctionPairsUseCase
                     .correction(pairs: assets.map { DomainLayer.DTO.CorrectionPairs.Pair.init(amountAsset: $0.id,
-                                                                                              priceAsset: "WAVES") })
+                                                                                              priceAsset: WavesSDKConstants.wavesAssetId) })
                     .flatMap({ (pairsAfterCorrection) -> Observable<[DomainLayer.DTO.CorrectionPairs.Pair]> in
                         
                         

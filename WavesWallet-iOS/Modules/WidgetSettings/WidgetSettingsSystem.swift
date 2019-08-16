@@ -16,12 +16,10 @@ import WavesSDKExtensions
 
 private typealias Types = WidgetSettings
 
-//TODO: Вывод Ошибки
 //TODO: Memory warning (?)
 //TODO: Некрасиво закрываются Карточки
 //TODO: Matcher address
 //TODO: Новые asset добавлять в вниз
-//TODO: Убрать ебучую тень
 
 final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSettings.Event> {
 
@@ -159,7 +157,7 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
             guard let self = self else { return Signal.never() }
             
             let sortMap = query.sortMap
-            let assets = query.assets.sorted(by: { (sortMap[$0.id] ?? 0) < (sortMap[$1.id] ?? 0) })
+            let assets = query.assets.sorted(by: { (sortMap[$0.id] ?? query.assets.count) < (sortMap[$1.id] ?? query.assets.count) })
             
             return self
                 .widgetSettingsUseCase
@@ -167,8 +165,8 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
                                                                    style: query.style,
                                                                    interval: query.interval))
                 .map { Types.Event.settings($0) }
-                .asSignal(onErrorRecover: { _ in
-                    return Signal.empty()
+                .asSignal(onErrorRecover: { error in
+                    return Signal.just(.handlerError(error))
                 })
         })
     }()
@@ -178,7 +176,6 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
         return react(request: { (state) -> Bool? in
             
             if case .settings = state.core.action {
-                print("state.core.action \(state.core.action)")
                 return true
             }
             
@@ -193,7 +190,7 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
                 .settings()
                 .map { Types.Event.settings($0) }
                 .asSignal(onErrorRecover: { error in
-                    return Signal.empty()
+                    return Signal.just(.handlerError(error))
                 })
         })
     }()
@@ -201,6 +198,18 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
     override func reduce(event: Event, state: inout State) {
         
         switch event {
+            
+        case .refresh:
+            
+            if let action = state.core.invalidAction {
+                state.ui.sections = skeletonSections(maxCountAssets: state.core.maxCountAssets)
+                state.ui.action = .update
+                state.core.action = action
+            } else {
+                state.ui.action = .none
+                state.core.action = .none
+            }
+            state.core.invalidAction = nil
             
         case .none:
             state.core.action = .none
@@ -229,8 +238,10 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
             state.ui.action = .update
             
         case .handlerError(let error):
-            //TODO: Error
-            break
+            let displayError = DisplayError(error: error)
+            state.ui.action = .error(displayError)
+            state.core.invalidAction = state.core.action
+            state.core.action = .none
             
         case .rowDelete(let indexPath):
             
@@ -253,7 +264,6 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
             
             guard let fromAsset = state.ui[from].asset else { return }
             guard let toAsset = state.ui[to].asset else { return }
-            
             
             let fromLevel = state.core.sortMap[fromAsset.id]
             let toLevel = state.core.sortMap[toAsset.id]
@@ -301,6 +311,7 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
     
     private func coreState(minCountAssets: Int, maxCountAssets: Int) -> State.Core! {
         return WidgetSettings.State.Core(action: .none,
+                                         invalidAction: nil,
                                          assets: [],
                                          minCountAssets: minCountAssets,
                                          maxCountAssets: maxCountAssets,

@@ -39,6 +39,7 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
     
     private var minCountAssets: Int = 0
     private var maxCountAssets: Int = 0
+    fileprivate var snackError: String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,6 +127,9 @@ private extension WidgetSettingsViewController {
         self.sections = state.sections
         self.tableView.isEditing = state.isEditing
         
+        if let snackError = self.snackError {
+            hideSnack(key: snackError)
+        }
         
         switch state.action {
         case .update:
@@ -143,9 +147,48 @@ private extension WidgetSettingsViewController {
             }
             
             tableView.endUpdates()
+        
+        case .error(let error):
+            showErrorView(with: error)
             
         default:
             break
+        }
+    }
+    
+    private func showErrorView(with error: DisplayError) {
+        
+        switch error {
+        case .globalError:
+            snackError = showWithoutInternetSnack()
+            
+        case .internetNotWorking:
+            snackError = showWithoutInternetSnack()
+            
+        case .message(let message):
+            snackError = showErrorSnack(message)
+            
+        default:
+            snackError = showErrorNotFoundSnack()
+            
+        }
+    }
+    
+    private func showWithoutInternetSnack() -> String {
+        return showWithoutInternetSnack { [weak self] in
+            self?.system.send(.refresh)
+        }
+    }
+    
+    private func showErrorSnack(_ message: (String)) -> String {
+        return showErrorSnack(title: message, didTap: { [weak self] in
+            self?.system.send(.refresh)
+        })
+    }
+    
+    private func showErrorNotFoundSnack() -> String {
+        return showErrorNotFoundSnack() { [weak self] in
+            self?.system.send(.refresh)
         }
     }
 }

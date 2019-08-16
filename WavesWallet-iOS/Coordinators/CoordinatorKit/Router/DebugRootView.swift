@@ -17,7 +17,7 @@ private struct Constants {
     static let size: CGFloat = 35
 }
 
-protocol DebugWindowRouterDelegate {
+protocol DebugWindowRouterDelegate: AnyObject {
     func relaunchApplication()
 }
 
@@ -127,7 +127,7 @@ final class DebugWindowRouter: WindowRouter {
         return window
     }()
     
-    var delegate: DebugWindowRouterDelegate?
+    weak var delegate: DebugWindowRouterDelegate?
     
     override init(window: UIWindow) {
         super.init(window: window)
