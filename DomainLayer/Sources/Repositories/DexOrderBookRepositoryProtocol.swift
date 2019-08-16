@@ -13,7 +13,7 @@ public protocol DexOrderBookRepositoryProtocol {
     
     func orderBook(amountAsset: String, priceAsset: String) -> Observable<DomainLayer.DTO.Dex.OrderBook>
     
-    func markets(wallet: DomainLayer.DTO.SignedWallet) -> Observable<[DomainLayer.DTO.Dex.SmartPair]>
+    func markets(wallet: DomainLayer.DTO.SignedWallet, pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.SmartPair]>
 
     func myOrders(wallet: DomainLayer.DTO.SignedWallet, amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset) -> Observable<[DomainLayer.DTO.Dex.MyOrder]>
 
@@ -22,5 +22,4 @@ public protocol DexOrderBookRepositoryProtocol {
     func createOrder(wallet: DomainLayer.DTO.SignedWallet, order: DomainLayer.Query.Dex.CreateOrder) -> Observable<Bool>
 
     func orderSettingsFee() -> Observable<DomainLayer.DTO.Dex.SettingsOrderFee>
-    
 }

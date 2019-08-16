@@ -78,6 +78,21 @@ public extension DomainLayer.DTO.Dex {
     }
 }
 
+//MARK: - SimplePair
+public extension DomainLayer.DTO.Dex {
+    
+    struct SimplePair {
+        public let amountAsset: String
+        public let priceAsset: String
+        
+        public init(amountAsset: String, priceAsset: String) {
+            self.amountAsset = amountAsset
+            self.priceAsset = priceAsset
+        }
+    }
+}
+
+
 //MARK: - Pair
 public extension DomainLayer.DTO.Dex {
     
