@@ -17,7 +17,6 @@ import WavesSDKExtensions
 private typealias Types = WidgetSettings
 
 //TODO: Вывод Ошибки
-//TODO: CI (Resource Path)
 //TODO: Memory warning (?)
 //TODO: Некрасиво закрываются Карточки
 

@@ -91,7 +91,7 @@ final class MarketPulseWidgetViewController: UIViewController {
     
     private func initPresenter() {
         presenter = MarketPulseWidgetPresenter()
-        presenter.interactor = MarketPulseWidgetInteractor()
+        presenter.interactor = MarketPulseWidgetInteractor.shared
     }
     
     @IBAction private func settingsTapped(_ sender: Any) {

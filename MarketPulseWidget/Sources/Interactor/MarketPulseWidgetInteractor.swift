@@ -32,7 +32,11 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
         _ = setupLayers()
     }
     
+    static var shared: MarketPulseWidgetInteractor = MarketPulseWidgetInteractor()
+    
     private func setupLayers() -> Bool {
+        
+        print("setupLayers")
         
         guard let googleServiceInfoPath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") else {
             return false

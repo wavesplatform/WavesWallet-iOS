@@ -56,8 +56,6 @@ final class AppCoordinator: Coordinator {
     private let disposeBag: DisposeBag = DisposeBag()
     private var isActiveApp: Bool = false
     
-    private var deepLink: DeepLink?
-    
 #if DEBUG || TEST
     init(_ debugWindowRouter: DebugWindowRouter) {
         self.windowRouter = debugWindowRouter
@@ -141,12 +139,14 @@ extension AppCoordinator: PresentationCoordinator {
     
     func openURL(link: DeepLink) {
         
-        self.deepLink = link
-        
-        if let link = self.deepLink, link.url.absoluteString == DeepLink.widgetSettings {
+        if link.url.absoluteString == DeepLink.widgetSettings {
+            
+            guard isHasCoordinator(type: WidgetSettingsCoordinator.self) != true else {
+                return
+            }
+            
             let coordinator = WidgetSettingsCoordinator.init(windowRouter: windowRouter)
             addChildCoordinatorAndStart(childCoordinator: coordinator)
-            self.deepLink = nil
         }
     }
 }

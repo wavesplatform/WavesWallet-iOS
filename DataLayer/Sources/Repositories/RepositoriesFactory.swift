@@ -114,7 +114,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     
     public init(resources: Resources) {
         
-        if let options = FirebaseOptions(contentsOfFile: resources.googleServiceInfo) {
+        if let options = FirebaseOptions(contentsOfFile: resources.googleServiceInfo) {                        
             FirebaseApp.configure(options: options)
             Database.database().isPersistenceEnabled = false
             Fabric.with([Crashlytics.self])
