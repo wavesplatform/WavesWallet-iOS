@@ -73,3 +73,9 @@ WavesWallet-iOS/Resources/Amplitude-Info.plist
 Output/
 
 \.idea/
+
+CommonResources/GoogleService-Info\.plist
+
+CommonResources/Amplitude-Info\.plist
+
+CommonResources/Appsflyer-Info\.plist

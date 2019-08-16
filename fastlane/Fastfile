@@ -300,11 +300,11 @@ platform :ios do
     ENV['MATCH_TYPE'] = "adhoc"
     updateMatch
 
-    ENV['MATCH_TYPE'] = "appstore"
-    updateMatch
+    # ENV['MATCH_TYPE'] = "appstore"
+    # updateMatch
           
-    ENV['MATCH_TYPE'] = "development"
-    updateMatch
+    # ENV['MATCH_TYPE'] = "development"
+    # updateMatch
           
   end
 
@@ -328,6 +328,8 @@ platform :ios do
     PROJECT_IPA = "#{ENV['SCHEME_PROJECT']}-v#{ENV['VERSION']}-#{ENV['BUILD_NUMBER']}"
     PROJECT_IPA = "#{ENV['OUTPUT_PROJECT']}/#{PROJECT_IPA}.ipa"
     
+    ENV['PROJECT_IPA'] = PROJECT_IPA
+
     testflight(username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
                app_identifier: "#{ENV['TESTFLIGHT_APP_IDENTITIFER']}",
                apple_id: "#{ENV['APPSTORECONNECT_APP_APPLE_ID']}",
@@ -356,6 +358,17 @@ platform :ios do
     #   org_slug: "#{ENV['SENTRY_ORG_SLUG']}",
     #   project_slug: "#{ENV['SENTRY_PROJECT_SLUG']}"
     # )
+  end
+
+  lane :send_to_slack_ipa do
+    
+    # FILEPATH=$(find ./app/build/outputs/apk/prod/release/ -maxdepth 1 -name "*universal*" -print)
+    # FILENAME=$(basename "${FILEPATH}")
+
+    # PROJECT_IPA
+    sh("curl https://slack.com/api/files.upload -F token='#{ENV['SLACK_BOT_API_TOKEN']}' -F channels='#{ENV['SLACK_CHANNEL']}' -F title='#{ENV['SLACK_CHANNEL']}' -F filename='#{ENV['SLACK_CHANNEL']}' -F file=@'#{ENV['PROJECT_IPA']}'")
+
+    
   end
 
   lane :send_to_slack_artifacts  do
