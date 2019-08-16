@@ -5883,8 +5883,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9B190BA22E7CD9A008220B7 /* Build configuration list for PBXNativeTarget "MarketPulseWidget" */;
 			buildPhases = (
-				7B848A66230075F60092AD18 /* Gen Code */,
 				AA0A013D936F629AAA163055 /* [CP] Check Pods Manifest.lock */,
+				7B848A66230075F60092AD18 /* Gen Code */,
 				E9B190A322E7CD99008220B7 /* Sources */,
 				E9B190A422E7CD99008220B7 /* Frameworks */,
 				E9B190A522E7CD99008220B7 /* Resources */,
