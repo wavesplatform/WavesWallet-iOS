@@ -20,9 +20,6 @@ private typealias Types = WidgetSettings
 //TODO: CI (Resource Path)
 //TODO: Memory warning (?)
 //TODO: Некрасиво закрываются Карточки
-//TODO: URL Scheme
-//TODO: Кнопка закрытия
-//TODO: WavesMarketPulce.strings -> WavesMarketPulse.strings
 
 final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSettings.Event> {
 

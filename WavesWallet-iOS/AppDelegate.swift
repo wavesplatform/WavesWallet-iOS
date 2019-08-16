@@ -86,7 +86,6 @@ enum UITest {
         guard let sourceApplication: String = options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String else { return false}
         
         self.appCoordinator.openURL(link: DeepLink(source: sourceApplication, url: url))
-        
         return true
     }
     

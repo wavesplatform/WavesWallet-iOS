@@ -15,5 +15,5 @@ public protocol MatcherRepositoryProtocol {
     
     func matcherPublicKey() -> Observable<PublicKeyAccount>
     
-    func settingsPricePairs() -> Observable<[String]>
+    func settingsIdsPairs() -> Observable<[String]>
 }

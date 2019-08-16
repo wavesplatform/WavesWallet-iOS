@@ -53,12 +53,11 @@ final class WidgetSettingsCoordinator: Coordinator {
         }
     }
 
-//    init(navigationRouter: NavigationRouter){
-//        self.navigationRouter = navigationRouter
-//    }
-    
     init(windowRouter: WindowRouter) {
-        self.windowRouter = windowRouter
+        
+        let window = UIWindow()
+        window.windowLevel = UIWindow.Level.init(rawValue: UIWindow.Level.normal.rawValue + 1.0)
+        self.windowRouter = WindowRouter.windowFactory(window: window)
         self.navigationRouter = NavigationRouter(navigationController: CustomNavigationController())
     }
     
@@ -66,10 +65,8 @@ final class WidgetSettingsCoordinator: Coordinator {
         
         let vc = WidgetSettingsModuleBuilder(output: self).build()
         
-        self.navigationRouter.pushViewController(vc, animated: true) { [weak self] in
-            guard let self = self else { return }
-            self.removeFromParentCoordinator()
-        }                
+        windowRouter.setRootViewController(self.navigationRouter.navigationController)
+        self.navigationRouter.pushViewController(vc)
     }
 }
 
@@ -85,6 +82,14 @@ extension WidgetSettingsCoordinator: AssetsSearchModuleOutput {
 // MARK: WidgetSettingsModuleOutput
 
 extension WidgetSettingsCoordinator: WidgetSettingsModuleOutput {
+    
+    func widgetSettingsClose() {
+        
+        windowRouter.dissmissWindow(animated: nil, completed: { [weak self] in
+            guard let self = self else { return }
+            self.removeFromParentCoordinator()
+        })
+    }
     
     func widgetSettingsSyncAssets(_ current: [DomainLayer.DTO.Asset], minCountAssets: Int, maxCountAssets: Int, callback: @escaping (([DomainLayer.DTO.Asset]) -> Void)) {
         

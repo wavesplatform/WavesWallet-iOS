@@ -46,6 +46,7 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
         navigationItem.shadowImage = UIImage()        
         navigationItem.title = Localizable.Waves.Widgetsettings.Navigation.title
         navigationItem.backgroundImage = UIColor.basic50.image
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.topbarClose.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(topbarClose))
         self.tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 12, right: 0)
                         
         system
@@ -84,6 +85,10 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
         moduleOutput?.widgetSettingsChangeStyle(style, callback: { [weak self] (style) in
             self?.system.send(.changeStyle(style))
         })
+    }
+    
+    @objc func topbarClose() {
+        moduleOutput?.widgetSettingsClose()
     }
 }
 

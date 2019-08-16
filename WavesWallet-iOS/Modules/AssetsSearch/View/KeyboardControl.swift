@@ -8,6 +8,10 @@
 import UIKit
 import Extensions
 
+private enum Constants {
+    static let durationAnimation: TimeInterval = 0.24
+}
+
 protocol KeyboardControlDelegate: AnyObject {
     
     func keyboardControlDidTapKeyboardButton(hasDissmissKeyboardButton: Bool)
@@ -49,13 +53,13 @@ final class KeyboardControl: UIView, NibLoadable, NibOwnerLoadable {
     
     private func flipUpDissmissButton() {
         
-        UIView.animate(withDuration: 0.24, delay: 0, options: [], animations: {
+        UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [], animations: {
             self.keyboardButton.layer.setAffineTransform(CGAffineTransform(scaleX: 1, y: 1))
         }, completion: nil)
     }
     
     private func flipDownDissmissButton() {
-        UIView.animate(withDuration: 0.24, delay: 0, options: [], animations: {
+        UIView.animate(withDuration: Constants.durationAnimation, delay: 0, options: [], animations: {
             self.keyboardButton.layer.setAffineTransform(CGAffineTransform(scaleX: 1, y: -1))
         }, completion: nil)
     }

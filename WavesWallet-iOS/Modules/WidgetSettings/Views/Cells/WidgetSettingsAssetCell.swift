@@ -14,6 +14,7 @@ import Extensions
 
 private enum Constants {
     static let movedRowAlpha: CGFloat = 0.9
+    static let shadowOffSet: CGSize = CGSize(width: 0, height: 2)
 }
 
 final class WidgetSettingsAssetCell: UITableViewCell, Reusable {
@@ -34,7 +35,7 @@ final class WidgetSettingsAssetCell: UITableViewCell, Reusable {
         selectedBackgroundView = UIView()
         selectionStyle = .none
 
-        containerView.addTableCellShadowStyle(offset: CGSize(width: 0, height: 2))
+        containerView.addTableCellShadowStyle(offset: Constants.shadowOffSet)
     }
     
     override func prepareForReuse() {
@@ -47,7 +48,7 @@ final class WidgetSettingsAssetCell: UITableViewCell, Reusable {
         if alpha <= Constants.movedRowAlpha {
             containerView.removeShadow()
         } else {
-            containerView.addTableCellShadowStyle(offset: CGSize(width: 0, height: 2))
+            containerView.addTableCellShadowStyle(offset: Constants.shadowOffSet)
         }
     }
 }

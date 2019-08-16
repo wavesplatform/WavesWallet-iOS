@@ -34,6 +34,7 @@ final class DebugRootView: UIView  {
     override func didMoveToWindow() {
         super.didMoveToWindow()
         
+        
         debugPosition = ApplicationDebugSettings.debugButtonPosition ?? CGPoint(x: 44, y: 44)
         
         addSubview(debugView)
@@ -51,7 +52,6 @@ final class DebugRootView: UIView  {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         debugView.frame = CGRect(x: debugPosition.x, y: debugPosition.y, width: Constants.size, height: Constants.size)
     }
     

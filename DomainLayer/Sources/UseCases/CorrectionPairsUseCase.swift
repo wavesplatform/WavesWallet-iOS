@@ -25,7 +25,7 @@ final class CorrectionPairsUseCase: CorrectionPairsUseCaseProtocol {
         
         let pairs = repositories
             .matcherRepository
-            .settingsPricePairs()
+            .settingsIdsPairs()
             .flatMap { (pricePairs) -> Observable<[DomainLayer.DTO.CorrectionPairs.Pair]> in
                 
                 let result = pairs.map({ (pair) -> DomainLayer.DTO.CorrectionPairs.Pair in

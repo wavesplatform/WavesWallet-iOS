@@ -18,7 +18,7 @@ import DomainLayer
 private enum Contants {
 
     #if DEBUG
-    static let delay: TimeInterval = 1000
+    static let delay: TimeInterval = 1
     #else
     static let delay: TimeInterval = 10
     #endif
@@ -55,6 +55,8 @@ final class AppCoordinator: Coordinator {
     private let authoAuthorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let disposeBag: DisposeBag = DisposeBag()
     private var isActiveApp: Bool = false
+    
+    private var deepLink: DeepLink?
     
 #if DEBUG || TEST
     init(_ debugWindowRouter: DebugWindowRouter) {
@@ -133,14 +135,18 @@ extension AppCoordinator: PresentationCoordinator {
             let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: nil)
             addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
         }
+        
+        
     }
-    
     
     func openURL(link: DeepLink) {
         
-        if link.url.absoluteString == DeepLink.widgetSettings {
-            let coordinator = WidgetSettingsCoordinator.init(windowRouter: windowRouter)            
+        self.deepLink = link
+        
+        if let link = self.deepLink, link.url.absoluteString == DeepLink.widgetSettings {
+            let coordinator = WidgetSettingsCoordinator.init(windowRouter: windowRouter)
             addChildCoordinatorAndStart(childCoordinator: coordinator)
+            self.deepLink = nil
         }
     }
 }
