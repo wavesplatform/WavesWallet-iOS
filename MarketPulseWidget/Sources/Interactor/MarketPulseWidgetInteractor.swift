@@ -88,17 +88,16 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
                 
                 for (index, model) in models.enumerated() {
                     let asset = assets[index]
-                    
                     pairs.append(MarketPulse.DTO.Asset(id: asset.id,
                                                        name: asset.name,
                                                        icon: asset.iconStyle.icon,
                                                        hasScript: asset.iconStyle.hasScript,
                                                        isSponsored: asset.iconStyle.isSponsored,
-                                                       firstPrice: model.firstPrice,
-                                                       lastPrice: model.lastPrice,
-                                                       volume: model.volume,
-                                                       volumeWaves: model.volumeWaves ?? 0,
-                                                       quoteVolume: model.quoteVolume ?? 0,
+                                                       firstPrice: model?.firstPrice ?? 0,
+                                                       lastPrice: model?.lastPrice ?? 0,
+                                                       volume: model?.volume ?? 0,
+                                                       volumeWaves: model?.volumeWaves ?? 0,
+                                                       quoteVolume: model?.quoteVolume ?? 0,
                                                        amountAsset: asset.amountAsset))
                 }
                 

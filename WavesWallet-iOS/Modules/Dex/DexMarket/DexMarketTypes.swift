@@ -34,6 +34,9 @@ enum DexMarket {
         
         var action: Action
         var section: DexMarket.ViewModel.Section
+        var searchKey: String
+        var isNeedSearching: Bool
+        var isNeedLoadDefaultPairs: Bool
     }
 }
 
@@ -56,5 +59,13 @@ extension DexMarket {
     
     static var WavesCommunityToken: [String : String] {
         return Constants.WavesCommunityToken
+    }
+}
+
+extension DexMarket.State: Equatable {
+    static func == (lhs: DexMarket.State, rhs: DexMarket.State) -> Bool {
+        return lhs.isNeedSearching == rhs.isNeedSearching &&
+            lhs.searchKey == rhs.searchKey &&
+            lhs.isNeedLoadDefaultPairs == rhs.isNeedLoadDefaultPairs
     }
 }
