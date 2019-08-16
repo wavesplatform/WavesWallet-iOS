@@ -31,6 +31,8 @@ final class WidgetSettingsCoordinator: Coordinator {
     
     private var navigationRouter: NavigationRouter
     
+    private var windowRouter: WindowRouter
+    
     private let disposeBag: DisposeBag = DisposeBag()
     
     private var statePopover: StatePopover = .none
@@ -51,8 +53,13 @@ final class WidgetSettingsCoordinator: Coordinator {
         }
     }
 
-    init(navigationRouter: NavigationRouter){
-        self.navigationRouter = navigationRouter
+//    init(navigationRouter: NavigationRouter){
+//        self.navigationRouter = navigationRouter
+//    }
+    
+    init(windowRouter: WindowRouter) {
+        self.windowRouter = windowRouter
+        self.navigationRouter = NavigationRouter(navigationController: CustomNavigationController())
     }
     
     func start() {

@@ -134,9 +134,16 @@ extension AppCoordinator: PresentationCoordinator {
             addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
         }
     }
+    
+    
+    func openURL(link: DeepLink) {
+        
+        if link.url.absoluteString == DeepLink.widgetSettings {
+            let coordinator = WidgetSettingsCoordinator.init(windowRouter: windowRouter)            
+            addChildCoordinatorAndStart(childCoordinator: coordinator)
+        }
+    }
 }
-
-
 
 // MARK: Main Logic
 extension AppCoordinator  {

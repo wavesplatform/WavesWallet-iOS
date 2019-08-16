@@ -51,7 +51,6 @@ enum UITest {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        
         guard setupLayers() else { return false }
         
         setupUI()
@@ -69,6 +68,13 @@ enum UITest {
 
             }, onCompleted: {
                 self.appCoordinator.start()
+                
+                if let path = launchOptions?[.url] as? String,
+                    let sourceApplication = launchOptions?[.sourceApplication] as? String,
+                    let url = URL(string: path) {
+                    self.appCoordinator.openURL(link: DeepLink(source: sourceApplication, url: url))
+                }
+                
             })
             .disposed(by: disposeBag)
     
@@ -77,11 +83,9 @@ enum UITest {
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        let sourceApplication: String? = options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
-
-        if sourceApplication == "com.wavesplatform.waveswallet.dev.MarketPulseWidget" {
-            print("todo")
-        }
+        guard let sourceApplication: String = options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String else { return false}
+        
+        self.appCoordinator.openURL(link: DeepLink(source: sourceApplication, url: url))
         
         return true
     }
