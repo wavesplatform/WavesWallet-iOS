@@ -58,6 +58,7 @@ final class MarketPulseWidgetViewController: UIViewController {
         setupButtonUpdateSize()
         showUpdateAnimation()
         hideError()
+        updateBigPrefferedSize()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
