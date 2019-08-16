@@ -46,8 +46,6 @@ final class WidgetSettingsAssetCell: UITableViewCell, Reusable {
         super.layoutSubviews()
         
         if alpha <= Constants.movedRowAlpha {
-//            containerView.removeShadow()
-//        } else {
             containerView.backgroundColor = .white
             containerView.addTableCellShadowStyle(offset: Constants.shadowOffSet)
         }
