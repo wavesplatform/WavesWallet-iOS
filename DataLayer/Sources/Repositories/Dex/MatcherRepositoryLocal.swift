@@ -56,7 +56,6 @@ final class MatcherRepositoryLocal: MatcherRepositoryProtocol {
     }()
     
     func settingsIdsPairs() -> Observable<[String]> {
-        assertMethodDontSupported()
-        return Observable.never()
+        return matcherRepositoryRemote.settingsIdsPairs()        
     }
 }

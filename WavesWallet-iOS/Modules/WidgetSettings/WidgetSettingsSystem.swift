@@ -20,6 +20,8 @@ private typealias Types = WidgetSettings
 //TODO: Memory warning (?)
 //TODO: Некрасиво закрываются Карточки
 //TODO: Matcher address
+//TODO: Новые asset добавлять в вниз
+//TODO: Убрать ебучую тень
 
 final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSettings.Event> {
 
