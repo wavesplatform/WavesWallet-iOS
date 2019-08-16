@@ -49,7 +49,6 @@ final class MarketPulseWidgetViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         
         Language.load(localizable: Localizable.self, languages: languages)
         
@@ -301,6 +300,8 @@ extension MarketPulseWidgetViewController: NCWidgetProviding {
     
     func updateBigPrefferedSize() {
         
+        extensionContext?.widgetLargestAvailableDisplayMode = items.count > MarketPulse.minimumCountAssets ? .expanded : .compact
+
         if extensionContext?.widgetLargestAvailableDisplayMode == .expanded {
             let maxSize = self.extensionContext?.widgetMaximumSize(for: .expanded) ?? .zero
             let height = CGFloat(items.count) * MarketPulseWidgetCell.viewHeight() + Constants.bottomViewHeight
