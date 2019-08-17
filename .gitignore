@@ -79,3 +79,5 @@ CommonResources/GoogleService-Info\.plist
 CommonResources/Amplitude-Info\.plist
 
 CommonResources/Appsflyer-Info\.plist
+
+CommonResources/Sentry-io-Info\.plist
