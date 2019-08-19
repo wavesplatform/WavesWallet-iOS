@@ -63,6 +63,6 @@ public protocol RepositoriesFactoryProtocol {
     var spamAssets: SpamAssetsRepositoryProtocol { get }
     
     var gatewayRepository: GatewayRepositoryProtocol { get }
-    
+
     var widgetSettingsStorage: WidgetSettingsRepositoryProtocol { get }
 }

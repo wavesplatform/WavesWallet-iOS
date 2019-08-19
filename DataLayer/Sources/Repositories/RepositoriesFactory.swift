@@ -91,7 +91,6 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     public private(set) lazy var matcherRepository: MatcherRepositoryProtocol = MatcherRepositoryLocal(matcherRepositoryRemote: matcherRepositoryRemote)
         
     public private(set) lazy var matcherRepositoryRemote: MatcherRepositoryProtocol = MatcherRepositoryRemote(environmentRepository: environmentRepositoryInternal)
-
     
     public struct Resources {
         
@@ -117,6 +116,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     public init(resources: Resources) {
         
         if let options = FirebaseOptions(contentsOfFile: resources.googleServiceInfo) {                        
+
             FirebaseApp.configure(options: options)
             Database.database().isPersistenceEnabled = false
             Fabric.with([Crashlytics.self])

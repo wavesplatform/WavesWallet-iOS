@@ -38,7 +38,7 @@ final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
                     }
             })
     }
-    
+
     func settingsIdsPairs() -> Observable<[String]> {
      
         return environmentRepository

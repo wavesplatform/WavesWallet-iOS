@@ -86,6 +86,7 @@ enum UITest {
         guard let sourceApplication: String = options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String else { return false}
         
         self.appCoordinator.openURL(link: DeepLink(source: sourceApplication, url: url))
+        
         return true
     }
     
@@ -128,6 +129,7 @@ extension AppDelegate {
         
         IQKeyboardManager.shared.enable = true
         UIBarButtonItem.appearance().tintColor = UIColor.black
+
         Language.load(localizable: Localizable.self, languages: Language.list)
     }
             

@@ -837,6 +837,7 @@
 		E9A05C5820E9264300B0E0FA /* UseTouchIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */; };
 		E9A3AFAE222DEECB009FB45A /* DexScriptAssetMessageModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A3AFAD222DEECB009FB45A /* DexScriptAssetMessageModuleBuilder.swift */; };
 		E9A4812F20D8DDBB00272C6D /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */; };
+		E9A6A49A227661940093FC59 /* TableViewNoShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A6A499227661940093FC59 /* TableViewNoShadow.swift */; };
 		E9AFDBE421F32E88003130A8 /* TransactionFeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AFDBE321F32E88003130A8 /* TransactionFeeView.swift */; };
 		E9AFDBE621F32E96003130A8 /* TransactionFeeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9AFDBE521F32E96003130A8 /* TransactionFeeView.xib */; };
 		E9B086AE2163883000937644 /* AddAddressBookModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B086922163882F00937644 /* AddAddressBookModuleBuilder.swift */; };
@@ -2107,6 +2108,7 @@
 		E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseTouchIDViewController.swift; sourceTree = "<group>"; };
 		E9A3AFAD222DEECB009FB45A /* DexScriptAssetMessageModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexScriptAssetMessageModuleBuilder.swift; sourceTree = "<group>"; };
 		E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		E9A6A499227661940093FC59 /* TableViewNoShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewNoShadow.swift; sourceTree = "<group>"; };
 		E9AFDBE321F32E88003130A8 /* TransactionFeeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFeeView.swift; sourceTree = "<group>"; };
 		E9AFDBE521F32E96003130A8 /* TransactionFeeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionFeeView.xib; sourceTree = "<group>"; };
 		E9B086922163882F00937644 /* AddAddressBookModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAddressBookModuleBuilder.swift; sourceTree = "<group>"; };
@@ -4368,10 +4370,9 @@
 		7BF89E9722272A5E00853F9D /* MonkeyTest */ = {
 			isa = PBXGroup;
 			children = (
-				7BF89E9822272A5E00853F9D /* MonkeyTest.swift */,
-				7BF89E9A22272A5E00853F9D /* Info.plist */,
+				7BDC6D7522C3ADE000614E6B /* NewUserWithoutBackupStorageTrack.swift */,
 			);
-			path = MonkeyTest;
+			path = Analytics;
 			sourceTree = "<group>";
 		};
 		7BFB474D22FC5AD0002B19F8 /* CommonResources */ = {
@@ -6254,6 +6255,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0162E8B874C3D787962DE9E2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MarketPulseWidget-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		0A218B93215549BB00B989A1 /* Fabric run */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -6342,6 +6365,21 @@
 			showEnvVarsInLog = 0;
 		};
 		42FCCEE67A56F72D67E75585 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Shows-WavesWallet-iOS/Pods-Shows-WavesWallet-iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2516EEAFAE50BE1CCDDF2683 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -7353,6 +7391,7 @@
 				E9B087C22163886800937644 /* DexTraderContainerViewController.swift in Sources */,
 				0A96F1DC2152E05A005E148F /* PasscodeInteractor.swift in Sources */,
 				E923A765219D53EE000DD9F6 /* TokenBurnInteractor.swift in Sources */,
+				7B951137225CF7A00030390C /* Reachability+Shared.swift in Sources */,
 				E9B087F52163886800937644 /* DexLastTradesInteractor.swift in Sources */,
 				E9B12DB9219E2D3900128EFE /* AssetBurnCell.swift in Sources */,
 				E9D36DE32175C755001E6DF0 /* ReceiveAddressTypes.swift in Sources */,

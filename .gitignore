@@ -85,3 +85,7 @@ CommonResources/Sentry-io-Info\.plist
 CommonResources/Fabric-Info\.plist
 
 CommonResources/AppSpector-Info\.plist
+
+Output/
+
+\.idea/

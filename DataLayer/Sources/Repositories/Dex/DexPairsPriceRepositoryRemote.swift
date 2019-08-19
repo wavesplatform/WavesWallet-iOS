@@ -97,7 +97,7 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
                     .map({ (list) -> [DomainLayer.DTO.Dex.PairPrice] in
                         
                         var listPairs: [DomainLayer.DTO.Dex.PairPrice] = []
-                        
+    
                         for (index, pairElement) in list.enumerated() {
                             
                             //TODO: Check valid 

@@ -55,8 +55,7 @@ public extension DomainLayer.Query {
                 self.priceAsset = priceAsset
             }
         }
-        
-        
+
         public struct SearchPairs {
             
             public struct Pair {

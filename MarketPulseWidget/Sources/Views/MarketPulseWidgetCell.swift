@@ -134,3 +134,4 @@ extension AssetLogo.Style {
                                                               height: 8)))
     }()
 }
+

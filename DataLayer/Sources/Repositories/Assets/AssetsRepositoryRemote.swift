@@ -63,7 +63,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                 })
         })
     }
-    
+
     //TODO: Refactor method
     func searchAssets(search: String) -> Observable<[DomainLayer.DTO.Asset]> {
         

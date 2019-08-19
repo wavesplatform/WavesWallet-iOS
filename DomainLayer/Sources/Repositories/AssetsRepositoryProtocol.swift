@@ -22,7 +22,6 @@ public protocol AssetsRepositoryProtocol  {
     func saveAsset(_ asset: DomainLayer.DTO.Asset, by accountAddress: String) -> Observable<Bool>
 
     func isSmartAsset(_ assetId: String, by accountAddress: String) -> Observable<Bool>
-    
-    
+   
     func searchAssets(search: String) -> Observable<[DomainLayer.DTO.Asset]>
 }

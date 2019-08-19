@@ -11,7 +11,7 @@ import RxSwift
 
 protocol MarketPulseDataBaseRepositoryProtocol {
     
-    //TODO: Renae to assets
+    //TODO: Rename to assets
     func chachedAssets() -> Observable<[MarketPulse.DTO.Asset]>
     func saveAsssets(assets: [MarketPulse.DTO.Asset]) -> Observable<Bool>
 }

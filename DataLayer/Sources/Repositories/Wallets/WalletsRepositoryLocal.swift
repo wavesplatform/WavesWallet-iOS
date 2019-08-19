@@ -315,6 +315,7 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 private extension WalletsRepositoryLocal {
 
     var realm: Realm? {
+
         guard let config = WalletsRealmFactory.walletsConfig else {
             SweetLogger.error("Realm Configuration is nil")
             return nil

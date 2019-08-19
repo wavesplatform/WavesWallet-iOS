@@ -104,7 +104,7 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
     
         return interactor
     }()
-    
+
     public private(set) lazy var oderbook: OrderBookUseCaseProtocol = {
         
         let interactor = OrderBookUseCase(orderBookRepository: repositories.dexOrderBookRepository,
@@ -129,5 +129,5 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
         
         let useCase = CorrectionPairsUseCase(repositories: repositories, useCases: self)
         return useCase
-    }()        
+    }()
 }

@@ -25,7 +25,7 @@ fileprivate enum SchemaVersions: UInt64 {
     case version_2_4 = 13 // v2.4
     case version_2_5 = 14 // v2.5
 
-    static let currentVersion: SchemaVersions = .version_2_5    
+    static let currentVersion: SchemaVersions = .version_2_5
 }
 
 fileprivate enum Constants {
@@ -44,7 +44,7 @@ enum WalletRealmFactory {
         var config = Realm.Configuration()
         
         config.fileURL = config.fileURL?.deletingLastPathComponent()
-            
+
             .appendingPathComponent("\(accountAddress).realm")
         config.schemaVersion = SchemaVersions.currentVersion.rawValue
         config.objectTypes = [Transaction.self,

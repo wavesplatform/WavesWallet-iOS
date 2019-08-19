@@ -54,6 +54,7 @@ final class MarketPulseWidgetViewController: UIViewController {
         
         buttonUpdate.setTitle(Localizable.Marketpulsewidget.Button.Update.title, for: .normal)
         initPresenter()
+
         setupFeedBack()
         setupButtonUpdateSize()
         showUpdateAnimation()
@@ -104,7 +105,9 @@ final class MarketPulseWidgetViewController: UIViewController {
     }
     
     @IBAction private func updateTapped(_ sender: Any) {
+
         UseCasesFactory.instance?.analyticManager.trackEvent(.widgets(.marketPulseActive))
+
         sendEvent.accept(.refresh)
         showUpdateAnimation()
     }
@@ -116,11 +119,11 @@ final class MarketPulseWidgetViewController: UIViewController {
         else {
             currency = .usd
         }
+
         UseCasesFactory.instance?.analyticManager.trackEvent(.widgets(.marketPulseActive))
         sendEvent.accept(.changeCurrency(currency))
     }
 }
-
 
 //MARK: - FeedBack
 

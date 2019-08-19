@@ -105,7 +105,7 @@ public extension DomainLayer.DTO.Dex {
             self.priceAsset = priceAsset
         }
     }
-    
+
     //TODO: Refactor (Очень много разлчных моделей для пар)
     /*
     

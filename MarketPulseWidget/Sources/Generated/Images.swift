@@ -44,6 +44,18 @@ internal struct ColorAsset {
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Images {
+  internal static let logoBitcoin48 = ImageAsset(name: "logoBitcoin48")
+  internal static let logoBitcoincash48 = ImageAsset(name: "logoBitcoincash48")
+  internal static let logoDash48 = ImageAsset(name: "logoDash48")
+  internal static let logoEthereum48 = ImageAsset(name: "logoEthereum48")
+  internal static let logoEuro48 = ImageAsset(name: "logoEuro48")
+  internal static let logoLira48 = ImageAsset(name: "logoLira48")
+  internal static let logoLtc48 = ImageAsset(name: "logoLtc48")
+  internal static let logoMonero48 = ImageAsset(name: "logoMonero48")
+  internal static let logoUsd48 = ImageAsset(name: "logoUsd48")
+  internal static let logoWaves48 = ImageAsset(name: "logoWaves48")
+  internal static let logoWct48 = ImageAsset(name: "logoWct48")
+  internal static let logoZec48 = ImageAsset(name: "logoZec48")
   internal static let scriptasset18White = ImageAsset(name: "scriptasset18White")
   internal static let setting14Classic = ImageAsset(name: "setting14Classic")
   internal static let sponsoritem18White = ImageAsset(name: "sponsoritem18White")
@@ -53,6 +65,18 @@ internal enum Images {
   internal static let allColors: [ColorAsset] = [
   ]
   internal static let allImages: [ImageAsset] = [
+    logoBitcoin48,
+    logoBitcoincash48,
+    logoDash48,
+    logoEthereum48,
+    logoEuro48,
+    logoLira48,
+    logoLtc48,
+    logoMonero48,
+    logoUsd48,
+    logoWaves48,
+    logoWct48,
+    logoZec48,
     scriptasset18White,
     setting14Classic,
     sponsoritem18White,

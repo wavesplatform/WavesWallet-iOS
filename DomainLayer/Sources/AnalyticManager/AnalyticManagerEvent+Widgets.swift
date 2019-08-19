@@ -71,6 +71,7 @@ public extension AnalyticManagerEvent {
                 return ["Style": style == .classic ? "Classic" : "Dark",
                         "Interval": interval.title,
                         "Assets": assetsIds.joined(separator: ",")]
+
             default:
                 return [:]
             }

@@ -13,6 +13,7 @@ import DomainLayer
 
 enum MarketPulse {
     static let minimumCountAssets = 2
+
     static let usdAssetId = "Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck"
     static let eurAssetId = "Gtb1WRznfchDnTh37ezoDTJ4wcoKaRsKqKjJjy7nm2zU"
         
