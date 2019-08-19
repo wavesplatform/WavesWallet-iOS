@@ -5793,7 +5793,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B66860D22B3F70E0029E6F1 /* Build configuration list for PBXNativeTarget "DomainLayer" */;
 			buildPhases = (
-				42FCCEE67A56F72D67E75585 /* [CP] Embed Pods Frameworks */,
+				8D6BA59817ED052FF523BB45 /* [CP] Check Pods Manifest.lock */,
 				7B6685FB22B3F70D0029E6F1 /* Headers */,
 				7B6685FC22B3F70D0029E6F1 /* Sources */,
 				7B6685FD22B3F70D0029E6F1 /* Frameworks */,
@@ -5920,7 +5920,6 @@
 				0A218B93215549BB00B989A1 /* Fabric run */,
 				7B9393CC22DF5827006634A6 /* Embed Frameworks */,
 				E9B190BB22E7CD9A008220B7 /* Embed App Extensions */,
-				9F81590C3F6ED303C9D437B8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -6347,21 +6346,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		42FCCEE67A56F72D67E75585 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Shows-WavesWallet-iOS/Pods-Shows-WavesWallet-iOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		73A8C4E6FE2CA988154E4B01 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -6442,19 +6426,26 @@
 			shellPath = /bin/sh;
 			shellScript = "APIKey=$(/usr/libexec/PlistBuddy -c \"Print :Fabric:APIKey\" \"$PROJECT_DIR/CommonResources/Fabric-Info.plist\")\nKEY=$(/usr/libexec/PlistBuddy -c \"Print :Fabric:BuildSecret\" \"$PROJECT_DIR/CommonResources/Fabric-Info.plist\")\n\n\"${PODS_ROOT}/Fabric/run\" $APIKey $KEY\n\n";
 		};
-		9F81590C3F6ED303C9D437B8 /* [CP] Embed Pods Frameworks */ = {
+		8D6BA59817ED052FF523BB45 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
+			inputFileListPaths = (
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DomainLayer-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Shows-WavesWallet-iOS/Pods-Shows-WavesWallet-iOS-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AA0A013D936F629AAA163055 /* [CP] Check Pods Manifest.lock */ = {
