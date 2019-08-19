@@ -21,6 +21,45 @@ private typealias Types = WidgetSettings
 //TODO: Matcher address
 //TODO: Новые asset добавлять в вниз
 
+private extension DomainLayer.DTO.Widget.Interval {
+    
+    var eventInterval: AnalyticManagerEvent.Widgets.Interval {
+        switch self {
+        case .m1:
+            return .m1
+            
+        case .m5:
+            return .m5
+
+        case .m10:
+            return .m10
+            
+        case .manually:
+            return .manually
+        }
+    }
+}
+
+private extension DomainLayer.DTO.Widget.Style {
+    var eventStyle: AnalyticManagerEvent.Widgets.Style {
+        switch self {
+        case .classic:
+            return .classic
+            
+        case .dark:
+            return .dark
+        }
+    }
+}
+
+private extension WidgetSettings.State {
+    var marketPulseChangedEvent: AnalyticManagerEvent.Widgets {
+        return AnalyticManagerEvent.Widgets.marketPulseChanged(core.style.eventStyle,
+                                                               core.interval.eventInterval,
+                                                               core.assets.map { $0.id })
+    }
+}
+
 final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSettings.Event> {
 
     private lazy var widgetSettingsUseCase: WidgetSettingsUseCaseProtocol = UseCasesFactory.instance.widgetSettings
@@ -260,6 +299,8 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
                 state.ui.action = .update
             }
             
+            UseCasesFactory.instance?.analyticManager.trackEvent(.widgets(state.marketPulseChangedEvent))
+            
         case .moveRow(let from, let to):
             
             guard let fromAsset = state.ui[from].asset else { return }
@@ -288,16 +329,22 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
             state.core.assets = assets
             state.core.action = .updateSettings
             
+            UseCasesFactory.instance?.analyticManager.trackEvent(.widgets(state.marketPulseChangedEvent))
+            
         case .changeInterval(let interval):
             
             state.core.action = .changeInterval(interval)
             state.core.interval = interval
             state.ui.action = .none
             
+            UseCasesFactory.instance?.analyticManager.trackEvent(.widgets(state.marketPulseChangedEvent))
+            
         case .changeStyle(let style):
             state.core.action = .changeStyle(style)
             state.core.style = style
             state.ui.action = .none
+            
+            UseCasesFactory.instance?.analyticManager.trackEvent(.widgets(state.marketPulseChangedEvent))
         }
     }
     

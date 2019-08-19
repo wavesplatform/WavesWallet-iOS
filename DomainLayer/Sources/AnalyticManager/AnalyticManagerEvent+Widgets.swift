@@ -11,30 +11,66 @@ import Foundation
 public extension AnalyticManagerEvent {
     enum Widgets: AnalyticManagerEventInfo {
         
-        case marketPulseClassicActive
-        case marketPulseClassicAdded
-        case marketPulseDarkActive
-        case marketPulseDarkAdded
+        public enum Style {
+            case dark
+            case classic
+        }
+        
+        public enum Interval {
+            case m1
+            case m5
+            case m10
+            case manually
+            
+            public var title: String {
+                switch self {
+                case .m1:
+                    return "1m"
+                
+                case .m5:
+                    return "5m"
+                
+                case .m10:
+                    return "10m"
+                
+                case .manually:
+                    return "manually"
+                }
+            }
+        }
+        
+        public typealias AssetsIds = [String]
+        
+        
+        case marketPulseActive
+        case marketPulseAdded
+        case marketPulseRemoved
+        case marketPulseChanged(Style, Interval, AssetsIds)
 
         public var name: String {
             
             switch self {
-            case .marketPulseClassicActive:
-                return "Market Pulse Classic Active"
+            case .marketPulseActive:
+                return "Market Pulse Active"
                 
-            case .marketPulseClassicAdded:
-                return "Market Pulse Classic Added"
+            case .marketPulseAdded:
+                return "Market Pulse Added"
                 
-            case .marketPulseDarkActive:
-                return "Market Pulse Dark Active"
+            case .marketPulseRemoved:
+                return "Market Pulse Removed"
                 
-            case .marketPulseDarkAdded:
-                return "Market Pulse Dark Added"
+            case .marketPulseChanged:
+                return "Market Pulse Settings Changed"
             }
         }
         
         public var params: [String : String] {
-            switch self {          
+            switch self {
+                
+            case .marketPulseChanged(let style, let interval, let assetsIds):
+                return ["Style": style == .classic ? "Classic" : "Dark",
+                        "Interval": interval.title,
+                        "Assets": assetsIds.joined(separator: ",")]
             default:
                 return [:]
             }
