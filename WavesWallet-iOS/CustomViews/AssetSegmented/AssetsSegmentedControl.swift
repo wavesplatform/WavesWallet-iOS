@@ -11,11 +11,13 @@ import UIKit
 import UPCarouselFlowLayout
 import InfiniteCollectionView
 import DomainLayer
+import Extensions
 
 fileprivate enum Constants {
     static let spacing: CGFloat = 24
     static let scaleCell: CGFloat = 0.7
     static let currentPageEmpty: Int = -1
+    static let sizeLogo = CGSize(width: 48, height: 48)
 }
 
 final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
@@ -31,7 +33,7 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
             let id: String
             let name: String
             let kind: Kind
-            let icon: DomainLayer.DTO.Asset.Icon
+            let icon: AssetLogo.Icon
             let isSponsored: Bool
             let hasScript: Bool
         }
@@ -93,7 +95,7 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
         let layout = collectionView.collectionViewLayout as! UPCarouselFlowLayout
         layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: Constants.spacing)
         layout.sideItemScale = Constants.scaleCell
-
+        
         collectionView.registerCell(type: AssetsSegmentedCell.self)
     }
 
@@ -114,11 +116,11 @@ final class AssetsSegmentedControl: UIControl, NibOwnerLoadable {
         case 0:
             return 0
         case 1:
-            return AssetsSegmentedCell.Constants.sizeLogo.width
+            return Constants.sizeLogo.width
         default:
             let smallCellsCount: CGFloat = CGFloat(count) - 1
-            return  AssetsSegmentedCell.Constants.sizeLogo.width
-                + (AssetsSegmentedCell.Constants.sizeLogo.width * Constants.scaleCell) * smallCellsCount
+            return  Constants.sizeLogo.width
+                + (Constants.sizeLogo.width * Constants.scaleCell) * smallCellsCount
                 + Constants.spacing * smallCellsCount
         }
     }

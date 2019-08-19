@@ -18,7 +18,7 @@ import DomainLayer
 private enum Contants {
 
     #if DEBUG
-    static let delay: TimeInterval = 1000
+    static let delay: TimeInterval = 1
     #else
     static let delay: TimeInterval = 10
     #endif
@@ -70,7 +70,16 @@ final class AppCoordinator: Coordinator {
     func start() {
         self.isActiveApp = true
         
-        logInApplication()
+        #if DEBUG || TEST      
+            if CommandLine.arguments.contains("UI-Develop") {
+                addChildCoordinatorAndStart(childCoordinator: UIDeveloperCoordinator(windowRouter: windowRouter))
+            } else {
+                logInApplication()
+            }
+        #else
+            logInApplication()
+        #endif
+        
     }
 
     private var isMainTabDisplayed: Bool {
@@ -124,10 +133,23 @@ extension AppCoordinator: PresentationCoordinator {
             let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: nil)
             addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
         }
+        
+        
+    }
+    
+    func openURL(link: DeepLink) {
+        
+        if link.url.absoluteString == DeepLink.widgetSettings {
+            
+            guard isHasCoordinator(type: WidgetSettingsCoordinator.self) != true else {
+                return
+            }
+            
+            let coordinator = WidgetSettingsCoordinator.init(windowRouter: windowRouter)
+            addChildCoordinatorAndStart(childCoordinator: coordinator)
+        }
     }
 }
-
-
 
 // MARK: Main Logic
 extension AppCoordinator  {

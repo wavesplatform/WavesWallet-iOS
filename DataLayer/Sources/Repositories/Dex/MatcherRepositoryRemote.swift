@@ -38,4 +38,21 @@ final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
                     }
             })
     }
+
+    func settingsIdsPairs() -> Observable<[String]> {
+     
+        return environmentRepository
+            .servicesEnvironment()
+            .flatMapLatest({ (servicesEnvironment) -> Observable<[String]> in
+                
+                return servicesEnvironment
+                    .wavesServices
+                    .matcherServices
+                    .orderBookMatcherService
+                    .settings()
+                    .map {
+                        return $0.priceAssets
+                    }
+            })
+    }
 }

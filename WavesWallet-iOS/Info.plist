@@ -17,22 +17,42 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.5.1</string>
+	<string>2.6</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.wavesplatform.WavesWallet-iOS</string>
+			<string>com.wavesplatform.waveswallet</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>waves</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.wavesplatform.waveswallet.dev</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>waves-dev</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.wavesplatform.waveswallet.test</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>waves-test</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3915</string>
+	<string>3860</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>

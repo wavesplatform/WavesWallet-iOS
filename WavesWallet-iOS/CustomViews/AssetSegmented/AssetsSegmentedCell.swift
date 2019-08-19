@@ -9,16 +9,12 @@
 import UIKit
 import RxSwift
 import DomainLayer
+import Extensions
 
 final class AssetsSegmentedCell: UICollectionViewCell, NibReusable {
 
-    enum Constants {
-        static let sizeLogo = CGSize(width: 48, height: 48)
-        static let sponsoredSize = CGSize(width: 18, height: 18)
-    }
-
     struct Model {
-        let icon: DomainLayer.DTO.Asset.Icon
+        let icon: AssetLogo.Icon
         let isHiddenArrow: Bool
         let isSponsored: Bool
         let hasScript: Bool
@@ -46,11 +42,7 @@ extension AssetsSegmentedCell: ViewConfiguration {
         self.model = model
 
         AssetLogo.logo(icon: model.icon,
-                       style: AssetLogo.Style(size: Constants.sizeLogo,
-                                              font: UIFont.systemFont(ofSize: 15),
-                                              specs: .init(isSponsored: model.isSponsored,
-                                                           hasScript: model.hasScript,
-                                                           size: Constants.sponsoredSize)))
+                       style: .large)
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (image) in
                 guard let self = self else { return }

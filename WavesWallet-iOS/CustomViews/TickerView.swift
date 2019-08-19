@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Extensions
 
 fileprivate enum Constants {
     static let height: CGFloat = 16

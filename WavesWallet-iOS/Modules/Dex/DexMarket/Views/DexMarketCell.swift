@@ -8,6 +8,7 @@
 
 import UIKit
 import DomainLayer
+import Extensions
 
 final class DexMarketCell: UITableViewCell, Reusable {
 

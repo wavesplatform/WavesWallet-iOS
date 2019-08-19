@@ -8,6 +8,7 @@
 
 import UIKit
 import MGSwipeTableCell
+import Extensions
 
 final class ChooseAccountCell: MGSwipeTableCell, NibReusable {
 

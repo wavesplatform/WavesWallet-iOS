@@ -84,8 +84,12 @@ public extension DomainLayer.DTO {
 
 public extension DomainLayer.DTO.Asset {
 
-    var iconLogo: DomainLayer.DTO.Asset.Icon {
-        return DomainLayer.DTO.Asset.Icon(assetId: id, name: icon, url: iconLogoUrl)
+    var iconLogo: AssetLogo.Icon {
+        return AssetLogo.Icon(assetId: id,
+                              name: icon,
+                              url: iconLogoUrl,
+                              isSponsored: isSponsored,
+                              hasScript: hasScript)
     }
 
     var icon: String {

@@ -10,10 +10,9 @@ import UIKit
 import RxSwift
 import DomainLayer
 import Extensions
+import DataLayer
 
 private enum Constants {
-    static let icon = CGSize(width: 24, height: 24)
-    static let sponsoredIcon = CGSize(width: 10, height: 10)
     static let defaultTopTitleOffset: CGFloat = 10
 }
 
@@ -33,7 +32,6 @@ final class AssetListTableViewCell: UITableViewCell, NibReusable {
         iconAsset.image = nil
         disposeBag = DisposeBag()
     }
-    
 }
 
 extension AssetListTableViewCell: ViewConfiguration {
@@ -57,11 +55,7 @@ extension AssetListTableViewCell: ViewConfiguration {
         labelAmount.text = model.balance.displayText
 
         AssetLogo.logo(icon: model.asset.iconLogo,
-                       style: AssetLogo.Style(size: Constants.icon,
-                                              font: UIFont.systemFont(ofSize: 15),
-                                              specs: .init(isSponsored: model.asset.isSponsored,
-                                                           hasScript: model.asset.hasScript,
-                                                           size: Constants.sponsoredIcon)))
+                       style: AssetLogo.Style.litle)
             .observeOn(MainScheduler.instance)
             .bind(to: iconAsset.rx.image)
             .disposed(by: disposeBag)

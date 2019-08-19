@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WidgetSettingsHeaderView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Added" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vAa-34-GWQ">
+                    <rect key="frame" x="0.0" y="44" width="386" height="818"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="9 / 9" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e6E-nH-a2l">
+                    <rect key="frame" x="386" y="44" width="28" height="818"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="0.17787013609999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="vAa-34-GWQ" secondAttribute="bottom" id="HX7-6u-PRt"/>
+                <constraint firstItem="vAa-34-GWQ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="LSs-Zc-R3U"/>
+                <constraint firstItem="e6E-nH-a2l" firstAttribute="leading" secondItem="vAa-34-GWQ" secondAttribute="trailing" id="OVM-IJ-Cwl"/>
+                <constraint firstItem="vAa-34-GWQ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="bCj-fr-2tc"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="e6E-nH-a2l" secondAttribute="bottom" id="diu-dQ-dNx"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="e6E-nH-a2l" secondAttribute="trailing" id="exJ-pT-Y9V"/>
+                <constraint firstItem="e6E-nH-a2l" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="gKu-Ck-aJL"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="labelAmount" destination="e6E-nH-a2l" id="bSX-fo-iez"/>
+                <outlet property="labelTitle" destination="vAa-34-GWQ" id="HoT-uY-5Cb"/>
+            </connections>
+        </view>
+    </objects>
+</document>

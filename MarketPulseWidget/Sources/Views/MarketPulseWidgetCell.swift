@@ -8,10 +8,10 @@
 
 import UIKit
 import RxSwift
+import Extensions
 
 private enum Constants {
     static let height: CGFloat = 38
-    static let sponsoredIcon = CGSize(width: 12, height: 12)
 
     static let redTickerColor: UIColor = .error500
     static let greenTickerColor: UIColor = .successLime
@@ -52,13 +52,9 @@ final class MarketPulseWidgetCell: UITableViewCell, Reusable {
 extension MarketPulseWidgetCell: ViewConfiguration {
     
     func update(with model: MarketPulse.DTO.UIAsset) {
-        
+
         AssetLogo.logo(icon: model.icon,
-                       style: AssetLogo.Style(size: iconLogo.frame.size,
-                                              font: UIFont.systemFont(ofSize: 13),
-                                              specs: .init(isSponsored: model.isSponsored,
-                                                           hasScript: model.hasScript,
-                                                           size: Constants.sponsoredIcon)))
+                       style: .litle)
             .observeOn(MainScheduler.instance)
             .bind(to: iconLogo.rx.image)
             .disposed(by: disposeBag)
@@ -126,3 +122,16 @@ extension MarketPulseWidgetCell: ViewHeight {
         return Constants.height
     }
 }
+
+extension AssetLogo.Style {
+        
+    static var litle: AssetLogo.Style = {
+        return AssetLogo.Style.init(size: CGSize(width: 20, height: 20),
+                                    font: UIFont.systemFont(ofSize: 13),
+                                    specs: .init(sponsoredImage: Images.sponsoritem18White.image,
+                                                 scriptImage: Images.scriptasset18White.image,
+                                                 size: CGSize(width: 8,
+                                                              height: 8)))
+    }()
+}
+

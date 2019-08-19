@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxFeedback
+import Extensions
 
 private enum Constansts {
     static let emptyButtonsTitle: String = "0.000"

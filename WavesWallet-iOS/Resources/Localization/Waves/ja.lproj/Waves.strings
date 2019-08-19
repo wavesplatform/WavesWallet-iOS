@@ -317,7 +317,7 @@
 "menu.button.termsandconditions" = "利用規約";
 "menu.button.whitepaper" = "ホワイトペーパー";
 "menu.label.communities" = "Waves コミュニティに参加！";
-"menu.label.description" = "最新のニュースや記事をご覧ください。Wavesプラットフォームの最新情報を発信しています。";
+"menu.label.description" = "Wavesプラットフォームの最新情報を発信しています。";
 "myaddress.button.copy.title" = "コピー";
 "myaddress.button.share.title" = "シェア";
 "myaddress.cell.aliases.subtitle.withaliaces" = "あなたは %d つ持っています";
@@ -373,7 +373,7 @@
 "profile.cell.addresses.title" = "アドレスと鍵";
 "profile.cell.backupphrase.title" = "バックアップフレーズ";
 "profile.cell.changepasscode.title" = "パスコードを変更";
-"profile.cell.changepassword.title" = "パスワードを変更する";
+"profile.cell.changepassword.title" = "パスワードを変更";
 "profile.cell.currentheight.title" = "現在のブロック";
 "profile.cell.feedback.title" = "フィードバックする";
 "profile.cell.info.currentheight.title" = "現在のブロック";
@@ -565,7 +565,7 @@
 "wallet.label.viewHistory" = "取引履歴";
 "wallet.navigationBar.title" = "ウォレット";
 "wallet.section.activeNow" = "有効なリース (%d)";
-"wallet.section.hiddenAssets" = "隠されたトークン (%d)";
+"wallet.section.hiddenAssets" = "非表示のトークン (%d)";
 "wallet.section.quickNote" = "お知らせ";
 "wallet.section.spamAssets" = "不審なトークン (%d)";
 "wallet.segmentedControl.assets" = "トークン";
@@ -619,7 +619,7 @@
 "transactioncard.title.tokenBurn" = "トークンをバーン";
 "transactioncard.title.sent" = "送信";
 "transactioncard.title.assetId" = "トークン ID";
-"transactioncard.title.viewOnExplorer" = "エクスプローラーを確認する";
+"transactioncard.title.viewOnExplorer" = "エクスプローラーを確認";
 "transactioncard.title.amountPerTransaction" = "トランザクション毎の取引量";
 "transactioncard.title.showAll" = "全てを表示する (%@)";
 "addressBookButton.title.editName" = "名前を編集";
@@ -658,3 +658,18 @@
 "dexcreateorder.invalidPricePopup.subtitle" = "次へ進みますか？";
 "dexcreateorder.invalidPricePopup.button.placeOrder" = "注文する";
 "dexcreateorder.invalidPricePopup.button.cancel" = "キャンセル";
+"widgetsettings.navigation.title" = "Market pulse";
+"assetsearch.cell.empty.title" = "No tokens matching your search";
+"widgetsettings.tableview.editmode.delete" = "Delete";
+"widgetsettings.actionsheet.changeinterval.title" = "Update interval";
+"widgetsettings.actionsheet.changeinterval.element.m1" = "1 minute";
+"widgetsettings.actionsheet.changeinterval.element.m5" = "5 minute";
+"widgetsettings.actionsheet.changeinterval.element.m10" = "10 minute";
+"widgetsettings.actionsheet.changeinterval.element.manually" = "Update manually";
+"widgetsettings.changeinterval.button.m1" = "1 minute";
+"widgetsettings.changeinterval.button.m10" = "10 minute";
+"widgetsettings.changeinterval.button.m5" = "5 minute";
+"widgetsettings.changeinterval.button.manually" = "Update manually";
+"widgetsettings.actionsheet.changestyle.title" = "Widget style";
+"widgetsettings.actionsheet.changestyle.element.classic" = "Classic";
+"widgetsettings.actionsheet.changestyle.element.dark" = "Dark";

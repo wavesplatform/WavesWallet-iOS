@@ -1,0 +1,88 @@
+[
+  {
+    "title": "English",
+    "icon": "flag18Britain",
+    "code": "en"
+  },
+  {
+    "title": "Русский",
+    "icon": "flag18Rus",
+    "code": "ru"
+  },
+  {
+      "title": "한국어",
+      "icon": "flag18Korea",
+      "code": "ko"
+  },
+  {
+      "title": "中文(简体)",
+      "icon": "flag18China",
+      "code": "zh-Hans-CN",
+      "titleCode": "ZH"
+  },
+  {
+      "title": "Türkçe",
+      "icon": "flag18Turkey",
+      "code": "tr"
+  },
+  {
+      "title": "Nederlands",
+      "icon": "flag18Nederland",
+      "code": "nl-NL",
+      "titleCode": "NL"
+  },
+  {
+      "title": "हिन्दी",
+      "icon": "flag18Hindi",
+      "code": "hi-IN",
+      "titleCode": "HI"
+  },
+  {
+      "title": "Español",
+      "icon": "flag18Spain",
+      "code": "es"
+  },
+  {
+      "title": "Français",
+      "icon": "flag18France",
+      "code": "fr-FR",
+      "titleCode": "FR"
+  },
+  {
+      "title": "Português",
+      "icon": "flag18Portugal",
+      "code": "pt-PT",
+      "titleCode": "PT"
+  },
+  {
+      "title": "Português do Brasil",
+      "icon": "flag18Brazil",
+      "code": "pt-BR",
+      "titleCode": "BR"
+  },
+  {
+      "title": "Polszczyzna",
+      "icon": "flag18Polszczyzna",
+      "code": "pl"
+  },
+  {
+      "title": "Italiano",
+      "icon": "flag18Italiano",
+      "code": "it"
+  },
+  {
+      "title": "Deutsch",
+      "icon": "flag18Germany",
+      "code": "de"
+  },
+  {
+      "title": "Indonesia",
+      "icon": "flag18Indonesia",
+      "code": "id"
+  },
+  {
+      "title": "日本語",
+      "icon": "flag18Japan",
+      "code": "ja"
+  }
+]

@@ -8,12 +8,10 @@
 
 import UIKit
 import RxSwift
+import Extensions
 
 private enum Constants {
     static let height: CGFloat = 56
-    static let icon = CGSize(width: 28, height: 28)
-    static let sponsoredIcon = CGSize(width: 12, height: 12)
-    static let noneActiveAlpha: CGFloat = 0.3
 }
 
 final class SendFeeIndicatorCell: UITableViewCell, Reusable {}

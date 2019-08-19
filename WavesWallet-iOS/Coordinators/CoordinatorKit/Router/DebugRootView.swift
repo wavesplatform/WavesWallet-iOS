@@ -17,7 +17,7 @@ private struct Constants {
     static let size: CGFloat = 35
 }
 
-protocol DebugWindowRouterDelegate {
+protocol DebugWindowRouterDelegate: AnyObject {
     func relaunchApplication()
 }
 
@@ -51,7 +51,6 @@ final class DebugRootView: UIView  {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         debugView.frame = CGRect(x: debugPosition.x, y: debugPosition.y, width: Constants.size, height: Constants.size)
     }
     
@@ -127,7 +126,7 @@ final class DebugWindowRouter: WindowRouter {
         return window
     }()
     
-    var delegate: DebugWindowRouterDelegate?
+    weak var delegate: DebugWindowRouterDelegate?
     
     override init(window: UIWindow) {
         super.init(window: window)

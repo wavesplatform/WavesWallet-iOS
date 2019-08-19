@@ -9,12 +9,15 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Extensions
 
 fileprivate enum Constants {
     static let maxCount = 3
+    static let sizeLogo = CGSize(width: 48, height: 48)
 }
 
 final class WrapperAssetsSegmentedControl: UIView {
+    
     @IBOutlet private(set) var assetsSegmentedControl: AssetsSegmentedControl!
     private var leftGradient: GradientView = GradientView()
     private var rightGradient: GradientView = GradientView()
@@ -46,11 +49,11 @@ final class WrapperAssetsSegmentedControl: UIView {
         leftGradient.frame = CGRect(x: 0,
                                     y: 0,
                                     width: (frame.width - witdthCells) * 0.5,
-                                    height: AssetsSegmentedCell.Constants.sizeLogo.height)
+                                    height: Constants.sizeLogo.height)
         rightGradient.frame = CGRect(x: frame.width - (frame.width - witdthCells) * 0.5,
                                      y: 0,
                                      width: (frame.width - witdthCells) * 0.5,
-                                     height: AssetsSegmentedCell.Constants.sizeLogo.height)
+                                     height: Constants.sizeLogo.height)
     }
 
     func witdthCells() -> CGFloat {

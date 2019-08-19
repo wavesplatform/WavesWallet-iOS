@@ -7,6 +7,7 @@
 //
 
 import Foundation
-import UIKit    
+import UIKit
+import Extensions
 
 final class EmptyCell: UITableViewCell, NibReusable { }

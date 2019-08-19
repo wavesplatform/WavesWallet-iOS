@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import Extensions
 
 public extension DomainLayer.DTO {
     
-    public struct MarketPulseSettings {
+    struct MarketPulseSettings {
         
         public enum Interval: Int {
             case m1 = 60
@@ -21,28 +22,17 @@ public extension DomainLayer.DTO {
         
         public struct Asset {
             
-            public struct IconStyle {
-                public let icon: DomainLayer.DTO.Asset.Icon
-                public let isSponsored: Bool
-                public let hasScript: Bool
-                
-                public init(icon: DomainLayer.DTO.Asset.Icon, isSponsored: Bool, hasScript: Bool) {
-                    self.icon = icon
-                    self.isSponsored = isSponsored
-                    self.hasScript = hasScript
-                }
-            }
-            
             public let id: String
             public let name: String
-            public let iconStyle: IconStyle
+            public let icon: AssetLogo.Icon
             public let amountAsset: String
             public let priceAsset: String
             
-            public init(id: String, name: String, iconStyle: IconStyle, amountAsset: String, priceAsset: String) {
+            
+            public init(id: String, name: String, icon: AssetLogo.Icon, amountAsset: String, priceAsset: String) {
                 self.id = id
                 self.name = name
-                self.iconStyle = iconStyle
+                self.icon = icon
                 self.amountAsset = amountAsset
                 self.priceAsset = priceAsset
             }

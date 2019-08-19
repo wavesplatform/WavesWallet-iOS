@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import DomainLayer
+import Extensions
 
 final class TransactionCardAddressCell: UITableViewCell, Reusable {
 

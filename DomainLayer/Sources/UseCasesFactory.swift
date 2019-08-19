@@ -10,12 +10,25 @@ import Foundation
 
 public final class UseCasesFactory: UseCasesFactoryProtocol {
 
-    public static var instance: UseCasesFactory!
-    
     public let repositories: RepositoriesFactoryProtocol
     
     public let authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol
-
+    
+    public static var instance: UseCasesFactory!
+    
+    init(repositories: RepositoriesFactoryProtocol, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
+        self.repositories = repositories
+        self.authorizationInteractorLocalizable = authorizationInteractorLocalizable
+    }
+    
+    public class func initialization(repositories: RepositoriesFactoryProtocol, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
+        self.instance = UseCasesFactory(repositories: repositories, authorizationInteractorLocalizable: authorizationInteractorLocalizable)
+    }
+    
+    public private(set) lazy var analyticManager: AnalyticManagerProtocol = {
+        return repositories.analyticManager
+    }()
+    
     public private(set) lazy var accountBalance: AccountBalanceUseCaseProtocol = {
         
         let interactor = AccountBalanceUseCase(authorizationInteractor: self.authorization,
@@ -91,20 +104,7 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
     
         return interactor
     }()
-    
-    init(repositories: RepositoriesFactoryProtocol, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
-        self.repositories = repositories
-        self.authorizationInteractorLocalizable = authorizationInteractorLocalizable
-    }
-    
-    public class func initialization(repositories: RepositoriesFactoryProtocol, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableProtocol) {
-        self.instance = UseCasesFactory(repositories: repositories, authorizationInteractorLocalizable: authorizationInteractorLocalizable)
-    }
-    
-    public private(set) lazy var analyticManager: AnalyticManagerProtocol = {
-        return repositories.analyticManager
-    }()
-    
+
     public private(set) lazy var oderbook: OrderBookUseCaseProtocol = {
         
         let interactor = OrderBookUseCase(orderBookRepository: repositories.dexOrderBookRepository,
@@ -112,5 +112,22 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
                                           authorizationInteractor: authorization)
         return interactor
     }()
-
+    
+    public private(set) lazy var widgetSettings: WidgetSettingsUseCaseProtocol = {
+        
+        let useCase = WidgetSettingsUseCase(repositories: repositories, useCases: self)
+        return useCase
+    }()
+    
+    public private(set) lazy var widgetSettingsInizialization: WidgetSettingsInizializationUseCaseProtocol = {
+        
+        let useCase = WidgetSettingsInizializationUseCase(repositories: repositories, useCases: self)
+        return useCase
+    }()
+    
+    public private(set) lazy var correctionPairsUseCase: CorrectionPairsUseCaseProtocol = {
+        
+        let useCase = CorrectionPairsUseCase(repositories: repositories, useCases: self)
+        return useCase
+    }()
 }

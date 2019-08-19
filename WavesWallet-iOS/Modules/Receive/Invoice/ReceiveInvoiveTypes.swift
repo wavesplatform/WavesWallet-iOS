@@ -8,6 +8,7 @@
 
 import Foundation
 import DomainLayer
+import Extensions
 
 enum ReceiveInvoice {
     enum DTO {}
@@ -19,7 +20,7 @@ extension ReceiveInvoice.DTO {
         let address: String
         let invoiceLink: String
         let assetName: String
-        let icon: DomainLayer.DTO.Asset.Icon
+        let icon: AssetLogo.Icon
         let isSponsored: Bool
         let hasScript: Bool
     }

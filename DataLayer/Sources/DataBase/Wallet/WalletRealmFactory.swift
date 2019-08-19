@@ -26,8 +26,6 @@ fileprivate enum SchemaVersions: UInt64 {
     case version_2_5 = 14 // v2.5
 
     static let currentVersion: SchemaVersions = .version_2_5
-
-    static let schemaWalletsVersion: UInt64 = 7
 }
 
 fileprivate enum Constants {
@@ -44,7 +42,9 @@ enum WalletRealmFactory {
 
     static func create(accountAddress: String) -> Realm.Configuration {
         var config = Realm.Configuration()
-        config.fileURL = config.fileURL!.deletingLastPathComponent()
+        
+        config.fileURL = config.fileURL?.deletingLastPathComponent()
+
             .appendingPathComponent("\(accountAddress).realm")
         config.schemaVersion = SchemaVersions.currentVersion.rawValue
         config.objectTypes = [Transaction.self,
@@ -219,39 +219,6 @@ extension Migration {
     func renamePropertyIfExists(onType typeName: String, from oldName: String, to newName: String) {
         if (hadProperty(onType: typeName, property: oldName)) {
             renameProperty(onType: typeName, from: oldName, to: newName)
-        }
-    }
-}
-
-extension WalletRealmFactory {
-    
-    enum Configuration {
-        static var walletsConfig: Realm.Configuration? {
-            
-            var config = Realm.Configuration()
-            config.objectTypes = [WalletEncryption.self, WalletItem.self]
-            config.schemaVersion = UInt64(SchemaVersions.schemaWalletsVersion)
-            
-            guard let fileURL = config.fileURL else {
-                SweetLogger.error("File Realm is nil")
-                return nil
-            }
-            
-            config.fileURL = fileURL
-                .deletingLastPathComponent()
-                .appendingPathComponent("wallets_\(WalletEnvironment.current.scheme).realm")
-            
-            config.migrationBlock = { migration, oldSchemaVersion in
-                
-                migration.enumerateObjects(ofType: WalletItem.className()) { _ , newObject in
-
-                    newObject?[WalletItem.isNeedShowWalletCleanBannerKey] = true
-                }
-                
-                SweetLogger.debug("Migration!!! \(oldSchemaVersion)")
-            }
-            
-            return config
         }
     }
 }

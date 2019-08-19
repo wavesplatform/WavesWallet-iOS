@@ -22,8 +22,46 @@ protocol MarketPulseWidgetInteractorProtocol {
 
 final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
   
-    private let widgetSettingsRepository: MarketPulseWidgetSettingsRepositoryProtocol = MarketPulseWidgetSettingsRepositoryMock()
+    private lazy var widgetSettingsRepository: WidgetSettingsInizializationUseCaseProtocol = UseCasesFactory.instance.widgetSettingsInizialization
+    
+    private lazy var dexPairsPriceRepository = UseCasesFactory.instance.repositories.dexPairsPriceRepository
+    
     private let dbRepository: MarketPulseDataBaseRepositoryProtocol = MarketPulseDataBaseRepository()
+    
+    init() {
+        _ = setupLayers()
+    }
+    
+    static var shared: MarketPulseWidgetInteractor = MarketPulseWidgetInteractor()
+    
+    private func setupLayers() -> Bool {
+                
+        guard let googleServiceInfoPath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") else {
+            return false
+        }
+        
+        guard let appsflyerInfoPath = Bundle.main.path(forResource: "Appsflyer-Info", ofType: "plist") else {
+            return false
+        }
+        
+        guard let amplitudeInfoPath = Bundle.main.path(forResource: "Amplitude-Info", ofType: "plist") else {
+            return false
+        }
+        
+        guard let sentryIoInfoPath = Bundle.main.path(forResource: "Sentry-io-Info", ofType: "plist") else {
+            return false
+        }
+        
+        let resourses = RepositoriesFactory.Resources(googleServiceInfo: googleServiceInfoPath,
+                                                      appsflyerInfo: appsflyerInfoPath,
+                                                      amplitudeInfo: amplitudeInfoPath,
+                                                      sentryIoInfoPath: sentryIoInfoPath)
+        let repositories = RepositoriesFactory(resources: resourses)
+        
+        UseCasesFactory.initialization(repositories: repositories, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp())
+        
+        return true
+    }
     
     func settings() -> Observable<MarketPulse.DTO.Settings> {
         
@@ -49,21 +87,21 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
                 
                 var assets = settings.assets
                 
-                let iconStyle = DomainLayer.DTO.MarketPulseSettings.Asset.IconStyle(icon: .init(assetId: "",
-                                                                                                name: "",
-                                                                                                url: nil),
-                                                                                    isSponsored: false,
-                                                                                    hasScript: false)
+                let iconStyle = AssetLogo.Icon.init(assetId: "",
+                                                    name: "",
+                                                    url: nil,
+                                                    isSponsored: false,
+                                                    hasScript: false)
                 
                 assets.append(.init(id: MarketPulse.usdAssetId,
                                     name: "",
-                                    iconStyle: iconStyle,
+                                    icon: iconStyle,
                                     amountAsset: WavesSDKConstants.wavesAssetId,
                                     priceAsset: MarketPulse.usdAssetId))
                 
                 assets.append(.init(id: MarketPulse.eurAssetId,
                                     name: "",
-                                    iconStyle: iconStyle,
+                                    icon: iconStyle,
                                     amountAsset: WavesSDKConstants.wavesAssetId,
                                     priceAsset: MarketPulse.eurAssetId))
                 
@@ -72,39 +110,56 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
     }
     
     private func loadAssets(assets: [DomainLayer.DTO.MarketPulseSettings.Asset]) -> Observable<[MarketPulse.DTO.Asset]> {
-      
-        return WavesSDK.shared.services
-            .dataServices
-            .pairsPriceDataService
-            .pairsPrice(query: .init(pairs: assets.map { model in
-                return DataService.Query.PairsPrice.Pair(amountAssetId: model.amountAsset,
-                                                         priceAssetId: model.priceAsset)
-            }))
-            .flatMap { [weak self] (models) -> Observable<[MarketPulse.DTO.Asset]> in
-                
-                guard let self = self else { return Observable.empty() }
-                
-                var pairs: [MarketPulse.DTO.Asset] = []
-                
-                for (index, model) in models.enumerated() {
-                    let asset = assets[index]
-                    pairs.append(MarketPulse.DTO.Asset(id: asset.id,
-                                                       name: asset.name,
-                                                       icon: asset.iconStyle.icon,
-                                                       hasScript: asset.iconStyle.hasScript,
-                                                       isSponsored: asset.iconStyle.isSponsored,
-                                                       firstPrice: model?.firstPrice ?? 0,
-                                                       lastPrice: model?.lastPrice ?? 0,
-                                                       volume: model?.volume ?? 0,
-                                                       volumeWaves: model?.volumeWaves ?? 0,
-                                                       quoteVolume: model?.quoteVolume ?? 0,
-                                                       amountAsset: asset.amountAsset))
-                }
-                
-                return self.dbRepository.saveAsssets(assets: pairs)
-                    .flatMap({ (_) -> Observable<[MarketPulse.DTO.Asset]> in
-                        return Observable.just(pairs)
-                    })
+        
+        let query = assets.map { DomainLayer.Query.Dex.SearchPairs.Pair.init(amountAsset: $0.amountAsset,
+                                                                             priceAsset: $0.priceAsset) }
+    
+            return dexPairsPriceRepository
+                .searchPairs(.init(kind: .pairs(query)))
+                .flatMap { [weak self] (searchResult) -> Observable<[MarketPulse.DTO.Asset]> in
+
+                    guard let self = self else { return Observable.empty() }
+                    
+                    var pairs: [MarketPulse.DTO.Asset] = []
+
+                    for (index, model) in searchResult.pairs.enumerated() {
+                        let asset = assets[index]
+                        
+                        pairs.append(MarketPulse.DTO.Asset(id: asset.id,
+                                                           name: asset.name,
+                                                           icon: asset.icon,
+                                                           firstPrice: model?.firstPrice ?? 0,
+                                                           lastPrice: model?.lastPrice ?? 0,
+                                                           volume: model?.volume ?? 0,
+                                                           volumeWaves: model?.volumeWaves ?? 0,
+                                                           quoteVolume: model?.quoteVolume ?? 0,
+                                                           amountAsset: asset.amountAsset))
+                    }
+
+                    return self.dbRepository.saveAsssets(assets: pairs)
+                        .flatMap({ (_) -> Observable<[MarketPulse.DTO.Asset]> in
+                            return Observable.just(pairs)
+                        })
         }
     }
 }
+
+private struct AuthorizationInteractorLocalizableImp: AuthorizationInteractorLocalizableProtocol {
+    
+    var fallbackTitle: String {
+        return ""
+    }
+    
+    var cancelTitle: String {
+        return ""
+    }
+    
+    var readFromkeychain: String {
+        return ""
+    }
+    
+    var saveInkeychain: String {
+        return ""
+    }
+}
+

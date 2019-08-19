@@ -9,6 +9,7 @@
 import Foundation
 import DomainLayer
 import RxSwift
+import WavesSDKExtensions
 
 final class MatcherRepositoryLocal: MatcherRepositoryProtocol {
     
@@ -53,4 +54,8 @@ final class MatcherRepositoryLocal: MatcherRepositoryProtocol {
         return matcherRepositoryRemote.matcherPublicKey()
             .share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
     }()
+    
+    func settingsIdsPairs() -> Observable<[String]> {
+        return matcherRepositoryRemote.settingsIdsPairs()        
+    }
 }

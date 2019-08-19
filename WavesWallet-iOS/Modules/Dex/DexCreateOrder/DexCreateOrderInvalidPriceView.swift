@@ -55,5 +55,5 @@ final class DexCreateOrderInvalidPriceView: PopupActionView<DexCreateOrderInvali
         } else {
             titleLabel.text = Localizable.Waves.Dexcreateorder.Invalidpricepopup.Title.loverPrice(model.pricePercent)
         }
-    }
-}
+    }   
+}   

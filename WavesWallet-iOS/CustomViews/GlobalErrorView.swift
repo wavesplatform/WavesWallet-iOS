@@ -9,6 +9,7 @@
 import UIKit
 import Reachability
 import WavesSDKExtensions
+import Extensions
 
 final class GlobalErrorView: UIView, NibOwnerLoadable {
 
@@ -27,6 +28,7 @@ final class GlobalErrorView: UIView, NibOwnerLoadable {
     }
 
     @IBAction func handlerActionRetry() {
+
         let instance = ReachabilityService.instance
         if instance.connection != .none {
             retryDidTap?()

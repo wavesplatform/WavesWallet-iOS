@@ -15,7 +15,7 @@ public extension DateFormatter {
             .threadSharedObject(key: key,
                                 create: { return DateFormatter() })
 
-        formatter.locale = Localizable.current.locale
+        formatter.locale = Localizable.locale
         return formatter
     }
 }

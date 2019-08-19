@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Extensions
 
 final class AmountSkeletonView: SkeletonView, NibOwnerLoadable {
 

@@ -8,7 +8,7 @@
 
 import UIKit
 import SwiftDate
-
+import Extensions
 
 final class DexListHeaderCell: UITableViewCell, Reusable {
 

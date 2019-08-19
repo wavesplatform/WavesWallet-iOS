@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Widget Settings View Controller-->
+        <scene sceneID="Rsm-GQ-6h5">
+            <objects>
+                <viewController storyboardIdentifier="WidgetSettingsViewController" id="i6t-Xp-S9F" customClass="WidgetSettingsViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9fL-3G-Wdz">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wAj-Sa-xmI" customClass="TableViewNoShadow" customModule="Extensions">
+                                <rect key="frame" x="16" y="44" width="382" height="759"/>
+                                <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WidgetSettingsSkeletonCell" id="2Cy-mA-Twy" customClass="WidgetSettingsSkeletonCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="382" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2Cy-mA-Twy" id="ybI-Cz-6h7">
+                                            <rect key="frame" x="0.0" y="0.0" width="382" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wWh-h6-sfP">
+                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="48"/>
+                                                    <subviews>
+                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jGG-zO-V9H" customClass="GradientContainerView" customModule="Skeleton">
+                                                            <rect key="frame" x="14" y="18" width="144" height="12"/>
+                                                            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="12" id="qcf-w4-Lz0"/>
+                                                                <constraint firstAttribute="width" constant="144" id="uj5-Fg-UOQ"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="6"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="48" id="6YF-ls-8ph"/>
+                                                        <constraint firstItem="jGG-zO-V9H" firstAttribute="centerY" secondItem="wWh-h6-sfP" secondAttribute="centerY" id="PQW-60-G6n"/>
+                                                        <constraint firstItem="jGG-zO-V9H" firstAttribute="leading" secondItem="wWh-h6-sfP" secondAttribute="leading" constant="14" id="SFV-Pt-RMB"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="wWh-h6-sfP" secondAttribute="bottom" constant="8" id="FcF-IA-uFL"/>
+                                                <constraint firstItem="wWh-h6-sfP" firstAttribute="leading" secondItem="ybI-Cz-6h7" secondAttribute="leading" id="apk-za-j9y"/>
+                                                <constraint firstAttribute="trailing" secondItem="wWh-h6-sfP" secondAttribute="trailing" id="uxt-00-DHH"/>
+                                                <constraint firstItem="wWh-h6-sfP" firstAttribute="top" secondItem="ybI-Cz-6h7" secondAttribute="top" id="ypo-St-5aJ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="viewContainer" destination="wWh-h6-sfP" id="Las-3E-DBH"/>
+                                            <outletCollection property="views" destination="jGG-zO-V9H" collectionClass="NSMutableArray" id="LeX-uw-4ZS"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WidgetSettingsAssetCell" rowHeight="187" id="MD4-at-EXc" customClass="WidgetSettingsAssetCell" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="72" width="382" height="187"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MD4-at-EXc" id="hMp-cT-15T">
+                                            <rect key="frame" x="0.0" y="0.0" width="382" height="187"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dEc-iG-Yim">
+                                                    <rect key="frame" x="0.0" y="4" width="382" height="48"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nH8-Ek-kTE">
+                                                            <rect key="frame" x="0.0" y="0.0" width="382" height="48"/>
+                                                            <subviews>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MOK-M7-cS0">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="36" height="48"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="36" id="1DD-pE-ObY"/>
+                                                                    </constraints>
+                                                                </view>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hQ3-Wx-oMO">
+                                                                    <rect key="frame" x="36" y="0.0" width="50" height="48"/>
+                                                                    <subviews>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="draglock22Disabled400" translatesAutoresizingMaskIntoConstraints="NO" id="6FT-Xc-0Om">
+                                                                            <rect key="frame" x="16" y="13" width="34" height="22"/>
+                                                                        </imageView>
+                                                                    </subviews>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstItem="6FT-Xc-0Om" firstAttribute="centerY" secondItem="hQ3-Wx-oMO" secondAttribute="centerY" id="FCL-BI-984"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="6FT-Xc-0Om" secondAttribute="trailing" id="S0i-vn-ItO"/>
+                                                                        <constraint firstItem="6FT-Xc-0Om" firstAttribute="leading" secondItem="hQ3-Wx-oMO" secondAttribute="leading" constant="16" id="ZVr-Vm-aTH"/>
+                                                                    </constraints>
+                                                                </view>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EsM-p4-u5R">
+                                                                    <rect key="frame" x="86" y="0.0" width="56" height="48"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fy1-Xt-vGX">
+                                                                            <rect key="frame" x="14" y="0.0" width="42" height="48"/>
+                                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                                            <nil key="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                    </subviews>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="bottom" secondItem="fy1-Xt-vGX" secondAttribute="bottom" id="KC9-QW-xKf"/>
+                                                                        <constraint firstItem="fy1-Xt-vGX" firstAttribute="top" secondItem="EsM-p4-u5R" secondAttribute="top" id="Q34-xd-ixx"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="fy1-Xt-vGX" secondAttribute="trailing" id="hES-Qv-M3a"/>
+                                                                        <constraint firstItem="fy1-Xt-vGX" firstAttribute="leading" secondItem="EsM-p4-u5R" secondAttribute="leading" constant="14" id="iyW-i9-GiS"/>
+                                                                    </constraints>
+                                                                </view>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bmW-TL-WBj">
+                                                                    <rect key="frame" x="142" y="0.0" width="240" height="48"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="68" id="T6A-JU-dlp"/>
+                                                                    </constraints>
+                                                                </view>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="48" id="8zj-dY-mAA"/>
+                                                            </constraints>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="48" id="EtL-tN-fY1"/>
+                                                        <constraint firstAttribute="trailing" secondItem="nH8-Ek-kTE" secondAttribute="trailing" id="QTL-Eg-5gN"/>
+                                                        <constraint firstItem="nH8-Ek-kTE" firstAttribute="leading" secondItem="dEc-iG-Yim" secondAttribute="leading" id="j02-jq-qaR"/>
+                                                        <constraint firstItem="nH8-Ek-kTE" firstAttribute="centerY" secondItem="dEc-iG-Yim" secondAttribute="centerY" id="z3r-5E-FzB"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="dEc-iG-Yim" secondAttribute="bottom" constant="4" id="NH8-0q-jK3"/>
+                                                <constraint firstItem="dEc-iG-Yim" firstAttribute="top" secondItem="hMp-cT-15T" secondAttribute="top" constant="4" id="zZe-M7-kkH"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="dEc-iG-Yim" firstAttribute="leading" secondItem="MD4-at-EXc" secondAttribute="leading" id="ZGy-N1-IPn"/>
+                                            <constraint firstAttribute="trailing" secondItem="dEc-iG-Yim" secondAttribute="trailing" id="fSp-tZ-txQ"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="containerView" destination="dEc-iG-Yim" id="x4F-PZ-Acp"/>
+                                            <outlet property="iconImageContainerView" destination="hQ3-Wx-oMO" id="mQY-7k-4Rx"/>
+                                            <outlet property="iconImageView" destination="6FT-Xc-0Om" id="D8l-Sw-pyz"/>
+                                            <outlet property="leftPaddingView" destination="MOK-M7-cS0" id="W0w-Ec-iFR"/>
+                                            <outlet property="nameLabel" destination="fy1-Xt-vGX" id="o3M-DO-DLF"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="i6t-Xp-S9F" id="chz-Ke-6ta"/>
+                                    <outlet property="delegate" destination="i6t-Xp-S9F" id="yZO-TO-kby"/>
+                                </connections>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="08d-ek-HBX" customClass="SeparatorView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="803" width="414" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="U6o-q1-p61"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                        <color key="value" red="0.80784313725490198" green="0.81568627450980391" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Vc4-tA-rhV">
+                                <rect key="frame" x="0.0" y="804" width="414" height="58"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uF6-7m-wlc" customClass="CenteringContentButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="138" height="58"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <state key="normal" title="Interval" image="widgetInterval22">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleTopPadding">
+                                                <real key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="handlerTouchForIntervalButton:" destination="i6t-Xp-S9F" eventType="touchUpInside" id="6Uj-Sc-nQN"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pcw-dB-GRi" customClass="CenteringContentButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="138" y="0.0" width="138" height="58"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <state key="normal" title="Add token" image="widgetAddtoken22">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleTopPadding">
+                                                <real key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="handlerTouchForAddTokenButton:" destination="i6t-Xp-S9F" eventType="touchUpInside" id="0RY-qc-agw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ELP-lr-xTm" customClass="CenteringContentButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="276" y="0.0" width="138" height="58"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <state key="normal" title="Style" image="widgetStyle22">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleTopPadding">
+                                                <real key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="handlerTouchForStyleButton:" destination="i6t-Xp-S9F" eventType="touchUpInside" id="T1f-U2-mue"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="58" id="GLY-yi-UbF"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Vc4-tA-rhV" firstAttribute="top" secondItem="08d-ek-HBX" secondAttribute="bottom" id="1jA-iT-8CM"/>
+                            <constraint firstItem="4cr-H6-Wqv" firstAttribute="trailing" secondItem="08d-ek-HBX" secondAttribute="trailing" id="87J-Zb-9JK"/>
+                            <constraint firstItem="Vc4-tA-rhV" firstAttribute="leading" secondItem="4cr-H6-Wqv" secondAttribute="leading" id="AyD-ar-xeR"/>
+                            <constraint firstItem="08d-ek-HBX" firstAttribute="leading" secondItem="4cr-H6-Wqv" secondAttribute="leading" id="BEo-Jh-Yc1"/>
+                            <constraint firstItem="4cr-H6-Wqv" firstAttribute="bottom" secondItem="Vc4-tA-rhV" secondAttribute="bottom" id="DDo-KB-pOw"/>
+                            <constraint firstItem="Vc4-tA-rhV" firstAttribute="top" secondItem="wAj-Sa-xmI" secondAttribute="bottom" constant="1" id="E7r-9x-ZR9"/>
+                            <constraint firstItem="4cr-H6-Wqv" firstAttribute="trailing" secondItem="Vc4-tA-rhV" secondAttribute="trailing" id="Fmk-Vb-mUV"/>
+                            <constraint firstItem="wAj-Sa-xmI" firstAttribute="top" secondItem="4cr-H6-Wqv" secondAttribute="top" id="Hld-WR-IiE"/>
+                            <constraint firstItem="4cr-H6-Wqv" firstAttribute="trailing" secondItem="wAj-Sa-xmI" secondAttribute="trailing" constant="16" id="IqN-a9-I3D"/>
+                            <constraint firstItem="wAj-Sa-xmI" firstAttribute="leading" secondItem="4cr-H6-Wqv" secondAttribute="leading" constant="16" id="Ven-yE-9ir"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4cr-H6-Wqv"/>
+                    </view>
+                    <connections>
+                        <outlet property="addTokenButton" destination="Pcw-dB-GRi" id="ad8-X5-glc"/>
+                        <outlet property="intervalButton" destination="uF6-7m-wlc" id="mfs-1R-Sld"/>
+                        <outlet property="styleButton" destination="ELP-lr-xTm" id="AjP-t8-cX5"/>
+                        <outlet property="tableView" destination="wAj-Sa-xmI" id="XzT-2w-0I2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wK0-nE-Lub" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="200.00000000000003" y="-164.0625"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="draglock22Disabled400" width="22" height="22"/>
+        <image name="widgetAddtoken22" width="22" height="22"/>
+        <image name="widgetInterval22" width="22" height="22"/>
+        <image name="widgetStyle22" width="22" height="22"/>
+    </resources>
+</document>

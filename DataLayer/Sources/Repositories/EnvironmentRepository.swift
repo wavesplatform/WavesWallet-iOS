@@ -66,7 +66,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
         return remoteEnvironment().share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
     }()
     
-    private lazy var setupServicesEnviromentShare: Observable<ApplicationEnviroment>  = self.setupServicesEnviroment().share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
+    private lazy var setupServicesEnviromentShare: Observable<ApplicationEnviroment> = self.setupServicesEnviroment().share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
     
     private var localEnvironments: BehaviorSubject<[EnvironmentKey: WalletEnvironment]> = BehaviorSubject<[EnvironmentKey: WalletEnvironment]>(value: [:])
     

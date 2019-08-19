@@ -12,7 +12,8 @@ import WavesSDK
 import DomainLayer
 
 enum MarketPulse {
-    
+    static let minimumCountAssets = 2
+
     static let usdAssetId = "Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck"
     static let eurAssetId = "Gtb1WRznfchDnTh37ezoDTJ4wcoKaRsKqKjJjy7nm2zU"
         
@@ -77,9 +78,7 @@ extension MarketPulse.DTO {
     struct Asset {
         let id: String
         let name: String
-        let icon: DomainLayer.DTO.Asset.Icon
-        let hasScript: Bool
-        let isSponsored: Bool
+        let icon: AssetLogo.Icon
         let firstPrice: Double
         let lastPrice: Double
         let volume: Double
@@ -89,9 +88,7 @@ extension MarketPulse.DTO {
     }
     
     struct UIAsset {
-        let icon: DomainLayer.DTO.Asset.Icon
-        let hasScript: Bool
-        let isSponsored: Bool
+        let icon: AssetLogo.Icon
         let name: String
         let price: Double
         let percent: Double

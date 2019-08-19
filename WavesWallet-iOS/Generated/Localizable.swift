@@ -1,6 +1,7 @@
 // Generated using SwiftGen, by O.Halligon — https://github.com/SwiftGen/SwiftGen
 
 import Foundation
+import Extensions
 
 // swiftlint:disable superfluous_disable_command
 // swiftlint:disable file_length
@@ -381,6 +382,18 @@ internal enum Localizable {
         /// Loading tokens…
         internal static var loadingAssets: String { return Localizable.tr("Waves", "assetlist.label.loadingAssets") }
         internal static var loadingAssetsKey: String { return "assetlist.label.loadingAssets" }
+      }
+    }
+
+    internal enum Assetsearch {
+
+      internal enum Cell {
+
+        internal enum Empty {
+          /// No tokens matching your search
+          internal static var title: String { return Localizable.tr("Waves", "assetsearch.cell.empty.title") }
+          internal static var titleKey: String { return "assetsearch.cell.empty.title" }
+        }
       }
     }
 
@@ -3288,11 +3301,86 @@ internal enum Localizable {
         internal static var comingsoonKey: String { return "wavespopup.label.comingsoon" }
       }
     }
+
+    internal enum Widgetsettings {
+
+      internal enum Actionsheet {
+
+        internal enum Changeinterval {
+          /// Update interval
+          internal static var title: String { return Localizable.tr("Waves", "widgetsettings.actionsheet.changeinterval.title") }
+          internal static var titleKey: String { return "widgetsettings.actionsheet.changeinterval.title" }
+
+          internal enum Element {
+            /// 1 minute
+            internal static var m1: String { return Localizable.tr("Waves", "widgetsettings.actionsheet.changeinterval.element.m1") }
+            internal static var m1Key: String { return "widgetsettings.actionsheet.changeinterval.element.m1" }
+            /// 10 minute
+            internal static var m10: String { return Localizable.tr("Waves", "widgetsettings.actionsheet.changeinterval.element.m10") }
+            internal static var m10Key: String { return "widgetsettings.actionsheet.changeinterval.element.m10" }
+            /// 5 minute
+            internal static var m5: String { return Localizable.tr("Waves", "widgetsettings.actionsheet.changeinterval.element.m5") }
+            internal static var m5Key: String { return "widgetsettings.actionsheet.changeinterval.element.m5" }
+            /// Update manually
+            internal static var manually: String { return Localizable.tr("Waves", "widgetsettings.actionsheet.changeinterval.element.manually") }
+            internal static var manuallyKey: String { return "widgetsettings.actionsheet.changeinterval.element.manually" }
+          }
+        }
+
+        internal enum Changestyle {
+          /// Widget style
+          internal static var title: String { return Localizable.tr("Waves", "widgetsettings.actionsheet.changestyle.title") }
+          internal static var titleKey: String { return "widgetsettings.actionsheet.changestyle.title" }
+
+          internal enum Element {
+            /// Classic
+            internal static var classic: String { return Localizable.tr("Waves", "widgetsettings.actionsheet.changestyle.element.classic") }
+            internal static var classicKey: String { return "widgetsettings.actionsheet.changestyle.element.classic" }
+            /// Dark
+            internal static var dark: String { return Localizable.tr("Waves", "widgetsettings.actionsheet.changestyle.element.dark") }
+            internal static var darkKey: String { return "widgetsettings.actionsheet.changestyle.element.dark" }
+          }
+        }
+      }
+
+      internal enum Changeinterval {
+
+        internal enum Button {
+          /// 1 minute
+          internal static var m1: String { return Localizable.tr("Waves", "widgetsettings.changeinterval.button.m1") }
+          internal static var m1Key: String { return "widgetsettings.changeinterval.button.m1" }
+          /// 10 minute
+          internal static var m10: String { return Localizable.tr("Waves", "widgetsettings.changeinterval.button.m10") }
+          internal static var m10Key: String { return "widgetsettings.changeinterval.button.m10" }
+          /// 5 minute
+          internal static var m5: String { return Localizable.tr("Waves", "widgetsettings.changeinterval.button.m5") }
+          internal static var m5Key: String { return "widgetsettings.changeinterval.button.m5" }
+          /// Update manually
+          internal static var manually: String { return Localizable.tr("Waves", "widgetsettings.changeinterval.button.manually") }
+          internal static var manuallyKey: String { return "widgetsettings.changeinterval.button.manually" }
+        }
+      }
+
+      internal enum Navigation {
+        /// Market pulse
+        internal static var title: String { return Localizable.tr("Waves", "widgetsettings.navigation.title") }
+        internal static var titleKey: String { return "widgetsettings.navigation.title" }
+      }
+
+      internal enum Tableview {
+
+        internal enum Editmode {
+          /// Delete
+          internal static var delete: String { return Localizable.tr("Waves", "widgetsettings.tableview.editmode.delete") }
+          internal static var deleteKey: String { return "widgetsettings.tableview.editmode.delete" }
+        }
+      }
+    }
   }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 
-extension Localizable {
+extension Localizable: LocalizableProtocol {
 
     struct Current {
         var locale: Locale
@@ -3301,12 +3389,13 @@ extension Localizable {
 
     private static let english: Localizable.Current = Localizable.Current(locale: Locale(identifier: "en"), bundle: Bundle(for: BundleToken.self))
 
-    static var current: Localizable.Current = Localizable.Current(locale: Locale.current, bundle: Bundle(for: BundleToken.self))
+    static var locale: Locale = Locale.current
+    static var bundle: Bundle = Bundle(for: BundleToken.self)
 
     private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {
-        let format = NSLocalizedString(key, tableName: table, bundle: current.bundle, comment: "")
+        let format = NSLocalizedString(key, tableName: table, bundle: bundle, comment: "")
 
-        let value = String(format: format, locale: current.locale, arguments: args)
+        let value = String(format: format, locale: locale, arguments: args)
 
         if value.localizedLowercase == key.localizedLowercase {
             let format = NSLocalizedString(key, tableName: table, bundle: english.bundle, comment: "")

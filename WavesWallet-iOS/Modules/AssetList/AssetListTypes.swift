@@ -10,6 +10,7 @@ import Foundation
 import DomainLayer
 import Extensions
 
+//TODO: Rename AssetBalanceList
 enum AssetList {
     
     enum DTO {}

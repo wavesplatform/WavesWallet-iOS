@@ -105,6 +105,44 @@ public extension DomainLayer.DTO.Dex {
             self.priceAsset = priceAsset
         }
     }
+
+    //TODO: Refactor (Очень много разлчных моделей для пар)
+    /*
+    
+     Когда идет запрос в DataService на получение пар по
+     pairs=_amountAsset/priceAsset
+     searchByAsset(searchKey)
+     searchByAssets(amountAsset/priceAsset)
+     
+     то DataService выдает разную структуру ответа
+    */
+    
+    
+    struct PairsSearch {
+        
+        public struct Pair {
+            public let firstPrice: Double
+            public let lastPrice: Double
+            public let volume: Double
+            public let volumeWaves: Double?
+            public let quoteVolume: Double?
+
+            public init(firstPrice: Double, lastPrice: Double, volume: Double, volumeWaves: Double?, quoteVolume: Double?) {
+                self.firstPrice = firstPrice
+                self.lastPrice = lastPrice
+                self.volume = volume
+                self.volumeWaves = volumeWaves
+                self.quoteVolume = quoteVolume
+            }
+        }
+        
+        public let pairs: [Pair?]
+        
+        public init(pairs: [Pair?]) {
+            self.pairs = pairs
+        }
+    }
+    
 }
 
 //MARK: - PairPrice

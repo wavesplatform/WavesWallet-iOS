@@ -83,7 +83,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fG3-qf-fnf" customClass="SearchBarView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="36"/>
+                                <rect key="frame" x="8" y="20" width="359" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="hcL-ZL-u3r"/>
                                 </constraints>
@@ -118,13 +118,13 @@ You can create new address</string>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="oBc-8W-R4B" secondAttribute="bottom" id="4kZ-cg-X2m"/>
                             <constraint firstItem="ork-8W-EgS" firstAttribute="leading" secondItem="kbV-45-Gcy" secondAttribute="leading" id="8G2-zP-Nxw"/>
-                            <constraint firstItem="kbV-45-Gcy" firstAttribute="trailing" secondItem="fG3-qf-fnf" secondAttribute="trailing" id="8a7-28-cdd"/>
+                            <constraint firstItem="kbV-45-Gcy" firstAttribute="trailing" secondItem="fG3-qf-fnf" secondAttribute="trailing" constant="8" id="8a7-28-cdd"/>
                             <constraint firstAttribute="trailing" secondItem="oBc-8W-R4B" secondAttribute="trailing" id="9Pu-WE-lEA"/>
                             <constraint firstItem="ork-8W-EgS" firstAttribute="centerY" secondItem="VnP-0F-ckO" secondAttribute="centerY" id="EVg-zr-eMt"/>
                             <constraint firstItem="oBc-8W-R4B" firstAttribute="top" secondItem="fG3-qf-fnf" secondAttribute="bottom" id="SIe-UT-Rbo"/>
                             <constraint firstItem="fG3-qf-fnf" firstAttribute="top" secondItem="kbV-45-Gcy" secondAttribute="top" id="d0x-4b-BYn"/>
                             <constraint firstItem="oBc-8W-R4B" firstAttribute="leading" secondItem="kbV-45-Gcy" secondAttribute="leading" id="j5g-i8-ecQ"/>
-                            <constraint firstItem="fG3-qf-fnf" firstAttribute="leading" secondItem="VnP-0F-ckO" secondAttribute="leading" id="laV-Za-pxC"/>
+                            <constraint firstItem="fG3-qf-fnf" firstAttribute="leading" secondItem="VnP-0F-ckO" secondAttribute="leading" constant="8" id="laV-Za-pxC"/>
                             <constraint firstItem="ork-8W-EgS" firstAttribute="trailing" secondItem="kbV-45-Gcy" secondAttribute="trailing" id="rRl-4u-wgq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kbV-45-Gcy"/>

@@ -13,20 +13,14 @@ import RxCocoa
 import RxFeedback
 import WavesSDK
 import DomainLayer
-
-//1. Показ ошибки, в таргет нужно добавлять файлы локализации
-//7. Добавить локализацию
-
-//Использовать один и тотже способ инициализации SDK в клиенте и Widget
+import Extensions
 
 private enum Constants {
     static let bottomViewHeight: CGFloat = 34
     static let buttonUpdateOffset: CGFloat = 40
     
     static let animationKey = "rotation"
-    static let animationDuration: TimeInterval = 1
-    
-    static let openScheme = "waves://"
+    static let animationDuration: TimeInterval = 1        
 }
 
 final class MarketPulseWidgetViewController: UIViewController {
@@ -48,16 +42,24 @@ final class MarketPulseWidgetViewController: UIViewController {
     private var items: [MarketPulse.ViewModel.Row] = []
     private var disposeBag = DisposeBag()
     
+    private var languages: [Language] {
+        let list: [Language] = JSONDecoder.decode(json: "Languages") ?? []
+        return list
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         
+        Language.load(localizable: Localizable.self, languages: languages)
+        
+        buttonUpdate.setTitle(Localizable.Marketpulsewidget.Button.Update.title, for: .normal)
         initPresenter()
-        initSDK()
+
         setupFeedBack()
         setupButtonUpdateSize()
         showUpdateAnimation()
         hideError()
+        updateBigPrefferedSize()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -91,17 +93,21 @@ final class MarketPulseWidgetViewController: UIViewController {
     
     private func initPresenter() {
         presenter = MarketPulseWidgetPresenter()
-        presenter.interactor = MarketPulseWidgetInteractor()
+        presenter.interactor = MarketPulseWidgetInteractor.shared
     }
     
     @IBAction private func settingsTapped(_ sender: Any) {
         
-        if let url = URL(string: Constants.openScheme) {
+        UseCasesFactory.instance?.analyticManager.trackEvent(.widgets(.marketPulseActive))
+        if let url = URL(string: DeepLink.widgetSettings) {
             extensionContext?.open(url, completionHandler: nil)
         }
     }
     
     @IBAction private func updateTapped(_ sender: Any) {
+
+        UseCasesFactory.instance?.analyticManager.trackEvent(.widgets(.marketPulseActive))
+
         sendEvent.accept(.refresh)
         showUpdateAnimation()
     }
@@ -113,15 +119,9 @@ final class MarketPulseWidgetViewController: UIViewController {
         else {
             currency = .usd
         }
+
+        UseCasesFactory.instance?.analyticManager.trackEvent(.widgets(.marketPulseActive))
         sendEvent.accept(.changeCurrency(currency))
-    }
-    
-    private func initSDK() {
-        WavesSDK.initialization(servicesPlugins: .init(data: [],
-                                                       node: [],
-                                                       matcher: []),
-                                enviroment: .init(server: .mainNet, timestampServerDiff: 0))
-        
     }
 }
 
@@ -307,6 +307,8 @@ extension MarketPulseWidgetViewController: NCWidgetProviding {
     
     func updateBigPrefferedSize() {
         
+        extensionContext?.widgetLargestAvailableDisplayMode = items.count > MarketPulse.minimumCountAssets ? .expanded : .compact
+
         if extensionContext?.widgetLargestAvailableDisplayMode == .expanded {
             let maxSize = self.extensionContext?.widgetMaximumSize(for: .expanded) ?? .zero
             let height = CGFloat(items.count) * MarketPulseWidgetCell.viewHeight() + Constants.bottomViewHeight
