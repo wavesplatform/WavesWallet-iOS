@@ -38,28 +38,30 @@ final class CorrectionPairsUseCase: CorrectionPairsUseCaseProtocol {
                     
                     if let amounIndex = amounIndex, let priceIndex = priceIndex {
                         if amounIndex > priceIndex {
-                            price = pair.priceAsset
                             amount = pair.amountAsset
+                            price = pair.priceAsset
                         } else {
-                            price = pair.amountAsset
                             amount = pair.priceAsset
+                            price = pair.amountAsset
                         }
                     } else if amounIndex != nil && priceIndex == nil {
-                        price = pair.amountAsset
                         amount = pair.priceAsset
+                        price = pair.amountAsset
                     } else if priceIndex != nil && amounIndex == nil {
-                        price = pair.priceAsset
                         amount = pair.amountAsset
+                        price = pair.priceAsset
                     } else {
-                        let amountBytes: [UInt8] = WavesCrypto.shared.base58decode(input: pair.amountAsset) ?? []
-                        let priceBytes: [UInt8] = WavesCrypto.shared.base58decode(input: pair.priceAsset) ?? []
+                        let amountBytes = WavesCrypto.shared.base58decode(input: pair.amountAsset).data?.hexDescription ?? ""
+                        let priceBytes = WavesCrypto.shared.base58decode(input: pair.priceAsset).data?.hexDescription ?? ""
                         
-                        if amountBytes.elementsEqual(priceBytes) {
-                            price = pair.amountAsset
-                            amount = pair.priceAsset
-                        } else {
-                            price = pair.priceAsset
+                        if amountBytes > priceBytes {
+                            
                             amount = pair.amountAsset
+                            price = pair.priceAsset
+                            
+                        } else {
+                            amount = pair.priceAsset
+                            price = pair.amountAsset
                         }
                     }
                     
@@ -71,5 +73,11 @@ final class CorrectionPairsUseCase: CorrectionPairsUseCaseProtocol {
             }
         
         return pairs
+    }
+}
+
+extension Data {
+    var hexDescription: String {
+        return reduce("") {$0 + String(format: "%02x", $1)}
     }
 }

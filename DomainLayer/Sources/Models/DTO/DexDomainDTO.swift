@@ -106,6 +106,17 @@ public extension DomainLayer.DTO.Dex {
         }
     }
     
+    //TODO: Refactor (Очень много разлчных моделей для пар)
+    /*
+    
+     Когда идет запрос в DataService на получение пар по
+     pairs=_amountAsset/priceAsset
+     searchByAsset(searchKey)
+     searchByAssets(amountAsset/priceAsset)
+     
+     то DataService выдает разную структуру ответа
+    */
+    
     
     struct PairsSearch {
         
