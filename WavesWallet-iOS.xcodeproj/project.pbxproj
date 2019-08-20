@@ -9692,7 +9692,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.widgetmarketpulse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wavesplatform.waveswallet.widgetmarketpulse";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.wavesplatform.waveswallet.widgetmarketpulse";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
