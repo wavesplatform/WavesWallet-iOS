@@ -100,7 +100,7 @@ platform :ios do
     ENV['SCHEME_PROJECT'] ="WavesWallet-Release"
     ENV['FASTLANE_APP_IDENTIFIER'] = "com.wavesplatform.WavesWallet"
     ENV['TESTFLIGHT_APP_IDENTITIFER'] = "com.wavesplatform.WavesWallet"
-    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet,com.wavesplatform.waveswallet.widgetmarketpulse"
+    ENV['MATCH_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet,com.wavesplatform.WavesWallet.widgetmarketpulse"
     ENV['PROD_APP_IDENTIFIERS'] = "com.wavesplatform.waveswallet"
 
     ENV['APPSTORECONNECT_APP_APPLE_ID'] = "1233158971"
@@ -293,18 +293,18 @@ platform :ios do
     ENV['MATCH_APP_IDENTIFIERS'] = ["com.wavesplatform.waveswallet.test",
       "com.wavesplatform.WavesWallet",
       "com.wavesplatform.waveswallet.dev",
-      "com.wavesplatform.waveswallet.widgetmarketpulse",
+      "com.wavesplatform.WavesWallet.widgetmarketpulse",
       "com.wavesplatform.waveswallet.dev.widgetmarketpulse",
       "com.wavesplatform.waveswallet.test.widgetmarketpulse"].join(",")
     
     ENV['MATCH_TYPE'] = "adhoc"
     updateMatch
 
-    # ENV['MATCH_TYPE'] = "appstore"
-    # updateMatch
+    ENV['MATCH_TYPE'] = "appstore"
+    updateMatch
           
-    # ENV['MATCH_TYPE'] = "development"
-    # updateMatch
+    ENV['MATCH_TYPE'] = "development"
+    updateMatch
           
   end
 
