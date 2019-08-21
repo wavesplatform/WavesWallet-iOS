@@ -49,9 +49,14 @@ final class AssetsSearchViewController: ModalScrollViewController {
     
     fileprivate var state: AssetsSearch.State.UI?
     fileprivate var snackError: String? = nil
+    private lazy var swipeDown: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handlerSwipeGesture(gesture:)))
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        swipeDown.direction = .down
+        headerView.addGestureRecognizer(swipeDown)
         
         rootView.delegate = self
         
@@ -187,6 +192,10 @@ final class AssetsSearchViewController: ModalScrollViewController {
         return showErrorNotFoundSnack() { [weak self] in
             self?.system.send(.refresh)
         }
+    }
+    
+    @objc func handlerSwipeGesture(gesture: UISwipeGestureRecognizer) {
+        self.moduleOuput?.assetsSearchClose()
     }
 }
 

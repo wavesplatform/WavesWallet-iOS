@@ -27,7 +27,6 @@ final class AssetsSearchHeaderView: UIView, NibLoadable {
     @IBOutlet private weak var separatorView: UIView!    
     @IBOutlet private(set) weak var searchBarView: SearchBarView!
     
-
     var isHiddenSepatator: Bool = true {
         didSet {
             self.separatorView.isHidden = self.isHiddenSepatator
@@ -36,19 +35,20 @@ final class AssetsSearchHeaderView: UIView, NibLoadable {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         separatorView.isHidden = true        
         backgroundColor = .clear
         layer.cornerRadius = Constants.cornerRadius
         layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         topBackgroundView.layer.cornerRadius = Constants.cornerRadius
         topBackgroundView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        
+        searchBarView.isUserInteractionEnabled = true
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView?
     {
         if let searchBarView = searchBarView {
-            let searchBarFrame = searchBarView.convert(searchBarView.frame.inset(by: .init(top: 4, left: 0, bottom: 4, right: 0)), to: self)
+            let searchBarFrame = searchBarView.convert(searchBarView.frame.inset(by: .init(top: 8, left: 4, bottom: 8, right: 4)), to: self)
             
             if searchBarFrame.contains(point) {
                 return self
@@ -65,4 +65,3 @@ extension AssetsSearchHeaderView: ViewConfiguration {
         self.labelTitle.text = model.title
     }
 }
-
