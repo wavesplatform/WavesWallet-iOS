@@ -45,7 +45,7 @@ public class WidgetSettingsInizializationUseCase: WidgetSettingsInizializationUs
             .flatMap { [weak self] (walletEnviroment) -> Observable<[DomainLayer.DTO.Asset]> in
                 
                 guard let self = self else { return Observable.never() }
-                let assets = walletEnviroment.generalAssets.prefix(DomainLayer.DTO.Widget.minCountAssets)
+                let assets = walletEnviroment.generalAssets.prefix(DomainLayer.DTO.Widget.defaultCountAssets)
                 return self.useCases.assets.assets(by: assets.map { $0.assetId }, accountAddress: "")
             }
             .flatMap { [weak self] (assets) -> Observable<DomainLayer.DTO.MarketPulseSettings> in
