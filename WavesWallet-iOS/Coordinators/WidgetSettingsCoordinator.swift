@@ -77,6 +77,10 @@ extension WidgetSettingsCoordinator: AssetsSearchModuleOutput {
     func assetsSearchSelectedAssets(_ assets: [DomainLayer.DTO.Asset]) {
         self.statePopover = .syncAssets(assets)
     }
+    
+    func assetsSearchClose() {
+        self.navigationRouter.dismiss(animated: true, completion: nil)
+    }
 }
 
 // MARK: WidgetSettingsModuleOutput
