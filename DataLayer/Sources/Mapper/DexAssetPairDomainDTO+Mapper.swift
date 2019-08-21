@@ -12,12 +12,6 @@ import WavesSDK
 import DomainLayer
 
 
-//TODO: Check
-private enum Constants {
-    static let MinersRewardToken = ["4uK8i4ThRGbehENwa6MxyLtxAjAo1Rj9fduborGExarC" : "MRT"]
-    static let WavesCommunityToken = ["DHgwrRvVyqJsepd32YbBqUeDH4GJ1N984X8QoekjgH8J" : "WCT"]
-}
-
 extension DomainLayer.DTO.Dex.SmartPair {
     
     init(_ pair: DexAssetPair, isChecked: Bool) {

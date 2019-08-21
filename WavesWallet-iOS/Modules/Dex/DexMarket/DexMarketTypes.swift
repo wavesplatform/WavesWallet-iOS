@@ -10,10 +10,6 @@ import Foundation
 import DomainLayer
 import Extensions
 
-private enum Constants {
-    static let MinersRewardToken = ["4uK8i4ThRGbehENwa6MxyLtxAjAo1Rj9fduborGExarC" : "MRT"]
-    static let WavesCommunityToken = ["DHgwrRvVyqJsepd32YbBqUeDH4GJ1N984X8QoekjgH8J" : "WCT"]
-}
 
 enum DexMarket {
     enum ViewModel {}
@@ -50,16 +46,6 @@ extension DexMarket.ViewModel {
         case pair(DomainLayer.DTO.Dex.SmartPair)
     }
     
-}
-
-extension DexMarket {
-    static var MinersRewardToken: [String : String] {
-        return Constants.MinersRewardToken
-    }
-    
-    static var WavesCommunityToken: [String : String] {
-        return Constants.WavesCommunityToken
-    }
 }
 
 extension DexMarket.State: Equatable {

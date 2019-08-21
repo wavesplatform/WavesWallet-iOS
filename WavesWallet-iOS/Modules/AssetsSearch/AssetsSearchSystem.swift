@@ -13,6 +13,10 @@ import RxSwift
 import RxCocoa
 import Extensions
 
+private enum Constants {
+    static let MinersRewardTokenId = "4uK8i4ThRGbehENwa6MxyLtxAjAo1Rj9fduborGExarC"
+    static let WavesCommunityTokenId = "DHgwrRvVyqJsepd32YbBqUeDH4GJ1N984X8QoekjgH8J"
+}
 
 private typealias Types = AssetsSearch
 
@@ -89,10 +93,13 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
                     
                     guard let self = self else { return Observable.never() }
                     
-                    let assetsId = enviroment.walletEnvironment
+                    var assetsId = enviroment.walletEnvironment
                         .generalAssets
                         .map { $0.assetId }
                   
+                    assetsId.append(Constants.MinersRewardTokenId)
+                    assetsId.append(Constants.WavesCommunityTokenId)
+                    
                     return self
                         .assetsRepository
                         .assets(by: assetsId, accountAddress: "")
