@@ -149,7 +149,7 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
         
         case .assets(let assets):
             
-            let assets = assets.filter { $0.isSpam == false }
+            let assets = assets.filter { $0.isSpam == false && $0.isFiat == false }
             
             state.ui.sections = sections(assets: assets,
                                          selectedAssets: state.core.selectAssets,
