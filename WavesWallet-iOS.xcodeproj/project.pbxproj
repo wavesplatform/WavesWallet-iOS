@@ -5920,7 +5920,6 @@
 				0A218B93215549BB00B989A1 /* Fabric run */,
 				7B9393CC22DF5827006634A6 /* Embed Frameworks */,
 				E9B190BB22E7CD9A008220B7 /* Embed App Extensions */,
-				6B79BD6EAF65D88BE43F1CD7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
