@@ -5,7 +5,7 @@ import DataLayer
 import Extensions
 
 private enum Constants {
-    static let maxGeneralAssets = 4
+    static let firstGeneralAssets = 4
 }
 
 final class DexMarketInteractor: DexMarketInteractorProtocol {
@@ -148,11 +148,12 @@ private extension DexMarketInteractor {
             return dexRealmRepository.checkmark(pairs: DexMarketInteractor.allPairs, accountAddress: wallet.address)
         }
         
-        let firstGeneralAssets = environment.generalAssets.prefix(Constants.maxGeneralAssets)
+        let allGeneralAssets = environment.generalAssets
+        let firstGeneralAssets = environment.generalAssets.prefix(Constants.firstGeneralAssets)
 
         var searchPairs: [DomainLayer.DTO.Dex.SimplePair] = []
-
-        for asset in firstGeneralAssets {
+        
+        for asset in allGeneralAssets {
             for nextAsset in firstGeneralAssets {
                 if asset.assetId != nextAsset.assetId {
                     searchPairs.append(.init(amountAsset: asset.assetId, priceAsset: nextAsset.assetId))
@@ -160,7 +161,7 @@ private extension DexMarketInteractor {
             }
         }
 
-        return assetsInteractor.assets(by: firstGeneralAssets.map { $0.assetId }, accountAddress: wallet.address)
+        return assetsInteractor.assets(by: allGeneralAssets.map { $0.assetId }, accountAddress: wallet.address)
             .flatMap({ [weak self] (assets) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                 guard let self = self else { return Observable.empty() }
                 
