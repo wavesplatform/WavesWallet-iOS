@@ -112,27 +112,19 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
     
     func checkMark(pair: DomainLayer.DTO.Dex.SmartPair) {
         
-        if let index = DexMarketInteractor.allPairs.firstIndex(where: {$0.id == pair.id}) {
-           
-            DexMarketInteractor.allPairs[index] = pair.mutate {
-
-                let needSaveAssetPair = !$0.isChecked
-                let pair = $0
+        var newPair = pair
+        newPair.isChecked = !pair.isChecked
                 
-                $0.isChecked = !$0.isChecked
-                
-                auth.authorizedWallet().flatMap { [weak self] wallet -> Observable<Bool> in
-                        
-                    guard let self = self else { return Observable.never() }
+        auth.authorizedWallet().flatMap { [weak self] wallet -> Observable<Bool> in
+            
+            guard let self = self else { return Observable.never() }
 
-                    if needSaveAssetPair {
-                        return self.dexRealmRepository.save(pair: pair, accountAddress: wallet.address)
-                    }
-                    return self.dexRealmRepository.delete(by: pair.id, accountAddress: wallet.address)
-                    
-                }.subscribe().disposed(by: disposeBag)
+            if newPair.isChecked {
+                return self.dexRealmRepository.save(pair: newPair, accountAddress: wallet.address)
             }
-        }
+            return self.dexRealmRepository.delete(by: newPair.id, accountAddress: wallet.address)
+            
+        }.subscribe().disposed(by: disposeBag)
     }
 }
 
