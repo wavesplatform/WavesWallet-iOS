@@ -57,12 +57,14 @@ final class SearchBarView: UIView, NibOwnerLoadable {
     
     func startLoading() {
         iconImageView.isHidden = true
+        indicatorView.isHidden = false
         indicatorView.startAnimating()
     }
     
     func stopLoading() {
         iconImageView.isHidden = false
         indicatorView.stopAnimating()
+        indicatorView.isHidden = true
     }
     
 }
