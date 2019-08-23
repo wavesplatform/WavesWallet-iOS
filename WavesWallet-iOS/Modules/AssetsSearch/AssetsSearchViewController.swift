@@ -12,6 +12,7 @@ import Extensions
 
 private enum Constants {
     static let headerHeight: CGFloat = 74
+    static let keyboardControlHeight: CGFloat = 42
     static let cellHeight: CGFloat = 64
     static let bottomInset: CGFloat = 16
 }
@@ -102,7 +103,7 @@ final class AssetsSearchViewController: ModalScrollViewController {
     }
     
     override func bottomScrollInset(for size: CGSize) -> CGFloat {
-        return Constants.bottomInset + layoutInsets.bottom
+        return Constants.bottomInset + Constants.keyboardControlHeight
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
