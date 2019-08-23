@@ -5,7 +5,7 @@ import DataLayer
 import Extensions
 
 private enum Constants {
-    static let maxGeneralAssets = 4
+    static let firstGeneralAssets = 4
 }
 
 final class DexMarketInteractor: DexMarketInteractorProtocol {
@@ -112,27 +112,19 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
     
     func checkMark(pair: DomainLayer.DTO.Dex.SmartPair) {
         
-        if let index = DexMarketInteractor.allPairs.firstIndex(where: {$0.id == pair.id}) {
-           
-            DexMarketInteractor.allPairs[index] = pair.mutate {
-
-                let needSaveAssetPair = !$0.isChecked
-                let pair = $0
+        var newPair = pair
+        newPair.isChecked = !pair.isChecked
                 
-                $0.isChecked = !$0.isChecked
-                
-                auth.authorizedWallet().flatMap { [weak self] wallet -> Observable<Bool> in
-                        
-                    guard let self = self else { return Observable.never() }
+        auth.authorizedWallet().flatMap { [weak self] wallet -> Observable<Bool> in
+            
+            guard let self = self else { return Observable.never() }
 
-                    if needSaveAssetPair {
-                        return self.dexRealmRepository.save(pair: pair, accountAddress: wallet.address)
-                    }
-                    return self.dexRealmRepository.delete(by: pair.id, accountAddress: wallet.address)
-                    
-                }.subscribe().disposed(by: disposeBag)
+            if newPair.isChecked {
+                return self.dexRealmRepository.save(pair: newPair, accountAddress: wallet.address)
             }
-        }
+            return self.dexRealmRepository.delete(by: newPair.id, accountAddress: wallet.address)
+            
+        }.subscribe().disposed(by: disposeBag)
     }
 }
 
@@ -148,11 +140,12 @@ private extension DexMarketInteractor {
             return dexRealmRepository.checkmark(pairs: DexMarketInteractor.allPairs, accountAddress: wallet.address)
         }
         
-        let firstGeneralAssets = environment.generalAssets.prefix(Constants.maxGeneralAssets)
+        let allGeneralAssets = environment.generalAssets
+        let firstGeneralAssets = environment.generalAssets.prefix(Constants.firstGeneralAssets)
 
         var searchPairs: [DomainLayer.DTO.Dex.SimplePair] = []
-
-        for asset in firstGeneralAssets {
+        
+        for asset in allGeneralAssets {
             for nextAsset in firstGeneralAssets {
                 if asset.assetId != nextAsset.assetId {
                     searchPairs.append(.init(amountAsset: asset.assetId, priceAsset: nextAsset.assetId))
@@ -160,7 +153,7 @@ private extension DexMarketInteractor {
             }
         }
 
-        return assetsInteractor.assets(by: firstGeneralAssets.map { $0.assetId }, accountAddress: wallet.address)
+        return assetsInteractor.assets(by: allGeneralAssets.map { $0.assetId }, accountAddress: wallet.address)
             .flatMap({ [weak self] (assets) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                 guard let self = self else { return Observable.empty() }
                 

@@ -12,6 +12,7 @@ import Extensions
 
 private enum Constants {
     static let headerHeight: CGFloat = 74
+    static let keyboardControlHeight: CGFloat = 42
     static let cellHeight: CGFloat = 64
     static let bottomInset: CGFloat = 16
 }
@@ -49,9 +50,14 @@ final class AssetsSearchViewController: ModalScrollViewController {
     
     fileprivate var state: AssetsSearch.State.UI?
     fileprivate var snackError: String? = nil
+    private lazy var swipeDown: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handlerSwipeGesture(gesture:)))
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        swipeDown.direction = .down
+        headerView.addGestureRecognizer(swipeDown)
         
         rootView.delegate = self
         
@@ -97,7 +103,7 @@ final class AssetsSearchViewController: ModalScrollViewController {
     }
     
     override func bottomScrollInset(for size: CGSize) -> CGFloat {
-        return Constants.bottomInset + layoutInsets.bottom
+        return Constants.bottomInset + Constants.keyboardControlHeight
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -187,6 +193,10 @@ final class AssetsSearchViewController: ModalScrollViewController {
         return showErrorNotFoundSnack() { [weak self] in
             self?.system.send(.refresh)
         }
+    }
+    
+    @objc func handlerSwipeGesture(gesture: UISwipeGestureRecognizer) {
+        self.moduleOuput?.assetsSearchClose()
     }
 }
 

@@ -14,7 +14,8 @@ public extension DomainLayer.DTO {
 }
 
 public extension DomainLayer.DTO.Widget {
-    
+
+    static let defaultCountAssets: Int = 4
     static let minCountAssets: Int = 2
     static let maxCountAssets: Int = 9
     
