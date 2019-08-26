@@ -51,6 +51,24 @@ enum UITest {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        var url: URL?
+        
+        if let path = launchOptions?[.url] as? String {
+            url = URL(string: path)
+        }
+        
+        if let scheme = url?.scheme, DeepLink.scheme != scheme {
+            return false
+        }
+        
+        let sourceApplication = (launchOptions?[.sourceApplication] as? String) ?? ""
+        
+        var deepLink: DeepLink? = nil
+        
+        if let url = url {
+            deepLink = DeepLink(source: sourceApplication, url: url)
+        }
+        
         guard setupLayers() else { return false }
         
         setupUI()
@@ -58,7 +76,7 @@ enum UITest {
         
         let router = WindowRouter.windowFactory(window: self.window!)
         
-        appCoordinator = AppCoordinator(router)
+        appCoordinator = AppCoordinator(router, deepLink: deepLink)
 
         migrationInteractor
             .migration()
@@ -68,12 +86,6 @@ enum UITest {
 
             }, onCompleted: {
                 self.appCoordinator.start()
-                
-                if let path = launchOptions?[.url] as? String,
-                    let sourceApplication = launchOptions?[.sourceApplication] as? String,
-                    let url = URL(string: path) {
-                    self.appCoordinator.openURL(link: DeepLink(source: sourceApplication, url: url))
-                }
                 
             })
             .disposed(by: disposeBag)
@@ -85,8 +97,12 @@ enum UITest {
         
         guard let sourceApplication: String = options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String else { return false}
         
-        self.appCoordinator.openURL(link: DeepLink(source: sourceApplication, url: url))
+        if DeepLink.scheme != url.scheme {
+            return false
+        }
         
+        self.appCoordinator.openURL(link: DeepLink(source: sourceApplication, url: url))
+                
         return true
     }
     

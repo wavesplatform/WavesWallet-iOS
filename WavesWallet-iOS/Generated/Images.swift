@@ -261,6 +261,7 @@ internal enum Images {
   internal static let tabbarWavesActive = ImageAsset(name: "tabbarWavesActive")
   internal static let tabbarWavesDefault = ImageAsset(name: "tabbarWavesDefault")
   internal static let token80 = ImageAsset(name: "token80")
+  internal static let topbarAdd = ImageAsset(name: "topbarAdd")
   internal static let topbarAddaddress = ImageAsset(name: "topbarAddaddress")
   internal static let topbarAddmarkets = ImageAsset(name: "topbarAddmarkets")
   internal static let topbarBackwhite = ImageAsset(name: "topbarBackwhite")
@@ -540,6 +541,7 @@ internal enum Images {
     tabbarWavesActive,
     tabbarWavesDefault,
     token80,
+    topbarAdd,
     topbarAddaddress,
     topbarAddmarkets,
     topbarBackwhite,

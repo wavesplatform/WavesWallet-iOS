@@ -36,6 +36,8 @@ extension ChooseAccountTypes {
         case tapRemoveButton(DomainLayer.DTO.Wallet, indexPath: IndexPath)
         case tapWallet(DomainLayer.DTO.Wallet)
         case setWallets([DomainLayer.DTO.Wallet])
+        case tapBack
+        case tapAddAccount
         case viewDidDisappear
     }
 

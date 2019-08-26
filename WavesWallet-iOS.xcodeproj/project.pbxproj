@@ -282,6 +282,11 @@
 		7B26A88C22ED191900E7B024 /* WidgetSettingsModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B26A88B22ED191900E7B024 /* WidgetSettingsModuleBuilder.swift */; };
 		7B26A88E22EEEA7000E7B024 /* WidgetSettingsModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B26A88D22EEEA7000E7B024 /* WidgetSettingsModuleOutput.swift */; };
 		7B26A89022EEECC200E7B024 /* WidgetSettingsAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B26A88F22EEECC200E7B024 /* WidgetSettingsAssetCell.swift */; };
+		7B3681982314260C000D5592 /* ConfirmRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3681972314260C000D5592 /* ConfirmRequestViewController.swift */; };
+		7B36819A23142625000D5592 /* ConfirmRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36819923142625000D5592 /* ConfirmRequestType.swift */; };
+		7B36819D23142639000D5592 /* ConfirmRequestSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36819C23142639000D5592 /* ConfirmRequestSystem.swift */; };
+		7B36819F23142A0F000D5592 /* ConfirmRequestModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36819E23142A0F000D5592 /* ConfirmRequestModuleBuilder.swift */; };
+		7B3681A123142A33000D5592 /* ConfirmRequestModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3681A023142A33000D5592 /* ConfirmRequestModuleOutput.swift */; };
 		7B39029522366B8E00AAFDB8 /* TransactionCardAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39029422366B8E00AAFDB8 /* TransactionCardAddressCell.swift */; };
 		7B39029722366D0100AAFDB8 /* AddressBookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39029622366D0100AAFDB8 /* AddressBookButton.swift */; };
 		7B390299223698D300AAFDB8 /* TransactionCardKeyValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B390298223698D300AAFDB8 /* TransactionCardKeyValueCell.swift */; };
@@ -578,6 +583,8 @@
 		7BDC6D7322C3A05B00614E6B /* AnalyticManagerEvent+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDC6D6F22C3A03400614E6B /* AnalyticManagerEvent+Menu.swift */; };
 		7BDC6D7422C3A1E000614E6B /* AnalyticManagerEvent+Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDC6D7122C3A03E00614E6B /* AnalyticManagerEvent+Widgets.swift */; };
 		7BDC6D7922C3CD8400614E6B /* InputScrollButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDC6D7822C3CD8400614E6B /* InputScrollButtonsView.swift */; };
+		7BE09AB22313E31300A038AD /* MobileKeeperCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE09AB12313E31300A038AD /* MobileKeeperCoordinator.swift */; };
+		7BE09AD323140F0900A038AD /* MobileKeeper.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BE09AD223140F0900A038AD /* MobileKeeper.storyboard */; };
 		7BF50A6B22D8B95400582783 /* SeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF509F322D8B95300582783 /* SeedItem.swift */; };
 		7BF50A6C22D8B95400582783 /* WalletRealmFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF509F522D8B95300582783 /* WalletRealmFactory.swift */; };
 		7BF50A6D22D8B95400582783 /* LeaseTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF509F822D8B95300582783 /* LeaseTransaction.swift */; };
@@ -1492,6 +1499,11 @@
 		7B26A88F22EEECC200E7B024 /* WidgetSettingsAssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsAssetCell.swift; sourceTree = "<group>"; };
 		7B32A903229EEFB0004789E7 /* fr-FR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-FR"; path = "fr-FR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		7B32A904229EEFB1004789E7 /* fr-FR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-FR"; path = "fr-FR.lproj/Waves.strings"; sourceTree = "<group>"; };
+		7B3681972314260C000D5592 /* ConfirmRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestViewController.swift; sourceTree = "<group>"; };
+		7B36819923142625000D5592 /* ConfirmRequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestType.swift; sourceTree = "<group>"; };
+		7B36819C23142639000D5592 /* ConfirmRequestSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestSystem.swift; sourceTree = "<group>"; };
+		7B36819E23142A0F000D5592 /* ConfirmRequestModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestModuleBuilder.swift; sourceTree = "<group>"; };
+		7B3681A023142A33000D5592 /* ConfirmRequestModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestModuleOutput.swift; sourceTree = "<group>"; };
 		7B39029422366B8E00AAFDB8 /* TransactionCardAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardAddressCell.swift; sourceTree = "<group>"; };
 		7B39029622366D0100AAFDB8 /* AddressBookButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookButton.swift; sourceTree = "<group>"; };
 		7B390298223698D300AAFDB8 /* TransactionCardKeyValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardKeyValueCell.swift; sourceTree = "<group>"; };
@@ -1812,6 +1824,8 @@
 		7BDC6D6F22C3A03400614E6B /* AnalyticManagerEvent+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnalyticManagerEvent+Menu.swift"; sourceTree = "<group>"; };
 		7BDC6D7122C3A03E00614E6B /* AnalyticManagerEvent+Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnalyticManagerEvent+Widgets.swift"; sourceTree = "<group>"; };
 		7BDC6D7822C3CD8400614E6B /* InputScrollButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputScrollButtonsView.swift; sourceTree = "<group>"; };
+		7BE09AB12313E31300A038AD /* MobileKeeperCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileKeeperCoordinator.swift; sourceTree = "<group>"; };
+		7BE09AD223140F0900A038AD /* MobileKeeper.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MobileKeeper.storyboard; sourceTree = "<group>"; };
 		7BF509F322D8B95300582783 /* SeedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedItem.swift; sourceTree = "<group>"; };
 		7BF509F522D8B95300582783 /* WalletRealmFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletRealmFactory.swift; sourceTree = "<group>"; };
 		7BF509F822D8B95300582783 /* LeaseTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaseTransaction.swift; sourceTree = "<group>"; };
@@ -2966,6 +2980,7 @@
 		0ADD7FF721F22FFA0075FC59 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				7BE09AB12313E31300A038AD /* MobileKeeperCoordinator.swift */,
 				0ADD800321F22FFA0075FC59 /* AppCoordinator.swift */,
 				0A751D37221715F80024D523 /* AppNewsCoordinator.swift */,
 				0ADD7FF821F22FFA0075FC59 /* DexCoordinator.swift */,
@@ -3088,6 +3103,7 @@
 		0AF58F8B2191909200C8A4B3 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				7BE09AD123140EF800A038AD /* MobileKeeper */,
 				0A071E3D215AEF03007D9750 /* AccountPassword */,
 				7B8818652305639600AB0549 /* ActionSheet */,
 				E9B086902163882F00937644 /* AddressBook */,
@@ -3484,6 +3500,18 @@
 				7B26A88922ED180A00E7B024 /* UIDeveloperCoordinator.swift */,
 			);
 			path = UITest;
+			sourceTree = "<group>";
+		};
+		7B368196231425ED000D5592 /* ConfirmRequest */ = {
+			isa = PBXGroup;
+			children = (
+				7B3681972314260C000D5592 /* ConfirmRequestViewController.swift */,
+				7B36819923142625000D5592 /* ConfirmRequestType.swift */,
+				7B36819C23142639000D5592 /* ConfirmRequestSystem.swift */,
+				7B36819E23142A0F000D5592 /* ConfirmRequestModuleBuilder.swift */,
+				7B3681A023142A33000D5592 /* ConfirmRequestModuleOutput.swift */,
+			);
+			path = ConfirmRequest;
 			sourceTree = "<group>";
 		};
 		7B3902AE2237D74400AAFDB8 /* Cell */ = {
@@ -4069,6 +4097,15 @@
 				7BF89E9822272A5E00853F9D /* MonkeyTest.swift */,
 			);
 			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		7BE09AD123140EF800A038AD /* MobileKeeper */ = {
+			isa = PBXGroup;
+			children = (
+				7B368196231425ED000D5592 /* ConfirmRequest */,
+				7BE09AD223140F0900A038AD /* MobileKeeper.storyboard */,
+			);
+			path = MobileKeeper;
 			sourceTree = "<group>";
 		};
 		7BF509F022D8B95300582783 /* Sources */ = {
@@ -6193,6 +6230,7 @@
 				7B49912022F875D4005B7123 /* AssetsSearch.storyboard in Resources */,
 				E95B47EF21638B11004D4E39 /* StartLeasing.storyboard in Resources */,
 				7B7A4B7E22D625B300E0A8CD /* DexCreateOrderInvalidPriceView.xib in Resources */,
+				7BE09AD323140F0900A038AD /* MobileKeeper.storyboard in Resources */,
 				E9EC5C102175F35900E5C29A /* AddressInputView.xib in Resources */,
 				E9B087C62163886800937644 /* DexTraderContainerSegmentedControl.xib in Resources */,
 				E95E14F3229FF31A003552B8 /* WalletLeasingBalanceCell.xib in Resources */,
@@ -7000,6 +7038,7 @@
 				E9D36DF92175C755001E6DF0 /* AssetListModuleOutput.swift in Sources */,
 				0A7CCDB4218A138D005D372B /* MyAddressAliacesCell.swift in Sources */,
 				7BFB480022FC742F002B19F8 /* SmartTransactionDTO+EncodingToString.swift in Sources */,
+				7BE09AB22313E31300A038AD /* MobileKeeperCoordinator.swift in Sources */,
 				E991BB1A2202CA250022E27D /* SendFeeViewController.swift in Sources */,
 				0AF92201212E07B3003BA067 /* AssetHeaderSkeletonView.swift in Sources */,
 				E95B6B0F219C22E400A85B5D /* TokenBurnConfirmationViewController.swift in Sources */,
@@ -7064,6 +7103,7 @@
 				E9B0881D2163886800937644 /* DexSortCell.swift in Sources */,
 				7BDA6AE822313E59001DE71C /* TransactionImageView.swift in Sources */,
 				0A7CCDB3218A138D005D372B /* MyAddressQRCodeCell.swift in Sources */,
+				7B36819D23142639000D5592 /* ConfirmRequestSystem.swift in Sources */,
 				7B8818602304474E00AB0549 /* AuthorizationInteractorLocalizableImp.swift in Sources */,
 				0A96F1DF21544331005E148F /* MultyTextField.swift in Sources */,
 				7BFB480722FC742F002B19F8 /* UITableView+Skeleton.swift in Sources */,
@@ -7118,6 +7158,7 @@
 				0ADD802221F22FFA0075FC59 /* WindowRouter.swift in Sources */,
 				E95B6B0A219B3B0100A85B5D /* TokenBurnViewController.swift in Sources */,
 				0A14E3E42187184000EA7E91 /* AliasesPresenterProtocol.swift in Sources */,
+				7B3681A123142A33000D5592 /* ConfirmRequestModuleOutput.swift in Sources */,
 				0AF92205212E07B3003BA067 /* WrapperAssetsSegmentedControl.swift in Sources */,
 				E9D36DC72175C755001E6DF0 /* ReceiveCryptocurrencyTypes.swift in Sources */,
 				E95B47F221638B11004D4E39 /* AmountInputView.swift in Sources */,
@@ -7190,6 +7231,7 @@
 				E9BB2D852260DEB000366278 /* TransactionCardInvokeScriptCell.swift in Sources */,
 				E9D36DD62175C755001E6DF0 /* ReceiveCardModuleBuilder.swift in Sources */,
 				0A14E3F121875B1300EA7E91 /* CreateAliasPresenter.swift in Sources */,
+				7B36819A23142625000D5592 /* ConfirmRequestType.swift in Sources */,
 				E92FAD0E226F6C050054D4AA /* WalletSortSeparatorCell.swift in Sources */,
 				7BDC6D7922C3CD8400614E6B /* InputScrollButtonsView.swift in Sources */,
 				E9D36DE82175C755001E6DF0 /* AssetSelectView.swift in Sources */,
@@ -7352,6 +7394,7 @@
 				E97EC83F20E67BE900AB006B /* NewAccountViewController.swift in Sources */,
 				0AF92227212E0F1F003BA067 /* WalletTableAssetsCell.swift in Sources */,
 				E9D36DF42175C755001E6DF0 /* AssetListViewController.swift in Sources */,
+				7B3681982314260C000D5592 /* ConfirmRequestViewController.swift in Sources */,
 				04831F6221691429006D1ED6 /* HighlightedView.swift in Sources */,
 				E923A76D219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift in Sources */,
 				0A7CCDB5218A138D005D372B /* MyAddressInfoAddressCell.swift in Sources */,
@@ -7422,6 +7465,7 @@
 				0ADD803721F22FFB0075FC59 /* SlideCoordinator.swift in Sources */,
 				E9310D0C217924D0008BF3EE /* SendConfirmationViewController.swift in Sources */,
 				E9D36DD72175C755001E6DF0 /* ReceiveCardInteractorProtocol.swift in Sources */,
+				7B36819F23142A0F000D5592 /* ConfirmRequestModuleBuilder.swift in Sources */,
 				E9D36DE72175C755001E6DF0 /* ReceiveGenerateAddressViewController.swift in Sources */,
 				0A762D11214FDFA100BE9204 /* NewAccountAvatarView.swift in Sources */,
 				E9413AC222FA3D9C002C4A97 /* DexChartSettings.swift in Sources */,

@@ -54,16 +54,19 @@ final class AppCoordinator: Coordinator {
 
     private let authoAuthorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let disposeBag: DisposeBag = DisposeBag()
+    private var deepLink: DeepLink? = nil
     private var isActiveApp: Bool = false
     
 #if DEBUG || TEST
-    init(_ debugWindowRouter: DebugWindowRouter) {
+    init(_ debugWindowRouter: DebugWindowRouter, deepLink: DeepLink?) {
         self.windowRouter = debugWindowRouter
         debugWindowRouter.delegate = self
+        self.deepLink = deepLink
     }
 #else
-    init(_ windowRouter: WindowRouter) {
+    init(_ windowRouter: WindowRouter, deepLink: DeepLink?) {
         self.windowRouter = windowRouter
+        self.deepLink = deepLink
     }
 #endif
 
@@ -80,6 +83,9 @@ final class AppCoordinator: Coordinator {
             logInApplication()
         #endif
         
+        if let deepLink = deepLink {
+            openURL(link: deepLink)
+        }
     }
 
     private var isMainTabDisplayed: Bool {
@@ -95,6 +101,8 @@ extension AppCoordinator: PresentationCoordinator {
         case slide(DomainLayer.DTO.Wallet)
         case enter
         case passcode(DomainLayer.DTO.Wallet)
+        case widgetSettings
+        case mobileKeeper
     }
 
     func showDisplay(_ display: AppCoordinator.Display) {
@@ -132,21 +140,34 @@ extension AppCoordinator: PresentationCoordinator {
 
             let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: nil)
             addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
+        
+        case .widgetSettings:
+        
+            guard isHasCoordinator(type: WidgetSettingsCoordinator.self) != true else {
+                return
+            }
+        
+            let coordinator = WidgetSettingsCoordinator(windowRouter: windowRouter)
+            addChildCoordinatorAndStart(childCoordinator: coordinator)
+            
+        case .mobileKeeper:
+            
+//            guard isHasCoordinator(type: WidgetSettingsCoordinator.self) != true else {
+//                return
+//            }
+            
+            let coordinator = MobileKeeperCoordinator(windowRouter: windowRouter)
+            addChildCoordinatorAndStart(childCoordinator: coordinator)
+            
         }
-        
-        
     }
     
     func openURL(link: DeepLink) {
         
         if link.url.absoluteString == DeepLink.widgetSettings {
-            
-            guard isHasCoordinator(type: WidgetSettingsCoordinator.self) != true else {
-                return
-            }
-            
-            let coordinator = WidgetSettingsCoordinator.init(windowRouter: windowRouter)
-            addChildCoordinatorAndStart(childCoordinator: coordinator)
+            self.showDisplay(.widgetSettings)
+        } else if link.url.absoluteString == DeepLink.mobileKeeper {
+            self.showDisplay(.mobileKeeper)
         }
     }
 }

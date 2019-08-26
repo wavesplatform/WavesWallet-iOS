@@ -154,5 +154,9 @@ extension EnterCoordinator: ChooseAccountCoordinatorDelegate {
 
         delegate?.userCompletedLogIn(wallet: wallet)
         removeFromParentCoordinator()
-    }    
+    }
+    
+    func userDidTapBackButton() {
+        self.navigationRouter.popViewController()
+    }
 }
