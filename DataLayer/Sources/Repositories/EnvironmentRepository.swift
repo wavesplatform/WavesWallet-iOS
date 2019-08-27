@@ -8,8 +8,6 @@
 
 import Foundation
 import Moya
-import RealmSwift
-import RxRealm
 import RxSwift
 import WavesSDKExtensions
 import WavesSDK
@@ -37,11 +35,11 @@ public final class ApplicationEnviroment: ApplicationEnvironmentProtocol {
     }
 }
 
-protocol ServicesEnvironmentRepositoryProtocol {
+public protocol ServicesEnvironmentRepositoryProtocol {
     func servicesEnvironment() -> Observable<ApplicationEnviroment>
 }
 
-final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnvironmentRepositoryProtocol {
+public final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnvironmentRepositoryProtocol {
 
     private var internalServerTimestampDiff: Int64? = nil
     
@@ -70,23 +68,23 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
     
     private var localEnvironments: BehaviorSubject<[EnvironmentKey: WalletEnvironment]> = BehaviorSubject<[EnvironmentKey: WalletEnvironment]>(value: [:])
     
-    init() {
+    public init() {
         NotificationCenter.default.addObserver(self, selector: #selector(timeDidChange), name: UIApplication.significantTimeChangeNotification, object: nil)
     }
     
-    func deffaultEnvironment() -> Observable<WalletEnvironment> {
+    public func deffaultEnvironment() -> Observable<WalletEnvironment> {
         return remoteAccountEnvironmentShare
     }
 
-    func walletEnvironment() -> Observable<WalletEnvironment> {
+    public func walletEnvironment() -> Observable<WalletEnvironment> {
         return setupServicesEnviromentShare.map { $0.walletEnvironment }
     }
 
-    func applicationEnvironment() -> Observable<ApplicationEnvironmentProtocol> {
+    public func applicationEnvironment() -> Observable<ApplicationEnvironmentProtocol> {
         return setupServicesEnviromentShare.map { $0 as ApplicationEnvironmentProtocol }
     }
     
-    func servicesEnvironment() -> Observable<ApplicationEnviroment> {
+    public func servicesEnvironment() -> Observable<ApplicationEnviroment> {
         return setupServicesEnviromentShare
     }
 }

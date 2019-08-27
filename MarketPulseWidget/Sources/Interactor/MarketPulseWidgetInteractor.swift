@@ -22,11 +22,12 @@ protocol MarketPulseWidgetInteractorProtocol {
 
 final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
   
-    private lazy var widgetSettingsRepository: WidgetSettingsInizializationUseCaseProtocol = UseCasesFactory.instance.widgetSettingsInizialization
+    private lazy var widgetSettingsRepository: WidgetSettingsInizializationUseCaseProtocol = WidgetSettingsInizialization()
     
-    private lazy var dexPairsPriceRepository = UseCasesFactory.instance.repositories.dexPairsPriceRepository
+    private lazy var dexPairsPriceRepository: DexPairsPriceRepositoryProtocol = DexPairsPriceRepositoryRemote(environmentRepository: WidgetEnvironment.shared.environmentRepository)
     
     private let dbRepository: MarketPulseDataBaseRepositoryProtocol = MarketPulseDataBaseRepository()
+    
     
     init() {
         _ = setupLayers()
@@ -35,31 +36,31 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
     static var shared: MarketPulseWidgetInteractor = MarketPulseWidgetInteractor()
     
     private func setupLayers() -> Bool {
-                
-        guard let googleServiceInfoPath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") else {
-            return false
-        }
-        
-        guard let appsflyerInfoPath = Bundle.main.path(forResource: "Appsflyer-Info", ofType: "plist") else {
-            return false
-        }
-        
-        guard let amplitudeInfoPath = Bundle.main.path(forResource: "Amplitude-Info", ofType: "plist") else {
-            return false
-        }
-        
-        guard let sentryIoInfoPath = Bundle.main.path(forResource: "Sentry-io-Info", ofType: "plist") else {
-            return false
-        }
-        
-        let resourses = RepositoriesFactory.Resources(googleServiceInfo: googleServiceInfoPath,
-                                                      appsflyerInfo: appsflyerInfoPath,
-                                                      amplitudeInfo: amplitudeInfoPath,
-                                                      sentryIoInfoPath: sentryIoInfoPath)
-        let repositories = RepositoriesFactory(resources: resourses)
-        
-        UseCasesFactory.initialization(repositories: repositories, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp())
-        
+    
+//        guard let googleServiceInfoPath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") else {
+//            return false
+//        }
+//        
+//        guard let appsflyerInfoPath = Bundle.main.path(forResource: "Appsflyer-Info", ofType: "plist") else {
+//            return false
+//        }
+//        
+//        guard let amplitudeInfoPath = Bundle.main.path(forResource: "Amplitude-Info", ofType: "plist") else {
+//            return false
+//        }
+//        
+//        guard let sentryIoInfoPath = Bundle.main.path(forResource: "Sentry-io-Info", ofType: "plist") else {
+//            return false
+//        }
+//        
+//        let resourses = RepositoriesFactory.Resources(googleServiceInfo: googleServiceInfoPath,
+//                                                      appsflyerInfo: appsflyerInfoPath,
+//                                                      amplitudeInfo: amplitudeInfoPath,
+//                                                      sentryIoInfoPath: sentryIoInfoPath)
+//        let repositories = RepositoriesFactory(resources: resourses)
+//        
+//        UseCasesFactory.initialization(repositories: repositories, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp())
+//        
         return true
     }
     

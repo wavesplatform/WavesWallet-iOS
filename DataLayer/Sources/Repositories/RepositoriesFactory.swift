@@ -19,7 +19,7 @@ import AppsFlyerLib
 import Amplitude_iOS
 
 //TODO: Rename Local Repository and protocol
-typealias EnvironmentRepositoryProtocols = EnvironmentRepositoryProtocol & ServicesEnvironmentRepositoryProtocol
+public typealias EnvironmentRepositoryProtocols = EnvironmentRepositoryProtocol & ServicesEnvironmentRepositoryProtocol
 
 public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     
