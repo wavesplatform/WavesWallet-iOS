@@ -439,8 +439,6 @@
 		7B848A6F230178B70092AD18 /* WidgetSettingsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B848A6E230178B70092AD18 /* WidgetSettingsUseCase.swift */; };
 		7B848A7123018C0E0092AD18 /* WidgetSettingsInizializationUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B848A7023018C0E0092AD18 /* WidgetSettingsInizializationUseCaseProtocol.swift */; };
 		7B848A742301AD0D0092AD18 /* WalletsRealmFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B848A732301AD0D0092AD18 /* WalletsRealmFactory.swift */; };
-		7B848A762301AE930092AD18 /* WidgetRealmFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B848A752301AE930092AD18 /* WidgetRealmFactory.swift */; };
-		7B848A782301B1B30092AD18 /* WidgetSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B848A772301B1B30092AD18 /* WidgetSettings.swift */; };
 		7B848A7A2301C0950092AD18 /* WidgetSettingsInizializationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B848A792301C0950092AD18 /* WidgetSettingsInizializationUseCase.swift */; };
 		7B848A7C2301C95A0092AD18 /* PairsPathUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B848A7B2301C95A0092AD18 /* PairsPathUseCaseProtocol.swift */; };
 		7B848A7E2301CB0F0092AD18 /* CorrectionPairsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B848A7D2301CB0F0092AD18 /* CorrectionPairsUseCase.swift */; };
@@ -762,7 +760,6 @@
 		E958571322F2E73D007A0178 /* WidgetSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958571222F2E73D007A0178 /* WidgetSettings.swift */; };
 		E958572022F3BBA0007A0178 /* MarketPulseDataBaseRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958571E22F3BB9F007A0178 /* MarketPulseDataBaseRepositoryProtocol.swift */; };
 		E958572122F3BBA0007A0178 /* MarketPulseDataBaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958571F22F3BBA0007A0178 /* MarketPulseDataBaseRepository.swift */; };
-		E958572322F3BBAE007A0178 /* MarketPulseAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958572222F3BBAE007A0178 /* MarketPulseAsset.swift */; };
 		E95B47C021638A9F004D4E39 /* Hello.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E95B47A821638A9F004D4E39 /* Hello.storyboard */; };
 		E95B47C221638A9F004D4E39 /* HelloLanguagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95B47AB21638A9F004D4E39 /* HelloLanguagesViewController.swift */; };
 		E95B47C721638A9F004D4E39 /* LongInfoPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95B47B321638A9F004D4E39 /* LongInfoPageView.xib */; };
@@ -1662,8 +1659,6 @@
 		7B848A6E230178B70092AD18 /* WidgetSettingsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsUseCase.swift; sourceTree = "<group>"; };
 		7B848A7023018C0E0092AD18 /* WidgetSettingsInizializationUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsInizializationUseCaseProtocol.swift; sourceTree = "<group>"; };
 		7B848A732301AD0D0092AD18 /* WalletsRealmFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsRealmFactory.swift; sourceTree = "<group>"; };
-		7B848A752301AE930092AD18 /* WidgetRealmFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetRealmFactory.swift; sourceTree = "<group>"; };
-		7B848A772301B1B30092AD18 /* WidgetSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettings.swift; sourceTree = "<group>"; };
 		7B848A792301C0950092AD18 /* WidgetSettingsInizializationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsInizializationUseCase.swift; sourceTree = "<group>"; };
 		7B848A7B2301C95A0092AD18 /* PairsPathUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairsPathUseCaseProtocol.swift; sourceTree = "<group>"; };
 		7B848A7D2301CB0F0092AD18 /* CorrectionPairsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectionPairsUseCase.swift; sourceTree = "<group>"; };
@@ -2026,7 +2021,6 @@
 		E958571222F2E73D007A0178 /* WidgetSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettings.swift; sourceTree = "<group>"; };
 		E958571E22F3BB9F007A0178 /* MarketPulseDataBaseRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarketPulseDataBaseRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E958571F22F3BBA0007A0178 /* MarketPulseDataBaseRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarketPulseDataBaseRepository.swift; sourceTree = "<group>"; };
-		E958572222F3BBAE007A0178 /* MarketPulseAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarketPulseAsset.swift; sourceTree = "<group>"; };
 		E95B47A821638A9F004D4E39 /* Hello.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Hello.storyboard; sourceTree = "<group>"; };
 		E95B47AB21638A9F004D4E39 /* HelloLanguagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelloLanguagesViewController.swift; sourceTree = "<group>"; };
 		E95B47B321638A9F004D4E39 /* LongInfoPageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LongInfoPageView.xib; sourceTree = "<group>"; };
@@ -3876,15 +3870,6 @@
 			path = Generated;
 			sourceTree = "<group>";
 		};
-		7B848A722301ABDE0092AD18 /* Widget */ = {
-			isa = PBXGroup;
-			children = (
-				7B848A752301AE930092AD18 /* WidgetRealmFactory.swift */,
-				7B848A772301B1B30092AD18 /* WidgetSettings.swift */,
-			);
-			path = Widget;
-			sourceTree = "<group>";
-		};
 		7B848A902304073B0092AD18 /* Localization */ = {
 			isa = PBXGroup;
 			children = (
@@ -4086,7 +4071,6 @@
 		7BF509F122D8B95300582783 /* DataBase */ = {
 			isa = PBXGroup;
 			children = (
-				7B848A722301ABDE0092AD18 /* Widget */,
 				7BF509F222D8B95300582783 /* WalletSeed */,
 				7BF509F422D8B95300582783 /* Wallet */,
 				7BF50A1122D8B95300582783 /* Wallets */,
@@ -4560,7 +4544,6 @@
 			isa = PBXGroup;
 			children = (
 				7B848A67230076AE0092AD18 /* Generated */,
-				E958571922F35C90007A0178 /* DataBase */,
 				E958571822F35C87007A0178 /* Repositories */,
 				E991F8FD22E8CF9D008D1AE4 /* Presenter */,
 				E991F8FC22E8CF94008D1AE4 /* Interactor */,
@@ -4588,14 +4571,6 @@
 				E958571E22F3BB9F007A0178 /* MarketPulseDataBaseRepositoryProtocol.swift */,
 			);
 			path = Repositories;
-			sourceTree = "<group>";
-		};
-		E958571922F35C90007A0178 /* DataBase */ = {
-			isa = PBXGroup;
-			children = (
-				E958572222F3BBAE007A0178 /* MarketPulseAsset.swift */,
-			);
-			path = DataBase;
 			sourceTree = "<group>";
 		};
 		E95B47A521638A9F004D4E39 /* Hello */ = {
@@ -6804,7 +6779,6 @@
 				7BF50AA822D8B95400582783 /* RepositoriesFactory.swift in Sources */,
 				7BF50AAF22D8B95400582783 /* DexRealmRepositoryLocal.swift in Sources */,
 				7BF50A9022D8B95400582783 /* ScriptTransaction+Mapper.swift in Sources */,
-				7B848A762301AE930092AD18 /* WidgetRealmFactory.swift in Sources */,
 				7BF50A8522D8B95400582783 /* AccountSettings.swift in Sources */,
 				7BF50A9122D8B95400582783 /* LeaseCancelTransaction+Mapper.swift in Sources */,
 				7BF50AB122D8B95400582783 /* DexPairsPriceRepositoryRemote.swift in Sources */,
@@ -6832,7 +6806,6 @@
 				7BF50ACA22D8B95400582783 /* DatabaseReference+Rx.swift in Sources */,
 				7BF50A7222D8B95400582783 /* SponsorshipTransaction.swift in Sources */,
 				7BF50AA222D8B95400582783 /* AccountSettingsRepository.swift in Sources */,
-				7B848A782301B1B30092AD18 /* WidgetSettings.swift in Sources */,
 				7BF50AC522D8B95400582783 /* Results+Limit.swift in Sources */,
 				7BF50A7022D8B95400582783 /* AssetScriptTransaction.swift in Sources */,
 				7BF50A9922D8B95400582783 /* LeaseTransaction+Mapper.swift in Sources */,
@@ -6880,7 +6853,6 @@
 				E991F90122E8CFD3008D1AE4 /* MarketPulseWidgetPresenter.swift in Sources */,
 				E9B190AC22E7CD99008220B7 /* MarketPulseWidgetViewController.swift in Sources */,
 				E95310B322E8507500F72809 /* MarketPulseWidgetCell.swift in Sources */,
-				E958572322F3BBAE007A0178 /* MarketPulseAsset.swift in Sources */,
 				7B848A69230076AE0092AD18 /* Localizable.swift in Sources */,
 				E95310BC22E85FEE00F72809 /* MarketPulseTypes.swift in Sources */,
 			);
