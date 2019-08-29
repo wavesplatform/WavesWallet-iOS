@@ -815,7 +815,6 @@
 		E96DAB73228EEC87005ED12B /* WalletSortSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96DAB72228EEC87005ED12B /* WalletSortSegmentedControl.swift */; };
 		E96DE1862317F07B005E1FD9 /* WidgetAssetsDataTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96DE1852317F07B005E1FD9 /* WidgetAssetsDataTarget.swift */; };
 		E96DE18A2317FE66005E1FD9 /* WidgetSettingsRepositoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB474B22FC5A40002B19F8 /* WidgetSettingsRepositoryStorage.swift */; };
-		E96DE18D2317FF28005E1FD9 /* WidgetJSONDecoder+TimestampDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96DE18C2317FF28005E1FD9 /* WidgetJSONDecoder+TimestampDiff.swift */; };
 		E96FEA25226E962300C0EE22 /* WalletSortEmptyAssetsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96FEA23226E962300C0EE22 /* WalletSortEmptyAssetsCell.swift */; };
 		E96FEA26226E962300C0EE22 /* WalletSortEmptyAssetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E96FEA24226E962300C0EE22 /* WalletSortEmptyAssetsCell.xib */; };
 		E96FEA29226F27BC00C0EE22 /* WalletSortCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96FEA27226F27BC00C0EE22 /* WalletSortCell.swift */; };
@@ -2089,7 +2088,6 @@
 		E96DAB70228EE643005ED12B /* WalletSortSegmentedControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSortSegmentedControl.xib; sourceTree = "<group>"; };
 		E96DAB72228EEC87005ED12B /* WalletSortSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletSortSegmentedControl.swift; sourceTree = "<group>"; };
 		E96DE1852317F07B005E1FD9 /* WidgetAssetsDataTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetAssetsDataTarget.swift; sourceTree = "<group>"; };
-		E96DE18C2317FF28005E1FD9 /* WidgetJSONDecoder+TimestampDiff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WidgetJSONDecoder+TimestampDiff.swift"; sourceTree = "<group>"; };
 		E96FEA23226E962300C0EE22 /* WalletSortEmptyAssetsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortEmptyAssetsCell.swift; sourceTree = "<group>"; };
 		E96FEA24226E962300C0EE22 /* WalletSortEmptyAssetsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSortEmptyAssetsCell.xib; sourceTree = "<group>"; };
 		E96FEA27226F27BC00C0EE22 /* WalletSortCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortCell.swift; sourceTree = "<group>"; };
@@ -4505,7 +4503,6 @@
 		E92A115F2317CD06004EC6A1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				E96DE18B2317FF1D005E1FD9 /* Assisstants */,
 				E92A116A2317CF9A004EC6A1 /* InternalWidgetService.swift */,
 				E92A11792317DCDA004EC6A1 /* Matcher */,
 				E92A11652317CEC5004EC6A1 /* Data */,
@@ -4853,14 +4850,6 @@
 				E9443011226E64E900EB6257 /* WalletSortInteractor.swift */,
 			);
 			path = Interactor;
-			sourceTree = "<group>";
-		};
-		E96DE18B2317FF1D005E1FD9 /* Assisstants */ = {
-			isa = PBXGroup;
-			children = (
-				E96DE18C2317FF28005E1FD9 /* WidgetJSONDecoder+TimestampDiff.swift */,
-			);
-			path = Assisstants;
 			sourceTree = "<group>";
 		};
 		E991BB182202C9E10022E27D /* SendFee */ = {
@@ -6964,7 +6953,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E96DE18D2317FF28005E1FD9 /* WidgetJSONDecoder+TimestampDiff.swift in Sources */,
 				E96DE18A2317FE66005E1FD9 /* WidgetSettingsRepositoryStorage.swift in Sources */,
 				E92A11702317D1DD004EC6A1 /* WidgetPairPriceData.swift in Sources */,
 				E92A11642317CE35004EC6A1 /* WidgetPairsPriceDataTarget.swift in Sources */,

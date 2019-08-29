@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import WavesSDK
 import Moya
+import WavesSDKExtensions
 
 protocol WidgetAssetsDataServiceProtocol {
     
