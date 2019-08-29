@@ -15,19 +15,19 @@ import WavesSDK
 import DomainLayer
 import Extensions
 
-public final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
+final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     
     private let environmentRepository: EnvironmentRepositoryProtocols
     
     private let spamAssetsRepository: SpamAssetsRepositoryProtocol
     
-    public init(environmentRepository: EnvironmentRepositoryProtocols,
+    init(environmentRepository: EnvironmentRepositoryProtocols,
          spamAssetsRepository: SpamAssetsRepositoryProtocol) {
         self.environmentRepository = environmentRepository
         self.spamAssetsRepository = spamAssetsRepository
     }
     
-    public func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
+    func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
 
         return environmentRepository
             .servicesEnvironment()
@@ -65,7 +65,7 @@ public final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     }
 
     //TODO: Refactor method
-    public func searchAssets(search: String) -> Observable<[DomainLayer.DTO.Asset]> {
+    func searchAssets(search: String) -> Observable<[DomainLayer.DTO.Asset]> {
         
         // 
         let accountAddress: String = ""
@@ -105,17 +105,17 @@ public final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
             })
     }
 
-    public func saveAssets(_ assets:[DomainLayer.DTO.Asset], by accountAddress: String) -> Observable<Bool> {
+    func saveAssets(_ assets:[DomainLayer.DTO.Asset], by accountAddress: String) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }
 
-    public func saveAsset(_ asset: DomainLayer.DTO.Asset, by accountAddress: String) -> Observable<Bool> {
+    func saveAsset(_ asset: DomainLayer.DTO.Asset, by accountAddress: String) -> Observable<Bool> {
         assertMethodDontSupported()
         return Observable.never()
     }
 
-    public func isSmartAsset(_ assetId: String, by accountAddress: String) -> Observable<Bool> {
+    func isSmartAsset(_ assetId: String, by accountAddress: String) -> Observable<Bool> {
 
         if assetId == WavesSDKConstants.wavesAssetId {
             return Observable.just(false)

@@ -35,11 +35,11 @@ public final class ApplicationEnviroment: ApplicationEnvironmentProtocol {
     }
 }
 
-public protocol ServicesEnvironmentRepositoryProtocol {
+protocol ServicesEnvironmentRepositoryProtocol {
     func servicesEnvironment() -> Observable<ApplicationEnviroment>
 }
 
-public final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnvironmentRepositoryProtocol {
+final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnvironmentRepositoryProtocol {
 
     private var internalServerTimestampDiff: Int64? = nil
     
@@ -68,23 +68,23 @@ public final class EnvironmentRepository: EnvironmentRepositoryProtocol, Service
     
     private var localEnvironments: BehaviorSubject<[EnvironmentKey: WalletEnvironment]> = BehaviorSubject<[EnvironmentKey: WalletEnvironment]>(value: [:])
     
-    public init() {
+    init() {
         NotificationCenter.default.addObserver(self, selector: #selector(timeDidChange), name: UIApplication.significantTimeChangeNotification, object: nil)
     }
     
-    public func deffaultEnvironment() -> Observable<WalletEnvironment> {
+    func deffaultEnvironment() -> Observable<WalletEnvironment> {
         return remoteAccountEnvironmentShare
     }
 
-    public func walletEnvironment() -> Observable<WalletEnvironment> {
+    func walletEnvironment() -> Observable<WalletEnvironment> {
         return setupServicesEnviromentShare.map { $0.walletEnvironment }
     }
 
-    public func applicationEnvironment() -> Observable<ApplicationEnvironmentProtocol> {
+    func applicationEnvironment() -> Observable<ApplicationEnvironmentProtocol> {
         return setupServicesEnviromentShare.map { $0 as ApplicationEnvironmentProtocol }
     }
     
-    public func servicesEnvironment() -> Observable<ApplicationEnviroment> {
+    func servicesEnvironment() -> Observable<ApplicationEnviroment> {
         return setupServicesEnviromentShare
     }
 }

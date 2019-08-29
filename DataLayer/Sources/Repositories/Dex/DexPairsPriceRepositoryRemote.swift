@@ -13,15 +13,15 @@ import WavesSDK
 import DomainLayer
 import Extensions
 
-public final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
+final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
   
     private let environmentRepository: EnvironmentRepositoryProtocols
     
-    public init(environmentRepository: EnvironmentRepositoryProtocols) {
+    init(environmentRepository: EnvironmentRepositoryProtocols) {
         self.environmentRepository = environmentRepository
     }
     
-    public func search(by accountAddress: String, searchText: String) -> Observable<[DomainLayer.DTO.Dex.SimplePair]> {
+    func search(by accountAddress: String, searchText: String) -> Observable<[DomainLayer.DTO.Dex.SimplePair]> {
         
         var kind: DataService.Query.PairsPriceSearch.Kind!
 
@@ -78,7 +78,7 @@ public final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtoco
             })
     }
     
-    public func list(pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
+    func list(pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
 
         return environmentRepository
             .servicesEnvironment()
@@ -121,7 +121,7 @@ public final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtoco
             })
     }
     
-    public func searchPairs(_ query: DomainLayer.Query.Dex.SearchPairs) -> Observable<DomainLayer.DTO.Dex.PairsSearch> {
+    func searchPairs(_ query: DomainLayer.Query.Dex.SearchPairs) -> Observable<DomainLayer.DTO.Dex.PairsSearch> {
         
         return environmentRepository
             .servicesEnvironment()

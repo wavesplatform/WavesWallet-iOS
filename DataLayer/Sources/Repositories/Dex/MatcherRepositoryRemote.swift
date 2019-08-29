@@ -14,15 +14,15 @@ import WavesSDK
 import DomainLayer
 import Extensions
 
-public final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
+final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
 
     private let environmentRepository: EnvironmentRepositoryProtocols
     
-    public init(environmentRepository: EnvironmentRepositoryProtocols) {
+    init(environmentRepository: EnvironmentRepositoryProtocols) {
         self.environmentRepository = environmentRepository
     }
     
-    public func matcherPublicKey() -> Observable<PublicKeyAccount> {
+    func matcherPublicKey() -> Observable<PublicKeyAccount> {
         
         return environmentRepository
             .servicesEnvironment()
@@ -39,7 +39,7 @@ public final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
             })
     }
 
-    public func settingsIdsPairs() -> Observable<[String]> {
+    func settingsIdsPairs() -> Observable<[String]> {
      
         return environmentRepository
             .servicesEnvironment()

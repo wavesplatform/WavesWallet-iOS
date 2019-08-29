@@ -18,11 +18,9 @@ private enum Constants {
 }
 
 
-public final class WidgetSettingsRepositoryStorage: WidgetSettingsRepositoryProtocol {
+final class WidgetSettingsRepositoryStorage: WidgetSettingsRepositoryProtocol {
     
-    public init() {}
-    
-    public func settings() -> Observable<DomainLayer.DTO.MarketPulseSettings?> {
+    func settings() -> Observable<DomainLayer.DTO.MarketPulseSettings?> {
         
         return Observable.create({ [weak self] (subscribe) -> Disposable in
             guard let self = self else { return Disposables.create() }
@@ -44,7 +42,7 @@ public final class WidgetSettingsRepositoryStorage: WidgetSettingsRepositoryProt
         })
     }
     
-    public func saveSettings(_ settings: DomainLayer.DTO.MarketPulseSettings) -> Observable<DomainLayer.DTO.MarketPulseSettings> {
+    func saveSettings(_ settings: DomainLayer.DTO.MarketPulseSettings) -> Observable<DomainLayer.DTO.MarketPulseSettings> {
         
         return Observable.create({ [weak self] (subscribe) -> Disposable in
             
