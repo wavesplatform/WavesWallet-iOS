@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import WavesSDK
+import Moya
 
 protocol WidgetAssetsDataServiceProtocol {
     
@@ -17,7 +18,25 @@ protocol WidgetAssetsDataServiceProtocol {
 
 final class WidgetAssetsDataService: WidgetAssetsDataServiceProtocol {
    
+    private let assetsProvider: MoyaProvider<WidgetDataService.Target.Assets> = InternalWidgetService.moyaProvider()
+
     func assets(ids: [String]) -> Observable<[DataService.DTO.Asset]> {
-        return Observable.empty()
+        
+        return self
+            .assetsProvider
+            .rx
+            .request(.init(kind: .getAssets(ids: ids),
+                           dataUrl: InternalWidgetService.shared.dataUrl),
+                     callbackQueue: DispatchQueue.global(qos: .userInteractive))
+            .filterSuccessfulStatusAndRedirectCodes()
+            .catchError({ (error) -> Single<Response> in
+                return Single<Response>.error(NetworkError.error(by: error))
+            })
+            .map(WidgetDataService.Response<[WidgetDataService.Response<DataService.DTO.Asset>]>.self,
+                 atKeyPath: nil,
+                 using: JSONDecoder.isoDecoderBySyncingTimestamp(0),
+                 failsOnEmptyData: false)
+            .map { $0.data.map { $0.data } }
+            .asObservable()
     }
 }

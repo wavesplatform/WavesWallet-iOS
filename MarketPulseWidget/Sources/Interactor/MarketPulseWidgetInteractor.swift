@@ -22,12 +22,10 @@ protocol MarketPulseWidgetInteractorProtocol {
 
 final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
   
-    private lazy var widgetSettingsRepository: WidgetSettingsInizializationUseCaseProtocol = WidgetSettingsInizialization()
-    
-    private lazy var pairsPriceRepository: WidgetPairsPriceRepositoryProtocol = WidgetPairsPriceRepositoryRemote()
-    
+    private let widgetSettingsRepository: WidgetSettingsInizializationUseCaseProtocol = WidgetSettingsInizialization()
+    private let pairsPriceRepository: WidgetPairsPriceRepositoryProtocol = WidgetPairsPriceRepositoryRemote()
     private let dbRepository: MarketPulseDataBaseRepositoryProtocol = MarketPulseDataBaseRepository()
-    
+
     
     init() {
         _ = setupLayers()

@@ -14,29 +14,12 @@ import WavesSDK
 import WavesSDKCrypto
 
 
-private final class SpamAssetsRepository: SpamAssetsRepositoryProtocol {
-    func spamAssets(accountAddress: String) -> Observable<[SpamAssetId]> {
-        return Observable.just([])
-    }
-}
-
 class WidgetSettingsInizialization: WidgetSettingsInizializationUseCaseProtocol {
-    
     
     private let widgetSettingsStorage: WidgetSettingsRepositoryProtocol = WidgetSettingsRepositoryStorage()
     private let matcherRepository: WidgetMatcherRepositoryProtocol = WidgetMatcherRepositoryRemote()
     private let pairsPriceRepository: WidgetPairsPriceRepositoryProtocol = WidgetPairsPriceRepositoryRemote()
-    
-    
-    // TODO:
-    private lazy var assetsRepository: AssetsRepositoryProtocol = AssetsRepositoryRemote(environmentRepository: WidgetEnvironment.shared.environmentRepository,
-                                                                                         spamAssetsRepository: fakeSpamRepository)
-    private lazy var fakeSpamRepository: SpamAssetsRepositoryProtocol = {
-       
-        return SpamAssetsRepository()
-    }()
-    
-    // TODO:
+    private let assetsRepository: WidgetAssetsRepositoryProtocol = WidgetAssetsRepositoryRemote()
     
     func settings() -> Observable<DomainLayer.DTO.MarketPulseSettings> {
         
@@ -59,7 +42,7 @@ class WidgetSettingsInizialization: WidgetSettingsInizializationUseCaseProtocol 
         let walletEnvironment = WalletEnvironment.current
         let assets = walletEnvironment.generalAssets.prefix(DomainLayer.DTO.Widget.defaultCountAssets)
 
-        return assetsRepository.assets(by: assets.map { $0.assetId }, accountAddress: "")
+        return assetsRepository.assets(by: assets.map { $0.assetId })
             .flatMap({ [weak self] (assets) -> Observable<DomainLayer.DTO.MarketPulseSettings> in
                 guard let self = self else { return Observable.never() }
                 
