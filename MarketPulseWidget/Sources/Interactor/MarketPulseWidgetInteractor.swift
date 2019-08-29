@@ -34,30 +34,22 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
     
     private func setupLayers() -> Bool {
     
-//        guard let googleServiceInfoPath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") else {
-//            return false
-//        }
-//        
-//        guard let appsflyerInfoPath = Bundle.main.path(forResource: "Appsflyer-Info", ofType: "plist") else {
-//            return false
-//        }
-//        
-//        guard let amplitudeInfoPath = Bundle.main.path(forResource: "Amplitude-Info", ofType: "plist") else {
-//            return false
-//        }
-//        
-//        guard let sentryIoInfoPath = Bundle.main.path(forResource: "Sentry-io-Info", ofType: "plist") else {
-//            return false
-//        }
-//        
-//        let resourses = RepositoriesFactory.Resources(googleServiceInfo: googleServiceInfoPath,
-//                                                      appsflyerInfo: appsflyerInfoPath,
-//                                                      amplitudeInfo: amplitudeInfoPath,
-//                                                      sentryIoInfoPath: sentryIoInfoPath)
-//        let repositories = RepositoriesFactory(resources: resourses)
-//        
-//        UseCasesFactory.initialization(repositories: repositories, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp())
-//        
+        guard let googleServiceInfoPath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") else {
+            return false
+        }
+        
+        guard let appsflyerInfoPath = Bundle.main.path(forResource: "Appsflyer-Info", ofType: "plist") else {
+            return false
+        }
+        
+        guard let amplitudeInfoPath = Bundle.main.path(forResource: "Amplitude-Info", ofType: "plist") else {
+            return false
+        }
+
+        WidgetAnalyticManagerInitialization(resources: .init(googleServiceInfo: googleServiceInfoPath,
+            appsflyerInfo: appsflyerInfoPath,
+            amplitudeInfo: amplitudeInfoPath))
+        
         return true
     }
     

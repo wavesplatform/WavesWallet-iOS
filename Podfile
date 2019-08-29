@@ -102,6 +102,12 @@ target 'MarketPulseWidget' do
 
     pod 'Kingfisher'
 
+    pod 'Amplitude-iOS'
+    pod 'AppsFlyerFramework'
+    pod 'Firebase/Core'
+    pod 'Firebase/Database'
+    pod 'Firebase/Auth'
+
 end
 
 target 'DataLayer' do
@@ -236,6 +242,23 @@ post_install do |installer|
             'GTMSessionFetcher',
             'GoogleUtilities']
     })
+    
+    remove_static_framework_duplicate_linkage({
+        'MarketPulseWidget' => ['Fabric', 'Crashlytics',
+        'AppsFlyerFramework',
+        'Amplitude-iOS',
+        'Amplitude_iOS',
+        'FirebaseCore',
+        'FirebaseDatabase',
+        'FirebaseAuth',
+        'FIRAnalyticsConnector',
+        'FirebaseAnalytics',
+        'FirebaseCoreDiagnostics',
+        'FirebaseInstanceID',
+        'GoogleAppMeasurement',
+        'GTMSessionFetcher',
+        'GoogleUtilities']
+        })
 end
 
 ## This code take from https://github.com/CocoaPods/CocoaPods/issues/7155#issuecomment-461395735
