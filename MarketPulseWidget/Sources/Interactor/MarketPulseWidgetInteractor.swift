@@ -10,7 +10,6 @@ import Foundation
 import RxSwift
 import WavesSDK
 import DomainLayer
-import DataLayer
 import WavesSDKExtensions
 import Extensions
 

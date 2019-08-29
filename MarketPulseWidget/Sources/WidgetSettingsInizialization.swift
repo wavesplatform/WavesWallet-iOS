@@ -8,7 +8,6 @@
 
 import Foundation
 import DomainLayer
-import DataLayer
 import RxSwift
 import WavesSDK
 import WavesSDKCrypto
