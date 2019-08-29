@@ -287,6 +287,12 @@
 		7B36819D23142639000D5592 /* ConfirmRequestSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36819C23142639000D5592 /* ConfirmRequestSystem.swift */; };
 		7B36819F23142A0F000D5592 /* ConfirmRequestModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36819E23142A0F000D5592 /* ConfirmRequestModuleBuilder.swift */; };
 		7B3681A123142A33000D5592 /* ConfirmRequestModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3681A023142A33000D5592 /* ConfirmRequestModuleOutput.swift */; };
+		7B3681A72315534E000D5592 /* ConfirmRequestTransactionKindCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3681A62315534E000D5592 /* ConfirmRequestTransactionKindCell.swift */; };
+		7B3681A923155499000D5592 /* ConfirmRequestFromToCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3681A823155499000D5592 /* ConfirmRequestFromToCell.swift */; };
+		7B3681AB231555B8000D5592 /* ConfirmRequestKeyValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3681AA231555B8000D5592 /* ConfirmRequestKeyValueCell.swift */; };
+		7B3681AD231556B4000D5592 /* ConfirmRequestFeeAndTimestampCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3681AC231556B4000D5592 /* ConfirmRequestFeeAndTimestampCell.swift */; };
+		7B3681AF23155805000D5592 /* ConfirmRequestBalanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3681AE23155805000D5592 /* ConfirmRequestBalanceCell.swift */; };
+		7B3681B12315612C000D5592 /* ConfirmRequestSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3681B02315612C000D5592 /* ConfirmRequestSkeletonCell.swift */; };
 		7B39029522366B8E00AAFDB8 /* TransactionCardAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39029422366B8E00AAFDB8 /* TransactionCardAddressCell.swift */; };
 		7B39029722366D0100AAFDB8 /* AddressBookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39029622366D0100AAFDB8 /* AddressBookButton.swift */; };
 		7B390299223698D300AAFDB8 /* TransactionCardKeyValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B390298223698D300AAFDB8 /* TransactionCardKeyValueCell.swift */; };
@@ -415,6 +421,8 @@
 		7B5FAACF22BCEA3500621A44 /* AliasesUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAACB22BCE8D800621A44 /* AliasesUseCaseProtocol.swift */; };
 		7B5FAADB22BCEA4200621A44 /* AccountBalanceUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAAC922BCE71400621A44 /* AccountBalanceUseCaseProtocol.swift */; };
 		7B5FAADC22BCEA4200621A44 /* MigrationUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5FAACD22BCE98F00621A44 /* MigrationUseCaseProtocol.swift */; };
+		7B60E2BC2316CBEA00113C38 /* ConfirmRequestTransactionKindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B60E2BB2316CBEA00113C38 /* ConfirmRequestTransactionKindView.swift */; };
+		7B60E2BE2316CC0500113C38 /* ConfirmRequestTransactionKindView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B60E2BD2316CC0400113C38 /* ConfirmRequestTransactionKindView.xib */; };
 		7B65B6F322F9D03E007D5C53 /* WidgetSettingsSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B65B6F222F9D03E007D5C53 /* WidgetSettingsSkeletonCell.swift */; };
 		7B65B6F522F9D63D007D5C53 /* KeyboardControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B65B6F422F9D63D007D5C53 /* KeyboardControl.swift */; };
 		7B65B6F722F9D647007D5C53 /* KeyboardControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B65B6F622F9D647007D5C53 /* KeyboardControl.xib */; };
@@ -1504,6 +1512,12 @@
 		7B36819C23142639000D5592 /* ConfirmRequestSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestSystem.swift; sourceTree = "<group>"; };
 		7B36819E23142A0F000D5592 /* ConfirmRequestModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestModuleBuilder.swift; sourceTree = "<group>"; };
 		7B3681A023142A33000D5592 /* ConfirmRequestModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestModuleOutput.swift; sourceTree = "<group>"; };
+		7B3681A62315534E000D5592 /* ConfirmRequestTransactionKindCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestTransactionKindCell.swift; sourceTree = "<group>"; };
+		7B3681A823155499000D5592 /* ConfirmRequestFromToCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestFromToCell.swift; sourceTree = "<group>"; };
+		7B3681AA231555B8000D5592 /* ConfirmRequestKeyValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestKeyValueCell.swift; sourceTree = "<group>"; };
+		7B3681AC231556B4000D5592 /* ConfirmRequestFeeAndTimestampCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestFeeAndTimestampCell.swift; sourceTree = "<group>"; };
+		7B3681AE23155805000D5592 /* ConfirmRequestBalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestBalanceCell.swift; sourceTree = "<group>"; };
+		7B3681B02315612C000D5592 /* ConfirmRequestSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestSkeletonCell.swift; sourceTree = "<group>"; };
 		7B39029422366B8E00AAFDB8 /* TransactionCardAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardAddressCell.swift; sourceTree = "<group>"; };
 		7B39029622366D0100AAFDB8 /* AddressBookButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBookButton.swift; sourceTree = "<group>"; };
 		7B390298223698D300AAFDB8 /* TransactionCardKeyValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardKeyValueCell.swift; sourceTree = "<group>"; };
@@ -1636,6 +1650,8 @@
 		7B5FAAC922BCE71400621A44 /* AccountBalanceUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountBalanceUseCaseProtocol.swift; sourceTree = "<group>"; };
 		7B5FAACB22BCE8D800621A44 /* AliasesUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasesUseCaseProtocol.swift; sourceTree = "<group>"; };
 		7B5FAACD22BCE98F00621A44 /* MigrationUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationUseCaseProtocol.swift; sourceTree = "<group>"; };
+		7B60E2BB2316CBEA00113C38 /* ConfirmRequestTransactionKindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestTransactionKindView.swift; sourceTree = "<group>"; };
+		7B60E2BD2316CC0400113C38 /* ConfirmRequestTransactionKindView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmRequestTransactionKindView.xib; sourceTree = "<group>"; };
 		7B65B6F222F9D03E007D5C53 /* WidgetSettingsSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsSkeletonCell.swift; sourceTree = "<group>"; };
 		7B65B6F422F9D63D007D5C53 /* KeyboardControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardControl.swift; sourceTree = "<group>"; };
 		7B65B6F622F9D647007D5C53 /* KeyboardControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KeyboardControl.xib; sourceTree = "<group>"; };
@@ -3505,6 +3521,7 @@
 		7B368196231425ED000D5592 /* ConfirmRequest */ = {
 			isa = PBXGroup;
 			children = (
+				7B3681A52315531B000D5592 /* Views */,
 				7B3681972314260C000D5592 /* ConfirmRequestViewController.swift */,
 				7B36819923142625000D5592 /* ConfirmRequestType.swift */,
 				7B36819C23142639000D5592 /* ConfirmRequestSystem.swift */,
@@ -3512,6 +3529,21 @@
 				7B3681A023142A33000D5592 /* ConfirmRequestModuleOutput.swift */,
 			);
 			path = ConfirmRequest;
+			sourceTree = "<group>";
+		};
+		7B3681A52315531B000D5592 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7B60E2BD2316CC0400113C38 /* ConfirmRequestTransactionKindView.xib */,
+				7B60E2BB2316CBEA00113C38 /* ConfirmRequestTransactionKindView.swift */,
+				7B3681A62315534E000D5592 /* ConfirmRequestTransactionKindCell.swift */,
+				7B3681A823155499000D5592 /* ConfirmRequestFromToCell.swift */,
+				7B3681AA231555B8000D5592 /* ConfirmRequestKeyValueCell.swift */,
+				7B3681AC231556B4000D5592 /* ConfirmRequestFeeAndTimestampCell.swift */,
+				7B3681AE23155805000D5592 /* ConfirmRequestBalanceCell.swift */,
+				7B3681B02315612C000D5592 /* ConfirmRequestSkeletonCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		7B3902AE2237D74400AAFDB8 /* Cell */ = {
@@ -6259,6 +6291,7 @@
 				E9B087B02163886800937644 /* DexOrderBookHeaderView.xib in Resources */,
 				7BFB475C22FC5AD0002B19F8 /* Fabric-Info.plist in Resources */,
 				E9B087E32163886800937644 /* DexCreateOrderInputView.xib in Resources */,
+				7B60E2BE2316CC0500113C38 /* ConfirmRequestTransactionKindView.xib in Resources */,
 				E9D36DE92175C755001E6DF0 /* AssetSelectView.xib in Resources */,
 				7BDA6AE2223025AD001DE71C /* BalanceLabel.xib in Resources */,
 				E96358A622A73D70008A3395 /* WalletClearAssetsView.xib in Resources */,
@@ -7025,6 +7058,7 @@
 				0A071E7E215DB158007D9750 /* ChooseAccountPresenter.swift in Sources */,
 				E9D36DD82175C755001E6DF0 /* ReceiveCardInteractor.swift in Sources */,
 				0A4E71962216E98200A46613 /* SendFeeIndicatorCell.swift in Sources */,
+				7B3681AB231555B8000D5592 /* ConfirmRequestKeyValueCell.swift in Sources */,
 				E9B087BE2163886800937644 /* SearchBarView.swift in Sources */,
 				7BFB481B22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift in Sources */,
 				7B88186F2305639600AB0549 /* ActionSheet.swift in Sources */,
@@ -7255,6 +7289,7 @@
 				0ADD802A21F22FFA0075FC59 /* EnterLanguageCoordinator.swift in Sources */,
 				E921ED04222DDA4600DE286D /* DexScriptAssetMessageViewController.swift in Sources */,
 				0A43996921504CF60032E608 /* SideMenu.swift in Sources */,
+				7B3681B12315612C000D5592 /* ConfirmRequestSkeletonCell.swift in Sources */,
 				04A403242164D89700652F21 /* EnterStartBlockCell.swift in Sources */,
 				7B39029D2236ABFF00AAFDB8 /* TransactionCardStatusCell.swift in Sources */,
 				E9D36DF12175C755001E6DF0 /* AssetListModuleBuilder.swift in Sources */,
@@ -7265,6 +7300,7 @@
 				7BFB480822FC742F002B19F8 /* SkeletonAnimatable.swift in Sources */,
 				0A59330C218343B00059A77A /* AddressesKeysAliacesCell.swift in Sources */,
 				0AFF5C7B215BCFEA00B82940 /* AccountPasswordModuleBuilder.swift in Sources */,
+				7B3681A923155499000D5592 /* ConfirmRequestFromToCell.swift in Sources */,
 				0AF921EC212E07B3003BA067 /* AssetDetailInteractorProtocol.swift in Sources */,
 				0ADD6C87216796DB00B06917 /* ProfileLanguageCell.swift in Sources */,
 				E9236F1D2216F35B00A12FD5 /* AppNewsView.swift in Sources */,
@@ -7326,10 +7362,12 @@
 				E9CD0D2C218099FB001A99B3 /* SendMoneroPaymentIdView.swift in Sources */,
 				04016DFC219420C900BA5235 /* ImportAccountViewController.swift in Sources */,
 				0ADD802521F22FFA0075FC59 /* SlideMenuRouter.swift in Sources */,
+				7B3681AF23155805000D5592 /* ConfirmRequestBalanceCell.swift in Sources */,
 				E9D36DE22175C755001E6DF0 /* ReceiveAddressModuleBuilder.swift in Sources */,
 				E9B087E82163886800937644 /* DexCreateOrderInteractorProtocol.swift in Sources */,
 				7B49911E22F875A1005B7123 /* AssetsSearchViewBuilder.swift in Sources */,
 				04615A23211A31C90000FF80 /* HistoryModuleInput.swift in Sources */,
+				7B3681A72315534E000D5592 /* ConfirmRequestTransactionKindCell.swift in Sources */,
 				0AA8CAD22152763A000D09E6 /* PasscodeView.swift in Sources */,
 				E9B086B62163883000937644 /* AddressBookPresenter.swift in Sources */,
 				04E1C3562126157000C702BA /* HeaderSkeletonView.swift in Sources */,
@@ -7389,6 +7427,7 @@
 				E9B087EC2163886800937644 /* DexLastTradesModuleBuilder.swift in Sources */,
 				7BFB480322FC742F002B19F8 /* SmartTransactionKind+UIImage.swift in Sources */,
 				0A6AC3DE2183CEFF005D2525 /* AddressesKeysSkeletonCell.swift in Sources */,
+				7B3681AD231556B4000D5592 /* ConfirmRequestFeeAndTimestampCell.swift in Sources */,
 				0A2B7D37216038540098438D /* HalfModalInteractiveTransition.swift in Sources */,
 				E9D36DEC2175C755001E6DF0 /* ReceiveInvoiceModuleBuilder.swift in Sources */,
 				E97EC83F20E67BE900AB006B /* NewAccountViewController.swift in Sources */,
@@ -7448,6 +7487,7 @@
 				04F2DD2E219F27AB0070AF9D /* MultilineTextField.swift in Sources */,
 				E991BB242202D5740022E27D /* SendFeeInteractor.swift in Sources */,
 				0A593312218344000059A77A /* AddressesKeysHiddenPrivateKeyCell.swift in Sources */,
+				7B60E2BC2316CBEA00113C38 /* ConfirmRequestTransactionKindView.swift in Sources */,
 				E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */,
 				E9D36DED2175C755001E6DF0 /* ReceiveInvoiveTypes.swift in Sources */,
 				E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */,

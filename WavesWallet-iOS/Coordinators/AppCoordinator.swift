@@ -12,6 +12,7 @@ import RxSwift
 import RESideMenu
 import RxOptional
 import WavesSDKExtensions
+import WavesSDK
 import Extensions
 import DomainLayer
 
@@ -86,6 +87,10 @@ final class AppCoordinator: Coordinator {
         if let deepLink = deepLink {
             openURL(link: deepLink)
         }
+        
+        if let data = WavesKeeper().decodableData(URL.init(string: "waves://")!, sourceApplication: "") {
+            self.showDisplay(.mobileKeeper(data))
+        }
     }
 
     private var isMainTabDisplayed: Bool {
@@ -96,13 +101,13 @@ final class AppCoordinator: Coordinator {
 // MARK: Methods for showing differnt displays
 extension AppCoordinator: PresentationCoordinator {
 
-    enum Display: Equatable {
+    enum Display {
         case hello
         case slide(DomainLayer.DTO.Wallet)
         case enter
         case passcode(DomainLayer.DTO.Wallet)
         case widgetSettings
-        case mobileKeeper
+        case mobileKeeper(WavesKeeper.Data)
     }
 
     func showDisplay(_ display: AppCoordinator.Display) {
@@ -150,15 +155,15 @@ extension AppCoordinator: PresentationCoordinator {
             let coordinator = WidgetSettingsCoordinator(windowRouter: windowRouter)
             addChildCoordinatorAndStart(childCoordinator: coordinator)
             
-        case .mobileKeeper:
+        case .mobileKeeper(let data):
             
 //            guard isHasCoordinator(type: WidgetSettingsCoordinator.self) != true else {
 //                return
 //            }
             
-            let coordinator = MobileKeeperCoordinator(windowRouter: windowRouter)
+            let coordinator = MobileKeeperCoordinator(windowRouter: windowRouter, data: data)
             addChildCoordinatorAndStart(childCoordinator: coordinator)
-            
+ 
         }
     }
     
@@ -166,8 +171,8 @@ extension AppCoordinator: PresentationCoordinator {
         
         if link.url.absoluteString == DeepLink.widgetSettings {
             self.showDisplay(.widgetSettings)
-        } else if link.url.absoluteString == DeepLink.mobileKeeper {
-            self.showDisplay(.mobileKeeper)
+        } else if let data = WavesKeeper().decodableData(link.url, sourceApplication: link.source) {
+            self.showDisplay(.mobileKeeper(data))
         }
     }
 }

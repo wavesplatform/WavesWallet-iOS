@@ -95,19 +95,43 @@ extension ConfirmRequestViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let row = self[indexPath]
-
-        return UITableViewCell()
-//        switch row {
-//        case .asset(let model):
-//            let cell: WidgetSettingsAssetCell = tableView.dequeueCellForIndexPath(indexPath: indexPath)
-//            cell.update(with: model)
-//            return cell
-//
-//        case .skeleton:
-//            let cell: WidgetSettingsSkeletonCell = tableView.dequeueCellForIndexPath(indexPath: indexPath)
-//            cell.startAnimation()
-//            return cell
-//        }
+        
+        switch row {
+        case .transactionKind(let model):
+            let cell: ConfirmRequestTransactionKindCell = tableView.dequeueCellForIndexPath(indexPath: indexPath)
+            cell.update(with: model)
+            return cell
+            
+        case .balance(let model):
+            return UITableViewCell()
+            let cell: ConfirmRequestBalanceCell = tableView.dequeueCellForIndexPath(indexPath: indexPath)
+            cell.update(with: model)
+            return cell
+            
+        case .feeAndTimestamp(let model):
+            return UITableViewCell()
+            let cell: ConfirmRequestFeeAndTimestampCell = tableView.dequeueCellForIndexPath(indexPath: indexPath)
+            cell.update(with: model)
+            return cell
+            
+        case .fromTo(let model):
+            return UITableViewCell()
+            let cell: ConfirmRequestFromToCell = tableView.dequeueCellForIndexPath(indexPath: indexPath)
+            cell.update(with: model)
+            return cell
+            
+        case .keyValue(let model):
+            return UITableViewCell()
+            let cell: ConfirmRequestKeyValueCell = tableView.dequeueCellForIndexPath(indexPath: indexPath)
+            cell.update(with: model)
+            return cell
+            
+        case .skeleton:
+            return UITableViewCell()
+            let cell: ConfirmRequestSkeletonCell = tableView.dequeueCellForIndexPath(indexPath: indexPath)
+            cell.startAnimation()
+            return cell
+        }
     }
 }
 

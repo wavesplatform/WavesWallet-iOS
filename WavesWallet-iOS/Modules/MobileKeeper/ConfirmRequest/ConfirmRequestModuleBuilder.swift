@@ -9,17 +9,18 @@
 import Foundation
 import UIKit
 import Extensions
+import WavesSDK
 
 struct ConfirmRequestModuleBuilder: ModuleBuilderOutput {
     
-    typealias Input = Void
+    typealias Input = ConfirmRequest.DTO.Input
     
     let output: ConfirmRequestModuleOutput
     
     func build(input: ConfirmRequestModuleBuilder.Input) -> UIViewController {
         
-        let vc = StoryboardScene.WidgetSettings.widgetSettingsViewController.instantiate()
-        vc.system = WidgetSettingsCardSystem()
+        let vc = StoryboardScene.MobileKeeper.confirmRequestViewController.instantiate()
+        vc.system = ConfirmRequestSystem(input: input)
         
         return vc
     }

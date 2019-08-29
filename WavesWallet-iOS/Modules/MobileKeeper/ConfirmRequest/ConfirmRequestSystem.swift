@@ -13,12 +13,19 @@ import RxSwift
 import RxCocoa
 import Extensions
 import WavesSDKExtensions
+import WavesSDK
 
 private typealias Types = ConfirmRequest
 
 final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Event> {
     
     private lazy var widgetSettingsUseCase: WidgetSettingsUseCaseProtocol = UseCasesFactory.instance.widgetSettings
+    
+    private let input: ConfirmRequest.DTO.Input
+    
+    init(input: ConfirmRequest.DTO.Input) {
+        self.input = input
+    }
     
     override func initialState() -> State! {
         return ConfirmRequest.State(ui: uiState(),
@@ -76,8 +83,41 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
     }
     
     private func sections() -> [Types.Section] {
+
         
-        let rows = [Types.Row.kind, Types.Row.fromTo]
+        let kind = ConfirmRequestTransactionKindCell.Model.init(title: "Alalal",
+                                                                image: UIImage(),
+                                                                info: .descriptionLabel("Alalaba"))
+        
+        
+        let fromTo = ConfirmRequestFromToCell.Model.init(address: "a232324234234",
+                                                         dAppIcon: "asdasd",
+                                                         dAppName: "alaxsam")
+        
+        let keyValue = ConfirmRequestKeyValueCell.Model.init(title: "alamr",
+                                                             value: "213123")
+        
+        let balance = BalanceLabel.Model.init(balance: Balance.init(currency: .init(title: "233", ticker: "sd"),
+                                                                    money: Money.init(0, 2)),
+                                              sign: .minus,
+                                              style: .large)
+        
+        let fee = ConfirmRequestFeeAndTimestampCell.Model.init(date: Date(), feeBalance: balance)
+        
+        let balancePay = ConfirmRequestBalanceCell.Model.init(title: "Payment", feeBalance: balance)
+        
+        
+        let kindNew = ConfirmRequestTransactionKindCell.Model.init(title: "Alalal",
+                                                                   image: Images.addaddress24Submit300.image,
+                                                                   info: .balance(balance))
+        
+        let rows = [Types.Row.transactionKind(kind),
+                    Types.Row.transactionKind(kindNew),
+                    Types.Row.fromTo(fromTo),
+                    Types.Row.keyValue(keyValue),
+                    .feeAndTimestamp(fee),
+                    .balance(balancePay),
+                    .skeleton]
         
         return [Types.Section(rows: rows)]
     }

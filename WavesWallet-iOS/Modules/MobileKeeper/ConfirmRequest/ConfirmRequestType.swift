@@ -8,10 +8,18 @@
 
 import Foundation
 import WavesSDK
+import WavesSDKCrypto
 import Extensions
 import DomainLayer
 
 enum ConfirmRequest {
+    
+    enum DTO {
+        struct Input {
+            let data: WavesKeeper.Data
+            let signedWallet: DomainLayer.DTO.SignedWallet
+        }
+    }
     
     struct State {
         
@@ -49,13 +57,105 @@ enum ConfirmRequest {
     }
     
     enum Row {
-        case kind
-        case fromTo
-        case keyValue
-        case doubleKeyValue
-        case buttons
-//        case skeleton
+        case transactionKind(ConfirmRequestTransactionKindCell.Model)
+        case fromTo(ConfirmRequestFromToCell.Model)
+        case keyValue(ConfirmRequestKeyValueCell.Model)
+        case feeAndTimestamp(ConfirmRequestFeeAndTimestampCell.Model)
+        case balance(ConfirmRequestBalanceCell.Model)
+        case skeleton
     }
 }
 
 
+/*
+    Transfer from URL -> ConfirmRequest.DTO.Transfer + Wallet +
+        + Timestamp + Proof + TXID -> ConfirmRequest.DTO.Request
+                
+
+*/
+
+
+extension ConfirmRequest.DTO {
+    
+    struct Request {
+        let transaction: Transaction
+        let signedWallet: DomainLayer.DTO.SignedWallet
+        let timestamp: Date
+        let proof: [Bytes]
+        let txId: String
+    }
+    
+    enum Transaction {
+        case transfer(Transfer)
+        case data(Data)
+        case invokeScript(InvokeScript)
+    }
+    
+    
+    struct Transfer {
+        let recipient: String
+        let asset: DomainLayer.DTO.Asset
+        let amount: Money
+        
+        let feeAsset: DomainLayer.DTO.Asset
+        let fee: Money
+        
+        let attachment: String
+        let chainId: String
+    }
+
+    struct Data {
+        struct Value {
+            enum Kind {
+                case integer(Int64)
+                case boolean(Bool)
+                case string(String)
+                case binary(Base64)
+            }
+            
+            let key: String
+            let value: Kind
+        }
+        
+        let fee: Money
+        let feeAsset: DomainLayer.DTO.Asset
+        let data: [Value]
+        let chainId: String
+        
+    }
+    
+    struct InvokeScript {
+        struct Arg {
+            enum Value {
+                case bool(Bool) //boolean
+                case integer(Int) // integer
+                case string(String) // string
+                case binary(String) // binary
+            }
+            
+            let value: Value
+        }
+        
+        struct Call {
+            let function: String
+            let args: [Arg]
+            
+            init(function: String, args: [Arg]) {
+                self.function = function
+                self.args = args
+            }
+        }
+        
+        struct Payment {
+            let amount: Int64
+            let assetId: String
+        }
+        
+        let fee: Money
+        let feeAsset: DomainLayer.DTO.Asset
+        let chainId: String
+        let dApp: String
+        let call: Call?
+        let payment: [Payment]
+    }
+}

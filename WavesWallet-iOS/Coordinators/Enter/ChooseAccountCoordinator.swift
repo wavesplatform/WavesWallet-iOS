@@ -30,7 +30,7 @@ final class ChooseAccountCoordinator: Coordinator {
     
     private var viewControllers: [UIViewController]? = nil
     
-    init(navigationRouter: NavigationRouter, applicationCoordinator: ApplicationCoordinatorProtocol) {
+    init(navigationRouter: NavigationRouter, applicationCoordinator: ApplicationCoordinatorProtocol?) {
         self.navigationRouter = navigationRouter
         self.applicationCoordinator = applicationCoordinator
     }
@@ -209,8 +209,9 @@ extension ChooseAccountCoordinator: AccountPasswordModuleOutput {
 extension ChooseAccountCoordinator: PasscodeLogInCoordinatorDelegate {
 
     func passcodeCoordinatorLogInCompleted(wallet: DomainLayer.DTO.Wallet) {
-        delegate?.userChooseCompleted(wallet: wallet)
+        //TODO: Как бы сбросить состояние по другому?
         self.navigationRouter.navigationController.viewControllers = self.viewControllers ?? []
+        delegate?.userChooseCompleted(wallet: wallet)
         removeFromParentCoordinator()
     }
 }
@@ -221,14 +222,16 @@ extension ChooseAccountCoordinator: PasscodeCoordinatorDelegate {
     func passcodeCoordinatorVerifyAcccesCompleted(signedWallet: DomainLayer.DTO.SignedWallet) {}
 
     func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {
-        delegate?.userChooseCompleted(wallet: wallet)
+        //TODO: Как бы сбросить состояние по другому?
         self.navigationRouter.navigationController.viewControllers = self.viewControllers ?? []
+        delegate?.userChooseCompleted(wallet: wallet)
         removeFromParentCoordinator()
     }
 
     func passcodeCoordinatorWalletLogouted() {
-        self.applicationCoordinator?.showEnterDisplay()
+        //TODO: Как бы сбросить состояние по другому?
         self.navigationRouter.navigationController.viewControllers = self.viewControllers ?? []
+        self.applicationCoordinator?.showEnterDisplay()
         removeFromParentCoordinator()
     }
 }

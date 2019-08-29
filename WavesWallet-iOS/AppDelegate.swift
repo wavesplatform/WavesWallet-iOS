@@ -15,6 +15,7 @@ import AppsFlyerLib
 
 import WavesSDKExtensions
 import WavesSDK
+import WavesSDKCrypto
 
 import Extensions
 import DomainLayer
@@ -68,6 +69,8 @@ enum UITest {
         if let url = url {
             deepLink = DeepLink(source: sourceApplication, url: url)
         }
+        
+    
         
         guard setupLayers() else { return false }
         

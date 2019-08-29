@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import DomainLayer
+import WavesSDK
 
 final class MobileKeeperCoordinator: Coordinator {
     
@@ -25,9 +26,11 @@ final class MobileKeeperCoordinator: Coordinator {
     private lazy var popoverViewControllerTransitioning = ModalViewControllerTransitioning { [weak self] in
         guard let self = self else { return }
     }
+    private let data: WavesKeeper.Data
     
-    init(windowRouter: WindowRouter) {
+    init(windowRouter: WindowRouter, data: WavesKeeper.Data) {
         
+        self.data = data
         let window = UIWindow()
         window.windowLevel = UIWindow.Level.init(rawValue: UIWindow.Level.normal.rawValue + 1.0)
         self.windowRouter = WindowRouter.windowFactory(window: window)
@@ -38,6 +41,7 @@ final class MobileKeeperCoordinator: Coordinator {
         
         windowRouter.setRootViewController(self.navigationRouter.navigationController)
         let coordinator = ChooseAccountCoordinator(navigationRouter: navigationRouter, applicationCoordinator: self)
+        coordinator.delegate = self
         addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
 }
@@ -55,10 +59,21 @@ extension MobileKeeperCoordinator: ApplicationCoordinatorProtocol {
 extension MobileKeeperCoordinator: ChooseAccountCoordinatorDelegate {
     
     func userChooseCompleted(wallet: DomainLayer.DTO.Wallet) {
-        self.windowRouter.dissmissWindow()
         
-        let vc = ConfirmRequestModuleBuilder(output: self).build()
-        navigationRouter.pushViewController(vc)
+        UseCasesFactory
+            .instance
+            .authorization
+            .authorizedWallet()
+            .take(1)
+            .subscribe(onNext: { [weak self] (wallet) in
+                guard let self = self else { return }
+                
+                let vc = ConfirmRequestModuleBuilder(output: self)
+                    .build(input: .init(data: self.data, signedWallet: wallet ))
+                
+                self.navigationRouter.pushViewController(vc)
+            })
+            .disposed(by: disposeBag)
     }
     
     func userDidTapBackButton() {
