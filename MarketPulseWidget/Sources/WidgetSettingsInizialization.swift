@@ -22,15 +22,21 @@ private final class SpamAssetsRepository: SpamAssetsRepositoryProtocol {
 
 class WidgetSettingsInizialization: WidgetSettingsInizializationUseCaseProtocol {
     
-    private let widgetSettingsStorage: WidgetSettingsRepositoryProtocol = WidgetSettingsRepositoryStorage()
-    private let matcherRepository: MatcherRepositoryProtocol = MatcherRepositoryRemote(environmentRepository: WidgetEnvironment.shared.environmentRepository)
-    private let dexPairsPriceRepository: DexPairsPriceRepositoryProtocol = DexPairsPriceRepositoryRemote(environmentRepository: WidgetEnvironment.shared.environmentRepository)
     
+    private let widgetSettingsStorage: WidgetSettingsRepositoryProtocol = WidgetSettingsRepositoryStorage()
+    private let matcherRepository: WidgetMatcherRepositoryProtocol = WidgetMatcherRepositoryRemote()
+    private let pairsPriceRepository: WidgetPairsPriceRepositoryProtocol = WidgetPairsPriceRepositoryRemote()
+    
+    
+    // TODO:
     private lazy var assetsRepository: AssetsRepositoryProtocol = AssetsRepositoryRemote(environmentRepository: WidgetEnvironment.shared.environmentRepository,
                                                                                          spamAssetsRepository: fakeSpamRepository)
     private lazy var fakeSpamRepository: SpamAssetsRepositoryProtocol = {
+       
         return SpamAssetsRepository()
     }()
+    
+    // TODO:
     
     func settings() -> Observable<DomainLayer.DTO.MarketPulseSettings> {
         
@@ -64,7 +70,7 @@ class WidgetSettingsInizialization: WidgetSettingsInizializationUseCaseProtocol 
                         
                         
                         //TODO: Remove
-                        return self.dexPairsPriceRepository
+                        return self.pairsPriceRepository
                             .searchPairs(.init(kind: .pairs(pairsAfterCorrection.map { .init(amountAsset: $0.amountAsset,
                                                                                              priceAsset: $0.priceAsset) })))
                             .map({ (pairs) -> [DomainLayer.DTO.CorrectionPairs.Pair] in

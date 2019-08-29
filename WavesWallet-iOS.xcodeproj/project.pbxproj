@@ -732,6 +732,19 @@
 		E923A768219D714E000DD9F6 /* TokenBurnLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923A767219D714E000DD9F6 /* TokenBurnLoadingViewController.swift */; };
 		E923A76D219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923A76C219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift */; };
 		E92703C6226FDD0C0022D5F0 /* WalletSortPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92703C5226FDD0C0022D5F0 /* WalletSortPresenter.swift */; };
+		E92A11642317CE35004EC6A1 /* WidgetPairsPriceDataTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A11632317CE35004EC6A1 /* WidgetPairsPriceDataTarget.swift */; };
+		E92A11682317CEF6004EC6A1 /* WidgetPairsPriceDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A11672317CEF6004EC6A1 /* WidgetPairsPriceDataService.swift */; };
+		E92A116B2317CF9A004EC6A1 /* InternalWidgetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A116A2317CF9A004EC6A1 /* InternalWidgetService.swift */; };
+		E92A116D2317D12F004EC6A1 /* WidgetDataServiceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A116C2317D12F004EC6A1 /* WidgetDataServiceTypes.swift */; };
+		E92A11702317D1DD004EC6A1 /* WidgetPairPriceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A116F2317D1DD004EC6A1 /* WidgetPairPriceData.swift */; };
+		E92A11722317D2E9004EC6A1 /* WidgetResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A11712317D2E9004EC6A1 /* WidgetResponseData.swift */; };
+		E92A11752317D5DB004EC6A1 /* WidgetPairsPriceRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A11742317D5DB004EC6A1 /* WidgetPairsPriceRepositoryRemote.swift */; };
+		E92A11772317DB2E004EC6A1 /* WidgetMatcherRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A11762317DB2E004EC6A1 /* WidgetMatcherRepositoryRemote.swift */; };
+		E92A117B2317DD6F004EC6A1 /* WidgetMatcherServiceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A117A2317DD6F004EC6A1 /* WidgetMatcherServiceTypes.swift */; };
+		E92A117E2317DF4B004EC6A1 /* WidgetSettingsMarcherTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A117D2317DF4B004EC6A1 /* WidgetSettingsMarcherTarget.swift */; };
+		E92A11812317E10C004EC6A1 /* WidgetMatcherSettingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A11802317E10C004EC6A1 /* WidgetMatcherSettingService.swift */; };
+		E92A11832317E7A9004EC6A1 /* WidgetAssetsRepositoryRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A11822317E7A9004EC6A1 /* WidgetAssetsRepositoryRemote.swift */; };
+		E92A11852317E883004EC6A1 /* WidgetAssetsDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92A11842317E883004EC6A1 /* WidgetAssetsDataService.swift */; };
 		E92FAD0E226F6C050054D4AA /* WalletSortSeparatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92FAD0C226F6C050054D4AA /* WalletSortSeparatorCell.swift */; };
 		E92FAD0F226F6C050054D4AA /* WalletSortSeparatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E92FAD0D226F6C050054D4AA /* WalletSortSeparatorCell.xib */; };
 		E9310D0C217924D0008BF3EE /* SendConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9310D0B217924D0008BF3EE /* SendConfirmationViewController.swift */; };
@@ -1997,6 +2010,19 @@
 		E923A767219D714E000DD9F6 /* TokenBurnLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnLoadingViewController.swift; sourceTree = "<group>"; };
 		E923A76C219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnCompleteViewController.swift; sourceTree = "<group>"; };
 		E92703C5226FDD0C0022D5F0 /* WalletSortPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletSortPresenter.swift; sourceTree = "<group>"; };
+		E92A11632317CE35004EC6A1 /* WidgetPairsPriceDataTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetPairsPriceDataTarget.swift; sourceTree = "<group>"; };
+		E92A11672317CEF6004EC6A1 /* WidgetPairsPriceDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetPairsPriceDataService.swift; sourceTree = "<group>"; };
+		E92A116A2317CF9A004EC6A1 /* InternalWidgetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalWidgetService.swift; sourceTree = "<group>"; };
+		E92A116C2317D12F004EC6A1 /* WidgetDataServiceTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetDataServiceTypes.swift; sourceTree = "<group>"; };
+		E92A116F2317D1DD004EC6A1 /* WidgetPairPriceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetPairPriceData.swift; sourceTree = "<group>"; };
+		E92A11712317D2E9004EC6A1 /* WidgetResponseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetResponseData.swift; sourceTree = "<group>"; };
+		E92A11742317D5DB004EC6A1 /* WidgetPairsPriceRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetPairsPriceRepositoryRemote.swift; sourceTree = "<group>"; };
+		E92A11762317DB2E004EC6A1 /* WidgetMatcherRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetMatcherRepositoryRemote.swift; sourceTree = "<group>"; };
+		E92A117A2317DD6F004EC6A1 /* WidgetMatcherServiceTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetMatcherServiceTypes.swift; sourceTree = "<group>"; };
+		E92A117D2317DF4B004EC6A1 /* WidgetSettingsMarcherTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsMarcherTarget.swift; sourceTree = "<group>"; };
+		E92A11802317E10C004EC6A1 /* WidgetMatcherSettingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetMatcherSettingService.swift; sourceTree = "<group>"; };
+		E92A11822317E7A9004EC6A1 /* WidgetAssetsRepositoryRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetAssetsRepositoryRemote.swift; sourceTree = "<group>"; };
+		E92A11842317E883004EC6A1 /* WidgetAssetsDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetAssetsDataService.swift; sourceTree = "<group>"; };
 		E92FAD0C226F6C050054D4AA /* WalletSortSeparatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortSeparatorCell.swift; sourceTree = "<group>"; };
 		E92FAD0D226F6C050054D4AA /* WalletSortSeparatorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSortSeparatorCell.xib; sourceTree = "<group>"; };
 		E9310D0B217924D0008BF3EE /* SendConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendConfirmationViewController.swift; sourceTree = "<group>"; };
@@ -4482,6 +4508,89 @@
 			path = Complete;
 			sourceTree = "<group>";
 		};
+		E92A115F2317CD06004EC6A1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E92A116A2317CF9A004EC6A1 /* InternalWidgetService.swift */,
+				E92A11792317DCDA004EC6A1 /* Matcher */,
+				E92A11652317CEC5004EC6A1 /* Data */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E92A11622317CE08004EC6A1 /* Targets */ = {
+			isa = PBXGroup;
+			children = (
+				E92A11632317CE35004EC6A1 /* WidgetPairsPriceDataTarget.swift */,
+			);
+			path = Targets;
+			sourceTree = "<group>";
+		};
+		E92A11652317CEC5004EC6A1 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E92A116C2317D12F004EC6A1 /* WidgetDataServiceTypes.swift */,
+				E92A116E2317D1D2004EC6A1 /* Models */,
+				E92A11662317CED3004EC6A1 /* Services */,
+				E92A11622317CE08004EC6A1 /* Targets */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		E92A11662317CED3004EC6A1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E92A11672317CEF6004EC6A1 /* WidgetPairsPriceDataService.swift */,
+				E92A11842317E883004EC6A1 /* WidgetAssetsDataService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E92A116E2317D1D2004EC6A1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E92A11712317D2E9004EC6A1 /* WidgetResponseData.swift */,
+				E92A116F2317D1DD004EC6A1 /* WidgetPairPriceData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E92A11782317DB37004EC6A1 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				E92A11742317D5DB004EC6A1 /* WidgetPairsPriceRepositoryRemote.swift */,
+				E92A11762317DB2E004EC6A1 /* WidgetMatcherRepositoryRemote.swift */,
+				E92A11822317E7A9004EC6A1 /* WidgetAssetsRepositoryRemote.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		E92A11792317DCDA004EC6A1 /* Matcher */ = {
+			isa = PBXGroup;
+			children = (
+				E92A117A2317DD6F004EC6A1 /* WidgetMatcherServiceTypes.swift */,
+				E92A117F2317E0E2004EC6A1 /* Services */,
+				E92A117C2317DF2D004EC6A1 /* Targets */,
+			);
+			path = Matcher;
+			sourceTree = "<group>";
+		};
+		E92A117C2317DF2D004EC6A1 /* Targets */ = {
+			isa = PBXGroup;
+			children = (
+				E92A117D2317DF4B004EC6A1 /* WidgetSettingsMarcherTarget.swift */,
+			);
+			path = Targets;
+			sourceTree = "<group>";
+		};
+		E92A117F2317E0E2004EC6A1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E92A11802317E10C004EC6A1 /* WidgetMatcherSettingService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		E92FF25121A43B3B00CBFF07 /* Complete */ = {
 			isa = PBXGroup;
 			children = (
@@ -4547,6 +4656,7 @@
 		E958571422F35BBD007A0178 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				E92A115F2317CD06004EC6A1 /* Services */,
 				7B848A67230076AE0092AD18 /* Generated */,
 				E958571822F35C87007A0178 /* Repositories */,
 				E991F8FD22E8CF9D008D1AE4 /* Presenter */,
@@ -4573,6 +4683,7 @@
 		E958571822F35C87007A0178 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				E92A11782317DB37004EC6A1 /* Network */,
 				E958571F22F3BBA0007A0178 /* MarketPulseDataBaseRepository.swift */,
 				E958571E22F3BB9F007A0178 /* MarketPulseDataBaseRepositoryProtocol.swift */,
 			);
@@ -6851,17 +6962,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E92A11702317D1DD004EC6A1 /* WidgetPairPriceData.swift in Sources */,
+				E92A11642317CE35004EC6A1 /* WidgetPairsPriceDataTarget.swift in Sources */,
 				E958572122F3BBA0007A0178 /* MarketPulseDataBaseRepository.swift in Sources */,
 				E991F8FF22E8CFC1008D1AE4 /* MarketPulseWidgetInteractor.swift in Sources */,
 				7B848A6B230077550092AD18 /* Images.swift in Sources */,
 				E958572022F3BBA0007A0178 /* MarketPulseDataBaseRepositoryProtocol.swift in Sources */,
 				E958571322F2E73D007A0178 /* WidgetSettings.swift in Sources */,
 				E991F90122E8CFD3008D1AE4 /* MarketPulseWidgetPresenter.swift in Sources */,
+				E92A11722317D2E9004EC6A1 /* WidgetResponseData.swift in Sources */,
+				E92A117B2317DD6F004EC6A1 /* WidgetMatcherServiceTypes.swift in Sources */,
+				E92A117E2317DF4B004EC6A1 /* WidgetSettingsMarcherTarget.swift in Sources */,
 				E9B190AC22E7CD99008220B7 /* MarketPulseWidgetViewController.swift in Sources */,
+				E92A116B2317CF9A004EC6A1 /* InternalWidgetService.swift in Sources */,
 				E936C2EC2314C3700097515B /* WidgetEnvironment.swift in Sources */,
 				E936C2EA2314BF590097515B /* WidgetSettingsInizialization.swift in Sources */,
+				E92A116D2317D12F004EC6A1 /* WidgetDataServiceTypes.swift in Sources */,
+				E92A11832317E7A9004EC6A1 /* WidgetAssetsRepositoryRemote.swift in Sources */,
+				E92A11812317E10C004EC6A1 /* WidgetMatcherSettingService.swift in Sources */,
+				E92A11852317E883004EC6A1 /* WidgetAssetsDataService.swift in Sources */,
+				E92A11682317CEF6004EC6A1 /* WidgetPairsPriceDataService.swift in Sources */,
 				E95310B322E8507500F72809 /* MarketPulseWidgetCell.swift in Sources */,
 				7B848A69230076AE0092AD18 /* Localizable.swift in Sources */,
+				E92A11752317D5DB004EC6A1 /* WidgetPairsPriceRepositoryRemote.swift in Sources */,
+				E92A11772317DB2E004EC6A1 /* WidgetMatcherRepositoryRemote.swift in Sources */,
 				E95310BC22E85FEE00F72809 /* MarketPulseTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

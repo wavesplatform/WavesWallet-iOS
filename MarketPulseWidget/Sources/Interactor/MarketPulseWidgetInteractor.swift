@@ -24,7 +24,7 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
   
     private lazy var widgetSettingsRepository: WidgetSettingsInizializationUseCaseProtocol = WidgetSettingsInizialization()
     
-    private lazy var dexPairsPriceRepository: DexPairsPriceRepositoryProtocol = DexPairsPriceRepositoryRemote(environmentRepository: WidgetEnvironment.shared.environmentRepository)
+    private lazy var pairsPriceRepository: WidgetPairsPriceRepositoryProtocol = WidgetPairsPriceRepositoryRemote()
     
     private let dbRepository: MarketPulseDataBaseRepositoryProtocol = MarketPulseDataBaseRepository()
     
@@ -115,7 +115,7 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
         let query = assets.map { DomainLayer.Query.Dex.SearchPairs.Pair.init(amountAsset: $0.amountAsset,
                                                                              priceAsset: $0.priceAsset) }
     
-            return dexPairsPriceRepository
+            return pairsPriceRepository
                 .searchPairs(.init(kind: .pairs(query)))
                 .flatMap { [weak self] (searchResult) -> Observable<[MarketPulse.DTO.Asset]> in
 
