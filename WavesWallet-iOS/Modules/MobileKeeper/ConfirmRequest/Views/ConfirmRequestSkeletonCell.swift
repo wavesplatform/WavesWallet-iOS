@@ -11,12 +11,9 @@ import Extensions
 
 final class ConfirmRequestSkeletonCell: SkeletonTableCell, Reusable {
     
-    @IBOutlet weak var viewContainer: UIView!
+    @IBOutlet var viewContent: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        viewContainer.addTableCellShadowStyle()
     }
 }
-
-

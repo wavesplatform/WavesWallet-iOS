@@ -10,10 +10,6 @@ import Foundation
 import UIKit
 import Extensions
 
-private enum Constants {
-    
-}
-
 final class ConfirmRequestKeyValueCell: UITableViewCell, Reusable {
     
     struct Model {
@@ -40,5 +36,3 @@ extension ConfirmRequestKeyValueCell: ViewConfiguration {
         self.valueLabel.text = model.value
     }
 }
-
-

@@ -10,10 +10,6 @@ import Foundation
 import UIKit
 import Extensions
 
-private enum Constants {
-    
-}
-
 final class ConfirmRequestBalanceCell: UITableViewCell, Reusable {
     
     struct Model {
@@ -36,8 +32,8 @@ final class ConfirmRequestBalanceCell: UITableViewCell, Reusable {
 extension ConfirmRequestBalanceCell: ViewConfiguration {
     
     func update(with model: Model) {
-        //        self.titleLabel.text = model.title
-        //        self.valueLabel.text = model.value
+        self.balanceTitleLabel.text = model.title
+        self.balanceLabel.update(with: model.feeBalance)
     }
 }
 

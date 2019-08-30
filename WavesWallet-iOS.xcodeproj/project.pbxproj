@@ -274,6 +274,7 @@
 		609E5D269E468653E7FC67BE /* Pods_MonkeyTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5DB25540D1C1AA8D08E5E18 /* Pods_MonkeyTest.framework */; };
 		61DFA34408BE9AB3B9BDBB97 /* Pods_MarketPulseWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDDA5ADD12EC649EBE0545E8 /* Pods_MarketPulseWidget.framework */; };
 		7B16BCE622DBE49A00540418 /* DomainLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B66860022B3F70D0029E6F1 /* DomainLayer.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7B2408002317F26100D35F59 /* ConfirmRequestButtonsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2407FF2317F26100D35F59 /* ConfirmRequestButtonsCell.swift */; };
 		7B26A87D22ED129300E7B024 /* WidgetSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B26A87C22ED129300E7B024 /* WidgetSettings.storyboard */; };
 		7B26A87F22ED13F300E7B024 /* WidgetSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B26A87E22ED13F300E7B024 /* WidgetSettingsViewController.swift */; };
 		7B26A88122ED140100E7B024 /* WidgetSettingsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B26A88022ED140000E7B024 /* WidgetSettingsType.swift */; };
@@ -1497,6 +1498,7 @@
 		6977F59B28A89A59B2E12E9B /* Pods-Extensions.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Extensions.release-dev.xcconfig"; path = "Target Support Files/Pods-Extensions/Pods-Extensions.release-dev.xcconfig"; sourceTree = "<group>"; };
 		74A4BAA3EB3F818805C5F2C0 /* Pods-DomainLayerTests.test-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DomainLayerTests.test-prod.xcconfig"; path = "Target Support Files/Pods-DomainLayerTests/Pods-DomainLayerTests.test-prod.xcconfig"; sourceTree = "<group>"; };
 		781724FCACBBA0CA1840784E /* Pods_DomainLayerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DomainLayerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B2407FF2317F26100D35F59 /* ConfirmRequestButtonsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestButtonsCell.swift; sourceTree = "<group>"; };
 		7B26A87C22ED129300E7B024 /* WidgetSettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WidgetSettings.storyboard; sourceTree = "<group>"; };
 		7B26A87E22ED13F300E7B024 /* WidgetSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsViewController.swift; sourceTree = "<group>"; };
 		7B26A88022ED140000E7B024 /* WidgetSettingsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsType.swift; sourceTree = "<group>"; };
@@ -3542,6 +3544,7 @@
 				7B3681AC231556B4000D5592 /* ConfirmRequestFeeAndTimestampCell.swift */,
 				7B3681AE23155805000D5592 /* ConfirmRequestBalanceCell.swift */,
 				7B3681B02315612C000D5592 /* ConfirmRequestSkeletonCell.swift */,
+				7B2407FF2317F26100D35F59 /* ConfirmRequestButtonsCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -7245,6 +7248,7 @@
 				E9543902217FF9EC001A7860 /* SendCompleteViewController.swift in Sources */,
 				E9B087D52163886800937644 /* DexListInteractorProtocol.swift in Sources */,
 				E9B087D22163886800937644 /* DexListViewController.swift in Sources */,
+				7B2408002317F26100D35F59 /* ConfirmRequestButtonsCell.swift in Sources */,
 				7BFB480222FC742F002B19F8 /* AssetsRepositoryMock.swift in Sources */,
 				E9CD0D32218137FE001A99B3 /* MainTabBarController.swift in Sources */,
 				0ADD803921F22FFB0075FC59 /* BackupTostCoordinator.swift in Sources */,

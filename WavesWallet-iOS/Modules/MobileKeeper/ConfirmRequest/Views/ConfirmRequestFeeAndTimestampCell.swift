@@ -11,7 +11,7 @@ import UIKit
 import Extensions
 
 private enum Constants {
-    
+    static let dateFormatterKey: String = "ConfirmRequestFeeAndTimestampCell.dateFormatterKey"
 }
 
 final class ConfirmRequestFeeAndTimestampCell: UITableViewCell, Reusable {
@@ -39,8 +39,15 @@ final class ConfirmRequestFeeAndTimestampCell: UITableViewCell, Reusable {
 extension ConfirmRequestFeeAndTimestampCell: ViewConfiguration {
     
     func update(with model: Model) {
-//        self.titleLabel.text = model.title
-//        self.valueLabel.text = model.value
+        
+        let formatter = DateFormatter.uiSharedFormatter(key: Constants.dateFormatterKey)
+        formatter.dateFormat = Localizable.Waves.Transactioncard.Timestamp.format
+        let timestampValue = formatter.string(from: model.date)
+        
+        self.feeTitleLabel.text = "Fee"
+        self.timeTitleLabel.text = "TX time"
+        self.timeValueLabel.text = timestampValue
+        self.balanceLabel.update(with: model.feeBalance)
     }
 }
 

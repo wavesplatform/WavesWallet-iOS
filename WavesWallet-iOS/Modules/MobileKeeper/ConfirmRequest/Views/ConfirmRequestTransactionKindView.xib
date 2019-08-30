@@ -30,40 +30,48 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qWP-Y1-YHh">
-                    <rect key="frame" x="16" y="24" width="48" height="56"/>
+                    <rect key="frame" x="16" y="24" width="48" height="48"/>
                     <constraints>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="48" id="SKX-ls-VR3"/>
+                        <constraint firstAttribute="height" constant="48" id="SKX-ls-VR3"/>
                         <constraint firstAttribute="width" constant="48" id="Yty-qZ-wlz"/>
                     </constraints>
                 </imageView>
-                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CVu-ny-I6T">
-                    <rect key="frame" x="78" y="46" width="322" height="128"/>
+                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="CVu-ny-I6T">
+                    <rect key="frame" x="78" y="46" width="322" height="44"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Idj-cE-XGi" customClass="BalanceLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="162.5" height="128"/>
-                            <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" placeholderIntrinsicWidth="112.5" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="Idj-cE-XGi" customClass="BalanceLabel" customModule="WavesWallet_iOS" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="112.5" height="44"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Script Invocation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kWh-IU-JFr">
-                            <rect key="frame" x="162.5" y="0.0" width="159.5" height="128"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" ambiguous="YES" placeholderIntrinsicWidth="159.5" placeholderIntrinsicHeight="44" text="Script Invocation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kWh-IU-JFr">
+                            <rect key="frame" x="112.5" y="0.0" width="159.5" height="44"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <view contentMode="scaleToFill" horizontalHuggingPriority="253" verticalHuggingPriority="253" ambiguous="YES" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="mcl-8f-odc">
+                            <rect key="frame" x="272" y="0.0" width="50" height="44"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
                     </subviews>
-                    <color key="backgroundColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.71239546649999996" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                 </stackView>
             </subviews>
             <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="CVu-ny-I6T" firstAttribute="leading" secondItem="qWP-Y1-YHh" secondAttribute="trailing" constant="14" id="3Gs-hP-wp3"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="CVu-ny-I6T" secondAttribute="trailing" constant="14" id="Ame-je-6S7"/>
+                <constraint firstItem="CVu-ny-I6T" firstAttribute="top" secondItem="oEn-xt-xnN" secondAttribute="bottom" constant="2" id="5Fq-Nb-2Ea"/>
                 <constraint firstItem="qWP-Y1-YHh" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="BSE-qg-PKA"/>
                 <constraint firstItem="qWP-Y1-YHh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="24" id="MLt-2n-gwd"/>
+                <constraint firstItem="CVu-ny-I6T" firstAttribute="leading" secondItem="qWP-Y1-YHh" secondAttribute="trailing" constant="14" id="aaB-ry-woU"/>
                 <constraint firstItem="oEn-xt-xnN" firstAttribute="leading" secondItem="qWP-Y1-YHh" secondAttribute="trailing" constant="14" id="bMW-la-6se"/>
                 <constraint firstItem="oEn-xt-xnN" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="28" id="neR-j9-kx3"/>
+                <constraint firstAttribute="trailing" secondItem="CVu-ny-I6T" secondAttribute="trailing" constant="14" id="nlW-el-rTL"/>
                 <constraint firstAttribute="trailing" secondItem="oEn-xt-xnN" secondAttribute="trailing" constant="14" id="ojh-em-nnd"/>
                 <constraint firstAttribute="bottom" secondItem="qWP-Y1-YHh" secondAttribute="bottom" constant="16" id="rX4-Ig-ES2"/>
-                <constraint firstItem="CVu-ny-I6T" firstAttribute="top" secondItem="oEn-xt-xnN" secondAttribute="bottom" constant="2" id="tjW-Pc-bwG"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

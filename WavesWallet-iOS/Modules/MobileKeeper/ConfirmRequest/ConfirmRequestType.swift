@@ -37,10 +37,13 @@ enum ConfirmRequest {
         struct Core {
             
             enum Action {
+                case prepareRequest
                 case none
             }
             
             var action: Action
+            var data: WavesKeeper.Data
+            var signedWallet: DomainLayer.DTO.SignedWallet
         }
         
         var ui: UI
@@ -50,6 +53,7 @@ enum ConfirmRequest {
     enum Event {
         case none
         case viewDidAppear
+        case prepareRequest([DomainLayer.DTO.Asset])
     }
     
     struct Section: SectionProtocol {
@@ -63,6 +67,7 @@ enum ConfirmRequest {
         case feeAndTimestamp(ConfirmRequestFeeAndTimestampCell.Model)
         case balance(ConfirmRequestBalanceCell.Model)
         case skeleton
+        case buttons
     }
 }
 
@@ -76,12 +81,20 @@ enum ConfirmRequest {
 
 
 extension ConfirmRequest.DTO {
+
+    struct PrepareRequest {
+        let transaction: Transaction
+        let data: WavesKeeper.Data
+        let signedWallet: DomainLayer.DTO.SignedWallet
+        let timestamp: Date
+    }
     
     struct Request {
         let transaction: Transaction
+        let data: WavesKeeper.Data
         let signedWallet: DomainLayer.DTO.SignedWallet
         let timestamp: Date
-        let proof: [Bytes]
+        let proof: Bytes
         let txId: String
     }
     
@@ -147,10 +160,11 @@ extension ConfirmRequest.DTO {
         }
         
         struct Payment {
-            let amount: Int64
-            let assetId: String
+            let amount: Money
+            let asset: DomainLayer.DTO.Asset
         }
         
+        let asset: DomainLayer.DTO.Asset
         let fee: Money
         let feeAsset: DomainLayer.DTO.Asset
         let chainId: String
