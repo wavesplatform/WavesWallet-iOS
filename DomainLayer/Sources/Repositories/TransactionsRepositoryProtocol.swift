@@ -116,7 +116,7 @@ public struct DataTransactionSender {
             case integer(Int64)
             case boolean(Bool)
             case string(String)
-            case binary([UInt8])
+            case binary(String)
         }
 
         public let key: String
@@ -130,10 +130,14 @@ public struct DataTransactionSender {
 
     public let fee: Int64
     public let data: [Value]
+    public let chainId: String?
+    public let timestamp: Date?
 
-    public init(fee: Int64, data: [Value]) {
+    public init(fee: Int64, data: [Value], chainId: String? = nil, timestamp: Date? = nil) {
         self.fee = fee
+        self.chainId = chainId
         self.data = data
+        self.timestamp = timestamp
     }
 }
 
@@ -144,17 +148,29 @@ public struct SendTransactionSender {
     public let fee: Int64
     public let attachment: String
     public let feeAssetID: String
+    public let chainId: String?
+    public let timestamp: Date?
 
-    public init(recipient: String, assetId: String, amount: Int64, fee: Int64, attachment: String, feeAssetID: String) {
+    public init(recipient: String,
+                assetId: String,
+                amount: Int64,
+                fee: Int64,
+                attachment: String,
+                feeAssetID: String,
+                chainId: String? = nil,
+                timestamp: Date? = nil) {
         self.recipient = recipient
         self.assetId = assetId
+        self.chainId = chainId
         self.amount = amount
+        self.timestamp = timestamp
         self.fee = fee
         self.attachment = attachment
         self.feeAssetID = feeAssetID
     }
 }
 
+//TOOD: Rename to Query
 public enum TransactionSenderSpecifications {
     case createAlias(AliasTransactionSender)
     case lease(LeaseTransactionSender)

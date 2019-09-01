@@ -63,6 +63,9 @@
                                                                     <real key="value" value="4"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="rejectHadlerTouch" destination="CAz-fW-Wqb" eventType="touchUpInside" id="WTW-KN-BfL"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ia-36-epA">
                                                             <rect key="frame" x="199" y="0.0" width="183" height="48"/>
@@ -76,6 +79,9 @@
                                                                     <real key="value" value="4"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="approveHadlerTouch" destination="CAz-fW-Wqb" eventType="touchUpInside" id="Kt2-Nn-Frs"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
@@ -472,10 +478,10 @@
             </objects>
             <point key="canvasLocation" x="302.89855072463769" y="138.61607142857142"/>
         </scene>
-        <!--Send Loading View Controller-->
+        <!--Confirm Request Loading View Controller-->
         <scene sceneID="ViS-je-4jH">
             <objects>
-                <viewController storyboardIdentifier="SendLoadingViewController" id="Hm5-ll-JZX" customClass="SendLoadingViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConfirmRequestLoadingViewController" id="Hm5-ll-JZX" customClass="ConfirmRequestLoadingViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f6U-Vf-d8a" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -524,34 +530,28 @@
             </objects>
             <point key="canvasLocation" x="1116" y="149"/>
         </scene>
-        <!--Send Complete View Controller-->
+        <!--Confirm Request Complete View Controller-->
         <scene sceneID="Dgb-qs-S5L">
             <objects>
-                <viewController storyboardIdentifier="SendCompleteViewController" id="AWa-Dk-CkI" customClass="SendCompleteViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConfirmRequestCompleteViewController" id="AWa-Dk-CkI" customClass="ConfirmRequestCompleteViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zg9-Gb-jhY" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xCN-En-kU0">
-                                <rect key="frame" x="16" y="64" width="382" height="308.5"/>
+                                <rect key="frame" x="16" y="64" width="382" height="384.5"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgDone80Success400" translatesAutoresizingMaskIntoConstraints="NO" id="ZUk-VA-6pG">
                                         <rect key="frame" x="151" y="44" width="80" height="80"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your transaction is on the way!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNJ-Gn-nk3">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your transaction is confirmed!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNJ-Gn-nk3">
                                         <rect key="frame" x="10" y="148" width="362" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have sent 0.00138696 WAVES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bxY-1K-NIb">
-                                        <rect key="frame" x="10" y="176.5" width="362" height="16"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N99-a5-tp1" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="236.5" width="350" height="48"/>
+                                        <rect key="frame" x="16" y="312.5" width="350" height="48"/>
                                         <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="geh-kL-VHD"/>
@@ -567,66 +567,25 @@
                                             <action selector="okeyTapped:" destination="AWa-Dk-CkI" eventType="touchUpInside" id="voA-Fh-xg5"/>
                                         </connections>
                                     </button>
+                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="382" placeholderIntrinsicHeight="96" translatesAutoresizingMaskIntoConstraints="NO" id="iYp-8s-X10" customClass="ConfirmRequestTransactionKindView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="192.5" width="382" height="96"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="N99-a5-tp1" secondAttribute="bottom" constant="24" id="1Qz-ku-k1k"/>
+                                    <constraint firstItem="iYp-8s-X10" firstAttribute="top" secondItem="CNJ-Gn-nk3" secondAttribute="bottom" constant="24" id="Aaj-VZ-Wuf"/>
                                     <constraint firstItem="ZUk-VA-6pG" firstAttribute="top" secondItem="xCN-En-kU0" secondAttribute="top" constant="44" id="BDb-if-ApP"/>
                                     <constraint firstAttribute="trailing" secondItem="CNJ-Gn-nk3" secondAttribute="trailing" constant="10" id="Dt9-XB-FgY"/>
-                                    <constraint firstItem="bxY-1K-NIb" firstAttribute="top" secondItem="CNJ-Gn-nk3" secondAttribute="bottom" constant="8" id="Dtf-47-yns"/>
                                     <constraint firstAttribute="trailing" secondItem="N99-a5-tp1" secondAttribute="trailing" constant="16" id="G6N-mN-RUJ"/>
-                                    <constraint firstItem="bxY-1K-NIb" firstAttribute="leading" secondItem="xCN-En-kU0" secondAttribute="leading" constant="10" id="NYS-8c-6b8"/>
-                                    <constraint firstAttribute="trailing" secondItem="bxY-1K-NIb" secondAttribute="trailing" constant="10" id="PWg-8T-xZ7"/>
-                                    <constraint firstItem="N99-a5-tp1" firstAttribute="top" secondItem="bxY-1K-NIb" secondAttribute="bottom" constant="44" id="aTw-zm-6mO"/>
+                                    <constraint firstItem="iYp-8s-X10" firstAttribute="leading" secondItem="xCN-En-kU0" secondAttribute="leading" id="StX-b5-2pT"/>
+                                    <constraint firstAttribute="trailing" secondItem="iYp-8s-X10" secondAttribute="trailing" id="XId-p7-QfW"/>
+                                    <constraint firstItem="N99-a5-tp1" firstAttribute="top" secondItem="iYp-8s-X10" secondAttribute="bottom" constant="24" id="bm9-70-ogO"/>
                                     <constraint firstItem="CNJ-Gn-nk3" firstAttribute="top" secondItem="ZUk-VA-6pG" secondAttribute="bottom" constant="24" id="fRk-ah-w1L"/>
                                     <constraint firstItem="CNJ-Gn-nk3" firstAttribute="leading" secondItem="xCN-En-kU0" secondAttribute="leading" constant="10" id="gl0-NF-vhA"/>
                                     <constraint firstItem="N99-a5-tp1" firstAttribute="leading" secondItem="xCN-En-kU0" secondAttribute="leading" constant="16" id="p6I-BQ-8WX"/>
                                     <constraint firstItem="ZUk-VA-6pG" firstAttribute="centerX" secondItem="xCN-En-kU0" secondAttribute="centerX" id="urN-FC-CGI"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="2"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eua-JT-O7q">
-                                <rect key="frame" x="16" y="396.5" width="382" height="82"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you want to save this address?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yke-7X-gZV">
-                                        <rect key="frame" x="16" y="24" width="321" height="16"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="96AFUzFKebbwmJulY6evx9GrfYBkmn8LcUL0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wzu-X4-A4L">
-                                        <rect key="frame" x="16" y="46" width="321" height="12"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <color key="textColor" red="0.30588235289999999" green="0.36078431370000003" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o0z-ho-gsY">
-                                        <rect key="frame" x="337" y="21" width="40" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="A9k-Fe-ctt"/>
-                                            <constraint firstAttribute="width" constant="40" id="E0H-RZ-3sD"/>
-                                        </constraints>
-                                        <state key="normal" image="addaddress24Submit300"/>
-                                        <connections>
-                                            <action selector="addContact:" destination="AWa-Dk-CkI" eventType="touchUpInside" id="3mF-Hh-06s"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="o0z-ho-gsY" firstAttribute="leading" secondItem="Yke-7X-gZV" secondAttribute="trailing" id="01n-Sq-Z2L"/>
-                                    <constraint firstAttribute="trailing" secondItem="o0z-ho-gsY" secondAttribute="trailing" constant="5" id="7a3-iy-AXo"/>
-                                    <constraint firstItem="o0z-ho-gsY" firstAttribute="centerY" secondItem="eua-JT-O7q" secondAttribute="centerY" id="APl-3A-KeT"/>
-                                    <constraint firstItem="wzu-X4-A4L" firstAttribute="top" secondItem="Yke-7X-gZV" secondAttribute="bottom" constant="6" id="I7q-4b-Gbj"/>
-                                    <constraint firstItem="Yke-7X-gZV" firstAttribute="top" secondItem="eua-JT-O7q" secondAttribute="top" constant="24" id="IXn-HZ-hK0"/>
-                                    <constraint firstItem="o0z-ho-gsY" firstAttribute="leading" secondItem="wzu-X4-A4L" secondAttribute="trailing" id="Mdv-Ff-XBj"/>
-                                    <constraint firstAttribute="bottom" secondItem="wzu-X4-A4L" secondAttribute="bottom" constant="24" id="OMb-4R-dPW"/>
-                                    <constraint firstItem="Yke-7X-gZV" firstAttribute="leading" secondItem="eua-JT-O7q" secondAttribute="leading" constant="16" id="alR-3T-ron"/>
-                                    <constraint firstItem="wzu-X4-A4L" firstAttribute="leading" secondItem="Yke-7X-gZV" secondAttribute="leading" id="xqN-ip-nGm"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -640,28 +599,21 @@
                             <constraint firstItem="xCN-En-kU0" firstAttribute="top" secondItem="bei-4F-B9f" secondAttribute="top" constant="20" id="IlD-Y9-w9z"/>
                             <constraint firstItem="bei-4F-B9f" firstAttribute="trailing" secondItem="xCN-En-kU0" secondAttribute="trailing" constant="16" id="Jdr-Pw-YPx"/>
                             <constraint firstItem="xCN-En-kU0" firstAttribute="leading" secondItem="bei-4F-B9f" secondAttribute="leading" constant="16" id="OEJ-aM-FQe"/>
-                            <constraint firstItem="eua-JT-O7q" firstAttribute="top" secondItem="xCN-En-kU0" secondAttribute="bottom" constant="24" id="ZmE-fm-zr5"/>
-                            <constraint firstItem="bei-4F-B9f" firstAttribute="trailing" secondItem="eua-JT-O7q" secondAttribute="trailing" constant="16" id="nOD-Og-WUZ"/>
-                            <constraint firstItem="eua-JT-O7q" firstAttribute="leading" secondItem="bei-4F-B9f" secondAttribute="leading" constant="16" id="yF0-fN-0Pb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bei-4F-B9f"/>
                     </view>
                     <connections>
                         <outlet property="buttonOkey" destination="N99-a5-tp1" id="V3y-sq-p9s"/>
-                        <outlet property="labelAddress" destination="wzu-X4-A4L" id="p87-Ip-tih"/>
-                        <outlet property="labelSaveAddress" destination="Yke-7X-gZV" id="U9p-Fa-7dZ"/>
-                        <outlet property="labelSubtitle" destination="bxY-1K-NIb" id="vw5-6W-YqW"/>
                         <outlet property="labelTitle" destination="CNJ-Gn-nk3" id="MNg-0J-sMK"/>
-                        <outlet property="viewSaveAddress" destination="eua-JT-O7q" id="qep-Hz-6vK"/>
+                        <outlet property="transactionKindView" destination="iYp-8s-X10" id="RQs-iY-Nnx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KQi-Eb-UkC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1844" y="147"/>
+            <point key="canvasLocation" x="1843.4782608695652" y="146.65178571428569"/>
         </scene>
     </scenes>
     <resources>
-        <image name="addaddress24Submit300" width="24" height="24"/>
         <image name="userimgDone80Success400" width="80" height="80"/>
     </resources>
 </document>

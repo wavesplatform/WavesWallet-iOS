@@ -15,6 +15,9 @@ final class ConfirmRequestButtonsCell: UITableViewCell, Reusable {
     @IBOutlet private var rejectButton: UIButton!
     @IBOutlet private var approveButton: UIButton!
     
+    var rejectButtonDidTap: (() -> Void)?
+    var approveButtonDidTap: (() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         selectedBackgroundView = UIView()
@@ -22,10 +25,10 @@ final class ConfirmRequestButtonsCell: UITableViewCell, Reusable {
     }
     
     @IBAction func rejectHadlerTouch() {
-        
+        rejectButtonDidTap?()
     }
     
     @IBAction func approveHadlerTouch() {
-        
+        approveButtonDidTap?()
     }
 }

@@ -70,8 +70,6 @@ enum UITest {
             deepLink = DeepLink(source: sourceApplication, url: url)
         }
         
-    
-        
         guard setupLayers() else { return false }
         
         setupUI()

@@ -65,4 +65,6 @@ public protocol RepositoriesFactoryProtocol {
     var gatewayRepository: GatewayRepositoryProtocol { get }
 
     var widgetSettingsStorage: WidgetSettingsRepositoryProtocol { get }
+    
+    var mobileKeeperRepository: MobileKeeperRepositoryProtocol { get }
 }

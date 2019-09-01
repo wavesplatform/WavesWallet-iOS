@@ -16,7 +16,7 @@ enum ConfirmRequest {
     
     enum DTO {
         struct Input {
-            let data: WavesKeeper.Data
+            let request: DomainLayer.DTO.MobileKeeper.Request
             let signedWallet: DomainLayer.DTO.SignedWallet
         }
     }
@@ -42,8 +42,9 @@ enum ConfirmRequest {
             }
             
             var action: Action
-            var data: WavesKeeper.Data
+            var request: DomainLayer.DTO.MobileKeeper.Request
             var signedWallet: DomainLayer.DTO.SignedWallet
+            var complitingRequest: ConfirmRequest.DTO.ComplitingRequest?
         }
         
         var ui: UI
@@ -79,19 +80,18 @@ enum ConfirmRequest {
 
 */
 
-
 extension ConfirmRequest.DTO {
 
     struct PrepareRequest {
         let transaction: Transaction
-        let data: WavesKeeper.Data
+        let request: DomainLayer.DTO.MobileKeeper.Request
         let signedWallet: DomainLayer.DTO.SignedWallet
         let timestamp: Date
     }
     
-    struct Request {
+    struct ComplitingRequest {
         let transaction: Transaction
-        let data: WavesKeeper.Data
+        let request: DomainLayer.DTO.MobileKeeper.Request
         let signedWallet: DomainLayer.DTO.SignedWallet
         let timestamp: Date
         let proof: Bytes
@@ -103,7 +103,6 @@ extension ConfirmRequest.DTO {
         case data(Data)
         case invokeScript(InvokeScript)
     }
-    
     
     struct Transfer {
         let recipient: String
@@ -134,7 +133,6 @@ extension ConfirmRequest.DTO {
         let feeAsset: DomainLayer.DTO.Asset
         let data: [Value]
         let chainId: String
-        
     }
     
     struct InvokeScript {

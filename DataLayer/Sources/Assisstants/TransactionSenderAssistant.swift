@@ -13,6 +13,23 @@ import WavesSDKCrypto
 
 extension TransactionSenderSpecifications {
     
+    private func chainId(servicesEnvironment: ApplicationEnviroment,
+                         specifications: TransactionSenderSpecifications,
+                         wallet: DomainLayer.DTO.SignedWallet) -> String {
+        
+        let walletEnvironment = servicesEnvironment.walletEnvironment
+        
+        
+        return walletEnvironment.scheme
+    }
+    
+    private func timestamp(specifications: TransactionSenderSpecifications) -> Date {
+        
+        
+        
+        return Date()
+    }
+    
     func broadcastSpecification(servicesEnvironment: ApplicationEnviroment,
                                 wallet: DomainLayer.DTO.SignedWallet,
                                 specifications: TransactionSenderSpecifications) -> NodeService.Query.Transaction? {
@@ -20,9 +37,15 @@ extension TransactionSenderSpecifications {
         let walletEnvironment = servicesEnvironment.walletEnvironment
         let timestampServerDiff = servicesEnvironment.timestampServerDiff
         
-        let timestamp = Date().millisecondsSince1970(timestampDiff: timestampServerDiff)
+        let scheme = chainId(servicesEnvironment: servicesEnvironment,
+                             specifications: specifications,
+                             wallet: wallet)
+        
+        let timestamp = self.timestamp(specifications: specifications)
+                        .millisecondsSince1970(timestampDiff: timestampServerDiff)
+        
         var signature = self.signature(timestamp: timestamp,
-                                       scheme: servicesEnvironment.walletEnvironment.scheme,
+                                       scheme: scheme,
                                        publicKey: wallet.publicKey.publicKey)
         
         do {
@@ -220,7 +243,7 @@ private extension DataTransactionSender {
             
             switch value.value {
             case .binary(let data):
-                kind = .binary(data.toBase64() ?? "")
+                kind = .binary(data)
                 
             case .integer(let number):
                 kind = .integer(number)
@@ -244,7 +267,7 @@ private extension DataTransactionSender {
             
             switch value.value {
             case .binary(let data):
-                kind = .binary(data.toBase64() ?? "")
+                kind = .binary(data)
                 
             case .integer(let number):
                 kind = .integer(number)

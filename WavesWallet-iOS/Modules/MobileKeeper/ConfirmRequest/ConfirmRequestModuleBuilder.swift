@@ -21,6 +21,7 @@ struct ConfirmRequestModuleBuilder: ModuleBuilderOutput {
         
         let vc = StoryboardScene.MobileKeeper.confirmRequestViewController.instantiate()
         vc.system = ConfirmRequestSystem(input: input)
+        vc.moduleOutput = output
         
         return vc
     }

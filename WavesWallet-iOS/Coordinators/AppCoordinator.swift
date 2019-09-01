@@ -54,6 +54,8 @@ final class AppCoordinator: Coordinator {
     private let windowRouter: WindowRouter
 
     private let authoAuthorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
+    private let mobileKeeperRepository: MobileKeeperRepositoryProtocol = UseCasesFactory.instance.repositories.mobileKeeperRepository
+    
     private let disposeBag: DisposeBag = DisposeBag()
     private var deepLink: DeepLink? = nil
     private var isActiveApp: Bool = false
@@ -88,9 +90,13 @@ final class AppCoordinator: Coordinator {
             openURL(link: deepLink)
         }
         
-        if let data = WavesKeeper().decodableData(URL.init(string: "waves://")!, sourceApplication: "") {
-            self.showDisplay(.mobileKeeper(data))
-        }
+        mobileKeeperRepository
+            .docodableRequest(.init(fileURLWithPath: ""), sourceApplication: "a")
+            .subscribe(onNext: { (request) in
+                guard let request = request else { return }
+                self.showDisplay(.mobileKeeper(request))
+            })
+            .disposed(by: disposeBag)
     }
 
     private var isMainTabDisplayed: Bool {
@@ -107,7 +113,7 @@ extension AppCoordinator: PresentationCoordinator {
         case enter
         case passcode(DomainLayer.DTO.Wallet)
         case widgetSettings
-        case mobileKeeper(WavesKeeper.Data)
+        case mobileKeeper(DomainLayer.DTO.MobileKeeper.Request)
     }
 
     func showDisplay(_ display: AppCoordinator.Display) {
@@ -155,13 +161,13 @@ extension AppCoordinator: PresentationCoordinator {
             let coordinator = WidgetSettingsCoordinator(windowRouter: windowRouter)
             addChildCoordinatorAndStart(childCoordinator: coordinator)
             
-        case .mobileKeeper(let data):
+        case .mobileKeeper(let request):
             
 //            guard isHasCoordinator(type: WidgetSettingsCoordinator.self) != true else {
 //                return
 //            }
             
-            let coordinator = MobileKeeperCoordinator(windowRouter: windowRouter, data: data)
+            let coordinator = MobileKeeperCoordinator(windowRouter: windowRouter, request: request)
             addChildCoordinatorAndStart(childCoordinator: coordinator)
  
         }
@@ -171,8 +177,15 @@ extension AppCoordinator: PresentationCoordinator {
         
         if link.url.absoluteString == DeepLink.widgetSettings {
             self.showDisplay(.widgetSettings)
-        } else if let data = WavesKeeper().decodableData(link.url, sourceApplication: link.source) {
-            self.showDisplay(.mobileKeeper(data))
+        } else {
+            
+            mobileKeeperRepository
+                .docodableRequest(link.url, sourceApplication: link.source)
+                .subscribe(onNext: { (request) in
+                    guard let request = request else { return }
+                    self.showDisplay(.mobileKeeper(request))
+                })
+                .disposed(by: disposeBag)
         }
     }
 }

@@ -26,11 +26,11 @@ final class MobileKeeperCoordinator: Coordinator {
     private lazy var popoverViewControllerTransitioning = ModalViewControllerTransitioning { [weak self] in
         guard let self = self else { return }
     }
-    private let data: WavesKeeper.Data
+    private let request: DomainLayer.DTO.MobileKeeper.Request
     
-    init(windowRouter: WindowRouter, data: WavesKeeper.Data) {
+    init(windowRouter: WindowRouter, request: DomainLayer.DTO.MobileKeeper.Request) {
         
-        self.data = data
+        self.request = request
         let window = UIWindow()
         window.windowLevel = UIWindow.Level.init(rawValue: UIWindow.Level.normal.rawValue + 1.0)
         self.windowRouter = WindowRouter.windowFactory(window: window)
@@ -69,7 +69,7 @@ extension MobileKeeperCoordinator: ChooseAccountCoordinatorDelegate {
                 guard let self = self else { return }
                 
                 let vc = ConfirmRequestModuleBuilder(output: self)
-                    .build(input: .init(data: self.data, signedWallet: wallet ))
+                    .build(input: .init(request: self.request, signedWallet: wallet ))
                 
                 self.navigationRouter.pushViewController(vc)
             })
@@ -85,4 +85,30 @@ extension MobileKeeperCoordinator: ChooseAccountCoordinatorDelegate {
 
 extension MobileKeeperCoordinator: ConfirmRequestModuleOutput {
     
+    func confirmRequestDidTapReject(_ complitingRequest: ConfirmRequest.DTO.ComplitingRequest) {
+        
+        //TODO: Reject
+    }
+    
+    func confirmRequestDidTapApprove(_ complitingRequest: ConfirmRequest.DTO.ComplitingRequest) {
+//
+//        switch request.data.action {
+//        case .send:
+//
+//            let vc = StoryboardScene.MobileKeeper.confirmRequestCompleteViewController.instantiate()
+//            navigationRouter.pushViewController(vc)
+//
+////            let vc = StoryboardScene.MobileKeeper.confirmRequestLoadingViewController.instantiate()
+////            navigationRouter.pushViewController(vc)
+//
+//        case .sign:
+//
+//            let vc = StoryboardScene.MobileKeeper.confirmRequestCompleteViewController.instantiate()
+//            navigationRouter.pushViewController(vc)
+//
+//            //TODO: Send
+//            break
+//        }
+//
+    }
 }

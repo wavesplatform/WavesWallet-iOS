@@ -7,11 +7,11 @@
 //
 
 import Foundation
-
-import Foundation
 import DomainLayer
 import RxSwift
 
 protocol ConfirmRequestModuleOutput: AnyObject {
-
+    
+    func confirmRequestDidTapReject(_ complitingRequest: ConfirmRequest.DTO.ComplitingRequest)
+    func confirmRequestDidTapApprove(_ complitingRequest: ConfirmRequest.DTO.ComplitingRequest)
 }

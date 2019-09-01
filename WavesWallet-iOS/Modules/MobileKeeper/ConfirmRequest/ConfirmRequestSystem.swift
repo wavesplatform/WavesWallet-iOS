@@ -49,7 +49,7 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
                 
                 var assetsIds: [String] = []
                 
-                switch state.core.data.transaction {
+                switch state.core.request.transaction {
                 case .send(let tx):
                     assetsIds.append(tx.feeAssetID)
                     assetsIds.append(tx.assetId)
@@ -57,10 +57,12 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
                 case .data:
                     assetsIds.append("WAVES")
                     
-                case .invokeScript(let tx):
-                    assetsIds.append(tx.feeAssetId)
-                    let list: [String] = tx.payment.map { $0.assetId }
-                    assetsIds.append(contentsOf: list)
+//                case .invokeScript(let tx):
+//                    assetsIds.append(tx.feeAssetId ?? "WAVES" )
+//                    let list: [String] = (tx.payment?.map { $0.assetId }) ?? []
+//                    assetsIds.append(contentsOf: list)
+                default:
+                    break
                 }
                 return PrepareRequest(assetsIds: assetsIds)
             }
@@ -96,7 +98,7 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
             
             guard let txRequest = state
                 .core
-                .data
+                .request
                 .transaction
                 .transactionDTO(assetsMap: map,
                                 signedWallet: state.core.signedWallet)
@@ -109,13 +111,15 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
             
             
             let prepareRequest = ConfirmRequest.DTO.PrepareRequest(transaction: txRequest,
-                                                                   data: state.core.data,
+                                                                   request: state.core.request,
                                                                    signedWallet: state.core.signedWallet,
                                                                    timestamp: Date())
 
-            state.ui.sections = sections(request: prepareRequest.request())
+            let complitingRequest = prepareRequest.complitingRequest()
+            state.ui.sections = sections(complitingRequest: complitingRequest)
             state.ui.action = .update
             state.core.action = .none
+            state.core.complitingRequest = complitingRequest
             
         case .viewDidAppear:
             state.ui.sections = [Types.Section(rows: [.skeleton])]
@@ -131,111 +135,90 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
     
     private func coreState(input: ConfirmRequest.DTO.Input) -> State.Core! {
         return State.Core(action: .none,
-                          data: input.data,
-                          signedWallet: input.signedWallet)
+                          request: input.request,
+                          signedWallet: input.signedWallet,
+                          complitingRequest: nil)
     }
     
-    private func sections(request: ConfirmRequest.DTO.Request) -> [Types.Section] {
+    private func sections(complitingRequest: ConfirmRequest.DTO.ComplitingRequest) -> [Types.Section] {
         
+
+        var rows: [Types.Row] = [.transactionKind(complitingRequest.transaction.transactionKindViewModel),
+                                 .fromTo(complitingRequest.fromToViewModel)]
+                                 
+        switch complitingRequest.transaction {
+        case .invokeScript(let tx):
+            
+            let address = ConfirmRequestKeyValueCell.Model(title: "Script address",
+                                                                value: tx.dApp)
+            
+            if let function = tx.call?.function {
+                let function = ConfirmRequestKeyValueCell.Model(title: "Function",
+                                                                value: function)
+                rows.append(.keyValue(function))
+            }
+            
+            rows.append(.keyValue(address))
+            
+            for payment in tx.payment {
+                
+                let paymentBalance: BalanceLabel.Model = .init(balance: Balance.init(currency: .init(title: payment.asset.displayName,
+                                                                                                 ticker: payment.asset.ticker),
+                                                                                     money: .init(payment.amount.amount,
+                                                                                                  payment.asset.precision)),
+                                                               sign: .minus,
+                                                               style: .small)
+                
+                let balance = ConfirmRequestBalanceCell.Model.init(title: "Payment",
+                                                                   feeBalance: paymentBalance)
+                
+                rows.append(.balance(balance))
+            }
+            
+        default:
+            break
+        }
+                                
+        rows.append(.keyValue(complitingRequest.txIdkeyValueViewModel))
+        rows.append(.feeAndTimestamp(complitingRequest.feeAndTimestampViewModel))
         
-        let fromTo = ConfirmRequestFromToCell.Model.init(accountName: "Alam",
-                                                         address: "a232324234234",
-                                                         dAppIcon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdF37xBUCZDiNuteNQRfQBTadMGcv25qpDRir40U5ILLYXp7uL",
-                                                         dAppName: "alaxsam")
-        
-        let keyValue = ConfirmRequestKeyValueCell.Model.init(title: "alamr",
-                                                             value: "213123")
-        
-        let balance = BalanceLabel.Model.init(balance: Balance.init(currency: .init(title: "233", ticker: "sd"),
-                                                                    money: Money.init(0, 2)),
-                                              sign: .minus,
-                                              style: .small)
-        
-        let fee = ConfirmRequestFeeAndTimestampCell.Model.init(date: Date(), feeBalance: balance)
-        
-        let balancePay = ConfirmRequestBalanceCell.Model.init(title: "Payment", feeBalance: balance)
-        
-        
-        let kindNew = ConfirmRequestTransactionKindCell.Model.init(title: "Alalal",
-                                                                   image: Images.tInvocationscript48.image,
-                                                                   info: .balance(balance))
-        
-        let rows = [Types.Row.transactionKind(request.transaction.transactionKindViewModel),
-                    Types.Row.fromTo(fromTo),
-                    Types.Row.keyValue(keyValue),
-                    .feeAndTimestamp(fee),
-                    .balance(balancePay),
-                    .buttons]
+        rows.append(.buttons)
         
         return [Types.Section(rows: rows)]
     }
 }
 
-fileprivate extension ConfirmRequest.DTO.Request {
+fileprivate extension ConfirmRequest.DTO.ComplitingRequest {
+    
+    var feeAndTimestampViewModel: ConfirmRequestFeeAndTimestampCell.Model {
+        
+        let feeAsset = self.transaction.feeAsset
+        let fee = self.transaction.fee
+        
+        let feeBalance: BalanceLabel.Model = .init(balance: Balance.init(currency: .init(title: feeAsset.displayName,
+                                                                                         ticker: feeAsset.ticker),
+                                                                         money: .init(fee.amount,
+                                                                                      feeAsset.precision)),
+                                                   sign: .none,
+                                                   style: .small)
+        
+        return ConfirmRequestFeeAndTimestampCell.Model(date: timestamp,
+                                                       feeBalance: feeBalance)
+    }
     
     var fromToViewModel: ConfirmRequestFromToCell.Model {
-        ConfirmRequestFromToCell.Model.init(accountName: signedWallet.wallet.name,
-                                            address: signedWallet.address,
-                                            dAppIcon: data, dAppName: <#T##String#>)
+        return ConfirmRequestFromToCell.Model.init(accountName: signedWallet.wallet.name,
+                                                   address: signedWallet.address,
+                                                   dAppIcon: request.dApp.iconUrl,
+                                                   dAppName: request.dApp.name)
+    }
+    
+    
+    var txIdkeyValueViewModel: ConfirmRequestKeyValueCell.Model {
+        return ConfirmRequestKeyValueCell.Model(title: "TXID",
+                                                value: txId)
     }
 }
-
-fileprivate extension ConfirmRequest.DTO.Transaction  {
-
-    var transactionKindViewModel: ConfirmRequestTransactionKindView.Model {
-        return ConfirmRequestTransactionKindView.Model.init(title: titleTransactionKindViewModel,
-                                                            image: iconTransactionKindViewModel,
-                                                            info: infoTransactionKindViewModel)
-    }
-    
-    var infoTransactionKindViewModel: ConfirmRequestTransactionKindView.Info {
-        
-        switch self {
-        case .data:
-            return .descriptionLabel("Data transaction")
-            
-        case .invokeScript:
-            return .descriptionLabel("Script Invocation")
-            
-        case .transfer(let tx):
-            return .balance(.init(balance: Balance.init(currency: .init(title: "Sent",
-                                                                        ticker: tx.asset.ticker),
-                                                        money: .init(tx.amount.amount,
-                                                                     tx.asset.precision)),
-                                  sign: .minus,
-                                  style: .small))
-        }
-        
-    }
-    
-    var titleTransactionKindViewModel: String {
-        
-        switch self {
-        case .data:
-            return "Entry in blockchain"
-            
-        case .invokeScript:
-            return "Entry in blockchain"
-            
-        case .transfer:
-            return "Sent"
-        }
-    }
-    
-    var iconTransactionKindViewModel: UIImage {
-        switch self {
-        case .data:
-            return Images.tData48.image
-            
-        case .invokeScript:
-            return Images.tInvocationscript48.image
-            
-        case .transfer:
-            return Images.tSend48.image
-        }
-    }
-}
-    
 
 fileprivate extension WavesKeeper.Transaction.InvokeScript.Arg  {
     
@@ -293,7 +276,8 @@ fileprivate extension WavesKeeper.Transaction.InvokeScript {
 }
 
 
-fileprivate extension WavesKeeper.Transaction.Data.Value {
+//TODO: Integer to 64 ?
+fileprivate extension DataTransactionSender.Value {
     
     func valueDTO() -> ConfirmRequest.DTO.Data.Value.Kind {
         switch self.value {
@@ -312,7 +296,7 @@ fileprivate extension WavesKeeper.Transaction.Data.Value {
     }
 }
 
-fileprivate extension WavesKeeper.Transaction.Data {
+fileprivate extension DataTransactionSender {
     
     func dataDTO() -> [ConfirmRequest.DTO.Data.Value] {
         
@@ -325,7 +309,7 @@ fileprivate extension WavesKeeper.Transaction.Data {
     }
 }
 
-fileprivate extension WavesKeeper.Transaction  {
+fileprivate extension TransactionSenderSpecifications  {
     
     func transactionDTO(assetsMap: [String: DomainLayer.DTO.Asset],
                         signedWallet: DomainLayer.DTO.SignedWallet) -> ConfirmRequest.DTO.Transaction? {
@@ -340,28 +324,28 @@ fileprivate extension WavesKeeper.Transaction  {
             let data = ConfirmRequest.DTO.Data.init(fee: fee,
                                                     feeAsset: feeAsset,
                                                     data: tx.dataDTO(),
-                                                    chainId: tx.chainId)
+                                                    chainId: tx.chainId ?? "")
             
             return .data(data)
             
-        case .invokeScript(let tx):
-            
-            guard let asset = assetsMap["WAVES"] else { return nil }
-            guard let feeAsset = assetsMap[tx.feeAssetId] else { return nil }
-            
-            guard let call = tx.call?.invokeScriptCall(assetsMap: assetsMap, signedWallet: signedWallet) else { return nil }
-            
-            let fee = Money(tx.fee, feeAsset.precision)
-            
-            let invokeScript = ConfirmRequest.DTO.InvokeScript(asset: asset,
-                                                               fee: fee,
-                                                               feeAsset: feeAsset,
-                                                               chainId: tx.chainId,
-                                                               dApp: tx.dApp,
-                                                               call: call,
-                                                               payment: tx.paymentDTO(assetsMap: assetsMap,
-                                                                                      signedWallet: signedWallet) )
-            return .invokeScript(invokeScript)
+//        case .invokeScript(let tx):
+//
+//            guard let asset = assetsMap["WAVES"] else { return nil }
+//            guard let feeAsset = assetsMap[tx.feeAssetId] else { return nil }
+//
+//            guard let call = tx.call?.invokeScriptCall(assetsMap: assetsMap, signedWallet: signedWallet) else { return nil }
+//
+//            let fee = Money(tx.fee, feeAsset.precision)
+//
+//            let invokeScript = ConfirmRequest.DTO.InvokeScript(asset: asset,
+//                                                               fee: fee,
+//                                                               feeAsset: feeAsset,
+//                                                               chainId: tx.chainId,
+//                                                               dApp: tx.dApp,
+//                                                               call: call,
+//                                                               payment: tx.paymentDTO(assetsMap: assetsMap,
+//                                                                                      signedWallet: signedWallet) )
+//            return .invokeScript(invokeScript)
             
         case .send(let tx):
     
@@ -377,8 +361,11 @@ fileprivate extension WavesKeeper.Transaction  {
                                                               feeAsset: feeAsset,
                                                               fee: fee,
                                                               attachment: tx.attachment,
-                                                              chainId: tx.chainId)
+                                                              chainId: tx.chainId ?? "")
             return .transfer(transfer)
+            
+        default:
+            return nil
         }
     }
 }
@@ -450,16 +437,16 @@ fileprivate extension ConfirmRequest.DTO.InvokeScript.Call  {
 
 fileprivate extension ConfirmRequest.DTO.PrepareRequest  {
 
-    func request() -> ConfirmRequest.DTO.Request {
+    func complitingRequest() -> ConfirmRequest.DTO.ComplitingRequest {
         
         let signature: TransactionSignatureProtocol = transactionSignature()
         
-        return ConfirmRequest.DTO.Request.init(transaction: transaction,
-                                               data: data,
-                                               signedWallet: signedWallet,
-                                               timestamp: timestamp,
-                                               proof: signature.bytesStructure,
-                                               txId: signature.id)
+        return ConfirmRequest.DTO.ComplitingRequest.init(transaction: transaction,
+                                                         request: request,
+                                                         signedWallet: signedWallet,
+                                                         timestamp: timestamp,
+                                                         proof: signature.bytesStructure,
+                                                         txId: signature.id)
     }
     
     func transactionSignature() -> TransactionSignatureProtocol {

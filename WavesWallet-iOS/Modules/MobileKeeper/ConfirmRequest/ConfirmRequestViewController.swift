@@ -26,16 +26,13 @@ final class ConfirmRequestViewController: UIViewController, DataSourceProtocol {
     
     var sections: [ConfirmRequest.Section] = .init()
     
+    private var complitingRequest: ConfirmRequest.DTO.ComplitingRequest?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        navigationItem.shadowImage = UIImage()
-//        navigationItem.title = Localizable.Waves.Widgetsettings.Navigation.title
-//        navigationItem.backgroundImage = UIColor.basic50.image
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.topbarClose.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(topbarClose))
-//        self.tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 12, right: 0)
-        
-        navigationItem.title = "Request"
+
+        //TODO: Localization
+        navigationItem.title = "Confirm request"
         setupBigNavigationBar()
         hideTopBarLine()
         
@@ -64,7 +61,7 @@ final class ConfirmRequestViewController: UIViewController, DataSourceProtocol {
 private extension ConfirmRequestViewController {
     
     private func update(state: Types.State.Core) {
-        
+        self.complitingRequest = state.complitingRequest
     }
     
     private func update(state: Types.State.UI) {
@@ -134,7 +131,24 @@ extension ConfirmRequestViewController: UITableViewDataSource {
             
         case .buttons:
             
-            let cell: ConfirmRequestButtonsCell = tableView.dequeueCellForIndexPath(indexPath: indexPath)            
+            let cell: ConfirmRequestButtonsCell = tableView.dequeueCellForIndexPath(indexPath: indexPath)
+            
+            cell.approveButtonDidTap = { [weak self] in
+                
+                guard let self = self else { return }
+                guard let complitingRequest = self.complitingRequest else { return }
+                
+                self.moduleOutput?.confirmRequestDidTapApprove(complitingRequest)
+            }
+            
+            cell.rejectButtonDidTap = { [weak self] in
+                
+                guard let self = self else { return }
+                guard let complitingRequest = self.complitingRequest else { return }
+                
+                self.moduleOutput?.confirmRequestDidTapReject(complitingRequest)
+            }
+            
             return cell
         }
     }

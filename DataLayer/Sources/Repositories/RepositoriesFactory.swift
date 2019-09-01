@@ -92,6 +92,8 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
         
     public private(set) lazy var matcherRepositoryRemote: MatcherRepositoryProtocol = MatcherRepositoryRemote(environmentRepository: environmentRepositoryInternal)
     
+    public private(set) lazy var mobileKeeperRepository: MobileKeeperRepositoryProtocol = MobileKeeperRepository(repositoriesFactory: self)
+    
     public struct Resources {
         
         public typealias PathForFile = String
