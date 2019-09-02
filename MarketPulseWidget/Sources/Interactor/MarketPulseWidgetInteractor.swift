@@ -128,21 +128,16 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
                     for (index, model) in searchResult.pairs.enumerated() {
                         
                         let exchangeAssetTxs = arrayTx[index]
-                        
-                        let sumPriceAmount = exchangeAssetTxs.map{$0.amount * $0.price}.reduce(0, {$0 + $1})
-                        let sumAmount = exchangeAssetTxs.map{$0.amount}.reduce(0, {$0 + $1})
-                        let lastPrice = sumAmount > 0 ? sumPriceAmount / sumAmount : 0
+                        let price = exchangeAssetTxs.map{$0.price}.reduce(0, {$0 + $1}) / Double(exchangeAssetTxs.count)
 
                         let asset = assets[index]
                        
                         pairs.append(MarketPulse.DTO.Asset(id: asset.id,
                                                            name: asset.name,
                                                            icon: asset.icon,
+                                                           price: price,
                                                            firstPrice: model?.firstPrice ?? 0,
-                                                           lastPrice: lastPrice,
-                                                           volume: model?.volume ?? 0,
-                                                           volumeWaves: model?.volumeWaves ?? 0,
-                                                           quoteVolume: model?.quoteVolume ?? 0,
+                                                           lastPrice: model?.lastPrice ?? 0,
                                                            amountAsset: asset.amountAsset))
                     }
                     
