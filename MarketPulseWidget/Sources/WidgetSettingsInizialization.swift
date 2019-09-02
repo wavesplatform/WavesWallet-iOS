@@ -16,7 +16,7 @@ import WavesSDKCrypto
 class WidgetSettingsInizialization: WidgetSettingsInizializationUseCaseProtocol {
     
     private let widgetSettingsStorage: WidgetSettingsRepositoryProtocol = WidgetSettingsRepositoryStorage()
-    private let matcherRepository: WidgetMatcherRepositoryProtocol = WidgetMatcherRepositoryRemote()
+    private let matcherRepository: MatcherRepositoryProtocol = MatcherRepositoryLocal(matcherRepositoryRemote: WidgetMatcherRepositoryRemote())
     private let pairsPriceRepository: WidgetPairsPriceRepositoryProtocol = WidgetPairsPriceRepositoryRemote()
     private let assetsRepository: WidgetAssetsRepositoryProtocol = WidgetAssetsRepositoryRemote()
     
