@@ -315,6 +315,7 @@
 		7B3902B02237D8FA00AAFDB8 /* TransactionCardExchangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3902AF2237D8FA00AAFDB8 /* TransactionCardExchangeCell.swift */; };
 		7B3A51A8223AA08F00C3BF38 /* TransactionCardAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3A51A7223AA08F00C3BF38 /* TransactionCardAssetCell.swift */; };
 		7B3A9AB4231BE3900025CDCA /* MobileKeeperRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3A9AB3231BE3900025CDCA /* MobileKeeperRepository.swift */; };
+		7B3A9AB6231D66B80025CDCA /* NetworkError+Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3A9AB5231D66B80025CDCA /* NetworkError+Title.swift */; };
 		7B431A7E22BCFF3800DE73B9 /* AssetsUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B431A7C22BCFE8A00DE73B9 /* AssetsUseCaseProtocol.swift */; };
 		7B431A8122BCFF7100DE73B9 /* AssetsBalanceSettingsUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B431A7F22BCFF5700DE73B9 /* AssetsBalanceSettingsUseCaseProtocol.swift */; };
 		7B431A8322BCFFA900DE73B9 /* TransactionsUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B431A8222BCFFA900DE73B9 /* TransactionsUseCaseProtocol.swift */; };
@@ -1547,6 +1548,7 @@
 		7B3902AF2237D8FA00AAFDB8 /* TransactionCardExchangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardExchangeCell.swift; sourceTree = "<group>"; };
 		7B3A51A7223AA08F00C3BF38 /* TransactionCardAssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardAssetCell.swift; sourceTree = "<group>"; };
 		7B3A9AB3231BE3900025CDCA /* MobileKeeperRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileKeeperRepository.swift; sourceTree = "<group>"; };
+		7B3A9AB5231D66B80025CDCA /* NetworkError+Title.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkError+Title.swift"; sourceTree = "<group>"; };
 		7B431A7C22BCFE8A00DE73B9 /* AssetsUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsUseCaseProtocol.swift; sourceTree = "<group>"; };
 		7B431A7F22BCFF5700DE73B9 /* AssetsBalanceSettingsUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsBalanceSettingsUseCaseProtocol.swift; sourceTree = "<group>"; };
 		7B431A8222BCFFA900DE73B9 /* TransactionsUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsUseCaseProtocol.swift; sourceTree = "<group>"; };
@@ -3003,6 +3005,7 @@
 				7BFB47FB22FC742F002B19F8 /* Type */,
 				7BFB47E222FC742E002B19F8 /* UIKit */,
 				7B88186123044B7F00AB0549 /* Language+List.swift */,
+				7B3A9AB5231D66B80025CDCA /* NetworkError+Title.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -7098,6 +7101,7 @@
 				7BE09AB22313E31300A038AD /* MobileKeeperCoordinator.swift in Sources */,
 				E991BB1A2202CA250022E27D /* SendFeeViewController.swift in Sources */,
 				0AF92201212E07B3003BA067 /* AssetHeaderSkeletonView.swift in Sources */,
+				7B3A9AB6231D66B80025CDCA /* NetworkError+Title.swift in Sources */,
 				E95B6B0F219C22E400A85B5D /* TokenBurnConfirmationViewController.swift in Sources */,
 				0A14E3E62187185700EA7E91 /* AliasesViewModuleBuilder.swift in Sources */,
 				7BDA6ADD222E95C8001DE71C /* TransactionCardView.swift in Sources */,

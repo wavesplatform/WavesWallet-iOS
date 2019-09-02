@@ -175,11 +175,7 @@ private extension EnvironmentRepository {
                                                            node: [NodePlugin(), SentryNetworkLoggerPlugin()],
                                                            matcher: [SentryNetworkLoggerPlugin()]),
                                     enviroment: .init(server: server, timestampServerDiff: 0))
-            
-            //TODO: URL
-            WavesKeeper.initialization(application: .init(name: "Waves",
-                                                          iconUrl: "",
-                                                          scheme: "waves"))
+                                    
             observer.onNext(WavesSDK.shared.services)
             observer.onCompleted()
             

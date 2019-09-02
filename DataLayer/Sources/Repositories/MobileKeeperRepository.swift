@@ -19,6 +19,10 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
     
     init(repositoriesFactory: RepositoriesFactoryProtocol) {
         self.repositoriesFactory = repositoriesFactory
+        
+        WavesKeeper.initialization(application: .init(name: "Waves",
+                                                      iconUrl: "",
+                                                      scheme: "waves"))
     }
     public func prepareRequest(_ request: DomainLayer.DTO.MobileKeeper.Request,
                                signedWallet: DomainLayer.DTO.SignedWallet,
@@ -37,51 +41,324 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
             .PrepareRequest.init(request: request,
                                  timestamp: timestamp,
                                  proof: signature.bytesStructure,
-                                 txId: signature.id)
+                                 txId: signature.id,
+                                 signedWallet: signedWallet)
         
         return Observable.just(prepareRequest)
     }
     
     public func completeRequest(_ prepareRequest: DomainLayer.DTO.MobileKeeper.PrepareRequest) -> Observable<DomainLayer.DTO.MobileKeeper.CompletedRequest> {
         
-        //TODO: Send to node and return sign
-        return Observable.never()
+        let action = prepareRequest.request.action
+        
+        switch action {
+        case .send:
+            
+            return repositoriesFactory
+                .transactionsRepositoryRemote
+                .send(by: prepareRequest.request.transaction,
+                      wallet: prepareRequest.signedWallet)
+                .flatMap({ (tx) -> Observable<DomainLayer.DTO.MobileKeeper.CompletedRequest> in
+                    
+                    let completedRequest = prepareRequest.completedRequest(response: .success(.transaction(tx)))
+                    return Observable.just(completedRequest)
+                })
+                .catchError({ (error) -> Observable<DomainLayer.DTO.MobileKeeper.CompletedRequest> in
+                    
+                    if let networkError = error as? NetworkError {
+                        
+                        let title = { () -> String in
+                            switch networkError {
+                            case .message(let message):
+                                return message
+                            default:
+                                return ""
+                            }
+                        }()
+                        
+                        let completedRequest = prepareRequest.completedRequest(response: .error(.message(title, 0)))
+                        return Observable.just(completedRequest)
+                    }
+                    
+                    let completedRequest = prepareRequest.completedRequest(response: .error(.reject))
+                    return Observable.just(completedRequest)
+                })
+            
+        case .sign:
+            
+            let completedRequest = prepareRequest.completedRequest(response: .success(.transactionQuery))
+            return Observable.just(completedRequest)
+        }
     }
     
     
     public func approveRequest(_ completedRequest: DomainLayer.DTO.MobileKeeper.CompletedRequest) {
         
-        WavesKeeper.shared.returnResponse(.error(.reject))
+//        completedRequest.request.transaction
+        let nodeQuery = completedRequest.request.transaction.nodeQuery
+        
+        switch completedRequest.response {
+        case .success(let tx):
+            
+            switch tx {
+            case .transaction(let tx):
+                
+                guard let transactionNodeService = tx.transactionNodeService else { return }
+                
+                WavesKeeper.shared.returnResponse(for: completedRequest.request.dApp.wavesKeeperApplication,
+                                                  response: .success(.transaction(transactionNodeService)))
+                
+            case .transactionQuery:
+                
+                guard let txQuery = completedRequest.request.transaction.nodeQuery else { return }
+                
+                WavesKeeper.shared.returnResponse(for: completedRequest.request.dApp.wavesKeeperApplication,
+                                                  response: .success(.transactionQuery(txQuery)))
+            }
+            //TODO: Error
+        case .error(let error):
+            
+            let wavesKeeperError = { () -> WavesKeeper.Error in
+                switch error {
+                case .message(let message, let code):
+                    return .message(message, code)
+                    
+                case .reject:
+                    return .reject
+                }
+            }()
+            
+            WavesKeeper.shared.returnResponse(for: completedRequest.request.dApp.wavesKeeperApplication,
+                                              response: .error(wavesKeeperError))
+        }
     }
     
     public func rejectRequest(_ request: DomainLayer.DTO.MobileKeeper.Request) {
         
-        WavesKeeper.shared.returnResponse(.error(.reject))
+      let nodeQuery = request.transaction.nodeQuery
+        WavesKeeper.shared.returnResponse(for: request.dApp.wavesKeeperApplication,
+                                          response: .error(.reject))
     }
     
-    public func docodableRequest(_ url: URL, sourceApplication: String) -> Observable<DomainLayer.DTO.MobileKeeper.Request?> {
+    public func decodableRequest(_ url: URL, sourceApplication: String) -> Observable<DomainLayer.DTO.MobileKeeper.Request?> {
         
-        var requesta = WavesKeeper.shared.decodableRequest(url, sourceApplication: sourceApplication)
+        guard let request = WavesKeeper.shared.decodableRequest(url, sourceApplication: sourceApplication) else {
+            return Observable.just(nil)
+        }
         
+        guard let transactionSenderSpecifications = request.transaction.transactionSenderSpecifications else {
+            return Observable.just(nil)
+        }
         
-    
+        let mobileKeeperRequest = DomainLayer
+            .DTO
+            .MobileKeeper
+            .Request
+            .init(dApp: .init(name: request.dApp.name,
+                              iconUrl: request.dApp.iconUrl,
+                              scheme: request.dApp.scheme),
+                  action: (request.action == .send ? .send : .sign),
+                  transaction: transactionSenderSpecifications)
         
-        
-        let request = DomainLayer.DTO.MobileKeeper.Request.init(dApp: .init(name: "Test",
-                                                                            iconUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdF37xBUCZDiNuteNQRfQBTadMGcv25qpDRir40U5ILLYXp7uL",
-                                                                            scheme: "waves://"),
-                                                                action: .send,
-                                                                transaction: .send(.init(recipient: "address",
-                                                                                         assetId: "WAVES",
-                                                                                         amount: 40000000,
-                                                                                         fee: 444,
-                                                                                         attachment: "",
-                                                                                         feeAssetID: "WAVES")))
-      
-        
-        return Observable.just(request)
+        return Observable.just(mobileKeeperRequest)
     }
 }
+
+extension DomainLayer.DTO.MobileKeeper.Application {
+    
+    var wavesKeeperApplication: WavesKeeper.Application {
+        return .init(name: name, iconUrl: iconUrl, scheme: scheme)
+    }
+}
+
+
+fileprivate extension NodeService.Query.Transaction.InvokeScript.Call {
+    
+    
+    var argsSender: [InvokeScriptTransactionSender.Arg] {
+        
+        return self.args.map({ (arg) -> InvokeScriptTransactionSender.Arg in
+            
+            let value = { () -> InvokeScriptTransactionSender.Arg.Value in
+                
+                switch arg.value {
+                case .binary(let value):
+                    return .binary(value)
+                    
+                case .bool(let value):
+                    return .bool(value)
+                    
+                case .integer(let value):
+                    return .integer(value)
+                    
+                case .string(let value):
+                    return .string(value)
+                }
+            }()
+            
+            return InvokeScriptTransactionSender.Arg(value: value)
+        })
+    }
+    
+    var callSender: InvokeScriptTransactionSender.Call {
+        return InvokeScriptTransactionSender.Call(function: self.function,
+                                                  args: self.argsSender)
+    }
+}
+
+//TODO:
+fileprivate extension TransactionSenderSpecifications {
+    
+    var nodeQuery: NodeService.Query.Transaction? {
+        
+        switch self {
+        case .send(let model):
+            let transfer = NodeService.Query.Transaction.Transfer.init(recipient: model.recipient,
+                                                                       assetId: model.assetId,
+                                                                       amount: model.amount,
+                                                                       fee: model.fee,
+                                                                       attachment: model.attachment,
+                                                                       feeAssetId: model.feeAssetID,
+                                                                       chainId: model.chainId ?? "")
+            
+            return .transfer(transfer)
+            
+        case .invokeScript(let model):
+            return nil
+            
+            
+        default:
+            return nil
+        }
+    }
+}
+
+
+
+fileprivate extension DomainLayer.DTO.AnyTransaction {
+    
+    var transactionNodeService: NodeService.DTO.Transaction? {
+        
+        switch self {
+        case .transfer(let model):
+            return NodeService.DTO.Transaction.transfer(.init(type: model.type,
+                                                              id: model.id,
+                                                              sender: model.sender,
+                                                              senderPublicKey: model.senderPublicKey,
+                                                              fee: model.fee,
+                                                              timestamp: model.timestamp,
+                                                              version: model.version,
+                                                              height: model.height,
+                                                              signature: model.signature,
+                                                              proofs: model.proofs,
+                                                              recipient: model.recipient,
+                                                              assetId: model.assetId,
+                                                              feeAssetId: model.feeAssetId,
+                                                              amount: model.amount,
+                                                              attachment: model.attachment))
+            
+        default:
+            return nil
+        }
+    }
+}
+
+
+fileprivate extension NodeService.Query.Transaction.InvokeScript {
+    
+    var paymentSender: [InvokeScriptTransactionSender.Payment] {
+        return self.payment.map { InvokeScriptTransactionSender.Payment.init(amount: $0.amount, assetId: $0.assetId) }
+    }
+}
+
+fileprivate extension NodeService.Query.Transaction.Data {
+    
+    var valueSender: [DataTransactionSender.Value] {
+        
+        return self.data.map { (data) -> DataTransactionSender.Value in
+            
+            let kind = { () -> DataTransactionSender.Value.Kind in
+                switch data.value {
+                case .binary(let value):
+                    return .binary(value)
+                    
+                case .boolean(let value):
+                    return .boolean(value)
+                    
+                case .integer(let value):
+                    return .integer(value)
+                    
+                case .string(let value):
+                    return .string(value)
+                }
+            }()
+            
+            return DataTransactionSender.Value.init(key: data.key, value: kind)
+        }
+    }
+}
+
+
+fileprivate extension NodeService.Query.Transaction {
+    
+    var transactionSenderSpecifications: TransactionSenderSpecifications? {
+        
+        switch self {
+        case .invokeScript(let model):
+            
+            let sender = InvokeScriptTransactionSender(fee: model.fee,
+                                                       feeAssetId: model.feeAssetId,
+                                                       dApp: model.dApp,
+                                                       call: model.call?.callSender,
+                                                       payment: model.paymentSender,
+                                                       chainId: model.chainId,
+                                                       timestamp: Date.init(milliseconds: model.timestamp))
+            
+            return .invokeScript(sender)
+            
+        case .transfer(let model):
+            
+            let sender = SendTransactionSender.init(recipient: model.recipient,
+                                                    assetId: model.assetId,
+                                                    amount: model.amount,
+                                                    fee: model.fee,
+                                                    attachment: model.attachment,
+                                                    feeAssetID: model.feeAssetId)
+            
+            return .send(sender)
+            
+        case .data(let model):
+            
+            let sender = DataTransactionSender.init(fee: model.fee,
+                                                    data: model.valueSender,
+                                                    chainId: model.chainId,
+                                                    timestamp: Date.init(milliseconds: model.timestamp))
+            
+            return .data(sender)
+            
+        default:
+            return nil
+        }
+    }
+}
+
+fileprivate extension DomainLayer.DTO.MobileKeeper.PrepareRequest {
+    
+    
+    func completedRequest(response: DomainLayer.DTO.MobileKeeper.Response) -> DomainLayer.DTO.MobileKeeper.CompletedRequest {
+    
+        let completedRequest = DomainLayer.DTO.MobileKeeper.CompletedRequest(request: request,
+                                                                             timestamp: timestamp,
+                                                                             proof: proof,
+                                                                             txId: txId,
+                                                                             response: response)
+        
+        return completedRequest
+    }
+    
+    
+}
+
 
 fileprivate extension DomainLayer.DTO.MobileKeeper.Request  {
     

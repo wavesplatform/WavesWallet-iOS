@@ -91,7 +91,7 @@ final class AppCoordinator: Coordinator {
         }
         
         mobileKeeperRepository
-            .docodableRequest(.init(fileURLWithPath: ""), sourceApplication: "a")
+            .decodableRequest(.init(fileURLWithPath: ""), sourceApplication: "a")
             .subscribe(onNext: { (request) in
                 guard let request = request else { return }
                 self.showDisplay(.mobileKeeper(request))
@@ -163,10 +163,6 @@ extension AppCoordinator: PresentationCoordinator {
             
         case .mobileKeeper(let request):
             
-//            guard isHasCoordinator(type: WidgetSettingsCoordinator.self) != true else {
-//                return
-//            }
-            
             let coordinator = MobileKeeperCoordinator(windowRouter: windowRouter, request: request)
             addChildCoordinatorAndStart(childCoordinator: coordinator)
  
@@ -180,7 +176,7 @@ extension AppCoordinator: PresentationCoordinator {
         } else {
             
             mobileKeeperRepository
-                .docodableRequest(link.url, sourceApplication: link.source)
+                .decodableRequest(link.url, sourceApplication: link.source)
                 .subscribe(onNext: { (request) in
                     guard let request = request else { return }
                     self.showDisplay(.mobileKeeper(request))

@@ -120,14 +120,24 @@ extension MobileKeeperCoordinator: ConfirmRequestModuleOutput {
                 switch completed.request.action {
                 case .send:
                     let vc = StoryboardScene.MobileKeeper.confirmRequestCompleteViewController.instantiate()
-                    //TODO: Set Response Andd callback to app
                     
-                    self?.mobileKeeperRepository.approveRequest(completed)
+                    vc.completedRequest = completed
+                    vc.complitingRequest = complitingRequest
+                    vc.okButtonDidTap = { [weak self] () -> Void in
+                        
+                        self?.mobileKeeperRepository.approveRequest(completed)
+                        self?.closeWindow()
+                    }
+                    
                     self?.navigationRouter.pushViewController(vc)
-                    
                 case .sign:
+                    
+                    //TODO: Error
                     self?.mobileKeeperRepository.approveRequest(completed)
+                    self?.closeWindow()
                 }
+            }, onError: { (error) in
+                
             })
             .disposed(by: disposeBag)
 

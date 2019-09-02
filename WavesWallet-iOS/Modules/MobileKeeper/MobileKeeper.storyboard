@@ -604,6 +604,7 @@
                     </view>
                     <connections>
                         <outlet property="buttonOkey" destination="N99-a5-tp1" id="V3y-sq-p9s"/>
+                        <outlet property="imageView" destination="ZUk-VA-6pG" id="DAk-Rj-WGU"/>
                         <outlet property="labelTitle" destination="CNJ-Gn-nk3" id="MNg-0J-sMK"/>
                         <outlet property="transactionKindView" destination="iYp-8s-X10" id="RQs-iY-Nnx"/>
                     </connections>

@@ -95,6 +95,7 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
         textField.delegate = self
         textField.textView.returnKeyType = .done
  
+        textField.textView.text = "pigeon eager inherit various spare situate obscure mirror river coast erase chicken provide panic craft"
         textField.update(with: MultilineTextField.Model(title: Localizable.Waves.Import.Manually.Label.Address.title,
                                                     placeholder: Localizable.Waves.Import.Manually.Label.Address.placeholder))
         

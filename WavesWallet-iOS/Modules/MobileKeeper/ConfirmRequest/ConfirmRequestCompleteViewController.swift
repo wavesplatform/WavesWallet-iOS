@@ -14,8 +14,13 @@ import Extensions
 final class ConfirmRequestCompleteViewController: UIViewController {
     
     @IBOutlet private weak var labelTitle: UILabel!
+    @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var buttonOkey: HighlightedButton!
     @IBOutlet private weak var transactionKindView: ConfirmRequestTransactionKindView!
+    
+    var completedRequest: DomainLayer.DTO.MobileKeeper.CompletedRequest?
+    var complitingRequest:  ConfirmRequest.DTO.ComplitingRequest?
+    var okButtonDidTap: (() -> Void)? = nil
     
     private let disposeBag = DisposeBag()
     
@@ -26,6 +31,24 @@ final class ConfirmRequestCompleteViewController: UIViewController {
         navigationItem.backgroundImage = UIImage()
         navigationItem.hidesBackButton = true
         setupLocalization()
+        
+        if let complitingRequest = complitingRequest {
+            transactionKindView.update(with: complitingRequest.transaction.transactionKindViewModel)
+        }
+        
+        if let completedRequest = completedRequest {
+            //TODO: Localization
+            
+            switch completedRequest.response {
+            case .error(let error):
+                imageView.image = Images.info18Error500.image
+                labelTitle.text = "Ошибка Ошибка"
+            case .success(let success):
+                imageView.image = Images.userimgDone80Success400.image
+                labelTitle.text = "Ок"
+                break
+            }
+        }
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -33,14 +56,13 @@ final class ConfirmRequestCompleteViewController: UIViewController {
     }
     
     @IBAction private func okeyTapped(_ sender: Any) {
-
+        okButtonDidTap?()
     }
     
     private func setupLocalization() {
         
         //TODO: Localization
         buttonOkey.setTitle(Localizable.Waves.Sendcomplete.Button.okey, for: .normal)
-        labelTitle.text = Localizable.Waves.Sendcomplete.Label.transactionIsOnWay
     }
 }
 
