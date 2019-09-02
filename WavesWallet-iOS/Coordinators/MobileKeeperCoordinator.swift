@@ -28,6 +28,8 @@ final class MobileKeeperCoordinator: Coordinator {
     }
     private let request: DomainLayer.DTO.MobileKeeper.Request
     
+    private let mobileKeeperRepository: MobileKeeperRepositoryProtocol = UseCasesFactory.instance.repositories.mobileKeeperRepository
+    
     init(windowRouter: WindowRouter, request: DomainLayer.DTO.MobileKeeper.Request) {
         
         self.request = request
@@ -43,6 +45,11 @@ final class MobileKeeperCoordinator: Coordinator {
         let coordinator = ChooseAccountCoordinator(navigationRouter: navigationRouter, applicationCoordinator: self)
         coordinator.delegate = self
         addChildCoordinatorAndStart(childCoordinator: coordinator)
+    }
+    
+    private func closeWindow() {
+        removeFromParentCoordinator()
+        self.windowRouter.dissmissWindow()
     }
 }
 
@@ -77,8 +84,9 @@ extension MobileKeeperCoordinator: ChooseAccountCoordinatorDelegate {
     }
     
     func userDidTapBackButton() {
-        removeFromParentCoordinator()
-        self.windowRouter.dissmissWindow()
+        
+        mobileKeeperRepository.rejectRequest(request)
+        closeWindow()
         //TODO: Send Reject
     }
 }
@@ -87,28 +95,47 @@ extension MobileKeeperCoordinator: ConfirmRequestModuleOutput {
     
     func confirmRequestDidTapReject(_ complitingRequest: ConfirmRequest.DTO.ComplitingRequest) {
         
-        //TODO: Reject
+        self.mobileKeeperRepository.rejectRequest(complitingRequest.prepareRequest.request)
+        closeWindow()
     }
     
     func confirmRequestDidTapApprove(_ complitingRequest: ConfirmRequest.DTO.ComplitingRequest) {
-//
-//        switch request.data.action {
-//        case .send:
-//
-//            let vc = StoryboardScene.MobileKeeper.confirmRequestCompleteViewController.instantiate()
-//            navigationRouter.pushViewController(vc)
-//
-////            let vc = StoryboardScene.MobileKeeper.confirmRequestLoadingViewController.instantiate()
-////            navigationRouter.pushViewController(vc)
-//
-//        case .sign:
-//
-//            let vc = StoryboardScene.MobileKeeper.confirmRequestCompleteViewController.instantiate()
-//            navigationRouter.pushViewController(vc)
-//
-//            //TODO: Send
-//            break
-//        }
-//
+        
+        
+        let action = complitingRequest.prepareRequest.request.action
+        
+        switch action {
+        case .send:
+            let vc = StoryboardScene.MobileKeeper.confirmRequestLoadingViewController.instantiate()
+            navigationRouter.pushViewController(vc)
+        case .sign:
+            break
+        }
+        
+        mobileKeeperRepository
+            .completeRequest(complitingRequest.prepareRequest)
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (completed) in
+                
+                switch completed.request.action {
+                case .send:
+                    let vc = StoryboardScene.MobileKeeper.confirmRequestCompleteViewController.instantiate()
+                    //TODO: Set Response Andd callback to app
+                    
+                    self?.mobileKeeperRepository.approveRequest(completed)
+                    self?.navigationRouter.pushViewController(vc)
+                    
+                case .sign:
+                    self?.mobileKeeperRepository.approveRequest(completed)
+                }
+            })
+            .disposed(by: disposeBag)
+
+        
     }
+}
+
+fileprivate extension ConfirmRequest.DTO.ComplitingRequest {
+    
+//    var completingRequest: DomainLayer.DTO.MobileKeeper.CompletingRequest.init(
 }

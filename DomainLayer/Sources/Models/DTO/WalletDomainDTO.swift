@@ -61,7 +61,7 @@ public extension DomainLayer.DTO {
         }
     }
 
-    struct WalletSeed {
+    struct WalletSeed: Equatable {
         public let publicKey: String
         public let seed: String
         public let address: String

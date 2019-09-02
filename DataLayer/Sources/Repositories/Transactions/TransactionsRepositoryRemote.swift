@@ -39,11 +39,18 @@ extension TransactionSenderSpecifications {
 
         case .send:
             return 2
+            
+        case .invokeScript:
+            return 1
         }
     }
 
     var type: TransactionType {
         switch self {
+            
+        case .invokeScript:
+            return TransactionType.invokeScript
+            
         case .createAlias:
             return TransactionType.createAlias
 

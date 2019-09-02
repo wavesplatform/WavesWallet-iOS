@@ -110,37 +110,6 @@ public struct CancelLeaseTransactionSender {
     }
 }
 
-public struct DataTransactionSender {
-    public struct Value {
-        public enum Kind {
-            case integer(Int64)
-            case boolean(Bool)
-            case string(String)
-            case binary(String)
-        }
-
-        public let key: String
-        public let value: Kind
-
-        public init(key: String, value: Kind) {
-            self.key = key
-            self.value = value
-        }
-    }
-
-    public let fee: Int64
-    public let data: [Value]
-    public let chainId: String?
-    public let timestamp: Date?
-
-    public init(fee: Int64, data: [Value], chainId: String? = nil, timestamp: Date? = nil) {
-        self.fee = fee
-        self.chainId = chainId
-        self.data = data
-        self.timestamp = timestamp
-    }
-}
-
 public struct SendTransactionSender {
     public let recipient: String
     public let assetId: String
@@ -170,6 +139,99 @@ public struct SendTransactionSender {
     }
 }
 
+public struct DataTransactionSender {
+    public struct Value {
+        public enum Kind {
+            case integer(Int64)
+            case boolean(Bool)
+            case string(String)
+            case binary(String)
+        }
+        
+        public let key: String
+        public let value: Kind
+        
+        public init(key: String, value: Kind) {
+            self.key = key
+            self.value = value
+        }
+    }
+    
+    public let fee: Int64
+    public let data: [Value]
+    public let chainId: String?
+    public let timestamp: Date?
+    
+    public init(fee: Int64, data: [Value], chainId: String? = nil, timestamp: Date? = nil) {
+        self.fee = fee
+        self.data = data
+        self.timestamp = timestamp
+        self.chainId = chainId
+    }
+}
+
+public struct InvokeScriptTransactionSender {
+    
+    public struct Arg {
+        public enum Value {
+            case bool(Bool) //boolean
+            case integer(Int) // integer
+            case string(String) // string
+            case binary(String) // binary
+        }
+        
+        public let value: Value
+        
+        public init(value: Value) {
+            self.value = value
+        }
+    }
+    
+    public struct Call {
+        public let function: String
+        public let args: [Arg]
+        
+        public init(function: String, args: [Arg]) {
+            self.function = function
+            self.args = args
+        }
+    }
+    
+    public struct Payment {
+        public let amount: Int64
+        public let assetId: String
+        
+        public init(amount: Int64, assetId: String) {
+            self.amount = amount
+            self.assetId = assetId
+        }
+    }
+    
+    public let fee: Int64
+    public let feeAssetId: String
+    public let dApp: String
+    public let call: Call?
+    public let payment: [Payment]
+    public let chainId: String?
+    public let timestamp: Date?
+    
+    public init(fee: Int64,
+                feeAssetId: String,
+                dApp: String,
+                call: Call?,
+                payment: [Payment],
+                chainId: String?,
+                timestamp: Date?) {
+        self.fee = fee
+        self.feeAssetId = feeAssetId
+        self.dApp = dApp
+        self.call = call
+        self.payment = payment
+        self.timestamp = timestamp
+        self.chainId = chainId
+    }
+}
+
 //TOOD: Rename to Query
 public enum TransactionSenderSpecifications {
     case createAlias(AliasTransactionSender)
@@ -178,6 +240,7 @@ public enum TransactionSenderSpecifications {
     case cancelLease(CancelLeaseTransactionSender)
     case data(DataTransactionSender)
     case send(SendTransactionSender)
+    case invokeScript(InvokeScriptTransactionSender)
 }
 
 public protocol TransactionsRepositoryProtocol {

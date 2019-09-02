@@ -8,13 +8,13 @@
 
 import Foundation
 import RxSwift
+import WavesSDKCrypto
 
 public extension DomainLayer.DTO {
     enum MobileKeeper {}
 }
 
 public extension DomainLayer.DTO.MobileKeeper {
-    
     
     struct Application {
         public let name: String
@@ -47,39 +47,66 @@ public extension DomainLayer.DTO.MobileKeeper {
         }
     }
     
-    struct CompletingRequest {
-        public let request: Request
-        public let signedWallet: DomainLayer.DTO.SignedWallet
-        public let timestamp: Date
+    enum Success {
+        case transactionQuery
+        case transaction(DomainLayer.DTO.AnyTransaction)
     }
     
+    enum Error {
+        case reject
+        case message(String, Int)
+    }
     
+    enum Response {
+        case error(Error)
+        case success(Success)
+    }
     
-    
-//    public func decodableData(_ url: URL, sourceApplication: String) -> Data? {
-//
-//        return Data.init(dApp: .init(name: "Test",
-//                                     iconUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdF37xBUCZDiNuteNQRfQBTadMGcv25qpDRir40U5ILLYXp7uL", scheme: ""),
-//                         action: .send,
-//                         transaction: .send(.init(recipient: "3P5r1EXZwxJ21f3T3zvjx61RtY52QV4fb18",
-//                                                  assetId: "WAVES",
-//                                                  amount: 1000,
-//                                                  fee: 10000,
-//                                                  attachment: "",
-//                                                  feeAssetID: "WAVES",
-//                                                  chainId: "W")))
-//    }
-//
-//
-}
+    struct CompletedRequest {
+        public let request: Request
+        public let timestamp: Date
+        public let proof: Bytes
+        public let txId: String
+        public let response: Response
 
-//
+        public init(request: Request, timestamp: Date, proof: Bytes, txId: String, response: Response) {
+            self.request = request
+            self.timestamp = timestamp
+            self.proof = proof
+            self.txId = txId
+            self.response = response
+        }
+    }
+    
+    struct PrepareRequest {
+        public let request: Request
+        public let timestamp: Date
+        public let proof: Bytes
+        public let txId: String
+        
+        public init(request: Request, timestamp: Date, proof: Bytes, txId: String) {
+            self.request = request
+            self.timestamp = timestamp
+            self.proof = proof
+            self.txId = txId
+        }
+    }
+}
 
 public protocol MobileKeeperRepositoryProtocol {
     
-    func completeRequest(_ request: DomainLayer.DTO.MobileKeeper.CompletingRequest) -> Observable<Bool>
+    
+    func prepareRequest(_ request: DomainLayer.DTO.MobileKeeper.Request,
+                        signedWallet: DomainLayer.DTO.SignedWallet,
+                        timestamp: Date) -> Observable<DomainLayer.DTO.MobileKeeper.PrepareRequest>
+    
+    func completeRequest(_ prepareRequest: DomainLayer.DTO.MobileKeeper.PrepareRequest) -> Observable<DomainLayer.DTO.MobileKeeper.CompletedRequest>
     
     func docodableRequest(_ url: URL, sourceApplication: String) -> Observable<DomainLayer.DTO.MobileKeeper.Request?>
+    
+    func approveRequest(_ completedRequest: DomainLayer.DTO.MobileKeeper.CompletedRequest)
+    
+    func rejectRequest(_ request: DomainLayer.DTO.MobileKeeper.Request)
 }
 
 

@@ -38,13 +38,16 @@ enum ConfirmRequest {
             
             enum Action {
                 case prepareRequest
+                case loadingAssets
                 case none
             }
             
             var action: Action
             var request: DomainLayer.DTO.MobileKeeper.Request
             var signedWallet: DomainLayer.DTO.SignedWallet
+            var prepareRequest: DomainLayer.DTO.MobileKeeper.PrepareRequest?
             var complitingRequest: ConfirmRequest.DTO.ComplitingRequest?
+            var timestamp: Date
         }
         
         var ui: UI
@@ -54,7 +57,7 @@ enum ConfirmRequest {
     enum Event {
         case none
         case viewDidAppear
-        case prepareRequest([DomainLayer.DTO.Asset])
+        case prepareRequest([DomainLayer.DTO.Asset], DomainLayer.DTO.MobileKeeper.PrepareRequest)
     }
     
     struct Section: SectionProtocol {
@@ -82,16 +85,9 @@ enum ConfirmRequest {
 
 extension ConfirmRequest.DTO {
 
-    struct PrepareRequest {
-        let transaction: Transaction
-        let request: DomainLayer.DTO.MobileKeeper.Request
-        let signedWallet: DomainLayer.DTO.SignedWallet
-        let timestamp: Date
-    }
-    
     struct ComplitingRequest {
         let transaction: Transaction
-        let request: DomainLayer.DTO.MobileKeeper.Request
+        let prepareRequest: DomainLayer.DTO.MobileKeeper.PrepareRequest
         let signedWallet: DomainLayer.DTO.SignedWallet
         let timestamp: Date
         let proof: Bytes
