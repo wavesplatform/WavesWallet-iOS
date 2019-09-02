@@ -19,7 +19,7 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
     
     init(repositoriesFactory: RepositoriesFactoryProtocol) {
         self.repositoriesFactory = repositoriesFactory
-    }    
+    }
     public func prepareRequest(_ request: DomainLayer.DTO.MobileKeeper.Request,
                                signedWallet: DomainLayer.DTO.SignedWallet,
                                timestamp: Date) -> Observable<DomainLayer.DTO.MobileKeeper.PrepareRequest> {
@@ -43,19 +43,29 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
     }
     
     public func completeRequest(_ prepareRequest: DomainLayer.DTO.MobileKeeper.PrepareRequest) -> Observable<DomainLayer.DTO.MobileKeeper.CompletedRequest> {
+        
+        //TODO: Send to node and return sign
         return Observable.never()
     }
     
     
     public func approveRequest(_ completedRequest: DomainLayer.DTO.MobileKeeper.CompletedRequest) {
         
+        WavesKeeper.shared.returnResponse(.error(.reject))
     }
     
     public func rejectRequest(_ request: DomainLayer.DTO.MobileKeeper.Request) {
         
+        WavesKeeper.shared.returnResponse(.error(.reject))
     }
     
     public func docodableRequest(_ url: URL, sourceApplication: String) -> Observable<DomainLayer.DTO.MobileKeeper.Request?> {
+        
+        var requesta = WavesKeeper.shared.decodableRequest(url, sourceApplication: sourceApplication)
+        
+        
+    
+        
         
         let request = DomainLayer.DTO.MobileKeeper.Request.init(dApp: .init(name: "Test",
                                                                             iconUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdF37xBUCZDiNuteNQRfQBTadMGcv25qpDRir40U5ILLYXp7uL",
