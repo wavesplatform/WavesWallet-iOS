@@ -128,7 +128,7 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
                     for (index, model) in searchResult.pairs.enumerated() {
                         
                         let exchangeAssetTxs = arrayTx[index]
-                        let price = exchangeAssetTxs.map{$0.price}.reduce(0, {$0 + $1}) / Double(exchangeAssetTxs.count)
+                        let price = exchangeAssetTxs.count > 0 ? exchangeAssetTxs.map{$0.price}.reduce(0, {$0 + $1}) / Double(exchangeAssetTxs.count) : 0
 
                         let asset = assets[index]
                        
@@ -140,7 +140,6 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
                                                            lastPrice: model?.lastPrice ?? 0,
                                                            amountAsset: asset.amountAsset))
                     }
-                    
                     return self.dbRepository.saveAsssets(assets: pairs)
                         .flatMap({ (_) -> Observable<[MarketPulse.DTO.Asset]> in
                             return Observable.just(pairs)
