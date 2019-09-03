@@ -37,8 +37,10 @@ public extension DomainLayer.DTO {
         
         public var modified: Date
         public var status: TransactionStatus
+        public let chainId: String?
 
-        public init(type: Int, id: String, sender: String, senderPublicKey: String, fee: Int64, feeAssetId: String?, timestamp: Date, proofs: [String]?, version: Int, dappAddress: String, payment: Payment?, height: Int64, modified: Date, status: TransactionStatus) {
+        public init(type: Int, id: String, sender: String, senderPublicKey: String, fee: Int64, feeAssetId: String?, timestamp: Date, proofs: [String]?, version: Int, dappAddress: String, payment: Payment?, height: Int64, modified: Date, status: TransactionStatus, chainId: String?) {
+            self.chainId = chainId
             self.type = type
             self.id = id
             self.sender = sender

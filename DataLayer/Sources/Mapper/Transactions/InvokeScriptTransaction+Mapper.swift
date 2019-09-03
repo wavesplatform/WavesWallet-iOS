@@ -58,11 +58,13 @@ extension DomainLayer.DTO.InvokeScriptTransaction {
                   payment: transaction.payment.first.map { .init(amount: $0.amount, assetId: $0.assetId) },
                   height: transaction.height ?? 0,
                   modified: Date(),
-                  status: status)
+                  status: status,
+                  chainId: transaction.chainId)
     }
     
     init(transaction: InvokeScriptTransaction) {
         
+        //TODO: chainId: String
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,
@@ -76,6 +78,7 @@ extension DomainLayer.DTO.InvokeScriptTransaction {
                   payment: transaction.payment.map { .init(amount: $0.amount, assetId: $0.assetId) },
                   height: transaction.height,
                   modified: transaction.modified,
-                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)
+                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed,
+                  chainId: "")
     }
 }

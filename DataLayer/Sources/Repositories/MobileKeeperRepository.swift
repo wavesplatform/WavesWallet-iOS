@@ -61,7 +61,7 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
                       wallet: prepareRequest.signedWallet)
                 .flatMap({ (tx) -> Observable<DomainLayer.DTO.MobileKeeper.CompletedRequest> in
                     
-                    let completedRequest = prepareRequest.completedRequest(response: .success(.transaction(tx)),
+                    let completedRequest = prepareRequest.completedRequest(response: .success(.send(tx)),
                                                                            signedWallet: prepareRequest.signedWallet)
                     return Observable.just(completedRequest)
                 })
@@ -90,7 +90,7 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
             
         case .sign:
             
-            let completedRequest = prepareRequest.completedRequest(response: .success(.transactionQuery),
+            let completedRequest = prepareRequest.completedRequest(response: .success(.sign(prepareRequest.request.transaction)),
                                                                    signedWallet: prepareRequest.signedWallet)
             return Observable.just(completedRequest)
         }
@@ -99,79 +99,47 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
     
     public func approveRequest(_ completedRequest: DomainLayer.DTO.MobileKeeper.CompletedRequest) {
         
-        let nodeQuery = completedRequest.request.transaction.nodeQuery
-        
-        switch completedRequest.response {
-        case .success(let tx):
-            
-            switch tx {
-            case .transaction(let tx):
-                
-                guard let transactionNodeService = tx.transactionNodeService else { return }
-                
-                WavesKeeper.shared.returnResponse(for: completedRequest.request.dApp.wavesKeeperApplication,
-                                                  response: .success(.send(transactionNodeService)))
-                
-            case .transactionQuery:
-                
-                guard let txQuery = completedRequest
-                    .request
-                    .transaction
-                    .nodeQuery(proof: completedRequest.proof,
-                               timestamp: completedRequest.timestamp.millisecondsSince1970,
-                               publicKey: completedRequest.publicKey) else { return }
-                
-                WavesKeeper.shared.returnResponse(for: completedRequest.request.dApp.wavesKeeperApplication,
-                                                  response: .success(.sign(txQuery)))
-            }
-            //TODO: Error
-        case .error(let error):
-            
-            let wavesKeeperError = { () -> WavesKeeper.Error in
-                switch error {
-                case .message(let message, let code):
-                    return .message(message, code)
-                    
-                case .reject:
-                    return .reject
-                }
-            }()
-            
-            WavesKeeper.shared.returnResponse(for: completedRequest.request.dApp.wavesKeeperApplication,
-                                              response: .error(wavesKeeperError))
-        }
+      returnResponse(for: completedRequest.request.dApp,
+                     response: completedRequest.response)
     }
     
     public func rejectRequest(_ request: DomainLayer.DTO.MobileKeeper.Request) {
-        
-      let nodeQuery = request.transaction.nodeQuery
-        WavesKeeper.shared.returnResponse(for: request.dApp.wavesKeeperApplication,
-                                          response: .error(.reject))
+        returnResponse(for: request.dApp,
+                       response: .error(.reject))
     }
     
+    
+    //TODO: Pavel
+    //TODO: Method For Wallet.
     public func decodableRequest(_ url: URL, sourceApplication: String) -> Observable<DomainLayer.DTO.MobileKeeper.Request?> {
         
-        guard let request = WavesKeeper.shared.decodableRequest(url, sourceApplication: sourceApplication) else {
-            return Observable.just(nil)
-        }
         
-        guard let transactionSenderSpecifications = request.transaction.transactionSenderSpecifications else {
-            return Observable.just(nil)
-        }
+        let request = DomainLayer.DTO.MobileKeeper.Request.init(dApp: .init(name: "AppCon",
+                                                                            iconUrl: "",
+                                                                            scheme: "AplicationMega"),
+                                                                action: .send,
+                                                                transaction: .send(.init(recipient: "3PEsVWBVi4szBuJFTJ1dhYmULS4eH22sEUH",
+                                                                                         assetId: "WAVES",
+                                                                                         amount: 1000,
+                                                                                         fee: 1000000,
+                                                                                         attachment: "",
+                                                                                         feeAssetID: "WAVES",
+                                                                                         chainId: "W",
+                                                                                         timestamp: Date())))
         
-        let mobileKeeperRequest = DomainLayer
-            .DTO
-            .MobileKeeper
-            .Request
-            .init(dApp: .init(name: request.dApp.name,
-                              iconUrl: request.dApp.iconUrl,
-                              scheme: request.dApp.schemeUrl),
-                  action: (request.action == .send ? .send : .sign),
-                  transaction: transactionSenderSpecifications)
+        return Observable.just(request)
+    }
+    
+    //TODO: Pavel
+    //TODO: Method For Wallet. Result Return for dApp
+    public func returnResponse(for dApp: DomainLayer.DTO.MobileKeeper.Application,
+                               response: DomainLayer.DTO.MobileKeeper.Response) {
         
-        return Observable.just(mobileKeeperRequest)
+
+        //        UIApplication.shared.open(URL.init(string: "\(dApp.schemeUrl)://arg1=3&arg2=4")!, options: .init(), completionHandler: nil)
     }
 }
+    
 
 extension DomainLayer.DTO.MobileKeeper.Application {
     
@@ -249,6 +217,27 @@ fileprivate extension TransactionSenderSpecifications {
 }
 
 
+fileprivate extension DomainLayer.DTO.InvokeScriptTransaction {
+
+    var invokeScriptTransactionNodeService: NodeService.DTO.InvokeScriptTransaction? {
+                
+        return NodeService.DTO.InvokeScriptTransaction(type: self.type,
+                                                       id: self.id,
+                                                       chainId: self.chainId,
+                                                       sender: self.sender,
+                                                       senderPublicKey: self.senderPublicKey,
+                                                       fee: self.fee,
+                                                       timestamp: self.timestamp,
+                                                       proofs: self.proofs,
+                                                       version: self.version,
+                                                       height: self.height,
+                                                       feeAssetId: self.feeAssetId,
+                                                       dApp: self.dappAddress,
+                                                       call: nil,
+                                                       payment: [])
+    }
+    
+}
 
 fileprivate extension DomainLayer.DTO.AnyTransaction {
     

@@ -48,8 +48,8 @@ public extension DomainLayer.DTO.MobileKeeper {
     }
     
     enum Success {
-        case transactionQuery
-        case transaction(DomainLayer.DTO.AnyTransaction)
+        case sign(TransactionSenderSpecifications)
+        case send(DomainLayer.DTO.AnyTransaction)
     }
     
     enum Error {
