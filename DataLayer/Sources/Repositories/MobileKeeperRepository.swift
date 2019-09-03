@@ -10,6 +10,7 @@ import Foundation
 import DomainLayer
 import RxSwift
 import WavesSDK
+import WavesSDKCrypto
 
 //Rename to UseCase
 
@@ -22,7 +23,7 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
         
         WavesKeeper.initialization(application: .init(name: "Waves",
                                                       iconUrl: "",
-                                                      scheme: "waves"))
+                                                      schemeUrl: "waves"))
     }
     public func prepareRequest(_ request: DomainLayer.DTO.MobileKeeper.Request,
                                signedWallet: DomainLayer.DTO.SignedWallet,
@@ -60,7 +61,8 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
                       wallet: prepareRequest.signedWallet)
                 .flatMap({ (tx) -> Observable<DomainLayer.DTO.MobileKeeper.CompletedRequest> in
                     
-                    let completedRequest = prepareRequest.completedRequest(response: .success(.transaction(tx)))
+                    let completedRequest = prepareRequest.completedRequest(response: .success(.transaction(tx)),
+                                                                           signedWallet: prepareRequest.signedWallet)
                     return Observable.just(completedRequest)
                 })
                 .catchError({ (error) -> Observable<DomainLayer.DTO.MobileKeeper.CompletedRequest> in
@@ -76,17 +78,20 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
                             }
                         }()
                         
-                        let completedRequest = prepareRequest.completedRequest(response: .error(.message(title, 0)))
+                        let completedRequest = prepareRequest.completedRequest(response: .error(.message(title, 0)),
+                                                                               signedWallet: prepareRequest.signedWallet)
                         return Observable.just(completedRequest)
                     }
                     
-                    let completedRequest = prepareRequest.completedRequest(response: .error(.reject))
+                    let completedRequest = prepareRequest.completedRequest(response: .error(.reject),
+                                                                           signedWallet: prepareRequest.signedWallet)
                     return Observable.just(completedRequest)
                 })
             
         case .sign:
             
-            let completedRequest = prepareRequest.completedRequest(response: .success(.transactionQuery))
+            let completedRequest = prepareRequest.completedRequest(response: .success(.transactionQuery),
+                                                                   signedWallet: prepareRequest.signedWallet)
             return Observable.just(completedRequest)
         }
     }
@@ -94,7 +99,6 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
     
     public func approveRequest(_ completedRequest: DomainLayer.DTO.MobileKeeper.CompletedRequest) {
         
-//        completedRequest.request.transaction
         let nodeQuery = completedRequest.request.transaction.nodeQuery
         
         switch completedRequest.response {
@@ -106,14 +110,19 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
                 guard let transactionNodeService = tx.transactionNodeService else { return }
                 
                 WavesKeeper.shared.returnResponse(for: completedRequest.request.dApp.wavesKeeperApplication,
-                                                  response: .success(.transaction(transactionNodeService)))
+                                                  response: .success(.send(transactionNodeService)))
                 
             case .transactionQuery:
                 
-                guard let txQuery = completedRequest.request.transaction.nodeQuery else { return }
+                guard let txQuery = completedRequest
+                    .request
+                    .transaction
+                    .nodeQuery(proof: completedRequest.proof,
+                               timestamp: completedRequest.timestamp.millisecondsSince1970,
+                               publicKey: completedRequest.publicKey) else { return }
                 
                 WavesKeeper.shared.returnResponse(for: completedRequest.request.dApp.wavesKeeperApplication,
-                                                  response: .success(.transactionQuery(txQuery)))
+                                                  response: .success(.sign(txQuery)))
             }
             //TODO: Error
         case .error(let error):
@@ -156,7 +165,7 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
             .Request
             .init(dApp: .init(name: request.dApp.name,
                               iconUrl: request.dApp.iconUrl,
-                              scheme: request.dApp.scheme),
+                              scheme: request.dApp.schemeUrl),
                   action: (request.action == .send ? .send : .sign),
                   transaction: transactionSenderSpecifications)
         
@@ -167,7 +176,7 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
 extension DomainLayer.DTO.MobileKeeper.Application {
     
     var wavesKeeperApplication: WavesKeeper.Application {
-        return .init(name: name, iconUrl: iconUrl, scheme: scheme)
+        return .init(name: name, iconUrl: iconUrl, schemeUrl: scheme)
     }
 }
 
@@ -209,16 +218,22 @@ fileprivate extension NodeService.Query.Transaction.InvokeScript.Call {
 //TODO:
 fileprivate extension TransactionSenderSpecifications {
     
-    var nodeQuery: NodeService.Query.Transaction? {
+    func nodeQuery(proof: Bytes, timestamp: Int64, publicKey: String) -> NodeService.Query.Transaction? {
+        
+        let proofs = [Base58Encoder.encode(proof)]
         
         switch self {
         case .send(let model):
+            
             let transfer = NodeService.Query.Transaction.Transfer.init(recipient: model.recipient,
                                                                        assetId: model.assetId,
                                                                        amount: model.amount,
                                                                        fee: model.fee,
                                                                        attachment: model.attachment,
                                                                        feeAssetId: model.feeAssetID,
+                                                                       timestamp: timestamp,
+                                                                       senderPublicKey: publicKey,
+                                                                       proofs: proofs,
                                                                        chainId: model.chainId ?? "")
             
             return .transfer(transfer)
@@ -345,12 +360,14 @@ fileprivate extension NodeService.Query.Transaction {
 fileprivate extension DomainLayer.DTO.MobileKeeper.PrepareRequest {
     
     
-    func completedRequest(response: DomainLayer.DTO.MobileKeeper.Response) -> DomainLayer.DTO.MobileKeeper.CompletedRequest {
+    func completedRequest(response: DomainLayer.DTO.MobileKeeper.Response,
+                          signedWallet: DomainLayer.DTO.SignedWallet) -> DomainLayer.DTO.MobileKeeper.CompletedRequest {
     
         let completedRequest = DomainLayer.DTO.MobileKeeper.CompletedRequest(request: request,
                                                                              timestamp: timestamp,
                                                                              proof: proof,
                                                                              txId: txId,
+                                                                             publicKey: signedWallet.publicKey.getPublicKeyStr(),
                                                                              response: response)
         
         return completedRequest

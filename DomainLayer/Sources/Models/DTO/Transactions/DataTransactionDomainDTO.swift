@@ -14,7 +14,7 @@ public extension DomainLayer.DTO {
         public struct Data {
             public enum Value {
                 case bool(Bool)
-                case integer(Int)
+                case integer(Int64)
                 case string(String)
                 case binary(String)
             }

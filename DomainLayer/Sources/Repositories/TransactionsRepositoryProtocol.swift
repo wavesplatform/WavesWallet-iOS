@@ -175,7 +175,7 @@ public struct InvokeScriptTransactionSender {
     public struct Arg {
         public enum Value {
             case bool(Bool) //boolean
-            case integer(Int) // integer
+            case integer(Int64) // integer
             case string(String) // string
             case binary(String) // binary
         }

@@ -67,14 +67,16 @@ public extension DomainLayer.DTO.MobileKeeper {
         public let timestamp: Date
         public let proof: Bytes
         public let txId: String
+        public let publicKey: String
         public let response: Response
-
-        public init(request: Request, timestamp: Date, proof: Bytes, txId: String, response: Response) {
+        
+        public init(request: Request, timestamp: Date, proof: Bytes, txId: String, publicKey: String, response: Response) {
             self.request = request
             self.timestamp = timestamp
             self.proof = proof
             self.txId = txId
             self.response = response
+            self.publicKey = publicKey
         }
     }
     

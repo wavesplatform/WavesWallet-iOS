@@ -37,7 +37,8 @@ extension DataTransaction {
             case .bool(let value):
                 txData.boolean.value = value
             case .integer(let value):
-                txData.integer.value = value
+                //TODO: Change bd
+                txData.integer.value = (value as? Int) ?? 0
             case .string(let value):
                 txData.string = value
             case .binary(let value):
@@ -100,7 +101,7 @@ extension DomainLayer.DTO.DataTransaction {
             if let value = data.binary {
                 dataValue = .binary(value)
             } else if let value = data.integer.value {
-                dataValue = .integer(value)
+                dataValue = .integer(Int64(value))
             } else if let value = data.string {
                 dataValue = .string(value)
             } else if let value = data.boolean.value {
