@@ -98,7 +98,7 @@ final class MarketPulseWidgetViewController: UIViewController {
     
     @IBAction private func settingsTapped(_ sender: Any) {
         
-        UseCasesFactory.instance?.analyticManager.trackEvent(.widgets(.marketPulseActive))
+        WidgetAnalyticManager.shared.trackEvent(.widgets(.marketPulseActive))
         if let url = URL(string: DeepLink.widgetSettings) {
             extensionContext?.open(url, completionHandler: nil)
         }
@@ -106,7 +106,7 @@ final class MarketPulseWidgetViewController: UIViewController {
     
     @IBAction private func updateTapped(_ sender: Any) {
 
-        UseCasesFactory.instance?.analyticManager.trackEvent(.widgets(.marketPulseActive))
+        WidgetAnalyticManager.shared.trackEvent(.widgets(.marketPulseActive))
 
         sendEvent.accept(.refresh)
         showUpdateAnimation()
@@ -120,7 +120,7 @@ final class MarketPulseWidgetViewController: UIViewController {
             currency = .usd
         }
 
-        UseCasesFactory.instance?.analyticManager.trackEvent(.widgets(.marketPulseActive))
+        WidgetAnalyticManager.shared.trackEvent(.widgets(.marketPulseActive))
         sendEvent.accept(.changeCurrency(currency))
     }
 }

@@ -127,13 +127,13 @@ private extension MarketPulseWidgetPresenter {
         
         return filteredAsset.map { asset in
             
-            var lastPrice: Double = 0
+            var price: Double = 0
             var percent: Double = 0
             
             if asset.id == WavesSDKConstants.wavesAssetId {
                 let deltaPercent = (wavesCurrencyAsset.lastPrice - wavesCurrencyAsset.firstPrice) * 100
                 percent = wavesCurrencyAsset.lastPrice != 0 ? deltaPercent / wavesCurrencyAsset.lastPrice : 0
-                lastPrice = wavesCurrencyAsset.lastPrice
+                price = wavesCurrencyAsset.price
             }
             else {
                 
@@ -141,16 +141,16 @@ private extension MarketPulseWidgetPresenter {
                 percent = asset.lastPrice != 0 ? deltaPercent / asset.lastPrice : 0
                 
                 if asset.amountAsset == WavesSDKConstants.wavesAssetId {
-                    lastPrice = asset.quoteVolume != 0 ? asset.volume / asset.quoteVolume * wavesCurrencyAsset.lastPrice : 0
+                    price = asset.price != 0 ? 1 / asset.price * wavesCurrencyAsset.price : 0
                 }
                 else {
-                    lastPrice = asset.volume != 0 ? asset.volumeWaves / asset.volume * wavesCurrencyAsset.lastPrice : 0
+                    price = asset.price * wavesCurrencyAsset.price
                 }
             }
             
             return MarketPulse.ViewModel.Row.model(MarketPulse.DTO.UIAsset(icon: asset.icon,
                                                                            name: asset.name,
-                                                                           price: lastPrice,
+                                                                           price: price,
                                                                            percent: percent,
                                                                            currency: settings.currency,
                                                                            isDarkMode: settings.isDarkMode))

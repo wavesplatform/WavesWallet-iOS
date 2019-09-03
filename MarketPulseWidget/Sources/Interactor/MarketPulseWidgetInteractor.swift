@@ -10,9 +10,12 @@ import Foundation
 import RxSwift
 import WavesSDK
 import DomainLayer
-import DataLayer
 import WavesSDKExtensions
 import Extensions
+
+private enum Constants {
+    static let exchangeTxLimit: Int = 5
+}
 
 protocol MarketPulseWidgetInteractorProtocol {
     func assets() -> Observable<[MarketPulse.DTO.Asset]>
@@ -22,11 +25,10 @@ protocol MarketPulseWidgetInteractorProtocol {
 
 final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
   
-    private lazy var widgetSettingsRepository: WidgetSettingsInizializationUseCaseProtocol = UseCasesFactory.instance.widgetSettingsInizialization
-    
-    private lazy var dexPairsPriceRepository = UseCasesFactory.instance.repositories.dexPairsPriceRepository
-    
+    private let widgetSettingsRepository: WidgetSettingsInizializationUseCaseProtocol = WidgetSettingsInizialization()
+    private let pairsPriceRepository: WidgetPairsPriceRepositoryProtocol = WidgetPairsPriceRepositoryRemote()
     private let dbRepository: MarketPulseDataBaseRepositoryProtocol = MarketPulseDataBaseRepository()
+    private let transactionsRepository: WidgetTransactionsRepositoryProtocol = WidgetTransactionsRepositoryRemote()
     
     init() {
         _ = setupLayers()
@@ -35,7 +37,7 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
     static var shared: MarketPulseWidgetInteractor = MarketPulseWidgetInteractor()
     
     private func setupLayers() -> Bool {
-                
+    
         guard let googleServiceInfoPath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") else {
             return false
         }
@@ -47,18 +49,10 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
         guard let amplitudeInfoPath = Bundle.main.path(forResource: "Amplitude-Info", ofType: "plist") else {
             return false
         }
-        
-        guard let sentryIoInfoPath = Bundle.main.path(forResource: "Sentry-io-Info", ofType: "plist") else {
-            return false
-        }
-        
-        let resourses = RepositoriesFactory.Resources(googleServiceInfo: googleServiceInfoPath,
-                                                      appsflyerInfo: appsflyerInfoPath,
-                                                      amplitudeInfo: amplitudeInfoPath,
-                                                      sentryIoInfoPath: sentryIoInfoPath)
-        let repositories = RepositoriesFactory(resources: resourses)
-        
-        UseCasesFactory.initialization(repositories: repositories, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp())
+
+        WidgetAnalyticManagerInitialization.setup(resources: .init(googleServiceInfo: googleServiceInfoPath,
+            appsflyerInfo: appsflyerInfoPath,
+            amplitudeInfo: amplitudeInfoPath))
         
         return true
     }
@@ -111,35 +105,47 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
     
     private func loadAssets(assets: [DomainLayer.DTO.MarketPulseSettings.Asset]) -> Observable<[MarketPulse.DTO.Asset]> {
         
+        var arrayExchangeTx: [Observable<[DataService.DTO.ExchangeTransaction]>] = []
+
+        for asset in assets {
+            arrayExchangeTx.append(transactionsRepository.exchangeTransactions(amountAsset: asset.amountAsset, priceAsset: asset.priceAsset, limit: Constants.exchangeTxLimit))
+        }
+        
         let query = assets.map { DomainLayer.Query.Dex.SearchPairs.Pair.init(amountAsset: $0.amountAsset,
                                                                              priceAsset: $0.priceAsset) }
     
-            return dexPairsPriceRepository
-                .searchPairs(.init(kind: .pairs(query)))
-                .flatMap { [weak self] (searchResult) -> Observable<[MarketPulse.DTO.Asset]> in
+        return pairsPriceRepository
+            .searchPairs(.init(kind: .pairs(query)))
+            .flatMap { (searchResult) -> Observable<[MarketPulse.DTO.Asset]> in
+
+                return Observable.zip(arrayExchangeTx)
+                    .flatMap({ [weak self] (arrayTx) -> Observable<[MarketPulse.DTO.Asset]> in
 
                     guard let self = self else { return Observable.empty() }
                     
                     var pairs: [MarketPulse.DTO.Asset] = []
-
+                    
                     for (index, model) in searchResult.pairs.enumerated() {
-                        let asset = assets[index]
                         
+                        let exchangeAssetTxs = arrayTx[index]
+                        let price = exchangeAssetTxs.count > 0 ? exchangeAssetTxs.map{$0.price}.reduce(0, {$0 + $1}) / Double(exchangeAssetTxs.count) : 0
+
+                        let asset = assets[index]
+                       
                         pairs.append(MarketPulse.DTO.Asset(id: asset.id,
                                                            name: asset.name,
                                                            icon: asset.icon,
+                                                           price: price,
                                                            firstPrice: model?.firstPrice ?? 0,
                                                            lastPrice: model?.lastPrice ?? 0,
-                                                           volume: model?.volume ?? 0,
-                                                           volumeWaves: model?.volumeWaves ?? 0,
-                                                           quoteVolume: model?.quoteVolume ?? 0,
                                                            amountAsset: asset.amountAsset))
                     }
-
                     return self.dbRepository.saveAsssets(assets: pairs)
                         .flatMap({ (_) -> Observable<[MarketPulse.DTO.Asset]> in
                             return Observable.just(pairs)
                         })
+                })
+                 
         }
     }
 }
@@ -162,4 +168,3 @@ private struct AuthorizationInteractorLocalizableImp: AuthorizationInteractorLoc
         return ""
     }
 }
-

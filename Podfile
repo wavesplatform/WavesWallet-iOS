@@ -102,6 +102,12 @@ target 'MarketPulseWidget' do
 
     pod 'Kingfisher'
 
+    pod 'Amplitude-iOS'
+    pod 'AppsFlyerFramework'
+#    pod 'Firebase/Core'
+#    pod 'Firebase/Database'
+#    pod 'Firebase/Auth'
+
 end
 
 target 'DataLayer' do
@@ -236,6 +242,7 @@ post_install do |installer|
             'GTMSessionFetcher',
             'GoogleUtilities']
     })
+
 end
 
 ## This code take from https://github.com/CocoaPods/CocoaPods/issues/7155#issuecomment-461395735

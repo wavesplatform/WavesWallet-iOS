@@ -11,16 +11,16 @@ import Extensions
 
 public extension DomainLayer.DTO {
     
-    struct MarketPulseSettings {
+    struct MarketPulseSettings: Codable {
         
-        public enum Interval: Int {
+        public enum Interval: Int, Codable {
             case m1 = 60
             case m5 = 300
             case m10 = 600
             case manually = 0
         }
         
-        public struct Asset {
+        public struct Asset: Codable {
             
             public let id: String
             public let name: String
