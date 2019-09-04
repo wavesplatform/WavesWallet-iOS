@@ -211,7 +211,7 @@ extension DomainLayer.DTO.MobileKeeper.Error {
         
         switch self {
         case .message(let message, let code):
-            return .message(message, code)
+            return .message(.init(message: message, code: code))
             
         case .reject:
             return .reject
