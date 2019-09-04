@@ -126,6 +126,7 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
                                                                                          feeAssetID: "WAVES",
                                                                                          chainId: "W",
                                                                                          timestamp: Date())))
+            
         
         return Observable.just(request)
     }
@@ -180,90 +181,6 @@ fileprivate extension NodeService.Query.Transaction.InvokeScript.Call {
     var callSender: InvokeScriptTransactionSender.Call {
         return InvokeScriptTransactionSender.Call(function: self.function,
                                                   args: self.argsSender)
-    }
-}
-
-//TODO:
-fileprivate extension TransactionSenderSpecifications {
-    
-    func nodeQuery(proof: Bytes, timestamp: Int64, publicKey: String) -> NodeService.Query.Transaction? {
-        
-        let proofs = [Base58Encoder.encode(proof)]
-        
-        switch self {
-        case .send(let model):
-            
-            let transfer = NodeService.Query.Transaction.Transfer.init(recipient: model.recipient,
-                                                                       assetId: model.assetId,
-                                                                       amount: model.amount,
-                                                                       fee: model.fee,
-                                                                       attachment: model.attachment,
-                                                                       feeAssetId: model.feeAssetID,
-                                                                       timestamp: timestamp,
-                                                                       senderPublicKey: publicKey,
-                                                                       proofs: proofs,
-                                                                       chainId: model.chainId ?? "")
-            
-            return .transfer(transfer)
-            
-        case .invokeScript(let model):
-            return nil
-            
-            
-        default:
-            return nil
-        }
-    }
-}
-
-
-fileprivate extension DomainLayer.DTO.InvokeScriptTransaction {
-
-    var invokeScriptTransactionNodeService: NodeService.DTO.InvokeScriptTransaction? {
-                
-        return NodeService.DTO.InvokeScriptTransaction(type: self.type,
-                                                       id: self.id,
-                                                       chainId: self.chainId,
-                                                       sender: self.sender,
-                                                       senderPublicKey: self.senderPublicKey,
-                                                       fee: self.fee,
-                                                       timestamp: self.timestamp,
-                                                       proofs: self.proofs,
-                                                       version: self.version,
-                                                       height: self.height,
-                                                       feeAssetId: self.feeAssetId,
-                                                       dApp: self.dappAddress,
-                                                       call: nil,
-                                                       payment: [])
-    }
-    
-}
-
-fileprivate extension DomainLayer.DTO.AnyTransaction {
-    
-    var transactionNodeService: NodeService.DTO.Transaction? {
-        
-        switch self {
-        case .transfer(let model):
-            return NodeService.DTO.Transaction.transfer(.init(type: model.type,
-                                                              id: model.id,
-                                                              sender: model.sender,
-                                                              senderPublicKey: model.senderPublicKey,
-                                                              fee: model.fee,
-                                                              timestamp: model.timestamp,
-                                                              version: model.version,
-                                                              height: model.height,
-                                                              signature: model.signature,
-                                                              proofs: model.proofs,
-                                                              recipient: model.recipient,
-                                                              assetId: model.assetId,
-                                                              feeAssetId: model.feeAssetId,
-                                                              amount: model.amount,
-                                                              attachment: model.attachment))
-            
-        default:
-            return nil
-        }
     }
 }
 
