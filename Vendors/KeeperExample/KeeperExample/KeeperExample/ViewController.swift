@@ -17,6 +17,10 @@ final class Button: UIButton {
         case send_2
         case send_3
         case send_4
+        case send_5
+        case send_6
+        case send_7
+        case send_8
     }
     
     @IBInspectable private var type: Int = 0

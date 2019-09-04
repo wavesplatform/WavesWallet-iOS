@@ -99,6 +99,9 @@
                                                         <integer key="value" value="5"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="handlerButtonWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CXb-Se-T7e"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jU6-YK-sxO" customClass="Button" customModule="KeeperExample" customModuleProvider="target">
                                                 <rect key="frame" x="94" y="0.0" width="78" height="66"/>
