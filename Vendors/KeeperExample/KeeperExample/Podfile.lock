@@ -1,0 +1,57 @@
+PODS:
+  - Alamofire (4.8.2)
+  - Moya (12.0.1):
+    - Moya/Core (= 12.0.1)
+  - Moya/Core (12.0.1):
+    - Alamofire (~> 4.1)
+    - Result (~> 4.0)
+  - Moya/RxSwift (12.0.1):
+    - Moya/Core
+    - RxSwift (~> 4.0)
+  - Result (4.1.0)
+  - RxSwift (4.5.0)
+  - WavesSDK (0.1.7):
+    - Moya (~> 12.0.1)
+    - Moya/RxSwift (~> 12.0.1)
+    - RxSwift (~> 4.0)
+    - WavesSDKCrypto
+    - WavesSDKExtensions
+  - WavesSDKCrypto (0.1.7):
+    - WavesSDKExtensions
+  - WavesSDKExtensions (0.1.7):
+    - RxSwift (~> 4.0)
+
+DEPENDENCIES:
+  - "WavesSDK (from `git@github.com:wavesplatform/WavesSDK-iOS.git`, branch `feature/IOS-780`)"
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - Moya
+    - Result
+    - RxSwift
+    - WavesSDKCrypto
+    - WavesSDKExtensions
+
+EXTERNAL SOURCES:
+  WavesSDK:
+    :branch: feature/IOS-780
+    :git: "git@github.com:wavesplatform/WavesSDK-iOS.git"
+
+CHECKOUT OPTIONS:
+  WavesSDK:
+    :commit: 519bc91c7fbccb3a98d64e443af326f2d078b5cd
+    :git: "git@github.com:wavesplatform/WavesSDK-iOS.git"
+
+SPEC CHECKSUMS:
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
+  Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
+  RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
+  WavesSDK: 4212f8b34a3e732cac52facb216466122f94b12d
+  WavesSDKCrypto: 05aab03ff2c6a8b5c98d6d1b38e557f4799756e3
+  WavesSDKExtensions: b0b46dd85aed81fd14e184da35582fda66da29d8
+
+PODFILE CHECKSUM: 826a8c426af8bcfa0c21270883256981cd600b2b
+
+COCOAPODS: 1.7.5
