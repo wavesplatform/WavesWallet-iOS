@@ -704,17 +704,18 @@ fileprivate extension InvokeScriptTransactionSender.Call  {
 
 }
 
-
 private extension URL {
     
     func request() throws -> WavesKeeper.Request? {
         
         guard let component = URLComponents.init(url: self, resolvingAgainstBaseURL: true) else { return nil }
         guard component.path == "keeper/request" else { throw MobileKeeperUseCaseError.dataIncorrect }
-        guard let item = (component.queryItems?.first { $0.name == "data" }) else { return nil }
-        guard let value = item.value else { return nil }
+        guard let item = (component.queryItems?.first { $0.name == "data" }) else { throw MobileKeeperUseCaseError.dataIncorrect }
+        guard let value = item.value else { throw MobileKeeperUseCaseError.dataIncorrect }
         
-        let request: WavesKeeper.Request? = value.decodableBase64ToObject()
+        guard let request: WavesKeeper.Request = value.decodableBase64ToObject() else {
+            throw MobileKeeperUseCaseError.dataIncorrect
+        }
         
         return request
     }

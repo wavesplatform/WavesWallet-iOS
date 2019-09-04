@@ -185,20 +185,20 @@ extension MobileKeeperCoordinator: ConfirmRequestModuleOutput {
         
         switch error {
         case .dAppDontOpen:
-            snackError = showErrorSnack("    Dont open")
+            snackError = showErrorSnack("Application don't open")
             
         case .dataIncorrect:
             snackError = showErrorSnack("Request incorect")
         
         case .transactionDontSupport:
-            snackError = showErrorSnack("Transaction dont support")
+            snackError = showErrorSnack("Transaction don't support")
         default:
-            snackError = self.navigationRouter.viewController.showErrorNotFoundSnack()
+            snackError = self.navigationRouter.viewController.showErrorNotFoundSnackWithoutAction()
         }
     }
     
     private func showErrorSnack(_ message: (String)) -> String {
-        return self.navigationRouter.viewController.showErrorSnack(title: message)
+        return self.navigationRouter.viewController.showErrorSnackWithoutAction(title: message)
     }
 }
 

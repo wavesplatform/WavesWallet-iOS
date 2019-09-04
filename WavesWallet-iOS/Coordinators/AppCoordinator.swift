@@ -59,6 +59,7 @@ final class AppCoordinator: Coordinator {
     private let disposeBag: DisposeBag = DisposeBag()
     private var deepLink: DeepLink? = nil
     private var isActiveApp: Bool = false
+    private var snackError: String? = nil
     
 #if DEBUG || TEST
     init(_ debugWindowRouter: DebugWindowRouter, deepLink: DeepLink?) {
@@ -172,9 +173,39 @@ extension AppCoordinator: PresentationCoordinator {
                 .subscribe(onNext: { (request) in
                     guard let request = request else { return }
                     self.showDisplay(.mobileKeeper(request))
+                }, onError: { [weak self] (error) in
+                    
+                    if let error = error as? MobileKeeperUseCaseError {
+                        self?.showErrorView(with: error)
+                    }
                 })
                 .disposed(by: disposeBag)
         }
+    }
+    
+    //TODO: Localization
+    private func showErrorView(with error: MobileKeeperUseCaseError) {
+        
+        if let snackError = snackError {
+            UIApplication.shared.windows.last?.rootViewController?.hideSnack(key: snackError)
+        }
+        
+        switch error {
+        case .dAppDontOpen:
+            snackError = showErrorSnack("Application don't open")
+            
+        case .dataIncorrect:
+            snackError = showErrorSnack("Request incorect")
+            
+        case .transactionDontSupport:
+            snackError = showErrorSnack("Transaction don't support")
+        default:
+            snackError = UIApplication.shared.windows.last?.rootViewController?.showErrorNotFoundSnackWithoutAction()
+        }
+    }
+    
+    private func showErrorSnack(_ message: (String)) -> String? {
+        return UIApplication.shared.windows.last?.rootViewController?.showErrorSnackWithoutAction(title: message)
     }
 }
 

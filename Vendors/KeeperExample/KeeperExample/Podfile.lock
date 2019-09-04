@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (4.8.2)
+  - Alamofire (4.9.0)
   - Moya (12.0.1):
     - Moya/Core (= 12.0.1)
   - Moya/Core (12.0.1):
@@ -40,11 +40,11 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   WavesSDK:
-    :commit: d4e2602d476c84aaf759587d9a3baef7ba6fb491
+    :commit: 1363bf7f4bdb6c5a95252e5b79a9bd7921b43f04
     :git: "git@github.com:wavesplatform/WavesSDK-iOS.git"
 
 SPEC CHECKSUMS:
-  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
