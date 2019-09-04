@@ -123,6 +123,7 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
                                 signedWallet: state.core.signedWallet)
                 else {
                     //TODO: Error?
+                    //Transaction not support
                     state.ui.action = .update
                     state.core.action = .none
                     return
@@ -300,8 +301,6 @@ fileprivate extension InvokeScriptTransactionSender {
     }
 }
 
-
-//TODO: Integer to 64 ?
 fileprivate extension DataTransactionSender.Value {
     
     func valueDTO() -> ConfirmRequest.DTO.Data.Value.Kind {

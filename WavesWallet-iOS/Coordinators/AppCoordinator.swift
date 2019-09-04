@@ -88,15 +88,7 @@ final class AppCoordinator: Coordinator {
         
         if let deepLink = deepLink {
             openURL(link: deepLink)
-        }
-        
-        mobileKeeperRepository
-            .decodableRequest(.init(fileURLWithPath: ""), sourceApplication: "a")
-            .subscribe(onNext: { (request) in
-                guard let request = request else { return }
-                self.showDisplay(.mobileKeeper(request))
-            })
-            .disposed(by: disposeBag)
+        }        
     }
 
     private var isMainTabDisplayed: Bool {

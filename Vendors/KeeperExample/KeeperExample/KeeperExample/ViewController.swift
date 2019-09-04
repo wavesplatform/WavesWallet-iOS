@@ -52,7 +52,15 @@ class ViewController: UIViewController {
             
             
         case .send_2:
-            break
+            
+            WavesKeeper.shared.send(.transfer(.init(recipient: "3PNaua1fMrQm4TArqeTuakmY1u985CgMRk6",
+                                                    assetId: "WAVES",
+                                                    amount: 1000,
+                                                    fee: 1,
+                                                    attachment: "First",
+                                                    feeAssetId: "WAVES",
+                                                    chainId: "W")))
+            
             
         case .send_3:
             break
@@ -61,6 +69,8 @@ class ViewController: UIViewController {
             break
             
         case .none:
+            break
+        default:
             break
         }
     }

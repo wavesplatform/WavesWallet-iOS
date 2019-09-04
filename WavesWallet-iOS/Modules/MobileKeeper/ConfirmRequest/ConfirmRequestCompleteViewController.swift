@@ -21,6 +21,7 @@ final class ConfirmRequestCompleteViewController: UIViewController {
     var completedRequest: DomainLayer.DTO.MobileKeeper.CompletedRequest?
     var complitingRequest:  ConfirmRequest.DTO.ComplitingRequest?
     var okButtonDidTap: (() -> Void)? = nil
+    private var snackError: String? = nil
     
     private let disposeBag = DisposeBag()
     
@@ -39,16 +40,32 @@ final class ConfirmRequestCompleteViewController: UIViewController {
         if let completedRequest = completedRequest {
             //TODO: Localization
             
-            switch completedRequest.response {
+            switch completedRequest.response.kind {
             case .error(let error):
-                imageView.image = Images.info18Error500.image
-                labelTitle.text = "Ошибка Ошибка"
+                imageView.image = Images.error80Error500.image
+                labelTitle.text = "Your transaction failed"
+                
             case .success(let success):
                 imageView.image = Images.userimgDone80Success400.image
-                labelTitle.text = "Ок"
+                labelTitle.text = "Your transaction is confirmed!"
                 break
             }
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        //TODO: Error logic
+        if case let .error(model)? = completedRequest?.response.kind {
+            switch model {
+            case .message(let message, _):
+                snackError = showErrorSnack(message)
+            default:
+                break
+            }
+            
+        }   
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -63,6 +80,42 @@ final class ConfirmRequestCompleteViewController: UIViewController {
         
         //TODO: Localization
         buttonOkey.setTitle(Localizable.Waves.Sendcomplete.Button.okey, for: .normal)
+    }
+    
+    private func showErrorView(with error: DisplayError) {
+        
+        switch error {
+        case .globalError:
+            snackError = showWithoutInternetSnack()
+            
+        case .internetNotWorking:
+            snackError = showWithoutInternetSnack()
+            
+        case .message(let message):
+            snackError = showErrorSnack(message)
+            
+        default:
+            snackError = showErrorNotFoundSnack()
+            
+        }
+    }
+    
+    private func showWithoutInternetSnack() -> String {
+        return showWithoutInternetSnack { [weak self] in
+            self?.okButtonDidTap?()
+        }
+    }
+    
+    private func showErrorSnack(_ message: (String)) -> String {
+        return showErrorSnack(title: message, didTap: { [weak self] in
+            self?.okButtonDidTap?()
+        })
+    }
+    
+    private func showErrorNotFoundSnack() -> String {
+        return showErrorNotFoundSnack() { [weak self] in
+            self?.okButtonDidTap?()
+        }
     }
 }
 

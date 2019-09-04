@@ -34,8 +34,7 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
         
         guard let signature = request.transactionSignature(signedWallet: signedWallet,
                                                            timestamp: timestamp) else {
-                                                            //TODO: Error
-            return Observable.never()
+            return Observable.error(MobileKeeperUseCaseError.transactionDontSupport)
         }
         
         let prepareRequest = DomainLayer
@@ -99,26 +98,34 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
     }
     
     
-    public func approveRequest(_ completedRequest: DomainLayer.DTO.MobileKeeper.CompletedRequest) {
+    public func approveRequest(_ completedRequest: DomainLayer.DTO.MobileKeeper.CompletedRequest) -> Observable<Bool> {
         
-        returnResponse(for: completedRequest.request.dApp,
-                       completedRequest: completedRequest)
+        return returnResponse(for: completedRequest.request.dApp,
+                              completedRequest: completedRequest)
     }
     
-    public func rejectRequest(_ request: DomainLayer.DTO.MobileKeeper.Request) {
+    public func rejectRequest(_ request: DomainLayer.DTO.MobileKeeper.Request) -> Observable<Bool> {
         
-        returnError(for: request.dApp,
-                    error: .reject)
+        return returnError(for: request.dApp,
+                           requestId: request.id,
+                           error: .reject)
     }
     
     public func decodableRequest(_ url: URL, sourceApplication: String) -> Observable<DomainLayer.DTO.MobileKeeper.Request?> {
         
-        guard let request: WavesKeeper.Request = self.decodableKeeperRequest(url, sourceApplication: sourceApplication) else {
+        var requestOptional: WavesKeeper.Request? = nil
+        
+        do {
+            requestOptional = try self.decodableKeeperRequest(url, sourceApplication: sourceApplication)
+        } catch let error as MobileKeeperUseCaseError {
+            return Observable.error(error)
+        } catch _ {
             return Observable.just(nil)
         }
         
+        guard let request = requestOptional else { return Observable.just(nil) }
         guard let transactionSenderSpecifications = request.transaction.transactionSenderSpecifications else {
-            return Observable.just(nil)
+            return Observable.error(MobileKeeperUseCaseError.transactionDontSupport)
         }
         
         let mobileKeeperRequest = DomainLayer
@@ -129,46 +136,82 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
                               iconUrl: request.dApp.iconUrl,
                               scheme: request.dApp.schemeUrl),
                   action: (request.action == .send ? .send : .sign),
-                  transaction: transactionSenderSpecifications)
+                  transaction: transactionSenderSpecifications,
+                  id: request.id)
         
         return Observable.just(mobileKeeperRequest)
     }
     
     
     private func returnError(for dApp: DomainLayer.DTO.MobileKeeper.Application,
-                            error: DomainLayer.DTO.MobileKeeper.Error) {
+                             requestId: String,
+                             error: DomainLayer.DTO.MobileKeeper.Error) -> Observable<Bool> {
         
-        let wavesKeeperReponse: WavesKeeper.Response = .error(error.wavesKeeperError)
-        let wavesKeeperApplication = dApp.wavesKeeperApplication
-        
-        //TODO: Error
-        guard let url = wavesKeeperReponse.url(app: wavesKeeperApplication) else {
-            return
-        }
-        
-        UIApplication.shared.open(url, options: .init()) { (flag) in
-            print("flag")
-        }
+        return Observable<Bool>.create({ (observer) -> Disposable in
+            
+            let wavesKeeperReponse: WavesKeeper.Response = .init(requestId: requestId,
+                                                                 kind: .error(error.wavesKeeperError))
+            
+            let wavesKeeperApplication = dApp.wavesKeeperApplication
+            
+            guard let url = wavesKeeperReponse.url(app: wavesKeeperApplication) else {
+                observer.onNext(false)
+                observer.onCompleted()
+                return Disposables.create()
+            }
+            
+            guard UIApplication.shared.canOpenURL(url) else {
+                observer.onError(MobileKeeperUseCaseError.dAppDontOpen)
+                return Disposables.create()
+            }
+            
+            UIApplication.shared.open(url, options: .init(), completionHandler: { (flag) in
+                if flag == false {
+                    observer.onError(MobileKeeperUseCaseError.dAppDontOpen)
+                } else {
+                    observer.onNext(flag)
+                }
+                observer.onCompleted()
+            })
+            
+            return Disposables.create()
+        })
     }
     
     private func returnResponse(for dApp: DomainLayer.DTO.MobileKeeper.Application,
-                              completedRequest: DomainLayer.DTO.MobileKeeper.CompletedRequest) {
+                                completedRequest: DomainLayer.DTO.MobileKeeper.CompletedRequest) -> Observable<Bool> {
+        
+        return Observable<Bool>.create({ (observer) -> Disposable in
+            
+            let wavesKeeperApplication = dApp.wavesKeeperApplication
+            guard let wavesKeeperResponse = completedRequest.wavesKeeperResponse else {
+                observer.onNext(false)
+                observer.onCompleted()
+                return Disposables.create()
+            }
+            
+            guard let url = wavesKeeperResponse.url(app: wavesKeeperApplication) else {
+                observer.onNext(false)
+                observer.onCompleted()
+                return Disposables.create()
+            }
+            
+            UIApplication.shared.open(url, options: .init(), completionHandler: { (flag) in
                 
-        let wavesKeeperApplication = dApp.wavesKeeperApplication
-        guard let wavesKeeperResponse = completedRequest.wavesKeeperResponse else { return }
-        
-        
-        guard let url = wavesKeeperResponse.url(app: wavesKeeperApplication) else {
-            return
-        }
-        
-        UIApplication.shared.open(url, options: .init()) { (flag) in
-            print("flag")
-        }
+                if flag == false {
+                    observer.onError(MobileKeeperUseCaseError.dAppDontOpen)
+                } else {
+                    observer.onNext(flag)
+                }
+                observer.onCompleted()
+            })
+            
+            return Disposables.create()
+        })
     }
     
-    private func decodableKeeperRequest(_ url: URL, sourceApplication: String) -> WavesKeeper.Request? {
-        return url.request()
+    private func decodableKeeperRequest(_ url: URL, sourceApplication: String) throws -> WavesKeeper.Request? {
+        return try url.request()
     }
 }
     
@@ -184,7 +227,15 @@ extension DomainLayer.DTO.MobileKeeper.CompletedRequest {
  
     var wavesKeeperResponse: WavesKeeper.Response? {
         
-        switch self.response {
+        guard let wavesKeeperResponseKind = self.wavesKeeperResponseKind else { return nil }
+        
+        return WavesKeeper.Response.init(requestId: request.id,
+                                         kind: wavesKeeperResponseKind)
+    }
+    
+    var wavesKeeperResponseKind: WavesKeeper.Response.Kind? {
+        
+        switch self.response.kind {
             
         case .error(let error):
             return .error(error.wavesKeeperError)
@@ -520,15 +571,17 @@ fileprivate extension NodeService.Query.Transaction {
 fileprivate extension DomainLayer.DTO.MobileKeeper.PrepareRequest {
     
     
-    func completedRequest(response: DomainLayer.DTO.MobileKeeper.Response,
+    func completedRequest(response: DomainLayer.DTO.MobileKeeper.Response.Kind,
                           signedWallet: DomainLayer.DTO.SignedWallet) -> DomainLayer.DTO.MobileKeeper.CompletedRequest {
     
+
         let completedRequest = DomainLayer.DTO.MobileKeeper.CompletedRequest(request: request,
                                                                              timestamp: timestamp,
                                                                              proof: proof,
                                                                              txId: txId,
                                                                              publicKey: signedWallet.publicKey.getPublicKeyStr(),
-                                                                             response: response)
+                                                                             response: .init(requestId: request.id,
+                                                                                             kind: response))
         
         return completedRequest
     }
@@ -650,12 +703,14 @@ fileprivate extension InvokeScriptTransactionSender.Call  {
     }
 
 }
+
+
 private extension URL {
     
-    func request() -> WavesKeeper.Request? {
+    func request() throws -> WavesKeeper.Request? {
         
         guard let component = URLComponents.init(url: self, resolvingAgainstBaseURL: true) else { return nil }
-        guard component.path == "keeper/request" else { return nil }
+        guard component.path == "keeper/request" else { throw MobileKeeperUseCaseError.dataIncorrect }
         guard let item = (component.queryItems?.first { $0.name == "data" }) else { return nil }
         guard let value = item.value else { return nil }
         

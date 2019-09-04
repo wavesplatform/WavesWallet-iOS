@@ -30,6 +30,8 @@ final class MobileKeeperCoordinator: Coordinator {
     
     private let mobileKeeperRepository: MobileKeeperRepositoryProtocol = UseCasesFactory.instance.repositories.mobileKeeperRepository
     
+    private var snackError: String? = nil
+    
     init(windowRouter: WindowRouter, request: DomainLayer.DTO.MobileKeeper.Request) {
         
         self.request = request
@@ -116,6 +118,8 @@ extension MobileKeeperCoordinator: ConfirmRequestModuleOutput {
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (completed) in
                 
+                guard let self = self else { return }
+                
                 switch completed.request.action {
                 case .send:
                     let vc = StoryboardScene.MobileKeeper.confirmRequestCompleteViewController.instantiate()
@@ -124,23 +128,77 @@ extension MobileKeeperCoordinator: ConfirmRequestModuleOutput {
                     vc.complitingRequest = complitingRequest
                     vc.okButtonDidTap = { [weak self] () -> Void in
                         
-                        self?.mobileKeeperRepository.approveRequest(completed)
-                        self?.closeWindow()
+                        guard let self = self else { return }
+                        
+                        self.mobileKeeperRepository
+                            .approveRequest(completed)
+                            .subscribe(onNext: { [weak self] (result) in
+                                
+                                if result == false {
+                                    self?.showErrorView(with: MobileKeeperUseCaseError.dAppDontOpen)
+                                }
+                                
+                            }, onError: { [weak self] (error) in
+                                if let error = error as? MobileKeeperUseCaseError {
+                                    self?.showErrorView(with: error)
+                                }
+                            })
+                            .disposed(by: self.disposeBag)
+                        self.closeWindow()
                     }
                     
-                    self?.navigationRouter.pushViewController(vc)
+                    self.navigationRouter.pushViewController(vc)
                 case .sign:
                     
                     //TODO: Error
-                    self?.mobileKeeperRepository.approveRequest(completed)
-                    self?.closeWindow()
+                    self.mobileKeeperRepository
+                        .approveRequest(completed)
+                        .subscribe(onNext: { [weak self] (result) in
+                            
+                            if result == false {
+                                self?.showErrorView(with: MobileKeeperUseCaseError.dAppDontOpen)
+                            }
+                            
+                        }, onError: { [weak self] (error) in
+                            if let error = error as? MobileKeeperUseCaseError {
+                                self?.showErrorView(with: error)
+                            }
+                        })
+                        .disposed(by: self.disposeBag)
+                    
+                    self.closeWindow()
                 }
-            }, onError: { (error) in
+            }, onError: { [weak self] (error) in
                 
+                if let error = error as? MobileKeeperUseCaseError {
+                    self?.showErrorView(with: error)
+                }
             })
             .disposed(by: disposeBag)
-
+    }
+    
+    private func showErrorView(with error: MobileKeeperUseCaseError) {
         
+        if let snackError = snackError {
+            self.navigationRouter.viewController.hideSnack(key: snackError)
+        }
+        
+        switch error {
+        case .dAppDontOpen:
+            snackError = showErrorSnack("    Dont open")
+            
+        case .dataIncorrect:
+            snackError = showErrorSnack("Request incorect")
+        
+        case .transactionDontSupport:
+            snackError = showErrorSnack("Transaction dont support")
+        default:
+            snackError = self.navigationRouter.viewController.showErrorNotFoundSnack()
+        }
+    }
+    
+    private func showErrorSnack(_ message: (String)) -> String {
+        return self.navigationRouter.viewController.showErrorSnack(title: message)
     }
 }
 

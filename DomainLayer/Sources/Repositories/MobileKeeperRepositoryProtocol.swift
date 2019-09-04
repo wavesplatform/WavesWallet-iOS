@@ -37,13 +37,16 @@ public extension DomainLayer.DTO.MobileKeeper {
         public let dApp: Application
         public let action: Action
         public let transaction: TransactionSenderSpecifications
+        public let id: String
         
         public init(dApp: Application,
                     action: Action,
-                    transaction: TransactionSenderSpecifications) {
+                    transaction: TransactionSenderSpecifications,
+                    id: String) {
             self.dApp = dApp
             self.action = action
             self.transaction = transaction
+            self.id = id
         }
     }
     
@@ -57,10 +60,21 @@ public extension DomainLayer.DTO.MobileKeeper {
         case message(String, Int)
     }
     
-    enum Response {
-        case error(Error)
-        case success(Success)
+    struct Response {
+        public enum Kind {
+            case error(Error)
+            case success(Success)
+        }
+        
+        public let requestId: String
+        public let kind: Kind
+
+        public init(requestId: String, kind: Kind) {
+            self.requestId = requestId
+            self.kind = kind
+        }
     }
+
     
     struct CompletedRequest {
         public let request: Request
@@ -97,6 +111,13 @@ public extension DomainLayer.DTO.MobileKeeper {
     }
 }
 
+public enum MobileKeeperUseCaseError: Error {
+    case none
+    case dAppDontOpen
+    case transactionDontSupport
+    case dataIncorrect
+}
+
 public protocol MobileKeeperRepositoryProtocol {
     
     
@@ -108,31 +129,7 @@ public protocol MobileKeeperRepositoryProtocol {
     
     func decodableRequest(_ url: URL, sourceApplication: String) -> Observable<DomainLayer.DTO.MobileKeeper.Request?>
     
-    func approveRequest(_ completedRequest: DomainLayer.DTO.MobileKeeper.CompletedRequest)
+    func approveRequest(_ completedRequest: DomainLayer.DTO.MobileKeeper.CompletedRequest) -> Observable<Bool>
     
-    func rejectRequest(_ request: DomainLayer.DTO.MobileKeeper.Request)
+    func rejectRequest(_ request: DomainLayer.DTO.MobileKeeper.Request) -> Observable<Bool>
 }
-
-
-/*
- xcbvzfvfvsvsfvsfbvsfv
- 
- UI -> MobileKeeper ->
-
- 
- Урлу получу и отдаю в репозиторию получаю MobileKeeper.Request потом собираю данные и возвращаю DomainLayer.DTO.Request
- URL -> Repository -> MobileKeeper.Request -> DomainLayer.DTO.Request (A)
- 
- Пользователь отправляет Request либо отменяет и получает результат
- DomainLayer.DTO.Request -> Repository -> Send or Sign -> DomainLayer.DTO.Response
- 
- Пользователь возвращает ответ в DApp
- DomainLayer.DTO.Response -> MobileKeeper.Response
-
- 
- A) MobileKeeper - Request -> DomainLayer.DTO.Request
-
- B) DomainLayer.DTO.Response ->  MobileKeeper.Response
- 
- 
- */
