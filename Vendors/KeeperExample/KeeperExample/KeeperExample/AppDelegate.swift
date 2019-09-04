@@ -49,6 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let response = WavesKeeper.shared.decodableResponse(url, sourceApplication: sourceApplication)
         
         
+        return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

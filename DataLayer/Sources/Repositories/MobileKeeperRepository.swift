@@ -7,9 +7,11 @@
 //
 
 import Foundation
-import DomainLayer
 import RxSwift
+import DomainLayer
+import Extensions
 import WavesSDK
+import WavesSDKExtensions
 import WavesSDKCrypto
 
 //Rename to UseCase
@@ -132,45 +134,41 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
         return Observable.just(mobileKeeperRequest)
     }
     
-    //TODO: Pavel
-    //TODO: Method For Wallet. Result Return for dApp
-    public func returnError(for dApp: DomainLayer.DTO.MobileKeeper.Application,
+    
+    private func returnError(for dApp: DomainLayer.DTO.MobileKeeper.Application,
                             error: DomainLayer.DTO.MobileKeeper.Error) {
         
         let wavesKeeperReponse: WavesKeeper.Response = .error(error.wavesKeeperError)
         let wavesKeeperApplication = dApp.wavesKeeperApplication
         
-        //Open DApp
+        //TODO: Error
+        guard let url = wavesKeeperReponse.url(app: wavesKeeperApplication) else {
+            return
+        }
+        
+        UIApplication.shared.open(url, options: .init()) { (flag) in
+            print("flag")
+        }
     }
     
-    public func returnResponse(for dApp: DomainLayer.DTO.MobileKeeper.Application,
+    private func returnResponse(for dApp: DomainLayer.DTO.MobileKeeper.Application,
                               completedRequest: DomainLayer.DTO.MobileKeeper.CompletedRequest) {
-        
-        
+                
         let wavesKeeperApplication = dApp.wavesKeeperApplication
+        guard let wavesKeeperResponse = completedRequest.wavesKeeperResponse else { return }
         
         
+        guard let url = wavesKeeperResponse.url(app: wavesKeeperApplication) else {
+            return
+        }
+        
+        UIApplication.shared.open(url, options: .init()) { (flag) in
+            print("flag")
+        }
     }
     
-    //TODO: Pavel
-    //TODO: Method For Wallet
-    //TODO: URL парсим в -> Request
-    public func decodableKeeperRequest(_ url: URL, sourceApplication: String) -> WavesKeeper.Request? {
-        
-
-        var request = WavesKeeper.Request.init(dApp: .init(name: "AppCon",
-                                               iconUrl: "",
-                                               schemeUrl: "AplicationMega"),
-                                   action: .sign,
-                                   transaction: .transfer(.init(recipient: "3PEsVWBVi4szBuJFTJ1dhYmULS4eH22sEUH",
-                                                                assetId: "WAVES",
-                                                                amount: 1000,
-                                                                fee: 100000,
-                                                                attachment: "",
-                                                                feeAssetId: "WAVES",
-                                                                chainId: "W")))
-        
-        return request
+    private func decodableKeeperRequest(_ url: URL, sourceApplication: String) -> WavesKeeper.Request? {
+        return url.request()
     }
 }
     
@@ -184,23 +182,28 @@ fileprivate extension DomainLayer.DTO.MobileKeeper.Application {
 
 extension DomainLayer.DTO.MobileKeeper.CompletedRequest {
  
-    var wavesKeeperReponse: WavesKeeper.Response? {
+    var wavesKeeperResponse: WavesKeeper.Response? {
         
-        guard case let .success(result) = self.response else { return nil }
-        
-        switch result {
-        case .send(let model):
-            guard let tx = model.transactionNodeService else { return nil }
+        switch self.response {
             
-            return .success(.send(tx))
+        case .error(let error):
+            return .error(error.wavesKeeperError)
             
-        case .sign(let model):
-            
-            guard let tx = model.nodeQuery(proof: proof,
-                                           timestamp: timestamp,
-                                           publicKey: publicKey) else { return nil }
-            
-            return .success(.sign(tx))
+        case .success(let result):
+            switch result {
+            case .send(let model):
+                guard let tx = model.transactionNodeService else { return nil }
+                
+                return .success(.send(tx))
+                
+            case .sign(let model):
+                
+                guard let tx = model.nodeQuery(proof: proof,
+                                               timestamp: timestamp,
+                                               publicKey: publicKey) else { return nil }
+                
+                return .success(.sign(tx))
+            }
         }
     }
 }
@@ -359,7 +362,7 @@ fileprivate extension TransactionSenderSpecifications {
 fileprivate extension DomainLayer.DTO.DataTransaction {
     
     var dataTransactionNodeService: NodeService.DTO.DataTransaction {
-        
+        //TODO:
 //        <#T##[NodeService.DTO.DataTransaction.Data]#>
         return .init(type: type,
                      id: id,
@@ -379,6 +382,7 @@ fileprivate extension DomainLayer.DTO.InvokeScriptTransaction {
 
     var invokeScriptTransactionNodeService: NodeService.DTO.InvokeScriptTransaction {
         
+        //TODO:
 //        <#T##NodeService.DTO.InvokeScriptTransaction.Call?#>
 //        <#T##[NodeService.DTO.InvokeScriptTransaction.Payment]#>
         
@@ -646,3 +650,33 @@ fileprivate extension InvokeScriptTransactionSender.Call  {
     }
 
 }
+private extension URL {
+    
+    func request() -> WavesKeeper.Request? {
+        
+        guard let component = URLComponents.init(url: self, resolvingAgainstBaseURL: true) else { return nil }
+        guard component.path == "keeper/request" else { return nil }
+        guard let item = (component.queryItems?.first { $0.name == "data" }) else { return nil }
+        guard let value = item.value else { return nil }
+        
+        let request: WavesKeeper.Request? = value.decodableBase64ToObject()
+        
+        return request
+    }
+}
+
+private extension WavesKeeper.Response {
+    
+    func url(app: WavesKeeper.Application) -> URL? {
+        
+        guard let base64 = self.encodableToBase64 else { return nil }
+        
+        var component = URLComponents(string: "")
+        component?.scheme = app.schemeUrl
+        component?.path = "keeper/response"
+        component?.queryItems = [URLQueryItem(name: "data", value: base64)]
+        
+        return try? component?.asURL()
+    }
+}
+

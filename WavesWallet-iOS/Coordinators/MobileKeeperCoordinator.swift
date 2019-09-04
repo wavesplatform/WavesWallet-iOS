@@ -86,8 +86,7 @@ extension MobileKeeperCoordinator: ChooseAccountCoordinatorDelegate {
     func userDidTapBackButton() {
         
         mobileKeeperRepository.rejectRequest(request)
-        closeWindow()
-        //TODO: Send Reject
+        closeWindow()        
     }
 }
 

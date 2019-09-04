@@ -9,5 +9,5 @@ use_frameworks!(true)
 target 'KeeperExample' do    
     project 'KeeperExample.xcodeproj'    
     
-    pod "WavesSDK", :git => "git@github.com:wavesplatform/WavesSDK-iOS.git", :branch => "feature/IOS-780"    
+    pod "WavesSDK", :git => "git@github.com:wavesplatform/WavesSDK-iOS.git", :branch => "IOS-781"    
 end
