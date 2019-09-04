@@ -360,7 +360,8 @@ fileprivate extension DomainLayer.DTO.DataTransaction {
     
     var dataTransactionNodeService: NodeService.DTO.DataTransaction {
         
-         return .init(type: type,
+//        <#T##[NodeService.DTO.DataTransaction.Data]#>
+        return .init(type: type,
                      id: id,
                      chainId: chainId,
                      sender: sender,
@@ -370,7 +371,7 @@ fileprivate extension DomainLayer.DTO.DataTransaction {
                      height: height,
                      version: version,
                      proofs: proofs,
-                     data: nil)
+                     data: [])
     }
 }
 
@@ -425,7 +426,8 @@ fileprivate extension DomainLayer.DTO.AnyTransaction {
             return .invokeScript(model.invokeScriptTransactionNodeService)
             
         case .data(let model):
-            return
+            return .data(model.dataTransactionNodeService)
+            
         default:
             return nil
         }

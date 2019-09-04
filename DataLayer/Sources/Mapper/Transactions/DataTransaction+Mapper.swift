@@ -89,7 +89,8 @@ extension DomainLayer.DTO.DataTransaction {
                   proofs: transaction.proofs,
                   data: dataList,
                   modified: Date(),
-                  status: status)
+                  status: status,
+                  chainId: transaction.chainId)
     }
 
     init(transaction: DataTransaction) {
@@ -111,6 +112,7 @@ extension DomainLayer.DTO.DataTransaction {
             return DomainLayer.DTO.DataTransaction.Data(key: data.key, value: dataValue, type: data.type)
         }
         
+        //TODO: Chain id
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,
@@ -122,6 +124,7 @@ extension DomainLayer.DTO.DataTransaction {
                   proofs: transaction.proofs.toArray(),
                   data: dataList,
                   modified: transaction.modified,
-                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)        
+                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed,
+                  chainId: "")
     }
 }
