@@ -829,11 +829,7 @@ private extension WavesKeeper.Response {
     func url(app: WavesKeeper.Application) -> URL? {
         
         guard let base64 = self.encodableToBase64 else { return nil }
-        
-        let res: WavesKeeper.Response? = base64.decodableBase64ToObject()
-        
-        print(res)
-        
+                
         var component = URLComponents(string: "")
         
         component?.scheme = app.schemeUrl.components(separatedBy: CharacterSet.urlFragmentAllowed.inverted).joined().lowercased()
