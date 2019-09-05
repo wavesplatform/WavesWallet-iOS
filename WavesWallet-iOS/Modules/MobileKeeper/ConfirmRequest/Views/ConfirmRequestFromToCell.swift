@@ -11,7 +11,6 @@ import UIKit
 import Extensions
 import IdentityImg
 import Kingfisher
-import RxSwift
 
 private enum Constants {
     static let iconSize: CGSize = CGSize(width: 28, height: 28)
@@ -30,7 +29,6 @@ final class ConfirmRequestFromToCell: UITableViewCell, Reusable {
     @IBOutlet private var walletAddressView: ConfirmRequestAddressView!
     
     private let identity: Identity = Identity(options: Identity.defaultOptions)
-    private let disposeBag: DisposeBag = DisposeBag()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -56,20 +54,26 @@ extension ConfirmRequestFromToCell: ViewConfiguration {
                                             address: model.dAppName,
                                             image: UIImage()))
         
-        let icon = AssetLogo.Icon(assetId: "",
-                                  name: model.dAppName,
-                                  url: model.dAppIcon,
-                                  isSponsored: false,
-                                  hasScript: false)
-        
-        AssetLogo.logo(icon: icon,
-                       style: .medium)
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] (image) in
+
+        if let url = URL(string: model.dAppIcon) {
+            dAppAddressView.iconImageView.kf.setImage(with: url) { [weak self] result in
                 guard let self = self else { return }
-                self.dAppAddressView.iconImageView.image = image
-            })
-            .disposed(by: disposeBag)
+                
+                switch result {
+                case .failure:
+                    self.dAppAddressView.iconImageView.image = AssetLogo.createLogo(name: model.dAppName,
+                                                                                    logoColor: .clearBlue,
+                                                                                    style: .medium)
+                default:
+                    break
+                }
+            }
+        }
+        else {
+            dAppAddressView.iconImageView.image = AssetLogo.createLogo(name: model.dAppName,
+                                                                       logoColor: .clearBlue,
+                                                                       style: .medium)
+        }
     }
 }
 
