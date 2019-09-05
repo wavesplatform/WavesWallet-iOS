@@ -30,7 +30,7 @@ class MenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        tapGesture.numberOfTapsRequired = 5
+        tapGesture.numberOfTapsRequired = 5
         wavesLogoImageView.addGestureRecognizer(tapGesture)
         setupLocalization()
 

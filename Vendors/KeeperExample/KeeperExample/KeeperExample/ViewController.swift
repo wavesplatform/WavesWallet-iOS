@@ -47,7 +47,7 @@ class ViewController: UIViewController {
         switch sender.kind {
         case .send_1:
             
-            WavesKeeper.shared.send(.transfer(.init(recipient: "3PNaua1fMrQm4TArqeTuakmY1u985CgMRk6",
+            WavesKeeper.shared.send(.transfer(.init(recipient: "3Mq6WcupmXPVAzEB8DmXXiiT3kNFynebu6h",
                                                     assetId: "WAVES",
                                                     amount: 1000,
                                                     fee: 100000,
