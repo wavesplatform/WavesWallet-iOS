@@ -549,7 +549,9 @@ fileprivate extension NodeService.Query.Transaction {
                                                     amount: model.amount,
                                                     fee: model.fee,
                                                     attachment: model.attachment,
-                                                    feeAssetID: model.feeAssetId)
+                                                    feeAssetID: model.feeAssetId,
+                                                    chainId: model.chainId,
+                                                    timestamp: Date.init(milliseconds: model.timestamp))
             
             return .send(sender)
             
