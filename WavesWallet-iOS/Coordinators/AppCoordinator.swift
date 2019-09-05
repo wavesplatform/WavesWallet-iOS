@@ -132,6 +132,7 @@ extension AppCoordinator: PresentationCoordinator {
             guard isHasCoordinator(type: SlideCoordinator.self) != true else { return }
 
             let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: wallet)
+            slideCoordinator.menuViewControllerDelegate = self
             addChildCoordinatorAndStart(childCoordinator: slideCoordinator)            
 
         case .enter:
@@ -143,6 +144,7 @@ extension AppCoordinator: PresentationCoordinator {
             guard prevSlideCoordinator?.isHasCoordinator(type: EnterCoordinator.self) != true else { return }
 
             let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: nil)
+            slideCoordinator.menuViewControllerDelegate = self
             addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
         
         case .widgetSettings:
@@ -336,10 +338,9 @@ extension AppCoordinator {
     }
 }
 
-#if DEBUG || TEST
+
 
 // MARK: DebugWindowRouterDelegate
-
 extension AppCoordinator: DebugWindowRouterDelegate  {
     
     func relaunchApplication() {
@@ -354,4 +355,29 @@ extension AppCoordinator: DebugWindowRouterDelegate  {
     }
 }
 
-#endif
+
+// MARK: MenuViewControllerDelegate
+extension AppCoordinator: MenuViewControllerDelegate {
+    
+    func menuViewControllerDidTapWavesLogo() {
+        
+        let vc = StoryboardScene.Support.debugViewController.instantiate()
+        vc.delegate = self
+        let nv = CustomNavigationController()
+        nv.viewControllers = [vc]
+        self.windowRouter.window.rootViewController?.present(nv, animated: true, completion: nil)
+    }
+}
+
+// MARK: DebugViewControllerDelegate
+extension AppCoordinator: DebugViewControllerDelegate {
+
+    func dissmissDebugVC(isNeedRelaunchApp: Bool) {
+        
+        if isNeedRelaunchApp {
+            relaunchApplication()
+        }
+        
+        self.windowRouter.window.rootViewController?.dismiss(animated: true, completion: nil)
+    }
+}
