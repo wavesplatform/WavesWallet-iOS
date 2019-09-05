@@ -10,19 +10,19 @@ PODS:
     - RxSwift (~> 4.0)
   - Result (4.1.0)
   - RxSwift (4.5.0)
-  - WavesSDK (0.1.7):
+  - WavesSDK (0.1.8):
     - Moya (~> 12.0.1)
     - Moya/RxSwift (~> 12.0.1)
     - RxSwift (~> 4.0)
     - WavesSDKCrypto
     - WavesSDKExtensions
-  - WavesSDKCrypto (0.1.7):
+  - WavesSDKCrypto (0.1.8):
     - WavesSDKExtensions
-  - WavesSDKExtensions (0.1.7):
+  - WavesSDKExtensions (0.1.8):
     - RxSwift (~> 4.0)
 
 DEPENDENCIES:
-  - "WavesSDK (from `git@github.com:wavesplatform/WavesSDK-iOS.git`, branch `develop`)"
+  - WavesSDK (from `~/Works/Waves/waveswallet-ios_dex/Vendors/WavesSDK`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -35,23 +35,17 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   WavesSDK:
-    :branch: develop
-    :git: "git@github.com:wavesplatform/WavesSDK-iOS.git"
-
-CHECKOUT OPTIONS:
-  WavesSDK:
-    :commit: 19ed622a225ca13b0436a140693ad95e65e28b0b
-    :git: "git@github.com:wavesplatform/WavesSDK-iOS.git"
+    :path: "~/Works/Waves/waveswallet-ios_dex/Vendors/WavesSDK"
 
 SPEC CHECKSUMS:
   Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
-  WavesSDK: 4212f8b34a3e732cac52facb216466122f94b12d
-  WavesSDKCrypto: 05aab03ff2c6a8b5c98d6d1b38e557f4799756e3
-  WavesSDKExtensions: b0b46dd85aed81fd14e184da35582fda66da29d8
+  WavesSDK: c234c5c931d91ea8764a0881e9a494586b112519
+  WavesSDKCrypto: e1318ebfd1bdf4b7a00415619dadfee409985c2d
+  WavesSDKExtensions: 589e6c5701ccef3680acba14a2dfe7c018161186
 
-PODFILE CHECKSUM: 236fe133fefdddb1570844b184a6a88dd2068e3a
+PODFILE CHECKSUM: 7da219e749e11d9c97ba6dbf15309286b7c9fe16
 
 COCOAPODS: 1.7.5

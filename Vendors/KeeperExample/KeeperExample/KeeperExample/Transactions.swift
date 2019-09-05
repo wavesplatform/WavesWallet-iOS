@@ -24,7 +24,6 @@ extension ViewController {
     
     func txInvokeScript(chainId: String) -> NodeService.Query.Transaction.InvokeScript {
         let fee: Int64 = 900000
-        let timestamp = Int64(Date().timeIntervalSince1970) * 1000
         let dApp: String = "3Mv9XDntij4ZRE1XiNZed6J74rncBpiYNDV"
         
         let arg1 = NodeService.Query.Transaction.InvokeScript.Arg.init(value: .string("Some string!"))
@@ -36,8 +35,6 @@ extension ViewController {
         
         var queryModel = NodeService.Query.Transaction.InvokeScript.init(chainId: chainId,
                                                                          fee: fee,
-                                                                         timestamp: timestamp,
-                                                                         senderPublicKey: "",
                                                                          feeAssetId: "WAVES",
                                                                          dApp: dApp,
                                                                          call: .init(function: "testarg", args: [arg1, arg2, arg3,
