@@ -29,7 +29,7 @@ final class ConfirmRequestFromToCell: UITableViewCell, Reusable {
     @IBOutlet private var walletAddressView: ConfirmRequestAddressView!
     
     private let identity: Identity = Identity(options: Identity.defaultOptions)
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         selectedBackgroundView = UIView()
@@ -54,8 +54,26 @@ extension ConfirmRequestFromToCell: ViewConfiguration {
                                             address: model.dAppName,
                                             image: UIImage()))
         
-        let url = URL(string: model.dAppIcon)
-        dAppAddressView.iconImageView.kf.setImage(with: url)
+
+        if let url = URL(string: model.dAppIcon) {
+            dAppAddressView.iconImageView.kf.setImage(with: url) { [weak self] result in
+                guard let self = self else { return }
+                
+                switch result {
+                case .failure:
+                    self.dAppAddressView.iconImageView.image = AssetLogo.createLogo(name: model.dAppName,
+                                                                                    logoColor: .clearBlue,
+                                                                                    style: .medium)
+                default:
+                    break
+                }
+            }
+        }
+        else {
+            dAppAddressView.iconImageView.image = AssetLogo.createLogo(name: model.dAppName,
+                                                                       logoColor: .clearBlue,
+                                                                       style: .medium)
+        }
     }
 }
 
