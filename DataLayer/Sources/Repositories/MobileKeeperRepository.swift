@@ -480,10 +480,41 @@ fileprivate extension DomainLayer.DTO.InvokeScriptTransaction {
 
     var invokeScriptTransactionNodeService: NodeService.DTO.InvokeScriptTransaction {
         
-        //TODO:
-//        <#T##NodeService.DTO.InvokeScriptTransaction.Call?#>
-//        <#T##[NodeService.DTO.InvokeScriptTransaction.Payment]#>
+        var call: NodeService.DTO.InvokeScriptTransaction.Call? = nil
         
+        if let localCall = call {
+            let args = localCall.args.map { (arg) -> NodeService.DTO.InvokeScriptTransaction.Call.Args in
+                var value = { () -> NodeService.DTO.InvokeScriptTransaction.Call.Args.Value in
+                    
+                    switch arg.value {
+                    case .binary(let value):
+                        return .binary(value)
+                    
+                    case .bool(let value):
+                        return .bool(value)
+                        
+                    case .integer(let value):
+                        return .integer(value)
+                        
+                    case .string(let value):
+                        return .string(value)
+                    }
+                }()
+                
+                return .init(type: arg.type, value: value)
+            }
+            
+            call = .init(function: localCall.function, args: args)
+        }
+        
+        //TODO: Payment Many
+        
+        var payments: NodeService.DTO.InvokeScriptTransaction.Payment? = nil
+        
+        if let pay = payment {
+            payments = NodeService.DTO.InvokeScriptTransaction.Payment.init(amount: pay.amount, assetId: pay.assetId)
+        }
+    
         return NodeService.DTO.InvokeScriptTransaction(type: self.type,
                                                        id: self.id,
                                                        chainId: self.chainId,
@@ -496,8 +527,8 @@ fileprivate extension DomainLayer.DTO.InvokeScriptTransaction {
                                                        height: self.height,
                                                        feeAssetId: self.feeAssetId,
                                                        dApp: self.dappAddress,
-                                                       call: nil,
-                                                       payment: [])
+                                                       call: call,
+                                                       payment: payments != nil ? [payments!] : [])
     }
     
 }
