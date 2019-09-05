@@ -22,7 +22,7 @@ PODS:
     - RxSwift (~> 4.0)
 
 DEPENDENCIES:
-  - "WavesSDK (from `git@github.com:wavesplatform/WavesSDK-iOS.git`, branch `IOS-781`)"
+  - WavesSDK (from `~/Works/Waves/waveswallet-ios_dex/Vendors/WavesSDK`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -35,13 +35,7 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   WavesSDK:
-    :branch: IOS-781
-    :git: "git@github.com:wavesplatform/WavesSDK-iOS.git"
-
-CHECKOUT OPTIONS:
-  WavesSDK:
-    :commit: 1363bf7f4bdb6c5a95252e5b79a9bd7921b43f04
-    :git: "git@github.com:wavesplatform/WavesSDK-iOS.git"
+    :path: "~/Works/Waves/waveswallet-ios_dex/Vendors/WavesSDK"
 
 SPEC CHECKSUMS:
   Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
@@ -52,6 +46,6 @@ SPEC CHECKSUMS:
   WavesSDKCrypto: 05aab03ff2c6a8b5c98d6d1b38e557f4799756e3
   WavesSDKExtensions: b0b46dd85aed81fd14e184da35582fda66da29d8
 
-PODFILE CHECKSUM: 6b87a5eb5815bff90ffb5af48ef2c0d976974ff5
+PODFILE CHECKSUM: d4e13b23e8eb58ee63d2179e66966e33a72538b9
 
 COCOAPODS: 1.7.5

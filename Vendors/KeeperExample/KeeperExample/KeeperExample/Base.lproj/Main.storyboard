@@ -52,6 +52,9 @@
                                                         <integer key="value" value="2"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="handlerButtonWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="voP-77-Idb"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4XO-tZ-ZhF" customClass="Button" customModule="KeeperExample" customModuleProvider="target">
                                                 <rect key="frame" x="186" y="0.0" width="79.5" height="66"/>
@@ -65,6 +68,9 @@
                                                         <integer key="value" value="3"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="handlerButtonWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="29f-a1-7zh"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HWe-f1-BMr" customClass="Button" customModule="KeeperExample" customModuleProvider="target">
                                                 <rect key="frame" x="281.5" y="0.0" width="90.5" height="66"/>
@@ -78,6 +84,9 @@
                                                         <integer key="value" value="4"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="handlerButtonWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="i2q-Xv-hww"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>

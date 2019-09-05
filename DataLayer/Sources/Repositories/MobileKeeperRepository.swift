@@ -709,7 +709,7 @@ private extension URL {
     func request() throws -> WavesKeeper.Request? {
         
         guard let component = URLComponents.init(url: self, resolvingAgainstBaseURL: true) else { return nil }
-        guard component.path == "keeper/request" else { throw MobileKeeperUseCaseError.dataIncorrect }
+        guard component.path == "keeper/v1/request" else { throw MobileKeeperUseCaseError.dataIncorrect }
         guard let item = (component.queryItems?.first { $0.name == "data" }) else { throw MobileKeeperUseCaseError.dataIncorrect }
         guard let value = item.value else { throw MobileKeeperUseCaseError.dataIncorrect }
         
@@ -729,7 +729,7 @@ private extension WavesKeeper.Response {
         
         var component = URLComponents(string: "")
         component?.scheme = app.schemeUrl
-        component?.path = "keeper/response"
+        component?.path = "keeper/v1/response"
         component?.queryItems = [URLQueryItem(name: "data", value: base64)]
         
         return try? component?.asURL()
