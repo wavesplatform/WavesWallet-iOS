@@ -13,6 +13,7 @@
 		7B0B6FB0231FE7D500CC5DCB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B0B6FAF231FE7D500CC5DCB /* Assets.xcassets */; };
 		7B0B6FB3231FE7D500CC5DCB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B0B6FB1231FE7D500CC5DCB /* LaunchScreen.storyboard */; };
 		812A0E129CE2957D25792974 /* Pods_KeeperExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B95FEAA32BFDCCA2146064 /* Pods_KeeperExample.framework */; };
+		E9BFFA3B23215949000F59FC /* Transactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BFFA3A23215949000F59FC /* Transactions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		7B0B6FAF231FE7D500CC5DCB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B0B6FB2231FE7D500CC5DCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B0B6FB4231FE7D500CC5DCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E9BFFA3A23215949000F59FC /* Transactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transactions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 			children = (
 				7B0B6FA8231FE7D200CC5DCB /* AppDelegate.swift */,
 				7B0B6FAA231FE7D200CC5DCB /* ViewController.swift */,
+				E9BFFA3A23215949000F59FC /* Transactions.swift */,
 				7B0B6FAC231FE7D200CC5DCB /* Main.storyboard */,
 				7B0B6FAF231FE7D500CC5DCB /* Assets.xcassets */,
 				7B0B6FB1231FE7D500CC5DCB /* LaunchScreen.storyboard */,
@@ -203,6 +206,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9BFFA3B23215949000F59FC /* Transactions.swift in Sources */,
 				7B0B6FAB231FE7D200CC5DCB /* ViewController.swift in Sources */,
 				7B0B6FA9231FE7D200CC5DCB /* AppDelegate.swift in Sources */,
 			);
