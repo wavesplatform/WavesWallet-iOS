@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 import WavesSDK
 
 final class Button: UIButton {
@@ -33,11 +34,15 @@ final class Button: UIButton {
 
 class ViewController: UIViewController {
 
+    private var disposeBag: DisposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     @IBAction func handlerButton(sender: Button) {
+        
+        let chainId = WavesSDK.shared.enviroment.chainId ?? ""
         
         switch sender.kind {
         case .send_1:
@@ -48,18 +53,42 @@ class ViewController: UIViewController {
                                                     fee: 100000,
                                                     attachment: "First",
                                                     feeAssetId: "WAVES",
-                                                    chainId: "W")))
+                                                    chainId: chainId)))
+                .subscribe(onNext: { (response) in
+                    print("Eee boy \(response)")
+                },
+                           onError: nil,
+                           onCompleted: nil,
+                           onDisposed: nil)
             
             
         case .send_2:
             
-            WavesKeeper.shared.send(.transfer(.init(recipient: "3PNaua1fMrQm4TArqeTuakmY1u985CgMRk6",
+            WavesKeeper.shared.sign(.transfer(.init(recipient: "3PNaua1fMrQm4TArqeTuakmY1u985CgMRk6",
                                                     assetId: "WAVES",
                                                     amount: 1000,
-                                                    fee: 1,
+                                                    fee: 100000,
                                                     attachment: "First",
                                                     feeAssetId: "WAVES",
-                                                    chainId: "W")))
+                                                    chainId: chainId)))
+                .flatMap({ (response) -> Observable<NodeService.DTO.Transaction> in
+                    
+                    guard case let .success(success) = response.kind else { return Observable.never() }
+                    guard case let .sign(query) = success else { return Observable.never() }
+                        
+                        
+                    return WavesSDK.shared
+                        .services
+                        .nodeServices
+                        .transactionNodeService
+                        .transactions(query: query)
+                })
+                .subscribe(onNext: { (response) in
+                    print("Eee boy \(response)")
+                },
+                           onError: nil,
+                           onCompleted: nil,
+                           onDisposed: nil)
             
             
         case .send_3:

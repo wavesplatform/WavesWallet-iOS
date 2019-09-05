@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         WavesSDK.initialization(servicesPlugins: .init(data: [],
                                                        node: [],
                                                        matcher: []),
-                                enviroment: .init(server: .testNet, timestampServerDiff: 0))
+                                enviroment: .init(server: .mainNet, timestampServerDiff: 0))
         
         WavesKeeper.initialization(application: .init(name: "Keeper Example", iconUrl: "https://rampaga.ru/_sf/135/72786352.jpg", schemeUrl: "keeperExample"))
         
@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let sourceApplication: String = (options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String) ?? ""
         
-        let response = WavesKeeper.shared.decodableResponse(url, sourceApplication: sourceApplication)
+        WavesKeeper.shared.gripByUrl(url, sourceApplication: sourceApplication)
         
         
         return true
