@@ -33,9 +33,11 @@ final class ConfirmRequestViewController: UIViewController, DataSourceProtocol {
         super.viewDidLoad()
 
         //TODO: Localization
-        navigationItem.title = "Confirm request"
+        title = "Confirm request"
+        
         setupBigNavigationBar()
         hideTopBarLine()
+        createBackButton()
         
         system
             .start()

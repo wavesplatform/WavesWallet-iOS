@@ -37,7 +37,7 @@ final class MobileKeeperCoordinator: Coordinator {
     
     private var snackError: String? = nil
     
-    var delegate: MobileKeeperCoordinatorDelegate?
+    weak var delegate: MobileKeeperCoordinatorDelegate?
     
     init(windowRouter: WindowRouter, request: DomainLayer.DTO.MobileKeeper.Request) {
         
@@ -157,7 +157,6 @@ extension MobileKeeperCoordinator: ConfirmRequestModuleOutput {
         rejectAndClose(request: complitingRequest.prepareRequest.request)
     }
     
-    
     func confirmRequestDidTapApprove(_ complitingRequest: ConfirmRequest.DTO.ComplitingRequest) {
         
         let action = complitingRequest.prepareRequest.request.action
@@ -212,7 +211,6 @@ extension MobileKeeperCoordinator: ConfirmRequestModuleOutput {
                     self.navigationRouter.pushViewController(vc)
                 case .sign:
                     
-                    //TODO: Error
                     self.mobileKeeperRepository
                         .approveRequest(completed)
                         .observeOn(MainScheduler.asyncInstance)
@@ -287,9 +285,4 @@ extension MobileKeeperCoordinator: ConfirmRequestModuleOutput {
     private func showErrorSnack(_ message: (String)) -> String? {
         return UIApplication.shared.windows.last?.rootViewController?.showErrorSnackWithoutAction(title: message)
     }
-}
-
-fileprivate extension ConfirmRequest.DTO.ComplitingRequest {
-    
-//    var completingRequest: DomainLayer.DTO.MobileKeeper.CompletingRequest.init(
 }

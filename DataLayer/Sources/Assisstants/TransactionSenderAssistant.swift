@@ -268,7 +268,6 @@ extension TransactionSenderSpecifications {
             return bytes
             
         case .invokeScript(let model):
-//            TransactionSignatureV1.Structure.InvokeScript.Call?
             
             var call: TransactionSignatureV1.Structure.InvokeScript.Call?
             

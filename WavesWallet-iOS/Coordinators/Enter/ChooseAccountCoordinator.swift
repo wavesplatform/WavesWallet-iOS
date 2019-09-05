@@ -28,8 +28,6 @@ final class ChooseAccountCoordinator: Coordinator {
         guard let self = self else { return }
     }
     
-    private var viewControllers: [UIViewController]? = nil
-    
     init(navigationRouter: NavigationRouter, applicationCoordinator: ApplicationCoordinatorProtocol?) {
         self.navigationRouter = navigationRouter
         self.applicationCoordinator = applicationCoordinator
@@ -37,7 +35,6 @@ final class ChooseAccountCoordinator: Coordinator {
 
     func start() {
         
-        self.viewControllers = navigationRouter.navigationController.viewControllers
         
         let vc = ChooseAccountModuleBuilder(output: self)
             .build(input: .init())
@@ -211,7 +208,17 @@ extension ChooseAccountCoordinator: PasscodeLogInCoordinatorDelegate {
 
     func passcodeCoordinatorLogInCompleted(wallet: DomainLayer.DTO.Wallet) {
         //TODO: Как бы сбросить состояние по другому?
-        self.navigationRouter.navigationController.viewControllers = self.viewControllers ?? []
+        let index = self.navigationRouter
+            .navigationController
+            .viewControllers
+            .enumerated()
+            .first { $0.element is ChooseAccountViewController }
+        
+        if let index = index {
+            let result = self.navigationRouter.navigationController.viewControllers.prefix(index.offset + 1)
+            self.navigationRouter.navigationController.viewControllers = Array(result)
+        }
+        
         delegate?.userChooseCompleted(wallet: wallet)
         removeFromParentCoordinator()
     }
@@ -224,14 +231,37 @@ extension ChooseAccountCoordinator: PasscodeCoordinatorDelegate {
 
     func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {
         //TODO: Как бы сбросить состояние по другому?
-        self.navigationRouter.navigationController.viewControllers = self.viewControllers ?? []
+//        self.navigationRouter.navigationController.viewControllers = self.viewControllers ?? []
+        
+        //TODO: Fix
+        let index = self.navigationRouter
+            .navigationController
+            .viewControllers
+            .enumerated()
+            .first { $0.element is ChooseAccountViewController }
+        
+        if let index = index {
+            let result = self.navigationRouter.navigationController.viewControllers.prefix(index.offset + 1)
+            self.navigationRouter.navigationController.viewControllers = Array(result)
+        }
+        
         delegate?.userChooseCompleted(wallet: wallet)
         removeFromParentCoordinator()
     }
 
     func passcodeCoordinatorWalletLogouted() {
         //TODO: Как бы сбросить состояние по другому?
-        self.navigationRouter.navigationController.viewControllers = self.viewControllers ?? []
+        let index = self.navigationRouter
+            .navigationController
+            .viewControllers
+            .enumerated()
+            .first { $0.element is ChooseAccountViewController }
+        
+        if let index = index {
+            let result = self.navigationRouter.navigationController.viewControllers.prefix(index.offset + 1)
+            self.navigationRouter.navigationController.viewControllers = Array(result)
+        }
+        
         self.applicationCoordinator?.showEnterDisplay()
         removeFromParentCoordinator()
     }
