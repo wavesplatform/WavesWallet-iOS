@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import WavesSDK
+import WavesSDKCrypto
 
 final class Button: UIButton {
 
@@ -22,6 +23,14 @@ final class Button: UIButton {
         case send_6
         case send_7
         case send_8
+        case send_9
+        case send_10
+        case send_11
+        case send_12
+        case send_13
+        case send_14
+        case send_15
+        case send_16
     }
     
     @IBInspectable private var type: Int = 0
@@ -42,18 +51,13 @@ class ViewController: UIViewController {
     
     @IBAction func handlerButton(sender: Button) {
         
-        let chainId = WavesSDK.shared.enviroment.chainId ?? ""
+        var chainId = WavesSDK.shared.enviroment.chainId ?? ""
+        
+//        chainId = "T"
         
         switch sender.kind {
         case .send_1:
-            
-            WavesKeeper.shared.send(.transfer(.init(recipient: "3PNaua1fMrQm4TArqeTuakmY1u985CgMRk6",
-                                                    assetId: "WAVES",
-                                                    amount: 1000,
-                                                    fee: 100000,
-                                                    attachment: "First",
-                                                    feeAssetId: "WAVES",
-                                                    chainId: chainId)))
+            WavesKeeper.shared.send(.transfer(txTansfer(chainId: chainId)))
                 .subscribe(onNext: { (response) in
                     print("Eee boy \(response)")
                 },
@@ -63,40 +67,117 @@ class ViewController: UIViewController {
             
             
         case .send_2:
-            
-            WavesKeeper.shared.sign(.transfer(.init(recipient: "3PNaua1fMrQm4TArqeTuakmY1u985CgMRk6",
-                                                    assetId: "WAVES",
-                                                    amount: 1000,
-                                                    fee: 100000,
-                                                    attachment: "First",
-                                                    feeAssetId: "WAVES",
-                                                    chainId: chainId)))
-                .flatMap({ (response) -> Observable<NodeService.DTO.Transaction> in
-                    
-                    guard case let .success(success) = response.kind else { return Observable.never() }
-                    guard case let .sign(query) = success else { return Observable.never() }
-                        
-                        
-                    return WavesSDK.shared
-                        .services
-                        .nodeServices
-                        .transactionNodeService
-                        .transactions(query: query)
-                })
+            WavesKeeper.shared.send(.invokeScript(txInvokeScript(chainId: chainId)))
                 .subscribe(onNext: { (response) in
-                    print("Eee boy \(response)")
+
+                    print(response)
+                })
+
+            
+        case .send_3:
+            WavesKeeper.shared.send(.data(txData(chainId: chainId)))
+                .subscribe(onNext: { (response) in
+                    
+                    print(response)
+                })
+           
+
+            
+        case .send_4:
+            WavesKeeper.shared.send(.transfer(txTransferError(chainId: chainId)))
+                .subscribe(onNext: { (response) in
+                    print(response)
+                })
+            
+        case .send_5:
+            WavesKeeper.shared.send(.invokeScript(txInvokeScriptError(chainId: chainId)))
+                .subscribe(onNext: { (response) in
+                    
+                    print(response)
+                })
+            
+        case .send_6:
+           
+            
+            WavesKeeper.shared.send(.data(txDataEmpty(chainId: chainId)))
+                .subscribe(onNext: { (response) in
+                    
+                    print(response)
+                })
+            
+        case .send_7:
+            WavesKeeper.shared.send(.data(txDataError(chainId: chainId)))
+                .subscribe(onNext: { (response) in
+                    
+                    print(response)
+                })
+            
+        case .send_8:
+          
+            WavesKeeper.shared.send(.burn(txBurn(chainId: chainId)))
+                .subscribe(onNext: { (response) in
+                    
+                    print(response)
+                })
+        
+        case .send_9:
+            WavesKeeper.shared.sign(.transfer(txTansfer(chainId: chainId)))
+                .subscribe(onNext: { (response) in
+                    print("\(response)")
                 },
                            onError: nil,
                            onCompleted: nil,
                            onDisposed: nil)
             
+        case .send_10:
+
+            WavesKeeper.shared.sign(.invokeScript(txInvokeScript(chainId: chainId)))
+                .subscribe(onNext: { (response) in
+                    
+                    print(response)
+                })
             
-        case .send_3:
-            break
+        case .send_11:
+
+            WavesKeeper.shared.sign(.data(txData(chainId: chainId)))
+                .subscribe(onNext: { (response) in
+                    
+                    print(response)
+                })
             
-        case .send_4:
-            break
+        case .send_12:
+            WavesKeeper.shared.sign(.transfer(txTransferError(chainId: chainId)))
+                .subscribe(onNext: { (response) in
+                    print(response)
+                })
             
+        case .send_13:
+    
+            WavesKeeper.shared.sign(.invokeScript(txInvokeScriptError(chainId: chainId)))
+                .subscribe(onNext: { (response) in
+                    
+                    print(response)
+                })
+        case .send_14:
+            WavesKeeper.shared.sign(.data(txDataEmpty(chainId: chainId)))
+                .subscribe(onNext: { (response) in
+                    
+                    print(response)
+                })
+            
+        case .send_15:
+            WavesKeeper.shared.sign(.data(txDataError(chainId: chainId)))
+                .subscribe(onNext: { (response) in
+                    
+                    print(response)
+                })
+            
+        case .send_16:
+            WavesKeeper.shared.sign(.burn(txBurn(chainId: chainId)))
+                .subscribe(onNext: { (response) in
+                    
+                    print(response)
+                })
         case .none:
             break
         default:
@@ -104,6 +185,3 @@ class ViewController: UIViewController {
         }
     }
 }
-
-
-
