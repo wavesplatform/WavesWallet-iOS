@@ -20,14 +20,11 @@ extension TransactionSenderSpecifications {
         let walletEnvironment = servicesEnvironment.walletEnvironment
         
         
-        return walletEnvironment.scheme
+        return specifications.chainId ?? walletEnvironment.scheme
     }
     
     private func timestamp(specifications: TransactionSenderSpecifications) -> Date {
-        
-        
-        
-        return Date()
+        return specifications.timestamp ?? Date()
     }
     
     func broadcastSpecification(servicesEnvironment: ApplicationEnviroment,
@@ -198,7 +195,7 @@ extension TransactionSenderSpecifications {
         
     }
     
-    private func signature(timestamp: Int64, scheme: String, publicKey: [UInt8]) -> [UInt8] {
+    func signature(timestamp: Int64, scheme: String, publicKey: [UInt8]) -> [UInt8] {
         
         switch self {
             

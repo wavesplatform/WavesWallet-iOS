@@ -241,6 +241,40 @@ public enum TransactionSenderSpecifications {
     case data(DataTransactionSender)
     case send(SendTransactionSender)
     case invokeScript(InvokeScriptTransactionSender)
+    
+    
+    public var timestamp: Date? {
+        switch self {
+        case .data(let model):
+            return model.timestamp
+            
+        case .send(let model):
+            return model.timestamp
+            
+        case .invokeScript(let model):
+            return model.timestamp
+            
+        default:
+            return nil
+        }
+    }
+    
+    public var chainId: String? {
+        switch self {
+        case .data(let model):
+            return model.chainId
+            
+        case .send(let model):
+            return model.chainId
+            
+        case .invokeScript(let model):
+            return model.chainId
+            
+        default:
+            return nil
+        }
+    }
+
 }
 
 public protocol TransactionsRepositoryProtocol {

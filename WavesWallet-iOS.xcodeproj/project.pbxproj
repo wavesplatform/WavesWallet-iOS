@@ -551,7 +551,6 @@
 		7B97B0B822FCBF56008BA3F4 /* Kingfisher+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB47DE22FC742D002B19F8 /* Kingfisher+Rx.swift */; };
 		7B97B0BA22FD71A8008BA3F4 /* AssetLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97B0B522FCBD59008BA3F4 /* AssetLogo.swift */; };
 		7B97B0BC22FD92AC008BA3F4 /* AssetLogo+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97B0BB22FD92AC008BA3F4 /* AssetLogo+Styles.swift */; };
-		7B97B0C022FD987D008BA3F4 /* MarketPulseWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E9B190A722E7CD99008220B7 /* MarketPulseWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7B9B326122E6004700DB1C59 /* DebugRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B326022E6004700DB1C59 /* DebugRootView.swift */; };
 		7BB03E4A22EF2C84008F179D /* WidgetSettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */; };
 		7BB03E4C22EF2DAB008F179D /* WidgetSettingsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */; };
@@ -1132,13 +1131,6 @@
 			remoteGlobalIDString = 7B83A7CF22D8C74E0038180D;
 			remoteInfo = DummyForTest;
 		};
-		7B97B0BE22FD9858008BA3F4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F7E954DC1EA8FE0600A804DE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E9B190A622E7CD99008220B7;
-			remoteInfo = MarketPulseWidget;
-		};
 		7BF89E9B22272A5E00853F9D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F7E954DC1EA8FE0600A804DE /* Project object */;
@@ -1192,7 +1184,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				7B97B0C022FD987D008BA3F4 /* MarketPulseWidget.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6018,7 +6009,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				7B97B0BF22FD9858008BA3F4 /* PBXTargetDependency */,
 				7B16BCDE22DBE39000540418 /* PBXTargetDependency */,
 				7B16BCE022DBE39000540418 /* PBXTargetDependency */,
 				7B16BCE222DBE39000540418 /* PBXTargetDependency */,
@@ -7617,11 +7607,6 @@
 			isa = PBXTargetDependency;
 			target = 7B83A7CF22D8C74E0038180D /* DummyForTest */;
 			targetProxy = 7B83A7EA22D8D8050038180D /* PBXContainerItemProxy */;
-		};
-		7B97B0BF22FD9858008BA3F4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E9B190A622E7CD99008220B7 /* MarketPulseWidget */;
-			targetProxy = 7B97B0BE22FD9858008BA3F4 /* PBXContainerItemProxy */;
 		};
 		7BF89E9C22272A5E00853F9D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

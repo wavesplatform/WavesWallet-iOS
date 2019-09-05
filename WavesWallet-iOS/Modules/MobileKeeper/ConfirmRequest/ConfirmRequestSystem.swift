@@ -88,16 +88,15 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
                 .prepareRequest(request.request,
                                 signedWallet: request.signedWallet,
                                 timestamp: request.timestamp)
-
+            
             let assets = self
                 .assetsUseCase
                 .assets(by: request.assetsIds, accountAddress: "")
                 
-                
             return Observable.zip(prepareRequest, assets)
                 .map { Types.Event.prepareRequest($1, $0) }
-                .asSignal(onErrorRecover: { _ in
-                    return Signal.empty()
+                .asSignal(onErrorRecover: { error in
+                    return Signal.just(.handlerError)
                 })
         })
     }()
@@ -106,6 +105,9 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
     override func reduce(event: Event, state: inout State) {
         
         switch event {
+        case .handlerError:
+            state.ui.action = .closeRequest
+            state.core.action = .none
             
         case .none:
             break
@@ -124,8 +126,9 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
                 else {
                     //TODO: Error?
                     //Transaction not support
-                    state.ui.action = .update
+                    state.ui.action = .closeRequest
                     state.core.action = .none
+                    state.core.prepareRequest = prepareRequest
                     return
                 }
             
@@ -175,9 +178,10 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
         switch complitingRequest.transaction {
         case .invokeScript(let tx):
             
+            //TODO: Localization
             let address = ConfirmRequestKeyValueCell.Model(title: "Script address",
                                                                 value: tx.dApp)
-            
+            //TODO: Localization
             if let function = tx.call?.function {
                 let function = ConfirmRequestKeyValueCell.Model(title: "Function",
                                                                 value: function)
@@ -195,6 +199,7 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
                                                                sign: .minus,
                                                                style: .small)
                 
+                //TODO: Localization
                 let balance = ConfirmRequestBalanceCell.Model.init(title: "Payment",
                                                                    feeBalance: paymentBalance)
                 
@@ -241,6 +246,7 @@ fileprivate extension ConfirmRequest.DTO.ComplitingRequest {
     
     
     var txIdkeyValueViewModel: ConfirmRequestKeyValueCell.Model {
+        //TODO: Localization
         return ConfirmRequestKeyValueCell.Model(title: "TXID",
                                                 value: txId)
     }

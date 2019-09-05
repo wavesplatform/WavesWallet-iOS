@@ -61,6 +61,7 @@ final class ChooseAccountCoordinator: Coordinator {
     
     private func addOrImportAccountShow() {
         
+        //TODO: Localization
         let elements: [ActionSheet.DTO.Element] =  [.init(title: "Add"),
                                                     .init(title: "Import")]
         
