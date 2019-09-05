@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let sourceApplication: String = (options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String) ?? ""
         
-        WavesKeeper.shared.gripByUrl(url, sourceApplication: sourceApplication)
+        WavesKeeper.shared.applicationOpenURL(url, sourceApplication)
         
         
         return true

@@ -342,13 +342,13 @@ fileprivate extension TransactionSenderSpecifications {
                                        call: model.call,
                                        payment: model.payment,
                                        chainId: model.chainId,
-                                       timestamp: model.timestamp))
+                                       timestamp: timestamp))
             
         case .data(let model):
             return .data(.init(fee: model.fee,
                                data: model.data,
                                chainId: model.chainId,
-                               timestamp: model.timestamp))
+                               timestamp: timestamp))
             
         default:
             return nil
@@ -460,8 +460,30 @@ fileprivate extension TransactionSenderSpecifications {
 fileprivate extension DomainLayer.DTO.DataTransaction {
     
     var dataTransactionNodeService: NodeService.DTO.DataTransaction {
-        //TODO:
-//        <#T##[NodeService.DTO.DataTransaction.Data]#>
+
+        let data = self.data.map { (element) -> NodeService.DTO.DataTransaction.Data in
+        
+            let value = { () -> NodeService.DTO.DataTransaction.Data.Value in
+            
+                switch element.value {
+                case .binary(let value):
+                    return .binary(value)
+                    
+                case .bool(let value):
+                    return .bool(value)
+                    
+                case .integer(let value):
+                    return .integer(value)
+                    
+                case .string(let value):
+                    return .string(value)
+                }
+                
+            }()
+            
+            return NodeService.DTO.DataTransaction.Data.init(key: element.key, type: element.type, value: value)
+        }
+        
         return .init(type: type,
                      id: id,
                      chainId: chainId,
@@ -472,7 +494,7 @@ fileprivate extension DomainLayer.DTO.DataTransaction {
                      height: height,
                      version: version,
                      proofs: proofs,
-                     data: [])
+                     data: data)
     }
 }
 
@@ -482,9 +504,9 @@ fileprivate extension DomainLayer.DTO.InvokeScriptTransaction {
         
         var call: NodeService.DTO.InvokeScriptTransaction.Call? = nil
         
-        if let localCall = call {
+        if let localCall = self.call {
             let args = localCall.args.map { (arg) -> NodeService.DTO.InvokeScriptTransaction.Call.Args in
-                var value = { () -> NodeService.DTO.InvokeScriptTransaction.Call.Args.Value in
+                let value = { () -> NodeService.DTO.InvokeScriptTransaction.Call.Args.Value in
                     
                     switch arg.value {
                     case .binary(let value):
@@ -535,6 +557,7 @@ fileprivate extension DomainLayer.DTO.InvokeScriptTransaction {
 
 fileprivate extension DomainLayer.DTO.AnyTransaction {
     
+    //TODO: Incorect chainID
     var transactionNodeService: NodeService.DTO.Transaction? {
         
         switch self {
@@ -806,7 +829,7 @@ private extension WavesKeeper.Response {
     func url(app: WavesKeeper.Application) -> URL? {
         
         guard let base64 = self.encodableToBase64 else { return nil }
-        
+                
         var component = URLComponents(string: "")
         
         component?.scheme = app.schemeUrl.components(separatedBy: CharacterSet.urlFragmentAllowed.inverted).joined().lowercased()
