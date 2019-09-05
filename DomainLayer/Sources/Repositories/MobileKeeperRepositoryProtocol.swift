@@ -58,6 +58,8 @@ public extension DomainLayer.DTO.MobileKeeper {
     enum Error {
         case reject
         case message(String, Int)
+        case invalidRequest        
+        case transactionDontSupport
     }
     
     struct Response {
@@ -132,4 +134,6 @@ public protocol MobileKeeperRepositoryProtocol {
     func approveRequest(_ completedRequest: DomainLayer.DTO.MobileKeeper.CompletedRequest) -> Observable<Bool>
     
     func rejectRequest(_ request: DomainLayer.DTO.MobileKeeper.Request) -> Observable<Bool>
+    
+    func errorRequest(_ request: DomainLayer.DTO.MobileKeeper.Request, error: DomainLayer.DTO.MobileKeeper.Error) -> Observable<Bool>
 }

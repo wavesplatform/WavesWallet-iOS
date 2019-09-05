@@ -75,7 +75,7 @@ class ViewController: UIViewController {
                     
                     guard case let .success(success) = response.kind else { return Observable.never() }
                     guard case let .sign(query) = success else { return Observable.never() }
-                        
+                    
                         
                     return WavesSDK.shared
                         .services
@@ -90,9 +90,20 @@ class ViewController: UIViewController {
                            onCompleted: nil,
                            onDisposed: nil)
             
-            
         case .send_3:
-            break
+            WavesKeeper.shared.send(.transfer(.init(recipient: "3PNaua1fMrQm4TArqeTuakmY1u985CgMRk6",
+                                                    assetId: "WAVES",
+                                                    amount: 1000,
+                                                    fee: 100000,
+                                                    attachment: "First",
+                                                    feeAssetId: "А",
+                                                    chainId: chainId)))
+                .subscribe(onNext: { (response) in
+                    print("Eee boy \(response)")
+                },
+                           onError: nil,
+                           onCompleted: nil,
+                           onDisposed: nil)
             
         case .send_4:
             break

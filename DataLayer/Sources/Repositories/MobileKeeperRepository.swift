@@ -22,11 +22,8 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
     
     init(repositoriesFactory: RepositoriesFactoryProtocol) {
         self.repositoriesFactory = repositoriesFactory
-        
-        WavesKeeper.initialization(application: .init(name: "Waves",
-                                                      iconUrl: "",
-                                                      schemeUrl: "waves"))
     }
+    
     public func prepareRequest(_ request: DomainLayer.DTO.MobileKeeper.Request,
                                signedWallet: DomainLayer.DTO.SignedWallet,
                                timestamp: Date) -> Observable<DomainLayer.DTO.MobileKeeper.PrepareRequest> {
@@ -37,12 +34,21 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
             return Observable.error(MobileKeeperUseCaseError.transactionDontSupport)
         }
         
+        //TODO: Error
+        let proof = (try? signedWallet.sign(input: signature.bytesStructure, kind: [.none])) ?? []
+        
+        let transaction = request.transaction.transactionNormalization(proof: proof, timestamp: timestamp, publicKey: signedWallet.publicKey.getPublicKeyStr()) ?? request.transaction
+        
+        let requestNorm = DomainLayer
+            .DTO
+            .MobileKeeper.Request.init(dApp: request.dApp, action: request.action, transaction: transaction, id: request.id)
+        
         let prepareRequest = DomainLayer
             .DTO
             .MobileKeeper
-            .PrepareRequest.init(request: request,
+            .PrepareRequest.init(request: requestNorm,
                                  timestamp: timestamp,
-                                 proof: signature.bytesStructure,
+                                 proof: proof,
                                  txId: signature.id,
                                  signedWallet: signedWallet)
         
@@ -111,6 +117,13 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
                            error: .reject)
     }
     
+    public func errorRequest(_ request: DomainLayer.DTO.MobileKeeper.Request, error: DomainLayer.DTO.MobileKeeper.Error) -> Observable<Bool> {
+        
+        return returnError(for: request.dApp,
+                           requestId: request.id,
+                           error: error)
+    }
+    
     public func decodableRequest(_ url: URL, sourceApplication: String) -> Observable<DomainLayer.DTO.MobileKeeper.Request?> {
         
         var requestOptional: WavesKeeper.Request? = nil
@@ -160,18 +173,13 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
                 return Disposables.create()
             }
             
-            guard UIApplication.shared.canOpenURL(url) else {
-                observer.onError(MobileKeeperUseCaseError.dAppDontOpen)
-                return Disposables.create()
-            }
-            
             UIApplication.shared.open(url, options: .init(), completionHandler: { (flag) in
                 if flag == false {
                     observer.onError(MobileKeeperUseCaseError.dAppDontOpen)
                 } else {
                     observer.onNext(flag)
+                    observer.onCompleted()
                 }
-                observer.onCompleted()
             })
             
             return Disposables.create()
@@ -269,6 +277,12 @@ extension DomainLayer.DTO.MobileKeeper.Error {
             
         case .reject:
             return .reject
+            
+        case .invalidRequest:
+            return .invalidRequest
+            
+        case .transactionDontSupport:
+            return .transactionDontSupport
         }
     }
 }
@@ -307,6 +321,39 @@ fileprivate extension NodeService.Query.Transaction.InvokeScript.Call {
 }
 
 fileprivate extension TransactionSenderSpecifications {
+    
+    func transactionNormalization(proof: Bytes, timestamp: Date, publicKey: String) -> TransactionSenderSpecifications? {
+        
+        switch self {
+        case .send(let sender):
+            return .send(SendTransactionSender.init(recipient: sender.recipient,
+                                                    assetId: sender.assetId,
+                                                    amount: sender.amount,
+                                                    fee: sender.fee,
+                                                    attachment: sender.attachment,
+                                                    feeAssetID: sender.feeAssetID,
+                                                    chainId: sender.chainId,
+                                                    timestamp: timestamp))
+        case .invokeScript(let model):
+            
+            return .invokeScript(.init(fee: model.fee,
+                                       feeAssetId: model.feeAssetId,
+                                       dApp: model.dApp,
+                                       call: model.call,
+                                       payment: model.payment,
+                                       chainId: model.chainId,
+                                       timestamp: model.timestamp))
+            
+        case .data(let model):
+            return .data(.init(fee: model.fee,
+                               data: model.data,
+                               chainId: model.chainId,
+                               timestamp: model.timestamp))
+            
+        default:
+            return nil
+        }
+    }
     
     func nodeQuery(proof: Bytes, timestamp: Date, publicKey: String) -> NodeService.Query.Transaction? {
         
@@ -730,7 +777,8 @@ private extension WavesKeeper.Response {
         guard let base64 = self.encodableToBase64 else { return nil }
         
         var component = URLComponents(string: "")
-        component?.scheme = app.schemeUrl
+        
+        component?.scheme = app.schemeUrl.components(separatedBy: CharacterSet.urlFragmentAllowed.inverted).joined().lowercased()
         component?.path = "keeper/v1/response"
         component?.queryItems = [URLQueryItem(name: "data", value: base64)]
         

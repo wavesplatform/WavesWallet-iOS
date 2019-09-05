@@ -12,6 +12,7 @@ import RxSwift
 
 protocol ConfirmRequestModuleOutput: AnyObject {
     
+    func confirmRequestDidTapClose(_ prepareRequest: DomainLayer.DTO.MobileKeeper.PrepareRequest)
     func confirmRequestDidTapReject(_ complitingRequest: ConfirmRequest.DTO.ComplitingRequest)
     func confirmRequestDidTapApprove(_ complitingRequest: ConfirmRequest.DTO.ComplitingRequest)
 }

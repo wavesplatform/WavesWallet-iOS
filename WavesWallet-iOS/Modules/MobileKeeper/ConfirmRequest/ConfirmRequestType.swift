@@ -28,6 +28,7 @@ enum ConfirmRequest {
             enum Action {
                 case none
                 case update
+                case closeRequest
             }
             
             var sections: [Section]
@@ -57,6 +58,7 @@ enum ConfirmRequest {
     enum Event {
         case none
         case viewDidAppear
+        case handlerError
         case prepareRequest([DomainLayer.DTO.Asset], DomainLayer.DTO.MobileKeeper.PrepareRequest)
     }
     

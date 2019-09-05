@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                        matcher: []),
                                 enviroment: .init(server: .mainNet, timestampServerDiff: 0))
         
-        WavesKeeper.initialization(application: .init(name: "Keeper Example", iconUrl: "https://rampaga.ru/_sf/135/72786352.jpg", schemeUrl: "keeperExample"))
+        WavesKeeper.initialization(application: .init(name: "Keeper Example", iconUrl: "https://rampaga.ru/_sf/135/72786352.jpg", schemeUrl: "keeperExampleadsf"))
         
         
         if let url = url {

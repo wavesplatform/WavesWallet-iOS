@@ -11,6 +11,11 @@ import RxSwift
 import DomainLayer
 import WavesSDK
 
+protocol MobileKeeperCoordinatorDelegate: AnyObject {
+    
+    func mobileKeeperCoordinatorError(_ error: MobileKeeperUseCaseError)
+}
+
 final class MobileKeeperCoordinator: Coordinator {
     
     var childCoordinators: [Coordinator] = []
@@ -32,6 +37,8 @@ final class MobileKeeperCoordinator: Coordinator {
     
     private var snackError: String? = nil
     
+    var delegate: MobileKeeperCoordinatorDelegate?
+    
     init(windowRouter: WindowRouter, request: DomainLayer.DTO.MobileKeeper.Request) {
         
         self.request = request
@@ -49,17 +56,66 @@ final class MobileKeeperCoordinator: Coordinator {
         addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
     
-    private func closeWindow() {
-        removeFromParentCoordinator()
-        self.windowRouter.dissmissWindow()
+    private func closeWindow(completed: (() -> Void)? = nil) {
+        self.windowRouter.dissmissWindow(animated: .crossDissolve) {
+            completed?()
+            self.removeFromParentCoordinator()
+        }
     }
+    
+    private func rejectAndClose(request: DomainLayer.DTO.MobileKeeper.Request) {
+        
+        mobileKeeperRepository
+            .rejectRequest(request)
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (result) in
+                
+                self?.closeWindow(completed: {
+                    if result == false {
+                        self?.delegate?.mobileKeeperCoordinatorError(MobileKeeperUseCaseError.dAppDontOpen)
+                    }
+                })
+            }, onError: { [weak self] (error) in
+                
+                self?.closeWindow(completed: {
+                    if let error = error as? MobileKeeperUseCaseError {
+                        self?.delegate?.mobileKeeperCoordinatorError(error)
+                    }
+                })
+            })
+            .disposed(by: disposeBag)
+        
+    }
+    
+    private func errorAndClose(request: DomainLayer.DTO.MobileKeeper.Request, error: DomainLayer.DTO.MobileKeeper.Error) {
+        
+        mobileKeeperRepository
+            .errorRequest(request, error: error)
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (result) in
+                
+                if result == false {
+                    self?.delegate?.mobileKeeperCoordinatorError(MobileKeeperUseCaseError.dAppDontOpen)
+                }
+                self?.closeWindow()
+            }, onError: { [weak self] (error) in
+                    
+                self?.closeWindow(completed: {
+                    if let error = error as? MobileKeeperUseCaseError {
+                        self?.delegate?.mobileKeeperCoordinatorError(error)
+                    }
+                })
+            })
+            .disposed(by: disposeBag)        
+    }
+
 }
 
 // MARK: ApplicationCoordinatorProtocol
 
 extension MobileKeeperCoordinator: ApplicationCoordinatorProtocol {
     func showEnterDisplay() {
-        
+        rejectAndClose(request: request)
     }
 }
 
@@ -74,6 +130,7 @@ extension MobileKeeperCoordinator: ChooseAccountCoordinatorDelegate {
             .authorization
             .authorizedWallet()
             .take(1)
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (wallet) in
                 guard let self = self else { return }
                 
@@ -86,22 +143,22 @@ extension MobileKeeperCoordinator: ChooseAccountCoordinatorDelegate {
     }
     
     func userDidTapBackButton() {
-        
-        mobileKeeperRepository.rejectRequest(request)
-        closeWindow()        
+        rejectAndClose(request: request)
     }
 }
 
 extension MobileKeeperCoordinator: ConfirmRequestModuleOutput {
     
-    func confirmRequestDidTapReject(_ complitingRequest: ConfirmRequest.DTO.ComplitingRequest) {
-        
-        self.mobileKeeperRepository.rejectRequest(complitingRequest.prepareRequest.request)
-        closeWindow()
+    func confirmRequestDidTapClose(_ prepareRequest: DomainLayer.DTO.MobileKeeper.PrepareRequest) {
+        errorAndClose(request: prepareRequest.request, error: .invalidRequest)
     }
     
+    func confirmRequestDidTapReject(_ complitingRequest: ConfirmRequest.DTO.ComplitingRequest) {
+        rejectAndClose(request: complitingRequest.prepareRequest.request)
+    }
+    
+    
     func confirmRequestDidTapApprove(_ complitingRequest: ConfirmRequest.DTO.ComplitingRequest) {
-        
         
         let action = complitingRequest.prepareRequest.request.action
         
@@ -132,19 +189,24 @@ extension MobileKeeperCoordinator: ConfirmRequestModuleOutput {
                         
                         self.mobileKeeperRepository
                             .approveRequest(completed)
+                            .observeOn(MainScheduler.asyncInstance)
                             .subscribe(onNext: { [weak self] (result) in
                                 
-                                if result == false {
-                                    self?.showErrorView(with: MobileKeeperUseCaseError.dAppDontOpen)
-                                }
+                                self?.closeWindow(completed: {
+                                    if result == false {
+                                        self?.delegate?.mobileKeeperCoordinatorError(MobileKeeperUseCaseError.dAppDontOpen)
+                                    }
+                                })
                                 
                             }, onError: { [weak self] (error) in
-                                if let error = error as? MobileKeeperUseCaseError {
-                                    self?.showErrorView(with: error)
-                                }
+                                
+                                self?.closeWindow(completed: {
+                                    if let error = error as? MobileKeeperUseCaseError {
+                                        self?.delegate?.mobileKeeperCoordinatorError(error)
+                                    }
+                                })
                             })
                             .disposed(by: self.disposeBag)
-                        self.closeWindow()
                     }
                     
                     self.navigationRouter.pushViewController(vc)
@@ -153,34 +215,59 @@ extension MobileKeeperCoordinator: ConfirmRequestModuleOutput {
                     //TODO: Error
                     self.mobileKeeperRepository
                         .approveRequest(completed)
+                        .observeOn(MainScheduler.asyncInstance)
                         .subscribe(onNext: { [weak self] (result) in
                             
-                            if result == false {
-                                self?.showErrorView(with: MobileKeeperUseCaseError.dAppDontOpen)
-                            }
+                            self?.closeWindow(completed: {
+                                if result == false {
+                                    self?.delegate?.mobileKeeperCoordinatorError(MobileKeeperUseCaseError.dAppDontOpen)
+                                }
+                            })
                             
                         }, onError: { [weak self] (error) in
-                            if let error = error as? MobileKeeperUseCaseError {
-                                self?.showErrorView(with: error)
-                            }
+                            
+                            self?.closeWindow(completed: {
+                                if let error = error as? MobileKeeperUseCaseError {
+                                    self?.handlerError(with: error)
+                                }
+                            })
                         })
                         .disposed(by: self.disposeBag)
                     
-                    self.closeWindow()
                 }
             }, onError: { [weak self] (error) in
                 
                 if let error = error as? MobileKeeperUseCaseError {
-                    self?.showErrorView(with: error)
+                    self?.handlerError(with: error)
+                    
                 }
             })
             .disposed(by: disposeBag)
     }
     
+    private func handlerError(with error: MobileKeeperUseCaseError) {
+        
+        switch error {
+        case .dAppDontOpen:
+            showErrorView(with: error)
+            
+        case .dataIncorrect:
+            errorAndClose(request: request, error: .invalidRequest)
+            
+        case .transactionDontSupport:
+            errorAndClose(request: request, error: .transactionDontSupport)
+            
+        default:
+            break
+        }
+        
+        showErrorView(with: error)
+    }
+    
     private func showErrorView(with error: MobileKeeperUseCaseError) {
         
         if let snackError = snackError {
-            self.navigationRouter.viewController.hideSnack(key: snackError)
+            UIApplication.shared.windows.last?.rootViewController?.hideSnack(key: snackError)
         }
         
         switch error {
@@ -193,12 +280,12 @@ extension MobileKeeperCoordinator: ConfirmRequestModuleOutput {
         case .transactionDontSupport:
             snackError = showErrorSnack("Transaction don't support")
         default:
-            snackError = self.navigationRouter.viewController.showErrorNotFoundSnackWithoutAction()
+            snackError = UIApplication.shared.windows.last?.rootViewController?.showErrorNotFoundSnackWithoutAction()
         }
     }
     
-    private func showErrorSnack(_ message: (String)) -> String {
-        return self.navigationRouter.viewController.showErrorSnackWithoutAction(title: message)
+    private func showErrorSnack(_ message: (String)) -> String? {
+        return UIApplication.shared.windows.last?.rootViewController?.showErrorSnackWithoutAction(title: message)
     }
 }
 

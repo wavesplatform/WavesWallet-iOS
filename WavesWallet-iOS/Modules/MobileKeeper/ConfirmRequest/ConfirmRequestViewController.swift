@@ -27,6 +27,7 @@ final class ConfirmRequestViewController: UIViewController, DataSourceProtocol {
     var sections: [ConfirmRequest.Section] = .init()
     
     private var complitingRequest: ConfirmRequest.DTO.ComplitingRequest?
+    private var prepareRequest: DomainLayer.DTO.MobileKeeper.PrepareRequest?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +63,7 @@ private extension ConfirmRequestViewController {
     
     private func update(state: Types.State.Core) {
         self.complitingRequest = state.complitingRequest
+        self.prepareRequest = state.prepareRequest
     }
     
     private func update(state: Types.State.UI) {
@@ -72,6 +74,11 @@ private extension ConfirmRequestViewController {
         case .update:
             tableView.reloadData()
             
+        case .closeRequest:
+            
+            if let prepareRequest = prepareRequest {
+                moduleOutput?.confirmRequestDidTapClose(prepareRequest)
+            }
         default:
             break
         }
