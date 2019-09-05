@@ -504,7 +504,7 @@ fileprivate extension DomainLayer.DTO.InvokeScriptTransaction {
         
         var call: NodeService.DTO.InvokeScriptTransaction.Call? = nil
         
-        if let localCall = call {
+        if let localCall = self.call {
             let args = localCall.args.map { (arg) -> NodeService.DTO.InvokeScriptTransaction.Call.Args in
                 let value = { () -> NodeService.DTO.InvokeScriptTransaction.Call.Args.Value in
                     
@@ -829,6 +829,10 @@ private extension WavesKeeper.Response {
     func url(app: WavesKeeper.Application) -> URL? {
         
         guard let base64 = self.encodableToBase64 else { return nil }
+        
+        let res: WavesKeeper.Response? = base64.decodableBase64ToObject()
+        
+        print(res)
         
         var component = URLComponents(string: "")
         
