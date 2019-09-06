@@ -193,6 +193,15 @@ internal enum StoryboardScene {
 
     internal static let menuViewController = SceneType<WavesWallet_iOS.MenuViewController>(storyboard: Main.self, identifier: "MenuViewController")
   }
+  internal enum MobileKeeper: StoryboardType {
+    internal static let storyboardName = "MobileKeeper"
+
+    internal static let confirmRequestCompleteViewController = SceneType<WavesWallet_iOS.ConfirmRequestCompleteViewController>(storyboard: MobileKeeper.self, identifier: "ConfirmRequestCompleteViewController")
+
+    internal static let confirmRequestLoadingViewController = SceneType<WavesWallet_iOS.ConfirmRequestLoadingViewController>(storyboard: MobileKeeper.self, identifier: "ConfirmRequestLoadingViewController")
+
+    internal static let confirmRequestViewController = SceneType<WavesWallet_iOS.ConfirmRequestViewController>(storyboard: MobileKeeper.self, identifier: "ConfirmRequestViewController")
+  }
   internal enum MyAddress: StoryboardType {
     internal static let storyboardName = "MyAddress"
 

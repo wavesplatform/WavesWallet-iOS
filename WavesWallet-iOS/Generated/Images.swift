@@ -107,6 +107,7 @@ internal enum Images {
   internal static let editAddressIcon = ImageAsset(name: "edit_address_icon")
   internal static let editaddress24Submit200 = ImageAsset(name: "editaddress24Submit200")
   internal static let editaddress24Submit300 = ImageAsset(name: "editaddress24Submit300")
+  internal static let error80Error500 = ImageAsset(name: "error80Error500")
   internal static let eyeclsoe24Basic500 = ImageAsset(name: "eyeclsoe24Basic500")
   internal static let eyeopen24Basic500 = ImageAsset(name: "eyeopen24Basic500")
   internal static let faceid48Submit300 = ImageAsset(name: "faceid48Submit300")
@@ -261,6 +262,7 @@ internal enum Images {
   internal static let tabbarWavesActive = ImageAsset(name: "tabbarWavesActive")
   internal static let tabbarWavesDefault = ImageAsset(name: "tabbarWavesDefault")
   internal static let token80 = ImageAsset(name: "token80")
+  internal static let topbarAdd = ImageAsset(name: "topbarAdd")
   internal static let topbarAddaddress = ImageAsset(name: "topbarAddaddress")
   internal static let topbarAddmarkets = ImageAsset(name: "topbarAddmarkets")
   internal static let topbarBackwhite = ImageAsset(name: "topbarBackwhite")
@@ -386,6 +388,7 @@ internal enum Images {
     editAddressIcon,
     editaddress24Submit200,
     editaddress24Submit300,
+    error80Error500,
     eyeclsoe24Basic500,
     eyeopen24Basic500,
     faceid48Submit300,
@@ -540,6 +543,7 @@ internal enum Images {
     tabbarWavesActive,
     tabbarWavesDefault,
     token80,
+    topbarAdd,
     topbarAddaddress,
     topbarAddmarkets,
     topbarBackwhite,

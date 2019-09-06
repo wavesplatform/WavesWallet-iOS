@@ -21,6 +21,8 @@ final class SlideCoordinator: Coordinator {
     private let slideMenuRouter: SlideMenuRouter
     private let disposeBag = DisposeBag()
     
+    weak var menuViewControllerDelegate: MenuViewControllerDelegate?
+    
     init(windowRouter: WindowRouter, wallet: DomainLayer.DTO.Wallet?) {
         self.windowRouter = windowRouter
         self.wallet = wallet
@@ -33,6 +35,7 @@ final class SlideCoordinator: Coordinator {
 
         let menuController = StoryboardScene.Main.menuViewController.instantiate()
         slideMenuRouter.setLeftMenuViewController(menuController)
+        menuController.delegate = menuViewControllerDelegate
         self.windowRouter.setRootViewController(slideMenuRouter.slideMenu, animated: .crossDissolve)
 
         if let wallet = wallet {

@@ -664,7 +664,7 @@
                                                 <userLayoutGuide location="40" affinity="minY"/>
                                             </userGuides>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FpK-jh-jHb" customClass="TransactionImageView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="48" placeholderIntrinsicHeight="48" translatesAutoresizingMaskIntoConstraints="NO" id="FpK-jh-jHb" customClass="TransactionImageView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="10" width="48" height="48"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>

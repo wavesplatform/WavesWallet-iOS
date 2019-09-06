@@ -37,7 +37,8 @@ extension DataTransaction {
             case .bool(let value):
                 txData.boolean.value = value
             case .integer(let value):
-                txData.integer.value = value
+                //TODO: Change bd
+                txData.integer.value = (value as? Int) ?? 0
             case .string(let value):
                 txData.string = value
             case .binary(let value):
@@ -88,7 +89,8 @@ extension DomainLayer.DTO.DataTransaction {
                   proofs: transaction.proofs,
                   data: dataList,
                   modified: Date(),
-                  status: status)
+                  status: status,
+                  chainId: transaction.chainId)
     }
 
     init(transaction: DataTransaction) {
@@ -100,7 +102,7 @@ extension DomainLayer.DTO.DataTransaction {
             if let value = data.binary {
                 dataValue = .binary(value)
             } else if let value = data.integer.value {
-                dataValue = .integer(value)
+                dataValue = .integer(Int64(value))
             } else if let value = data.string {
                 dataValue = .string(value)
             } else if let value = data.boolean.value {
@@ -110,6 +112,7 @@ extension DomainLayer.DTO.DataTransaction {
             return DomainLayer.DTO.DataTransaction.Data(key: data.key, value: dataValue, type: data.type)
         }
         
+        //TODO: Chain id
         self.init(type: transaction.type,
                   id: transaction.id,
                   sender: transaction.sender,
@@ -121,6 +124,7 @@ extension DomainLayer.DTO.DataTransaction {
                   proofs: transaction.proofs.toArray(),
                   data: dataList,
                   modified: transaction.modified,
-                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed)        
+                  status: DomainLayer.DTO.TransactionStatus(rawValue: transaction.status) ?? .completed,
+                  chainId: "")
     }
 }

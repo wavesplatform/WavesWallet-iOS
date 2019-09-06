@@ -12,6 +12,36 @@ public extension DomainLayer.DTO {
     
     struct InvokeScriptTransaction {
         
+        public struct Call {
+            
+            public struct Args {
+                public enum Value {
+                    
+                    case bool(Bool)
+                    case integer(Int64)
+                    case string(String)
+                    case binary(String)
+                }
+                
+                public let type: String
+                public let value: Value
+                
+                public init(type: String, value: Value) {
+                    self.type = type
+                    self.value = value
+                }
+            }
+            
+
+            public let function: String
+            public let args: [Args]
+            
+            public init(function: String, args: [Args]) {
+                self.function = function
+                self.args = args
+            }
+        }
+        
         public struct Payment {
             public let amount: Int64
             public let assetId: String?
@@ -37,8 +67,11 @@ public extension DomainLayer.DTO {
         
         public var modified: Date
         public var status: TransactionStatus
+        public let chainId: String?
+        public let call: DomainLayer.DTO.InvokeScriptTransaction.Call?
 
-        public init(type: Int, id: String, sender: String, senderPublicKey: String, fee: Int64, feeAssetId: String?, timestamp: Date, proofs: [String]?, version: Int, dappAddress: String, payment: Payment?, height: Int64, modified: Date, status: TransactionStatus) {
+        public init(type: Int, id: String, sender: String, senderPublicKey: String, fee: Int64, feeAssetId: String?, timestamp: Date, proofs: [String]?, version: Int, dappAddress: String, payment: Payment?, height: Int64, modified: Date, status: TransactionStatus, chainId: String?, call: DomainLayer.DTO.InvokeScriptTransaction.Call?) {
+            self.chainId = chainId
             self.type = type
             self.id = id
             self.sender = sender
@@ -52,6 +85,7 @@ public extension DomainLayer.DTO {
             self.payment = payment
             self.height = height
             self.modified = modified
+            self.call = call
             self.status = status
         }
     }

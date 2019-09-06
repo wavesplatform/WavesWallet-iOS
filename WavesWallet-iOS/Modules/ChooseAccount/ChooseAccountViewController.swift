@@ -49,8 +49,18 @@ final class ChooseAccountViewController: UIViewController {
         
         navigationItem.title = Localizable.Waves.Chooseaccount.Navigation.title
         setupBigNavigationBar()
-        createBackButton()
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.btnBack.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(backTapped))
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.topbarAdd.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(tapAddAccount))
         hideTopBarLine()
+    }
+    
+    @objc override func backTapped() {
+        self.eventInput.onNext(.tapBack)
+    }
+    
+    @objc func tapAddAccount() {
+        self.eventInput.onNext(.tapAddAccount)
     }
     
     // MARK: - Content

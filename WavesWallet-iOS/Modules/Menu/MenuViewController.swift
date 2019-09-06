@@ -10,6 +10,10 @@ import UIKit
 import DomainLayer
 import Extensions
 
+protocol MenuViewControllerDelegate: AnyObject {
+    func menuViewControllerDidTapWavesLogo()
+}
+
 class MenuViewController: UIViewController {
 
     @IBOutlet weak var descriptionLabel: UILabel!
@@ -17,16 +21,26 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var whitepaperButton: UIButton!
     @IBOutlet weak var termAndConditionsButton: UIButton!
     @IBOutlet weak var supportWavesplatformButton: UIButton!
-
+    @IBOutlet weak var wavesLogoImageView: UIImageView!
+    
+    private lazy var tapGesture = UITapGestureRecognizer.init(target: self, action: #selector(handlerTapWavesLogo))
+    
+    weak var delegate: MenuViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tapGesture.numberOfTapsRequired = 5
+        wavesLogoImageView.addGestureRecognizer(tapGesture)
         setupLocalization()
 
         NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
     }
 
+    @objc func handlerTapWavesLogo() {
+        self.delegate?.menuViewControllerDidTapWavesLogo()
+    }
+    
     @objc func changedLanguage() {
         setupLocalization()
     }

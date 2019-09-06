@@ -12,6 +12,7 @@ import RxSwift
 import RESideMenu
 import RxOptional
 import WavesSDKExtensions
+import WavesSDK
 import Extensions
 import DomainLayer
 
@@ -53,17 +54,23 @@ final class AppCoordinator: Coordinator {
     private let windowRouter: WindowRouter
 
     private let authoAuthorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
+    private let mobileKeeperRepository: MobileKeeperRepositoryProtocol = UseCasesFactory.instance.repositories.mobileKeeperRepository
+    
     private let disposeBag: DisposeBag = DisposeBag()
+    private var deepLink: DeepLink? = nil
     private var isActiveApp: Bool = false
+    private var snackError: String? = nil
     
 #if DEBUG || TEST
-    init(_ debugWindowRouter: DebugWindowRouter) {
+    init(_ debugWindowRouter: DebugWindowRouter, deepLink: DeepLink?) {
         self.windowRouter = debugWindowRouter
         debugWindowRouter.delegate = self
+        self.deepLink = deepLink
     }
 #else
-    init(_ windowRouter: WindowRouter) {
+    init(_ windowRouter: WindowRouter, deepLink: DeepLink?) {
         self.windowRouter = windowRouter
+        self.deepLink = deepLink
     }
 #endif
 
@@ -80,6 +87,9 @@ final class AppCoordinator: Coordinator {
             logInApplication()
         #endif
         
+        if let deepLink = deepLink {
+            openURL(link: deepLink)
+        }        
     }
 
     private var isMainTabDisplayed: Bool {
@@ -90,11 +100,13 @@ final class AppCoordinator: Coordinator {
 // MARK: Methods for showing differnt displays
 extension AppCoordinator: PresentationCoordinator {
 
-    enum Display: Equatable {
+    enum Display {
         case hello
         case slide(DomainLayer.DTO.Wallet)
         case enter
         case passcode(DomainLayer.DTO.Wallet)
+        case widgetSettings
+        case mobileKeeper(DomainLayer.DTO.MobileKeeper.Request)
     }
 
     func showDisplay(_ display: AppCoordinator.Display) {
@@ -120,6 +132,7 @@ extension AppCoordinator: PresentationCoordinator {
             guard isHasCoordinator(type: SlideCoordinator.self) != true else { return }
 
             let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: wallet)
+            slideCoordinator.menuViewControllerDelegate = self
             addChildCoordinatorAndStart(childCoordinator: slideCoordinator)            
 
         case .enter:
@@ -131,23 +144,70 @@ extension AppCoordinator: PresentationCoordinator {
             guard prevSlideCoordinator?.isHasCoordinator(type: EnterCoordinator.self) != true else { return }
 
             let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: nil)
+            slideCoordinator.menuViewControllerDelegate = self
             addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
+        
+        case .widgetSettings:
+        
+            guard isHasCoordinator(type: WidgetSettingsCoordinator.self) != true else {
+                return
+            }
+        
+            let coordinator = WidgetSettingsCoordinator(windowRouter: windowRouter)
+            addChildCoordinatorAndStart(childCoordinator: coordinator)
+            
+        case .mobileKeeper(let request):
+            
+            let coordinator = MobileKeeperCoordinator(windowRouter: windowRouter, request: request)
+            addChildCoordinatorAndStart(childCoordinator: coordinator)
+ 
         }
-        
-        
     }
     
     func openURL(link: DeepLink) {
         
         if link.url.absoluteString == DeepLink.widgetSettings {
+            self.showDisplay(.widgetSettings)
+        } else {
             
-            guard isHasCoordinator(type: WidgetSettingsCoordinator.self) != true else {
-                return
-            }
-            
-            let coordinator = WidgetSettingsCoordinator.init(windowRouter: windowRouter)
-            addChildCoordinatorAndStart(childCoordinator: coordinator)
+            mobileKeeperRepository
+                .decodableRequest(link.url, sourceApplication: link.source)
+                .subscribe(onNext: { (request) in
+                    guard let request = request else { return }
+                    self.showDisplay(.mobileKeeper(request))
+                }, onError: { [weak self] (error) in
+                    
+                    if let error = error as? MobileKeeperUseCaseError {
+                        self?.showErrorView(with: error)
+                    }
+                })
+                .disposed(by: disposeBag)
         }
+    }
+    
+    //TODO: Localization
+    private func showErrorView(with error: MobileKeeperUseCaseError) {
+        
+        if let snackError = snackError {
+            UIApplication.shared.windows.last?.rootViewController?.hideSnack(key: snackError)
+        }
+        
+        switch error {
+        case .dAppDontOpen:
+            snackError = showErrorSnack("Application don't open")
+            
+        case .dataIncorrect:
+            snackError = showErrorSnack("Request incorect")
+            
+        case .transactionDontSupport:
+            snackError = showErrorSnack("Transaction don't support")
+        default:
+            snackError = UIApplication.shared.windows.last?.rootViewController?.showErrorNotFoundSnackWithoutAction()
+        }
+    }
+    
+    private func showErrorSnack(_ message: (String)) -> String? {
+        return UIApplication.shared.windows.last?.rootViewController?.showErrorSnackWithoutAction(title: message)
     }
 }
 
@@ -278,10 +338,9 @@ extension AppCoordinator {
     }
 }
 
-#if DEBUG || TEST
+
 
 // MARK: DebugWindowRouterDelegate
-
 extension AppCoordinator: DebugWindowRouterDelegate  {
     
     func relaunchApplication() {
@@ -296,4 +355,29 @@ extension AppCoordinator: DebugWindowRouterDelegate  {
     }
 }
 
-#endif
+
+// MARK: MenuViewControllerDelegate
+extension AppCoordinator: MenuViewControllerDelegate {
+    
+    func menuViewControllerDidTapWavesLogo() {
+        
+        let vc = StoryboardScene.Support.debugViewController.instantiate()
+        vc.delegate = self
+        let nv = CustomNavigationController()
+        nv.viewControllers = [vc]
+        self.windowRouter.window.rootViewController?.present(nv, animated: true, completion: nil)
+    }
+}
+
+// MARK: DebugViewControllerDelegate
+extension AppCoordinator: DebugViewControllerDelegate {
+
+    func dissmissDebugVC(isNeedRelaunchApp: Bool) {
+        
+        if isNeedRelaunchApp {
+            relaunchApplication()
+        }
+        
+        self.windowRouter.window.rootViewController?.dismiss(animated: true, completion: nil)
+    }
+}
