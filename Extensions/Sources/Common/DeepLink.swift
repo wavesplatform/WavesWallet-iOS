@@ -21,12 +21,13 @@ public struct DeepLink {
 public extension DeepLink {
     
     #if DEBUG
-    static let scheme: String = "waves-dev://"
+    static let scheme: String = "waves-dev"
     #elseif TEST
-    static let scheme: String = "waves-test://"
+    static let scheme: String = "waves-test"
     #else
-    static let scheme: String = "waves://"
+    static let scheme: String = "waves"
     #endif
     
-    static let widgetSettings: String = "\(DeepLink.scheme)widgetsettings"
+    static let widgetSettings: String = "\(DeepLink.scheme)://widgetsettings"
+    static let mobileKeeper: String = "\(DeepLink.scheme)://keeper"
 }

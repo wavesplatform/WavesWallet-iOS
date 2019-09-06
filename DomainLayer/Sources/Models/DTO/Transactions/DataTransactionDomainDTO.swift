@@ -14,7 +14,7 @@ public extension DomainLayer.DTO {
         public struct Data {
             public enum Value {
                 case bool(Bool)
-                case integer(Int)
+                case integer(Int64)
                 case string(String)
                 case binary(String)
             }
@@ -42,11 +42,13 @@ public extension DomainLayer.DTO {
         public let data: [Data]
         public var modified: Date
         public var status: TransactionStatus
+        public var chainId: String?
 
-        public init(type: Int, id: String, sender: String, senderPublicKey: String, fee: Int64, timestamp: Date, height: Int64?, version: Int, proofs: [String]?, data: [Data], modified: Date, status: TransactionStatus) {
+        public init(type: Int, id: String, sender: String, senderPublicKey: String, fee: Int64, timestamp: Date, height: Int64?, version: Int, proofs: [String]?, data: [Data], modified: Date, status: TransactionStatus, chainId: String?) {
             self.type = type
             self.id = id
             self.sender = sender
+            self.chainId = chainId
             self.senderPublicKey = senderPublicKey
             self.fee = fee
             self.timestamp = timestamp

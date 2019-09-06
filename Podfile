@@ -1,4 +1,3 @@
-
 # Uncomment the next line to define a global platform for your project
 platform :ios, '11.0'
 
@@ -17,92 +16,77 @@ target 'MonkeyTest' do
     pod 'SwiftMonkey'
 end 
 
-
-def wavesSDKPod
-    # pod 'WavesSDKExtensions', :git => 'https://github.com/wavesplatform/WavesSDK-iOS'
-    # pod 'WavesSDK', :git => 'https://github.com/wavesplatform/WavesSDK-iOS'
-    # pod 'WavesSDKCrypto', :git => 'https://github.com/wavesplatform/WavesSDK-iOS'
-end
-
-# load './Vendors/WavesSDK/Podfile'
-    
 workspace 'WavesWallet-iOS.xcworkspace'
 project 'Vendors/WavesSDK/WavesSDK.xcodeproj'
 project 'WavesWallet-iOS.xcodeproj'
 
+# Pods for WavesWallet-iOS
+target 'WavesWallet-iOS' do
+    # inherit! :search_paths
 
-abstract_target 'Shows' do
-        
-    
-    # pod 'AppsFlyerFramework'
-    
-    # Pods for WavesWallet-iOS
-    target 'WavesWallet-iOS' do
-        # inherit! :search_paths
-
-        project 'WavesWallet-iOS.xcodeproj'    
-        
-        # UI
-        pod 'RxCocoa'
-        
-        pod 'TTTAttributedLabel'    
-        pod 'UITextView+Placeholder'
-
-        pod 'SwipeView'
-        pod 'MGSwipeTableCell'
-
-        pod 'UPCarouselFlowLayout'
-        pod 'InfiniteCollectionView', :git => 'https://github.com/wavesplatform/InfiniteCollectionView.git', :branch => 'swift5'
-        pod 'RESideMenu', :git => 'https://github.com/wavesplatform/RESideMenu.git'
-
-        pod 'Skeleton'
-        pod 'Charts'
-        pod 'Koloda'
-
-        pod 'IQKeyboardManagerSwift'
-        pod 'TPKeyboardAvoiding'
-        
-        # Assisstant
-        pod 'RxSwift'
-        pod 'RxSwiftExt'
-        pod 'RxOptional'
-        pod 'RxGesture'
-        pod 'RxFeedback'    
-
-        pod 'IdentityImg', :git => 'https://github.com/wavesplatform/identity-img-swift.git'
-        pod 'QRCode'
-        pod 'QRCodeReader.swift', '~> 9.0.1'    
-        pod 'SwiftDate'
-        pod 'Kingfisher'
-
-        # Code Gen
-        pod 'SwiftGen', '~> 5.3.0'
-
-        # Debug
-        # pod 'Reveal-SDK', :configurations => ['Debug']
-        pod 'AppSpectorSDK', :configurations => ['dev-debug', 'dev-adhoc', 'test-dev', 'test-prod']
-        pod 'SwiftMonkeyPaws', :configurations => ['dev-debug', 'dev-adhoc']
-            
-        # pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git'    
-    end
-end
-
-target 'MarketPulseWidget' do
     project 'WavesWallet-iOS.xcodeproj'
+    
+    # UI
+    pod 'RxCocoa'
+    
+    pod 'TTTAttributedLabel'
+    pod 'UITextView+Placeholder'
 
+    pod 'SwipeView'
+    pod 'MGSwipeTableCell'
+
+    pod 'UPCarouselFlowLayout'
+    pod 'InfiniteCollectionView', :git => 'https://github.com/wavesplatform/InfiniteCollectionView.git', :branch => 'swift5'
+    pod 'RESideMenu', :git => 'https://github.com/wavesplatform/RESideMenu.git'
+
+    pod 'Skeleton'
+    pod 'Charts'
+    pod 'Koloda'
+
+    pod 'IQKeyboardManagerSwift'
+    pod 'TPKeyboardAvoiding'
+    
+    # Assisstant
     pod 'RxSwift'
     pod 'RxSwiftExt'
     pod 'RxOptional'
+    pod 'RxGesture'
     pod 'RxFeedback'
-    pod 'RxCocoa'
-    pod 'Moya'
-    pod 'Moya/RxSwift'
-    pod 'RealmSwift'
-    pod 'RxRealm'
 
+    pod 'IdentityImg', :git => 'https://github.com/wavesplatform/identity-img-swift.git'
+    pod 'QRCode'
+    pod 'QRCodeReader.swift', '~> 9.0.1'
+    pod 'SwiftDate'
     pod 'Kingfisher'
 
+    # Code Gen
+    pod 'SwiftGen', '~> 5.3.0'
+
+    # Debug
+    # pod 'Reveal-SDK', :configurations => ['Debug']
+    pod 'AppSpectorSDK', :configurations => ['dev-debug', 'dev-adhoc', 'test-dev', 'test-prod']
+    pod 'SwiftMonkeyPaws', :configurations => ['dev-debug', 'dev-adhoc']
+    
+    # pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git'
 end
+
+
+# target 'MarketPulseWidget' do
+#     project 'WavesWallet-iOS.xcodeproj'
+
+#     pod 'RxSwift'
+#     pod 'RxSwiftExt'
+#     pod 'RxOptional'
+#     pod 'RxFeedback'
+#     pod 'RxCocoa'
+#     pod 'Moya'
+#     pod 'Moya/RxSwift'
+#     pod 'RealmSwift'
+#     pod 'RxRealm'
+
+#     pod 'Kingfisher'
+
+# end
 
 target 'DataLayer' do
     inherit! :search_paths  
@@ -154,10 +138,6 @@ target 'DomainLayer' do
     pod 'RxReachability'
   
     pod 'KeychainAccess'        
-
-    # Waves    
-    wavesSDKPod
-    # pod 'Extensions', :path => '.'
     
     pod 'CryptoSwift'
 end
@@ -175,8 +155,6 @@ target 'Extensions' do
     pod 'RxReachability'    
     pod 'Kingfisher'
 
-    # Waves
-    wavesSDKPod
 end
 
 target 'DomainLayerTests' do

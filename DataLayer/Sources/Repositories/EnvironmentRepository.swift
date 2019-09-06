@@ -175,6 +175,7 @@ private extension EnvironmentRepository {
                                                            node: [NodePlugin(), SentryNetworkLoggerPlugin()],
                                                            matcher: [SentryNetworkLoggerPlugin()]),
                                     enviroment: .init(server: server, timestampServerDiff: 0))
+                                    
             observer.onNext(WavesSDK.shared.services)
             observer.onCompleted()
             

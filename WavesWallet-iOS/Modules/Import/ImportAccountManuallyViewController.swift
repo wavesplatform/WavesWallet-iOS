@@ -94,7 +94,7 @@ final class ImportAccountManuallyViewController: UIViewController, UIScrollViewD
     private func setupTextField() {
         textField.delegate = self
         textField.textView.returnKeyType = .done
- 
+         
         textField.update(with: MultilineTextField.Model(title: Localizable.Waves.Import.Manually.Label.Address.title,
                                                     placeholder: Localizable.Waves.Import.Manually.Label.Address.placeholder))
         

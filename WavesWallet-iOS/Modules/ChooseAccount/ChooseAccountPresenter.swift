@@ -15,6 +15,8 @@ import DomainLayer
 protocol ChooseAccountModuleOutput: AnyObject {
     func userChooseAccount(wallet: DomainLayer.DTO.Wallet, passcodeNotCreated: Bool) -> Void
     func userEditAccount(wallet: DomainLayer.DTO.Wallet) -> Void
+    func chooseAccountDidTapBack()
+    func chooseAccountDidTapAddAccount()
 }
 
 protocol ChooseAccountModuleInput {
@@ -151,6 +153,16 @@ private extension ChooseAccountPresenter {
             state.displayState.action = .none
             state.action = .removeWallet(wallet, indexPath: indexPath)
 
+        case .tapAddAccount:            
+            state.action = nil
+            state.displayState.action = .none
+            moduleOutput?.chooseAccountDidTapAddAccount()
+            
+        case .tapBack:
+            state.action = nil
+            state.displayState.action = .none
+            moduleOutput?.chooseAccountDidTapBack()
+            
         case .openWallet(let wallet, let passcodeNotCreated):
             state.action = nil
             state.displayState.action = .none

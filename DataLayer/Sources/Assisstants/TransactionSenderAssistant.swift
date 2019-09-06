@@ -13,6 +13,20 @@ import WavesSDKCrypto
 
 extension TransactionSenderSpecifications {
     
+    private func chainId(servicesEnvironment: ApplicationEnviroment,
+                         specifications: TransactionSenderSpecifications,
+                         wallet: DomainLayer.DTO.SignedWallet) -> String {
+        
+        let walletEnvironment = servicesEnvironment.walletEnvironment
+        
+        
+        return specifications.chainId ?? walletEnvironment.scheme
+    }
+    
+    private func timestamp(specifications: TransactionSenderSpecifications) -> Date {
+        return specifications.timestamp ?? Date()
+    }
+    
     func broadcastSpecification(servicesEnvironment: ApplicationEnviroment,
                                 wallet: DomainLayer.DTO.SignedWallet,
                                 specifications: TransactionSenderSpecifications) -> NodeService.Query.Transaction? {
@@ -20,9 +34,15 @@ extension TransactionSenderSpecifications {
         let walletEnvironment = servicesEnvironment.walletEnvironment
         let timestampServerDiff = servicesEnvironment.timestampServerDiff
         
-        let timestamp = Date().millisecondsSince1970(timestampDiff: timestampServerDiff)
+        let scheme = chainId(servicesEnvironment: servicesEnvironment,
+                             specifications: specifications,
+                             wallet: wallet)
+        
+        let timestamp = self.timestamp(specifications: specifications)
+                        .millisecondsSince1970(timestampDiff: timestampServerDiff)
+        
         var signature = self.signature(timestamp: timestamp,
-                                       scheme: servicesEnvironment.walletEnvironment.scheme,
+                                       scheme: scheme,
                                        publicKey: wallet.publicKey.publicKey)
         
         do {
@@ -124,11 +144,58 @@ extension TransactionSenderSpecifications {
                                                                     senderPublicKey: publicKey,
                                                                     proofs: proofs,
                                                                     chainId: environment.scheme))
-        }
+            
+        case .invokeScript(let model):
+         
+    
+         var call: NodeService.Query.Transaction.InvokeScript.Call? = nil
+         
+         if let localCall = model.call {
+            
+            let args = localCall.args.map({ (arg) -> NodeService.Query.Transaction.InvokeScript.Arg in
+                
+                let value: NodeService.Query.Transaction.InvokeScript.Arg.Value = { () -> NodeService.Query.Transaction.InvokeScript.Arg.Value in
+                    
+                    switch arg.value {
+                    case .binary(let value):
+                        return .binary(value)
+                        
+                    case .bool(let value):
+                        return .bool(value)
+                        
+                    case .integer(let value):
+                        return .integer(value)
+                        
+                    case .string(let value):
+                        return .string(value)
+                    }
+                    
+                }()
+                
+                return .init(value: value)
+            })
+            
+            call = NodeService.Query.Transaction.InvokeScript.Call(function: localCall.function,
+                                                                   args: args)
+         }
+         
+         let payment = model.payment.map { NodeService.Query.Transaction.InvokeScript.Payment.init(amount: $0.amount, assetId: $0.assetId) }
+         
+         return .invokeScript(.init(version: self.version,
+                                   chainId: environment.scheme,
+                                   fee: model.fee,
+                                   timestamp: timestamp,
+                                   senderPublicKey: publicKey,
+                                   feeAssetId: model.feeAssetId,
+                                proofs: proofs,
+                                dApp: model.dApp,
+                                call: call,
+                                payment: payment))
+}
         
     }
     
-    private func signature(timestamp: Int64, scheme: String, publicKey: [UInt8]) -> [UInt8] {
+    func signature(timestamp: Int64, scheme: String, publicKey: [UInt8]) -> [UInt8] {
         
         switch self {
             
@@ -199,6 +266,52 @@ extension TransactionSenderSpecifications {
                 .bytesStructure
             
             return bytes
+            
+        case .invokeScript(let model):
+            
+            var call: TransactionSignatureV1.Structure.InvokeScript.Call?
+            
+            if let localCall = model.call {
+                
+                let args = localCall.args.map { (arg) -> TransactionSignatureV1.Structure.InvokeScript.Arg in
+                    
+                    let value = { () -> TransactionSignatureV1.Structure.InvokeScript.Arg.Value in
+                    
+                        switch arg.value {
+                        case .binary(let value):
+                            return .binary(value)
+                            
+                        case .integer(let value):
+                            return .integer(value)
+                            
+                        case .bool(let value):
+                            return .bool(value)
+                        
+                        case .string(let value):
+                            return .string(value)
+                        }
+                    }()
+                    
+                    return TransactionSignatureV1.Structure.InvokeScript.Arg.init(value: value)
+                }
+                
+                call = TransactionSignatureV1.Structure.InvokeScript.Call.init(function: localCall.function,
+                                                                               args: args)
+            }
+            
+            let payment = model.payment.map { TransactionSignatureV1.Structure.InvokeScript.Payment.init(amount: $0.amount, assetId: $0.assetId) }
+            
+            let bytes = TransactionSignatureV1.invokeScript(.init(senderPublicKey: Base58Encoder.encode(publicKey),
+                                                                  fee: model.fee,
+                                                                  chainId: scheme,
+                                                                  timestamp: timestamp,
+                                                                  feeAssetId: model.feeAssetId,
+                                                                  dApp: model.dApp,
+                                                                  call: call,
+                                                                  payment: payment))
+                .bytesStructure
+            
+            return bytes
         }
     }
 }
@@ -220,7 +333,7 @@ private extension DataTransactionSender {
             
             switch value.value {
             case .binary(let data):
-                kind = .binary(data.toBase64() ?? "")
+                kind = .binary(data)
                 
             case .integer(let number):
                 kind = .integer(number)
@@ -244,7 +357,7 @@ private extension DataTransactionSender {
             
             switch value.value {
             case .binary(let data):
-                kind = .binary(data.toBase64() ?? "")
+                kind = .binary(data)
                 
             case .integer(let number):
                 kind = .integer(number)

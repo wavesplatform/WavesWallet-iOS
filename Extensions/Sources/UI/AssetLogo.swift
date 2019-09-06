@@ -303,4 +303,44 @@ public extension AssetLogo {
         UIGraphicsEndImageContext()
         return image
     }
+    
+    
+    static func createLogo(name: String,
+                           logoColor: UIColor,
+                           style: Style) -> UIImage? {
+        
+        let size = style.size
+        let font = style.font
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        context.saveGState()
+        
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        context.addPath(UIBezierPath(roundedRect: rect, cornerRadius: rect.height * 0.5).cgPath)
+        context.clip()
+        context.setFillColor(logoColor.cgColor)
+        context.fill(rect)
+        if let first = name.first {
+            let symbol = String(first).uppercased()
+            let style = NSMutableParagraphStyle()
+            style.alignment = .center
+            let attributedString = NSAttributedString(string: symbol,
+                                                      attributes: [.foregroundColor: UIColor.white,
+                                                                   .font: font,
+                                                                   .paragraphStyle: style])
+            let sizeStr = attributedString.size()
+            
+            attributedString.draw(with: CGRect(x: (size.width - sizeStr.width) * 0.5,
+                                               y: (size.height - sizeStr.height) * 0.5,
+                                               width: sizeStr.width,
+                                               height: sizeStr.height),
+                                  options: [.usesLineFragmentOrigin],
+                                  context: nil)
+        }
+
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
 }
