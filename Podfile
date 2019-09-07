@@ -71,22 +71,28 @@ target 'WavesWallet-iOS' do
 end
 
 
-# target 'MarketPulseWidget' do
-#     project 'WavesWallet-iOS.xcodeproj'
-
-#     pod 'RxSwift'
-#     pod 'RxSwiftExt'
-#     pod 'RxOptional'
-#     pod 'RxFeedback'
-#     pod 'RxCocoa'
-#     pod 'Moya'
-#     pod 'Moya/RxSwift'
-#     pod 'RealmSwift'
-#     pod 'RxRealm'
-
-#     pod 'Kingfisher'
-
-# end
+target 'MarketPulseWidget' do
+  project 'WavesWallet-iOS.xcodeproj'
+  
+  pod 'RxSwift'
+  pod 'RxSwiftExt'
+  pod 'RxOptional'
+  pod 'RxFeedback'
+  pod 'RxCocoa'
+  pod 'Moya'
+  pod 'Moya/RxSwift'
+  pod 'RealmSwift'
+  pod 'RxRealm'
+  
+  pod 'Kingfisher'
+  
+  pod 'Amplitude-iOS'
+  pod 'AppsFlyerFramework'
+  #    pod 'Firebase/Core'
+  #    pod 'Firebase/Database'
+  #    pod 'Firebase/Auth'
+  
+end
 
 target 'DataLayer' do
     inherit! :search_paths  
