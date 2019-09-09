@@ -15,7 +15,7 @@ extension WidgetSettings: ReactiveCompatible {}
 
 struct WidgetSettings: TSUD, Codable, Mutating {
     
-    private static let key = "com.waves.widget.settings"
+    private static let key = "com.waves.widget.settings.currency"
     
     init() {}
     

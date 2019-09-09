@@ -71,19 +71,18 @@ enum MarketPulse {
         var isDarkMode: Bool
         var updateInterval: DomainLayer.DTO.MarketPulseSettings.Interval
     }
+
 }
 
 extension MarketPulse.DTO {
     
-    struct Asset {
+    struct Asset: Codable {
         let id: String
         let name: String
         let icon: AssetLogo.Icon
+        let price: Double
         let firstPrice: Double
         let lastPrice: Double
-        let volume: Double
-        let volumeWaves: Double
-        let quoteVolume: Double
         let amountAsset: String
     }
     
