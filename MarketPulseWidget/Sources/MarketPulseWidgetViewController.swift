@@ -309,10 +309,8 @@ extension MarketPulseWidgetViewController: NCWidgetProviding {
         
         extensionContext?.widgetLargestAvailableDisplayMode = items.count > MarketPulse.minimumCountAssets ? .expanded : .compact
 
-        if extensionContext?.widgetLargestAvailableDisplayMode == .expanded {
-            let maxSize = self.extensionContext?.widgetMaximumSize(for: .expanded) ?? .zero
-            let height = CGFloat(items.count) * MarketPulseWidgetCell.viewHeight() + Constants.bottomViewHeight
-            preferredContentSize = .init(width: maxSize.width, height: height)
-        }
+        let maxSize = self.extensionContext?.widgetMaximumSize(for: .expanded) ?? .zero
+        let height = CGFloat(items.count) * MarketPulseWidgetCell.viewHeight() + Constants.bottomViewHeight
+        preferredContentSize = .init(width: maxSize.width, height: height)
     }
 }
