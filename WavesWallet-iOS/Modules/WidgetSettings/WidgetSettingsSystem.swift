@@ -306,7 +306,7 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
             var uiAssets = state.ui.uiAssets
             let asset = uiAssets.remove(at: from.row)
             uiAssets.insert(asset, at: to.row)
-            
+            state.core.assets = uiAssets
             state.core.sortMap = uiAssets.enumerated().reduce(into: [String: Int].init(),
                                                             { $0[$1.element.id] = $1.offset })
             
