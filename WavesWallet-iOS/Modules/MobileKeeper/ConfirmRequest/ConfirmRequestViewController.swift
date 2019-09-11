@@ -32,8 +32,7 @@ final class ConfirmRequestViewController: UIViewController, DataSourceProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //TODO: Localization
-        title = "Confirm request"
+        title = Localizable.Waves.Keeper.Label.confirmRequest
         
         setupBigNavigationBar()
         hideTopBarLine()

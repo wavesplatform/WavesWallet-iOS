@@ -1761,6 +1761,12 @@ internal enum Localizable {
       }
 
       internal enum Label {
+        /// Confirm request
+        internal static var confirmRequest: String { return Localizable.tr("Waves", "keeper.label.confirmRequest") }
+        internal static var confirmRequestKey: String { return "keeper.label.confirmRequest" }
+        /// Function
+        internal static var function: String { return Localizable.tr("Waves", "keeper.label.function") }
+        internal static var functionKey: String { return "keeper.label.function" }
         /// To
         internal static var to: String { return Localizable.tr("Waves", "keeper.label.to") }
         internal static var toKey: String { return "keeper.label.to" }

@@ -679,3 +679,5 @@
 "keeper.label.to" = "To";
 "keeper.transaction.confirmed" = "Your transaction is confirmed!";
 "keeper.transaction.failed" = "Your transaction failed";
+"keeper.label.function" = "Function";
+"keeper.label.confirmRequest" = "Confirm request";
