@@ -28,7 +28,9 @@ final class WidgetSettingsAssetCell: UITableViewCell, Reusable {
     @IBOutlet private var nameLabel: UILabel!
     @IBOutlet private var iconImageView: UIImageView!
     @IBOutlet private var iconImageContainerView: UIView!
-    @IBOutlet private var leftPaddingView: UIView!
+    @IBOutlet private weak var viewDelete: UIView!
+    
+    var deleteAction:((UITableViewCell) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -50,6 +52,10 @@ final class WidgetSettingsAssetCell: UITableViewCell, Reusable {
             containerView.addTableCellShadowStyle(offset: Constants.shadowOffSet)
         }
     }
+    
+    @IBAction private func deleteTapped(_ sender: Any) {
+        deleteAction?(self)
+    }
 }
 
 // MARK: ViewConfiguration
@@ -60,6 +66,6 @@ extension WidgetSettingsAssetCell: ViewConfiguration {
         
         nameLabel.text = model.asset.displayName
         iconImageContainerView.isHidden = model.isLock == false
-        leftPaddingView.isHidden = model.isLock == true
+        viewDelete.isHidden = model.isLock == true
     }
 }

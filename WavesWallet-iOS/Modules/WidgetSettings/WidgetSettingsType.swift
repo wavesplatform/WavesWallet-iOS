@@ -135,3 +135,22 @@ extension WidgetSettings.Row {
         }
     }
 }
+
+extension WidgetSettings.State.UI {
+    
+    var uiAssets: [DomainLayer.DTO.Asset] {
+
+        var assets: [DomainLayer.DTO.Asset] = []
+
+        if let assetSection = sections.first(where: { $0.rows.filter{$0.asset != nil}.count > 0 }) {
+            let assetRows = assetSection.rows.map{ $0.asset }
+            for asset in assetRows {
+                if let asset = asset {
+                    assets.append(asset)
+                }
+            }
+        }
+    
+        return assets
+    }
+}
