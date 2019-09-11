@@ -303,16 +303,16 @@ final class WidgetSettingsCardSystem: System<WidgetSettings.State, WidgetSetting
             
         case .moveRow(let from, let to):
             
-            guard let fromAsset = state.ui[from].asset else { return }
-            guard let toAsset = state.ui[to].asset else { return }
+            var uiAssets = state.ui.uiAssets
+            let asset = uiAssets.remove(at: from.row)
+            uiAssets.insert(asset, at: to.row)
             
-            let fromLevel = state.core.sortMap[fromAsset.id]
-            let toLevel = state.core.sortMap[toAsset.id]
+            state.core.sortMap = uiAssets.enumerated().reduce(into: [String: Int].init(),
+                                                            { $0[$1.element.id] = $1.offset })
             
-            state.core.sortMap[fromAsset.id] = toLevel
-            state.core.sortMap[toAsset.id] = fromLevel
+            state.ui.sections = sections(assets: uiAssets, minCountAssets: state.core.minCountAssets, maxCountAssets: state.core.maxCountAssets)
+
             state.core.action = .sortAssets(state.core.sortMap)
-            
             state.ui.action = .none
             
         case .syncAssets(let assets):
