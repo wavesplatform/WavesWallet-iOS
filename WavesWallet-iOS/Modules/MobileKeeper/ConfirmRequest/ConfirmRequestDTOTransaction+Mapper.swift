@@ -52,10 +52,10 @@ extension ConfirmRequest.DTO.Transaction  {
         //TODO: Localization
         switch self {
         case .data:
-            return .descriptionLabel("Data transaction")
+            return .descriptionLabel(Localizable.Waves.Transactioncard.Title.dataTransaction)
             
         case .invokeScript:
-            return .descriptionLabel("Script Invocation")
+            return .descriptionLabel(Localizable.Waves.Transactioncard.Title.scriptInvocation)
             
         case .transfer(let tx):
             return .balance(.init(balance: Balance.init(currency: .init(title: tx.asset.displayName,
@@ -73,13 +73,13 @@ extension ConfirmRequest.DTO.Transaction  {
         //TODO: Localization
         switch self {
         case .data:
-            return "Entry in blockchain"
+            return Localizable.Waves.Transactioncard.Title.entryInBlockchain
             
         case .invokeScript:
-            return "Entry in blockchain"
+            return Localizable.Waves.Transactioncard.Title.entryInBlockchain
             
         case .transfer:
-            return "Sent"
+            return Localizable.Waves.Transactioncard.Title.sent
         }
     }
     

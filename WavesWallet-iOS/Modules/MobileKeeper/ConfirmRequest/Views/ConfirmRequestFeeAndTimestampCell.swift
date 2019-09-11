@@ -44,8 +44,8 @@ extension ConfirmRequestFeeAndTimestampCell: ViewConfiguration {
         formatter.dateFormat = Localizable.Waves.Transactioncard.Timestamp.format
         let timestampValue = formatter.string(from: model.date)
         
-        self.feeTitleLabel.text = "Fee"
-        self.timeTitleLabel.text = "TX time"
+        self.feeTitleLabel.text =  Localizable.Waves.Transactioncard.Title.fee
+        self.timeTitleLabel.text = Localizable.Waves.Keeper.Label.txTime
         self.timeValueLabel.text = timestampValue
         self.balanceLabel.update(with: model.feeBalance)
     }

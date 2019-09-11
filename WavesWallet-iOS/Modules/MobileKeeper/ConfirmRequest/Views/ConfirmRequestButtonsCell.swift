@@ -22,6 +22,8 @@ final class ConfirmRequestButtonsCell: UITableViewCell, Reusable {
         super.awakeFromNib()
         selectedBackgroundView = UIView()
         selectionStyle = .none
+        rejectButton.setTitle(Localizable.Waves.Keeper.Button.reject, for: .normal)
+        approveButton.setTitle(Localizable.Waves.Keeper.Button.approve, for: .normal)
     }
     
     @IBAction func rejectHadlerTouch() {

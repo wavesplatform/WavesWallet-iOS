@@ -62,7 +62,7 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
                     assetsIds.append(tx.assetId)
                     
                 case .data:
-                    assetsIds.append("WAVES")
+                    assetsIds.append(WavesSDKConstants.wavesAssetId)
                     
                 case .invokeScript(let tx):
                     assetsIds.append(tx.feeAssetId )
@@ -179,11 +179,11 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
         case .invokeScript(let tx):
             
             //TODO: Localization
-            let address = ConfirmRequestKeyValueCell.Model(title: "Script address",
+            let address = ConfirmRequestKeyValueCell.Model(title: Localizable.Waves.Transactioncard.Title.scriptAddress,
                                                                 value: tx.dApp)
-            //TODO: Localization
+
             if let function = tx.call?.function {
-                let function = ConfirmRequestKeyValueCell.Model(title: "Function",
+                let function = ConfirmRequestKeyValueCell.Model(title: Localizable.Waves.Keeper.Label.function,
                                                                 value: function)
                 rows.append(.keyValue(function))
             }
@@ -200,7 +200,7 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
                                                                style: .small)
                 
                 //TODO: Localization
-                let balance = ConfirmRequestBalanceCell.Model.init(title: "Payment",
+                let balance = ConfirmRequestBalanceCell.Model.init(title: Localizable.Waves.Transactioncard.Title.payment,
                                                                    feeBalance: paymentBalance)
                 
                 rows.append(.balance(balance))
@@ -247,7 +247,7 @@ fileprivate extension ConfirmRequest.DTO.ComplitingRequest {
     
     var txIdkeyValueViewModel: ConfirmRequestKeyValueCell.Model {
         //TODO: Localization
-        return ConfirmRequestKeyValueCell.Model(title: "TXID",
+        return ConfirmRequestKeyValueCell.Model(title: Localizable.Waves.Startleasingconfirmation.Label.txid,
                                                 value: txId)
     }
 }
@@ -347,7 +347,7 @@ fileprivate extension TransactionSenderSpecifications  {
         switch self {
         case .data(let tx):
             
-            guard let feeAsset = assetsMap["WAVES"] else { return nil }
+            guard let feeAsset = assetsMap[WavesSDKConstants.wavesAssetId] else { return nil }
             
             let fee = Money(tx.fee, feeAsset.precision)
             
@@ -360,7 +360,7 @@ fileprivate extension TransactionSenderSpecifications  {
             
         case .invokeScript(let tx):
 
-            guard let asset = assetsMap["WAVES"] else { return nil }
+            guard let asset = assetsMap[WavesSDKConstants.wavesAssetId] else { return nil }
             guard let feeAsset = assetsMap[tx.feeAssetId] else { return nil }
 
             guard let call = tx.call?.invokeScriptCall(assetsMap: assetsMap, signedWallet: signedWallet) else { return nil }
