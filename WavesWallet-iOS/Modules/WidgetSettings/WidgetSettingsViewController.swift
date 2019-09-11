@@ -213,6 +213,15 @@ extension WidgetSettingsViewController: UITableViewDataSource {
         case .asset(let model):
             let cell: WidgetSettingsAssetCell = tableView.dequeueCellForIndexPath(indexPath: indexPath)
             cell.update(with: model)
+            cell.deleteAction = { [weak self] cell in
+
+                guard let self = self else { return }
+                
+                if let indexPath = self.tableView.indexPath(for: cell) {
+                    self.system.send(.rowDelete(indexPath: indexPath))
+                }
+
+            }
             return cell
             
         case .skeleton:
@@ -261,30 +270,8 @@ extension WidgetSettingsViewController: UITableViewDelegate {
         system.send(.moveRow(from: sourceIndexPath, to: destinationIndexPath))
     }
     
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        
-        let row = self[indexPath]
-        
-        switch row {
-        case .asset(let model) where model.isLock == true:
-            return .none
-            
-        case .skeleton:
-            return .none
-            
-        default:
-            return .delete
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
-        let title = Localizable.Waves.Widgetsettings.Tableview.Editmode.delete
-        let editAction = UITableViewRowAction.init(style: .destructive, title: title) { [weak self] (action, indexPath) in
-            self?.system.send(.rowDelete(indexPath: indexPath))
-        }
-
-        return [editAction]
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {        
+        return .none
     }
     
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
