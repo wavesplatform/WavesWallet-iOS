@@ -16,7 +16,7 @@ import DomainLayer
 import Extensions
 
 private enum Constants {
-    static let searchAssetsLimit: Int = 10
+    static let searchAssetsLimit: Int = 100
 }
 
 final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
