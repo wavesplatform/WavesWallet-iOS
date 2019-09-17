@@ -40,8 +40,6 @@ final class SDKViewController: UIViewController {
                 guard let self = self else { return }
                 
                 self.setupInfo(title: "Balance is:", value: String(balance.balance))
-            }, onError: { (error) in
-                print(error)
             }).disposed(by: disposeBag)
         
     }
