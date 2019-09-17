@@ -20,11 +20,11 @@ internal class InternalWidgetService: InternalWidgetServiceProtocol {
     static var shared = InternalWidgetService()
     
     var dataUrl: URL {
-        return WalletEnvironment.current.servers.dataUrl
+        return WalletEnvironment.Mainnet.servers.dataUrl
     }
     
     var matcherUrl: URL {
-        return WalletEnvironment.current.servers.matcherUrl
+        return WalletEnvironment.Mainnet.servers.matcherUrl
     }
 }
 

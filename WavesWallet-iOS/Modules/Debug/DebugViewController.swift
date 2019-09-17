@@ -59,6 +59,8 @@ final class DebugViewController: UIViewController {
     
     private var isNeedRelaunchApp: Bool = false
     
+    private var environmentRepository: EnvironmentRepositoryProtocol = UseCasesFactory.instance.repositories.environmentRepository
+    
     var delegate: DebugViewControllerDelegate?
     
     override func viewDidLoad() {
@@ -208,11 +210,9 @@ private extension DebugViewController {
     
     func changeEnviroment(_ enviroment: Debug.Enviroment) {
         
-        if enviroment.chainId == "W" {
-            WalletEnvironment.isTestNet = false
-        } else {
-            WalletEnvironment.isTestNet = true
-        }
+        let kind = WalletEnvironment.Kind.init(rawValue: enviroment.chainId) ?? .mainnet
+        
+        environmentRepository.environmentKind = kind
         
         self.isNeedRelaunchApp = true
         self.displayState = createDisplaState()
@@ -233,15 +233,26 @@ private extension DebugViewController {
         let testNet: Debug.Enviroment = .init(name: "Testnet",
                                               chainId: "T")
         
+        let stageNet: Debug.Enviroment = .init(name: "Stagenet",
+                                               chainId: "S")
+        
         var current: Debug.Enviroment! = nil
         
-        if WalletEnvironment.isTestNet {
-            current = testNet
-        } else {
+        switch environmentRepository.environmentKind {
+            
+        case .mainnet:
             current = mainNet
+            
+        case .stagenet:
+            current = stageNet
+            
+        case .testnet:
+            current = testNet
         }
-        
-        let sections: [Debug.Section] = [.init(rows: [Debug.Row.enviroments([mainNet, testNet],
+                
+        let sections: [Debug.Section] = [.init(rows: [Debug.Row.enviroments([mainNet,
+                                                                             testNet,
+                                                                             stageNet],
                                                                             current)],
                                                kind: .enviroment),
                                          .init(rows: [.stageSwitch(isEnableStage),

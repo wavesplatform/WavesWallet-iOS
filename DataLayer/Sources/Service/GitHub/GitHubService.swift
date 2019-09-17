@@ -18,6 +18,7 @@ extension GitHub {
 
 private enum Constants {
 
+    static let urlEnvironmentStageNet: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.6/environment_stagenet.json")!
     
     static let urlEnvironmentMainNet: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.6/environment_mainnet.json")!
     
@@ -29,7 +30,9 @@ private enum Constants {
     static let urlApplicationNews: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.6/notifications_ios.json")!
     
     static let urlVersionIos: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/master/version_ios.json")!
-        
+    
+    static let urlEnvironmentStageNetProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/mobile/v2.6/environment_stagenet.json")!
+    
     static let urlEnvironmentMainNetProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/mobile/v2.6/environment_mainnet.json")!
     
     static let urlEnvironmentTestNetProxy: URL = URL(string:
@@ -47,11 +50,17 @@ private enum Constants {
 extension GitHub.Service {
 
     enum Environment {
+        
+        enum Kind {
+            case mainnet
+            case testnet
+            case stagenet
+        }
         /**
          Response:
          - Environment
          */
-        case get(isTestNet: Bool, hasProxy: Bool)
+        case get(kind: Kind, hasProxy: Bool)
     }
 
     enum TransactionRules {
@@ -86,18 +95,28 @@ extension GitHub.Service.Environment: TargetType {
 
     var baseURL: URL {
         switch self {
-        case .get(let isTestNet, let hasProxy):
-            if isTestNet {
+        case .get(let kind, let hasProxy):
+            
+            switch kind {
+            case .mainnet:
+                if hasProxy {
+                    return Constants.urlEnvironmentMainNetProxy
+                } else {
+                    return Constants.urlEnvironmentMainNet
+                }
+                
+            case .testnet:
                 if hasProxy {
                     return Constants.urlEnvironmentTestNetProxy
                 } else {
                     return Constants.urlEnvironmentTestNet
                 }
-            } else {
+                
+            case .stagenet:
                 if hasProxy {
-                    return Constants.urlEnvironmentMainNetProxy
+                    return Constants.urlEnvironmentStageNetProxy
                 } else {
-                    return Constants.urlEnvironmentMainNet
+                    return Constants.urlEnvironmentStageNet
                 }
             }
         }

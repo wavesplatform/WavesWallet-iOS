@@ -102,7 +102,6 @@
 		0A762D9721639FCC0019D447 /* WavesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762D9621639FCC0019D447 /* WavesButton.swift */; };
 		0A762D9C2163A1C90019D447 /* HistoryTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB74272113335B004A065B /* HistoryTypes.swift */; };
 		0A762DA02163AD0F0019D447 /* Support.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A762D9F2163AD0F0019D447 /* Support.storyboard */; };
-		0A762DA22163AD1A0019D447 /* SupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762DA12163AD1A0019D447 /* SupportViewController.swift */; };
 		0A762DAA21661AC40019D447 /* ProfileModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762DA921661AC40019D447 /* ProfileModuleBuilder.swift */; };
 		0A762DAC21661B000019D447 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A762DAB21661B000019D447 /* ProfilePresenter.swift */; };
 		0A7CCDAC218A138D005D372B /* MyAddressPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7CCDA1218A138D005D372B /* MyAddressPresenter.swift */; };
@@ -323,6 +322,7 @@
 		7B431A8622BD030600DE73B9 /* AddressUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B431A8422BD02E700DE73B9 /* AddressUseCaseProtocol.swift */; };
 		7B431A8F22BD176D00DE73B9 /* DomainLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B431A8E22BD176D00DE73B9 /* DomainLayerTests.swift */; };
 		7B431A9F22BD185B00DE73B9 /* DataLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B431A9E22BD185B00DE73B9 /* DataLayerTests.swift */; };
+		7B48F35F2330F7C000923E9E /* environment_stagenet.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B48F35E2330F7BF00923E9E /* environment_stagenet.json */; };
 		7B49911722F874B0005B7123 /* AssetsSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B49911622F874B0005B7123 /* AssetsSearchViewController.swift */; };
 		7B49911A22F874DD005B7123 /* AssetsSearchAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B49911922F874DD005B7123 /* AssetsSearchAssetCell.swift */; };
 		7B49911C22F8754A005B7123 /* AssetsSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B49911B22F8754A005B7123 /* AssetsSearch.swift */; };
@@ -1317,7 +1317,6 @@
 		0A762D16214FF1CD00BE9204 /* InputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextField.swift; sourceTree = "<group>"; };
 		0A762D9621639FCC0019D447 /* WavesButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WavesButton.swift; sourceTree = "<group>"; };
 		0A762D9F2163AD0F0019D447 /* Support.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Support.storyboard; sourceTree = "<group>"; };
-		0A762DA12163AD1A0019D447 /* SupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViewController.swift; sourceTree = "<group>"; };
 		0A762DA921661AC40019D447 /* ProfileModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModuleBuilder.swift; sourceTree = "<group>"; };
 		0A762DAB21661B000019D447 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		0A7BFD4D21CCEA8000B29654 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -1571,6 +1570,7 @@
 		7B431A9C22BD185A00DE73B9 /* DataLayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataLayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B431A9E22BD185B00DE73B9 /* DataLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLayerTests.swift; sourceTree = "<group>"; };
 		7B431AA022BD185B00DE73B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7B48F35E2330F7BF00923E9E /* environment_stagenet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = environment_stagenet.json; sourceTree = "<group>"; };
 		7B49911622F874B0005B7123 /* AssetsSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsSearchViewController.swift; sourceTree = "<group>"; };
 		7B49911922F874DD005B7123 /* AssetsSearchAssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsSearchAssetCell.swift; sourceTree = "<group>"; };
 		7B49911B22F8754A005B7123 /* AssetsSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsSearch.swift; sourceTree = "<group>"; };
@@ -2847,16 +2847,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		0A762D9E2163ACE80019D447 /* DebugViewController */ = {
+		0A762D9E2163ACE80019D447 /* Debug */ = {
 			isa = PBXGroup;
 			children = (
 				7BD6E10322E5ACE000BAAFC8 /* View */,
 				0AFB593F2209AD56001F0DD8 /* TestViewController.swift */,
 				0A762D9F2163AD0F0019D447 /* Support.storyboard */,
-				0A762DA12163AD1A0019D447 /* SupportViewController.swift */,
 				7BD6E10122E50EB200BAAFC8 /* DebugViewController.swift */,
 			);
-			path = DebugViewController;
+			path = Debug;
 			sourceTree = "<group>";
 		};
 		0A762DA321650DA80019D447 /* Profile */ = {
@@ -3185,7 +3184,7 @@
 				0A4399672150470E0032E608 /* Backup */,
 				0A4140E72174F08600B1310E /* ChangePassword */,
 				0A071E78215DB084007D9750 /* ChooseAccount */,
-				0A762D9E2163ACE80019D447 /* DebugViewController */,
+				0A762D9E2163ACE80019D447 /* Debug */,
 				E9B086BF2163886800937644 /* Dex */,
 				E9F984A720E5266800D2CB4D /* Enter */,
 				E95B47A521638A9F004D4E39 /* Hello */,
@@ -4506,6 +4505,7 @@
 		7BFB474D22FC5AD0002B19F8 /* CommonResources */ = {
 			isa = PBXGroup;
 			children = (
+				7B48F35E2330F7BF00923E9E /* environment_stagenet.json */,
 				0A61B599214ACFD500EC60FC /* Languages.json */,
 				7BFB474E22FC5AD0002B19F8 /* Sentry-io-Info.plist */,
 				7BFB474F22FC5AD0002B19F8 /* Appsflyer-Info.plist */,
@@ -6451,6 +6451,7 @@
 				0AB63C2C2170EBF00056B17E /* Language.storyboard in Resources */,
 				0A5D32F72154579C0009CDF3 /* MultyTextField.xib in Resources */,
 				0A9797602108A11A00407F67 /* Wallet.storyboard in Resources */,
+				7B48F35F2330F7C000923E9E /* environment_stagenet.json in Resources */,
 				7B26A87D22ED129300E7B024 /* WidgetSettings.storyboard in Resources */,
 				E9CD0D2E21809A5D001A99B3 /* SendMoneroPaymentIdView.xib in Resources */,
 				0AACD59D21A59E7100B30815 /* SweetSnackView.xib in Resources */,
@@ -7177,7 +7178,6 @@
 				0ADD6C832167948500B06917 /* ProfileHeaderView.swift in Sources */,
 				0ACC0233217E2BA1000E3EE0 /* DynamicHeaderTableView.swift in Sources */,
 				0A7CCDB2218A138D005D372B /* MyAddressAliacesSkeletonCell.swift in Sources */,
-				0A762DA22163AD1A0019D447 /* SupportViewController.swift in Sources */,
 				E9B0880D2163886800937644 /* DexMarketPresenterProtocol.swift in Sources */,
 				E9B086BC2163883000937644 /* AddressBookInteractorProtocol.swift in Sources */,
 				04831F6421691429006D1ED6 /* SuccessSystemMessageView.swift in Sources */,

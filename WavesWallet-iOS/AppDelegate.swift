@@ -184,7 +184,7 @@ extension AppDelegate {
         
         SweetLogger.current.add(plugin: SweetLoggerConsole(visibleLevels: [.warning, .debug, .error, .network],
                                                            isShortLog: true))
-        SweetLogger.current.visibleLevels = [.warning, .debug, .error]
+        SweetLogger.current.visibleLevels = [.warning, .debug, .error, .network]
         
         AppsFlyerTracker.shared()?.isDebug = false
         

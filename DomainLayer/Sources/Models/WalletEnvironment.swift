@@ -13,13 +13,26 @@ private enum Constants {
     static let alias = "alias"
     fileprivate static let main = "environment_mainnet"
     fileprivate static let test = "environment_testnet"
+    fileprivate static let stage = "environment_stagenet"
     
     static let vostokMainNetScheme = "V"
     static let vostokTestNetScheme = "F"
 }
 
+//TODO: Rename ?
 public struct WalletEnvironment: Decodable {
-            
+    
+    public enum Kind: String {
+        case mainnet = "W"
+        case testnet = "T"
+        case stagenet = "S"
+        
+        public var chainId: String {
+            return rawValue
+        }
+                
+    }
+    
     public struct AssetInfo: Decodable {
         
         public struct Icon: Decodable {
@@ -64,29 +77,22 @@ public struct WalletEnvironment: Decodable {
     public let generalAssets: [AssetInfo]
     public let assets: [AssetInfo]?
     
-    private static let Testnet: WalletEnvironment = parseJSON(json: Constants.test)!
-    private static let Mainnet: WalletEnvironment = parseJSON(json: Constants.main)!
-    
-    public static var isTestNet: Bool {
-        set {
-            UserDefaults.standard.set(newValue, forKey: "isTestEnvironment")
-            UserDefaults.standard.synchronize()
-        }
-        
-        get {
-            return UserDefaults.standard.bool(forKey: "isTestEnvironment")
-        }
+    public var kind: Kind {
+        return Kind.init(rawValue: scheme) ?? .mainnet
     }
     
-    public static var current: WalletEnvironment {
-        get {
-            if isTestNet {
-                return Testnet
-            } else {
-                return Mainnet
-            }
-        }
-    }
+    public static let Testnet: WalletEnvironment = parseJSON(json: Constants.test)!
+    public static let Mainnet: WalletEnvironment = parseJSON(json: Constants.main)!
+    public static let Stagenet: WalletEnvironment = parseJSON(json: Constants.main)!
+    
+//    public static var current: WalletEnvironment {
+//        get {
+//            switch kind {
+//                case ю
+//            }
+//            
+//        }
+//    }
     
     public init(name: String,
                 servers: Servers,
@@ -114,7 +120,7 @@ public extension WalletEnvironment {
     }
     
     var vostokScheme: String {
-        return WalletEnvironment.isTestNet ? Constants.vostokTestNetScheme : Constants.vostokMainNetScheme
+        return self.kind == .testnet ? Constants.vostokTestNetScheme : Constants.vostokMainNetScheme
     }
 }
 

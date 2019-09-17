@@ -19,7 +19,22 @@ private enum Constants {
 }
 
 private struct EnvironmentKey: Hashable {
-    let isTestNet: Bool
+    let chainId: String
+}
+
+private extension WalletEnvironment.Kind {
+    var gitHubServiceEnvironment: GitHub.Service.Environment.Kind {
+        switch self {
+        case .mainnet:
+            return .mainnet
+            
+        case .testnet:
+            return .testnet
+            
+        case .stagenet:
+            return .stagenet
+        }
+    }
 }
 
 public final class ApplicationEnviroment: ApplicationEnvironmentProtocol {
@@ -70,6 +85,17 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
     
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(timeDidChange), name: UIApplication.significantTimeChangeNotification, object: nil)
+        
+        switch environmentKind {
+        case .mainnet:
+            Address.walletEnvironment = WalletEnvironment.Mainnet
+            
+        case .testnet:
+            Address.walletEnvironment = WalletEnvironment.Testnet
+            
+        case .stagenet:
+            Address.walletEnvironment = WalletEnvironment.Stagenet        
+        }
     }
     
     func deffaultEnvironment() -> Observable<WalletEnvironment> {
@@ -86,6 +112,19 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
     
     func servicesEnvironment() -> Observable<ApplicationEnviroment> {
         return setupServicesEnviromentShare
+    }
+    
+    var environmentKind: WalletEnvironment.Kind {
+        
+        get {
+            let chainId = UserDefaults.standard.string(forKey: "wallet.environment.kind") ?? ""
+            return WalletEnvironment.Kind(rawValue: chainId) ?? .mainnet
+        }
+        
+        set {
+            UserDefaults.standard.set(newValue.rawValue, forKey: "wallet.environment.kind")
+            UserDefaults.standard.synchronize()
+        }
     }
 }
 
@@ -143,6 +182,7 @@ private extension EnvironmentRepository {
                 enviromentService.timestampServerDiff = enviroment.timestampServerDiff
                 WavesSDK.shared.enviroment = enviromentService
                 
+                Address.walletEnvironment = enviroment.walletEnvironment
                 return Observable.just(enviroment)
             })
         
@@ -188,7 +228,7 @@ private extension EnvironmentRepository {
                 return Disposables.create()
             }
             
-            let key = EnvironmentKey(isTestNet: WalletEnvironment.isTestNet)
+            let key = EnvironmentKey(chainId: self.environmentKind.rawValue)
             
             //TODO: mutex
             if let value = try? self.localEnvironments.value() {
@@ -214,7 +254,7 @@ private extension EnvironmentRepository {
                 return Disposables.create()
             }
             
-            let key = EnvironmentKey(isTestNet: WalletEnvironment.isTestNet)
+            let key = EnvironmentKey(chainId: self.environmentKind.rawValue)
             
             var disposables: [Disposable] = .init()
             
@@ -234,17 +274,27 @@ private extension EnvironmentRepository {
 
         return environmentRepository
             .rx
-            .request(.get(isTestNet: WalletEnvironment.isTestNet, hasProxy: true))
+            .request(.get(kind: environmentKind.gitHubServiceEnvironment, hasProxy: true))
             .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
                 guard let self = self else { return Single.never() }
                 return self
                     .environmentRepository
                     .rx
-                    .request(.get(isTestNet: WalletEnvironment.isTestNet, hasProxy: false))
+                    .request(.get(kind: self.environmentKind.gitHubServiceEnvironment, hasProxy: false))
             })
             .map(WalletEnvironment.self)
-            .catchError { error -> Single<WalletEnvironment> in
-                return Single.just(WalletEnvironment.current)
+            .catchError { [weak self] error -> Single<WalletEnvironment> in
+                guard let self = self else { return Single.never() }
+                switch self.environmentKind {
+                case .mainnet:
+                    return Single.just(WalletEnvironment.Mainnet)
+                    
+                case .stagenet:
+                    return Single.just(WalletEnvironment.Stagenet)
+                    
+                case .testnet:
+                    return Single.just(WalletEnvironment.Testnet)                    
+                }
             }
             .asObservable()
     }
