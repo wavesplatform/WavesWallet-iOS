@@ -47,9 +47,15 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
     
     func searchPairs(searchWord: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
         
-        let words = searchWord.components(separatedBy: "/").filter {$0.count > 0}
+        var words = searchWord.components(separatedBy: "/").filter {$0.count > 0}
             .map{$0.trimmingCharacters(in: .whitespaces)}
 
+        if words.count <= 1 {
+            words = searchWord.replacingOccurrences(of: "/", with: "")
+                .components(separatedBy: "\\").filter {$0.count > 0}
+                .map{$0.trimmingCharacters(in: .whitespaces)}
+        }
+        print(words)
         return Observable.zip(auth.authorizedWallet(), environment.walletEnvironment())
             .flatMap{ [weak self] (wallet, environment) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                 guard let self = self else { return Observable.empty() }
