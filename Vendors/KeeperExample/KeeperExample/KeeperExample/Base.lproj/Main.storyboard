@@ -86,10 +86,15 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Wgt-bO-6YJ">
+                                <rect key="frame" x="197" y="738" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="pJX-6I-YRm" firstAttribute="trailing" secondItem="XVP-Hu-w0k" secondAttribute="trailing" constant="20" id="7KA-bf-Ofj"/>
+                            <constraint firstItem="Wgt-bO-6YJ" firstAttribute="centerX" secondItem="XVP-Hu-w0k" secondAttribute="centerX" id="7dJ-45-qq5"/>
+                            <constraint firstItem="Wgt-bO-6YJ" firstAttribute="centerY" secondItem="XVP-Hu-w0k" secondAttribute="centerY" id="Csr-ng-BR0"/>
                             <constraint firstItem="pJX-6I-YRm" firstAttribute="trailing" secondItem="nMo-iK-GUw" secondAttribute="trailing" constant="20" id="J7n-2d-vD3"/>
                             <constraint firstItem="nMo-iK-GUw" firstAttribute="leading" secondItem="pJX-6I-YRm" secondAttribute="leading" constant="20" id="MlM-BG-c8Y"/>
                             <constraint firstItem="XVP-Hu-w0k" firstAttribute="top" secondItem="vbY-Ws-N1s" secondAttribute="bottom" constant="20" id="bhE-cr-Oqc"/>
@@ -104,6 +109,8 @@
                     <tabBarItem key="tabBarItem" title="SDK" image="settings" id="bQt-w7-A0f"/>
                     <navigationItem key="navigationItem" id="DeE-q7-eE8"/>
                     <connections>
+                        <outlet property="acitivityIndicatorBalance" destination="Wgt-bO-6YJ" id="NRQ-GA-BAq"/>
+                        <outlet property="buttonLoadBalance" destination="XVP-Hu-w0k" id="j6P-HM-ahB"/>
                         <outlet property="labelInfo" destination="nMo-iK-GUw" id="oXS-jI-8HS"/>
                     </connections>
                 </viewController>
