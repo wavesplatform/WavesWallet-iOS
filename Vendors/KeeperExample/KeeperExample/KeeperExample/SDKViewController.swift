@@ -58,6 +58,11 @@ final class SDKViewController: UIViewController {
                 
                 guard let self = self else { return }
                 self.setupDefaultButtonBalanceState()
+                
+                let vc = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                vc.addAction(cancel)
+                self.present(vc, animated: true, completion: nil)
 
             }).disposed(by: disposeBag)
     }

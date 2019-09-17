@@ -4,6 +4,7 @@
 import UIKit
 import WavesSDK
 import TextFieldEffects
+import RxSwift
 
 class KeeperViewController: UIViewController {
 
@@ -13,6 +14,7 @@ class KeeperViewController: UIViewController {
     
     private var currentServer: Enviroment.Server!
     private var transaction: NodeService.Query.Transaction?
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,10 +58,48 @@ class KeeperViewController: UIViewController {
     
     @IBAction private func sendTapped(_ sender: Any) {
     
+        if let tx = transaction {
+            WavesKeeper.shared
+                .send(tx)
+                .subscribe(onNext: { [weak self] (response) in
+                    
+                    guard let self = self else { return }
+                    print(response)
+                    
+                    }, onError: { [weak self] (error) in
+                        
+                        guard let self = self else { return }
+                        
+                        let vc = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                        vc.addAction(cancel)
+                        self.present(vc, animated: true, completion: nil)
+                        
+                }).disposed(by: disposeBag)
+        }
     }
     
     @IBAction private func signTapped(_ sender: Any) {
     
+        if let tx = transaction {
+            WavesKeeper.shared
+                .sign(tx)
+                .subscribe(onNext: { [weak self] (response) in
+                    
+                    guard let self = self else { return }
+                    print(response)
+                    
+                }, onError: { [weak self] (error) in
+                    
+                    guard let self = self else { return }
+                    
+                    let vc = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                    let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    vc.addAction(cancel)
+                    self.present(vc, animated: true, completion: nil)
+                    
+                }).disposed(by: disposeBag)
+        }
     }
     
 }
