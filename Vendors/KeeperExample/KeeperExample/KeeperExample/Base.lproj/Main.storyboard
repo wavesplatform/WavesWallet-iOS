@@ -34,7 +34,55 @@
                     <view key="view" contentMode="scaleToFill" id="ZyX-vf-ooE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B2f-wl-ma4">
+                                <rect key="frame" x="0.0" y="763" width="207" height="50"/>
+                                <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="a0l-kI-Fe1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <state key="normal" title="Sign">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="signTapped:" destination="DLX-LZ-h7k" eventType="touchUpInside" id="Ivg-Xx-N6W"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MFz-P1-Kdq">
+                                <rect key="frame" x="207" y="763" width="207" height="50"/>
+                                <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="MUg-80-FCK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <state key="normal" title="Send">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendTapped:" destination="DLX-LZ-h7k" eventType="touchUpInside" id="fW6-7J-gWf"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pad-dK-1MB">
+                                <rect key="frame" x="206.5" y="763" width="1" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="1" id="U8k-AS-sSF"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="kWP-fb-QCM" firstAttribute="trailing" secondItem="MFz-P1-Kdq" secondAttribute="trailing" id="0i2-we-KTT"/>
+                            <constraint firstItem="kWP-fb-QCM" firstAttribute="bottom" secondItem="pad-dK-1MB" secondAttribute="bottom" id="53M-o6-z6k"/>
+                            <constraint firstItem="B2f-wl-ma4" firstAttribute="leading" secondItem="kWP-fb-QCM" secondAttribute="leading" id="B58-wj-Hsr"/>
+                            <constraint firstItem="kWP-fb-QCM" firstAttribute="bottom" secondItem="B2f-wl-ma4" secondAttribute="bottom" id="NQ3-u7-rvd"/>
+                            <constraint firstItem="pad-dK-1MB" firstAttribute="height" secondItem="B2f-wl-ma4" secondAttribute="height" id="Uv3-Xj-bOQ"/>
+                            <constraint firstItem="kWP-fb-QCM" firstAttribute="bottom" secondItem="MFz-P1-Kdq" secondAttribute="bottom" id="V4l-ic-9qJ"/>
+                            <constraint firstItem="pad-dK-1MB" firstAttribute="centerX" secondItem="ZyX-vf-ooE" secondAttribute="centerX" id="hV8-q1-Lpa"/>
+                            <constraint firstItem="B2f-wl-ma4" firstAttribute="width" secondItem="MFz-P1-Kdq" secondAttribute="width" id="jB8-Nh-aeD"/>
+                            <constraint firstItem="MFz-P1-Kdq" firstAttribute="leading" secondItem="B2f-wl-ma4" secondAttribute="trailing" id="qRl-K5-3E1"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="kWP-fb-QCM"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Keeper" image="phone" id="uIs-Ws-Lhl"/>
@@ -42,7 +90,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZeS-WF-VOz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="554" y="119"/>
+            <point key="canvasLocation" x="553.62318840579712" y="118.52678571428571"/>
         </scene>
         <!--SDK-->
         <scene sceneID="5qz-T9-ea1">

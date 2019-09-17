@@ -95,7 +95,7 @@ private extension SDKViewController {
     }
 }
 
-private extension Enviroment.Server {
+extension Enviroment.Server {
     var isMainNet: Bool {
         switch self {
         case .mainNet:
