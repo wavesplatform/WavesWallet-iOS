@@ -26,10 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let sourceApplication = (launchOptions?[.sourceApplication] as? String) ?? ""
         
         
-        WavesSDK.initialization(servicesPlugins: .init(data: [],
-                                                       node: [],
-                                                       matcher: []),
-                                enviroment: .init(server: .testNet, timestampServerDiff: 0))
+        WavesSDK.initialization(servicesPlugins: .init(data: [], node: [], matcher: []),
+                                enviroment: .init(server: .mainNet, timestampServerDiff: 0))
         
         WavesKeeper.initialization(application: .init(name: "Keeper Example", iconUrl: "https://rampaga.ru/_sf/135/72786352.jpg", schemeUrl: "keeperExample"))
         

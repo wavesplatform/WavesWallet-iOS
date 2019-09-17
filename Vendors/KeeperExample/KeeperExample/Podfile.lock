@@ -11,6 +11,7 @@ PODS:
     - RxSwift (~> 4.0)
   - Result (4.1.0)
   - RxSwift (4.5.0)
+  - TextFieldEffects (1.6.0)
   - WavesSDK (0.1.9):
     - Moya (~> 12.0.1)
     - Moya/RxSwift (~> 12.0.1)
@@ -24,6 +25,7 @@ PODS:
 
 DEPENDENCIES:
   - CryptoSwift
+  - TextFieldEffects
   - "WavesSDK (from `git@github.com:wavesplatform/WavesSDK-iOS.git`, branch `develop`)"
 
 SPEC REPOS:
@@ -33,6 +35,7 @@ SPEC REPOS:
     - Moya
     - Result
     - RxSwift
+    - TextFieldEffects
     - WavesSDKCrypto
     - WavesSDKExtensions
 
@@ -52,10 +55,11 @@ SPEC CHECKSUMS:
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
+  TextFieldEffects: 529b8aff706fb40f82c41c780c0777941a893796
   WavesSDK: f0513d8e00c4b0d8e0bfc1a05678a886e8d0c927
   WavesSDKCrypto: 1a9205f4ac4a2a17fb6fd981d3b518f81487b379
   WavesSDKExtensions: 040099258b4d793ef8eb08fda45ba8cd66ea04d8
 
-PODFILE CHECKSUM: b94a424295bf6d8b3ae005f84f9e5472419ae528
+PODFILE CHECKSUM: 3f9383a1fc178113cf358039b20745a9b197cf84
 
 COCOAPODS: 1.7.5

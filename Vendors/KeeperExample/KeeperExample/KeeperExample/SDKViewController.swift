@@ -7,7 +7,7 @@ import RxSwift
 
 final class SDKViewController: UIViewController {
 
-    private var currentServer: Enviroment.Server = .mainNet
+    private var currentServer: Enviroment.Server!
     private let disposeBag = DisposeBag()
 
     @IBOutlet private weak var labelInfo: UILabel!
@@ -18,12 +18,16 @@ final class SDKViewController: UIViewController {
         super.viewDidLoad()
 
         navigationItem.title = "My Waves dApp"
-        setupButton()
         labelInfo.text = "Example"
-        WavesSDK.initialization(servicesPlugins: .init(data: [], node: [], matcher: []), enviroment: .init(server: currentServer, timestampServerDiff: 0))
-        self.acitivityIndicatorBalance.isHidden = true
+        acitivityIndicatorBalance.isHidden = true
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        currentServer = WavesSDK.shared.enviroment.server
+        setupButton()
+    }
+    
     @IBAction private func generateNewSeed(_ sender: Any) {
         let seed = WordList.generatePhrase()
         let privateKey = PrivateKeyAccount(seedStr: seed)
@@ -57,6 +61,7 @@ final class SDKViewController: UIViewController {
 
             }).disposed(by: disposeBag)
     }
+    
     
     @objc private func changeNetwork() {
         if currentServer.isMainNet {

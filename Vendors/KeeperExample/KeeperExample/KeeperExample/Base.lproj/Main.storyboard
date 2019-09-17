@@ -70,13 +70,36 @@
                                     <constraint firstAttribute="width" constant="1" id="U8k-AS-sSF"/>
                                 </constraints>
                             </view>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Transaction type" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ibQ-Sz-O1V" customClass="HoshiTextField" customModule="TextFieldEffects">
+                                <rect key="frame" x="20" y="108" width="374" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="sST-0N-Fx6"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="placeholderFontScale">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                        <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderInactiveColor">
+                                        <color key="value" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="kWP-fb-QCM" firstAttribute="trailing" secondItem="MFz-P1-Kdq" secondAttribute="trailing" id="0i2-we-KTT"/>
                             <constraint firstItem="kWP-fb-QCM" firstAttribute="bottom" secondItem="pad-dK-1MB" secondAttribute="bottom" id="53M-o6-z6k"/>
                             <constraint firstItem="B2f-wl-ma4" firstAttribute="leading" secondItem="kWP-fb-QCM" secondAttribute="leading" id="B58-wj-Hsr"/>
+                            <constraint firstItem="ibQ-Sz-O1V" firstAttribute="top" secondItem="kWP-fb-QCM" secondAttribute="top" constant="20" id="Dag-2Z-Y5P"/>
+                            <constraint firstItem="ibQ-Sz-O1V" firstAttribute="leading" secondItem="kWP-fb-QCM" secondAttribute="leading" constant="20" id="LkV-el-pab"/>
                             <constraint firstItem="kWP-fb-QCM" firstAttribute="bottom" secondItem="B2f-wl-ma4" secondAttribute="bottom" id="NQ3-u7-rvd"/>
+                            <constraint firstItem="kWP-fb-QCM" firstAttribute="trailing" secondItem="ibQ-Sz-O1V" secondAttribute="trailing" constant="20" id="P3S-8a-EQd"/>
                             <constraint firstItem="pad-dK-1MB" firstAttribute="height" secondItem="B2f-wl-ma4" secondAttribute="height" id="Uv3-Xj-bOQ"/>
                             <constraint firstItem="kWP-fb-QCM" firstAttribute="bottom" secondItem="MFz-P1-Kdq" secondAttribute="bottom" id="V4l-ic-9qJ"/>
                             <constraint firstItem="pad-dK-1MB" firstAttribute="centerX" secondItem="ZyX-vf-ooE" secondAttribute="centerX" id="hV8-q1-Lpa"/>
@@ -87,8 +110,40 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Keeper" image="phone" id="uIs-Ws-Lhl"/>
                     <navigationItem key="navigationItem" id="ohL-Xv-cQv"/>
+                    <connections>
+                        <outlet property="pickerView" destination="jFc-P4-gfY" id="vkp-Kt-KbE"/>
+                        <outlet property="textField" destination="ibQ-Sz-O1V" id="1qn-Zp-TkM"/>
+                        <outlet property="toolBar" destination="NcT-21-98d" id="2T1-gd-VWH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZeS-WF-VOz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pickerView contentMode="scaleToFill" id="jFc-P4-gfY">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="216"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <connections>
+                        <outlet property="dataSource" destination="DLX-LZ-h7k" id="F44-iZ-AF5"/>
+                        <outlet property="delegate" destination="DLX-LZ-h7k" id="9bi-2g-DJa"/>
+                    </connections>
+                </pickerView>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="NcT-21-98d">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <items>
+                        <barButtonItem title="Cancel" id="rgA-hj-p2o">
+                            <color key="tintColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="dismissPicker:" destination="DLX-LZ-h7k" id="Tzh-GE-l7o"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="fLO-8g-QJG"/>
+                        <barButtonItem title="Select" id="Oea-Ur-s7i">
+                            <color key="tintColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="selectPicker:" destination="DLX-LZ-h7k" id="tWv-KE-CSk"/>
+                            </connections>
+                        </barButtonItem>
+                    </items>
+                </toolbar>
             </objects>
             <point key="canvasLocation" x="553.62318840579712" y="118.52678571428571"/>
         </scene>
