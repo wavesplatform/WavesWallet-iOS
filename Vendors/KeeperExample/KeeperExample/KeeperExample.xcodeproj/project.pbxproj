@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		321D36EE23312F0000D81E8E /* SDKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D36ED23312F0000D81E8E /* SDKViewController.swift */; };
+		321D36F023312F0F00D81E8E /* KeeperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D36EF23312F0F00D81E8E /* KeeperViewController.swift */; };
+		321D36F22331345800D81E8E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D36F12331345800D81E8E /* Constants.swift */; };
 		7B0B6FA9231FE7D200CC5DCB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B6FA8231FE7D200CC5DCB /* AppDelegate.swift */; };
 		7B0B6FAB231FE7D200CC5DCB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B6FAA231FE7D200CC5DCB /* ViewController.swift */; };
 		7B0B6FAE231FE7D200CC5DCB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B0B6FAC231FE7D200CC5DCB /* Main.storyboard */; };
@@ -19,6 +22,9 @@
 /* Begin PBXFileReference section */
 		1617F8A74DB2172DB83913FF /* Pods-KeeperExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeeperExample.release.xcconfig"; path = "Target Support Files/Pods-KeeperExample/Pods-KeeperExample.release.xcconfig"; sourceTree = "<group>"; };
 		27B95FEAA32BFDCCA2146064 /* Pods_KeeperExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KeeperExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		321D36ED23312F0000D81E8E /* SDKViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKViewController.swift; sourceTree = "<group>"; };
+		321D36EF23312F0F00D81E8E /* KeeperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeeperViewController.swift; sourceTree = "<group>"; };
+		321D36F12331345800D81E8E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		66AA2D092A1DAAA641D55F44 /* Pods-KeeperExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeeperExample.debug.xcconfig"; path = "Target Support Files/Pods-KeeperExample/Pods-KeeperExample.debug.xcconfig"; sourceTree = "<group>"; };
 		7B0B6FA5231FE7D200CC5DCB /* KeeperExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeeperExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B0B6FA8231FE7D200CC5DCB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,8 +87,11 @@
 			isa = PBXGroup;
 			children = (
 				7B0B6FA8231FE7D200CC5DCB /* AppDelegate.swift */,
+				321D36F12331345800D81E8E /* Constants.swift */,
 				7B0B6FAA231FE7D200CC5DCB /* ViewController.swift */,
 				E9BFFA3A23215949000F59FC /* Transactions.swift */,
+				321D36ED23312F0000D81E8E /* SDKViewController.swift */,
+				321D36EF23312F0F00D81E8E /* KeeperViewController.swift */,
 				7B0B6FAC231FE7D200CC5DCB /* Main.storyboard */,
 				7B0B6FAF231FE7D500CC5DCB /* Assets.xcassets */,
 				7B0B6FB1231FE7D500CC5DCB /* LaunchScreen.storyboard */,
@@ -208,7 +217,10 @@
 			files = (
 				E9BFFA3B23215949000F59FC /* Transactions.swift in Sources */,
 				7B0B6FAB231FE7D200CC5DCB /* ViewController.swift in Sources */,
+				321D36F023312F0F00D81E8E /* KeeperViewController.swift in Sources */,
 				7B0B6FA9231FE7D200CC5DCB /* AppDelegate.swift in Sources */,
+				321D36EE23312F0000D81E8E /* SDKViewController.swift in Sources */,
+				321D36F22331345800D81E8E /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
