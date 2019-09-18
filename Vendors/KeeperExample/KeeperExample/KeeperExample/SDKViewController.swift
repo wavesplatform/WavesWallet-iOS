@@ -4,6 +4,7 @@
 import UIKit
 import WavesSDK
 import RxSwift
+import WavesSDKCrypto
 
 final class SDKViewController: UIViewController {
 
@@ -29,16 +30,14 @@ final class SDKViewController: UIViewController {
     }
     
     @IBAction private func generateNewSeed(_ sender: Any) {
-        let seed = WordList.generatePhrase()
-        let privateKey = PrivateKeyAccount(seedStr: seed)
-        
-        self.setupInfo(title: "New seed is:", value: privateKey.words.joined(separator: " "))
+        let seed = WavesCrypto.shared.randomSeed()
+        self.setupInfo(title: "New seed is:", value: seed)
     }
     
     @IBAction private func loadWavesBalance(_ sender: Any) {
         
-        let privateKey = PrivateKeyAccount(seedStr: "")
-        
+        guard let address = WavesCrypto.shared.address(seed: "", chainId: WavesSDK.shared.enviroment.chainId) else { return }
+
         self.buttonLoadBalance.isEnabled = false
         self.buttonLoadBalance.setTitle(nil, for: .normal)
         self.acitivityIndicatorBalance.isHidden = false
@@ -47,7 +46,7 @@ final class SDKViewController: UIViewController {
         WavesSDK.shared.services
             .nodeServices
             .addressesNodeService
-            .addressBalance(address: privateKey.address)
+            .addressBalance(address: address)
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (balance) in
                 guard let self = self else { return }
