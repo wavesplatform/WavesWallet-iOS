@@ -85,15 +85,6 @@ public struct WalletEnvironment: Decodable {
     public static let Mainnet: WalletEnvironment = parseJSON(json: Constants.main)!
     public static let Stagenet: WalletEnvironment = parseJSON(json: Constants.main)!
     
-//    public static var current: WalletEnvironment {
-//        get {
-//            switch kind {
-//                case ю
-//            }
-//            
-//        }
-//    }
-    
     public init(name: String,
                 servers: Servers,
                 scheme: String,
