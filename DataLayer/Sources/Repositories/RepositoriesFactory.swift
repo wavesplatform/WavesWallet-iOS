@@ -41,7 +41,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
 
     public private(set) lazy var blockRemote: BlockRepositoryProtocol = BlockRepositoryRemote(environmentRepository: environmentRepositoryInternal)
 
-    public private(set) lazy var walletsRepositoryLocal: WalletsRepositoryProtocol = WalletsRepositoryLocal()
+    public private(set) lazy var walletsRepositoryLocal: WalletsRepositoryProtocol = WalletsRepositoryLocal(environmentRepository: environmentRepositoryInternal)
 
     public private(set) lazy var walletSeedRepositoryLocal: WalletSeedRepositoryProtocol = WalletSeedRepositoryLocal()
 

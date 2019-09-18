@@ -23,7 +23,7 @@ final class WidgetAssetsRepositoryRemote: WidgetAssetsRepositoryProtocol {
     
     func assets(by ids: [String]) -> Observable<[DomainLayer.DTO.Asset]> {
         
-        let walletEnviroment = WalletEnvironment.current
+        let walletEnviroment = WalletEnvironment.Mainnet
         
         return assetsDataService
                 .assets(ids: ids)
