@@ -86,16 +86,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(timeDidChange), name: UIApplication.significantTimeChangeNotification, object: nil)
         
-        switch environmentKind {
-        case .mainnet:
-            Address.walletEnvironment = WalletEnvironment.Mainnet
-            
-        case .testnet:
-            Address.walletEnvironment = WalletEnvironment.Testnet
-            
-        case .stagenet:
-            Address.walletEnvironment = WalletEnvironment.Stagenet        
-        }
+        updateEnviroment(kind: environmentKind)
     }
     
     func deffaultEnvironment() -> Observable<WalletEnvironment> {
@@ -124,6 +115,23 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
         set {
             UserDefaults.standard.set(newValue.rawValue, forKey: "wallet.environment.kind")
             UserDefaults.standard.synchronize()
+            
+            updateEnviroment(kind: newValue)
+        }
+    }
+    
+    private func updateEnviroment(kind: WalletEnvironment.Kind) {
+        
+        //TODO: Need refactor address class
+        switch environmentKind {
+        case .mainnet:
+            Address.walletEnvironment = WalletEnvironment.Mainnet
+            
+        case .testnet:
+            Address.walletEnvironment = WalletEnvironment.Testnet
+            
+        case .stagenet:
+            Address.walletEnvironment = WalletEnvironment.Stagenet
         }
     }
 }
