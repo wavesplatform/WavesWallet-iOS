@@ -15,6 +15,10 @@ import WavesSDK
 import DomainLayer
 import Extensions
 
+private enum Constants {
+    static let searchAssetsLimit: Int = 100
+}
+
 final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     
     private let environmentRepository: EnvironmentRepositoryProtocols
@@ -86,7 +90,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                     .wavesServices
                     .dataServices
                     .assetsDataService
-                    .searchAssets(search: search)
+                    .searchAssets(search: search, limit: Constants.searchAssetsLimit)
                 
                 return Observable.zip(assetsList, spamAssets)
                     .map({ (assets, spamAssets) -> [DomainLayer.DTO.Asset] in
