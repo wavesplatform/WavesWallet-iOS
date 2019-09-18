@@ -10,5 +10,7 @@ target 'KeeperExample' do
     project 'KeeperExample.xcodeproj'    
     
     pod "WavesSDK", :git => "git@github.com:wavesplatform/WavesSDK-iOS.git", :branch => "develop" 
-    
+    pod 'CryptoSwift'
+    pod 'TextFieldEffects'
+
 end
