@@ -11,6 +11,7 @@ class KeeperViewController: UIViewController {
     @IBOutlet private weak var textField: HoshiTextField!
     @IBOutlet var pickerView: UIPickerView!
     @IBOutlet var toolBar: UIToolbar!
+    @IBOutlet private weak var labelInfo: UILabel!
     
     private var currentServer: Enviroment.Server!
     private var transaction: NodeService.Query.Transaction?
@@ -25,6 +26,7 @@ class KeeperViewController: UIViewController {
         toolBar.barTintColor = .white
         textField.inputView = pickerView
         textField.inputAccessoryView = toolBar
+        labelInfo.text = nil
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,6 +41,15 @@ class KeeperViewController: UIViewController {
         textField.text = Transactions.list[pickerView.selectedRow(inComponent: 0)].name
         
         textField.resignFirstResponder()
+      
+        var text = "Request"
+        text += "\n\n"
+        text += transaction?.jsonString ?? ""
+        
+        let attr = NSMutableAttributedString(string: text)
+        attr.addAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: labelInfo.font.pointSize)],
+                           range: (text as NSString).range(of: "Request"))
+        labelInfo.attributedText = attr
     }
     
     @IBAction private func dismissPicker(_ sender: Any) {
@@ -64,8 +75,8 @@ class KeeperViewController: UIViewController {
                 .subscribe(onNext: { [weak self] (response) in
                     
                     guard let self = self else { return }
-                    print(response)
-                    
+                    self.showInfo(response: response)
+
                     }, onError: { [weak self] (error) in
                         
                         guard let self = self else { return }
@@ -87,8 +98,7 @@ class KeeperViewController: UIViewController {
                 .subscribe(onNext: { [weak self] (response) in
                     
                     guard let self = self else { return }
-                    print(response)
-                    
+                    self.showInfo(response: response)
                 }, onError: { [weak self] (error) in
                     
                     guard let self = self else { return }
@@ -120,6 +130,32 @@ extension KeeperViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 }
 
 private extension KeeperViewController {
+    
+    func showInfo(response: WavesKeeper.Response?) {
+        
+        var text = "Request"
+        text += "\n\n"
+        text += transaction?.jsonString ?? ""
+
+        if let response = response {
+            text += "\n\n\n"
+            text += "Response"
+            text += "\n\n"
+            text += response.jsonString ?? ""
+        }
+        let attr = NSMutableAttributedString(string: text)
+        attr.addAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: labelInfo.font.pointSize)],
+                           range: (text as NSString).range(of: "Request"))
+        
+        let rangeResponse = (text as NSString).range(of: "Response")
+        if rangeResponse.location != NSNotFound {
+            attr.addAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: labelInfo.font.pointSize)],
+                               range: rangeResponse)
+        }
+        
+        labelInfo.attributedText = attr
+    }
+    
     func setupButton() {
         let buttonTitle = currentServer.isMainNet ? "MainNet" : "TestNet"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: buttonTitle, style: .done, target: self, action: #selector(changeNetwork))

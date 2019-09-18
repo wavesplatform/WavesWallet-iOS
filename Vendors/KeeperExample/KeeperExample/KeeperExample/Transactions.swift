@@ -34,6 +34,29 @@ final class Transactions {
     }
 }
 
+extension WavesKeeper.Response {
+    var jsonString: String? {
+
+        if let data = try? JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted) {
+            return String(data: data, encoding: .utf8)
+        }
+      
+        return nil
+    }
+}
+
+extension NodeService.Query.Transaction {
+    
+    var jsonString: String? {
+                
+        if let data = try? JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted) {
+            return String(data: data, encoding: .utf8)
+        }
+        
+        return nil
+    }
+}
+
 private extension Transactions {
 
     static var txTansfer: NodeService.Query.Transaction.Transfer {

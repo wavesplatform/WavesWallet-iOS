@@ -19,7 +19,6 @@
 		323B8E0223314D3600034343 /* RXCrypto+SHA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323B8DFB23314D3600034343 /* RXCrypto+SHA.swift */; };
 		323B8E0323314D3600034343 /* Data+AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323B8DFC23314D3600034343 /* Data+AES.swift */; };
 		7B0B6FA9231FE7D200CC5DCB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B6FA8231FE7D200CC5DCB /* AppDelegate.swift */; };
-		7B0B6FAB231FE7D200CC5DCB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0B6FAA231FE7D200CC5DCB /* ViewController.swift */; };
 		7B0B6FAE231FE7D200CC5DCB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B0B6FAC231FE7D200CC5DCB /* Main.storyboard */; };
 		7B0B6FB0231FE7D500CC5DCB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B0B6FAF231FE7D500CC5DCB /* Assets.xcassets */; };
 		7B0B6FB3231FE7D500CC5DCB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B0B6FB1231FE7D500CC5DCB /* LaunchScreen.storyboard */; };
@@ -44,7 +43,6 @@
 		66AA2D092A1DAAA641D55F44 /* Pods-KeeperExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeeperExample.debug.xcconfig"; path = "Target Support Files/Pods-KeeperExample/Pods-KeeperExample.debug.xcconfig"; sourceTree = "<group>"; };
 		7B0B6FA5231FE7D200CC5DCB /* KeeperExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeeperExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B0B6FA8231FE7D200CC5DCB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7B0B6FAA231FE7D200CC5DCB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7B0B6FAD231FE7D200CC5DCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7B0B6FAF231FE7D500CC5DCB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B0B6FB2231FE7D500CC5DCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -120,7 +118,6 @@
 				7B0B6FA8231FE7D200CC5DCB /* AppDelegate.swift */,
 				321D36F12331345800D81E8E /* Constants.swift */,
 				323B8DE02331418200034343 /* CustomNavigationViewController.swift */,
-				7B0B6FAA231FE7D200CC5DCB /* ViewController.swift */,
 				E9BFFA3A23215949000F59FC /* Transactions.swift */,
 				321D36ED23312F0000D81E8E /* SDKViewController.swift */,
 				321D36EF23312F0F00D81E8E /* KeeperViewController.swift */,
@@ -249,7 +246,6 @@
 			files = (
 				E9BFFA3B23215949000F59FC /* Transactions.swift in Sources */,
 				323B8DFD23314D3600034343 /* WordList.swift in Sources */,
-				7B0B6FAB231FE7D200CC5DCB /* ViewController.swift in Sources */,
 				323B8E0123314D3600034343 /* PrivateKeyAccount.swift in Sources */,
 				323B8E0023314D3600034343 /* PublicKeyAccount.swift in Sources */,
 				323B8E0223314D3600034343 /* RXCrypto+SHA.swift in Sources */,

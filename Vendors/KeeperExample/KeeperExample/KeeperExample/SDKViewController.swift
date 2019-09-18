@@ -18,7 +18,7 @@ final class SDKViewController: UIViewController {
         super.viewDidLoad()
 
         navigationItem.title = "My Waves dApp"
-        labelInfo.text = "Example"
+        labelInfo.text = nil 
         acitivityIndicatorBalance.isHidden = true
     }
 
