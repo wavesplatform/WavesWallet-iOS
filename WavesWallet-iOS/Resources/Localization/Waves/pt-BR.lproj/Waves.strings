@@ -673,3 +673,11 @@
 "widgetsettings.actionsheet.changestyle.title" = "Widget style";
 "widgetsettings.actionsheet.changestyle.element.classic" = "Classic";
 "widgetsettings.actionsheet.changestyle.element.dark" = "Dark";
+"keeper.button.approve" = "Approve";
+"keeper.button.reject" = "Reject";
+"keeper.label.txTime" = "TX time";
+"keeper.label.to" = "To";
+"keeper.transaction.confirmed" = "Your transaction is confirmed!";
+"keeper.transaction.failed" = "Your transaction failed";
+"keeper.label.function" = "Function";
+"keeper.label.confirmRequest" = "Confirm request";
