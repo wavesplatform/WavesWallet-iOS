@@ -27,7 +27,7 @@ private enum Constants {
     
     static let urlTransactionFee: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/master/fee.json")!
     
-    static let urlApplicationNews: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.6/notifications_ios.json")!
+    static let urlApplicationNews: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/master/notifications_ios.json")!
     
     static let urlVersionIos: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/master/version_ios.json")!
     
@@ -40,11 +40,11 @@ private enum Constants {
     
     static let urlTransactionFeeProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/master/fee.json")!
     
-    static let urlApplicationNewsProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/mobile/v2.6/notifications_ios.json")!
+    static let urlApplicationNewsProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/master/notifications_ios.json")!
     
     static let urlVersionIosProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/master/version_ios.json")!
 
-    static let urlApplicationNewsDebug: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.6/notifications_test_ios.json")!
+    static let urlApplicationNewsDebug: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/master/notifications_test_ios.json")!
 }
 
 extension GitHub.Service {
