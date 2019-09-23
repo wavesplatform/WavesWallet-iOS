@@ -59,7 +59,7 @@ final class MarketPulseWidgetViewController: UIViewController {
         setupButtonUpdateSize()
         showUpdateAnimation()
         hideError()
-        updateBigPrefferedSize()
+        updatePrefferedSize()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -199,7 +199,7 @@ private extension MarketPulseWidgetViewController {
     
     func updateUI() {
         tableView.reloadData()
-        updateBigPrefferedSize()
+        updatePrefferedSize()
         hideUpdateAnimation()
         setupDarkMode()
         setupCurrencyTitle()
@@ -297,20 +297,23 @@ extension MarketPulseWidgetViewController: NCWidgetProviding {
     }
     
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
-        if activeDisplayMode == .compact {
+        updatePrefferedSize()
+    }
+    
+    func updatePrefferedSize() {
+        
+        guard let extensionContext = extensionContext else { return }
+        extensionContext.widgetLargestAvailableDisplayMode = items.count > MarketPulse.minimumCountAssets ? .expanded : .compact
+
+        let activeMode = extensionContext.widgetActiveDisplayMode
+        let maxSize = extensionContext.widgetMaximumSize(for: activeMode)
+        
+        if activeMode == .compact {
             preferredContentSize = maxSize
         }
         else {
-            updateBigPrefferedSize()
+            let height = CGFloat(items.count) * MarketPulseWidgetCell.viewHeight() + Constants.bottomViewHeight
+            preferredContentSize = .init(width: maxSize.width, height: height)
         }
-    }
-    
-    func updateBigPrefferedSize() {
-        
-        extensionContext?.widgetLargestAvailableDisplayMode = items.count > MarketPulse.minimumCountAssets ? .expanded : .compact
-
-        let maxSize = self.extensionContext?.widgetMaximumSize(for: .expanded) ?? .zero
-        let height = CGFloat(items.count) * MarketPulseWidgetCell.viewHeight() + Constants.bottomViewHeight
-        preferredContentSize = .init(width: maxSize.width, height: height)
     }
 }
