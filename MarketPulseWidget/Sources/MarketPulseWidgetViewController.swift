@@ -302,7 +302,7 @@ extension MarketPulseWidgetViewController: NCWidgetProviding {
     
     func updatePrefferedSize() {
         
-        guard let extensionContext = extensionContext else { return }
+        guard let extensionContext = self.extensionContext else { return }
         extensionContext.widgetLargestAvailableDisplayMode = items.count > MarketPulse.minimumCountAssets ? .expanded : .compact
 
         let activeMode = extensionContext.widgetActiveDisplayMode
