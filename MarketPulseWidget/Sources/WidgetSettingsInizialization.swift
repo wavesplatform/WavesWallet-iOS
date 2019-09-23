@@ -38,8 +38,7 @@ class WidgetSettingsInizialization: WidgetSettingsInizializationUseCaseProtocol 
     
     private func initial() -> Observable<DomainLayer.DTO.MarketPulseSettings> {
         
-        let walletEnvironment = WalletEnvironment.Mainnet
-        let assets = walletEnvironment.generalAssets.prefix(DomainLayer.DTO.Widget.defaultCountAssets)
+        let assets = WidgetSettings.environment.generalAssets.prefix(DomainLayer.DTO.Widget.defaultCountAssets)
 
         return assetsRepository.assets(by: assets.map { $0.assetId })
             .flatMap({ [weak self] (assets) -> Observable<DomainLayer.DTO.MarketPulseSettings> in
