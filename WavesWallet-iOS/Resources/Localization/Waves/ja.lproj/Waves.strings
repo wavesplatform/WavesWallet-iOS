@@ -673,6 +673,8 @@
 "widgetsettings.actionsheet.changestyle.title" = "ウィジェットスタイル";
 "widgetsettings.actionsheet.changestyle.element.classic" = "クラシック";
 "widgetsettings.actionsheet.changestyle.element.dark" = "ダーク";
+"widgetsettings.button.addToken" = "トークンを追加";
+"widgetsettings.label.added" = "追加しました";
 "keeper.button.approve" = "Approve";
 "keeper.button.reject" = "Reject";
 "keeper.label.txTime" = "TX time";

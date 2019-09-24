@@ -673,6 +673,8 @@
 "widgetsettings.actionsheet.changestyle.title" = "Widgetstijl";
 "widgetsettings.actionsheet.changestyle.element.classic" = "Klassiek";
 "widgetsettings.actionsheet.changestyle.element.dark" = "Donker";
+"widgetsettings.button.addToken" = "";
+"widgetsettings.label.added" = "";
 "keeper.button.approve" = "Bevestig";
 "keeper.button.reject" = "Wijs af";
 "keeper.label.txTime" = "TX tijd";

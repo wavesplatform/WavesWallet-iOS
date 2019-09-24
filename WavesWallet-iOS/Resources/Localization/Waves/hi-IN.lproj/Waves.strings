@@ -673,6 +673,8 @@
 "widgetsettings.actionsheet.changestyle.title" = "विजेट शैली";
 "widgetsettings.actionsheet.changestyle.element.classic" = "क्लासिक";
 "widgetsettings.actionsheet.changestyle.element.dark" = "गहरा";
+"widgetsettings.button.addToken" = "";
+"widgetsettings.label.added" = "";
 "keeper.button.approve" = "Approve";
 "keeper.button.reject" = "Reject";
 "keeper.label.txTime" = "TX time";

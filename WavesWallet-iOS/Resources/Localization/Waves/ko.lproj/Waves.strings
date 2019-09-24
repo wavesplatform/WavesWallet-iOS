@@ -673,6 +673,8 @@
 "widgetsettings.actionsheet.changestyle.title" = "위젯 스타일";
 "widgetsettings.actionsheet.changestyle.element.classic" = "클래식";
 "widgetsettings.actionsheet.changestyle.element.dark" = "어둡게";
+"widgetsettings.button.addToken" = "토큰 추가";
+"widgetsettings.label.added" = "추가 완료";
 "keeper.button.approve" = "Approve";
 "keeper.button.reject" = "Reject";
 "keeper.label.txTime" = "TX time";

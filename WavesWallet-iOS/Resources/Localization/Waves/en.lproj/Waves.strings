@@ -673,6 +673,8 @@
 "widgetsettings.actionsheet.changestyle.title" = "Widget style";
 "widgetsettings.actionsheet.changestyle.element.classic" = "Classic";
 "widgetsettings.actionsheet.changestyle.element.dark" = "Dark";
+"widgetsettings.button.addToken" = "Add token";
+"widgetsettings.label.added" = "Added";
 "keeper.button.approve" = "Approve";
 "keeper.button.reject" = "Reject";
 "keeper.label.txTime" = "TX time";
