@@ -673,8 +673,8 @@
 "widgetsettings.actionsheet.changestyle.title" = "小部件样式";
 "widgetsettings.actionsheet.changestyle.element.classic" = "经典的";
 "widgetsettings.actionsheet.changestyle.element.dark" = "黑暗";
-"widgetsettings.button.addToken" = "";
-"widgetsettings.label.added" = "";
+"widgetsettings.button.addToken" = "添加代币";
+"widgetsettings.label.added" = "添加";
 "keeper.button.approve" = "批准";
 "keeper.button.reject" = "拒绝";
 "keeper.label.txTime" = "发送时间";
