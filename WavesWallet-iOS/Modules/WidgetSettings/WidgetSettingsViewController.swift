@@ -120,6 +120,7 @@ private extension WidgetSettingsViewController {
         
         self.intervalButton.setTitle(title, for: .normal)
         self.styleButton.setTitle(state.style.title, for: .normal)
+        self.addTokenButton.setTitle(Localizable.Waves.Widgetsettings.Button.addToken, for: .normal)
     }
     
     private func update(state: Types.State.UI) {

@@ -3379,6 +3379,12 @@ internal enum Localizable {
         }
       }
 
+      internal enum Button {
+        /// Add token
+        internal static var addToken: String { return Localizable.tr("Waves", "widgetsettings.button.addToken") }
+        internal static var addTokenKey: String { return "widgetsettings.button.addToken" }
+      }
+
       internal enum Changeinterval {
 
         internal enum Button {
@@ -3395,6 +3401,12 @@ internal enum Localizable {
           internal static var manually: String { return Localizable.tr("Waves", "widgetsettings.changeinterval.button.manually") }
           internal static var manuallyKey: String { return "widgetsettings.changeinterval.button.manually" }
         }
+      }
+
+      internal enum Label {
+        /// Added
+        internal static var added: String { return Localizable.tr("Waves", "widgetsettings.label.added") }
+        internal static var addedKey: String { return "widgetsettings.label.added" }
       }
 
       internal enum Navigation {
