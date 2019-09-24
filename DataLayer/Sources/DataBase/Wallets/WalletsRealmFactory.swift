@@ -20,7 +20,7 @@ fileprivate enum SchemaVersions: UInt64 {
 
 enum WalletsRealmFactory {
     
-    static var walletsConfig: Realm.Configuration? {
+    static func walletsConfig(scheme: String) -> Realm.Configuration? {
         
         var config = Realm.Configuration()
         config.objectTypes = [WalletEncryption.self, WalletItem.self]
@@ -33,7 +33,7 @@ enum WalletsRealmFactory {
         
         config.fileURL = fileURL
             .deletingLastPathComponent()
-            .appendingPathComponent("wallets_\(WalletEnvironment.current.scheme).realm")
+            .appendingPathComponent("wallets_\(scheme).realm")
         
         config.migrationBlock = { migration, oldSchemaVersion in
             

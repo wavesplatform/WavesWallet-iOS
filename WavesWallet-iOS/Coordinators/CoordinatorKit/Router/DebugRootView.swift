@@ -29,6 +29,8 @@ final class DebugRootView: UIView  {
     
     var debugPosition: CGPoint = CGPoint.zero
     
+    let environmentRepository: EnvironmentRepositoryProtocol = UseCasesFactory.instance.repositories.environmentRepository
+    
     var didTapOnButton: (() -> Void)?
     
     override func didMoveToWindow() {
@@ -80,7 +82,7 @@ final class DebugRootView: UIView  {
     }
     
     func updateContent() {
-        debugView.chainIdLabel.text = WalletEnvironment.current.scheme
+        debugView.chainIdLabel.text = environmentRepository.environmentKind.rawValue
     }
 }
 

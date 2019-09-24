@@ -38,16 +38,15 @@ final class ConfirmRequestCompleteViewController: UIViewController {
         }
         
         if let completedRequest = completedRequest {
-            //TODO: Localization
             
             switch completedRequest.response.kind {
             case .error(let error):
                 imageView.image = Images.error80Error500.image
-                labelTitle.text = "Your transaction failed"
-                
+                labelTitle.text = Localizable.Waves.Keeper.Transaction.failed
+
             case .success(let success):
                 imageView.image = Images.userimgDone80Success400.image
-                labelTitle.text = "Your transaction is confirmed!"
+                labelTitle.text = Localizable.Waves.Keeper.Transaction.confirmed
                 break
             }
         }

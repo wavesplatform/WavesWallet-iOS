@@ -50,6 +50,8 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
             return false
         }
 
+        Address.walletEnvironment = WidgetSettings.environment
+
         WidgetAnalyticManagerInitialization.setup(resources: .init(googleServiceInfo: googleServiceInfoPath,
             appsflyerInfo: appsflyerInfoPath,
             amplitudeInfo: amplitudeInfoPath))

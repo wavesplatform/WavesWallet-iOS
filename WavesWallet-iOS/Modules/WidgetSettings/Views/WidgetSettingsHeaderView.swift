@@ -39,5 +39,6 @@ extension WidgetSettingsHeaderView: ViewConfiguration {
         attributedString.append(NSAttributedString(string: "\(model.amount)", attributes: [.font: UIFont.systemFont(ofSize: 13, weight: .semibold)]))
         attributedString.append(NSAttributedString(string: " / \(model.amountMax)", attributes: [.font: UIFont.systemFont(ofSize: 13, weight: .regular)]))
         labelAmount.attributedText = attributedString
+        labelTitle.text = Localizable.Waves.Widgetsettings.Label.added
     }
 }

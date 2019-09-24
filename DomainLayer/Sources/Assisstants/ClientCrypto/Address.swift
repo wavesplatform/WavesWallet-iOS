@@ -15,8 +15,11 @@ public class Address {
     static let HashLength = 20
     static let AddressLength = 1 + 1 + HashLength + ChecksumLength
     
+    //TODO: Refactor
+    public static var walletEnvironment: WalletEnvironment!
+    
     private class func getSchemeByte() -> UInt8 {        
-        return WalletEnvironment.current.scheme.utf8.first!
+        return walletEnvironment.scheme.utf8.first!
     }
     
     public class func addressFromPublicKey(publicKey: [UInt8]) -> String {
@@ -55,7 +58,7 @@ public class Address {
     }
     
     public class func isValidVostokAddress(address: String?) -> Bool {
-        return isValidAddress(address: address, schemeBytes: WalletEnvironment.current.vostokScheme.utf8.first!)
+        return isValidAddress(address: address, schemeBytes: walletEnvironment.vostokScheme.utf8.first!)
     }
     
     public class func scheme(from publicKey: String) -> String? {

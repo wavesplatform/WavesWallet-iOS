@@ -47,7 +47,7 @@ final class WidgetSettingsViewController: UIViewController, DataSourceProtocol {
         navigationItem.shadowImage = UIImage()        
         navigationItem.title = Localizable.Waves.Widgetsettings.Navigation.title
         navigationItem.backgroundImage = UIColor.basic50.image
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.topbarClose.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(topbarClose))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.check18Success400.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(topbarClose))
         self.tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 12, right: 0)
                         
         system
@@ -120,6 +120,7 @@ private extension WidgetSettingsViewController {
         
         self.intervalButton.setTitle(title, for: .normal)
         self.styleButton.setTitle(state.style.title, for: .normal)
+        self.addTokenButton.setTitle(Localizable.Waves.Widgetsettings.Button.addToken, for: .normal)
     }
     
     private func update(state: Types.State.UI) {
@@ -213,6 +214,15 @@ extension WidgetSettingsViewController: UITableViewDataSource {
         case .asset(let model):
             let cell: WidgetSettingsAssetCell = tableView.dequeueCellForIndexPath(indexPath: indexPath)
             cell.update(with: model)
+            cell.deleteAction = { [weak self] cell in
+
+                guard let self = self else { return }
+                
+                if let indexPath = self.tableView.indexPath(for: cell) {
+                    self.system.send(.rowDelete(indexPath: indexPath))
+                }
+
+            }
             return cell
             
         case .skeleton:
@@ -261,30 +271,8 @@ extension WidgetSettingsViewController: UITableViewDelegate {
         system.send(.moveRow(from: sourceIndexPath, to: destinationIndexPath))
     }
     
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        
-        let row = self[indexPath]
-        
-        switch row {
-        case .asset(let model) where model.isLock == true:
-            return .none
-            
-        case .skeleton:
-            return .none
-            
-        default:
-            return .delete
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
-        let title = Localizable.Waves.Widgetsettings.Tableview.Editmode.delete
-        let editAction = UITableViewRowAction.init(style: .destructive, title: title) { [weak self] (action, indexPath) in
-            self?.system.send(.rowDelete(indexPath: indexPath))
-        }
-
-        return [editAction]
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {        
+        return .none
     }
     
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {

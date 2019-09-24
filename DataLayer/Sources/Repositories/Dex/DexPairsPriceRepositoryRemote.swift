@@ -100,14 +100,11 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
     
                         for (index, pairElement) in list.enumerated() {
                             
-                            //TODO: Check valid 
-                            guard let pair = pairElement else { continue }
-                            
                             let localPair = pairs[index]
                             
                             let priceAsset = localPair.priceAsset
-                            let firstPrice = Money(value: Decimal(pair.firstPrice), priceAsset.decimals)
-                            let lastPrice = Money(value: Decimal(pair.lastPrice), priceAsset.decimals)
+                            let firstPrice = Money(value: Decimal(pairElement?.firstPrice ?? 0), priceAsset.decimals)
+                            let lastPrice = Money(value: Decimal(pairElement?.lastPrice ?? 0), priceAsset.decimals)
                             
                             let pairPrice = DomainLayer.DTO.Dex.PairPrice(firstPrice: firstPrice,
                                                                      lastPrice: lastPrice,

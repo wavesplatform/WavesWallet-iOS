@@ -1749,6 +1749,42 @@ internal enum Localizable {
       }
     }
 
+    internal enum Keeper {
+
+      internal enum Button {
+        /// Approve
+        internal static var approve: String { return Localizable.tr("Waves", "keeper.button.approve") }
+        internal static var approveKey: String { return "keeper.button.approve" }
+        /// Reject
+        internal static var reject: String { return Localizable.tr("Waves", "keeper.button.reject") }
+        internal static var rejectKey: String { return "keeper.button.reject" }
+      }
+
+      internal enum Label {
+        /// Confirm request
+        internal static var confirmRequest: String { return Localizable.tr("Waves", "keeper.label.confirmRequest") }
+        internal static var confirmRequestKey: String { return "keeper.label.confirmRequest" }
+        /// Function
+        internal static var function: String { return Localizable.tr("Waves", "keeper.label.function") }
+        internal static var functionKey: String { return "keeper.label.function" }
+        /// To
+        internal static var to: String { return Localizable.tr("Waves", "keeper.label.to") }
+        internal static var toKey: String { return "keeper.label.to" }
+        /// TX time
+        internal static var txTime: String { return Localizable.tr("Waves", "keeper.label.txTime") }
+        internal static var txTimeKey: String { return "keeper.label.txTime" }
+      }
+
+      internal enum Transaction {
+        /// Your transaction is confirmed!
+        internal static var confirmed: String { return Localizable.tr("Waves", "keeper.transaction.confirmed") }
+        internal static var confirmedKey: String { return "keeper.transaction.confirmed" }
+        /// Your transaction failed
+        internal static var failed: String { return Localizable.tr("Waves", "keeper.transaction.failed") }
+        internal static var failedKey: String { return "keeper.transaction.failed" }
+      }
+    }
+
     internal enum Menu {
 
       internal enum Button {
@@ -3343,6 +3379,12 @@ internal enum Localizable {
         }
       }
 
+      internal enum Button {
+        /// Add token
+        internal static var addToken: String { return Localizable.tr("Waves", "widgetsettings.button.addToken") }
+        internal static var addTokenKey: String { return "widgetsettings.button.addToken" }
+      }
+
       internal enum Changeinterval {
 
         internal enum Button {
@@ -3359,6 +3401,12 @@ internal enum Localizable {
           internal static var manually: String { return Localizable.tr("Waves", "widgetsettings.changeinterval.button.manually") }
           internal static var manuallyKey: String { return "widgetsettings.changeinterval.button.manually" }
         }
+      }
+
+      internal enum Label {
+        /// Added
+        internal static var added: String { return Localizable.tr("Waves", "widgetsettings.label.added") }
+        internal static var addedKey: String { return "widgetsettings.label.added" }
       }
 
       internal enum Navigation {

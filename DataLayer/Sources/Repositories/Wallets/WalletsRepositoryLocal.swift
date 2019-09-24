@@ -14,6 +14,12 @@ import DomainLayer
 
 final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 
+    private var environmentRepository: EnvironmentRepositoryProtocol
+    
+    init(environmentRepository: EnvironmentRepositoryProtocol) {
+        self.environmentRepository = environmentRepository
+    }
+    
     func wallets() -> Observable<[DomainLayer.DTO.Wallet]> {
 
         return Observable.create({ [weak self] (observer) -> Disposable in
@@ -313,10 +319,10 @@ final class WalletsRepositoryLocal: WalletsRepositoryProtocol {
 }
 
 private extension WalletsRepositoryLocal {
-
+    
     var realm: Realm? {
 
-        guard let config = WalletsRealmFactory.walletsConfig else {
+        guard let config = WalletsRealmFactory.walletsConfig(scheme: "\(environmentRepository.environmentKind.rawValue)") else {
             SweetLogger.error("Realm Configuration is nil")
             return nil
         }

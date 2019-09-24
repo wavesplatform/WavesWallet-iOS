@@ -15,7 +15,7 @@ protocol InfoPageConfirmViewDelegate: AnyObject {
 
 //TODO: MOVE URL TO GLOBAL CONSTANTS
 private enum Constants {
-    static let termsOfUse = "https://wavesplatform.com/files/docs/Privacy%20Policy_SW.pdf"
+    static let termsOfUse = "https://wavesplatform.com/files/docs/Waves_privacy_policy.pdf"
     static let termsOfConditions = "https://wavesplatform.com/files/docs/Waves_terms_and_conditions.pdf"
 
     static let buttonDeltaWidth: CGFloat = 24
