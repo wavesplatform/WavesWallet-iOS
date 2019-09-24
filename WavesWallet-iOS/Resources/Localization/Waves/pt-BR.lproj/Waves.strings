@@ -659,7 +659,7 @@
 "dexcreateorder.invalidPricePopup.button.placeOrder" = "Criar Ordem";
 "dexcreateorder.invalidPricePopup.button.cancel" = "Cancelar";
 "widgetsettings.navigation.title" = "Profundidade de mercado";
-"assetsearch.cell.empty.title" = "No tokens matching your search";
+"assetsearch.cell.empty.title" = "A pesquisa não devolveu resultados";
 "widgetsettings.tableview.editmode.delete" = "Excluir";
 "widgetsettings.actionsheet.changeinterval.title" = "Intervalo de mudança";
 "widgetsettings.actionsheet.changeinterval.element.m1" = "1 minuto";

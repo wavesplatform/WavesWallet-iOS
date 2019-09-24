@@ -659,7 +659,7 @@
 "dexcreateorder.invalidPricePopup.button.placeOrder" = "Bestellung aufgeben";
 "dexcreateorder.invalidPricePopup.button.cancel" = "Abbrechen";
 "widgetsettings.navigation.title" = "Marktimpuls";
-"assetsearch.cell.empty.title" = "No tokens matching your search";
+"assetsearch.cell.empty.title" = "Keine Token, die Ihrer Suche entsprechen";
 "widgetsettings.tableview.editmode.delete" = "Löschen";
 "widgetsettings.actionsheet.changeinterval.title" = "Updateintervall";
 "widgetsettings.actionsheet.changeinterval.element.m1" = "1 Minute";
