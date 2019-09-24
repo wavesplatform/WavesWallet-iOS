@@ -59,8 +59,14 @@ final class WidgetSettingsCoordinator: Coordinator {
         window.windowLevel = UIWindow.Level.init(rawValue: UIWindow.Level.normal.rawValue + 1.0)
         self.windowRouter = WindowRouter.windowFactory(window: window)
         self.navigationRouter = NavigationRouter(navigationController: CustomNavigationController())
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
     
+    @objc private func didEnterBackground() {
+        widgetSettingsClose()
+    }
+
     func start() {
         
         let vc = WidgetSettingsModuleBuilder(output: self).build()
