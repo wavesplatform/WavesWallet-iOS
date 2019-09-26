@@ -12,7 +12,6 @@ import RxFeedback
 import RxSwift
 import DomainLayer
 import Extensions
-import WavesSDKExtensions
 
 private enum ReactQuery {
     case new
@@ -205,9 +204,6 @@ final class WalletPresenter: WalletPresenterProtocol {
             state.action = .none
 
         case .handlerError(let error):
-            
-            SweetLogger.error("WalletError \(error)")
-
             state.displayState = state.displayState.setIsRefreshing(isRefreshing: false)
             state.displayState.refreshData = .none
 
