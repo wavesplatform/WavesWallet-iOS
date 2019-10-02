@@ -55,7 +55,7 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
                 .components(separatedBy: "\\").filter {$0.count > 0}
                 .map{$0.trimmingCharacters(in: .whitespaces)}
         }
-        print(words)
+
         return Observable.zip(auth.authorizedWallet(), environment.walletEnvironment())
             .flatMap{ [weak self] (wallet, environment) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                 guard let self = self else { return Observable.empty() }
@@ -156,6 +156,7 @@ private extension DexMarketInteractor {
                             guard let amountAsset = allAssets.first(where: {$0.id == queryPair.amountAsset}) else { break }
                             guard let priceAsset = allAssets.first(where: {$0.id == queryPair.priceAsset}) else { break }
                            
+                            guard index < pairsSearch.pairs.count else { continue }
                             
                             let volume = pairsSearch.pairs[index]?.volumeWaves ?? 0
                             let localPair = localPairs.first(where: {$0.amountAsset.id == amountAsset.id &&
