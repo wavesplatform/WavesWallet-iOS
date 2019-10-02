@@ -8,7 +8,7 @@ jobs:
   test_build:
     working_directory: ~/Waves/iOS
     macos:
-      xcode: "10.2.1"      
+      xcode: "11.0.0"
     environment:
       BUNDLER_VERSION: 2.0.2
       FL_OUTPUT_DIR: output
@@ -78,7 +78,7 @@ jobs:
   prod_build:
     working_directory: ~/Waves/iOS
     macos:
-      xcode: "10.2.1"     
+      xcode: "11.0.0"
     environment:
       BUNDLER_VERSION: 2.0.2
       FL_OUTPUT_DIR: output
@@ -153,7 +153,7 @@ jobs:
   update_build:
     working_directory: ~/Waves/iOS
     macos:
-      xcode: "10.2.1"     
+      xcode: "11.0.0"
     environment:
       BUNDLER_VERSION: 2.0.2
       FL_OUTPUT_DIR: output
@@ -198,7 +198,7 @@ jobs:
   dev_build:
     working_directory: ~/Waves/iOS
     macos:
-      xcode: "10.2.1"    
+      xcode: "11.0.0"
     environment:
       BUNDLER_VERSION: 2.0.2
       FL_OUTPUT_DIR: output
@@ -268,7 +268,7 @@ jobs:
   dev_log:
     working_directory: ~/Waves/iOS
     macos:
-      xcode: "10.1.0"      
+      xcode: "11.0.0"
     environment:
       BUNDLER_VERSION: 2.0.2
       FL_OUTPUT_DIR: output
