@@ -683,3 +683,30 @@
 "keeper.transaction.failed" = "Your transaction failed";
 "keeper.label.function" = "Function";
 "keeper.label.confirmRequest" = "Confirm request";
+"migrationAccounts.label.migrateAccounts" = "Migrate Accounts";
+"migrationAccounts.label.description" = "You need to enter a password to transfer your account to a new, more secure place";
+"migrationAccounts.label.successfullyUnlocked" = "Successfully unlocked";
+"migrationAccounts.label.pendingUnlock" = "Pending unlock";
+"migrationAccounts.button.proceed" = "Proceed";
+"newLevelSecurity.label.title" = "New level of security";
+"newLevelSecurity.label.subtitle" = "Keep all accounts in one wallet with one secure password. The password of account selected first will be the master password";
+"newLevelSecurity.button.start" = "Let's start";
+"accountAttention.label.title" = "Attention!";
+"accountAttention.label.subtitle" = "To recover the password, you need to reset all accounts, set a new password, import each account from the Seed phrase or via Private key.";
+"accountAttention.label.warning" = "If you have not saved the Seed phrase or Private key, then you will not be able to recover access to your account.";
+"accountAttention.button.resetAll" = "Reset all";
+"accountAttention.button.cancel" = "Cancel";
+"accountAttention.alert.title" = "Reset account";
+"accountAttention.alert.subtitle" = "Are you sure you want to reset this account? All information will be deleted";
+"accountAttention.alert.cancel" = "Cancel";
+"accountAttention.alert.yes" = "Yes";
+"myAccounts.button.addAccount" = "Add account";
+"myAccounts.title" = "My Accounts";
+"addAccount.label.title" = "Add Account";
+"addAccount.label.subTitle" = "Store, manage and receive interest on your digital tokens balance, easily and securely";
+"addAccount.label.createNewAccount" = "Create a new account";
+"addAccount.label.fastAndFree" = "Fast and free";
+"addAccount.label.importAccount" = "Import account";
+"addAccount.label.viaSeedPhrase" = "via Seed phrase";
+
+

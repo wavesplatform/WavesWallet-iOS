@@ -50,8 +50,6 @@ final class HelloLanguagesViewController: UIViewController, UITableViewDelegate,
         self.view.accessibilityIdentifier = AccessibilityIdentifiers.Hellolanguagesviewcontroller.rootView
         self.continueBtn.accessibilityIdentifier = AccessibilityIdentifiers.Hellolanguagesviewcontroller.continueBtn
         
-        navigationItem.isNavigationBarHidden = true
-
         tableView.showsVerticalScrollIndicator = false
         continueBtn.alpha = 0
         gradientView.alpha = 0

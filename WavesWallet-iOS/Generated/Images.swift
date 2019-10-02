@@ -210,9 +210,11 @@ internal enum Images {
   internal static let search = ImageAsset(name: "search")
   internal static let search24Basic500 = ImageAsset(name: "search24Basic500")
   internal static let search24Black = ImageAsset(name: "search24Black")
+  internal static let security = ImageAsset(name: "security")
   internal static let send = ImageAsset(name: "send")
   internal static let sendBtn = ImageAsset(name: "send_btn")
   internal static let settings = ImageAsset(name: "settings")
+  internal static let shape = ImageAsset(name: "shape")
   internal static let share18Submit400 = ImageAsset(name: "share18Submit400")
   internal static let shareAddress = ImageAsset(name: "share_address")
   internal static let sizefull14Basic500 = ImageAsset(name: "sizefull14Basic500")
@@ -283,21 +285,25 @@ internal enum Images {
   internal static let userimgBackup100 = ImageAsset(name: "userimgBackup100")
   internal static let userimgBlockchain80 = ImageAsset(name: "userimgBlockchain80")
   internal static let userimgBlockchain80White = ImageAsset(name: "userimgBlockchain80White")
+  internal static let userimgCreate24 = ImageAsset(name: "userimgCreate24")
   internal static let userimgDex80 = ImageAsset(name: "userimgDex80")
   internal static let userimgDex80Multy = ImageAsset(name: "userimgDex80Multy")
   internal static let userimgDex80White = ImageAsset(name: "userimgDex80White")
   internal static let userimgDisconnect80Multy = ImageAsset(name: "userimgDisconnect80Multy")
   internal static let userimgDone80Success400 = ImageAsset(name: "userimgDone80Success400")
   internal static let userimgEmpty80 = ImageAsset(name: "userimgEmpty80")
+  internal static let userimgImport24 = ImageAsset(name: "userimgImport24")
   internal static let userimgPairing80 = ImageAsset(name: "userimgPairing80")
   internal static let userimgRocket48 = ImageAsset(name: "userimgRocket48")
   internal static let userimgSeed80Submit400 = ImageAsset(name: "userimgSeed80Submit400")
   internal static let userimgServerdown80Multy = ImageAsset(name: "userimgServerdown80Multy")
+  internal static let userimgWallet100 = ImageAsset(name: "userimgWallet100")
   internal static let userimgWallet80 = ImageAsset(name: "userimgWallet80")
   internal static let userimgWallet80White = ImageAsset(name: "userimgWallet80White")
   internal static let verification28Error500 = ImageAsset(name: "verification28Error500")
   internal static let verification28Success400 = ImageAsset(name: "verification28Success400")
   internal static let verified = ImageAsset(name: "verified")
+  internal static let verified14Multy = ImageAsset(name: "verified14Multy")
   internal static let viewexplorer18Black = ImageAsset(name: "viewexplorer18Black")
   internal static let visibility18Basic500 = ImageAsset(name: "visibility18Basic500")
   internal static let visibility18Black = ImageAsset(name: "visibility18Black")
@@ -491,9 +497,11 @@ internal enum Images {
     search,
     search24Basic500,
     search24Black,
+    security,
     send,
     sendBtn,
     settings,
+    shape,
     share18Submit400,
     shareAddress,
     sizefull14Basic500,
@@ -564,21 +572,25 @@ internal enum Images {
     userimgBackup100,
     userimgBlockchain80,
     userimgBlockchain80White,
+    userimgCreate24,
     userimgDex80,
     userimgDex80Multy,
     userimgDex80White,
     userimgDisconnect80Multy,
     userimgDone80Success400,
     userimgEmpty80,
+    userimgImport24,
     userimgPairing80,
     userimgRocket48,
     userimgSeed80Submit400,
     userimgServerdown80Multy,
+    userimgWallet100,
     userimgWallet80,
     userimgWallet80White,
     verification28Error500,
     verification28Success400,
     verified,
+    verified14Multy,
     viewexplorer18Black,
     visibility18Basic500,
     visibility18Black,

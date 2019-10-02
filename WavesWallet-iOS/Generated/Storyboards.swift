@@ -202,6 +202,19 @@ internal enum StoryboardScene {
 
     internal static let confirmRequestViewController = SceneType<WavesWallet_iOS.ConfirmRequestViewController>(storyboard: MobileKeeper.self, identifier: "ConfirmRequestViewController")
   }
+  internal enum MultiAccount: StoryboardType {
+    internal static let storyboardName = "MultiAccount"
+
+    internal static let accountAttentionViewController = SceneType<WavesWallet_iOS.AccountAttentionViewController>(storyboard: MultiAccount.self, identifier: "AccountAttentionViewController")
+
+    internal static let addAccountViewController = SceneType<WavesWallet_iOS.AddAccountViewController>(storyboard: MultiAccount.self, identifier: "AddAccountViewController")
+
+    internal static let migrateAccountsViewController = SceneType<WavesWallet_iOS.MigrateAccountsViewController>(storyboard: MultiAccount.self, identifier: "MigrateAccountsViewController")
+
+    internal static let myAccountsViewController = SceneType<WavesWallet_iOS.MyAccountsViewController>(storyboard: MultiAccount.self, identifier: "MyAccountsViewController")
+
+    internal static let newLevelSecurityViewController = SceneType<WavesWallet_iOS.NewLevelSecurityViewController>(storyboard: MultiAccount.self, identifier: "NewLevelSecurityViewController")
+  }
   internal enum MyAddress: StoryboardType {
     internal static let storyboardName = "MyAddress"
 

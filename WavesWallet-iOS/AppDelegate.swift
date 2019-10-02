@@ -43,7 +43,8 @@ enum UITest {
     var disposeBag: DisposeBag = DisposeBag()
     var window: UIWindow?
 
-    var appCoordinator: AppCoordinator!
+    var appCoordinator: UIDeveloperCoordinator!
+//    var appCoordinator: AppCoordinator!
     lazy var migrationInteractor: MigrationUseCaseProtocol = UseCasesFactory.instance.migration
     
     #if DEBUG 
@@ -77,7 +78,8 @@ enum UITest {
         
         let router = WindowRouter.windowFactory(window: self.window!)
         
-        appCoordinator = AppCoordinator(router, deepLink: deepLink)
+        appCoordinator = UIDeveloperCoordinator(windowRouter: router)
+//        appCoordinator = AppCoordinator(router, deepLink: deepLink)
 
         migrationInteractor
             .migration()
@@ -103,7 +105,7 @@ enum UITest {
         }
         
         self.appCoordinator.openURL(link: DeepLink(source: sourceApplication, url: url))
-                
+        
         return true
     }
     
@@ -116,7 +118,7 @@ enum UITest {
     func applicationWillEnterForeground(_ application: UIApplication) {}
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        appCoordinator.applicationDidBecomeActive()        
+        appCoordinator.applicationDidBecomeActive()
         AppsFlyerTracker.shared().trackAppLaunch()
     }
 

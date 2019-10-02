@@ -269,6 +269,23 @@
 		0AFF5C7F215BD08E00B82940 /* AccountPasswordInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C7E215BD08E00B82940 /* AccountPasswordInteractor.swift */; };
 		0AFF5C81215BD09500B82940 /* AccountPasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C80215BD09500B82940 /* AccountPasswordPresenter.swift */; };
 		0AFF5C8D215CE2D000B82940 /* UseTouchIDModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C8C215CE2D000B82940 /* UseTouchIDModuleBuilder.swift */; };
+		3232746A233CCED900674085 /* MultiAccount.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32327469233CCED900674085 /* MultiAccount.storyboard */; };
+		3232746D233CCFE200674085 /* MigrateAccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3232746C233CCFE200674085 /* MigrateAccountsViewController.swift */; };
+		32327470233D646B00674085 /* MigrateAccountsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3232746F233D646B00674085 /* MigrateAccountsHeaderView.swift */; };
+		32327472233D647C00674085 /* MigrateAccountsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32327471233D647C00674085 /* MigrateAccountsHeaderView.xib */; };
+		3262836C233D7C28009A5F6C /* MigrateAccountsTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3262836B233D7C28009A5F6C /* MigrateAccountsTypes.swift */; };
+		3262836E233D7E59009A5F6C /* ChooseAccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3262836D233D7E59009A5F6C /* ChooseAccountCell.xib */; };
+		32628371233D910E009A5F6C /* NewLevelSecurityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32628370233D910E009A5F6C /* NewLevelSecurityViewController.swift */; };
+		3267408D2343621F003E68E0 /* MyAccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3267408C2343621F003E68E0 /* MyAccountsViewController.swift */; };
+		3267409223439254003E68E0 /* AddAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3267409123439254003E68E0 /* AddAccountViewController.swift */; };
+		32A0CD362343BA8E00C526DD /* MigrateAccountsModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0CD352343BA8E00C526DD /* MigrateAccountsModuleBuilder.swift */; };
+		32A0CD382343C24F00C526DD /* MyAccountsModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0CD372343C24F00C526DD /* MyAccountsModuleBuilder.swift */; };
+		32A0CD3A2343C2DF00C526DD /* AddAccountModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0CD392343C2DF00C526DD /* AddAccountModuleBuilder.swift */; };
+		32C1E5082344957000E26904 /* MigrateAccountsTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C1E5072344957000E26904 /* MigrateAccountsTopCell.swift */; };
+		32C1E50A23449ACC00E26904 /* MyAccountsTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C1E50923449ACC00E26904 /* MyAccountsTypes.swift */; };
+		32C1E50C23449C3900E26904 /* MyAccountsSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C1E50B23449C3900E26904 /* MyAccountsSystem.swift */; };
+		32DA6120233E0D4C001B905A /* AccountAttentionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DA611F233E0D4C001B905A /* AccountAttentionViewController.swift */; };
+		32ECE0A42344855800B9E3AF /* MigrateAccountsSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32ECE0A32344855800B9E3AF /* MigrateAccountsSystem.swift */; };
 		4FEEC3E83A45D5A76B4EFC90 /* Pods_DataLayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACACD0926BB6F69DE4B88F9D /* Pods_DataLayerTests.framework */; };
 		57AAF733BA3CD83163988580 /* Pods_DomainLayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E6AD0AC209AA8471CAEDB99 /* Pods_DomainLayerTests.framework */; };
 		5D42516AAD03C1642C420CB7 /* Pods_Extensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 590BF59A1400E1F514A35AE9 /* Pods_Extensions.framework */; };
@@ -1502,7 +1519,24 @@
 		20FDEB28966B288BFDA86B58 /* Pods-DomainLayerTests.release-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DomainLayerTests.release-prod.xcconfig"; path = "Target Support Files/Pods-DomainLayerTests/Pods-DomainLayerTests.release-prod.xcconfig"; sourceTree = "<group>"; };
 		23552E837A8E7302B6C6E952 /* Pods-DataLayerTests.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataLayerTests.release-dev.xcconfig"; path = "Target Support Files/Pods-DataLayerTests/Pods-DataLayerTests.release-dev.xcconfig"; sourceTree = "<group>"; };
 		3106E0E9E9A234BABB6AE9F7 /* Pods-MonkeyTest.test-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.test-dev.xcconfig"; path = "Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.test-dev.xcconfig"; sourceTree = "<group>"; };
+		32327469233CCED900674085 /* MultiAccount.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MultiAccount.storyboard; sourceTree = "<group>"; };
+		3232746C233CCFE200674085 /* MigrateAccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrateAccountsViewController.swift; sourceTree = "<group>"; };
+		3232746F233D646B00674085 /* MigrateAccountsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrateAccountsHeaderView.swift; sourceTree = "<group>"; };
+		32327471233D647C00674085 /* MigrateAccountsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MigrateAccountsHeaderView.xib; sourceTree = "<group>"; };
+		3262836B233D7C28009A5F6C /* MigrateAccountsTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrateAccountsTypes.swift; sourceTree = "<group>"; };
+		3262836D233D7E59009A5F6C /* ChooseAccountCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseAccountCell.xib; sourceTree = "<group>"; };
+		32628370233D910E009A5F6C /* NewLevelSecurityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLevelSecurityViewController.swift; sourceTree = "<group>"; };
+		3267408C2343621F003E68E0 /* MyAccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountsViewController.swift; sourceTree = "<group>"; };
+		3267409123439254003E68E0 /* AddAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountViewController.swift; sourceTree = "<group>"; };
+		32A0CD352343BA8E00C526DD /* MigrateAccountsModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrateAccountsModuleBuilder.swift; sourceTree = "<group>"; };
+		32A0CD372343C24F00C526DD /* MyAccountsModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountsModuleBuilder.swift; sourceTree = "<group>"; };
+		32A0CD392343C2DF00C526DD /* AddAccountModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountModuleBuilder.swift; sourceTree = "<group>"; };
+		32C1E5072344957000E26904 /* MigrateAccountsTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrateAccountsTopCell.swift; sourceTree = "<group>"; };
+		32C1E50923449ACC00E26904 /* MyAccountsTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountsTypes.swift; sourceTree = "<group>"; };
+		32C1E50B23449C3900E26904 /* MyAccountsSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountsSystem.swift; sourceTree = "<group>"; };
 		32D0AB8E233A565D00E6C26A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/WavesMarketPulse.strings; sourceTree = "<group>"; };
+		32DA611F233E0D4C001B905A /* AccountAttentionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAttentionViewController.swift; sourceTree = "<group>"; };
+		32ECE0A32344855800B9E3AF /* MigrateAccountsSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrateAccountsSystem.swift; sourceTree = "<group>"; };
 		390C62B4D997040230F03610 /* Pods-MonkeyTest.test-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.test-prod.xcconfig"; path = "Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.test-prod.xcconfig"; sourceTree = "<group>"; };
 		45BDA063116D3A42DDD2A64C /* Pods-DataLayerTests.dev-debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataLayerTests.dev-debug.xcconfig"; path = "Target Support Files/Pods-DataLayerTests/Pods-DataLayerTests.dev-debug.xcconfig"; sourceTree = "<group>"; };
 		4728032C4D7588B2622407B1 /* Pods_MarketPulseWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarketPulseWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2657,6 +2691,7 @@
 			isa = PBXGroup;
 			children = (
 				0A071E84215DB1B3007D9750 /* ChooseAccountCell.swift */,
+				3262836D233D7E59009A5F6C /* ChooseAccountCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3174,6 +3209,7 @@
 		0AF58F8B2191909200C8A4B3 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				32327468233CCEBE00674085 /* MultiAccount */,
 				7BE09AD123140EF800A038AD /* MobileKeeper */,
 				0A071E3D215AEF03007D9750 /* AccountPassword */,
 				7B8818652305639600AB0549 /* ActionSheet */,
@@ -3471,6 +3507,77 @@
 			);
 			name = Frameworks;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		32327468233CCEBE00674085 /* MultiAccount */ = {
+			isa = PBXGroup;
+			children = (
+				3267409023439243003E68E0 /* AddAccount */,
+				3267408B2343620D003E68E0 /* MyAccounts */,
+				32DA611E233E0D27001B905A /* AccountAttention */,
+				3262836F233D90F6009A5F6C /* NewLevelSecurity */,
+				3232746B233CCFCE00674085 /* MigrateAccounts */,
+				32327469233CCED900674085 /* MultiAccount.storyboard */,
+			);
+			path = MultiAccount;
+			sourceTree = "<group>";
+		};
+		3232746B233CCFCE00674085 /* MigrateAccounts */ = {
+			isa = PBXGroup;
+			children = (
+				3232746E233D644C00674085 /* Views */,
+				3232746C233CCFE200674085 /* MigrateAccountsViewController.swift */,
+				3262836B233D7C28009A5F6C /* MigrateAccountsTypes.swift */,
+				32A0CD352343BA8E00C526DD /* MigrateAccountsModuleBuilder.swift */,
+				32ECE0A32344855800B9E3AF /* MigrateAccountsSystem.swift */,
+			);
+			path = MigrateAccounts;
+			sourceTree = "<group>";
+		};
+		3232746E233D644C00674085 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				32C1E5072344957000E26904 /* MigrateAccountsTopCell.swift */,
+				3232746F233D646B00674085 /* MigrateAccountsHeaderView.swift */,
+				32327471233D647C00674085 /* MigrateAccountsHeaderView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3262836F233D90F6009A5F6C /* NewLevelSecurity */ = {
+			isa = PBXGroup;
+			children = (
+				32628370233D910E009A5F6C /* NewLevelSecurityViewController.swift */,
+			);
+			path = NewLevelSecurity;
+			sourceTree = "<group>";
+		};
+		3267408B2343620D003E68E0 /* MyAccounts */ = {
+			isa = PBXGroup;
+			children = (
+				3267408C2343621F003E68E0 /* MyAccountsViewController.swift */,
+				32A0CD372343C24F00C526DD /* MyAccountsModuleBuilder.swift */,
+				32C1E50923449ACC00E26904 /* MyAccountsTypes.swift */,
+				32C1E50B23449C3900E26904 /* MyAccountsSystem.swift */,
+			);
+			path = MyAccounts;
+			sourceTree = "<group>";
+		};
+		3267409023439243003E68E0 /* AddAccount */ = {
+			isa = PBXGroup;
+			children = (
+				3267409123439254003E68E0 /* AddAccountViewController.swift */,
+				32A0CD392343C2DF00C526DD /* AddAccountModuleBuilder.swift */,
+			);
+			path = AddAccount;
+			sourceTree = "<group>";
+		};
+		32DA611E233E0D27001B905A /* AccountAttention */ = {
+			isa = PBXGroup;
+			children = (
+				32DA611F233E0D4C001B905A /* AccountAttentionViewController.swift */,
+			);
+			path = AccountAttention;
 			sourceTree = "<group>";
 		};
 		34D3652B38B4C48A2B987569 /* Pods */ = {
@@ -6347,6 +6454,7 @@
 				7BB03E4C22EF2DAB008F179D /* WidgetSettingsHeaderView.xib in Resources */,
 				0AF92231212E0F1F003BA067 /* WalletHeaderView.xib in Resources */,
 				7BFB475822FC5AD0002B19F8 /* Appsflyer-Info.plist in Resources */,
+				3262836E233D7E59009A5F6C /* ChooseAccountCell.xib in Resources */,
 				E9AFDBE621F32E96003130A8 /* TransactionFeeView.xib in Resources */,
 				0A762D15214FE3F300BE9204 /* InputTextField.xib in Resources */,
 				7BFB475F22FC5AD0002B19F8 /* spam.csv in Resources */,
@@ -6397,6 +6505,7 @@
 				7BDA6AF422315466001DE71C /* ContactDetailView.xib in Resources */,
 				E9B087E72163886800937644 /* DexCreateOrderSegmentedControl.xib in Resources */,
 				E9B0879E2163886800937644 /* DexChartCandlePriceView.xib in Resources */,
+				32327472233D647C00674085 /* MigrateAccountsHeaderView.xib in Resources */,
 				7B49912022F875D4005B7123 /* AssetsSearch.storyboard in Resources */,
 				E95B47EF21638B11004D4E39 /* StartLeasing.storyboard in Resources */,
 				7B7A4B7E22D625B300E0A8CD /* DexCreateOrderInvalidPriceView.xib in Resources */,
@@ -6446,6 +6555,7 @@
 				7BFB475922FC5AD0002B19F8 /* AppSpector-Info.plist in Resources */,
 				E95E151322A18C25003552B8 /* WalletSearchTableViewCell.xib in Resources */,
 				7B3902A92237A75600AAFDB8 /* ActionsControl.xib in Resources */,
+				3232746A233CCED900674085 /* MultiAccount.storyboard in Resources */,
 				E95E14F9229FF933003552B8 /* WalletLeasingBalanceSkeletonCell.xib in Resources */,
 				E96FEA2A226F27BC00C0EE22 /* WalletSortCell.xib in Resources */,
 				0A26549121BAE153005EA637 /* Assets.xcassets in Resources */,
@@ -7111,6 +7221,7 @@
 				E991BB1C2202CB3C0022E27D /* SendFeeModuleBuilder.swift in Sources */,
 				E9443012226E64E900EB6257 /* WalletSortInteractor.swift in Sources */,
 				E991BB202202CE090022E27D /* SendFeeTableViewCell.swift in Sources */,
+				32A0CD382343C24F00C526DD /* MyAccountsModuleBuilder.swift in Sources */,
 				E9DC959621A3A5BD0020249F /* StartLeasingTypes.swift in Sources */,
 				E9DB667B21A3938200962639 /* StartLeasingLoadingViewController.swift in Sources */,
 				E944300E226E645300EB6257 /* WalletSortPresenterProtocol.swift in Sources */,
@@ -7181,6 +7292,7 @@
 				0A7CCDB2218A138D005D372B /* MyAddressAliacesSkeletonCell.swift in Sources */,
 				E9B0880D2163886800937644 /* DexMarketPresenterProtocol.swift in Sources */,
 				E9B086BC2163883000937644 /* AddressBookInteractorProtocol.swift in Sources */,
+				32A0CD362343BA8E00C526DD /* MigrateAccountsModuleBuilder.swift in Sources */,
 				04831F6421691429006D1ED6 /* SuccessSystemMessageView.swift in Sources */,
 				7B9B326122E6004700DB1C59 /* DebugRootView.swift in Sources */,
 				E9B087CE2163886800937644 /* DexListTypes.swift in Sources */,
@@ -7204,6 +7316,7 @@
 				E9B087BE2163886800937644 /* SearchBarView.swift in Sources */,
 				7BFB481B22FC742F002B19F8 /* NewUserWithoutBackupStorageTrack.swift in Sources */,
 				7B88186F2305639600AB0549 /* ActionSheet.swift in Sources */,
+				32C1E50A23449ACC00E26904 /* MyAccountsTypes.swift in Sources */,
 				04831F87216A363F006D1ED6 /* LanguageTableCell.swift in Sources */,
 				E9B087CD2163886800937644 /* DexListPresenter.swift in Sources */,
 				7B88186E2305639600AB0549 /* ActionSheetViewController.swift in Sources */,
@@ -7225,6 +7338,7 @@
 				E9B087EE2163886800937644 /* DexLastTradesPresenter.swift in Sources */,
 				E9D36DDC2175C755001E6DF0 /* ReceiveCardCompleteViewController.swift in Sources */,
 				E9B086B92163883000937644 /* AddressBookTypes.swift in Sources */,
+				32C1E50C23449C3900E26904 /* MyAccountsSystem.swift in Sources */,
 				0AF92300212E1234003BA067 /* NavigationAccessoryView.swift in Sources */,
 				7BFB480D22FC742F002B19F8 /* QRCodeReader+Factory.swift in Sources */,
 				E9B087CA2163886800937644 /* DexListModuleOutput.swift in Sources */,
@@ -7353,6 +7467,7 @@
 				E9157BEE21A4C081009F99B6 /* StartLeasingCompleteViewController.swift in Sources */,
 				E9B087F32163886800937644 /* DexLastTradesHeaderView.swift in Sources */,
 				04EB742A2113415E004A065B /* HistoryTypes+State.swift in Sources */,
+				32A0CD3A2343C2DF00C526DD /* AddAccountModuleBuilder.swift in Sources */,
 				E991BB262202D58C0022E27D /* SendFeePresenter.swift in Sources */,
 				E9B087F92163886800937644 /* DexMyOrdersPresenterProtocol.swift in Sources */,
 				0AF922F0212E1234003BA067 /* SkeletonTableHeaderFooterView.swift in Sources */,
@@ -7376,6 +7491,7 @@
 				E9B0879B2163886800937644 /* DexChartAxisFormatters.swift in Sources */,
 				E9B087C42163886800937644 /* DexTraderContainerModuleBuilder.swift in Sources */,
 				E991BB2A2202D5E00022E27D /* SendFeeInteractorProtocol.swift in Sources */,
+				32628371233D910E009A5F6C /* NewLevelSecurityViewController.swift in Sources */,
 				7B8818782305926E00AB0549 /* WidgetSettingsCoordinator.swift in Sources */,
 				0A762D9721639FCC0019D447 /* WavesButton.swift in Sources */,
 				E95E150F22A18B67003552B8 /* CustomNavigationBar.swift in Sources */,
@@ -7399,11 +7515,13 @@
 				0AF922F1212E1234003BA067 /* SkeletonTableCell.swift in Sources */,
 				04D882BF21706FEF00EAAB90 /* InfoPagesCell.swift in Sources */,
 				E9F984AB20E52D8E00D2CB4D /* EnterStartViewController.swift in Sources */,
+				3262836C233D7C28009A5F6C /* MigrateAccountsTypes.swift in Sources */,
 				E9B087AF2163886800937644 /* DexOrderBookHeaderView.swift in Sources */,
 				E9B087982163886800937644 /* DexChartPresenterProtocol.swift in Sources */,
 				E9D36DC92175C755001E6DF0 /* ReceiveCryptocurrencyModuleBuilder.swift in Sources */,
 				E9B087AE2163886800937644 /* DexOrderBookCell.swift in Sources */,
 				0A7CCDAE218A138D005D372B /* MyAddressViewController.swift in Sources */,
+				3267408D2343621F003E68E0 /* MyAccountsViewController.swift in Sources */,
 				0AFF5C8D215CE2D000B82940 /* UseTouchIDModuleBuilder.swift in Sources */,
 				0AF921F3212E07B3003BA067 /* AssetEmptyHistoryCell.swift in Sources */,
 				0AF0C67B21AACA4F00602197 /* GlobalErrorView.swift in Sources */,
@@ -7433,6 +7551,7 @@
 				0A071E82215DB182007D9750 /* ChooseAccountModuleBuilder.swift in Sources */,
 				E94231F022A40FA80087F82F /* WalletSearchModuleBuilder.swift in Sources */,
 				0ADD802A21F22FFA0075FC59 /* EnterLanguageCoordinator.swift in Sources */,
+				32C1E5082344957000E26904 /* MigrateAccountsTopCell.swift in Sources */,
 				E921ED04222DDA4600DE286D /* DexScriptAssetMessageViewController.swift in Sources */,
 				0A43996921504CF60032E608 /* SideMenu.swift in Sources */,
 				7B3681B12315612C000D5592 /* ConfirmRequestSkeletonCell.swift in Sources */,
@@ -7468,6 +7587,7 @@
 				7BD6E10822E5AE7000BAAFC8 /* DebugInfoCell.swift in Sources */,
 				E9443008226E62A600EB6257 /* WalletSortViewController.swift in Sources */,
 				E9F69B9222A5217200CDBD00 /* WalletSearchTypes.swift in Sources */,
+				32ECE0A42344855800B9E3AF /* MigrateAccountsSystem.swift in Sources */,
 				E911300C21BC028400588430 /* AssetSelectSkeletonView.swift in Sources */,
 				E9B088192163886800937644 /* DexSortPresenter.swift in Sources */,
 				E97667CE227F0F8C0050E0D6 /* TransactionCardOrderFilledCell.swift in Sources */,
@@ -7531,6 +7651,7 @@
 				0AF921E8212E07B3003BA067 /* AssetDetailPresenterProtocol.swift in Sources */,
 				E9B087FF2163886800937644 /* DexMyOrdersInteractor.swift in Sources */,
 				7B26A87F22ED13F300E7B024 /* WidgetSettingsViewController.swift in Sources */,
+				32DA6120233E0D4C001B905A /* AccountAttentionViewController.swift in Sources */,
 				0484474A2118658400552772 /* HistoryTypes+ViewModels.swift in Sources */,
 				E9B087A42163886800937644 /* DexChartInteractorProtocol.swift in Sources */,
 				0AD83614217DDDAC004413E9 /* NetworkSettingsPresenter.swift in Sources */,
@@ -7547,6 +7668,7 @@
 				7B5EDEC022522655009C2B3B /* TransactionCardKeyLoadingCell.swift in Sources */,
 				0A762DAC21661B000019D447 /* ProfilePresenter.swift in Sources */,
 				E9D36DD52175C755001E6DF0 /* ReceiveCardViewController.swift in Sources */,
+				32327470233D646B00674085 /* MigrateAccountsHeaderView.swift in Sources */,
 				E9D36DE52175C755001E6DF0 /* ReceiveGenerateAddressModuleBuilder.swift in Sources */,
 				7BDA6AE42230281A001DE71C /* TransactionCardGeneralCell.swift in Sources */,
 				7B39029B2236A17900AAFDB8 /* TransactionCardKeyBalanceCell.swift in Sources */,
@@ -7643,6 +7765,7 @@
 				0AF9222D212E0F1F003BA067 /* WalletLeasingBalanceSkeletonCell.swift in Sources */,
 				E9B0879C2163886800937644 /* DexChartModuleBuilder.swift in Sources */,
 				0AF58F9D2191DEA300C8A4B3 /* PasscodeEnableBiometricPresenter.swift in Sources */,
+				3267409223439254003E68E0 /* AddAccountViewController.swift in Sources */,
 				04F9979621AA197B0036768D /* CameraAccess.swift in Sources */,
 				7BFB480B22FC742F002B19F8 /* Notifications.swift in Sources */,
 				0A14E3F521875B5100EA7E91 /* CreateAliasModuleBuilder.swift in Sources */,
@@ -7668,6 +7791,7 @@
 				E9B087972163886800937644 /* DexChartConstants.swift in Sources */,
 				0A36A37D215E493D0060F49E /* NeedBackupViewController.swift in Sources */,
 				0ADD802921F22FFA0075FC59 /* EnterCoordinator.swift in Sources */,
+				3232746D233CCFE200674085 /* MigrateAccountsViewController.swift in Sources */,
 				0AE491E1210786BC009223DB /* ConfirmBackupStackInputView.swift in Sources */,
 				E95B47D121638A9F004D4E39 /* InfoPagesViewController.swift in Sources */,
 				0AF9222E212E0F1F003BA067 /* WalletHistorySkeletonCell.swift in Sources */,

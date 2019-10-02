@@ -284,12 +284,12 @@ extension ChooseAccountViewController: UITableViewDataSource {
         let cell: ChooseAccountCell = tableView.dequeueAndRegisterCell()
         let wallet = wallets[indexPath.row]
         
-        let model = ChooseAccountCell.Model(
+        let model = ChooseAccountCell.ChooseAccountModel(
                 title: wallet.name,
                 address: wallet.address,
-                image: identity.createImage(by: wallet.address, size: cell.imageIcon.frame.size))
+                image: identity.createImage(by: wallet.address, size: cell.imageSize))
         
-        cell.update(with: model)
+        cell.update(with: .chooseAccount(model))
         cell.delegate = self
         
         return cell

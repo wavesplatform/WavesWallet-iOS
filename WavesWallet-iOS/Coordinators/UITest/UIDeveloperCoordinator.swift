@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Extensions
 
 final class UIDeveloperCoordinator: Coordinator {
     
@@ -26,10 +27,19 @@ final class UIDeveloperCoordinator: Coordinator {
     
     func start() {
         
+        let vc = StoryboardScene.MultiAccount.newLevelSecurityViewController.instantiate()
+        navigationRouter.pushViewController(vc, animated: false, completion: nil)
+        self.windowRouter.setRootViewController(self.navigationRouter.navigationController)
+
 //        let coordinator = WidgetSettingsCoordinator.init(navigationRouter: navigationRouter)
-//        
 //        addChildCoordinatorAndStart(childCoordinator: coordinator)
-//                
 //        self.windowRouter.setRootViewController(self.navigationRouter.navigationController)
     }
+    
+    func applicationDidBecomeActive() {}
+    
+    func applicationDidEnterBackground() {}
+    
+    func openURL(link: DeepLink) {}
+
 }

@@ -21,6 +21,45 @@ internal enum Localizable {
   }
           internal enum Waves {
 
+    internal enum Accountattention {
+
+      internal enum Alert {
+        /// Cancel
+        internal static var cancel: String { return Localizable.tr("Waves", "accountAttention.alert.cancel") }
+        internal static var cancelKey: String { return "accountAttention.alert.cancel" }
+        /// Are you sure you want to reset this account? All information will be deleted
+        internal static var subtitle: String { return Localizable.tr("Waves", "accountAttention.alert.subtitle") }
+        internal static var subtitleKey: String { return "accountAttention.alert.subtitle" }
+        /// Reset account
+        internal static var title: String { return Localizable.tr("Waves", "accountAttention.alert.title") }
+        internal static var titleKey: String { return "accountAttention.alert.title" }
+        /// Yes
+        internal static var yes: String { return Localizable.tr("Waves", "accountAttention.alert.yes") }
+        internal static var yesKey: String { return "accountAttention.alert.yes" }
+      }
+
+      internal enum Button {
+        /// Cancel
+        internal static var cancel: String { return Localizable.tr("Waves", "accountAttention.button.cancel") }
+        internal static var cancelKey: String { return "accountAttention.button.cancel" }
+        /// Reset all
+        internal static var resetAll: String { return Localizable.tr("Waves", "accountAttention.button.resetAll") }
+        internal static var resetAllKey: String { return "accountAttention.button.resetAll" }
+      }
+
+      internal enum Label {
+        /// To recover the password, you need to reset all accounts, set a new password, import each account from the Seed phrase or via Private key.
+        internal static var subtitle: String { return Localizable.tr("Waves", "accountAttention.label.subtitle") }
+        internal static var subtitleKey: String { return "accountAttention.label.subtitle" }
+        /// Attention!
+        internal static var title: String { return Localizable.tr("Waves", "accountAttention.label.title") }
+        internal static var titleKey: String { return "accountAttention.label.title" }
+        /// If you have not saved the Seed phrase or Private key, then you will not be able to recover access to your account.
+        internal static var warning: String { return Localizable.tr("Waves", "accountAttention.label.warning") }
+        internal static var warningKey: String { return "accountAttention.label.warning" }
+      }
+    }
+
     internal enum Accountpassword {
 
       internal enum Button {
@@ -52,6 +91,30 @@ internal enum Localizable {
           internal static var placeholder: String { return Localizable.tr("Waves", "accountpassword.textfield.password.placeholder") }
           internal static var placeholderKey: String { return "accountpassword.textfield.password.placeholder" }
         }
+      }
+    }
+
+    internal enum Addaccount {
+
+      internal enum Label {
+        /// Create a new account
+        internal static var createNewAccount: String { return Localizable.tr("Waves", "addAccount.label.createNewAccount") }
+        internal static var createNewAccountKey: String { return "addAccount.label.createNewAccount" }
+        /// Fast and free
+        internal static var fastAndFree: String { return Localizable.tr("Waves", "addAccount.label.fastAndFree") }
+        internal static var fastAndFreeKey: String { return "addAccount.label.fastAndFree" }
+        /// Import account
+        internal static var importAccount: String { return Localizable.tr("Waves", "addAccount.label.importAccount") }
+        internal static var importAccountKey: String { return "addAccount.label.importAccount" }
+        /// Store, manage and receive interest on your digital tokens balance, easily and securely
+        internal static var subTitle: String { return Localizable.tr("Waves", "addAccount.label.subTitle") }
+        internal static var subTitleKey: String { return "addAccount.label.subTitle" }
+        /// Add Account
+        internal static var title: String { return Localizable.tr("Waves", "addAccount.label.title") }
+        internal static var titleKey: String { return "addAccount.label.title" }
+        /// via Seed phrase
+        internal static var viaSeedPhrase: String { return Localizable.tr("Waves", "addAccount.label.viaSeedPhrase") }
+        internal static var viaSeedPhraseKey: String { return "addAccount.label.viaSeedPhrase" }
       }
     }
 
@@ -1809,6 +1872,42 @@ internal enum Localizable {
       }
     }
 
+    internal enum Migrationaccounts {
+
+      internal enum Button {
+        /// Proceed
+        internal static var proceed: String { return Localizable.tr("Waves", "migrationAccounts.button.proceed") }
+        internal static var proceedKey: String { return "migrationAccounts.button.proceed" }
+      }
+
+      internal enum Label {
+        /// You need to enter a password to transfer your account to a new, more secure place
+        internal static var description: String { return Localizable.tr("Waves", "migrationAccounts.label.description") }
+        internal static var descriptionKey: String { return "migrationAccounts.label.description" }
+        /// Migrate Accounts
+        internal static var migrateAccounts: String { return Localizable.tr("Waves", "migrationAccounts.label.migrateAccounts") }
+        internal static var migrateAccountsKey: String { return "migrationAccounts.label.migrateAccounts" }
+        /// Pending unlock
+        internal static var pendingUnlock: String { return Localizable.tr("Waves", "migrationAccounts.label.pendingUnlock") }
+        internal static var pendingUnlockKey: String { return "migrationAccounts.label.pendingUnlock" }
+        /// Successfully unlocked
+        internal static var successfullyUnlocked: String { return Localizable.tr("Waves", "migrationAccounts.label.successfullyUnlocked") }
+        internal static var successfullyUnlockedKey: String { return "migrationAccounts.label.successfullyUnlocked" }
+      }
+    }
+
+    internal enum Myaccounts {
+      /// My Accounts
+      internal static var title: String { return Localizable.tr("Waves", "myAccounts.title") }
+      internal static var titleKey: String { return "myAccounts.title" }
+
+      internal enum Button {
+        /// Add account
+        internal static var addAccount: String { return Localizable.tr("Waves", "myAccounts.button.addAccount") }
+        internal static var addAccountKey: String { return "myAccounts.button.addAccount" }
+      }
+    }
+
     internal enum Myaddress {
 
       internal enum Button {
@@ -1991,6 +2090,24 @@ internal enum Localizable {
           internal static var wrongordertryagain: String { return Localizable.tr("Waves", "newaccount.textfield.error.wrongordertryagain") }
           internal static var wrongordertryagainKey: String { return "newaccount.textfield.error.wrongordertryagain" }
         }
+      }
+    }
+
+    internal enum Newlevelsecurity {
+
+      internal enum Button {
+        /// Let's start
+        internal static var start: String { return Localizable.tr("Waves", "newLevelSecurity.button.start") }
+        internal static var startKey: String { return "newLevelSecurity.button.start" }
+      }
+
+      internal enum Label {
+        /// Keep all accounts in one wallet with one secure password. The password of account selected first will be the master password
+        internal static var subtitle: String { return Localizable.tr("Waves", "newLevelSecurity.label.subtitle") }
+        internal static var subtitleKey: String { return "newLevelSecurity.label.subtitle" }
+        /// New level of security
+        internal static var title: String { return Localizable.tr("Waves", "newLevelSecurity.label.title") }
+        internal static var titleKey: String { return "newLevelSecurity.label.title" }
       }
     }
 

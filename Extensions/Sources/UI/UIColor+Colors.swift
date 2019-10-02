@@ -213,4 +213,8 @@ public extension UIColor {
     @nonobjc class var clearBlue: UIColor {
         return UIColor(red: 51.0 / 255.0, green: 129.0 / 255.0, blue: 237.0 / 255.0, alpha: 1.0)
     }
+    
+    @nonobjc class var submit4007: UIColor {
+        return UIColor(red: 31.0 / 255.0, green: 90.0 / 255.0, blue: 246.0 / 255.0, alpha: 0.07)
+    }
 }

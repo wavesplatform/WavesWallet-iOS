@@ -11,7 +11,7 @@ import UIKit
 
 public extension UIView {
 
-    func addTableCellShadowStyle(offset: CGSize = CGSize(width: 0, height: 4)) {
+    func addTableCellShadowStyle(offset: CGSize = CGSize(width: 0, height: 2)) {
 
         setupShadow(options: .init(offset: offset,
                                    color: .black,
