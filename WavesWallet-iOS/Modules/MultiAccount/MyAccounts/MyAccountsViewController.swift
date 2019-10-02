@@ -11,11 +11,16 @@ import Extensions
 import RxCocoa
 import RxSwift
 import IdentityImg
+import MGSwipeTableCell
 
 private enum Constants {
-    static let deltaButtonWidth: CGFloat = 40
+    static let deltaAddButtonWidth: CGFloat = 40
     static let rowHeight: CGFloat = 60
     static let spaceBetweenSections: CGFloat = 10
+
+    static let swipeButtonWidth: CGFloat = 72
+    static let editButtonTag = 1000
+    static let deleteButtonTag = 1001
 }
 
 final class MyAccountsViewController: UIViewController {
@@ -60,7 +65,7 @@ final class MyAccountsViewController: UIViewController {
     private func setupLocalization() {
         let title = Localizable.Waves.Myaccounts.Button.addAccount
         addAccountButton.setTitle(title, for: .normal)
-        addAccountButtonWidth.constant = title.maxWidth(font: addAccountButton.titleLabel?.font ?? UIFont()) + Constants.deltaButtonWidth
+        addAccountButtonWidth.constant = title.maxWidth(font: addAccountButton.titleLabel?.font ?? UIFont()) + Constants.deltaAddButtonWidth
     }
     
     private func update(sections: [MyAccountsTypes.ViewModel.Section]) {
@@ -146,7 +151,8 @@ extension MyAccountsViewController: UITableViewDataSource {
         let row = sections[indexPath.section].rows[indexPath.row]
         
         let cell = tableView.dequeueAndRegisterCell() as ChooseAccountCell
-        
+        cell.delegate = self
+
         switch row {
             
         case .selected(let wallet):
@@ -178,3 +184,86 @@ extension MyAccountsViewController: UITableViewDataSource {
     }
 }
 
+//MARK: - MGSwipeTableCellDelegate
+extension MyAccountsViewController: MGSwipeTableCellDelegate {
+    
+    func swipeTableCell(_ cell: MGSwipeTableCell, tappedButtonAt index: Int, direction: MGSwipeDirection, fromExpansion: Bool) -> Bool {
+   
+        guard let indexPath = tableView.indexPath(for: cell) else { return false }
+
+        let row = sections[indexPath.section].rows[indexPath.row]
+        switch row {
+        case .unlock(let wallet):
+            print("TODO")
+            if index == deleteButtonIndex {
+
+            } else if index == editButtonIndex {
+
+            }
+        case .lock(let wallet):
+            print("TODO")
+            if index == deleteButtonIndex {
+                
+            } else if index == editButtonIndex {
+                
+            }
+
+        default:
+            break
+        }
+        
+        if direction == .leftToRight {
+    
+            if index == deleteButtonIndex {
+//                deleteTap(atIndexPath: indexPath)
+            } else if index == editButtonIndex {
+//                editTap(atIndexPath: indexPath)
+            }
+        }
+    
+        return true
+    }
+    
+    func swipeTableCell(_ cell: MGSwipeTableCell, swipeButtonsFor direction: MGSwipeDirection, swipeSettings: MGSwipeSettings, expansionSettings: MGSwipeExpansionSettings) -> [UIView]? {
+        
+        guard let indexPath = tableView.indexPath(for: cell) else { return nil }
+        let row = sections[indexPath.section].rows[indexPath.row]
+        if case .selected = row {
+            return nil
+        }
+        
+        if direction == .leftToRight {
+            return swipeButtons
+        }
+        
+        return nil
+    }
+}
+
+//MARK: - SwipeCellUI
+private extension MyAccountsViewController {
+    
+    var swipeButtons: [UIView] {
+        let edit = MGSwipeButton(title: "", icon: Images.editaddress24Submit300.image, backgroundColor: nil)
+        edit.buttonWidth = Constants.swipeButtonWidth
+        edit.tag = Constants.editButtonTag
+        edit.backgroundColor = .basic50
+        
+        let delete = MGSwipeButton(title: "", icon: Images.deladdress24Error400.image, backgroundColor: nil)
+        delete.buttonWidth = Constants.swipeButtonWidth
+        delete.tag = Constants.deleteButtonTag
+        delete.backgroundColor = .basic50
+        
+        return [delete, edit]
+    }
+    
+    var editButtonIndex: Int {
+        return swipeButtons.firstIndex(where: {$0.tag == Constants.editButtonTag}) ?? 0
+
+    }
+    
+    var deleteButtonIndex: Int {
+        return swipeButtons.firstIndex(where: {$0.tag == Constants.deleteButtonTag}) ?? 0
+    }
+    
+}
