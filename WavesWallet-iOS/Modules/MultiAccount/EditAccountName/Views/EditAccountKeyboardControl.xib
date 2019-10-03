@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="EditAccountKeyboardControl" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3u0-oR-C8S">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                    <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                    <state key="normal" title="Save">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kqf-M6-bvq">
+                    <rect key="frame" x="0.0" y="0.0" width="50" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="sep-jx-A9V"/>
+                    </constraints>
+                    <state key="normal" image="hidekeyboard24White"/>
+                    <connections>
+                        <action selector="dismissKeyboard:" destination="iN0-l3-epB" eventType="touchUpInside" id="nHK-rF-bh9"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="kqf-M6-bvq" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="CRh-6j-4QJ"/>
+                <constraint firstItem="3u0-oR-C8S" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="SrI-0k-Rsw"/>
+                <constraint firstItem="kqf-M6-bvq" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="V5H-VF-gii"/>
+                <constraint firstAttribute="bottom" secondItem="3u0-oR-C8S" secondAttribute="bottom" id="bBw-Ld-Mbb"/>
+                <constraint firstAttribute="bottom" secondItem="kqf-M6-bvq" secondAttribute="bottom" id="c6q-Q7-B7Y"/>
+                <constraint firstItem="3u0-oR-C8S" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="sU4-Kb-L1o"/>
+                <constraint firstItem="3u0-oR-C8S" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="tKM-5T-qvZ"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="buttonSave" destination="3u0-oR-C8S" id="XVm-Kv-bOI"/>
+            </connections>
+            <point key="canvasLocation" x="140.57971014492756" y="338.16964285714283"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="hidekeyboard24White" width="24" height="24"/>
+    </resources>
+</document>

@@ -123,6 +123,16 @@ final class InputTextField: UIView, NibOwnerLoadable {
         }
     }
 
+    var keyboardInputAccessoryView: UIView? {
+        didSet {
+            textFieldValue.inputAccessoryView = keyboardInputAccessoryView
+        }
+    }
+    
+    func dismiss() {
+        textFieldValue.resignFirstResponder()
+    }
+    
     private(set) var isValidValue: Bool = false
     
     private var kind: Kind?

@@ -12,6 +12,7 @@ import RxCocoa
 import RxSwift
 import IdentityImg
 import MGSwipeTableCell
+import DomainLayer
 
 private enum Constants {
     static let deltaAddButtonWidth: CGFloat = 40
@@ -72,6 +73,15 @@ final class MyAccountsViewController: UIViewController {
         self.sections = sections
         tableView.reloadData()
     }
+    
+    private func showEditNameVC(wallet: DomainLayer.DTO.Wallet) {
+        let vc = NewEditAccountNameModuleBuilder(output: self).build(input: wallet)
+        vc.modalPresentationStyle = .custom
+        vc.transitioningDelegate = popoverViewControllerTransitioning
+        present(vc, animated: true, completion: nil)
+    }
+    
+    private lazy var popoverViewControllerTransitioning = ModalViewControllerTransitioning(dismiss: nil)
 }
 
 
@@ -198,28 +208,20 @@ extension MyAccountsViewController: MGSwipeTableCellDelegate {
             if index == deleteButtonIndex {
 
             } else if index == editButtonIndex {
-
+                self.showEditNameVC(wallet: wallet)
             }
         case .lock(let wallet):
             print("TODO")
             if index == deleteButtonIndex {
                 
             } else if index == editButtonIndex {
-                
+                self.showEditNameVC(wallet: wallet)
             }
 
         default:
             break
         }
-        
-        if direction == .leftToRight {
-    
-            if index == deleteButtonIndex {
-//                deleteTap(atIndexPath: indexPath)
-            } else if index == editButtonIndex {
-//                editTap(atIndexPath: indexPath)
-            }
-        }
+
     
         return true
     }
@@ -265,5 +267,13 @@ private extension MyAccountsViewController {
     var deleteButtonIndex: Int {
         return swipeButtons.firstIndex(where: {$0.tag == Constants.deleteButtonTag}) ?? 0
     }
+}
+
+//MARK: - NewEditAccountNameModuleBuilderOutput
+extension MyAccountsViewController: NewEditAccountNameModuleBuilderOutput {
     
+    func newEditAccountDidChangeName(newName: String) {
+        
+        print("TODO")
+    }
 }

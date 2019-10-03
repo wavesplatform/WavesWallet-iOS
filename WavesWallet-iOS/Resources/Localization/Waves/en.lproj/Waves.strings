@@ -708,5 +708,5 @@
 "addAccount.label.fastAndFree" = "Fast and free";
 "addAccount.label.importAccount" = "Import account";
 "addAccount.label.viaSeedPhrase" = "via Seed phrase";
-
-
+"newEditAccountName.label.newName" = "New name";
+"newEditAccountName.button.save" = "Save";

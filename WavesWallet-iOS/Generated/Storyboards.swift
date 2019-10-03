@@ -213,6 +213,8 @@ internal enum StoryboardScene {
 
     internal static let myAccountsViewController = SceneType<WavesWallet_iOS.MyAccountsViewController>(storyboard: MultiAccount.self, identifier: "MyAccountsViewController")
 
+    internal static let newEditAccountNameViewController = SceneType<WavesWallet_iOS.NewEditAccountNameViewController>(storyboard: MultiAccount.self, identifier: "NewEditAccountNameViewController")
+
     internal static let newLevelSecurityViewController = SceneType<WavesWallet_iOS.NewLevelSecurityViewController>(storyboard: MultiAccount.self, identifier: "NewLevelSecurityViewController")
   }
   internal enum MyAddress: StoryboardType {

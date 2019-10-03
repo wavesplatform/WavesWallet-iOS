@@ -134,6 +134,7 @@ internal enum Images {
   internal static let forwardChevron = ImageAsset(name: "forward-chevron")
   internal static let hide = ImageAsset(name: "hide")
   internal static let hidekeyboard24Multy = ImageAsset(name: "hidekeyboard24Multy")
+  internal static let hidekeyboard24White = ImageAsset(name: "hidekeyboard24White")
   internal static let history = ImageAsset(name: "history")
   internal static let iAnonim42Submit400 = ImageAsset(name: "iAnonim42Submit400")
   internal static let iBackup42Submit400 = ImageAsset(name: "iBackup42Submit400")
@@ -421,6 +422,7 @@ internal enum Images {
     forwardChevron,
     hide,
     hidekeyboard24Multy,
+    hidekeyboard24White,
     history,
     iAnonim42Submit400,
     iBackup42Submit400,

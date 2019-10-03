@@ -2093,6 +2093,21 @@ internal enum Localizable {
       }
     }
 
+    internal enum Neweditaccountname {
+
+      internal enum Button {
+        /// Save
+        internal static var save: String { return Localizable.tr("Waves", "newEditAccountName.button.save") }
+        internal static var saveKey: String { return "newEditAccountName.button.save" }
+      }
+
+      internal enum Label {
+        /// New name
+        internal static var newName: String { return Localizable.tr("Waves", "newEditAccountName.label.newName") }
+        internal static var newNameKey: String { return "newEditAccountName.label.newName" }
+      }
+    }
+
     internal enum Newlevelsecurity {
 
       internal enum Button {

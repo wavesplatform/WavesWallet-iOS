@@ -273,6 +273,9 @@
 		3232746D233CCFE200674085 /* MigrateAccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3232746C233CCFE200674085 /* MigrateAccountsViewController.swift */; };
 		32327470233D646B00674085 /* MigrateAccountsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3232746F233D646B00674085 /* MigrateAccountsHeaderView.swift */; };
 		32327472233D647C00674085 /* MigrateAccountsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32327471233D647C00674085 /* MigrateAccountsHeaderView.xib */; };
+		3241E9F62345E45F00513A71 /* NewEditAccountNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3241E9F52345E45F00513A71 /* NewEditAccountNameCell.swift */; };
+		3241E9F82345F92B00513A71 /* EditAccountKeyboardControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3241E9F72345F92B00513A71 /* EditAccountKeyboardControl.swift */; };
+		3241E9FA2345F93D00513A71 /* EditAccountKeyboardControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3241E9F92345F93D00513A71 /* EditAccountKeyboardControl.xib */; };
 		3262836C233D7C28009A5F6C /* MigrateAccountsTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3262836B233D7C28009A5F6C /* MigrateAccountsTypes.swift */; };
 		3262836E233D7E59009A5F6C /* ChooseAccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3262836D233D7E59009A5F6C /* ChooseAccountCell.xib */; };
 		32628371233D910E009A5F6C /* NewLevelSecurityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32628370233D910E009A5F6C /* NewLevelSecurityViewController.swift */; };
@@ -281,6 +284,8 @@
 		32A0CD362343BA8E00C526DD /* MigrateAccountsModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0CD352343BA8E00C526DD /* MigrateAccountsModuleBuilder.swift */; };
 		32A0CD382343C24F00C526DD /* MyAccountsModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0CD372343C24F00C526DD /* MyAccountsModuleBuilder.swift */; };
 		32A0CD3A2343C2DF00C526DD /* AddAccountModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A0CD392343C2DF00C526DD /* AddAccountModuleBuilder.swift */; };
+		32A5BF0C2345663F009FB19D /* NewEditAccountNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A5BF0B2345663F009FB19D /* NewEditAccountNameViewController.swift */; };
+		32A5BF0E2345666A009FB19D /* NewEditAccountNameModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A5BF0D2345666A009FB19D /* NewEditAccountNameModuleBuilder.swift */; };
 		32C1E5082344957000E26904 /* MigrateAccountsTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C1E5072344957000E26904 /* MigrateAccountsTopCell.swift */; };
 		32C1E50A23449ACC00E26904 /* MyAccountsTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C1E50923449ACC00E26904 /* MyAccountsTypes.swift */; };
 		32C1E50C23449C3900E26904 /* MyAccountsSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C1E50B23449C3900E26904 /* MyAccountsSystem.swift */; };
@@ -1523,6 +1528,9 @@
 		3232746C233CCFE200674085 /* MigrateAccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrateAccountsViewController.swift; sourceTree = "<group>"; };
 		3232746F233D646B00674085 /* MigrateAccountsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrateAccountsHeaderView.swift; sourceTree = "<group>"; };
 		32327471233D647C00674085 /* MigrateAccountsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MigrateAccountsHeaderView.xib; sourceTree = "<group>"; };
+		3241E9F52345E45F00513A71 /* NewEditAccountNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEditAccountNameCell.swift; sourceTree = "<group>"; };
+		3241E9F72345F92B00513A71 /* EditAccountKeyboardControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountKeyboardControl.swift; sourceTree = "<group>"; };
+		3241E9F92345F93D00513A71 /* EditAccountKeyboardControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditAccountKeyboardControl.xib; sourceTree = "<group>"; };
 		3262836B233D7C28009A5F6C /* MigrateAccountsTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrateAccountsTypes.swift; sourceTree = "<group>"; };
 		3262836D233D7E59009A5F6C /* ChooseAccountCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseAccountCell.xib; sourceTree = "<group>"; };
 		32628370233D910E009A5F6C /* NewLevelSecurityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLevelSecurityViewController.swift; sourceTree = "<group>"; };
@@ -1531,6 +1539,8 @@
 		32A0CD352343BA8E00C526DD /* MigrateAccountsModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrateAccountsModuleBuilder.swift; sourceTree = "<group>"; };
 		32A0CD372343C24F00C526DD /* MyAccountsModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountsModuleBuilder.swift; sourceTree = "<group>"; };
 		32A0CD392343C2DF00C526DD /* AddAccountModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountModuleBuilder.swift; sourceTree = "<group>"; };
+		32A5BF0B2345663F009FB19D /* NewEditAccountNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEditAccountNameViewController.swift; sourceTree = "<group>"; };
+		32A5BF0D2345666A009FB19D /* NewEditAccountNameModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEditAccountNameModuleBuilder.swift; sourceTree = "<group>"; };
 		32C1E5072344957000E26904 /* MigrateAccountsTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrateAccountsTopCell.swift; sourceTree = "<group>"; };
 		32C1E50923449ACC00E26904 /* MyAccountsTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountsTypes.swift; sourceTree = "<group>"; };
 		32C1E50B23449C3900E26904 /* MyAccountsSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountsSystem.swift; sourceTree = "<group>"; };
@@ -3512,6 +3522,7 @@
 		32327468233CCEBE00674085 /* MultiAccount */ = {
 			isa = PBXGroup;
 			children = (
+				32A5BF0A23456604009FB19D /* EditAccountName */,
 				3267409023439243003E68E0 /* AddAccount */,
 				3267408B2343620D003E68E0 /* MyAccounts */,
 				32DA611E233E0D27001B905A /* AccountAttention */,
@@ -3544,6 +3555,16 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		3241E9F42345E44700513A71 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3241E9F52345E45F00513A71 /* NewEditAccountNameCell.swift */,
+				3241E9F72345F92B00513A71 /* EditAccountKeyboardControl.swift */,
+				3241E9F92345F93D00513A71 /* EditAccountKeyboardControl.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		3262836F233D90F6009A5F6C /* NewLevelSecurity */ = {
 			isa = PBXGroup;
 			children = (
@@ -3570,6 +3591,16 @@
 				32A0CD392343C2DF00C526DD /* AddAccountModuleBuilder.swift */,
 			);
 			path = AddAccount;
+			sourceTree = "<group>";
+		};
+		32A5BF0A23456604009FB19D /* EditAccountName */ = {
+			isa = PBXGroup;
+			children = (
+				3241E9F42345E44700513A71 /* Views */,
+				32A5BF0B2345663F009FB19D /* NewEditAccountNameViewController.swift */,
+				32A5BF0D2345666A009FB19D /* NewEditAccountNameModuleBuilder.swift */,
+			);
+			path = EditAccountName;
 			sourceTree = "<group>";
 		};
 		32DA611E233E0D27001B905A /* AccountAttention */ = {
@@ -6503,6 +6534,7 @@
 				04831F89216A3EBF006D1ED6 /* LanguageTableCell.xib in Resources */,
 				0A071E64215C65D2007D9750 /* UseTouchID.storyboard in Resources */,
 				7BDA6AF422315466001DE71C /* ContactDetailView.xib in Resources */,
+				3241E9FA2345F93D00513A71 /* EditAccountKeyboardControl.xib in Resources */,
 				E9B087E72163886800937644 /* DexCreateOrderSegmentedControl.xib in Resources */,
 				E9B0879E2163886800937644 /* DexChartCandlePriceView.xib in Resources */,
 				32327472233D647C00674085 /* MigrateAccountsHeaderView.xib in Resources */,
@@ -7596,6 +7628,7 @@
 				0AAB15CA21655EB000F1F7BC /* ProfileViewController.swift in Sources */,
 				0AF922E6212E1234003BA067 /* HalfModalTransitioningDelegate.swift in Sources */,
 				7B0FD985231952740004B52B /* ConfirmRequestLoadingViewController.swift in Sources */,
+				32A5BF0E2345666A009FB19D /* NewEditAccountNameModuleBuilder.swift in Sources */,
 				E9FE4D7820EA767B00208F29 /* SaveBackupPhraseViewController.swift in Sources */,
 				0AF921FA212E07B3003BA067 /* AssetBalanceMoneyInfoView.swift in Sources */,
 				7BFB481422FC742F002B19F8 /* ModalScrollViewController.swift in Sources */,
@@ -7667,6 +7700,7 @@
 				E9B087C12163886800937644 /* DexTraderContainerTypes.swift in Sources */,
 				7B5EDEC022522655009C2B3B /* TransactionCardKeyLoadingCell.swift in Sources */,
 				0A762DAC21661B000019D447 /* ProfilePresenter.swift in Sources */,
+				32A5BF0C2345663F009FB19D /* NewEditAccountNameViewController.swift in Sources */,
 				E9D36DD52175C755001E6DF0 /* ReceiveCardViewController.swift in Sources */,
 				32327470233D646B00674085 /* MigrateAccountsHeaderView.swift in Sources */,
 				E9D36DE52175C755001E6DF0 /* ReceiveGenerateAddressModuleBuilder.swift in Sources */,
@@ -7682,6 +7716,7 @@
 				E9B087FA2163886800937644 /* DexMyOrdersPresenter.swift in Sources */,
 				0ADD802321F22FFA0075FC59 /* Router.swift in Sources */,
 				0ADD802C21F22FFA0075FC59 /* HelloCoordinator.swift in Sources */,
+				3241E9F82345F92B00513A71 /* EditAccountKeyboardControl.swift in Sources */,
 				E96FEA25226E962300C0EE22 /* WalletSortEmptyAssetsCell.swift in Sources */,
 				7B0FD98723195D6A0004B52B /* ConfirmRequestCompleteViewController.swift in Sources */,
 				E9B087AB2163886800937644 /* DexOrderBookModuleOutput.swift in Sources */,
@@ -7695,6 +7730,7 @@
 				0A88CBFE2177FE130083874C /* ChangePasswordTypes.swift in Sources */,
 				7B3902AB2237AEE200AAFDB8 /* TransactionCardActionsCell.swift in Sources */,
 				E9B087EC2163886800937644 /* DexLastTradesModuleBuilder.swift in Sources */,
+				3241E9F62345E45F00513A71 /* NewEditAccountNameCell.swift in Sources */,
 				7BFB480322FC742F002B19F8 /* SmartTransactionKind+UIImage.swift in Sources */,
 				0A6AC3DE2183CEFF005D2525 /* AddressesKeysSkeletonCell.swift in Sources */,
 				7B3681AD231556B4000D5592 /* ConfirmRequestFeeAndTimestampCell.swift in Sources */,
