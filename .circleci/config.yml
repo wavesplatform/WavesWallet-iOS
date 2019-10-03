@@ -168,13 +168,7 @@ jobs:
           command: git submodule sync && git submodule update --init
       - restore_cache:
           key: gems-{{ checksum "Gemfile.lock" }}
-          name: "Restore Gemfile"     
-      - run:
-          name: Configure Bundler
-          command: |
-            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
-            source $BASH_ENV            
-            yes | sudo gem install bundler       
+          name: "Restore Gemfile"   
       - run:
           name: Bundle install or check
           command: bundle check || bundle install --path vendor/bundle
