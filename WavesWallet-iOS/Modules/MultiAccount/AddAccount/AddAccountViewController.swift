@@ -40,7 +40,7 @@ final class AddAccountViewController: UIViewController {
     
     @IBAction private func importAccountTapped(_ sender: Any) {
         
-        let vc = StoryboardScene.Import.importAccountViewController.instantiate()
+        let vc =  StoryboardScene.Import.importAccountViewController.instantiate()
         navigationController?.pushViewController(vc, animated: true)
     }
     

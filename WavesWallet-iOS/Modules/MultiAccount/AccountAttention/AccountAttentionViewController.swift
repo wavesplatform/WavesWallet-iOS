@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol AccountAttentionViewControllerDelegate: AnyObject {
+    func AccountAttentionViewControllerDidResetAllAccounts()
+}
+
 final class AccountAttentionViewController: UIViewController {
 
     @IBOutlet private weak var labelTitle: UILabel!
@@ -15,6 +19,8 @@ final class AccountAttentionViewController: UIViewController {
     @IBOutlet private weak var labelWarning: UILabel!
     @IBOutlet private weak var buttonResetAll: UIButton!
     @IBOutlet private weak var buttonCancel: UIButton!
+    
+    weak var delegate: AccountAttentionViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +39,7 @@ final class AccountAttentionViewController: UIViewController {
         let vc = UIAlertController(title: Localizable.Waves.Accountattention.Alert.title, message: Localizable.Waves.Accountattention.Alert.subtitle, preferredStyle: .alert)
         let cancel = UIAlertAction(title: Localizable.Waves.Accountattention.Alert.cancel, style: .cancel, handler: nil)
         let yes = UIAlertAction(title: Localizable.Waves.Accountattention.Alert.yes, style: .default) { (action) in
-            
+            self.delegate?.AccountAttentionViewControllerDidResetAllAccounts()
         }
         vc.addAction(cancel)
         vc.addAction(yes)

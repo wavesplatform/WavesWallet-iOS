@@ -43,8 +43,7 @@ enum UITest {
     var disposeBag: DisposeBag = DisposeBag()
     var window: UIWindow?
 
-    var appCoordinator: UIDeveloperCoordinator!
-//    var appCoordinator: AppCoordinator!
+    var appCoordinator: AppCoordinator!
     lazy var migrationInteractor: MigrationUseCaseProtocol = UseCasesFactory.instance.migration
     
     #if DEBUG 
@@ -78,8 +77,7 @@ enum UITest {
         
         let router = WindowRouter.windowFactory(window: self.window!)
         
-        appCoordinator = UIDeveloperCoordinator(windowRouter: router)
-//        appCoordinator = AppCoordinator(router, deepLink: deepLink)
+        appCoordinator = AppCoordinator(router, deepLink: deepLink)
 
         migrationInteractor
             .migration()

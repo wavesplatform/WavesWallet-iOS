@@ -269,6 +269,7 @@
 		0AFF5C7F215BD08E00B82940 /* AccountPasswordInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C7E215BD08E00B82940 /* AccountPasswordInteractor.swift */; };
 		0AFF5C81215BD09500B82940 /* AccountPasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C80215BD09500B82940 /* AccountPasswordPresenter.swift */; };
 		0AFF5C8D215CE2D000B82940 /* UseTouchIDModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C8C215CE2D000B82940 /* UseTouchIDModuleBuilder.swift */; };
+		320B7D3D23472E23005D3284 /* AccountAttentionModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320B7D3C23472E23005D3284 /* AccountAttentionModuleBuilder.swift */; };
 		3232746A233CCED900674085 /* MultiAccount.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32327469233CCED900674085 /* MultiAccount.storyboard */; };
 		3232746D233CCFE200674085 /* MigrateAccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3232746C233CCFE200674085 /* MigrateAccountsViewController.swift */; };
 		32327470233D646B00674085 /* MigrateAccountsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3232746F233D646B00674085 /* MigrateAccountsHeaderView.swift */; };
@@ -1524,6 +1525,7 @@
 		20FDEB28966B288BFDA86B58 /* Pods-DomainLayerTests.release-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DomainLayerTests.release-prod.xcconfig"; path = "Target Support Files/Pods-DomainLayerTests/Pods-DomainLayerTests.release-prod.xcconfig"; sourceTree = "<group>"; };
 		23552E837A8E7302B6C6E952 /* Pods-DataLayerTests.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataLayerTests.release-dev.xcconfig"; path = "Target Support Files/Pods-DataLayerTests/Pods-DataLayerTests.release-dev.xcconfig"; sourceTree = "<group>"; };
 		3106E0E9E9A234BABB6AE9F7 /* Pods-MonkeyTest.test-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.test-dev.xcconfig"; path = "Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.test-dev.xcconfig"; sourceTree = "<group>"; };
+		320B7D3C23472E23005D3284 /* AccountAttentionModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAttentionModuleBuilder.swift; sourceTree = "<group>"; };
 		32327469233CCED900674085 /* MultiAccount.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MultiAccount.storyboard; sourceTree = "<group>"; };
 		3232746C233CCFE200674085 /* MigrateAccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrateAccountsViewController.swift; sourceTree = "<group>"; };
 		3232746F233D646B00674085 /* MigrateAccountsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrateAccountsHeaderView.swift; sourceTree = "<group>"; };
@@ -3607,6 +3609,7 @@
 			isa = PBXGroup;
 			children = (
 				32DA611F233E0D4C001B905A /* AccountAttentionViewController.swift */,
+				320B7D3C23472E23005D3284 /* AccountAttentionModuleBuilder.swift */,
 			);
 			path = AccountAttention;
 			sourceTree = "<group>";
@@ -7579,6 +7582,7 @@
 				7B49911722F874B0005B7123 /* AssetsSearchViewController.swift in Sources */,
 				E9B086AE2163883000937644 /* AddAddressBookModuleBuilder.swift in Sources */,
 				E9B087DF2163886800937644 /* DexCreateOrderPresenterProtocol.swift in Sources */,
+				320B7D3D23472E23005D3284 /* AccountAttentionModuleBuilder.swift in Sources */,
 				E9C0B49C2176C46E00669D1D /* SendPresenterProtocol.swift in Sources */,
 				0A071E82215DB182007D9750 /* ChooseAccountModuleBuilder.swift in Sources */,
 				E94231F022A40FA80087F82F /* WalletSearchModuleBuilder.swift in Sources */,

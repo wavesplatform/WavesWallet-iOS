@@ -46,9 +46,7 @@ final class MigrateAccountsViewController: UIViewController {
     
     @IBAction private func proceedTapped(_ sender: Any) {
         
-        //TODO: - Logic
-        let vc = StoryboardScene.MultiAccount.accountAttentionViewController.instantiate()
-        navigationController?.pushViewController(vc, animated: true)
+        print("TODO")
     }
 }
 
