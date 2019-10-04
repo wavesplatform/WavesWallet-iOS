@@ -14,7 +14,7 @@ import Extensions
 private struct Constants {
     static let headerViewHeight: CGFloat = 20
     static let iconSize = CGSize(width: 28, height: 28)
-    static let height: CGFloat = 455 + (Platform.isIphoneXSeries ? 70 : 0)
+    static let height: CGFloat = 455 + (Platform.isSupportFaceID ? 70 : 0)
 }
 
 final class NewEditAccountNameViewController: ModalScrollViewController {
