@@ -83,7 +83,7 @@ public struct WalletEnvironment: Decodable {
     
     public static let Testnet: WalletEnvironment = parseJSON(json: Constants.test)!
     public static let Mainnet: WalletEnvironment = parseJSON(json: Constants.main)!
-    public static let Stagenet: WalletEnvironment = parseJSON(json: Constants.main)!
+    public static let Stagenet: WalletEnvironment = parseJSON(json: Constants.stage)!
     
     public init(name: String,
                 servers: Servers,
