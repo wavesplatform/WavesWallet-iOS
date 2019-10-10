@@ -171,7 +171,7 @@ extension AppCoordinator: PresentationCoordinator {
         } else {
             
             mobileKeeperRepository
-                .decodableRequest(link.url, sourceApplication: link.source)
+                .decodableRequest(link.url)
                 .subscribe(onNext: { (request) in
                     guard let request = request else { return }
                     self.showDisplay(.mobileKeeper(request))

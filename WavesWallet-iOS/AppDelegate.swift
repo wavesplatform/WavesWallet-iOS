@@ -61,13 +61,11 @@ enum UITest {
         if let scheme = url?.scheme, DeepLink.scheme != scheme {
             return false
         }
-        
-        let sourceApplication = (launchOptions?[.sourceApplication] as? String) ?? ""
-        
+                
         var deepLink: DeepLink? = nil
         
         if let url = url {
-            deepLink = DeepLink(source: sourceApplication, url: url)
+            deepLink = DeepLink(url: url)
         }
         
         guard setupLayers() else { return false }
@@ -95,14 +93,12 @@ enum UITest {
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        
-        guard let sourceApplication: String = options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String else { return false}
-        
+                
         if DeepLink.scheme != url.scheme {
             return false
         }
         
-        self.appCoordinator.openURL(link: DeepLink(source: sourceApplication, url: url))
+        self.appCoordinator.openURL(link: DeepLink(url: url))
                 
         return true
     }
