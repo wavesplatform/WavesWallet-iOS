@@ -149,6 +149,7 @@ final class DebugWindowRouter: WindowRouter {
         vc.delegate = self
         let nv = CustomNavigationController()
         nv.viewControllers = [vc]
+        nv.modalPresentationStyle = .fullScreen
         debugWindow.rootViewController?.present(nv, animated: true, completion: nil)
     }
 }
