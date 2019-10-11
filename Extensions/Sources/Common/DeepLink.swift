@@ -9,11 +9,9 @@
 import Foundation
 
 public struct DeepLink {
-    public let source: String
     public let url: URL
     
-    public init(source: String, url: URL) {
-        self.source = source
+    public init(url: URL) {
         self.url = url
     }
 }
