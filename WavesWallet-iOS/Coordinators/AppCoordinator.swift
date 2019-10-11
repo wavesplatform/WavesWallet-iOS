@@ -365,6 +365,7 @@ extension AppCoordinator: MenuViewControllerDelegate {
         vc.delegate = self
         let nv = CustomNavigationController()
         nv.viewControllers = [vc]
+        nv.modalPresentationStyle = .fullScreen
         self.windowRouter.window.rootViewController?.present(nv, animated: true, completion: nil)
     }
 }

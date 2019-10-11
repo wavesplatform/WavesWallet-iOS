@@ -21,6 +21,12 @@ protocol Router {
 extension Router {
 
     func present(_ viewController: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
+
+        if #available(iOS 13, *) {
+            if viewController.modalPresentationStyle == .pageSheet && !(viewController is UIAlertController) {
+                viewController.modalPresentationStyle = .fullScreen
+            }
+        }
         self.viewController.present(viewController, animated: animated, completion: nil)
     }
 

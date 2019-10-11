@@ -90,6 +90,12 @@ extension NavigationRouter: Router {
     }
 
     func present(_ viewController: UIViewController, animated: Bool, completion: (() -> Void)?) {
+        
+        if #available(iOS 13, *) {
+            if viewController.modalPresentationStyle == .pageSheet && !(viewController is UIAlertController) {
+                viewController.modalPresentationStyle = .fullScreen
+            }
+        }
         navigationController.topViewController?.present(viewController, animated: animated, completion: completion)
     }
 
