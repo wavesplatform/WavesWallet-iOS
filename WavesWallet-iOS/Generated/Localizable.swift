@@ -593,6 +593,9 @@ internal enum Localizable {
     internal enum Chooseaccount {
 
       internal enum Alert {
+        /// Please select
+        internal static var pleaseSelect: String { return Localizable.tr("Waves", "chooseaccount.alert.pleaseSelect") }
+        internal static var pleaseSelectKey: String { return "chooseaccount.alert.pleaseSelect" }
 
         internal enum Button {
           /// Cancel

@@ -58,11 +58,11 @@ final class ChooseAccountCoordinator: Coordinator {
     
     private func addOrImportAccountShow() {
         
-        //TODO: Localization
-        let elements: [ActionSheet.DTO.Element] =  [.init(title: "Add"),
-                                                    .init(title: "Import")]
+        //TODO: add Localization Localizable.Waves.Chooseaccount.Alert.pleaseSelect
+        let elements: [ActionSheet.DTO.Element] =  [.init(title: Localizable.Waves.Enter.Button.Createnewaccount.title),
+                                                    .init(title: Localizable.Waves.Enter.Button.Importaccount.title)]
         
-        let data = ActionSheet.DTO.Data.init(title: Localizable.Waves.Widgetsettings.Actionsheet.Changestyle.title,
+        let data = ActionSheet.DTO.Data.init(title: Localizable.Waves.Chooseaccount.Alert.pleaseSelect,
                                              elements: elements,
                                              selectedElement: nil)
         
@@ -73,7 +73,7 @@ final class ChooseAccountCoordinator: Coordinator {
             self.navigationRouter.dismiss(animated: true, completion: { [weak self] in
                 guard let self = self else { return }
                 
-                if element.title == "Add" {
+                if element.title == Localizable.Waves.Enter.Button.Createnewaccount.title {
                     self.showDisplay(.newAccount)
                 } else {
                     self.showDisplay(.importAccount)
