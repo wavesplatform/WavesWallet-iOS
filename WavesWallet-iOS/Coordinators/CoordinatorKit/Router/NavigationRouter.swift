@@ -18,7 +18,7 @@ final class NavigationRouter: NSObject {
     public init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         super.init()
-        self.navigationController.delegate = self
+//        self.navigationController.delegate = self
     }
 
     func pushViewController(_ viewController: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
