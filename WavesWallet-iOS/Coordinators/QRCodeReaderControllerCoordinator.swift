@@ -40,7 +40,6 @@ final class QRCodeReaderControllerCoordinator: Coordinator {
 
         CameraAccess.requestAccess(success: { [weak self] in
             guard let self = self else { return }
-            self.readerVC.modalPresentationStyle = .formSheet
             self.navigationRouter.present(self.readerVC)
         }, failure: { [weak self] in
             guard let self = self else { return }
