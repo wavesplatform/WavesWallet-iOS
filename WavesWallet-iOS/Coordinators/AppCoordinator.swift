@@ -90,8 +90,6 @@ final class AppCoordinator: Coordinator {
         if let deepLink = deepLink {
             openURL(link: deepLink)
         }
-//        showDisplay(.hello)
-//        logInApplication()
     }
 
     private var isMainTabDisplayed: Bool {
@@ -301,8 +299,8 @@ extension AppCoordinator: HelloCoordinatorDelegate  {
 
     func userFinishedGreet() {
         var settings = Application.get()
-//        settings.isAlreadyShowHelloDisplay = true
-//        Application.set(settings)
+        settings.isAlreadyShowHelloDisplay = true
+        Application.set(settings)
         showDisplay(.enter)
     }
 
