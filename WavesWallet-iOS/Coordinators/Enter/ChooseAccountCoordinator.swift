@@ -58,7 +58,6 @@ final class ChooseAccountCoordinator: Coordinator {
     
     private func addOrImportAccountShow() {
         
-        //TODO: add Localization Localizable.Waves.Chooseaccount.Alert.pleaseSelect
         let elements: [ActionSheet.DTO.Element] =  [.init(title: Localizable.Waves.Enter.Button.Createnewaccount.title),
                                                     .init(title: Localizable.Waves.Enter.Button.Importaccount.title)]
         
