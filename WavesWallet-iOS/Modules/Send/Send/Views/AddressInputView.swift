@@ -371,8 +371,6 @@ private extension AddressInputView {
             self.firstAvailableViewController().dismiss(animated: true, completion: nil)
         }
         
-        readerVC.modalPresentationStyle = .formSheet
-        
         firstAvailableViewController().present(readerVC, animated: true)
     }
     
