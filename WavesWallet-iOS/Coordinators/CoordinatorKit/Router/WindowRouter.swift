@@ -52,15 +52,9 @@ class WindowRouter: NSObject {
         
 	}
     
-    private func windowAddRootVC(_ rootViewController: UIViewController) {
-        
-        
-    }
-    
-
     public func dissmissWindow(animated: AnimateKind? = nil, completed: (() -> Void)? = nil) {
 
-        UIView.animate(withDuration: 0.24, delay: 0, options: [.curveEaseInOut], animations: {
+        UIView.animate(withDuration: Constants.animationDuration, delay: 0, options: [.curveEaseInOut], animations: {
             var newFrame = self.window.frame
             newFrame.origin.y = newFrame.height
             self.window.frame = newFrame

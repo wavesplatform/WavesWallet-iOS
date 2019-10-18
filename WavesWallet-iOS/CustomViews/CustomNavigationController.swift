@@ -201,34 +201,23 @@ final class CustomNavigationController: UINavigationController {
     private let proxyDelegate: ProxyNavigationControllerDelegate = ProxyNavigationControllerDelegate()
 
     private weak var prevViewContoller: UIViewController?
-
+  
     override var delegate: UINavigationControllerDelegate? {
-        didSet {
-            print(delegate)
+        get {
+            return super.delegate
+        }
+        set {
+            super.delegate = proxyDelegate
+            if let newValue = newValue {
+                proxyDelegate.delegates.append(Weak(value: newValue))
+            }
         }
     }
-//
-//        get {
-//            return super.delegate
-//        }
-//
-//        set {
-//            super.delegate = proxyDelegate
-//            if let newValue = newValue {
-//                proxyDelegate.delegates.append(Weak(value: newValue))
-//            }
-//        }
-//    }
-//
+
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
         interactivePopGestureRecognizer?.delegate = self
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-//        delegate = self
     }
 
     override func observeValue(forKeyPath keyPath: String?,
@@ -286,13 +275,13 @@ final class CustomNavigationController: UINavigationController {
         
         if #available(iOS 13.0, *) {
             let appearance = UINavigationBarAppearance()
-            
             appearance.largeTitleTextAttributes = viewController.navigationItem.largeTitleTextAttributes ?? .init()
             appearance.titleTextAttributes = viewController.navigationItem.titleTextAttributes ?? .init()
+            
             appearance.configureWithTransparentBackground()
-            self.navigationBar.standardAppearance = appearance
-            self.navigationBar.scrollEdgeAppearance = appearance
-            self.navigationBar.compactAppearance = appearance
+            navigationBar.standardAppearance = appearance
+            navigationBar.scrollEdgeAppearance = appearance
+            navigationBar.compactAppearance = appearance
         }
 
         setNavigationBarHidden(viewController.navigationItem.isNavigationBarHidden, animated: animated)
@@ -352,19 +341,8 @@ extension CustomNavigationController: UIGestureRecognizerDelegate {
 
 extension CustomNavigationController: UINavigationControllerDelegate {
 
-        
-        
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
             
-     
-            self.navigationControllerAAA(navigationController, willShow: viewController, animated: animated)
-     
-    }
-    
-    func navigationControllerAAA(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        
-//        print("willShow \(viewController) \(Thread.isMainThread)")
-                
         if let prevViewContoller = prevViewContoller {
             prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.shadowImage)
             prevViewContoller.navigationItem.removeObserver(self, forKeyPath: Constants.backgroundImage)
