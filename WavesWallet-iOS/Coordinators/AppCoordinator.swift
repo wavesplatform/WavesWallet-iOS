@@ -77,7 +77,7 @@ final class AppCoordinator: Coordinator {
     func start() {
         self.isActiveApp = true
         
-        #if DEBUG || TEST      
+        #if DEBUG || TEST
             if CommandLine.arguments.contains("UI-Develop") {
                 addChildCoordinatorAndStart(childCoordinator: UIDeveloperCoordinator(windowRouter: windowRouter))
             } else {
@@ -86,10 +86,10 @@ final class AppCoordinator: Coordinator {
         #else
             logInApplication()
         #endif
-        
+
         if let deepLink = deepLink {
             openURL(link: deepLink)
-        }        
+        }
     }
 
     private var isMainTabDisplayed: Bool {
@@ -172,6 +172,7 @@ extension AppCoordinator: PresentationCoordinator {
             
             mobileKeeperRepository
                 .decodableRequest(link.url)
+                .observeOn(MainScheduler.asyncInstance)
                 .subscribe(onNext: { (request) in
                     guard let request = request else { return }
                     self.showDisplay(.mobileKeeper(request))
@@ -247,9 +248,9 @@ extension AppCoordinator  {
             .catchError { _ -> Observable<DomainLayer.DTO.Wallet?> in
                 return Observable.just(nil)
             }
-            .flatMap(weak: self, selector: { $0.display })
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
             .observeOn(MainScheduler.asyncInstance)
+            .flatMap(weak: self, selector: { $0.display })
             .subscribe(weak: self, onNext: { $0.showDisplay })
             .disposed(by: disposeBag)
     }
