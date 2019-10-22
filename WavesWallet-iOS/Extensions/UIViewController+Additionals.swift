@@ -83,14 +83,14 @@ extension UIViewController {
     
     func setupSmallNavigationBar() {
         if #available(iOS 11.0, *) {
-            navigationItem.prefersLargeTitles = false
+            navigationItem.largeTitleDisplayMode = .never
         }
     }
     
     func setupBigNavigationBar() {
         if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .always
             navigationItem.prefersLargeTitles = true
-            navigationItem.largeTitleDisplayMode = .automatic
         }
     }
 
