@@ -50,7 +50,7 @@ public class SentryManager {
     
     static var currentUser: Sentry.User {
         
-        let user = Sentry.User()
+        let user = Sentry.User.init(userId: UIDevice.uuid)
         user.userId = UIDevice.uuid
         return user
     }
@@ -60,12 +60,18 @@ public class SentryManager {
         event.timestamp = Date()
         event.user = currentUser
         
-            SentryManager.shared.client?.send(event: event, completion: { error in
+        if let client = SentryManager.shared.client {
+            client.send(event: event, completion: { error in
             
-            if let error = error {
-                print("SweetLogger :( \(String(describing: error))")
-            }
-        })
+                if let error = error {
+                    print("SweetLogger :( \(String(describing: error))")
+                } else {
+                    print("SweetLogger :) event")
+                }
+            })
+        } else {
+            print("SentryManager Not Loading")
+        }
     }
 }
 
