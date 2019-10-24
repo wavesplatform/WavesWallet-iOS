@@ -29,6 +29,7 @@ final class MailComposeCoordinator: NSObject, Coordinator, MFMailComposeViewCont
             vc.setMessageBody(UIDevice.current.deviceDescription(), isHTML: false)
             vc.setToRecipients([email])
             vc.mailComposeDelegate = self
+            vc.modalPresentationStyle = .fullScreen
             viewController.present(vc, animated: true, completion: nil)
         } else {
             let body = UIDevice.current.deviceDescription()
