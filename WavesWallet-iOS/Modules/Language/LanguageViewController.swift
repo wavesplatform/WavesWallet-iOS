@@ -15,10 +15,9 @@ protocol LanguageViewControllerDelegate: AnyObject {
 
 final class LanguageViewController: UIViewController {
     
-    @IBOutlet private weak var gradientView: CustomGradientView!
+    @IBOutlet private weak var gradientView: GradientView!
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var buttonConfirm: UIButton!
-    private var gradientLayer: CAGradientLayer!
     
     @IBOutlet weak var buttonConfirmLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var buttonConfirmTrailingConstraint: NSLayoutConstraint!
@@ -45,6 +44,10 @@ final class LanguageViewController: UIViewController {
         setupBigNavigationBar()
         setupLanguage()
         setupConstraints()
+        
+        gradientView.startColor = UIColor.white.withAlphaComponent(0.0)
+        gradientView.endColor = UIColor.white
+        gradientView.direction = .vertical
     }
     
     // MARK: - Setups
