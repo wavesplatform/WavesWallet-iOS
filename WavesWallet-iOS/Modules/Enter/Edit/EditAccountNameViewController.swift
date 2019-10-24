@@ -67,7 +67,7 @@ final class EditAccountNameViewController: UIViewController {
         navigationItem.title = Localizable.Waves.Editaccountname.Navigation.title
         setupBigNavigationBar()
         createBackButton()
-        hideTopBarLine()
+        hideTopBarLineForIOS12()
     }
     
     private func setupSaveButton() {
@@ -152,7 +152,7 @@ final class EditAccountNameViewController: UIViewController {
 extension EditAccountNameViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLine()
+        setupTopBarLineForIOS12()
     }
     
 }

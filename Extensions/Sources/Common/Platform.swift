@@ -67,4 +67,13 @@ public struct Platform {
 
         return device.isOneOf(realDevices + simulators)
     }()
+    
+    
+    public static var isIOS13orGreater: Bool {
+        if #available(iOS 13, *) {
+            return true
+        } else {
+            return false
+        }
+    }
 }

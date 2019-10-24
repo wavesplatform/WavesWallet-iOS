@@ -121,7 +121,7 @@ extension LanguageViewController: UITableViewDelegate {
     
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLine()
+        setupTopBarLineForIOS12()
     }
     
 }

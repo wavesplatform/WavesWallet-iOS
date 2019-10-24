@@ -58,7 +58,7 @@ final class TokenBurnViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupBigNavigationBar()
-        hideTopBarLine()
+        hideTopBarLineForIOS12()
     }
    
     @IBAction private func continueTapped(_ sender: Any) {
@@ -154,7 +154,7 @@ extension TokenBurnViewController: AmountInputViewDelegate {
 //MARK: - UIScrollViewDelegate
 extension TokenBurnViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLine()
+        setupTopBarLineForIOS12()
     }
 }
 

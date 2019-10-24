@@ -41,7 +41,7 @@ class ImportAccountViewController: UIViewController {
         
         setupBigNavigationBar()
         createBackButton()
-        hideTopBarLine()
+        hideTopBarLineForIOS12()
 
         setupViewControllers()
         setupSegmentedControl()
@@ -127,7 +127,7 @@ class ImportAccountViewController: UIViewController {
 extension ImportAccountViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLine()
+        setupTopBarLineForIOS12()
     }
     
 }

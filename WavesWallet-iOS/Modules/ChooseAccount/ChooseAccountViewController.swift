@@ -52,7 +52,7 @@ final class ChooseAccountViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.btnBack.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(backTapped))
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.topbarAdd.image.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(tapAddAccount))
-        hideTopBarLine()
+        removeTopBarLine()
     }
     
     @objc override func backTapped() {

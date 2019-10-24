@@ -175,6 +175,6 @@ private extension ChangePasswordViewController {
 // MARK: UIScrollViewDelegate
 extension ChangePasswordViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLine()
+        setupTopBarLineForIOS12()
     }
 }

@@ -96,7 +96,7 @@ private extension DexSortViewController {
 extension DexSortViewController: UITableViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLine()
+        setupTopBarLineForIOS12()
     }
     
     // MARK: Draging cells

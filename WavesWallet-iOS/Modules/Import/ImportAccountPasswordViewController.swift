@@ -39,7 +39,7 @@ final class ImportAccountPasswordViewController: UIViewController {
 
         createBackButton()
         setupBigNavigationBar()
-        hideTopBarLine()
+        hideTopBarLineForIOS12()
 
         setupTextField()
         setupButtonContinue()
@@ -182,6 +182,6 @@ extension ImportAccountPasswordViewController {
 extension ImportAccountPasswordViewController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLine()
+        setupTopBarLineForIOS12()
     }
 }

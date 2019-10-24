@@ -39,7 +39,7 @@ final class NetworkSettingsViewController: UIViewController {
         saveButton.setBackgroundImage(UIColor.submit200.image, for: .disabled)
         saveButton.setBackgroundImage(UIColor.submit400.image, for: .normal)
 
-        hideTopBarLine()
+        hideTopBarLineForIOS12()
         setupBigNavigationBar()
         createBackButton()
         setupTextField()
@@ -60,7 +60,7 @@ final class NetworkSettingsViewController: UIViewController {
 // MARK: UIScrollViewDelegate
 extension NetworkSettingsViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLine()
+        setupTopBarLineForIOS12()
     }
 }
 
