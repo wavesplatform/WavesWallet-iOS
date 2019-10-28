@@ -452,6 +452,7 @@
 "sendconfirmation.label.fee" = "Fee";
 "sendconfirmation.label.optionalMessage" = "Write an optional message";
 "sendconfirmation.label.sentTo" = "Sent to";
+"sendconfirmation.label.gatewayFee" = "Gateway Fee";
 "sendfee.label.notAvailable" = "Not available";
 "sendfee.label.transactionFee" = "Transaction Fee";
 "sendloading.label.sending" = "Sending…";

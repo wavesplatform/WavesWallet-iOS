@@ -219,7 +219,9 @@ final class SendViewController: UIViewController {
                          amount: amount,
                          amountWithoutFee: amountWithoutFee,
                          attachment: attachment,
-                         isGateway: isGateway)
+                         isGateway: isGateway,
+                         gateWayFeeAmount: gateWayInfo?.fee,
+                         gateWayFeeName: gateWayInfo?.assetName)
         
         navigationController?.pushViewController(vc, animated: true)
         
