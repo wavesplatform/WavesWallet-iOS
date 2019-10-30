@@ -122,17 +122,34 @@
             argument = "UI-Develop"
             isEnabled = "NO">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-FIRAnalyticsDebugEnabled"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-FIRDebugEnabled"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "FIRDebugEnabled"
+            isEnabled = "YES">
+         </CommandLineArgument>
       </CommandLineArguments>
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "OS_ACTIVITY_MODE"
             value = "disable"
+            isEnabled = "NO">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "-FIRDebugEnabled"
+            value = ""
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "NSZombieEnabled"
             value = "YES"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </EnvironmentVariable>
       </EnvironmentVariables>
    </LaunchAction>

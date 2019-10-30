@@ -12,6 +12,10 @@ PODS:
   - CSV.swift (2.4.2)
   - DeviceKit (2.3.0)
   - Fabric (1.10.2)
+  - Firebase (6.6.0):
+    - Firebase/Core (= 6.6.0)
+  - Firebase/Analytics (6.6.0):
+    - Firebase/Core
   - Firebase/Auth (6.6.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.2.2)
@@ -23,6 +27,9 @@ PODS:
   - Firebase/Database (6.6.0):
     - Firebase/CoreOnly
     - FirebaseDatabase (~> 6.0.0)
+  - Firebase/InAppMessagingDisplay (6.6.0):
+    - Firebase/CoreOnly
+    - FirebaseInAppMessagingDisplay (~> 0.15.3)
   - FirebaseAnalytics (6.1.0):
     - FirebaseCore (~> 6.2)
     - FirebaseInstanceID (~> 4.2)
@@ -32,6 +39,7 @@ PODS:
     - GoogleUtilities/Network (~> 6.0)
     - "GoogleUtilities/NSData+zlib (~> 6.0)"
     - nanopb (~> 0.3)
+  - FirebaseAnalyticsInterop (1.4.0)
   - FirebaseAuth (6.2.2):
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 6.2)
@@ -54,6 +62,14 @@ PODS:
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 6.0)
     - leveldb-library (~> 1.18)
+  - FirebaseInAppMessaging (0.15.5):
+    - FirebaseAnalyticsInterop (~> 1.3)
+    - FirebaseCore (~> 6.2)
+    - FirebaseInstanceID (~> 4.0)
+    - GoogleDataTransportCCTSupport (~> 1.0)
+  - FirebaseInAppMessagingDisplay (0.15.5):
+    - FirebaseCore (~> 6.2)
+    - FirebaseInAppMessaging (>= 0.15.0)
   - FirebaseInstanceID (4.2.3):
     - FirebaseCore (~> 6.0)
     - GoogleUtilities/Environment (~> 6.0)
@@ -171,9 +187,12 @@ DEPENDENCIES:
   - CSV.swift
   - DeviceKit
   - Fabric
+  - Firebase
+  - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
+  - Firebase/InAppMessagingDisplay
   - IdentityImg (from `https://github.com/wavesplatform/identity-img-swift.git`)
   - InfiniteCollectionView (from `https://github.com/wavesplatform/InfiniteCollectionView.git`, branch `swift5`)
   - IQKeyboardManagerSwift
@@ -268,6 +287,9 @@ SPEC REPOS:
     - UPCarouselFlowLayout
   trunk:
     - DeviceKit
+    - FirebaseAnalyticsInterop
+    - FirebaseInAppMessaging
+    - FirebaseInAppMessagingDisplay
 
 EXTERNAL SOURCES:
   IdentityImg:
@@ -302,12 +324,15 @@ SPEC CHECKSUMS:
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   Firebase: a2b5951f30ff38fd3b3bdae9c7d340f940fd3c51
   FirebaseAnalytics: 48414ae5cbf6976d8a2f7177e0466540e5ab33ce
+  FirebaseAnalyticsInterop: d48b6ab67bcf016a05e55b71fc39c61c0cb6b7f3
   FirebaseAuth: 2be1924ddbc741fe2a02cb6963ca747e09a2e05c
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
   FirebaseCore: 8c9e08bce0c72a3affd83927d8184cf244918bc8
   FirebaseCoreDiagnostics: 4c04ae09d0ab027c30179828c6bb47764df1bd13
   FirebaseCoreDiagnosticsInterop: 6829da2b8d1fc795ff1bd99df751d3788035d2cb
   FirebaseDatabase: f48e067716864be2b855cf716b927ef375d6cfa0
+  FirebaseInAppMessaging: acbfa8c5582b11ccc0366511d29ef1d288f302fc
+  FirebaseInAppMessagingDisplay: 60a65c8277f17675a8a5b92e9a97cd914b45d4ff
   FirebaseInstanceID: 8b42755db950682e7de0d167bc6fb26a57b244af
   GoogleAppMeasurement: 47285fa897e5a125df56b9ef8750a1d81e4598a8
   GoogleDataTransport: ffbadce4ab93c88fb9dd8e6366c47bfcb4a32193
@@ -352,6 +377,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: d6680b3faf431f7b7618e541eb6833f87904ba45
+PODFILE CHECKSUM: 8207f232dfa15f1452bf9d5c1dae97fac74c4e24
 
 COCOAPODS: 1.8.1
