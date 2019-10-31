@@ -12,6 +12,7 @@ import WavesSDKExtensions
 
 import FirebaseCore
 import FirebaseDatabase
+import FirebaseInAppMessaging
 
 import Fabric
 import Crashlytics
@@ -120,6 +121,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
         if let options = FirebaseOptions(contentsOfFile: resources.googleServiceInfo) {                        
 
             FirebaseApp.configure(options: options)
+            
             Database.database().isPersistenceEnabled = false
             Fabric.with([Crashlytics.self])
         }

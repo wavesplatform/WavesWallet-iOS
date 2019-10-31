@@ -88,9 +88,6 @@ target 'MarketPulseWidget' do
   
   pod 'Amplitude-iOS'
   pod 'AppsFlyerFramework'
-  #    pod 'Firebase/Core'
-  #    pod 'Firebase/Database'
-  #    pod 'Firebase/Auth'
   
 end
 
@@ -102,7 +99,9 @@ target 'DataLayer' do
     pod 'Firebase/Core'
     pod 'Firebase/Database'
     pod 'Firebase/Auth'
-    # pod 'Firebase/InAsppMessagingDisplay'
+    pod 'Firebase'
+    pod 'Firebase/InAppMessagingDisplay'
+    pod 'Firebase/Analytics'
 
     pod 'AppsFlyerFramework'
     pod 'Fabric'
