@@ -152,7 +152,7 @@ final class EditAccountNameViewController: UIViewController {
 extension EditAccountNameViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLineForIOS12()
+        setupTopBarLine()
     }
     
 }

@@ -92,7 +92,7 @@ final class DexListViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        setupTopBarLineForIOS12()
+        setupTopBarLine()
     }
 
     @objc func changedLanguage() {
@@ -274,7 +274,7 @@ private extension DexListViewController {
 extension DexListViewController: UITableViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLineForIOS12()
+        setupTopBarLine()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

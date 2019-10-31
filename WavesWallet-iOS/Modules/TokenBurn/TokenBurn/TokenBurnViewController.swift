@@ -154,7 +154,7 @@ extension TokenBurnViewController: AmountInputViewDelegate {
 //MARK: - UIScrollViewDelegate
 extension TokenBurnViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLineForIOS12()
+        setupTopBarLine()
     }
 }
 

@@ -60,7 +60,7 @@ final class NetworkSettingsViewController: UIViewController {
 // MARK: UIScrollViewDelegate
 extension NetworkSettingsViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLineForIOS12()
+        setupTopBarLine()
     }
 }
 

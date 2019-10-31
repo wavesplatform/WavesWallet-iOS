@@ -182,6 +182,6 @@ extension ImportAccountPasswordViewController {
 extension ImportAccountPasswordViewController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLineForIOS12()
+        setupTopBarLine()
     }
 }

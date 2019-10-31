@@ -261,7 +261,7 @@ extension CreateAliasViewController: UITableViewDelegate {
 extension CreateAliasViewController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLineForIOS12()
+        setupTopBarLine()
         layoutFooterView()
     }
 }

@@ -159,7 +159,7 @@ private extension ReceiveContainerViewController {
 extension ReceiveContainerViewController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLineForIOS12()
+        setupTopBarLine()
     }
 }
 

@@ -53,7 +53,7 @@ final class NewAccountViewController: UIViewController {
 
         setupTextField()
         setupBigNavigationBar()
-        setupTopBarLineForIOS12()
+        setupTopBarLine()
         setupAvatarsView()
         createBackButton()
 
@@ -228,6 +228,6 @@ final class NewAccountViewController: UIViewController {
 
 extension NewAccountViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLineForIOS12()
+        setupTopBarLine()
     }
 }

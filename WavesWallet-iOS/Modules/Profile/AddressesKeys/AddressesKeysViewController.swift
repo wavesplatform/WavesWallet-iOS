@@ -210,6 +210,6 @@ extension AddressesKeysViewController: UITableViewDelegate {
 extension AddressesKeysViewController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLineForIOS12()
+        setupTopBarLine()
     }
 }

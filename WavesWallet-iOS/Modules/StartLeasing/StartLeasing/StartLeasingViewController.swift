@@ -329,6 +329,6 @@ extension StartLeasingViewController: AddressBookModuleOutput {
 //MARK: - UIScrollViewDelegate
 extension StartLeasingViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLineForIOS12()
+        setupTopBarLine()
     }
 }

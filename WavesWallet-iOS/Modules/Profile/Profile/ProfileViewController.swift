@@ -326,7 +326,7 @@ extension ProfileViewController: UITableViewDelegate {
 extension ProfileViewController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLineForIOS12()
+        setupTopBarLine()
     }
 }
 

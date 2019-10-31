@@ -76,14 +76,14 @@ final class HistoryViewController: UIViewController {
         
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.barTintColor = UIColor.basic50
-        setupTopBarLineForIOS12()
+        setupTopBarLine()
         setupBigNavigationBar()
         tableView.startSkeletonCells()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        setupTopBarLineForIOS12()
+        setupTopBarLine()
     }
 
     @objc func changedLanguage() {
@@ -485,7 +485,7 @@ extension HistoryViewController: UITableViewDataSource {
 extension HistoryViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLineForIOS12()
+        setupTopBarLine()
     }
     
 }

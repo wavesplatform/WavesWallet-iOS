@@ -127,7 +127,7 @@ class ImportAccountViewController: UIViewController {
 extension ImportAccountViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setupTopBarLineForIOS12()
+        setupTopBarLine()
     }
     
 }

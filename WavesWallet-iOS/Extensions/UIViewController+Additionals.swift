@@ -78,7 +78,7 @@ extension UIViewController {
         return false
     }
 
-    func setupTopBarLineForIOS12() {
+    func setupTopBarLine() {
         
         if !Platform.isIOS13orGreater {
             if isSmallNavigationBar {
