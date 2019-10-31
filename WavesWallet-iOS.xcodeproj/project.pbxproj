@@ -1011,6 +1011,7 @@
 		E9B190A922E7CD99008220B7 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B190A822E7CD99008220B7 /* NotificationCenter.framework */; };
 		E9B190AC22E7CD99008220B7 /* MarketPulseWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B190AB22E7CD99008220B7 /* MarketPulseWidgetViewController.swift */; };
 		E9B190AF22E7CD99008220B7 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9B190AD22E7CD99008220B7 /* MainInterface.storyboard */; };
+		E9B387CF23690DCD001FCA60 /* SendCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B387CE23690DCD001FCA60 /* SendCoordinator.swift */; };
 		E9BB2D852260DEB000366278 /* TransactionCardInvokeScriptCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB2D842260DEB000366278 /* TransactionCardInvokeScriptCell.swift */; };
 		E9C0B49C2176C46E00669D1D /* SendPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B49B2176C46E00669D1D /* SendPresenterProtocol.swift */; };
 		E9C0B49E2176C48300669D1D /* SendPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B49D2176C48300669D1D /* SendPresenter.swift */; };
@@ -2315,6 +2316,7 @@
 		E9B190AB22E7CD99008220B7 /* MarketPulseWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPulseWidgetViewController.swift; sourceTree = "<group>"; };
 		E9B190AE22E7CD99008220B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		E9B190B022E7CD99008220B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E9B387CE23690DCD001FCA60 /* SendCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCoordinator.swift; sourceTree = "<group>"; };
 		E9BB2D842260DEB000366278 /* TransactionCardInvokeScriptCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardInvokeScriptCell.swift; sourceTree = "<group>"; };
 		E9C0B49B2176C46E00669D1D /* SendPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPresenterProtocol.swift; sourceTree = "<group>"; };
 		E9C0B49D2176C48300669D1D /* SendPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPresenter.swift; sourceTree = "<group>"; };
@@ -3051,6 +3053,7 @@
 		0ADD7FF721F22FFA0075FC59 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				E9B387CE23690DCD001FCA60 /* SendCoordinator.swift */,
 				7BE09AB12313E31300A038AD /* MobileKeeperCoordinator.swift */,
 				0ADD800321F22FFA0075FC59 /* AppCoordinator.swift */,
 				0A751D37221715F80024D523 /* AppNewsCoordinator.swift */,
@@ -7155,6 +7158,7 @@
 				0ADD802721F22FFA0075FC59 /* WalletCoordinator.swift in Sources */,
 				0ADD802021F22FFA0075FC59 /* Coordinator.swift in Sources */,
 				04831F7421691659006D1ED6 /* HistoryTransactionView.swift in Sources */,
+				E9B387CF23690DCD001FCA60 /* SendCoordinator.swift in Sources */,
 				E9C0B4A42176C4BE00669D1D /* SendTypes.swift in Sources */,
 				0ADD803A21F22FFB0075FC59 /* MainTabBarCoordinator.swift in Sources */,
 				0ADD802421F22FFA0075FC59 /* TabBarRouter.swift in Sources */,

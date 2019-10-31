@@ -40,6 +40,7 @@ final class SendLoadingViewController: UIViewController {
     
     private func showComplete() {
         let vc = StoryboardScene.Send.sendCompleteViewController.instantiate()
+        vc.delegate = delegate
         vc.input = .init(assetName: input.asset.displayName,
                          amount: input.amount,
                          address: input.displayAddress,

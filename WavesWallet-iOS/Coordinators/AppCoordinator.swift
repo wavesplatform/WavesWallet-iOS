@@ -107,6 +107,8 @@ extension AppCoordinator: PresentationCoordinator {
         case passcode(DomainLayer.DTO.Wallet)
         case widgetSettings
         case mobileKeeper(DomainLayer.DTO.MobileKeeper.Request)
+        case send(DeepLink)
+        case dex(DeepLink)
     }
 
     func showDisplay(_ display: AppCoordinator.Display) {
@@ -129,12 +131,16 @@ extension AppCoordinator: PresentationCoordinator {
 
         case .slide(let wallet):
             
-            guard isHasCoordinator(type: SlideCoordinator.self) != true else { return }
+            guard isHasCoordinator(type: SlideCoordinator.self) != true else {
+                showSendVcIfNeed()
+                return
+            }
 
             let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: wallet)
             slideCoordinator.menuViewControllerDelegate = self
             addChildCoordinatorAndStart(childCoordinator: slideCoordinator)            
-
+            showSendVcIfNeed()
+            
         case .enter:
 
             let prevSlideCoordinator = self.childCoordinators.first { (coordinator) -> Bool in
@@ -161,14 +167,25 @@ extension AppCoordinator: PresentationCoordinator {
             let coordinator = MobileKeeperCoordinator(windowRouter: windowRouter, request: request)
             addChildCoordinatorAndStart(childCoordinator: coordinator)
  
+        case .send(let link):
+            deepLink = link
+            
+        case.dex(let link):
+            deepLink = link
         }
     }
     
     func openURL(link: DeepLink) {
-        
         if link.url.absoluteString == DeepLink.widgetSettings {
             self.showDisplay(.widgetSettings)
-        } else {
+        }
+        else if link.isClientSendLink {
+            self.showDisplay(.send(link))
+        }
+        else if link.isClientDexLink {
+            self.showDisplay(.dex(link))
+        }
+        else if link.url.absoluteString == DeepLink.widgetSettings {
             
             mobileKeeperRepository
                 .decodableRequest(link.url)
@@ -214,6 +231,17 @@ extension AppCoordinator: PresentationCoordinator {
 // MARK: Main Logic
 extension AppCoordinator  {
 
+    private func showSendVcIfNeed() {
+        if let link = deepLink, link.isClientSendLink {
+           
+            guard isHasCoordinator(type: SendCoordinator.self) != true else {
+                return
+            }
+            let coordinator = SendCoordinator(windowRouter: windowRouter, deepLink: link)
+            addChildCoordinatorAndStart(childCoordinator: coordinator)
+        }
+    }
+    
     private func display(by wallet: DomainLayer.DTO.Wallet?) -> Observable<Display> {
 
         if let wallet = wallet {
@@ -317,6 +345,7 @@ extension AppCoordinator: PasscodeLogInCoordinatorDelegate {
 
     func passcodeCoordinatorWalletLogouted() {
         showDisplay(.enter)
+        deepLink = nil
     }
 }
 
@@ -325,8 +354,8 @@ extension AppCoordinator: PasscodeLogInCoordinatorDelegate {
 extension AppCoordinator {
 
     func applicationDidEnterBackground() {
-        self.isActiveApp = false
-
+        isActiveApp = false
+        deepLink = nil
         revokeAuthAndOpenPasscode()
     }
 

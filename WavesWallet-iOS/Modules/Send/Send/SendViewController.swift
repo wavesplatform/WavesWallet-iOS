@@ -17,6 +17,7 @@ import DomainLayer
 
 protocol SendResultDelegate: AnyObject {
     func sendResultDidFail(_ error: NetworkError)
+    func sendResultDidTapFinish()
 }
 
 private enum Constants {
@@ -69,6 +70,8 @@ final class SendViewController: UIViewController {
     private var isLoadingAssetBalanceAfterScan = false
     private var errorSnackKey: String?
    
+    var backTappedAction:(() -> Void)?
+    
     var availableBalance: Money {
         
         guard let asset = selectedAsset else { return Money(0, 0)}
@@ -151,11 +154,41 @@ final class SendViewController: UIViewController {
         case .empty:
             viewFee.isHidden = true
             updateAmountData()
+            
+        case .deepLink(let link):
+            //TODO: need refactor code to correct initial state
+
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                
+                let address = link.recipient
+                self.recipientAddressView.setupText(address, animation: false)
+                self.acceptAddress(address)
+                if !self.isValidAddress(address) {
+                    self.validateAddress()
+                }
+                
+                if let assetId = link.assetId, link.amount > 0 {
+                    self.showLoadingAssetState(isLoadingAmount: true)
+                    self.sendEvent.accept(.getDecimalsForDeepLinkAsset(assetId))
+                }
+                else {
+                    self.addressInputViewDidScanAddress(address, amount: nil, assetID: link.assetId)
+                }
+            }
         }
         
         setupButtonState()
     }
 
+    override func backTapped() {
+        if let dismiss = backTappedAction {
+            dismiss()
+        }
+        else {
+            navigationController?.popViewController(animated: true)
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupBigNavigationBar()
@@ -273,6 +306,12 @@ extension SendViewController: SendFeeModuleOutput {
 
 //MARK: - SendResultDelegate
 extension SendViewController: SendResultDelegate {
+    func sendResultDidTapFinish() {
+        if let action = backTappedAction {
+            action()
+        }
+    }
+    
     func sendResultDidFail(_ error: NetworkError) {
         
         navigationController?.popToViewController(self, animated: true)
@@ -342,6 +381,7 @@ private extension SendViewController {
                             self.validateAddress()
                         }
                     }
+                    
                     self.updateAmountData()
 
                     
@@ -384,6 +424,12 @@ private extension SendViewController {
                     self.setupButtonState()
                     self.showConfirmScreen()
                     
+                case .didGetDeepLinkAssetDecimals(let decimals):
+                    
+                    if case .deepLink(let link) = self.inputModel {
+                        let amount = Money(value: Decimal(link.amount), decimals)
+                        self.addressInputViewDidScanAddress(link.recipient, amount: amount, assetID: link.assetId)
+                    }
                 default:
                     break
                 }
@@ -466,6 +512,7 @@ private extension SendViewController {
 //MARK: - UI
 private extension SendViewController {
 
+    
     func showFeeError(_ error: DisplayError) {
         
         switch error {
@@ -1088,3 +1135,16 @@ private extension SendViewController {
     }
 }
 
+private extension DeepLink {
+    
+    var assetId: String? {
+        return QRCodeParser.parseAssetID(url.absoluteString)
+    }
+    
+    var amount: Double {
+        return QRCodeParser.parseAmount(url.absoluteString)
+    }
+    var recipient: String {
+        return QRCodeParser.parseAddress(url.absoluteString)
+    }
+}

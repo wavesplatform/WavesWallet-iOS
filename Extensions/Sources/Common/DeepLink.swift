@@ -28,4 +28,17 @@ public extension DeepLink {
     
     static let widgetSettings: String = "\(DeepLink.scheme)://widgetsettings"
     static let mobileKeeper: String = "\(DeepLink.scheme)://keeper"
+
+}
+
+public extension DeepLink {
+    
+    var isClientSendLink: Bool {
+        return url.absoluteString.range(of: "\(DeepLink.scheme)://client.wavesplatform.com") != nil
+    }
+    
+    
+    var isClientDexLink: Bool {
+        return url.absoluteString.range(of: "\(DeepLink.scheme)://beta.wavesplatform.com") != nil
+    }
 }

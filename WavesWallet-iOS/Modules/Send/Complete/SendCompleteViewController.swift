@@ -29,6 +29,8 @@ final class SendCompleteViewController: UIViewController {
     
     var input: Input!
 
+    weak var delegate: SendResultDelegate?
+
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -49,6 +51,8 @@ final class SendCompleteViewController: UIViewController {
     
     @IBAction private func okeyTapped(_ sender: Any) {
         
+        delegate?.sendResultDidTapFinish()
+
         if let assetVc = navigationController?.viewControllers.first(where: {$0.classForCoder == AssetDetailViewController.classForCoder()}) {
             navigationController?.popToViewController(assetVc, animated: true)
         }
