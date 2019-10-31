@@ -415,6 +415,33 @@
             </objects>
             <point key="canvasLocation" x="153" y="1021"/>
         </scene>
+        <!--Dex Deep Link Loading View Controller-->
+        <scene sceneID="0wk-fg-qi5">
+            <objects>
+                <viewController storyboardIdentifier="DexDeepLinkLoadingViewController" id="Lor-hX-Jtq" customClass="DexDeepLinkLoadingViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gDG-OY-jKh"/>
+                        <viewControllerLayoutGuide type="bottom" id="e81-kb-Fej"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Utl-TT-Ooy" customClass="BlueBgView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="XtK-QD-iQx">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="XtK-QD-iQx" firstAttribute="centerY" secondItem="Utl-TT-Ooy" secondAttribute="centerY" id="Bkc-Gm-cub"/>
+                            <constraint firstItem="XtK-QD-iQx" firstAttribute="centerX" secondItem="Utl-TT-Ooy" secondAttribute="centerX" id="ZcH-b4-7fA"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lQO-XE-KSe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1298" y="2375"/>
+        </scene>
         <!--Dex Trader Container View Controller-->
         <scene sceneID="d7o-Ds-qkd">
             <objects>

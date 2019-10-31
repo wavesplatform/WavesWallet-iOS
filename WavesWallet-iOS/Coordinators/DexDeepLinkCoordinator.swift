@@ -29,8 +29,27 @@ final class DexDeepLinkCoordinator: DexCoordinator {
     
     override func start() {
         
-        let pair = DexTraderContainer.DTO.Pair(amountAsset: .init(id: "", name: "", shortName: "", decimals: 0), priceAsset: .init(id: "", name: "", shortName: "", decimals: 0), isGeneral: false)
-        let vc = DexTraderContainerModuleBuilder(output: self, orderBookOutput: self, lastTradesOutput: self, myOrdersOutpout: self).build(input: pair)
+        let vc = StoryboardScene.Dex.dexDeepLinkLoadingViewController.instantiate()
+        vc.deepLink = deepLink
+        vc.didComplete = { [weak self] pair in
+            guard let self = self else { return }
+            
+            if let vc = DexTraderContainerModuleBuilder(output: self, orderBookOutput: self, lastTradesOutput: self, myOrdersOutpout: self)
+                .build(input: pair) as? DexTraderContainerViewController {
+                
+                vc.backAction = { [weak self] in
+                    guard let self = self else { return }
+                    self.dismiss()
+                }
+                self.navigationRouter.popAllAndSetRootViewController(vc)
+            }
+
+        }
+        vc.didFail = { [weak self] in
+            guard let self = self else { return }
+            self.dismiss()
+        }
+        
         windowRouter.setRootViewController(self.navigationRouter.navigationController)
         navigationRouter.pushViewController(vc)
     }
