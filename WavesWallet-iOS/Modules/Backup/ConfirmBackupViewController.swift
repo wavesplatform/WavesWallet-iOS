@@ -46,7 +46,7 @@ final class ConfirmBackupViewController: UIViewController, ConfirmBackupStackLis
 
         createBackButton()
         setupBigNavigationBar()
-        hideTopBarLine()
+        removeTopBarLine()
         navigationController?.navigationBar.barTintColor = .white
         buttonConfirm.alpha = 0
         labelError.alpha = 0

@@ -46,7 +46,7 @@ final class ReceiveAddressViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.backgroundImage = UIImage()
-        hideTopBarLine()
+        removeTopBarLine()
         navigationItem.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
     }
     

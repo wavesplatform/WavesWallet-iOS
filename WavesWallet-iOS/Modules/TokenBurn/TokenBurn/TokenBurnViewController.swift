@@ -58,7 +58,7 @@ final class TokenBurnViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupBigNavigationBar()
-        hideTopBarLine()
+        hideTopBarLineForIOS12()
     }
    
     @IBAction private func continueTapped(_ sender: Any) {

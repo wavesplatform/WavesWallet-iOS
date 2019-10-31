@@ -31,7 +31,7 @@ final class DexCompleteOrderViewController: UIViewController {
         setupInfo()
         
         navigationItem.backgroundImage = UIImage()
-        hideTopBarLine()
+        removeTopBarLine()
         navigationItem.hidesBackButton = true
     }
     

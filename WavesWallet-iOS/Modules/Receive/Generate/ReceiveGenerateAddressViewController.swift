@@ -39,7 +39,7 @@ final class ReceiveGenerateAddressViewController: UIViewController {
         super.viewWillAppear(animated)
 
         navigationItem.backgroundImage = UIImage()
-        hideTopBarLine()
+        removeTopBarLine()
         navigationItem.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
     }
     
