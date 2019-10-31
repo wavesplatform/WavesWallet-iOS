@@ -35,7 +35,7 @@ final class ConfirmRequestViewController: UIViewController, DataSourceProtocol {
         title = Localizable.Waves.Keeper.Label.confirmRequest
         
         setupBigNavigationBar()
-        hideTopBarLine()
+        removeTopBarLine()
         createBackButton()
         
         system

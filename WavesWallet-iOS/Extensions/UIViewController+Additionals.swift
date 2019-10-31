@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import DomainLayer
+import Extensions
 
 private enum Constants {
     static let smallNavBarHeight: CGFloat = 44
@@ -51,8 +52,14 @@ extension UIViewController {
         navigationController?.popViewController(animated: true)
     }
 
-    func hideTopBarLine() {
+    func removeTopBarLine() {
         navigationItem.shadowImage = UIImage()
+    }
+    
+    func hideTopBarLineForIOS12() {
+        if !Platform.isIOS13orGreater {
+            navigationItem.shadowImage = UIImage()
+        }
     }
 
     func showTopBarLine() {
@@ -73,24 +80,26 @@ extension UIViewController {
 
     func setupTopBarLine() {
         
-        if isSmallNavigationBar {
-            navigationItem.shadowImage = UIViewController.shadowImage
-        }
-        else {
-            navigationItem.shadowImage = UIViewController.cleanShadowImage
+        if !Platform.isIOS13orGreater {
+            if isSmallNavigationBar {
+                navigationItem.shadowImage = UIViewController.shadowImage
+            }
+            else {
+                navigationItem.shadowImage = UIViewController.cleanShadowImage
+            }
         }
     }
     
     func setupSmallNavigationBar() {
         if #available(iOS 11.0, *) {
-            navigationItem.prefersLargeTitles = false
+            navigationItem.largeTitleDisplayMode = .never
         }
     }
     
     func setupBigNavigationBar() {
         if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .always
             navigationItem.prefersLargeTitles = true
-            navigationItem.largeTitleDisplayMode = .automatic
         }
     }
 
@@ -104,7 +113,6 @@ extension UIViewController {
     
     func tableViewTopOffsetForBigNavBar(_ tableView: UITableView) -> CGPoint {
         
-        //TODO: check if IOS 10 will be support
         let navBarY = (navigationController?.navigationBar.frame.origin.y ?? 0)
         let offset = -(Constants.bigNavBarHeight + navBarY + tableView.contentInset.top)
         return CGPoint(x: 0, y: offset)

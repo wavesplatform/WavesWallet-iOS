@@ -74,7 +74,7 @@ final class StartLeasingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupBigNavigationBar()
-        hideTopBarLine()
+        hideTopBarLineForIOS12()
     }
  
     @IBAction private func startLeaseTapped(_ sender: Any) {

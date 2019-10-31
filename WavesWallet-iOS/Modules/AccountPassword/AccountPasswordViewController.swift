@@ -38,7 +38,7 @@ final class AccountPasswordViewController: UIViewController {
 
         createBackButton()
         setupSmallNavigationBar()
-        hideTopBarLine()
+        removeTopBarLine()
         navigationItem.backgroundImage = UIImage()
         navigationItem.shadowImage = UIImage()
 

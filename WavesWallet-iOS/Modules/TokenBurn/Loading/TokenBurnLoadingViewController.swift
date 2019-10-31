@@ -66,7 +66,7 @@ final class TokenBurnLoadingViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        hideTopBarLine()
+        removeTopBarLine()
         navigationItem.backgroundImage = UIImage()
     }
 

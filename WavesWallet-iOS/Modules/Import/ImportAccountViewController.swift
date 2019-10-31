@@ -41,7 +41,7 @@ class ImportAccountViewController: UIViewController {
         
         setupBigNavigationBar()
         createBackButton()
-        hideTopBarLine()
+        hideTopBarLineForIOS12()
 
         setupViewControllers()
         setupSegmentedControl()

@@ -239,7 +239,7 @@ private extension AddAddressBookViewController {
     func setupNavBarUI() {
         navigationItem.backgroundImage = UIImage()
         setupBigNavigationBar()
-        hideTopBarLine()
+        removeTopBarLine()
     }
     
     func setupEditUserMode() {

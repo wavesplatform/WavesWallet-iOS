@@ -270,18 +270,7 @@ final class CustomNavigationController: UINavigationController {
         
         if #available(iOS 11.0, *) {
             navigationBar.largeTitleTextAttributes = viewController.navigationItem.largeTitleTextAttributes
-            navigationBar.prefersLargeTitles = viewController.navigationItem.prefersLargeTitles
-        }
-        
-        if #available(iOS 13.0, *) {
-            let appearance = UINavigationBarAppearance()
-            appearance.largeTitleTextAttributes = viewController.navigationItem.largeTitleTextAttributes ?? .init()
-            appearance.titleTextAttributes = viewController.navigationItem.titleTextAttributes ?? .init()
-            
-            appearance.configureWithTransparentBackground()
-            navigationBar.standardAppearance = appearance
-            navigationBar.scrollEdgeAppearance = appearance
-            navigationBar.compactAppearance = appearance
+            navigationBar.prefersLargeTitles = true
         }
 
         setNavigationBarHidden(viewController.navigationItem.isNavigationBarHidden, animated: animated)
