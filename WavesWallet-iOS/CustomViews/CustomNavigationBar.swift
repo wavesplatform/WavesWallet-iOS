@@ -10,19 +10,19 @@ import UIKit
 
 final class CustomNavigationBar: UINavigationBar {
     
+    //TODO: need check 
     override func layoutSubviews() {
         super.layoutSubviews()
-        if let view = subviews.first {
-            if let color = backgroundColor {
-                view.alpha = 1
-                view.backgroundColor = color
-            }
-            
-            if let effectView = view.subviews.last as? UIVisualEffectView {
-                effectView.isHidden = backgroundColor != nil
-            }
-        
-        }
+//        if let view = subviews.first {
+//            if let color = backgroundColor {
+//                view.alpha = 1
+//                view.backgroundColor = color
+//            }
+//            
+//            if let effectView = view.subviews.last as? UIVisualEffectView {
+//                effectView.isHidden = backgroundColor != nil
+//            }
+//        }
     }
 
 }

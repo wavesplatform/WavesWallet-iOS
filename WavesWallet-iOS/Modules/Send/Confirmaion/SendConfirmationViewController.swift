@@ -29,6 +29,8 @@ final class SendConfirmationViewController: UIViewController {
         let amountWithoutFee: Money
         var attachment: String
         let isGateway: Bool
+        let gateWayFeeAmount: Money?
+        let gateWayFeeName: String?
     }
     
     @IBOutlet private weak var viewContainer: UIView!
@@ -43,6 +45,9 @@ final class SendConfirmationViewController: UIViewController {
     @IBOutlet private weak var tickerView: TickerView!
     @IBOutlet private weak var labelAssetName: UILabel!
     @IBOutlet private weak var viewDescription: UIView!
+    @IBOutlet private weak var labelGatewayFee: UILabel!
+    @IBOutlet private weak var labelGatewayFeeAmount: UILabel!
+    @IBOutlet private weak var viewGatewayFee: UIView!
     
     private var isShowError = false
     
@@ -59,6 +64,7 @@ final class SendConfirmationViewController: UIViewController {
         setupData()
         labelDescriptionError.alpha = 0
         viewDescription.isHidden = input.isGateway
+        viewGatewayFee.isHidden = !input.isGateway
         setupButtonState()
     }
 
@@ -69,7 +75,7 @@ final class SendConfirmationViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        hideTopBarLine()
+        removeTopBarLine()
         setupBigNavigationBar()
         navigationItem.backgroundImage = UIImage()
         navigationItem.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
@@ -152,6 +158,7 @@ private extension SendConfirmationViewController {
         labelDescriptionError.text = Localizable.Waves.Sendconfirmation.Label.descriptionIsTooLong
         textField.placeholder = Localizable.Waves.Sendconfirmation.Label.optionalMessage
         buttonConfirm.setTitle(Localizable.Waves.Sendconfirmation.Button.confim, for: .normal)
+        labelGatewayFee.text = Localizable.Waves.Sendconfirmation.Label.gatewayFee
     }
     
     func setupData() {
@@ -184,5 +191,6 @@ private extension SendConfirmationViewController {
         }
         labelFeeAmount.text = input.fee.displayText + " " + input.feeName
         labelBalance.attributedText = NSAttributedString.styleForBalance(text: input.amountWithoutFee.displayText, font: labelBalance.font)
+        labelGatewayFeeAmount.text = (input.gateWayFeeAmount?.displayText ?? "") + " " + (input.gateWayFeeName ?? "")
     }
 }

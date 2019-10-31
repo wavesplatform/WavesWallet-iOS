@@ -593,6 +593,9 @@ internal enum Localizable {
     internal enum Chooseaccount {
 
       internal enum Alert {
+        /// Please select
+        internal static var pleaseSelect: String { return Localizable.tr("Waves", "chooseaccount.alert.pleaseSelect") }
+        internal static var pleaseSelectKey: String { return "chooseaccount.alert.pleaseSelect" }
 
         internal enum Button {
           /// Cancel
@@ -2562,6 +2565,9 @@ internal enum Localizable {
         /// Fee
         internal static var fee: String { return Localizable.tr("Waves", "sendconfirmation.label.fee") }
         internal static var feeKey: String { return "sendconfirmation.label.fee" }
+        /// Gateway Fee
+        internal static var gatewayFee: String { return Localizable.tr("Waves", "sendconfirmation.label.gatewayFee") }
+        internal static var gatewayFeeKey: String { return "sendconfirmation.label.gatewayFee" }
         /// Write an optional message
         internal static var optionalMessage: String { return Localizable.tr("Waves", "sendconfirmation.label.optionalMessage") }
         internal static var optionalMessageKey: String { return "sendconfirmation.label.optionalMessage" }

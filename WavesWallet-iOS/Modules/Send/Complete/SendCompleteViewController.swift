@@ -36,7 +36,7 @@ final class SendCompleteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        hideTopBarLine()
+        removeTopBarLine()
         navigationItem.backgroundImage = UIImage()
         navigationItem.hidesBackButton = true
 

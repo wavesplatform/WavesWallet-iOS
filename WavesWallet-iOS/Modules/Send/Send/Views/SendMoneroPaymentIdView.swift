@@ -253,10 +253,7 @@ private extension SendMoneroPaymentIdView {
             
             self.firstAvailableViewController().dismiss(animated: true, completion: nil)
         }
-        
-        // Presents the readerVC as modal form sheet
-        readerVC.modalPresentationStyle = .formSheet
-        
+                
         firstAvailableViewController().present(readerVC, animated: true)
     }
 }

@@ -39,7 +39,7 @@ final class ImportAccountPasswordViewController: UIViewController {
 
         createBackButton()
         setupBigNavigationBar()
-        hideTopBarLine()
+        hideTopBarLineForIOS12()
 
         setupTextField()
         setupButtonContinue()

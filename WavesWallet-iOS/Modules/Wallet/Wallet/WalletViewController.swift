@@ -77,7 +77,7 @@ final class WalletViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        hideTopBarLine()
+        removeTopBarLine()
         for table in scrolledTablesComponent.tableViews {
             table.startSkeletonCells()
         }

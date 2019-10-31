@@ -42,6 +42,7 @@ final class StartLeasingViewController: UIViewController {
     private var order: StartLeasingTypes.DTO.Order!
     weak var output: StartLeasingModuleOutput?
     
+    private var isValidAlias: Bool = false
     private let disposeBag = DisposeBag()
     private let interactor: StartLeasingInteractorProtocol = StartLeasingInteractor()
     private var errorSnackKey: String?
@@ -74,7 +75,7 @@ final class StartLeasingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupBigNavigationBar()
-        hideTopBarLine()
+        hideTopBarLineForIOS12()
     }
  
     @IBAction private func startLeaseTapped(_ sender: Any) {
@@ -105,6 +106,19 @@ extension StartLeasingViewController: StartLeasingErrorDelegate {
 
 //MARK: - Setup
 private extension StartLeasingViewController {
+    
+    func validateAlias() {
+        addressGeneratorView.showLoadingState()
+        interactor.validateAlis(alias: order.recipient)
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] isValid in
+                guard let self = self else { return }
+                self.isValidAlias = isValid
+                self.addressGeneratorView.hideLoadingState()
+                self.addressGeneratorView.checkIfValidAddress()
+                self.setupButtonState()
+            }).disposed(by: disposeBag)
+    }
     
     func loadFee() {
         viewFee.showLoadingState()
@@ -177,7 +191,7 @@ private extension StartLeasingViewController {
             && !isNotEnoughAmount
             && order.amount.amount > 0
             && order.fee.amount > 0
-            && (Address.isValidAddress(address: order.recipient) || Address.isValidAlias(alias: order.recipient))
+            && (Address.isValidAddress(address: order.recipient) || isValidAlias)
     }
     
     var isNotEnoughAmount: Bool {
@@ -245,8 +259,10 @@ private extension StartLeasingViewController {
                                                        contacts: [],
                                                        canChangeAsset: false)
         addressGeneratorView.update(with: addressInput)
-        addressGeneratorView.errorValidation = { text in
-            return Address.isValidAddress(address: text) || Address.isValidAlias(alias: text)
+        addressGeneratorView.errorValidation = { [weak self] text in
+            guard let self = self else { return false }
+            
+            return Address.isValidAddress(address: text) || self.isValidAlias
         }
         setupButtonState()
     }
@@ -279,7 +295,7 @@ extension StartLeasingViewController: AddressInputViewDelegate {
     }
     
     func addressInputViewDidEndEditing() {
-        addressGeneratorView.checkIfValidAddress()
+        validateAlias()
     }
     
     func addressInputViewDidSelectAddressBook() {
@@ -322,7 +338,7 @@ extension StartLeasingViewController: AddressBookModuleOutput {
         order.recipient = contact.address
         addressGeneratorView.setupText(order.recipient, animation: false)
         setupButtonState()
-        addressGeneratorView.checkIfValidAddress()
+        validateAlias()
     }
 }
 

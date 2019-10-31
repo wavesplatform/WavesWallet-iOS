@@ -67,7 +67,7 @@ final class EditAccountNameViewController: UIViewController {
         navigationItem.title = Localizable.Waves.Editaccountname.Navigation.title
         setupBigNavigationBar()
         createBackButton()
-        hideTopBarLine()
+        hideTopBarLineForIOS12()
     }
     
     private func setupSaveButton() {

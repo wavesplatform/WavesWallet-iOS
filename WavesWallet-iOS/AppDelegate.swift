@@ -45,7 +45,7 @@ enum UITest {
 
     var appCoordinator: AppCoordinator!
     lazy var migrationInteractor: MigrationUseCaseProtocol = UseCasesFactory.instance.migration
-    
+     
     #if DEBUG 
     var paws: MonkeyPaws?
     #endif
@@ -79,6 +79,7 @@ enum UITest {
 
         migrationInteractor
             .migration()
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { (_) in
 
             }, onError: { (_) in

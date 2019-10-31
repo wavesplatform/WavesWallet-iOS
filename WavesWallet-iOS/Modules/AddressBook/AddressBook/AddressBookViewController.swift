@@ -42,7 +42,7 @@ final class AddressBookViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupSmallNavigationBar()
-        hideTopBarLine()
+        removeTopBarLine()
         navigationItem.backgroundImage = UIImage()
     }
     
