@@ -20,6 +20,8 @@ enum QRCodeReaderFactory {
             $0.preferredStatusBarStyle = .lightContent
         }
 
-        return QRCodeReaderViewController(builder: builder)
+        let vc = QRCodeReaderViewController(builder: builder)
+        vc.modalPresentationStyle = .fullScreen
+        return vc
     }()
 }

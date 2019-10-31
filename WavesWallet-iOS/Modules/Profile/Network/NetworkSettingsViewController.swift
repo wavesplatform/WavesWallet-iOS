@@ -39,7 +39,7 @@ final class NetworkSettingsViewController: UIViewController {
         saveButton.setBackgroundImage(UIColor.submit200.image, for: .disabled)
         saveButton.setBackgroundImage(UIColor.submit400.image, for: .normal)
 
-        hideTopBarLine()
+        hideTopBarLineForIOS12()
         setupBigNavigationBar()
         createBackButton()
         setupTextField()

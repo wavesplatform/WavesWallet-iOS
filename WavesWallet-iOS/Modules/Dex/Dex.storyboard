@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -343,7 +341,7 @@
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DexSortCell" id="EHU-PC-oee" customClass="DexSortCell" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="360" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EHU-PC-oee" id="O5C-x7-Yah">
+                                        <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EHU-PC-oee" id="O5C-x7-Yah">
                                             <rect key="frame" x="0.0" y="0.0" width="360" height="56"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -430,14 +428,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rai-cx-ThQ" customClass="DexTraderContainerSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="46"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="guW-2a-vCa"/>
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uSd-vq-12n">
-                                <rect key="frame" x="0.0" y="66" width="375" height="601"/>
+                                <rect key="frame" x="0.0" y="46" width="375" height="621"/>
                                 <connections>
                                     <outlet property="delegate" destination="CC5-Qx-a3K" id="c81-fo-PxV"/>
                                 </connections>
@@ -476,7 +474,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="40" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ThQ-iU-VS5">
-                                <rect key="frame" x="8" y="52" width="359" height="551"/>
+                                <rect key="frame" x="8" y="32" width="359" height="571"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DexOrderBookCell" id="1nk-kf-BHz" customClass="DexOrderBookCell" customModule="WavesWallet_iOS" customModuleProvider="target">
@@ -691,7 +689,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cwB-7n-riO" customClass="DexOrderBookHeaderView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                <rect key="frame" x="8" y="20" width="359" height="32"/>
+                                <rect key="frame" x="8" y="0.0" width="359" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="EUQ-Qf-R5M"/>
                                 </constraints>
@@ -802,7 +800,7 @@ The order book is empty</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gZh-fa-6fT">
-                                <rect key="frame" x="8" y="20" width="359" height="647"/>
+                                <rect key="frame" x="8" y="0.0" width="359" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1h7-Bv-hvU" customClass="DexChartHeaderView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="359" height="32"/>
@@ -812,7 +810,7 @@ The order book is empty</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oTb-KW-n6A" customClass="CandleStickChartView" customModule="Charts">
-                                        <rect key="frame" x="-10" y="32" width="369" height="505"/>
+                                        <rect key="frame" x="-10" y="32" width="369" height="525"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WAVES / BTC" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vJy-sf-hhh">
@@ -822,14 +820,14 @@ The order book is empty</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yvv-S9-oaU" customClass="BarChartView" customModule="Charts">
-                                        <rect key="frame" x="-10" y="537" width="369" height="110"/>
+                                        <rect key="frame" x="-10" y="557" width="369" height="110"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="110" id="ebF-q3-0ag"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S2B-rd-5Sq">
-                                        <rect key="frame" x="79.5" y="269" width="200" height="109"/>
+                                        <rect key="frame" x="79.5" y="279" width="200" height="109"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgEmpty80" translatesAutoresizingMaskIntoConstraints="NO" id="zl5-iq-nss">
                                                 <rect key="frame" x="60" y="0.0" width="80" height="79"/>
@@ -852,7 +850,7 @@ The order book is empty</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m4h-Np-Twc">
-                                        <rect key="frame" x="132.5" y="298.5" width="94" height="50"/>
+                                        <rect key="frame" x="132.5" y="308.5" width="94" height="50"/>
                                         <subviews>
                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="is2-2r-N4b">
                                                 <rect key="frame" x="37" y="0.0" width="20" height="20"/>
@@ -959,7 +957,7 @@ The order book is empty</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="40" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6pT-ef-VVx">
-                                <rect key="frame" x="8" y="52" width="359" height="551"/>
+                                <rect key="frame" x="8" y="32" width="359" height="571"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DexLastTradesCell" id="6h6-g8-Vzo" customClass="DexLastTradesCell" customModule="WavesWallet_iOS" customModuleProvider="target">
@@ -1054,7 +1052,7 @@ The trading history is empty</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sEa-dB-NiU" customClass="DexLastTradesHeaderView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                <rect key="frame" x="8" y="20" width="359" height="32"/>
+                                <rect key="frame" x="8" y="0.0" width="359" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="dbr-Gv-yZK"/>
                                 </constraints>
@@ -1197,7 +1195,7 @@ The trading history is empty</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GIM-Wc-izT">
-                                <rect key="frame" x="8" y="20" width="359" height="32"/>
+                                <rect key="frame" x="8" y="0.0" width="359" height="32"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mpV-P9-dAf">
                                         <rect key="frame" x="0.0" y="0.0" width="359" height="32"/>
@@ -1252,11 +1250,11 @@ The trading history is empty</string>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="54" estimatedRowHeight="-1" sectionHeaderHeight="32" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UXB-v7-zPB">
-                                <rect key="frame" x="8" y="52" width="359" height="615"/>
+                                <rect key="frame" x="8" y="32" width="359" height="635"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DexMyOrdersCell" id="S7d-4E-cv1" customClass="DexMyOrdersCell" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="32" width="359" height="54"/>
+                                        <rect key="frame" x="0.0" y="28" width="359" height="54"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S7d-4E-cv1" id="JjE-nh-3Oc">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="54"/>
@@ -1444,7 +1442,7 @@ You do not have any orders</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="64" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ce9-pp-PpI">
-                                <rect key="frame" x="0.0" y="60" width="375" height="607"/>
+                                <rect key="frame" x="0.0" y="40" width="375" height="627"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DexMarketCell" id="EAE-NA-qAo" customClass="DexMarketCell" customModule="WavesWallet_iOS" customModuleProvider="target">
@@ -1548,13 +1546,13 @@ You do not have any orders</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h6k-oH-iYs" customClass="SearchBarView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                <rect key="frame" x="8" y="20" width="359" height="36"/>
+                                <rect key="frame" x="8" y="0.0" width="359" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="PSk-Dy-4rh"/>
                                 </constraints>
                             </view>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="g6N-zp-CkK">
-                                <rect key="frame" x="177.5" y="70" width="20" height="20"/>
+                                <rect key="frame" x="177.5" y="50" width="20" height="20"/>
                             </activityIndicatorView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0tg-Vf-lyr">
                                 <rect key="frame" x="87.5" y="279" width="200" height="109"/>
@@ -1806,10 +1804,10 @@ You do not have any orders</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ime-vi-HHf">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qmO-Ub-Rtw">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y45-Bf-PcG">
                                                 <rect key="frame" x="127.5" y="10" width="120" height="48"/>
@@ -1900,7 +1898,7 @@ We do not recommend you perform operations with smart assets if you are an inexp
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cgJ-Le-jOb">
-                                                <rect key="frame" x="12" y="583" width="200" height="40"/>
+                                                <rect key="frame" x="12" y="603" width="200" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="200" id="GAK-jj-uRW"/>
                                                     <constraint firstAttribute="height" constant="40" id="fVM-xf-Ujq"/>
@@ -1916,7 +1914,7 @@ We do not recommend you perform operations with smart assets if you are an inexp
                                                 </connections>
                                             </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkbox-off" translatesAutoresizingMaskIntoConstraints="NO" id="oiN-En-GMd">
-                                                <rect key="frame" x="22" y="591" width="24" height="24"/>
+                                                <rect key="frame" x="22" y="611" width="24" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="24" id="cLH-yl-vh7"/>
                                                     <constraint firstAttribute="height" constant="24" id="ro9-pq-Nj4"/>
@@ -1998,10 +1996,10 @@ We do not recommend you perform operations with smart assets if you are an inexp
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fhv-s2-xpD">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y8x-pB-0Cg">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="654"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PG3-20-Dd2" customClass="DexCreateOrderSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="10" width="375" height="40"/>
@@ -2123,7 +2121,7 @@ We do not recommend you perform operations with smart assets if you are an inexp
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zhj-r8-mHL" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="582" width="343" height="48"/>
+                                                <rect key="frame" x="16" y="595" width="343" height="48"/>
                                                 <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="48" id="jpm-Kb-eOz"/>
@@ -2140,7 +2138,7 @@ We do not recommend you perform operations with smart assets if you are an inexp
                                                 </connections>
                                             </button>
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="WN7-jS-yUQ">
-                                                <rect key="frame" x="319" y="596" width="20" height="20"/>
+                                                <rect key="frame" x="319" y="609" width="20" height="20"/>
                                             </activityIndicatorView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5pn-0m-pyg">
                                                 <rect key="frame" x="16" y="508" width="343" height="50"/>
@@ -2267,7 +2265,7 @@ We do not recommend you perform operations with smart assets if you are an inexp
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kee-vq-Djq">
-                                <rect key="frame" x="16" y="40" width="343" height="318"/>
+                                <rect key="frame" x="16" y="20" width="343" height="318"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgDone80Success400" translatesAutoresizingMaskIntoConstraints="NO" id="yfS-dB-A6q">
                                         <rect key="frame" x="131.5" y="44" width="80" height="80"/>

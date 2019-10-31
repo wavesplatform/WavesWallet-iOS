@@ -129,7 +129,7 @@ public protocol MobileKeeperRepositoryProtocol {
     
     func completeRequest(_ prepareRequest: DomainLayer.DTO.MobileKeeper.PrepareRequest) -> Observable<DomainLayer.DTO.MobileKeeper.CompletedRequest>
     
-    func decodableRequest(_ url: URL, sourceApplication: String) -> Observable<DomainLayer.DTO.MobileKeeper.Request?>
+    func decodableRequest(_ url: URL) -> Observable<DomainLayer.DTO.MobileKeeper.Request?>
     
     func approveRequest(_ completedRequest: DomainLayer.DTO.MobileKeeper.CompletedRequest) -> Observable<Bool>
     

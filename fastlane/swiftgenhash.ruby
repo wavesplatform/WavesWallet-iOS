@@ -21,7 +21,7 @@ class Main
         storyboards_map = Hash.new
         storyboards_file_paths.each do |storyboard|
             sha512 = Digest::SHA512.file storyboard
-            storyboards_map[storyboard] = sha512
+            storyboards_map[storyboard.split('/').last] = sha512
         end
 
         assets_map = Hash.new
@@ -32,16 +32,16 @@ class Main
                 
             files.each do |img_file|
                 sha512 = Digest::SHA512.file img_file
-                asset_map[img_file] = sha512
+                asset_map[img_file.split('/').last] = sha512
             end
 
-            assets_map[asset_file_paths] = asset_map
+            assets_map[asset_file_paths.split('/').last] = asset_map
         end
 
         strings_map = Hash.new
         strings_file_paths.each do |string|
             sha512 = Digest::SHA512.file string
-            strings_map[string] = sha512
+            strings_map[string.split('/').last] = sha512
         end
 
         json_map = Hash.new

@@ -42,7 +42,7 @@ final class StartLeasingConfirmationViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        hideTopBarLine()
+        removeTopBarLine()
         setupBigNavigationBar()
         navigationItem.backgroundImage = UIImage()
         navigationItem.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]

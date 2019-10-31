@@ -67,7 +67,7 @@ final class DebugViewController: UIViewController {
         super.viewDidLoad()
         self.title = "Debug"
         setupBigNavigationBar()
-        hideTopBarLine()
+        removeTopBarLine()
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .done,
                                                                      target: self,

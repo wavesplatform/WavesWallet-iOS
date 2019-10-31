@@ -27,7 +27,10 @@ public struct Platform {
         return device.isOneOf([.iPhoneX, .simulator(.iPhoneX),
                                .iPhoneXR, .simulator(.iPhoneXR),
                                .iPhoneXS, .simulator(.iPhoneXS),
-                               .iPhoneXSMax, .simulator(.iPhoneXSMax)])
+                               .iPhoneXSMax, .simulator(.iPhoneXSMax),
+                               .iPhone11, .simulator(.iPhone11),
+                               .iPhone11Pro, .simulator(.iPhone11Pro),
+                               .iPhone11ProMax, .simulator(.iPhone11ProMax)])
     }()
         
     public static let isIphonePlus: Bool = {
@@ -41,17 +44,20 @@ public struct Platform {
     public static let isIphoneX: Bool = {
         
         return device.isOneOf([.iPhoneX, .simulator(.iPhoneX),
-                               .iPhoneXS, .simulator(.iPhoneXS)])
+                               .iPhoneXS, .simulator(.iPhoneXS),
+                               .iPhone11Pro, .simulator(.iPhone11Pro)])
     }()
     
     public static let isIphoneXMax: Bool = {
         
-        return device.isOneOf([.iPhoneXSMax, .simulator(.iPhoneXSMax)])
+        return device.isOneOf([.iPhoneXSMax, .simulator(.iPhoneXSMax),
+                               .iPhone11ProMax, .simulator(.iPhone11ProMax)])
     }()
     
     public static let isIphoneXR: Bool = {
         
-        return device.isOneOf([.iPhoneXR, .simulator(.iPhoneXR)])
+        return device.isOneOf([.iPhoneXR, .simulator(.iPhoneXR),
+                               .iPhone11, .simulator(.iPhone11)])
     }()
     
     public static let isSupportFaceID: Bool = {
@@ -61,4 +67,13 @@ public struct Platform {
 
         return device.isOneOf(realDevices + simulators)
     }()
+    
+    
+    public static var isIOS13orGreater: Bool {
+        if #available(iOS 13, *) {
+            return true
+        } else {
+            return false
+        }
+    }
 }

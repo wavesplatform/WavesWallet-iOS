@@ -105,6 +105,7 @@
 "chooseaccount.alert.delete.title" = "Delete account";
 "chooseaccount.label.nothingWallets" = "Nothing Here…\nYou do not have saved accounts";
 "chooseaccount.navigation.title" = "Choose account";
+"chooseaccount.alert.pleaseSelect" = "Please select";
 "coinomat.temporarilyUnavailable" = "Service temporarily unavailable";
 "coinomat.tryAgain" = "Try again later";
 "createalias.button.create.title" = "Create";

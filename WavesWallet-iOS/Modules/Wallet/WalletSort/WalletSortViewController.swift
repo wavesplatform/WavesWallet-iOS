@@ -45,7 +45,7 @@ final class WalletSortViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        hideTopBarLine()
+        removeTopBarLine()
         navigationController?.navigationBar.backgroundColor = view.backgroundColor
     }
 }

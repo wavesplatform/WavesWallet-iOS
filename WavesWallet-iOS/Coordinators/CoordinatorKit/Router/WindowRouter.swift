@@ -32,29 +32,29 @@ class WindowRouter: NSObject {
             switch animated {
             case .crossDissolve:
                 if let view = window.rootViewController?.view {
-                    UIView.transition(from: view, to: viewController.view, duration: Constants.animationDuration, options: [.transitionCrossDissolve], completion: { _ in
-                        self.windowAddRootVC(viewController)
+                    
+                   self.window.rootViewController = viewController
+                    UIView.transition(from: view, to: viewController.view, duration: Constants.animationDuration, options: [.transitionCrossDissolve], completion: { animated in
+                        self.windowDidAppear()
                     })
                 } else {
-                    windowAddRootVC(viewController)
+                    self.window.rootViewController = viewController
+                    self.window.makeKeyAndVisible()
+                    self.windowDidAppear()
                 }
             }
         } else {
-            windowAddRootVC(viewController)
+            self.window.rootViewController = viewController
+            self.window.makeKeyAndVisible()
+            self.windowDidAppear()
         }
         
-        window.makeKeyAndVisible()
+        
 	}
     
-    private func windowAddRootVC(_ rootViewController: UIViewController) {
-        self.window.rootViewController = rootViewController
-        self.windowDidAppear()
-    }
-    
-
     public func dissmissWindow(animated: AnimateKind? = nil, completed: (() -> Void)? = nil) {
 
-        UIView.animate(withDuration: 0.24, delay: 0, options: [.curveEaseInOut], animations: {
+        UIView.animate(withDuration: Constants.animationDuration, delay: 0, options: [.curveEaseInOut], animations: {
             var newFrame = self.window.frame
             newFrame.origin.y = newFrame.height
             self.window.frame = newFrame
