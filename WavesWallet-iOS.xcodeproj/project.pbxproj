@@ -736,6 +736,7 @@
 		982615DFE7984B1CB5B0DFCF /* Pods_Extensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFF3A1678B0D62414A6DF842 /* Pods_Extensions.framework */; };
 		CBC5C0DF20264AD6010EDFB1 /* Pods_DomainLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06EBA3A6BC9316CEA6AC2FB0 /* Pods_DomainLayer.framework */; };
 		D16F552FE8FEB7D3BBCFBFDD /* Pods_MonkeyTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FECF602E0F6360581ED466BD /* Pods_MonkeyTest.framework */; };
+		E902BBD0236A664300141CF4 /* DexDeepLinkCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902BBCF236A664300141CF4 /* DexDeepLinkCoordinator.swift */; };
 		E902F61520E5829B00A46335 /* ChooseAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902F61420E5829B00A46335 /* ChooseAccountViewController.swift */; };
 		E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E904525920B4EF4200A490E5 /* PopupViewController.swift */; };
 		E911300C21BC028400588430 /* AssetSelectSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E911300B21BC028400588430 /* AssetSelectSkeletonView.swift */; };
@@ -2036,6 +2037,7 @@
 		E4967881B72F82139E0309A1 /* Pods-DomainLayerTests.release-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DomainLayerTests.release-prod.xcconfig"; path = "Target Support Files/Pods-DomainLayerTests/Pods-DomainLayerTests.release-prod.xcconfig"; sourceTree = "<group>"; };
 		E71E4E719D230D484E0A157C /* Pods-Extensions.dev-debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Extensions.dev-debug.xcconfig"; path = "Target Support Files/Pods-Extensions/Pods-Extensions.dev-debug.xcconfig"; sourceTree = "<group>"; };
 		E7FF046D8E8946DCBF9ED131 /* Pods-MarketPulseWidget.test-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarketPulseWidget.test-prod.xcconfig"; path = "Target Support Files/Pods-MarketPulseWidget/Pods-MarketPulseWidget.test-prod.xcconfig"; sourceTree = "<group>"; };
+		E902BBCF236A664300141CF4 /* DexDeepLinkCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexDeepLinkCoordinator.swift; sourceTree = "<group>"; };
 		E902F61420E5829B00A46335 /* ChooseAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAccountViewController.swift; sourceTree = "<group>"; };
 		E904525920B4EF4200A490E5 /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		E911300B21BC028400588430 /* AssetSelectSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetSelectSkeletonView.swift; sourceTree = "<group>"; };
@@ -3058,6 +3060,7 @@
 				0ADD800321F22FFA0075FC59 /* AppCoordinator.swift */,
 				0A751D37221715F80024D523 /* AppNewsCoordinator.swift */,
 				0ADD7FF821F22FFA0075FC59 /* DexCoordinator.swift */,
+				E902BBCF236A664300141CF4 /* DexDeepLinkCoordinator.swift */,
 				0ADD801C21F22FFA0075FC59 /* MainTabBarCoordinator.swift */,
 				0ADD800E21F22FFA0075FC59 /* QRCodeReaderControllerCoordinator.swift */,
 				0ADD801821F22FFA0075FC59 /* SlideCoordinator.swift */,
@@ -7501,6 +7504,7 @@
 				04831F6321691429006D1ED6 /* MoneyTextField.swift in Sources */,
 				0AF922F4212E1234003BA067 /* TickerView.swift in Sources */,
 				7BFB481222FC742F002B19F8 /* ModalPresentationController.swift in Sources */,
+				E902BBD0236A664300141CF4 /* DexDeepLinkCoordinator.swift in Sources */,
 				0AF92226212E0F1F003BA067 /* WalletHistoryCell.swift in Sources */,
 				0AF921FD212E07B3003BA067 /* AssetHistorySkeletonCell.swift in Sources */,
 				E9D36DF52175C755001E6DF0 /* AssetListTypes.swift in Sources */,

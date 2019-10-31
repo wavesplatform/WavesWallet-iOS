@@ -132,14 +132,14 @@ extension AppCoordinator: PresentationCoordinator {
         case .slide(let wallet):
             
             guard isHasCoordinator(type: SlideCoordinator.self) != true else {
-                showSendVcIfNeed()
+                showDeepLinkVcIfNeed()
                 return
             }
 
             let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: wallet)
             slideCoordinator.menuViewControllerDelegate = self
             addChildCoordinatorAndStart(childCoordinator: slideCoordinator)            
-            showSendVcIfNeed()
+            showDeepLinkVcIfNeed()
             
         case .enter:
 
@@ -231,13 +231,20 @@ extension AppCoordinator: PresentationCoordinator {
 // MARK: Main Logic
 extension AppCoordinator  {
 
-    private func showSendVcIfNeed() {
+    private func showDeepLinkVcIfNeed() {
         if let link = deepLink, link.isClientSendLink {
            
             guard isHasCoordinator(type: SendCoordinator.self) != true else {
                 return
             }
             let coordinator = SendCoordinator(windowRouter: windowRouter, deepLink: link)
+            addChildCoordinatorAndStart(childCoordinator: coordinator)
+        }
+        else if let link = deepLink, link.isClientDexLink {
+            guard isHasCoordinator(type: DexDeepLinkCoordinator.self) != true else {
+                return
+            }
+            let coordinator = DexDeepLinkCoordinator(windowRouter: windowRouter, deepLink: link)
             addChildCoordinatorAndStart(childCoordinator: coordinator)
         }
     }
