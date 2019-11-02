@@ -9,10 +9,7 @@
 import Foundation
 import UIKit
 import StoreKit
-
-private enum Constants {
-    static let appURL: String = "https://itunes.apple.com/us/app/waves-wallet/id1233158971?mt=8"
-}
+import WavesSDK
 
 enum RateApp {
 
@@ -21,8 +18,7 @@ enum RateApp {
     }
 
     private static func showItunes() {
-        guard let url = URL(string: Constants.appURL) else { return }
-        UIApplication.shared.openURLAsync(url)
+        UIApplication.shared.openURLAsync(WavesSDKConstants.appstoreURL)
     }
 }
 
