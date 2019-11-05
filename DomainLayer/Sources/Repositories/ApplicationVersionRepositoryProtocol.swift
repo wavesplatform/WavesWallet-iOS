@@ -11,4 +11,5 @@ import RxSwift
 
 public protocol ApplicationVersionRepositoryProtocol {
     func version() -> Observable<String>
+    func forceUpdateVersion() -> Observable<String>
 }

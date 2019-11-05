@@ -685,3 +685,6 @@
 "keeper.transaction.failed" = "Your transaction failed";
 "keeper.label.function" = "Function";
 "keeper.label.confirmRequest" = "Confirm request";
+"forceupdate.label.title" = "New Version Available";
+"forceupdate.label.subtitle" = "Please update to continue using Waves App";
+"forceupdate.button.update" = "Update";

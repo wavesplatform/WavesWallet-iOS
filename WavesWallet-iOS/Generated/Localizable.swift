@@ -1219,6 +1219,24 @@ internal enum Localizable {
       }
     }
 
+    internal enum Forceupdate {
+
+      internal enum Button {
+        /// Update
+        internal static var update: String { return Localizable.tr("Waves", "forceupdate.button.update") }
+        internal static var updateKey: String { return "forceupdate.button.update" }
+      }
+
+      internal enum Label {
+        /// Please update to continue using Waves App
+        internal static var subtitle: String { return Localizable.tr("Waves", "forceupdate.label.subtitle") }
+        internal static var subtitleKey: String { return "forceupdate.label.subtitle" }
+        /// New Version Available
+        internal static var title: String { return Localizable.tr("Waves", "forceupdate.label.title") }
+        internal static var titleKey: String { return "forceupdate.label.title" }
+      }
+    }
+
     internal enum General {
 
       internal enum Biometric {

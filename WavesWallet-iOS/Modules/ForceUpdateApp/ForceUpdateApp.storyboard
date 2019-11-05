@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Force Update App View Controller-->
+        <scene sceneID="qdD-ST-R4Q">
+            <objects>
+                <viewController storyboardIdentifier="ForceUpdateAppViewController" id="ctY-sl-aq0" customClass="ForceUpdateAppViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IXa-jT-DYh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H3X-T9-KkA">
+                                <rect key="frame" x="0.0" y="367" width="414" height="162.5"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimg-Update" translatesAutoresizingMaskIntoConstraints="NO" id="by0-TK-NzX">
+                                        <rect key="frame" x="135" y="0.0" width="144" height="100"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Version Available" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zvr-Wl-IM2">
+                                        <rect key="frame" x="20" y="118" width="374" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please update to continue using Waves App" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Waj-yJ-Sty">
+                                        <rect key="frame" x="20" y="146.5" width="374" height="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="zvr-Wl-IM2" firstAttribute="top" secondItem="by0-TK-NzX" secondAttribute="bottom" constant="18" id="1H9-eI-uuN"/>
+                                    <constraint firstItem="Waj-yJ-Sty" firstAttribute="top" secondItem="zvr-Wl-IM2" secondAttribute="bottom" constant="8" id="Inh-Au-09m"/>
+                                    <constraint firstItem="zvr-Wl-IM2" firstAttribute="leading" secondItem="H3X-T9-KkA" secondAttribute="leading" constant="20" id="U06-JJ-fW2"/>
+                                    <constraint firstItem="by0-TK-NzX" firstAttribute="centerX" secondItem="H3X-T9-KkA" secondAttribute="centerX" id="Z1w-Gt-3tU"/>
+                                    <constraint firstAttribute="bottom" secondItem="Waj-yJ-Sty" secondAttribute="bottom" id="diy-9o-Uwu"/>
+                                    <constraint firstAttribute="trailing" secondItem="zvr-Wl-IM2" secondAttribute="trailing" constant="20" id="dnw-af-tD9"/>
+                                    <constraint firstItem="Waj-yJ-Sty" firstAttribute="leading" secondItem="zvr-Wl-IM2" secondAttribute="leading" id="ofc-wd-IOg"/>
+                                    <constraint firstItem="by0-TK-NzX" firstAttribute="top" secondItem="H3X-T9-KkA" secondAttribute="top" id="qB3-MR-xTl"/>
+                                    <constraint firstItem="Waj-yJ-Sty" firstAttribute="trailing" secondItem="zvr-Wl-IM2" secondAttribute="trailing" id="zuk-cx-OiD"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ebZ-cF-ymk" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="16" y="790" width="382" height="48"/>
+                                <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="tqq-GL-Jlp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                <state key="normal" title="Update"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="highlightedBackground">
+                                        <color key="value" red="0.35294117650000001" green="0.50588235290000005" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="updateTapped:" destination="ctY-sl-aq0" eventType="touchUpInside" id="o3k-Sc-eSs"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="ebZ-cF-ymk" firstAttribute="leading" secondItem="wph-2b-AIE" secondAttribute="leading" constant="16" id="DKY-et-o4m"/>
+                            <constraint firstItem="H3X-T9-KkA" firstAttribute="leading" secondItem="wph-2b-AIE" secondAttribute="leading" id="Hpv-Om-k07"/>
+                            <constraint firstItem="H3X-T9-KkA" firstAttribute="centerY" secondItem="IXa-jT-DYh" secondAttribute="centerY" id="IMb-cf-5yf"/>
+                            <constraint firstItem="wph-2b-AIE" firstAttribute="bottom" secondItem="ebZ-cF-ymk" secondAttribute="bottom" constant="24" id="Tg3-El-X8W"/>
+                            <constraint firstItem="wph-2b-AIE" firstAttribute="trailing" secondItem="ebZ-cF-ymk" secondAttribute="trailing" constant="16" id="b4i-92-DYJ"/>
+                            <constraint firstItem="wph-2b-AIE" firstAttribute="trailing" secondItem="H3X-T9-KkA" secondAttribute="trailing" id="neD-im-MFx"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wph-2b-AIE"/>
+                    </view>
+                    <connections>
+                        <outlet property="buttonUpdate" destination="ebZ-cF-ymk" id="QYZ-lS-LoL"/>
+                        <outlet property="labelSubtitle" destination="Waj-yJ-Sty" id="StP-aA-FOO"/>
+                        <outlet property="labelTitle" destination="zvr-Wl-IM2" id="Evp-G3-pyg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="17P-cy-SoA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-259.4202898550725" y="116.51785714285714"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="userimg-Update" width="144" height="100"/>
+    </resources>
+</document>

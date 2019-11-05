@@ -11,6 +11,7 @@ import RxSwift
 
 public protocol ApplicationVersionUseCaseProtocol {
     func isHasNewVersion() -> Observable<Bool>
+    func isNeedForceUpdate() -> Observable<Bool>
 }
 
 public final class ApplicationVersionUseCase: ApplicationVersionUseCaseProtocol {
@@ -29,6 +30,18 @@ public final class ApplicationVersionUseCase: ApplicationVersionUseCaseProtocol 
                 let currentVersion = Bundle.main.version.versionToInt()
                 return Observable.just(currentVersion.lexicographicallyPrecedes(version.versionToInt()))
             }                
+    }
+    
+    public func isNeedForceUpdate() -> Observable<Bool> {
+        return applicationVersionRepository
+            .forceUpdateVersion()
+            .flatMap { (version) -> Observable<Bool> in
+                let currentVersion = Bundle.main.version.versionToInt()
+                return Observable.just(currentVersion.lexicographicallyPrecedes(version.versionToInt()))
+            }
+        .catchError { (_) -> Observable<Bool> in
+            return Observable.just(false)
+        }
     }
 }
 
