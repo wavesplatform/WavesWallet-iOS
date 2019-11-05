@@ -17,6 +17,8 @@ import Extensions
 
 private enum Constants {
     static let searchAssetsLimit: Int = 100
+    static let vostokAssetDescription = "Waves Enterprise System Token."
+    static let vostokAssetId = "Vostok"
 }
 
 final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
@@ -175,11 +177,16 @@ fileprivate extension DomainLayer.DTO.Asset {
         let isGateway = info?.isGateway ?? false
         let isWavesToken = isFiat == false && isGateway == false && isWaves == false
         var name = asset.name
+        var description = asset.description
         
         //TODO: Current code need move to AssetsInteractor!
         if let info = info {
             if info.assetId == WavesSDKConstants.wavesAssetId {
                 isWaves = true
+            }
+            
+            if info.gatewayId == Constants.vostokAssetId {
+                description = Constants.vostokAssetDescription
             }
             
             name = info.displayName
@@ -191,7 +198,7 @@ fileprivate extension DomainLayer.DTO.Asset {
                   wavesId: info?.wavesId,
                   displayName: name,
                   precision: asset.precision,
-                  description: asset.description,
+                  description: description,
                   height: asset.height,
                   timestamp: asset.timestamp,
                   sender: asset.sender,

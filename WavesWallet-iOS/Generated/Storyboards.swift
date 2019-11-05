@@ -153,6 +153,11 @@ internal enum StoryboardScene {
 
     internal static let languageViewController = SceneType<WavesWallet_iOS.LanguageViewController>(storyboard: Enter.self, identifier: "LanguageViewController")
   }
+  internal enum ForceUpdateApp: StoryboardType {
+    internal static let storyboardName = "ForceUpdateApp"
+
+    internal static let forceUpdateAppViewController = SceneType<WavesWallet_iOS.ForceUpdateAppViewController>(storyboard: ForceUpdateApp.self, identifier: "ForceUpdateAppViewController")
+  }
   internal enum Hello: StoryboardType {
     internal static let storyboardName = "Hello"
 
