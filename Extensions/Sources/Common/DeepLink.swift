@@ -34,11 +34,13 @@ public extension DeepLink {
 public extension DeepLink {
     
     var isClientSendLink: Bool {
-        return url.absoluteString.range(of: "/#send") != nil
+        return url.absoluteString.range(of: "#send") != nil
     }
     
     
     var isClientDexLink: Bool {
-        return url.absoluteString.range(of: "/dex") != nil
+        return url.absoluteString.range(of: "dex") != nil &&
+            url.absoluteString.range(of: "assetId1") != nil &&
+            url.absoluteString.range(of: "assetId2") != nil
     }
 }
