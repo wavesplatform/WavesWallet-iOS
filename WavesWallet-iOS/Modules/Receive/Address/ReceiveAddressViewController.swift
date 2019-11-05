@@ -72,6 +72,8 @@ final class ReceiveAddressViewController: UIViewController {
         labelQRCode.text = Localizable.Waves.Receiveaddress.Label.yourQRCode
         buttonClose.setTitle(Localizable.Waves.Receiveaddress.Button.close, for: .normal)
         labelInvoiceLinkLocalized.text = Localizable.Waves.Receiveaddress.Label.linkToInvoice
+        buttonCopy.setTitle(Localizable.Waves.Receiveaddress.Button.copy, for: .normal)
+        buttonShare.setTitle(Localizable.Waves.Receiveaddress.Button.share, for: .normal)
     }
     
     private func setupInfo() {
