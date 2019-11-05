@@ -138,8 +138,11 @@ extension AppCoordinator: PresentationCoordinator {
 
         case .slide(let wallet):
             guard isActiveForceUpdate == false else { return }
-            guard isHasCoordinator(type: SlideCoordinator.self) != true else { return }
-
+            guard isHasCoordinator(type: SlideCoordinator.self) != true else {
+                showDeepLinkVcIfNeed()
+                return
+            }
+            
             let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: wallet)
             slideCoordinator.menuViewControllerDelegate = self
             addChildCoordinatorAndStart(childCoordinator: slideCoordinator)            
