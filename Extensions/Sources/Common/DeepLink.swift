@@ -34,11 +34,11 @@ public extension DeepLink {
 public extension DeepLink {
     
     var isClientSendLink: Bool {
-        return url.absoluteString.range(of: "\(DeepLink.scheme)://client.wavesplatform.com") != nil
+        return url.absoluteString.range(of: "/#send") != nil
     }
     
     
     var isClientDexLink: Bool {
-        return url.absoluteString.range(of: "\(DeepLink.scheme)://beta.wavesplatform.com") != nil
+        return url.absoluteString.range(of: "/dex") != nil
     }
 }
