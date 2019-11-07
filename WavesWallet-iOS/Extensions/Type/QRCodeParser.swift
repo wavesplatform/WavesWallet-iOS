@@ -13,7 +13,7 @@ private enum Constants {
     static let addressKeyScan = "recipient"
     static let amountKeyScan = "amount"
 
-    static let sendStartUrl = "#send/"
+    static let sendStartUrl = "send/"
 }
 
 final class QRCodeParser {

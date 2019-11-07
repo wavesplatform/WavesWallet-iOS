@@ -205,7 +205,7 @@ extension AppCoordinator: PresentationCoordinator {
         else if link.isClientDexLink {
             self.showDisplay(.dex(link))
         }
-        else if link.url.absoluteString == DeepLink.widgetSettings {
+        else if link.isMobileKeeper {
             
             mobileKeeperRepository
                 .decodableRequest(link.url)
