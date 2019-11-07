@@ -23,6 +23,7 @@ final class SendPresenter: SendPresenterProtocol {
         newFeedbacks.append(modelsWavesQuery())
         newFeedbacks.append(assetQuery())
         newFeedbacks.append(feeQuery())
+        newFeedbacks.append(deepLinkAssetDecimalsQuery())
         
         Driver.system(initialState: Send.State.initialState,
                       reduce: { [weak self] state, event -> Send.State in
@@ -31,6 +32,20 @@ final class SendPresenter: SendPresenterProtocol {
                       feedback: newFeedbacks)
             .drive()
             .disposed(by: disposeBag)
+    }
+    
+    private func deepLinkAssetDecimalsQuery() -> Feedback {
+        return react(request: { state -> Send.State? in
+           return state.isNeedLoadDeepLinkAssetDecimals ? state : nil
+           
+       }, effects: {[weak self] state -> Signal<Send.Event> in
+            guard let self = self else { return Signal.empty() }
+            guard let assetId = state.deepLinkAssetId else { return Signal.empty() }
+        
+            return self.interactor.getDecimalsForAsset(assetID: assetId)
+                .map {.didGetDeepLinkAssetDecimals($0)}
+                .asSignal(onErrorRecover: { Signal.just(.handleFeeError($0)) } )
+        })
     }
     
     private func feeQuery() -> Feedback {
@@ -229,6 +244,19 @@ final class SendPresenter: SendPresenterProtocol {
                 $0.scanningAssetID = nil
                 $0.action = .didGetAssetBalance(asset)
             }
+            
+        case .getDecimalsForDeepLinkAsset(let assetId):
+            return state.mutate {
+                $0.deepLinkAssetId = assetId
+                $0.isNeedLoadDeepLinkAssetDecimals = true
+                $0.action = .none
+            }
+            
+        case .didGetDeepLinkAssetDecimals(let decimals):
+            return state.mutate {
+                $0.isNeedLoadDeepLinkAssetDecimals = false
+                $0.action = .didGetDeepLinkAssetDecimals(decimals)
+            }
         }
     }
 }
@@ -241,10 +269,12 @@ fileprivate extension Send.State {
                           isNeedLoadWaves: true,
                           isNeedGenerateMoneroAddress: false,
                           isNeedLoadWavesFee: false,
+                          isNeedLoadDeepLinkAssetDecimals: false,
                           action: .none,
                           recipient: "",
                           moneroPaymentID: "",
                           selectedAsset: nil,
-                          scanningAssetID: nil)
+                          scanningAssetID: nil,
+                          deepLinkAssetId: nil)
     }
 }

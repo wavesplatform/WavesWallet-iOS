@@ -63,7 +63,7 @@ private struct SettingsScriptPair: TSUD, Codable, Mutating  {
     }
 }
 
-final class DexCoordinator: Coordinator {
+class DexCoordinator: Coordinator {
 
     private let auth = UseCasesFactory.instance.authorization
     private let dispose = DisposeBag()
