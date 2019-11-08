@@ -31,6 +31,7 @@ target 'WavesWallet-iOS' do
     
     pod 'TTTAttributedLabel'
     pod 'UITextView+Placeholder'
+    pod 'Down'
 
     pod 'SwipeView'
     pod 'MGSwipeTableCell'
