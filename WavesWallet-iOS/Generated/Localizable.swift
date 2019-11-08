@@ -2267,6 +2267,27 @@ internal enum Localizable {
       }
     }
 
+    internal enum Pushnotificationsalert {
+
+      internal enum Button {
+        /// Activate Push Notifications
+        internal static var activatePush: String { return Localizable.tr("Waves", "pushNotificationsAlert.button.activatePush") }
+        internal static var activatePushKey: String { return "pushNotificationsAlert.button.activatePush" }
+        /// Later
+        internal static var later: String { return Localizable.tr("Waves", "pushNotificationsAlert.button.later") }
+        internal static var laterKey: String { return "pushNotificationsAlert.button.later" }
+      }
+
+      internal enum Label {
+        /// Turn on the notification in the Profile page and always stay up with important events
+        internal static var subtitle: String { return Localizable.tr("Waves", "pushNotificationsAlert.label.subtitle") }
+        internal static var subtitleKey: String { return "pushNotificationsAlert.label.subtitle" }
+        /// Stay up with Push Notifications
+        internal static var title: String { return Localizable.tr("Waves", "pushNotificationsAlert.label.title") }
+        internal static var titleKey: String { return "pushNotificationsAlert.label.title" }
+      }
+    }
+
     internal enum Receive {
 
       internal enum Button {

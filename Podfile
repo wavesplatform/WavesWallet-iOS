@@ -102,6 +102,7 @@ target 'DataLayer' do
     pod 'Firebase'
     pod 'Firebase/InAppMessagingDisplay'
     pod 'Firebase/Analytics'
+    pod 'Firebase/Messaging'
 
     pod 'AppsFlyerFramework'
     pod 'Fabric'
@@ -215,6 +216,7 @@ post_install do |installer|
             'FirebaseAnalytics',
             'FirebaseCoreDiagnostics',
             'FirebaseInstanceID',
+            'FirebaseInAppMessaging',
             'GoogleAppMeasurement',
             'GTMSessionFetcher',
             'GoogleUtilities']

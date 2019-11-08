@@ -62,6 +62,8 @@ final class ProfilePresenter: ProfilePresenterProtocol {
         newFeedbacks.append(logoutAccountQuery())
         newFeedbacks.append(handlerEvent())
         newFeedbacks.append(setBackupQuery())
+        newFeedbacks.append(setPushNotificationsQeury())
+        newFeedbacks.append(registerPushNotificationsQeury())
 
         let initialState = self.initialState()
 
@@ -94,7 +96,7 @@ fileprivate extension ProfilePresenter {
              .showSupport,
              .setEnabledBiometric,
              .showAlertForEnabledBiometric:
-
+            
             return query
         default:
             break
@@ -149,6 +151,49 @@ fileprivate extension ProfilePresenter {
         }
     }
 
+    func registerPushNotificationsQeury() -> Feedback {
+        return react(request: { state -> Bool? in
+               guard let query = state.query else { return nil }
+               if case .registerPushNotifications = query {
+                   return true
+               } else {
+                   return nil
+               }
+
+           }, effects: { _ -> Signal<Types.Event> in
+                return PushNotificationsManager.rx.getNotificationsStatus()
+                    .flatMap { (status) -> Observable<Bool> in
+                        if status == .notDetermined {
+                             return PushNotificationsManager.rx.registerRemoteNotifications()
+                        }
+                        else {
+                            return PushNotificationsManager.rx.openSettings().map { _ in false }
+                        }
+                    }
+                    .map { Types.Event.setPushNotificationsSettings($0)}
+                    .asSignal(onErrorRecover: { _ in
+                        return Signal.empty()
+                    })
+           })
+    }
+    
+    func setPushNotificationsQeury() -> Feedback {
+        return react(request: { state -> Bool? in
+            guard let query = state.query else { return nil }
+            if case .updatePushNotificationsSettings = query {
+                return true
+            } else {
+                return nil
+            }
+
+        }, effects: { _ -> Signal<Types.Event> in
+            return PushNotificationsManager.rx.getNotificationsStatus().map { Types.Event.setPushNotificationsSettings($0 == .authorized)}
+                .asSignal(onErrorRecover: { _ in
+                return Signal.empty()
+            })
+        })
+    }
+    
     func reactQuries() -> Feedback {
 
         return react(request: { state -> Types.Query? in
@@ -338,12 +383,13 @@ private extension ProfilePresenter {
 
         case .viewDidAppear:
             state.displayState.isAppeared = true
-
+            state.query = .updatePushNotificationsSettings
+            
         case .setWallet(let wallet):
 
             let generalSettings = Types.ViewModel.Section(rows: [.addressesKeys,
                                                                  .addressbook,
-                                                                 .pushNotifications,
+                                                                 .pushNotifications(isActive: state.isActivePushNotifications),
                                                                  .language(Language.currentLanguage)], kind: .general)
 
 
@@ -409,6 +455,10 @@ private extension ProfilePresenter {
 
             case .biometricDisabled:
                 state.query = .showAlertForEnabledBiometric
+                
+            case .pushNotifications(let isActive):
+                guard isActive == false else { return }
+                state.query = .registerPushNotifications
                 
             default:
                 break
@@ -487,11 +537,47 @@ private extension ProfilePresenter {
         case .completedQuery:
             state.query = nil
 
+        case .setPushNotificationsSettings(let isActive):
+            state.isActivePushNotifications = isActive
+            updateInfo(state: &state, isActivePushNotifications: isActive)
+            state.displayState.action = .update
+            state.query = nil
+            
+        case .updatePushNotificationsSettings:
+            state.query = .updatePushNotificationsSettings
+            
         default:
             break
         }
     }
 
+    static func updateInfo(state: inout Types.State, isActivePushNotifications: Bool) {
+
+        guard let section = state
+            .displayState
+            .sections
+            .enumerated()
+            .first(where: { $0.element.kind == .general }) else { return }
+
+        guard let index = section
+            .element
+            .rows
+            .enumerated()
+            .first(where: { element in
+                if case .pushNotifications = element.element {
+                    return true
+                }
+                return false
+            }) else {
+                return
+        }
+
+        state
+            .displayState
+            .sections[section.offset]
+            .rows[index.offset] = .pushNotifications(isActive: isActivePushNotifications)
+    }
+    
     static func updateInfo(state: inout Types.State, block: Int64, isBackedUp: Bool) {
 
         guard let section = state
@@ -528,7 +614,7 @@ private extension ProfilePresenter {
 private extension ProfilePresenter {
 
     func initialState() -> Types.State {
-        return Types.State(query: nil, wallet: nil, block: nil, displayState: initialDisplayState())
+        return Types.State(query: nil, wallet: nil, block: nil, displayState: initialDisplayState(), isActivePushNotifications: false)
     }
 
     func initialDisplayState() -> Types.DisplayState {
