@@ -20,4 +20,5 @@ protocol SendInteractorProtocol {
     func validateAlis(alias: String) -> Observable<Bool>
     func send(fee: Money, recipient: String, asset: DomainLayer.DTO.Asset, amount: Money, attachment: String, feeAssetID: String, isGatewayTransaction: Bool) -> Observable<Send.TransactionStatus>
     func calculateFee(assetID: String) -> Observable<Money>
+    func getDecimalsForAsset(assetID: String) -> Observable<Int>
 }

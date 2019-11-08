@@ -151,6 +151,20 @@ final class SendInteractor: SendInteractorProtocol {
             return Observable.just(.error(NetworkError.error(by: error)))
         })
     }
+    
+    func getDecimalsForAsset(assetID: String) -> Observable<Int> {
+        return auth.authorizedWallet()
+            .flatMap { [weak self] wallet -> Observable<Int> in
+                guard let self = self else { return Observable.empty() }
+                return self.assetInteractor.assets(by: [assetID], accountAddress: wallet.address)
+                    .map { (assets) -> Int in
+                        return assets.first(where: {$0.id == assetID}).map {$0.precision} ?? 0
+                }
+        }
+        .catchError { (_) -> Observable<Int> in
+            return Observable.just(0)
+        }
+    }
 }
 
 private extension SendInteractor {

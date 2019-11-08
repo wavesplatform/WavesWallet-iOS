@@ -36,6 +36,8 @@ enum Send {
         case didGetWavesFee(Money)
         case handleFeeError(Error)
         case refreshFee
+        case getDecimalsForDeepLinkAsset(String)
+        case didGetDeepLinkAssetDecimals(Int)
     }
     
     struct State: Mutating {
@@ -50,18 +52,21 @@ enum Send {
             case didGetAssetBalance(DomainLayer.DTO.SmartAssetBalance?)
             case didGetWavesFee(Money)
             case didHandleFeeError(DisplayError)
+            case didGetDeepLinkAssetDecimals(Int)
         }
-        
+
         var isNeedLoadGateWayInfo: Bool
         var isNeedValidateAliase: Bool
         var isNeedLoadWaves: Bool
         var isNeedGenerateMoneroAddress: Bool
         var isNeedLoadWavesFee: Bool
+        var isNeedLoadDeepLinkAssetDecimals: Bool
         var action: Action
         var recipient: String = ""
         var moneroPaymentID: String = ""
         var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
         var scanningAssetID: String?
+        var deepLinkAssetId: String?
     }
 }
 
@@ -84,7 +89,8 @@ extension Send.DTO {
         case empty
         case selectedAsset(DomainLayer.DTO.SmartAssetBalance)
         case resendTransaction(ResendTransaction)
-  
+        case deepLink(DeepLink)
+        
         var selectedAsset: DomainLayer.DTO.SmartAssetBalance? {
             switch self {
             case .selectedAsset(let asset):
@@ -116,7 +122,8 @@ extension Send.State: Equatable {
                 lhs.moneroPaymentID == rhs.moneroPaymentID &&
                 lhs.selectedAsset?.assetId == rhs.selectedAsset?.assetId &&
                 lhs.scanningAssetID == rhs.scanningAssetID &&
-                lhs.isNeedLoadWavesFee == rhs.isNeedLoadWavesFee
+                lhs.isNeedLoadWavesFee == rhs.isNeedLoadWavesFee &&
+                lhs.isNeedLoadDeepLinkAssetDecimals == rhs.isNeedLoadDeepLinkAssetDecimals
     }
 }
 
