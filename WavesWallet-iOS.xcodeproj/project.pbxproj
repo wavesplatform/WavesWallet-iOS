@@ -750,7 +750,6 @@
 		E9236F1D2216F35B00A12FD5 /* AppNewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9236F1C2216F35B00A12FD5 /* AppNewsView.swift */; };
 		E9236F1F2216F37300A12FD5 /* AppNewsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9236F1E2216F37300A12FD5 /* AppNewsView.xib */; };
 		E9236F212216F48A00A12FD5 /* PopupActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9236F202216F48A00A12FD5 /* PopupActionView.swift */; };
-		E923956B2374F272009C4091 /* PushNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923956A2374F272009C4091 /* PushNotificationsManager.swift */; };
 		E923A765219D53EE000DD9F6 /* TokenBurnInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923A764219D53EE000DD9F6 /* TokenBurnInteractor.swift */; };
 		E923A768219D714E000DD9F6 /* TokenBurnLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923A767219D714E000DD9F6 /* TokenBurnLoadingViewController.swift */; };
 		E923A76D219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E923A76C219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift */; };
@@ -881,7 +880,6 @@
 		E99A3B7522BE5CEB0070AC76 /* GatewayRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99A3B7422BE5CEB0070AC76 /* GatewayRepositoryProtocol.swift */; };
 		E99A3B7722BE5DB70070AC76 /* GatewayDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99A3B7622BE5DB70070AC76 /* GatewayDomainDTO.swift */; };
 		E9A05C5820E9264300B0E0FA /* UseTouchIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */; };
-		E9A0614B237460F300259C5D /* PushNotificationsAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A0614A237460F300259C5D /* PushNotificationsAlertView.swift */; };
 		E9A3ABBD2319EEB900EB4389 /* MatcherRepositoryLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98A1A152301A0EF00E7EAAD /* MatcherRepositoryLocal.swift */; };
 		E9A3AFAE222DEECB009FB45A /* DexScriptAssetMessageModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A3AFAD222DEECB009FB45A /* DexScriptAssetMessageModuleBuilder.swift */; };
 		E9A4812F20D8DDBB00272C6D /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */; };
@@ -1080,7 +1078,6 @@
 		E9DF24F62221ED640077F2EB /* AssetDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DF24F52221ED640077F2EB /* AssetDetailInteractor.swift */; };
 		E9DF24F82221EE180077F2EB /* AssetDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DF24F72221EE180077F2EB /* AssetDetailPresenter.swift */; };
 		E9DF24FA2221EF4D0077F2EB /* AssetDetailTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DF24F92221EF4D0077F2EB /* AssetDetailTypes.swift */; };
-		E9E95B7C237454DA0089F694 /* PushNotificationsAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9E95B7B237454DA0089F694 /* PushNotificationsAlertView.xib */; };
 		E9EC5BAA2175F35900E5C29A /* Send.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9EC5B362175F35800E5C29A /* Send.storyboard */; };
 		E9EC5BAC2175F35900E5C29A /* SendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EC5B3A2175F35800E5C29A /* SendViewController.swift */; };
 		E9EC5BAD2175F35900E5C29A /* SendModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EC5B3B2175F35800E5C29A /* SendModuleBuilder.swift */; };
@@ -2056,7 +2053,6 @@
 		E9236F1C2216F35B00A12FD5 /* AppNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNewsView.swift; sourceTree = "<group>"; };
 		E9236F1E2216F37300A12FD5 /* AppNewsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppNewsView.xib; sourceTree = "<group>"; };
 		E9236F202216F48A00A12FD5 /* PopupActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupActionView.swift; sourceTree = "<group>"; };
-		E923956A2374F272009C4091 /* PushNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsManager.swift; sourceTree = "<group>"; };
 		E923A764219D53EE000DD9F6 /* TokenBurnInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnInteractor.swift; sourceTree = "<group>"; };
 		E923A767219D714E000DD9F6 /* TokenBurnLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnLoadingViewController.swift; sourceTree = "<group>"; };
 		E923A76C219D73BF000DD9F6 /* TokenBurnCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBurnCompleteViewController.swift; sourceTree = "<group>"; };
@@ -2189,7 +2185,6 @@
 		E99A3B7422BE5CEB0070AC76 /* GatewayRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E99A3B7622BE5DB70070AC76 /* GatewayDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayDomainDTO.swift; sourceTree = "<group>"; };
 		E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseTouchIDViewController.swift; sourceTree = "<group>"; };
-		E9A0614A237460F300259C5D /* PushNotificationsAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsAlertView.swift; sourceTree = "<group>"; };
 		E9A3AFAD222DEECB009FB45A /* DexScriptAssetMessageModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexScriptAssetMessageModuleBuilder.swift; sourceTree = "<group>"; };
 		E9A4812E20D8DDBB00272C6D /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		E9AFDBE321F32E88003130A8 /* TransactionFeeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFeeView.swift; sourceTree = "<group>"; };
@@ -2390,7 +2385,6 @@
 		E9DF24F52221ED640077F2EB /* AssetDetailInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetDetailInteractor.swift; sourceTree = "<group>"; };
 		E9DF24F72221EE180077F2EB /* AssetDetailPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetDetailPresenter.swift; sourceTree = "<group>"; };
 		E9DF24F92221EF4D0077F2EB /* AssetDetailTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetDetailTypes.swift; sourceTree = "<group>"; };
-		E9E95B7B237454DA0089F694 /* PushNotificationsAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PushNotificationsAlertView.xib; sourceTree = "<group>"; };
 		E9EC5B362175F35800E5C29A /* Send.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Send.storyboard; sourceTree = "<group>"; };
 		E9EC5B3A2175F35800E5C29A /* SendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendViewController.swift; sourceTree = "<group>"; };
 		E9EC5B3B2175F35800E5C29A /* SendModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendModuleBuilder.swift; sourceTree = "<group>"; };
@@ -3187,7 +3181,6 @@
 		0AF58F8B2191909200C8A4B3 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				E97CE71623739D1000B4CE47 /* PushNotifictions */,
 				E9C1B90C236C6D7400F8E988 /* ForceUpdateApp */,
 				7BE09AD123140EF800A038AD /* MobileKeeper */,
 				0A071E3D215AEF03007D9750 /* AccountPassword */,
@@ -4992,16 +4985,6 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
-		E97CE71623739D1000B4CE47 /* PushNotifictions */ = {
-			isa = PBXGroup;
-			children = (
-				E9E95B7B237454DA0089F694 /* PushNotificationsAlertView.xib */,
-				E9A0614A237460F300259C5D /* PushNotificationsAlertView.swift */,
-				E923956A2374F272009C4091 /* PushNotificationsManager.swift */,
-			);
-			path = PushNotifictions;
-			sourceTree = "<group>";
-		};
 		E991BB182202C9E10022E27D /* SendFee */ = {
 			isa = PBXGroup;
 			children = (
@@ -6489,7 +6472,6 @@
 				0A5D32F72154579C0009CDF3 /* MultyTextField.xib in Resources */,
 				0A9797602108A11A00407F67 /* Wallet.storyboard in Resources */,
 				7B48F35F2330F7C000923E9E /* environment_stagenet.json in Resources */,
-				E9E95B7C237454DA0089F694 /* PushNotificationsAlertView.xib in Resources */,
 				7B26A87D22ED129300E7B024 /* WidgetSettings.storyboard in Resources */,
 				E9CD0D2E21809A5D001A99B3 /* SendMoneroPaymentIdView.xib in Resources */,
 				0AACD59D21A59E7100B30815 /* SweetSnackView.xib in Resources */,
@@ -7566,7 +7548,6 @@
 				7B3681AF23155805000D5592 /* ConfirmRequestBalanceCell.swift in Sources */,
 				E9D36DE22175C755001E6DF0 /* ReceiveAddressModuleBuilder.swift in Sources */,
 				E9B087E82163886800937644 /* DexCreateOrderInteractorProtocol.swift in Sources */,
-				E923956B2374F272009C4091 /* PushNotificationsManager.swift in Sources */,
 				7B49911E22F875A1005B7123 /* AssetsSearchViewBuilder.swift in Sources */,
 				04615A23211A31C90000FF80 /* HistoryModuleInput.swift in Sources */,
 				7B3681A72315534E000D5592 /* ConfirmRequestTransactionKindCell.swift in Sources */,
@@ -7737,7 +7718,6 @@
 				7B39029F223790BF00AAFDB8 /* TransactionCardDescriptionCell.swift in Sources */,
 				7B3902B02237D8FA00AAFDB8 /* TransactionCardExchangeCell.swift in Sources */,
 				0A4C9A2820ED443C0095A417 /* WalletPresenter.swift in Sources */,
-				E9A0614B237460F300259C5D /* PushNotificationsAlertView.swift in Sources */,
 				0AF922E7212E1234003BA067 /* EmptyCell.swift in Sources */,
 				E9F984B220E53FE000D2CB4D /* LanguageViewController.swift in Sources */,
 				7B49912222F876AA005B7123 /* AssetsSearchHeaderView.swift in Sources */,
