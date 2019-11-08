@@ -30,6 +30,9 @@ PODS:
   - Firebase/InAppMessagingDisplay (6.6.0):
     - Firebase/CoreOnly
     - FirebaseInAppMessagingDisplay (~> 0.15.3)
+  - Firebase/Messaging (6.6.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 4.1.2)
   - FirebaseAnalytics (6.1.0):
     - FirebaseCore (~> 6.2)
     - FirebaseInstanceID (~> 4.2)
@@ -74,6 +77,15 @@ PODS:
     - FirebaseCore (~> 6.0)
     - GoogleUtilities/Environment (~> 6.0)
     - GoogleUtilities/UserDefaults (~> 6.0)
+  - FirebaseMessaging (4.1.7):
+    - FirebaseAnalyticsInterop (~> 1.3)
+    - FirebaseCore (~> 6.2)
+    - FirebaseInstanceID (~> 4.1)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.2)
+    - GoogleUtilities/Environment (~> 6.2)
+    - GoogleUtilities/Reachability (~> 6.2)
+    - GoogleUtilities/UserDefaults (~> 6.2)
+    - Protobuf (>= 3.9.2, ~> 3.9)
   - GoogleAppMeasurement (6.1.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
@@ -126,6 +138,7 @@ PODS:
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
   - pop (1.0.12)
+  - Protobuf (3.10.0)
   - QRCode (2.0)
   - QRCodeReader.swift (9.0.1)
   - ReachabilitySwift (4.3.1)
@@ -193,6 +206,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/InAppMessagingDisplay
+  - Firebase/Messaging
   - IdentityImg (from `https://github.com/wavesplatform/identity-img-swift.git`)
   - InfiniteCollectionView (from `https://github.com/wavesplatform/InfiniteCollectionView.git`, branch `swift5`)
   - IQKeyboardManagerSwift
@@ -290,6 +304,8 @@ SPEC REPOS:
     - FirebaseAnalyticsInterop
     - FirebaseInAppMessaging
     - FirebaseInAppMessagingDisplay
+    - FirebaseMessaging
+    - Protobuf
 
 EXTERNAL SOURCES:
   IdentityImg:
@@ -334,6 +350,7 @@ SPEC CHECKSUMS:
   FirebaseInAppMessaging: acbfa8c5582b11ccc0366511d29ef1d288f302fc
   FirebaseInAppMessagingDisplay: 60a65c8277f17675a8a5b92e9a97cd914b45d4ff
   FirebaseInstanceID: 8b42755db950682e7de0d167bc6fb26a57b244af
+  FirebaseMessaging: 5ab57080c83bc98c9961412e1dab379f4193d02a
   GoogleAppMeasurement: 47285fa897e5a125df56b9ef8750a1d81e4598a8
   GoogleDataTransport: ffbadce4ab93c88fb9dd8e6366c47bfcb4a32193
   GoogleDataTransportCCTSupport: 3451e7d8ba19093e533362a6d78d6d9014c6a037
@@ -350,6 +367,7 @@ SPEC CHECKSUMS:
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
+  Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
   QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
   QRCodeReader.swift: 96292a5612fbc2fd9a0b26f93fa5164c8d02f59d
   ReachabilitySwift: 4032e2f59586e11e3b0ebe15b167abdd587a388b
@@ -377,6 +395,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: 8207f232dfa15f1452bf9d5c1dae97fac74c4e24
+PODFILE CHECKSUM: 817e6a690ea2f33d966050329cafe07869f0a4ba
 
 COCOAPODS: 1.8.4

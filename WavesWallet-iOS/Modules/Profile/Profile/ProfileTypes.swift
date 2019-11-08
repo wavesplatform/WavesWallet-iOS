@@ -32,6 +32,8 @@ extension ProfileTypes {
         case setBackedUp(Bool)
         case logoutAccount
         case deleteAccount
+        case updatePushNotificationsSettings
+        case registerPushNotifications
     }
 
     struct State: Mutating {
@@ -39,6 +41,7 @@ extension ProfileTypes {
         var wallet: DomainLayer.DTO.Wallet?
         var block: Int64?
         var displayState: DisplayState
+        var isActivePushNotifications: Bool
     }
 
     enum Event {
@@ -52,6 +55,8 @@ extension ProfileTypes {
         case tapLogout
         case tapDelete
         case completedQuery
+        case setPushNotificationsSettings(Bool)
+        case updatePushNotificationsSettings
         case none
     }
 
@@ -64,7 +69,7 @@ extension ProfileTypes {
 
         var sections: [ViewModel.Section]
         var isAppeared: Bool
-        var action: Action?        
+        var action: Action?
     }
 }
 
@@ -73,7 +78,7 @@ extension ProfileTypes.ViewModel {
     enum Row {
         case addressesKeys
         case addressbook
-        case pushNotifications
+        case pushNotifications(isActive: Bool)
         case language(Language)
         case backupPhrase(isBackedUp: Bool)
         case changePassword
