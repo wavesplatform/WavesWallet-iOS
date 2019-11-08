@@ -91,6 +91,8 @@ enum UITest {
             })
             .disposed(by: disposeBag)
         
+        application.registerForRemoteNotifications()
+        
         return true
     }
 
