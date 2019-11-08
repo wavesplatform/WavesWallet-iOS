@@ -12,7 +12,7 @@ import Extensions
 
 private enum Constants {
     static let height: CGFloat = 62
-    static let errorFeeHeight: CGFloat = 50
+    static let errorFeeHeight: CGFloat = 70
 }
 
 final class CreateAliasInputCell: UITableViewCell, Reusable {
