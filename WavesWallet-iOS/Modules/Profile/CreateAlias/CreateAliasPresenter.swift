@@ -37,6 +37,7 @@ final class CreateAliasPresenter: CreateAliasPresenterProtocol {
     private let aliasesRepository: AliasesRepositoryProtocol = UseCasesFactory.instance.repositories.aliasesRepositoryRemote
     private let authorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let transactionsInteractor: TransactionsUseCaseProtocol = UseCasesFactory.instance.transactions
+    private let accountBalanceInteractor: AccountBalanceUseCaseProtocol = UseCasesFactory.instance.accountBalance
 
     weak var moduleOutput: CreateAliasModuleOutput?
 
@@ -46,7 +47,8 @@ final class CreateAliasPresenter: CreateAliasPresenterProtocol {
         newFeedbacks.append(checkExistAliasQuery())
         newFeedbacks.append(getAliasesQuery())
         newFeedbacks.append(externalQueries())
-
+        newFeedbacks.append(enoughtWavesFeeBalanceQuery())
+         
         let initialState = self.initialState()
 
         let system = Driver.system(initialState: initialState,
@@ -62,6 +64,41 @@ final class CreateAliasPresenter: CreateAliasPresenterProtocol {
 
 fileprivate extension CreateAliasPresenter {
 
+    func enoughtWavesFeeBalanceQuery() -> Feedback {
+        return react(request: { state -> Bool? in
+
+            return state.displayState.isAppeared ? true : nil
+
+        }, effects: { [weak self] _ -> Signal<Types.Event> in
+
+            guard let self = self else { return Signal.empty() }
+            return self
+                .authorizationInteractor.authorizedWallet()
+                .flatMap{ [weak self] wallet ->  Observable<Bool> in
+                    guard let self = self else { return Observable.empty() }
+
+                    return self.transactionsInteractor.calculateFee(by: .createAlias, accountAddress: wallet.address)
+                        .flatMap { [weak self] fee ->  Observable<Bool> in
+                            guard let self = self else { return Observable.empty() }
+
+                            return self.accountBalanceInteractor
+                                .balances()
+                                .flatMap { (balances) -> Observable<Bool> in
+                                    if let assetBalance = balances.first(where: {$0.assetId == WavesSDKConstants.wavesAssetId}) {
+                                        return Observable.just(assetBalance.availableBalance >= fee.amount)
+                                    }
+                                    return Observable.just(false)
+                            }
+                    }
+                }
+                .map {.didFinishValidateFeeBalance($0)}
+                .asSignal(onErrorRecover: { e in
+                    SweetLogger.error(e)
+                    return Signal.just(Types.Event.didFinishValidateFeeBalance(false))
+                })
+        })
+    }
+    
     func externalQueries() -> Feedback {
 
         return react(request: { state -> Types.Query? in
@@ -218,7 +255,7 @@ private extension CreateAliasPresenter {
             state.query = nil
             state.displayState.action = .update
             state.displayState.isLoading = false
-            state.displayState.isEnabledSaveButton = true
+            state.displayState.isEnabledSaveButton = state.displayState.isValidEnoughtFee
             let section = Types.ViewModel.Section(rows: [.input(state.displayState.input, error: nil)])
             state.displayState.sections = [section]
 
@@ -233,7 +270,7 @@ private extension CreateAliasPresenter {
         case .handlerError(let error):
             state.query = nil
             state.displayState.isLoading = false
-            state.displayState.isEnabledSaveButton = true            
+            state.displayState.isEnabledSaveButton = state.displayState.isValidEnoughtFee
             state.displayState.errorState = DisplayErrorState.error(DisplayError(error: error))
 
         case .aliasCreated:
@@ -252,6 +289,11 @@ private extension CreateAliasPresenter {
 
         case .completedQuery:
             state.query = nil
+            
+        case .didFinishValidateFeeBalance(let isValidEnoughtFee):
+            state.displayState.isEnabledSaveButton = isValidEnoughtFee
+            state.displayState.isValidEnoughtFee = isValidEnoughtFee
+            state.displayState.action = .updateValidationFeeBalance(isValidEnoughtFee)
         }
     }
 }
@@ -273,7 +315,8 @@ private extension CreateAliasPresenter {
                                   isEnabledSaveButton: false,
                                   isLoading: false,
                                   isAppeared: false,
-                                  action: .none)
+                                  action: .none,
+                                  isValidEnoughtFee: true)
     }
 }
 

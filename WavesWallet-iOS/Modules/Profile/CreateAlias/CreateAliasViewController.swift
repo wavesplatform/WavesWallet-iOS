@@ -23,7 +23,8 @@ final class CreateAliasViewController: UIViewController {
     private var sections: [Types.ViewModel.Section] = []
     private var eventInput: PublishSubject<Types.Event> = PublishSubject<Types.Event>()
     private var errorSnackKey: String?
-
+    private var isValidFee: Bool = true
+    
     var presenter: CreateAliasPresenterProtocol!
 
     override func viewDidLoad() {
@@ -190,11 +191,18 @@ private extension CreateAliasViewController {
                 guard let indexPath = tableView.indexPath(for: inputCell) else { return }
 
                 if case .input(let text, let error) = sections[indexPath] {
-                    inputCell.update(with: .init(text: text, error: error))
+                    inputCell.update(with: .init(text: text, error: error, isValidFee: isValidFee))
+                    if self.isValidFee != isValidFee {
+                        tableView.reloadData()
+                    }
                 }
 
             case .none:
                 break
+                
+            case .updateValidationFeeBalance(let isValidFee):
+                self.isValidFee = isValidFee
+                tableView.reloadData()
             }
         }
     }
@@ -219,7 +227,7 @@ extension CreateAliasViewController: UITableViewDataSource {
         switch row {
         case .input(let text, let error):
             let cell: CreateAliasInputCell = tableView.dequeueCell()
-            cell.update(with: .init(text: text, error: error))
+            cell.update(with: .init(text: text, error: error, isValidFee: isValidFee))
 
             cell
                 .textFieldChangedValue
@@ -247,7 +255,7 @@ extension CreateAliasViewController: UITableViewDelegate {
         let row = sections[indexPath]
         switch row {
         case .input(let text, let error):
-            return CreateAliasInputCell.viewHeight(model: .init(text: text, error: error), width: tableView.frame.width)
+            return CreateAliasInputCell.viewHeight(model: .init(text: text, error: error, isValidFee: isValidFee), width: tableView.frame.width)
         }
     }
 

@@ -12,13 +12,15 @@ import Extensions
 
 private enum Constants {
     static let height: CGFloat = 62
+    static let errorFeeHeight: CGFloat = 50
 }
 
 final class CreateAliasInputCell: UITableViewCell, Reusable {
 
-    @IBOutlet private var viewContainer: UIView!
     @IBOutlet private var inputTextField: InputTextField!
-
+    @IBOutlet private weak var viewFeeError: UIView!
+    @IBOutlet private weak var labelFeeError: UILabel!
+    
     var disposeBag: DisposeBag = DisposeBag()
 
     override func prepareForReuse() {
@@ -91,11 +93,13 @@ extension CreateAliasInputCell: ViewConfiguration {
     struct Model {
         let text: String?
         let error: String?
+        let isValidFee: Bool
     }
 
     func update(with model: CreateAliasInputCell.Model) {
         inputTextField.value = model.text
         inputTextField.error = model.error
+        viewFeeError.isHidden = model.isValidFee
     }
 }
 
@@ -104,7 +108,8 @@ extension CreateAliasInputCell: ViewConfiguration {
 extension CreateAliasInputCell: ViewCalculateHeight {
 
     static func viewHeight(model: Model, width: CGFloat) -> CGFloat {
-        return Constants.height
+        
+        return Constants.height + (model.isValidFee ? 0 : Constants.errorFeeHeight)
     }
 }
 
@@ -114,6 +119,6 @@ extension CreateAliasInputCell: ViewCalculateHeight {
 extension CreateAliasInputCell: Localization {
 
     func setupLocalization() {
-//        self.titleLabel.text = Localizable.Waves.Createalias.Cell.Input.Label.title
+        labelFeeError.text = Localizable.Waves.Send.Label.Error.notFundsFee
     }
 }
