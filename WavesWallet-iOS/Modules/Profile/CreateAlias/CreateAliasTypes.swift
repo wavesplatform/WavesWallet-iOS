@@ -8,6 +8,7 @@
 
 import Foundation
 import Extensions
+import DomainLayer
 
 enum CreateAliasTypes {
     enum ViewModel { }
@@ -36,6 +37,7 @@ extension CreateAliasTypes {
         case aliasCreated
         case handlerError(Error)
         case completedQuery
+        case didFinishValidateFeeBalance(Bool)
     }
 
     struct DisplayState: Mutating, DataSourceProtocol {
@@ -44,6 +46,7 @@ extension CreateAliasTypes {
             case none
             case reload
             case update
+            case updateValidationFeeBalance(Bool)
         }
 
         var sections: [ViewModel.Section]
@@ -53,6 +56,7 @@ extension CreateAliasTypes {
         var isLoading: Bool
         var isAppeared: Bool
         var action: Action?
+        var isValidEnoughtFee: Bool
     }
 }
 
