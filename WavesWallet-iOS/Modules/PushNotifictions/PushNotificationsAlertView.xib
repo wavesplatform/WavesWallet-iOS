@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PushNotificationsAlertView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SOS-Rn-Jej">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" red="0.0" green="0.1019607843" blue="0.22352941179999999" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fc8-ED-Ufr">
+                    <rect key="frame" x="16" y="293" width="343" height="350"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZh-S9-zsI" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                            <rect key="frame" x="24" y="216" width="295" height="48"/>
+                            <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="enP-KI-k2H"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                            <state key="normal" title="Activate Push Notifications"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="highlightedBackground">
+                                    <color key="value" red="0.35294117650000001" green="0.50588235290000005" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="activateTapped:" destination="-2" eventType="touchUpInside" id="Ncs-SA-slx"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="78E-2M-Kd3" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
+                            <rect key="frame" x="24" y="278" width="295" height="48"/>
+                            <color key="backgroundColor" red="0.92941176469999998" green="0.94117647059999998" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="ozQ-E9-ckT"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <state key="normal" title="Later">
+                                <color key="titleColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="highlightedBackground">
+                                    <color key="value" red="0.85490196078431369" green="0.88235294117647056" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="laterTapped:" destination="-2" eventType="touchUpInside" id="gNy-H2-LxV"/>
+                            </connections>
+                        </button>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimg-push" translatesAutoresizingMaskIntoConstraints="NO" id="uDY-Ts-K2G">
+                            <rect key="frame" x="111.5" y="12" width="120" height="100"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stay up with Push Notifications" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dlc-8D-E5d">
+                            <rect key="frame" x="24" y="126" width="295" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Turn on the notification in the Profile page and always stay up with important events" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fd6-nq-HiS">
+                            <rect key="frame" x="24" y="154.5" width="295" height="31.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="KZh-S9-zsI" firstAttribute="leading" secondItem="Fc8-ED-Ufr" secondAttribute="leading" constant="24" id="Ejs-r1-NG9"/>
+                        <constraint firstAttribute="bottom" secondItem="78E-2M-Kd3" secondAttribute="bottom" constant="24" id="F0q-eh-LXz"/>
+                        <constraint firstAttribute="trailing" secondItem="KZh-S9-zsI" secondAttribute="trailing" constant="24" id="KVU-8U-2jq"/>
+                        <constraint firstAttribute="trailing" secondItem="78E-2M-Kd3" secondAttribute="trailing" constant="24" id="MfI-BT-MqK"/>
+                        <constraint firstItem="dlc-8D-E5d" firstAttribute="top" secondItem="uDY-Ts-K2G" secondAttribute="bottom" constant="14" id="MsH-Sl-Olg"/>
+                        <constraint firstItem="uDY-Ts-K2G" firstAttribute="top" secondItem="Fc8-ED-Ufr" secondAttribute="top" constant="12" id="Nap-hh-rTS"/>
+                        <constraint firstItem="78E-2M-Kd3" firstAttribute="top" secondItem="KZh-S9-zsI" secondAttribute="bottom" constant="14" id="OBE-tf-VwT"/>
+                        <constraint firstAttribute="trailing" secondItem="Fd6-nq-HiS" secondAttribute="trailing" constant="24" id="PZD-Zc-TXt"/>
+                        <constraint firstAttribute="trailing" secondItem="dlc-8D-E5d" secondAttribute="trailing" constant="24" id="Vef-Gr-ulT"/>
+                        <constraint firstItem="Fd6-nq-HiS" firstAttribute="leading" secondItem="Fc8-ED-Ufr" secondAttribute="leading" constant="24" id="XTE-Pa-765"/>
+                        <constraint firstItem="dlc-8D-E5d" firstAttribute="leading" secondItem="Fc8-ED-Ufr" secondAttribute="leading" constant="24" id="bYR-kN-RT2"/>
+                        <constraint firstItem="uDY-Ts-K2G" firstAttribute="centerX" secondItem="Fc8-ED-Ufr" secondAttribute="centerX" id="d27-9M-ng4"/>
+                        <constraint firstItem="78E-2M-Kd3" firstAttribute="leading" secondItem="Fc8-ED-Ufr" secondAttribute="leading" constant="24" id="lY1-qR-juQ"/>
+                        <constraint firstItem="KZh-S9-zsI" firstAttribute="top" secondItem="Fd6-nq-HiS" secondAttribute="bottom" constant="30" id="mZu-rb-jNT"/>
+                        <constraint firstItem="Fd6-nq-HiS" firstAttribute="top" secondItem="dlc-8D-E5d" secondAttribute="bottom" constant="8" id="zrn-6q-8G6"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="Fc8-ED-Ufr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="2WV-BO-bZu"/>
+                <constraint firstItem="SOS-Rn-Jej" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="Gml-8l-RJo"/>
+                <constraint firstItem="SOS-Rn-Jej" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="lFj-Aw-F3m"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Fc8-ED-Ufr" secondAttribute="trailing" constant="16" id="mq3-eB-dbi"/>
+                <constraint firstItem="SOS-Rn-Jej" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="nWm-ca-t6d"/>
+                <constraint firstItem="SOS-Rn-Jej" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="qBy-f7-hxc"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Fc8-ED-Ufr" secondAttribute="bottom" constant="24" id="vLY-2x-4GR"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="bottomOffset" destination="vLY-2x-4GR" id="3gn-BC-SFS"/>
+                <outlet property="buttonActivate" destination="KZh-S9-zsI" id="sYP-wd-e4B"/>
+                <outlet property="buttonLater" destination="78E-2M-Kd3" id="4ud-3z-Ecg"/>
+                <outlet property="labelSubtitle" destination="Fd6-nq-HiS" id="eiM-tG-h07"/>
+                <outlet property="labelTitle" destination="dlc-8D-E5d" id="aV8-RJ-34q"/>
+                <outlet property="viewBackground" destination="SOS-Rn-Jej" id="S1s-7H-q97"/>
+                <outlet property="viewContainer" destination="Fc8-ED-Ufr" id="IjN-At-f4g"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="153"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="userimg-push" width="120" height="100"/>
+    </resources>
+</document>

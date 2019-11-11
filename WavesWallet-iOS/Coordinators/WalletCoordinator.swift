@@ -84,9 +84,15 @@ final class WalletCoordinator: Coordinator {
         addChildCoordinatorAndStart(childCoordinator: coordinator)
     }
 
+    private func showPushAlertSettings() {
+        let coordinator = PushNotificationsCoordinator()
+        addChildCoordinatorAndStart(childCoordinator: coordinator)
+    }
+    
     private func showNewsAndBackupTost() {
         showBackupTost()
         showNews()
+        showPushAlertSettings()
     }
 
     private func showLegalOrBackupIfNeed() {

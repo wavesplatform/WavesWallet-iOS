@@ -59,7 +59,7 @@ final class PopupViewController: UIViewController {
     
     func present(contentViewController: UIViewController, animated: Bool = true) {
         
-        let topController = getTopController()
+        let topController = self.topController
         topController.view.addSubview(bgView)
         
         topController.addChild(self)
@@ -274,7 +274,10 @@ private extension PopupViewController {
         }
     }
     
-    func getTopController() -> UIViewController {
-        return AppDelegate.shared().window!.rootViewController!
+    var topController: UIViewController {
+        guard let topVC = UIApplication.shared.keyWindow?.rootViewController else {
+            return UIViewController()
+        }
+        return topVC
     }
 }

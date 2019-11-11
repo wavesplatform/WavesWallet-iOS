@@ -688,3 +688,8 @@
 "forceupdate.label.title" = "New Version Available";
 "forceupdate.label.subtitle" = "Please update to continue using Waves App";
 "forceupdate.button.update" = "Update";
+"pushNotificationsAlert.label.title" = "Stay up with Push Notifications";
+"pushNotificationsAlert.label.subtitle" = "Turn on the notification in the Profile page and always stay up with important events";
+"pushNotificationsAlert.button.activatePush" = "Activate Push Notifications";
+"pushNotificationsAlert.button.later" = "Later";
+
