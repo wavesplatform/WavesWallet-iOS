@@ -68,7 +68,8 @@ public final class UseCasesFactory: UseCasesFactoryProtocol {
                                                  localWalletSeedRepository: repositories.walletSeedRepositoryLocal,
                                                  remoteAuthenticationRepository: repositories.authenticationRepositoryRemote,
                                                  accountSettingsRepository: repositories.accountSettingsRepository,
-                                                 localizable: self.authorizationInteractorLocalizable)
+                                                 localizable: self.authorizationInteractorLocalizable,
+                                                 analyticManager: self.analyticManager)
 
         return interactor
     }()

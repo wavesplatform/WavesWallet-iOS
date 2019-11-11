@@ -11,6 +11,7 @@ PODS:
   - CryptoSwift (1.0.0)
   - CSV.swift (2.4.2)
   - DeviceKit (2.3.0)
+  - Down (0.9.0)
   - Fabric (1.10.2)
   - Firebase (6.6.0):
     - Firebase/Core (= 6.6.0)
@@ -199,6 +200,7 @@ DEPENDENCIES:
   - CryptoSwift
   - CSV.swift
   - DeviceKit
+  - Down
   - Fabric
   - Firebase
   - Firebase/Analytics
@@ -301,6 +303,7 @@ SPEC REPOS:
     - UPCarouselFlowLayout
   trunk:
     - DeviceKit
+    - Down
     - FirebaseAnalyticsInterop
     - FirebaseInAppMessaging
     - FirebaseInAppMessagingDisplay
@@ -337,6 +340,7 @@ SPEC CHECKSUMS:
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   CSV.swift: 9670cc1b3e3f01e9eebb1aeb603b17b4459e7493
   DeviceKit: da103891aa928d89f64ea8dd8aca738c5f3d8ac0
+  Down: 1cdbca4963b542d0ef34ebb3e10ff48382bdf761
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   Firebase: a2b5951f30ff38fd3b3bdae9c7d340f940fd3c51
   FirebaseAnalytics: 48414ae5cbf6976d8a2f7177e0466540e5ab33ce
@@ -395,6 +399,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: 817e6a690ea2f33d966050329cafe07869f0a4ba
+PODFILE CHECKSUM: 097ab6a58a90c5434b15bb013d939f2fc7d874f5
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.8.1

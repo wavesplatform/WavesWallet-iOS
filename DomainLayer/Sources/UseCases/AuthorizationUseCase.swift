@@ -11,6 +11,7 @@ import RxSwift
 import KeychainAccess
 import LocalAuthentication
 import WavesSDKExtensions
+import WavesSDKCrypto
 import Extensions
 
 private enum Constants {
@@ -172,19 +173,22 @@ final class AuthorizationUseCase: AuthorizationUseCaseProtocol {
     private let remoteAuthenticationRepository: AuthenticationRepositoryProtocol
     private let accountSettingsRepository: AccountSettingsRepositoryProtocol
 
+    private let analyticManager: AnalyticManagerProtocol
     private let localizable: AuthorizationInteractorLocalizableProtocol
 
     init(localWalletRepository: WalletsRepositoryProtocol,
          localWalletSeedRepository: WalletSeedRepositoryProtocol,
          remoteAuthenticationRepository: AuthenticationRepositoryProtocol,
          accountSettingsRepository: AccountSettingsRepositoryProtocol,
-         localizable: AuthorizationInteractorLocalizableProtocol) {
+         localizable: AuthorizationInteractorLocalizableProtocol,
+         analyticManager: AnalyticManagerProtocol) {
 
         self.localWalletRepository = localWalletRepository
         self.localWalletSeedRepository = localWalletSeedRepository
         self.remoteAuthenticationRepository = remoteAuthenticationRepository
         self.accountSettingsRepository = accountSettingsRepository
         self.localizable = localizable
+        self.analyticManager = analyticManager
     }
 
     //TODO: Mutex
@@ -200,7 +204,12 @@ final class AuthorizationUseCase: AuthorizationUseCaseProtocol {
                 let seed = signedWallet.seed
 
                 self.seedRepositoryMemory.append(seed)
-
+                
+                let auuidBytes = WavesCrypto.shared.blake2b256(input: wallet.address.toBytes)
+                let auuid = WavesCrypto.shared.base64encode(input: auuidBytes)
+                
+                self.analyticManager.setAUUID(auuid)
+                
                 return self
                     .setIsLoggedIn(wallet: wallet)
                     .flatMap { wallet -> Observable<AuthorizationVerifyAccessStatus> in
