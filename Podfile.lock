@@ -10,8 +10,13 @@ PODS:
     - Fabric (~> 1.10.2)
   - CryptoSwift (1.0.0)
   - CSV.swift (2.4.2)
-  - DeviceKit (2.0.0)
+  - DeviceKit (2.3.0)
+  - Down (0.9.0)
   - Fabric (1.10.2)
+  - Firebase (6.6.0):
+    - Firebase/Core (= 6.6.0)
+  - Firebase/Analytics (6.6.0):
+    - Firebase/Core
   - Firebase/Auth (6.6.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.2.2)
@@ -23,6 +28,12 @@ PODS:
   - Firebase/Database (6.6.0):
     - Firebase/CoreOnly
     - FirebaseDatabase (~> 6.0.0)
+  - Firebase/InAppMessagingDisplay (6.6.0):
+    - Firebase/CoreOnly
+    - FirebaseInAppMessagingDisplay (~> 0.15.3)
+  - Firebase/Messaging (6.6.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 4.1.2)
   - FirebaseAnalytics (6.1.0):
     - FirebaseCore (~> 6.2)
     - FirebaseInstanceID (~> 4.2)
@@ -32,6 +43,7 @@ PODS:
     - GoogleUtilities/Network (~> 6.0)
     - "GoogleUtilities/NSData+zlib (~> 6.0)"
     - nanopb (~> 0.3)
+  - FirebaseAnalyticsInterop (1.4.0)
   - FirebaseAuth (6.2.2):
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 6.2)
@@ -54,10 +66,27 @@ PODS:
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 6.0)
     - leveldb-library (~> 1.18)
+  - FirebaseInAppMessaging (0.15.5):
+    - FirebaseAnalyticsInterop (~> 1.3)
+    - FirebaseCore (~> 6.2)
+    - FirebaseInstanceID (~> 4.0)
+    - GoogleDataTransportCCTSupport (~> 1.0)
+  - FirebaseInAppMessagingDisplay (0.15.5):
+    - FirebaseCore (~> 6.2)
+    - FirebaseInAppMessaging (>= 0.15.0)
   - FirebaseInstanceID (4.2.3):
     - FirebaseCore (~> 6.0)
     - GoogleUtilities/Environment (~> 6.0)
     - GoogleUtilities/UserDefaults (~> 6.0)
+  - FirebaseMessaging (4.1.7):
+    - FirebaseAnalyticsInterop (~> 1.3)
+    - FirebaseCore (~> 6.2)
+    - FirebaseInstanceID (~> 4.1)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.2)
+    - GoogleUtilities/Environment (~> 6.2)
+    - GoogleUtilities/Reachability (~> 6.2)
+    - GoogleUtilities/UserDefaults (~> 6.2)
+    - Protobuf (>= 3.9.2, ~> 3.9)
   - GoogleAppMeasurement (6.1.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
@@ -110,6 +139,7 @@ PODS:
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
   - pop (1.0.12)
+  - Protobuf (3.10.0)
   - QRCode (2.0)
   - QRCodeReader.swift (9.0.1)
   - ReachabilitySwift (4.3.1)
@@ -170,10 +200,15 @@ DEPENDENCIES:
   - CryptoSwift
   - CSV.swift
   - DeviceKit
+  - Down
   - Fabric
+  - Firebase
+  - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
+  - Firebase/InAppMessagingDisplay
+  - Firebase/Messaging
   - IdentityImg (from `https://github.com/wavesplatform/identity-img-swift.git`)
   - InfiniteCollectionView (from `https://github.com/wavesplatform/InfiniteCollectionView.git`, branch `swift5`)
   - IQKeyboardManagerSwift
@@ -208,7 +243,7 @@ DEPENDENCIES:
   - UPCarouselFlowLayout
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - Amplitude-iOS
     - AppsFlyerFramework
@@ -217,7 +252,6 @@ SPEC REPOS:
     - Crashlytics
     - CryptoSwift
     - CSV.swift
-    - DeviceKit
     - Fabric
     - Firebase
     - FirebaseAnalytics
@@ -267,6 +301,14 @@ SPEC REPOS:
     - TTTAttributedLabel
     - "UITextView+Placeholder"
     - UPCarouselFlowLayout
+  trunk:
+    - DeviceKit
+    - Down
+    - FirebaseAnalyticsInterop
+    - FirebaseInAppMessaging
+    - FirebaseInAppMessagingDisplay
+    - FirebaseMessaging
+    - Protobuf
 
 EXTERNAL SOURCES:
   IdentityImg:
@@ -297,17 +339,22 @@ SPEC CHECKSUMS:
   Crashlytics: 2dfd686bcb918dc10ee0e76f7f853fe42c7bd552
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   CSV.swift: 9670cc1b3e3f01e9eebb1aeb603b17b4459e7493
-  DeviceKit: 72d36709552d4b3582abd76a53949148acad9811
+  DeviceKit: da103891aa928d89f64ea8dd8aca738c5f3d8ac0
+  Down: 1cdbca4963b542d0ef34ebb3e10ff48382bdf761
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   Firebase: a2b5951f30ff38fd3b3bdae9c7d340f940fd3c51
   FirebaseAnalytics: 48414ae5cbf6976d8a2f7177e0466540e5ab33ce
+  FirebaseAnalyticsInterop: d48b6ab67bcf016a05e55b71fc39c61c0cb6b7f3
   FirebaseAuth: 2be1924ddbc741fe2a02cb6963ca747e09a2e05c
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
   FirebaseCore: 8c9e08bce0c72a3affd83927d8184cf244918bc8
   FirebaseCoreDiagnostics: 4c04ae09d0ab027c30179828c6bb47764df1bd13
   FirebaseCoreDiagnosticsInterop: 6829da2b8d1fc795ff1bd99df751d3788035d2cb
   FirebaseDatabase: f48e067716864be2b855cf716b927ef375d6cfa0
+  FirebaseInAppMessaging: acbfa8c5582b11ccc0366511d29ef1d288f302fc
+  FirebaseInAppMessagingDisplay: 60a65c8277f17675a8a5b92e9a97cd914b45d4ff
   FirebaseInstanceID: 8b42755db950682e7de0d167bc6fb26a57b244af
+  FirebaseMessaging: 5ab57080c83bc98c9961412e1dab379f4193d02a
   GoogleAppMeasurement: 47285fa897e5a125df56b9ef8750a1d81e4598a8
   GoogleDataTransport: ffbadce4ab93c88fb9dd8e6366c47bfcb4a32193
   GoogleDataTransportCCTSupport: 3451e7d8ba19093e533362a6d78d6d9014c6a037
@@ -324,6 +371,7 @@ SPEC CHECKSUMS:
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
+  Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
   QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
   QRCodeReader.swift: 96292a5612fbc2fd9a0b26f93fa5164c8d02f59d
   ReachabilitySwift: 4032e2f59586e11e3b0ebe15b167abdd587a388b
@@ -351,6 +399,6 @@ SPEC CHECKSUMS:
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
   UPCarouselFlowLayout: 4c7d2c43a10ebb1597bde502a53699d378341dad
 
-PODFILE CHECKSUM: d6680b3faf431f7b7618e541eb6833f87904ba45
+PODFILE CHECKSUM: 097ab6a58a90c5434b15bb013d939f2fc7d874f5
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.1

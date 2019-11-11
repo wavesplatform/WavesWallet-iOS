@@ -40,21 +40,27 @@ extension DexListCell: ViewConfiguration {
         let lastPrice = model.lastPrice.doubleValue
 
         labelValue.text = model.lastPrice.displayText
+                
+        var deltaPercent: Double {
+            if firstPrice > lastPrice {
+                return (firstPrice - lastPrice) * 100
+            }
+            return (lastPrice - firstPrice) * 100
+        }
         
-        let deltaPercent = (lastPrice - firstPrice) * 100
         let percent = lastPrice != 0 ? deltaPercent / lastPrice : 0
 
-        if percent == 0 {
-            iconArrow.image = Images.chartarrow22Accent100.image
+        if lastPrice > firstPrice {
+            iconArrow.image = Images.chartarrow22Success400.image
             labelPercent.text = String(format: "%.02f", percent) + "%"
         }
-        else if percent > 0 {
-            iconArrow.image = Images.chartarrow22Success400.image
-            labelPercent.text = "+ " + String(format: "%.02f", percent) + "%"
+        else if firstPrice > lastPrice {
+            iconArrow.image = Images.chartarrow22Error500.image
+            labelPercent.text = String(format: "%.02f", percent * -1) + "%"
         }
         else {
-            iconArrow.image = Images.chartarrow22Error500.image
-            labelPercent.text = "- " + String(format: "%.02f", percent * -1) + "%"
+            iconArrow.image = Images.chartarrow22Accent100.image
+            labelPercent.text = String(format: "%.02f", percent) + "%"
         }
     }
 }

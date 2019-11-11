@@ -49,7 +49,7 @@ final class AssetListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupSmallNavigationBar()
-        hideTopBarLine()
+        removeTopBarLine()
         navigationItem.backgroundImage = UIImage()
     }
     

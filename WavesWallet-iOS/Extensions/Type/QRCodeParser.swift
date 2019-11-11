@@ -13,8 +13,7 @@ private enum Constants {
     static let addressKeyScan = "recipient"
     static let amountKeyScan = "amount"
 
-    static let sendStartUrl1 = "client.wavesplatform.com/#send/"
-    static let sendStartUrl2 = "dex.wavesplatform.com/#send/"
+    static let sendStartUrl = "send/"
 }
 
 final class QRCodeParser {
@@ -22,17 +21,12 @@ final class QRCodeParser {
     static func parseAssetID(_ string: String) -> String? {
 
         let isValidAssetIdQuery = (string as NSString).range(of: "?").location != NSNotFound
-        let firstRange = (string.lowercased() as NSString).range(of: Constants.sendStartUrl1)
-        let secondRange = (string.lowercased() as NSString).range(of: Constants.sendStartUrl2)
+        let range = (string.lowercased() as NSString).range(of: Constants.sendStartUrl)
         
-        if firstRange.location != NSNotFound && isValidAssetIdQuery {
-            return parseAssetIDFromStartRange(startRange: firstRange, assetId: string)
+        if range.location != NSNotFound && isValidAssetIdQuery {
+            return parseAssetIDFromStartRange(startRange: range, assetId: string)
         }
         
-        if secondRange.location != NSNotFound && isValidAssetIdQuery {
-            return parseAssetIDFromStartRange(startRange: secondRange, assetId: string)
-        }
-
         return nil
     }
     

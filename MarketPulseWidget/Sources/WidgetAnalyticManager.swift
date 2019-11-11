@@ -53,6 +53,8 @@ final class WidgetAnalyticManager: AnalyticManagerProtocol {
 
     static let shared = WidgetAnalyticManager()
     
+    func setAUUID(_ AUUID: String) {}
+    
     func trackEvent(_ event: AnalyticManagerEvent) {
         Amplitude.instance().logEvent(event.name, withEventProperties: event.params)
 //        Analytics.logEvent(event.name.replacingOccurrences(of: " ", with: "_"), parameters: event.params)

@@ -280,6 +280,8 @@ internal enum Images {
   internal static let touchid48Submit300 = ImageAsset(name: "touchid48Submit300")
   internal static let unhide = ImageAsset(name: "unhide")
   internal static let upChevron = ImageAsset(name: "up-chevron@")
+  internal static let userimgUpdate = ImageAsset(name: "userimg-Update")
+  internal static let userimgPush = ImageAsset(name: "userimg-push")
   internal static let userimgBackup100 = ImageAsset(name: "userimgBackup100")
   internal static let userimgBlockchain80 = ImageAsset(name: "userimgBlockchain80")
   internal static let userimgBlockchain80White = ImageAsset(name: "userimgBlockchain80White")
@@ -561,6 +563,8 @@ internal enum Images {
     touchid48Submit300,
     unhide,
     upChevron,
+    userimgUpdate,
+    userimgPush,
     userimgBackup100,
     userimgBlockchain80,
     userimgBlockchain80White,

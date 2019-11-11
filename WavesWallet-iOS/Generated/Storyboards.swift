@@ -121,6 +121,8 @@ internal enum StoryboardScene {
 
     internal static let dexCreateOrderViewController = SceneType<WavesWallet_iOS.DexCreateOrderViewController>(storyboard: Dex.self, identifier: "DexCreateOrderViewController")
 
+    internal static let dexDeepLinkLoadingViewController = SceneType<WavesWallet_iOS.DexDeepLinkLoadingViewController>(storyboard: Dex.self, identifier: "DexDeepLinkLoadingViewController")
+
     internal static let dexInfoViewController = SceneType<WavesWallet_iOS.DexInfoViewController>(storyboard: Dex.self, identifier: "DexInfoViewController")
 
     internal static let dexLastTradesViewController = SceneType<WavesWallet_iOS.DexLastTradesViewController>(storyboard: Dex.self, identifier: "DexLastTradesViewController")
@@ -150,6 +152,11 @@ internal enum StoryboardScene {
     internal static let enterStartViewController = SceneType<WavesWallet_iOS.EnterStartViewController>(storyboard: Enter.self, identifier: "EnterStartViewController")
 
     internal static let languageViewController = SceneType<WavesWallet_iOS.LanguageViewController>(storyboard: Enter.self, identifier: "LanguageViewController")
+  }
+  internal enum ForceUpdateApp: StoryboardType {
+    internal static let storyboardName = "ForceUpdateApp"
+
+    internal static let forceUpdateAppViewController = SceneType<WavesWallet_iOS.ForceUpdateAppViewController>(storyboard: ForceUpdateApp.self, identifier: "ForceUpdateAppViewController")
   }
   internal enum Hello: StoryboardType {
     internal static let storyboardName = "Hello"

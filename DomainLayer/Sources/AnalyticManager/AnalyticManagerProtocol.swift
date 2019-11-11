@@ -33,6 +33,9 @@ public protocol AnalyticManagerEventInfo {
 }
 
 public protocol AnalyticManagerProtocol {
+    
+    func setAUUID(_ AUUID: String)
+    
     func trackEvent(_ event: AnalyticManagerEvent)
 }
 

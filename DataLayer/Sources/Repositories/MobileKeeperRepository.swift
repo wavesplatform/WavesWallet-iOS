@@ -124,12 +124,12 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
                            error: error)
     }
     
-    public func decodableRequest(_ url: URL, sourceApplication: String) -> Observable<DomainLayer.DTO.MobileKeeper.Request?> {
+    public func decodableRequest(_ url: URL) -> Observable<DomainLayer.DTO.MobileKeeper.Request?> {
         
         var requestOptional: WavesKeeper.Request? = nil
         
         do {
-            requestOptional = try self.decodableKeeperRequest(url, sourceApplication: sourceApplication)
+            requestOptional = try self.decodableKeeperRequest(url)
         } catch let error as MobileKeeperUseCaseError {
             return Observable.error(error)
         } catch _ {
@@ -218,7 +218,7 @@ public class MobileKeeperRepository: MobileKeeperRepositoryProtocol {
         })
     }
     
-    private func decodableKeeperRequest(_ url: URL, sourceApplication: String) throws -> WavesKeeper.Request? {
+    private func decodableKeeperRequest(_ url: URL) throws -> WavesKeeper.Request? {
         return try url.request()
     }
 }

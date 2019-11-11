@@ -26,6 +26,8 @@ final class DexTraderContainerViewController: UIViewController {
     private var viewControllers: [UIViewController] = []
     private var scrolledPages: [Int] = []
     
+    var backAction:(() -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,6 +40,14 @@ final class DexTraderContainerViewController: UIViewController {
         updateControllersActiveState(page: scrollView.currentPage)
     }
 
+    override func backTapped() {
+        if let action = backAction {
+            action()
+        }
+        else {
+            navigationController?.popViewController(animated: true)
+        }
+    }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -45,7 +55,7 @@ final class DexTraderContainerViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupSmallNavigationBar()
-        hideTopBarLine()
+        removeTopBarLine()
         navigationItem.backgroundImage = UIImage()
         navigationItem.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
     }

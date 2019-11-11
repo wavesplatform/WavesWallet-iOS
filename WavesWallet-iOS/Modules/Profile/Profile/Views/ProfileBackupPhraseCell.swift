@@ -18,6 +18,7 @@ final class ProfileBackupPhraseCell: UITableViewCell, Reusable {
 
     struct Model {
         let isBackedUp: Bool
+        let title: String
     }
 
     @IBOutlet private weak var labelTitle: UILabel!
@@ -50,7 +51,7 @@ final class ProfileBackupPhraseCell: UITableViewCell, Reusable {
 extension ProfileBackupPhraseCell: ViewConfiguration {
 
     func update(with model: ProfileBackupPhraseCell.Model) {
-        labelTitle.text = Localizable.Waves.Profile.Cell.Backupphrase.title
+        labelTitle.text = model.title
         if model.isBackedUp {
             viewColorState.backgroundColor = .success400
             iconState.image = Images.check18Success400.image

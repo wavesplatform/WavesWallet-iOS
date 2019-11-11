@@ -37,9 +37,10 @@ final class ProfileViewController: UIViewController {
         setupLanguages()
         setupTableview()
         NotificationCenter.default.addObserver(self, selector: #selector(changedLanguage), name: .changedLanguage, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 
-    @objc func logoutTapped() {
+    @objc private func logoutTapped() {
         
         UseCasesFactory
             .instance
@@ -49,9 +50,13 @@ final class ProfileViewController: UIViewController {
         eventInput.onNext(.tapLogout)
     }
 
-    @objc func changedLanguage() {
+    @objc private func changedLanguage() {
         setupLanguages()
         tableView.reloadData()
+    }
+    
+    @objc private func appDidBecomeActive() {
+        eventInput.onNext(.updatePushNotificationsSettings)
     }
 }
 
@@ -158,9 +163,9 @@ extension ProfileViewController: UITableViewDataSource {
             cell.update(with: .init(title: Localizable.Waves.Profile.Cell.Addressbook.title))
             return cell
 
-        case .pushNotifications:
-            let cell: ProfileDisabledButtomTableCell = tableView.dequeueCell()
-            cell.update(with: Localizable.Waves.Profile.Cell.Pushnotifications.title)
+        case .pushNotifications(let isActive):
+            let cell: ProfileBackupPhraseCell = tableView.dequeueCell()
+            cell.update(with: .init(isBackedUp: isActive, title: Localizable.Waves.Profile.Cell.Pushnotifications.title))
             return cell
 
         case .language(let language):
@@ -170,7 +175,7 @@ extension ProfileViewController: UITableViewDataSource {
 
         case .backupPhrase(let isBackedUp):
             let cell: ProfileBackupPhraseCell = tableView.dequeueCell()
-            cell.update(with: .init(isBackedUp: isBackedUp))
+            cell.update(with: .init(isBackedUp: isBackedUp, title: Localizable.Waves.Profile.Cell.Backupphrase.title))
             return cell
 
         case .changePassword:
@@ -305,11 +310,10 @@ extension ProfileViewController: UITableViewDelegate {
              .supportWavesplatform:
             return ProfileValueCell.cellHeight()
 
-        case .backupPhrase:
+        case .backupPhrase, .pushNotifications:
             return ProfileBackupPhraseCell.cellHeight()
 
-        case .pushNotifications,
-             .biometricDisabled:
+        case .biometricDisabled:
             return ProfileDisabledButtomTableCell.cellHeight()
 
         case .language:

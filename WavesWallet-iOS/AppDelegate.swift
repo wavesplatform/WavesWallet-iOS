@@ -20,6 +20,7 @@ import WavesSDKCrypto
 import Extensions
 import DomainLayer
 import DataLayer
+import Firebase
 
 #if DEBUG || TEST
 import AppSpectorSDK
@@ -45,7 +46,7 @@ enum UITest {
 
     var appCoordinator: AppCoordinator!
     lazy var migrationInteractor: MigrationUseCaseProtocol = UseCasesFactory.instance.migration
-    
+     
     #if DEBUG 
     var paws: MonkeyPaws?
     #endif
@@ -61,13 +62,11 @@ enum UITest {
         if let scheme = url?.scheme, DeepLink.scheme != scheme {
             return false
         }
-        
-        let sourceApplication = (launchOptions?[.sourceApplication] as? String) ?? ""
-        
+                
         var deepLink: DeepLink? = nil
         
         if let url = url {
-            deepLink = DeepLink(source: sourceApplication, url: url)
+            deepLink = DeepLink(url: url)
         }
         
         guard setupLayers() else { return false }
@@ -81,6 +80,7 @@ enum UITest {
 
         migrationInteractor
             .migration()
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { (_) in
 
             }, onError: { (_) in
@@ -90,19 +90,19 @@ enum UITest {
                 
             })
             .disposed(by: disposeBag)
-    
+        
+        application.registerForRemoteNotifications()
+        
         return true
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        
-        guard let sourceApplication: String = options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String else { return false}
-        
+                
         if DeepLink.scheme != url.scheme {
             return false
         }
         
-        self.appCoordinator.openURL(link: DeepLink(source: sourceApplication, url: url))
+        self.appCoordinator.openURL(link: DeepLink(url: url))
                 
         return true
     }
@@ -118,6 +118,7 @@ enum UITest {
     func applicationDidBecomeActive(_ application: UIApplication) {
         appCoordinator.applicationDidBecomeActive()        
         AppsFlyerTracker.shared().trackAppLaunch()
+        application.applicationIconBadgeNumber = 0
     }
 
     func applicationWillTerminate(_ application: UIApplication) {}
@@ -127,6 +128,10 @@ enum UITest {
                      sourceApplication: String?,
                      annotation: Any) -> Bool {
         return false
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Messaging.messaging().apnsToken = deviceToken
     }
 }
 
@@ -175,7 +180,8 @@ extension AppDelegate {
         let repositories = RepositoriesFactory(resources: resourses)
         
         UseCasesFactory.initialization(repositories: repositories, authorizationInteractorLocalizable: AuthorizationInteractorLocalizableImp())
-        
+
+        UNUserNotificationCenter.current().delegate = self
         return true
     }
     
@@ -208,4 +214,13 @@ extension AppDelegate {
     var menuController: RESideMenu {
         return self.window?.rootViewController as! RESideMenu
     }
+}
+
+//MARK: - UNUserNotificationCenterDelegate
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification,   withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
+    }
+
 }

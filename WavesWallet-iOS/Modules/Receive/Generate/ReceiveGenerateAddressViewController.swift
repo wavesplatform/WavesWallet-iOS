@@ -39,8 +39,9 @@ final class ReceiveGenerateAddressViewController: UIViewController {
         super.viewWillAppear(animated)
 
         navigationItem.backgroundImage = UIImage()
-        hideTopBarLine()
+        removeTopBarLine()
         navigationItem.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
+        navigationItem.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -49,6 +50,7 @@ final class ReceiveGenerateAddressViewController: UIViewController {
         navigationItem.backgroundImage = nil
         showTopBarLine()
         navigationItem.titleTextAttributes = nil
+        navigationItem.largeTitleTextAttributes = nil
     }
     
     private func acceptGeneratingAddress() {
