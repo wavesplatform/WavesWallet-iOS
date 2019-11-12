@@ -29,6 +29,8 @@ extension Debug {
         case enviroments(_ enviroments: [Enviroment], _ current: Enviroment)
         case stageSwitch(_ isOn: Bool)
         case notificationDevSwitch(_ isOn: Bool)
+        case versionTestSwitch(_ isOn: Bool)
+        case enviromentTestSwitch(_ isOn: Bool)
         case info(_ version: String, _ deviceId: String)
     }
     
@@ -115,7 +117,9 @@ extension DebugViewController: UITableViewDelegate {
             return DebugEnviromentsCell.cellHeight()
             
         case .stageSwitch,
-             .notificationDevSwitch:
+             .notificationDevSwitch,
+             .versionTestSwitch,
+             .enviromentTestSwitch:
             return DebugSwitchCell.cellHeight()
             
         case .info:
@@ -147,11 +151,33 @@ extension DebugViewController: UITableViewDataSource {
         case .notificationDevSwitch(let isOn):
             
             let cell: DebugSwitchCell = tableView.dequeueCell()
-            cell.update(with: .init(title: "Notification Dev",
+            cell.update(with: .init(title: "Notification Test",
                                     isOn: isOn))
             
             cell.switchChangedValue = { isOn in
-                ApplicationDebugSettings.setEnableNotificationsSettingDev(isEnable: isOn)
+                ApplicationDebugSettings.setEnableNotificationsSettingTest(isEnable: isOn)
+            }
+            return cell
+            
+        case .enviromentTestSwitch(let isOn):
+            
+            let cell: DebugSwitchCell = tableView.dequeueCell()
+            cell.update(with: .init(title: "Enviroment Test",
+                                    isOn: isOn))
+            
+            cell.switchChangedValue = { isOn in
+                ApplicationDebugSettings.setEnableEnviromentTest(isEnable: isOn)
+            }
+            return cell
+            
+        case .versionTestSwitch(let isOn):
+            
+            let cell: DebugSwitchCell = tableView.dequeueCell()
+            cell.update(with: .init(title: "Version Test",
+                                    isOn: isOn))
+            
+            cell.switchChangedValue = { isOn in                
+                ApplicationDebugSettings.setEnableVersionUpdateTest(isEnable: isOn)
             }
             return cell
             
@@ -224,7 +250,9 @@ private extension DebugViewController {
         let version = Bundle.main.versionAndBuild
         
         let isEnableStage = ApplicationDebugSettings.isEnableStage
-        let isEnableNotificationsSettingDev = ApplicationDebugSettings.isEnableNotificationsSettingDev
+        let isEnableNotificationsSettingDev = ApplicationDebugSettings.isEnableNotificationsSettingTest
+        let isEnableEnviromentTest = ApplicationDebugSettings.isEnableEnviromentTest
+        let isEnableVersionUpdateTest = ApplicationDebugSettings.isEnableVersionUpdateTest
         
         
         let mainNet: Debug.Enviroment = .init(name: "Mainnet",
@@ -257,6 +285,8 @@ private extension DebugViewController {
                                                kind: .enviroment),
                                          .init(rows: [.stageSwitch(isEnableStage),
                                                       .notificationDevSwitch(isEnableNotificationsSettingDev),
+                                                      .versionTestSwitch(isEnableVersionUpdateTest),
+                                                      .enviromentTestSwitch(isEnableEnviromentTest),
                                                       .info(version, UIDevice.uuid)],
                                                kind: .other)]
         

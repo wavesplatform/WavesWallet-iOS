@@ -35,13 +35,13 @@ private extension ApplicationVersionRepository {
     func versionByMappingKey(key: String) -> Observable<String> {
         return applicationVersionService
         .rx
-        .request(.get(hasProxy: true))
+        .request(.get(isDebug: ApplicationDebugSettings.isEnableVersionUpdateTest, hasProxy: true))
         .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
             guard let self = self else { return Single.never() }
             return self
                 .applicationVersionService
                 .rx
-                .request(.get(hasProxy: false))
+                .request(.get(isDebug: ApplicationDebugSettings.isEnableVersionUpdateTest, hasProxy: false))
         })
         .map([String: String].self)
         .map { $0[key] }

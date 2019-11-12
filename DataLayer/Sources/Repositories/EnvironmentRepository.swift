@@ -282,13 +282,13 @@ private extension EnvironmentRepository {
 
         return environmentRepository
             .rx
-            .request(.get(kind: environmentKind.gitHubServiceEnvironment, hasProxy: true))
+            .request(.get(kind: environmentKind.gitHubServiceEnvironment, hasProxy: true, isDebug: ApplicationDebugSettings.isEnableEnviromentTest))
             .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
                 guard let self = self else { return Single.never() }
                 return self
                     .environmentRepository
                     .rx
-                    .request(.get(kind: self.environmentKind.gitHubServiceEnvironment, hasProxy: false))
+                    .request(.get(kind: self.environmentKind.gitHubServiceEnvironment, hasProxy: false, isDebug: ApplicationDebugSettings.isEnableEnviromentTest))
             })
             .map(WalletEnvironment.self)
             .catchError { [weak self] error -> Single<WalletEnvironment> in

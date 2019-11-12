@@ -18,6 +18,15 @@ extension GitHub {
 
 private enum Constants {
 
+    //TODO: Refactor
+    
+    static let urlEnvironmentStageNetTest: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.6/test_environment_stagenet.json")!
+    
+    static let urlEnvironmentMainNetTest: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.6/test_environment_mainnet.json")!
+    
+    static let urlEnvironmentTestNetTest: URL = URL(string:
+        "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.6/test_environment_testnet.json")!
+    
     static let urlEnvironmentStageNet: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.6/environment_stagenet.json")!
     
     static let urlEnvironmentMainNet: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.6/environment_mainnet.json")!
@@ -30,6 +39,8 @@ private enum Constants {
     static let urlApplicationNews: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/master/notifications_ios.json")!
     
     static let urlVersionIos: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/master/version_ios.json")!
+    
+    static let urlVersionIosTest: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/master/test_version_ios.json")!
     
     static let urlEnvironmentStageNetProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/mobile/v2.6/environment_stagenet.json")!
     
@@ -60,7 +71,7 @@ extension GitHub.Service {
          Response:
          - Environment
          */
-        case get(kind: Kind, hasProxy: Bool)
+        case get(kind: Kind, hasProxy: Bool, isDebug: Bool)
     }
 
     enum TransactionRules {
@@ -84,7 +95,7 @@ extension GitHub.Service {
          Response:
          - ?
          */
-        case get(hasProxy: Bool)
+        case get(isDebug: Bool, hasProxy: Bool)
     }
 }
 
@@ -95,28 +106,39 @@ extension GitHub.Service.Environment: TargetType {
 
     var baseURL: URL {
         switch self {
-        case .get(let kind, let hasProxy):
+        case .get(let kind, let hasProxy, let isDebug):
             
             switch kind {
             case .mainnet:
-                if hasProxy {
-                    return Constants.urlEnvironmentMainNetProxy
+                if isDebug {
+                    return Constants.urlEnvironmentMainNetTest
                 } else {
-                    return Constants.urlEnvironmentMainNet
+                    if hasProxy {
+                        return Constants.urlEnvironmentMainNetProxy
+                    } else {
+                        return Constants.urlEnvironmentMainNet
+                    }
                 }
-                
             case .testnet:
-                if hasProxy {
-                    return Constants.urlEnvironmentTestNetProxy
+                if isDebug {
+                    return Constants.urlEnvironmentTestNetTest
                 } else {
-                    return Constants.urlEnvironmentTestNet
+                    if hasProxy {
+                        return Constants.urlEnvironmentTestNetProxy
+                    } else {
+                        return Constants.urlEnvironmentTestNet
+                    }
                 }
                 
             case .stagenet:
-                if hasProxy {
-                    return Constants.urlEnvironmentStageNetProxy
+                if isDebug {
+                    return Constants.urlEnvironmentStageNetTest
                 } else {
-                    return Constants.urlEnvironmentStageNet
+                    if hasProxy {
+                        return Constants.urlEnvironmentStageNetProxy
+                    } else {
+                        return Constants.urlEnvironmentStageNet
+                    }
                 }
             }
         }
@@ -237,8 +259,12 @@ extension GitHub.Service.ApplicationVersion: TargetType {
     
     var baseURL: URL {
         switch self {
-        case .get:
-            return Constants.urlVersionIos
+        case .get(let isDebug, _):
+            if isDebug {
+                return Constants.urlVersionIosTest
+            } else {
+                return Constants.urlVersionIos
+            }
         }
     }
     

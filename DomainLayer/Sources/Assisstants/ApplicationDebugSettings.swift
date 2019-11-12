@@ -16,13 +16,17 @@ public struct ApplicationDebugSettings: TSUD, Codable, Mutating {
     private static let key: String = "com.waves.debug.settings"
 
     private var isEnableStage: Bool = false
-    private var isEnableNotificationsSettingDev: Bool = false
+    private var isEnableNotificationsSettingTest: Bool = false
+    private var isEnableEnviromentTest: Bool = false
+    private var isEnableVersionUpdateTest: Bool = false
     private var debugButtonPosition: CGPoint? = nil
     
     public static var defaultValue: ApplicationDebugSettings {
         return ApplicationDebugSettings(isEnableStage: false,
-                                        isEnableNotificationsSettingDev: false,
-                                        debugButtonPosition: nil)
+                                        isEnableNotificationsSettingTest: false,
+                                        debugButtonPosition: nil,
+                                        isEnableEnviromentTest: false,
+                                        isEnableVersionUpdateTest: false)
     }
     
     public static var stringKey: String {
@@ -47,10 +51,16 @@ public struct ApplicationDebugSettings: TSUD, Codable, Mutating {
     }
     
     public init() {}
-    
-    public init(isEnableStage: Bool, isEnableNotificationsSettingDev: Bool, debugButtonPosition: CGPoint?) {
+        
+    public init(isEnableStage: Bool,
+                isEnableNotificationsSettingTest: Bool,
+                debugButtonPosition: CGPoint?,
+                isEnableEnviromentTest: Bool,
+                isEnableVersionUpdateTest: Bool) {
         self.isEnableStage = isEnableStage
-        self.isEnableNotificationsSettingDev = isEnableNotificationsSettingDev
+        self.isEnableEnviromentTest = isEnableEnviromentTest
+        self.isEnableVersionUpdateTest = isEnableVersionUpdateTest
+        self.isEnableNotificationsSettingTest = isEnableNotificationsSettingTest
         self.debugButtonPosition = debugButtonPosition
     }
     
@@ -61,13 +71,33 @@ public struct ApplicationDebugSettings: TSUD, Codable, Mutating {
         ApplicationDebugSettings.set(settings)
     }
     
-    public static var isEnableNotificationsSettingDev: Bool {
-        return ApplicationDebugSettings.get().isEnableNotificationsSettingDev
+    public static var isEnableNotificationsSettingTest: Bool {
+        return ApplicationDebugSettings.get().isEnableNotificationsSettingTest
     }
     
-    public static func setEnableNotificationsSettingDev(isEnable: Bool) {
+    public static func setEnableNotificationsSettingTest(isEnable: Bool) {
         var settings = ApplicationDebugSettings.get()
-        settings.isEnableNotificationsSettingDev = isEnable
+        settings.isEnableNotificationsSettingTest = isEnable
+        ApplicationDebugSettings.set(settings)
+    }
+    
+    public static var isEnableEnviromentTest: Bool {
+        return ApplicationDebugSettings.get().isEnableEnviromentTest
+    }
+    
+    public static func setEnableEnviromentTest(isEnable: Bool) {
+        var settings = ApplicationDebugSettings.get()
+        settings.isEnableEnviromentTest = isEnable
+        ApplicationDebugSettings.set(settings)
+    }
+    
+    public static var isEnableVersionUpdateTest: Bool {
+        return ApplicationDebugSettings.get().isEnableVersionUpdateTest
+    }
+    
+    public static func setEnableVersionUpdateTest(isEnable: Bool) {
+        var settings = ApplicationDebugSettings.get()
+        settings.isEnableVersionUpdateTest = isEnable
         ApplicationDebugSettings.set(settings)
     }
 }

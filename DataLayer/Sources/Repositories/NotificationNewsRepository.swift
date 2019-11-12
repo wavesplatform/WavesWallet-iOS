@@ -34,13 +34,13 @@ final class NotificationNewsRepository: NotificationNewsRepositoryProtocol {
 
         return applicationNews
             .rx
-            .request(.get(isDebug: ApplicationDebugSettings.isEnableNotificationsSettingDev, hasProxy: true), callbackQueue: DispatchQueue.global(qos: .userInteractive))
+            .request(.get(isDebug: ApplicationDebugSettings.isEnableNotificationsSettingTest, hasProxy: true), callbackQueue: DispatchQueue.global(qos: .userInteractive))
             .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
                 guard let self = self else { return Single.never() }
                 return self
                     .applicationNews
                     .rx
-                    .request(.get(isDebug: ApplicationDebugSettings.isEnableNotificationsSettingDev, hasProxy: false), callbackQueue: DispatchQueue.global(qos: .userInteractive))
+                    .request(.get(isDebug: ApplicationDebugSettings.isEnableNotificationsSettingTest, hasProxy: false), callbackQueue: DispatchQueue.global(qos: .userInteractive))
             })
             .asObservable()
             .filterSuccessfulStatusAndRedirectCodes()
