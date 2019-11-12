@@ -35,7 +35,9 @@ final class WalletCoordinator: Coordinator {
     private let disposeBag: DisposeBag = DisposeBag()
     private let authorization: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let walletsRepository: WalletsRepositoryProtocol = UseCasesFactory.instance.repositories.walletsRepositoryLocal
-
+    
+    private var hasSendedNewUserWithoutBackupStorageTrack: Bool = false
+    
     init(navigationRouter: NavigationRouter){
         self.navigationRouter = navigationRouter
     }
@@ -73,7 +75,10 @@ final class WalletCoordinator: Coordinator {
 
     private func showBackupTost() {
         
-        NewUserWithoutBackupStorageTrack.sendEvent()
+        if !hasSendedNewUserWithoutBackupStorageTrack {
+            hasSendedNewUserWithoutBackupStorageTrack = true
+            NewUserWithoutBackupStorageTrack.sendEvent()
+        }
         
         let coordinator = BackupTostCoordinator(navigationRouter: navigationRouter)
         addChildCoordinatorAndStart(childCoordinator: coordinator)
