@@ -26,7 +26,7 @@ class Main
 
         assets_map = Hash.new
         assets_file_paths.each do |asset_file_paths|
-
+    
             files = Find.find(asset_file_paths).select { |p| /.*\.json$/ =~ p }
             asset_map = Hash.new
                 
@@ -53,20 +53,21 @@ class Main
         new_hash = Digest::SHA512.file tmp_path_file    
         File.delete(tmp_path_file)
 
+        # print tmp_path_file
         old_hash = ""
-        if File.file?("./#{lock_path_file}")        
-            old_hash = Digest::SHA512.file "./#{lock_path_file}"  
+        if File.file?("#{lock_path_file}")        
+            old_hash = Digest::SHA512.file "#{lock_path_file}"  
         end
 
         
         if old_hash != new_hash 
             old_hash = new_hash
             File.write(lock_path_file, json_map.to_json)    
-            puts true
+            return true
         else 
-            puts false
+            return false
         end
     end
 end
 
-return Main.new.check(ARGV[0], ARGV[1], ARGV[2])
+Main.new.check(ARGV[0], ARGV[1], ARGV[2])
