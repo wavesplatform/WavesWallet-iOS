@@ -1228,10 +1228,11 @@ internal enum Localizable {
       }
 
       internal enum Label {
-        /// Please update to continue using Waves App
-        internal static var subtitle: String { return Localizable.tr("Waves", "forceupdate.label.subtitle") }
-        internal static var subtitleKey: String { return "forceupdate.label.subtitle" }
-        /// New Version Available
+        /// To continue using the app, you will need to upgrade to version %@. Availability of the new version in the App Store may take a few hours.\nYou can use the web version to access your Waves account for now.
+        internal static func subtitle(_ p1: String) -> String {
+          return Localizable.tr("Waves", "forceupdate.label.subtitle", p1)
+        }
+        /// It is time to update your Waves app!
         internal static var title: String { return Localizable.tr("Waves", "forceupdate.label.title") }
         internal static var titleKey: String { return "forceupdate.label.title" }
       }
@@ -2270,19 +2271,19 @@ internal enum Localizable {
     internal enum Pushnotificationsalert {
 
       internal enum Button {
-        /// Activate Push Notifications
+        /// Yes, notify me
         internal static var activatePush: String { return Localizable.tr("Waves", "pushNotificationsAlert.button.activatePush") }
         internal static var activatePushKey: String { return "pushNotificationsAlert.button.activatePush" }
-        /// Later
+        /// Maybe later
         internal static var later: String { return Localizable.tr("Waves", "pushNotificationsAlert.button.later") }
         internal static var laterKey: String { return "pushNotificationsAlert.button.later" }
       }
 
       internal enum Label {
-        /// Turn on the notification in the Profile page and always stay up with important events
+        /// We'd like to show you notifications for the latest news and updates.
         internal static var subtitle: String { return Localizable.tr("Waves", "pushNotificationsAlert.label.subtitle") }
         internal static var subtitleKey: String { return "pushNotificationsAlert.label.subtitle" }
-        /// Stay up with Push Notifications
+        /// Get important notifications
         internal static var title: String { return Localizable.tr("Waves", "pushNotificationsAlert.label.title") }
         internal static var titleKey: String { return "pushNotificationsAlert.label.title" }
       }
