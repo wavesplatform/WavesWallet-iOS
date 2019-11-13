@@ -8,12 +8,15 @@
 
 import UIKit
 import WavesSDK
+import DomainLayer
 
 final class ForceUpdateAppViewController: UIViewController {
 
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var labelSubtitle: UILabel!
     @IBOutlet private weak var buttonUpdate: HighlightedButton!
+    
+    var data: DomainLayer.DTO.VersionUpdateData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +30,9 @@ final class ForceUpdateAppViewController: UIViewController {
     }
     
     private func setupLocalization() {
+                            
         labelTitle.text = Localizable.Waves.Forceupdate.Label.title
-        labelSubtitle.text = Localizable.Waves.Forceupdate.Label.subtitle
+        labelSubtitle.text = Localizable.Waves.Forceupdate.Label.subtitle(self.data?.forceUpdateVersion ?? "")
         buttonUpdate.setTitle(Localizable.Waves.Forceupdate.Button.update, for: .normal)
     }
 }
