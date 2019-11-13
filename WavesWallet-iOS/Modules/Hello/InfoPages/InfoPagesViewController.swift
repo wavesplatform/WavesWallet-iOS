@@ -320,7 +320,8 @@ extension InfoPagesViewController: InfoPageConfirmViewDelegate {
     func infoPageContirmViewDidTapURL(_ url: URL) {
         let vc = BrowserViewController(url: url)
         
-        let nav = CustomNavigationController(rootViewController: vc)
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true, completion: nil)
     }
 }
