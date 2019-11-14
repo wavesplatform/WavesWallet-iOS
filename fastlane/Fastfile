@@ -259,8 +259,7 @@ platform :ios do
       type: "#{ENV['MATCH_TYPE']}",
       readonly: true,
       keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}",
-      git_basic_authorization: "#{ENV['MATCH_KEYCHAIN_NAME']}"
-    )
+      git_basic_authorization: "#{ENV['MATCH_GIT_BASIC_AUTHORIZATION']}")
   end
 
   lane :download_resources do
@@ -315,7 +314,7 @@ platform :ios do
           type: "#{ENV['MATCH_TYPE']}",
           force_for_new_devices: true,
           keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}",
-          git_basic_authorization: "#{ENV['MATCH_KEYCHAIN_NAME']}")
+          git_basic_authorization: "#{ENV['MATCH_GIT_BASIC_AUTHORIZATION']}")
   end
 
   lane :upload_testflight do
