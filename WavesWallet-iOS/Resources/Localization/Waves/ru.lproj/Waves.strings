@@ -688,7 +688,7 @@
 "sendconfirmation.label.gatewayFee" = "Комиссия шлюза";
 "pushNotificationsAlert.label.title" = "Получайте важные уведомления";
 "pushNotificationsAlert.label.subtitle" = "Мы бы хотели показывать вам уведомления о последних новостях и обновлениях.";
-"pushNotificationsAlert.button.activatePush" = "Да, сообщите мне";
+"pushNotificationsAlert.button.activatePush" = "Уведомляйте меня";
 "pushNotificationsAlert.button.later" = "Сделаю это позже";
 "forceupdate.label.title" = "Пора обновить ваше приложение Waves!";
 "widgetsettings.button.addToken" = "Добавить токен";
