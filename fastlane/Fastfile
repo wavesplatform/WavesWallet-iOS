@@ -43,22 +43,15 @@ def get_version_and_build
 end
 
 before_all do
-
-  sh("echo CI #{Dir.pwd}/../.env")
-  
+    
   Dotenv.overload ".env"
   
-  ENV['CI_INIT']="true"
   ENV['ROOT_PROJECT']= "#{Dir.pwd}/.."
   ENV['OUTPUT_PROJECT']= "#{Dir.pwd}/../Output"
 
-  unless "#{ENV['CI_ENABLE']}" == "true"
-    sh("echo CI DONT USE")
-    ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
-    ENV['CI_INIT']="false"
-  end
-  
+  ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
 
+  
   sh("security find-identity -v -p codesigning fastlane_tmp_keychain")  
   sh("security find-identity -v -p codesigning fastlane_tmp_keychain")  
   # sh("ssh-keyscan -H bitbucket.org >> ~/.ssh/known_hosts")
