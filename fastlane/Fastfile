@@ -49,7 +49,7 @@ before_all do
   ENV['ROOT_PROJECT']= "#{Dir.pwd}/.."
   ENV['OUTPUT_PROJECT']= "#{Dir.pwd}/../Output"
 
-  unless "#{ENV['CI_ENABLE']}" != "true"
+  unless "#{ENV['CI_ENABLE']}" == "true"
     sh("echo CI DONT USE")
     ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
     ENV['CI_INIT']="false"
