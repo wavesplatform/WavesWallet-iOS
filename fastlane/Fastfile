@@ -42,6 +42,31 @@ def get_version_and_build
   ENV['VERSION'] = get_version_number(xcodeproj: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj", target: "WavesWallet-iOS")      
 end
 
+def download_gitlab(url)   
+  
+  # sh("rm -rf #{Dir.pwd}/../CommonResources/Fabric-Info.plist")
+  #   sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FABRIC']}/raw?ref=master >> #{Dir.pwd}/../CommonResources/Fabric-Info.plist")
+
+  #   sh("rm -rf #{Dir.pwd}/../CommonResources/GoogleService-Info.plist")
+  #   sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FIREBASE']}/raw?ref=master >> #{Dir.pwd}/../CommonResources/GoogleService-Info.plist")
+
+  #   sh("rm -rf #{Dir.pwd}/../CommonResources/Appsflyer-Info.plist")
+  #   sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_APPSFLYER']}/raw?ref=master >> #{Dir.pwd}/../CommonResources/Appsflyer-Info.plist")
+
+  #   sh("rm -rf #{Dir.pwd}/../CommonResources/AppSpector-Info.plist")
+  #   sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_APPSPECTOR']}/raw?ref=master >> #{Dir.pwd}/../CommonResources/AppSpector-Info.plist")
+
+  #   sh("rm -rf #{Dir.pwd}/../CommonResources/Sentry-io-Info.plist")
+  #   sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_SENTRY_IO']}/raw?ref=master >> #{Dir.pwd}/../CommonResources/Sentry-io-Info.plist")
+
+  #   sh("rm -rf #{Dir.pwd}/../CommonResources/Amplitude-Info.plist")
+
+     URL_CORRECT += url
+
+    sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{URL_CORRECT} >> #{Dir.pwd}/../CommonResources/Amplitude-Info.plist")
+    sh("echo ALARM '#{EURL_CORRECT}'")
+end
+
 before_all do
     
   Dotenv.overload ".env"
@@ -260,24 +285,28 @@ platform :ios do
       keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
   end
 
+
   lane :download_resources do
-    sh("rm -rf #{Dir.pwd}/../CommonResources/Fabric-Info.plist")
-    sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FABRIC']}/raw?ref=master >> #{Dir.pwd}/../CommonResources/Fabric-Info.plist")
+    # sh("rm -rf #{Dir.pwd}/../CommonResources/Fabric-Info.plist")
+    # sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FABRIC']}/raw?ref=master >> #{Dir.pwd}/../CommonResources/Fabric-Info.plist")
 
-    sh("rm -rf #{Dir.pwd}/../CommonResources/GoogleService-Info.plist")
-    sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FIREBASE']}/raw?ref=master >> #{Dir.pwd}/../CommonResources/GoogleService-Info.plist")
+    # sh("rm -rf #{Dir.pwd}/../CommonResources/GoogleService-Info.plist")
+    # sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FIREBASE']}/raw?ref=master >> #{Dir.pwd}/../CommonResources/GoogleService-Info.plist")
 
-    sh("rm -rf #{Dir.pwd}/../CommonResources/Appsflyer-Info.plist")
-    sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_APPSFLYER']}/raw?ref=master >> #{Dir.pwd}/../CommonResources/Appsflyer-Info.plist")
+    # sh("rm -rf #{Dir.pwd}/../CommonResources/Appsflyer-Info.plist")
+    # sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_APPSFLYER']}/raw?ref=master >> #{Dir.pwd}/../CommonResources/Appsflyer-Info.plist")
 
-    sh("rm -rf #{Dir.pwd}/../CommonResources/AppSpector-Info.plist")
-    sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_APPSPECTOR']}/raw?ref=master >> #{Dir.pwd}/../CommonResources/AppSpector-Info.plist")
+    # sh("rm -rf #{Dir.pwd}/../CommonResources/AppSpector-Info.plist")
+    # sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_APPSPECTOR']}/raw?ref=master >> #{Dir.pwd}/../CommonResources/AppSpector-Info.plist")
 
-    sh("rm -rf #{Dir.pwd}/../CommonResources/Sentry-io-Info.plist")
-    sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_SENTRY_IO']}/raw?ref=master >> #{Dir.pwd}/../CommonResources/Sentry-io-Info.plist")
+    # sh("rm -rf #{Dir.pwd}/../CommonResources/Sentry-io-Info.plist")
+    # sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_SENTRY_IO']}/raw?ref=master >> #{Dir.pwd}/../CommonResources/Sentry-io-Info.plist")
 
-    sh("rm -rf #{Dir.pwd}/../CommonResources/Amplitude-Info.plist")
-    sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_AMPLITUDE']}/raw?ref=master >> #{Dir.pwd}/../CommonResources/Amplitude-Info.plist")
+    # sh("rm -rf #{Dir.pwd}/../CommonResources/Amplitude-Info.plist")
+    # sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' '#{ENV['URL_AMPLITUDE']}/raw?ref=master' >> #{Dir.pwd}/../CommonResources/Amplitude-Info.plist")
+    # sh("echo ALARM '#{ENV['URL_AMPLITUDE']}/raw?ref=master'")
+
+    download_gitlab("#{ENV['URL_AMPLITUDE']}")
   end
 
   lane :download_bundle_enviroments do    
