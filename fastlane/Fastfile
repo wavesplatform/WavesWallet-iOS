@@ -58,8 +58,8 @@ before_all do
 
   sh("security find-identity -v -p codesigning fastlane_tmp_keychain")  
   sh("security find-identity -v -p codesigning fastlane_tmp_keychain")  
-  sh("ssh-keyscan -H bitbucket.org >> ~/.ssh/known_hosts")
-  sh("ssh-keyscan -H gitlab.wvservices.com >> ~/.ssh/known_hosts")  
+  # sh("ssh-keyscan -H bitbucket.org >> ~/.ssh/known_hosts")
+  # sh("ssh-keyscan -H gitlab.wvservices.com >> ~/.ssh/known_hosts")  
 
   if Dir["#{ENV['OUTPUT_PROJECT']}"].empty? 
     sh("mkdir #{ENV['OUTPUT_PROJECT']}")  
@@ -253,6 +253,9 @@ platform :ios do
 
   lane :download_certificates do
     
+    sh("echo CI #{ENV['URL_CERTIFICATES_GIT']}")
+    sh("echo CI #{ENV['MATCH_GIT_BASIC_AUTHORIZATION']}")
+
     match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'].split(","),
       git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
       username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
