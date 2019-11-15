@@ -43,7 +43,7 @@ def get_version_and_build
 end
 
 before_all do
-  Dotenv.overload '.env'
+  Dotenv.overload "#{Dir.pwd}/../.env"
   
   ENV['CI_INIT']="true"
   ENV['ROOT_PROJECT']= "#{Dir.pwd}/.."
