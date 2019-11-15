@@ -284,9 +284,10 @@ platform :ios do
     sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_AMPLITUDE']} >> #{Dir.pwd}/../CommonResources/Amplitude-Info.plist")
   end
 
-  lane :download_bundle_enviroments do
+  lane :download_bundle_enviroments do    
     sh("rm -rf #{Dir.pwd}/../.env")
     sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_BUNDLE_ENV']} >> #{Dir.pwd}/../.env")
+    sh("cat #{Dir.pwd}/../.env")
   end
 
   lane :updateProvision do
