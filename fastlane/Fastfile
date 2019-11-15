@@ -289,7 +289,7 @@ platform :ios do
 
   lane :download_bundle_enviroments do    
     sh("rm -rf #{Dir.pwd}/../.env")
-    sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_BUNDLE_ENV']}/raw?ref=master >> #{Dir.pwd}/../.env")
+    sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_BUNDLE_ENV']} >> #{Dir.pwd}/../.env")
     sh("cat #{Dir.pwd}/../.env")
   end
 
