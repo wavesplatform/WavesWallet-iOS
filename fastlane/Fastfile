@@ -43,6 +43,9 @@ def get_version_and_build
 end
 
 before_all do
+
+  sh("echo CI #{Dir.pwd}/../.env")
+  
   Dotenv.overload "#{Dir.pwd}/../.env"
   
   ENV['CI_INIT']="true"
