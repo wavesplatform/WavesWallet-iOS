@@ -29,6 +29,7 @@ struct Application: TSUD {
 
     struct Settings: Codable, Mutating {
         var isAlreadyShowHelloDisplay: Bool  = false
+        var isAlreadyShowMigrationWavesExchangeDisplay: Bool  = false
     }
 
     private static let key: String = "com.waves.application.settings"
@@ -105,7 +106,7 @@ final class AppCoordinator: Coordinator {
 extension AppCoordinator: PresentationCoordinator {
 
     enum Display {
-        case hello
+        case hello(_ isNewUser: Bool)
         case slide(DomainLayer.DTO.Wallet)
         case enter
         case passcode(DomainLayer.DTO.Wallet)
@@ -119,10 +120,10 @@ extension AppCoordinator: PresentationCoordinator {
     func showDisplay(_ display: AppCoordinator.Display) {
 
         switch display {
-        case .hello:
+        case .hello(let isNewUser):
             guard isActiveForceUpdate == false else { return }
 
-            let helloCoordinator = HelloCoordinator(windowRouter: windowRouter)
+            let helloCoordinator = HelloCoordinator(windowRouter: windowRouter, isNewUser: isNewUser)
             helloCoordinator.delegate = self
             addChildCoordinatorAndStart(childCoordinator: helloCoordinator)
 
@@ -278,9 +279,13 @@ extension AppCoordinator  {
         } else {
             let settings = Application.get()
             if settings.isAlreadyShowHelloDisplay {
-                return Observable.just(Display.enter)
+                if settings.isAlreadyShowMigrationWavesExchangeDisplay {
+                    return Observable.just(Display.enter)
+                } else {
+                    return Observable.just(Display.hello(false))
+                }
             } else {
-                return Observable.just(Display.hello)
+                return Observable.just(Display.hello(true))
             }
         }
     }
@@ -354,8 +359,16 @@ extension AppCoordinator  {
 extension AppCoordinator: HelloCoordinatorDelegate  {
 
     func userFinishedGreet() {
+        
         var settings = Application.get()
-        settings.isAlreadyShowHelloDisplay = true
+                        
+        if settings.isAlreadyShowHelloDisplay {
+            settings.isAlreadyShowMigrationWavesExchangeDisplay = true
+        } else {
+            settings.isAlreadyShowHelloDisplay = true
+            settings.isAlreadyShowMigrationWavesExchangeDisplay = true
+        }
+        
         Application.set(settings)
         showDisplay(.enter)
     }

@@ -28,7 +28,7 @@ final class InfoPagesViewController: UIViewController {
     @IBOutlet weak var gradientView: CustomGradientView!
     
     @IBOutlet private weak var pageControl: UIPageControl!
-    var collectionView: UICollectionView!
+    private var collectionView: UICollectionView!
 
     @IBOutlet private weak var toolbarLeadingConstraint: NSLayoutConstraint!
     @IBOutlet private weak var toolbarTrailingConstraint: NSLayoutConstraint!
@@ -43,22 +43,34 @@ final class InfoPagesViewController: UIViewController {
     
     weak var output: InfoPagesViewModuleOutput?
     
+    var isNewUser: Bool = true
+    
     private lazy var pageViews: [UIView] = {
+            
+        var  views: [UIView] = .init()
         
-        let welcomeView = ShortInfoPageView.loadView()
-        let needToKnowView = ShortInfoPageView.loadView()
-        let needToKnowLongView = LongInfoPageView.loadView()
-        let protectView = ShortInfoPageView.loadView()
-        let protectLongView = LongInfoPageView.loadView()
-
-        let migrationWavesExchangeView = MigrationWavesExchangeView.loadView()
-        
-        let confirmView = InfoPageConfirmView.loadView()
-        
-        return [welcomeView, needToKnowView, needToKnowLongView, protectView, protectLongView, migrationWavesExchangeView, confirmView]
+        if isNewUser {
+            let migrationWavesExchangeView = MigrationWavesExchangeView.loadView()
+            let confirmView = InfoPageConfirmView.loadView()
+            return [migrationWavesExchangeView, confirmView]
+        } else {
+            let welcomeView = ShortInfoPageView.loadView()
+            let needToKnowView = ShortInfoPageView.loadView()
+            let needToKnowLongView = LongInfoPageView.loadView()
+            let protectView = ShortInfoPageView.loadView()
+            let protectLongView = LongInfoPageView.loadView()
+            let migrationWavesExchangeView = MigrationWavesExchangeView.loadView()
+            let confirmView = InfoPageConfirmView.loadView()
+            
+            return [welcomeView, needToKnowView, needToKnowLongView, protectView, protectLongView, migrationWavesExchangeView, confirmView]
+        }
     }()
     
     private lazy var pageModels: [Any] = {
+        
+        guard self.isNewUser == false else {
+            return [MigrationWavesExchangeView.Model.init()]
+        }
         
         let welcome = ShortInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.First.title,
                                               detail: Localizable.Waves.Hello.Page.Info.First.detail,
@@ -103,7 +115,7 @@ final class InfoPagesViewController: UIViewController {
         
         let migrationWavesExchangeModel = MigrationWavesExchangeView.Model.init()
         
-        return [welcome, needToKnow, needToKnowLong, protect, migrationWavesExchangeModel, protectLong]
+        return [welcome, needToKnow, needToKnowLong, protect, protectLong, migrationWavesExchangeModel]
         
     }()
     
