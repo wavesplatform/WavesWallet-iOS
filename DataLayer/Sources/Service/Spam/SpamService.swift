@@ -16,6 +16,11 @@ extension Spam {
     enum Service {}
 }
 
+private struct Constants {
+    static let spamFile = "spam";
+    static let spamFileExt = "scv";
+}
+
 final class SpamAssetsService {
     
     private let spamProvider: MoyaProvider<Spam.Service.Assets> = .anyMoyaProvider()
@@ -30,6 +35,14 @@ final class SpamAssetsService {
             .filterSuccessfulStatusAndRedirectCodes()
             .map({ (response) -> [String] in
                 return (try? SpamCVC.addresses(from: response.data)) ?? []
+            })
+            .catchError({ error -> Single<[String]> in
+                let url = Bundle.main.url(forResource: Constants.spamFile, withExtension: Constants.spamFileExt)
+                if let url = url, let data = try? Data.init(contentsOf: url) {
+                    return Single.just((try? SpamCVC.addresses(from: data)) ?? [])
+                } else {
+                    return Single.just([])
+                }
             })
             .asObservable()
     }

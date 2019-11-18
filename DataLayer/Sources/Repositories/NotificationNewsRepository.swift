@@ -34,14 +34,8 @@ final class NotificationNewsRepository: NotificationNewsRepositoryProtocol {
 
         return applicationNews
             .rx
-            .request(.get(isDebug: ApplicationDebugSettings.isEnableNotificationsSettingTest, hasProxy: true), callbackQueue: DispatchQueue.global(qos: .userInteractive))
-            .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
-                guard let self = self else { return Single.never() }
-                return self
-                    .applicationNews
-                    .rx
-                    .request(.get(isDebug: ApplicationDebugSettings.isEnableNotificationsSettingTest, hasProxy: false), callbackQueue: DispatchQueue.global(qos: .userInteractive))
-            })
+            .request(.get(isDebug: ApplicationDebugSettings.isEnableNotificationsSettingTest),
+                     callbackQueue: DispatchQueue.global(qos: .userInteractive))
             .asObservable()
             .filterSuccessfulStatusAndRedirectCodes()
             .map(GitHub.DTO.News.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)            

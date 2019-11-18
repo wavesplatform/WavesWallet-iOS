@@ -18,44 +18,30 @@ extension GitHub {
 
 private enum Constants {
 
-    //TODO: Refactor
     
-    static let urlEnvironmentStageNetTest: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.6/test_environment_stagenet.json")!
+    static let root = "https://configs-waves-exchange.s3.eu-central-1.amazonaws.com"
     
-    static let urlEnvironmentMainNetTest: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.6/test_environment_mainnet.json")!
+    static let urlEnvironmentStageNetTest: URL = URL(string: "\(root)/mobile/environment/test/stagenet.json")!
     
-    static let urlEnvironmentTestNetTest: URL = URL(string:
-        "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.6/test_environment_testnet.json")!
+    static let urlEnvironmentMainNetTest: URL = URL(string: "\(root)/mobile/environment/test/mainnet.json")!
     
-    static let urlEnvironmentStageNet: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.6/environment_stagenet.json")!
+    static let urlEnvironmentTestNetTest: URL = URL(string:"\(root)/mobile/environment/test/testnet.json")!
+        
+    static let urlEnvironmentStageNet: URL = URL(string: "\(root)/mobile/environment/prod/testnet.json")!
     
-    static let urlEnvironmentMainNet: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.6/environment_mainnet.json")!
+    static let urlEnvironmentMainNet: URL = URL(string: "\(root)/mobile/environment/prod/mainnet.json")!
     
-    static let urlEnvironmentTestNet: URL = URL(string:
-        "https://raw.githubusercontent.com/wavesplatform/waves-client-config/mobile/v2.6/environment_testnet.json")!
+    static let urlEnvironmentTestNet: URL = URL(string:"\(root)/mobile/environment/prod/testnet.json")!
+        
+    static let urlTransactionFee: URL = URL(string: "\(root)/fee.json")!
+        
+    static let urlApplicationNews: URL = URL(string: "\(root)/mobile/ios/prod/notifications.json")!
     
-    static let urlTransactionFee: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/master/fee.json")!
+    static let urlApplicationNewsDebug: URL = URL(string:"\(root)/mobile/ios/test/notifications.json")!
     
-    static let urlApplicationNews: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/master/notifications_ios.json")!
-    
-    static let urlVersionIos: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/master/version_ios.json")!
-    
-    static let urlVersionIosTest: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/master/test_version_ios.json")!
-    
-    static let urlEnvironmentStageNetProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/mobile/v2.6/environment_stagenet.json")!
-    
-    static let urlEnvironmentMainNetProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/mobile/v2.6/environment_mainnet.json")!
-    
-    static let urlEnvironmentTestNetProxy: URL = URL(string:
-        "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/mobile/v2.6/environment_testnet.json")!
-    
-    static let urlTransactionFeeProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/master/fee.json")!
-    
-    static let urlApplicationNewsProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/master/notifications_ios.json")!
-    
-    static let urlVersionIosProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-client-config/master/version_ios.json")!
-
-    static let urlApplicationNewsDebug: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-client-config/master/notifications_test_ios.json")!
+    static let urlVersionIos: URL = URL(string: "\(root)/mobile/ios/prod/version.json")!
+        
+    static let urlVersionIosTest: URL = URL(string: "\(root)/mobile/ios/test/version.json")!
 }
 
 extension GitHub.Service {
@@ -71,7 +57,7 @@ extension GitHub.Service {
          Response:
          - Environment
          */
-        case get(kind: Kind, hasProxy: Bool, isDebug: Bool)
+        case get(kind: Kind, isDebug: Bool)
     }
 
     enum TransactionRules {
@@ -79,7 +65,7 @@ extension GitHub.Service {
          Response:
          - ?
          */
-        case get(hasProxy: Bool)
+        case get
     }
 
     enum ApplicationNews {
@@ -87,7 +73,7 @@ extension GitHub.Service {
          Response:
          - ?
          */
-        case get(isDebug: Bool, hasProxy: Bool)
+        case get(isDebug: Bool)
     }
     
     enum ApplicationVersion {
@@ -95,7 +81,7 @@ extension GitHub.Service {
          Response:
          - ?
          */
-        case get(isDebug: Bool, hasProxy: Bool)
+        case get(isDebug: Bool)
     }
 }
 
@@ -106,39 +92,27 @@ extension GitHub.Service.Environment: TargetType {
 
     var baseURL: URL {
         switch self {
-        case .get(let kind, let hasProxy, let isDebug):
+        case .get(let kind, let isDebug):
             
             switch kind {
             case .mainnet:
                 if isDebug {
                     return Constants.urlEnvironmentMainNetTest
                 } else {
-                    if hasProxy {
-                        return Constants.urlEnvironmentMainNetProxy
-                    } else {
-                        return Constants.urlEnvironmentMainNet
-                    }
+                    return Constants.urlEnvironmentMainNet
                 }
             case .testnet:
                 if isDebug {
                     return Constants.urlEnvironmentTestNetTest
                 } else {
-                    if hasProxy {
-                        return Constants.urlEnvironmentTestNetProxy
-                    } else {
-                        return Constants.urlEnvironmentTestNet
-                    }
+                    return Constants.urlEnvironmentTestNet
                 }
                 
             case .stagenet:
                 if isDebug {
                     return Constants.urlEnvironmentStageNetTest
                 } else {
-                    if hasProxy {
-                        return Constants.urlEnvironmentStageNetProxy
-                    } else {
-                        return Constants.urlEnvironmentStageNet
-                    }
+                    return Constants.urlEnvironmentStageNet
                 }
             }
         }
@@ -174,12 +148,8 @@ extension GitHub.Service.TransactionRules: TargetType {
 
     var baseURL: URL {
         switch self {
-        case .get(let hasProxy):
-            if hasProxy {
-                return Constants.urlTransactionFeeProxy
-            } else {
-                return Constants.urlTransactionFee
-            }
+        case .get:
+            return Constants.urlTransactionFee
         }
     }
 
@@ -214,16 +184,11 @@ extension GitHub.Service.ApplicationNews: TargetType {
 
     var baseURL: URL {
         switch self {
-        case .get(let isDebug, let hasProxy):
-            
+        case .get(let isDebug):
             if isDebug {
                 return Constants.urlApplicationNewsDebug
             } else {
-                if hasProxy {
-                    return Constants.urlApplicationNewsProxy
-                } else {
-                    return Constants.urlApplicationNews
-                }
+                return Constants.urlApplicationNews
             }
         }
     }
@@ -259,7 +224,7 @@ extension GitHub.Service.ApplicationVersion: TargetType {
     
     var baseURL: URL {
         switch self {
-        case .get(let isDebug, _):
+        case .get(let isDebug):
             if isDebug {
                 return Constants.urlVersionIosTest
             } else {
