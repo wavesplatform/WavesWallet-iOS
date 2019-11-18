@@ -11,13 +11,6 @@ import DomainLayer
 import Moya
 import RxSwift
 
-private enum Constants {
-    
-    static let urlSpam: URL = URL(string: "https://raw.githubusercontent.com/wavesplatform/waves-community/master/Scam%20tokens%20according%20to%20the%20opinion%20of%20Waves%20Community.csv")!    
-    static let urlSpamProxy: URL = URL(string: "https://github-proxy.wvservices.com/wavesplatform/waves-community/master/Scam%20tokens%20according%20to%20the%20opinion%20of%20Waves%20Community.csv")!
-}
-
-
 final class SpamAssetsRepository: SpamAssetsRepositoryProtocol {
     
     private let spamService: SpamAssetsService = SpamAssetsService()
@@ -59,14 +52,7 @@ final class SpamAssetsRepository: SpamAssetsRepositoryProtocol {
                 
                 return self
                     .spamService
-                    .spamAssets(by: Constants.urlSpamProxy)
-                    .catchError({ [weak self] _ -> Observable<[String]> in
-                        
-                        guard let self = self else { return Observable.empty() }
-                        
-                        return self.spamService.spamAssets(by: Constants.urlSpam)
-                    })
-                
+                    .spamAssets(by: environment.servers.spamUrl)
             })
     }
 
@@ -75,7 +61,9 @@ final class SpamAssetsRepository: SpamAssetsRepositoryProtocol {
         return environmentRepository.walletEnvironment()
             .flatMap({ [weak self] (environment) -> Observable<[String]> in
                 guard let self = self else { return Observable.empty() }
-                return self.spamService.spamAssets(by: url)
+                return self
+                    .spamService
+                    .spamAssets(by: url)
             })
     }
 }

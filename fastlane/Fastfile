@@ -44,10 +44,15 @@ end
 
 def download_gitlab(url, path_to_save)   
   
-    correct_url = "#{url}/raw?ref=master"
-    
+    correct_url = "#{url}/raw?ref=master"    
     sh("rm -rf #{path_to_save}")
     sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{correct_url} >> #{path_to_save}")
+end
+
+def download_file(url, path_to_save)   
+    
+  sh("rm -rf #{path_to_save}")
+  sh("curl --request GET #{url} >> #{path_to_save}")
 end
 
 before_all do
@@ -282,6 +287,17 @@ platform :ios do
     download_gitlab("#{ENV['URL_SENTRY_IO']}", "#{Dir.pwd}/../CommonResources/Sentry-io-Info.plist")
 
     download_gitlab("#{ENV['URL_AMPLITUDE']}", "#{Dir.pwd}/../CommonResources/Amplitude-Info.plist")
+
+    download_file("#{ENV['URL_ENVIROMENT_STAGENET_PROD']}", "#{Dir.pwd}/../CommonResources/environment_stagenet.json")
+    download_file("#{ENV['URL_ENVIROMENT_MAINNET_PROD']}", "#{Dir.pwd}/../CommonResources/environment_mainnet.json")
+    download_file("#{ENV['URL_ENVIROMENT_TESTNET_PROD']}", "#{Dir.pwd}/../CommonResources/environment_testnet.json")
+
+    download_file("#{ENV['URL_ENVIROMENT_STAGENET_TEST']}", "#{Dir.pwd}/../CommonResources/environment_stagenet_test.json")
+    download_file("#{ENV['URL_ENVIROMENT_MAINNET_TEST']}", "#{Dir.pwd}/../CommonResources/environment_mainnet_test.json")
+    download_file("#{ENV['URL_ENVIROMENT_TESTNET_TEST']}", "#{Dir.pwd}/../CommonResources/environment_testnet_test.json")
+    download_file("#{ENV['URL_FEE']}", "#{Dir.pwd}/../CommonResources/fee.json")
+    download_file("#{ENV['URL_SPAM']}", "#{Dir.pwd}/../CommonResources/spam.csv")
+    
   end
 
   lane :download_bundle_enviroments do    

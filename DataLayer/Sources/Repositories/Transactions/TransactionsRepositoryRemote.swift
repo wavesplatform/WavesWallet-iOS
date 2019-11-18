@@ -16,6 +16,7 @@ import DomainLayer
 
 fileprivate enum Constants {
     static let maxLimit: Int = 10000
+    static let feeRuleJsonName = "fee"
 }
 
 extension TransactionSenderSpecifications {
@@ -189,15 +190,16 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
     func feeRules() -> Observable<DomainLayer.DTO.TransactionFeeRules> {
         return transactionRules
             .rx
-            .request(.get(hasProxy: true))
-            .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
-                guard let self = self else { return Single.never() }
-                return self
-                    .transactionRules
-                    .rx
-                    .request(.get(hasProxy: false))
-            })
+            .request(.get)
             .map(GitHub.DTO.TransactionFeeRules.self)
+            .catchError({ error -> Single<GitHub.DTO.TransactionFeeRules> in
+                
+                if let rule: GitHub.DTO.TransactionFeeRules = JSONDecoder.decode(json: Constants.feeRuleJsonName) {
+                    return Single.just(rule)
+                } else {
+                    return Single.error(error)
+                }
+            })
             .asObservable()
             .map({ (txRules) -> DomainLayer.DTO.TransactionFeeRules in
 
