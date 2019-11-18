@@ -665,16 +665,14 @@
 "widgetsettings.actionsheet.changeinterval.element.m1" = "1 minuto";
 "widgetsettings.actionsheet.changeinterval.element.m5" = "5 minutos";
 "widgetsettings.actionsheet.changeinterval.element.m10" = "10 minutos";
-"widgetsettings.actionsheet.changeinterval.element.manually" = "Manualmente";
+"widgetsettings.actionsheet.changeinterval.element.manually" = "Actualizar manualmente";
 "widgetsettings.changeinterval.button.m1" = "1 minuto";
 "widgetsettings.changeinterval.button.m10" = "10 minutos";
 "widgetsettings.changeinterval.button.m5" = "5 minutos";
-"widgetsettings.changeinterval.button.manually" = "Manualmente";
+"widgetsettings.changeinterval.button.manually" = "Actualizar manualmente";
 "widgetsettings.actionsheet.changestyle.title" = "Estilo de widget";
 "widgetsettings.actionsheet.changestyle.element.classic" = "Clásico";
 "widgetsettings.actionsheet.changestyle.element.dark" = "Oscuro";
-"widgetsettings.button.addToken" = "Agregar token";
-"widgetsettings.label.added" = "Agregado";
 "keeper.button.approve" = "Approve";
 "keeper.button.reject" = "Reject";
 "keeper.label.txTime" = "TX time";
@@ -683,3 +681,15 @@
 "keeper.transaction.failed" = "Your transaction failed";
 "keeper.label.function" = "Function";
 "keeper.label.confirmRequest" = "Confirm request";
+"chooseaccount.alert.pleaseSelect" = "Please select";
+"forceupdate.label.subtitle" = "To continue using the app, you will need to upgrade to version %@. Availability of the new version in the App Store may take a few hours.\
+You can use the web version to access your Waves account for now.";
+"forceupdate.button.update" = "Update";
+"sendconfirmation.label.gatewayFee" = "Gateway Fee";
+"pushNotificationsAlert.label.title" = "Get important notifications";
+"pushNotificationsAlert.label.subtitle" = "We'd like to show you notifications for the latest news and updates.";
+"pushNotificationsAlert.button.activatePush" = "Yes, notify me";
+"pushNotificationsAlert.button.later" = "Maybe later";
+"forceupdate.label.title" = "It is time to update your Waves app!";
+"widgetsettings.button.addToken" = "Add token";
+"widgetsettings.label.added" = "Added";

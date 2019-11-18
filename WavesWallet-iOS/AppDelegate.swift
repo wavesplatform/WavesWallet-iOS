@@ -21,6 +21,7 @@ import Extensions
 import DomainLayer
 import DataLayer
 import Firebase
+import FirebaseMessaging
 
 #if DEBUG || TEST
 import AppSpectorSDK

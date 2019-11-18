@@ -9,13 +9,20 @@
 import Foundation
 import RxSwift
 
+public extension DomainLayer.DTO {
+    struct VersionUpdateData {
+        public let isNeedForceUpdate: Bool
+        public let forceUpdateVersion: String
+    }
+}
+
 public protocol ApplicationVersionUseCaseProtocol {
     func isHasNewVersion() -> Observable<Bool>
-    func isNeedForceUpdate() -> Observable<Bool>
+    func isNeedForceUpdate() -> Observable<DomainLayer.DTO.VersionUpdateData>
 }
 
 public final class ApplicationVersionUseCase: ApplicationVersionUseCaseProtocol {
-    
+
     private let applicationVersionRepository: ApplicationVersionRepositoryProtocol
     
     public init(applicationVersionRepository: ApplicationVersionRepositoryProtocol) {
@@ -32,15 +39,19 @@ public final class ApplicationVersionUseCase: ApplicationVersionUseCaseProtocol 
             }                
     }
     
-    public func isNeedForceUpdate() -> Observable<Bool> {
+    public func isNeedForceUpdate() -> Observable<DomainLayer.DTO.VersionUpdateData> {
         return applicationVersionRepository
             .forceUpdateVersion()
-            .flatMap { (version) -> Observable<Bool> in
+            .flatMap { (version) -> Observable<DomainLayer.DTO.VersionUpdateData> in
                 let currentVersion = Bundle.main.version.versionToInt()
-                return Observable.just(currentVersion.lexicographicallyPrecedes(version.versionToInt()))
+                
+                let isNeedForceUpdate: Bool = currentVersion.lexicographicallyPrecedes(version.versionToInt())
+                return Observable.just(DomainLayer.DTO.VersionUpdateData.init(isNeedForceUpdate: isNeedForceUpdate,
+                                                                              forceUpdateVersion: version))
             }
-        .catchError { (_) -> Observable<Bool> in
-            return Observable.just(false)
+        .catchError { (_) -> Observable<DomainLayer.DTO.VersionUpdateData> in
+            return Observable.just(DomainLayer.DTO.VersionUpdateData.init(isNeedForceUpdate: false,
+                                                                          forceUpdateVersion: ""))
         }
     }
 }

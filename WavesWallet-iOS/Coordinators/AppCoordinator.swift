@@ -113,7 +113,7 @@ extension AppCoordinator: PresentationCoordinator {
         case mobileKeeper(DomainLayer.DTO.MobileKeeper.Request)
         case send(DeepLink)
         case dex(DeepLink)
-        case forceUpdate
+        case forceUpdate(DomainLayer.DTO.VersionUpdateData)
     }
 
     func showDisplay(_ display: AppCoordinator.Display) {
@@ -184,11 +184,12 @@ extension AppCoordinator: PresentationCoordinator {
             guard isActiveForceUpdate == false else { return }
             deepLink = link
 
-        case .forceUpdate:
+        case .forceUpdate(let data):
             isActiveForceUpdate = true
 
             //add coordinator
             let vc = StoryboardScene.ForceUpdateApp.forceUpdateAppViewController.instantiate()
+            vc.data = data
             windowRouter.window.rootViewController = vc
             windowRouter.window.makeKeyAndVisible()
         }
@@ -446,11 +447,11 @@ private extension AppCoordinator {
         
         applicationVersionUseCase.isNeedForceUpdate()
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] isNeedForceUpdate in
+            .subscribe(onNext: { [weak self] data in
                 guard let self = self else { return }
 
-                if isNeedForceUpdate {
-                    self.showDisplay(.forceUpdate)
+                if data.isNeedForceUpdate {
+                    self.showDisplay(.forceUpdate(data))
                 }
             }).disposed(by: disposeBag)
         
