@@ -242,8 +242,8 @@
 "hello.page.info.fifth.detail.second" = "Mantém o sistema operativo do teu computador sempre atualizado.";
 "hello.page.info.fifth.detail.third" = "Faz atualizações software usando apenas fontes seguras. Não instales aplicações de software de fontes desconhecidas.";
 "hello.page.info.fifth.title" = "Vê como te podes proteger deste tipo de ataques";
-"hello.page.info.first.detail" = "Por favor, toma nota dos seguintes aspetos, que consideramos importantes para a tua segurança.\n\nNo caso de usares as palavras de recuperação num site de phishing, não temos forma de recuperar os teus fundos ou bloquear as transações na conta.\n\nO único responsável pela conta é o seu titular, ou seja, tu.\n\nAo continuares-a usar o cliente Waves estás a aceitar os riscos associados à perda das PALAVRAS DE RECUPERAÇÃO, incluindo que podes perder todos os fundos caso estas venham a ser usadas num ataque.\n\nCaso percas as PALAVRAS DE RECUPERAÇÃO reconheces que a Waves Platform não é responsável pelas consequências negativas que daí possam advir.";
-"hello.page.info.first.title" = "Bem vindo à Waves Platform!";
+"hello.page.info.first.detail" = "Por favor, toma nota dos seguintes aspetos, que consideramos importantes para a tua segurança.\n\nNo caso de usares as palavras de recuperação num site de phishing, não temos forma de recuperar os teus fundos ou bloquear as transações na conta.\n\nO único responsável pela conta é o seu titular, ou seja, tu.\n\nAo continuares-a usar o cliente Waves estás a aceitar os riscos associados à perda das PALAVRAS DE RECUPERAÇÃO, incluindo que podes perder todos os fundos caso estas venham a ser usadas num ataque.\n\nCaso percas as PALAVRAS DE RECUPERAÇÃO reconheces que a Waves Exchange não é responsável pelas consequências negativas que daí possam advir.";
+"hello.page.info.first.title" = "Bem vindo à Waves Exchange!";
 "hello.page.info.fourth.detail" = "Uma das formas mais frequentes de fraude na Internet é o phishing. Por exemplo, quando alguém cria canais fraudulentos no Facebook similares aos originais.";
 "hello.page.info.fourth.title" = "Vê como te podes proteger deste tipo de ataques";
 "hello.page.info.second.detail" = "Após concluíres o registo vamos pedir-te para fazeres uma cópia de segurança das PALAVRAS DE RECUPERAÇÃO e ainda para protegeres a conta com uma password local. Habitualmente nos sistemas centralizados podes recuperar facilmente a password, caso te esqueças dela. No entanto, nos sistemas de blockchain e plataformas descentralizadas essa informação não fica guardada em nenhum local.";
@@ -317,7 +317,7 @@
 "menu.button.termsandconditions" = "Termos e condições";
 "menu.button.whitepaper" = "Whitepaper";
 "menu.label.communities" = "Junta-te à Comunidade Waves";
-"menu.label.description" = "Mantem-te informado das últimas novidades e sabe tudo sobre os eventos que estão a acontecer no ecossistema Waves Platform";
+"menu.label.description" = "Mantem-te informado das últimas novidades e sabe tudo sobre os eventos que estão a acontecer no ecossistema Waves Exchange";
 "myaddress.button.copy.title" = "Copiar";
 "myaddress.button.share.title" = "Partilhar";
 "myaddress.cell.aliases.subtitle.withaliaces" = "Tens %d";

@@ -3,7 +3,7 @@
 //  DataLayer
 //
 //  Created by rprokofev on 07.08.2019.
-//  Copyright © 2019 Waves Platform. All rights reserved.
+//  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
 import Foundation

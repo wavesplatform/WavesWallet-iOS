@@ -2,7 +2,7 @@
 //  InfoPagesViewController.swift
 //  WavesWallet-iOS
 //
-//  Copyright © 2018 Waves Platform. All rights reserved.
+//  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
 import UIKit
@@ -14,6 +14,12 @@ protocol InfoPagesViewModuleOutput: AnyObject {
     func userFinishedReadPages()
 }
 
+protocol InfoPagesViewDisplayingProtocol {
+    func infoPagesViewDidEndDisplaying()
+    func infoPagesViewWillDisplayDisplaying()
+}
+
+//TODO: Refactor class
 final class InfoPagesViewController: UIViewController {
     
     @IBOutlet weak var toolbarView: UIView!
@@ -44,9 +50,12 @@ final class InfoPagesViewController: UIViewController {
         let needToKnowLongView = LongInfoPageView.loadView()
         let protectView = ShortInfoPageView.loadView()
         let protectLongView = LongInfoPageView.loadView()
+
+        let migrationWavesExchangeView = MigrationWavesExchangeView.loadView()
+        
         let confirmView = InfoPageConfirmView.loadView()
         
-        return [welcomeView, needToKnowView, needToKnowLongView, protectView, protectLongView, confirmView]
+        return [welcomeView, needToKnowView, needToKnowLongView, protectView, protectLongView, migrationWavesExchangeView, confirmView]
     }()
     
     private lazy var pageModels: [Any] = {
@@ -91,7 +100,10 @@ final class InfoPagesViewController: UIViewController {
                                                  thirdImage: Images.iOs42Submit400.image,
                                                  fourthImage: Images.iWifi42Submit400.image)
         
-        return [welcome, needToKnow, needToKnowLong, protect, protectLong]
+        
+        let migrationWavesExchangeModel = MigrationWavesExchangeView.Model.init()
+        
+        return [welcome, needToKnow, needToKnowLong, protect, migrationWavesExchangeModel, protectLong]
         
     }()
     
@@ -204,6 +216,9 @@ final class InfoPagesViewController: UIViewController {
             } else if let currentModel = pageModels[currentPage] as? ShortInfoPageView.Model {
                 nextControl.isEnabled = currentModel.scrolledToBottom
                 toolbarLabel.alpha = currentModel.scrolledToBottom ? 1 : 0.5
+            } else if pageModels[currentPage] is MigrationWavesExchangeView.Model {
+                nextControl.isEnabled = true
+                toolbarLabel.alpha = 1
             }
         }
         else {
@@ -274,10 +289,21 @@ extension InfoPagesViewController: UICollectionViewDelegateFlowLayout, UICollect
         if let pageView = pageView as? ShortInfoPageView {
             pageView.updateOnScroll()
         }
+        
+        let view = self.pageViews[indexPath.row] as? InfoPagesViewDisplayingProtocol
+        
+        view?.infoPagesViewWillDisplayDisplaying()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return collectionView.bounds.size
+    }
+            
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        let view = self.pageViews[indexPath.row] as? InfoPagesViewDisplayingProtocol
+        
+        view?.infoPagesViewDidEndDisplaying()
     }
     
 }

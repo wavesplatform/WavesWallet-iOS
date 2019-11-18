@@ -204,7 +204,7 @@
 "editaccountname.navigation.title" = "Adı güncelle";
 "enter.block.blockchain.text" = "Kripto para dünyasının hızla büyüyen alanının bir parçası olun. Kripto paralarınıza sizden başkası erişemez.";
 "enter.block.blockchain.title" = "Blok zincirinin bir parçası olun";
-"enter.block.exchange.text" = "Hızlı ve güvenli bir şekilde takas yapın! Waves Platform merkezsiz borsasında işlem yaparak kripto paralarınız üzerinde tam hakimiyete sahip olursunuz.";
+"enter.block.exchange.text" = "Hızlı ve güvenli bir şekilde takas yapın! Waves Exchange merkezsiz borsasında işlem yaparak kripto paralarınız üzerinde tam hakimiyete sahip olursunuz.";
 "enter.block.exchange.title" = "Merkezsiz borsa";
 "enter.block.token.text" = "Üreteceğiniz kripto paralarınızı merkezsiz oylamalar, derecelendirme sistemleri veya sadakat programları gibi amaçlar için de kullanabilirsiniz.";
 "enter.block.token.title" = "Kendi Kripto Paranızı Yaratın";
@@ -242,11 +242,11 @@
 "hello.page.info.fifth.detail.second" = "İşletim sisteminizi güncel tutun";
 "hello.page.info.fifth.detail.third" = "Resmi yazılımları kullanın. Hacklenme ihtimali olan yazılımları kullanmayın.";
 "hello.page.info.fifth.title" = "Hesabınızı nasıl korursunuz?";
-"hello.page.info.first.detail" = "Lütfen kendi güvenliğiniz için önemli bilgileri içeren bu bilgilendirmeyi okuyunuz.\n\nEğer anahtar kelimelerinizi kaybederseniz veya çaldırırsanız hesabınızı donduramayız ve varlıklarınızı tekrar alamayız.\n\nWaves Platform'u kullanmaya devam ederek, anahtar kelimelerinizi kaybettiğinizde veya çaldırdığınızda Waves Platform'un sorumlu olmadığını kabul etmiş olursunuz.";
-"hello.page.info.first.title" = "Waves Platform'a hoş geldiniz!";
-"hello.page.info.fourth.detail" = "En sık karşılaşılan dolandırıcılık yöntemi Waves Platform'a benzeyen sahte web siteleri, Facebook sayfaları olarak karşımıza çıkmaktadır.";
+"hello.page.info.first.detail" = "Lütfen kendi güvenliğiniz için önemli bilgileri içeren bu bilgilendirmeyi okuyunuz.\n\nEğer anahtar kelimelerinizi kaybederseniz veya çaldırırsanız hesabınızı donduramayız ve varlıklarınızı tekrar alamayız.\n\nWaves Exchange'u kullanmaya devam ederek, anahtar kelimelerinizi kaybettiğinizde veya çaldırdığınızda Waves Exchange'un sorumlu olmadığını kabul etmiş olursunuz.";
+"hello.page.info.first.title" = "Waves Exchange'a hoş geldiniz!";
+"hello.page.info.fourth.detail" = "En sık karşılaşılan dolandırıcılık yöntemi Waves Exchange'a benzeyen sahte web siteleri, Facebook sayfaları olarak karşımıza çıkmaktadır.";
 "hello.page.info.fourth.title" = "Kendinizi nasıl koruyacaksınız?";
-"hello.page.info.second.detail" = "Hesabınızı oluştururken sizden anahtar kelimelerinizi saklamanız ve bir parola ile korumanız istenecektir. Merkezi sunucularda parolanız e-posta adresinize gönderilen bir link ile sıfırlanabilir ancak Waves Platform gibi merkezsiz borsalarda bu durum daha farklıdır.";
+"hello.page.info.second.detail" = "Hesabınızı oluştururken sizden anahtar kelimelerinizi saklamanız ve bir parola ile korumanız istenecektir. Merkezi sunucularda parolanız e-posta adresinize gönderilen bir link ile sıfırlanabilir ancak Waves Exchange gibi merkezsiz borsalarda bu durum daha farklıdır.";
 "hello.page.info.second.title" = "Anahtar kelimeler (SEED) hakkında bilmeniz gerekenler";
 "hello.page.info.third.detail.first" = "Hesabınızı anonim olarak kullanırsınız. Hesabınız herhangi bir e-posta adresine veya kimliğiniz ile eşleşen bir hizmet sağlayıcıya bağlı değildir.";
 "hello.page.info.third.detail.fourth" = "Anahtar kelimelerinizi değiştiremezsiniz. Eğer yanlışlıkla birine gönderirseniz veya çaldırırsanız en kısa sürede yeni bir cüzdan oluşturarak tüm varlıklarınızı bu yeni cüzdanınıza aktarın.";
@@ -313,11 +313,11 @@
 "hello.page.confirm.description2" = "Gizlilik Politikasını okudum ve kabul ediyorum";
 "hello.page.confirm.button.privacyPolicy" = "Gizlilik politikası";
 "hello.page.confirm.description3" = "Koşullar ve Şartları okudum ve kabul ediyorum";
-"menu.button.supportwavesplatform" = "Waves Platform'u destekle";
+"menu.button.supportwavesplatform" = "Waves Exchange'u destekle";
 "menu.button.termsandconditions" = "Koşullar ve şartlar";
 "menu.button.whitepaper" = "Whitepaper";
 "menu.label.communities" = "Waves Topluluğuna katıl";
-"menu.label.description" = "Waves Platform ile ilgili son haberleri, makaleleri ve etkinlikleri kaçırmayın.";
+"menu.label.description" = "Waves Exchange ile ilgili son haberleri, makaleleri ve etkinlikleri kaçırmayın.";
 "myaddress.button.copy.title" = "Kopyala";
 "myaddress.button.share.title" = "Paylaş";
 "myaddress.cell.aliases.subtitle.withaliaces" = "Mevcut %d";
@@ -382,7 +382,7 @@
 "profile.cell.network.title" = "Ağ";
 "profile.cell.pushnotifications.title" = "Bildirimler";
 "profile.cell.rateApp.title" = "Uygulamayı değerlendir";
-"profile.cell.supportwavesplatform.title" = "Waves Platform'u destekle";
+"profile.cell.supportwavesplatform.title" = "Waves Exchange'u destekle";
 "profile.header.general.title" = "Genel ayarlar";
 "profile.header.other.title" = "Diğer";
 "profile.header.security.title" = "Güvenlik";

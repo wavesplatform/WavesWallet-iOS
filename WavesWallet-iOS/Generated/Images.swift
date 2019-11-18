@@ -108,6 +108,7 @@ internal enum Images {
   internal static let editaddress24Submit200 = ImageAsset(name: "editaddress24Submit200")
   internal static let editaddress24Submit300 = ImageAsset(name: "editaddress24Submit300")
   internal static let error80Error500 = ImageAsset(name: "error80Error500")
+  internal static let exchangeBlack321 = ImageAsset(name: "exchangeBlack321")
   internal static let eyeclsoe24Basic500 = ImageAsset(name: "eyeclsoe24Basic500")
   internal static let eyeopen24Basic500 = ImageAsset(name: "eyeopen24Basic500")
   internal static let faceid48Submit300 = ImageAsset(name: "faceid48Submit300")
@@ -179,9 +180,11 @@ internal enum Images {
   internal static let menuTitleLogo = ImageAsset(name: "menu_title_logo")
   internal static let menuTwitter = ImageAsset(name: "menu_twitter")
   internal static let minus18Disabled900 = ImageAsset(name: "minus18Disabled900")
+  internal static let newLogo = ImageAsset(name: "newLogo")
   internal static let notStar = ImageAsset(name: "not_star")
   internal static let notStarBtn = ImageAsset(name: "not_star_btn")
   internal static let off = ImageAsset(name: "off")
+  internal static let oldLogo = ImageAsset(name: "oldLogo")
   internal static let on = ImageAsset(name: "on")
   internal static let pMastercard28 = ImageAsset(name: "pMastercard28")
   internal static let pVisa28 = ImageAsset(name: "pVisa28")
@@ -391,6 +394,7 @@ internal enum Images {
     editaddress24Submit200,
     editaddress24Submit300,
     error80Error500,
+    exchangeBlack321,
     eyeclsoe24Basic500,
     eyeopen24Basic500,
     faceid48Submit300,
@@ -462,9 +466,11 @@ internal enum Images {
     menuTitleLogo,
     menuTwitter,
     minus18Disabled900,
+    newLogo,
     notStar,
     notStarBtn,
     off,
+    oldLogo,
     on,
     pMastercard28,
     pVisa28,

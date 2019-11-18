@@ -1398,10 +1398,10 @@ internal enum Localizable {
           }
 
           internal enum First {
-            /// Please take some time to understand some important things for your own safety.\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.
+            /// Please take some time to understand some important things for your own safety.\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Exchange would not be responsible for the negative consequences of this.
             internal static var detail: String { return Localizable.tr("Waves", "hello.page.info.first.detail") }
             internal static var detailKey: String { return "hello.page.info.first.detail" }
-            /// Welcome to the Waves Platform!
+            /// Welcome to the Waves Exchange!
             internal static var title: String { return Localizable.tr("Waves", "hello.page.info.first.title") }
             internal static var titleKey: String { return "hello.page.info.first.title" }
           }
@@ -1825,7 +1825,7 @@ internal enum Localizable {
         /// Join the Waves Community
         internal static var communities: String { return Localizable.tr("Waves", "menu.label.communities") }
         internal static var communitiesKey: String { return "menu.label.communities" }
-        /// Keep up with the latest news and articles, and find out all about events happening on the Waves Platform
+        /// Keep up with the latest news and articles, and find out all about events happening on the Waves Exchange
         internal static var description: String { return Localizable.tr("Waves", "menu.label.description") }
         internal static var descriptionKey: String { return "menu.label.description" }
       }

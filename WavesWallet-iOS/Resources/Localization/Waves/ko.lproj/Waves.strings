@@ -242,8 +242,8 @@
 "hello.page.info.fifth.detail.second" = "운영체제를 정기적으로 업데이트하세요.";
 "hello.page.info.fifth.detail.third" = "정식 보안 소프트웨어를 사용하세요. 해킹에 취약한 알 수 없는 소프트웨어를 설치하지 마세요.";
 "hello.page.info.fifth.title" = "피싱공격 예방 방법";
-"hello.page.info.first.detail" = "자산을 안전하게 보관하기 위해 몇가지 중요한 사항을 이해해야 합니다.\n\n만약 피싱 사이트를 방문하거나 백업 구절(일명 SEED) 분실 시 당사는 귀하의 자금을 되찾거나 계정을 정지할 수 없습니다.\n\n당사의 플랫폼을 이용함에 따라 귀하는 백업 구절(SEED) 분실에 관련된 모든 위험을 감수하는 것에 동의하는 것이며 이는 귀하의 자금 확보 및 처분이 불가능한 경우를 포함하며 이에 국한되지 않습니다. 귀하가 SEED를 분실할 경우 Waves Platform은 이에 따른 부정적인 결과에 어떠한 책임도 없다는 것에 동의하고 승인합니다.";
-"hello.page.info.first.title" = "Waves Platform에 오신것을 환영합니다!";
+"hello.page.info.first.detail" = "자산을 안전하게 보관하기 위해 몇가지 중요한 사항을 이해해야 합니다.\n\n만약 피싱 사이트를 방문하거나 백업 구절(일명 SEED) 분실 시 당사는 귀하의 자금을 되찾거나 계정을 정지할 수 없습니다.\n\n당사의 플랫폼을 이용함에 따라 귀하는 백업 구절(SEED) 분실에 관련된 모든 위험을 감수하는 것에 동의하는 것이며 이는 귀하의 자금 확보 및 처분이 불가능한 경우를 포함하며 이에 국한되지 않습니다. 귀하가 SEED를 분실할 경우 Waves Exchange은 이에 따른 부정적인 결과에 어떠한 책임도 없다는 것에 동의하고 승인합니다.";
+"hello.page.info.first.title" = "Waves Exchange에 오신것을 환영합니다!";
 "hello.page.info.fourth.detail" = "가장 일반적인 형태의 사기 유형 중 하나는 피싱 공격이며 이는 사기꾼이 Facebook 또는 기타 웹 사이트에서 가짜 Waves 커뮤니티를 만드는 것입니다.";
 "hello.page.info.fourth.title" = "피싱공격 예방 방법";
 "hello.page.info.second.detail" = "계정을 등록할 때 백업 구절(SEED)을 저장하고 암호로 계정을 보호하라는 메시지가 나타납니다. 일반적인 중앙화 집중 서버에서는 비밀번호가 매우 중요합니다. 이는 필요하다면 이메일을 통해 비밀번호를 변경 및 재설정할 수 있습니다. 하지만 Waves와 같은 탈중앙화 플랫폼에서는 모든 것이 다르게 처리됩니다.";
@@ -317,7 +317,7 @@
 "menu.button.termsandconditions" = "이용 약관";
 "menu.button.whitepaper" = "백서";
 "menu.label.communities" = "Waves 커뮤니티에 참여";
-"menu.label.description" = "최신 뉴스 및 기사를 확인하고 Waves Platform에서 업데이트하는 이벤트에 대해 알아보세요";
+"menu.label.description" = "최신 뉴스 및 기사를 확인하고 Waves Exchange에서 업데이트하는 이벤트에 대해 알아보세요";
 "myaddress.button.copy.title" = "복사";
 "myaddress.button.share.title" = "공유";
 "myaddress.cell.aliases.subtitle.withaliaces" = "%d 개를 보유하고 있습니다";

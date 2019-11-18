@@ -242,8 +242,8 @@
 "hello.page.info.fifth.detail.second" = "Werk uw besturingssysteem regelmatig bij.";
 "hello.page.info.fifth.detail.third" = "Gebruik officiële beveiligingssoftware. Installeer geen onbekende software die gehackt zou kunnen worden.";
 "hello.page.info.fifth.title" = "Hoe je jezelf kunt beschermen tegen Phishers";
-"hello.page.info.first.detail" = "Neem alstublieft de tijd om enkele belangrijke dingen voor uw eigen veiligheid te begrijpen.\n\nWe kunnen uw geld niet terugkrijgen of uw account niet bevriezen als u een phishing-site bezoekt of uw back-up zin kwijtraakt (ook wel SEED-zin).\n\nAls u ons platform blijft gebruiken, stemt u ermee in alle aan het verlies verbonden risico's te accepteren van uw SEED, inclusief maar niet beperkt tot het onvermogen om bij uw geld te kunnen. In het geval dat u uw SEED verliest, stemt u ermee in en erkent u dat het Waves Platform niet verantwoordelijk is voor de negatieve gevolgen hiervan.";
-"hello.page.info.first.title" = "Welkom bij het Waves Platform!";
+"hello.page.info.first.detail" = "Neem alstublieft de tijd om enkele belangrijke dingen voor uw eigen veiligheid te begrijpen.\n\nWe kunnen uw geld niet terugkrijgen of uw account niet bevriezen als u een phishing-site bezoekt of uw back-up zin kwijtraakt (ook wel SEED-zin).\n\nAls u ons platform blijft gebruiken, stemt u ermee in alle aan het verlies verbonden risico's te accepteren van uw SEED, inclusief maar niet beperkt tot het onvermogen om bij uw geld te kunnen. In het geval dat u uw SEED verliest, stemt u ermee in en erkent u dat het Waves Exchange niet verantwoordelijk is voor de negatieve gevolgen hiervan.";
+"hello.page.info.first.title" = "Welkom bij het Waves Exchange!";
 "hello.page.info.fourth.detail" = "Een van de meest voorkomende vormen van oplichting is phishing, dat is wanneer scammers nep community's maken op Facebook of andere websites die lijken op de authentieke.";
 "hello.page.info.fourth.title" = "Hoe je jezelf kunt beschermen tegen Phishers";
 "hello.page.info.second.detail" = "Wanneer u uw account registreert, wordt u gevraagd om uw geheime zin (Seed) op te slaan en om uw account te beveiligen met een wachtwoord. Op normale gecentraliseerde servers wordt speciale aandacht besteed aan het wachtwoord, dat kan worden gewijzigd en gereset via e-mail, als de noodzaak zich voordoet. Op gedecentraliseerde platforms zoals Waves is alles echter anders geregeld.";
@@ -317,7 +317,7 @@
 "menu.button.termsandconditions" = "Voorwaarden";
 "menu.button.whitepaper" = "Whitepaper";
 "menu.label.communities" = "Neem deel aan de Waves Community";
-"menu.label.description" = "Blijf bij met het laatste nieuws, artikelen en evenementen rondom Waves Platform";
+"menu.label.description" = "Blijf bij met het laatste nieuws, artikelen en evenementen rondom Waves Exchange";
 "myaddress.button.copy.title" = "Kopiëren";
 "myaddress.button.share.title" = "Delen";
 "myaddress.cell.aliases.subtitle.withaliaces" = "U heeft %d";

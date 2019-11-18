@@ -569,6 +569,9 @@
 		7B9DC32F2382C04700DCCA75 /* environment_mainnet_test.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3122382C04700DCCA75 /* environment_mainnet_test.json */; };
 		7B9DC3302382C04700DCCA75 /* spam.scv in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3132382C04700DCCA75 /* spam.scv */; };
 		7B9DC3312382C04700DCCA75 /* spam.scv in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3132382C04700DCCA75 /* spam.scv */; };
+		7B9DC3352382E2A800DCCA75 /* MigrationWavesExchangeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3332382E2A800DCCA75 /* MigrationWavesExchangeView.xib */; };
+		7B9DC3362382E2A800DCCA75 /* MigrationWavesExchangeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC3332382E2A800DCCA75 /* MigrationWavesExchangeView.xib */; };
+		7B9DC3372382E2A800DCCA75 /* MigrationWavesExchangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9DC3342382E2A800DCCA75 /* MigrationWavesExchangeView.swift */; };
 		7BB03E4A22EF2C84008F179D /* WidgetSettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */; };
 		7BB03E4C22EF2DAB008F179D /* WidgetSettingsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */; };
 		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
@@ -1845,6 +1848,8 @@
 		7B9DC3112382C04700DCCA75 /* environment_mainnet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = environment_mainnet.json; sourceTree = "<group>"; };
 		7B9DC3122382C04700DCCA75 /* environment_mainnet_test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = environment_mainnet_test.json; sourceTree = "<group>"; };
 		7B9DC3132382C04700DCCA75 /* spam.scv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spam.scv; sourceTree = "<group>"; };
+		7B9DC3332382E2A800DCCA75 /* MigrationWavesExchangeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MigrationWavesExchangeView.xib; sourceTree = "<group>"; };
+		7B9DC3342382E2A800DCCA75 /* MigrationWavesExchangeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MigrationWavesExchangeView.swift; sourceTree = "<group>"; };
 		7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsHeaderView.swift; sourceTree = "<group>"; };
 		7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WidgetSettingsHeaderView.xib; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
@@ -2435,7 +2440,7 @@
 		F7C683BC1EA93C5800C87DAF /* ObjCBridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCBridgingHeader.h; sourceTree = "<group>"; };
 		F7C683DC1EA94ECA00C87DAF /* SwiftGMP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftGMP.framework; path = Carthage/Build/iOS/SwiftGMP.framework; sourceTree = "<group>"; };
 		F7C683DD1EA94ECA00C87DAF /* SwiftGMP.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SwiftGMP.framework.dSYM; path = Carthage/Build/iOS/SwiftGMP.framework.dSYM; sourceTree = "<group>"; };
-		F7E954E41EA8FE0700A804DE /* WavesWallet-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WavesWallet-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7E954E41EA8FE0700A804DE /* W.Exchange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = W.Exchange.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7E954E71EA8FE0700A804DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F7E954F01EA8FE0700A804DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F7E954F51EA8FE0700A804DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -4869,6 +4874,8 @@
 		E95B47AE21638A9F004D4E39 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7B9DC3342382E2A800DCCA75 /* MigrationWavesExchangeView.swift */,
+				7B9DC3332382E2A800DCCA75 /* MigrationWavesExchangeView.xib */,
 				0AC1251121A758BC00357C93 /* LongInfoPageView.swift */,
 				E95B47B321638A9F004D4E39 /* LongInfoPageView.xib */,
 				E95B47B921638A9F004D4E39 /* ShortInfoPageView.swift */,
@@ -5949,7 +5956,7 @@
 		F7E954E51EA8FE0700A804DE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F7E954E41EA8FE0700A804DE /* WavesWallet-iOS.app */,
+				F7E954E41EA8FE0700A804DE /* W.Exchange.app */,
 				7BF89E9622272A5E00853F9D /* MonkeyTest.xctest */,
 				7B66860022B3F70D0029E6F1 /* DomainLayer.framework */,
 				7B6686EE22B7C5120029E6F1 /* Extensions.framework */,
@@ -6192,7 +6199,7 @@
 			);
 			name = "WavesWallet-iOS";
 			productName = "WavesWallet-iOS";
-			productReference = F7E954E41EA8FE0700A804DE /* WavesWallet-iOS.app */;
+			productReference = F7E954E41EA8FE0700A804DE /* W.Exchange.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -6377,6 +6384,7 @@
 				7B9DC32B2382C04700DCCA75 /* Amplitude-Info.plist in Resources */,
 				7B9DC3152382C04700DCCA75 /* Sentry-io-Info.plist in Resources */,
 				7B9DC3292382C04700DCCA75 /* Fabric-Info.plist in Resources */,
+				7B9DC3362382E2A800DCCA75 /* MigrationWavesExchangeView.xib in Resources */,
 				7B9DC3312382C04700DCCA75 /* spam.scv in Resources */,
 				E95310BE22E8A43000F72809 /* WidgetAssets.xcassets in Resources */,
 				7B9DC31F2382C04700DCCA75 /* AppSpector-Info.plist in Resources */,
@@ -6429,6 +6437,7 @@
 				0A3FE8A82135AE3600DBF4E1 /* AssetTransactionCell.xib in Resources */,
 				E96DAB71228EE643005ED12B /* WalletSortSegmentedControl.xib in Resources */,
 				0AF921FB212E07B3003BA067 /* AssetChartHeaderView.xib in Resources */,
+				7B9DC3352382E2A800DCCA75 /* MigrationWavesExchangeView.xib in Resources */,
 				048684F721258BC400D12189 /* HistoryHeaderView.xib in Resources */,
 				0AF921F7212E07B3003BA067 /* AssetBalanceMoneyInfoView.xib in Resources */,
 				0A071E41215AEF61007D9750 /* AccountPassword.storyboard in Resources */,
@@ -7761,6 +7770,7 @@
 				E9B086B72163883000937644 /* AddressBookPresenterProtocol.swift in Sources */,
 				0ADD802F21F22FFB0075FC59 /* EditAccountNameCoordinator.swift in Sources */,
 				0AAB15C721655C0600F1F7BC /* ProfileDisabledButtomTableCell.swift in Sources */,
+				7B9DC3372382E2A800DCCA75 /* MigrationWavesExchangeView.swift in Sources */,
 				E9EC5C0F2175F35900E5C29A /* AddressInputView.swift in Sources */,
 				E9B0879A2163886800937644 /* DexChartHelper.swift in Sources */,
 				E9D36DF22175C755001E6DF0 /* AssetListPresenterProtocol.swift in Sources */,
@@ -8020,7 +8030,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.test;
 				PRODUCT_MODULE_NAME = WavesWallet_iOS;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = W.Exchange;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wavesplatform.waveswallet.test";
 				SWIFT_COMPILATION_MODE = singlefile;
@@ -8112,7 +8122,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.test;
 				PRODUCT_MODULE_NAME = WavesWallet_iOS;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = W.Exchange;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.wavesplatform.waveswallet.test";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = TEST;
@@ -9245,7 +9255,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -warn-long-function-bodies=200 -Xfrontend -warn-long-expression-type-checking=200";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.dev;
 				PRODUCT_MODULE_NAME = WavesWallet_iOS;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = W.Exchange;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.wavesplatform.waveswallet.dev";
 				SWIFT_COMPILATION_MODE = singlefile;
@@ -9545,7 +9555,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet;
 				PRODUCT_MODULE_NAME = WavesWallet_iOS;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = W.Exchange;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wavesplatform.WavesWallet";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
@@ -10378,7 +10388,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -warn-long-function-bodies=200 -Xfrontend -warn-long-expression-type-checking=200";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.dev;
 				PRODUCT_MODULE_NAME = WavesWallet_iOS;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = W.Exchange;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wavesplatform.waveswallet.dev";
 				SWIFT_COMPILATION_MODE = singlefile;
@@ -10414,7 +10424,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet;
 				PRODUCT_MODULE_NAME = WavesWallet_iOS;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = W.Exchange;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.wavesplatform.WavesWallet";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";

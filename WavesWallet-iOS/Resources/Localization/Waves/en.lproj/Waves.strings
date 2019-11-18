@@ -242,8 +242,8 @@
 "hello.page.info.fifth.detail.second" = "Regularly update your operating system.";
 "hello.page.info.fifth.detail.third" = "Use official security software. Do not install unknown software which could be hacked.";
 "hello.page.info.fifth.title" = "How To Protect Yourself from Phishers";
-"hello.page.info.first.detail" = "Please take some time to understand some important things for your own safety.\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Platform would not be responsible for the negative consequences of this.";
-"hello.page.info.first.title" = "Welcome to the Waves Platform!";
+"hello.page.info.first.detail" = "Please take some time to understand some important things for your own safety.\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Exchange would not be responsible for the negative consequences of this.";
+"hello.page.info.first.title" = "Welcome to the Waves Exchange!";
 "hello.page.info.fourth.detail" = "One of the most common forms of scamming is phishing, which is when scammers create fake communities on Facebook or other websites that look similar to the authentic ones.";
 "hello.page.info.fourth.title" = "How To Protect Yourself from Phishers";
 "hello.page.info.second.detail" = "When registering your account, you will be asked to save your secret phrase (Seed) and to protect your account with a password. On normal centralized servers, special attention is paid to the password, which can be changed and reset via email, if the need arises. However, on decentralized platforms such as Waves, everything is arranged differently.";
@@ -317,7 +317,7 @@
 "menu.button.termsandconditions" = "Terms and conditions";
 "menu.button.whitepaper" = "Whitepaper";
 "menu.label.communities" = "Join the Waves Community";
-"menu.label.description" = "Keep up with the latest news and articles, and find out all about events happening on the Waves Platform";
+"menu.label.description" = "Keep up with the latest news and articles, and find out all about events happening on the Waves Exchange";
 "myaddress.button.copy.title" = "Copy";
 "myaddress.button.share.title" = "Share";
 "myaddress.cell.aliases.subtitle.withaliaces" = "You have %d";
