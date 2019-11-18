@@ -9,6 +9,7 @@
 import Foundation
 import Moya
 
+//TODO: Rename
 enum GitHub {}
 
 extension GitHub {
