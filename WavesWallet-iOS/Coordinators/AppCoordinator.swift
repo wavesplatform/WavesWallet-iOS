@@ -58,7 +58,7 @@ final class AppCoordinator: Coordinator {
     private let mobileKeeperRepository: MobileKeeperRepositoryProtocol = UseCasesFactory.instance.repositories.mobileKeeperRepository
     private let applicationVersionUseCase: ApplicationVersionUseCaseProtocol = UseCasesFactory.instance.applicationVersionUseCase
 
-    private let serverMaintenanceRepository: ServerMaintenanceRepositoryProtocol = UseCasesFactory.instance.repositories.serverMaintenanceRepository
+    private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol = UseCasesFactory.instance.repositories.developmentConfigsRepository
     
     private let disposeBag: DisposeBag = DisposeBag()
     private var deepLink: DeepLink? = nil
@@ -486,7 +486,7 @@ private extension AppCoordinator {
     
     func checkAndRunServerMaintenance() {
         
-        self.serverMaintenanceRepository
+        self.developmentConfigsRepository
             .isEnabledMaintenance()
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] isEnabledMaintenance in
@@ -506,7 +506,8 @@ private extension AppCoordinator {
 private extension AppCoordinator {
     func checkAndRunForceUpdate() {
         
-        applicationVersionUseCase.isNeedForceUpdate()
+        applicationVersionUseCase
+            .isNeedForceUpdate()
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] data in
                 guard let self = self else { return }

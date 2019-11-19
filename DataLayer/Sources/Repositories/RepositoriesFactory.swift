@@ -96,7 +96,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     public private(set) lazy var mobileKeeperRepository: MobileKeeperRepositoryProtocol = MobileKeeperRepository(repositoriesFactory: self)
 
     
-    public private(set) lazy var serverMaintenanceRepository: ServerMaintenanceRepositoryProtocol = ServerMaintenanceRepository()
+    public private(set) lazy var developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol = DevelopmentConfigsRepository()
         
     public struct Resources {
         
