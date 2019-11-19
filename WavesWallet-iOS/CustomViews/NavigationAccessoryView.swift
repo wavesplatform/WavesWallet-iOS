@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+//TODO: Remove
 /// Class for the navigation accessory view used in FormViewController
 open class NavigationAccessoryView: UIToolbar {
     open var previousButton: UIBarButtonItem!
@@ -30,6 +31,7 @@ open class NavigationAccessoryView: UIToolbar {
     }
     
     private func initializeChevrons() {
+        //TODO: Remove Images?
         var imageLeftChevron = UIImage(named: "back-chevron")
         var imageRightChevron = UIImage(named: "forward-chevron")
         // RTL language support

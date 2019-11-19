@@ -174,7 +174,6 @@ internal enum Images {
   internal static let menuDiscord = ImageAsset(name: "menu_discord")
   internal static let menuGit = ImageAsset(name: "menu_git")
   internal static let menuTel = ImageAsset(name: "menu_tel")
-  internal static let menuTitleLogo = ImageAsset(name: "menu_title_logo")
   internal static let menuTwitter = ImageAsset(name: "menu_twitter")
   internal static let minus18Disabled900 = ImageAsset(name: "minus18Disabled900")
   internal static let newLogo = ImageAsset(name: "newLogo")
@@ -456,7 +455,6 @@ internal enum Images {
     menuDiscord,
     menuGit,
     menuTel,
-    menuTitleLogo,
     menuTwitter,
     minus18Disabled900,
     newLogo,
