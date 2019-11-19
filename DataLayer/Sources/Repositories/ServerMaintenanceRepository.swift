@@ -13,7 +13,7 @@ import RxSwift
 public final class ServerMaintenanceRepository: ServerMaintenanceRepositoryProtocol {
     
     public func isEnabledMaintenance() -> Observable<Bool> {
-        return Observable.just(true)
+        return Observable.just(false)
     }
 }
 
