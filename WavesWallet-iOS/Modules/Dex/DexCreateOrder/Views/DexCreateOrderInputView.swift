@@ -12,6 +12,9 @@ import Extensions
 private enum Constants {
     static let animationFrameDuration: TimeInterval = 0.3
     static let animationErrorLabelDuration: TimeInterval = 0.3
+
+    static let textFieldDefaultOffset: CGFloat = 16
+    static let textFieldMarketOffset: CGFloat = 28
 }
 
 protocol DexCreateOrderInputViewDelegate: AnyObject {
@@ -21,6 +24,11 @@ protocol DexCreateOrderInputViewDelegate: AnyObject {
 
 final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
 
+    enum InputType {
+        case `default`
+        case market
+    }
+    
     private var isShowInputScrollView = false
     private var isHiddenErrorLabel = true
     
@@ -30,6 +38,11 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
     @IBOutlet private weak var viewTextField: UIView!
     @IBOutlet private weak var labelError: UILabel!
     @IBOutlet private weak var separatorView: UIView!
+    @IBOutlet private weak var iconLock: UIImageView!
+    @IBOutlet private weak var buttonPlus: DexCreateOrderAmountButton!
+    @IBOutlet private weak var buttonMinus: DexCreateOrderAmountButton!
+    @IBOutlet private weak var labelRound: UILabel!
+    @IBOutlet private weak var textFieldLeftOffset: NSLayoutConstraint!
     
     weak var delegate: DexCreateOrderInputViewDelegate?
     var input:(() -> [Money])?
@@ -37,6 +50,17 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
     var maximumFractionDigits: Int = 0 {
         didSet {
             textField.setDecimals(maximumFractionDigits, forceUpdateMoney: false)
+        }
+    }
+    var inputType: InputType = .default {
+        didSet {
+            iconLock.isHidden = inputType == .default
+            buttonMinus.isHidden = inputType == .market
+            buttonPlus.isHidden = inputType == .market
+            labelRound.isHidden = inputType == .default
+            isUserInteractionEnabled = inputType == .default
+            textFieldLeftOffset.constant = inputType == .default ? Constants.textFieldDefaultOffset : Constants.textFieldMarketOffset
+            textField.textColor = inputType == .default ? .black : .disabled400
         }
     }
     

@@ -14,6 +14,11 @@ public extension DomainLayer.Query {
     
     enum Dex {
         
+        public enum CreateOrderType {
+            case limit
+            case market
+        }
+        
         public struct CreateOrder {
             public let wallet: DomainLayer.DTO.SignedWallet
             public let matcherPublicKey: PublicKeyAccount

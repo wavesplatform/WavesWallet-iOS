@@ -763,6 +763,18 @@ internal enum Localizable {
 
     internal enum Dexcreateorder {
 
+      internal enum Alert {
+        /// Limit
+        internal static var limitOrder: String { return Localizable.tr("Waves", "dexcreateorder.alert.limitOrder") }
+        internal static var limitOrderKey: String { return "dexcreateorder.alert.limitOrder" }
+        /// Market
+        internal static var marketOrder: String { return Localizable.tr("Waves", "dexcreateorder.alert.marketOrder") }
+        internal static var marketOrderKey: String { return "dexcreateorder.alert.marketOrder" }
+        /// Order Type
+        internal static var orderType: String { return Localizable.tr("Waves", "dexcreateorder.alert.orderType") }
+        internal static var orderTypeKey: String { return "dexcreateorder.alert.orderType" }
+      }
+
       internal enum Button {
         /// Ask
         internal static var ask: String { return Localizable.tr("Waves", "dexcreateorder.button.ask") }
@@ -844,9 +856,15 @@ internal enum Localizable {
         /// Fee
         internal static var fee: String { return Localizable.tr("Waves", "dexcreateorder.label.fee") }
         internal static var feeKey: String { return "dexcreateorder.label.fee" }
+        /// Limit Order
+        internal static var limitOrder: String { return Localizable.tr("Waves", "dexcreateorder.label.limitOrder") }
+        internal static var limitOrderKey: String { return "dexcreateorder.label.limitOrder" }
         /// Limit Price in
         internal static var limitPriceIn: String { return Localizable.tr("Waves", "dexcreateorder.label.limitPriceIn") }
         internal static var limitPriceInKey: String { return "dexcreateorder.label.limitPriceIn" }
+        /// Market Order
+        internal static var marketOrder: String { return Localizable.tr("Waves", "dexcreateorder.label.marketOrder") }
+        internal static var marketOrderKey: String { return "dexcreateorder.label.marketOrder" }
         /// Not enough
         internal static var notEnough: String { return Localizable.tr("Waves", "dexcreateorder.label.notEnough") }
         internal static var notEnoughKey: String { return "dexcreateorder.label.notEnough" }
@@ -862,6 +880,33 @@ internal enum Localizable {
           internal static var notFundsFee: String { return Localizable.tr("Waves", "dexcreateorder.label.error.notFundsFee") }
           internal static var notFundsFeeKey: String { return "dexcreateorder.label.error.notFundsFee" }
         }
+      }
+    }
+
+    internal enum Dexcreateorderinfo {
+
+      internal enum Button {
+        /// Got it
+        internal static var gotIt: String { return Localizable.tr("Waves", "dexcreateorderinfo.button.gotIt") }
+        internal static var gotItKey: String { return "dexcreateorderinfo.button.gotIt" }
+      }
+
+      internal enum Label {
+        /// Limit
+        internal static var limit: String { return Localizable.tr("Waves", "dexcreateorderinfo.label.limit") }
+        internal static var limitKey: String { return "dexcreateorderinfo.label.limit" }
+        /// When the layperson imagines a typical stock market transaction, he thinks of market orders. These orders are the most basic buy and sell trades; a broker receives a security trade order, and that order is processed at the current market price.
+        internal static var limitDescription: String { return Localizable.tr("Waves", "dexcreateorderinfo.label.limitDescription") }
+        internal static var limitDescriptionKey: String { return "dexcreateorderinfo.label.limitDescription" }
+        /// Market
+        internal static var market: String { return Localizable.tr("Waves", "dexcreateorderinfo.label.market") }
+        internal static var marketKey: String { return "dexcreateorderinfo.label.market" }
+        /// When the layperson imagines a typical stock market transaction, he thinks of market orders. These orders are the most basic buy and sell trades; a broker receives a security trade order, and that order is processed at the current market price.
+        internal static var marketDescription: String { return Localizable.tr("Waves", "dexcreateorderinfo.label.marketDescription") }
+        internal static var marketDescriptionKey: String { return "dexcreateorderinfo.label.marketDescription" }
+        /// Order Types
+        internal static var orderTypes: String { return Localizable.tr("Waves", "dexcreateorderinfo.label.orderTypes") }
+        internal static var orderTypesKey: String { return "dexcreateorderinfo.label.orderTypes" }
       }
     }
 

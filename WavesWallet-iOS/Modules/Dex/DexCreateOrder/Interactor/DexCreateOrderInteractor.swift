@@ -25,56 +25,19 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     private let transactionInteractor = UseCasesFactory.instance.transactions
     private let assetsInteractor = UseCasesFactory.instance.assets
     private let orderBookInteractor = UseCasesFactory.instance.oderbook
-    private let lastTradesRespository = UseCasesFactory.instance.repositories.lastTradesRespository    
     private let environmentRepository = UseCasesFactory.instance.repositories.environmentRepository
     
-    
-    func createOrder(order: DexCreateOrder.DTO.Order) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
+  
+    func createOrder(order: DexCreateOrder.DTO.Order, type: DexCreateOrder.DTO.CreateOrderType) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
         
-        return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
-            
-            guard let self = self else { return Observable.empty() }
-            
-            let matcher = self.matcherRepository.matcherPublicKey()
-            let environment = self.environmentRepository.applicationEnvironment()
-
-            //TODO: Code move to another method
-            return Observable.zip(matcher, environment)
-                .flatMap({ [weak self] (matcherPublicKey, environment) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
-                    guard let self = self else { return Observable.empty() }
-                    
-                    let precisionDifference =  (order.priceAsset.decimals - order.amountAsset.decimals) + Constants.numberForConveringDecimals
-                    
-                    let price = (order.price.decimalValue * pow(10, precisionDifference)).int64Value
-                    
-                    let orderQuery = DomainLayer.Query.Dex.CreateOrder(wallet: wallet,
-                                                                       matcherPublicKey: matcherPublicKey,
-                                                                       amountAsset: order.amountAsset.id,
-                                                                       priceAsset: order.priceAsset.id,
-                                                                       amount: order.amount.amount,
-                                                                       price: price,
-                                                                       orderType: order.type,
-                                                                       matcherFee: order.fee,
-                                                                       timestamp: Date().millisecondsSince1970,
-                                                                       expiration: Int64(order.expiration.rawValue),
-                                                                       matcherFeeAsset: order.feeAssetId)
-                    
-                    
-                    return self
-                        .orderBookRepository
-                        .createOrder(wallet: wallet, order: orderQuery)
-                        .flatMap({ (success) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
-                            let output = DexCreateOrder.DTO.Output(time: Date(milliseconds: orderQuery.timestamp),
-                                                                   orderType: order.type,
-                                                                   price: order.price,
-                                                                   amount: order.amount)
-                            return Observable.just(ResponseType(output: output, error: nil))
-                        })
-                })
-        })
-        .catchError({ (error) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
+        return calculateMarketOrderPriceIfNeed(order: order, createType: type)
+            .flatMap { [weak self] marketOrder -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
+                guard let self = self else { return Observable.empty() }
+                return self.performeCreateOrderRequest(order: order, updatedPrice: marketOrder?.price, priceAvg: marketOrder?.priceAvg, type: type)
+        }
+        .catchError { error -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
             return Observable.just(ResponseType(output: nil, error: NetworkError.error(by: error)))
-        })
+        }
     }
     
     func getFee(amountAsset: String, priceAsset: String, feeAssetId: String) -> Observable<DexCreateOrder.DTO.FeeSettings> {
@@ -134,4 +97,122 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                     })
             })
         }
+    
+    
+    func calculateMarketOrderPrice(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, orderAmount: Money, type: DomainLayer.DTO.Dex.OrderType) -> Observable<DexCreateOrder.DTO.MarketOrder> {
+     
+        let zeroValue = Money(0, priceAsset.decimals)
+        
+        if orderAmount.amount > 0 {
+            return orderBookRepository.orderBook(amountAsset: amountAsset.id, priceAsset: priceAsset.id)
+                .map { orderBook -> DexCreateOrder.DTO.MarketOrder in
+
+                    var filledAmount: Decimal = 0
+                    var computedTotal: Decimal = 0
+                    var askOrBidPrice: Decimal = 0
+
+                    let bidOrAsks = type == .buy ? orderBook.asks : orderBook.bids
+                    for askOrBid in bidOrAsks {
+                        if filledAmount >= orderAmount.decimalValue {
+                            break
+                        }
+
+                        askOrBidPrice = Money(askOrBid.price, priceAsset.decimals).decimalValue
+
+                        let askOrBidAmount = Money(askOrBid.amount, priceAsset.decimals).decimalValue
+                        let unfilledAmount = orderAmount.decimalValue - filledAmount
+                        let amount = unfilledAmount <= askOrBidAmount ? unfilledAmount : askOrBidAmount
+                        let total = askOrBidPrice * amount
+
+                        computedTotal += total
+                        filledAmount += amount
+                    }
+
+                    let priceAvg = computedTotal > 0 ? Money(value: computedTotal / filledAmount, priceAsset.decimals) : zeroValue
+                    let price = Money(value: askOrBidPrice, priceAsset.decimals)
+                    let total = Money(value: computedTotal, priceAsset.decimals)
+                    
+                    return .init(price: price, priceAvg: priceAvg, total: total)
+            }
+        }
+        
+        return Observable.just(.init(price: zeroValue, priceAvg: zeroValue, total: zeroValue))
+    }
+    
+    func canCreateMarketOrder(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, type: DomainLayer.DTO.Dex.OrderType) -> Observable<Bool> {
+       
+        return orderBookRepository
+            .orderBook(amountAsset: amountAsset.id, priceAsset: priceAsset.id)
+            .map { orderBook -> Bool in
+                if type == .buy {
+                    return orderBook.asks.count > 0
+                }
+                
+                return orderBook.bids.count > 0
+        }
+    }
+}
+
+private extension DexCreateOrderInteractor {
+    
+    func performeCreateOrderRequest(order: DexCreateOrder.DTO.Order, updatedPrice: Money?, priceAvg: Money?, type: DexCreateOrder.DTO.CreateOrderType) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
+        
+        return auth.authorizedWallet()
+               .flatMap{ [weak self] wallet -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
+               
+               guard let self = self else { return Observable.empty() }
+               
+               let matcher = self.matcherRepository.matcherPublicKey()
+               let environment = self.environmentRepository.applicationEnvironment()
+               
+               //TODO: Code move to another method
+               return Observable.zip(matcher, environment)
+                   .flatMap{ [weak self] (matcherPublicKey, environment) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
+                       guard let self = self else { return Observable.empty() }
+                       
+                    
+                       let precisionDifference =  (order.priceAsset.decimals - order.amountAsset.decimals) + Constants.numberForConveringDecimals
+                       let orderPrice = updatedPrice ?? order.price
+                       let price = (orderPrice.decimalValue * pow(10, precisionDifference)).int64Value
+                       
+                       let orderQuery = DomainLayer.Query.Dex.CreateOrder(wallet: wallet,
+                                                                          matcherPublicKey: matcherPublicKey,
+                                                                          amountAsset: order.amountAsset.id,
+                                                                          priceAsset: order.priceAsset.id,
+                                                                          amount: order.amount.amount,
+                                                                          price: price,
+                                                                          orderType: order.type,
+                                                                          matcherFee: order.fee,
+                                                                          timestamp: Date().millisecondsSince1970,
+                                                                          expiration: Int64(order.expiration.rawValue),
+                                                                          matcherFeeAsset: order.feeAssetId)
+                       
+                       
+                       return self
+                           .orderBookRepository
+                           .createOrder(wallet: wallet, order: orderQuery, type: type == .limit ? .limit : .market)
+                           .flatMap({ (success) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> in
+                               let output = DexCreateOrder.DTO.Output(time: Date(milliseconds: orderQuery.timestamp),
+                                                                      orderType: order.type,
+                                                                      price: priceAvg ?? order.price,
+                                                                      amount: order.amount)
+                               return Observable.just(ResponseType(output: output, error: nil))
+                           })
+                   }
+           }
+    }
+    
+    func calculateMarketOrderPriceIfNeed(order: DexCreateOrder.DTO.Order, createType: DexCreateOrder.DTO.CreateOrderType) -> Observable<DexCreateOrder.DTO.MarketOrder?> {
+        
+        if createType == .market {
+            return calculateMarketOrderPrice(amountAsset: order.amountAsset,
+                                             priceAsset: order.priceAsset,
+                                             orderAmount: order.amount,
+                                             type: order.type)
+                .map { (order) -> DexCreateOrder.DTO.MarketOrder? in
+                    return order
+            }
+        }
+        return Observable.just(nil)
+    }
 }

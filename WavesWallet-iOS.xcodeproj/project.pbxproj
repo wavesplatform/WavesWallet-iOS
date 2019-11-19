@@ -269,12 +269,12 @@
 		0AFF5C7F215BD08E00B82940 /* AccountPasswordInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C7E215BD08E00B82940 /* AccountPasswordInteractor.swift */; };
 		0AFF5C81215BD09500B82940 /* AccountPasswordPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C80215BD09500B82940 /* AccountPasswordPresenter.swift */; };
 		0AFF5C8D215CE2D000B82940 /* UseTouchIDModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF5C8C215CE2D000B82940 /* UseTouchIDModuleBuilder.swift */; };
-		1BAB29B6B58AFE20D3FD1998 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		1BAB29B6B58AFE20D3FD1998 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		2D5B6193C022056CD73DEFBE /* Pods_DataLayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BB158FA7ECE6E5227A7AF0B /* Pods_DataLayer.framework */; };
 		3EC73C513F8BB9C83B92E17B /* Pods_DataLayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F1A2C7157881DA75A52C4BA /* Pods_DataLayerTests.framework */; };
 		4BEC9D5887FACABD00BD4154 /* Pods_MarketPulseWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20735B3922DF223C5F8F7C79 /* Pods_MarketPulseWidget.framework */; };
-		53E8DAD5791F388085BF04A3 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
-		6B2551D9571ABC864B16A7EE /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		53E8DAD5791F388085BF04A3 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		6B2551D9571ABC864B16A7EE /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		7B0FD985231952740004B52B /* ConfirmRequestLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0FD984231952740004B52B /* ConfirmRequestLoadingViewController.swift */; };
 		7B0FD98723195D6A0004B52B /* ConfirmRequestCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0FD98623195D6A0004B52B /* ConfirmRequestCompleteViewController.swift */; };
 		7B0FD98923196A3F0004B52B /* ConfirmRequestDTOTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0FD98823196A3F0004B52B /* ConfirmRequestDTOTransaction+Mapper.swift */; };
@@ -1020,6 +1020,8 @@
 		E9B190A922E7CD99008220B7 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B190A822E7CD99008220B7 /* NotificationCenter.framework */; };
 		E9B190AC22E7CD99008220B7 /* MarketPulseWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B190AB22E7CD99008220B7 /* MarketPulseWidgetViewController.swift */; };
 		E9B190AF22E7CD99008220B7 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9B190AD22E7CD99008220B7 /* MainInterface.storyboard */; };
+		E9B1C3AA2382E07000B01B38 /* DexCreateOrderInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B1C3A92382E07000B01B38 /* DexCreateOrderInfoViewController.swift */; };
+		E9B1C3AC2382E0A300B01B38 /* DexCreateOrderInfoModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B1C3AB2382E0A300B01B38 /* DexCreateOrderInfoModuleBuilder.swift */; };
 		E9B387CF23690DCD001FCA60 /* SendCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B387CE23690DCD001FCA60 /* SendCoordinator.swift */; };
 		E9BB2D852260DEB000366278 /* TransactionCardInvokeScriptCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB2D842260DEB000366278 /* TransactionCardInvokeScriptCell.swift */; };
 		E9C0B49C2176C46E00669D1D /* SendPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B49B2176C46E00669D1D /* SendPresenterProtocol.swift */; };
@@ -1104,7 +1106,7 @@
 		E9FB6E382178265100FA13C1 /* SendInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C0B4A12176C4A800669D1D /* SendInteractor.swift */; };
 		E9FE4D7820EA767B00208F29 /* SaveBackupPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE4D7720EA767B00208F29 /* SaveBackupPhraseViewController.swift */; };
 		E9FE4D7A20EA7F8500208F29 /* ConfirmBackupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE4D7920EA7F8500208F29 /* ConfirmBackupViewController.swift */; };
-		F38A5F9B2B9C0AC51E99378B /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		F38A5F9B2B9C0AC51E99378B /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		F74240C91EAB8EC800C3B84D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F74240C81EAB8EC800C3B84D /* Main.storyboard */; };
 		F7C683BE1EA93C5800C87DAF /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C683BA1EA93C5800C87DAF /* CustomNavigationController.swift */; };
 		F7E954E81EA8FE0700A804DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E954E71EA8FE0700A804DE /* AppDelegate.swift */; };
@@ -2339,6 +2341,8 @@
 		E9B190AB22E7CD99008220B7 /* MarketPulseWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPulseWidgetViewController.swift; sourceTree = "<group>"; };
 		E9B190AE22E7CD99008220B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		E9B190B022E7CD99008220B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E9B1C3A92382E07000B01B38 /* DexCreateOrderInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexCreateOrderInfoViewController.swift; sourceTree = "<group>"; };
+		E9B1C3AB2382E0A300B01B38 /* DexCreateOrderInfoModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexCreateOrderInfoModuleBuilder.swift; sourceTree = "<group>"; };
 		E9B387CE23690DCD001FCA60 /* SendCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCoordinator.swift; sourceTree = "<group>"; };
 		E9BB2D842260DEB000366278 /* TransactionCardInvokeScriptCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardInvokeScriptCell.swift; sourceTree = "<group>"; };
 		E9C0B49B2176C46E00669D1D /* SendPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPresenterProtocol.swift; sourceTree = "<group>"; };
@@ -2451,7 +2455,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53E8DAD5791F388085BF04A3 /* BuildFile in Frameworks */,
+				53E8DAD5791F388085BF04A3 /* (null) in Frameworks */,
 				3EC73C513F8BB9C83B92E17B /* Pods_DataLayerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2464,7 +2468,7 @@
 				7BDC624422DC972E0029DA37 /* WavesSDKCrypto.framework in Frameworks */,
 				7BDC624622DC972E0029DA37 /* WavesSDKExtensions.framework in Frameworks */,
 				7B83A7E922D8D72F0038180D /* Extensions.framework in Frameworks */,
-				F38A5F9B2B9C0AC51E99378B /* BuildFile in Frameworks */,
+				F38A5F9B2B9C0AC51E99378B /* (null) in Frameworks */,
 				CE9236ADA9B30C0AE5EAC713 /* Pods_DomainLayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2474,7 +2478,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BDC625022DCB04F0029DA37 /* WavesSDKExtensions.framework in Frameworks */,
-				1BAB29B6B58AFE20D3FD1998 /* BuildFile in Frameworks */,
+				1BAB29B6B58AFE20D3FD1998 /* (null) in Frameworks */,
 				A3521B8E7F8D5AFE73837B59 /* Pods_Extensions.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2502,7 +2506,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B2551D9571ABC864B16A7EE /* BuildFile in Frameworks */,
+				6B2551D9571ABC864B16A7EE /* (null) in Frameworks */,
 				DEF8AC61C03932433B247FBD /* Pods_MonkeyTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5171,6 +5175,7 @@
 			isa = PBXGroup;
 			children = (
 				E9B086F32163886800937644 /* Dex.storyboard */,
+				E9B1C3A82382E05300B01B38 /* DexCreateOrderInfo */,
 				E98F0587236B1CB00055DCCE /* DexDeepLinkLoading */,
 				E921ED02222DDA2B00DE286D /* DexScriptAssetMessage */,
 				E9B086C02163886800937644 /* DexChart */,
@@ -5615,6 +5620,15 @@
 				E958571522F35BCB007A0178 /* Resources */,
 			);
 			path = MarketPulseWidget;
+			sourceTree = "<group>";
+		};
+		E9B1C3A82382E05300B01B38 /* DexCreateOrderInfo */ = {
+			isa = PBXGroup;
+			children = (
+				E9B1C3A92382E07000B01B38 /* DexCreateOrderInfoViewController.swift */,
+				E9B1C3AB2382E0A300B01B38 /* DexCreateOrderInfoModuleBuilder.swift */,
+			);
+			path = DexCreateOrderInfo;
 			sourceTree = "<group>";
 		};
 		E9C1B90C236C6D7400F8E988 /* ForceUpdateApp */ = {
@@ -7690,6 +7704,7 @@
 				0AC1251221A758BD00357C93 /* LongInfoPageView.swift in Sources */,
 				0A96F1D32151BD46005E148F /* PasscodeTopBarView.swift in Sources */,
 				0AF9222C212E0F1F003BA067 /* WalletQuickNoteCell.swift in Sources */,
+				E9B1C3AA2382E07000B01B38 /* DexCreateOrderInfoViewController.swift in Sources */,
 				E9D36DD42175C755001E6DF0 /* ReceiveCardPresenterProtocol.swift in Sources */,
 				E9B086B82163883000937644 /* AddressBookModuleBuilder.swift in Sources */,
 				E9D36DEB2175C755001E6DF0 /* ReceiveInvoiceViewController.swift in Sources */,
@@ -7720,6 +7735,7 @@
 				E991BB242202D5740022E27D /* SendFeeInteractor.swift in Sources */,
 				0A593312218344000059A77A /* AddressesKeysHiddenPrivateKeyCell.swift in Sources */,
 				7B60E2BC2316CBEA00113C38 /* ConfirmRequestTransactionKindView.swift in Sources */,
+				E9B1C3AC2382E0A300B01B38 /* DexCreateOrderInfoModuleBuilder.swift in Sources */,
 				E9DEECE920BEF96700F28C67 /* WavesPopupViewController.swift in Sources */,
 				E9D36DED2175C755001E6DF0 /* ReceiveInvoiveTypes.swift in Sources */,
 				E904525A20B4EF4200A490E5 /* PopupViewController.swift in Sources */,
