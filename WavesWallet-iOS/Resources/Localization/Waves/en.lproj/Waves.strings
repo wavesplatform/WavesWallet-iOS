@@ -316,8 +316,7 @@
 "menu.button.supportwavesplatform" = "Support";
 "menu.button.termsandconditions" = "Terms and conditions";
 "menu.button.whitepaper" = "Whitepaper";
-"menu.button.faq" = "FAQ";
-"menu.label.communities" = "Join the Waves Community";
+"menu.label.communities" = "Our Social Media";
 "menu.label.description" = "Keep up with the latest news and articles, and find out all about events happening on the Waves Exchange";
 "myaddress.button.copy.title" = "Copy";
 "myaddress.button.share.title" = "Share";
@@ -694,3 +693,4 @@ You can use the web version to access your Waves account for now.";
 "forceupdate.label.title" = "It is time to update your Waves app!";
 "widgetsettings.button.addToken" = "Add token";
 "widgetsettings.label.added" = "Added";
+"menu.button.faq" = "FAQ";

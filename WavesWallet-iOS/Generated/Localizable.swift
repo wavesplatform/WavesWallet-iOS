@@ -1825,7 +1825,7 @@ internal enum Localizable {
       }
 
       internal enum Label {
-        /// Join the Waves Community
+        /// Our Social Media
         internal static var communities: String { return Localizable.tr("Waves", "menu.label.communities") }
         internal static var communitiesKey: String { return "menu.label.communities" }
         /// Keep up with the latest news and articles, and find out all about events happening on the Waves Exchange
