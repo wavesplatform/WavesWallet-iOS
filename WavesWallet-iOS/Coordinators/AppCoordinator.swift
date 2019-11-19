@@ -134,6 +134,7 @@ extension AppCoordinator: PresentationCoordinator {
 
     func showDisplay(_ display: AppCoordinator.Display) {
 
+//TODO: ForceUpdate
         guard isLockChangeDisplay == false else { return }
         
         switch display {
