@@ -19,7 +19,6 @@ private enum Constants {
     static let buttonDeltaWidth: CGFloat = 24
 }
 
-
 final class MigrationWavesExchangeView: UIView, InfoPagesViewDisplayingProtocol {
     
     struct Model {}
@@ -33,37 +32,12 @@ final class MigrationWavesExchangeView: UIView, InfoPagesViewDisplayingProtocol 
 
     weak var delegate: MigrationWavesExchangeDelegate?
         
-
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-
-        self.logoNewImageView.setupShadow(options: .init(offset: CGSize.init(width: 0,
-                                                                             height: 10),
-                                                         color: .black,
-                                                         opacity: 0.24,
-                                                         shadowRadius: 10,
-                                                         shouldRasterize: true))
-        
-        let height: Float =  Float(self.logoNewImageView.frame.size.height) * 0.5
-
-        
-        self.logoOldImageView.cornerRadius = height
-        self.logoNewImageView.cornerRadius = height
-        
-        self.logoOldImageView.setupShadow(options: .init(offset: CGSize.init(width: 0,
-                                                                             height: 10),
-                                                         color: .black,
-                                                         opacity: 0.24,
-                                                         shadowRadius: 10,
-                                                         shouldRasterize: true))
     }
     
     override func didMoveToWindow() {
         super.didMoveToWindow()
-        
-   
-        
     }
     
     func infoPagesViewWillDisplayDisplaying() {
@@ -82,8 +56,8 @@ final class MigrationWavesExchangeView: UIView, InfoPagesViewDisplayingProtocol 
             self.logoNewCenterY.constant = 0
             self.logoOldCenterY.constant = 0
             UIView.animateKeyframes(withDuration: 0.40, delay: 0, options: [.calculationModeCubicPaced], animations: {
-                                        
-              self.layoutIfNeeded()
+                self.logoOldImageView.alpha = 0
+                self.layoutIfNeeded()
             }) { (_) in
                 self.delegate?.migrationWavesExchangeAnimationEnd()
             }
@@ -96,6 +70,7 @@ final class MigrationWavesExchangeView: UIView, InfoPagesViewDisplayingProtocol 
         logoOldCenterY.constant = 0
         self.logoOldImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
         self.logoNewImageView.alpha = 0
+        self.logoOldImageView.alpha = 1
         self.logoOldImageView.superview?.bringSubviewToFront(self.logoOldImageView)
     }
 }

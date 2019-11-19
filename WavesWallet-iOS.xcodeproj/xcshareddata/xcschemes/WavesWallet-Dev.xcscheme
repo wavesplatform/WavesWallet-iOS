@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F7E954E31EA8FE0700A804DE"
-               BuildableName = "WavesWallet-iOS.app"
+               BuildableName = "Exchange.app"
                BlueprintName = "WavesWallet-iOS"
                ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F7E954E31EA8FE0700A804DE"
-            BuildableName = "WavesWallet-iOS.app"
+            BuildableName = "Exchange.app"
             BlueprintName = "WavesWallet-iOS"
             ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
          </BuildableReference>
@@ -112,7 +112,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F7E954E31EA8FE0700A804DE"
-            BuildableName = "WavesWallet-iOS.app"
+            BuildableName = "Exchange.app"
             BlueprintName = "WavesWallet-iOS"
             ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
          </BuildableReference>
@@ -164,7 +164,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F7E954E31EA8FE0700A804DE"
-            BuildableName = "WavesWallet-iOS.app"
+            BuildableName = "Exchange.app"
             BlueprintName = "WavesWallet-iOS"
             ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
          </BuildableReference>
