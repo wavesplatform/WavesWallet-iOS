@@ -14,6 +14,20 @@ protocol InfoPagesViewModuleOutput: AnyObject {
     func userFinishedReadPages()
 }
 
+private struct Constants {
+    
+    #if DEBUG
+    static let appIcon: String = "AppIcon-New-Dev"
+    #elseif TEST
+    static let appIcon: String = "AppIcon-New-Test"
+    #else
+    static let appIcon: String = "AppIcon-New"
+    #endif
+
+    static let buttonNext = Localizable.Waves.Hello.Button.next
+    static let buttonBegin = Localizable.Waves.Hello.Button.begin
+}
+
 protocol InfoPagesViewDisplayingProtocol {
     func infoPagesViewDidEndDisplaying()
     func infoPagesViewWillDisplayDisplaying()
@@ -49,7 +63,7 @@ final class InfoPagesViewController: UIViewController {
             
         var  views: [UIView] = .init()
         
-        if isNewUser {
+        if isNewUser == false {
             let migrationWavesExchangeView = MigrationWavesExchangeView.loadView()
             let confirmView = InfoPageConfirmView.loadView()
             return [migrationWavesExchangeView, confirmView]
@@ -68,7 +82,7 @@ final class InfoPagesViewController: UIViewController {
     
     private lazy var pageModels: [Any] = {
         
-        guard self.isNewUser == false else {
+        guard self.isNewUser == true else {
             return [MigrationWavesExchangeView.Model.init()]
         }
         
@@ -229,6 +243,7 @@ final class InfoPagesViewController: UIViewController {
                 nextControl.isEnabled = currentModel.scrolledToBottom
                 toolbarLabel.alpha = currentModel.scrolledToBottom ? 1 : 0.5
             } else if pageModels[currentPage] is MigrationWavesExchangeView.Model {
+                                                                
                 nextControl.isEnabled = true
                 toolbarLabel.alpha = 1
             }
@@ -398,6 +413,14 @@ extension InfoPagesViewController: ShortInfoPageViewDelegate {
     
 }
 
+extension InfoPagesViewController: MigrationWavesExchangeDelegate {
+    func migrationWavesExchangeAnimationEnd() {
+        if UIApplication.shared.alternateIconName != Constants.appIcon {
+            UIApplication.shared.setAlternateIconName(Constants.appIcon) { _ in }
+        }
+    }
+}
+
 enum InfoPagesViewControllerConstants {
     
     enum ToolbarLeadingOffset: CGFloat {
@@ -455,9 +478,4 @@ enum InfoPagesViewControllerConstants {
         
     }()
     
-}
-
-private enum Constants {
-    static let buttonNext = Localizable.Waves.Hello.Button.next
-    static let buttonBegin = Localizable.Waves.Hello.Button.begin
 }

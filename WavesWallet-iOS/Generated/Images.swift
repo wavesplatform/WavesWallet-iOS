@@ -72,7 +72,6 @@ internal enum Images {
   internal static let blockchain80 = ImageAsset(name: "blockchain80")
   internal static let btnBack = ImageAsset(name: "btn_back")
   internal static let btnBars = ImageAsset(name: "btn_bars")
-  internal static let btnOrder = ImageAsset(name: "btn_order")
   internal static let changearrows14Basic500 = ImageAsset(name: "changearrows14Basic500")
   internal static let chartArrowGreen = ImageAsset(name: "chart_arrow_green")
   internal static let chartArrowRed = ImageAsset(name: "chart_arrow_red")
@@ -108,7 +107,7 @@ internal enum Images {
   internal static let editaddress24Submit200 = ImageAsset(name: "editaddress24Submit200")
   internal static let editaddress24Submit300 = ImageAsset(name: "editaddress24Submit300")
   internal static let error80Error500 = ImageAsset(name: "error80Error500")
-  internal static let exchangeBlack321 = ImageAsset(name: "exchangeBlack321")
+  internal static let exchangeBlack = ImageAsset(name: "exchangeBlack")
   internal static let eyeclsoe24Basic500 = ImageAsset(name: "eyeclsoe24Basic500")
   internal static let eyeopen24Basic500 = ImageAsset(name: "eyeopen24Basic500")
   internal static let faceid48Submit300 = ImageAsset(name: "faceid48Submit300")
@@ -154,14 +153,12 @@ internal enum Images {
   internal static let iconMenu = ImageAsset(name: "icon_menu")
   internal static let iconReceive = ImageAsset(name: "icon_receive")
   internal static let iconSend = ImageAsset(name: "icon_send")
-  internal static let iconWaves = ImageAsset(name: "icon_waves")
   internal static let identifiergateway14Ocean = ImageAsset(name: "identifiergateway14Ocean")
   internal static let info18Basic300 = ImageAsset(name: "info18Basic300")
   internal static let info18Error500 = ImageAsset(name: "info18Error500")
   internal static let info18Warning600 = ImageAsset(name: "info18Warning600")
   internal static let information22Multy = ImageAsset(name: "information22Multy")
   internal static let information24Multy = ImageAsset(name: "information24Multy")
-  internal static let launcher34 = ImageAsset(name: "launcher34")
   internal static let logoBitcoin48 = ImageAsset(name: "logoBitcoin48")
   internal static let logoBitcoincash48 = ImageAsset(name: "logoBitcoincash48")
   internal static let logoDash48 = ImageAsset(name: "logoDash48")
@@ -320,7 +317,6 @@ internal enum Images {
   internal static let warning18Disabled500 = ImageAsset(name: "warning18Disabled500")
   internal static let warning18White = ImageAsset(name: "warning18White")
   internal static let warningAddress = ImageAsset(name: "warning_address")
-  internal static let wavesLogo = ImageAsset(name: "waves_logo")
   internal static let widgetAddtoken22 = ImageAsset(name: "widgetAddtoken22")
   internal static let widgetInterval22 = ImageAsset(name: "widgetInterval22")
   internal static let widgetMaxtoken22 = ImageAsset(name: "widgetMaxtoken22")
@@ -358,7 +354,6 @@ internal enum Images {
     blockchain80,
     btnBack,
     btnBars,
-    btnOrder,
     changearrows14Basic500,
     chartArrowGreen,
     chartArrowRed,
@@ -394,7 +389,7 @@ internal enum Images {
     editaddress24Submit200,
     editaddress24Submit300,
     error80Error500,
-    exchangeBlack321,
+    exchangeBlack,
     eyeclsoe24Basic500,
     eyeopen24Basic500,
     faceid48Submit300,
@@ -440,14 +435,12 @@ internal enum Images {
     iconMenu,
     iconReceive,
     iconSend,
-    iconWaves,
     identifiergateway14Ocean,
     info18Basic300,
     info18Error500,
     info18Warning600,
     information22Multy,
     information24Multy,
-    launcher34,
     logoBitcoin48,
     logoBitcoincash48,
     logoDash48,
@@ -606,7 +599,6 @@ internal enum Images {
     warning18Disabled500,
     warning18White,
     warningAddress,
-    wavesLogo,
     widgetAddtoken22,
     widgetInterval22,
     widgetMaxtoken22,

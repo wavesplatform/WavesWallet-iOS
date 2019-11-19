@@ -18,7 +18,7 @@ class MenuViewController: UIViewController {
 
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var communitiesLabel: UILabel!
-    @IBOutlet weak var whitepaperButton: UIButton!
+    @IBOutlet weak var faqButton: UIButton!
     @IBOutlet weak var termAndConditionsButton: UIButton!
     @IBOutlet weak var supportWavesplatformButton: UIButton!
     @IBOutlet weak var wavesLogoImageView: UIImageView!
@@ -134,7 +134,7 @@ extension MenuViewController: Localization {
 
         descriptionLabel.text = Localizable.Waves.Menu.Label.description
         communitiesLabel.text = Localizable.Waves.Menu.Label.communities
-        whitepaperButton.setTitle(Localizable.Waves.Menu.Button.whitepaper, for: .normal)
+        faqButton.setTitle(Localizable.Waves.Menu.Button.faq, for: .normal)
         termAndConditionsButton.setTitle(Localizable.Waves.Menu.Button.termsandconditions, for: .normal)
         supportWavesplatformButton.setTitle(Localizable.Waves.Menu.Button.supportwavesplatform, for: .normal)
     }

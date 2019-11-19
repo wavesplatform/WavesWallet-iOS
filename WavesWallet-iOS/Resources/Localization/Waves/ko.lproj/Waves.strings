@@ -313,10 +313,10 @@
 "hello.page.confirm.description2" = "나는 본 개인정보 보호정책을 읽었으며 동의합니다";
 "hello.page.confirm.button.privacyPolicy" = "개인 정보 보호 정책";
 "hello.page.confirm.description3" = "나는 본 이용 약관을 읽었으며 동의합니다";
-"menu.button.supportwavesplatform" = "Wavesplatform 지원센터";
+"menu.button.supportwavesplatform" = "지원센터";
 "menu.button.termsandconditions" = "이용 약관";
 "menu.button.whitepaper" = "백서";
-"menu.label.communities" = "Waves 커뮤니티에 참여";
+"menu.label.communities" = "Our Social Media";
 "menu.label.description" = "최신 뉴스 및 기사를 확인하고 Waves Exchange에서 업데이트하는 이벤트에 대해 알아보세요";
 "myaddress.button.copy.title" = "복사";
 "myaddress.button.share.title" = "공유";
@@ -382,7 +382,7 @@
 "profile.cell.network.title" = "네트워크";
 "profile.cell.pushnotifications.title" = "Push 알림";
 "profile.cell.rateApp.title" = "앱 평가하기";
-"profile.cell.supportwavesplatform.title" = "Wavesplatform 지원센터";
+"profile.cell.supportwavesplatform.title" = "지원센터";
 "profile.header.general.title" = "일반 설정";
 "profile.header.other.title" = "기타";
 "profile.header.security.title" = "보안";
@@ -693,3 +693,4 @@ You can use the web version to access your Waves account for now.";
 "forceupdate.label.title" = "It is time to update your Waves app!";
 "widgetsettings.button.addToken" = "Add token";
 "widgetsettings.label.added" = "Added";
+"menu.button.faq" = "FAQ";

@@ -313,10 +313,10 @@
 "hello.page.confirm.description2" = "Li, entendi e aceitei a Política de Privacidade";
 "hello.page.confirm.button.privacyPolicy" = "Política de Privacidade";
 "hello.page.confirm.description3" = "Li, entendi e aceitei os Termos de Utilização";
-"menu.button.supportwavesplatform" = "Suporte Wavesplatform";
+"menu.button.supportwavesplatform" = "Suporte";
 "menu.button.termsandconditions" = "Termos e condições";
 "menu.button.whitepaper" = "Whitepaper";
-"menu.label.communities" = "Junta-te à Comunidade Waves";
+"menu.label.communities" = "Our Social Media";
 "menu.label.description" = "Mantem-te informado das últimas novidades e sabe tudo sobre os eventos que estão a acontecer no ecossistema Waves Exchange";
 "myaddress.button.copy.title" = "Copiar";
 "myaddress.button.share.title" = "Partilhar";
@@ -693,3 +693,4 @@ You can use the web version to access your Waves account for now.";
 "forceupdate.label.title" = "It is time to update your Waves app!";
 "widgetsettings.button.addToken" = "Add token";
 "widgetsettings.label.added" = "Added";
+"menu.button.faq" = "FAQ";

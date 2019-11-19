@@ -313,10 +313,10 @@
 "hello.page.confirm.description2" = "Ho letto e accetto l'informativa sulla privacy";
 "hello.page.confirm.button.privacyPolicy" = "Informativa sulla privacy";
 "hello.page.confirm.description3" = "Ho letto e accetto i termini e le condizioni d'uso";
-"menu.button.supportwavesplatform" = "Supporto Wavesplatform";
+"menu.button.supportwavesplatform" = "Supporto";
 "menu.button.termsandconditions" = "Termini e condizioni";
 "menu.button.whitepaper" = "Whitepaper";
-"menu.label.communities" = "Unisciti alla comunità Waves";
+"menu.label.communities" = "Our Social Media";
 "menu.label.description" = "Tieniti aggiornato sulle ultime notizie, articoli ed eventi relativi alla piattaforma Waves";
 "myaddress.button.copy.title" = "Copia";
 "myaddress.button.share.title" = "Condividi";
@@ -382,7 +382,7 @@
 "profile.cell.network.title" = "Rete";
 "profile.cell.pushnotifications.title" = "Notifiche push";
 "profile.cell.rateApp.title" = "Valuta l'app";
-"profile.cell.supportwavesplatform.title" = "Supporta Wavesplatform";
+"profile.cell.supportwavesplatform.title" = "Supporta";
 "profile.header.general.title" = "Impostazioni generali";
 "profile.header.other.title" = "Altro";
 "profile.header.security.title" = "Sicurezza";
@@ -693,3 +693,4 @@ You can use the web version to access your Waves account for now.";
 "forceupdate.label.title" = "It is time to update your Waves app!";
 "widgetsettings.button.addToken" = "Add token";
 "widgetsettings.label.added" = "Added";
+"menu.button.faq" = "FAQ";

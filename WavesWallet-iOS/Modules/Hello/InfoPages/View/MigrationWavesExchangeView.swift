@@ -11,7 +11,7 @@ import Extensions
 
 protocol MigrationWavesExchangeDelegate: AnyObject {
     
-    func migrationWavesExchangeViewDidTapNext()
+    func migrationWavesExchangeAnimationEnd()
 }
 
 //TODO: MOVE URL TO GLOBAL CONSTANTS
@@ -71,7 +71,7 @@ final class MigrationWavesExchangeView: UIView, InfoPagesViewDisplayingProtocol 
         logoNewCenterY.constant = -self.logoNewImageView.frame.height * 0.5
         logoOldCenterY.constant = self.logoNewImageView.frame.height * 0.5
         
-        UIView.animateKeyframes(withDuration: 0.84, delay:0.4, options: [.calculationModeCubicPaced], animations: {
+        UIView.animateKeyframes(withDuration: 0.40, delay:0.3, options: [.calculationModeCubicPaced], animations: {
                 
             self.logoNewImageView.alpha = 1
             self.layoutIfNeeded()
@@ -81,16 +81,17 @@ final class MigrationWavesExchangeView: UIView, InfoPagesViewDisplayingProtocol 
             self.logoNewImageView.superview?.bringSubviewToFront(self.logoNewImageView)
             self.logoNewCenterY.constant = 0
             self.logoOldCenterY.constant = 0
-            UIView.animateKeyframes(withDuration: 0.64, delay: 0, options: [.calculationModeCubicPaced], animations: {
+            UIView.animateKeyframes(withDuration: 0.40, delay: 0, options: [.calculationModeCubicPaced], animations: {
                                         
               self.layoutIfNeeded()
             }) { (_) in
-                    
+                self.delegate?.migrationWavesExchangeAnimationEnd()
             }
          }
     }
     
     func infoPagesViewDidEndDisplaying() {
+        self.delegate?.migrationWavesExchangeAnimationEnd()
         logoNewCenterY.constant = -self.logoNewImageView.frame.height
         logoOldCenterY.constant = 0
         self.logoOldImageView.transform = CGAffineTransform(scaleX: 1, y: 1)

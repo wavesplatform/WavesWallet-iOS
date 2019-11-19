@@ -1810,7 +1810,10 @@ internal enum Localizable {
     internal enum Menu {
 
       internal enum Button {
-        /// Support Wavesplatform
+        /// FAQ
+        internal static var faq: String { return Localizable.tr("Waves", "menu.button.faq") }
+        internal static var faqKey: String { return "menu.button.faq" }
+        /// Support
         internal static var supportwavesplatform: String { return Localizable.tr("Waves", "menu.button.supportwavesplatform") }
         internal static var supportwavesplatformKey: String { return "menu.button.supportwavesplatform" }
         /// Terms and conditions
@@ -2225,7 +2228,7 @@ internal enum Localizable {
         }
 
         internal enum Supportwavesplatform {
-          /// Support Wavesplatform
+          /// Support
           internal static var title: String { return Localizable.tr("Waves", "profile.cell.supportwavesplatform.title") }
           internal static var titleKey: String { return "profile.cell.supportwavesplatform.title" }
         }

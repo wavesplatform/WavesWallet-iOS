@@ -19,8 +19,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="exchangeBlack321" translatesAutoresizingMaskIntoConstraints="NO" id="EoD-Ww-lhF">
-                                <rect key="frame" x="91.5" y="316" width="192" height="35"/>
+                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="exchangeBlack" translatesAutoresizingMaskIntoConstraints="NO" id="EoD-Ww-lhF">
+                                <rect key="frame" x="87.5" y="315.5" width="200" height="36"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -37,6 +37,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="exchangeBlack321" width="192" height="35"/>
+        <image name="exchangeBlack" width="200" height="36"/>
     </resources>
 </document>

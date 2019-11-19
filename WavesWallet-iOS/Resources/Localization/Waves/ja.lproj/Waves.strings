@@ -313,10 +313,10 @@
 "hello.page.confirm.description2" = "プライバシーポリシーを読み、同意します";
 "hello.page.confirm.button.privacyPolicy" = "プライバシーポリシー";
 "hello.page.confirm.description3" = "利用規約を読み、同意します";
-"menu.button.supportwavesplatform" = "Waves Exchange サポートページ";
+"menu.button.supportwavesplatform" = "サポートページ";
 "menu.button.termsandconditions" = "利用規約";
 "menu.button.whitepaper" = "ホワイトペーパー";
-"menu.label.communities" = "Waves コミュニティに参加！";
+"menu.label.communities" = "Our Social Media";
 "menu.label.description" = "Wavesプラットフォームの最新情報を発信しています。";
 "myaddress.button.copy.title" = "コピー";
 "myaddress.button.share.title" = "シェア";
@@ -382,7 +382,7 @@
 "profile.cell.network.title" = "ネットワーク設定";
 "profile.cell.pushnotifications.title" = "プッシュ通知";
 "profile.cell.rateApp.title" = "アプリを評価";
-"profile.cell.supportwavesplatform.title" = "Waves Exchange サポートページ";
+"profile.cell.supportwavesplatform.title" = "サポートページ";
 "profile.header.general.title" = "一般設定";
 "profile.header.other.title" = "その他";
 "profile.header.security.title" = "セキュリティ";
@@ -693,3 +693,4 @@ You can use the web version to access your Waves account for now.";
 "forceupdate.label.title" = "It is time to update your Waves app!";
 "widgetsettings.button.addToken" = "Add token";
 "widgetsettings.label.added" = "Added";
+"menu.button.faq" = "FAQ";

@@ -243,7 +243,7 @@
 "hello.page.info.fifth.detail.third" = "Пользуйтесь официальным программным обеспечением. Не устанавливайте неизвестные или взломанные программы.";
 "hello.page.info.fifth.title" = "Как защититься от фишинга";
 "hello.page.info.first.detail" = "Пожалуйста, уделите немного времени для того, чтобы ознакомиться с важной информацией.\n\nМы не можем вернуть ваши средства или заморозить ваш аккаунт, если вы вошли в него на фишинговом сайте или потеряли секретную фразу (SEED).\n\nПродолжая использовать нашу платформу, вы соглашаетесь с тем, что в случае утраты вами секретной фразы (SEED), платформа Waves не сможет восстановить доступ к вашему аккаунту или вернуть вам ваши средства. Только вы контролируете свой аккаунт и ответственны за сохранность секретной фразы.";
-"hello.page.info.first.title" = "Добро пожаловать на платформу Waves!";
+"hello.page.info.first.title" = "Добро пожаловать на Waves Exchange!";
 "hello.page.info.fourth.detail" = "Одним из распространённых видов мошенничества является фишинг — мошенники создают фальшивые группы в Facebook, сайты, внешне похожие на настоящие.";
 "hello.page.info.fourth.title" = "Как защититься от фишинга";
 "hello.page.info.second.detail" = "При регистрации аккаунта вам предлагается сохранить секретную фразу (Seed) и защитить аккаунт паролем. В обычных централизованных сервисах особое внимание уделяется именно паролю, который, в случае чего, можно изменить или восстановить через почту. У децентрализованной платформы Waves всё устроено иначе.";
@@ -313,11 +313,11 @@
 "hello.page.confirm.description2" = "Я прочёл и согласен с политикой конфиденциальности";
 "hello.page.confirm.button.privacyPolicy" = "Политика конфиденциальности";
 "hello.page.confirm.description3" = "Я прочёл и согласен с условиями использования";
-"menu.button.supportwavesplatform" = "Поддержка Wavesplatform";
+"menu.button.supportwavesplatform" = "Поддержка";
 "menu.button.termsandconditions" = "Условия и положения";
 "menu.button.whitepaper" = "Whitepaper";
-"menu.label.communities" = "Присоединяйтесь к сообществу Waves";
-"menu.label.description" = "Следите за последними новостями и статьями и узнавайте о событиях, происходящих на платформе Waves";
+"menu.label.communities" = "Наши социальные сети ";
+"menu.label.description" = "Следите за последними новостями и статьями и узнавайте о событиях, происходящих на Waves Exchange";
 "myaddress.button.copy.title" = "Копировать";
 "myaddress.button.share.title" = "Поделиться";
 "myaddress.cell.aliases.subtitle.withaliaces" = "У вас есть %d";
@@ -382,7 +382,7 @@
 "profile.cell.network.title" = "Сеть";
 "profile.cell.pushnotifications.title" = "Уведомления";
 "profile.cell.rateApp.title" = "Оценить приложение";
-"profile.cell.supportwavesplatform.title" = "Поддержка Wavesplatform";
+"profile.cell.supportwavesplatform.title" = "Поддержка";
 "profile.header.general.title" = "Основные настройки";
 "profile.header.other.title" = "Другое";
 "profile.header.security.title" = "Безопасность";
@@ -693,3 +693,4 @@
 "forceupdate.label.title" = "Пора обновить ваше приложение Waves!";
 "widgetsettings.button.addToken" = "Добавить токен";
 "widgetsettings.label.added" = "Добавлено";
+"menu.button.faq" = "FAQ";

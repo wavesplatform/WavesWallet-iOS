@@ -313,10 +313,10 @@
 "hello.page.confirm.description2" = "Gizlilik Politikasını okudum ve kabul ediyorum";
 "hello.page.confirm.button.privacyPolicy" = "Gizlilik politikası";
 "hello.page.confirm.description3" = "Koşullar ve Şartları okudum ve kabul ediyorum";
-"menu.button.supportwavesplatform" = "Waves Exchange'u destekle";
+"menu.button.supportwavesplatform" = "Destekle";
 "menu.button.termsandconditions" = "Koşullar ve şartlar";
 "menu.button.whitepaper" = "Whitepaper";
-"menu.label.communities" = "Waves Topluluğuna katıl";
+"menu.label.communities" = "Our Social Media";
 "menu.label.description" = "Waves Exchange ile ilgili son haberleri, makaleleri ve etkinlikleri kaçırmayın.";
 "myaddress.button.copy.title" = "Kopyala";
 "myaddress.button.share.title" = "Paylaş";
@@ -382,7 +382,7 @@
 "profile.cell.network.title" = "Ağ";
 "profile.cell.pushnotifications.title" = "Bildirimler";
 "profile.cell.rateApp.title" = "Uygulamayı değerlendir";
-"profile.cell.supportwavesplatform.title" = "Waves Exchange'u destekle";
+"profile.cell.supportwavesplatform.title" = "Destekle";
 "profile.header.general.title" = "Genel ayarlar";
 "profile.header.other.title" = "Diğer";
 "profile.header.security.title" = "Güvenlik";
@@ -693,3 +693,4 @@ You can use the web version to access your Waves account for now.";
 "forceupdate.label.title" = "It is time to update your Waves app!";
 "widgetsettings.button.addToken" = "Add token";
 "widgetsettings.label.added" = "Added";
+"menu.button.faq" = "FAQ";

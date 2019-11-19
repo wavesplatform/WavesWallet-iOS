@@ -313,9 +313,10 @@
 "hello.page.confirm.description2" = "I have read and agree with the Privacy Policy";
 "hello.page.confirm.button.privacyPolicy" = "Privacy policy";
 "hello.page.confirm.description3" = "I have read and agree with the Terms and Conditions";
-"menu.button.supportwavesplatform" = "Support Wavesplatform";
+"menu.button.supportwavesplatform" = "Support";
 "menu.button.termsandconditions" = "Terms and conditions";
 "menu.button.whitepaper" = "Whitepaper";
+"menu.button.faq" = "FAQ";
 "menu.label.communities" = "Join the Waves Community";
 "menu.label.description" = "Keep up with the latest news and articles, and find out all about events happening on the Waves Exchange";
 "myaddress.button.copy.title" = "Copy";
@@ -382,7 +383,7 @@
 "profile.cell.network.title" = "Network";
 "profile.cell.pushnotifications.title" = "Push Notifications";
 "profile.cell.rateApp.title" = "Rate app";
-"profile.cell.supportwavesplatform.title" = "Support Wavesplatform";
+"profile.cell.supportwavesplatform.title" = "Support";
 "profile.header.general.title" = "General settings";
 "profile.header.other.title" = "Other";
 "profile.header.security.title" = "Security";

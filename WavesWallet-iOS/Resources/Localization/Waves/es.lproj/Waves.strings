@@ -313,11 +313,11 @@
 "hello.page.confirm.description2" = "He leído y acepto la Política de Privacidad";
 "hello.page.confirm.button.privacyPolicy" = "Política de privacidad";
 "hello.page.confirm.description3" = "He leído y acepto los Términos y Condiciones de uso";
-"menu.button.supportwavesplatform" = "Soporte de Wavesplatform";
+"menu.button.supportwavesplatform" = "Soporte";
 "menu.button.termsandconditions" = "Términos y Condiciones";
 "menu.button.whitepaper" = "Whitepaper";
-"menu.label.communities" = "Únase a la comunidad de Waves";
-"menu.label.description" = "Mantenerse al día con las últimas noticias y artículos, y descubra todos los eventos relacionados con la plataforma de Waves";
+"menu.label.communities" = "Our Social Media";
+"menu.label.description" = "Mantenerse al día con las últimas noticias y artículos, y descubra todos los eventos relacionados con la de Waves Exchange";
 "myaddress.button.copy.title" = "Copiar";
 "myaddress.button.share.title" = "Compartir";
 "myaddress.cell.aliases.subtitle.withaliaces" = "Tiene %d";
@@ -382,7 +382,7 @@
 "profile.cell.network.title" = "Red";
 "profile.cell.pushnotifications.title" = "Notificaciones automáticas";
 "profile.cell.rateApp.title" = "Calificar esta aplicación";
-"profile.cell.supportwavesplatform.title" = "Soporte de Wavesplatform";
+"profile.cell.supportwavesplatform.title" = "Soporte de";
 "profile.header.general.title" = "Configuración general";
 "profile.header.other.title" = "Otro";
 "profile.header.security.title" = "Seguridad";
@@ -693,3 +693,4 @@ You can use the web version to access your Waves account for now.";
 "forceupdate.label.title" = "It is time to update your Waves app!";
 "widgetsettings.button.addToken" = "Add token";
 "widgetsettings.label.added" = "Added";
+"menu.button.faq" = "FAQ";
