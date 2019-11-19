@@ -123,15 +123,34 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
     private func updateEnviroment(kind: WalletEnvironment.Kind) {
         
         //TODO: Need refactor address class
+        
+        Address.walletEnvironment = localEnviromentFromFile(isDebug: ApplicationDebugSettings.isEnableEnviromentTest,
+                                                            kind: kind)
+    }
+    
+    
+    private func localEnviromentFromFile(isDebug: Bool,
+                                         kind: WalletEnvironment.Kind) -> WalletEnvironment {
+     
         switch environmentKind {
         case .mainnet:
-            Address.walletEnvironment = WalletEnvironment.Mainnet
-            
+            if isDebug {
+                return WalletEnvironment.MainnetTest
+            } else {
+                return WalletEnvironment.Mainnet
+            }
         case .testnet:
-            Address.walletEnvironment = WalletEnvironment.Testnet
-            
+            if isDebug {
+                return WalletEnvironment.TestnetTest
+            } else {
+                return WalletEnvironment.Testnet
+            }
         case .stagenet:
-            Address.walletEnvironment = WalletEnvironment.Stagenet
+            if isDebug {
+                return WalletEnvironment.StagenetTest
+            } else {
+                return WalletEnvironment.Stagenet
+            }
         }
     }
 }
@@ -282,27 +301,14 @@ private extension EnvironmentRepository {
 
         return environmentRepository
             .rx
-            .request(.get(kind: environmentKind.gitHubServiceEnvironment, hasProxy: true))
-            .catchError({ [weak self] (_) -> PrimitiveSequence<SingleTrait, Response> in
-                guard let self = self else { return Single.never() }
-                return self
-                    .environmentRepository
-                    .rx
-                    .request(.get(kind: self.environmentKind.gitHubServiceEnvironment, hasProxy: false))
-            })
+            .request(.get(kind: environmentKind.gitHubServiceEnvironment,
+                          isDebug: ApplicationDebugSettings.isEnableEnviromentTest))
             .map(WalletEnvironment.self)
             .catchError { [weak self] error -> Single<WalletEnvironment> in
                 guard let self = self else { return Single.never() }
-                switch self.environmentKind {
-                case .mainnet:
-                    return Single.just(WalletEnvironment.Mainnet)
-                    
-                case .stagenet:
-                    return Single.just(WalletEnvironment.Stagenet)
-                    
-                case .testnet:
-                    return Single.just(WalletEnvironment.Testnet)                    
-                }
+                
+                return Single.just(self.localEnviromentFromFile(isDebug: ApplicationDebugSettings.isEnableEnviromentTest,
+                                                                kind: self.environmentKind))
             }
             .asObservable()
     }

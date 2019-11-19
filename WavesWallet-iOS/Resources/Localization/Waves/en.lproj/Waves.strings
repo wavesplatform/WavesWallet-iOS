@@ -105,7 +105,6 @@
 "chooseaccount.alert.delete.title" = "Delete account";
 "chooseaccount.label.nothingWallets" = "Nothing Here…\nYou do not have saved accounts";
 "chooseaccount.navigation.title" = "Choose account";
-"chooseaccount.alert.pleaseSelect" = "Please select";
 "coinomat.temporarilyUnavailable" = "Service temporarily unavailable";
 "coinomat.tryAgain" = "Try again later";
 "createalias.button.create.title" = "Create";
@@ -464,7 +463,6 @@
 "sendconfirmation.label.fee" = "Fee";
 "sendconfirmation.label.optionalMessage" = "Write an optional message";
 "sendconfirmation.label.sentTo" = "Sent to";
-"sendconfirmation.label.gatewayFee" = "Gateway Fee";
 "sendfee.label.notAvailable" = "Not available";
 "sendfee.label.transactionFee" = "Transaction Fee";
 "sendloading.label.sending" = "Sending…";
@@ -686,8 +684,6 @@
 "widgetsettings.actionsheet.changestyle.title" = "Widget style";
 "widgetsettings.actionsheet.changestyle.element.classic" = "Classic";
 "widgetsettings.actionsheet.changestyle.element.dark" = "Dark";
-"widgetsettings.button.addToken" = "Add token";
-"widgetsettings.label.added" = "Added";
 "keeper.button.approve" = "Approve";
 "keeper.button.reject" = "Reject";
 "keeper.label.txTime" = "TX time";
@@ -696,11 +692,15 @@
 "keeper.transaction.failed" = "Your transaction failed";
 "keeper.label.function" = "Function";
 "keeper.label.confirmRequest" = "Confirm request";
-"forceupdate.label.title" = "New Version Available";
-"forceupdate.label.subtitle" = "Please update to continue using Waves App";
+"chooseaccount.alert.pleaseSelect" = "Please select";
+"forceupdate.label.subtitle" = "To continue using the app, you will need to upgrade to version %@. Availability of the new version in the App Store may take a few hours.\
+You can use the web version to access your Waves account for now.";
 "forceupdate.button.update" = "Update";
-"pushNotificationsAlert.label.title" = "Stay up with Push Notifications";
-"pushNotificationsAlert.label.subtitle" = "Turn on the notification in the Profile page and always stay up with important events";
-"pushNotificationsAlert.button.activatePush" = "Activate Push Notifications";
-"pushNotificationsAlert.button.later" = "Later";
-
+"sendconfirmation.label.gatewayFee" = "Gateway Fee";
+"pushNotificationsAlert.label.title" = "Get important notifications";
+"pushNotificationsAlert.label.subtitle" = "We'd like to show you notifications for the latest news and updates.";
+"pushNotificationsAlert.button.activatePush" = "Yes, notify me";
+"pushNotificationsAlert.button.later" = "Maybe later";
+"forceupdate.label.title" = "It is time to update your Waves app!";
+"widgetsettings.button.addToken" = "Add token";
+"widgetsettings.label.added" = "Added";

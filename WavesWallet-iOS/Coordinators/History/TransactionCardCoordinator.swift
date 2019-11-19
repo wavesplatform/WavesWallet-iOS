@@ -171,8 +171,7 @@ extension TransactionCardCoordinator: TransactionCardModuleOutput {
         if let url = url {
 
             let vc = BrowserViewController(url: url)
-            let nv = CustomNavigationController(rootViewController: vc)
-
+            let nv = UINavigationController(rootViewController: vc)
             cardNavigationRouter.present(nv, animated: true, completion: nil)
         }
 

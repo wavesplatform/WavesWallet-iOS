@@ -42,36 +42,44 @@ def get_version_and_build
   ENV['VERSION'] = get_version_number(xcodeproj: "#{ENV['ROOT_PROJECT']}/WavesWallet-iOS.xcodeproj", target: "WavesWallet-iOS")      
 end
 
-before_all do
-  Dotenv.overload '.env'
-  setup_circle_ci  
-
-  ENV['CI_INIT']="true"
-
-  sh("security find-identity -v -p codesigning fastlane_tmp_keychain")
+def download_gitlab(url, path_to_save)   
   
-  sh("security find-identity -v -p codesigning fastlane_tmp_keychain")  
-  sh("ssh-keyscan -H bitbucket.org >> ~/.ssh/known_hosts")
+    correct_url = "#{url}/raw?ref=master"    
+    sh("rm -rf #{path_to_save}")
+    sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{correct_url} >> #{path_to_save}")
+end
 
+def download_file(url, path_to_save)   
+    
+  sh("rm -rf #{path_to_save}")
+  sh("curl --request GET #{url} >> #{path_to_save}")
+end
+
+before_all do
+    
+  Dotenv.overload ".env"
+  
   ENV['ROOT_PROJECT']= "#{Dir.pwd}/.."
   ENV['OUTPUT_PROJECT']= "#{Dir.pwd}/../Output"
+
+  ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
+
+  
+  sh("security find-identity -v -p codesigning fastlane_tmp_keychain")  
+  sh("security find-identity -v -p codesigning fastlane_tmp_keychain")  
+  # sh("ssh-keyscan -H bitbucket.org >> ~/.ssh/known_hosts")
+  # sh("ssh-keyscan -H gitlab.wvservices.com >> ~/.ssh/known_hosts")  
 
   if Dir["#{ENV['OUTPUT_PROJECT']}"].empty? 
     sh("mkdir #{ENV['OUTPUT_PROJECT']}")  
   end
   
-  get_version_and_build
-    
-  unless Helper.ci?
-    sh("echo CI DONT USE")
-    ENV['MATCH_KEYCHAIN_NAME']="login.keychain"
-    ENV['CI_INIT']="false"
-  end
-
+  get_version_and_build  
 end
 
 platform :ios do
 
+  # MARK Enviroments
   lane :dev_enviroment do
 
     ENV['SCHEME_PROJECT'] ="WavesWallet-Dev"
@@ -128,7 +136,7 @@ platform :ios do
 
     ENV['APPSTORECONNECT_APP_APPLE_ID'] = "1438015790"
 
-    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Prod.plist"
+    ENV['URL_FIREBASE'] = "#{ENV['URL_ROOT_CONFIG']}/GoogleService-Info-Test.plist"
     ENV['URL_APPSFLYER'] = "#{ENV['URL_ROOT_CONFIG']}/Appsflyer-Info-Prod.plist"
     ENV['URL_AMPLITUDE'] = "#{ENV['URL_ROOT_CONFIG']}/Amplitude-Info-Prod.plist"
     ENV['URL_APPSPECTOR'] = "#{ENV['URL_ROOT_CONFIG']}/AppSpector-Info.plist"
@@ -254,38 +262,48 @@ platform :ios do
 
   lane :download_certificates do
     
+    sh("echo CI #{ENV['URL_CERTIFICATES_GIT']}")
+    sh("echo CI #{ENV['MATCH_GIT_BASIC_AUTHORIZATION']}")
+
     match(app_identifier: ENV['MATCH_APP_IDENTIFIERS'].split(","),
       git_url: "#{ENV['URL_CERTIFICATES_GIT']}",
       username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
       type: "#{ENV['MATCH_TYPE']}",
       readonly: true,
-      keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}"
-    )
+      keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
   end
+
 
   lane :download_resources do
-    sh("rm -rf #{Dir.pwd}/../CommonResources/Fabric-Info.plist")
-    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FABRIC']} >> #{Dir.pwd}/../CommonResources/Fabric-Info.plist")
 
-    sh("rm -rf #{Dir.pwd}/../CommonResources/GoogleService-Info.plist")
-    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_FIREBASE']} >> #{Dir.pwd}/../CommonResources/GoogleService-Info.plist")
+    download_gitlab("#{ENV['URL_FABRIC']}", "#{Dir.pwd}/../CommonResources/Fabric-Info.plist")
 
-    sh("rm -rf #{Dir.pwd}/../CommonResources/Appsflyer-Info.plist")
-    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_APPSFLYER']} >> #{Dir.pwd}/../CommonResources/Appsflyer-Info.plist")
+    download_gitlab("#{ENV['URL_FIREBASE']}", "#{Dir.pwd}/../CommonResources/GoogleService-Info.plist")
 
-    sh("rm -rf #{Dir.pwd}/../CommonResources/AppSpector-Info.plist")
-    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_APPSPECTOR']} >> #{Dir.pwd}/../CommonResources/AppSpector-Info.plist")
+    download_gitlab("#{ENV['URL_APPSFLYER']}", "#{Dir.pwd}/../CommonResources/Appsflyer-Info.plist")
 
-    sh("rm -rf #{Dir.pwd}/../CommonResources/Sentry-io-Info.plist")
-    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_SENTRY_IO']} >> #{Dir.pwd}/../CommonResources/Sentry-io-Info.plist")
+    download_gitlab("#{ENV['URL_APPSPECTOR']}", "#{Dir.pwd}/../CommonResources/AppSpector-Info.plist")
 
-    sh("rm -rf #{Dir.pwd}/../CommonResources/Amplitude-Info.plist")
-    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_AMPLITUDE']} >> #{Dir.pwd}/../CommonResources/Amplitude-Info.plist")
+    download_gitlab("#{ENV['URL_SENTRY_IO']}", "#{Dir.pwd}/../CommonResources/Sentry-io-Info.plist")
+
+    download_gitlab("#{ENV['URL_AMPLITUDE']}", "#{Dir.pwd}/../CommonResources/Amplitude-Info.plist")
+
+    download_file("#{ENV['URL_ENVIROMENT_STAGENET_PROD']}", "#{Dir.pwd}/../CommonResources/environment_stagenet.json")
+    download_file("#{ENV['URL_ENVIROMENT_MAINNET_PROD']}", "#{Dir.pwd}/../CommonResources/environment_mainnet.json")
+    download_file("#{ENV['URL_ENVIROMENT_TESTNET_PROD']}", "#{Dir.pwd}/../CommonResources/environment_testnet.json")
+
+    download_file("#{ENV['URL_ENVIROMENT_STAGENET_TEST']}", "#{Dir.pwd}/../CommonResources/environment_stagenet_test.json")
+    download_file("#{ENV['URL_ENVIROMENT_MAINNET_TEST']}", "#{Dir.pwd}/../CommonResources/environment_mainnet_test.json")
+    download_file("#{ENV['URL_ENVIROMENT_TESTNET_TEST']}", "#{Dir.pwd}/../CommonResources/environment_testnet_test.json")
+    download_file("#{ENV['URL_FEE']}", "#{Dir.pwd}/../CommonResources/fee.json")
+    download_file("#{ENV['URL_SPAM']}", "#{Dir.pwd}/../CommonResources/spam.csv")
+    
   end
 
-  lane :download_bundle_enviroments do
+  lane :download_bundle_enviroments do    
     sh("rm -rf #{Dir.pwd}/../.env")
-    sh("curl -X GET -H 'Authorization: Basic #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_BUNDLE_ENV']} >> #{Dir.pwd}/../.env")
+    sh("curl --request GET --header 'PRIVATE-TOKEN: #{ENV['AUTH_KEY_OPTIONS']}' #{ENV['URL_BUNDLE_ENV']} >> #{Dir.pwd}/../.env")
+    sh("cat #{Dir.pwd}/../.env")
   end
 
   lane :updateProvision do
@@ -314,7 +332,8 @@ platform :ios do
           username: "#{ENV['APPLE_DEV_PORTAL_ID']}",
           type: "#{ENV['MATCH_TYPE']}",
           force_for_new_devices: true,
-          keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}")
+          keychain_name: "#{ENV['MATCH_KEYCHAIN_NAME']}",
+          git_basic_authorization: "#{ENV['MATCH_GIT_BASIC_AUTHORIZATION']}")
   end
 
   lane :upload_testflight do
@@ -360,21 +379,13 @@ platform :ios do
     # )
   end
 
-  lane :send_to_slack_ipa do
-    
-    # FILEPATH=$(find ./app/build/outputs/apk/prod/release/ -maxdepth 1 -name "*universal*" -print)
-    # FILENAME=$(basename "${FILEPATH}")
-
-    # PROJECT_IPA
-    sh("curl https://slack.com/api/files.upload -F token='#{ENV['SLACK_BOT_API_TOKEN']}' -F channels='#{ENV['SLACK_CHANNEL']}' -F title='#{ENV['SLACK_CHANNEL']}' -F filename='#{ENV['SLACK_CHANNEL']}' -F file=@'#{ENV['PROJECT_IPA']}'")
-
-    
+  lane :send_to_slack_ipa do      
+    sh("curl https://slack.com/api/files.upload -F token='#{ENV['SLACK_BOT_API_TOKEN']}' -F channels='#{ENV['SLACK_CHANNEL']}' -F title='#{ENV['SLACK_CHANNEL']}' -F filename='#{ENV['SLACK_CHANNEL']}' -F file=@'#{ENV['PROJECT_IPA']}'")    
   end
 
   lane :send_to_slack_artifacts  do
       
     URL_ARTIFACTS = "https://circleci.com/api/v1.1/project/github/wavesplatform/WavesWallet-iOS/#{ENV['CIRCLE_BUILD_NUM']}/artifacts?circle-token=#{ENV['CIRCLE_CI_TOKEN']}"
-
     JSON_ARTIFACTS = "#{ENV['OUTPUT_PROJECT']}/artifacts.json"
 
     sh("rm -rf #{JSON_ARTIFACTS}")    
@@ -429,34 +440,4 @@ platform :ios do
                   message: "Increment build number [ci skip]")
       push_to_git_remote
   end
-
-
-  # lane :upload_symbols_sentry do
-  #   prod_enviroment
-  #   download_dsyms
-  #   upload_symbols_to_sentry(
-  #     auth_token: 'TODO',
-  #     org_slug: 'waves-llc',
-  #     project_slug: 'waves-mobile-ios',
-  #   )
-  # end
-
-  lane :aaaa do
-
-    puts(highest_app_version_number("#{ENV['TESTFLIGHT_APPLE_ID']}",
-                                    "#{ENV['ITUNES_CONNECT_PASSWORD']}",
-                                    "#{ENV['PROD_APP_IDENTIFIERS']}"))
-    # puts(app.live_version)
-    # puts(app.edit_version)
-    
-  end
-  # lane :init_project do 
-  
-	# 	cocoapods(
-	# 		verbose: true,
-	# 		clean: true,
-	# 		use_bundle_exec: false
-  #   )
-    
-  # end
 end
