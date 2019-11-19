@@ -67,4 +67,6 @@ public protocol RepositoriesFactoryProtocol {
     var widgetSettingsStorage: WidgetSettingsRepositoryProtocol { get }
     
     var mobileKeeperRepository: MobileKeeperRepositoryProtocol { get }
+    
+    var serverMaintenanceRepository: ServerMaintenanceRepositoryProtocol { get }    
 }

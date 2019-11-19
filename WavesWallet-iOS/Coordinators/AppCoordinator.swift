@@ -57,6 +57,8 @@ final class AppCoordinator: Coordinator {
     private let authoAuthorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let mobileKeeperRepository: MobileKeeperRepositoryProtocol = UseCasesFactory.instance.repositories.mobileKeeperRepository
     private let applicationVersionUseCase: ApplicationVersionUseCaseProtocol = UseCasesFactory.instance.applicationVersionUseCase
+
+    private let serverMaintenanceRepository: ServerMaintenanceRepositoryProtocol = UseCasesFactory.instance.repositories.serverMaintenanceRepository
     
     private let disposeBag: DisposeBag = DisposeBag()
     private var deepLink: DeepLink? = nil
@@ -115,6 +117,7 @@ extension AppCoordinator: PresentationCoordinator {
         case send(DeepLink)
         case dex(DeepLink)
         case forceUpdate(DomainLayer.DTO.VersionUpdateData)
+        case maintenanceServer
     }
 
     func showDisplay(_ display: AppCoordinator.Display) {
@@ -188,9 +191,17 @@ extension AppCoordinator: PresentationCoordinator {
         case .forceUpdate(let data):
             isActiveForceUpdate = true
 
-            //add coordinator
+            //TODO: add coordinator
             let vc = StoryboardScene.ForceUpdateApp.forceUpdateAppViewController.instantiate()
             vc.data = data
+            windowRouter.window.rootViewController = vc
+            windowRouter.window.makeKeyAndVisible()
+            
+        case .maintenanceServer:
+            
+            //TODO: add coordinator
+            //TODO: CHECK disabled
+            let vc = StoryboardScene.ServerMaintenance.serverMaintenanceViewController.instantiate()
             windowRouter.window.rootViewController = vc
             windowRouter.window.makeKeyAndVisible()
         }
@@ -454,7 +465,29 @@ extension AppCoordinator: DebugViewControllerDelegate {
     }
 }
 
+//MARK: - ServerMaintenance
+
+private extension AppCoordinator {
+    
+    func checkAndRunServerMaintenance() {
+        
+        self.serverMaintenanceRepository
+            .isEnabledMaintenance()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] isEnabledMaintenance in
+                guard let self = self else { return }
+
+                if isEnabledMaintenance {
+                    self.showDisplay(.maintenanceServer)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+}
+
+
 //MARK: - ForceUpdate
+
 private extension AppCoordinator {
     func checkAndRunForceUpdate() {
         

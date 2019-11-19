@@ -592,6 +592,8 @@
 		7B9DC35723840E1500DCCA75 /* AppIcon-New-Test.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC35523840E1400DCCA75 /* AppIcon-New-Test.png */; };
 		7B9DC35B23842A9900DCCA75 /* ServerMaintenanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9DC35923842A9900DCCA75 /* ServerMaintenanceViewController.swift */; };
 		7B9DC35C23842A9900DCCA75 /* ServerMaintenance.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC35A23842A9900DCCA75 /* ServerMaintenance.storyboard */; };
+		7B9DC35E2384547200DCCA75 /* ServerMaintenanceRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9DC35D2384547200DCCA75 /* ServerMaintenanceRepositoryProtocol.swift */; };
+		7B9DC36023845D7400DCCA75 /* ServerMaintenanceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9DC35F23845D7400DCCA75 /* ServerMaintenanceRepository.swift */; };
 		7BB03E4A22EF2C84008F179D /* WidgetSettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */; };
 		7BB03E4C22EF2DAB008F179D /* WidgetSettingsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */; };
 		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
@@ -1881,6 +1883,8 @@
 		7B9DC35523840E1400DCCA75 /* AppIcon-New-Test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AppIcon-New-Test.png"; path = "../../../../../../Downloads/Launchers/TEST Launcher/AppIcon-New-Test.png"; sourceTree = "<group>"; };
 		7B9DC35923842A9900DCCA75 /* ServerMaintenanceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerMaintenanceViewController.swift; sourceTree = "<group>"; };
 		7B9DC35A23842A9900DCCA75 /* ServerMaintenance.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ServerMaintenance.storyboard; sourceTree = "<group>"; };
+		7B9DC35D2384547200DCCA75 /* ServerMaintenanceRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerMaintenanceRepositoryProtocol.swift; sourceTree = "<group>"; };
+		7B9DC35F23845D7400DCCA75 /* ServerMaintenanceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerMaintenanceRepository.swift; sourceTree = "<group>"; };
 		7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsHeaderView.swift; sourceTree = "<group>"; };
 		7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WidgetSettingsHeaderView.xib; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
@@ -3821,6 +3825,7 @@
 				7B5FAA1822BBE3EB00621A44 /* WalletSeedRepositoryProtocol.swift */,
 				7B5FAA0D22BBE3EB00621A44 /* WalletsRepositoryProtocol.swift */,
 				E9618D1322EF933800FB7F06 /* WidgetSettingsRepositoryProtocol.swift */,
+				7B9DC35D2384547200DCCA75 /* ServerMaintenanceRepositoryProtocol.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -4454,6 +4459,7 @@
 				7BF50A3622D8B95400582783 /* Transactions */,
 				7BF50A4622D8B95400582783 /* Wallets */,
 				7B3A9AB3231BE3900025CDCA /* MobileKeeperRepository.swift */,
+				7B9DC35F23845D7400DCCA75 /* ServerMaintenanceRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -6934,6 +6940,7 @@
 				7B848A7123018C0E0092AD18 /* WidgetSettingsInizializationUseCaseProtocol.swift in Sources */,
 				7B5FAABC22BBE3EC00621A44 /* Hash.swift in Sources */,
 				7B5FAA7722BBE3EC00621A44 /* DexPairsPriceRepositoryProtocol.swift in Sources */,
+				7B9DC35E2384547200DCCA75 /* ServerMaintenanceRepositoryProtocol.swift in Sources */,
 				7B5FAAB122BBE3EC00621A44 /* AddressUseCase.swift in Sources */,
 				7B5FAABE22BBE3EC00621A44 /* PublicKeyAccount.swift in Sources */,
 				7BDC6D6E22C398F600614E6B /* AnalyticManagerEvent+AddressBook.swift in Sources */,
@@ -7112,6 +7119,7 @@
 				7BF50ABC22D8B95400582783 /* GitHubService.swift in Sources */,
 				7BF50A7822D8B95400582783 /* ExchangeTransaction.swift in Sources */,
 				7BF50A6B22D8B95400582783 /* SeedItem.swift in Sources */,
+				7B9DC36023845D7400DCCA75 /* ServerMaintenanceRepository.swift in Sources */,
 				7BF50A7722D8B95400582783 /* TransferTransaction.swift in Sources */,
 				7BF50AB722D8B95400582783 /* AssetsRepositoryLocal.swift in Sources */,
 				7BF50ACB22D8B95400582783 /* String+NormalizeAssetId.swift in Sources */,

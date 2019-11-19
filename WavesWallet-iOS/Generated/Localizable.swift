@@ -2698,6 +2698,18 @@ internal enum Localizable {
       }
     }
 
+    internal enum Servermaintenance {
+
+      internal enum Label {
+        /// Please try again later
+        internal static var subtitle: String { return Localizable.tr("Waves", "serverMaintenance.label.subtitle") }
+        internal static var subtitleKey: String { return "serverMaintenance.label.subtitle" }
+        /// Server maintenance temporary
+        internal static var title: String { return Localizable.tr("Waves", "serverMaintenance.label.title") }
+        internal static var titleKey: String { return "serverMaintenance.label.title" }
+      }
+    }
+
     internal enum Startleasing {
 
       internal enum Button {

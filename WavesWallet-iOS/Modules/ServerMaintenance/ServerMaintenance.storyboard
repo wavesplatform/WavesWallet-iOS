@@ -11,7 +11,7 @@
         <!--Server Maintenance View Controller-->
         <scene sceneID="qdD-ST-R4Q">
             <objects>
-                <viewController storyboardIdentifier="ForceUpdateAppViewController" id="ctY-sl-aq0" customClass="ServerMaintenanceViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ServerMaintenanceViewController" id="ctY-sl-aq0" customClass="ServerMaintenanceViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IXa-jT-DYh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

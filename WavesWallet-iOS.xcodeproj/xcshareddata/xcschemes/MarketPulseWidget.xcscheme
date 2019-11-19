@@ -30,7 +30,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F7E954E31EA8FE0700A804DE"
-               BuildableName = "WavesWallet-iOS.app"
+               BuildableName = "Exchange.app"
                BlueprintName = "WavesWallet-iOS"
                ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
             </BuildableReference>
@@ -42,8 +42,6 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <Testables>
-      </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -53,14 +51,15 @@
             ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
+      <Testables>
+      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Dev-Debug"
       selectedDebuggerIdentifier = ""
       selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       launchStyle = "0"
+      askForAppToLaunch = "Yes"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
@@ -78,15 +77,6 @@
             ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
          </BuildableReference>
       </RemoteRunnable>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E9B190A622E7CD99008220B7"
-            BuildableName = "MarketPulseWidget.appex"
-            BlueprintName = "MarketPulseWidget"
-            ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "OS_ACTIVITY_MODE"
@@ -94,8 +84,6 @@
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Dev-Debug"

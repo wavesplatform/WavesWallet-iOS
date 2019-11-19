@@ -695,5 +695,5 @@ You can use the web version to access your Waves account for now.";
 "widgetsettings.label.added" = "Added";
 "menu.button.faq" = "FAQ";
 
-"serverMaintenance.label.subtitle" = "Please try again later"
+"serverMaintenance.label.subtitle" = "Please try again later";
 "serverMaintenance.label.title" = "Server maintenance temporary";
