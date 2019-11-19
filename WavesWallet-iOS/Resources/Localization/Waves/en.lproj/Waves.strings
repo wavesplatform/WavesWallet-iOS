@@ -694,3 +694,6 @@ You can use the web version to access your Waves account for now.";
 "widgetsettings.button.addToken" = "Add token";
 "widgetsettings.label.added" = "Added";
 "menu.button.faq" = "FAQ";
+
+"serverMaintenance.label.subtitle" = "Please try again later"
+"serverMaintenance.label.title" = "Server maintenance temporary";

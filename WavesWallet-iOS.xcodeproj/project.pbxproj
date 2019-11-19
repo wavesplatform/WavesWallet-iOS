@@ -590,6 +590,8 @@
 		7B9DC35423840DC700DCCA75 /* AppIcon-New-Dev@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC34E23840DC700DCCA75 /* AppIcon-New-Dev@3x.png */; };
 		7B9DC35623840E1500DCCA75 /* AppIcon-New-Test.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC35523840E1400DCCA75 /* AppIcon-New-Test.png */; };
 		7B9DC35723840E1500DCCA75 /* AppIcon-New-Test.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC35523840E1400DCCA75 /* AppIcon-New-Test.png */; };
+		7B9DC35B23842A9900DCCA75 /* ServerMaintenanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9DC35923842A9900DCCA75 /* ServerMaintenanceViewController.swift */; };
+		7B9DC35C23842A9900DCCA75 /* ServerMaintenance.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC35A23842A9900DCCA75 /* ServerMaintenance.storyboard */; };
 		7BB03E4A22EF2C84008F179D /* WidgetSettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */; };
 		7BB03E4C22EF2DAB008F179D /* WidgetSettingsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */; };
 		7BD2313B224E55090074C3BF /* TransactionCardOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */; };
@@ -1877,6 +1879,8 @@
 		7B9DC34D23840DC600DCCA75 /* AppIcon-New-Dev@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-New-Dev@2x.png"; sourceTree = "<group>"; };
 		7B9DC34E23840DC700DCCA75 /* AppIcon-New-Dev@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-New-Dev@3x.png"; sourceTree = "<group>"; };
 		7B9DC35523840E1400DCCA75 /* AppIcon-New-Test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AppIcon-New-Test.png"; path = "../../../../../../Downloads/Launchers/TEST Launcher/AppIcon-New-Test.png"; sourceTree = "<group>"; };
+		7B9DC35923842A9900DCCA75 /* ServerMaintenanceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerMaintenanceViewController.swift; sourceTree = "<group>"; };
+		7B9DC35A23842A9900DCCA75 /* ServerMaintenance.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ServerMaintenance.storyboard; sourceTree = "<group>"; };
 		7BB03E4922EF2C84008F179D /* WidgetSettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettingsHeaderView.swift; sourceTree = "<group>"; };
 		7BB03E4B22EF2DAB008F179D /* WidgetSettingsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WidgetSettingsHeaderView.xib; sourceTree = "<group>"; };
 		7BD2313A224E55090074C3BF /* TransactionCardOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderCell.swift; sourceTree = "<group>"; };
@@ -3253,6 +3257,7 @@
 				0A762D9E2163ACE80019D447 /* Debug */,
 				E9B086BF2163886800937644 /* Dex */,
 				E9F984A720E5266800D2CB4D /* Enter */,
+				7B9DC35823842A9900DCCA75 /* ServerMaintenance */,
 				E9C1B90C236C6D7400F8E988 /* ForceUpdateApp */,
 				E95B47A521638A9F004D4E39 /* Hello */,
 				04A2CFA12112100B00784FEC /* History */,
@@ -4217,6 +4222,15 @@
 				7B9DC33A2384084D00DCCA75 /* AppIcon-New@3x.png */,
 			);
 			path = "AppIcon-New";
+			sourceTree = "<group>";
+		};
+		7B9DC35823842A9900DCCA75 /* ServerMaintenance */ = {
+			isa = PBXGroup;
+			children = (
+				7B9DC35923842A9900DCCA75 /* ServerMaintenanceViewController.swift */,
+				7B9DC35A23842A9900DCCA75 /* ServerMaintenance.storyboard */,
+			);
+			path = ServerMaintenance;
 			sourceTree = "<group>";
 		};
 		7BB03E4822EF2C6D008F179D /* Views */ = {
@@ -6584,6 +6598,7 @@
 				E96FEA2A226F27BC00C0EE22 /* WalletSortCell.xib in Resources */,
 				0A26549121BAE153005EA637 /* Assets.xcassets in Resources */,
 				0AB63C2C2170EBF00056B17E /* Language.storyboard in Resources */,
+				7B9DC35C23842A9900DCCA75 /* ServerMaintenance.storyboard in Resources */,
 				0A5D32F72154579C0009CDF3 /* MultyTextField.xib in Resources */,
 				0A9797602108A11A00407F67 /* Wallet.storyboard in Resources */,
 				7B26A87D22ED129300E7B024 /* WidgetSettings.storyboard in Resources */,
@@ -7681,6 +7696,7 @@
 				E9B0881F2163886800937644 /* DexSortInteractorProtocol.swift in Sources */,
 				0A110CC62153F36F002A8FD7 /* SkeletonView.swift in Sources */,
 				0AF922FD212E1234003BA067 /* BorderButtView.swift in Sources */,
+				7B9DC35B23842A9900DCCA75 /* ServerMaintenanceViewController.swift in Sources */,
 				0A3FE8A62135AC2B00DBF4E1 /* AssetTransactionsCell.swift in Sources */,
 				0AFBCA8A2113254100285BCB /* WalletModuleBuilder.swift in Sources */,
 				E9B088142163886800937644 /* DexMarketInteractorProtocol.swift in Sources */,
