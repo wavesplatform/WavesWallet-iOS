@@ -276,7 +276,9 @@ private extension DexCreateOrderViewController {
             self.setupCreateOrderType()
             self.setupUpdateMarketOrderPriceTimer()
             self.setupInputPriceData()
+            self.setupInputTotalData()
             self.setupButtonSellBuy()
+            self.setupValidationErrors()
 
         case .updateMarketOrderPrice(let marketOrder):
             self.inputPrice.setupValue(marketOrder.priceAvg)
@@ -284,6 +286,7 @@ private extension DexCreateOrderViewController {
             self.order.price = marketOrder.price
             self.order.total = marketOrder.total
             self.setupButtonSellBuy()
+            self.setupValidationErrors()
             
         case .updateCheckValidCreateMarketOrder(let isValid):
             self.isValidCreateMarkerOrder = isValid
@@ -589,7 +592,7 @@ private extension DexCreateOrderViewController {
         
         var fields: [String] = []
         
-        if order.type == .buy && !availablePriceAssetBalance.isZero {
+        if order.type == .buy && !availablePriceAssetBalance.isZero && createOrderType == .limit {
             fields.append(Localizable.Waves.Dexcreateorder.Button.useTotalBalanace)
             fields.append(String(Constants.percent50) + "%")
             fields.append(String(Constants.percent10) + "%")
