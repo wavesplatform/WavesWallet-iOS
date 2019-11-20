@@ -105,34 +105,63 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
         
         if orderAmount.amount > 0 {
             return orderBookRepository.orderBook(amountAsset: amountAsset.id, priceAsset: priceAsset.id)
-                .map { orderBook -> DexCreateOrder.DTO.MarketOrder in
+                .flatMap { [weak self]  orderBook -> Observable<DexCreateOrder.DTO.MarketOrder> in
 
-                    var filledAmount: Decimal = 0
-                    var computedTotal: Decimal = 0
-                    var askOrBidPrice: Decimal = 0
+                    guard let self = self else { return Observable.empty() }
+  
+                    var filledAmount: Int64 = 0
+                    var computedTotal: Int64 = 0
+                    var askOrBidPrice: Money = zeroValue
 
                     let bidOrAsks = type == .buy ? orderBook.asks : orderBook.bids
                     for askOrBid in bidOrAsks {
-                        if filledAmount >= orderAmount.decimalValue {
+                        if filledAmount >= orderAmount.amount {
                             break
                         }
 
-                        askOrBidPrice = Money(askOrBid.price, priceAsset.decimals).decimalValue
+                        askOrBidPrice = Money.price(amount: askOrBid.price, amountDecimals: amountAsset.decimals, priceDecimals: priceAsset.decimals)
 
-                        let askOrBidAmount = Money(askOrBid.amount, priceAsset.decimals).decimalValue
-                        let unfilledAmount = orderAmount.decimalValue - filledAmount
-                        let amount = unfilledAmount <= askOrBidAmount ? unfilledAmount : askOrBidAmount
-                        let total = askOrBidPrice * amount
+                        let askOrBidAmount = Money(askOrBid.amount, amountAsset.decimals)
+                        let unfilledAmount = orderAmount.amount - filledAmount
+                        let amount = unfilledAmount <= askOrBidAmount.amount ? unfilledAmount : askOrBidAmount.amount
+                        let total = askOrBidPrice.amount * amount
 
                         computedTotal += total
                         filledAmount += amount
                     }
 
-                    let priceAvg = computedTotal > 0 ? Money(value: computedTotal / filledAmount, priceAsset.decimals) : zeroValue
-                    let price = Money(value: askOrBidPrice, priceAsset.decimals)
-                    let total = Money(value: computedTotal, priceAsset.decimals)
+                    let priceAvg = filledAmount > 0 ? Money(computedTotal / filledAmount, priceAsset.decimals) : zeroValue
+                    print(askOrBidPrice.decimalValue, priceAvg.decimalValue)
+                    let total = self.calcualteTotalMarketPrice(orderBook: orderBook, orderAmount: orderAmount, amountAsset: amountAsset, priceAsset: priceAsset, type: type)
+                    return Observable.just(.init(price: askOrBidPrice, priceAvg: priceAvg, total: total))
+
                     
-                    return .init(price: price, priceAvg: priceAvg, total: total)
+//                    var filledAmount: Decimal = 0
+//                    var computedTotal: Decimal = 0
+//                    var askOrBidPrice: Decimal = 0
+//
+//                    let bidOrAsks = type == .buy ? orderBook.asks : orderBook.bids
+//                    for askOrBid in bidOrAsks {
+//                        if filledAmount >= orderAmount.decimalValue {
+//                            break
+//                        }
+//
+//                        askOrBidPrice = Money(askOrBid.price, priceAsset.decimals).decimalValue
+//
+//                        let askOrBidAmount = Money(askOrBid.amount, priceAsset.decimals).decimalValue
+//                        let unfilledAmount = orderAmount.decimalValue - filledAmount
+//                        let amount = unfilledAmount <= askOrBidAmount ? unfilledAmount : askOrBidAmount
+//                        let total = askOrBidPrice * amount
+//
+//                        computedTotal += total
+//                        filledAmount += amount
+//                    }
+//
+//                    let priceAvg = computedTotal > 0 ? Money(value: computedTotal / filledAmount, priceAsset.decimals) : zeroValue
+//                    let price = Money(value: askOrBidPrice, priceAsset.decimals)
+//                    let total = Money(value: computedTotal, priceAsset.decimals)
+//
+//                    return .init(price: price, priceAvg: priceAvg, total: total)
             }
         }
         
@@ -154,6 +183,34 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
 }
 
 private extension DexCreateOrderInteractor {
+    
+    func calcualteTotalMarketPrice(orderBook: DomainLayer.DTO.Dex.OrderBook, orderAmount: Money, amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, type: DomainLayer.DTO.Dex.OrderType) -> Money {
+        
+        var filledAmount: Decimal = 0
+        var computedTotal: Decimal = 0
+        var askOrBidPrice: Decimal = 0
+
+        let bidOrAsks = type == .buy ? orderBook.asks : orderBook.bids
+        for askOrBid in bidOrAsks {
+            if filledAmount >= orderAmount.decimalValue {
+                break
+            }
+
+            askOrBidPrice = Money.price(amount: askOrBid.price, amountDecimals: amountAsset.decimals, priceDecimals: priceAsset.decimals).decimalValue
+            
+            let askOrBidAmount = Money(askOrBid.amount, amountAsset.decimals).decimalValue
+            let unfilledAmount = orderAmount.decimalValue - filledAmount
+            let amount = unfilledAmount <= askOrBidAmount ? unfilledAmount : askOrBidAmount
+            let total = askOrBidPrice * amount
+
+            computedTotal += total
+            filledAmount += amount
+        }
+
+        let total = Money(value: computedTotal, priceAsset.decimals)
+
+        return total
+    }
     
     func performeCreateOrderRequest(order: DexCreateOrder.DTO.Order, updatedPrice: Money?, priceAvg: Money?, type: DexCreateOrder.DTO.CreateOrderType) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
         
