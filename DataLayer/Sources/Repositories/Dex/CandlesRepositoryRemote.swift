@@ -14,7 +14,8 @@ import DomainLayer
 import Extensions
 
 private enum Constants {
-    static let oldMatcherAddress = "3PJaDyprvekvPXPuAtxrapacuDJopgJRaU3"
+    static let matcherSwapAddress = "3PJaDyprvekvPXPuAtxrapacuDJopgJRaU3"
+    static let matcherSwapTimestamp: TimeInterval = 1575288000
 }
 
 private extension DomainLayer.DTO.Candle.TimeFrameType {
@@ -49,18 +50,18 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
     private let matcherRepository: MatcherRepositoryProtocol
     private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol
 
-    private var internalMatcherSwapDate: Date?
-    private var matcherSwapDate: Date? {
+    private var internalMatcherSwapConfigs: DomainLayer.DTO.DevelopmentConfigs?
+    private var matcherSwapConfigs: DomainLayer.DTO.DevelopmentConfigs? {
         get {
            objc_sync_enter(self)
            defer { objc_sync_exit(self) }
-           return internalMatcherSwapDate
+           return internalMatcherSwapConfigs
        }
        
        set {
            objc_sync_enter(self)
            defer { objc_sync_exit(self) }
-           internalMatcherSwapDate = newValue
+           internalMatcherSwapConfigs = newValue
        }
     }
 
@@ -80,10 +81,14 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                  timeFrame: DomainLayer.DTO.Candle.TimeFrameType) -> Observable<[DomainLayer.DTO.Candle]> {
  
         
-        return Observable.zip(environmentRepository.servicesEnvironment(), matcherRepository.matcherPublicKey(), getMatcherSwapDate())
-            .flatMap{ [weak self] (servicesEnvironment, publicKeyAccount, swapDate) -> Observable<[DomainLayer.DTO.Candle]> in
+        return Observable.zip(environmentRepository.servicesEnvironment(),
+                              matcherRepository.matcherPublicKey(),
+                              getMatcherSwapConfigs())
+            .flatMap{ [weak self] (servicesEnvironment, publicKeyAccount, swapConfigs) -> Observable<[DomainLayer.DTO.Candle]> in
                 guard let self = self else { return Observable.empty() }
 
+                let swapDate = swapConfigs.matcherSwapTimestamp
+                let swapMatcherAddress = swapConfigs.matcherSwapAddress
                 let timestampServerDiff = servicesEnvironment.timestampServerDiff
                                 
                 if timeStart.compare(swapDate) == .orderedAscending && timeEnd.compare(swapDate) == .orderedAscending {
@@ -93,7 +98,7 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                                                                 timeStart: timeStart.millisecondsSince1970(timestampDiff: timestampServerDiff),
                                                                 timeEnd: timeEnd.millisecondsSince1970(timestampDiff: timestampServerDiff),
                                                                 interval: timeFrame.value,
-                                                                matcher: Constants.oldMatcherAddress)
+                                                                matcher: swapMatcherAddress)
                     
                     return self.candlesQuery(servicesEnvironment: servicesEnvironment, query: query, timeFrame: timeFrame)
                 }
@@ -115,7 +120,7 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
                                                                  timeStart: timeStart.millisecondsSince1970(timestampDiff: timestampServerDiff),
                                                                  timeEnd: swapDate.millisecondsSince1970(timestampDiff: timestampServerDiff),
                                                                  interval: timeFrame.value,
-                                                                 matcher: Constants.oldMatcherAddress)
+                                                                 matcher: swapMatcherAddress)
                     
                     let query2 = DataService.Query.CandleFilters(amountAsset: amountAsset,
                                                                  priceAsset: priceAsset,
@@ -178,19 +183,26 @@ private extension CandlesRepositoryRemote {
            }
     }
     
-    func getMatcherSwapDate() -> Observable<Date> {
+    func getMatcherSwapConfigs() -> Observable<DomainLayer.DTO.DevelopmentConfigs> {
         
-        if let date = matcherSwapDate {
-            return Observable.just(date)
+        if let data = matcherSwapConfigs {
+            return Observable.just(data)
         }
         
         return developmentConfigsRepository.developmentConfigs()
             .share(replay: 1, scope: .whileConnected)
-            .flatMap { [weak self] configs -> Observable<Date> in
+            .flatMap { [weak self] configs -> Observable<DomainLayer.DTO.DevelopmentConfigs> in
                 guard let self = self else { return Observable.empty() }
                 
-                self.matcherSwapDate = configs.matcherSwapTimestamp
-                return Observable.just(configs.matcherSwapTimestamp)
+                self.matcherSwapConfigs = configs
+                return Observable.just(configs)
+        }
+        .catchError { (_) -> Observable<DomainLayer.DTO.DevelopmentConfigs> in
+            let confing = DomainLayer.DTO.DevelopmentConfigs(serviceAvailable: true,
+                                                             matcherSwapTimestamp: Date(timeIntervalSince1970: Constants.matcherSwapTimestamp),
+                                                             matcherSwapAddress: Constants.matcherSwapAddress)
+            
+            return Observable.just(confing)
         }
     }
     
