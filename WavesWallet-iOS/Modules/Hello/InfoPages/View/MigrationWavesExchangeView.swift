@@ -24,6 +24,8 @@ final class MigrationWavesExchangeView: UIView, InfoPagesViewDisplayingProtocol 
     struct Model {}
     
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var logoOldImageView: UIImageView!
     @IBOutlet private weak var logoNewImageView: UIImageView!
     
@@ -34,6 +36,9 @@ final class MigrationWavesExchangeView: UIView, InfoPagesViewDisplayingProtocol 
         
     override func awakeFromNib() {
         super.awakeFromNib()
+
+        titleLabel.text = Localizable.Waves.Migration.Wavesexchange.View.title
+        descriptionLabel.text = Localizable.Waves.Migration.Wavesexchange.View.title
     }
     
     override func didMoveToWindow() {
@@ -77,7 +82,5 @@ final class MigrationWavesExchangeView: UIView, InfoPagesViewDisplayingProtocol 
 
 extension MigrationWavesExchangeView: ViewConfiguration {
     
-    func update(with model: Model) {
-        
-    }
+    func update(with model: Model) {}
 }

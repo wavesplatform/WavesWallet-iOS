@@ -36,7 +36,7 @@
                                     <rect key="frame" x="24" y="231" width="327" height="340"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newLogo" translatesAutoresizingMaskIntoConstraints="NO" id="t2T-O9-2xt">
-                                            <rect key="frame" x="72" y="-106" width="184" height="184"/>
+                                            <rect key="frame" x="71.5" y="-106" width="184" height="184"/>
                                         </imageView>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="oldLogo" translatesAutoresizingMaskIntoConstraints="NO" id="UW8-1A-tia">
                                             <rect key="frame" x="71.5" y="78" width="184" height="184"/>
@@ -85,11 +85,13 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="descriptionLabel" destination="GlH-b7-5pU" id="Xu2-dW-d80"/>
                 <outlet property="logoNewCenterY" destination="VBE-iJ-WCz" id="FsO-B9-Kbm"/>
                 <outlet property="logoNewImageView" destination="t2T-O9-2xt" id="HRD-k3-B0o"/>
                 <outlet property="logoOldCenterY" destination="Cz0-yh-zok" id="xHT-UW-Jc0"/>
                 <outlet property="logoOldImageView" destination="UW8-1A-tia" id="UiR-Hx-8ac"/>
                 <outlet property="scrollView" destination="0pV-aJ-Ml3" id="UcS-3F-8od"/>
+                <outlet property="titleLabel" destination="TJ3-z2-Gvl" id="zgg-Tm-JRG"/>
             </connections>
             <point key="canvasLocation" x="53.600000000000001" y="48.125937031484263"/>
         </view>

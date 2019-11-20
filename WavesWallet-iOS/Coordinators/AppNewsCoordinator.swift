@@ -112,10 +112,7 @@ final class AppNewsCoordinator: Coordinator {
                     }
                     
                     news.didSelectLinkWith = { url in
-                        let vc = BrowserViewController(url: url)
-                        let nav = UINavigationController(rootViewController: vc)
-                        nav.modalPresentationStyle = .fullScreen
-                        AppDelegate.shared().window?.rootViewController?.present(nav, animated: true, completion: nil)
+                        BrowserViewController.openURL(url)
                     }
 
                     var showIdSet = settings.showIdSet

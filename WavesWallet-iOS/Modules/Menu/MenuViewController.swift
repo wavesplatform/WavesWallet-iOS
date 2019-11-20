@@ -44,20 +44,7 @@ class MenuViewController: UIViewController {
     @objc func changedLanguage() {
         setupLocalization()
     }
-    
-    @IBAction func wavesTapped(_ sender: Any) {
-        UIApplication.shared.openURLAsync(URL(string: "https://forum.wavesplatform.com/")!)
-    }
-    
-    @IBAction func gitTapped(_ sender: Any) {
-        UIApplication.shared.openURLAsync(URL(string: "https://github.com/wavesplatform/")!)
         
-        UseCasesFactory
-            .instance
-            .analyticManager
-            .trackEvent(.menu(.wavesMenuGithub))
-    }
-    
     @IBAction func telegramTapped(_ sender: Any) {
         
         UseCasesFactory
@@ -65,17 +52,9 @@ class MenuViewController: UIViewController {
             .analyticManager
             .trackEvent(.menu(.wavesMenuTelegram))
         
-        UIApplication.shared.openURLAsync(URL(string: "https://telegram.me/wavesnews")!)
-    }
-    
-    @IBAction func discordTapped(_ sender: Any) {
-        
-        UseCasesFactory
-            .instance
-            .analyticManager
-            .trackEvent(.menu(.wavesMenuDiscord))
-        
-        UIApplication.shared.openURLAsync(URL(string: "https://discordapp.com/invite/cnFmDyA")!)
+        if let url = URL(string: UIGlobalConstants.URL.telegram) {
+            UIApplication.shared.openURLAsync(url)
+        }
     }
     
     @IBAction func twitterTapped(_ sender: Any) {
@@ -85,37 +64,45 @@ class MenuViewController: UIViewController {
             .analyticManager
             .trackEvent(.menu(.wavesMenuTwitter))
         
-        UIApplication.shared.openURLAsync(URL(string: "https://twitter.com/wavesplatform")!)
+        if let url = URL(string: UIGlobalConstants.URL.twitter) {
+            UIApplication.shared.openURLAsync(url)
+        }
     }
     
-    @IBAction func redditTapped(_ sender: Any) {
+    @IBAction func mediumTapped(_ sender: Any) {
         
         UseCasesFactory
             .instance
             .analyticManager
-            .trackEvent(.menu(.wavesMenuReddit))
+            .trackEvent(.menu(.wavesMenuMedium))
         
-        UIApplication.shared.openURLAsync(URL(string: "https://www.reddit.com/r/Wavesplatform")!)
+        if let url = URL(string: UIGlobalConstants.URL.medium) {
+            UIApplication.shared.openURLAsync(url)
+        }
     }
-
-    @IBAction func whitepaperTapped(_ sender: Any) {
-        
-        UseCasesFactory
-            .instance
-            .analyticManager
-            .trackEvent(.menu(.wavesMenuWhitepaper))
-        
-        UIApplication.shared.openURLAsync(URL(string: "https://wavesplatform.com/files/whitepaper_v0.pdf")!)
-    }
-
+    
+    @IBAction func faqTapped(_ sender: Any) {
+         
+         UseCasesFactory
+             .instance
+             .analyticManager
+             .trackEvent(.menu(.wavesMenuFAQ))
+         
+         if let url = URL(string: UIGlobalConstants.URL.medium) {
+             BrowserViewController.openURL(url)
+         }
+     }
+    
     @IBAction func termAndConditionsTapped(_ sender: Any) {
         
         UseCasesFactory
             .instance
             .analyticManager
             .trackEvent(.menu(.wavesMenuTermsAndConditions))
-        
-        UIApplication.shared.openURLAsync(URL(string: "https://wavesplatform.com/files/docs/Waves_terms_and_conditions.pdf")!)
+                
+        if let url = URL(string: UIGlobalConstants.URL.termsOfConditions) {
+            BrowserViewController.openURL(url)
+        }
     }
 
     @IBAction func supportWavesplatformTapped(_ sender: Any) {
@@ -125,7 +112,9 @@ class MenuViewController: UIViewController {
             .analyticManager
             .trackEvent(.menu(.wavesMenuSupport))
         
-        UIApplication.shared.openURLAsync(URL(string: "https://support.wavesplatform.com/")!)
+        if let url = URL(string: UIGlobalConstants.URL.support) {
+            BrowserViewController.openURL(url)
+        }
     }
 }
 

@@ -30,6 +30,10 @@ public extension AnalyticManagerEvent {
         case wavesMenuReddit
         
         case wavesMenuForum
+        
+        case wavesMenuFAQ
+        
+        case wavesMenuMedium
 
         public var name: String {
             
@@ -63,6 +67,12 @@ public extension AnalyticManagerEvent {
             
             case .wavesMenuForum:
                 return "Waves Menu Forum"
+                
+            case .wavesMenuFAQ:
+                return "Waves Menu FAQ"
+                
+            case .wavesMenuMedium:
+                return "Waves Menu Medium"
             }
         }
         
