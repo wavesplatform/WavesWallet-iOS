@@ -14,6 +14,7 @@ import Moya
 private struct DevelopmentConfigs: Decodable {
     let service_available: Bool
     let matcher_swap_timestamp: Date
+    let matcher_swap_address: String
 }
 
 public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryProtocol {
@@ -45,7 +46,8 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
             .asObservable()
             .map { (config) -> DomainLayer.DTO.DevelopmentConfigs in
                 return DomainLayer.DTO.DevelopmentConfigs.init(serviceAvailable: config.service_available,
-                                                               matcherSwapTimestamp: config.matcher_swap_timestamp)
+                                                               matcherSwapTimestamp: config.matcher_swap_timestamp,
+                                                               matcherSwapAddress: config.matcher_swap_address)
             }
             
     }

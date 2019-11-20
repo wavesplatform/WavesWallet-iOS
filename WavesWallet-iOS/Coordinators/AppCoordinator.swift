@@ -227,6 +227,7 @@ extension AppCoordinator: PresentationCoordinator {
             //TODO: add coordinator
             //TODO: CHECK disabled
             let vc = StoryboardScene.ServerMaintenance.serverMaintenanceViewController.instantiate()
+            vc.delegate = self
             let navigation = CustomNavigationController(rootViewController: vc)
             
             windowRouter.window.rootViewController = navigation
@@ -449,6 +450,13 @@ extension AppCoordinator {
     }
 }
 
+// MARK: ServerMaintenanceViewControllerDelegate
+extension AppCoordinator: ServerMaintenanceViewControllerDelegate  {
+    
+    func serverMaintenanceDisabled() {
+        launchApplication()
+    }
+}
 
 
 // MARK: DebugWindowRouterDelegate

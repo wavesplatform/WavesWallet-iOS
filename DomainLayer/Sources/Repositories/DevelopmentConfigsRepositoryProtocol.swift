@@ -14,9 +14,11 @@ public extension DomainLayer.DTO {
     struct DevelopmentConfigs {
         public let serviceAvailable: Bool
         public let matcherSwapTimestamp: Date
+        public let matcherSwapAddress: String
 
-        public init(serviceAvailable: Bool, matcherSwapTimestamp: Date) {
+        public init(serviceAvailable: Bool, matcherSwapTimestamp: Date, matcherSwapAddress: String) {
             self.serviceAvailable = serviceAvailable
+            self.matcherSwapAddress = matcherSwapAddress
             self.matcherSwapTimestamp = matcherSwapTimestamp
         }
     }
