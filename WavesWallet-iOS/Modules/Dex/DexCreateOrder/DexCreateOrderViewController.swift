@@ -97,6 +97,9 @@ final class DexCreateOrderViewController: UIViewController {
         setupUIForIPhone5IfNeed()
         labelFee.isHidden = true
         iconArrowCustomFee.isHidden = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(removeTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(setupUpdateMarketOrderPriceTimer), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
     @IBAction private func changeOrderMarketType(_ sender: Any) {
@@ -134,7 +137,7 @@ final class DexCreateOrderViewController: UIViewController {
         moduleOutput?.dexCreatOrderDidTapMarketTypeInfo()
     }
     
-    func setupUpdateMarketOrderPriceTimer() {
+    @objc private func setupUpdateMarketOrderPriceTimer() {
         if createOrderType == .market && timer == nil {
             timer = Timer.scheduledTimer(timeInterval: Constants.marketOrderUpdateInterval, target: self, selector: #selector(updateMarketOrderPrice), userInfo: nil, repeats: true)
         }
@@ -143,7 +146,7 @@ final class DexCreateOrderViewController: UIViewController {
         }
     }
     
-    func removeTimer() {
+    @objc func removeTimer() {
         timer?.invalidate()
         timer = nil
     }
