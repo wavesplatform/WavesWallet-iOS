@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F7E954E31EA8FE0700A804DE"
-               BuildableName = "WavesWallet-iOS.app"
+               BuildableName = "Exchange.app"
                BlueprintName = "WavesWallet-iOS"
                ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
             </BuildableReference>
@@ -27,19 +27,17 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <Testables>
-      </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F7E954E31EA8FE0700A804DE"
-            BuildableName = "WavesWallet-iOS.app"
+            BuildableName = "Exchange.app"
             BlueprintName = "WavesWallet-iOS"
             ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
+      <Testables>
+      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Release-Dev"
@@ -56,13 +54,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F7E954E31EA8FE0700A804DE"
-            BuildableName = "WavesWallet-iOS.app"
+            BuildableName = "Exchange.app"
             BlueprintName = "WavesWallet-iOS"
             ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release-Dev"
@@ -75,7 +71,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F7E954E31EA8FE0700A804DE"
-            BuildableName = "WavesWallet-iOS.app"
+            BuildableName = "Exchange.app"
             BlueprintName = "WavesWallet-iOS"
             ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
          </BuildableReference>

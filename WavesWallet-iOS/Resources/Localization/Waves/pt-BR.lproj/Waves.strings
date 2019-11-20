@@ -243,7 +243,7 @@
 "hello.page.info.fifth.detail.third" = "Use o software de segurança oficial. Não instale software desconhecido que possa ser hackeado.";
 "hello.page.info.fifth.title" = "Como se proteger de Phishers";
 "hello.page.info.first.detail" = "Por favor, dedique um tempo para entender algumas coisas importantes para sua própria segurança.\n\nNão podemos recuperar seus fundos, nem congelar sua conta se você visitar um site de phishing ou perder sua frase de backup (também conhecido como SEED).\n\nAo continuar usando nossa plataforma, você concorda em aceitar todos os riscos associados à perda de seu SEED, incluindo, entre outros, a impossibilidade de obter seus fundos e descartá-los. Caso você perca seu SEED, você concorda e reconhece que a Plataforma Waves não será responsável pelas consequências negativas que isso causar.";
-"hello.page.info.first.title" = "Bem-vindo à Plataforma Waves!";
+"hello.page.info.first.title" = "Bem-vindo à Waves Exchange!";
 "hello.page.info.fourth.detail" = "Phishing é o nome para uma das formas mais comuns de golpe. Isso ocorre quando os golpistas criam comunidades falsas no Facebook ou em outros sites semelhantes aos originais.";
 "hello.page.info.fourth.title" = "Como se proteger de Phishers";
 "hello.page.info.second.detail" = "Ao registrar sua conta, será solicitado que você salve a sua frase secreta (Seed) e protega a sua conta com uma senha. Normalmente, em servidores centralizados, é dada uma atenção especial para a senha, que pode ser alterada e redefinida via e-mail, se necessário. No entanto, em plataformas descentralizadas como a Waves, tudo é organizado de maneira diferente.";
@@ -313,11 +313,11 @@
 "hello.page.confirm.description2" = "Eu li e concordo com a Política de Privacidade";
 "hello.page.confirm.button.privacyPolicy" = "Política de privacidade";
 "hello.page.confirm.description3" = "Eu li e concordo com os Termos e Condições";
-"menu.button.supportwavesplatform" = "Suporte da Plataforma Waves";
+"menu.button.supportwavesplatform" = "Suporte";
 "menu.button.termsandconditions" = "Termos e condições";
 "menu.button.whitepaper" = "Whitepaper";
-"menu.label.communities" = "Faça parte da Comunidade Waves";
-"menu.label.description" = "Acompanhe as últimas notícias e artigos, e descubra tudo sobre os eventos que acontecem na Plataforma Waves";
+"menu.label.communities" = "Our Social Media";
+"menu.label.description" = "Acompanhe as últimas notícias e artigos, e descubra tudo sobre os eventos que acontecem na Waves Exchange";
 "myaddress.button.copy.title" = "Copiar";
 "myaddress.button.share.title" = "Compartilhar";
 "myaddress.cell.aliases.subtitle.withaliaces" = "Você tem %d";
@@ -382,7 +382,7 @@
 "profile.cell.network.title" = "Rede";
 "profile.cell.pushnotifications.title" = "Notificações Push";
 "profile.cell.rateApp.title" = "Avaliar o aplicativo";
-"profile.cell.supportwavesplatform.title" = "Suporte da Plataforma Waves";
+"profile.cell.supportwavesplatform.title" = "Suporte";
 "profile.header.general.title" = "Configurações gerais";
 "profile.header.other.title" = "Outros";
 "profile.header.security.title" = "Segurança";
@@ -693,3 +693,4 @@ You can use the web version to access your Waves account for now.";
 "forceupdate.label.title" = "It is time to update your Waves app!";
 "widgetsettings.button.addToken" = "Add token";
 "widgetsettings.label.added" = "Added";
+"menu.button.faq" = "FAQ";

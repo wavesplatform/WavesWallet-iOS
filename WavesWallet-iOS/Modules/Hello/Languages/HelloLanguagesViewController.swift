@@ -2,7 +2,7 @@
 //  LanguagesViewController.swift
 //  WavesWallet-iOS
 //
-//  Copyright © 2018 Waves Platform. All rights reserved.
+//  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
 import UIKit

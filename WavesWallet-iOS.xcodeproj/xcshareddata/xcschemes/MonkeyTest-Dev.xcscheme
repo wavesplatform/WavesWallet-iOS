@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F7E954E31EA8FE0700A804DE"
-               BuildableName = "WavesWallet-iOS.app"
+               BuildableName = "Exchange.app"
                BlueprintName = "WavesWallet-iOS"
                ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
             </BuildableReference>
@@ -27,6 +27,22 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "F7E954E31EA8FE0700A804DE"
+            BuildableName = "Exchange.app"
+            BlueprintName = "WavesWallet-iOS"
+            ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+      <AdditionalOptions>
+         <AdditionalOption
+            key = "NSZombieEnabled"
+            value = "YES"
+            isEnabled = "YES">
+         </AdditionalOption>
+      </AdditionalOptions>
       <Testables>
          <TestableReference
             skipped = "NO"
@@ -61,22 +77,6 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F7E954E31EA8FE0700A804DE"
-            BuildableName = "WavesWallet-iOS.app"
-            BlueprintName = "WavesWallet-iOS"
-            ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-         <AdditionalOption
-            key = "NSZombieEnabled"
-            value = "YES"
-            isEnabled = "YES">
-         </AdditionalOption>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -93,7 +93,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F7E954E31EA8FE0700A804DE"
-            BuildableName = "WavesWallet-iOS.app"
+            BuildableName = "Exchange.app"
             BlueprintName = "WavesWallet-iOS"
             ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
          </BuildableReference>
@@ -105,8 +105,6 @@
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Debug"
@@ -119,7 +117,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F7E954E31EA8FE0700A804DE"
-            BuildableName = "WavesWallet-iOS.app"
+            BuildableName = "Exchange.app"
             BlueprintName = "WavesWallet-iOS"
             ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
          </BuildableReference>

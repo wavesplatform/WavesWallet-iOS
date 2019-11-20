@@ -3,7 +3,7 @@
 //  WavesWallet-iOS
 //
 //  Created by mefilt on 16/10/2018.
-//  Copyright © 2018 Waves Platform. All rights reserved.
+//  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
 import Foundation
@@ -29,5 +29,17 @@ enum UIGlobalConstants {
     static let minLengthPassword: Int = 6
     static let minimumSeedLength = 25
     #endif
+    
+    enum URL {
+        static let termsOfUse = "https://waves.exchange/files/Terms_Of_Use_Waves.Exchange.pdf"
+        static let termsOfConditions = "https://waves.exchange/files/Privacy_Policy_Waves.Exchange.pdf"
+        static let medium = "https://medium.com/@waves.exchange"
+        static let telegram = "https://t.me/wavesexchange_announcements"
+        static let support = "https://support.waves.exchange/"
+        static let faq = "https://waves.exchange/faq"
+        static let twitter = "https://twitter.com/Waves_Exchange"
+    }
+    
+    static let supportEmail = "support@waves.exchange"
 }
 

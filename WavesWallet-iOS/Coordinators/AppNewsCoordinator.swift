@@ -3,7 +3,7 @@
 //  WavesWallet-iOS
 //
 //  Created by mefilt on 15/02/2019.
-//  Copyright © 2019 Waves Platform. All rights reserved.
+//  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
 import Foundation
@@ -112,10 +112,7 @@ final class AppNewsCoordinator: Coordinator {
                     }
                     
                     news.didSelectLinkWith = { url in
-                        let vc = BrowserViewController(url: url)
-                        let nav = UINavigationController(rootViewController: vc)
-                        nav.modalPresentationStyle = .fullScreen
-                        AppDelegate.shared().window?.rootViewController?.present(nav, animated: true, completion: nil)
+                        BrowserViewController.openURL(url)
                     }
 
                     var showIdSet = settings.showIdSet

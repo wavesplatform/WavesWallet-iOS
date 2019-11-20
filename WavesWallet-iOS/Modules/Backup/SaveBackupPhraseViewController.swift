@@ -3,7 +3,7 @@
 //  WavesWallet-iOS
 //
 //  Created by Pavel Gubin on 7/2/18.
-//  Copyright © 2018 Waves Platform. All rights reserved.
+//  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
 import UIKit

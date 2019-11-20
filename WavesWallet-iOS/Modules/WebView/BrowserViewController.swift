@@ -3,7 +3,7 @@
 //  WavesWallet-iOS
 //
 //  Created by Mac on 13/09/2018.
-//  Copyright © 2018 Waves Platform. All rights reserved.
+//  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
 import UIKit
@@ -91,4 +91,20 @@ extension BrowserViewController: WKNavigationDelegate {
         finishLoading()
     }
     
+}
+
+extension BrowserViewController {
+    
+    static func openURL(_ url: URL) {
+        if let vc = AppDelegate.shared().window?.rootViewController {
+            openURL(url, toViewController: vc)
+        }
+    }
+    
+    static func openURL(_ url: URL, toViewController: UIViewController) {
+        let vc = BrowserViewController(url: url)
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        toViewController.present(nav, animated: true, completion: nil)
+    }
 }

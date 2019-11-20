@@ -2,7 +2,7 @@
 //  InfoPagesViewController.swift
 //  WavesWallet-iOS
 //
-//  Copyright © 2018 Waves Platform. All rights reserved.
+//  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
 import UIKit
@@ -14,6 +14,26 @@ protocol InfoPagesViewModuleOutput: AnyObject {
     func userFinishedReadPages()
 }
 
+private struct Constants {
+    
+    #if DEBUG
+    static let appIcon: String = "AppIcon-New-Dev"
+    #elseif TEST
+    static let appIcon: String = "AppIcon-New-Test"
+    #else
+    static let appIcon: String = "AppIcon-New"
+    #endif
+
+    static let buttonNext = Localizable.Waves.Hello.Button.next
+    static let buttonBegin = Localizable.Waves.Hello.Button.begin
+}
+
+protocol InfoPagesViewDisplayingProtocol {
+    func infoPagesViewDidEndDisplaying()
+    func infoPagesViewWillDisplayDisplaying()
+}
+
+//TODO: Refactor class
 final class InfoPagesViewController: UIViewController {
     
     @IBOutlet weak var toolbarView: UIView!
@@ -22,7 +42,7 @@ final class InfoPagesViewController: UIViewController {
     @IBOutlet weak var gradientView: CustomGradientView!
     
     @IBOutlet private weak var pageControl: UIPageControl!
-    var collectionView: UICollectionView!
+    private var collectionView: UICollectionView!
 
     @IBOutlet private weak var toolbarLeadingConstraint: NSLayoutConstraint!
     @IBOutlet private weak var toolbarTrailingConstraint: NSLayoutConstraint!
@@ -37,19 +57,36 @@ final class InfoPagesViewController: UIViewController {
     
     weak var output: InfoPagesViewModuleOutput?
     
+    var isNewUser: Bool = true
+    
     private lazy var pageViews: [UIView] = {
+            
+        var  views: [UIView] = .init()
         
-        let welcomeView = ShortInfoPageView.loadView()
-        let needToKnowView = ShortInfoPageView.loadView()
-        let needToKnowLongView = LongInfoPageView.loadView()
-        let protectView = ShortInfoPageView.loadView()
-        let protectLongView = LongInfoPageView.loadView()
-        let confirmView = InfoPageConfirmView.loadView()
-        
-        return [welcomeView, needToKnowView, needToKnowLongView, protectView, protectLongView, confirmView]
+        if isNewUser == false {
+            let migrationWavesExchangeView: MigrationWavesExchangeView = MigrationWavesExchangeView.loadView()
+            migrationWavesExchangeView.delegate = self
+            let confirmView = InfoPageConfirmView.loadView()
+            return [migrationWavesExchangeView, confirmView]
+        } else {
+            let welcomeView = ShortInfoPageView.loadView()
+            let needToKnowView = ShortInfoPageView.loadView()
+            let needToKnowLongView = LongInfoPageView.loadView()
+            let protectView = ShortInfoPageView.loadView()
+            let protectLongView = LongInfoPageView.loadView()
+            let migrationWavesExchangeView: MigrationWavesExchangeView = MigrationWavesExchangeView.loadView()
+            let confirmView = InfoPageConfirmView.loadView()
+            migrationWavesExchangeView.delegate = self
+            
+            return [welcomeView, needToKnowView, needToKnowLongView, protectView, protectLongView, migrationWavesExchangeView, confirmView]
+        }
     }()
     
     private lazy var pageModels: [Any] = {
+        
+        guard self.isNewUser == true else {
+            return [MigrationWavesExchangeView.Model.init()]
+        }
         
         let welcome = ShortInfoPageView.Model(title: Localizable.Waves.Hello.Page.Info.First.title,
                                               detail: Localizable.Waves.Hello.Page.Info.First.detail,
@@ -91,7 +128,10 @@ final class InfoPagesViewController: UIViewController {
                                                  thirdImage: Images.iOs42Submit400.image,
                                                  fourthImage: Images.iWifi42Submit400.image)
         
-        return [welcome, needToKnow, needToKnowLong, protect, protectLong]
+        
+        let migrationWavesExchangeModel = MigrationWavesExchangeView.Model.init()
+        
+        return [welcome, needToKnow, needToKnowLong, protect, protectLong, migrationWavesExchangeModel]
         
     }()
     
@@ -204,6 +244,10 @@ final class InfoPagesViewController: UIViewController {
             } else if let currentModel = pageModels[currentPage] as? ShortInfoPageView.Model {
                 nextControl.isEnabled = currentModel.scrolledToBottom
                 toolbarLabel.alpha = currentModel.scrolledToBottom ? 1 : 0.5
+            } else if pageModels[currentPage] is MigrationWavesExchangeView.Model {
+                                                                
+                nextControl.isEnabled = true
+                toolbarLabel.alpha = 1
             }
         }
         else {
@@ -274,10 +318,21 @@ extension InfoPagesViewController: UICollectionViewDelegateFlowLayout, UICollect
         if let pageView = pageView as? ShortInfoPageView {
             pageView.updateOnScroll()
         }
+        
+        let view = self.pageViews[indexPath.row] as? InfoPagesViewDisplayingProtocol
+        
+        view?.infoPagesViewWillDisplayDisplaying()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return collectionView.bounds.size
+    }
+            
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        let view = self.pageViews[indexPath.row] as? InfoPagesViewDisplayingProtocol
+        
+        view?.infoPagesViewDidEndDisplaying()
     }
     
 }
@@ -360,6 +415,14 @@ extension InfoPagesViewController: ShortInfoPageViewDelegate {
     
 }
 
+extension InfoPagesViewController: MigrationWavesExchangeDelegate {
+    func migrationWavesExchangeAnimationEnd() {
+        if UIApplication.shared.alternateIconName != Constants.appIcon {
+            UIApplication.shared.setAlternateIconName(Constants.appIcon) { _ in }
+        }
+    }
+}
+
 enum InfoPagesViewControllerConstants {
     
     enum ToolbarLeadingOffset: CGFloat {
@@ -417,9 +480,4 @@ enum InfoPagesViewControllerConstants {
         
     }()
     
-}
-
-private enum Constants {
-    static let buttonNext = Localizable.Waves.Hello.Button.next
-    static let buttonBegin = Localizable.Waves.Hello.Button.begin
 }

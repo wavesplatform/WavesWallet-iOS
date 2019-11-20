@@ -316,7 +316,7 @@
 "menu.button.supportwavesplatform" = "सपोर्ट वेव्स प्लेटफोर्म";
 "menu.button.termsandconditions" = "नियम और शर्तें";
 "menu.button.whitepaper" = "वाइट पेपर";
-"menu.label.communities" = "वेव्स समुदाय में शामिल हों";
+"menu.label.communities" = "Our Social Media";
 "menu.label.description" = "नवीनतम समाचार और लेखों के साथ बने रहें, और वेव्स प्लेटफ़ॉर्म पर होने वाली घटनाओं के बारे में सभी जानें";
 "myaddress.button.copy.title" = "प्रतिलिपि";
 "myaddress.button.share.title" = "शेयर";
@@ -693,3 +693,4 @@ You can use the web version to access your Waves account for now.";
 "forceupdate.label.title" = "It is time to update your Waves app!";
 "widgetsettings.button.addToken" = "Add token";
 "widgetsettings.label.added" = "Added";
+"menu.button.faq" = "FAQ";

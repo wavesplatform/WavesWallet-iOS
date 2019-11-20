@@ -243,7 +243,7 @@
 "hello.page.info.fifth.detail.third" = "公式のセキュリティソフトを利用してください。決して、ハッキングされた可能性がある未知のソフトウェアをインストールしないでください。";
 "hello.page.info.fifth.title" = "フィッシングからあなた自身を守るには";
 "hello.page.info.first.detail" = "ご自身の安全のため、重要事項を把握する時間をとってください。 \n\nフィッシングサイトを訪問したり、バックアップフレーズ（またはシードフレーズ）を紛失した場合、Wavesは資金を取り戻したり、アカウントを凍結したりすることはできません。\n\n私たちのプラットフォームを使い続ける限り、シードの損失に関わるすべてのリスク（資金を入手し入金することができなくなることを含むが、これに限定されません）を、あなたは受け入れることに同意するものとします。シードを紛失した場合、Wavesプラットフォームはその結果生じる如何なる責任も負わないことに、あなたは同意し、承認するものとします。";
-"hello.page.info.first.title" = "ようこそ！Waves Platformへ！";
+"hello.page.info.first.title" = "ようこそ！Waves Exchangeへ！";
 "hello.page.info.fourth.detail" = "詐欺行為の最も一般的な手口の1つは、スキャマーがFacebookなどのウェブサイト上で、本物そっくりの偽コミュニティを作成して行うフィッシングです。";
 "hello.page.info.fourth.title" = "フィッシングからあなたを守るには";
 "hello.page.info.second.detail" = "アカウント登録時、あなたはバックアップフレーズ（シード）を保存し、パスワードでアカウントを保護することを求められます。通常の集中管理サーバーでは、パスワードに対して特別な注意が払われ、必要であれば電子メールを介してパスワードを変更およびリセットできますが、Wavesのような分散型プラットフォームでは、仕組みが全く異なります。";
@@ -313,10 +313,10 @@
 "hello.page.confirm.description2" = "プライバシーポリシーを読み、同意します";
 "hello.page.confirm.button.privacyPolicy" = "プライバシーポリシー";
 "hello.page.confirm.description3" = "利用規約を読み、同意します";
-"menu.button.supportwavesplatform" = "Waves Platform サポートページ";
+"menu.button.supportwavesplatform" = "サポートページ";
 "menu.button.termsandconditions" = "利用規約";
 "menu.button.whitepaper" = "ホワイトペーパー";
-"menu.label.communities" = "Waves コミュニティに参加！";
+"menu.label.communities" = "Our Social Media";
 "menu.label.description" = "Wavesプラットフォームの最新情報を発信しています。";
 "myaddress.button.copy.title" = "コピー";
 "myaddress.button.share.title" = "シェア";
@@ -382,7 +382,7 @@
 "profile.cell.network.title" = "ネットワーク設定";
 "profile.cell.pushnotifications.title" = "プッシュ通知";
 "profile.cell.rateApp.title" = "アプリを評価";
-"profile.cell.supportwavesplatform.title" = "Waves Platform サポートページ";
+"profile.cell.supportwavesplatform.title" = "サポートページ";
 "profile.header.general.title" = "一般設定";
 "profile.header.other.title" = "その他";
 "profile.header.security.title" = "セキュリティ";
@@ -693,3 +693,4 @@ You can use the web version to access your Waves account for now.";
 "forceupdate.label.title" = "It is time to update your Waves app!";
 "widgetsettings.button.addToken" = "Add token";
 "widgetsettings.label.added" = "Added";
+"menu.button.faq" = "FAQ";

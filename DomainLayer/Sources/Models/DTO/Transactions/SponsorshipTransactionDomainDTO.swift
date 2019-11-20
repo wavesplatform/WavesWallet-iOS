@@ -3,7 +3,7 @@
 //  WavesWallet-iOS
 //
 //  Created by Prokofev Ruslan on 05/02/2019.
-//  Copyright © 2019 Waves Platform. All rights reserved.
+//  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
 import Foundation

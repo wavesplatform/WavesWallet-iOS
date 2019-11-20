@@ -242,8 +242,8 @@
 "hello.page.info.fifth.detail.second" = "Perbarui sistem operasi Anda secara teratur.";
 "hello.page.info.fifth.detail.third" = "Gunakan perangkat lunak keamanan resmi. Jangan menginstal perangkat lunak tidak dikenal yang dapat diretas.";
 "hello.page.info.fifth.title" = "Cara Melindungi Diri dari Phisher";
-"hello.page.info.first.detail" = "Harap luangkan waktu untuk memahami beberapa hal penting untuk keselamatan Anda sendiri.\n\nKami tidak dapat memulihkan dana Anda atau membekukan akun Anda jika Anda mengunjungi situs phising atau kehilangan frasa cadangan (frasa SEED).\n\nDengan terus menggunakan platform kami, Anda setuju untuk menerima semua risiko yang terkait dengan hilangnya SEED Anda, termasuk tetapi tidak terbatas pada ketidakmampuan untuk mendapatkan dana Anda dan membuangnya. Jika Anda kehilangan SEED Anda, Anda setuju dan mengakui bahwa Waves Platform tidak akan bertanggung jawab atas konsekuensi negatif dari ini.";
-"hello.page.info.first.title" = "Selamat datang di Platform Waves!";
+"hello.page.info.first.detail" = "Harap luangkan waktu untuk memahami beberapa hal penting untuk keselamatan Anda sendiri.\n\nKami tidak dapat memulihkan dana Anda atau membekukan akun Anda jika Anda mengunjungi situs phising atau kehilangan frasa cadangan (frasa SEED).\n\nDengan terus menggunakan platform kami, Anda setuju untuk menerima semua risiko yang terkait dengan hilangnya SEED Anda, termasuk tetapi tidak terbatas pada ketidakmampuan untuk mendapatkan dana Anda dan membuangnya. Jika Anda kehilangan SEED Anda, Anda setuju dan mengakui bahwa Waves Exchange tidak akan bertanggung jawab atas konsekuensi negatif dari ini.";
+"hello.page.info.first.title" = "Selamat datang di Waves Exchange!";
 "hello.page.info.fourth.detail" = "Salah satu bentuk penipuan yang paling umum adalah phishing, yaitu ketika scammers membuat komunitas palsu di Facebook atau situs web lain yang terlihat mirip dengan yang asli.";
 "hello.page.info.fourth.title" = "Cara Melindungi Diri dari Phisher";
 "hello.page.info.second.detail" = "Ketika mendaftarkan akun Anda, Anda akan diminta untuk menyimpan frase rahasia Anda (Seed) dan untuk melindungi akun Anda dengan kata sandi. Pada server terpusat normal, perhatian khusus diberikan pada kata sandi, yang dapat diubah dan disetel ulang melalui email, jika diperlukan. Namun, pada platform terdesentralisasi seperti Waves, semuanya diatur secara berbeda.";
@@ -316,8 +316,8 @@
 "menu.button.supportwavesplatform" = "Pusat Bantuan";
 "menu.button.termsandconditions" = "Syarat dan ketentuan";
 "menu.button.whitepaper" = "Kertas putih";
-"menu.label.communities" = "Bergabunglah dengan Waves Community";
-"menu.label.description" = "Ikuti terus berita dan artikel terbaru, dan temukan semua tentang peristiwa yang terjadi di Waves Platform";
+"menu.label.communities" = "Our Social Media";
+"menu.label.description" = "Ikuti terus berita dan artikel terbaru, dan temukan semua tentang peristiwa yang terjadi di Waves Exchange";
 "myaddress.button.copy.title" = "Salinan";
 "myaddress.button.share.title" = "Bagikan";
 "myaddress.cell.aliases.subtitle.withaliaces" = "Anda memiliki %d";
@@ -693,3 +693,4 @@ You can use the web version to access your Waves account for now.";
 "forceupdate.label.title" = "It is time to update your Waves app!";
 "widgetsettings.button.addToken" = "Add token";
 "widgetsettings.label.added" = "Added";
+"menu.button.faq" = "FAQ";
