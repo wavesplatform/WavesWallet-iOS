@@ -274,6 +274,7 @@
 		4BEC9D5887FACABD00BD4154 /* Pods_MarketPulseWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20735B3922DF223C5F8F7C79 /* Pods_MarketPulseWidget.framework */; };
 		53E8DAD5791F388085BF04A3 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		6B2551D9571ABC864B16A7EE /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		7B0E73972385C5DB0020E7C9 /* AppIcon-New-Test.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B0E73962385C5DB0020E7C9 /* AppIcon-New-Test.png */; };
 		7B0FD985231952740004B52B /* ConfirmRequestLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0FD984231952740004B52B /* ConfirmRequestLoadingViewController.swift */; };
 		7B0FD98723195D6A0004B52B /* ConfirmRequestCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0FD98623195D6A0004B52B /* ConfirmRequestCompleteViewController.swift */; };
 		7B0FD98923196A3F0004B52B /* ConfirmRequestDTOTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0FD98823196A3F0004B52B /* ConfirmRequestDTOTransaction+Mapper.swift */; };
@@ -588,8 +589,6 @@
 		7B9DC35223840DC700DCCA75 /* AppIcon-New-Dev@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC34D23840DC600DCCA75 /* AppIcon-New-Dev@2x.png */; };
 		7B9DC35323840DC700DCCA75 /* AppIcon-New-Dev@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC34E23840DC700DCCA75 /* AppIcon-New-Dev@3x.png */; };
 		7B9DC35423840DC700DCCA75 /* AppIcon-New-Dev@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC34E23840DC700DCCA75 /* AppIcon-New-Dev@3x.png */; };
-		7B9DC35623840E1500DCCA75 /* AppIcon-New-Test.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC35523840E1400DCCA75 /* AppIcon-New-Test.png */; };
-		7B9DC35723840E1500DCCA75 /* AppIcon-New-Test.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC35523840E1400DCCA75 /* AppIcon-New-Test.png */; };
 		7B9DC35B23842A9900DCCA75 /* ServerMaintenanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9DC35923842A9900DCCA75 /* ServerMaintenanceViewController.swift */; };
 		7B9DC35C23842A9900DCCA75 /* ServerMaintenance.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B9DC35A23842A9900DCCA75 /* ServerMaintenance.storyboard */; };
 		7B9DC35E2384547200DCCA75 /* DevelopmentConfigsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9DC35D2384547200DCCA75 /* DevelopmentConfigsRepositoryProtocol.swift */; };
@@ -1570,6 +1569,7 @@
 		79716E63B228F54DC963B57A /* Pods-DomainLayer.release-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DomainLayer.release-prod.xcconfig"; path = "Target Support Files/Pods-DomainLayer/Pods-DomainLayer.release-prod.xcconfig"; sourceTree = "<group>"; };
 		7A79F97385011A8CE0363A70 /* Pods-WavesWallet-iOS.release-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WavesWallet-iOS.release-dev.xcconfig"; path = "Target Support Files/Pods-WavesWallet-iOS/Pods-WavesWallet-iOS.release-dev.xcconfig"; sourceTree = "<group>"; };
 		7AE17C6CE90449256074E98F /* Pods-MonkeyTest.dev-debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MonkeyTest.dev-debug.xcconfig"; path = "Target Support Files/Pods-MonkeyTest/Pods-MonkeyTest.dev-debug.xcconfig"; sourceTree = "<group>"; };
+		7B0E73962385C5DB0020E7C9 /* AppIcon-New-Test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-New-Test.png"; sourceTree = "<group>"; };
 		7B0FD984231952740004B52B /* ConfirmRequestLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestLoadingViewController.swift; sourceTree = "<group>"; };
 		7B0FD98623195D6A0004B52B /* ConfirmRequestCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRequestCompleteViewController.swift; sourceTree = "<group>"; };
 		7B0FD98823196A3F0004B52B /* ConfirmRequestDTOTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConfirmRequestDTOTransaction+Mapper.swift"; sourceTree = "<group>"; };
@@ -1880,7 +1880,6 @@
 		7B9DC34C23840DC600DCCA75 /* AppIcon-New-Dev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-New-Dev.png"; sourceTree = "<group>"; };
 		7B9DC34D23840DC600DCCA75 /* AppIcon-New-Dev@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-New-Dev@2x.png"; sourceTree = "<group>"; };
 		7B9DC34E23840DC700DCCA75 /* AppIcon-New-Dev@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-New-Dev@3x.png"; sourceTree = "<group>"; };
-		7B9DC35523840E1400DCCA75 /* AppIcon-New-Test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AppIcon-New-Test.png"; path = "../../../../../../Downloads/Launchers/TEST Launcher/AppIcon-New-Test.png"; sourceTree = "<group>"; };
 		7B9DC35923842A9900DCCA75 /* ServerMaintenanceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerMaintenanceViewController.swift; sourceTree = "<group>"; };
 		7B9DC35A23842A9900DCCA75 /* ServerMaintenance.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ServerMaintenance.storyboard; sourceTree = "<group>"; };
 		7B9DC35D2384547200DCCA75 /* DevelopmentConfigsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopmentConfigsRepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -4219,7 +4218,7 @@
 				7B9DC34C23840DC600DCCA75 /* AppIcon-New-Dev.png */,
 				7B9DC34D23840DC600DCCA75 /* AppIcon-New-Dev@2x.png */,
 				7B9DC34E23840DC700DCCA75 /* AppIcon-New-Dev@3x.png */,
-				7B9DC35523840E1400DCCA75 /* AppIcon-New-Test.png */,
+				7B0E73962385C5DB0020E7C9 /* AppIcon-New-Test.png */,
 				7B9DC34323840D7900DCCA75 /* AppIcon-New-Test@2x.png */,
 				7B9DC34423840D7B00DCCA75 /* AppIcon-New-Test@3x.png */,
 				7B9DC3402384095900DCCA75 /* AppIcon-New.png */,
@@ -6442,7 +6441,6 @@
 				7B9DC3272382C04700DCCA75 /* GoogleService-Info.plist in Resources */,
 				7B9DC3232382C04700DCCA75 /* environment_testnet.json in Resources */,
 				7B9DC3212382C04700DCCA75 /* environment_stagenet_test.json in Resources */,
-				7B9DC35723840E1500DCCA75 /* AppIcon-New-Test.png in Resources */,
 				7B9DC31D2382C04700DCCA75 /* fee.json in Resources */,
 				7B9DC3422384095A00DCCA75 /* AppIcon-New.png in Resources */,
 				E9B190AF22E7CD99008220B7 /* MainInterface.storyboard in Resources */,
@@ -6531,7 +6529,6 @@
 				E9B086B02163883000937644 /* AddAddressTextField.xib in Resources */,
 				E9310D1B21792D14008BF3EE /* SendConfirmationRecipientView.xib in Resources */,
 				7B49912622F876E1005B7123 /* AssetsSearchHeaderView.xib in Resources */,
-				7B9DC35623840E1500DCCA75 /* AppIcon-New-Test.png in Resources */,
 				7BDA6AEA22313E85001DE71C /* TransactionImageView.xib in Resources */,
 				7B9DC34F23840DC700DCCA75 /* AppIcon-New-Dev.png in Resources */,
 				E92FAD0F226F6C050054D4AA /* WalletSortSeparatorCell.xib in Resources */,
@@ -6595,6 +6592,7 @@
 				E9D36DDD2175C755001E6DF0 /* Receive.storyboard in Resources */,
 				0AF921FF212E07B3003BA067 /* AssetBalanceSkeletonCell.xib in Resources */,
 				E95E14F1229FF152003552B8 /* WalletTableAssetsCell.xib in Resources */,
+				7B0E73972385C5DB0020E7C9 /* AppIcon-New-Test.png in Resources */,
 				E95E14FB229FFA65003552B8 /* WalletHistorySkeletonCell.xib in Resources */,
 				7B9DC31E2382C04700DCCA75 /* AppSpector-Info.plist in Resources */,
 				E95E151322A18C25003552B8 /* WalletSearchTableViewCell.xib in Resources */,
