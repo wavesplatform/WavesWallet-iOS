@@ -101,71 +101,40 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
     
     func calculateMarketOrderPrice(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, orderAmount: Money, type: DomainLayer.DTO.Dex.OrderType) -> Observable<DexCreateOrder.DTO.MarketOrder> {
      
-        let zeroValue = Money(0, priceAsset.decimals)
+        let zeroPriceValue = Money(0, priceAsset.decimals)
         
         if orderAmount.amount > 0 {
             return orderBookRepository.orderBook(amountAsset: amountAsset.id, priceAsset: priceAsset.id)
-                .flatMap { [weak self]  orderBook -> Observable<DexCreateOrder.DTO.MarketOrder> in
-
-                    guard let self = self else { return Observable.empty() }
+                .flatMap { orderBook -> Observable<DexCreateOrder.DTO.MarketOrder> in
   
-                    var filledAmount: Int64 = 0
-                    var computedTotal: Int64 = 0
-                    var askOrBidPrice: Money = zeroValue
+                    var filledAmount: Money = Money(0, amountAsset.decimals)
+                    var computedTotal: Money = zeroPriceValue
+                    var askOrBidPrice: Money = zeroPriceValue
 
                     let bidOrAsks = type == .buy ? orderBook.asks : orderBook.bids
                     for askOrBid in bidOrAsks {
-                        if filledAmount >= orderAmount.amount {
+                        if filledAmount.decimalValue >= orderAmount.decimalValue {
                             break
                         }
 
                         askOrBidPrice = Money.price(amount: askOrBid.price, amountDecimals: amountAsset.decimals, priceDecimals: priceAsset.decimals)
 
                         let askOrBidAmount = Money(askOrBid.amount, amountAsset.decimals)
-                        let unfilledAmount = orderAmount.amount - filledAmount
-                        let amount = unfilledAmount <= askOrBidAmount.amount ? unfilledAmount : askOrBidAmount.amount
-                        let total = askOrBidPrice.amount * amount
+                        let unfilledAmount = Money(value: orderAmount.decimalValue - filledAmount.decimalValue, amountAsset.decimals)
+                        let amount = unfilledAmount.decimalValue <= askOrBidAmount.decimalValue ? unfilledAmount : askOrBidAmount
+                        let total = askOrBidPrice.decimalValue * amount.decimalValue
 
-                        computedTotal += total
-                        filledAmount += amount
+                        computedTotal = Money(value: computedTotal.decimalValue + total, computedTotal.decimals)
+                        filledAmount = Money(value: filledAmount.decimalValue + amount.decimalValue, filledAmount.decimals)
                     }
 
-                    let priceAvg = filledAmount > 0 ? Money(computedTotal / filledAmount, priceAsset.decimals) : zeroValue
+                    let priceAvg = filledAmount.decimalValue > 0 ? Money(value: computedTotal.decimalValue / filledAmount.decimalValue, priceAsset.decimals) : zeroPriceValue
                     print(askOrBidPrice.decimalValue, priceAvg.decimalValue)
-                    let total = self.calcualteTotalMarketPrice(orderBook: orderBook, orderAmount: orderAmount, amountAsset: amountAsset, priceAsset: priceAsset, type: type)
-                    return Observable.just(.init(price: askOrBidPrice, priceAvg: priceAvg, total: total))
-
-                    
-//                    var filledAmount: Decimal = 0
-//                    var computedTotal: Decimal = 0
-//                    var askOrBidPrice: Decimal = 0
-//
-//                    let bidOrAsks = type == .buy ? orderBook.asks : orderBook.bids
-//                    for askOrBid in bidOrAsks {
-//                        if filledAmount >= orderAmount.decimalValue {
-//                            break
-//                        }
-//
-//                        askOrBidPrice = Money(askOrBid.price, priceAsset.decimals).decimalValue
-//
-//                        let askOrBidAmount = Money(askOrBid.amount, priceAsset.decimals).decimalValue
-//                        let unfilledAmount = orderAmount.decimalValue - filledAmount
-//                        let amount = unfilledAmount <= askOrBidAmount ? unfilledAmount : askOrBidAmount
-//                        let total = askOrBidPrice * amount
-//
-//                        computedTotal += total
-//                        filledAmount += amount
-//                    }
-//
-//                    let priceAvg = computedTotal > 0 ? Money(value: computedTotal / filledAmount, priceAsset.decimals) : zeroValue
-//                    let price = Money(value: askOrBidPrice, priceAsset.decimals)
-//                    let total = Money(value: computedTotal, priceAsset.decimals)
-//
-//                    return .init(price: price, priceAvg: priceAvg, total: total)
+                    return Observable.just(.init(price: askOrBidPrice, priceAvg: priceAvg, total: computedTotal))
             }
         }
         
-        return Observable.just(.init(price: zeroValue, priceAvg: zeroValue, total: zeroValue))
+        return Observable.just(.init(price: zeroPriceValue, priceAvg: zeroPriceValue, total: zeroPriceValue))
     }
     
     func canCreateMarketOrder(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, type: DomainLayer.DTO.Dex.OrderType) -> Observable<Bool> {
@@ -183,35 +152,7 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
 }
 
 private extension DexCreateOrderInteractor {
-    
-    func calcualteTotalMarketPrice(orderBook: DomainLayer.DTO.Dex.OrderBook, orderAmount: Money, amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, type: DomainLayer.DTO.Dex.OrderType) -> Money {
-        
-        var filledAmount: Decimal = 0
-        var computedTotal: Decimal = 0
-        var askOrBidPrice: Decimal = 0
 
-        let bidOrAsks = type == .buy ? orderBook.asks : orderBook.bids
-        for askOrBid in bidOrAsks {
-            if filledAmount >= orderAmount.decimalValue {
-                break
-            }
-
-            askOrBidPrice = Money.price(amount: askOrBid.price, amountDecimals: amountAsset.decimals, priceDecimals: priceAsset.decimals).decimalValue
-            
-            let askOrBidAmount = Money(askOrBid.amount, amountAsset.decimals).decimalValue
-            let unfilledAmount = orderAmount.decimalValue - filledAmount
-            let amount = unfilledAmount <= askOrBidAmount ? unfilledAmount : askOrBidAmount
-            let total = askOrBidPrice * amount
-
-            computedTotal += total
-            filledAmount += amount
-        }
-
-        let total = Money(value: computedTotal, priceAsset.decimals)
-
-        return total
-    }
-    
     func performeCreateOrderRequest(order: DexCreateOrder.DTO.Order, updatedPrice: Money?, priceAvg: Money?, type: DexCreateOrder.DTO.CreateOrderType) -> Observable<ResponseType<DexCreateOrder.DTO.Output>> {
         
         return auth.authorizedWallet()
