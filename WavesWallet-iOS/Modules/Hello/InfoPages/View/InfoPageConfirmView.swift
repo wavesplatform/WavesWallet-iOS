@@ -72,11 +72,11 @@ final class InfoPageConfirmView: UIView {
     }
     
     @IBAction private func termsOfUseTapped(_ sender: Any) {
-        delegate?.infoPageContirmViewDidTapURL(URL(string: UIGlobalConstants.termsOfUse)!)
+        delegate?.infoPageContirmViewDidTapURL(URL(string: UIGlobalConstants.URL.termsOfUse)!)
     }
     
     @IBAction private func termsOfConditionsTapped(_ sender: Any) {
-        delegate?.infoPageContirmViewDidTapURL(URL(string: UIGlobalConstants.termsOfConditions)!)
+        delegate?.infoPageContirmViewDidTapURL(URL(string: UIGlobalConstants.URL.termsOfConditions)!)
     }
     
     private var isActive: Bool {

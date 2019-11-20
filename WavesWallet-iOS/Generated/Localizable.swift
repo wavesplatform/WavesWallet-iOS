@@ -1834,6 +1834,21 @@ internal enum Localizable {
       }
     }
 
+    internal enum Migration {
+
+      internal enum Wavesexchange {
+
+        internal enum View {
+          /// To offer users a better experience and wider range of tools,the exchange is moving from Waves DEX to Waves.Exchange. Waves DEX will stop operating on December 2, 2019. To continue trading you should move your accounts to the new exchange. The migration process is fast, easy and absolutely secure. Don’t worry! All of your tokens, seed phrases and passwords are safe.
+          internal static var description: String { return Localizable.tr("Waves", "migration.wavesexchange.view.description") }
+          internal static var descriptionKey: String { return "migration.wavesexchange.view.description" }
+          /// We are moving!
+          internal static var title: String { return Localizable.tr("Waves", "migration.wavesexchange.view.title") }
+          internal static var titleKey: String { return "migration.wavesexchange.view.title" }
+        }
+      }
+    }
+
     internal enum Myaddress {
 
       internal enum Button {

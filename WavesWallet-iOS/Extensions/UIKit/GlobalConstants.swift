@@ -30,7 +30,16 @@ enum UIGlobalConstants {
     static let minimumSeedLength = 25
     #endif
     
-    static let termsOfUse = "https://wavesplatform.com/files/docs/Waves_privacy_policy.pdf"
-    static let termsOfConditions = "https://wavesplatform.com/files/docs/Waves_terms_and_conditions.pdf"
+    enum URL {
+        static let termsOfUse = "https://waves.exchange/files/Terms_Of_Use_Waves.Exchange.pdf"
+        static let termsOfConditions = "https://waves.exchange/files/Privacy_Policy_Waves.Exchange.pdf"
+        static let medium = "https://medium.com/@waves.exchange"
+        static let telegram = "https://t.me/wavesexchange_announcements"
+        static let support = "https://support.waves.exchange/"
+        static let faq = "https://waves.exchange/faq"
+        static let twitter = "https://twitter.com/Waves_Exchange"
+    }
+    
+    static let supportEmail = "support@waves.exchange"
 }
 

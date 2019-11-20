@@ -92,3 +92,19 @@ extension BrowserViewController: WKNavigationDelegate {
     }
     
 }
+
+extension BrowserViewController {
+    
+    static func openURL(_ url: URL) {
+        if let vc = AppDelegate.shared().window?.rootViewController {
+            openURL(url, toViewController: vc)
+        }
+    }
+    
+    static func openURL(_ url: URL, toViewController: UIViewController) {
+        let vc = BrowserViewController(url: url)
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        toViewController.present(nav, animated: true, completion: nil)
+    }
+}

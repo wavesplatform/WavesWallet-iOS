@@ -39,7 +39,7 @@
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="whitepaperTapped:" destination="rNg-bT-bnC" eventType="touchUpInside" id="TEE-FH-kpG"/>
+                                            <action selector="faqTapped:" destination="rNg-bT-bnC" eventType="touchUpInside" id="JtQ-Ic-u84"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m5U-Ne-DX6">
@@ -130,8 +130,8 @@
                                     <constraint firstAttribute="trailing" secondItem="FkY-zN-LxJ" secondAttribute="trailing" id="tcp-dX-frZ"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Join the Waves Community" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sek-E8-ecM">
-                                <rect key="frame" x="24" y="445" width="164.5" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Our Social Media" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sek-E8-ecM">
+                                <rect key="frame" x="24" y="445" width="103" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -160,13 +160,13 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZrC-Ln-6jZ" userLabel="reddit">
-                                        <rect key="frame" x="91" y="0.0" width="35" height="35"/>
+                                        <rect key="frame" x="98" y="0.0" width="35" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="35" id="3F2-av-FV8"/>
                                         </constraints>
-                                        <state key="normal" image="sReddit28"/>
+                                        <state key="normal" image="medium28"/>
                                         <connections>
-                                            <action selector="redditTapped:" destination="rNg-bT-bnC" eventType="touchUpInside" id="CJh-dA-76x"/>
+                                            <action selector="mediumTapped:" destination="rNg-bT-bnC" eventType="touchUpInside" id="ujP-Xm-Jk2"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -175,7 +175,7 @@
                                     <constraint firstAttribute="height" constant="35" id="E6S-st-njH"/>
                                     <constraint firstItem="ZrC-Ln-6jZ" firstAttribute="bottom" secondItem="glC-7q-1pJ" secondAttribute="bottom" id="MAz-Yu-SfA"/>
                                     <constraint firstItem="ZrC-Ln-6jZ" firstAttribute="top" secondItem="glC-7q-1pJ" secondAttribute="top" id="PFr-rp-ddA"/>
-                                    <constraint firstItem="ZrC-Ln-6jZ" firstAttribute="leading" secondItem="glC-7q-1pJ" secondAttribute="trailing" constant="7" id="QiR-qK-XZN"/>
+                                    <constraint firstItem="ZrC-Ln-6jZ" firstAttribute="leading" secondItem="glC-7q-1pJ" secondAttribute="trailing" constant="14" id="QiR-qK-XZN"/>
                                     <constraint firstItem="9mN-Fz-lYw" firstAttribute="leading" secondItem="RPq-3a-W9U" secondAttribute="leading" id="XPI-pL-3fv"/>
                                     <constraint firstItem="glC-7q-1pJ" firstAttribute="leading" secondItem="9mN-Fz-lYw" secondAttribute="trailing" constant="14" id="gin-6U-uTO"/>
                                 </constraints>
@@ -234,8 +234,8 @@
     </scenes>
     <resources>
         <image name="exchangeBlack" width="200" height="36"/>
+        <image name="medium28" width="28" height="28"/>
         <image name="menu_tel" width="28" height="28"/>
         <image name="menu_twitter" width="28" height="28"/>
-        <image name="sReddit28" width="28" height="28"/>
     </resources>
 </document>
