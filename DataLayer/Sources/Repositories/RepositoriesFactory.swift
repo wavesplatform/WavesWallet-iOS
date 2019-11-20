@@ -64,7 +64,9 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
 
     public private(set) lazy var assetsBalanceSettingsRepositoryLocal: AssetsBalanceSettingsRepositoryProtocol = AssetsBalanceSettingsRepositoryLocal()
 
-    public private(set) lazy var candlesRepository: CandlesRepositoryProtocol = CandlesRepositoryRemote(environmentRepository: environmentRepositoryInternal, matcherRepository: matcherRepository)
+    public private(set) lazy var candlesRepository: CandlesRepositoryProtocol = CandlesRepositoryRemote(environmentRepository: environmentRepositoryInternal,
+                                                                                                        matcherRepository: matcherRepository,
+                                                                                                        developmentConfigsRepository: developmentConfigsRepository)
     
     public private(set) lazy var lastTradesRespository: LastTradesRepositoryProtocol = LastTradesRepositoryRemote(environmentRepository: environmentRepositoryInternal, matcherRepository: matcherRepository)
     
@@ -94,7 +96,10 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     public private(set) lazy var matcherRepositoryRemote: MatcherRepositoryProtocol = MatcherRepositoryRemote(environmentRepository: environmentRepositoryInternal)
     
     public private(set) lazy var mobileKeeperRepository: MobileKeeperRepositoryProtocol = MobileKeeperRepository(repositoriesFactory: self)
+
     
+    public private(set) lazy var developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol = DevelopmentConfigsRepository()
+        
     public struct Resources {
         
         public typealias PathForFile = String

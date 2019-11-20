@@ -57,12 +57,16 @@ final class AppCoordinator: Coordinator {
     private let authoAuthorizationInteractor: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     private let mobileKeeperRepository: MobileKeeperRepositoryProtocol = UseCasesFactory.instance.repositories.mobileKeeperRepository
     private let applicationVersionUseCase: ApplicationVersionUseCaseProtocol = UseCasesFactory.instance.applicationVersionUseCase
+
+    private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol = UseCasesFactory.instance.repositories.developmentConfigsRepository
     
     private let disposeBag: DisposeBag = DisposeBag()
     private var deepLink: DeepLink? = nil
     private var isActiveApp: Bool = false
     private var snackError: String? = nil
-    private var isActiveForceUpdate: Bool = false
+    
+    //TODO: It is very bad code
+    private var isLockChangeDisplay: Bool = false
     
 #if DEBUG || TEST
     init(_ debugWindowRouter: DebugWindowRouter, deepLink: DeepLink?) {
@@ -79,6 +83,22 @@ final class AppCoordinator: Coordinator {
 
     func start() {
         self.isActiveApp = true
+
+        launchApplication()
+
+        if let deepLink = deepLink {
+            openURL(link: deepLink)
+        }
+        
+        checkAndRunForceUpdate()
+        
+        checkAndRunServerMaintenance()
+    }
+        
+    
+    private func launchApplication() {
+        
+        self.isLockChangeDisplay = false
         
         #if DEBUG || TEST
             if CommandLine.arguments.contains("UI-Develop") {
@@ -89,12 +109,6 @@ final class AppCoordinator: Coordinator {
         #else
             logInApplication()
         #endif
-
-        if let deepLink = deepLink {
-            openURL(link: deepLink)
-        }
-        
-        checkAndRunForceUpdate()
     }
 
     private var isMainTabDisplayed: Bool {
@@ -115,20 +129,35 @@ extension AppCoordinator: PresentationCoordinator {
         case send(DeepLink)
         case dex(DeepLink)
         case forceUpdate(DomainLayer.DTO.VersionUpdateData)
+        case maintenanceServer
+        
+        var isForceUpdateDisplay: Bool {
+            switch self {
+            case .forceUpdate:
+                return true
+            default:
+                return false
+            }
+        }
     }
 
     func showDisplay(_ display: AppCoordinator.Display) {
 
+        //TODO: Надо бы переделать это. так как это метод недолжен отвечать за логику
+        if display.isForceUpdateDisplay {
+            isLockChangeDisplay = false
+        }
+                        
+        guard isLockChangeDisplay == false else { return }
+        
         switch display {
         case .hello(let isNewUser):
-            guard isActiveForceUpdate == false else { return }
 
             let helloCoordinator = HelloCoordinator(windowRouter: windowRouter, isNewUser: isNewUser)
             helloCoordinator.delegate = self
             addChildCoordinatorAndStart(childCoordinator: helloCoordinator)
 
         case .passcode(let wallet):
-            guard isActiveForceUpdate == false else { return }
 
             guard isHasCoordinator(type: PasscodeLogInCoordinator.self) != true else { return }
 
@@ -138,7 +167,7 @@ extension AppCoordinator: PresentationCoordinator {
             addChildCoordinatorAndStart(childCoordinator: passcodeCoordinator)
 
         case .slide(let wallet):
-            guard isActiveForceUpdate == false else { return }
+            
             guard isHasCoordinator(type: SlideCoordinator.self) != true else {
                 showDeepLinkVcIfNeed()
                 return
@@ -150,8 +179,7 @@ extension AppCoordinator: PresentationCoordinator {
             showDeepLinkVcIfNeed()
             
         case .enter:
-            guard isActiveForceUpdate == false else { return }
-
+            
             let prevSlideCoordinator = self.childCoordinators.first { (coordinator) -> Bool in
                 return coordinator is SlideCoordinator
             }
@@ -163,7 +191,7 @@ extension AppCoordinator: PresentationCoordinator {
             addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
         
         case .widgetSettings:
-            guard isActiveForceUpdate == false else { return }
+            
             guard isHasCoordinator(type: WidgetSettingsCoordinator.self) != true else {
                 return
             }
@@ -171,33 +199,46 @@ extension AppCoordinator: PresentationCoordinator {
             let coordinator = WidgetSettingsCoordinator(windowRouter: windowRouter)
             addChildCoordinatorAndStart(childCoordinator: coordinator)
             
-        case .mobileKeeper(let request):
-            guard isActiveForceUpdate == false else { return }
-
+        case .mobileKeeper(let request):            
             let coordinator = MobileKeeperCoordinator(windowRouter: windowRouter, request: request)
             addChildCoordinatorAndStart(childCoordinator: coordinator)
  
         case .send(let link):
-            guard isActiveForceUpdate == false else { return }
+            
             deepLink = link
             
         case.dex(let link):
-            guard isActiveForceUpdate == false else { return }
+            
             deepLink = link
 
         case .forceUpdate(let data):
-            isActiveForceUpdate = true
+            
+            isLockChangeDisplay = true
 
-            //add coordinator
+            //TODO: add coordinator
             let vc = StoryboardScene.ForceUpdateApp.forceUpdateAppViewController.instantiate()
             vc.data = data
             windowRouter.window.rootViewController = vc
+            windowRouter.window.makeKeyAndVisible()
+            
+        case .maintenanceServer:
+            
+            isLockChangeDisplay = true
+            //TODO: add coordinator
+            //TODO: CHECK disabled
+            let vc = StoryboardScene.ServerMaintenance.serverMaintenanceViewController.instantiate()
+            vc.delegate = self
+            let navigation = CustomNavigationController(rootViewController: vc)
+            
+            windowRouter.window.rootViewController = navigation
             windowRouter.window.makeKeyAndVisible()
         }
     }
     
     func openURL(link: DeepLink) {
-        guard isActiveForceUpdate == false else { return }
+        
+        guard isLockChangeDisplay == false else { return }
+        
         if link.url.absoluteString == DeepLink.widgetSettings {
             self.showDisplay(.widgetSettings)
         }
@@ -409,6 +450,13 @@ extension AppCoordinator {
     }
 }
 
+// MARK: ServerMaintenanceViewControllerDelegate
+extension AppCoordinator: ServerMaintenanceViewControllerDelegate  {
+    
+    func serverMaintenanceDisabled() {
+        launchApplication()
+    }
+}
 
 
 // MARK: DebugWindowRouterDelegate
@@ -454,11 +502,34 @@ extension AppCoordinator: DebugViewControllerDelegate {
     }
 }
 
+//MARK: - ServerMaintenance
+
+private extension AppCoordinator {
+    
+    func checkAndRunServerMaintenance() {
+        
+        self.developmentConfigsRepository
+            .isEnabledMaintenance()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] isEnabledMaintenance in
+                guard let self = self else { return }
+
+                if isEnabledMaintenance {
+                    self.showDisplay(.maintenanceServer)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+}
+
+
 //MARK: - ForceUpdate
+
 private extension AppCoordinator {
     func checkAndRunForceUpdate() {
         
-        applicationVersionUseCase.isNeedForceUpdate()
+        applicationVersionUseCase
+            .isNeedForceUpdate()
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] data in
                 guard let self = self else { return }

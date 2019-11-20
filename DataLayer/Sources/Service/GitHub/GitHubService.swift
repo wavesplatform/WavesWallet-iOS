@@ -18,7 +18,6 @@ extension GitHub {
 }
 
 private enum Constants {
-
     
     static let root = "https://configs-waves-exchange.s3.eu-central-1.amazonaws.com"
     
@@ -40,9 +39,13 @@ private enum Constants {
     
     static let urlApplicationNewsDebug: URL = URL(string:"\(root)/mobile/ios/test/notifications.json")!
     
-    static let urlVersionIos: URL = URL(string: "\(root)/mobile/ios/prod/version.json")!
+    static let urlVersion: URL = URL(string: "\(root)/mobile/ios/prod/version.json")!
         
-    static let urlVersionIosTest: URL = URL(string: "\(root)/mobile/ios/test/version.json")!
+    static let urlVersionTest: URL = URL(string: "\(root)/mobile/ios/test/version.json")!
+    
+    static let urlDevelopmentConfigs: URL = URL(string: "\(root)/mobile/ios/prod/development_configs.json")!
+        
+    static let urlDevelopmentConfigsTest: URL = URL(string: "\(root)/mobile/ios/test/development_configs.json")!
 }
 
 extension GitHub.Service {
@@ -78,6 +81,14 @@ extension GitHub.Service {
     }
     
     enum ApplicationVersion {
+        /**
+         Response:
+         - ?
+         */
+        case get(isDebug: Bool)
+    }
+    
+    enum DevelopmentConfigs {
         /**
          Response:
          - ?
@@ -215,7 +226,45 @@ extension GitHub.Service.ApplicationNews: TargetType {
             return .requestPlain
         }
     }
+}
 
+extension GitHub.Service.DevelopmentConfigs: TargetType {
+    var sampleData: Data {
+        return Data()
+    }
+
+    var baseURL: URL {
+        switch self {
+        case .get(let isDebug):
+            if isDebug {
+                return Constants.urlDevelopmentConfigsTest
+            } else {
+                return Constants.urlDevelopmentConfigs
+            }
+        }
+    }
+
+    var path: String {
+        return ""
+    }
+
+    var headers: [String: String]? {
+        return  ["Content-type": "application/json"]
+    }
+
+    var method: Moya.Method {
+        switch self {
+        case .get:
+            return .get
+        }
+    }
+
+    var task: Task {
+        switch self {
+        case .get:
+            return .requestPlain
+        }
+    }
 }
 
 extension GitHub.Service.ApplicationVersion: TargetType {
@@ -227,9 +276,9 @@ extension GitHub.Service.ApplicationVersion: TargetType {
         switch self {
         case .get(let isDebug):
             if isDebug {
-                return Constants.urlVersionIosTest
+                return Constants.urlVersionTest
             } else {
-                return Constants.urlVersionIos
+                return Constants.urlVersion
             }
         }
     }

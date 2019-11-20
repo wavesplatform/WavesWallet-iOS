@@ -707,3 +707,6 @@ You can use the web version to access your Waves account for now.";
 "menu.button.faq" = "FAQ";
 "migration.wavesexchange.view.title" = "We are moving!";
 "migration.wavesexchange.view.description" = "To offer users a better experience and wider range of tools,the exchange is moving from Waves DEX to Waves.Exchange. Waves DEX will stop operating on December 2, 2019. To continue trading you should move your accounts to the new exchange. The migration process is fast, easy and absolutely secure. Don’t worry! All of your tokens, seed phrases and passwords are safe.";
+
+"serverMaintenance.label.subtitle" = "Please try again later";
+"serverMaintenance.label.title" = "Server maintenance temporary";
