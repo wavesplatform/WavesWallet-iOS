@@ -275,7 +275,7 @@ private extension PopupViewController {
     }
     
     var topController: UIViewController {
-        guard let topVC = UIApplication.shared.keyWindow?.rootViewController else {
+        guard let topVC = AppDelegate.shared().window?.rootViewController else {
             return UIViewController()
         }
         return topVC
