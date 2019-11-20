@@ -3,7 +3,7 @@
 //  DomainLayer
 //
 //  Created by rprokofev on 30.08.2019.
-//  Copyright © 2019 Waves Platform. All rights reserved.
+//  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
 import Foundation

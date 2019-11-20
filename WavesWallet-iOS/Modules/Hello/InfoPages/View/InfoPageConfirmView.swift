@@ -3,7 +3,7 @@
 //  WavesWallet-iOS
 //
 //  Created by Pavel Gubin on 3/6/19.
-//  Copyright © 2019 Waves Platform. All rights reserved.
+//  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
 import UIKit
@@ -13,11 +13,7 @@ protocol InfoPageConfirmViewDelegate: AnyObject {
     func infoPageContirmViewDidTapURL(_ url: URL)
 }
 
-//TODO: MOVE URL TO GLOBAL CONSTANTS
 private enum Constants {
-    static let termsOfUse = "https://wavesplatform.com/files/docs/Waves_privacy_policy.pdf"
-    static let termsOfConditions = "https://wavesplatform.com/files/docs/Waves_terms_and_conditions.pdf"
-
     static let buttonDeltaWidth: CGFloat = 24
 }
 
@@ -26,10 +22,8 @@ final class InfoPageConfirmView: UIView {
 
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var labelSubtitle: UILabel!
-    @IBOutlet private weak var checkBox1: UIImageView!
     @IBOutlet private weak var checkBox2: UIImageView!
     @IBOutlet private weak var checkBox3: UIImageView!
-    @IBOutlet private weak var label1: UILabel!
     @IBOutlet private weak var label2: UILabel!
     @IBOutlet private weak var label3: UILabel!
     @IBOutlet private weak var buttonTermsUse: HighlightedButton!
@@ -43,8 +37,7 @@ final class InfoPageConfirmView: UIView {
     @IBOutlet private var leftGradientView: GradientView!
     
     weak var delegate: InfoPageConfirmViewDelegate?
-    
-    private var isCheck1 = false
+        
     private var isCheck2 = false
     private var isCheck3 = false
    
@@ -65,13 +58,7 @@ final class InfoPageConfirmView: UIView {
                                                                         endPoint: CGPoint(x: 1, y: 0),
                                                                         locations: [0, 1.0]))
     }
-    
-    @IBAction private func check1Tapped(_ sender: Any) {
-        isCheck1 = !isCheck1
-        setupCheckBoxes()
-        delegate?.infoPageConfirmView(isActive: isActive)
-    }
-    
+        
     @IBAction private func check2Tapped(_ sender: Any) {
         isCheck2 = !isCheck2
         setupCheckBoxes()
@@ -85,15 +72,15 @@ final class InfoPageConfirmView: UIView {
     }
     
     @IBAction private func termsOfUseTapped(_ sender: Any) {
-        delegate?.infoPageContirmViewDidTapURL(URL(string: Constants.termsOfUse)!)
+        delegate?.infoPageContirmViewDidTapURL(URL(string: UIGlobalConstants.URL.termsOfUse)!)
     }
     
     @IBAction private func termsOfConditionsTapped(_ sender: Any) {
-        delegate?.infoPageContirmViewDidTapURL(URL(string: Constants.termsOfConditions)!)
+        delegate?.infoPageContirmViewDidTapURL(URL(string: UIGlobalConstants.URL.termsOfConditions)!)
     }
     
     private var isActive: Bool {
-        return isCheck1 && isCheck2 && isCheck3
+        return isCheck2 && isCheck3
     }
     
     func setupContentInset(_ inset: UIEdgeInsets) {
@@ -123,7 +110,6 @@ private extension InfoPageConfirmView {
     }
     
     func setupCheckBoxes() {
-        checkBox1.image = isCheck1 ? on : off
         checkBox2.image = isCheck2 ? on : off
         checkBox3.image = isCheck3 ? on : off
     }
@@ -131,7 +117,6 @@ private extension InfoPageConfirmView {
     func setupLocalization() {
         labelTitle.text = Localizable.Waves.Hello.Page.Confirm.title
         labelSubtitle.text = Localizable.Waves.Hello.Page.Confirm.subtitle
-        label1.text = Localizable.Waves.Hello.Page.Confirm.description1
         label2.text = Localizable.Waves.Hello.Page.Confirm.description2
         label3.text = Localizable.Waves.Hello.Page.Confirm.description3
         

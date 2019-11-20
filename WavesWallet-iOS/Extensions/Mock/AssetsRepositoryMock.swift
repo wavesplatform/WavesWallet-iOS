@@ -3,7 +3,7 @@
 //  WavesWallet-iOS
 //
 //  Created by rprokofev on 29.07.2019.
-//  Copyright © 2019 Waves Platform. All rights reserved.
+//  Copyright © 2019 Waves Exchange. All rights reserved.
 //
 
 import Foundation
@@ -43,7 +43,7 @@ extension DomainLayer.DTO.Asset {
                      wavesId: "WAVES",
                      displayName: "Waves",
                      precision: 8,
-                     description: "Waves platform",
+                     description: "Waves Exchange",
                      height: 0,
                      timestamp: Date(),
                      sender: "Waves",

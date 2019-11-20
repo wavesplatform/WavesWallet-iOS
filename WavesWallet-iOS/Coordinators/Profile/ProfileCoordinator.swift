@@ -3,7 +3,7 @@
 //  WavesWallet-iOS
 //
 //  Created by mefilt on 04/10/2018.
-//  Copyright © 2018 Waves Platform. All rights reserved.
+//  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
 import UIKit
@@ -12,11 +12,6 @@ import StoreKit
 import MessageUI
 import DomainLayer
 import Extensions
-
-private enum Constants {
-    static let supporURL = URL(string: "https://support.wavesplatform.com/")!
-    static let supportEmail = "support@wavesplatform.com"
-}
 
 final class ProfileCoordinator: Coordinator {
 
@@ -162,7 +157,7 @@ extension ProfileCoordinator: ProfileModuleOutput {
             return
         }
         #endif
-        let coordinator = MailComposeCoordinator(viewController: navigationRouter.navigationController, email: Constants.supportEmail)
+        let coordinator = MailComposeCoordinator(viewController: navigationRouter.navigationController, email: UIGlobalConstants.supportEmail)
         addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
     }
@@ -179,7 +174,10 @@ extension ProfileCoordinator: ProfileModuleOutput {
             return
         }
         #endif
-        UIApplication.shared.openURLAsync(Constants.supporURL)
+        
+        if let url = URL(string: UIGlobalConstants.URL.support) {
+            BrowserViewController.openURL(url)
+        }
     }
 
     func showAlertForEnabledBiometric() {

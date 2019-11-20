@@ -242,8 +242,8 @@
 "hello.page.info.fifth.detail.second" = "定期的升级你的操作系统";
 "hello.page.info.fifth.detail.third" = "使用官方发布的软件。不要安装不知来路的软件，因为可能会被黑客攻击。";
 "hello.page.info.fifth.title" = "如何保护自己免受钓鱼网站的攻击";
-"hello.page.info.first.detail" = "为了您自己的安全，请花一些时间了解一些重要的事情。\n\n如果您访问钓鱼网站或丢失备用短语（也称为SEED短语），我们将无法找回您的资金或冻结您的帐户。\n\n如果继续使用我们的平台，您同意接受丢失您的SEED而造成的后果，包括但不仅限于无法获得和处置您的资金。如果您丢失了SEED，您同意并知道Waves平台不会对此产生负面影响负责。";
-"hello.page.info.first.title" = "欢迎来到waves平台！";
+"hello.page.info.first.detail" = "请花一些时间来了解一些重要的事，以确保自己的安全。 \n \n如果您访问钓鱼网站或丢失备用短语（又名SEED短语），我们将无法收回您的资金或冻结您的帐户。 \n \n继续使用我们的平台，即表示您同意接受与SEED丢失相关的所有风险，包括但不限于无法获得您的资金并进行处置。如果您失去了SEED，则表示您同意并确认，Waves Exchange对由此造成的负面后果不承担任何责任。";
+"hello.page.info.first.title" = "欢迎来到Waves Exchange！";
 "hello.page.info.fourth.detail" = "最常见的诈骗形式之一是钓鱼网站，即诈骗者在Facebook或其他类似于真实网站的网站上创建虚假社区。";
 "hello.page.info.fourth.title" = "如何保护自己免受钓鱼网络的攻击";
 "hello.page.info.second.detail" = "注册帐户时，系统会要求您保存密码短语（种子）并使用密码保护您的帐户。在普通的中心化服务器上，需要特别注意密码，因为密码可以通过电子邮件更改和重置。但是，在像Waves这样的去中心化平台上，一切都是不同的方式.";
@@ -313,11 +313,11 @@
 "hello.page.confirm.description2" = "我已阅读并同意隐私政策";
 "hello.page.confirm.button.privacyPolicy" = "隐私政策";
 "hello.page.confirm.description3" = "我已阅读并同意条款和条件";
-"menu.button.supportwavesplatform" = "支持waves平台";
+"menu.button.supportwavesplatform" = "支持";
 "menu.button.termsandconditions" = "适用条款";
 "menu.button.whitepaper" = "白皮书";
-"menu.label.communities" = "加入waves社区";
-"menu.label.description" = "了解最新的新闻和文章，并了解Waves平台上发生的所有事件";
+"menu.label.communities" = "Our Social Media";
+"menu.label.description" = "持續跟隨最新新闻和文章，并了解Waves Exchange上发生的所有事件";
 "myaddress.button.copy.title" = "复制";
 "myaddress.button.share.title" = "分享";
 "myaddress.cell.aliases.subtitle.withaliaces" = "你有 %d";
@@ -382,7 +382,7 @@
 "profile.cell.network.title" = "网络";
 "profile.cell.pushnotifications.title" = "推送通知";
 "profile.cell.rateApp.title" = "评价app";
-"profile.cell.supportwavesplatform.title" = "支持Waves平台";
+"profile.cell.supportwavesplatform.title" = "支持";
 "profile.header.general.title" = "常规设置";
 "profile.header.other.title" = "其他";
 "profile.header.security.title" = "安全";
@@ -681,15 +681,16 @@
 "keeper.transaction.failed" = "您的交易失败了";
 "keeper.label.function" = "功能";
 "keeper.label.confirmRequest" = "确认请求";
-"chooseaccount.alert.pleaseSelect" = "Please select";
-"forceupdate.label.subtitle" = "To continue using the app, you will need to upgrade to version %@. Availability of the new version in the App Store may take a few hours.\
-You can use the web version to access your Waves account for now.";
-"forceupdate.button.update" = "Update";
-"sendconfirmation.label.gatewayFee" = "Gateway Fee";
-"pushNotificationsAlert.label.title" = "Get important notifications";
-"pushNotificationsAlert.label.subtitle" = "We'd like to show you notifications for the latest news and updates.";
-"pushNotificationsAlert.button.activatePush" = "Yes, notify me";
-"pushNotificationsAlert.button.later" = "Maybe later";
-"forceupdate.label.title" = "It is time to update your Waves app!";
-"widgetsettings.button.addToken" = "Add token";
-"widgetsettings.label.added" = "Added";
+"chooseaccount.alert.pleaseSelect" = "请选择";
+"forceupdate.label.subtitle" = "要继续使用该应用，您需要升级到版本%@ 。新版本在App Store中的可用性可能需要几个小时。 \
+您现在可以使用网络版本访问您的Waves帐户。";
+"forceupdate.button.update" = "更新";
+"sendconfirmation.label.gatewayFee" = "入门费";
+"pushNotificationsAlert.label.title" = "获取重要通知";
+"pushNotificationsAlert.label.subtitle" = "我们想向您显示有关最新新闻和更新的通知。";
+"pushNotificationsAlert.button.activatePush" = "是的，通知我";
+"pushNotificationsAlert.button.later" = "也许以后";
+"forceupdate.label.title" = "现在是时候更新您的Waves应用程序了！";
+"widgetsettings.button.addToken" = "添加代币";
+"widgetsettings.label.added" = "添加";
+"menu.button.faq" = "FAQ";

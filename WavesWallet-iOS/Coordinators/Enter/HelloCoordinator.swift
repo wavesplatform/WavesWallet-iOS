@@ -3,7 +3,7 @@
 //  WavesWallet-iOS
 //
 //  Created by mefilt on 12.09.2018.
-//  Copyright © 2018 Waves Platform. All rights reserved.
+//  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
 import Foundation
@@ -22,11 +22,14 @@ final class HelloCoordinator: Coordinator {
 
     private var windowRouter: WindowRouter
     private var navigationRouter: NavigationRouter
+    
+    private var isNewUser: Bool = false
 
     weak var delegate: HelloCoordinatorDelegate?
 
-    init(windowRouter: WindowRouter) {
+    init(windowRouter: WindowRouter, isNewUser: Bool) {
         self.windowRouter = windowRouter
+        self.isNewUser = isNewUser
         self.navigationRouter = NavigationRouter(navigationController: CustomNavigationController())        
     }
 
@@ -53,6 +56,7 @@ extension HelloCoordinator: HelloLanguagesModuleOutput {
     func userFinishedChangeLanguage() {
         let vc = StoryboardScene.Hello.infoPagesViewController.instantiate()
         vc.output = self
+        vc.isNewUser = isNewUser
         navigationRouter.pushViewController(vc, animated: true)
     }
 }
