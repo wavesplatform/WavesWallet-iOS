@@ -129,7 +129,6 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
                     }
 
                     let priceAvg = filledAmount.decimalValue > 0 ? Money(value: computedTotal.decimalValue / filledAmount.decimalValue, priceAsset.decimals) : zeroPriceValue
-                    print(askOrBidPrice.decimalValue, priceAvg.decimalValue)
                     return Observable.just(.init(price: askOrBidPrice, priceAvg: priceAvg, total: computedTotal))
             }
         }
