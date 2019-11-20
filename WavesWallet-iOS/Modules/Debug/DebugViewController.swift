@@ -30,6 +30,7 @@ extension Debug {
         case stageSwitch(_ isOn: Bool)
         case notificationDevSwitch(_ isOn: Bool)
         case versionTestSwitch(_ isOn: Bool)
+        case developmentConfigsSwitch(_ isOn: Bool)
         case enviromentTestSwitch(_ isOn: Bool)
         case info(_ version: String, _ deviceId: String)
     }
@@ -119,7 +120,8 @@ extension DebugViewController: UITableViewDelegate {
         case .stageSwitch,
              .notificationDevSwitch,
              .versionTestSwitch,
-             .enviromentTestSwitch:
+             .enviromentTestSwitch,
+             .developmentConfigsSwitch:
             return DebugSwitchCell.cellHeight()
             
         case .info:
@@ -137,6 +139,18 @@ extension DebugViewController: UITableViewDataSource {
         let row = displayState[indexPath]
         
         switch row {
+        case .developmentConfigsSwitch(let isOn):
+            
+            let cell: DebugSwitchCell = tableView.dequeueCell()
+            cell.update(with: .init(title: "Development Configs",
+                                    isOn: isOn))
+            
+            cell.switchChangedValue = { isOn in
+                ApplicationDebugSettings.setEnableDebugSettingsTest(isEnable: isOn)
+            }
+            
+            return cell
+            
         case .stageSwitch(let isOn):
             
             let cell: DebugSwitchCell = tableView.dequeueCell()
@@ -253,7 +267,7 @@ private extension DebugViewController {
         let isEnableNotificationsSettingDev = ApplicationDebugSettings.isEnableNotificationsSettingTest
         let isEnableEnviromentTest = ApplicationDebugSettings.isEnableEnviromentTest
         let isEnableVersionUpdateTest = ApplicationDebugSettings.isEnableVersionUpdateTest
-        
+        let isEnableDebugSettingsTest = ApplicationDebugSettings.isEnableDebugSettingsTest
         
         let mainNet: Debug.Enviroment = .init(name: "Mainnet",
                                               chainId: "W")
@@ -287,6 +301,7 @@ private extension DebugViewController {
                                                       .notificationDevSwitch(isEnableNotificationsSettingDev),
                                                       .versionTestSwitch(isEnableVersionUpdateTest),
                                                       .enviromentTestSwitch(isEnableEnviromentTest),
+                                                      .developmentConfigsSwitch(isEnableDebugSettingsTest),
                                                       .info(version, UIDevice.uuid)],
                                                kind: .other)]
         

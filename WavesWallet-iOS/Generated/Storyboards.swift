@@ -271,6 +271,11 @@ internal enum StoryboardScene {
 
     internal static let sendViewController = SceneType<WavesWallet_iOS.SendViewController>(storyboard: Send.self, identifier: "SendViewController")
   }
+  internal enum ServerMaintenance: StoryboardType {
+    internal static let storyboardName = "ServerMaintenance"
+
+    internal static let serverMaintenanceViewController = SceneType<WavesWallet_iOS.ServerMaintenanceViewController>(storyboard: ServerMaintenance.self, identifier: "ServerMaintenanceViewController")
+  }
   internal enum StartLeasing: StoryboardType {
     internal static let storyboardName = "StartLeasing"
 

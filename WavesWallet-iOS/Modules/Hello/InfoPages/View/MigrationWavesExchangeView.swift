@@ -17,13 +17,16 @@ protocol MigrationWavesExchangeDelegate: AnyObject {
 //TODO: MOVE URL TO GLOBAL CONSTANTS
 private enum Constants {
     static let buttonDeltaWidth: CGFloat = 24
+    static let firstAnimationDuration: TimeInterval = 0.40
+    static let firstAnimationDelay: TimeInterval = 0.30
+    static let secondAnimationDuration: TimeInterval = 0.40
 }
 
 final class MigrationWavesExchangeView: UIView, InfoPagesViewDisplayingProtocol {
     
     struct Model {}
     
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var logoOldImageView: UIImageView!
@@ -50,7 +53,7 @@ final class MigrationWavesExchangeView: UIView, InfoPagesViewDisplayingProtocol 
         logoNewCenterY.constant = -self.logoNewImageView.frame.height * 0.5
         logoOldCenterY.constant = self.logoNewImageView.frame.height * 0.5
         
-        UIView.animateKeyframes(withDuration: 0.40, delay:0.3, options: [.calculationModeCubicPaced], animations: {
+        UIView.animateKeyframes(withDuration: Constants.firstAnimationDuration, delay:Constants.firstAnimationDelay, options: [.calculationModeCubicPaced], animations: {
                 
             self.logoNewImageView.alpha = 1
             self.layoutIfNeeded()
@@ -60,9 +63,10 @@ final class MigrationWavesExchangeView: UIView, InfoPagesViewDisplayingProtocol 
             self.logoNewImageView.superview?.bringSubviewToFront(self.logoNewImageView)
             self.logoNewCenterY.constant = 0
             self.logoOldCenterY.constant = 0
-            UIView.animateKeyframes(withDuration: 0.40, delay: 0, options: [.calculationModeCubicPaced], animations: {
+            UIView.animateKeyframes(withDuration: Constants.secondAnimationDuration, delay: 0, options: [.calculationModeCubicPaced], animations: {
+                                        
+              self.layoutIfNeeded()
                 self.logoOldImageView.alpha = 0
-                self.layoutIfNeeded()
             }) { (_) in
                 self.delegate?.migrationWavesExchangeAnimationEnd()
             }

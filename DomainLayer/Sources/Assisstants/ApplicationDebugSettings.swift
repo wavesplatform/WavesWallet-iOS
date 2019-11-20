@@ -19,6 +19,7 @@ public struct ApplicationDebugSettings: TSUD, Codable, Mutating {
     private var isEnableNotificationsSettingTest: Bool = false
     private var isEnableEnviromentTest: Bool = false
     private var isEnableVersionUpdateTest: Bool = false
+    private var isEnableDebugSettingsTest: Bool = false
     private var debugButtonPosition: CGPoint? = nil
     
     public static var defaultValue: ApplicationDebugSettings {
@@ -26,7 +27,8 @@ public struct ApplicationDebugSettings: TSUD, Codable, Mutating {
                                         isEnableNotificationsSettingTest: false,
                                         debugButtonPosition: nil,
                                         isEnableEnviromentTest: false,
-                                        isEnableVersionUpdateTest: false)
+                                        isEnableVersionUpdateTest: false,
+                                        isEnableDebugSettingsTest: false)
     }
     
     public static var stringKey: String {
@@ -56,12 +58,14 @@ public struct ApplicationDebugSettings: TSUD, Codable, Mutating {
                 isEnableNotificationsSettingTest: Bool,
                 debugButtonPosition: CGPoint?,
                 isEnableEnviromentTest: Bool,
-                isEnableVersionUpdateTest: Bool) {
+                isEnableVersionUpdateTest: Bool,
+                isEnableDebugSettingsTest: Bool) {
         self.isEnableStage = isEnableStage
         self.isEnableEnviromentTest = isEnableEnviromentTest
         self.isEnableVersionUpdateTest = isEnableVersionUpdateTest
         self.isEnableNotificationsSettingTest = isEnableNotificationsSettingTest
         self.debugButtonPosition = debugButtonPosition
+        self.isEnableDebugSettingsTest = isEnableDebugSettingsTest
     }
     
     
@@ -98,6 +102,16 @@ public struct ApplicationDebugSettings: TSUD, Codable, Mutating {
     public static func setEnableVersionUpdateTest(isEnable: Bool) {
         var settings = ApplicationDebugSettings.get()
         settings.isEnableVersionUpdateTest = isEnable
+        ApplicationDebugSettings.set(settings)
+    }
+    
+    public static var isEnableDebugSettingsTest: Bool {
+        return ApplicationDebugSettings.get().isEnableDebugSettingsTest
+    }
+    
+    public static func setEnableDebugSettingsTest(isEnable: Bool) {
+        var settings = ApplicationDebugSettings.get()
+        settings.isEnableDebugSettingsTest = isEnable
         ApplicationDebugSettings.set(settings)
     }
 }
