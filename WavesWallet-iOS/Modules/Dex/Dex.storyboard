@@ -2026,17 +2026,17 @@ We do not recommend you perform operations with smart assets if you are an inexp
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y8x-pB-0Cg">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="715"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="681"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PG3-20-Dd2" customClass="DexCreateOrderSegmentedControl" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="10" width="375" height="40"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="myB-sB-N8D"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pCj-mR-Pg4" customClass="DexCreateOrderInputView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="141" width="375" height="100"/>
+                                                <rect key="frame" x="0.0" y="121" width="375" height="100"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="2Xk-4z-27F"/>
@@ -2048,21 +2048,21 @@ We do not recommend you perform operations with smart assets if you are an inexp
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nnp-g3-pO1" customClass="DexCreateOrderInputView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="266" width="375" height="100"/>
+                                                <rect key="frame" x="0.0" y="246" width="375" height="100"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="pY8-lg-7sp"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gNA-TX-wyo" customClass="DexCreateOrderInputView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="391" width="375" height="100"/>
+                                                <rect key="frame" x="0.0" y="371" width="375" height="100"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="LkI-MB-Yei"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Sf-j0-xXd">
-                                                <rect key="frame" x="16" y="516" width="343" height="39"/>
+                                                <rect key="frame" x="16" y="496" width="343" height="39"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fee" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGu-X7-Wxc">
                                                         <rect key="frame" x="0.0" y="0.0" width="22.5" height="16"/>
@@ -2148,7 +2148,7 @@ We do not recommend you perform operations with smart assets if you are an inexp
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zhj-r8-mHL" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="643" width="343" height="48"/>
+                                                <rect key="frame" x="16" y="609" width="343" height="48"/>
                                                 <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="48" id="jpm-Kb-eOz"/>
@@ -2165,10 +2165,10 @@ We do not recommend you perform operations with smart assets if you are an inexp
                                                 </connections>
                                             </button>
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="WN7-jS-yUQ">
-                                                <rect key="frame" x="319" y="657" width="20" height="20"/>
+                                                <rect key="frame" x="319" y="623" width="20" height="20"/>
                                             </activityIndicatorView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5pn-0m-pyg">
-                                                <rect key="frame" x="16" y="569" width="343" height="50"/>
+                                                <rect key="frame" x="16" y="549" width="343" height="50"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Chn-Dd-Ush">
                                                         <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
@@ -2205,7 +2205,7 @@ We do not recommend you perform operations with smart assets if you are an inexp
                                                 </constraints>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O9r-Fe-xQI">
-                                                <rect key="frame" x="0.0" y="75" width="375" height="36"/>
+                                                <rect key="frame" x="0.0" y="60" width="375" height="36"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RLX-OG-i7b">
                                                         <rect key="frame" x="16" y="0.0" width="299" height="36"/>
@@ -2271,14 +2271,14 @@ We do not recommend you perform operations with smart assets if you are an inexp
                                             <constraint firstAttribute="trailing" secondItem="nnp-g3-pO1" secondAttribute="trailing" id="9kk-LJ-wGc"/>
                                             <constraint firstItem="1Sf-j0-xXd" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" constant="16" id="9zZ-at-r1E"/>
                                             <constraint firstAttribute="trailing" secondItem="PG3-20-Dd2" secondAttribute="trailing" id="DFg-4G-qLM"/>
-                                            <constraint firstItem="pCj-mR-Pg4" firstAttribute="top" secondItem="O9r-Fe-xQI" secondAttribute="bottom" constant="30" id="H6p-lV-Dmk"/>
+                                            <constraint firstItem="pCj-mR-Pg4" firstAttribute="top" secondItem="O9r-Fe-xQI" secondAttribute="bottom" constant="25" id="H6p-lV-Dmk"/>
                                             <constraint firstAttribute="trailing" secondItem="O9r-Fe-xQI" secondAttribute="trailing" id="Rt9-6v-73B"/>
                                             <constraint firstItem="5pn-0m-pyg" firstAttribute="top" secondItem="1Sf-j0-xXd" secondAttribute="bottom" constant="14" id="S7T-to-hk5"/>
                                             <constraint firstItem="pCj-mR-Pg4" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" id="Sgs-2K-xQ5"/>
-                                            <constraint firstItem="PG3-20-Dd2" firstAttribute="top" secondItem="y8x-pB-0Cg" secondAttribute="top" constant="10" id="TAE-Gg-1Za"/>
-                                            <constraint firstItem="Zhj-r8-mHL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="5pn-0m-pyg" secondAttribute="bottom" constant="24" id="VBM-UD-L0Y"/>
+                                            <constraint firstItem="PG3-20-Dd2" firstAttribute="top" secondItem="y8x-pB-0Cg" secondAttribute="top" id="TAE-Gg-1Za"/>
+                                            <constraint firstItem="Zhj-r8-mHL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="5pn-0m-pyg" secondAttribute="bottom" constant="10" id="VBM-UD-L0Y"/>
                                             <constraint firstAttribute="trailing" secondItem="gNA-TX-wyo" secondAttribute="trailing" id="Va6-EY-vY5"/>
-                                            <constraint firstItem="O9r-Fe-xQI" firstAttribute="top" secondItem="PG3-20-Dd2" secondAttribute="bottom" constant="25" id="Y3n-98-fQh"/>
+                                            <constraint firstItem="O9r-Fe-xQI" firstAttribute="top" secondItem="PG3-20-Dd2" secondAttribute="bottom" constant="20" id="Y3n-98-fQh"/>
                                             <constraint firstItem="WN7-jS-yUQ" firstAttribute="leading" secondItem="Zhj-r8-mHL" secondAttribute="trailing" constant="-40" id="a55-GS-j3s"/>
                                             <constraint firstItem="Zhj-r8-mHL" firstAttribute="leading" secondItem="y8x-pB-0Cg" secondAttribute="leading" constant="16" id="bHC-aE-Kmr"/>
                                             <constraint firstAttribute="trailing" secondItem="5pn-0m-pyg" secondAttribute="trailing" constant="16" id="eIs-PD-CD6"/>
