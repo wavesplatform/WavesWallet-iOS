@@ -130,11 +130,24 @@ extension AppCoordinator: PresentationCoordinator {
         case dex(DeepLink)
         case forceUpdate(DomainLayer.DTO.VersionUpdateData)
         case maintenanceServer
+        
+        var isForceUpdateDisplay: Bool {
+            switch self {
+            case .forceUpdate:
+                return true
+            default:
+                return false
+            }
+        }
     }
 
     func showDisplay(_ display: AppCoordinator.Display) {
 
-//TODO: ForceUpdate
+        //TODO: Надо бы переделать это. так как это метод недолжен отвечать за логику
+        if display.isForceUpdateDisplay {
+            isLockChangeDisplay = false
+        }
+                        
         guard isLockChangeDisplay == false else { return }
         
         switch display {

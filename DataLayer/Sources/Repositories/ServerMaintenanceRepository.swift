@@ -39,7 +39,7 @@ public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryPro
             .request(.get(isDebug: ApplicationDebugSettings.isEnableDebugSettingsTest))
             .map(DevelopmentConfigs.self,
                  atKeyPath: nil,
-                 using: JSONDecoder.decoderBySyncingTimestamp(0),
+                 using: JSONDecoder.decoderByDateWithSecond(0),
                  failsOnEmptyData: false)
             
             .asObservable()
