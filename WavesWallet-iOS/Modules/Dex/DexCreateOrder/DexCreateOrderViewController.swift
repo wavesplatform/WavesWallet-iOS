@@ -130,6 +130,7 @@ final class DexCreateOrderViewController: UIViewController {
     }
 
     @IBAction private func infoTapped(_ sender: Any) {
+        view.endEditing(false)
         moduleOutput?.dexCreatOrderDidTapMarketTypeInfo()
     }
     
