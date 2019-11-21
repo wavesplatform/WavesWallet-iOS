@@ -21,6 +21,8 @@ private enum Constants {
     static let percent5 = 5
     
     static let minusTopOffsetForIPhone5: CGFloat = 13
+    
+    static let marketOrderUpdateInterval: TimeInterval = 5
 }
 
 final class DexCreateOrderViewController: UIViewController {
@@ -41,6 +43,8 @@ final class DexCreateOrderViewController: UIViewController {
                                                    name: WavesSDKConstants.wavesAssetId,
                                                    shortName: WavesSDKConstants.wavesAssetId,
                                                    decimals: WavesSDKConstants.WavesDecimals)]
+            
+            createOrderType = .limit
         }
     }
     
@@ -65,12 +69,16 @@ final class DexCreateOrderViewController: UIViewController {
     @IBOutlet private weak var labelFee: UILabel!
     @IBOutlet private weak var activityIndicatorViewFee: UIActivityIndicatorView!
     @IBOutlet private weak var iconArrowCustomFee: UIImageView!
+    @IBOutlet private weak var buttonCreateOrderType: UIButton!
     
     private var order: DexCreateOrder.DTO.Order!
+    private var createOrderType: DexCreateOrder.DTO.CreateOrderType!
     private var isCreatingOrderState: Bool = false
     private var isDisabledBuySellButton: Bool = false
     private var errorSnackKey: String?
     private var feeAssets: [DomainLayer.DTO.Dex.Asset] = []
+    private var timer: Timer?
+    private var isValidCreateMarkerOrder: Bool = false
     
     var presenter: DexCreateOrderPresenterProtocol!
     weak var moduleOutput: DexCreateOrderModuleOutput?
@@ -85,11 +93,69 @@ final class DexCreateOrderViewController: UIViewController {
         setupData()
         setupLocalization()
         setupButtonSellBuy()
+        setupCreateOrderType()
         setupUIForIPhone5IfNeed()
         labelFee.isHidden = true
         iconArrowCustomFee.isHidden = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(removeTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(setupUpdateMarketOrderPriceTimer), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
+    @IBAction private func changeOrderMarketType(_ sender: Any) {
+        
+        let elements: [ActionSheet.DTO.Element] = [.init(title: DexCreateOrder.DTO.CreateOrderType.market.alertTitle),
+                                                   .init(title: DexCreateOrder.DTO.CreateOrderType.limit.alertTitle)]
+                              
+        let selectedElement = elements.first(where: { $0.title == createOrderType.alertTitle })
+        var blockedElements: [ActionSheet.DTO.Element] = []
+        
+        if isValidCreateMarkerOrder == false {
+            blockedElements.append(.init(title: DexCreateOrder.DTO.CreateOrderType.market.alertTitle))
+        }
+        let data = ActionSheet.DTO.Data(title: Localizable.Waves.Dexcreateorder.Alert.orderType,
+                                        elements: elements,
+                                        selectedElement: selectedElement,
+                                        blockedElements: blockedElements)
+  
+        let vc = ActionSheetViewBuilder { [weak self] element in
+            guard let self = self else { return }
+            self.moduleOutput?.dexCreateOrderDidDismisAlert()
+
+            let marketAlertTitle = DexCreateOrder.DTO.CreateOrderType.market.alertTitle
+            let type: DexCreateOrder.DTO.CreateOrderType = element.title == marketAlertTitle ? .market : .limit
+            if type != self.createOrderType {
+                self.sendEvent.accept(.changeCreateOrderType(type))
+            }
+            
+        }.build(input: data)
+        moduleOutput?.dexCreateOrderDidPresentAlert(vc)
+    }
+
+    @IBAction private func infoTapped(_ sender: Any) {
+        view.endEditing(false)
+        moduleOutput?.dexCreatOrderDidTapMarketTypeInfo()
+    }
+    
+    @objc private func setupUpdateMarketOrderPriceTimer() {
+        if createOrderType == .market && timer == nil {
+            timer = Timer.scheduledTimer(timeInterval: Constants.marketOrderUpdateInterval, target: self, selector: #selector(updateMarketOrderPrice), userInfo: nil, repeats: true)
+        }
+        else if createOrderType == .limit {
+            removeTimer()
+        }
+    }
+    
+    @objc func removeTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    @objc private func updateMarketOrderPrice() {
+        if createOrderType == .market {
+            sendEvent.accept(.updateMarketOrderPrice)
+        }
+    }
 }
 
 //MARK: - UI State
@@ -163,14 +229,14 @@ private extension DexCreateOrderViewController {
         switch state.action {
         case .showCreatingOrderState:
             self.setupCreatingOrderState()
-            
+            removeTimer()
+
         case .orderDidFailCreate(let error):
-            
+            self.setupUpdateMarketOrderPriceTimer()
             self.showNetworkErrorSnack(error: error)
             self.setupDefaultState()
             
         case .orderDidCreate(let output):
-            
             moduleOutput?.dexCreateOrderDidCreate(output: output)
 
         case .orderNotValid(let error):
@@ -209,6 +275,26 @@ private extension DexCreateOrderViewController {
         case .showDeffaultOrderState:
             setupDefaultState()
         
+        case .updateCreateOrderType(let type):
+            self.createOrderType = type
+            self.setupCreateOrderType()
+            self.setupUpdateMarketOrderPriceTimer()
+            self.setupInputPriceData()
+            self.setupInputTotalData()
+            self.setupButtonSellBuy()
+            self.setupValidationErrors()
+
+        case .updateMarketOrderPrice(let marketOrder):
+            self.inputPrice.setupValue(marketOrder.priceAvg)
+            self.inputTotal.setupValue(marketOrder.total)
+            self.order.price = marketOrder.price
+            self.order.total = marketOrder.total
+            self.setupButtonSellBuy()
+            self.setupValidationErrors()
+            
+        case .updateCheckValidCreateMarketOrder(let isValid):
+            self.isValidCreateMarkerOrder = isValid
+            
         case .none:
             break
         }
@@ -376,11 +462,11 @@ extension DexCreateOrderViewController: DexCreateOrderSegmentedControlDelegate {
 extension DexCreateOrderViewController: DexCreateOrderInputViewDelegate {
 
     func dexCreateOrder(inputView: DexCreateOrderInputView, didChangeValue value: Money) {
-
+        
         if inputView == inputAmount {
             order.amount = value
             
-            if !order.price.isZero && !order.amount.isZero {
+            if !order.price.isZero && !order.amount.isZero && createOrderType == .limit {
 
                 let total = order.price.decimalValue * order.amount.decimalValue
                 order.total = Money(value: total, order.total.decimals)
@@ -491,14 +577,16 @@ private extension DexCreateOrderViewController {
         
         var fields: [String] = []
         
-        if input.bid != nil {
-            fields.append(Localizable.Waves.Dexcreateorder.Button.bid)
-        }
-        if input.ask != nil {
-            fields.append(Localizable.Waves.Dexcreateorder.Button.ask)
-        }
-        if input.last != nil {
-            fields.append(Localizable.Waves.Dexcreateorder.Button.last)
+        if createOrderType == .limit {
+            if input.bid != nil {
+                fields.append(Localizable.Waves.Dexcreateorder.Button.bid)
+            }
+            if input.ask != nil {
+                fields.append(Localizable.Waves.Dexcreateorder.Button.ask)
+            }
+            if input.last != nil {
+                fields.append(Localizable.Waves.Dexcreateorder.Button.last)
+            }
         }
         
         inputPrice.update(with: fields)
@@ -508,7 +596,7 @@ private extension DexCreateOrderViewController {
         
         var fields: [String] = []
         
-        if order.type == .buy && !availablePriceAssetBalance.isZero {
+        if order.type == .buy && !availablePriceAssetBalance.isZero && createOrderType == .limit {
             fields.append(Localizable.Waves.Dexcreateorder.Button.useTotalBalanace)
             fields.append(String(Constants.percent50) + "%")
             fields.append(String(Constants.percent10) + "%")
@@ -610,6 +698,12 @@ private extension DexCreateOrderViewController {
 
 //MARK: - UI
 private extension DexCreateOrderViewController {
+   
+    func setupCreateOrderType() {
+        buttonCreateOrderType.setTitle(createOrderType.title, for: .normal)
+        inputPrice.inputType = createOrderType == .limit ? .default : .market
+        inputTotal.inputType = createOrderType == .limit ? .default : .market
+    }
     
     func setupLocalization() {
         setupLabelExpiration()

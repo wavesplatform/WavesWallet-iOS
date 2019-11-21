@@ -150,7 +150,8 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
     }
     
     func createOrder(wallet: DomainLayer.DTO.SignedWallet,
-                     order: DomainLayer.Query.Dex.CreateOrder) -> Observable<Bool> {
+                     order: DomainLayer.Query.Dex.CreateOrder,
+                     type: DomainLayer.Query.Dex.CreateOrderType) -> Observable<Bool> {
         
         return environmentRepository
             .servicesEnvironment()
@@ -175,21 +176,33 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                                                                 matcherFeeAsset: order.matcherFeeAsset,
                                                                 version: isWavesFee ? .V2 : .V3)
                 
-                return servicesEnvironment
-                    .wavesServices
-                    .matcherServices
-                    .orderBookMatcherService
-                    .createOrder(query: .init(matcherPublicKey: order.matcherPublicKey.getPublicKeyStr(),
-                                              senderPublicKey: wallet.publicKey.getPublicKeyStr(),
-                                              assetPair: .init(amountAssetId: order.amountAsset, priceAssetId: order.priceAsset),
-                                              amount: order.amount,
-                                              price: order.price,
-                                              orderType: (order.orderType == .sell ? .sell : .buy),
-                                              matcherFee: order.matcherFee,
-                                              timestamp: timestamp,
-                                              expirationTimestamp: expirationTimestamp,
-                                              proofs: [createOrderSignature.signature()],
-                                              matcherFeeAsset: order.matcherFeeAsset))
+                let order = MatcherService.Query.CreateOrder(matcherPublicKey: order.matcherPublicKey.getPublicKeyStr(),
+                                                             senderPublicKey: wallet.publicKey.getPublicKeyStr(),
+                                                             assetPair: .init(amountAssetId: order.amountAsset, priceAssetId: order.priceAsset),
+                                                             amount: order.amount,
+                                                             price: order.price,
+                                                             orderType: (order.orderType == .sell ? .sell : .buy),
+                                                             matcherFee: order.matcherFee,
+                                                             timestamp: timestamp,
+                                                             expirationTimestamp: expirationTimestamp,
+                                                             proofs: [createOrderSignature.signature()],
+                                                             matcherFeeAsset: order.matcherFeeAsset)
+                
+                switch type {
+                case .limit:
+                    return servicesEnvironment
+                            .wavesServices
+                            .matcherServices
+                            .orderBookMatcherService
+                            .createOrder(query: order)
+                    
+                case .market:
+                    return servicesEnvironment
+                            .wavesServices
+                            .matcherServices
+                            .orderBookMatcherService
+                            .createMarketOrder(query: order)
+                }
         })
     }
 
