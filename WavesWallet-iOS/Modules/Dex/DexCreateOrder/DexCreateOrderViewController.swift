@@ -104,8 +104,8 @@ final class DexCreateOrderViewController: UIViewController {
     
     @IBAction private func changeOrderMarketType(_ sender: Any) {
         
-        let elements: [ActionSheet.DTO.Element] = [.init(title: DexCreateOrder.DTO.CreateOrderType.market.alertTitle),
-                                                   .init(title: DexCreateOrder.DTO.CreateOrderType.limit.alertTitle)]
+        let elements: [ActionSheet.DTO.Element] = [.init(title: DexCreateOrder.DTO.CreateOrderType.limit.alertTitle),
+                                                   .init(title: DexCreateOrder.DTO.CreateOrderType.market.alertTitle)]
                               
         let selectedElement = elements.first(where: { $0.title == createOrderType.alertTitle })
         var blockedElements: [ActionSheet.DTO.Element] = []
