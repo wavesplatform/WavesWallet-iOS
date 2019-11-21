@@ -1417,6 +1417,12 @@ internal enum Localizable {
             internal static var termsAndConditions: String { return Localizable.tr("Waves", "hello.page.confirm.button.termsAndConditions") }
             internal static var termsAndConditionsKey: String { return "hello.page.confirm.button.termsAndConditions" }
           }
+
+          internal enum Subtitle {
+            /// To finish the migration of your accounts, accept the new Terms and Conditions and Privacy Policy.
+            internal static var migration: String { return Localizable.tr("Waves", "hello.page.confirm.subtitle.migration") }
+            internal static var migrationKey: String { return "hello.page.confirm.subtitle.migration" }
+          }
         }
 
         internal enum Info {

@@ -34,12 +34,23 @@ final class HelloCoordinator: Coordinator {
     }
 
     func start() {
-
-        let vc = StoryboardScene.Hello.helloLanguagesViewController.instantiate()
-        vc.output = self
-        self.navigationRouter.pushViewController(vc, animated: true) { [weak self] in
-            guard let self = self else { return }
-            self.removeFromParentCoordinator()
+        
+        
+        if isNewUser {
+            let vc = StoryboardScene.Hello.helloLanguagesViewController.instantiate()
+            vc.output = self
+            self.navigationRouter.pushViewController(vc, animated: true) { [weak self] in
+                guard let self = self else { return }
+                self.removeFromParentCoordinator()
+            }
+        } else {
+            let vc = StoryboardScene.Hello.infoPagesViewController.instantiate()
+            vc.output = self
+            vc.isNewUser = isNewUser
+            self.navigationRouter.pushViewController(vc, animated: true) { [weak self] in
+                guard let self = self else { return }
+                self.removeFromParentCoordinator()
+            }
         }
 
         self.windowRouter.setRootViewController(self.navigationRouter.navigationController)
