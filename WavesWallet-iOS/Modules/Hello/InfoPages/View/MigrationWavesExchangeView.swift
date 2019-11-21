@@ -41,7 +41,7 @@ final class MigrationWavesExchangeView: UIView, InfoPagesViewDisplayingProtocol 
         super.awakeFromNib()
 
         titleLabel.text = Localizable.Waves.Migration.Wavesexchange.View.title
-        descriptionLabel.text = Localizable.Waves.Migration.Wavesexchange.View.title
+        descriptionLabel.text = Localizable.Waves.Migration.Wavesexchange.View.description
     }
     
     override func didMoveToWindow() {

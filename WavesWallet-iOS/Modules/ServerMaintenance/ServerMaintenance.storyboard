@@ -34,15 +34,20 @@
                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="QCC-HK-hiG">
+                                        <rect key="frame" x="197" y="144.5" width="20" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstItem="zvr-Wl-IM2" firstAttribute="top" secondItem="by0-TK-NzX" secondAttribute="bottom" constant="18" id="1H9-eI-uuN"/>
+                                    <constraint firstItem="QCC-HK-hiG" firstAttribute="centerX" secondItem="Waj-yJ-Sty" secondAttribute="centerX" id="GKc-7m-geR"/>
                                     <constraint firstItem="Waj-yJ-Sty" firstAttribute="top" secondItem="zvr-Wl-IM2" secondAttribute="bottom" constant="8" id="Inh-Au-09m"/>
                                     <constraint firstItem="zvr-Wl-IM2" firstAttribute="leading" secondItem="H3X-T9-KkA" secondAttribute="leading" constant="20" id="U06-JJ-fW2"/>
                                     <constraint firstItem="by0-TK-NzX" firstAttribute="centerX" secondItem="H3X-T9-KkA" secondAttribute="centerX" id="Z1w-Gt-3tU"/>
                                     <constraint firstAttribute="bottom" secondItem="Waj-yJ-Sty" secondAttribute="bottom" id="diy-9o-Uwu"/>
                                     <constraint firstAttribute="trailing" secondItem="zvr-Wl-IM2" secondAttribute="trailing" constant="20" id="dnw-af-tD9"/>
+                                    <constraint firstItem="QCC-HK-hiG" firstAttribute="centerY" secondItem="Waj-yJ-Sty" secondAttribute="centerY" id="k1M-RH-7dH"/>
                                     <constraint firstItem="Waj-yJ-Sty" firstAttribute="leading" secondItem="zvr-Wl-IM2" secondAttribute="leading" id="ofc-wd-IOg"/>
                                     <constraint firstItem="by0-TK-NzX" firstAttribute="top" secondItem="H3X-T9-KkA" secondAttribute="top" id="qB3-MR-xTl"/>
                                     <constraint firstItem="Waj-yJ-Sty" firstAttribute="trailing" secondItem="zvr-Wl-IM2" secondAttribute="trailing" id="zuk-cx-OiD"/>
@@ -58,6 +63,7 @@
                         <viewLayoutGuide key="safeArea" id="wph-2b-AIE"/>
                     </view>
                     <connections>
+                        <outlet property="indicatorView" destination="QCC-HK-hiG" id="RT6-uc-i9L"/>
                         <outlet property="labelSubtitle" destination="Waj-yJ-Sty" id="StP-aA-FOO"/>
                         <outlet property="labelTitle" destination="zvr-Wl-IM2" id="Evp-G3-pyg"/>
                     </connections>

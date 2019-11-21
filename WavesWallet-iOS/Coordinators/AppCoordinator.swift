@@ -29,13 +29,13 @@ struct Application: TSUD {
 
     struct Settings: Codable, Mutating {
         var isAlreadyShowHelloDisplay: Bool  = false
-        var isAlreadyShowMigrationWavesExchangeDisplay: Bool  = false
+        var isAlreadyShowMigrationWavesExchangeDisplay: Bool?  = false
     }
 
     private static let key: String = "com.waves.application.settings"
 
     static var defaultValue: Settings {
-        return Settings(isAlreadyShowHelloDisplay: false)
+        return Settings(isAlreadyShowHelloDisplay: false, isAlreadyShowMigrationWavesExchangeDisplay: false)
     }
 
     static var stringKey: String {
@@ -98,6 +98,7 @@ final class AppCoordinator: Coordinator {
     
     private func launchApplication() {
         
+        self.removeCoordinators()
         self.isLockChangeDisplay = false
         
         #if DEBUG || TEST
@@ -161,6 +162,12 @@ extension AppCoordinator: PresentationCoordinator {
 
             guard isHasCoordinator(type: PasscodeLogInCoordinator.self) != true else { return }
 
+            if isHasCoordinator(type: SlideCoordinator.self) == false {
+                let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: wallet)
+                slideCoordinator.menuViewControllerDelegate = self
+                addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
+            }
+            
             let passcodeCoordinator = PasscodeLogInCoordinator(wallet: wallet, routerKind: .alertWindow)
             passcodeCoordinator.delegate = self
 
@@ -315,12 +322,18 @@ extension AppCoordinator  {
     
     private func display(by wallet: DomainLayer.DTO.Wallet?) -> Observable<Display> {
 
+        let settings = Application.get()
+        
         if let wallet = wallet {
-            return display(by: wallet)
+            if settings.isAlreadyShowMigrationWavesExchangeDisplay ?? false {
+                return display(by: wallet)
+            } else {
+                return Observable.just(Display.hello(false))
+            }            
         } else {
-            let settings = Application.get()
+            
             if settings.isAlreadyShowHelloDisplay {
-                if settings.isAlreadyShowMigrationWavesExchangeDisplay {
+                if settings.isAlreadyShowMigrationWavesExchangeDisplay ?? false {
                     return Observable.just(Display.enter)
                 } else {
                     return Observable.just(Display.hello(false))
@@ -340,7 +353,7 @@ extension AppCoordinator  {
                 } else {
                     return Display.passcode(wallet)
                 }
-        }
+            }
     }
 
     private func logInApplication() {
@@ -411,7 +424,8 @@ extension AppCoordinator: HelloCoordinatorDelegate  {
         }
         
         Application.set(settings)
-        showDisplay(.enter)
+        
+        launchApplication()
     }
 
     func userChangedLanguage(_ language: Language) {

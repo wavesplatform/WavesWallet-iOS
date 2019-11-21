@@ -66,7 +66,8 @@ final class InfoPagesViewController: UIViewController {
         if isNewUser == false {
             let migrationWavesExchangeView: MigrationWavesExchangeView = MigrationWavesExchangeView.loadView()
             migrationWavesExchangeView.delegate = self
-            let confirmView = InfoPageConfirmView.loadView()
+            let confirmView: InfoPageConfirmView = InfoPageConfirmView.loadView()
+            confirmView.isNewUser = isNewUser
             return [migrationWavesExchangeView, confirmView]
         } else {
             let welcomeView = ShortInfoPageView.loadView()
@@ -75,7 +76,8 @@ final class InfoPagesViewController: UIViewController {
             let protectView = ShortInfoPageView.loadView()
             let protectLongView = LongInfoPageView.loadView()
             let migrationWavesExchangeView: MigrationWavesExchangeView = MigrationWavesExchangeView.loadView()
-            let confirmView = InfoPageConfirmView.loadView()
+            let confirmView: InfoPageConfirmView = InfoPageConfirmView.loadView()
+            confirmView.isNewUser = isNewUser
             migrationWavesExchangeView.delegate = self
             
             return [welcomeView, needToKnowView, needToKnowLongView, protectView, protectLongView, migrationWavesExchangeView, confirmView]

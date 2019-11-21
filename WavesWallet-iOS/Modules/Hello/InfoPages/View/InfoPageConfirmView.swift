@@ -38,6 +38,11 @@ final class InfoPageConfirmView: UIView {
     
     weak var delegate: InfoPageConfirmViewDelegate?
         
+    var isNewUser: Bool = false {
+        didSet {
+            setupLocalization()
+        }
+    }
     private var isCheck2 = false
     private var isCheck3 = false
    
@@ -116,7 +121,13 @@ private extension InfoPageConfirmView {
     
     func setupLocalization() {
         labelTitle.text = Localizable.Waves.Hello.Page.Confirm.title
-        labelSubtitle.text = Localizable.Waves.Hello.Page.Confirm.subtitle
+                
+        if isNewUser {
+            labelSubtitle.text = Localizable.Waves.Hello.Page.Confirm.subtitle
+        } else {
+            labelSubtitle.text = Localizable.Waves.Hello.Page.Confirm.Subtitle.migration
+        }
+        
         label2.text = Localizable.Waves.Hello.Page.Confirm.description2
         label3.text = Localizable.Waves.Hello.Page.Confirm.description3
         
