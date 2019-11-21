@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DexCreateOrderInputView" customModule="WavesWallet_iOS" customModuleProvider="target">
             <connections>
+                <outlet property="buttonMinus" destination="bZN-Xr-DbC" id="IfT-hC-Bf0"/>
+                <outlet property="buttonPlus" destination="8ev-sq-nZB" id="NV8-qU-lMa"/>
+                <outlet property="iconLock" destination="ISc-Tv-hUg" id="gNM-al-Nhs"/>
                 <outlet property="inputScrollView" destination="zCw-2D-0ha" id="eKN-DP-LPk"/>
                 <outlet property="labelError" destination="Ln6-k5-cx0" id="hPH-9H-6pH"/>
+                <outlet property="labelRound" destination="9sS-vI-JEk" id="4mg-aO-yhh"/>
                 <outlet property="labelTitle" destination="GxR-Wf-tkp" id="ZlY-FH-bwX"/>
                 <outlet property="separatorView" destination="uqY-TO-lcl" id="0WD-zc-vrv"/>
                 <outlet property="textField" destination="P6c-tW-oCz" id="nsk-ng-6eQ"/>
+                <outlet property="textFieldLeftOffset" destination="jdS-ld-RwY" id="qf3-gN-L67"/>
                 <outlet property="viewTextField" destination="JRl-dB-8bk" id="WnK-hQ-ezT"/>
             </connections>
         </placeholder>
@@ -26,20 +29,25 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount in WAVES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GxR-Wf-tkp">
-                    <rect key="frame" x="16" y="0.0" width="110" height="16"/>
+                    <rect key="frame" x="16" y="0.0" width="109.5" height="16"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.60784313729999995" green="0.65098039220000004" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JRl-dB-8bk">
-                    <rect key="frame" x="0.0" y="24" width="375" height="44"/>
+                    <rect key="frame" x="0.0" y="16" width="375" height="44"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P6c-tW-oCz" customClass="MoneyTextField" customModule="WavesWallet_iOS" customModuleProvider="target">
                             <rect key="frame" x="16" y="0.0" width="269" height="43.5"/>
-                            <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                         </textField>
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="≈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9sS-vI-JEk">
+                            <rect key="frame" x="16" y="10.5" width="11.5" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                            <color key="textColor" red="0.73725490196078436" green="0.73725490196078436" blue="0.73725490196078436" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uqY-TO-lcl">
                             <rect key="frame" x="16" y="43.5" width="343" height="0.5"/>
                             <color key="backgroundColor" red="0.80784313730000001" green="0.81568627449999997" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -69,20 +77,28 @@
                                 <action selector="minusTapped:" destination="-1" eventType="touchUpInside" id="hIi-Qs-IOd"/>
                             </connections>
                         </button>
+                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconDraglock22Disabled400" translatesAutoresizingMaskIntoConstraints="NO" id="ISc-Tv-hUg">
+                            <rect key="frame" x="333" y="11" width="22" height="22"/>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="uqY-TO-lcl" firstAttribute="top" secondItem="P6c-tW-oCz" secondAttribute="bottom" id="7Ic-uQ-Ng0"/>
                         <constraint firstItem="P6c-tW-oCz" firstAttribute="top" secondItem="JRl-dB-8bk" secondAttribute="top" id="9Sd-mY-tYD"/>
                         <constraint firstItem="8ev-sq-nZB" firstAttribute="leading" secondItem="bZN-Xr-DbC" secondAttribute="trailing" id="MpX-1g-BCt"/>
+                        <constraint firstItem="9sS-vI-JEk" firstAttribute="leading" secondItem="JRl-dB-8bk" secondAttribute="leading" constant="16" id="OQk-9D-hPG"/>
                         <constraint firstItem="uqY-TO-lcl" firstAttribute="leading" secondItem="JRl-dB-8bk" secondAttribute="leading" constant="16" id="SNB-m8-2AT"/>
                         <constraint firstAttribute="height" constant="44" id="U6s-4V-wXy"/>
                         <constraint firstAttribute="bottom" secondItem="uqY-TO-lcl" secondAttribute="bottom" id="ULn-L0-MQq"/>
                         <constraint firstItem="8ev-sq-nZB" firstAttribute="centerY" secondItem="P6c-tW-oCz" secondAttribute="centerY" id="UN6-Af-Dta"/>
+                        <constraint firstItem="ISc-Tv-hUg" firstAttribute="centerY" secondItem="JRl-dB-8bk" secondAttribute="centerY" id="X6l-LJ-Yju"/>
                         <constraint firstAttribute="trailing" secondItem="uqY-TO-lcl" secondAttribute="trailing" constant="16" id="bEv-mU-Dbf"/>
                         <constraint firstAttribute="trailing" secondItem="8ev-sq-nZB" secondAttribute="trailing" constant="10" id="bFJ-A0-7mm"/>
                         <constraint firstItem="bZN-Xr-DbC" firstAttribute="centerY" secondItem="8ev-sq-nZB" secondAttribute="centerY" id="eiv-KB-NKe"/>
+                        <constraint firstItem="P6c-tW-oCz" firstAttribute="leading" secondItem="JRl-dB-8bk" secondAttribute="leading" constant="16" id="jdS-ld-RwY"/>
                         <constraint firstItem="bZN-Xr-DbC" firstAttribute="leading" secondItem="P6c-tW-oCz" secondAttribute="trailing" id="lnX-AF-Fi4"/>
+                        <constraint firstItem="9sS-vI-JEk" firstAttribute="centerY" secondItem="P6c-tW-oCz" secondAttribute="centerY" constant="-1" id="n9u-PZ-1rX"/>
+                        <constraint firstAttribute="trailing" secondItem="ISc-Tv-hUg" secondAttribute="trailing" constant="20" id="wFY-Vl-bHm"/>
                     </constraints>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zCw-2D-0ha" customClass="InputScrollButtonsView" customModule="WavesWallet_iOS" customModuleProvider="target">
@@ -101,7 +117,6 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Ln6-k5-cx0" secondAttribute="trailing" constant="16" id="9V4-aS-GAq"/>
-                <constraint firstItem="P6c-tW-oCz" firstAttribute="leading" secondItem="GxR-Wf-tkp" secondAttribute="leading" id="CxO-Bf-3pD"/>
                 <constraint firstItem="JRl-dB-8bk" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Egd-T0-mhN"/>
                 <constraint firstItem="zCw-2D-0ha" firstAttribute="top" secondItem="JRl-dB-8bk" secondAttribute="bottom" constant="8" id="HeT-rX-uXH"/>
                 <constraint firstItem="GxR-Wf-tkp" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="J3g-7g-JBh"/>
@@ -110,7 +125,7 @@
                 <constraint firstItem="zCw-2D-0ha" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Uly-xg-5NV"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="zCw-2D-0ha" secondAttribute="trailing" id="ilp-wH-vrU"/>
                 <constraint firstAttribute="trailing" secondItem="JRl-dB-8bk" secondAttribute="trailing" id="jXY-zn-zGs"/>
-                <constraint firstItem="JRl-dB-8bk" firstAttribute="top" secondItem="GxR-Wf-tkp" secondAttribute="bottom" constant="8" id="vkG-Nv-kaR"/>
+                <constraint firstItem="JRl-dB-8bk" firstAttribute="top" secondItem="GxR-Wf-tkp" secondAttribute="bottom" id="vkG-Nv-kaR"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -118,6 +133,7 @@
         </view>
     </objects>
     <resources>
+        <image name="iconDraglock22Disabled400" width="22" height="22"/>
         <image name="minus18Disabled900" width="18" height="18"/>
         <image name="plus18Disabled900" width="18" height="18"/>
     </resources>

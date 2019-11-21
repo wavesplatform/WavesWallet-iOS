@@ -6,13 +6,18 @@
 //  Copyright © 2018 Waves Exchange. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol DexCreateOrderModuleOutput: AnyObject {
     
     func dexCreateOrderDidCreate(output: DexCreateOrder.DTO.Output)
     
     func dexCreateOrderWarningForPrice(isPriceHigherMarket: Bool, callback: @escaping ((_ isSuccess: Bool) -> Void))
+
+    func dexCreatOrderDidTapMarketTypeInfo()
+    
+    func dexCreateOrderDidPresentAlert(_ alert: UIViewController)
+    func dexCreateOrderDidDismisAlert()
 }
 
 protocol DexCreateOrderProtocol {

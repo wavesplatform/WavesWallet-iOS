@@ -82,7 +82,9 @@ extension ActionSheetViewController: UITableViewDataSource {
         
         let element = data.elements[indexPath.row]
         
-        cell.update(with: .init(title: element.title, isSelected: selectedElementsMap[element.title] != nil))
+        cell.update(with: .init(title: element.title,
+                                isSelected: selectedElementsMap[element.title] != nil,
+                                isBlocked: data.blockedElements.contains(where: {$0.title == element.title})))
         return cell
     }
     
@@ -103,9 +105,12 @@ extension ActionSheetViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let element = data.elements [indexPath.row]
+        
+        if data.blockedElements.contains(where: {$0.title == element.title}) {
+            return
+        }
+        
         elementDidSelect?(element)
-        
-        
         selectedElementsMap.removeAll()
         selectedElementsMap[element.title] = element
         tableView.reloadData()

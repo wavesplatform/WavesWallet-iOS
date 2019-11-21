@@ -152,6 +152,17 @@
 "dexcreateorder.label.notEnough" = "Not enough";
 "dexcreateorder.label.smallValue" = "Value is too small";
 "dexcreateorder.label.totalIn" = "Total in";
+"dexcreateorder.label.limitOrder" = "Limit Order";
+"dexcreateorder.label.marketOrder" = "Market Order";
+"dexcreateorder.alert.limitOrder" = "Limit";
+"dexcreateorder.alert.marketOrder" = "Market";
+"dexcreateorder.alert.orderType" = "Order Type";
+"dexcreateorderinfo.label.orderTypes" = "Order Types";
+"dexcreateorderinfo.label.market" = "Market";
+"dexcreateorderinfo.label.marketDescription" = "When the layperson imagines a typical stock market transaction, he thinks of market orders. These orders are the most basic buy and sell trades; a broker receives a security trade order, and that order is processed at the current market price.";
+"dexcreateorderinfo.label.limit" = "Limit";
+"dexcreateorderinfo.label.limitDescription" = "When the layperson imagines a typical stock market transaction, he thinks of market orders. These orders are the most basic buy and sell trades; a broker receives a security trade order, and that order is processed at the current market price.";
+"dexcreateorderinfo.button.gotIt" = "Got it";
 "dexinfo.label.amountAsset" = "Amount Token";
 "dexinfo.label.popular" = "Popular";
 "dexinfo.label.priceAsset" = "Price Token";

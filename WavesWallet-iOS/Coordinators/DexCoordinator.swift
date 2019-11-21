@@ -79,10 +79,12 @@ class DexCoordinator: Coordinator {
     }()
     
     private lazy var dexCreateOrderPopup = PopupViewController()
-    
+    private lazy var dexCreateOrderInfoPopup = PopupViewController()
     
     private var navigationRouter: NavigationRouter
 
+    private lazy var popoverViewControllerTransitioning = ModalViewControllerTransitioning(dismiss: nil)
+    
     init(navigationRouter: NavigationRouter) {
         self.navigationRouter = navigationRouter
     }
@@ -224,9 +226,12 @@ private extension DexCoordinator {
                     let actionContinue = { [weak self] in
                         guard let self = self else { return }
                         
-                        let controller = DexCreateOrderModuleBuilder(output: self).build(input: input)
-                        let popup = PopupViewController()
-                        popup.present(contentViewController: controller)
+                        if let controller = DexCreateOrderModuleBuilder(output: self).build(input: input) as? DexCreateOrderViewController {
+                            self.dexCreateOrderPopup.onDismiss = {
+                                controller.removeTimer()
+                            }
+                            self.dexCreateOrderPopup.present(contentViewController: controller)
+                        }
                     }
                     
                     let vc = DexScriptAssetMessageModuleBuilder(output: self).build(input: .init(assets: scriptedAssets,
@@ -237,8 +242,12 @@ private extension DexCoordinator {
                     popup.present(contentViewController: vc)
                 }
                 else {
-                    let controller = DexCreateOrderModuleBuilder(output: self).build(input: input)
-                    self.dexCreateOrderPopup.present(contentViewController: controller)
+                    if let controller = DexCreateOrderModuleBuilder(output: self).build(input: input) as? DexCreateOrderViewController {
+                        self.dexCreateOrderPopup.onDismiss = {
+                            controller.removeTimer()
+                        }
+                        self.dexCreateOrderPopup.present(contentViewController: controller)
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -247,6 +256,24 @@ private extension DexCoordinator {
 
 //MARK: - DexCreateOrderModuleOutput
 extension DexCoordinator: DexCreateOrderModuleOutput {
+    func dexCreateOrderDidDismisAlert() {
+        dexCreateOrderPopup.dismiss(animated: true, completion: nil)
+    }
+    
+    func dexCreateOrderDidPresentAlert(_ alert: UIViewController) {
+        alert.modalPresentationStyle = .custom
+        alert.transitioningDelegate = popoverViewControllerTransitioning
+        dexCreateOrderPopup.present(alert, animated: true) {}
+    }
+    
+    
+    func dexCreatOrderDidTapMarketTypeInfo() {
+        
+        if let vc = DexCreateOrderInfoModuleBuilder(output: self).build() as? DexCreateOrderInfoViewController {
+            dexCreateOrderInfoPopup.contentHeight = vc.calculateHeight()
+            dexCreateOrderInfoPopup.present(contentViewController: vc)
+        }
+    }
     
     func dexCreateOrderWarningForPrice(isPriceHigherMarket: Bool, callback: @escaping ((_ isSuccess: Bool) -> Void)) {
         
@@ -298,5 +325,13 @@ extension DexCoordinator: DexScriptAssetMessageModuleOutput {
                                     dotNotShow: doNotShow)
 
         }).disposed(by: disposeBag)
+    }
+}
+
+//MARK: - DexCreateOrderInfoModuleBuilderOutput
+extension DexCoordinator: DexCreateOrderInfoModuleBuilderOutput {
+ 
+    func dexCreateOrderInfoDidTapClose() {
+        dexCreateOrderInfoPopup.dismissPopup()
     }
 }
