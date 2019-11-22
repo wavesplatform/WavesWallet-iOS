@@ -38,6 +38,7 @@ enum UIGlobalConstants {
         static let support = "https://support.waves.exchange/"
         static let faq = "https://waves.exchange/faq"
         static let twitter = "https://twitter.com/Waves_Exchange"
+        static let client = "https://waves.exchange/"
     }
     
     static let supportEmail = "support@waves.exchange"

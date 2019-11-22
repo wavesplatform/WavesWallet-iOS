@@ -20,6 +20,8 @@ private enum Constants {
     static let firstAnimationDuration: TimeInterval = 0.40
     static let firstAnimationDelay: TimeInterval = 0.30
     static let secondAnimationDuration: TimeInterval = 0.40
+    static let topTitlePadding: CGFloat = 44
+    static let bottomContainerIconsPadding: CGFloat = 44
 }
 
 final class MigrationWavesExchangeView: UIView, InfoPagesViewDisplayingProtocol {
@@ -34,6 +36,10 @@ final class MigrationWavesExchangeView: UIView, InfoPagesViewDisplayingProtocol 
     
     @IBOutlet private weak var logoOldCenterY: NSLayoutConstraint!
     @IBOutlet private weak var logoNewCenterY: NSLayoutConstraint!
+    
+    @IBOutlet private weak var titlePositionTop: NSLayoutConstraint!
+    
+    @IBOutlet private weak var containerIconsPositionBottom: NSLayoutConstraint!
 
     weak var delegate: MigrationWavesExchangeDelegate?
         
@@ -42,6 +48,11 @@ final class MigrationWavesExchangeView: UIView, InfoPagesViewDisplayingProtocol 
 
         titleLabel.text = Localizable.Waves.Migration.Wavesexchange.View.title
         descriptionLabel.text = Localizable.Waves.Migration.Wavesexchange.View.description
+        
+        if Platform.isIphone5 {
+            titlePositionTop.constant = Constants.topTitlePadding
+            containerIconsPositionBottom.constant = Constants.bottomContainerIconsPadding
+        }
     }
     
     override func didMoveToWindow() {

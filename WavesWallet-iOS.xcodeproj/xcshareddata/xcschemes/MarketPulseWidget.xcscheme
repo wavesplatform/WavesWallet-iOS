@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E9B190A622E7CD99008220B7"
-               BuildableName = "MarketPulseWidget.appex"
+               BuildableName = "Waves Exchange Market.appex"
                BlueprintName = "MarketPulseWidget"
                ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E9B190A622E7CD99008220B7"
-            BuildableName = "MarketPulseWidget.appex"
+            BuildableName = "Waves Exchange Market.appex"
             BlueprintName = "MarketPulseWidget"
             ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
          </BuildableReference>
@@ -72,7 +72,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E9B190A622E7CD99008220B7"
-            BuildableName = "MarketPulseWidget.appex"
+            BuildableName = "Waves Exchange Market.appex"
             BlueprintName = "MarketPulseWidget"
             ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
          </BuildableReference>
@@ -98,7 +98,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E9B190A622E7CD99008220B7"
-            BuildableName = "MarketPulseWidget.appex"
+            BuildableName = "Waves Exchange Market.appex"
             BlueprintName = "MarketPulseWidget"
             ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
          </BuildableReference>
@@ -107,7 +107,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E9B190A622E7CD99008220B7"
-            BuildableName = "MarketPulseWidget.appex"
+            BuildableName = "Waves Exchange Market.appex"
             BlueprintName = "MarketPulseWidget"
             ReferencedContainer = "container:WavesWallet-iOS.xcodeproj">
          </BuildableReference>

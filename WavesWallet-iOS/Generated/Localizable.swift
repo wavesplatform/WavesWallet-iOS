@@ -895,13 +895,13 @@ internal enum Localizable {
         /// Limit
         internal static var limit: String { return Localizable.tr("Waves", "dexcreateorderinfo.label.limit") }
         internal static var limitKey: String { return "dexcreateorderinfo.label.limit" }
-        /// When the layperson imagines a typical stock market transaction, he thinks of market orders. These orders are the most basic buy and sell trades; a broker receives a security trade order, and that order is processed at the current market price.
+        /// It is an order placed in the order book at a specific (limit) price.
         internal static var limitDescription: String { return Localizable.tr("Waves", "dexcreateorderinfo.label.limitDescription") }
         internal static var limitDescriptionKey: String { return "dexcreateorderinfo.label.limitDescription" }
         /// Market
         internal static var market: String { return Localizable.tr("Waves", "dexcreateorderinfo.label.market") }
         internal static var marketKey: String { return "dexcreateorderinfo.label.market" }
-        /// When the layperson imagines a typical stock market transaction, he thinks of market orders. These orders are the most basic buy and sell trades; a broker receives a security trade order, and that order is processed at the current market price.
+        /// It is an order to buy or sell instantly, at the best available price.
         internal static var marketDescription: String { return Localizable.tr("Waves", "dexcreateorderinfo.label.marketDescription") }
         internal static var marketDescriptionKey: String { return "dexcreateorderinfo.label.marketDescription" }
         /// Order Types
@@ -1671,7 +1671,7 @@ internal enum Localizable {
                 /// Settings — General — Export account
                 internal static var detail: String { return Localizable.tr("Waves", "import.account.label.info.step.one.detail") }
                 internal static var detailKey: String { return "import.account.label.info.step.one.detail" }
-                /// Log in to your Waves Client via your PC or Mac at https://client.wavesplatform.com
+                /// Log in to your Waves Client via your PC or Mac at https://waves.exchange
                 internal static var title: String { return Localizable.tr("Waves", "import.account.label.info.step.one.title") }
                 internal static var titleKey: String { return "import.account.label.info.step.one.title" }
               }
@@ -1890,7 +1890,7 @@ internal enum Localizable {
       internal enum Wavesexchange {
 
         internal enum View {
-          /// To offer users a better experience and wider range of tools,the exchange is moving from Waves DEX to Waves.Exchange. Waves DEX will stop operating on December 2, 2019. To continue trading you should move your accounts to the new exchange. The migration process is fast, easy and absolutely secure. Don’t worry! All of your tokens, seed phrases and passwords are safe.
+          /// To offer users a better experience and wider range of tools, the exchange is moving from Waves DEX to Waves. Exchange. Waves DEX will stop operating on December 2, 2019.\n\nTo continue trading you should move your accounts to the new exchange. The migration process is fast, easy and absolutely secure.\n\nDon’t worry! All of your tokens, seed phrases and passwords are safe.
           internal static var description: String { return Localizable.tr("Waves", "migration.wavesexchange.view.description") }
           internal static var descriptionKey: String { return "migration.wavesexchange.view.description" }
           /// We are moving!
@@ -2773,7 +2773,7 @@ internal enum Localizable {
       }
 
       internal enum Label {
-        /// Please try again later
+        /// We are sorry! We just need to make some improvements to transfer to Waves Exchange. Please try again later!
         internal static var subtitle: String { return Localizable.tr("Waves", "serverMaintenance.label.subtitle") }
         internal static var subtitleKey: String { return "serverMaintenance.label.subtitle" }
         /// Server maintenance temporary
@@ -3543,7 +3543,7 @@ internal enum Localizable {
       }
 
       internal enum Navigation {
-        /// Market pulse
+        /// Waves Exchange Pulse
         internal static var title: String { return Localizable.tr("Waves", "widgetsettings.navigation.title") }
         internal static var titleKey: String { return "widgetsettings.navigation.title" }
       }

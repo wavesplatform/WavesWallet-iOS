@@ -13,7 +13,7 @@ import DomainLayer
 import Extensions
 
 private enum Constancts {
-    static let baseUrl = "https://client.wavesplatform.com/"
+    static let baseUrl = UIGlobalConstants.URL.client
     static let apiPath = "#send/"
 }
 
