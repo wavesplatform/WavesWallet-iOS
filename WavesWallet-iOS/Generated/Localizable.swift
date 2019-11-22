@@ -1671,7 +1671,7 @@ internal enum Localizable {
                 /// Settings — General — Export account
                 internal static var detail: String { return Localizable.tr("Waves", "import.account.label.info.step.one.detail") }
                 internal static var detailKey: String { return "import.account.label.info.step.one.detail" }
-                /// Log in to your Waves Client via your PC or Mac at https://client.wavesplatform.com
+                /// Log in to your Waves Client via your PC or Mac at https://waves.exchange
                 internal static var title: String { return Localizable.tr("Waves", "import.account.label.info.step.one.title") }
                 internal static var titleKey: String { return "import.account.label.info.step.one.title" }
               }

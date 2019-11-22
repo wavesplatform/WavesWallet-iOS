@@ -18,22 +18,22 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5MP-wo-vjW">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="391.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="411.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm and Begin" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y0P-xa-Udn">
-                                    <rect key="frame" x="24" y="44" width="327" height="41"/>
+                                    <rect key="frame" x="24" y="64" width="327" height="41"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All the data on your Waves Wallet is encrypted and stored only on your device" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZER-sT-XYA">
-                                    <rect key="frame" x="24" y="99" width="327" height="31.5"/>
+                                    <rect key="frame" x="24" y="119" width="327" height="31.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1qH-Gg-35S" userLabel="View A">
-                                    <rect key="frame" x="14" y="174.5" width="347" height="47"/>
+                                    <rect key="frame" x="14" y="194.5" width="347" height="47"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="I understand that if this app is moved to another device or deleted, my Waves can only be recovered with the backup phrase" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XeP-yX-U3p">
                                             <rect key="frame" x="47" y="0.0" width="300" height="47"/>
@@ -71,7 +71,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zQF-N3-1N8" userLabel="View B">
-                                    <rect key="frame" x="14" y="245.5" width="347" height="40"/>
+                                    <rect key="frame" x="14" y="265.5" width="347" height="40"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="I have read, understood, and agree to the Terms of Use" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xaM-b7-tBY">
                                             <rect key="frame" x="47" y="0.0" width="300" height="40"/>
@@ -109,7 +109,7 @@
                                     </constraints>
                                 </view>
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kp0-XC-bYR">
-                                    <rect key="frame" x="0.0" y="329.5" width="375" height="38"/>
+                                    <rect key="frame" x="0.0" y="349.5" width="375" height="38"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GeJ-tJ-IbE">
                                             <rect key="frame" x="0.0" y="0.0" width="256" height="38"/>
@@ -165,7 +165,7 @@
                                     </constraints>
                                 </scrollView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cbl-EY-Mtb" userLabel="Left Gradient View" customClass="GradientView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="329.5" width="48" height="38"/>
+                                    <rect key="frame" x="0.0" y="349.5" width="48" height="38"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="48" id="SGI-cZ-uQV"/>
@@ -173,7 +173,7 @@
                                     <viewLayoutGuide key="safeArea" id="16g-fP-4tq"/>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Chs-Y2-NCf" userLabel="Right Gradient View" customClass="GradientView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                    <rect key="frame" x="327" y="329.5" width="48" height="38"/>
+                                    <rect key="frame" x="327" y="349.5" width="48" height="38"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="48" id="w1Y-v4-CIR"/>
@@ -200,9 +200,7 @@
                                 <constraint firstAttribute="trailing" secondItem="kp0-XC-bYR" secondAttribute="trailing" id="b4w-Yf-3hH"/>
                                 <constraint firstItem="Cbl-EY-Mtb" firstAttribute="height" secondItem="kp0-XC-bYR" secondAttribute="height" id="koa-FA-0oy"/>
                                 <constraint firstItem="ZER-sT-XYA" firstAttribute="leading" secondItem="5MP-wo-vjW" secondAttribute="leading" constant="24" id="nYl-Nd-DOg"/>
-                                <constraint firstItem="y0P-xa-Udn" firstAttribute="top" secondItem="5MP-wo-vjW" secondAttribute="top" constant="64" id="p3I-BJ-SJH">
-                                    <variation key="heightClass=regular-widthClass=compact" constant="44"/>
-                                </constraint>
+                                <constraint firstItem="y0P-xa-Udn" firstAttribute="top" secondItem="5MP-wo-vjW" secondAttribute="top" constant="64" id="p3I-BJ-SJH"/>
                                 <constraint firstItem="ZER-sT-XYA" firstAttribute="top" secondItem="y0P-xa-Udn" secondAttribute="bottom" constant="14" id="pU9-YT-MEe"/>
                                 <constraint firstItem="Cbl-EY-Mtb" firstAttribute="top" secondItem="kp0-XC-bYR" secondAttribute="top" id="vZq-3H-kjx"/>
                                 <constraint firstItem="y0P-xa-Udn" firstAttribute="leading" secondItem="5MP-wo-vjW" secondAttribute="leading" constant="24" id="ypd-rY-dQs"/>
@@ -243,6 +241,7 @@
                 <outlet property="scrollView" destination="0pV-aJ-Ml3" id="UcS-3F-8od"/>
                 <outlet property="termsConditionsWidth" destination="7nz-du-sMF" id="ZJm-Bh-AQH"/>
                 <outlet property="termsOfUseWidth" destination="3ht-BR-Gl4" id="lwB-6Q-sDN"/>
+                <outlet property="titlePositionTop" destination="p3I-BJ-SJH" id="A43-BV-th6"/>
             </connections>
             <point key="canvasLocation" x="53.600000000000001" y="48.125937031484263"/>
         </view>

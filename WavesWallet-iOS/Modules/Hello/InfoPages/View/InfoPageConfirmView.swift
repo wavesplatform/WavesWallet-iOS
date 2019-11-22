@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Extensions
 
 protocol InfoPageConfirmViewDelegate: AnyObject {
     func infoPageConfirmView(isActive: Bool)
@@ -15,6 +16,7 @@ protocol InfoPageConfirmViewDelegate: AnyObject {
 
 private enum Constants {
     static let buttonDeltaWidth: CGFloat = 24
+    static let topTitlePadding: CGFloat = 44
 }
 
 
@@ -32,6 +34,8 @@ final class InfoPageConfirmView: UIView {
     @IBOutlet private weak var termsConditionsWidth: NSLayoutConstraint!
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var buttonsScrollView: UIScrollView!
+    
+    @IBOutlet private weak var titlePositionTop: NSLayoutConstraint!
     
     @IBOutlet private var rightGradientView: GradientView!
     @IBOutlet private var leftGradientView: GradientView!
@@ -62,6 +66,11 @@ final class InfoPageConfirmView: UIView {
         leftGradientView.direction = .custom(GradientView.Settings.init(startPoint: CGPoint(x: 0.0, y: 0),
                                                                         endPoint: CGPoint(x: 1, y: 0),
                                                                         locations: [0, 1.0]))
+        
+        
+        if Platform.isIphone5 {
+            titlePositionTop.constant = Constants.topTitlePadding            
+        }
     }
         
     @IBAction private func check2Tapped(_ sender: Any) {
