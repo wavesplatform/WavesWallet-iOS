@@ -2766,6 +2766,12 @@ internal enum Localizable {
 
     internal enum Servermaintenance {
 
+      internal enum Button {
+        /// Retry
+        internal static var retry: String { return Localizable.tr("Waves", "serverMaintenance.button.retry") }
+        internal static var retryKey: String { return "serverMaintenance.button.retry" }
+      }
+
       internal enum Label {
         /// Please try again later
         internal static var subtitle: String { return Localizable.tr("Waves", "serverMaintenance.label.subtitle") }

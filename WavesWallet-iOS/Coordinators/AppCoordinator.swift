@@ -533,6 +533,22 @@ private extension AppCoordinator {
                 }
             })
             .disposed(by: disposeBag)
+        
+        NotificationCenter.default
+            .rx.notification(UIApplication.willEnterForegroundNotification, object: nil)
+            .flatMap { [weak self] (_) -> Observable<Bool> in
+                guard let self = self else { return Observable.never() }
+                return self.developmentConfigsRepository
+                    .isEnabledMaintenance()
+            }
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] isEnabledMaintenance in
+                guard let self = self else { return }
+                if isEnabledMaintenance {
+                    self.showDisplay(.maintenanceServer)
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 
