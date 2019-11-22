@@ -917,7 +917,7 @@
 		E999E6A62323D5C300EDDF45 /* WavesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E999E6A52323D5C300EDDF45 /* WavesSDK.framework */; };
 		E999E6A82323D5C900EDDF45 /* WavesSDKCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E999E6A72323D5C900EDDF45 /* WavesSDKCrypto.framework */; };
 		E999E6AA2323D5D200EDDF45 /* WavesSDKExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E999E6A92323D5D200EDDF45 /* WavesSDKExtensions.framework */; };
-		E999E6AB2323D61300EDDF45 /* MarketPulseWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E9B190A722E7CD99008220B7 /* MarketPulseWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E999E6AB2323D61300EDDF45 /* Waves Exchange Market.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E9B190A722E7CD99008220B7 /* Waves Exchange Market.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E99A3B7522BE5CEB0070AC76 /* GatewayRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99A3B7422BE5CEB0070AC76 /* GatewayRepositoryProtocol.swift */; };
 		E99A3B7722BE5DB70070AC76 /* GatewayDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99A3B7622BE5DB70070AC76 /* GatewayDomainDTO.swift */; };
 		E9A05C5820E9264300B0E0FA /* UseTouchIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A05C5720E9264300B0E0FA /* UseTouchIDViewController.swift */; };
@@ -1255,7 +1255,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				E999E6AB2323D61300EDDF45 /* MarketPulseWidget.appex in Embed App Extensions */,
+				E999E6AB2323D61300EDDF45 /* Waves Exchange Market.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2380,7 +2380,7 @@
 		E9B12DB4219DD6E000128EFE /* AssetBalanceSpamCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetBalanceSpamCell.xib; sourceTree = "<group>"; };
 		E9B12DB7219E2D3900128EFE /* AssetBurnCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetBurnCell.swift; sourceTree = "<group>"; };
 		E9B12DB8219E2D3900128EFE /* AssetBurnCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AssetBurnCell.xib; sourceTree = "<group>"; };
-		E9B190A722E7CD99008220B7 /* MarketPulseWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MarketPulseWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9B190A722E7CD99008220B7 /* Waves Exchange Market.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Waves Exchange Market.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9B190A822E7CD99008220B7 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		E9B190AB22E7CD99008220B7 /* MarketPulseWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPulseWidgetViewController.swift; sourceTree = "<group>"; };
 		E9B190AE22E7CD99008220B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -6041,7 +6041,7 @@
 				7B431A8C22BD176D00DE73B9 /* DomainLayerTests.xctest */,
 				7B431A9C22BD185A00DE73B9 /* DataLayerTests.xctest */,
 				7B83A7D022D8C74E0038180D /* DummyForTest.app */,
-				E9B190A722E7CD99008220B7 /* MarketPulseWidget.appex */,
+				E9B190A722E7CD99008220B7 /* Waves Exchange Market.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -6249,7 +6249,7 @@
 			);
 			name = MarketPulseWidget;
 			productName = MarketPulseWidget;
-			productReference = E9B190A722E7CD99008220B7 /* MarketPulseWidget.appex */;
+			productReference = E9B190A722E7CD99008220B7 /* Waves Exchange Market.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		F7E954E31EA8FE0700A804DE /* WavesWallet-iOS */ = {
@@ -10001,7 +10001,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.dev.widgetmarketpulse;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Waves Exchange Market";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wavesplatform.waveswallet.dev.widgetmarketpulse";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -10068,7 +10068,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.dev.widgetmarketpulse;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Waves Exchange Market";
 				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.wavesplatform.waveswallet.dev.widgetmarketpulse";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -10135,7 +10135,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet.widgetmarketpulse;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Waves Exchange Market";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.wavesplatform.WavesWallet.widgetmarketpulse";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -10202,7 +10202,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet.widgetmarketpulse;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Waves Exchange Market";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wavesplatform.WavesWallet.widgetmarketpulse";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -10269,7 +10269,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.test.widgetmarketpulse;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Waves Exchange Market";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wavesplatform.waveswallet.test.widgetmarketpulse";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -10336,7 +10336,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.test.widgetmarketpulse;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Waves Exchange Market";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.wavesplatform.waveswallet.test.widgetmarketpulse";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
