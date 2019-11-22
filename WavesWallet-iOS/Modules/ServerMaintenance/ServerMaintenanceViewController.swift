@@ -18,6 +18,7 @@ protocol ServerMaintenanceViewControllerDelegate: AnyObject {
 
 final class ServerMaintenanceViewController: UIViewController {
 
+    @IBOutlet private weak var buttonRetry: UIButton!
     @IBOutlet private weak var labelTitle: UILabel!
     @IBOutlet private weak var labelSubtitle: UILabel!
     @IBOutlet private weak var indicatorView: UIActivityIndicatorView!
@@ -40,8 +41,7 @@ final class ServerMaintenanceViewController: UIViewController {
                    .notification(UIApplication.willEnterForegroundNotification,
                                  object: nil)
                     .do(onNext: { [weak self] _ in
-                        self?.indicatorView.isHidden = false
-                        self?.labelSubtitle.isHidden = true
+                        self?.setupLoadingState()
                     })
                    .flatMap { [weak self] (_) -> Observable<Bool> in
                        guard let self = self else { return Observable.never() }
@@ -50,29 +50,55 @@ final class ServerMaintenanceViewController: UIViewController {
                            .isEnabledMaintenance()
                    }
                     .do(onError: { [weak self] _ in
-                        self?.indicatorView.isHidden = true
-                        self?.labelSubtitle.isHidden = false
+                        self?.setupErrorState()
                     })
                    .observeOn(MainScheduler.instance)
                    .subscribe(onNext: { [weak self] isEnabledMaintenance in
-                       guard let self = self else { return }
-                    
-                        self.indicatorView.isHidden = true
-                        self.labelSubtitle.isHidden = false
-                        print("NotificationCenter \(isEnabledMaintenance)")
-                       if isEnabledMaintenance == false {
-                           self.delegate?.serverMaintenanceDisabled()
-                       }
+                        guard let self = self else { return }
+                        self.validateMaintenanceStatus(isEnabledMaintenance: isEnabledMaintenance)
                    })
                    .disposed(by: disposeBag)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    private func setupLoadingState() {
+        indicatorView.isHidden = false
+        labelSubtitle.isHidden = true
+        buttonRetry.isEnabled = false
+    }
+    
+    private func setupErrorState() {
+        indicatorView.isHidden = true
+        labelSubtitle.isHidden = false
+        buttonRetry.isEnabled = true
+    }
+    
+    private func validateMaintenanceStatus(isEnabledMaintenance: Bool) {
+        indicatorView.isHidden = true
+        labelSubtitle.isHidden = false
+        buttonRetry.isEnabled = true
+        if isEnabledMaintenance == false {
+            delegate?.serverMaintenanceDisabled()
+        }
+    }
+    
+    @IBAction private func retryTapped(_ sender: Any) {
+        setupLoadingState()
+        developmentConfigsRepository
+        .isEnabledMaintenance()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] isEnabledMaintenance in
+                guard let self = self else { return }
+                self.validateMaintenanceStatus(isEnabledMaintenance: isEnabledMaintenance)
+
+            }, onError: { [weak self] _ in
+                self?.setupErrorState()
+
+            }).disposed(by: disposeBag)
     }
     
     private func setupLocalization() {
         labelTitle.text = Localizable.Waves.Servermaintenance.Label.title
         labelSubtitle.text = Localizable.Waves.Servermaintenance.Label.subtitle
+        buttonRetry.setTitle(Localizable.Waves.Servermaintenance.Button.retry, for: .normal)
     }
 }

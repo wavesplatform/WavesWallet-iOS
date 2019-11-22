@@ -712,3 +712,4 @@ You can use the web version to access your Waves account for now.";
 
 "serverMaintenance.label.subtitle" = "Please try again later";
 "serverMaintenance.label.title" = "Server maintenance temporary";
+"serverMaintenance.button.retry" = "Retry";
