@@ -23,6 +23,4 @@ protocol DexCreateOrderInteractorProtocol {
                                    priceAsset: DomainLayer.DTO.Dex.Asset,
                                    orderAmount: Money,
                                    type: DomainLayer.DTO.Dex.OrderType) -> Observable<DexCreateOrder.DTO.MarketOrder>
-    
-    func canCreateMarketOrder(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, type: DomainLayer.DTO.Dex.OrderType) -> Observable<Bool>
 }

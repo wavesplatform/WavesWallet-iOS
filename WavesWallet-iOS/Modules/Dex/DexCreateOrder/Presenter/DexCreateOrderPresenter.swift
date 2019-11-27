@@ -27,7 +27,6 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
         newFeedbacks.append(feeQuery())
         newFeedbacks.append(isValidOrderQuery())
         newFeedbacks.append(calculateMarketPriceQuery())
-        newFeedbacks.append(isValidCreateMarketOrder())
 
         Driver.system(initialState: DexCreateOrder.State.initialState(feeAssetId: feeAssetId),
                       reduce: { [weak self] state, event -> DexCreateOrder.State in
@@ -39,22 +38,7 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
             .disposed(by: disposeBag)
         
     }
-    
-    private func isValidCreateMarketOrder() -> Feedback {
-        return react(request: { state -> DexCreateOrder.State? in
-            return state.isNeedCheckValidCreateMarketOrder ? state : nil
-        }, effects: { [weak self] state -> Signal<DexCreateOrder.Event> in
-            
-            guard let self = self else { return Signal.empty() }
-            guard let order = state.order else { return Signal.empty() }
-            return self
-                .interactor
-                .canCreateMarketOrder(amountAsset: order.amountAsset, priceAsset: order.priceAsset, type: order.type)
-                .map {.didCheckValidCreateMarketOrder($0)}
-                .asSignal(onErrorRecover: { Signal.just(.handlerFeeError($0)) } )
-        })
-    }
-    
+
     private func feeQuery() -> Feedback {
         return react(request: { state -> DexCreateOrder.State? in
             return state.isNeedGetFee ? state : nil
@@ -228,10 +212,6 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
                     $0.isNeedCalculateMarketOrderPrice = true
                 }
                 
-                if $0.order?.type != order.type {
-                    $0.isNeedCheckValidCreateMarketOrder = true
-                }
-                
                 $0.order = order
             }.changeAction(.none)
             
@@ -252,11 +232,6 @@ final class DexCreateOrderPresenter: DexCreateOrderPresenterProtocol {
                 $0.order?.price = marketOrder.price
                 $0.order?.total = marketOrder.total
             }.changeAction(.updateMarketOrderPrice(marketOrder))
-            
-        case .didCheckValidCreateMarketOrder(let isValid):
-            return state.mutate {
-                $0.isNeedCheckValidCreateMarketOrder = false
-            }.changeAction(.updateCheckValidCreateMarketOrder(isValid))
         }
     }
 }
@@ -282,7 +257,6 @@ fileprivate extension DexCreateOrder.State {
                                     isDisabledSellBuyButton: false,
                                     feeAssetId: feeAssetId,
                                     createOrderType: .limit,
-                                    isNeedCalculateMarketOrderPrice: false,
-                                    isNeedCheckValidCreateMarketOrder: false)
+                                    isNeedCalculateMarketOrderPrice: false)
     }
 }

@@ -29,7 +29,6 @@ enum DexCreateOrder {
         case changeCreateOrderType(DexCreateOrder.DTO.CreateOrderType)
         case updateMarketOrderPrice
         case didGetMarketOrderPrice(DexCreateOrder.DTO.MarketOrder)
-        case didCheckValidCreateMarketOrder(Bool)
     }
     
     enum CreateOrderError: Error {
@@ -49,7 +48,6 @@ enum DexCreateOrder {
             case didGetFee(DTO.FeeSettings)
             case updateCreateOrderType(DexCreateOrder.DTO.CreateOrderType)
             case updateMarketOrderPrice(DexCreateOrder.DTO.MarketOrder)
-            case updateCheckValidCreateMarketOrder(Bool)
         }
         
         var isNeedCreateOrder: Bool
@@ -62,7 +60,6 @@ enum DexCreateOrder {
         var feeAssetId: String
         var createOrderType: DTO.CreateOrderType
         var isNeedCalculateMarketOrderPrice: Bool
-        var isNeedCheckValidCreateMarketOrder: Bool
     }
 }
 
@@ -192,7 +189,6 @@ extension DexCreateOrder.State: Equatable {
         return lhs.isNeedCreateOrder == rhs.isNeedCreateOrder &&
             lhs.isNeedGetFee == rhs.isNeedGetFee &&
             lhs.isNeedCalculateMarketOrderPrice == rhs.isNeedCalculateMarketOrderPrice &&
-            lhs.isNeedCheckValidOrder == rhs.isNeedCheckValidOrder &&
-            lhs.isNeedCheckValidCreateMarketOrder == rhs.isNeedCheckValidCreateMarketOrder
+            lhs.isNeedCheckValidOrder == rhs.isNeedCheckValidOrder
     }
 }

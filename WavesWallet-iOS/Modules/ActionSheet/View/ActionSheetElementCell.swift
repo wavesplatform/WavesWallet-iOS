@@ -15,7 +15,6 @@ final class ActionSheetElementCell: UITableViewCell, Reusable {
     struct Model {
         let title: String
         let isSelected: Bool
-        let isBlocked: Bool
     }
     
     @IBOutlet private var titleLabel: UILabel!
@@ -32,8 +31,5 @@ extension ActionSheetElementCell: ViewConfiguration {
         } else {
             iconImageView.image = Images.off.image
         }
-        
-        titleLabel.alpha = model.isBlocked ? 0.5 : 1
-        iconImageView.alpha = model.isBlocked ? 0.5 : 1
     }
 }
