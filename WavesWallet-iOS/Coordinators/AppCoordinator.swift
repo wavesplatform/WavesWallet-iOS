@@ -372,7 +372,7 @@ extension AppCoordinator  {
 
     private func revokeAuthAndOpenPasscode() {
 
-        Observable
+        Observable<TimeInterval>
             .just(1)
             .delay(Contants.delay, scheduler: MainScheduler.asyncInstance)
             .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet?> in
@@ -397,13 +397,14 @@ extension AppCoordinator  {
             }
             .share()
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .flatMap({ [weak self] wallet -> Observable<Display> in
+                guard let self = self else { return Observable.never() }
+                return self.display(by: wallet)
+            })
             .observeOn(MainScheduler.asyncInstance)
-            .subscribe(weak: self, onNext: { owner, wallet in
-                if let wallet = wallet {
-                    owner.showDisplay(.passcode(wallet))
-                } else if Application.get().isAlreadyShowHelloDisplay {
-                    owner.showDisplay(.enter)
-                }
+            .subscribe(onNext: { [weak self] display in
+                guard let self = self else { return }
+                self.showDisplay(display)
             })
             .disposed(by: disposeBag)
     }
