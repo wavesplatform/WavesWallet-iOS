@@ -40,8 +40,10 @@ extension DomainLayer.DTO.Dex.MyOrder {
         } else {
             type = DomainLayer.DTO.Dex.OrderType.buy
         }
+  
         
-        let percentFilled = status == .filled ? 100 : Int(filled.amount * 100 / amount.amount)
+        let roundedPercent = ceil(filled.doubleValue * 100 / amount.doubleValue)
+        let percentFilled = min(100, Int(roundedPercent))
         
         self.init(id: model.id,
                   time: model.timestamp,
