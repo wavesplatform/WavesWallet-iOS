@@ -64,6 +64,9 @@ final class DexCreateOrderInputView: UIView, NibOwnerLoadable {
         }
     }
     
+    var value: Money {
+        return textField.value
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
