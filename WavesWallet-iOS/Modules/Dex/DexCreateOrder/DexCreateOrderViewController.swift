@@ -79,7 +79,6 @@ final class DexCreateOrderViewController: UIViewController {
     private var errorSnackKey: String?
     private var feeAssets: [DomainLayer.DTO.Dex.Asset] = []
     private var timer: Timer?
-    private var isValidCreateMarkerOrder: Bool = false
     
     var presenter: DexCreateOrderPresenterProtocol!
     weak var moduleOutput: DexCreateOrderModuleOutput?
@@ -109,15 +108,10 @@ final class DexCreateOrderViewController: UIViewController {
                                                    .init(title: DexCreateOrder.DTO.CreateOrderType.market.alertTitle)]
                               
         let selectedElement = elements.first(where: { $0.title == createOrderType.alertTitle })
-        var blockedElements: [ActionSheet.DTO.Element] = []
         
-        if isValidCreateMarkerOrder == false {
-            blockedElements.append(.init(title: DexCreateOrder.DTO.CreateOrderType.market.alertTitle))
-        }
         let data = ActionSheet.DTO.Data(title: Localizable.Waves.Dexcreateorder.Alert.orderType,
                                         elements: elements,
-                                        selectedElement: selectedElement,
-                                        blockedElements: blockedElements)
+                                        selectedElement: selectedElement)
   
         let vc = ActionSheetViewBuilder { [weak self] element in
             guard let self = self else { return }
@@ -300,10 +294,7 @@ private extension DexCreateOrderViewController {
             self.order.total = marketOrder.total
             self.setupButtonSellBuy()
             self.setupValidationErrors()
-            
-        case .updateCheckValidCreateMarketOrder(let isValid):
-            self.isValidCreateMarkerOrder = isValid
-            
+                        
         case .none:
             break
         }
