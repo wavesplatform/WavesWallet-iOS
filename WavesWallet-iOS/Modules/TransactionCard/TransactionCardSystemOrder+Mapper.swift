@@ -47,8 +47,8 @@ extension DomainLayer.DTO.Dex.MyOrder {
         rows.append(contentsOf:[.general(rowGeneralModel)])
         rows.append(.dashedLine(.bottomPadding))
         rows.append(.orderFilled(.init(filled: .init(balance: filledBalance,
-                                               sign: .none,
-                                               style: .small))))
+                                                     sign: type == .buy ? .plus : .minus,
+                                                     style: .small))))
         
         let rowOrderModel = TransactionCardOrderCell.Model(amount: .init(balance: amountBalance,
                                                                          sign: .none,
