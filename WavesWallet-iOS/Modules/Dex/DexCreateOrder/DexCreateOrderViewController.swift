@@ -70,6 +70,7 @@ final class DexCreateOrderViewController: UIViewController {
     @IBOutlet private weak var activityIndicatorViewFee: UIActivityIndicatorView!
     @IBOutlet private weak var iconArrowCustomFee: UIImageView!
     @IBOutlet private weak var buttonCreateOrderType: UIButton!
+    @IBOutlet private weak var viewExpiration: UIView!
     
     private var order: DexCreateOrder.DTO.Order!
     private var createOrderType: DexCreateOrder.DTO.CreateOrderType!
@@ -283,7 +284,8 @@ private extension DexCreateOrderViewController {
             self.setupInputTotalData()
             self.setupButtonSellBuy()
             self.setupValidationErrors()
-
+            self.viewExpiration.isHidden = type == .market
+            
             if type == .limit {
                 //Recalculation limit total & price after change type from market
                 order.price = inputPrice.value
