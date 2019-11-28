@@ -104,8 +104,9 @@ public extension Language {
     }
 
     private static func isValidLanguage(_ language: Language) -> Bool {
-        if let path = Bundle.main.path(forResource: language.code, ofType: "lproj"), let _ = Bundle(path: path) {
-            return true
+        if let path = Bundle.main.path(forResource: language.code, ofType: "lproj"),
+            let _ = Bundle(path: path) {
+            return self.languages?[language.code] != nil
         }
         return false
     }
