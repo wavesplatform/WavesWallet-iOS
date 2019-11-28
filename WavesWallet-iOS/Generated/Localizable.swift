@@ -1273,11 +1273,11 @@ internal enum Localizable {
       }
 
       internal enum Label {
-        /// To continue using the app, you will need to upgrade to version %@. Availability of the new version in the App Store may take a few hours.\nYou can use the web version to access your Waves account for now.
+        /// To continue using the app, please update it to the %@ version.
         internal static func subtitle(_ p1: String) -> String {
           return Localizable.tr("Waves", "forceupdate.label.subtitle", p1)
         }
-        /// It is time to update your Waves app!
+        /// It is time to update your app!
         internal static var title: String { return Localizable.tr("Waves", "forceupdate.label.title") }
         internal static var titleKey: String { return "forceupdate.label.title" }
       }
@@ -1419,7 +1419,7 @@ internal enum Localizable {
           }
 
           internal enum Subtitle {
-            /// To finish the migration of your accounts, accept the new Terms and Conditions and Privacy Policy.
+            /// All the data on your Waves.Exchange is encrypted and stored only on your device
             internal static var migration: String { return Localizable.tr("Waves", "hello.page.confirm.subtitle.migration") }
             internal static var migrationKey: String { return "hello.page.confirm.subtitle.migration" }
           }
@@ -1449,10 +1449,10 @@ internal enum Localizable {
           }
 
           internal enum First {
-            /// Please take some time to understand some important things for your own safety.\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Exchange would not be responsible for the negative consequences of this.
+            /// Please take some time to understand some important things for your own safety.\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves.Exchange would not be responsible for the negative consequences of this.
             internal static var detail: String { return Localizable.tr("Waves", "hello.page.info.first.detail") }
             internal static var detailKey: String { return "hello.page.info.first.detail" }
-            /// Welcome to the Waves Exchange!
+            /// Welcome to the Waves.Exchange!
             internal static var title: String { return Localizable.tr("Waves", "hello.page.info.first.title") }
             internal static var titleKey: String { return "hello.page.info.first.title" }
           }
@@ -1879,7 +1879,7 @@ internal enum Localizable {
         /// Our Social Media
         internal static var communities: String { return Localizable.tr("Waves", "menu.label.communities") }
         internal static var communitiesKey: String { return "menu.label.communities" }
-        /// Keep up with the latest news and articles, and find out all about events happening on the Waves Exchange
+        /// Keep up with the latest news and articles, and find out all about events happening on the Waves.Exchange
         internal static var description: String { return Localizable.tr("Waves", "menu.label.description") }
         internal static var descriptionKey: String { return "menu.label.description" }
       }
@@ -1890,10 +1890,10 @@ internal enum Localizable {
       internal enum Wavesexchange {
 
         internal enum View {
-          /// To offer users a better experience and wider range of tools, the exchange is moving from Waves DEX to Waves. Exchange. Waves DEX will stop operating on December 2, 2019.\n\nTo continue trading you should move your accounts to the new exchange. The migration process is fast, easy and absolutely secure.\n\nDon’t worry! All of your tokens, seed phrases and passwords are safe.
+          /// To offer users a better experience and wider range of tools, the exchange is moved from Waves DEX to Waves.Exchange.\n\nDon’t worry! All of your tokens, seed phrases and passwords are safe.
           internal static var description: String { return Localizable.tr("Waves", "migration.wavesexchange.view.description") }
           internal static var descriptionKey: String { return "migration.wavesexchange.view.description" }
-          /// We are moving!
+          /// We moved!
           internal static var title: String { return Localizable.tr("Waves", "migration.wavesexchange.view.title") }
           internal static var titleKey: String { return "migration.wavesexchange.view.title" }
         }
@@ -2773,10 +2773,10 @@ internal enum Localizable {
       }
 
       internal enum Label {
-        /// We are sorry! We just need to make some improvements to transfer to Waves Exchange. Please try again later!
+        /// We're moving to Waves.Exchange. Please try again later.
         internal static var subtitle: String { return Localizable.tr("Waves", "serverMaintenance.label.subtitle") }
         internal static var subtitleKey: String { return "serverMaintenance.label.subtitle" }
-        /// Server maintenance temporary
+        /// Server is temporarily unavailable
         internal static var title: String { return Localizable.tr("Waves", "serverMaintenance.label.title") }
         internal static var titleKey: String { return "serverMaintenance.label.title" }
       }
@@ -3543,7 +3543,7 @@ internal enum Localizable {
       }
 
       internal enum Navigation {
-        /// Waves Exchange Pulse
+        /// Waves.Exchange Pulse
         internal static var title: String { return Localizable.tr("Waves", "widgetsettings.navigation.title") }
         internal static var titleKey: String { return "widgetsettings.navigation.title" }
       }

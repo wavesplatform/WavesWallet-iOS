@@ -243,7 +243,7 @@
 "hello.page.info.fifth.detail.third" = "Пользуйтесь официальным программным обеспечением. Не устанавливайте неизвестные или взломанные программы.";
 "hello.page.info.fifth.title" = "Как защититься от фишинга";
 "hello.page.info.first.detail" = "Пожалуйста, уделите немного времени для того, чтобы ознакомиться с важной информацией.\n\nМы не можем вернуть ваши средства или заморозить ваш аккаунт, если вы вошли в него на фишинговом сайте или потеряли секретную фразу (SEED).\n\nПродолжая использовать нашу платформу, вы соглашаетесь с тем, что в случае утраты вами секретной фразы (SEED), платформа Waves не сможет восстановить доступ к вашему аккаунту или вернуть вам ваши средства. Только вы контролируете свой аккаунт и ответственны за сохранность секретной фразы.";
-"hello.page.info.first.title" = "Добро пожаловать на Waves Exchange!";
+"hello.page.info.first.title" = "Добро пожаловать на Waves.Exchange!";
 "hello.page.info.fourth.detail" = "Одним из распространённых видов мошенничества является фишинг — мошенники создают фальшивые группы в Facebook, сайты, внешне похожие на настоящие.";
 "hello.page.info.fourth.title" = "Как защититься от фишинга";
 "hello.page.info.second.detail" = "При регистрации аккаунта вам предлагается сохранить секретную фразу (Seed) и защитить аккаунт паролем. В обычных централизованных сервисах особое внимание уделяется именно паролю, который, в случае чего, можно изменить или восстановить через почту. У децентрализованной платформы Waves всё устроено иначе.";
@@ -317,7 +317,7 @@
 "menu.button.termsandconditions" = "Условия и положения";
 "menu.button.whitepaper" = "Whitepaper";
 "menu.label.communities" = "Наши социальные сети ";
-"menu.label.description" = "Следите за последними новостями и статьями и узнавайте о событиях, происходящих на Waves Exchange";
+"menu.label.description" = "Следите за последними новостями и статьями и узнавайте о событиях, происходящих на Waves.Exchange";
 "myaddress.button.copy.title" = "Копировать";
 "myaddress.button.share.title" = "Поделиться";
 "myaddress.cell.aliases.subtitle.withaliaces" = "У вас есть %d";
@@ -658,7 +658,7 @@
 "dexcreateorder.invalidPricePopup.subtitle" = "Вы действительно хотите продолжить?";
 "dexcreateorder.invalidPricePopup.button.placeOrder" = "Поставить ордер";
 "dexcreateorder.invalidPricePopup.button.cancel" = "Отмена";
-"widgetsettings.navigation.title" = "Waves Exchange Pulse";
+"widgetsettings.navigation.title" = "Waves.Exchange Pulse";
 "assetsearch.cell.empty.title" = "Токенов соответствующих вашему запросу не найдено";
 "widgetsettings.tableview.editmode.delete" = "Удалить";
 "widgetsettings.actionsheet.changeinterval.title" = "Интервал обновления";
@@ -682,20 +682,19 @@
 "keeper.label.function" = "Функция";
 "keeper.label.confirmRequest" = "Подтверждение запроса";
 "chooseaccount.alert.pleaseSelect" = "Пожалуйста, выберите";
-"forceupdate.label.subtitle" = "Для продолжения использования приложения вам необходимо обновиться до версии %@. Новая версия станет доступна для скачивания в App Store в течение нескольких часов.\
-В данный момент вы можете воспользоваться Web-версией для доступа к вашему Waves кошельку.";
+"forceupdate.label.subtitle" = "Чтобы продолжить пользоваться приложением, пожалуйста, обновите его до версии %@.";
 "forceupdate.button.update" = "Обновить";
 "sendconfirmation.label.gatewayFee" = "Комиссия шлюза";
 "pushNotificationsAlert.label.title" = "Получайте важные уведомления";
 "pushNotificationsAlert.label.subtitle" = "Мы бы хотели показывать вам уведомления о последних новостях и обновлениях.";
 "pushNotificationsAlert.button.activatePush" = "Уведомляйте меня";
 "pushNotificationsAlert.button.later" = "Сделаю это позже";
-"forceupdate.label.title" = "Пора обновить ваше приложение Waves!";
+"forceupdate.label.title" = "Пора обновить ваше приложение!";
 "widgetsettings.button.addToken" = "Добавить токен";
 "widgetsettings.label.added" = "Добавлено";
 "menu.button.faq" = "FAQ";
-"serverMaintenance.label.title" = "Временное обслуживание сервера";
-"serverMaintenance.label.subtitle" = "Приносим свои извинения за доставленные неудобства. Нам нужно внести некоторые улучшения, чтобы перейти на Waves Exchange. Пожалуйста, попробуйте снова.";
+"serverMaintenance.label.title" = "Сервер временно недоступен";
+"serverMaintenance.label.subtitle" = "Мы переезжаем на Waves.Exchange. Пожалуйста, попробуйте позже.";
 "dexcreateorder.label.limitOrder" = "Лимит Ордер";
 "dexcreateorder.label.marketOrder" = "Маркет Ордер";
 "dexcreateorder.alert.limitOrder" = "Лимит";
@@ -707,7 +706,7 @@
 "dexcreateorderinfo.label.limit" = "Лимит";
 "dexcreateorderinfo.label.limitDescription" = "Ордер, который вы размещаете в биржевом стакане с определенной лимитной ценой.";
 "dexcreateorderinfo.button.gotIt" = "Понятно";
-"migration.wavesexchange.view.title" = "Мы переезжаем!";
-"migration.wavesexchange.view.description" = "Чтобы улучшить пользовательский опыт и предложить более широкий набор инструментов, биржа переезжает с Waves DEX на Waves.Exchange. Waves DEX прекратит работу 2 декабря 2019.\n\nЧтобы продолжить торговлю, нужно перенести свои аккаунты на новую биржу. Процесс миграции – быстрый, простой и абсолютно безопасный.\n\nНе беспокойтесь! Все ваши токены, пароли и секретные фразы в безопасности.";
-"hello.page.confirm.subtitle.migration" = "Чтобы завершить миграцию ваших учетных записей, примите новые Условия предоставления услуг и Политику конфиденциальности.";
+"migration.wavesexchange.view.title" = "Мы переехали!";
+"migration.wavesexchange.view.description" = "Чтобы улучшить пользовательский опыт и предложить более широкий набор инструментов, биржа переезжает с Waves DEX на Waves.Exchange.\n\nНе беспокойтесь! Все ваши токены, пароли и секретные фразы в безопасности.";
+"hello.page.confirm.subtitle.migration" = "Все данные в Waves.Exchange зашифрованны и хранятся только на вашем устройстве.";
 "serverMaintenance.button.retry" = "Повторить";
