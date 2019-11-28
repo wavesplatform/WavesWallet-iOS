@@ -1419,7 +1419,7 @@ internal enum Localizable {
           }
 
           internal enum Subtitle {
-            /// All the data on your Waves.Exchange is encrypted and stored only on your device
+            /// All the data on your Waves.Exchange is encrypted and stored only on your device.
             internal static var migration: String { return Localizable.tr("Waves", "hello.page.confirm.subtitle.migration") }
             internal static var migrationKey: String { return "hello.page.confirm.subtitle.migration" }
           }

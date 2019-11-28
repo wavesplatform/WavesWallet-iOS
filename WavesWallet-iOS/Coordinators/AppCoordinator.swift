@@ -162,12 +162,6 @@ extension AppCoordinator: PresentationCoordinator {
 
             guard isHasCoordinator(type: PasscodeLogInCoordinator.self) != true else { return }
 
-            if isHasCoordinator(type: SlideCoordinator.self) == false {
-                let slideCoordinator = SlideCoordinator(windowRouter: windowRouter, wallet: wallet)
-                slideCoordinator.menuViewControllerDelegate = self
-                addChildCoordinatorAndStart(childCoordinator: slideCoordinator)
-            }
-            
             let passcodeCoordinator = PasscodeLogInCoordinator(wallet: wallet, routerKind: .alertWindow)
             passcodeCoordinator.delegate = self
 
