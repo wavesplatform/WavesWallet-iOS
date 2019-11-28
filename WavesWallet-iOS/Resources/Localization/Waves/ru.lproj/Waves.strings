@@ -702,11 +702,11 @@
 "dexcreateorder.alert.orderType" = "Тип ордера";
 "dexcreateorderinfo.label.orderTypes" = "Тип ордера";
 "dexcreateorderinfo.label.market" = "Маркет";
-"dexcreateorderinfo.label.marketDescription" = "Ордер на немедленную покупку или продажу по лучшей доступной цене.";
+"dexcreateorderinfo.label.marketDescription" = "Это ордер на немедленную покупку или продажу по лучшей доступной цене.";
 "dexcreateorderinfo.label.limit" = "Лимит";
-"dexcreateorderinfo.label.limitDescription" = "Ордер, который вы размещаете в биржевом стакане с определенной лимитной ценой.";
+"dexcreateorderinfo.label.limitDescription" = "Это ордер, который  вы размещаете в биржевом стакане, с определенной лимитной ценой.";
 "dexcreateorderinfo.button.gotIt" = "Понятно";
 "migration.wavesexchange.view.title" = "Мы переехали!";
 "migration.wavesexchange.view.description" = "Чтобы улучшить пользовательский опыт и предложить более широкий набор инструментов, биржа переезжает с Waves DEX на Waves.Exchange.\n\nНе беспокойтесь! Все ваши токены, пароли и секретные фразы в безопасности.";
-"hello.page.confirm.subtitle.migration" = "Все данные в Waves.Exchange зашифрованны и хранятся только на вашем устройстве.";
+"hello.page.confirm.subtitle.migration" = "Все данные в Waves.Exchange зашифрованы и хранятся только на вашем устройстве.";
 "serverMaintenance.button.retry" = "Повторить";

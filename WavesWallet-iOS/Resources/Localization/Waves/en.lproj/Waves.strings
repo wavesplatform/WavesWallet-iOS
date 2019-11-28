@@ -708,5 +708,5 @@
 "dexcreateorderinfo.button.gotIt" = "Got it";
 "migration.wavesexchange.view.title" = "We moved!";
 "migration.wavesexchange.view.description" = "To offer users a better experience and wider range of tools, the exchange is moved from Waves DEX to Waves.Exchange.\n\nDon’t worry! All of your tokens, seed phrases and passwords are safe.";
-"hello.page.confirm.subtitle.migration" = "All the data on your Waves.Exchange is encrypted and stored only on your device";
+"hello.page.confirm.subtitle.migration" = "All the data on your Waves.Exchange is encrypted and stored only on your device.";
 "serverMaintenance.button.retry" = "Retry";
