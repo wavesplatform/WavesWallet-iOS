@@ -69,10 +69,10 @@ public extension Language {
         }
         
         let langauge = LanguageCode.get()
+        
         if isValidLanguage(langauge) {
             change(langauge, withoutNotification: true)
-        }
-        else {
+        } else {
             change(Language.defaultLanguage, withoutNotification: true)
         }
     }
@@ -104,9 +104,12 @@ public extension Language {
     }
 
     private static func isValidLanguage(_ language: Language) -> Bool {
+        
         if let path = Bundle.main.path(forResource: language.code, ofType: "lproj"),
             let _ = Bundle(path: path) {
-            return self.languages?[language.code] != nil
+            
+            let isValidLanguage = self.languages?.first { $0.code == language.code } != nil            
+            return isValidLanguage
         }
         return false
     }
