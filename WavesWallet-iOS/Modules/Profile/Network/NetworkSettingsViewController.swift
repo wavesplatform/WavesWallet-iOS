@@ -83,7 +83,7 @@ extension NetworkSettingsViewController {
 
         spamUrlTextField.update(with: InputTextField.Model(title: Localizable.Waves.Networksettings.Textfield.Spamfilter.title,
                                                             kind: .text,
-                                                            placeholder: "http://wavesplatform.com"))
+                                                            placeholder: UIGlobalConstants.URL.client))
 
         spamUrlTextField.returnKey = .done
 

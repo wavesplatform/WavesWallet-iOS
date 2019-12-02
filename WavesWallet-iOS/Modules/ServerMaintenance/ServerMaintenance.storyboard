@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H3X-T9-KkA">
-                                <rect key="frame" x="0.0" y="367" width="414" height="162.5"/>
+                                <rect key="frame" x="0.0" y="326" width="414" height="244.5"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconNews404" translatesAutoresizingMaskIntoConstraints="NO" id="by0-TK-NzX">
                                         <rect key="frame" x="147" y="0.0" width="120" height="100"/>
@@ -34,16 +34,42 @@
                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="QCC-HK-hiG">
+                                        <rect key="frame" x="197" y="144.5" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K4d-n9-JHT">
+                                        <rect key="frame" x="16" y="196.5" width="382" height="48"/>
+                                        <color key="backgroundColor" red="0.9137254901960784" green="0.91764705882352937" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="oJt-W3-rcw"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                        <color key="tintColor" red="0.12156862745098039" green="0.3529411764705882" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Retry"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="retryTapped:" destination="ctY-sl-aq0" eventType="touchUpInside" id="6Ox-YL-vot"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstItem="zvr-Wl-IM2" firstAttribute="top" secondItem="by0-TK-NzX" secondAttribute="bottom" constant="18" id="1H9-eI-uuN"/>
+                                    <constraint firstItem="QCC-HK-hiG" firstAttribute="centerX" secondItem="Waj-yJ-Sty" secondAttribute="centerX" id="GKc-7m-geR"/>
                                     <constraint firstItem="Waj-yJ-Sty" firstAttribute="top" secondItem="zvr-Wl-IM2" secondAttribute="bottom" constant="8" id="Inh-Au-09m"/>
+                                    <constraint firstItem="K4d-n9-JHT" firstAttribute="top" secondItem="Waj-yJ-Sty" secondAttribute="bottom" constant="34" id="Ojq-ac-Trt"/>
                                     <constraint firstItem="zvr-Wl-IM2" firstAttribute="leading" secondItem="H3X-T9-KkA" secondAttribute="leading" constant="20" id="U06-JJ-fW2"/>
+                                    <constraint firstAttribute="trailing" secondItem="K4d-n9-JHT" secondAttribute="trailing" constant="16" id="Wtc-jP-Ndj"/>
                                     <constraint firstItem="by0-TK-NzX" firstAttribute="centerX" secondItem="H3X-T9-KkA" secondAttribute="centerX" id="Z1w-Gt-3tU"/>
-                                    <constraint firstAttribute="bottom" secondItem="Waj-yJ-Sty" secondAttribute="bottom" id="diy-9o-Uwu"/>
                                     <constraint firstAttribute="trailing" secondItem="zvr-Wl-IM2" secondAttribute="trailing" constant="20" id="dnw-af-tD9"/>
+                                    <constraint firstItem="QCC-HK-hiG" firstAttribute="centerY" secondItem="Waj-yJ-Sty" secondAttribute="centerY" id="k1M-RH-7dH"/>
+                                    <constraint firstItem="K4d-n9-JHT" firstAttribute="leading" secondItem="H3X-T9-KkA" secondAttribute="leading" constant="16" id="o5e-6R-9t1"/>
                                     <constraint firstItem="Waj-yJ-Sty" firstAttribute="leading" secondItem="zvr-Wl-IM2" secondAttribute="leading" id="ofc-wd-IOg"/>
+                                    <constraint firstAttribute="bottom" secondItem="K4d-n9-JHT" secondAttribute="bottom" id="pr9-n4-lCl"/>
                                     <constraint firstItem="by0-TK-NzX" firstAttribute="top" secondItem="H3X-T9-KkA" secondAttribute="top" id="qB3-MR-xTl"/>
                                     <constraint firstItem="Waj-yJ-Sty" firstAttribute="trailing" secondItem="zvr-Wl-IM2" secondAttribute="trailing" id="zuk-cx-OiD"/>
                                 </constraints>
@@ -58,6 +84,8 @@
                         <viewLayoutGuide key="safeArea" id="wph-2b-AIE"/>
                     </view>
                     <connections>
+                        <outlet property="buttonRetry" destination="K4d-n9-JHT" id="QQn-bl-b1p"/>
+                        <outlet property="indicatorView" destination="QCC-HK-hiG" id="RT6-uc-i9L"/>
                         <outlet property="labelSubtitle" destination="Waj-yJ-Sty" id="StP-aA-FOO"/>
                         <outlet property="labelTitle" destination="zvr-Wl-IM2" id="Evp-G3-pyg"/>
                     </connections>

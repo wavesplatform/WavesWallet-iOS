@@ -21,6 +21,5 @@ extension ActionSheet.DTO {
         let title: String
         let elements: [Element]
         let selectedElement: Element?
-        var blockedElements: [Element] = []
     }
 }

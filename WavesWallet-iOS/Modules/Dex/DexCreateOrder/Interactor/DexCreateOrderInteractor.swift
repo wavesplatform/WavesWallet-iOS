@@ -135,19 +135,6 @@ final class DexCreateOrderInteractor: DexCreateOrderInteractorProtocol {
         
         return Observable.just(.init(price: zeroPriceValue, priceAvg: zeroPriceValue, total: zeroPriceValue))
     }
-    
-    func canCreateMarketOrder(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, type: DomainLayer.DTO.Dex.OrderType) -> Observable<Bool> {
-       
-        return orderBookRepository
-            .orderBook(amountAsset: amountAsset.id, priceAsset: priceAsset.id)
-            .map { orderBook -> Bool in
-                if type == .buy {
-                    return orderBook.asks.count > 0
-                }
-                
-                return orderBook.bids.count > 0
-        }
-    }
 }
 
 private extension DexCreateOrderInteractor {

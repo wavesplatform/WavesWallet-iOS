@@ -895,13 +895,13 @@ internal enum Localizable {
         /// Limit
         internal static var limit: String { return Localizable.tr("Waves", "dexcreateorderinfo.label.limit") }
         internal static var limitKey: String { return "dexcreateorderinfo.label.limit" }
-        /// When the layperson imagines a typical stock market transaction, he thinks of market orders. These orders are the most basic buy and sell trades; a broker receives a security trade order, and that order is processed at the current market price.
+        /// It is an order placed in the order book at a specific (limit) price.
         internal static var limitDescription: String { return Localizable.tr("Waves", "dexcreateorderinfo.label.limitDescription") }
         internal static var limitDescriptionKey: String { return "dexcreateorderinfo.label.limitDescription" }
         /// Market
         internal static var market: String { return Localizable.tr("Waves", "dexcreateorderinfo.label.market") }
         internal static var marketKey: String { return "dexcreateorderinfo.label.market" }
-        /// When the layperson imagines a typical stock market transaction, he thinks of market orders. These orders are the most basic buy and sell trades; a broker receives a security trade order, and that order is processed at the current market price.
+        /// It is an order to buy or sell instantly, at the best available price.
         internal static var marketDescription: String { return Localizable.tr("Waves", "dexcreateorderinfo.label.marketDescription") }
         internal static var marketDescriptionKey: String { return "dexcreateorderinfo.label.marketDescription" }
         /// Order Types
@@ -1273,11 +1273,11 @@ internal enum Localizable {
       }
 
       internal enum Label {
-        /// To continue using the app, you will need to upgrade to version %@. Availability of the new version in the App Store may take a few hours.\nYou can use the web version to access your Waves account for now.
+        /// To continue using the app, please update it to the %@ version.
         internal static func subtitle(_ p1: String) -> String {
           return Localizable.tr("Waves", "forceupdate.label.subtitle", p1)
         }
-        /// It is time to update your Waves app!
+        /// It is time to update your app!
         internal static var title: String { return Localizable.tr("Waves", "forceupdate.label.title") }
         internal static var titleKey: String { return "forceupdate.label.title" }
       }
@@ -1417,6 +1417,12 @@ internal enum Localizable {
             internal static var termsAndConditions: String { return Localizable.tr("Waves", "hello.page.confirm.button.termsAndConditions") }
             internal static var termsAndConditionsKey: String { return "hello.page.confirm.button.termsAndConditions" }
           }
+
+          internal enum Subtitle {
+            /// All the data on your Waves.Exchange is encrypted and stored only on your device.
+            internal static var migration: String { return Localizable.tr("Waves", "hello.page.confirm.subtitle.migration") }
+            internal static var migrationKey: String { return "hello.page.confirm.subtitle.migration" }
+          }
         }
 
         internal enum Info {
@@ -1443,10 +1449,10 @@ internal enum Localizable {
           }
 
           internal enum First {
-            /// Please take some time to understand some important things for your own safety.\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves Exchange would not be responsible for the negative consequences of this.
+            /// Please take some time to understand some important things for your own safety.\n\nWe cannot recover your funds or freeze your account if you visit a phishing site or lose your backup phrase (aka SEED phrase).\n\nBy continuing to use our platform, you agree to accept all risks associated with the loss of your SEED, including but not limited to the inability to obtain your funds and dispose of them. In case you lose your SEED, you agree and acknowledge that the Waves.Exchange would not be responsible for the negative consequences of this.
             internal static var detail: String { return Localizable.tr("Waves", "hello.page.info.first.detail") }
             internal static var detailKey: String { return "hello.page.info.first.detail" }
-            /// Welcome to the Waves Exchange!
+            /// Welcome to the Waves.Exchange!
             internal static var title: String { return Localizable.tr("Waves", "hello.page.info.first.title") }
             internal static var titleKey: String { return "hello.page.info.first.title" }
           }
@@ -1665,7 +1671,7 @@ internal enum Localizable {
                 /// Settings — General — Export account
                 internal static var detail: String { return Localizable.tr("Waves", "import.account.label.info.step.one.detail") }
                 internal static var detailKey: String { return "import.account.label.info.step.one.detail" }
-                /// Log in to your Waves Client via your PC or Mac at https://client.wavesplatform.com
+                /// Log in to your Waves Client via your PC or Mac at https://waves.exchange
                 internal static var title: String { return Localizable.tr("Waves", "import.account.label.info.step.one.title") }
                 internal static var titleKey: String { return "import.account.label.info.step.one.title" }
               }
@@ -1873,7 +1879,7 @@ internal enum Localizable {
         /// Our Social Media
         internal static var communities: String { return Localizable.tr("Waves", "menu.label.communities") }
         internal static var communitiesKey: String { return "menu.label.communities" }
-        /// Keep up with the latest news and articles, and find out all about events happening on the Waves Exchange
+        /// Keep up with the latest news and articles, and find out all about events happening on the Waves.Exchange
         internal static var description: String { return Localizable.tr("Waves", "menu.label.description") }
         internal static var descriptionKey: String { return "menu.label.description" }
       }
@@ -1884,10 +1890,10 @@ internal enum Localizable {
       internal enum Wavesexchange {
 
         internal enum View {
-          /// To offer users a better experience and wider range of tools,the exchange is moving from Waves DEX to Waves.Exchange. Waves DEX will stop operating on December 2, 2019. To continue trading you should move your accounts to the new exchange. The migration process is fast, easy and absolutely secure. Don’t worry! All of your tokens, seed phrases and passwords are safe.
+          /// To offer users a better experience and wider range of tools, the exchange is moved from Waves DEX to Waves.Exchange.\n\nDon’t worry! All of your tokens, seed phrases and passwords are safe.
           internal static var description: String { return Localizable.tr("Waves", "migration.wavesexchange.view.description") }
           internal static var descriptionKey: String { return "migration.wavesexchange.view.description" }
-          /// We are moving!
+          /// We moved!
           internal static var title: String { return Localizable.tr("Waves", "migration.wavesexchange.view.title") }
           internal static var titleKey: String { return "migration.wavesexchange.view.title" }
         }
@@ -2760,11 +2766,17 @@ internal enum Localizable {
 
     internal enum Servermaintenance {
 
+      internal enum Button {
+        /// Retry
+        internal static var retry: String { return Localizable.tr("Waves", "serverMaintenance.button.retry") }
+        internal static var retryKey: String { return "serverMaintenance.button.retry" }
+      }
+
       internal enum Label {
-        /// Please try again later
+        /// We're moving to Waves.Exchange. Please try again later.
         internal static var subtitle: String { return Localizable.tr("Waves", "serverMaintenance.label.subtitle") }
         internal static var subtitleKey: String { return "serverMaintenance.label.subtitle" }
-        /// Server maintenance temporary
+        /// Server is temporarily unavailable
         internal static var title: String { return Localizable.tr("Waves", "serverMaintenance.label.title") }
         internal static var titleKey: String { return "serverMaintenance.label.title" }
       }
@@ -3531,7 +3543,7 @@ internal enum Localizable {
       }
 
       internal enum Navigation {
-        /// Market pulse
+        /// Waves.Exchange Pulse
         internal static var title: String { return Localizable.tr("Waves", "widgetsettings.navigation.title") }
         internal static var titleKey: String { return "widgetsettings.navigation.title" }
       }

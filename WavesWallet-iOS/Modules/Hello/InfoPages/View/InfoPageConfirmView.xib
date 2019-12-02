@@ -241,6 +241,7 @@
                 <outlet property="scrollView" destination="0pV-aJ-Ml3" id="UcS-3F-8od"/>
                 <outlet property="termsConditionsWidth" destination="7nz-du-sMF" id="ZJm-Bh-AQH"/>
                 <outlet property="termsOfUseWidth" destination="3ht-BR-Gl4" id="lwB-6Q-sDN"/>
+                <outlet property="titlePositionTop" destination="p3I-BJ-SJH" id="A43-BV-th6"/>
             </connections>
             <point key="canvasLocation" x="53.600000000000001" y="48.125937031484263"/>
         </view>

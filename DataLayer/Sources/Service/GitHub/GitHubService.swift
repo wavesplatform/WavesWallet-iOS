@@ -19,7 +19,7 @@ extension GitHub {
 
 private enum Constants {
     
-    static let root = "https://configs-waves-exchange.s3.eu-central-1.amazonaws.com"
+    static let root = "https://configs.waves.exchange/"
     
     static let urlEnvironmentStageNetTest: URL = URL(string: "\(root)/mobile/environment/test/stagenet.json")!
     

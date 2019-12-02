@@ -29,13 +29,13 @@ struct Application: TSUD {
 
     struct Settings: Codable, Mutating {
         var isAlreadyShowHelloDisplay: Bool  = false
-        var isAlreadyShowMigrationWavesExchangeDisplay: Bool  = false
+        var isAlreadyShowMigrationWavesExchangeDisplay: Bool?  = false
     }
 
     private static let key: String = "com.waves.application.settings"
 
     static var defaultValue: Settings {
-        return Settings(isAlreadyShowHelloDisplay: false)
+        return Settings(isAlreadyShowHelloDisplay: false, isAlreadyShowMigrationWavesExchangeDisplay: false)
     }
 
     static var stringKey: String {
@@ -98,6 +98,7 @@ final class AppCoordinator: Coordinator {
     
     private func launchApplication() {
         
+        self.removeCoordinators()
         self.isLockChangeDisplay = false
         
         #if DEBUG || TEST
@@ -315,12 +316,18 @@ extension AppCoordinator  {
     
     private func display(by wallet: DomainLayer.DTO.Wallet?) -> Observable<Display> {
 
+        let settings = Application.get()
+        
         if let wallet = wallet {
-            return display(by: wallet)
+            if settings.isAlreadyShowMigrationWavesExchangeDisplay ?? false {
+                return display(by: wallet)
+            } else {
+                return Observable.just(Display.hello(false))
+            }            
         } else {
-            let settings = Application.get()
+            
             if settings.isAlreadyShowHelloDisplay {
-                if settings.isAlreadyShowMigrationWavesExchangeDisplay {
+                if settings.isAlreadyShowMigrationWavesExchangeDisplay ?? false {
                     return Observable.just(Display.enter)
                 } else {
                     return Observable.just(Display.hello(false))
@@ -340,7 +347,7 @@ extension AppCoordinator  {
                 } else {
                     return Display.passcode(wallet)
                 }
-        }
+            }
     }
 
     private func logInApplication() {
@@ -359,7 +366,7 @@ extension AppCoordinator  {
 
     private func revokeAuthAndOpenPasscode() {
 
-        Observable
+        Observable<TimeInterval>
             .just(1)
             .delay(Contants.delay, scheduler: MainScheduler.asyncInstance)
             .flatMap { [weak self] _ -> Observable<DomainLayer.DTO.Wallet?> in
@@ -384,13 +391,14 @@ extension AppCoordinator  {
             }
             .share()
             .subscribeOn(ConcurrentDispatchQueueScheduler(queue: DispatchQueue.global()))
+            .flatMap({ [weak self] wallet -> Observable<Display> in
+                guard let self = self else { return Observable.never() }
+                return self.display(by: wallet)
+            })
             .observeOn(MainScheduler.asyncInstance)
-            .subscribe(weak: self, onNext: { owner, wallet in
-                if let wallet = wallet {
-                    owner.showDisplay(.passcode(wallet))
-                } else if Application.get().isAlreadyShowHelloDisplay {
-                    owner.showDisplay(.enter)
-                }
+            .subscribe(onNext: { [weak self] display in
+                guard let self = self else { return }
+                self.showDisplay(display)
             })
             .disposed(by: disposeBag)
     }
@@ -411,7 +419,8 @@ extension AppCoordinator: HelloCoordinatorDelegate  {
         }
         
         Application.set(settings)
-        showDisplay(.enter)
+        
+        launchApplication()
     }
 
     func userChangedLanguage(_ language: Language) {
@@ -514,6 +523,22 @@ private extension AppCoordinator {
             .subscribe(onNext: { [weak self] isEnabledMaintenance in
                 guard let self = self else { return }
 
+                if isEnabledMaintenance {
+                    self.showDisplay(.maintenanceServer)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        NotificationCenter.default
+            .rx.notification(UIApplication.willEnterForegroundNotification, object: nil)
+            .flatMap { [weak self] (_) -> Observable<Bool> in
+                guard let self = self else { return Observable.never() }
+                return self.developmentConfigsRepository
+                    .isEnabledMaintenance()
+            }
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] isEnabledMaintenance in
+                guard let self = self else { return }
                 if isEnabledMaintenance {
                     self.showDisplay(.maintenanceServer)
                 }

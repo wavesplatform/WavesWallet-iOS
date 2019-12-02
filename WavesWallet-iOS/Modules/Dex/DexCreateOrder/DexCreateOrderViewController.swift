@@ -70,6 +70,7 @@ final class DexCreateOrderViewController: UIViewController {
     @IBOutlet private weak var activityIndicatorViewFee: UIActivityIndicatorView!
     @IBOutlet private weak var iconArrowCustomFee: UIImageView!
     @IBOutlet private weak var buttonCreateOrderType: UIButton!
+    @IBOutlet private weak var viewExpiration: UIView!
     
     private var order: DexCreateOrder.DTO.Order!
     private var createOrderType: DexCreateOrder.DTO.CreateOrderType!
@@ -78,7 +79,6 @@ final class DexCreateOrderViewController: UIViewController {
     private var errorSnackKey: String?
     private var feeAssets: [DomainLayer.DTO.Dex.Asset] = []
     private var timer: Timer?
-    private var isValidCreateMarkerOrder: Bool = false
     
     var presenter: DexCreateOrderPresenterProtocol!
     weak var moduleOutput: DexCreateOrderModuleOutput?
@@ -108,15 +108,10 @@ final class DexCreateOrderViewController: UIViewController {
                                                    .init(title: DexCreateOrder.DTO.CreateOrderType.market.alertTitle)]
                               
         let selectedElement = elements.first(where: { $0.title == createOrderType.alertTitle })
-        var blockedElements: [ActionSheet.DTO.Element] = []
         
-        if isValidCreateMarkerOrder == false {
-            blockedElements.append(.init(title: DexCreateOrder.DTO.CreateOrderType.market.alertTitle))
-        }
         let data = ActionSheet.DTO.Data(title: Localizable.Waves.Dexcreateorder.Alert.orderType,
                                         elements: elements,
-                                        selectedElement: selectedElement,
-                                        blockedElements: blockedElements)
+                                        selectedElement: selectedElement)
   
         let vc = ActionSheetViewBuilder { [weak self] element in
             guard let self = self else { return }
@@ -283,18 +278,23 @@ private extension DexCreateOrderViewController {
             self.setupInputTotalData()
             self.setupButtonSellBuy()
             self.setupValidationErrors()
-
+            self.viewExpiration.isHidden = type == .market
+            
+            if type == .limit {
+                //Recalculation limit total & price after change type from market
+                order.price = inputPrice.value
+                dexCreateOrder(inputView: inputAmount, didChangeValue: order.amount)
+            }
+            
         case .updateMarketOrderPrice(let marketOrder):
+            guard self.createOrderType == .market else { return }
             self.inputPrice.setupValue(marketOrder.priceAvg)
             self.inputTotal.setupValue(marketOrder.total)
             self.order.price = marketOrder.price
             self.order.total = marketOrder.total
             self.setupButtonSellBuy()
             self.setupValidationErrors()
-            
-        case .updateCheckValidCreateMarketOrder(let isValid):
-            self.isValidCreateMarkerOrder = isValid
-            
+                        
         case .none:
             break
         }

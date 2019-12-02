@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Extensions
 
 protocol InfoPageConfirmViewDelegate: AnyObject {
     func infoPageConfirmView(isActive: Bool)
@@ -15,6 +16,7 @@ protocol InfoPageConfirmViewDelegate: AnyObject {
 
 private enum Constants {
     static let buttonDeltaWidth: CGFloat = 24
+    static let topTitlePadding: CGFloat = 44
 }
 
 
@@ -33,11 +35,18 @@ final class InfoPageConfirmView: UIView {
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var buttonsScrollView: UIScrollView!
     
+    @IBOutlet private weak var titlePositionTop: NSLayoutConstraint!
+    
     @IBOutlet private var rightGradientView: GradientView!
     @IBOutlet private var leftGradientView: GradientView!
     
     weak var delegate: InfoPageConfirmViewDelegate?
         
+    var isNewUser: Bool = false {
+        didSet {
+            setupLocalization()
+        }
+    }
     private var isCheck2 = false
     private var isCheck3 = false
    
@@ -57,6 +66,11 @@ final class InfoPageConfirmView: UIView {
         leftGradientView.direction = .custom(GradientView.Settings.init(startPoint: CGPoint(x: 0.0, y: 0),
                                                                         endPoint: CGPoint(x: 1, y: 0),
                                                                         locations: [0, 1.0]))
+        
+        
+        if Platform.isIphone5 {
+            titlePositionTop.constant = Constants.topTitlePadding            
+        }
     }
         
     @IBAction private func check2Tapped(_ sender: Any) {
@@ -116,7 +130,13 @@ private extension InfoPageConfirmView {
     
     func setupLocalization() {
         labelTitle.text = Localizable.Waves.Hello.Page.Confirm.title
-        labelSubtitle.text = Localizable.Waves.Hello.Page.Confirm.subtitle
+                
+        if isNewUser {
+            labelSubtitle.text = Localizable.Waves.Hello.Page.Confirm.subtitle
+        } else {
+            labelSubtitle.text = Localizable.Waves.Hello.Page.Confirm.Subtitle.migration
+        }
+        
         label2.text = Localizable.Waves.Hello.Page.Confirm.description2
         label3.text = Localizable.Waves.Hello.Page.Confirm.description3
         
