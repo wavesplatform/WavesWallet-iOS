@@ -25,10 +25,14 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
     
     private let spamAssetsRepository: SpamAssetsRepositoryProtocol
     
+    private let matcherRepository: MatcherRepositoryProtocol
+    
     init(environmentRepository: EnvironmentRepositoryProtocols,
-         spamAssetsRepository: SpamAssetsRepositoryProtocol) {
+         spamAssetsRepository: SpamAssetsRepositoryProtocol,
+         matcherRepository: MatcherRepositoryProtocol) {
         self.environmentRepository = environmentRepository
         self.spamAssetsRepository = spamAssetsRepository
+        self.matcherRepository = matcherRepository
     }
         
     func orderBook(amountAsset: String,
@@ -57,11 +61,12 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
         })
     }
 
-    func markets(wallet: DomainLayer.DTO.SignedWallet, pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
+    func markets(wallet: DomainLayer.DTO.SignedWallet,
+                 pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
         
-        return environmentRepository
-        .servicesEnvironment()
-            .flatMap({ [weak self] (appEnvironment) ->  Observable<[DomainLayer.DTO.Dex.SmartPair]> in
+        return Observable.zip(environmentRepository.servicesEnvironment(),
+                              matcherRepository.matcherPublicKey())
+            .flatMap({ [weak self] (appEnvironment, matcherPublicKey) ->  Observable<[DomainLayer.DTO.Dex.SmartPair]> in
                 guard let self = self else { return Observable.empty() }
                 
                 let queryPairs = pairs.map {DataService.Query.PairsPrice.Pair(amountAssetId: $0.amountAsset.id, priceAssetId: $0.priceAsset.id)}
@@ -69,7 +74,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                         .wavesServices
                         .dataServices
                         .pairsPriceDataService
-                        .pairsPrice(query: .init(pairs: queryPairs))
+                    .pairsPrice(query: .init(pairs: queryPairs, matcher: matcherPublicKey.address))
                     .map({ [weak self] (pairsPrice) -> [DomainLayer.DTO.Dex.SmartPair] in
                         
                         guard let self = self, let realm = try? WalletRealmFactory.realm(accountAddress: wallet.address) else {

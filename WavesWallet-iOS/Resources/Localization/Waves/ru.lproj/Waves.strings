@@ -225,7 +225,7 @@
 "general.error.title.noconnectiontotheinternet" = "Нет подключения к Интернету";
 "general.error.title.notfound" = "Ой… Всё сломалось!";
 "general.label.title.myasset" = "/ Мой токен";
-"general.tabbar.title.dex" = "DEX";
+"general.tabbar.title.dex" = "Exchange";
 "general.tabbar.title.history" = "История";
 "general.tabbar.title.profile" = "Профиль";
 "general.tabbar.title.wallet" = "Кошелёк";

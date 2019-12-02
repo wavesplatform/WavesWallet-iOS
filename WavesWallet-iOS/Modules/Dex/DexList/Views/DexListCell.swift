@@ -48,7 +48,7 @@ extension DexListCell: ViewConfiguration {
             return (lastPrice - firstPrice) * 100
         }
         
-        let percent = lastPrice != 0 ? deltaPercent / lastPrice : 0
+        let percent = firstPrice != 0 ? deltaPercent / firstPrice : 0
 
         if lastPrice > firstPrice {
             iconArrow.image = Images.chartarrow22Success400.image

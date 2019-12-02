@@ -225,7 +225,7 @@
 "general.error.title.noconnectiontotheinternet" = "No connection to the Internet";
 "general.error.title.notfound" = "Oh… It's all broken!";
 "general.label.title.myasset" = "/ My token";
-"general.tabbar.title.dex" = "DEX";
+"general.tabbar.title.dex" = "Exchange";
 "general.tabbar.title.history" = "History";
 "general.tabbar.title.profile" = "Profile";
 "general.tabbar.title.wallet" = "Wallet";

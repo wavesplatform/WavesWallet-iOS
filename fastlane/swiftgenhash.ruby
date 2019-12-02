@@ -17,7 +17,7 @@ class Main
         storyboards_file_paths = Find.find(resources_path).select { |p| /.*\.storyboard$/ =~ p }
         assets_file_paths = Find.find(resources_path).select { |p| /.*\.xcassets$/ =~ p }
         strings_file_paths = Find.find(resources_path).select { |p| /.*\.strings$/ =~ p }
-
+ 
         storyboards_map = Hash.new
         storyboards_file_paths.each do |storyboard|
             sha512 = Digest::SHA512.file storyboard
@@ -40,10 +40,11 @@ class Main
 
         strings_map = Hash.new
         strings_file_paths.each do |string|
+            keys = string.split('/')[-2] + "/" + string.split('/').last
             sha512 = Digest::SHA512.file string
-            strings_map[string.split('/').last] = sha512
+            strings_map[keys] = sha512
         end
-
+        
         json_map = Hash.new
         json_map["storyboards"] = storyboards_map
         json_map["assets"] = assets_map
@@ -70,4 +71,4 @@ class Main
     end
 end
 
-Main.new.check(ARGV[0], ARGV[1], ARGV[2])
+puts Main.new.check(ARGV[0], ARGV[1], ARGV[2])

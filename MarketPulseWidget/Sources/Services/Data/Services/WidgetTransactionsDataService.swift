@@ -22,7 +22,8 @@ final class WidgetTransactionsDataService: TransactionsDataServiceProtocol {
             .transactionsProvider
             .rx
             .request(.init(kind: .getExchangeWithFilters(query),
-                           dataUrl: InternalWidgetService.shared.dataUrl),
+                           dataUrl: InternalWidgetService.shared.dataUrl,
+                           matcher: query.matcher),
                      callbackQueue: DispatchQueue.global(qos: .userInteractive))
             .filterSuccessfulStatusAndRedirectCodes()
             .catchError({ (error) -> Single<Response> in

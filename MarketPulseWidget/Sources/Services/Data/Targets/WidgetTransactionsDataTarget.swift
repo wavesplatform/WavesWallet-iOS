@@ -16,9 +16,10 @@ extension WidgetDataService.Target {
         enum Kind {
             case getExchangeWithFilters(DataService.Query.ExchangeFilters)
         }
-
+        
         let kind: Kind
         let dataUrl: URL
+        let matcher: String?
     }
 }
 
@@ -26,6 +27,7 @@ extension WidgetDataService.Target.Transactions: WidgetDataTargetType {
 
     private enum Constants {
         static let exchange = "transactions/exchange"
+        static let matcher = "matcher"
     }
 
     var path: String {
@@ -46,7 +48,14 @@ extension WidgetDataService.Target.Transactions: WidgetDataTargetType {
     var task: Task {
         switch kind {
         case .getExchangeWithFilters(let filter):
-            return .requestParameters(parameters: filter.dictionary, encoding: URLEncoding.default)
+            
+            var dictionary = filter.dictionary
+            
+            if let matcher = self.matcher {
+                dictionary[Constants.matcher] = matcher
+            }
+            
+            return .requestParameters(parameters: dictionary, encoding: URLEncoding.default)
         }
     }
 }

@@ -68,13 +68,13 @@ final class DexMarketInteractor: DexMarketInteractorProtocol {
                     generalIds.append(Constants.liquidToken)
 
                     let generalAssetsObserver = self.assetsInteractor.assets(by: generalIds, accountAddress: wallet.address)
-                    let assetsObserver = self.assetsRepository.searchAssets(search: words[0])
+                    let assetsObserver = self.assetsRepository.searchAssets(search: words[0], accountAddress: wallet.address)
                   
                     return self.searchPairs(firstSearchAssets: assetsObserver, secondSearchAssets: generalAssetsObserver, address: wallet.address)
                 }
                 else if words.count > 1 {
-                    let firstAssetsObserver = self.assetsRepository.searchAssets(search: words[0])
-                    let secondsAssetsObserver = self.assetsRepository.searchAssets(search: words[1])
+                    let firstAssetsObserver = self.assetsRepository.searchAssets(search: words[0], accountAddress: wallet.address)
+                    let secondsAssetsObserver = self.assetsRepository.searchAssets(search: words[1], accountAddress: wallet.address)
 
                     return self.searchPairs(firstSearchAssets: firstAssetsObserver, secondSearchAssets: secondsAssetsObserver, address: wallet.address)
                 }

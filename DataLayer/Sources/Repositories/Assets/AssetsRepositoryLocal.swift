@@ -15,7 +15,7 @@ import DomainLayer
 
 final class AssetsRepositoryLocal: AssetsRepositoryProtocol {
     
-    func searchAssets(search: String) -> Observable<[DomainLayer.DTO.Asset]> {
+    func searchAssets(search: String, accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
         assertMethodDontSupported()
         return Observable.never()
     }
