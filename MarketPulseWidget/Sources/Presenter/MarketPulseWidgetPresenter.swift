@@ -132,13 +132,13 @@ private extension MarketPulseWidgetPresenter {
             
             if asset.id == WavesSDKConstants.wavesAssetId {
                 let deltaPercent = (wavesCurrencyAsset.lastPrice - wavesCurrencyAsset.firstPrice) * 100
-                percent = wavesCurrencyAsset.lastPrice != 0 ? deltaPercent / wavesCurrencyAsset.lastPrice : 0
+                percent = wavesCurrencyAsset.firstPrice != 0 ? deltaPercent / wavesCurrencyAsset.firstPrice : 0
                 price = wavesCurrencyAsset.price
             }
             else {
                 
                 let deltaPercent = (asset.lastPrice - asset.firstPrice) * 100
-                percent = asset.lastPrice != 0 ? deltaPercent / asset.lastPrice : 0
+                percent = asset.firstPrice != 0 ? deltaPercent / asset.firstPrice : 0
                 
                 if asset.amountAsset == WavesSDKConstants.wavesAssetId {
                     price = asset.price != 0 ? 1 / asset.price * wavesCurrencyAsset.price : 0

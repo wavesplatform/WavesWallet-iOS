@@ -20,6 +20,8 @@ final class WidgetPairsPriceRepositoryRemote: WidgetPairsPriceRepositoryProtocol
 
     private let pairsPriceDataService = WidgetPairsPriceDataService()
     
+    private let matcherRepository: MatcherRepositoryProtocol = MatcherRepositoryLocal(matcherRepositoryRemote: WidgetMatcherRepositoryRemote())
+    
     func searchPairs(_ query: DomainLayer.Query.Dex.SearchPairs) -> Observable<DomainLayer.DTO.Dex.PairsSearch> {
         
         //TODO: Others type kinds
@@ -28,35 +30,42 @@ final class WidgetPairsPriceRepositoryRemote: WidgetPairsPriceRepositoryProtocol
         
         let pairsForQuery = pairs.map { WidgetDataService.Query.PairsPrice.Pair(amountAssetId: $0.amountAsset,
                                                                           priceAssetId: $0.priceAsset) }
-        
-        let query = WidgetDataService.Query.PairsPrice(pairs: pairsForQuery)
-        
-        return pairsPriceDataService
-                .pairsPrice(query: query)
-                .map({ (pairsSearch) -> DomainLayer.DTO.Dex.PairsSearch in
+                        
+        return matcherRepository
+            .matcherPublicKey()
+            .flatMap { [weak self] (publicKey) -> Observable<DomainLayer.DTO.Dex.PairsSearch> in
                 
-                    let pairs = pairsSearch.map({ (pairPrice) -> DomainLayer
-                        .DTO
-                        .Dex
-                        .PairsSearch
-                        .Pair? in
+                guard let self = self else { return Observable.never() }
+                
+                let query = WidgetDataService.Query.PairsPrice(pairs: pairsForQuery, matcher: publicKey.address)
+                    
+                return self.pairsPriceDataService
+                        .pairsPrice(query: query)
+                        .map({ (pairsSearch) -> DomainLayer.DTO.Dex.PairsSearch in
                         
-                        guard let pairPrice = pairPrice else { return nil }
-                        
-                        return DomainLayer
-                            .DTO
-                            .Dex
-                            .PairsSearch
-                            .Pair.init(firstPrice: pairPrice.firstPrice,
-                                       lastPrice: pairPrice.lastPrice,
-                                       volume: pairPrice.volume,
-                                       volumeWaves: pairPrice.volumeWaves,
-                                       quoteVolume: pairPrice.quoteVolume)
+                            let pairs = pairsSearch.map({ (pairPrice) -> DomainLayer
+                                .DTO
+                                .Dex
+                                .PairsSearch
+                                .Pair? in
+                                
+                                guard let pairPrice = pairPrice else { return nil }
+                                
+                                return DomainLayer
+                                    .DTO
+                                    .Dex
+                                    .PairsSearch
+                                    .Pair.init(firstPrice: pairPrice.firstPrice,
+                                               lastPrice: pairPrice.lastPrice,
+                                               volume: pairPrice.volume,
+                                               volumeWaves: pairPrice.volumeWaves,
+                                               quoteVolume: pairPrice.quoteVolume)
+                            })
+                            
+                            
+                            
+                            return DomainLayer.DTO.Dex.PairsSearch(pairs: pairs)
                     })
-                    
-                    
-                    
-                    return DomainLayer.DTO.Dex.PairsSearch(pairs: pairs)
-            })
+            }
     }
 }
