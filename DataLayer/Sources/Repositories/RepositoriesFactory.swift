@@ -30,7 +30,9 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     
     public private(set) lazy var assetsRepositoryLocal: AssetsRepositoryProtocol = AssetsRepositoryLocal()
     
-    public private(set) lazy var assetsRepositoryRemote: AssetsRepositoryProtocol = AssetsRepositoryRemote(environmentRepository: environmentRepositoryInternal, spamAssetsRepository: spamAssets)
+    public private(set) lazy var assetsRepositoryRemote: AssetsRepositoryProtocol = AssetsRepositoryRemote(environmentRepository: environmentRepositoryInternal,
+                                                                                                           spamAssetsRepository: spamAssets,
+                                                                                                           accountSettingsRepository: accountSettingsRepository)
     
     public private(set) lazy var accountBalanceRepositoryLocal: AccountBalanceRepositoryProtocol = AccountBalanceRepositoryLocal()
     

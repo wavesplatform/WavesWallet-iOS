@@ -64,7 +64,7 @@ final class AssetsSearchSystem: System<AssetsSearch.State, AssetsSearch.Event> {
                 .flatMap({ [weak self] _ -> Signal<Event> in
                     guard let self = self else { return Signal.never() }
                     return self.assetsRepository
-                        .searchAssets(search: search)
+                        .searchAssets(search: search, accountAddress: "")
                         .map { $0.count > 0 ? Event.assets($0) : Event.empty }
                         .asSignal(onErrorRecover: { error -> Signal<Event> in
                             return Signal.just(.handlerError(error))

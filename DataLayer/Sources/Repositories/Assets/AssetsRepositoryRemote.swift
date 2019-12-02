@@ -27,10 +27,14 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     
     private let spamAssetsRepository: SpamAssetsRepositoryProtocol
     
+    private let accountSettingsRepository: AccountSettingsRepositoryProtocol
+    
     init(environmentRepository: EnvironmentRepositoryProtocols,
-         spamAssetsRepository: SpamAssetsRepositoryProtocol) {
+         spamAssetsRepository: SpamAssetsRepositoryProtocol,
+         accountSettingsRepository: AccountSettingsRepositoryProtocol) {
         self.environmentRepository = environmentRepository
         self.spamAssetsRepository = spamAssetsRepository
+        self.accountSettingsRepository = accountSettingsRepository
     }
     
     func assets(by ids: [String], accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
@@ -43,9 +47,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
             
             let walletEnviroment = servicesEnvironment.walletEnvironment
 
-            let spamAssets = self
-                .spamAssetsRepository
-                .spamAssets(accountAddress: accountAddress)
+            let spamAssets = self.spamAssets(accountAddress: accountAddress)
 
             let assetsList = servicesEnvironment
                 .wavesServices
@@ -71,10 +73,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     }
 
     //TODO: Refactor method
-    func searchAssets(search: String) -> Observable<[DomainLayer.DTO.Asset]> {
-        
-        // 
-        let accountAddress: String = ""
+    func searchAssets(search: String, accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
         
         return environmentRepository
             .servicesEnvironment()
@@ -84,9 +83,7 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                 
                 let walletEnviroment = servicesEnvironment.walletEnvironment
                 
-                let spamAssets = self
-                    .spamAssetsRepository
-                    .spamAssets(accountAddress: accountAddress)
+                let spamAssets = self.spamAssets(accountAddress: accountAddress)
                 
                 let assetsList = servicesEnvironment
                     .wavesServices
@@ -138,6 +135,24 @@ final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
                     .assetDetails(assetId: assetId)
                     .map { $0.scripted == true }
             })
+    }
+}
+
+fileprivate extension AssetsRepositoryRemote {
+    
+    func spamAssets(accountAddress: String) -> Observable<[SpamAssetId]> {
+        
+        return self.accountSettingsRepository.accountSettings(accountAddress: accountAddress)
+            .flatMap { [weak self] (settings) -> Observable<[SpamAssetId]> in
+             
+                guard let self = self else { return Observable.never() }
+                
+                if settings?.isEnabledSpam ?? false {
+                    return self.spamAssetsRepository.spamAssets(accountAddress: accountAddress)
+                } else {
+                    return Observable.just([])
+                }
+            }
     }
 }
 

@@ -29,7 +29,7 @@ final class AssetsRepositoryMock: AssetsRepositoryProtocol {
         return Observable.never()
     }
     
-    func searchAssets(search: String) -> Observable<[DomainLayer.DTO.Asset]> {
+    func searchAssets(search: String, accountAddress: String) -> Observable<[DomainLayer.DTO.Asset]> {
         return Observable.never()
     }
 }

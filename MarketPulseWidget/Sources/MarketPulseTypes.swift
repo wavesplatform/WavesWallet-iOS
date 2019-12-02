@@ -14,7 +14,10 @@ import DomainLayer
 enum MarketPulse {
     static let minimumCountAssets = 2
 
-    static let usdAssetId = "Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck"
+//    Ft8X1v1LTa1ABafufpaCWyVj8KkaxUWE6xBhW6sNFJck Old USDW
+    
+    // Current id is USD-N
+    static let usdAssetId = "DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p"
     static let eurAssetId = "Gtb1WRznfchDnTh37ezoDTJ4wcoKaRsKqKjJjy7nm2zU"
         
     enum Currency: String {
