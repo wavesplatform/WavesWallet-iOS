@@ -1330,7 +1330,7 @@ internal enum Localizable {
       internal enum Tabbar {
 
         internal enum Title {
-          /// DEX
+          /// Exchange
           internal static var dex: String { return Localizable.tr("Waves", "general.tabbar.title.dex") }
           internal static var dexKey: String { return "general.tabbar.title.dex" }
           /// History

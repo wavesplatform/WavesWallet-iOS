@@ -36,6 +36,7 @@ final class DexListInteractor: DexListInteractorProtocol {
         return auth.authorizedWallet().flatMap({ [weak self] (wallet) -> Observable<ResponseType<DexList.DTO.DisplayInfo>> in
             guard let self = self else { return Observable.empty() }
             
+            //TODO: Loading
             return self.dexRealmRepository.list(by: wallet.address)
                 .flatMap({ [weak self] (pairs) -> Observable<ResponseType<DexList.DTO.DisplayInfo>> in
                                         

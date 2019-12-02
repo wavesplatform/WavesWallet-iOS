@@ -17,7 +17,7 @@ final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
 
     private let environmentRepository: EnvironmentRepositoryProtocols
     private let matcherRepository: MatcherRepositoryProtocol
-    
+
     init(environmentRepository: EnvironmentRepositoryProtocols, matcherRepository: MatcherRepositoryProtocol) {
         self.environmentRepository = environmentRepository
         self.matcherRepository = matcherRepository

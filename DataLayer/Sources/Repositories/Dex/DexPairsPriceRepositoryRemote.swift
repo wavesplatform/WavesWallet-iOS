@@ -16,9 +16,11 @@ import Extensions
 final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
   
     private let environmentRepository: EnvironmentRepositoryProtocols
-    
-    init(environmentRepository: EnvironmentRepositoryProtocols) {
+    private let matcherRepository: MatcherRepositoryProtocol
+            
+    init(environmentRepository: EnvironmentRepositoryProtocols, matcherRepository: MatcherRepositoryProtocol) {
         self.environmentRepository = environmentRepository
+        self.matcherRepository = matcherRepository
     }
     
     func search(by accountAddress: String, searchText: String) -> Observable<[DomainLayer.DTO.Dex.SimplePair]> {
@@ -57,14 +59,15 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
             }
         }
 
-        return environmentRepository
-        .servicesEnvironment()
-            .flatMap({ (servicesEnvironment) -> Observable<[DomainLayer.DTO.Dex.SimplePair]> in
+        
+        return Observable.zip(environmentRepository.servicesEnvironment(),
+                              matcherRepository.matcherPublicKey())
+            .flatMap({ (servicesEnvironment, matcherPublicKey) -> Observable<[DomainLayer.DTO.Dex.SimplePair]> in
                 return servicesEnvironment
                 .wavesServices
                 .dataServices
                 .pairsPriceDataService
-                .searchByAsset(query: .init(kind: kind))
+                    .searchByAsset(query: .init(kind: kind, matcher: matcherPublicKey.address))
                     .map({ (pairs) -> [DomainLayer.DTO.Dex.SimplePair] in
                         
                         var simplePairs: [DomainLayer.DTO.Dex.SimplePair] = []
@@ -80,14 +83,14 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
     
     func list(pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> {
 
-        return environmentRepository
-            .servicesEnvironment()
-            .flatMapLatest({ (servicesEnvironment) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
+          return Observable.zip(environmentRepository.servicesEnvironment(),
+                                    matcherRepository.matcherPublicKey())
+            .flatMapLatest({ (servicesEnvironment, matcherPublicKey) -> Observable<[DomainLayer.DTO.Dex.PairPrice]> in
                 
                 let pairsForQuery = pairs.map { DataService.Query.PairsPrice.Pair(amountAssetId: $0.amountAsset.id,
                                                                                   priceAssetId: $0.priceAsset.id) }
                 
-                let query = DataService.Query.PairsPrice(pairs: pairsForQuery)
+                let query = DataService.Query.PairsPrice(pairs: pairsForQuery, matcher: matcherPublicKey.address)
                 
                 return servicesEnvironment
                     .wavesServices
@@ -120,9 +123,9 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
     
     func searchPairs(_ query: DomainLayer.Query.Dex.SearchPairs) -> Observable<DomainLayer.DTO.Dex.PairsSearch> {
         
-        return environmentRepository
-            .servicesEnvironment()
-            .flatMapLatest({ (servicesEnvironment) -> Observable<DomainLayer.DTO.Dex.PairsSearch> in
+       return Observable.zip(environmentRepository.servicesEnvironment(),
+                             matcherRepository.matcherPublicKey())
+            .flatMapLatest({ (servicesEnvironment, matcherPublicKey) -> Observable<DomainLayer.DTO.Dex.PairsSearch> in
                 
                 //TODO: Others type kinds
                 guard case let .pairs(pairs) = query.kind else { return Observable.never() }
@@ -131,7 +134,7 @@ final class DexPairsPriceRepositoryRemote: DexPairsPriceRepositoryProtocol {
                 let pairsForQuery = pairs.map { DataService.Query.PairsPrice.Pair(amountAssetId: $0.amountAsset,
                                                                                   priceAssetId: $0.priceAsset) }
                 
-                let query = DataService.Query.PairsPrice(pairs: pairsForQuery)
+                let query = DataService.Query.PairsPrice(pairs: pairsForQuery, matcher: matcherPublicKey.address)
                 
                 return servicesEnvironment
                     .wavesServices
