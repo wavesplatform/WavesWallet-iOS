@@ -83,12 +83,12 @@ extension MarketPulse.DTO {
         let id: String
         let name: String
         let icon: AssetLogo.Icon
-        let price: Double
+        let rates: [String: Double]
         let firstPrice: Double
         let lastPrice: Double
         let amountAsset: String
     }
-    
+            
     struct UIAsset {
         let icon: AssetLogo.Icon
         let name: String
@@ -103,6 +103,10 @@ extension MarketPulse.DTO {
         let isDarkMode: Bool
         let inverval: DomainLayer.DTO.MarketPulseSettings.Interval
     }
+}
+
+extension MarketPulse {
+    enum Query {}
 }
 
 extension MarketPulse.ViewModel {

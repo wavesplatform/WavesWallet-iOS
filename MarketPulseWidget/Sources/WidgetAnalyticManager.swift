@@ -9,8 +9,6 @@
 import Foundation
 import DomainLayer
 import Amplitude_iOS
-//import FirebaseCore
-//import FirebaseAnalytics
 import AppsFlyerLib
 
 final class WidgetAnalyticManagerInitialization {
@@ -26,12 +24,6 @@ final class WidgetAnalyticManagerInitialization {
     
     
     static func setup(resources: Resources) {
-
-        //TODO: Add FireBase analytics
-        
-//        if let options = FirebaseOptions(contentsOfFile: resources.googleServiceInfo) {
-//            FirebaseApp.configure(options: options)
-//        }
 
         if let root = NSDictionary(contentsOfFile: resources.appsflyerInfo)?["Appsflyer"] as? NSDictionary {
             if let devKey = root["AppsFlyerDevKey"] as? String,
@@ -57,7 +49,6 @@ final class WidgetAnalyticManager: AnalyticManagerProtocol {
     
     func trackEvent(_ event: AnalyticManagerEvent) {
         Amplitude.instance().logEvent(event.name, withEventProperties: event.params)
-//        Analytics.logEvent(event.name.replacingOccurrences(of: " ", with: "_"), parameters: event.params)
         AppsFlyerTracker.shared()?.trackEvent(event.name, withValues: event.params)
     }
 }

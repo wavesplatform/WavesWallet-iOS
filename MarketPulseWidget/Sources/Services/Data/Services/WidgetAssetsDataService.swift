@@ -13,7 +13,6 @@ import Moya
 import WavesSDKExtensions
 
 protocol WidgetAssetsDataServiceProtocol {
-    
     func assets(ids: [String]) -> Observable<[DataService.DTO.Asset]>
 }
 

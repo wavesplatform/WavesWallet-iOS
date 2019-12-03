@@ -28,8 +28,7 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
     private let widgetSettingsRepository: WidgetSettingsInizializationUseCaseProtocol = WidgetSettingsInizialization()
     private let pairsPriceRepository: WidgetPairsPriceRepositoryProtocol = WidgetPairsPriceRepositoryRemote()
     private let dbRepository: MarketPulseDataBaseRepositoryProtocol = MarketPulseDataBaseRepository()
-    private let transactionsRepository: WidgetTransactionsRepositoryProtocol = WidgetTransactionsRepositoryRemote()
-    
+            
     init() {
         _ = setupLayers()
     }
@@ -94,7 +93,7 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
                                     icon: iconStyle,
                                     amountAsset: WavesSDKConstants.wavesAssetId,
                                     priceAsset: MarketPulse.usdAssetId))
-                
+
                 assets.append(.init(id: MarketPulse.eurAssetId,
                                     name: "",
                                     icon: iconStyle,
@@ -107,48 +106,49 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
     
     private func loadAssets(assets: [DomainLayer.DTO.MarketPulseSettings.Asset]) -> Observable<[MarketPulse.DTO.Asset]> {
         
-        var arrayExchangeTx: [Observable<[DataService.DTO.ExchangeTransaction]>] = []
-
-        for asset in assets {
-            arrayExchangeTx.append(transactionsRepository.exchangeTransactions(amountAsset: asset.amountAsset, priceAsset: asset.priceAsset, limit: Constants.exchangeTxLimit))
-        }
-        
         let query = assets.map { DomainLayer.Query.Dex.SearchPairs.Pair.init(amountAsset: $0.amountAsset,
                                                                              priceAsset: $0.priceAsset) }
-    
-        return pairsPriceRepository
-            .searchPairs(.init(kind: .pairs(query)))
-            .flatMap { (searchResult) -> Observable<[MarketPulse.DTO.Asset]> in
+        
+        let ratesQuery = MarketPulse.Query.Rates.init(pair: assets.flatMap { [.init(amountAssetId: $0.id, priceAssetId: MarketPulse.usdAssetId),
+                                                                              .init(amountAssetId: $0.id, priceAssetId: MarketPulse.eurAssetId)] })
 
-                return Observable.zip(arrayExchangeTx)
-                    .flatMap({ [weak self] (arrayTx) -> Observable<[MarketPulse.DTO.Asset]> in
+        return Observable.zip(pairsPriceRepository.searchPairs(.init(kind: .pairs(query))),
+                              pairsPriceRepository.ratePairs(ratesQuery))
+            .flatMap { [weak self] (searchResult, ratePairs) -> Observable<[MarketPulse.DTO.Asset]> in
 
-                    guard let self = self else { return Observable.empty() }
+                guard let self = self else { return Observable.empty() }
+                                
+                var pairs: [MarketPulse.DTO.Asset] = []
+            
+                let prices = ratePairs.reduce(into: [String: [String: MarketPulse.DTO.Rate]].init(), {
+                    var map = $0[$1.priceAssetId] ?? [String: MarketPulse.DTO.Rate].init()
                     
-                    var pairs: [MarketPulse.DTO.Asset] = []
-                    
-                    for (index, model) in searchResult.pairs.enumerated() {
-                        
-                        let exchangeAssetTxs = arrayTx[index]
-                        let price = exchangeAssetTxs.count > 0 ? exchangeAssetTxs.map{$0.price}.reduce(0, {$0 + $1}) / Double(exchangeAssetTxs.count) : 0
-
-                        let asset = assets[index]
-                       
-                        pairs.append(MarketPulse.DTO.Asset(id: asset.id,
-                                                           name: asset.name,
-                                                           icon: asset.icon,
-                                                           price: price,
-                                                           firstPrice: model?.firstPrice ?? 0,
-                                                           lastPrice: model?.lastPrice ?? 0,
-                                                           amountAsset: asset.amountAsset))
-                    }
-                    return self.dbRepository.saveAsssets(assets: pairs)
-                        .flatMap({ (_) -> Observable<[MarketPulse.DTO.Asset]> in
-                            return Observable.just(pairs)
-                        })
+                    map[$1.amountAssetId] = $1
+                    $0[$1.priceAssetId] = map
                 })
-                 
-        }
+                
+                for (index, model) in searchResult.pairs.enumerated() {
+                                        
+                    let asset = assets[index]
+                   
+                    var rates: [String: Double] = .init()
+                    rates[MarketPulse.usdAssetId] = prices[MarketPulse.usdAssetId]?[asset.id]?.rate ?? 0
+                    rates[MarketPulse.eurAssetId] = prices[MarketPulse.eurAssetId]?[asset.id]?.rate ?? 0
+                    
+                    pairs.append(MarketPulse.DTO.Asset(id: asset.id,
+                                                       name: asset.name,
+                                                       icon: asset.icon,
+                                                       rates: rates,
+                                                       firstPrice: model?.firstPrice ?? 0,
+                                                       lastPrice: model?.lastPrice ?? 0,
+                                                       amountAsset: asset.amountAsset))
+                }
+                
+                return self.dbRepository.saveAsssets(assets: pairs)
+                    .flatMap({ (_) -> Observable<[MarketPulse.DTO.Asset]> in
+                        return Observable.just(pairs)
+                    })
+            }
     }
 }
 

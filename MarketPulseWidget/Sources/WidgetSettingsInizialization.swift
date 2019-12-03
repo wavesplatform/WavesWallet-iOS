@@ -12,7 +12,6 @@ import RxSwift
 import WavesSDK
 import WavesSDKCrypto
 
-
 class WidgetSettingsInizialization: WidgetSettingsInizializationUseCaseProtocol {
     
     private let widgetSettingsStorage: WidgetSettingsRepositoryProtocol = WidgetSettingsRepositoryStorage()
@@ -43,6 +42,7 @@ class WidgetSettingsInizialization: WidgetSettingsInizializationUseCaseProtocol 
         return assetsRepository.assets(by: assets.map { $0.assetId })
             .flatMap({ [weak self] (assets) -> Observable<DomainLayer.DTO.MarketPulseSettings> in
                 guard let self = self else { return Observable.never() }
+                
                 
                 return self
                     .correction(pairs: assets.map { DomainLayer.DTO.CorrectionPairs.Pair.init(amountAsset: $0.id,

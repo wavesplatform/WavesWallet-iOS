@@ -99,7 +99,7 @@ final class MarketPulseWidgetPresenter: MarketPulseWidgetPresenterProtocol {
             state.action = .update
             
         case .setSettings(let settings):
-            state.currency = settings.currency
+            state.currency = .usd
             state.isDarkMode = settings.isDarkMode
             state.hasLoadSettings = true
             state.action = .update
@@ -121,36 +121,27 @@ private extension MarketPulseWidgetPresenter {
 
         guard let wavesUSDAsset = assets.first(where: {$0.id == MarketPulse.usdAssetId}) else { return [] }
         guard let wavesEURAsset = assets.first(where: {$0.id == MarketPulse.eurAssetId}) else { return [] }
-        
+
         let wavesCurrencyAsset = settings.currency == .usd ? wavesUSDAsset : wavesEURAsset
+        let wavesCurrency = settings.currency == .usd ? MarketPulse.usdAssetId : MarketPulse.eurAssetId
         let filteredAsset = assets.filter {$0.id != MarketPulse.eurAssetId && $0.id != MarketPulse.usdAssetId }
-        
+                
         return filteredAsset.map { asset in
             
-            var price: Double = 0
             var percent: Double = 0
-            
             if asset.id == WavesSDKConstants.wavesAssetId {
                 let deltaPercent = (wavesCurrencyAsset.lastPrice - wavesCurrencyAsset.firstPrice) * 100
                 percent = wavesCurrencyAsset.firstPrice != 0 ? deltaPercent / wavesCurrencyAsset.firstPrice : 0
-                price = wavesCurrencyAsset.price
             }
             else {
-                
+
                 let deltaPercent = (asset.lastPrice - asset.firstPrice) * 100
                 percent = asset.firstPrice != 0 ? deltaPercent / asset.firstPrice : 0
-                
-                if asset.amountAsset == WavesSDKConstants.wavesAssetId {
-                    price = asset.price != 0 ? 1 / asset.price * wavesCurrencyAsset.price : 0
-                }
-                else {
-                    price = asset.price * wavesCurrencyAsset.price
-                }
             }
-            
+
             return MarketPulse.ViewModel.Row.model(MarketPulse.DTO.UIAsset(icon: asset.icon,
                                                                            name: asset.name,
-                                                                           price: price,
+                                                                           price: asset.rates[wavesCurrency] ?? 0,
                                                                            percent: percent,
                                                                            currency: settings.currency,
                                                                            isDarkMode: settings.isDarkMode))
