@@ -79,8 +79,8 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
             .flatMap({ [weak self] (settings) -> Observable<[MarketPulse.DTO.Asset]> in
                 
                 guard let self = self else { return Observable.empty() }
-                
-                return self.loadAssets(assets: assets)
+                            
+                return self.loadAssets(assets: settings.assets)
             })
     }
     
