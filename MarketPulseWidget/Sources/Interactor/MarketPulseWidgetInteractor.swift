@@ -139,7 +139,12 @@ final class MarketPulseWidgetInteractor: MarketPulseWidgetInteractorProtocol {
                                                  amountAsset: asset.amountAsset)
                 }
 
-                return Observable.just(newAssets)
+                return self
+                    .dbRepository
+                    .saveAsssets(assets: newAssets)
+                    .flatMap({ (_) -> Observable<[MarketPulse.DTO.Asset]> in
+                        return Observable.just(newAssets)
+                    })
             }
     }
 }
