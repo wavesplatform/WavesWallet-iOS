@@ -79,13 +79,17 @@ enum MarketPulse {
 
 extension MarketPulse.DTO {
     
+    
     struct Asset: Codable {
-        let id: String
+        
+        typealias AssetId = String
+        
+        let id: AssetId
         let name: String
         let icon: AssetLogo.Icon
-        let rates: [String: Double]
-        let firstPrice: Double
-        let lastPrice: Double
+        let rates: [AssetId: Double]
+        let firstPrice: [AssetId: Double]
+        let lastPrice: [AssetId: Double]
         let amountAsset: String
     }
             

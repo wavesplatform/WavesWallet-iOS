@@ -119,25 +119,15 @@ private extension MarketPulseWidgetPresenter {
     
     static func mapAssetModels(assets: [MarketPulse.DTO.Asset], settings: MarketPulse.DTO.Settings) -> [MarketPulse.ViewModel.Row] {
 
-        guard let wavesUSDAsset = assets.first(where: {$0.id == MarketPulse.usdAssetId}) else { return [] }
-        guard let wavesEURAsset = assets.first(where: {$0.id == MarketPulse.eurAssetId}) else { return [] }
-
-        let wavesCurrencyAsset = settings.currency == .usd ? wavesUSDAsset : wavesEURAsset
         let wavesCurrency = settings.currency == .usd ? MarketPulse.usdAssetId : MarketPulse.eurAssetId
-        let filteredAsset = assets.filter {$0.id != MarketPulse.eurAssetId && $0.id != MarketPulse.usdAssetId }
-                
-        return filteredAsset.map { asset in
-            
-            var percent: Double = 0
-            if asset.id == WavesSDKConstants.wavesAssetId {
-                let deltaPercent = (wavesCurrencyAsset.lastPrice - wavesCurrencyAsset.firstPrice) * 100
-                percent = wavesCurrencyAsset.firstPrice != 0 ? deltaPercent / wavesCurrencyAsset.firstPrice : 0
-            }
-            else {
 
-                let deltaPercent = (asset.lastPrice - asset.firstPrice) * 100
-                percent = asset.firstPrice != 0 ? deltaPercent / asset.firstPrice : 0
-            }
+        return assets.map { asset in
+            
+            let firstPrice = asset.firstPrice[wavesCurrency] ?? 0
+            let lastPrice = asset.lastPrice[wavesCurrency] ?? 0
+            
+            let deltaPercent = (lastPrice - firstPrice) * 100
+            let percent = firstPrice != 0 ? deltaPercent / firstPrice : 0
 
             return MarketPulse.ViewModel.Row.model(MarketPulse.DTO.UIAsset(icon: asset.icon,
                                                                            name: asset.name,

@@ -29,6 +29,7 @@ extension MarketPulse.Query {
         }
         
         let pair: [Pair]
+        let timestamp: Date?
     }
 }
 
@@ -57,7 +58,8 @@ final class WidgetPairsPriceRepositoryRemote: WidgetPairsPriceRepositoryProtocol
                     .Query
                     .Rates.init(pair: query.pair.map { WidgetDataService.Query.Rates.Pair(amountAssetId: $0.amountAssetId,
                                                                                           priceAssetId: $0.priceAssetId) },
-                                matcher: publicKey.address)
+                                matcher: publicKey.address,
+                                timestamp: query.timestamp)
                 return self
                     .pairsPriceDataService
                     .pairsRate(query: query)

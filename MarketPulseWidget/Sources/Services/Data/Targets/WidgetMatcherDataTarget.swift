@@ -9,6 +9,7 @@ import Foundation
 import Moya
 
 private enum TargetConstants {
+    static let timestamp = "timestamp"
     static let rates = "rates"
     static let pairs = "pairs"
     static let matcher = "matchers"
@@ -25,6 +26,7 @@ extension WidgetDataService.Query {
         
         let pairs: [Pair]
         let matcher: String
+        let timestamp: Int64?
     }
 }
 
@@ -49,7 +51,14 @@ extension WidgetDataService.Target.MatcherRates: WidgetDataTargetType {
     var task: Task {
 
         let paramenets: [String: Any] = {
-           return [TargetConstants.pairs: query.pairs.map { $0.amountAssetId + "/" + $0.priceAssetId }]
+            
+            if let timestamp = query.timestamp {
+                return [TargetConstants.pairs: query.pairs.map { $0.amountAssetId + "/" + $0.priceAssetId },
+                        TargetConstants.timestamp: timestamp]
+            } else {
+                return [TargetConstants.pairs: query.pairs.map { $0.amountAssetId + "/" + $0.priceAssetId }]
+            }
+           
         }()
 
         return .requestParameters(parameters: paramenets,

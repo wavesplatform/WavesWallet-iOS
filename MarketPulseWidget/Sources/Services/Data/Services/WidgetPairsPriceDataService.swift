@@ -27,6 +27,7 @@ extension WidgetDataService.Query {
         
         let pair: [Pair]
         let matcher: String
+        let timestamp: Date?
     }
 }
 
@@ -94,6 +95,7 @@ fileprivate extension WidgetDataService.Query.Rates {
     var query: WidgetDataService.Query.MatcherRates {
         return WidgetDataService.Query.MatcherRates(pairs: pair.map { .init(amountAssetId: $0.amountAssetId,
                                                                             priceAssetId: $0.priceAssetId) },
-                                                    matcher: matcher)
+                                                    matcher: matcher,
+                                                    timestamp: timestamp?.millisecondsSince1970)
     }
 }
