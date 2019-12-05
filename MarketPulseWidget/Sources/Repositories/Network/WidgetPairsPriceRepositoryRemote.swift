@@ -11,16 +11,63 @@ import DomainLayer
 import RxSwift
 import Extensions
 
+extension MarketPulse.DTO {
+    
+    struct Rate {
+        let amountAssetId: String
+        let priceAssetId: String
+        let rate: Double
+    }
+}
+
+extension MarketPulse.Query {
+    
+    struct Rates {
+        struct Pair {
+            let amountAssetId: String
+            let priceAssetId: String
+        }
+        
+        let pair: [Pair]
+        let timestamp: Date?
+    }
+}
+
 protocol WidgetPairsPriceRepositoryProtocol {
     
     func searchPairs(_ query: DomainLayer.Query.Dex.SearchPairs) -> Observable<DomainLayer.DTO.Dex.PairsSearch>
+    
+    func ratePairs(_  query: MarketPulse.Query.Rates) -> Observable<[MarketPulse.DTO.Rate]>
 }
 
 final class WidgetPairsPriceRepositoryRemote: WidgetPairsPriceRepositoryProtocol {
 
-    private let pairsPriceDataService = WidgetPairsPriceDataService()
+    private let pairsPriceDataService: WidgetPairsPriceDataServiceProtocol = WidgetPairsPriceDataService()
     
     private let matcherRepository: MatcherRepositoryProtocol = MatcherRepositoryLocal(matcherRepositoryRemote: WidgetMatcherRepositoryRemote())
+            
+    func ratePairs(_  query: MarketPulse.Query.Rates) -> Observable<[MarketPulse.DTO.Rate]> {
+    
+         return matcherRepository
+           .matcherPublicKey()
+            .flatMap { [weak self] (publicKey) -> Observable<[MarketPulse.DTO.Rate]> in
+               
+               guard let self = self else { return Observable.never() }
+               
+                let query = WidgetDataService
+                    .Query
+                    .Rates.init(pair: query.pair.map { WidgetDataService.Query.Rates.Pair(amountAssetId: $0.amountAssetId,
+                                                                                          priceAssetId: $0.priceAssetId) },
+                                matcher: publicKey.address,
+                                timestamp: query.timestamp)
+                return self
+                    .pairsPriceDataService
+                    .pairsRate(query: query)
+                    .map { $0.map { MarketPulse.DTO.Rate(amountAssetId: $0.amountAssetId,
+                                                         priceAssetId: $0.priceAssetId,
+                                                         rate: $0.rate) }}
+            }
+    }
     
     func searchPairs(_ query: DomainLayer.Query.Dex.SearchPairs) -> Observable<DomainLayer.DTO.Dex.PairsSearch> {
         

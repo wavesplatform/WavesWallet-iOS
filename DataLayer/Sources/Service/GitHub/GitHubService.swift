@@ -27,7 +27,7 @@ private enum Constants {
     
     static let urlEnvironmentTestNetTest: URL = URL(string:"\(root)/mobile/environment/test/testnet.json")!
         
-    static let urlEnvironmentStageNet: URL = URL(string: "\(root)/mobile/environment/prod/testnet.json")!
+    static let urlEnvironmentStageNet: URL = URL(string: "\(root)/mobile/environment/prod/stagenet.json")!
     
     static let urlEnvironmentMainNet: URL = URL(string: "\(root)/mobile/environment/prod/mainnet.json")!
     

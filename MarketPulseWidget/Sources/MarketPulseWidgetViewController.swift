@@ -55,6 +55,8 @@ final class MarketPulseWidgetViewController: UIViewController {
         buttonUpdate.setTitle(Localizable.Marketpulsewidget.Button.Update.title, for: .normal)
         initPresenter()
 
+        buttonCurrency.isHidden = true
+        
         setupFeedBack()
         setupButtonUpdateSize()
         showUpdateAnimation()
@@ -182,7 +184,6 @@ private extension MarketPulseWidgetViewController {
         labelError.isHidden = true
         tableView.isHidden = false
         buttonUpdate.isHidden = false
-        buttonCurrency.isHidden = false
         buttonSettings.isHidden = false
     }
     
@@ -190,7 +191,6 @@ private extension MarketPulseWidgetViewController {
         labelError.isHidden = false
         tableView.isHidden = true
         buttonUpdate.isHidden = true
-        buttonCurrency.isHidden = true
         buttonSettings.isHidden = true
         
         //TODO: - change error message

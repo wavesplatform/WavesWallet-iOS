@@ -440,6 +440,7 @@
 		7B6686F222B7C5120029E6F1 /* Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6686F022B7C5120029E6F1 /* Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B66872722B7E68B0029E6F1 /* DataLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B66872522B7E68B0029E6F1 /* DataLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6922C6223BA1730056DA67 /* TransactionCardSystemTransaction+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6922C5223BA1730056DA67 /* TransactionCardSystemTransaction+Mapper.swift */; };
+		7B737BD3239680F700BEE392 /* WidgetMatcherDataTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B737BD2239680F700BEE392 /* WidgetMatcherDataTarget.swift */; };
 		7B7A4B7E22D625B300E0A8CD /* DexCreateOrderInvalidPriceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B7A4B7D22D625B300E0A8CD /* DexCreateOrderInvalidPriceView.xib */; };
 		7B83A7D322D8C74F0038180D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83A7D222D8C74F0038180D /* AppDelegate.swift */; };
 		7B83A7D522D8C74F0038180D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B83A7D422D8C74F0038180D /* ViewController.swift */; };
@@ -1729,6 +1730,7 @@
 		7B66872522B7E68B0029E6F1 /* DataLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataLayer.h; sourceTree = "<group>"; };
 		7B66872622B7E68B0029E6F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B6922C5223BA1730056DA67 /* TransactionCardSystemTransaction+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionCardSystemTransaction+Mapper.swift"; sourceTree = "<group>"; };
+		7B737BD2239680F700BEE392 /* WidgetMatcherDataTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetMatcherDataTarget.swift; sourceTree = "<group>"; };
 		7B7422E3237ACC9D00E5910D /* WavesWallet-iOS-Dev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WavesWallet-iOS-Dev.entitlements"; sourceTree = "<group>"; };
 		7B7422E4237ACC9D00E5910D /* WavesWallet-iOS-Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WavesWallet-iOS-Test.entitlements"; sourceTree = "<group>"; };
 		7B7A4B7B22D6258C00E0A8CD /* DexCreateOrderInvalidPriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexCreateOrderInvalidPriceView.swift; sourceTree = "<group>"; };
@@ -4697,6 +4699,7 @@
 				E96DE1852317F07B005E1FD9 /* WidgetAssetsDataTarget.swift */,
 				E92A11632317CE35004EC6A1 /* WidgetPairsPriceDataTarget.swift */,
 				E984BB6C2318461A00D60C38 /* WidgetTransactionsDataTarget.swift */,
+				7B737BD2239680F700BEE392 /* WidgetMatcherDataTarget.swift */,
 			);
 			path = Targets;
 			sourceTree = "<group>";
@@ -4835,17 +4838,17 @@
 		E958571422F35BBD007A0178 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				E92A115F2317CD06004EC6A1 /* Services */,
-				7B848A67230076AE0092AD18 /* Generated */,
-				E958571822F35C87007A0178 /* Repositories */,
-				E991F8FD22E8CF9D008D1AE4 /* Presenter */,
-				E991F8FC22E8CF94008D1AE4 /* Interactor */,
-				E95310B122E8502F00F72809 /* Views */,
-				E9B190AB22E7CD99008220B7 /* MarketPulseWidgetViewController.swift */,
 				E95310BB22E85FEE00F72809 /* MarketPulseTypes.swift */,
+				E9B190AB22E7CD99008220B7 /* MarketPulseWidgetViewController.swift */,
+				E96DE1902318076A005E1FD9 /* WidgetAnalyticManager.swift */,
 				E958571222F2E73D007A0178 /* WidgetSettings.swift */,
 				E936C2E92314BF590097515B /* WidgetSettingsInizialization.swift */,
-				E96DE1902318076A005E1FD9 /* WidgetAnalyticManager.swift */,
+				7B848A67230076AE0092AD18 /* Generated */,
+				E991F8FC22E8CF94008D1AE4 /* Interactor */,
+				E991F8FD22E8CF9D008D1AE4 /* Presenter */,
+				E958571822F35C87007A0178 /* Repositories */,
+				E92A115F2317CD06004EC6A1 /* Services */,
+				E95310B122E8502F00F72809 /* Views */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -7218,6 +7221,7 @@
 				E96DE1912318076A005E1FD9 /* WidgetAnalyticManager.swift in Sources */,
 				E92A11812317E10C004EC6A1 /* WidgetMatcherSettingService.swift in Sources */,
 				E984BB732319367400D60C38 /* WidgetPublicKeyMatcherService.swift in Sources */,
+				7B737BD3239680F700BEE392 /* WidgetMatcherDataTarget.swift in Sources */,
 				E92A11852317E883004EC6A1 /* WidgetAssetsDataService.swift in Sources */,
 				E92A11682317CEF6004EC6A1 /* WidgetPairsPriceDataService.swift in Sources */,
 				E95310B322E8507500F72809 /* MarketPulseWidgetCell.swift in Sources */,
@@ -8018,7 +8022,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -8111,7 +8115,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -8360,11 +8364,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3946;
+				DYLIB_CURRENT_VERSION = 3951;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -8399,11 +8403,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3946;
+				DYLIB_CURRENT_VERSION = 3951;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DomainLayer/Info.plist;
@@ -8433,11 +8437,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3946;
+				DYLIB_CURRENT_VERSION = 3951;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DomainLayer/Info.plist;
@@ -8467,11 +8471,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3946;
+				DYLIB_CURRENT_VERSION = 3951;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DomainLayer/Info.plist;
@@ -8501,11 +8505,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3946;
+				DYLIB_CURRENT_VERSION = 3951;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -8543,11 +8547,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3946;
+				DYLIB_CURRENT_VERSION = 3951;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -8580,11 +8584,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3946;
+				DYLIB_CURRENT_VERSION = 3951;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -8617,11 +8621,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3946;
+				DYLIB_CURRENT_VERSION = 3951;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -8654,11 +8658,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3946;
+				DYLIB_CURRENT_VERSION = 3951;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -8693,11 +8697,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3946;
+				DYLIB_CURRENT_VERSION = 3951;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DataLayer/Info.plist;
@@ -8727,11 +8731,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3946;
+				DYLIB_CURRENT_VERSION = 3951;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DataLayer/Info.plist;
@@ -8761,11 +8765,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3946;
+				DYLIB_CURRENT_VERSION = 3951;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DataLayer/Info.plist;
@@ -9242,7 +9246,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -9307,11 +9311,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3946;
+				DYLIB_CURRENT_VERSION = 3951;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -9346,11 +9350,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3946;
+				DYLIB_CURRENT_VERSION = 3951;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -9388,11 +9392,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3946;
+				DYLIB_CURRENT_VERSION = 3951;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -9543,7 +9547,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -9601,11 +9605,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3946;
+				DYLIB_CURRENT_VERSION = 3951;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DomainLayer/Info.plist;
@@ -9635,11 +9639,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3946;
+				DYLIB_CURRENT_VERSION = 3951;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -9672,11 +9676,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3946;
+				DYLIB_CURRENT_VERSION = 3951;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = DataLayer/Info.plist;
@@ -10018,7 +10022,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -10375,7 +10379,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
@@ -10413,7 +10417,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3946;
+				CURRENT_PROJECT_VERSION = 3951;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 96SW78M3KJ;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";

@@ -147,7 +147,7 @@ fileprivate extension AssetsRepositoryRemote {
              
                 guard let self = self else { return Observable.never() }
                 
-                if settings?.isEnabledSpam ?? false {
+                if settings?.isEnabledSpam ?? true {
                     return self.spamAssetsRepository.spamAssets(accountAddress: accountAddress)
                 } else {
                     return Observable.just([])

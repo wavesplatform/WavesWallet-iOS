@@ -79,16 +79,20 @@ enum MarketPulse {
 
 extension MarketPulse.DTO {
     
+    
     struct Asset: Codable {
-        let id: String
+        
+        typealias AssetId = String
+        
+        let id: AssetId
         let name: String
         let icon: AssetLogo.Icon
-        let price: Double
-        let firstPrice: Double
-        let lastPrice: Double
+        let rates: [AssetId: Double]
+        let firstPrice: [AssetId: Double]
+        let lastPrice: [AssetId: Double]
         let amountAsset: String
     }
-    
+            
     struct UIAsset {
         let icon: AssetLogo.Icon
         let name: String
@@ -103,6 +107,10 @@ extension MarketPulse.DTO {
         let isDarkMode: Bool
         let inverval: DomainLayer.DTO.MarketPulseSettings.Interval
     }
+}
+
+extension MarketPulse {
+    enum Query {}
 }
 
 extension MarketPulse.ViewModel {
