@@ -61,8 +61,7 @@ final class DexChartBarAxisFormatter: IAxisValueFormatter {
 final class DexChartBarRightAxisFormatter: IAxisValueFormatter {
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        
-        //TODO: - check if correct format and optimize formula if need
+                
         if value == 0 {
             return String(Int(value))
         }

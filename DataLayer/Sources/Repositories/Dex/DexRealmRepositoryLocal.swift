@@ -62,23 +62,28 @@ final class DexRealmRepositoryLocal: DexRealmRepositoryProtocol {
        
         return Observable.create({ (subscribe) -> Disposable in
             
-            //TODO: Error
-            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
-            
-            try! realm.write {
+            do {
+                let realm = try WalletRealmFactory.realm(accountAddress: accountAddress)
                 
-                let lastSortLevel = realm.objects(DexAssetPair.self).sorted(byKeyPath: "sortLevel").last?.sortLevel ?? 0
+                try realm.write {
+                    
+                    let lastSortLevel = realm.objects(DexAssetPair.self).sorted(byKeyPath: "sortLevel").last?.sortLevel ?? 0
+                    
+                    realm.add(DexAssetPair(id: pair.id,
+                                           amountAsset: pair.amountAsset,
+                                           priceAsset: pair.priceAsset,
+                                           isGeneral: pair.isGeneral,
+                                           sortLevel: lastSortLevel + 1),
+                              update: .all)
+                }
                 
-                realm.add(DexAssetPair(id: pair.id,
-                                       amountAsset: pair.amountAsset,
-                                       priceAsset: pair.priceAsset,
-                                       isGeneral: pair.isGeneral,
-                                       sortLevel: lastSortLevel + 1), update: true)
+                subscribe.onNext(true)
+                subscribe.onCompleted()
+                return Disposables.create()
+            } catch _ {
+                subscribe.onError(RepositoryError.fail)
+                return Disposables.create()
             }
-            
-            subscribe.onNext(true)
-            subscribe.onCompleted()
-            return Disposables.create()
         })
     }
     
@@ -86,32 +91,40 @@ final class DexRealmRepositoryLocal: DexRealmRepositoryProtocol {
 
         return Observable.create({ (subscribe) -> Disposable in
             
-            //TODO: Error
-            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
-            
-            if let pair = realm.object(ofType: DexAssetPair.self, forPrimaryKey: id)  {
-                try! realm.write {
-                    realm.delete(pair)
+            do {
+                let realm = try WalletRealmFactory.realm(accountAddress: accountAddress)
+                
+                if let pair = realm.object(ofType: DexAssetPair.self, forPrimaryKey: id)  {
+                    try! realm.write {
+                        realm.delete(pair)
+                    }
                 }
+                
+                subscribe.onNext(true)
+                subscribe.onCompleted()
+                return Disposables.create()
+            } catch _ {
+                subscribe.onError(RepositoryError.fail)
+                return Disposables.create()
             }
-            
-            subscribe.onNext(true)
-            subscribe.onCompleted()
-            return Disposables.create()
         })
     }
     
     func list(by accountAddress: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]> {
         
         return Observable.create({ (subscribe) -> Disposable in
+            
+            do {
+                let realm = try WalletRealmFactory.realm(accountAddress: accountAddress)
+                let objects = realm.objects(DexAssetPair.self).sorted(by: {$0.sortLevel < $1.sortLevel}).map { return DomainLayer.DTO.Dex.SmartPair($0, isChecked: true)}
 
-            //TODO: Error
-            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
-            let objects = realm.objects(DexAssetPair.self).sorted(by: {$0.sortLevel < $1.sortLevel}).map { return DomainLayer.DTO.Dex.SmartPair($0, isChecked: true)}
-
-            subscribe.onNext(objects)
-            subscribe.onCompleted()
-            return Disposables.create()
+                subscribe.onNext(objects)
+                subscribe.onCompleted()
+                return Disposables.create()
+            } catch _ {
+                subscribe.onError(RepositoryError.fail)
+                return Disposables.create()
+            }
         })
     }
     
@@ -119,18 +132,25 @@ final class DexRealmRepositoryLocal: DexRealmRepositoryProtocol {
 
         return Observable.create({ observer -> Disposable in
             
-            //TODO: Error
-            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
+            do {
+                let realm = try WalletRealmFactory.realm(accountAddress: accountAddress)
         
-            let result = realm.objects(DexAssetPair.self)
-            let collection = Observable.collection(from: result)
-                .skip(1)
-                .map { $0.toArray() }
-                .map({ list -> [DomainLayer.DTO.Dex.SmartPair] in
-                    return list.sorted(by: {$0.sortLevel < $1.sortLevel}) .map { return DomainLayer.DTO.Dex.SmartPair($0, isChecked: true) }})
-                .bind(to: observer)
+            
+                let result = realm.objects(DexAssetPair.self)
+                let collection = Observable.collection(from: result)
+                    .skip(1)
+                    .map { $0.toArray() }
+                    .map({ list -> [DomainLayer.DTO.Dex.SmartPair] in
+                        return list.sorted(by: {$0.sortLevel < $1.sortLevel}) .map { return DomainLayer.DTO.Dex.SmartPair($0, isChecked: true) }})
+                    .bind(to: observer)
 
-            return Disposables.create([collection])
-        })         
+                return Disposables.create([collection])
+            } catch _ {
+                
+                observer.onError(RepositoryError.fail)
+                return Disposables.create()
+            }
+        })
+            
     }
 }

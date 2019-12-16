@@ -21,9 +21,9 @@ private struct SponsoredAssetDetail {
 
 final class AccountBalanceRepositoryRemote: AccountBalanceRepositoryProtocol {
     
-    private let environmentRepository: EnvironmentRepositoryProtocols
+    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
     
-    init(environmentRepository: EnvironmentRepositoryProtocols) {
+    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols) {
         self.environmentRepository = environmentRepository
     }
 

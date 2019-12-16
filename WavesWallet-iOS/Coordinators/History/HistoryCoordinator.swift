@@ -40,10 +40,9 @@ final class HistoryCoordinator: Coordinator {
 
 
 extension HistoryCoordinator: HistoryModuleOutput {
-
-    //TODO: Remove array
-    func showTransaction(transactions: [DomainLayer.DTO.SmartTransaction], index: Int) {
-        let coordinator = TransactionCardCoordinator(transaction: transactions[index],
+    
+    func showTransaction(transaction: DomainLayer.DTO.SmartTransaction) {
+        let coordinator = TransactionCardCoordinator(transaction: transaction,
                                                      router: navigationRouter)
 
 

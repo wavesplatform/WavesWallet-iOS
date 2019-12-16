@@ -91,7 +91,7 @@ final class AddressBookRepository: AddressBookRepositoryProtocol {
                 let realm = try WalletRealmFactory.realm(accountAddress: accountAddress)
                 
                 try realm.write {
-                    realm.add(AddressBook(contact), update: true)
+                    realm.add(AddressBook(contact), update: .all)
                 }
                 
                 observer.onNext(true)
@@ -109,21 +109,26 @@ final class AddressBookRepository: AddressBookRepositoryProtocol {
 
         return Observable.create({ observer -> Disposable in
             //TODO: Remove !
-            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
+            
+            do {
+                let realm = try WalletRealmFactory.realm(accountAddress: accountAddress)
 
-            guard let user = realm.object(ofType: AddressBook.self,
-                                          forPrimaryKey: contact.address) else {
+                guard let user = realm.object(ofType: AddressBook.self,
+                                              forPrimaryKey: contact.address) else {
+                    observer.onNext(true)
+                    observer.onCompleted()
+                    return Disposables.create()
+                }
+                
+                try realm.write {
+                    realm.delete(user)
+                }
                 observer.onNext(true)
                 observer.onCompleted()
-                return Disposables.create()
+            } catch _ {
+                observer.onNext(false)
+                observer.onError(RepositoryError.fail)
             }
-
-            try! realm.write {
-                realm.delete(user)
-            }
-
-            observer.onNext(true)
-            observer.onCompleted()
 
             return Disposables.create()
         })

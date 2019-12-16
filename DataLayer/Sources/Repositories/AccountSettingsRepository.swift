@@ -122,23 +122,28 @@ final class AccountSettingsRepository: AccountSettingsRepositoryProtocol {
     func accountEnvironment(accountAddress: String) -> Observable<DomainLayer.DTO.AccountEnvironment?> {
         
         return Observable.create { observer -> Disposable in
-            
-            //TODO: Error
-            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
-            
-            let result = realm.objects(AccountEnvironment.self)
-            
-            guard let environment = result.toArray().first else {
-                observer.onNext(nil)
+                        
+            do {
+                
+                let realm = try WalletRealmFactory.realm(accountAddress: accountAddress)
+                
+                let result = realm.objects(AccountEnvironment.self)
+                
+                guard let environment = result.toArray().first else {
+                    observer.onNext(nil)
+                    observer.onCompleted()
+                    return Disposables.create()
+                }
+                
+                observer.onNext(.init(nodeUrl: environment.nodeUrl,
+                                      dataUrl: environment.dataUrl,
+                                      spamUrl: environment.spamUrl,
+                                      matcherUrl: environment.matcherUrl))
                 observer.onCompleted()
-                return Disposables.create()
+                
+            } catch _ {
+                observer.onError(RepositoryError.fail)
             }
-            
-            observer.onNext(.init(nodeUrl: environment.nodeUrl,
-                                  dataUrl: environment.dataUrl,
-                                  spamUrl: environment.spamUrl,
-                                  matcherUrl: environment.matcherUrl))
-            observer.onCompleted()
             
             return Disposables.create()
         }
@@ -148,26 +153,31 @@ final class AccountSettingsRepository: AccountSettingsRepositoryProtocol {
                                 accountAddress: String) -> Observable<Bool> {
         return Observable.create { observer -> Disposable in
             
-            //TODO: Error
-            let realm = try! WalletRealmFactory.realm(accountAddress: accountAddress)
-            
-            try? realm.write {
-                realm
-                    .objects(AccountEnvironment.self)
-                    .toArray()
-                    .forEach({ account in
-                        account.realm?.delete(account)
-                    })
+            do {
                 
-                let environment = AccountEnvironment()
-                environment.dataUrl = accountEnvironment.dataUrl
-                environment.matcherUrl = accountEnvironment.matcherUrl
-                environment.nodeUrl = accountEnvironment.nodeUrl
-                environment.spamUrl = accountEnvironment.spamUrl
-                realm.add(environment, update: false)
+                let realm = try WalletRealmFactory.realm(accountAddress: accountAddress)
+                
+                try realm.write {
+                    realm
+                        .objects(AccountEnvironment.self)
+                        .toArray()
+                        .forEach({ account in
+                            account.realm?.delete(account)
+                        })
+                    
+                    let environment = AccountEnvironment()
+                    environment.dataUrl = accountEnvironment.dataUrl
+                    environment.matcherUrl = accountEnvironment.matcherUrl
+                    environment.nodeUrl = accountEnvironment.nodeUrl
+                    environment.spamUrl = accountEnvironment.spamUrl
+                    realm.add(environment, update: .all)
+                }
+                
+                observer.onNext(true)
+                observer.onCompleted()
+            } catch _ {
+                observer.onError(RepositoryError.fail)                
             }
-            observer.onNext(true)
-            observer.onCompleted()
             
             return Disposables.create()
         }

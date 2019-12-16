@@ -16,9 +16,9 @@ import Extensions
 
 final class MatcherRepositoryRemote: MatcherRepositoryProtocol {
 
-    private let environmentRepository: EnvironmentRepositoryProtocols
+    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
     
-    init(environmentRepository: EnvironmentRepositoryProtocols) {
+    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols) {
         self.environmentRepository = environmentRepository
     }
     

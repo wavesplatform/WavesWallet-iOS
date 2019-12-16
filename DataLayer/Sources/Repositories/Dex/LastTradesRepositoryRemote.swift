@@ -15,10 +15,10 @@ import Extensions
 
 final class LastTradesRepositoryRemote: LastTradesRepositoryProtocol {
 
-    private let environmentRepository: EnvironmentRepositoryProtocols
+    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
     private let matcherRepository: MatcherRepositoryProtocol
 
-    init(environmentRepository: EnvironmentRepositoryProtocols, matcherRepository: MatcherRepositoryProtocol) {
+    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols, matcherRepository: MatcherRepositoryProtocol) {
         self.environmentRepository = environmentRepository
         self.matcherRepository = matcherRepository
     }

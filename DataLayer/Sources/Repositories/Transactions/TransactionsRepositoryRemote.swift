@@ -75,11 +75,11 @@ extension TransactionSenderSpecifications {
 
 final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
     
-    private let transactionRules: MoyaProvider<GitHub.Service.TransactionRules> = .anyMoyaProvider()
+    private let transactionRules: MoyaProvider<ResourceAPI.Service.TransactionRules> = .anyMoyaProvider()
 
-    private let environmentRepository: EnvironmentRepositoryProtocols
+    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
     
-    init(environmentRepository: EnvironmentRepositoryProtocols) {
+    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols) {
         self.environmentRepository = environmentRepository
     }
 
@@ -191,10 +191,10 @@ final class TransactionsRepositoryRemote: TransactionsRepositoryProtocol {
         return transactionRules
             .rx
             .request(.get)
-            .map(GitHub.DTO.TransactionFeeRules.self)
-            .catchError({ error -> Single<GitHub.DTO.TransactionFeeRules> in
+            .map(ResourceAPI.DTO.TransactionFeeRules.self)
+            .catchError({ error -> Single<ResourceAPI.DTO.TransactionFeeRules> in
                 
-                if let rule: GitHub.DTO.TransactionFeeRules = JSONDecoder.decode(json: Constants.feeRuleJsonName) {
+                if let rule: ResourceAPI.DTO.TransactionFeeRules = JSONDecoder.decode(json: Constants.feeRuleJsonName) {
                     return Single.just(rule)
                 } else {
                     return Single.error(error)

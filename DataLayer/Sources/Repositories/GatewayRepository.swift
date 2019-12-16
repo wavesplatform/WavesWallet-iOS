@@ -17,9 +17,9 @@ final class GatewayRepository: GatewayRepositoryProtocol {
    
     private let gatewayProvider: MoyaProvider<Gateway.Service> = .anyMoyaProvider()
     
-    private let environmentRepository: EnvironmentRepositoryProtocols
+    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
     
-    init(environmentRepository: EnvironmentRepositoryProtocols) {
+    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols) {
         self.environmentRepository = environmentRepository
     }
     
@@ -84,8 +84,7 @@ final class GatewayRepository: GatewayRepositoryProtocol {
                 guard let self = self else { return Observable.empty() }
                 
                 let url = servicesEnvironment.walletEnvironment.servers.gatewayUrl
-
-                //TODO: - remove vostok scheme
+                
                 let specs = specifications.broadcastSpecification(servicesEnvironment: servicesEnvironment,
                                                                   wallet: wallet,
                                                                   specifications: specifications)

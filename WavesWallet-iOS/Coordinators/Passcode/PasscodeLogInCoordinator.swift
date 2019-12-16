@@ -40,10 +40,9 @@ final class PasscodeLogInCoordinator: Coordinator {
 
         switch routerKind {
         case .alertWindow:
-
-            //TODO: Change level + 1
+            
             let window = UIWindow()
-            window.windowLevel = UIWindow.Level.normal
+            window.windowLevel = UIWindow.Level.init(rawValue: UIWindow.Level.normal.rawValue + 1.0)
             self.windowRouter = WindowRouter.windowFactory(window: window)
             self.passcodeNavigationRouter = NavigationRouter(navigationController: CustomNavigationController())
 

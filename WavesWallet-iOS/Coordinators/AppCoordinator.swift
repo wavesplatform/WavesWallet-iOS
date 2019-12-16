@@ -225,8 +225,7 @@ extension AppCoordinator: PresentationCoordinator {
         case .maintenanceServer:
             
             isLockChangeDisplay = true
-            //TODO: add coordinator
-            //TODO: CHECK disabled
+            //TODO: add coordinator            
             let vc = StoryboardScene.ServerMaintenance.serverMaintenanceViewController.instantiate()
             vc.delegate = self
             let navigation = CustomNavigationController(rootViewController: vc)

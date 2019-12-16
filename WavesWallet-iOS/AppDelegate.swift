@@ -39,7 +39,6 @@ enum UITest {
 }
 #endif
 
-//TODO: Rename WavesWallet
 @UIApplicationMain class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var disposeBag: DisposeBag = DisposeBag()

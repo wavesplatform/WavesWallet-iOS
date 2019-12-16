@@ -46,7 +46,7 @@ private extension DomainLayer.DTO.Candle.TimeFrameType {
 
 final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
     
-    private let environmentRepository: EnvironmentRepositoryProtocols
+    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
     private let matcherRepository: MatcherRepositoryProtocol
     private let developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol
 
@@ -65,7 +65,7 @@ final class CandlesRepositoryRemote: CandlesRepositoryProtocol {
        }
     }
 
-    init(environmentRepository: EnvironmentRepositoryProtocols,
+    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols,
          matcherRepository: MatcherRepositoryProtocol,
          developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol) {
         

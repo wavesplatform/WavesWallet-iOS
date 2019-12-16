@@ -230,9 +230,7 @@ extension ChooseAccountCoordinator: PasscodeCoordinatorDelegate {
 
     func passcodeCoordinatorAuthorizationCompleted(wallet: DomainLayer.DTO.Wallet) {
         //TODO: Как бы сбросить состояние по другому?
-//        self.navigationRouter.navigationController.viewControllers = self.viewControllers ?? []
-        
-        //TODO: Fix
+
         let index = self.navigationRouter
             .navigationController
             .viewControllers

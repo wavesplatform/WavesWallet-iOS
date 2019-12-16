@@ -19,7 +19,7 @@ private struct Constants {
 
 final class ApplicationVersionRepository: ApplicationVersionRepositoryProtocol {
     
-    private let applicationVersionService: MoyaProvider<GitHub.Service.ApplicationVersion> = .anyMoyaProvider()
+    private let applicationVersionService: MoyaProvider<ResourceAPI.Service.ApplicationVersion> = .anyMoyaProvider()
     
     func version() -> Observable<String> {
         return versionByMappingKey(key: Constants.lastVersion)

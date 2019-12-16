@@ -13,7 +13,7 @@ import DomainLayer
 
 final class NotificationNewsRepository: NotificationNewsRepositoryProtocol {
 
-    private let applicationNews: MoyaProvider<GitHub.Service.ApplicationNews> = .anyMoyaProvider()
+    private let applicationNews: MoyaProvider<ResourceAPI.Service.ApplicationNews> = .anyMoyaProvider()
 
     func notificationNews() -> Observable<[DomainLayer.DTO.NotificationNews]> {
 
@@ -38,7 +38,7 @@ final class NotificationNewsRepository: NotificationNewsRepositoryProtocol {
                      callbackQueue: DispatchQueue.global(qos: .userInteractive))
             .asObservable()
             .filterSuccessfulStatusAndRedirectCodes()
-            .map(GitHub.DTO.News.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)            
+            .map(ResourceAPI.DTO.News.self, atKeyPath: nil, using: decoder, failsOnEmptyData: false)            
             .map { news -> [DomainLayer.DTO.NotificationNews] in
                 return news.notifications.map {
                     return DomainLayer.DTO.NotificationNews(startDate: $0.startDate,
@@ -55,7 +55,7 @@ final class NotificationNewsRepository: NotificationNewsRepositoryProtocol {
     }
 }
 
-fileprivate extension GitHub.DTO {
+fileprivate extension ResourceAPI.DTO {
 
     struct News: Codable {
 
