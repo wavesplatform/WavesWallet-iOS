@@ -23,13 +23,13 @@ private enum Constants {
 
 final class AssetsRepositoryRemote: AssetsRepositoryProtocol {
     
-    private let environmentRepository: EnvironmentRepositoryProtocols
+    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
     
     private let spamAssetsRepository: SpamAssetsRepositoryProtocol
     
     private let accountSettingsRepository: AccountSettingsRepositoryProtocol
     
-    init(environmentRepository: EnvironmentRepositoryProtocols,
+    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols,
          spamAssetsRepository: SpamAssetsRepositoryProtocol,
          accountSettingsRepository: AccountSettingsRepositoryProtocol) {
         self.environmentRepository = environmentRepository

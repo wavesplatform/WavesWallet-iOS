@@ -15,10 +15,10 @@ final class SpamAssetsRepository: SpamAssetsRepositoryProtocol {
     
     private let spamService: SpamAssetsService = SpamAssetsService()
     
-    private let environmentRepository: EnvironmentRepositoryProtocols
+    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
     private let accountSettingsRepository: AccountSettingsRepositoryProtocol
     
-    init(environmentRepository: EnvironmentRepositoryProtocols,
+    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols,
          accountSettingsRepository: AccountSettingsRepositoryProtocol) {
         
         self.environmentRepository = environmentRepository

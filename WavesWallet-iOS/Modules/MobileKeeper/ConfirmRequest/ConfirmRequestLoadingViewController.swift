@@ -18,8 +18,7 @@ final class ConfirmRequestLoadingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //TODO: Localization
+                
         labelSending.text = Localizable.Waves.Sendloading.Label.sending
         navigationItem.hidesBackButton = true
     }

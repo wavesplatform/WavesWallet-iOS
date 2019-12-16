@@ -255,7 +255,6 @@
 		0AF922FC212E1234003BA067 /* CenteringContentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF922A1212E1234003BA067 /* CenteringContentButton.swift */; };
 		0AF922FD212E1234003BA067 /* BorderButtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF922A2212E1234003BA067 /* BorderButtView.swift */; };
 		0AF922FE212E1234003BA067 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF922A3212E1234003BA067 /* GradientView.swift */; };
-		0AF92300212E1234003BA067 /* NavigationAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF922A5212E1234003BA067 /* NavigationAccessoryView.swift */; };
 		0AF92303212E1424003BA067 /* Waves.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AF92301212E1424003BA067 /* Waves.strings */; };
 		0AFA0C7D2174A2300003FE3B /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA0C742174A2300003FE3B /* BrowserViewController.swift */; };
 		0AFB59402209AD56001F0DD8 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFB593F2209AD56001F0DD8 /* TestViewController.swift */; };
@@ -725,8 +724,8 @@
 		7BF50AB922D8B95400582783 /* EnvironmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A5022D8B95400582783 /* EnvironmentRepository.swift */; };
 		7BF50ABA22D8B95400582783 /* SpamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A5322D8B95400582783 /* SpamService.swift */; };
 		7BF50ABB22D8B95400582783 /* AssetsSpamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A5422D8B95400582783 /* AssetsSpamService.swift */; };
-		7BF50ABC22D8B95400582783 /* GitHubService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A5622D8B95400582783 /* GitHubService.swift */; };
-		7BF50ABD22D8B95400582783 /* TransactionFeeRulesGitHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A5722D8B95400582783 /* TransactionFeeRulesGitHub.swift */; };
+		7BF50ABC22D8B95400582783 /* ResourceAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A5622D8B95400582783 /* ResourceAPIService.swift */; };
+		7BF50ABD22D8B95400582783 /* TransactionFeeRulesResourceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A5722D8B95400582783 /* TransactionFeeRulesResourceAPI.swift */; };
 		7BF50ABE22D8B95400582783 /* CoinomatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A5922D8B95400582783 /* CoinomatService.swift */; };
 		7BF50ABF22D8B95400582783 /* GatewayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A5B22D8B95400582783 /* GatewayService.swift */; };
 		7BF50AC022D8B95400582783 /* SpamCSV+Assisstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF50A5D22D8B95400582783 /* SpamCSV+Assisstants.swift */; };
@@ -861,7 +860,6 @@
 		E95E14F9229FF933003552B8 /* WalletLeasingBalanceSkeletonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95E14F8229FF933003552B8 /* WalletLeasingBalanceSkeletonCell.xib */; };
 		E95E14FB229FFA65003552B8 /* WalletHistorySkeletonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95E14FA229FFA65003552B8 /* WalletHistorySkeletonCell.xib */; };
 		E95E14FF22A07364003552B8 /* WalletDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E14FE22A07364003552B8 /* WalletDisplayData.swift */; };
-		E95E150F22A18B67003552B8 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E150E22A18B66003552B8 /* CustomNavigationBar.swift */; };
 		E95E151222A18C25003552B8 /* WalletSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E151022A18C25003552B8 /* WalletSearchTableViewCell.swift */; };
 		E95E151322A18C25003552B8 /* WalletSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95E151122A18C25003552B8 /* WalletSearchTableViewCell.xib */; };
 		E95E151522A197B8003552B8 /* WalletSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E151422A197B8003552B8 /* WalletSearchViewController.swift */; };
@@ -1511,7 +1509,6 @@
 		0AF922A1212E1234003BA067 /* CenteringContentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenteringContentButton.swift; sourceTree = "<group>"; };
 		0AF922A2212E1234003BA067 /* BorderButtView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderButtView.swift; sourceTree = "<group>"; };
 		0AF922A3212E1234003BA067 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		0AF922A5212E1234003BA067 /* NavigationAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationAccessoryView.swift; sourceTree = "<group>"; };
 		0AF92302212E1424003BA067 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Waves.strings; sourceTree = "<group>"; };
 		0AF92304212E142A003BA067 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Waves.strings; sourceTree = "<group>"; };
 		0AFA0C742174A2300003FE3B /* BrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
@@ -1989,8 +1986,8 @@
 		7BF50A5022D8B95400582783 /* EnvironmentRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentRepository.swift; sourceTree = "<group>"; };
 		7BF50A5322D8B95400582783 /* SpamService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpamService.swift; sourceTree = "<group>"; };
 		7BF50A5422D8B95400582783 /* AssetsSpamService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsSpamService.swift; sourceTree = "<group>"; };
-		7BF50A5622D8B95400582783 /* GitHubService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHubService.swift; sourceTree = "<group>"; };
-		7BF50A5722D8B95400582783 /* TransactionFeeRulesGitHub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionFeeRulesGitHub.swift; sourceTree = "<group>"; };
+		7BF50A5622D8B95400582783 /* ResourceAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceAPIService.swift; sourceTree = "<group>"; };
+		7BF50A5722D8B95400582783 /* TransactionFeeRulesResourceAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionFeeRulesResourceAPI.swift; sourceTree = "<group>"; };
 		7BF50A5922D8B95400582783 /* CoinomatService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoinomatService.swift; sourceTree = "<group>"; };
 		7BF50A5B22D8B95400582783 /* GatewayService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayService.swift; sourceTree = "<group>"; };
 		7BF50A5D22D8B95400582783 /* SpamCSV+Assisstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SpamCSV+Assisstants.swift"; sourceTree = "<group>"; };
@@ -2152,7 +2149,6 @@
 		E95E14F8229FF933003552B8 /* WalletLeasingBalanceSkeletonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletLeasingBalanceSkeletonCell.xib; sourceTree = "<group>"; };
 		E95E14FA229FFA65003552B8 /* WalletHistorySkeletonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletHistorySkeletonCell.xib; sourceTree = "<group>"; };
 		E95E14FE22A07364003552B8 /* WalletDisplayData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletDisplayData.swift; sourceTree = "<group>"; };
-		E95E150E22A18B66003552B8 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		E95E151022A18C25003552B8 /* WalletSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSearchTableViewCell.swift; sourceTree = "<group>"; };
 		E95E151122A18C25003552B8 /* WalletSearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSearchTableViewCell.xib; sourceTree = "<group>"; };
 		E95E151422A197B8003552B8 /* WalletSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSearchViewController.swift; sourceTree = "<group>"; };
@@ -3415,7 +3411,6 @@
 				0AF6AD24218A54840004F107 /* CopyableImageView.swift */,
 				0AF92295212E1234003BA067 /* CopyableLabel.swift */,
 				04831F8321697A4F006D1ED6 /* CustomGradientView.swift */,
-				E95E150E22A18B66003552B8 /* CustomNavigationBar.swift */,
 				F7C683BA1EA93C5800C87DAF /* CustomNavigationController.swift */,
 				7BD6E0FD22E228DC00BAAFC8 /* DebugView.swift */,
 				7BD6E0FF22E228F000BAAFC8 /* DebugView.xib */,
@@ -3429,7 +3424,6 @@
 				0AF922A3212E1234003BA067 /* GradientView.swift */,
 				0AF92283212E1234003BA067 /* HalfModalPresentationController */,
 				7BDC6D7822C3CD8400614E6B /* InputScrollButtonsView.swift */,
-				0AF922A5212E1234003BA067 /* NavigationAccessoryView.swift */,
 				E9F78A3C229E98B40065324B /* NewSegmentedControl.swift */,
 				0A96F1CF2151B6A9005E148F /* Passcode */,
 				0ADD7F3B21F22FB60075FC59 /* PasteboardButton.swift */,
@@ -4499,7 +4493,7 @@
 			isa = PBXGroup;
 			children = (
 				7BF50A5222D8B95400582783 /* Spam */,
-				7BF50A5522D8B95400582783 /* GitHub */,
+				7BF50A5522D8B95400582783 /* ResourceAPI */,
 				7BF50A5822D8B95400582783 /* Coinomat */,
 				7BF50A5A22D8B95400582783 /* Gateway */,
 			);
@@ -4515,13 +4509,13 @@
 			path = Spam;
 			sourceTree = "<group>";
 		};
-		7BF50A5522D8B95400582783 /* GitHub */ = {
+		7BF50A5522D8B95400582783 /* ResourceAPI */ = {
 			isa = PBXGroup;
 			children = (
-				7BF50A5622D8B95400582783 /* GitHubService.swift */,
-				7BF50A5722D8B95400582783 /* TransactionFeeRulesGitHub.swift */,
+				7BF50A5622D8B95400582783 /* ResourceAPIService.swift */,
+				7BF50A5722D8B95400582783 /* TransactionFeeRulesResourceAPI.swift */,
 			);
-			path = GitHub;
+			path = ResourceAPI;
 			sourceTree = "<group>";
 		};
 		7BF50A5822D8B95400582783 /* Coinomat */ = {
@@ -6247,7 +6241,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1030;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "Waves Platform";
 				TargetAttributes = {
 					7B431A8B22BD176D00DE73B9 = {
@@ -7075,7 +7069,7 @@
 				7BF50A6F22D8B95400582783 /* IssueTransaction.swift in Sources */,
 				7BF50A7B22D8B95400582783 /* MassTransferTransaction.swift in Sources */,
 				7BF50ABF22D8B95400582783 /* GatewayService.swift in Sources */,
-				7BF50ABC22D8B95400582783 /* GitHubService.swift in Sources */,
+				7BF50ABC22D8B95400582783 /* ResourceAPIService.swift in Sources */,
 				7BF50A7822D8B95400582783 /* ExchangeTransaction.swift in Sources */,
 				7BF50A6B22D8B95400582783 /* SeedItem.swift in Sources */,
 				7B9DC36023845D7400DCCA75 /* DevelopmentConfigsRepository.swift in Sources */,
@@ -7107,7 +7101,7 @@
 				7BF50A7122D8B95400582783 /* UnrecognisedTransaction.swift in Sources */,
 				7BF50AC222D8B95400582783 /* TransactionSenderAssistant.swift in Sources */,
 				7BF50AB322D8B95400582783 /* WalletSeedRepositoryLocal.swift in Sources */,
-				7BF50ABD22D8B95400582783 /* TransactionFeeRulesGitHub.swift in Sources */,
+				7BF50ABD22D8B95400582783 /* TransactionFeeRulesResourceAPI.swift in Sources */,
 				7BF50A8022D8B95400582783 /* AssetBalance.swift in Sources */,
 				7BF50A8D22D8B95400582783 /* AssetScriptTransaction+Mapper.swift in Sources */,
 				7BF50A8B22D8B95400582783 /* ReissueTransaction+Mapper.swift in Sources */,
@@ -7359,7 +7353,6 @@
 				E9B087EE2163886800937644 /* DexLastTradesPresenter.swift in Sources */,
 				E9D36DDC2175C755001E6DF0 /* ReceiveCardCompleteViewController.swift in Sources */,
 				E9B086B92163883000937644 /* AddressBookTypes.swift in Sources */,
-				0AF92300212E1234003BA067 /* NavigationAccessoryView.swift in Sources */,
 				7BFB480D22FC742F002B19F8 /* QRCodeReader+Factory.swift in Sources */,
 				E9B087CA2163886800937644 /* DexListModuleOutput.swift in Sources */,
 				E9B086B12163883000937644 /* AddAddressTextField.swift in Sources */,
@@ -7516,7 +7509,6 @@
 				E991BB2A2202D5E00022E27D /* SendFeeInteractorProtocol.swift in Sources */,
 				7B8818782305926E00AB0549 /* WidgetSettingsCoordinator.swift in Sources */,
 				0A762D9721639FCC0019D447 /* WavesButton.swift in Sources */,
-				E95E150F22A18B67003552B8 /* CustomNavigationBar.swift in Sources */,
 				E9D36DF62175C755001E6DF0 /* AssetListTableViewCell.swift in Sources */,
 				E9B087CF2163886800937644 /* DexListHeaderCell.swift in Sources */,
 				0AFB59402209AD56001F0DD8 /* TestViewController.swift in Sources */,
@@ -8361,7 +8353,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3953;
@@ -8400,7 +8392,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3953;
@@ -8434,7 +8426,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3953;
@@ -8468,7 +8460,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3953;
@@ -8502,7 +8494,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3953;
@@ -8544,7 +8536,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3953;
@@ -8581,7 +8573,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3953;
@@ -8618,7 +8610,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3953;
@@ -8655,7 +8647,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3953;
@@ -8694,7 +8686,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3953;
@@ -8728,7 +8720,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3953;
@@ -8762,7 +8754,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3953;
@@ -9308,7 +9300,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3953;
@@ -9347,7 +9339,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3953;
@@ -9389,7 +9381,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3953;
@@ -9602,7 +9594,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3953;
@@ -9636,7 +9628,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3953;
@@ -9673,7 +9665,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3953;

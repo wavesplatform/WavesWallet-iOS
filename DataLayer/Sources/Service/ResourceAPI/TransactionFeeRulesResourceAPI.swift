@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension GitHub.DTO {
+extension ResourceAPI.DTO {
 
     struct TransactionFeeRules: Decodable {
 

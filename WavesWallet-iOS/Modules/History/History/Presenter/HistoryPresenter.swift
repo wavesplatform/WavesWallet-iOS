@@ -118,8 +118,10 @@ final class HistoryPresenter: HistoryPresenterProtocol {
                 break
             }
             
+            
+                        
             if (index != NSNotFound) {
-                moduleOutput?.showTransaction(transactions: filteredTransactions, index: index)
+                moduleOutput?.showTransaction(transaction: filteredTransactions[index])
             }
 
         case .changeFilter(let filter):

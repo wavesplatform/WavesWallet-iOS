@@ -48,7 +48,7 @@ final class MainTabBarCoordinator: NSObject, Coordinator {
 
     private let navigationRouterWallet: NavigationRouter = {
 
-        let navigation = CustomNavigationController(navigationBarClass: CustomNavigationBar.self, toolbarClass: nil)
+        let navigation = CustomNavigationController(navigationBarClass: UINavigationBar.self, toolbarClass: nil)
         
         navigation.tabBarItem.image = Images.tabBarWallet.image.withRenderingMode(.alwaysOriginal)
         navigation.tabBarItem.imageInsets = Constants.tabBarItemImageInset

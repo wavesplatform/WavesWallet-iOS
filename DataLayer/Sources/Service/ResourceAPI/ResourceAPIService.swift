@@ -10,9 +10,9 @@ import Foundation
 import Moya
 
 //TODO: Rename
-enum GitHub {}
+enum ResourceAPI {}
 
-extension GitHub {
+extension ResourceAPI {
     enum Service {}
     enum DTO {}
 }
@@ -48,7 +48,7 @@ private enum Constants {
     static let urlDevelopmentConfigsTest: URL = URL(string: "\(root)/mobile/ios/test/development_configs.json")!
 }
 
-extension GitHub.Service {
+extension ResourceAPI.Service {
 
     enum Environment {
         
@@ -97,7 +97,7 @@ extension GitHub.Service {
     }
 }
 
-extension GitHub.Service.Environment: TargetType {
+extension ResourceAPI.Service.Environment: TargetType {
     var sampleData: Data {
         return Data()
     }
@@ -153,7 +153,7 @@ extension GitHub.Service.Environment: TargetType {
     }
 }
 
-extension GitHub.Service.TransactionRules: TargetType {
+extension ResourceAPI.Service.TransactionRules: TargetType {
     var sampleData: Data {
         return Data()
     }
@@ -189,7 +189,7 @@ extension GitHub.Service.TransactionRules: TargetType {
 
 }
 
-extension GitHub.Service.ApplicationNews: TargetType {
+extension ResourceAPI.Service.ApplicationNews: TargetType {
     var sampleData: Data {
         return Data()
     }
@@ -228,7 +228,7 @@ extension GitHub.Service.ApplicationNews: TargetType {
     }
 }
 
-extension GitHub.Service.DevelopmentConfigs: TargetType {
+extension ResourceAPI.Service.DevelopmentConfigs: TargetType {
     var sampleData: Data {
         return Data()
     }
@@ -267,7 +267,7 @@ extension GitHub.Service.DevelopmentConfigs: TargetType {
     }
 }
 
-extension GitHub.Service.ApplicationVersion: TargetType {
+extension ResourceAPI.Service.ApplicationVersion: TargetType {
     var sampleData: Data {
         return Data()
     }

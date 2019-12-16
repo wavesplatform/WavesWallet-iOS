@@ -177,8 +177,7 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
                                  
         switch complitingRequest.transaction {
         case .invokeScript(let tx):
-            
-            //TODO: Localization
+                        
             let address = ConfirmRequestKeyValueCell.Model(title: Localizable.Waves.Transactioncard.Title.scriptAddress,
                                                                 value: tx.dApp)
 
@@ -198,8 +197,7 @@ final class ConfirmRequestSystem: System<ConfirmRequest.State, ConfirmRequest.Ev
                                                                                                   payment.asset.precision)),
                                                                sign: .minus,
                                                                style: .small)
-                
-                //TODO: Localization
+                                
                 let balance = ConfirmRequestBalanceCell.Model.init(title: Localizable.Waves.Transactioncard.Title.payment,
                                                                    feeBalance: paymentBalance)
                 
@@ -245,8 +243,7 @@ fileprivate extension ConfirmRequest.DTO.ComplitingRequest {
     }
     
     
-    var txIdkeyValueViewModel: ConfirmRequestKeyValueCell.Model {
-        //TODO: Localization
+    var txIdkeyValueViewModel: ConfirmRequestKeyValueCell.Model {        
         return ConfirmRequestKeyValueCell.Model(title: Localizable.Waves.Startleasingconfirmation.Label.txid,
                                                 value: txId)
     }

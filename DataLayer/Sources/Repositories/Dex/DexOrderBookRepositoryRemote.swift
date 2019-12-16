@@ -21,13 +21,13 @@ private enum Constants {
 
 final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
         
-    private let environmentRepository: EnvironmentRepositoryProtocols
+    private let environmentRepository: ExtensionsEnvironmentRepositoryProtocols
     
     private let spamAssetsRepository: SpamAssetsRepositoryProtocol
     
     private let matcherRepository: MatcherRepositoryProtocol
     
-    init(environmentRepository: EnvironmentRepositoryProtocols,
+    init(environmentRepository: ExtensionsEnvironmentRepositoryProtocols,
          spamAssetsRepository: SpamAssetsRepositoryProtocol,
          matcherRepository: MatcherRepositoryProtocol) {
         self.environmentRepository = environmentRepository

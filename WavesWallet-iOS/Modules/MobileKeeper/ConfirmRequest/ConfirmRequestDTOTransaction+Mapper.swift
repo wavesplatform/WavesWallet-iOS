@@ -48,8 +48,7 @@ extension ConfirmRequest.DTO.Transaction  {
     }
     
     var infoTransactionKindViewModel: ConfirmRequestTransactionKindView.Info {
-        
-        //TODO: Localization
+                
         switch self {
         case .data:
             return .descriptionLabel(Localizable.Waves.Transactioncard.Title.dataTransaction)
@@ -69,8 +68,7 @@ extension ConfirmRequest.DTO.Transaction  {
     }
     
     var titleTransactionKindViewModel: String {
-       
-        //TODO: Localization
+               
         switch self {
         case .data:
             return Localizable.Waves.Transactioncard.Title.entryInBlockchain

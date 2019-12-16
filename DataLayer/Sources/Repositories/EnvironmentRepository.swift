@@ -23,7 +23,7 @@ private struct EnvironmentKey: Hashable {
 }
 
 private extension WalletEnvironment.Kind {
-    var gitHubServiceEnvironment: GitHub.Service.Environment.Kind {
+    var gitHubServiceEnvironment: ResourceAPI.Service.Environment.Kind {
         switch self {
         case .mainnet:
             return .mainnet
@@ -73,7 +73,7 @@ final class EnvironmentRepository: EnvironmentRepositoryProtocol, ServicesEnviro
         }
     }
 
-    private let environmentRepository: MoyaProvider<GitHub.Service.Environment> = .anyMoyaProvider()
+    private let environmentRepository: MoyaProvider<ResourceAPI.Service.Environment> = .anyMoyaProvider()
     
     private lazy var remoteAccountEnvironmentShare: Observable<WalletEnvironment> = {
         return remoteEnvironment().share(replay: 1, scope: SubjectLifetimeScope.whileConnected)

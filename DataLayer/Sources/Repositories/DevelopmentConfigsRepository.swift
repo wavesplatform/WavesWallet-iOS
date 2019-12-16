@@ -19,7 +19,7 @@ private struct DevelopmentConfigs: Decodable {
 
 public final class DevelopmentConfigsRepository: DevelopmentConfigsRepositoryProtocol {
     
-    private let developmentConfigsProvider: MoyaProvider<GitHub.Service.DevelopmentConfigs> = .anyMoyaProvider()
+    private let developmentConfigsProvider: MoyaProvider<ResourceAPI.Service.DevelopmentConfigs> = .anyMoyaProvider()
     
     public func isEnabledMaintenance() -> Observable<Bool> {
         return developmentConfigs()

@@ -75,9 +75,7 @@ final class ConfirmRequestCompleteViewController: UIViewController {
         okButtonDidTap?()
     }
     
-    private func setupLocalization() {
-        
-        //TODO: Localization
+    private func setupLocalization() {                
         buttonOkey.setTitle(Localizable.Waves.Sendcomplete.Button.okey, for: .normal)
     }
     

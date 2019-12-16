@@ -44,8 +44,7 @@ extension ConfirmRequestFromToCell: ViewConfiguration {
     func update(with model: Model) {
         
         let image = identity.createImage(by: model.address, size: Constants.iconSize) ?? UIImage()
-        
-        //TODO: Localization
+                
         walletAddressView.update(with: .init(title: Localizable.Waves.Transactioncard.Title.from,
                                              address: model.accountName,
                                              image: image))
