@@ -80,14 +80,8 @@ final class SendInteractor: SendInteractorProtocol {
             })
     }
     
-    func generateMoneroAddress(asset: DomainLayer.DTO.SmartAssetBalance, address: String, paymentID: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
-        
-        return gateWayInfo(asset: asset.asset, address: address, moneroPaymentID: paymentID)
-       
-    }
-    
     func gateWayInfo(asset: DomainLayer.DTO.SmartAssetBalance, address: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
-        return gateWayInfo(asset: asset.asset, address: address, moneroPaymentID: nil)
+        return gateWayInfo(asset: asset.asset, address: address)
     }
     
     func validateAlis(alias: String) -> Observable<Bool> {
@@ -169,7 +163,7 @@ final class SendInteractor: SendInteractorProtocol {
 
 private extension SendInteractor {
     
-    func gateWayInfo(asset: DomainLayer.DTO.Asset, address: String, moneroPaymentID: String?) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
+    func gateWayInfo(asset: DomainLayer.DTO.Asset, address: String) -> Observable<ResponseType<Send.DTO.GatewayInfo>> {
         
         guard let gateWayType = asset.gatewayType else { return Observable.empty() }
         
@@ -203,8 +197,7 @@ private extension SendInteractor {
             let tunnel = coinomatRepository.tunnelInfo(asset: asset,
                                                        currencyFrom: currencyFrom,
                                                        currencyTo: currencyTo,
-                                                       walletTo: address,
-                                                       moneroPaymentID: moneroPaymentID)
+                                                       walletTo: address)
             
             let rate = coinomatRepository.getRate(asset: asset)
             
