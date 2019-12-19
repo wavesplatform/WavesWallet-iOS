@@ -789,9 +789,10 @@ private extension SendViewController {
     
     func setupLocalization() {
         
-        labelMoneroAddressError.text = "Dear customer, you are trying to withdraw your XMR to an old type of address which is not supported anymore. Please provide an address of a new type to complete the withdrawal. More details here"
+        let keyLink = Localizable.Waves.Send.Label.Error.moneroOldAddressKeyLink
+        labelMoneroAddressError.text = Localizable.Waves.Send.Label.Error.moneroOldAddress(keyLink)
         
-        let range = (labelMoneroAddressError.attributedText.string as NSString).range(of: "here")
+        let range = (labelMoneroAddressError.attributedText.string as NSString).range(of: keyLink)
 
         labelMoneroAddressError.addLink(to: URL(string: Constants.moneroNewsLink), with: range)
         buttonContinue.setTitle(Localizable.Waves.Send.Button.continue, for: .normal)
