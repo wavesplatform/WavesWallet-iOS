@@ -10,9 +10,6 @@ import Foundation
 import Extensions
 import DomainLayer
 
-private struct Constants {
-    static let filledStatusValue: String = "100%"
-}
 
 fileprivate typealias Types = TransactionCard
 
@@ -26,17 +23,13 @@ extension DomainLayer.DTO.Dex.MyOrder {
         var percent: String = ""
 
         switch status {
-        case .accepted, .partiallyFilled:
+        case .accepted, .partiallyFilled, .filled:
             statusValue = nil
             percent = "\(self.filledPercent)% "
 
         case .cancelled:
             statusValue = Localizable.Waves.Transactioncard.Title.cancelled
             percent = "\(self.filledPercent)% "
-
-        case .filled:
-            statusValue = nil
-            percent = Constants.filledStatusValue
         }
 
 
