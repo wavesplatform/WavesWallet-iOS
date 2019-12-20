@@ -75,7 +75,7 @@ extension DexMyOrdersCell: ViewConfiguration {
         labelAmount.text = model.amount.displayText
         labelSum.text = model.totalBalance.money.displayText
         labelFilled.text = model.filled.displayText
-        labelFilledPercent.text = String(model.percentFilled) + "%"
+        labelFilledPercent.text = String(model.filledPercent) + "%"
         labelStatus.text = model.statusText
         labelDate.text = DexMyOrders.ViewModel.dateFormatter.string(from: model.time)
         labelPrice.text = model.price.displayText

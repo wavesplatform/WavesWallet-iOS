@@ -163,10 +163,6 @@ extension DomainLayer.DTO.Dex.MyOrder {
         return self.totalBalance(priceAmount: self.price.amount, assetAmount: self.amount.amount)
     }
 
-    var filledPercent: Int64 {
-        return filled.amount * 100 / amount.amount
-    }
-
     var rowFeeLoadingModel: TransactionCardKeyLoadingCell.Model {
         return TransactionCardKeyLoadingCell.Model(key: Localizable.Waves.Transactioncard.Title.fee,
                                                    style: .largePadding)
