@@ -11,6 +11,7 @@ import RxSwift
 import RxFeedback
 import RxCocoa
 import SwiftDate
+import DomainLayer
 
 
 final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
@@ -52,6 +53,14 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
                 $0.isNeedLoadOrders = true
             }.changeAction(.none)
         
+        case .changeStatus(let status):
+            return state.mutate {
+                $0.status = status
+
+                setupOrders(status: status, orders: $0.orders, section: &($0.section))
+
+            }.changeAction(.update)
+            
         case .refresh:
             return state.mutate {
                 $0.isNeedLoadOrders = true
@@ -60,15 +69,35 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
         case .setOrders(let orders):
           
             return state.mutate {
-                
+                $0.orders = orders
                 $0.isNeedLoadOrders = false
 
-                $0.section.items.removeAll()
-                for order in orders {
-                    $0.section.items.append(DexMyOrders.ViewModel.Row.order(order))
-                }                
+                setupOrders(status: $0.status, orders: $0.orders, section: &($0.section))
+
             }.changeAction(.update)
     
+        }
+    }
+    
+    private func setupOrders(status: DexMyOrders.ViewModel.Status, orders: [DomainLayer.DTO.Dex.MyOrder], section: inout DexMyOrders.ViewModel.Section) {
+        
+        var filteredOrders: [DomainLayer.DTO.Dex.MyOrder] = []
+        if status == .all {
+            filteredOrders = orders
+        }
+        else if status == .active {
+            filteredOrders = orders.filter {$0.status == .accepted || $0.status == .partiallyFilled}
+        }
+        else if status == .closed {
+            filteredOrders = orders.filter {$0.status == .filled}
+        }
+        else if status == .canceled {
+            filteredOrders = orders.filter {$0.status == .cancelled}
+        }
+        
+        section.items.removeAll()
+        for order in filteredOrders {
+            section.items.append(DexMyOrders.ViewModel.Row.order(order))
         }
     }
 }
@@ -86,6 +115,10 @@ fileprivate extension DexMyOrders.State {
 fileprivate extension DexMyOrders.State {
     static var initialState: DexMyOrders.State {
         let section = DexMyOrders.ViewModel.Section(items: [])
-        return DexMyOrders.State(action: .none, section: section, isNeedLoadOrders: false)
+        return DexMyOrders.State(action: .none,
+                                 section: section,
+                                 isNeedLoadOrders: false,
+                                 orders: [],
+                                 status: .all)
     }
 }

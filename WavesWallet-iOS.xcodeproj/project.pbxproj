@@ -832,6 +832,8 @@
 		E953CE3F22EB19D5001D5800 /* Extensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6686EE22B7C5120029E6F1 /* Extensions.framework */; };
 		E95438F8217F91BA001A7860 /* SendLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95438F7217F91BA001A7860 /* SendLoadingViewController.swift */; };
 		E9543902217FF9EC001A7860 /* SendCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9543901217FF9EC001A7860 /* SendCompleteViewController.swift */; };
+		E955AF2123ABD2AB00165B5E /* DexMyOrdersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E955AF2023ABD2AB00165B5E /* DexMyOrdersCell.xib */; };
+		E955AF2423ABEC1200165B5E /* RobotoCondensed-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E955AF2323ABEC1200165B5E /* RobotoCondensed-Regular.ttf */; };
 		E958571322F2E73D007A0178 /* WidgetSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958571222F2E73D007A0178 /* WidgetSettings.swift */; };
 		E958572022F3BBA0007A0178 /* MarketPulseDataBaseRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958571E22F3BB9F007A0178 /* MarketPulseDataBaseRepositoryProtocol.swift */; };
 		E958572122F3BBA0007A0178 /* MarketPulseDataBaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E958571F22F3BBA0007A0178 /* MarketPulseDataBaseRepository.swift */; };
@@ -872,6 +874,7 @@
 		E9642C9121CB326A0065A1BD /* CoinomatServiceErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9642C9021CB326A0065A1BD /* CoinomatServiceErrorView.xib */; };
 		E965702321935F2F0052F0FC /* DexCreateOrderInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E965702221935F2F0052F0FC /* DexCreateOrderInteractor.swift */; };
 		E96570432193E8570052F0FC /* DexMyOrdersModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96570422193E8570052F0FC /* DexMyOrdersModuleOutput.swift */; };
+		E96C924C23AA2BB600C4B6C5 /* DexSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96C924B23AA2BB600C4B6C5 /* DexSegmentedControl.swift */; };
 		E96DAB71228EE643005ED12B /* WalletSortSegmentedControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = E96DAB70228EE643005ED12B /* WalletSortSegmentedControl.xib */; };
 		E96DAB73228EEC87005ED12B /* WalletSortSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96DAB72228EEC87005ED12B /* WalletSortSegmentedControl.swift */; };
 		E96DE1862317F07B005E1FD9 /* WidgetAssetsDataTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96DE1852317F07B005E1FD9 /* WidgetAssetsDataTarget.swift */; };
@@ -2120,6 +2123,8 @@
 		E95310BD22E8A43000F72809 /* WidgetAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = WidgetAssets.xcassets; sourceTree = "<group>"; };
 		E95438F7217F91BA001A7860 /* SendLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendLoadingViewController.swift; sourceTree = "<group>"; };
 		E9543901217FF9EC001A7860 /* SendCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCompleteViewController.swift; sourceTree = "<group>"; };
+		E955AF2023ABD2AB00165B5E /* DexMyOrdersCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DexMyOrdersCell.xib; sourceTree = "<group>"; };
+		E955AF2323ABEC1200165B5E /* RobotoCondensed-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-Regular.ttf"; sourceTree = "<group>"; };
 		E958571222F2E73D007A0178 /* WidgetSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettings.swift; sourceTree = "<group>"; };
 		E958571E22F3BB9F007A0178 /* MarketPulseDataBaseRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarketPulseDataBaseRepositoryProtocol.swift; sourceTree = "<group>"; };
 		E958571F22F3BBA0007A0178 /* MarketPulseDataBaseRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarketPulseDataBaseRepository.swift; sourceTree = "<group>"; };
@@ -2160,6 +2165,7 @@
 		E9642C9021CB326A0065A1BD /* CoinomatServiceErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CoinomatServiceErrorView.xib; sourceTree = "<group>"; };
 		E965702221935F2F0052F0FC /* DexCreateOrderInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexCreateOrderInteractor.swift; sourceTree = "<group>"; };
 		E96570422193E8570052F0FC /* DexMyOrdersModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexMyOrdersModuleOutput.swift; sourceTree = "<group>"; };
+		E96C924B23AA2BB600C4B6C5 /* DexSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexSegmentedControl.swift; sourceTree = "<group>"; };
 		E96DAB70228EE643005ED12B /* WalletSortSegmentedControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSortSegmentedControl.xib; sourceTree = "<group>"; };
 		E96DAB72228EEC87005ED12B /* WalletSortSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletSortSegmentedControl.swift; sourceTree = "<group>"; };
 		E96DE1852317F07B005E1FD9 /* WidgetAssetsDataTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetAssetsDataTarget.swift; sourceTree = "<group>"; };
@@ -2991,6 +2997,7 @@
 		0A979752210885B500407F67 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E955AF2223ABEBFF00165B5E /* Fonts */,
 				7B9DC33F2384085C00DCCA75 /* AppIcon-New */,
 				7B5EDEC32253618C009C2B3B /* AccessibilityIdentifiers.strings */,
 				F7C683BC1EA93C5800C87DAF /* ObjCBridgingHeader.h */,
@@ -4829,6 +4836,14 @@
 			path = Complete;
 			sourceTree = "<group>";
 		};
+		E955AF2223ABEBFF00165B5E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				E955AF2323ABEC1200165B5E /* RobotoCondensed-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		E958571422F35BBD007A0178 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -5515,6 +5530,8 @@
 			isa = PBXGroup;
 			children = (
 				E9B0875E2163886800937644 /* DexMyOrdersCell.swift */,
+				E955AF2023ABD2AB00165B5E /* DexMyOrdersCell.xib */,
+				E96C924B23AA2BB600C4B6C5 /* DexSegmentedControl.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -6550,12 +6567,14 @@
 				7B0E73972385C5DB0020E7C9 /* AppIcon-New-Test.png in Resources */,
 				E95E14FB229FFA65003552B8 /* WalletHistorySkeletonCell.xib in Resources */,
 				7B9DC31E2382C04700DCCA75 /* AppSpector-Info.plist in Resources */,
+				E955AF2423ABEC1200165B5E /* RobotoCondensed-Regular.ttf in Resources */,
 				E95E151322A18C25003552B8 /* WalletSearchTableViewCell.xib in Resources */,
 				7B3902A92237A75600AAFDB8 /* ActionsControl.xib in Resources */,
 				7B9DC35123840DC700DCCA75 /* AppIcon-New-Dev@2x.png in Resources */,
 				E95E14F9229FF933003552B8 /* WalletLeasingBalanceSkeletonCell.xib in Resources */,
 				E96FEA2A226F27BC00C0EE22 /* WalletSortCell.xib in Resources */,
 				0A26549121BAE153005EA637 /* Assets.xcassets in Resources */,
+				E955AF2123ABD2AB00165B5E /* DexMyOrdersCell.xib in Resources */,
 				0AB63C2C2170EBF00056B17E /* Language.storyboard in Resources */,
 				7B9DC35C23842A9900DCCA75 /* ServerMaintenance.storyboard in Resources */,
 				0A5D32F72154579C0009CDF3 /* MultyTextField.xib in Resources */,
@@ -7515,6 +7534,7 @@
 				E9B087A72163886800937644 /* DexOrderBookTypes.swift in Sources */,
 				E9642C8F21CB32570065A1BD /* CoinomatServiceErrorView.swift in Sources */,
 				E9B087B32163886800937644 /* DexOrderBookInteractor.swift in Sources */,
+				E96C924C23AA2BB600C4B6C5 /* DexSegmentedControl.swift in Sources */,
 				E9F69B9C22A5333500CDBD00 /* WalletSearchHeaderCell.swift in Sources */,
 				E9543902217FF9EC001A7860 /* SendCompleteViewController.swift in Sources */,
 				E9B087D52163886800937644 /* DexListInteractorProtocol.swift in Sources */,

@@ -185,6 +185,12 @@
 "dexmyorders.label.status.filled" = "Filled";
 "dexmyorders.label.status.partiallyFilled" = "Partial";
 "dexmyorders.label.time" = "Time";
+"dexmyorders.label.all" = "All";
+"dexmyorders.label.active" = "Active";
+"dexmyorders.label.closed" = "Closed";
+"dexmyorders.label.cancelled" = "Cancelled";
+"dexmyorders.label.amount" = "Amount";
+"dexmyorders.label.sum" = "Sum";
 "dexorderbook.button.buy" = "BUY";
 "dexorderbook.button.sell" = "SELL";
 "dexorderbook.label.amount" = "Amount";

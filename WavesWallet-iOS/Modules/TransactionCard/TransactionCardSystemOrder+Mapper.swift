@@ -123,7 +123,7 @@ fileprivate extension DomainLayer.DTO.Dex.Asset {
     }
 }
 
-fileprivate extension DomainLayer.DTO.Dex.MyOrder {
+extension DomainLayer.DTO.Dex.MyOrder {
 
     var precisionDifference: Int {
         return (priceAsset.decimals - amountAsset.decimals) + 8

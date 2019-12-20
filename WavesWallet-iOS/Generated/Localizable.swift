@@ -1018,9 +1018,24 @@ internal enum Localizable {
     internal enum Dexmyorders {
 
       internal enum Label {
+        /// Active
+        internal static var active: String { return Localizable.tr("Waves", "dexmyorders.label.active") }
+        internal static var activeKey: String { return "dexmyorders.label.active" }
+        /// All
+        internal static var all: String { return Localizable.tr("Waves", "dexmyorders.label.all") }
+        internal static var allKey: String { return "dexmyorders.label.all" }
+        /// Amount
+        internal static var amount: String { return Localizable.tr("Waves", "dexmyorders.label.amount") }
+        internal static var amountKey: String { return "dexmyorders.label.amount" }
         /// Buy
         internal static var buy: String { return Localizable.tr("Waves", "dexmyorders.label.buy") }
         internal static var buyKey: String { return "dexmyorders.label.buy" }
+        /// Cancelled
+        internal static var cancelled: String { return Localizable.tr("Waves", "dexmyorders.label.cancelled") }
+        internal static var cancelledKey: String { return "dexmyorders.label.cancelled" }
+        /// Closed
+        internal static var closed: String { return Localizable.tr("Waves", "dexmyorders.label.closed") }
+        internal static var closedKey: String { return "dexmyorders.label.closed" }
         /// Nothing Here…\nYou do not have any orders
         internal static var emptyData: String { return Localizable.tr("Waves", "dexmyorders.label.emptyData") }
         internal static var emptyDataKey: String { return "dexmyorders.label.emptyData" }
@@ -1036,6 +1051,9 @@ internal enum Localizable {
         /// Status
         internal static var status: String { return Localizable.tr("Waves", "dexmyorders.label.status") }
         internal static var statusKey: String { return "dexmyorders.label.status" }
+        /// Sum
+        internal static var sum: String { return Localizable.tr("Waves", "dexmyorders.label.sum") }
+        internal static var sumKey: String { return "dexmyorders.label.sum" }
         /// Time
         internal static var time: String { return Localizable.tr("Waves", "dexmyorders.label.time") }
         internal static var timeKey: String { return "dexmyorders.label.time" }
