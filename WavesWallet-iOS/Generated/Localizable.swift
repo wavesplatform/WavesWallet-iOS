@@ -728,6 +728,12 @@ internal enum Localizable {
         /// minutes
         internal static var minutes: String { return Localizable.tr("Waves", "dexchart.label.minutes") }
         internal static var minutesKey: String { return "dexchart.label.minutes" }
+        /// Month
+        internal static var month: String { return Localizable.tr("Waves", "dexchart.label.month") }
+        internal static var monthKey: String { return "dexchart.label.month" }
+        /// Week
+        internal static var week: String { return Localizable.tr("Waves", "dexchart.label.week") }
+        internal static var weekKey: String { return "dexchart.label.week" }
       }
     }
 

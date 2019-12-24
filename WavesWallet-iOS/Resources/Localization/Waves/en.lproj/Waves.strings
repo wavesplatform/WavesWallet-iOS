@@ -121,6 +121,8 @@
 "dexchart.label.emptyData" = "No chart data available";
 "dexchart.label.hour" = "hour";
 "dexchart.label.hours" = "hours";
+"dexchart.label.month" = "Month";
+"dexchart.label.week" = "Week";
 "dexchart.label.loadingChart" = "Loading chart…";
 "dexchart.label.minutes" = "minutes";
 "dexcompleteorder.button.okey" = "Okay";

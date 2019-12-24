@@ -36,6 +36,9 @@ public extension DomainLayer.DTO.Candle {
         case m30 = 30
         case h1 = 60
         case h3 = 180
+        case h4 = 2400
+        case M1 = 44640 // 1 month = 31 days
+        case W1 = 10080 // 1 weak = 7 days
         case h24 = 1440
     }
 }
