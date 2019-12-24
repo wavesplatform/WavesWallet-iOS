@@ -22,14 +22,12 @@ enum Send {
     
     enum Event {
         case didChangeRecipient(String)
-        case didChangeMoneroPaymentID(String)
         case didSelectAsset(DomainLayer.DTO.SmartAssetBalance, loadGatewayInfo: Bool)
         case getGatewayInfo
         case didGetGatewayInfo(ResponseType<DTO.GatewayInfo>)
         case checkValidationAlias
         case validationAliasDidComplete(Bool)
         case didGetWavesAsset(DomainLayer.DTO.SmartAssetBalance)
-        case moneroAddressDidGenerate(ResponseType<DTO.GatewayInfo>)
         case getAssetById(String)
         case cancelGetingAsset
         case didGetAssetBalance(DomainLayer.DTO.SmartAssetBalance?)
@@ -47,8 +45,6 @@ enum Send {
             case didFailInfo(NetworkError)
             case aliasDidFinishCheckValidation(Bool)
             case didGetWavesAsset(DomainLayer.DTO.SmartAssetBalance)
-            case didGenerateMoneroAddress(DTO.GatewayInfo)
-            case didFailGenerateMoneroAddress(NetworkError)
             case didGetAssetBalance(DomainLayer.DTO.SmartAssetBalance?)
             case didGetWavesFee(Money)
             case didHandleFeeError(DisplayError)
@@ -58,12 +54,10 @@ enum Send {
         var isNeedLoadGateWayInfo: Bool
         var isNeedValidateAliase: Bool
         var isNeedLoadWaves: Bool
-        var isNeedGenerateMoneroAddress: Bool
         var isNeedLoadWavesFee: Bool
         var isNeedLoadDeepLinkAssetDecimals: Bool
         var action: Action
         var recipient: String = ""
-        var moneroPaymentID: String = ""
         var selectedAsset: DomainLayer.DTO.SmartAssetBalance?
         var scanningAssetID: String?
         var deepLinkAssetId: String?
@@ -117,9 +111,7 @@ extension Send.State: Equatable {
     static func == (lhs: Send.State, rhs: Send.State) -> Bool {
         return lhs.isNeedLoadGateWayInfo == rhs.isNeedLoadGateWayInfo &&
                 lhs.isNeedValidateAliase == rhs.isNeedValidateAliase &&
-                lhs.isNeedGenerateMoneroAddress == rhs.isNeedGenerateMoneroAddress &&
                 lhs.recipient == rhs.recipient &&
-                lhs.moneroPaymentID == rhs.moneroPaymentID &&
                 lhs.selectedAsset?.assetId == rhs.selectedAsset?.assetId &&
                 lhs.scanningAssetID == rhs.scanningAssetID &&
                 lhs.isNeedLoadWavesFee == rhs.isNeedLoadWavesFee &&

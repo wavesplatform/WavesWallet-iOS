@@ -49,12 +49,11 @@ final class CoinomatRepository: CoinomatRepositoryProtocol {
     
     private let coinomatProvider: MoyaProvider<Coinomat.Service> = .anyMoyaProvider()
 
-    func tunnelInfo(asset: DomainLayer.DTO.Asset, currencyFrom: String, currencyTo: String, walletTo: String, moneroPaymentID: String?) -> Observable<DomainLayer.DTO.Coinomat.TunnelInfo> {
+    func tunnelInfo(asset: DomainLayer.DTO.Asset, currencyFrom: String, currencyTo: String, walletTo: String) -> Observable<DomainLayer.DTO.Coinomat.TunnelInfo> {
         
         let tunnel = Coinomat.Service.CreateTunnel(currency_from: currencyFrom,
                                                    currency_to: currencyTo,
-                                                   wallet_to: walletTo,
-                                                   monero_payment_id: moneroPaymentID)
+                                                   wallet_to: walletTo)
 
         return coinomatProvider.rx
         .request(.createTunnel(tunnel), callbackQueue:  DispatchQueue.global(qos: .userInteractive))
