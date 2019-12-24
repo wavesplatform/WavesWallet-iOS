@@ -91,13 +91,8 @@ final class DexOrderBookPresenter: DexOrderBookPresenterProtocol {
                 
                 let sectionBids = DexOrderBook.ViewModel.Section(items: displayData.bids.map {
                     DexOrderBook.ViewModel.Row.bid($0)})
-                
-                if sectionAsks.items.count > 0 || sectionBids.items.count > 0 {
-                    $0.sections = [sectionAsks, sectionLastPrice, sectionBids]
-                }
-                else {
-                    $0.sections = []
-                }
+            
+                $0.sections = [sectionAsks, sectionLastPrice, sectionBids]
                 
                 $0.header = displayData.header
                 

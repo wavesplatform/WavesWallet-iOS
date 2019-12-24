@@ -97,6 +97,15 @@ extension DomainLayer.DTO.Candle.TimeFrameType {
 
         case .h24:
             return "24" + " " + Localizable.Waves.Dexchart.Label.hours
+            
+        case .M1:
+            return Localizable.Waves.Dexchart.Label.month
+            
+        case .W1:
+            return Localizable.Waves.Dexchart.Label.week
+            
+        case .h4:
+            return "4" + " " + Localizable.Waves.Dexchart.Label.hours
         }
     }
     
@@ -116,6 +125,15 @@ extension DomainLayer.DTO.Candle.TimeFrameType {
             
         case .h3:
             return "H3"
+            
+        case .h4:
+            return "H4"
+            
+        case .M1:
+            return "M"
+            
+        case .W1:
+            return "W"
             
         case .h24:
             return "H24"
