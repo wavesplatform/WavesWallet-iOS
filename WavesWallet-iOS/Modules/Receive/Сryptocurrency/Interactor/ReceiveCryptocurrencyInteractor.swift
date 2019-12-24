@@ -45,8 +45,8 @@ final class ReceiveCryptocurrencyInteractor: ReceiveCryptocurrencyInteractorProt
                 let tunnel = self.coinomatRepository.tunnelInfo(asset: asset,
                                                                 currencyFrom: currencyFrom,
                                                                 currencyTo: currencyTo,
-                                                                walletTo: wallet.address,
-                                                                moneroPaymentID: nil)
+                                                                walletTo: wallet.address)
+                
                 let rate = self.coinomatRepository.getRate(asset: asset)
                 return Observable.zip(tunnel, rate)
                     .flatMap({ (tunnel, rate) ->  Observable<ResponseType<ReceiveCryptocurrency.DTO.DisplayInfo>> in

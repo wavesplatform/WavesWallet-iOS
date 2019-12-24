@@ -76,7 +76,6 @@ extension Coinomat.Service {
         let currency_from: String
         let currency_to: String
         let wallet_to: String
-        let monero_payment_id: String?
         
         var path: String {
             return Version.v1.rawValue + "create_tunnel.php"

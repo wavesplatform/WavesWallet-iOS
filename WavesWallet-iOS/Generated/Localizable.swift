@@ -2604,6 +2604,13 @@ internal enum Localizable {
           internal static func minimun(_ p1: String, _ p2: String) -> String {
             return Localizable.tr("Waves", "send.label.error.minimun", p1, p2)
           }
+          /// Dear customer, you are trying to withdraw your XMR to an old type of address which is not supported anymore. Please provide an address of a new type to complete the withdrawal. More details %@
+          internal static func moneroOldAddress(_ p1: String) -> String {
+            return Localizable.tr("Waves", "send.label.error.moneroOldAddress", p1)
+          }
+          /// here
+          internal static var moneroOldAddressKeyLink: String { return Localizable.tr("Waves", "send.label.error.moneroOldAddressKeyLink") }
+          internal static var moneroOldAddressKeyLinkKey: String { return "send.label.error.moneroOldAddressKeyLink" }
           /// You don't have enough funds to pay the required fees.
           internal static var notFundsFee: String { return Localizable.tr("Waves", "send.label.error.notFundsFee") }
           internal static var notFundsFeeKey: String { return "send.label.error.notFundsFee" }
