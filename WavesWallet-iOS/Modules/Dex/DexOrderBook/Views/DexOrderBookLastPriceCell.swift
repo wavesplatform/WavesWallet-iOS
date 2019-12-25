@@ -33,7 +33,7 @@ extension DexOrderBookLastPriceCell: ViewConfiguration {
             labelSpread.text = Localizable.Waves.Dexorderbook.Label.spread + " " + String(format: "%.02f", model.percent) + "%"
         }
         else {
-            labelSpread.text = Localizable.Waves.Dexorderbook.Label.spread + " " + "%"
+            labelSpread.text = Localizable.Waves.Dexorderbook.Label.spread + " 0" + "%"
         }
         
         if model.orderType == .sell {
@@ -43,7 +43,7 @@ extension DexOrderBookLastPriceCell: ViewConfiguration {
             iconState.image = Images.chartarrow22Success400.image
         }
         else {
-            iconState.image = nil
+            iconState.image = Images.chartarrow22Accent100.image
         }
     }
 }

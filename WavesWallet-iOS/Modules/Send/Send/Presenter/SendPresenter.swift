@@ -87,8 +87,7 @@ final class SendPresenter: SendPresenterProtocol {
     private func modelsQuery() -> Feedback {
         return react(request: { state -> Send.State? in
             return  state.isNeedLoadGateWayInfo ||
-                    state.isNeedValidateAliase ||
-                    state.isNeedGenerateMoneroAddress ? state : nil
+                    state.isNeedValidateAliase ? state : nil
             
         }, effects: { [weak self] state -> Signal<Send.Event> in
             
@@ -103,10 +102,6 @@ final class SendPresenter: SendPresenterProtocol {
             if state.isNeedLoadGateWayInfo {
                 return self.interactor.gateWayInfo(asset: asset, address: state.recipient)
                     .map {.didGetGatewayInfo($0)}.asSignal(onErrorSignalWith: Signal.empty())
-            }
-            else if state.isNeedGenerateMoneroAddress {
-                return self.interactor.generateMoneroAddress(asset: asset, address: state.recipient, paymentID: state.moneroPaymentID)
-                    .map {.moneroAddressDidGenerate($0)}.asSignal(onErrorSignalWith: Signal.empty())
             }
            
             return Signal.empty()
@@ -151,7 +146,6 @@ final class SendPresenter: SendPresenterProtocol {
                 $0.action = .none
                 $0.isNeedLoadGateWayInfo = true
                 $0.isNeedValidateAliase = false
-                $0.isNeedGenerateMoneroAddress = false
             }
             
         case .didSelectAsset(let asset, let loadGatewayInfo):
@@ -159,7 +153,6 @@ final class SendPresenter: SendPresenterProtocol {
                 $0.action = .none
                 $0.isNeedLoadGateWayInfo = loadGatewayInfo
                 $0.isNeedValidateAliase = false
-                $0.isNeedGenerateMoneroAddress = false
                 $0.isNeedLoadWavesFee = true
                 $0.selectedAsset = asset
             }
@@ -168,41 +161,16 @@ final class SendPresenter: SendPresenterProtocol {
             return state.mutate {
                 $0.isNeedLoadGateWayInfo = false
                 $0.isNeedValidateAliase = false
-                $0.isNeedGenerateMoneroAddress = false
                 $0.recipient = recipient
                 $0.action = .none
             }
             
-        case .didChangeMoneroPaymentID(let paymentID):
-            return state.mutate {
-                $0.isNeedLoadGateWayInfo = false
-                $0.isNeedValidateAliase = false
-                $0.isNeedGenerateMoneroAddress = true
-                $0.moneroPaymentID = paymentID
-                $0.action = .none
-            }
-            
-        case .moneroAddressDidGenerate(let response):
-            return state.mutate {
-                $0.isNeedGenerateMoneroAddress = false
-                $0.isNeedLoadGateWayInfo = false
-                $0.isNeedValidateAliase = false
 
-                switch response.result {
-                case .success(let info):
-                    $0.action = .didGenerateMoneroAddress(info)
-                    
-                case .error(let error):
-                    $0.action = .didFailGenerateMoneroAddress(error)
-                }
-            }
-            
         case .didGetGatewayInfo(let response):
             return state.mutate {
                 
                 $0.isNeedLoadGateWayInfo = false
                 $0.isNeedValidateAliase = false
-                $0.isNeedGenerateMoneroAddress = false
                 
                 switch response.result {
                 case .success(let info):
@@ -267,12 +235,10 @@ fileprivate extension Send.State {
         return Send.State(isNeedLoadGateWayInfo: false,
                           isNeedValidateAliase: false,
                           isNeedLoadWaves: true,
-                          isNeedGenerateMoneroAddress: false,
                           isNeedLoadWavesFee: false,
                           isNeedLoadDeepLinkAssetDecimals: false,
                           action: .none,
                           recipient: "",
-                          moneroPaymentID: "",
                           selectedAsset: nil,
                           scanningAssetID: nil,
                           deepLinkAssetId: nil)

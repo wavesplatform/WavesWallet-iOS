@@ -14,6 +14,7 @@ import WavesSDKExtensions
 import WavesSDK
 import Extensions
 import DomainLayer
+import TTTAttributedLabel
 
 protocol SendResultDelegate: AnyObject {
     func sendResultDidFail(_ error: NetworkError)
@@ -26,6 +27,10 @@ private enum Constants {
     static let percent50 = 50
     static let percent10 = 10
     static let percent5 = 5
+    
+    static let oldMoneroRegAddress = "^([a-km-zA-HJ-NP-Z1-9]{95})$"
+    static let newMoneroRegAddress = "^([a-km-zA-HJ-NP-Z1-9]{106})$"
+    static let moneroNewsLink = "https://coinswitch.co/news/monero-hard-fork-2019-coming-up-on-november-30th-everything-you-need-to-know"
 }
 
 final class SendViewController: UIViewController {
@@ -43,11 +48,12 @@ final class SendViewController: UIViewController {
     @IBOutlet private weak var activityIndicatorButton: UIActivityIndicatorView!
     @IBOutlet private weak var viewAmountError: UIView!
     @IBOutlet private weak var labelAmountError: UILabel!
-    @IBOutlet private weak var moneroPaymentIdView: SendMoneroPaymentIdView!
     @IBOutlet private weak var coinomatErrorView: UIView!
     @IBOutlet private weak var viewBottomContent: UIView!
     @IBOutlet private weak var viewBottomContentHeightConstraint: NSLayoutConstraint!
-
+    @IBOutlet private weak var moneroAddressErrorView: UIView!
+    @IBOutlet private weak var labelMoneroAddressError: TTTAttributedLabel!
+    
     private let popoverViewControllerTransitioning = ModalViewControllerTransitioning {
 
     }
@@ -66,7 +72,6 @@ final class SendViewController: UIViewController {
     
     private var isValidAlias: Bool = false
     private var gateWayInfo: Send.DTO.GatewayInfo?
-    private var moneroAddress: String = ""
     private var isLoadingAssetBalanceAfterScan = false
     private var errorSnackKey: String?
    
@@ -115,14 +120,8 @@ final class SendViewController: UIViewController {
         assetView.delegate = self
         amountView.delegate = self
         amountView.setupRightLabelText("")
-        moneroPaymentIdView.setupZeroHeight(animation: false)
-        moneroPaymentIdView.didTapNext = { [weak self] in
-            self?.amountView.activateTextField()
-        }
-        moneroPaymentIdView.paymentIdDidChange = { [weak self] paymentID in
-            self?.setupButtonState()
-            self?.moneroAddress = ""
-        }
+        labelMoneroAddressError.delegate = self
+        moneroAddressErrorView.isHidden = true
         
         switch inputModel! {
         case .selectedAsset(let asset):
@@ -215,7 +214,7 @@ final class SendViewController: UIViewController {
         }
         
         updateAmountData()
-        updateMoneraPaymentView(animation: false)
+        updateMoneraAddressErrorView(animation: false)
         recipientAddressView.decimals = selectedAsset?.asset.precision ?? 0
     }
     
@@ -262,14 +261,7 @@ final class SendViewController: UIViewController {
     }
     
     @IBAction private func continueTapped(_ sender: Any) {
-    
-        if isNeedGenerateMoneroAddress {
-            showLoadingButtonState()
-            sendEvent.accept(.didChangeMoneroPaymentID(moneroPaymentIdView.paymentID))
-        }
-        else {
-            showConfirmScreen()
-        }
+        showConfirmScreen()
     }
 }
 
@@ -411,20 +403,6 @@ private extension SendViewController {
                     self.feeAssetBalance = asset
                     self.updateAmountError(animation: true)
                     self.updateAmountData()
-                    
-                case .didFailGenerateMoneroAddress(let error):
-                    
-                    self.showNetworkErrorSnack(error: error)
-                    self.hideButtonLoadingButtonsState()
-                    self.moneroPaymentIdView.showErrorFromServer()
-                    self.setupButtonState()
-
-                case .didGenerateMoneroAddress(let info):
-                    self.moneroAddress = info.address
-                    self.gateWayInfo = info
-                    self.hideButtonLoadingButtonsState()
-                    self.setupButtonState()
-                    self.showConfirmScreen()
                     
                 case .didGetDeepLinkAssetDecimals(let decimals):
                     
@@ -695,7 +673,6 @@ private extension SendViewController {
             isValidFee &&
             (amount?.amount ?? 0) > 0 &&
             isValidMinMaxGatewayAmount &&
-            isValidPaymentMoneroID &&
             !isLoadingAssetBalanceAfterScan &&
             currentFee != nil &&
             selectedAsset?.asset.isSpam == false
@@ -792,20 +769,32 @@ private extension SendViewController {
         })
         setupButtonState()
         updateAmountError(animation: true)
-        updateMoneraPaymentView(animation: true)
+        updateMoneraAddressErrorView(animation: true)
     }
     
-    func updateMoneraPaymentView(animation: Bool) {
-        if selectedAsset?.asset.isMonero == true && isValidCryptocyrrencyAddress {
-            moneroPaymentIdView.setupDefaultHeight(animation: animation)
+    func updateMoneraAddressErrorView(animation: Bool) {
+        let address = recipientAddressView.text
+        if selectedAsset?.asset.isMonero == true && address.count > 0 {
+            if NSPredicate(format: "SELF MATCHES %@", Constants.oldMoneroRegAddress).evaluate(with: address) {
+                moneroAddressErrorView.isHidden = false
+            }
+            else {
+                moneroAddressErrorView.isHidden = true
+            }
         }
         else {
-            moneroAddress = ""
-            moneroPaymentIdView.setupZeroHeight(animation: animation)
+            moneroAddressErrorView.isHidden = true
         }
     }
     
     func setupLocalization() {
+        
+        let keyLink = Localizable.Waves.Send.Label.Error.moneroOldAddressKeyLink
+        labelMoneroAddressError.text = Localizable.Waves.Send.Label.Error.moneroOldAddress(keyLink)
+        
+        let range = (labelMoneroAddressError.attributedText.string as NSString).range(of: keyLink)
+
+        labelMoneroAddressError.addLink(to: URL(string: Constants.moneroNewsLink), with: range)
         buttonContinue.setTitle(Localizable.Waves.Send.Button.continue, for: .normal)
     }
     
@@ -846,6 +835,7 @@ extension SendViewController: AddressInputViewDelegate {
         
         setupButtonState()
         sendEvent.accept(.cancelGetingAsset)
+        updateMoneraAddressErrorView(animation: true)
     }
     
     func addressInputViewDidTapNext() {
@@ -854,13 +844,8 @@ extension SendViewController: AddressInputViewDelegate {
             view.endEditing(true)
             return
         }
-        
-        if moneroPaymentIdView.isVisible {
-            moneroPaymentIdView.activateTextField()
-        }
-        else {
-            amountView.activateTextField()
-        }
+
+        amountView.activateTextField()
     }
     
     func addressInputViewDidEndEditing() {
@@ -874,6 +859,7 @@ extension SendViewController: AddressInputViewDelegate {
             hideGatewayInfo(animation: true)
             hideCoinomatError(animation: true)
         }
+        updateMoneraAddressErrorView(animation: true)
     }
     
     func addressInputViewDidSelectAddressBook() {
@@ -912,6 +898,7 @@ extension SendViewController: AddressInputViewDelegate {
             validateAddress()
         }
         clearGatewayAndUpdateInputAmount()
+        updateMoneraAddressErrorView(animation: true)
     }
     
     func addressInputViewDidDeleteAddress() {
@@ -920,6 +907,7 @@ extension SendViewController: AddressInputViewDelegate {
         hideGatewayInfo(animation: true)
         hideCoinomatError(animation: true)
         clearGatewayAndUpdateInputAmount()
+        updateMoneraAddressErrorView(animation: true)
     }
     
     func addressInputViewDidChangeAddress(_ address: String) {
@@ -927,6 +915,7 @@ extension SendViewController: AddressInputViewDelegate {
         clearGatewayAndUpdateInputAmount()
         hideGatewayInfo(animation: true)
         hideCoinomatError(animation: true)
+        updateMoneraAddressErrorView(animation: true)
     }
     
     func addressInputViewDidSelectContactAtIndex(_ index: Int) {
@@ -943,7 +932,6 @@ extension SendViewController: AddressInputViewDelegate {
         if gateWayInfo != nil {
             gateWayInfo = nil
             updateAmountData()
-            updateMoneraPaymentView(animation: true)
         }
     }
     
@@ -991,21 +979,6 @@ private extension SendViewController {
         return true
     }
     
-    var isNeedGenerateMoneroAddress: Bool {
-        if selectedAsset?.asset.isMonero == true && isValidCryptocyrrencyAddress && moneroPaymentIdView.isValidPaymentID {
-            return moneroAddress.count == 0
-        }
-        return false
-    }
-    
-    var isValidPaymentMoneroID: Bool {
-    
-        if selectedAsset?.asset.isMonero == true && isValidCryptocyrrencyAddress {
-            return moneroPaymentIdView.isValidPaymentID
-        }
-        return true
-    }
-    
     var isValidMinMaxGatewayAmount: Bool {
         guard let amount = amount else { return false }
 
@@ -1041,7 +1014,11 @@ private extension SendViewController {
     var isValidCryptocyrrencyAddress: Bool {
         let address = recipientAddressView.text
 
-        if let regExp = selectedAsset?.asset.addressRegEx, regExp.count > 0 {
+        if var regExp = selectedAsset?.asset.addressRegEx, regExp.count > 0 {
+            if selectedAsset?.asset.isMonero == true {
+                regExp = Constants.newMoneroRegAddress
+            }
+            
             return NSPredicate(format: "SELF MATCHES %@", regExp).evaluate(with: address) &&
                 selectedAsset?.asset.isGateway == true &&
                 selectedAsset?.asset.isFiat == false &&
@@ -1148,5 +1125,12 @@ private extension DeepLink {
     }
     var recipient: String {
         return QRCodeParser.parseAddress(url.absoluteString)
+    }
+}
+
+//MARK: - TTTAttributedLabelDelegate
+extension SendViewController: TTTAttributedLabelDelegate {
+    func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
+        UIApplication.shared.openURLAsync(url)
     }
 }

@@ -2,6 +2,9 @@
 "Send.Label.Error.notFundsFeeGateway" = "You don't have enough funds to pay the required fees. You must pay %@ transaction fee and %@ gateway fee.";
 "Send.Label.Warning.description" = "Do not withdraw %@ to an ICO. We will not credit your account with tokens from that sale.";
 "Send.Label.Warning.subtitle" = "We detected %@ address and will send your money through gateway to that address. Minimum amount is %@, maximum amount is %@.";
+"send.label.error.moneroOldAddress" = "Dear customer, you are trying to withdraw your XMR to an old type of address which is not supported anymore. Please provide an address of a new type to complete the withdrawal. More details %@";
+"send.label.error.moneroOldAddressKeyLink" = "here";
+
 "accountpassword.button.signIn.title" = "Sign In";
 "accountpassword.error.wrongpassword" = "Wrong password";
 "accountpassword.textfield.error.atleastcharacters" = "Minimum %d characters";
@@ -121,6 +124,8 @@
 "dexchart.label.emptyData" = "No chart data available";
 "dexchart.label.hour" = "hour";
 "dexchart.label.hours" = "hours";
+"dexchart.label.month" = "Month";
+"dexchart.label.week" = "Week";
 "dexchart.label.loadingChart" = "Loading chart…";
 "dexchart.label.minutes" = "minutes";
 "dexcompleteorder.button.okey" = "Okay";

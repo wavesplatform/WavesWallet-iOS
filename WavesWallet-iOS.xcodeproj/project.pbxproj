@@ -1076,8 +1076,6 @@
 		E9C8F94B20F66A05004C438A /* ConfirmBackupStackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */; };
 		E9C8F94D20F66D64004C438A /* ConfirmBackupStackBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */; };
 		E9CBE6C22094C0E7008C8F44 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CBE6C12094C0E7008C8F44 /* MenuViewController.swift */; };
-		E9CD0D2C218099FB001A99B3 /* SendMoneroPaymentIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD0D2B218099FB001A99B3 /* SendMoneroPaymentIdView.swift */; };
-		E9CD0D2E21809A5D001A99B3 /* SendMoneroPaymentIdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9CD0D2D21809A5D001A99B3 /* SendMoneroPaymentIdView.xib */; };
 		E9CD0D32218137FE001A99B3 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD0D30218137FE001A99B3 /* MainTabBarController.swift */; };
 		E9CD0D3521815849001A99B3 /* AddAddressBookTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CD0D3421815849001A99B3 /* AddAddressBookTypes.swift */; };
 		E9D36DC72175C755001E6DF0 /* ReceiveCryptocurrencyTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D36D6D2175C754001E6DF0 /* ReceiveCryptocurrencyTypes.swift */; };
@@ -2378,8 +2376,6 @@
 		E9C8F94A20F66A05004C438A /* ConfirmBackupStackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackListView.swift; sourceTree = "<group>"; };
 		E9C8F94C20F66D64004C438A /* ConfirmBackupStackBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackBaseView.swift; sourceTree = "<group>"; };
 		E9CBE6C12094C0E7008C8F44 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		E9CD0D2B218099FB001A99B3 /* SendMoneroPaymentIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMoneroPaymentIdView.swift; sourceTree = "<group>"; };
-		E9CD0D2D21809A5D001A99B3 /* SendMoneroPaymentIdView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SendMoneroPaymentIdView.xib; sourceTree = "<group>"; };
 		E9CD0D30218137FE001A99B3 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		E9CD0D3421815849001A99B3 /* AddAddressBookTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAddressBookTypes.swift; sourceTree = "<group>"; };
 		E9D36D6D2175C754001E6DF0 /* ReceiveCryptocurrencyTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiveCryptocurrencyTypes.swift; sourceTree = "<group>"; };
@@ -5970,8 +5966,6 @@
 				E9642C9021CB326A0065A1BD /* CoinomatServiceErrorView.xib */,
 				E9EC5BA82175F35800E5C29A /* AddressInputView.swift */,
 				E9EC5BA92175F35800E5C29A /* AddressInputView.xib */,
-				E9CD0D2B218099FB001A99B3 /* SendMoneroPaymentIdView.swift */,
-				E9CD0D2D21809A5D001A99B3 /* SendMoneroPaymentIdView.xib */,
 				E9AFDBE321F32E88003130A8 /* TransactionFeeView.swift */,
 				E9AFDBE521F32E96003130A8 /* TransactionFeeView.xib */,
 				E983665D21F5972300178A8A /* TransactionScriptErrorView.swift */,
@@ -6625,7 +6619,6 @@
 				0A5D32F72154579C0009CDF3 /* MultyTextField.xib in Resources */,
 				0A9797602108A11A00407F67 /* Wallet.storyboard in Resources */,
 				7B26A87D22ED129300E7B024 /* WidgetSettings.storyboard in Resources */,
-				E9CD0D2E21809A5D001A99B3 /* SendMoneroPaymentIdView.xib in Resources */,
 				0AACD59D21A59E7100B30815 /* SweetSnackView.xib in Resources */,
 				E9939B4722302E6100B50E67 /* InfoPageConfirmView.xib in Resources */,
 				E9B086BE2163883000937644 /* AddressBook.storyboard in Resources */,
@@ -7709,7 +7702,6 @@
 				E9AFDBE421F32E88003130A8 /* TransactionFeeView.swift in Sources */,
 				7BD2FD35223C5E1F0098CFB9 /* TransactionCardCoordinator.swift in Sources */,
 				7BFB480C22FC742F002B19F8 /* GlobalConstants.swift in Sources */,
-				E9CD0D2C218099FB001A99B3 /* SendMoneroPaymentIdView.swift in Sources */,
 				04016DFC219420C900BA5235 /* ImportAccountViewController.swift in Sources */,
 				0ADD802521F22FFA0075FC59 /* SlideMenuRouter.swift in Sources */,
 				7B3681AF23155805000D5592 /* ConfirmRequestBalanceCell.swift in Sources */,
@@ -8095,7 +8087,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 2.7.2;
+				MARKETING_VERSION = 2.8;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.test;
@@ -8188,7 +8180,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 2.7.2;
+				MARKETING_VERSION = 2.8;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.test;
 				PRODUCT_MODULE_NAME = WavesWallet_iOS;
@@ -9320,7 +9312,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 2.7.2;
+				MARKETING_VERSION = 2.8;
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -warn-long-function-bodies=200 -Xfrontend -warn-long-expression-type-checking=200";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.dev;
@@ -9620,7 +9612,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 2.7.2;
+				MARKETING_VERSION = 2.8;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet;
@@ -10453,7 +10445,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 2.7.2;
+				MARKETING_VERSION = 2.8;
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -warn-long-function-bodies=200 -Xfrontend -warn-long-expression-type-checking=200";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.waveswallet.dev;
@@ -10490,7 +10482,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 2.7.2;
+				MARKETING_VERSION = 2.8;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wavesplatform.WavesWallet;
 				PRODUCT_MODULE_NAME = WavesWallet_iOS;

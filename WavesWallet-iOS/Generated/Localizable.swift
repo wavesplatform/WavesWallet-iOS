@@ -728,6 +728,12 @@ internal enum Localizable {
         /// minutes
         internal static var minutes: String { return Localizable.tr("Waves", "dexchart.label.minutes") }
         internal static var minutesKey: String { return "dexchart.label.minutes" }
+        /// Month
+        internal static var month: String { return Localizable.tr("Waves", "dexchart.label.month") }
+        internal static var monthKey: String { return "dexchart.label.month" }
+        /// Week
+        internal static var week: String { return Localizable.tr("Waves", "dexchart.label.week") }
+        internal static var weekKey: String { return "dexchart.label.week" }
       }
     }
 
@@ -2656,6 +2662,13 @@ internal enum Localizable {
           internal static func minimun(_ p1: String, _ p2: String) -> String {
             return Localizable.tr("Waves", "send.label.error.minimun", p1, p2)
           }
+          /// Dear customer, you are trying to withdraw your XMR to an old type of address which is not supported anymore. Please provide an address of a new type to complete the withdrawal. More details %@
+          internal static func moneroOldAddress(_ p1: String) -> String {
+            return Localizable.tr("Waves", "send.label.error.moneroOldAddress", p1)
+          }
+          /// here
+          internal static var moneroOldAddressKeyLink: String { return Localizable.tr("Waves", "send.label.error.moneroOldAddressKeyLink") }
+          internal static var moneroOldAddressKeyLinkKey: String { return "send.label.error.moneroOldAddressKeyLink" }
           /// You don't have enough funds to pay the required fees.
           internal static var notFundsFee: String { return Localizable.tr("Waves", "send.label.error.notFundsFee") }
           internal static var notFundsFeeKey: String { return "send.label.error.notFundsFee" }
