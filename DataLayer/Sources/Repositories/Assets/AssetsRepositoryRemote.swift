@@ -190,7 +190,6 @@ fileprivate extension DomainLayer.DTO.Asset {
         var isWaves = false
         var isFiat = false
         let isGateway = info?.isGateway ?? false
-        let isWavesToken = isFiat == false && isGateway == false && isWaves == false
         var name = asset.name
         var description = asset.description
         
@@ -207,7 +206,8 @@ fileprivate extension DomainLayer.DTO.Asset {
             name = info.displayName
             isFiat = info.isFiat
         }
-        
+        let isWavesToken = isFiat == false && isGateway == false && isWaves == false
+
         self.init(id: asset.id,
                   gatewayId: info?.gatewayId,
                   wavesId: info?.wavesId,
