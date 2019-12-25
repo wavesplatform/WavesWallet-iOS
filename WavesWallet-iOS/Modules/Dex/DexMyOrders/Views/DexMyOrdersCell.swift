@@ -10,8 +10,14 @@ import UIKit
 import DomainLayer
 import Extensions
 import RxSwift
+import MGSwipeTableCell
 
-final class DexMyOrdersCell: UITableViewCell, NibReusable {
+private enum Constants {
+    static let height: CGFloat = 90
+    static let canceledAlpha: CGFloat = 0.4
+}
+
+final class DexMyOrdersCell: MGSwipeTableCell, NibReusable {
 
     @IBOutlet private weak var imageViewIcon1: UIImageView!
     @IBOutlet private weak var imageViewIcon2: UIImageView!
@@ -29,12 +35,11 @@ final class DexMyOrdersCell: UITableViewCell, NibReusable {
     @IBOutlet private weak var labelFilledPercent: UILabel!
     @IBOutlet private weak var labelStatus: UILabel!
     @IBOutlet private weak var labelFilled: UILabel!
-    @IBOutlet private weak var viewBgCanceled: UIView!
     
     @IBOutlet private var labels: [UILabel]!
     
     private var disposeBag = DisposeBag()
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -66,31 +71,47 @@ final class DexMyOrdersCell: UITableViewCell, NibReusable {
     }
 }
 
-
+extension DexMyOrdersCell: ViewHeight {
+    static func viewHeight() -> CGFloat {
+        return Constants.height
+    }
+}
 extension DexMyOrdersCell: ViewConfiguration {
     
-    func update(with model: DomainLayer.DTO.Dex.MyOrder) {
+    struct Model {
+        let order: DomainLayer.DTO.Dex.MyOrder
+        let index: Int
+    }
+    
+    func update(with model: Model) {
                 
-        labelAssets.text = model.amountAsset.shortName + "/" + model.priceAsset.shortName
-        labelAmount.text = model.amount.displayText
-        labelSum.text = model.totalBalance.money.displayText
-        labelFilled.text = model.filled.displayText
-        labelFilledPercent.text = String(model.filledPercent) + "%"
-        labelStatus.text = model.statusText
-        labelDate.text = DexMyOrders.ViewModel.dateFormatter.string(from: model.time)
-        labelPrice.text = model.price.displayText
-        labelType.text = model.type == .sell ? Localizable.Waves.Dexmyorders.Label.sell : Localizable.Waves.Dexmyorders.Label.buy
-        labelType.textColor = model.type == .sell ? UIColor.error500 : UIColor.submit400
-        labelPrice.textColor = model.type == .sell ? UIColor.error500 : UIColor.submit400
-
-        viewBgCanceled.isHidden = model.status != .cancelled
+        let order = model.order
         
-        AssetLogo.logo(icon: model.amountAssetIcon, style: .medium)
+        labelAssets.text = order.amountAsset.shortName + "/" + order.priceAsset.shortName
+        labelAmount.text = order.amount.displayText
+        labelSum.text = order.totalBalance.money.displayText
+        labelFilled.text = order.filled.displayText
+        labelFilledPercent.text = String(order.filledPercent) + "%"
+        labelStatus.text = order.statusText
+        labelDate.text = DexMyOrders.ViewModel.dateFormatter.string(from: order.time)
+        labelPrice.text = order.price.displayText
+        labelType.text = order.type == .sell ? Localizable.Waves.Dexmyorders.Label.sell : Localizable.Waves.Dexmyorders.Label.buy
+        labelType.textColor = order.type == .sell ? UIColor.error500 : UIColor.submit400
+        labelPrice.textColor = order.type == .sell ? UIColor.error500 : UIColor.submit400
+
+        backgroundColor = model.index % 2 == 0 ? .basic50 : .basic100
+
+        contentView.alpha = 1
+        if order.status == .cancelled {
+            contentView.alpha = Constants.canceledAlpha
+        }
+        
+        AssetLogo.logo(icon: order.amountAssetIcon, style: .medium)
             .observeOn(MainScheduler.instance)
             .bind(to: imageViewIcon1.rx.image)
             .disposed(by: disposeBag)
         
-        AssetLogo.logo(icon: model.priceAssetIcon, style: .medium)
+        AssetLogo.logo(icon: order.priceAssetIcon, style: .medium)
             .observeOn(MainScheduler.instance)
             .bind(to: imageViewIcon2.rx.image)
             .disposed(by: disposeBag)

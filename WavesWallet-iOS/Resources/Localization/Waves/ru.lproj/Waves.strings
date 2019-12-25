@@ -174,11 +174,11 @@
 "dexmarket.label.loadingMarkets" = "Загрузка рынков…";
 "dexmarket.navigationBar.title" = "Рынки";
 "dexmarket.searchBar.placeholder" = "Поиск";
-"dexmyorders.label.buy" = "Купить";
+"dexmyorders.label.buy" = "Покупка";
 "dexmyorders.label.emptyData" = "Пока ничего нет…\nУ вас нет ордеров";
 "dexmyorders.label.loadingLastTrades" = "Загрузка оредеров…";
 "dexmyorders.label.price" = "Цена";
-"dexmyorders.label.sell" = "Продать";
+"dexmyorders.label.sell" = "Продажа";
 "dexmyorders.label.status" = "Статус";
 "dexmyorders.label.status.accepted" = "Открыт";
 "dexmyorders.label.status.cancelled" = "Отменен";

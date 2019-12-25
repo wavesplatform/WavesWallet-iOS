@@ -50,6 +50,7 @@ final class DexMyOrdersViewController: UIViewController {
                                   Localizable.Waves.Dexmyorders.Label.active,
                                   Localizable.Waves.Dexmyorders.Label.closed,
                                   Localizable.Waves.Dexmyorders.Label.cancelled]
+    
     }
     
     override func viewDidLayoutSubviews() {
@@ -181,8 +182,7 @@ extension DexMyOrdersViewController: UITableViewDataSource {
         switch row {
         case .order(let myOrder):
             let cell = tableView.dequeueAndRegisterCell() as DexMyOrdersCell
-            cell.backgroundColor = indexPath.row % 2 == 0 ? .basic50 : .basic100
-            cell.update(with: myOrder)
+            cell.update(with: .init(order: myOrder, index: indexPath.row))
             return cell
         }
     }

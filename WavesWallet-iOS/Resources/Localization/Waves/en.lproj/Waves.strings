@@ -716,3 +716,10 @@
 "migration.wavesexchange.view.description" = "To offer users a better experience and wider range of tools, the exchange is moved from Waves DEX to Waves.Exchange.\n\nDon’t worry! All of your tokens, seed phrases and passwords are safe.";
 "hello.page.confirm.subtitle.migration" = "All the data on your Waves.Exchange is encrypted and stored only on your device.";
 "serverMaintenance.button.retry" = "Retry";
+"myorders.alert.cancelAllOrders.title" = "Cancel All Orders";
+"myorders.alert.cancelAllOrders.subtitle" = "Are you sure you want to cancel all active orders?";
+"myorders.alert.button.yes" = "Yes";
+"myorders.alert.button.no" = "No";
+"myorders.message.success" = "Orders cancelled";
+"myorders.alert.cancelOrder.title" = "Cancel Order";
+"myorders.alert.cancelOrder.subTitle" = "Are you sure you want to cancel order %@?";

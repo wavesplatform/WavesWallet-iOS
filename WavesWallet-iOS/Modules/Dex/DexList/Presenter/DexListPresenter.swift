@@ -202,6 +202,10 @@ final class DexListPresenter: DexListPresenterProtocol {
             moduleOutput?.showTradePairInfo(pair: tradePair)
             
             return state.changeAction(.none)
+            
+        case .showOrders:
+            moduleOutput?.showOrders()
+            return state.changeAction(.none)
         }
     }
   

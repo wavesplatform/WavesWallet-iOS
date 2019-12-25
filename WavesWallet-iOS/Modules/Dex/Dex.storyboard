@@ -415,6 +415,39 @@
             </objects>
             <point key="canvasLocation" x="153" y="1021"/>
         </scene>
+        <!--My Orders View Controller-->
+        <scene sceneID="lKl-3L-jPG">
+            <objects>
+                <viewController storyboardIdentifier="MyOrdersViewController" id="yx4-uv-zcp" customClass="MyOrdersViewController" customModule="WavesWallet_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hVp-9p-Wv9"/>
+                        <viewControllerLayoutGuide type="bottom" id="OfR-Ye-iF1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="H4Q-tW-NiZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LmQ-Hb-on6" customClass="ScrolledContainerView" customModule="WavesWallet_iOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="LmQ-Hb-on6" firstAttribute="top" secondItem="H4Q-tW-NiZ" secondAttribute="top" id="SsE-rU-237"/>
+                            <constraint firstAttribute="trailing" secondItem="LmQ-Hb-on6" secondAttribute="trailing" id="d8v-Dj-93B"/>
+                            <constraint firstItem="LmQ-Hb-on6" firstAttribute="leading" secondItem="H4Q-tW-NiZ" secondAttribute="leading" id="hrI-Dm-0zE"/>
+                            <constraint firstAttribute="bottom" secondItem="LmQ-Hb-on6" secondAttribute="bottom" id="zMM-hg-z1H"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="scrolledTablesComponent" destination="LmQ-Hb-on6" id="1lt-nR-zhT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SC0-fH-4Wu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="865" y="1021"/>
+        </scene>
         <!--Dex Deep Link Loading View Controller-->
         <scene sceneID="0wk-fg-qi5">
             <objects>
@@ -1683,7 +1716,7 @@ You do not have any orders</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lgO-Lq-vZq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="865" y="1714"/>
+            <point key="canvasLocation" x="865" y="1729"/>
         </scene>
         <!--Dex Script Asset Message View Controller-->
         <scene sceneID="Nxu-Zl-c5t">

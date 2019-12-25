@@ -22,6 +22,7 @@ enum DexList {
         case setLocalDisplayInfo(DTO.LocalDisplayInfo)
         case tapSortButton(DexListRefreshOutput)
         case tapAddButton(DexListRefreshOutput)
+        case showOrders
         case refresh
         case refreshBackground
         case tapAssetPair(DTO.Pair)

@@ -86,7 +86,7 @@ final class DexMyOrdersPresenter: DexMyOrdersPresenterProtocol {
             filteredOrders = orders
         }
         else if status == .active {
-            filteredOrders = orders.filter {$0.status == .accepted || $0.status == .partiallyFilled}
+            filteredOrders = orders.filter {$0.isActive}
         }
         else if status == .closed {
             filteredOrders = orders.filter {$0.status == .filled}

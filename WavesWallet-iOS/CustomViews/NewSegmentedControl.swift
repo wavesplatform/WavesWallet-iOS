@@ -63,6 +63,8 @@ final class NewSegmentedControl: UIScrollView {
         if let subView = titleButtons.last {
             contentSize.width = subView.frame.origin.x + subView.frame.size.width
         }
+        
+        setupLinePosition(animation: false)
     }
     
     @objc private func buttonDidTapped(_ sender: UIButton) {
