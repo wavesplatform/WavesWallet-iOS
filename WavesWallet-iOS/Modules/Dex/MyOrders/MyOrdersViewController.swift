@@ -78,7 +78,7 @@ final class MyOrdersViewController: UIViewController {
     
     private func setupCancelOrderButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.deleteAllCopy.image, style: .plain, target: self, action: #selector(cancelAllOrders))
-        navigationItem.rightBarButtonItem?.isEnabled = section.activeItems.count > 0
+        navigationItem.rightBarButtonItem?.isEnabled = section.activeItems.filter{$0.order != nil}.count > 0
     }
     
     private func setupSystem() {
