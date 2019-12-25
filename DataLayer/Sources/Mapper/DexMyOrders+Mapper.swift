@@ -13,7 +13,7 @@ import Extensions
 
 extension DomainLayer.DTO.Dex.MyOrder {
     
-    init(_ model: MatcherService.DTO.Order, priceAsset: DomainLayer.DTO.Dex.Asset, amountAsset: DomainLayer.DTO.Dex.Asset) {
+    init(_ model: MatcherService.DTO.Order, priceAsset: DomainLayer.DTO.Dex.Asset, amountAsset: DomainLayer.DTO.Dex.Asset, amountAssetIcon: AssetLogo.Icon, priceAssetIcon: AssetLogo.Icon) {
         
         let price = Money.price(amount: model.price, amountDecimals: amountAsset.decimals, priceDecimals: priceAsset.decimals)
         
@@ -41,10 +41,6 @@ extension DomainLayer.DTO.Dex.MyOrder {
             type = DomainLayer.DTO.Dex.OrderType.buy
         }
   
-        
-        let roundedPercent = ceil(filled.doubleValue * 100 / amount.doubleValue)
-        let percentFilled = min(100, Int(roundedPercent))
-        
         self.init(id: model.id,
                   time: model.timestamp,
                   status: status,
@@ -54,9 +50,10 @@ extension DomainLayer.DTO.Dex.MyOrder {
                   type: type,
                   amountAsset: amountAsset,
                   priceAsset: priceAsset,
-                  percentFilled: percentFilled,
                   fee: model.fee,
-                  feeAsset: model.feeAsset)
+                  feeAsset: model.feeAsset,
+                  amountAssetIcon: amountAssetIcon,
+                  priceAssetIcon: priceAssetIcon)
     }
 }
     

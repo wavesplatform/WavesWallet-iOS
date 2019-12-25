@@ -20,15 +20,12 @@ fileprivate enum Constants {
 final class DexMyOrdersViewController: UIViewController {
 
     @IBOutlet private weak var viewTopCorners: UIView!
-    @IBOutlet private weak var labelDate: UILabel!
-    @IBOutlet private weak var labelSidePrice: UILabel!
-    @IBOutlet private weak var labelStatus: UILabel!
     @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet private weak var headerView: UIView!
     @IBOutlet private weak var viewEmptyData: UIView!
     @IBOutlet private weak var viewLoadingInfo: UIView!
     @IBOutlet private weak var labelLoadingData: UILabel!
     @IBOutlet private weak var labelEmptyData: UILabel!
+    @IBOutlet private weak var segmentedControl: DexSegmentedControl!
     
     private var refreshControl: UIRefreshControl!
     
@@ -41,7 +38,6 @@ final class DexMyOrdersViewController: UIViewController {
     var presenter: DexMyOrdersPresenterProtocol!
     weak var output: DexMyOrdersModuleOutput?
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -49,6 +45,12 @@ final class DexMyOrdersViewController: UIViewController {
         setupLocalization()
         setupLoadingState()
         setupRefreshControl()
+        segmentedControl.delegate = self
+        segmentedControl.items = [Localizable.Waves.Dexmyorders.Label.all,
+                                  Localizable.Waves.Dexmyorders.Label.active,
+                                  Localizable.Waves.Dexmyorders.Label.closed,
+                                  Localizable.Waves.Dexmyorders.Label.cancelled]
+    
     }
     
     override func viewDidLayoutSubviews() {
@@ -66,6 +68,14 @@ final class DexMyOrdersViewController: UIViewController {
         self.transactionCardCoordinator = coordinator
         coordinator.delegate = self
         coordinator.start()
+    }
+}
+
+//MARK: - DexSegmentedControlDelegate
+extension DexMyOrdersViewController: DexSegmentedControlDelegate {
+    func dexSegmentedControlDidChangeIndex(_ index: Int) {
+        guard let status = DexMyOrders.ViewModel.Status(rawValue: index) else { return }
+        sendEvent.accept(.changeStatus(status))
     }
 }
 
@@ -171,8 +181,8 @@ extension DexMyOrdersViewController: UITableViewDataSource {
 
         switch row {
         case .order(let myOrder):
-            let cell = tableView.dequeueCell() as DexMyOrdersCell
-            cell.update(with: myOrder)
+            let cell = tableView.dequeueAndRegisterCell() as DexMyOrdersCell
+            cell.update(with: .init(order: myOrder, index: indexPath.row))
             return cell
         }
     }
@@ -193,21 +203,18 @@ private extension DexMyOrdersViewController {
     
     func setupLoadingState() {
         viewEmptyData.isHidden = true
-        headerView.isHidden = true
+        segmentedControl.isHidden = true
     }
     
     func setupDefaultState() {
         viewLoadingInfo.isHidden = true
-        viewEmptyData.isHidden = section.items.count > 0
-        headerView.isHidden = section.items.count == 0
+        viewEmptyData.isHidden = section.items.count > 0 
+        segmentedControl.isHidden = section.items.count == 0 && segmentedControl.selectedIndex == 0
     }
     
     func setupLocalization() {
         labelEmptyData.text = Localizable.Waves.Dexmyorders.Label.emptyData
         labelLoadingData.text = Localizable.Waves.Dexmyorders.Label.loadingLastTrades
-        labelDate.text = Localizable.Waves.Dexmyorders.Label.time
-        labelSidePrice.text = Localizable.Waves.Dexmyorders.Label.type + "/" + Localizable.Waves.Dexmyorders.Label.price
-        labelStatus.text = Localizable.Waves.Dexmyorders.Label.status
     }
 }
 
