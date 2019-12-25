@@ -87,6 +87,7 @@ internal enum Images {
   internal static let clear14Basic300 = ImageAsset(name: "clear14Basic300")
   internal static let close = ImageAsset(name: "close")
   internal static let closeLeaseIcon = ImageAsset(name: "close_lease_icon")
+  internal static let closewhite = ImageAsset(name: "closewhite")
   internal static let copy18Black = ImageAsset(name: "copy18Black")
   internal static let copy18Submit400 = ImageAsset(name: "copy18Submit400")
   internal static let copyAddress = ImageAsset(name: "copy_address")
@@ -94,6 +95,7 @@ internal enum Images {
   internal static let deladdress24Error400 = ImageAsset(name: "deladdress24Error400")
   internal static let delete = ImageAsset(name: "delete")
   internal static let delete22Error500 = ImageAsset(name: "delete22Error500")
+  internal static let deleteAllCopy = ImageAsset(name: "deleteAllCopy")
   internal static let dex = ImageAsset(name: "dex")
   internal static let dex80 = ImageAsset(name: "dex80")
   internal static let disclosure = ImageAsset(name: "disclosure")
@@ -186,6 +188,7 @@ internal enum Images {
   internal static let off = ImageAsset(name: "off")
   internal static let oldLogo = ImageAsset(name: "oldLogo")
   internal static let on = ImageAsset(name: "on")
+  internal static let orders = ImageAsset(name: "orders")
   internal static let pMastercard28 = ImageAsset(name: "pMastercard28")
   internal static let pVisa28 = ImageAsset(name: "pVisa28")
   internal static let pairNotSelected = ImageAsset(name: "pair-not-selected")
@@ -372,6 +375,7 @@ internal enum Images {
     clear14Basic300,
     close,
     closeLeaseIcon,
+    closewhite,
     copy18Black,
     copy18Submit400,
     copyAddress,
@@ -379,6 +383,7 @@ internal enum Images {
     deladdress24Error400,
     delete,
     delete22Error500,
+    deleteAllCopy,
     dex,
     dex80,
     disclosure,
@@ -471,6 +476,7 @@ internal enum Images {
     off,
     oldLogo,
     on,
+    orders,
     pMastercard28,
     pVisa28,
     pairNotSelected,

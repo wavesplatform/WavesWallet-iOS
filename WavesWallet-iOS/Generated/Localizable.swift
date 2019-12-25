@@ -1024,9 +1024,24 @@ internal enum Localizable {
     internal enum Dexmyorders {
 
       internal enum Label {
+        /// Active
+        internal static var active: String { return Localizable.tr("Waves", "dexmyorders.label.active") }
+        internal static var activeKey: String { return "dexmyorders.label.active" }
+        /// All
+        internal static var all: String { return Localizable.tr("Waves", "dexmyorders.label.all") }
+        internal static var allKey: String { return "dexmyorders.label.all" }
+        /// Amount
+        internal static var amount: String { return Localizable.tr("Waves", "dexmyorders.label.amount") }
+        internal static var amountKey: String { return "dexmyorders.label.amount" }
         /// Buy
         internal static var buy: String { return Localizable.tr("Waves", "dexmyorders.label.buy") }
         internal static var buyKey: String { return "dexmyorders.label.buy" }
+        /// Cancelled
+        internal static var cancelled: String { return Localizable.tr("Waves", "dexmyorders.label.cancelled") }
+        internal static var cancelledKey: String { return "dexmyorders.label.cancelled" }
+        /// Closed
+        internal static var closed: String { return Localizable.tr("Waves", "dexmyorders.label.closed") }
+        internal static var closedKey: String { return "dexmyorders.label.closed" }
         /// Nothing Here…\nYou do not have any orders
         internal static var emptyData: String { return Localizable.tr("Waves", "dexmyorders.label.emptyData") }
         internal static var emptyDataKey: String { return "dexmyorders.label.emptyData" }
@@ -1042,6 +1057,9 @@ internal enum Localizable {
         /// Status
         internal static var status: String { return Localizable.tr("Waves", "dexmyorders.label.status") }
         internal static var statusKey: String { return "dexmyorders.label.status" }
+        /// Sum
+        internal static var sum: String { return Localizable.tr("Waves", "dexmyorders.label.sum") }
+        internal static var sumKey: String { return "dexmyorders.label.sum" }
         /// Time
         internal static var time: String { return Localizable.tr("Waves", "dexmyorders.label.time") }
         internal static var timeKey: String { return "dexmyorders.label.time" }
@@ -1952,6 +1970,46 @@ internal enum Localizable {
           internal static var title: String { return Localizable.tr("Waves", "myaddress.cell.qrcode.title") }
           internal static var titleKey: String { return "myaddress.cell.qrcode.title" }
         }
+      }
+    }
+
+    internal enum Myorders {
+
+      internal enum Alert {
+
+        internal enum Button {
+          /// No
+          internal static var no: String { return Localizable.tr("Waves", "myorders.alert.button.no") }
+          internal static var noKey: String { return "myorders.alert.button.no" }
+          /// Yes
+          internal static var yes: String { return Localizable.tr("Waves", "myorders.alert.button.yes") }
+          internal static var yesKey: String { return "myorders.alert.button.yes" }
+        }
+
+        internal enum Cancelallorders {
+          /// Are you sure you want to cancel all active orders?
+          internal static var subtitle: String { return Localizable.tr("Waves", "myorders.alert.cancelAllOrders.subtitle") }
+          internal static var subtitleKey: String { return "myorders.alert.cancelAllOrders.subtitle" }
+          /// Cancel All Orders
+          internal static var title: String { return Localizable.tr("Waves", "myorders.alert.cancelAllOrders.title") }
+          internal static var titleKey: String { return "myorders.alert.cancelAllOrders.title" }
+        }
+
+        internal enum Cancelorder {
+          /// Are you sure you want to cancel order %@?
+          internal static func subTitle(_ p1: String) -> String {
+            return Localizable.tr("Waves", "myorders.alert.cancelOrder.subTitle", p1)
+          }
+          /// Cancel Order
+          internal static var title: String { return Localizable.tr("Waves", "myorders.alert.cancelOrder.title") }
+          internal static var titleKey: String { return "myorders.alert.cancelOrder.title" }
+        }
+      }
+
+      internal enum Message {
+        /// Orders cancelled
+        internal static var success: String { return Localizable.tr("Waves", "myorders.message.success") }
+        internal static var successKey: String { return "myorders.message.success" }
       }
     }
 

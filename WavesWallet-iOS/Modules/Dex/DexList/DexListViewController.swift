@@ -22,6 +22,7 @@ final class DexListViewController: UIViewController {
 
     private var buttonSort = UIBarButtonItem(image: Images.topbarSort.image, style: .plain, target: nil, action: nil)
     private var buttonAdd = UIBarButtonItem(image: Images.topbarAddmarkets.image, style: .plain, target: nil, action: nil)
+    private var buttonOrders = UIBarButtonItem(image: Images.orders.image, style: .plain, target: nil, action: nil)
 
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var viewNoItems: UIView!
@@ -127,6 +128,9 @@ fileprivate extension DexListViewController {
         
         let refresh = refreshControl.rx.controlEvent(.valueChanged).map { DexList.Event.refreshBackground }.asSignal(onErrorSignalWith: Signal.empty())
 
+        let ordersTapEvent = buttonOrders.rx.tap.map { DexList.Event.showOrders }
+            .asSignal(onErrorSignalWith: Signal.empty())
+        
         let sortTapEvent = buttonSort.rx.tap.map { DexList.Event.tapSortButton(self) }
             .asSignal(onErrorSignalWith: Signal.empty())
 
@@ -141,7 +145,7 @@ fileprivate extension DexListViewController {
             .map { _ in DexList.Event.refresh }
             .asSignal(onErrorSignalWith: Signal.empty())
 
-        return [sendEvent.asSignal(), sortTapEvent, addTapEvent, addTap2Event, refresh, changedSpamList]
+        return [sendEvent.asSignal(), sortTapEvent, addTapEvent, addTap2Event, refresh, changedSpamList, ordersTapEvent]
     }
     
     func subscriptions(state: Driver<DexList.State>) -> [Disposable] {
@@ -180,7 +184,7 @@ fileprivate extension DexListViewController {
 
 //MARK: - DexListRefreshOutput
 extension DexListViewController: DexListRefreshOutput {
-    
+  
     func refreshPairs() {
         sendEvent.accept(.didChangeAssets)
     }
@@ -252,10 +256,10 @@ private extension DexListViewController {
     func setupButtons(loadingDataState: Bool, isVisibleSortButton: Bool) {
 
         if !loadingDataState && isVisibleSortButton {
-            navigationItem.rightBarButtonItems = [buttonAdd, buttonSort]
+            navigationItem.rightBarButtonItems = [buttonAdd, buttonSort, buttonOrders]
         }
         else if !loadingDataState {
-            navigationItem.rightBarButtonItems = [buttonAdd]
+            navigationItem.rightBarButtonItems = [buttonAdd, buttonOrders]
         }
     }
     

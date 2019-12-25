@@ -61,4 +61,8 @@ public extension UIFont {
     public class var tabBarRegular: UIFont {
         return UIFont.systemFont(ofSize: 10, weight: .regular)
     }
+    
+    class func robotoRegular(size: CGFloat) -> UIFont {
+        return UIFont(name: "RobotoCondensed-Regular", size: size)!
+    }
 }

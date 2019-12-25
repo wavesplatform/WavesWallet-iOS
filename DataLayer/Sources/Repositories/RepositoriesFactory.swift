@@ -58,7 +58,7 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     
     public private(set) lazy var dexPairsPriceRepository: DexPairsPriceRepositoryProtocol = DexPairsPriceRepositoryRemote(environmentRepository: environmentRepositoryInternal, matcherRepository: matcherRepositoryRemote)
     
-    public private(set) lazy var dexOrderBookRepository: DexOrderBookRepositoryProtocol = DexOrderBookRepositoryRemote(environmentRepository: environmentRepositoryInternal, spamAssetsRepository: spamAssets, matcherRepository: matcherRepositoryRemote)
+    public private(set) lazy var dexOrderBookRepository: DexOrderBookRepositoryProtocol = DexOrderBookRepositoryRemote(environmentRepository: environmentRepositoryInternal, spamAssetsRepository: spamAssets, matcherRepository: matcherRepositoryRemote, assetsRepository: assetsRepositoryRemote)
     
     public private(set) lazy var aliasesRepositoryRemote: AliasesRepositoryProtocol = AliasesRepository(environmentRepository: environmentRepositoryInternal)
 

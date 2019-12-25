@@ -184,11 +184,13 @@ public extension DomainLayer.DTO.Dex {
         public let type: OrderType
         public let amountAsset: Asset
         public let priceAsset: Asset
-        public let percentFilled: Int
         public let fee: Int64?
         public let feeAsset: String?
+        public let amountAssetIcon: AssetLogo.Icon
+        public let priceAssetIcon: AssetLogo.Icon
 
-        public init(id: String, time: Date, status: Status, price: Money, amount: Money, filled: Money, type: OrderType, amountAsset: Asset, priceAsset: Asset, percentFilled: Int, fee: Int64?, feeAsset: String?) {
+        public init(id: String, time: Date, status: Status, price: Money, amount: Money, filled: Money, type: OrderType, amountAsset: Asset, priceAsset: Asset, fee: Int64?, feeAsset: String?, amountAssetIcon: AssetLogo.Icon, priceAssetIcon: AssetLogo.Icon) {
+            
             self.fee = fee
             self.feeAsset = feeAsset
             self.id = id
@@ -200,9 +202,16 @@ public extension DomainLayer.DTO.Dex {
             self.type = type
             self.amountAsset = amountAsset
             self.priceAsset = priceAsset
-            self.percentFilled = percentFilled
+            self.amountAssetIcon = amountAssetIcon
+            self.priceAssetIcon = priceAssetIcon
+        }
+    
+        public var filledPercent: Int {
+            let roundedPercent = ceil(filled.doubleValue * 100 / amount.doubleValue)
+            return min(100, Int(roundedPercent))
         }
     }
+    
 }
 
 //MARK: - OrderBook

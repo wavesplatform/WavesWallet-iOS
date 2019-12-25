@@ -18,6 +18,7 @@ enum DexMyOrders {
         case readyView
         case setOrders([DomainLayer.DTO.Dex.MyOrder])
         case refresh
+        case changeStatus(DexMyOrders.ViewModel.Status)
     }
     
     struct State: Mutating {
@@ -29,11 +30,20 @@ enum DexMyOrders {
         var action: Action
         var section: DexMyOrders.ViewModel.Section
         var isNeedLoadOrders: Bool
+        var orders: [DomainLayer.DTO.Dex.MyOrder]
+        var status: ViewModel.Status
     }
 }
 
 extension DexMyOrders.ViewModel {
  
+    enum Status: Int {
+        case all = 0
+        case active
+        case closed
+        case canceled
+    }
+    
     struct Section: Mutating {
         var items: [Row]
     }
@@ -42,15 +52,10 @@ extension DexMyOrders.ViewModel {
         case order(DomainLayer.DTO.Dex.MyOrder)
     }
     
-    static let dateFormatterTime: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm:ss"
-        return formatter
-    }()
     
-    static let dateFormatterDate: DateFormatter = {
+    static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yy"
+        formatter.dateFormat = "dd.MM.yy HH:mm:ss"
         return formatter
     }()
 }
