@@ -92,20 +92,29 @@ extension DomainLayer.DTO.Candle.TimeFrameType {
         case .h1:
             return "1" + " " + Localizable.Waves.Dexchart.Label.hour
 
+        case .h2:
+            return "2" + " " + Localizable.Waves.Dexchart.Label.hour
+            
         case .h3:
             return "3" + " " + Localizable.Waves.Dexchart.Label.hours
+            
+        case .h4:
+            return "4" + " " + Localizable.Waves.Dexchart.Label.hours
+            
+        case .h6:
+            return "6" + " " + Localizable.Waves.Dexchart.Label.hours
+            
+        case .h12:
+            return "12" + " " + Localizable.Waves.Dexchart.Label.hours
 
         case .h24:
             return "24" + " " + Localizable.Waves.Dexchart.Label.hours
             
         case .M1:
-            return Localizable.Waves.Dexchart.Label.month
+            return "1" + " " + Localizable.Waves.Dexchart.Label.month
             
         case .W1:
-            return Localizable.Waves.Dexchart.Label.week
-            
-        case .h4:
-            return "4" + " " + Localizable.Waves.Dexchart.Label.hours
+            return "1"  + " " + Localizable.Waves.Dexchart.Label.week
         }
     }
     
@@ -119,9 +128,12 @@ extension DomainLayer.DTO.Candle.TimeFrameType {
             
         case .m30:
             return "M30"
-            
+                    
         case .h1:
             return "H1"
+        
+        case .h2:
+            return "H2"
             
         case .h3:
             return "H3"
@@ -129,14 +141,20 @@ extension DomainLayer.DTO.Candle.TimeFrameType {
         case .h4:
             return "H4"
             
+        case .h6:
+            return "H6"
+            
+        case .h12:
+            return "H12"
+            
+        case .h24:
+            return "H24"
+            
         case .M1:
             return "M"
             
         case .W1:
             return "W"
-            
-        case .h24:
-            return "H24"
         }
     }
 }
