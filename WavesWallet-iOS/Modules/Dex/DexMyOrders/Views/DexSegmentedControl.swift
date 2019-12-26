@@ -45,7 +45,7 @@ final class DexSegmentedControl: UIView {
         selectedLine.backgroundColor = .submit400
         
         scrollView.showsHorizontalScrollIndicator = false
-        
+        scrollView.delegate = self
         addSubview(scrollView)
         addSubview(selectedLine)
         addSubview(bottomLine)
@@ -67,6 +67,11 @@ final class DexSegmentedControl: UIView {
     }
 }
 
+extension DexSegmentedControl: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        updateLinePosition(animation: false)
+    }
+}
 
 private extension DexSegmentedControl {
     
@@ -101,8 +106,14 @@ private extension DexSegmentedControl {
 
     func updateLinePosition(animation: Bool) {
         let button = currentActiveButton
-        let position = button.frame.origin.x + (button.frame.size.width - self.selectedLine.frame.size.width) / 2
-        UIView.animate(withDuration: animation ? Constants.animationDuration : 0) {
+        let position = button.frame.origin.x + (button.frame.size.width - selectedLine.frame.size.width) / 2 - scrollView.contentOffset.x
+        
+        if animation {
+            UIView.animate(withDuration: Constants.animationDuration) {
+                self.selectedLine.frame.origin.x = position
+            }
+        }
+        else {
             self.selectedLine.frame.origin.x = position
         }
     }
