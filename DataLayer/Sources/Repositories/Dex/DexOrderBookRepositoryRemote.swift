@@ -119,6 +119,7 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                     .flatMap { [weak self] (orders) -> Observable<[DomainLayer.DTO.Dex.MyOrder]> in
                         
                         guard let self = self else { return Observable.empty() }
+                        guard orders.count > 0 else { return Observable.just([]) }
                         
                         var ids: [String] = []
                         
