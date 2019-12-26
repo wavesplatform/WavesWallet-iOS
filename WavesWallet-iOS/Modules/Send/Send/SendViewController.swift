@@ -1014,10 +1014,7 @@ private extension SendViewController {
     var isValidCryptocyrrencyAddress: Bool {
         let address = recipientAddressView.text
 
-        if var regExp = selectedAsset?.asset.addressRegEx, regExp.count > 0 {
-            if selectedAsset?.asset.isMonero == true {
-                regExp = Constants.newMoneroRegAddress
-            }
+        if let regExp = selectedAsset?.asset.addressRegEx, regExp.count > 0 {
             
             return NSPredicate(format: "SELF MATCHES %@", regExp).evaluate(with: address) &&
                 selectedAsset?.asset.isGateway == true &&
