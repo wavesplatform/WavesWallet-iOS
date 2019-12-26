@@ -189,7 +189,7 @@
 "dexorderbook.button.sell" = "ПРОДАТЬ";
 "dexorderbook.label.amount" = "Кол-во";
 "dexorderbook.label.emptyData" = "Пока ничего нет…\nСписок сделок пуст";
-"dexorderbook.label.lastPrice" = "LAST PRICE";
+"dexorderbook.label.lastPrice" = "ПОСЛЕДНЯЯ ЦЕНА";
 "dexorderbook.label.loadingOrderbook" = "Загрузка ордербука…";
 "dexorderbook.label.price" = "Цена";
 "dexorderbook.label.spread" = "РАЗНИЦА";

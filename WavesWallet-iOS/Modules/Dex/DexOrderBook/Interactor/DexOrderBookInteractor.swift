@@ -129,19 +129,23 @@ private extension DexOrderBookInteractor {
         
         var lastPrice = DexOrderBook.DTO.LastPrice.empty(decimals: pair.priceAsset.decimals)
 
+        var percent: Float = 0
+        
+        if let ask = asks.first, let bid = bids.first {
+            let askValue = ask.price.decimalValue
+            let bidValue = bid.price.decimalValue
+           
+            percent = min(((askValue - bidValue) * 100 / bidValue).floatValue, Constants.maxPercent)
+        }
+        
         if let tx = lastTransactionInfo {
-            var percent: Float = 0
-            if let ask = asks.first, let bid = bids.first {
-                let askValue = ask.price.decimalValue
-                let bidValue = bid.price.decimalValue
-                
-                percent = min(((askValue - bidValue) * 100 / bidValue).floatValue, Constants.maxPercent) 
-            }
-            
             let type: DomainLayer.DTO.Dex.OrderType = tx.type == .sell ? .sell : .buy
-            
             lastPrice = DexOrderBook.DTO.LastPrice(price: tx.price, percent: percent, orderType: type)
         }
+        else {
+            lastPrice.percent = percent
+        }
+        
         
         var amountAssetBalance =  Money(0, pair.amountAsset.decimals)
         var priceAssetBalance =  Money(0, pair.priceAsset.decimals)
