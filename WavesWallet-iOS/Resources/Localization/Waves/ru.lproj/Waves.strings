@@ -721,7 +721,7 @@
 "dexchart.label.month" = "Месяц";
 "dexchart.label.week" = "Неделя";
 "myorders.alert.cancelAllOrders.title" = "Отменить все ордера";
-"myorders.alert.cancelAllOrders.subtitle" = "Вы уверены, что хотите отменить все активные заказы?";
+"myorders.alert.cancelAllOrders.subtitle" = "Вы уверены, что хотите отменить все активные ордера?";
 "myorders.alert.button.yes" = "Да";
 "myorders.alert.button.no" = "Нет";
 "myorders.message.success" = "Ордера отменены";
