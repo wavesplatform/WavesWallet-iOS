@@ -713,6 +713,9 @@ internal enum Localizable {
       }
 
       internal enum Label {
+        /// day
+        internal static var day: String { return Localizable.tr("Waves", "dexchart.label.day") }
+        internal static var dayKey: String { return "dexchart.label.day" }
         /// No chart data available
         internal static var emptyData: String { return Localizable.tr("Waves", "dexchart.label.emptyData") }
         internal static var emptyDataKey: String { return "dexchart.label.emptyData" }
