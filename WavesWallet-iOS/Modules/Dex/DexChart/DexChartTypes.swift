@@ -108,7 +108,7 @@ extension DomainLayer.DTO.Candle.TimeFrameType {
             return "12" + " " + Localizable.Waves.Dexchart.Label.hours
 
         case .h24:
-            return "24" + " " + Localizable.Waves.Dexchart.Label.hours
+            return "1" + " " + Localizable.Waves.Dexchart.Label.day
             
         case .M1:
             return "1" + " " + Localizable.Waves.Dexchart.Label.month
