@@ -37,10 +37,10 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5rm-2G-kqi" userLabel="monero address error">
-                                                <rect key="frame" x="16" y="200" width="343" height="102"/>
+                                                <rect key="frame" x="0.0" y="200" width="375" height="102"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jwz-OJ-YiX">
-                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="102"/>
+                                                        <rect key="frame" x="16" y="0.0" width="343" height="102"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wsa-Eg-sx9">
                                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="78"/>
@@ -91,6 +91,10 @@
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="Jwz-OJ-YiX" firstAttribute="leading" secondItem="5rm-2G-kqi" secondAttribute="leading" constant="16" id="01m-Tg-jKQ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Jwz-OJ-YiX" secondAttribute="trailing" constant="16" id="Ni6-yC-juZ"/>
+                                                </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Bio-ZP-ebk" userLabel="cionomat info">
                                                 <rect key="frame" x="0.0" y="302" width="375" height="179"/>
@@ -343,7 +347,7 @@
                                             <constraint firstItem="Bio-ZP-ebk" firstAttribute="top" secondItem="5rm-2G-kqi" secondAttribute="bottom" id="3nP-lX-63G"/>
                                             <constraint firstItem="f7C-jx-v1E" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" id="4NW-lg-XQk"/>
                                             <constraint firstItem="42Y-VU-iOX" firstAttribute="centerY" secondItem="Bio-ZP-ebk" secondAttribute="centerY" id="5I6-px-RlA"/>
-                                            <constraint firstItem="5rm-2G-kqi" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" constant="16" id="7Mx-s4-qx3"/>
+                                            <constraint firstItem="5rm-2G-kqi" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" id="7Mx-s4-qx3"/>
                                             <constraint firstItem="CyB-D3-Jct" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" id="9Kh-eD-aue"/>
                                             <constraint firstItem="Bio-ZP-ebk" firstAttribute="leading" secondItem="6P1-zy-nqY" secondAttribute="leading" id="GUg-Wk-Lwd"/>
                                             <constraint firstAttribute="trailing" secondItem="Bio-ZP-ebk" secondAttribute="trailing" id="H42-v1-MWr"/>
@@ -359,7 +363,7 @@
                                             <constraint firstItem="PVK-HT-VIb" firstAttribute="top" secondItem="Bio-ZP-ebk" secondAttribute="bottom" id="iBA-7w-OaS"/>
                                             <constraint firstAttribute="trailing" secondItem="f7C-jx-v1E" secondAttribute="trailing" id="mG9-bu-Hv5"/>
                                             <constraint firstItem="f7C-jx-v1E" firstAttribute="top" secondItem="KUx-Kq-mM9" secondAttribute="bottom" constant="24" id="oBx-j0-V6h"/>
-                                            <constraint firstAttribute="trailing" secondItem="5rm-2G-kqi" secondAttribute="trailing" constant="16" id="pq8-tB-l1Q"/>
+                                            <constraint firstAttribute="trailing" secondItem="5rm-2G-kqi" secondAttribute="trailing" id="pq8-tB-l1Q"/>
                                             <constraint firstItem="KUx-Kq-mM9" firstAttribute="top" secondItem="6P1-zy-nqY" secondAttribute="top" id="wW0-p3-g3z"/>
                                         </constraints>
                                     </view>
@@ -597,25 +601,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qZj-wj-Z6p">
-                                <rect key="frame" x="16" y="20" width="343" height="388.5"/>
+                                <rect key="frame" x="16" y="20" width="343" height="308.5"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userimgDone80Success400" translatesAutoresizingMaskIntoConstraints="NO" id="grk-dw-qZ6">
-                                        <rect key="frame" x="91.5" y="44" width="160" height="160"/>
+                                        <rect key="frame" x="131.5" y="44" width="80" height="80"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your transaction is on the way!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mfv-j1-kYa">
-                                        <rect key="frame" x="10" y="228" width="323" height="20.5"/>
+                                        <rect key="frame" x="10" y="148" width="323" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have sent 0.00138696 WAVES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wD-gw-5HY">
-                                        <rect key="frame" x="10" y="256.5" width="323" height="16"/>
+                                        <rect key="frame" x="10" y="176.5" width="323" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BdU-lO-36x" customClass="HighlightedButton" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="316.5" width="311" height="48"/>
+                                        <rect key="frame" x="16" y="236.5" width="311" height="48"/>
                                         <color key="backgroundColor" red="0.1215686275" green="0.35294117650000001" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="4uC-DB-Iq7"/>
@@ -654,7 +658,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aVl-eO-jUq">
-                                <rect key="frame" x="16" y="432.5" width="343" height="82"/>
+                                <rect key="frame" x="16" y="352.5" width="343" height="82"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you want to save this address?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pkN-XE-21A">
                                         <rect key="frame" x="16" y="24" width="282" height="16"/>
@@ -741,10 +745,10 @@
                                                 <rect key="frame" x="16" y="20" width="343" height="647"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tSend48" translatesAutoresizingMaskIntoConstraints="NO" id="pYf-DT-ri9">
-                                                        <rect key="frame" x="123.5" y="24" width="96" height="96"/>
+                                                        <rect key="frame" x="147.5" y="24" width="48" height="48"/>
                                                     </imageView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="8Uv-nC-Erx">
-                                                        <rect key="frame" x="41.5" y="144" width="260.5" height="20.5"/>
+                                                        <rect key="frame" x="41.5" y="96" width="260.5" height="20.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="000000000.0000000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="huQ-iL-QPJ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="168.5" height="20.5"/>
@@ -773,21 +777,21 @@
                                                         </constraints>
                                                     </stackView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X19-QJ-fOJ" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                        <rect key="frame" x="16" y="188.5" width="311" height="1"/>
+                                                        <rect key="frame" x="16" y="140.5" width="311" height="1"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="GVd-s3-wbi"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h9U-4g-k4e" customClass="SendConfirmationRecipientView" customModule="WavesWallet_iOS" customModuleProvider="target">
-                                                        <rect key="frame" x="16" y="189.5" width="311" height="100"/>
+                                                        <rect key="frame" x="16" y="141.5" width="311" height="100"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="100" id="Wnd-K6-oWv"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6IL-zl-lhs">
-                                                        <rect key="frame" x="16" y="289.5" width="311" height="67"/>
+                                                        <rect key="frame" x="16" y="241.5" width="311" height="67"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wd8-wR-Fd1" customClass="DottedLineView" customModule="WavesWallet_iOS" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="66" width="311" height="1"/>
@@ -821,7 +825,7 @@
                                                         </constraints>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DQV-ba-mGY">
-                                                        <rect key="frame" x="16" y="356.5" width="311" height="67"/>
+                                                        <rect key="frame" x="16" y="308.5" width="311" height="67"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AK6-z4-NR8">
                                                                 <rect key="frame" x="0.0" y="0.0" width="311" height="67"/>
@@ -881,7 +885,7 @@
                                                         </connections>
                                                     </button>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="h6z-4e-CIj">
-                                                        <rect key="frame" x="16" y="423.5" width="311" height="84"/>
+                                                        <rect key="frame" x="16" y="375.5" width="311" height="84"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BCC-sK-gOc">
                                                                 <rect key="frame" x="0.0" y="0.0" width="311" height="84"/>
