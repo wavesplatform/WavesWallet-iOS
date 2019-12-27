@@ -2007,9 +2007,18 @@ internal enum Localizable {
       }
 
       internal enum Message {
-        /// Orders cancelled
-        internal static var success: String { return Localizable.tr("Waves", "myorders.message.success") }
-        internal static var successKey: String { return "myorders.message.success" }
+
+        internal enum Cancelorder {
+          /// Order cancelled
+          internal static var success: String { return Localizable.tr("Waves", "myorders.message.cancelOrder.success") }
+          internal static var successKey: String { return "myorders.message.cancelOrder.success" }
+        }
+
+        internal enum Cancelorders {
+          /// Orders cancelled
+          internal static var success: String { return Localizable.tr("Waves", "myorders.message.cancelOrders.success") }
+          internal static var successKey: String { return "myorders.message.cancelOrders.success" }
+        }
       }
     }
 

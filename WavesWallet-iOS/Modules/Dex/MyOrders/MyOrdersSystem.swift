@@ -79,8 +79,12 @@ final class MyOrdersSystem: System<MyOrdersTypes.State, MyOrdersTypes.Event> {
             
         case .ordersDidFinishCancelSuccess:
             state.coreAction = .loadOrders
-            state.uiAction = .ordersDidFinishCanceledSuccess
+            state.uiAction = .ordersDidFinishCanceledSuccess(isMultipleOrders: true)
             
+        case .orderDidFinishCancelSuccess:
+            state.coreAction = .loadOrders
+            state.uiAction = .ordersDidFinishCanceledSuccess(isMultipleOrders: false)
+
         case .ordersDidFinishCancelError(let error):
             state.coreAction = .none
             state.uiAction = .ordersDidFinishCanceledError(error)
@@ -160,7 +164,7 @@ private extension MyOrdersSystem {
             guard let self = self else { return Signal.empty() }
 
             if case let .cancelOrder(orderId, amountAsset, priceAsset) = state.coreAction {
-              return self.cancelOrder(orderId: orderId, amountAsset: amountAsset, priceAsset: priceAsset).map { _ in .ordersDidFinishCancelSuccess }
+              return self.cancelOrder(orderId: orderId, amountAsset: amountAsset, priceAsset: priceAsset).map { _ in .orderDidFinishCancelSuccess }
                     .asSignal(onErrorRecover: { error -> Signal<MyOrdersTypes.Event> in
                                  
                         if let error = error as? NetworkError {

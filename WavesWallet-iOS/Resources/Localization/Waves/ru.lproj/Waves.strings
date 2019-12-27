@@ -724,6 +724,7 @@
 "myorders.alert.cancelAllOrders.subtitle" = "Вы уверены, что хотите отменить все активные ордера?";
 "myorders.alert.button.yes" = "Да";
 "myorders.alert.button.no" = "Нет";
-"myorders.message.success" = "Ордера отменены";
+"myorders.message.cancelOrders.success" =  "Ордера отменены";
+"myorders.message.cancelOrder.success" = "Ордер отменен";
 "myorders.alert.cancelOrder.title" = "Отменить ордер";
 "myorders.alert.cancelOrder.subTitle" = "Вы уверены, что хотите отменить ордер %@?";

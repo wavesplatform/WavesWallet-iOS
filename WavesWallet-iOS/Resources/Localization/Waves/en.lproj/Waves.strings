@@ -724,6 +724,7 @@
 "myorders.alert.cancelAllOrders.subtitle" = "Are you sure you want to cancel all active orders?";
 "myorders.alert.button.yes" = "Yes";
 "myorders.alert.button.no" = "No";
-"myorders.message.success" = "Orders cancelled";
+"myorders.message.cancelOrders.success" = "Orders cancelled";
+"myorders.message.cancelOrder.success" = "Order cancelled";
 "myorders.alert.cancelOrder.title" = "Cancel Order";
 "myorders.alert.cancelOrder.subTitle" = "Are you sure you want to cancel order %@?";
