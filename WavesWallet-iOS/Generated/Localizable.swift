@@ -713,6 +713,9 @@ internal enum Localizable {
       }
 
       internal enum Label {
+        /// day
+        internal static var day: String { return Localizable.tr("Waves", "dexchart.label.day") }
+        internal static var dayKey: String { return "dexchart.label.day" }
         /// No chart data available
         internal static var emptyData: String { return Localizable.tr("Waves", "dexchart.label.emptyData") }
         internal static var emptyDataKey: String { return "dexchart.label.emptyData" }
@@ -2007,9 +2010,18 @@ internal enum Localizable {
       }
 
       internal enum Message {
-        /// Orders cancelled
-        internal static var success: String { return Localizable.tr("Waves", "myorders.message.success") }
-        internal static var successKey: String { return "myorders.message.success" }
+
+        internal enum Cancelorder {
+          /// Order cancelled
+          internal static var success: String { return Localizable.tr("Waves", "myorders.message.cancelOrder.success") }
+          internal static var successKey: String { return "myorders.message.cancelOrder.success" }
+        }
+
+        internal enum Cancelorders {
+          /// Orders cancelled
+          internal static var success: String { return Localizable.tr("Waves", "myorders.message.cancelOrders.success") }
+          internal static var successKey: String { return "myorders.message.cancelOrders.success" }
+        }
       }
     }
 
@@ -2662,7 +2674,7 @@ internal enum Localizable {
           internal static func minimun(_ p1: String, _ p2: String) -> String {
             return Localizable.tr("Waves", "send.label.error.minimun", p1, p2)
           }
-          /// Dear customer, you are trying to withdraw your XMR to an old type of address which is not supported anymore. Please provide an address of a new type to complete the withdrawal. More details %@
+          /// Dear users, with the hardfork in the Monero network payment id option is not supported anymore. More details %@
           internal static func moneroOldAddress(_ p1: String) -> String {
             return Localizable.tr("Waves", "send.label.error.moneroOldAddress", p1)
           }

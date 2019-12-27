@@ -620,7 +620,7 @@
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chartarrow22Success400" translatesAutoresizingMaskIntoConstraints="NO" id="Yjg-lS-szo">
                                                             <rect key="frame" x="81.5" y="9" width="22" height="22"/>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LAST PRICE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QB8-xA-hSl">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LAST PRICE" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QB8-xA-hSl">
                                                             <rect key="frame" x="15.5" y="14" width="58" height="12"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                             <color key="textColor" red="0.60784313725490191" green="0.65098039215686276" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -631,6 +631,7 @@
                                                     <constraints>
                                                         <constraint firstItem="QB8-xA-hSl" firstAttribute="centerY" secondItem="Fkx-s3-tL9" secondAttribute="centerY" id="D0o-ne-89U"/>
                                                         <constraint firstItem="Yjg-lS-szo" firstAttribute="leading" secondItem="QB8-xA-hSl" secondAttribute="trailing" constant="8" id="MII-sY-Y18"/>
+                                                        <constraint firstItem="QB8-xA-hSl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Fkx-s3-tL9" secondAttribute="leading" id="mHJ-WL-cJ7"/>
                                                         <constraint firstAttribute="trailing" secondItem="Yjg-lS-szo" secondAttribute="trailing" id="oOq-EA-Txk"/>
                                                         <constraint firstItem="Yjg-lS-szo" firstAttribute="centerY" secondItem="Fkx-s3-tL9" secondAttribute="centerY" id="tsH-RB-Pba"/>
                                                     </constraints>

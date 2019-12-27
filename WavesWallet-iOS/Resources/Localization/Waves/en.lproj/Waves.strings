@@ -2,9 +2,6 @@
 "Send.Label.Error.notFundsFeeGateway" = "You don't have enough funds to pay the required fees. You must pay %@ transaction fee and %@ gateway fee.";
 "Send.Label.Warning.description" = "Do not withdraw %@ to an ICO. We will not credit your account with tokens from that sale.";
 "Send.Label.Warning.subtitle" = "We detected %@ address and will send your money through gateway to that address. Minimum amount is %@, maximum amount is %@.";
-"send.label.error.moneroOldAddress" = "Dear customer, you are trying to withdraw your XMR to an old type of address which is not supported anymore. Please provide an address of a new type to complete the withdrawal. More details %@";
-"send.label.error.moneroOldAddressKeyLink" = "here";
-
 "accountpassword.button.signIn.title" = "Sign In";
 "accountpassword.error.wrongpassword" = "Wrong password";
 "accountpassword.textfield.error.atleastcharacters" = "Minimum %d characters";
@@ -124,8 +121,6 @@
 "dexchart.label.emptyData" = "No chart data available";
 "dexchart.label.hour" = "hour";
 "dexchart.label.hours" = "hours";
-"dexchart.label.month" = "Month";
-"dexchart.label.week" = "Week";
 "dexchart.label.loadingChart" = "Loading chart…";
 "dexchart.label.minutes" = "minutes";
 "dexcompleteorder.button.okey" = "Okay";
@@ -190,12 +185,6 @@
 "dexmyorders.label.status.filled" = "Filled";
 "dexmyorders.label.status.partiallyFilled" = "Partial";
 "dexmyorders.label.time" = "Time";
-"dexmyorders.label.all" = "All";
-"dexmyorders.label.active" = "Active";
-"dexmyorders.label.closed" = "Closed";
-"dexmyorders.label.cancelled" = "Cancelled";
-"dexmyorders.label.amount" = "Amount";
-"dexmyorders.label.sum" = "Sum";
 "dexorderbook.button.buy" = "BUY";
 "dexorderbook.button.sell" = "SELL";
 "dexorderbook.label.amount" = "Amount";
@@ -721,10 +710,22 @@
 "migration.wavesexchange.view.description" = "To offer users a better experience and wider range of tools, the exchange is moved from Waves DEX to Waves.Exchange.\n\nDon’t worry! All of your tokens, seed phrases and passwords are safe.";
 "hello.page.confirm.subtitle.migration" = "All the data on your Waves.Exchange is encrypted and stored only on your device.";
 "serverMaintenance.button.retry" = "Retry";
+"send.label.error.moneroOldAddress" = "Dear users, with the hardfork in the Monero network payment id option is not supported anymore. More details %@";
+"send.label.error.moneroOldAddressKeyLink" = "here";
+"dexmyorders.label.all" = "All";
+"dexmyorders.label.active" = "Active";
+"dexmyorders.label.closed" = "Closed";
+"dexmyorders.label.cancelled" = "Cancelled";
+"dexmyorders.label.amount" = "Amount";
+"dexmyorders.label.sum" = "Sum";
+"dexchart.label.month" = "Month";
+"dexchart.label.week" = "Week";
 "myorders.alert.cancelAllOrders.title" = "Cancel All Orders";
 "myorders.alert.cancelAllOrders.subtitle" = "Are you sure you want to cancel all active orders?";
 "myorders.alert.button.yes" = "Yes";
 "myorders.alert.button.no" = "No";
-"myorders.message.success" = "Orders cancelled";
+"myorders.message.cancelOrders.success" = "Orders cancelled";
+"myorders.message.cancelOrder.success" = "Order cancelled";
 "myorders.alert.cancelOrder.title" = "Cancel Order";
 "myorders.alert.cancelOrder.subTitle" = "Are you sure you want to cancel order %@?";
+"dexchart.label.day" = "day";

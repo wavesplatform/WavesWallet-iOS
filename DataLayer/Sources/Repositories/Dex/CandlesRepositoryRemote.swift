@@ -34,21 +34,29 @@ private extension DomainLayer.DTO.Candle.TimeFrameType {
         case .h1:
             return "1h"
             
+        case .h2:
+            return "2h"
+            
         case .h3:
             return "3h"
-            
-        case .M1:
-            return "1M"
-                
-        case .W1:
-            return "1w"
-            
-        case .h24:
-            return "1d"
             
         case .h4:
             return "4h"
             
+        case .h6:
+            return "6h"
+        
+        case .h12:
+            return "12h"
+            
+        case .h24:
+            return "1d"
+                                    
+        case .W1:
+            return "1w"
+            
+        case .M1:
+            return "1M"
         }
     }
 }

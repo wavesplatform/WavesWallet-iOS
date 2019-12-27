@@ -2,9 +2,6 @@
 "Send.Label.Error.notFundsFeeGateway" = "У вас недостаточно средств для отправки транзакции. Вы должны оплатить комиссию %@ и %@ gateway комиссию.";
 "Send.Label.Warning.description" = "Не выводите %@ на адреса ICO, так как мы не зачислим вам токены полученные после окончания распродажи.";
 "Send.Label.Warning.subtitle" = "Введенный адрес определен как %@, ваши средства будут отправлены на него через шлюз. Минимальная сумма перевода — %@, максимальная — %@.";
-"send.label.error.moneroOldAddress" = "Уважаемый клиент, вы пытаетесь отправить XMR на старый тип адреса который больше не поддерживается. Пожалуйста введите адрес в новом формате для того чтобы совершить вывод средств. %@";
-"send.label.error.moneroOldAddressKeyLink" = "Подробности";
-
 "accountpassword.button.signIn.title" = "Войти";
 "accountpassword.error.wrongpassword" = "Неправильный пароль";
 "accountpassword.textfield.error.atleastcharacters" = "Минимум %d символов";
@@ -192,7 +189,7 @@
 "dexorderbook.button.sell" = "ПРОДАТЬ";
 "dexorderbook.label.amount" = "Кол-во";
 "dexorderbook.label.emptyData" = "Пока ничего нет…\nСписок сделок пуст";
-"dexorderbook.label.lastPrice" = "LAST PRICE";
+"dexorderbook.label.lastPrice" = "ПОСЛЕДНЯЯ ЦЕНА";
 "dexorderbook.label.loadingOrderbook" = "Загрузка ордербука…";
 "dexorderbook.label.price" = "Цена";
 "dexorderbook.label.spread" = "РАЗНИЦА";
@@ -713,3 +710,21 @@
 "migration.wavesexchange.view.description" = "Чтобы улучшить пользовательский опыт и предложить более широкий набор инструментов, биржа переезжает с Waves DEX на Waves.Exchange.\n\nНе беспокойтесь! Все ваши токены, пароли и секретные фразы в безопасности.";
 "hello.page.confirm.subtitle.migration" = "Все данные в Waves.Exchange зашифрованы и хранятся только на вашем устройстве.";
 "serverMaintenance.button.retry" = "Повторить";
+"send.label.error.moneroOldAddress" = "Уважаемые пользователи, в связи с последним обновлением сети Monero, функция payment Id больше не поддерживается. %@";
+"send.label.error.moneroOldAddressKeyLink" = "Подробности";
+"dexmyorders.label.all" = "Все";
+"dexmyorders.label.active" = "Активные";
+"dexmyorders.label.closed" = "Закрытые";
+"dexmyorders.label.cancelled" = "Отмененные";
+"dexmyorders.label.amount" = "Кол-во";
+"dexmyorders.label.sum" = "Сумма";
+"dexchart.label.month" = "Месяц";
+"dexchart.label.week" = "Неделя";
+"myorders.alert.cancelAllOrders.title" = "Отменить все ордера";
+"myorders.alert.cancelAllOrders.subtitle" = "Вы уверены, что хотите отменить все активные ордера?";
+"myorders.alert.button.yes" = "Да";
+"myorders.alert.button.no" = "Нет";
+"myorders.message.cancelOrders.success" =  "Ордера отменены";
+"myorders.message.cancelOrder.success" = "Ордер отменен";
+"myorders.alert.cancelOrder.title" = "Отменить ордер";
+"myorders.alert.cancelOrder.subTitle" = "Вы уверены, что хотите отменить ордер %@?";

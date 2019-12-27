@@ -139,7 +139,7 @@ private extension DexChartViewController {
     func setupDefaultState() {
         viewLoadingInfo.isHidden = true
         viewEmptyData.isHidden = state.isNotEmpty
-        headerView.isHidden = !state.isNotEmpty
+        headerView.isHidden = false
         candleChartView.isHidden = !state.isNotEmpty
         barChartView.isHidden = !state.isNotEmpty
         labelChartTopInfo.isHidden = !state.isNotEmpty
