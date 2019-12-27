@@ -21,6 +21,7 @@ enum MyOrdersTypes {
         case refresh
         case cancelAllOrders
         case ordersDidFinishCancelSuccess
+        case orderDidFinishCancelSuccess
         case ordersDidFinishCancelError(NetworkError)
         case cancelOrder(DomainLayer.DTO.Dex.MyOrder)
       }
@@ -29,7 +30,7 @@ enum MyOrdersTypes {
         enum UIAction {
             case none
             case update
-            case ordersDidFinishCanceledSuccess
+            case ordersDidFinishCanceledSuccess(isMultipleOrders: Bool)
             case ordersDidFinishCanceledError(NetworkError)
         }
           
