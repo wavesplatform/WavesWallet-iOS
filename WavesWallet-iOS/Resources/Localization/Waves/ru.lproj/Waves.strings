@@ -170,7 +170,7 @@
 "dexlist.label.price" = "Цена";
 "dexlist.label.today" = "Сегодня";
 "dexlist.label.yesterday" = "Вчера";
-"dexlist.navigationBar.title" = "DEX";
+"dexlist.navigationBar.title" = "Exchange";
 "dexmarket.label.loadingMarkets" = "Загрузка рынков…";
 "dexmarket.navigationBar.title" = "Рынки";
 "dexmarket.searchBar.placeholder" = "Поиск";
