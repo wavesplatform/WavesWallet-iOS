@@ -728,3 +728,4 @@
 "myorders.message.cancelOrder.success" = "Order cancelled";
 "myorders.alert.cancelOrder.title" = "Cancel Order";
 "myorders.alert.cancelOrder.subTitle" = "Are you sure you want to cancel order %@?";
+"dexchart.label.day" = "day";
