@@ -107,8 +107,13 @@ final class MyOrdersViewController: UIViewController {
                 case .none:
                     return
                     
-                case .ordersDidFinishCanceledSuccess:
-                    self.showSuccesSnack(title: Localizable.Waves.Myorders.Message.success)
+                case .ordersDidFinishCanceledSuccess(let isMultipleOrders):
+                    if isMultipleOrders {
+                        self.showSuccesSnack(title: Localizable.Waves.Myorders.Message.Cancelorders.success)
+                    }
+                    else {
+                        self.showSuccesSnack(title: Localizable.Waves.Myorders.Message.Cancelorder.success)
+                    }
                     
                 case .ordersDidFinishCanceledError(let error):
                     
