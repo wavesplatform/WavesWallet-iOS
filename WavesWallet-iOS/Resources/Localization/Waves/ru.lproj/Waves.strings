@@ -728,3 +728,4 @@
 "myorders.message.cancelOrder.success" = "Ордер отменен";
 "myorders.alert.cancelOrder.title" = "Отменить ордер";
 "myorders.alert.cancelOrder.subTitle" = "Вы уверены, что хотите отменить ордер %@?";
+"dexchart.label.day" = "день";
