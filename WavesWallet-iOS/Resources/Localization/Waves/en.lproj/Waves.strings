@@ -170,7 +170,7 @@
 "dexlist.label.price" = "Price";
 "dexlist.label.today" = "Today";
 "dexlist.label.yesterday" = "Yesterday";
-"dexlist.navigationBar.title" = "DEX";
+"dexlist.navigationBar.title" = "Exchange";
 "dexmarket.label.loadingMarkets" = "Loading markets…";
 "dexmarket.navigationBar.title" = "Markets";
 "dexmarket.searchBar.placeholder" = "Search";

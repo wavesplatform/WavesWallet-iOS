@@ -170,7 +170,7 @@
 "dexlist.label.price" = "Цена";
 "dexlist.label.today" = "Сегодня";
 "dexlist.label.yesterday" = "Вчера";
-"dexlist.navigationBar.title" = "DEX";
+"dexlist.navigationBar.title" = "Exchange";
 "dexmarket.label.loadingMarkets" = "Загрузка рынков…";
 "dexmarket.navigationBar.title" = "Рынки";
 "dexmarket.searchBar.placeholder" = "Поиск";
@@ -728,3 +728,4 @@
 "myorders.message.cancelOrder.success" = "Ордер отменен";
 "myorders.alert.cancelOrder.title" = "Отменить ордер";
 "myorders.alert.cancelOrder.subTitle" = "Вы уверены, что хотите отменить ордер %@?";
+"dexchart.label.day" = "день";
