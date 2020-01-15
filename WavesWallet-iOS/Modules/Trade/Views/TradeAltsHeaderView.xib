@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TradeAltsHeaderView" customModule="WavesWallet_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0xN-4n-bWs">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                    <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2jM-bc-1eK">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </scrollView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="2jM-bc-1eK" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="82h-0r-yD7"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="2jM-bc-1eK" secondAttribute="trailing" id="9KX-wK-QX5"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="0xN-4n-bWs" secondAttribute="trailing" id="OLL-fL-psx"/>
+                <constraint firstAttribute="bottom" secondItem="0xN-4n-bWs" secondAttribute="bottom" id="Qtq-2k-ixp"/>
+                <constraint firstItem="0xN-4n-bWs" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="SAR-Pg-8EY"/>
+                <constraint firstItem="2jM-bc-1eK" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="WAl-Qe-pcq"/>
+                <constraint firstItem="0xN-4n-bWs" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="bJ1-go-yA7"/>
+                <constraint firstAttribute="bottom" secondItem="2jM-bc-1eK" secondAttribute="bottom" id="uxq-71-un3"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="scrollView" destination="2jM-bc-1eK" id="Tw7-wT-K4x"/>
+            </connections>
+            <point key="canvasLocation" x="137.59999999999999" y="-136.73163418290855"/>
+        </view>
+    </objects>
+</document>

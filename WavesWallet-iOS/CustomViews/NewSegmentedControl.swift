@@ -15,7 +15,8 @@ private enum Constants {
     static let deltaTitleWidth: CGFloat = 22
     static let unselectedColor = UIColor.basic500
     static let titleEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
-    
+    static let imageEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
+
     static let lineWidth: CGFloat = 14
     static let lineHeight: CGFloat = 2
     static let lineCorner: CGFloat = 1.25
@@ -23,6 +24,7 @@ private enum Constants {
     static let lineColor = UIColor.submit400
     
     static let animationDuration: TimeInterval = 0.3
+    
     
     enum Shadow {
         static let height: CGFloat = 4
@@ -42,7 +44,18 @@ final class NewSegmentedControl: UIScrollView {
     private(set) var selectedIndex: Int = 0
     weak var segmentedDelegate: NewSegmentedControlDelegate?
     
-    var items: [String] = [] {
+    enum SegmentedItem {
+        
+        struct Image {
+            let unselected: UIImage
+            let selected: UIImage
+        }
+        
+        case title(String)
+        case image(Image)
+    }
+      
+    var items: [SegmentedItem] = [] {
         didSet {
             selectedIndex = 0
             setup()
@@ -54,8 +67,16 @@ final class NewSegmentedControl: UIScrollView {
         
         var offset: CGFloat = Constants.startOffset
         for button in titleButtons {
-            guard let title = button.title(for: .normal) else { return }
-            let width = title.maxWidth(font: Constants.font) + Constants.deltaTitleWidth
+            
+            var width: CGFloat = 0
+            
+            if let title = button.title(for: .normal) {
+                width = title.maxWidth(font: Constants.font) + Constants.deltaTitleWidth
+            }
+            else if let image = button.image(for: .normal) {
+                width = image.size.width + Constants.deltaTitleWidth
+            }
+            
             button.frame = .init(x: offset, y: 0, width: width, height: frame.size.height)
             offset = button.frame.origin.x + button.frame.size.width
         }
@@ -126,15 +147,29 @@ private extension NewSegmentedControl {
 
         var offset: CGFloat = Constants.startOffset
         for (index, item) in items.enumerated() {
-            let button = UIButton(type: .system)
-            let width = item.maxWidth(font: Constants.font) + Constants.deltaTitleWidth
-            button.frame = .init(x: offset, y: 0, width: width, height: frame.size.height)
-            button.titleLabel?.font = Constants.font
+
+            let button: UIButton
+            let width: CGFloat
+            
+            switch item {
+            case .title(let title):
+                button = UIButton(type: .system)
+                width = title.maxWidth(font: Constants.font) + Constants.deltaTitleWidth
+                button.setTitle(title, for: .normal)
+                button.titleLabel?.font = Constants.font
+                button.titleEdgeInsets = Constants.titleEdgeInsets
+
+            case .image(let image):
+                button = UIButton(type: .custom)
+                width = image.unselected.size.width + Constants.deltaTitleWidth
+                button.setImage(image.unselected, for: .normal)
+                button.imageEdgeInsets = Constants.imageEdgeInsets
+            }
+            
             button.contentVerticalAlignment = .top
-            button.titleEdgeInsets = Constants.titleEdgeInsets
+            button.frame = .init(x: offset, y: 0, width: width, height: frame.size.height)
             button.addTarget(self, action: #selector(buttonDidTapped(_:)), for: .touchUpInside)
             button.tag = index
-            button.setTitle(item, for: .normal)
             addSubview(button)
             offset = button.frame.origin.x + button.frame.size.width
         }
@@ -173,6 +208,14 @@ private extension NewSegmentedControl {
             }
             else {
                 button.setTitleColor(Constants.unselectedColor, for: .normal)
+            }
+            
+            let item = items[index]
+            switch item {
+            case .image(let image):
+                button.setImage(index == selectedIndex ? image.selected : image.unselected, for: .normal)
+            default:
+                break
             }
         }
     }

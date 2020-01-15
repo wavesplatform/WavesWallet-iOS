@@ -3037,6 +3037,21 @@ internal enum Localizable {
       }
     }
 
+    internal enum Trade {
+      /// Trade
+      internal static var title: String { return Localizable.tr("Waves", "trade.title") }
+      internal static var titleKey: String { return "trade.title" }
+
+      internal enum Segment {
+        /// Alts
+        internal static var alts: String { return Localizable.tr("Waves", "trade.segment.alts") }
+        internal static var altsKey: String { return "trade.segment.alts" }
+        /// Fiat
+        internal static var fiat: String { return Localizable.tr("Waves", "trade.segment.fiat") }
+        internal static var fiatKey: String { return "trade.segment.fiat" }
+      }
+    }
+
     internal enum Transaction {
 
       internal enum Error {

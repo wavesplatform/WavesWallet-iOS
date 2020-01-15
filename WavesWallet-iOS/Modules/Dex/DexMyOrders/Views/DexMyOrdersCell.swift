@@ -47,12 +47,7 @@ final class DexMyOrdersCell: MGSwipeTableCell, NibReusable {
             label.font = UIFont.robotoRegular(size: label.font.pointSize)
         }
         setupLocalization()
-        
-        imageViewIcon1.layer.shadowColor = UIColor.black.cgColor
-        imageViewIcon1.layer.shadowOffset = CGSize(width: 0, height: 3)
-        imageViewIcon1.layer.shadowOpacity = 0.2
-        imageViewIcon1.layer.shadowRadius = 3
-        imageViewIcon1.clipsToBounds = false
+        imageViewIcon1.addAssetPairIconShadow()
     }
     
     private func setupLocalization() {

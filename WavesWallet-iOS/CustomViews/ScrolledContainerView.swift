@@ -27,7 +27,7 @@ class ContainerView: UIView {
 
 protocol ScrolledContainerViewProtocol {
     
-    func setup(segmentedItems: [String], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate)
+    func setup(segmentedItems: [NewSegmentedControl.SegmentedItem], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate)
     
     func removeTopView(_ view: UIView, animation: Bool)
     
@@ -223,7 +223,7 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
         
     }
     
-    func setup(segmentedItems: [String], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate) {
+    func setup(segmentedItems: [NewSegmentedControl.SegmentedItem], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate) {
         
         self.segmentedControl.items = segmentedItems
         

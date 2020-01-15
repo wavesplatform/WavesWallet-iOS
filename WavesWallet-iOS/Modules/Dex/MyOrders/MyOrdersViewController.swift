@@ -43,7 +43,7 @@ final class MyOrdersViewController: UIViewController {
                               Localizable.Waves.Dexmyorders.Label.active,
                               Localizable.Waves.Dexmyorders.Label.closed,
                               Localizable.Waves.Dexmyorders.Label.cancelled]
-        scrolledTablesComponent.setup(segmentedItems: segmentedItems, tableDataSource: self, tableDelegate: self)
+        scrolledTablesComponent.setup(segmentedItems: segmentedItems.map{ .title($0) }, tableDataSource: self, tableDelegate: self)
     
         setupSystem()
         setupCancelOrderButton()

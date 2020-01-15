@@ -10,7 +10,16 @@ import Foundation
 import UIKit
 
 public extension UIView {
-
+    
+    func addAssetPairIconShadow() {
+        layer.setupShadow(options: .init(offset: .init(width: 0, height: 3),
+                                         color: .black,
+                                         opacity: 0.2,
+                                         shadowRadius: 3,
+                                         shouldRasterize: false))
+        clipsToBounds = false
+    }
+    
     func addTableCellShadowStyle(offset: CGSize = CGSize(width: 0, height: 4)) {
 
         setupShadow(options: .init(offset: offset,
