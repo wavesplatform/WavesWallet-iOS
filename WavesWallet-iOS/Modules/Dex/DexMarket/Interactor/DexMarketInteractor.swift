@@ -181,7 +181,7 @@ private extension DexMarketInteractor {
                                                                      isChecked: localPair?.isChecked ?? false,
                                                                      isGeneral: isGeneral,
                                                                      sortLevel: localPair?.sortLevel ?? 0),
-                                                    volume: volume))
+                                                                     volume: volume))
 
                         }
                         

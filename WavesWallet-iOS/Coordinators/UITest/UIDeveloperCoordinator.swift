@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Extensions
 
 final class UIDeveloperCoordinator: Coordinator {
     
@@ -26,10 +27,21 @@ final class UIDeveloperCoordinator: Coordinator {
     
     func start() {
         
-//        let coordinator = WidgetSettingsCoordinator.init(navigationRouter: navigationRouter)
+//        let coordinator = TradeCoordinator(navigationRouter: navigationRouter)
 //        
 //        addChildCoordinatorAndStart(childCoordinator: coordinator)
 //                
-//        self.windowRouter.setRootViewController(self.navigationRouter.navigationController)
+        let vc = TradeModuleBuilder().build()
+        navigationRouter.pushViewController(vc)
+        self.windowRouter.setRootViewController(self.navigationRouter.navigationController)
     }
+    
+    
+}
+
+extension UIDeveloperCoordinator {
+    func applicationDidEnterBackground() {}
+
+    func applicationDidBecomeActive() {}
+    func openURL(link: DeepLink) {}
 }

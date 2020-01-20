@@ -36,7 +36,6 @@ final class MyOrdersViewController: UIViewController {
         title = Localizable.Waves.Dextradercontainer.Button.myOrders
         view.backgroundColor = .basic50
 
-        scrolledTablesComponent.scrollViewDelegate = self
         scrolledTablesComponent.containerViewDelegate = self
         
         let segmentedItems = [Localizable.Waves.Dexmyorders.Label.all,

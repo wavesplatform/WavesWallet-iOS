@@ -9,6 +9,7 @@
 import Foundation
 import Extensions
 import DomainLayer
+import WavesSDK
 
 enum TradeTypes {
     enum DTO {}
@@ -16,32 +17,48 @@ enum TradeTypes {
 
     enum Event {
         case readyView
+        case categoriesDidLoad([DTO.Category])
+        case didFailGetCategories(NetworkError)
+        case refresh
     }
     
-    struct State: Mutating {
+    struct State {
+        
         enum UIAction {
             case none
             case update
+            case didFailGetError(NetworkError)
         }
                  
         enum CoreAction: Equatable {
             case none
-            case loadPairs
+            case loadCategories
             case favouriteTapped
         }
         
         var uiAction: UIAction
         var coreAction: CoreAction
+        var categories: [DTO.Category]
     }
 }
 
 extension TradeTypes.DTO {
     
     struct Pair {
+        let id: String
         let amountAsset: DomainLayer.DTO.Dex.Asset
         let priceAsset: DomainLayer.DTO.Dex.Asset
         let amountAssetIcon: AssetLogo.Icon
         let priceAssetIcon: AssetLogo.Icon
+        var firstPrice: Money
+        var lastPrice: Money
+    }
+    
+    struct Category {
+        let isFavorite: Bool
+        let name: String
+        let filters: [DomainLayer.DTO.TradeCategory.Filter]
+        let pairs: [Pair]
     }
 }
 
@@ -55,8 +72,23 @@ extension TradeTypes.ViewModel {
         case fiat
     }
     
-    struct Section {
-        var favorites: [TradeTypes.DTO.Pair]
+    struct Section: Mutating {
+           var allItems: [Row]
+           var activeItems: [Row]
+           var closedItems: [Row]
+           var canceledItems: [Row]
+
+           static var empty: Section {
+               return .init(allItems: [],
+                            activeItems: [],
+                            closedItems: [],
+                            canceledItems: [])
+           }
+       }
+
+    enum Row {
+        case pair(DomainLayer.DTO.Dex.MyOrder)
+        case emptyData
     }
 }
 

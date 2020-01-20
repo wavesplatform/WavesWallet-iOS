@@ -13,6 +13,7 @@ struct TradeModuleBuilder: ModuleBuilder {
     
     func build(input: Void) -> UIViewController {
         let vc = StoryboardScene.Trade.tradeViewController.instantiate()
+        vc.system = TradeSystem()
         return vc
     }
 }

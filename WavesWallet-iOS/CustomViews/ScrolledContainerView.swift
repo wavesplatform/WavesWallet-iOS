@@ -73,6 +73,8 @@ final class ScrolledContainerView: UIScrollView {
     weak var scrollViewDelegate: UIScrollViewDelegate?
     weak var containerViewDelegate: ScrolledContainerViewDelegate?
     
+    var isNeedShowBottomShadow: Bool =  true
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         delegate = self
@@ -339,7 +341,10 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
     }
     
     var visibleTableView: UITableView {
-        return tableViews.first(where: {$0.tag == currentIndex})!
+        if let table = tableViews.first(where: {$0.tag == currentIndex}) {
+            return table
+        }
+        return UITableView()
     }
     
     var smallTopOffset: CGFloat {
@@ -378,6 +383,10 @@ extension ScrolledContainerView: UIScrollViewDelegate {
         if scrollView.contentOffset.y < -smallTopOffset {
             firstAvailableViewController().setupBigNavigationBar()
         }
+        else if isSmallNavBar {
+            //TODO: Test code from Version 2.9
+            firstAvailableViewController().setupSmallNavigationBar()
+        }
         
         let table = visibleTableView
         table.frame.origin.y = tableTopPosition
@@ -388,6 +397,7 @@ extension ScrolledContainerView: UIScrollViewDelegate {
         }
         updateSegmentedShadow()
         scrollViewDelegate?.scrollViewDidScroll?(scrollView)
+        
     }
     
     

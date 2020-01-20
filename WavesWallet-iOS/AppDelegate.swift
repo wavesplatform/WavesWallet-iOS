@@ -45,6 +45,8 @@ enum UITest {
     var window: UIWindow?
 
     var appCoordinator: AppCoordinator!
+//    var appCoordinator: UIDeveloperCoordinator!
+
     lazy var migrationInteractor: MigrationUseCaseProtocol = UseCasesFactory.instance.migration
      
     #if DEBUG 
@@ -77,6 +79,7 @@ enum UITest {
         let router = WindowRouter.windowFactory(window: self.window!)
         
         appCoordinator = AppCoordinator(router, deepLink: deepLink)
+//        appCoordinator = UIDeveloperCoordinator(windowRouter: router)
 
         migrationInteractor
             .migration()

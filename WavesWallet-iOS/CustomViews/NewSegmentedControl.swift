@@ -44,6 +44,8 @@ final class NewSegmentedControl: UIScrollView {
     private(set) var selectedIndex: Int = 0
     weak var segmentedDelegate: NewSegmentedControlDelegate?
     
+    var isNeedShowBottomShadow: Bool =  true
+
     enum SegmentedItem {
         
         struct Image {
@@ -113,6 +115,8 @@ extension NewSegmentedControl {
     }
     
     func addShadow() {
+        guard isNeedShowBottomShadow else { return }
+        
         if layer.shadowColor == nil {
             layer.setupShadow(options: .init(offset: CGSize(width: 0, height: Constants.Shadow.height),
                                              color: .black,

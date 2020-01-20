@@ -834,6 +834,9 @@
 		E9443014226E64F600EB6257 /* WalletSortInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9443013226E64F600EB6257 /* WalletSortInteractorProtocol.swift */; };
 		E9443018226E757E00EB6257 /* WalletSort+Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9443017226E757E00EB6257 /* WalletSort+Mapper.swift */; };
 		E9443BA822DCCC2B00AFF151 /* TransactionCardExchangeFeeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9443BA722DCCC2B00AFF151 /* TransactionCardExchangeFeeCell.swift */; };
+		E94AF03023D0BF3F002919FF /* TradeCategoriesConfigRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94AF02F23D0BF3F002919FF /* TradeCategoriesConfigRepository.swift */; };
+		E94AF03223D0BF69002919FF /* TradeCategoriesConfigRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94AF03123D0BF69002919FF /* TradeCategoriesConfigRepositoryProtocol.swift */; };
+		E94AF03423D0C0B9002919FF /* TradeCategoryDomainDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94AF03323D0C0B9002919FF /* TradeCategoryDomainDTO.swift */; };
 		E95310B322E8507500F72809 /* MarketPulseWidgetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95310B222E8507500F72809 /* MarketPulseWidgetCell.swift */; };
 		E95310BC22E85FEE00F72809 /* MarketPulseTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95310BB22E85FEE00F72809 /* MarketPulseTypes.swift */; };
 		E95310BE22E8A43000F72809 /* WidgetAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E95310BD22E8A43000F72809 /* WidgetAssets.xcassets */; };
@@ -894,6 +897,10 @@
 		E96FEA29226F27BC00C0EE22 /* WalletSortCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96FEA27226F27BC00C0EE22 /* WalletSortCell.swift */; };
 		E96FEA2A226F27BC00C0EE22 /* WalletSortCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E96FEA28226F27BC00C0EE22 /* WalletSortCell.xib */; };
 		E97667CE227F0F8C0050E0D6 /* TransactionCardOrderFilledCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97667CD227F0F8B0050E0D6 /* TransactionCardOrderFilledCell.swift */; };
+		E97A283523D0585B00C4C8C4 /* TradeHeaderSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97A283323D0585A00C4C8C4 /* TradeHeaderSkeletonCell.swift */; };
+		E97A283623D0585B00C4C8C4 /* TradeHeaderSkeletonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E97A283423D0585A00C4C8C4 /* TradeHeaderSkeletonCell.xib */; };
+		E97A283923D058AB00C4C8C4 /* TradeSkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97A283723D058AB00C4C8C4 /* TradeSkeletonCell.swift */; };
+		E97A283A23D058AB00C4C8C4 /* TradeSkeletonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E97A283823D058AB00C4C8C4 /* TradeSkeletonCell.xib */; };
 		E97A74A522D3BAA200777C39 /* OrderBookUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97A74A422D3BAA200777C39 /* OrderBookUseCaseProtocol.swift */; };
 		E97A74A722D3BAD400777C39 /* OrderBookUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97A74A622D3BAD400777C39 /* OrderBookUseCase.swift */; };
 		E97EC83F20E67BE900AB006B /* NewAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */; };
@@ -2143,6 +2150,9 @@
 		E9443017226E757E00EB6257 /* WalletSort+Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletSort+Mapper.swift"; sourceTree = "<group>"; };
 		E9443BA722DCCC2B00AFF151 /* TransactionCardExchangeFeeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardExchangeFeeCell.swift; sourceTree = "<group>"; };
 		E945B19E20F75B420081F4D2 /* ConfirmBackupStackInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmBackupStackInputView.swift; sourceTree = "<group>"; };
+		E94AF02F23D0BF3F002919FF /* TradeCategoriesConfigRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeCategoriesConfigRepository.swift; sourceTree = "<group>"; };
+		E94AF03123D0BF69002919FF /* TradeCategoriesConfigRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeCategoriesConfigRepositoryProtocol.swift; sourceTree = "<group>"; };
+		E94AF03323D0C0B9002919FF /* TradeCategoryDomainDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeCategoryDomainDTO.swift; sourceTree = "<group>"; };
 		E95310B222E8507500F72809 /* MarketPulseWidgetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPulseWidgetCell.swift; sourceTree = "<group>"; };
 		E95310BB22E85FEE00F72809 /* MarketPulseTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketPulseTypes.swift; sourceTree = "<group>"; };
 		E95310BD22E8A43000F72809 /* WidgetAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = WidgetAssets.xcassets; sourceTree = "<group>"; };
@@ -2200,6 +2210,10 @@
 		E96FEA27226F27BC00C0EE22 /* WalletSortCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSortCell.swift; sourceTree = "<group>"; };
 		E96FEA28226F27BC00C0EE22 /* WalletSortCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSortCell.xib; sourceTree = "<group>"; };
 		E97667CD227F0F8B0050E0D6 /* TransactionCardOrderFilledCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCardOrderFilledCell.swift; sourceTree = "<group>"; };
+		E97A283323D0585A00C4C8C4 /* TradeHeaderSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeHeaderSkeletonCell.swift; sourceTree = "<group>"; };
+		E97A283423D0585A00C4C8C4 /* TradeHeaderSkeletonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeHeaderSkeletonCell.xib; sourceTree = "<group>"; };
+		E97A283723D058AB00C4C8C4 /* TradeSkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeSkeletonCell.swift; sourceTree = "<group>"; };
+		E97A283823D058AB00C4C8C4 /* TradeSkeletonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeSkeletonCell.xib; sourceTree = "<group>"; };
 		E97A74A422D3BAA200777C39 /* OrderBookUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookUseCaseProtocol.swift; sourceTree = "<group>"; };
 		E97A74A622D3BAD400777C39 /* OrderBookUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookUseCase.swift; sourceTree = "<group>"; };
 		E97EC83E20E67BE900AB006B /* NewAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountViewController.swift; sourceTree = "<group>"; };
@@ -3796,6 +3810,7 @@
 		7B5FAA0C22BBE3EB00621A44 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				E94AF03123D0BF69002919FF /* TradeCategoriesConfigRepositoryProtocol.swift */,
 				7B5FAA1F22BBE3EB00621A44 /* AccountBalanceRepositoryProtocol.swift */,
 				7B5FAA0E22BBE3EB00621A44 /* AccountSettingsRepositoryProtocol.swift */,
 				7B5FAA1722BBE3EB00621A44 /* AddressBookRepositoryProtocol.swift */,
@@ -3841,6 +3856,7 @@
 		7B5FAA2622BBE3EB00621A44 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				E94AF03323D0C0B9002919FF /* TradeCategoryDomainDTO.swift */,
 				7B5FAA2722BBE3EC00621A44 /* AccountEnvironmentDomainDTO.swift */,
 				7B5FAA2822BBE3EC00621A44 /* CandleDomainDTO.swift */,
 				7B5FAA2922BBE3EC00621A44 /* AssetBalanceDomainDTO.swift */,
@@ -4437,6 +4453,7 @@
 		7BF50A2C22D8B95400582783 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				E94AF02F23D0BF3F002919FF /* TradeCategoriesConfigRepository.swift */,
 				7BF50A3222D8B95400582783 /* AccountSettingsRepository.swift */,
 				7BF50A3522D8B95400582783 /* AddressRepositoryRemote.swift */,
 				7BF50A3122D8B95400582783 /* ApplicationVersionRepository.swift */,
@@ -4850,10 +4867,14 @@
 		E941219323CED5D3002858A0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E941219423CED5D3002858A0 /* TradeTableViewCell.xib */,
 				E941219523CED5D3002858A0 /* TradeTableViewCell.swift */,
+				E941219423CED5D3002858A0 /* TradeTableViewCell.xib */,
 				E922D46223CF0081002CFCED /* TradeAltsHeaderView.swift */,
 				E922D46423CF00B3002CFCED /* TradeAltsHeaderView.xib */,
+				E97A283323D0585A00C4C8C4 /* TradeHeaderSkeletonCell.swift */,
+				E97A283423D0585A00C4C8C4 /* TradeHeaderSkeletonCell.xib */,
+				E97A283723D058AB00C4C8C4 /* TradeSkeletonCell.swift */,
+				E97A283823D058AB00C4C8C4 /* TradeSkeletonCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -6533,6 +6554,7 @@
 				7B9DC3222382C04700DCCA75 /* environment_testnet.json in Resources */,
 				0AAC28132215C4C700D8A404 /* SendFeeHeaderView.xib in Resources */,
 				E9B12DBA219E2D3900128EFE /* AssetBurnCell.xib in Resources */,
+				E97A283A23D058AB00C4C8C4 /* TradeSkeletonCell.xib in Resources */,
 				0AF9222A212E0F1F003BA067 /* WalletLeasingCell.xib in Resources */,
 				0A762DA02163AD0F0019D447 /* Support.storyboard in Resources */,
 				7B9DC32A2382C04700DCCA75 /* Amplitude-Info.plist in Resources */,
@@ -6635,6 +6657,7 @@
 				E9B087B02163886800937644 /* DexOrderBookHeaderView.xib in Resources */,
 				E9B087E32163886800937644 /* DexCreateOrderInputView.xib in Resources */,
 				7B60E2BE2316CC0500113C38 /* ConfirmRequestTransactionKindView.xib in Resources */,
+				E97A283623D0585B00C4C8C4 /* TradeHeaderSkeletonCell.xib in Resources */,
 				E9D36DE92175C755001E6DF0 /* AssetSelectView.xib in Resources */,
 				7BDA6AE2223025AD001DE71C /* BalanceLabel.xib in Resources */,
 				7B9DC33D2384084E00DCCA75 /* AppIcon-New@3x.png in Resources */,
@@ -6972,6 +6995,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E94AF03423D0C0B9002919FF /* TradeCategoryDomainDTO.swift in Sources */,
 				7B5FAA8922BBE3EC00621A44 /* DexDomainDTO.swift in Sources */,
 				7B5FAA9C22BBE3EC00621A44 /* LeaseTransactionDomainDTO.swift in Sources */,
 				7B5FAA7222BBE3EC00621A44 /* AssetsBalanceSettingsRepositoryProtocol.swift in Sources */,
@@ -7022,6 +7046,7 @@
 				7B5FAABD22BBE3EC00621A44 /* Address.swift in Sources */,
 				7B5FAA6F22BBE3EC00621A44 /* AccountSettingsRepositoryProtocol.swift in Sources */,
 				7B5FAAB622BBE3EC00621A44 /* ApplicationDebugSettings.swift in Sources */,
+				E94AF03223D0BF69002919FF /* TradeCategoriesConfigRepositoryProtocol.swift in Sources */,
 				7B848A7E2301CB0F0092AD18 /* CorrectionPairsUseCase.swift in Sources */,
 				7B5FAABB22BBE3EC00621A44 /* WordList.swift in Sources */,
 				7B5FAA8622BBE3EC00621A44 /* AccountEnvironmentDomainDTO.swift in Sources */,
@@ -7176,6 +7201,7 @@
 				7BF50ABC22D8B95400582783 /* ResourceAPIService.swift in Sources */,
 				7BF50A7822D8B95400582783 /* ExchangeTransaction.swift in Sources */,
 				7BF50A6B22D8B95400582783 /* SeedItem.swift in Sources */,
+				E94AF03023D0BF3F002919FF /* TradeCategoriesConfigRepository.swift in Sources */,
 				7B9DC36023845D7400DCCA75 /* DevelopmentConfigsRepository.swift in Sources */,
 				7BF50A7722D8B95400582783 /* TransferTransaction.swift in Sources */,
 				7BF50AB722D8B95400582783 /* AssetsRepositoryLocal.swift in Sources */,
@@ -7627,6 +7653,7 @@
 				E922D46323CF0081002CFCED /* TradeAltsHeaderView.swift in Sources */,
 				E9B087B32163886800937644 /* DexOrderBookInteractor.swift in Sources */,
 				E96C924C23AA2BB600C4B6C5 /* DexSegmentedControl.swift in Sources */,
+				E97A283523D0585B00C4C8C4 /* TradeHeaderSkeletonCell.swift in Sources */,
 				E9F69B9C22A5333500CDBD00 /* WalletSearchHeaderCell.swift in Sources */,
 				E9543902217FF9EC001A7860 /* SendCompleteViewController.swift in Sources */,
 				E9B087D52163886800937644 /* DexListInteractorProtocol.swift in Sources */,
@@ -7755,6 +7782,7 @@
 				7BFB480C22FC742F002B19F8 /* GlobalConstants.swift in Sources */,
 				04016DFC219420C900BA5235 /* ImportAccountViewController.swift in Sources */,
 				0ADD802521F22FFA0075FC59 /* SlideMenuRouter.swift in Sources */,
+				E97A283923D058AB00C4C8C4 /* TradeSkeletonCell.swift in Sources */,
 				7B3681AF23155805000D5592 /* ConfirmRequestBalanceCell.swift in Sources */,
 				E9D36DE22175C755001E6DF0 /* ReceiveAddressModuleBuilder.swift in Sources */,
 				E9B087E82163886800937644 /* DexCreateOrderInteractorProtocol.swift in Sources */,

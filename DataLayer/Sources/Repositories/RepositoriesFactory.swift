@@ -102,6 +102,8 @@ public final class RepositoriesFactory: RepositoriesFactoryProtocol {
     
     public private(set) lazy var developmentConfigsRepository: DevelopmentConfigsRepositoryProtocol = DevelopmentConfigsRepository()
         
+    public private(set) lazy var tradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProtocol = TradeCategoriesConfigRepository(assetsRepoitory: assetsRepositoryRemote)
+
     public struct Resources {
         
         public typealias PathForFile = String

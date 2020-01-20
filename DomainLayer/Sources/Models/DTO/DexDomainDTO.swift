@@ -16,7 +16,7 @@ public extension DomainLayer.DTO {
 //MARK: Asset
 public extension DomainLayer.DTO.Dex {
     
-    struct Asset {
+    struct Asset: Equatable {
         public let id: String
         public let name: String
         public let shortName: String
@@ -96,7 +96,7 @@ public extension DomainLayer.DTO.Dex {
 //MARK: - Pair
 public extension DomainLayer.DTO.Dex {
     
-    struct Pair {
+    struct Pair: Equatable {
         public let amountAsset: Asset
         public let priceAsset: Asset
 

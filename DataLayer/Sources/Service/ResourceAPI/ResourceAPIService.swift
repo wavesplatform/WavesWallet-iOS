@@ -46,6 +46,10 @@ private enum Constants {
     static let urlDevelopmentConfigs: URL = URL(string: "\(root)/mobile/ios/prod/development_configs.json")!
         
     static let urlDevelopmentConfigsTest: URL = URL(string: "\(root)/mobile/ios/test/development_configs.json")!
+
+    static let urlTradeCategoriesConfig: URL = URL(string: "\(root)/mobile/ios/prod/trade_categories_config.json")!
+    
+    static let urlTradeCategoriesConfigTest: URL = URL(string: "\(root)/mobile/ios/test/trade_categories_config.json")!
 }
 
 extension ResourceAPI.Service {
@@ -93,6 +97,12 @@ extension ResourceAPI.Service {
          Response:
          - ?
          */
+        case get(isDebug: Bool)
+    }
+    
+
+    enum TradeCategoriesConfig {
+    
         case get(isDebug: Bool)
     }
 }
@@ -305,4 +315,45 @@ extension ResourceAPI.Service.ApplicationVersion: TargetType {
         }
     }
     
+}
+
+
+extension ResourceAPI.Service.TradeCategoriesConfig: TargetType {
+    
+    var sampleData: Data {
+        return Data()
+    }
+    
+    var baseURL: URL {
+        switch self {
+        case .get(let isDebug):
+            if isDebug {
+                return Constants.urlTradeCategoriesConfigTest
+            }
+            
+            return Constants.urlTradeCategoriesConfig
+        }
+    }
+    
+    var path: String {
+        return ""
+    }
+    
+    var headers: [String: String]? {
+        return  ["Content-type": "application/json"]
+    }
+   
+    var method: Moya.Method {
+        switch self {
+        case .get:
+            return .get
+        }
+    }
+   
+    var task: Task {
+        switch self {
+        case .get:
+            return .requestPlain
+        }
+    }
 }
