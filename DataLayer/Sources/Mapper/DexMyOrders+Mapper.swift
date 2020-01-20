@@ -13,7 +13,7 @@ import Extensions
 
 extension DomainLayer.DTO.Dex.MyOrder {
     
-    init(_ model: MatcherService.DTO.Order, priceAsset: DomainLayer.DTO.Dex.Asset, amountAsset: DomainLayer.DTO.Dex.Asset, amountAssetIcon: AssetLogo.Icon, priceAssetIcon: AssetLogo.Icon) {
+    init(_ model: MatcherService.DTO.Order, priceAsset: DomainLayer.DTO.Dex.Asset, amountAsset: DomainLayer.DTO.Dex.Asset) {
         
         let price = Money.price(amount: model.price, amountDecimals: amountAsset.decimals, priceDecimals: priceAsset.decimals)
         
@@ -51,9 +51,7 @@ extension DomainLayer.DTO.Dex.MyOrder {
                   amountAsset: amountAsset,
                   priceAsset: priceAsset,
                   fee: model.fee,
-                  feeAsset: model.feeAsset,
-                  amountAssetIcon: amountAssetIcon,
-                  priceAssetIcon: priceAssetIcon)
+                  feeAsset: model.feeAsset)
     }
 }
     

@@ -101,12 +101,12 @@ extension DexMyOrdersCell: ViewConfiguration {
             contentView.alpha = Constants.canceledAlpha
         }
         
-        AssetLogo.logo(icon: order.amountAssetIcon, style: .medium)
+        AssetLogo.logo(icon: order.amountAsset.iconLogo, style: .medium)
             .observeOn(MainScheduler.instance)
             .bind(to: imageViewIcon1.rx.image)
             .disposed(by: disposeBag)
         
-        AssetLogo.logo(icon: order.priceAssetIcon, style: .medium)
+        AssetLogo.logo(icon: order.priceAsset.iconLogo, style: .medium)
             .observeOn(MainScheduler.instance)
             .bind(to: imageViewIcon2.rx.image)
             .disposed(by: disposeBag)

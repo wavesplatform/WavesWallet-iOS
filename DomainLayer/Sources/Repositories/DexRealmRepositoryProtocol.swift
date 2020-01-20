@@ -13,8 +13,8 @@ public protocol DexRealmRepositoryProtocol {
     
     func save(pair: DomainLayer.DTO.Dex.SmartPair, accountAddress: String) -> Observable<Bool>
     func delete(by id: String, accountAddress: String) -> Observable<Bool> 
-    func list(by accountAddress: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]>
-    func listListener(by accountAddress: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]>
+    func list(by accountAddress: String) -> Observable<[DomainLayer.DTO.Dex.LocalPair]>
+    func listListener(by accountAddress: String) -> Observable<[DomainLayer.DTO.Dex.LocalPair]>
     func checkmark(pairs: [DomainLayer.DTO.Dex.SmartPair], accountAddress: String) -> Observable<[DomainLayer.DTO.Dex.SmartPair]>
     func updateSortLevel(ids: [String: Int], accountAddress: String) -> Observable<Bool>
 }

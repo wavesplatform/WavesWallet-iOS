@@ -21,12 +21,14 @@ public extension DomainLayer.DTO.Dex {
         public let name: String
         public let shortName: String
         public let decimals: Int
-
-        public init(id: String, name: String, shortName: String, decimals: Int) {
+        public let iconLogo: AssetLogo.Icon
+        
+        public init(id: String, name: String, shortName: String, decimals: Int, iconLogo: AssetLogo.Icon) {
             self.id = id
             self.name = name
             self.shortName = shortName
             self.decimals = decimals
+            self.iconLogo = iconLogo
         }
     }
     
@@ -52,6 +54,28 @@ public extension DomainLayer.DTO.Dex {
             self.amount = amount
             self.sum = sum
             self.type = type
+        }
+    }
+}
+
+//MARK: - LocalPair
+public extension DomainLayer.DTO.Dex {
+    
+    struct LocalPair {
+        public let id: String
+        public let amountAssetId: String
+        public let priceAssetId: String
+        public var isChecked: Bool
+        public let isGeneral: Bool
+        public var sortLevel: Int
+
+        public init(id: String, amountAssetId: String, priceAssetId: String, isChecked: Bool, isGeneral: Bool, sortLevel: Int) {
+            self.id = id
+            self.amountAssetId = amountAssetId
+            self.priceAssetId = priceAssetId
+            self.isChecked = isChecked
+            self.isGeneral = isGeneral
+            self.sortLevel = sortLevel
         }
     }
 }
@@ -186,10 +210,8 @@ public extension DomainLayer.DTO.Dex {
         public let priceAsset: Asset
         public let fee: Int64?
         public let feeAsset: String?
-        public let amountAssetIcon: AssetLogo.Icon
-        public let priceAssetIcon: AssetLogo.Icon
 
-        public init(id: String, time: Date, status: Status, price: Money, amount: Money, filled: Money, type: OrderType, amountAsset: Asset, priceAsset: Asset, fee: Int64?, feeAsset: String?, amountAssetIcon: AssetLogo.Icon, priceAssetIcon: AssetLogo.Icon) {
+        public init(id: String, time: Date, status: Status, price: Money, amount: Money, filled: Money, type: OrderType, amountAsset: Asset, priceAsset: Asset, fee: Int64?, feeAsset: String?) {
             
             self.fee = fee
             self.feeAsset = feeAsset
@@ -202,8 +224,6 @@ public extension DomainLayer.DTO.Dex {
             self.type = type
             self.amountAsset = amountAsset
             self.priceAsset = priceAsset
-            self.amountAssetIcon = amountAssetIcon
-            self.priceAssetIcon = priceAssetIcon
         }
     
         public var filledPercent: Int {

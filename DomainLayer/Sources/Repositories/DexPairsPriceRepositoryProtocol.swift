@@ -11,8 +11,8 @@ import RxSwift
 
 public protocol DexPairsPriceRepositoryProtocol {
     
-    func list(pairs: [DomainLayer.DTO.Dex.Pair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]>
-
+    func list(accountAddress: String, pairs: [DomainLayer.DTO.Dex.SimplePair]) -> Observable<[DomainLayer.DTO.Dex.PairPrice]>
+    
     //TODO: Refactor searchPairs and search
     func searchPairs(_ query: DomainLayer.Query.Dex.SearchPairs) -> Observable<DomainLayer.DTO.Dex.PairsSearch>
     

@@ -50,12 +50,14 @@ final class DexDeepLinkLoadingViewController: UIViewController {
                     let pair = DexTraderContainer.DTO.Pair(amountAsset: .init(id: amountAsset.id,
                                                                               name: amountAsset.displayName,
                                                                               shortName: amountAsset.ticker ?? amountAsset.displayName,
-                                                                              decimals: amountAsset.precision),
+                                                                              decimals: amountAsset.precision,
+                                                                              iconLogo: amountAsset.iconLogo),
 
                                                            priceAsset: .init(id: priceAsset.id,
                                                                              name: priceAsset.displayName,
                                                                              shortName: priceAsset.ticker ?? priceAsset.displayName,
-                                                                             decimals: priceAsset.precision),
+                                                                             decimals: priceAsset.precision,
+                                                                             iconLogo: priceAsset.iconLogo),
   
                                                            isGeneral: isGeneral)
                     self.didComplete?(pair)

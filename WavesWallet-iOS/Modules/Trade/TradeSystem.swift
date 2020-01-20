@@ -102,7 +102,9 @@ private extension TradeSystem {
                             }
                         }
                         
-                        return self.dexListRepository.list(pairs: pairs)
+                        return self.dexListRepository.list(accountAddress: wallet.address,
+                                                           pairs: pairs.map {DomainLayer.DTO.Dex.SimplePair(amountAsset: $0.amountAsset.id,
+                                                                                                            priceAsset: $0.priceAsset.id)})
                             .map { (pairsPrice) -> [TradeTypes.DTO.Category] in
                                 
                                 var newCategories: [TradeTypes.DTO.Category] = []
