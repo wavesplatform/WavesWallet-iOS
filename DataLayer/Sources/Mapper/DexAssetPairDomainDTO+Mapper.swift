@@ -11,6 +11,7 @@ import RealmSwift
 import WavesSDK
 import DomainLayer
 
+
 public extension DomainLayer.DTO.Dex.SmartPair {
     
     init(amountAsset: DomainLayer.DTO.Dex.Asset, priceAsset: DomainLayer.DTO.Dex.Asset, isChecked: Bool, isGeneral: Bool, sortLevel: Int) {

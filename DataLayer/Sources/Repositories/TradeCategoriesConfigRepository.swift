@@ -86,17 +86,8 @@ final class TradeCategoriesConfigRepository: TradeCategoriesConfigRepositoryProt
                                 let amountAsset = assets.first(where: {$0.id == pair.amountId})!
                                 let priceAsset = assets.first(where: {$0.id == pair.priceId})!
                                 
-                                return DomainLayer.DTO.Dex.Pair(amountAsset: .init(id: amountAsset.id,
-                                                                                   name: amountAsset.displayName,
-                                                                                   shortName: amountAsset.ticker ?? amountAsset.displayName,
-                                                                                   decimals: amountAsset.precision,
-                                                                                   iconLogo: amountAsset.iconLogo),
-                                                                
-                                                                priceAsset: .init(id: priceAsset.id,
-                                                                                  name: priceAsset.displayName,
-                                                                                  shortName: priceAsset.ticker ?? priceAsset.displayName,
-                                                                                  decimals: priceAsset.precision,
-                                                                                  iconLogo: priceAsset.iconLogo))
+                                return DomainLayer.DTO.Dex.Pair(amountAsset: amountAsset.dexAsset,
+                                                                priceAsset: priceAsset.dexAsset)
                             }
                             
                             return DomainLayer.DTO.TradeCategory(name: name, filters: filters, pairs: pairs)

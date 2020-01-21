@@ -18,7 +18,7 @@ final class TradeSystem: System<TradeTypes.State, TradeTypes.Event> {
     
     private let tradeCategoriesRepository = UseCasesFactory.instance.repositories.tradeCategoriesConfigRepository
     private let dexRealmRepository = UseCasesFactory.instance.repositories.dexRealmRepository
-    private let dexListRepository = UseCasesFactory.instance.repositories.dexPairsPriceRepository
+    private let pairsPriceRepository = UseCasesFactory.instance.repositories.dexPairsPriceRepository
     private let auth: AuthorizationUseCaseProtocol = UseCasesFactory.instance.authorization
     
     override func initialState() -> TradeTypes.State! {
@@ -87,39 +87,86 @@ private extension TradeSystem {
         return auth.authorizedWallet()
             .flatMap { [weak self] (wallet) -> Observable<[TradeTypes.DTO.Category]> in
                 guard let self = self else { return Observable.empty() }
-                return self.tradeCategoriesRepository.tradeCagegories(accountAddress: wallet.address)
-                    .flatMap { [weak self] (categories) -> Observable<[TradeTypes.DTO.Category]> in
-                        
+                
+                let tradeCagegories = self.tradeCategoriesRepository.tradeCagegories(accountAddress: wallet.address)
+                let favoritePairs = self.dexRealmRepository.list(by: wallet.address)
+                
+                return Observable.zip(tradeCagegories, favoritePairs)
+                    .flatMap { [weak self] (categories, favoritePairs) -> Observable<[TradeTypes.DTO.Category]> in
                         guard let self = self else { return Observable.empty() }
                         
-                        var pairs: [DomainLayer.DTO.Dex.Pair] = []
-                                           
+                        var pairs: [DomainLayer.DTO.Dex.SimplePair] = []
+                                                                  
                         for category in categories {
                             for pair in category.pairs {
-                                if !pairs.contains(pair) {
-                                    pairs.append(pair)
+                                let simplePair = DomainLayer.DTO.Dex.SimplePair(amountAsset: pair.amountAsset.id, priceAsset: pair.priceAsset.id)
+                                if !pairs.contains(simplePair) {
+                                    pairs.append(simplePair)
                                 }
                             }
                         }
                         
-                        return self.dexListRepository.list(accountAddress: wallet.address,
-                                                           pairs: pairs.map {DomainLayer.DTO.Dex.SimplePair(amountAsset: $0.amountAsset.id,
-                                                                                                            priceAsset: $0.priceAsset.id)})
+                        for pair in favoritePairs {
+                            let simplePair = DomainLayer.DTO.Dex.SimplePair(amountAsset: pair.amountAssetId, priceAsset: pair.priceAssetId)
+                            if !pairs.contains(simplePair) {
+                                pairs.append(simplePair)
+                            }
+                        }
+                        
+                        return self.pairsPriceRepository.list(accountAddress: wallet.address, pairs: pairs)
                             .map { (pairsPrice) -> [TradeTypes.DTO.Category] in
                                 
                                 var newCategories: [TradeTypes.DTO.Category] = []
+                                
+                                var favoritePairsPrice: [TradeTypes.DTO.Pair] = []
+                                
+                                for pair in favoritePairs {
+                                    
+                                    if let pairPrice = pairsPrice.first(where: {$0.amountAsset.id == pair.amountAssetId &&
+                                        $0.priceAsset.id == pair.priceAssetId}) {
+
+                                        favoritePairsPrice.append(.init(id: pairPrice.id,
+                                                                        amountAsset: pairPrice.amountAsset,
+                                                                        priceAsset: pairPrice.priceAsset,
+                                                                        firstPrice: pairPrice.firstPrice,
+                                                                        lastPrice: pairPrice.lastPrice,
+                                                                        isFavorite: true))
+
+                                    }
+                                }
+                                
                                 newCategories.append(.init(isFavorite: true,
                                                            name: "",
                                                            filters: [],
-                                                           pairs: []))
+                                                           pairs: favoritePairsPrice))
+                                                              
+                                for category in categories {
+
+                                    var categoryPairs: [TradeTypes.DTO.Pair] = []
+                                    
+                                    for pair in category.pairs {
+                                        
+                                        if let pairPrice = pairsPrice.first(where: {$0.amountAsset == pair.amountAsset &&
+                                            $0.priceAsset == pair.priceAsset}) {
+
+                                            categoryPairs.append(.init(id: pairPrice.id,
+                                                                       amountAsset: pairPrice.amountAsset,
+                                                                       priceAsset: pairPrice.priceAsset,
+                                                                       firstPrice: pairPrice.firstPrice,
+                                                                       lastPrice: pairPrice.lastPrice,
+                                                                       isFavorite: false))
+                                        }
+                                    }
+                                    
+                                    newCategories.append(.init(isFavorite: false,
+                                                               name: category.name,
+                                                               filters: category.filters,
+                                                               pairs: categoryPairs))
+                                }
                                 
-                                
-                                newCategories.append(contentsOf: categories.map { .init(isFavorite: false,
-                                                                                      name: $0.name,
-                                                                                      filters: $0.filters,
-                                                                                      pairs: [])})
                                 return newCategories
                         }
+                        
                 }
         }
     }

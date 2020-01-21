@@ -105,7 +105,7 @@ public extension DomainLayer.DTO.Dex {
 //MARK: - SimplePair
 public extension DomainLayer.DTO.Dex {
     
-    struct SimplePair {
+    struct SimplePair: Equatable {
         public let amountAsset: String
         public let priceAsset: String
         
@@ -120,7 +120,7 @@ public extension DomainLayer.DTO.Dex {
 //MARK: - Pair
 public extension DomainLayer.DTO.Dex {
     
-    struct Pair: Equatable {
+    struct Pair {
         public let amountAsset: Asset
         public let priceAsset: Asset
 
@@ -172,12 +172,14 @@ public extension DomainLayer.DTO.Dex {
 //MARK: - PairPrice
 public extension DomainLayer.DTO.Dex {
     struct PairPrice {
+        public let id: String
         public let firstPrice: Money
         public let lastPrice: Money
         public let amountAsset: Asset
         public let priceAsset: Asset
 
         public init(firstPrice: Money, lastPrice: Money, amountAsset: Asset, priceAsset: Asset) {
+            self.id = amountAsset.id + priceAsset.id
             self.firstPrice = firstPrice
             self.lastPrice = lastPrice
             self.amountAsset = amountAsset

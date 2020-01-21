@@ -143,17 +143,8 @@ final class DexOrderBookRepositoryRemote: DexOrderBookRepositoryProtocol {
                                         let priceAsset = assets.first(where: {$0.id == order.priceAsset}) {
                                         
                                         myOrders.append(.init(order,
-                                                              priceAsset: .init(id: priceAsset.id,
-                                                                                name: priceAsset.displayName,
-                                                                                shortName: priceAsset.ticker ?? priceAsset.displayName,
-                                                                                decimals: priceAsset.precision,
-                                                                                iconLogo: priceAsset.iconLogo),
-                                                              
-                                                              amountAsset: .init(id: amountAsset.id,
-                                                                                 name: amountAsset.displayName,
-                                                                                 shortName: amountAsset.ticker ?? amountAsset.displayName,
-                                                                                 decimals: amountAsset.precision,
-                                                                                 iconLogo: amountAsset.iconLogo)))
+                                                              priceAsset: priceAsset.dexAsset,
+                                                              amountAsset: amountAsset.dexAsset))
                                     }
                                 }
                                 

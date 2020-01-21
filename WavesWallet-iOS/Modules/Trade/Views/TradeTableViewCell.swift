@@ -41,42 +41,55 @@ final class TradeTableViewCell: UITableViewCell, NibReusable {
         imageViewIcon2.image = nil
         disposeBag = DisposeBag()
     }
-    
-    func test() {
-        let wavesURL = "https://d1jh0rcszsaxik.cloudfront.net/assset_icons/v3/waves.png"
-        let btcURL = "https://d1jh0rcszsaxik.cloudfront.net/assset_icons/v3/bitcoin.png"
+}
+
+extension TradeTableViewCell: ViewConfiguration {
+    func update(with model: TradeTypes.DTO.Pair) {
         
-        let iconWaves = AssetLogo.Icon(assetId: "WAVES", name: "WAVES", url: wavesURL, isSponsored: false, hasScript: false)
-        let iconBTC = AssetLogo.Icon(assetId: "8LQW8f7P5d5PZM7GtZEBgaqRPGSzS3DfPuiXrURJ4AJS", name: "Bitcoin", url: btcURL, isSponsored: false, hasScript: false)
+        labelTitle.text = model.amountAsset.shortName + " / " + model.priceAsset.shortName
         
-        let percent = arc4random() % 3
-        if percent == 0 {
-            labelPercent.text = "+2.37%"
+        labelPrice.text = "$" + model.lastPrice.displayText
+        
+        buttonFav.setImage(model.isFavorite ? Images.favorite14Submit300.image : Images.iconFavEmpty.image, for: .normal)
+        let firstPrice = model.firstPrice.doubleValue
+        let lastPrice = model.lastPrice.doubleValue
+
+        var deltaPercent: Double {
+            if firstPrice > lastPrice {
+                return (firstPrice - lastPrice) * 100
+            }
+            return (lastPrice - firstPrice) * 100
+        }
+        
+        let percent = firstPrice != 0 ? deltaPercent / firstPrice : 0
+
+        if lastPrice > firstPrice {
             labelPercent.textColor = .success500
+            labelPercent.text = String(format: "%.02f", percent) + "%"
             viewPercent.backgroundColor = .success500
         }
-        else if percent == 1 {
-            labelPercent.text = "-1.23%"
+        else if firstPrice > lastPrice {
             labelPercent.textColor = .error500
+            labelPercent.text = String(format: "%.02f", percent * -1) + "%"
             viewPercent.backgroundColor = .error500
         }
         else {
-            labelPercent.text = "0.0%"
             labelPercent.textColor = .basic500
+            labelPercent.text = String(format: "%.02f", percent) + "%"
             viewPercent.backgroundColor = .basic500
         }
-        AssetLogo.logo(icon: iconWaves, style: .medium)
+        
+        AssetLogo.logo(icon: model.amountAsset.iconLogo, style: .medium)
             .observeOn(MainScheduler.instance)
             .bind(to: imageViewIcon1.rx.image)
             .disposed(by: disposeBag)
-              
-        AssetLogo.logo(icon: iconBTC, style: .medium)
+                    
+        AssetLogo.logo(icon: model.priceAsset.iconLogo, style: .medium)
             .observeOn(MainScheduler.instance)
             .bind(to: imageViewIcon2.rx.image)
             .disposed(by: disposeBag)
     }
 }
-
 extension TradeTableViewCell: ViewHeight {
     static func viewHeight() -> CGFloat {
         return Constants.height

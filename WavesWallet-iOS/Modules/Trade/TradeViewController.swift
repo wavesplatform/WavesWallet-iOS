@@ -27,7 +27,7 @@ final class TradeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = Localizable.Waves.Trade.title
+        navigationItem.title = Localizable.Waves.Trade.title
         setupBigNavigationBar()
 
         let image = NewSegmentedControl.SegmentedItem.image(.init(unselected: Images.iconFavEmpty.image, selected: Images.favorite14Submit300.image))
@@ -197,7 +197,8 @@ extension TradeViewController: UITableViewDataSource {
             return 6
         }
         
-        return 15
+        let category = categories[tableView.tag]
+        return category.pairs.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -213,8 +214,12 @@ extension TradeViewController: UITableViewDataSource {
             return cell
         }
         
+        let category = categories[tableView.tag]
+
+        
         let cell = tableView.dequeueAndRegisterCell() as TradeTableViewCell
-        cell.test()
+        let pair = category.pairs[indexPath.row]
+        cell.update(with: pair)
         return cell
     }
 }

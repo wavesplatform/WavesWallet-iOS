@@ -47,18 +47,8 @@ final class DexDeepLinkLoadingViewController: UIViewController {
                     let priceAsset = assets.first(where: {$0.id == priceAssetId}) {
                     
                     let isGeneral = amountAsset.isGeneral && priceAsset.isGeneral
-                    let pair = DexTraderContainer.DTO.Pair(amountAsset: .init(id: amountAsset.id,
-                                                                              name: amountAsset.displayName,
-                                                                              shortName: amountAsset.ticker ?? amountAsset.displayName,
-                                                                              decimals: amountAsset.precision,
-                                                                              iconLogo: amountAsset.iconLogo),
-
-                                                           priceAsset: .init(id: priceAsset.id,
-                                                                             name: priceAsset.displayName,
-                                                                             shortName: priceAsset.ticker ?? priceAsset.displayName,
-                                                                             decimals: priceAsset.precision,
-                                                                             iconLogo: priceAsset.iconLogo),
-  
+                    let pair = DexTraderContainer.DTO.Pair(amountAsset: amountAsset.dexAsset,
+                                                           priceAsset: priceAsset.dexAsset,
                                                            isGeneral: isGeneral)
                     self.didComplete?(pair)
                 }

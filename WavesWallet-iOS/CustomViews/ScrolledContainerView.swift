@@ -227,7 +227,7 @@ extension ScrolledContainerView: ScrolledContainerViewProtocol {
     
     func setup(segmentedItems: [NewSegmentedControl.SegmentedItem], tableDataSource: UITableViewDataSource, tableDelegate: UITableViewDelegate) {
         
-        self.segmentedControl.items = segmentedItems
+        segmentedControl.items = segmentedItems
         
         for index in 0..<segmentedItems.count {
             

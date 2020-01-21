@@ -48,10 +48,9 @@ extension TradeTypes.DTO {
         let id: String
         let amountAsset: DomainLayer.DTO.Dex.Asset
         let priceAsset: DomainLayer.DTO.Dex.Asset
-        let amountAssetIcon: AssetLogo.Icon
-        let priceAssetIcon: AssetLogo.Icon
         var firstPrice: Money
         var lastPrice: Money
+        let isFavorite: Bool
     }
     
     struct Category {
@@ -87,7 +86,7 @@ extension TradeTypes.ViewModel {
        }
 
     enum Row {
-        case pair(DomainLayer.DTO.Dex.MyOrder)
+        case pair(TradeTypes.DTO.Pair)
         case emptyData
     }
 }
