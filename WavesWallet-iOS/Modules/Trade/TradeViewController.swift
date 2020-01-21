@@ -30,9 +30,6 @@ final class TradeViewController: UIViewController {
         navigationItem.title = Localizable.Waves.Trade.title
         setupBigNavigationBar()
 
-        let image = NewSegmentedControl.SegmentedItem.image(.init(unselected: Images.iconFavEmpty.image, selected: Images.favorite14Submit300.image))
-//        let segmentedTitles = ["BTC", WavesSDKConstants.wavesAssetId, Localizable.Waves.Trade.Segment.alts, Localizable.Waves.Trade.Segment.fiat]
-//        scrolledTableView.setup(segmentedItems: [image] + segmentedTitles.map { .title($0)}, tableDataSource: self, tableDelegate: self)
         scrolledTableView.containerViewDelegate = self
         scrolledTableView.scrollViewDelegate = self
         scrolledTableView.segmentedControl.isNeedShowBottomShadow = false
@@ -188,7 +185,16 @@ extension TradeViewController: UITableViewDataSource {
             return TradeSkeletonCell.viewHeight()
         }
         
-        return TradeTableViewCell.viewHeight()
+        let category = categories[tableView.tag]
+        let row = category.rows[indexPath.row]
+
+        switch row {
+        case .pair:
+            return TradeTableViewCell.viewHeight()
+        case .emptyData:
+            return tableView.frame.size.height / 2 + MyOrdersEmptyDataCell.viewHeight() / 2
+        }
+
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -198,7 +204,7 @@ extension TradeViewController: UITableViewDataSource {
         }
         
         let category = categories[tableView.tag]
-        return category.pairs.count
+        return category.rows.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -215,11 +221,16 @@ extension TradeViewController: UITableViewDataSource {
         }
         
         let category = categories[tableView.tag]
+        let row = category.rows[indexPath.row]
 
-        
-        let cell = tableView.dequeueAndRegisterCell() as TradeTableViewCell
-        let pair = category.pairs[indexPath.row]
-        cell.update(with: pair)
-        return cell
+        switch row {
+        case .pair(let pair):
+            let cell = tableView.dequeueAndRegisterCell() as TradeTableViewCell
+            cell.update(with: pair)
+            return cell
+
+        case .emptyData:
+            return tableView.dequeueAndRegisterCell() as MyOrdersEmptyDataCell
+        }
     }
 }

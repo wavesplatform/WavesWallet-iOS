@@ -135,10 +135,18 @@ private extension TradeSystem {
                                     }
                                 }
                                 
-                                newCategories.append(.init(isFavorite: true,
-                                                           name: "",
-                                                           filters: [],
-                                                           pairs: favoritePairsPrice))
+                                if favoritePairsPrice.count == 0 {
+                                    newCategories.append(.init(isFavorite: true,
+                                                               name: "",
+                                                               filters: [],
+                                                               rows: [.emptyData]))
+                                }
+                                else {
+                                    newCategories.append(.init(isFavorite: true,
+                                                               name: "",
+                                                               filters: [],
+                                                               rows: favoritePairsPrice.map {.pair($0)}))
+                                }
                                                               
                                 for category in categories {
 
@@ -161,7 +169,7 @@ private extension TradeSystem {
                                     newCategories.append(.init(isFavorite: false,
                                                                name: category.name,
                                                                filters: category.filters,
-                                                               pairs: categoryPairs))
+                                                               rows: categoryPairs.map {.pair($0)}))
                                 }
                                 
                                 return newCategories

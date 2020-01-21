@@ -57,7 +57,7 @@ extension TradeTypes.DTO {
         let isFavorite: Bool
         let name: String
         let filters: [DomainLayer.DTO.TradeCategory.Filter]
-        let pairs: [Pair]
+        let rows: [TradeTypes.ViewModel.Row]
     }
 }
 
